@@ -22,20 +22,20 @@ TL;DR: [Getting started](#getting-started)
 - [Emmet](https://emmet.io/) tab completion
 - [Autoprefixer](https://github.com/postcss/autoprefixer)
 - All code compiling/transpiling occurs on the fly on the client, so works on any static server.
-- Immediately result with no server rounds
+- Immediate results with no server rounds
 - Conditional loading of modules (only the features used are downloaded)
-- Add external stylesheets and/or scripts
-- Import npm modules and use directly without a build step (using the great [skypack.dev](https://www.skypack.dev/))
-- Import strongly-typed local typescript modules with full code completion and intellisense.
+- Allows adding external stylesheets and/or scripts
+- Allows importing npm modules that can be referenced directly without a build step (using the great [skypack.dev](https://www.skypack.dev/))
+- Allows importing strongly-typed local typescript modules with full code completion and intellisense.
 - Can be embedded in regular web pages
 - Code embeds allow editing with the immediate preview
 - Resizable split panes (using [split.js](https://github.com/nathancahill/split/))
-- Multiple modes: full mode (with split panes), editor only mode, read-only code block mode and result preview mode
-- Import code from github and gitlab (gists and repos) or from your web pages
-- Immediatley recognize and import codepens exported to github gists
+- Multiple modes: full mode (with split panes), editor only mode and read-only code-block mode
+- Editors can be prefilled by code from github and gitlab (gists and repos) or from your web pages
+- Immediatley recognizes and imports codepens exported to github gists
 - Export/import projects as JSON
-- Export source code as [zip file](https://stuk.github.io/jszip/) or ready-to-run compiled HTML page
-- Export to CodePen and JsFiddle (more to come)
+- Export source code as [zip file](https://stuk.github.io/jszip/) or ready-to-run HTML page with the compiled/transpiled code
+- Export to CodePen and JSFiddle (more to come)
 - Save/open from local storage with optional autosave
 - Keyboard shortcuts
 - LocalPen is under active development with more features to come (see [Roadmap](#roadmap))
@@ -49,22 +49,21 @@ TL;DR: [Getting started](#getting-started)
 - [Settings](#settings)
 - [Default Editors](#default-editors)
 - [External Stylesheets/Scripts](#external-stylesheetsscripts)
-- [Importing ECMAScript Modules](#importing-ecmascript-modules)
-  - [Importing NPM Modules](#importing-npm-modules)
-  - [Importing Local Modules with TypeScript Types](#importing-local-modules-with-typescript-types)
+- [Importing NPM Modules](#importing-npm-modules)
 - [Saving to Device Local Storage](#saving-to-device-local-storage)
-- [Importing Code (Editor Prefill)](#importing-code-editor-prefill)
-  - [Importing from URL](#importing-from-url)
-  - [Importing from CodePen](#importing-from-codepen)
-  - ["Edit in LocalPen" Bookmarklet](#edit-in-localpen-bookmarklet)
-  - [Prefill From Code Blocks](#prefill-from-code-blocks)
-  - [Prefill Editors by Querystring Parameters](#prefill-editors-by-querystring-parameters)
 - [Exporting Content](#exporting-content)
   - [Edit in other Services](#edit-in-other-services)
+- [Importing Code (Editor Prefill)](#importing-code-editor-prefill)
+  - [Importing from URL](#importing-from-url)
+  - ["Edit in LocalPen" Bookmarklet](#edit-in-localpen-bookmarklet)
+  - [Importing from CodePen](#importing-from-codepen)
+  - [Prefill From Code Blocks](#prefill-from-code-blocks)
+  - [Prefill Editors by Querystring Parameters](#prefill-editors-by-querystring-parameters)
 - [Code Formatting](#code-formatting)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 - [Display Modes](#display-modes)
 - [Embeds](#embeds)
+- [Intellisense](#intellisense)
 - [API](#api)
 - [Roadmap](#roadmap)
 - [Limitations](#limitations)
@@ -77,26 +76,28 @@ TL;DR: [Getting started](#getting-started)
 
 The are many great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/?html,output), [JSitor](https://jsitor.com/) and many others, which LocalPen does not aim to replace or compete with. On the contrary, it aims to integrate with many of these services as their APIs allow (e.g. import and export).
 
-However, LocalPen aims to stay as a clien-side only app that can be hosted on any static file server. After the initial loading, using the app can be significantly faster than having to wait for server rounds. Developers should be able to use it offline, while any syncing or sharing capabilities would use external services. Having said that, it is an open-source software, and it should not be difficult to implement a backend for such features if you want to extend it as a different project (may be have a look at [parse starter](https://github.com/hatemhosny/parse-starter)).
+However, LocalPen aims to stay as a client-side only app that can be hosted on any static file server. After the initial loading, using the app can be significantly faster than having to wait for server rounds. Any syncing or sharing capabilities would use external services. Having said that, it is an open-source software, and it should not be difficult to implement a backend for such features if you want to extend it as a different project (may be have a look at [parse starter](https://github.com/hatemhosny/parse-starter)).
 
-The other main goal for LocalPen (in fact, that was the motive for its development), is to provide a feature-rich, easy to use playground that library developers can use for the documentation of their libraries and as a showcase for their products. This includes using the hosted app ([localpen.io](https://localpen.io)), or as a self-hosted option (by including it in their website, or on a separate subdomain for example). Again, being a client-side only app, makes LocalPen more convenient for not needing special server requirements.
+The other main goal for LocalPen (in fact, that was the motive for its development), is to provide a feature-rich, easy to use playground that library developers can use for the documentation of their libraries and as a showcase for their products. This includes using the hosted app ([localpen.io](https://localpen.io)), or as a self-hosted option (by including it in their website, or on a separate subdomain for example). Again, being a client-side only app, LocalPen becomes more convenient for not needing special server requirements.
 
-Having editable [embeds](#embeds) using a freely-available open-source software becomes very handy. That goal also drives the requirement for being able to import local (unpublished) libraries with strong-typing, editor auto-completion and intellisense support.
+To have [embedded editors](#embeds) using a freely-available open-source software is very handy. That goal also drives the requirement for being able to import local (unpublished) modules with editor auto-completion and [intellisense](#intellisense).
 
-LocalPen uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. Your can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with all the intellisense and the auto-completion features, without having to `npm install` anything;
+LocalPen uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. Your can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with the intellisense and the auto-completion features. All that is on a browser without having to `npm install` anything.
 
-**Important note:** Please note that LocalPen is in early development and may not yet be ready for production use. API may change, and security and performance improvements may still be required. However please take the time to test it. Your feedback and contribution are highly appreciated.
+LocalPen uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. You can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with all the intellisense and the auto-completion features, without having to `npm install` anything;
+
+**Important note:** Please note that LocalPen is in early development and may not yet be ready for production use. API may change, and security and performance improvements may still be required. However please take the time to try it. Your feedback and contribution are highly appreciated.
 
 Enough talk, let's get started.
 
 ## Getting started
 
-You have multiple options:
+There are multiple options:
 
 - You may just use the hosted app ([localpen.io](https://localpen.io)) and use various methods to add your code like [embedded editors](#embeds), [code blocks](#prefill-from-code-blocks), ["Edit in LocalPen"](#edit-in-localpen-bookmarklet) and [code prefill](#importing-code-editor-prefill).
 - One-click [deploy to Digital Ocean](https://cloud.digitalocean.com/apps/new?repo=https://github.com/hatemhosny/localpen/tree/master&refcode=fb8c00b45b91)
 - Download the app from the releases, extract the folder and add it to your website.
-- Fork the repo, clone it and use the included setup to publish to github pages:
+- Fork the repo, clone it. You may wish to use the included setup to publish to github pages:
 
   ```sh
   npm install
@@ -126,22 +127,22 @@ You have multiple options:
 
 Please note that most of the examples presented in this section are code samples that were publicly available as code pens and were used for demonstration with no or little modifications.
 
-- [Simple jQuery Calculator](https://localpen.io/#https://gist.github.com/hatemhosny/07a742ca9df234cdd433e20cc4e675af) (jQuery)
-- [Bootstrap tab panel](https://localpen.io/#https://gist.github.com/hatemhosny/ce9a304057e2dbd66e2a5fa96b72df6a) (Bootstrap)
-- [Bootstrap Custom Button SCSS Mixin](https://localpen.io/#https://gist.github.com/hatemhosny/b4a61515f956c1fa7131f392872923a9) (Bootstrap, SCSS)
-- [Yet another JavaScript Calculator](https://localpen.io/#https://gist.github.com/aviwarner/3f87dec85a3d84bd3b9bfe634b1e3fa4) (CSS, JS)
+- [Simple jQuery Calculator](https://localpen.io/#https://gist.github.com/hatemhosny/07a742ca9df234cdd433e20cc4e675af) (jQuery) [from [CodePen](https://codepen.io/simonja2/pen/QbGYbR)]
+- [Bootstrap tab panel](https://localpen.io/#https://gist.github.com/hatemhosny/ce9a304057e2dbd66e2a5fa96b72df6a) (Bootstrap) [from [CodePen](https://codepen.io/wizly/pen/BlKxo)]
+- [Bootstrap Custom Button SCSS Mixin](https://localpen.io/#https://gist.github.com/hatemhosny/b4a61515f956c1fa7131f392872923a9) (Bootstrap, SCSS) [from [CodePen](https://codepen.io/andrewarchi/pen/wLIJB)]
+- Yet another [JavaScript Calculator](https://localpen.io/#https://gist.github.com/aviwarner/3f87dec85a3d84bd3b9bfe634b1e3fa4) (CSS, JS) [from [CodePen](https://codepen.io/andrewarchi/pen/wLIJB)]
 - [React Counter](https://localpen.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4) (React, JSX)
-- [Vue.js Counter](https://localpen.io/#https://gist.github.com/hatemhosny/b9ce0ee80da94073cb26cfe46212ea26) (Vue.js)
-- [Angular 11 Counter](https://localpen.io/#https://gist.github.com/hatemhosny/a639567e23592b96c2b4de1b53c77263) (Angular 11, Typescript)
+- [Vue.js Counter](https://localpen.io/#https://gist.github.com/hatemhosny/b9ce0ee80da94073cb26cfe46212ea26) (Vue.js) [modified from [CodePen](https://codepen.io/IamManchanda/pen/GMJxXN)]
+- [Angular 11 Counter](https://localpen.io/#https://gist.github.com/hatemhosny/a639567e23592b96c2b4de1b53c77263) (Angular 11, Typescript) [modified from [CodePen](https://codepen.io/danielkocsan/pen/ejGGYy)]
 - [Preact without JSX](https://localpen.io/#https://gist.github.com/hatemhosny/8d2c23bb86923d351a76a1a2e5c03517) (Preact)
-- [Vue.js TodoMVC](https://localpen.io/#https://gist.github.com/hatemhosny/b4b966bdf517e27e712379b24bf625b9) (Vue.js)
-- [CSS-only Animated Lantern](https://localpen.io/#https://gist.github.com/hatemhosny/594a6f0982fb012af0da4a94f80fec34)
-- [Bootstrap 3 & AngularJS Dialog/Modals](https://localpen.io/#https://gist.github.com/hatemhosny/bd661723e19146ea41bc2bf62d4580b9) (Bootstrap 3, AngularJS)
-- [Shooting Star](https://localpen.io/#https://gist.github.com/hatemhosny/dea1f069177c73f515e20476009a5324) (Pug, SCSS, Three.js)
-- [Charts info graphic](https://localpen.io/#https://gist.github.com/hatemhosny/6ffa26033947f2b335d4582d7e62e4c9) (D3, SCSS)
-- [AngularJs + d3Js + bar chart](https://localpen.io/#https://gist.github.com/hatemhosny/0f3e65c9329f2bce08a7045e551218f1) (AngularJS, D3)
-- [Rings Navigation](https://localpen.io/#https://gist.github.com/hatemhosny/3ca25b4cf2cea8772ff7680bb59a1c80) (SCSS, JS)
-- [ThreeJS Hover Zoom Channel Displacement](https://localpen.io/#https://gist.github.com/hatemhosny/28e3d1438962da995b7d8909d4cfcce9)
+- [Vue.js TodoMVC](https://localpen.io/#https://gist.github.com/hatemhosny/b4b966bdf517e27e712379b24bf625b9) (Vue.js) [from [vuejs.org](https://vuejs.org/v2/examples/todomvc.html)]
+- [CSS-only Animated Lantern](https://localpen.io/#https://gist.github.com/hatemhosny/594a6f0982fb012af0da4a94f80fec34) [from [CodePen](https://codepen.io/7oot/pen/byPKra)]
+- [Bootstrap 3 & AngularJS Dialog/Modals](https://localpen.io/#https://gist.github.com/hatemhosny/bd661723e19146ea41bc2bf62d4580b9) (Bootstrap 3, AngularJS) [from [CodePen](https://codepen.io/m-e-conroy/pen/ALsdF)]
+- [Shooting Star](https://localpen.io/#https://gist.github.com/hatemhosny/dea1f069177c73f515e20476009a5324) (Pug, SCSS, Three.js) [from [CodePen](https://codepen.io/ko-yelie/pen/LqXWWx)]
+- [Charts info graphic](https://localpen.io/#https://gist.github.com/hatemhosny/6ffa26033947f2b335d4582d7e62e4c9) (D3, SCSS) [from [CodePen](https://codepen.io/stefanjudis/pen/gkHwJ)]
+- [AngularJs + d3Js + bar chart](https://localpen.io/#https://gist.github.com/hatemhosny/0f3e65c9329f2bce08a7045e551218f1) (AngularJS, D3) [from [CodePen](https://codepen.io/danielemoraschi/pen/qFmol)]
+- [Rings Navigation](https://localpen.io/#https://gist.github.com/hatemhosny/3ca25b4cf2cea8772ff7680bb59a1c80) (SCSS, JS) [from [CodePen](https://codepen.io/bennettfeely/pen/qRJOZJ)]
+- [ThreeJS Hover Zoom Channel Displacement](https://localpen.io/#https://gist.github.com/hatemhosny/28e3d1438962da995b7d8909d4cfcce9) [from [CodePen](https://codepen.io/frost084/pen/OKZNRm)]
 - [D3 Gantt Chart](https://localpen.io/#https://gist.github.com/hatemhosny/e3e79de8a33168ba637d6986c49fc112) (CSS, D3) [from [CodePen](https://codepen.io/jey/pen/jmClJ)]
 - [Racing Lines](https://localpen.io/#https://gist.github.com/hatemhosny/9f150679343bc4bb213b7dfcc015e988) (Three.js, TweenMax) [from [CodePen](https://codepen.io/raurir/pen/oXmEPM)]
 
@@ -179,9 +180,7 @@ These are loaded before the editor codes. You can override CSS properties in the
 
 Importing and Exporting your code to other services (e.g. Codepen and Github gists) takes into consiedration the external resources.
 
-## Importing ECMAScript Modules
-
-### Importing NPM Modules
+## Importing NPM Modules
 
 In LocalPen you can use node-style non-relative imports for node modules like you do in your local development. Yet, there is no build step.
 
@@ -224,43 +223,6 @@ It just works without a build step and without you having to worry about. And wh
 
 It is recommended to use this method for dependencies over using external scripts. The dependencies are explicitly stated in the code. And if you move to a local development environment, your bundler will take care of importing them and doing other optimizations like tree-shaking.
 
-### Importing Local Modules with TypeScript Types
-
-In the [configuration file](#settings), a `modules` property allows to map module names to URLs to retrieve from.
-
-Example config JSON:
-
-```json
-{
-  "title": "My Project",
-  "modules": [
-    {
-      "name": "my-demo-lib",
-      "url": "/modules/my-demo-lib/index.js",
-      "typesUrl": "/modules/my-demo-lib/types.d.ts"
-    }
-  ]
-}
-```
-
-This allows code like this is the Typescript editor
-
-```typescript
-Import { Greeter } from 'my-demo-lib';
-const greeter = new Greeter();
-greeter.morning();
-```
-
-[Working demo](https://localpen.io/?config=https://raw.githubusercontent.com/hatemhosny/localpen-examples/master/build/greeter.json) - [Source Repo](https://github.com/hatemhosny/localpen-examples/)
-
-If your library implements this code, the code will actually work, and you get full intellisense and typing support in the editor. This can be of large benefit for library authors in documentation to serve as playground for their code with editor support and can unleash the full potential of such a strong editor like Monaco editor.
-
-Each item in the modules array may contain the following properties:
-
-- `name`: The module name
-- `url`: The URL to the entry point javascript file
-- `typesUrl`: The URL to the types declaration file. It has to be a single file. The module name declared in the file has to match the module name you want to use. The library [dts-bundle](https://www.npmjs.com/package/dts-bundle) was found very helpful to prepare such file. ([example](https://github.com/hatemhosny/localpen-examples/blob/master/package.json#L8))
-
 ## Saving to Device Local Storage
 
 Projects can be locally saved to device using local storage. You can save a project by clicking `Save` on the settings menu, or simply with the keyboard shortcut `Ctrl/Cmd + S`.
@@ -272,13 +234,30 @@ Previously saved projects can be opened from the settings menu > Open. In that s
 
 Please note that the projects are locally saved on the device and are not uploaded to the server.
 
+## Exporting Content
+
+Projects in LocalPen can be exported as:
+
+- JSON: this is a JSON representation of the project configuration with the project source code included. This allows re-importing or sharing your projects.
+- Source: The source code is exported as separate files in a single zip file. This is your untouched source code which you may wish to open in another code editor.
+- Result: The combined compiled/transpiled code is exported as a ready-to-run HTML file. You may run it by simply opening the file in the browser, or using a simple local http server, for example:
+  ```sh
+  npx http-server
+  ```
+
+### Edit in other Services
+
+Currently LocalPen can export content to [CodePen](https://codepen.io/) and [JSFiddle](https://jsfiddle.net/). This is accessible from the settings menu > Export.
+
+It is planned to support more services. This allows you to move code between different services.
+
 ## Importing Code (Editor Prefill)
 
 You can prefill editors with code. This can be great for documentation and sharing links with code.
 
 ### Importing from URL
 
-Most commonly, code is imported from a url. You can provide the source url from the UI (settings button > Import), or by adding the url as a hash to the LocalPen url:
+Most commonly, code is imported from a URL. You can provide the source URL in the UI (settings button > Import), or by adding the URL as a hash to the LocalPen URL:
 
 (e.g. https://localpen.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4)
 
@@ -291,9 +270,9 @@ LocalPen can detect and automatically load code from multiple sources. Currently
 - A directory in a gitlab repo (multiple files)
 - A file in a gitlab repo (imports that single file)
 - Extract code blocks from a webpage (see [code blocks](#prefill-from-code-blocks))
-- Otherwise the url will be considered a raw file (like raw files on github)
+- Otherwise the URL will be considered a raw file (like raw files on github)
 
-If the source url points to multiple files (e.g github gists and directories), LocalPen tries to guess which file to load each in which code editor (e.g index.html -> markup, my-style.css -> style, app.js -> script). All supported languages can be used. If the source url points to multiple files of the same category, guessing may not wark well. In this case, you may need to provide the files to load and the language for each as querystring params. For example:
+If the source URL points to multiple files (e.g github gists and directories), LocalPen tries to guess which file to load in which code editor (e.g index.html -> markup, my-style.css -> style, app.js -> script). All supported languages can be used. If the source URL points to multiple files of the same category, guessing may not work well. In this case, you may need to provide the files to load and the language for each as querystring parameters. For example:
 
 ```
 https://localpen.io/?pug=page.pug&scss=styles.scss&ts=app.ts#https://github.com/myuser/myrepo/tree/master/mydir
@@ -301,13 +280,9 @@ https://localpen.io/?pug=page.pug&scss=styles.scss&ts=app.ts#https://github.com/
 
 LocalPen will look for the directory `mydir` in the github repo `myuser/myrepo`, and load `page.pug` in the markup editor, `styles.scss` in the styles editor, and `app.ts` in the script editor. The first file in the query string will be shown by default (`page.pug` in this case).
 
-### Importing from CodePen
-
-Currently, CodePen API does not allow directly importing code from pens. However, you can export any saved pen as a Github gist and then import it to LocalPen. This is even easier if you use the [bookmarklet](#edit-in-localpen-bookmarklet). The format that Codepen exports to gists is well understood by LocalPen. Most pens can be imported with no or minimal changes.
-
 ### "Edit in LocalPen" Bookmarklet
 
-Instead of manually copy/pasting URLs to import, the bookmarklet can be very convenient. It opens LocalPen in a new window and adds the webpage URL as a hash. Create a new bookmark in your browser and add this code as its URL:
+Instead of manually copy/pasting URLs to import, the bookmarklet can be very convenient. It opens LocalPen in a new window and adds the current webpage URL as a hash. Create a new bookmark in your browser and add this code as its URL:
 
 ```js
 javascript: (function () {
@@ -315,14 +290,25 @@ javascript: (function () {
 })();
 ```
 
-Or just drag the following link, and drop it to the bookmarks bar:
-<a href="javascript:(function(){window.open('https://localpen.io/#' + location.href, '_blank')})();">Edit in LocalPen</a>
+### Importing from CodePen
+
+Currently, CodePen API does not allow directly importing code from pens. However, you can export any saved pen as a Github gist and then import it to LocalPen. This is even easier if you use the [bookmarklet](#edit-in-localpen-bookmarklet). The format that Codepen exports to gists is well understood by LocalPen. Most pens can be imported with no or minimal changes.
+
+This is a summary overview of moving code between LocalPen, CodePen and GitHub gists:
+
+<img src="images/localpen-export-import.svg" width="500" />
+
+Remember, you can always export your code from LocalPen as raw source code files, compiled/transpiled code as an HTML file or as project configuration JSON.
 
 ### Prefill From Code Blocks
 
 Editors can be prefilled by code blocks in web pages. The page is fetched, its HTML is parsed and code is extracted from elements with specific CSS selectors.
 
 **Important Note:** For this to work, CORS has to be enabled on the target host to allow fetch requests from LocalPen. This is not required if LocalPen is hosted on the same host of the target web page.
+
+Add the querystring parameter `url` with no value, and put the URL of the page with the code blocks as a hash. For example:
+
+https://localpen.io/?url#https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html
 
 By default, LocalPen looks for elements that match the CSS selector `.localpen [data-lang="${language}"]`.
 
@@ -337,9 +323,15 @@ This is identified as &lt;strong&gt;HTML&lt;/strong&gt; code
 </code>
 ```
 
-this string is considered HTML code to prefill the editor: `This is identified as <strong>HTML</strong> code`
+The HTML editor is prefilled with: `This is identified as <strong>HTML</strong> code`
 
-Notice that angled brackets should be encoded to avoid interference with the HTML of the page.
+Notice that the code should be encoded (e.g. angled brackets) to avoid interference with the HTML of the page.
+
+You may wish to specify CSS selectors for elements that contain the code for specific languages. The following example loads the content of the first element that matches the CSS selector `h3` as the HTML code:
+
+https://localpen.io/?url&html=h3#https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html
+
+Please note that you may prefill LocalPen editors embedded in the same page. This works great for documentation websites.
 
 [This is a demo](https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html) for automatic extraction of code blocks to prefill editors by creating "Edit in LocalPen" links. Also embedded editors are prefilled from the code blocks. ([View source](https://github.com/hatemhosny/localpen-examples/blob/master/prefill-from-code-blocks.html))
 
@@ -349,31 +341,7 @@ You can prefill the editors by writing content as querystring parameter values, 
 
 https://localpen.io/?css=h1{color:blue;}&html=%3Ch1%3EHello%20World%3C/h1%3E
 
-This link preloads the CSS and HTML editors with content and makes the CSS the default editor. This can be convenient to share links with preloaded cotent without using an external service. However, please be cautious with this method because you quickly reach the ~2000 character limit of URL length. You also need to URI-encode the content (which you can do in JavaScript using the `encodeURI` and `encodeURIComponent` methods).
-
-## Exporting Content
-
-Projects in LocalPen can be exported as:
-
-- JSON: this is a JSON representation of the project configuration with the project source code included. This allows re-importing or sharig your projects.
-- Source: The source code is exported as separate files in a single zip file. This is your untouched source code.
-- Result: The combined compiled/transpiled code is exported as a ready-to-run HTML file. You may run it by simply opening the file in the browser, or using a simple local http server, for example:
-  ```sh
-  npx http-server
-  ```
-
-### Edit in other Services
-
-Currently LocalPen can export content to [CodePen](https://codepen.io/) and [JSFiddle](https://jsfiddle.net/). This is accessible from the settings menu > Export.
-
-It is planned to support more services.
-
-This allows you to move code between different services.
-This is a summary overview of moving code between LocalPen, CodePen and GitHub gists:
-
-<img src="images/localpen-export-import.svg" width="500" />
-
-Remember, you can always export your code from LocalPen as raw source code files, compiled/transpiled code as an HTML file or as project configuration JSON.
+This link preloads the CSS and HTML editors with content and makes the CSS the default editor. This can be convenient to share links with preloaded content without using an external service. However, please be cautious with this method because you quickly reach the ~2000 character limit of URL length. You also need to URI-encode the content (which you can do in JavaScript using the `encodeURI` and `encodeURIComponent` methods).
 
 ## Code Formatting
 
@@ -427,6 +395,53 @@ Examples: [Demo](https://hatemhosny.github.io/localpen-examples/embed.html) - [F
 ```
 
 [This is a demo](https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html) for embedded editors that are prefilled by code blocks in the HTML of the web page that contains them. ([View source](https://github.com/hatemhosny/localpen-examples/blob/master/prefill-from-code-blocks.html))
+
+## Intellisense
+
+You can import modules that may not yet be published to NPM and still get intellisense in the editor by providing TypeScript types.
+
+In the [configuration file](#settings), a `modules` property allows to map module names to URLs to retrieve from.
+
+Example `/localpen.json`:
+
+```json
+{
+  "title": "My Project",
+  "modules": [
+    {
+      "name": "my-demo-lib",
+      "url": "/modules/my-demo-lib/index.js",
+      "typesUrl": "/modules/my-demo-lib/types.d.ts"
+    }
+  ]
+}
+```
+
+This allows code like this is the TypeScript editor
+
+```typescript
+Import { Greeter } from 'my-demo-lib';
+const greeter = new Greeter();
+greeter.morning();
+```
+
+[Working demo](https://localpen.io/?config=https://raw.githubusercontent.com/hatemhosny/localpen-examples/master/build/greeter.json) - [Source Repo](https://github.com/hatemhosny/localpen-examples/)
+
+If your library implements this code, the code will actually work in the result page, and you get full intellisense and typing support in the editor. This can be of large benefit for library authors in documentation to serve as playground for their code with editor support and can unleash the full potential of such a strong editor like Monaco editor.
+
+Each item in the `modules` array may contain the following properties:
+
+- `name`: The module name
+- `url`: The URL to the entry point javascript file
+- `typesUrl`: The URL to the types declaration file.
+
+The `url` and `typesUrl` properties should either be absolute URLs or relative to LocalPen index.html page.
+
+The types declaration file defined by the `typesUrl` property has to be a single file per module. The module name declared in the file has to match the module name you want to use. The library [dts-bundle](https://www.npmjs.com/package/dts-bundle) was found very helpful to prepare such file. ([example](https://github.com/hatemhosny/localpen-examples/blob/master/package.json#L8))
+
+This method can tremendously improve the experience of the developers exploring your code. They do not have to keep revisiting the documentation pages to now the names of the methods or the list of arguments they accept.
+
+You can use this method to get intellisense for your custom modules and also other modules you want. For example you may wish to add the typings for react and lodash.
 
 ## API
 
