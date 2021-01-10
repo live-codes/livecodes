@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalPen</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/localpen/assets/images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/localpen/assets/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/localpen/assets/images/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/localpen/assets/site.webmanifest" />
+    <link rel="mask-icon" href="/localpen/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="apple-mobile-web-app-title" content="localpen" />
+    <meta name="application-name" content="localpen" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-config" content="/localpen/assets/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <style>
+      html,
+      body,
+      #pen {
+        margin: 0;
+        padding: 0;
+      }
+      #pen {
+        width: 100vw;
+        height: 100vh;
+        /* resize: both; */
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pen">
+      <img id="loading" src="./localpen/assets/images/spinner.svg" width="80" height="80" />
+    </div>
+    <script>
+      window.__localpenEmbed = () => {
+        document.querySelector('#loading').remove();
+      };
+    </script>
+    <script defer src="index.ts"></script>
+  </body>
+</html>

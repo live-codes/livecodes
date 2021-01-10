@@ -1,0 +1,9 @@
+spec:
+  name: localpen
+  static_sites:
+    - github:
+        repo: hatemhosny/localpen
+        branch: master
+        deploy_on_push: true
+      name: localpen
+      build_command: npm run build

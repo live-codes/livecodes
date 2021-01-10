@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+coverage
+.eslintrc.js
+vendor
+vendor_modules
+**/*.json
+src/modules
+scripts

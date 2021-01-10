@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalPen</title>
+    <style>
+      body {
+        overflow: hidden;
+      }
+    </style>
+    <link rel="stylesheet" href="{{baseUrl}}/assets/localpen.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="toolbar">
+        <div id="logo">
+          <a href="#" title="LocalPen: code pens that run locally!"
+            ><img src="{{baseUrl}}/assets/images/localpen-logo.svg" width="50"
+          /></a>
+        </div>
+        <div id="select-editor">
+          <ul>
+            <li id="markup-selector" class="editor-title" data-editor="markup">
+              <span>HTML</span>
+              <button onclick="event.stopPropagation();">
+                <img
+                  width="20"
+                  height="20"
+                  style="filter: invert(1)"
+                  src="{{baseUrl}}/assets/images/down_arrow.svg"
+                />
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#" data-editor="markup" data-lang="html">HTML</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="markup" data-lang="markdown">Markdown</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="markup" data-lang="pug">Pug</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="markup" data-lang="asciidoc">AsciiDoc</a>
+                </li>
+              </ul>
+            </li>
+            <li id="style-selector" class="editor-title" data-editor="style">
+              <span>CSS</span>
+              <button onclick="event.stopPropagation();">
+                <img
+                  width="20"
+                  height="20"
+                  style="filter: invert(1)"
+                  src="{{baseUrl}}/assets/images/down_arrow.svg"
+                />
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#" data-editor="style" data-lang="css">CSS</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="style" data-lang="scss">SCSS</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="style" data-lang="sass">Sass</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="style" data-lang="less">Less</a>
+                </li>
+                <li>
+                  <a href="#" data-editor="style" data-lang="stylus">Stylus</a>
+                </li>
+              </ul>
+            </li>
+            <li id="script-selector" class="editor-title" data-editor="script">
+              <span>JS</span>
+              <button onclick="event.stopPropagation();">
+                <img
+                  width="20"
+                  height="20"
+                  style="filter: invert(1)"
+                  src="{{baseUrl}}/assets/images/down_arrow.svg"
+                />
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#" data-editor="script" data-lang="javascript" title="JavaScript"
+                    >JavaScript</a
+                  >
+                </li>
+                <li>
+                  <a href="#" data-editor="script" data-lang="typescript" title="TypeScript"
+                    >TypeScript</a
+                  >
+                </li>
+                <li>
+                  <a href="#" data-editor="script" data-lang="jsx" title="JSX">JSX</a>
+                </li>
+                <!-- <li>
+                  <a href="#" data-editor="script" data-lang="tsx" title="TSX">TSX</a>
+                </li> -->
+                <li>
+                  <a href="#" data-editor="script" data-lang="coffeescript" title="CoffeeScript"
+                    >CoffeeScript</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div id="project-title" contenteditable="true">Untitled Project</div>
+        <div id="buttons">
+          <button id="run-button" title="Run (Ctrl/Cmd + Enter)">
+            <img width="20" height="20" src="{{baseUrl}}/assets/images/play.svg" />
+          </button>
+          <button id="settings-button" title="Settings">
+            <img width="20" height="20" src="{{baseUrl}}/assets/images/gear.png" />
+          </button>
+          <ul id="settings-menu" class="dropdown-menu">
+            <li>
+              <a href="#" id="new-link">New</a>
+            </li>
+            <li>
+              <a href="#" id="open-link">Open</a>
+            </li>
+            <li>
+              <a href="#" id="save-link">Save</a>
+            </li>
+            <li>
+              <a href="#" id="fork-link">Fork</a>
+            </li>
+            <li>
+              <a href="#" id="import-link">Import</a>
+            </li>
+            <li>
+              <a href="#" id="export">Export</a>
+              <ul class="dropdown-menu submenu" id="export-menu">
+                <li>
+                  <a href="#" id="export-json">Export Project (JSON)</a>
+                </li>
+                <li>
+                  <a href="#" id="export-src">Export Source (ZIP)</a>
+                </li>
+                <li>
+                  <a href="#" id="export-result">Export Result (HTML)</a>
+                </li>
+                <li>
+                  <a href="#" id="export-codepen">Edit in CodePen</a>
+                </li>
+                <li>
+                  <a href="#" id="export-jsfiddle">Edit in JSFiddle</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" id="external-resources-link">External CSS/JS</a>
+            </li>
+            <li>
+              <label class="switch">
+                <span>Auto update</span>
+                <div>
+                  <input id="autoupdate" type="checkbox" data-config="autoupdate" />
+                  <span class="slider round"></span>
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="switch">
+                <span>Auto save</span>
+                <div>
+                  <input id="autosave" type="checkbox" data-config="autosave" />
+                  <span class="slider round"></span>
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="switch">
+                <span>Enable Emmet</span>
+                <div>
+                  <input id="emmet" type="checkbox" data-config="emmet" />
+                  <span class="slider round"></span>
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="switch">
+                <span>Enable Autoprefixer</span>
+                <div>
+                  <input id="autoprefixer" type="checkbox" data-config="autoprefixer" />
+                  <span class="slider round"></span>
+                </div>
+              </label>
+            </li>
+            <li>
+              <a href="https://github.com/hatemhosny/localpen/" target="_blank">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="editor-container">
+        <div id="editors">
+          <div id="markup"></div>
+          <div id="style"></div>
+          <div id="script"></div>
+        </div>
+        <div id="result"></div>
+      </div>
+    </div>
+    <div id="notifications" class="hidden" style="display: none"></div>
+    <div id="overlay" style="display: none"></div>
+    <div id="modal-container" style="display: none">
+      <div id="modal"></div>
+    </div>
+    <script type="module">
+      import { app } from '{{baseUrl}}/app.js';
+      window.app = app;
+    </script>
+  </body>
+</html>
