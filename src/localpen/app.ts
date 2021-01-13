@@ -10,8 +10,14 @@ import { createFormatter } from './formatter';
 import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
-import { defaultConfig } from './config';
-import { resultTemplate, importTemplate, resourcesTemplate, savePromptTemplate } from './templates';
+// import { defaultConfig } from './config';
+import {
+  resultTemplate,
+  importScreen,
+  resourcesScreen,
+  savePromptScreen,
+  templatesScreen,
+} from './screens';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 
@@ -434,15 +440,15 @@ export const app = async (config: Pen) => {
     setSavedStatus(true);
   };
 
-  const loadNew = async () => {
-    try {
-      await checkSavedStatus();
-      penId = '';
-      await loadConfig(defaultConfig);
-    } catch (error) {
-      // cancelled
-    }
-  };
+  // const loadNew = async () => {
+  //   try {
+  //     await checkSavedStatus();
+  //     penId = '';
+  //     await loadConfig(defaultConfig);
+  //   } catch (error) {
+  //     // cancelled
+  //   }
+  // };
 
   const fork = () => {
     penId = '';
@@ -504,7 +510,7 @@ export const app = async (config: Pen) => {
     }
     return new Promise((resolve, reject) => {
       const div = document.createElement('div');
-      div.innerHTML = savePromptTemplate;
+      div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, 'small');
       eventsManager.addEventListener(
         document.querySelector('#modal #prompt-save-btn') as HTMLElement,
@@ -723,15 +729,108 @@ export const app = async (config: Pen) => {
     };
 
     const handleNew = () => {
+      const createTemplatesUI = () => {
+        const div = document.createElement('div');
+        div.innerHTML = templatesScreen;
+        const templatesContainer = div.firstChild as HTMLElement;
+
+        const tabs = templatesContainer.querySelectorAll(
+          '#templates-tabs li',
+        ) as NodeListOf<HTMLElement>;
+        tabs.forEach((tab) => {
+          eventsManager.addEventListener(tab, 'click', () => {
+            tabs.forEach((t) => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            (document.querySelectorAll(
+              '#templates-screens > div',
+            ) as NodeListOf<HTMLElement>).forEach((screen) => {
+              screen.classList.remove('active');
+            });
+            const target = templatesContainer.querySelector(
+              '#' + tab.dataset.target,
+            ) as HTMLElement;
+            target.classList.add('active');
+            target.querySelector('input')?.focus();
+          });
+        });
+
+        const userTemplates = templatesContainer.querySelector(
+          '#templates-user .modal-screen',
+        ) as HTMLElement;
+        const list = document.createElement('ul') as HTMLElement;
+        list.classList.add('open-list');
+        userTemplates.appendChild(list);
+
+        storage.getList().forEach((item) => {
+          const li = document.createElement('li');
+          list.appendChild(li);
+
+          const link = document.createElement('a');
+          link.href = '#';
+          link.dataset.id = item.id;
+          link.classList.add('open-project-link');
+          link.innerHTML = `
+            <div class="open-title">${item.title}</div>
+            <div class="modified-date">Last modified: ${new Date(
+              item.lastModified,
+            ).toLocaleString()}</div>
+          `;
+          li.appendChild(link);
+          eventsManager.addEventListener(
+            link,
+            'click',
+            async (event) => {
+              event.preventDefault();
+              const itemId = (link as HTMLElement).dataset.id || '';
+              const savedPen = storage.getItem(itemId)?.pen;
+              if (savedPen) {
+                await loadConfig(savedPen);
+                penId = itemId;
+              }
+              modal.close();
+            },
+            false,
+          );
+
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('delete-button');
+          li.appendChild(deleteButton);
+          eventsManager.addEventListener(
+            deleteButton,
+            'click',
+            () => {
+              if (item.id === penId) {
+                penId = '';
+              }
+              storage.deleteItem(item.id);
+              li.classList.add('hidden');
+              setTimeout(() => {
+                li.style.display = 'none';
+              }, 500);
+            },
+            false,
+          );
+        });
+
+        modal.show(templatesContainer);
+      };
       eventsManager.addEventListener(
         document.querySelector('#new-link') as HTMLElement,
         'click',
-        async (event) => {
-          event.preventDefault();
-          await loadNew();
-        },
+        createTemplatesUI,
         false,
       );
+
+      // eventsManager.addEventListener(
+      //   document.querySelector('#new-link') as HTMLElement,
+      //   'click',
+      //   async (event) => {
+      //     event.preventDefault();
+      //     await loadNew();
+      //   },
+      //   false,
+      // );
     };
 
     const handleSave = () => {
@@ -876,7 +975,7 @@ export const app = async (config: Pen) => {
     const handleImport = () => {
       const createImportUI = () => {
         const div = document.createElement('div');
-        div.innerHTML = importTemplate;
+        div.innerHTML = importScreen;
         const importContainer = div.firstChild as HTMLElement;
 
         const tabs = importContainer.querySelectorAll('#import-tabs li') as NodeListOf<HTMLElement>;
@@ -1028,7 +1127,7 @@ export const app = async (config: Pen) => {
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
-        div.innerHTML = resourcesTemplate;
+        div.innerHTML = resourcesScreen;
         const resourcesContainer = div.firstChild as HTMLElement;
         modal.show(resourcesContainer);
 

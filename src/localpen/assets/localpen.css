@@ -641,7 +641,7 @@ li.editor-title > button:focus + .dropdown-menu,
   background-color: #fff5f6;
 }
 
-#modal #list-container ul.open-list {
+#modal ul.open-list {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -650,7 +650,7 @@ li.editor-title > button:focus + .dropdown-menu,
   text-align: center;
 }
 
-#modal #list-container li {
+#modal .open-list li {
   display: inline-flex;
   align-items: center;
   width: 80%;
@@ -668,7 +668,7 @@ li.editor-title > button:focus + .dropdown-menu,
   transform: scaleY(1);
   overflow: hidden;
 }
-#modal #list-container li:hover {
+#modal .open-list li:hover {
   box-shadow: 0 1px 2px #0000002d;
   transform: translateY(1px) 0.5s;
 }
@@ -765,12 +765,12 @@ li.editor-title > button:focus + .dropdown-menu,
   padding: 0 5%;
   overflow: auto;
 }
-#import-tabs {
+.modal-tabs {
   display: flex;
   margin: 0 20px;
   padding: 0;
 }
-#import-tabs li {
+.modal-tabs li {
   display: block;
   width: 30%;
   margin: 0 5px;
@@ -781,12 +781,11 @@ li.editor-title > button:focus + .dropdown-menu,
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   text-align: center;
-  /* box-shadow: 3px 0 6px #0000002d; */
   background-color: lightgrey;
   cursor: pointer;
 }
 
-#import-tabs li.active {
+.modal-tabs li.active {
   background-color: whitesmoke;
   border-bottom: 1px solid whitesmoke;
   z-index: 1;
@@ -877,4 +876,26 @@ li.editor-title > button:focus + .dropdown-menu,
 
 #modal #file-input {
   display: none;
+}
+
+#modal ul.thumbnails {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#modal ul.thumbnails li {
+  margin: 20px;
+}
+#modal ul.thumbnails a {
+  text-decoration: none;
+  color: unset;
+}
+
+#modal #templates-user ul {
+  height: fit-content;
 }
