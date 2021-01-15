@@ -3,7 +3,7 @@ import { Language, Parser, Pen } from './models';
 
 export const createFormatter = (config: Pen) => {
   const { baseUrl } = config;
-  const prettierPath = baseUrl + '/vendor/prettier';
+  const prettierPath = baseUrl + 'vendor/prettier';
 
   let prettier: any;
 

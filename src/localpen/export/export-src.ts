@@ -7,7 +7,7 @@ export const exportSrc = async (
   { JSZip, iframeDocument, editors, getEditorLanguage }: any,
 ) => {
   if (!JSZip) {
-    JSZip = (await import(config.baseUrl + '/vendor/jszip/jszip.js')).default;
+    JSZip = (await import(config.baseUrl + 'vendor/jszip/jszip.js')).default;
   }
 
   const zip = new JSZip();

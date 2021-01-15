@@ -3,7 +3,7 @@ import { monaco } from './monaco';
 export const createEditor = async (options: any) => {
   const { container, baseUrl } = options;
 
-  const monacoPath = baseUrl + '/vendor/monaco-editor';
+  const monacoPath = baseUrl + 'vendor/monaco-editor';
 
   const stylesheet = document.createElement('link');
   stylesheet.setAttribute('rel', 'stylesheet');
