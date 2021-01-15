@@ -1,8 +1,8 @@
-import { Template } from '../../models';
+import { Template } from '../models';
 
 export const blank: Template = {
   title: 'Blank Project',
-  thumbnail: '',
+  thumbnail: 'assets/templates/blank.svg',
   language: 'html',
   markup: {
     language: 'html',

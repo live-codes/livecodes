@@ -899,6 +899,11 @@ li.editor-title > button:focus + .dropdown-menu,
   color: unset;
 }
 
+#modal ul.thumbnails img {
+  width: 120px;
+  height: 120px;
+}
+
 #modal #templates-user ul {
   height: fit-content;
 }

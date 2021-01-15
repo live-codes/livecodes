@@ -21,6 +21,8 @@ import {
 } from './screens';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
+import { starterTemplates } from './templates';
+import { defaultConfig } from './config';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -31,7 +33,7 @@ export const app = async (config: Pen) => {
   };
 
   const { baseUrl } = getConfig();
-  const storage = createStorage('hi');
+  const storage = createStorage();
   const templates = createStorage('__localpen_templates__');
   const formatter = createFormatter(getConfig());
   let editors: Editors;
@@ -442,16 +444,6 @@ export const app = async (config: Pen) => {
     setSavedStatus(true);
   };
 
-  // const loadNew = async () => {
-  //   try {
-  //     await checkSavedStatus();
-  //     penId = '';
-  //     await loadConfig(defaultConfig);
-  //   } catch (error) {
-  //     // cancelled
-  //   }
-  // };
-
   const fork = () => {
     penId = '';
     loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
@@ -544,6 +536,15 @@ export const app = async (config: Pen) => {
         },
       );
     });
+  };
+
+  const checkSavedAndExecute = (fn: () => void) => async () => {
+    try {
+      await checkSavedStatus(true);
+      fn();
+    } catch (error) {
+      // cancelled
+    }
   };
 
   const configureEmmet = (config: Pen) => {
@@ -757,6 +758,41 @@ export const app = async (config: Pen) => {
           });
         });
 
+        const starterTemplatesList = templatesContainer.querySelector(
+          '#starter-templates-list',
+        ) as HTMLElement;
+        starterTemplates.forEach((template) => {
+          const li = document.createElement('li') as HTMLElement;
+          const link = document.createElement('a') as HTMLAnchorElement;
+          link.href = '#';
+          link.innerHTML = `
+          <img src="${baseUrl + template.thumbnail}" />
+          <div>${template.title}</div>
+          `;
+          eventsManager.addEventListener(
+            link,
+            'click',
+            () => {
+              const { title, thumbnail, ...templateConfig } = template;
+              (Object.keys(editors) as EditorId[]).forEach((editorId) => {
+                templateConfig[editorId].content = templateConfig[editorId].content?.replace(
+                  /{{ __localpen_baseUrl__ }}/,
+                  getConfig().baseUrl,
+                );
+              });
+              penId = '';
+              loadConfig({
+                ...defaultConfig,
+                ...templateConfig,
+              });
+              modal.close();
+            },
+            false,
+          );
+          li.appendChild(link);
+          starterTemplatesList.appendChild(li);
+        });
+
         const userTemplatesScreen = templatesContainer.querySelector(
           '#templates-user .modal-screen',
         ) as HTMLElement;
@@ -822,7 +858,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#new-link') as HTMLElement,
         'click',
-        createTemplatesUI,
+        checkSavedAndExecute(createTemplatesUI),
         false,
       );
 
@@ -967,14 +1003,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#open-link') as HTMLElement,
         'click',
-        async () => {
-          try {
-            await checkSavedStatus(true);
-            createList();
-          } catch (error) {
-            // cancelled
-          }
-        },
+        checkSavedAndExecute(createList),
         false,
       );
     };

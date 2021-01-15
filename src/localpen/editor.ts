@@ -32,6 +32,7 @@ export const createEditor = async (options: any) => {
     allowNonTsExtensions: true,
     allowJs: false,
     target: monaco.languages.typescript.ScriptTarget.Latest,
+    experimentalDecorators: true,
   });
 
   const editor = monaco.editor.create(container, {
