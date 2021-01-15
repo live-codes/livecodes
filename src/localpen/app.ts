@@ -17,6 +17,7 @@ import {
   resourcesScreen,
   savePromptScreen,
   templatesScreen,
+  openScreen,
 } from './screens';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
@@ -30,7 +31,8 @@ export const app = async (config: Pen) => {
   };
 
   const { baseUrl } = getConfig();
-  const storage = createStorage();
+  const storage = createStorage('hi');
+  const templates = createStorage('__localpen_templates__');
   const formatter = createFormatter(getConfig());
   let editors: Editors;
   let penId: string;
@@ -755,14 +757,19 @@ export const app = async (config: Pen) => {
           });
         });
 
-        const userTemplates = templatesContainer.querySelector(
+        const userTemplatesScreen = templatesContainer.querySelector(
           '#templates-user .modal-screen',
         ) as HTMLElement;
+        const userTemplates = templates.getList();
+
+        if (userTemplates.length > 0) {
+          userTemplatesScreen.innerHTML = '';
+        }
         const list = document.createElement('ul') as HTMLElement;
         list.classList.add('open-list');
-        userTemplates.appendChild(list);
+        userTemplatesScreen.appendChild(list);
 
-        storage.getList().forEach((item) => {
+        userTemplates.forEach((item) => {
           const li = document.createElement('li');
           list.appendChild(li);
 
@@ -783,10 +790,10 @@ export const app = async (config: Pen) => {
             async (event) => {
               event.preventDefault();
               const itemId = (link as HTMLElement).dataset.id || '';
-              const savedPen = storage.getItem(itemId)?.pen;
-              if (savedPen) {
-                await loadConfig(savedPen);
-                penId = itemId;
+              const template = templates.getItem(itemId)?.pen;
+              if (template) {
+                await loadConfig(template);
+                penId = '';
               }
               modal.close();
             },
@@ -800,10 +807,7 @@ export const app = async (config: Pen) => {
             deleteButton,
             'click',
             () => {
-              if (item.id === penId) {
-                penId = '';
-              }
-              storage.deleteItem(item.id);
+              templates.deleteItem(item.id);
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
@@ -855,55 +859,45 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleSaveAsTemplate = () => {
+      eventsManager.addEventListener(
+        document.querySelector('#template-link') as HTMLElement,
+        'click',
+        (event) => {
+          (event as Event).preventDefault();
+          templates.addItem(getConfig());
+          notifications.message('Saved as a new template');
+        },
+      );
+    };
+
     const handleOpen = () => {
       const createList = () => {
-        const listContainer = document.createElement('div');
-        listContainer.id = 'list-container';
+        const div = document.createElement('div');
+        div.innerHTML = openScreen;
+        const listContainer = div.firstChild as HTMLElement;
+        const noDataMessage = listContainer.querySelector('.no-data');
+        const list = document.createElement('ul') as HTMLElement;
+        list.classList.add('open-list');
 
-        const title = document.createElement('div');
-        title.classList.add('modal-title');
-        title.innerHTML = 'Saved Projects';
-        listContainer.appendChild(title);
-
-        const buttons = document.createElement('div');
-        buttons.classList.add('buttons');
-        listContainer.appendChild(buttons);
-
-        // const importButton = document.createElement('button');
-        // importButton.id = 'import-button';
-        // importButton.classList.add('button');
-        // importButton.innerHTML = 'Import';
-        // buttons.appendChild(importButton);
-
-        // const exportButton = document.createElement('button');
-        // exportButton.id = 'export-button';
-        // exportButton.classList.add('button');
-        // exportButton.innerHTML = 'Export';
-        // buttons.appendChild(exportButton);
-
-        const deleteAllButton = document.createElement('button');
-        deleteAllButton.id = 'delete-all-button';
-        deleteAllButton.classList.add('button');
-        deleteAllButton.innerHTML = 'Delete All';
-        buttons.appendChild(deleteAllButton);
+        const deleteAllButton = listContainer.querySelector('#delete-all-button') as HTMLElement;
         eventsManager.addEventListener(
           deleteAllButton,
           'click',
           () => {
             storage.clear();
             penId = '';
-            const list = listContainer.querySelector('ul');
-            if (!list) return;
-            list.innerHTML = '';
+            if (list) list.remove();
+            if (noDataMessage) listContainer.appendChild(noDataMessage);
+            deleteAllButton.classList.add('hidden');
           },
           false,
         );
 
-        const list = document.createElement('ul') as HTMLElement;
-        list.classList.add('open-list');
         listContainer.appendChild(list);
+        const userPens = storage.getList();
 
-        storage.getList().forEach((item) => {
+        userPens.forEach((item) => {
           const li = document.createElement('li');
           list.appendChild(li);
 
@@ -918,6 +912,7 @@ export const app = async (config: Pen) => {
             ).toLocaleString()}</div>
           `;
           li.appendChild(link);
+
           eventsManager.addEventListener(
             link,
             'click',
@@ -948,11 +943,23 @@ export const app = async (config: Pen) => {
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
+                if (storage.getList().length === 0 && noDataMessage) {
+                  list.remove();
+                  listContainer.appendChild(noDataMessage);
+                  deleteAllButton.classList.add('hidden');
+                }
               }, 500);
             },
             false,
           );
         });
+
+        if (userPens.length === 0) {
+          list.remove();
+          deleteAllButton.remove();
+        } else {
+          noDataMessage?.remove();
+        }
 
         modal.show(listContainer);
       };
@@ -1196,6 +1203,7 @@ export const app = async (config: Pen) => {
     handleNew();
     handleSave();
     handleFork();
+    handleSaveAsTemplate();
     handleOpen();
     handleImport();
     handleExport();

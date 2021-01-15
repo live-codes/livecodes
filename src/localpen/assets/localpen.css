@@ -319,22 +319,21 @@ li.editor-title > button:focus + .dropdown-menu,
   position: relative;
 }
 
-#open-list,
-#export-menu {
-  display: none;
+.submenu {
+  display: none !important;
   position: absolute !important;
   right: 98%;
   left: unset;
   top: 0;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #open-link:hover + #open-list,
 #open-list:hover,
-#export:hover + #export-menu,
-#export-menu:hover {
-  display: block;
+#settings-menu a:hover + .submenu,
+.submenu:hover {
+  display: block !important;
 }
 
 #select-editor,
@@ -641,6 +640,10 @@ li.editor-title > button:focus + .dropdown-menu,
   background-color: #fff5f6;
 }
 
+#modal .button.hidden {
+  display: none;
+}
+
 #modal ul.open-list {
   margin: 0;
   padding: 0;
@@ -898,4 +901,11 @@ li.editor-title > button:focus + .dropdown-menu,
 
 #modal #templates-user ul {
   height: fit-content;
+}
+
+#modal .modal-message,
+#modal .modal-message > div {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
 }
