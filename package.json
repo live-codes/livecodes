@@ -55,8 +55,10 @@
     "less": "4.0.0",
     "marked": "1.2.7",
     "monaco-editor": "0.21.2",
+    "normalize.css": "8.0.1",
     "postcss": "8.2.2",
     "prettier": "2.2.1",
+    "reset-css": "5.0.1",
     "sass.js": "0.11.1",
     "split.js": "1.6.2"
   },

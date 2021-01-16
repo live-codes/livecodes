@@ -3,11 +3,26 @@ import Split from 'split.js';
 import { monaco } from './monaco';
 
 import { createEditor } from './editor';
-import { languages, getLanguageByAlias, getLanguageEditorId, postProcessors } from './languages';
+import {
+  languages,
+  getLanguageByAlias,
+  getLanguageEditorId,
+  postProcessors,
+  cssPresets,
+} from './languages';
 import { createStorage } from './storage';
-import { EditorId, EditorLanguages, EditorLibrary, Editors, Language, Module, Pen } from './models';
+import {
+  CssPresetId,
+  EditorId,
+  EditorLanguages,
+  EditorLibrary,
+  Editors,
+  Language,
+  Module,
+  Pen,
+} from './models';
 import { createFormatter } from './formatter';
-import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
+import { getCompilersData, loadCompilers, compile } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
@@ -41,7 +56,6 @@ export const app = async (config: Pen) => {
   let activeEditorId: EditorId;
   const notifications = createNotifications('#notifications');
   const modal = createModal();
-  let previousContent = { stylesheets: '', scripts: '', script: '' };
   const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
@@ -52,7 +66,7 @@ export const app = async (config: Pen) => {
     script: '#script',
     result: '#result',
   };
-  const iframeDocument = (await createIframe(elements.result, resultTemplate)) as Document;
+  let iframeDocument = (await createIframe(elements.result, resultTemplate)) as Document;
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#result'], {
@@ -85,6 +99,7 @@ export const app = async (config: Pen) => {
       const iframe = document.createElement('iframe');
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
+      containerEl.innerHTML = '';
       containerEl.appendChild(iframe);
       const iframeDocument = iframe.contentWindow?.document;
       iframe.addEventListener('load', () => {
@@ -224,11 +239,16 @@ export const app = async (config: Pen) => {
   };
 
   const updateEditors = (editors: Editors, config: Pen) => {
+    const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     editorIds.forEach((editorId) => {
       editors[editorId].updateOptions(config.editor);
       editors[editorId].getModel().setValue(config[editorId].content);
       changeLanguage(editorId, config[editorId].language);
+    });
+    setConfig({
+      ...getConfig(),
+      language,
     });
   };
 
@@ -282,6 +302,10 @@ export const app = async (config: Pen) => {
     editors[editorId].focus();
 
     activeEditorId = editorId;
+    setConfig({
+      ...getConfig(),
+      language: getEditorLanguage(editorId),
+    });
   };
 
   const changeLanguage = (editorId: EditorId, language: Language) => {
@@ -297,6 +321,10 @@ export const app = async (config: Pen) => {
     formatter.loadParser(language);
     registerFormatter(editorId, editors);
     run(editors);
+    setConfig({
+      ...getConfig(),
+      language,
+    });
   };
 
   // Cmd + Enter formats with prettier
@@ -305,126 +333,65 @@ export const app = async (config: Pen) => {
     // eslint-disable-next-line
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
       await formatter.format(editor, getEditorLanguage(editorId));
-      run(editors, true);
+      run(editors);
     });
   };
 
-  const run = async (editors: Editors, triggerRerender = false, template = resultTemplate) => {
+  const run = async (editors: Editors, template = resultTemplate) => {
     if (!iframeDocument) return;
     const config = getConfig();
 
-    const currentContent = {
-      stylesheets: JSON.stringify(config.stylesheets),
-      scripts: JSON.stringify(config.scripts),
-      script: JSON.stringify(config.script),
-    };
-
-    triggerRerender = true; // always rerender for now
-    // rerender the page when scripts change (user or external)
-    const rerender =
-      triggerRerender ||
-      previousContent.scripts !== currentContent.scripts ||
-      previousContent.script !== currentContent.script;
-
-    const addElement = (
-      tag: string,
-      id: string,
-      container: HTMLElement,
-      content: string,
-      attributes: { [key: string]: string } = {},
-    ) => {
-      let el: Element | null;
-      if (!rerender) {
-        el = iframeDocument.getElementById(id);
-        el?.remove();
-      }
-      el = iframeDocument.createElement(tag);
-      el.id = id;
-      Object.keys(attributes).forEach((attr) => {
-        el?.setAttribute(attr, attributes[attr]);
-      });
-      container.appendChild(el);
-      el.innerHTML = content;
-    };
-
     const getCompiled = (language: Language, content: string) =>
-      compile(language, content, compilers, config, iframeDocument, eventsManager);
+      compile(language, content, compilers, config, eventsManager);
 
-    iframeDocument.title = config.title;
+    const presetUrl = config.cssPreset
+      ? cssPresets.find((preset) => preset.id === config.cssPreset)?.url
+      : null;
+    const cssPreset = presetUrl
+      ? `<link rel="stylesheet" id="__localpen__css-preset" href="${
+          config.baseUrl + presetUrl
+        }" />\n`
+      : '';
 
-    if (rerender) {
-      const externalStylesheets = config.stylesheets.reduce(
-        (acc, url, index) =>
-          acc +
-          `<link rel="stylesheet" id="__localpen__external-stylesheet-${index}" href="${url}" />\n`,
-        '',
-      );
-      const externalScripts = config.scripts.reduce(
-        (acc, url) => acc + `<script src="${url}"></script>\n`,
-        '',
-      );
-      const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
-      const style = `<style> ${await getCompiled(
-        getEditorLanguage('style'),
-        editors.style?.getValue(),
-      )}</style>`;
-      const script = `
+    const externalStylesheets = config.stylesheets.reduce(
+      (acc, url, index) =>
+        acc +
+        `<link rel="stylesheet" id="__localpen__external-stylesheet-${index}" href="${url}" />\n`,
+      '',
+    );
+    const externalScripts = config.scripts.reduce(
+      (acc, url) => acc + `<script src="${url}"></script>\n`,
+      '',
+    );
+    const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
+    const style = `<style> ${await getCompiled(
+      getEditorLanguage('style'),
+      editors.style?.getValue(),
+    )}</style>`;
+    const script = `
       <script type="module">
       ${await getCompiled(getEditorLanguage('script'), editors.script?.getValue())}
       </script>`;
 
-      const result = template
-        .replace('<!-- __localpen__external_stylesheets -->', externalStylesheets)
-        .replace('<!-- __localpen__editor_style -->', style)
-        .replace('<!-- __localpen__editor_markup -->', markup)
-        .replace('<!-- __localpen__external_scripts -->', externalScripts)
-        .replace('<!-- __localpen__editor_script -->', script);
-      iframeDocument?.open();
-      iframeDocument?.write(result);
-      iframeDocument?.close();
-    } else {
-      // do not re-download stylesheets if they have not changed
-      if (previousContent.stylesheets !== currentContent.stylesheets) {
-        config.stylesheets.forEach((url, index) => {
-          addElement('link', '__localpen__external-stylesheet-' + index, iframeDocument.head, '', {
-            rel: 'stylesheet',
-            href: url,
-            'data-resource': 'stylesheet',
-          });
-        });
-      }
+    const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
 
-      addElement(
-        'style',
-        '__localpen__editor_style',
-        iframeDocument.head,
-        await getCompiled(getEditorLanguage('style'), editors.style?.getValue()),
-      );
+    const result = template
+      .replace('<!-- __localpen__css_preset__ -->', cssPreset)
+      .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
+      .replace('<!-- __localpen__editor_style__ -->', style)
+      .replace('<!-- __localpen__utils__ -->', utils)
+      .replace('<!-- __localpen__editor_markup__ -->', markup)
+      .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
+      .replace('<!-- __localpen__editor_script__ -->', script);
 
-      if (getEditorLanguage('markup') !== 'markdown') {
-        disableMarkdownStyles(iframeDocument);
-      }
-      iframeDocument.body.innerHTML = await getCompiled(
-        getEditorLanguage('markup'),
-        editors.markup?.getValue(),
-      );
-      config.scripts.forEach((url, index) => {
-        addElement('script', '__localpen__external-script-' + index, iframeDocument.body, '', {
-          src: url,
-        });
-      });
+    iframeDocument = (await createIframe(elements.result, result)) as Document;
 
-      addElement(
-        'script',
-        '__localpen__editor_script',
-        iframeDocument.head,
-        await getCompiled(getEditorLanguage('script'), editors.script?.getValue()),
-        {
-          type: 'module',
-        },
-      );
+    iframeDocument.title = config.title;
+
+    iframeDocument.body.classList.remove('markdown-body');
+    if (config.cssPreset === 'github-markdown-css') {
+      iframeDocument.body.classList.add('markdown-body');
     }
-    previousContent = { ...currentContent };
   };
 
   const save = (notify = false, skipAutoSave = false) => {
@@ -475,6 +442,7 @@ export const app = async (config: Pen) => {
       script: newConfig.script,
       stylesheets: newConfig.stylesheets,
       scripts: newConfig.scripts,
+      cssPreset: newConfig.cssPreset,
       modules: newConfig.modules || getConfig().modules,
     };
     setConfig({ ...getConfig(), ...content, autosave: false });
@@ -488,7 +456,7 @@ export const app = async (config: Pen) => {
 
     // load config
     await bootstrap(true);
-    run(editors, true);
+    run(editors);
     editors[activeEditorId].focus();
     setTimeout(() => {
       setSavedStatus(true);
@@ -715,7 +683,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#run-button') as HTMLElement,
         'click',
-        () => run(editors, true),
+        () => run(editors),
       );
     };
 
@@ -737,6 +705,29 @@ export const app = async (config: Pen) => {
             configureEmmet(getConfig());
           }
         });
+      });
+
+      const cssPresets = document.querySelectorAll(
+        '#css-preset-menu a',
+      ) as NodeListOf<HTMLAnchorElement>;
+      cssPresets.forEach((link) => {
+        eventsManager.addEventListener(
+          link,
+          'click',
+          (event: Event) => {
+            event.preventDefault();
+            setConfig({
+              ...getConfig(),
+              cssPreset: link.dataset.preset as CssPresetId,
+            });
+            cssPresets.forEach((preset) => {
+              preset.classList.remove('active');
+            });
+            link.classList.add('active');
+            run(editors);
+          },
+          false,
+        );
       });
     };
 
@@ -1264,6 +1255,18 @@ export const app = async (config: Pen) => {
 
     const emmetToggle = document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
     emmetToggle.checked = config.emmet;
+
+    (document.querySelectorAll('#css-preset-menu a') as NodeListOf<HTMLAnchorElement>).forEach(
+      (link) => {
+        link.classList.remove('active');
+        if (config.cssPreset === link.dataset.preset) {
+          link.classList.add('active');
+        }
+        if (!config.cssPreset && link.dataset.preset === 'none') {
+          link.classList.add('active');
+        }
+      },
+    );
   };
 
   const setActiveEditor = (config: Pen) => {

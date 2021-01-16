@@ -47,4 +47,6 @@ svg
   },
   stylesheets: [],
   scripts: [],
+  cssPreset: null,
+  modules: [],
 };

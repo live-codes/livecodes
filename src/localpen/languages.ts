@@ -1,4 +1,4 @@
-import { EditorId, Language, LanguageSpecs, Pen, Processors } from './models';
+import { CssPreset, EditorId, Language, LanguageSpecs, Pen, Processors } from './models';
 
 export const languages: LanguageSpecs[] = [
   {
@@ -30,10 +30,10 @@ export const languages: LanguageSpecs[] = [
     compiler: {
       url: 'vendor/marked/marked.esm.min.js',
       factory: (module: any) => module.default,
-      stylesAdded: false,
     },
     extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
     editor: 'markup',
+    preset: 'github-markdown-css',
   },
   {
     name: 'asciidoc',
@@ -50,6 +50,7 @@ export const languages: LanguageSpecs[] = [
     },
     extensions: ['adoc', 'asciidoc', 'asc'],
     editor: 'markup',
+    preset: 'asciidoctor.css',
   },
   {
     name: 'css',
@@ -173,6 +174,29 @@ export const postProcessors: Processors[] = [
       },
     },
     editors: ['style'],
+  },
+];
+
+export const cssPresets: CssPreset[] = [
+  {
+    id: 'normalize.css',
+    name: 'Normalize.css',
+    url: 'vendor/normalize.css/normalize.css',
+  },
+  {
+    id: 'reset-css',
+    name: 'CSS reset',
+    url: 'vendor/reset-css/reset.css',
+  },
+  {
+    id: 'github-markdown-css',
+    name: 'github-markdown-css',
+    url: 'vendor/github-markdown-css/github-markdown.css',
+  },
+  {
+    id: 'asciidoctor.css',
+    name: 'Asciidoctor CSS',
+    url: 'vendor/asciidoctor.css/asciidoctor.css',
   },
 ];
 
