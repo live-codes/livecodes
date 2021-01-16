@@ -1,6 +1,7 @@
 import { angularStarter } from './angular-starter';
 import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
+import { d3Starter } from './d3-starter';
 import { jqueryStarter } from './jquery-starter';
 import { preactStarter } from './preact-starter';
 import { reactStarter } from './react-starter';
@@ -18,4 +19,5 @@ export const starterTemplates = [
   jqueryStarter,
   bootstrapStarter,
   tailwindcssStarter,
+  d3Starter,
 ];
