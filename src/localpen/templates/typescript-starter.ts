@@ -10,7 +10,7 @@ export const typescriptStarter: Template = {
 <div id="root">
   <h1>Hello, TypeScript</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/typescript.svg" class="logo" />
-  <p id="counter-text"></p>
+  <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>
 `.trimStart(),
@@ -31,25 +31,19 @@ export const typescriptStarter: Template = {
   script: {
     language: 'typescript',
     content: `
-const root = document.querySelector("#root");
-const counterText = document.querySelector("#counter-text");
+const counter = document.querySelector("#counter");
 const button = document.querySelector("#counter-button");
 let count = 0;
-
-const showCount = () => {
-  counterText.innerHTML = \`You clicked \${count} times.\`;
-};
 
 button.addEventListener(
   "click",
   () => {
     count += 1;
-    showCount();
+    counter.textContent = String(count);
   },
   false
 );
 
-showCount();
 `.trimStart(),
   },
   stylesheets: [],

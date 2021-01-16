@@ -27,19 +27,19 @@ export const reactStarter: Template = {
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-function App() {
+function App(props) {
   const [count, setCount] = useState(0);
 
   return (
     <div id="app">
-      <h1>Hello, React</h1>
+      <h1>Hello, {props.name}</h1>
       <img src="{{ __localpen_baseUrl__ }}assets/templates/react.svg" className="logo" />
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   );
 }
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<App name="React" />, document.querySelector("#root"));
 `.trimStart(),
   },
   stylesheets: [],

@@ -736,6 +736,7 @@ export const app = async (config: Pen) => {
         const div = document.createElement('div');
         div.innerHTML = templatesScreen;
         const templatesContainer = div.firstChild as HTMLElement;
+        const noDataMessage = templatesContainer.querySelector('.no-data');
 
         const tabs = templatesContainer.querySelectorAll(
           '#templates-tabs li',
@@ -828,7 +829,10 @@ export const app = async (config: Pen) => {
               const itemId = (link as HTMLElement).dataset.id || '';
               const template = templates.getItem(itemId)?.pen;
               if (template) {
-                await loadConfig(template);
+                await loadConfig({
+                  ...template,
+                  title: defaultConfig.title,
+                });
                 penId = '';
               }
               modal.close();
@@ -847,6 +851,10 @@ export const app = async (config: Pen) => {
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
+                if (templates.getList().length === 0 && noDataMessage) {
+                  list.remove();
+                  userTemplatesScreen.appendChild(noDataMessage);
+                }
               }, 500);
             },
             false,
@@ -861,16 +869,6 @@ export const app = async (config: Pen) => {
         checkSavedAndExecute(createTemplatesUI),
         false,
       );
-
-      // eventsManager.addEventListener(
-      //   document.querySelector('#new-link') as HTMLElement,
-      //   'click',
-      //   async (event) => {
-      //     event.preventDefault();
-      //     await loadNew();
-      //   },
-      //   false,
-      // );
     };
 
     const handleSave = () => {

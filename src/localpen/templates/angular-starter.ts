@@ -36,25 +36,37 @@ const { Component } = ng.core;
   ],
   template: \`
     <div class="container">
-      <h1>{{title}}</h1>
-      <img src="{{ __localpen_baseUrl__ }}assets/templates/angular-icon.svg" class="logo" />
+      <heading name="{{name}}"></heading>
+      <img src="/localpen/assets/templates/angular-icon.svg" class="logo" />
       <p>You clicked {{count}} times.</p>
       <button type="button" (click)="increment()">Click me</button>
     </div>
   \`,
 })
 class AppComponent {
-  title = "Hello, Angular";
-  count: number;
+  count = 0;
+  name = "Angular";
 
   constructor() {}
 
-  ngOnInit() {
-    this.count = 0;
-  }
-
   increment() {
     this.count += 1;
+  }
+}
+
+// heading.component.ts
+const { Input } = ng.core;
+
+@Component({
+  selector: "heading",
+  template: "<h1>{{title}}</h1>",
+})
+class HeadingComponent {
+  @Input() name: string;
+  title: string;
+
+  ngOnInit() {
+    this.title = "Hello, " + this.name;
   }
 }
 
@@ -65,7 +77,7 @@ const { CommonModule } = ng.common;
 
 @NgModule({
   imports: [BrowserModule, CommonModule],
-  declarations: [AppComponent],
+  declarations: [AppComponent, HeadingComponent],
   bootstrap: [AppComponent],
   providers: [],
 })
