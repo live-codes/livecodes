@@ -468,7 +468,17 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen) => {
     // eventsManager.removeEventListeners();
 
-    setConfig({ ...newConfig, autosave: false });
+    const content: Partial<Pen> = {
+      title: newConfig.title,
+      language: newConfig.language,
+      markup: newConfig.markup,
+      style: newConfig.style,
+      script: newConfig.script,
+      stylesheets: newConfig.stylesheets,
+      scripts: newConfig.scripts,
+      modules: newConfig.modules || getConfig().modules,
+    };
+    setConfig({ ...getConfig(), ...content, autosave: false });
 
     // load title
     const projectTitle = document.querySelector('#project-title') as HTMLElement;

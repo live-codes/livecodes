@@ -130,4 +130,5 @@ export interface Template {
   script: Editor;
   stylesheets: string[];
   scripts: string[];
+  modules?: Module[];
 }
