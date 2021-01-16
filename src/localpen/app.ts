@@ -297,6 +297,10 @@ export const app = async (config: Pen) => {
     editors[editorId].focus();
 
     activeEditorId = editorId;
+    setConfig({
+      ...getConfig(),
+      language: getEditorLanguage(editorId),
+    });
   };
 
   const changeLanguage = (editorId: EditorId, language: Language) => {
@@ -312,6 +316,10 @@ export const app = async (config: Pen) => {
     formatter.loadParser(language);
     registerFormatter(editorId, editors);
     run(editors);
+    setConfig({
+      ...getConfig(),
+      language,
+    });
   };
 
   // Cmd + Enter formats with prettier
