@@ -19,7 +19,7 @@ export const addMarkdownStyles = (iframeDocument: Document, compilers: Compilers
   iframeDocument.body.classList.add('markdown-body');
   const styles = iframeDocument.createElement('link');
   styles.setAttribute('rel', 'stylesheet');
-  styles.setAttribute('href', config.baseUrl + '/vendor/github-markdown-css/github-markdown.css');
+  styles.setAttribute('href', config.baseUrl + 'vendor/github-markdown-css/github-markdown.css');
   iframeDocument.head.appendChild(styles);
   compilers.markdown.stylesAdded = true;
 };

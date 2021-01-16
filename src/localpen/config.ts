@@ -5,7 +5,7 @@ import { getLanguageByAlias, getLanguageEditorId } from './languages';
 import { Pen } from './models';
 
 export const defaultConfig: Pen = {
-  baseUrl: '/localpen',
+  baseUrl: '/localpen/',
   title: 'Untitled Project',
   autoupdate: true,
   update_delay: 500,

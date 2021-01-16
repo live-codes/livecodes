@@ -1,5 +1,3 @@
-// @ts-ignore
-import html from './app.html';
 const container = '#pen';
 // async function localpen(container: string, config: Partial<Pen> = {}) {
 //   new Promise(async (resolve) => {

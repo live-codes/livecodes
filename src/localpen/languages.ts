@@ -5,7 +5,7 @@ export const languages: LanguageSpecs[] = [
     name: 'html',
     title: 'HTML',
     parser: 'html',
-    plugin: './assets/prettier-html.js',
+    plugin: 'vendor/prettier/parser-html.mjs',
     extensions: ['html', 'htm'],
     editor: 'markup',
   },
@@ -13,9 +13,9 @@ export const languages: LanguageSpecs[] = [
     name: 'pug',
     title: 'Pug',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     compiler: {
-      url: '/vendor/pug/pug.min.js',
+      url: 'vendor/pug/pug.min.js',
       factory: () => (window as any).pug.render,
       umd: true,
     },
@@ -26,9 +26,9 @@ export const languages: LanguageSpecs[] = [
     name: 'markdown',
     title: 'Markdown',
     parser: 'markdown',
-    plugin: './assets/prettier-markdown.js',
+    plugin: 'vendor/prettier/parser-markdown.mjs',
     compiler: {
-      url: '/vendor/marked/marked.esm.min.js',
+      url: 'vendor/marked/marked.esm.min.js',
       factory: (module: any) => module.default,
       stylesAdded: false,
     },
@@ -39,9 +39,9 @@ export const languages: LanguageSpecs[] = [
     name: 'asciidoc',
     title: 'AsciiDoc',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     compiler: {
-      url: '/vendor/asciidoctor/asciidoctor.min.js',
+      url: 'vendor/asciidoctor/asciidoctor.min.js',
       factory: () => {
         const asciidoctor = (window as any).Asciidoctor();
         return asciidoctor.convert.bind(asciidoctor);
@@ -55,7 +55,7 @@ export const languages: LanguageSpecs[] = [
     name: 'css',
     title: 'CSS',
     parser: 'css',
-    plugin: './assets/prettier-postcss.js',
+    plugin: 'vendor/prettier/parser-postcss.mjs',
     extensions: ['css'],
     editor: 'style',
   },
@@ -63,9 +63,9 @@ export const languages: LanguageSpecs[] = [
     name: 'scss',
     title: 'SCSS',
     parser: 'scss',
-    plugin: './assets/prettier-postcss.js',
+    plugin: 'vendor/prettier/parser-postcss.mjs',
     compiler: {
-      url: '/vendor/sass.js/sass.js',
+      url: 'vendor/sass.js/sass.js',
       factory: (module: any, config: Pen) => module.createCompile(config),
     },
     extensions: ['scss'],
@@ -75,7 +75,7 @@ export const languages: LanguageSpecs[] = [
     name: 'sass',
     title: 'Sass',
     parser: 'scss',
-    plugin: './assets/prettier-postcss.js',
+    plugin: 'vendor/prettier/parser-postcss.mjs',
     compiler: 'scss',
     extensions: ['sass'],
     editor: 'style',
@@ -84,9 +84,9 @@ export const languages: LanguageSpecs[] = [
     name: 'less',
     title: 'Less',
     parser: 'less',
-    plugin: './assets/prettier-postcss.js',
+    plugin: 'vendor/prettier/parser-postcss.mjs',
     compiler: {
-      url: '/vendor/less/less.js',
+      url: 'vendor/less/less.js',
       factory: (render: any) => render,
     },
     extensions: ['less'],
@@ -96,9 +96,9 @@ export const languages: LanguageSpecs[] = [
     name: 'stylus',
     title: 'Stylus',
     parser: 'less',
-    plugin: './assets/prettier-postcss.js',
+    plugin: 'vendor/prettier/parser-postcss.mjs',
     compiler: {
-      url: '/vendor/stylus/stylus.min.js',
+      url: 'vendor/stylus/stylus.min.js',
       factory: () => (window as any).stylus.render,
       umd: true,
     },
@@ -110,7 +110,7 @@ export const languages: LanguageSpecs[] = [
     title: 'JS',
     longTitle: 'JavaScript',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     extensions: ['js'],
     editor: 'script',
   },
@@ -119,9 +119,9 @@ export const languages: LanguageSpecs[] = [
     title: 'TS',
     longTitle: 'TypeScript',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     compiler: {
-      url: '/vendor/typescript/typescript.min.js',
+      url: 'vendor/typescript/typescript.min.js',
       factory: (module: any) => module.transpile,
     },
     extensions: ['ts'],
@@ -131,7 +131,7 @@ export const languages: LanguageSpecs[] = [
     name: 'jsx',
     title: 'JSX',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     compiler: 'typescript',
     extensions: ['jsx'],
     editor: 'script',
@@ -140,7 +140,7 @@ export const languages: LanguageSpecs[] = [
     name: 'tsx',
     title: 'TSX',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     compiler: 'typescript',
     extensions: ['tsx'],
     editor: 'script',
@@ -150,9 +150,9 @@ export const languages: LanguageSpecs[] = [
     title: 'Coffee',
     longTitle: 'CoffeeScript',
     parser: 'babel',
-    plugin: './assets/prettier-babel.js',
+    plugin: 'vendor/prettier/parser-babel.mjs',
     compiler: {
-      url: '/vendor/coffeescript/coffeescript.js',
+      url: 'vendor/coffeescript/coffeescript.js',
       factory: () => (window as any).CoffeeScript.compile,
       umd: true,
     },
@@ -165,7 +165,7 @@ export const postProcessors: Processors[] = [
   {
     name: 'autoprefixer',
     compiler: {
-      url: '/vendor/autoprefixer/autoprefixer.js',
+      url: 'vendor/autoprefixer/autoprefixer.js',
       factory: (module: any) => {
         const { postcss, autoprefixer } = module;
         const postcss1 = postcss([autoprefixer({ overrideBrowserslist: ['last 4 version'] })]);

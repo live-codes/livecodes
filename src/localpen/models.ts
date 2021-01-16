@@ -120,3 +120,15 @@ export interface Compiler {
 export interface Compilers {
   [language: string]: Compiler;
 }
+
+export interface Template {
+  title: string;
+  thumbnail: string;
+  language: Language;
+  markup: Editor;
+  style: Editor;
+  script: Editor;
+  stylesheets: string[];
+  scripts: string[];
+  modules?: Module[];
+}

@@ -10,10 +10,18 @@ import { createFormatter } from './formatter';
 import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
-import { defaultConfig } from './config';
-import { resultTemplate, importTemplate, resourcesTemplate, savePromptTemplate } from './templates';
+import {
+  resultTemplate,
+  importScreen,
+  resourcesScreen,
+  savePromptScreen,
+  templatesScreen,
+  openScreen,
+} from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
+import { starterTemplates } from './templates';
+import { defaultConfig } from './config';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -25,6 +33,7 @@ export const app = async (config: Pen) => {
 
   const { baseUrl } = getConfig();
   const storage = createStorage();
+  const templates = createStorage('__localpen_templates__');
   const formatter = createFormatter(getConfig());
   let editors: Editors;
   let penId: string;
@@ -434,16 +443,6 @@ export const app = async (config: Pen) => {
     setSavedStatus(true);
   };
 
-  const loadNew = async () => {
-    try {
-      await checkSavedStatus();
-      penId = '';
-      await loadConfig(defaultConfig);
-    } catch (error) {
-      // cancelled
-    }
-  };
-
   const fork = () => {
     penId = '';
     loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
@@ -468,7 +467,17 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen) => {
     // eventsManager.removeEventListeners();
 
-    setConfig({ ...newConfig, autosave: false });
+    const content: Partial<Pen> = {
+      title: newConfig.title,
+      language: newConfig.language,
+      markup: newConfig.markup,
+      style: newConfig.style,
+      script: newConfig.script,
+      stylesheets: newConfig.stylesheets,
+      scripts: newConfig.scripts,
+      modules: newConfig.modules || getConfig().modules,
+    };
+    setConfig({ ...getConfig(), ...content, autosave: false });
 
     // load title
     const projectTitle = document.querySelector('#project-title') as HTMLElement;
@@ -504,7 +513,7 @@ export const app = async (config: Pen) => {
     }
     return new Promise((resolve, reject) => {
       const div = document.createElement('div');
-      div.innerHTML = savePromptTemplate;
+      div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, 'small');
       eventsManager.addEventListener(
         document.querySelector('#modal #prompt-save-btn') as HTMLElement,
@@ -536,6 +545,15 @@ export const app = async (config: Pen) => {
         },
       );
     });
+  };
+
+  const checkSavedAndExecute = (fn: () => void) => async () => {
+    try {
+      await checkSavedStatus(true);
+      fn();
+    } catch (error) {
+      // cancelled
+    }
   };
 
   const configureEmmet = (config: Pen) => {
@@ -723,13 +741,141 @@ export const app = async (config: Pen) => {
     };
 
     const handleNew = () => {
+      const createTemplatesUI = () => {
+        const div = document.createElement('div');
+        div.innerHTML = templatesScreen;
+        const templatesContainer = div.firstChild as HTMLElement;
+        const noDataMessage = templatesContainer.querySelector('.no-data');
+
+        const tabs = templatesContainer.querySelectorAll(
+          '#templates-tabs li',
+        ) as NodeListOf<HTMLElement>;
+        tabs.forEach((tab) => {
+          eventsManager.addEventListener(tab, 'click', () => {
+            tabs.forEach((t) => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            (document.querySelectorAll(
+              '#templates-screens > div',
+            ) as NodeListOf<HTMLElement>).forEach((screen) => {
+              screen.classList.remove('active');
+            });
+            const target = templatesContainer.querySelector(
+              '#' + tab.dataset.target,
+            ) as HTMLElement;
+            target.classList.add('active');
+            target.querySelector('input')?.focus();
+          });
+        });
+
+        const starterTemplatesList = templatesContainer.querySelector(
+          '#starter-templates-list',
+        ) as HTMLElement;
+        starterTemplates.forEach((template) => {
+          const li = document.createElement('li') as HTMLElement;
+          const link = document.createElement('a') as HTMLAnchorElement;
+          link.href = '#';
+          link.innerHTML = `
+          <img src="${baseUrl + template.thumbnail}" />
+          <div>${template.title}</div>
+          `;
+          eventsManager.addEventListener(
+            link,
+            'click',
+            () => {
+              const { title, thumbnail, ...templateConfig } = template;
+              (Object.keys(editors) as EditorId[]).forEach((editorId) => {
+                templateConfig[editorId].content = templateConfig[editorId].content?.replace(
+                  /{{ __localpen_baseUrl__ }}/,
+                  getConfig().baseUrl,
+                );
+              });
+              penId = '';
+              loadConfig({
+                ...defaultConfig,
+                ...templateConfig,
+              });
+              modal.close();
+            },
+            false,
+          );
+          li.appendChild(link);
+          starterTemplatesList.appendChild(li);
+        });
+
+        const userTemplatesScreen = templatesContainer.querySelector(
+          '#templates-user .modal-screen',
+        ) as HTMLElement;
+        const userTemplates = templates.getList();
+
+        if (userTemplates.length > 0) {
+          userTemplatesScreen.innerHTML = '';
+        }
+        const list = document.createElement('ul') as HTMLElement;
+        list.classList.add('open-list');
+        userTemplatesScreen.appendChild(list);
+
+        userTemplates.forEach((item) => {
+          const li = document.createElement('li');
+          list.appendChild(li);
+
+          const link = document.createElement('a');
+          link.href = '#';
+          link.dataset.id = item.id;
+          link.classList.add('open-project-link');
+          link.innerHTML = `
+            <div class="open-title">${item.title}</div>
+            <div class="modified-date">Last modified: ${new Date(
+              item.lastModified,
+            ).toLocaleString()}</div>
+          `;
+          li.appendChild(link);
+          eventsManager.addEventListener(
+            link,
+            'click',
+            async (event) => {
+              event.preventDefault();
+              const itemId = (link as HTMLElement).dataset.id || '';
+              const template = templates.getItem(itemId)?.pen;
+              if (template) {
+                await loadConfig({
+                  ...template,
+                  title: defaultConfig.title,
+                });
+                penId = '';
+              }
+              modal.close();
+            },
+            false,
+          );
+
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('delete-button');
+          li.appendChild(deleteButton);
+          eventsManager.addEventListener(
+            deleteButton,
+            'click',
+            () => {
+              templates.deleteItem(item.id);
+              li.classList.add('hidden');
+              setTimeout(() => {
+                li.style.display = 'none';
+                if (templates.getList().length === 0 && noDataMessage) {
+                  list.remove();
+                  userTemplatesScreen.appendChild(noDataMessage);
+                }
+              }, 500);
+            },
+            false,
+          );
+        });
+
+        modal.show(templatesContainer);
+      };
       eventsManager.addEventListener(
         document.querySelector('#new-link') as HTMLElement,
         'click',
-        async (event) => {
-          event.preventDefault();
-          await loadNew();
-        },
+        checkSavedAndExecute(createTemplatesUI),
         false,
       );
     };
@@ -756,55 +902,45 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleSaveAsTemplate = () => {
+      eventsManager.addEventListener(
+        document.querySelector('#template-link') as HTMLElement,
+        'click',
+        (event) => {
+          (event as Event).preventDefault();
+          templates.addItem(getConfig());
+          notifications.message('Saved as a new template');
+        },
+      );
+    };
+
     const handleOpen = () => {
       const createList = () => {
-        const listContainer = document.createElement('div');
-        listContainer.id = 'list-container';
+        const div = document.createElement('div');
+        div.innerHTML = openScreen;
+        const listContainer = div.firstChild as HTMLElement;
+        const noDataMessage = listContainer.querySelector('.no-data');
+        const list = document.createElement('ul') as HTMLElement;
+        list.classList.add('open-list');
 
-        const title = document.createElement('div');
-        title.classList.add('modal-title');
-        title.innerHTML = 'Saved Projects';
-        listContainer.appendChild(title);
-
-        const buttons = document.createElement('div');
-        buttons.classList.add('buttons');
-        listContainer.appendChild(buttons);
-
-        // const importButton = document.createElement('button');
-        // importButton.id = 'import-button';
-        // importButton.classList.add('button');
-        // importButton.innerHTML = 'Import';
-        // buttons.appendChild(importButton);
-
-        // const exportButton = document.createElement('button');
-        // exportButton.id = 'export-button';
-        // exportButton.classList.add('button');
-        // exportButton.innerHTML = 'Export';
-        // buttons.appendChild(exportButton);
-
-        const deleteAllButton = document.createElement('button');
-        deleteAllButton.id = 'delete-all-button';
-        deleteAllButton.classList.add('button');
-        deleteAllButton.innerHTML = 'Delete All';
-        buttons.appendChild(deleteAllButton);
+        const deleteAllButton = listContainer.querySelector('#delete-all-button') as HTMLElement;
         eventsManager.addEventListener(
           deleteAllButton,
           'click',
           () => {
             storage.clear();
             penId = '';
-            const list = listContainer.querySelector('ul');
-            if (!list) return;
-            list.innerHTML = '';
+            if (list) list.remove();
+            if (noDataMessage) listContainer.appendChild(noDataMessage);
+            deleteAllButton.classList.add('hidden');
           },
           false,
         );
 
-        const list = document.createElement('ul') as HTMLElement;
-        list.classList.add('open-list');
         listContainer.appendChild(list);
+        const userPens = storage.getList();
 
-        storage.getList().forEach((item) => {
+        userPens.forEach((item) => {
           const li = document.createElement('li');
           list.appendChild(li);
 
@@ -819,6 +955,7 @@ export const app = async (config: Pen) => {
             ).toLocaleString()}</div>
           `;
           li.appendChild(link);
+
           eventsManager.addEventListener(
             link,
             'click',
@@ -849,11 +986,23 @@ export const app = async (config: Pen) => {
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
+                if (storage.getList().length === 0 && noDataMessage) {
+                  list.remove();
+                  listContainer.appendChild(noDataMessage);
+                  deleteAllButton.classList.add('hidden');
+                }
               }, 500);
             },
             false,
           );
         });
+
+        if (userPens.length === 0) {
+          list.remove();
+          deleteAllButton.remove();
+        } else {
+          noDataMessage?.remove();
+        }
 
         modal.show(listContainer);
       };
@@ -861,14 +1010,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#open-link') as HTMLElement,
         'click',
-        async () => {
-          try {
-            await checkSavedStatus(true);
-            createList();
-          } catch (error) {
-            // cancelled
-          }
-        },
+        checkSavedAndExecute(createList),
         false,
       );
     };
@@ -876,7 +1018,7 @@ export const app = async (config: Pen) => {
     const handleImport = () => {
       const createImportUI = () => {
         const div = document.createElement('div');
-        div.innerHTML = importTemplate;
+        div.innerHTML = importScreen;
         const importContainer = div.firstChild as HTMLElement;
 
         const tabs = importContainer.querySelectorAll('#import-tabs li') as NodeListOf<HTMLElement>;
@@ -1028,7 +1170,7 @@ export const app = async (config: Pen) => {
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
-        div.innerHTML = resourcesTemplate;
+        div.innerHTML = resourcesScreen;
         const resourcesContainer = div.firstChild as HTMLElement;
         modal.show(resourcesContainer);
 
@@ -1097,6 +1239,7 @@ export const app = async (config: Pen) => {
     handleNew();
     handleSave();
     handleFork();
+    handleSaveAsTemplate();
     handleOpen();
     handleImport();
     handleExport();

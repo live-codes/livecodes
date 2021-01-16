@@ -1,10 +1,23 @@
-// @ts-ignore
-import resultTemplate from './result-template.html';
-// @ts-ignore
-import importTemplate from './import-ui.html';
-// @ts-ignore
-import resourcesTemplate from './external-resources.html';
-// @ts-ignore
-import savePromptTemplate from './save-prompt.html';
+import { angularStarter } from './angular-starter';
+import { blank } from './blank';
+import { bootstrapStarter } from './bootstrap-starter';
+import { d3Starter } from './d3-starter';
+import { jqueryStarter } from './jquery-starter';
+import { preactStarter } from './preact-starter';
+import { reactStarter } from './react-starter';
+import { tailwindcssStarter } from './tailwindcss-starter';
+import { typescriptStarter } from './typescript-starter';
+import { vueStarter } from './vue-starter';
 
-export { resultTemplate, importTemplate, resourcesTemplate, savePromptTemplate };
+export const starterTemplates = [
+  blank,
+  typescriptStarter,
+  reactStarter,
+  vueStarter,
+  angularStarter,
+  preactStarter,
+  jqueryStarter,
+  bootstrapStarter,
+  tailwindcssStarter,
+  d3Starter,
+];
