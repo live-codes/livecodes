@@ -13,8 +13,23 @@ export const defaultConfig: Pen = {
   emmet: true,
   autoprefixer: true,
   mode: 'full',
-  language: 'html',
+  editor: {
+    fontSize: 14,
+    theme: 'vs-dark',
+    formatOnType: false,
+    tabSize: 2,
+    lineNumbersMinChars: 3,
+    minimap: {
+      enabled: false,
+    },
+    scrollbar: {
+      useShadows: false,
+    },
+    mouseWheelZoom: true,
+    automaticLayout: true,
+  },
   allow_lang_change: true,
+  language: 'html',
   markup: {
     language: 'html',
     content: '',
@@ -35,21 +50,7 @@ export const defaultConfig: Pen = {
   },
   stylesheets: [],
   scripts: [],
-  editor: {
-    fontSize: 14,
-    theme: 'vs-dark',
-    formatOnType: false,
-    tabSize: 2,
-    lineNumbersMinChars: 3,
-    minimap: {
-      enabled: false,
-    },
-    scrollbar: {
-      useShadows: false,
-    },
-    mouseWheelZoom: true,
-    automaticLayout: true,
-  },
+  cssPreset: null,
   modules: [],
 };
 

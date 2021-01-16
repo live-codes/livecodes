@@ -42,4 +42,6 @@ $("#counter-button").click(() => {
   },
   stylesheets: [],
   scripts: [],
+  cssPreset: null,
+  modules: [],
 };

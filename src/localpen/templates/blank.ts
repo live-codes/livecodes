@@ -18,4 +18,6 @@ export const blank: Template = {
   },
   stylesheets: [],
   scripts: [],
+  cssPreset: null,
+  modules: [],
 };

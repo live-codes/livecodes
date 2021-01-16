@@ -46,4 +46,6 @@ new Vue({
   },
   stylesheets: [],
   scripts: ['https://unpkg.com/vue/dist/vue.min.js'],
+  cssPreset: null,
+  modules: [],
 };

@@ -48,4 +48,6 @@ button.addEventListener(
   },
   stylesheets: [],
   scripts: [],
+  cssPreset: null,
+  modules: [],
 };

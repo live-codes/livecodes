@@ -44,4 +44,6 @@ ReactDOM.render(<App name="React" />, document.querySelector("#root"));
   },
   stylesheets: [],
   scripts: [],
+  cssPreset: null,
+  modules: [],
 };

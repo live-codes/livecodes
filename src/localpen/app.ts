@@ -3,9 +3,24 @@ import Split from 'split.js';
 import { monaco } from './monaco';
 
 import { createEditor } from './editor';
-import { languages, getLanguageByAlias, getLanguageEditorId, postProcessors } from './languages';
+import {
+  languages,
+  getLanguageByAlias,
+  getLanguageEditorId,
+  postProcessors,
+  cssPresets,
+} from './languages';
 import { createStorage } from './storage';
-import { EditorId, EditorLanguages, EditorLibrary, Editors, Language, Module, Pen } from './models';
+import {
+  CssPresetId,
+  EditorId,
+  EditorLanguages,
+  EditorLibrary,
+  Editors,
+  Language,
+  Module,
+  Pen,
+} from './models';
 import { createFormatter } from './formatter';
 import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
 import { createNotifications } from './notifications';
@@ -353,6 +368,15 @@ export const app = async (config: Pen) => {
     iframeDocument.title = config.title;
 
     if (rerender) {
+      const presetUrl = config.cssPreset
+        ? cssPresets.find((preset) => preset.id === config.cssPreset)?.url
+        : null;
+      const cssPreset = presetUrl
+        ? `<link rel="stylesheet" id="__localpen__css-preset" href="${
+            config.baseUrl + presetUrl
+          }" />\n`
+        : '';
+
       const externalStylesheets = config.stylesheets.reduce(
         (acc, url, index) =>
           acc +
@@ -374,14 +398,20 @@ export const app = async (config: Pen) => {
       </script>`;
 
       const result = template
-        .replace('<!-- __localpen__external_stylesheets -->', externalStylesheets)
-        .replace('<!-- __localpen__editor_style -->', style)
-        .replace('<!-- __localpen__editor_markup -->', markup)
-        .replace('<!-- __localpen__external_scripts -->', externalScripts)
-        .replace('<!-- __localpen__editor_script -->', script);
+        .replace('<!-- __localpen__css_preset__ -->', cssPreset)
+        .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
+        .replace('<!-- __localpen__editor_style__ -->', style)
+        .replace('<!-- __localpen__editor_markup__ -->', markup)
+        .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
+        .replace('<!-- __localpen__editor_script__ -->', script);
       iframeDocument?.open();
       iframeDocument?.write(result);
       iframeDocument?.close();
+
+      iframeDocument.body.classList.remove('markdown-body');
+      if (config.cssPreset === 'github-markdown-css') {
+        iframeDocument.body.classList.add('markdown-body');
+      }
     } else {
       // do not re-download stylesheets if they have not changed
       if (previousContent.stylesheets !== currentContent.stylesheets) {
@@ -475,6 +505,7 @@ export const app = async (config: Pen) => {
       script: newConfig.script,
       stylesheets: newConfig.stylesheets,
       scripts: newConfig.scripts,
+      cssPreset: newConfig.cssPreset,
       modules: newConfig.modules || getConfig().modules,
     };
     setConfig({ ...getConfig(), ...content, autosave: false });
@@ -737,6 +768,29 @@ export const app = async (config: Pen) => {
             configureEmmet(getConfig());
           }
         });
+      });
+
+      const cssPresets = document.querySelectorAll(
+        '#css-preset-menu a',
+      ) as NodeListOf<HTMLAnchorElement>;
+      cssPresets.forEach((link) => {
+        eventsManager.addEventListener(
+          link,
+          'click',
+          (event: Event) => {
+            event.preventDefault();
+            setConfig({
+              ...getConfig(),
+              cssPreset: link.dataset.preset as CssPresetId,
+            });
+            cssPresets.forEach((preset) => {
+              preset.classList.remove('active');
+            });
+            link.classList.add('active');
+            run(editors, true);
+          },
+          false,
+        );
       });
     };
 
@@ -1264,6 +1318,18 @@ export const app = async (config: Pen) => {
 
     const emmetToggle = document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
     emmetToggle.checked = config.emmet;
+
+    (document.querySelectorAll('#css-preset-menu a') as NodeListOf<HTMLAnchorElement>).forEach(
+      (link) => {
+        link.classList.remove('active');
+        if (config.cssPreset === link.dataset.preset) {
+          link.classList.add('active');
+        }
+        if (!config.cssPreset && link.dataset.preset === 'none') {
+          link.classList.add('active');
+        }
+      },
+    );
   };
 
   const setActiveEditor = (config: Pen) => {

@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var node_modules = path.resolve(__dirname + '/../node_modules');
-var vendor_modules = path.resolve(__dirname + '/../vendor_modules');
+var vendor_modules = path.resolve(__dirname + '/../vendor_modules/src');
 var targetDir = path.resolve(__dirname + '/../src/localpen/vendor');
 
 // github-markdown-css
@@ -10,6 +10,27 @@ mkdirp(targetDir + '/github-markdown-css');
 fs.copyFileSync(
   path.resolve(node_modules + '/github-markdown-css/github-markdown.css'),
   path.resolve(targetDir + '/github-markdown-css/github-markdown.css'),
+);
+
+// asciidoctor.css
+mkdirp(targetDir + '/asciidoctor.css');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/asciidoctor.css/asciidoctor.css'),
+  path.resolve(targetDir + '/asciidoctor.css/asciidoctor.css'),
+);
+
+// normalize.css
+mkdirp(targetDir + '/normalize.css');
+fs.copyFileSync(
+  path.resolve(node_modules + '/normalize.css/normalize.css'),
+  path.resolve(targetDir + '/normalize.css/normalize.css'),
+);
+
+// reset-css
+mkdirp(targetDir + '/reset-css');
+fs.copyFileSync(
+  path.resolve(node_modules + '/reset-css/reset.css'),
+  path.resolve(targetDir + '/reset-css/reset.css'),
 );
 
 // sass.js
@@ -22,14 +43,14 @@ fs.copyFileSync(
 // stylus
 mkdirp(targetDir + '/stylus');
 fs.copyFileSync(
-  path.resolve(vendor_modules + '/src/stylus/stylus.min.js'),
+  path.resolve(vendor_modules + '/stylus/stylus.min.js'),
   path.resolve(targetDir + '/stylus/stylus.min.js'),
 );
 
 // pug
 mkdirp(targetDir + '/pug');
 fs.copyFileSync(
-  path.resolve(vendor_modules + '/src/pug/pug.min.js'),
+  path.resolve(vendor_modules + '/pug/pug.min.js'),
   path.resolve(targetDir + '/pug/pug.min.js'),
 );
 
@@ -43,21 +64,21 @@ fs.copyFileSync(
 // coffeescript
 mkdirp(targetDir + '/coffeescript');
 fs.copyFileSync(
-  path.resolve(vendor_modules + '/src/coffeescript/coffeescript.js'),
+  path.resolve(vendor_modules + '/coffeescript/coffeescript.js'),
   path.resolve(targetDir + '/coffeescript/coffeescript.js'),
 );
 
 // autoprefixer
 mkdirp(targetDir + '/autoprefixer');
 fs.copyFileSync(
-  path.resolve(vendor_modules + '/src/autoprefixer/autoprefixer.js'),
+  path.resolve(vendor_modules + '/autoprefixer/autoprefixer.js'),
   path.resolve(targetDir + '/autoprefixer/autoprefixer.js'),
 );
 
 // jszip
 mkdirp(targetDir + '/jszip');
 fs.copyFileSync(
-  path.resolve(vendor_modules + '/src/jszip/jszip.js'),
+  path.resolve(vendor_modules + '/jszip/jszip.js'),
   path.resolve(targetDir + '/jszip/jszip.js'),
 );
 

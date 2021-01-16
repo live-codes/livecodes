@@ -18,6 +18,7 @@ export interface Pen {
   script: Editor;
   stylesheets: string[];
   scripts: string[];
+  cssPreset: CssPresetId;
   editor: {
     [key: string]: any;
   };
@@ -87,6 +88,7 @@ export interface LanguageSpecs {
   compiler?: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
+  preset?: CssPresetId;
 }
 
 export interface Processors {
@@ -101,6 +103,20 @@ export type ParserName = 'babel' | 'html' | 'markdown' | 'css' | 'scss' | 'less'
 export interface Parser {
   name: ParserName;
   plugin: any;
+}
+
+export type CssPresetId =
+  | null
+  | 'none'
+  | 'normalize.css'
+  | 'reset-css'
+  | 'github-markdown-css'
+  | 'asciidoctor.css';
+
+export interface CssPreset {
+  id: CssPresetId;
+  name: string;
+  url: string;
 }
 
 export interface EditorLibrary {
@@ -130,5 +146,6 @@ export interface Template {
   script: Editor;
   stylesheets: string[];
   scripts: string[];
-  modules?: Module[];
+  cssPreset: CssPresetId;
+  modules: Module[];
 }

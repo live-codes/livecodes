@@ -914,3 +914,7 @@ li.editor-title > button:focus + .dropdown-menu,
   padding: 20px;
   text-align: center;
 }
+
+#css-preset-menu a.active::after {
+  content: ' ✔';
+}
