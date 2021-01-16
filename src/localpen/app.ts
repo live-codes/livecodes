@@ -410,13 +410,17 @@ export const app = async (config: Pen) => {
       ${await getCompiled(getEditorLanguage('script'), editors.script?.getValue())}
       </script>`;
 
+      const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
+
       const result = template
         .replace('<!-- __localpen__css_preset__ -->', cssPreset)
         .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
         .replace('<!-- __localpen__editor_style__ -->', style)
+        .replace('<!-- __localpen__utils__ -->', utils)
         .replace('<!-- __localpen__editor_markup__ -->', markup)
         .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
         .replace('<!-- __localpen__editor_script__ -->', script);
+
       iframeDocument?.open();
       iframeDocument?.write(result);
       iframeDocument?.close();

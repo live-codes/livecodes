@@ -37,7 +37,7 @@ const { Component } = ng.core;
   template: \`
     <div class="container">
       <heading name="{{name}}"></heading>
-      <img src="/localpen/assets/templates/angular-icon.svg" class="logo" />
+      <img src="/localpen/assets/templates/angular.svg" class="logo" />
       <p>You clicked {{count}} times.</p>
       <button type="button" (click)="increment()">Click me</button>
     </div>
