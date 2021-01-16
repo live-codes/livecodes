@@ -10,7 +10,6 @@ import { createFormatter } from './formatter';
 import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
-// import { defaultConfig } from './config';
 import {
   resultTemplate,
   importScreen,
@@ -18,7 +17,7 @@ import {
   savePromptScreen,
   templatesScreen,
   openScreen,
-} from './screens';
+} from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { starterTemplates } from './templates';

@@ -1,6 +1,5 @@
 import { loadConfig } from './config';
-// @ts-ignore
-import html from './app.html';
+import { appHTML } from './html';
 import { Pen } from './models';
 
 export const localpen = async (container: string, config: Partial<Pen> = {}) =>
@@ -47,7 +46,7 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
 
     containerElement?.appendChild(iframe);
     iframe.contentWindow?.document.open();
-    iframe.contentWindow?.document.write(html.replace(/{{baseUrl}}/g, baseUrl));
+    iframe.contentWindow?.document.write(appHTML.replace(/{{baseUrl}}/g, baseUrl));
     iframe.contentWindow?.document.close();
 
     iframe.addEventListener('load', async () => {

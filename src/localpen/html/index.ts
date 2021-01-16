@@ -1,4 +1,6 @@
 // @ts-ignore
+import appHTML from './app.html';
+// @ts-ignore
 import resultTemplate from './result-template.html';
 // @ts-ignore
 import importScreen from './import.html';
@@ -12,6 +14,7 @@ import templatesScreen from './templates.html';
 import openScreen from './open.html';
 
 export {
+  appHTML,
   resultTemplate,
   importScreen,
   resourcesScreen,
