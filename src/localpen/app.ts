@@ -66,7 +66,7 @@ export const app = async (config: Pen) => {
     script: '#script',
     result: '#result',
   };
-  const iframeDocument = (await createIframe(elements.result, resultTemplate)) as Document;
+  let iframeDocument = (await createIframe(elements.result, resultTemplate)) as Document;
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#result'], {
@@ -99,6 +99,7 @@ export const app = async (config: Pen) => {
       const iframe = document.createElement('iframe');
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
+      containerEl.innerHTML = '';
       containerEl.appendChild(iframe);
       const iframeDocument = iframe.contentWindow?.document;
       iframe.addEventListener('load', () => {
@@ -383,9 +384,7 @@ export const app = async (config: Pen) => {
       .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
       .replace('<!-- __localpen__editor_script__ -->', script);
 
-    iframeDocument.open();
-    iframeDocument.write(result);
-    iframeDocument.close();
+    iframeDocument = (await createIframe(elements.result, result)) as Document;
 
     iframeDocument.title = config.title;
 
