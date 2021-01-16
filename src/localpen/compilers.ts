@@ -14,20 +14,6 @@ export const replaceImports = (code: string, config: Pen) => {
   });
 };
 
-export const addMarkdownStyles = (iframeDocument: Document, compilers: Compilers, config: Pen) => {
-  if (compilers.markdown.stylesAdded) return;
-  iframeDocument.body.classList.add('markdown-body');
-  const styles = iframeDocument.createElement('link');
-  styles.setAttribute('rel', 'stylesheet');
-  styles.setAttribute('href', config.baseUrl + 'vendor/github-markdown-css/github-markdown.css');
-  iframeDocument.head.appendChild(styles);
-  compilers.markdown.stylesAdded = true;
-};
-
-export const disableMarkdownStyles = (iframeDocument: Document) => {
-  iframeDocument.body.classList.remove('markdown-body');
-};
-
 export const getCompilersData = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
   languages.reduce((compilers, language) => {
     if (language.compiler && !compilers[language.name]) {
@@ -54,7 +40,6 @@ export const compile = async (
   content: string,
   compilers: Compilers,
   config: Pen,
-  iframeDocument: Document,
   eventsManager: any,
 ): Promise<string> => {
   if (language === 'jsx') {
@@ -84,7 +69,6 @@ export const compile = async (
       value = compiler(replaceImports(content, config), { bare: true });
       break;
     case 'markdown':
-      addMarkdownStyles(iframeDocument, compilers, config);
       value = compiler(content);
       break;
     case 'pug':

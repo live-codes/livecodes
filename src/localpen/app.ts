@@ -22,7 +22,7 @@ import {
   Pen,
 } from './models';
 import { createFormatter } from './formatter';
-import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
+import { getCompilersData, loadCompilers, compile } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
@@ -239,11 +239,16 @@ export const app = async (config: Pen) => {
   };
 
   const updateEditors = (editors: Editors, config: Pen) => {
+    const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     editorIds.forEach((editorId) => {
       editors[editorId].updateOptions(config.editor);
       editors[editorId].getModel().setValue(config[editorId].content);
       changeLanguage(editorId, config[editorId].language);
+    });
+    setConfig({
+      ...getConfig(),
+      language,
     });
   };
 
@@ -371,7 +376,7 @@ export const app = async (config: Pen) => {
     };
 
     const getCompiled = (language: Language, content: string) =>
-      compile(language, content, compilers, config, iframeDocument, eventsManager);
+      compile(language, content, compilers, config, eventsManager);
 
     iframeDocument.title = config.title;
 
@@ -439,9 +444,6 @@ export const app = async (config: Pen) => {
         await getCompiled(getEditorLanguage('style'), editors.style?.getValue()),
       );
 
-      if (getEditorLanguage('markup') !== 'markdown') {
-        disableMarkdownStyles(iframeDocument);
-      }
       iframeDocument.body.innerHTML = await getCompiled(
         getEditorLanguage('markup'),
         editors.markup?.getValue(),

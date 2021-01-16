@@ -128,7 +128,6 @@ export interface Compiler {
   url: string;
   fn?: (code: string, options?: any) => any;
   factory: (compilerModule: any, config: Pen) => (code: string) => string;
-  stylesAdded?: boolean;
   umd?: boolean;
   editors?: EditorId[];
 }

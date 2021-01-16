@@ -30,7 +30,6 @@ export const languages: LanguageSpecs[] = [
     compiler: {
       url: 'vendor/marked/marked.esm.min.js',
       factory: (module: any) => module.default,
-      stylesAdded: false,
     },
     extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
     editor: 'markup',
