@@ -56,7 +56,6 @@ export const app = async (config: Pen) => {
   let activeEditorId: EditorId;
   const notifications = createNotifications('#notifications');
   const modal = createModal();
-  let previousContent = { stylesheets: '', scripts: '', script: '' };
   const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
@@ -333,142 +332,67 @@ export const app = async (config: Pen) => {
     // eslint-disable-next-line
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
       await formatter.format(editor, getEditorLanguage(editorId));
-      run(editors, true);
+      run(editors);
     });
   };
 
-  const run = async (editors: Editors, triggerRerender = false, template = resultTemplate) => {
+  const run = async (editors: Editors, template = resultTemplate) => {
     if (!iframeDocument) return;
     const config = getConfig();
-
-    const currentContent = {
-      stylesheets: JSON.stringify(config.stylesheets),
-      scripts: JSON.stringify(config.scripts),
-      script: JSON.stringify(config.script),
-    };
-
-    triggerRerender = true; // always rerender for now
-    // rerender the page when scripts change (user or external)
-    const rerender =
-      triggerRerender ||
-      previousContent.scripts !== currentContent.scripts ||
-      previousContent.script !== currentContent.script;
-
-    const addElement = (
-      tag: string,
-      id: string,
-      container: HTMLElement,
-      content: string,
-      attributes: { [key: string]: string } = {},
-    ) => {
-      let el: Element | null;
-      if (!rerender) {
-        el = iframeDocument.getElementById(id);
-        el?.remove();
-      }
-      el = iframeDocument.createElement(tag);
-      el.id = id;
-      Object.keys(attributes).forEach((attr) => {
-        el?.setAttribute(attr, attributes[attr]);
-      });
-      container.appendChild(el);
-      el.innerHTML = content;
-    };
 
     const getCompiled = (language: Language, content: string) =>
       compile(language, content, compilers, config, eventsManager);
 
-    iframeDocument.title = config.title;
+    const presetUrl = config.cssPreset
+      ? cssPresets.find((preset) => preset.id === config.cssPreset)?.url
+      : null;
+    const cssPreset = presetUrl
+      ? `<link rel="stylesheet" id="__localpen__css-preset" href="${
+          config.baseUrl + presetUrl
+        }" />\n`
+      : '';
 
-    if (rerender) {
-      const presetUrl = config.cssPreset
-        ? cssPresets.find((preset) => preset.id === config.cssPreset)?.url
-        : null;
-      const cssPreset = presetUrl
-        ? `<link rel="stylesheet" id="__localpen__css-preset" href="${
-            config.baseUrl + presetUrl
-          }" />\n`
-        : '';
-
-      const externalStylesheets = config.stylesheets.reduce(
-        (acc, url, index) =>
-          acc +
-          `<link rel="stylesheet" id="__localpen__external-stylesheet-${index}" href="${url}" />\n`,
-        '',
-      );
-      const externalScripts = config.scripts.reduce(
-        (acc, url) => acc + `<script src="${url}"></script>\n`,
-        '',
-      );
-      const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
-      const style = `<style> ${await getCompiled(
-        getEditorLanguage('style'),
-        editors.style?.getValue(),
-      )}</style>`;
-      const script = `
+    const externalStylesheets = config.stylesheets.reduce(
+      (acc, url, index) =>
+        acc +
+        `<link rel="stylesheet" id="__localpen__external-stylesheet-${index}" href="${url}" />\n`,
+      '',
+    );
+    const externalScripts = config.scripts.reduce(
+      (acc, url) => acc + `<script src="${url}"></script>\n`,
+      '',
+    );
+    const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
+    const style = `<style> ${await getCompiled(
+      getEditorLanguage('style'),
+      editors.style?.getValue(),
+    )}</style>`;
+    const script = `
       <script type="module">
       ${await getCompiled(getEditorLanguage('script'), editors.script?.getValue())}
       </script>`;
 
-      const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
+    const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
 
-      const result = template
-        .replace('<!-- __localpen__css_preset__ -->', cssPreset)
-        .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
-        .replace('<!-- __localpen__editor_style__ -->', style)
-        .replace('<!-- __localpen__utils__ -->', utils)
-        .replace('<!-- __localpen__editor_markup__ -->', markup)
-        .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
-        .replace('<!-- __localpen__editor_script__ -->', script);
+    const result = template
+      .replace('<!-- __localpen__css_preset__ -->', cssPreset)
+      .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
+      .replace('<!-- __localpen__editor_style__ -->', style)
+      .replace('<!-- __localpen__utils__ -->', utils)
+      .replace('<!-- __localpen__editor_markup__ -->', markup)
+      .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
+      .replace('<!-- __localpen__editor_script__ -->', script);
 
-      iframeDocument?.open();
-      iframeDocument?.write(result);
-      iframeDocument?.close();
+    iframeDocument.open();
+    iframeDocument.write(result);
+    iframeDocument.close();
 
-      iframeDocument.body.classList.remove('markdown-body');
-      if (config.cssPreset === 'github-markdown-css') {
-        iframeDocument.body.classList.add('markdown-body');
-      }
-    } else {
-      // do not re-download stylesheets if they have not changed
-      if (previousContent.stylesheets !== currentContent.stylesheets) {
-        config.stylesheets.forEach((url, index) => {
-          addElement('link', '__localpen__external-stylesheet-' + index, iframeDocument.head, '', {
-            rel: 'stylesheet',
-            href: url,
-            'data-resource': 'stylesheet',
-          });
-        });
-      }
+    iframeDocument.title = config.title;
 
-      addElement(
-        'style',
-        '__localpen__editor_style',
-        iframeDocument.head,
-        await getCompiled(getEditorLanguage('style'), editors.style?.getValue()),
-      );
-
-      iframeDocument.body.innerHTML = await getCompiled(
-        getEditorLanguage('markup'),
-        editors.markup?.getValue(),
-      );
-      config.scripts.forEach((url, index) => {
-        addElement('script', '__localpen__external-script-' + index, iframeDocument.body, '', {
-          src: url,
-        });
-      });
-
-      addElement(
-        'script',
-        '__localpen__editor_script',
-        iframeDocument.head,
-        await getCompiled(getEditorLanguage('script'), editors.script?.getValue()),
-        {
-          type: 'module',
-        },
-      );
+    iframeDocument.body.classList.remove('markdown-body');
+    if (config.cssPreset === 'github-markdown-css') {
+      iframeDocument.body.classList.add('markdown-body');
     }
-    previousContent = { ...currentContent };
   };
 
   const save = (notify = false, skipAutoSave = false) => {
@@ -533,7 +457,7 @@ export const app = async (config: Pen) => {
 
     // load config
     await bootstrap(true);
-    run(editors, true);
+    run(editors);
     editors[activeEditorId].focus();
     setTimeout(() => {
       setSavedStatus(true);
@@ -760,7 +684,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#run-button') as HTMLElement,
         'click',
-        () => run(editors, true),
+        () => run(editors),
       );
     };
 
@@ -801,7 +725,7 @@ export const app = async (config: Pen) => {
               preset.classList.remove('active');
             });
             link.classList.add('active');
-            run(editors, true);
+            run(editors);
           },
           false,
         );
