@@ -5,6 +5,7 @@ import { d3Starter } from './d3-starter';
 import { jqueryStarter } from './jquery-starter';
 import { preactStarter } from './preact-starter';
 import { reactStarter } from './react-starter';
+import { readmeTemplate } from './readme-template';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
 import { vueStarter } from './vue-starter';
@@ -20,4 +21,5 @@ export const starterTemplates = [
   bootstrapStarter,
   tailwindcssStarter,
   d3Starter,
+  readmeTemplate,
 ];
