@@ -363,38 +363,42 @@ export const app = async (config: Pen) => {
       (acc, url) => acc + `<script src="${url}"></script>\n`,
       '',
     );
-    const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
-    const style = `<style> ${await getCompiled(
-      getEditorLanguage('style'),
-      editors.style?.getValue(),
-    )}</style>`;
+    try {
+      const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
+      const style = `<style>
+      ${await getCompiled(getEditorLanguage('style'), editors.style?.getValue())}
+      </style>`;
 
-    const scriptContent = await getCompiled(
-      getEditorLanguage('script'),
-      editors.script?.getValue(),
-    );
-    const hasImports = importsPattern.test(scriptContent);
-    const script =
-      (hasImports ? '<script type="module">' : '<script>') + scriptContent + '</script>';
+      const scriptContent = await getCompiled(
+        getEditorLanguage('script'),
+        editors.script?.getValue(),
+      );
+      const hasImports = importsPattern.test(scriptContent);
+      const script =
+        (hasImports ? '<script type="module">' : '<script>') + scriptContent + '</script>';
+      const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
 
-    const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
+      const result = template
+        .replace('<!-- __localpen__css_preset__ -->', cssPreset)
+        .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
+        .replace('<!-- __localpen__editor_style__ -->', style)
+        .replace('<!-- __localpen__utils__ -->', utils)
+        .replace('<!-- __localpen__editor_markup__ -->', markup)
+        .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
+        .replace('<!-- __localpen__editor_script__ -->', script);
 
-    const result = template
-      .replace('<!-- __localpen__css_preset__ -->', cssPreset)
-      .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
-      .replace('<!-- __localpen__editor_style__ -->', style)
-      .replace('<!-- __localpen__utils__ -->', utils)
-      .replace('<!-- __localpen__editor_markup__ -->', markup)
-      .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
-      .replace('<!-- __localpen__editor_script__ -->', script);
+      iframeDocument = (await createIframe(elements.result, result)) as Document;
 
-    iframeDocument = (await createIframe(elements.result, result)) as Document;
+      iframeDocument.title = config.title;
 
-    iframeDocument.title = config.title;
-
-    iframeDocument.body.classList.remove('markdown-body');
-    if (config.cssPreset === 'github-markdown-css') {
-      iframeDocument.body.classList.add('markdown-body');
+      iframeDocument.body.classList.remove('markdown-body');
+      if (config.cssPreset === 'github-markdown-css') {
+        iframeDocument.body.classList.add('markdown-body');
+      }
+    } catch (err) {
+      // error
+      // eslint-disable-next-line no-console
+      console.error(err);
     }
   };
 
