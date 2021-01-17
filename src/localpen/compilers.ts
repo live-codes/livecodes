@@ -1,9 +1,10 @@
 import { getLanguageEditorId, postProcessors } from './languages';
 import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors, EditorId } from './models';
 
-export const replaceImports = (code: string, config: Pen) => {
-  const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
-  return code.replace(importsPattern, (statement) => {
+export const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
+
+export const replaceImports = (code: string, config: Pen) =>
+  code.replace(importsPattern, (statement) => {
     const libName = statement.replace(importsPattern, '$2').replace(/"/g, '').replace(/'/g, '');
     if (libName.startsWith('http')) {
       return statement;
@@ -12,7 +13,6 @@ export const replaceImports = (code: string, config: Pen) => {
     const libPath = localModule?.url || 'https://cdn.skypack.dev/' + libName;
     return statement.replace(importsPattern, `$1'${libPath}'$3`);
   });
-};
 
 export const getCompilersData = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
   languages.reduce((compilers, language) => {
