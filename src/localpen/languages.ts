@@ -88,7 +88,7 @@ export const languages: LanguageSpecs[] = [
     plugin: 'vendor/prettier/parser-postcss.mjs',
     compiler: {
       url: 'vendor/less/less.js',
-      factory: (render: any) => render,
+      factory: (module: any) => module.render,
     },
     extensions: ['less'],
     editor: 'style',

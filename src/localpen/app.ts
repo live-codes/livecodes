@@ -364,10 +364,9 @@ export const app = async (config: Pen) => {
       '',
     );
     const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
-    const style = `<style> ${await getCompiled(
-      getEditorLanguage('style'),
-      editors.style?.getValue(),
-    )}</style>`;
+    const style = `<style>
+    ${await getCompiled(getEditorLanguage('style'), editors.style?.getValue())}
+    </style>`;
 
     const scriptContent = await getCompiled(
       getEditorLanguage('script'),
