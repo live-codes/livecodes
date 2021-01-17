@@ -22,7 +22,7 @@ import {
   Pen,
 } from './models';
 import { createFormatter } from './formatter';
-import { getCompilersData, loadCompilers, compile } from './compilers';
+import { getCompilersData, loadCompilers, compile, importsPattern } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
@@ -368,10 +368,14 @@ export const app = async (config: Pen) => {
       getEditorLanguage('style'),
       editors.style?.getValue(),
     )}</style>`;
-    const script = `
-      <script type="module">
-      ${await getCompiled(getEditorLanguage('script'), editors.script?.getValue())}
-      </script>`;
+
+    const scriptContent = await getCompiled(
+      getEditorLanguage('script'),
+      editors.script?.getValue(),
+    );
+    const hasImports = importsPattern.test(scriptContent);
+    const script =
+      (hasImports ? '<script type="module">' : '<script>') + scriptContent + '</script>';
 
     const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
 
