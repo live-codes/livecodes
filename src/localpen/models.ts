@@ -7,21 +7,17 @@ export interface Pen {
   update_delay: number;
   autosave: boolean;
   emmet: boolean;
-
   autoprefixer: boolean;
-
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  language: Language;
+  editor: { [key: string]: any };
   allow_lang_change: boolean;
+  language: Language;
   markup: Editor;
   style: Editor;
   script: Editor;
   stylesheets: string[];
   scripts: string[];
   cssPreset: CssPresetId;
-  editor: {
-    [key: string]: any;
-  };
   modules: Module[];
 }
 
@@ -83,8 +79,7 @@ export interface LanguageSpecs {
   name: Language;
   title: string;
   longTitle?: string;
-  parser: ParserName;
-  plugin: string;
+  parser?: Parser;
   compiler?: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
@@ -99,10 +94,19 @@ export interface Processors {
 
 export type ProcessorName = 'autoprefixer';
 
-export type ParserName = 'babel' | 'html' | 'markdown' | 'css' | 'scss' | 'less';
+export type ParserName =
+  | 'babel'
+  | 'babel-ts'
+  | 'html'
+  | 'markdown'
+  | 'css'
+  | 'scss'
+  | 'less'
+  | 'pug';
 export interface Parser {
   name: ParserName;
-  plugin: any;
+  plugins?: any[];
+  pluginUrls: string[];
 }
 
 export type CssPresetId =
