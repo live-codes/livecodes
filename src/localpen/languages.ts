@@ -5,6 +5,7 @@ const parserPlugins = {
   html: 'vendor/prettier/parser-html.mjs',
   markdown: 'vendor/prettier/parser-markdown.mjs',
   postcss: 'vendor/prettier/parser-postcss.mjs',
+  pug: 'vendor/prettier/parser-pug.mjs',
 };
 export const languages: LanguageSpecs[] = [
   {
@@ -20,6 +21,10 @@ export const languages: LanguageSpecs[] = [
   {
     name: 'pug',
     title: 'Pug',
+    parser: {
+      name: 'pug',
+      pluginUrls: [parserPlugins.pug],
+    },
     compiler: {
       url: 'vendor/pug/pug.min.js',
       factory: () => (window as any).pug.render,

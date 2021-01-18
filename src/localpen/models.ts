@@ -94,7 +94,15 @@ export interface Processors {
 
 export type ProcessorName = 'autoprefixer';
 
-export type ParserName = 'babel' | 'babel-ts' | 'html' | 'markdown' | 'css' | 'scss' | 'less';
+export type ParserName =
+  | 'babel'
+  | 'babel-ts'
+  | 'html'
+  | 'markdown'
+  | 'css'
+  | 'scss'
+  | 'less'
+  | 'pug';
 export interface Parser {
   name: ParserName;
   plugins?: any[];
