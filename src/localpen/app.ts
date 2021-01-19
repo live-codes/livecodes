@@ -97,6 +97,17 @@ export const app = async (config: Pen) => {
   function createIframe(container: string, template = resultTemplate) {
     return new Promise((resolve) => {
       const iframe = document.createElement('iframe');
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; camera; encrypted-media; geolocation; gyroscope; microphone; midi',
+      );
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('allowtransparency', 'true');
+      iframe.setAttribute(
+        'sandbox',
+        'allow-downloads allow-forms allow-modals allow-pointer-lock allow-presentation allow-same-origin allow-scripts',
+      );
+
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
       containerEl.innerHTML = '';
