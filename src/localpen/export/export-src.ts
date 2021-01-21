@@ -2,10 +2,7 @@ import { getLanguageExtension } from '../languages';
 import { EditorId, Pen } from '../models';
 import { downloadFile } from './utils';
 
-export const exportSrc = async (
-  config: Pen,
-  { JSZip, iframeDocument, editors, getEditorLanguage }: any,
-) => {
+export const exportSrc = async (config: Pen, { JSZip, html, editors, getEditorLanguage }: any) => {
   if (!JSZip) {
     JSZip = (await import(config.baseUrl + 'vendor/jszip/jszip.js')).default;
   }
@@ -24,7 +21,7 @@ export const exportSrc = async (
     const content = editors[editorId].getValue() || '';
     zip.file(filename + '.' + extension, content);
   });
-  zip.file('result.html', iframeDocument.documentElement.outerHTML);
+  zip.file('result.html', html);
   zip.file('config.json', JSON.stringify(config, null, 2));
   const output = await zip.generateAsync({ type: 'base64' });
 

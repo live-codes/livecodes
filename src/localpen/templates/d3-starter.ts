@@ -6,7 +6,7 @@ export const d3Starter: Template = {
   language: 'js',
   markup: {
     language: 'html',
-    content: '<div id="chart"></div>\n',
+    content: '<div id="chart">Loading...</div>\n',
   },
   style: {
     language: 'css',
@@ -29,6 +29,7 @@ const data = [150, 230, 180, 90];
 
 const svg = d3
   .select("#chart")
+  .html('')
   .append("svg")
   .attr("width", 300)
   .attr("height", 200);

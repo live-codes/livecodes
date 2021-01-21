@@ -1,7 +1,8 @@
 // @ts-ignore
-import appHTML from './app.html';
+// eslint-disable-next-line import/no-internal-modules
+import resultTemplate from '../assets/result.html';
 // @ts-ignore
-import resultTemplate from './result-template.html';
+import appHTML from './app.html';
 // @ts-ignore
 import importScreen from './import.html';
 // @ts-ignore

@@ -6,7 +6,7 @@ export const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))
 export const replaceImports = (code: string, config: Pen) =>
   code.replace(importsPattern, (statement) => {
     const libName = statement.replace(importsPattern, '$2').replace(/"/g, '').replace(/'/g, '');
-    if (libName.startsWith('http')) {
+    if (libName.startsWith('http') || libName.startsWith('.') || libName.startsWith('/')) {
       return statement;
     }
     const localModule = config.modules.find((module) => module.name === libName);

@@ -66,7 +66,6 @@ export const app = async (config: Pen) => {
     script: '#script',
     result: '#result',
   };
-  let iframeDocument = (await createIframe(elements.result, resultTemplate)) as Document;
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#result'], {
@@ -94,8 +93,11 @@ export const app = async (config: Pen) => {
   };
   const split = createSplitPanes();
 
-  function createIframe(container: string, template = resultTemplate) {
+  function createIframe(container: string, result = resultTemplate) {
     return new Promise((resolve) => {
+      const containerEl = document.querySelector(container);
+      if (!containerEl) return;
+
       const iframe = document.createElement('iframe');
       iframe.setAttribute(
         'allow',
@@ -105,20 +107,20 @@ export const app = async (config: Pen) => {
       iframe.setAttribute('allowtransparency', 'true');
       iframe.setAttribute(
         'sandbox',
-        'allow-downloads allow-forms allow-modals allow-pointer-lock allow-presentation allow-same-origin allow-scripts',
+        'allow-downloads allow-forms allow-modals allow-pointer-lock allow-presentation allow-scripts',
       );
+      iframe.src = baseUrl + 'assets/result.html';
 
-      const containerEl = document.querySelector(container);
-      if (!containerEl) return;
+      let loaded = false;
+      iframe.addEventListener('load', () => {
+        if (loaded) return; // prevent infinite loop
+        iframe.contentWindow?.postMessage({ result }, '*');
+        loaded = true;
+        resolve('loaded');
+      });
+
       containerEl.innerHTML = '';
       containerEl.appendChild(iframe);
-      const iframeDocument = iframe.contentWindow?.document;
-      iframe.addEventListener('load', () => {
-        resolve(iframeDocument);
-      });
-      iframeDocument?.open();
-      iframeDocument?.write(template);
-      iframeDocument?.close();
     });
   }
   const compilers = getCompilersData([...languages, ...postProcessors], getConfig());
@@ -348,69 +350,76 @@ export const app = async (config: Pen) => {
     });
   };
 
-  const run = async (editors: Editors, template = resultTemplate) => {
-    if (!iframeDocument) return;
+  const getResultPage = async (
+    editors: Editors,
+    userContentOnly = false,
+    template: string = resultTemplate,
+  ) => {
     const config = getConfig();
 
     const getCompiled = (language: Language, content: string) =>
       compile(language, content, compilers, config, eventsManager);
 
-    const presetUrl = config.cssPreset
-      ? cssPresets.find((preset) => preset.id === config.cssPreset)?.url
-      : null;
-    const cssPreset = presetUrl
-      ? `<link rel="stylesheet" id="__localpen__css-preset" href="${
-          config.baseUrl + presetUrl
-        }" />\n`
-      : '';
+    const domParser = new DOMParser();
+    const dom = domParser.parseFromString(template, 'text/html');
 
-    const externalStylesheets = config.stylesheets.reduce(
-      (acc, url, index) =>
-        acc +
-        `<link rel="stylesheet" id="__localpen__external-stylesheet-${index}" href="${url}" />\n`,
-      '',
-    );
-    const externalScripts = config.scripts.reduce(
-      (acc, url) => acc + `<script src="${url}"></script>\n`,
-      '',
-    );
-    try {
-      const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
-      const style = `<style>
-      ${await getCompiled(getEditorLanguage('style'), editors.style?.getValue())}
-      </style>`;
+    dom.title = config.title;
 
-      const scriptContent = await getCompiled(
-        getEditorLanguage('script'),
-        editors.script?.getValue(),
-      );
-      const hasImports = importsPattern.test(scriptContent);
-      const script =
-        (hasImports ? '<script type="module">' : '<script>') + scriptContent + '</script>';
-      const utils = `<script src="${config.baseUrl}assets/scripts/utils.js"></script>`;
-
-      const result = template
-        .replace('<!-- __localpen__css_preset__ -->', cssPreset)
-        .replace('<!-- __localpen__external_stylesheets__ -->', externalStylesheets)
-        .replace('<!-- __localpen__editor_style__ -->', style)
-        .replace('<!-- __localpen__utils__ -->', utils)
-        .replace('<!-- __localpen__editor_markup__ -->', markup)
-        .replace('<!-- __localpen__external_scripts__ -->', externalScripts)
-        .replace('<!-- __localpen__editor_script__ -->', script);
-
-      iframeDocument = (await createIframe(elements.result, result)) as Document;
-
-      iframeDocument.title = config.title;
-
-      iframeDocument.body.classList.remove('markdown-body');
-      if (config.cssPreset === 'github-markdown-css') {
-        iframeDocument.body.classList.add('markdown-body');
-      }
-    } catch (err) {
-      // error
-      // eslint-disable-next-line no-console
-      console.error(err);
+    if (config.cssPreset) {
+      const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
+      const cssPreset = dom.createElement('link');
+      cssPreset.rel = 'stylesheet';
+      cssPreset.id = '__localpen__css-preset';
+      cssPreset.href = config.baseUrl + presetUrl;
+      dom.head.appendChild(cssPreset);
     }
+
+    config.stylesheets.forEach((url, index) => {
+      const stylesheet = dom.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.id = '__localpen__external-stylesheet-' + index;
+      stylesheet.href = url;
+      dom.head.appendChild(stylesheet);
+    });
+
+    const style = await getCompiled(getEditorLanguage('style'), editors.style?.getValue());
+    const editorStyle = dom.createElement('style');
+    editorStyle.innerHTML = style;
+    dom.head.appendChild(editorStyle);
+
+    if (config.cssPreset === 'github-markdown-css') {
+      dom.body.classList.add('markdown-body');
+    }
+
+    if (userContentOnly) {
+      dom.body.innerHTML = '';
+    }
+
+    const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
+    dom.body.innerHTML += markup;
+
+    config.scripts.forEach((url) => {
+      const script = dom.createElement('script');
+      script.src = url;
+      dom.body.appendChild(script);
+    });
+
+    const rawScript = editors.script?.getValue();
+    const compiledScript = await getCompiled(getEditorLanguage('script'), rawScript);
+    const hasImports = importsPattern.test(rawScript); // typescript compiler removes unused imports
+    const editorScript = dom.createElement('script');
+    if (hasImports) {
+      editorScript.type = 'module';
+    }
+    editorScript.innerHTML = compiledScript;
+    dom.body.appendChild(editorScript);
+
+    return dom.documentElement.outerHTML;
+  };
+
+  const run = async (editors: Editors) => {
+    const result = await getResultPage(editors);
+    await createIframe(elements.result, result);
   };
 
   const save = (notify = false, skipAutoSave = false) => {
@@ -1136,10 +1145,10 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#export-menu #export-result') as HTMLAnchorElement,
         'click',
-        (event: Event) => {
+        async (event: Event) => {
           event.preventDefault();
           update();
-          exportPen(getConfig(), 'html', iframeDocument.documentElement.outerHTML);
+          exportPen(getConfig(), 'html', await getResultPage(editors, true));
         },
         false,
       );
@@ -1151,7 +1160,8 @@ export const app = async (config: Pen) => {
         async (event: Event) => {
           event.preventDefault();
           update();
-          exportPen(getConfig(), 'src', { JSZip, iframeDocument, editors, getEditorLanguage });
+          const html = await getResultPage(editors, true);
+          exportPen(getConfig(), 'src', { JSZip, html, editors, getEditorLanguage });
         },
         false,
       );
@@ -1298,6 +1308,8 @@ export const app = async (config: Pen) => {
   };
 
   async function bootstrap(reload = false) {
+    await createIframe(elements.result, resultTemplate);
+
     if (!reload) {
       editors = await createEditors(getConfig());
     } else {
