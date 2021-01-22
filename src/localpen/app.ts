@@ -615,7 +615,7 @@ export const app = async (config: Pen) => {
     };
 
     const handlechangeLanguage = () => {
-      if (getConfig().allow_lang_change) {
+      if (getConfig().allowLangChange) {
         (document.querySelectorAll('#select-editor a') as NodeListOf<HTMLElement>).forEach(
           (menuItem) => {
             eventsManager.addEventListener(

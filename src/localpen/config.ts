@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { importCode } from './import';
 import { decodeHTML } from './utils';
 import { getLanguageByAlias, getLanguageEditorId } from './languages';
@@ -28,7 +27,7 @@ export const defaultConfig: Pen = {
     mouseWheelZoom: true,
     automaticLayout: true,
   },
-  allow_lang_change: true,
+  allowLangChange: true,
   language: 'html',
   markup: {
     language: 'html',

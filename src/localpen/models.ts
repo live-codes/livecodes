@@ -10,7 +10,7 @@ export interface Pen {
   autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   editor: { [key: string]: any };
-  allow_lang_change: boolean;
+  allowLangChange: boolean;
   language: Language;
   markup: Editor;
   style: Editor;
