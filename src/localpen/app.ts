@@ -3,17 +3,40 @@ import Split from 'split.js';
 import { monaco } from './monaco';
 
 import { createEditor } from './editor';
-import { languages, getLanguageByAlias, getLanguageEditorId, postProcessors } from './languages';
+import {
+  languages,
+  getLanguageByAlias,
+  getLanguageEditorId,
+  postProcessors,
+  cssPresets,
+} from './languages';
 import { createStorage } from './storage';
-import { EditorId, EditorLanguages, EditorLibrary, Editors, Language, Module, Pen } from './models';
+import {
+  CssPresetId,
+  EditorId,
+  EditorLanguages,
+  EditorLibrary,
+  Editors,
+  Language,
+  Module,
+  Pen,
+} from './models';
 import { createFormatter } from './formatter';
-import { disableMarkdownStyles, getCompilersData, loadCompilers, compile } from './compilers';
+import { getCompilersData, loadCompilers, compile, importsPattern } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
-import { defaultConfig } from './config';
-import { resultTemplate, importTemplate, resourcesTemplate, savePromptTemplate } from './templates';
+import {
+  resultTemplate,
+  importScreen,
+  resourcesScreen,
+  savePromptScreen,
+  templatesScreen,
+  openScreen,
+} from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
+import { starterTemplates } from './templates';
+import { defaultConfig } from './config';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -25,6 +48,7 @@ export const app = async (config: Pen) => {
 
   const { baseUrl } = getConfig();
   const storage = createStorage();
+  const templates = createStorage('__localpen_templates__');
   const formatter = createFormatter(getConfig());
   let editors: Editors;
   let penId: string;
@@ -32,7 +56,6 @@ export const app = async (config: Pen) => {
   let activeEditorId: EditorId;
   const notifications = createNotifications('#notifications');
   const modal = createModal();
-  let previousContent = { stylesheets: '', scripts: '', script: '' };
   const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
@@ -43,7 +66,6 @@ export const app = async (config: Pen) => {
     script: '#script',
     result: '#result',
   };
-  const iframeDocument = (await createIframe(elements.result, resultTemplate)) as Document;
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#result'], {
@@ -71,19 +93,32 @@ export const app = async (config: Pen) => {
   };
   const split = createSplitPanes();
 
-  function createIframe(container: string, template = resultTemplate) {
+  function createIframe(container: string, result = resultTemplate) {
     return new Promise((resolve) => {
-      const iframe = document.createElement('iframe');
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
-      containerEl.appendChild(iframe);
-      const iframeDocument = iframe.contentWindow?.document;
+
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; camera; encrypted-media; geolocation; gyroscope; microphone; midi',
+      );
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('allowtransparency', 'true');
+      iframe.setAttribute(
+        'sandbox',
+        'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+      );
+
+      const iframeSrc = URL.createObjectURL(new Blob([result], { type: 'text/html' }));
+      iframe.src = iframeSrc;
       iframe.addEventListener('load', () => {
-        resolve(iframeDocument);
+        URL.revokeObjectURL(iframeSrc);
+        resolve('loaded');
       });
-      iframeDocument?.open();
-      iframeDocument?.write(template);
-      iframeDocument?.close();
+
+      containerEl.innerHTML = '';
+      containerEl.appendChild(iframe);
     });
   }
   const compilers = getCompilersData([...languages, ...postProcessors], getConfig());
@@ -215,11 +250,16 @@ export const app = async (config: Pen) => {
   };
 
   const updateEditors = (editors: Editors, config: Pen) => {
+    const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     editorIds.forEach((editorId) => {
       editors[editorId].updateOptions(config.editor);
       editors[editorId].getModel().setValue(config[editorId].content);
       changeLanguage(editorId, config[editorId].language);
+    });
+    setConfig({
+      ...getConfig(),
+      language,
     });
   };
 
@@ -273,6 +313,10 @@ export const app = async (config: Pen) => {
     editors[editorId].focus();
 
     activeEditorId = editorId;
+    setConfig({
+      ...getConfig(),
+      language: getEditorLanguage(editorId),
+    });
   };
 
   const changeLanguage = (editorId: EditorId, language: Language) => {
@@ -288,6 +332,10 @@ export const app = async (config: Pen) => {
     formatter.loadParser(language);
     registerFormatter(editorId, editors);
     run(editors);
+    setConfig({
+      ...getConfig(),
+      language,
+    });
   };
 
   // Cmd + Enter formats with prettier
@@ -296,126 +344,82 @@ export const app = async (config: Pen) => {
     // eslint-disable-next-line
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
       await formatter.format(editor, getEditorLanguage(editorId));
-      run(editors, true);
+      run(editors);
     });
   };
 
-  const run = async (editors: Editors, triggerRerender = false, template = resultTemplate) => {
-    if (!iframeDocument) return;
+  const getResultPage = async (
+    editors: Editors,
+    forExport = false,
+    template: string = resultTemplate,
+  ) => {
     const config = getConfig();
 
-    const currentContent = {
-      stylesheets: JSON.stringify(config.stylesheets),
-      scripts: JSON.stringify(config.scripts),
-      script: JSON.stringify(config.script),
-    };
-
-    triggerRerender = true; // always rerender for now
-    // rerender the page when scripts change (user or external)
-    const rerender =
-      triggerRerender ||
-      previousContent.scripts !== currentContent.scripts ||
-      previousContent.script !== currentContent.script;
-
-    const addElement = (
-      tag: string,
-      id: string,
-      container: HTMLElement,
-      content: string,
-      attributes: { [key: string]: string } = {},
-    ) => {
-      let el: Element | null;
-      if (!rerender) {
-        el = iframeDocument.getElementById(id);
-        el?.remove();
-      }
-      el = iframeDocument.createElement(tag);
-      el.id = id;
-      Object.keys(attributes).forEach((attr) => {
-        el?.setAttribute(attr, attributes[attr]);
-      });
-      container.appendChild(el);
-      el.innerHTML = content;
-    };
-
     const getCompiled = (language: Language, content: string) =>
-      compile(language, content, compilers, config, iframeDocument, eventsManager);
+      compile(language, content, compilers, config, eventsManager);
 
-    iframeDocument.title = config.title;
+    const domParser = new DOMParser();
+    const dom = domParser.parseFromString(template, 'text/html');
 
-    if (rerender) {
-      const externalStylesheets = config.stylesheets.reduce(
-        (acc, url, index) =>
-          acc +
-          `<link rel="stylesheet" id="__localpen__external-stylesheet-${index}" href="${url}" />\n`,
-        '',
-      );
-      const externalScripts = config.scripts.reduce(
-        (acc, url) => acc + `<script src="${url}"></script>\n`,
-        '',
-      );
-      const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
-      const style = `<style> ${await getCompiled(
-        getEditorLanguage('style'),
-        editors.style?.getValue(),
-      )}</style>`;
-      const script = `
-      <script type="module">
-      ${await getCompiled(getEditorLanguage('script'), editors.script?.getValue())}
-      </script>`;
+    dom.title = config.title;
 
-      const result = template
-        .replace('<!-- __localpen__external_stylesheets -->', externalStylesheets)
-        .replace('<!-- __localpen__editor_style -->', style)
-        .replace('<!-- __localpen__editor_markup -->', markup)
-        .replace('<!-- __localpen__external_scripts -->', externalScripts)
-        .replace('<!-- __localpen__editor_script -->', script);
-      iframeDocument?.open();
-      iframeDocument?.write(result);
-      iframeDocument?.close();
-    } else {
-      // do not re-download stylesheets if they have not changed
-      if (previousContent.stylesheets !== currentContent.stylesheets) {
-        config.stylesheets.forEach((url, index) => {
-          addElement('link', '__localpen__external-stylesheet-' + index, iframeDocument.head, '', {
-            rel: 'stylesheet',
-            href: url,
-            'data-resource': 'stylesheet',
-          });
-        });
-      }
-
-      addElement(
-        'style',
-        '__localpen__editor_style',
-        iframeDocument.head,
-        await getCompiled(getEditorLanguage('style'), editors.style?.getValue()),
-      );
-
-      if (getEditorLanguage('markup') !== 'markdown') {
-        disableMarkdownStyles(iframeDocument);
-      }
-      iframeDocument.body.innerHTML = await getCompiled(
-        getEditorLanguage('markup'),
-        editors.markup?.getValue(),
-      );
-      config.scripts.forEach((url, index) => {
-        addElement('script', '__localpen__external-script-' + index, iframeDocument.body, '', {
-          src: url,
-        });
-      });
-
-      addElement(
-        'script',
-        '__localpen__editor_script',
-        iframeDocument.head,
-        await getCompiled(getEditorLanguage('script'), editors.script?.getValue()),
-        {
-          type: 'module',
-        },
-      );
+    if (!forExport) {
+      const base = dom.createElement('base');
+      base.href = location.href;
+      dom.head.appendChild(base);
     }
-    previousContent = { ...currentContent };
+
+    if (config.cssPreset) {
+      const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
+      const cssPreset = dom.createElement('link');
+      cssPreset.rel = 'stylesheet';
+      cssPreset.id = '__localpen__css-preset';
+      cssPreset.href = config.baseUrl + presetUrl;
+      dom.head.appendChild(cssPreset);
+    }
+
+    config.stylesheets.forEach((url, index) => {
+      const stylesheet = dom.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.id = '__localpen__external-stylesheet-' + index;
+      stylesheet.href = url;
+      dom.head.appendChild(stylesheet);
+    });
+
+    const style = await getCompiled(getEditorLanguage('style'), editors.style?.getValue());
+    const editorStyle = dom.createElement('style');
+    editorStyle.innerHTML = style;
+    dom.head.appendChild(editorStyle);
+
+    if (config.cssPreset === 'github-markdown-css') {
+      dom.body.classList.add('markdown-body');
+    }
+
+    const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
+    dom.body.innerHTML += markup;
+
+    config.scripts.forEach((url) => {
+      const script = dom.createElement('script');
+      script.src = url;
+      dom.body.appendChild(script);
+    });
+
+    const rawScript = editors.script?.getValue();
+    const compiledScript = await getCompiled(getEditorLanguage('script'), rawScript);
+    const hasImports = importsPattern.test(rawScript); // typescript compiler removes unused imports
+    const editorScript = dom.createElement('script');
+    if (hasImports) {
+      editorScript.type = 'module';
+    }
+    editorScript.innerHTML = compiledScript;
+    dom.body.appendChild(editorScript);
+
+    return dom.documentElement.outerHTML;
+  };
+
+  const run = async (editors: Editors) => {
+    const result = await getResultPage(editors);
+    await createIframe(elements.result, result);
   };
 
   const save = (notify = false, skipAutoSave = false) => {
@@ -432,16 +436,6 @@ export const app = async (config: Pen) => {
       notifications.message('Project saved');
     }
     setSavedStatus(true);
-  };
-
-  const loadNew = async () => {
-    try {
-      await checkSavedStatus();
-      penId = '';
-      await loadConfig(defaultConfig);
-    } catch (error) {
-      // cancelled
-    }
   };
 
   const fork = () => {
@@ -468,7 +462,18 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen) => {
     // eventsManager.removeEventListeners();
 
-    setConfig({ ...newConfig, autosave: false });
+    const content: Partial<Pen> = {
+      title: newConfig.title,
+      language: newConfig.language,
+      markup: newConfig.markup,
+      style: newConfig.style,
+      script: newConfig.script,
+      stylesheets: newConfig.stylesheets,
+      scripts: newConfig.scripts,
+      cssPreset: newConfig.cssPreset,
+      modules: newConfig.modules || getConfig().modules,
+    };
+    setConfig({ ...getConfig(), ...content, autosave: false });
 
     // load title
     const projectTitle = document.querySelector('#project-title') as HTMLElement;
@@ -479,11 +484,11 @@ export const app = async (config: Pen) => {
 
     // load config
     await bootstrap(true);
-    run(editors, true);
+    run(editors);
     editors[activeEditorId].focus();
     setTimeout(() => {
       setSavedStatus(true);
-    }, getConfig().update_delay);
+    }, getConfig().delay);
   };
 
   const setSavedStatus = (status: boolean) => {
@@ -504,7 +509,7 @@ export const app = async (config: Pen) => {
     }
     return new Promise((resolve, reject) => {
       const div = document.createElement('div');
-      div.innerHTML = savePromptTemplate;
+      div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, 'small');
       eventsManager.addEventListener(
         document.querySelector('#modal #prompt-save-btn') as HTMLElement,
@@ -536,6 +541,15 @@ export const app = async (config: Pen) => {
         },
       );
     });
+  };
+
+  const checkSavedAndExecute = (fn: () => void) => async () => {
+    try {
+      await checkSavedStatus(true);
+      fn();
+    } catch (error) {
+      // cancelled
+    }
   };
 
   const configureEmmet = (config: Pen) => {
@@ -602,7 +616,7 @@ export const app = async (config: Pen) => {
     };
 
     const handlechangeLanguage = () => {
-      if (getConfig().allow_lang_change) {
+      if (getConfig().allowLangChange) {
         (document.querySelectorAll('#select-editor a') as NodeListOf<HTMLElement>).forEach(
           (menuItem) => {
             eventsManager.addEventListener(
@@ -641,7 +655,7 @@ export const app = async (config: Pen) => {
         }
       };
 
-      const debounce = (fn: (...x: any[]) => any, delay = getConfig().update_delay ?? 500) => {
+      const debounce = (fn: (...x: any[]) => any, delay = getConfig().delay ?? 500) => {
         let timeout: any;
 
         return (...args: unknown[]) => {
@@ -697,7 +711,10 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#run-button') as HTMLElement,
         'click',
-        () => run(editors, true),
+        async () => {
+          await formatter.format(editors[activeEditorId], getEditorLanguage(activeEditorId));
+          run(editors);
+        },
       );
     };
 
@@ -720,16 +737,167 @@ export const app = async (config: Pen) => {
           }
         });
       });
+
+      const cssPresets = document.querySelectorAll(
+        '#css-preset-menu a',
+      ) as NodeListOf<HTMLAnchorElement>;
+      cssPresets.forEach((link) => {
+        eventsManager.addEventListener(
+          link,
+          'click',
+          (event: Event) => {
+            event.preventDefault();
+            setConfig({
+              ...getConfig(),
+              cssPreset: link.dataset.preset as CssPresetId,
+            });
+            cssPresets.forEach((preset) => {
+              preset.classList.remove('active');
+            });
+            link.classList.add('active');
+            run(editors);
+          },
+          false,
+        );
+      });
     };
 
     const handleNew = () => {
+      const createTemplatesUI = () => {
+        const div = document.createElement('div');
+        div.innerHTML = templatesScreen;
+        const templatesContainer = div.firstChild as HTMLElement;
+        const noDataMessage = templatesContainer.querySelector('.no-data');
+
+        const tabs = templatesContainer.querySelectorAll(
+          '#templates-tabs li',
+        ) as NodeListOf<HTMLElement>;
+        tabs.forEach((tab) => {
+          eventsManager.addEventListener(tab, 'click', () => {
+            tabs.forEach((t) => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            (document.querySelectorAll(
+              '#templates-screens > div',
+            ) as NodeListOf<HTMLElement>).forEach((screen) => {
+              screen.classList.remove('active');
+            });
+            const target = templatesContainer.querySelector(
+              '#' + tab.dataset.target,
+            ) as HTMLElement;
+            target.classList.add('active');
+            target.querySelector('input')?.focus();
+          });
+        });
+
+        const starterTemplatesList = templatesContainer.querySelector(
+          '#starter-templates-list',
+        ) as HTMLElement;
+        starterTemplates.forEach((template) => {
+          const li = document.createElement('li') as HTMLElement;
+          const link = document.createElement('a') as HTMLAnchorElement;
+          link.href = '#';
+          link.innerHTML = `
+          <img src="${baseUrl + template.thumbnail}" />
+          <div>${template.title}</div>
+          `;
+          eventsManager.addEventListener(
+            link,
+            'click',
+            () => {
+              const { title, thumbnail, ...templateConfig } = template;
+              (Object.keys(editors) as EditorId[]).forEach((editorId) => {
+                templateConfig[editorId].content = templateConfig[editorId].content?.replace(
+                  /{{ __localpen_baseUrl__ }}/,
+                  getConfig().baseUrl,
+                );
+              });
+              penId = '';
+              loadConfig({
+                ...defaultConfig,
+                ...templateConfig,
+              });
+              modal.close();
+            },
+            false,
+          );
+          li.appendChild(link);
+          starterTemplatesList.appendChild(li);
+        });
+
+        const userTemplatesScreen = templatesContainer.querySelector(
+          '#templates-user .modal-screen',
+        ) as HTMLElement;
+        const userTemplates = templates.getList();
+
+        if (userTemplates.length > 0) {
+          userTemplatesScreen.innerHTML = '';
+        }
+        const list = document.createElement('ul') as HTMLElement;
+        list.classList.add('open-list');
+        userTemplatesScreen.appendChild(list);
+
+        userTemplates.forEach((item) => {
+          const li = document.createElement('li');
+          list.appendChild(li);
+
+          const link = document.createElement('a');
+          link.href = '#';
+          link.dataset.id = item.id;
+          link.classList.add('open-project-link');
+          link.innerHTML = `
+            <div class="open-title">${item.title}</div>
+            <div class="modified-date">Last modified: ${new Date(
+              item.lastModified,
+            ).toLocaleString()}</div>
+          `;
+          li.appendChild(link);
+          eventsManager.addEventListener(
+            link,
+            'click',
+            async (event) => {
+              event.preventDefault();
+              const itemId = (link as HTMLElement).dataset.id || '';
+              const template = templates.getItem(itemId)?.pen;
+              if (template) {
+                await loadConfig({
+                  ...template,
+                  title: defaultConfig.title,
+                });
+                penId = '';
+              }
+              modal.close();
+            },
+            false,
+          );
+
+          const deleteButton = document.createElement('button');
+          deleteButton.classList.add('delete-button');
+          li.appendChild(deleteButton);
+          eventsManager.addEventListener(
+            deleteButton,
+            'click',
+            () => {
+              templates.deleteItem(item.id);
+              li.classList.add('hidden');
+              setTimeout(() => {
+                li.style.display = 'none';
+                if (templates.getList().length === 0 && noDataMessage) {
+                  list.remove();
+                  userTemplatesScreen.appendChild(noDataMessage);
+                }
+              }, 500);
+            },
+            false,
+          );
+        });
+
+        modal.show(templatesContainer);
+      };
       eventsManager.addEventListener(
         document.querySelector('#new-link') as HTMLElement,
         'click',
-        async (event) => {
-          event.preventDefault();
-          await loadNew();
-        },
+        checkSavedAndExecute(createTemplatesUI),
         false,
       );
     };
@@ -756,55 +924,45 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleSaveAsTemplate = () => {
+      eventsManager.addEventListener(
+        document.querySelector('#template-link') as HTMLElement,
+        'click',
+        (event) => {
+          (event as Event).preventDefault();
+          templates.addItem(getConfig());
+          notifications.message('Saved as a new template');
+        },
+      );
+    };
+
     const handleOpen = () => {
       const createList = () => {
-        const listContainer = document.createElement('div');
-        listContainer.id = 'list-container';
+        const div = document.createElement('div');
+        div.innerHTML = openScreen;
+        const listContainer = div.firstChild as HTMLElement;
+        const noDataMessage = listContainer.querySelector('.no-data');
+        const list = document.createElement('ul') as HTMLElement;
+        list.classList.add('open-list');
 
-        const title = document.createElement('div');
-        title.classList.add('modal-title');
-        title.innerHTML = 'Saved Projects';
-        listContainer.appendChild(title);
-
-        const buttons = document.createElement('div');
-        buttons.classList.add('buttons');
-        listContainer.appendChild(buttons);
-
-        // const importButton = document.createElement('button');
-        // importButton.id = 'import-button';
-        // importButton.classList.add('button');
-        // importButton.innerHTML = 'Import';
-        // buttons.appendChild(importButton);
-
-        // const exportButton = document.createElement('button');
-        // exportButton.id = 'export-button';
-        // exportButton.classList.add('button');
-        // exportButton.innerHTML = 'Export';
-        // buttons.appendChild(exportButton);
-
-        const deleteAllButton = document.createElement('button');
-        deleteAllButton.id = 'delete-all-button';
-        deleteAllButton.classList.add('button');
-        deleteAllButton.innerHTML = 'Delete All';
-        buttons.appendChild(deleteAllButton);
+        const deleteAllButton = listContainer.querySelector('#delete-all-button') as HTMLElement;
         eventsManager.addEventListener(
           deleteAllButton,
           'click',
           () => {
             storage.clear();
             penId = '';
-            const list = listContainer.querySelector('ul');
-            if (!list) return;
-            list.innerHTML = '';
+            if (list) list.remove();
+            if (noDataMessage) listContainer.appendChild(noDataMessage);
+            deleteAllButton.classList.add('hidden');
           },
           false,
         );
 
-        const list = document.createElement('ul') as HTMLElement;
-        list.classList.add('open-list');
         listContainer.appendChild(list);
+        const userPens = storage.getList();
 
-        storage.getList().forEach((item) => {
+        userPens.forEach((item) => {
           const li = document.createElement('li');
           list.appendChild(li);
 
@@ -819,6 +977,7 @@ export const app = async (config: Pen) => {
             ).toLocaleString()}</div>
           `;
           li.appendChild(link);
+
           eventsManager.addEventListener(
             link,
             'click',
@@ -849,11 +1008,23 @@ export const app = async (config: Pen) => {
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
+                if (storage.getList().length === 0 && noDataMessage) {
+                  list.remove();
+                  listContainer.appendChild(noDataMessage);
+                  deleteAllButton.classList.add('hidden');
+                }
               }, 500);
             },
             false,
           );
         });
+
+        if (userPens.length === 0) {
+          list.remove();
+          deleteAllButton.remove();
+        } else {
+          noDataMessage?.remove();
+        }
 
         modal.show(listContainer);
       };
@@ -861,14 +1032,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#open-link') as HTMLElement,
         'click',
-        async () => {
-          try {
-            await checkSavedStatus(true);
-            createList();
-          } catch (error) {
-            // cancelled
-          }
-        },
+        checkSavedAndExecute(createList),
         false,
       );
     };
@@ -876,7 +1040,7 @@ export const app = async (config: Pen) => {
     const handleImport = () => {
       const createImportUI = () => {
         const div = document.createElement('div');
-        div.innerHTML = importTemplate;
+        div.innerHTML = importScreen;
         const importContainer = div.firstChild as HTMLElement;
 
         const tabs = importContainer.querySelectorAll('#import-tabs li') as NodeListOf<HTMLElement>;
@@ -984,10 +1148,10 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#export-menu #export-result') as HTMLAnchorElement,
         'click',
-        (event: Event) => {
+        async (event: Event) => {
           event.preventDefault();
           update();
-          exportPen(getConfig(), 'html', iframeDocument.documentElement.outerHTML);
+          exportPen(getConfig(), 'html', await getResultPage(editors, true));
         },
         false,
       );
@@ -999,7 +1163,8 @@ export const app = async (config: Pen) => {
         async (event: Event) => {
           event.preventDefault();
           update();
-          exportPen(getConfig(), 'src', { JSZip, iframeDocument, editors, getEditorLanguage });
+          const html = await getResultPage(editors, true);
+          exportPen(getConfig(), 'src', { JSZip, html, editors, getEditorLanguage });
         },
         false,
       );
@@ -1028,7 +1193,7 @@ export const app = async (config: Pen) => {
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
-        div.innerHTML = resourcesTemplate;
+        div.innerHTML = resourcesScreen;
         const resourcesContainer = div.firstChild as HTMLElement;
         modal.show(resourcesContainer);
 
@@ -1097,6 +1262,7 @@ export const app = async (config: Pen) => {
     handleNew();
     handleSave();
     handleFork();
+    handleSaveAsTemplate();
     handleOpen();
     handleImport();
     handleExport();
@@ -1121,6 +1287,18 @@ export const app = async (config: Pen) => {
 
     const emmetToggle = document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
     emmetToggle.checked = config.emmet;
+
+    (document.querySelectorAll('#css-preset-menu a') as NodeListOf<HTMLAnchorElement>).forEach(
+      (link) => {
+        link.classList.remove('active');
+        if (config.cssPreset === link.dataset.preset) {
+          link.classList.add('active');
+        }
+        if (!config.cssPreset && link.dataset.preset === 'none') {
+          link.classList.add('active');
+        }
+      },
+    );
   };
 
   const setActiveEditor = (config: Pen) => {
@@ -1133,6 +1311,8 @@ export const app = async (config: Pen) => {
   };
 
   async function bootstrap(reload = false) {
+    await createIframe(elements.result, resultTemplate);
+
     if (!reload) {
       editors = await createEditors(getConfig());
     } else {

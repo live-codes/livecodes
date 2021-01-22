@@ -1,20 +1,34 @@
-/* eslint-disable camelcase */
 import { importCode } from './import';
 import { decodeHTML } from './utils';
 import { getLanguageByAlias, getLanguageEditorId } from './languages';
 import { Pen } from './models';
 
 export const defaultConfig: Pen = {
-  baseUrl: '/localpen',
+  baseUrl: '/localpen/',
   title: 'Untitled Project',
   autoupdate: true,
-  update_delay: 500,
   autosave: false,
+  delay: 500,
   emmet: true,
   autoprefixer: true,
   mode: 'full',
+  editor: {
+    fontSize: 14,
+    theme: 'vs-dark',
+    formatOnType: false,
+    tabSize: 2,
+    lineNumbersMinChars: 3,
+    minimap: {
+      enabled: false,
+    },
+    scrollbar: {
+      useShadows: false,
+    },
+    mouseWheelZoom: true,
+    automaticLayout: true,
+  },
+  allowLangChange: true,
   language: 'html',
-  allow_lang_change: true,
   markup: {
     language: 'html',
     content: '',
@@ -35,21 +49,7 @@ export const defaultConfig: Pen = {
   },
   stylesheets: [],
   scripts: [],
-  editor: {
-    fontSize: 14,
-    theme: 'vs-dark',
-    formatOnType: false,
-    tabSize: 2,
-    lineNumbersMinChars: 3,
-    minimap: {
-      enabled: false,
-    },
-    scrollbar: {
-      useShadows: false,
-    },
-    mouseWheelZoom: true,
-    automaticLayout: true,
-  },
+  cssPreset: null,
   modules: [],
 };
 

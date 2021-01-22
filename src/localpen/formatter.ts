@@ -1,75 +1,56 @@
 import { monaco } from './monaco';
 import { Language, Parser, Pen } from './models';
+import { languages } from './languages';
 
 export const createFormatter = (config: Pen) => {
-  const { baseUrl } = config;
-  const prettierPath = baseUrl + '/vendor/prettier';
+  const baseUrl = config.baseUrl;
+  const prettierPath = baseUrl + 'vendor/prettier/standalone.mjs';
 
   let prettier: any;
+  const parsers: { [key: string]: Parser } = {};
+  const plugins: { [key: string]: any } = {};
 
   const load = async (languages: Language[]) => {
     try {
-      prettier = (await import(`${prettierPath}/standalone.mjs`)).default;
-      languages.forEach((language) => getParser(language));
+      prettier = (await import(prettierPath)).default;
+      languages.forEach((language) => loadParser(language));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn('Failed to load prettier');
     }
   };
 
-  const parsers: { [key: string]: Parser } = {};
-  const getParser = async (language: Language): Promise<Parser | null> => {
+  async function loadParser(language: Language): Promise<Parser | undefined> {
     if (!prettier) {
       await load([language]);
     }
     if (language in parsers) {
       return parsers[language];
     }
-    let parser: Parser | null;
-    try {
-      if (language === 'html') {
-        parser = {
-          name: 'html',
-          plugin: (await import(`${prettierPath}/parser-html.mjs`)).default,
-        };
-      } else if (language === 'markdown') {
-        parser = {
-          name: 'markdown',
-          plugin: (await import(`${prettierPath}/parser-markdown.mjs`)).default,
-        };
-      } else if (language === 'css') {
-        parser = {
-          name: 'css',
-          plugin: (await import(`${prettierPath}/parser-postcss.mjs`)).default,
-        };
-      } else if (language === 'scss') {
-        parser = {
-          name: 'scss',
-          plugin: (await import(`${prettierPath}/parser-postcss.mjs`)).default,
-        };
-      } else if (language === 'less') {
-        parser = {
-          name: 'less',
-          plugin: (await import(`${prettierPath}/parser-postcss.mjs`)).default,
-        };
-      } else if (language === 'pug') {
-        parser = null;
-      } else {
-        parser = {
-          name: 'babel',
-          plugin: (await import(`${prettierPath}/parser-babel.mjs`)).default,
-        };
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.warn('Failed to load prettier parser for language: ' + language);
-      parser = null;
-    }
-    if (parser) {
+
+    const parser = languages.find((lang) => lang.name === language)?.parser;
+    if (!parser) return;
+
+    parser.plugins = (
+      await Promise.all(
+        parser.pluginUrls.map(async (pluginUrl) => {
+          try {
+            const pluginModule = plugins[pluginUrl] || (await import(baseUrl + pluginUrl)).default;
+            plugins[pluginUrl] = pluginModule;
+            return pluginModule;
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.warn('Failed to load prettier parser for language: ' + language);
+          }
+        }),
+      )
+    ).filter(Boolean);
+
+    if (parser.plugins.length > 0) {
       parsers[language] = parser;
     }
     return parser;
-  };
+  }
 
   const computeOffset = (code: string, pos: any) => {
     let line = 1;
@@ -104,12 +85,12 @@ export const createFormatter = (config: Pen) => {
     const val = editor.getValue();
     const pos = editor.getPosition();
 
-    const parser = await getParser(language);
+    const parser = await loadParser(language);
     if (!parser) return;
 
     const prettyVal = prettier.formatWithCursor(val, {
       parser: parser.name,
-      plugins: [parser.plugin],
+      plugins: parser.plugins,
       cursorOffset: computeOffset(val, pos),
     });
 
@@ -137,7 +118,7 @@ export const createFormatter = (config: Pen) => {
 
   return {
     load,
-    loadParser: (language: Language) => getParser(language),
+    loadParser,
     format,
   };
 };

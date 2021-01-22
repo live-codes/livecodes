@@ -9,14 +9,14 @@
         overflow: hidden;
       }
     </style>
-    <link rel="stylesheet" href="{{baseUrl}}/assets/localpen.css" />
+    <link rel="stylesheet" href="{{baseUrl}}assets/localpen.css" />
   </head>
   <body>
     <div id="container">
       <div id="toolbar">
         <div id="logo">
           <a href="#" title="LocalPen: code pens that run locally!"
-            ><img src="{{baseUrl}}/assets/images/localpen-logo.svg" width="50"
+            ><img src="{{baseUrl}}assets/images/localpen-logo.svg" width="50"
           /></a>
         </div>
         <div id="select-editor">
@@ -28,7 +28,7 @@
                   width="20"
                   height="20"
                   style="filter: invert(1)"
-                  src="{{baseUrl}}/assets/images/down_arrow.svg"
+                  src="{{baseUrl}}assets/images/down_arrow.svg"
                 />
               </button>
               <ul class="dropdown-menu">
@@ -53,7 +53,7 @@
                   width="20"
                   height="20"
                   style="filter: invert(1)"
-                  src="{{baseUrl}}/assets/images/down_arrow.svg"
+                  src="{{baseUrl}}assets/images/down_arrow.svg"
                 />
               </button>
               <ul class="dropdown-menu">
@@ -81,7 +81,7 @@
                   width="20"
                   height="20"
                   style="filter: invert(1)"
-                  src="{{baseUrl}}/assets/images/down_arrow.svg"
+                  src="{{baseUrl}}assets/images/down_arrow.svg"
                 />
               </button>
               <ul class="dropdown-menu">
@@ -112,11 +112,11 @@
         </div>
         <div id="project-title" contenteditable="true">Untitled Project</div>
         <div id="buttons">
-          <button id="run-button" title="Run (Ctrl/Cmd + Enter)">
-            <img width="20" height="20" src="{{baseUrl}}/assets/images/play.svg" />
+          <button id="run-button" title="Format & Run (Ctrl/Cmd + Enter)">
+            <img width="20" height="20" src="{{baseUrl}}assets/images/play.svg" />
           </button>
           <button id="settings-button" title="Settings">
-            <img width="20" height="20" src="{{baseUrl}}/assets/images/gear.png" />
+            <img width="20" height="20" src="{{baseUrl}}assets/images/gear.png" />
           </button>
           <ul id="settings-menu" class="dropdown-menu">
             <li>
@@ -129,7 +129,15 @@
               <a href="#" id="save-link">Save</a>
             </li>
             <li>
-              <a href="#" id="fork-link">Fork</a>
+              <a href="#" id="save-as">Save as</a>
+              <ul class="dropdown-menu submenu" id="save-as-menu">
+                <li>
+                  <a href="#" id="fork-link">Fork (New Project)</a>
+                </li>
+                <li>
+                  <a href="#" id="template-link">Template</a>
+                </li>
+              </ul>
             </li>
             <li>
               <a href="#" id="import-link">Import</a>
@@ -156,6 +164,26 @@
             </li>
             <li>
               <a href="#" id="external-resources-link">External CSS/JS</a>
+            </li>
+            <li>
+              <a href="#" id="css-preset-link">CSS Preset</a>
+              <ul class="dropdown-menu submenu" id="css-preset-menu">
+                <li>
+                  <a href="#" data-preset="none" class="active">None</a>
+                </li>
+                <li>
+                  <a href="#" data-preset="normalize.css">Normalize.css</a>
+                </li>
+                <li>
+                  <a href="#" data-preset="reset-css">CSS reset</a>
+                </li>
+                <li>
+                  <a href="#" data-preset="github-markdown-css">github-markdown-css</a>
+                </li>
+                <li>
+                  <a href="#" data-preset="asciidoctor.css">Asciidoctor CSS</a>
+                </li>
+              </ul>
             </li>
             <li>
               <label class="switch">
@@ -214,7 +242,7 @@
       <div id="modal"></div>
     </div>
     <script type="module">
-      import { app } from '{{baseUrl}}/app.js';
+      import { app } from '{{baseUrl}}app.js';
       window.app = app;
     </script>
   </body>

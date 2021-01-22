@@ -1,32 +1,18 @@
 import { getLanguageEditorId, postProcessors } from './languages';
 import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors, EditorId } from './models';
 
-export const replaceImports = (code: string, config: Pen) => {
-  const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
-  return code.replace(importsPattern, (statement) => {
+export const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
+
+export const replaceImports = (code: string, config: Pen) =>
+  code.replace(importsPattern, (statement) => {
     const libName = statement.replace(importsPattern, '$2').replace(/"/g, '').replace(/'/g, '');
-    if (libName.startsWith('http')) {
+    if (libName.startsWith('http') || libName.startsWith('.') || libName.startsWith('/')) {
       return statement;
     }
     const localModule = config.modules.find((module) => module.name === libName);
     const libPath = localModule?.url || 'https://cdn.skypack.dev/' + libName;
     return statement.replace(importsPattern, `$1'${libPath}'$3`);
   });
-};
-
-export const addMarkdownStyles = (iframeDocument: Document, compilers: Compilers, config: Pen) => {
-  if (compilers.markdown.stylesAdded) return;
-  iframeDocument.body.classList.add('markdown-body');
-  const styles = iframeDocument.createElement('link');
-  styles.setAttribute('rel', 'stylesheet');
-  styles.setAttribute('href', config.baseUrl + '/vendor/github-markdown-css/github-markdown.css');
-  iframeDocument.head.appendChild(styles);
-  compilers.markdown.stylesAdded = true;
-};
-
-export const disableMarkdownStyles = (iframeDocument: Document) => {
-  iframeDocument.body.classList.remove('markdown-body');
-};
 
 export const getCompilersData = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
   languages.reduce((compilers, language) => {
@@ -54,7 +40,6 @@ export const compile = async (
   content: string,
   compilers: Compilers,
   config: Pen,
-  iframeDocument: Document,
   eventsManager: any,
 ): Promise<string> => {
   if (language === 'jsx') {
@@ -84,7 +69,6 @@ export const compile = async (
       value = compiler(replaceImports(content, config), { bare: true });
       break;
     case 'markdown':
-      addMarkdownStyles(iframeDocument, compilers, config);
       value = compiler(content);
       break;
     case 'pug':

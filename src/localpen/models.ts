@@ -4,23 +4,20 @@ export interface Pen {
   baseUrl: string;
   title: string;
   autoupdate: boolean;
-  update_delay: number;
   autosave: boolean;
+  delay: number;
   emmet: boolean;
-
   autoprefixer: boolean;
-
   mode: 'full' | 'editor' | 'codeblock' | 'result';
+  editor: { [key: string]: any };
+  allowLangChange: boolean;
   language: Language;
-  allow_lang_change: boolean;
   markup: Editor;
   style: Editor;
   script: Editor;
   stylesheets: string[];
   scripts: string[];
-  editor: {
-    [key: string]: any;
-  };
+  cssPreset: CssPresetId;
   modules: Module[];
 }
 
@@ -82,11 +79,11 @@ export interface LanguageSpecs {
   name: Language;
   title: string;
   longTitle?: string;
-  parser: ParserName;
-  plugin: string;
+  parser?: Parser;
   compiler?: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
+  preset?: CssPresetId;
 }
 
 export interface Processors {
@@ -97,10 +94,33 @@ export interface Processors {
 
 export type ProcessorName = 'autoprefixer';
 
-export type ParserName = 'babel' | 'html' | 'markdown' | 'css' | 'scss' | 'less';
+export type ParserName =
+  | 'babel'
+  | 'babel-ts'
+  | 'html'
+  | 'markdown'
+  | 'css'
+  | 'scss'
+  | 'less'
+  | 'pug';
 export interface Parser {
   name: ParserName;
-  plugin: any;
+  plugins?: any[];
+  pluginUrls: string[];
+}
+
+export type CssPresetId =
+  | null
+  | 'none'
+  | 'normalize.css'
+  | 'reset-css'
+  | 'github-markdown-css'
+  | 'asciidoctor.css';
+
+export interface CssPreset {
+  id: CssPresetId;
+  name: string;
+  url: string;
 }
 
 export interface EditorLibrary {
@@ -112,11 +132,23 @@ export interface Compiler {
   url: string;
   fn?: (code: string, options?: any) => any;
   factory: (compilerModule: any, config: Pen) => (code: string) => string;
-  stylesAdded?: boolean;
   umd?: boolean;
   editors?: EditorId[];
 }
 
 export interface Compilers {
   [language: string]: Compiler;
+}
+
+export interface Template {
+  title: string;
+  thumbnail: string;
+  language: Language;
+  markup: Editor;
+  style: Editor;
+  script: Editor;
+  stylesheets: string[];
+  scripts: string[];
+  cssPreset: CssPresetId;
+  modules: Module[];
 }

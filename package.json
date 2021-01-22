@@ -1,6 +1,6 @@
 {
   "name": "localpen",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Code pens that run locally",
   "main": "index.js",
   "author": "Hatem Hosny",
@@ -30,6 +30,7 @@
     "vendor:marked": "esbuild --bundle node_modules/marked/lib/marked.esm.js --outfile=src/localpen/vendor/marked/marked.esm.min.js --format=esm --minify",
     "vendor:sass": "esbuild --bundle vendor_modules/imports/sass.js --outfile=src/localpen/vendor/sass.js/sass.js --format=esm --minify",
     "vendor:less": "esbuild --bundle vendor_modules/imports/less.js --outfile=src/localpen/vendor/less/less.js --format=esm --minify",
+    "vendor:prettier-pug": "esbuild --bundle node_modules/@prettier/plugin-pug/dist/index.js --outfile=src/localpen/vendor/prettier/parser-pug.mjs --format=esm --minify --define:process.env.NODE_ENV='production' --define:global=window",
     "vendor:others": "node ./scripts/get-vendors.js",
     "website:publish": "run-s build gh-pages",
     "gh-pages": "gh-pages -m \"[ci skip] Updates\" -d build",
@@ -48,6 +49,7 @@
     "prepush": "run-s fix vendors build test"
   },
   "dependencies": {
+    "@prettier/plugin-pug": "1.13.2",
     "asciidoctor": "2.2.1",
     "autoprefixer": "10.1.0",
     "emmet-monaco-es": "4.4.2",
@@ -55,8 +57,10 @@
     "less": "4.0.0",
     "marked": "1.2.7",
     "monaco-editor": "0.21.2",
+    "normalize.css": "8.0.1",
     "postcss": "8.2.2",
     "prettier": "2.2.1",
+    "reset-css": "5.0.1",
     "sass.js": "0.11.1",
     "split.js": "1.6.2"
   },

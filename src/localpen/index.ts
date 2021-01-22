@@ -1,10 +1,14 @@
 import { loadConfig } from './config';
-// @ts-ignore
-import html from './app.html';
+import { appHTML } from './html';
 import { Pen } from './models';
 
 export const localpen = async (container: string, config: Partial<Pen> = {}) =>
   new Promise(async (resolve) => {
+    const containerElement = document.querySelector(container);
+    if (!containerElement) {
+      throw new Error(`Cannot find element with the selector: "${container}"`);
+    }
+
     const mergedConfig = await loadConfig(config);
     const { baseUrl } = mergedConfig;
 
@@ -43,11 +47,9 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
 
-    const containerElement = document.querySelector(container);
-
-    containerElement?.appendChild(iframe);
+    containerElement.appendChild(iframe);
     iframe.contentWindow?.document.open();
-    iframe.contentWindow?.document.write(html.replace(/{{baseUrl}}/g, baseUrl));
+    iframe.contentWindow?.document.write(appHTML.replace(/{{baseUrl}}/g, baseUrl));
     iframe.contentWindow?.document.close();
 
     iframe.addEventListener('load', async () => {
