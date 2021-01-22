@@ -222,7 +222,7 @@ export const tailwindcssStarter: Template = {
           Get the latest posts delivered right to your inbox
         </h3>
         <div class="w-full text-center pt-4">
-          <form action="#" onsubmit="return false;">
+          <form action="#">
             <div class="max-w-xl mx-auto p-1 pr-0 flex flex-wrap items-center">
               <input
                 type="email"
