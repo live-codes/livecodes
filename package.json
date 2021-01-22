@@ -1,6 +1,6 @@
 {
   "name": "localpen",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Code pens that run locally",
   "main": "index.js",
   "author": "Hatem Hosny",

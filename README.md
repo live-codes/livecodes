@@ -10,34 +10,38 @@ A powerful frontend coding playground that runs totally on the client and can be
 
 [Try it now on localpen.io](https://localpen.io)
 
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" width="600" /></a>
+
 TL;DR: [Getting started](#getting-started)
 
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/hatemhosny/localpen/tree/master&refcode=fb8c00b45b91)
 
 ## Feature Summary: <!-- omit in toc -->
 
-- [Monaco editor](https://microsoft.github.io/monaco-editor/) (the beautiful code editor that powers [VS Code](https://github.com/Microsoft/vscode))
-- [Prettier](https://prettier.io/) code formatting
-- Supports many languages (HTML, Markdown, Pug, AsciiDoc, CSS, SCSS, SASS, Less, Stylus, JavaScript, TypeScript, JSX, CoffeeScript and more to come)
-- [Emmet](https://emmet.io/) tab completion
-- [Autoprefixer](https://github.com/postcss/autoprefixer)
-- All code compiling/transpiling occurs on the fly on the client, so works on any static server.
-- Immediate results with no server rounds
-- Conditional loading of modules (only the features used are downloaded)
-- Allows adding external stylesheets and/or scripts
-- Allows importing npm modules that can be referenced directly without a build step (using the great [skypack.dev](https://www.skypack.dev/))
-- Allows importing strongly-typed local typescript modules with full code completion and intellisense.
-- Can be embedded in regular web pages
-- Code embeds allow editing with the immediate preview
-- Resizable split panes (using [split.js](https://github.com/nathancahill/split/))
-- Multiple modes: full mode (with split panes), editor only mode and read-only code-block mode
-- Editors can be prefilled by code from github and gitlab (gists and repos) or from your web pages
-- Immediatley recognizes and imports codepens exported to github gists
-- Export/import projects as JSON
-- Export source code as [zip file](https://stuk.github.io/jszip/) or ready-to-run HTML page with the compiled/transpiled code
-- Export to CodePen and JSFiddle (more to come)
-- Save/open from local storage with optional autosave
-- Keyboard shortcuts
+- [**Monaco editor**](https://microsoft.github.io/monaco-editor/) (the beautiful code editor that powers [VS Code](https://github.com/Microsoft/vscode))
+- [**Prettier**](https://prettier.io/) code formatting
+- Supports **many languages** (HTML, Markdown, Pug, AsciiDoc, CSS, SCSS, SASS, Less, Stylus, JavaScript, TypeScript, JSX, CoffeeScript and more to come)
+- [**Emmet**](https://emmet.io/) tab completion
+- [**Autoprefixer**](https://github.com/postcss/autoprefixer)
+- All code compiling/transpiling occurs on the fly **on the client**, so works on any static server.
+- Immediate results with **no server rounds**
+- **Conditional loading** of modules (only the features used are downloaded)
+- **Templates**: Starter templates and user-defined templates
+- Allows adding **external stylesheets and/or scripts**
+- Allows importing **npm modules** that can be referenced directly without a build step (using the great [skypack.dev](https://www.skypack.dev/))
+- Allows importing strongly-typed local **typescript modules** with full **code completion and intellisense**.
+- **CSS Presets** (e.g Normalize.css, CSS reset)
+- Can be **embedded** in regular web pages
+- Code **embeds allow editing** with the immediate preview
+- Resizable **split panes** (using [split.js](https://github.com/nathancahill/split/))
+- Multiple **modes**: full mode (with split panes), editor only mode and read-only code-block mode
+- Editors can be **prefilled by code** from github and gitlab (gists and repos) or from your web pages
+- Immediatley recognizes and **imports codepens** exported to github gists
+- **Export/import** projects as **JSON**
+- **Export source code** as [zip file](https://stuk.github.io/jszip/) or **ready-to-run HTML page** with the compiled/transpiled code
+- **Export to CodePen and JSFiddle** (more to come)
+- **Save/open** from local storage with optional autosave
+- **Keyboard shortcuts**
 - LocalPen is under active development with more features to come (see [Roadmap](#roadmap))
 
 ## Table of Contents <!-- omit in toc -->
@@ -48,6 +52,7 @@ TL;DR: [Getting started](#getting-started)
 - [Examples](#examples)
 - [Settings](#settings)
 - [Default Editors](#default-editors)
+- [Templates](#templates)
 - [External Stylesheets/Scripts](#external-stylesheetsscripts)
 - [Importing NPM Modules](#importing-npm-modules)
 - [Saving to Device Local Storage](#saving-to-device-local-storage)
@@ -64,6 +69,7 @@ TL;DR: [Getting started](#getting-started)
 - [Display Modes](#display-modes)
 - [Embeds](#embeds)
 - [Intellisense](#intellisense)
+- [Security](#security)
 - [API](#api)
 - [Roadmap](#roadmap)
 - [Limitations](#limitations)
@@ -111,17 +117,18 @@ There are multiple options:
 
 ## Screenshots
 
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types1.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types1.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types2.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types2.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types3.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types3.png" width="400" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types4.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types4.png" width="400" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/templates.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/templates.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types1.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types1.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types2.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types2.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types3.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types3.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types4.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types4.png" width="600" /></a>
 
 ## Examples
 
@@ -171,6 +178,10 @@ https://localpen.io/?ts&scss&html
 To load markdown as the active editor, go to:
 
 https://localpen.io/?md
+
+## Templates
+
+New projects can start with a blank template or use any of the provided starter templates (which include starter templates for typescript, react, vue, angular preact, jQuery, bootstrap, tailwind and D3). Alternatively users can save any project as a template (settings menu > save as > Template). It can then be used when starting a new project (settings menu > New > My Templates).
 
 ## External Stylesheets/Scripts
 
@@ -443,6 +454,10 @@ This method can tremendously improve the experience of the developers exploring 
 
 You can use this method to get intellisense for your custom modules and also other modules you want. For example you may wish to add the typings for react and lodash.
 
+## Security
+
+The result page is rendered in a [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) with a unique origin. This prevents embedded editors from having access to the parent page, or to sensitive data like user cookies, localstorage, etc.
+
 ## API
 
 The documentation for API and configuration specs will be published on a separate documentation website when the API becomes stable. Meanwhile, you can have an idea about the configuration structure by exporting the project JSON.
@@ -452,9 +467,9 @@ The documentation for API and configuration specs will be published on a separat
 Many features/fixes are planned, the most important are:
 
 - [ ] Add JavaScript console.
-- [ ] Enhancing security
-- [ ] Add starter templates (standard and user-defined)
-- [ ] CSS presets (e.g. normalize, reset)
+- [x] Enhancing security
+- [x] Add starter templates (standard and user-defined)
+- [x] CSS presets (e.g. normalize, reset)
 - [ ] Improve embedded editors
 - [ ] Click to load embeds
 - [ ] NPM package
