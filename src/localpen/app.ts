@@ -110,9 +110,10 @@ export const app = async (config: Pen) => {
         'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
 
-      iframe.src = URL.createObjectURL(new Blob([result], { type: 'text/html' }));
+      const iframeSrc = URL.createObjectURL(new Blob([result], { type: 'text/html' }));
+      iframe.src = iframeSrc;
       iframe.addEventListener('load', () => {
-        URL.revokeObjectURL(iframe.src);
+        URL.revokeObjectURL(iframeSrc);
         resolve('loaded');
       });
 
@@ -710,7 +711,10 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#run-button') as HTMLElement,
         'click',
-        () => run(editors),
+        async () => {
+          await formatter.format(editors[activeEditorId], getEditorLanguage(activeEditorId));
+          run(editors);
+        },
       );
     };
 
