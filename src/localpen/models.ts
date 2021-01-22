@@ -4,8 +4,8 @@ export interface Pen {
   baseUrl: string;
   title: string;
   autoupdate: boolean;
-  update_delay: number;
   autosave: boolean;
+  delay: number;
   emmet: boolean;
   autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
