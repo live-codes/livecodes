@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { importCode } from './import';
 import { decodeHTML } from './utils';
 import { getLanguageByAlias, getLanguageEditorId } from './languages';
@@ -8,8 +7,8 @@ export const defaultConfig: Pen = {
   baseUrl: '/localpen/',
   title: 'Untitled Project',
   autoupdate: true,
-  update_delay: 500,
   autosave: false,
+  delay: 500,
   emmet: true,
   autoprefixer: true,
   mode: 'full',
@@ -28,7 +27,7 @@ export const defaultConfig: Pen = {
     mouseWheelZoom: true,
     automaticLayout: true,
   },
-  allow_lang_change: true,
+  allowLangChange: true,
   language: 'html',
   markup: {
     language: 'html',

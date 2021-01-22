@@ -487,7 +487,7 @@ export const app = async (config: Pen) => {
     editors[activeEditorId].focus();
     setTimeout(() => {
       setSavedStatus(true);
-    }, getConfig().update_delay);
+    }, getConfig().delay);
   };
 
   const setSavedStatus = (status: boolean) => {
@@ -615,7 +615,7 @@ export const app = async (config: Pen) => {
     };
 
     const handlechangeLanguage = () => {
-      if (getConfig().allow_lang_change) {
+      if (getConfig().allowLangChange) {
         (document.querySelectorAll('#select-editor a') as NodeListOf<HTMLElement>).forEach(
           (menuItem) => {
             eventsManager.addEventListener(
@@ -654,7 +654,7 @@ export const app = async (config: Pen) => {
         }
       };
 
-      const debounce = (fn: (...x: any[]) => any, delay = getConfig().update_delay ?? 500) => {
+      const debounce = (fn: (...x: any[]) => any, delay = getConfig().delay ?? 500) => {
         let timeout: any;
 
         return (...args: unknown[]) => {
