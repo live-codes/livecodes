@@ -107,15 +107,12 @@ export const app = async (config: Pen) => {
       iframe.setAttribute('allowtransparency', 'true');
       iframe.setAttribute(
         'sandbox',
-        'allow-downloads allow-forms allow-modals allow-pointer-lock allow-presentation allow-scripts',
+        'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
-      iframe.src = baseUrl + 'assets/result.html';
 
-      let loaded = false;
+      iframe.src = URL.createObjectURL(new Blob([result], { type: 'text/html' }));
       iframe.addEventListener('load', () => {
-        if (loaded) return; // prevent infinite loop
-        iframe.contentWindow?.postMessage({ result }, '*');
-        loaded = true;
+        URL.revokeObjectURL(iframe.src);
         resolve('loaded');
       });
 
@@ -352,7 +349,7 @@ export const app = async (config: Pen) => {
 
   const getResultPage = async (
     editors: Editors,
-    userContentOnly = false,
+    forExport = false,
     template: string = resultTemplate,
   ) => {
     const config = getConfig();
@@ -364,6 +361,12 @@ export const app = async (config: Pen) => {
     const dom = domParser.parseFromString(template, 'text/html');
 
     dom.title = config.title;
+
+    if (!forExport) {
+      const base = dom.createElement('base');
+      base.href = location.href;
+      dom.head.appendChild(base);
+    }
 
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
@@ -389,10 +392,6 @@ export const app = async (config: Pen) => {
 
     if (config.cssPreset === 'github-markdown-css') {
       dom.body.classList.add('markdown-body');
-    }
-
-    if (userContentOnly) {
-      dom.body.innerHTML = '';
     }
 
     const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());

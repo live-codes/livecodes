@@ -1,6 +1,5 @@
 // @ts-ignore
-// eslint-disable-next-line import/no-internal-modules
-import resultTemplate from '../assets/result.html';
+import resultTemplate from './result.html';
 // @ts-ignore
 import appHTML from './app.html';
 // @ts-ignore
@@ -15,8 +14,8 @@ import templatesScreen from './templates.html';
 import openScreen from './open.html';
 
 export {
-  appHTML,
   resultTemplate,
+  appHTML,
   importScreen,
   resourcesScreen,
   savePromptScreen,
