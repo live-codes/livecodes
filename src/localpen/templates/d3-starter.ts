@@ -48,6 +48,6 @@ svg
   },
   stylesheets: [],
   scripts: [],
-  cssPreset: null,
+  cssPreset: '',
   modules: [],
 };

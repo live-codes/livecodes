@@ -110,8 +110,7 @@ export interface Parser {
 }
 
 export type CssPresetId =
-  | null
-  | 'none'
+  | ''
   | 'normalize.css'
   | 'reset-css'
   | 'github-markdown-css'

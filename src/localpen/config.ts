@@ -49,7 +49,7 @@ export const defaultConfig: Pen = {
   },
   stylesheets: [],
   scripts: [],
-  cssPreset: null,
+  cssPreset: '',
   modules: [],
 };
 
