@@ -290,7 +290,9 @@ li.editor-title.active > button:hover {
 }
 
 li.editor-title > button:focus + .dropdown-menu,
-#settings-button:focus + .dropdown-menu,
+#settings-button:focus + #settings-menu-container,
+#settings-menu-container:hover,
+#settings-button:focus + #settings-menu-container .dropdown-menu,
 #settings-menu:hover {
   display: block;
 }
@@ -306,12 +308,27 @@ li.editor-title > button:focus + .dropdown-menu,
   background-color: #e7e8f1;
 }
 
-#settings-menu {
+#settings-menu-container {
+  display: none;
+  position: absolute;
   top: 40px;
   right: 10px;
+  height: calc(100vh - 40px);
+  width: 600px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#settings-menu-container::-webkit-scrollbar {
+  display: none;
+}
+
+#settings-menu {
+  top: 0;
+  right: 0;
   left: unset;
   margin-top: 0;
-  min-width: 200px;
+  width: 250px;
 }
 
 #settings-menu li,
