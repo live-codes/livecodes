@@ -39,11 +39,28 @@
         width: 100vw;
         height: 100vh;
         overflow: hidden;
-        position: relative;
+      }
+      #animating-logo {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        overflow: hidden;
+        position: absolute;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
       }
+      #animating-logo > svg {
+        position: absolute;
+      }
+      #loading-text {
+        margin-top: 50px;
+        margin-bottom: -70px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1em;
+      }
+
       @-webkit-keyframes cube {
         0% {
           -webkit-transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
@@ -123,7 +140,8 @@
     </style>
   </head>
   <body>
-    <div id="pen">
+    <div id="pen"></div>
+    <div id="animating-logo" title="loading LocalPen...">
       <div class="cube">
         <div></div>
         <div></div>
@@ -132,10 +150,36 @@
         <div></div>
         <div></div>
       </div>
+      <div id="loading-text">loading LocalPen...</div>
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="135" viewBox="0 0 492 332">
+        <defs>
+          <filter id="A">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+            <feOffset dx="3" dy="3" result="B" />
+            <feFlood flood-color="#000" flood-opacity=".5" />
+            <feComposite in2="B" operator="in" result="C" />
+            <feMerge>
+              <feMergeNode in="C" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#A)" fill="#c1c1c1" transform="translate(24.8872 19.3872)">
+          <path
+            d="M10.3093 176.4491C4.1271 169.6895 0 156.1906 0 144.3637c0-11.8192 3.0933-22.789 10.8241-28.6977h-.5143L131.9564 0v78.5208c-13.402 12.6623-31.4424 27.019-76.8017 66.701l.5143.834c24.226 17.7366 52.0608 44.7485 76.2869 68.3875v79.3637z"
+          />
+          <g transform="translate(308.0441 .001)">
+            <path
+              d="M121.6469 117.3511c6.1774 6.76 10.309 20.2657 10.309 32.0859s-3.0934 22.7882-10.8284 28.6976h.5196L0 293.801v-78.5212c13.4027-12.6552 31.4425-27.0115 76.8021-66.694l-.5143-.834C52.0659 130.0152 24.2272 103.0031.0005 79.3647V0z"
+            />
+          </g>
+        </g>
+      </svg>
     </div>
     <script>
       window.__localpenEmbed = () => {
-        document.querySelector('.cube').remove();
+        document.querySelector('#animating-logo').remove();
       };
     </script>
     <script src="index.ts"></script>
