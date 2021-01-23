@@ -104,6 +104,6 @@ platformBrowserDynamic()
     'https://unpkg.com/@angular/platform-browser@11.0.5/bundles/platform-browser.umd.js',
     'https://unpkg.com/@angular/platform-browser-dynamic@11.0.5/bundles/platform-browser-dynamic.umd.js',
   ],
-  cssPreset: null,
+  cssPreset: '',
   modules: [],
 };
