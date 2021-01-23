@@ -118,113 +118,117 @@
           <button id="settings-button" title="Settings">
             <img width="20" height="20" src="{{baseUrl}}assets/images/gear.png" />
           </button>
-          <ul id="settings-menu" class="dropdown-menu">
-            <li>
-              <a href="#" id="new-link">New</a>
-            </li>
-            <li>
-              <a href="#" id="open-link">Open</a>
-            </li>
-            <li>
-              <a href="#" id="save-link">Save</a>
-            </li>
-            <li>
-              <a href="#" id="save-as">Save as</a>
-              <ul class="dropdown-menu submenu" id="save-as-menu">
+          <div id="settings-menu-container">
+            <div id="settings-menu-scroller">
+              <ul id="settings-menu" class="dropdown-menu">
                 <li>
-                  <a href="#" id="fork-link">Fork (New Project)</a>
+                  <a href="#" id="new-link">New</a>
                 </li>
                 <li>
-                  <a href="#" id="template-link">Template</a>
+                  <a href="#" id="open-link">Open</a>
+                </li>
+                <li>
+                  <a href="#" id="save-link">Save</a>
+                </li>
+                <li>
+                  <a href="#" id="save-as">Save as</a>
+                  <ul class="dropdown-menu submenu" id="save-as-menu">
+                    <li>
+                      <a href="#" id="fork-link">Fork (New Project)</a>
+                    </li>
+                    <li>
+                      <a href="#" id="template-link">Template</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" id="import-link">Import</a>
+                </li>
+                <li>
+                  <a href="#" id="export">Export</a>
+                  <ul class="dropdown-menu submenu" id="export-menu">
+                    <li>
+                      <a href="#" id="export-json">Export Project (JSON)</a>
+                    </li>
+                    <li>
+                      <a href="#" id="export-src">Export Source (ZIP)</a>
+                    </li>
+                    <li>
+                      <a href="#" id="export-result">Export Result (HTML)</a>
+                    </li>
+                    <li>
+                      <a href="#" id="export-codepen">Edit in CodePen</a>
+                    </li>
+                    <li>
+                      <a href="#" id="export-jsfiddle">Edit in JSFiddle</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" id="external-resources-link">External CSS/JS</a>
+                </li>
+                <li>
+                  <a href="#" id="css-preset-link">CSS Preset</a>
+                  <ul class="dropdown-menu submenu" id="css-preset-menu">
+                    <li>
+                      <a href="#" data-preset="none" class="active">None</a>
+                    </li>
+                    <li>
+                      <a href="#" data-preset="normalize.css">Normalize.css</a>
+                    </li>
+                    <li>
+                      <a href="#" data-preset="reset-css">CSS reset</a>
+                    </li>
+                    <li>
+                      <a href="#" data-preset="github-markdown-css">github-markdown-css</a>
+                    </li>
+                    <li>
+                      <a href="#" data-preset="asciidoctor.css">Asciidoctor CSS</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <label class="switch">
+                    <span>Auto update</span>
+                    <div>
+                      <input id="autoupdate" type="checkbox" data-config="autoupdate" />
+                      <span class="slider round"></span>
+                    </div>
+                  </label>
+                </li>
+                <li>
+                  <label class="switch">
+                    <span>Auto save</span>
+                    <div>
+                      <input id="autosave" type="checkbox" data-config="autosave" />
+                      <span class="slider round"></span>
+                    </div>
+                  </label>
+                </li>
+                <li>
+                  <label class="switch">
+                    <span>Enable Emmet</span>
+                    <div>
+                      <input id="emmet" type="checkbox" data-config="emmet" />
+                      <span class="slider round"></span>
+                    </div>
+                  </label>
+                </li>
+                <li>
+                  <label class="switch">
+                    <span>Enable Autoprefixer</span>
+                    <div>
+                      <input id="autoprefixer" type="checkbox" data-config="autoprefixer" />
+                      <span class="slider round"></span>
+                    </div>
+                  </label>
+                </li>
+                <li>
+                  <a href="https://github.com/hatemhosny/localpen/" target="_blank">About</a>
                 </li>
               </ul>
-            </li>
-            <li>
-              <a href="#" id="import-link">Import</a>
-            </li>
-            <li>
-              <a href="#" id="export">Export</a>
-              <ul class="dropdown-menu submenu" id="export-menu">
-                <li>
-                  <a href="#" id="export-json">Export Project (JSON)</a>
-                </li>
-                <li>
-                  <a href="#" id="export-src">Export Source (ZIP)</a>
-                </li>
-                <li>
-                  <a href="#" id="export-result">Export Result (HTML)</a>
-                </li>
-                <li>
-                  <a href="#" id="export-codepen">Edit in CodePen</a>
-                </li>
-                <li>
-                  <a href="#" id="export-jsfiddle">Edit in JSFiddle</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#" id="external-resources-link">External CSS/JS</a>
-            </li>
-            <li>
-              <a href="#" id="css-preset-link">CSS Preset</a>
-              <ul class="dropdown-menu submenu" id="css-preset-menu">
-                <li>
-                  <a href="#" data-preset="none" class="active">None</a>
-                </li>
-                <li>
-                  <a href="#" data-preset="normalize.css">Normalize.css</a>
-                </li>
-                <li>
-                  <a href="#" data-preset="reset-css">CSS reset</a>
-                </li>
-                <li>
-                  <a href="#" data-preset="github-markdown-css">github-markdown-css</a>
-                </li>
-                <li>
-                  <a href="#" data-preset="asciidoctor.css">Asciidoctor CSS</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <label class="switch">
-                <span>Auto update</span>
-                <div>
-                  <input id="autoupdate" type="checkbox" data-config="autoupdate" />
-                  <span class="slider round"></span>
-                </div>
-              </label>
-            </li>
-            <li>
-              <label class="switch">
-                <span>Auto save</span>
-                <div>
-                  <input id="autosave" type="checkbox" data-config="autosave" />
-                  <span class="slider round"></span>
-                </div>
-              </label>
-            </li>
-            <li>
-              <label class="switch">
-                <span>Enable Emmet</span>
-                <div>
-                  <input id="emmet" type="checkbox" data-config="emmet" />
-                  <span class="slider round"></span>
-                </div>
-              </label>
-            </li>
-            <li>
-              <label class="switch">
-                <span>Enable Autoprefixer</span>
-                <div>
-                  <input id="autoprefixer" type="checkbox" data-config="autoprefixer" />
-                  <span class="slider round"></span>
-                </div>
-              </label>
-            </li>
-            <li>
-              <a href="https://github.com/hatemhosny/localpen/" target="_blank">About</a>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div id="editor-container">
