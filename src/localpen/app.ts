@@ -110,10 +110,13 @@ export const app = async (config: Pen) => {
         'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
 
-      const iframeSrc = URL.createObjectURL(new Blob([result], { type: 'text/html' }));
-      iframe.src = iframeSrc;
+      iframe.src = baseUrl + 'assets/result.html';
+
+      let loaded = false;
       iframe.addEventListener('load', () => {
-        URL.revokeObjectURL(iframeSrc);
+        if (loaded) return; // prevent infinite loop
+        iframe.contentWindow?.postMessage({ result }, '*');
+        loaded = true;
         resolve('loaded');
       });
 
@@ -363,10 +366,8 @@ export const app = async (config: Pen) => {
 
     dom.title = config.title;
 
-    if (!forExport) {
-      const base = dom.createElement('base');
-      base.href = location.href;
-      dom.head.appendChild(base);
+    if (forExport) {
+      dom.body.innerHTML = '';
     }
 
     if (config.cssPreset) {
