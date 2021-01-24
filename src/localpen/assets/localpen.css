@@ -337,6 +337,11 @@ li.editor-title > button:focus + .dropdown-menu,
   position: relative;
 }
 
+#settings-menu li > a,
+#settings-menu li > label {
+  margin-left: 7px;
+}
+
 .submenu {
   display: none !important;
   position: absolute !important;
@@ -350,17 +355,62 @@ li.editor-title > button:focus + .dropdown-menu,
 #open-link:hover + #open-list,
 #open-list:hover,
 #settings-menu a:hover + .submenu,
+#settings-menu i:hover + a + .submenu,
 .submenu:hover {
   display: block !important;
 }
 
-#select-editor,
-.dropdown-menu,
-#buttons {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+i.arrow {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 10px 15px 10px 10px;
+  position: absolute !important;
+  left: 0;
+  top: 0.5em;
+  text-decoration: none;
+  color: grey;
+}
+i.arrow.left {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+i.arrow:before,
+i.arrow:after {
+  border-right: 2px solid;
+  content: '';
+  display: block;
+  height: 8px;
+  margin-top: -6px;
+  position: absolute;
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  right: 10px;
+  top: 50%;
+  width: 0;
+}
+
+i.arrow:after {
+  margin-top: -1px;
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-menu li > a,
+  #settings-menu li > label {
+    margin-left: 0;
+  }
+  i.arrow {
+    top: 1.25em;
+    zoom: 60%;
+  }
 }
 
 .switch {
@@ -632,11 +682,18 @@ li.editor-title > button:focus + .dropdown-menu,
 #modal.small .modal-title {
   margin: 10px;
 }
+#modal #prompt-screen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 #modal .buttons {
-  margin: 15px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 #modal .button {
+  place-self: center;
   margin: 5px 10px;
   padding: 5px;
   width: 100px;
@@ -656,6 +713,12 @@ li.editor-title > button:focus + .dropdown-menu,
 #modal #list-container #delete-all-button {
   color: crimson;
   background-color: #fff5f6;
+}
+
+@media only screen and (max-width: 768px) {
+  #modal #list-container .modified-date span {
+    display: none;
+  }
 }
 
 #modal .button.hidden {
@@ -831,9 +894,13 @@ li.editor-title > button:focus + .dropdown-menu,
 }
 
 #modal .modal-screen {
-  display: inline-block;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0.8;
+  justify-content: space-around;
+  align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 #modal label {
@@ -935,4 +1002,5 @@ li.editor-title > button:focus + .dropdown-menu,
 
 #css-preset-menu a.active::after {
   content: ' ✔';
+  color: grey;
 }
