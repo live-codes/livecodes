@@ -848,7 +848,7 @@ export const app = async (config: Pen) => {
           link.classList.add('open-project-link');
           link.innerHTML = `
             <div class="open-title">${item.title}</div>
-            <div class="modified-date">Last modified: ${new Date(
+            <div class="modified-date"><span>Last modified: </span>${new Date(
               item.lastModified,
             ).toLocaleString()}</div>
           `;
@@ -973,7 +973,7 @@ export const app = async (config: Pen) => {
           link.classList.add('open-project-link');
           link.innerHTML = `
             <div class="open-title">${item.title}</div>
-            <div class="modified-date">Last modified: ${new Date(
+            <div class="modified-date"><span>Last modified: </span>${new Date(
               item.lastModified,
             ).toLocaleString()}</div>
           `;
