@@ -280,6 +280,7 @@ li.editor-title.active > button:hover {
   z-index: 1000;
   width: 100%;
   min-width: 150px;
+  max-width: 45vw;
   padding: 5px 0;
   list-style: none;
   background-color: #fff;
