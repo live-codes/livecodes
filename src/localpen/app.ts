@@ -1,5 +1,7 @@
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
+import LunaConsole from 'luna-console';
+
 import { monaco } from './monaco';
 
 import { createEditor } from './editor';
@@ -124,6 +126,7 @@ export const app = async (config: Pen) => {
       containerEl.appendChild(iframe);
     });
   }
+
   const compilers = getCompilersData([...languages, ...postProcessors], getConfig());
 
   const getTypes = async (module: Module): Promise<EditorLibrary> => {
@@ -366,10 +369,6 @@ export const app = async (config: Pen) => {
 
     dom.title = config.title;
 
-    if (forExport) {
-      dom.body.innerHTML = '';
-    }
-
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
       const cssPreset = dom.createElement('link');
@@ -394,6 +393,14 @@ export const app = async (config: Pen) => {
 
     if (config.cssPreset === 'github-markdown-css') {
       dom.body.classList.add('markdown-body');
+    }
+
+    if (forExport) {
+      dom.body.innerHTML = '';
+    } else {
+      const utilsScript = dom.createElement('script');
+      utilsScript.src = config.baseUrl + 'assets/scripts/utils.js';
+      dom.body.appendChild(utilsScript);
     }
 
     const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
@@ -1251,6 +1258,18 @@ export const app = async (config: Pen) => {
       };
     };
 
+    const handleConsole = () => {
+      const consoleWindow: any = new LunaConsole(document.getElementById('console') as HTMLElement);
+      window.addEventListener('message', (event) => {
+        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        if (!iframe || event.source !== iframe.contentWindow) return;
+        const message = event.data;
+        if (message.type === 'console' && message.method in consoleWindow) {
+          consoleWindow[message.method](...message.args);
+        }
+      });
+    };
+
     handleTitleEdit();
     handleResize();
     handleSelectEditor();
@@ -1268,6 +1287,7 @@ export const app = async (config: Pen) => {
     handleImport();
     handleExport();
     handleUnload();
+    handleConsole();
   };
 
   const loadSettings = (config: Pen) => {

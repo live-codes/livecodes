@@ -55,6 +55,8 @@
     "emmet-monaco-es": "4.4.2",
     "github-markdown-css": "4.0.0",
     "less": "4.0.0",
+    "luna-console": "0.2.0",
+    "luna-object-viewer": "0.2.0",
     "marked": "1.2.7",
     "monaco-editor": "0.21.2",
     "normalize.css": "8.0.1",

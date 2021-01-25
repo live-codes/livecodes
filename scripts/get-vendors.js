@@ -33,6 +33,20 @@ fs.copyFileSync(
   path.resolve(targetDir + '/reset-css/reset.css'),
 );
 
+// luna-object-viewer
+mkdirp(targetDir + '/luna-object-viewer');
+fs.copyFileSync(
+  path.resolve(node_modules + '/luna-object-viewer/luna-object-viewer.css'),
+  path.resolve(targetDir + '/luna-object-viewer/luna-object-viewer.css'),
+);
+
+// luna-console
+mkdirp(targetDir + '/luna-console');
+fs.copyFileSync(
+  path.resolve(node_modules + '/luna-console/luna-console.css'),
+  path.resolve(targetDir + '/luna-console/luna-console.css'),
+);
+
 // sass.js
 mkdirp(targetDir + '/sass.js');
 fs.copyFileSync(
