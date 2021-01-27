@@ -172,16 +172,42 @@ body {
   display: unset;
 }
 
+#output {
+  height: calc(100vh - 40px);
+  overflow: hidden;
+}
 #result {
-  flex-grow: 1;
-  height: 100%;
   resize: both;
+  transition: height 0.5s;
 }
 
 #result iframe {
   height: 100%;
   width: 100%;
   border: 0;
+}
+
+#console-bar {
+  justify-content: start;
+  color: #eeeeee;
+  font-size: 12px;
+}
+#console-title {
+  cursor: pointer;
+  background-color: #5c616e;
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#console {
+  height: 100%;
+  overflow: auto;
+}
+
+.gutter.gutter-vertical {
+  cursor: ns-resize;
 }
 
 .gutter.gutter-horizontal {
