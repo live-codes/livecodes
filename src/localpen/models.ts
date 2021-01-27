@@ -9,6 +9,7 @@ export interface Pen {
   emmet: boolean;
   autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
+  console: 'closed' | 'open' | 'full' | 'none';
   editor: { [key: string]: any };
   allowLangChange: boolean;
   language: Language;

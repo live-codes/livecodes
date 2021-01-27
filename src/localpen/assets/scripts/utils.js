@@ -53,7 +53,7 @@
         if (!(method in target)) {
           throw new TypeError('console.' + method + ' is not a function');
         }
-        target[method](args);
+        target[method](...args);
         parent.postMessage({ type: 'console', method, args: getTypes(args) }, '*');
       };
     },
