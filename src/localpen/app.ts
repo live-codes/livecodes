@@ -67,6 +67,8 @@ export const app = async (config: Pen) => {
   const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
+  let changingContent = false;
+  const scriptConsole = createConsole('#console', elements.result + ' > iframe', eventsManager);
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#output'], {
@@ -93,7 +95,7 @@ export const app = async (config: Pen) => {
   };
   const split = createSplitPanes();
 
-  function createIframe(container: string, result = resultTemplate) {
+  function createIframe(container: string, result?: string) {
     return new Promise((resolve) => {
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
@@ -113,8 +115,12 @@ export const app = async (config: Pen) => {
       iframe.src = baseUrl + 'assets/result.html';
 
       let loaded = false;
-      iframe.addEventListener('load', () => {
-        if (loaded) return; // prevent infinite loop
+      eventsManager.addEventListener(iframe, 'load', () => {
+        if (!result || loaded) {
+          resolve('loaded');
+          return; // prevent infinite loop
+        }
+
         iframe.contentWindow?.postMessage({ result }, '*');
         loaded = true;
         resolve('loaded');
@@ -347,7 +353,9 @@ export const app = async (config: Pen) => {
     const editor = editors[editorId];
     // eslint-disable-next-line
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
+      changingContent = true;
       await formatter.format(editor, getEditorLanguage(editorId));
+      changingContent = false;
       run(editors);
     });
   };
@@ -468,6 +476,8 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen) => {
     // eventsManager.removeEventListeners();
 
+    changingContent = true;
+
     const content: Partial<Pen> = {
       title: newConfig.title,
       language: newConfig.language,
@@ -495,6 +505,8 @@ export const app = async (config: Pen) => {
     setTimeout(() => {
       setSavedStatus(true);
     }, getConfig().delay);
+
+    changingContent = false;
   };
 
   const setSavedStatus = (status: boolean) => {
@@ -648,11 +660,11 @@ export const app = async (config: Pen) => {
     };
 
     const handleChangeContent = () => {
-      const contentChanged = () => {
+      const contentChanged = (loading: boolean) => {
         update();
         setSavedStatus(false);
 
-        if (getConfig().autoupdate) {
+        if (getConfig().autoupdate && !loading) {
           run(editors);
         }
 
@@ -670,7 +682,7 @@ export const app = async (config: Pen) => {
         };
       };
 
-      const debouncecontentChanged = debounce(contentChanged);
+      const debouncecontentChanged = () => debounce(contentChanged)(changingContent);
 
       editors.markup.getModel().onDidChangeContent(debouncecontentChanged);
       editors.style.getModel().onDidChangeContent(debouncecontentChanged);
@@ -1317,7 +1329,7 @@ export const app = async (config: Pen) => {
   };
 
   async function bootstrap(reload = false) {
-    await createIframe(elements.result, resultTemplate);
+    await createIframe(elements.result);
 
     if (!reload) {
       editors = await createEditors(getConfig());
@@ -1337,7 +1349,8 @@ export const app = async (config: Pen) => {
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
-    createConsole(getConfig().console, '#console', elements.result + ' > iframe', eventsManager);
+    scriptConsole.load(getConfig().console);
+
     loadCompilers(
       [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
       compilers,

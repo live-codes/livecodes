@@ -4,11 +4,28 @@ import { createEventsManager } from './events';
 import { Pen } from './models';
 
 export const createConsole = (
-  status: Pen['console'],
   consoleSelector: string,
   sourceSelector: string,
   eventsManager: ReturnType<typeof createEventsManager>,
 ) => {
+  let consoleSplit: ReturnType<typeof Split>;
+  let consoleEmulator: InstanceType<typeof LunaConsole>;
+
+  const consoleElement = document.querySelector(consoleSelector) as HTMLElement;
+  // const consoleContainer = consoleElement.parentElement as HTMLElement;
+  const result = document.querySelector('#result') as HTMLElement;
+
+  type Sizes = {
+    [key in Pen['console']]: [number, number];
+  };
+
+  const sizes: Sizes = {
+    closed: [95, 5],
+    open: [50, 50],
+    full: [5, 95],
+    none: [100, 0],
+  };
+
   const htmlToElement = (html: string) => {
     const tag = html.substr(1, 4);
     if (['html', 'head'].includes(tag)) {
@@ -38,40 +55,21 @@ export const createConsole = (
       return arg.content;
     });
 
-  const registerConsole = () => {
-    if (status === 'none') return;
+  const createConsoleSplit = () => {
+    if (consoleSplit) {
+      return consoleSplit;
+    }
 
-    const consoleContainer = document.querySelector(consoleSelector) as HTMLElement;
-    const consoleEmulator = new LunaConsole(consoleContainer);
-    eventsManager.addEventListener(window, 'message', (event: any) => {
-      const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
-      if (!iframe || !consoleContainer || event.source !== iframe.contentWindow) return;
-      const message = event.data;
-      if (message.type === 'console' && message.method in consoleEmulator) {
-        consoleEmulator[message.method as keyof typeof consoleEmulator](
-          ...convertTypes(message.args),
-        );
-      }
-    });
-    return consoleEmulator;
-  };
-
-  const sizes = {
-    closed: [95, 5],
-    open: [50, 50],
-    full: [5, 95],
-    none: [100, 0],
-  };
-
-  const result = document.querySelector('#result') as HTMLElement;
-
-  const createConsoleWindow = () => {
-    if (status === 'none') return;
-
-    const consoleSplit = Split(['#result', '#console-container'], {
-      sizes: sizes[status],
+    consoleSplit = Split(['#result', '#console-container'], {
+      sizes: sizes.closed,
       gutterSize: 30,
       direction: 'vertical',
+      // elementStyle: (_dimension, size, gutterSize) => ({
+      //   height: `calc(${size}% - ${gutterSize}px)`,
+      // }),
+      // gutterStyle: (_dimension, gutterSize) => ({
+      //   height: `${gutterSize}px`,
+      // }),
       onDragStart() {
         result.style.transition = 'none';
       },
@@ -132,28 +130,59 @@ export const createConsole = (
     return consoleSplit;
   };
 
-  const consoleSplit = createConsoleWindow();
-  const consoleEmulator = registerConsole();
-
-  const resize = (newStatus: Pen['console']) => {
-    consoleSplit?.setSizes(sizes[newStatus]);
-    if (newStatus === 'closed') {
-      result.style.height = 'calc(100% - 30px)';
+  const createConsoleEmulator = () => {
+    if (consoleEmulator) {
+      consoleEmulator.destroy();
+      consoleEmulator = new LunaConsole(consoleElement);
+      return consoleEmulator;
     }
 
-    if (newStatus === 'none') {
-      consoleSplit?.destroy();
-      document.querySelector(consoleSelector)?.parentElement?.remove();
-      result.style.height = '100%';
-      result.style.minHeight = '100%';
+    consoleEmulator = new LunaConsole(consoleElement);
+
+    eventsManager.addEventListener(window, 'message', (event: any) => {
+      const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
+      if (!iframe || !consoleElement || event.source !== iframe.contentWindow) return;
+      const message = event.data;
+      if (message.type === 'console' && message.method in consoleEmulator) {
+        consoleEmulator[message.method as keyof typeof consoleEmulator](
+          ...convertTypes(message.args),
+        );
+      }
+    });
+    return consoleEmulator;
+  };
+
+  const resize = (newStatus: Pen['console']) => {
+    // consoleContainer.style.display = 'unset';
+    // result.style.minHeight = 'unset';
+
+    if (newStatus === 'closed') {
+      consoleSplit.collapse(1);
+      // result.style.height = 'calc(100% - 30px)';
+    } else if (newStatus === 'full') {
+      consoleSplit.collapse(0);
+      // } else if (newStatus === 'none') {
+      //   // consoleEmulator?.destroy();
+      //   // consoleSplit?.destroy();
+      //   consoleElement.innerHTML = '';
+      //   consoleContainer.style.display = 'none';
+      //   result.style.height = '100%';
+      //   result.style.minHeight = '100%';
+    } else {
+      consoleSplit.setSizes(sizes[newStatus]);
     }
 
     status = newStatus;
   };
 
-  resize(status);
+  const load = (status: Pen['console']) => {
+    consoleSplit = createConsoleSplit();
+    consoleEmulator = createConsoleEmulator();
+    resize(status);
+  };
 
   return {
+    load,
     open: () => resize('open'),
     close: () => resize('closed'),
     maximize: () => resize('full'),
@@ -164,6 +193,7 @@ export const createConsole = (
     warn: (...args: any[]) => consoleEmulator?.warn(...args),
     error: (...args: any[]) => consoleEmulator?.error(...args),
     clear: () => consoleEmulator?.clear(),
+    // filterLog: (filter: string) => consoleEmulator?.filterLog(filter),
     evaluate: (code: string) => consoleEmulator?.evaluate(code),
   };
 };

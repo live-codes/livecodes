@@ -205,6 +205,9 @@ body {
   height: 100%;
   overflow: auto;
 }
+#console .luna-object-viewer {
+  overflow: hidden;
+}
 
 .gutter.gutter-vertical {
   cursor: ns-resize;
