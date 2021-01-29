@@ -1,7 +1,9 @@
 import LunaConsole from 'luna-console';
 import Split from 'split.js';
+import { createEditor } from './editor';
 import { createEventsManager } from './events';
 import { Pen } from './models';
+import { monaco } from './monaco';
 
 export const createConsole = (
   consoleSelector: string,
@@ -14,6 +16,9 @@ export const createConsole = (
 
   const consoleElement = document.querySelector(consoleSelector) as HTMLElement;
   const result = document.querySelector('#result') as HTMLElement;
+
+  const commands: string[] = [];
+  let commandsIndex = -1;
 
   const setAnimation = (animate: boolean) => {
     if (animate) {
@@ -211,13 +216,93 @@ export const createConsole = (
         return;
       }
       const message = event.data;
-      if (message.type === 'console' && message.method in consoleEmulator) {
+      const api = [
+        'log',
+        'error',
+        'info',
+        'warn',
+        'dir',
+        'time',
+        'timeLog',
+        'timeEnd',
+        'clear',
+        'count',
+        'countReset',
+        'assert',
+        'table',
+        'group',
+        'groupCollapsed',
+        'groupEnd',
+      ];
+      if (message.type === 'console' && api.includes(message.method)) {
         consoleEmulator[message.method as keyof typeof consoleEmulator](
           ...convertTypes(message.args),
         );
       }
     });
     return consoleEmulator;
+  };
+
+  const createConsoleInput = async () => {
+    const editorOptions = {
+      baseUrl: '/localpen/',
+      container: document.querySelector('#console-input') as HTMLElement,
+      language: 'javascript',
+      fontSize: 14,
+      lineNumbers: 'off',
+      glyphMargin: true,
+      folding: false,
+      lineDecorationsWidth: 0,
+      lineNumbersMinChars: 0,
+      minimap: {
+        enabled: false,
+      },
+      scrollbar: {
+        vertical: 'auto',
+      },
+      scrollBeyondLastLine: false,
+      contextmenu: false,
+      automaticLayout: true,
+    };
+    const editor = await createEditor(editorOptions);
+    setTimeout(() => editor.layout());
+
+    const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
+      editor.addAction({
+        id: label + '-console',
+        label,
+        keybindings: [keybinding],
+        precondition: '!suggestWidgetVisible && !markersNavigationVisible && !findWidgetVisible',
+        run: callback,
+      });
+    };
+
+    addKeyBinding('exec', monaco.KeyCode.Enter, () => {
+      const command = editor.getValue();
+      const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
+      iframe.contentWindow?.postMessage({ console: command }, '*');
+      commands.push(command);
+      editor.getModel().setValue('');
+      commandsIndex = -1;
+    });
+
+    addKeyBinding('prev', monaco.KeyCode.UpArrow, () => {
+      const currentIndex = commandsIndex === -1 ? commands.length : commandsIndex;
+      commandsIndex = currentIndex === 0 ? 0 : currentIndex - 1;
+      editor.getModel().setValue(commands[commandsIndex]);
+    });
+
+    addKeyBinding('next', monaco.KeyCode.DownArrow, () => {
+      const currentIndex = commandsIndex === -1 ? commands.length - 1 : commandsIndex;
+      commandsIndex = currentIndex === commands.length - 1 ? -1 : currentIndex + 1;
+      editor.getModel().setValue(commands[commandsIndex] || '');
+    });
+
+    editor.getModel().onDidChangeContent(() => {
+      editorOptions.container.style.height = editor.getContentHeight() * 2 + 'px';
+    });
+
+    return editor;
   };
 
   const resize = (newStatus: Pen['console']) => {
@@ -239,11 +324,13 @@ export const createConsole = (
     sizeChanged();
   };
 
-  const load = (newStatus: Pen['console']) => {
+  const load = async (newStatus: Pen['console']) => {
     const initialLoad = !status;
     status = newStatus;
     consoleSplit = createConsoleSplit();
     consoleEmulator = createConsoleEmulator();
+    await createConsoleInput();
+
     if (initialLoad) {
       consoleSplit.setSizes(sizes[status]);
       sizeChanged();

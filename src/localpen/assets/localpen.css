@@ -201,14 +201,22 @@ body {
   align-items: center;
   justify-content: center;
 }
+#console-container {
+  display: flex;
+  flex-direction: column;
+}
 #console {
-  height: 100%;
   overflow: auto;
 }
 #console .luna-object-viewer {
   overflow: hidden;
 }
-
+#console-input {
+  min-height: 40px;
+}
+#console-input .monaco-editor {
+  height: 100% !important;
+}
 .gutter.gutter-vertical {
   cursor: ns-resize;
 }

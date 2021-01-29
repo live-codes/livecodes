@@ -50,7 +50,10 @@ window.console = new Proxy(console, {
   get(target, method) {
     return function (...args: any[]) {
       if (!(method in target)) {
-        throw new TypeError('console.' + (method as string) + ' is not a function');
+        const msg = `Uncaught TypeError: console.${String(method)} is not a function`;
+        target.error(msg);
+        parent.postMessage({ type: 'console', method: 'error', args: getTypes([msg]) }, '*');
+        return;
       }
       target[method as keyof typeof console](...args);
       parent.postMessage({ type: 'console', method, args: getTypes(args) }, '*');
@@ -60,4 +63,13 @@ window.console = new Proxy(console, {
 
 window.addEventListener('error', (error) => {
   parent.postMessage({ type: 'console', method: 'error', args: getTypes([error.message]) }, '*');
+});
+
+window.addEventListener('message', (event) => {
+  if (event.origin.startsWith(location.origin) && event.data.console) {
+    // eslint-disable-next-line
+    console.log('>', event.data.console);
+    // eslint-disable-next-line
+    console.log('<', eval(event.data.console));
+  }
 });
