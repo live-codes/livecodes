@@ -10,19 +10,36 @@ export const createConsole = (
 ) => {
   let consoleSplit: ReturnType<typeof Split>;
   let consoleEmulator: InstanceType<typeof LunaConsole>;
+  let status: Pen['console'];
 
   const consoleElement = document.querySelector(consoleSelector) as HTMLElement;
-  // const consoleContainer = consoleElement.parentElement as HTMLElement;
   const result = document.querySelector('#result') as HTMLElement;
+
+  const setAnimation = (animate: boolean) => {
+    if (animate) {
+      result.style.transition = 'height 0.5s';
+    } else {
+      result.style.transition = 'none';
+    }
+  };
+
+  const setHidden = (hide: boolean) => {
+    if (hide) {
+      consoleSplit.collapse(1);
+      result.style.minHeight = '100%';
+    } else {
+      result.style.minHeight = 'unset';
+    }
+  };
 
   type Sizes = {
     [key in Pen['console']]: [number, number];
   };
 
   const sizes: Sizes = {
-    closed: [95, 5],
-    open: [50, 50],
-    full: [5, 95],
+    closed: [100, 0],
+    open: [60, 40],
+    full: [0, 100],
     none: [100, 0],
   };
 
@@ -64,17 +81,11 @@ export const createConsole = (
       sizes: sizes.closed,
       gutterSize: 30,
       direction: 'vertical',
-      // elementStyle: (_dimension, size, gutterSize) => ({
-      //   height: `calc(${size}% - ${gutterSize}px)`,
-      // }),
-      // gutterStyle: (_dimension, gutterSize) => ({
-      //   height: `${gutterSize}px`,
-      // }),
       onDragStart() {
-        result.style.transition = 'none';
+        setAnimation(false);
       },
       onDragEnd() {
-        result.style.transition = 'height 0.5s';
+        setAnimation(true);
       },
     });
 
@@ -83,6 +94,8 @@ export const createConsole = (
     const consoleTitle = document.createElement('div');
     consoleTitle.id = 'console-title';
     consoleTitle.innerHTML = 'Console';
+    consoleBar.appendChild(consoleTitle);
+
     let timer: any;
     eventsManager.addEventListener(
       consoleTitle,
@@ -91,7 +104,7 @@ export const createConsole = (
         if (event.detail === 1) {
           timer = setTimeout(() => {
             if (consoleSplit.getSizes()[0] > 90) {
-              consoleSplit.setSizes([50, 50]);
+              consoleSplit.setSizes(sizes.open);
             } else {
               consoleSplit.collapse(1);
             }
@@ -126,7 +139,6 @@ export const createConsole = (
       false,
     );
 
-    consoleBar.appendChild(consoleTitle);
     return consoleSplit;
   };
 
@@ -141,7 +153,14 @@ export const createConsole = (
 
     eventsManager.addEventListener(window, 'message', (event: any) => {
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
-      if (!iframe || !consoleElement || event.source !== iframe.contentWindow) return;
+      if (
+        !iframe ||
+        !consoleElement ||
+        event.source !== iframe.contentWindow ||
+        status === 'none'
+      ) {
+        return;
+      }
       const message = event.data;
       if (message.type === 'console' && message.method in consoleEmulator) {
         consoleEmulator[message.method as keyof typeof consoleEmulator](
@@ -153,32 +172,34 @@ export const createConsole = (
   };
 
   const resize = (newStatus: Pen['console']) => {
-    // consoleContainer.style.display = 'unset';
-    // result.style.minHeight = 'unset';
+    if (newStatus === 'none') {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
 
     if (newStatus === 'closed') {
       consoleSplit.collapse(1);
-      // result.style.height = 'calc(100% - 30px)';
     } else if (newStatus === 'full') {
       consoleSplit.collapse(0);
-      // } else if (newStatus === 'none') {
-      //   // consoleEmulator?.destroy();
-      //   // consoleSplit?.destroy();
-      //   consoleElement.innerHTML = '';
-      //   consoleContainer.style.display = 'none';
-      //   result.style.height = '100%';
-      //   result.style.minHeight = '100%';
-    } else {
-      consoleSplit.setSizes(sizes[newStatus]);
+    } else if (newStatus === 'open') {
+      consoleSplit.setSizes(sizes.open);
     }
 
     status = newStatus;
   };
 
-  const load = (status: Pen['console']) => {
+  const load = (newStatus: Pen['console']) => {
+    const initialLoad = !status;
+    status = newStatus;
     consoleSplit = createConsoleSplit();
     consoleEmulator = createConsoleEmulator();
-    resize(status);
+    if (initialLoad) {
+      consoleSplit.setSizes(sizes[status]);
+      if (newStatus === 'none') {
+        setHidden(true);
+      }
+    }
   };
 
   return {
@@ -186,7 +207,7 @@ export const createConsole = (
     open: () => resize('open'),
     close: () => resize('closed'),
     maximize: () => resize('full'),
-    destroy: () => resize('none'),
+    hide: () => resize('none'),
     log: (...args: any[]) => consoleEmulator?.log(...args),
     info: (...args: any[]) => consoleEmulator?.info(...args),
     table: (...args: any[]) => consoleEmulator?.table(...args),
