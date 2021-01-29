@@ -187,9 +187,10 @@ body {
 }
 
 #console-bar {
-  justify-content: start;
+  justify-content: space-between;
   color: #eeeeee;
   font-size: 12px;
+  overflow: hidden;
 }
 #console-title {
   cursor: pointer;
@@ -826,7 +827,8 @@ i.arrow:after {
   color: grey;
 }
 
-#modal #list-container li .delete-button {
+.delete-button,
+.clear-button {
   cursor: pointer;
   margin: 10px;
   vertical-align: middle;
@@ -840,18 +842,21 @@ i.arrow:after {
   opacity: 0.6;
 }
 
-#modal #list-container li .delete-button:focus,
-#modal #list-container li .delete-button:hover {
+.delete-button:focus,
+.delete-button:hover,
+.clear-button:focus,
+.clear-button:hover {
   opacity: 1;
   background: rgba(128, 128, 128, 0.5);
 }
 
-#modal #list-container li .delete-button:active {
+.delete-button:active,
+.clear-button:active {
   background: rgba(128, 128, 128, 0.9);
 }
 
-#modal #list-container li .delete-button::before,
-#modal #list-container li .delete-button::after {
+.delete-button::before,
+.delete-button::after {
   content: ' ';
   position: absolute;
   top: 50%;
@@ -861,11 +866,38 @@ i.arrow:after {
   background-color: currentColor;
 }
 
-#modal #list-container li .delete-button::before {
+.delete-button::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-#modal #list-container li .delete-button::after {
+.delete-button::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#console-bar .delete-button,
+#console-bar .clear-button {
+  width: 26px;
+  height: 26px;
+}
+.clear-button::before {
+  content: ' ';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: 12px;
+  width: 12px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+}
+
+.clear-button::after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 14px;
+  width: 3px;
+  background-color: currentColor;
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 

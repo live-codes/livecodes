@@ -32,6 +32,15 @@ export const createConsole = (
     }
   };
 
+  const sizeChanged = () => {
+    const consoleButtons = document.querySelector('#console-bar #console-buttons') as HTMLElement;
+    if (consoleSplit.getSizes()[0] > 90) {
+      consoleButtons.style.display = 'none';
+    } else {
+      consoleButtons.style.display = 'unset';
+    }
+  };
+
   type Sizes = {
     [key in Pen['console']]: [number, number];
   };
@@ -87,6 +96,9 @@ export const createConsole = (
       onDragEnd() {
         setAnimation(true);
       },
+      onDrag() {
+        sizeChanged();
+      },
     });
 
     const consoleBar = document.querySelector('#output .gutter') as HTMLElement;
@@ -105,8 +117,10 @@ export const createConsole = (
           timer = setTimeout(() => {
             if (consoleSplit.getSizes()[0] > 90) {
               consoleSplit.setSizes(sizes.open);
+              sizeChanged();
             } else {
               consoleSplit.collapse(1);
+              sizeChanged();
             }
           }, 200);
         }
@@ -120,8 +134,10 @@ export const createConsole = (
         clearTimeout(timer);
         if (consoleSplit.getSizes()[0] < 10) {
           consoleSplit.collapse(1);
+          sizeChanged();
         } else {
           consoleSplit.collapse(0);
+          sizeChanged();
         }
       },
       false,
@@ -132,12 +148,45 @@ export const createConsole = (
       () => {
         if (consoleSplit.getSizes()[0] < 10) {
           consoleSplit.collapse(0);
+          sizeChanged();
         } else if (consoleSplit.getSizes()[0] > 90) {
           consoleSplit.collapse(1);
+          sizeChanged();
         }
       },
       false,
     );
+
+    const buttons = document.createElement('div');
+    buttons.id = 'console-buttons';
+    consoleBar.appendChild(buttons);
+
+    const clearButton = document.createElement('button');
+    clearButton.classList.add('clear-button');
+    clearButton.title = 'Clear console';
+    eventsManager.addEventListener(
+      clearButton,
+      'click',
+      () => {
+        consoleEmulator.clear();
+      },
+      false,
+    );
+    buttons.appendChild(clearButton);
+
+    const closeButton = document.createElement('button');
+    closeButton.classList.add('delete-button');
+    closeButton.title = 'Close';
+    eventsManager.addEventListener(
+      closeButton,
+      'click',
+      () => {
+        consoleSplit.collapse(1);
+        sizeChanged();
+      },
+      false,
+    );
+    buttons.appendChild(closeButton);
 
     return consoleSplit;
   };
@@ -187,6 +236,7 @@ export const createConsole = (
     }
 
     status = newStatus;
+    sizeChanged();
   };
 
   const load = (newStatus: Pen['console']) => {
@@ -196,6 +246,7 @@ export const createConsole = (
     consoleEmulator = createConsoleEmulator();
     if (initialLoad) {
       consoleSplit.setSizes(sizes[status]);
+      sizeChanged();
       if (newStatus === 'none') {
         setHidden(true);
       }
