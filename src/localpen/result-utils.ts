@@ -68,9 +68,10 @@ window.addEventListener('error', (error) => {
 
 window.addEventListener('message', (event) => {
   if (event.origin.startsWith(location.origin) && event.data.console) {
-    // eslint-disable-next-line
-    console.log('>', event.data.console);
-    // eslint-disable-next-line
-    console.log('<', eval(event.data.console));
+    parent.postMessage(
+      // eslint-disable-next-line
+      { type: 'console', method: 'output', args: getString([eval(event.data.console)]) },
+      '*',
+    );
   }
 });

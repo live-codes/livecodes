@@ -229,8 +229,10 @@ export const createConsole = (
       ) {
         return;
       }
+
       const message = event.data;
       const api = [
+        'output',
         'log',
         'error',
         'info',
@@ -254,6 +256,7 @@ export const createConsole = (
         );
       }
     });
+
     return consoleEmulator;
   };
 
@@ -293,6 +296,11 @@ export const createConsole = (
     addKeyBinding('exec', monaco.KeyCode.Enter, () => {
       const command = editor.getValue();
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
+      consoleEmulator.insert({
+        type: 'input',
+        args: [command],
+        ignoreFilter: true,
+      });
       iframe.contentWindow?.postMessage({ console: command }, '*');
       commands.push(command);
       editor.getModel().setValue('');
@@ -319,6 +327,17 @@ export const createConsole = (
         editor.getContentHeight() < minHeight ? minHeight : editor.getContentHeight() * 2;
       editorOptions.container.style.height = height + 'px';
     });
+
+    // workaround to remove 'luna-console-' in variable names in console output
+    const observer = new MutationObserver(() => {
+      const newLogs = consoleElement.querySelectorAll('pre.luna-console-code:not(.visible)');
+      if (newLogs.length === 0) return;
+      newLogs.forEach((log) => {
+        log.innerHTML = log.innerHTML.replace(/luna-console-/, '');
+        log.classList.add('visible');
+      });
+    });
+    observer.observe(consoleElement, { subtree: true, childList: true });
 
     const margin = document.querySelector('#console-input .glyph-margin') as HTMLElement;
     const indicator = document.createElement('div') as HTMLElement;

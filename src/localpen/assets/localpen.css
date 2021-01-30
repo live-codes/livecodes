@@ -207,9 +207,19 @@ body {
 }
 #console {
   overflow: auto;
+  background-color: #efefef;
 }
 #console .luna-object-viewer {
   overflow: hidden;
+}
+#console .luna-console-error {
+  z-index: 40;
+}
+#console pre.luna-console-code {
+  visibility: hidden;
+}
+#console pre.luna-console-code.visible {
+  visibility: visible;
 }
 #console-input-indicator {
   color: rgb(64, 169, 243);
