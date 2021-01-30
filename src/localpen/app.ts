@@ -68,7 +68,12 @@ export const app = async (config: Pen) => {
   const eventsManager = createEventsManager();
   let isSaved = true;
   let changingContent = false;
-  const scriptConsole = createConsole('#console', elements.result + ' > iframe', eventsManager);
+  const scriptConsole = createConsole(
+    getConfig(),
+    '#console',
+    elements.result + ' > iframe',
+    eventsManager,
+  );
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#output'], {

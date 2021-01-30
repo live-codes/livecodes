@@ -21,7 +21,7 @@ function isDocument(o: any) {
 function isWindow(o: any) {
   return Object.prototype.toString.call(o) === '[object Window]';
 }
-function getTypes(args: any[]): Array<{ type: string; content: any }> {
+function getString(args: any[]): Array<{ type: string; content: any }> {
   return args.map((arg) =>
     isWindow(arg)
       ? { type: 'window', content: arg.toString() }
@@ -34,35 +34,36 @@ function getTypes(args: any[]): Array<{ type: string; content: any }> {
       : typeof arg === 'function'
       ? { type: 'function', content: arg.toString() }
       : Array.isArray(arg)
-      ? { type: 'array', content: arg.map((x) => getTypes([x])[0].content) }
+      ? { type: 'array', content: arg.map((x) => getString([x])[0].content) }
       : typeof arg === 'object'
       ? {
           type: 'object',
           content: Object.keys(arg).reduce(
-            (acc, curr) => ({ ...acc, [curr]: getTypes([arg[curr]])[0].content }),
+            (acc, curr) => ({ ...acc, [curr]: getString([arg[curr]])[0].content }),
             {},
           ),
         }
       : { type: 'other', content: arg },
   );
 }
+
 window.console = new Proxy(console, {
   get(target, method) {
     return function (...args: any[]) {
       if (!(method in target)) {
         const msg = `Uncaught TypeError: console.${String(method)} is not a function`;
         target.error(msg);
-        parent.postMessage({ type: 'console', method: 'error', args: getTypes([msg]) }, '*');
+        parent.postMessage({ type: 'console', method: 'error', args: getString([msg]) }, '*');
         return;
       }
       target[method as keyof typeof console](...args);
-      parent.postMessage({ type: 'console', method, args: getTypes(args) }, '*');
+      parent.postMessage({ type: 'console', method, args: getString(args) }, '*');
     };
   },
 });
 
 window.addEventListener('error', (error) => {
-  parent.postMessage({ type: 'console', method: 'error', args: getTypes([error.message]) }, '*');
+  parent.postMessage({ type: 'console', method: 'error', args: getString([error.message]) }, '*');
 });
 
 window.addEventListener('message', (event) => {

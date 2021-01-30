@@ -211,11 +211,9 @@ body {
 #console .luna-object-viewer {
   overflow: hidden;
 }
-#console-input {
-  min-height: 40px;
-}
-#console-input .monaco-editor {
-  height: 100% !important;
+#console-input-indicator {
+  color: rgb(64, 169, 243);
+  padding-top: 2px;
 }
 .gutter.gutter-vertical {
   cursor: ns-resize;

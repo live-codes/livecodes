@@ -6,6 +6,7 @@ import { Pen } from './models';
 import { monaco } from './monaco';
 
 export const createConsole = (
+  config: Pen,
   consoleSelector: string,
   sourceSelector: string,
   eventsManager: ReturnType<typeof createEventsManager>,
@@ -13,6 +14,7 @@ export const createConsole = (
   let consoleSplit: ReturnType<typeof Split>;
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let status: Pen['console'];
+  let editor: any;
 
   const consoleElement = document.querySelector(consoleSelector) as HTMLElement;
   const result = document.querySelector('#result') as HTMLElement;
@@ -43,6 +45,12 @@ export const createConsole = (
       consoleButtons.style.display = 'none';
     } else {
       consoleButtons.style.display = 'unset';
+    }
+  };
+
+  const blur = () => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
     }
   };
 
@@ -123,9 +131,11 @@ export const createConsole = (
             if (consoleSplit.getSizes()[0] > 90) {
               consoleSplit.setSizes(sizes.open);
               sizeChanged();
+              editor?.focus();
             } else {
               consoleSplit.collapse(1);
               sizeChanged();
+              blur();
             }
           }, 200);
         }
@@ -140,9 +150,11 @@ export const createConsole = (
         if (consoleSplit.getSizes()[0] < 10) {
           consoleSplit.collapse(1);
           sizeChanged();
+          blur();
         } else {
           consoleSplit.collapse(0);
           sizeChanged();
+          editor?.focus();
         }
       },
       false,
@@ -157,6 +169,7 @@ export const createConsole = (
         } else if (consoleSplit.getSizes()[0] > 90) {
           consoleSplit.collapse(1);
           sizeChanged();
+          blur();
         }
       },
       false,
@@ -188,6 +201,7 @@ export const createConsole = (
       () => {
         consoleSplit.collapse(1);
         sizeChanged();
+        blur();
       },
       false,
     );
@@ -245,7 +259,7 @@ export const createConsole = (
 
   const createConsoleInput = async () => {
     const editorOptions = {
-      baseUrl: '/localpen/',
+      baseUrl: config.baseUrl,
       container: document.querySelector('#console-input') as HTMLElement,
       language: 'javascript',
       fontSize: 14,
@@ -265,7 +279,6 @@ export const createConsole = (
       automaticLayout: true,
     };
     const editor = await createEditor(editorOptions);
-    setTimeout(() => editor.layout());
 
     const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
       editor.addAction({
@@ -298,9 +311,20 @@ export const createConsole = (
       editor.getModel().setValue(commands[commandsIndex] || '');
     });
 
+    const minHeight = 25;
+    editorOptions.container.style.minHeight = minHeight + 'px';
+
     editor.getModel().onDidChangeContent(() => {
-      editorOptions.container.style.height = editor.getContentHeight() * 2 + 'px';
+      const height =
+        editor.getContentHeight() < minHeight ? minHeight : editor.getContentHeight() * 2;
+      editorOptions.container.style.height = height + 'px';
     });
+
+    const margin = document.querySelector('#console-input .glyph-margin') as HTMLElement;
+    const indicator = document.createElement('div') as HTMLElement;
+    indicator.id = 'console-input-indicator';
+    indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
+    margin.appendChild(indicator);
 
     return editor;
   };
@@ -329,7 +353,7 @@ export const createConsole = (
     status = newStatus;
     consoleSplit = createConsoleSplit();
     consoleEmulator = createConsoleEmulator();
-    await createConsoleInput();
+    editor = await createConsoleInput();
 
     if (initialLoad) {
       consoleSplit.setSizes(sizes[status]);
