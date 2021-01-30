@@ -15,12 +15,24 @@ export const createConsole = (
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let status: Pen['console'];
   let editor: any;
+  let scriptEditor: any;
+  let codeCompletion: any;
 
   const consoleElement = document.querySelector(consoleSelector) as HTMLElement;
   const result = document.querySelector('#result') as HTMLElement;
 
   const commands: string[] = [];
   let commandsIndex = -1;
+
+  const addCodeCompletion = () => {
+    if (!scriptEditor) return;
+    if (codeCompletion) {
+      codeCompletion.dispose();
+    }
+    codeCompletion = monaco.languages.typescript.typescriptDefaults.addExtraLib(
+      scriptEditor.getValue(),
+    );
+  };
 
   const setAnimation = (animate: boolean) => {
     if (animate) {
@@ -264,7 +276,7 @@ export const createConsole = (
     const editorOptions = {
       baseUrl: config.baseUrl,
       container: document.querySelector('#console-input') as HTMLElement,
-      language: 'javascript',
+      language: 'typescript',
       fontSize: 14,
       lineNumbers: 'off',
       glyphMargin: true,
@@ -345,6 +357,10 @@ export const createConsole = (
     indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
     margin.appendChild(indicator);
 
+    editor.onDidFocusEditorText(() => {
+      addCodeCompletion();
+    });
+
     return editor;
   };
 
@@ -367,7 +383,10 @@ export const createConsole = (
     sizeChanged();
   };
 
-  const load = async (newStatus: Pen['console']) => {
+  const load = async (newStatus: Pen['console'], scriptEd: any) => {
+    scriptEditor = scriptEd;
+    addCodeCompletion();
+
     const initialLoad = !status;
     status = newStatus;
     consoleSplit = createConsoleSplit();

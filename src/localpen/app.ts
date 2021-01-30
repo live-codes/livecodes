@@ -1354,7 +1354,7 @@ export const app = async (config: Pen) => {
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
-    await scriptConsole.load(getConfig().console);
+    await scriptConsole.load(getConfig().console, editors.script);
 
     loadCompilers(
       [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
