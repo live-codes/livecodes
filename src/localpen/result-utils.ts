@@ -1,50 +1,37 @@
-function isElement(o: any) {
-  return typeof HTMLElement === 'object'
-    ? o instanceof HTMLElement
-    : o &&
-        typeof o === 'object' &&
-        o !== null &&
-        o.nodeType === 1 &&
-        typeof o.nodeName === 'string';
-}
-function isNode(o: any) {
-  return typeof Node === 'object'
-    ? o instanceof Node
-    : o &&
-        typeof o === 'object' &&
-        typeof o.nodeType === 'number' &&
-        typeof o.nodeName === 'string';
-}
-function isDocument(o: any) {
-  return Object.prototype.toString.call(o) === '[object HTMLDocument]';
-}
-function isWindow(o: any) {
-  return Object.prototype.toString.call(o) === '[object Window]';
-}
-function getString(args: any[]): Array<{ type: string; content: any }> {
-  return args.map((arg) =>
-    isWindow(arg)
-      ? { type: 'window', content: arg.toString() }
-      : isDocument(arg)
-      ? { type: 'document', content: arg.documentElement.outerHTML }
-      : isElement(arg)
-      ? { type: 'element', content: arg.outerHTML }
-      : isNode(arg)
-      ? { type: 'node', content: arg.textContent }
-      : typeof arg === 'function'
-      ? { type: 'function', content: arg.toString() }
-      : Array.isArray(arg)
-      ? { type: 'array', content: arg.map((x) => getString([x])[0].content) }
-      : typeof arg === 'object'
-      ? {
-          type: 'object',
+import { typeOf } from './utils';
+
+function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
+  return args.map((arg) => {
+    switch (typeOf(arg)) {
+      case 'window':
+      case 'function':
+      case 'date':
+      case 'symbol':
+        return { type: typeOf(arg), content: arg.toString() };
+      case 'document':
+        return { type: typeOf(arg), content: arg.documentElement.outerHTML };
+      case 'element':
+        return { type: typeOf(arg), content: arg.outerHTML };
+      case 'node':
+        return { type: typeOf(arg), content: arg.textContent };
+      case 'array':
+        return { type: typeOf(arg), content: arg.map((x: unknown) => consoleArgs([x])[0].content) };
+      case 'object':
+        return {
+          type: typeOf(arg),
           content: Object.keys(arg).reduce(
-            (acc, curr) => ({ ...acc, [curr]: getString([arg[curr]])[0].content }),
+            (acc, key) => ({ ...acc, [key]: consoleArgs([arg[key]])[0].content }),
             {},
           ),
-        }
-      : { type: 'other', content: arg },
-  );
+        };
+      case 'error':
+        return {
+          type: typeOf(arg),
+          content: arg.constructor.name + ': ' + arg.message,
+        };
+    }
+    return { type: 'other', content: arg };
+  });
 }
 
 window.console = new Proxy(console, {
@@ -53,25 +40,36 @@ window.console = new Proxy(console, {
       if (!(method in target)) {
         const msg = `Uncaught TypeError: console.${String(method)} is not a function`;
         target.error(msg);
-        parent.postMessage({ type: 'console', method: 'error', args: getString([msg]) }, '*');
+        parent.postMessage({ type: 'console', method: 'error', args: consoleArgs([msg]) }, '*');
         return;
       }
       target[method as keyof typeof console](...args);
-      parent.postMessage({ type: 'console', method, args: getString(args) }, '*');
+      parent.postMessage({ type: 'console', method, args: consoleArgs(args) }, '*');
     };
   },
 });
 
 window.addEventListener('error', (error) => {
-  parent.postMessage({ type: 'console', method: 'error', args: getString([error.message]) }, '*');
+  parent.postMessage(
+    {
+      type: 'console',
+      method: 'error',
+      args: consoleArgs([error.message]),
+    },
+    '*',
+  );
 });
 
 window.addEventListener('message', (event) => {
   if (event.origin.startsWith(location.origin) && event.data.console) {
-    parent.postMessage(
-      // eslint-disable-next-line
-      { type: 'console', method: 'output', args: getString([eval(event.data.console)]) },
-      '*',
-    );
+    const evalCode = () => {
+      try {
+        // eslint-disable-next-line no-eval
+        return { type: 'console', method: 'output', args: consoleArgs([eval(event.data.console)]) };
+      } catch (error) {
+        return { type: 'console', method: 'error', args: consoleArgs([error]) };
+      }
+    };
+    parent.postMessage(evalCode(), '*');
   }
 });

@@ -215,10 +215,10 @@ body {
 #console .luna-console-error {
   z-index: 40;
 }
-#console pre.luna-console-code {
+#console .luna-console-input pre.luna-console-code {
   visibility: hidden;
 }
-#console pre.luna-console-code.visible {
+#console .luna-console-input pre.luna-console-code.visible {
   visibility: visible;
 }
 #console-input-indicator {

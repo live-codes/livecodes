@@ -244,7 +244,7 @@ export const createConsole = (
 
       const message = event.data;
       const api = [
-        'output',
+        'output', // to output messages from console input
         'log',
         'error',
         'info',
@@ -340,12 +340,15 @@ export const createConsole = (
       editorOptions.container.style.height = height + 'px';
     });
 
-    // workaround to remove 'luna-console-' in variable names in console output
+    // workaround to remove 'luna-console-' added to variable names called by console input
     const observer = new MutationObserver(() => {
-      const newLogs = consoleElement.querySelectorAll('pre.luna-console-code:not(.visible)');
+      const newLogs = consoleElement.querySelectorAll(
+        '.luna-console-input pre.luna-console-code:not(.visible)',
+      );
       if (newLogs.length === 0) return;
       newLogs.forEach((log) => {
-        log.innerHTML = log.innerHTML.replace(/luna-console-/, '');
+        const pattern = /(luna-console-)(?!keyword|string|operator|number|json|hidden)/g;
+        log.innerHTML = log.innerHTML.replace(pattern, '');
         log.classList.add('visible');
       });
     });
