@@ -12,6 +12,7 @@ export const defaultConfig: Pen = {
   emmet: true,
   autoprefixer: true,
   mode: 'full',
+  console: 'closed',
   editor: {
     fontSize: 14,
     theme: 'vs-dark',

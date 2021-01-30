@@ -10,6 +10,8 @@
       }
     </style>
     <link rel="stylesheet" href="{{baseUrl}}assets/localpen.css" />
+    <link rel="stylesheet" href="{{baseUrl}}vendor/luna-object-viewer/luna-object-viewer.css" />
+    <link rel="stylesheet" href="{{baseUrl}}vendor/luna-console/luna-console.css" />
   </head>
   <body>
     <div id="container">
@@ -238,7 +240,13 @@
           <div id="style"></div>
           <div id="script"></div>
         </div>
-        <div id="result"></div>
+        <div id="output">
+          <div id="result"></div>
+          <div id="console-container">
+            <div id="console"></div>
+            <div id="console-input"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div id="notifications" class="hidden" style="display: none"></div>

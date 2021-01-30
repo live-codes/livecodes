@@ -33,6 +33,28 @@ fs.copyFileSync(
   path.resolve(targetDir + '/reset-css/reset.css'),
 );
 
+// luna-object-viewer
+mkdirp(targetDir + '/luna-object-viewer');
+fs.copyFileSync(
+  path.resolve(node_modules + '/luna-object-viewer/luna-object-viewer.css'),
+  path.resolve(targetDir + '/luna-object-viewer/luna-object-viewer.css'),
+);
+deleteContent(
+  path.resolve(targetDir + '/luna-object-viewer/luna-object-viewer.css'),
+  '\n/*# sourceMappingURL=luna-object-viewer.css.map*/',
+);
+
+// luna-console
+mkdirp(targetDir + '/luna-console');
+fs.copyFileSync(
+  path.resolve(node_modules + '/luna-console/luna-console.css'),
+  path.resolve(targetDir + '/luna-console/luna-console.css'),
+);
+deleteContent(
+  path.resolve(targetDir + '/luna-console/luna-console.css'),
+  '\n/*# sourceMappingURL=luna-console.css.map*/',
+);
+
 // sass.js
 mkdirp(targetDir + '/sass.js');
 fs.copyFileSync(
@@ -109,4 +131,10 @@ function mkdirp(dir) {
   if (!fs.existsSync(path.resolve(dir))) {
     fs.mkdirSync(path.resolve(dir));
   }
+}
+
+function deleteContent(file, content) {
+  var data = fs.readFileSync(file, 'utf-8');
+  var newValue = data.replace(content, '');
+  fs.writeFileSync(file, newValue, 'utf-8');
 }

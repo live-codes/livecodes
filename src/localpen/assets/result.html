@@ -7,9 +7,10 @@
   <body>
     <script>
       window.addEventListener('message', (event) => {
-        if (!event.origin.startsWith(location.origin)) return;
-        document.write(event.data.result);
-        document.close();
+        if (event.origin.startsWith(location.origin) && event.data.result) {
+          document.write(event.data.result);
+          document.close();
+        }
       });
     </script>
   </body>

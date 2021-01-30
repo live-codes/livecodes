@@ -1,5 +1,6 @@
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
+
 import { monaco } from './monaco';
 
 import { createEditor } from './editor';
@@ -37,6 +38,7 @@ import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { starterTemplates } from './templates';
 import { defaultConfig } from './config';
+import { createConsole } from './console';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -44,6 +46,12 @@ export const app = async (config: Pen) => {
 
   const setConfig = (newConfig: Pen) => {
     config = JSON.parse(JSON.stringify(newConfig));
+  };
+  const elements = {
+    markup: '#markup',
+    style: '#style',
+    script: '#script',
+    result: '#result',
   };
 
   const { baseUrl } = getConfig();
@@ -59,16 +67,16 @@ export const app = async (config: Pen) => {
   const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
-
-  const elements = {
-    markup: '#markup',
-    style: '#style',
-    script: '#script',
-    result: '#result',
-  };
+  let changingContent = false;
+  const scriptConsole = createConsole(
+    getConfig(),
+    '#console',
+    elements.result + ' > iframe',
+    eventsManager,
+  );
 
   const createSplitPanes = () => {
-    const split = Split(['#editors', '#result'], {
+    const split = Split(['#editors', '#output'], {
       minSize: [0, 0],
       gutterSize: 10,
       elementStyle: (_dimension, size, gutterSize) => {
@@ -88,12 +96,11 @@ export const app = async (config: Pen) => {
       handle.id = 'handle';
       gutter.appendChild(handle);
     }
-
     return split;
   };
   const split = createSplitPanes();
 
-  function createIframe(container: string, result = resultTemplate) {
+  function createIframe(container: string, result?: string) {
     return new Promise((resolve) => {
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
@@ -113,8 +120,12 @@ export const app = async (config: Pen) => {
       iframe.src = baseUrl + 'assets/result.html';
 
       let loaded = false;
-      iframe.addEventListener('load', () => {
-        if (loaded) return; // prevent infinite loop
+      eventsManager.addEventListener(iframe, 'load', () => {
+        if (!result || loaded) {
+          resolve('loaded');
+          return; // prevent infinite loop
+        }
+
         iframe.contentWindow?.postMessage({ result }, '*');
         loaded = true;
         resolve('loaded');
@@ -124,6 +135,7 @@ export const app = async (config: Pen) => {
       containerEl.appendChild(iframe);
     });
   }
+
   const compilers = getCompilersData([...languages, ...postProcessors], getConfig());
 
   const getTypes = async (module: Module): Promise<EditorLibrary> => {
@@ -346,7 +358,9 @@ export const app = async (config: Pen) => {
     const editor = editors[editorId];
     // eslint-disable-next-line
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
+      changingContent = true;
       await formatter.format(editor, getEditorLanguage(editorId));
+      changingContent = false;
       run(editors);
     });
   };
@@ -365,10 +379,6 @@ export const app = async (config: Pen) => {
     const dom = domParser.parseFromString(template, 'text/html');
 
     dom.title = config.title;
-
-    if (forExport) {
-      dom.body.innerHTML = '';
-    }
 
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
@@ -394,6 +404,14 @@ export const app = async (config: Pen) => {
 
     if (config.cssPreset === 'github-markdown-css') {
       dom.body.classList.add('markdown-body');
+    }
+
+    if (forExport) {
+      dom.body.innerHTML = '';
+    } else {
+      const utilsScript = dom.createElement('script');
+      utilsScript.src = config.baseUrl + 'assets/scripts/utils.js';
+      dom.body.appendChild(utilsScript);
     }
 
     const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
@@ -463,6 +481,8 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen) => {
     // eventsManager.removeEventListeners();
 
+    changingContent = true;
+
     const content: Partial<Pen> = {
       title: newConfig.title,
       language: newConfig.language,
@@ -490,6 +510,8 @@ export const app = async (config: Pen) => {
     setTimeout(() => {
       setSavedStatus(true);
     }, getConfig().delay);
+
+    changingContent = false;
   };
 
   const setSavedStatus = (status: boolean) => {
@@ -643,11 +665,11 @@ export const app = async (config: Pen) => {
     };
 
     const handleChangeContent = () => {
-      const contentChanged = () => {
+      const contentChanged = (loading: boolean) => {
         update();
         setSavedStatus(false);
 
-        if (getConfig().autoupdate) {
+        if (getConfig().autoupdate && !loading) {
           run(editors);
         }
 
@@ -665,7 +687,7 @@ export const app = async (config: Pen) => {
         };
       };
 
-      const debouncecontentChanged = debounce(contentChanged);
+      const debouncecontentChanged = () => debounce(contentChanged)(changingContent);
 
       editors.markup.getModel().onDidChangeContent(debouncecontentChanged);
       editors.style.getModel().onDidChangeContent(debouncecontentChanged);
@@ -1312,7 +1334,7 @@ export const app = async (config: Pen) => {
   };
 
   async function bootstrap(reload = false) {
-    await createIframe(elements.result, resultTemplate);
+    await createIframe(elements.result);
 
     if (!reload) {
       editors = await createEditors(getConfig());
@@ -1332,6 +1354,8 @@ export const app = async (config: Pen) => {
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
+    await scriptConsole.load(getConfig().console, editors.script);
+
     loadCompilers(
       [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
       compilers,
