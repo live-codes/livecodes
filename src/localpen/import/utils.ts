@@ -26,7 +26,7 @@ export const populateConfig = (
   files: Array<Partial<sourceFile>>,
   params: { [key: string]: string },
 ) => {
-  // select files from gist based on language in query params (e.g. ?html=index.html&js=script.js)
+  // select files based on language in query params (e.g. ?html=index.html&js=script.js)
   const languagesInParams = Object.keys(params).some(getLanguageByAlias);
   if (languagesInParams) {
     return Object.keys(params).reduce((output: Partial<Pen>, param: string) => {

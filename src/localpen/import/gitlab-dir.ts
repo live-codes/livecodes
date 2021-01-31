@@ -1,5 +1,4 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language } from '../models';
 import { getValidUrl, hostPatterns, populateConfig, sourceFile } from './utils';
 
 export const isGitlabDir = (url: string, patterns = hostPatterns.gitlab) => {
@@ -8,7 +7,7 @@ export const isGitlabDir = (url: string, patterns = hostPatterns.gitlab) => {
     const urlObj = getValidUrl(url);
     if (!urlObj) return;
     const pathSplit = urlObj.pathname.split('/');
-    return pathSplit[4] === 'tree';
+    return pathSplit[4] === 'tree' || pathSplit.length === 3;
   } catch (error) {
     return;
   }
@@ -21,10 +20,11 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
     const pathSplit = urlObj.pathname.split('/');
     const user = pathSplit[1];
     const repository = pathSplit[2];
-    const branch = pathSplit[5];
-    const projectId = await fetch(`${urlObj.origin}/api/v4/projects/${user}%2F${repository}`)
-      .then((res) => res.json())
-      .then((data) => data.id);
+    const repoInfo = await fetch(
+      `${urlObj.origin}/api/v4/projects/${user}%2F${repository}`,
+    ).then((res) => res.json());
+    const branch = pathSplit[5] || repoInfo.default_branch;
+    const projectId = repoInfo.id;
     const dir = pathSplit.slice(6, pathSplit.length).join('/');
     const apiURL = `${urlObj.origin}/api/v4/projects/${projectId}/repository/tree?per_page=100&path=${dir}`;
     const dirFiles = await fetch(apiURL)
@@ -35,8 +35,7 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
       Object.values(dirFiles).map(
         async (file: any): Promise<Partial<sourceFile>> => {
           const filename = file.path.split('/')[file.path.split('/').length - 1];
-          const extension = (filename.split('.')[filename.split('.').length - 1] ||
-            'md') as Language;
+          const extension = filename.split('.')[filename.split('.').length - 1];
           const language = getLanguageByAlias(extension);
           if (!language) return {};
           const editorId = getLanguageEditorId(language);
