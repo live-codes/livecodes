@@ -1,5 +1,4 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language } from '../models';
 import { getValidUrl, hostPatterns, populateConfig } from './utils';
 
 export const isGitlabSnippet = (url: string, patterns = hostPatterns.gitlab) => {
@@ -24,9 +23,9 @@ export const importFromGitlabSnippet = async (url: string, params: { [key: strin
     const files = await Promise.all(
       Object.values(snippetFiles).map(async (file: any) => {
         const filename = file.path;
-        const language = getLanguageByAlias(
-          filename.split('.')[filename.split('.').length - 1] || 'md',
-        ) as Language;
+        const language = getLanguageByAlias(filename.split('.')[filename.split('.').length - 1]);
+        if (!language) return {};
+        const editorId = getLanguageEditorId(language);
 
         const content = await fetch(
           `${urlObj.origin}/api/v4/snippets/${snippetId}/files/master/${encodeURIComponent(
@@ -38,7 +37,7 @@ export const importFromGitlabSnippet = async (url: string, params: { [key: strin
           filename,
           language,
           content,
-          editorId: getLanguageEditorId(language),
+          editorId,
         };
       }),
     );
