@@ -152,3 +152,10 @@ export interface Template {
   cssPreset: CssPresetId;
   modules: Module[];
 }
+
+export interface Tool {
+  title: string;
+  load: () => Promise<void>;
+  onActivate: () => void;
+  onDeactivate: () => void;
+}

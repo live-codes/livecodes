@@ -1,25 +1,22 @@
 import LunaConsole from 'luna-console';
-import Split from 'split.js';
 import { createEditor } from './editor';
 import { createEventsManager } from './events';
-import { Pen } from './models';
+import { Editors, Pen, Tool } from './models';
 import { monaco } from './monaco';
 
 export const createConsole = (
   config: Pen,
-  consoleSelector: string,
-  sourceSelector: string,
+  editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
-) => {
-  let consoleSplit: ReturnType<typeof Split>;
+): Tool => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
-  let status: Pen['console'];
   let editor: any;
   let scriptEditor: any;
   let codeCompletion: any;
 
-  const consoleElement = document.querySelector(consoleSelector) as HTMLElement;
-  const result = document.querySelector('#result') as HTMLElement;
+  let consoleElement: HTMLElement;
+  const sourceSelector = '#result > iframe';
+  let clearButton: HTMLButtonElement;
 
   const commands: string[] = [];
   let commandsIndex = -1;
@@ -34,47 +31,10 @@ export const createConsole = (
     );
   };
 
-  const setAnimation = (animate: boolean) => {
-    if (animate) {
-      result.style.transition = 'height 0.5s';
-    } else {
-      result.style.transition = 'none';
-    }
-  };
-
-  const setHidden = (hide: boolean) => {
-    if (hide) {
-      consoleSplit.collapse(1);
-      result.style.minHeight = '100%';
-    } else {
-      result.style.minHeight = 'unset';
-    }
-  };
-
-  const sizeChanged = () => {
-    const consoleButtons = document.querySelector('#console-bar #console-buttons') as HTMLElement;
-    if (consoleSplit.getSizes()[0] > 90) {
-      consoleButtons.style.display = 'none';
-    } else {
-      consoleButtons.style.display = 'unset';
-    }
-  };
-
   const blur = () => {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
-  };
-
-  type Sizes = {
-    [key in Pen['console']]: [number, number];
-  };
-
-  const sizes: Sizes = {
-    closed: [100, 0],
-    open: [60, 40],
-    full: [0, 100],
-    none: [100, 0],
   };
 
   const htmlToElement = (html: string) => {
@@ -106,122 +66,6 @@ export const createConsole = (
       return arg.content;
     });
 
-  const createConsoleSplit = () => {
-    if (consoleSplit) {
-      return consoleSplit;
-    }
-
-    consoleSplit = Split(['#result', '#console-container'], {
-      sizes: sizes.closed,
-      gutterSize: 30,
-      direction: 'vertical',
-      onDragStart() {
-        setAnimation(false);
-      },
-      onDragEnd() {
-        setAnimation(true);
-      },
-      onDrag() {
-        sizeChanged();
-      },
-    });
-
-    const consoleBar = document.querySelector('#output .gutter') as HTMLElement;
-    consoleBar.id = 'console-bar';
-    const consoleTitle = document.createElement('div');
-    consoleTitle.id = 'console-title';
-    consoleTitle.innerHTML = 'Console';
-    consoleBar.appendChild(consoleTitle);
-
-    let timer: any;
-    eventsManager.addEventListener(
-      consoleTitle,
-      'click',
-      (event: any) => {
-        if (event.detail === 1) {
-          timer = setTimeout(() => {
-            if (consoleSplit.getSizes()[0] > 90) {
-              consoleSplit.setSizes(sizes.open);
-              sizeChanged();
-              editor?.focus();
-            } else {
-              consoleSplit.collapse(1);
-              sizeChanged();
-              blur();
-            }
-          }, 200);
-        }
-      },
-      false,
-    );
-    eventsManager.addEventListener(
-      consoleTitle,
-      'dblclick',
-      () => {
-        clearTimeout(timer);
-        if (consoleSplit.getSizes()[0] < 10) {
-          consoleSplit.collapse(1);
-          sizeChanged();
-          blur();
-        } else {
-          consoleSplit.collapse(0);
-          sizeChanged();
-          editor?.focus();
-        }
-      },
-      false,
-    );
-    eventsManager.addEventListener(
-      window,
-      'resize',
-      () => {
-        if (consoleSplit.getSizes()[0] < 10) {
-          consoleSplit.collapse(0);
-          sizeChanged();
-        } else if (consoleSplit.getSizes()[0] > 90) {
-          consoleSplit.collapse(1);
-          sizeChanged();
-          blur();
-        }
-      },
-      false,
-    );
-
-    const buttons = document.createElement('div');
-    buttons.id = 'console-buttons';
-    consoleBar.appendChild(buttons);
-
-    const clearButton = document.createElement('button');
-    clearButton.classList.add('clear-button');
-    clearButton.title = 'Clear console';
-    eventsManager.addEventListener(
-      clearButton,
-      'click',
-      () => {
-        consoleEmulator.clear();
-      },
-      false,
-    );
-    buttons.appendChild(clearButton);
-
-    const closeButton = document.createElement('button');
-    closeButton.classList.add('delete-button');
-    closeButton.title = 'Close';
-    eventsManager.addEventListener(
-      closeButton,
-      'click',
-      () => {
-        consoleSplit.collapse(1);
-        sizeChanged();
-        blur();
-      },
-      false,
-    );
-    buttons.appendChild(closeButton);
-
-    return consoleSplit;
-  };
-
   const createConsoleEmulator = () => {
     if (consoleEmulator) {
       consoleEmulator.destroy();
@@ -230,7 +74,6 @@ export const createConsole = (
     }
 
     consoleEmulator = new LunaConsole(consoleElement);
-
     eventsManager.addEventListener(window, 'message', (event: any) => {
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
       if (
@@ -367,50 +210,78 @@ export const createConsole = (
     return editor;
   };
 
-  const resize = (newStatus: Pen['console']) => {
-    if (newStatus === 'none') {
-      setHidden(true);
-    } else {
-      setHidden(false);
+  const createConsoleElements = () => {
+    if (consoleElement) return;
+
+    const toolsPaneSelector = '#output #tools-pane';
+    const toolsPaneElement = document.querySelector(toolsPaneSelector);
+    if (!toolsPaneElement) {
+      throw new Error('Cannot find element with selector: ' + toolsPaneSelector);
     }
 
-    if (newStatus === 'closed') {
-      consoleSplit.collapse(1);
-    } else if (newStatus === 'full') {
-      consoleSplit.collapse(0);
-    } else if (newStatus === 'open') {
-      consoleSplit.setSizes(sizes.open);
-    }
+    const container = document.createElement('div');
+    container.id = 'console-container';
+    toolsPaneElement.appendChild(container);
 
-    status = newStatus;
-    sizeChanged();
+    consoleElement = document.createElement('div');
+    consoleElement.id = 'console';
+    container.appendChild(consoleElement);
+
+    const consoleInput = document.createElement('div');
+    consoleInput.id = 'console-input';
+    container.appendChild(consoleInput);
+
+    const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
+    if (toolsPaneButtons) {
+      clearButton = document.createElement('button');
+      clearButton.classList.add('clear-button');
+      clearButton.title = 'Clear console';
+      clearButton.style.display = 'none';
+      eventsManager.addEventListener(
+        clearButton,
+        'click',
+        () => {
+          consoleEmulator.clear();
+        },
+        false,
+      );
+      eventsManager.addEventListener(
+        clearButton,
+        'touchstart',
+        () => {
+          consoleEmulator.clear();
+        },
+        false,
+      );
+      toolsPaneButtons.prepend(clearButton);
+    }
   };
 
-  const load = async (newStatus: Pen['console'], scriptEd: any) => {
-    scriptEditor = scriptEd;
+  const load = async () => {
+    createConsoleElements();
+
+    scriptEditor = editors.script;
     addCodeCompletion();
 
-    const initialLoad = !status;
-    status = newStatus;
-    consoleSplit = createConsoleSplit();
     consoleEmulator = createConsoleEmulator();
     editor = await createConsoleInput();
-
-    if (initialLoad) {
-      consoleSplit.setSizes(sizes[status]);
-      sizeChanged();
-      if (newStatus === 'none') {
-        setHidden(true);
-      }
-    }
   };
 
   return {
+    title: 'Console',
     load,
-    open: () => resize('open'),
-    close: () => resize('closed'),
-    maximize: () => resize('full'),
-    hide: () => resize('none'),
+    onActivate: () => {
+      editor?.focus();
+      if (clearButton) {
+        clearButton.style.display = 'unset';
+      }
+    },
+    onDeactivate: () => {
+      blur();
+      if (clearButton) {
+        clearButton.style.display = 'none';
+      }
+    },
     log: (...args: any[]) => consoleEmulator?.log(...args),
     info: (...args: any[]) => consoleEmulator?.info(...args),
     table: (...args: any[]) => consoleEmulator?.table(...args),
@@ -419,5 +290,5 @@ export const createConsole = (
     clear: () => consoleEmulator?.clear(),
     // filterLog: (filter: string) => consoleEmulator?.filterLog(filter),
     evaluate: (code: string) => consoleEmulator?.evaluate(code),
-  };
+  } as Tool;
 };

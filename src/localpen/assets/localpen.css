@@ -167,11 +167,9 @@ body {
   cursor: pointer;
   outline: none;
 }
-
 #editors > div:hover .copy-button {
   display: unset;
 }
-
 #output {
   height: calc(100vh - 40px);
   overflow: hidden;
@@ -179,29 +177,40 @@ body {
 #result {
   resize: both;
 }
-
 #result iframe {
   height: 100%;
   width: 100%;
   border: 0;
 }
-
-#console-bar {
+#tools-pane-bar {
   justify-content: space-between;
   color: #eeeeee;
   font-size: 12px;
   overflow: hidden;
 }
-#console-title {
+#tools-pane-titles {
+  display: flex;
+  justify-content: start;
+  height: 100%;
+}
+.tools-pane-title {
   cursor: pointer;
   background-color: #5c616e;
-  height: 100%;
+  margin-right: 2px;
+  border-bottom: 3px solid #5c616e;
   padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-#console-container {
+.tools-pane-title.active {
+  border-bottom: 3px solid rgb(64, 169, 243);
+}
+#tools-pane > div {
+  display: none;
+  height: 100%;
+}
+#tools-pane > div.active {
   display: flex;
   flex-direction: column;
 }
@@ -890,8 +899,8 @@ i.arrow:after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-#console-bar .delete-button,
-#console-bar .clear-button {
+#tools-pane-bar .delete-button,
+#tools-pane-bar .clear-button {
   width: 26px;
   height: 26px;
 }

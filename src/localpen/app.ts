@@ -38,7 +38,7 @@ import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { starterTemplates } from './templates';
 import { defaultConfig } from './config';
-import { createConsole } from './console';
+import { createToolsPane } from './tools';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -68,12 +68,7 @@ export const app = async (config: Pen) => {
   const eventsManager = createEventsManager();
   let isSaved = true;
   let changingContent = false;
-  const scriptConsole = createConsole(
-    getConfig(),
-    '#console',
-    elements.result + ' > iframe',
-    eventsManager,
-  );
+  let toolsPane: any;
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#output'], {
@@ -1348,13 +1343,13 @@ export const app = async (config: Pen) => {
 
     if (!reload) {
       attachEventListeners(editors);
+      toolsPane = createToolsPane(getConfig(), editors, eventsManager);
     }
 
     setActiveEditor(getConfig());
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
-    await scriptConsole.load(getConfig().console, editors.script);
 
     loadCompilers(
       [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
@@ -1365,6 +1360,8 @@ export const app = async (config: Pen) => {
       run(editors);
       setSavedStatus(true);
     });
+
+    await toolsPane?.load();
   }
 
   await bootstrap();
