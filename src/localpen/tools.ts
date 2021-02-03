@@ -80,6 +80,7 @@ export const createToolsPane = (
       consoleButtons.style.display = 'none';
     } else {
       consoleButtons.style.display = 'unset';
+      tools[activeToolId].onActivate();
     }
   };
 
@@ -268,5 +269,7 @@ export const createToolsPane = (
     close: () => resize('closed'),
     maximize: () => resize('full'),
     hide: () => resize('none'),
+    console: consoleWindow,
+    compiled: compiledCodeViewer,
   };
 };

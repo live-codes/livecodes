@@ -6,13 +6,11 @@ import { monaco } from './monaco';
 
 export const createConsole = (
   config: Pen,
-  editors: Editors,
+  _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
 ): Tool => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: any;
-  let scriptEditor: any;
-  let codeCompletion: any;
 
   let consoleElement: HTMLElement;
   const sourceSelector = '#result > iframe';
@@ -20,16 +18,6 @@ export const createConsole = (
 
   const commands: string[] = [];
   let commandsIndex = -1;
-
-  const addCodeCompletion = () => {
-    if (!scriptEditor) return;
-    if (codeCompletion) {
-      codeCompletion.dispose();
-    }
-    codeCompletion = monaco.languages.typescript.typescriptDefaults.addExtraLib(
-      scriptEditor.getValue(),
-    );
-  };
 
   const blur = () => {
     if (document.activeElement instanceof HTMLElement) {
@@ -116,10 +104,12 @@ export const createConsole = (
   };
 
   const createConsoleInput = async () => {
+    if (editor) return editor;
+
     const editorOptions = {
       baseUrl: config.baseUrl,
       container: document.querySelector('#console-input') as HTMLElement,
-      language: 'typescript',
+      language: 'javascript',
       fontSize: 14,
       lineNumbers: 'off',
       glyphMargin: true,
@@ -136,10 +126,10 @@ export const createConsole = (
       contextmenu: false,
       automaticLayout: true,
     };
-    const editor = await createEditor(editorOptions);
+    const consoleEditor = await createEditor(editorOptions);
 
     const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
-      editor.addAction({
+      consoleEditor.addAction({
         id: label + '-console',
         label,
         keybindings: [keybinding],
@@ -149,7 +139,7 @@ export const createConsole = (
     };
 
     addKeyBinding('exec', monaco.KeyCode.Enter, () => {
-      const command = editor.getValue();
+      const command = consoleEditor.getValue();
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
       consoleEmulator.insert({
         type: 'input',
@@ -158,28 +148,30 @@ export const createConsole = (
       });
       iframe.contentWindow?.postMessage({ console: command }, '*');
       commands.push(command);
-      editor.getModel().setValue('');
+      consoleEditor.getModel().setValue('');
       commandsIndex = -1;
     });
 
     addKeyBinding('prev', monaco.KeyCode.UpArrow, () => {
       const currentIndex = commandsIndex === -1 ? commands.length : commandsIndex;
       commandsIndex = currentIndex === 0 ? 0 : currentIndex - 1;
-      editor.getModel().setValue(commands[commandsIndex]);
+      consoleEditor.getModel().setValue(commands[commandsIndex]);
     });
 
     addKeyBinding('next', monaco.KeyCode.DownArrow, () => {
       const currentIndex = commandsIndex === -1 ? commands.length - 1 : commandsIndex;
       commandsIndex = currentIndex === commands.length - 1 ? -1 : currentIndex + 1;
-      editor.getModel().setValue(commands[commandsIndex] || '');
+      consoleEditor.getModel().setValue(commands[commandsIndex] || '');
     });
 
     const minHeight = 25;
     editorOptions.container.style.minHeight = minHeight + 'px';
 
-    editor.getModel().onDidChangeContent(() => {
+    consoleEditor.getModel().onDidChangeContent(() => {
       const height =
-        editor.getContentHeight() < minHeight ? minHeight : editor.getContentHeight() * 2;
+        consoleEditor.getContentHeight() < minHeight
+          ? minHeight
+          : consoleEditor.getContentHeight() * 2;
       editorOptions.container.style.height = height + 'px';
     });
 
@@ -203,11 +195,7 @@ export const createConsole = (
     indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
     margin.appendChild(indicator);
 
-    editor.onDidFocusEditorText(() => {
-      addCodeCompletion();
-    });
-
-    return editor;
+    return consoleEditor;
   };
 
   const createConsoleElements = () => {
@@ -259,10 +247,6 @@ export const createConsole = (
 
   const load = async () => {
     createConsoleElements();
-
-    scriptEditor = editors.script;
-    addCodeCompletion();
-
     consoleEmulator = createConsoleEmulator();
     editor = await createConsoleInput();
   };

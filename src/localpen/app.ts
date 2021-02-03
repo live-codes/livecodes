@@ -69,6 +69,8 @@ export const app = async (config: Pen) => {
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
+  let lastCompiled: { [key in EditorId]: string };
+  let consoleInputCodeCompletion: any;
 
   const createSplitPanes = () => {
     const split = Split(['#editors', '#output'], {
@@ -327,6 +329,19 @@ export const app = async (config: Pen) => {
       ...getConfig(),
       language: getEditorLanguage(editorId),
     });
+
+    updateCompiledCode();
+  };
+
+  const addConsoleInputCodeCompletion = () => {
+    if (consoleInputCodeCompletion) {
+      consoleInputCodeCompletion.dispose();
+    }
+    if (editorLanguages.script === 'javascript') {
+      consoleInputCodeCompletion = monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        editors.script.getValue(),
+      );
+    }
   };
 
   const changeLanguage = (editorId: EditorId, language: Language) => {
@@ -346,6 +361,7 @@ export const app = async (config: Pen) => {
       ...getConfig(),
       language,
     });
+    addConsoleInputCodeCompletion();
   };
 
   // Cmd + Enter formats with prettier
@@ -358,6 +374,23 @@ export const app = async (config: Pen) => {
       changingContent = false;
       run(editors);
     });
+  };
+
+  const updateCompiledCode = () => {
+    type CompiledLanguages = {
+      [key in EditorId]: Language;
+    };
+    const compiledLanguages: CompiledLanguages = {
+      markup: 'html',
+      style: 'css',
+      script: 'javascript',
+    };
+    if (toolsPane && toolsPane.compiled && lastCompiled) {
+      Object.keys(lastCompiled).forEach((editorId) => {
+        if (editorId !== activeEditorId) return;
+        toolsPane.compiled.update(compiledLanguages[editorId], lastCompiled[editorId]);
+      });
+    }
   };
 
   const getResultPage = async (
@@ -391,11 +424,10 @@ export const app = async (config: Pen) => {
       stylesheet.href = url;
       dom.head.appendChild(stylesheet);
     });
-
     const style = await getCompiled(getEditorLanguage('style'), editors.style?.getValue());
-    const editorStyle = dom.createElement('style');
-    editorStyle.innerHTML = style;
-    dom.head.appendChild(editorStyle);
+    const styleElement = dom.createElement('style');
+    styleElement.innerHTML = style;
+    dom.head.appendChild(styleElement);
 
     if (config.cssPreset === 'github-markdown-css') {
       dom.body.classList.add('markdown-body');
@@ -413,20 +445,22 @@ export const app = async (config: Pen) => {
     dom.body.innerHTML += markup;
 
     config.scripts.forEach((url) => {
-      const script = dom.createElement('script');
-      script.src = url;
-      dom.body.appendChild(script);
+      const externalScript = dom.createElement('script');
+      externalScript.src = url;
+      dom.body.appendChild(externalScript);
     });
 
     const rawScript = editors.script?.getValue();
-    const compiledScript = await getCompiled(getEditorLanguage('script'), rawScript);
+    const script = await getCompiled(getEditorLanguage('script'), rawScript);
     const hasImports = importsPattern.test(rawScript); // typescript compiler removes unused imports
-    const editorScript = dom.createElement('script');
+    const scriptElement = dom.createElement('script');
     if (hasImports) {
-      editorScript.type = 'module';
+      scriptElement.type = 'module';
     }
-    editorScript.innerHTML = compiledScript;
-    dom.body.appendChild(editorScript);
+    scriptElement.innerHTML = script;
+    dom.body.appendChild(scriptElement);
+
+    lastCompiled = { markup, style, script };
 
     return dom.documentElement.outerHTML;
   };
@@ -434,6 +468,7 @@ export const app = async (config: Pen) => {
   const run = async (editors: Editors) => {
     const result = await getResultPage(editors);
     await createIframe(elements.result, result);
+    updateCompiledCode();
   };
 
   const save = (notify = false, skipAutoSave = false) => {
@@ -663,6 +698,7 @@ export const app = async (config: Pen) => {
       const contentChanged = (loading: boolean) => {
         update();
         setSavedStatus(false);
+        addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
           run(editors);

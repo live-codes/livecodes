@@ -234,6 +234,12 @@ body {
   color: rgb(64, 169, 243);
   padding-top: 2px;
 }
+#compiled-code {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 .gutter.gutter-vertical {
   cursor: ns-resize;
 }
