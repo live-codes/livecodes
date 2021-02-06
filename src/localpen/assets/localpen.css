@@ -556,6 +556,7 @@ i.arrow:after {
   box-shadow: 0 6px 12px #0000002d;
   -webkit-animation: slideIn 0.4s;
   animation: slideIn 0.4s forwards;
+  z-index: 50; /* above console error and console editor suggestions menu */
 }
 
 #notifications.hidden {
