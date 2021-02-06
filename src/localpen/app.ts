@@ -21,6 +21,7 @@ import {
   Language,
   Module,
   Pen,
+  ToolList,
 } from './models';
 import { createFormatter } from './formatter';
 import { getCompilersData, loadCompilers, compile, importsPattern } from './compilers';
@@ -39,6 +40,8 @@ import { createEventsManager } from './events';
 import { starterTemplates } from './templates';
 import { defaultConfig } from './config';
 import { createToolsPane } from './tools';
+import { createConsole } from './console';
+import { createCompiledCodeViewer } from './compiled-code-viewer';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -1379,7 +1382,18 @@ export const app = async (config: Pen) => {
 
     if (!reload) {
       attachEventListeners(editors);
-      toolsPane = createToolsPane(getConfig(), editors, eventsManager);
+
+      const toolList: ToolList = [
+        {
+          name: 'console',
+          factory: createConsole,
+        },
+        {
+          name: 'compiled',
+          factory: createCompiledCodeViewer,
+        },
+      ];
+      toolsPane = createToolsPane(toolList, getConfig(), editors, eventsManager);
     }
 
     setActiveEditor(getConfig());

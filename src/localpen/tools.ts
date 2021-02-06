@@ -1,25 +1,22 @@
 import Split from 'split.js';
-import { createCompiledCodeViewer } from './compiled-code-viewer';
-import { createConsole } from './console';
 import { createEventsManager } from './events';
-import { Editors, Pen } from './models';
+import { Editors, Pen, ToolList, ToolsPaneStatus } from './models';
 
 export const createToolsPane = (
+  toolList: ToolList,
   config: Pen,
   editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
 ) => {
-  const consoleWindow = createConsole(config, editors, eventsManager);
-  const compiledCodeViewer = createCompiledCodeViewer(config, editors, eventsManager);
-  const tools = [consoleWindow, compiledCodeViewer];
+  const tools = toolList.map((tool) => tool.factory(config, editors, eventsManager));
 
   let toolsSplit: Split.Instance;
-  let status: Pen['console'];
+  let status: ToolsPaneStatus;
   let activeToolId = 0;
 
   const result = document.querySelector('#result') as HTMLElement;
   type Sizes = {
-    [key in Pen['console']]: [number, number];
+    [key in ToolsPaneStatus]: [number, number];
   };
 
   const sizes: Sizes = {
@@ -226,7 +223,7 @@ export const createToolsPane = (
     return toolsSplit;
   };
 
-  const resize = (newStatus: Pen['console']) => {
+  const resize = (newStatus: ToolsPaneStatus) => {
     if (newStatus === 'none') {
       setHidden(true);
     } else {
@@ -247,7 +244,14 @@ export const createToolsPane = (
 
   const load = async () => {
     const initialLoad = status === undefined;
-    status = config.console || 'closed';
+    toolList.forEach((tool, index) => {
+      if (status) return;
+      if (config[tool.name]) {
+        status = config[tool.name];
+        activeToolId = index;
+      }
+    });
+    status = status || 'closed';
 
     if (initialLoad) {
       toolsSplit = createToolsSplit();
@@ -270,7 +274,7 @@ export const createToolsPane = (
     close: () => resize('closed'),
     maximize: () => resize('full'),
     hide: () => resize('none'),
-    console: consoleWindow,
-    compiled: compiledCodeViewer,
+    // console, compiled
+    ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };
 };

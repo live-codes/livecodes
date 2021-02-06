@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 
+import { createEventsManager } from './events';
+
 export interface Pen {
   baseUrl: string;
   title: string;
@@ -9,7 +11,8 @@ export interface Pen {
   emmet: boolean;
   autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  console: 'closed' | 'open' | 'full' | 'none';
+  console: ToolsPaneStatus;
+  compiled: ToolsPaneStatus;
   editor: { [key: string]: any };
   allowLangChange: boolean;
   language: Language;
@@ -159,3 +162,14 @@ export interface Tool {
   onActivate: () => void;
   onDeactivate: () => void;
 }
+
+export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
+
+export type ToolList = Array<{
+  name: 'console' | 'compiled';
+  factory: (
+    config: Pen,
+    editors: Editors,
+    eventsManager: ReturnType<typeof createEventsManager>,
+  ) => Tool;
+}>;
