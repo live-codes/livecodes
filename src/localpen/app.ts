@@ -264,14 +264,14 @@ export const app = async (config: Pen) => {
     return editors;
   };
 
-  const updateEditors = (editors: Editors, config: Pen) => {
+  const updateEditors = async (editors: Editors, config: Pen) => {
     const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
-    editorIds.forEach((editorId) => {
+    for (const editorId of editorIds) {
       editors[editorId].updateOptions(config.editor);
       editors[editorId].getModel().setValue(config[editorId].content);
-      changeLanguage(editorId, config[editorId].language);
-    });
+      await changeLanguage(editorId, config[editorId].language, true);
+    }
     setConfig({
       ...getConfig(),
       language,
@@ -347,7 +347,7 @@ export const app = async (config: Pen) => {
     }
   };
 
-  const changeLanguage = (editorId: EditorId, language: Language) => {
+  const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
     if (!editorId || !language) return;
     const editor = editors[editorId];
     const editorLanguage = language === 'jsx' ? 'javascript' : language;
@@ -359,7 +359,9 @@ export const app = async (config: Pen) => {
     loadCompilers([language], compilers, getConfig(), eventsManager);
     formatter.loadParser(language);
     registerFormatter(editorId, editors);
-    run(editors);
+    if (!reload) {
+      await run(editors);
+    }
     setConfig({
       ...getConfig(),
       language,
@@ -375,7 +377,7 @@ export const app = async (config: Pen) => {
       changingContent = true;
       await formatter.format(editor, getEditorLanguage(editorId));
       changingContent = false;
-      run(editors);
+      await run(editors);
     });
   };
 
@@ -512,8 +514,6 @@ export const app = async (config: Pen) => {
   };
 
   const loadConfig = async (newConfig: Pen) => {
-    // eventsManager.removeEventListeners();
-
     changingContent = true;
 
     const content: Partial<Pen> = {
@@ -538,11 +538,6 @@ export const app = async (config: Pen) => {
 
     // load config
     await bootstrap(true);
-    run(editors);
-    editors[activeEditorId].focus();
-    setTimeout(() => {
-      setSavedStatus(true);
-    }, getConfig().delay);
 
     changingContent = false;
   };
@@ -678,8 +673,8 @@ export const app = async (config: Pen) => {
             eventsManager.addEventListener(
               menuItem,
               'mousedown', // fire this event before unhover
-              () => {
-                changeLanguage(
+              async () => {
+                await changeLanguage(
                   menuItem.dataset.editor as EditorId,
                   menuItem.dataset.lang as Language,
                 );
@@ -698,13 +693,13 @@ export const app = async (config: Pen) => {
     };
 
     const handleChangeContent = () => {
-      const contentChanged = (loading: boolean) => {
+      const contentChanged = async (loading: boolean) => {
         update();
         setSavedStatus(false);
         addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
-          run(editors);
+          await run(editors);
         }
 
         if (getConfig().autosave) {
@@ -770,7 +765,7 @@ export const app = async (config: Pen) => {
         'click',
         async () => {
           await formatter.format(editors[activeEditorId], getEditorLanguage(activeEditorId));
-          run(editors);
+          await run(editors);
         },
       );
     };
@@ -780,20 +775,20 @@ export const app = async (config: Pen) => {
         '#settings-menu input',
       ) as NodeListOf<HTMLInputElement>;
       toggles.forEach((toggle) => {
-        eventsManager.addEventListener(toggle, 'change', () => {
+        eventsManager.addEventListener(toggle, 'change', async () => {
           const configKey = toggle.dataset.config;
           if (!configKey || !(configKey in getConfig())) return;
 
           setConfig({ ...getConfig(), [configKey]: toggle.checked });
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
-            run(editors);
+            await run(editors);
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
           }
           if (configKey === 'autoprefixer') {
-            run(editors);
+            await run(editors);
           }
         });
       });
@@ -805,7 +800,7 @@ export const app = async (config: Pen) => {
         eventsManager.addEventListener(
           link,
           'click',
-          (event: Event) => {
+          async (event: Event) => {
             event.preventDefault();
             setConfig({
               ...getConfig(),
@@ -815,7 +810,7 @@ export const app = async (config: Pen) => {
               preset.classList.remove('active');
             });
             link.classList.add('active');
-            run(editors);
+            await run(editors);
           },
           false,
         );
@@ -1274,7 +1269,7 @@ export const app = async (config: Pen) => {
             '#resources-container #resources-load-btn',
           ) as HTMLElement,
           'click',
-          () => {
+          async () => {
             externalResources.forEach((textarea) => {
               const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
               setConfig({
@@ -1288,7 +1283,7 @@ export const app = async (config: Pen) => {
             });
             setSavedStatus(false);
             modal.close();
-            run(editors);
+            await run(editors);
           },
         );
       };
@@ -1361,11 +1356,11 @@ export const app = async (config: Pen) => {
     );
   };
 
-  const setActiveEditor = (config: Pen) => {
+  const setActiveEditor = async (config: Pen) => {
     const language = getLanguageByAlias(config.language) || 'html';
     const editorId = getLanguageEditorId(language) || 'markup';
     if (getEditorLanguage(editorId) !== language) {
-      changeLanguage(editorId, language);
+      await changeLanguage(editorId, language);
     }
     showEditor(editorId);
   };
@@ -1376,7 +1371,7 @@ export const app = async (config: Pen) => {
     if (!reload) {
       editors = await createEditors(getConfig());
     } else {
-      updateEditors(editors, getConfig());
+      await updateEditors(editors, getConfig());
     }
 
     const libs = await Promise.all(getConfig().modules.map(getTypes));
@@ -1399,22 +1394,22 @@ export const app = async (config: Pen) => {
       toolsPane = createToolsPane(toolList, getConfig(), editors, eventsManager);
     }
 
-    setActiveEditor(getConfig());
+    await setActiveEditor(getConfig());
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
 
-    loadCompilers(
+    await loadCompilers(
       [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
       compilers,
       getConfig(),
       eventsManager,
-    ).then(() => {
-      run(editors);
-      setSavedStatus(true);
-    });
+    );
 
+    await run(editors);
+    setSavedStatus(true);
     await toolsPane?.load();
+    editors[activeEditorId].focus();
   }
 
   await bootstrap();

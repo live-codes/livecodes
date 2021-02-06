@@ -54,6 +54,8 @@ export const createCompiledCodeViewer = (
   };
 
   const update = (language: 'html' | 'css' | 'javascript', content: string, config: Pen) => {
+    if (!editor) return;
+
     monaco.editor.setModelLanguage(editor.getModel(), language);
     editor.getModel().setValue(content);
     if (languageLabel) {

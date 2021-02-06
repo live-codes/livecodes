@@ -206,6 +206,10 @@ body {
 .tools-pane-title.active {
   border-bottom: 3px solid rgb(64, 169, 243);
 }
+#tools-pane-buttons,
+#tools-pane-buttons > div {
+  white-space: nowrap;
+}
 #tools-pane > div {
   display: flex;
   flex-direction: column;
