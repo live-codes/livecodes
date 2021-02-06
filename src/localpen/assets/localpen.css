@@ -207,12 +207,12 @@ body {
   border-bottom: 3px solid rgb(64, 169, 243);
 }
 #tools-pane > div {
-  display: none;
-  height: 100%;
-}
-#tools-pane > div.active {
   display: flex;
   flex-direction: column;
+  height: 0; /* (display: none) disables console logs when inactive */
+}
+#tools-pane > div.active {
+  height: 100%;
 }
 #console {
   overflow: auto;

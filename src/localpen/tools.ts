@@ -261,6 +261,7 @@ export const createToolsPane = (
     tools.forEach(async (tool) => {
       await tool.load();
     });
+    setActiveTool(activeToolId);
   };
 
   return {
