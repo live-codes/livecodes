@@ -391,7 +391,7 @@ export const app = async (config: Pen) => {
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {
         if (editorId !== activeEditorId) return;
-        toolsPane.compiled.update(compiledLanguages[editorId], lastCompiled[editorId]);
+        toolsPane.compiled.update(compiledLanguages[editorId], lastCompiled[editorId], getConfig());
       });
     }
   };
@@ -791,6 +791,9 @@ export const app = async (config: Pen) => {
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
+          }
+          if (configKey === 'autoprefixer') {
+            run(editors);
           }
         });
       });

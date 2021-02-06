@@ -53,12 +53,19 @@ export const createCompiledCodeViewer = (
     return createEditor(editorOptions);
   };
 
-  const update = (language: 'html' | 'css' | 'javascript', content: string) => {
+  const update = (language: 'html' | 'css' | 'javascript', content: string, config: Pen) => {
     monaco.editor.setModelLanguage(editor.getModel(), language);
     editor.getModel().setValue(content);
     if (languageLabel) {
       const compiledLanguage = languages.find((lang) => lang.name === language);
-      languageLabel.innerHTML = compiledLanguage?.longTitle || compiledLanguage?.title || '';
+      const title = compiledLanguage?.longTitle || compiledLanguage?.title || '';
+      const modifier =
+        title !== 'CSS'
+          ? ''
+          : config.autoprefixer === true
+          ? ' (Autoprefixer: On)'
+          : ' (Autoprefixer: Off)';
+      languageLabel.innerHTML = title + modifier;
     }
   };
 

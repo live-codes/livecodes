@@ -24,6 +24,7 @@ export const createToolsPane = (
     open: [60, 40],
     full: [0, 100],
     none: [100, 0],
+    '': [100, 0],
   };
 
   const setAnimation = (animate: boolean) => {
