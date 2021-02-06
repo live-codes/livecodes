@@ -167,11 +167,9 @@ body {
   cursor: pointer;
   outline: none;
 }
-
 #editors > div:hover .copy-button {
   display: unset;
 }
-
 #output {
   height: calc(100vh - 40px);
   overflow: hidden;
@@ -179,31 +177,42 @@ body {
 #result {
   resize: both;
 }
-
 #result iframe {
   height: 100%;
   width: 100%;
   border: 0;
 }
-
-#console-bar {
+#tools-pane-bar {
   justify-content: space-between;
   color: #eeeeee;
   font-size: 12px;
   overflow: hidden;
 }
-#console-title {
+#tools-pane-titles {
+  display: flex;
+  justify-content: start;
+  height: 100%;
+}
+.tools-pane-title {
   cursor: pointer;
   background-color: #5c616e;
-  height: 100%;
+  margin-right: 2px;
+  border-bottom: 3px solid #5c616e;
   padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-#console-container {
+.tools-pane-title.active {
+  border-bottom: 3px solid rgb(64, 169, 243);
+}
+#tools-pane > div {
   display: flex;
   flex-direction: column;
+  height: 0; /* (display: none) disables console logs when inactive */
+}
+#tools-pane > div.active {
+  height: 100%;
 }
 #console {
   overflow: auto;
@@ -224,6 +233,12 @@ body {
 #console-input-indicator {
   color: rgb(64, 169, 243);
   padding-top: 2px;
+}
+#compiled-code {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 .gutter.gutter-vertical {
   cursor: ns-resize;
@@ -541,6 +556,7 @@ i.arrow:after {
   box-shadow: 0 6px 12px #0000002d;
   -webkit-animation: slideIn 0.4s;
   animation: slideIn 0.4s forwards;
+  z-index: 50; /* above console error and console editor suggestions menu */
 }
 
 #notifications.hidden {
@@ -890,8 +906,8 @@ i.arrow:after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-#console-bar .delete-button,
-#console-bar .clear-button {
+#tools-pane-bar .delete-button,
+#tools-pane-bar .clear-button {
   width: 26px;
   height: 26px;
 }
