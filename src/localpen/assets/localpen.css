@@ -862,7 +862,12 @@ i.arrow:after {
   font-weight: 600;
   color: grey;
 }
-
+#modal form {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 .delete-button,
 .clear-button {
   cursor: pointer;
