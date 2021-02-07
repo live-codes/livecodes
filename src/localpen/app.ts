@@ -42,6 +42,7 @@ import { defaultConfig } from './config';
 import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
+import { importCode } from './import';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -513,7 +514,7 @@ export const app = async (config: Pen) => {
     });
   };
 
-  const loadConfig = async (newConfig: Pen) => {
+  const loadConfig = async (newConfig: Pen, url?: string) => {
     changingContent = true;
 
     const content: Partial<Pen> = {
@@ -534,7 +535,7 @@ export const app = async (config: Pen) => {
     projectTitle.textContent = getConfig().title;
 
     // reset url params
-    parent.history.pushState(null, '', location.origin + location.pathname);
+    parent.history.pushState(null, '', url || location.origin + location.pathname);
 
     // load config
     await bootstrap(true);
@@ -1115,23 +1116,51 @@ export const app = async (config: Pen) => {
           });
         });
 
-        eventsManager.addEventListener(
-          importContainer.querySelector('#url-import-btn') as HTMLInputElement,
-          'click',
-          () => {
-            const url = (importContainer.querySelector('#code-url') as HTMLInputElement).value;
-            parent.location.href = location.origin + location.pathname + '#' + url;
-          },
-        );
+        const importForm = importContainer.querySelector('#url-import-form') as HTMLInputElement;
+        const importButton = importContainer.querySelector('#url-import-btn') as HTMLInputElement;
+        eventsManager.addEventListener(importForm, 'submit', async (e) => {
+          e.preventDefault();
+          importButton.innerHTML = 'Loading...';
+          importButton.disabled = true;
+          const url = (importContainer.querySelector('#code-url') as HTMLInputElement).value;
+          const imported = await importCode(url, {}, defaultConfig);
+          if (imported && Object.keys(imported).length > 0) {
+            await loadConfig(
+              {
+                ...defaultConfig,
+                ...imported,
+              },
+              location.origin + location.pathname + '#' + url,
+            );
+          } else {
+            notifications.error('failed to load URL');
+          }
+          modal.close();
+        });
 
-        eventsManager.addEventListener(
-          importContainer.querySelector('#json-url-import-btn') as HTMLInputElement,
-          'click',
-          () => {
-            const url = (importContainer.querySelector('#json-url') as HTMLInputElement).value;
-            parent.location.href = location.origin + location.pathname + '?config=' + url;
-          },
-        );
+        const importJsonUrlForm = importContainer.querySelector(
+          '#json-url-import-form',
+        ) as HTMLInputElement;
+        const importJsonUrlButton = importContainer.querySelector(
+          '#json-url-import-btn',
+        ) as HTMLInputElement;
+        eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
+          e.preventDefault();
+          importJsonUrlButton.innerHTML = 'Loading...';
+          importJsonUrlButton.disabled = true;
+          const url = (importContainer.querySelector('#json-url') as HTMLInputElement).value;
+          const fileConfig = await fetch(url)
+            .then((res) => res.json())
+            .catch(() => {
+              modal.close();
+              notifications.error('failed to load URL');
+              return;
+            });
+          if (fileConfig) {
+            await loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url);
+          }
+          modal.close();
+        });
 
         const fileInput = importContainer.querySelector('#file-input') as HTMLInputElement;
 
@@ -1183,7 +1212,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#import-link') as HTMLElement,
         'click',
-        createImportUI,
+        checkSavedAndExecute(createImportUI),
         false,
       );
     };
