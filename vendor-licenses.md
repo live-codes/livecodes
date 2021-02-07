@@ -1,4 +1,4 @@
-# Vendor Licenses
+# Third Party Licenses
 
 This is a list of software packages distributed with LocalPen (sorted alphabetically) and links to their licenses:
 
@@ -23,6 +23,8 @@ Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb06
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
 
 normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md)
+
+Pace: [MIT License](https://github.com/CodeByZach/pace/blob/a57b0352ae805d45ecb7d92b229de65f7b677f91/LICENSE)
 
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
 

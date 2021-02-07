@@ -414,6 +414,17 @@ export const app = async (config: Pen) => {
 
     dom.title = config.title;
 
+    if (!forExport && config.progressBar) {
+      const loadingScript = dom.createElement('script');
+      loadingScript.src = config.baseUrl + 'vendor/pace/pace.min.js';
+      dom.head.appendChild(loadingScript);
+
+      const loadingTheme = dom.createElement('link');
+      loadingTheme.rel = 'stylesheet';
+      loadingTheme.href = config.baseUrl + 'vendor/pace/pace.css';
+      dom.head.appendChild(loadingTheme);
+    }
+
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
       const cssPreset = dom.createElement('link');

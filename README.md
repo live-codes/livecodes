@@ -511,7 +511,7 @@ In addition to all the previously mentioned great products, LocalPen was inspire
 
 [MIT](LICENSE)
 
-Packages distributed with LocalPen and their licences are [listed here](vendor-licenses.md).
+Third party packages distributed with LocalPen and their licences are [listed here](vendor-licenses.md).
 
 ## Support the author
 
