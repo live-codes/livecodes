@@ -13,6 +13,7 @@ export interface Pen {
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
+  progressBar: boolean;
   editor: { [key: string]: any };
   allowLangChange: boolean;
   language: Language;
