@@ -73,3 +73,16 @@ window.addEventListener('message', (event) => {
     parent.postMessage(evalCode(), '*');
   }
 });
+
+window.addEventListener('resize', () => {
+  parent.postMessage(
+    {
+      type: 'resize',
+      sizes: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      },
+    },
+    '*',
+  );
+});

@@ -43,6 +43,7 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
+import { debounce } from './utils';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -665,6 +666,36 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
     };
 
+    const handleIframeResize = () => {
+      const gutter = document.querySelector('#editor-container .gutter') as HTMLElement;
+      const sizeLabel = document.createElement('div');
+      sizeLabel.id = 'size-label';
+      gutter.appendChild(sizeLabel);
+
+      eventsManager.addEventListener(window, 'message', (event: any) => {
+        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        const sizeLabel = document.querySelector('#editor-container #size-label') as HTMLElement;
+        if (
+          !sizeLabel ||
+          !iframe ||
+          event.source !== iframe.contentWindow ||
+          event.data.type !== 'resize'
+        ) {
+          return;
+        }
+
+        const sizes = event.data.sizes;
+        sizeLabel.innerHTML = `${sizes.width} x ${sizes.height}`;
+        sizeLabel.classList.add('visible');
+
+        debounce(() => {
+          setTimeout(() => {
+            sizeLabel.classList.remove('visible');
+          }, 2000);
+        }, 1000)();
+      });
+    };
+
     const handleSelectEditor = () => {
       (document.querySelectorAll('.editor-title') as NodeListOf<HTMLElement>).forEach((title) => {
         eventsManager.addEventListener(
@@ -719,16 +750,8 @@ export const app = async (config: Pen) => {
         }
       };
 
-      const debounce = (fn: (...x: any[]) => any, delay = getConfig().delay ?? 500) => {
-        let timeout: any;
-
-        return (...args: unknown[]) => {
-          if (timeout) clearTimeout(timeout);
-          timeout = setTimeout(() => fn.apply(null, args), delay);
-        };
-      };
-
-      const debouncecontentChanged = () => debounce(contentChanged)(changingContent);
+      const debouncecontentChanged = () =>
+        debounce(contentChanged, getConfig().delay ?? 500)(changingContent);
 
       editors.markup.getModel().onDidChangeContent(debouncecontentChanged);
       editors.style.getModel().onDidChangeContent(debouncecontentChanged);
@@ -1347,6 +1370,7 @@ export const app = async (config: Pen) => {
 
     handleTitleEdit();
     handleResize();
+    handleIframeResize();
     handleSelectEditor();
     handlechangeLanguage();
     handleChangeContent();
@@ -1449,6 +1473,7 @@ export const app = async (config: Pen) => {
     await run(editors);
     setSavedStatus(true);
     await toolsPane?.load();
+    updateCompiledCode();
     editors[activeEditorId].focus();
   }
 

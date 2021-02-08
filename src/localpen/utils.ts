@@ -1,3 +1,12 @@
+export const debounce = (fn: (...x: any[]) => any, delay: number) => {
+  let timeout: any;
+
+  return (...args: unknown[]) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(null, args), delay);
+  };
+};
+
 export const decodeHTML = (html: string) => {
   const txt = document.createElement('textarea');
   txt.innerHTML = html;

@@ -45,6 +45,8 @@ export const createToolsPane = (
   };
 
   const setActiveTool = (toolId: number) => {
+    activeToolId = toolId;
+
     document.querySelectorAll('#tools-pane-bar .tools-pane-title').forEach((title, index) => {
       if (toolId === index) {
         title.classList.add('active');
@@ -75,9 +77,9 @@ export const createToolsPane = (
       '#tools-pane-bar #tools-pane-buttons',
     ) as HTMLElement;
     if (toolsSplit.getSizes()[0] > 90) {
-      consoleButtons.style.display = 'none';
+      consoleButtons.style.visibility = 'hidden';
     } else {
-      consoleButtons.style.display = 'unset';
+      consoleButtons.style.visibility = 'visible';
       tools[activeToolId].onActivate();
     }
   };
@@ -140,7 +142,6 @@ export const createToolsPane = (
           if (event.detail === 1) {
             timer = setTimeout(() => {
               if (toolsSplit.getSizes()[0] > 90) {
-                activeToolId = index;
                 open(index);
               } else if (!toolTitle.classList.contains('active')) {
                 setActiveTool(index);
@@ -160,7 +161,6 @@ export const createToolsPane = (
           if (toolsSplit.getSizes()[0] < 10) {
             close();
           } else {
-            activeToolId = index;
             open(index, true);
           }
         },
@@ -171,7 +171,6 @@ export const createToolsPane = (
         'touchstart',
         () => {
           if (toolsSplit.getSizes()[0] > 90) {
-            activeToolId = index;
             open(index);
           } else if (!toolTitle.classList.contains('active')) {
             setActiveTool(index);
@@ -262,7 +261,6 @@ export const createToolsPane = (
         setHidden(true);
       }
     }
-
     tools.forEach(async (tool) => {
       await tool.load();
     });

@@ -257,6 +257,7 @@ body {
   display: flex !important;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .gutter #handle {
@@ -264,6 +265,24 @@ body {
   height: 30px;
   border-radius: 2px;
   background-color: #e7e8f1;
+}
+#editor-container .gutter #size-label {
+  opacity: 0;
+  transition: opacity 0.1s;
+  position: absolute;
+  top: 5px !important;
+  left: 15px !important;
+  white-space: nowrap;
+  background-color: #eeeeee;
+  font-size: 0.7em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid #5c616e;
+}
+#editor-container .gutter #size-label.visible {
+  opacity: 100%;
+  transition: opacity 0.1s;
 }
 
 #logo {
