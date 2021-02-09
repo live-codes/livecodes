@@ -14,7 +14,6 @@ export const defaultConfig: Pen = {
   mode: 'full',
   console: '',
   compiled: '',
-  progressBar: true,
   editor: {
     fontSize: 14,
     theme: 'vs-dark',

@@ -24,8 +24,6 @@ Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f84
 
 normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md)
 
-Pace: [MIT License](https://github.com/CodeByZach/pace/blob/a57b0352ae805d45ecb7d92b229de65f7b677f91/LICENSE)
-
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
@@ -43,3 +41,5 @@ Split.js: [MIT License](https://github.com/nathancahill/split/blob/311646253e36d
 Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/LICENSE)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
+
+Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)

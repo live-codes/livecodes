@@ -206,6 +206,9 @@ body {
 .tools-pane-title.active {
   border-bottom: 3px solid rgb(64, 169, 243);
 }
+#tools-pane-buttons {
+  min-width: 92px;
+}
 #tools-pane-buttons,
 #tools-pane-buttons > div {
   white-space: nowrap;
@@ -1123,4 +1126,35 @@ i.arrow:after {
 #css-preset-menu a.active::after {
   content: ' ✔';
   color: grey;
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+#tools-pane-loading {
+  margin-bottom: 3px;
+}
+#tools-pane-loading:before {
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+  border-radius: 2.5px;
+  -webkit-box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2),
+    5px 3.5px 0 0 rgba(255, 255, 255, 0.4), 1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6),
+    -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8), -5px 3.5px 0 0 white;
+  box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
+    1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6), -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
+    -5px 3.5px 0 0 white;
+  height: 2.5px;
+  width: 2.5px;
+  display: block;
+  content: '';
 }
