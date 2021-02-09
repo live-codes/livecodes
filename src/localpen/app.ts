@@ -415,17 +415,6 @@ export const app = async (config: Pen) => {
 
     dom.title = config.title;
 
-    if (!forExport && config.progressBar) {
-      const loadingScript = dom.createElement('script');
-      loadingScript.src = config.baseUrl + 'vendor/pace/pace.min.js';
-      dom.head.appendChild(loadingScript);
-
-      const loadingTheme = dom.createElement('link');
-      loadingTheme.rel = 'stylesheet';
-      loadingTheme.href = config.baseUrl + 'vendor/pace/pace.css';
-      dom.head.appendChild(loadingTheme);
-    }
-
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
       const cssPreset = dom.createElement('link');
@@ -483,7 +472,18 @@ export const app = async (config: Pen) => {
     return dom.documentElement.outerHTML;
   };
 
+  const setLoading = (status: boolean) => {
+    const loading = document.querySelector('#tools-pane-loading') as HTMLElement;
+    if (!loading) return;
+    if (status === true) {
+      loading.style.display = 'unset';
+    } else {
+      loading.style.display = 'none';
+    }
+  };
+
   const run = async (editors: Editors) => {
+    setLoading(true);
     const result = await getResultPage(editors);
     await createIframe(elements.result, result);
     updateCompiledCode();
@@ -1358,6 +1358,16 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleResultLoading = () => {
+      eventsManager.addEventListener(window, 'message', (event: any) => {
+        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        if (!iframe || event.source !== iframe.contentWindow || event.data.type !== 'loading') {
+          return;
+        }
+        setLoading(event.data.payload);
+      });
+    };
+
     const handleUnload = () => {
       window.onbeforeunload = () => {
         if (!isSaved) {
@@ -1385,6 +1395,7 @@ export const app = async (config: Pen) => {
     handleOpen();
     handleImport();
     handleExport();
+    handleResultLoading();
     handleUnload();
   };
 

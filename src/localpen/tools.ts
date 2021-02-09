@@ -195,6 +195,11 @@ export const createToolsPane = (
       false,
     );
 
+    const loading = document.createElement('div');
+    loading.id = 'tools-pane-loading';
+    loading.style.display = 'none';
+    toolsPaneBar.appendChild(loading);
+
     const buttons = document.createElement('div');
     buttons.id = 'tools-pane-buttons';
     toolsPaneBar.appendChild(buttons);

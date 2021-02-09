@@ -69,17 +69,6 @@ fs.copyFileSync(
   path.resolve(targetDir + '/stylus/stylus.min.js'),
 );
 
-// pace
-mkdirp(targetDir + '/pace');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/pace/pace.min.js'),
-  path.resolve(targetDir + '/pace/pace.min.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/pace/pace.css'),
-  path.resolve(targetDir + '/pace/pace.css'),
-);
-
 // pug
 mkdirp(targetDir + '/pug');
 fs.copyFileSync(

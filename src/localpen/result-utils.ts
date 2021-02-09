@@ -86,3 +86,7 @@ window.addEventListener('resize', () => {
     '*',
   );
 });
+
+window.addEventListener('load', () => {
+  parent.postMessage({ type: 'loading', payload: false }, '*');
+});
