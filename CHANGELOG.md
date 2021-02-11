@@ -1,3 +1,27 @@
+# [0.3.0](https://github.com/hatemhosny/localpen/compare/v0.2.0...v.0.3.0) (2021-02-11)
+
+### Bug Fixes
+
+- **app:** await async functions ([3e647b7](https://github.com/hatemhosny/localpen/commit/3e647b74db9a2568a45bd56213cffd24a4af7fc7))
+- **console:** fix changed variable names ([c514815](https://github.com/hatemhosny/localpen/commit/c5148152395099d3f2916e5b7c901ebe578f7700))
+- **CSS Presets:** fix selecting CSS preset none ([8382605](https://github.com/hatemhosny/localpen/commit/838260553c45373ceecf68ded67385f5fe80e6ee))
+- **import:** fix importing github and gitlab repos root directory ([ba55e3d](https://github.com/hatemhosny/localpen/commit/ba55e3d786d08cba38b37863d950f49fc914f6d5))
+- **result:** use postMessage to send code to result page ([636acad](https://github.com/hatemhosny/localpen/commit/636acada7782e0706a9912e1f4710ef6d1dfecb3))
+- **UI:** fix settings menu too wide on small screens ([18f1159](https://github.com/hatemhosny/localpen/commit/18f11597a061fcfa1015bd6c66f37488328cceb7))
+
+### Features
+
+- **compiled:** view compiled code ([f93e2ce](https://github.com/hatemhosny/localpen/commit/f93e2cecf2909b25fb9f22fcb3bdd24a9b1a7ed3))
+- **console:** add console input auto-complete for user code ([1115331](https://github.com/hatemhosny/localpen/commit/1115331c672d1b9ac9dd3ba2a1f0251f344e4410))
+- **console:** add JS console ([36a24e9](https://github.com/hatemhosny/localpen/commit/36a24e9d1c8c060cc656e0dc9480efdc96c1539e))
+- **console:** add tools pane ([aeefcb3](https://github.com/hatemhosny/localpen/commit/aeefcb3b7940c58570d9a8f89c9185aaef92b89c))
+- **console:** handle logging different data types ([9c59aad](https://github.com/hatemhosny/localpen/commit/9c59aad4f5b40d337a03f7f1e705a3a45ee09965))
+- **import:** load imports without page refresh ([cce9539](https://github.com/hatemhosny/localpen/commit/cce9539d488056f87d7826da87dfb30587006032))
+- **loading:** use animating logo as loading indicator ([f65753a](https://github.com/hatemhosny/localpen/commit/f65753a22b37ca1a7602fbc7ed874ceb5502579a))
+- **result:** show result page size on resize ([a48107e](https://github.com/hatemhosny/localpen/commit/a48107e1e1edf2464d16c1ab9100a726b87db64f))
+- **UI:** add loading indicator on tools pane ([8b8ea41](https://github.com/hatemhosny/localpen/commit/8b8ea410fc440950c48bb4c9f509cf29fa3e2192))
+- **UI:** scroll settings menu when longer than view port ([b706274](https://github.com/hatemhosny/localpen/commit/b706274cc7e9a9908c5af9200da743211ea7a83b))
+
 # [0.2.0](https://github.com/hatemhosny/localpen/compare/v0.1.0...v0.2.0) (2021-01-22)
 
 ### Bug Fixes
