@@ -167,21 +167,88 @@ body {
   cursor: pointer;
   outline: none;
 }
-
 #editors > div:hover .copy-button {
   display: unset;
 }
-
+#output {
+  height: calc(100vh - 40px);
+  overflow: hidden;
+}
 #result {
-  flex-grow: 1;
-  height: 100%;
   resize: both;
 }
-
 #result iframe {
   height: 100%;
   width: 100%;
   border: 0;
+}
+#tools-pane-bar {
+  justify-content: space-between;
+  color: #eeeeee;
+  font-size: 12px;
+  overflow: hidden;
+}
+#tools-pane-titles {
+  display: flex;
+  justify-content: start;
+  height: 100%;
+}
+.tools-pane-title {
+  cursor: pointer;
+  background-color: #5c616e;
+  margin-right: 2px;
+  border-bottom: 3px solid #5c616e;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tools-pane-title.active {
+  border-bottom: 3px solid rgb(64, 169, 243);
+}
+#tools-pane-buttons {
+  min-width: 92px;
+}
+#tools-pane-buttons,
+#tools-pane-buttons > div {
+  white-space: nowrap;
+}
+#tools-pane > div {
+  display: flex;
+  flex-direction: column;
+  height: 0; /* (display: none) disables console logs when inactive */
+}
+#tools-pane > div.active {
+  height: 100%;
+}
+#console {
+  overflow: auto;
+  background-color: #efefef;
+}
+#console .luna-object-viewer {
+  overflow: hidden;
+}
+#console .luna-console-error {
+  z-index: 40;
+}
+#console .luna-console-input pre.luna-console-code {
+  visibility: hidden;
+}
+#console .luna-console-input pre.luna-console-code.visible {
+  visibility: visible;
+}
+#console-input-indicator {
+  color: rgb(64, 169, 243);
+  padding-top: 2px;
+}
+#compiled-code {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.gutter.gutter-vertical {
+  cursor: ns-resize;
 }
 
 .gutter.gutter-horizontal {
@@ -193,6 +260,7 @@ body {
   display: flex !important;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .gutter #handle {
@@ -200,6 +268,24 @@ body {
   height: 30px;
   border-radius: 2px;
   background-color: #e7e8f1;
+}
+#editor-container .gutter #size-label {
+  opacity: 0;
+  transition: opacity 0.1s;
+  position: absolute;
+  top: 5px !important;
+  left: 15px !important;
+  white-space: nowrap;
+  background-color: #eeeeee;
+  font-size: 0.7em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid #5c616e;
+}
+#editor-container .gutter #size-label.visible {
+  opacity: 100%;
+  transition: opacity 0.1s;
 }
 
 #logo {
@@ -280,6 +366,7 @@ li.editor-title.active > button:hover {
   z-index: 1000;
   width: 100%;
   min-width: 150px;
+  max-width: 45vw;
   padding: 5px 0;
   list-style: none;
   background-color: #fff;
@@ -290,7 +377,9 @@ li.editor-title.active > button:hover {
 }
 
 li.editor-title > button:focus + .dropdown-menu,
-#settings-button:focus + .dropdown-menu,
+#settings-button:focus + #settings-menu-container,
+#settings-menu-container:hover,
+#settings-button:focus + #settings-menu-container .dropdown-menu,
 #settings-menu:hover {
   display: block;
 }
@@ -306,17 +395,37 @@ li.editor-title > button:focus + .dropdown-menu,
   background-color: #e7e8f1;
 }
 
-#settings-menu {
+#settings-menu-container {
+  display: none;
+  position: absolute;
   top: 40px;
   right: 10px;
+  height: calc(100vh - 40px);
+  width: 600px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#settings-menu-container::-webkit-scrollbar {
+  display: none;
+}
+
+#settings-menu {
+  top: 0;
+  right: 0;
   left: unset;
   margin-top: 0;
-  min-width: 200px;
+  width: 250px;
 }
 
 #settings-menu li,
 #settings-menu li > * {
   position: relative;
+}
+
+#settings-menu li > a,
+#settings-menu li > label {
+  margin-left: 7px;
 }
 
 .submenu {
@@ -332,17 +441,62 @@ li.editor-title > button:focus + .dropdown-menu,
 #open-link:hover + #open-list,
 #open-list:hover,
 #settings-menu a:hover + .submenu,
+#settings-menu i:hover + a + .submenu,
 .submenu:hover {
   display: block !important;
 }
 
-#select-editor,
-.dropdown-menu,
-#buttons {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+i.arrow {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 10px 15px 10px 10px;
+  position: absolute !important;
+  left: 0;
+  top: 0.5em;
+  text-decoration: none;
+  color: grey;
+}
+i.arrow.left {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+i.arrow:before,
+i.arrow:after {
+  border-right: 2px solid;
+  content: '';
+  display: block;
+  height: 8px;
+  margin-top: -6px;
+  position: absolute;
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  right: 10px;
+  top: 50%;
+  width: 0;
+}
+
+i.arrow:after {
+  margin-top: -1px;
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-menu li > a,
+  #settings-menu li > label {
+    margin-left: 0;
+  }
+  i.arrow {
+    top: 1.25em;
+    zoom: 60%;
+  }
 }
 
 .switch {
@@ -428,6 +582,7 @@ li.editor-title > button:focus + .dropdown-menu,
   box-shadow: 0 6px 12px #0000002d;
   -webkit-animation: slideIn 0.4s;
   animation: slideIn 0.4s forwards;
+  z-index: 50; /* above console error and console editor suggestions menu */
 }
 
 #notifications.hidden {
@@ -614,11 +769,18 @@ li.editor-title > button:focus + .dropdown-menu,
 #modal.small .modal-title {
   margin: 10px;
 }
+#modal #prompt-screen {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 #modal .buttons {
-  margin: 15px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 #modal .button {
+  place-self: center;
   margin: 5px 10px;
   padding: 5px;
   width: 100px;
@@ -638,6 +800,12 @@ li.editor-title > button:focus + .dropdown-menu,
 #modal #list-container #delete-all-button {
   color: crimson;
   background-color: #fff5f6;
+}
+
+@media only screen and (max-width: 768px) {
+  #modal #list-container .modified-date span {
+    display: none;
+  }
 }
 
 #modal .button.hidden {
@@ -716,8 +884,14 @@ li.editor-title > button:focus + .dropdown-menu,
   font-weight: 600;
   color: grey;
 }
-
-#modal #list-container li .delete-button {
+#modal form {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.delete-button,
+.clear-button {
   cursor: pointer;
   margin: 10px;
   vertical-align: middle;
@@ -731,18 +905,21 @@ li.editor-title > button:focus + .dropdown-menu,
   opacity: 0.6;
 }
 
-#modal #list-container li .delete-button:focus,
-#modal #list-container li .delete-button:hover {
+.delete-button:focus,
+.delete-button:hover,
+.clear-button:focus,
+.clear-button:hover {
   opacity: 1;
   background: rgba(128, 128, 128, 0.5);
 }
 
-#modal #list-container li .delete-button:active {
+.delete-button:active,
+.clear-button:active {
   background: rgba(128, 128, 128, 0.9);
 }
 
-#modal #list-container li .delete-button::before,
-#modal #list-container li .delete-button::after {
+.delete-button::before,
+.delete-button::after {
   content: ' ';
   position: absolute;
   top: 50%;
@@ -752,11 +929,38 @@ li.editor-title > button:focus + .dropdown-menu,
   background-color: currentColor;
 }
 
-#modal #list-container li .delete-button::before {
+.delete-button::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
-#modal #list-container li .delete-button::after {
+.delete-button::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#tools-pane-bar .delete-button,
+#tools-pane-bar .clear-button {
+  width: 26px;
+  height: 26px;
+}
+.clear-button::before {
+  content: ' ';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: 12px;
+  width: 12px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+}
+
+.clear-button::after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 14px;
+  width: 3px;
+  background-color: currentColor;
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
@@ -813,9 +1017,13 @@ li.editor-title > button:focus + .dropdown-menu,
 }
 
 #modal .modal-screen {
-  display: inline-block;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0.8;
+  justify-content: space-around;
+  align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 #modal label {
@@ -917,4 +1125,36 @@ li.editor-title > button:focus + .dropdown-menu,
 
 #css-preset-menu a.active::after {
   content: ' ✔';
+  color: grey;
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+#tools-pane-loading {
+  margin-bottom: 3px;
+}
+#tools-pane-loading:before {
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+  border-radius: 2.5px;
+  -webkit-box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2),
+    5px 3.5px 0 0 rgba(255, 255, 255, 0.4), 1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6),
+    -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8), -5px 3.5px 0 0 white;
+  box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
+    1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6), -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
+    -5px 3.5px 0 0 white;
+  height: 2.5px;
+  width: 2.5px;
+  display: block;
+  content: '';
 }

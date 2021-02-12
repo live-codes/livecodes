@@ -1,5 +1,6 @@
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
+
 import { monaco } from './monaco';
 
 import { createEditor } from './editor';
@@ -20,6 +21,7 @@ import {
   Language,
   Module,
   Pen,
+  ToolList,
 } from './models';
 import { createFormatter } from './formatter';
 import { getCompilersData, loadCompilers, compile, importsPattern } from './compilers';
@@ -37,6 +39,11 @@ import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { starterTemplates } from './templates';
 import { defaultConfig } from './config';
+import { createToolsPane } from './tools';
+import { createConsole } from './console';
+import { createCompiledCodeViewer } from './compiled-code-viewer';
+import { importCode } from './import';
+import { debounce } from './utils';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -44,6 +51,12 @@ export const app = async (config: Pen) => {
 
   const setConfig = (newConfig: Pen) => {
     config = JSON.parse(JSON.stringify(newConfig));
+  };
+  const elements = {
+    markup: '#markup',
+    style: '#style',
+    script: '#script',
+    result: '#result',
   };
 
   const { baseUrl } = getConfig();
@@ -59,16 +72,13 @@ export const app = async (config: Pen) => {
   const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
-
-  const elements = {
-    markup: '#markup',
-    style: '#style',
-    script: '#script',
-    result: '#result',
-  };
+  let changingContent = false;
+  let toolsPane: any;
+  let lastCompiled: { [key in EditorId]: string };
+  let consoleInputCodeCompletion: any;
 
   const createSplitPanes = () => {
-    const split = Split(['#editors', '#result'], {
+    const split = Split(['#editors', '#output'], {
       minSize: [0, 0],
       gutterSize: 10,
       elementStyle: (_dimension, size, gutterSize) => {
@@ -88,12 +98,11 @@ export const app = async (config: Pen) => {
       handle.id = 'handle';
       gutter.appendChild(handle);
     }
-
     return split;
   };
   const split = createSplitPanes();
 
-  function createIframe(container: string, result = resultTemplate) {
+  function createIframe(container: string, result?: string) {
     return new Promise((resolve) => {
       const containerEl = document.querySelector(container);
       if (!containerEl) return;
@@ -110,10 +119,17 @@ export const app = async (config: Pen) => {
         'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
 
-      const iframeSrc = URL.createObjectURL(new Blob([result], { type: 'text/html' }));
-      iframe.src = iframeSrc;
-      iframe.addEventListener('load', () => {
-        URL.revokeObjectURL(iframeSrc);
+      iframe.src = baseUrl + 'assets/result.html';
+
+      let loaded = false;
+      eventsManager.addEventListener(iframe, 'load', () => {
+        if (!result || loaded) {
+          resolve('loaded');
+          return; // prevent infinite loop
+        }
+
+        iframe.contentWindow?.postMessage({ result }, '*');
+        loaded = true;
         resolve('loaded');
       });
 
@@ -121,6 +137,7 @@ export const app = async (config: Pen) => {
       containerEl.appendChild(iframe);
     });
   }
+
   const compilers = getCompilersData([...languages, ...postProcessors], getConfig());
 
   const getTypes = async (module: Module): Promise<EditorLibrary> => {
@@ -249,14 +266,14 @@ export const app = async (config: Pen) => {
     return editors;
   };
 
-  const updateEditors = (editors: Editors, config: Pen) => {
+  const updateEditors = async (editors: Editors, config: Pen) => {
     const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
-    editorIds.forEach((editorId) => {
+    for (const editorId of editorIds) {
       editors[editorId].updateOptions(config.editor);
       editors[editorId].getModel().setValue(config[editorId].content);
-      changeLanguage(editorId, config[editorId].language);
-    });
+      await changeLanguage(editorId, config[editorId].language, true);
+    }
     setConfig({
       ...getConfig(),
       language,
@@ -317,9 +334,22 @@ export const app = async (config: Pen) => {
       ...getConfig(),
       language: getEditorLanguage(editorId),
     });
+
+    updateCompiledCode();
   };
 
-  const changeLanguage = (editorId: EditorId, language: Language) => {
+  const addConsoleInputCodeCompletion = () => {
+    if (consoleInputCodeCompletion) {
+      consoleInputCodeCompletion.dispose();
+    }
+    if (editorLanguages.script === 'javascript') {
+      consoleInputCodeCompletion = monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        editors.script.getValue(),
+      );
+    }
+  };
+
+  const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
     if (!editorId || !language) return;
     const editor = editors[editorId];
     const editorLanguage = language === 'jsx' ? 'javascript' : language;
@@ -331,11 +361,14 @@ export const app = async (config: Pen) => {
     loadCompilers([language], compilers, getConfig(), eventsManager);
     formatter.loadParser(language);
     registerFormatter(editorId, editors);
-    run(editors);
+    if (!reload) {
+      await run(editors);
+    }
     setConfig({
       ...getConfig(),
       language,
     });
+    addConsoleInputCodeCompletion();
   };
 
   // Cmd + Enter formats with prettier
@@ -343,9 +376,28 @@ export const app = async (config: Pen) => {
     const editor = editors[editorId];
     // eslint-disable-next-line
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
+      changingContent = true;
       await formatter.format(editor, getEditorLanguage(editorId));
-      run(editors);
+      changingContent = false;
+      await run(editors);
     });
+  };
+
+  const updateCompiledCode = () => {
+    type CompiledLanguages = {
+      [key in EditorId]: Language;
+    };
+    const compiledLanguages: CompiledLanguages = {
+      markup: 'html',
+      style: 'css',
+      script: 'javascript',
+    };
+    if (toolsPane && toolsPane.compiled && lastCompiled) {
+      Object.keys(lastCompiled).forEach((editorId) => {
+        if (editorId !== activeEditorId) return;
+        toolsPane.compiled.update(compiledLanguages[editorId], lastCompiled[editorId], getConfig());
+      });
+    }
   };
 
   const getResultPage = async (
@@ -363,12 +415,6 @@ export const app = async (config: Pen) => {
 
     dom.title = config.title;
 
-    if (!forExport) {
-      const base = dom.createElement('base');
-      base.href = location.href;
-      dom.head.appendChild(base);
-    }
-
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
       const cssPreset = dom.createElement('link');
@@ -385,41 +431,62 @@ export const app = async (config: Pen) => {
       stylesheet.href = url;
       dom.head.appendChild(stylesheet);
     });
-
     const style = await getCompiled(getEditorLanguage('style'), editors.style?.getValue());
-    const editorStyle = dom.createElement('style');
-    editorStyle.innerHTML = style;
-    dom.head.appendChild(editorStyle);
+    const styleElement = dom.createElement('style');
+    styleElement.innerHTML = style;
+    dom.head.appendChild(styleElement);
 
     if (config.cssPreset === 'github-markdown-css') {
       dom.body.classList.add('markdown-body');
+    }
+
+    if (forExport) {
+      dom.body.innerHTML = '';
+    } else {
+      const utilsScript = dom.createElement('script');
+      utilsScript.src = config.baseUrl + 'assets/scripts/utils.js';
+      dom.body.appendChild(utilsScript);
     }
 
     const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
     dom.body.innerHTML += markup;
 
     config.scripts.forEach((url) => {
-      const script = dom.createElement('script');
-      script.src = url;
-      dom.body.appendChild(script);
+      const externalScript = dom.createElement('script');
+      externalScript.src = url;
+      dom.body.appendChild(externalScript);
     });
 
     const rawScript = editors.script?.getValue();
-    const compiledScript = await getCompiled(getEditorLanguage('script'), rawScript);
+    const script = await getCompiled(getEditorLanguage('script'), rawScript);
     const hasImports = importsPattern.test(rawScript); // typescript compiler removes unused imports
-    const editorScript = dom.createElement('script');
+    const scriptElement = dom.createElement('script');
     if (hasImports) {
-      editorScript.type = 'module';
+      scriptElement.type = 'module';
     }
-    editorScript.innerHTML = compiledScript;
-    dom.body.appendChild(editorScript);
+    scriptElement.innerHTML = script;
+    dom.body.appendChild(scriptElement);
+
+    lastCompiled = { markup, style, script };
 
     return dom.documentElement.outerHTML;
   };
 
+  const setLoading = (status: boolean) => {
+    const loading = document.querySelector('#tools-pane-loading') as HTMLElement;
+    if (!loading) return;
+    if (status === true) {
+      loading.style.display = 'unset';
+    } else {
+      loading.style.display = 'none';
+    }
+  };
+
   const run = async (editors: Editors) => {
+    setLoading(true);
     const result = await getResultPage(editors);
     await createIframe(elements.result, result);
+    updateCompiledCode();
   };
 
   const save = (notify = false, skipAutoSave = false) => {
@@ -459,8 +526,8 @@ export const app = async (config: Pen) => {
     });
   };
 
-  const loadConfig = async (newConfig: Pen) => {
-    // eventsManager.removeEventListeners();
+  const loadConfig = async (newConfig: Pen, url?: string) => {
+    changingContent = true;
 
     const content: Partial<Pen> = {
       title: newConfig.title,
@@ -480,15 +547,12 @@ export const app = async (config: Pen) => {
     projectTitle.textContent = getConfig().title;
 
     // reset url params
-    parent.history.pushState(null, '', location.origin + location.pathname);
+    parent.history.pushState(null, '', url || location.origin + location.pathname);
 
     // load config
     await bootstrap(true);
-    run(editors);
-    editors[activeEditorId].focus();
-    setTimeout(() => {
-      setSavedStatus(true);
-    }, getConfig().delay);
+
+    changingContent = false;
   };
 
   const setSavedStatus = (status: boolean) => {
@@ -602,6 +666,36 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
     };
 
+    const handleIframeResize = () => {
+      const gutter = document.querySelector('#editor-container .gutter') as HTMLElement;
+      const sizeLabel = document.createElement('div');
+      sizeLabel.id = 'size-label';
+      gutter.appendChild(sizeLabel);
+
+      eventsManager.addEventListener(window, 'message', (event: any) => {
+        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        const sizeLabel = document.querySelector('#editor-container #size-label') as HTMLElement;
+        if (
+          !sizeLabel ||
+          !iframe ||
+          event.source !== iframe.contentWindow ||
+          event.data.type !== 'resize'
+        ) {
+          return;
+        }
+
+        const sizes = event.data.sizes;
+        sizeLabel.innerHTML = `${sizes.width} x ${sizes.height}`;
+        sizeLabel.classList.add('visible');
+
+        debounce(() => {
+          setTimeout(() => {
+            sizeLabel.classList.remove('visible');
+          }, 2000);
+        }, 1000)();
+      });
+    };
+
     const handleSelectEditor = () => {
       (document.querySelectorAll('.editor-title') as NodeListOf<HTMLElement>).forEach((title) => {
         eventsManager.addEventListener(
@@ -622,8 +716,8 @@ export const app = async (config: Pen) => {
             eventsManager.addEventListener(
               menuItem,
               'mousedown', // fire this event before unhover
-              () => {
-                changeLanguage(
+              async () => {
+                await changeLanguage(
                   menuItem.dataset.editor as EditorId,
                   menuItem.dataset.lang as Language,
                 );
@@ -642,12 +736,13 @@ export const app = async (config: Pen) => {
     };
 
     const handleChangeContent = () => {
-      const contentChanged = () => {
+      const contentChanged = async (loading: boolean) => {
         update();
         setSavedStatus(false);
+        addConsoleInputCodeCompletion();
 
-        if (getConfig().autoupdate) {
-          run(editors);
+        if (getConfig().autoupdate && !loading) {
+          await run(editors);
         }
 
         if (getConfig().autosave) {
@@ -655,16 +750,8 @@ export const app = async (config: Pen) => {
         }
       };
 
-      const debounce = (fn: (...x: any[]) => any, delay = getConfig().delay ?? 500) => {
-        let timeout: any;
-
-        return (...args: unknown[]) => {
-          if (timeout) clearTimeout(timeout);
-          timeout = setTimeout(() => fn.apply(null, args), delay);
-        };
-      };
-
-      const debouncecontentChanged = debounce(contentChanged);
+      const debouncecontentChanged = () =>
+        debounce(contentChanged, getConfig().delay ?? 500)(changingContent);
 
       editors.markup.getModel().onDidChangeContent(debouncecontentChanged);
       editors.style.getModel().onDidChangeContent(debouncecontentChanged);
@@ -713,7 +800,7 @@ export const app = async (config: Pen) => {
         'click',
         async () => {
           await formatter.format(editors[activeEditorId], getEditorLanguage(activeEditorId));
-          run(editors);
+          await run(editors);
         },
       );
     };
@@ -723,17 +810,20 @@ export const app = async (config: Pen) => {
         '#settings-menu input',
       ) as NodeListOf<HTMLInputElement>;
       toggles.forEach((toggle) => {
-        eventsManager.addEventListener(toggle, 'change', () => {
+        eventsManager.addEventListener(toggle, 'change', async () => {
           const configKey = toggle.dataset.config;
           if (!configKey || !(configKey in getConfig())) return;
 
           setConfig({ ...getConfig(), [configKey]: toggle.checked });
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
-            run(editors);
+            await run(editors);
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
+          }
+          if (configKey === 'autoprefixer') {
+            await run(editors);
           }
         });
       });
@@ -745,7 +835,7 @@ export const app = async (config: Pen) => {
         eventsManager.addEventListener(
           link,
           'click',
-          (event: Event) => {
+          async (event: Event) => {
             event.preventDefault();
             setConfig({
               ...getConfig(),
@@ -755,7 +845,7 @@ export const app = async (config: Pen) => {
               preset.classList.remove('active');
             });
             link.classList.add('active');
-            run(editors);
+            await run(editors);
           },
           false,
         );
@@ -847,7 +937,7 @@ export const app = async (config: Pen) => {
           link.classList.add('open-project-link');
           link.innerHTML = `
             <div class="open-title">${item.title}</div>
-            <div class="modified-date">Last modified: ${new Date(
+            <div class="modified-date"><span>Last modified: </span>${new Date(
               item.lastModified,
             ).toLocaleString()}</div>
           `;
@@ -972,7 +1062,7 @@ export const app = async (config: Pen) => {
           link.classList.add('open-project-link');
           link.innerHTML = `
             <div class="open-title">${item.title}</div>
-            <div class="modified-date">Last modified: ${new Date(
+            <div class="modified-date"><span>Last modified: </span>${new Date(
               item.lastModified,
             ).toLocaleString()}</div>
           `;
@@ -1060,23 +1150,51 @@ export const app = async (config: Pen) => {
           });
         });
 
-        eventsManager.addEventListener(
-          importContainer.querySelector('#url-import-btn') as HTMLInputElement,
-          'click',
-          () => {
-            const url = (importContainer.querySelector('#code-url') as HTMLInputElement).value;
-            parent.location.href = location.origin + location.pathname + '#' + url;
-          },
-        );
+        const importForm = importContainer.querySelector('#url-import-form') as HTMLInputElement;
+        const importButton = importContainer.querySelector('#url-import-btn') as HTMLInputElement;
+        eventsManager.addEventListener(importForm, 'submit', async (e) => {
+          e.preventDefault();
+          importButton.innerHTML = 'Loading...';
+          importButton.disabled = true;
+          const url = (importContainer.querySelector('#code-url') as HTMLInputElement).value;
+          const imported = await importCode(url, {}, defaultConfig);
+          if (imported && Object.keys(imported).length > 0) {
+            await loadConfig(
+              {
+                ...defaultConfig,
+                ...imported,
+              },
+              location.origin + location.pathname + '#' + url,
+            );
+          } else {
+            notifications.error('failed to load URL');
+          }
+          modal.close();
+        });
 
-        eventsManager.addEventListener(
-          importContainer.querySelector('#json-url-import-btn') as HTMLInputElement,
-          'click',
-          () => {
-            const url = (importContainer.querySelector('#json-url') as HTMLInputElement).value;
-            parent.location.href = location.origin + location.pathname + '?config=' + url;
-          },
-        );
+        const importJsonUrlForm = importContainer.querySelector(
+          '#json-url-import-form',
+        ) as HTMLInputElement;
+        const importJsonUrlButton = importContainer.querySelector(
+          '#json-url-import-btn',
+        ) as HTMLInputElement;
+        eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
+          e.preventDefault();
+          importJsonUrlButton.innerHTML = 'Loading...';
+          importJsonUrlButton.disabled = true;
+          const url = (importContainer.querySelector('#json-url') as HTMLInputElement).value;
+          const fileConfig = await fetch(url)
+            .then((res) => res.json())
+            .catch(() => {
+              modal.close();
+              notifications.error('failed to load URL');
+              return;
+            });
+          if (fileConfig) {
+            await loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url);
+          }
+          modal.close();
+        });
 
         const fileInput = importContainer.querySelector('#file-input') as HTMLInputElement;
 
@@ -1128,7 +1246,7 @@ export const app = async (config: Pen) => {
       eventsManager.addEventListener(
         document.querySelector('#import-link') as HTMLElement,
         'click',
-        createImportUI,
+        checkSavedAndExecute(createImportUI),
         false,
       );
     };
@@ -1214,7 +1332,7 @@ export const app = async (config: Pen) => {
             '#resources-container #resources-load-btn',
           ) as HTMLElement,
           'click',
-          () => {
+          async () => {
             externalResources.forEach((textarea) => {
               const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
               setConfig({
@@ -1228,7 +1346,7 @@ export const app = async (config: Pen) => {
             });
             setSavedStatus(false);
             modal.close();
-            run(editors);
+            await run(editors);
           },
         );
       };
@@ -1238,6 +1356,16 @@ export const app = async (config: Pen) => {
         createExrenalResourcesUI,
         false,
       );
+    };
+
+    const handleResultLoading = () => {
+      eventsManager.addEventListener(window, 'message', (event: any) => {
+        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        if (!iframe || event.source !== iframe.contentWindow || event.data.type !== 'loading') {
+          return;
+        }
+        setLoading(event.data.payload);
+      });
     };
 
     const handleUnload = () => {
@@ -1252,6 +1380,7 @@ export const app = async (config: Pen) => {
 
     handleTitleEdit();
     handleResize();
+    handleIframeResize();
     handleSelectEditor();
     handlechangeLanguage();
     handleChangeContent();
@@ -1266,6 +1395,7 @@ export const app = async (config: Pen) => {
     handleOpen();
     handleImport();
     handleExport();
+    handleResultLoading();
     handleUnload();
   };
 
@@ -1301,22 +1431,22 @@ export const app = async (config: Pen) => {
     );
   };
 
-  const setActiveEditor = (config: Pen) => {
+  const setActiveEditor = async (config: Pen) => {
     const language = getLanguageByAlias(config.language) || 'html';
     const editorId = getLanguageEditorId(language) || 'markup';
     if (getEditorLanguage(editorId) !== language) {
-      changeLanguage(editorId, language);
+      await changeLanguage(editorId, language);
     }
     showEditor(editorId);
   };
 
   async function bootstrap(reload = false) {
-    await createIframe(elements.result, resultTemplate);
+    await createIframe(elements.result);
 
     if (!reload) {
       editors = await createEditors(getConfig());
     } else {
-      updateEditors(editors, getConfig());
+      await updateEditors(editors, getConfig());
     }
 
     const libs = await Promise.all(getConfig().modules.map(getTypes));
@@ -1325,21 +1455,37 @@ export const app = async (config: Pen) => {
 
     if (!reload) {
       attachEventListeners(editors);
+
+      const toolList: ToolList = [
+        {
+          name: 'console',
+          factory: createConsole,
+        },
+        {
+          name: 'compiled',
+          factory: createCompiledCodeViewer,
+        },
+      ];
+      toolsPane = createToolsPane(toolList, getConfig(), editors, eventsManager);
     }
 
-    setActiveEditor(getConfig());
+    await setActiveEditor(getConfig());
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
-    loadCompilers(
+
+    await loadCompilers(
       [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
       compilers,
       getConfig(),
       eventsManager,
-    ).then(() => {
-      run(editors);
-      setSavedStatus(true);
-    });
+    );
+
+    await run(editors);
+    setSavedStatus(true);
+    await toolsPane?.load();
+    updateCompiledCode();
+    editors[activeEditorId].focus();
   }
 
   await bootstrap();

@@ -10,7 +10,7 @@ A powerful frontend coding playground that runs totally on the client and can be
 
 [Try it now on localpen.io](https://localpen.io)
 
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" width="600" /></a>
 
 TL;DR: [Getting started](#getting-started)
 
@@ -41,6 +41,8 @@ TL;DR: [Getting started](#getting-started)
 - **Export source code** as [zip file](https://stuk.github.io/jszip/) or **ready-to-run HTML page** with the compiled/transpiled code
 - **Export to CodePen and JSFiddle** (more to come)
 - **Save/open** from local storage with optional autosave
+- **JS/TS Console** (using [Luna Console](https://github.com/liriliri/luna/tree/master/src/console))
+- **View compiled code**
 - **Keyboard shortcuts**
 - LocalPen is under active development with more features to come (see [Roadmap](#roadmap))
 
@@ -65,6 +67,9 @@ TL;DR: [Getting started](#getting-started)
   - [Prefill From Code Blocks](#prefill-from-code-blocks)
   - [Prefill Editors by Querystring Parameters](#prefill-editors-by-querystring-parameters)
 - [Code Formatting](#code-formatting)
+- [Tools Pane](#tools-pane)
+- [JS/TS Console](#jsts-console)
+- [View Compiled Code](#view-compiled-code)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 - [Display Modes](#display-modes)
 - [Embeds](#embeds)
@@ -117,11 +122,15 @@ There are multiple options:
 
 ## Screenshots
 
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" width="600" /></a>
 <a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/templates.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/templates.png" width="600" /></a>
 <a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" width="600" /></a>
 <a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports-v0.3.0.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports-v0.3.0.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/console-input.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/console-input.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/console.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/console.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-ts.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-ts.png" width="600" /></a>
+<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-scss.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-scss.png" width="600" /></a>
 <a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" width="600" /></a>
 <a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" width="600" /></a>
 <a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" width="600" /></a>
@@ -358,6 +367,39 @@ This link preloads the CSS and HTML editors with content and makes the CSS the d
 
 The popular code formatter, [Prettier](https://prettier.io/), is included out-of-the-box in LocalPen. Code formatting and preview update are triggered by the keyboard shortcut `Ctrl + Enter` (on Windows) or `Cmd + Enter` (on Mac).
 
+## Tools Pane
+
+The resizeable tools pane provides an area for developer tools. This currently includes the JS/TS console and compiled code viewer. In addition, it shows a loading spinner when the result page is loading. The pane can be resized by dragging the bar. Clicking a tool button toggles opening/closing the pane. Double-click toggles maximize/close.
+
+It can be configured to have any of the following states:
+
+- `closed` (default)
+- `open`
+- `full`
+- `none`
+
+e.g. https://localpen.io/?js&console=open <br />
+sets JavaScript as the active editor and opens the console.
+
+## JS/TS Console
+
+Console messages are shown in the included console (in the tools pane, below the result page), without having to open the browser console. Message can be sent to the console using the standard `console` methods in the code editor (e.g. `console.log`, `console.warn`, `console.error`, `console.table`, ...etc). The console can also be used as REPL (read–eval–print loop) using the included console input.
+
+The code is evaluated in the context of the result page (i.e. variables defined in the script editor are accessible for evaluation in the console input). Also code completion works in the console input.
+The console input accepts JavaScript and TypeScript code for evaluation.
+
+e.g. https://localpen.io/?ts&console=full <br />
+sets TypeScript as the active editor and shows the console maximized.
+
+## View Compiled Code
+
+The resulting compiled/transpiled code can be seen in the compiled code viewer (in the tools pane) in real-time, as you type. This works for all compiled code (e.g. Markdown, Pug, SCSS, Less, Stylus, Typescript, CoffeeScript, ...etc.). This can be a great tool for learning. As you write code, you see the compiled code and the resulting page in the same time. The compiled code viewer shows the code compiled from the currently active editor (markup/style/script). This includes the CSS produced by Autoprefixer (if enabled).
+
+e.g. https://localpen.io/?ts&compiled=full <br />
+sets TypeScript as the active editor and shows compiled code viewer maximized.
+
+[This example](https://localpen.io/?ts=playground.ts&compiled=full#https://gist.github.com/hatemhosny/4bed283ef9757a6a541aee685c710dc7) shows TypeScript code along with the compiled Javascript code, similar to the [official TypeScript Playground](https://www.typescriptlang.org/play).
+
 ## Keyboard Shortcuts
 
 - `Ctrl/Cmd + Enter`: Code format + update preview
@@ -466,14 +508,14 @@ The documentation for API and configuration specs will be published on a separat
 
 Many features/fixes are planned, the most important are:
 
-- [ ] Add JavaScript console.
+- [x] Add JavaScript console.
 - [x] Enhancing security
 - [x] Add starter templates (standard and user-defined)
 - [x] CSS presets (e.g. normalize, reset)
 - [ ] Improve embedded editors
 - [ ] Click to load embeds
 - [ ] NPM package
-- [ ] View compiled code
+- [x] View compiled code
 - [ ] Offline support (PWA)
 - [ ] Github login
 - [ ] Export/import from services like google drive/dropbox
@@ -484,8 +526,8 @@ Many features/fixes are planned, the most important are:
 - [ ] Try automatically detecting and loading typescript types
 - [ ] Support more languages
 - [ ] Improve build process and decrease file size
-- [ ] Various bug fixes and performance improvements
-- [ ] Improve UX while loading
+- [x] Various bug fixes and performance improvements
+- [x] Improve UX while loading
 
 #### and may be: <!-- omit in toc -->
 
@@ -509,7 +551,9 @@ In addition to all the previously mentioned great products, LocalPen was inspire
 
 ## License
 
-MIT
+[MIT](LICENSE)
+
+Third party packages distributed with LocalPen and their licences are [listed here](vendor-licenses.md).
 
 ## Support the author
 

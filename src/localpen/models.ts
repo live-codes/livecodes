@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
 
+import { createEventsManager } from './events';
+
 export interface Pen {
   baseUrl: string;
   title: string;
@@ -9,6 +11,8 @@ export interface Pen {
   emmet: boolean;
   autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
+  console: ToolsPaneStatus;
+  compiled: ToolsPaneStatus;
   editor: { [key: string]: any };
   allowLangChange: boolean;
   language: Language;
@@ -110,8 +114,7 @@ export interface Parser {
 }
 
 export type CssPresetId =
-  | null
-  | 'none'
+  | ''
   | 'normalize.css'
   | 'reset-css'
   | 'github-markdown-css'
@@ -152,3 +155,21 @@ export interface Template {
   cssPreset: CssPresetId;
   modules: Module[];
 }
+
+export interface Tool {
+  title: string;
+  load: () => Promise<void>;
+  onActivate: () => void;
+  onDeactivate: () => void;
+}
+
+export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
+
+export type ToolList = Array<{
+  name: 'console' | 'compiled';
+  factory: (
+    config: Pen,
+    editors: Editors,
+    eventsManager: ReturnType<typeof createEventsManager>,
+  ) => Tool;
+}>;

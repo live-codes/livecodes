@@ -95,30 +95,28 @@ export const compile = async (
 
   value = value || '';
 
-  await Promise.all(
-    postProcessors.map(async (processor) => {
-      if (
-        (config as any)[processor.name] === true &&
-        processor.editors?.includes(getLanguageEditorId(language) as EditorId)
-      ) {
-        if (compilers[processor.name] && !compilers[processor.name].fn) {
-          await loadCompilers([processor.name], compilers, config, eventsManager);
-        }
-        const process = compilers[processor.name].fn;
-        if (typeof process !== 'function') {
-          throw new Error('Failed to load processor: ' + processor.name);
-        }
-        switch (processor.name) {
-          case 'autoprefixer':
-            try {
-              value = (await process(value, { from: undefined })).css;
-            } catch (error) {
-              // do nothing
-            }
-        }
+  for (const processor of postProcessors) {
+    if (
+      (config as any)[processor.name] === true &&
+      processor.editors?.includes(getLanguageEditorId(language) as EditorId)
+    ) {
+      if (compilers[processor.name] && !compilers[processor.name].fn) {
+        await loadCompilers([processor.name], compilers, config, eventsManager);
       }
-    }),
-  );
+      const process = compilers[processor.name].fn;
+      if (typeof process !== 'function') {
+        throw new Error('Failed to load processor: ' + processor.name);
+      }
+      switch (processor.name) {
+        case 'autoprefixer':
+          try {
+            value = (await process(value, { from: undefined })).css;
+          } catch (error) {
+            // do nothing
+          }
+      }
+    }
+  }
 
   return Promise.resolve(value || '');
 };
