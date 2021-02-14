@@ -489,17 +489,13 @@ export const app = async (config: Pen) => {
     updateCompiledCode();
   };
 
-  const save = (notify = false, skipAutoSave = false) => {
+  const save = (notify = false) => {
     if (!penId) {
       penId = storage.addItem(getConfig());
     } else {
       storage.updateItem(penId, getConfig());
     }
-    if (!getConfig().autosave && !skipAutoSave) {
-      setConfig({ ...getConfig(), autosave: true });
-      notifications.message('Auto save enabled');
-      (document.querySelector('input#autosave') as HTMLInputElement).checked = true;
-    } else if (notify) {
+    if (notify) {
       notifications.message('Project saved');
     }
     setSavedStatus(true);
@@ -601,7 +597,7 @@ export const app = async (config: Pen) => {
         document.querySelector('#modal #prompt-save-btn') as HTMLElement,
         'click',
         () => {
-          save(true, true);
+          save(true);
           if (!doNotCloseModal) {
             modal.close();
           }
