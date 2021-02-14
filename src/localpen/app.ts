@@ -1095,6 +1095,12 @@ export const app = async (config: Pen) => {
             'click',
             async (event) => {
               event.preventDefault();
+
+              const loading = document.createElement('div');
+              loading.innerHTML = 'Loading...<br /><br />' + item.title + '';
+              loading.className = 'centered';
+              modal.show(loading);
+
               const itemId = (link as HTMLElement).dataset.id || '';
               const savedPen = storage.getItem(itemId)?.pen;
               if (savedPen) {
@@ -1102,6 +1108,7 @@ export const app = async (config: Pen) => {
                 penId = itemId;
               }
               modal.close();
+              loading.remove();
             },
             false,
           );
