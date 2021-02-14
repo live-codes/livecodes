@@ -1,4 +1,5 @@
 import { Pen } from '../models';
+import { importCompressedCode, isCompressedCode } from './code';
 import { importFromGithub, isGithubUrl } from './github';
 import { importFromGithubDir, isGithubDir } from './github-dir';
 import { importFromGithubGist, isGithubGist } from './github-gist';
@@ -12,6 +13,9 @@ export const importCode = async (
   params: { [key: string]: any },
   config: Pen,
 ): Promise<Partial<Pen>> => {
+  if (isCompressedCode(url)) {
+    return importCompressedCode(url);
+  }
   if (isGithubGist(url)) {
     return importFromGithubGist(url, params);
   }

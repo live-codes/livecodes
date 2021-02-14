@@ -43,7 +43,7 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
-import { debounce } from './utils';
+import { compress, debounce } from './utils';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -510,6 +510,28 @@ export const app = async (config: Pen) => {
     loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
     save();
     notifications.message('Forked as a new project');
+  };
+
+  const share = () => {
+    const config = getConfig();
+    const content: Partial<Pen> = {
+      title: config.title,
+      language: config.language,
+      markup: config.markup,
+      style: config.style,
+      script: config.script,
+      stylesheets: config.stylesheets,
+      scripts: config.scripts,
+      cssPreset: config.cssPreset,
+      modules: config.modules,
+    };
+
+    const contentHash = '#code/' + compress(JSON.stringify(content));
+    const shareURL = location.origin + location.pathname + contentHash;
+
+    parent.history.pushState(null, '', shareURL);
+    copyToClipboard(shareURL);
+    notifications.message('URL copied to clipboard');
   };
 
   const update = () => {
@@ -1308,6 +1330,18 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleShare = () => {
+      eventsManager.addEventListener(
+        document.querySelector('#share-link') as HTMLAnchorElement,
+        'click',
+        (event: Event) => {
+          event.preventDefault();
+          share();
+        },
+        false,
+      );
+    };
+
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
@@ -1395,6 +1429,7 @@ export const app = async (config: Pen) => {
     handleOpen();
     handleImport();
     handleExport();
+    handleShare();
     handleResultLoading();
     handleUnload();
   };
