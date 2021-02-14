@@ -43,7 +43,7 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
-import { debounce } from './utils';
+import { compress, debounce } from './utils';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -489,17 +489,13 @@ export const app = async (config: Pen) => {
     updateCompiledCode();
   };
 
-  const save = (notify = false, skipAutoSave = false) => {
+  const save = (notify = false) => {
     if (!penId) {
       penId = storage.addItem(getConfig());
     } else {
       storage.updateItem(penId, getConfig());
     }
-    if (!getConfig().autosave && !skipAutoSave) {
-      setConfig({ ...getConfig(), autosave: true });
-      notifications.message('Auto save enabled');
-      (document.querySelector('input#autosave') as HTMLInputElement).checked = true;
-    } else if (notify) {
+    if (notify) {
       notifications.message('Project saved');
     }
     setSavedStatus(true);
@@ -510,6 +506,28 @@ export const app = async (config: Pen) => {
     loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
     save();
     notifications.message('Forked as a new project');
+  };
+
+  const share = () => {
+    const config = getConfig();
+    const content: Partial<Pen> = {
+      title: config.title,
+      language: config.language,
+      markup: config.markup,
+      style: config.style,
+      script: config.script,
+      stylesheets: config.stylesheets,
+      scripts: config.scripts,
+      cssPreset: config.cssPreset,
+      modules: config.modules,
+    };
+
+    const contentHash = '#code/' + compress(JSON.stringify(content));
+    const shareURL = location.origin + location.pathname + contentHash;
+
+    parent.history.pushState(null, '', shareURL);
+    copyToClipboard(shareURL);
+    notifications.message('URL copied to clipboard');
   };
 
   const update = () => {
@@ -579,7 +597,7 @@ export const app = async (config: Pen) => {
         document.querySelector('#modal #prompt-save-btn') as HTMLElement,
         'click',
         () => {
-          save(true, true);
+          save(true);
           if (!doNotCloseModal) {
             modal.close();
           }
@@ -1073,6 +1091,12 @@ export const app = async (config: Pen) => {
             'click',
             async (event) => {
               event.preventDefault();
+
+              const loading = document.createElement('div');
+              loading.innerHTML = 'Loading...<br /><br />' + item.title + '';
+              loading.className = 'centered';
+              modal.show(loading);
+
               const itemId = (link as HTMLElement).dataset.id || '';
               const savedPen = storage.getItem(itemId)?.pen;
               if (savedPen) {
@@ -1080,6 +1104,7 @@ export const app = async (config: Pen) => {
                 penId = itemId;
               }
               modal.close();
+              loading.remove();
             },
             false,
           );
@@ -1308,6 +1333,18 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleShare = () => {
+      eventsManager.addEventListener(
+        document.querySelector('#share-link') as HTMLAnchorElement,
+        'click',
+        (event: Event) => {
+          event.preventDefault();
+          share();
+        },
+        false,
+      );
+    };
+
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
@@ -1395,6 +1432,7 @@ export const app = async (config: Pen) => {
     handleOpen();
     handleImport();
     handleExport();
+    handleShare();
     handleResultLoading();
     handleUnload();
   };

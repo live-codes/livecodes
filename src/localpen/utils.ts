@@ -1,3 +1,5 @@
+import LZString from 'lz-string';
+
 export const debounce = (fn: (...x: any[]) => any, delay: number) => {
   let timeout: any;
 
@@ -87,3 +89,6 @@ export const typeOf = (obj: any) => {
 
   return 'object';
 };
+
+export const compress = LZString.compressToBase64;
+export const decompress = LZString.decompressFromBase64;
