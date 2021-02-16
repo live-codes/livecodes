@@ -208,6 +208,11 @@ export const app = async (config: Pen) => {
   };
 
   const createEditors = async (config: Pen) => {
+    const baseOptions = {
+      baseUrl: config.baseUrl,
+      mode: config.mode,
+      editorType: 'code',
+    };
     const markupOptions = {
       container: document.querySelector(elements.markup),
       language: config.markup.language,
@@ -224,19 +229,16 @@ export const app = async (config: Pen) => {
       value: config.script.content,
     };
     const markupEditor = await createEditor({
+      ...baseOptions,
       ...markupOptions,
-      ...config.editor,
-      baseUrl,
     });
     const styleEditor = await createEditor({
+      ...baseOptions,
       ...styleOptions,
-      ...config.editor,
-      baseUrl,
     });
     const scriptEditor = await createEditor({
+      ...baseOptions,
       ...scriptOptions,
-      ...config.editor,
-      baseUrl,
     });
 
     setEditorTitle('markup', markupOptions.language);
@@ -270,7 +272,6 @@ export const app = async (config: Pen) => {
     const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
-      // editors[editorId].updateOptions(config.editor);
       editors[editorId].setValue(config[editorId].content);
       await changeLanguage(editorId, config[editorId].language, true);
     }
@@ -377,8 +378,7 @@ export const app = async (config: Pen) => {
   // Cmd + Enter formats with prettier
   const registerFormatter = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
-    if (!editor.monaco) return;
-    editor.monaco.addCommand(editor.keyCodes.CtrlEnter, async () => {
+    editor.addKeyBinding('format', editor.keyCodes.CtrlEnter, async () => {
       changingContent = true;
       await formatter.format(editor, getEditorLanguage(editorId));
       changingContent = false;
@@ -387,10 +387,7 @@ export const app = async (config: Pen) => {
   };
 
   const updateCompiledCode = () => {
-    type CompiledLanguages = {
-      [key in EditorId]: Language;
-    };
-    const compiledLanguages: CompiledLanguages = {
+    const compiledLanguages: { [key in EditorId]: Language } = {
       markup: 'html',
       style: 'css',
       script: 'javascript',

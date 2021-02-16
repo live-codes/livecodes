@@ -1,7 +1,7 @@
-import { EditorLibrary, Language } from '../models';
-import { CodeEditor } from './models';
+import { EditorLibrary, FormatFn, Language } from '../models';
+import { CodeEditor, EditorOptions } from './models';
 
-const editorOptions = {
+const defaultOptions = {
   fontSize: 14,
   theme: 'vs-dark',
   formatOnType: false,
@@ -17,16 +17,57 @@ const editorOptions = {
   automaticLayout: true,
 };
 
-export const createMonacoEditor = async (options: any) => {
+const codeblockOptions = {
+  ...defaultOptions,
+  readOnly: true,
+  lineNumbers: false,
+  scrollBeyondLastLine: false,
+  contextmenu: false,
+};
+
+const compiledCodeOptions = {
+  ...defaultOptions,
+  scrollBeyondLastLine: false,
+  readOnly: true,
+};
+
+const consoleOptions = {
+  ...defaultOptions,
+  lineNumbers: 'off',
+  glyphMargin: true,
+  folding: false,
+  lineDecorationsWidth: 0,
+  lineNumbersMinChars: 0,
+  scrollbar: {
+    vertical: 'auto',
+  },
+  scrollBeyondLastLine: false,
+  contextmenu: false,
+};
+
+export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl } = options;
+  if (!container) throw new Error('editor container not fount');
+
+  const editorOptions =
+    options.editorType === 'console'
+      ? consoleOptions
+      : options.editorType === 'compiled'
+      ? compiledCodeOptions
+      : options.mode === 'codeblock'
+      ? codeblockOptions
+      : defaultOptions;
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
   const monaco = (await import(`${monacoPath}/monaco.js`)).monaco;
 
-  const stylesheet = document.createElement('link');
-  stylesheet.setAttribute('rel', 'stylesheet');
-  stylesheet.setAttribute('href', `${monacoPath}/monaco.css`);
-  document.head.appendChild(stylesheet);
+  if (!document.head.querySelector('#__localpen__monaco-styles')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.setAttribute('rel', 'stylesheet');
+    stylesheet.setAttribute('href', `${monacoPath}/monaco.css`);
+    stylesheet.id = '__localpen__monaco-styles';
+    document.head.appendChild(stylesheet);
+  }
 
   (window as any).MonacoEnvironment = {
     getWorkerUrl(_moduleId: string, label: string) {
@@ -53,15 +94,17 @@ export const createMonacoEditor = async (options: any) => {
     experimentalDecorators: true,
   });
 
+  let language = options.language;
+
   const editor = monaco.editor.create(container, {
     ...editorOptions,
     ...options,
-    language: options.language === 'jsx' ? 'javascript' : options.language,
+    language: language === 'jsx' ? 'javascript' : language,
   });
 
-  if (options.theme === 'vs-light') container.style.backgroundColor = '#fff';
-  if (options.theme?.startsWith('http') || options.theme?.startsWith('./')) {
-    fetch(options.theme)
+  if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
+  if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
+    fetch(editorOptions.theme)
       .then((res) => res.json())
       .then((data) => {
         monaco.editor.defineTheme('theme', data);
@@ -73,8 +116,10 @@ export const createMonacoEditor = async (options: any) => {
   const getValue = () => editor.getValue();
   const setValue = (value?: string) => editor.getModel().setValue(value || '');
 
-  const setLanguage = (language: Language) => {
-    monaco.editor.setModelLanguage(editor.getModel(), language);
+  const getLanguage = () => language;
+  const setLanguage = (lang: Language) => {
+    language = lang;
+    monaco.editor.setModelLanguage(editor.getModel(), language === 'jsx' ? 'javascript' : language);
   };
 
   const focus = () => editor.focus();
@@ -105,9 +150,63 @@ export const createMonacoEditor = async (options: any) => {
     });
   };
 
+  const format = async (formatFn: FormatFn) => {
+    const computeOffset = (code: string, pos: { lineNumber: number; column: number }) => {
+      let line = 1;
+      let col = 1;
+      let offset = 0;
+      while (offset < code.length) {
+        if (line === pos.lineNumber && col === pos.column) return offset;
+        if (code[offset] === '\n') {
+          line++;
+          col = 1;
+        } else col++;
+        offset++;
+      }
+      return -1;
+    };
+
+    const computePosition = (code: string, offset: number) => {
+      let line = 1;
+      let col = 1;
+      let char = 0;
+      while (char < offset) {
+        if (code[char] === '\n') {
+          line++;
+          col = 1;
+        } else col++;
+        char++;
+      }
+      return { lineNumber: line, column: col };
+    };
+
+    const val = editor.getValue();
+    const pos = editor.getPosition();
+    const prettyVal = formatFn(val, computeOffset(val, pos));
+    editor.executeEdits('prettier', [
+      {
+        identifier: 'delete',
+        range: editor.getModel().getFullModelRange(),
+        text: '',
+        forceMoveMarkers: true,
+      },
+    ]);
+    editor.executeEdits('prettier', [
+      {
+        identifier: 'insert',
+        range: new monaco.Range(1, 1, 1, 1),
+        text: prettyVal.formatted,
+        forceMoveMarkers: true,
+      },
+    ]);
+    editor.setSelection(new monaco.Range(0, 0, 0, 0));
+    editor.setPosition(computePosition(prettyVal.formatted, prettyVal.cursorOffset));
+  };
+
   return {
     getValue,
     setValue,
+    getLanguage,
     setLanguage,
     focus,
     layout,
@@ -115,6 +214,7 @@ export const createMonacoEditor = async (options: any) => {
     onContentChanged,
     keyCodes,
     addKeyBinding,
+    format,
     monaco: editor,
-  } as CodeEditor;
+  };
 };

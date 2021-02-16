@@ -1,5 +1,5 @@
 import LunaConsole from 'luna-console';
-import { CodeEditor, createEditor } from './editor';
+import { CodeEditor, createEditor, EditorOptions } from './editor';
 import { createEventsManager } from './events';
 import { Editors, Pen, Tool } from './models';
 
@@ -105,25 +105,15 @@ export const createConsole = (
   const createConsoleInput = async () => {
     if (editor) return editor;
 
-    const editorOptions = {
+    const container = document.querySelector('#console-input') as HTMLElement;
+    if (!container) throw new Error('Console input container not found');
+
+    const editorOptions: EditorOptions = {
       baseUrl: config.baseUrl,
-      container: document.querySelector('#console-input') as HTMLElement,
+      container,
       language: 'javascript',
-      fontSize: 14,
-      lineNumbers: 'off',
-      glyphMargin: true,
-      folding: false,
-      lineDecorationsWidth: 0,
-      lineNumbersMinChars: 0,
-      minimap: {
-        enabled: false,
-      },
-      scrollbar: {
-        vertical: 'auto',
-      },
-      scrollBeyondLastLine: false,
-      contextmenu: false,
-      automaticLayout: true,
+      value: '',
+      editorType: 'console',
     };
     const consoleEditor = await createEditor(editorOptions);
 
@@ -154,7 +144,7 @@ export const createConsole = (
     });
 
     const minHeight = 25;
-    editorOptions.container.style.minHeight = minHeight + 'px';
+    container.style.minHeight = minHeight + 'px';
 
     consoleEditor.onContentChanged(() => {
       if (!consoleEditor.monaco) return;
@@ -162,7 +152,7 @@ export const createConsole = (
         consoleEditor.monaco.getContentHeight() < minHeight
           ? minHeight
           : consoleEditor.monaco.getContentHeight() * 2;
-      editorOptions.container.style.height = height + 'px';
+      container.style.height = height + 'px';
     });
 
     // workaround to remove 'luna-console-' added to variable names called by console input

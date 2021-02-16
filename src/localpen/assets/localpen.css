@@ -214,6 +214,7 @@ body {
 }
 #tools-pane-buttons {
   min-width: 92px;
+  text-align: right;
 }
 #tools-pane-buttons,
 #tools-pane-buttons > div {

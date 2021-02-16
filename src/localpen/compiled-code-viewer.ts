@@ -1,4 +1,4 @@
-import { CodeEditor, createEditor } from './editor';
+import { CodeEditor, createEditor, EditorOptions } from './editor';
 import { createEventsManager } from './events';
 import { languages } from './languages';
 import { Editors, Pen, Tool } from './models';
@@ -41,13 +41,12 @@ export const createCompiledCodeViewer = (
   const createCompiledEditor = () => {
     if (editor) return editor;
 
-    const editorOptions = {
-      ...config.editor,
+    const editorOptions: EditorOptions = {
       baseUrl: config.baseUrl,
       container: compiledCodeElement,
-      scrollBeyondLastLine: false,
-      automaticLayout: true,
-      readOnly: true,
+      language: 'javascript',
+      value: '',
+      editorType: 'compiled',
     };
     return createEditor(editorOptions);
   };

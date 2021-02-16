@@ -1,8 +1,9 @@
-import { EditorLibrary, Language } from '../models';
+import { EditorLibrary, FormatFn, Language, Pen } from '../models';
 
 export interface CodeEditor {
   getValue: () => string;
   setValue: (value?: string) => void;
+  getLanguage: () => Language;
   setLanguage: (language: Language) => void;
   focus: () => void;
   layout: () => void;
@@ -15,6 +16,16 @@ export interface CodeEditor {
     UpArrow: any;
     DownArrow: any;
   };
+  format: (formatFn: FormatFn) => Promise<void>;
   monaco?: any;
   codemirror?: any;
+}
+
+export interface EditorOptions {
+  baseUrl: string;
+  container: HTMLElement | null;
+  language: Language;
+  value: string;
+  mode?: Pen['mode'];
+  editorType: 'code' | 'compiled' | 'console';
 }

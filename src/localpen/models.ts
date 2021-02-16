@@ -112,7 +112,10 @@ export interface Parser {
   plugins?: any[];
   pluginUrls: string[];
 }
-
+export type FormatFn = (
+  value: string,
+  cursorOffset: number,
+) => { formatted: string; cursorOffset: number };
 export type CssPresetId =
   | ''
   | 'normalize.css'
