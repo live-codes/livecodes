@@ -1,9 +1,27 @@
-import { monaco } from './monaco';
+import { EditorLibrary, Language } from '../models';
+import { CodeEditor } from './models';
 
-export const createEditor = async (options: any) => {
+const editorOptions = {
+  fontSize: 14,
+  theme: 'vs-dark',
+  formatOnType: false,
+  tabSize: 2,
+  lineNumbersMinChars: 3,
+  minimap: {
+    enabled: false,
+  },
+  scrollbar: {
+    useShadows: false,
+  },
+  mouseWheelZoom: true,
+  automaticLayout: true,
+};
+
+export const createMonacoEditor = async (options: any) => {
   const { container, baseUrl } = options;
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
+  const monaco = (await import(`${monacoPath}/monaco.js`)).monaco;
 
   const stylesheet = document.createElement('link');
   stylesheet.setAttribute('rel', 'stylesheet');
@@ -36,6 +54,7 @@ export const createEditor = async (options: any) => {
   });
 
   const editor = monaco.editor.create(container, {
+    ...editorOptions,
     ...options,
     language: options.language === 'jsx' ? 'javascript' : options.language,
   });
@@ -51,5 +70,51 @@ export const createEditor = async (options: any) => {
       });
   }
 
-  return editor;
+  const getValue = () => editor.getValue();
+  const setValue = (value?: string) => editor.getModel().setValue(value || '');
+
+  const setLanguage = (language: Language) => {
+    monaco.editor.setModelLanguage(editor.getModel(), language);
+  };
+
+  const focus = () => editor.focus();
+  const layout = () => editor.layout();
+
+  const addTypes = (lib: EditorLibrary) =>
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename);
+
+  const onContentChanged = (callback: () => void) => {
+    editor.getModel().onDidChangeContent(callback);
+  };
+
+  const keyCodes = {
+    // eslint-disable-next-line
+    CtrlEnter: monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+    Enter: monaco.KeyCode.Enter,
+    UpArrow: monaco.KeyCode.UpArrow,
+    DownArrow: monaco.KeyCode.DownArrow,
+  };
+
+  const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
+    editor.addAction({
+      id: label,
+      label,
+      keybindings: [keybinding],
+      precondition: '!suggestWidgetVisible && !markersNavigationVisible && !findWidgetVisible',
+      run: callback,
+    });
+  };
+
+  return {
+    getValue,
+    setValue,
+    setLanguage,
+    focus,
+    layout,
+    addTypes,
+    onContentChanged,
+    keyCodes,
+    addKeyBinding,
+    monaco: editor,
+  } as CodeEditor;
 };

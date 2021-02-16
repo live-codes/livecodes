@@ -1,6 +1,6 @@
-import { monaco } from './monaco';
 import { Language, Parser, Pen } from './models';
 import { languages } from './languages';
+import { CodeEditor } from './editor';
 
 export const createFormatter = (config: Pen) => {
   const baseUrl = config.baseUrl;
@@ -81,39 +81,37 @@ export const createFormatter = (config: Pen) => {
     return { lineNumber: line, column: col };
   };
 
-  const format = async (editor: any, language: Language) => {
-    const val = editor.getValue();
-    const pos = editor.getPosition();
-
-    const parser = await loadParser(language);
-    if (!parser) return;
-
-    const prettyVal = prettier.formatWithCursor(val, {
-      parser: parser.name,
-      plugins: parser.plugins,
-      cursorOffset: computeOffset(val, pos),
-    });
-
-    editor.executeEdits('prettier', [
-      {
-        identifier: 'delete',
-        range: editor.getModel().getFullModelRange(),
-        text: '',
-        forceMoveMarkers: true,
-      },
-    ]);
-
-    editor.executeEdits('prettier', [
-      {
-        identifier: 'insert',
-        range: new monaco.Range(1, 1, 1, 1),
-        text: prettyVal.formatted,
-        forceMoveMarkers: true,
-      },
-    ]);
-
-    editor.setSelection(new monaco.Range(0, 0, 0, 0));
-    editor.setPosition(computePosition(prettyVal.formatted, prettyVal.cursorOffset));
+  const format = async (editor: CodeEditor, language: Language) => {
+    const global = window as any;
+    if (editor.monaco && global.monaco) {
+      const val = editor.getValue();
+      const pos = editor.monaco.getPosition();
+      const parser = await loadParser(language);
+      if (!parser) return;
+      const prettyVal = prettier.formatWithCursor(val, {
+        parser: parser.name,
+        plugins: parser.plugins,
+        cursorOffset: computeOffset(val, pos),
+      });
+      editor.monaco.executeEdits('prettier', [
+        {
+          identifier: 'delete',
+          range: editor.monaco.getModel().getFullModelRange(),
+          text: '',
+          forceMoveMarkers: true,
+        },
+      ]);
+      editor.monaco.executeEdits('prettier', [
+        {
+          identifier: 'insert',
+          range: new global.monaco.Range(1, 1, 1, 1),
+          text: prettyVal.formatted,
+          forceMoveMarkers: true,
+        },
+      ]);
+      editor.monaco.setSelection(new global.monaco.Range(0, 0, 0, 0));
+      editor.monaco.setPosition(computePosition(prettyVal.formatted, prettyVal.cursorOffset));
+    }
   };
 
   return {

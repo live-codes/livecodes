@@ -1,8 +1,6 @@
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
 
-import { monaco } from './monaco';
-
 import { createEditor } from './editor';
 import {
   languages,
@@ -157,7 +155,9 @@ export const app = async (config: Pen) => {
   };
 
   const loadLibrary = (lib: EditorLibrary) => {
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename);
+    if (editors.script && typeof editors.script.addTypes === 'function') {
+      editors.script?.addTypes(lib);
+    }
   };
 
   const getEditorLanguage = (editorId: EditorId) => editorLanguages[editorId];
@@ -270,8 +270,8 @@ export const app = async (config: Pen) => {
     const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
-      editors[editorId].updateOptions(config.editor);
-      editors[editorId].getModel().setValue(config[editorId].content);
+      // editors[editorId].updateOptions(config.editor);
+      editors[editorId].setValue(config[editorId].content);
       await changeLanguage(editorId, config[editorId].language, true);
     }
     setConfig({
@@ -343,9 +343,12 @@ export const app = async (config: Pen) => {
       consoleInputCodeCompletion.dispose();
     }
     if (editorLanguages.script === 'javascript') {
-      consoleInputCodeCompletion = monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        editors.script.getValue(),
-      );
+      if (editors.script && typeof editors.script.addTypes === 'function') {
+        consoleInputCodeCompletion = editors.script.addTypes({
+          content: editors.script.getValue(),
+          filename: 'script.js',
+        });
+      }
     }
   };
 
@@ -353,7 +356,7 @@ export const app = async (config: Pen) => {
     if (!editorId || !language) return;
     const editor = editors[editorId];
     const editorLanguage = language === 'jsx' ? 'javascript' : language;
-    monaco.editor.setModelLanguage(editor.getModel(), editorLanguage);
+    editor.setLanguage(editorLanguage);
     editorLanguages[editorId] = language;
     setEditorTitle(editorId, language);
     showEditor(editorId);
@@ -374,8 +377,8 @@ export const app = async (config: Pen) => {
   // Cmd + Enter formats with prettier
   const registerFormatter = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
-    // eslint-disable-next-line
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
+    if (!editor.monaco) return;
+    editor.monaco.addCommand(editor.keyCodes.CtrlEnter, async () => {
       changingContent = true;
       await formatter.format(editor, getEditorLanguage(editorId));
       changingContent = false;
@@ -771,9 +774,9 @@ export const app = async (config: Pen) => {
       const debouncecontentChanged = () =>
         debounce(contentChanged, getConfig().delay ?? 500)(changingContent);
 
-      editors.markup.getModel().onDidChangeContent(debouncecontentChanged);
-      editors.style.getModel().onDidChangeContent(debouncecontentChanged);
-      editors.script.getModel().onDidChangeContent(debouncecontentChanged);
+      editors.markup.onContentChanged(debouncecontentChanged);
+      editors.style.onContentChanged(debouncecontentChanged);
+      editors.script.onContentChanged(debouncecontentChanged);
     };
 
     const handleHotKeys = () => {
@@ -796,9 +799,10 @@ export const app = async (config: Pen) => {
         }
 
         // Cmd + p opens the command palette
-        if (ctrl(e) && e.keyCode === 80) {
+        const activeEditor = editors[activeEditorId];
+        if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
           e.preventDefault();
-          editors[activeEditorId].trigger('anyString', 'editor.action.quickCommand');
+          activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
           return;
         }
 

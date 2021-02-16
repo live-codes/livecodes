@@ -1,8 +1,7 @@
 import LunaConsole from 'luna-console';
-import { createEditor } from './editor';
+import { CodeEditor, createEditor } from './editor';
 import { createEventsManager } from './events';
 import { Editors, Pen, Tool } from './models';
-import { monaco } from './monaco';
 
 export const createConsole = (
   config: Pen,
@@ -10,7 +9,7 @@ export const createConsole = (
   eventsManager: ReturnType<typeof createEventsManager>,
 ): Tool => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
-  let editor: any;
+  let editor: CodeEditor;
 
   let consoleElement: HTMLElement;
   const sourceSelector = '#result > iframe';
@@ -128,17 +127,7 @@ export const createConsole = (
     };
     const consoleEditor = await createEditor(editorOptions);
 
-    const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
-      consoleEditor.addAction({
-        id: label + '-console',
-        label,
-        keybindings: [keybinding],
-        precondition: '!suggestWidgetVisible && !markersNavigationVisible && !findWidgetVisible',
-        run: callback,
-      });
-    };
-
-    addKeyBinding('exec', monaco.KeyCode.Enter, () => {
+    consoleEditor.addKeyBinding('exec', consoleEditor.keyCodes.Enter, () => {
       const command = consoleEditor.getValue();
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
       consoleEmulator.insert({
@@ -148,30 +137,31 @@ export const createConsole = (
       });
       iframe.contentWindow?.postMessage({ console: command }, '*');
       commands.push(command);
-      consoleEditor.getModel().setValue('');
+      consoleEditor.setValue('');
       commandsIndex = -1;
     });
 
-    addKeyBinding('prev', monaco.KeyCode.UpArrow, () => {
+    consoleEditor.addKeyBinding('prev', consoleEditor.keyCodes.UpArrow, () => {
       const currentIndex = commandsIndex === -1 ? commands.length : commandsIndex;
       commandsIndex = currentIndex === 0 ? 0 : currentIndex - 1;
-      consoleEditor.getModel().setValue(commands[commandsIndex]);
+      consoleEditor.setValue(commands[commandsIndex]);
     });
 
-    addKeyBinding('next', monaco.KeyCode.DownArrow, () => {
+    consoleEditor.addKeyBinding('next', consoleEditor.keyCodes.DownArrow, () => {
       const currentIndex = commandsIndex === -1 ? commands.length - 1 : commandsIndex;
       commandsIndex = currentIndex === commands.length - 1 ? -1 : currentIndex + 1;
-      consoleEditor.getModel().setValue(commands[commandsIndex] || '');
+      consoleEditor.setValue(commands[commandsIndex] || '');
     });
 
     const minHeight = 25;
     editorOptions.container.style.minHeight = minHeight + 'px';
 
-    consoleEditor.getModel().onDidChangeContent(() => {
+    consoleEditor.onContentChanged(() => {
+      if (!consoleEditor.monaco) return;
       const height =
-        consoleEditor.getContentHeight() < minHeight
+        consoleEditor.monaco.getContentHeight() < minHeight
           ? minHeight
-          : consoleEditor.getContentHeight() * 2;
+          : consoleEditor.monaco.getContentHeight() * 2;
       editorOptions.container.style.height = height + 'px';
     });
 
