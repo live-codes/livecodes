@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 
+import { CodeEditor } from './editor';
 import { createEventsManager } from './events';
 
 export interface Pen {
@@ -13,7 +14,6 @@ export interface Pen {
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
-  editor: { [key: string]: any };
   allowLangChange: boolean;
   language: Language;
   markup: Editor;
@@ -63,9 +63,9 @@ export interface Editor {
 export type EditorId = 'markup' | 'style' | 'script';
 
 export interface Editors {
-  markup: any;
-  style: any;
-  script: any;
+  markup: CodeEditor;
+  style: CodeEditor;
+  script: CodeEditor;
 }
 export interface EditorLanguages {
   markup: Language;
@@ -112,7 +112,10 @@ export interface Parser {
   plugins?: any[];
   pluginUrls: string[];
 }
-
+export type FormatFn = (
+  value: string,
+  cursorOffset: number,
+) => { formatted: string; cursorOffset: number };
 export type CssPresetId =
   | ''
   | 'normalize.css'

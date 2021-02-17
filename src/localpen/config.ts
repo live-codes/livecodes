@@ -14,21 +14,6 @@ export const defaultConfig: Pen = {
   mode: 'full',
   console: '',
   compiled: '',
-  editor: {
-    fontSize: 14,
-    theme: 'vs-dark',
-    formatOnType: false,
-    tabSize: 2,
-    lineNumbersMinChars: 3,
-    minimap: {
-      enabled: false,
-    },
-    scrollbar: {
-      useShadows: false,
-    },
-    mouseWheelZoom: true,
-    automaticLayout: true,
-  },
   allowLangChange: true,
   language: 'html',
   markup: {
@@ -53,14 +38,6 @@ export const defaultConfig: Pen = {
   scripts: [],
   cssPreset: '',
   modules: [],
-};
-
-const codeBlockDefaultConfig: Partial<Pen> = {
-  editor: {
-    readOnly: true,
-    lineNumbers: false,
-  },
-  autoupdate: false,
 };
 
 export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
@@ -121,29 +98,12 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
     }
   });
 
-  // merge config sources
-  const mode = paramsConfig.mode || userConfig.mode || fileConfig.mode || defaultConfig.mode;
-
-  const preset = mode === 'codeblock' ? codeBlockDefaultConfig : { editor: {} };
-
-  const editor = {
-    ...defaultConfig.editor,
-    ...preset.editor,
-    ...fileConfig.editor,
-    ...userConfig.editor,
-    ...paramsConfig.editor,
-  };
   let config: Pen = {
     ...defaultConfig,
-    ...preset,
     ...fileConfig,
     ...userConfig,
     ...paramsConfig,
-    editor,
   };
-
-  delete config.editor.language;
-  delete config.editor.value;
 
   // load content from url
   const contents = await Promise.all(

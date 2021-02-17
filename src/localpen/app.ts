@@ -1,8 +1,6 @@
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
 
-import { monaco } from './monaco';
-
 import { createEditor } from './editor';
 import {
   languages,
@@ -157,7 +155,9 @@ export const app = async (config: Pen) => {
   };
 
   const loadLibrary = (lib: EditorLibrary) => {
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename);
+    if (editors.script && typeof editors.script.addTypes === 'function') {
+      editors.script?.addTypes(lib);
+    }
   };
 
   const getEditorLanguage = (editorId: EditorId) => editorLanguages[editorId];
@@ -208,6 +208,11 @@ export const app = async (config: Pen) => {
   };
 
   const createEditors = async (config: Pen) => {
+    const baseOptions = {
+      baseUrl: config.baseUrl,
+      mode: config.mode,
+      editorType: 'code',
+    };
     const markupOptions = {
       container: document.querySelector(elements.markup),
       language: config.markup.language,
@@ -224,19 +229,16 @@ export const app = async (config: Pen) => {
       value: config.script.content,
     };
     const markupEditor = await createEditor({
+      ...baseOptions,
       ...markupOptions,
-      ...config.editor,
-      baseUrl,
     });
     const styleEditor = await createEditor({
+      ...baseOptions,
       ...styleOptions,
-      ...config.editor,
-      baseUrl,
     });
     const scriptEditor = await createEditor({
+      ...baseOptions,
       ...scriptOptions,
-      ...config.editor,
-      baseUrl,
     });
 
     setEditorTitle('markup', markupOptions.language);
@@ -255,8 +257,9 @@ export const app = async (config: Pen) => {
       script: scriptEditor,
     };
 
-    (Object.keys(editors) as EditorId[]).forEach((editorId) => {
-      registerFormatter(editorId, editors);
+    (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
+      editors[editorId].registerFormatter(await formatter.getFormatFn(editorLanguages[editorId]));
+      registerFormatAndRun(editorId, editors);
     });
 
     if (config.mode === 'codeblock') {
@@ -270,8 +273,7 @@ export const app = async (config: Pen) => {
     const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
-      editors[editorId].updateOptions(config.editor);
-      editors[editorId].getModel().setValue(config[editorId].content);
+      editors[editorId].setValue(config[editorId].content);
       await changeLanguage(editorId, config[editorId].language, true);
     }
     setConfig({
@@ -343,24 +345,25 @@ export const app = async (config: Pen) => {
       consoleInputCodeCompletion.dispose();
     }
     if (editorLanguages.script === 'javascript') {
-      consoleInputCodeCompletion = monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        editors.script.getValue(),
-      );
+      if (editors.script && typeof editors.script.addTypes === 'function') {
+        consoleInputCodeCompletion = editors.script.addTypes({
+          content: editors.script.getValue(),
+          filename: 'script.js',
+        });
+      }
     }
   };
 
   const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
     if (!editorId || !language) return;
     const editor = editors[editorId];
-    const editorLanguage = language === 'jsx' ? 'javascript' : language;
-    monaco.editor.setModelLanguage(editor.getModel(), editorLanguage);
+    editor.setLanguage(language);
     editorLanguages[editorId] = language;
     setEditorTitle(editorId, language);
     showEditor(editorId);
     editor.focus();
     loadCompilers([language], compilers, getConfig(), eventsManager);
-    formatter.loadParser(language);
-    registerFormatter(editorId, editors);
+    editor.registerFormatter(await formatter.getFormatFn(language));
     if (!reload) {
       await run(editors);
     }
@@ -371,23 +374,19 @@ export const app = async (config: Pen) => {
     addConsoleInputCodeCompletion();
   };
 
-  // Cmd + Enter formats with prettier
-  const registerFormatter = (editorId: EditorId, editors: Editors) => {
+  // Ctrl/Cmd + Enter triggers format and run
+  const registerFormatAndRun = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
-    // eslint-disable-next-line
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, async () => {
+    editor.addKeyBinding('format', editor.keyCodes.CtrlEnter, async () => {
       changingContent = true;
-      await formatter.format(editor, getEditorLanguage(editorId));
+      editor.format();
       changingContent = false;
       await run(editors);
     });
   };
 
   const updateCompiledCode = () => {
-    type CompiledLanguages = {
-      [key in EditorId]: Language;
-    };
-    const compiledLanguages: CompiledLanguages = {
+    const compiledLanguages: { [key in EditorId]: Language } = {
       markup: 'html',
       style: 'css',
       script: 'javascript',
@@ -771,9 +770,9 @@ export const app = async (config: Pen) => {
       const debouncecontentChanged = () =>
         debounce(contentChanged, getConfig().delay ?? 500)(changingContent);
 
-      editors.markup.getModel().onDidChangeContent(debouncecontentChanged);
-      editors.style.getModel().onDidChangeContent(debouncecontentChanged);
-      editors.script.getModel().onDidChangeContent(debouncecontentChanged);
+      editors.markup.onContentChanged(debouncecontentChanged);
+      editors.style.onContentChanged(debouncecontentChanged);
+      editors.script.onContentChanged(debouncecontentChanged);
     };
 
     const handleHotKeys = () => {
@@ -796,9 +795,10 @@ export const app = async (config: Pen) => {
         }
 
         // Cmd + p opens the command palette
-        if (ctrl(e) && e.keyCode === 80) {
+        const activeEditor = editors[activeEditorId];
+        if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
           e.preventDefault();
-          editors[activeEditorId].trigger('anyString', 'editor.action.quickCommand');
+          activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
           return;
         }
 
@@ -817,7 +817,7 @@ export const app = async (config: Pen) => {
         document.querySelector('#run-button') as HTMLElement,
         'click',
         async () => {
-          await formatter.format(editors[activeEditorId], getEditorLanguage(activeEditorId));
+          editors[activeEditorId].format();
           await run(editors);
         },
       );

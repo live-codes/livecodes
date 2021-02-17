@@ -1,8 +1,7 @@
-import { createEditor } from './editor';
+import { CodeEditor, createEditor, EditorOptions } from './editor';
 import { createEventsManager } from './events';
 import { languages } from './languages';
 import { Editors, Pen, Tool } from './models';
-import { monaco } from './monaco';
 
 export const createCompiledCodeViewer = (
   config: Pen,
@@ -10,7 +9,7 @@ export const createCompiledCodeViewer = (
   _eventsManager: ReturnType<typeof createEventsManager>,
 ): Tool => {
   let compiledCodeElement: HTMLElement;
-  let editor: any;
+  let editor: CodeEditor;
   let languageLabel: HTMLElement;
 
   const createElements = () => {
@@ -42,13 +41,12 @@ export const createCompiledCodeViewer = (
   const createCompiledEditor = () => {
     if (editor) return editor;
 
-    const editorOptions = {
-      ...config.editor,
+    const editorOptions: EditorOptions = {
       baseUrl: config.baseUrl,
       container: compiledCodeElement,
-      scrollBeyondLastLine: false,
-      automaticLayout: true,
-      readOnly: true,
+      language: 'javascript',
+      value: '',
+      editorType: 'compiled',
     };
     return createEditor(editorOptions);
   };
@@ -56,8 +54,8 @@ export const createCompiledCodeViewer = (
   const update = (language: 'html' | 'css' | 'javascript', content: string, config: Pen) => {
     if (!editor) return;
 
-    monaco.editor.setModelLanguage(editor.getModel(), language);
-    editor.getModel().setValue(content);
+    editor.setLanguage(language);
+    editor.setValue(content);
     if (languageLabel) {
       const compiledLanguage = languages.find((lang) => lang.name === language);
       const title = compiledLanguage?.longTitle || compiledLanguage?.title || '';
