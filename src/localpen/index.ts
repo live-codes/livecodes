@@ -12,15 +12,17 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     const mergedConfig = await loadConfig(config);
     const { baseUrl } = mergedConfig;
 
-    window.addEventListener('hashchange', () => {
-      try {
-        // on hash change, if it is a url, reload to import code from it
-        new URL(location.hash.substr(1));
-        window.location.reload();
-      } catch (_err) {
-        // hash is not URL => do nothing
-      }
-    });
+    if (mergedConfig.version) {
+      // variables added in scripts/build.js
+      const version = process.env.VERSION || '';
+      const commitSHA = process.env.GIT_COMMIT || '';
+      const gitRemote = process.env.GIT_REMOTE || '';
+
+      // eslint-disable-next-line no-console
+      console.log(`Version: ${version} (${gitRemote}/releases/tag/${version})`);
+      // eslint-disable-next-line no-console
+      console.log(`Git commit: ${commitSHA} (${gitRemote}/commit/${commitSHA})`);
+    }
 
     const style = document.createElement('style');
     style.innerHTML = `
