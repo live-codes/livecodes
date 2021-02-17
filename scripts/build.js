@@ -46,3 +46,8 @@ esbuild
     console.log('built to: ' + buildOptionsUmd.outfile);
   })
   .catch(() => process.exit(1));
+
+require('child_process').exec('git rev-parse --short=8 HEAD', function (err, stdout) {
+  if (err) return;
+  fs.writeFileSync('.env', 'CODE_COMMIT=' + stdout, 'utf-8');
+});
