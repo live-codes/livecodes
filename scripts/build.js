@@ -12,6 +12,18 @@ function mkdirp(dir) {
   }
 }
 
+var childProcess = require('child_process');
+var version =
+  childProcess.execSync('git describe --tags --abbrev=0').toString().replace(/\n/g, '') || '';
+var gitCommit =
+  childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '') || '';
+var gitRemote =
+  childProcess
+    .execSync('git ls-remote --get-url origin')
+    .toString()
+    .replace(/\n/g, '')
+    .slice(0, -4) /* '.git' */ || '';
+
 var buildOptions = {
   entryPoints: ['src/localpen/index.ts', 'src/localpen/app.ts'],
   bundle: true,
@@ -20,6 +32,11 @@ var buildOptions = {
   outdir: 'build/localpen',
   format: 'esm',
   logLevel: 'error',
+  define: {
+    'process.env.VERSION': `"${version}"`,
+    'process.env.GIT_COMMIT': `"${gitCommit}"`,
+    'process.env.GIT_REMOTE': `"${gitRemote}"`,
+  },
 };
 
 esbuild
@@ -46,8 +63,3 @@ esbuild
     console.log('built to: ' + buildOptionsUmd.outfile);
   })
   .catch(() => process.exit(1));
-
-require('child_process').exec('git rev-parse --short=8 HEAD', function (err, stdout) {
-  if (err) return;
-  fs.writeFileSync('.env', 'CODE_COMMIT=' + stdout, 'utf-8');
-});

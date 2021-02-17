@@ -38,6 +38,7 @@ export const defaultConfig: Pen = {
   scripts: [],
   cssPreset: '',
   modules: [],
+  version: false,
 };
 
 export const loadConfig = async (userConfig: Partial<Pen> = {}) => {

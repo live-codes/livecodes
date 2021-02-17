@@ -181,11 +181,6 @@
       window.__localpenEmbed = () => {
         document.querySelector('#animating-logo').remove();
       };
-
-      if (window.__localpen__commit) {
-        // not an actual function, just to prevent parcel from removing it
-        window.__localpen__commit(process.env.CODE_COMMIT);
-      }
     </script>
     <script src="index.ts"></script>
   </body>

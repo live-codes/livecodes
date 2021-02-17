@@ -23,6 +23,7 @@ export interface Pen {
   scripts: string[];
   cssPreset: CssPresetId;
   modules: Module[];
+  version?: boolean;
 }
 
 export type Language =
