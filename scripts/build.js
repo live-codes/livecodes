@@ -13,16 +13,18 @@ function mkdirp(dir) {
 }
 
 var childProcess = require('child_process');
-var version =
-  childProcess.execSync('git describe --tags --abbrev=0').toString().replace(/\n/g, '') || '';
-var gitCommit =
-  childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '') || '';
-var gitRemote =
-  childProcess
+var version, gitCommit, gitRemote;
+try {
+  version = childProcess.execSync('git describe --tags --abbrev=0').toString().replace(/\n/g, '');
+  gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
+  gitRemote = childProcess
     .execSync('git ls-remote --get-url origin')
     .toString()
     .replace(/\n/g, '')
-    .slice(0, -4) /* '.git' */ || '';
+    .slice(0, -4) /* '.git' */;
+} catch (error) {
+  console.log(error);
+}
 
 var buildOptions = {
   entryPoints: ['src/localpen/index.ts', 'src/localpen/app.ts'],
@@ -33,9 +35,9 @@ var buildOptions = {
   format: 'esm',
   logLevel: 'error',
   define: {
-    'process.env.VERSION': `"${version}"`,
-    'process.env.GIT_COMMIT': `"${gitCommit}"`,
-    'process.env.GIT_REMOTE': `"${gitRemote}"`,
+    'process.env.VERSION': `"${version || ''}"`,
+    'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
+    'process.env.GIT_REMOTE': `"${gitRemote || ''}"`,
   },
 };
 
