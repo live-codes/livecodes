@@ -16,7 +16,8 @@ export interface CodeEditor {
     UpArrow: any;
     DownArrow: any;
   };
-  format: (formatFn: FormatFn) => Promise<void>;
+  registerFormatter: (formatFn: FormatFn | undefined) => void;
+  format: () => void;
   monaco?: any;
   codemirror?: any;
 }

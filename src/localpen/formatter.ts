@@ -1,6 +1,5 @@
 import { FormatFn, Language, Parser, Pen } from './models';
 import { languages } from './languages';
-import { CodeEditor } from './editor';
 
 export const createFormatter = (config: Pen) => {
   const baseUrl = config.baseUrl;
@@ -52,7 +51,7 @@ export const createFormatter = (config: Pen) => {
     return parser;
   }
 
-  const format = async (editor: CodeEditor, language: Language) => {
+  const getFormatFn = async (language: Language) => {
     const parser = await loadParser(language);
     if (!parser) return;
 
@@ -63,12 +62,11 @@ export const createFormatter = (config: Pen) => {
         cursorOffset,
       });
 
-    editor.format(formatFn);
+    return formatFn;
   };
 
   return {
     load,
-    loadParser,
-    format,
+    getFormatFn,
   };
 };

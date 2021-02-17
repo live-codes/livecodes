@@ -257,8 +257,9 @@ export const app = async (config: Pen) => {
       script: scriptEditor,
     };
 
-    (Object.keys(editors) as EditorId[]).forEach((editorId) => {
-      registerFormatter(editorId, editors);
+    (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
+      editors[editorId].registerFormatter(await formatter.getFormatFn(editorLanguages[editorId]));
+      registerFormatAndRun(editorId, editors);
     });
 
     if (config.mode === 'codeblock') {
@@ -356,15 +357,13 @@ export const app = async (config: Pen) => {
   const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
     if (!editorId || !language) return;
     const editor = editors[editorId];
-    const editorLanguage = language === 'jsx' ? 'javascript' : language;
-    editor.setLanguage(editorLanguage);
+    editor.setLanguage(language);
     editorLanguages[editorId] = language;
     setEditorTitle(editorId, language);
     showEditor(editorId);
     editor.focus();
     loadCompilers([language], compilers, getConfig(), eventsManager);
-    formatter.loadParser(language);
-    registerFormatter(editorId, editors);
+    editor.registerFormatter(await formatter.getFormatFn(language));
     if (!reload) {
       await run(editors);
     }
@@ -375,12 +374,12 @@ export const app = async (config: Pen) => {
     addConsoleInputCodeCompletion();
   };
 
-  // Cmd + Enter formats with prettier
-  const registerFormatter = (editorId: EditorId, editors: Editors) => {
+  // Ctrl/Cmd + Enter triggers format and run
+  const registerFormatAndRun = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
     editor.addKeyBinding('format', editor.keyCodes.CtrlEnter, async () => {
       changingContent = true;
-      await formatter.format(editor, getEditorLanguage(editorId));
+      editor.format();
       changingContent = false;
       await run(editors);
     });
@@ -818,7 +817,7 @@ export const app = async (config: Pen) => {
         document.querySelector('#run-button') as HTMLElement,
         'click',
         async () => {
-          await formatter.format(editors[activeEditorId], getEditorLanguage(activeEditorId));
+          editors[activeEditorId].format();
           await run(editors);
         },
       );

@@ -150,57 +150,25 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
     });
   };
 
-  const format = async (formatFn: FormatFn) => {
-    const computeOffset = (code: string, pos: { lineNumber: number; column: number }) => {
-      let line = 1;
-      let col = 1;
-      let offset = 0;
-      while (offset < code.length) {
-        if (line === pos.lineNumber && col === pos.column) return offset;
-        if (code[offset] === '\n') {
-          line++;
-          col = 1;
-        } else col++;
-        offset++;
-      }
-      return -1;
-    };
+  const registerFormatter = (formatFn: FormatFn | undefined) => {
+    if (!formatFn) return;
+    monaco.languages.registerDocumentFormattingEditProvider(language, {
+      provideDocumentFormattingEdits: () => {
+        const val = editor.getValue();
+        const prettyVal = formatFn(val, 0);
 
-    const computePosition = (code: string, offset: number) => {
-      let line = 1;
-      let col = 1;
-      let char = 0;
-      while (char < offset) {
-        if (code[char] === '\n') {
-          line++;
-          col = 1;
-        } else col++;
-        char++;
-      }
-      return { lineNumber: line, column: col };
-    };
+        return [
+          {
+            range: editor.getModel().getFullModelRange(),
+            text: prettyVal.formatted,
+          },
+        ];
+      },
+    });
+  };
 
-    const val = editor.getValue();
-    const pos = editor.getPosition();
-    const prettyVal = formatFn(val, computeOffset(val, pos));
-    editor.executeEdits('prettier', [
-      {
-        identifier: 'delete',
-        range: editor.getModel().getFullModelRange(),
-        text: '',
-        forceMoveMarkers: true,
-      },
-    ]);
-    editor.executeEdits('prettier', [
-      {
-        identifier: 'insert',
-        range: new monaco.Range(1, 1, 1, 1),
-        text: prettyVal.formatted,
-        forceMoveMarkers: true,
-      },
-    ]);
-    editor.setSelection(new monaco.Range(0, 0, 0, 0));
-    editor.setPosition(computePosition(prettyVal.formatted, prettyVal.cursorOffset));
+  const format = () => {
+    editor.getAction('editor.action.formatDocument').run();
   };
 
   return {
@@ -215,6 +183,7 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
     keyCodes,
     addKeyBinding,
     format,
+    registerFormatter,
     monaco: editor,
   };
 };
