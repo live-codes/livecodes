@@ -18,9 +18,10 @@ try {
   version = childProcess.execSync('git describe --tags --abbrev=0').toString().replace(/\n/g, '');
   gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
   gitRemote = childProcess
-    .execSync('git config --get remote.origin.url')
+    .execSync('git ls-remote --get-url origin')
     .toString()
     .replace(/\n/g, '')
+    .replace(/x-access-token.*@/g, '')
     .slice(0, -4) /* '.git' */;
 } catch (error) {
   console.log(error);
