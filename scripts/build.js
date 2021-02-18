@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var esbuild = require('esbuild');
+var URL = require('url');
 
 var srcDir = path.resolve(__dirname + '/../src/localpen');
 var outDir = path.resolve(__dirname + '/../build');
@@ -21,8 +22,13 @@ try {
     .execSync('git ls-remote --get-url origin')
     .toString()
     .replace(/\n/g, '')
-    .replace(/x-access-token.*@/g, '')
     .slice(0, -4) /* '.git' */;
+
+  var url = URL.parse(gitRemote);
+  if (url.auth) {
+    url.auth = '';
+    gitRemote = URL.format(url);
+  }
 } catch (error) {
   console.log(error);
 }
