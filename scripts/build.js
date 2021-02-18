@@ -21,6 +21,7 @@ try {
     .execSync('git config --get remote.origin.url')
     .toString()
     .replace(/\n/g, '')
+    .replace(/x-access-token.*@/g, '')
     .slice(0, -4) /* '.git' */;
 } catch (error) {
   console.log(error);
