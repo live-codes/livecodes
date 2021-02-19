@@ -1165,3 +1165,11 @@ i.arrow:after {
   display: block;
   content: '';
 }
+.cm-wrap {
+  height: 100%;
+}
+.cm-wrap,
+.cm-activeLine,
+.cm-gutters {
+  background: #001b25 !important;
+}

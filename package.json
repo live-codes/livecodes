@@ -50,6 +50,18 @@
     "prepush": "run-s fix vendors build test"
   },
   "dependencies": {
+    "@codemirror/basic-setup": "0.17.1",
+    "@codemirror/commands": "0.17.4",
+    "@codemirror/lang-css": "0.17.1",
+    "@codemirror/lang-html": "0.17.1",
+    "@codemirror/lang-javascript": "0.17.1",
+    "@codemirror/lang-markdown": "0.17.2",
+    "@codemirror/language": "0.17.4",
+    "@codemirror/legacy-modes": "0.17.1",
+    "@codemirror/state": "0.17.2",
+    "@codemirror/stream-parser": "0.17.1",
+    "@codemirror/theme-one-dark": "0.17.5",
+    "@codemirror/view": "0.17.9",
     "@prettier/plugin-pug": "1.13.2",
     "asciidoctor": "2.2.1",
     "autoprefixer": "10.1.0",

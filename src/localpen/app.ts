@@ -634,12 +634,14 @@ export const app = async (config: Pen) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    if (config.emmet) {
-      disposeEmmet.html = emmetHTML();
-      disposeEmmet.css = emmetCSS();
-    } else {
-      if (disposeEmmet.html) disposeEmmet.html();
-      if (disposeEmmet.css) disposeEmmet.css();
+    if ((window as any).monaco) {
+      if (config.emmet) {
+        disposeEmmet.html = emmetHTML();
+        disposeEmmet.css = emmetCSS();
+      } else {
+        if (disposeEmmet.html) disposeEmmet.html();
+        if (disposeEmmet.css) disposeEmmet.css();
+      }
     }
   };
 

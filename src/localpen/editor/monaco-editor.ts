@@ -114,7 +114,7 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
   }
 
   const getValue = () => editor.getValue();
-  const setValue = (value?: string) => editor.getModel().setValue(value || '');
+  const setValue = (value = '') => editor.getModel().setValue(value);
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {

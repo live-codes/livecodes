@@ -170,10 +170,12 @@ export const createConsole = (
     observer.observe(consoleElement, { subtree: true, childList: true });
 
     const margin = document.querySelector('#console-input .glyph-margin') as HTMLElement;
-    const indicator = document.createElement('div') as HTMLElement;
-    indicator.id = 'console-input-indicator';
-    indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
-    margin.appendChild(indicator);
+    if (margin) {
+      const indicator = document.createElement('div') as HTMLElement;
+      indicator.id = 'console-input-indicator';
+      indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
+      margin.appendChild(indicator);
+    }
 
     return consoleEditor;
   };
