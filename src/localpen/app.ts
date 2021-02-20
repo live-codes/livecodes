@@ -293,6 +293,7 @@ export const app = async (config: Pen) => {
 
     const toolbarElement = document.querySelector('#toolbar') as HTMLElement;
     const editorsElement = document.querySelector('#editors') as HTMLElement;
+    const outputElement = document.querySelector('#output') as HTMLElement;
     const resultElement = document.querySelector('#result') as HTMLElement;
     const gutterElement = document.querySelector('.gutter') as HTMLElement;
 
@@ -313,6 +314,7 @@ export const app = async (config: Pen) => {
       split.destroy(true);
     }
     if (!showResult) {
+      outputElement.style.display = 'none';
       resultElement.style.display = 'none';
       split.destroy(true);
     }
