@@ -679,10 +679,12 @@ export const app = async (config: Pen) => {
 
     const handleResize = () => {
       const resizeEditors = () => {
+        document.body.style.height = window.innerHeight + 'px';
         Object.values(editors).forEach((editor) => {
           setTimeout(() => editor.layout());
         });
       };
+      resizeEditors();
       eventsManager.addEventListener(window, 'resize', resizeEditors, false);
       eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
     };
