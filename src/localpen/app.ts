@@ -1,7 +1,7 @@
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
 
-import { createEditor } from './editor';
+import { CodeEditor, createEditor } from './editor';
 import {
   languages,
   getLanguageByAlias,
@@ -680,8 +680,12 @@ export const app = async (config: Pen) => {
     const handleResize = () => {
       const resizeEditors = () => {
         document.body.style.height = window.innerHeight + 'px';
-        Object.values(editors).forEach((editor) => {
-          setTimeout(() => editor.layout());
+        Object.values(editors).forEach((editor: CodeEditor) => {
+          setTimeout(() => {
+            if (editor.layout) {
+              editor.layout(); // resize monaco editor
+            }
+          });
         });
       };
       resizeEditors();

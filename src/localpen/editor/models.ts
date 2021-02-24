@@ -6,7 +6,7 @@ export interface CodeEditor {
   getLanguage: () => Language;
   setLanguage: (language: Language) => void;
   focus: () => void;
-  layout: () => void;
+  layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
   onContentChanged: (callback: () => void) => void;
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;

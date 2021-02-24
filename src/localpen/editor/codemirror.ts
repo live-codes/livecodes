@@ -13,7 +13,7 @@ import { markdown } from '@codemirror/lang-markdown';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 
-import { EditorLibrary, FormatFn, Language } from '../models';
+import { FormatFn, Language } from '../models';
 import { CodeEditor, EditorOptions } from './models';
 
 export const createCodemirrorEditor = async (options: EditorOptions): Promise<CodeEditor> => {
@@ -88,14 +88,18 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
   });
 
   const getValue = () => view.state.doc.toString();
-  const setValue = (value = '') => {
-    view.dispatch({
-      changes: {
-        from: 0,
-        to: view.state.doc.length,
-        insert: value,
-      },
-    });
+  const setValue = (value = '', newState = true) => {
+    if (newState) {
+      view.setState(EditorState.create({ doc: value, extensions: editorOptions }));
+    } else {
+      view.dispatch({
+        changes: {
+          from: 0,
+          to: view.state.doc.length,
+          insert: value,
+        },
+      });
+    }
   };
   const focus = () => view.focus();
   const getLanguage = () => language;
@@ -111,18 +115,12 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
     listeners.push(fn);
   };
 
-  const layout = () => {
-    // TODO: implement
-  };
-
-  const addTypes = (_lib: EditorLibrary) => {
-    // TODO: implement
-  };
   const keyCodes = {
     CtrlEnter: 'Ctrl-Enter',
     Enter: 'Enter',
     UpArrow: 'ArrowUp',
     DownArrow: 'ArrowDown',
+    ShiftAltF: 'Shift-Alt-f',
   };
 
   const addKeyBinding = (_label: string, keyCode: any, callback: () => void) => {
@@ -133,19 +131,25 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
         return true;
       },
     });
-
     view.dispatch({
       reconfigure: { [keyBindingsTag]: keymap.of(keyBindings) },
     });
   };
 
+  let formatter: FormatFn | undefined;
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     if (!formatFn) return;
-    // TODO: implement
+    formatter = formatFn;
+    addKeyBinding('format', keyCodes.ShiftAltF, format);
   };
 
   const format = () => {
-    // TODO: implement
+    if (!formatter) return;
+    const offset = view.state.selection.main.to;
+    const oldValue = getValue();
+    const newValue = formatter(oldValue, offset);
+    setValue(newValue.formatted, false);
+    view.dispatch({ selection: { anchor: newValue.cursorOffset } });
   };
 
   return {
@@ -154,8 +158,6 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
     getLanguage,
     setLanguage,
     focus,
-    layout,
-    addTypes,
     onContentChanged,
     keyCodes,
     addKeyBinding,
