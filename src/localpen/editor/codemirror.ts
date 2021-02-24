@@ -1,8 +1,8 @@
 /* eslint-disable import/no-internal-modules */
 import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
-import { tagExtension } from '@codemirror/state';
+import { Extension, tagExtension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
-import { keymap, ViewUpdate } from '@codemirror/view';
+import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
 import { defaultTabBinding } from '@codemirror/commands';
 import { LanguageSupport } from '@codemirror/language';
 import { StreamParser, StreamLanguage } from '@codemirror/stream-parser';
@@ -16,17 +16,59 @@ import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 import { EditorLibrary, FormatFn, Language } from '../models';
 import { CodeEditor, EditorOptions } from './models';
 
-const defaultOptions = {};
-
-const codeblockOptions = {};
-
-const compiledCodeOptions = {};
-
-const consoleOptions = {};
-
 export const createCodemirrorEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl } = options;
+  const { container } = options;
   if (!container) throw new Error('editor container not fount');
+
+  let language = options.language;
+
+  const legacy = (parser: StreamParser<unknown>) =>
+    new LanguageSupport(StreamLanguage.define(parser));
+
+  const getLanguageExtension = (language: Language): (() => LanguageSupport) => {
+    const languages: Partial<{ [key in Language]: () => LanguageSupport }> = {
+      html,
+      markdown,
+      css,
+      javascript,
+      typescript: () => javascript({ typescript: true }),
+      jsx: () => javascript({ jsx: true }),
+      tsx: () => javascript({ jsx: true, typescript: true }),
+      coffeescript: () => legacy(coffeeScript),
+      less: () => legacy(less),
+      scss: () => legacy(sCSS),
+    };
+
+    return languages[language] || (languages.html as () => LanguageSupport);
+  };
+
+  const keyBindings: KeyBinding[] = [];
+
+  type Listener = (update: ViewUpdate) => void;
+  const listeners: Listener[] = [];
+  const notifyListeners = (update: ViewUpdate) => {
+    if (update.docChanged) {
+      listeners.forEach((fn) => fn(update));
+    }
+  };
+
+  const languageTag = Symbol('language');
+  const keyBindingsTag = Symbol('keyBindings');
+
+  const defaultOptions: Extension[] = [
+    tagExtension(keyBindingsTag, keymap.of([])),
+    keymap.of([defaultTabBinding]),
+    basicSetup,
+    tagExtension(languageTag, getLanguageExtension(language)()),
+    EditorView.updateListener.of(notifyListeners),
+    oneDark,
+  ];
+
+  const codeblockOptions = [EditorView.editable.of(false), ...defaultOptions];
+
+  const compiledCodeOptions = [EditorView.editable.of(false), ...defaultOptions];
+
+  const consoleOptions = [...defaultOptions];
 
   const editorOptions =
     options.editorType === 'console'
@@ -37,65 +79,10 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
       ? codeblockOptions
       : defaultOptions;
 
-  let language = options.language;
-
-  const legacy = async (parser: StreamParser<unknown>) =>
-    new LanguageSupport(StreamLanguage.define(parser));
-
-  const languageTag = Symbol('language');
-
-  const getLanguageExtension = (language: Language) => {
-    const languages = {
-      html,
-      markdown,
-      css,
-      javascript,
-      typescript: () => javascript({ typescript: true }),
-      jsx: () => javascript({ jsx: true }),
-      tsx: () => javascript({ jsx: true, typescript: true }),
-      coffeeScript: () => legacy(coffeeScript),
-      less: () => legacy(less),
-      scss: () => legacy(sCSS),
-    };
-
-    if (language in languages) {
-      return languages[language];
-    } else {
-      return languages.html;
-    }
-  };
-
-  const keyBindings = () =>
-    keymap.of([
-      {
-        key: 'Ctrl-Enter',
-        run() {
-          // eslint-disable-next-line no-console
-          console.log('run');
-          return true;
-        },
-      },
-    ]);
-
-  type Listener = (update: ViewUpdate) => void;
-  const listeners: Listener[] = [];
-  const notifyListeners = (update: ViewUpdate) => {
-    if (update.docChanged) {
-      listeners.forEach((fn) => fn(update));
-    }
-  };
-
   const view = new EditorView({
     state: EditorState.create({
-      extensions: [
-        basicSetup,
-        tagExtension(languageTag, getLanguageExtension(language)()),
-        oneDark,
-        keyBindings(),
-        keymap.of([defaultTabBinding]),
-        EditorView.updateListener.of(notifyListeners),
-      ],
-      doc: '',
+      extensions: editorOptions,
+      doc: options.value,
     }),
     parent: container,
   });
@@ -138,8 +125,18 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
     DownArrow: 'ArrowDown',
   };
 
-  const addKeyBinding = (_label: string, _keybinding: any, _callback: () => void) => {
-    // TODO: implement
+  const addKeyBinding = (_label: string, keyCode: any, callback: () => void) => {
+    keyBindings.push({
+      key: keyCode,
+      run() {
+        callback();
+        return true;
+      },
+    });
+
+    view.dispatch({
+      reconfigure: { [keyBindingsTag]: keymap.of(keyBindings) },
+    });
   };
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {

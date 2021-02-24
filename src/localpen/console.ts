@@ -169,7 +169,9 @@ export const createConsole = (
     });
     observer.observe(consoleElement, { subtree: true, childList: true });
 
-    const margin = document.querySelector('#console-input .glyph-margin') as HTMLElement;
+    const gutterSelector = consoleEditor.monaco ? '.glyph-margin' : '.cm-gutters';
+
+    const margin = document.querySelector('#console-input ' + gutterSelector) as HTMLElement;
     if (margin) {
       const indicator = document.createElement('div') as HTMLElement;
       indicator.id = 'console-input-indicator';
