@@ -46,6 +46,7 @@ export const createCompiledCodeViewer = (
       container: compiledCodeElement,
       language: 'javascript',
       value: '',
+      editor: config.editor,
       editorType: 'compiled',
     };
     return createEditor(editorOptions);
