@@ -1,4 +1,4 @@
-import { replaceImports } from '../compilers';
+import { replaceImports } from '../compiler';
 import { Pen } from '../models';
 
 export const exportJsfiddle = (config: Pen) => {
