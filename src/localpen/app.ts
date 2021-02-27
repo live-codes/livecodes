@@ -676,7 +676,6 @@ export const app = async (config: Pen) => {
 
     const handleResize = () => {
       const resizeEditors = () => {
-        document.body.style.height = window.innerHeight + 'px';
         Object.values(editors).forEach((editor: CodeEditor) => {
           setTimeout(() => {
             if (editor.layout) {
