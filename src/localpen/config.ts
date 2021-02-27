@@ -10,7 +10,7 @@ export const defaultConfig: Pen = {
   autosave: false,
   delay: 500,
   emmet: true,
-  autoprefixer: true,
+  autoprefixer: false,
   mode: 'full',
   console: '',
   compiled: '',
@@ -38,7 +38,8 @@ export const defaultConfig: Pen = {
   scripts: [],
   cssPreset: '',
   modules: [],
-  version: false,
+  editor: 'monaco',
+  showVersion: false,
 };
 
 export const loadConfig = async (userConfig: Partial<Pen> = {}) => {

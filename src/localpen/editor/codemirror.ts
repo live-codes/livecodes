@@ -13,8 +13,7 @@ import { markdown } from '@codemirror/lang-markdown';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 
-import { FormatFn, Language } from '../models';
-import { CodeEditor, EditorOptions } from './models';
+import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
 export const createCodemirrorEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container } = options;
