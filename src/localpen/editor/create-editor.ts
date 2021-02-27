@@ -10,7 +10,7 @@ export const createEditor = async (options: EditorOptions) => {
   try {
     const createCodeEditor: typeof createMonacoEditor =
       isMobile() || editor === 'codemirror'
-        ? (await import(`${baseUrl}/codemirror.js`)).createCodemirrorEditor
+        ? (await import(baseUrl + 'codemirror.js')).createCodemirrorEditor
         : createMonacoEditor;
 
     const codeEditor = await createCodeEditor(options);

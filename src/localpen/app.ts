@@ -774,8 +774,9 @@ export const app = async (config: Pen) => {
         }
       };
 
-      const debouncecontentChanged = () =>
-        debounce(contentChanged, getConfig().delay ?? 500)(changingContent);
+      const debouncecontentChanged = debounce(async () => {
+        await contentChanged(changingContent);
+      }, getConfig().delay ?? 500);
 
       editors.markup.onContentChanged(debouncecontentChanged);
       editors.style.onContentChanged(debouncecontentChanged);
