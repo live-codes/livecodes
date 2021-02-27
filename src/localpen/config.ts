@@ -38,7 +38,7 @@ export const defaultConfig: Pen = {
   scripts: [],
   cssPreset: '',
   modules: [],
-  editor: 'monaco',
+  editor: '',
   showVersion: false,
 };
 

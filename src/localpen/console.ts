@@ -113,6 +113,7 @@ export const createConsole = (
       container,
       language: 'javascript',
       value: '',
+      editor: config.editor,
       editorType: 'console',
     };
     const consoleEditor = await createEditor(editorOptions);

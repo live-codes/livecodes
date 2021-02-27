@@ -20,7 +20,7 @@ export interface Pen {
   scripts: string[];
   cssPreset: CssPresetId;
   modules: Module[];
-  editor: 'monaco' | 'codemirror';
+  editor: 'monaco' | 'codemirror' | '';
   showVersion: boolean;
 }
 
@@ -204,6 +204,6 @@ export interface EditorOptions {
   language: Language;
   value: string;
   mode?: Pen['mode'];
-  editor?: 'monaco' | 'codemirror';
+  editor?: Pen['editor'];
   editorType: 'code' | 'compiled' | 'console';
 }

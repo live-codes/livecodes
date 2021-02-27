@@ -7,9 +7,11 @@ export const createEditor = async (options: EditorOptions) => {
 
   const { baseUrl, editor } = options;
 
+  const editorName = editor || (isMobile() ? 'codemirror' : 'monaco');
+
   try {
     const createCodeEditor: typeof createMonacoEditor =
-      isMobile() || editor === 'codemirror'
+      editorName === 'codemirror'
         ? (await import(baseUrl + 'codemirror.js')).createCodemirrorEditor
         : createMonacoEditor;
 
