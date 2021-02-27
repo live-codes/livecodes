@@ -676,7 +676,6 @@ export const app = async (config: Pen) => {
 
     const handleResize = () => {
       const resizeEditors = () => {
-        document.body.style.height = window.innerHeight + 'px';
         Object.values(editors).forEach((editor: CodeEditor) => {
           setTimeout(() => {
             if (editor.layout) {
@@ -696,9 +695,14 @@ export const app = async (config: Pen) => {
       sizeLabel.id = 'size-label';
       gutter.appendChild(sizeLabel);
 
+      const hideLabel = debounce(() => {
+        setTimeout(() => {
+          sizeLabel.classList.remove('visible');
+        }, 1000);
+      }, 1000);
+
       eventsManager.addEventListener(window, 'message', (event: any) => {
         const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
-        const sizeLabel = document.querySelector('#editor-container #size-label') as HTMLElement;
         if (
           !sizeLabel ||
           !iframe ||
@@ -711,12 +715,7 @@ export const app = async (config: Pen) => {
         const sizes = event.data.sizes;
         sizeLabel.innerHTML = `${sizes.width} x ${sizes.height}`;
         sizeLabel.classList.add('visible');
-
-        debounce(() => {
-          setTimeout(() => {
-            sizeLabel.classList.remove('visible');
-          }, 2000);
-        }, 1000)();
+        hideLabel();
       });
     };
 

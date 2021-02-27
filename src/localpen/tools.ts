@@ -193,10 +193,14 @@ export const createToolsPane = (
       window,
       'resize',
       () => {
+        const toolsPane = document.querySelector('#tools-pane') as HTMLElement;
+        if (!toolsPane) return;
         if (toolsSplit.getSizes()[0] < 10) {
-          open(activeToolId, true);
+          result.style.height = '0';
+          toolsPane.style.height = `calc(100% - ${gutterSize}px)`;
         } else if (toolsSplit.getSizes()[0] > 90) {
-          close();
+          result.style.height = `calc(100% - ${gutterSize}px)`;
+          toolsPane.style.height = '0';
         }
       },
       false,
