@@ -14,11 +14,14 @@ li.editor-title {
   padding: 0;
 }
 
+html,
 body {
   display: flex;
   justify-content: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1em;
+  height: 100%;
+  width: 100%;
 }
 .centered {
   width: 100%;
@@ -29,8 +32,8 @@ body {
 }
 #container {
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -138,7 +141,7 @@ body {
 #editor-container {
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
+  height: calc(100% - 40px);
 }
 
 #editors {
@@ -177,11 +180,12 @@ body {
   display: unset;
 }
 #output {
-  height: calc(100vh - 40px);
+  height: 100%;
   overflow: hidden;
 }
 #result {
   resize: both;
+  max-height: calc(100% - 30px);
 }
 #result iframe {
   height: 100%;
@@ -1164,4 +1168,24 @@ i.arrow:after {
   width: 2.5px;
   display: block;
   content: '';
+}
+/* Code Mirror */
+.cm-wrap {
+  height: 100%;
+}
+
+.cm-scroller {
+  overflow: auto;
+}
+.cm-wrap,
+.cm-activeLine,
+.cm-gutters {
+  background: #001b25 !important;
+}
+#console-input .cm-gutter {
+  display: none !important;
+}
+#console-input .cm-gutters #console-input-indicator {
+  margin-top: 3px;
+  margin-left: 3px;
 }

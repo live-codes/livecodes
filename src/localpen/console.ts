@@ -1,7 +1,7 @@
 import LunaConsole from 'luna-console';
-import { CodeEditor, createEditor, EditorOptions } from './editor';
+import { createEditor } from './editor';
 import { createEventsManager } from './events';
-import { Editors, Pen, Tool } from './models';
+import { Editors, Pen, Tool, CodeEditor, EditorOptions } from './models';
 
 export const createConsole = (
   config: Pen,
@@ -169,11 +169,15 @@ export const createConsole = (
     });
     observer.observe(consoleElement, { subtree: true, childList: true });
 
-    const margin = document.querySelector('#console-input .glyph-margin') as HTMLElement;
-    const indicator = document.createElement('div') as HTMLElement;
-    indicator.id = 'console-input-indicator';
-    indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
-    margin.appendChild(indicator);
+    const gutterSelector = consoleEditor.monaco ? '.glyph-margin' : '.cm-gutters';
+
+    const margin = document.querySelector('#console-input ' + gutterSelector) as HTMLElement;
+    if (margin) {
+      const indicator = document.createElement('div') as HTMLElement;
+      indicator.id = 'console-input-indicator';
+      indicator.innerHTML = `<svg fill="currentColor" preserveAspectRatio="xMidYMid meet" height="1em" width="1em" viewBox="0 0 40 40" style="vertical-align: top;"><g><path d="m16.6 10l10 10-10 10-2.3-2.3 7.7-7.7-7.7-7.7z"></path></g></svg>`;
+      margin.appendChild(indicator);
+    }
 
     return consoleEditor;
   };

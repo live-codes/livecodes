@@ -11,10 +11,12 @@ import {
 } from './languages';
 import { createStorage } from './storage';
 import {
+  CodeEditor,
   CssPresetId,
   EditorId,
   EditorLanguages,
   EditorLibrary,
+  EditorOptions,
   Editors,
   Language,
   Module,
@@ -211,35 +213,30 @@ export const app = async (config: Pen) => {
     const baseOptions = {
       baseUrl: config.baseUrl,
       mode: config.mode,
-      editorType: 'code',
+      editor: config.editor,
+      editorType: 'code' as EditorOptions['editorType'],
     };
-    const markupOptions = {
+    const markupOptions: EditorOptions = {
+      ...baseOptions,
       container: document.querySelector(elements.markup),
       language: config.markup.language,
-      value: config.markup.content,
+      value: config.markup.content || '',
     };
-    const styleOptions = {
+    const styleOptions: EditorOptions = {
+      ...baseOptions,
       container: document.querySelector(elements.style),
       language: config.style.language,
-      value: config.style.content,
+      value: config.style.content || '',
     };
-    const scriptOptions = {
+    const scriptOptions: EditorOptions = {
+      ...baseOptions,
       container: document.querySelector(elements.script),
       language: config.script.language,
-      value: config.script.content,
+      value: config.script.content || '',
     };
-    const markupEditor = await createEditor({
-      ...baseOptions,
-      ...markupOptions,
-    });
-    const styleEditor = await createEditor({
-      ...baseOptions,
-      ...styleOptions,
-    });
-    const scriptEditor = await createEditor({
-      ...baseOptions,
-      ...scriptOptions,
-    });
+    const markupEditor = await createEditor(markupOptions);
+    const styleEditor = await createEditor(styleOptions);
+    const scriptEditor = await createEditor(scriptOptions);
 
     setEditorTitle('markup', markupOptions.language);
     setEditorTitle('style', styleOptions.language);
@@ -293,6 +290,7 @@ export const app = async (config: Pen) => {
 
     const toolbarElement = document.querySelector('#toolbar') as HTMLElement;
     const editorsElement = document.querySelector('#editors') as HTMLElement;
+    const outputElement = document.querySelector('#output') as HTMLElement;
     const resultElement = document.querySelector('#result') as HTMLElement;
     const gutterElement = document.querySelector('.gutter') as HTMLElement;
 
@@ -313,6 +311,7 @@ export const app = async (config: Pen) => {
       split.destroy(true);
     }
     if (!showResult) {
+      outputElement.style.display = 'none';
       resultElement.style.display = 'none';
       split.destroy(true);
     }
@@ -634,12 +633,14 @@ export const app = async (config: Pen) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    if (config.emmet) {
-      disposeEmmet.html = emmetHTML();
-      disposeEmmet.css = emmetCSS();
-    } else {
-      if (disposeEmmet.html) disposeEmmet.html();
-      if (disposeEmmet.css) disposeEmmet.css();
+    if ((window as any).monaco) {
+      if (config.emmet) {
+        disposeEmmet.html = emmetHTML();
+        disposeEmmet.css = emmetCSS();
+      } else {
+        if (disposeEmmet.html) disposeEmmet.html();
+        if (disposeEmmet.css) disposeEmmet.css();
+      }
     }
   };
 
@@ -675,10 +676,16 @@ export const app = async (config: Pen) => {
 
     const handleResize = () => {
       const resizeEditors = () => {
-        Object.values(editors).forEach((editor) => {
-          setTimeout(() => editor.layout());
+        document.body.style.height = window.innerHeight + 'px';
+        Object.values(editors).forEach((editor: CodeEditor) => {
+          setTimeout(() => {
+            if (editor.layout) {
+              editor.layout(); // resize monaco editor
+            }
+          });
         });
       };
+      resizeEditors();
       eventsManager.addEventListener(window, 'resize', resizeEditors, false);
       eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
     };

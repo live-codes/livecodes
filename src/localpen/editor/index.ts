@@ -1,2 +1,1 @@
-export * from './editor';
-export * from './models';
+export * from './create-editor';

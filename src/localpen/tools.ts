@@ -15,6 +15,7 @@ export const createToolsPane = (
   let activeToolId = 0;
 
   const result = document.querySelector('#result') as HTMLElement;
+  const gutterSize = 30;
   type Sizes = {
     [key in ToolsPaneStatus]: [number, number];
   };
@@ -107,8 +108,14 @@ export const createToolsPane = (
 
     toolsSplit = Split(['#result', '#tools-pane'], {
       sizes: sizes.closed,
-      gutterSize: 30,
+      gutterSize,
       direction: 'vertical',
+      elementStyle: (_dimension, size, gutterSize) => ({
+        height: `calc(${size}% - ${gutterSize}px)`,
+      }),
+      gutterStyle: (_dimension, gutterSize) => ({
+        height: `${gutterSize}px`,
+      }),
       onDragStart() {
         setAnimation(false);
       },

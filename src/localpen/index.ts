@@ -12,7 +12,7 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     const mergedConfig = await loadConfig(config);
     const { baseUrl } = mergedConfig;
 
-    if (mergedConfig.version) {
+    if (mergedConfig.showVersion) {
       // variables added in scripts/build.js
       const version = process.env.VERSION || '';
       const commitSHA = process.env.GIT_COMMIT || '';

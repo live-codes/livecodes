@@ -1,53 +1,65 @@
-import { EditorLibrary, FormatFn, Language } from '../models';
-import { CodeEditor, EditorOptions } from './models';
+// eslint-disable-next-line import/no-unresolved
+import * as Monaco from 'monaco-editor'; // only for typescript types
 
-const defaultOptions = {
-  fontSize: 14,
-  theme: 'vs-dark',
-  formatOnType: false,
-  tabSize: 2,
-  lineNumbersMinChars: 3,
-  minimap: {
-    enabled: false,
-  },
-  scrollbar: {
-    useShadows: false,
-  },
-  mouseWheelZoom: true,
-  automaticLayout: true,
-};
-
-const codeblockOptions = {
-  ...defaultOptions,
-  readOnly: true,
-  lineNumbers: false,
-  scrollBeyondLastLine: false,
-  contextmenu: false,
-};
-
-const compiledCodeOptions = {
-  ...defaultOptions,
-  scrollBeyondLastLine: false,
-  readOnly: true,
-};
-
-const consoleOptions = {
-  ...defaultOptions,
-  lineNumbers: 'off',
-  glyphMargin: true,
-  folding: false,
-  lineDecorationsWidth: 0,
-  lineNumbersMinChars: 0,
-  scrollbar: {
-    vertical: 'auto',
-  },
-  scrollBeyondLastLine: false,
-  contextmenu: false,
-};
+import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
 export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl } = options;
   if (!container) throw new Error('editor container not fount');
+
+  const monacoPath = baseUrl + 'vendor/monaco-editor';
+  let monaco: typeof Monaco;
+  try {
+    monaco = (await import(`${monacoPath}/monaco.js`)).monaco;
+  } catch {
+    throw new Error('Failed to load monaco editor');
+  }
+
+  type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
+
+  const defaultOptions: Options = {
+    fontSize: 14,
+    theme: 'vs-dark',
+    formatOnType: false,
+    tabSize: 2,
+    lineNumbersMinChars: 3,
+    minimap: {
+      enabled: false,
+    },
+    scrollbar: {
+      useShadows: false,
+    },
+    mouseWheelZoom: true,
+    automaticLayout: true,
+  };
+
+  const codeblockOptions: Options = {
+    ...defaultOptions,
+    readOnly: true,
+    lineNumbers: 'off',
+    scrollBeyondLastLine: false,
+    contextmenu: false,
+  };
+
+  const compiledCodeOptions: Options = {
+    ...defaultOptions,
+    scrollBeyondLastLine: false,
+    readOnly: true,
+  };
+
+  const consoleOptions: Options = {
+    ...defaultOptions,
+    lineNumbers: 'off',
+    glyphMargin: true,
+    folding: false,
+    lineDecorationsWidth: 0,
+    lineNumbersMinChars: 0,
+    scrollbar: {
+      vertical: 'auto',
+    },
+    scrollBeyondLastLine: false,
+    contextmenu: false,
+  };
 
   const editorOptions =
     options.editorType === 'console'
@@ -57,9 +69,6 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
       : options.mode === 'codeblock'
       ? codeblockOptions
       : defaultOptions;
-
-  const monacoPath = baseUrl + 'vendor/monaco-editor';
-  const monaco = (await import(`${monacoPath}/monaco.js`)).monaco;
 
   if (!document.head.querySelector('#__localpen__monaco-styles')) {
     const stylesheet = document.createElement('link');
@@ -114,12 +123,17 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
   }
 
   const getValue = () => editor.getValue();
-  const setValue = (value?: string) => editor.getModel().setValue(value || '');
+  const setValue = (value = '') => {
+    editor.getModel()?.setValue(value);
+  };
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
     language = lang;
-    monaco.editor.setModelLanguage(editor.getModel(), language === 'jsx' ? 'javascript' : language);
+    monaco.editor.setModelLanguage(
+      editor.getModel() as any,
+      language === 'jsx' ? 'javascript' : language,
+    );
   };
 
   const focus = () => editor.focus();
@@ -129,7 +143,7 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
     monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename);
 
   const onContentChanged = (callback: () => void) => {
-    editor.getModel().onDidChangeContent(callback);
+    editor.getModel()?.onDidChangeContent(callback);
   };
 
   const keyCodes = {
@@ -151,15 +165,16 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
   };
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
-    if (!formatFn) return;
+    const editorModel = editor.getModel();
+    if (!formatFn || !editorModel) return;
+
     monaco.languages.registerDocumentFormattingEditProvider(language, {
       provideDocumentFormattingEdits: () => {
         const val = editor.getValue();
         const prettyVal = formatFn(val, 0);
-
         return [
           {
-            range: editor.getModel().getFullModelRange(),
+            range: editorModel.getFullModelRange(),
             text: prettyVal.formatted,
           },
         ];
