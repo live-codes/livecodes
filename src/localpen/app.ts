@@ -132,7 +132,7 @@ export const app = async (config: Pen) => {
     });
   }
 
-  const compiler = createCompiler(getConfig(), eventsManager);
+  const compiler = createCompiler(getConfig());
 
   const getTypes = async (module: Module): Promise<EditorLibrary> => {
     let content = '';

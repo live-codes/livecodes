@@ -1,12 +1,43 @@
 import { getLanguageEditorId, languages, postProcessors } from '../languages';
 import { Language, Pen, Compilers, EditorId } from '../models';
-import { getCompilers } from './compilers';
-import { replaceImports } from './replace-imports';
+import { getCompilers } from './get-compilers';
+import { LanguageOrProcessor, Message, MsgEvent } from './models';
 
-export const createCompiler = (config: Pen, eventsManager: any) => {
+export const createCompiler = (config: Pen) => {
   const compilers = getCompilers([...languages, ...postProcessors], config);
 
-  const load = (languages: string[], config: Pen) =>
+  const worker = new Worker(config.baseUrl + 'compile.worker.js');
+  const configMessage: Message = { type: 'init', payload: config };
+  worker.postMessage(configMessage);
+
+  const createLanguageCompiler = (language: LanguageOrProcessor) => (
+    content: string,
+    config: Pen,
+  ) =>
+    new Promise((resolve, reject) => {
+      const compileMessage: Message = { type: 'compile', payload: { content, language, config } };
+      worker.postMessage(compileMessage);
+      const handler = (event: MsgEvent) => {
+        const message = event.data;
+
+        if (
+          (message.type === 'compiled' || message.type === 'compile-failed') &&
+          message.payload.language === language &&
+          message.payload.content === content
+        ) {
+          worker.removeEventListener('message', handler);
+
+          if (message.type === 'compiled') {
+            resolve(message.payload.compiled);
+          } else if (message.type === 'compile-failed') {
+            reject(language + ' compile failed');
+          }
+        }
+      };
+      worker.addEventListener('message', handler);
+    });
+
+  const load = (languages: LanguageOrProcessor[], config: Pen) =>
     Promise.all(
       languages.map(
         (language) =>
@@ -16,29 +47,14 @@ export const createCompiler = (config: Pen, eventsManager: any) => {
             }
             const languageCompiler = compilers[language as keyof Compilers];
             if (languageCompiler && !languageCompiler.fn) {
-              if (languageCompiler.umd) {
-                const script = document.createElement('script');
-                script.src = languageCompiler.url;
-                eventsManager.addEventListener(
-                  script,
-                  'load',
-                  () => {
-                    languageCompiler.fn = languageCompiler.factory(null, config);
-                    resolve('done');
-                  },
-                  false,
-                );
-                document.head.appendChild(script);
-              } else {
-                try {
-                  const module = await import(languageCompiler.url);
-                  languageCompiler.fn = languageCompiler.factory(module, config);
+              worker.addEventListener('message', (event: MsgEvent) => {
+                if (event.data.type === 'loaded' && event.data.payload === language) {
+                  languageCompiler.fn = createLanguageCompiler(language);
                   resolve('done');
-                } catch (error) {
-                  // eslint-disable-next-line no-console
-                  console.error('Could not load: ' + languageCompiler.url + '\n' + error);
                 }
-              }
+              });
+              const loadMessage: Message = { type: 'load', payload: { language, config } };
+              worker.postMessage(loadMessage);
             } else {
               resolve('done');
             }
@@ -59,47 +75,13 @@ export const createCompiler = (config: Pen, eventsManager: any) => {
       throw new Error('Failed to load transpiler for: ' + language);
     }
 
-    let value = '';
-    switch (language) {
-      case 'javascript':
-        value = replaceImports(content, config);
-        break;
-      case 'typescript':
-        value = compiler(replaceImports(content, config), {
-          target: 'es2015',
-          jsx: 'react',
-        });
-        break;
-      case 'coffeescript':
-        value = compiler(replaceImports(content, config), { bare: true });
-        break;
-      case 'markdown':
-        value = compiler(content);
-        break;
-      case 'pug':
-        value = compiler(content);
-        break;
-      case 'asciidoc':
-        value = compiler(content);
-        break;
-      case 'scss':
-        value = (await compiler(content)).text;
-        break;
-      case 'sass':
-        value = (await compiler(content, { indentedSyntax: true })).text;
-        break;
-      case 'less':
-        value = (await compiler(content)).css;
-        break;
-      case 'stylus':
-        value = await compiler(content);
-        break;
-      default:
-        value = content;
-    }
+    const compiled = (await compiler(content, config)) || '';
+    const processed = (await postProcess(compiled, language, config)) || '';
 
-    value = value || '';
+    return Promise.resolve(processed);
+  };
 
+  const postProcess = async (content: string, language: Language, config: Pen) => {
     for (const processor of postProcessors) {
       if (
         (config as any)[processor.name] === true &&
@@ -114,16 +96,11 @@ export const createCompiler = (config: Pen, eventsManager: any) => {
         }
         switch (processor.name) {
           case 'autoprefixer':
-            try {
-              value = (await process(value, { from: undefined })).css;
-            } catch (error) {
-              // do nothing
-            }
+            return process(content);
         }
       }
     }
-
-    return Promise.resolve(value || '');
+    return content;
   };
 
   return {
