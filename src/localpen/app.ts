@@ -2,13 +2,7 @@ import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
 
 import { createEditor } from './editor';
-import {
-  languages,
-  getLanguageByAlias,
-  getLanguageEditorId,
-  postProcessors,
-  cssPresets,
-} from './languages';
+import { languages, getLanguageByAlias, getLanguageEditorId, cssPresets } from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
@@ -24,7 +18,6 @@ import {
   ToolList,
 } from './models';
 import { createFormatter } from './formatter';
-import { getCompilersData, loadCompilers, compile, importsPattern } from './compilers';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
@@ -44,6 +37,7 @@ import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
 import { compress, debounce } from './utils';
+import { createCompiler, importsPattern } from './compiler';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -138,7 +132,7 @@ export const app = async (config: Pen) => {
     });
   }
 
-  const compilers = getCompilersData([...languages, ...postProcessors], getConfig());
+  const compiler = createCompiler(getConfig());
 
   const getTypes = async (module: Module): Promise<EditorLibrary> => {
     let content = '';
@@ -361,7 +355,7 @@ export const app = async (config: Pen) => {
     setEditorTitle(editorId, language);
     showEditor(editorId);
     editor.focus();
-    loadCompilers([language], compilers, getConfig(), eventsManager);
+    await compiler.load([language], getConfig());
     editor.registerFormatter(await formatter.getFormatFn(language));
     if (!reload) {
       await run(editors);
@@ -405,8 +399,8 @@ export const app = async (config: Pen) => {
   ) => {
     const config = getConfig();
 
-    const getCompiled = (language: Language, content: string) =>
-      compile(language, content, compilers, config, eventsManager);
+    const getCompiled = (content: string, language: Language) =>
+      compiler.compile(content, language, config);
 
     const domParser = new DOMParser();
     const dom = domParser.parseFromString(template, 'text/html');
@@ -429,7 +423,7 @@ export const app = async (config: Pen) => {
       stylesheet.href = url;
       dom.head.appendChild(stylesheet);
     });
-    const style = await getCompiled(getEditorLanguage('style'), editors.style?.getValue());
+    const style = await getCompiled(editors.style?.getValue(), getEditorLanguage('style'));
     const styleElement = dom.createElement('style');
     styleElement.innerHTML = style;
     dom.head.appendChild(styleElement);
@@ -446,7 +440,7 @@ export const app = async (config: Pen) => {
       dom.body.appendChild(utilsScript);
     }
 
-    const markup = await getCompiled(getEditorLanguage('markup'), editors.markup?.getValue());
+    const markup = await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup'));
     dom.body.innerHTML += markup;
 
     config.scripts.forEach((url) => {
@@ -456,7 +450,7 @@ export const app = async (config: Pen) => {
     });
 
     const rawScript = editors.script?.getValue();
-    const script = await getCompiled(getEditorLanguage('script'), rawScript);
+    const script = await getCompiled(rawScript, getEditorLanguage('script'));
     const hasImports = importsPattern.test(rawScript); // typescript compiler removes unused imports
     const scriptElement = dom.createElement('script');
     if (hasImports) {
@@ -1519,12 +1513,7 @@ export const app = async (config: Pen) => {
     configureEmmet(getConfig());
     showMode(getConfig());
 
-    await loadCompilers(
-      [...Object.values(editorLanguages), ...Object.keys(postProcessors)],
-      compilers,
-      getConfig(),
-      eventsManager,
-    );
+    await compiler.load(Object.values(editorLanguages), getConfig());
 
     await run(editors);
     setSavedStatus(true);
