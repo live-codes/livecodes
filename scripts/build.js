@@ -48,12 +48,8 @@ var buildOptions = {
   },
 };
 
-esbuild
-  .build(buildOptions)
-  .then(() => {
-    console.log('built to: ' + buildOptions.outdir);
-  })
-  .catch(() => process.exit(1));
+esbuild.buildSync(buildOptions);
+console.log('built to: ' + buildOptions.outdir);
 
 var buildOptionsUmd = {
   entryPoints: ['src/localpen/embed.ts'],
@@ -66,9 +62,28 @@ var buildOptionsUmd = {
   logLevel: 'error',
 };
 
-esbuild
-  .build(buildOptionsUmd)
-  .then(() => {
-    console.log('built to: ' + buildOptionsUmd.outfile);
-  })
-  .catch(() => process.exit(1));
+esbuild.buildSync(buildOptionsUmd);
+console.log('built to: ' + buildOptionsUmd.outfile);
+
+var workerOptions = {
+  entryPoints: [
+    'src/localpen/compiler/compile.worker.ts',
+    'src/localpen/formatter/format.worker.ts',
+  ],
+  bundle: true,
+  minify: true,
+  outdir: 'build/localpen',
+  format: 'esm',
+  write: false,
+};
+
+var worker = esbuild.buildSync(workerOptions);
+for (let out of worker.outputFiles) {
+  var content = new TextDecoder('utf-8').decode(out.contents);
+  var filename = path.basename(out.path);
+  fs.writeFileSync(path.resolve('build/localpen', filename), iife(content));
+}
+
+function iife(code) {
+  return '(function(){' + code.trim() + '})();\n';
+}

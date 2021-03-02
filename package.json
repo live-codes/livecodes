@@ -10,11 +10,10 @@
   "scripts": {
     "start": "run-p watch serve",
     "serve": "live-server build --wait=1000",
-    "dev": "run-p build:lib build:compiler build:codemirror build:result-utils build:assets build:web",
+    "dev": "run-p build:lib build:codemirror build:result-utils build:assets build:web",
     "watch": "nodemon --watch src -e *  --exec npm run dev",
     "build": "run-s clean build:*",
     "build:lib": "node ./scripts/build.js",
-    "build:compiler": "esbuild --bundle src/localpen/compiler/compile.worker.ts --outfile=build/localpen/compile.worker.js --format=esm --minify",
     "build:codemirror": "esbuild --bundle src/localpen/editor/codemirror.ts --outfile=build/localpen/codemirror.js --format=esm --minify",
     "build:result-utils": "esbuild --bundle src/localpen/result-utils.ts --outfile=build/localpen/assets/scripts/utils.js --format=iife --minify",
     "build:ts": "tsc --emitDeclarationOnly --outFile build/localpen/index.d.ts",
