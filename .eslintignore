@@ -8,4 +8,3 @@ vendor_modules
 **/*.json
 src/modules
 scripts
-formatter
