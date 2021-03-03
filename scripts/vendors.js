@@ -1,9 +1,104 @@
 var fs = require('fs');
 var path = require('path');
 
+const esbuild = require('esbuild');
+const Bundler = require('parcel-bundler');
+
+function mkdirp(dir) {
+  if (!fs.existsSync(path.resolve(dir))) {
+    fs.mkdirSync(path.resolve(dir));
+  }
+}
+
+function deleteContent(file, content) {
+  var data = fs.readFileSync(file, 'utf-8');
+  var newValue = data.replace(content, '');
+  fs.writeFileSync(file, newValue, 'utf-8');
+}
+
 var node_modules = path.resolve(__dirname + '/../node_modules');
 var vendor_modules = path.resolve(__dirname + '/../vendor_modules/src');
 var targetDir = path.resolve(__dirname + '/../src/localpen/vendor');
+
+const baseOptions = {
+  bundle: true,
+  minify: true,
+  format: 'esm',
+};
+
+// Monaco editor
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/monaco.ts'],
+  outfile: 'src/localpen/vendor/monaco-editor/monaco.js',
+  loader: { '.ttf': 'file' },
+});
+
+// Monaco editor workers
+const entryFiles = [
+  'node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
+  'node_modules/monaco-editor/esm/vs/language/css/css.worker.js',
+  'node_modules/monaco-editor/esm/vs/language/html/html.worker.js',
+  'node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js',
+  'node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
+];
+
+const options = {
+  outDir: './src/localpen/vendor/monaco-editor',
+  minify: true,
+  scopeHoist: true,
+  target: 'browser',
+  sourceMaps: false,
+  watch: false,
+};
+
+entryFiles.forEach(async (file) => {
+  const bundler = new Bundler([file], options);
+  const bundle = await bundler.bundle();
+});
+
+// Patch and build Typescript
+var tsOutDir = path.resolve(__dirname + '/../vendor_modules/src/typescript');
+if (!fs.existsSync(tsOutDir)) {
+  fs.mkdirSync(tsOutDir);
+}
+fs.copyFileSync(
+  path.resolve(
+    __dirname +
+      '/../node_modules/monaco-editor/esm/vs/language/typescript/lib/typescriptServices.js',
+  ),
+  path.resolve(tsOutDir + '/typescriptServices.js'),
+);
+fs.appendFileSync(
+  path.resolve(tsOutDir + '/typescriptServices.js'),
+  'export var transpile = ts.transpile;\n',
+);
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/typescript.js'],
+  outfile: 'src/localpen/vendor/typescript/typescript.min.js',
+});
+
+// Marked
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['node_modules/marked/lib/marked.esm.js'],
+  outfile: 'src/localpen/vendor/marked/marked.esm.min.js',
+});
+
+// Sass
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/sass.js'],
+  outfile: 'src/localpen/vendor/sass.js/sass.js',
+});
+
+// Less
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/less.js'],
+  outfile: 'src/localpen/vendor/less/less.js',
+});
 
 // github-markdown-css
 mkdirp(targetDir + '/github-markdown-css');
@@ -55,7 +150,7 @@ deleteContent(
   '\n/*# sourceMappingURL=luna-console.css.map*/',
 );
 
-// sass.js
+// sass.js worker
 mkdirp(targetDir + '/sass.js');
 fs.copyFileSync(
   path.resolve(node_modules + '/sass.js/dist/sass.worker.js'),
@@ -126,15 +221,9 @@ fs.copyFileSync(
   path.resolve(node_modules + '/prettier/esm/parser-markdown.mjs'),
   path.resolve(targetDir + '/prettier/parser-markdown.mjs'),
 );
-
-function mkdirp(dir) {
-  if (!fs.existsSync(path.resolve(dir))) {
-    fs.mkdirSync(path.resolve(dir));
-  }
-}
-
-function deleteContent(file, content) {
-  var data = fs.readFileSync(file, 'utf-8');
-  var newValue = data.replace(content, '');
-  fs.writeFileSync(file, newValue, 'utf-8');
-}
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['node_modules/@prettier/plugin-pug/dist/index.js'],
+  outfile: 'src/localpen/vendor/prettier/parser-pug.mjs',
+  define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
+});

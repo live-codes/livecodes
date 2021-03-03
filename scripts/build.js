@@ -1,6 +1,6 @@
+var esbuild = require('esbuild');
 var fs = require('fs');
 var path = require('path');
-var esbuild = require('esbuild');
 var URL = require('url');
 
 var srcDir = path.resolve(__dirname + '/../src/localpen');
@@ -11,6 +11,9 @@ function mkdirp(dir) {
   if (!fs.existsSync(path.resolve(dir))) {
     fs.mkdirSync(path.resolve(dir));
   }
+}
+function iife(code) {
+  return '(function(){' + code.trim() + '})();\n';
 }
 
 var childProcess = require('child_process');
@@ -47,9 +50,7 @@ var buildOptions = {
     'process.env.GIT_REMOTE': `"${gitRemote || ''}"`,
   },
 };
-
 esbuild.buildSync(buildOptions);
-console.log('built to: ' + buildOptions.outdir);
 
 var buildOptionsUmd = {
   entryPoints: ['src/localpen/embed.ts'],
@@ -63,7 +64,6 @@ var buildOptionsUmd = {
 };
 
 esbuild.buildSync(buildOptionsUmd);
-console.log('built to: ' + buildOptionsUmd.outfile);
 
 var workerOptions = {
   entryPoints: [
@@ -84,6 +84,20 @@ for (let out of worker.outputFiles) {
   fs.writeFileSync(path.resolve('build/localpen', filename), iife(content));
 }
 
-function iife(code) {
-  return '(function(){' + code.trim() + '})();\n';
-}
+esbuild.buildSync({
+  entryPoints: ['src/localpen/editor/codemirror.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/codemirror.js',
+  format: 'esm',
+});
+
+esbuild.buildSync({
+  entryPoints: ['src/localpen/result-utils.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/assets/scripts/utils.js',
+  format: 'iife',
+});
+
+console.log('built to: ' + buildOptions.outdir);
