@@ -12,6 +12,9 @@ function mkdirp(dir) {
     fs.mkdirSync(path.resolve(dir));
   }
 }
+function uint8arrayToString(myUint8Arr) {
+  return String.fromCharCode.apply(null, myUint8Arr);
+}
 function iife(code) {
   return '(function(){' + code.trim() + '})();\n';
 }
@@ -79,7 +82,7 @@ var workerOptions = {
 
 var worker = esbuild.buildSync(workerOptions);
 for (let out of worker.outputFiles) {
-  var content = new TextDecoder('utf-8').decode(out.contents);
+  var content = uint8arrayToString(out.contents);
   var filename = path.basename(out.path);
   fs.writeFileSync(path.resolve('build/localpen', filename), iife(content));
 }
