@@ -15,11 +15,6 @@ export const createCompiler = (config: Pen) => {
     config: Pen,
   ) =>
     new Promise((resolve, reject) => {
-      const compileMessage: CompilerMessage = {
-        type: 'compile',
-        payload: { content, language, config },
-      };
-      worker.postMessage(compileMessage);
       const handler = (event: CompilerMessageEvent) => {
         const message = event.data;
 
@@ -38,6 +33,12 @@ export const createCompiler = (config: Pen) => {
         }
       };
       worker.addEventListener('message', handler);
+
+      const compileMessage: CompilerMessage = {
+        type: 'compile',
+        payload: { content, language, config },
+      };
+      worker.postMessage(compileMessage);
     });
 
   const load = (languages: LanguageOrProcessor[], config: Pen) =>

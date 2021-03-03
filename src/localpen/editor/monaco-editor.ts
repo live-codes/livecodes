@@ -169,9 +169,9 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
     if (!formatFn || !editorModel) return;
 
     monaco.languages.registerDocumentFormattingEditProvider(language, {
-      provideDocumentFormattingEdits: () => {
+      provideDocumentFormattingEdits: async () => {
         const val = editor.getValue();
-        const prettyVal = formatFn(val, 0);
+        const prettyVal = await formatFn(val, 0);
         return [
           {
             range: editorModel.getFullModelRange(),

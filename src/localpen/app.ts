@@ -250,7 +250,7 @@ export const app = async (config: Pen) => {
 
     (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
       editors[editorId].registerFormatter(await formatter.getFormatFn(editorLanguages[editorId]));
-      registerFormatAndRun(editorId, editors);
+      registerRun(editorId, editors);
     });
 
     if (config.mode === 'codeblock') {
@@ -367,13 +367,10 @@ export const app = async (config: Pen) => {
     addConsoleInputCodeCompletion();
   };
 
-  // Ctrl/Cmd + Enter triggers format and run
-  const registerFormatAndRun = (editorId: EditorId, editors: Editors) => {
+  // Ctrl/Cmd + Enter triggers run
+  const registerRun = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
-    editor.addKeyBinding('format', editor.keyCodes.CtrlEnter, async () => {
-      changingContent = true;
-      editor.format();
-      changingContent = false;
+    editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
       await run(editors);
     });
   };

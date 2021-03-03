@@ -146,9 +146,10 @@ export const createCodemirrorEditor = async (options: EditorOptions): Promise<Co
     if (!formatter) return;
     const offset = view.state.selection.main.to;
     const oldValue = getValue();
-    const newValue = formatter(oldValue, offset);
-    setValue(newValue.formatted, false);
-    view.dispatch({ selection: { anchor: newValue.cursorOffset } });
+    formatter(oldValue, offset).then((newValue) => {
+      setValue(newValue.formatted, false);
+      view.dispatch({ selection: { anchor: newValue.cursorOffset } });
+    });
   };
 
   return {
