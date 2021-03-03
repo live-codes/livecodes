@@ -12,8 +12,8 @@ function mkdirp(dir) {
     fs.mkdirSync(path.resolve(dir));
   }
 }
-function uint8arrayToString(myUint8Arr) {
-  return String.fromCharCode.apply(null, myUint8Arr);
+function uint8arrayToString(uint8array) {
+  return Buffer.from(uint8array).toString('utf-8');
 }
 function iife(code) {
   return '(function(){' + code.trim() + '})();\n';
