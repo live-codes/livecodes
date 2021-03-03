@@ -3,7 +3,7 @@ dist
 build
 coverage
 .eslintrc.js
-src/localpen/vendor
+vendor
 vendor_modules
 **/*.json
 src/modules
