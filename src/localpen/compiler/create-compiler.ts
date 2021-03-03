@@ -1,13 +1,13 @@
 import { getLanguageEditorId, languages, postProcessors } from '../languages';
 import { Language, Pen, Compilers, EditorId } from '../models';
 import { getCompilers } from './get-compilers';
-import { LanguageOrProcessor, Message, MsgEvent } from './models';
+import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 
 export const createCompiler = (config: Pen) => {
   const compilers = getCompilers([...languages, ...postProcessors], config);
 
   const worker = new Worker(config.baseUrl + 'compile.worker.js');
-  const configMessage: Message = { type: 'init', payload: config };
+  const configMessage: CompilerMessage = { type: 'init', payload: config };
   worker.postMessage(configMessage);
 
   const createLanguageCompiler = (language: LanguageOrProcessor) => (
@@ -15,9 +15,7 @@ export const createCompiler = (config: Pen) => {
     config: Pen,
   ) =>
     new Promise((resolve, reject) => {
-      const compileMessage: Message = { type: 'compile', payload: { content, language, config } };
-      worker.postMessage(compileMessage);
-      const handler = (event: MsgEvent) => {
+      const handler = (event: CompilerMessageEvent) => {
         const message = event.data;
 
         if (
@@ -35,6 +33,12 @@ export const createCompiler = (config: Pen) => {
         }
       };
       worker.addEventListener('message', handler);
+
+      const compileMessage: CompilerMessage = {
+        type: 'compile',
+        payload: { content, language, config },
+      };
+      worker.postMessage(compileMessage);
     });
 
   const load = (languages: LanguageOrProcessor[], config: Pen) =>
@@ -47,13 +51,13 @@ export const createCompiler = (config: Pen) => {
             }
             const languageCompiler = compilers[language as keyof Compilers];
             if (languageCompiler && !languageCompiler.fn) {
-              worker.addEventListener('message', (event: MsgEvent) => {
+              worker.addEventListener('message', (event: CompilerMessageEvent) => {
                 if (event.data.type === 'loaded' && event.data.payload === language) {
                   languageCompiler.fn = createLanguageCompiler(language);
                   resolve('done');
                 }
               });
-              const loadMessage: Message = { type: 'load', payload: { language, config } };
+              const loadMessage: CompilerMessage = { type: 'load', payload: { language, config } };
               worker.postMessage(loadMessage);
             } else {
               resolve('done');

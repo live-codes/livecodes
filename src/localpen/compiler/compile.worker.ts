@@ -1,14 +1,14 @@
 import { languages, postProcessors } from '../languages';
 import { Compilers, Pen } from '../models';
 import { getCompilers } from './get-compilers';
-import { LanguageOrProcessor, Message, MsgEvent } from './models';
+import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 import { replaceImports } from './replace-imports';
+declare const importScripts: (...args: string[]) => void;
 
 let compilers: Compilers;
 
 const worker: Worker = self as any;
 (self as any).window = self;
-declare const importScripts: (...args: string[]) => void;
 
 const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) => {
   if (!compilers) {
@@ -25,10 +25,11 @@ const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) 
       languageCompiler.fn = languageCompiler.factory(module, config);
     }
   } catch (error) {
-    throw new Error('Failed to load transpiler for: ' + language);
+    // throw new Error('Failed to load transpiler for: ' + language);
+    throw error;
   }
 
-  const loadedMessage: Message = { type: 'loaded', payload: language };
+  const loadedMessage: CompilerMessage = { type: 'loaded', payload: language };
   worker.postMessage(loadedMessage);
 };
 
@@ -92,7 +93,7 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
 
 worker.addEventListener(
   'message',
-  async (event: MsgEvent) => {
+  async (event: CompilerMessageEvent) => {
     const message = event.data;
 
     if (message.type === 'init') {
@@ -109,13 +110,13 @@ worker.addEventListener(
       const { content, language, config } = message.payload;
       try {
         const compiled = await compile(content, language, config);
-        const compiledMessage: Message = {
+        const compiledMessage: CompilerMessage = {
           type: 'compiled',
           payload: { language, content, compiled },
         };
         worker.postMessage(compiledMessage);
       } catch (error) {
-        const compileFailedMessage: Message = {
+        const compileFailedMessage: CompilerMessage = {
           type: 'compile-failed',
           payload: { language, content, error: error.message },
         };

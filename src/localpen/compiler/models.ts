@@ -2,11 +2,11 @@ import { Language, Pen, ProcessorName } from '../models';
 
 export type LanguageOrProcessor = Language | ProcessorName;
 
-export interface MsgEvent extends MessageEvent {
-  data: Message;
+export interface CompilerMessageEvent extends MessageEvent {
+  data: CompilerMessage;
 }
 
-export type Message =
+export type CompilerMessage =
   | InitMessage
   | LoadMessage
   | LoadedMessage

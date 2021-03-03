@@ -1,6 +1,6 @@
+var esbuild = require('esbuild');
 var fs = require('fs');
 var path = require('path');
-var esbuild = require('esbuild');
 var URL = require('url');
 
 var srcDir = path.resolve(__dirname + '/../src/localpen');
@@ -11,6 +11,12 @@ function mkdirp(dir) {
   if (!fs.existsSync(path.resolve(dir))) {
     fs.mkdirSync(path.resolve(dir));
   }
+}
+function uint8arrayToString(uint8array) {
+  return Buffer.from(uint8array).toString('utf-8');
+}
+function iife(code) {
+  return '(function(){' + code.trim() + '})();\n';
 }
 
 var childProcess = require('child_process');
@@ -47,13 +53,7 @@ var buildOptions = {
     'process.env.GIT_REMOTE': `"${gitRemote || ''}"`,
   },
 };
-
-esbuild
-  .build(buildOptions)
-  .then(() => {
-    console.log('built to: ' + buildOptions.outdir);
-  })
-  .catch(() => process.exit(1));
+esbuild.buildSync(buildOptions);
 
 var buildOptionsUmd = {
   entryPoints: ['src/localpen/embed.ts'],
@@ -66,9 +66,41 @@ var buildOptionsUmd = {
   logLevel: 'error',
 };
 
-esbuild
-  .build(buildOptionsUmd)
-  .then(() => {
-    console.log('built to: ' + buildOptionsUmd.outfile);
-  })
-  .catch(() => process.exit(1));
+esbuild.buildSync(buildOptionsUmd);
+
+var workerOptions = {
+  entryPoints: [
+    'src/localpen/compiler/compile.worker.ts',
+    'src/localpen/formatter/format.worker.ts',
+  ],
+  bundle: true,
+  minify: true,
+  outdir: 'build/localpen',
+  format: 'esm',
+  write: false,
+};
+
+var worker = esbuild.buildSync(workerOptions);
+for (let out of worker.outputFiles) {
+  var content = uint8arrayToString(out.contents);
+  var filename = path.basename(out.path);
+  fs.writeFileSync(path.resolve('build/localpen', filename), iife(content));
+}
+
+esbuild.buildSync({
+  entryPoints: ['src/localpen/editor/codemirror.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/codemirror.js',
+  format: 'esm',
+});
+
+esbuild.buildSync({
+  entryPoints: ['src/localpen/result-utils.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/assets/scripts/utils.js',
+  format: 'iife',
+});
+
+console.log('built to: ' + buildOptions.outdir);

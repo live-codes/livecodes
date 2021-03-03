@@ -114,7 +114,7 @@ export interface Parser {
 export type FormatFn = (
   value: string,
   cursorOffset: number,
-) => { formatted: string; cursorOffset: number };
+) => Promise<{ formatted: string; cursorOffset: number }>;
 export type CssPresetId =
   | ''
   | 'normalize.css'
