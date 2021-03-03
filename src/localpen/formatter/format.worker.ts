@@ -1,6 +1,3 @@
-// eslint-disable-next-line
-import Prettier from 'prettier'; // for typescript types only
-
 import { Language, Parser } from '../models';
 import { languages } from '../languages';
 import { FormatterMessage, FormatterMessageEvent } from './models';
@@ -8,7 +5,7 @@ import { FormatterMessage, FormatterMessageEvent } from './models';
 const worker: Worker = self as any;
 
 let baseUrl: string;
-let prettier: typeof Prettier;
+let prettier: any;
 const parsers: { [key: string]: Parser } = {};
 const plugins: { [key: string]: any } = {};
 
