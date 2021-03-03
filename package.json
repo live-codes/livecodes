@@ -27,7 +27,7 @@
     "fix:prettier": "prettier src --ignore-path .eslintignore --write",
     "fix:lint": "eslint --fix --ext js,jsx,ts,tsx .",
     "test": "run-s test:*",
-    "test:lint": "eslint --ext js,jsx,ts,tsx . && prettier src --ignore-path .eslintignore --list-different",
+    "test:lint": "node --max_old_space_size=4096 ./node_modules/eslint/bin/eslint.js --ext js,jsx,ts,tsx . && prettier src --ignore-path .eslintignore --list-different",
     "test:unit": "jest src",
     "cov": "run-s \"test:unit -- --coverage\"",
     "cov:send": "run-s cov && codecov",
