@@ -148,9 +148,10 @@ export const app = async (config: Pen) => {
     };
   };
 
-  const loadLibrary = (lib: EditorLibrary) => {
+  const loadModules = async (config: Pen) => {
     if (editors.script && typeof editors.script.addTypes === 'function') {
-      editors.script?.addTypes(lib);
+      const libs = await Promise.all(config.modules.map(getTypes));
+      libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };
 
@@ -1475,8 +1476,7 @@ export const app = async (config: Pen) => {
       await updateEditors(editors, getConfig());
     }
 
-    const libs = await Promise.all(getConfig().modules.map(getTypes));
-    libs.forEach(loadLibrary);
+    await loadModules(getConfig());
     formatter.load(getEditorLanguages());
 
     if (!reload) {
