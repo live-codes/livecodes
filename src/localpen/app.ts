@@ -623,7 +623,19 @@ export const app = async (config: Pen) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    Object.values(editors).forEach((editor: CodeEditor) => editor.configureEmmet?.(config.emmet));
+    let emmetSupported;
+    Object.values(editors).forEach((editor: CodeEditor) => {
+      if (editor.configureEmmet && typeof editor.configureEmmet === 'function') {
+        emmetSupported = true;
+        editor.configureEmmet(config.emmet);
+      }
+    });
+    if (!emmetSupported) {
+      const emmetSetting = document.querySelector('#settings-menu #emmet')?.closest('li');
+      if (emmetSetting) {
+        emmetSetting.style.display = 'none';
+      }
+    }
   };
 
   const attachEventListeners = (editors: Editors) => {
