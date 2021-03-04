@@ -1,4 +1,3 @@
-import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
 
 import { createEditor } from './editor';
@@ -63,7 +62,6 @@ export const app = async (config: Pen) => {
   let activeEditorId: EditorId;
   const notifications = createNotifications('#notifications');
   const modal = createModal();
-  const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
   let changingContent = false;
@@ -150,9 +148,10 @@ export const app = async (config: Pen) => {
     };
   };
 
-  const loadLibrary = (lib: EditorLibrary) => {
+  const loadModules = async (config: Pen) => {
     if (editors.script && typeof editors.script.addTypes === 'function') {
-      editors.script?.addTypes(lib);
+      const libs = await Promise.all(config.modules.map(getTypes));
+      libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };
 
@@ -624,15 +623,7 @@ export const app = async (config: Pen) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    if ((window as any).monaco) {
-      if (config.emmet) {
-        disposeEmmet.html = emmetHTML();
-        disposeEmmet.css = emmetCSS();
-      } else {
-        if (disposeEmmet.html) disposeEmmet.html();
-        if (disposeEmmet.css) disposeEmmet.css();
-      }
-    }
+    Object.values(editors).forEach((editor: CodeEditor) => editor.configureEmmet?.(config.emmet));
   };
 
   const attachEventListeners = (editors: Editors) => {
@@ -1485,8 +1476,7 @@ export const app = async (config: Pen) => {
       await updateEditors(editors, getConfig());
     }
 
-    const libs = await Promise.all(getConfig().modules.map(getTypes));
-    libs.forEach(loadLibrary);
+    await loadModules(getConfig());
     formatter.load(getEditorLanguages());
 
     if (!reload) {

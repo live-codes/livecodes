@@ -96,6 +96,14 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
+  entryPoints: ['src/localpen/editor/monaco.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/monaco.js',
+  format: 'esm',
+});
+
+esbuild.buildSync({
   entryPoints: ['src/localpen/result-utils.ts'],
   bundle: true,
   minify: true,

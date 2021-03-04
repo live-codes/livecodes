@@ -15,7 +15,7 @@ import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
-export const createCodemirrorEditor = async (options: EditorOptions): Promise<CodeEditor> => {
+export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container } = options;
   if (!container) throw new Error('editor container not fount');
 

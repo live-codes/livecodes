@@ -184,6 +184,7 @@ export interface CodeEditor {
   focus: () => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
+  configureEmmet?: (enabled: boolean) => void;
   onContentChanged: (callback: () => void) => void;
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
   keyCodes: {
