@@ -447,7 +447,7 @@ export const app = async (config: Pen) => {
 
     const rawScript = editors.script?.getValue();
     const script = await getCompiled(rawScript, getEditorLanguage('script'));
-    const hasImports = importsPattern.test(rawScript); // typescript compiler removes unused imports
+    const hasImports = new RegExp(importsPattern).test(rawScript); // typescript compiler removes unused imports
     const scriptElement = dom.createElement('script');
     if (hasImports) {
       scriptElement.type = 'module';
