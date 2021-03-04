@@ -1,9 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
 import * as Monaco from 'monaco-editor'; // only for typescript types
+import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
-export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEditor> => {
+export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl } = options;
   if (!container) throw new Error('editor container not fount');
 
@@ -186,6 +187,17 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
     editor.getAction('editor.action.formatDocument').run();
   };
 
+  const disposeEmmet: { html?: any; css?: any } = {};
+  const configureEmmet = (enabled: boolean) => {
+    if (enabled) {
+      disposeEmmet.html = emmetHTML();
+      disposeEmmet.css = emmetCSS();
+    } else {
+      if (disposeEmmet.html) disposeEmmet.html();
+      if (disposeEmmet.css) disposeEmmet.css();
+    }
+  };
+
   return {
     getValue,
     setValue,
@@ -194,6 +206,7 @@ export const createMonacoEditor = async (options: EditorOptions): Promise<CodeEd
     focus,
     layout,
     addTypes,
+    configureEmmet,
     onContentChanged,
     keyCodes,
     addKeyBinding,

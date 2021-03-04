@@ -1,4 +1,3 @@
-import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import Split from 'split.js';
 
 import { createEditor } from './editor';
@@ -63,7 +62,6 @@ export const app = async (config: Pen) => {
   let activeEditorId: EditorId;
   const notifications = createNotifications('#notifications');
   const modal = createModal();
-  const disposeEmmet: { html?: any; css?: any } = {};
   const eventsManager = createEventsManager();
   let isSaved = true;
   let changingContent = false;
@@ -624,15 +622,7 @@ export const app = async (config: Pen) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    if ((window as any).monaco) {
-      if (config.emmet) {
-        disposeEmmet.html = emmetHTML();
-        disposeEmmet.css = emmetCSS();
-      } else {
-        if (disposeEmmet.html) disposeEmmet.html();
-        if (disposeEmmet.css) disposeEmmet.css();
-      }
-    }
+    Object.values(editors).forEach((editor: CodeEditor) => editor.configureEmmet?.(config.emmet));
   };
 
   const attachEventListeners = (editors: Editors) => {

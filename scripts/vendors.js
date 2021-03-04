@@ -46,15 +46,14 @@ const entryFiles = [
 const options = {
   outDir: './src/localpen/vendor/monaco-editor',
   minify: true,
-  scopeHoist: true,
   target: 'browser',
   sourceMaps: false,
   watch: false,
 };
 
 entryFiles.forEach(async (file) => {
-  const bundler = new Bundler([file], options);
-  const bundle = await bundler.bundle();
+  const parcelBundler = new Bundler([file], options);
+  await parcelBundler.bundle();
 });
 
 // Patch and build Typescript
