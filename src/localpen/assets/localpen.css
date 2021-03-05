@@ -98,10 +98,10 @@ body {
     font-size: 0.8em;
   }
   #toolbar #run-button {
-    position: absolute;
-    top: calc(100vh - 35px - 20px); /* right is set in javascript */
-    z-index: 100;
-    opacity: 0.8;
+    display: none;
+  }
+  #editors #code-run-button {
+    display: block !important;
   }
 }
 
@@ -114,7 +114,8 @@ body {
   display: flex;
 }
 
-#buttons > button {
+#buttons > button,
+#editors #code-run-button {
   display: block;
   border: 0;
   margin: auto;
@@ -127,18 +128,28 @@ body {
   outline: none;
 }
 
-#buttons > button:hover {
+#buttons > button:hover,
+#editors #code-run-button:hover {
   background-color: #777c8dda;
 }
 
 /* mouse down */
-#buttons > button:active:hover {
+#buttons > button:active:hover,
+#editors #code-run-button:active:hover {
   background-color: #5a6074da;
 }
 
-#buttons > button img {
+#buttons > button img,
+#editors #code-run-button img {
   display: block;
   margin: auto;
+}
+#editors #code-run-button {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  opacity: 0.8;
 }
 
 #editor-container {
@@ -148,12 +159,12 @@ body {
 }
 
 #editors {
-  flex-grow: 1;
   background: #1e1e1e;
   height: 100%;
   resize: both;
   top: 0;
   overflow: hidden;
+  position: relative;
 }
 
 #editors > div {
