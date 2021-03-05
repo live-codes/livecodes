@@ -315,10 +315,13 @@ export const app = async (config: Pen) => {
     const modeConfig = modes[config.mode] || '111';
 
     const toolbarElement = document.querySelector('#toolbar') as HTMLElement;
+    const editorContainerElement = document.querySelector('#editor-container') as HTMLElement;
     const editorsElement = document.querySelector('#editors') as HTMLElement;
     const outputElement = document.querySelector('#output') as HTMLElement;
     const resultElement = document.querySelector('#result') as HTMLElement;
     const gutterElement = document.querySelector('.gutter') as HTMLElement;
+    const runButton = document.querySelector('#run-button') as HTMLElement;
+    const codeRunButton = document.querySelector('#code-run-button') as HTMLElement;
 
     const showToolbar = modeConfig[0] === '1';
     const showEditor = modeConfig[1] === '1';
@@ -327,19 +330,31 @@ export const app = async (config: Pen) => {
     toolbarElement.style.display = 'flex';
     editorsElement.style.display = 'flex';
     resultElement.style.display = 'flex';
+    outputElement.style.display = 'block';
     gutterElement.style.display = 'block';
+    gutterElement.style.display = 'block';
+    runButton.style.visibility = 'visible';
+    codeRunButton.style.visibility = 'visible';
 
     if (!showToolbar) {
       toolbarElement.style.display = 'none';
+      editorContainerElement.style.height = '100%';
     }
     if (!showEditor) {
+      outputElement.style.flexBasis = '100%';
       editorsElement.style.display = 'none';
       split.destroy(true);
     }
     if (!showResult) {
+      editorsElement.style.flexBasis = '100%';
       outputElement.style.display = 'none';
       resultElement.style.display = 'none';
+      codeRunButton.style.display = 'none';
       split.destroy(true);
+    }
+    if (config.mode === 'editor' || config.mode === 'codeblock') {
+      runButton.style.visibility = 'hidden';
+      codeRunButton.style.visibility = 'hidden';
     }
     window.dispatchEvent(new Event('editor-resize'));
   };
