@@ -89,9 +89,6 @@ export const app = async (config: Pen) => {
       onDragEnd() {
         setAnimation(true);
       },
-      onDrag() {
-        positionRunButton();
-      },
     });
 
     const gutter = document.querySelector('.gutter');
@@ -104,23 +101,17 @@ export const app = async (config: Pen) => {
   };
   const split = createSplitPanes();
 
-  const positionRunButton = () => {
-    const runButton: HTMLElement | null = document.querySelector('#toolbar #run-button');
-    const output: HTMLElement | null = document.querySelector('#output');
-    if (!runButton || !output) return;
-    if (window.innerWidth <= 480) {
-      runButton.style.right = output.clientWidth + 30 + 'px';
-    }
-  };
-
   const setAnimation = (animate: boolean) => {
-    const output: HTMLElement | null = document.querySelector('#output');
-    if (!output) return;
+    const editorsElement: HTMLElement | null = document.querySelector('#editors');
+    const outputElement: HTMLElement | null = document.querySelector('#output');
+    if (!outputElement || !editorsElement) return;
 
     if (animate) {
-      output.style.transition = 'flex-basis 0.5s';
+      editorsElement.style.transition = 'flex-basis 0.5s';
+      outputElement.style.transition = 'flex-basis 0.5s';
     } else {
-      output.style.transition = 'none';
+      editorsElement.style.transition = 'none';
+      outputElement.style.transition = 'none';
     }
   };
 
@@ -324,10 +315,13 @@ export const app = async (config: Pen) => {
     const modeConfig = modes[config.mode] || '111';
 
     const toolbarElement = document.querySelector('#toolbar') as HTMLElement;
+    const editorContainerElement = document.querySelector('#editor-container') as HTMLElement;
     const editorsElement = document.querySelector('#editors') as HTMLElement;
     const outputElement = document.querySelector('#output') as HTMLElement;
     const resultElement = document.querySelector('#result') as HTMLElement;
     const gutterElement = document.querySelector('.gutter') as HTMLElement;
+    const runButton = document.querySelector('#run-button') as HTMLElement;
+    const codeRunButton = document.querySelector('#code-run-button') as HTMLElement;
 
     const showToolbar = modeConfig[0] === '1';
     const showEditor = modeConfig[1] === '1';
@@ -336,19 +330,31 @@ export const app = async (config: Pen) => {
     toolbarElement.style.display = 'flex';
     editorsElement.style.display = 'flex';
     resultElement.style.display = 'flex';
+    outputElement.style.display = 'block';
     gutterElement.style.display = 'block';
+    gutterElement.style.display = 'block';
+    runButton.style.visibility = 'visible';
+    codeRunButton.style.visibility = 'visible';
 
     if (!showToolbar) {
       toolbarElement.style.display = 'none';
+      editorContainerElement.style.height = '100%';
     }
     if (!showEditor) {
+      outputElement.style.flexBasis = '100%';
       editorsElement.style.display = 'none';
       split.destroy(true);
     }
     if (!showResult) {
+      editorsElement.style.flexBasis = '100%';
       outputElement.style.display = 'none';
       resultElement.style.display = 'none';
+      codeRunButton.style.display = 'none';
       split.destroy(true);
+    }
+    if (config.mode === 'editor' || config.mode === 'codeblock') {
+      runButton.style.visibility = 'hidden';
+      codeRunButton.style.visibility = 'hidden';
     }
     window.dispatchEvent(new Event('editor-resize'));
   };
@@ -720,7 +726,6 @@ export const app = async (config: Pen) => {
             }
           });
         });
-        positionRunButton();
       };
       resizeEditors();
       eventsManager.addEventListener(window, 'resize', resizeEditors, false);
@@ -753,7 +758,6 @@ export const app = async (config: Pen) => {
         const sizes = event.data.sizes;
         sizeLabel.innerHTML = `${sizes.width} x ${sizes.height}`;
         sizeLabel.classList.add('visible');
-        positionRunButton();
         hideLabel();
       });
     };
@@ -859,13 +863,19 @@ export const app = async (config: Pen) => {
     };
 
     const handleRunButton = () => {
+      const handleRun = async () => {
+        showPane('output');
+        await run(editors);
+      };
       eventsManager.addEventListener(
         document.querySelector('#run-button') as HTMLElement,
         'click',
-        async () => {
-          showPane('output');
-          await run(editors);
-        },
+        handleRun,
+      );
+      eventsManager.addEventListener(
+        document.querySelector('#code-run-button') as HTMLElement,
+        'click',
+        handleRun,
       );
     };
 
