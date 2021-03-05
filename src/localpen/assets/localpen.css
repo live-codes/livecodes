@@ -98,7 +98,10 @@ body {
     font-size: 0.8em;
   }
   #toolbar #run-button {
-    display: none;
+    position: absolute;
+    top: calc(100vh - 35px - 20px); /* right is set in javascript */
+    z-index: 100;
+    opacity: 0.8;
   }
 }
 
