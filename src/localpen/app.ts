@@ -70,9 +70,10 @@ export const app = async (config: Pen) => {
   let consoleInputCodeCompletion: any;
 
   const createSplitPanes = () => {
+    const gutterSize = 10;
     const split = Split(['#editors', '#output'], {
       minSize: [0, 0],
-      gutterSize: 10,
+      gutterSize,
       elementStyle: (_dimension, size, gutterSize) => {
         window.dispatchEvent(new Event('editor-resize'));
         return {
@@ -82,6 +83,15 @@ export const app = async (config: Pen) => {
       gutterStyle: (_dimension, gutterSize) => ({
         'flex-basis': `${gutterSize}px`,
       }),
+      onDragStart() {
+        setAnimation(false);
+      },
+      onDragEnd() {
+        setAnimation(true);
+      },
+      onDrag() {
+        positionRunButton();
+      },
     });
 
     const gutter = document.querySelector('.gutter');
@@ -93,6 +103,38 @@ export const app = async (config: Pen) => {
     return split;
   };
   const split = createSplitPanes();
+
+  const positionRunButton = () => {
+    const runButton: HTMLElement | null = document.querySelector('#toolbar #run-button');
+    const output: HTMLElement | null = document.querySelector('#output');
+    if (!runButton || !output) return;
+    if (window.innerWidth <= 480) {
+      runButton.style.right = output.clientWidth + 30 + 'px';
+    }
+  };
+
+  const setAnimation = (animate: boolean) => {
+    const output: HTMLElement | null = document.querySelector('#output');
+    if (!output) return;
+
+    if (animate) {
+      output.style.transition = 'flex-basis 0.5s';
+    } else {
+      output.style.transition = 'none';
+    }
+  };
+
+  const showPane = (pane: 'code' | 'output') => {
+    if (!split) return;
+    const smallScreen = window.innerWidth < 800;
+    const codeOpen = smallScreen ? [100, 0] : [50, 50];
+    const outputOpen = smallScreen ? [0, 100] : [50, 50];
+    if (pane === 'code' && split.getSizes()[0] < 10) {
+      split.setSizes(codeOpen);
+    } else if (pane === 'output' && split.getSizes()[1] < 10) {
+      split.setSizes(outputOpen);
+    }
+  };
 
   function createIframe(container: string, result?: string) {
     return new Promise((resolve) => {
@@ -330,6 +372,7 @@ export const app = async (config: Pen) => {
     });
 
     updateCompiledCode();
+    showPane('code');
   };
 
   const addConsoleInputCodeCompletion = () => {
@@ -677,6 +720,7 @@ export const app = async (config: Pen) => {
             }
           });
         });
+        positionRunButton();
       };
       resizeEditors();
       eventsManager.addEventListener(window, 'resize', resizeEditors, false);
@@ -709,6 +753,7 @@ export const app = async (config: Pen) => {
         const sizes = event.data.sizes;
         sizeLabel.innerHTML = `${sizes.width} x ${sizes.height}`;
         sizeLabel.classList.add('visible');
+        positionRunButton();
         hideLabel();
       });
     };
@@ -818,7 +863,7 @@ export const app = async (config: Pen) => {
         document.querySelector('#run-button') as HTMLElement,
         'click',
         async () => {
-          editors[activeEditorId].format();
+          showPane('output');
           await run(editors);
         },
       );
