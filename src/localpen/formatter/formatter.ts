@@ -2,7 +2,7 @@ import { FormatFn, Language, Pen } from '../models';
 import { FormatterMessage, FormatterMessageEvent } from './models';
 
 export const createFormatter = (config: Pen) => {
-  const worker = new Worker(config.baseUrl + 'format.worker.js', { type: 'module' });
+  const worker = new Worker(config.baseUrl + 'format.worker.js');
   const configMessage: FormatterMessage = { type: 'init', payload: config };
   worker.postMessage(configMessage);
 

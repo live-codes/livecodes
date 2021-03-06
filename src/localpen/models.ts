@@ -136,7 +136,7 @@ export interface EditorLibrary {
 export interface Compiler {
   url: string;
   fn?: (code: string, options?: any) => any;
-  factory: (compilerModule: any, config: Pen) => (code: string) => string;
+  factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
 }

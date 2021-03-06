@@ -20,6 +20,7 @@ var node_modules = path.resolve(__dirname + '/../node_modules');
 var vendor_modules = path.resolve(__dirname + '/../vendor_modules/src');
 var targetDir = path.resolve(__dirname + '/../src/localpen/vendor');
 
+/** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
   bundle: true,
   minify: true,
@@ -43,6 +44,7 @@ const entryFiles = [
   'node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
 ];
 
+/** @type {Bundler.ParcelOptions} */
 const options = {
   outDir: './src/localpen/vendor/monaco-editor',
   minify: true,
@@ -53,7 +55,7 @@ const options = {
 
 entryFiles.forEach(async (file) => {
   const parcelBundler = new Bundler([file], options);
-  await parcelBundler.bundle();
+  // await parcelBundler.bundle();
 });
 
 // Patch and build Typescript
@@ -76,27 +78,35 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/typescript.js'],
   outfile: 'src/localpen/vendor/typescript/typescript.min.js',
+  format: 'iife',
+  globalName: 'typescript',
 });
 
 // Marked
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['node_modules/marked/lib/marked.esm.js'],
-  outfile: 'src/localpen/vendor/marked/marked.esm.min.js',
-});
+mkdirp(targetDir + '/marked');
+fs.copyFileSync(
+  path.resolve(node_modules + '/marked/marked.min.js'),
+  path.resolve(targetDir + '/marked/marked.min.js'),
+);
 
 // Sass
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['vendor_modules/imports/sass.js'],
-  outfile: 'src/localpen/vendor/sass.js/sass.js',
-});
+mkdirp(targetDir + '/sass.js');
+fs.copyFileSync(
+  path.resolve(node_modules + '/sass.js/dist/sass.js'),
+  path.resolve(targetDir + '/sass.js/sass.js'),
+);
+fs.copyFileSync(
+  path.resolve(node_modules + '/sass.js/dist/sass.worker.js'),
+  path.resolve(targetDir + '/sass.js/sass.worker.js'),
+);
 
 // Less
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/less.js'],
   outfile: 'src/localpen/vendor/less/less.js',
+  format: 'iife',
+  globalName: 'less',
 });
 
 // github-markdown-css
@@ -149,13 +159,6 @@ deleteContent(
   '\n/*# sourceMappingURL=luna-console.css.map*/',
 );
 
-// sass.js worker
-mkdirp(targetDir + '/sass.js');
-fs.copyFileSync(
-  path.resolve(node_modules + '/sass.js/dist/sass.worker.js'),
-  path.resolve(targetDir + '/sass.js/sass.worker.js'),
-);
-
 // stylus
 mkdirp(targetDir + '/stylus');
 fs.copyFileSync(
@@ -185,11 +188,13 @@ fs.copyFileSync(
 );
 
 // autoprefixer
-mkdirp(targetDir + '/autoprefixer');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/autoprefixer/autoprefixer.js'),
-  path.resolve(targetDir + '/autoprefixer/autoprefixer.js'),
-);
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/src/autoprefixer/autoprefixer.js'],
+  outfile: 'src/localpen/vendor/autoprefixer/autoprefixer.js',
+  format: 'iife',
+  globalName: 'autoprefixer',
+});
 
 // jszip
 mkdirp(targetDir + '/jszip');
@@ -201,28 +206,30 @@ fs.copyFileSync(
 // prettier
 mkdirp(targetDir + '/prettier');
 fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/esm/standalone.mjs'),
-  path.resolve(targetDir + '/prettier/standalone.mjs'),
+  path.resolve(node_modules + '/prettier/standalone.js'),
+  path.resolve(targetDir + '/prettier/standalone.js'),
 );
 fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/esm/parser-babel.mjs'),
-  path.resolve(targetDir + '/prettier/parser-babel.mjs'),
+  path.resolve(node_modules + '/prettier/parser-babel.js'),
+  path.resolve(targetDir + '/prettier/parser-babel.js'),
 );
 fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/esm/parser-html.mjs'),
-  path.resolve(targetDir + '/prettier/parser-html.mjs'),
+  path.resolve(node_modules + '/prettier/parser-html.js'),
+  path.resolve(targetDir + '/prettier/parser-html.js'),
 );
 fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/esm/parser-postcss.mjs'),
-  path.resolve(targetDir + '/prettier/parser-postcss.mjs'),
+  path.resolve(node_modules + '/prettier/parser-postcss.js'),
+  path.resolve(targetDir + '/prettier/parser-postcss.js'),
 );
 fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/esm/parser-markdown.mjs'),
-  path.resolve(targetDir + '/prettier/parser-markdown.mjs'),
+  path.resolve(node_modules + '/prettier/parser-markdown.js'),
+  path.resolve(targetDir + '/prettier/parser-markdown.js'),
 );
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['node_modules/@prettier/plugin-pug/dist/index.js'],
-  outfile: 'src/localpen/vendor/prettier/parser-pug.mjs',
+  outfile: 'src/localpen/vendor/prettier/parser-pug.js',
   define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
+  format: 'iife',
+  globalName: 'pluginPug',
 });

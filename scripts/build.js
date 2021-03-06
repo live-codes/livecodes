@@ -39,6 +39,7 @@ try {
   console.log(error);
 }
 
+/** @type {Partial<esbuild.BuildOptions>} */
 var buildOptions = {
   entryPoints: ['src/localpen/index.ts', 'src/localpen/app.ts'],
   bundle: true,
@@ -55,6 +56,7 @@ var buildOptions = {
 };
 esbuild.buildSync(buildOptions);
 
+/** @type {Partial<esbuild.BuildOptions>} */
 var buildOptionsUmd = {
   entryPoints: ['src/localpen/embed.ts'],
   bundle: true,
@@ -68,6 +70,7 @@ var buildOptionsUmd = {
 
 esbuild.buildSync(buildOptionsUmd);
 
+/** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {
   entryPoints: [
     'src/localpen/compiler/compile.worker.ts',
