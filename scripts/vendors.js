@@ -55,7 +55,7 @@ const options = {
 
 entryFiles.forEach(async (file) => {
   const parcelBundler = new Bundler([file], options);
-  // await parcelBundler.bundle();
+  await parcelBundler.bundle();
 });
 
 // Patch and build Typescript

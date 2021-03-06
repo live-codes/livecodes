@@ -3,21 +3,25 @@ var fs = require('fs');
 var path = require('path');
 var URL = require('url');
 
-var srcDir = path.resolve(__dirname + '/../src/localpen');
-var outDir = path.resolve(__dirname + '/../build');
-mkdirp(outDir);
-fs.copyFileSync(path.resolve(srcDir + '/localpen.json'), path.resolve(outDir + '/localpen.json'));
+/** @param {string} dir */
 function mkdirp(dir) {
   if (!fs.existsSync(path.resolve(dir))) {
     fs.mkdirSync(path.resolve(dir));
   }
 }
+/** @param {ArrayBuffer | Uint8Array} uint8array */
 function uint8arrayToString(uint8array) {
   return Buffer.from(uint8array).toString('utf-8');
 }
+/** @param {string} code */
 function iife(code) {
   return '(function(){' + code.trim() + '})();\n';
 }
+
+var srcDir = path.resolve(__dirname + '/../src/localpen');
+var outDir = path.resolve(__dirname + '/../build');
+mkdirp(outDir);
+fs.copyFileSync(path.resolve(srcDir + '/localpen.json'), path.resolve(outDir + '/localpen.json'));
 
 var childProcess = require('child_process');
 var version, gitCommit, gitRemote;

@@ -1535,15 +1535,15 @@ export const app = async (config: Pen) => {
   };
 
   async function bootstrap(reload = false) {
-    await createIframe(elements.result);
+    await createIframe(elements.result); // here
 
     if (!reload) {
-      editors = await createEditors(getConfig());
+      editors = await createEditors(getConfig()); // here
     } else {
-      await updateEditors(editors, getConfig());
+      await updateEditors(editors, getConfig()); // here
     }
 
-    await loadModules(getConfig());
+    loadModules(getConfig()); // here
     formatter.load(getEditorLanguages());
 
     if (!reload) {
@@ -1562,16 +1562,16 @@ export const app = async (config: Pen) => {
       toolsPane = createToolsPane(toolList, getConfig(), editors, eventsManager);
     }
 
-    await setActiveEditor(getConfig());
+    setActiveEditor(getConfig()); // here
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
 
-    await compiler.load(Object.values(editorLanguages), getConfig());
+    compiler.load(Object.values(editorLanguages), getConfig()); // here
 
-    await run(editors);
+    run(editors); // here
     setSavedStatus(true);
-    await toolsPane?.load();
+    toolsPane?.load(); // here
     updateCompiledCode();
     editors[activeEditorId].focus();
   }
