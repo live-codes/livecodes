@@ -3,15 +3,21 @@ import { languages } from '../languages';
 import { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
+(self as any).window = self;
+declare const prettier: any;
+declare const prettierPlugins: { [key: string]: { parsers: any } };
+declare const importScripts: (...args: string[]) => void;
 
 let baseUrl: string;
-let prettier: any;
 const parsers: { [key: string]: Parser } = {};
 const plugins: { [key: string]: any } = {};
 
-const load = async (languages: Language[]) => {
+const loadPrettier = () => {
+  importScripts(baseUrl + 'vendor/prettier/standalone.js');
+};
+const load = (languages: Language[]) => {
   try {
-    prettier = prettier || (await import(baseUrl + 'vendor/prettier/standalone.mjs')).default;
+    loadPrettier();
     languages.forEach((language) => loadParser(language));
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -19,9 +25,9 @@ const load = async (languages: Language[]) => {
   }
 };
 
-async function loadParser(language: Language): Promise<Parser | undefined> {
+function loadParser(language: Language): Parser | undefined {
   if (!prettier) {
-    await load([language]);
+    loadPrettier();
   }
   if (language in parsers) {
     return parsers[language];
@@ -30,20 +36,26 @@ async function loadParser(language: Language): Promise<Parser | undefined> {
   const parser = languages.find((lang) => lang.name === language)?.parser;
   if (!parser) return;
 
-  parser.plugins = (
-    await Promise.all(
-      parser.pluginUrls.map(async (pluginUrl) => {
-        try {
-          const pluginModule = plugins[pluginUrl] || (await import(baseUrl + pluginUrl)).default;
-          plugins[pluginUrl] = pluginModule;
-          return pluginModule;
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.warn('Failed to load prettier parser for language: ' + language);
+  if (!(self as any).prettierPlugins) {
+    (self as any).prettierPlugins = {};
+  }
+  parser.plugins = parser.pluginUrls
+    .map((pluginUrl) => {
+      if (plugins[pluginUrl]) return true;
+      try {
+        importScripts(baseUrl + pluginUrl);
+        plugins[pluginUrl] = true;
+        if (!prettierPlugins.pug && (self as any).pluginPug) {
+          prettierPlugins.pug = (self as any).pluginPug;
         }
-      }),
-    )
-  ).filter(Boolean);
+        return true;
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('Failed to load prettier parser for language: ' + language);
+        return false;
+      }
+    })
+    .filter(Boolean);
 
   if (parser.plugins.length > 0) {
     parsers[language] = parser;
@@ -51,18 +63,18 @@ async function loadParser(language: Language): Promise<Parser | undefined> {
   return parser;
 }
 
-const format = async (language: Language, value: string, cursorOffset: number) => {
-  const parser = await loadParser(language);
+const format = (language: Language, value: string, cursorOffset: number) => {
+  const parser = loadParser(language);
   return prettier.formatWithCursor(value, {
     parser: parser?.name,
-    plugins: parser?.plugins,
+    plugins: prettierPlugins,
     cursorOffset,
   });
 };
 
 worker.addEventListener(
   'message',
-  async (event: FormatterMessageEvent) => {
+  (event: FormatterMessageEvent) => {
     const message = event.data;
 
     if (message.type === 'init') {
@@ -72,13 +84,13 @@ worker.addEventListener(
 
     if (message.type === 'load') {
       const languages = message.payload;
-      await load(languages);
+      load(languages);
     }
 
     if (message.type === 'format') {
       const { language, value, cursorOffset } = message.payload;
       try {
-        const formatResult = await format(language, value, cursorOffset);
+        const formatResult = format(language, value, cursorOffset);
         const formattedMessage: FormatterMessage = {
           type: 'formatted',
           payload: {

@@ -17,16 +17,10 @@ const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) 
 
   const languageCompiler = compilers[language];
   try {
-    if (languageCompiler.umd) {
-      importScripts(languageCompiler.url);
-      languageCompiler.fn = languageCompiler.factory(null, config);
-    } else {
-      const module = await import(languageCompiler.url);
-      languageCompiler.fn = languageCompiler.factory(module, config);
-    }
+    importScripts(languageCompiler.url);
+    languageCompiler.fn = languageCompiler.factory(null, config);
   } catch (error) {
-    // throw new Error('Failed to load transpiler for: ' + language);
-    throw error;
+    throw new Error('Failed to load transpiler for: ' + language);
   }
 
   const loadedMessage: CompilerMessage = { type: 'loaded', payload: language };

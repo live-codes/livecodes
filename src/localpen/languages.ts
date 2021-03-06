@@ -1,11 +1,11 @@
 import { CssPreset, EditorId, Language, LanguageSpecs, Pen, Processors } from './models';
 
 const parserPlugins = {
-  babel: 'vendor/prettier/parser-babel.mjs',
-  html: 'vendor/prettier/parser-html.mjs',
-  markdown: 'vendor/prettier/parser-markdown.mjs',
-  postcss: 'vendor/prettier/parser-postcss.mjs',
-  pug: 'vendor/prettier/parser-pug.mjs',
+  babel: 'vendor/prettier/parser-babel.js',
+  html: 'vendor/prettier/parser-html.js',
+  markdown: 'vendor/prettier/parser-markdown.js',
+  postcss: 'vendor/prettier/parser-postcss.js',
+  pug: 'vendor/prettier/parser-pug.js',
 };
 export const languages: LanguageSpecs[] = [
   {
@@ -41,8 +41,9 @@ export const languages: LanguageSpecs[] = [
       pluginUrls: [parserPlugins.markdown, parserPlugins.html],
     },
     compiler: {
-      url: 'vendor/marked/marked.esm.min.js',
-      factory: (module: any) => module.default,
+      url: 'vendor/marked/marked.min.js',
+      factory: () => (window as any).marked,
+      umd: true,
     },
     extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
     editor: 'markup',
@@ -82,7 +83,19 @@ export const languages: LanguageSpecs[] = [
     },
     compiler: {
       url: 'vendor/sass.js/sass.js',
-      factory: (module: any, config: Pen) => module.createCompile(config),
+      factory: (_: any, config: Pen) => {
+        const Sass = (window as any).Sass;
+        const baseUrl = config.baseUrl || '/localpen/';
+        Sass.setWorkerUrl(baseUrl + 'vendor/sass.js/sass.worker.js');
+        const sass = new Sass();
+        return (code, options = {}): Promise<string> =>
+          new Promise((resolve) => {
+            sass.compile(code, options, (result: string) => {
+              resolve(result);
+            });
+          });
+      },
+      umd: true,
     },
     extensions: ['scss'],
     editor: 'style',
@@ -103,7 +116,8 @@ export const languages: LanguageSpecs[] = [
     },
     compiler: {
       url: 'vendor/less/less.js',
-      factory: (module: any) => module.render,
+      factory: () => (window as any).less.render,
+      umd: true,
     },
     extensions: ['less'],
     editor: 'style',
@@ -140,7 +154,8 @@ export const languages: LanguageSpecs[] = [
     },
     compiler: {
       url: 'vendor/typescript/typescript.min.js',
-      factory: (module: any) => module.transpile,
+      factory: () => (window as any).typescript.transpile,
+      umd: true,
     },
     extensions: ['ts'],
     editor: 'script',
@@ -186,11 +201,12 @@ export const postProcessors: Processors[] = [
     name: 'autoprefixer',
     compiler: {
       url: 'vendor/autoprefixer/autoprefixer.js',
-      factory: (module: any) => {
-        const { postcss, autoprefixer } = module;
+      factory: () => {
+        const { postcss, autoprefixer } = (window as any).autoprefixer;
         const postcss1 = postcss([autoprefixer({ overrideBrowserslist: ['last 4 version'] })]);
         return postcss1.process.bind(postcss1);
       },
+      umd: true,
     },
     editors: ['style'],
   },
