@@ -133,10 +133,7 @@ export const app = async (config: Pen) => {
       if (!containerEl) return;
 
       const iframe = document.createElement('iframe');
-      iframe.setAttribute(
-        'allow',
-        'accelerometer; camera; encrypted-media; geolocation; gyroscope; microphone; midi',
-      );
+      iframe.setAttribute('allow', 'camera; geolocation; microphone');
       iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute('allowtransparency', 'true');
       iframe.setAttribute(
