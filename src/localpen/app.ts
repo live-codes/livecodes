@@ -1543,7 +1543,7 @@ export const app = async (config: Pen) => {
       await updateEditors(editors, getConfig()); // here
     }
 
-    loadModules(getConfig()); // here
+    await loadModules(getConfig()); // here
     formatter.load(getEditorLanguages());
 
     if (!reload) {
@@ -1562,16 +1562,16 @@ export const app = async (config: Pen) => {
       toolsPane = createToolsPane(toolList, getConfig(), editors, eventsManager);
     }
 
-    setActiveEditor(getConfig()); // here
+    await setActiveEditor(getConfig()); // here
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
 
-    compiler.load(Object.values(editorLanguages), getConfig()); // here
+    await compiler.load(Object.values(editorLanguages), getConfig()); // here
 
-    run(editors); // here
+    await run(editors); // here
     setSavedStatus(true);
-    toolsPane?.load(); // here
+    await toolsPane?.load(); // here
     updateCompiledCode();
     editors[activeEditorId].focus();
   }
