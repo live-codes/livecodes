@@ -185,7 +185,10 @@ export const createToolsPane = (
             close();
           }
         },
-        false,
+        {
+          capture: false,
+          passive: true,
+        },
       );
     });
 

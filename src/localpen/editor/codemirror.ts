@@ -78,6 +78,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ? codeblockOptions
       : defaultOptions;
 
+  polyfill();
   const view = new EditorView({
     state: EditorState.create({
       extensions: editorOptions,
@@ -166,3 +167,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     codemirror: view,
   };
 };
+
+/**
+ * this is used to bypass an error occuring in firefox
+ * where document.getSelection() evaluates to null
+ */
+function polyfill() {
+  if (document.getSelection()) return;
+
+  const getSelection = document.getSelection.bind(document);
+  document.getSelection = () =>
+    getSelection()
+      ? getSelection()
+      : ({
+          anchorNode: null,
+          anchorOffset: 0,
+          focusNode: null,
+          focusOffset: 0,
+        } as Selection);
+}
