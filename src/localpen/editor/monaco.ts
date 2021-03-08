@@ -6,7 +6,7 @@ import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '..
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl } = options;
-  if (!container) throw new Error('editor container not fount');
+  if (!container) throw new Error('editor container not found');
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
   let monaco: typeof Monaco;

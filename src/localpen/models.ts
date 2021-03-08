@@ -20,7 +20,7 @@ export interface Pen {
   scripts: string[];
   cssPreset: CssPresetId;
   modules: Module[];
-  editor: 'monaco' | 'codemirror' | '';
+  editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
 }
 
@@ -197,6 +197,7 @@ export interface CodeEditor {
   format: () => void;
   monaco?: any;
   codemirror?: any;
+  prism?: any;
 }
 
 export interface EditorOptions {

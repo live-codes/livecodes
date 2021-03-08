@@ -111,6 +111,14 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
+  entryPoints: ['src/localpen/editor/prism.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/prism.js',
+  format: 'esm',
+});
+
+esbuild.buildSync({
   entryPoints: ['src/localpen/result-utils.ts'],
   bundle: true,
   minify: true,

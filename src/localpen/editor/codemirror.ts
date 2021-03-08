@@ -17,7 +17,7 @@ import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container } = options;
-  if (!container) throw new Error('editor container not fount');
+  if (!container) throw new Error('editor container not found');
 
   let language = options.language;
 
