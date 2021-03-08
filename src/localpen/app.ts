@@ -16,7 +16,7 @@ import {
   Pen,
   ToolList,
 } from './models';
-import { createFormatter } from './formatter';
+import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
@@ -55,7 +55,7 @@ export const app = async (config: Pen) => {
   const { baseUrl } = getConfig();
   const storage = createStorage();
   const templates = createStorage('__localpen_templates__');
-  const formatter = createFormatter(getConfig());
+  const formatter = getFormatter(getConfig());
   let editors: Editors;
   let penId: string;
   let editorLanguages: EditorLanguages;
@@ -236,6 +236,7 @@ export const app = async (config: Pen) => {
     const baseOptions = {
       baseUrl: config.baseUrl,
       mode: config.mode,
+      readonly: config.readonly,
       editor: config.editor,
       editorType: 'code' as EditorOptions['editorType'],
     };

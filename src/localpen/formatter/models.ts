@@ -1,4 +1,9 @@
-import { Language, Pen } from '../models';
+import { FormatFn, Language, Pen } from '../models';
+
+export interface Formatter {
+  load: (languages: Language[]) => Promise<string>;
+  getFormatFn: (language: Language) => Promise<FormatFn>;
+}
 
 export interface FormatterMessageEvent extends MessageEvent {
   data: FormatterMessage;

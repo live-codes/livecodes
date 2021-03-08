@@ -12,6 +12,7 @@ export const defaultConfig: Pen = {
   emmet: true,
   autoprefixer: false,
   mode: 'full',
+  readonly: false,
   console: '',
   compiled: '',
   allowLangChange: true,

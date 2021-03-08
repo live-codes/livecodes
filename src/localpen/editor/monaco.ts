@@ -5,7 +5,7 @@ import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl } = options;
+  const { container, baseUrl, readonly } = options;
   if (!container) throw new Error('editor container not found');
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
@@ -32,6 +32,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     },
     mouseWheelZoom: true,
     automaticLayout: true,
+    readOnly: readonly,
   };
 
   const codeblockOptions: Options = {
@@ -210,8 +211,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     onContentChanged,
     keyCodes,
     addKeyBinding,
-    format,
     registerFormatter,
+    format,
+    isReadonly: readonly,
     monaco: editor,
   };
 };

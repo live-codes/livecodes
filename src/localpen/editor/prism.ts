@@ -100,8 +100,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     onContentChanged,
     keyCodes,
     addKeyBinding,
-    format,
     registerFormatter,
+    format,
+    isReadonly: true,
     prism: Prism,
   };
 };

@@ -113,6 +113,7 @@ export const createConsole = (
       container,
       language: 'javascript',
       value: '',
+      readonly: false,
       editor: config.editor,
       editorType: 'console',
     };
@@ -233,7 +234,9 @@ export const createConsole = (
   const load = async () => {
     createConsoleElements();
     consoleEmulator = createConsoleEmulator();
-    editor = await createConsoleInput();
+    if (!config.readonly && config.editor !== 'prism') {
+      editor = await createConsoleInput();
+    }
   };
 
   return {

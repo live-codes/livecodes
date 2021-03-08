@@ -16,7 +16,7 @@ import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container } = options;
+  const { container, readonly } = options;
   if (!container) throw new Error('editor container not found');
 
   let language = options.language;
@@ -53,6 +53,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const languageTag = Symbol('language');
   const keyBindingsTag = Symbol('keyBindings');
+  const readOnlyExtension = EditorView.editable.of(false);
 
   const defaultOptions: Extension[] = [
     tagExtension(keyBindingsTag, keymap.of([])),
@@ -61,11 +62,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     tagExtension(languageTag, getLanguageExtension(language)()),
     EditorView.updateListener.of(notifyListeners),
     oneDark,
+    readonly ? readOnlyExtension : [],
   ];
 
-  const codeblockOptions = [EditorView.editable.of(false), ...defaultOptions];
+  const codeblockOptions = [readOnlyExtension, ...defaultOptions];
 
-  const compiledCodeOptions = [EditorView.editable.of(false), ...defaultOptions];
+  const compiledCodeOptions = [readOnlyExtension, ...defaultOptions];
 
   const consoleOptions = [...defaultOptions];
 
@@ -162,8 +164,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     onContentChanged,
     keyCodes,
     addKeyBinding,
-    format,
     registerFormatter,
+    format,
+    isReadonly: readonly,
     codemirror: view,
   };
 };
