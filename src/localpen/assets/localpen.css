@@ -1213,7 +1213,7 @@ i.arrow:after {
   max-height: 100% !important;
   margin: 0 !important;
 }
-
 .prism code {
   overflow: auto;
+  padding-bottom: 1em;
 }
