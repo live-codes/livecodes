@@ -23,10 +23,11 @@ declare const Prism: any;
 Prism.manual = true;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { baseUrl, container } = options;
+  const { baseUrl, container, mode } = options;
   if (!container) throw new Error('editor container not found');
 
   const mapLanguage = (language: Language): string => language;
+  const lineNumbers = mode === 'codeblock' ? false : true;
 
   let value = options.value;
   let language = options.language;
@@ -45,9 +46,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   preElement.appendChild(codeElement);
 
   container.classList.add('prism');
-  preElement.classList.add('line-numbers');
   codeElement.className = 'language-' + mapLanguage(language);
   codeElement.innerHTML = encodeHTML(value).trim();
+
+  if (lineNumbers) {
+    preElement.classList.add('line-numbers');
+  }
+  if (mode === 'codeblock') {
+    preElement.classList.add('codeblock');
+  }
 
   Prism.highlightAllUnder(container);
 

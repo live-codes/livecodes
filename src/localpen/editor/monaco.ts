@@ -75,7 +75,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (!document.head.querySelector('#__localpen__monaco-styles')) {
     const stylesheet = document.createElement('link');
     stylesheet.setAttribute('rel', 'stylesheet');
-    stylesheet.setAttribute('href', `${monacoPath}/monaco.css`);
+    stylesheet.setAttribute('href', `${monacoPath}/monaco-editor.css`);
     stylesheet.id = '__localpen__monaco-styles';
     document.head.appendChild(stylesheet);
   }

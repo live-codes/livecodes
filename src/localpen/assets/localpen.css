@@ -1215,5 +1215,8 @@ i.arrow:after {
 }
 .prism code {
   overflow: auto;
-  padding-bottom: 1em;
+  padding-bottom: 1em !important;
+}
+.prism pre.codeblock {
+  padding: 0.5em !important;
 }
