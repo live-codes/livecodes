@@ -30,8 +30,8 @@ const baseOptions = {
 // Monaco editor
 esbuild.buildSync({
   ...baseOptions,
-  entryPoints: ['vendor_modules/imports/monaco.ts'],
-  outfile: 'src/localpen/vendor/monaco-editor/monaco.js',
+  entryPoints: ['vendor_modules/imports/monaco-editor.ts'],
+  outfile: 'src/localpen/vendor/monaco-editor/monaco-editor.js',
   loader: { '.ttf': 'file' },
 });
 

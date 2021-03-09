@@ -1,6 +1,6 @@
 import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors } from '../models';
 
-export const getCompilers = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
+export const getAllCompilers = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
   languages.reduce((compilers, language) => {
     if (language.compiler && !compilers[language.name]) {
       const baseUrl = config.baseUrl;

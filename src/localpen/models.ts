@@ -9,6 +9,7 @@ export interface Pen {
   emmet: boolean;
   autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
+  readonly: boolean;
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
@@ -20,7 +21,7 @@ export interface Pen {
   scripts: string[];
   cssPreset: CssPresetId;
   modules: Module[];
-  editor: 'monaco' | 'codemirror' | '';
+  editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
 }
 
@@ -195,8 +196,10 @@ export interface CodeEditor {
   };
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => void;
+  isReadonly: boolean;
   monaco?: any;
   codemirror?: any;
+  prism?: any;
 }
 
 export interface EditorOptions {
@@ -205,6 +208,7 @@ export interface EditorOptions {
   language: Language;
   value: string;
   mode?: Pen['mode'];
+  readonly: boolean;
   editor?: Pen['editor'];
   editorType: 'code' | 'compiled' | 'console';
 }

@@ -4,10 +4,15 @@ import { isMobile } from '../utils';
 export const createEditor = async (options: EditorOptions) => {
   if (!options) throw new Error();
 
-  const { baseUrl, editor } = options;
+  const { baseUrl, editor, mode } = options;
 
-  const editorName =
-    editor === 'codemirror' || editor === 'monaco' ? editor : isMobile() ? 'codemirror' : 'monaco';
+  const editorName = ['codemirror', 'monaco', 'prism'].includes(editor || '')
+    ? editor
+    : mode === 'codeblock' || options.readonly
+    ? 'prism'
+    : isMobile()
+    ? 'codemirror'
+    : 'monaco';
   const editorUrl = baseUrl + editorName + '.js';
 
   try {

@@ -16,7 +16,7 @@ import {
   Pen,
   ToolList,
 } from './models';
-import { createFormatter } from './formatter';
+import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
@@ -36,7 +36,7 @@ import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
 import { compress, debounce } from './utils';
-import { createCompiler, importsPattern } from './compiler';
+import { getCompiler, importsPattern } from './compiler';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -55,7 +55,7 @@ export const app = async (config: Pen) => {
   const { baseUrl } = getConfig();
   const storage = createStorage();
   const templates = createStorage('__localpen_templates__');
-  const formatter = createFormatter(getConfig());
+  const formatter = getFormatter(getConfig());
   let editors: Editors;
   let penId: string;
   let editorLanguages: EditorLanguages;
@@ -141,7 +141,10 @@ export const app = async (config: Pen) => {
         'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
 
-      iframe.src = baseUrl + 'assets/result.html';
+      const { mode } = getConfig();
+      if (mode !== 'codeblock' && mode !== 'editor') {
+        iframe.src = baseUrl + 'assets/result.html';
+      }
 
       let loaded = false;
       eventsManager.addEventListener(iframe, 'load', () => {
@@ -160,7 +163,7 @@ export const app = async (config: Pen) => {
     });
   }
 
-  const compiler = createCompiler(getConfig());
+  const compiler = getCompiler(getConfig());
 
   const getTypes = async (module: Module): Promise<EditorLibrary> => {
     let content = '';
@@ -236,6 +239,7 @@ export const app = async (config: Pen) => {
     const baseOptions = {
       baseUrl: config.baseUrl,
       mode: config.mode,
+      readonly: config.readonly,
       editor: config.editor,
       editorType: 'code' as EditorOptions['editorType'],
     };
