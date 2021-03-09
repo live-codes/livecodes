@@ -52,6 +52,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (lineNumbers) {
     preElement.classList.add('line-numbers');
   }
+  if (mode === 'codeblock') {
+    preElement.classList.add('codeblock');
+  }
 
   Prism.highlightAllUnder(container);
 
