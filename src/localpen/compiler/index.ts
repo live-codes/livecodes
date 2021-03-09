@@ -1,2 +1,2 @@
-export * from './create-compiler';
+export * from './get-compiler';
 export * from './replace-imports';

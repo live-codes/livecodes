@@ -1,10 +1,10 @@
 import { getLanguageEditorId, languages, postProcessors } from '../languages';
 import { Language, Pen, Compilers, EditorId } from '../models';
-import { getCompilers } from './get-compilers';
-import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
+import { getAllCompilers } from './get-all-compilers';
+import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
-export const createCompiler = (config: Pen) => {
-  const compilers = getCompilers([...languages, ...postProcessors], config);
+export const createCompiler = (config: Pen): Compiler => {
+  const compilers = getAllCompilers([...languages, ...postProcessors], config);
 
   const worker = new Worker(config.baseUrl + 'compile.worker.js');
   const configMessage: CompilerMessage = { type: 'init', payload: config };

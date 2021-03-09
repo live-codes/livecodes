@@ -1,5 +1,10 @@
 import { Language, Pen, ProcessorName } from '../models';
 
+export interface Compiler {
+  load: (languages: LanguageOrProcessor[], config: Pen) => Promise<unknown[]>;
+  compile: (content: string, language: Language, config: Pen) => Promise<string>;
+}
+
 export type LanguageOrProcessor = Language | ProcessorName;
 
 export interface CompilerMessageEvent extends MessageEvent {

@@ -1,6 +1,6 @@
 import { languages, postProcessors } from '../languages';
 import { Compilers, Pen } from '../models';
-import { getCompilers } from './get-compilers';
+import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 import { replaceImports } from './replace-imports';
 declare const importScripts: (...args: string[]) => void;
@@ -12,7 +12,7 @@ const worker: Worker = self as any;
 
 const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) => {
   if (!compilers) {
-    compilers = getCompilers([...languages, ...postProcessors], config);
+    compilers = getAllCompilers([...languages, ...postProcessors], config);
   }
 
   const languageCompiler = compilers[language];
@@ -92,7 +92,7 @@ worker.addEventListener(
 
     if (message.type === 'init') {
       const config = message.payload;
-      compilers = getCompilers([...languages, ...postProcessors], config);
+      compilers = getAllCompilers([...languages, ...postProcessors], config);
     }
 
     if (message.type === 'load') {
