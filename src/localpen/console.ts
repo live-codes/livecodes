@@ -129,7 +129,7 @@ export const createConsole = (
       });
       iframe.contentWindow?.postMessage({ console: command }, '*');
       commands.push(command);
-      consoleEditor.setValue('');
+      consoleEditor.setValue('', false);
       commandsIndex = -1;
     });
 
