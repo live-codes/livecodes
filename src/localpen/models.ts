@@ -179,7 +179,7 @@ export type ToolList = Array<{
 
 export interface CodeEditor {
   getValue: () => string;
-  setValue: (value?: string) => void;
+  setValue: (value?: string, newState?: boolean) => void;
   getLanguage: () => Language;
   setLanguage: (language: Language) => void;
   focus: () => void;
