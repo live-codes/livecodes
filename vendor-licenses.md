@@ -2,9 +2,13 @@
 
 This is a list of software packages distributed with LocalPen (sorted alphabetically) and links to their licenses:
 
+Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob/9d57b34084966f35d5c542ae4feed4941bf57903/LICENSE)
+
 asciidoctor-skins: [MIT License](https://github.com/darshandsoni/asciidoctor-skins/blob/c98a8ab9b27571e5b63d75912a3c753cc72ed8e4/LICENSE)
 
 Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9a8613b0c90357472d58fdcce26324ef4f/LICENSE)
+
+CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
 
 CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f644c39223e016aceedd2cd71b5941579b5659)
 
@@ -18,6 +22,8 @@ Less: [Apache License 2.0](https://github.com/less/less.js/blob/870f9b2d8136bfbc
 
 luna: [MIT License](https://github.com/liriliri/luna/blob/6696874f52f70f5de5dc4712385d817cb815a4bb/LICENSE)
 
+lz-string: [MIT License](https://github.com/pieroxy/lz-string/blob/b2e0b270a9f3cf330b778b777385fcba384a1a02/LICENSE)
+
 Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb063cd66a210d7c34249cb7dc/LICENSE.md)
 
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
@@ -30,11 +36,15 @@ Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c
 
 Prettier Pug Plugin: [MIT License](https://github.com/prettier/plugin-pug/blob/27ab92b27a062bb187fc33f82b2fad436ec31c25/LICENSE)
 
+PrismJS: [MIT License](https://github.com/PrismJS/prism/blob/f84c49c5eae1aecbbb8bc9249c48136c341b556f/LICENSE)
+
 Pug: [MIT License](https://github.com/pugjs/pug/blob/bb0731f75813aa30d8e077808b5465a67ef284ef/packages/pug/LICENSE)
 
 reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2236cb260016e8f57d532a602b4e58acf6f03/license)
 
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
+
+SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)
 
 Split.js: [MIT License](https://github.com/nathancahill/split/blob/311646253e36db7dc8e7ab0a2ff55b08f15252d5/LICENSE)
 

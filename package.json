@@ -51,6 +51,7 @@
     "@codemirror/theme-one-dark": "0.17.5",
     "@codemirror/view": "0.17.9",
     "@prettier/plugin-pug": "1.13.2",
+    "@snackbar/core": "1.7.0",
     "asciidoctor": "2.2.1",
     "autoprefixer": "10.1.0",
     "emmet-monaco-es": "4.4.2",

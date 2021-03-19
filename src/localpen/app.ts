@@ -60,7 +60,7 @@ export const app = async (config: Pen) => {
   let penId: string;
   let editorLanguages: EditorLanguages;
   let activeEditorId: EditorId;
-  const notifications = createNotifications('#notifications');
+  const notifications = createNotifications();
   const modal = createModal();
   const eventsManager = createEventsManager();
   let isSaved = true;
@@ -534,7 +534,7 @@ export const app = async (config: Pen) => {
       storage.updateItem(penId, getConfig());
     }
     if (notify) {
-      notifications.message('Project saved');
+      notifications.success('Project saved');
     }
     setSavedStatus(true);
   };
@@ -543,7 +543,7 @@ export const app = async (config: Pen) => {
     penId = '';
     loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
     save();
-    notifications.message('Forked as a new project');
+    notifications.success('Forked as a new project');
   };
 
   const share = () => {
@@ -565,7 +565,7 @@ export const app = async (config: Pen) => {
 
     parent.history.pushState(null, '', shareURL);
     copyToClipboard(shareURL);
-    notifications.message('URL copied to clipboard');
+    notifications.info('URL copied to clipboard');
   };
 
   const update = () => {
@@ -1096,7 +1096,7 @@ export const app = async (config: Pen) => {
         (event) => {
           (event as Event).preventDefault();
           templates.addItem(getConfig());
-          notifications.message('Saved as a new template');
+          notifications.success('Saved as a new template');
         },
       );
     };
