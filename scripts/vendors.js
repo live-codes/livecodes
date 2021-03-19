@@ -233,3 +233,10 @@ esbuild.buildSync({
   format: 'iife',
   globalName: 'pluginPug',
 });
+
+// snackbar
+mkdirp(targetDir + '/snackbar');
+fs.copyFileSync(
+  path.resolve(node_modules + '/@snackbar/core/dist/snackbar.min.css'),
+  path.resolve(targetDir + '/snackbar/snackbar.min.css'),
+);
