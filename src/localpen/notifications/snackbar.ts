@@ -16,31 +16,35 @@ export const lightTheme = {
   backgroundColor: '#fff',
 };
 export const infoTheme = {
-  ...darkTheme,
-  backgroundColor: '#17A2B8',
+  textColor: '#055160',
+  actionColor: '#055160',
+  backgroundColor: '#CFF4FC',
 };
 export const successTheme = {
-  ...darkTheme,
-  backgroundColor: '#28A745',
+  textColor: '#0F5132',
+  actionColor: '#0F5132',
+  backgroundColor: '#D1E7DD',
 };
 export const warningTheme = {
-  ...darkTheme,
-  backgroundColor: '#FFC107',
+  textColor: '#664D16',
+  actionColor: '#664D16',
+  backgroundColor: '#FFF3CD',
 };
 export const dangerTheme = {
-  ...darkTheme,
-  backgroundColor: '#DC3545',
+  textColor: '#842040',
+  actionColor: '#842040',
+  backgroundColor: '#F8D7DA',
 };
 
 export const closeButton: Action = {
-  text: '✖',
+  text: '<span title="Dismiss">✖</span>',
   style: actionStyle,
   callback(_button, snackbar) {
     snackbar.destroy();
   },
 };
 export const acceptButton: Action = {
-  text: '✓',
+  text: '<span title="Confirm">✓</span>',
   style: actionStyle,
   callback(_button, snackbar) {
     snackbar.destroy();
