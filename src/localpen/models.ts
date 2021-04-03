@@ -51,7 +51,9 @@ export type Language =
   | 'jsx'
   | 'tsx'
   | 'coffeescript'
-  | 'coffee';
+  | 'coffee'
+  | 'python'
+  | 'py';
 
 export interface Editor {
   language: Language;

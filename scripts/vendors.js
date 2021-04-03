@@ -240,3 +240,14 @@ fs.copyFileSync(
   path.resolve(node_modules + '/@snackbar/core/dist/snackbar.min.css'),
   path.resolve(targetDir + '/snackbar/snackbar.min.css'),
 );
+
+// brython
+mkdirp(targetDir + '/brython');
+fs.copyFileSync(
+  path.resolve(node_modules + '/brython/brython.js'),
+  path.resolve(targetDir + '/brython/brython.js'),
+);
+fs.copyFileSync(
+  path.resolve(node_modules + '/brython/brython_stdlib.js'),
+  path.resolve(targetDir + '/brython/brython_stdlib.js'),
+);

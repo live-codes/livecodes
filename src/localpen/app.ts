@@ -489,6 +489,16 @@ export const app = async (config: Pen) => {
     const markup = await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup'));
     dom.body.innerHTML += markup;
 
+    if (editors.script.getLanguage() === 'python') {
+      const script1 = document.createElement('script');
+      script1.src = config.baseUrl + 'vendor/brython/brython.js';
+      const script2 = document.createElement('script');
+      script2.src = config.baseUrl + 'vendor/brython/brython_stdlib.js';
+      const script3 = document.createElement('script');
+      script3.innerHTML = '__BRYTHON__.meta_path = __BRYTHON__.$meta_path';
+      dom.body.append(script1, script2, script3);
+    }
+
     config.scripts.forEach((url) => {
       const externalScript = dom.createElement('script');
       externalScript.src = url;
@@ -497,7 +507,7 @@ export const app = async (config: Pen) => {
 
     const rawScript = editors.script?.getValue();
     const script = await getCompiled(rawScript, getEditorLanguage('script'));
-    const hasImports = new RegExp(importsPattern).test(rawScript); // typescript compiler removes unused imports
+    const hasImports = new RegExp(importsPattern).test(script); // typescript compiler removes unused imports
     const scriptElement = dom.createElement('script');
     if (hasImports) {
       scriptElement.type = 'module';

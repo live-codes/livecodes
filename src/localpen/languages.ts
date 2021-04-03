@@ -194,6 +194,19 @@ export const languages: LanguageSpecs[] = [
     extensions: ['coffee'],
     editor: 'script',
   },
+  {
+    name: 'python',
+    title: 'Python',
+    longTitle: 'Python',
+    compiler: {
+      url: 'vendor/brython/brython.js',
+      // eslint-disable-next-line no-underscore-dangle
+      factory: () => (window as any).__BRYTHON__.python_to_js,
+      umd: true,
+    },
+    extensions: ['py'],
+    editor: 'script',
+  },
 ];
 
 export const postProcessors: Processors[] = [

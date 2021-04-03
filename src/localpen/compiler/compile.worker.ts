@@ -68,6 +68,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'coffeescript':
       value = compiler(replaceImports(content, config), { bare: true });
       break;
+    case 'python':
+      value = compiler(content);
+      break;
 
     // Post-processors
     case 'autoprefixer':
