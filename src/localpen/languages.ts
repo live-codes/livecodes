@@ -204,6 +204,9 @@ export const languages: LanguageSpecs[] = [
       factory: () => (window as any).__BRYTHON__.python_to_js,
       umd: true,
     },
+    dependencies: {
+      scripts: ['vendor/brython/brython.js', 'vendor/brython/brython_stdlib.js'],
+    },
     extensions: ['py'],
     editor: 'script',
   },
@@ -263,3 +266,6 @@ export const getLanguageEditorId = (alias: Language): EditorId | undefined =>
 
 export const getLanguageExtension = (alias: string): Language | undefined =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias))?.extensions[0];
+
+export const getLanguageSpecs = (alias: string) =>
+  languages.find((lang) => lang.name === getLanguageByAlias(alias));

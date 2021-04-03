@@ -69,7 +69,7 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       value = compiler(replaceImports(content, config), { bare: true });
       break;
     case 'python':
-      value = compiler(content);
+      value = content;
       break;
 
     // Post-processors

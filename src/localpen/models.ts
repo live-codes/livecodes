@@ -87,6 +87,10 @@ export interface LanguageSpecs {
   longTitle?: string;
   parser?: Parser;
   compiler?: Compiler | Language;
+  dependencies?: {
+    scripts?: string[];
+    styles?: string[];
+  };
   extensions: Language[];
   editor: EditorId;
   preset?: CssPresetId;

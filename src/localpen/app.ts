@@ -1,7 +1,13 @@
 import Split from 'split.js';
 
 import { createEditor } from './editor';
-import { languages, getLanguageByAlias, getLanguageEditorId, cssPresets } from './languages';
+import {
+  languages,
+  getLanguageByAlias,
+  getLanguageEditorId,
+  cssPresets,
+  getLanguageSpecs,
+} from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
@@ -35,7 +41,7 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
-import { compress, debounce } from './utils';
+import { compress, debounce, isRelativeUrl } from './utils';
 import { getCompiler, importsPattern } from './compiler';
 
 export const app = async (config: Pen) => {
@@ -489,15 +495,24 @@ export const app = async (config: Pen) => {
     const markup = await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup'));
     dom.body.innerHTML += markup;
 
-    if (editors.script.getLanguage() === 'python') {
-      const script1 = document.createElement('script');
-      script1.src = config.baseUrl + 'vendor/brython/brython.js';
-      const script2 = document.createElement('script');
-      script2.src = config.baseUrl + 'vendor/brython/brython_stdlib.js';
-      const script3 = document.createElement('script');
-      script3.innerHTML = '__BRYTHON__.meta_path = __BRYTHON__.$meta_path';
-      dom.body.append(script1, script2, script3);
-    }
+    const languages = [
+      getLanguageSpecs(config.markup.language),
+      getLanguageSpecs(config.style.language),
+      getLanguageSpecs(config.script.language),
+    ];
+    languages.forEach((lang) => {
+      lang?.dependencies?.styles?.forEach((depStyleUrl) => {
+        const stylesheet = dom.createElement('link');
+        stylesheet.rel = 'stylesheet';
+        stylesheet.href = isRelativeUrl(depStyleUrl) ? baseUrl + depStyleUrl : depStyleUrl;
+        dom.head.appendChild(stylesheet);
+      });
+      lang?.dependencies?.scripts?.forEach((depScriptUrl) => {
+        const depScript = dom.createElement('script');
+        depScript.src = isRelativeUrl(depScriptUrl) ? baseUrl + depScriptUrl : depScriptUrl;
+        dom.body.appendChild(depScript);
+      });
+    });
 
     config.scripts.forEach((url) => {
       const externalScript = dom.createElement('script');
@@ -507,13 +522,19 @@ export const app = async (config: Pen) => {
 
     const rawScript = editors.script?.getValue();
     const script = await getCompiled(rawScript, getEditorLanguage('script'));
-    const hasImports = new RegExp(importsPattern).test(script); // typescript compiler removes unused imports
+    const hasImports = new RegExp(importsPattern).test(script);
     const scriptElement = dom.createElement('script');
-    if (hasImports) {
-      scriptElement.type = 'module';
-    }
     scriptElement.innerHTML = script;
     dom.body.appendChild(scriptElement);
+
+    if (hasImports) {
+      scriptElement.type = 'module';
+    } else if (editors.script.getLanguage() === 'python') {
+      scriptElement.type = 'text/python';
+      const onloadScript = document.createElement('script');
+      onloadScript.innerHTML = 'window.addEventListener("load", () => brython({indexedDB: false}))';
+      dom.body.appendChild(onloadScript);
+    }
 
     lastCompiled = { markup, style, script };
 

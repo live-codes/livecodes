@@ -110,3 +110,5 @@ export const isMobile = () => {
   })(navigator.userAgent || navigator.vendor || (window as any).opera);
   return check;
 };
+
+export const isRelativeUrl = (url: string) => !url.startsWith('http') && !url.startsWith('/');
