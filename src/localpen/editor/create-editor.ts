@@ -8,7 +8,7 @@ export const createEditor = async (options: EditorOptions) => {
 
   const editorName = ['codemirror', 'monaco', 'prism'].includes(editor || '')
     ? editor
-    : mode === 'codeblock' || options.readonly
+    : mode === 'codeblock'
     ? 'prism'
     : isMobile()
     ? 'codemirror'
