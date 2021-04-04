@@ -87,10 +87,6 @@ export interface LanguageSpecs {
   longTitle?: string;
   parser?: Parser;
   compiler?: Compiler | Language;
-  dependencies?: {
-    scripts?: string[];
-    styles?: string[];
-  };
   extensions: Language[];
   editor: EditorId;
   preset?: CssPresetId;
@@ -146,6 +142,10 @@ export interface Compiler {
   factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
+  scripts?: string[];
+  styles?: string[];
+  onload?: string;
+  scriptType?: 'text/python';
 }
 
 export interface Compilers {

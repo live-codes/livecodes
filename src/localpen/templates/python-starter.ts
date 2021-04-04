@@ -50,7 +50,7 @@ document["counter-button"].bind("click", increment)
 currentTime = int(time.strftime('%H'))
 if currentTime < 12 :
       print('Good morning')
-elif 12 <= currentTime.hour < 18:
+elif 12 <= currentTime < 18:
       print('Good afternoon')
 else:
       print('Good evening')

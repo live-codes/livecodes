@@ -1,4 +1,4 @@
-import { CssPreset, EditorId, Language, LanguageSpecs, Pen, Processors } from './models';
+import { Compiler, CssPreset, EditorId, Language, LanguageSpecs, Pen, Processors } from './models';
 
 const parserPlugins = {
   babel: 'vendor/prettier/parser-babel.js',
@@ -198,8 +198,12 @@ export const languages: LanguageSpecs[] = [
     name: 'python',
     title: 'Python',
     longTitle: 'Python',
-    dependencies: {
+    compiler: {
+      url: 'vendor/brython/brython.js',
+      factory: () => (code) => code,
       scripts: ['vendor/brython/brython.js', 'vendor/brython/brython_stdlib.js'],
+      onload: '() => brython({ indexedDB: false })',
+      scriptType: 'text/python',
     },
     extensions: ['py'],
     editor: 'script',
@@ -263,3 +267,12 @@ export const getLanguageExtension = (alias: string): Language | undefined =>
 
 export const getLanguageSpecs = (alias: string) =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias));
+
+export const getLanguageCompiler = (alias: string): Compiler | undefined => {
+  const LanguageSpecs = getLanguageSpecs(alias);
+  let compiler = LanguageSpecs?.compiler;
+  if (typeof compiler === 'string') {
+    compiler = getLanguageCompiler(compiler);
+  }
+  return compiler;
+};

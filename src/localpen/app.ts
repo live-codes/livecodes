@@ -6,7 +6,7 @@ import {
   getLanguageByAlias,
   getLanguageEditorId,
   cssPresets,
-  getLanguageSpecs,
+  getLanguageCompiler,
 } from './languages';
 import { createStorage } from './storage';
 import {
@@ -501,23 +501,29 @@ export const app = async (config: Pen) => {
     dom.body.innerHTML += markup;
 
     // dependencies (styles & scripts)
-    [
-      getLanguageSpecs(getEditorLanguage('markup')),
-      getLanguageSpecs(getEditorLanguage('style')),
-      getLanguageSpecs(getEditorLanguage('script')),
-    ].forEach((lang) => {
-      lang?.dependencies?.styles?.forEach((depStyleUrl) => {
-        const stylesheet = dom.createElement('link');
-        stylesheet.rel = 'stylesheet';
-        stylesheet.href = isRelativeUrl(depStyleUrl) ? baseUrl + depStyleUrl : depStyleUrl;
-        dom.head.appendChild(stylesheet);
-      });
-      lang?.dependencies?.scripts?.forEach((depScriptUrl) => {
-        const depScript = dom.createElement('script');
-        depScript.src = isRelativeUrl(depScriptUrl) ? baseUrl + depScriptUrl : depScriptUrl;
-        dom.body.appendChild(depScript);
-      });
-    });
+    [getEditorLanguage('markup'), getEditorLanguage('style'), getEditorLanguage('script')].forEach(
+      (language) => {
+        const compiler = getLanguageCompiler(language);
+        if (!compiler) return;
+
+        compiler.styles?.forEach((depStyleUrl) => {
+          const stylesheet = dom.createElement('link');
+          stylesheet.rel = 'stylesheet';
+          stylesheet.href = isRelativeUrl(depStyleUrl) ? baseUrl + depStyleUrl : depStyleUrl;
+          dom.head.appendChild(stylesheet);
+        });
+        compiler.scripts?.forEach((depScriptUrl) => {
+          const depScript = dom.createElement('script');
+          depScript.src = isRelativeUrl(depScriptUrl) ? baseUrl + depScriptUrl : depScriptUrl;
+          dom.body.appendChild(depScript);
+        });
+        if (compiler.onload) {
+          const onloadScript = document.createElement('script');
+          onloadScript.innerHTML = `window.addEventListener("load", ${compiler.onload})`;
+          dom.body.appendChild(onloadScript);
+        }
+      },
+    );
 
     // external scripts
     config.scripts.forEach((url) => {
@@ -539,9 +545,6 @@ export const app = async (config: Pen) => {
       scriptElement.type = 'module';
     } else if (editors.script.getLanguage() === 'python') {
       scriptElement.type = 'text/python';
-      const onloadScript = document.createElement('script');
-      onloadScript.innerHTML = 'window.addEventListener("load", () => brython({indexedDB: false}))';
-      dom.body.appendChild(onloadScript);
     }
 
     // cache compiled code
