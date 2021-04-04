@@ -457,8 +457,10 @@ export const app = async (config: Pen) => {
     const domParser = new DOMParser();
     const dom = domParser.parseFromString(template, 'text/html');
 
+    // title
     dom.title = config.title;
 
+    // CSS Preset
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
       const cssPreset = dom.createElement('link');
@@ -468,6 +470,7 @@ export const app = async (config: Pen) => {
       dom.head.appendChild(cssPreset);
     }
 
+    // external stylesheets
     config.stylesheets.forEach((url, index) => {
       const stylesheet = dom.createElement('link');
       stylesheet.rel = 'stylesheet';
@@ -484,6 +487,7 @@ export const app = async (config: Pen) => {
       dom.body.classList.add('markdown-body');
     }
 
+    // if export => clean, else => add utils
     if (forExport) {
       dom.body.innerHTML = '';
     } else {
@@ -492,15 +496,16 @@ export const app = async (config: Pen) => {
       dom.body.appendChild(utilsScript);
     }
 
+    // markup
     const markup = await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup'));
     dom.body.innerHTML += markup;
 
-    const languages = [
-      getLanguageSpecs(config.markup.language),
-      getLanguageSpecs(config.style.language),
-      getLanguageSpecs(config.script.language),
-    ];
-    languages.forEach((lang) => {
+    // dependencies (styles & scripts)
+    [
+      getLanguageSpecs(getEditorLanguage('markup')),
+      getLanguageSpecs(getEditorLanguage('style')),
+      getLanguageSpecs(getEditorLanguage('script')),
+    ].forEach((lang) => {
       lang?.dependencies?.styles?.forEach((depStyleUrl) => {
         const stylesheet = dom.createElement('link');
         stylesheet.rel = 'stylesheet';
@@ -514,12 +519,14 @@ export const app = async (config: Pen) => {
       });
     });
 
+    // external scripts
     config.scripts.forEach((url) => {
       const externalScript = dom.createElement('script');
       externalScript.src = url;
       dom.body.appendChild(externalScript);
     });
 
+    // script
     const rawScript = editors.script?.getValue();
     const script = await getCompiled(rawScript, getEditorLanguage('script'));
     const hasImports = new RegExp(importsPattern).test(script);
@@ -527,6 +534,7 @@ export const app = async (config: Pen) => {
     scriptElement.innerHTML = script;
     dom.body.appendChild(scriptElement);
 
+    // script type
     if (hasImports) {
       scriptElement.type = 'module';
     } else if (editors.script.getLanguage() === 'python') {
@@ -536,6 +544,7 @@ export const app = async (config: Pen) => {
       dom.body.appendChild(onloadScript);
     }
 
+    // cache compiled code
     lastCompiled = { markup, style, script };
 
     return dom.documentElement.outerHTML;
