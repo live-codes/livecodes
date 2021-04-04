@@ -111,4 +111,6 @@ export const isMobile = () => {
   return check;
 };
 
-export const isRelativeUrl = (url: string) => !url.startsWith('http') && !url.startsWith('/');
+export const isRelativeUrl = (url: string) => !url.startsWith('http');
+
+export const getAbsoluteUrl = (baseUrl: string) => new URL(baseUrl, document.baseURI).href;

@@ -41,7 +41,7 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
-import { compress, debounce, isRelativeUrl } from './utils';
+import { compress, debounce, getAbsoluteUrl, isRelativeUrl } from './utils';
 import { getCompiler, importsPattern } from './compiler';
 
 export const app = async (config: Pen) => {
@@ -450,6 +450,7 @@ export const app = async (config: Pen) => {
     template: string = resultTemplate,
   ) => {
     const config = getConfig();
+    const absoluteBaseUrl = getAbsoluteUrl(config.baseUrl);
 
     const getCompiled = (content: string, language: Language) =>
       compiler.compile(content, language, config);
@@ -466,7 +467,7 @@ export const app = async (config: Pen) => {
       const cssPreset = dom.createElement('link');
       cssPreset.rel = 'stylesheet';
       cssPreset.id = '__localpen__css-preset';
-      cssPreset.href = config.baseUrl + presetUrl;
+      cssPreset.href = absoluteBaseUrl + presetUrl;
       dom.head.appendChild(cssPreset);
     }
 
@@ -492,7 +493,7 @@ export const app = async (config: Pen) => {
       dom.body.innerHTML = '';
     } else {
       const utilsScript = dom.createElement('script');
-      utilsScript.src = config.baseUrl + 'assets/scripts/utils.js';
+      utilsScript.src = absoluteBaseUrl + 'assets/scripts/utils.js';
       dom.body.appendChild(utilsScript);
     }
 
@@ -509,12 +510,16 @@ export const app = async (config: Pen) => {
         compiler.styles?.forEach((depStyleUrl) => {
           const stylesheet = dom.createElement('link');
           stylesheet.rel = 'stylesheet';
-          stylesheet.href = isRelativeUrl(depStyleUrl) ? baseUrl + depStyleUrl : depStyleUrl;
+          stylesheet.href = isRelativeUrl(depStyleUrl)
+            ? absoluteBaseUrl + depStyleUrl
+            : depStyleUrl;
           dom.head.appendChild(stylesheet);
         });
         compiler.scripts?.forEach((depScriptUrl) => {
           const depScript = dom.createElement('script');
-          depScript.src = isRelativeUrl(depScriptUrl) ? baseUrl + depScriptUrl : depScriptUrl;
+          depScript.src = isRelativeUrl(depScriptUrl)
+            ? absoluteBaseUrl + depScriptUrl
+            : depScriptUrl;
           dom.body.appendChild(depScript);
         });
         if (compiler.onload) {
