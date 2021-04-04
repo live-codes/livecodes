@@ -244,10 +244,10 @@ fs.copyFileSync(
 // brython
 mkdirp(targetDir + '/brython');
 fs.copyFileSync(
-  path.resolve(node_modules + '/brython/brython.js'),
-  path.resolve(targetDir + '/brython/brython.js'),
+  path.resolve(vendor_modules + '/brython/brython.min.js'),
+  path.resolve(targetDir + '/brython/brython.min.js'),
 );
 fs.copyFileSync(
-  path.resolve(node_modules + '/brython/brython_stdlib.js'),
+  path.resolve(vendor_modules + '/brython/brython_stdlib.js'),
   path.resolve(targetDir + '/brython/brython_stdlib.js'),
 );

@@ -199,9 +199,9 @@ export const languages: LanguageSpecs[] = [
     title: 'Python',
     longTitle: 'Python',
     compiler: {
-      url: 'vendor/brython/brython.js',
+      url: 'vendor/brython/brython.min.js',
       factory: () => (code) => code,
-      scripts: ['vendor/brython/brython.js', 'vendor/brython/brython_stdlib.js'],
+      scripts: ['vendor/brython/brython.min.js', 'vendor/brython/brython_stdlib.js'],
       onload: '() => brython({ indexedDB: false })',
       scriptType: 'text/python',
     },

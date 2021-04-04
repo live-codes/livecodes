@@ -55,7 +55,6 @@
     "@snackbar/core": "1.7.0",
     "asciidoctor": "2.2.1",
     "autoprefixer": "10.1.0",
-    "brython": "3.9.1",
     "emmet-monaco-es": "4.4.2",
     "github-markdown-css": "4.0.0",
     "less": "4.0.0",
