@@ -42,7 +42,6 @@ export const createCompiledCodeViewer = (
     if (editor) return editor;
 
     const language = editors.script.getLanguage() === 'python' ? 'python' : 'javascript';
-    console.log(language);
     const editorOptions: EditorOptions = {
       baseUrl: config.baseUrl,
       container: compiledCodeElement,

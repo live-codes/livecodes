@@ -198,12 +198,6 @@ export const languages: LanguageSpecs[] = [
     name: 'python',
     title: 'Python',
     longTitle: 'Python',
-    compiler: {
-      url: 'vendor/brython/brython.js',
-      // eslint-disable-next-line no-underscore-dangle
-      factory: () => (window as any).__BRYTHON__.python_to_js,
-      umd: true,
-    },
     dependencies: {
       scripts: ['vendor/brython/brython.js', 'vendor/brython/brython_stdlib.js'],
     },
