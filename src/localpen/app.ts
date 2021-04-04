@@ -546,10 +546,11 @@ export const app = async (config: Pen) => {
     dom.body.appendChild(scriptElement);
 
     // script type
-    if (hasImports) {
+    const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
+    if (scriptType) {
+      scriptElement.type = scriptType;
+    } else if (hasImports) {
       scriptElement.type = 'module';
-    } else if (editors.script.getLanguage() === 'python') {
-      scriptElement.type = 'text/python';
     }
 
     // cache compiled code
