@@ -15,14 +15,18 @@ export const createEditor = async (options: EditorOptions) => {
     : 'monaco';
   const editorUrl = baseUrl + editorName + '.js';
 
+  let editorModule = (window as any)[editorUrl];
+  if (!editorModule) {
+    editorModule = await import(editorUrl);
+    (window as any)[editorUrl] = editorModule;
+  }
   try {
-    const createCodeEditor: (options: EditorOptions) => Promise<CodeEditor> = (
-      await import(editorUrl)
-    ).createEditor;
+    const createCodeEditor: (options: EditorOptions) => Promise<CodeEditor> =
+      editorModule.createEditor;
 
     const codeEditor = await createCodeEditor(options);
     return codeEditor;
-  } catch {
+  } catch (err) {
     throw new Error('Failed loading code editor');
   }
 };
