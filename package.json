@@ -44,6 +44,7 @@
     "@codemirror/lang-html": "0.17.1",
     "@codemirror/lang-javascript": "0.17.1",
     "@codemirror/lang-markdown": "0.17.2",
+    "@codemirror/lang-python": "0.17.1",
     "@codemirror/language": "0.17.4",
     "@codemirror/legacy-modes": "0.17.1",
     "@codemirror/state": "0.17.2",

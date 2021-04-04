@@ -1,7 +1,13 @@
 import Split from 'split.js';
 
 import { createEditor } from './editor';
-import { languages, getLanguageByAlias, getLanguageEditorId, cssPresets } from './languages';
+import {
+  languages,
+  getLanguageByAlias,
+  getLanguageEditorId,
+  cssPresets,
+  getLanguageCompiler,
+} from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
@@ -35,7 +41,7 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
-import { compress, debounce } from './utils';
+import { compress, debounce, getAbsoluteUrl, isRelativeUrl } from './utils';
 import { getCompiler, importsPattern } from './compiler';
 
 export const app = async (config: Pen) => {
@@ -428,7 +434,7 @@ export const app = async (config: Pen) => {
     const compiledLanguages: { [key in EditorId]: Language } = {
       markup: 'html',
       style: 'css',
-      script: 'javascript',
+      script: editors.script.getLanguage() === 'python' ? 'python' : 'javascript',
     };
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {
@@ -444,6 +450,7 @@ export const app = async (config: Pen) => {
     template: string = resultTemplate,
   ) => {
     const config = getConfig();
+    const absoluteBaseUrl = getAbsoluteUrl(config.baseUrl);
 
     const getCompiled = (content: string, language: Language) =>
       compiler.compile(content, language, config);
@@ -451,17 +458,20 @@ export const app = async (config: Pen) => {
     const domParser = new DOMParser();
     const dom = domParser.parseFromString(template, 'text/html');
 
+    // title
     dom.title = config.title;
 
+    // CSS Preset
     if (config.cssPreset) {
       const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
       const cssPreset = dom.createElement('link');
       cssPreset.rel = 'stylesheet';
       cssPreset.id = '__localpen__css-preset';
-      cssPreset.href = config.baseUrl + presetUrl;
+      cssPreset.href = absoluteBaseUrl + presetUrl;
       dom.head.appendChild(cssPreset);
     }
 
+    // external stylesheets
     config.stylesheets.forEach((url, index) => {
       const stylesheet = dom.createElement('link');
       stylesheet.rel = 'stylesheet';
@@ -478,33 +488,72 @@ export const app = async (config: Pen) => {
       dom.body.classList.add('markdown-body');
     }
 
+    // if export => clean, else => add utils
     if (forExport) {
       dom.body.innerHTML = '';
     } else {
       const utilsScript = dom.createElement('script');
-      utilsScript.src = config.baseUrl + 'assets/scripts/utils.js';
+      utilsScript.src = absoluteBaseUrl + 'assets/scripts/utils.js';
       dom.body.appendChild(utilsScript);
     }
 
+    // markup
     const markup = await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup'));
     dom.body.innerHTML += markup;
 
+    // dependencies (styles & scripts)
+    [getEditorLanguage('markup'), getEditorLanguage('style'), getEditorLanguage('script')].forEach(
+      (language) => {
+        const compiler = getLanguageCompiler(language);
+        if (!compiler) return;
+
+        compiler.styles?.forEach((depStyleUrl) => {
+          const stylesheet = dom.createElement('link');
+          stylesheet.rel = 'stylesheet';
+          stylesheet.href = isRelativeUrl(depStyleUrl)
+            ? absoluteBaseUrl + depStyleUrl
+            : depStyleUrl;
+          dom.head.appendChild(stylesheet);
+        });
+        compiler.scripts?.forEach((depScriptUrl) => {
+          const depScript = dom.createElement('script');
+          depScript.src = isRelativeUrl(depScriptUrl)
+            ? absoluteBaseUrl + depScriptUrl
+            : depScriptUrl;
+          dom.body.appendChild(depScript);
+        });
+        if (compiler.onload) {
+          const onloadScript = document.createElement('script');
+          onloadScript.innerHTML = `window.addEventListener("load", ${compiler.onload})`;
+          dom.body.appendChild(onloadScript);
+        }
+      },
+    );
+
+    // external scripts
     config.scripts.forEach((url) => {
       const externalScript = dom.createElement('script');
       externalScript.src = url;
       dom.body.appendChild(externalScript);
     });
 
+    // script
     const rawScript = editors.script?.getValue();
     const script = await getCompiled(rawScript, getEditorLanguage('script'));
-    const hasImports = new RegExp(importsPattern).test(rawScript); // typescript compiler removes unused imports
+    const hasImports = new RegExp(importsPattern).test(script);
     const scriptElement = dom.createElement('script');
-    if (hasImports) {
-      scriptElement.type = 'module';
-    }
     scriptElement.innerHTML = script;
     dom.body.appendChild(scriptElement);
 
+    // script type
+    const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
+    if (scriptType) {
+      scriptElement.type = scriptType;
+    } else if (hasImports) {
+      scriptElement.type = 'module';
+    }
+
+    // cache compiled code
     lastCompiled = { markup, style, script };
 
     return dom.documentElement.outerHTML;

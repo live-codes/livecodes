@@ -8,6 +8,8 @@ asciidoctor-skins: [MIT License](https://github.com/darshandsoni/asciidoctor-ski
 
 Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9a8613b0c90357472d58fdcce26324ef4f/LICENSE)
 
+Brython: [BSD-3-Clause License](https://github.com/brython-dev/brython/blob/2600ff4dd0702e194aba1633613beadac98dfc8c/LICENCE.txt)
+
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
 
 CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f644c39223e016aceedd2cd71b5941579b5659)

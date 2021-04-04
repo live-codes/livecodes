@@ -51,7 +51,9 @@ export type Language =
   | 'jsx'
   | 'tsx'
   | 'coffeescript'
-  | 'coffee';
+  | 'coffee'
+  | 'python'
+  | 'py';
 
 export interface Editor {
   language: Language;
@@ -140,6 +142,10 @@ export interface Compiler {
   factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
+  scripts?: string[];
+  styles?: string[];
+  onload?: string;
+  scriptType?: 'text/python';
 }
 
 export interface Compilers {

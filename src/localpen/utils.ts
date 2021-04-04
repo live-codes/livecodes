@@ -110,3 +110,7 @@ export const isMobile = () => {
   })(navigator.userAgent || navigator.vendor || (window as any).opera);
   return check;
 };
+
+export const isRelativeUrl = (url: string) => !url.startsWith('http');
+
+export const getAbsoluteUrl = (baseUrl: string) => new URL(baseUrl, document.baseURI).href;
