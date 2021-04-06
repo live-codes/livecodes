@@ -251,3 +251,22 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/brython/brython_stdlib.js'),
   path.resolve(targetDir + '/brython/brython_stdlib.js'),
 );
+
+// opal
+mkdirp(targetDir + '/opal');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/opal/opal.min.js'),
+  path.resolve(targetDir + '/opal/opal.min.js'),
+);
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/opal/native.min.js'),
+  path.resolve(targetDir + '/opal/native.min.js'),
+);
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/opal/opal-parser.min.js'),
+  path.resolve(targetDir + '/opal/opal-parser.min.js'),
+);
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/opal/opal-init.js'),
+  path.resolve(targetDir + '/opal/opal-init.js'),
+);

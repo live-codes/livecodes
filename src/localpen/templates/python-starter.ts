@@ -47,10 +47,10 @@ def increment(ev):
 document["counter-button"].bind("click", increment)
 
 # check console
-currentTime = int(time.strftime('%H'))
-if currentTime < 12 :
+current_time = int(time.strftime('%H'))
+if current_time < 12 :
       print('Good morning')
-elif 12 <= currentTime < 18:
+elif 12 <= current_time < 18:
       print('Good afternoon')
 else:
       print('Good evening')

@@ -32,6 +32,8 @@ Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f84
 
 normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md)
 
+Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf7db03b099b5129/LICENSE)
+
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
@@ -51,6 +53,8 @@ SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a
 Split.js: [MIT License](https://github.com/nathancahill/split/blob/311646253e36db7dc8e7ab0a2ff55b08f15252d5/LICENSE)
 
 Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/LICENSE)
+
+SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
 

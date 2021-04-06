@@ -53,7 +53,9 @@ export type Language =
   | 'coffeescript'
   | 'coffee'
   | 'python'
-  | 'py';
+  | 'py'
+  | 'ruby'
+  | 'rb';
 
 export interface Editor {
   language: Language;
@@ -145,7 +147,7 @@ export interface Compiler {
   scripts?: string[];
   styles?: string[];
   onload?: string;
-  scriptType?: 'text/python';
+  scriptType?: 'text/python' | 'text/ruby';
 }
 
 export interface Compilers {

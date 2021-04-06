@@ -71,6 +71,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'python':
       value = content;
       break;
+    case 'ruby':
+      value = content;
+      break;
 
     // Post-processors
     case 'autoprefixer':
