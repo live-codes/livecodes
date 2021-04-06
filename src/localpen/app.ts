@@ -431,10 +431,11 @@ export const app = async (config: Pen) => {
   };
 
   const updateCompiledCode = () => {
+    const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
     const compiledLanguages: { [key in EditorId]: Language } = {
       markup: 'html',
       style: 'css',
-      script: editors.script.getLanguage() === 'python' ? 'python' : 'javascript',
+      script: scriptType ? editors.script.getLanguage() : 'javascript',
     };
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {

@@ -5,7 +5,7 @@ import { Editors, Pen, Tool, CodeEditor, EditorOptions } from './models';
 
 export const createCompiledCodeViewer = (
   config: Pen,
-  editors: Editors,
+  _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,
 ): Tool => {
   let compiledCodeElement: HTMLElement;
@@ -41,11 +41,10 @@ export const createCompiledCodeViewer = (
   const createCompiledEditor = () => {
     if (editor) return editor;
 
-    const language = editors.script.getLanguage() === 'python' ? 'python' : 'javascript';
     const editorOptions: EditorOptions = {
       baseUrl: config.baseUrl,
       container: compiledCodeElement,
-      language,
+      language: 'javascript',
       value: '',
       readonly: true,
       editor: config.editor,

@@ -12,6 +12,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
+import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
@@ -36,6 +37,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tsx: () => javascript({ jsx: true, typescript: true }),
       python,
       coffeescript: () => legacy(coffeeScript),
+      ruby: () => legacy(ruby),
       less: () => legacy(less),
       scss: () => legacy(sCSS),
     };
