@@ -266,7 +266,3 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/opal/opal-parser.min.js'),
   path.resolve(targetDir + '/opal/opal-parser.min.js'),
 );
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/opal/opal-init.js'),
-  path.resolve(targetDir + '/opal/opal-init.js'),
-);

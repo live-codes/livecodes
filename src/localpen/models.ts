@@ -144,9 +144,9 @@ export interface Compiler {
   factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
-  scripts?: string[];
   styles?: string[];
-  onload?: string;
+  scripts?: string[];
+  inlineScript?: string;
   scriptType?: 'text/python' | 'text/ruby';
 }
 

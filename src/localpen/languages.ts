@@ -202,7 +202,7 @@ export const languages: LanguageSpecs[] = [
       url: 'vendor/brython/brython.min.js',
       factory: () => (code) => code,
       scripts: ['vendor/brython/brython.min.js', 'vendor/brython/brython_stdlib.js'],
-      onload: '() => {brython({ indexedDB: false })}',
+      inlineScript: `window.addEventListener("load", () => {brython({ indexedDB: false })})`,
       scriptType: 'text/python',
     },
     extensions: ['py'],
@@ -220,8 +220,12 @@ export const languages: LanguageSpecs[] = [
         'vendor/opal/opal.min.js',
         'vendor/opal/native.min.js',
         'vendor/opal/opal-parser.min.js',
-        'vendor/opal/opal-init.js',
       ],
+      inlineScript: `
+        Opal.config.unsupported_features_severity = 'ignore';
+        Opal.load('opal-parser');
+        Opal.load('native');
+      `,
       scriptType: 'text/ruby',
     },
     extensions: ['rb'],

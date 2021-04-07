@@ -523,10 +523,10 @@ export const app = async (config: Pen) => {
             : depScriptUrl;
           dom.body.appendChild(depScript);
         });
-        if (compiler.onload) {
-          const onloadScript = document.createElement('script');
-          onloadScript.innerHTML = `window.addEventListener("load", ${compiler.onload})`;
-          dom.body.appendChild(onloadScript);
+        if (compiler.inlineScript) {
+          const inlineScript = document.createElement('script');
+          inlineScript.innerHTML = compiler.inlineScript;
+          dom.body.appendChild(inlineScript);
         }
       },
     );
