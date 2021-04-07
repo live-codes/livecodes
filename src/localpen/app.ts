@@ -431,10 +431,11 @@ export const app = async (config: Pen) => {
   };
 
   const updateCompiledCode = () => {
+    const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
     const compiledLanguages: { [key in EditorId]: Language } = {
       markup: 'html',
       style: 'css',
-      script: editors.script.getLanguage() === 'python' ? 'python' : 'javascript',
+      script: scriptType ? editors.script.getLanguage() : 'javascript',
     };
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {
@@ -522,10 +523,10 @@ export const app = async (config: Pen) => {
             : depScriptUrl;
           dom.body.appendChild(depScript);
         });
-        if (compiler.onload) {
-          const onloadScript = document.createElement('script');
-          onloadScript.innerHTML = `window.addEventListener("load", ${compiler.onload})`;
-          dom.body.appendChild(onloadScript);
+        if (compiler.inlineScript) {
+          const inlineScript = document.createElement('script');
+          inlineScript.innerHTML = compiler.inlineScript;
+          dom.body.appendChild(inlineScript);
         }
       },
     );

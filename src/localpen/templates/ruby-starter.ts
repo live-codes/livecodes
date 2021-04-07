@@ -1,0 +1,62 @@
+import { Template } from '../models';
+
+export const rubyStarter: Template = {
+  title: 'Ruby Starter',
+  thumbnail: 'assets/templates/ruby.svg',
+  language: 'ruby',
+  markup: {
+    language: 'html',
+    content: `
+<div id="root">
+  <h1>Hello, <span id="title">World</span>!</h1>
+  <img src="/localpen/assets/templates/ruby.svg" class="logo" />
+  <p id="counter">You clicked 0 times.</p>
+  <button id="counter-button">Click me</button>
+</div>
+`.trimStart(),
+  },
+  style: {
+    language: 'css',
+    content: `
+#root,
+#root button {
+  text-align: center;
+  font: 1em sans-serif;
+}
+.logo {
+  width: 150px;
+}
+`.trimStart(),
+  },
+  script: {
+    language: 'ruby',
+    content: `
+title = 'Ruby'
+$$.document.querySelector('#title').innerHTML = title
+
+$counter = 0
+$counter_element = $$.document.querySelector('#counter')
+
+def increment
+    $counter += 1
+    $counter_element.innerHTML = "You clicked %d times." % [$counter]
+end
+
+$$.document.querySelector('button').onclick = -> {increment()}
+
+# check console
+current_time = Time.now.hour
+if current_time < 12
+    puts "Good morning"
+elsif 12 <= current_time and current_time < 18
+    puts "Good afternoon"
+else
+    puts "Good evening"
+end
+`.trimStart(),
+  },
+  stylesheets: [],
+  scripts: [],
+  cssPreset: '',
+  modules: [],
+};

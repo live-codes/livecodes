@@ -7,6 +7,7 @@ import { preactStarter } from './preact-starter';
 import { pythonStarter } from './python-starter';
 import { reactStarter } from './react-starter';
 import { readmeTemplate } from './readme-template';
+import { rubyStarter } from './ruby-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
 import { vueStarter } from './vue-starter';
@@ -23,5 +24,6 @@ export const starterTemplates = [
   tailwindcssStarter,
   d3Starter,
   pythonStarter,
+  rubyStarter,
   readmeTemplate,
 ];

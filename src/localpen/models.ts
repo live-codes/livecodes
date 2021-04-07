@@ -53,7 +53,9 @@ export type Language =
   | 'coffeescript'
   | 'coffee'
   | 'python'
-  | 'py';
+  | 'py'
+  | 'ruby'
+  | 'rb';
 
 export interface Editor {
   language: Language;
@@ -142,10 +144,10 @@ export interface Compiler {
   factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
-  scripts?: string[];
   styles?: string[];
-  onload?: string;
-  scriptType?: 'text/python';
+  scripts?: string[];
+  inlineScript?: string;
+  scriptType?: 'text/python' | 'text/ruby';
 }
 
 export interface Compilers {
