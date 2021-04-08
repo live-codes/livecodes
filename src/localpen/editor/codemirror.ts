@@ -16,6 +16,7 @@ import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
+import { php } from './codemirror-php-mode';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly } = options;
@@ -38,6 +39,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       python,
       coffeescript: () => legacy(coffeeScript),
       ruby: () => legacy(ruby),
+      php: () => legacy(php),
       less: () => legacy(less),
       scss: () => legacy(sCSS),
     };

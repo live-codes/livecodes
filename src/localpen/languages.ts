@@ -197,7 +197,6 @@ export const languages: LanguageSpecs[] = [
   {
     name: 'python',
     title: 'Python',
-    longTitle: 'Python',
     compiler: {
       url: 'vendor/brython/brython.min.js',
       factory: () => (code) => code,
@@ -211,7 +210,6 @@ export const languages: LanguageSpecs[] = [
   {
     name: 'ruby',
     title: 'Ruby',
-    longTitle: 'Ruby',
     compiler: {
       url: 'vendor/opal/opal.min.js',
       factory: () => (code) => code,
@@ -229,6 +227,29 @@ export const languages: LanguageSpecs[] = [
       scriptType: 'text/ruby',
     },
     extensions: ['rb'],
+    editor: 'script',
+  },
+  {
+    name: 'php',
+    title: 'PHP',
+    compiler: {
+      url: 'vendor/uniter/uniter.js',
+      factory: () => (code) => {
+        code = code.trim();
+        if (code.startsWith('<?php')) {
+          code = code.replace('<?php', '/* <?php */');
+          if (code.endsWith('?>')) {
+            code = code.replace('?>', '/* ?> */');
+          }
+        }
+        return code;
+      },
+      umd: true,
+      scripts: ['vendor/uniter/uniter.js'],
+      deferScripts: true,
+      scriptType: 'text/x-uniter-php',
+    },
+    extensions: ['php'],
     editor: 'script',
   },
 ];

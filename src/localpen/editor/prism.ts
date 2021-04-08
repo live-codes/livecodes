@@ -17,6 +17,8 @@ import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-coffeescript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-ruby';
+import 'prismjs/components/prism-markup-templating';
+import 'prismjs/components/prism-php';
 
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { encodeHTML } from '../utils';

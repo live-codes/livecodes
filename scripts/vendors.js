@@ -266,3 +266,10 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/opal/opal-parser.min.js'),
   path.resolve(targetDir + '/opal/opal-parser.min.js'),
 );
+
+// uniter
+mkdirp(targetDir + '/uniter');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/uniter/uniter.js'),
+  path.resolve(targetDir + '/uniter/uniter.js'),
+);
