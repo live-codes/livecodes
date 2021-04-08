@@ -55,7 +55,8 @@ export type Language =
   | 'python'
   | 'py'
   | 'ruby'
-  | 'rb';
+  | 'rb'
+  | 'php';
 
 export interface Editor {
   language: Language;
@@ -146,8 +147,9 @@ export interface Compiler {
   editors?: EditorId[];
   styles?: string[];
   scripts?: string[];
+  deferScripts?: boolean;
   inlineScript?: string;
-  scriptType?: 'text/python' | 'text/ruby';
+  scriptType?: 'text/python' | 'text/ruby' | 'text/x-uniter-php';
 }
 
 export interface Compilers {

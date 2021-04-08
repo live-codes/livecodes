@@ -402,6 +402,17 @@ export const app = async (config: Pen) => {
     }
   };
 
+  const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
+    const addToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
+    if (code) {
+      return addToken(code);
+    }
+    if (editor?.getLanguage() === 'php') {
+      editor.setValue(addToken(editor.getValue()));
+    }
+    return;
+  };
+
   const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
     if (!editorId || !language) return;
     const editor = editors[editorId];
@@ -409,6 +420,7 @@ export const app = async (config: Pen) => {
     editorLanguages[editorId] = language;
     setEditorTitle(editorId, language);
     showEditor(editorId);
+    phpHelper({ editor: editors.script });
     editor.focus();
     await compiler.load([language], getConfig());
     editor.registerFormatter(await formatter.getFormatFn(language));
@@ -440,7 +452,11 @@ export const app = async (config: Pen) => {
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {
         if (editorId !== activeEditorId) return;
-        toolsPane.compiled.update(compiledLanguages[editorId], lastCompiled[editorId], getConfig());
+        let compiledCode = lastCompiled[editorId];
+        if (editorId === 'script' && editors.script.getLanguage() === 'php') {
+          compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
+        }
+        toolsPane.compiled.update(compiledLanguages[editorId], compiledCode, getConfig());
       });
     }
   };
@@ -521,6 +537,9 @@ export const app = async (config: Pen) => {
           depScript.src = isRelativeUrl(depScriptUrl)
             ? absoluteBaseUrl + depScriptUrl
             : depScriptUrl;
+          if (compiler.deferScripts) {
+            depScript.defer = true;
+          }
           dom.body.appendChild(depScript);
         });
         if (compiler.inlineScript) {
@@ -1607,6 +1626,7 @@ export const app = async (config: Pen) => {
       await updateEditors(editors, getConfig());
     }
 
+    phpHelper({ editor: editors.script });
     setLoading(true);
 
     await loadModules(getConfig());

@@ -3,6 +3,7 @@ import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
 import { d3Starter } from './d3-starter';
 import { jqueryStarter } from './jquery-starter';
+import { phpStarter } from './php-starter';
 import { preactStarter } from './preact-starter';
 import { pythonStarter } from './python-starter';
 import { reactStarter } from './react-starter';
@@ -25,5 +26,6 @@ export const starterTemplates = [
   d3Starter,
   pythonStarter,
   rubyStarter,
+  phpStarter,
   readmeTemplate,
 ];
