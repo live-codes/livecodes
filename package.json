@@ -19,6 +19,7 @@
     "build:web": "parcel build --out-dir build src/index.html src/index2.html src/embed.html src/content.html",
     "build:api-docs": "typedoc --inputFiles src/localpen/index.ts --inputFiles src/localpen/app.ts --out build/api-docs --exclude **/*.spec.ts --mode modules --plugin none",
     "copy:assets": "recursive-copy src/localpen/assets build/localpen/assets",
+    "copy:types": "recursive-copy vendor_modules/types build/localpen/types",
     "copy:vendors": "recursive-copy src/localpen/vendor build/localpen/vendor",
     "vendors": "recursive-delete src/localpen/vendor && node ./scripts/vendors.js",
     "website:publish": "run-s build gh-pages",

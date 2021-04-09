@@ -191,6 +191,7 @@ export const languages: LanguageSpecs[] = [
   {
     name: 'tsx',
     title: 'TSX',
+    longTitle: 'React TSX',
     parser: {
       name: 'babel',
       pluginUrls: [parserPlugins.babel, parserPlugins.html],
@@ -338,5 +339,5 @@ export const getLanguageCompiler = (alias: string): Compiler | undefined => {
   return compiler;
 };
 
-export const mapLanguage = (language: Language) =>
-  ['babel', 'jsx'].includes(language) ? 'javascript' : language;
+export const mapLanguage = (language: Language): Language =>
+  ['babel', 'jsx'].includes(language) ? 'javascript' : language === 'tsx' ? 'typescript' : language;

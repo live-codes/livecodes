@@ -46,7 +46,7 @@ export const createCompiler = (config: Pen): Compiler => {
       languages.map(
         (language) =>
           new Promise(async (resolve) => {
-            if (language === 'jsx') {
+            if (['jsx', 'tsx'].includes(language)) {
               language = 'typescript';
             }
             const languageCompiler = compilers[language as keyof Compilers];
@@ -67,7 +67,7 @@ export const createCompiler = (config: Pen): Compiler => {
     );
 
   const compile = async (content: string, language: Language, config: Pen): Promise<string> => {
-    if (language === 'jsx') {
+    if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
     }
     if (compilers[language] && !compilers[language].fn) {

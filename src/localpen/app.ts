@@ -14,11 +14,9 @@ import {
   CssPresetId,
   EditorId,
   EditorLanguages,
-  EditorLibrary,
   EditorOptions,
   Editors,
   Language,
-  Module,
   Pen,
   ToolList,
 } from './models';
@@ -43,6 +41,7 @@ import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
 import { compress, debounce, getAbsoluteUrl, isRelativeUrl } from './utils';
 import { getCompiler, hasImports } from './compiler';
+import { loadTypes } from './load-types';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -171,25 +170,9 @@ export const app = async (config: Pen) => {
 
   const compiler = getCompiler(getConfig());
 
-  const getTypes = async (module: Module): Promise<EditorLibrary> => {
-    let content = '';
-    if (module.typesUrl) {
-      try {
-        const res = await fetch(module.typesUrl);
-        content = await res.text();
-      } catch {
-        // error
-      }
-    }
-    return {
-      filename: `file:///node_modules/${module.name}/index.d.ts`,
-      content,
-    };
-  };
-
   const loadModules = async (config: Pen) => {
     if (editors.script && typeof editors.script.addTypes === 'function') {
-      const libs = await Promise.all(config.modules.map(getTypes));
+      const libs = await loadTypes(config.modules);
       libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };

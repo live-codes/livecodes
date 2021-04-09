@@ -3,7 +3,8 @@ import * as Monaco from 'monaco-editor'; // only for typescript types
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
-import { mapLanguage } from '../languages';
+import { getLanguageExtension, mapLanguage } from '../languages';
+import { loadTypes } from '../load-types';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl, readonly } = options;
@@ -104,15 +105,53 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     allowJs: false,
     target: monaco.languages.typescript.ScriptTarget.Latest,
     experimentalDecorators: true,
+    allowSyntheticDefaultImports: true,
   });
 
-  let language = mapLanguage(options.language);
+  const loadReactTypes = () => {
+    loadTypes([
+      { name: 'react', typesUrl: `${baseUrl}types/react.d.ts` },
+      { name: 'react-dom', typesUrl: `${baseUrl}types/react-dom.d.ts` },
+    ]).then((reactTypes) =>
+      reactTypes.forEach((library) => {
+        addTypes(library);
+      }),
+    );
+  };
+
+  type Listener = () => void;
+  const listeners: Listener[] = [];
+  const upateListeners = () => {
+    listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
+  };
+
+  const updateModel = (
+    editor: Monaco.editor.IStandaloneCodeEditor,
+    value = '',
+    language: Language,
+  ) => {
+    const random = String(Math.random()) + '-' + Date.now().toFixed();
+    const ext = getLanguageExtension(language);
+    const model = monaco.editor.createModel(
+      value,
+      mapLanguage(language),
+      monaco.Uri.parse(`file:///main.${random}.${ext}`),
+    );
+    editor.setModel(model);
+    upateListeners();
+    if (language === 'tsx') {
+      loadReactTypes();
+    }
+  };
+
+  let language = options.language;
 
   const editor = monaco.editor.create(container, {
     ...editorOptions,
     ...options,
     language,
   });
+  updateModel(editor, options.value, language);
 
   if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
   if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
@@ -133,7 +172,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
     language = lang;
-    monaco.editor.setModelLanguage(editor.getModel() as any, mapLanguage(language));
+    updateModel(editor, editor.getValue(), language);
   };
 
   const focus = () => editor.focus();
@@ -142,8 +181,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const addTypes = (lib: EditorLibrary) =>
     monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename);
 
-  const onContentChanged = (callback: () => void) => {
-    editor.getModel()?.onDidChangeContent(callback);
+  const onContentChanged = (fn: () => void) => {
+    listeners.push(fn);
+    editor.getModel()?.onDidChangeContent(fn);
   };
 
   const keyCodes = {
@@ -168,7 +208,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
 
-    monaco.languages.registerDocumentFormattingEditProvider(language, {
+    monaco.languages.registerDocumentFormattingEditProvider(mapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
         const val = editor.getValue();
         const prettyVal = await formatFn(val, 0);
