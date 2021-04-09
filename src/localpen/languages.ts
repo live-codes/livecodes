@@ -145,6 +145,22 @@ export const languages: LanguageSpecs[] = [
     editor: 'script',
   },
   {
+    name: 'babel',
+    title: 'Babel',
+    longTitle: 'ES Next (Babel)',
+    parser: {
+      name: 'babel',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
+    compiler: {
+      url: 'vendor/babel/babel.min.js',
+      factory: () => (window as any).Babel.transform,
+      umd: true,
+    },
+    extensions: ['es', 'babel'],
+    editor: 'script',
+  },
+  {
     name: 'typescript',
     title: 'TS',
     longTitle: 'TypeScript',
@@ -163,6 +179,7 @@ export const languages: LanguageSpecs[] = [
   {
     name: 'jsx',
     title: 'JSX',
+    longTitle: 'React JSX',
     parser: {
       name: 'babel',
       pluginUrls: [parserPlugins.babel, parserPlugins.html],
@@ -320,3 +337,6 @@ export const getLanguageCompiler = (alias: string): Compiler | undefined => {
   }
   return compiler;
 };
+
+export const mapLanguage = (language: Language) =>
+  ['babel', 'jsx'].includes(language) ? 'javascript' : language;

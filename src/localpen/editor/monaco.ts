@@ -3,6 +3,7 @@ import * as Monaco from 'monaco-editor'; // only for typescript types
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
+import { mapLanguage } from '../languages';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl, readonly } = options;
@@ -105,12 +106,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     experimentalDecorators: true,
   });
 
-  let language = options.language;
+  let language = mapLanguage(options.language);
 
   const editor = monaco.editor.create(container, {
     ...editorOptions,
     ...options,
-    language: language === 'jsx' ? 'javascript' : language,
+    language,
   });
 
   if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
@@ -132,10 +133,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
     language = lang;
-    monaco.editor.setModelLanguage(
-      editor.getModel() as any,
-      language === 'jsx' ? 'javascript' : language,
-    );
+    monaco.editor.setModelLanguage(editor.getModel() as any, mapLanguage(language));
   };
 
   const focus = () => editor.focus();

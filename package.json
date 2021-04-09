@@ -38,6 +38,7 @@
     "prepush": "run-s fix vendors build test"
   },
   "dependencies": {
+    "@babel/standalone": "7.13.15",
     "@codemirror/basic-setup": "0.17.1",
     "@codemirror/commands": "0.17.4",
     "@codemirror/lang-css": "0.17.1",

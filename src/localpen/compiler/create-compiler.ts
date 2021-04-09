@@ -28,7 +28,7 @@ export const createCompiler = (config: Pen): Compiler => {
           if (message.type === 'compiled') {
             resolve(message.payload.compiled);
           } else if (message.type === 'compile-failed') {
-            reject(language + ' compile failed');
+            reject(language + ' compile failed.\n' + message.payload.error);
           }
         }
       };

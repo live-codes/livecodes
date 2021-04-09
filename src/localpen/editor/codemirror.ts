@@ -15,6 +15,7 @@ import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
 import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 
+import { mapLanguage } from '../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { php } from './codemirror-php-mode';
 
@@ -22,7 +23,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { container, readonly } = options;
   if (!container) throw new Error('editor container not found');
 
-  let language = options.language;
+  let language = mapLanguage(options.language);
 
   const legacy = (parser: StreamParser<unknown>) =>
     new LanguageSupport(StreamLanguage.define(parser));
@@ -112,7 +113,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const focus = () => view.focus();
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
-    language = lang;
+    language = mapLanguage(lang);
     const languageExtension = getLanguageExtension(language)();
     view.dispatch({
       reconfigure: { [languageTag]: languageExtension },

@@ -59,6 +59,17 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'javascript':
       value = replaceImports(content, config);
       break;
+    case 'babel':
+      value = compiler(replaceImports(content, config), {
+        presets: [['env', { modules: false }], 'react'],
+      }).code;
+      break;
+    // case 'tsx':
+    //   value = compiler(replaceImports(content, config), {
+    //     filename: 'file.ts',
+    //     presets: [['env', { modules: false }], 'react', 'typescript'],
+    //   }).code;
+    //   break;
     case 'typescript':
       value = compiler(replaceImports(content, config), {
         target: 'es2015',

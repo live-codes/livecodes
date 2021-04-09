@@ -22,6 +22,7 @@ import 'prismjs/components/prism-php';
 
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { encodeHTML } from '../utils';
+import { mapLanguage } from '../languages';
 
 declare const Prism: any;
 Prism.manual = true;
@@ -30,11 +31,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { baseUrl, container, mode } = options;
   if (!container) throw new Error('editor container not found');
 
-  const mapLanguage = (language: Language): string => language;
   const lineNumbers = mode === 'codeblock' ? false : true;
 
   let value = options.value;
-  let language = options.language;
+  let language = mapLanguage(options.language);
 
   if (!document.head.querySelector('#prism-styles')) {
     const stylesheet = document.createElement('link');
@@ -73,8 +73,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
-    language = lang;
-    codeElement.className = 'language-' + mapLanguage(language);
+    language = mapLanguage(lang);
+    codeElement.className = 'language-' + language;
     Prism.highlightAllUnder(container);
   };
 
