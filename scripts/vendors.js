@@ -273,3 +273,10 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/uniter/uniter.js'),
   path.resolve(targetDir + '/uniter/uniter.js'),
 );
+
+// babel
+mkdirp(targetDir + '/babel');
+fs.copyFileSync(
+  path.resolve(node_modules + '/@babel/standalone/babel.min.js'),
+  path.resolve(targetDir + '/babel/babel.min.js'),
+);

@@ -15,3 +15,5 @@ export const replaceImports = (code: string, config: Pen) =>
     const libPath = localModule?.url || 'https://cdn.skypack.dev/' + libName;
     return statement.replace(new RegExp(importsPattern), `$1'${libPath}'$3`);
   });
+
+export const hasImports = (code: string) => new RegExp(importsPattern).test(code);

@@ -46,6 +46,8 @@ export type Language =
   | 'styl'
   | 'javascript'
   | 'js'
+  | 'babel'
+  | 'es'
   | 'typescript'
   | 'ts'
   | 'jsx'
