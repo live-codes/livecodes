@@ -57,7 +57,7 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       value = await compiler(content);
       break;
     case 'javascript':
-      value = replaceImports(content, config);
+      value = compiler(replaceImports(content, config));
       break;
     case 'babel':
       value = compiler(replaceImports(content, config), {

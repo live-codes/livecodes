@@ -141,6 +141,10 @@ export const languages: LanguageSpecs[] = [
       name: 'babel',
       pluginUrls: [parserPlugins.babel, parserPlugins.html],
     },
+    compiler: {
+      url: 'assets/noop.js',
+      factory: () => (code) => code,
+    },
     extensions: ['js'],
     editor: 'script',
   },
@@ -211,15 +215,24 @@ export const languages: LanguageSpecs[] = [
     compiler: {
       url: 'vendor/vue3-sfc-loader/vue3-sfc-loader.js',
       factory: () => (code) =>
-        `const app =
-  document.querySelector("#app") ||
-  document.body.appendChild(document.createElement("div"));
+        `let app = document.querySelector("#app");
+if (!app) {
+  app = document.createElement("div");
+  app.id = 'app';
+  document.body.appendChild(app);
+}
 /* <!-- */
 let content = \`${code.replace(/`/g, '\\`')}\`;
 /* --> */
 const options = {
   moduleCache: { vue: Vue },
-  getFile: url => content,
+  async getFile(url) {
+    if (url === '/component.vue') return content;
+    const res = await fetch(url);
+    if ( !res.ok )
+      throw Object.assign(new Error(res.statusText + ' ' + url), { res });
+    return await res.text();
+  },
   addStyle: (textContent) => {
     const style = Object.assign(document.createElement('style'), { textContent });
     const ref = document.head.getElementsByTagName('style')[0] || null;
@@ -248,15 +261,24 @@ App.config.devtools = true;
     compiler: {
       url: 'vendor/vue3-sfc-loader/vue2-sfc-loader.js',
       factory: () => (code) =>
-        `const app =
-  document.querySelector("#app") ||
-  document.body.appendChild(document.createElement("div"));
+        `let app = document.querySelector("#app");
+if (!app) {
+  app = document.createElement("div");
+  app.id = 'app';
+  document.body.appendChild(app);
+}
 /* <!-- */
 let content = \`${code.replace(/`/g, '\\`')}\`;
 /* --> */
 const options = {
   moduleCache: { vue: Vue },
-  getFile: url => content,
+  async getFile(url) {
+    if (url === '/component.vue') return content;
+    const res = await fetch(url);
+    if ( !res.ok )
+      throw Object.assign(new Error(res.statusText + ' ' + url), { res });
+    return await res.text();
+  },
   addStyle: (textContent) => {
     const style = Object.assign(document.createElement('style'), { textContent });
     const ref = document.head.getElementsByTagName('style')[0] || null;
