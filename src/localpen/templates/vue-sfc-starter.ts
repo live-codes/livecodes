@@ -16,7 +16,7 @@ export const vueSfcStarter: Template = {
     language: 'vue',
     content: `
 <template>
-  <div class="centered">
+  <div id="root">
     <h1>Hello, Vue</h1>
     <img src="/localpen/assets/templates/vue.svg" class="logo" />
     <p>You clicked {{ counter }} times</p>
@@ -29,6 +29,7 @@ export const vueSfcStarter: Template = {
     data() {
       return {
         counter: 0,
+        align: 'center',
       };
     },
     methods: {
@@ -40,9 +41,9 @@ export const vueSfcStarter: Template = {
 </script>
 
 <style scoped>
-  .centered,
+  #root,
   button {
-    text-align: center;
+    text-align: v-bind('align');
     font: 1em sans-serif;
   }
   .logo {
