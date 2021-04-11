@@ -173,7 +173,7 @@ export const languages: LanguageSpecs[] = [
       factory: () => (window as any).typescript.transpile,
       umd: true,
     },
-    extensions: ['ts'],
+    extensions: ['ts', 'typescript'],
     editor: 'script',
   },
   {
@@ -348,7 +348,8 @@ export const cssPresets: CssPreset[] = [
   },
 ];
 
-export const getLanguageByAlias = (alias: string): Language | undefined => {
+export const getLanguageByAlias = (alias?: string): Language | undefined => {
+  if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
   return languages.find(
     (language) =>

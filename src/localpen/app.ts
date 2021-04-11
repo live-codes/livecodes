@@ -1578,7 +1578,8 @@ export const app = async (config: Pen) => {
   };
 
   const setActiveEditor = async (config: Pen) => {
-    const language = getLanguageByAlias(config.language) || 'html';
+    const language =
+      getLanguageByAlias(config.language) || getLanguageByAlias(config.markup.language) || 'html';
     const editorId = getLanguageEditorId(language) || 'markup';
     if (getEditorLanguage(editorId) !== language) {
       await changeLanguage(editorId, language);
