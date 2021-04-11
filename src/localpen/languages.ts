@@ -227,14 +227,51 @@ const options = {
   },
 };
 const { loadModule } = window['vue3-sfc-loader'];
-Vue
-  .createApp(Vue.defineAsyncComponent(() => loadModule('/component.vue', options)))
-  .mount(app);
+const App = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/component.vue', options)));
+App.mount(app)
+App.config.devtools = true;
 `,
       scripts: ['https://unpkg.com/vue@3', 'vendor/vue3-sfc-loader/vue3-sfc-loader.js'],
       umd: true,
     },
     extensions: ['vue', 'vue3'],
+    editor: 'script',
+  },
+  {
+    name: 'vue2',
+    title: 'Vue 2',
+    longTitle: 'Vue 2 SFC',
+    parser: {
+      name: 'html',
+      pluginUrls: [parserPlugins.html],
+    },
+    compiler: {
+      url: 'vendor/vue3-sfc-loader/vue2-sfc-loader.js',
+      factory: () => (code) =>
+        `const app =
+  document.querySelector("#app") ||
+  document.body.appendChild(document.createElement("div"));
+/* <!-- */
+let content = \`${code.replace(/`/g, '\\`')}\`;
+/* --> */
+const options = {
+  moduleCache: { vue: Vue },
+  getFile: url => content,
+  addStyle: (textContent) => {
+    const style = Object.assign(document.createElement('style'), { textContent });
+    const ref = document.head.getElementsByTagName('style')[0] || null;
+    document.head.insertBefore(style, ref);
+  },
+};
+const { loadModule, vueVersion } = window['vue2-sfc-loader'];
+loadModule('/component.vue', options)
+  .then(component => new Vue(component).$mount(app));
+Vue.config.devtools = true;
+`,
+      scripts: ['https://unpkg.com/vue@2', 'vendor/vue3-sfc-loader/vue2-sfc-loader.js'],
+      umd: true,
+    },
+    extensions: ['vue2'],
     editor: 'script',
   },
   {
@@ -382,6 +419,6 @@ export const mapLanguage = (language: Language): Language =>
     ? 'javascript'
     : language === 'tsx'
     ? 'typescript'
-    : language === 'vue'
+    : ['vue', 'vue2'].includes(language)
     ? 'html'
     : language;

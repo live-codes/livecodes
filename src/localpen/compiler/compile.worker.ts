@@ -71,7 +71,10 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       });
       break;
     case 'vue':
-      value = compiler(content);
+      value = compiler(replaceImports(content, config));
+      break;
+    case 'vue2':
+      value = compiler(replaceImports(content, config));
       break;
     case 'coffeescript':
       value = compiler(replaceImports(content, config), { bare: true });

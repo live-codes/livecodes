@@ -54,6 +54,7 @@ export type Language =
   | 'tsx'
   | 'vue'
   | 'vue3'
+  | 'vue2'
   | 'coffeescript'
   | 'coffee'
   | 'python'
