@@ -12,6 +12,7 @@ import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
+import { vueSfcStarter } from './vue-sfc-starter';
 import { vueStarter } from './vue-starter';
 
 export const starterTemplates = [
@@ -19,6 +20,7 @@ export const starterTemplates = [
   typescriptStarter,
   reactStarter,
   vueStarter,
+  vueSfcStarter,
   angularStarter,
   preactStarter,
   jqueryStarter,
