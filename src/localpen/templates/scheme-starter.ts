@@ -45,7 +45,7 @@ export const schemeStarter: Template = {
   (console-log
     (cond ((< time-now 12) "Good morning")
           ((< time-now 18) "Good afternoon")
-          (else        "Good evening"))))
+          (else "Good evening"))))
 `.trimStart(),
   },
   stylesheets: [],
