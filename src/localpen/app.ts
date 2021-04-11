@@ -571,6 +571,11 @@ export const app = async (config: Pen) => {
     }
   };
 
+  const setWindowTitle = () => {
+    const title = getConfig().title;
+    parent.document.title = (title ? title + ' - ' : '') + 'LocalPen';
+  };
+
   const run = async (editors: Editors) => {
     setLoading(true);
     const result = await getResultPage(editors);
@@ -652,6 +657,7 @@ export const app = async (config: Pen) => {
     // load title
     const projectTitle = document.querySelector('#project-title') as HTMLElement;
     projectTitle.textContent = getConfig().title;
+    setWindowTitle();
 
     // reset url params
     parent.history.pushState(null, '', url || location.origin + location.pathname);
@@ -743,15 +749,20 @@ export const app = async (config: Pen) => {
     const handleTitleEdit = () => {
       const projectTitle = document.querySelector('#project-title') as HTMLElement;
       projectTitle.textContent = getConfig().title;
+
+      setWindowTitle();
+
       eventsManager.addEventListener(
         projectTitle,
         'input',
         () => {
+          const title = projectTitle.textContent || '';
           setSavedStatus(false);
-          setConfig({ ...getConfig(), title: projectTitle.textContent || '' });
+          setConfig({ ...getConfig(), title });
           if (getConfig().autosave) {
             save();
           }
+          setWindowTitle();
         },
         false,
       );
@@ -1578,7 +1589,8 @@ export const app = async (config: Pen) => {
   };
 
   const setActiveEditor = async (config: Pen) => {
-    const language = getLanguageByAlias(config.language) || 'html';
+    const language =
+      getLanguageByAlias(config.language) || getLanguageByAlias(config.markup.language) || 'html';
     const editorId = getLanguageEditorId(language) || 'markup';
     if (getEditorLanguage(editorId) !== language) {
       await changeLanguage(editorId, language);

@@ -16,7 +16,6 @@ export const defaultConfig: Pen = {
   console: '',
   compiled: '',
   allowLangChange: true,
-  language: 'html',
   markup: {
     language: 'html',
     content: '',

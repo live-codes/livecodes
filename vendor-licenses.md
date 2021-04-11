@@ -8,6 +8,8 @@ asciidoctor-skins: [MIT License](https://github.com/darshandsoni/asciidoctor-ski
 
 Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9a8613b0c90357472d58fdcce26324ef4f/LICENSE)
 
+Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582f1f3fdcdac0fa0d2f/LICENSE)
+
 Brython: [BSD-3-Clause License](https://github.com/brython-dev/brython/blob/2600ff4dd0702e194aba1633613beadac98dfc8c/LICENCE.txt)
 
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
@@ -59,5 +61,7 @@ SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
 
 Uniter: [MIT License](https://github.com/asmblah/uniter/blob/2c20bd03a8b658a1f4bfd81ab2dce72b088755cb/MIT-LICENSE.txt)
+
+vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-loader/blob/84b05a091fe5a283c7ed909c06cc31c0153ed103/LICENSE)
 
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)

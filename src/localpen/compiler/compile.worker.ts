@@ -64,17 +64,17 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
         presets: [['env', { modules: false }], 'react'],
       }).code;
       break;
-    // case 'tsx':
-    //   value = compiler(replaceImports(content, config), {
-    //     filename: 'file.ts',
-    //     presets: [['env', { modules: false }], 'react', 'typescript'],
-    //   }).code;
-    //   break;
     case 'typescript':
       value = compiler(replaceImports(content, config), {
         target: 'es2015',
         jsx: 'react',
       });
+      break;
+    case 'vue':
+      value = compiler(replaceImports(content, config));
+      break;
+    case 'vue2':
+      value = compiler(replaceImports(content, config));
       break;
     case 'coffeescript':
       value = compiler(replaceImports(content, config), { bare: true });

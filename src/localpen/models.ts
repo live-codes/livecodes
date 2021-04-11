@@ -13,7 +13,7 @@ export interface Pen {
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
-  language: Language;
+  language?: Language;
   markup: Editor;
   style: Editor;
   script: Editor;
@@ -52,6 +52,9 @@ export type Language =
   | 'ts'
   | 'jsx'
   | 'tsx'
+  | 'vue'
+  | 'vue3'
+  | 'vue2'
   | 'coffeescript'
   | 'coffee'
   | 'python'

@@ -16,11 +16,7 @@ export const importFromGithubGist = async (url: string, params: { [key: string]:
       .then((data) => data.files)
       .then((files) =>
         Object.values(files).map((file: any) => {
-          const lang = file.filename.endsWith('.babel')
-            ? 'jsx'
-            : file.filename.endsWith('.typescript')
-            ? 'typescript'
-            : file.language;
+          const lang = file.language;
           const extension = file.filename.split('.')[file.filename.split('.').length - 1];
           const language = getLanguageByAlias(lang) || getLanguageByAlias(extension);
 
