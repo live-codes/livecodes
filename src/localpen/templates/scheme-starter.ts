@@ -41,10 +41,10 @@ export const schemeStarter: Template = {
       (set-content! "#counter" (number->string counter)))))
 
 ; check console
-(let ((time (date-hour (current-date))))
+(let ((time-now (date-hour (current-date))))
   (console-log
-    (cond ((< time 12) "Good morning")
-          ((< time 18) "Good afternoon")
+    (cond ((< time-now 12) "Good morning")
+          ((< time-now 18) "Good afternoon")
           (else        "Good evening"))))
 `.trimStart(),
   },
