@@ -88,6 +88,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'php':
       value = compiler(content);
       break;
+    case 'scheme':
+      value = compiler(content);
+      break;
 
     // Post-processors
     case 'autoprefixer':

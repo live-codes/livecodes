@@ -290,7 +290,7 @@ Vue.config.devtools = true;
     name: 'python',
     title: 'Python',
     compiler: {
-      url: 'vendor/brython/brython.min.js',
+      url: 'assets/noop.js',
       factory: () => (code) => code,
       scripts: ['vendor/brython/brython.min.js', 'vendor/brython/brython_stdlib.js'],
       inlineScript: `window.addEventListener("load", () => {brython({ indexedDB: false })})`,
@@ -303,7 +303,7 @@ Vue.config.devtools = true;
     name: 'ruby',
     title: 'Ruby',
     compiler: {
-      url: 'vendor/opal/opal.min.js',
+      url: 'assets/noop.js',
       factory: () => (code) => code,
       umd: true,
       scripts: [
@@ -325,7 +325,7 @@ Vue.config.devtools = true;
     name: 'php',
     title: 'PHP',
     compiler: {
-      url: 'vendor/uniter/uniter.js',
+      url: 'assets/noop.js',
       factory: () => (code) => {
         code = code.trim();
         if (code.startsWith('<?php')) {
@@ -342,6 +342,19 @@ Vue.config.devtools = true;
       scriptType: 'text/x-uniter-php',
     },
     extensions: ['php'],
+    editor: 'script',
+  },
+  {
+    name: 'scheme',
+    title: 'Scheme',
+    compiler: {
+      url: 'assets/noop.js',
+      factory: () => (code) => code,
+      umd: true,
+      scripts: ['vendor/biwascheme/biwascheme-min.js'],
+      scriptType: 'text/biwascheme',
+    },
+    extensions: ['scm'],
     editor: 'script',
   },
 ];
