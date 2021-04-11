@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://web.resource.org/cc/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="300.00000pt" height="300.00000pt" id="svg1313" sodipodi:version="0.32" inkscape:version="0.42.2" sodipodi:docbase="C:\Documents and Settings\Lukas\Desktop\Wikipedia" sodipodi:docname="lambda_lc.svg">
+  <defs id="defs1315"/>
+  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="0.35000000" inkscape:cx="375.00000" inkscape:cy="134.78022" inkscape:document-units="px" inkscape:current-layer="layer1" inkscape:window-width="752" inkscape:window-height="510" inkscape:window-x="66" inkscape:window-y="72"/>
+  <metadata id="metadata1318">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+    <g transform="matrix(0.237384,0.000000,0.000000,-0.237384,65.48462,354.2623)" id="g8">
+      <path d="M 967.00000,288.00000 L 1003.0000,288.00000 C 1003.0000,182.66667 986.00000,106.00000 952.00000,58.000000 C 918.00000,10.000000 875.00000,-14.000000 823.00000,-14.000000 C 781.00000,-14.000000 740.66667,1.6666667 702.00000,33.000000 C 663.33333,64.333333 628.66667,149.33333 598.00000,288.00000 L 512.00000,676.00000 L 214.00000,0.00000000 L 25.000000,0.00000000 L 453.00000,922.00000 C 430.33333,1041.3333 403.00000,1129.6667 371.00000,1187.0000 C 339.00000,1244.3333 299.33333,1273.0000 252.00000,1273.0000 C 214.00000,1273.0000 181.00000,1258.6667 153.00000,1230.0000 C 125.00000,1201.3333 109.00000,1156.3333 105.00000,1095.0000 L 69.000000,1095.0000 C 71.000000,1193.0000 90.666667,1271.3333 128.00000,1330.0000 C 165.33333,1388.6667 212.00000,1418.3333 268.00000,1419.0000 C 304.00000,1419.0000 338.00000,1404.3333 370.00000,1375.0000 C 402.00000,1345.6667 430.00000,1295.0000 454.00000,1223.0000 C 478.00000,1151.0000 515.00000,1002.3333 565.00000,777.00000 L 636.00000,460.00000 C 664.66667,328.66667 694.66667,241.00000 726.00000,197.00000 C 757.33333,153.00000 795.33333,130.66667 840.00000,130.00000 C 914.66667,130.00000 957.00000,182.66667 967.00000,288.00000 z " id="path10" style="fill:black"/>
+    </g>
+  </g>
+</svg>
