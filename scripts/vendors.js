@@ -291,3 +291,10 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/vue3-sfc-loader/vue2-sfc-loader.js'),
   path.resolve(targetDir + '/vue3-sfc-loader/vue2-sfc-loader.js'),
 );
+
+// biwascheme
+mkdirp(targetDir + '/biwascheme');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/biwascheme/biwascheme-min.js'),
+  path.resolve(targetDir + '/biwascheme/biwascheme-min.js'),
+);

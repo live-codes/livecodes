@@ -10,6 +10,8 @@ Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9
 
 Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582f1f3fdcdac0fa0d2f/LICENSE)
 
+BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/b2dcab982f1b3954ad1f8b4b94595a803d83663c/MIT-LICENSE.txt)
+
 Brython: [BSD-3-Clause License](https://github.com/brython-dev/brython/blob/2600ff4dd0702e194aba1633613beadac98dfc8c/LICENCE.txt)
 
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
