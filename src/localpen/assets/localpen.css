@@ -357,7 +357,7 @@ body {
   height: 40px;
   margin-top: 3px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: stretch;
 }
 li.editor-title {
@@ -372,7 +372,9 @@ li.editor-title {
   width: 32%;
   cursor: pointer;
 }
-
+li.editor-title.half-width {
+  width: 48%;
+}
 li.editor-title.active {
   background-color: #444857;
 }

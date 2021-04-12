@@ -35,7 +35,7 @@ import {
 } from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
-import { starterTemplates } from './templates';
+import { getStarterTemplates } from './templates';
 import { defaultConfig } from './config';
 import { createToolsPane } from './tools';
 import { createConsole } from './console';
@@ -1028,7 +1028,7 @@ export const app = async (config: Pen) => {
         const starterTemplatesList = templatesContainer.querySelector(
           '#starter-templates-list',
         ) as HTMLElement;
-        starterTemplates.forEach((template) => {
+        getStarterTemplates(getConfig()).forEach((template) => {
           const li = document.createElement('li') as HTMLElement;
           const link = document.createElement('a') as HTMLAnchorElement;
           link.href = '#';

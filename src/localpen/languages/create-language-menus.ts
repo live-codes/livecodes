@@ -60,7 +60,7 @@ export const createLanguageMenus = (
 
   if (editorsNumber === 2) {
     document.querySelectorAll('.editor-title').forEach((editorSelector) => {
-      (editorSelector as HTMLElement).style.width = '48%';
+      (editorSelector as HTMLElement).classList.add('half-width');
     });
   }
 };
