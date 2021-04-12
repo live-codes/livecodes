@@ -1,4 +1,4 @@
-import { Compiler, EditorId, Language } from '../models';
+import { Compiler, EditorId, Language, Pen } from '../models';
 import { languages } from './languages';
 
 export const getLanguageByAlias = (alias?: string): Language | undefined => {
@@ -38,3 +38,10 @@ export const mapLanguage = (language: Language): Language =>
     : ['vue', 'vue2'].includes(language)
     ? 'html'
     : language;
+
+export const languageIsEnabled = (language: Language, config: Pen) => {
+  const lang = getLanguageByAlias(language);
+  if (!lang) return false;
+  if (!config.languages) return true;
+  return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
+};

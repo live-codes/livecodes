@@ -357,7 +357,7 @@ body {
   height: 40px;
   margin-top: 3px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
 }
 li.editor-title {

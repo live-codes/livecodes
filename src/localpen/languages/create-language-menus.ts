@@ -1,5 +1,6 @@
 import { EditorId, Pen } from '../models';
 import { languages } from './languages';
+import { languageIsEnabled } from './utils';
 
 export const createLanguageMenus = (
   config: Pen,
@@ -7,6 +8,8 @@ export const createLanguageMenus = (
 ) => {
   const rootList = document.createElement('ul');
   document.querySelector('#select-editor')?.appendChild(rootList);
+
+  let editorsNumber = editorIds.length;
 
   editorIds.forEach((editorId) => {
     const editorSelector = document.createElement('li');
@@ -30,16 +33,34 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu');
     editorSelector.appendChild(languageMenu);
 
-    languages
-      .filter((language) => language.editor === editorId)
-      .forEach((language) => {
-        languageMenu.innerHTML += `
+    const editorLanguages = languages
+      .filter((language) => languageIsEnabled(language.name, config))
+      .filter((language) => language.editor === editorId);
+
+    if (editorLanguages.length === 0) {
+      editorSelector.style.display = 'none';
+      editorsNumber -= 1;
+    } else if (editorLanguages.length === 1) {
+      const changeLanguageButton = editorSelector.querySelector('button');
+      if (changeLanguageButton) {
+        changeLanguageButton.style.display = 'none';
+      }
+    }
+
+    editorLanguages.forEach((language) => {
+      languageMenu.innerHTML += `
       <li>
       <a href="#" data-editor="${editorId}" data-lang="${language.name}" title="${
-          language.longTitle || language.title
-        }">${language.longTitle || language.title}</a>
+        language.longTitle || language.title
+      }">${language.longTitle || language.title}</a>
     </li>
       `;
-      });
+    });
   });
+
+  if (editorsNumber === 2) {
+    document.querySelectorAll('.editor-title').forEach((editorSelector) => {
+      (editorSelector as HTMLElement).style.width = '48%';
+    });
+  }
 };
