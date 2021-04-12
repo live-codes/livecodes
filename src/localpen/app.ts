@@ -7,6 +7,7 @@ import {
   getLanguageEditorId,
   cssPresets,
   getLanguageCompiler,
+  createLanguageMenus,
 } from './languages';
 import { createStorage } from './storage';
 import {
@@ -1602,6 +1603,7 @@ export const app = async (config: Pen) => {
     await createIframe(elements.result);
 
     if (!reload) {
+      createLanguageMenus(getConfig());
       editors = await createEditors(getConfig());
 
       const toolList: ToolList = [
