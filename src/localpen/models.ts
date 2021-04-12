@@ -13,7 +13,8 @@ export interface Pen {
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
-  language?: Language;
+  language: Language | undefined;
+  languages: Language[] | undefined;
   markup: Editor;
   style: Editor;
   script: Editor;

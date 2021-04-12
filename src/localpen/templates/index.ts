@@ -1,3 +1,5 @@
+import { getLanguageByAlias } from '../languages';
+import { Pen } from '../models';
 import { angularStarter } from './angular-starter';
 import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
@@ -15,7 +17,7 @@ import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
 import { vueStarter } from './vue-starter';
 
-export const starterTemplates = [
+const starterTemplates = [
   blank,
   typescriptStarter,
   reactStarter,
@@ -33,3 +35,24 @@ export const starterTemplates = [
   schemeStarter,
   readmeTemplate,
 ];
+
+/**
+ * get starter templates with languages that are enabled in the current config
+ */
+export const getStarterTemplates = (config: Pen) =>
+  starterTemplates.filter((template) => {
+    const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
+    if (!enabledLanguages) return true;
+    if (template.title === 'Blank Project') return true;
+
+    const templateLanguages = [
+      template.markup.language,
+      template.style.language,
+      template.script.language,
+    ];
+    for (const language of templateLanguages) {
+      const lang = getLanguageByAlias(language);
+      if (!lang || !enabledLanguages.includes(lang)) return false;
+    }
+    return true;
+  });

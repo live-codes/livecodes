@@ -7,6 +7,8 @@ import {
   getLanguageEditorId,
   cssPresets,
   getLanguageCompiler,
+  createLanguageMenus,
+  languageIsEnabled,
 } from './languages';
 import { createStorage } from './storage';
 import {
@@ -33,7 +35,7 @@ import {
 } from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
-import { starterTemplates } from './templates';
+import { getStarterTemplates } from './templates';
 import { defaultConfig } from './config';
 import { createToolsPane } from './tools';
 import { createConsole } from './console';
@@ -235,20 +237,26 @@ export const app = async (config: Pen) => {
     const markupOptions: EditorOptions = {
       ...baseOptions,
       container: document.querySelector(elements.markup),
-      language: config.markup.language,
-      value: config.markup.content || '',
+      language: languageIsEnabled(config.markup.language, config)
+        ? config.markup.language
+        : config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') || 'html',
+      value: languageIsEnabled(config.markup.language, config) ? config.markup.content || '' : '',
     };
     const styleOptions: EditorOptions = {
       ...baseOptions,
       container: document.querySelector(elements.style),
-      language: config.style.language,
-      value: config.style.content || '',
+      language: languageIsEnabled(config.style.language, config)
+        ? config.style.language
+        : config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') || 'css',
+      value: languageIsEnabled(config.style.language, config) ? config.style.content || '' : '',
     };
     const scriptOptions: EditorOptions = {
       ...baseOptions,
       container: document.querySelector(elements.script),
-      language: config.script.language,
-      value: config.script.content || '',
+      language: languageIsEnabled(config.script.language, config)
+        ? config.script.language
+        : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
+      value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
     };
     const markupEditor = await createEditor(markupOptions);
     const styleEditor = await createEditor(styleOptions);
@@ -397,7 +405,7 @@ export const app = async (config: Pen) => {
   };
 
   const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
-    if (!editorId || !language) return;
+    if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
     const editor = editors[editorId];
     editor.setLanguage(language);
     editorLanguages[editorId] = language;
@@ -1020,7 +1028,7 @@ export const app = async (config: Pen) => {
         const starterTemplatesList = templatesContainer.querySelector(
           '#starter-templates-list',
         ) as HTMLElement;
-        starterTemplates.forEach((template) => {
+        getStarterTemplates(getConfig()).forEach((template) => {
           const li = document.createElement('li') as HTMLElement;
           const link = document.createElement('a') as HTMLAnchorElement;
           link.href = '#';
@@ -1602,6 +1610,7 @@ export const app = async (config: Pen) => {
     await createIframe(elements.result);
 
     if (!reload) {
+      createLanguageMenus(getConfig());
       editors = await createEditors(getConfig());
 
       const toolList: ToolList = [

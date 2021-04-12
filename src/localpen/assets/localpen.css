@@ -372,7 +372,9 @@ li.editor-title {
   width: 32%;
   cursor: pointer;
 }
-
+li.editor-title.half-width {
+  width: 48%;
+}
 li.editor-title.active {
   background-color: #444857;
 }
