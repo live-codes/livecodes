@@ -12,6 +12,7 @@ import { reactStarter } from './react-starter';
 import { readmeTemplate } from './readme-template';
 import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
+import { svelteStarter } from './svelte-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
@@ -25,6 +26,7 @@ const starterTemplates = [
   vueSfcStarter,
   angularStarter,
   preactStarter,
+  svelteStarter,
   jqueryStarter,
   bootstrapStarter,
   tailwindcssStarter,

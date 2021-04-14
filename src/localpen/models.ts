@@ -58,6 +58,7 @@ export type Language =
   | 'vue2'
   | 'coffeescript'
   | 'coffee'
+  | 'svelte'
   | 'python'
   | 'py'
   | 'ruby'
