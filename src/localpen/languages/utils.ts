@@ -35,7 +35,7 @@ export const mapLanguage = (language: Language): Language =>
     ? 'javascript'
     : language === 'tsx'
     ? 'typescript'
-    : ['vue', 'vue2'].includes(language)
+    : ['vue', 'vue2', 'svelte'].includes(language)
     ? 'html'
     : language;
 

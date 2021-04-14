@@ -298,3 +298,12 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/biwascheme/biwascheme-min.js'),
   path.resolve(targetDir + '/biwascheme/biwascheme-min.js'),
 );
+
+// svelte
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/src/svelte/compiler.js'],
+  outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.37.0.min.js',
+  format: 'iife',
+  globalName: 'svelte',
+});
