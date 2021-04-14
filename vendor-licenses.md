@@ -58,6 +58,8 @@ Split.js: [MIT License](https://github.com/nathancahill/split/blob/311646253e36d
 
 Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/LICENSE)
 
+Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de2243088a9a826e6899e20465c/LICENSE)
+
 SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
