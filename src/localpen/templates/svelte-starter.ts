@@ -16,7 +16,7 @@ export const svelteStarter: Template = {
     language: 'svelte',
     content: `
 <script>
-  let title = 'Svelte';
+  let title = "Svelte";
   let counter = 0;
   function increment() {
     counter += 1;
@@ -38,8 +38,9 @@ export const svelteStarter: Template = {
   <h1>Hello, {title}!</h1>
   <img src="/localpen/assets/templates/svelte.svg" class="logo" />
   <p>You clicked {counter} times</p>
-  <button on:click={increment}>Click me</button>
-</div>`.trimStart(),
+  <button on:click="{increment}">Click me</button>
+</div>
+`.trimStart(),
   },
   stylesheets: [],
   scripts: [],
