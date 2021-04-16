@@ -97,23 +97,44 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     },
   };
 
-  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-    jsx: monaco.languages.typescript.JsxEmit.React,
-    jsxFactory: 'React.createElement',
-    reactNamespace: 'React',
+  const compilerOptions: Monaco.languages.typescript.CompilerOptions = {
+    jsx: monaco.languages.typescript.JsxEmit.Preserve,
     allowNonTsExtensions: true,
     allowJs: false,
     target: monaco.languages.typescript.ScriptTarget.Latest,
     experimentalDecorators: true,
     allowSyntheticDefaultImports: true,
-  });
+  };
+  monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
-  const loadReactTypes = () => {
-    loadTypes([
-      { name: 'react', typesUrl: `${baseUrl}types/react.d.ts` },
-      { name: 'react-dom', typesUrl: `${baseUrl}types/react-dom.d.ts` },
-    ]).then((reactTypes) =>
-      reactTypes.forEach((library) => {
+  const loadModuleTypes = () => {
+    let types: any[] = [];
+    if (language === 'tsx' || language === 'jsx') {
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        ...compilerOptions,
+        jsx: monaco.languages.typescript.JsxEmit.React,
+        jsxFactory: 'React.createElement',
+        reactNamespace: 'React',
+      });
+      if (language === 'tsx') {
+        types = [
+          { name: 'react', typesUrl: `${baseUrl}types/react.d.ts` },
+          { name: 'react-dom', typesUrl: `${baseUrl}types/react-dom.d.ts` },
+        ];
+      }
+    }
+    if (language === 'stencil') {
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        ...compilerOptions,
+        jsx: monaco.languages.typescript.JsxEmit.Preserve,
+        jsxFactory: undefined,
+        reactNamespace: 'h',
+      });
+      types = [{ name: '@stencil/core', typesUrl: `${baseUrl}types/stencil-core.d.ts` }];
+    }
+
+    loadTypes(types).then((dts) =>
+      dts.forEach((library) => {
         addTypes(library);
       }),
     );
@@ -139,9 +160,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     );
     editor.setModel(model);
     upateListeners();
-    if (language === 'tsx') {
-      loadReactTypes();
-    }
+    loadModuleTypes();
   };
 
   let language = options.language;
