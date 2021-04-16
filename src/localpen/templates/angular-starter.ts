@@ -15,11 +15,13 @@ export const angularStarter: Template = {
   script: {
     language: 'ts',
     content: `
-declare var ng: any;
+import { Component, Input, NgModule, enableProdMode } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import 'zone.js/dist/zone';
 
 // app.component.ts
-const { Component } = ng.core;
-
 @Component({
   selector: "app",
   styles: [
@@ -55,8 +57,6 @@ class AppComponent {
 }
 
 // heading.component.ts
-const { Input } = ng.core;
-
 @Component({
   selector: "heading",
   template: "<h1>{{title}}</h1>",
@@ -71,10 +71,6 @@ class HeadingComponent {
 }
 
 // app.module.ts
-const { BrowserModule } = ng.platformBrowser;
-const { NgModule } = ng.core;
-const { CommonModule } = ng.common;
-
 @NgModule({
   imports: [BrowserModule, CommonModule],
   declarations: [AppComponent, HeadingComponent],
@@ -84,9 +80,6 @@ const { CommonModule } = ng.common;
 class AppModule {}
 
 // main.ts
-const { enableProdMode } = ng.core;
-const { platformBrowserDynamic } = ng.platformBrowserDynamic;
-
 // enableProdMode();
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
@@ -94,16 +87,20 @@ platformBrowserDynamic()
 `.trimStart(),
   },
   stylesheets: [],
-  scripts: [
-    'https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.7/core.js',
-    'https://unpkg.com/@angular/core@11.0.5/bundles/core.umd.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.10.3/zone.min.js',
-    'https://unpkg.com/@angular/common@11.0.5/bundles/common.umd.js',
-    'https://unpkg.com/@angular/compiler@11.0.5/bundles/compiler.umd.js',
-    'https://unpkg.com/@angular/platform-browser@11.0.5/bundles/platform-browser.umd.js',
-    'https://unpkg.com/@angular/platform-browser-dynamic@11.0.5/bundles/platform-browser-dynamic.umd.js',
-  ],
+  scripts: [],
   cssPreset: '',
-  modules: [],
+  modules: [
+    { name: '@angular/core', typesUrl: '/localpen/types/ng-core.d.ts' },
+    { name: '@angular/common', typesUrl: '/localpen/types/ng-common.d.ts' },
+    {
+      name: '@angular/platform-browser',
+      typesUrl: '/localpen/types/ng-platform-browser.d.ts',
+    },
+    {
+      name: '@angular/platform-browser-dynamic',
+      typesUrl: '/localpen/types/ng-platform-browser-dynamic.d.ts',
+    },
+    { name: '@angular/forms', typesUrl: '/localpen/types/ng-forms.d.ts' },
+    { name: '@angular/animations', typesUrl: '/localpen/types/ng-animations.d.ts' },
+  ],
 };
