@@ -79,6 +79,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'svelte':
       value = replaceImports(compiler(content), config);
       break;
+    case 'stencil':
+      value = replaceImports(await compiler(content), config);
+      break;
     case 'coffeescript':
       value = compiler(replaceImports(content, config), { bare: true });
       break;

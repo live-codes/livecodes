@@ -307,3 +307,10 @@ esbuild.buildSync({
   format: 'iife',
   globalName: 'svelte',
 });
+
+// stencil
+mkdirp(targetDir + '/stencil');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/stencil/stencil.min.js'),
+  path.resolve(targetDir + '/stencil/stencil.2.5.2.min.js'),
+);

@@ -56,6 +56,8 @@ SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a
 
 Split.js: [MIT License](https://github.com/nathancahill/split/blob/311646253e36db7dc8e7ab0a2ff55b08f15252d5/LICENSE)
 
+Stencil: [MIT License](https://github.com/ionic-team/stencil/blob/8d580b12b96cc5acc817d7efbd29dc7ad0d98457/LICENSE.mds)
+
 Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/LICENSE)
 
 Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de2243088a9a826e6899e20465c/LICENSE)
