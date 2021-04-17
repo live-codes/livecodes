@@ -8,7 +8,7 @@ export const jqueryStarter: Template = {
     language: 'html',
     content: `
 <div id="root">
-  <h1>Hello, jQuery</h1>
+  <h1>Hello, <span id="title">World</span>!</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/jquery.svg" class="logo" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
@@ -32,6 +32,8 @@ export const jqueryStarter: Template = {
     language: 'javascript',
     content: `
 import $ from "jquery";
+
+$("#title").text('jQuery');
 
 let count = 0;
 $("#counter-button").click(() => {
