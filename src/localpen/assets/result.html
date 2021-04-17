@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
+    <title>LocalPen</title>
     <script>
       window.addEventListener('message', (event) => {
         if (event.origin.startsWith(location.origin) && event.data.result) {
@@ -13,5 +12,6 @@
         }
       });
     </script>
-  </body>
+  </head>
+  <body></body>
 </html>

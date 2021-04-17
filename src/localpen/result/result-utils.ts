@@ -1,4 +1,4 @@
-import { typeOf } from './utils';
+import { typeOf } from '../utils';
 
 function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
   return args.map((arg) => {

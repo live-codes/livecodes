@@ -5,7 +5,6 @@ import {
   languages,
   getLanguageByAlias,
   getLanguageEditorId,
-  cssPresets,
   getLanguageCompiler,
   createLanguageMenus,
   languageIsEnabled,
@@ -41,9 +40,10 @@ import { createToolsPane } from './tools';
 import { createConsole } from './console';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { importCode } from './import';
-import { compress, debounce, getAbsoluteUrl, isRelativeUrl } from './utils';
-import { getCompiler, hasImports } from './compiler';
+import { compress, debounce } from './utils';
+import { getCompiler } from './compiler';
 import { loadTypes } from './load-types';
+import { createResultPage } from './result';
 
 export const app = async (config: Pen) => {
   // get a fresh immatuable copy of config
@@ -457,116 +457,23 @@ export const app = async (config: Pen) => {
     forExport = false,
     template: string = resultTemplate,
   ) => {
-    const config = getConfig();
-    const absoluteBaseUrl = getAbsoluteUrl(config.baseUrl);
-
-    const getCompiled = (content: string, language: Language) =>
-      compiler.compile(content, language, config);
-
-    const domParser = new DOMParser();
-    const dom = domParser.parseFromString(template, 'text/html');
-
-    // title
-    dom.title = config.title;
-
-    // CSS Preset
-    if (config.cssPreset) {
-      const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
-      const cssPreset = dom.createElement('link');
-      cssPreset.rel = 'stylesheet';
-      cssPreset.id = '__localpen__css-preset';
-      cssPreset.href = absoluteBaseUrl + presetUrl;
-      dom.head.appendChild(cssPreset);
-    }
-
-    // external stylesheets
-    config.stylesheets.forEach((url, index) => {
-      const stylesheet = dom.createElement('link');
-      stylesheet.rel = 'stylesheet';
-      stylesheet.id = '__localpen__external-stylesheet-' + index;
-      stylesheet.href = url;
-      dom.head.appendChild(stylesheet);
-    });
-    const style = await getCompiled(editors.style?.getValue(), getEditorLanguage('style'));
-    const styleElement = dom.createElement('style');
-    styleElement.innerHTML = style;
-    dom.head.appendChild(styleElement);
-
-    if (config.cssPreset === 'github-markdown-css') {
-      dom.body.classList.add('markdown-body');
-    }
-
-    // if export => clean, else => add utils
-    if (forExport) {
-      dom.body.innerHTML = '';
-    } else {
-      const utilsScript = dom.createElement('script');
-      utilsScript.src = absoluteBaseUrl + 'assets/scripts/utils.js';
-      dom.body.appendChild(utilsScript);
-    }
-
-    // markup
-    const markup = await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup'));
-    dom.body.innerHTML += markup;
-
-    // dependencies (styles & scripts)
-    [getEditorLanguage('markup'), getEditorLanguage('style'), getEditorLanguage('script')].forEach(
-      (language) => {
-        const compiler = getLanguageCompiler(language);
-        if (!compiler) return;
-
-        compiler.styles?.forEach((depStyleUrl) => {
-          const stylesheet = dom.createElement('link');
-          stylesheet.rel = 'stylesheet';
-          stylesheet.href = isRelativeUrl(depStyleUrl)
-            ? absoluteBaseUrl + depStyleUrl
-            : depStyleUrl;
-          dom.head.appendChild(stylesheet);
-        });
-        compiler.scripts?.forEach((depScriptUrl) => {
-          const depScript = dom.createElement('script');
-          depScript.src = isRelativeUrl(depScriptUrl)
-            ? absoluteBaseUrl + depScriptUrl
-            : depScriptUrl;
-          if (compiler.deferScripts) {
-            depScript.defer = true;
-          }
-          dom.body.appendChild(depScript);
-        });
-        if (compiler.inlineScript) {
-          const inlineScript = document.createElement('script');
-          inlineScript.innerHTML = compiler.inlineScript;
-          dom.body.appendChild(inlineScript);
-        }
-      },
+    const result = await createResultPage(
+      editors,
+      getConfig(),
+      compiler,
+      editorLanguages,
+      forExport,
+      template,
     );
 
-    // external scripts
-    config.scripts.forEach((url) => {
-      const externalScript = dom.createElement('script');
-      externalScript.src = url;
-      dom.body.appendChild(externalScript);
-    });
-
-    // script
-    const rawScript = editors.script?.getValue();
-    const script = await getCompiled(rawScript, getEditorLanguage('script'));
-    const scriptElement = dom.createElement('script');
-    scriptElement.innerHTML = script;
-    dom.body.appendChild(scriptElement);
-
-    // script type
-    const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
-    if (scriptType) {
-      scriptElement.type = scriptType;
-    } else if (hasImports(script)) {
-      scriptElement.type = 'module';
-    }
-
     // cache compiled code
-    lastCompiled = { markup, style, script };
+    lastCompiled = {
+      markup: result.markup,
+      style: result.style,
+      script: result.script,
+    };
 
-    return dom.documentElement.outerHTML;
+    return result.html;
   };
 
   const setLoading = (status: boolean) => {
