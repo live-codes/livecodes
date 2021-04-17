@@ -4,6 +4,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-markdown';
 import 'prismjs/components/prism-pug';
+import 'prismjs/components/prism-haml';
 import 'prismjs/components/prism-asciidoc';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-scss';

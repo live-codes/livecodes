@@ -19,6 +19,22 @@ export const languages: LanguageSpecs[] = [
     editor: 'markup',
   },
   {
+    name: 'markdown',
+    title: 'Markdown',
+    parser: {
+      name: 'markdown',
+      pluginUrls: [parserPlugins.markdown, parserPlugins.html],
+    },
+    compiler: {
+      url: 'vendor/marked/marked.min.js',
+      factory: () => (window as any).marked,
+      umd: true,
+    },
+    extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
+    editor: 'markup',
+    preset: 'github-markdown-css',
+  },
+  {
     name: 'pug',
     title: 'Pug',
     parser: {
@@ -34,20 +50,16 @@ export const languages: LanguageSpecs[] = [
     editor: 'markup',
   },
   {
-    name: 'markdown',
-    title: 'Markdown',
-    parser: {
-      name: 'markdown',
-      pluginUrls: [parserPlugins.markdown, parserPlugins.html],
-    },
+    name: 'haml',
+    title: 'Haml',
     compiler: {
-      url: 'vendor/marked/marked.min.js',
-      factory: () => (window as any).marked,
+      url: 'vendor/clientside-haml-js/haml.js',
+      factory: () => (code: string) =>
+        (window as any).haml.compileHaml({ source: code, tolerateFaults: true })(),
       umd: true,
     },
-    extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
+    extensions: ['haml'],
     editor: 'markup',
-    preset: 'github-markdown-css',
   },
   {
     name: 'asciidoc',

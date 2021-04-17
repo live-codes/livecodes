@@ -41,6 +41,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'pug':
       value = compiler(content);
       break;
+    case 'haml':
+      value = compiler(content);
+      break;
     case 'asciidoc':
       value = compiler(content);
       break;

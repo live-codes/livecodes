@@ -36,6 +36,7 @@ export type Language =
   | 'mdx'
   | 'pug'
   | 'jade'
+  | 'haml'
   | 'asciidoc'
   | 'adoc'
   | 'asc'
