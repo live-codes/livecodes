@@ -227,12 +227,8 @@ export const languages: LanguageSpecs[] = [
     compiler: {
       url: 'vendor/vue3-sfc-loader/vue3-sfc-loader.js',
       factory: () => (code) =>
-        `let app = document.querySelector("#app");
-if (!app) {
-  app = document.createElement("div");
-  app.id = 'app';
-  document.body.appendChild(app);
-}
+        `let app = document.querySelector("#app") || document.body;
+
 /* <!-- */
 let content = \`${code.replace(/`/g, '\\`')}\`;
 /* --> */
@@ -273,12 +269,8 @@ App.config.devtools = true;
     compiler: {
       url: 'vendor/vue3-sfc-loader/vue2-sfc-loader.js',
       factory: () => (code) =>
-        `let app = document.querySelector("#app");
-if (!app) {
-  app = document.createElement("div");
-  app.id = 'app';
-  document.body.appendChild(app);
-}
+        `let app = document.querySelector("#app") || document.body;
+
 /* <!-- */
 let content = \`${code.replace(/`/g, '\\`')}\`;
 /* --> */
@@ -322,13 +314,7 @@ Vue.config.devtools = true;
         const { js } = (window as any).svelte.compile(code, options);
         return `${js.code}
 
-let app = document.querySelector("#app");
-if (!app) {
-  app = document.createElement("div");
-  app.id = 'app';
-  document.body.appendChild(app);
-}
-
+let app = document.querySelector("#app") || document.body;
 new Component({ target: app });
 `;
       },
