@@ -6,13 +6,13 @@ export const preactStarter: Template = {
   language: 'jsx',
   markup: {
     language: 'html',
-    content: '<div id="root"></div>\n',
+    content: '<div id="app"></div>\n',
   },
   style: {
     language: 'css',
     content: `
-#app,
-#app button {
+.container,
+.container button {
   text-align: center;
   font: 1em sans-serif;
 }
@@ -33,7 +33,7 @@ const html = htm.bind(h);
 function App(props) {
   const [counter, setCounter] = useState(0);
   return html\`
-  <div id="app">
+  <div class="container">
     <h1>Hello, \${props.name}!</h1>
     <img src="{{ __localpen_baseUrl__ }}assets/templates/preact.svg" className="logo" />
     <p>You clicked \${counter} times.</p>
@@ -42,7 +42,7 @@ function App(props) {
   \`;
 }
 
-render(html\`<\${App} name="Preact" />\`, document.querySelector("#root"));
+render(html\`<\${App} name="Preact" />\`, document.querySelector("#app"));
 `.trimStart(),
   },
   stylesheets: [],

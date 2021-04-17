@@ -24,8 +24,8 @@ export const svelteStarter: Template = {
 </script>
 
 <style>
-  #root,
-  button {
+  .container,
+  .container button {
     text-align: center;
     font: 1em sans-serif;
   }
@@ -34,7 +34,7 @@ export const svelteStarter: Template = {
   }
 </style>
 
-<div id="root">
+<div class="container">
   <h1>Hello, {title}!</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/svelte.svg" class="logo" />
   <p>You clicked {counter} times</p>
