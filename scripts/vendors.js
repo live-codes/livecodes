@@ -314,3 +314,10 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/stencil/stencil.min.js'),
   path.resolve(targetDir + '/stencil/stencil.2.5.2.min.js'),
 );
+
+// clientside-haml-js
+mkdirp(targetDir + '/clientside-haml-js');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/clientside-haml-js/haml.js'),
+  path.resolve(targetDir + '/clientside-haml-js/haml.js'),
+);
