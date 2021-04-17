@@ -1,27 +1,14 @@
-import { hasImports, getCompiler } from '../compiler';
-import { resultTemplate } from '../html';
+import { hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
-import { EditorLanguages, Editors, Language, Pen } from '../models';
+import { EditorId, Language, Pen } from '../models';
 import { getAbsoluteUrl, isRelativeUrl } from '../utils';
 
-interface Result {
-  html: string;
-  markup: string;
-  style: string;
-  script: string;
-}
-export const createResultPage = async (
-  editors: Editors,
-  config: Pen,
-  compiler: ReturnType<typeof getCompiler>,
-  editorLanguages: EditorLanguages,
-  forExport = false,
-  template: string = resultTemplate,
-): Promise<Result> => {
-  const absoluteBaseUrl = getAbsoluteUrl(config.baseUrl);
+type Code = {
+  [key in EditorId]: { language: Language; content: string };
+};
 
-  const getCompiled = (content: string, language: Language) =>
-    compiler.compile(content, language, config);
+export const createResultPage = (code: Code, config: Pen, forExport: boolean, template: string) => {
+  const absoluteBaseUrl = getAbsoluteUrl(config.baseUrl);
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(template, 'text/html');
@@ -40,14 +27,15 @@ export const createResultPage = async (
   }
 
   // external stylesheets
-  config.stylesheets.forEach((url, index) => {
+  config.stylesheets.forEach((url) => {
     const stylesheet = dom.createElement('link');
     stylesheet.rel = 'stylesheet';
-    stylesheet.id = '__localpen__external-stylesheet-' + index;
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
   });
-  const style = await getCompiled(editors.style?.getValue(), editorLanguages.style);
+
+  // editor styles
+  const style = code.style.content;
   const styleElement = dom.createElement('style');
   styleElement.innerHTML = style;
   dom.head.appendChild(styleElement);
@@ -65,12 +53,12 @@ export const createResultPage = async (
     dom.head.appendChild(utilsScript);
   }
 
-  // markup
-  const markup = await getCompiled(editors.markup?.getValue(), editorLanguages.markup);
+  // editor markup
+  const markup = code.markup.content;
   dom.body.innerHTML += markup;
 
   // dependencies (styles & scripts)
-  [editorLanguages.markup, editorLanguages.style, editorLanguages.script].forEach((language) => {
+  [code.markup.language, code.style.language, code.script.language].forEach((language) => {
     const compiler = getLanguageCompiler(language);
     if (!compiler) return;
 
@@ -102,25 +90,19 @@ export const createResultPage = async (
     dom.head.appendChild(externalScript);
   });
 
-  // script
-  const rawScript = editors.script?.getValue();
-  const script = await getCompiled(rawScript, editorLanguages.script);
+  // editor script
+  const script = code.script.content;
   const scriptElement = dom.createElement('script');
   scriptElement.innerHTML = script;
   dom.body.appendChild(scriptElement);
 
   // script type
-  const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
+  const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
   if (scriptType) {
     scriptElement.type = scriptType;
   } else if (hasImports(script)) {
     scriptElement.type = 'module';
   }
 
-  return {
-    html: dom.documentElement.outerHTML,
-    markup,
-    style,
-    script,
-  };
+  return dom.documentElement.outerHTML;
 };

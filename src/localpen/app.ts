@@ -457,23 +457,32 @@ export const app = async (config: Pen) => {
     forExport = false,
     template: string = resultTemplate,
   ) => {
-    const result = await createResultPage(
-      editors,
-      getConfig(),
-      compiler,
-      editorLanguages,
-      forExport,
-      template,
-    );
+    const getCompiled = (content: string, language: Language) =>
+      compiler.compile(content, language, config);
+
+    const compiledCode = {
+      markup: {
+        language: getEditorLanguage('markup'),
+        content: await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup')),
+      },
+      style: {
+        language: getEditorLanguage('style'),
+        content: await getCompiled(editors.style?.getValue(), getEditorLanguage('style')),
+      },
+      script: {
+        language: getEditorLanguage('script'),
+        content: await getCompiled(editors.script?.getValue(), getEditorLanguage('script')),
+      },
+    };
 
     // cache compiled code
     lastCompiled = {
-      markup: result.markup,
-      style: result.style,
-      script: result.script,
+      markup: compiledCode.markup.content,
+      style: compiledCode.style.content,
+      script: compiledCode.script.content,
     };
 
-    return result.html;
+    return createResultPage(compiledCode, getConfig(), forExport, template);
   };
 
   const setLoading = (status: boolean) => {
