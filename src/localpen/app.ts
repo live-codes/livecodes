@@ -1041,12 +1041,6 @@ export const app = async (config: Pen) => {
             'click',
             () => {
               const { title, thumbnail, ...templateConfig } = template;
-              (Object.keys(editors) as EditorId[]).forEach((editorId) => {
-                templateConfig[editorId].content = templateConfig[editorId].content?.replace(
-                  /{{ __localpen_baseUrl__ }}/,
-                  getConfig().baseUrl,
-                );
-              });
               penId = '';
               loadConfig({
                 ...defaultConfig,

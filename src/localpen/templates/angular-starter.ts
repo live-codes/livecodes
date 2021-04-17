@@ -39,7 +39,7 @@ import 'zone.js/dist/zone';
   template: \`
     <div class="container">
       <heading name="{{name}}"></heading>
-      <img src="/localpen/assets/templates/angular.svg" class="logo" />
+      <img src="{{ __localpen_baseUrl__ }}assets/templates/angular.svg" class="logo" />
       <p>You clicked {{count}} times.</p>
       <button type="button" (click)="increment()">Click me</button>
     </div>
@@ -90,17 +90,17 @@ platformBrowserDynamic()
   scripts: [],
   cssPreset: '',
   modules: [
-    { name: '@angular/core', typesUrl: '/localpen/types/ng-core.d.ts' },
-    { name: '@angular/common', typesUrl: '/localpen/types/ng-common.d.ts' },
+    { name: '@angular/core', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-core.d.ts' },
+    { name: '@angular/common', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-common.d.ts' },
     {
       name: '@angular/platform-browser',
-      typesUrl: '/localpen/types/ng-platform-browser.d.ts',
+      typesUrl: '{{ __localpen_baseUrl__ }}types/ng-platform-browser.d.ts',
     },
     {
       name: '@angular/platform-browser-dynamic',
-      typesUrl: '/localpen/types/ng-platform-browser-dynamic.d.ts',
+      typesUrl: '{{ __localpen_baseUrl__ }}types/ng-platform-browser-dynamic.d.ts',
     },
-    { name: '@angular/forms', typesUrl: '/localpen/types/ng-forms.d.ts' },
-    { name: '@angular/animations', typesUrl: '/localpen/types/ng-animations.d.ts' },
+    { name: '@angular/forms', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-forms.d.ts' },
+    { name: '@angular/animations', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-animations.d.ts' },
   ],
 };

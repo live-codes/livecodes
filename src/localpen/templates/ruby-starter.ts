@@ -9,7 +9,7 @@ export const rubyStarter: Template = {
     content: `
 <div id="root">
   <h1>Hello, <span id="title">World</span>!</h1>
-  <img src="/localpen/assets/templates/ruby.svg" class="logo" />
+  <img src="{{ __localpen_baseUrl__ }}assets/templates/ruby.svg" class="logo" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>

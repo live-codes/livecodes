@@ -35,7 +35,7 @@ function App(props) {
   return html\`
   <div id="app">
     <h1>Hello, \${props.name}!</h1>
-    <img src="/localpen/assets/templates/preact.svg" className="logo" />
+    <img src="{{ __localpen_baseUrl__ }}assets/templates/preact.svg" className="logo" />
     <p>You clicked \${counter} times.</p>
     <button onClick=\${() => setCounter(counter + 1)}>Click me</button>
   </div>
