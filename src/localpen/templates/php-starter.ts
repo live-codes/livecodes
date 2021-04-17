@@ -9,7 +9,7 @@ export const phpStarter: Template = {
     content: `
 <div id="root">
   <h1>Hello, <span id="title">world</span>!</h1>
-  <img src="/localpen/assets/templates/php.svg" class="logo" />
+  <img src="{{ __localpen_baseUrl__ }}assets/templates/php.svg" class="logo" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

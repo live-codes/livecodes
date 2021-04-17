@@ -9,7 +9,7 @@ export const schemeStarter: Template = {
     content: `
 <div id="root">
   <h1>Hello, <sapn id="title">World</sapn>!</h1>
-  <img src="/localpen/assets/templates/scheme.svg" class="logo" />
+  <img src="{{ __localpen_baseUrl__ }}assets/templates/scheme.svg" class="logo" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

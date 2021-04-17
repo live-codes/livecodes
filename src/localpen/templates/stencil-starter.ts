@@ -42,7 +42,7 @@ export class App {
     return (
       <div id="root">
         <h1>Hello, {this.title}!</h1>
-        <img src="/localpen/assets/templates/stencil.png" class="logo" />
+        <img src="{{ __localpen_baseUrl__ }}assets/templates/stencil.png" class="logo" />
         <p>You clicked {this.count} times</p>
         <button onClick={this.increment}>Click me</button>
       </div>
