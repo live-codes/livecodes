@@ -6,13 +6,13 @@ export const reactStarter: Template = {
   language: 'jsx',
   markup: {
     language: 'html',
-    content: '<div id="root">Loading...</div>\n',
+    content: '<div id="app">Loading...</div>\n',
   },
   style: {
     language: 'css',
     content: `
-#app,
-#app button {
+.container,
+.container button {
   text-align: center;
   font: 1em sans-serif;
 }
@@ -31,7 +31,7 @@ function App(props) {
   const [count, setCount] = useState(0);
 
   return (
-    <div id="app">
+    <div class="container">
       <h1>Hello, {props.name}</h1>
       <img src="{{ __localpen_baseUrl__ }}assets/templates/react.svg" className="logo" />
       <p>You clicked {count} times</p>
@@ -39,7 +39,7 @@ function App(props) {
     </div>
   );
 }
-ReactDOM.render(<App name="React" />, document.querySelector("#root"));
+ReactDOM.render(<App name="React" />, document.querySelector("#app"));
 `.trimStart(),
   },
   stylesheets: [],

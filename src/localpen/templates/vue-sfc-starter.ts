@@ -16,7 +16,7 @@ export const vueSfcStarter: Template = {
     language: 'vue',
     content: `
 <template>
-  <div id="root">
+  <div class="container">
     <h1>Hello, Vue</h1>
     <img src="{{ __localpen_baseUrl__ }}assets/templates/vue.svg" class="logo" />
     <p>You clicked {{ counter }} times</p>
@@ -41,8 +41,8 @@ export const vueSfcStarter: Template = {
 </script>
 
 <style scoped>
-  #root,
-  button {
+  .container,
+  .container button {
     text-align: v-bind('align');
     font: 1em sans-serif;
   }

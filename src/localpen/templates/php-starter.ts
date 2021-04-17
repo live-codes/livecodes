@@ -7,7 +7,7 @@ export const phpStarter: Template = {
   markup: {
     language: 'html',
     content: `
-<div id="root">
+<div class="container">
   <h1>Hello, <span id="title">world</span>!</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/php.svg" class="logo" />
   <p>You clicked <span id="counter">0</span> times.</p>
@@ -18,8 +18,8 @@ export const phpStarter: Template = {
   style: {
     language: 'css',
     content: `
-#root,
-#root button {
+.container,
+.container button {
   text-align: center;
   font: 1em sans-serif;
 }
