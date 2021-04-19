@@ -30,9 +30,34 @@ export const languages: LanguageSpecs[] = [
       factory: () => (window as any).marked,
       umd: true,
     },
-    extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
+    extensions: ['md', 'markdown', 'mdown', 'mkdn'],
     editor: 'markup',
     preset: 'github-markdown-css',
+  },
+  {
+    name: 'mdx',
+    title: 'MDX',
+    parser: {
+      name: 'babel-ts',
+      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    },
+    compiler: {
+      url: 'vendor/mdxc/mdxc.js',
+      factory: () => (code: string) => {
+        const mdxc = new (window as any).MDX.MDXC({
+          linkify: true,
+          typographer: true,
+        });
+        const compiled = mdxc.render(code);
+        return `import ReactDOM from "react-dom";
+      ${compiled.replace('export default function', 'function App')}
+      ReactDOM.render(<App />, document.body);
+      `;
+      },
+      umd: true,
+    },
+    extensions: ['mdx'],
+    editor: 'markup',
   },
   {
     name: 'pug',

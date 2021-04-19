@@ -53,8 +53,9 @@ export const createResultPage = (code: Code, config: Pen, forExport: boolean, te
     dom.head.appendChild(utilsScript);
   }
 
-  // editor markup
-  const markup = code.markup.content;
+  // editor markup (MDX is added to the script not page markup)
+  const markup = code.markup.language !== 'mdx' ? code.markup.content : '';
+  const mdx = code.markup.language === 'mdx' ? code.markup.content : '';
   dom.body.innerHTML += markup;
 
   // dependencies (styles & scripts)
@@ -93,14 +94,14 @@ export const createResultPage = (code: Code, config: Pen, forExport: boolean, te
   // editor script
   const script = code.script.content;
   const scriptElement = dom.createElement('script');
-  scriptElement.innerHTML = script;
+  scriptElement.innerHTML = mdx ? script + '\n' + mdx : script;
   dom.body.appendChild(scriptElement);
 
   // script type
   const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
   if (scriptType) {
     scriptElement.type = scriptType;
-  } else if (hasImports(script)) {
+  } else if (hasImports(script) || mdx) {
     scriptElement.type = 'module';
   }
 

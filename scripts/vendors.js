@@ -321,3 +321,12 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/clientside-haml-js/haml.js'),
   path.resolve(targetDir + '/clientside-haml-js/haml.js'),
 );
+
+// MDXC
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/mdxc.ts'],
+  outfile: 'src/localpen/vendor/mdxc/mdxc.js',
+  format: 'iife',
+  globalName: 'MDX',
+});

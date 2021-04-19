@@ -37,6 +37,8 @@ export const mapLanguage = (language: Language): Language =>
     ? 'typescript'
     : ['vue', 'vue2', 'svelte'].includes(language)
     ? 'html'
+    : language === 'mdx'
+    ? 'markdown'
     : language;
 
 export const languageIsEnabled = (language: Language, config: Pen) => {
