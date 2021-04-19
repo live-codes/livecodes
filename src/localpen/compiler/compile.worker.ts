@@ -81,7 +81,7 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       await loadLanguageCompiler('typescript', config);
       const typescriptCompiler = compilers.typescript?.fn;
       if (!typescriptCompiler) throw new Error('Failed to load compiler for: mdx');
-      const compiledMdx = compiler(content);
+      const compiledMdx = await compiler(content);
       value = typescriptCompiler(replaceImports(compiledMdx, config), typescriptOptions);
       break;
     case 'vue':

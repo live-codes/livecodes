@@ -2,6 +2,8 @@ var fs = require('fs');
 var path = require('path');
 
 const esbuild = require('esbuild');
+const NodeModulesPolyfills = require('@esbuild-plugins/node-modules-polyfill').default;
+const GlobalsPolyfills = require('@esbuild-plugins/node-globals-polyfill').default;
 const Bundler = require('parcel-bundler');
 
 function mkdirp(dir) {
@@ -322,11 +324,22 @@ fs.copyFileSync(
   path.resolve(targetDir + '/clientside-haml-js/haml.js'),
 );
 
-// MDXC
-esbuild.buildSync({
+// MDX
+esbuild.build({
   ...baseOptions,
-  entryPoints: ['vendor_modules/imports/mdxc.ts'],
-  outfile: 'src/localpen/vendor/mdxc/mdxc.js',
+  entryPoints: ['vendor_modules/imports/mdx.ts'],
+  outfile: 'src/localpen/vendor/mdx/mdx.js',
   format: 'iife',
   globalName: 'MDX',
+  define: {
+    global: 'window',
+  },
+  plugins: [
+    NodeModulesPolyfills(),
+    GlobalsPolyfills({
+      process: true,
+      buffer: true,
+      define: { 'process.env.NODE_ENV': '"production"', global: 'window' },
+    }),
+  ],
 });
