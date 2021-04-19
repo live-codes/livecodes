@@ -339,7 +339,7 @@ esbuild.build({
     GlobalsPolyfills({
       process: true,
       buffer: true,
-      define: { 'process.env.NODE_ENV': '"production"', global: 'window' },
+      define: { 'process.env.NODE_ENV': '"production"' },
     }),
   ],
 });

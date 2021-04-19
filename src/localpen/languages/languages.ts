@@ -38,32 +38,20 @@ export const languages: LanguageSpecs[] = [
     name: 'mdx',
     title: 'MDX',
     parser: {
-      name: 'babel-ts',
-      pluginUrls: [parserPlugins.babel, parserPlugins.html],
+      name: 'markdown',
+      pluginUrls: [parserPlugins.markdown, parserPlugins.html],
     },
     compiler: {
-      // url: 'vendor/mdxc/mdxc.js',
-      // factory: () => (code: string) => {
-      //   const mdxc = new (window as any).MDX.MDXC({
-      //     linkify: true,
-      //     typographer: true,
-      //   });
-      //   const compiled = mdxc.render(code);
-      //   return `import ReactDOM from "react-dom";
-      // ${compiled.replace('export default function', 'function App')}
-      // ReactDOM.render(<App />, document.body);
-      // `;
-      // },
       url: 'vendor/mdx/mdx.js',
       factory: () => async (code: string) => {
         const compiled = await (window as any).MDX.mdx(code, { skipExport: true });
         const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
         const jsx = removeShortcode(compiled);
-        return `import ReactDOM from "react-dom";
-                import React from "react";
+        return `import React from "react";
+                import ReactDOM from "react-dom";
                 ${jsx}
                 ReactDOM.render(<MDXContent />, document.body);
-      `;
+                `;
       },
       umd: true,
     },
