@@ -64,8 +64,12 @@ window.addEventListener('message', (event) => {
   if (event.origin.startsWith(location.origin) && event.data.console) {
     const evalCode = () => {
       try {
-        // eslint-disable-next-line no-eval
-        return { type: 'console', method: 'output', args: consoleArgs([eval(event.data.console)]) };
+        return {
+          type: 'console',
+          method: 'output',
+          // eslint-disable-next-line no-eval
+          args: consoleArgs([window.eval(event.data.console)]),
+        };
       } catch (error) {
         return { type: 'console', method: 'error', args: consoleArgs([error]) };
       }

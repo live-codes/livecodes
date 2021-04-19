@@ -30,9 +30,33 @@ export const languages: LanguageSpecs[] = [
       factory: () => (window as any).marked,
       umd: true,
     },
-    extensions: ['md', 'markdown', 'mdown', 'mkdn', 'mdx'],
+    extensions: ['md', 'markdown', 'mdown', 'mkdn'],
     editor: 'markup',
     preset: 'github-markdown-css',
+  },
+  {
+    name: 'mdx',
+    title: 'MDX',
+    parser: {
+      name: 'markdown',
+      pluginUrls: [parserPlugins.markdown, parserPlugins.html],
+    },
+    compiler: {
+      url: 'vendor/mdx/mdx.js',
+      factory: () => async (code: string) => {
+        const compiled = await (window as any).MDX.mdx(code, { skipExport: true });
+        const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
+        const jsx = removeShortcode(compiled);
+        return `import React from "react";
+                import ReactDOM from "react-dom";
+                ${jsx}
+                ReactDOM.render(<MDXContent />, document.body);
+                `;
+      },
+      umd: true,
+    },
+    extensions: ['mdx'],
+    editor: 'markup',
   },
   {
     name: 'pug',

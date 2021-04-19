@@ -436,7 +436,7 @@ export const app = async (config: Pen) => {
   const updateCompiledCode = () => {
     const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
     const compiledLanguages: { [key in EditorId]: Language } = {
-      markup: 'html',
+      markup: getEditorLanguage('markup') === 'mdx' ? 'javascript' : 'html',
       style: 'css',
       script: scriptType ? editors.script.getLanguage() : 'javascript',
     };

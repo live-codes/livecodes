@@ -20,7 +20,7 @@ const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) 
     importScripts(languageCompiler.url);
     languageCompiler.fn = languageCompiler.factory(null, config);
   } catch (error) {
-    throw new Error('Failed to load transpiler for: ' + language);
+    throw new Error('Failed to load compiler for: ' + language);
   }
 
   const loadedMessage: CompilerMessage = { type: 'loaded', payload: language };
@@ -30,8 +30,15 @@ const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) 
 const compile = async (content: string, language: LanguageOrProcessor, config: Pen) => {
   const compiler = compilers[language]?.fn || ((...args: any[]) => args[0]);
   if (typeof compiler !== 'function') {
-    throw new Error('Failed to load transpiler for: ' + language);
+    throw new Error('Failed to load compiler for: ' + language);
   }
+
+  const typescriptOptions = {
+    target: 'es2015',
+    jsx: 'react',
+    allowUmdGlobalAccess: true,
+    esModuleInterop: true,
+  };
 
   let value = '';
   switch (language) {
@@ -68,10 +75,14 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       }).code;
       break;
     case 'typescript':
-      value = compiler(replaceImports(content, config), {
-        target: 'es2015',
-        jsx: 'react',
-      });
+      value = compiler(replaceImports(content, config), typescriptOptions);
+      break;
+    case 'mdx':
+      await loadLanguageCompiler('typescript', config);
+      const typescriptCompiler = compilers.typescript?.fn;
+      if (!typescriptCompiler) throw new Error('Failed to load compiler for: mdx');
+      const compiledMdx = await compiler(content);
+      value = typescriptCompiler(replaceImports(compiledMdx, config), typescriptOptions);
       break;
     case 'vue':
       value = compiler(replaceImports(content, config));
