@@ -29,9 +29,13 @@ export const createLanguageMenus = (
     `;
     rootList.appendChild(editorSelector);
 
+    const menuScroller = document.createElement('div');
+    menuScroller.classList.add('menu-scroller');
+    editorSelector.appendChild(menuScroller);
+
     const languageMenu = document.createElement('ul');
     languageMenu.classList.add('dropdown-menu');
-    editorSelector.appendChild(languageMenu);
+    menuScroller.appendChild(languageMenu);
 
     const editorLanguages = languages
       .filter((language) => languageIsEnabled(language.name, config))

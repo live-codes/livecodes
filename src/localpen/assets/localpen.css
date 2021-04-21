@@ -410,7 +410,7 @@ li.editor-title.active > button:hover {
   display: none;
   position: absolute;
   left: 0;
-  top: 35px;
+  top: 0;
   z-index: 1000;
   width: 100%;
   min-width: 150px;
@@ -423,11 +423,21 @@ li.editor-title.active > button:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
+li.editor-title .menu-scroller {
+  top: 35px;
+  right: 0;
+  width: 100%;
+  min-width: 150px;
+  max-width: 45vw;
+}
 
-li.editor-title > button:focus + .dropdown-menu,
-#settings-button:focus + #settings-menu-container,
+li.editor-title > button:focus + .menu-scroller,
+li.editor-title > button:focus + .menu-scroller .dropdown-menu,
+/* .menu-scroller:hover, */
+/* .dropdown-menu:hover, */
 #settings-menu-container:hover,
-#settings-button:focus + #settings-menu-container .dropdown-menu,
+#settings-button:focus + .menu-scroller,
+#settings-button:focus + .menu-scroller .dropdown-menu,
 #settings-menu:hover {
   display: block;
 }
@@ -443,7 +453,7 @@ li.editor-title > button:focus + .dropdown-menu,
   background-color: #e7e8f1;
 }
 
-#settings-menu-container {
+.menu-scroller {
   display: none;
   position: absolute;
   top: 40px;
@@ -454,7 +464,7 @@ li.editor-title > button:focus + .dropdown-menu,
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-#settings-menu-container::-webkit-scrollbar {
+.menu-scroller::-webkit-scrollbar {
   display: none;
 }
 
