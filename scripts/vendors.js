@@ -343,3 +343,10 @@ esbuild.build({
     }),
   ],
 });
+
+// fengari-web
+mkdirp(targetDir + '/fengari-web');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/fengari-web/fengari-web.js'),
+  path.resolve(targetDir + '/fengari-web/fengari-web.js'),
+);

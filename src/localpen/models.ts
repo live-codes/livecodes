@@ -67,6 +67,7 @@ export type Language =
   | 'ruby'
   | 'rb'
   | 'php'
+  | 'lua'
   | 'scheme'
   | 'scm';
 
@@ -161,7 +162,12 @@ export interface Compiler {
   scripts?: string[];
   deferScripts?: boolean;
   inlineScript?: string;
-  scriptType?: 'text/python' | 'text/ruby' | 'text/x-uniter-php' | 'text/biwascheme';
+  scriptType?:
+    | 'text/python'
+    | 'text/ruby'
+    | 'text/x-uniter-php'
+    | 'text/biwascheme'
+    | 'application/lua';
 }
 
 export interface Compilers {
