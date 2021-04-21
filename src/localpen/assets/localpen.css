@@ -50,6 +50,15 @@ body {
   align-items: center;
   justify-content: center;
 }
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 #container {
   position: relative;
   height: 100%;
@@ -412,7 +421,7 @@ li.editor-title.active > button:hover {
   left: 0;
   top: 0;
   z-index: 1000;
-  width: 100%;
+  width: calc(100% - 10px);
   min-width: 150px;
   max-width: 45vw;
   padding: 5px 0;
@@ -425,8 +434,8 @@ li.editor-title.active > button:hover {
 }
 li.editor-title .menu-scroller {
   top: 35px;
-  right: 0;
-  width: 100%;
+  right: -10px;
+  width: calc(100% + 10px);
   min-width: 150px;
   max-width: 45vw;
 }

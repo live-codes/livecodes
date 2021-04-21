@@ -30,7 +30,7 @@ export const createLanguageMenus = (
     rootList.appendChild(editorSelector);
 
     const menuScroller = document.createElement('div');
-    menuScroller.classList.add('menu-scroller');
+    menuScroller.classList.add('menu-scroller', 'noselect');
     editorSelector.appendChild(menuScroller);
 
     const languageMenu = document.createElement('ul');
