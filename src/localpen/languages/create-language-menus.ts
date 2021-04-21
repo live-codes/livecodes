@@ -14,7 +14,7 @@ export const createLanguageMenus = (
   editorIds.forEach((editorId) => {
     const editorSelector = document.createElement('li');
     editorSelector.id = editorId + '-selector';
-    editorSelector.classList.add('editor-title');
+    editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
     editorSelector.innerHTML = `
       <span></span>
@@ -30,7 +30,7 @@ export const createLanguageMenus = (
     rootList.appendChild(editorSelector);
 
     const menuScroller = document.createElement('div');
-    menuScroller.classList.add('menu-scroller', 'noselect');
+    menuScroller.classList.add('menu-scroller');
     editorSelector.appendChild(menuScroller);
 
     const languageMenu = document.createElement('ul');
