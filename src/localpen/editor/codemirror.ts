@@ -13,6 +13,7 @@ import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
 import { ruby } from '@codemirror/legacy-modes/mode/ruby';
+import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
@@ -43,6 +44,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       coffeescript: () => legacy(coffeeScript),
       ruby: () => legacy(ruby),
       php: () => legacy(php),
+      lua: () => legacy(lua),
       scheme: () => legacy(scheme),
       less: () => legacy(less),
       scss: () => legacy(sCSS),

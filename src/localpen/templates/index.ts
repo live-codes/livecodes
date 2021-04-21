@@ -6,6 +6,7 @@ import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
 import { d3Starter } from './d3-starter';
 import { jqueryStarter } from './jquery-starter';
+import { luaStarter } from './lua-starter';
 import { mdxStarter } from './mdx-starter';
 import { phpStarter } from './php-starter';
 import { polymerStarter } from './polymer-starter';
@@ -41,6 +42,7 @@ const starterTemplates = [
   pythonStarter,
   rubyStarter,
   phpStarter,
+  luaStarter,
   schemeStarter,
   readmeTemplate,
 ];

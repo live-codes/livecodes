@@ -22,6 +22,8 @@ CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f64
 
 emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b578210738fb591c65fb34530d28c0d0341fbb7d/LICENSE)
 
+fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/a9fb130f6851206e8a57be902af061e980be5610/LICENSE)
+
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)
 
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
@@ -33,6 +35,8 @@ luna: [MIT License](https://github.com/liriliri/luna/blob/6696874f52f70f5de5dc47
 lz-string: [MIT License](https://github.com/pieroxy/lz-string/blob/b2e0b270a9f3cf330b778b777385fcba384a1a02/LICENSE)
 
 Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb063cd66a210d7c34249cb7dc/LICENSE.md)
+
+MDX: [MIT License](https://github.com/mdx-js/mdx/blob/02509286b5a39d6df233225545cf87e070130588/license)
 
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
 

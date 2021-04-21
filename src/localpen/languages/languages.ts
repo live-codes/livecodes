@@ -438,6 +438,19 @@ new Component({ target: app });
     editor: 'script',
   },
   {
+    name: 'lua',
+    title: 'Lua',
+    compiler: {
+      url: 'assets/noop.js',
+      factory: () => (code) => code,
+      umd: true,
+      scripts: ['vendor/fengari-web/fengari-web.js'],
+      scriptType: 'application/lua',
+    },
+    extensions: ['lua'],
+    editor: 'script',
+  },
+  {
     name: 'scheme',
     title: 'Scheme',
     compiler: {
