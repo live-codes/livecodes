@@ -422,8 +422,7 @@ li.editor-title.active > button:hover {
   top: 0;
   z-index: 1000;
   width: calc(100% - 12px);
-  min-width: 150px;
-  max-width: 45vw;
+  max-width: calc(100% - 12px);
   padding: 5px 0;
   list-style: none;
   background-color: #fff;
@@ -486,6 +485,7 @@ li.editor-title > button:focus + .menu-scroller .dropdown-menu,
   left: unset;
   margin-top: 0;
   width: 250px;
+  max-width: 45vw;
 }
 
 #settings-menu li,
