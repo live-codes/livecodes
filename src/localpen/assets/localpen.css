@@ -449,6 +449,8 @@ li.editor-title > button:focus + .menu-scroller .dropdown-menu,
 #settings-button:focus + .menu-scroller .dropdown-menu,
 #settings-menu:hover {
   display: block;
+  animation: fadeIn 0.4s forwards;
+  z-index: 1000;
 }
 
 .dropdown-menu li > * {
@@ -628,80 +630,6 @@ i.arrow:after {
 
 .switch .slider.round:before {
   border-radius: 50%;
-}
-
-#notifications {
-  display: inline-block;
-  position: absolute;
-  bottom: 0;
-  margin: 0;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  text-align: center;
-  padding: 10px;
-  color: #2e2e2e;
-  background-color: #f5f6fc;
-  border: 1px solid black;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  box-shadow: 0 6px 12px #0000002d;
-  -webkit-animation: slideIn 0.4s;
-  animation: slideIn 0.4s forwards;
-  z-index: 50; /* above console error and console editor suggestions menu */
-}
-
-#notifications.hidden {
-  bottom: -200px;
-  -webkit-animation: slideOut 0.4s;
-  animation: slideOut 0.4s forwards;
-}
-
-#notifications.error {
-  color: crimson;
-  background-color: #fff5f6;
-}
-
-@-webkit-keyframes slideIn {
-  from {
-    bottom: -200px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0;
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    bottom: -200px;
-    opacity: 0;
-  }
-  to {
-    bottom: 0;
-    opacity: 1;
-  }
-}
-@-webkit-keyframes slideOut {
-  from {
-    bottom: 0;
-    opacity: 1;
-  }
-  to {
-    bottom: -200px;
-    opacity: 0;
-  }
-}
-@keyframes slideOut {
-  from {
-    bottom: 0;
-    opacity: 1;
-  }
-  to {
-    bottom: -200px;
-    opacity: 0;
-  }
 }
 
 @-webkit-keyframes fadeIn {
