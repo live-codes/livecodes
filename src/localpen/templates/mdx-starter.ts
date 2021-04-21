@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
   <Hello title="MDX" />
 </Paper>
 
-![MDX Logo](/localpen/assets/templates/mdx.svg)
+![MDX Logo]({{ __localpen_baseUrl__ }}assets/templates/mdx.svg)
 
 <Counter variant="outlined" color="primary" />
 `.trimStart(),

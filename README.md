@@ -113,7 +113,7 @@ There are multiple options:
   ```sh
   npm install
   npm run build
-  npm run serve         # locally serve to http://127.0.0.2:8080
+  npm run serve         # locally serve to http://localhost:8080
   npm start             # start local development with code watch, rebuild and live-reload
   npm run gh-pages      # publish to github pages
   ```
