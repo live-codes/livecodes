@@ -187,7 +187,6 @@ export const languages: LanguageSpecs[] = [
   {
     name: 'babel',
     title: 'Babel',
-    longTitle: 'ES Next (Babel)',
     parser: {
       name: 'babel',
       pluginUrls: [parserPlugins.babel, parserPlugins.html],
