@@ -101,6 +101,7 @@ export interface LanguageSpecs {
   name: Language;
   title: string;
   longTitle?: string;
+  info?: string;
   parser?: Parser;
   compiler?: Compiler | Language;
   extensions: Language[];

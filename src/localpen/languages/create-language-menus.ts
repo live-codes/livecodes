@@ -1,9 +1,13 @@
+import { createEventsManager } from '../events';
+import { createModal } from '../modal';
 import { EditorId, Pen } from '../models';
 import { languages } from './languages';
 import { languageIsEnabled } from './utils';
 
 export const createLanguageMenus = (
   config: Pen,
+  modal: ReturnType<typeof createModal>,
+  eventsManager: ReturnType<typeof createEventsManager>,
   editorIds: EditorId[] = ['markup', 'style', 'script'],
 ) => {
   const rootList = document.createElement('ul');
@@ -52,13 +56,28 @@ export const createLanguageMenus = (
     }
 
     editorLanguages.forEach((language) => {
-      languageMenu.innerHTML += `
-      <li>
-      <a href="#" data-editor="${editorId}" data-lang="${language.name}" title="${
-        language.longTitle || language.title
-      }">${language.longTitle || language.title}</a>
-    </li>
-      `;
+      const languageItem = document.createElement('li');
+      languageItem.classList.add('language-item');
+      languageMenu.appendChild(languageItem);
+
+      const languageLink = document.createElement('a');
+      languageLink.href = '#';
+      languageLink.dataset.editor = editorId;
+      languageLink.dataset.lang = language.name;
+      languageLink.title = language.longTitle || language.title;
+      languageLink.innerHTML = language.longTitle || language.title;
+      languageItem.appendChild(languageLink);
+
+      if (language.info) {
+        const tooltip = document.createElement('span');
+        tooltip.classList.add('tooltip');
+        tooltip.title = 'Click for info...';
+        tooltip.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>`;
+        const tooltipText = document.createElement('div');
+        tooltipText.innerHTML = language.info;
+        eventsManager.addEventListener(tooltip, 'mousedown', () => modal.show(tooltipText), false);
+        languageItem.appendChild(tooltip);
+      }
     });
   });
 

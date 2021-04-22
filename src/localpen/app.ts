@@ -1520,7 +1520,7 @@ export const app = async (config: Pen) => {
     await createIframe(elements.result);
 
     if (!reload) {
-      createLanguageMenus(getConfig());
+      createLanguageMenus(getConfig(), modal, eventsManager);
       editors = await createEditors(getConfig());
 
       const toolList: ToolList = [
