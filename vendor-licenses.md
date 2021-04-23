@@ -30,6 +30,8 @@ JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b50
 
 Less: [Apache License 2.0](https://github.com/less/less.js/blob/870f9b2d8136bfbcdc9e1293bb0def51b54f9276/LICENSE)
 
+LiveScript: [MIT License](https://github.com/gkz/LiveScript/blob/bd9faa4d484b6abb110473f96c28bf8686e7b7a0/LICENSE)
+
 luna: [MIT License](https://github.com/liriliri/luna/blob/6696874f52f70f5de5dc4712385d817cb815a4bb/LICENSE)
 
 lz-string: [MIT License](https://github.com/pieroxy/lz-string/blob/b2e0b270a9f3cf330b778b777385fcba384a1a02/LICENSE)
@@ -45,6 +47,8 @@ normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091
 Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf7db03b099b5129/LICENSE)
 
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
+
+prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41d048799bdd063e0592c1413d238ad95ceda1d9/LICENSE)
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
 

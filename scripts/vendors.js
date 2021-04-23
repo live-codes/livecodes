@@ -350,3 +350,15 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/fengari-web/fengari-web.js'),
   path.resolve(targetDir + '/fengari-web/fengari-web.js'),
 );
+
+// livescript
+mkdirp(targetDir + '/livescript');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/livescript/livescript-min.js'),
+  path.resolve(targetDir + '/livescript/livescript-min.js'),
+);
+// prelude.ls (livescript base library)
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/livescript/prelude-browser-min.js'),
+  path.resolve(targetDir + '/livescript/prelude-browser-min.js'),
+);
