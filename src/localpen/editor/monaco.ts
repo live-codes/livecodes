@@ -146,6 +146,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
+  const monacoMapLanguage = (language: Language): Language =>
+    language === 'livescript' ? 'coffeescript' : mapLanguage(language);
+
   const updateModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
     value = '',
@@ -155,7 +158,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const ext = getLanguageExtension(language);
     const model = monaco.editor.createModel(
       value,
-      mapLanguage(language),
+      monacoMapLanguage(language),
       monaco.Uri.parse(`file:///main.${random}.${ext}`),
     );
     editor.setModel(model);
@@ -227,7 +230,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
 
-    monaco.languages.registerDocumentFormattingEditProvider(mapLanguage(language), {
+    monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
         const val = editor.getValue();
         const prettyVal = await formatFn(val, 0);

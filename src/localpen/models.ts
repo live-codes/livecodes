@@ -62,6 +62,8 @@ export type Language =
   | 'stencil.tsx'
   | 'coffeescript'
   | 'coffee'
+  | 'livescript'
+  | 'ls'
   | 'python'
   | 'py'
   | 'ruby'

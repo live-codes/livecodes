@@ -12,6 +12,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
+import { liveScript } from '@codemirror/legacy-modes/mode/livescript';
 import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
@@ -42,6 +43,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tsx: () => javascript({ jsx: true, typescript: true }),
       python,
       coffeescript: () => legacy(coffeeScript),
+      livescript: () => legacy(liveScript),
       ruby: () => legacy(ruby),
       php: () => legacy(php),
       lua: () => legacy(lua),
