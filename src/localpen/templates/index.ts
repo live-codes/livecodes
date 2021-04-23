@@ -6,6 +6,7 @@ import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
 import { d3Starter } from './d3-starter';
 import { jqueryStarter } from './jquery-starter';
+import { livescriptStarter } from './livescript-starter';
 import { luaStarter } from './lua-starter';
 import { mdxStarter } from './mdx-starter';
 import { phpStarter } from './php-starter';
@@ -36,6 +37,7 @@ const starterTemplates = [
   polymerStarter,
   jqueryStarter,
   mdxStarter,
+  livescriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
   d3Starter,

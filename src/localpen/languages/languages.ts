@@ -380,8 +380,7 @@ new Component({ target: app });
   },
   {
     name: 'livescript',
-    title: 'LS',
-    longTitle: 'LiveScript',
+    title: 'LiveScript',
     compiler: {
       url: 'vendor/livescript/livescript-min.js',
       factory: () => (window as any).require('livescript').compile,
