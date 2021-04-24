@@ -403,10 +403,11 @@ new Component({ target: app });
     title: 'AS',
     longTitle: 'AssemblyScript',
     compiler: {
-      url: 'vendor/livescript/livescript-min.js',
+      url: 'assets/noop.js',
       factory: () => (code: string) =>
-        `
-window.wasm = new Promise((resolve, reject) => {
+        `/* ... compiling ... */
+
+window.wasm = new Promise((resolve) => {
   require(["https://cdn.jsdelivr.net/npm/assemblyscript@latest/dist/sdk.js"],
   (sdk) => {
     const asc = sdk.asc;
@@ -419,7 +420,6 @@ window.wasm = new Promise((resolve, reject) => {
         return { wasmModule, text, binary };
       }
 
-      console.log(\`Compiling to WebAssembly...\`);
       const { wasmModule, text, binary } = await compile(
 \`${code.replace(/\`/g, '\\`')}\`
       );
@@ -428,6 +428,16 @@ window.wasm = new Promise((resolve, reject) => {
   });
 })
 `.trimStart(),
+      inlineScript: `window.addEventListener("load", async() => {
+        const { text } = await wasm;
+        parent.postMessage(
+          {
+            type: 'WAT',
+            payload: text,
+          },
+          '*',
+        );
+      });`,
       scripts: [
         'https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js',
         'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js',

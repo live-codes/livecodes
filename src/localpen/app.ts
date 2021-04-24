@@ -1435,10 +1435,28 @@ export const app = async (config: Pen) => {
     const handleResultLoading = () => {
       eventsManager.addEventListener(window, 'message', (event: any) => {
         const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
-        if (!iframe || event.source !== iframe.contentWindow || event.data.type !== 'loading') {
+        if (!iframe || event.source !== iframe.contentWindow) {
           return;
         }
-        setLoading(event.data.payload);
+        if (event.data.type === 'loading') {
+          setLoading(event.data.payload);
+        }
+        if (
+          event.data.type === 'WAT' &&
+          event.data.payload &&
+          editors.script.getLanguage() === 'assemblyscript'
+        ) {
+          lastCompiled.script = lastCompiled.script.replace(
+            '/* ... compiling ... */',
+            `/*
+// WebAssembly Text Format (module.wat)
+//
+
+${event.data.payload}
+*/`,
+          );
+          updateCompiledCode();
+        }
       });
     };
 

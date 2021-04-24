@@ -132,6 +132,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       });
       types = [{ name: '@stencil/core', typesUrl: `${baseUrl}types/stencil-core.d.ts` }];
     }
+    if (language === 'assemblyscript') {
+      types = [{ name: 'assemblyscript', typesUrl: `${baseUrl}types/assemblyscript.d.ts` }];
+    }
 
     loadTypes(types).then((dts) =>
       dts.forEach((library) => {
