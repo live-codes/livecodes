@@ -27,7 +27,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { container, readonly } = options;
   if (!container) throw new Error('editor container not found');
 
-  let language = mapLanguage(options.language);
+  let language = options.language;
+  let mappedLanguage = mapLanguage(language);
 
   const legacy = (parser: StreamParser<unknown>) =>
     new LanguageSupport(StreamLanguage.define(parser));
@@ -74,7 +75,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     tagExtension(keyBindingsTag, keymap.of([])),
     keymap.of([defaultTabBinding]),
     basicSetup,
-    tagExtension(languageTag, getLanguageExtension(language)()),
+    tagExtension(languageTag, getLanguageExtension(mappedLanguage)()),
     EditorView.updateListener.of(notifyListeners),
     oneDark,
     readonly ? readOnlyExtension : [],
@@ -121,8 +122,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const focus = () => view.focus();
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
-    language = mapLanguage(lang);
-    const languageExtension = getLanguageExtension(language)();
+    language = lang;
+    mappedLanguage = mapLanguage(language);
+    const languageExtension = getLanguageExtension(mappedLanguage)();
     view.dispatch({
       reconfigure: { [languageTag]: languageExtension },
     });
