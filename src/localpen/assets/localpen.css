@@ -471,6 +471,31 @@ li.editor-title > button:focus + .menu-scroller .dropdown-menu,
   height: calc(100vh - 40px);
   width: 600px;
   overflow-y: scroll;
+  overflow-x: hidden;
+}
+.menu-scroller::-webkit-scrollbar {
+  width: 5px;
+}
+
+#.dropdown-menu > li > * {
+  display: block;
+  text-decoration: none;
+  color: #222;
+  padding: 5px 15px;
+}
+
+.dropdown-menu > li:hover {
+  background-color: #e7e8f1;
+}
+
+.menu-scroller {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  height: calc(100vh - 40px);
+  width: 600px;
+  overflow-y: scroll;
   /* -ms-overflow-style: none;
   scrollbar-width: none; */
 }
@@ -1189,4 +1214,44 @@ i.arrow:after {
 }
 .prism pre.codeblock {
   padding: 0.5em !important;
+}
+
+.language-item {
+  position: relative;
+}
+.tooltip {
+  position: absolute;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+  right: -5px;
+  opacity: 0.3;
+}
+.tooltip:hover {
+  opacity: 1;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #5a6074da;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 0.8em;
+
+  position: absolute;
+  z-index: 1;
+  left: 100%;
+  top: 0;
+}
+
+.tooltip .tooltiptext a {
+  color: #fff;
+  text-align: left;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
