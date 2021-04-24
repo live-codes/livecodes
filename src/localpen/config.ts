@@ -8,7 +8,7 @@ export const defaultConfig: Pen = {
   title: 'Untitled Project',
   autoupdate: true,
   autosave: false,
-  delay: 500,
+  delay: 1500,
   emmet: true,
   autoprefixer: false,
   mode: 'full',

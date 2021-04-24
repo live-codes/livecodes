@@ -33,7 +33,7 @@ export const getLanguageCompiler = (alias: string): Compiler | undefined => {
 export const mapLanguage = (language: Language): Language =>
   ['babel', 'jsx'].includes(language)
     ? 'javascript'
-    : ['tsx', 'stencil'].includes(language)
+    : ['tsx', 'stencil', 'assemblyscript'].includes(language)
     ? 'typescript'
     : ['vue', 'vue2', 'svelte'].includes(language)
     ? 'html'

@@ -102,6 +102,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'livescript':
       value = compiler(replaceImports(content, config), { bare: true });
       break;
+    case 'assemblyscript':
+      value = compiler(content);
+      break;
     case 'python':
       value = compiler(content);
       break;

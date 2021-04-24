@@ -2,6 +2,7 @@ import { getLanguageByAlias } from '../languages';
 import { Pen } from '../models';
 import { getAbsoluteUrl } from '../utils';
 import { angularStarter } from './angular-starter';
+import { assemblyscriptStarter } from './assemblyscript-starter';
 import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
 import { d3Starter } from './d3-starter';
@@ -38,6 +39,7 @@ const starterTemplates = [
   jqueryStarter,
   mdxStarter,
   livescriptStarter,
+  assemblyscriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
   d3Starter,

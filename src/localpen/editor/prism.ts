@@ -38,7 +38,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const lineNumbers = mode === 'codeblock' ? false : true;
 
   let value = options.value;
-  let language = mapLanguage(options.language);
+  let language = options.language;
+  let mappedLanguage = mapLanguage(language);
 
   if (!document.head.querySelector('#prism-styles')) {
     const stylesheet = document.createElement('link');
@@ -54,7 +55,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   preElement.appendChild(codeElement);
 
   container.classList.add('prism');
-  codeElement.className = 'language-' + mapLanguage(language);
+  codeElement.className = 'language-' + mappedLanguage;
   codeElement.innerHTML = encodeHTML(value).trim();
 
   if (lineNumbers) {
@@ -77,8 +78,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
-    language = mapLanguage(lang);
-    codeElement.className = 'language-' + language;
+    language = lang;
+    mappedLanguage = mapLanguage(language);
+    codeElement.className = 'language-' + mappedLanguage;
     Prism.highlightAllUnder(container);
   };
 
