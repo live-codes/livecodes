@@ -399,6 +399,45 @@ new Component({ target: app });
     editor: 'script',
   },
   {
+    name: 'assemblyscript',
+    title: 'AS',
+    longTitle: 'AssemblyScript',
+    compiler: {
+      url: 'vendor/livescript/livescript-min.js',
+      factory: () => (code: string) =>
+        `
+window.wasm = new Promise((resolve, reject) => {
+  require(["https://cdn.jsdelivr.net/npm/assemblyscript@latest/dist/sdk.js"],
+  (sdk) => {
+    const asc = sdk.asc;
+    asc.ready.then(async () => {
+      async function compile(code) {
+        const { text, binary } = asc.compileString(code, {
+          optimizeLevel: 3,
+        });
+        const wasmModule = await loader.instantiate(binary);
+        return { wasmModule, text, binary };
+      }
+
+      console.log(\`Compiling to WebAssembly...\`);
+      const { wasmModule, text, binary } = await compile(
+\`${code.replace(/\`/g, '\\`')}\`
+      );
+      resolve({ wasmModule, text, binary });
+    });
+  });
+})
+`.trimStart(),
+      scripts: [
+        'https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js',
+      ],
+      umd: true,
+    },
+    extensions: ['as', 'ts'],
+    editor: 'script',
+  },
+  {
     name: 'python',
     title: 'Python',
     compiler: {

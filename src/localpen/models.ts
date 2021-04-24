@@ -64,6 +64,8 @@ export type Language =
   | 'coffee'
   | 'livescript'
   | 'ls'
+  | 'assemblyscript'
+  | 'as'
   | 'python'
   | 'py'
   | 'ruby'
