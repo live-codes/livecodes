@@ -203,14 +203,14 @@ export const languages: LanguageSpecs[] = [
     name: 'typescript',
     title: 'TS',
     longTitle: 'TypeScript',
-    info: `
-    <div>Typed JavaScript at Any Scale</div>
-    <ul>
-      <li><a href="#">Typescript Documentation</a></li>
-      <li><a href="#">Typescript usage in LocalPen</a></li>
-      <li><a href="#">Load starter template</a></li>
-    </ul>
-    `,
+    // info: `
+    // <div>Typed JavaScript at Any Scale</div>
+    // <ul>
+    //   <li><a href="#">Typescript Documentation</a></li>
+    //   <li><a href="#">Typescript usage in LocalPen</a></li>
+    //   <li><a href="#">Load starter template</a></li>
+    // </ul>
+    // `,
     parser: {
       name: 'babel-ts',
       pluginUrls: [parserPlugins.babel, parserPlugins.html],
