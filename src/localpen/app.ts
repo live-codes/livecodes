@@ -1132,7 +1132,7 @@ export const app = async (config: Pen) => {
               const loading = document.createElement('div');
               loading.innerHTML = 'Loading...<br /><br />' + item.title + '';
               loading.className = 'centered';
-              modal.show(loading);
+              modal.show(loading, 'small');
 
               const itemId = (link as HTMLElement).dataset.id || '';
               const savedPen = storage.getItem(itemId)?.pen;
