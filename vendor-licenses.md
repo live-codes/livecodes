@@ -46,6 +46,8 @@ normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091
 
 Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf7db03b099b5129/LICENSE)
 
+Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
+
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
 
 prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41d048799bdd063e0592c1413d238ad95ceda1d9/LICENSE)
