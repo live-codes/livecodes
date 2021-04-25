@@ -71,6 +71,9 @@ export type Language =
   | 'ruby'
   | 'rb'
   | 'php'
+  | 'perl'
+  | 'pl'
+  | 'pm'
   | 'lua'
   | 'scheme'
   | 'scm';
@@ -171,6 +174,7 @@ export interface Compiler {
     | 'text/python'
     | 'text/ruby'
     | 'text/x-uniter-php'
+    | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua';
 }

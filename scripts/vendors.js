@@ -362,3 +362,12 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/livescript/prelude-browser-min.js'),
   path.resolve(targetDir + '/livescript/prelude-browser-min.js'),
 );
+
+// perlito
+esbuild.buildSync({
+  minify: true,
+  entryPoints: ['vendor_modules/src/perlito/perlito5.js'],
+  outfile: 'src/localpen/vendor/perlito/perlito5.min.js',
+  format: 'esm',
+  logLevel: 'error',
+});

@@ -10,6 +10,7 @@ import { jqueryStarter } from './jquery-starter';
 import { livescriptStarter } from './livescript-starter';
 import { luaStarter } from './lua-starter';
 import { mdxStarter } from './mdx-starter';
+import { perlStarter } from './perl-starter';
 import { phpStarter } from './php-starter';
 import { polymerStarter } from './polymer-starter';
 import { preactStarter } from './preact-starter';
@@ -46,6 +47,7 @@ const starterTemplates = [
   pythonStarter,
   rubyStarter,
   phpStarter,
+  perlStarter,
   luaStarter,
   schemeStarter,
   readmeTemplate,

@@ -433,8 +433,9 @@ export const app = async (config: Pen) => {
     });
   };
 
-  const updateCompiledCode = () => {
-    const scriptType = getLanguageCompiler(editors.script.getLanguage())?.scriptType;
+  const updateCompiledCode = (fromCompiler = true) => {
+    const scriptType =
+      fromCompiler && getLanguageCompiler(editors.script.getLanguage())?.scriptType;
     const compiledLanguages: { [key in EditorId]: Language } = {
       markup: getEditorLanguage('markup') === 'mdx' ? 'javascript' : 'html',
       style: 'css',
@@ -1442,20 +1443,12 @@ export const app = async (config: Pen) => {
           setLoading(event.data.payload);
         }
         if (
-          event.data.type === 'WAT' &&
+          event.data.type === 'compiled' &&
           event.data.payload &&
-          editors.script.getLanguage() === 'assemblyscript'
+          editors.script.getLanguage() === event.data.payload.language
         ) {
-          lastCompiled.script = lastCompiled.script.replace(
-            '/* ... compiling ... */',
-            `/*
-// WebAssembly Text Format (module.wat)
-//
-
-${event.data.payload}
-*/`,
-          );
-          updateCompiledCode();
+          lastCompiled.script = event.data.payload.content;
+          updateCompiledCode(false);
         }
       });
     };
