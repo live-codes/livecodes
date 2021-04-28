@@ -374,4 +374,20 @@ esbuild.buildSync({
 });
 
 // pascal.js
-rfs.copy(path.resolve(vendor_modules + '/pascal.js'), path.resolve(targetDir + '/pascal.js'));
+mkdirp(targetDir + '/pascal.js');
+esbuild.build({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/src/pascal.js/index.js'],
+  outfile: 'src/localpen/vendor/pascal.js/pascal.js',
+  format: 'iife',
+  plugins: [NodeModulesPolyfills()],
+  logLevel: 'error',
+});
+rfs.copy(
+  path.resolve(vendor_modules + '/pascal.js/llvm.js'),
+  path.resolve(targetDir + '/pascal.js/llvm.js'),
+);
+rfs.copy(
+  path.resolve(vendor_modules + '/pascal.js/units'),
+  path.resolve(targetDir + '/pascal.js/units'),
+);

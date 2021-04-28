@@ -532,18 +532,12 @@ window.wasm = new Promise((resolve) => {
     name: 'pascal',
     title: 'Pascal',
     compiler: {
-      url: 'assets/noop.js',
-      factory: () => (code) => code,
+      url: 'vendor/pascal.js/pascal.js',
+      factory: (_: any, config: Pen) => {
+        (self as any).Pascal.init(config.baseUrl);
+        return (self as any).Pascal.compile;
+      },
       umd: true,
-      scripts: [
-        'vendor/pascal.js/parse.js',
-        'vendor/pascal.js/ieee754.js',
-        'vendor/pascal.js/ir.js',
-        'vendor/pascal.js/fixes.js',
-        'vendor/pascal.js/llvm.js/compiler.js',
-        'vendor/pascal.js/run.js',
-      ],
-      scriptType: 'text/pascal',
     },
     extensions: ['pas'],
     editor: 'script',

@@ -18,6 +18,3 @@ window.print = function () {};
     return orig_open.apply(this, [method, url].concat(rest));
   };
 })(XMLHttpRequest.prototype);
-
-// TODO: fix
-var XHR_PREFIX = 'https://kanaka.github.io/pascal.js/llvm.js/';
