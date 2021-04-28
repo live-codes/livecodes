@@ -117,6 +117,9 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     case 'perl':
       value = compiler(content);
       break;
+    case 'pascal':
+      value = compiler(content);
+      break;
     case 'lua':
       value = compiler(content);
       break;

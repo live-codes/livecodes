@@ -1,0 +1,1168 @@
+/*
+  From: http://babbage.cs.qc.cuny.edu/IEEE-754.old/Decimal.html
+
+  Copyright (c) 2003, City University of New York
+  All rights reserved.
+
+  Redistribution and use in source and binary forms, with or
+  without modification, are permitted provided that the following
+  conditions are met:
+
+      * Redistributions of source code must retain the above
+      * copyright notice, this list of conditions and the
+      * following disclaimer.  Redistributions in binary form
+      * must reproduce the above copyright notice, this list of
+      * conditions and the following disclaimer in the
+      * documentation and/or other materials provided with the
+      * distribution.  Neither the name of Queens College of CUNY
+      * nor the names of its contributors may be used to endorse
+      * or promote products derived from this software without
+      * specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+  Original version by Quanfei Wan, 1997
+  Modifications by Kevin J. Brewer, 1998/08/20 to 1998/09/21
+
+   - Corrected exponential ranges to those specified in IEEE-754.
+   - Correction of decimal exponent field size.
+   - Made correction so that decimal significand is displayed even when
+     its value is 0.
+   - decBinVal array sizes corrected for small values (those near 1.0*2**-126
+     for 32-bit or 1.0*2**-1022 for 64-bit).
+   - Corrected ieee32.Convert2Dec() to ieee64.Convert2Dec() in the ieee64
+     section.
+   - Added support for zero and denormalized numbers (those less than
+     1.0*2**-126 for 32-bit or 1.0*2**-1022 for 64-bit).
+   - Modified significand input field to hold the notationally largest range
+     input value (with the most significant digits, exponent, and signs),
+     -4.94065645841246544E-324 .
+   - Use only 1 set of intBinVal and decBinVal arrays so that 32-bit results
+     will be marked invalid when 64-bit values greater than 3.40282347E38
+     are entered.
+   - Joined arrays intBinVal and decBinVal into one array, BinVal, in order
+     to ease the manipulations involved in rounding.
+
+   - Added IEEE-754 round-to-nearest value rounding mode.
+
+   - Added input echo field which displays how the host machine sees the
+     input value (round-off, number of significant digits, max and min
+     exponentials, etc.).
+   - For both precisions, added an echo field which displays the input value
+     accurate to the number of bits in that precision's significand.
+   - Added action so that when an input value overflows a precision, set that
+     precision's outputs to the precision's Infinity values instead of having
+     the bits be replaced by "#"s.
+   - For both precisions, added a status field indicating from high to low:
+     overflow, normal, denormalized, underflow, and normal for zero.
+   - Run Convert2Bin() only once per precision (not for each substring).
+   - Added the ability to round or not to round by providing 2 activation
+     buttons labeled as such.
+   - Reduced exponent input field to hold up to the notationally largest
+     exponent value (with the most significant digits and sign), -324, unless
+     someone wants to oddly decimalize (add fractional/decimal parts to) the
+     exponent.
+   - Replaced calls to round() with tests and corrections for rounding up to
+     calls to floor() which always rounds down.
+
+   1998/09/28 to 1998/09/30
+
+   - Made BinVal external to Convert2Bin (and therefore local to function ieee)
+     as this.BinVal as is required in IEEE-754hex64.html and IEEE-754hex32.html
+     so that Unix 'diff' has some chance at comparing this file with
+     IEEE-754hex64.html or IEEE-754hex32.html .
+   - General clean-ups.
+   - Removed the optional "Exponent:" input field due to its problem of causing
+     the entire input to underflow to zero when its value is -324, the problems
+     encountered when trying to correct this deficiency programatically, and
+     its superfluousness due to the ability of entering scientific notation
+     (4.94065645841246544E-324) into the "Significand:" field alone.
+   - Renamed the "Significand:" input field to "Decimal Floating-Point:".
+
+   1998/10/06 to 1998/10/07
+
+   - Added removal of input leading and trailing blanks by adding RemoveBlanks
+     routine.
+   - Added converting all floating-point inputs into canonical form (scientific
+     notation, +x.xxE+xxxx form) with constant exponential width and plus sign
+     usage by adding the Canonical routine, in order to simplify the string
+     number comparisons involved in the 1.7976931348623157E+308 overflow check.
+   - Found and corrected bug in both binary outputs created by some unknown
+     JavaScript scoping problem for the symbol 'output' by introduction of the
+     Canonical routine (never in a released version).
+
+   - Floating-point input is now hand parsed and then its magnitude is compared
+     against +1.7976931348623157E+00308 in the OvfCheck routine.  If the
+     magnitude is greater than this value (compared as a string), set all
+     outputs to the appropriate Infinity values.  The JavaScript implementation
+     of IEEE-754 64-bit precision clips such values at 1.7976931348623157E+308.
+
+   - Greatly improved the efficiency of the Convert2Hex routine.
+
+   1998/10/20
+
+   - Allow power of 10 indicator in numStrClipOff to be "E" as well as "e" in
+     case not all browsers use "e".
+   - Reordered 'numerals' in OvfCheck so that their index (value) is the same
+     as that which the numeral represents.
+
+   1998/10/23
+
+   - With hand parsed floating-point input, compare its magnitude against
+     +2.4703282292062328E-00324 in the UndfCheck routine.  If the magnitude is
+     less than this value (compared as a string), set 'this.StatCond' to
+     "underflow".  The JavaScript implementation of IEEE-754 64-bit precision
+     underflows such values to zero.
+   - The above required all settings of 'this.StatCond' to "normal" to have to
+     be removed, "normal" rather than "error" is now the default.
+   - With hand parsed input, set the output sign bit from its minus sign
+     character before the input is turned into a numeric.  This supports input
+     of negative zeros, "-0", and those values which underflow to it.
+
+   1998/10/28
+
+   - The central testing section of OvfCheck and UndfCheck were joined together
+     as the single routine A_gt_B.
+   - The translation which moves an input's base 10 exponential (the sign and
+     value to the right of the "E") to its left end as its sign and most
+     significant digits is now performed by the MostSigOrder routine.
+   - Due to tests now involving negative exponentials in A_gt_B (via UndfCheck),
+     a bias of 50,000 is added to all exponentials, when moved by MostSigOrder,
+     in order to simplify numeric compares performed as iterative comparisons of
+     individual digits in strings.
+
+   1998/10/29
+
+   - Floating-point input is now hand parsed, manipulated, and placed into the
+     this.BinVal array only once by introduction of the Dec2Bin routine.
+     As a result, the Convert2Bin routine now used is quite similar to that of
+     IEEE-754hex64.html and IEEE-754hex32.html .
+
+   1999/03/04
+
+   - Corrected displaying error in numStrClipOff when the number of digits of
+     precision for a particular IEEE-754 format is less than the number of
+     digits returned by the system (before the value is large enough that the
+     system returns it in "E" notation).
+     Error found by Bill Maxwell (billmax@compuserve.com).
+
+   1999/03/05
+
+   - The system returns values such as 1.0E21 simply as 1E21.  In numStrClipOff,
+     made adjustments to correct the display output when the system returns such
+     values.
+     Due to the idealized nature of the input to numStrClipOff vs. that of
+     Canonical, many simplifications to the code in numStrClipOff were made.
+
+   - Added a Clear button next to the input field which clears the input field
+     and all result fields.
+
+   1999/05/17
+
+   - Removed <FONT FACE="Arial"> which is not displayed the same by all browser
+     versions.
+
+   - Balanced all <FONT> tags with </FONT> tags.
+
+   - Removed all value layout comments since that information is much better
+     presented in the IEEE-754references.html file.
+
+   - Aligned all "Bit xx" and "Bits xx - xx" headings.
+
+   - Replaced all occurrences of the term "unnormalized" with the term
+     "denormalized" preferred by the standard.
+
+   - Changed the "Decimal value of the exponent" display from "b + [e] = [f]"
+     to "[f] - b = [e]" where b = 127 or b = 1023
+
+   - Headings "Exponent" changed to "Exponent Field" and headings
+     "Decimal value of the exponent" changed to
+     "Decimal value of exponent field and exponent".
+
+   1999/05/28
+
+   - Rounded the 32-bit decimal significand just like the 32-bit full decimal
+     value.
+
+   - Fixed displaying problem in numStrClipOff in which values of
+     0.000000099... and smaller (in 32-bit) are displayed as 0.0000000 because
+     the values are not small enough for the system to return them in "E"
+     notation and similarly for 0.000000000000000099... and smaller in 64-bit.
+
+*/
+
+function Convert2Bin(outstring, statstring, signBit, power, rounding)
+{
+  output = new String()                 //Output
+
+  var binexpnt, index1, index2, cnst, bias, lastbit, rounded, index3, binexpnt2
+  var moreBits
+
+  cnst = 2102   // 1 (carry bit) + 1023 + 1 + 1022 + 53 + 2 (round bits)
+  bias = 1024
+
+  //init
+  for (index1 = 0; index1 < this.Size; index1++)  this.Result[index1] = 0
+
+  with (Math)
+  {
+    //sign bit
+    this.Result[0] = signBit
+
+    //obtain exponent value
+    index1 = 0
+
+    if (this.Size == 32) index2 = 9
+    else index2 = 12
+
+    if (rounding && (statstring == "normal"))
+    {
+      //find most significant bit of significand
+      while ((index1 < cnst) && (this.BinVal[index1] != 1)) index1++
+
+      binexpnt = bias - index1
+
+      //regular normalized numbers
+      if (binexpnt >= this.MinExp)
+      {
+        //the value is shifted until the most
+        index1++    //significant 1 is to the left of the binary
+        //point and that bit is implicit in the encoding
+      }//if normalized numbers
+
+      //support for zero and denormalized numbers
+      //exponent underflow for this precision
+      else
+      {
+        binexpnt = this.MinExp - 1
+        index1 = bias - binexpnt
+      }//if zero or denormalized (else section)
+
+
+      //use round to nearest value mode
+
+      //compute least significant (low-order) bit of significand
+      lastbit = this.Size - 1 - index2 + index1
+
+      //the bits folllowing the low-order bit have a value of (at least) 1/2
+      if (this.BinVal[lastbit + 1] == 1)
+      {
+        rounded = 0
+
+        //odd low-order bit
+        if (this.BinVal[lastbit] == 1)
+        {
+          //exactly 1/2 the way between odd and even rounds up to the even,
+          //so the rest of the bits don't need to be checked to see if the value
+          //is more than 1/2 since the round up to the even number will occur
+          //anyway due to the 1/2
+          rounded = 1
+        }//if odd low-order bit
+
+        //even low-order bit
+        else  //this.BinVal[lastbit] == 0
+        {
+          //exactly 1/2 the way between even and odd rounds down to the even,
+          //so the rest of the bits need to be checked to see if the value
+          //is more than 1/2 in order to round up to the odd number
+          index3 = lastbit + 2
+          while ((rounded == 0) && (index3 < cnst))
+          {
+            rounded = this.BinVal[index3]
+            index3++
+          }//while checking for more than 1/2
+
+        }//if even low-order bit (else section)
+
+        //do rounding "additions"
+        index3 = lastbit
+        while ((rounded == 1) && (index3 >= 0))
+        {
+          // 0 + 1 -> 1 result with 0 carry
+          if (this.BinVal[index3] == 0)
+          {
+            // 1 result
+            this.BinVal[index3] = 1
+
+            // 0 carry
+            rounded = 0
+
+          }//if bit is a 0
+
+          // 1 + 1 -> 0 result with 1 carry
+          else  //this.BinVal[index3] == 1
+          {
+            // 0 result
+            this.BinVal[index3] = 0
+
+            // 1 carry
+//          rounded = 1
+          }//if bit is a 1 (else section)
+
+          index3--
+        }//while "adding" carries from right to left in bits
+
+      }//if at least 1/2
+
+      //obtain exponent value
+      index1 = index1 - 2
+      if (index1 < 0) index1 = 0
+
+    }//if rounding
+
+    //find most significant bit of significand
+    while ((index1 < cnst) && (this.BinVal[index1] != 1)) index1++
+
+    binexpnt2 = bias - index1
+
+    if (statstring == "normal")
+    {
+      binexpnt = binexpnt2
+
+      //regular normalized numbers
+      if ((binexpnt >= this.MinExp) && (binexpnt <= this.MaxExp))
+      {
+                                //the value is shifted until the most
+        index1++                //significant 1 is to the left of the binary
+                                //point and that bit is implicit in the encoding
+      }//if normalized numbers
+
+      //support for zero and denormalized numbers
+      //exponent underflow for this precision
+      else if (binexpnt < this.MinExp)
+      {
+        if (binexpnt2 == bias - cnst)
+          //value is truely zero
+          this.StatCond = "normal"
+        else if (binexpnt2 < this.MinUnnormExp)
+          this.StatCond = "underflow"
+        else
+          this.StatCond = "denormalized"
+
+        binexpnt = this.MinExp - 1
+        index1 = bias - binexpnt
+      }//if zero or denormalized (else if section)
+    }
+
+    else //already special values
+    {
+      binexpnt = power
+      index1 = bias - binexpnt
+
+      if (binexpnt > this.MaxExp)
+        binexpnt = this.MaxExp + 1
+
+      else if (binexpnt < this.MinExp)
+        binexpnt = this.MinExp - 1
+
+    }//if already special (else section)
+
+    //copy the result
+    while ((index2 < this.Size) && (index1 < cnst))
+    {
+      this.Result[index2] = this.BinVal[index1]
+      index2++
+      index1++
+    }//while
+
+    //max exponent for this precision
+    if ((binexpnt > this.MaxExp) || (statstring != "normal"))
+    {
+      //overflow of this precision, set infinity
+      if (statstring == "normal")
+      {
+        binexpnt = this.MaxExp + 1
+        this.StatCond = "overflow"
+        this.DispStr = "Infinity"
+
+        if (this.Result[0] == 1)
+          this.DispStr = "-" + this.DispStr
+
+        if (this.Size == 32) index2 = 9
+        else index2 = 12
+
+        //zero the significand
+        while (index2 < this.Size)
+        {
+          this.Result[index2] = 0
+          index2++
+        }//while
+
+      }//if overflowed
+
+      else //already special values
+      {
+        this.StatCond = statstring
+        this.DispStr = outstring
+      }//if already special (else section)
+
+    }//if max exponent
+
+    //convert exponent value to binary representation
+    if (this.Size == 32) index1 = 8
+    else index1 = 11
+    this.BinaryPower = binexpnt
+    binexpnt += this.ExpBias    //bias
+    while ((binexpnt / 2) != 0)
+    {
+      this.Result[index1] = binexpnt % 2
+      if (binexpnt % 2 == 0) binexpnt = binexpnt / 2
+        else binexpnt = binexpnt / 2 - 0.5
+      index1 -= 1
+    }
+
+    //output binary result
+    output = ""
+    for (index1 = 0; index1 < this.Size; index1++)
+      output = output + this.Result[index1]
+    return output
+
+  }//with Math
+}
+
+function Dec2Bin(input)
+{
+  var value, intpart, decpart, binexpnt, index1, cnst, bias
+
+  cnst = 2102   // 1 (carry bit) + 1023 + 1 + 1022 + 53 + 2 (round bits)
+  bias = 1024
+
+  //init
+  for (index1 = 0; index1 < cnst; index1++)  this.BinVal[index1] = 0
+
+  with (Math)
+  {
+    input = Canonical(input)
+
+    //sign bit
+    if (input.charAt(0) == "-")
+      this.Result[0] = 1
+    else
+      this.Result[0] = 0
+
+    //if value magnitude greater than 1.7976931348623157E+308, set infinity
+    input = OvfCheck(input)
+
+    if (input.indexOf("Infinity") != -1)
+    {
+      binexpnt = this.MaxExp + 1
+      this.StatCond64 = "overflow"
+      this.DispStr = input
+
+    }//if greater than 1.7976931348623157E+308
+
+    //Value magnitude is not greater than 1.7976931348623157E+308
+    else
+    {
+
+      //if value magnitude less than 2.4703282292062328E-324, set "underflow".
+      this.StatCond64 = UndfCheck(input)
+
+      if (this.StatCond64 == "underflow")
+      {
+        binexpnt = this.MinExp - 1
+
+      }//if less than 2.4703282292062328E-324
+
+      //Value magnitude is not less than 2.4703282292062328E-324
+      else
+      {
+
+        //convert 'input' from string to numeric
+        input = input * 1.0
+
+        //convert and seperate input to integer and decimal parts
+        value = abs(input)
+        intpart = floor(value)
+        decpart = value - intpart
+
+        //convert integer part
+        index1 = bias
+        while (((intpart / 2) != 0) && (index1 >= 0))
+        {
+          this.BinVal[index1] = intpart % 2
+          if (intpart % 2 == 0) intpart = intpart / 2
+            else intpart = intpart / 2 - 0.5
+          index1 -= 1
+        }
+
+        //convert decimal part
+        index1 = bias + 1
+        while ((decpart > 0) && (index1 < cnst))
+        {
+          decpart *= 2
+          if (decpart >= 1)
+            {this.BinVal[index1] = 1; decpart --; index1++}
+          else {this.BinVal[index1] = 0; index1++}
+        }
+
+        //obtain exponent value
+        index1 = 0
+
+        //find most significant bit of significand
+        while ((index1 < cnst) && (this.BinVal[index1] != 1)) index1++
+
+        binexpnt = bias - index1
+
+        //support for zero and denormalized numbers
+        //exponent underflow for this precision
+        if (binexpnt < this.MinExp)
+        {
+          binexpnt = this.MinExp - 1
+
+        }//if zero or denormalized
+
+      }//if not less than 2.4703282292062328E-324 (else section)
+
+    }//if not greater than 1.7976931348623157E+308 (else section)
+
+    //output exponent value
+    this.BinaryPower = binexpnt
+
+  }//with Math
+}
+
+function Canonical(input)
+{
+  output = new String()
+  numerals = new String()
+  expstr = new String()
+  signstr = new String()
+  expsignstr = new String()
+  expstrtmp = new String()
+
+  var locE, stop, expnum, locDPact, locDP, start, MSDfound, index, expdelta
+  var expstart, expprecision
+
+  numerals = "0123456789";
+
+  expprecision = 5
+
+  input = input.toUpperCase()
+
+  locE = input.indexOf("E");
+  if (locE != -1)
+  {
+    stop = locE
+    expstr = input.substring(locE + 1, input.length)
+    expnum = expstr * 1
+  }
+  else
+  {
+    stop = input.length
+    expnum = 0
+  }
+
+  locDPact = input.indexOf(".");
+  if (locDPact != -1)
+    locDP = locDPact
+  else
+    locDP = stop
+
+  start = 0
+  if (input.charAt(start) == "-")
+  {
+    start++
+    signstr = "-"
+  }
+  else if (input.charAt(start) == "+")
+  {
+    start++
+    signstr = "+"
+  }
+  else
+    signstr = "+"
+
+  MSDfound = false
+  while ((start < stop) && !MSDfound)
+  {
+    index = 1
+    while (index < numerals.length)
+    {
+      if (input.charAt(start) == numerals.charAt(index))
+      {
+        MSDfound = true
+        break
+      }
+      index++
+    }
+    start++
+  }
+  start--
+
+  if (MSDfound)
+  {
+    expdelta = locDP - start
+    if (expdelta > 0)
+      expdelta = expdelta - 1
+
+    expnum = expnum + expdelta
+  }
+  else  //No significant digits found, value is zero
+    expnum = 0
+
+  expstrtmp = "" + expnum
+
+  expstart = 0
+  if (expstrtmp.charAt(expstart) == "-")
+  {
+    expstart++
+    expsignstr = "-"
+  }
+  else
+    expsignstr = "+"
+
+  expstr = "E" + expsignstr
+
+  index = 0
+  while (index < expprecision - expstrtmp.length + expstart)
+  {
+    expstr += "0"
+    index++
+  }
+
+  expstr += expstrtmp.substring(expstart, expstrtmp.length)
+
+  output = signstr
+
+  if (locDPact == start + 1)
+  {
+    output += input.substring(start, stop)
+  }
+  else if (stop == start + 1)
+  {
+    output += input.substring(start, stop)
+    output += "."
+  }
+  else if (locDPact < start)
+  {
+    output += input.substring(start, start + 1)
+    output += "."
+    output += input.substring(start + 1, stop)
+  }
+  else if (locDPact != -1)
+  {
+    output += input.substring(start, start + 1)
+    output += "."
+    output += input.substring(start + 1, locDPact)
+    output += input.substring(locDPact + 1, stop)
+  }
+  else
+  {
+    output += input.substring(start, stop)
+    output += "."
+  }
+
+  output += expstr
+
+  return output;
+}
+
+function MostSigOrder(input)
+{
+  output = new String()
+  expstr = new String()
+
+  var expprecision, expbias, stop, expnum, index
+
+  expprecision = 5
+  expbias = 50000
+
+  stop = input.indexOf("E");
+
+  output = input.substring(stop + 1, input.length)
+  expnum = output * 1
+  expnum += expbias
+
+  expstr = "" + expnum
+
+  output = expstr
+
+  index = 0
+  while (index < expprecision - expstr.length)
+  {
+    output = "0" + output
+    index++
+  }
+
+  output += input.substring(1, 2)
+  output += input.substring(3, stop)
+
+  return output;
+}
+
+function A_gt_B(A, B)
+{
+  numerals = new String()
+
+  var greater, stop, index, Adigit, Bdigit
+
+  numerals = "0123456789";
+
+  greater = false
+
+  if (A.length > B.length)
+    stop = A.length
+  else
+    stop = B.length
+
+  index = 0
+  while (index < stop)
+  {
+    if (index < A.length)
+      Adigit = numerals.indexOf(A.charAt(index))
+    else
+      Adigit = 0
+
+    if (index < B.length)
+      Bdigit = numerals.indexOf(B.charAt(index))
+    else
+      Bdigit = 0
+
+    if (Adigit < Bdigit)
+      break
+    else if (Adigit > Bdigit)
+    {
+      greater = true
+      break
+    }
+
+    index++
+  }//end while
+
+  return greater;
+}
+
+function OvfCheck(input)
+{
+  output = new String()
+
+  //Is value magnitude greater than +1.7976931348623157E+00308
+  if (A_gt_B(MostSigOrder(input), "5030817976931348623157"))
+  {
+    output = "Infinity"
+    if (input.charAt(0) == "-")
+      output = "-" + output
+  }
+  else
+    output = input
+
+  return output;
+}
+
+function UndfCheck(input)
+{
+  output = new String()
+
+  //Is value magnitude less than +2.4703282292062328E-00324
+  if (A_gt_B("4967624703282292062328", MostSigOrder(input)))
+    output = "underflow"
+  else
+    output = "normal"
+
+  return output;
+}
+
+function RemoveBlanks(input)
+{
+  output = new String()
+
+  var start, stop
+
+  start = 0
+  while ((input.charAt(start) == " ") && (start < input.length))
+    start++
+
+  stop = input.length - 1
+  while ((input.charAt(stop) == " ") && (stop >= 0))
+    stop--
+
+  output = input.substring(start, stop + 1)
+
+  return output
+}
+
+function Convert2Hex()
+{
+  output = new String()
+  numerals = new String()
+
+  var temp, index, i
+
+  numerals = "0123456789ABCDEF"
+
+  with (Math)
+  {
+    //convert binary result to hex and output
+    for (index = 0; index < this.Size; index +=4)
+    {
+      temp = 0
+      for (i = 0; i < 4; i++)
+        temp += pow(2, 3 - i)*this.Result[index + i]
+
+      output = output + numerals.charAt(temp)
+    }
+  }
+  return output
+}
+
+function numStrClipOff(input, precision)
+{
+  result = new String()
+  numerals = new String()
+  tempstr = new String()
+  expstr = new String()
+  signstr = new String()
+
+  var locE, stop, expnum, locDP, start, MSD, MSDfound, index, expdelta, digits
+  var number
+
+  numerals = "0123456789";
+
+  tempstr = input.toUpperCase()
+
+  locE = tempstr.indexOf("E");
+  if (locE != -1)
+  {
+    stop = locE
+    expstr = input.substring(locE + 1, input.length)
+    expnum = expstr * 1
+  }
+  else
+  {
+    stop = input.length
+    expnum = 0
+  }
+
+  if (input.indexOf(".") == -1)
+  {
+    tempstr = input.substring(0, stop)
+    tempstr += "."
+    if (input.length != stop)
+      tempstr += input.substring(locE, input.length)
+
+    input = tempstr
+
+    locE = locE + 1
+    stop = stop + 1
+  }
+
+  locDP = input.indexOf(".");
+
+  start = 0
+  if (input.charAt(start) == "-")
+  {
+    start++
+    signstr = "-"
+  }
+  else
+    signstr = ""
+
+  MSD = start
+  MSDfound = false
+  while ((MSD < stop) && !MSDfound)
+  {
+    index = 1
+    while (index < numerals.length)
+    {
+      if (input.charAt(MSD) == numerals.charAt(index))
+      {
+        MSDfound = true
+        break
+      }
+      index++
+    }
+    MSD++
+  }
+  MSD--
+
+  if (MSDfound)
+  {
+    expdelta = locDP - MSD
+    if (expdelta > 0)
+      expdelta = expdelta - 1
+
+    expnum = expnum + expdelta
+
+    expstr = "e" + expnum
+  }
+  else  //No significant digits found, value is zero
+    MSD = start
+
+  digits = stop - MSD
+
+  tempstr = input.substring(MSD, stop)
+
+  if (tempstr.indexOf(".") != -1)
+    digits = digits - 1
+
+  number = digits
+  if (precision < digits)
+    number = precision
+
+  tempstr = input.substring(MSD, MSD + number + 1)
+
+  if ( (MSD != start) || (tempstr.indexOf(".") == -1) )
+  {
+    result = signstr
+    result += input.substring(MSD, MSD + 1)
+    result += "."
+    result += input.substring(MSD + 1, MSD + number)
+
+    while (digits < precision)
+    {
+      result += "0"
+      digits += 1
+    }
+
+    result += expstr
+  }
+  else
+  {
+    result = input.substring(0, start + number + 1)
+
+    while (digits < precision)
+    {
+      result += "0"
+      digits += 1
+    }
+
+    if (input.length != stop)
+      result += input.substring(locE, input.length)
+  }
+
+  return result;
+}
+
+function numCutOff(input, precision)
+{
+  result = new String()
+  tempstr = new String()
+
+  var temp = input;
+  if(temp < 1)
+    temp += 1;
+
+  tempstr = "" + temp;
+
+  tempstr = numStrClipOff(tempstr, precision);
+
+  if(temp == input)
+    result = tempstr.substring(0, 1);
+  else
+    result = "0";
+
+  result += tempstr.substring(1, tempstr.length);
+
+  return result;
+}
+
+function Convert2Dec()
+{
+  output = new String()
+
+  var s, i, dp, val, hid, temp, decValue, power
+
+  with (Math)
+  {
+  if (this.Size == 32) s = 9
+  else s = 12
+
+  if ((this.BinaryPower < this.MinExp) || (this.BinaryPower > this.MaxExp))
+  {
+    dp = 0
+    val = 0
+  }
+  else
+  {
+    dp = - 1
+    val = 1
+  }
+
+  for (i = s; i < this.Size; i++)
+    val += parseInt(this.Result[i])*pow(2, dp + s - i)
+
+  decValue = val * pow(2, this.BinaryPower)
+
+  if (this.Size == 32)
+  {
+    s = 8
+    if (val > 0)
+    {
+      power = floor( log(decValue) / LN10 )
+      decValue += 0.5 * pow(10, power - s + 1)
+      val += 5E-8
+    }
+  }
+  else s = 17
+
+  if (this.Result[0] == 1) decValue = - decValue
+
+  //the system refuses to display negative "0"s with a minus sign
+  this.DecValue = "" + decValue
+  if ((this.DecValue == "0") && (this.Result[0] == 1))
+    this.DecValue = "-" + this.DecValue
+
+  this.DecValue = numStrClipOff(this.DecValue, s)
+
+  output = numCutOff(val, s)
+
+  }
+  return output
+}
+
+//object construction function
+function ieee (Size){
+
+  this.Size = Size
+  this.BinaryPower = 0
+  this.DecValue = ""
+  this.DispStr = ""
+  this.Convert2Bin = Convert2Bin   //convert input to bin.
+  this.Convert2Hex = Convert2Hex   //convert bin. to hex.
+  this.Convert2Dec = Convert2Dec   //convert bin. significand to dec.
+  this.Dec2Bin = Dec2Bin           //convert dec. to bin.
+  this.StatCond = "normal"
+  this.StatCond64 = "normal"
+  this.BinString = ""
+  // 1 (carry bit) + 1023 + 1 + 1022 + 53 + 2 (round bits)
+  this.BinVal = new Array(2102)    //Binary Representation
+  if (Size == 32){
+    this.ExpBias = 127
+    this.MaxExp = 127
+    this.MinExp = -126
+    this.MinUnnormExp = -149
+    this.Result = new Array(32)
+  }
+  else if (Size == 64){
+    this.ExpBias = 1023
+    this.MaxExp = 1023
+    this.MinExp = -1022
+    this.MinUnnormExp = -1074
+    this.Result = new Array(64)
+  }
+
+}
+
+function compute(obj, rounding){
+/*
+  in this javascript program, bit positions are numbered
+  0 ~ 32/64 from left to right instead of right to left, the
+  way the output is presented
+*/
+  ieee32 = new ieee(32)
+  ieee64 = new ieee(64)
+
+  var input, index1, cnst
+
+  input = obj.input.value
+  input = RemoveBlanks(input)
+
+  ieee64.Dec2Bin(input)
+  ieee64.BinString =
+    ieee64.Convert2Bin(ieee64.DispStr, ieee64.StatCond64, ieee64.Result[0],
+                         ieee64.BinaryPower, false)
+  obj.bin64_0.value = ieee64.BinString.substring(0, 1)
+  obj.bin64_1.value = ieee64.BinString.substring(1, 12)
+  if ((ieee64.BinaryPower < ieee64.MinExp) ||
+      (ieee64.BinaryPower > ieee64.MaxExp))
+  {
+    obj.bin64_12.value = "  "
+    obj.bin64_12.value += ieee64.BinString.substring(12, 13)
+    obj.bin64_12.value += "."
+    obj.bin64_12.value += ieee64.BinString.substring(13, 64)
+  }
+  else
+  {
+    obj.bin64_12.value = "1 ."
+    obj.bin64_12.value += ieee64.BinString.substring(12, 64)
+  }
+  obj.stat64.value = ieee64.StatCond
+  obj.binpwr64.value = ieee64.BinaryPower
+  obj.binpwr64f.value = ieee64.BinaryPower + ieee64.ExpBias
+  obj.dec64sig.value = ieee64.Convert2Dec()
+  if (ieee64.DispStr != "")
+  {
+    obj.dec64.value = ieee64.DispStr
+    obj.dec64sig.value = ""
+  }
+  else
+    obj.dec64.value = ieee64.DecValue
+  obj.hex64.value = ieee64.Convert2Hex()
+
+    cnst = 2102         // 1 (carry bit) + 1023 + 1 + 1022 + 53 + 2 (round bits)
+    for (index1 = 0; index1 < cnst; index1++)
+      ieee32.BinVal[index1] = ieee64.BinVal[index1]
+
+  ieee32.BinString =
+    ieee32.Convert2Bin(ieee64.DispStr, ieee64.StatCond64, ieee64.Result[0],
+                         ieee64.BinaryPower, rounding)
+  obj.bin32_0.value = ieee32.BinString.substring(0, 1)
+  obj.bin32_1.value = ieee32.BinString.substring(1, 9)
+  if ((ieee32.BinaryPower < ieee32.MinExp) ||
+      (ieee32.BinaryPower > ieee32.MaxExp))
+  {
+    obj.bin32_9.value = "  "
+    obj.bin32_9.value += ieee32.BinString.substring(9, 10)
+    obj.bin32_9.value += "."
+    obj.bin32_9.value += ieee32.BinString.substring(10, 32)
+  }
+  else
+  {
+    obj.bin32_9.value = "1 ."
+    obj.bin32_9.value += ieee32.BinString.substring(9, 32)
+  }
+  obj.stat32.value = ieee32.StatCond
+  obj.binpwr32.value = ieee32.BinaryPower
+  obj.binpwr32f.value = ieee32.BinaryPower + ieee32.ExpBias
+  obj.dec32sig.value = ieee32.Convert2Dec()
+  if (ieee32.DispStr != "")
+  {
+    obj.dec32.value = ieee32.DispStr
+    obj.dec32sig.value = ""
+  }
+  else
+    obj.dec32.value = ieee32.DecValue
+  obj.hex32.value = ieee32.Convert2Hex()
+
+  if ((ieee64.DispStr != "") && (ieee32.DispStr != ""))
+    obj.entered.value = ieee64.DispStr
+  else
+    obj.entered.value = input * 1.0
+}
+
+// Additions for pascal.js
+
+function llvm_double_hex(input) {
+  ieee64 = new ieee(64)
+  ieee64.Dec2Bin(input.toString())
+  ieee64.BinString =
+    ieee64.Convert2Bin(ieee64.DispStr, ieee64.StatCond64, ieee64.Result[0],
+                         ieee64.BinaryPower, false)
+  return '0x' + ieee64.Convert2Hex()
+};
+function llvm_float_hex(input) {
+  var d64 = llvm_double_hex(input);
+  //return d64.replace(/(.*)........$/, "$100000000");
+  return d64.replace(/(.*)........$/, "$1A0000000");
+};
+
+if (typeof module !== 'undefined') {
+  exports.llvm_float_hex = llvm_float_hex;
+  exports.llvm_double_hex = llvm_double_hex;
+} else {
+  var ieee754 = {llvm_float_hex:llvm_float_hex,
+                 llvm_double_hex:llvm_double_hex};
+}

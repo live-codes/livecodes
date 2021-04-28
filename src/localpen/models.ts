@@ -74,6 +74,8 @@ export type Language =
   | 'perl'
   | 'pl'
   | 'pm'
+  | 'pascal'
+  | 'pas'
   | 'lua'
   | 'scheme'
   | 'scm';
@@ -174,6 +176,7 @@ export interface Compiler {
     | 'text/python'
     | 'text/ruby'
     | 'text/x-uniter-php'
+    | 'text/pascal'
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua';

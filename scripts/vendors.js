@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var rfs = require('recursive-fs');
 
 const esbuild = require('esbuild');
 const NodeModulesPolyfills = require('@esbuild-plugins/node-modules-polyfill').default;
@@ -371,3 +372,6 @@ esbuild.buildSync({
   format: 'esm',
   logLevel: 'error',
 });
+
+// pascal.js
+rfs.copy(path.resolve(vendor_modules + '/pascal.js'), path.resolve(targetDir + '/pascal.js'));
