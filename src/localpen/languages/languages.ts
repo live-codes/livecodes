@@ -535,7 +535,7 @@ window.wasm = new Promise((resolve) => {
       url: 'vendor/pascal.js/pascal.js',
       factory: (_: any, config: Pen) => {
         (self as any).Pascal.init(config.baseUrl);
-        return (self as any).Pascal.compile;
+        return (code: string) => (code.trim() ? (self as any).Pascal.compile(code) : '');
       },
       umd: true,
     },

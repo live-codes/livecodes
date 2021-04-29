@@ -22,6 +22,7 @@ import 'prismjs/components/prism-ruby';
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-perl';
+import 'prismjs/components/prism-pascal';
 import 'prismjs/components/prism-lua';
 import 'prismjs/components/prism-scheme';
 
