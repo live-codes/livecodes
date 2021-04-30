@@ -1,6 +1,7 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const polymerStarter: Template = {
+  name: 'polymer',
   title: 'Polymer Starter',
   thumbnail: 'assets/templates/polymer.svg',
   language: 'typescript',

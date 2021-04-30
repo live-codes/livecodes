@@ -1,6 +1,7 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const preactStarter: Template = {
+  name: 'preact',
   title: 'Preact Starter',
   thumbnail: 'assets/templates/preact.svg',
   language: 'jsx',

@@ -179,7 +179,6 @@ body {
   bottom: 10px;
   right: 10px;
   opacity: 0.8;
-  z-index: 10;
 }
 
 #editor-container {
@@ -212,7 +211,6 @@ body {
   padding: 5px;
   border: 0;
   border-radius: 3px;
-  z-index: 900;
   background-color: #444855b0;
   color: #eeeeee;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -282,9 +280,6 @@ body {
 }
 #console .luna-object-viewer {
   overflow: hidden;
-}
-#console .luna-console-error {
-  z-index: 40;
 }
 #console .luna-console-input pre.luna-console-code {
   visibility: hidden;
@@ -420,7 +415,6 @@ li.editor-title.active > button:hover {
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1000;
   width: calc(100% - 12px);
   max-width: calc(100% - 12px);
   padding: 5px 0;
@@ -441,15 +435,12 @@ li.editor-title .menu-scroller {
 
 li.editor-title > button:focus + .menu-scroller,
 li.editor-title > button:focus + .menu-scroller .dropdown-menu,
-/* .menu-scroller:hover, */
-/* .dropdown-menu:hover, */
 #settings-menu-container:hover,
 #settings-button:focus + .menu-scroller,
 #settings-button:focus + .menu-scroller .dropdown-menu,
 #settings-menu:hover {
   display: block;
   animation: fadeIn 0.4s forwards;
-  z-index: 1000;
 }
 
 .dropdown-menu li > * {
@@ -727,7 +718,6 @@ i.arrow:after {
 
 #overlay,
 #modal-container {
-  z-index: 2000;
   position: absolute;
   top: 0;
   left: 0;
@@ -1015,13 +1005,14 @@ i.arrow:after {
 .modal-tabs li.active {
   background-color: whitesmoke;
   border-bottom: 1px solid whitesmoke;
-  z-index: 1;
   margin-bottom: -1px;
 }
 
 #modal .modal-screen-container {
   border: 1px solid darkgrey;
   padding: 10px;
+  margin-bottom: 20px;
+  min-height: calc(80% - 100px);
   border-radius: 5px;
   box-shadow: 0 3px 6px #0000002d;
   background-color: whitesmoke;
@@ -1073,6 +1064,7 @@ i.arrow:after {
   margin: 20px;
   padding: 10px;
   width: 50%;
+  box-sizing: content-box;
   outline: none;
   font-size: 1em;
   font-weight: 400;
@@ -1216,42 +1208,28 @@ i.arrow:after {
   padding: 0.5em !important;
 }
 
-.language-item {
-  position: relative;
-}
-.tooltip {
-  position: absolute;
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  top: 2px;
-  right: -5px;
-  opacity: 0.3;
-}
-.tooltip:hover {
-  opacity: 1;
-}
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 200px;
-  background-color: #5a6074da;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  font-size: 0.8em;
-
-  position: absolute;
+/* z-index */
+.modal-tabs li.active {
   z-index: 1;
-  left: 100%;
-  top: 0;
 }
 
-.tooltip .tooltiptext a {
-  color: #fff;
-  text-align: left;
+#editors #code-run-button {
+  z-index: 10;
 }
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+#console .luna-console-error {
+  z-index: 40;
+}
+.copy-button {
+  z-index: 900;
+}
+.dropdown-menu,
+.menu-scroller {
+  z-index: 1000;
+}
+#overlay,
+#modal-container {
+  z-index: 2000;
+}
+.snackbars {
+  z-index: 3000;
 }

@@ -1,6 +1,7 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const angularStarter: Template = {
+  name: 'angular',
   title: 'Angular Starter',
   thumbnail: 'assets/templates/angular.svg',
   language: 'ts',

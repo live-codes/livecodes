@@ -1,6 +1,7 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const phpStarter: Template = {
+  name: 'php',
   title: 'PHP Starter',
   thumbnail: 'assets/templates/php.svg',
   language: 'php',

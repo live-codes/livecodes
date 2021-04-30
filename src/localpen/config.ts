@@ -2,6 +2,7 @@ import { importCode } from './import';
 import { decodeHTML } from './utils';
 import { getLanguageByAlias, getLanguageEditorId } from './languages';
 import { Pen } from './models';
+import { getTemplate } from './templates';
 
 export const defaultConfig: Pen = {
   baseUrl: '/localpen/',
@@ -58,6 +59,9 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
     if (params[key] === 'false') params[key] = false;
   });
 
+  // get template name from query string param
+  const templateName = params.template;
+
   // load config from file
   const configUrl = params.config || './localpen.json';
   const fileConfig = configUrl
@@ -108,6 +112,17 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
     ...userConfig,
     ...paramsConfig,
   };
+
+  // if a template is chosen, return its content (avoid loading external content)
+  if (templateName) {
+    const template = await getTemplate(templateName, config);
+    if (template) {
+      return {
+        ...config,
+        ...template,
+      };
+    }
+  }
 
   // load content from url
   const contents = await Promise.all(

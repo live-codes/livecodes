@@ -1,6 +1,7 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const svelteStarter: Template = {
+  name: 'svelte',
   title: 'Svelte Starter',
   thumbnail: 'assets/templates/svelte.svg',
   language: 'svelte',
