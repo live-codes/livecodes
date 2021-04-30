@@ -1,4 +1,4 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const vueSfcStarter: Template = {
   title: 'Vue 3 SFC Starter',

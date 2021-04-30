@@ -1,4 +1,4 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const readmeTemplate: Template = {
   title: 'README Template',

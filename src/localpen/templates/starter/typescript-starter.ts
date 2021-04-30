@@ -1,4 +1,4 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const typescriptStarter: Template = {
   title: 'TypeScript Starter',

@@ -1,4 +1,4 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const rubyStarter: Template = {
   title: 'Ruby Starter',

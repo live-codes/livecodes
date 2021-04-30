@@ -945,31 +945,41 @@ export const app = async (config: Pen) => {
         const starterTemplatesList = templatesContainer.querySelector(
           '#starter-templates-list',
         ) as HTMLElement;
-        getStarterTemplates(getConfig()).forEach((template) => {
-          const li = document.createElement('li') as HTMLElement;
-          const link = document.createElement('a') as HTMLAnchorElement;
-          link.href = '#';
-          link.innerHTML = `
-          <img src="${baseUrl + template.thumbnail}" />
-          <div>${template.title}</div>
-          `;
-          eventsManager.addEventListener(
-            link,
-            'click',
-            () => {
-              const { title, thumbnail, ...templateConfig } = template;
-              penId = '';
-              loadConfig({
-                ...defaultConfig,
-                ...templateConfig,
-              });
-              modal.close();
-            },
-            false,
-          );
-          li.appendChild(link);
-          starterTemplatesList.appendChild(li);
-        });
+        const loadingText = starterTemplatesList.firstElementChild;
+        getStarterTemplates(getConfig())
+          .then((starterTemplates) => {
+            loadingText?.remove();
+
+            starterTemplates.forEach((template) => {
+              const li = document.createElement('li') as HTMLElement;
+              const link = document.createElement('a') as HTMLAnchorElement;
+              link.href = '#';
+              link.innerHTML = `
+            <img src="${baseUrl + template.thumbnail}" />
+            <div>${template.title}</div>
+            `;
+              eventsManager.addEventListener(
+                link,
+                'click',
+                () => {
+                  const { title, thumbnail, ...templateConfig } = template;
+                  penId = '';
+                  loadConfig({
+                    ...defaultConfig,
+                    ...templateConfig,
+                  });
+                  modal.close();
+                },
+                false,
+              );
+              li.appendChild(link);
+              starterTemplatesList.appendChild(li);
+            });
+          })
+          .catch(() => {
+            loadingText?.remove();
+            notifications.error('Failed loading starter templates');
+          });
 
         const userTemplatesScreen = templatesContainer.querySelector(
           '#templates-user .modal-screen',

@@ -126,4 +126,12 @@ esbuild.buildSync({
   format: 'iife',
 });
 
+esbuild.buildSync({
+  entryPoints: ['src/localpen/templates/starter/index.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/templates.js',
+  format: 'esm',
+});
+
 console.log('built to: ' + buildOptions.outdir);

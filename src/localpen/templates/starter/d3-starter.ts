@@ -1,4 +1,4 @@
-import { Template } from '../models';
+import { Template } from '../../models';
 
 export const d3Starter: Template = {
   title: 'D3 Starter',
