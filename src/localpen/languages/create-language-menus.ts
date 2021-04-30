@@ -4,6 +4,8 @@ import { EditorId, Pen } from '../models';
 import { languages } from './languages';
 import { languageIsEnabled } from './utils';
 
+const infoIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>`;
+
 export const createLanguageMenus = (
   config: Pen,
   modal: ReturnType<typeof createModal>,
@@ -72,7 +74,7 @@ export const createLanguageMenus = (
         const tooltip = document.createElement('span');
         tooltip.classList.add('tooltip');
         tooltip.title = 'Click for info...';
-        tooltip.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>`;
+        tooltip.innerHTML = infoIcon;
         const tooltipText = document.createElement('div');
         tooltipText.innerHTML = language.info;
         eventsManager.addEventListener(
