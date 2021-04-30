@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const schemeStarter: Template = {
+  name: 'scheme',
   title: 'Scheme Starter',
   thumbnail: 'assets/templates/scheme.svg',
   language: 'scheme',

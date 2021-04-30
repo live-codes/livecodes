@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const typescriptStarter: Template = {
+  name: 'typescript',
   title: 'TypeScript Starter',
   thumbnail: 'assets/templates/typescript.svg',
   language: 'typescript',

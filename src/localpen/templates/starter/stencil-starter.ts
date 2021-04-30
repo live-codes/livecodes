@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const stencilStarter: Template = {
+  name: 'stencil',
   title: 'Stencil Starter',
   thumbnail: 'assets/templates/stencil.png',
   language: 'stencil',

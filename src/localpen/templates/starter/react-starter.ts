@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const reactStarter: Template = {
+  name: 'react',
   title: 'React Starter',
   thumbnail: 'assets/templates/react.svg',
   language: 'jsx',

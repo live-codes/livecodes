@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const livescriptStarter: Template = {
+  name: 'livescript',
   title: 'LiveScript Starter',
   thumbnail: 'assets/templates/livescript.svg',
   language: 'livescript',

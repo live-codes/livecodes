@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const mdxStarter: Template = {
+  name: 'mdx',
   title: 'MDX Starter',
   thumbnail: 'assets/templates/mdx.svg',
   language: 'mdx',

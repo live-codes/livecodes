@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const jqueryStarter: Template = {
+  name: 'jquery',
   title: 'jQuery Starter',
   thumbnail: 'assets/templates/jquery.svg',
   language: 'js',

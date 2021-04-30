@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const d3Starter: Template = {
+  name: 'd3',
   title: 'D3 Starter',
   thumbnail: 'assets/templates/d3.svg',
   language: 'js',

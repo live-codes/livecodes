@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const perlStarter: Template = {
+  name: 'perl',
   title: 'Perl Starter',
   thumbnail: 'assets/templates/perl.svg',
   language: 'perl',

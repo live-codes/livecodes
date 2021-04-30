@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const bootstrapStarter: Template = {
+  name: 'bootstrap',
   title: 'Bootstrap Starter',
   thumbnail: 'assets/templates/bootstrap.svg',
   language: 'html',

@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const luaStarter: Template = {
+  name: 'lua',
   title: 'Lua Starter',
   thumbnail: 'assets/templates/lua.svg',
   language: 'lua',

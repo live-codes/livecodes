@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const assemblyscriptStarter: Template = {
+  name: 'assemblyscript',
   title: 'AssemblyScript Starter',
   thumbnail: 'assets/templates/assemblyscript.svg',
   language: 'assemblyscript',

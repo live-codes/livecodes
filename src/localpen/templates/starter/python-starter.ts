@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const pythonStarter: Template = {
+  name: 'python',
   title: 'Python Starter',
   thumbnail: 'assets/templates/python.svg',
   language: 'python',

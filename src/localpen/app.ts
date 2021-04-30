@@ -953,7 +953,7 @@ export const app = async (config: Pen) => {
             starterTemplates.forEach((template) => {
               const li = document.createElement('li') as HTMLElement;
               const link = document.createElement('a') as HTMLAnchorElement;
-              link.href = '#';
+              link.href = '?template=' + template.name;
               link.innerHTML = `
             <img src="${baseUrl + template.thumbnail}" />
             <div>${template.title}</div>
@@ -961,13 +961,17 @@ export const app = async (config: Pen) => {
               eventsManager.addEventListener(
                 link,
                 'click',
-                () => {
+                (event) => {
+                  event.preventDefault();
                   const { title, thumbnail, ...templateConfig } = template;
                   penId = '';
-                  loadConfig({
-                    ...defaultConfig,
-                    ...templateConfig,
-                  });
+                  loadConfig(
+                    {
+                      ...defaultConfig,
+                      ...templateConfig,
+                    },
+                    location.origin + location.pathname + '?template=' + template.name,
+                  );
                   modal.close();
                 },
                 false,

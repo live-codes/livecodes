@@ -1,6 +1,7 @@
 import { Template } from '../../models';
 
 export const tailwindcssStarter: Template = {
+  name: 'tailwindcss',
   title: 'Tailwind CSS Starter',
   thumbnail: 'assets/templates/tailwindcss.svg',
   language: 'html',

@@ -184,6 +184,7 @@ export interface Compilers {
 }
 
 export interface Template {
+  name: string;
   title: string;
   thumbnail: string;
   language: Language;

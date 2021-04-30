@@ -49,3 +49,8 @@ export const getStarterTemplates = async (config: Pen) =>
         typesUrl: mapBaseUrl(module.typesUrl || '', config.baseUrl),
       })),
     }));
+
+export const getTemplate = async (name: string, config: Pen) =>
+  (await getStarterTemplates(config)).filter(
+    (template) => template.name.toLowerCase() === name.toLowerCase(),
+  )[0];
