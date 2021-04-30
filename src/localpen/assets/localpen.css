@@ -1011,7 +1011,7 @@ i.arrow:after {
 #modal .modal-screen-container {
   border: 1px solid darkgrey;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   min-height: calc(80% - 100px);
   border-radius: 5px;
   box-shadow: 0 3px 6px #0000002d;
@@ -1130,9 +1130,14 @@ i.arrow:after {
 
 #modal .modal-message,
 #modal .modal-message > div {
-  width: 100%;
+  max-width: 100%;
+  min-width: calc(100% - 40px);
   padding: 20px;
   text-align: center;
+}
+#modal > #list-container > .modal-message,
+#modal > #list-container > .modal-message > div {
+  padding-top: 0;
 }
 
 #css-preset-menu a.active::after {
