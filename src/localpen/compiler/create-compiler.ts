@@ -66,10 +66,17 @@ export const createCompiler = (config: Pen): Compiler => {
       ),
     );
 
+  const cache: { [key in Language]?: { content: string; compiled: string } } = {};
+
   const compile = async (content: string, language: Language, config: Pen): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
     }
+
+    if (cache[language]?.content === content) {
+      return cache[language]?.compiled || '';
+    }
+
     if (compilers[language] && !compilers[language].fn) {
       await load([language], config);
     }
@@ -81,6 +88,11 @@ export const createCompiler = (config: Pen): Compiler => {
 
     const compiled = (await compiler(content, config)) || '';
     const processed = (await postProcess(compiled, language, config)) || '';
+
+    cache[language] = {
+      content,
+      compiled: processed,
+    };
 
     return Promise.resolve(processed);
   };
