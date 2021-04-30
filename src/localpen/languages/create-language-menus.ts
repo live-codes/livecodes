@@ -76,6 +76,7 @@ export const createLanguageMenus = (
         tooltip.title = 'Click for info...';
         tooltip.innerHTML = infoIcon;
         const tooltipText = document.createElement('div');
+        tooltipText.classList.add('language-info');
         tooltipText.innerHTML = language.info;
         eventsManager.addEventListener(
           tooltip,

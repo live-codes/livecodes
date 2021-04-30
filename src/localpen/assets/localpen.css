@@ -59,6 +59,10 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+a,
+a:visited {
+  color: #0164b4;
+}
 #container {
   position: relative;
   height: 100%;
@@ -759,6 +763,7 @@ i.arrow:after {
 }
 #modal.small {
   width: 400px;
+  max-width: calc(100vw - 40px);
   height: 180px;
 }
 #modal #list-container {
@@ -1234,6 +1239,32 @@ i.arrow:after {
 #overlay,
 #modal-container {
   z-index: 2000;
+}
+.language-item {
+  position: relative;
+}
+.tooltip {
+  position: absolute;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+  right: -5px;
+  opacity: 0.3;
+}
+.tooltip:hover {
+  opacity: 1;
+}
+.language-info {
+  width: calc(100% - 40px);
+  margin: 10px;
+}
+.language-info ul {
+  list-style: none;
+  padding-left: 15px;
+}
+.language-info li {
+  margin: 0.5em;
 }
 .snackbars {
   z-index: 3000;
