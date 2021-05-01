@@ -6,11 +6,13 @@ export const typescript: LanguageSpecs = {
   title: 'TS',
   longTitle: 'TypeScript',
   info: `
-  <div>Typed JavaScript at Any Scale</div>
+  <h3>TypeScript</h3>
+  <div>A Typed Superset of JavaScript.</div>
   <ul>
-    <li><a href="#">Typescript Documentation</a></li>
-    <li><a href="#">Typescript usage in LocalPen</a></li>
-    <li><a href="#">Load starter template</a></li>
+    <li><a href="https://www.typescriptlang.org/" target="_blank">Official website</a></li>
+    <li><a href="https://www.typescriptlang.org/docs/" target="_blank">Typescript documentation</a></li>
+    <!-- <li><a href="#">Typescript usage in LocalPen</a></li> -->
+    <li><a href="?template=typescript" target="_parent" data-template="typescript">Load starter template</a></li>
   </ul>
   `,
   parser: {

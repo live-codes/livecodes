@@ -764,7 +764,8 @@ i.arrow:after {
 #modal.small {
   width: 400px;
   max-width: calc(100vw - 40px);
-  height: 180px;
+  height: auto;
+  min-height: 180px;
 }
 #modal #list-container {
   display: flex;
@@ -1259,9 +1260,16 @@ i.arrow:after {
   width: calc(100% - 40px);
   margin: 10px;
 }
+.language-info h3 {
+  margin: 0.5em;
+  margin-top: 0;
+}
+.language-info > div {
+  margin-left: 0.5em;
+}
 .language-info ul {
   list-style: none;
-  padding-left: 15px;
+  padding-left: 0.5em;
 }
 .language-info li {
   margin: 0.5em;

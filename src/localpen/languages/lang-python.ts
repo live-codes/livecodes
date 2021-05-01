@@ -3,6 +3,17 @@ import { LanguageSpecs } from '../models';
 export const python: LanguageSpecs = {
   name: 'python',
   title: 'Python',
+  info: `
+  <h3>Python</h3>
+  <div>Python running in the browser using Brython.</div>
+  <ul>
+    <li><a href="https://www.python.org/" target="_blank">Python official website</a></li>
+    <li><a href="https://www.python.org/doc/" target="_blank">Python documentation</a></li>
+    <li><a href="https://brython.info/" target="_blank">Brython documentation</a></li>
+    <!-- <li><a href="#">Python usage in LocalPen</a></li> -->
+    <li><a href="?template=python" target="_parent" data-template="python">Load starter template</a></li>
+  </ul>
+  `,
   compiler: {
     url: 'assets/noop.js',
     factory: () => (code) => code,

@@ -3,6 +3,17 @@ import { LanguageSpecs } from '../models';
 export const perl: LanguageSpecs = {
   name: 'perl',
   title: 'Perl',
+  info: `
+  <h3>Perl</h3>
+  <div>Perl running in the browser using Perlito.</div>
+  <ul>
+    <li><a href="https://www.perl.org/" target="_blank">Perl official website</a></li>
+    <li><a href="https://perldoc.perl.org/" target="_blank">Perl documentation</a></li>
+    <li><a href="https://github.com/fglock/Perlito/blob/master/README-perlito5.md" target="_blank">Perlito5 Readme</a></li>
+    <!-- <li><a href="#">Perl usage in LocalPen</a></li> -->
+    <li><a href="?template=perl" target="_parent" data-template="perl">Load starter template</a></li>
+  </ul>
+  `,
   compiler: {
     url: 'assets/noop.js',
     factory: () => (code) => code,

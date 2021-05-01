@@ -5,6 +5,18 @@ export const vue: LanguageSpecs = {
   name: 'vue',
   title: 'Vue 3',
   longTitle: 'Vue 3 SFC',
+  info: `
+  <h3>Vue3 Single File Components</h3>
+  <div>Loaded using vue3-sfc-loader.</div>
+  <ul>
+    <li><a href="https://v3.vuejs.org/" target="_blank">Vue.js v3 official website</a></li>
+    <li><a href="https://v3.vuejs.org/guide/introduction.html" target="_blank">Vue3 documentation</a></li>
+    <li><a href="https://v3.vuejs.org/guide/single-file-component.html" target="_blank">Vue3 single file components</a></li>
+    <li><a href="https://github.com/FranckFreiburger/vue3-sfc-loader" target="_blank">vue3-sfc-loader GitHub repo</a></li>
+    <!-- <li><a href="#">Vue3 SFC usage in LocalPen</a></li> -->
+    <li><a href="?template=vue3" target="_parent" data-template="vue3">Load starter template</a></li>
+  </ul>
+  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],

@@ -4,6 +4,16 @@ import { parserPlugins } from './parser-plugins';
 export const svelte: LanguageSpecs = {
   name: 'svelte',
   title: 'Svelte',
+  info: `
+  <h3>Svelte</h3>
+  <div>Cybernetically enhanced web apps.</div>
+  <ul>
+    <li><a href="https://svelte.dev/" target="_blank">Svelte official website</a></li>
+    <li><a href="https://svelte.dev/docs" target="_blank">Svelte documentation</a></li>
+    <!-- <li><a href="#">Svelte usage in LocalPen</a></li> -->
+    <li><a href="?template=svelte" target="_parent" data-template="svelte">Load starter template</a></li>
+  </ul>
+  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],
