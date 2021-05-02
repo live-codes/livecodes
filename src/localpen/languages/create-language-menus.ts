@@ -1,13 +1,13 @@
 import { createEventsManager } from '../events';
-import { createModal } from '../modal';
 import { EditorId, Pen } from '../models';
 import { languages } from './languages';
 import { languageIsEnabled } from './utils';
 
 export const createLanguageMenus = (
   config: Pen,
-  modal: ReturnType<typeof createModal>,
   eventsManager: ReturnType<typeof createEventsManager>,
+  showLanguageInfo: (languageInfo: HTMLElement) => void,
+  loadStarterTemplate: (templateName: string) => void,
   editorIds: EditorId[] = ['markup', 'style', 'script'],
 ) => {
   const rootList = document.createElement('ul');
@@ -73,13 +73,28 @@ export const createLanguageMenus = (
         tooltip.classList.add('tooltip');
         tooltip.title = 'Click for info...';
         tooltip.innerHTML = infoIcon;
-        const tooltipText = document.createElement('div');
-        tooltipText.classList.add('language-info');
-        tooltipText.innerHTML = language.info;
+        const languageInfo = document.createElement('div');
+        languageInfo.classList.add('language-info');
+        languageInfo.innerHTML = language.info;
         eventsManager.addEventListener(
           tooltip,
           'mousedown',
-          () => modal.show(tooltipText, 'small'),
+          () => {
+            showLanguageInfo(languageInfo);
+            const templateLink: HTMLElement | null = languageInfo.querySelector('a[data-template]');
+            const templateName = templateLink?.dataset.template;
+            if (templateLink && templateName) {
+              eventsManager.addEventListener(
+                templateLink,
+                'click',
+                async (event) => {
+                  event.preventDefault();
+                  loadStarterTemplate(templateName);
+                },
+                false,
+              );
+            }
+          },
           false,
         );
         languageItem.appendChild(tooltip);

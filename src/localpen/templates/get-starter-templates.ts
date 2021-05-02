@@ -11,7 +11,7 @@ const loadTemplates = async (config: Pen): Promise<Template[]> =>
 /**
  * get starter templates with languages that are enabled in the current config
  */
-export const getStarterTemplates = async (config: Pen) =>
+export const getStarterTemplates = async (config: Pen): Promise<Template[]> =>
   (await loadTemplates(config))
     .filter((template) => {
       const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
