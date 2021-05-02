@@ -19,6 +19,7 @@ import {
   Editors,
   Language,
   Pen,
+  Template,
   ToolList,
 } from './models';
 import { getFormatter } from './formatter';
@@ -75,6 +76,7 @@ export const app = async (config: Pen) => {
   let toolsPane: any;
   let lastCompiled: { [key in EditorId]: string };
   let consoleInputCodeCompletion: any;
+  let starterTemplates: Template[];
 
   const createSplitPanes = () => {
     const gutterSize = 10;
@@ -670,6 +672,14 @@ export const app = async (config: Pen) => {
     }
   };
 
+  const getTemplates = async (): Promise<Template[]> => {
+    if (starterTemplates) {
+      return starterTemplates;
+    }
+    starterTemplates = await getStarterTemplates(getConfig());
+    return starterTemplates;
+  };
+
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
       const projectTitle = document.querySelector('#project-title') as HTMLElement;
@@ -946,7 +956,7 @@ export const app = async (config: Pen) => {
           '#starter-templates-list',
         ) as HTMLElement;
         const loadingText = starterTemplatesList.firstElementChild;
-        getStarterTemplates(getConfig())
+        getTemplates()
           .then((starterTemplates) => {
             loadingText?.remove();
 
@@ -1541,11 +1551,35 @@ export const app = async (config: Pen) => {
     showEditor(editorId);
   };
 
+  const showLanguageInfo = (languageInfo: HTMLElement) => {
+    modal.show(languageInfo, 'small');
+  };
+
+  const loadStarterTemplate = async (templateName: string) => {
+    const templates = await getTemplates();
+    const template = templates.filter((template) => template.name === templateName)?.[0];
+    if (template) {
+      checkSavedAndExecute(() => {
+        loadConfig(
+          {
+            ...defaultConfig,
+            ...template,
+          },
+          '?template=' + templateName,
+        );
+      })().finally(() => {
+        modal.close();
+      });
+    } else {
+      notifications.error('Failed loading template');
+    }
+  };
+
   async function bootstrap(reload = false) {
     await createIframe(elements.result);
 
     if (!reload) {
-      createLanguageMenus(getConfig(), modal, eventsManager);
+      createLanguageMenus(getConfig(), eventsManager, showLanguageInfo, loadStarterTemplate);
       editors = await createEditors(getConfig());
 
       const toolList: ToolList = [

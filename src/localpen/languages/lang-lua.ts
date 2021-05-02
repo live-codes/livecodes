@@ -1,0 +1,27 @@
+import { LanguageSpecs } from '../models';
+
+export const lua: LanguageSpecs = {
+  name: 'lua',
+  title: 'Lua',
+  info: `
+  <h3>Lua</h3>
+  <div>Lua running in the browser using fengari-web.</div>
+  <ul>
+    <li><a href="https://www.lua.org/" target="_blank">Lua official website</a></li>
+    <li><a href="https://www.lua.org/manual/5.4/manual.html" target="_blank">Lua documentation</a></li>
+    <li><a href="https://fengari.io/" target="_blank">Fengari official website</a></li>
+    <li><a href="https://github.com/fengari-lua/fengari-web" target="_blank">fengari-web GitHub repo</a></li>
+    <!-- <li><a href="#">Lua usage in LocalPen</a></li> -->
+    <li><a href="?template=lua" target="_parent" data-template="lua">Load starter template</a></li>
+  </ul>
+  `,
+  compiler: {
+    url: 'assets/noop.js',
+    factory: () => (code) => code,
+    umd: true,
+    scripts: ['vendor/fengari-web/fengari-web.js'],
+    scriptType: 'application/lua',
+  },
+  extensions: ['lua'],
+  editor: 'script',
+};
