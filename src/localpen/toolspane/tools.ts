@@ -1,6 +1,6 @@
 import Split from 'split.js';
-import { createEventsManager } from './events';
-import { Editors, Pen, ToolList, ToolsPaneStatus } from './models';
+import { createEventsManager } from '../events';
+import { Editors, Pen, ToolList, ToolsPaneStatus } from '../models';
 
 export const createToolsPane = (
   toolList: ToolList,

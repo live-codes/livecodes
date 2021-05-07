@@ -1,7 +1,7 @@
-import { createEditor } from './editor';
-import { createEventsManager } from './events';
-import { languages } from './languages';
-import { Editors, Pen, Tool, CodeEditor, EditorOptions } from './models';
+import { createEditor } from '../editor';
+import { createEventsManager } from '../events';
+import { languages } from '../languages';
+import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
 
 export const createCompiledCodeViewer = (
   config: Pen,
