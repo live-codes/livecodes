@@ -2,6 +2,7 @@ import LunaConsole from 'luna-console';
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
+import { isMobile } from '../utils';
 
 export const createConsole = (
   config: Pen,
@@ -250,7 +251,9 @@ export const createConsole = (
     title: 'Console',
     load,
     onActivate: () => {
-      editor?.focus();
+      if (!isMobile()) {
+        editor?.focus();
+      }
       if (clearButton) {
         clearButton.style.display = 'unset';
       }
