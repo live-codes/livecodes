@@ -1,7 +1,7 @@
 import LunaConsole from 'luna-console';
-import { createEditor } from './editor';
-import { createEventsManager } from './events';
-import { Editors, Pen, Tool, CodeEditor, EditorOptions } from './models';
+import { createEditor } from '../editor';
+import { createEventsManager } from '../events';
+import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
 
 export const createConsole = (
   config: Pen,
