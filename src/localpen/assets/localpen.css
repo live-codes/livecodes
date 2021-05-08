@@ -471,15 +471,17 @@ li.editor-title > button:focus + .menu-scroller .dropdown-menu,
   top: 40px;
   right: 10px;
   height: calc(100vh - 40px);
-  width: 600px;
+  width: 500px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 .menu-scroller::-webkit-scrollbar {
   width: 5px;
 }
-
-#.dropdown-menu > li > * {
+.menu-scroller.hidden {
+  display: none !important;
+}
+.dropdown-menu > li > * {
   display: block;
   text-decoration: none;
   color: #222;
@@ -490,19 +492,7 @@ li.editor-title > button:focus + .menu-scroller .dropdown-menu,
   background-color: #e7e8f1;
 }
 
-.menu-scroller {
-  display: none;
-  position: absolute;
-  top: 40px;
-  right: 10px;
-  height: calc(100vh - 40px);
-  width: 600px;
-  overflow-y: scroll;
-  /* -ms-overflow-style: none;
-  scrollbar-width: none; */
-}
 .menu-scroller::-webkit-scrollbar {
-  /* display: none; */
   width: 5px;
 }
 

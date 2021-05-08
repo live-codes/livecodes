@@ -922,6 +922,27 @@ export const app = async (config: Pen) => {
       });
     };
 
+    const handleSettingsMenu = () => {
+      // This fixes the behaviour where :
+      // clicking outside the settings menu but inside settings menu container,
+      // hides the settings menu but not the container
+      // on small screens the conatiner covers most of the screen
+      // which gives the effect of a non-responsive app
+
+      const menuScroller: HTMLElement | null = document.querySelector('#settings-menu-container');
+      const settingsButton: HTMLElement | null = document.querySelector('#settings-button');
+      if (!menuScroller || !settingsButton) return;
+
+      eventsManager.addEventListener(menuScroller, 'mousedown', (event) => {
+        if (event.target === menuScroller) {
+          menuScroller.classList.add('hidden');
+        }
+      });
+      eventsManager.addEventListener(settingsButton, 'mousedown', () => {
+        menuScroller.classList.remove('hidden');
+      });
+    };
+
     const handleNew = () => {
       const createTemplatesUI = () => {
         const div = document.createElement('div');
@@ -1494,6 +1515,7 @@ export const app = async (config: Pen) => {
     handleHotKeys();
     handleRunButton();
     handleSettings();
+    handleSettingsMenu();
     handleExternalResources();
     handleNew();
     handleSave();
