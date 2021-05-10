@@ -498,7 +498,8 @@ export const app = async (config: Pen) => {
 
   const setWindowTitle = () => {
     const title = getConfig().title;
-    parent.document.title = (title ? title + ' - ' : '') + 'LocalPen';
+    parent.document.title =
+      (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LocalPen';
   };
 
   const run = async (editors: Editors) => {
