@@ -20,16 +20,17 @@ export const createLanguageMenus = (
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
+    editorSelector.tabIndex = 1;
     editorSelector.innerHTML = `
       <span></span>
-      <button onclick="event.stopPropagation();">
+      <a href="javascript:void(0)" onclick="event.stopPropagation();" tabIndex="1" title="change language" class="language-menu-button">
         <img
           width="20"
           height="20"
           style="filter: invert(1)"
           src="${config.baseUrl}assets/images/down_arrow.svg"
         />
-      </button>
+      </a>
     `;
     rootList.appendChild(editorSelector);
 
