@@ -141,7 +141,7 @@ a[target='_blank']:after {
     display: none;
   }
   #editors #code-run-button {
-    display: block !important;
+    display: flex !important;
   }
 }
 
@@ -154,9 +154,11 @@ a[target='_blank']:after {
   display: flex;
 }
 
-#buttons > button,
+#buttons > .button,
 #editors #code-run-button {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 0;
   margin: auto;
   margin-top: 3px;
@@ -168,22 +170,17 @@ a[target='_blank']:after {
   outline: none;
 }
 
-#buttons > button:hover,
+#buttons > .button:hover,
 #editors #code-run-button:hover {
   background-color: #777c8dda;
 }
 
 /* mouse down */
-#buttons > button:active:hover,
+#buttons > .button:active:hover,
 #editors #code-run-button:active:hover {
   background-color: #5a6074da;
 }
 
-#buttons > button img,
-#editors #code-run-button img {
-  display: block;
-  margin: auto;
-}
 #editors #code-run-button {
   display: none;
   position: absolute;
@@ -394,7 +391,7 @@ li.editor-title.active {
   background-color: #444857;
 }
 
-li.editor-title > button {
+li.editor-title > .language-menu-button {
   position: absolute;
   right: 5%;
   text-decoration: none;
@@ -409,15 +406,15 @@ li.editor-title > button {
   outline: none;
 }
 
-li.editor-title > button:hover {
+li.editor-title > .language-menu-button:hover {
   background-color: #777c8dda;
 }
 
-li.editor-title.active > button {
+li.editor-title.active > .language-menu-button {
   background-color: #001b25d3;
 }
 
-li.editor-title.active > button:hover {
+li.editor-title.active > .language-menu-button:hover {
   background-color: #213c46d3;
 }
 
@@ -444,10 +441,8 @@ li.editor-title .menu-scroller {
   max-width: 45vw;
 }
 
-li.editor-title > button:focus + .menu-scroller,
-li.editor-title > button:active + .menu-scroller,
-li.editor-title > button:focus + .menu-scroller .dropdown-menu,
-li.editor-title > button:active + .menu-scroller .dropdown-menu,
+li.editor-title > .language-menu-button:focus + .menu-scroller,
+li.editor-title > .language-menu-button:focus + .menu-scroller .dropdown-menu,
 #settings-menu-container:hover,
 #settings-button:focus + .menu-scroller,
 #settings-button:active + .menu-scroller,

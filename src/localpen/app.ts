@@ -783,27 +783,27 @@ export const app = async (config: Pen) => {
 
     const handlechangeLanguage = () => {
       if (getConfig().allowLangChange) {
-        (document.querySelectorAll('#select-editor a') as NodeListOf<HTMLElement>).forEach(
-          (menuItem) => {
-            eventsManager.addEventListener(
-              menuItem,
-              'mousedown', // fire this event before unhover
-              async () => {
-                await changeLanguage(
-                  menuItem.dataset.editor as EditorId,
-                  menuItem.dataset.lang as Language,
-                );
-              },
-              false,
-            );
-          },
-        );
+        (document.querySelectorAll(
+          '#select-editor .language-item a',
+        ) as NodeListOf<HTMLElement>).forEach((menuItem) => {
+          eventsManager.addEventListener(
+            menuItem,
+            'mousedown', // fire this event before unhover
+            async () => {
+              await changeLanguage(
+                menuItem.dataset.editor as EditorId,
+                menuItem.dataset.lang as Language,
+              );
+            },
+            false,
+          );
+        });
       } else {
-        (document.querySelectorAll('#select-editor button') as NodeListOf<HTMLElement>).forEach(
-          (menuButton) => {
-            menuButton.style.display = 'none';
-          },
-        );
+        (document.querySelectorAll(
+          '#select-editor>.language-menu-button',
+        ) as NodeListOf<HTMLElement>).forEach((menuButton) => {
+          menuButton.style.display = 'none';
+        });
       }
     };
 
