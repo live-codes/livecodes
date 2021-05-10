@@ -496,6 +496,23 @@ export const app = async (config: Pen) => {
     }
   };
 
+  const setProjectTitle = (setDefault = false) => {
+    const projectTitle = document.querySelector('#project-title') as HTMLElement;
+    const defaultTitle = defaultConfig.title;
+    if (setDefault && projectTitle.textContent?.trim() === '') {
+      projectTitle.textContent = defaultTitle;
+    }
+    const title = projectTitle.textContent || defaultTitle;
+    if (title !== defaultTitle || (penId && title !== storage.getItem(penId)?.pen.title)) {
+      setSavedStatus(false);
+    }
+    setConfig({ ...getConfig(), title });
+    if (getConfig().autosave) {
+      save(!penId, false);
+    }
+    setWindowTitle();
+  };
+
   const setWindowTitle = () => {
     const title = getConfig().title;
     parent.document.title =
@@ -509,7 +526,11 @@ export const app = async (config: Pen) => {
     updateCompiledCode();
   };
 
-  const save = (notify = false) => {
+  const save = (notify = false, setTitle = true) => {
+    if (setTitle) {
+      setProjectTitle(true);
+    }
+
     if (!penId) {
       penId = storage.addItem(getConfig());
     } else {
@@ -682,34 +703,22 @@ export const app = async (config: Pen) => {
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
       const projectTitle = document.querySelector('#project-title') as HTMLElement;
-      projectTitle.textContent = getConfig().title;
+      projectTitle.textContent = getConfig().title || defaultConfig.title;
 
       setWindowTitle();
 
-      eventsManager.addEventListener(
-        projectTitle,
-        'input',
-        () => {
-          const title = projectTitle.textContent || '';
-          setSavedStatus(false);
-          setConfig({ ...getConfig(), title });
-          if (getConfig().autosave) {
-            save();
-          }
-          setWindowTitle();
-        },
-        false,
-      );
+      eventsManager.addEventListener(projectTitle, 'input', () => setProjectTitle(), false);
+      eventsManager.addEventListener(projectTitle, 'blur', () => setProjectTitle(true), false);
       eventsManager.addEventListener(
         projectTitle,
         'keypress',
-        (e) => {
-          setSavedStatus(false);
+        ((e: KeyboardEvent) => {
           if ((e as KeyboardEvent).which === 13) {
+            /* Enter */
             (e as KeyboardEvent).preventDefault();
             projectTitle.blur();
           }
-        },
+        }) as any,
         false,
       );
     };
