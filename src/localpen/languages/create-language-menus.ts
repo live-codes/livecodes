@@ -20,9 +20,10 @@ export const createLanguageMenus = (
     editorSelector.id = editorId + '-selector';
     editorSelector.classList.add('editor-title', 'noselect');
     editorSelector.dataset.editor = editorId;
+    editorSelector.tabIndex = 1;
     editorSelector.innerHTML = `
       <span></span>
-      <button onclick="event.stopPropagation();">
+      <button onclick="event.stopPropagation();" tabIndex="1">
         <img
           width="20"
           height="20"

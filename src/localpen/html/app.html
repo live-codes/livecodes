@@ -19,17 +19,17 @@
       <div id="toolbar">
         <div id="logo">
           <a href="https://localpen.io/" target="_top" title="LocalPen: code pens that run locally!"
-            ><img src="{{baseUrl}}assets/images/localpen-logo.svg" width="50"
+            ><img alt="LocalPen Logo" src="{{baseUrl}}assets/images/localpen-logo.svg" width="50"
           /></a>
         </div>
         <div id="select-editor"></div>
-        <div id="project-title" contenteditable="true">Untitled Project</div>
+        <div id="project-title" contenteditable="true" tabindex="8">Untitled Project</div>
         <div id="buttons">
-          <button id="run-button" title="Run (Ctrl/Cmd + Enter)">
-            <img width="20" height="20" src="{{baseUrl}}assets/images/play.svg" />
+          <button id="run-button" title="Run (Ctrl/Cmd + Enter)" tabindex="9">
+            <img width="20" height="20" alt="Run" src="{{baseUrl}}assets/images/play.svg" />
           </button>
-          <button id="settings-button" title="Settings">
-            <img width="20" height="20" src="{{baseUrl}}assets/images/gear.png" />
+          <button id="settings-button" title="Settings" tabindex="10">
+            <img width="20" height="20" alt="Settings" src="{{baseUrl}}assets/images/gear.png" />
           </button>
           <div id="settings-menu-container" class="menu-scroller">
             <ul id="settings-menu" class="dropdown-menu">
@@ -142,7 +142,9 @@
                 </label>
               </li>
               <li>
-                <a href="https://github.com/hatemhosny/localpen/" target="_blank">About</a>
+                <a href="https://github.com/hatemhosny/localpen/" target="_blank" rel="noopener"
+                  >About</a
+                >
               </li>
             </ul>
           </div>
@@ -154,7 +156,7 @@
           <div id="style"></div>
           <div id="script"></div>
           <button id="code-run-button" title="Run (Ctrl/Cmd + Enter)">
-            <img width="20" height="20" src="{{baseUrl}}assets/images/play.svg" />
+            <img width="20" height="20" alt="Run" src="{{baseUrl}}assets/images/play.svg" />
           </button>
         </div>
         <div id="output">
