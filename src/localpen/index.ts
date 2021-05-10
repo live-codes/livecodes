@@ -16,12 +16,12 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
       // variables added in scripts/build.js
       const version = process.env.VERSION || '';
       const commitSHA = process.env.GIT_COMMIT || '';
-      const gitRemote = process.env.GIT_REMOTE || '';
+      const repoUrl = process.env.REPO_URL || '';
 
       // eslint-disable-next-line no-console
-      console.log(`Version: ${version} (${gitRemote}/releases/tag/v${version})`);
+      console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
       // eslint-disable-next-line no-console
-      console.log(`Git commit: ${commitSHA} (${gitRemote}/commit/${commitSHA})`);
+      console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
     }
 
     const style = document.createElement('style');

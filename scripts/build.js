@@ -24,16 +24,13 @@ mkdirp(outDir);
 fs.copyFileSync(path.resolve(srcDir + '/localpen.json'), path.resolve(outDir + '/localpen.json'));
 
 var childProcess = require('child_process');
-var version, gitCommit, gitRemote;
+var version, gitCommit, repoUrl;
 try {
   version = require('../package.json').version;
   gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
-  gitRemote = childProcess.execSync('git ls-remote --get-url origin').toString().replace(/\n/g, '');
-
-  var url = URL.parse(gitRemote);
-  if (url.auth) {
-    url.auth = '';
-    gitRemote = URL.format(url);
+  repoUrl = require('../package.json').repository.url;
+  if (repoUrl.endsWith('/')) {
+    repoUrl = repoUrl.slice(0, -1);
   }
 } catch (error) {
   console.log(error);
@@ -51,7 +48,7 @@ var buildOptions = {
   define: {
     'process.env.VERSION': `"${version || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
-    'process.env.GIT_REMOTE': `"${gitRemote || ''}"`,
+    'process.env.REPO_URL': `"${repoUrl || ''}"`,
   },
 };
 esbuild.buildSync(buildOptions);
