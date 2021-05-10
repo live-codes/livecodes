@@ -19,7 +19,7 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
       const gitRemote = process.env.GIT_REMOTE || '';
 
       // eslint-disable-next-line no-console
-      console.log(`Version: ${version} (${gitRemote}/releases/tag/${version})`);
+      console.log(`Version: ${version} (${gitRemote}/releases/tag/v${version})`);
       // eslint-disable-next-line no-console
       console.log(`Git commit: ${commitSHA} (${gitRemote}/commit/${commitSHA})`);
     }
