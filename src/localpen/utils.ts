@@ -94,6 +94,7 @@ export const compress = LZString.compressToBase64;
 export const decompress = LZString.decompressFromBase64;
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
+// added safari browser (on mac & ios)
 export const isMobile = () => {
   let check = false;
   (function (a) {
