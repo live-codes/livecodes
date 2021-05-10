@@ -1,12 +1,13 @@
 {
   "name": "localpen",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Code pens that run locally",
   "main": "index.js",
   "author": "Hatem Hosny",
   "license": "MIT",
   "keywords": [],
   "private": true,
+  "repository": {"url": "https://github.com/hatemhosny/localpen"},
   "scripts": {
     "start": "run-p watch serve",
     "serve": "live-server build --wait=1000",
