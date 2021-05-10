@@ -26,16 +26,9 @@ fs.copyFileSync(path.resolve(srcDir + '/localpen.json'), path.resolve(outDir + '
 var childProcess = require('child_process');
 var version, gitCommit, gitRemote;
 try {
-  version = childProcess
-    .execSync('git describe --tags --abbrev=0 --always')
-    .toString()
-    .replace(/\n/g, '');
+  version = require('../package.json').version;
   gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
-  gitRemote = childProcess
-    .execSync('git ls-remote --get-url origin')
-    .toString()
-    .replace(/\n/g, '')
-    .slice(0, -4) /* '.git' */;
+  gitRemote = childProcess.execSync('git ls-remote --get-url origin').toString().replace(/\n/g, '');
 
   var url = URL.parse(gitRemote);
   if (url.auth) {
