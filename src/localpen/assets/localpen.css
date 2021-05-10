@@ -445,10 +445,14 @@ li.editor-title .menu-scroller {
 }
 
 li.editor-title > button:focus + .menu-scroller,
+li.editor-title > button:active + .menu-scroller,
 li.editor-title > button:focus + .menu-scroller .dropdown-menu,
+li.editor-title > button:active + .menu-scroller .dropdown-menu,
 #settings-menu-container:hover,
 #settings-button:focus + .menu-scroller,
+#settings-button:active + .menu-scroller,
 #settings-button:focus + .menu-scroller .dropdown-menu,
+#settings-button:active + .menu-scroller .dropdown-menu,
 #settings-menu:hover {
   display: block;
   animation: fadeIn 0.4s forwards;
