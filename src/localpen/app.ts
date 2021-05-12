@@ -497,13 +497,23 @@ export const app = async (config: Pen) => {
   };
 
   const setProjectTitle = (setDefault = false) => {
-    const projectTitle = document.querySelector('#project-title') as HTMLElement;
+    const projectTitle = document.querySelector('#project-title');
+    if (!projectTitle) return;
     const defaultTitle = defaultConfig.title;
     if (setDefault && projectTitle.textContent?.trim() === '') {
       projectTitle.textContent = defaultTitle;
     }
     const title = projectTitle.textContent || defaultTitle;
-    if (title !== defaultTitle || (penId && title !== storage.getItem(penId)?.pen.title)) {
+
+    const titleChanged = () => {
+      if (penId) {
+        if (title !== storage.getItem(penId)?.pen.title) return true;
+        return false;
+      }
+      if (title !== defaultTitle) return true;
+      return false;
+    };
+    if (titleChanged()) {
       setSavedStatus(false);
     }
     setConfig({ ...getConfig(), title });
@@ -526,6 +536,14 @@ export const app = async (config: Pen) => {
     updateCompiledCode();
   };
 
+  const updateUrl = (url: string, push = false) => {
+    if (push) {
+      parent.history.pushState(null, '', url);
+    } else {
+      parent.history.replaceState(null, '', url);
+    }
+  };
+
   const save = (notify = false, setTitle = true) => {
     if (setTitle) {
       setProjectTitle(true);
@@ -539,6 +557,7 @@ export const app = async (config: Pen) => {
     if (notify) {
       notifications.success('Project saved');
     }
+    share(false);
     setSavedStatus(true);
   };
 
@@ -549,7 +568,7 @@ export const app = async (config: Pen) => {
     notifications.success('Forked as a new project');
   };
 
-  const share = () => {
+  const share = (copyUrl = true) => {
     const config = getConfig();
     const content: Partial<Pen> = {
       title: config.title,
@@ -566,9 +585,13 @@ export const app = async (config: Pen) => {
     const contentHash = '#code/' + compress(JSON.stringify(content));
     const shareURL = location.origin + location.pathname + contentHash;
 
-    parent.history.pushState(null, '', shareURL);
-    copyToClipboard(shareURL);
-    notifications.info('URL copied to clipboard');
+    if (copyUrl) {
+      updateUrl(shareURL, true);
+      copyToClipboard(shareURL);
+      notifications.info('URL copied to clipboard');
+    } else {
+      updateUrl(shareURL);
+    }
   };
 
   const update = () => {
@@ -607,7 +630,7 @@ export const app = async (config: Pen) => {
     setWindowTitle();
 
     // reset url params
-    parent.history.pushState(null, '', url || location.origin + location.pathname);
+    updateUrl(url || location.origin + location.pathname);
 
     // load config
     await bootstrap(true);
@@ -702,7 +725,8 @@ export const app = async (config: Pen) => {
 
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
-      const projectTitle = document.querySelector('#project-title') as HTMLElement;
+      const projectTitle = document.querySelector<HTMLElement>('#project-title');
+      if (!projectTitle) return;
       projectTitle.textContent = getConfig().title || defaultConfig.title;
 
       setWindowTitle();
