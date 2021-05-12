@@ -461,25 +461,7 @@ li.editor-title {
       background-color: #777c8dda;
     }
   }
-}
 
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: calc(100% - 12px);
-  max-width: calc(100% - 12px);
-  padding: 5px 0;
-  list-style: none;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box;
-}
-
-li.editor-title {
   .menu-scroller {
     top: 35px;
     right: -6px;
@@ -497,6 +479,22 @@ li.editor-title {
       animation: fadeIn 0.4s forwards;
     }
   }
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(100% - 12px);
+  max-width: calc(100% - 12px);
+  padding: 5px 0;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
 }
 
 #settings-menu-container:hover {
@@ -651,9 +649,7 @@ i.arrow {
     content: '';
     display: block;
     height: 0.4em;
-    margin-top: -0.3em;
     position: absolute;
-    transform: rotate(135deg);
     right: 0.5em;
     top: 50%;
     width: 0;
@@ -1164,15 +1160,14 @@ i.arrow {
 
   textarea {
     width: 80%;
-    height: 2em;
-    border-radius: 5px;
-    border: 1px solid darkgrey;
-    color: dimgray;
-    outline: none;
-    padding: 5px;
     height: 3em;
-    resize: vertical;
     min-height: 3em;
+    resize: vertical;
+    padding: 5px;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    outline: none;
+    color: dimgray;
   }
 
   .wide-button,
