@@ -497,13 +497,23 @@ export const app = async (config: Pen) => {
   };
 
   const setProjectTitle = (setDefault = false) => {
-    const projectTitle = document.querySelector('#project-title') as HTMLElement;
+    const projectTitle = document.querySelector('#project-title');
+    if (!projectTitle) return;
     const defaultTitle = defaultConfig.title;
     if (setDefault && projectTitle.textContent?.trim() === '') {
       projectTitle.textContent = defaultTitle;
     }
     const title = projectTitle.textContent || defaultTitle;
-    if (title !== defaultTitle || (penId && title !== storage.getItem(penId)?.pen.title)) {
+
+    const titleChanged = () => {
+      if (penId) {
+        if (title !== storage.getItem(penId)?.pen.title) return true;
+        return false;
+      }
+      if (title !== defaultTitle) return true;
+      return false;
+    };
+    if (titleChanged()) {
       setSavedStatus(false);
     }
     setConfig({ ...getConfig(), title });
@@ -702,7 +712,8 @@ export const app = async (config: Pen) => {
 
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
-      const projectTitle = document.querySelector('#project-title') as HTMLElement;
+      const projectTitle = document.querySelector<HTMLElement>('#project-title');
+      if (!projectTitle) return;
       projectTitle.textContent = getConfig().title || defaultConfig.title;
 
       setWindowTitle();
