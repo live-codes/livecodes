@@ -8,8 +8,8 @@ export const assemblyscript: LanguageSpecs = {
   <h3>AssemblyScript</h3>
   <div>A language made for WebAssembly.</div>
   <ul>
-    <li><a href="https://www.assemblyscript.org/" target="_blank">AssemblyScript official website</a></li>
-    <li><a href="https://www.assemblyscript.org/introduction.html" target="_blank">AssemblyScript documentation</a></li>
+    <li><a href="https://www.assemblyscript.org/" target="_blank" rel="noopener">AssemblyScript official website</a></li>
+    <li><a href="https://www.assemblyscript.org/introduction.html" target="_blank" rel="noopener">AssemblyScript documentation</a></li>
     <!-- <li><a href="#">AssemblyScript usage in LocalPen</a></li> -->
     <li><a href="?template=assemblyscript" target="_parent" data-template="assemblyscript">Load starter template</a></li>
   </ul>

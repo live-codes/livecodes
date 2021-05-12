@@ -8,8 +8,8 @@ export const stencil: LanguageSpecs = {
   <h3>Stencil</h3>
   <div>A Compiler for Web Components and High Performance Web Apps.</div>
   <ul>
-    <li><a href="https://stenciljs.com/" target="_blank">Stencil official website</a></li>
-    <li><a href="https://stenciljs.com/docs/introduction" target="_blank">Stencil documentation</a></li>
+    <li><a href="https://stenciljs.com/" target="_blank" rel="noopener">Stencil official website</a></li>
+    <li><a href="https://stenciljs.com/docs/introduction" target="_blank" rel="noopener">Stencil documentation</a></li>
     <!-- <li><a href="#">Stencil usage in LocalPen</a></li> -->
     <li><a href="?template=stencil" target="_parent" data-template="stencil">Load starter template</a></li>
   </ul>

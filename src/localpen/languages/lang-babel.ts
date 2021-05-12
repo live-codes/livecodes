@@ -8,8 +8,8 @@ export const babel: LanguageSpecs = {
   <h3>Babel</h3>
   <div>The JavaScript compiler</div>
   <ul>
-    <li><a href="https://babeljs.io/" target="_blank">Official website</a></li>
-    <li><a href="https://babeljs.io/docs/en/" target="_blank">Babel documentation</a></li>
+    <li><a href="https://babeljs.io/" target="_blank" rel="noopener">Official website</a></li>
+    <li><a href="https://babeljs.io/docs/en/" target="_blank" rel="noopener">Babel documentation</a></li>
     <!-- <li><a href="#">Babel usage in LocalPen</a></li> -->
   </ul>
   `,
