@@ -6,17 +6,17 @@
 html,
 body {
   display: flex;
-  justify-content: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1em;
   height: 100%;
+  justify-content: center;
   width: 100%;
 }
 
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
   background: transparent;
+  height: 14px;
+  width: 14px;
 }
 
 ::-webkit-scrollbar-corner,
@@ -37,21 +37,21 @@ body {
 }
 
 .centered {
-  width: 100%;
-  height: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 100%;
   justify-content: center;
+  width: 100%;
 }
 
 .noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  user-select: none;
+  user-select: none;
+  user-select: none;
+  user-select: none;
 }
 
 a {
@@ -61,66 +61,66 @@ a {
     color: #0164b4;
   }
 
-  &[target='_blank']:after {
+  &[target='_blank']::after {
     content: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="iso-8859-1"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 194.818 194.818" style="enable-background:new 0 0 194.818 194.818;" xml:space="preserve"><g><path d="M185.818,2.161h-57.04c-4.971,0-9,4.029-9,9s4.029,9,9,9h35.312l-86.3,86.3c-3.515,3.515-3.515,9.213,0,12.728 c1.758,1.757,4.061,2.636,6.364,2.636s4.606-0.879,6.364-2.636l86.3-86.3v35.313c0,4.971,4.029,9,9,9s9-4.029,9-9v-57.04	C194.818,6.19,190.789,2.161,185.818,2.161z"/><path d="M149,77.201c-4.971,0-9,4.029-9,9v88.456H18v-122h93.778c4.971,0,9-4.029,9-9s-4.029-9-9-9H9c-4.971,0-9,4.029-9,9v140 c0,4.971,4.029,9,9,9h140c4.971,0,9-4.029,9-9V86.201C158,81.23,153.971,77.201,149,77.201z"/></g></svg>');
     display: inline-block;
-    width: 0.7em;
-    margin: 0.3em;
     filter: invert(50%) sepia(3%) saturate(2476%) hue-rotate(189deg) brightness(95%) contrast(74%);
+    margin: 0.3em;
+    width: 0.7em;
   }
 }
 
 #container {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 #toolbar {
+  background: #001b25;
+  border-bottom: 3px solid #444857;
+  color: #eee;
   display: flex;
   height: 40px;
-  width: 100%;
-  border-bottom: 3px solid #444857;
   position: relative;
-  background: #001b25;
-  color: #eeeeee;
+  width: 100%;
 
   #project-title {
-    width: 30%;
-    height: 100%;
-    overflow: hidden;
-    display: flex;
     align-items: center;
+    display: flex;
+    height: 100%;
     justify-content: center;
-    position: relative;
     margin-left: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 30%;
 
     &.unsaved {
       &::after {
         content: ' *';
-        white-space: pre;
         margin: 5px;
+        white-space: pre;
       }
 
       &::before {
         content: '* ';
-        white-space: pre;
         margin: 5px;
         visibility: hidden;
+        white-space: pre;
       }
     }
   }
 
   #buttons {
+    display: flex;
+    height: 100%;
     position: absolute;
     right: 0;
     top: 0;
     width: 20%;
-    height: 100%;
-    display: flex;
   }
 }
 
@@ -170,18 +170,18 @@ a {
 
 #buttons > .button,
 #editors #code-run-button {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: #5a6074da;
   border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  height: 35px;
+  justify-content: center;
   margin: auto;
   margin-top: 3px;
-  width: 50px;
-  height: 35px;
-  border-radius: 3px;
-  background-color: #5a6074da;
-  cursor: pointer;
   outline: none;
+  width: 50px;
 }
 
 #buttons > .button:hover,
@@ -196,15 +196,16 @@ a {
 }
 
 #editors #code-run-button {
+  bottom: 10px;
+
+  display: none;
+  opacity: 0.8;
+  position: absolute;
+  right: 10px;
+
   &:active:hover {
     background-color: #5a6074da;
   }
-
-  display: none;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  opacity: 0.8;
 }
 
 #editor-container {
@@ -216,33 +217,33 @@ a {
 #editors {
   background: #1e1e1e;
   height: 100%;
-  resize: both;
-  top: 0;
   overflow: hidden;
   position: relative;
+  resize: both;
+  top: 0;
 
   > div {
     height: 100%;
-    width: 100%;
-    resize: vertical;
     position: relative;
+    resize: vertical;
+    width: 100%;
   }
 }
 
 .copy-button {
-  display: none;
-  position: absolute;
-  top: 5px;
-  right: 20px;
-  padding: 5px;
+  background-color: #444855b0;
   border: 0;
   border-radius: 3px;
-  background-color: #444855b0;
-  color: #eeeeee;
+  color: #eee;
+  cursor: pointer;
+  display: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.9em;
-  cursor: pointer;
   outline: none;
+  padding: 5px;
+  position: absolute;
+  right: 20px;
+  top: 5px;
 }
 
 #editors > div:hover .copy-button {
@@ -255,38 +256,38 @@ a {
 }
 
 #result {
-  resize: both;
   max-height: calc(100% - 30px);
+  resize: both;
 
   iframe {
+    border: 0;
     height: 100%;
     width: 100%;
-    border: 0;
   }
 }
 
 #tools-pane-bar {
-  justify-content: space-between;
-  color: #eeeeee;
+  color: #eee;
   font-size: 12px;
+  justify-content: space-between;
   overflow: hidden;
 }
 
 #tools-pane-titles {
   display: flex;
-  justify-content: flex-start;
   height: 100%;
+  justify-content: flex-start;
 }
 
 .tools-pane-title {
-  cursor: pointer;
-  background-color: #5c616e;
-  margin-right: 2px;
-  border-bottom: 3px solid #5c616e;
-  padding: 0 20px;
-  display: flex;
   align-items: center;
+  background-color: #5c616e;
+  border-bottom: 3px solid #5c616e;
+  cursor: pointer;
+  display: flex;
   justify-content: center;
+  margin-right: 2px;
+  padding: 0 20px;
 
   &.active {
     border-bottom: 3px solid rgb(64, 169, 243);
@@ -316,8 +317,8 @@ a {
 }
 
 #console {
-  overflow: auto;
   background-color: #efefef;
+  overflow: auto;
 
   .luna-object-viewer {
     overflow: hidden;
@@ -339,12 +340,19 @@ a {
 
 #compiled-code {
   height: 100%;
-  width: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .gutter {
+  align-items: center;
+
+  background-color: #444857;
+  display: flex !important;
+  justify-content: center;
+  position: relative;
+
   &.gutter-vertical {
     cursor: ns-resize;
   }
@@ -353,33 +361,27 @@ a {
     cursor: ew-resize;
   }
 
-  background-color: #444857;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-
   #handle {
-    width: 4px;
-    height: 30px;
-    border-radius: 2px;
     background-color: #e7e8f1;
+    border-radius: 2px;
+    height: 30px;
+    width: 4px;
   }
 }
 
 #editor-container .gutter #size-label {
+  background-color: #eee;
+  border: 1px solid #5c616e;
+  border-radius: 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.7em;
+  left: 15px !important;
   opacity: 0;
-  transition: opacity 0.1s;
+  padding: 2px;
   position: absolute;
   top: 5px !important;
-  left: 15px !important;
+  transition: opacity 0.1s;
   white-space: nowrap;
-  background-color: #eeeeee;
-  font-size: 0.7em;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 2px;
-  border-radius: 5px;
-  border: 1px solid #5c616e;
 
   &.visible {
     opacity: 100%;
@@ -388,9 +390,9 @@ a {
 }
 
 #logo {
-  width: 50px;
   margin: 3px 10px;
   padding: 0;
+  width: 50px;
 
   a {
     text-decoration: none;
@@ -398,34 +400,34 @@ a {
 }
 
 #select-editor {
-  position: relative;
-  color: #eeeeee;
-  margin: 0;
+  color: #eee;
   height: 100%;
+  margin: 0;
+  position: relative;
   width: calc(50% - 70px);
 
   > ul {
-    margin: 0;
-    width: 100%;
-    height: 40px;
-    margin-top: 3px;
-    display: flex;
-    justify-content: space-between;
     align-items: stretch;
+    display: flex;
+    height: 40px;
+    justify-content: space-between;
+    margin: 0;
+    margin-top: 3px;
+    width: 100%;
   }
 }
 
 li.editor-title {
-  position: relative;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  list-style: none;
   border: 2px solid #444857;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  width: 32%;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  position: relative;
+  width: 32%;
 
   &.half-width {
     width: 48%;
@@ -444,18 +446,18 @@ li.editor-title {
   }
 
   > .language-menu-button {
+    background-color: #5a6074da;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 20px;
+    margin: 0;
+    outline: none;
+    padding: 0;
     position: absolute;
     right: 5%;
     text-decoration: none;
     width: 20px;
-    height: 20px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    border-radius: 3px;
-    background-color: #5a6074da;
-    cursor: pointer;
-    outline: none;
 
     &:hover {
       background-color: #777c8dda;
@@ -463,43 +465,43 @@ li.editor-title {
   }
 
   .menu-scroller {
-    top: 35px;
-    right: -6px;
-    width: calc(100% + 18px);
-    min-width: 150px;
     max-width: 45vw;
+    min-width: 150px;
+    right: -6px;
+    top: 35px;
+    width: calc(100% + 18px);
   }
 
   > .language-menu-button:focus + .menu-scroller {
-    display: block;
     animation: fadeIn 0.4s forwards;
+    display: block;
 
     .dropdown-menu {
-      display: block;
       animation: fadeIn 0.4s forwards;
+      display: block;
     }
   }
 }
 
 .dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: calc(100% - 12px);
-  max-width: calc(100% - 12px);
-  padding: 5px 0;
-  list-style: none;
+  background-clip: padding-box;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 3px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box;
+  display: none;
+  list-style: none;
+  max-width: calc(100% - 12px);
+  padding: 5px 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(100% - 12px);
 }
 
 #settings-menu-container:hover {
-  display: block;
   animation: fadeIn 0.4s forwards;
+  display: block;
 }
 
 #settings-button {
@@ -507,22 +509,22 @@ li.editor-title {
   &:active + .menu-scroller,
   &:focus + .menu-scroller .dropdown-menu,
   &:active + .menu-scroller .dropdown-menu {
-    display: block;
     animation: fadeIn 0.4s forwards;
+    display: block;
   }
 }
 
 #settings-menu:hover {
-  display: block;
   animation: fadeIn 0.4s forwards;
+  display: block;
 }
 
 .dropdown-menu li {
   > * {
-    display: block;
-    text-decoration: none;
     color: #222;
+    display: block;
     padding: 5px 15px;
+    text-decoration: none;
   }
 
   &:hover {
@@ -532,13 +534,13 @@ li.editor-title {
 
 .menu-scroller {
   display: none;
-  position: absolute;
-  top: 40px;
-  right: 10px;
   height: calc(100vh - 40px);
-  width: 500px;
-  overflow-y: scroll;
   overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  width: 500px;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -551,10 +553,10 @@ li.editor-title {
 
 .dropdown-menu > li {
   > * {
-    display: block;
-    text-decoration: none;
     color: #222;
+    display: block;
     padding: 5px 15px;
+    text-decoration: none;
   }
 
   &:hover {
@@ -567,12 +569,12 @@ li.editor-title {
 }
 
 #settings-menu {
-  top: 0;
-  right: 0;
   left: unset;
   margin-top: 0;
-  width: 250px;
   max-width: 45vw;
+  right: 0;
+  top: 0;
+  width: 250px;
 
   li {
     position: relative;
@@ -592,12 +594,12 @@ li.editor-title {
 
 .submenu {
   display: none !important;
-  position: absolute !important;
-  right: 98%;
   left: unset;
-  top: 0;
   margin: 0 !important;
   padding: 0 !important;
+  position: absolute !important;
+  right: 98%;
+  top: 0;
 }
 
 #open-link:hover + #open-list,
@@ -617,44 +619,44 @@ li.editor-title {
 }
 
 i.arrow {
+  color: grey;
   display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  left: 3px;
   padding: 10px 15px 10px 10px;
   position: absolute !important;
-  left: 3px;
-  top: 0.5em;
   text-decoration: none;
-  color: grey;
+  top: 0.5em;
 
   &.left {
     transform: rotate(180deg);
   }
 
-  &:before {
+  &::before {
     border-right: 2px solid;
     content: '';
     display: block;
     height: 0.4em;
     margin-top: -0.3em;
     position: absolute;
-    transform: rotate(135deg);
     right: 0.5em;
     top: 50%;
+    transform: rotate(135deg);
     width: 0;
   }
 
-  &:after {
+  &::after {
     border-right: 2px solid;
     content: '';
     display: block;
     height: 0.4em;
+    margin-top: -1px;
     position: absolute;
     right: 0.5em;
     top: 50%;
-    width: 0;
-    margin-top: -1px;
     transform: rotate(45deg);
+    width: 0;
   }
 }
 
@@ -675,39 +677,39 @@ i.arrow {
   cursor: pointer;
 
   div {
-    position: absolute;
     display: block;
-    width: 34px;
     height: 18px;
+    position: absolute;
     right: 1em;
     top: 0.4em;
+    width: 34px;
   }
 
   input {
+    height: 0;
     opacity: 0;
     width: 0;
-    height: 0;
   }
 
   .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
     transition: 0.4s;
 
-    &:before {
-      position: absolute;
+    &::before {
+      background-color: white;
+      bottom: 2px;
       content: '';
       height: 14px;
-      width: 14px;
       left: 2px;
-      bottom: 2px;
-      background-color: white;
+      position: absolute;
       transition: 0.4s;
+      width: 14px;
     }
   }
 
@@ -720,7 +722,7 @@ i.arrow {
       box-shadow: 0 0 1px #2196f3;
     }
 
-    &:checked + .slider:before {
+    &:checked + .slider::before {
       transform: translateX(16px);
     }
   }
@@ -728,7 +730,7 @@ i.arrow {
   .slider.round {
     border-radius: 16px;
 
-    &:before {
+    &::before {
       border-radius: 50%;
     }
   }
@@ -776,13 +778,13 @@ i.arrow {
 
 #overlay,
 #modal-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   height: 100%;
+  left: 0;
   margin: 0;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 #overlay {
@@ -807,40 +809,40 @@ i.arrow {
 }
 
 #modal-container {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 }
 
 #modal {
-  display: flex;
-  width: 80vw;
-  height: 80vh;
   background-color: whitesmoke;
   border-radius: 5px;
-  padding: 10px;
+  display: flex;
+  height: 80vh;
   opacity: 1;
   overflow: hidden;
+  padding: 10px;
+  width: 80vw;
 
   &.small {
-    width: 400px;
-    max-width: calc(100vw - 40px);
     height: auto;
+    max-width: calc(100vw - 40px);
     min-height: 180px;
+    width: 400px;
   }
 
   #list-container {
     display: flex;
     flex-wrap: wrap;
+    height: 100%;
     justify-content: space-between;
     width: 100%;
-    height: 100%;
   }
 
   .modal-title {
     color: darkslategrey;
-    font-weight: 700;
     font-size: 1.4em;
+    font-weight: 700;
     height: 40px;
     margin: 20px;
   }
@@ -850,9 +852,9 @@ i.arrow {
   }
 
   #prompt-screen {
-    width: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .buttons {
@@ -861,16 +863,16 @@ i.arrow {
   }
 
   .button {
-    place-self: center;
-    margin: 5px 10px;
-    padding: 5px;
-    width: 100px;
-    outline: none;
     border: 1px solid darkslategrey;
     border-radius: 3px;
-    font-size: 1em;
-    cursor: pointer;
     box-shadow: 0 3px 6px #0000002d;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 5px 10px;
+    outline: none;
+    padding: 5px;
+    place-self: center;
+    width: 100px;
   }
 
   #list-container {
@@ -880,8 +882,8 @@ i.arrow {
     }
 
     #delete-all-button {
-      color: crimson;
       background-color: #fff5f6;
+      color: crimson;
     }
   }
 
@@ -890,32 +892,32 @@ i.arrow {
   }
 
   ul.open-list {
-    margin: 0;
-    padding: 0;
-    width: 100%;
     height: calc(100% - 80px);
+    margin: 0;
     overflow: auto;
+    padding: 0;
     text-align: center;
+    width: 100%;
   }
 
   .open-list li {
-    display: inline-flex;
     align-items: center;
-    width: 80%;
+    background-color: #f5f6fc;
+    border: 1px solid grey;
+    border-radius: 3px;
+    box-shadow: 0 3px 6px #0000002d;
+    display: inline-flex;
+    height: 4em;
+    list-style: none;
+    margin: 10px auto;
+    overflow: hidden;
+    padding: 0;
 
     /* height: fit-content; */
     text-align: left;
-    list-style: none;
-    margin: 10px auto;
-    height: 4em;
-    padding: 0;
-    border: 1px solid grey;
-    background-color: #f5f6fc;
-    box-shadow: 0 3px 6px #0000002d;
-    border-radius: 3px;
-    transition: transform 0.5s ease-out;
     transform: scaleY(1);
-    overflow: hidden;
+    transition: transform 0.5s ease-out;
+    width: 80%;
 
     &:hover {
       box-shadow: 0 1px 2px #0000002d;
@@ -934,13 +936,13 @@ i.arrow {
       }
 
       a {
-        flex-grow: 1;
+        color: darkslategrey;
         display: block;
+        flex-grow: 1;
+        font-weight: 700;
         margin: 0;
         padding: 10px;
         text-decoration: none;
-        color: darkslategrey;
-        font-weight: 700;
 
         .open-title {
           margin: 5px;
@@ -949,18 +951,18 @@ i.arrow {
     }
 
     a .modified-date {
-      margin-left: 5px;
+      color: grey;
       font-size: 0.8em;
       font-weight: 600;
-      color: grey;
+      margin-left: 5px;
     }
   }
 
   form {
-    width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 }
 
@@ -972,46 +974,46 @@ i.arrow {
 
 @keyframes disappear {
   0% {
-    opacity: 1;
     height: 4em;
     margin: 10px auto;
+    opacity: 1;
   }
 
   100% {
-    opacity: 0;
     height: 0;
     margin: 0 auto;
+    opacity: 0;
   }
 }
 
 .delete-button,
 .clear-button {
-  cursor: pointer;
-  margin: 10px;
-  vertical-align: middle;
-  border: none;
-  color: inherit;
-  border-radius: 50%;
   background: transparent;
-  position: relative;
-  width: 32px;
+  border: 0;
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
   height: 32px;
+  margin: 10px;
   opacity: 0.6;
+  position: relative;
+  vertical-align: middle;
+  width: 32px;
 }
 
 .delete-button {
   &:focus,
   &:hover {
-    opacity: 1;
     background: rgba(128, 128, 128, 0.5);
+    opacity: 1;
   }
 }
 
 .clear-button {
   &:focus,
   &:hover {
-    opacity: 1;
     background: rgba(128, 128, 128, 0.5);
+    opacity: 1;
   }
 }
 
@@ -1023,13 +1025,13 @@ i.arrow {
 .delete-button {
   &::before,
   &::after {
+    background-color: currentColor;
     content: ' ';
+    height: 20px;
+    left: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
-    height: 20px;
     width: 4px;
-    background-color: currentColor;
   }
 
   &::before {
@@ -1044,42 +1046,42 @@ i.arrow {
 #tools-pane-bar {
   .delete-button,
   .clear-button {
-    width: 26px;
     height: 26px;
+    width: 26px;
   }
 }
 
 .clear-button {
   &::before {
-    content: ' ';
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    height: 12px;
-    width: 12px;
     border: 3px solid currentColor;
     border-radius: 50%;
+    content: ' ';
+    height: 12px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    width: 12px;
   }
 
   &::after {
+    background-color: currentColor;
     content: ' ';
+    height: 14px;
+    left: 50%;
     position: absolute;
     top: 50%;
-    left: 50%;
-    height: 14px;
-    width: 3px;
-    background-color: currentColor;
     transform: translate(-50%, -50%) rotate(-45deg);
+    width: 3px;
   }
 }
 
 .modal-container {
-  width: 90%;
-  height: 100%;
   display: inline-block;
+  height: 100%;
   margin: 0 auto;
-  padding: 0 5%;
   overflow: auto;
+  padding: 0 5%;
+  width: 90%;
 }
 
 .modal-tabs {
@@ -1088,18 +1090,18 @@ i.arrow {
   padding: 0;
 
   li {
-    display: block;
-    width: 30%;
-    margin: 0 5px;
-    padding: 5px;
-    list-style: none;
+    background-color: lightgrey;
     border: 1px solid darkgrey;
     border-bottom: 0;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    text-align: center;
-    background-color: lightgrey;
     cursor: pointer;
+    display: block;
+    list-style: none;
+    margin: 0 5px;
+    padding: 5px;
+    text-align: center;
+    width: 30%;
 
     &.active {
       background-color: whitesmoke;
@@ -1111,13 +1113,13 @@ i.arrow {
 
 #modal {
   .modal-screen-container {
+    background-color: whitesmoke;
     border: 1px solid darkgrey;
-    padding: 10px;
-    margin-bottom: 15px;
-    min-height: calc(80% - 100px);
     border-radius: 5px;
     box-shadow: 0 3px 6px #0000002d;
-    background-color: whitesmoke;
+    margin-bottom: 15px;
+    min-height: calc(80% - 100px);
+    padding: 10px;
   }
 
   .tab-content {
@@ -1131,60 +1133,60 @@ i.arrow {
   }
 
   .modal-screen {
+    align-items: center;
     display: flex;
     flex-direction: column;
     flex-grow: 0.8;
     justify-content: space-around;
-    align-items: center;
     text-align: center;
     width: 100%;
   }
 
   label {
     display: inline-block;
-    width: 80%;
-    text-align: left;
-    margin: 10px;
     font-weight: 600;
+    margin: 10px;
+    text-align: left;
+    width: 80%;
   }
 
   input {
-    width: 80%;
-    height: 2em;
-    border-radius: 5px;
     border: 1px solid darkgrey;
+    border-radius: 5px;
     color: dimgray;
+    height: 2em;
     outline: none;
     padding: 5px;
+    width: 80%;
   }
 
   textarea {
-    width: 80%;
-    height: 3em;
-    min-height: 3em;
-    resize: vertical;
-    padding: 5px;
     border: 1px solid darkgrey;
     border-radius: 5px;
-    outline: none;
     color: dimgray;
+    height: 3em;
+    min-height: 3em;
+    outline: none;
+    padding: 5px;
+    resize: vertical;
+    width: 80%;
   }
 
   .wide-button,
   #file-input-label {
-    margin: 20px;
-    padding: 10px;
-    width: 50%;
-    box-sizing: content-box;
-    outline: none;
-    font-size: 1em;
-    font-weight: 400;
-    text-align: center;
+    background-color: #efefef;
     border: 1px solid darkslategrey;
     border-radius: 3px;
     box-shadow: 0 3px 6px #0000002d;
-    background-color: #efefef;
+    box-sizing: content-box;
     cursor: pointer;
+    font-size: 1em;
+    font-weight: 400;
+    margin: 20px;
+    outline: none;
+    padding: 10px;
+    text-align: center;
+    width: 50%;
   }
 
   button:hover,
@@ -1195,10 +1197,10 @@ i.arrow {
 
   .description {
     display: inline-block;
-    width: 90%;
-    margin: 10px;
     font-size: 0.8em;
+    margin: 10px;
     text-align: left;
+    width: 90%;
 
     ul {
       display: flex;
@@ -1215,26 +1217,26 @@ i.arrow {
   }
 
   ul.thumbnails {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    list-style: none;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 
     li {
       margin: 20px;
     }
 
     a {
-      text-decoration: none;
       color: unset;
+      text-decoration: none;
     }
 
     img {
-      width: 120px;
       height: 120px;
+      width: 120px;
     }
   }
 
@@ -1266,8 +1268,8 @@ i.arrow {
 }
 
 #css-preset-menu a.active::after {
-  content: ' ✔';
   color: grey;
+  content: ' ✔';
 }
 
 @keyframes spin {
@@ -1279,16 +1281,16 @@ i.arrow {
 #tools-pane-loading {
   margin-bottom: 3px;
 
-  &:before {
+  &::before {
     animation: spin 1s infinite linear;
     border-radius: 2.5px;
-    box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
+    box-shadow: 6.25px 0 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
       1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6), -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
       -5px 3.5px 0 0 white;
+    content: '';
+    display: block;
     height: 2.5px;
     width: 2.5px;
-    display: block;
-    content: '';
   }
 }
 
@@ -1299,13 +1301,13 @@ i.arrow {
 }
 
 .tooltip {
-  position: absolute;
   display: inline-block;
-  width: 0.9em;
   height: 0.9em;
-  top: 0.1em;
-  right: -0.3em;
   opacity: 0.2;
+  position: absolute;
+  right: -0.3em;
+  top: 0.1em;
+  width: 0.9em;
 
   &:hover {
     opacity: 1;
@@ -1313,8 +1315,8 @@ i.arrow {
 }
 
 .language-info {
-  width: calc(100% - 40px);
   margin: 10px;
+  width: calc(100% - 40px);
 
   h3 {
     margin: 0.5em;
@@ -1357,8 +1359,8 @@ i.arrow {
   }
 
   .cm-gutters #console-input-indicator {
-    margin-top: 3px;
     margin-left: 3px;
+    margin-top: 3px;
   }
 }
 
@@ -1366,20 +1368,20 @@ i.arrow {
 
 .prism {
   height: 100% !important;
-  max-height: 100% !important;
   margin: 0 !important;
+  max-height: 100% !important;
 
   .code-toolbar,
   pre {
     height: 100% !important;
-    max-height: 100% !important;
     margin: 0 !important;
+    max-height: 100% !important;
   }
 
   code {
     height: 100% !important;
-    max-height: 100% !important;
     margin: 0 !important;
+    max-height: 100% !important;
     overflow: auto;
     padding-bottom: 1em !important;
   }
