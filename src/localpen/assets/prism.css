@@ -16,9 +16,16 @@ code[class*='language-'] {
   -o-tab-size: 4;
   tab-size: 4;
   -webkit-hyphens: none;
-  -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
+}
+
+pre[class*='language-']::-moz-selection,
+code[class*='language-']::-moz-selection,
+pre[class*='language-'] *::-moz-selection,
+code[class*='language-'] *::-moz-selection {
+  text-shadow: none;
+  background: #75a7ca;
 }
 
 pre[class*='language-']::selection,
@@ -50,6 +57,7 @@ pre[class*='language-'] {
   color: #db4c69;
   background: #f9f2f4;
 }
+
 /*********************************************************
 * Tokens
 */
@@ -231,10 +239,10 @@ pre[class*='language-'] {
 .token.namespace {
   color: #4ec9b0;
 }
+
 /*********************************************************
 * Language Specific
 */
-
 pre[class*='language-javascript'],
 code[class*='language-javascript'],
 pre[class*='language-jsx'],
@@ -263,6 +271,7 @@ code[class*='language-html'] {
 .language-html .token.punctuation {
   color: #808080;
 }
+
 /*********************************************************
 * Line highlighting
 */
@@ -282,6 +291,7 @@ pre[class*='language-'] > code[class*='language-'] {
   padding: inherit 0;
   margin-top: 1em;
   background: #f7ebc6;
+  -webkit-box-shadow: inset 5px 0 0 #f7d87c;
   box-shadow: inset 5px 0 0 #f7d87c;
   z-index: 0;
   pointer-events: none;
@@ -290,7 +300,6 @@ pre[class*='language-'] > code[class*='language-'] {
 }
 
 /* line numbers */
-
 pre[class*='language-'].line-numbers {
   position: relative;
   padding-left: 3.8em;
@@ -308,10 +317,10 @@ pre[class*='language-'].line-numbers > code {
   top: 0;
   font-size: 100%;
   left: -3.8em;
-  width: 3em; /* works for line-numbers below 1000 lines */
+  width: 3em;
+  /* works for line-numbers below 1000 lines */
   letter-spacing: -1px;
   /* border-right: 1px solid #999; */
-
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

@@ -250,7 +250,7 @@ a[target='_blank']:after {
 }
 #tools-pane-titles {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   height: 100%;
 }
 .tools-pane-title {
@@ -544,8 +544,6 @@ i.arrow {
   color: grey;
 }
 i.arrow.left {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
@@ -557,9 +555,6 @@ i.arrow:after {
   height: 0.4em;
   margin-top: -0.3em;
   position: absolute;
-  -moz-transform: rotate(135deg);
-  -o-transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
   right: 0.5em;
   top: 50%;
@@ -568,9 +563,6 @@ i.arrow:after {
 
 i.arrow:after {
   margin-top: -1px;
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
@@ -611,7 +603,6 @@ i.arrow:after {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -623,7 +614,6 @@ i.arrow:after {
   left: 2px;
   bottom: 2px;
   background-color: white;
-  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -636,8 +626,6 @@ i.arrow:after {
 }
 
 .switch input:checked + .slider:before {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
   transform: translateX(16px);
 }
 
@@ -649,29 +637,12 @@ i.arrow:after {
   border-radius: 50%;
 }
 
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-@-webkit-keyframes overlayfadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.7;
   }
 }
 
@@ -683,14 +654,7 @@ i.arrow:after {
     opacity: 0.7;
   }
 }
-@-webkit-keyframes fadeOut {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+
 @keyframes fadeOut {
   from {
     opacity: 0;
@@ -699,14 +663,7 @@ i.arrow:after {
     opacity: 1;
   }
 }
-@-webkit-keyframes overlayfadeOut {
-  from {
-    opacity: 0.7;
-  }
-  to {
-    opacity: 0;
-  }
-}
+
 @keyframes overlayfadeOut {
   from {
     opacity: 0.7;
@@ -1147,15 +1104,8 @@ i.arrow:after {
   color: grey;
 }
 
-@-webkit-keyframes spin {
-  to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 @keyframes spin {
   to {
-    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
@@ -1163,12 +1113,8 @@ i.arrow:after {
   margin-bottom: 3px;
 }
 #tools-pane-loading:before {
-  -webkit-animation: spin 1s infinite linear;
   animation: spin 1s infinite linear;
   border-radius: 2.5px;
-  -webkit-box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2),
-    5px 3.5px 0 0 rgba(255, 255, 255, 0.4), 1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6),
-    -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8), -5px 3.5px 0 0 white;
   box-shadow: 6.25px 0px 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
     1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6), -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
     -5px 3.5px 0 0 white;
