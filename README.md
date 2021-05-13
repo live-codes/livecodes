@@ -14,6 +14,7 @@ A powerful frontend coding playground that runs totally on the client and can be
 
 TL;DR: [Getting started](#getting-started)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f268090585f8484abe5947bdf13e15b4)](https://app.codacy.com/gh/hatemhosny/localpen?utm_source=github.com&utm_medium=referral&utm_content=hatemhosny/localpen&utm_campaign=Badge_Grade_Settings)
 [![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/hatemhosny/localpen/tree/master&refcode=fb8c00b45b91)
 
 ## Feature Summary: <!-- omit in toc -->
