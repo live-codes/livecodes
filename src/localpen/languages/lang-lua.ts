@@ -7,10 +7,10 @@ export const lua: LanguageSpecs = {
   <h3>Lua</h3>
   <div>Lua running in the browser using fengari-web.</div>
   <ul>
-    <li><a href="https://www.lua.org/" target="_blank">Lua official website</a></li>
-    <li><a href="https://www.lua.org/manual/5.4/manual.html" target="_blank">Lua documentation</a></li>
-    <li><a href="https://fengari.io/" target="_blank">Fengari official website</a></li>
-    <li><a href="https://github.com/fengari-lua/fengari-web" target="_blank">fengari-web GitHub repo</a></li>
+    <li><a href="https://www.lua.org/" target="_blank" rel="noopener">Lua official website</a></li>
+    <li><a href="https://www.lua.org/manual/5.4/manual.html" target="_blank" rel="noopener">Lua documentation</a></li>
+    <li><a href="https://fengari.io/" target="_blank" rel="noopener">Fengari official website</a></li>
+    <li><a href="https://github.com/fengari-lua/fengari-web" target="_blank" rel="noopener">fengari-web GitHub repo</a></li>
     <!-- <li><a href="#">Lua usage in LocalPen</a></li> -->
     <li><a href="?template=lua" target="_parent" data-template="lua">Load starter template</a></li>
   </ul>

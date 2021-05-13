@@ -7,9 +7,9 @@ export const perl: LanguageSpecs = {
   <h3>Perl</h3>
   <div>Perl running in the browser using Perlito.</div>
   <ul>
-    <li><a href="https://www.perl.org/" target="_blank">Perl official website</a></li>
-    <li><a href="https://perldoc.perl.org/" target="_blank">Perl documentation</a></li>
-    <li><a href="https://github.com/fglock/Perlito/blob/master/README-perlito5.md" target="_blank">Perlito5 Readme</a></li>
+    <li><a href="https://www.perl.org/" target="_blank" rel="noopener">Perl official website</a></li>
+    <li><a href="https://perldoc.perl.org/" target="_blank" rel="noopener">Perl documentation</a></li>
+    <li><a href="https://github.com/fglock/Perlito/blob/master/README-perlito5.md" target="_blank" rel="noopener">Perlito5 Readme</a></li>
     <!-- <li><a href="#">Perl usage in LocalPen</a></li> -->
     <li><a href="?template=perl" target="_parent" data-template="perl">Load starter template</a></li>
   </ul>

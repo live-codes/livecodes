@@ -8,7 +8,7 @@ export const less: LanguageSpecs = {
   <h3>Less</h3>
   <div>It's CSS, with just a little more.</div>
   <ul>
-    <li><a href="https://lesscss.org/" target="_blank">Less official website</a></li>
+    <li><a href="https://lesscss.org/" target="_blank" rel="noopener">Less official website</a></li>
     <!-- <li><a href="#">Less usage in LocalPen</a></li> -->
   </ul>
   `,

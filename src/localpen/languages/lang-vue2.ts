@@ -9,10 +9,10 @@ export const vue2: LanguageSpecs = {
   <h3>Vue2 Single File Components</h3>
   <div>Loaded using vue3-sfc-loader.</div>
   <ul>
-    <li><a href="https://vuejs.org/" target="_blank">Vue.js official website</a></li>
-    <li><a href="https://vuejs.org/v2/guide/" target="_blank">Vue2 documentation</a></li>
-    <li><a href="https://vuejs.org/v2/guide/single-file-components.html" target="_blank">Vue2 single file components</a></li>
-    <li><a href="https://github.com/FranckFreiburger/vue3-sfc-loader" target="_blank">vue3-sfc-loader GitHub repo</a></li>
+    <li><a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js official website</a></li>
+    <li><a href="https://vuejs.org/v2/guide/" target="_blank" rel="noopener">Vue2 documentation</a></li>
+    <li><a href="https://vuejs.org/v2/guide/single-file-components.html" target="_blank" rel="noopener">Vue2 single file components</a></li>
+    <li><a href="https://github.com/FranckFreiburger/vue3-sfc-loader" target="_blank" rel="noopener">vue3-sfc-loader GitHub repo</a></li>
     <!-- <li><a href="#">Vue2 SFC usage in LocalPen</a></li> -->
   </ul>
   `,

@@ -7,9 +7,9 @@ export const ruby: LanguageSpecs = {
   <h3>Ruby</h3>
   <div>Ruby running in the browser using Opal.</div>
   <ul>
-    <li><a href="https://www.ruby-lang.org/en/" target="_blank">Ruby official website</a></li>
-    <li><a href="https://www.ruby-lang.org/en/documentation/" target="_blank">Ruby documentation</a></li>
-    <li><a href="https://opalrb.com/" target="_blank">Opal official website</a></li>
+    <li><a href="https://www.ruby-lang.org/en/" target="_blank" rel="noopener">Ruby official website</a></li>
+    <li><a href="https://www.ruby-lang.org/en/documentation/" target="_blank" rel="noopener">Ruby documentation</a></li>
+    <li><a href="https://opalrb.com/" target="_blank" rel="noopener">Opal official website</a></li>
     <!-- <li><a href="#">Ruby usage in LocalPen</a></li> -->
     <li><a href="?template=ruby" target="_parent" data-template="ruby">Load starter template</a></li>
   </ul>

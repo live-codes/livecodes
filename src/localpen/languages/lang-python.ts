@@ -7,9 +7,9 @@ export const python: LanguageSpecs = {
   <h3>Python</h3>
   <div>Python running in the browser using Brython.</div>
   <ul>
-    <li><a href="https://www.python.org/" target="_blank">Python official website</a></li>
-    <li><a href="https://www.python.org/doc/" target="_blank">Python documentation</a></li>
-    <li><a href="https://brython.info/" target="_blank">Brython documentation</a></li>
+    <li><a href="https://www.python.org/" target="_blank" rel="noopener">Python official website</a></li>
+    <li><a href="https://www.python.org/doc/" target="_blank" rel="noopener">Python documentation</a></li>
+    <li><a href="https://brython.info/" target="_blank" rel="noopener">Brython documentation</a></li>
     <!-- <li><a href="#">Python usage in LocalPen</a></li> -->
     <li><a href="?template=python" target="_parent" data-template="python">Load starter template</a></li>
   </ul>

@@ -8,7 +8,7 @@ export const pug: LanguageSpecs = {
   <h3>Pug</h3>
   <div>Robust, elegant, feature rich template engine.</div>
   <ul>
-    <li><a href="https://pugjs.org/api/getting-started.html" target="_blank">Pug documentation</a></li>
+    <li><a href="https://pugjs.org/api/getting-started.html" target="_blank" rel="noopener">Pug documentation</a></li>
     <!-- <li><a href="#">Pug usage in LocalPen</a></li> -->
   </ul>
   `,

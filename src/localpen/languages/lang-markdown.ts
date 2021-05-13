@@ -8,8 +8,8 @@ export const markdown: LanguageSpecs = {
   <h3>Markdown</h3>
   <div>Markdown compiled to HTML using Marked.</div>
   <ul>
-    <li><a href="https://daringfireball.net/projects/markdown/" target="_blank">Markdown official website</a></li>
-    <li><a href="https://marked.js.org/" target="_blank">Marked documentation</a></li>
+    <li><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown official website</a></li>
+    <li><a href="https://marked.js.org/" target="_blank" rel="noopener">Marked documentation</a></li>
     <!-- <li><a href="#">Markdown usage in LocalPen</a></li> -->
     <li><a href="?template=markdown" target="_parent" data-template="markdown">Load Markdown Readme template</a></li>
   </ul>

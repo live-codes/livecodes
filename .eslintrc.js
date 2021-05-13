@@ -158,6 +158,7 @@ module.exports = {
     'no-new-func': 'error',
     'no-new-wrappers': 'error',
     'no-redeclare': 'error',
+    'no-restricted-imports': ['error', { patterns: ['**/_modules'] }],
     'no-return-await': 'error',
     'no-sequences': 'error',
     'no-shadow': [

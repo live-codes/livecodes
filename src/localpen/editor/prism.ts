@@ -45,7 +45,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (!document.head.querySelector('#prism-styles')) {
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
-    stylesheet.href = baseUrl + 'assets/prism.css';
+    stylesheet.href = baseUrl + 'styles/prism.css';
     stylesheet.id = 'prism-styles';
     document.head.appendChild(stylesheet);
   }

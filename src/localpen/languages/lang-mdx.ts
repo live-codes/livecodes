@@ -8,7 +8,7 @@ export const mdx: LanguageSpecs = {
   <h3>MDX</h3>
   <div>Markdown for the component era. <br />MDX lets you seamlessly write JSX in your Markdown documents.</div>
   <ul>
-    <li><a href="https://mdxjs.com/" target="_blank">MDX documentation</a></li>
+    <li><a href="https://mdxjs.com/" target="_blank" rel="noopener">MDX documentation</a></li>
     <!-- <li><a href="#">MDX usage in LocalPen</a></li> -->
     <li><a href="?template=mdx" target="_parent" data-template="mdx">Load starter template</a></li>
   </ul>
