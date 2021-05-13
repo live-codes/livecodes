@@ -275,7 +275,6 @@ pre[class*='language-'] > code[class*='language-'] {
 .line-highlight {
   background: #f7ebc6;
   box-shadow: inset 5px 0 0 #f7d87c;
-  box-shadow: inset 5px 0 0 #f7d87c;
   left: 0;
   line-height: inherit;
   margin-top: 1em;

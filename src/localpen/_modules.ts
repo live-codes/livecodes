@@ -1,7 +1,7 @@
 /**
  * <h2>Internal API.</h2>
  * This module should <strong>NOT</strong> be used.
- * It is only used for generating documentation for internal modules.
+ * It is only there for generating documentation for internal modules.
  *
  * Importing from it is prevented by the eslint rule 'no-restricted-imports'
  *
