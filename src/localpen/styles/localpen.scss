@@ -566,10 +566,6 @@ li.editor-title {
   }
 }
 
-.menu-scroller::-webkit-scrollbar {
-  width: 5px;
-}
-
 #settings-menu {
   left: unset;
   margin-top: 0;
@@ -786,16 +782,16 @@ i.arrow {
 }
 
 #overlay {
+  animation: overlayfadeIn 0.4s forwards;
   background-color: black;
   opacity: 0.7;
-  animation: overlayfadeIn 0.4s forwards;
 }
 
 #modal-container {
   align-items: center;
+  animation: fadeIn 0.4s forwards;
   display: flex;
   justify-content: center;
-  animation: fadeIn 0.4s forwards;
 }
 
 #overlay.hidden {
