@@ -1,4 +1,4 @@
-import { languages, postProcessors } from '../languages';
+import { languages, processors } from '../languages';
 import { Compilers, Pen } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
@@ -12,7 +12,7 @@ const worker: Worker = self as any;
 
 const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) => {
   if (!compilers) {
-    compilers = getAllCompilers([...languages, ...postProcessors], config);
+    compilers = getAllCompilers([...languages, ...processors], config);
   }
 
   const languageCompiler = compilers[language];
@@ -125,10 +125,12 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       break;
 
     // Post-processors
-    case 'autoprefixer':
+    case 'postcss':
       try {
-        value = (await compiler(content, { from: undefined })).css;
-      } catch {
+        value = await compiler(content, config);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('PostCSS transformation failed.', err);
         value = content;
       }
       break;
@@ -147,7 +149,7 @@ worker.addEventListener(
 
     if (message.type === 'init') {
       const config = message.payload;
-      compilers = getAllCompilers([...languages, ...postProcessors], config);
+      compilers = getAllCompilers([...languages, ...processors], config);
     }
 
     if (message.type === 'load') {

@@ -7,7 +7,6 @@ export interface Pen {
   autosave: boolean;
   delay: number;
   emmet: boolean;
-  autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   readonly: boolean;
   console: ToolsPaneStatus;
@@ -22,6 +21,12 @@ export interface Pen {
   scripts: string[];
   cssPreset: CssPresetId;
   modules: Module[];
+  processors: {
+    postcss: {
+      autoprefixer: boolean;
+      postcssPresetEnv: boolean;
+    };
+  };
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
 }
@@ -122,7 +127,7 @@ export interface Processors {
   editors?: EditorId[];
 }
 
-export type ProcessorName = 'autoprefixer';
+export type ProcessorName = 'autoprefixer' | 'postcss';
 
 export type ParserName =
   | 'babel'
@@ -163,7 +168,10 @@ export interface EditorLibrary {
 export interface Compiler {
   url: string;
   fn?: (code: string, options?: any) => any;
-  factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
+  factory: (
+    compilerModule: any,
+    config: Pen,
+  ) => (code: string, config?: Pen) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
   styles?: string[];

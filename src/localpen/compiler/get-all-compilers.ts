@@ -1,11 +1,11 @@
-import { languageIsEnabled, postProcessors } from '../languages';
+import { languageIsEnabled, processors } from '../languages';
 import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors } from '../models';
 
 export const getAllCompilers = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
   languages
     .filter(
       (language) =>
-        postProcessors.includes(language as Processors) ||
+        processors.includes(language as Processors) ||
         languageIsEnabled((language as LanguageSpecs).name, config),
     )
     .reduce((compilers, language) => {
