@@ -171,7 +171,7 @@ export interface Compiler {
   factory: (
     compilerModule: any,
     config: Pen,
-  ) => (code: string, config?: Pen) => string | Promise<string>;
+  ) => (code: string, options?: any) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
   styles?: string[];
