@@ -691,7 +691,7 @@ i.arrow {
     height: 18px;
     position: absolute;
     right: 0.3em;
-    top: 0.6em;
+    top: calc((60% - 9px) * 0.8);
     transform: scale(0.8);
     width: 34px;
   }
@@ -747,18 +747,20 @@ i.arrow {
 
 #settings-menu .switch div {
   right: 0.8em;
+  top: calc((60% - 9px) * 0.9);
   transform: scale(0.9);
 }
 
 @media only screen and (max-width: 480px) {
   .switch div {
     right: 0;
-    top: 0.2em;
+    top: calc((60% - 9px) * 0.6);
     transform: scale(0.6);
   }
 
   #settings-menu .switch div {
     right: 0.4em;
+    top: calc((60% - 9px) * 0.7);
     transform: scale(0.7);
   }
 }
