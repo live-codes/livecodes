@@ -909,6 +909,29 @@ export const app = async (config: Pen) => {
       );
     };
 
+    const handleProcessors = () => {
+      const toggles = document.querySelectorAll(
+        '#settings-menu input',
+      ) as NodeListOf<HTMLInputElement>;
+      toggles.forEach((toggle) => {
+        eventsManager.addEventListener(toggle, 'change', async () => {
+          const configKey = toggle.dataset.config;
+          if (!configKey || !(configKey in getConfig().processors.postcss)) return;
+          setConfig({
+            ...getConfig(),
+            processors: {
+              ...getConfig().processors,
+              postcss: {
+                ...getConfig().processors.postcss,
+                [configKey]: toggle.checked,
+              },
+            },
+          });
+          await run(editors);
+        });
+      });
+    };
+
     const handleSettings = () => {
       const toggles = document.querySelectorAll(
         '#settings-menu input',
@@ -1548,6 +1571,7 @@ export const app = async (config: Pen) => {
     handleChangeContent();
     handleHotKeys();
     handleRunButton();
+    handleProcessors();
     handleSettings();
     handleSettingsMenu();
     handleExternalResources();

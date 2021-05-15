@@ -127,7 +127,7 @@ export interface Processors {
   editors?: EditorId[];
 }
 
-export type ProcessorName = 'autoprefixer' | 'postcss';
+export type ProcessorName = 'postcss';
 
 export type ParserName =
   | 'babel'

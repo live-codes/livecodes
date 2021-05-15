@@ -42,8 +42,8 @@ export const defaultConfig: Pen = {
   modules: [],
   processors: {
     postcss: {
-      autoprefixer: true,
-      postcssPresetEnv: true,
+      autoprefixer: false,
+      postcssPresetEnv: false,
     },
   },
   editor: '',

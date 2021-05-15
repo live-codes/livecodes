@@ -61,13 +61,7 @@ export const createCompiledCodeViewer = (
     if (languageLabel) {
       const compiledLanguage = languages.find((lang) => lang.name === language);
       const title = compiledLanguage?.longTitle || compiledLanguage?.title || '';
-      const modifier =
-        title !== 'CSS'
-          ? ''
-          : config.autoprefixer === true
-          ? ' (Autoprefixer: On)'
-          : ' (Autoprefixer: Off)';
-      languageLabel.innerHTML = title + modifier;
+      languageLabel.innerHTML = title;
     }
   };
 

@@ -1,4 +1,10 @@
-import { getLanguageEditorId, languages, processors } from '../languages';
+import {
+  getEnabledProcessors,
+  getLanguageEditorId,
+  languages,
+  processorIsEnabled,
+  processors,
+} from '../languages';
 import { Language, Pen, Compilers, EditorId } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
@@ -66,19 +72,18 @@ export const createCompiler = (config: Pen): Compiler => {
       ),
     );
 
-  const cache: { [key in Language]?: { content: string; compiled: string } } = {};
+  const cache: {
+    [key in Language]?: { content: string; compiled: string; processors: string };
+  } = {};
 
-  const compile = async (
-    content: string,
-    language: Language,
-    config: Pen,
-    purgeCache = false, // TODO implement (changing processors should purge cache)
-  ): Promise<string> => {
+  const compile = async (content: string, language: Language, config: Pen): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
     }
 
-    if (!purgeCache && cache[language]?.content === content) {
+    const enabledProcessors = getEnabledProcessors(language, config);
+
+    if (cache[language]?.content === content && cache[language]?.processors === enabledProcessors) {
       return cache[language]?.compiled || '';
     }
 
@@ -97,6 +102,7 @@ export const createCompiler = (config: Pen): Compiler => {
     cache[language] = {
       content,
       compiled: processed,
+      processors: enabledProcessors,
     };
 
     return Promise.resolve(processed);
@@ -104,7 +110,10 @@ export const createCompiler = (config: Pen): Compiler => {
 
   const postProcess = async (content: string, language: Language, config: Pen) => {
     for (const processor of processors) {
-      if (processor.editors?.includes(getLanguageEditorId(language) as EditorId)) {
+      if (
+        processorIsEnabled(processor, config) &&
+        processor.editors?.includes(getLanguageEditorId(language) as EditorId)
+      ) {
         if (compilers[processor.name] && !compilers[processor.name].fn) {
           await load([processor.name], config);
         }
