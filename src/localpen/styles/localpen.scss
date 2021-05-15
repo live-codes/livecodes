@@ -51,10 +51,10 @@ body {
 }
 
 a {
-  color: #0164b4;
+  color: rgb(1, 100, 180);
 
   &:visited {
-    color: #0164b4;
+    color: rgb(1, 100, 180);
   }
 
   &[target='_blank']::after {
@@ -76,9 +76,9 @@ a {
 }
 
 #toolbar {
-  background: #001b25;
-  border-bottom: 3px solid #444857;
-  color: #eee;
+  background: rgb(0, 27, 37);
+  border-bottom: 3px solid rgb(68, 72, 87);
+  color: rgb(237, 237, 237);
   display: flex;
   height: 40px;
   position: relative;
@@ -167,7 +167,7 @@ a {
 #buttons > .button,
 #editors #code-run-button {
   align-items: center;
-  background-color: #5a6074da;
+  background-color: rgba(90, 96, 116, 0.855);
   border: 0;
   border-radius: 3px;
   cursor: pointer;
@@ -182,13 +182,13 @@ a {
 
 #buttons > .button:hover,
 #editors #code-run-button:hover {
-  background-color: #777c8dda;
+  background-color: rgba(119, 124, 141, 0.855);
 }
 
 /* mouse down */
 
 #buttons > .button:active:hover {
-  background-color: #5a6074da;
+  background-color: rgba(90, 96, 116, 0.855);
 }
 
 #editors #code-run-button {
@@ -200,7 +200,7 @@ a {
   right: 10px;
 
   &:active:hover {
-    background-color: #5a6074da;
+    background-color: rgba(90, 96, 116, 0.855);
   }
 }
 
@@ -211,7 +211,7 @@ a {
 }
 
 #editors {
-  background: #1e1e1e;
+  background: rgb(30, 30, 30);
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -227,10 +227,10 @@ a {
 }
 
 .copy-button {
-  background-color: #444855b0;
+  background-color: rgba(68, 72, 85, 0.69);
   border: 0;
   border-radius: 3px;
-  color: #eee;
+  color: rgb(238, 238, 238);
   cursor: pointer;
   display: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -263,7 +263,7 @@ a {
 }
 
 #tools-pane-bar {
-  color: #eee;
+  color: rgb(238, 238, 238);
   font-size: 12px;
   justify-content: space-between;
   overflow: hidden;
@@ -283,8 +283,8 @@ a {
 
 .tools-pane-title {
   align-items: center;
-  background-color: #5c616e;
-  border-bottom: 3px solid #5c616e;
+  background-color: rgb(92, 97, 110);
+  border-bottom: 3px solid rgb(92, 97, 110);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -319,7 +319,7 @@ a {
 }
 
 #console {
-  background-color: #efefef;
+  background-color: rgb(239, 239, 239);
   overflow: auto;
 
   .luna-object-viewer {
@@ -350,7 +350,7 @@ a {
 .gutter {
   align-items: center;
 
-  background-color: #444857;
+  background-color: rgb(68, 72, 87);
   display: flex !important;
   justify-content: center;
   position: relative;
@@ -364,7 +364,7 @@ a {
   }
 
   #handle {
-    background-color: #e7e8f1;
+    background-color: rgb(231, 232, 241);
     border-radius: 2px;
     height: 30px;
     width: 4px;
@@ -372,8 +372,8 @@ a {
 }
 
 #editor-container .gutter #size-label {
-  background-color: #eee;
-  border: 1px solid #5c616e;
+  background-color: rgb(238, 238, 238);
+  border: 1px solid rgb(92, 97, 110);
   border-radius: 5px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.7em;
@@ -402,7 +402,7 @@ a {
 }
 
 #select-editor {
-  color: #eee;
+  color: rgb(238, 238, 238);
   height: 100%;
   margin: 0;
   position: relative;
@@ -421,7 +421,7 @@ a {
 
 li.editor-title {
   align-items: center;
-  border: 2px solid #444857;
+  border: 2px solid rgb(68, 72, 87);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   cursor: pointer;
@@ -436,13 +436,13 @@ li.editor-title {
   }
 
   &.active {
-    background-color: #444857;
+    background-color: rgb(68, 72, 87);
 
     > .language-menu-button {
-      background-color: #001b25d3;
+      background-color: rgba(0, 27, 37, 0.827);
 
       &:hover {
-        background-color: #213c46d3;
+        background-color: rgba(33, 60, 70, 0.827);
       }
     }
   }
@@ -452,7 +452,7 @@ li.editor-title {
   }
 
   > .language-menu-button {
-    background-color: #5a6074da;
+    background-color: rgba(90, 96, 116, 0.855);
     border: 0;
     border-radius: 3px;
     cursor: pointer;
@@ -466,7 +466,7 @@ li.editor-title {
     width: 20px;
 
     &:hover {
-      background-color: #777c8dda;
+      background-color: rgba(119, 124, 141, 0.855);
     }
   }
 
@@ -491,8 +491,8 @@ li.editor-title {
 
 .dropdown-menu {
   background-clip: padding-box;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(204, 204, 204);
   border-radius: 3px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.175);
   display: none;
@@ -528,12 +528,12 @@ li.editor-title {
 .dropdown-menu li,
 .dropdown-menu > li {
   &:hover {
-    background-color: #e7e8f1;
+    background-color: rgb(231, 232, 241);
   }
 
   > *,
   a.subtitle {
-    color: #222;
+    color: rgb(34, 34, 34);
     display: block;
     padding: 0.4em 0.8em;
     text-decoration: none;
@@ -543,7 +543,7 @@ li.editor-title {
     cursor: default;
 
     &:hover {
-      background-color: #fff;
+      background-color: rgb(255, 255, 255);
     }
   }
 
@@ -621,7 +621,7 @@ li.editor-title {
 }
 
 i.arrow {
-  color: grey;
+  color: rgb(128, 128, 128);
   display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -629,7 +629,7 @@ i.arrow {
   padding: 10px 15px 10px 10px;
   position: absolute !important;
   text-decoration: none;
-  top: 0.5em;
+  top: calc(50% - 0.5em);
 
   &.left {
     transform: rotate(180deg);
@@ -672,14 +672,14 @@ i.arrow {
 
   i.arrow {
     left: 1px;
-    top: 0.4em;
+    top: calc(50% - 0.7em);
   }
 }
 
 @media only screen and (max-width: 480px) {
   #settings-menu i.arrow {
     left: 0;
-    top: 0.2em;
+    top: calc(50% - 0.9em);
   }
 }
 
@@ -697,7 +697,7 @@ i.arrow {
   }
 
   .slider {
-    background-color: #ccc;
+    background-color: rgb(204, 204, 204);
     bottom: 0;
     cursor: pointer;
     left: 0;
@@ -707,7 +707,7 @@ i.arrow {
     transition: 0.4s;
 
     &::before {
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       bottom: 2px;
       content: '';
       height: 14px;
@@ -724,11 +724,11 @@ i.arrow {
     width: 0;
 
     &:checked + .slider {
-      background-color: #2196f3;
+      background-color: rgb(33, 150, 243);
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px #2196f3;
+      box-shadow: 0 0 1px rgb(33, 150, 243);
     }
 
     &:checked + .slider::before {
@@ -818,7 +818,7 @@ i.arrow {
 
 #overlay {
   animation: overlayfadeIn 0.4s forwards;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   opacity: 0.7;
 }
 
@@ -838,7 +838,7 @@ i.arrow {
 }
 
 #modal {
-  background-color: whitesmoke;
+  background-color: rgb(245, 245, 245);
   border-radius: 5px;
   display: flex;
   height: 80vh;
@@ -862,12 +862,12 @@ i.arrow {
     width: 100%;
 
     .list-button:hover {
-      box-shadow: 0 1px 2px #0000002d;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
       transform: translateY(1px) 0.5s;
     }
 
     #delete-all-button {
-      background-color: #fff5f6;
+      background-color: rgb(255, 245, 246);
       color: crimson;
     }
 
@@ -896,7 +896,7 @@ i.arrow {
     }
 
     a .modified-date {
-      color: grey;
+      color: rgb(128, 128, 128);
       font-size: 0.8em;
       font-weight: 600;
       margin-left: 5px;
@@ -904,7 +904,7 @@ i.arrow {
   }
 
   .modal-title {
-    color: darkslategrey;
+    color: rgb(47, 79, 79);
     font-size: 1.4em;
     font-weight: 700;
     height: 40px;
@@ -927,9 +927,9 @@ i.arrow {
   }
 
   .button {
-    border: 1px solid darkslategrey;
+    border: 1px solid rgb(47, 79, 79);
     border-radius: 3px;
-    box-shadow: 0 3px 6px #0000002d;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     cursor: pointer;
     font-size: 1em;
     margin: 5px 10px;
@@ -954,10 +954,10 @@ i.arrow {
 
   .open-list li {
     align-items: center;
-    background-color: #f5f6fc;
-    border: 1px solid grey;
+    background-color: rgb(245, 246, 252);
+    border: 1px solid rgb(128, 128, 128);
     border-radius: 3px;
-    box-shadow: 0 3px 6px #0000002d;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     display: inline-flex;
     height: 4em;
     list-style: none;
@@ -972,7 +972,7 @@ i.arrow {
     width: 80%;
 
     &:hover {
-      box-shadow: 0 1px 2px #0000002d;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
       transform: translateY(1px) 0.5s;
     }
   }
@@ -985,10 +985,10 @@ i.arrow {
   }
 
   .modal-screen-container {
-    background-color: whitesmoke;
-    border: 1px solid darkgrey;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
-    box-shadow: 0 3px 6px #0000002d;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     margin-bottom: 15px;
     min-height: calc(80% - 100px);
     padding: 10px;
@@ -1023,9 +1023,9 @@ i.arrow {
   }
 
   input {
-    border: 1px solid darkgrey;
+    border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
-    color: dimgray;
+    color: rgb(105, 105, 105);
     height: 2em;
     outline: none;
     padding: 5px;
@@ -1033,9 +1033,9 @@ i.arrow {
   }
 
   textarea {
-    border: 1px solid darkgrey;
+    border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
-    color: dimgray;
+    color: rgb(105, 105, 105);
     height: 3em;
     min-height: 3em;
     outline: none;
@@ -1046,10 +1046,10 @@ i.arrow {
 
   .wide-button,
   #file-input-label {
-    background-color: #efefef;
-    border: 1px solid darkslategrey;
+    background-color: rgb(239, 239, 239);
+    border: 1px solid rgb(47, 79, 79);
     border-radius: 3px;
-    box-shadow: 0 3px 6px #0000002d;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     box-sizing: content-box;
     cursor: pointer;
     font-size: 1em;
@@ -1063,7 +1063,7 @@ i.arrow {
 
   button:hover,
   #file-input-label:hover {
-    box-shadow: 0 1px 2px #0000002d;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
     transform: translateY(1px) 0.5s;
   }
 
@@ -1251,8 +1251,8 @@ i.arrow {
   padding: 0;
 
   li {
-    background-color: lightgrey;
-    border: 1px solid darkgrey;
+    background-color: rgb(211, 211, 211);
+    border: 1px solid rgb(169, 169, 169);
     border-bottom: 0;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -1265,15 +1265,15 @@ i.arrow {
     width: 30%;
 
     &.active {
-      background-color: whitesmoke;
-      border-bottom: 1px solid whitesmoke;
+      background-color: rgb(245, 245, 245);
+      border-bottom: 1px solid rgb(245, 245, 245);
       margin-bottom: -1px;
     }
   }
 }
 
 #css-preset-menu a.active::after {
-  color: grey;
+  color: rgb(128, 128, 128);
   content: ' ✔';
 }
 
@@ -1291,7 +1291,7 @@ i.arrow {
     border-radius: 2.5px;
     box-shadow: 6.25px 0 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
       1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6), -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
-      -5px 3.5px 0 0 white;
+      -5px 3.5px 0 0 rgb(255, 255, 255);
     content: '';
     display: block;
     height: 2.5px;
@@ -1355,7 +1355,7 @@ i.arrow {
 .cm-wrap,
 .cm-activeLine,
 .cm-gutters {
-  background: #001b25 !important;
+  background: rgb(0, 27, 37) !important;
 }
 
 #console-input {
