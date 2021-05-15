@@ -8,6 +8,9 @@ import {
   getLanguageCompiler,
   createLanguageMenus,
   languageIsEnabled,
+  pluginSpecs,
+  PluginName,
+  processorIsEnabled,
 } from './languages';
 import { createStorage } from './storage';
 import {
@@ -358,15 +361,23 @@ export const app = async (config: Pen) => {
   };
 
   const showEditor = (editorId: EditorId = 'markup') => {
-    const editorDivs = document.querySelectorAll('#editors > div') as NodeListOf<HTMLElement>;
+    const titles = document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
+    const editorIsVisible = () =>
+      Array.from(titles)
+        .map((title) => title.dataset.editor)
+        .includes(editorId);
+    if (!editorIsVisible()) {
+      // select first visible editor instead
+      editorId = (titles[0].dataset.editor as EditorId) || 'markup';
+    }
+    titles.forEach((selector) => selector.classList.remove('active'));
+    const activeTitle = document.getElementById(editorId + '-selector');
+    activeTitle?.classList.add('active');
+
+    const editorDivs = document.querySelectorAll<HTMLElement>('#editors > div');
     editorDivs.forEach((editor) => (editor.style.display = 'none'));
     const activeEditor = document.getElementById(editorId) as HTMLElement;
     activeEditor.style.display = 'block';
-
-    const titles = document.querySelectorAll('.editor-title');
-    titles.forEach((selector) => selector.classList.remove('active'));
-    const activeTitle = document.getElementById(editorId + '-selector') as HTMLElement;
-    activeTitle.classList.add('active');
     editors[editorId].focus();
 
     activeEditorId = editorId;
@@ -448,7 +459,7 @@ export const app = async (config: Pen) => {
         if (editorId === 'script' && editors.script.getLanguage() === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
         }
-        toolsPane.compiled.update(compiledLanguages[editorId], compiledCode, getConfig());
+        toolsPane.compiled.update(compiledLanguages[editorId], compiledCode);
       });
     }
   };
@@ -568,19 +579,23 @@ export const app = async (config: Pen) => {
     notifications.success('Forked as a new project');
   };
 
+  const getContentConfig = (config: Pen): Partial<Pen> => ({
+    title: config.title,
+    language: config.language,
+    languages: config.languages,
+    markup: config.markup,
+    style: config.style,
+    script: config.script,
+    stylesheets: config.stylesheets,
+    scripts: config.scripts,
+    cssPreset: config.cssPreset,
+    modules: config.modules || getConfig().modules,
+    processors: config.processors,
+  });
+
   const share = (copyUrl = true) => {
     const config = getConfig();
-    const content: Partial<Pen> = {
-      title: config.title,
-      language: config.language,
-      markup: config.markup,
-      style: config.style,
-      script: config.script,
-      stylesheets: config.stylesheets,
-      scripts: config.scripts,
-      cssPreset: config.cssPreset,
-      modules: config.modules,
-    };
+    const content = getContentConfig(config);
 
     const contentHash = '#code/' + compress(JSON.stringify(content));
     const shareURL = location.origin + location.pathname + contentHash;
@@ -611,17 +626,7 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen, url?: string) => {
     changingContent = true;
 
-    const content: Partial<Pen> = {
-      title: newConfig.title,
-      language: newConfig.language,
-      markup: newConfig.markup,
-      style: newConfig.style,
-      script: newConfig.script,
-      stylesheets: newConfig.stylesheets,
-      scripts: newConfig.scripts,
-      cssPreset: newConfig.cssPreset,
-      modules: newConfig.modules || getConfig().modules,
-    };
+    const content = getContentConfig(newConfig);
     setConfig({ ...getConfig(), ...content, autosave: false });
 
     // load title
@@ -910,24 +915,56 @@ export const app = async (config: Pen) => {
     };
 
     const handleProcessors = () => {
-      const toggles = document.querySelectorAll(
-        '#settings-menu input',
-      ) as NodeListOf<HTMLInputElement>;
-      toggles.forEach((toggle) => {
-        eventsManager.addEventListener(toggle, 'change', async () => {
-          const configKey = toggle.dataset.config;
-          if (!configKey || !(configKey in getConfig().processors.postcss)) return;
-          setConfig({
-            ...getConfig(),
-            processors: {
-              ...getConfig().processors,
-              postcss: {
-                ...getConfig().processors.postcss,
-                [configKey]: toggle.checked,
+      const styleMenu = document.querySelector<HTMLElement>('#style-selector .dropdown-menu');
+      const pluginList = pluginSpecs.map((plugin) => ({ name: plugin.name, title: plugin.title }));
+
+      if (!styleMenu || pluginList.length === 0 || !processorIsEnabled('postcss', getConfig())) {
+        return;
+      }
+
+      pluginList.forEach((plugin) => {
+        const pluginItem = document.createElement('li');
+        pluginItem.classList.add('language-item', 'processor-item');
+        pluginItem.innerHTML = `
+        <label class="switch">
+          <span>${plugin.title}</span>
+          <div>
+            <input id="${plugin.name}" type="checkbox" data-plugin="${plugin.name}" />
+            <span class="slider round"></span>
+          </div>
+        </label>
+        `;
+        styleMenu.append(pluginItem);
+        eventsManager.addEventListener(
+          pluginItem,
+          'mousedown',
+          async (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const toggle = pluginItem.querySelector<HTMLInputElement>('input');
+            if (!toggle) return;
+            toggle.checked = !toggle.checked;
+
+            const pluginName = toggle.dataset.plugin;
+            if (!pluginName || !(pluginName in getConfig().processors.postcss)) return;
+            setConfig({
+              ...getConfig(),
+              processors: {
+                ...getConfig().processors,
+                postcss: {
+                  ...getConfig().processors.postcss,
+                  [pluginName]: toggle.checked,
+                },
               },
-            },
-          });
-          await run(editors);
+            });
+            await run(editors);
+          },
+          false,
+        );
+
+        eventsManager.addEventListener(pluginItem, 'click', async (event) => {
+          event.preventDefault();
+          event.stopPropagation();
         });
       });
     };
@@ -1598,10 +1635,12 @@ export const app = async (config: Pen) => {
     ) as HTMLInputElement;
     autosaveToggle.checked = config.autosave;
 
-    const autoprefixerToggle = document.querySelector(
-      '#settings-menu input#autoprefixer',
-    ) as HTMLInputElement;
-    autoprefixerToggle.checked = config.autoprefixer;
+    const processorToggles = document.querySelectorAll<HTMLInputElement>('#style-selector input');
+    processorToggles.forEach((toggle) => {
+      const plugin = toggle.dataset.plugin as PluginName;
+      if (!plugin) return;
+      toggle.checked = config.processors.postcss[plugin];
+    });
 
     const emmetToggle = document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
     emmetToggle.checked = config.emmet;

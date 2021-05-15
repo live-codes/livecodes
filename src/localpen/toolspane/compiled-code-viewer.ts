@@ -53,7 +53,7 @@ export const createCompiledCodeViewer = (
     return createEditor(editorOptions);
   };
 
-  const update = (language: 'html' | 'css' | 'javascript', content: string, config: Pen) => {
+  const update = (language: 'html' | 'css' | 'javascript', content: string) => {
     if (!editor) return;
 
     editor.setLanguage(language);

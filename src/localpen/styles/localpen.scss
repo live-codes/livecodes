@@ -447,6 +447,10 @@ li.editor-title {
     }
   }
 
+  &.hidden {
+    display: none;
+  }
+
   > .language-menu-button {
     background-color: #5a6074da;
     border: 0;
@@ -521,16 +525,30 @@ li.editor-title {
   display: block;
 }
 
-.dropdown-menu li {
-  > * {
+.dropdown-menu li,
+.dropdown-menu > li {
+  &:hover {
+    background-color: #e7e8f1;
+  }
+
+  > *,
+  a.subtitle {
     color: #222;
     display: block;
     padding: 5px 15px;
     text-decoration: none;
   }
 
-  &:hover {
-    background-color: #e7e8f1;
+  a.subtitle {
+    cursor: default;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &.processor-item {
+    padding-left: 9px;
   }
 }
 
@@ -550,19 +568,6 @@ li.editor-title {
 
   &.hidden {
     display: none !important;
-  }
-}
-
-.dropdown-menu > li {
-  > * {
-    color: #222;
-    display: block;
-    padding: 5px 15px;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background-color: #e7e8f1;
   }
 }
 
@@ -676,7 +681,7 @@ i.arrow {
     display: block;
     height: 18px;
     position: absolute;
-    right: 1em;
+    right: 0.3em;
     top: 0.4em;
     width: 34px;
   }
@@ -728,6 +733,10 @@ i.arrow {
       border-radius: 50%;
     }
   }
+}
+
+#settings-menu .switch div {
+  right: 1em;
 }
 
 @keyframes fadeIn {

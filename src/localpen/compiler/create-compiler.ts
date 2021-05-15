@@ -2,6 +2,7 @@ import {
   getEnabledProcessors,
   getLanguageEditorId,
   languages,
+  processorIsActivated,
   processorIsEnabled,
   processors,
 } from '../languages';
@@ -111,7 +112,8 @@ export const createCompiler = (config: Pen): Compiler => {
   const postProcess = async (content: string, language: Language, config: Pen) => {
     for (const processor of processors) {
       if (
-        processorIsEnabled(processor, config) &&
+        processorIsEnabled(processor.name, config) &&
+        processorIsActivated(processor, config) &&
         processor.editors?.includes(getLanguageEditorId(language) as EditorId)
       ) {
         if (compilers[processor.name] && !compilers[processor.name].fn) {

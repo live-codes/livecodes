@@ -1,16 +1,18 @@
 import { Pen, Processors } from '../models';
 
-type PluginName = keyof Pen['processors']['postcss'];
+export type PluginName = keyof Pen['processors']['postcss'];
 type Plugin = () => any;
 interface PluginSpecs {
   name: PluginName;
+  title: string;
   url: string;
   factory: () => Plugin;
 }
 
-const pluginSpecs: PluginSpecs[] = [
+export const pluginSpecs: PluginSpecs[] = [
   {
     name: 'autoprefixer',
+    title: 'Autoprefixer',
     url: 'vendor/autoprefixer/autoprefixer.js',
     factory() {
       return (self as any).autoprefixer.autoprefixer({
@@ -20,6 +22,7 @@ const pluginSpecs: PluginSpecs[] = [
   },
   {
     name: 'postcssPresetEnv',
+    title: 'Preset Env',
     url: 'vendor/postcss-preset-env/postcss-preset-env.js',
     factory(): Plugin {
       return (self as any).postcssPresetEnv.postcssPresetEnv({
@@ -34,6 +37,20 @@ const getSpecs = (pluginName: PluginName) => pluginSpecs.find((specs) => specs.n
 
 export const postcss: Processors = {
   name: 'postcss',
+  title: 'PostCSS:',
+  info: `
+  <h3>PostCSS</h3>
+  <div>
+    <p>A tool for transforming CSS with JavaScript.</p>
+    <p><a href="https://postcss.org/" target="_blank" rel="noopener">PostCSS official website</a></p>
+    <h4>Plugins:</h4>
+  </div>
+  <ul>
+    <li><a href="https://github.com/postcss/autoprefixer" target="_blank" rel="noopener">Autoprefixer</a></li>
+    <li><a href="https://preset-env.cssdb.org/" target="_blank" rel="noopener">PostCSS Preset Env</a></li>
+    <!-- <li><a href="#">PostCSS usage in LocalPen</a></li> -->
+  </ul>
+  `,
   compiler: {
     url: 'vendor/postcss/postcss.js',
     factory: () => {

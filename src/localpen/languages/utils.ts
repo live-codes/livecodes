@@ -49,7 +49,14 @@ export const languageIsEnabled = (language: Language, config: Pen) => {
   return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
 };
 
-export const processorIsEnabled = (processor: Processors, config: Pen) =>
+export const processorIsEnabled = (processorName: Processors['name'], config: Pen) => {
+  if (!processors.map((p) => p.name).includes(processorName)) return false;
+  if (processorName !== 'postcss') return true;
+  if (!config.languages) return true;
+  return config.languages.includes(processorName);
+};
+
+export const processorIsActivated = (processor: Processors, config: Pen) =>
   (config.processors as any)[processor.name] === true ||
   (processor.name === 'postcss' && Object.values(config.processors.postcss).includes(true));
 

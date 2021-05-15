@@ -13,7 +13,7 @@ export interface Pen {
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
   language: Language | undefined;
-  languages: Language[] | undefined;
+  languages: Array<Language | Processors['name']> | undefined;
   markup: Editor;
   style: Editor;
   script: Editor;
@@ -51,6 +51,7 @@ export type Language =
   | 'less'
   | 'stylus'
   | 'styl'
+  | 'postcss'
   | 'javascript'
   | 'js'
   | 'babel'
@@ -123,6 +124,9 @@ export interface LanguageSpecs {
 
 export interface Processors {
   name: ProcessorName | Language;
+  title: string;
+  longTitle?: string;
+  info?: string;
   compiler: Compiler | ProcessorName | Language;
   editors?: EditorId[];
 }
