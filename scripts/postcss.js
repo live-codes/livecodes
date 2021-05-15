@@ -6,7 +6,7 @@ const GlobalsPolyfills = require('@esbuild-plugins/node-globals-polyfill').defau
 const baseOptions = {
   bundle: true,
   minify: true,
-  format: 'iife',
+  format: 'esm',
 };
 
 // sugarss
