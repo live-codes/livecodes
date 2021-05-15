@@ -589,7 +589,7 @@ export const app = async (config: Pen) => {
     stylesheets: config.stylesheets,
     scripts: config.scripts,
     cssPreset: config.cssPreset,
-    modules: config.modules || getConfig().modules,
+    modules: config.modules,
     processors: config.processors,
   });
 

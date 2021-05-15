@@ -55,7 +55,6 @@ export const postcss: Processors = {
     url: 'vendor/postcss/postcss.js',
     factory: () => {
       const postCssOptions = { from: undefined };
-      const { postcss } = (self as any).postcss;
 
       const loadedPlugins: { [key in PluginName]?: Plugin } = {};
 
@@ -77,16 +76,15 @@ export const postcss: Processors = {
         const isEnabled = (pluginName: PluginName) => configPlugins[pluginName] === true;
         const pluginNames = (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, config.baseUrl));
-        const plugins = pluginSpecs
+        return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
           .map((specs) => loadedPlugins[specs.name]);
-        return plugins;
       };
 
       return async function process(code: string, config?: Pen): Promise<string> {
         if (!config) return code;
         const plugins = getPlugins(config);
-        return (await postcss(plugins).process(code, postCssOptions)).css;
+        return (await (self as any).postcss.postcss(plugins).process(code, postCssOptions)).css;
       };
     },
     umd: true,

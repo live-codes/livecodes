@@ -535,7 +535,7 @@ li.editor-title {
   a.subtitle {
     color: #222;
     display: block;
-    padding: 5px 15px;
+    padding: 0.4em 0.8em;
     text-decoration: none;
   }
 
@@ -548,7 +548,8 @@ li.editor-title {
   }
 
   &.processor-item {
-    padding-left: 9px;
+    padding-left: 0.4em;
+    font-size: 0.9em;
   }
 }
 
@@ -671,6 +672,14 @@ i.arrow {
 
   i.arrow {
     top: 0.4em;
+    left: 1px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #settings-menu i.arrow {
+    top: 0.2em;
+    left: 0;
   }
 }
 
@@ -679,10 +688,11 @@ i.arrow {
 
   div {
     display: block;
+    transform: scale(0.8);
     height: 18px;
     position: absolute;
     right: 0.3em;
-    top: 0.4em;
+    top: 0.6em;
     width: 34px;
   }
 
@@ -736,7 +746,19 @@ i.arrow {
 }
 
 #settings-menu .switch div {
-  right: 1em;
+  right: 0.8em;
+  transform: scale(0.9);
+}
+@media only screen and (max-width: 480px) {
+  .switch div {
+    transform: scale(0.6);
+    top: 0.2em;
+    right: 0;
+  }
+  #settings-menu .switch div {
+    right: 0.4em;
+    transform: scale(0.7);
+  }
 }
 
 @keyframes fadeIn {
@@ -1284,7 +1306,7 @@ i.arrow {
   height: 0.9em;
   opacity: 0.2;
   position: absolute;
-  right: -0.3em;
+  right: -0.1em;
   top: 0.1em;
   width: 0.9em;
 
