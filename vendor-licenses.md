@@ -50,6 +50,8 @@ Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac
 
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
 
+PostCSS Preset Env: [CC0-1.0 License](https://github.com/csstools/postcss-preset-env/blob/d7652b1e6196e8f55bf3f0aac4ac090fec7ed54e/LICENSE.md)
+
 prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41d048799bdd063e0592c1413d238ad95ceda1d9/LICENSE)
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
