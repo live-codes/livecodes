@@ -447,6 +447,10 @@ li.editor-title {
     }
   }
 
+  &.hidden {
+    display: none;
+  }
+
   > .language-menu-button {
     background-color: #5a6074da;
     border: 0;
@@ -521,16 +525,31 @@ li.editor-title {
   display: block;
 }
 
-.dropdown-menu li {
-  > * {
+.dropdown-menu li,
+.dropdown-menu > li {
+  &:hover {
+    background-color: #e7e8f1;
+  }
+
+  > *,
+  a.subtitle {
     color: #222;
     display: block;
-    padding: 5px 15px;
+    padding: 0.4em 0.8em;
     text-decoration: none;
   }
 
-  &:hover {
-    background-color: #e7e8f1;
+  a.subtitle {
+    cursor: default;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &.processor-item {
+    font-size: 0.9em;
+    padding-left: 0.4em;
   }
 }
 
@@ -550,19 +569,6 @@ li.editor-title {
 
   &.hidden {
     display: none !important;
-  }
-}
-
-.dropdown-menu > li {
-  > * {
-    color: #222;
-    display: block;
-    padding: 5px 15px;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background-color: #e7e8f1;
   }
 }
 
@@ -665,7 +671,15 @@ i.arrow {
   }
 
   i.arrow {
+    left: 1px;
     top: 0.4em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #settings-menu i.arrow {
+    left: 0;
+    top: 0.2em;
   }
 }
 
@@ -676,8 +690,9 @@ i.arrow {
     display: block;
     height: 18px;
     position: absolute;
-    right: 1em;
-    top: 0.4em;
+    right: 0.3em;
+    top: calc((60% - 9px) * 0.8);
+    transform: scale(0.8);
     width: 34px;
   }
 
@@ -727,6 +742,26 @@ i.arrow {
     &::before {
       border-radius: 50%;
     }
+  }
+}
+
+#settings-menu .switch div {
+  right: 0.8em;
+  top: calc((60% - 9px) * 0.9);
+  transform: scale(0.9);
+}
+
+@media only screen and (max-width: 480px) {
+  .switch div {
+    right: 0;
+    top: calc((60% - 9px) * 0.6);
+    transform: scale(0.6);
+  }
+
+  #settings-menu .switch div {
+    right: 0.4em;
+    top: calc((60% - 9px) * 0.7);
+    transform: scale(0.7);
   }
 }
 
@@ -1275,7 +1310,7 @@ i.arrow {
   height: 0.9em;
   opacity: 0.2;
   position: absolute;
-  right: -0.3em;
+  right: -0.1em;
   top: 0.1em;
   width: 0.9em;
 

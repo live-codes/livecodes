@@ -1,5 +1,6 @@
-import { Compiler, EditorId, Language, Pen } from '../models';
+import { Compiler, EditorId, Language, Pen, Processors } from '../models';
 import { languages } from './languages';
+import { processors } from './processors';
 
 export const getLanguageByAlias = (alias?: string): Language | undefined => {
   if (!alias) return;
@@ -46,4 +47,38 @@ export const languageIsEnabled = (language: Language, config: Pen) => {
   if (!lang) return false;
   if (!config.languages) return true;
   return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
+};
+
+export const processorIsEnabled = (processorName: Processors['name'], config: Pen) => {
+  if (!processors.map((p) => p.name).includes(processorName)) return false;
+  if (processorName !== 'postcss') return true;
+  if (!config.languages) return true;
+  return config.languages.includes(processorName);
+};
+
+export const processorIsActivated = (processor: Processors, config: Pen) =>
+  (config.processors as any)[processor.name] === true ||
+  (processor.name === 'postcss' && Object.values(config.processors.postcss).includes(true));
+
+/**
+ * returns a string with names of enabled processors/postcss plugins
+ * for the supplied language (separated by hyphens)
+ */
+export const getEnabledProcessors = (language: Language, config: Pen) => {
+  let processorsString = '';
+  const editorId = getLanguageEditorId(language);
+  if (!editorId) return processorsString;
+
+  Object.keys(config.processors).forEach((processor) => {
+    if (processors.filter((p) => p.editors?.includes(editorId)).length === 0) return;
+    if ((config.processors as any)[processor] === true) {
+      processorsString += processor + '-';
+    }
+  });
+  Object.keys(config.processors.postcss).forEach((plugin) => {
+    if ((config.processors.postcss as any)[plugin] === true) {
+      processorsString += plugin + '-';
+    }
+  });
+  return processorsString;
 };

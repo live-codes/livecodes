@@ -6,6 +6,15 @@ const NodeModulesPolyfills = require('@esbuild-plugins/node-modules-polyfill').d
 const GlobalsPolyfills = require('@esbuild-plugins/node-globals-polyfill').default;
 const Bundler = require('parcel-bundler');
 
+const nodePolyfills = [
+  NodeModulesPolyfills(),
+  GlobalsPolyfills({
+    process: true,
+    buffer: true,
+    define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
+  }),
+];
+
 function mkdirp(dir) {
   if (!fs.existsSync(path.resolve(dir))) {
     fs.mkdirSync(path.resolve(dir));
@@ -26,7 +35,8 @@ var targetDir = path.resolve(__dirname + '/../src/localpen/vendor');
 const baseOptions = {
   bundle: true,
   minify: true,
-  format: 'esm',
+  format: 'iife',
+  define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
 };
 
 // Monaco editor
@@ -35,6 +45,7 @@ esbuild.buildSync({
   entryPoints: ['vendor_modules/imports/monaco-editor.ts'],
   outfile: 'src/localpen/vendor/monaco-editor/monaco-editor.js',
   loader: { '.ttf': 'file' },
+  format: 'esm',
 });
 
 // Monaco editor workers
@@ -80,7 +91,6 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/typescript.js'],
   outfile: 'src/localpen/vendor/typescript/typescript.min.js',
-  format: 'iife',
   globalName: 'typescript',
 });
 
@@ -107,7 +117,6 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/less.js'],
   outfile: 'src/localpen/vendor/less/less.js',
-  format: 'iife',
   globalName: 'less',
 });
 
@@ -189,13 +198,31 @@ fs.copyFileSync(
   path.resolve(targetDir + '/coffeescript/coffeescript.js'),
 );
 
-// autoprefixer
-esbuild.buildSync({
+// postcss
+esbuild.build({
   ...baseOptions,
-  entryPoints: ['vendor_modules/src/autoprefixer/autoprefixer.js'],
+  entryPoints: ['vendor_modules/imports/postcss.ts'],
+  outfile: 'src/localpen/vendor/postcss/postcss.js',
+  globalName: 'postcss',
+  plugins: nodePolyfills,
+});
+
+// autoprefixer
+esbuild.build({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/autoprefixer.ts'],
   outfile: 'src/localpen/vendor/autoprefixer/autoprefixer.js',
-  format: 'iife',
   globalName: 'autoprefixer',
+  plugins: nodePolyfills,
+});
+
+// postcss-preset-env
+esbuild.build({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/postcss-preset-env.ts'],
+  outfile: 'src/localpen/vendor/postcss-preset-env/postcss-preset-env.js',
+  globalName: 'postcssPresetEnv',
+  plugins: nodePolyfills,
 });
 
 // jszip
@@ -231,8 +258,6 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['node_modules/@prettier/plugin-pug/dist/index.js'],
   outfile: 'src/localpen/vendor/prettier/parser-pug.js',
-  define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
-  format: 'iife',
   globalName: 'pluginPug',
 });
 
@@ -306,7 +331,6 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/src/svelte/compiler.js'],
   outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.37.0.min.js',
-  format: 'iife',
   globalName: 'svelte',
 });
 
@@ -329,19 +353,8 @@ esbuild.build({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/mdx.ts'],
   outfile: 'src/localpen/vendor/mdx/mdx.js',
-  format: 'iife',
   globalName: 'MDX',
-  define: {
-    global: 'window',
-  },
-  plugins: [
-    NodeModulesPolyfills(),
-    GlobalsPolyfills({
-      process: true,
-      buffer: true,
-      define: { 'process.env.NODE_ENV': '"production"' },
-    }),
-  ],
+  plugins: nodePolyfills,
 });
 
 // fengari-web

@@ -53,7 +53,7 @@ export const createCompiledCodeViewer = (
     return createEditor(editorOptions);
   };
 
-  const update = (language: 'html' | 'css' | 'javascript', content: string, config: Pen) => {
+  const update = (language: 'html' | 'css' | 'javascript', content: string) => {
     if (!editor) return;
 
     editor.setLanguage(language);
@@ -61,13 +61,7 @@ export const createCompiledCodeViewer = (
     if (languageLabel) {
       const compiledLanguage = languages.find((lang) => lang.name === language);
       const title = compiledLanguage?.longTitle || compiledLanguage?.title || '';
-      const modifier =
-        title !== 'CSS'
-          ? ''
-          : config.autoprefixer === true
-          ? ' (Autoprefixer: On)'
-          : ' (Autoprefixer: Off)';
-      languageLabel.innerHTML = title + modifier;
+      languageLabel.innerHTML = title;
     }
   };
 

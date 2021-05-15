@@ -7,14 +7,13 @@ export interface Pen {
   autosave: boolean;
   delay: number;
   emmet: boolean;
-  autoprefixer: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   readonly: boolean;
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
   language: Language | undefined;
-  languages: Language[] | undefined;
+  languages: Array<Language | Processors['name']> | undefined;
   markup: Editor;
   style: Editor;
   script: Editor;
@@ -22,6 +21,12 @@ export interface Pen {
   scripts: string[];
   cssPreset: CssPresetId;
   modules: Module[];
+  processors: {
+    postcss: {
+      autoprefixer: boolean;
+      postcssPresetEnv: boolean;
+    };
+  };
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
 }
@@ -46,6 +51,7 @@ export type Language =
   | 'less'
   | 'stylus'
   | 'styl'
+  | 'postcss'
   | 'javascript'
   | 'js'
   | 'babel'
@@ -118,11 +124,14 @@ export interface LanguageSpecs {
 
 export interface Processors {
   name: ProcessorName | Language;
+  title: string;
+  longTitle?: string;
+  info?: string;
   compiler: Compiler | ProcessorName | Language;
   editors?: EditorId[];
 }
 
-export type ProcessorName = 'autoprefixer';
+export type ProcessorName = 'postcss';
 
 export type ParserName =
   | 'babel'
@@ -163,7 +172,10 @@ export interface EditorLibrary {
 export interface Compiler {
   url: string;
   fn?: (code: string, options?: any) => any;
-  factory: (compilerModule: any, config: Pen) => (code: string) => string | Promise<string>;
+  factory: (
+    compilerModule: any,
+    config: Pen,
+  ) => (code: string, options?: any) => string | Promise<string>;
   umd?: boolean;
   editors?: EditorId[];
   styles?: string[];

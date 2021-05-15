@@ -22,7 +22,7 @@ export const exportCodepen = (config: Pen) => {
     css_pre_processor: ['less', 'scss', 'sass', 'stylus'].includes(config.style.language)
       ? config.style.language
       : 'none',
-    css_prefix: config.autoprefixer ? 'autoprefixer' : 'neither',
+    css_prefix: config.processors.postcss.autoprefixer ? 'autoprefixer' : 'neither',
     js: replaceImports(config.script.content || '', config),
     js_pre_processor: ['typescript', 'coffeescript'].includes(config.script.language)
       ? config.script.language

@@ -1,10 +1,17 @@
-import { getLanguageEditorId, languages, postProcessors } from '../languages';
+import {
+  getEnabledProcessors,
+  getLanguageEditorId,
+  languages,
+  processorIsActivated,
+  processorIsEnabled,
+  processors,
+} from '../languages';
 import { Language, Pen, Compilers, EditorId } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
 export const createCompiler = (config: Pen): Compiler => {
-  const compilers = getAllCompilers([...languages, ...postProcessors], config);
+  const compilers = getAllCompilers([...languages, ...processors], config);
 
   const worker = new Worker(config.baseUrl + 'compile.worker.js');
   const configMessage: CompilerMessage = { type: 'init', payload: config };
@@ -66,14 +73,18 @@ export const createCompiler = (config: Pen): Compiler => {
       ),
     );
 
-  const cache: { [key in Language]?: { content: string; compiled: string } } = {};
+  const cache: {
+    [key in Language]?: { content: string; compiled: string; processors: string };
+  } = {};
 
   const compile = async (content: string, language: Language, config: Pen): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
     }
 
-    if (cache[language]?.content === content) {
+    const enabledProcessors = getEnabledProcessors(language, config);
+
+    if (cache[language]?.content === content && cache[language]?.processors === enabledProcessors) {
       return cache[language]?.compiled || '';
     }
 
@@ -92,15 +103,17 @@ export const createCompiler = (config: Pen): Compiler => {
     cache[language] = {
       content,
       compiled: processed,
+      processors: enabledProcessors,
     };
 
     return Promise.resolve(processed);
   };
 
   const postProcess = async (content: string, language: Language, config: Pen) => {
-    for (const processor of postProcessors) {
+    for (const processor of processors) {
       if (
-        (config as any)[processor.name] === true &&
+        processorIsEnabled(processor.name, config) &&
+        processorIsActivated(processor, config) &&
         processor.editors?.includes(getLanguageEditorId(language) as EditorId)
       ) {
         if (compilers[processor.name] && !compilers[processor.name].fn) {
@@ -111,8 +124,8 @@ export const createCompiler = (config: Pen): Compiler => {
           throw new Error('Failed to load processor: ' + processor.name);
         }
         switch (processor.name) {
-          case 'autoprefixer':
-            return process(content);
+          case 'postcss':
+            return process(content, config);
         }
       }
     }

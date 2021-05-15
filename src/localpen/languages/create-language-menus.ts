@@ -1,7 +1,8 @@
 import { createEventsManager } from '../events';
 import { EditorId, Pen } from '../models';
 import { languages } from './languages';
-import { languageIsEnabled } from './utils';
+import { processors } from './processors';
+import { languageIsEnabled, processorIsEnabled } from './utils';
 
 export const createLanguageMenus = (
   config: Pen,
@@ -42,15 +43,23 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu');
     menuScroller.appendChild(languageMenu);
 
-    const editorLanguages = languages
-      .filter((language) => languageIsEnabled(language.name, config))
-      .filter((language) => language.editor === editorId);
+    const editorLanguages = [...languages, ...processors]
+      .filter((language) =>
+        'editor' in language ? language.editor === editorId : language.editors?.includes(editorId),
+      )
+      .filter((language) =>
+        'editor' in language
+          ? languageIsEnabled(language.name, config)
+          : processorIsEnabled(language.name, config),
+      );
 
     if (editorLanguages.length === 0) {
-      editorSelector.style.display = 'none';
+      editorSelector.classList.add('hidden');
       editorsNumber -= 1;
     } else if (editorLanguages.length === 1) {
-      const changeLanguageButton = editorSelector.querySelector('button');
+      const changeLanguageButton = editorSelector.querySelector<HTMLElement>(
+        '.language-menu-button',
+      );
       if (changeLanguageButton) {
         changeLanguageButton.style.display = 'none';
       }
@@ -67,6 +76,10 @@ export const createLanguageMenus = (
       languageLink.dataset.lang = language.name;
       languageLink.title = language.longTitle || language.title;
       languageLink.innerHTML = language.longTitle || language.title;
+
+      if ('editors' in language) {
+        languageLink.classList.add('subtitle');
+      }
       languageItem.appendChild(languageLink);
 
       if (language.info) {
@@ -103,9 +116,9 @@ export const createLanguageMenus = (
     });
   });
 
-  if (editorsNumber === 2) {
+  if (editorsNumber < 3) {
     document.querySelectorAll('.editor-title').forEach((editorSelector) => {
-      (editorSelector as HTMLElement).classList.add('half-width');
+      editorSelector.classList.add('half-width');
     });
   }
 };

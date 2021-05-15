@@ -11,7 +11,6 @@ export const defaultConfig: Pen = {
   autosave: false,
   delay: 1500,
   emmet: true,
-  autoprefixer: false,
   mode: 'full',
   readonly: false,
   console: '',
@@ -41,6 +40,12 @@ export const defaultConfig: Pen = {
   scripts: [],
   cssPreset: '',
   modules: [],
+  processors: {
+    postcss: {
+      autoprefixer: false,
+      postcssPresetEnv: false,
+    },
+  },
   editor: '',
   showVersion: false,
 };
