@@ -11,6 +11,17 @@ interface PluginSpecs {
 
 export const pluginSpecs: PluginSpecs[] = [
   {
+    name: 'tailwindcss',
+    title: 'Tailwind CSS',
+    url: 'vendor/tailwindcss/tailwindcss.js',
+    factory(): Plugin {
+      return (self as any).tailwindcss.tailwindcss({
+        ...this.library.tailwind,
+        corePlugins: { preflight: false },
+      });
+    },
+  },
+  {
     name: 'autoprefixer',
     title: 'Autoprefixer',
     url: 'vendor/autoprefixer/autoprefixer.js',
@@ -66,7 +77,8 @@ export const postcss: Processors = {
           (self as any).importScripts(baseUrl + specs.url);
           const plugin = specs.factory();
           loadedPlugins[pluginName] = plugin;
-        } catch {
+        } catch (err) {
+          console.error(err);
           throw new Error('Failed to load PostCSS plugin: ' + pluginName);
         }
       };

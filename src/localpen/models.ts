@@ -23,6 +23,7 @@ export interface Pen {
     postcss: {
       autoprefixer: boolean;
       postcssPresetEnv: boolean;
+      tailwindcss: boolean;
     };
   };
   imports: { [key: string]: string };
