@@ -28,6 +28,7 @@ export interface Pen {
     };
   };
   editor: 'monaco' | 'codemirror' | 'prism' | '';
+  readonly version: string;
   showVersion: boolean;
 }
 

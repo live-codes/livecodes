@@ -591,6 +591,7 @@ export const app = async (config: Pen) => {
     cssPreset: config.cssPreset,
     modules: config.modules,
     processors: config.processors,
+    version: config.version,
   });
 
   const share = (copyUrl = true) => {
@@ -1733,7 +1734,6 @@ export const app = async (config: Pen) => {
     });
     formatter.load(getEditorLanguages());
   }
-
   await bootstrap();
 
   return {

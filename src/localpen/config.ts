@@ -47,6 +47,7 @@ export const defaultConfig: Pen = {
     },
   },
   editor: '',
+  version: process.env.VERSION as string,
   showVersion: false,
 };
 
@@ -76,10 +77,13 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
     : {};
 
   // initialize params config with default keys
-  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Pen>).reduce((acc, key) => {
-    acc[key] = params[key];
-    return acc;
-  }, {} as Partial<Pen>);
+  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Omit<Pen, 'version'>>).reduce(
+    (acc, key) => {
+      acc[key] = params[key];
+      return acc;
+    },
+    {} as Partial<Pen>,
+  );
 
   // populate params config from query string params
   Object.keys(params).forEach((key) => {
