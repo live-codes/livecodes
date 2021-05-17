@@ -4,7 +4,7 @@ export const reactStarter: Template = {
   name: 'react',
   title: 'React Starter',
   thumbnail: 'assets/templates/react.svg',
-  language: 'jsx',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: '<div id="app">Loading...</div>\n',

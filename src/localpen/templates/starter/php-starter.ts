@@ -4,7 +4,7 @@ export const phpStarter: Template = {
   name: 'php',
   title: 'PHP Starter',
   thumbnail: 'assets/templates/php.svg',
-  language: 'php',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

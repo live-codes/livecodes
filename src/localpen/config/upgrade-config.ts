@@ -1,3 +1,4 @@
+import { getLanguageEditorId } from '../languages';
 import { Pen } from '../models';
 import { defaultConfig } from './default-config';
 
@@ -25,6 +26,10 @@ const upgradeSteps = [
       }
       if ('editor' in config && typeof config.editor !== 'string') {
         config.editor = '';
+      }
+      if ('language' in config) {
+        config.activeEditor = getLanguageEditorId(config.language);
+        delete config.language;
       }
 
       return {

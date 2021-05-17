@@ -66,7 +66,7 @@ describe('upgradeConfig', () => {
       compiled: '',
       editor: '',
       allowLangChange: true,
-      language: 'html',
+      activeEditor: 'markup',
       markup: {
         language: 'html',
         content: '',

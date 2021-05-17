@@ -4,7 +4,7 @@ export const blank: Template = {
   name: 'blank',
   title: 'Blank Project',
   thumbnail: 'assets/templates/blank.svg',
-  language: 'html',
+  activeEditor: 'markup',
   markup: {
     language: 'html',
     content: '',

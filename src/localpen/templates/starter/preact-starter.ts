@@ -4,7 +4,7 @@ export const preactStarter: Template = {
   name: 'preact',
   title: 'Preact Starter',
   thumbnail: 'assets/templates/preact.svg',
-  language: 'jsx',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: '<div id="app"></div>\n',

@@ -12,7 +12,7 @@ export const defaultConfig: Pen = {
   console: '',
   compiled: '',
   allowLangChange: true,
-  language: undefined,
+  activeEditor: undefined,
   languages: undefined,
   markup: {
     language: 'html',

@@ -29,6 +29,7 @@ describe('validateConfig', () => {
       },
       allowLangChange: true,
       language: 'html',
+      activeEditor: 'markup',
       markup: {
         language: 'html',
         content: '',
@@ -61,7 +62,7 @@ describe('validateConfig', () => {
       console: '',
       compiled: '',
       allowLangChange: true,
-      language: 'html',
+      activeEditor: 'markup',
       markup: {
         language: 'html',
         content: '',

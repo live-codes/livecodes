@@ -4,7 +4,7 @@ export const rubyStarter: Template = {
   name: 'ruby',
   title: 'Ruby Starter',
   thumbnail: 'assets/templates/ruby.svg',
-  language: 'ruby',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

@@ -3,7 +3,6 @@ import Split from 'split.js';
 import { createEditor } from './editor';
 import {
   languages,
-  getLanguageByAlias,
   getLanguageEditorId,
   getLanguageCompiler,
   createLanguageMenus,
@@ -68,7 +67,6 @@ export const app = async (config: Pen) => {
   let editors: Editors;
   let penId: string;
   let editorLanguages: EditorLanguages;
-  let activeEditorId: EditorId;
   const notifications = createNotifications();
   const modal = createModal();
   const eventsManager = createEventsManager();
@@ -182,8 +180,10 @@ export const app = async (config: Pen) => {
     }
   };
 
-  const getEditorLanguage = (editorId: EditorId) => editorLanguages[editorId];
+  const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages[editorId];
   const getEditorLanguages = () => Object.values(editorLanguages);
+  const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
+  const setActiveEditor = async (config: Pen) => showEditor(config.activeEditor);
 
   const setEditorTitle = (editorId: EditorId, title: string) => {
     const editorTitle = document.querySelector(`#${editorId}-selector span`);
@@ -294,16 +294,11 @@ export const app = async (config: Pen) => {
   };
 
   const updateEditors = async (editors: Editors, config: Pen) => {
-    const language = config.language;
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
       editors[editorId].setValue(config[editorId].content);
       await changeLanguage(editorId, config[editorId].language, true);
     }
-    setConfig({
-      ...getConfig(),
-      language,
-    });
   };
 
   const showMode = (config: Pen) => {
@@ -380,10 +375,9 @@ export const app = async (config: Pen) => {
     activeEditor.style.display = 'block';
     editors[editorId].focus();
 
-    activeEditorId = editorId;
     setConfig({
       ...getConfig(),
-      language: getEditorLanguage(editorId),
+      activeEditor: editorId,
     });
 
     updateCompiledCode();
@@ -431,7 +425,7 @@ export const app = async (config: Pen) => {
     }
     setConfig({
       ...getConfig(),
-      language,
+      activeEditor: editorId,
     });
     addConsoleInputCodeCompletion();
   };
@@ -454,7 +448,7 @@ export const app = async (config: Pen) => {
     };
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {
-        if (editorId !== activeEditorId) return;
+        if (editorId !== getConfig().activeEditor) return;
         let compiledCode = lastCompiled[editorId];
         if (editorId === 'script' && editors.script.getLanguage() === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
@@ -581,7 +575,7 @@ export const app = async (config: Pen) => {
 
   const getContentConfig = (config: Pen): Partial<Pen> => ({
     title: config.title,
-    language: config.language,
+    activeEditor: config.activeEditor,
     languages: config.languages,
     markup: config.markup,
     style: config.style,
@@ -884,7 +878,7 @@ export const app = async (config: Pen) => {
         }
 
         // Cmd + p opens the command palette
-        const activeEditor = editors[activeEditorId];
+        const activeEditor = getActiveEditor();
         if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
           e.preventDefault();
           activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
@@ -1662,16 +1656,6 @@ export const app = async (config: Pen) => {
     );
   };
 
-  const setActiveEditor = async (config: Pen) => {
-    const language =
-      getLanguageByAlias(config.language) || getLanguageByAlias(config.markup.language) || 'html';
-    const editorId = getLanguageEditorId(language) || 'markup';
-    if (getEditorLanguage(editorId) !== language) {
-      await changeLanguage(editorId, language);
-    }
-    showEditor(editorId);
-  };
-
   const showLanguageInfo = (languageInfo: HTMLElement) => {
     modal.show(languageInfo, 'small');
   };
@@ -1730,7 +1714,7 @@ export const app = async (config: Pen) => {
     setSavedStatus(true);
     await toolsPane?.load();
     updateCompiledCode();
-    editors[activeEditorId].focus();
+    getActiveEditor().focus();
 
     compiler.load(Object.values(editorLanguages), getConfig()).then(async () => {
       await run(editors);

@@ -4,7 +4,7 @@ export const bootstrapStarter: Template = {
   name: 'bootstrap',
   title: 'Bootstrap Starter',
   thumbnail: 'assets/templates/bootstrap.svg',
-  language: 'html',
+  activeEditor: 'markup',
   markup: {
     language: 'html',
     content: `

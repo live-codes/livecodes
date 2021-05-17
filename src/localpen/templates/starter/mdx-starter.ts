@@ -4,7 +4,7 @@ export const mdxStarter: Template = {
   name: 'mdx',
   title: 'MDX Starter',
   thumbnail: 'assets/templates/mdx.svg',
-  language: 'mdx',
+  activeEditor: 'markup',
   markup: {
     language: 'mdx',
     content: `

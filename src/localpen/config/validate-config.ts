@@ -20,6 +20,7 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
   const modes = ['full', 'editor', 'codeblock', 'result'];
   const toolsPaneStatus = ['', 'full', 'closed', 'open', 'none'];
   const editors = ['monaco', 'codemirror', 'prism', ''];
+  const editorIds = ['markup', 'style', 'script'];
 
   const isEditor = (x: any) => {
     if (!x) return false;
@@ -46,7 +47,7 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
     ...(includes(toolsPaneStatus, config.console) ? { console: config.console } : {}),
     ...(includes(toolsPaneStatus, config.compiled) ? { compiled: config.compiled } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
-    ...(is(config.language, 'string') ? { language: config.language } : {}),
+    ...(includes(editorIds, config.activeEditor) ? { activeEditor: config.activeEditor } : {}),
     ...(is(config.languages, 'array', 'string') ? { languages: config.languages } : {}),
     ...(isEditor(config.markup) ? { markup: validateEditorProps(config.markup as Editor) } : {}),
     ...(isEditor(config.style) ? { style: validateEditorProps(config.style as Editor) } : {}),

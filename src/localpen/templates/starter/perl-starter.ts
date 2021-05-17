@@ -4,7 +4,7 @@ export const perlStarter: Template = {
   name: 'perl',
   title: 'Perl Starter',
   thumbnail: 'assets/templates/perl.svg',
-  language: 'perl',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

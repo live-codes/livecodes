@@ -4,7 +4,7 @@ export const pythonStarter: Template = {
   name: 'python',
   title: 'Python Starter',
   thumbnail: 'assets/templates/python.svg',
-  language: 'python',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

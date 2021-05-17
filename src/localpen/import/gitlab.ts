@@ -59,7 +59,7 @@ const getContent = async (fileData: Promise<FileData>): Promise<Partial<Pen>> =>
         language,
         content,
       },
-      language,
+      activeEditor: editorId,
     };
   } catch (error) {
     // eslint-disable-next-line no-console

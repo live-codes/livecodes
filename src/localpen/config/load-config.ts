@@ -1,13 +1,13 @@
 import { importCode } from '../import';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Pen } from '../models';
+import { EditorId, Pen } from '../models';
 import { getTemplate } from '../templates';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
-  const url = window.location.hash.substring(1);
+export const loadConfig = async (appConfig: Partial<Pen> = {}) => {
+  const userConfig = upgradeAndValidate(appConfig);
 
   // get query string params
   const params = Object.fromEntries(
@@ -26,13 +26,15 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
   // load config from file
   const configUrl = params.config || './localpen.json';
   const fileConfig = configUrl
-    ? await fetch(configUrl)
-        .then((res) => res.json())
-        .catch(() => ({}))
+    ? upgradeAndValidate(
+        await fetch(configUrl)
+          .then((res) => res.json())
+          .catch(() => ({})),
+      )
     : {};
 
   // initialize params config with default keys
-  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Omit<Pen, 'version'>>).reduce(
+  let paramsConfig = (Object.keys(defaultConfig) as Array<keyof Omit<Pen, 'version'>>).reduce(
     (acc, key) => {
       acc[key] = params[key];
       return acc;
@@ -41,15 +43,22 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
   );
 
   // populate params config from query string params
+
+  // ?html=hi
+  const languageAliases = ['language', 'lang'];
   Object.keys(params).forEach((key) => {
     const language = getLanguageByAlias(key);
     if (!language) return;
     const editorId = getLanguageEditorId(language);
 
     if (editorId && !paramsConfig[editorId]) {
-      // query param >> user defined config object >> config file >> default config >> empty string
+      // >> query param
+      // >> user defined config object
+      // >> config file
+      // >> default config
+      // >> empty string
       const content =
-        typeof params[key] === 'string'
+        typeof params[key] === 'string' && !languageAliases.includes(key)
           ? decodeHTML(decodeURIComponent(params[key]))
           : language === userConfig[editorId]?.language
           ? userConfig[editorId]?.content
@@ -59,21 +68,44 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
           ? defaultConfig[editorId]?.content
           : '';
       paramsConfig[editorId] = { language, content };
-      paramsConfig.language = paramsConfig.language || language;
+      paramsConfig.activeEditor = paramsConfig.activeEditor || editorId;
     }
   });
 
-  // clean unused params config keys
-  Object.keys(paramsConfig).forEach((key) => {
-    if (paramsConfig[key as keyof Pen] === undefined) {
-      delete paramsConfig[key as keyof Pen];
+  // ?lang=scss
+  (() => {
+    if ('language' in params || 'lang' in params) {
+      const language = getLanguageByAlias(params.language || params.lang);
+      if (!language) return;
+      const editorId = getLanguageEditorId(language);
+      if (!editorId) return;
+
+      if (paramsConfig[editorId]?.language === getLanguageByAlias(language)) {
+        paramsConfig.activeEditor = editorId;
+      } else if (!paramsConfig[editorId]?.content) {
+        paramsConfig[editorId] = { language, content: '' };
+        paramsConfig.activeEditor = editorId;
+      }
     }
-  });
+  })();
+
+  // ?activeEditor=style
+  if ('activeEditor' in params || 'active' in params) {
+    paramsConfig.activeEditor = params.activeEditor || params.active;
+  }
+  // ?active=1  (same as: ?activeEditor=style)
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  if (editorIds[paramsConfig.activeEditor as any]) {
+    paramsConfig.activeEditor = editorIds[paramsConfig.activeEditor as any];
+  }
+
+  // convert params config to a valid config object
+  paramsConfig = upgradeAndValidate(paramsConfig);
 
   let config: Pen = {
     ...defaultConfig,
-    ...upgradeAndValidate(fileConfig),
-    ...upgradeAndValidate(userConfig),
+    ...fileConfig,
+    ...userConfig,
     ...paramsConfig,
   };
 
@@ -102,22 +134,21 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
   config.style.content = contents[1];
   config.script.content = contents[2];
 
-  // import code from github / github gist / url html
-  const importedcode = await importCode(url, params, config);
+  // import code from hash code / github / github gist / url html / ...etc
+  const url = window.location.hash.substring(1);
+  if (url) {
+    const importedcode = upgradeAndValidate(await importCode(url, params, config));
+    config = {
+      ...config,
+      ...importedcode,
+    };
+  }
 
+  // if activeEditor is not set, default to 'markup'
   config = {
     ...config,
-    ...upgradeAndValidate(importedcode),
+    ...(config.activeEditor ? { activeEditor: config.activeEditor } : { activeEditor: 'markup' }),
   };
-
-  // TODO: adding this prevents selecting the files to load
-  // if (
-  //   ![config.markup.language, config.style.language, config.script.language].includes(
-  //     config.language,
-  //   )
-  // ) {
-  //   config.language = config.markup.language;
-  // }
 
   return config;
 };

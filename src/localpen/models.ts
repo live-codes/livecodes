@@ -12,7 +12,7 @@ export interface Pen {
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
-  language: Language | undefined;
+  activeEditor: EditorId | undefined;
   languages: Language[] | undefined;
   markup: Editor;
   style: Editor;
@@ -200,7 +200,7 @@ export interface Template {
   name: string;
   title: string;
   thumbnail: string;
-  language: Language;
+  activeEditor: EditorId;
   markup: Editor;
   style: Editor;
   script: Editor;

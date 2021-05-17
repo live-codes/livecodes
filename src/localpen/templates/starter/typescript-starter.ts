@@ -4,7 +4,7 @@ export const typescriptStarter: Template = {
   name: 'typescript',
   title: 'TypeScript Starter',
   thumbnail: 'assets/templates/typescript.svg',
-  language: 'typescript',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `
