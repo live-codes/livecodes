@@ -23,7 +23,7 @@ const upgradeSteps = [
       if ('cssPreset' in config && config.cssPreset === null) {
         config.cssPreset = '';
       }
-      if ('editor' in config) {
+      if ('editor' in config && typeof config.editor !== 'string') {
         config.editor = '';
       }
 

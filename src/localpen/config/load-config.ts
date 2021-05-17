@@ -4,6 +4,7 @@ import { Pen } from '../models';
 import { getTemplate } from '../templates';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
+import { upgradeAndValidate } from '.';
 
 export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
   const url = window.location.hash.substring(1);
@@ -71,8 +72,8 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
 
   let config: Pen = {
     ...defaultConfig,
-    ...fileConfig,
-    ...userConfig,
+    ...upgradeAndValidate(fileConfig),
+    ...upgradeAndValidate(userConfig),
     ...paramsConfig,
   };
 
@@ -106,7 +107,7 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
 
   config = {
     ...config,
-    ...importedcode,
+    ...upgradeAndValidate(importedcode),
   };
 
   // TODO: adding this prevents selecting the files to load
