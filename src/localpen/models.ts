@@ -13,7 +13,7 @@ export interface Pen {
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
   language: Language | undefined;
-  languages: Array<Language | Processors['name']> | undefined;
+  languages: Language[] | undefined;
   markup: Editor;
   style: Editor;
   script: Editor;

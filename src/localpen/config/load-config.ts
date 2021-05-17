@@ -1,55 +1,9 @@
-import { importCode } from './import';
-import { decodeHTML } from './utils';
-import { getLanguageByAlias, getLanguageEditorId } from './languages';
-import { Pen } from './models';
-import { getTemplate } from './templates';
-
-export const defaultConfig: Pen = {
-  baseUrl: '/localpen/',
-  title: 'Untitled Project',
-  autoupdate: true,
-  autosave: false,
-  delay: 1500,
-  emmet: true,
-  mode: 'full',
-  readonly: false,
-  console: '',
-  compiled: '',
-  allowLangChange: true,
-  language: undefined,
-  languages: undefined,
-  markup: {
-    language: 'html',
-    content: '',
-    contentUrl: '',
-    selector: '',
-  },
-  style: {
-    language: 'css',
-    content: '',
-    contentUrl: '',
-    selector: '',
-  },
-  script: {
-    language: 'javascript',
-    content: '',
-    contentUrl: '',
-    selector: '',
-  },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  modules: [],
-  processors: {
-    postcss: {
-      autoprefixer: false,
-      postcssPresetEnv: false,
-    },
-  },
-  editor: '',
-  version: process.env.VERSION as string,
-  showVersion: false,
-};
+import { importCode } from '../import';
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { Pen } from '../models';
+import { getTemplate } from '../templates';
+import { decodeHTML } from '../utils';
+import { defaultConfig } from './default-config';
 
 export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
   const url = window.location.hash.substring(1);

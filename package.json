@@ -1,6 +1,6 @@
 {
   "name": "localpen",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Code pens that run locally",
   "main": "index.js",
   "author": "Hatem Hosny",
@@ -134,6 +134,7 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
+    "setupFiles": ["<rootDir>/.jest/setup.js"],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/build/",
