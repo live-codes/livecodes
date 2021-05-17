@@ -39,7 +39,7 @@ import {
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
-import { defaultConfig } from './config';
+import { defaultConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
 import { compress, debounce } from './utils';
@@ -591,6 +591,7 @@ export const app = async (config: Pen) => {
     cssPreset: config.cssPreset,
     modules: config.modules,
     processors: config.processors,
+    version: config.version,
   });
 
   const share = (copyUrl = true) => {
@@ -626,7 +627,10 @@ export const app = async (config: Pen) => {
   const loadConfig = async (newConfig: Pen, url?: string) => {
     changingContent = true;
 
-    const content = getContentConfig(newConfig);
+    const content = getContentConfig({
+      ...defaultConfig,
+      ...upgradeAndValidate(newConfig),
+    });
     setConfig({ ...getConfig(), ...content, autosave: false });
 
     // load title
@@ -1733,7 +1737,6 @@ export const app = async (config: Pen) => {
     });
     formatter.load(getEditorLanguages());
   }
-
   await bootstrap();
 
   return {

@@ -1,54 +1,10 @@
-import { importCode } from './import';
-import { decodeHTML } from './utils';
-import { getLanguageByAlias, getLanguageEditorId } from './languages';
-import { Pen } from './models';
-import { getTemplate } from './templates';
-
-export const defaultConfig: Pen = {
-  baseUrl: '/localpen/',
-  title: 'Untitled Project',
-  autoupdate: true,
-  autosave: false,
-  delay: 1500,
-  emmet: true,
-  mode: 'full',
-  readonly: false,
-  console: '',
-  compiled: '',
-  allowLangChange: true,
-  language: undefined,
-  languages: undefined,
-  markup: {
-    language: 'html',
-    content: '',
-    contentUrl: '',
-    selector: '',
-  },
-  style: {
-    language: 'css',
-    content: '',
-    contentUrl: '',
-    selector: '',
-  },
-  script: {
-    language: 'javascript',
-    content: '',
-    contentUrl: '',
-    selector: '',
-  },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  modules: [],
-  processors: {
-    postcss: {
-      autoprefixer: false,
-      postcssPresetEnv: false,
-    },
-  },
-  editor: '',
-  showVersion: false,
-};
+import { importCode } from '../import';
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { Pen } from '../models';
+import { getTemplate } from '../templates';
+import { decodeHTML } from '../utils';
+import { defaultConfig } from './default-config';
+import { upgradeAndValidate } from '.';
 
 export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
   const url = window.location.hash.substring(1);
@@ -76,10 +32,13 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
     : {};
 
   // initialize params config with default keys
-  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Pen>).reduce((acc, key) => {
-    acc[key] = params[key];
-    return acc;
-  }, {} as Partial<Pen>);
+  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Omit<Pen, 'version'>>).reduce(
+    (acc, key) => {
+      acc[key] = params[key];
+      return acc;
+    },
+    {} as Partial<Pen>,
+  );
 
   // populate params config from query string params
   Object.keys(params).forEach((key) => {
@@ -113,8 +72,8 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
 
   let config: Pen = {
     ...defaultConfig,
-    ...fileConfig,
-    ...userConfig,
+    ...upgradeAndValidate(fileConfig),
+    ...upgradeAndValidate(userConfig),
     ...paramsConfig,
   };
 
@@ -148,7 +107,7 @@ export const loadConfig = async (userConfig: Partial<Pen> = {}) => {
 
   config = {
     ...config,
-    ...importedcode,
+    ...upgradeAndValidate(importedcode),
   };
 
   // TODO: adding this prevents selecting the files to load
