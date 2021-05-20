@@ -4,7 +4,7 @@ export const schemeStarter: Template = {
   name: 'scheme',
   title: 'Scheme Starter',
   thumbnail: 'assets/templates/scheme.svg',
-  language: 'scheme',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

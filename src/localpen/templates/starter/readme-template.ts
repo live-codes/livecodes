@@ -4,7 +4,7 @@ export const readmeTemplate: Template = {
   name: 'readme',
   title: 'README Template',
   thumbnail: 'assets/templates/markdown.svg',
-  language: 'markdown',
+  activeEditor: 'markup',
   markup: {
     language: 'markdown',
     content: `

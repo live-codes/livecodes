@@ -4,7 +4,7 @@ export const stencilStarter: Template = {
   name: 'stencil',
   title: 'Stencil Starter',
   thumbnail: 'assets/templates/stencil.png',
-  language: 'stencil',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: '<my-app title="Stencil"></my-app>\n',

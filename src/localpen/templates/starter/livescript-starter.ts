@@ -4,7 +4,7 @@ export const livescriptStarter: Template = {
   name: 'livescript',
   title: 'LiveScript Starter',
   thumbnail: 'assets/templates/livescript.svg',
-  language: 'livescript',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

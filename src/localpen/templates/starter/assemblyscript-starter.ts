@@ -4,7 +4,7 @@ export const assemblyscriptStarter: Template = {
   name: 'assemblyscript',
   title: 'AssemblyScript Starter',
   thumbnail: 'assets/templates/assemblyscript.svg',
-  language: 'assemblyscript',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

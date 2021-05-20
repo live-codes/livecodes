@@ -4,7 +4,7 @@ export const svelteStarter: Template = {
   name: 'svelte',
   title: 'Svelte Starter',
   thumbnail: 'assets/templates/svelte.svg',
-  language: 'svelte',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: '',

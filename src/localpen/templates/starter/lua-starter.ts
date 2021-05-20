@@ -4,7 +4,7 @@ export const luaStarter: Template = {
   name: 'lua',
   title: 'Lua Starter',
   thumbnail: 'assets/templates/lua.svg',
-  language: 'lua',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

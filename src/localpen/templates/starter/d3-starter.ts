@@ -4,7 +4,7 @@ export const d3Starter: Template = {
   name: 'd3',
   title: 'D3 Starter',
   thumbnail: 'assets/templates/d3.svg',
-  language: 'js',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: '<div id="chart">Loading...</div>\n',

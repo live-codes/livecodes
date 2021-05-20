@@ -4,7 +4,7 @@ export const jqueryStarter: Template = {
   name: 'jquery',
   title: 'jQuery Starter',
   thumbnail: 'assets/templates/jquery.svg',
-  language: 'js',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `

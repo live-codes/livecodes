@@ -4,7 +4,7 @@ export const tailwindcssStarter: Template = {
   name: 'tailwindcss',
   title: 'Tailwind CSS Starter',
   thumbnail: 'assets/templates/tailwindcss.svg',
-  language: 'html',
+  activeEditor: 'markup',
   markup: {
     language: 'html',
     content: `

@@ -4,7 +4,7 @@ export const angularStarter: Template = {
   name: 'angular',
   title: 'Angular Starter',
   thumbnail: 'assets/templates/angular.svg',
-  language: 'ts',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: '<app>Loading...</app>\n',

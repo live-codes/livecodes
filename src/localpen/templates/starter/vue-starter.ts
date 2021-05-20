@@ -4,7 +4,7 @@ export const vueStarter: Template = {
   name: 'vue',
   title: 'Vue 2 Starter',
   thumbnail: 'assets/templates/vue.svg',
-  language: 'js',
+  activeEditor: 'script',
   markup: {
     language: 'html',
     content: `
