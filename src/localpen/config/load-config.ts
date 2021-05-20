@@ -36,14 +36,14 @@ export const loadConfig = async (appConfig: Partial<Pen> = {}) => {
     ...userConfig,
   };
 
-  const paramsConfig = loadParamConfig(config, params);
+  const paramsConfig = upgradeAndValidate(loadParamConfig(config, params));
 
   config = {
     ...config,
     ...paramsConfig,
   };
 
-  const externalContent = await loadExternalContent(config, params);
+  const externalContent = upgradeAndValidate(await loadExternalContent(config, params));
 
   const activeEditor =
     paramsConfig.activeEditor || externalContent.activeEditor || config.activeEditor || 'markup';
@@ -68,7 +68,7 @@ const loadExternalContent = async (config: Pen, params: { [key: string]: string 
   // import code from hash: code / github / github gist / url html / ...etc
   const url = window.location.hash.substring(1);
   if (url) {
-    return upgradeAndValidate(await importCode(url, params, config));
+    return importCode(url, params, config);
   }
 
   // load content from config contentUrl
@@ -105,13 +105,15 @@ const loadParamConfig = (config: Pen, params: { [key: string]: string }) => {
   // ?languages=html,md,css,scss,ts
 
   // initialize paramsConfig with defaultConfig keys and params values
-  let paramsConfig = (Object.keys(defaultConfig) as Array<keyof Omit<Pen, 'version'>>).reduce(
-    (acc, key) => ({
-      ...acc,
-      [key]: params[key],
-    }),
-    {} as Partial<Pen>,
-  );
+  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Pen>)
+    .filter((key) => key !== 'version')
+    .reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: params[key],
+      }),
+      {} as Partial<Pen>,
+    );
 
   // populate params config from query string params
 
@@ -166,6 +168,7 @@ const loadParamConfig = (config: Pen, params: { [key: string]: string }) => {
     ? editorIds[paramsActive]
     : paramsConfig.activeEditor;
 
+  // ?languages=html,md,css,ts
   if (typeof params.languages === 'string') {
     paramsConfig.languages = params.languages
       .split(',')
@@ -173,7 +176,5 @@ const loadParamConfig = (config: Pen, params: { [key: string]: string }) => {
       .filter(Boolean) as Language[];
   }
 
-  // convert params config to a valid config object
-  paramsConfig = upgradeAndValidate(paramsConfig);
   return paramsConfig;
 };
