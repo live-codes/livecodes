@@ -1,4 +1,4 @@
-import { LanguageSpecs, Pen } from '../models';
+import { LanguageSpecs } from '../models';
 import { parserPlugins } from './parser-plugins';
 
 export const scss: LanguageSpecs = {
