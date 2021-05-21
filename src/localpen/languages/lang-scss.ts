@@ -1,4 +1,4 @@
-import { LanguageSpecs, Pen } from '../models';
+import { LanguageSpecs } from '../models';
 import { parserPlugins } from './parser-plugins';
 
 export const scss: LanguageSpecs = {
@@ -19,15 +19,12 @@ export const scss: LanguageSpecs = {
     pluginUrls: [parserPlugins.postcss],
   },
   compiler: {
-    url: 'vendor/sass.js/sass.js',
-    factory: (_: any, config: Pen) => {
+    url: 'vendor/sass.js/sass.sync.js',
+    factory: () => {
       const Sass = (window as any).Sass;
-      const baseUrl = config.baseUrl || '/localpen/';
-      Sass.setWorkerUrl(baseUrl + 'vendor/sass.js/sass.worker.js');
-      const sass = new Sass();
       return (code, options = {}): Promise<string> =>
         new Promise((resolve) => {
-          sass.compile(code, options, (result: string) => {
+          Sass.compile(code, options, (result: string) => {
             resolve(result);
           });
         });
