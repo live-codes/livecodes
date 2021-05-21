@@ -134,7 +134,9 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
-    "setupFiles": ["<rootDir>/.jest/setup.js"],
+    "setupFiles": [
+      "<rootDir>/.jest/setup.js"
+    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/build/",

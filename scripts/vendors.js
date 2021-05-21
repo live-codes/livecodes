@@ -104,12 +104,8 @@ fs.copyFileSync(
 // Sass
 mkdirp(targetDir + '/sass.js');
 fs.copyFileSync(
-  path.resolve(node_modules + '/sass.js/dist/sass.js'),
-  path.resolve(targetDir + '/sass.js/sass.js'),
-);
-fs.copyFileSync(
-  path.resolve(node_modules + '/sass.js/dist/sass.worker.js'),
-  path.resolve(targetDir + '/sass.js/sass.worker.js'),
+  path.resolve(node_modules + '/sass.js/dist/sass.sync.js'),
+  path.resolve(targetDir + '/sass.js/sass.sync.js'),
 );
 
 // Less
