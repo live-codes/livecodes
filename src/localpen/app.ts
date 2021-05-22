@@ -1,5 +1,3 @@
-import Split from 'split.js';
-
 import { createEditor } from './editor';
 import {
   languages,
@@ -27,38 +25,21 @@ import {
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
-import {
-  resultTemplate,
-  importScreen,
-  resourcesScreen,
-  savePromptScreen,
-  templatesScreen,
-  openScreen,
-} from './html';
+import { resultTemplate, resourcesScreen, savePromptScreen, openScreen } from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
-import { defaultConfig, upgradeAndValidate } from './config';
+import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
 import { compress, debounce } from './utils';
 import { getCompiler } from './compiler';
 import { loadTypes } from './load-types';
 import { createResultPage } from './result';
+import * as UI from './UI';
 
-export const app = async (config: Pen) => {
-  // get a fresh immatuable copy of config
-  const getConfig = (): Pen => JSON.parse(JSON.stringify(config));
-
-  const setConfig = (newConfig: Pen) => {
-    config = JSON.parse(JSON.stringify(newConfig));
-  };
-  const elements = {
-    markup: '#markup',
-    style: '#style',
-    script: '#script',
-    result: '#result',
-  };
+export const app = async (config: Readonly<Pen>) => {
+  setConfig(config);
 
   const { baseUrl } = getConfig();
   const storage = createStorage();
@@ -77,68 +58,11 @@ export const app = async (config: Pen) => {
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
 
-  const createSplitPanes = () => {
-    const gutterSize = 10;
-    const split = Split(['#editors', '#output'], {
-      minSize: [0, 0],
-      gutterSize,
-      elementStyle: (_dimension, size, gutterSize) => {
-        window.dispatchEvent(new Event('editor-resize'));
-        return {
-          'flex-basis': `calc(${size}% - ${gutterSize}px)`,
-        };
-      },
-      gutterStyle: (_dimension, gutterSize) => ({
-        'flex-basis': `${gutterSize}px`,
-      }),
-      onDragStart() {
-        setAnimation(false);
-      },
-      onDragEnd() {
-        setAnimation(true);
-      },
-    });
+  const split = UI.createSplitPanes();
 
-    const gutter = document.querySelector('.gutter');
-    if (gutter) {
-      const handle = document.createElement('div');
-      handle.id = 'handle';
-      gutter.appendChild(handle);
-    }
-    return split;
-  };
-  const split = createSplitPanes();
-
-  const setAnimation = (animate: boolean) => {
-    const editorsElement: HTMLElement | null = document.querySelector('#editors');
-    const outputElement: HTMLElement | null = document.querySelector('#output');
-    if (!outputElement || !editorsElement) return;
-
-    if (animate) {
-      editorsElement.style.transition = 'flex-basis 0.5s';
-      outputElement.style.transition = 'flex-basis 0.5s';
-    } else {
-      editorsElement.style.transition = 'none';
-      outputElement.style.transition = 'none';
-    }
-  };
-
-  const showPane = (pane: 'code' | 'output') => {
-    if (!split) return;
-    const smallScreen = window.innerWidth < 800;
-    const codeOpen = smallScreen ? [100, 0] : [50, 50];
-    const outputOpen = smallScreen ? [0, 100] : [50, 50];
-    if (pane === 'code' && split.getSizes()[0] < 10) {
-      split.setSizes(codeOpen);
-    } else if (pane === 'output' && split.getSizes()[1] < 10) {
-      split.setSizes(outputOpen);
-    }
-  };
-
-  function createIframe(container: string, result?: string) {
+  function createIframe(container: HTMLElement, result?: string) {
     return new Promise((resolve) => {
-      const containerEl = document.querySelector(container);
-      if (!containerEl) return;
+      if (!container) return;
 
       const iframe = document.createElement('iframe');
       iframe.setAttribute('allow', 'camera; geolocation; microphone');
@@ -166,8 +90,8 @@ export const app = async (config: Pen) => {
         resolve('loaded');
       });
 
-      containerEl.innerHTML = '';
-      containerEl.appendChild(iframe);
+      container.innerHTML = '';
+      container.appendChild(iframe);
     });
   }
 
@@ -239,7 +163,7 @@ export const app = async (config: Pen) => {
     };
     const markupOptions: EditorOptions = {
       ...baseOptions,
-      container: document.querySelector(elements.markup),
+      container: UI.getMarkupElement(),
       language: languageIsEnabled(config.markup.language, config)
         ? config.markup.language
         : config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') || 'html',
@@ -247,7 +171,7 @@ export const app = async (config: Pen) => {
     };
     const styleOptions: EditorOptions = {
       ...baseOptions,
-      container: document.querySelector(elements.style),
+      container: UI.getStyleElement(),
       language: languageIsEnabled(config.style.language, config)
         ? config.style.language
         : config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') || 'css',
@@ -255,7 +179,7 @@ export const app = async (config: Pen) => {
     };
     const scriptOptions: EditorOptions = {
       ...baseOptions,
-      container: document.querySelector(elements.script),
+      container: UI.getScriptElement(),
       language: languageIsEnabled(config.script.language, config)
         ? config.script.language
         : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
@@ -310,14 +234,14 @@ export const app = async (config: Pen) => {
     };
     const modeConfig = modes[config.mode] || '111';
 
-    const toolbarElement = document.querySelector('#toolbar') as HTMLElement;
-    const editorContainerElement = document.querySelector('#editor-container') as HTMLElement;
-    const editorsElement = document.querySelector('#editors') as HTMLElement;
-    const outputElement = document.querySelector('#output') as HTMLElement;
-    const resultElement = document.querySelector('#result') as HTMLElement;
-    const gutterElement = document.querySelector('.gutter') as HTMLElement;
-    const runButton = document.querySelector('#run-button') as HTMLElement;
-    const codeRunButton = document.querySelector('#code-run-button') as HTMLElement;
+    const toolbarElement = UI.getToolbarElement();
+    const editorContainerElement = UI.getEditorContainerElement();
+    const editorsElement = UI.getEditorsElement();
+    const outputElement = UI.getOutputElement();
+    const resultElement = UI.getResultElement();
+    const gutterElement = UI.getGutterElement();
+    const runButton = UI.getRunButton();
+    const codeRunButton = UI.getCodeRunButton();
 
     const showToolbar = modeConfig[0] === '1';
     const showEditor = modeConfig[1] === '1';
@@ -355,8 +279,8 @@ export const app = async (config: Pen) => {
     window.dispatchEvent(new Event('editor-resize'));
   };
 
-  const showEditor = (editorId: EditorId = 'markup') => {
-    const titles = document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
+  const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
+    const titles = UI.getEditorTitles();
     const editorIsVisible = () =>
       Array.from(titles)
         .map((title) => title.dataset.editor)
@@ -369,19 +293,21 @@ export const app = async (config: Pen) => {
     const activeTitle = document.getElementById(editorId + '-selector');
     activeTitle?.classList.add('active');
 
-    const editorDivs = document.querySelectorAll<HTMLElement>('#editors > div');
+    const editorDivs = UI.getEditorDivs();
     editorDivs.forEach((editor) => (editor.style.display = 'none'));
     const activeEditor = document.getElementById(editorId) as HTMLElement;
     activeEditor.style.display = 'block';
     editors[editorId].focus();
 
-    setConfig({
-      ...getConfig(),
-      activeEditor: editorId,
-    });
+    if (!isUpdate) {
+      setConfig({
+        ...getConfig(),
+        activeEditor: editorId,
+      });
+    }
 
     updateCompiledCode();
-    showPane('code');
+    split.show('code');
   };
 
   const addConsoleInputCodeCompletion = () => {
@@ -409,24 +335,24 @@ export const app = async (config: Pen) => {
     return;
   };
 
-  const changeLanguage = async (editorId: EditorId, language: Language, reload = false) => {
+  const changeLanguage = async (editorId: EditorId, language: Language, isUpdate = false) => {
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
     const editor = editors[editorId];
     editor.setLanguage(language);
     editorLanguages[editorId] = language;
     setEditorTitle(editorId, language);
-    showEditor(editorId);
+    showEditor(editorId, isUpdate);
     phpHelper({ editor: editors.script });
     editor.focus();
     await compiler.load([language], getConfig());
     editor.registerFormatter(await formatter.getFormatFn(language));
-    if (!reload) {
+    if (!isUpdate) {
+      setConfig({
+        ...getConfig(),
+        activeEditor: editorId,
+      });
       await run(editors);
     }
-    setConfig({
-      ...getConfig(),
-      activeEditor: editorId,
-    });
     addConsoleInputCodeCompletion();
   };
 
@@ -464,7 +390,7 @@ export const app = async (config: Pen) => {
     template: string = resultTemplate,
   ) => {
     const getCompiled = (content: string, language: Language) =>
-      compiler.compile(content, language, config);
+      compiler.compile(content, language, getConfig());
 
     const compiledCode = {
       markup: {
@@ -492,7 +418,7 @@ export const app = async (config: Pen) => {
   };
 
   const setLoading = (status: boolean) => {
-    const loading = document.querySelector('#tools-pane-loading') as HTMLElement;
+    const loading = UI.getToolspaneLoader();
     if (!loading) return;
     if (status === true) {
       loading.style.display = 'unset';
@@ -502,7 +428,7 @@ export const app = async (config: Pen) => {
   };
 
   const setProjectTitle = (setDefault = false) => {
-    const projectTitle = document.querySelector('#project-title');
+    const projectTitle = UI.getProjectTitleElement();
     if (!projectTitle) return;
     const defaultTitle = defaultConfig.title;
     if (setDefault && projectTitle.textContent?.trim() === '') {
@@ -537,7 +463,7 @@ export const app = async (config: Pen) => {
   const run = async (editors: Editors) => {
     setLoading(true);
     const result = await getResultPage(editors);
-    await createIframe(elements.result, result);
+    await createIframe(UI.getResultElement(), result);
     updateCompiledCode();
   };
 
@@ -628,7 +554,7 @@ export const app = async (config: Pen) => {
     setConfig({ ...getConfig(), ...content, autosave: false });
 
     // load title
-    const projectTitle = document.querySelector('#project-title') as HTMLElement;
+    const projectTitle = UI.getProjectTitleElement();
     projectTitle.textContent = getConfig().title;
     setWindowTitle();
 
@@ -644,7 +570,7 @@ export const app = async (config: Pen) => {
   const setSavedStatus = (status: boolean) => {
     isSaved = status;
 
-    const projectTitle = document.querySelector('#project-title') as HTMLElement;
+    const projectTitle = UI.getProjectTitleElement();
 
     if (!isSaved) {
       projectTitle.classList.add('unsaved');
@@ -661,35 +587,23 @@ export const app = async (config: Pen) => {
       const div = document.createElement('div');
       div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, 'small');
-      eventsManager.addEventListener(
-        document.querySelector('#modal #prompt-save-btn') as HTMLElement,
-        'click',
-        () => {
-          save(true);
-          if (!doNotCloseModal) {
-            modal.close();
-          }
-          resolve('save');
-        },
-      );
-      eventsManager.addEventListener(
-        document.querySelector('#modal #prompt-donot-save-btn') as HTMLElement,
-        'click',
-        () => {
-          if (!doNotCloseModal) {
-            modal.close();
-          }
-          resolve('do not save');
-        },
-      );
-      eventsManager.addEventListener(
-        document.querySelector('#modal #prompt-cancel-btn') as HTMLElement,
-        'click',
-        () => {
+      eventsManager.addEventListener(UI.getModalSaveButton(), 'click', () => {
+        save(true);
+        if (!doNotCloseModal) {
           modal.close();
-          reject('cancel');
-        },
-      );
+        }
+        resolve('save');
+      });
+      eventsManager.addEventListener(UI.getModalDoNotSaveButton(), 'click', () => {
+        if (!doNotCloseModal) {
+          modal.close();
+        }
+        resolve('do not save');
+      });
+      eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
+        modal.close();
+        reject('cancel');
+      });
     });
   };
 
@@ -728,7 +642,7 @@ export const app = async (config: Pen) => {
 
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
-      const projectTitle = document.querySelector<HTMLElement>('#project-title');
+      const projectTitle = UI.getProjectTitleElement();
       if (!projectTitle) return;
       projectTitle.textContent = getConfig().title || defaultConfig.title;
 
@@ -766,7 +680,7 @@ export const app = async (config: Pen) => {
     };
 
     const handleIframeResize = () => {
-      const gutter = document.querySelector('#editor-container .gutter') as HTMLElement;
+      const gutter = UI.getGutterElement();
       const sizeLabel = document.createElement('div');
       sizeLabel.id = 'size-label';
       gutter.appendChild(sizeLabel);
@@ -778,7 +692,7 @@ export const app = async (config: Pen) => {
       }, 1000);
 
       eventsManager.addEventListener(window, 'message', (event: any) => {
-        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        const iframe = UI.getResultIFrameElement();
         if (
           !sizeLabel ||
           !iframe ||
@@ -796,7 +710,7 @@ export const app = async (config: Pen) => {
     };
 
     const handleSelectEditor = () => {
-      (document.querySelectorAll('.editor-title') as NodeListOf<HTMLElement>).forEach((title) => {
+      UI.getEditorTitles().forEach((title) => {
         eventsManager.addEventListener(
           title,
           'click',
@@ -810,9 +724,7 @@ export const app = async (config: Pen) => {
 
     const handlechangeLanguage = () => {
       if (getConfig().allowLangChange) {
-        (document.querySelectorAll(
-          '#select-editor .language-item a',
-        ) as NodeListOf<HTMLElement>).forEach((menuItem) => {
+        UI.getLanguageMenuLinks().forEach((menuItem) => {
           eventsManager.addEventListener(
             menuItem,
             'mousedown', // fire this event before unhover
@@ -826,9 +738,7 @@ export const app = async (config: Pen) => {
           );
         });
       } else {
-        (document.querySelectorAll(
-          '#select-editor>.language-menu-button',
-        ) as NodeListOf<HTMLElement>).forEach((menuButton) => {
+        UI.getLanguageMenuButtons().forEach((menuButton) => {
           menuButton.style.display = 'none';
         });
       }
@@ -897,41 +807,22 @@ export const app = async (config: Pen) => {
 
     const handleRunButton = () => {
       const handleRun = async () => {
-        showPane('output');
+        split.show('output');
         await run(editors);
       };
-      eventsManager.addEventListener(
-        document.querySelector('#run-button') as HTMLElement,
-        'click',
-        handleRun,
-      );
-      eventsManager.addEventListener(
-        document.querySelector('#code-run-button') as HTMLElement,
-        'click',
-        handleRun,
-      );
+      eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
+      eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
     };
 
     const handleProcessors = () => {
-      const styleMenu = document.querySelector<HTMLElement>('#style-selector .dropdown-menu');
+      const styleMenu = UI.getstyleMenu();
       const pluginList = pluginSpecs.map((plugin) => ({ name: plugin.name, title: plugin.title }));
-
       if (!styleMenu || pluginList.length === 0 || !processorIsEnabled('postcss', getConfig())) {
         return;
       }
 
       pluginList.forEach((plugin) => {
-        const pluginItem = document.createElement('li');
-        pluginItem.classList.add('language-item', 'processor-item');
-        pluginItem.innerHTML = `
-        <label class="switch">
-          <span>${plugin.title}</span>
-          <div>
-            <input id="${plugin.name}" type="checkbox" data-plugin="${plugin.name}" />
-            <span class="slider round"></span>
-          </div>
-        </label>
-        `;
+        const pluginItem = UI.createPluginItem(plugin);
         styleMenu.append(pluginItem);
         eventsManager.addEventListener(
           pluginItem,
@@ -968,9 +859,7 @@ export const app = async (config: Pen) => {
     };
 
     const handleSettings = () => {
-      const toggles = document.querySelectorAll(
-        '#settings-menu input',
-      ) as NodeListOf<HTMLInputElement>;
+      const toggles = UI.getSettingToggles();
       toggles.forEach((toggle) => {
         eventsManager.addEventListener(toggle, 'change', async () => {
           const configKey = toggle.dataset.config;
@@ -990,9 +879,7 @@ export const app = async (config: Pen) => {
         });
       });
 
-      const cssPresets = document.querySelectorAll(
-        '#css-preset-menu a',
-      ) as NodeListOf<HTMLAnchorElement>;
+      const cssPresets = UI.getCssPresetLinks();
       cssPresets.forEach((link) => {
         eventsManager.addEventListener(
           link,
@@ -1021,8 +908,8 @@ export const app = async (config: Pen) => {
       // on small screens the conatiner covers most of the screen
       // which gives the effect of a non-responsive app
 
-      const menuScroller: HTMLElement | null = document.querySelector('#settings-menu-container');
-      const settingsButton: HTMLElement | null = document.querySelector('#settings-button');
+      const menuScroller = UI.getSettingsMenuScroller();
+      const settingsButton = UI.getSettingsButton();
       if (!menuScroller || !settingsButton) return;
 
       eventsManager.addEventListener(menuScroller, 'mousedown', (event) => {
@@ -1037,48 +924,20 @@ export const app = async (config: Pen) => {
 
     const handleNew = () => {
       const createTemplatesUI = () => {
-        const div = document.createElement('div');
-        div.innerHTML = templatesScreen;
-        const templatesContainer = div.firstChild as HTMLElement;
+        const templatesContainer = UI.createTemplatesContainer(eventsManager);
         const noDataMessage = templatesContainer.querySelector('.no-data');
-
-        const tabs = templatesContainer.querySelectorAll(
-          '#templates-tabs li',
-        ) as NodeListOf<HTMLElement>;
-        tabs.forEach((tab) => {
-          eventsManager.addEventListener(tab, 'click', () => {
-            tabs.forEach((t) => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            (document.querySelectorAll(
-              '#templates-screens > div',
-            ) as NodeListOf<HTMLElement>).forEach((screen) => {
-              screen.classList.remove('active');
-            });
-            const target = templatesContainer.querySelector(
-              '#' + tab.dataset.target,
-            ) as HTMLElement;
-            target.classList.add('active');
-            target.querySelector('input')?.focus();
-          });
-        });
-
-        const starterTemplatesList = templatesContainer.querySelector(
-          '#starter-templates-list',
-        ) as HTMLElement;
-        const loadingText = starterTemplatesList.firstElementChild;
+        const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+        const loadingText = starterTemplatesList?.firstElementChild;
         getTemplates()
           .then((starterTemplates) => {
             loadingText?.remove();
 
             starterTemplates.forEach((template) => {
-              const li = document.createElement('li') as HTMLElement;
-              const link = document.createElement('a') as HTMLAnchorElement;
-              link.href = '?template=' + template.name;
-              link.innerHTML = `
-            <img src="${baseUrl + template.thumbnail}" />
-            <div>${template.title}</div>
-            `;
+              const link = UI.createStarterTemplateLink(
+                template,
+                starterTemplatesList,
+                getConfig().baseUrl,
+              );
               eventsManager.addEventListener(
                 link,
                 'click',
@@ -1097,8 +956,6 @@ export const app = async (config: Pen) => {
                 },
                 false,
               );
-              li.appendChild(link);
-              starterTemplatesList.appendChild(li);
             });
           })
           .catch(() => {
@@ -1106,9 +963,7 @@ export const app = async (config: Pen) => {
             notifications.error('Failed loading starter templates');
           });
 
-        const userTemplatesScreen = templatesContainer.querySelector(
-          '#templates-user .modal-screen',
-        ) as HTMLElement;
+        const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
         const userTemplates = templates.getList();
 
         if (userTemplates.length > 0) {
@@ -1176,7 +1031,7 @@ export const app = async (config: Pen) => {
         modal.show(templatesContainer);
       };
       eventsManager.addEventListener(
-        document.querySelector('#new-link') as HTMLElement,
+        UI.getNewLink(),
         'click',
         checkSavedAndExecute(createTemplatesUI),
         false,
@@ -1184,37 +1039,25 @@ export const app = async (config: Pen) => {
     };
 
     const handleSave = () => {
-      eventsManager.addEventListener(
-        document.querySelector('#save-link') as HTMLElement,
-        'click',
-        (event) => {
-          (event as Event).preventDefault();
-          save(true);
-        },
-      );
+      eventsManager.addEventListener(UI.getSaveLink(), 'click', (event) => {
+        (event as Event).preventDefault();
+        save(true);
+      });
     };
 
     const handleFork = () => {
-      eventsManager.addEventListener(
-        document.querySelector('#fork-link') as HTMLElement,
-        'click',
-        (event) => {
-          (event as Event).preventDefault();
-          fork();
-        },
-      );
+      eventsManager.addEventListener(UI.getForkLink(), 'click', (event) => {
+        (event as Event).preventDefault();
+        fork();
+      });
     };
 
     const handleSaveAsTemplate = () => {
-      eventsManager.addEventListener(
-        document.querySelector('#template-link') as HTMLElement,
-        'click',
-        (event) => {
-          (event as Event).preventDefault();
-          templates.addItem(getConfig());
-          notifications.success('Saved as a new template');
-        },
-      );
+      eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', (event) => {
+        (event as Event).preventDefault();
+        templates.addItem(getConfig());
+        notifications.success('Saved as a new template');
+      });
     };
 
     const handleOpen = () => {
@@ -1226,7 +1069,7 @@ export const app = async (config: Pen) => {
         const list = document.createElement('ul') as HTMLElement;
         list.classList.add('open-list');
 
-        const deleteAllButton = listContainer.querySelector('#delete-all-button') as HTMLElement;
+        const deleteAllButton = UI.getDeleteAllButton(listContainer);
         eventsManager.addEventListener(
           deleteAllButton,
           'click',
@@ -1244,20 +1087,7 @@ export const app = async (config: Pen) => {
         const userPens = storage.getList();
 
         userPens.forEach((item) => {
-          const li = document.createElement('li');
-          list.appendChild(li);
-
-          const link = document.createElement('a');
-          link.href = '#';
-          link.dataset.id = item.id;
-          link.classList.add('open-project-link');
-          link.innerHTML = `
-            <div class="open-title">${item.title}</div>
-            <div class="modified-date"><span>Last modified: </span>${new Date(
-              item.lastModified,
-            ).toLocaleString()}</div>
-          `;
-          li.appendChild(link);
+          const { link, deleteButton } = UI.createOpenItem(item, list);
 
           eventsManager.addEventListener(
             link,
@@ -1265,9 +1095,7 @@ export const app = async (config: Pen) => {
             async (event) => {
               event.preventDefault();
 
-              const loading = document.createElement('div');
-              loading.innerHTML = 'Loading...<br /><br />' + item.title + '';
-              loading.className = 'centered';
+              const loading = UI.createItemLoader(item);
               modal.show(loading, 'small');
 
               const itemId = (link as HTMLElement).dataset.id || '';
@@ -1282,9 +1110,6 @@ export const app = async (config: Pen) => {
             false,
           );
 
-          const deleteButton = document.createElement('button');
-          deleteButton.classList.add('delete-button');
-          li.appendChild(deleteButton);
           eventsManager.addEventListener(
             deleteButton,
             'click',
@@ -1293,6 +1118,7 @@ export const app = async (config: Pen) => {
                 penId = '';
               }
               storage.deleteItem(item.id);
+              const li = deleteButton.parentElement as HTMLElement;
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
@@ -1318,7 +1144,7 @@ export const app = async (config: Pen) => {
       };
 
       eventsManager.addEventListener(
-        document.querySelector('#open-link') as HTMLElement,
+        UI.getOpenLink(),
         'click',
         checkSavedAndExecute(createList),
         false,
@@ -1327,34 +1153,15 @@ export const app = async (config: Pen) => {
 
     const handleImport = () => {
       const createImportUI = () => {
-        const div = document.createElement('div');
-        div.innerHTML = importScreen;
-        const importContainer = div.firstChild as HTMLElement;
+        const importContainer = UI.createImportContainer(eventsManager);
 
-        const tabs = importContainer.querySelectorAll('#import-tabs li') as NodeListOf<HTMLElement>;
-        tabs.forEach((tab) => {
-          eventsManager.addEventListener(tab, 'click', () => {
-            tabs.forEach((t) => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            (document.querySelectorAll('#import-screens > div') as NodeListOf<HTMLElement>).forEach(
-              (screen) => {
-                screen.classList.remove('active');
-              },
-            );
-            const target = importContainer.querySelector('#' + tab.dataset.target) as HTMLElement;
-            target.classList.add('active');
-            target.querySelector('input')?.focus();
-          });
-        });
-
-        const importForm = importContainer.querySelector('#url-import-form') as HTMLInputElement;
-        const importButton = importContainer.querySelector('#url-import-btn') as HTMLInputElement;
+        const importForm = UI.getUrlImportForm(importContainer);
+        const importButton = UI.getUrlImportButton(importContainer);
         eventsManager.addEventListener(importForm, 'submit', async (e) => {
           e.preventDefault();
           importButton.innerHTML = 'Loading...';
           importButton.disabled = true;
-          const url = (importContainer.querySelector('#code-url') as HTMLInputElement).value;
+          const url = UI.getUrlImportInput(importContainer).value;
           const imported = await importCode(url, {}, defaultConfig);
           if (imported && Object.keys(imported).length > 0) {
             await loadConfig(
@@ -1370,17 +1177,13 @@ export const app = async (config: Pen) => {
           modal.close();
         });
 
-        const importJsonUrlForm = importContainer.querySelector(
-          '#json-url-import-form',
-        ) as HTMLInputElement;
-        const importJsonUrlButton = importContainer.querySelector(
-          '#json-url-import-btn',
-        ) as HTMLInputElement;
+        const importJsonUrlForm = UI.getImportJsonUrlForm(importContainer);
+        const importJsonUrlButton = UI.getImportJsonUrlButton(importContainer);
         eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
           e.preventDefault();
           importJsonUrlButton.innerHTML = 'Loading...';
           importJsonUrlButton.disabled = true;
-          const url = (importContainer.querySelector('#json-url') as HTMLInputElement).value;
+          const url = UI.getImportJsonUrlInput(importContainer).value;
           const fileConfig = await fetch(url)
             .then((res) => res.json())
             .catch(() => {
@@ -1394,7 +1197,7 @@ export const app = async (config: Pen) => {
           modal.close();
         });
 
-        const fileInput = importContainer.querySelector('#file-input') as HTMLInputElement;
+        const fileInput = UI.getImportFileInput(importContainer);
 
         eventsManager.addEventListener(fileInput, 'change', () => {
           if (fileInput.files?.length === 0) return;
@@ -1438,11 +1241,11 @@ export const app = async (config: Pen) => {
         });
 
         modal.show(importContainer);
-        (importContainer.querySelector('#code-url') as HTMLInputElement).focus();
+        UI.getUrlImportInput(importContainer).focus();
       };
 
       eventsManager.addEventListener(
-        document.querySelector('#import-link') as HTMLElement,
+        UI.getImportLink(),
         'click',
         checkSavedAndExecute(createImportUI),
         false,
@@ -1451,7 +1254,7 @@ export const app = async (config: Pen) => {
 
     const handleExport = () => {
       eventsManager.addEventListener(
-        document.querySelector('#export-menu #export-json') as HTMLAnchorElement,
+        UI.getExportJSONLink(),
         'click',
         (event: Event) => {
           event.preventDefault();
@@ -1462,7 +1265,7 @@ export const app = async (config: Pen) => {
       );
 
       eventsManager.addEventListener(
-        document.querySelector('#export-menu #export-result') as HTMLAnchorElement,
+        UI.getExportResultLink(),
         'click',
         async (event: Event) => {
           event.preventDefault();
@@ -1474,7 +1277,7 @@ export const app = async (config: Pen) => {
 
       let JSZip: any;
       eventsManager.addEventListener(
-        document.querySelector('#export-menu #export-src') as HTMLAnchorElement,
+        UI.getExportSourceLink(),
         'click',
         async (event: Event) => {
           event.preventDefault();
@@ -1486,7 +1289,7 @@ export const app = async (config: Pen) => {
       );
 
       eventsManager.addEventListener(
-        document.querySelector('#export-menu #export-codepen') as HTMLAnchorElement,
+        UI.getExportCodepenLink(),
         'click',
         () => {
           update();
@@ -1496,7 +1299,7 @@ export const app = async (config: Pen) => {
       );
 
       eventsManager.addEventListener(
-        document.querySelector('#export-menu #export-jsfiddle') as HTMLAnchorElement,
+        UI.getExportJsfiddleLink(),
         'click',
         () => {
           update();
@@ -1508,7 +1311,7 @@ export const app = async (config: Pen) => {
 
     const handleShare = () => {
       eventsManager.addEventListener(
-        document.querySelector('#share-link') as HTMLAnchorElement,
+        UI.getShareLink(),
         'click',
         (event: Event) => {
           event.preventDefault();
@@ -1525,9 +1328,7 @@ export const app = async (config: Pen) => {
         const resourcesContainer = div.firstChild as HTMLElement;
         modal.show(resourcesContainer);
 
-        const externalResources = resourcesContainer.querySelectorAll(
-          '#resources-container textarea',
-        ) as NodeListOf<HTMLTextAreaElement>;
+        const externalResources = UI.getExternalResourcesTextareas();
         externalResources.forEach((textarea) => {
           const resourceContent = getConfig()[
             textarea.dataset.resource as 'stylesheets' | 'scripts'
@@ -1535,33 +1336,27 @@ export const app = async (config: Pen) => {
           textarea.value = resourceContent.length !== 0 ? resourceContent.join('\n') + '\n' : '';
         });
 
-        resourcesContainer.querySelector('textarea')?.focus();
+        externalResources[0]?.focus();
 
-        eventsManager.addEventListener(
-          resourcesContainer.querySelector(
-            '#resources-container #resources-load-btn',
-          ) as HTMLElement,
-          'click',
-          async () => {
-            externalResources.forEach((textarea) => {
-              const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
-              setConfig({
-                ...getConfig(),
-                [resource]:
-                  textarea.value
-                    ?.split('\n')
-                    .map((x) => x.trim())
-                    .filter((x) => x !== '') || [],
-              });
+        eventsManager.addEventListener(UI.getLoadResourcesButton(), 'click', async () => {
+          externalResources.forEach((textarea) => {
+            const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
+            setConfig({
+              ...getConfig(),
+              [resource]:
+                textarea.value
+                  ?.split('\n')
+                  .map((x) => x.trim())
+                  .filter((x) => x !== '') || [],
             });
-            setSavedStatus(false);
-            modal.close();
-            await run(editors);
-          },
-        );
+          });
+          setSavedStatus(false);
+          modal.close();
+          await run(editors);
+        });
       };
       eventsManager.addEventListener(
-        document.querySelector('#external-resources-link') as HTMLElement,
+        UI.getExternalResourcesLink(),
         'click',
         createExrenalResourcesUI,
         false,
@@ -1570,7 +1365,7 @@ export const app = async (config: Pen) => {
 
     const handleResultLoading = () => {
       eventsManager.addEventListener(window, 'message', (event: any) => {
-        const iframe = document.querySelector(elements.result + ' > iframe') as HTMLIFrameElement;
+        const iframe = UI.getResultIFrameElement();
         if (!iframe || event.source !== iframe.contentWindow) {
           return;
         }
@@ -1623,37 +1418,31 @@ export const app = async (config: Pen) => {
   };
 
   const loadSettings = (config: Pen) => {
-    const autoupdateToggle = document.querySelector(
-      '#settings-menu input#autoupdate',
-    ) as HTMLInputElement;
+    const autoupdateToggle = UI.getAutoupdateToggle();
     autoupdateToggle.checked = config.autoupdate;
 
-    const autosaveToggle = document.querySelector(
-      '#settings-menu input#autosave',
-    ) as HTMLInputElement;
+    const autosaveToggle = UI.getAutosaveToggle();
     autosaveToggle.checked = config.autosave;
 
-    const processorToggles = document.querySelectorAll<HTMLInputElement>('#style-selector input');
+    const processorToggles = UI.getProcessorToggles();
     processorToggles.forEach((toggle) => {
       const plugin = toggle.dataset.plugin as PluginName;
       if (!plugin) return;
       toggle.checked = config.processors.postcss[plugin];
     });
 
-    const emmetToggle = document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
+    const emmetToggle = UI.getEmmetToggle();
     emmetToggle.checked = config.emmet;
 
-    (document.querySelectorAll('#css-preset-menu a') as NodeListOf<HTMLAnchorElement>).forEach(
-      (link) => {
-        link.classList.remove('active');
-        if (config.cssPreset === link.dataset.preset) {
-          link.classList.add('active');
-        }
-        if (!config.cssPreset && link.dataset.preset === 'none') {
-          link.classList.add('active');
-        }
-      },
-    );
+    UI.getCSSPresetLinks().forEach((link) => {
+      link.classList.remove('active');
+      if (config.cssPreset === link.dataset.preset) {
+        link.classList.add('active');
+      }
+      if (!config.cssPreset && link.dataset.preset === 'none') {
+        link.classList.add('active');
+      }
+    });
   };
 
   const showLanguageInfo = (languageInfo: HTMLElement) => {
@@ -1681,7 +1470,7 @@ export const app = async (config: Pen) => {
   };
 
   async function bootstrap(reload = false) {
-    await createIframe(elements.result);
+    await createIframe(UI.getResultElement());
 
     if (!reload) {
       createLanguageMenus(getConfig(), eventsManager, showLanguageInfo, loadStarterTemplate);
