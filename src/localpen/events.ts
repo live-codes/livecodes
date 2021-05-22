@@ -6,11 +6,12 @@ export const createEventsManager = () => {
   }> = [];
 
   const addEventListener = (
-    element: HTMLElement | Document | Window | FileReader,
+    element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
     fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
     _options?: any,
   ) => {
+    if (!element) return;
     element.addEventListener(eventType, fn, false);
     events.push({
       element,
