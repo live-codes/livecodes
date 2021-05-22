@@ -18,7 +18,7 @@ export const importFromGithubGist = async (url: string, params: { [key: string]:
         Object.values(files).map((file: any) => {
           const lang = file.language;
           const extension = file.filename.split('.')[file.filename.split('.').length - 1];
-          const language = getLanguageByAlias(lang) || getLanguageByAlias(extension);
+          const language = getLanguageByAlias(extension) || getLanguageByAlias(lang);
 
           return {
             ...file,

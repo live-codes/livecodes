@@ -29,6 +29,7 @@ export const createTemplatesContainer = (eventsManager: ReturnType<typeof create
 export const createStarterTemplateLink = (
   template: Template,
   starterTemplatesList: HTMLElement | null,
+  baseUrl: string,
 ) => {
   const li = document.createElement('li') as HTMLElement;
   const link = document.createElement('a') as HTMLAnchorElement;
@@ -41,9 +42,3 @@ export const createStarterTemplateLink = (
   starterTemplatesList?.appendChild(li);
   return link;
 };
-
-export const getStarterTemplatesList = () =>
-  document.querySelector<HTMLElement>('#starter-templates-list');
-
-export const getUserTemplatesScreen = () =>
-  document.querySelector('#templates-user .modal-screen') as HTMLElement;

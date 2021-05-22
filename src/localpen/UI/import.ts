@@ -25,16 +25,3 @@ export const createImportContainer = (eventsManager: ReturnType<typeof createEve
 
   return importContainer;
 };
-
-export const getUrlImportForm = () => document.querySelector<HTMLFormElement>('#url-import-form');
-export const getUrlImportButton = () =>
-  document.querySelector('#url-import-btn') as HTMLButtonElement;
-export const getUrlImportInput = () => document.querySelector('#code-url') as HTMLInputElement;
-
-export const getImportJsonUrlForm = () =>
-  document.querySelector('#json-url-import-form') as HTMLInputElement;
-export const getImportJsonUrlButton = () =>
-  document.querySelector('#json-url-import-btn') as HTMLInputElement;
-export const getImportJsonUrlInput = () => document.querySelector('#json-url') as HTMLInputElement;
-
-export const getImportFileInput = () => document.querySelector('#file-input') as HTMLInputElement;

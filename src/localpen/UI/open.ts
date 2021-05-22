@@ -23,3 +23,10 @@ export const createOpenItem = (
 
   return { link, deleteButton };
 };
+
+export const createItemLoader = (item: { title: string }) => {
+  const loading = document.createElement('div');
+  loading.innerHTML = 'Loading...<br /><br />' + item.title + '';
+  loading.className = 'centered';
+  return loading;
+};
