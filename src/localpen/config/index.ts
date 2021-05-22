@@ -7,11 +7,11 @@ import { validateConfig } from './validate-config';
 export const upgradeAndValidate = (config: Partial<Pen>) =>
   validateConfig(upgradeConfig(config as any));
 
-let config: Pen;
+let appConfig: Pen;
 
 // get a fresh immatuable copy of config
-export const getConfig = (): Pen => JSON.parse(JSON.stringify(config));
+export const getConfig = (): Pen => JSON.parse(JSON.stringify(appConfig));
 
 export const setConfig = (newConfig: Pen) => {
-  config = JSON.parse(JSON.stringify(newConfig));
+  appConfig = JSON.parse(JSON.stringify(newConfig));
 };

@@ -7,20 +7,18 @@ export const createTemplatesContainer = (eventsManager: ReturnType<typeof create
   div.innerHTML = templatesScreen;
   const templatesContainer = div.firstChild as HTMLElement;
 
-  const tabs = templatesContainer.querySelectorAll('#templates-tabs li') as NodeListOf<HTMLElement>;
+  const tabs = templatesContainer.querySelectorAll<HTMLElement>('#templates-tabs li');
   tabs.forEach((tab) => {
     eventsManager.addEventListener(tab, 'click', () => {
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
-      (document.querySelectorAll('#templates-screens > div') as NodeListOf<HTMLElement>).forEach(
-        (screen) => {
-          screen.classList.remove('active');
-        },
-      );
-      const target = templatesContainer.querySelector('#' + tab.dataset.target) as HTMLElement;
-      target.classList.add('active');
-      target.querySelector('input')?.focus();
+      document.querySelectorAll('#templates-screens > div').forEach((screen) => {
+        screen.classList.remove('active');
+      });
+      const target = templatesContainer.querySelector('#' + tab.dataset.target);
+      target?.classList.add('active');
+      target?.querySelector('input')?.focus();
     });
   });
   return templatesContainer;
@@ -31,8 +29,8 @@ export const createStarterTemplateLink = (
   starterTemplatesList: HTMLElement | null,
   baseUrl: string,
 ) => {
-  const li = document.createElement('li') as HTMLElement;
-  const link = document.createElement('a') as HTMLAnchorElement;
+  const li = document.createElement('li');
+  const link = document.createElement('a');
   link.href = '?template=' + template.name;
   link.innerHTML = `
 <img src="${baseUrl + template.thumbnail}" />
