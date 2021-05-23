@@ -27,6 +27,8 @@ export interface Pen {
       postcssPresetEnv: boolean;
     };
   };
+  imports: { [key: string]: string };
+  types: Array<string | { [key: string]: string }>;
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   readonly version: string;
   showVersion: boolean;

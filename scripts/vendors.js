@@ -380,3 +380,14 @@ esbuild.buildSync({
   format: 'esm',
   logLevel: 'error',
 });
+
+// es-module-shims
+mkdirp(targetDir + '/es-module-shims');
+fs.copyFileSync(
+  path.resolve(node_modules + '/es-module-shims/dist/es-module-shims.min.js'),
+  path.resolve(targetDir + '/es-module-shims/es-module-shims.min.js'),
+);
+fs.copyFileSync(
+  path.resolve(node_modules + '/es-module-shims/dist/es-module-shims.min.js.map'),
+  path.resolve(targetDir + '/es-module-shims/es-module-shims.min.js.map'),
+);

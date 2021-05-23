@@ -76,6 +76,7 @@ export const app = async (config: Readonly<Pen>) => {
       const { mode } = getConfig();
       if (mode !== 'codeblock' && mode !== 'editor') {
         iframe.src = baseUrl + 'assets/result.html';
+        // iframe.src = 'http://localhost:8080/localpen/assets/result.html';
       }
 
       let loaded = false;

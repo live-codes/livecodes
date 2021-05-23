@@ -1,4 +1,4 @@
-import { hasImports } from '../compiler';
+import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { EditorId, Language, Pen } from '../models';
 import { getAbsoluteUrl, isRelativeUrl } from '../utils';
@@ -51,6 +51,23 @@ export const createResultPage = (code: Code, config: Pen, forExport: boolean, te
     const utilsScript = dom.createElement('script');
     utilsScript.src = absoluteBaseUrl + 'assets/scripts/utils.js';
     dom.head.appendChild(utilsScript);
+  }
+
+  // import maps
+  const importMaps = {
+    ...(hasImports(code.script.content) ? createImportMap(code.script.content, config) : {}),
+    ...(code.markup.language === 'mdx' ? createImportMap(code.markup.content, config) : {}),
+  };
+  if (Object.keys(importMaps).length > 0) {
+    const esModuleShims = dom.createElement('script');
+    esModuleShims.src = absoluteBaseUrl + 'vendor/es-module-shims/es-module-shims.min.js';
+    esModuleShims.async = true;
+    dom.head.appendChild(esModuleShims);
+
+    const importMapsScript = dom.createElement('script');
+    importMapsScript.type = 'importmap';
+    importMapsScript.innerHTML = `{"imports": ${JSON.stringify(importMaps, null, 2)}}`;
+    dom.head.appendChild(importMapsScript);
   }
 
   // editor markup (MDX is added to the script not page markup)

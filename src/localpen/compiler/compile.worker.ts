@@ -2,7 +2,6 @@ import { languages, processors } from '../languages';
 import { Compilers, Pen } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
-import { replaceImports } from './replace-imports';
 declare const importScripts: (...args: string[]) => void;
 
 let compilers: Compilers;
@@ -67,40 +66,40 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       value = await compiler(content);
       break;
     case 'javascript':
-      value = compiler(replaceImports(content, config));
+      value = compiler(content);
       break;
     case 'babel':
-      value = compiler(replaceImports(content, config), {
+      value = compiler(content, {
         presets: [['env', { modules: false }], 'react'],
       }).code;
       break;
     case 'typescript':
-      value = compiler(replaceImports(content, config), typescriptOptions);
+      value = compiler(content, typescriptOptions);
       break;
     case 'mdx':
       await loadLanguageCompiler('typescript', config);
       const typescriptCompiler = compilers.typescript?.fn;
       if (!typescriptCompiler) throw new Error('Failed to load compiler for: mdx');
       const compiledMdx = await compiler(content);
-      value = typescriptCompiler(replaceImports(compiledMdx, config), typescriptOptions);
+      value = typescriptCompiler(compiledMdx, typescriptOptions);
       break;
     case 'vue':
-      value = compiler(replaceImports(content, config));
+      value = compiler(content);
       break;
     case 'vue2':
-      value = compiler(replaceImports(content, config));
+      value = compiler(content);
       break;
     case 'svelte':
-      value = replaceImports(compiler(content), config);
+      value = compiler(content);
       break;
     case 'stencil':
-      value = replaceImports(await compiler(content), config);
+      value = await compiler(content);
       break;
     case 'coffeescript':
-      value = compiler(replaceImports(content, config), { bare: true });
+      value = compiler(content, { bare: true });
       break;
     case 'livescript':
-      value = compiler(replaceImports(content, config), { bare: true });
+      value = compiler(content, { bare: true });
       break;
     case 'assemblyscript':
       value = compiler(content);

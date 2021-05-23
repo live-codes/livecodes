@@ -36,6 +36,8 @@ export const defaultConfig: Pen = {
   scripts: [],
   cssPreset: '',
   modules: [],
+  imports: {},
+  types: [],
   processors: {
     postcss: {
       autoprefixer: false,
