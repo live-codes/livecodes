@@ -32,6 +32,30 @@ const upgradeSteps = [
         delete config.language;
       }
 
+      if ('modules' in config) {
+        const imports = {
+          ...config.modules.reduce(
+            (acc, mod) => ({
+              ...acc,
+              ...(mod.url ? { [mod.name]: mod.url } : {}),
+            }),
+            {} as Record<string, string>,
+          ),
+        };
+        if (Object.keys(imports).length > 0) {
+          config.imports = imports;
+        }
+
+        const types = [
+          ...config.modules.map((mod) => ({
+            ...(mod.typesUrl ? { [mod.name]: mod.typesUrl } : {}),
+          })),
+        ];
+        if (types.length > 0) {
+          config.types = types;
+        }
+        // delete config.modules;
+      }
       return {
         ...config,
         version,

@@ -511,6 +511,8 @@ export const app = async (config: Readonly<Pen>) => {
     scripts: config.scripts,
     cssPreset: config.cssPreset,
     modules: config.modules,
+    imports: config.imports,
+    types: config.types,
     processors: config.processors,
     version: config.version,
   });

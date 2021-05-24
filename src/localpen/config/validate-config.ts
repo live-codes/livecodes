@@ -57,6 +57,8 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
     ...(is(config.cssPreset, 'string') ? { cssPreset: config.cssPreset } : {}),
     ...(is(config.processors, 'object') ? { processors: config.processors } : {}),
     ...(includes(editors, config.editor) ? { editor: config.editor } : {}),
+    ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
+    ...(is(config.types, 'array') ? { types: config.types } : {}),
     ...(is(config.modules, 'array') ? { modules: config.modules } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),
     ...(is(config.showVersion, 'boolean') ? { showVersion: config.showVersion } : {}),
