@@ -1,6 +1,6 @@
 import { getLanguageByAlias } from '../languages';
 import { Pen, Template } from '../models';
-import { getAbsoluteUrl } from '../utils';
+import { getAbsoluteUrl, objectMap } from '../utils';
 
 const mapBaseUrl = (content: string, baseUrl: string) =>
   content.replace(/{{ __localpen_baseUrl__ }}/g, getAbsoluteUrl(baseUrl));
@@ -43,11 +43,8 @@ export const getStarterTemplates = async (config: Pen): Promise<Template[]> =>
         ...template.script,
         content: mapBaseUrl(template.script.content || '', config.baseUrl),
       },
-      modules: template.modules.map((module) => ({
-        ...module,
-        url: mapBaseUrl(module.url || '', config.baseUrl),
-        typesUrl: mapBaseUrl(module.typesUrl || '', config.baseUrl),
-      })),
+      imports: objectMap(template.imports, (url) => mapBaseUrl(url || '', config.baseUrl)),
+      types: objectMap(template.types, (url) => mapBaseUrl(url || '', config.baseUrl)),
     }));
 
 export const getTemplate = async (name: string, config: Pen) =>

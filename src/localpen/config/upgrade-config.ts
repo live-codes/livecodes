@@ -32,10 +32,15 @@ const upgradeSteps = [
         delete config.language;
       }
 
+      interface Module {
+        name: string;
+        url?: string;
+        typesUrl?: string;
+      }
       if ('modules' in config) {
         const imports = {
           ...config.modules.reduce(
-            (acc, mod) => ({
+            (acc: Record<string, string>, mod: Module) => ({
               ...acc,
               ...(mod.url ? { [mod.name]: mod.url } : {}),
             }),
@@ -46,15 +51,19 @@ const upgradeSteps = [
           config.imports = imports;
         }
 
-        const types = [
-          ...config.modules.map((mod) => ({
-            ...(mod.typesUrl ? { [mod.name]: mod.typesUrl } : {}),
-          })),
-        ];
-        if (types.length > 0) {
+        const types = {
+          ...config.modules.reduce(
+            (acc: Record<string, string>, mod: Module) => ({
+              ...acc,
+              ...(mod.typesUrl ? { [mod.name]: mod.typesUrl } : {}),
+            }),
+            {} as Record<string, string>,
+          ),
+        };
+        if (Object.keys(types).length > 0) {
           config.types = types;
         }
-        // delete config.modules;
+        delete config.modules;
       }
       return {
         ...config,

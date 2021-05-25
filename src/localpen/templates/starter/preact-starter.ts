@@ -49,5 +49,6 @@ render(html\`<\${App} name="Preact" />\`, document.querySelector("#app"));
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

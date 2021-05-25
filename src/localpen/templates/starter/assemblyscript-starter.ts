@@ -66,5 +66,6 @@ export function increment(num: i32): i32 {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

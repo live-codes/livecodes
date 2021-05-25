@@ -119,5 +119,6 @@ body {
   stylesheets: [],
   scripts: [],
   cssPreset: 'github-markdown-css',
-  modules: [],
+  imports: {},
+  types: {},
 };

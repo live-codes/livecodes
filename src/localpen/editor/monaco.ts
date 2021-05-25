@@ -2,9 +2,9 @@
 import * as Monaco from 'monaco-editor'; // only for typescript types
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
+import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Types } from '../models';
 import { getLanguageExtension, mapLanguage } from '../languages';
-import { loadTypes } from '../load-types';
+import { loadTypes } from '../types';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl, readonly } = options;
@@ -108,7 +108,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
   const loadModuleTypes = () => {
-    let types: any[] = [];
+    let types: Types = {};
     if (language === 'tsx' || language === 'jsx') {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...compilerOptions,
@@ -117,10 +117,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         reactNamespace: 'React',
       });
       if (language === 'tsx') {
-        types = [
-          { name: 'react', typesUrl: `${baseUrl}types/react.d.ts` },
-          { name: 'react-dom', typesUrl: `${baseUrl}types/react-dom.d.ts` },
-        ];
+        types = {
+          react: `${baseUrl}types/react.d.ts`,
+          'react-dom': `${baseUrl}types/react-dom.d.ts`,
+        };
       }
     }
     if (language === 'stencil') {
@@ -130,10 +130,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         jsxFactory: undefined,
         reactNamespace: 'h',
       });
-      types = [{ name: '@stencil/core', typesUrl: `${baseUrl}types/stencil-core.d.ts` }];
+      types = { '@stencil/core': `${baseUrl}types/stencil-core.d.ts` };
     }
     if (language === 'assemblyscript') {
-      types = [{ name: 'assemblyscript', typesUrl: `${baseUrl}types/assemblyscript.d.ts` }];
+      types = { assemblyscript: `${baseUrl}types/assemblyscript.d.ts` };
     }
 
     loadTypes(types).then((dts) =>

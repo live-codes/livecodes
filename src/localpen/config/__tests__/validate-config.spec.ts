@@ -52,6 +52,8 @@ describe('validateConfig', () => {
       scripts: [],
       cssPreset: '',
       modules: [],
+      imports: {},
+      types: {},
     };
 
     const correctConfig: any = {
@@ -82,7 +84,8 @@ describe('validateConfig', () => {
         selector: '',
       },
       cssPreset: '',
-      modules: [],
+      imports: {},
+      types: {},
     };
     const invalidConfig = {
       all: 'properties',

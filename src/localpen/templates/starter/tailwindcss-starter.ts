@@ -406,5 +406,6 @@ document.getElementById("nav-toggle").onclick = function () {
   stylesheets: ['https://unpkg.com/tailwindcss/dist/tailwind.min.css'],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

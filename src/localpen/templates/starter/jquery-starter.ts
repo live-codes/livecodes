@@ -46,5 +46,6 @@ $("#counter-button").click(() => {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

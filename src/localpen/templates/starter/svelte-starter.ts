@@ -46,5 +46,6 @@ export const svelteStarter: Template = {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

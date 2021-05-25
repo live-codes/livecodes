@@ -120,3 +120,13 @@ export const isRelativeUrl = (url: string) => !url.startsWith('http');
 
 export const getAbsoluteUrl = (baseUrl: string) =>
   isRelativeUrl(baseUrl) ? new URL(baseUrl, document.baseURI).href : baseUrl;
+
+export const objectMap = (
+  obj: Record<string, any>,
+  fn: (value: any, key: string, index: number) => any,
+) => Object.fromEntries(Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)]));
+
+export const objectFilter = (
+  obj: Record<string, any>,
+  predicate: (value: any, key: string, index: number) => any,
+) => Object.fromEntries(Object.entries(obj).filter(([k, v], i) => predicate(v, k, i)));

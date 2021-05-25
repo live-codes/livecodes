@@ -2,10 +2,14 @@ import { Pen } from '../models';
 
 export const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
+export const getImports = (code: string) =>
+  [...code.matchAll(new RegExp(importsPattern))].map((arr) =>
+    arr[2].replace(/"/g, '').replace(/'/g, ''),
+  );
+
 export const createImportMap = (code: string, config: Pen) =>
-  [...code.matchAll(new RegExp(importsPattern))]
-    .map((arr) => {
-      const libName = arr[2].replace(/"/g, '').replace(/'/g, '');
+  getImports(code)
+    .map((libName) => {
       if (libName.startsWith('http') || libName.startsWith('.') || libName.startsWith('/')) {
         return {};
       } else {
