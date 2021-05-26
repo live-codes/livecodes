@@ -14,7 +14,7 @@ export const createImportMap = (code: string, config: Pen) =>
         return {};
       } else {
         const key = Object.keys(config.imports).find(
-          (key) => key === libName || libName.startsWith(key + '/'),
+          (mod) => mod === libName || libName.startsWith(mod + '/'),
         );
         if (key) {
           return { [key]: config.imports[key] };
@@ -35,7 +35,7 @@ export const replaceImports = (code: string, config: Pen) => {
       .replace(/'/g, '');
 
     const key = Object.keys(importMap).find(
-      (key) => key === libName || libName.startsWith(key + '/'),
+      (mod) => mod === libName || libName.startsWith(mod + '/'),
     );
     if (!key) {
       return statement;
