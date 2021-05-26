@@ -56,5 +56,6 @@ export const vueSfcStarter: Template = {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

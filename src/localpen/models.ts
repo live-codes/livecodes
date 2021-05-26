@@ -20,13 +20,14 @@ export interface Pen {
   stylesheets: string[];
   scripts: string[];
   cssPreset: CssPresetId;
-  modules: Module[];
   processors: {
     postcss: {
       autoprefixer: boolean;
       postcssPresetEnv: boolean;
     };
   };
+  imports: { [key: string]: string };
+  types: { [key: string]: string };
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   readonly version: string;
   showVersion: boolean;
@@ -105,10 +106,8 @@ export interface EditorLanguages {
   script: Language;
 }
 
-export interface Module {
-  name: string;
-  url?: string;
-  typesUrl?: string;
+export interface Types {
+  [key: string]: string;
 }
 
 export interface LanguageSpecs {
@@ -207,7 +206,8 @@ export interface Template {
   stylesheets: string[];
   scripts: string[];
   cssPreset: CssPresetId;
-  modules: Module[];
+  imports: { [key: string]: string };
+  types: { [key: string]: string };
 }
 
 export interface Tool {

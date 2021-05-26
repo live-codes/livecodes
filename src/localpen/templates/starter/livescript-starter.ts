@@ -54,5 +54,6 @@ button.addEventListener \\click,
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

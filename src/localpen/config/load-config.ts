@@ -2,6 +2,7 @@ import { importCode } from '../import';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { EditorId, Language, Pen } from '../models';
 import { getTemplate } from '../templates';
+import { getDefaultTypes } from '../types';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
@@ -53,6 +54,8 @@ export const loadConfig = async (appConfig: Partial<Pen> = {}) => {
     ...externalContent,
     activeEditor,
   };
+
+  config.types = { ...getDefaultTypes(config.baseUrl), ...config.types };
 
   return config;
 };

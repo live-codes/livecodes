@@ -55,5 +55,6 @@ export class App {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

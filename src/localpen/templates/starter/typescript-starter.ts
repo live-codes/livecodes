@@ -49,5 +49,6 @@ button.addEventListener(
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

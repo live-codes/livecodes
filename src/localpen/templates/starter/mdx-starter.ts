@@ -60,5 +60,6 @@ export function Counter(props) {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

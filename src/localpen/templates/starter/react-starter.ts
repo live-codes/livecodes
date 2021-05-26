@@ -46,5 +46,6 @@ ReactDOM.render(<App name="React" />, document.querySelector("#app"));
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

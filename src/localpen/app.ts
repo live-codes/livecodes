@@ -21,6 +21,7 @@ import {
   Pen,
   Template,
   ToolList,
+  Types,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -32,9 +33,9 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, debounce } from './utils';
+import { compress, debounce, objectFilter } from './utils';
 import { getCompiler } from './compiler';
-import { loadTypes } from './load-types';
+import { detectTypes, loadTypes } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 
@@ -97,10 +98,21 @@ export const app = async (config: Readonly<Pen>) => {
 
   const compiler = getCompiler(getConfig());
 
-  const loadModules = async (config: Pen) => {
-    if (editors.script && typeof editors.script.addTypes === 'function') {
-      const libs = await loadTypes(config.modules);
+  let loadedTypes: Types = {};
+  const loadModuleTypes = async (editors: Editors, config: Pen) => {
+    if (
+      editors.script &&
+      editors.script.getLanguage() === 'typescript' &&
+      typeof editors.script.addTypes === 'function'
+    ) {
+      const typesInCode = detectTypes(editors.script.getValue(), config);
+      const types = objectFilter(
+        typesInCode,
+        (_url, mod) => !Object.keys(loadedTypes).includes(mod),
+      );
+      const libs = await loadTypes(types);
       libs.forEach((lib) => editors.script.addTypes?.(lib));
+      loadedTypes = { ...loadedTypes, ...types };
     }
   };
 
@@ -509,7 +521,8 @@ export const app = async (config: Readonly<Pen>) => {
     stylesheets: config.stylesheets,
     scripts: config.scripts,
     cssPreset: config.cssPreset,
-    modules: config.modules,
+    imports: config.imports,
+    types: config.types,
     processors: config.processors,
     version: config.version,
   });
@@ -757,6 +770,8 @@ export const app = async (config: Readonly<Pen>) => {
         if (getConfig().autosave) {
           save();
         }
+
+        loadModuleTypes(editors, getConfig());
       };
 
       const debouncecontentChanged = debounce(async () => {
@@ -1495,7 +1510,7 @@ export const app = async (config: Readonly<Pen>) => {
     phpHelper({ editor: editors.script });
     setLoading(true);
 
-    await loadModules(getConfig());
+    await loadModuleTypes(editors, getConfig());
     await setActiveEditor(getConfig());
     loadSettings(getConfig());
     configureEmmet(getConfig());

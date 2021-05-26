@@ -90,18 +90,14 @@ platformBrowserDynamic()
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [
-    { name: '@angular/core', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-core.d.ts' },
-    { name: '@angular/common', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-common.d.ts' },
-    {
-      name: '@angular/platform-browser',
-      typesUrl: '{{ __localpen_baseUrl__ }}types/ng-platform-browser.d.ts',
-    },
-    {
-      name: '@angular/platform-browser-dynamic',
-      typesUrl: '{{ __localpen_baseUrl__ }}types/ng-platform-browser-dynamic.d.ts',
-    },
-    { name: '@angular/forms', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-forms.d.ts' },
-    { name: '@angular/animations', typesUrl: '{{ __localpen_baseUrl__ }}types/ng-animations.d.ts' },
-  ],
+  imports: {},
+  types: {
+    '@angular/core': '{{ __localpen_baseUrl__ }}types/ng-core.d.ts',
+    '@angular/common': '{{ __localpen_baseUrl__ }}types/ng-common.d.ts',
+    '@angular/platform-browser': '{{ __localpen_baseUrl__ }}types/ng-platform-browser.d.ts',
+    '@angular/platform-browser-dynamic':
+      '{{ __localpen_baseUrl__ }}types/ng-platform-browser-dynamic.d.ts',
+    '@angular/forms': '{{ __localpen_baseUrl__ }}types/ng-forms.d.ts',
+    '@angular/animations': '{{ __localpen_baseUrl__ }}types/ng-animations.d.ts',
+  },
 };

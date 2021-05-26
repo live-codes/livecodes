@@ -52,5 +52,6 @@ export const schemeStarter: Template = {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

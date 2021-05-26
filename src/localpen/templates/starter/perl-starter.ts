@@ -78,5 +78,6 @@ if ($hour < 12) {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  modules: [],
+  imports: {},
+  types: {},
 };

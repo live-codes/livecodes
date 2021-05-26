@@ -51,7 +51,13 @@ describe('upgradeConfig', () => {
       stylesheets: [],
       scripts: [],
       cssPreset: '',
-      modules: [],
+      modules: [
+        {
+          name: 'mylib',
+          url: 'https://mycdn.com/mylib-url',
+          typesUrl: 'https://mycdn.com/mylib-typesUrl',
+        },
+      ],
     };
 
     const newConfig: any = {
@@ -88,7 +94,12 @@ describe('upgradeConfig', () => {
       stylesheets: [],
       scripts: [],
       cssPreset: '',
-      modules: [],
+      imports: {
+        mylib: 'https://mycdn.com/mylib-url',
+      },
+      types: {
+        mylib: 'https://mycdn.com/mylib-typesUrl',
+      },
       processors: {
         postcss: {
           autoprefixer: true,
