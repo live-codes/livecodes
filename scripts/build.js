@@ -1,7 +1,6 @@
 var esbuild = require('esbuild');
 var fs = require('fs');
 var path = require('path');
-var URL = require('url');
 
 /** @param {string} dir */
 function mkdirp(dir) {
