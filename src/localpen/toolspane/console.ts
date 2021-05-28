@@ -6,6 +6,7 @@ import { isMobile } from '../utils';
 
 export const createConsole = (
   config: Pen,
+  baseUrl: string,
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
 ): Tool => {
@@ -110,7 +111,7 @@ export const createConsole = (
     if (!container) throw new Error('Console input container not found');
 
     const editorOptions: EditorOptions = {
-      baseUrl: config.baseUrl,
+      baseUrl,
       container,
       language: 'javascript',
       value: '',

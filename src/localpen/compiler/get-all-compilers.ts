@@ -1,7 +1,11 @@
 import { languageIsEnabled, processors } from '../languages';
 import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors } from '../models';
 
-export const getAllCompilers = (languages: Array<LanguageSpecs | Processors>, config: Pen) =>
+export const getAllCompilers = (
+  languages: Array<LanguageSpecs | Processors>,
+  config: Pen,
+  baseUrl: string,
+) =>
   languages
     .filter(
       (language) =>
@@ -10,7 +14,6 @@ export const getAllCompilers = (languages: Array<LanguageSpecs | Processors>, co
     )
     .reduce((compilers, language) => {
       if (language.compiler && !compilers[language.name]) {
-        const baseUrl = config.baseUrl;
         if (typeof language.compiler === 'string') {
           const compiler = languages.find((lang) => lang.name === (language.compiler as Language))
             ?.compiler as Compiler;

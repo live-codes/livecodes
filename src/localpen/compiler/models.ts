@@ -22,6 +22,7 @@ export type CompilerMessage =
 export interface InitMessage {
   type: 'init';
   payload: Pen;
+  baseUrl: string;
 }
 
 export interface LoadMessage {

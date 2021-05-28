@@ -9,9 +9,13 @@ let compilers: Compilers;
 const worker: Worker = self as any;
 (self as any).window = self;
 
-const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) => {
+const loadLanguageCompiler = async (
+  language: LanguageOrProcessor,
+  config: Pen,
+  baseUrl: string,
+) => {
   if (!compilers) {
-    compilers = getAllCompilers([...languages, ...processors], config);
+    compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
   }
 
   const languageCompiler = compilers[language];
@@ -26,7 +30,12 @@ const loadLanguageCompiler = async (language: LanguageOrProcessor, config: Pen) 
   worker.postMessage(loadedMessage);
 };
 
-const compile = async (content: string, language: LanguageOrProcessor, config: Pen) => {
+const compile = async (
+  content: string,
+  language: LanguageOrProcessor,
+  config: Pen,
+  baseUrl: string,
+) => {
   const compiler = compilers[language]?.fn || ((...args: any[]) => args[0]);
   if (typeof compiler !== 'function') {
     throw new Error('Failed to load compiler for: ' + language);
@@ -77,7 +86,7 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
       value = compiler(content, typescriptOptions);
       break;
     case 'mdx':
-      await loadLanguageCompiler('typescript', config);
+      await loadLanguageCompiler('typescript', config, baseUrl);
       const typescriptCompiler = compilers.typescript?.fn;
       if (!typescriptCompiler) throw new Error('Failed to load compiler for: mdx');
       const compiledMdx = await compiler(content);
@@ -126,7 +135,7 @@ const compile = async (content: string, language: LanguageOrProcessor, config: P
     // Post-processors
     case 'postcss':
       try {
-        value = await compiler(content, config);
+        value = await compiler(content, config, baseUrl);
       } catch (err) {
         // eslint-disable-next-line no-console
         console.warn('PostCSS transformation failed.', err);
@@ -145,21 +154,22 @@ worker.addEventListener(
   'message',
   async (event: CompilerMessageEvent) => {
     const message = event.data;
-
+    let baseUrl = self.location.href.split('/').slice(0, -1).join('/') + '/';
     if (message.type === 'init') {
       const config = message.payload;
-      compilers = getAllCompilers([...languages, ...processors], config);
+      baseUrl = message.baseUrl;
+      compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
     }
 
     if (message.type === 'load') {
       const { language, config } = message.payload;
-      await loadLanguageCompiler(language, config);
+      await loadLanguageCompiler(language, config, baseUrl);
     }
 
     if (message.type === 'compile') {
       const { content, language, config } = message.payload;
       try {
-        const compiled = await compile(content, language, config);
+        const compiled = await compile(content, language, config, baseUrl);
         const compiledMessage: CompilerMessage = {
           type: 'compiled',
           payload: { language, content, compiled },

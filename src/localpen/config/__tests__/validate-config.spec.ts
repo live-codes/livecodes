@@ -57,7 +57,6 @@ describe('validateConfig', () => {
     };
 
     const correctConfig: any = {
-      baseUrl: '/localpen/',
       autosave: false,
       emmet: true,
       mode: 'full',

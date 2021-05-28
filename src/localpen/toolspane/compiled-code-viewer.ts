@@ -5,6 +5,7 @@ import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
 
 export const createCompiledCodeViewer = (
   config: Pen,
+  baseUrl: string,
   _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,
 ): Tool => {
@@ -42,7 +43,7 @@ export const createCompiledCodeViewer = (
     if (editor) return editor;
 
     const editorOptions: EditorOptions = {
-      baseUrl: config.baseUrl,
+      baseUrl,
       container: compiledCodeElement,
       language: 'javascript',
       value: '',

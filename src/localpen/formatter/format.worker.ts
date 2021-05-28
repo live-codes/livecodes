@@ -78,8 +78,7 @@ worker.addEventListener(
     const message = event.data;
 
     if (message.type === 'init') {
-      const config = message.payload;
-      baseUrl = config.baseUrl;
+      baseUrl = message.baseUrl;
     }
 
     if (message.type === 'load') {

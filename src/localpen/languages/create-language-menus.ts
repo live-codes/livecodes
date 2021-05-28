@@ -6,6 +6,7 @@ import { languageIsEnabled, processorIsEnabled } from './utils';
 
 export const createLanguageMenus = (
   config: Pen,
+  baseUrl: string,
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: string) => void,
@@ -29,7 +30,7 @@ export const createLanguageMenus = (
           width="20"
           height="20"
           style="filter: invert(1)"
-          src="${config.baseUrl}assets/images/down_arrow.svg"
+          src="${baseUrl}assets/images/down_arrow.svg"
         />
       </a>
     `;

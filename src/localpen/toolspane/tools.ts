@@ -5,10 +5,11 @@ import { Editors, Pen, ToolList, ToolsPaneStatus } from '../models';
 export const createToolsPane = (
   toolList: ToolList,
   config: Pen,
+  baseUrl: string,
   editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
 ) => {
-  const tools = toolList.map((tool) => tool.factory(config, editors, eventsManager));
+  const tools = toolList.map((tool) => tool.factory(config, baseUrl, editors, eventsManager));
 
   let toolsSplit: Split.Instance;
   let status: ToolsPaneStatus;

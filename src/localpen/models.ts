@@ -1,7 +1,6 @@
 import { createEventsManager } from './events';
 
 export interface Pen {
-  baseUrl: string;
   title: string;
   autoupdate: boolean;
   autosave: boolean;
@@ -223,6 +222,7 @@ export type ToolList = Array<{
   name: 'console' | 'compiled';
   factory: (
     config: Pen,
+    baseUrl: string,
     editors: Editors,
     eventsManager: ReturnType<typeof createEventsManager>,
   ) => Tool;

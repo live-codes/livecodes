@@ -5,14 +5,14 @@ import { getAbsoluteUrl, objectMap } from '../utils';
 const mapBaseUrl = (content: string, baseUrl: string) =>
   content.replace(/{{ __localpen_baseUrl__ }}/g, getAbsoluteUrl(baseUrl));
 
-const loadTemplates = async (config: Pen): Promise<Template[]> =>
-  (await import(config.baseUrl + 'templates.js')).starterTemplates;
+const loadTemplates = async (baseUrl: string): Promise<Template[]> =>
+  (await import(baseUrl + 'templates.js')).starterTemplates;
 
 /**
  * get starter templates with languages that are enabled in the current config
  */
-export const getStarterTemplates = async (config: Pen): Promise<Template[]> =>
-  (await loadTemplates(config))
+export const getStarterTemplates = async (config: Pen, baseUrl: string): Promise<Template[]> =>
+  (await loadTemplates(baseUrl))
     .filter((template) => {
       const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
       if (!enabledLanguages) return true;
@@ -33,21 +33,21 @@ export const getStarterTemplates = async (config: Pen): Promise<Template[]> =>
       ...template,
       markup: {
         ...template.markup,
-        content: mapBaseUrl(template.markup.content || '', config.baseUrl),
+        content: mapBaseUrl(template.markup.content || '', baseUrl),
       },
       style: {
         ...template.style,
-        content: mapBaseUrl(template.style.content || '', config.baseUrl),
+        content: mapBaseUrl(template.style.content || '', baseUrl),
       },
       script: {
         ...template.script,
-        content: mapBaseUrl(template.script.content || '', config.baseUrl),
+        content: mapBaseUrl(template.script.content || '', baseUrl),
       },
-      imports: objectMap(template.imports, (url) => mapBaseUrl(url || '', config.baseUrl)),
-      types: objectMap(template.types, (url) => mapBaseUrl(url || '', config.baseUrl)),
+      imports: objectMap(template.imports, (url) => mapBaseUrl(url || '', baseUrl)),
+      types: objectMap(template.types, (url) => mapBaseUrl(url || '', baseUrl)),
     }));
 
-export const getTemplate = async (name: string, config: Pen) =>
-  (await getStarterTemplates(config)).filter(
+export const getTemplate = async (name: string, config: Pen, baseUrl: string) =>
+  (await getStarterTemplates(config, baseUrl)).filter(
     (template) => template.name.toLowerCase() === name.toLowerCase(),
   )[0];

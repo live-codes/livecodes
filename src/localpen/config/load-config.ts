@@ -7,7 +7,12 @@ import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const loadConfig = async (appConfig: Partial<Pen> = {}) => {
+export const loadConfig = async (appConfig: Partial<Pen>, baseUrl: string) => {
+  if (!appConfig) return { ...defaultConfig };
+  if (!baseUrl) {
+    baseUrl = '/localpen/';
+  }
+
   const userConfig = upgradeAndValidate(appConfig);
 
   // get query string params
@@ -44,7 +49,7 @@ export const loadConfig = async (appConfig: Partial<Pen> = {}) => {
     ...paramsConfig,
   };
 
-  const externalContent = upgradeAndValidate(await loadExternalContent(config, params));
+  const externalContent = upgradeAndValidate(await loadExternalContent(config, baseUrl, params));
 
   const activeEditor =
     paramsConfig.activeEditor || externalContent.activeEditor || config.activeEditor || 'markup';
@@ -55,15 +60,21 @@ export const loadConfig = async (appConfig: Partial<Pen> = {}) => {
     activeEditor,
   };
 
-  config.types = { ...getDefaultTypes(config.baseUrl), ...config.types };
+  config.types = { ...getDefaultTypes(baseUrl), ...config.types };
 
   return config;
 };
 
-const loadExternalContent = async (config: Pen, params: { [key: string]: string }) => {
+const loadExternalContent = async (
+  config: Pen,
+  baseUrl: string,
+  params: { [key: string]: string },
+) => {
   // load a starter template
   const templateName = params.template;
-  const templateConfig = templateName ? await getTemplate(templateName, config) : undefined;
+  const templateConfig = templateName
+    ? await getTemplate(templateName, config, baseUrl)
+    : undefined;
   if (templateConfig) {
     return templateConfig;
   }

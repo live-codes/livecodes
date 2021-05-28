@@ -71,19 +71,19 @@ export const postcss: Processors = {
         }
       };
 
-      const getPlugins = (config: Pen) => {
+      const getPlugins = (config: Pen, baseUrl: string) => {
         const configPlugins = config.processors.postcss;
         const isEnabled = (pluginName: PluginName) => configPlugins[pluginName] === true;
         const pluginNames = (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
-        pluginNames.forEach((pluginName) => loadPlugin(pluginName, config.baseUrl));
+        pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
           .map((specs) => loadedPlugins[specs.name]);
       };
 
-      return async function process(code: string, config?: Pen): Promise<string> {
-        if (!config) return code;
-        const plugins = getPlugins(config);
+      return async function process(code: string, config?: Pen, baseUrl?: string): Promise<string> {
+        if (!config || !baseUrl) return code;
+        const plugins = getPlugins(config, baseUrl);
         return (await (self as any).postcss.postcss(plugins).process(code, postCssOptions)).css;
       };
     },
