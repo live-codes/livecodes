@@ -18,7 +18,7 @@
     "build": "run-s clean build:* copy:*",
     "build:lib": "node ./scripts/build.js",
     "build:ts": "tsc --emitDeclarationOnly --outFile build/localpen/index.d.ts",
-    "build:web": "parcel build --out-dir build src/index.html src/index2.html src/embed.html src/content.html",
+    "build:web": "parcel build --out-dir build src/index.html",
     "build:styles": "sass src/localpen/styles:build/localpen/styles --style=compressed --no-source-map=true && postcss build/localpen/styles/*.css --replace --no-map --use autoprefixer",
     "build:api-docs": "typedoc --entryPoints src/localpen/index.ts --entryPoints src/localpen/app.ts --entryPoints src/localpen/_modules.ts --out build/api-docs --exclude **/*.spec.ts --plugin none",
     "copy:assets": "recursive-copy src/localpen/assets build/localpen/assets",
