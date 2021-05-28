@@ -8,7 +8,7 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     if (!containerElement) {
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
-    const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/'; // '/localpen/'
+    const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/';
     const mergedConfig = await loadConfig(config, baseUrl);
 
     if (mergedConfig.showVersion) {

@@ -154,7 +154,7 @@ worker.addEventListener(
   'message',
   async (event: CompilerMessageEvent) => {
     const message = event.data;
-    let baseUrl = '/localpen/';
+    let baseUrl = self.location.href.split('/').slice(0, -1).join('/') + '/';
     if (message.type === 'init') {
       const config = message.payload;
       baseUrl = message.baseUrl;
