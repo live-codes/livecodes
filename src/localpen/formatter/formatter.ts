@@ -1,9 +1,9 @@
-import { FormatFn, Language, Pen } from '../models';
+import { FormatFn, Language } from '../models';
 import { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 
-export const createFormatter = (config: Pen): Formatter => {
-  const worker = new Worker(config.baseUrl + 'format.worker.js');
-  const configMessage: FormatterMessage = { type: 'init', payload: config };
+export const createFormatter = (baseUrl: string): Formatter => {
+  const worker = new Worker(baseUrl + 'format.worker.js');
+  const configMessage: FormatterMessage = { type: 'init', baseUrl };
   worker.postMessage(configMessage);
 
   const load = async (languages: Language[]): Promise<string> =>

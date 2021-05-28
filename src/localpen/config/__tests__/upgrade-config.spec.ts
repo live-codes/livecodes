@@ -61,7 +61,6 @@ describe('upgradeConfig', () => {
     };
 
     const newConfig: any = {
-      baseUrl: '/localpen/',
       title: 'Untitled Project',
       autoupdate: true,
       autosave: false,

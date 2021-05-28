@@ -2,13 +2,13 @@ import { Language, Pen } from '../models';
 import { createFormatter } from './formatter';
 import { Formatter } from './models';
 
-export const getFormatter = (config: Pen): Formatter => {
+export const getFormatter = (config: Pen, baseUrl: string): Formatter => {
   const { editor, readonly, mode } = config;
 
   if (readonly || editor === 'prism' || mode === 'codeblock' || mode === 'result') {
     return createFakeFormatter();
   } else {
-    return createFormatter(config);
+    return createFormatter(baseUrl);
   }
 };
 

@@ -1,4 +1,4 @@
-import { FormatFn, Language, Pen } from '../models';
+import { FormatFn, Language } from '../models';
 
 export interface Formatter {
   load: (languages: Language[]) => Promise<string>;
@@ -20,7 +20,7 @@ export type FormatterMessage =
 
 export interface InitMessage {
   type: 'init';
-  payload: Pen;
+  baseUrl: string;
 }
 
 export interface LoadMessage {

@@ -10,11 +10,11 @@ import { Language, Pen, Compilers, EditorId } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
-export const createCompiler = (config: Pen): Compiler => {
-  const compilers = getAllCompilers([...languages, ...processors], config);
+export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
+  const compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
 
-  const worker = new Worker(config.baseUrl + 'compile.worker.js');
-  const configMessage: CompilerMessage = { type: 'init', payload: config };
+  const worker = new Worker(baseUrl + 'compile.worker.js');
+  const configMessage: CompilerMessage = { type: 'init', payload: config, baseUrl };
   worker.postMessage(configMessage);
 
   const createLanguageCompiler = (language: LanguageOrProcessor) => (

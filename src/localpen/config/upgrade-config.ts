@@ -18,8 +18,8 @@ const upgradeSteps = [
         config.processors.postcss.autoprefixer = config.autoprefixer;
         delete config.autoprefixer;
       }
-      if ('baseUrl' in config && !config.baseUrl.endsWith('/')) {
-        config.baseUrl += '/';
+      if ('baseUrl' in config) {
+        delete config.baseUrl;
       }
       if ('cssPreset' in config && config.cssPreset === null) {
         config.cssPreset = '';

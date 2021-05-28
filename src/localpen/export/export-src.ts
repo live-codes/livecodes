@@ -2,9 +2,13 @@ import { getLanguageExtension } from '../languages';
 import { EditorId, Pen } from '../models';
 import { downloadFile } from './utils';
 
-export const exportSrc = async (config: Pen, { JSZip, html, editors, getEditorLanguage }: any) => {
+export const exportSrc = async (
+  config: Pen,
+  { JSZip, html, editors, getEditorLanguage }: any,
+  baseUrl?: string,
+) => {
   if (!JSZip) {
-    JSZip = (await import(config.baseUrl + 'vendor/jszip/jszip.js')).default;
+    JSZip = (await import(baseUrl + 'vendor/jszip/jszip.js')).default;
   }
 
   const zip = new JSZip();

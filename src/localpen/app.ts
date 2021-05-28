@@ -39,13 +39,12 @@ import { detectTypes, loadTypes } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 
-export const app = async (config: Readonly<Pen>) => {
+export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   setConfig(config);
 
-  const { baseUrl } = getConfig();
   const storage = createStorage();
   const templates = createStorage('__localpen_templates__');
-  const formatter = getFormatter(getConfig());
+  const formatter = getFormatter(getConfig(), baseUrl);
   let editors: Editors;
   let penId: string;
   let editorLanguages: EditorLanguages;
@@ -96,7 +95,7 @@ export const app = async (config: Readonly<Pen>) => {
     });
   }
 
-  const compiler = getCompiler(getConfig());
+  const compiler = getCompiler(getConfig(), baseUrl);
 
   let loadedTypes: Types = {};
   const loadModuleTypes = async (editors: Editors, config: Pen) => {
@@ -167,7 +166,7 @@ export const app = async (config: Readonly<Pen>) => {
 
   const createEditors = async (config: Pen) => {
     const baseOptions = {
-      baseUrl: config.baseUrl,
+      baseUrl,
       mode: config.mode,
       readonly: config.readonly,
       editor: config.editor,
@@ -426,7 +425,7 @@ export const app = async (config: Readonly<Pen>) => {
       script: compiledCode.script.content,
     };
 
-    return createResultPage(compiledCode, getConfig(), forExport, template);
+    return createResultPage(compiledCode, getConfig(), forExport, template, baseUrl);
   };
 
   const setLoading = (status: boolean) => {
@@ -649,7 +648,7 @@ export const app = async (config: Readonly<Pen>) => {
     if (starterTemplates) {
       return starterTemplates;
     }
-    starterTemplates = await getStarterTemplates(getConfig());
+    starterTemplates = await getStarterTemplates(getConfig(), baseUrl);
     return starterTemplates;
   };
 
@@ -948,11 +947,7 @@ export const app = async (config: Readonly<Pen>) => {
             loadingText?.remove();
 
             starterTemplates.forEach((template) => {
-              const link = UI.createStarterTemplateLink(
-                template,
-                starterTemplatesList,
-                getConfig().baseUrl,
-              );
+              const link = UI.createStarterTemplateLink(template, starterTemplatesList, baseUrl);
               eventsManager.addEventListener(
                 link,
                 'click',
@@ -1274,7 +1269,7 @@ export const app = async (config: Readonly<Pen>) => {
         (event: Event) => {
           event.preventDefault();
           update();
-          exportPen(getConfig(), 'json');
+          exportPen(getConfig(), baseUrl, 'json');
         },
         false,
       );
@@ -1285,7 +1280,7 @@ export const app = async (config: Readonly<Pen>) => {
         async (event: Event) => {
           event.preventDefault();
           update();
-          exportPen(getConfig(), 'html', await getResultPage(editors, true));
+          exportPen(getConfig(), baseUrl, 'html', await getResultPage(editors, true));
         },
         false,
       );
@@ -1298,7 +1293,7 @@ export const app = async (config: Readonly<Pen>) => {
           event.preventDefault();
           update();
           const html = await getResultPage(editors, true);
-          exportPen(getConfig(), 'src', { JSZip, html, editors, getEditorLanguage });
+          exportPen(getConfig(), baseUrl, 'src', { JSZip, html, editors, getEditorLanguage });
         },
         false,
       );
@@ -1308,7 +1303,7 @@ export const app = async (config: Readonly<Pen>) => {
         'click',
         () => {
           update();
-          exportPen(getConfig(), 'codepen');
+          exportPen(getConfig(), baseUrl, 'codepen');
         },
         false,
       );
@@ -1318,7 +1313,7 @@ export const app = async (config: Readonly<Pen>) => {
         'click',
         () => {
           update();
-          exportPen(getConfig(), 'jsfiddle');
+          exportPen(getConfig(), baseUrl, 'jsfiddle');
         },
         false,
       );
@@ -1488,7 +1483,13 @@ export const app = async (config: Readonly<Pen>) => {
     await createIframe(UI.getResultElement());
 
     if (!reload) {
-      createLanguageMenus(getConfig(), eventsManager, showLanguageInfo, loadStarterTemplate);
+      createLanguageMenus(
+        getConfig(),
+        baseUrl,
+        eventsManager,
+        showLanguageInfo,
+        loadStarterTemplate,
+      );
       editors = await createEditors(getConfig());
 
       const toolList: ToolList = [
@@ -1501,7 +1502,7 @@ export const app = async (config: Readonly<Pen>) => {
           factory: createCompiledCodeViewer,
         },
       ];
-      toolsPane = createToolsPane(toolList, getConfig(), editors, eventsManager);
+      toolsPane = createToolsPane(toolList, getConfig(), baseUrl, editors, eventsManager);
       attachEventListeners(editors);
     } else {
       await updateEditors(editors, getConfig());

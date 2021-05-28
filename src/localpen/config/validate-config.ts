@@ -15,8 +15,6 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
 
   const includes = (arr: any[], x: any) => x != null && arr.includes(x);
 
-  const validateBaseUrl = (url: string) => (url.endsWith('/') ? url : url + '/');
-
   const modes = ['full', 'editor', 'codeblock', 'result'];
   const toolsPaneStatus = ['', 'full', 'closed', 'open', 'none'];
   const editors = ['monaco', 'codemirror', 'prism', ''];
@@ -36,7 +34,6 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
   });
 
   return {
-    ...(is(config.baseUrl, 'string') ? { baseUrl: validateBaseUrl(config.baseUrl as string) } : {}),
     ...(is(config.title, 'string') ? { title: config.title } : {}),
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),

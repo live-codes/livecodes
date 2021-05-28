@@ -2,12 +2,12 @@ import { Language, Pen } from '../models';
 import { createCompiler } from './create-compiler';
 import { Compiler, LanguageOrProcessor } from './models';
 
-export const getCompiler = (config: Pen): Compiler => {
+export const getCompiler = (config: Pen, baseUrl: string): Compiler => {
   const { mode } = config;
   if (mode === 'codeblock' || mode === 'editor') {
     return createFakeCompiler();
   } else {
-    return createCompiler(config);
+    return createCompiler(config, baseUrl);
   }
 };
 

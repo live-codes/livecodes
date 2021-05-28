@@ -7,8 +7,14 @@ type Code = {
   [key in EditorId]: { language: Language; content: string };
 };
 
-export const createResultPage = (code: Code, config: Pen, forExport: boolean, template: string) => {
-  const absoluteBaseUrl = getAbsoluteUrl(config.baseUrl);
+export const createResultPage = (
+  code: Code,
+  config: Pen,
+  forExport: boolean,
+  template: string,
+  baseUrl: string,
+) => {
+  const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(template, 'text/html');

@@ -8,9 +8,8 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     if (!containerElement) {
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
-
-    const mergedConfig = await loadConfig(config);
-    const { baseUrl } = mergedConfig;
+    const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/'; // '/localpen/'
+    const mergedConfig = await loadConfig(config, baseUrl);
 
     if (mergedConfig.showVersion) {
       // variables added in scripts/build.js
@@ -57,7 +56,7 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     iframe.addEventListener('load', async () => {
       const app = (iframe.contentWindow as any)?.app;
       if (typeof app === 'function') {
-        const pen = await app(mergedConfig);
+        const pen = await app(mergedConfig, baseUrl);
         iframe.style.display = 'block';
 
         // eslint-disable-next-line no-underscore-dangle

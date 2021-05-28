@@ -7,9 +7,9 @@ import { exportSrc } from './export-src';
 
 type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle';
 type ExportFunctions = {
-  [key in ExportType]: (config: Pen, payload?: any) => void;
+  [key in ExportType]: (config: Pen, payload?: any, baseUrl?: string) => void;
 };
-export const exportPen = (config: Pen, type: ExportType, payload?: any) => {
+export const exportPen = (config: Pen, baseUrl: string, type: ExportType, payload?: any) => {
   const exportFns: ExportFunctions = {
     json: exportJSON,
     src: exportSrc,
@@ -18,5 +18,5 @@ export const exportPen = (config: Pen, type: ExportType, payload?: any) => {
     jsfiddle: exportJsfiddle,
   };
 
-  exportFns[type](config, payload);
+  exportFns[type](config, payload, baseUrl);
 };

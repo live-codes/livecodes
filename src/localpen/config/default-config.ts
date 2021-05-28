@@ -1,7 +1,6 @@
 import { Pen } from '../models';
 
 export const defaultConfig: Pen = {
-  baseUrl: '/localpen/',
   title: 'Untitled Project',
   autoupdate: true,
   autosave: false,
