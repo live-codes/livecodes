@@ -58,6 +58,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
 
+  const resultPage = {
+    url: 'https://result.localpen.io/v1/',
+    origin: 'https://result.localpen.io',
+  };
   const split = UI.createSplitPanes();
 
   function createIframe(container: HTMLElement, result?: string) {
@@ -70,12 +74,12 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       iframe.setAttribute('allowtransparency', 'true');
       iframe.setAttribute(
         'sandbox',
-        'allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
 
       const { mode } = getConfig();
       if (mode !== 'codeblock' && mode !== 'editor') {
-        iframe.src = baseUrl + 'assets/result.html';
+        iframe.src = resultPage.url;
       }
 
       let loaded = false;
@@ -85,7 +89,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           return; // prevent infinite loop
         }
 
-        iframe.contentWindow?.postMessage({ result }, '*');
+        iframe.contentWindow?.postMessage({ result }, resultPage.origin);
         loaded = true;
         resolve('loaded');
       });

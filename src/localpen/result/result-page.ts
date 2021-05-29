@@ -55,7 +55,7 @@ export const createResultPage = (
     dom.body.innerHTML = '';
   } else {
     const utilsScript = dom.createElement('script');
-    utilsScript.src = absoluteBaseUrl + 'assets/scripts/utils.js';
+    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
     dom.head.appendChild(utilsScript);
   }
 
