@@ -114,7 +114,7 @@ esbuild.buildSync({
   entryPoints: ['src/localpen/result/result-utils.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/assets/scripts/utils.js',
+  outfile: 'build/localpen/result-utils.js',
   format: 'iife',
 });
 

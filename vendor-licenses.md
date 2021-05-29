@@ -22,6 +22,8 @@ CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f64
 
 emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b578210738fb591c65fb34530d28c0d0341fbb7d/LICENSE)
 
+ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blob/986733009f4c9374decd4c0348740134ff499157/LICENSE)
+
 fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/a9fb130f6851206e8a57be902af061e980be5610/LICENSE)
 
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)

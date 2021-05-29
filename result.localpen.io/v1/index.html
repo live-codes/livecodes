@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LocalPen</title>
     <script>
-      window.addEventListener('message', (event) => {
-        if (event.origin.startsWith(location.origin) && event.data.result) {
+      window.addEventListener('message', function (event) {
+        if (event.data.result) {
           document.write(event.data.result);
           document.close();
         }
