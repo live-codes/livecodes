@@ -2,8 +2,18 @@ import { getLanguageByAlias } from '../languages';
 import { Pen, Template } from '../models';
 import { getAbsoluteUrl, objectMap } from '../utils';
 
-const mapBaseUrl = (content: string, baseUrl: string) =>
-  content.replace(/{{ __localpen_baseUrl__ }}/g, getAbsoluteUrl(baseUrl));
+const mapBaseUrl = (content: any, baseUrl: string) => {
+  const replaceUrl = (url: any) =>
+    url.replace(/{{ __localpen_baseUrl__ }}/g, getAbsoluteUrl(baseUrl));
+  if (typeof content === 'string') {
+    return replaceUrl(content);
+  } else {
+    return {
+      ...content,
+      url: replaceUrl(content.url),
+    };
+  }
+};
 
 const loadTemplates = async (baseUrl: string): Promise<Template[]> =>
   (await import(baseUrl + 'templates.js')).starterTemplates;

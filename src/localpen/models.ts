@@ -26,7 +26,7 @@ export interface Pen {
     };
   };
   imports: { [key: string]: string };
-  types: { [key: string]: string };
+  types: Types;
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   readonly version: string;
   showVersion: boolean;
@@ -106,8 +106,16 @@ export interface EditorLanguages {
 }
 
 export interface Types {
-  [key: string]: string;
+  [key: string]: TypeValue;
 }
+
+export type TypeValue =
+  | string
+  | {
+      url: string;
+      declareAsModule?: boolean;
+      autoload?: boolean;
+    };
 
 export interface LanguageSpecs {
   name: Language;
@@ -206,7 +214,7 @@ export interface Template {
   scripts: string[];
   cssPreset: CssPresetId;
   imports: { [key: string]: string };
-  types: { [key: string]: string };
+  types: Types;
 }
 
 export interface Tool {

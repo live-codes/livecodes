@@ -56,5 +56,10 @@ export class App {
   scripts: [],
   cssPreset: '',
   imports: {},
-  types: {},
+  types: {
+    '@stencil/core': {
+      url: `{{ __localpen_baseUrl__ }}types/stencil-core.d.ts`,
+      declareAsModule: false,
+    },
+  },
 };

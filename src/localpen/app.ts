@@ -21,7 +21,6 @@ import {
   Pen,
   Template,
   ToolList,
-  Types,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -33,9 +32,9 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, debounce, objectFilter } from './utils';
+import { compress, debounce } from './utils';
 import { getCompiler } from './compiler';
-import { detectTypes, loadTypes } from './types';
+import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 
@@ -101,21 +100,15 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
   const compiler = getCompiler(getConfig(), baseUrl);
 
-  let loadedTypes: Types = {};
+  const typeLoader = createTypeLoader();
   const loadModuleTypes = async (editors: Editors, config: Pen) => {
     if (
       editors.script &&
-      editors.script.getLanguage() === 'typescript' &&
+      ['typescript', 'tsx', 'assemblyscript', 'stencil'].includes(editors.script.getLanguage()) &&
       typeof editors.script.addTypes === 'function'
     ) {
-      const typesInCode = detectTypes(editors.script.getValue(), config);
-      const types = objectFilter(
-        typesInCode,
-        (_url, mod) => !Object.keys(loadedTypes).includes(mod),
-      );
-      const libs = await loadTypes(types);
+      const libs = await typeLoader.load(editors.script.getValue(), config.types);
       libs.forEach((lib) => editors.script.addTypes?.(lib));
-      loadedTypes = { ...loadedTypes, ...types };
     }
   };
 
@@ -369,6 +362,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       await run(editors);
     }
     addConsoleInputCodeCompletion();
+    loadModuleTypes(editors, getConfig());
   };
 
   // Ctrl/Cmd + Enter triggers run
@@ -1515,7 +1509,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     phpHelper({ editor: editors.script });
     setLoading(true);
 
-    await loadModuleTypes(editors, getConfig());
     await setActiveEditor(getConfig());
     loadSettings(getConfig());
     configureEmmet(getConfig());
@@ -1524,6 +1517,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     await toolsPane?.load();
     updateCompiledCode();
     getActiveEditor().focus();
+    loadModuleTypes(editors, getConfig());
 
     compiler.load(Object.values(editorLanguages), getConfig()).then(async () => {
       await run(editors);

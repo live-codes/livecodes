@@ -2,9 +2,8 @@
 import * as Monaco from 'monaco-editor'; // only for typescript types
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Types } from '../models';
+import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { getLanguageExtension, mapLanguage } from '../languages';
-import { loadTypes } from '../types';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl, readonly } = options;
@@ -104,11 +103,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     target: monaco.languages.typescript.ScriptTarget.Latest,
     experimentalDecorators: true,
     allowSyntheticDefaultImports: true,
+    lib: ['es2020', 'dom'],
   };
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
-  const loadModuleTypes = () => {
-    let types: Types = {};
+  const configureJSX = () => {
     if (language === 'tsx' || language === 'jsx') {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...compilerOptions,
@@ -116,12 +115,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         jsxFactory: 'React.createElement',
         reactNamespace: 'React',
       });
-      if (language === 'tsx') {
-        types = {
-          react: `${baseUrl}types/react.d.ts`,
-          'react-dom': `${baseUrl}types/react-dom.d.ts`,
-        };
-      }
     }
     if (language === 'stencil') {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
@@ -130,17 +123,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         jsxFactory: undefined,
         reactNamespace: 'h',
       });
-      types = { '@stencil/core': `${baseUrl}types/stencil-core.d.ts` };
     }
-    if (language === 'assemblyscript') {
-      types = { assemblyscript: `${baseUrl}types/assemblyscript.d.ts` };
-    }
-
-    loadTypes(types).then((dts) =>
-      dts.forEach((library) => {
-        addTypes(library);
-      }),
-    );
   };
 
   type Listener = () => void;
@@ -166,7 +149,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     );
     editor.setModel(model);
     upateListeners();
-    loadModuleTypes();
+    configureJSX();
   };
 
   let language = options.language;
