@@ -32,7 +32,6 @@ export const createTypeLoader = () => {
 
   const load = async (code: string, configTypes: Types) => {
     const imports = getImports(code);
-    const libs: string[] = [];
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
       let currentType: Types;
@@ -43,7 +42,6 @@ export const createTypeLoader = () => {
       } else if (fromConfig) {
         currentType = { [fromConfig]: configTypes[fromConfig] };
       } else {
-        libs.push(lib);
         currentType = { [lib]: '' };
       }
       return {
@@ -80,8 +78,7 @@ export const createTypeLoader = () => {
         value.autoload === true,
     );
 
-    const typeContents = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
-    return typeContents;
+    return loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
   };
 
   return {
