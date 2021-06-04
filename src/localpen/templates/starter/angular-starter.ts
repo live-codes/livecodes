@@ -14,7 +14,7 @@ export const angularStarter: Template = {
     content: '',
   },
   script: {
-    language: 'ts',
+    language: 'typescript',
     content: `
 import { Component, Input, NgModule, enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -92,12 +92,6 @@ platformBrowserDynamic()
   cssPreset: '',
   imports: {},
   types: {
-    '@angular/core': '{{ __localpen_baseUrl__ }}types/ng-core.d.ts',
-    '@angular/common': '{{ __localpen_baseUrl__ }}types/ng-common.d.ts',
-    '@angular/platform-browser': '{{ __localpen_baseUrl__ }}types/ng-platform-browser.d.ts',
-    '@angular/platform-browser-dynamic':
-      '{{ __localpen_baseUrl__ }}types/ng-platform-browser-dynamic.d.ts',
-    '@angular/forms': '{{ __localpen_baseUrl__ }}types/ng-forms.d.ts',
-    '@angular/animations': '{{ __localpen_baseUrl__ }}types/ng-animations.d.ts',
+    'zone.js/dist/zone': '',
   },
 };

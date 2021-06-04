@@ -24,7 +24,8 @@ export const createImportMap = (code: string, config: Pen) =>
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {} as Record<string, string>);
 
-export const hasImports = (code: string) => new RegExp(importsPattern).test(code);
+export const hasImports = (code: string) =>
+  new RegExp(importsPattern).test(code) || new RegExp(/export {}/).test(code);
 
 export const replaceImports = (code: string, config: Pen) => {
   const importMap = createImportMap(code, config);
