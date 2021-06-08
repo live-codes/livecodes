@@ -6,6 +6,7 @@ import { importFromGithubGist, isGithubGist } from './github-gist';
 import { importFromGitlab, isGitlabUrl } from './gitlab';
 import { importFromGitlabDir, isGitlabDir } from './gitlab-dir';
 import { importFromGitlabSnippet, isGitlabSnippet } from './gitlab-snippet';
+import { importProject, isProjectId } from './project-id';
 import { importFromUrl } from './url';
 
 export const importCode = async (
@@ -15,6 +16,9 @@ export const importCode = async (
 ): Promise<Partial<Pen>> => {
   if (isCompressedCode(url)) {
     return importCompressedCode(url);
+  }
+  if (isProjectId(url)) {
+    return importProject(url);
   }
   if (isGithubGist(url)) {
     return importFromGithubGist(url, params);

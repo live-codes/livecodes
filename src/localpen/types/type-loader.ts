@@ -1,5 +1,6 @@
 import { getImports } from '../compiler';
 import { EditorLibrary, Types, TypeValue } from '../models';
+import { typesService } from '../services';
 import { objectFilter } from '../utils';
 
 export const createTypeLoader = () => {
@@ -51,24 +52,7 @@ export const createTypeLoader = () => {
     }, {} as Types);
 
     const typesToGet = Object.keys(codeTypes).filter((key) => codeTypes[key] === '');
-    let fetchedTypes: Types = {};
-    if (typesToGet.length > 0) {
-      try {
-        const api = 'https://api.localpen.io/types';
-        const res = await fetch(api, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ types: typesToGet }),
-        });
-        fetchedTypes = await res.json();
-      } catch {
-        //
-      }
-    }
+    const fetchedTypes = await typesService.getTypeUrls(typesToGet);
 
     const autoloadTypes: Types = objectFilter(
       configTypes,

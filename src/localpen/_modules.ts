@@ -21,6 +21,7 @@ export * as modal from './modal';
 export * as models from './models';
 export * as notifications from './notifications';
 export * as result from './result';
+export * as services from './services';
 export * as storage from './storage';
 export * as templates from './templates';
 export * as toolspane from './toolspane';
