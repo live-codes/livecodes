@@ -1,4 +1,5 @@
 import { Pen } from '../models';
+import { modulesService } from '../services';
 
 export const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
@@ -19,7 +20,7 @@ export const createImportMap = (code: string, config: Pen) =>
         if (key) {
           return { [key]: config.imports[key] };
         }
-        return { [libName]: getCdnUrlForModule(libName) };
+        return { [libName]: modulesService.getModuleUrl(libName) };
       }
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {} as Record<string, string>);
@@ -43,17 +44,4 @@ export const replaceImports = (code: string, config: Pen) => {
     }
     return statement.replace(key, importMap[key]);
   });
-};
-
-const getCdnUrlForModule = (
-  moduleName: string,
-  CDN: 'skypack' | 'jsdelivr' | 'unpkg' = 'skypack',
-) => {
-  if (CDN === 'jsdelivr') {
-    return 'https://esm.run/' + moduleName;
-  }
-  if (CDN === 'unpkg') {
-    return 'https://unpkg.com/' + moduleName + '?module';
-  }
-  return 'https://cdn.skypack.dev/' + moduleName;
 };

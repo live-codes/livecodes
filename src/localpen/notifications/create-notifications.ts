@@ -12,37 +12,33 @@ import {
 export const createNotifications = () => {
   const timeout = 2000;
 
-  const info = (message: string) => {
+  const info = (message: string) =>
     createSnackbar(message, {
       theme: infoTheme,
       actions: [closeButton],
       timeout,
     });
-  };
 
-  const success = (message: string) => {
-    createSnackbar(message, {
+  const success = (message: string) =>
+    createSnackbar('✓ ' + message, {
       theme: successTheme,
       actions: [closeButton],
       timeout,
     });
-  };
 
-  const warning = (message: string) => {
+  const warning = (message: string) =>
     createSnackbar(message, {
       theme: warningTheme,
       actions: [closeButton],
       timeout,
     });
-  };
 
-  const error = (message: string) => {
-    createSnackbar(message, {
+  const error = (message: string) =>
+    createSnackbar('✖ ' + message, {
       theme: dangerTheme,
       actions: [closeButton],
       timeout,
     });
-  };
 
   const confirm = (message: string, confirmCallback: () => void, cancelCallback?: () => void) => {
     const confirmAction: Action = {
@@ -59,7 +55,7 @@ export const createNotifications = () => {
         snackbar.destroy();
       },
     };
-    createSnackbar(message, {
+    return createSnackbar(message, {
       theme: lightTheme,
       actions: [confirmAction, cancelAction],
     });

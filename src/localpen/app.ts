@@ -37,6 +37,7 @@ import { getCompiler } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
+import { shareService } from './services';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   setConfig(config);
@@ -495,10 +496,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       storage.updateItem(penId, getConfig());
     }
     if (notify) {
-      notifications.success('Project saved');
+      notifications.success('Project locally saved to device!');
     }
-    share(false);
-    setSavedStatus(true);
+    share(false).then(() => setSavedStatus(true));
   };
 
   const fork = () => {
@@ -524,17 +524,22 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     version: config.version,
   });
 
-  const share = (copyUrl = true) => {
+  const share = async (copyUrl = true) => {
+    if (copyUrl) notifications.info('Preparing URL...');
     const config = getConfig();
     const content = getContentConfig(config);
 
-    const contentHash = '#code/' + compress(JSON.stringify(content));
+    const projectId = copyUrl ? await shareService.shareProject(content) : '';
+
+    const contentHash = projectId
+      ? '#id/' + projectId
+      : '#code/' + compress(JSON.stringify(content));
     const shareURL = location.origin + location.pathname + contentHash;
 
     if (copyUrl) {
       updateUrl(shareURL, true);
       copyToClipboard(shareURL);
-      notifications.info('URL copied to clipboard');
+      notifications.success('URL copied to clipboard');
     } else {
       updateUrl(shareURL);
     }

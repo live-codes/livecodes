@@ -4,7 +4,6 @@ const actionStyle = {
   minWidth: '2em',
   padding: '3px',
 };
-
 export const darkTheme = {
   textColor: '#eee',
   actionColor: '#eee',
@@ -35,7 +34,6 @@ export const dangerTheme = {
   actionColor: '#842040',
   backgroundColor: '#F8D7DA',
 };
-
 export const closeButton: Action = {
   text: '<span title="Dismiss">✖</span>',
   style: actionStyle,
