@@ -496,7 +496,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       storage.updateItem(penId, getConfig());
     }
     if (notify) {
-      notifications.success('Project saved');
+      notifications.success('Project locally saved to device!');
     }
     share(false).then(() => setSavedStatus(true));
   };
@@ -525,7 +525,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   });
 
   const share = async (copyUrl = true) => {
-    const msg = copyUrl ? notifications.info('Preparing URL...') : null;
+    if (copyUrl) notifications.info('Preparing URL...');
     const config = getConfig();
     const content = getContentConfig(config);
 
@@ -539,7 +539,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (copyUrl) {
       updateUrl(shareURL, true);
       copyToClipboard(shareURL);
-      msg?.destroy();
       notifications.success('URL copied to clipboard');
     } else {
       updateUrl(shareURL);
