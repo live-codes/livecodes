@@ -1,6 +1,6 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
-import resultTemplate from '../../../result.localpen.io/v1/index.html';
+import resultTemplate from './result/v1/result.html';
 // @ts-ignore
 import appHTML from './app.html';
 // @ts-ignore

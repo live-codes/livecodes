@@ -59,7 +59,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let starterTemplates: Template[];
 
   const resultPage = {
-    url: 'https://result.localpen.io/v1/',
+    url: 'https://result.localpen.io/v1/result.html',
     origin: 'https://result.localpen.io',
   };
   const split = UI.createSplitPanes();
