@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension } from '../languages';
+import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension } from '..';
 
 describe('languages', () => {
   test('getLanguageByAlias', () => {
