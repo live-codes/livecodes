@@ -46,6 +46,7 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     document.body.appendChild(style);
 
     const iframe = document.createElement('iframe');
+    iframe.name = 'app';
     iframe.style.display = 'none';
 
     containerElement.appendChild(iframe);
