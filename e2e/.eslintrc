@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "jest/no-test-callback": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-internal-modules": "off"
+  }
+}

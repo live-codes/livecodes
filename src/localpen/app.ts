@@ -69,6 +69,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       if (!container) return;
 
       const iframe = document.createElement('iframe');
+      iframe.name = 'result';
       iframe.setAttribute('allow', 'camera; geolocation; microphone');
       iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute('allowtransparency', 'true');
