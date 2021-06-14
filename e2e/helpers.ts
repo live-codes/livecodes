@@ -2,7 +2,10 @@ import { Frame, Page } from '@playwright/test';
 import { Pen } from '../src/localpen/models';
 
 export const getTestUrl = (config: Partial<Pen> = { autoupdate: false }) => {
-  const query = Object.keys(config).reduce((key, q) => q + `${key}=${config[key]}&`, '');
+  const query = Object.keys(config).reduce(
+    (q, key, index) => q + (index > 0 ? '&' : '') + key + '=' + config[key],
+    '',
+  );
   const url = process.env.TEST_URL || 'http://localhost:8080';
   return url + (query ? '?' + query : '');
 };
@@ -45,6 +48,10 @@ const getUpdatedResultFrame = async (app: Frame, resultFrame: Frame) => {
   );
   await newFrame.waitForLoadState();
   return newFrame;
+};
+
+export const waitForEditorFocus = async (app: Frame) => {
+  await app.waitForFunction('document.activeElement.closest("#editors") != null');
 };
 
 export const runButtonSelector = '[alt="Run"]';

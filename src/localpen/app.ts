@@ -231,7 +231,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
       editors[editorId].setValue(config[editorId].content);
-      await changeLanguage(editorId, config[editorId].language, true);
+      await changeLanguage(config[editorId].language, true);
     }
   };
 
@@ -345,7 +345,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     return;
   };
 
-  const changeLanguage = async (editorId: EditorId, language: Language, isUpdate = false) => {
+  const changeLanguage = async (language: Language, isUpdate = false) => {
+    const editorId = getLanguageEditorId(language);
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
     const editor = editors[editorId];
     editor.setLanguage(language);
@@ -353,7 +354,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     setEditorTitle(editorId, language);
     showEditor(editorId, isUpdate);
     phpHelper({ editor: editors.script });
-    editor.focus();
+    setTimeout(() => editor.focus());
     await compiler.load([language], getConfig());
     editor.registerFormatter(await formatter.getFormatFn(language));
     if (!isUpdate) {
@@ -745,10 +746,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             menuItem,
             'mousedown', // fire this event before unhover
             async () => {
-              await changeLanguage(
-                menuItem.dataset.editor as EditorId,
-                menuItem.dataset.lang as Language,
-              );
+              await changeLanguage(menuItem.dataset.lang as Language);
             },
             false,
           );
@@ -1520,9 +1518,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     configureEmmet(getConfig());
     showMode(getConfig());
     setSavedStatus(true);
+    setTimeout(() => getActiveEditor().focus());
     await toolsPane?.load();
     updateCompiledCode();
-    getActiveEditor().focus();
     loadModuleTypes(editors, getConfig());
 
     compiler.load(Object.values(editorLanguages), getConfig()).then(async () => {
