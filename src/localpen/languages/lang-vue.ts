@@ -24,7 +24,7 @@ export const vue: LanguageSpecs = {
   compiler: {
     url: 'vendor/vue3-sfc-loader/vue3-sfc-loader.js',
     factory: () => (code) =>
-      `let app = document.querySelector("#app") || document.body;
+      `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
 let content = \`${code.replace(/`/g, '\\`')}\`;

@@ -9,9 +9,9 @@ export const vueStarter: Template = {
     language: 'html',
     content: `
 <div id="app">
-  <h1>Hello, Vue</h1>
+  <h1>Hello, Vue!</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/vue.svg" class="logo" />
-  <p>You clicked {{ counter }} times</p>
+  <p>You clicked {{ counter }} times.</p>
   <button @click="increment()">Click me</button>
 </div>
 `.trimStart(),
@@ -30,7 +30,7 @@ export const vueStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'js',
+    language: 'javascript',
     content: `
 new Vue({
   el: "#app",

@@ -17,7 +17,10 @@ export const getLoadedApp = async (page: Page) => {
   let result = getResultFrame(app);
   return {
     app,
-    getResult: () => result,
+    getResult: () => {
+      result = getResultFrame(app);
+      return result;
+    },
     waitForResultUpdate: async () => {
       result = await getUpdatedResultFrame(app, result);
     },
