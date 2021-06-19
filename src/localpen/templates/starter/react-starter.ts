@@ -33,9 +33,9 @@ function App(props) {
 
   return (
     <div class="container">
-      <h1>Hello, {props.name}</h1>
+      <h1>Hello, {props.name}!</h1>
       <img src="{{ __localpen_baseUrl__ }}assets/templates/react.svg" className="logo" />
-      <p>You clicked {count} times</p>
+      <p>You clicked {count} times.</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   );

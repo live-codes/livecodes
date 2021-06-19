@@ -9,7 +9,7 @@ export const typescriptStarter: Template = {
     language: 'html',
     content: `
 <div class="container">
-  <h1>Hello, TypeScript</h1>
+  <h1>Hello, TypeScript!</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/typescript.svg" class="logo" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>

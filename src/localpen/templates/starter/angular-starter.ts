@@ -67,7 +67,7 @@ class HeadingComponent {
   title: string;
 
   ngOnInit() {
-    this.title = "Hello, " + this.name;
+    this.title = \`Hello, \${this.name}!\`;
   }
 }
 
