@@ -271,3 +271,13 @@ export interface EditorOptions {
   editor?: Pen['editor'];
   editorType: 'code' | 'compiled' | 'console';
 }
+
+export interface User {
+  uid: string;
+  token: string | null;
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+}
+
+export type GithubScope = 'gist' | 'repo' | 'public_repo';

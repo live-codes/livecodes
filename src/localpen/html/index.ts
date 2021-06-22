@@ -8,6 +8,8 @@ import importScreen from './import.html';
 // @ts-ignore
 import resourcesScreen from './external-resources.html';
 // @ts-ignore
+import loginScreen from './login.html';
+// @ts-ignore
 import savePromptScreen from './save-prompt.html';
 // @ts-ignore
 import templatesScreen from './templates.html';
@@ -19,6 +21,7 @@ export {
   appHTML,
   importScreen,
   resourcesScreen,
+  loginScreen,
   savePromptScreen,
   templatesScreen,
   openScreen,

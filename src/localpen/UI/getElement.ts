@@ -59,6 +59,10 @@ export const getExportCodepenLink = () =>
 export const getExportJsfiddleLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-jsfiddle');
 
+export const getLoginLink = () => document.querySelector<HTMLAnchorElement>('#login-link');
+
+export const getLogoutLink = () => document.querySelector<HTMLAnchorElement>('#logout-link');
+
 export const getNewLink = () => document.querySelector<HTMLAnchorElement>('#new-link');
 
 export const getOpenLink = () => document.querySelector<HTMLAnchorElement>('#open-link');

@@ -17,6 +17,7 @@ import {
   EditorLanguages,
   EditorOptions,
   Editors,
+  GithubScope,
   Language,
   Pen,
   Template,
@@ -37,7 +38,7 @@ import { getCompiler } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
-import { shareService } from './services';
+import { createAuthService, shareService } from './services';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   setConfig(config);
@@ -57,6 +58,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let lastCompiled: { [key in EditorId]: string };
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
+  const authService = createAuthService();
 
   const resultPage = {
     url: 'https://result.localpen.io/v1/result',
@@ -657,6 +659,14 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     return starterTemplates;
   };
 
+  const checkUser = () => {
+    authService.getUser().then((user) => {
+      if (user) {
+        UI.displayLoggedIn(user);
+      }
+    });
+  };
+
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
       const projectTitle = UI.getProjectTitleElement();
@@ -936,6 +946,48 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       eventsManager.addEventListener(settingsButton, 'mousedown', () => {
         menuScroller.classList.remove('hidden');
       });
+    };
+
+    const handleLogin = () => {
+      const createLoginUI = () => {
+        const login = (scopes: GithubScope[]) => {
+          authService
+            .signIn(scopes)
+            .then((user) => {
+              if (!user) {
+                notifications.error('Login error!');
+              } else {
+                notifications.success('Logged in as: ' + user.displayName);
+                UI.displayLoggedIn(user);
+              }
+            })
+            .catch(() => {
+              notifications.error('Login error!');
+            });
+          modal.close();
+        };
+
+        const loginContainer = UI.createLoginContainer(eventsManager, login);
+        // const loadingText = starterTemplatesList?.firstElementChild;
+
+        modal.show(loginContainer, 'small');
+      };
+      eventsManager.addEventListener(UI.getLoginLink(), 'click', createLoginUI, false);
+    };
+
+    const handleLogout = () => {
+      const logout = () => {
+        authService
+          .signOut()
+          .then(() => {
+            notifications.success('Logged out successfully');
+            UI.displayLoggedOut();
+          })
+          .catch(() => {
+            notifications.error('Logout error!');
+          });
+      };
+      eventsManager.addEventListener(UI.getLogoutLink(), 'click', logout, false);
     };
 
     const handleNew = () => {
@@ -1417,6 +1469,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     handleSettings();
     handleSettingsMenu();
     handleExternalResources();
+    handleLogin();
+    handleLogout();
     handleNew();
     handleSave();
     handleFork();
@@ -1527,6 +1581,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       await run(editors);
     });
     formatter.load(getEditorLanguages());
+    checkUser();
   }
   await bootstrap();
 

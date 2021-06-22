@@ -69,6 +69,7 @@
     "asciidoctor": "2.2.1",
     "emmet-monaco-es": "4.4.2",
     "es-module-shims": "0.10.5",
+    "firebase": "9.0.0-beta.2",
     "github-markdown-css": "4.0.0",
     "less": "4.0.0",
     "luna-console": "0.2.0",

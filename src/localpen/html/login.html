@@ -1,0 +1,29 @@
+<div id="login-screen" class="modal-container">
+  <div class="modal-title">Login with GitHub</div>
+  <div class="modal-content">
+    <p>Allow access to:</p>
+    <div>
+      <input
+        type="checkbox"
+        value="public_repo"
+        id="public_repo"
+        name="public_repo"
+        checked="checked"
+      />
+      <label for="public_repo">Repos</label>
+      <div class="indent">
+        <input type="checkbox" value="repo" id="repo" name="repo" checked="checked" /><label
+          for="repo"
+          >Private Repos</label
+        >
+      </div>
+      <input type="checkbox" value="gist" id="gist" name="gist" checked="checked" /><label
+        for="gist"
+        >Gists</label
+      >
+    </div>
+    <div class="buttons">
+      <button id="login-btn" class="button">Login</button>
+    </div>
+  </div>
+</div>
