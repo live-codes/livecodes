@@ -968,8 +968,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         };
 
         const loginContainer = UI.createLoginContainer(eventsManager, login);
-        // const loadingText = starterTemplatesList?.firstElementChild;
-
         modal.show(loginContainer, 'small');
       };
       eventsManager.addEventListener(UI.getLoginLink(), 'click', createLoginUI, false);

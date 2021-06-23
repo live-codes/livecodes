@@ -5,7 +5,6 @@ import {
   signInWithPopup,
   signOut,
   GithubAuthProvider,
-  browserLocalPersistence,
   User as FirebaseUser,
 } from 'firebase/auth';
 import { GithubScope, User } from '../models';
@@ -39,22 +38,14 @@ export const createAuthService = () => {
     signIn: async (scopes: GithubScope[] = ['gist', 'repo']): Promise<User | void> => {
       const provider = new GithubAuthProvider();
       scopes.forEach((scope) => provider.addScope(scope));
-      provider.setCustomParameters({
-        // eslint-disable-next-line camelcase
-        allow_signup: 'false',
-      });
-      const auth = getAuth(firebaseApp);
-      auth.setPersistence(browserLocalPersistence);
       const result = await signInWithPopup(auth, provider);
-      const credential = GithubAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
+      const token = GithubAuthProvider.credentialFromResult(result)?.accessToken;
       if (!token) return;
       currentUser = result.user;
       saveToken(currentUser.uid, token);
       return getUserInfo(result.user, token);
     },
     signOut: async () => {
-      const auth = getAuth(firebaseApp);
       await signOut(auth);
       deleteToken(currentUser?.uid);
       currentUser = null;
@@ -63,24 +54,23 @@ export const createAuthService = () => {
 };
 
 const saveToken = (uid: string, token: string) => {
-  window.localStorage.setItem('token_' + uid, token || '');
+  localStorage.setItem('token_' + uid, token);
 };
 
 const deleteToken = (uid?: string) => {
   if (!uid) return;
-  window.localStorage.removeItem('token_' + uid);
+  localStorage.removeItem('token_' + uid);
 };
 
 const getToken = (uid?: string) => {
   if (!uid) return null;
-  const token = window.localStorage.getItem('token_' + uid);
-  return token;
+  return localStorage.getItem('token_' + uid);
 };
 
 const getUserInfo = (user: FirebaseUser, token: string | null): User => ({
-  token,
   uid: user.uid,
   displayName: user.displayName,
   email: user.email,
   photoURL: user.photoURL,
+  token,
 });
