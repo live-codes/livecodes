@@ -1,29 +1,50 @@
-/* eslint-disable import/no-internal-modules */
-import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  signInWithPopup,
-  signOut,
-  GithubAuthProvider,
-  User as FirebaseUser,
-} from 'firebase/auth';
 import { GithubScope, User } from '../models';
-import { firebaseConfig } from './firebase-config';
+import { getImportInstance } from '../utils';
+
+type FirebaseUser = import('firebase/auth').User;
 
 export const createAuthService = () => {
-  const firebaseApp = initializeApp(firebaseConfig);
-
-  const auth = getAuth(firebaseApp);
-  let currentUser = auth.currentUser;
+  let initializeApp: typeof import('firebase/app').initializeApp;
+  let getApp: typeof import('firebase/app').getApp;
+  let getAuth: typeof import('firebase/auth').getAuth;
+  let signInWithPopup: typeof import('firebase/auth').signInWithPopup;
+  let signOut: typeof import('firebase/auth').signOut;
+  let GithubAuthProvider: typeof import('firebase/auth').GithubAuthProvider;
+  let firebaseConfig: import('firebase/app').FirebaseOptions;
+  let firebaseApp: import('firebase/app').FirebaseApp;
+  let auth: import('firebase/auth').Auth;
+  let currentUser: FirebaseUser | null;
 
   return {
-    getUser: (): Promise<User | void> => {
+    async load() {
+      const firebase = await getImportInstance('./firebase.js');
+
+      initializeApp = firebase.initializeApp;
+      getApp = firebase.getApp;
+      getAuth = firebase.getAuth;
+      signInWithPopup = firebase.signInWithPopup;
+      signOut = firebase.signOut;
+      GithubAuthProvider = firebase.GithubAuthProvider;
+      firebaseConfig = firebase.firebaseConfig;
+
+      try {
+        firebaseApp = getApp();
+      } catch {
+        firebaseApp = initializeApp(firebaseConfig);
+      }
+      auth = getAuth(firebaseApp);
+      currentUser = auth.currentUser;
+    },
+    async getUser(): Promise<User | void> {
+      if (!auth) {
+        await this.load();
+      }
       if (currentUser) {
         const token = getToken(currentUser.uid);
         return Promise.resolve(getUserInfo(currentUser, token));
       }
       return new Promise((resolve) => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
+        const unsubscribe = auth.onAuthStateChanged((user: FirebaseUser | null) => {
           if (!user) {
             resolve(undefined);
           } else {
@@ -35,7 +56,10 @@ export const createAuthService = () => {
         });
       });
     },
-    signIn: async (scopes: GithubScope[] = ['gist', 'repo']): Promise<User | void> => {
+    async signIn(scopes: GithubScope[] = ['gist', 'repo']): Promise<User | void> {
+      if (!auth) {
+        await this.load();
+      }
       const provider = new GithubAuthProvider();
       scopes.forEach((scope) => provider.addScope(scope));
       const result = await signInWithPopup(auth, provider);
@@ -45,7 +69,10 @@ export const createAuthService = () => {
       saveToken(currentUser.uid, token);
       return getUserInfo(result.user, token);
     },
-    signOut: async () => {
+    async signOut() {
+      if (!auth) {
+        await this.load();
+      }
       await signOut(auth);
       deleteToken(currentUser?.uid);
       currentUser = null;

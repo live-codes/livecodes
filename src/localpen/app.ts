@@ -58,7 +58,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let lastCompiled: { [key in EditorId]: string };
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
-  const authService = createAuthService();
+  let authService: ReturnType<typeof createAuthService> | undefined;
 
   const resultPage = {
     url: 'https://result.localpen.io/v1/result',
@@ -659,7 +659,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     return starterTemplates;
   };
 
-  const checkUser = () => {
+  /** Lazy load authentication */
+  const initializeAuth = () => {
+    authService = createAuthService();
     authService.getUser().then((user) => {
       if (user) {
         UI.displayLoggedIn(user);
@@ -951,6 +953,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const handleLogin = () => {
       const createLoginUI = () => {
         const login = (scopes: GithubScope[]) => {
+          if (!authService) return;
           authService
             .signIn(scopes)
             .then((user) => {
@@ -975,6 +978,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
     const handleLogout = () => {
       const logout = () => {
+        if (!authService) return;
         authService
           .signOut()
           .then(() => {
@@ -1579,7 +1583,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       await run(editors);
     });
     formatter.load(getEditorLanguages());
-    checkUser();
+    setTimeout(initializeAuth);
   }
   await bootstrap();
 

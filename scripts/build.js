@@ -126,4 +126,12 @@ esbuild.buildSync({
   format: 'esm',
 });
 
+esbuild.buildSync({
+  entryPoints: ['src/localpen/services/firebase.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/firebase.js',
+  format: 'esm',
+});
+
 console.log('built to: ' + buildOptions.outdir);
