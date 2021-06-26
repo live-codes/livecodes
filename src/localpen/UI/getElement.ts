@@ -53,6 +53,9 @@ export const getExportResultLink = () =>
 export const getExportSourceLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-src');
 
+export const getExportGithubGistLink = () =>
+  document.querySelector<HTMLAnchorElement>('#export-menu #export-githubGist');
+
 export const getExportCodepenLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-codepen');
 

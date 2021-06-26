@@ -1,4 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { Language } from '../models';
 import { hostPatterns, populateConfig } from './utils';
 
 export const isGithubDir = (url: string, patterns = hostPatterns.github) => {
@@ -52,8 +53,7 @@ export const importFromGithubDir = async (url: string, params: { [key: string]: 
         const filename = file.path.split('/')[file.path.split('/').length - 1];
         const extension = filename.split('.')[filename.split('.').length - 1];
         const language = getLanguageByAlias(extension);
-        if (!language) return {};
-        const editorId = getLanguageEditorId(language);
+        const editorId = getLanguageEditorId(language as Language);
         const content = atob(
           await fetch(file.url)
             .then((res) => res.json())

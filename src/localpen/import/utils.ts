@@ -49,7 +49,7 @@ export const populateConfig = (
   }
 
   // select languages from files
-  return files
+  const code = files
     .sort(
       (a, b) =>
         languages.findIndex((language) => language.name === a.language) -
@@ -65,6 +65,48 @@ export const populateConfig = (
         },
       };
     }, {} as Partial<Pen>);
+
+  // extract external styles and scripts
+  const stylesheets: string[] = [];
+  const stylesFile = files.find((file) => file.filename === 'styles');
+  if (stylesFile?.content) {
+    try {
+      const domparser = new DOMParser();
+      const doc = domparser.parseFromString(stylesFile.content, 'text/html');
+      doc.querySelectorAll('link').forEach((stylesheet) => {
+        try {
+          stylesheets.push(new URL(stylesheet.href).href);
+        } catch (error) {
+          // not url
+        }
+      });
+    } catch (error) {
+      // not DOM
+    }
+  }
+
+  const scripts: string[] = [];
+  const scriptsFile = files.find((file) => file.filename === 'scripts');
+  if (scriptsFile?.content) {
+    try {
+      const domparser = new DOMParser();
+      const doc = domparser.parseFromString(scriptsFile.content, 'text/html');
+      doc.querySelectorAll('script').forEach((script) => {
+        try {
+          scripts.push(new URL(script.src).href);
+        } catch (error) {
+          // not url
+        }
+      });
+    } catch (error) {
+      // not DOM
+    }
+  }
+  return {
+    ...code,
+    stylesheets,
+    scripts,
+  };
 };
 
 export const hostPatterns = {

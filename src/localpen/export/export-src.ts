@@ -1,29 +1,16 @@
-import { getLanguageExtension } from '../languages';
 import { EditorId, Pen } from '../models';
-import { downloadFile } from './utils';
+import { downloadFile, getFilesFromConfig } from './utils';
 
-export const exportSrc = async (
-  config: Pen,
-  { JSZip, html, editors, getEditorLanguage }: any,
-  baseUrl?: string,
-) => {
+export const exportSrc = async (config: Pen, { JSZip, html }: any, baseUrl?: string) => {
   if (!JSZip) {
     JSZip = (await import(baseUrl + 'vendor/jszip/jszip.js')).default;
   }
 
   const zip = new JSZip();
 
-  const filenames = {
-    markup: 'index',
-    style: 'style',
-    script: 'script',
-  };
-  (Object.keys(editors) as EditorId[]).forEach((editorId) => {
-    const language = getEditorLanguage(editorId);
-    const extension = getLanguageExtension(language) || '';
-    const filename = filenames[editorId];
-    const content = editors[editorId].getValue() || '';
-    zip.file(filename + '.' + extension, content);
+  const files = getFilesFromConfig(config);
+  (Object.keys(files) as EditorId[]).forEach((filename) => {
+    zip.file(filename, files[filename]?.content);
   });
   zip.file('result.html', html);
   zip.file('config.json', JSON.stringify(config, null, 2));

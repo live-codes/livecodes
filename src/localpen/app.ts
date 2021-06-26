@@ -22,6 +22,7 @@ import {
   Pen,
   Template,
   ToolList,
+  User,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -549,7 +550,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     }
   };
 
-  const update = () => {
+  const updateConfig = () => {
     const editorIds: EditorId[] = ['markup', 'style', 'script'];
     editorIds.forEach((editorId) => {
       setConfig({
@@ -660,13 +661,55 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   /** Lazy load authentication */
-  const initializeAuth = () => {
+  const initializeAuth = async () => {
     authService = createAuthService();
-    authService.getUser().then((user) => {
-      if (user) {
-        UI.displayLoggedIn(user);
-      }
+    const user = await authService.getUser();
+    if (user) {
+      UI.displayLoggedIn(user);
+    }
+  };
+
+  const login = async () =>
+    new Promise<User | void>((resolve, reject) => {
+      const loginHandler = (scopes: GithubScope[]) => {
+        if (!authService) {
+          reject('Login error!');
+        } else {
+          authService
+            .signIn(scopes)
+            .then((user) => {
+              if (!user) {
+                reject('Login error!');
+              } else {
+                notifications.success('Logged in as: ' + user.displayName);
+                UI.displayLoggedIn(user);
+                resolve(user);
+              }
+            })
+            .catch(() => {
+              notifications.error('Login error!');
+            });
+        }
+        modal.close();
+      };
+
+      const loginContainer = UI.createLoginContainer(eventsManager, loginHandler);
+      modal.show(loginContainer, 'small');
+    }).catch(() => {
+      notifications.error('Login error!');
     });
+
+  const logout = () => {
+    if (!authService) return;
+    authService
+      .signOut()
+      .then(() => {
+        notifications.success('Logged out successfully');
+        UI.displayLoggedOut();
+      })
+      .catch(() => {
+        notifications.error('Logout error!');
+      });
   };
 
   const attachEventListeners = (editors: Editors) => {
@@ -772,7 +815,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
     const handleChangeContent = () => {
       const contentChanged = async (loading: boolean) => {
-        update();
+        updateConfig();
         setSavedStatus(false);
         addConsoleInputCodeCompletion();
 
@@ -951,44 +994,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     };
 
     const handleLogin = () => {
-      const createLoginUI = () => {
-        const login = (scopes: GithubScope[]) => {
-          if (!authService) return;
-          authService
-            .signIn(scopes)
-            .then((user) => {
-              if (!user) {
-                notifications.error('Login error!');
-              } else {
-                notifications.success('Logged in as: ' + user.displayName);
-                UI.displayLoggedIn(user);
-              }
-            })
-            .catch(() => {
-              notifications.error('Login error!');
-            });
-          modal.close();
-        };
-
-        const loginContainer = UI.createLoginContainer(eventsManager, login);
-        modal.show(loginContainer, 'small');
-      };
-      eventsManager.addEventListener(UI.getLoginLink(), 'click', createLoginUI, false);
+      eventsManager.addEventListener(UI.getLoginLink(), 'click', login, false);
     };
 
     const handleLogout = () => {
-      const logout = () => {
-        if (!authService) return;
-        authService
-          .signOut()
-          .then(() => {
-            notifications.success('Logged out successfully');
-            UI.displayLoggedOut();
-          })
-          .catch(() => {
-            notifications.error('Logout error!');
-          });
-      };
       eventsManager.addEventListener(UI.getLogoutLink(), 'click', logout, false);
     };
 
@@ -1324,7 +1333,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         'click',
         (event: Event) => {
           event.preventDefault();
-          update();
+          updateConfig();
           exportPen(getConfig(), baseUrl, 'json');
         },
         false,
@@ -1335,7 +1344,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         'click',
         async (event: Event) => {
           event.preventDefault();
-          update();
+          updateConfig();
           exportPen(getConfig(), baseUrl, 'html', await getResultPage(editors, true));
         },
         false,
@@ -1347,9 +1356,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         'click',
         async (event: Event) => {
           event.preventDefault();
-          update();
+          updateConfig();
           const html = await getResultPage(editors, true);
-          exportPen(getConfig(), baseUrl, 'src', { JSZip, html, editors, getEditorLanguage });
+          exportPen(getConfig(), baseUrl, 'src', { JSZip, html });
         },
         false,
       );
@@ -1358,7 +1367,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         UI.getExportCodepenLink(),
         'click',
         () => {
-          update();
+          updateConfig();
           exportPen(getConfig(), baseUrl, 'codepen');
         },
         false,
@@ -1368,8 +1377,24 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         UI.getExportJsfiddleLink(),
         'click',
         () => {
-          update();
+          updateConfig();
           exportPen(getConfig(), baseUrl, 'jsfiddle');
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        UI.getExportGithubGistLink(),
+        'click',
+        async () => {
+          updateConfig();
+          let user = await authService?.getUser();
+          if (!user) {
+            user = await login();
+          }
+          if (!user) return;
+          notifications.info('Creating a PUBLIC GitHub gist...');
+          exportPen(getConfig(), baseUrl, 'githubGist', { user });
         },
         false,
       );
@@ -1583,7 +1608,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       await run(editors);
     });
     formatter.load(getEditorLanguages());
-    setTimeout(initializeAuth);
+    initializeAuth();
   }
   await bootstrap();
 
