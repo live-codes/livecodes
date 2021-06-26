@@ -5,12 +5,12 @@ import { Files, getFilesFromConfig } from './utils';
 export const exportGithubGist = async (config: Pen, { user }: { user: User }) => {
   if (!user) return;
   const files = getFiles(config, user);
-  const response = await sendGist(config, user, files);
+  const response = await saveGist(config, user, files);
   const gistInfo = await response.json();
 
   if (gistInfo.id) {
     const description = getDescriptionFile(config, user, gistInfo.html_url);
-    await sendGist(config, user, description, gistInfo.id); // update gist description with link to project
+    await saveGist(config, user, description, gistInfo.id); // update gist description with link to project
     window.open('https://gist.github.com/' + gistInfo.id);
   }
 };
@@ -26,12 +26,11 @@ const getFiles = (config: Pen, user?: User) => {
 };
 
 const getDescriptionFile = (config: Pen, user?: User, gistUrl?: string) => {
-  const username = user?.username;
   const userInfo = !user
     ? ''
-    : !username
+    : !user.username
     ? 'by ' + user.displayName
-    : 'by [' + user.displayName + '](https://gist.github.com/' + username + ')';
+    : 'by [' + user.displayName + '](https://gist.github.com/' + user.username + ')';
   const projectInfo = gistUrl ? `[This project](https://localpen.io/#${gistUrl})` : 'This project';
 
   return {
@@ -41,7 +40,7 @@ const getDescriptionFile = (config: Pen, user?: User, gistUrl?: string) => {
   };
 };
 
-const sendGist = (config: Pen, user: User, files: Files, gistId?: string) => {
+const saveGist = (config: Pen, user: User, files: Files, gistId?: string) => {
   const body = {
     accept: 'application/vnd.github.v3+json',
     description: config.title,
