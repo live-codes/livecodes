@@ -1032,6 +1032,12 @@ i.arrow {
     width: 80%;
   }
 
+  input[type='checkbox'] {
+    height: 1em;
+    margin: 0.2em;
+    width: 1em;
+  }
+
   textarea {
     border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
@@ -1130,12 +1136,24 @@ i.arrow {
     }
   }
 
+  .modal-content {
+    max-width: 100%;
+    min-width: calc(100% - 40px);
+    padding: 10px;
+    text-align: left;
+  }
+
   > #list-container > .modal-message {
     padding-top: 0;
 
     > div {
       padding-top: 0;
     }
+  }
+
+  .indent {
+    margin-left: 1em;
+    margin-top: 0;
   }
 }
 

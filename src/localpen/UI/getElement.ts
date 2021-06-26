@@ -53,11 +53,18 @@ export const getExportResultLink = () =>
 export const getExportSourceLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-src');
 
+export const getExportGithubGistLink = () =>
+  document.querySelector<HTMLAnchorElement>('#export-menu #export-githubGist');
+
 export const getExportCodepenLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-codepen');
 
 export const getExportJsfiddleLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-jsfiddle');
+
+export const getLoginLink = () => document.querySelector<HTMLAnchorElement>('#login-link');
+
+export const getLogoutLink = () => document.querySelector<HTMLAnchorElement>('#logout-link');
 
 export const getNewLink = () => document.querySelector<HTMLAnchorElement>('#new-link');
 
