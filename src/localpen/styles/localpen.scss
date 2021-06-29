@@ -1414,6 +1414,74 @@ i.arrow {
   }
 }
 
+.autoComplete_wrapper {
+  display: inline;
+  position: relative;
+
+  > input {
+    &::placeholder {
+      color: rgba(123, 123, 123, 0.5);
+      transition: all 0.3s ease;
+    }
+  }
+
+  > ul {
+    background-color: #fff;
+    border: 1px solid rgba(33, 33, 33, 0.1);
+    border-radius: 4px;
+    left: 0;
+    margin: 0.5rem 0 0;
+    max-height: 226px;
+    outline: none;
+    overflow-y: scroll;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+
+    > li {
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: 3px;
+      color: #212121;
+      font-size: 16px;
+      list-style: none;
+      overflow: hidden;
+      padding: 10px 20px;
+      text-align: left;
+      text-overflow: ellipsis;
+      transition: all 0.1s ease-in-out;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &::selection {
+        background-color: rgba(#fff, 0);
+        color: rgba(#fff, 0);
+      }
+
+      &:hover {
+        background-color: rgba(123, 123, 123, 0.1);
+        cursor: pointer;
+      }
+
+      mark {
+        background-color: transparent;
+        color: rgba(255, 122, 122, 1);
+        font-weight: bold;
+
+        &::selection {
+          background-color: rgba(#fff, 0);
+          color: rgba(#fff, 0);
+        }
+      }
+    }
+
+    > li[aria-selected='true'] {
+      background-color: rgba(123, 123, 123, 0.1);
+    }
+  }
+}
+
 /* z-index */
 body {
   .modal-tabs li.active {

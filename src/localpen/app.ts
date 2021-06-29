@@ -40,6 +40,7 @@ import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, shareService } from './services';
+import { deploy, getUserPublicRepos } from './deploy';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   setConfig(config);
@@ -1412,6 +1413,140 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       );
     };
 
+    const handleDeploy = () => {
+      const createDeployUI = async () => {
+        let user = await authService?.getUser();
+        if (!user) {
+          user = await login();
+        }
+        if (!user) {
+          notifications.error('Authentication error!');
+          return;
+        }
+
+        const deployContainer = UI.createDeployContainer(eventsManager);
+
+        const newRepoForm = UI.getNewRepoForm(deployContainer);
+        const newRepoButton = UI.getNewRepoButton(deployContainer);
+        const newRepoNameInput = UI.getNewRepoNameInput(deployContainer);
+        const newRepoMessageInput = UI.getNewRepoMessageInput(deployContainer);
+
+        eventsManager.addEventListener(newRepoForm, 'submit', async (e) => {
+          e.preventDefault();
+          if (!user) return;
+
+          const name = newRepoNameInput.value;
+          const message = newRepoMessageInput.value;
+          if (!name) {
+            notifications.error('Repo name is required');
+            return;
+          }
+
+          newRepoButton.innerHTML = 'Deploying...';
+          newRepoButton.disabled = true;
+
+          const url = await deploy({
+            user,
+            repo: name,
+            config: getConfig(),
+            resultPage: await getResultPage(editors),
+            message,
+          });
+          if (url) {
+            deployedConfirmation(url);
+          } else {
+            modal.close();
+            notifications.error('Deployment failed!');
+          }
+        });
+
+        const existingRepoForm = UI.getExistingRepoForm(deployContainer);
+        const existingRepoButton = UI.getExistingRepoButton(deployContainer);
+        const existingRepoNameInput = UI.getExistingRepoNameInput(deployContainer);
+        const existingRepoMessageInput = UI.getExistingRepoMessageInput(deployContainer);
+
+        let autoComplete: any;
+        import(baseUrl + 'vendor/autocomplete.js/autoComplete.min.js').then(async () => {
+          autoComplete = (globalThis as any).autoComplete;
+
+          if (!user) return;
+          const data = getUserPublicRepos(user);
+
+          const autoCompleteJS = new autoComplete({
+            selector: '#' + existingRepoNameInput.id,
+            placeHolder: 'Search your public repos...',
+            data: {
+              src: data,
+            },
+            resultItem: {
+              highlight: {
+                render: true,
+              },
+            },
+          });
+          eventsManager.addEventListener(autoCompleteJS.input, 'selection', function (event: any) {
+            const feedback = event.detail;
+            autoCompleteJS.input.blur();
+            const selection = feedback.selection.value;
+            autoCompleteJS.input.value = selection;
+          });
+        });
+
+        eventsManager.addEventListener(existingRepoForm, 'submit', async (e) => {
+          e.preventDefault();
+          if (!user) return;
+
+          const name = existingRepoNameInput.value;
+          const message = existingRepoMessageInput.value;
+          if (!name) {
+            notifications.error('Repo name is required');
+            return;
+          }
+
+          existingRepoButton.innerHTML = 'Deploying...';
+          existingRepoButton.disabled = true;
+
+          const url = await deploy({
+            user,
+            repo: name,
+            config: getConfig(),
+            resultPage: await getResultPage(editors),
+            message,
+            newRepo: false,
+          });
+          if (url) {
+            deployedConfirmation(url);
+          } else {
+            modal.close();
+            notifications.error('Deployment failed!');
+          }
+        });
+
+        modal.show(deployContainer);
+        newRepoNameInput.focus();
+      };
+
+      const deployedConfirmation = (url?: string) => {
+        const msg = `
+          <div id="deploy-container" class="modal-container">
+            <div class="modal-title">Deployed Successfully!</div>
+            <div>
+              Your project has been deployed successfully to GitHub Pages, and will shortly be available on: <br />
+              <a href="${url}" target="_blank">${url}</a>
+            </div>
+          </div>
+        `;
+
+        if (url) {
+          const confirmationContianer = document.createElement('div');
+          confirmationContianer.innerHTML = msg;
+          modal.show(confirmationContianer, 'small');
+        }
+      };
+
+      eventsManager.addEventListener(UI.getDeployLink(), 'click', createDeployUI, false);
+    };
+
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
@@ -1506,6 +1641,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     handleImport();
     handleExport();
     handleShare();
+    handleDeploy();
     handleResultLoading();
     handleUnload();
   };

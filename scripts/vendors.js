@@ -391,3 +391,10 @@ fs.copyFileSync(
   path.resolve(node_modules + '/es-module-shims/dist/es-module-shims.min.js.map'),
   path.resolve(targetDir + '/es-module-shims/es-module-shims.min.js.map'),
 );
+
+// autocomplete.js
+mkdirp(targetDir + '/autocomplete.js');
+fs.copyFileSync(
+  path.resolve(node_modules + '/@tarekraafat/autocomplete.js/dist/autoComplete.min.js'),
+  path.resolve(targetDir + '/autocomplete.js/autoComplete.min.js'),
+);
