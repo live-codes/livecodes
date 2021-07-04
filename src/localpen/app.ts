@@ -1456,13 +1456,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           const singleFile = false;
           newRepoNameError.innerHTML = '';
 
-          const resultPage = await getResultPage(editors, forExport, resultTemplate, singleFile);
+          const resultHtml = await getResultPage(editors, forExport, resultTemplate, singleFile);
           const deployResult = await deploy({
             user,
             repo,
             config: getContentConfig(getConfig()),
             content: {
-              resultPage,
+              resultPage: resultHtml,
               style: lastCompiled.style,
               script: lastCompiled.script,
             },
