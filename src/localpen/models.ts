@@ -32,6 +32,23 @@ export interface Pen {
   showVersion: boolean;
 }
 
+export type ContentPen = Pick<
+  Pen,
+  | 'title'
+  | 'activeEditor'
+  | 'languages'
+  | 'markup'
+  | 'style'
+  | 'script'
+  | 'stylesheets'
+  | 'scripts'
+  | 'cssPreset'
+  | 'imports'
+  | 'types'
+  | 'processors'
+  | 'version'
+>;
+
 export type Language =
   | 'html'
   | 'htm'

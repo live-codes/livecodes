@@ -130,8 +130,12 @@ export const getNewRepoButton = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-btn') as HTMLButtonElement;
 export const getNewRepoNameInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-name') as HTMLInputElement;
+export const getNewRepoNameError = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-name-error') as HTMLElement;
 export const getNewRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
+export const getNewRepoCommitSource = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-source') as HTMLInputElement;
 
 export const getExistingRepoForm = (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#existing-repo-form');
@@ -141,6 +145,8 @@ export const getExistingRepoNameInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-name') as HTMLInputElement;
 export const getExistingRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-message') as HTMLInputElement;
+export const getExistingRepoCommitSource = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
 
 export const getStarterTemplatesList = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');

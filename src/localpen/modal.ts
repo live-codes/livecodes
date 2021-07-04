@@ -1,13 +1,29 @@
+interface ModalOptions {
+  size?: 'large' | 'small';
+  closeButton?: boolean;
+}
+
 export const createModal = () => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLElement;
   let isOpen: boolean;
 
-  const show = (container: Element, className = '') => {
+  const show = (container: Element, { size = 'large', closeButton = false }: ModalOptions = {}) => {
     modal.innerHTML = '';
-    modal.className = className;
+    modal.className = size;
     modal.appendChild(container);
+
+    if (closeButton) {
+      const closeContainer = document.createElement('div');
+      closeContainer.className = 'close-container';
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'button';
+      closeBtn.innerHTML = 'Close';
+      closeBtn.onclick = close;
+      closeContainer.appendChild(closeBtn);
+      modal.appendChild(closeContainer);
+    }
 
     overlay.style.display = 'flex';
     modalContainer.style.display = 'flex';
@@ -28,6 +44,7 @@ export const createModal = () => {
     setTimeout(() => {
       overlay.style.display = 'none';
       modalContainer.style.display = 'none';
+      isOpen = false;
     }, 400);
   };
 

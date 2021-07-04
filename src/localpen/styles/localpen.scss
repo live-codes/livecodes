@@ -841,6 +841,7 @@ i.arrow {
   background-color: rgb(245, 245, 245);
   border-radius: 5px;
   display: flex;
+  flex-direction: column;
   height: 80vh;
   opacity: 1;
   overflow: hidden;
@@ -852,6 +853,11 @@ i.arrow {
     max-width: calc(100vw - 40px);
     min-height: 180px;
     width: 400px;
+  }
+
+  .close-container {
+    display: flex;
+    justify-content: center;
   }
 
   #list-container {
@@ -924,6 +930,7 @@ i.arrow {
   .buttons {
     display: flex;
     justify-content: space-evenly;
+    margin: 1em 0.3em;
   }
 
   .button {
@@ -1048,6 +1055,22 @@ i.arrow {
     padding: 5px;
     resize: vertical;
     width: 80%;
+  }
+
+  .padded {
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: left;
+
+    label {
+      width: unset;
+    }
+  }
+
+  .error {
+    color: red;
+    font-weight: normal;
+    margin-left: 1em;
   }
 
   .wide-button,

@@ -13,6 +13,7 @@ export const createResultPage = (
   forExport: boolean,
   template: string,
   baseUrl: string,
+  singleFile: boolean,
 ) => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
@@ -41,10 +42,17 @@ export const createResultPage = (
   });
 
   // editor styles
-  const style = code.style.content;
-  const styleElement = dom.createElement('style');
-  styleElement.innerHTML = style;
-  dom.head.appendChild(styleElement);
+  if (singleFile) {
+    const style = code.style.content;
+    const styleElement = dom.createElement('style');
+    styleElement.innerHTML = style;
+    dom.head.appendChild(styleElement);
+  } else {
+    const EditorStylesheet = dom.createElement('link');
+    EditorStylesheet.rel = 'stylesheet';
+    EditorStylesheet.href = './style.css';
+    dom.head.appendChild(EditorStylesheet);
+  }
 
   if (config.cssPreset === 'github-markdown-css') {
     dom.body.classList.add('markdown-body');
@@ -117,7 +125,11 @@ export const createResultPage = (
   // editor script
   const script = code.script.content;
   const scriptElement = dom.createElement('script');
-  scriptElement.innerHTML = mdx ? script + '\n' + mdx : script;
+  if (singleFile) {
+    scriptElement.innerHTML = mdx ? script + '\n' + mdx : script;
+  } else {
+    scriptElement.src = './script.js';
+  }
   dom.body.appendChild(scriptElement);
 
   // script type

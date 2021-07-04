@@ -13,7 +13,7 @@ export const exportSrc = async (config: Pen, { JSZip, html }: any, baseUrl?: str
     zip.file(filename, files[filename]?.content);
   });
   zip.file('result.html', html);
-  zip.file('config.json', JSON.stringify(config, null, 2));
+  zip.file('localpen.json', JSON.stringify(config, null, 2));
   const output = await zip.generateAsync({ type: 'base64' });
 
   const filename = config.title;

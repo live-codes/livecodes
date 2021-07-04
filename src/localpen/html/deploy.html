@@ -9,18 +9,23 @@
       <div class="modal-screen">
         <form id="new-repo-form">
           <div>
-            <label for="new-repo-name">Repo Name</label>
+            <label for="new-repo-name"
+              >Repo Name <span id="new-repo-name-error" class="error"></span
+            ></label>
             <input type="text" id="new-repo-name" placeholder="Required" />
           </div>
           <div>
             <label for="new-repo-message">Commit Message</label>
             <input type="text" id="new-repo-message" placeholder="Optional" />
           </div>
+          <div class="padded">
+            <input type="checkbox" id="new-repo-source" />
+            <label for="new-repo-source">Commit source code (public)</label>
+          </div>
           <button id="new-repo-btn" class="wide-button" type="submit">Deploy</button>
         </form>
         <div class="description">
-          A new public repo will be created. The result page will be pushed to `gh-pages` branch as
-          `index.html`.
+          A new public repo will be created. The result page will be pushed to `gh-pages` branch.
         </div>
       </div>
     </div>
@@ -29,17 +34,24 @@
         <form id="existing-repo-form">
           <div>
             <label for="existing-repo-name">Repo Name</label>
-            <input type="text" id="existing-repo-name" autocomplete="off" placeholder="Required" />
+            <input
+              type="text"
+              id="existing-repo-name"
+              autocomplete="off"
+              placeholder="Loading..."
+            />
           </div>
           <div>
             <label for="existing-repo-message">Commit Message</label>
             <input type="text" id="existing-repo-message" placeholder="Optional" />
           </div>
+          <div class="padded">
+            <input type="checkbox" id="existing-repo-source" />
+            <label for="existing-repo-source">Commit source code (public)</label>
+          </div>
           <button id="existing-repo-btn" class="wide-button" type="submit">Deploy</button>
         </form>
-        <div class="description">
-          A new commit will be added to `gh-pages` branch with the updated `index.html` file.
-        </div>
+        <div class="description">A new commit will be added to `gh-pages` branch.</div>
       </div>
     </div>
   </div>
