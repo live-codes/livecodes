@@ -1,6 +1,5 @@
 import { Pen, User } from '../models';
-import { safeName } from '../utils';
-import { Files, getFilesFromConfig } from './utils';
+import { Files, getDescriptionFile, getFilesFromConfig } from './utils';
 
 export const exportGithubGist = async (config: Pen, { user }: { user: User }) => {
   if (!user) return;
@@ -22,21 +21,6 @@ const getFiles = (config: Pen, user?: User) => {
   return {
     ...descriptionFile,
     ...contentFiles,
-  };
-};
-
-const getDescriptionFile = (config: Pen, user?: User, gistUrl?: string) => {
-  const userInfo = !user
-    ? ''
-    : !user.username
-    ? 'by ' + user.displayName
-    : 'by [' + user.displayName + '](https://gist.github.com/' + user.username + ')';
-  const projectInfo = gistUrl ? `[This project](https://localpen.io/#${gistUrl})` : 'This project';
-
-  return {
-    [safeName(config.title) + '.md']: {
-      content: `# ${config.title}\n${projectInfo} was created ${userInfo} on [LocalPen](https://localpen.io).`,
-    },
   };
 };
 

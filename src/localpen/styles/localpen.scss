@@ -841,6 +841,7 @@ i.arrow {
   background-color: rgb(245, 245, 245);
   border-radius: 5px;
   display: flex;
+  flex-direction: column;
   height: 80vh;
   opacity: 1;
   overflow: hidden;
@@ -852,6 +853,11 @@ i.arrow {
     max-width: calc(100vw - 40px);
     min-height: 180px;
     width: 400px;
+  }
+
+  .close-container {
+    display: flex;
+    justify-content: center;
   }
 
   #list-container {
@@ -924,6 +930,7 @@ i.arrow {
   .buttons {
     display: flex;
     justify-content: space-evenly;
+    margin: 1em 0.3em;
   }
 
   .button {
@@ -1048,6 +1055,24 @@ i.arrow {
     padding: 5px;
     resize: vertical;
     width: 80%;
+  }
+
+  .padded {
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: left;
+
+    label {
+      display: inline;
+      margin: unset;
+      width: unset;
+    }
+  }
+
+  .error {
+    color: red;
+    font-weight: normal;
+    margin-left: 1em;
   }
 
   .wide-button,
@@ -1411,6 +1436,74 @@ i.arrow {
 
   pre.codeblock {
     padding: 0.5em !important;
+  }
+}
+
+.autoComplete_wrapper {
+  display: inline;
+  position: relative;
+
+  > input {
+    &::placeholder {
+      color: rgba(123, 123, 123, 0.5);
+      transition: all 0.3s ease;
+    }
+  }
+
+  > ul {
+    background-color: #fff;
+    border: 1px solid rgba(33, 33, 33, 0.1);
+    border-radius: 4px;
+    left: 0;
+    margin: 0.5rem 0 0;
+    max-height: 226px;
+    outline: none;
+    overflow-y: scroll;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+
+    > li {
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: 3px;
+      color: #212121;
+      font-size: 16px;
+      list-style: none;
+      overflow: hidden;
+      padding: 10px 20px;
+      text-align: left;
+      text-overflow: ellipsis;
+      transition: all 0.1s ease-in-out;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &::selection {
+        background-color: rgba(#fff, 0);
+        color: rgba(#fff, 0);
+      }
+
+      &:hover {
+        background-color: rgba(123, 123, 123, 0.1);
+        cursor: pointer;
+      }
+
+      mark {
+        background-color: transparent;
+        color: rgba(255, 122, 122, 1);
+        font-weight: bold;
+
+        &::selection {
+          background-color: rgba(#fff, 0);
+          color: rgba(#fff, 0);
+        }
+      }
+    }
+
+    > li[aria-selected='true'] {
+      background-color: rgba(123, 123, 123, 0.1);
+    }
   }
 }
 

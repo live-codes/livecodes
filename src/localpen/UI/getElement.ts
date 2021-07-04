@@ -82,6 +82,8 @@ export const getExternalResourcesLink = () =>
 
 export const getShareLink = () => document.querySelector<HTMLAnchorElement>('#share-link');
 
+export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
+
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');
 
 export const getAutoupdateToggle = () =>
@@ -121,6 +123,30 @@ export const getImportJsonUrlInput = (importContainer: HTMLElement) =>
 
 export const getImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#file-input') as HTMLInputElement;
+
+export const getNewRepoForm = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector<HTMLFormElement>('#new-repo-form');
+export const getNewRepoButton = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-btn') as HTMLButtonElement;
+export const getNewRepoNameInput = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-name') as HTMLInputElement;
+export const getNewRepoNameError = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-name-error') as HTMLElement;
+export const getNewRepoMessageInput = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
+export const getNewRepoCommitSource = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-source') as HTMLInputElement;
+
+export const getExistingRepoForm = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector<HTMLFormElement>('#existing-repo-form');
+export const getExistingRepoButton = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-btn') as HTMLButtonElement;
+export const getExistingRepoNameInput = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-name') as HTMLInputElement;
+export const getExistingRepoMessageInput = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-message') as HTMLInputElement;
+export const getExistingRepoCommitSource = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
 
 export const getStarterTemplatesList = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');

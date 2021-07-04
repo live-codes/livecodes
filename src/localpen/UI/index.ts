@@ -1,5 +1,6 @@
 export * from './getElement';
 export * from './import';
+export * from './deploy';
 export * from './login';
 export * from './open';
 export * from './postcss-plugins';

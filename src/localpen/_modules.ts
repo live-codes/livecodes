@@ -10,6 +10,7 @@
 
 export * as compiler from './compiler';
 export * as config from './config';
+export * as deploy from './deploy';
 export * as editor from './editor';
 export * as events from './events';
 export * as export from './export';
@@ -26,4 +27,5 @@ export * as storage from './storage';
 export * as templates from './templates';
 export * as toolspane from './toolspane';
 export * as types from './types';
+export * as UI from './UI';
 export * as utils from './utils';

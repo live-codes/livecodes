@@ -23,7 +23,7 @@ export const preactStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'js',
+    language: 'javascript',
     content: `
 import { h, Component, render } from "preact";
 import { useState } from "preact/hooks";

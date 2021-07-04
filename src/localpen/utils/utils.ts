@@ -27,7 +27,7 @@ export const encodeHTML = (html: string) =>
 export const pipe = (...fns: Function[]) => fns.reduce((f, g) => (...args: any) => g(f(...args)));
 
 // replace non-alphanumeric with underscore
-export const safeName = (name: string) => name.replace(/[\W]+/g, '_');
+export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
 
 export const compress = LZString.compressToBase64;
 export const decompress = LZString.decompressFromBase64;

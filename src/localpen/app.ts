@@ -8,10 +8,12 @@ import {
   pluginSpecs,
   PluginName,
   processorIsEnabled,
+  getLanguageByAlias,
 } from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
+  ContentPen,
   CssPresetId,
   EditorId,
   EditorLanguages,
@@ -40,6 +42,7 @@ import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, shareService } from './services';
+import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   setConfig(config);
@@ -125,7 +128,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const setEditorTitle = (editorId: EditorId, title: string) => {
     const editorTitle = document.querySelector(`#${editorId}-selector span`);
     if (!editorTitle) return;
-    editorTitle.innerHTML = languages.find((language) => language.name === title)?.title || '';
+    editorTitle.innerHTML =
+      languages.find((language) => language.name === getLanguageByAlias(title))?.title || '';
   };
 
   const copyToClipboard = (text: string) => {
@@ -234,7 +238,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
       editors[editorId].setValue(config[editorId].content);
-      await changeLanguage(config[editorId].language, true);
+      const language = getLanguageByAlias(config[editorId].language);
+      if (language) {
+        await changeLanguage(language, true);
+      }
     }
   };
 
@@ -403,6 +410,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     editors: Editors,
     forExport = false,
     template: string = resultTemplate,
+    singleFile = true,
   ) => {
     const getCompiled = (content: string, language: Language) =>
       compiler.compile(content, language, getConfig());
@@ -429,7 +437,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       script: compiledCode.script.content,
     };
 
-    return createResultPage(compiledCode, getConfig(), forExport, template, baseUrl);
+    return createResultPage(compiledCode, getConfig(), forExport, template, baseUrl, singleFile);
   };
 
   const setLoading = (status: boolean) => {
@@ -513,7 +521,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     notifications.success('Forked as a new project');
   };
 
-  const getContentConfig = (config: Pen): Partial<Pen> => ({
+  const getContentConfig = (config: Pen): ContentPen => ({
     title: config.title,
     activeEditor: config.activeEditor,
     languages: config.languages,
@@ -606,7 +614,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     return new Promise((resolve, reject) => {
       const div = document.createElement('div');
       div.innerHTML = savePromptScreen;
-      modal.show(div.firstChild as HTMLElement, 'small');
+      modal.show(div.firstChild as HTMLElement, { size: 'small' });
       eventsManager.addEventListener(UI.getModalSaveButton(), 'click', () => {
         save(true);
         if (!doNotCloseModal) {
@@ -694,7 +702,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       };
 
       const loginContainer = UI.createLoginContainer(eventsManager, loginHandler);
-      modal.show(loginContainer, 'small');
+      modal.show(loginContainer, { size: 'small' });
     }).catch(() => {
       notifications.error('Login error!');
     });
@@ -1171,7 +1179,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
               event.preventDefault();
 
               const loading = UI.createItemLoader(item);
-              modal.show(loading, 'small');
+              modal.show(loading, { size: 'small' });
 
               const itemId = (link as HTMLElement).dataset.id || '';
               const savedPen = storage.getItem(itemId)?.pen;
@@ -1393,7 +1401,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             user = await login();
           }
           if (!user) return;
-          notifications.info('Creating a PUBLIC GitHub gist...');
+          notifications.info('Creating a public GitHub gist...');
           exportPen(getConfig(), baseUrl, 'githubGist', { user });
         },
         false,
@@ -1410,6 +1418,156 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         },
         false,
       );
+    };
+
+    const handleDeploy = () => {
+      const createDeployUI = async () => {
+        let user = await authService?.getUser();
+        if (!user) {
+          user = await login();
+        }
+        if (!user) {
+          notifications.error('Authentication error!');
+          return;
+        }
+
+        const deployContainer = UI.createDeployContainer(eventsManager);
+
+        const newRepoForm = UI.getNewRepoForm(deployContainer);
+        const newRepoButton = UI.getNewRepoButton(deployContainer);
+        const newRepoNameInput = UI.getNewRepoNameInput(deployContainer);
+        const newRepoNameError = UI.getNewRepoNameError(deployContainer);
+        const newRepoMessageInput = UI.getNewRepoMessageInput(deployContainer);
+        const newRepoCommitSource = UI.getNewRepoCommitSource(deployContainer);
+        const existingRepoForm = UI.getExistingRepoForm(deployContainer);
+        const existingRepoButton = UI.getExistingRepoButton(deployContainer);
+        const existingRepoNameInput = UI.getExistingRepoNameInput(deployContainer);
+        const existingRepoMessageInput = UI.getExistingRepoMessageInput(deployContainer);
+        const existingRepoCommitSource = UI.getExistingRepoCommitSource(deployContainer);
+
+        const publish = async (
+          user: User,
+          repo: string,
+          message: string,
+          commitSource: boolean,
+          newRepo: boolean,
+        ) => {
+          const forExport = true;
+          const singleFile = false;
+          newRepoNameError.innerHTML = '';
+
+          const resultHtml = await getResultPage(editors, forExport, resultTemplate, singleFile);
+          const deployResult = await deploy({
+            user,
+            repo,
+            config: getContentConfig(getConfig()),
+            content: {
+              resultPage: resultHtml,
+              style: lastCompiled.style,
+              script: lastCompiled.script,
+            },
+            message,
+            commitSource,
+            singleFile,
+            newRepo,
+          }).catch((error) => {
+            if (error.message === 'Repo name already exists') {
+              newRepoNameError.innerHTML = error.message;
+            }
+          });
+
+          if (newRepoNameError.innerHTML !== '') {
+            return false;
+          } else if (deployResult) {
+            const confirmationContianer = deployedConfirmation(deployResult, commitSource);
+            modal.show(confirmationContianer, { size: 'small', closeButton: true });
+            return true;
+          } else {
+            modal.close();
+            notifications.error('Deployment failed!');
+            return true;
+          }
+        };
+
+        eventsManager.addEventListener(newRepoForm, 'submit', async (e) => {
+          e.preventDefault();
+          if (!user) return;
+
+          const name = newRepoNameInput.value;
+          const message = newRepoMessageInput.value;
+          const commitSource = newRepoCommitSource.checked;
+          const newRepo = true;
+          if (!name) {
+            notifications.error('Repo name is required');
+            return;
+          }
+
+          newRepoButton.innerHTML = 'Deploying...';
+          newRepoButton.disabled = true;
+
+          const result = await publish(user, name, message, commitSource, newRepo);
+          if (!result) {
+            newRepoButton.innerHTML = 'Deploy';
+            newRepoButton.disabled = false;
+          }
+        });
+
+        eventsManager.addEventListener(existingRepoForm, 'submit', async (e) => {
+          e.preventDefault();
+          if (!user) return;
+
+          const name = existingRepoNameInput.value;
+          const message = existingRepoMessageInput.value;
+          const commitSource = existingRepoCommitSource.checked;
+          const newRepo = false;
+          if (!name) {
+            notifications.error('Repo name is required');
+            return;
+          }
+
+          existingRepoButton.innerHTML = 'Deploying...';
+          existingRepoButton.disabled = true;
+
+          await publish(user, name, message, commitSource, newRepo);
+        });
+
+        let autoComplete: any;
+        import(baseUrl + 'vendor/autocomplete.js/autoComplete.min.js').then(async () => {
+          autoComplete = (globalThis as any).autoComplete;
+
+          if (!user) return;
+          const publicRepos = await getUserPublicRepos(user);
+
+          eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
+            existingRepoNameInput.focus();
+          });
+
+          const autoCompleteJS = new autoComplete({
+            selector: '#' + existingRepoNameInput.id,
+            placeHolder: 'Search your public repos...',
+            data: {
+              src: publicRepos,
+            },
+            resultItem: {
+              highlight: {
+                render: true,
+              },
+            },
+          });
+
+          eventsManager.addEventListener(autoCompleteJS.input, 'selection', function (event: any) {
+            const feedback = event.detail;
+            autoCompleteJS.input.blur();
+            const selection = feedback.selection.value;
+            autoCompleteJS.input.value = selection;
+          });
+        });
+
+        modal.show(deployContainer);
+        newRepoNameInput.focus();
+      };
+
+      eventsManager.addEventListener(UI.getDeployLink(), 'click', createDeployUI, false);
     };
 
     const handleExternalResources = () => {
@@ -1506,6 +1664,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     handleImport();
     handleExport();
     handleShare();
+    handleDeploy();
     handleResultLoading();
     handleUnload();
   };
@@ -1539,7 +1698,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const showLanguageInfo = (languageInfo: HTMLElement) => {
-    modal.show(languageInfo, 'small');
+    modal.show(languageInfo, { size: 'small' });
   };
 
   const loadStarterTemplate = async (templateName: string) => {
