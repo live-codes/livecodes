@@ -1183,12 +1183,15 @@ i.arrow {
 
   #share-screen {
     ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       list-style: none;
       margin-top: -1em;
 
       li {
-        display: block;
         margin: 0.5em;
+        width: 40%;
 
         img {
           margin-bottom: -0.3em;

@@ -1,76 +1,150 @@
 import { createEventsManager } from '../events';
 import { shareScreen } from '../html';
-import { getAbsoluteUrl } from '../utils';
+import { ShareData } from '../models';
+import { createNotifications } from '../notifications';
+import { copyToClipboard, getAbsoluteUrl } from '../utils';
+
+interface Service {
+  name: string;
+  icon: string;
+  createShareUrl?: (options: ShareData) => string;
+  onClick?: (options: ShareData) => void;
+}
+
+const encode = encodeURIComponent;
 
 export const createShareContainer = (
-  shareData: { title: string; url: string },
-  eventsManager: ReturnType<typeof createEventsManager>,
+  shareData: ShareData,
   baseUrl: string,
-  copyUrl: (url: string) => void,
+  eventsManager: ReturnType<typeof createEventsManager>,
+  notifications: ReturnType<typeof createNotifications>,
 ) => {
-  const div = document.createElement('div');
-  div.innerHTML = shareScreen.replace(/{{ __localpen_baseUrl__ }}/g, getAbsoluteUrl(baseUrl));
-  const shareContainer = div.firstChild as HTMLElement;
-
-  shareContainer.querySelectorAll('a').forEach((link) => {
-    switch (link.dataset.service) {
-      case 'facebook':
-        link.href = 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent(shareData.url);
-        break;
-      case 'twitter':
-        link.href =
-          'https://twitter.com/intent/tweet?url=' +
-          encodeURIComponent(shareData.url) +
-          '&text=' +
-          encodeURIComponent(shareData.title);
-        break;
-      case 'hacker-news':
-        link.href =
-          'https://news.ycombinator.com/submitlink?u=' +
-          encodeURIComponent(shareData.url) +
-          '&t=' +
-          encodeURIComponent(shareData.title);
-        break;
-      case 'reddit':
-        link.href =
-          'https://www.reddit.com/submit?url=' +
-          encodeURIComponent(shareData.url) +
-          '&title=' +
-          encodeURIComponent(shareData.title);
-        break;
-      case 'linkedin':
-        link.href =
-          'https://www.linkedin.com/shareArticle?url=' +
-          encodeURIComponent(shareData.url) +
-          '&mini=true&source=LocalPen&title=' +
-          encodeURIComponent(shareData.title);
-        break;
-      case 'dev':
-        link.href =
-          'https://dev.to/new?prefill=' +
-          encodeURIComponent(
-            '---\ntitle: ' +
-              shareData.title +
-              '\npublished: true\ntags: localpen\n---\n\n\n\n' +
-              shareData.url,
-          );
-        break;
-      case 'share':
-        if (!navigator.share) {
-          link.parentElement?.remove();
+  const services: Service[] = [
+    {
+      name: 'Facebook',
+      icon: 'facebook.svg',
+      createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
+    },
+    {
+      name: 'Twitter',
+      icon: 'twitter.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
+    },
+    {
+      name: 'Hacker News',
+      icon: 'hacker-news.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://news.ycombinator.com/submitlink?u=${encode(url)}&t=${encode(title)}`,
+    },
+    {
+      name: 'Reddit',
+      icon: 'reddit.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://www.reddit.com/submit?url=${encode(url)}&title=${encode(title)}`,
+    },
+    {
+      name: 'LinkedIn',
+      icon: 'linkedin.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://www.linkedin.com/shareArticle?url=${encode(url)}&title=${encode(
+          title,
+        )}&mini=true&source=LocalPen`,
+    },
+    {
+      name: 'Dev.to',
+      icon: 'dev.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://dev.to/new?prefill=${encode(
+          '---\ntitle: ' + title + '\npublished: true\ntags: localpen\n---\n\n\n\n' + url,
+        )}`,
+    },
+    {
+      name: 'Evernote',
+      icon: 'evernote.svg',
+      createShareUrl: ({ url, title }) => `
+      https://www.evernote.com/clip.action?url=${encode(url)}&title=${encode(title)}`,
+    },
+    {
+      name: 'Pocket',
+      icon: 'pocket.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://getpocket.com/save?url=${encode(url)}&title=${encode(title)}`,
+    },
+    {
+      name: 'WhatsApp',
+      icon: 'whatsapp.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://api.whatsapp.com/send?text=${encode(title)} ${encode(url)}`,
+    },
+    {
+      name: 'Telegram',
+      icon: 'telegram.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://t.me/share/url?url=${encode(url)}&text=${encode(title)}`,
+    },
+    {
+      name: 'Pinterest',
+      icon: 'pinterest.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://pinterest.com/pin/create/bookmarklet/?url=${encode(url)}&description=${encode(
+          title,
+        )}`,
+    },
+    {
+      name: 'Email',
+      icon: 'email.svg',
+      createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
+    },
+    {
+      name: 'Share via …',
+      icon: 'share.svg',
+      onClick: ({ url, title }) => navigator.share({ url, title }),
+    },
+    {
+      name: 'Copy URL',
+      icon: 'copy.svg',
+      onClick: ({ url }) => {
+        const copySucceeded = copyToClipboard(url);
+        if (copySucceeded) {
+          notifications.success('URL copied to clipboard');
         } else {
-          eventsManager.addEventListener(link, 'click', async (event: Event) => {
-            event.preventDefault();
-            await navigator.share(shareData);
-          });
+          notifications.error('Copy to clipboard failed!');
         }
-        break;
-      case 'copy':
-        eventsManager.addEventListener(link, 'click', (event: Event) => {
-          event.preventDefault();
-          copyUrl(shareData.url);
-        });
-        break;
+      },
+    },
+  ];
+
+  const div = document.createElement('div');
+  div.innerHTML = shareScreen;
+  const shareContainer = div.firstChild as HTMLElement;
+  const items = shareContainer.querySelector('#share-links');
+
+  services.forEach((service) => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = service.createShareUrl?.(shareData) || '#';
+    link.target = 'blank';
+    link.rel = 'noopener noreferrer';
+    link.innerHTML = `
+        <img
+          src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
+          alt="${service.name}"
+        />
+        ${service.name}
+      `;
+
+    if (service.onClick) {
+      eventsManager.addEventListener(link, 'click', async (event: Event) => {
+        event.preventDefault();
+        service.onClick?.(shareData);
+      });
+    }
+    item.appendChild(link);
+    items?.appendChild(item);
+
+    if (service.name === 'Share via …' && !navigator.share) {
+      item.remove();
     }
   });
 

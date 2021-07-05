@@ -22,6 +22,7 @@ import {
   GithubScope,
   Language,
   Pen,
+  ShareData,
   Template,
   ToolList,
   User,
@@ -517,8 +518,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     version: config.version,
   });
 
-  const share = async (copy = true) => {
-    if (copy) notifications.info('Preparing URL...');
+  const share = async (copy = true): Promise<ShareData> => {
+    if (copy) notifications.info('Generating public URL …');
     const content = getContentConfig(getConfig());
     const projectId = copy ? await shareService.shareProject(content) : '';
     const contentHash = projectId
@@ -1384,11 +1385,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     };
 
     const handleShare = () => {
-      const copyUrl = (url: string) => {
-        copyToClipboard(url);
-        notifications.success('URL copied to clipboard');
-      };
-
       eventsManager.addEventListener(
         UI.getShareLink(),
         'click',
@@ -1397,15 +1393,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           const shareData = await share();
           const shareContainer = UI.createShareContainer(
             shareData,
-            eventsManager,
             baseUrl,
-            copyUrl,
+            eventsManager,
+            notifications,
           );
-          eventsManager.addEventListener(shareContainer, 'click', (event: Event) => {
-            if ((event.target as HTMLAnchorElement).href) {
-              modal.close();
-            }
-          });
           modal.show(shareContainer, { size: 'small' });
         },
         false,
@@ -1690,7 +1681,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const showLanguageInfo = (languageInfo: HTMLElement) => {
-    modal.show(languageInfo, { size: 'small' });
+    modal.show(languageInfo, { size: 'small', skipClickOutside: true });
   };
 
   const loadStarterTemplate = async (templateName: string) => {
