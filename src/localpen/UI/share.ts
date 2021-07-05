@@ -60,16 +60,18 @@ export const createShareContainer = (
         )}`,
     },
     {
-      name: 'Evernote',
-      icon: 'evernote.svg',
+      name: 'Tumblr',
+      icon: 'tumblr.svg',
       createShareUrl: ({ url, title }) => `
-      https://www.evernote.com/clip.action?url=${encode(url)}&title=${encode(title)}`,
+      https://www.tumblr.com/share/link?url=${encode(url)}&name=${encode(title)}`,
     },
     {
-      name: 'Pocket',
-      icon: 'pocket.svg',
+      name: 'Pinterest',
+      icon: 'pinterest.svg',
       createShareUrl: ({ url, title }) =>
-        `https://getpocket.com/save?url=${encode(url)}&title=${encode(title)}`,
+        `https://pinterest.com/pin/create/bookmarklet/?url=${encode(url)}&description=${encode(
+          title,
+        )}`,
     },
     {
       name: 'WhatsApp',
@@ -84,12 +86,10 @@ export const createShareContainer = (
         `https://t.me/share/url?url=${encode(url)}&text=${encode(title)}`,
     },
     {
-      name: 'Pinterest',
-      icon: 'pinterest.svg',
+      name: 'Pocket',
+      icon: 'pocket.svg',
       createShareUrl: ({ url, title }) =>
-        `https://pinterest.com/pin/create/bookmarklet/?url=${encode(url)}&description=${encode(
-          title,
-        )}`,
+        `https://getpocket.com/save?url=${encode(url)}&title=${encode(title)}`,
     },
     {
       name: 'Email',
