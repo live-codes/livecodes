@@ -17,6 +17,8 @@ import savePromptScreen from './save-prompt.html';
 import templatesScreen from './templates.html';
 // @ts-ignore
 import openScreen from './open.html';
+// @ts-ignore
+import shareScreen from './share.html';
 
 export {
   resultTemplate,
@@ -28,4 +30,5 @@ export {
   savePromptScreen,
   templatesScreen,
   openScreen,
+  shareScreen,
 };
