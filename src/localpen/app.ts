@@ -22,6 +22,7 @@ import {
   GithubScope,
   Language,
   Pen,
+  ShareData,
   Template,
   ToolList,
   User,
@@ -36,7 +37,7 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, debounce } from './utils';
+import { compress, copyToClipboard, debounce } from './utils';
 import { getCompiler } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -130,26 +131,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (!editorTitle) return;
     editorTitle.innerHTML =
       languages.find((language) => language.name === getLanguageByAlias(title))?.title || '';
-  };
-
-  const copyToClipboard = (text: string) => {
-    if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
-      const textarea = document.createElement('textarea');
-      textarea.textContent = text;
-      textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in Microsoft Edge.
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        return document.execCommand('copy'); // Security exception may be thrown by some browsers.
-      } catch (ex) {
-        // eslint-disable-next-line no-console
-        console.warn('Copy to clipboard failed.', ex);
-        return false;
-      } finally {
-        document.body.removeChild(textarea);
-      }
-    }
-    return false;
   };
 
   const createCopyButtons = (editors: Editors) => {
@@ -537,25 +518,20 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     version: config.version,
   });
 
-  const share = async (copyUrl = true) => {
-    if (copyUrl) notifications.info('Preparing URL...');
-    const config = getConfig();
-    const content = getContentConfig(config);
-
-    const projectId = copyUrl ? await shareService.shareProject(content) : '';
-
+  const share = async (copy = true): Promise<ShareData> => {
+    if (copy) notifications.info('Generating public URL …');
+    const content = getContentConfig(getConfig());
+    const projectId = copy ? await shareService.shareProject(content) : '';
     const contentHash = projectId
       ? '#id/' + projectId
       : '#code/' + compress(JSON.stringify(content));
     const shareURL = location.origin + location.pathname + contentHash;
-
-    if (copyUrl) {
-      updateUrl(shareURL, true);
-      copyToClipboard(shareURL);
-      notifications.success('URL copied to clipboard');
-    } else {
-      updateUrl(shareURL);
-    }
+    updateUrl(shareURL, true);
+    const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
+    return {
+      title: projectTitle + 'LocalPen',
+      url: shareURL,
+    };
   };
 
   const updateConfig = () => {
@@ -1412,9 +1388,16 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       eventsManager.addEventListener(
         UI.getShareLink(),
         'click',
-        (event: Event) => {
+        async (event: Event) => {
           event.preventDefault();
-          share();
+          const shareData = await share();
+          const shareContainer = UI.createShareContainer(
+            shareData,
+            baseUrl,
+            eventsManager,
+            notifications,
+          );
+          modal.show(shareContainer, { size: 'small' });
         },
         false,
       );
@@ -1698,7 +1681,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const showLanguageInfo = (languageInfo: HTMLElement) => {
-    modal.show(languageInfo, { size: 'small' });
+    modal.show(languageInfo, { size: 'small', skipClickOutside: true });
   };
 
   const loadStarterTemplate = async (templateName: string) => {

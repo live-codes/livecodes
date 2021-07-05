@@ -1,15 +1,19 @@
 interface ModalOptions {
   size?: 'large' | 'small';
   closeButton?: boolean;
+  skipClickOutside?: boolean;
 }
 
 export const createModal = () => {
   const overlay = document.querySelector('#overlay') as HTMLElement;
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLElement;
-  let isOpen: boolean;
+  let skipClickOut = false;
 
-  const show = (container: Element, { size = 'large', closeButton = false }: ModalOptions = {}) => {
+  const show = (
+    container: Element,
+    { size = 'large', closeButton = false, skipClickOutside = false }: ModalOptions = {},
+  ) => {
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
@@ -30,8 +34,10 @@ export const createModal = () => {
     modal.style.display = 'flex';
     overlay.classList.remove('hidden');
     modalContainer.classList.remove('hidden');
-    isOpen = true;
-    document.addEventListener('click', clickOutside, false);
+    skipClickOut = skipClickOutside;
+    setTimeout(() => {
+      document.addEventListener('click', clickOutside, false);
+    });
   };
 
   const close = () => {
@@ -44,15 +50,14 @@ export const createModal = () => {
     setTimeout(() => {
       overlay.style.display = 'none';
       modalContainer.style.display = 'none';
-      isOpen = false;
     }, 400);
   };
 
   function clickOutside(event: Event) {
-    if (!modal.contains(event.target as Node) && !isOpen) {
+    if (!modal.contains(event.target as Node) && !skipClickOut) {
       close();
     }
-    isOpen = false;
+    skipClickOut = false;
   }
 
   return {

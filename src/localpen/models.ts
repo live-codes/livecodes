@@ -299,3 +299,8 @@ export interface User {
 }
 
 export type GithubScope = 'gist' | 'repo' | 'public_repo';
+
+export interface ShareData {
+  url: string;
+  title: string;
+}

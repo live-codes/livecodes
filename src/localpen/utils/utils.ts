@@ -69,3 +69,23 @@ export const objectFilter = (
   obj: Record<string, any>,
   predicate: (value: any, key: string, index: number) => any,
 ) => Object.fromEntries(Object.entries(obj).filter(([k, v], i) => predicate(v, k, i)));
+
+export const copyToClipboard = (text: string) => {
+  if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+    const textarea = document.createElement('textarea');
+    textarea.textContent = text;
+    textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in Microsoft Edge.
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      return document.execCommand('copy'); // Security exception may be thrown by some browsers.
+    } catch (ex) {
+      // eslint-disable-next-line no-console
+      console.warn('Copy to clipboard failed.', ex);
+      return false;
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  }
+  return false;
+};

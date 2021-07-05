@@ -4,5 +4,6 @@ export * from './deploy';
 export * from './login';
 export * from './open';
 export * from './postcss-plugins';
+export * from './share';
 export * from './split-panes';
 export * from './templates';
