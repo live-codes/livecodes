@@ -39,6 +39,14 @@ const baseOptions = {
   define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
 };
 
+// solid
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/babel-preset-solid.js'],
+  outfile: 'src/localpen/vendor/babel-preset-solid/babel-preset-solid.js',
+  globalName: 'solid',
+});
+
 // Monaco editor
 esbuild.buildSync({
   ...baseOptions,
@@ -303,6 +311,15 @@ fs.copyFileSync(
   path.resolve(node_modules + '/@babel/standalone/babel.min.js'),
   path.resolve(targetDir + '/babel/babel.min.js'),
 );
+
+// solid
+esbuild.build({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/babel-preset-solid.js'],
+  outfile: 'src/localpen/vendor/babel-preset-solid/babel-preset-solid.js',
+  globalName: 'babelPresetSolid',
+  plugins: nodePolyfills,
+});
 
 // vue3-sfc-loader
 mkdirp(targetDir + '/vue3-sfc-loader');

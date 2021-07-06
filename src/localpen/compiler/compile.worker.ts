@@ -82,6 +82,12 @@ const compile = async (
         presets: [['env', { modules: false }], 'react'],
       }).code;
       break;
+    case 'solid':
+      // case 'solid.tsx':
+      value = compiler(content, {
+        presets: [['env', { modules: false }], 'solid'],
+      }).code;
+      break;
     case 'typescript':
       value = compiler(content, typescriptOptions);
       break;

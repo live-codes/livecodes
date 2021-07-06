@@ -6,6 +6,8 @@ Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob
 
 asciidoctor-skins: [MIT License](https://github.com/darshandsoni/asciidoctor-skins/blob/c98a8ab9b27571e5b63d75912a3c753cc72ed8e4/LICENSE)
 
+autoComplete.js: [Apache-2.0 License](https://github.com/TarekRaafat/autoComplete.js/blob/25d53ebed7728e8902224f73b9d917a0da90dc55/LICENSE)
+
 Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9a8613b0c90357472d58fdcce26324ef4f/LICENSE)
 
 Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582f1f3fdcdac0fa0d2f/LICENSE)
@@ -69,6 +71,8 @@ reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)
+
+Solid: [MIT License](https://github.com/solidjs/solid/blob/0d83a1947aab4bea4223460d6756a38374ba391e/LICENSE)
 
 Split.js: [MIT License](https://github.com/nathancahill/split/blob/311646253e36db7dc8e7ab0a2ff55b08f15252d5/LICENSE)
 

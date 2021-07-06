@@ -68,6 +68,7 @@
     "@snackbar/core": "1.7.0",
     "@tarekraafat/autocomplete.js": "10.1.5",
     "asciidoctor": "2.2.1",
+    "babel-preset-solid": "1.0.0",
     "emmet-monaco-es": "4.4.2",
     "es-module-shims": "0.10.5",
     "firebase": "9.0.0-beta.2",
