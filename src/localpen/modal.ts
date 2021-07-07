@@ -1,6 +1,7 @@
 interface ModalOptions {
   size?: 'large' | 'small';
   closeButton?: boolean;
+  isAsync?: boolean;
 }
 
 export const createModal = () => {
@@ -9,7 +10,10 @@ export const createModal = () => {
   const modal = document.querySelector('#modal') as HTMLElement;
   let isOpen: boolean;
 
-  const show = (container: Element, { size = 'large', closeButton = false }: ModalOptions = {}) => {
+  const show = (
+    container: HTMLElement,
+    { size = 'large', closeButton = false, isAsync = false }: ModalOptions = {},
+  ) => {
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
@@ -32,6 +36,9 @@ export const createModal = () => {
     modalContainer.classList.remove('hidden');
     isOpen = true;
     document.addEventListener('click', clickOutside, false);
+    if (isAsync) {
+      container.click();
+    }
   };
 
   const close = () => {

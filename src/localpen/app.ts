@@ -1393,7 +1393,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             eventsManager,
             notifications,
           );
-          modal.show(shareContainer, { size: 'small' });
+          modal.show(shareContainer, { size: 'small', isAsync: true });
         },
         false,
       );
@@ -1677,7 +1677,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const showLanguageInfo = (languageInfo: HTMLElement) => {
-    modal.show(languageInfo, { size: 'small', skipClickOutside: true });
+    modal.show(languageInfo, { size: 'small' });
   };
 
   const loadStarterTemplate = async (templateName: string) => {
