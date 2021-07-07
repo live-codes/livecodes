@@ -621,14 +621,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    let emmetSupported;
-    Object.values(editors).forEach((editor: CodeEditor) => {
-      if (editor.configureEmmet && typeof editor.configureEmmet === 'function') {
-        emmetSupported = true;
-        editor.configureEmmet(config.emmet);
-      }
-    });
-    if (!emmetSupported) {
+    const editor = editors.markup;
+    if (typeof editor?.configureEmmet === 'function') {
+      editor.configureEmmet(config.emmet);
+    } else {
       const emmetSetting = document.querySelector('#settings-menu #emmet')?.closest('li');
       if (emmetSetting) {
         emmetSetting.style.display = 'none';
