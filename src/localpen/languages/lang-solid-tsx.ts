@@ -1,16 +1,17 @@
 import { LanguageSpecs } from '../models';
 import { parserPlugins } from './parser-plugins';
-declare const importScripts: (...args: string[]) => void;
 
 export const solidTsx: LanguageSpecs = {
   name: 'solid.tsx',
   title: 'Solid TSX',
   info: `
-  <h3>Solid</h3>
+  <h3>Solid (with TypeScript)</h3>
   <div>A declarative, efficient and flexible JavaScript library for building user interfaces.</div>
   <ul>
     <li><a href="https://www.solidjs.com/" target="_blank" rel="noopener">Official website</a></li>
-    <li><a href="https://www.solidjs.com/docs" target="_blank" rel="noopener">Documentation</a></li>
+    <li><a href="https://www.solidjs.com/docs" target="_blank" rel="noopener">Solid documentation</a></li>
+    <li><a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript website</a></li>
+    <li><a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener">TypeScript documentation</a></li>
     <!-- <li><a href="#">Solid usage in LocalPen</a></li> -->
   </ul>
   `,

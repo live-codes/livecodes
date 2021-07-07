@@ -197,6 +197,7 @@ export interface EditorLibrary {
 }
 
 export interface Compiler {
+  dependencies?: Language[];
   url: string;
   fn?: (code: string, options?: any) => any;
   factory: (
@@ -216,6 +217,7 @@ export interface Compiler {
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua';
+  aliasTo?: Language;
 }
 
 export interface Compilers {

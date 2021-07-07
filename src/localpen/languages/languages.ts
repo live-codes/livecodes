@@ -29,7 +29,7 @@ import { perl } from './lang-perl';
 import { lua } from './lang-lua';
 import { scheme } from './lang-scheme';
 import { solid } from './lang-solid';
-// import { solidTsx } from './lang-solid-tsx';
+import { solidTsx } from './lang-solid-tsx';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -53,7 +53,7 @@ export const languages: LanguageSpecs[] = [
   svelte,
   stencil,
   solid,
-  // solidTsx,
+  solidTsx,
   coffeescript,
   livescript,
   assemblyscript,

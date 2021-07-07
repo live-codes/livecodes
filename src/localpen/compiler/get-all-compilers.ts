@@ -20,6 +20,7 @@ export const getAllCompilers = (
           compilers[language.name] = {
             ...compiler,
             url: baseUrl + compiler?.url,
+            aliasTo: language.compiler,
           } as Compiler;
         } else {
           compilers[language.name] = {

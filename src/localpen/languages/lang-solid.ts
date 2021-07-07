@@ -19,9 +19,9 @@ export const solid: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
+    dependencies: ['babel'],
     url: 'vendor/babel-preset-solid/babel-preset-solid.js',
     factory: () => {
-      importScripts('vendor/babel/babel.min.js');
       const Babel = (self as any).Babel;
       Babel.registerPreset('solid', (self as any).babelPresetSolid.solid);
       return Babel.transform;

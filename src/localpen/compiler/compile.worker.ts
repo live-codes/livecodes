@@ -9,21 +9,30 @@ let compilers: Compilers;
 const worker: Worker = self as any;
 (self as any).window = self;
 
-const loadLanguageCompiler = async (
-  language: LanguageOrProcessor,
-  config: Pen,
-  baseUrl: string,
-) => {
+const loadLanguageCompiler = (language: LanguageOrProcessor, config: Pen, baseUrl: string) => {
   if (!compilers) {
     compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
   }
-
   const languageCompiler = compilers[language];
-  try {
-    importScripts(languageCompiler.url);
-    languageCompiler.fn = languageCompiler.factory(null, config);
-  } catch (error) {
-    throw new Error('Failed to load compiler for: ' + language);
+  if (languageCompiler.dependencies && languageCompiler.dependencies.length > 0) {
+    languageCompiler.dependencies.forEach((dependency) => {
+      loadLanguageCompiler(dependency, config, baseUrl);
+    });
+  }
+  if (typeof languageCompiler.fn !== 'function') {
+    if (languageCompiler.aliasTo && typeof compilers[languageCompiler.aliasTo]?.fn === 'function') {
+      languageCompiler.fn = compilers[languageCompiler.aliasTo].fn;
+    } else {
+      try {
+        importScripts(languageCompiler.url);
+        languageCompiler.fn = languageCompiler.factory(null, config);
+        if (languageCompiler.aliasTo) {
+          compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
+        }
+      } catch (error) {
+        throw new Error('Failed to load compiler for: ' + language);
+      }
+    }
   }
 
   const loadedMessage: CompilerMessage = { type: 'loaded', payload: language };
@@ -79,13 +88,19 @@ const compile = async (
       break;
     case 'babel':
       value = compiler(content, {
-        presets: [['env', { modules: false }], 'react'],
+        filename: 'script.tsx',
+        presets: [['env', { modules: false }], 'typescript', 'react'],
       }).code;
       break;
     case 'solid':
-      // case 'solid.tsx':
       value = compiler(content, {
         presets: [['env', { modules: false }], 'solid'],
+      }).code;
+      break;
+    case 'solid.tsx':
+      value = compiler(content, {
+        filename: 'script.solid.tsx',
+        presets: [['env', { modules: false }], 'typescript', 'solid'],
       }).code;
       break;
     case 'typescript':
