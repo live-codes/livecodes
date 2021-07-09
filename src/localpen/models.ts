@@ -84,6 +84,9 @@ export type Language =
   | 'svelte'
   | 'stencil'
   | 'stencil.tsx'
+  | 'solid'
+  | 'solid.jsx'
+  | 'solid.tsx'
   | 'coffeescript'
   | 'coffee'
   | 'livescript'
@@ -194,6 +197,7 @@ export interface EditorLibrary {
 }
 
 export interface Compiler {
+  dependencies?: Language[];
   url: string;
   fn?: (code: string, options?: any) => any;
   factory: (
@@ -213,6 +217,7 @@ export interface Compiler {
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua';
+  aliasTo?: Language;
 }
 
 export interface Compilers {

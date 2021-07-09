@@ -10,8 +10,8 @@ export const typescript: LanguageSpecs = {
   <div>A Typed Superset of JavaScript.</div>
   <ul>
     <li><a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">Official website</a></li>
-    <li><a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener">Typescript documentation</a></li>
-    <!-- <li><a href="#">Typescript usage in LocalPen</a></li> -->
+    <li><a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener">TypeScript documentation</a></li>
+    <!-- <li><a href="#">TypeScript usage in LocalPen</a></li> -->
     <li><a href="?template=typescript" target="_parent" data-template="typescript">Load starter template</a></li>
   </ul>
   `,
@@ -21,7 +21,8 @@ export const typescript: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/typescript/typescript.min.js',
-    factory: () => (window as any).typescript.transpile,
+    factory: () => (code, { typescriptOptions }) =>
+      (window as any).typescript.transpile(code, typescriptOptions),
     umd: true,
   },
   extensions: ['ts', 'typescript'],

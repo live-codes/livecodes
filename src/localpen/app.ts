@@ -9,6 +9,7 @@ import {
   PluginName,
   processorIsEnabled,
   getLanguageByAlias,
+  mapLanguage,
 } from './languages';
 import { createStorage } from './storage';
 import {
@@ -113,7 +114,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const loadModuleTypes = async (editors: Editors, config: Pen) => {
     if (
       editors.script &&
-      ['typescript', 'tsx', 'assemblyscript', 'stencil'].includes(editors.script.getLanguage()) &&
+      mapLanguage(editors.script.getLanguage()) === 'typescript' &&
       typeof editors.script.addTypes === 'function'
     ) {
       const libs = await typeLoader.load(editors.script.getValue(), config.types);
@@ -621,14 +622,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const configureEmmet = (config: Pen) => {
-    let emmetSupported;
-    Object.values(editors).forEach((editor: CodeEditor) => {
-      if (editor.configureEmmet && typeof editor.configureEmmet === 'function') {
-        emmetSupported = true;
-        editor.configureEmmet(config.emmet);
-      }
-    });
-    if (!emmetSupported) {
+    const editor = editors.markup;
+    if (typeof editor?.configureEmmet === 'function') {
+      editor.configureEmmet(config.emmet);
+    } else {
       const emmetSetting = document.querySelector('#settings-menu #emmet')?.closest('li');
       if (emmetSetting) {
         emmetSetting.style.display = 'none';
@@ -1397,7 +1394,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             eventsManager,
             notifications,
           );
-          modal.show(shareContainer, { size: 'small' });
+          modal.show(shareContainer, { size: 'small', isAsync: true });
         },
         false,
       );
@@ -1681,7 +1678,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const showLanguageInfo = (languageInfo: HTMLElement) => {
-    modal.show(languageInfo, { size: 'small', skipClickOutside: true });
+    modal.show(languageInfo, { size: 'small' });
   };
 
   const loadStarterTemplate = async (templateName: string) => {

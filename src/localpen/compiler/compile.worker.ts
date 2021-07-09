@@ -9,21 +9,30 @@ let compilers: Compilers;
 const worker: Worker = self as any;
 (self as any).window = self;
 
-const loadLanguageCompiler = async (
-  language: LanguageOrProcessor,
-  config: Pen,
-  baseUrl: string,
-) => {
+const loadLanguageCompiler = (language: LanguageOrProcessor, config: Pen, baseUrl: string) => {
   if (!compilers) {
     compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
   }
-
   const languageCompiler = compilers[language];
-  try {
-    importScripts(languageCompiler.url);
-    languageCompiler.fn = languageCompiler.factory(null, config);
-  } catch (error) {
-    throw new Error('Failed to load compiler for: ' + language);
+  if (languageCompiler.dependencies && languageCompiler.dependencies.length > 0) {
+    languageCompiler.dependencies.forEach((dependency) => {
+      loadLanguageCompiler(dependency, config, baseUrl);
+    });
+  }
+  if (typeof languageCompiler.fn !== 'function') {
+    if (languageCompiler.aliasTo && typeof compilers[languageCompiler.aliasTo]?.fn === 'function') {
+      languageCompiler.fn = compilers[languageCompiler.aliasTo].fn;
+    } else {
+      try {
+        importScripts(languageCompiler.url);
+        languageCompiler.fn = languageCompiler.factory(null, config);
+        if (languageCompiler.aliasTo) {
+          compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
+        }
+      } catch (error) {
+        throw new Error('Failed to load compiler for: ' + language);
+      }
+    }
   }
 
   const loadedMessage: CompilerMessage = { type: 'loaded', payload: language };
@@ -48,105 +57,14 @@ const compile = async (
     esModuleInterop: true,
   };
 
-  let value = '';
-  switch (language) {
-    case 'markdown':
-      value = compiler(content);
-      break;
-    case 'pug':
-      value = compiler(content);
-      break;
-    case 'haml':
-      value = compiler(content);
-      break;
-    case 'asciidoc':
-      value = compiler(content);
-      break;
-    case 'scss':
-      value = (await compiler(content)).text;
-      break;
-    case 'sass':
-      value = (await compiler(content, { indentedSyntax: true })).text;
-      break;
-    case 'less':
-      value = (await compiler(content)).css;
-      break;
-    case 'stylus':
-      value = await compiler(content);
-      break;
-    case 'javascript':
-      value = compiler(content);
-      break;
-    case 'babel':
-      value = compiler(content, {
-        presets: [['env', { modules: false }], 'react'],
-      }).code;
-      break;
-    case 'typescript':
-      value = compiler(content, typescriptOptions);
-      break;
-    case 'mdx':
-      await loadLanguageCompiler('typescript', config, baseUrl);
-      const typescriptCompiler = compilers.typescript?.fn;
-      if (!typescriptCompiler) throw new Error('Failed to load compiler for: mdx');
-      const compiledMdx = await compiler(content);
-      value = typescriptCompiler(compiledMdx, typescriptOptions);
-      break;
-    case 'vue':
-      value = compiler(content);
-      break;
-    case 'vue2':
-      value = compiler(content);
-      break;
-    case 'svelte':
-      value = compiler(content);
-      break;
-    case 'stencil':
-      value = await compiler(content);
-      break;
-    case 'coffeescript':
-      value = compiler(content, { bare: true });
-      break;
-    case 'livescript':
-      value = compiler(content, { bare: true });
-      break;
-    case 'assemblyscript':
-      value = compiler(content);
-      break;
-    case 'python':
-      value = compiler(content);
-      break;
-    case 'ruby':
-      value = compiler(content);
-      break;
-    case 'php':
-      value = compiler(content);
-      break;
-    case 'perl':
-      value = compiler(content);
-      break;
-    case 'lua':
-      value = compiler(content);
-      break;
-    case 'scheme':
-      value = compiler(content);
-      break;
-
-    // Post-processors
-    case 'postcss':
-      try {
-        value = await compiler(content, config, baseUrl);
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('PostCSS transformation failed.', err);
-        value = content;
-      }
-      break;
-
-    default:
-      value = content;
+  let value;
+  try {
+    value = await compiler(content, { language, config, typescriptOptions, baseUrl });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn('Failed compiling: ' + language, err);
+    value = content;
   }
-
   return value || '';
 };
 
@@ -163,7 +81,7 @@ worker.addEventListener(
 
     if (message.type === 'load') {
       const { language, config } = message.payload;
-      await loadLanguageCompiler(language, config, baseUrl);
+      loadLanguageCompiler(language, config, baseUrl);
     }
 
     if (message.type === 'compile') {

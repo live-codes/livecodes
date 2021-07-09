@@ -22,10 +22,11 @@ export const scss: LanguageSpecs = {
     url: 'vendor/sass.js/sass.sync.js',
     factory: () => {
       const Sass = (window as any).Sass;
-      return (code, options = {}): Promise<string> =>
+      return (code, { language }): Promise<string> =>
         new Promise((resolve) => {
-          Sass.compile(code, options, (result: string) => {
-            resolve(result);
+          const options = language === 'sass' ? { indentedSyntax: true } : {};
+          Sass.compile(code, options, (result: { text: string }) => {
+            resolve(result.text);
           });
         });
     },

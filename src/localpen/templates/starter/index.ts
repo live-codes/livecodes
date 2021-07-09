@@ -18,6 +18,7 @@ import { reactStarter } from './react-starter';
 import { readmeTemplate } from './readme-template';
 import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
+import { solidStarter } from './solid-starter';
 import { stencilStarter } from './stencil-starter';
 import { svelteStarter } from './svelte-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
@@ -35,6 +36,7 @@ export const starterTemplates = [
   preactStarter,
   svelteStarter,
   stencilStarter,
+  solidStarter,
   polymerStarter,
   jqueryStarter,
   mdxStarter,

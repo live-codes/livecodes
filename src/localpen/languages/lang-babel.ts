@@ -19,7 +19,11 @@ export const babel: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/babel/babel.min.js',
-    factory: () => (window as any).Babel.transform,
+    factory: () => (code) =>
+      (window as any).Babel.transform(code, {
+        filename: 'script.tsx',
+        presets: [['env', { modules: false }], 'typescript', 'react'],
+      }).code,
     umd: true,
   },
   extensions: ['es', 'babel'],

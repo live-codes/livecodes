@@ -36,8 +36,13 @@ export const createTypeLoader = () => {
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
       let currentType: Types;
-      const loaded = Object.keys(loadedTypes).find((t) => lib === t || lib.startsWith(t + '/'));
-      const fromConfig = Object.keys(configTypes).find((t) => lib === t || lib.startsWith(t + '/'));
+      const loaded =
+        Object.keys(loadedTypes).find((t) => lib === t) ||
+        (Object.keys(loadedTypes).find((t) => lib.startsWith(t + '/')) &&
+          !Object.keys(configTypes).find((t) => lib === t));
+      const fromConfig =
+        Object.keys(configTypes).find((t) => lib === t) ||
+        Object.keys(configTypes).find((t) => lib.startsWith(t + '/'));
       if (loaded) {
         currentType = {};
       } else if (fromConfig) {

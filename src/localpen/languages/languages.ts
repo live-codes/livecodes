@@ -28,6 +28,8 @@ import { php } from './lang-php';
 import { perl } from './lang-perl';
 import { lua } from './lang-lua';
 import { scheme } from './lang-scheme';
+import { solid } from './lang-solid';
+import { solidTsx } from './lang-solid-tsx';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -50,6 +52,8 @@ export const languages: LanguageSpecs[] = [
   vue2,
   svelte,
   stencil,
+  solid,
+  solidTsx,
   coffeescript,
   livescript,
   assemblyscript,

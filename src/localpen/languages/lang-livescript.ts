@@ -14,7 +14,8 @@ export const livescript: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/livescript/livescript-min.js',
-    factory: () => (window as any).require('livescript').compile,
+    factory: () => async (code) =>
+      (window as any).require('livescript').compile(code, { bare: true }),
     scripts: ['vendor/livescript/prelude-browser-min.js'],
     umd: true,
   },

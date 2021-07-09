@@ -18,7 +18,7 @@ export const pug: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/pug/pug.min.js',
-    factory: () => (window as any).pug.render,
+    factory: () => (code) => (window as any).pug.render(code),
     umd: true,
   },
   extensions: ['pug', 'jade'],
