@@ -9,6 +9,7 @@ import {
   PluginName,
   processorIsEnabled,
   getLanguageByAlias,
+  mapLanguage,
 } from './languages';
 import { createStorage } from './storage';
 import {
@@ -113,7 +114,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const loadModuleTypes = async (editors: Editors, config: Pen) => {
     if (
       editors.script &&
-      ['typescript', 'tsx', 'assemblyscript', 'stencil'].includes(editors.script.getLanguage()) &&
+      mapLanguage(editors.script.getLanguage()) === 'typescript' &&
       typeof editors.script.addTypes === 'function'
     ) {
       const libs = await typeLoader.load(editors.script.getValue(), config.types);
