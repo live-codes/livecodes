@@ -18,16 +18,19 @@ export const mdx: LanguageSpecs = {
     pluginUrls: [parserPlugins.markdown, parserPlugins.html],
   },
   compiler: {
+    dependencies: ['typescript'],
     url: 'vendor/mdx/mdx.js',
-    factory: () => async (code: string) => {
+    factory: () => async (code, { typescriptOptions }) => {
       const compiled = await (window as any).MDX.mdx(code, { skipExport: true });
       const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
       const jsx = removeShortcode(compiled);
-      return `import React from "react";
-                import ReactDOM from "react-dom";
-                ${jsx}
-                ReactDOM.render(<MDXContent />, document.body);
-                `;
+      const result = `import React from "react";
+import ReactDOM from "react-dom";
+${jsx}
+ReactDOM.render(<MDXContent />, document.body);
+`;
+      const js = (window as any).typescript.transpile(result, typescriptOptions);
+      return js;
     },
     umd: true,
   },

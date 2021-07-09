@@ -18,7 +18,7 @@ export const less: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/less/less.js',
-    factory: () => (window as any).less.render,
+    factory: () => async (code) => (await (window as any).less.render(code)).css,
     umd: true,
   },
   extensions: ['less'],

@@ -20,7 +20,7 @@ export const markdown: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/marked/marked.min.js',
-    factory: () => (window as any).marked,
+    factory: () => (code) => (window as any).marked(code),
     umd: true,
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],

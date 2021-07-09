@@ -15,7 +15,7 @@ export const coffeescript: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/coffeescript/coffeescript.js',
-    factory: () => (window as any).CoffeeScript.compile,
+    factory: () => async (code) => (window as any).CoffeeScript.compile(code, { bare: true }),
     umd: true,
   },
   extensions: ['coffee'],

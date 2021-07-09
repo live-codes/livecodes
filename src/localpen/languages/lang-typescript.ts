@@ -21,7 +21,8 @@ export const typescript: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/typescript/typescript.min.js',
-    factory: () => (window as any).typescript.transpile,
+    factory: () => (code, { typescriptOptions }) =>
+      (window as any).typescript.transpile(code, typescriptOptions),
     umd: true,
   },
   extensions: ['ts', 'typescript'],

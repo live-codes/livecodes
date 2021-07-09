@@ -9,10 +9,6 @@ export const javascript: LanguageSpecs = {
     name: 'babel',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
-  compiler: {
-    url: 'assets/noop.js',
-    factory: () => (code) => code,
-  },
   extensions: ['js'],
   editor: 'script',
 };
