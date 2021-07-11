@@ -44,6 +44,8 @@ Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb06
 
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/02509286b5a39d6df233225545cf87e070130588/license)
 
+Minimal-Blog (Tailwind CSS template): [MIT License](https://github.com/tailwindtoolbox/Minimal-Blog/blob/18566f734ada7949f73abf0a7fc69f688f8db27e/LICENSE)
+
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
 
 normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md)

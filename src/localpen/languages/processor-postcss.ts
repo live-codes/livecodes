@@ -1,12 +1,15 @@
-import { Pen, Processors } from '../models';
+import { CustomConfig, Pen, Processors } from '../models';
+import { getCustomConfigs } from '../utils';
 
 export type PluginName = keyof Pen['processors']['postcss'];
 type Plugin = () => any;
+type PluginFactory = (options?: any) => Plugin;
 interface PluginSpecs {
   name: PluginName;
   title: string;
   url: string;
-  factory: () => Plugin;
+  factory: PluginFactory;
+  shim?: () => void;
 }
 
 export const pluginSpecs: PluginSpecs[] = [
@@ -14,12 +17,32 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'tailwindcss',
     title: 'Tailwind CSS',
     url: 'vendor/tailwindcss/tailwindcss.js',
-    factory(): Plugin {
-      return (self as any).tailwindcss.tailwindcss({
-        ...this.library.tailwind,
-        corePlugins: { preflight: false },
-      });
+    shim: () => {
+      (self as any).document = {
+        location: {
+          href: {
+            replace() {
+              return;
+            },
+          },
+        },
+        getElementsByTagName() {
+          return [];
+        },
+      };
     },
+    factory: ({ html = '', customConfigs = [] }: { html: string; customConfigs: CustomConfig[] }) =>
+      (self as any).tailwindcss.tailwind.tailwindcss({
+        ...(self as any).tailwindcss.tailwind.defaultConfig,
+        ...getCustomConfigs(customConfigs, 'tailwind-config'),
+        mode: 'jit',
+        purge: [
+          {
+            raw: html,
+            extension: 'html',
+          },
+        ],
+      }),
   },
   {
     name: 'autoprefixer',
@@ -67,30 +90,44 @@ export const postcss: Processors = {
     factory: () => {
       const postCssOptions = { from: undefined };
 
-      const loadedPlugins: { [key in PluginName]?: Plugin } = {};
+      const loadedPlugins: { [key in PluginName]?: PluginFactory } = {};
 
       const loadPlugin = (pluginName: PluginName, baseUrl: string) => {
         const specs = getSpecs(pluginName);
         if (!specs || loadedPlugins[pluginName] != null) return;
-
+        specs.shim?.();
         try {
           (self as any).importScripts(baseUrl + specs.url);
-          const plugin = specs.factory();
+          const plugin = specs.factory;
           loadedPlugins[pluginName] = plugin;
         } catch (err) {
-          console.error(err);
           throw new Error('Failed to load PostCSS plugin: ' + pluginName);
         }
       };
 
-      const getPlugins = (config: Pen, baseUrl: string) => {
+      const getEnabledPluginNames = (config: Pen) => {
         const configPlugins = config.processors.postcss;
         const isEnabled = (pluginName: PluginName) => configPlugins[pluginName] === true;
-        const pluginNames = (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
+        return (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
+      };
+
+      const getPlugins = (config: Pen, baseUrl: string) => {
+        const pluginNames = getEnabledPluginNames(config);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
-          .map((specs) => loadedPlugins[specs.name]);
+          .map((specs) => loadedPlugins[specs.name]?.(config));
+      };
+
+      const twCode = (code: string, config: Pen) => {
+        if (getEnabledPluginNames(config).includes('tailwindcss')) {
+          return `@tailwind base;
+@tailwind components;
+${code}
+@tailwind utilities;
+`;
+        }
+        return code;
       };
 
       return async function process(
@@ -99,7 +136,9 @@ export const postcss: Processors = {
       ): Promise<string> {
         if (!config || !baseUrl) return code;
         const plugins = getPlugins(config, baseUrl);
-        return (await (self as any).postcss.postcss(plugins).process(code, postCssOptions)).css;
+        return (
+          await (self as any).postcss.postcss(plugins).process(twCode(code, config), postCssOptions)
+        ).css;
       };
     },
     umd: true,

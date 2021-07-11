@@ -8,8 +8,20 @@ export const tailwindcssStarter: Template = {
   markup: {
     language: 'html',
     content: `
+<script type="tailwind-config">
+  {
+    theme: {
+      extend: {
+        colors: {
+          'dark-blue-800': '#0A214C',
+        }
+      }
+    }
+  }
+</script>
+
 <div class="bg-gray-100 font-sans leading-normal tracking-normal">
-  <nav id="header" class="fixed w-full z-10 top-0">
+  <nav id="header" class="fixed-header">
     <div
       id="progress"
       class="h-1 z-20 top-0"
@@ -21,7 +33,7 @@ export const tailwindcssStarter: Template = {
     >
       <div class="pl-4">
         <a
-          class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl"
+          class="text-dark-blue-800 text-base no-underline hover:no-underline font-extrabold text-xl"
           href="#"
         >
           Minimal Blog
@@ -92,7 +104,7 @@ export const tailwindcssStarter: Template = {
           >
         </p>
         <h1
-          class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"
+          class="font-bold font-sans break-normal text-dark-blue-800 pt-6 pb-2 text-3xl md:text-4xl"
         >
           Welcome to Minimal Blog
         </h1>
@@ -359,7 +371,10 @@ export const tailwindcssStarter: Template = {
   },
   style: {
     language: 'css',
-    content: '',
+    content: `.fixed-header {
+  @apply fixed w-full z-10 top-0;
+}
+`.trimStart(),
   },
   script: {
     language: 'javascript',
@@ -403,9 +418,16 @@ document.getElementById("nav-toggle").onclick = function () {
 };
 `.trimStart(),
   },
-  stylesheets: ['https://unpkg.com/tailwindcss/dist/tailwind.min.css'],
+  stylesheets: [],
   scripts: [],
   cssPreset: '',
+  processors: {
+    postcss: {
+      autoprefixer: false,
+      postcssPresetEnv: false,
+      tailwindcss: true,
+    },
+  },
   imports: {},
   types: {},
 };

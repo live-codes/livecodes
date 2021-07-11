@@ -77,17 +77,25 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     [key in Language]?: { content: string; compiled: string; processors: string };
   } = {};
 
-  const compile = async (content: string, language: Language, config: Pen): Promise<string> => {
+  const compile = async (
+    content: string,
+    language: Language,
+    config: Pen,
+    options: any = {},
+  ): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
     }
 
     const enabledProcessors = getEnabledProcessors(language, config);
 
-    if (cache[language]?.content === content && cache[language]?.processors === enabledProcessors) {
+    if (
+      cache[language]?.content === content &&
+      cache[language]?.processors === enabledProcessors &&
+      !options.force // option to force recompile (bypass cache)
+    ) {
       return cache[language]?.compiled || '';
     }
-
     if (compilers[language] && !compilers[language].fn) {
       await load([language], config);
     }
@@ -98,7 +106,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     }
 
     const compiled = (await compiler(content, config)) || '';
-    const processed = (await postProcess(compiled, language, config)) || '';
+    const processed = (await postProcess(compiled, language, config, options)) || '';
 
     cache[language] = {
       content,
@@ -109,7 +117,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     return Promise.resolve(processed);
   };
 
-  const postProcess = async (content: string, language: Language, config: Pen) => {
+  const postProcess = async (content: string, language: Language, config: Pen, options: any) => {
     for (const processor of processors) {
       if (
         processorIsEnabled(processor.name, config) &&
@@ -123,10 +131,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
         if (typeof process !== 'function') {
           throw new Error('Failed to load processor: ' + processor.name);
         }
-        switch (processor.name) {
-          case 'postcss':
-            return process(content, config);
-        }
+        return process(content, { ...config, ...options });
       }
     }
     return content;

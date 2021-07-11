@@ -38,7 +38,7 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce } from './utils';
+import { compress, copyToClipboard, debounce, extractCustomConfigs } from './utils';
 import { getCompiler } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -394,29 +394,45 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     template: string = resultTemplate,
     singleFile = true,
   ) => {
-    const getCompiled = (content: string, language: Language) =>
-      compiler.compile(content, language, getConfig());
+    updateConfig();
+    const getCompiled = (content: string, language: Language, options?: any) =>
+      compiler.compile(content, language, getConfig(), options);
+
+    const compiledMarkup = await getCompiled(
+      editors.markup?.getValue(),
+      getEditorLanguage('markup'),
+    );
+    const [compiledStyle, compiledScript] = await Promise.all([
+      getCompiled(editors.style?.getValue(), getEditorLanguage('style'), {
+        html: compiledMarkup,
+        customConfigs: extractCustomConfigs(compiledMarkup),
+        // force compile style if markup changes and tailwind is enabled
+        force:
+          compiledMarkup !== lastCompiled?.markup && getConfig().processors.postcss.tailwindcss,
+      }),
+      getCompiled(editors.script?.getValue(), getEditorLanguage('script')),
+    ]);
 
     const compiledCode = {
       markup: {
         language: getEditorLanguage('markup'),
-        content: await getCompiled(editors.markup?.getValue(), getEditorLanguage('markup')),
+        content: compiledMarkup,
       },
       style: {
         language: getEditorLanguage('style'),
-        content: await getCompiled(editors.style?.getValue(), getEditorLanguage('style')),
+        content: compiledStyle,
       },
       script: {
         language: getEditorLanguage('script'),
-        content: await getCompiled(editors.script?.getValue(), getEditorLanguage('script')),
+        content: compiledScript,
       },
     };
 
     // cache compiled code
     lastCompiled = {
-      markup: compiledCode.markup.content,
-      style: compiledCode.style.content,
-      script: compiledCode.script.content,
+      markup: compiledMarkup,
+      style: compiledStyle,
+      script: compiledScript,
     };
 
     return createResultPage(compiledCode, getConfig(), forExport, template, baseUrl, singleFile);
@@ -741,6 +757,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       const hideLabel = debounce(() => {
         setTimeout(() => {
           sizeLabel.classList.remove('visible');
+          setTimeout(() => {
+            sizeLabel.style.display = 'none';
+          }, 100);
         }, 1000);
       }, 1000);
 
@@ -757,6 +776,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
         const sizes = event.data.sizes;
         sizeLabel.innerHTML = `${sizes.width} x ${sizes.height}`;
+        sizeLabel.style.display = 'block';
         sizeLabel.classList.add('visible');
         hideLabel();
       });
