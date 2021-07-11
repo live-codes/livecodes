@@ -17,8 +17,8 @@ export const pluginSpecs: PluginSpecs[] = [
     title: 'Tailwind CSS',
     url: 'vendor/tailwindcss/tailwindcss.js',
     factory: ({ html = '', customConfigs = [] }: { html: string; customConfigs: CustomConfig[] }) =>
-      (self as any).tailwindcss.default.tailwindcss({
-        ...(self as any).tailwindcss.default.defaultConfig,
+      (self as any).tailwindcss.tailwindcss({
+        ...(self as any).tailwindcss.defaultConfig,
         ...getCustomConfigs(customConfigs, 'tailwind-config'),
         mode: 'jit',
         purge: [
