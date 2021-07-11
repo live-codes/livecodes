@@ -23,6 +23,7 @@ export interface Pen {
     postcss: {
       autoprefixer: boolean;
       postcssPresetEnv: boolean;
+      tailwindcss: boolean;
     };
   };
   imports: { [key: string]: string };
@@ -235,6 +236,13 @@ export interface Template {
   stylesheets: string[];
   scripts: string[];
   cssPreset: CssPresetId;
+  processors?: {
+    postcss: {
+      autoprefixer: boolean;
+      postcssPresetEnv: boolean;
+      tailwindcss: boolean;
+    };
+  };
   imports: { [key: string]: string };
   types: Types;
 }
@@ -308,4 +316,9 @@ export type GithubScope = 'gist' | 'repo' | 'public_repo';
 export interface ShareData {
   url: string;
   title: string;
+}
+
+export interface CustomConfig {
+  type: string;
+  content: Record<string, any>;
 }

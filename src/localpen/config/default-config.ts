@@ -40,6 +40,7 @@ export const defaultConfig: Pen = {
     postcss: {
       autoprefixer: false,
       postcssPresetEnv: false,
+      tailwindcss: false,
     },
   },
   editor: '',

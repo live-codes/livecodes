@@ -221,6 +221,13 @@ esbuild.build({
   plugins: nodePolyfills,
 });
 
+// tailwindcss
+mkdirp(targetDir + '/tailwindcss');
+fs.copyFileSync(
+  path.resolve(node_modules + '/tailwindcss-browser-plugin/dist/tailwindcss.umd.min.js'),
+  path.resolve(targetDir + '/tailwindcss/tailwindcss.js'),
+);
+
 // jszip
 mkdirp(targetDir + '/jszip');
 fs.copyFileSync(

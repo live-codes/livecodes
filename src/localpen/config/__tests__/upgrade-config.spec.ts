@@ -103,6 +103,7 @@ describe('upgradeConfig', () => {
         postcss: {
           autoprefixer: true,
           postcssPresetEnv: false,
+          tailwindcss: false,
         },
       },
       version: process.env.VERSION,
