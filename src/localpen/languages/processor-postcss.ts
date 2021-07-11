@@ -9,7 +9,6 @@ interface PluginSpecs {
   title: string;
   url: string;
   factory: PluginFactory;
-  shim?: () => void;
 }
 
 export const pluginSpecs: PluginSpecs[] = [
@@ -17,23 +16,9 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'tailwindcss',
     title: 'Tailwind CSS',
     url: 'vendor/tailwindcss/tailwindcss.js',
-    shim: () => {
-      (self as any).document = {
-        location: {
-          href: {
-            replace() {
-              return;
-            },
-          },
-        },
-        getElementsByTagName() {
-          return [];
-        },
-      };
-    },
     factory: ({ html = '', customConfigs = [] }: { html: string; customConfigs: CustomConfig[] }) =>
-      (self as any).tailwindcss.tailwind.tailwindcss({
-        ...(self as any).tailwindcss.tailwind.defaultConfig,
+      (self as any).tailwindcss.default.tailwindcss({
+        ...(self as any).tailwindcss.default.defaultConfig,
         ...getCustomConfigs(customConfigs, 'tailwind-config'),
         mode: 'jit',
         purge: [
@@ -95,7 +80,6 @@ export const postcss: Processors = {
       const loadPlugin = (pluginName: PluginName, baseUrl: string) => {
         const specs = getSpecs(pluginName);
         if (!specs || loadedPlugins[pluginName] != null) return;
-        specs.shim?.();
         try {
           (self as any).importScripts(baseUrl + specs.url);
           const plugin = specs.factory;

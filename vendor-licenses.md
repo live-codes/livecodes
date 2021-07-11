@@ -86,6 +86,8 @@ Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de224
 
 SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
 
+Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
+
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
 
 Uniter: [MIT License](https://github.com/asmblah/uniter/blob/2c20bd03a8b658a1f4bfd81ab2dce72b088755cb/MIT-LICENSE.txt)

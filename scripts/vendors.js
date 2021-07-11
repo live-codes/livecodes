@@ -224,7 +224,7 @@ esbuild.build({
 // tailwindcss
 mkdirp(targetDir + '/tailwindcss');
 fs.copyFileSync(
-  path.resolve(vendor_modules + '/tailwindcss/tailwindcss.js'),
+  path.resolve(node_modules + '/tailwindcss-browser-plugin/dist/tailwindcss.umd.min.js'),
   path.resolve(targetDir + '/tailwindcss/tailwindcss.js'),
 );
 
