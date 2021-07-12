@@ -15,7 +15,7 @@ export const haml: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/clientside-haml-js/haml.js',
-    factory: () => (code: string) =>
+    factory: () => async (code: string) =>
       (window as any).haml.compileHaml({ source: code, tolerateFaults: true })(),
     umd: true,
   },

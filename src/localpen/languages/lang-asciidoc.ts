@@ -17,7 +17,7 @@ export const asciidoc: LanguageSpecs = {
     url: 'vendor/asciidoctor/asciidoctor.min.js',
     factory: () => {
       const asciidoctor = (window as any).Asciidoctor();
-      return (code) => asciidoctor.convert(code);
+      return async (code) => asciidoctor.convert(code);
     },
     umd: true,
   },

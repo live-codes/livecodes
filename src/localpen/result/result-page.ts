@@ -1,5 +1,5 @@
 import { createImportMap, hasImports } from '../compiler';
-import { cssPresets, getLanguageCompiler, removeCustomConfigs } from '../languages';
+import { cssPresets, getLanguageCompiler } from '../languages';
 import { EditorId, Language, Pen } from '../models';
 import { getAbsoluteUrl, isRelativeUrl } from '../utils';
 
@@ -140,5 +140,5 @@ export const createResultPage = (
     scriptElement.type = 'module';
   }
 
-  return removeCustomConfigs(dom.documentElement.outerHTML);
+  return dom.documentElement.outerHTML;
 };

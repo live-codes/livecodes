@@ -24,8 +24,8 @@ export const solid: LanguageSpecs = {
     factory: () => {
       const Babel = (self as any).Babel;
       Babel.registerPreset('solid', (self as any).babelPresetSolid.solid);
-      return (code, { language }) => {
-        const isTsx = language === 'solid.tsx';
+      return async (code, { options }) => {
+        const isTsx = options.language === 'solid.tsx';
         return (window as any).Babel.transform(code, {
           filename: 'script.' + isTsx ? 'tsx' : 'jsx',
           presets: [['env', { modules: false }], ...(isTsx ? ['typescript'] : []), 'solid'],

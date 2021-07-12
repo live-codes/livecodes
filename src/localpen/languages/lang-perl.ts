@@ -16,7 +16,7 @@ export const perl: LanguageSpecs = {
   `,
   compiler: {
     url: 'assets/noop.js',
-    factory: () => (code) => code,
+    factory: () => async (code) => code,
     umd: true,
     scripts: ['vendor/perlito/perlito5.min.js'],
     inlineScript: `

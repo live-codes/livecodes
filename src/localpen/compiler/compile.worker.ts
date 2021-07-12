@@ -5,6 +5,7 @@ import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './mo
 declare const importScripts: (...args: string[]) => void;
 
 let compilers: Compilers;
+let baseUrl = self.location.href.split('/').slice(0, -1).join('/') + '/';
 
 const worker: Worker = self as any;
 (self as any).window = self;
@@ -25,7 +26,7 @@ const loadLanguageCompiler = (language: LanguageOrProcessor, config: Pen, baseUr
     } else {
       try {
         importScripts(languageCompiler.url);
-        languageCompiler.fn = languageCompiler.factory(null, config);
+        languageCompiler.fn = languageCompiler.factory(config);
         if (languageCompiler.aliasTo) {
           compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
         }
@@ -42,24 +43,17 @@ const loadLanguageCompiler = (language: LanguageOrProcessor, config: Pen, baseUr
 const compile = async (
   content: string,
   language: LanguageOrProcessor,
-  config: Partial<Pen | CompileOptions>,
-  baseUrl: string,
+  config: Pen,
+  options: CompileOptions,
 ) => {
-  const compiler = compilers[language]?.fn || ((...args: any[]) => args[0]);
+  const compiler = compilers[language]?.fn || ((code: string) => code);
   if (typeof compiler !== 'function') {
     throw new Error('Failed to load compiler for: ' + language);
   }
 
-  const typescriptOptions = {
-    target: 'es2015',
-    jsx: 'react',
-    allowUmdGlobalAccess: true,
-    esModuleInterop: true,
-  };
-
   let value;
   try {
-    value = await compiler(content, { language, config, typescriptOptions, baseUrl });
+    value = await compiler(content, { config, options, baseUrl });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn('Failed compiling: ' + language, err);
@@ -72,7 +66,6 @@ worker.addEventListener(
   'message',
   async (event: CompilerMessageEvent) => {
     const message = event.data;
-    let baseUrl = self.location.href.split('/').slice(0, -1).join('/') + '/';
     if (message.type === 'init') {
       const config = message.payload;
       baseUrl = message.baseUrl;
@@ -85,9 +78,9 @@ worker.addEventListener(
     }
 
     if (message.type === 'compile') {
-      const { content, language, config } = message.payload;
+      const { content, language, config, options } = message.payload;
       try {
-        const compiled = await compile(content, language, config, baseUrl);
+        const compiled = await compile(content, language, config, options);
         const compiledMessage: CompilerMessage = {
           type: 'compiled',
           payload: { language, content, compiled },

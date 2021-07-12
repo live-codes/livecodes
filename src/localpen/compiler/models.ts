@@ -6,7 +6,7 @@ export interface Compiler {
     content: string,
     language: Language,
     config: Pen,
-    options?: CompileOptions,
+    options: CompileOptions,
   ) => Promise<string>;
 }
 
@@ -48,7 +48,8 @@ export interface CompileMessage {
   payload: {
     content: string;
     language: LanguageOrProcessor;
-    config: Partial<Pen | CompileOptions>;
+    config: Pen;
+    options: CompileOptions;
   };
 }
 

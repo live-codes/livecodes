@@ -1,4 +1,6 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
+import { typescriptOptions } from './lang-typescript';
 import { parserPlugins } from './parser-plugins';
 
 export const mdx: LanguageSpecs = {
@@ -20,8 +22,11 @@ export const mdx: LanguageSpecs = {
   compiler: {
     dependencies: ['typescript'],
     url: 'vendor/mdx/mdx.js',
-    factory: () => async (code, { typescriptOptions }) => {
-      const compiled = await (window as any).MDX.mdx(code, { skipExport: true });
+    factory: () => async (code, { options }) => {
+      const compiled = await (window as any).MDX.mdx(code, {
+        skipExport: true,
+        ...getCustomConfig('mdx-config', options.customConfigs),
+      });
       const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
       const jsx = removeShortcode(compiled);
       const result = `import React from "react";

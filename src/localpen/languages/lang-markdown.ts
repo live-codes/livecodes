@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
 
 export const markdown: LanguageSpecs = {
@@ -20,7 +21,10 @@ export const markdown: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/marked/marked.min.js',
-    factory: () => (code) => (window as any).marked(code),
+    factory: () => async (code, { options }) => {
+      const customConfigs = getCustomConfig('marked-config', options.customConfigs);
+      return (window as any).marked(code, customConfigs);
+    },
     umd: true,
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],

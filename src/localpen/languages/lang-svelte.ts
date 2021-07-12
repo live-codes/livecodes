@@ -20,7 +20,7 @@ export const svelte: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/svelte/svelte-compiler.3.37.0.min.js',
-    factory: () => (code: string) => {
+    factory: () => async (code) => {
       const options = { css: true };
       const { js } = (window as any).svelte.compile(code, options);
       return `${js.code}

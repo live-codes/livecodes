@@ -198,14 +198,24 @@ export interface EditorLibrary {
   content: string;
 }
 
+export type CompilerFunction = (
+  code: string,
+  {
+    config,
+    options,
+    baseUrl,
+  }: {
+    config: Pen;
+    options: CompileOptions;
+    baseUrl: string;
+  },
+) => Promise<string>;
+
 export interface Compiler {
   dependencies?: Language[];
   url: string;
-  fn?: (code: string, options: Partial<Pen | CompileOptions>) => any;
-  factory: (
-    compilerModule: any,
-    config: Pen,
-  ) => (code: string, options?: any) => string | Promise<string>;
+  fn?: CompilerFunction;
+  factory: (config: Pen) => CompilerFunction;
   umd?: boolean;
   editors?: EditorId[];
   styles?: string[];
@@ -324,6 +334,7 @@ export interface CustomConfig {
 }
 
 export interface CompileOptions {
+  language: Language;
   html?: string;
   customConfigs?: CustomConfig[];
   force?: boolean;

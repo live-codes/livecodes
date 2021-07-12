@@ -1,22 +1,32 @@
 import { CustomConfig } from '../models';
 import { stringToValidJson } from '../utils';
 
-export const customConfigTypes = ['autoprefixer-config', 'tailwind-config'] as const;
+export const markupConfigTypes = ['marked-config', 'mdx-config'] as const;
+export const styleConfigTypes = ['autoprefixer-config', 'sass-config', 'tailwind-config'] as const;
+export const scriptConfigTypes = ['babel-config', 'typescript-config'] as const;
+export const customConfigTypes = [
+  ...markupConfigTypes,
+  ...styleConfigTypes,
+  ...scriptConfigTypes,
+] as const;
 
 const createSelector = (types: typeof customConfigTypes) =>
   types.map((type) => `script[type="${type}"]`).join(',');
 
-export const customConfigsApply = (
+const customConfigsApply = (
   html: string,
-  fn: (script: HTMLScriptElement, dom: Document) => void,
+  fn: (script: HTMLScriptElement) => void,
   types: typeof customConfigTypes = customConfigTypes,
 ) => {
-  const domParser = new DOMParser();
-  const dom = domParser.parseFromString(html, 'text/html');
+  const container = document.createElement('div');
+  container.style.display = 'none';
+  container.innerHTML = html;
   const selector = createSelector(types);
-  const scripts = dom.querySelectorAll<HTMLScriptElement>(selector);
-  scripts.forEach((script) => fn(script, dom));
-  return dom.documentElement.outerHTML;
+  const scripts = container.querySelectorAll<HTMLScriptElement>(selector);
+  scripts.forEach((script) => fn(script));
+  const result = container.innerHTML;
+  container.remove();
+  return result;
 };
 
 export const extractCustomConfigs = (html: string) => {
@@ -38,7 +48,10 @@ export const removeCustomConfigs = (html: string) =>
     script.remove();
   });
 
-export const getCustomConfigs = (customConfigs: CustomConfig[], type: CustomConfig['type']) =>
+export const getCustomConfig = (
+  type: CustomConfig['type'],
+  customConfigs: CustomConfig[] | undefined = [],
+) =>
   customConfigs
     .filter((conf) => conf.type === type)
     .map((custom) => custom.content)
