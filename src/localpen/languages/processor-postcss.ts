@@ -1,5 +1,5 @@
-import { CustomConfig, Pen, Processors } from '../models';
-import { getCustomConfigs } from '../utils';
+import { CompileOptions, Pen, Processors } from '../models';
+import { getCustomConfigs } from './custom-configs';
 
 export type PluginName = keyof Pen['processors']['postcss'];
 type Plugin = () => any;
@@ -16,7 +16,7 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'tailwindcss',
     title: 'Tailwind CSS',
     url: 'vendor/tailwindcss/tailwindcss.js',
-    factory: ({ html = '', customConfigs = [] }: { html: string; customConfigs: CustomConfig[] }) =>
+    factory: ({ html = '', customConfigs = [] }: CompileOptions) =>
       (self as any).tailwindcss.tailwindcss({
         ...(self as any).tailwindcss.defaultConfig,
         ...getCustomConfigs(customConfigs, 'tailwind-config'),
@@ -33,9 +33,10 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'autoprefixer',
     title: 'Autoprefixer',
     url: 'vendor/autoprefixer/autoprefixer.js',
-    factory() {
+    factory({ customConfigs = [] }: CompileOptions) {
       return (self as any).autoprefixer.autoprefixer({
         overrideBrowserslist: ['last 4 version'],
+        ...getCustomConfigs(customConfigs, 'autoprefixer-config'),
       });
     },
   },

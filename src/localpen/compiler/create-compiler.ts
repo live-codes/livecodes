@@ -6,7 +6,7 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import { Language, Pen, Compilers, EditorId } from '../models';
+import { Language, Pen, Compilers, EditorId, CompileOptions } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
@@ -19,7 +19,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
 
   const createLanguageCompiler = (language: LanguageOrProcessor) => (
     content: string,
-    config: Pen,
+    config: Pen | Partial<Pen | CompileOptions>,
   ) =>
     new Promise((resolve, reject) => {
       const handler = (event: CompilerMessageEvent) => {
@@ -81,7 +81,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     content: string,
     language: Language,
     config: Pen,
-    options: any = {},
+    options: CompileOptions = {},
   ): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
@@ -117,7 +117,12 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     return Promise.resolve(processed);
   };
 
-  const postProcess = async (content: string, language: Language, config: Pen, options: any) => {
+  const postProcess = async (
+    content: string,
+    language: Language,
+    config: Pen,
+    options: CompileOptions,
+  ) => {
     for (const processor of processors) {
       if (
         processorIsEnabled(processor.name, config) &&

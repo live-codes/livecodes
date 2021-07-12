@@ -1,5 +1,5 @@
 import { languages, processors } from '../languages';
-import { Compilers, Pen } from '../models';
+import { CompileOptions, Compilers, Pen } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 declare const importScripts: (...args: string[]) => void;
@@ -42,7 +42,7 @@ const loadLanguageCompiler = (language: LanguageOrProcessor, config: Pen, baseUr
 const compile = async (
   content: string,
   language: LanguageOrProcessor,
-  config: Pen,
+  config: Partial<Pen | CompileOptions>,
   baseUrl: string,
 ) => {
   const compiler = compilers[language]?.fn || ((...args: any[]) => args[0]);

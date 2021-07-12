@@ -10,10 +10,12 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
+  extractCustomConfigs,
 } from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
+  CompileOptions,
   ContentPen,
   CssPresetId,
   EditorId,
@@ -38,7 +40,7 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce, extractCustomConfigs } from './utils';
+import { compress, copyToClipboard, debounce } from './utils';
 import { getCompiler } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -395,20 +397,22 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     singleFile = true,
   ) => {
     updateConfig();
-    const getCompiled = (content: string, language: Language, options?: any) =>
+    const getCompiled = (content: string, language: Language, options?: CompileOptions) =>
       compiler.compile(content, language, getConfig(), options);
 
     const compiledMarkup = await getCompiled(
       editors.markup?.getValue(),
       getEditorLanguage('markup'),
     );
+    const customConfigs = extractCustomConfigs(compiledMarkup);
+    // force compile if markup changes and it contains custom configs
+    const force = compiledMarkup !== lastCompiled?.markup && customConfigs.length > 0;
+
     const [compiledStyle, compiledScript] = await Promise.all([
       getCompiled(editors.style?.getValue(), getEditorLanguage('style'), {
         html: compiledMarkup,
-        customConfigs: extractCustomConfigs(compiledMarkup),
-        // force compile style if markup changes and tailwind is enabled
-        force:
-          compiledMarkup !== lastCompiled?.markup && getConfig().processors.postcss.tailwindcss,
+        customConfigs,
+        force,
       }),
       getCompiled(editors.script?.getValue(), getEditorLanguage('script')),
     ]);

@@ -1,4 +1,5 @@
 import { createEventsManager } from './events';
+import { customConfigTypes } from './languages';
 
 export interface Pen {
   title: string;
@@ -200,7 +201,7 @@ export interface EditorLibrary {
 export interface Compiler {
   dependencies?: Language[];
   url: string;
-  fn?: (code: string, options?: any) => any;
+  fn?: (code: string, options: Partial<Pen | CompileOptions>) => any;
   factory: (
     compilerModule: any,
     config: Pen,
@@ -317,8 +318,13 @@ export interface ShareData {
   url: string;
   title: string;
 }
-
 export interface CustomConfig {
-  type: string;
   content: Record<string, any>;
+  type: typeof customConfigTypes[number];
+}
+
+export interface CompileOptions {
+  html?: string;
+  customConfigs?: CustomConfig[];
+  force?: boolean;
 }
