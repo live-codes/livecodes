@@ -9,9 +9,10 @@ export const markupConfigTypes = [
   'pug-config',
 ] as const;
 export const styleConfigTypes = [
-  'autoprefixer-config',
-  'less-config',
   'sass-config',
+  'less-config',
+  'autoprefixer-config',
+  'preset-env-config',
   'tailwind-config',
 ] as const;
 export const scriptConfigTypes = [

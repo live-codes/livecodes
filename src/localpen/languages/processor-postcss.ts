@@ -35,7 +35,6 @@ export const pluginSpecs: PluginSpecs[] = [
     url: 'vendor/autoprefixer/autoprefixer.js',
     factory({ customConfigs = [] }: CompileOptions) {
       return (self as any).autoprefixer.autoprefixer({
-        overrideBrowserslist: ['last 4 version'],
         ...getCustomConfig('autoprefixer-config', customConfigs),
       });
     },
@@ -44,10 +43,10 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'postcssPresetEnv',
     title: 'Preset Env',
     url: 'vendor/postcss-preset-env/postcss-preset-env.js',
-    factory(): Plugin {
+    factory({ customConfigs = [] }): Plugin {
       return (self as any).postcssPresetEnv.postcssPresetEnv({
         autoprefixer: false,
-        browsers: 'last 4 versions',
+        ...getCustomConfig('preset-env-config', customConfigs),
       });
     },
   },
