@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 
 export const livescript: LanguageSpecs = {
   name: 'livescript',
@@ -14,8 +15,11 @@ export const livescript: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/livescript/livescript-min.js',
-    factory: () => async (code) =>
-      (window as any).require('livescript').compile(code, { bare: true }),
+    factory: () => async (code, { options }) =>
+      (window as any).require('livescript').compile(code, {
+        bare: true,
+        ...getCustomConfig('livescript-config', options.customConfigs),
+      }),
     scripts: ['vendor/livescript/prelude-browser-min.js'],
     umd: true,
   },

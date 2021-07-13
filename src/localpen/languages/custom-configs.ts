@@ -1,9 +1,28 @@
 import { CustomConfig } from '../models';
 import { stringToValidJson } from '../utils';
 
-export const markupConfigTypes = ['marked-config', 'mdx-config'] as const;
-export const styleConfigTypes = ['autoprefixer-config', 'sass-config', 'tailwind-config'] as const;
-export const scriptConfigTypes = ['babel-config', 'typescript-config'] as const;
+export const markupConfigTypes = [
+  'asciidoctor-config',
+  'haml-config',
+  'marked-config',
+  'mdx-config',
+  'pug-config',
+] as const;
+export const styleConfigTypes = [
+  'autoprefixer-config',
+  'less-config',
+  'sass-config',
+  'tailwind-config',
+] as const;
+export const scriptConfigTypes = [
+  'babel-config',
+  'coffeescript-config',
+  'livescript-config',
+  'solid-config',
+  'stencil-config',
+  'svelte-config',
+  'typescript-config',
+] as const;
 export const customConfigTypes = [
   ...markupConfigTypes,
   ...styleConfigTypes,

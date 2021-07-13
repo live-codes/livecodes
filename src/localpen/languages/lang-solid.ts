@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
 declare const importScripts: (...args: string[]) => void;
 
@@ -29,6 +30,7 @@ export const solid: LanguageSpecs = {
         return (window as any).Babel.transform(code, {
           filename: 'script.' + isTsx ? 'tsx' : 'jsx',
           presets: [['env', { modules: false }], ...(isTsx ? ['typescript'] : []), 'solid'],
+          ...getCustomConfig('solid-config', options.customConfigs),
         }).code;
       };
     },

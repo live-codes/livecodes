@@ -21,10 +21,10 @@ export const markdown: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/marked/marked.min.js',
-    factory: () => async (code, { options }) => {
-      const customConfigs = getCustomConfig('marked-config', options.customConfigs);
-      return (window as any).marked(code, customConfigs);
-    },
+    factory: () => async (code, { options }) =>
+      (window as any).marked(code, {
+        ...getCustomConfig('marked-config', options.customConfigs),
+      }),
     umd: true,
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],

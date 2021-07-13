@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
 
 export const stencil: LanguageSpecs = {
@@ -20,9 +21,10 @@ export const stencil: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/stencil/stencil.2.5.2.min.js',
-    factory: () => async (code: string) => {
+    factory: () => async (code, { options }) => {
       const result = await (window as any).stencil.transpile(code, {
         sourceMap: false,
+        ...getCustomConfig('stencil-config', options.customConfigs),
       });
       return result.code;
     },

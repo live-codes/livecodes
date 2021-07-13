@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 
 export const haml: LanguageSpecs = {
   name: 'haml',
@@ -15,8 +16,12 @@ export const haml: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/clientside-haml-js/haml.js',
-    factory: () => async (code: string) =>
-      (window as any).haml.compileHaml({ source: code, tolerateFaults: true })(),
+    factory: () => async (code, { options }) =>
+      (window as any).haml.compileHaml({
+        source: code,
+        tolerateFaults: true,
+        ...getCustomConfig('haml-config', options.customConfigs),
+      })(),
     umd: true,
   },
   extensions: ['haml'],
