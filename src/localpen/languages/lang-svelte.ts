@@ -22,15 +22,20 @@ export const svelte: LanguageSpecs = {
   compiler: {
     url: 'vendor/svelte/svelte-compiler.3.37.0.min.js',
     factory: () => async (code, { options }) => {
-      const { js } = (window as any).svelte.compile(code, {
-        css: true,
-        ...getCustomConfig('svelte-config', options.customConfigs),
-      });
-      return `${js.code}
-
+      const customConfig = getCustomConfig('svelte-config', options.customConfigs);
+      const customElement = customConfig.customElement;
+      const init =
+        customElement === true
+          ? ''
+          : `\n
 let app = document.querySelector("#app") || document.body;
 new Component({ target: app });
 `;
+      const { js } = (window as any).svelte.compile(code, {
+        css: true,
+        ...customConfig,
+      });
+      return js.code + init;
     },
     umd: true,
   },
