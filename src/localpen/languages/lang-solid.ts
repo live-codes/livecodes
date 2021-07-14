@@ -13,6 +13,7 @@ export const solid: LanguageSpecs = {
     <li><a href="https://www.solidjs.com/" target="_blank" rel="noopener">Official website</a></li>
     <li><a href="https://www.solidjs.com/docs" target="_blank" rel="noopener">Documentation</a></li>
     <!-- <li><a href="#">Solid usage in LocalPen</a></li> -->
+    <li><a href="?template=solid" target="_parent" data-template="solid">Load starter template</a></li>
   </ul>
   `,
   parser: {
@@ -27,10 +28,16 @@ export const solid: LanguageSpecs = {
       Babel.registerPreset('solid', (self as any).babelPresetSolid.solid);
       return async (code, { options }) => {
         const isTsx = options.language === 'solid.tsx';
+        const customConfig = getCustomConfig('solid-config', options.customConfigs);
         return (window as any).Babel.transform(code, {
-          filename: 'script.' + isTsx ? 'tsx' : 'jsx',
-          presets: [['env', { modules: false }], ...(isTsx ? ['typescript'] : []), 'solid'],
-          ...getCustomConfig('solid-config', options.customConfigs),
+          ...customConfig,
+          filename: 'script.' + (isTsx ? 'tsx' : 'jsx'),
+          presets: [
+            ['env', { modules: false }],
+            ...(Array.isArray(customConfig.presets) ? customConfig.presets : []),
+            ...(isTsx ? ['typescript'] : []),
+            'solid',
+          ],
         }).code;
       };
     },

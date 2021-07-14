@@ -4,10 +4,12 @@ import { parserPlugins } from './parser-plugins';
 export const tsx: LanguageSpecs = {
   name: 'tsx',
   title: 'TSX',
-  longTitle: 'React TSX',
   info: `
-  <h3>React TSX</h3>
-  <div>TypeScript in JSX. TSX is compiled to JavaScript in LocalPen using the TypeScript Compiler.</div>
+  <h3>TSX</h3>
+  <div>
+    TypeScript in JSX. TSX is compiled to JavaScript in LocalPen using the TypeScript Compiler.<br />
+    By default it uses <code>React.createElement</code>
+  </div>
   <ul>
     <li><a href="https://reactjs.org/" target="_blank" rel="noopener">React official website</a></li>
     <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank" rel="noopener">React documentation</a></li>
