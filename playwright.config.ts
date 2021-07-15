@@ -6,7 +6,7 @@ import { Pen } from './src/localpen/models';
 const config: PlaywrightTestConfig<{ editor: Pen['editor'] }> = {
   globalSetup: require.resolve('./e2e/global-setup'),
   testDir: 'e2e',
-  retries: 5,
+  retries: process.env.CI ? 5 : 2,
   timeout: 40000,
   projects: [
     {
