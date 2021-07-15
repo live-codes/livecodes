@@ -10,6 +10,9 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
 
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,7 +26,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: export NODE_OPTIONS=--max_old_space_size=4096 && npm run build
 
       - name: Test
         run: npm test
