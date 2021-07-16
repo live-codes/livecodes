@@ -140,6 +140,5 @@ export const createResultPage = (
     scriptElement.type = 'module';
   }
 
-  console.log(dom.documentElement.outerHTML);
   return dom.documentElement.outerHTML;
 };

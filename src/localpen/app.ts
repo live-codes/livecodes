@@ -67,7 +67,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
-  let lastCompiled: { [key in EditorId | 'rawCompiledMarkup']: string };
+  let lastCompiled: { [key in EditorId | 'initialCompiledMarkup']: string };
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
@@ -414,16 +414,15 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const markupLanguage = getEditorLanguage('markup');
     const styleLanguage = getEditorLanguage('style');
     const scriptLanguage = getEditorLanguage('script');
-    const isMdx = markupLanguage === 'mdx';
 
     const enableCustomConfig = true;
-
+    const isMdx = markupLanguage === 'mdx';
     const configFromRawMarkup = ['html', 'markdown', 'mdx'].includes(markupLanguage);
 
     let customConfigs =
       enableCustomConfig && configFromRawMarkup ? extractCustomConfigs(markupContent, isMdx) : [];
 
-    let rawCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
+    let initialCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
       customConfigs,
     });
 
@@ -431,7 +430,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       ? []
       : configFromRawMarkup
       ? customConfigs
-      : extractCustomConfigs(rawCompiledMarkup);
+      : extractCustomConfigs(initialCompiledMarkup);
 
     const forceRecompile = (editorId: EditorId) => {
       const configTypes =
@@ -445,14 +444,14 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       return (
         enableCustomConfig &&
         (editorId !== 'markup' || !configFromRawMarkup) &&
-        rawCompiledMarkup !== lastCompiled?.rawCompiledMarkup &&
+        initialCompiledMarkup !== lastCompiled?.initialCompiledMarkup &&
         customConfigs.filter((customConfig) => configTypes.includes(customConfig.type as never))
           .length > 0
       );
     };
 
     if (forceRecompile('markup')) {
-      rawCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
+      initialCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
         customConfigs,
         force: true,
       });
@@ -460,26 +459,28 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
     const [compiledStyle, compiledScript] = await Promise.all([
       getCompiled(styleContent, styleLanguage, {
-        html: rawCompiledMarkup,
+        html: initialCompiledMarkup,
         customConfigs,
         force: forceRecompile('style'),
       }),
       getCompiled(scriptContent, scriptLanguage, {
-        html: rawCompiledMarkup,
+        html: initialCompiledMarkup,
         customConfigs,
         force: forceRecompile('script'),
       }),
     ]);
 
     const compiledMarkup =
-      !enableCustomConfig || isMdx ? rawCompiledMarkup : removeCustomConfigs(rawCompiledMarkup);
+      !enableCustomConfig || isMdx
+        ? initialCompiledMarkup
+        : removeCustomConfigs(initialCompiledMarkup);
 
     // cache compiled code
     lastCompiled = {
       markup: compiledMarkup,
       style: compiledStyle,
       script: compiledScript,
-      rawCompiledMarkup,
+      initialCompiledMarkup,
     };
 
     const compiledCode = {
