@@ -50,6 +50,26 @@ test.describe('Custom Configs', () => {
     target: 'es5',
   }
 </script>
+<script type="svelte-config">
+  {
+    css: false,
+  }
+</script>
+<script type="stencil-config">
+  {
+    sourceMap: true,
+  }
+</script>
+<script type="coffeescript-config">
+  {
+    bare: false,
+  }
+</script>
+<script type="livescript-config">
+  {
+    bare: false,
+  }
+</script>
   `;
   test('autoprefixer', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
@@ -177,5 +197,75 @@ test.describe('Custom Configs', () => {
     await waitForResultUpdate();
 
     expect(await getResult().innerText('body script')).toContain('var x = function () {');
+  });
+
+  test('svelte', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'svelte' } as any));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(customConfigs);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('body script')).not.toContain('function add_css()');
+  });
+
+  test('stencil', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'stencil' } as any));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(customConfigs);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('body script')).toContain('//# sourceMappingURL=');
+  });
+
+  test ('coffeescript', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(customConfigs);
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=CoffeeScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('x = 10');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('body script')).toContain('(function()');
+  });
+
+  test ('livescript', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(customConfigs);
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=LiveScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('x = 10');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('body script')).toContain('(function()');
   });
 });
