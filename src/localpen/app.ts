@@ -414,15 +414,24 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const markupLanguage = getEditorLanguage('markup');
     const styleLanguage = getEditorLanguage('style');
     const scriptLanguage = getEditorLanguage('script');
+    const isMdx = markupLanguage === 'mdx';
 
-    let enableCustomConfig = true;
-    // FIXME: custom config does not work in mdx
-    if (markupLanguage === 'mdx') {
-      enableCustomConfig = false;
-    }
+    const enableCustomConfig = true;
 
-    let rawCompiledMarkup = await getCompiled(markupContent, markupLanguage);
-    const customConfigs = enableCustomConfig ? extractCustomConfigs(rawCompiledMarkup) : [];
+    const configFromRawMarkup = ['html', 'markdown', 'mdx'].includes(markupLanguage);
+
+    let customConfigs =
+      enableCustomConfig && configFromRawMarkup ? extractCustomConfigs(markupContent, isMdx) : [];
+
+    let rawCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
+      customConfigs,
+    });
+
+    customConfigs = !enableCustomConfig
+      ? []
+      : configFromRawMarkup
+      ? customConfigs
+      : extractCustomConfigs(rawCompiledMarkup);
 
     const forceRecompile = (editorId: EditorId) => {
       const configTypes =
@@ -435,6 +444,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           : [];
       return (
         enableCustomConfig &&
+        (editorId !== 'markup' || !configFromRawMarkup) &&
         rawCompiledMarkup !== lastCompiled?.rawCompiledMarkup &&
         customConfigs.filter((customConfig) => configTypes.includes(customConfig.type as never))
           .length > 0
@@ -461,9 +471,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       }),
     ]);
 
-    const compiledMarkup = enableCustomConfig
-      ? removeCustomConfigs(rawCompiledMarkup)
-      : rawCompiledMarkup;
+    const compiledMarkup =
+      !enableCustomConfig || isMdx ? rawCompiledMarkup : removeCustomConfigs(rawCompiledMarkup);
 
     // cache compiled code
     lastCompiled = {

@@ -2,13 +2,8 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
 
-test.describe('Custom Configs', () => {
+test.describe.only('Custom Configs', () => {
   const customConfigs = `
-<script type="marked-config">
-  {
-    headerPrefix: 'pre-',
-  }
-</script>
 <script type="sass-config">
   {
     indent: '    ',
@@ -71,6 +66,172 @@ test.describe('Custom Configs', () => {
   }
 </script>
   `;
+
+  test('markdown', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Markdown');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<script type="marked-config">{headerPrefix: 'pre-'}</script>\n\n`);
+    await page.keyboard.type('# hello');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('h1#pre-hello')).toContain('hello');
+  });
+
+  test('mdx', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 2)');
+    await app.click('text=autoprefixer');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('::placeholder {color: gray;}');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).toContain('::-moz-placeholder');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=MDX');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<script type="autoprefixer-config">
+  &#x7B;
+    add: false
+  &#x7D;
+</script>
+`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).not.toContain('::-moz-placeholder');
+  });
+
+  test('pug', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 2)');
+    await app.click('text=autoprefixer');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('::placeholder {color: gray;}');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).toContain('::-moz-placeholder');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Pug');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`
+script(type="autoprefixer-config").
+  { add: false }
+`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).not.toContain('::-moz-placeholder');
+  });
+
+  test('haml', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 2)');
+    await app.click('text=autoprefixer');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('::placeholder {color: gray;}');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).toContain('::-moz-placeholder');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Haml');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`
+:plain
+  <script type="autoprefixer-config">
+    { add: false }
+`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).not.toContain('::-moz-placeholder');
+  });
+
+  test('asciidoc', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 2)');
+    await app.click('text=autoprefixer');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('::placeholder {color: gray;}');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).toContain('::-moz-placeholder');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=AsciiDoc');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`
++++
+<script type="autoprefixer-config">
+  { add: false }
+</script>
++++
+`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).not.toContain('::-moz-placeholder');
+  });
+
+  test('asciidoc self-config', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=AsciiDoc');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`
++++
+<script type="asciidoctor-config">
+  { standalone: true }
+</script>
++++
+`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('#footer-text')).toContain('Last updated');
+  });
+
   test('autoprefixer', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -229,7 +390,7 @@ test.describe('Custom Configs', () => {
     expect(await getResult().innerText('body script')).toContain('//# sourceMappingURL=');
   });
 
-  test ('coffeescript', async ({ page, getTestUrl }) => {
+  test('coffeescript', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -249,7 +410,7 @@ test.describe('Custom Configs', () => {
     expect(await getResult().innerText('body script')).toContain('(function()');
   });
 
-  test ('livescript', async ({ page, getTestUrl }) => {
+  test('livescript', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);

@@ -23,9 +23,10 @@ export const mdx: LanguageSpecs = {
     dependencies: ['typescript'],
     url: 'vendor/mdx/mdx.js',
     factory: () => async (code, { options }) => {
+      const customConfig = getCustomConfig('mdx-config', options.customConfigs);
       const compiled = await (window as any).MDX.mdx(code, {
         skipExport: true,
-        ...getCustomConfig('mdx-config', options.customConfigs),
+        ...customConfig,
       });
       const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
       const jsx = removeShortcode(compiled);
@@ -34,8 +35,7 @@ import ReactDOM from "react-dom";
 ${jsx}
 ReactDOM.render(<MDXContent />, document.body);
 `;
-      const js = (window as any).typescript.transpile(result, typescriptOptions);
-      return js;
+      return (window as any).typescript.transpile(result, typescriptOptions);
     },
     umd: true,
   },

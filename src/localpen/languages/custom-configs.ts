@@ -1,5 +1,5 @@
 import { CustomConfig } from '../models';
-import { stringToValidJson } from '../utils';
+import { decodeHTML, stringToValidJson } from '../utils';
 
 export const markupConfigTypes = [
   'asciidoctor-config',
@@ -49,11 +49,12 @@ const customConfigsApply = (
   return result;
 };
 
-export const extractCustomConfigs = (html: string) => {
+export const extractCustomConfigs = (html: string, decode = false) => {
   const customConfigs: CustomConfig[] = [];
   customConfigsApply(html, (script) => {
     try {
-      const jsonStr = stringToValidJson(script.innerHTML);
+      const scriptContent = decode ? decodeHTML(script.innerHTML) : script.innerHTML;
+      const jsonStr = stringToValidJson(scriptContent);
       const content = JSON.parse(jsonStr) || {};
       customConfigs.push({ type: script.type as CustomConfig['type'], content });
     } catch (err) {
