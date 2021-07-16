@@ -34,8 +34,8 @@ export const polymerStarter: Template = {
     content: `
 import { LitElement, property, customElement } from "lit-element";
 import { html, render } from "lit-html";
-import "@material/mwc-ripple";
-import "@material/mwc-button";
+import "@material/mwc-ripple@v0.21.0";
+import "@material/mwc-button@v0.21.0";
 
 @customElement("simple-greeting")
 export class SimpleGreeting extends LitElement {

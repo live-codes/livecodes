@@ -1,8 +1,13 @@
-import { Language, Pen, ProcessorName } from '../models';
+import { CompileOptions, Language, Pen, ProcessorName } from '../models';
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Pen) => Promise<unknown[]>;
-  compile: (content: string, language: Language, config: Pen, options?: any) => Promise<string>;
+  compile: (
+    content: string,
+    language: Language,
+    config: Pen,
+    options: CompileOptions,
+  ) => Promise<string>;
 }
 
 export type LanguageOrProcessor = Language | ProcessorName;
@@ -44,6 +49,7 @@ export interface CompileMessage {
     content: string;
     language: LanguageOrProcessor;
     config: Pen;
+    options: CompileOptions;
   };
 }
 

@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
 
 export const babel: LanguageSpecs = {
@@ -19,10 +20,11 @@ export const babel: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/babel/babel.min.js',
-    factory: () => (code) =>
+    factory: () => async (code, { options }) =>
       (window as any).Babel.transform(code, {
         filename: 'script.tsx',
         presets: [['env', { modules: false }], 'typescript', 'react'],
+        ...getCustomConfig('babel-config', options.customConfigs),
       }).code,
     umd: true,
   },

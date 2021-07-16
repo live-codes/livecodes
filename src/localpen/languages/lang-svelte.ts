@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
 
 export const svelte: LanguageSpecs = {
@@ -20,14 +21,21 @@ export const svelte: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/svelte/svelte-compiler.3.37.0.min.js',
-    factory: () => (code: string) => {
-      const options = { css: true };
-      const { js } = (window as any).svelte.compile(code, options);
-      return `${js.code}
-
+    factory: () => async (code, { options }) => {
+      const customConfig = getCustomConfig('svelte-config', options.customConfigs);
+      const customElement = customConfig.customElement;
+      const init =
+        customElement === true
+          ? ''
+          : `\n
 let app = document.querySelector("#app") || document.body;
 new Component({ target: app });
 `;
+      const { js } = (window as any).svelte.compile(code, {
+        css: true,
+        ...customConfig,
+      });
+      return js.code + init;
     },
     umd: true,
   },

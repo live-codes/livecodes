@@ -1,5 +1,4 @@
 import LZString from 'lz-string';
-import { CustomConfig } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number) => {
   let timeout: any;
@@ -102,28 +101,3 @@ export const stringToValidJson = (str: string) =>
     .replace(/(,\s*})/g, function removeLastComma() {
       return '}';
     });
-
-export const extractCustomConfigs = (html: string) => {
-  const domParser = new DOMParser();
-  const dom = domParser.parseFromString(html, 'text/html');
-  const customConfigs: CustomConfig[] = [];
-  const selector =
-    'script[type]:not([type="application/javascript"]):not([type="application/ecmascript"]):not([type="text/javascript"]):not([type="text/ecmascript"])';
-  const scripts = dom.querySelectorAll<HTMLScriptElement>(selector);
-  scripts.forEach((script) => {
-    try {
-      const jsonStr = stringToValidJson(script.innerHTML);
-      const content = JSON.parse(jsonStr) || {};
-      customConfigs.push({ type: script.type, content });
-    } catch (err) {
-      //
-    }
-  });
-  return customConfigs;
-};
-
-export const getCustomConfigs = (customConfigs: CustomConfig[], type: string) =>
-  customConfigs
-    .filter((conf) => conf.type === type)
-    .map((custom) => custom.content)
-    .reduce((acc, content) => ({ ...acc, ...content }), {});

@@ -16,7 +16,7 @@ export const assemblyscript: LanguageSpecs = {
   `,
   compiler: {
     url: 'assets/noop.js',
-    factory: () => (code: string) =>
+    factory: () => async (code: string) =>
       `/* ... compiling ... */
 
 window.wasm = new Promise((resolve) => {

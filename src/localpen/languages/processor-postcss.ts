@@ -1,5 +1,5 @@
-import { CustomConfig, Pen, Processors } from '../models';
-import { getCustomConfigs } from '../utils';
+import { CompileOptions, Pen, Processors } from '../models';
+import { getCustomConfig } from './custom-configs';
 
 export type PluginName = keyof Pen['processors']['postcss'];
 type Plugin = () => any;
@@ -16,10 +16,10 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'tailwindcss',
     title: 'Tailwind CSS',
     url: 'vendor/tailwindcss/tailwindcss.js',
-    factory: ({ html = '', customConfigs = [] }: { html: string; customConfigs: CustomConfig[] }) =>
+    factory: ({ html = '', customConfigs = [] }: CompileOptions) =>
       (self as any).tailwindcss.tailwindcss({
         ...(self as any).tailwindcss.defaultConfig,
-        ...getCustomConfigs(customConfigs, 'tailwind-config'),
+        ...getCustomConfig('tailwind-config', customConfigs),
         mode: 'jit',
         purge: [
           {
@@ -33,9 +33,9 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'autoprefixer',
     title: 'Autoprefixer',
     url: 'vendor/autoprefixer/autoprefixer.js',
-    factory() {
+    factory({ customConfigs = [] }: CompileOptions) {
       return (self as any).autoprefixer.autoprefixer({
-        overrideBrowserslist: ['last 4 version'],
+        ...getCustomConfig('autoprefixer-config', customConfigs),
       });
     },
   },
@@ -43,10 +43,10 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'postcssPresetEnv',
     title: 'Preset Env',
     url: 'vendor/postcss-preset-env/postcss-preset-env.js',
-    factory(): Plugin {
+    factory({ customConfigs = [] }): Plugin {
       return (self as any).postcssPresetEnv.postcssPresetEnv({
         autoprefixer: false,
-        browsers: 'last 4 versions',
+        ...getCustomConfig('preset-env-config', customConfigs),
       });
     },
   },
@@ -95,12 +95,12 @@ export const postcss: Processors = {
         return (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
       };
 
-      const getPlugins = (config: Pen, baseUrl: string) => {
+      const getPlugins = (config: Pen, options: CompileOptions, baseUrl: string) => {
         const pluginNames = getEnabledPluginNames(config);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
-          .map((specs) => loadedPlugins[specs.name]?.(config));
+          .map((specs) => loadedPlugins[specs.name]?.(options));
       };
 
       const twCode = (code: string, config: Pen) => {
@@ -114,12 +114,9 @@ ${code}
         return code;
       };
 
-      return async function process(
-        code: string,
-        { config, baseUrl }: { config?: Pen; baseUrl?: string },
-      ): Promise<string> {
+      return async function process(code, { config, options, baseUrl }): Promise<string> {
         if (!config || !baseUrl) return code;
-        const plugins = getPlugins(config, baseUrl);
+        const plugins = getPlugins(config, options, baseUrl);
         return (
           await (self as any).postcss.postcss(plugins).process(twCode(code, config), postCssOptions)
         ).css;

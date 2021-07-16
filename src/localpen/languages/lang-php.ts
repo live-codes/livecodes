@@ -16,7 +16,7 @@ export const php: LanguageSpecs = {
   `,
   compiler: {
     url: 'assets/noop.js',
-    factory: () => (code) => {
+    factory: () => async (code) => {
       code = code.trim();
       if (code.startsWith('<?php')) {
         code = code.replace('<?php', '/* <?php */');

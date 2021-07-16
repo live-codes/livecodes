@@ -13,7 +13,7 @@ export const stylus: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/stylus/stylus.min.js',
-    factory: () => (code) => (window as any).stylus.render(code),
+    factory: () => async (code) => (window as any).stylus.render(code),
     umd: true,
   },
   extensions: ['styl'],

@@ -10,10 +10,16 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
+  extractCustomConfigs,
+  markupConfigTypes,
+  styleConfigTypes,
+  scriptConfigTypes,
+  removeCustomConfigs,
 } from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
+  CompileOptions,
   ContentPen,
   CssPresetId,
   EditorId,
@@ -38,7 +44,7 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce, extractCustomConfigs } from './utils';
+import { compress, copyToClipboard, debounce } from './utils';
 import { getCompiler } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -61,7 +67,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
-  let lastCompiled: { [key in EditorId]: string };
+  let lastCompiled: { [key in EditorId | 'initialCompiledMarkup']: string };
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
@@ -395,44 +401,101 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     singleFile = true,
   ) => {
     updateConfig();
-    const getCompiled = (content: string, language: Language, options?: any) =>
-      compiler.compile(content, language, getConfig(), options);
 
-    const compiledMarkup = await getCompiled(
-      editors.markup?.getValue(),
-      getEditorLanguage('markup'),
-    );
+    const getCompiled = (
+      content: string,
+      language: Language,
+      options: Partial<CompileOptions> = {},
+    ) => compiler.compile(content, language, getConfig(), { ...options, language });
+
+    const markupContent = editors.markup?.getValue();
+    const styleContent = editors.style?.getValue();
+    const scriptContent = editors.script?.getValue();
+    const markupLanguage = getEditorLanguage('markup');
+    const styleLanguage = getEditorLanguage('style');
+    const scriptLanguage = getEditorLanguage('script');
+
+    const enableCustomConfig = true;
+    const isMdx = markupLanguage === 'mdx';
+    const configFromRawMarkup = ['html', 'markdown', 'mdx'].includes(markupLanguage);
+
+    let customConfigs =
+      enableCustomConfig && configFromRawMarkup ? extractCustomConfigs(markupContent, isMdx) : [];
+
+    let initialCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
+      customConfigs,
+    });
+
+    customConfigs = !enableCustomConfig
+      ? []
+      : configFromRawMarkup
+      ? customConfigs
+      : extractCustomConfigs(initialCompiledMarkup);
+
+    const forceRecompile = (editorId: EditorId) => {
+      const configTypes =
+        editorId === 'markup'
+          ? markupConfigTypes
+          : editorId === 'style'
+          ? styleConfigTypes
+          : editorId === 'script'
+          ? scriptConfigTypes
+          : [];
+      return (
+        enableCustomConfig &&
+        (editorId !== 'markup' || !configFromRawMarkup) &&
+        initialCompiledMarkup !== lastCompiled?.initialCompiledMarkup &&
+        customConfigs.filter((customConfig) => configTypes.includes(customConfig.type as never))
+          .length > 0
+      );
+    };
+
+    if (forceRecompile('markup')) {
+      initialCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
+        customConfigs,
+        force: true,
+      });
+    }
+
     const [compiledStyle, compiledScript] = await Promise.all([
-      getCompiled(editors.style?.getValue(), getEditorLanguage('style'), {
-        html: compiledMarkup,
-        customConfigs: extractCustomConfigs(compiledMarkup),
-        // force compile style if markup changes and tailwind is enabled
-        force:
-          compiledMarkup !== lastCompiled?.markup && getConfig().processors.postcss.tailwindcss,
+      getCompiled(styleContent, styleLanguage, {
+        html: initialCompiledMarkup,
+        customConfigs,
+        force: forceRecompile('style'),
       }),
-      getCompiled(editors.script?.getValue(), getEditorLanguage('script')),
+      getCompiled(scriptContent, scriptLanguage, {
+        html: initialCompiledMarkup,
+        customConfigs,
+        force: forceRecompile('script'),
+      }),
     ]);
 
-    const compiledCode = {
-      markup: {
-        language: getEditorLanguage('markup'),
-        content: compiledMarkup,
-      },
-      style: {
-        language: getEditorLanguage('style'),
-        content: compiledStyle,
-      },
-      script: {
-        language: getEditorLanguage('script'),
-        content: compiledScript,
-      },
-    };
+    const compiledMarkup =
+      !enableCustomConfig || isMdx
+        ? initialCompiledMarkup
+        : removeCustomConfigs(initialCompiledMarkup);
 
     // cache compiled code
     lastCompiled = {
       markup: compiledMarkup,
       style: compiledStyle,
       script: compiledScript,
+      initialCompiledMarkup,
+    };
+
+    const compiledCode = {
+      markup: {
+        language: markupLanguage,
+        content: compiledMarkup,
+      },
+      style: {
+        language: styleLanguage,
+        content: compiledStyle,
+      },
+      script: {
+        language: scriptLanguage,
+        content: compiledScript,
+      },
     };
 
     return createResultPage(compiledCode, getConfig(), forExport, template, baseUrl, singleFile);

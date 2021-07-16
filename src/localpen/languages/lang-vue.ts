@@ -23,7 +23,7 @@ export const vue: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/vue3-sfc-loader/vue3-sfc-loader.js',
-    factory: () => (code) =>
+    factory: () => async (code) =>
       `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */

@@ -6,7 +6,7 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import { Language, Pen, Compilers, EditorId } from '../models';
+import { Language, Pen, Compilers, EditorId, CompileOptions, CompilerFunction } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
@@ -17,10 +17,10 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
   const configMessage: CompilerMessage = { type: 'init', payload: config, baseUrl };
   worker.postMessage(configMessage);
 
-  const createLanguageCompiler = (language: LanguageOrProcessor) => (
-    content: string,
-    config: Pen,
-  ) =>
+  const createLanguageCompiler = (language: LanguageOrProcessor): CompilerFunction => (
+    content,
+    { config, options },
+  ): Promise<string> =>
     new Promise((resolve, reject) => {
       const handler = (event: CompilerMessageEvent) => {
         const message = event.data;
@@ -43,7 +43,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
 
       const compileMessage: CompilerMessage = {
         type: 'compile',
-        payload: { content, language, config },
+        payload: { content, language, config, options },
       };
       worker.postMessage(compileMessage);
     });
@@ -81,7 +81,7 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     content: string,
     language: Language,
     config: Pen,
-    options: any = {},
+    options: CompileOptions,
   ): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
@@ -100,13 +100,13 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
       await load([language], config);
     }
 
-    const compiler = compilers[language]?.fn || ((...args: any[]) => args[0]);
+    const compiler = compilers[language]?.fn || ((code: string) => code);
     if (typeof compiler !== 'function') {
-      throw new Error('Failed to load transpiler for: ' + language);
+      throw new Error('Failed to load compiler for: ' + language);
     }
 
-    const compiled = (await compiler(content, config)) || '';
-    const processed = (await postProcess(compiled, language, config, options)) || '';
+    const compiled = (await compiler(content, { config, options, baseUrl })) || '';
+    const processed = (await postProcess(compiled, { config, options, baseUrl })) || '';
 
     cache[language] = {
       content,
@@ -117,21 +117,21 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
     return Promise.resolve(processed);
   };
 
-  const postProcess = async (content: string, language: Language, config: Pen, options: any) => {
+  const postProcess: CompilerFunction = async (content, { config, options, baseUrl }) => {
     for (const processor of processors) {
       if (
         processorIsEnabled(processor.name, config) &&
         processorIsActivated(processor, config) &&
-        processor.editors?.includes(getLanguageEditorId(language) as EditorId)
+        processor.editors?.includes(getLanguageEditorId(options.language) as EditorId)
       ) {
         if (compilers[processor.name] && !compilers[processor.name].fn) {
           await load([processor.name], config);
         }
-        const process = compilers[processor.name].fn;
+        const process = compilers[processor.name].fn || ((code: string) => code);
         if (typeof process !== 'function') {
           throw new Error('Failed to load processor: ' + processor.name);
         }
-        return process(content, { ...config, ...options });
+        return process(content, { config, options, baseUrl });
       }
     }
     return content;

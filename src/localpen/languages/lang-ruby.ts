@@ -16,7 +16,7 @@ export const ruby: LanguageSpecs = {
   `,
   compiler: {
     url: 'assets/noop.js',
-    factory: () => (code) => code,
+    factory: () => async (code) => code,
     umd: true,
     scripts: [
       'vendor/opal/opal.min.js',
