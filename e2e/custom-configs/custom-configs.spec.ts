@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
 
-test.describe.only('Custom Configs', () => {
+test.describe('Custom Configs', () => {
   const customConfigs = `
 <script type="sass-config">
   {

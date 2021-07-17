@@ -2,6 +2,29 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
 
+const templates = [
+  'TypeScript',
+  'React',
+  'Angular',
+  'Preact',
+  'Svelte',
+  'Stencil',
+  'Polymer',
+  'MDX',
+  'jQuery',
+  'Backbone',
+  'Knockout',
+  'CoffeeScript',
+  'LiveScript',
+  'AssemblyScript',
+  'Python',
+  'Ruby',
+  'PHP',
+  'Perl',
+  'Lua',
+  'Scheme',
+];
+
 test.describe('Starter Templates from UI', () => {
   test('Blank Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
@@ -19,26 +42,6 @@ test.describe('Starter Templates from UI', () => {
 
     expect(resultText).toBe('');
   });
-
-  const templates = [
-    'TypeScript',
-    'React',
-    'Angular',
-    'Preact',
-    'Svelte',
-    'Stencil',
-    'Polymer',
-    'jQuery',
-    'MDX',
-    'LiveScript',
-    'AssemblyScript',
-    'Python',
-    'Ruby',
-    'PHP',
-    'Perl',
-    'Lua',
-    'Scheme',
-  ];
 
   templates.forEach((template) => {
     test(template + ' Starter', async ({ page, getTestUrl }) => {
@@ -196,26 +199,6 @@ test.describe('Starter Templates from URL', () => {
 
     expect(resultText).toBe('');
   });
-
-  const templates = [
-    'TypeScript',
-    'React',
-    'Angular',
-    'Preact',
-    'Svelte',
-    'Stencil',
-    'Polymer',
-    'jQuery',
-    'MDX',
-    'LiveScript',
-    'AssemblyScript',
-    'Python',
-    'Ruby',
-    'PHP',
-    'Perl',
-    'Lua',
-    'Scheme',
-  ];
 
   templates.forEach((template) => {
     test(template + ' Starter (in URL)', async ({ page, getTestUrl }) => {
