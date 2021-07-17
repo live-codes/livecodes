@@ -10,7 +10,7 @@ export const phpStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="title">world</span>!</h1>
-  <img src="{{ __localpen_baseUrl__ }}assets/templates/php.svg" class="logo" />
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/php.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

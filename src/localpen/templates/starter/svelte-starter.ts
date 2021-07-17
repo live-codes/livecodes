@@ -37,7 +37,7 @@ export const svelteStarter: Template = {
 
 <div class="container">
   <h1>Hello, {title}!</h1>
-  <img src="{{ __localpen_baseUrl__ }}assets/templates/svelte.svg" class="logo" />
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/svelte.svg" />
   <p>You clicked {counter} times.</p>
   <button on:click="{increment}">Click me</button>
 </div>

@@ -10,7 +10,7 @@ export const polymerStarter: Template = {
     content: `
 <div class="container">
   <simple-greeting name="Polymer"></simple-greeting>
-  <img src="{{ __localpen_baseUrl__ }}assets/templates/polymer.svg" class="logo" />
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/polymer.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <mwc-button id="counter-button" label="Click Me!" raised></mwc-button>
 </div>

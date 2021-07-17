@@ -10,7 +10,7 @@ export const luaStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
-  <img src="{{ __localpen_baseUrl__ }}assets/templates/lua.svg" class="logo" />
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/lua.svg" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>
