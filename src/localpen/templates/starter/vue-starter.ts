@@ -10,7 +10,7 @@ export const vueStarter: Template = {
     content: `
 <div id="app">
   <h1>Hello, Vue!</h1>
-  <img src="{{ __localpen_baseUrl__ }}assets/templates/vue.svg" class="logo" />
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/vue.svg" />
   <p>You clicked {{ counter }} times.</p>
   <button @click="increment()">Click me</button>
 </div>

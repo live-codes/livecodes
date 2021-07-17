@@ -10,7 +10,7 @@ export const pythonStarter: Template = {
     content: `
 <div class="container">
   <h1 id="header">Hello, World!</h1>
-  <img src="{{ __localpen_baseUrl__ }}assets/templates/python.svg" class="logo" />
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/python.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

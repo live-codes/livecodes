@@ -19,7 +19,7 @@ export const vueSfcStarter: Template = {
 <template>
   <div class="container">
     <h1>Hello, Vue!</h1>
-    <img src="{{ __localpen_baseUrl__ }}assets/templates/vue.svg" class="logo" />
+    <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/vue.svg" />
     <p>You clicked {{ counter }} times.</p>
     <button v-on:click="increment">Click me</button>
   </div>

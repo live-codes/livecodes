@@ -2,10 +2,13 @@
 
 import { angularStarter } from './angular-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
+import { backboneStarter } from './backbone-starter';
 import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
+import { coffeescriptStarter } from './coffeescript-starter';
 import { d3Starter } from './d3-starter';
 import { jqueryStarter } from './jquery-starter';
+import { knockoutStarter } from './knockout-starter';
 import { livescriptStarter } from './livescript-starter';
 import { luaStarter } from './lua-starter';
 import { mdxStarter } from './mdx-starter';
@@ -38,8 +41,11 @@ export const starterTemplates = [
   stencilStarter,
   solidStarter,
   polymerStarter,
-  jqueryStarter,
   mdxStarter,
+  jqueryStarter,
+  backboneStarter,
+  knockoutStarter,
+  coffeescriptStarter,
   livescriptStarter,
   assemblyscriptStarter,
   bootstrapStarter,

@@ -40,7 +40,7 @@ import 'zone.js/dist/zone';
   template: \`
     <div class="container">
       <heading name="{{name}}"></heading>
-      <img src="{{ __localpen_baseUrl__ }}assets/templates/angular.svg" class="logo" />
+      <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/angular.svg" />
       <p>You clicked {{count}} times.</p>
       <button type="button" (click)="increment()">Click me</button>
     </div>
