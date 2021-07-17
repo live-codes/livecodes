@@ -2,6 +2,7 @@
 
 import { angularStarter } from './angular-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
+import { backboneStarter } from './backbone-starter';
 import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
@@ -39,8 +40,9 @@ export const starterTemplates = [
   stencilStarter,
   solidStarter,
   polymerStarter,
-  jqueryStarter,
   mdxStarter,
+  jqueryStarter,
+  backboneStarter,
   coffeescriptStarter,
   livescriptStarter,
   assemblyscriptStarter,
