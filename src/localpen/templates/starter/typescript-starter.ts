@@ -9,7 +9,7 @@ export const typescriptStarter: Template = {
     language: 'html',
     content: `
 <div class="container">
-  <h1>Hello, TypeScript!</h1>
+  <h1>Hello, <span id="title">World</span>!</h1>
   <img src="{{ __localpen_baseUrl__ }}assets/templates/typescript.svg" class="logo" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
@@ -32,15 +32,30 @@ export const typescriptStarter: Template = {
   script: {
     language: 'typescript',
     content: `
-const counter = document.querySelector("#counter");
-const button = document.querySelector("#counter-button");
-let count = 0;
+class Counter {
+  private count: number;
+  constructor() {
+    this.count = 0;
+  }
+  increment() {
+    this.count += 1;
+  }
+  getValue() {
+    return this.count;
+  }
+}
 
+const title = document.querySelector("#title");
+const count = document.querySelector("#counter");
+const button = document.querySelector("#counter-button");
+
+title.textContent = "TypeScript";
+const counter = new Counter();
 button.addEventListener(
   "click",
   () => {
-    count += 1;
-    counter.textContent = String(count);
+    counter.increment();
+    count.textContent = String(counter.getValue());
   },
   false
 );
