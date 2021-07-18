@@ -11,11 +11,17 @@ const config: PlaywrightTestConfig<{ editor: Pen['editor'] }> = {
   projects: [
     {
       name: 'monaco',
-      use: { editor: 'monaco' },
+      use: {
+        editor: 'monaco',
+        headless: true,
+      },
     },
     {
       name: 'codemirror',
-      use: { editor: 'codemirror' },
+      use: {
+        editor: 'codemirror',
+        headless: true,
+      },
     },
   ],
 };
