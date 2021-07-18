@@ -29,6 +29,7 @@ import {
   GithubScope,
   Language,
   Pen,
+  Screen,
   ShareData,
   Template,
   ToolList,
@@ -71,6 +72,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
+  const screens: Screen[] = [];
 
   const resultPage = {
     url: 'https://result.localpen.io/v1/result',
@@ -772,6 +774,31 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       });
   };
 
+  const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
+    const registered = screens.find((s) => s.screen === screen);
+    if (registered) {
+      registered.show = fn;
+    } else {
+      screens.push({ screen, show: fn });
+    }
+  };
+
+  const showScreen = async (screen: Screen['screen']) => {
+    await screens.find((s) => s.screen === screen)?.show();
+    const modalElement = document.querySelector('#modal') as HTMLElement;
+    (modalElement.firstElementChild as HTMLElement)?.click();
+  };
+
+  const loadSelectedScreen = () => {
+    const params = Object.fromEntries(
+      (new URLSearchParams(parent.location.search) as unknown) as Iterable<any>,
+    );
+    const screen = params.screen;
+    if (screen) {
+      showScreen(screen);
+    }
+  };
+
   const attachEventListeners = (editors: Editors) => {
     const handleTitleEdit = () => {
       const projectTitle = UI.getProjectTitleElement();
@@ -1059,6 +1086,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
     const handleLogin = () => {
       eventsManager.addEventListener(UI.getLoginLink(), 'click', login, false);
+      registerScreen('login', login);
     };
 
     const handleLogout = () => {
@@ -1175,6 +1203,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         checkSavedAndExecute(createTemplatesUI),
         false,
       );
+      registerScreen('new', checkSavedAndExecute(createTemplatesUI));
     };
 
     const handleSave = () => {
@@ -1288,6 +1317,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         checkSavedAndExecute(createList),
         false,
       );
+      registerScreen('open', checkSavedAndExecute(createList));
     };
 
     const handleImport = () => {
@@ -1389,6 +1419,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         checkSavedAndExecute(createImportUI),
         false,
       );
+      registerScreen('import', checkSavedAndExecute(createImportUI));
     };
 
     const handleExport = () => {
@@ -1465,22 +1496,26 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     };
 
     const handleShare = () => {
+      const createShareUI = async () => {
+        const shareData = await share();
+        const shareContainer = UI.createShareContainer(
+          shareData,
+          baseUrl,
+          eventsManager,
+          notifications,
+        );
+        modal.show(shareContainer, { size: 'small', isAsync: true });
+      };
       eventsManager.addEventListener(
         UI.getShareLink(),
         'click',
         async (event: Event) => {
           event.preventDefault();
-          const shareData = await share();
-          const shareContainer = UI.createShareContainer(
-            shareData,
-            baseUrl,
-            eventsManager,
-            notifications,
-          );
-          modal.show(shareContainer, { size: 'small', isAsync: true });
+          await createShareUI();
         },
         false,
       );
+      registerScreen('share', createShareUI);
     };
 
     const handleDeploy = () => {
@@ -1631,6 +1666,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       };
 
       eventsManager.addEventListener(UI.getDeployLink(), 'click', createDeployUI, false);
+      registerScreen('deploy', createDeployUI);
     };
 
     const handleExternalResources = () => {
@@ -1673,6 +1709,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         createExrenalResourcesUI,
         false,
       );
+      registerScreen('external', createExrenalResourcesUI);
     };
 
     const handleResultLoading = () => {
@@ -1831,6 +1868,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     });
     formatter.load(getEditorLanguages());
     initializeAuth();
+    if (!reload) {
+      loadSelectedScreen();
+    }
   }
   await bootstrap();
 

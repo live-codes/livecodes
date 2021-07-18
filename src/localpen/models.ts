@@ -339,3 +339,8 @@ export interface CompileOptions {
   customConfigs?: CustomConfig[];
   force?: boolean;
 }
+
+export interface Screen {
+  screen: 'login' | 'new' | 'open' | 'import' | 'external' | 'share' | 'deploy';
+  show: () => void | Promise<unknown>;
+}
