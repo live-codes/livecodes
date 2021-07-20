@@ -9,8 +9,7 @@ export const pyodideStarter: Template = {
     language: 'html',
     content: `
 <h1>Python Visualizations</h1>
-<div id="plot1">Loading...</div>
-<div id="plot2"></div>
+<div id="plot">Loading...</div>
 `.trimStart(),
   },
   style: {
@@ -24,7 +23,6 @@ from js import document
 import pandas
 import plotly.express as px
 import plotly.io as pio
-from matplotlib import pyplot as plt
 
 def show(figure, lib = 'plotly', element = ''):
   el = element
@@ -57,20 +55,24 @@ def show(figure, lib = 'plotly', element = ''):
     figure.canvas.show()
 
 
-# Plotly
+# data
 df = px.data.iris()
-fig = px.scatter(df, x="sepal_length", y="sepal_width", color="species")
-show(fig, 'plotly', document.getElementById('plot1'))
 
-# matplotlib
-formatter = plt.FuncFormatter(lambda i, *args: df['species'].unique()[int(i)])
-f = plt.figure(figsize=(6, 4))
-plt.scatter(df[df.columns[0]], df[df.columns[1]], c=df['species_id']-1)
-plt.colorbar(ticks=[0, 1, 2], format=formatter)
-plt.xlabel(df.columns[0])
-plt.ylabel(df.columns[1])
-plt.tight_layout()
-show(f, 'matplotlib', document.getElementById('plot2'))
+# Plotly
+fig = px.scatter(df, x="sepal_length", y="sepal_width", color="species")
+show(fig, 'plotly', document.getElementById('plot'))
+
+## matplotlib
+# from matplotlib import pyplot as plt
+
+# formatter = plt.FuncFormatter(lambda i, *args: df['species'].unique()[int(i)])
+# f = plt.figure(figsize=(6, 4))
+# plt.scatter(df[df.columns[0]], df[df.columns[1]], c=df['species_id']-1)
+# plt.colorbar(ticks=[0, 1, 2], format=formatter)
+# plt.xlabel(df.columns[0])
+# plt.ylabel(df.columns[1])
+# plt.tight_layout()
+# show(f, 'matplotlib')
 `.trimStart(),
   },
   stylesheets: [],
