@@ -8,58 +8,69 @@ export const pyodideStarter: Template = {
   markup: {
     language: 'html',
     content: `
-<div class="container">
-  <h1 id="title">Hello, World!</h1>
-  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/python.svg" />
-  <p>You clicked <span id="counter">0</span> times.</p>
-  <button id="counter-button" disabled>Loading...</button>
-</div>
+<h1>Python Visualizations</h1>
+<div id="plot1">Loading...</div>
+<div id="plot2"></div>
 `.trimStart(),
   },
   style: {
     language: 'css',
-    content: `
-.container,
-.container button {
-  text-align: center;
-  font: 1em sans-serif;
-}
-.logo {
-  width: 150px;
-}
-`.trimStart(),
+    content: '',
   },
   script: {
     language: 'pyodide',
     content: `
-import time
 from js import document
+import pandas
+import plotly.express as px
+import plotly.io as pio
+from matplotlib import pyplot as plt
 
-title = document.getElementById('title')
-counter = document.getElementById('counter')
-button = document.getElementById('counter-button')
+def show(figure, lib = 'plotly', element = ''):
+  el = element
+  if element == '':
+    el = document.createElement('div')
+    document.body.appendChild(el)
+  el.innerHTML = ''
 
-name = 'Python!'
-title.innerHTML = f"Hello, {name}"
+  if lib == 'plotly':
+    iframe = document.createElement('iframe')
+    iframe.srcdoc = pio.to_html(figure)
+    iframe.style = 'border:none;'
+    iframe.seamless = 'seamless'
+    iframe.scrolling = 'no'
+    iframe.height = '525'
+    iframe.width = '100%'
+    el.appendChild(iframe)
 
-count = 0
-def increment(ev):
-    global count
-    count += 1
-    counter.innerHTML = str(count)
+  if lib == 'matplotlib':
+    iconStyles = document.createElement('link')
+    iconStyles.rel = 'stylesheet'
+    iconStyles.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+    document.head.appendChild(iconStyles)
 
-button.addEventListener("click", increment)
-button.innerHTML = 'Click me'
-button.disabled = False
+    def create_root_element(self):
+      return el
 
-# check console
-current_time = int(time.strftime('%H'))
-if current_time < 12 :
-      print('Good morning')
-elif 12 <= current_time < 18:
-      print('Good afternoon')
-else:
-      print('Good evening')
+    figure.canvas.create_root_element = type(figure.canvas.create_root_element)(
+      create_root_element, figure.canvas.__class__)
+    figure.canvas.show()
+
+
+# Plotly
+df = px.data.iris()
+fig = px.scatter(df, x="sepal_length", y="sepal_width", color="species")
+show(fig, 'plotly', document.getElementById('plot1'))
+
+# matplotlib
+formatter = plt.FuncFormatter(lambda i, *args: df['species'].unique()[int(i)])
+f = plt.figure(figsize=(6, 4))
+plt.scatter(df[df.columns[0]], df[df.columns[1]], c=df['species_id']-1)
+plt.colorbar(ticks=[0, 1, 2], format=formatter)
+plt.xlabel(df.columns[0])
+plt.ylabel(df.columns[1])
+plt.tight_layout()
+show(f, 'matplotlib', document.getElementById('plot2'))
 `.trimStart(),
   },
   stylesheets: [],
