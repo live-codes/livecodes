@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension } from '..';
+import { getLanguageByAlias, getLanguageEditorId, getLanguageExtension, mapLanguage } from '..';
 
 describe('languages', () => {
   test('getLanguageByAlias', () => {
@@ -18,5 +18,23 @@ describe('languages', () => {
   test('getLanguageExtension', () => {
     expect(getLanguageExtension('markdown')).toBe('md');
     expect(getLanguageExtension('typescript')).toBe('ts');
+  });
+
+  test('mapLanguage', () => {
+    expect(mapLanguage('babel')).toBe('javascript');
+    expect(mapLanguage('jsx')).toBe('javascript');
+    expect(mapLanguage('solid')).toBe('javascript');
+    expect(mapLanguage('tsx')).toBe('typescript');
+    expect(mapLanguage('stencil')).toBe('typescript');
+    expect(mapLanguage('solid.tsx')).toBe('typescript');
+    expect(mapLanguage('assemblyscript')).toBe('typescript');
+    expect(mapLanguage('vue')).toBe('html');
+    expect(mapLanguage('vue2')).toBe('html');
+    expect(mapLanguage('svelte')).toBe('html');
+    expect(mapLanguage('mdx')).toBe('markdown');
+    expect(mapLanguage('pyodide')).toBe('python');
+    expect(mapLanguage('javascript')).toBe('javascript');
+    expect(mapLanguage('ruby')).toBe('ruby');
+    expect(mapLanguage('html')).toBe('html');
   });
 });

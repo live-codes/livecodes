@@ -568,6 +568,30 @@ document['header'].html = f"Hello, {title}"`);
     expect(resultText).toContain(`Hello, Python`);
   });
 
+  test('Pyodide', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText('<h1 id="header">Hello, World</h1>');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=Pyodide');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(`from js import document
+title = 'Python'
+document.getElementById('header').innerHTML = f"Hello, {title}"`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await getResult().waitForSelector('text=Hello, Python');
+    const resultText = await getResult().innerText('h1');
+
+    expect(resultText).toContain(`Hello, Python`);
+  });
+
   test('Ruby', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

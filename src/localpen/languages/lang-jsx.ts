@@ -25,4 +25,5 @@ export const jsx: LanguageSpecs = {
   compiler: 'typescript',
   extensions: ['jsx'],
   editor: 'script',
+  editorLanguage: 'javascript',
 };

@@ -30,4 +30,5 @@ export const babel: LanguageSpecs = {
   },
   extensions: ['es', 'babel'],
   editor: 'script',
+  editorLanguage: 'javascript',
 };

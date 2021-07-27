@@ -32,15 +32,7 @@ export const getLanguageCompiler = (alias: string): Compiler | undefined => {
 };
 
 export const mapLanguage = (language: Language): Language =>
-  ['babel', 'jsx', 'solid'].includes(language)
-    ? 'javascript'
-    : ['tsx', 'stencil', 'assemblyscript', 'solid.tsx'].includes(language)
-    ? 'typescript'
-    : ['vue', 'vue2', 'svelte'].includes(language)
-    ? 'html'
-    : language === 'mdx'
-    ? 'markdown'
-    : language;
+  getLanguageSpecs(language)?.editorLanguage || language;
 
 export const languageIsEnabled = (language: Language, config: Pen) => {
   const lang = getLanguageByAlias(language);

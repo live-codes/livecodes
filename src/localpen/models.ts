@@ -97,6 +97,8 @@ export type Language =
   | 'as'
   | 'python'
   | 'py'
+  | 'pyodide'
+  | 'py3'
   | 'ruby'
   | 'rb'
   | 'php'
@@ -148,6 +150,7 @@ export interface LanguageSpecs {
   compiler?: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
+  editorLanguage?: Language;
   preset?: CssPresetId;
 }
 
@@ -229,6 +232,7 @@ export interface Compiler {
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua';
+  liveReload?: boolean;
   aliasTo?: Language;
 }
 

@@ -41,4 +41,5 @@ ReactDOM.render(<MDXContent />, document.body);
   },
   extensions: ['mdx'],
   editor: 'markup',
+  editorLanguage: 'markdown',
 };

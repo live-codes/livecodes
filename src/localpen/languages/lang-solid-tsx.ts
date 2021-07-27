@@ -23,4 +23,5 @@ export const solidTsx: LanguageSpecs = {
   compiler: 'solid',
   extensions: ['solid.tsx'],
   editor: 'script',
+  editorLanguage: 'typescript',
 };
