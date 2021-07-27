@@ -53,4 +53,5 @@ require(["https://cdn.jsdelivr.net/npm/assemblyscript@latest/dist/sdk.js"],
   },
   extensions: ['as', 'ts'],
   editor: 'script',
+  editorLanguage: 'typescript',
 };

@@ -150,6 +150,7 @@ export interface LanguageSpecs {
   compiler?: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
+  editorLanguage?: Language;
   preset?: CssPresetId;
 }
 

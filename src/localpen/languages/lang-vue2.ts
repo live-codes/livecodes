@@ -53,4 +53,5 @@ Vue.config.devtools = true;
   },
   extensions: ['vue2'],
   editor: 'script',
+  editorLanguage: 'html',
 };

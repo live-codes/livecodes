@@ -54,4 +54,5 @@ App.config.devtools = true;
   },
   extensions: ['vue', 'vue3'],
   editor: 'script',
+  editorLanguage: 'html',
 };

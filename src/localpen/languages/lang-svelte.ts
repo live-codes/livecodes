@@ -41,4 +41,5 @@ new Component({ target: app });
   },
   extensions: ['svelte'],
   editor: 'script',
+  editorLanguage: 'html',
 };
