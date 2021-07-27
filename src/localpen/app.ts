@@ -96,10 +96,14 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
       const scriptLang = getEditorLanguage('script') || 'javascript';
       const compilers = getAllCompilers(languages, getConfig(), baseUrl);
+      const editorsText = `${editors?.markup.getValue()}
+      ${editors?.style.getValue()}
+      ${editors?.script.getValue()}
+      `;
       const liveReload =
         compilers[scriptLang]?.liveReload &&
         resultLanguages.includes(scriptLang) &&
-        !editors.script.getValue().includes('__localpen_reload__');
+        !editorsText.includes('__localpen_reload__');
 
       if (liveReload) {
         // allows only sending the updated code to the iframe without full page reload

@@ -226,6 +226,7 @@ export interface Compiler {
   deferScripts?: boolean;
   inlineScript?: string;
   scriptType?:
+    | 'text/assemblyscript'
     | 'text/python'
     | 'text/ruby'
     | 'text/x-uniter-php'
