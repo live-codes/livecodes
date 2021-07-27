@@ -46,7 +46,7 @@ import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './confi
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
 import { compress, copyToClipboard, debounce } from './utils';
-import { getCompiler } from './compiler';
+import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
@@ -61,14 +61,15 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const formatter = getFormatter(getConfig(), baseUrl);
   let editors: Editors;
   let penId: string;
-  let editorLanguages: EditorLanguages;
+  let editorLanguages: EditorLanguages | undefined;
   const notifications = createNotifications();
   const modal = createModal();
   const eventsManager = createEventsManager();
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
-  let lastCompiled: { [key in EditorId | 'initialCompiledMarkup']: string };
+  let resultLanguages: Language[] = [];
+  let lastCompiled: { [key in EditorId | 'initialCompiledMarkup']: string } | undefined;
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
@@ -80,41 +81,66 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
   const split = UI.createSplitPanes();
 
-  function createIframe(container: HTMLElement, result?: string) {
-    return new Promise((resolve) => {
-      if (!container) return;
+  const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
+  const getEditorLanguages = () => Object.values(editorLanguages || {});
+  const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
+  const setActiveEditor = async (config: Pen) => showEditor(config.activeEditor);
 
-      const iframe = document.createElement('iframe');
-      iframe.name = 'result';
-      iframe.setAttribute('allow', 'camera; geolocation; microphone');
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('allowtransparency', 'true');
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
-
-      const { mode } = getConfig();
-      if (mode !== 'codeblock' && mode !== 'editor') {
-        iframe.src = resultPage.url;
+  const createIframe = (container: HTMLElement, result?: string) =>
+    new Promise((resolve, reject) => {
+      if (!container) {
+        reject('Result container not found');
+        return;
       }
+      let iframe: HTMLIFrameElement;
 
-      let loaded = false;
-      eventsManager.addEventListener(iframe, 'load', () => {
-        if (!result || loaded) {
-          resolve('loaded');
-          return; // prevent infinite loop
+      const scriptLang = getEditorLanguage('script') || 'javascript';
+      const compilers = getAllCompilers(languages, getConfig(), baseUrl);
+      const liveReload =
+        compilers[scriptLang]?.liveReload &&
+        resultLanguages.includes(scriptLang) &&
+        !editors.script.getValue().includes('__localpen_reload__');
+
+      if (liveReload) {
+        // allows only sending the updated code to the iframe without full page reload
+        iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
+        iframe.contentWindow?.postMessage({ result }, resultPage.origin);
+        resolve('loaded');
+      } else {
+        iframe = document.createElement('iframe');
+        iframe.name = 'result';
+        iframe.id = 'result-frame';
+        iframe.setAttribute('allow', 'camera; geolocation; microphone');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute('allowtransparency', 'true');
+        iframe.setAttribute(
+          'sandbox',
+          'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+        );
+
+        const { mode } = getConfig();
+        if (mode !== 'codeblock' && mode !== 'editor') {
+          iframe.src = resultPage.url;
         }
 
-        iframe.contentWindow?.postMessage({ result }, resultPage.origin);
-        loaded = true;
-        resolve('loaded');
-      });
+        container.innerHTML = '';
+        container.appendChild(iframe);
 
-      container.innerHTML = '';
-      container.appendChild(iframe);
+        let loaded = false;
+        eventsManager.addEventListener(iframe, 'load', () => {
+          if (!result || loaded) {
+            resolve('loaded');
+            return; // prevent infinite loop
+          }
+
+          iframe.contentWindow?.postMessage({ result }, resultPage.origin);
+          loaded = true;
+          resolve('loaded');
+        });
+      }
+
+      resultLanguages = getEditorLanguages();
     });
-  }
 
   const compiler = getCompiler(getConfig(), baseUrl);
 
@@ -129,11 +155,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };
-
-  const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages[editorId];
-  const getEditorLanguages = () => Object.values(editorLanguages);
-  const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
-  const setActiveEditor = async (config: Pen) => showEditor(config.activeEditor);
 
   const setEditorTitle = (editorId: EditorId, title: string) => {
     const editorTitle = document.querySelector(`#${editorId}-selector span`);
@@ -213,7 +234,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     };
 
     (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
-      editors[editorId].registerFormatter(await formatter.getFormatFn(editorLanguages[editorId]));
+      editors[editorId].registerFormatter(
+        await formatter.getFormatFn(editorLanguages?.[editorId] || 'html'),
+      );
       registerRun(editorId, editors);
     });
 
@@ -324,7 +347,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (consoleInputCodeCompletion) {
       consoleInputCodeCompletion.dispose();
     }
-    if (editorLanguages.script === 'javascript') {
+    if (editorLanguages?.script === 'javascript') {
       if (editors.script && typeof editors.script.addTypes === 'function') {
         consoleInputCodeCompletion = editors.script.addTypes({
           content: editors.script.getValue(),
@@ -350,7 +373,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
     const editor = editors[editorId];
     editor.setLanguage(language);
-    editorLanguages[editorId] = language;
+    if (editorLanguages) {
+      editorLanguages[editorId] = language;
+    }
     setEditorTitle(editorId, language);
     showEditor(editorId, isUpdate);
     phpHelper({ editor: editors.script });
@@ -387,7 +412,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (toolsPane && toolsPane.compiled && lastCompiled) {
       Object.keys(lastCompiled).forEach((editorId) => {
         if (editorId !== getConfig().activeEditor) return;
-        let compiledCode = lastCompiled[editorId];
+        let compiledCode = lastCompiled?.[editorId] || '';
         if (editorId === 'script' && editors.script.getLanguage() === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
         }
@@ -413,9 +438,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const markupContent = editors.markup?.getValue();
     const styleContent = editors.style?.getValue();
     const scriptContent = editors.script?.getValue();
-    const markupLanguage = getEditorLanguage('markup');
-    const styleLanguage = getEditorLanguage('style');
-    const scriptLanguage = getEditorLanguage('script');
+    const markupLanguage = getEditorLanguage('markup') || 'html';
+    const styleLanguage = getEditorLanguage('style') || 'css';
+    const scriptLanguage = getEditorLanguage('script') || 'javascript';
 
     const enableCustomConfig = true;
     const isMdx = markupLanguage === 'mdx';
@@ -1561,8 +1586,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             config: getContentConfig(getConfig()),
             content: {
               resultPage: resultHtml,
-              style: lastCompiled.style,
-              script: lastCompiled.script,
+              style: lastCompiled?.style || '',
+              script: lastCompiled?.script || '',
             },
             message,
             commitSource,
@@ -1726,7 +1751,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           event.data.payload &&
           editors.script.getLanguage() === event.data.payload.language
         ) {
-          lastCompiled.script = event.data.payload.content;
+          if (lastCompiled) {
+            lastCompiled.script = event.data.payload.content;
+          }
           updateCompiledCode(false);
         }
       });
@@ -1863,7 +1890,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     updateCompiledCode();
     loadModuleTypes(editors, getConfig());
 
-    compiler.load(Object.values(editorLanguages), getConfig()).then(async () => {
+    compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
       await run(editors);
     });
     formatter.load(getEditorLanguages());

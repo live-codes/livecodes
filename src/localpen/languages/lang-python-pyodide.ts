@@ -22,26 +22,37 @@ export const pyodide: LanguageSpecs = {
   compiler: {
     url: 'assets/noop.js',
     factory: () => async (code) => code,
-    scripts: ['https://cdn.jsdelivr.net/pyodide/v0.17.0/full/pyodide.js'],
-    inlineScript: `window.addEventListener("load", () => {
+    scripts: [],
+    liveReload: true,
+    inlineScript: `
+if (globalThis.__pyodideLoading === undefined) {
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/pyodide/v0.17.0/full/pyodide.js';
+  document.head.append(script);
+};
+window.addEventListener("load", async () => {
+  parent.postMessage({ type: 'loading', payload: true }, '*');
   let code = '';
   const scripts = document.querySelectorAll('script[type="text/python"]');
   scripts.forEach(script => code += script.innerHTML + '\\n');
   async function main() {
+    if (globalThis.__pyodideLoading === false) return;
     await loadPyodide({
       indexURL: "https://cdn.jsdelivr.net/pyodide/v0.17.0/full/",
     });
+    globalThis.__pyodideLoading = false;
   }
   let pyodideReady = main();
-  async function evaluatePython() {
+  async function evaluatePython(code) {
     await pyodideReady;
     try {
-      let output = await pyodide.runPythonAsync(code);
+      await pyodide.runPythonAsync(code);
     } catch (err) {
       console.log(err);
     }
   }
-  evaluatePython();
+  await evaluatePython(code);
+  parent.postMessage({ type: 'loading', payload: false }, '*');
 })
 `,
     scriptType: 'text/python',

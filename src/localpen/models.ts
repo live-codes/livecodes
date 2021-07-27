@@ -231,6 +231,7 @@ export interface Compiler {
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua';
+  liveReload?: boolean;
   aliasTo?: Language;
 }
 

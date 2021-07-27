@@ -35,8 +35,8 @@ export const pythonStarter: Template = {
 from browser import document
 import time
 
-title = 'Python!'
-document['header'].html = f"Hello, {title}"
+title = 'Python'
+document['header'].html = f"Hello, {title}!"
 
 counter = 0
 

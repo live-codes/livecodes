@@ -8,71 +8,78 @@ export const pyodideStarter: Template = {
   markup: {
     language: 'html',
     content: `
-<h1>Python Visualizations</h1>
+<h1 id="title">Hello, World!</h1>
 <div id="plot">Loading...</div>
 `.trimStart(),
   },
   style: {
     language: 'css',
-    content: '',
+    content: `h1 {
+  text-align: center;
+}
+`.trimStart(),
   },
   script: {
     language: 'pyodide',
     content: `
-from js import document
-import pandas
-import plotly.express as px
-import plotly.io as pio
+from js import document, XMLHttpRequest
+import pandas as pd
+import matplotlib.pyplot as plt
+from io import StringIO
 
-def show(figure, lib = 'plotly', element = ''):
-  el = element
-  if element == '':
-    el = document.createElement('div')
-    document.body.appendChild(el)
-  el.innerHTML = ''
-
-  if lib == 'plotly':
-    iframe = document.createElement('iframe')
-    iframe.srcdoc = pio.to_html(figure)
-    iframe.style = 'border:none;'
-    iframe.seamless = 'seamless'
-    iframe.scrolling = 'no'
-    iframe.height = '525'
-    iframe.width = '100%'
-    el.appendChild(iframe)
-
-  if lib == 'matplotlib':
-    iconStyles = document.createElement('link')
-    iconStyles.rel = 'stylesheet'
-    iconStyles.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
-    document.head.appendChild(iconStyles)
-
-    def create_root_element(self):
-      return el
-
-    figure.canvas.create_root_element = type(figure.canvas.create_root_element)(
-      create_root_element, figure.canvas.__class__)
-    figure.canvas.show()
+def load_data(url):
+  req = XMLHttpRequest.new()
+  req.open("GET", url, False)
+  req.send()
+  res = req.response
+  return StringIO(f"""{res}""")
 
 
-# data
-df = px.data.iris()
+def prepare_data(dataframe):
+  def add_species_id(x):
+    if x == 'setosa':
+        return 0
+    elif x == 'versicolor':
+        return 1
+    return 2
 
-# Plotly
-fig = px.scatter(df, x="sepal_length", y="sepal_width", color="species")
-show(fig, 'plotly', document.getElementById('plot'))
+  df = dataframe.copy()
+  df['species_id'] = df['species'].apply(add_species_id)
+  return df
 
-## matplotlib
-# from matplotlib import pyplot as plt
 
-# formatter = plt.FuncFormatter(lambda i, *args: df['species'].unique()[int(i)])
-# f = plt.figure(figsize=(6, 4))
-# plt.scatter(df[df.columns[0]], df[df.columns[1]], c=df['species_id']-1)
-# plt.colorbar(ticks=[0, 1, 2], format=formatter)
-# plt.xlabel(df.columns[0])
-# plt.ylabel(df.columns[1])
-# plt.tight_layout()
-# show(f, 'matplotlib')
+def showPlot(figure, selector):
+  iconStyles = document.createElement('link')
+  iconStyles.rel = 'stylesheet'
+  iconStyles.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+  document.head.appendChild(iconStyles)
+
+  def create_root_element(self):
+    el = document.querySelector(selector)
+    el.innerHTML = ''
+    return el
+
+  figure.canvas.create_root_element = type(figure.canvas.create_root_element)(
+    create_root_element, figure.canvas.__class__)
+  figure.canvas.show()
+
+
+df = pd.read_csv(load_data("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv"))
+df = prepare_data(df)
+
+formatter = plt.FuncFormatter(lambda i, *args: df['species'].unique()[int(i)])
+fig = plt.figure(figsize=(6, 4))
+plt.scatter(df[df.columns[0]], df[df.columns[1]], c=df['species_id'])
+plt.colorbar(ticks=[0, 1, 2], format=formatter)
+plt.xlabel(df.columns[0])
+plt.ylabel(df.columns[1])
+plt.title('Iris dataset')
+plt.tight_layout()
+showPlot(fig, '#plot')
+
+title = document.getElementById('title')
+name = 'Python'
+title.innerHTML = f"Hello, {name}!"
 `.trimStart(),
   },
   stylesheets: [],
