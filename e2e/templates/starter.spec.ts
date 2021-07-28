@@ -16,7 +16,7 @@ const templates = [
   'Knockout',
   'CoffeeScript',
   'LiveScript',
-  'AssemblyScript',
+  // 'AssemblyScript',
   'Python',
   'Ruby',
   'PHP',

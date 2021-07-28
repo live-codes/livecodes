@@ -16,40 +16,56 @@ export const assemblyscript: LanguageSpecs = {
   `,
   compiler: {
     url: 'assets/noop.js',
-    factory: () => async (code: string) =>
-      `/* ... compiling ... */
-
-window.wasm = new Promise((resolve) => {
-require(["https://cdn.jsdelivr.net/npm/assemblyscript@latest/dist/sdk.js"],
-(sdk) => {
-  const asc = sdk.asc;
-  asc.ready.then(async () => {
-    async function compile(code) {
-      const { text, binary } = asc.compileString(code, {
-        optimizeLevel: 3,
-      });
-      const wasmModule = await loader.instantiate(binary);
-      return { wasmModule, text, binary };
-    }
-
-    const { wasmModule, text, binary } = await compile(
-\`${code.replace(/\`/g, '\\`')}\`
-    );
-    resolve({ wasmModule, text, binary });
-  });
-});
-})
-`.trimStart(),
-    inlineScript: `window.addEventListener("load", async() => {
-      const { text } = await wasm;
-      const content = '//\\n// WebAssembly Text Format (module.wat)\\n//\\n' + text;
-      parent.postMessage({type: 'compiled', payload: {language: 'assemblyscript', content}}, '*');
-    });`,
+    factory: () => async (code) => '/* ... compiling ... */\n\n' + code,
+    liveReload: true,
     scripts: [
-      'https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js',
+      'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js',
       'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js',
     ],
-    umd: true,
+    inlineScript: `
+(() => {
+  globalThis.wasm = new Promise((resolveWasm) => {
+    window.addEventListener("load", async () => {
+      parent.postMessage({ type: "loading", payload: true }, "*");
+      if (globalThis.__assemblyscriptSDK === undefined) {
+        await new Promise((resolve) => {
+          require(["https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js"],
+          (sdk) => {
+            globalThis.__assemblyscriptSDK = sdk;
+            resolve();
+          });
+        })
+      }
+      let code = "";
+      const scripts = document.querySelectorAll('script[type="text/assemblyscript"]');
+      scripts.forEach((script) => (code += script.innerHTML + "\\n"));
+
+      async function evaluate(code) {
+        const asc = globalThis.__assemblyscriptSDK.asc;
+        await asc.ready;
+        async function compile(code) {
+          const { text, binary } = asc.compileString(code, {
+            optimizeLevel: 3,
+          });
+          const wasmModule = await loader.instantiate(binary);
+          return { wasmModule, text, binary };
+        }
+        try {
+          const { wasmModule, text, binary } = await compile(code);
+          const content = '//\\n// WebAssembly Text Format (module.wat)\\n//\\n' + text;
+          parent.postMessage({type: 'compiled', payload: {language: 'assemblyscript', content}}, '*');
+          resolveWasm({ wasmModule, text, binary });
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      await evaluate(code);
+      parent.postMessage({ type: "loading", payload: false }, "*");
+    });
+  });
+})();
+`,
+    scriptType: 'text/assemblyscript',
   },
   extensions: ['as', 'ts'],
   editor: 'script',

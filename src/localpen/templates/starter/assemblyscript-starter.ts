@@ -16,15 +16,16 @@ export const assemblyscriptStarter: Template = {
 </div>
 
 <script>
-  const title = document.querySelector('#title');
-  const counter = document.querySelector("#counter");
-  const button = document.querySelector("#counter-button");
-  let count = 0;
-
-  window.addEventListener('load', async() => {
-    // \`wasm\` is a global variable (promise) exposing the compiled wasm module
+  (async() => {
+    // \`wasm\` is a global variable (promise)
+    // which exposes the compiled wasm module
     const { wasmModule } = await wasm;
     const { __getString, getTitle, increment } = wasmModule.exports;
+
+    const title = document.querySelector('#title');
+    const counter = document.querySelector("#counter");
+    const button = document.querySelector("#counter-button");
+    let count = 0;
 
     title.innerHTML = __getString(getTitle());
     button.innerText = 'Click me';
@@ -35,7 +36,7 @@ export const assemblyscriptStarter: Template = {
       counter.textContent = count;
     }, false);
 
-  }, false);
+  })();
 </script>
 `.trimStart(),
   },
