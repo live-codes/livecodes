@@ -19,7 +19,7 @@ export const assemblyscript: LanguageSpecs = {
     factory: () => async (code) => '/* ... compiling ... */\n\n' + code,
     liveReload: true,
     scripts: [
-      'https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js',
+      'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js',
       'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js',
     ],
     inlineScript: `
@@ -29,7 +29,7 @@ export const assemblyscript: LanguageSpecs = {
       parent.postMessage({ type: "loading", payload: true }, "*");
       if (globalThis.__assemblyscriptSDK === undefined) {
         await new Promise((resolve) => {
-          require(["https://cdn.jsdelivr.net/npm/assemblyscript@latest/dist/sdk.js"],
+          require(["https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js"],
           (sdk) => {
             globalThis.__assemblyscriptSDK = sdk;
             resolve();
