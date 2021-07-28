@@ -18,24 +18,19 @@ export const assemblyscript: LanguageSpecs = {
     url: 'assets/noop.js',
     factory: () => async (code) => '/* ... compiling ... */\n\n' + code,
     liveReload: true,
+    scripts: [
+      'https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js',
+    ],
     inlineScript: `
 (() => {
-  globalThis.wasm = new Promise(resolveWasm => {
-    if (globalThis.__assemblyscriptSDK === undefined) {
-      const addScript = (src) => {
-        const script = document.createElement("script");
-        script.src = src;
-        document.head.append(script);
-      };
-      addScript("https://cdn.jsdelivr.net/npm/@assemblyscript/loader/umd/index.js");
-      addScript("https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js");
-    }
+  globalThis.wasm = new Promise((resolveWasm) => {
     window.addEventListener("load", async () => {
       parent.postMessage({ type: "loading", payload: true }, "*");
       if (globalThis.__assemblyscriptSDK === undefined) {
-        await new Promise(resolve => {
+        await new Promise((resolve) => {
           require(["https://cdn.jsdelivr.net/npm/assemblyscript@latest/dist/sdk.js"],
-          function __sdkLoaded(sdk) {
+          (sdk) => {
             globalThis.__assemblyscriptSDK = sdk;
             resolve();
           });
@@ -70,7 +65,6 @@ export const assemblyscript: LanguageSpecs = {
   });
 })();
 `,
-    scripts: [],
     scriptType: 'text/assemblyscript',
   },
   extensions: ['as', 'ts'],
