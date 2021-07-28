@@ -15,7 +15,7 @@ export const assemblyscriptStarter: Template = {
   <button id="counter-button" disabled>loading...</button>
 </div>
 
-<script>
+<script defer>
   (async() => {
     // \`wasm\` is a global variable (promise)
     // which exposes the compiled wasm module

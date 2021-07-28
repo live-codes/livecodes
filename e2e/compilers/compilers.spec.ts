@@ -512,9 +512,7 @@ title = 'live script'
   });
 
   test('AssemblyScript', async ({ page, getTestUrl }) => {
-    // TODO: fix AssemblyScript tests
-    // eslint-disable-next-line jest/no-disabled-tests
-    test.skip(true);
+    test.slow();
 
     await page.goto(getTestUrl());
 
