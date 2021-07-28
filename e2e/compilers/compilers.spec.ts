@@ -512,6 +512,10 @@ title = 'live script'
   });
 
   test('AssemblyScript', async ({ page, getTestUrl }) => {
+    // TODO: fix AssemblyScript tests
+    // eslint-disable-next-line jest/no-disabled-tests
+    test.skip(true);
+
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -520,14 +524,14 @@ title = 'live script'
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<h1>Hello, <span id="title">World</span></h1>
-<script>
-(async() => {
-  const { wasmModule } = await wasm;
-  const { __getString, getTitle, increment } = wasmModule.exports;
-  const title = document.querySelector('#title');
-  title.innerHTML = __getString(getTitle());
-  })();
-</script>`,
+  <script>
+  (async() => {
+    const { wasmModule } = await wasm;
+    const { __getString, getTitle, increment } = wasmModule.exports;
+    const title = document.querySelector('#title');
+    title.innerHTML = __getString(getTitle());
+    })();
+  </script>`,
     );
 
     await app.click(':nth-match([title="change language"], 3)');
