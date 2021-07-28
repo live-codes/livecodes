@@ -521,12 +521,12 @@ title = 'live script'
     await page.keyboard.insertText(
       `<h1>Hello, <span id="title">World</span></h1>
 <script>
+(async() => {
+  const { wasmModule } = await wasm;
+  const { __getString, getTitle, increment } = wasmModule.exports;
   const title = document.querySelector('#title');
-  window.addEventListener('load', async() => {
-    const { wasmModule } = await wasm;
-    const { __getString, getTitle, increment } = wasmModule.exports;
-    title.innerHTML = __getString(getTitle());
-  }, false);
+  title.innerHTML = __getString(getTitle());
+  })();
 </script>`,
     );
 
