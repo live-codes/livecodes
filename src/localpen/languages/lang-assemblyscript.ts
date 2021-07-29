@@ -18,22 +18,29 @@ export const assemblyscript: LanguageSpecs = {
     url: 'assets/noop.js',
     factory: () => async (code) => '/* ... compiling ... */\n\n' + code,
     liveReload: true,
-    scripts: [
-      'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js',
-    ],
+    scripts: ['https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'],
     inlineScript: `
 (() => {
   globalThis.wasm = new Promise((resolveWasm) => {
     window.addEventListener("load", async () => {
       parent.postMessage({ type: "loading", payload: true }, "*");
       if (globalThis.__assemblyscriptSDK === undefined) {
-        await new Promise((resolve) => {
-          require(["https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js"],
-          (sdk) => {
-            globalThis.__assemblyscriptSDK = sdk;
-            resolve();
-          });
+        await new Promise(async (resolve) => {
+          requirejs.config({ waitSeconds: 0 });
+          require(
+            [
+              "https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js",
+              "https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js",
+            ],
+            (sdk, loader) => {
+              globalThis.__assemblyscriptSDK = sdk;
+              resolve();
+            }
+          );
+          requirejs.onError = () => { // reload
+            document.write(document.documentElement.outerHTML);
+            document.close();
+          };
         })
       }
       let code = "";
