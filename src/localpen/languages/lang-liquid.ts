@@ -11,7 +11,6 @@ export const liquid: LanguageSpecs = {
     <li><a href="https://liquidjs.com" target="_blank" rel="noopener">LiquidJS official website</a></li>
     <li><a href="https://liquidjs.com/tutorials/intro-to-liquid.html" target="_blank" rel="noopener">LiquidJS documentation</a></li>
     <!-- <li><a href="#">LiquidJS usage in LocalPen</a></li> -->
-    <li><a href="?template=liquid" target="_parent" data-template="liquid">Load starter template</a></li>
   </ul>
   `,
   compiler: {
