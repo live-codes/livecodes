@@ -117,7 +117,7 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('AssemblyScript Starter', async ({ page, getTestUrl }) => {
-    test.slow();
+    test.fixme();
 
     await page.goto(getTestUrl());
 
@@ -288,7 +288,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('AssemblyScript Starter (in URL)', async ({ page, getTestUrl }) => {
-    test.slow();
+    test.fixme();
 
     await page.goto(getTestUrl({ template: 'assemblyscript' } as any));
 

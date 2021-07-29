@@ -512,7 +512,7 @@ title = 'live script'
   });
 
   test('AssemblyScript', async ({ page, getTestUrl }) => {
-    test.slow();
+    test.fixme();
 
     await page.goto(getTestUrl());
 
