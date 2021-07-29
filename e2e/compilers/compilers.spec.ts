@@ -122,6 +122,28 @@ test.describe('Compiler Results', () => {
     expect(resultText).toContain('Hello, World!');
   });
 
+  test('Liquid', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Liquid');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
+
+    await app.click('text=JS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'liquid' };`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const body = await getResult().$('body');
+
+    expect(await body.innerHTML()).toContain('Welcome to Liquid');
+  });
+
   test('SCSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

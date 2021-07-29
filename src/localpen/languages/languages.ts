@@ -31,6 +31,7 @@ import { scheme } from './lang-scheme';
 import { solid } from './lang-solid';
 import { solidTsx } from './lang-solid-tsx';
 import { pyodide } from './lang-python-pyodide';
+import { liquid } from './lang-liquid';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -39,6 +40,7 @@ export const languages: LanguageSpecs[] = [
   pug,
   haml,
   asciidoc,
+  liquid,
   css,
   scss,
   sass,

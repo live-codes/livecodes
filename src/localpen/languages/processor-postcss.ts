@@ -1,5 +1,6 @@
 import { CompileOptions, Pen, Processors } from '../models';
 import { getCustomConfig } from './custom-configs';
+import { escapeCode } from './utils';
 
 export type PluginName = keyof Pen['processors']['postcss'];
 type Plugin = () => any;
@@ -103,11 +104,12 @@ export const postcss: Processors = {
           .map((specs) => loadedPlugins[specs.name]?.(options));
       };
 
+      // TODO: revisit this
       const twCode = (code: string, config: Pen) => {
         if (getEnabledPluginNames(config).includes('tailwindcss')) {
           return `@tailwind base;
 @tailwind components;
-${code}
+${escapeCode(code)}
 @tailwind utilities;
 `;
         }

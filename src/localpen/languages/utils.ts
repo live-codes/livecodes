@@ -74,3 +74,5 @@ export const getEnabledProcessors = (language: Language, config: Pen) => {
   });
   return processorsString;
 };
+
+export const escapeCode = (code: string) => code.replace(/\\/g, '\\\\').replace(/`/g, '\\`');
