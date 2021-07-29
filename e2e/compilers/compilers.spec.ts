@@ -516,7 +516,7 @@ title = 'live script'
 
     await page.goto(getTestUrl());
 
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+    const { app, getResult } = await getLoadedApp(page);
 
     await app.click('text=HTML');
     await waitForEditorFocus(app);
@@ -541,7 +541,7 @@ title = 'live script'
     await page.keyboard.insertText(`}`);
 
     await app.click(runButtonSelector);
-    await waitForResultUpdate();
+    await app.waitForTimeout(15000);
     const resultText = await getResult().innerText('text=Hello, AssemblyScript');
 
     expect(resultText).toContain(`Hello, AssemblyScript`);

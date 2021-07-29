@@ -24,17 +24,23 @@ export const assemblyscript: LanguageSpecs = {
   globalThis.wasm = new Promise((resolveWasm) => {
     window.addEventListener("load", async () => {
       parent.postMessage({ type: "loading", payload: true }, "*");
-      requirejs?.config?.({ waitSeconds: 0 });
       if (globalThis.__assemblyscriptSDK === undefined) {
         await new Promise(async (resolve) => {
-          require([
-            "https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js",
-            "https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js",
-          ],
-          (sdk, _) => {
-            globalThis.__assemblyscriptSDK = sdk;
-            resolve();
-          });
+          requirejs.config({ waitSeconds: 0 });
+          require(
+            [
+              "https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js",
+              "https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js",
+            ],
+            (sdk, loader) => {
+              globalThis.__assemblyscriptSDK = sdk;
+              resolve();
+            }
+          );
+          requirejs.onError = () => { // reload
+            document.write(document.documentElement.outerHTML);
+            document.close();
+          };
         })
       }
       let code = "";
