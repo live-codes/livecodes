@@ -401,7 +401,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     });
   };
 
-  const updateCompiledCode = (fromCompiler = true) => {
+  const updateCompiledCode = (fromCompiler = true, lastCompilation = lastCompiled) => {
     const scriptType =
       fromCompiler && getLanguageCompiler(editors.script.getLanguage())?.scriptType;
     const compiledLanguages: { [key in EditorId]: Language } = {
@@ -409,10 +409,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       style: 'css',
       script: scriptType ? editors.script.getLanguage() : 'javascript',
     };
-    if (toolsPane && toolsPane.compiled && lastCompiled) {
-      Object.keys(lastCompiled).forEach((editorId) => {
+    if (toolsPane && toolsPane.compiled && lastCompilation) {
+      Object.keys(lastCompilation).forEach((editorId) => {
         if (editorId !== getConfig().activeEditor) return;
-        let compiledCode = lastCompiled?.[editorId] || '';
+        let compiledCode = lastCompilation?.[editorId] || '';
         if (editorId === 'script' && editors.script.getLanguage() === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
         }
@@ -1749,12 +1749,16 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         if (
           event.data.type === 'compiled' &&
           event.data.payload &&
-          editors.script.getLanguage() === event.data.payload.language
+          getEditorLanguages().includes(event.data.payload.language)
         ) {
           if (lastCompiled) {
-            lastCompiled.script = event.data.payload.content;
+            const editorId = getLanguageEditorId(event.data.payload.language);
+            if (!editorId) return;
+            updateCompiledCode(false, {
+              ...lastCompiled,
+              [editorId]: event.data.payload.content || '',
+            });
           }
-          updateCompiledCode(false);
         }
       });
     };

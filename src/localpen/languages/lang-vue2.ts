@@ -1,5 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { parserPlugins } from './parser-plugins';
+import { escapeCode } from './utils';
 
 export const vue2: LanguageSpecs = {
   name: 'vue2',
@@ -26,7 +27,7 @@ export const vue2: LanguageSpecs = {
       `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
-let content = \`${code.replace(/`/g, '\\`')}\`;
+let content = \`${escapeCode(code)}\`;
 /* --> */
 const options = {
 moduleCache: { vue: Vue },

@@ -65,6 +65,8 @@ export type Language =
   | 'asciidoc'
   | 'adoc'
   | 'asc'
+  | 'liquid'
+  | 'liquidjs'
   | 'css'
   | 'scss'
   | 'sass'
@@ -226,6 +228,7 @@ export interface Compiler {
   deferScripts?: boolean;
   inlineScript?: string;
   scriptType?:
+    | 'text/liquid'
     | 'text/assemblyscript'
     | 'text/python'
     | 'text/ruby'
