@@ -50,7 +50,7 @@ import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
-import { createAuthService, shareService } from './services';
+import { createAuthService, resultService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string) => {
@@ -75,10 +75,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let authService: ReturnType<typeof createAuthService> | undefined;
   const screens: Screen[] = [];
 
-  const resultPage = {
-    url: 'https://result.localpen.io/v1/result',
-    origin: 'https://result.localpen.io',
-  };
   const split = UI.createSplitPanes();
 
   const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
@@ -86,7 +82,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
   const setActiveEditor = async (config: Pen) => showEditor(config.activeEditor);
 
-  const createIframe = (container: HTMLElement, result?: string) =>
+  const createIframe = (container: HTMLElement, result?: string, service = resultService) =>
     new Promise((resolve, reject) => {
       if (!container) {
         reject('Result container not found');
@@ -108,7 +104,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       if (liveReload) {
         // allows only sending the updated code to the iframe without full page reload
         iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
-        iframe.contentWindow?.postMessage({ result }, resultPage.origin);
+        iframe.contentWindow?.postMessage({ result }, service.getOrigin());
         resolve('loaded');
       } else {
         iframe = document.createElement('iframe');
@@ -124,7 +120,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
         const { mode } = getConfig();
         if (mode !== 'codeblock' && mode !== 'editor') {
-          iframe.src = resultPage.url;
+          iframe.src = service.getUrl();
         }
 
         container.innerHTML = '';
@@ -137,7 +133,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             return; // prevent infinite loop
           }
 
-          iframe.contentWindow?.postMessage({ result }, resultPage.origin);
+          iframe.contentWindow?.postMessage({ result }, service.getOrigin());
           loaded = true;
           resolve('loaded');
         });
