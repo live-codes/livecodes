@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const typescriptOptions = {
   target: 'es2015',
@@ -29,10 +29,10 @@ export const typescript: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/typescript/typescript.min.js',
-    factory: () => async (code, { options }) =>
+    factory: () => async (code, { config }) =>
       (window as any).typescript.transpile(code, {
         ...typescriptOptions,
-        ...getCustomConfig('typescript-config', options.customConfigs),
+        ...getLanguageCustomSettings('typescript', config),
       }),
     umd: true,
   },

@@ -1,5 +1,5 @@
 import { languages, processors } from '../languages';
-import { CompileOptions, Compilers, Pen } from '../models';
+import { Compilers, Pen } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 declare const importScripts: (...args: string[]) => void;
@@ -44,7 +44,7 @@ const compile = async (
   content: string,
   language: LanguageOrProcessor,
   config: Pen,
-  options: CompileOptions,
+  options: any,
 ) => {
   const compiler = compilers[language]?.fn || ((code: string) => code);
   if (typeof compiler !== 'function') {
@@ -53,7 +53,7 @@ const compile = async (
 
   let value;
   try {
-    value = await compiler(content, { config, options, baseUrl });
+    value = await compiler(content, { config, language, baseUrl, options });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.warn('Failed compiling: ' + language, err);

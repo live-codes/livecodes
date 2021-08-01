@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
+import { getLanguageCustomSettings } from './utils';
 
 export const asciidoc: LanguageSpecs = {
   name: 'asciidoc',
@@ -18,9 +18,9 @@ export const asciidoc: LanguageSpecs = {
     url: 'vendor/asciidoctor/asciidoctor.min.js',
     factory: () => {
       const asciidoctor = (window as any).Asciidoctor();
-      return async (code, { options }) =>
+      return async (code, { config }) =>
         asciidoctor.convert(code, {
-          ...getCustomConfig('asciidoctor-config', options.customConfigs),
+          ...getLanguageCustomSettings('asciidoc', config),
         });
     },
     umd: true,

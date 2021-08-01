@@ -4,6 +4,8 @@ import resultTemplate from './result/v1/result.html';
 // @ts-ignore
 import appHTML from './app.html';
 // @ts-ignore
+import customSettingsScreen from './custom-settings.html';
+// @ts-ignore
 import importScreen from './import.html';
 // @ts-ignore
 import deployScreen from './deploy.html';
@@ -23,6 +25,7 @@ import shareScreen from './share.html';
 export {
   resultTemplate,
   appHTML,
+  customSettingsScreen,
   importScreen,
   deployScreen,
   resourcesScreen,

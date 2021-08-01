@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const scss: LanguageSpecs = {
   name: 'scss',
@@ -23,17 +23,17 @@ export const scss: LanguageSpecs = {
     url: 'vendor/sass.js/sass.sync.js',
     factory: () => {
       const Sass = (window as any).Sass;
-      return async (code, { options }): Promise<string> =>
+      return async (code, { config, language }): Promise<string> =>
         new Promise((resolve) => {
-          const { language, customConfigs } = options;
+          const customSettings = getLanguageCustomSettings('sass', config);
           const opt =
             language === 'sass'
               ? {
-                  ...getCustomConfig('sass-config', customConfigs),
+                  ...customSettings,
                   indentedSyntax: true,
                 }
               : {
-                  ...getCustomConfig('sass-config', customConfigs),
+                  ...customSettings,
                 };
           Sass.compile(code, opt, (result: { text: string }) => {
             resolve(result.text);

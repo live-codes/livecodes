@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const pug: LanguageSpecs = {
   name: 'pug',
@@ -19,9 +19,9 @@ export const pug: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/pug/pug.min.js',
-    factory: () => async (code, { options }) =>
+    factory: () => async (code, { config }) =>
       (window as any).pug.render(code, {
-        ...getCustomConfig('pug-config', options.customConfigs),
+        ...getLanguageCustomSettings('pug', config),
       }),
     umd: true,
   },

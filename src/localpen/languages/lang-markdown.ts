@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const markdown: LanguageSpecs = {
   name: 'markdown',
@@ -21,9 +21,9 @@ export const markdown: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/marked/marked.min.js',
-    factory: () => async (code, { options }) =>
+    factory: () => async (code, { config }) =>
       (window as any).marked(code, {
-        ...getCustomConfig('marked-config', options.customConfigs),
+        ...getLanguageCustomSettings('markdown', config),
       }),
     umd: true,
   },

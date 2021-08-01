@@ -1,5 +1,4 @@
 import { createEventsManager } from './events';
-import { customConfigTypes } from './languages';
 
 export interface Pen {
   title: string;
@@ -27,6 +26,7 @@ export interface Pen {
       tailwindcss: boolean;
     };
   };
+  customSettings: customSettings;
   imports: { [key: string]: string };
   types: Types;
   editor: 'monaco' | 'codemirror' | 'prism' | '';
@@ -45,9 +45,10 @@ export type ContentPen = Pick<
   | 'stylesheets'
   | 'scripts'
   | 'cssPreset'
+  | 'processors'
+  | 'customSettings'
   | 'imports'
   | 'types'
-  | 'processors'
   | 'version'
 >;
 
@@ -207,12 +208,14 @@ export type CompilerFunction = (
   code: string,
   {
     config,
-    options,
+    language,
     baseUrl,
+    options,
   }: {
     config: Pen;
-    options: CompileOptions;
+    language: Language;
     baseUrl: string;
+    options: any;
   },
 ) => Promise<string>;
 
@@ -336,19 +339,17 @@ export interface ShareData {
   url: string;
   title: string;
 }
-export interface CustomConfig {
-  content: Record<string, any>;
-  type: typeof customConfigTypes[number];
-}
-
-export interface CompileOptions {
-  language: Language;
-  html?: string;
-  customConfigs?: CustomConfig[];
-  force?: boolean;
-}
 
 export interface Screen {
   screen: 'login' | 'new' | 'open' | 'import' | 'external' | 'share' | 'deploy';
   show: () => void | Promise<unknown>;
 }
+
+export type customSettings = {
+  [key in Language | keyof Pen['processors']['postcss']]?: any;
+} & {
+  template?: {
+    data: any;
+    prerender: boolean;
+  };
+};

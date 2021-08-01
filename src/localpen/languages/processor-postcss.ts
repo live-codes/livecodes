@@ -1,10 +1,9 @@
-import { CompileOptions, Pen, Processors } from '../models';
-import { getCustomConfig } from './custom-configs';
-import { escapeCode } from './utils';
+import { Pen, Processors } from '../models';
+import { escapeCode, getLanguageCustomSettings } from './utils';
 
 export type PluginName = keyof Pen['processors']['postcss'];
 type Plugin = () => any;
-type PluginFactory = (options?: any) => Plugin;
+type PluginFactory = ({ config, options }: { config: Pen; options?: any }) => Plugin;
 interface PluginSpecs {
   name: PluginName;
   title: string;
@@ -17,14 +16,14 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'tailwindcss',
     title: 'Tailwind CSS',
     url: 'vendor/tailwindcss/tailwindcss.js',
-    factory: ({ html = '', customConfigs = [] }: CompileOptions) =>
+    factory: ({ config, options }) =>
       (self as any).tailwindcss.tailwindcss({
         ...(self as any).tailwindcss.defaultConfig,
-        ...getCustomConfig('tailwind-config', customConfigs),
+        ...getLanguageCustomSettings('tailwindcss' as any, config),
         mode: 'jit',
         purge: [
           {
-            raw: html,
+            raw: options?.html || '',
             extension: 'html',
           },
         ],
@@ -34,9 +33,9 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'autoprefixer',
     title: 'Autoprefixer',
     url: 'vendor/autoprefixer/autoprefixer.js',
-    factory({ customConfigs = [] }: CompileOptions) {
+    factory({ config }) {
       return (self as any).autoprefixer.autoprefixer({
-        ...getCustomConfig('autoprefixer-config', customConfigs),
+        ...getLanguageCustomSettings('autoprefixer' as any, config),
       });
     },
   },
@@ -44,10 +43,10 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'postcssPresetEnv',
     title: 'Preset Env',
     url: 'vendor/postcss-preset-env/postcss-preset-env.js',
-    factory({ customConfigs = [] }): Plugin {
+    factory({ config }): Plugin {
       return (self as any).postcssPresetEnv.postcssPresetEnv({
         autoprefixer: false,
-        ...getCustomConfig('preset-env-config', customConfigs),
+        ...getLanguageCustomSettings('postcssPresetEnv' as any, config),
       });
     },
   },
@@ -96,12 +95,12 @@ export const postcss: Processors = {
         return (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
       };
 
-      const getPlugins = (config: Pen, options: CompileOptions, baseUrl: string) => {
+      const getPlugins = (config: Pen, baseUrl: string, options: { html: string }) => {
         const pluginNames = getEnabledPluginNames(config);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
-          .map((specs) => loadedPlugins[specs.name]?.(options));
+          .map((specs) => loadedPlugins[specs.name]?.({ config, options }));
       };
 
       // TODO: revisit this
@@ -116,9 +115,9 @@ ${escapeCode(code)}
         return code;
       };
 
-      return async function process(code, { config, options, baseUrl }): Promise<string> {
+      return async function process(code, { config, baseUrl, options }): Promise<string> {
         if (!config || !baseUrl) return code;
-        const plugins = getPlugins(config, options, baseUrl);
+        const plugins = getPlugins(config, baseUrl, options);
         return (
           await (self as any).postcss.postcss(plugins).process(twCode(code, config), postCssOptions)
         ).css;

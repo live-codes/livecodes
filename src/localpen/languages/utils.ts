@@ -1,4 +1,4 @@
-import { Compiler, EditorId, Language, Pen, Processors } from '../models';
+import { Compiler, Language, customSettings, Pen, Processors } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 
@@ -13,10 +13,10 @@ export const getLanguageByAlias = (alias?: string): Language | undefined => {
   )?.name;
 };
 
-export const getLanguageEditorId = (alias: Language): EditorId | undefined =>
+export const getLanguageEditorId = (alias: string) =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias))?.editor;
 
-export const getLanguageExtension = (alias: string): Language | undefined =>
+export const getLanguageExtension = (alias: string) =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias))?.extensions[0];
 
 export const getLanguageSpecs = (alias: string) =>
@@ -48,9 +48,9 @@ export const processorIsEnabled = (processorName: Processors['name'], config: Pe
   return config.languages.includes(processorName);
 };
 
-export const processorIsActivated = (processor: Processors, config: Pen) =>
-  (config.processors as any)[processor.name] === true ||
-  (processor.name === 'postcss' && Object.values(config.processors.postcss).includes(true));
+export const processorIsActivated = (processorName: Processors['name'], config: Pen) =>
+  (config.processors as any)[processorName] === true ||
+  (processorName === 'postcss' && Object.values(config.processors.postcss).includes(true));
 
 /**
  * returns a string with names of enabled processors/postcss plugins
@@ -76,3 +76,35 @@ export const getEnabledProcessors = (language: Language, config: Pen) => {
 };
 
 export const escapeCode = (code: string) => code.replace(/\\/g, '\\\\').replace(/`/g, '\\`');
+
+export const getLanguageCustomSettings = (language: Language, config: Pen) => ({
+  ...(config.customSettings as any)[language],
+});
+
+export const getCustomSettings = (language: Language, config: Pen): customSettings => {
+  const settings: customSettings = {
+    ...getLanguageCustomSettings(language, config),
+  };
+
+  if (getLanguageEditorId(language) === 'markup') {
+    settings.template = config.customSettings.template;
+  }
+
+  const processor = 'postcss';
+  if (
+    processorIsEnabled(processor, config) &&
+    processorIsActivated(processor, config) &&
+    getLanguageEditorId(language) === 'style'
+  ) {
+    for (const plugin of Object.keys(config.processors.postcss)) {
+      if (
+        (config.processors?.postcss as any)?.[plugin] === true &&
+        (config.customSettings as any)[plugin]
+      ) {
+        (settings as any)[plugin] = (config.customSettings as any)[plugin];
+      }
+    }
+  }
+
+  return settings;
+};
