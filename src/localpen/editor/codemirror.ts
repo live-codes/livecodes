@@ -9,6 +9,7 @@ import { StreamParser, StreamLanguage } from '@codemirror/stream-parser';
 import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';
 import { javascript } from '@codemirror/lang-javascript';
+import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
@@ -43,6 +44,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       typescript: () => javascript({ typescript: true }),
       jsx: () => javascript({ jsx: true }),
       tsx: () => javascript({ jsx: true, typescript: true }),
+      json,
       python,
       coffeescript: () => legacy(coffeeScript),
       livescript: () => legacy(liveScript),
@@ -175,6 +177,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const destroy = () => view.destroy();
+
   return {
     getValue,
     setValue,
@@ -188,6 +192,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     format,
     isReadonly: readonly,
     codemirror: view,
+    destroy,
   };
 };
 

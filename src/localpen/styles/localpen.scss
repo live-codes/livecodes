@@ -1046,7 +1046,7 @@ i.arrow {
     width: 1em;
   }
 
-  textarea {
+  textarea:not(.inputarea) {
     border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
     color: rgb(105, 105, 105);
@@ -1205,6 +1205,12 @@ i.arrow {
         }
       }
     }
+  }
+  #custom-settings-editor {
+    width: 80%;
+    height: 400px;
+    max-height: 40vh;
+    text-align: initial;
   }
 }
 

@@ -45,7 +45,7 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce, stringify } from './utils';
+import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
 import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -660,12 +660,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const checkSavedAndExecute = (fn: () => void) => async () => {
-    try {
-      await checkSavedStatus(true);
-      fn();
-    } catch (error) {
-      // cancelled
-    }
+    checkSavedStatus(true).then(() => setTimeout(fn));
   };
 
   const configureEmmet = (config: Pen) => {
@@ -741,16 +736,16 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
-    const registered = screens.find((s) => s.screen === screen);
+    const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
     if (registered) {
       registered.show = fn;
     } else {
-      screens.push({ screen, show: fn });
+      screens.push({ screen: screen.toLowerCase() as Screen['screen'], show: fn });
     }
   };
 
   const showScreen = async (screen: Screen['screen']) => {
-    await screens.find((s) => s.screen === screen)?.show();
+    await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show();
     const modalElement = document.querySelector('#modal') as HTMLElement;
     (modalElement.firstElementChild as HTMLElement)?.click();
   };
@@ -1679,30 +1674,48 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     };
 
     const handleCustomSettings = () => {
-      const createCustomSettingsUI = () => {
+      const createCustomSettingsUI = async () => {
+        // eslint-disable-next-line prefer-const
+        let customSettingsEditor: CodeEditor | undefined;
         const div = document.createElement('div');
         div.innerHTML = customSettingsScreen;
         const customSettingsContainer = div.firstChild as HTMLElement;
-        modal.show(customSettingsContainer);
+        modal.show(customSettingsContainer, {
+          onClose: () => {
+            customSettingsEditor?.destroy();
+          },
+        });
 
-        const textarea = UI.getCustomSettingsTextarea();
-        if (!textarea) return;
-        textarea.value = stringify(getConfig().customSettings, true);
-
-        textarea.focus();
+        const options = {
+          baseUrl,
+          mode: config.mode,
+          readonly: config.readonly,
+          editor: config.editor,
+          editorType: 'code' as EditorOptions['editorType'],
+          container: UI.getCustomSettingsEditor(),
+          language: 'json' as Language,
+          value: stringify(getConfig().customSettings, true),
+        };
+        customSettingsEditor = await createEditor(options);
+        customSettingsEditor.focus();
 
         eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
           try {
-            const customSettings = JSON.parse(textarea.value || '{}');
-            setConfig({
-              ...getConfig(),
-              customSettings,
-            });
+            const customSettings = JSON.parse(
+              stringToValidJson(customSettingsEditor?.getValue() || '{}'),
+            );
+            if (customSettings !== getConfig().customSettings) {
+              setConfig({
+                ...getConfig(),
+                customSettings,
+              });
+              setSavedStatus(false);
+            }
           } catch {
-            notifications.error('The settings must be in valid JSON');
+            notifications.error('Failed parsing settings as JSON');
             return;
           }
-          setSavedStatus(false);
+          customSettingsEditor?.destroy();
           modal.close();
           await run(editors);
         });
@@ -1713,7 +1726,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         createCustomSettingsUI,
         false,
       );
-      registerScreen('external', createCustomSettingsUI);
+      registerScreen('custom-settings', createCustomSettingsUI);
     };
 
     const handleResultLoading = () => {

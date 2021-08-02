@@ -77,6 +77,7 @@ export type Language =
   | 'postcss'
   | 'javascript'
   | 'js'
+  | 'json'
   | 'babel'
   | 'es'
   | 'typescript'
@@ -308,6 +309,7 @@ export interface CodeEditor {
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => void;
   isReadonly: boolean;
+  destroy: () => void;
   monaco?: any;
   codemirror?: any;
   prism?: any;
@@ -341,7 +343,7 @@ export interface ShareData {
 }
 
 export interface Screen {
-  screen: 'login' | 'new' | 'open' | 'import' | 'external' | 'share' | 'deploy';
+  screen: 'login' | 'new' | 'open' | 'import' | 'external' | 'share' | 'deploy' | 'custom-settings';
   show: () => void | Promise<unknown>;
 }
 

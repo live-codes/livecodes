@@ -110,8 +110,8 @@ export const getExternalResourcesTextareas = () =>
 export const getLoadResourcesButton = () =>
   document.querySelector<HTMLElement>('#resources-container #resources-load-btn');
 
-export const getCustomSettingsTextarea = () =>
-  document.querySelector<HTMLTextAreaElement>('#custom-settings-container textarea');
+export const getCustomSettingsEditor = () =>
+  document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-editor');
 
 export const getLoadCustomSettingsButton = () =>
   document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-load-btn');
