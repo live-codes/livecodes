@@ -25,16 +25,13 @@ export const scss: LanguageSpecs = {
       const Sass = (window as any).Sass;
       return async (code, { config, language }): Promise<string> =>
         new Promise((resolve) => {
-          const customSettings = getLanguageCustomSettings('sass', config);
           const opt =
             language === 'sass'
               ? {
-                  ...customSettings,
+                  ...getLanguageCustomSettings('sass', config),
                   indentedSyntax: true,
                 }
-              : {
-                  ...customSettings,
-                };
+              : getLanguageCustomSettings('scss', config);
           Sass.compile(code, opt, (result: { text: string }) => {
             resolve(result.text);
           });
