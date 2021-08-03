@@ -1,5 +1,6 @@
 import { languageIsEnabled, processors } from '../languages';
 import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors } from '../models';
+import { isRelativeUrl } from '../utils';
 
 export const getAllCompilers = (
   languages: Array<LanguageSpecs | Processors>,
@@ -19,15 +20,17 @@ export const getAllCompilers = (
             ?.compiler as Compiler;
           compilers[language.name] = {
             ...compiler,
-            url: baseUrl + compiler?.url,
+            url: getCompilerUrl(compiler.url, baseUrl),
             aliasTo: language.compiler,
           } as Compiler;
         } else {
           compilers[language.name] = {
             ...language.compiler,
-            url: baseUrl + language.compiler?.url,
+            url: getCompilerUrl(language.compiler.url, baseUrl),
           } as Compiler;
         }
       }
       return compilers;
     }, {} as Compilers);
+
+const getCompilerUrl = (url: string, baseUrl: string) => (isRelativeUrl(url) ? baseUrl + url : url);
