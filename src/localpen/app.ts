@@ -10,16 +10,10 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
-  extractCustomConfigs,
-  markupConfigTypes,
-  styleConfigTypes,
-  scriptConfigTypes,
-  removeCustomConfigs,
 } from './languages';
 import { createStorage } from './storage';
 import {
   CodeEditor,
-  CompileOptions,
   ContentPen,
   CssPresetId,
   EditorId,
@@ -38,14 +32,20 @@ import {
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
-import { resultTemplate, resourcesScreen, savePromptScreen, openScreen } from './html';
+import {
+  resultTemplate,
+  customSettingsScreen,
+  resourcesScreen,
+  savePromptScreen,
+  openScreen,
+} from './html';
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce } from './utils';
+import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
 import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -69,7 +69,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let changingContent = false;
   let toolsPane: any;
   let resultLanguages: Language[] = [];
-  let lastCompiled: { [key in EditorId | 'initialCompiledMarkup']: string } | undefined;
+  let lastCompiled: { [key in EditorId]: string } | undefined;
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
@@ -428,12 +428,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     singleFile = true,
   ) => {
     updateConfig();
-
-    const getCompiled = (
-      content: string,
-      language: Language,
-      options: Partial<CompileOptions> = {},
-    ) => compiler.compile(content, language, getConfig(), { ...options, language });
+    const config = getConfig();
 
     const markupContent = editors.markup?.getValue();
     const styleContent = editors.style?.getValue();
@@ -442,72 +437,17 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     const styleLanguage = getEditorLanguage('style') || 'css';
     const scriptLanguage = getEditorLanguage('script') || 'javascript';
 
-    const enableCustomConfig = true;
-    const isMdx = markupLanguage === 'mdx';
-    const configFromRawMarkup = ['html', 'markdown', 'mdx'].includes(markupLanguage);
-
-    let customConfigs =
-      enableCustomConfig && configFromRawMarkup ? extractCustomConfigs(markupContent, isMdx) : [];
-
-    let initialCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
-      customConfigs,
-    });
-
-    customConfigs = !enableCustomConfig
-      ? []
-      : configFromRawMarkup
-      ? customConfigs
-      : extractCustomConfigs(initialCompiledMarkup);
-
-    const forceRecompile = (editorId: EditorId) => {
-      const configTypes =
-        editorId === 'markup'
-          ? markupConfigTypes
-          : editorId === 'style'
-          ? styleConfigTypes
-          : editorId === 'script'
-          ? scriptConfigTypes
-          : [];
-      return (
-        enableCustomConfig &&
-        (editorId !== 'markup' || !configFromRawMarkup) &&
-        initialCompiledMarkup !== lastCompiled?.initialCompiledMarkup &&
-        customConfigs.filter((customConfig) => configTypes.includes(customConfig.type as never))
-          .length > 0
-      );
-    };
-
-    if (forceRecompile('markup')) {
-      initialCompiledMarkup = await getCompiled(markupContent, markupLanguage, {
-        customConfigs,
-        force: true,
-      });
-    }
-
+    const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config);
     const [compiledStyle, compiledScript] = await Promise.all([
-      getCompiled(styleContent, styleLanguage, {
-        html: initialCompiledMarkup,
-        customConfigs,
-        force: forceRecompile('style'),
-      }),
-      getCompiled(scriptContent, scriptLanguage, {
-        html: initialCompiledMarkup,
-        customConfigs,
-        force: forceRecompile('script'),
-      }),
+      compiler.compile(styleContent, styleLanguage, config, { html: compiledMarkup }),
+      compiler.compile(scriptContent, scriptLanguage, config),
     ]);
-
-    const compiledMarkup =
-      !enableCustomConfig || isMdx
-        ? initialCompiledMarkup
-        : removeCustomConfigs(initialCompiledMarkup);
 
     // cache compiled code
     lastCompiled = {
       markup: compiledMarkup,
       style: compiledStyle,
       script: compiledScript,
-      initialCompiledMarkup,
     };
 
     const compiledCode = {
@@ -525,7 +465,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       },
     };
 
-    return createResultPage(compiledCode, getConfig(), forExport, template, baseUrl, singleFile);
+    return createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
   };
 
   const setLoading = (status: boolean) => {
@@ -619,9 +559,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     stylesheets: config.stylesheets,
     scripts: config.scripts,
     cssPreset: config.cssPreset,
+    processors: config.processors,
+    customSettings: config.customSettings,
     imports: config.imports,
     types: config.types,
-    processors: config.processors,
     version: config.version,
   });
 
@@ -719,12 +660,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const checkSavedAndExecute = (fn: () => void) => async () => {
-    try {
-      await checkSavedStatus(true);
-      fn();
-    } catch (error) {
-      // cancelled
-    }
+    checkSavedStatus(true).then(() => setTimeout(fn));
   };
 
   const configureEmmet = (config: Pen) => {
@@ -800,16 +736,16 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
-    const registered = screens.find((s) => s.screen === screen);
+    const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
     if (registered) {
       registered.show = fn;
     } else {
-      screens.push({ screen, show: fn });
+      screens.push({ screen: screen.toLowerCase() as Screen['screen'], show: fn });
     }
   };
 
   const showScreen = async (screen: Screen['screen']) => {
-    await screens.find((s) => s.screen === screen)?.show();
+    await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show();
     const modalElement = document.querySelector('#modal') as HTMLElement;
     (modalElement.firstElementChild as HTMLElement)?.click();
   };
@@ -1737,6 +1673,62 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       registerScreen('external', createExrenalResourcesUI);
     };
 
+    const handleCustomSettings = () => {
+      const createCustomSettingsUI = async () => {
+        // eslint-disable-next-line prefer-const
+        let customSettingsEditor: CodeEditor | undefined;
+        const div = document.createElement('div');
+        div.innerHTML = customSettingsScreen;
+        const customSettingsContainer = div.firstChild as HTMLElement;
+        modal.show(customSettingsContainer, {
+          onClose: () => {
+            customSettingsEditor?.destroy();
+          },
+        });
+
+        const options = {
+          baseUrl,
+          mode: config.mode,
+          readonly: config.readonly,
+          editor: config.editor,
+          editorType: 'code' as EditorOptions['editorType'],
+          container: UI.getCustomSettingsEditor(),
+          language: 'json' as Language,
+          value: stringify(getConfig().customSettings, true),
+        };
+        customSettingsEditor = await createEditor(options);
+        customSettingsEditor.focus();
+
+        eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
+          try {
+            const customSettings = JSON.parse(
+              stringToValidJson(customSettingsEditor?.getValue() || '{}'),
+            );
+            if (customSettings !== getConfig().customSettings) {
+              setConfig({
+                ...getConfig(),
+                customSettings,
+              });
+              setSavedStatus(false);
+            }
+          } catch {
+            notifications.error('Failed parsing settings as JSON');
+            return;
+          }
+          customSettingsEditor?.destroy();
+          modal.close();
+          await run(editors);
+        });
+      };
+      eventsManager.addEventListener(
+        UI.getCustomSettingsLink(),
+        'click',
+        createCustomSettingsUI,
+        false,
+      );
+      registerScreen('custom-settings', createCustomSettingsUI);
+    };
+
     const handleResultLoading = () => {
       eventsManager.addEventListener(window, 'message', (event: any) => {
         const iframe = UI.getResultIFrameElement();
@@ -1785,6 +1777,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     handleSettings();
     handleSettingsMenu();
     handleExternalResources();
+    handleCustomSettings();
     handleLogin();
     handleLogout();
     handleNew();

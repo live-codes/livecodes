@@ -1,7 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
-declare const importScripts: (...args: string[]) => void;
+import { getLanguageCustomSettings } from './utils';
 
 export const solid: LanguageSpecs = {
   name: 'solid',
@@ -26,15 +25,15 @@ export const solid: LanguageSpecs = {
     factory: () => {
       const Babel = (self as any).Babel;
       Babel.registerPreset('solid', (self as any).babelPresetSolid.solid);
-      return async (code, { options }) => {
-        const isTsx = options.language === 'solid.tsx';
-        const customConfig = getCustomConfig('solid-config', options.customConfigs);
+      return async (code, { config, language }) => {
+        const isTsx = language === 'solid.tsx';
+        const customSettings = getLanguageCustomSettings('solid', config);
         return (window as any).Babel.transform(code, {
-          ...customConfig,
+          ...customSettings,
           filename: 'script.' + (isTsx ? 'tsx' : 'jsx'),
           presets: [
             ['env', { modules: false }],
-            ...(Array.isArray(customConfig.presets) ? customConfig.presets : []),
+            ...(Array.isArray(customSettings.presets) ? customSettings.presets : []),
             ...(isTsx ? ['typescript'] : []),
             'solid',
           ],

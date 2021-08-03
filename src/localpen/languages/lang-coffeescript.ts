@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
+import { getLanguageCustomSettings } from './utils';
 
 export const coffeescript: LanguageSpecs = {
   name: 'coffeescript',
@@ -16,10 +16,10 @@ export const coffeescript: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/coffeescript/coffeescript.js',
-    factory: () => async (code, { options }) =>
+    factory: () => async (code, { config }) =>
       (window as any).CoffeeScript.compile(code, {
         bare: true,
-        ...getCustomConfig('coffeescript-config', options.customConfigs),
+        ...getLanguageCustomSettings('coffeescript', config),
       }),
     umd: true,
   },

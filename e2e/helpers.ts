@@ -53,8 +53,8 @@ const getUpdatedResultFrame = async (app: Frame, resultFrame: Frame) => {
   return newFrame;
 };
 
-export const waitForEditorFocus = async (app: Frame) => {
-  await app.waitForFunction('document.activeElement.closest("#editors") != null');
+export const waitForEditorFocus = async (app: Frame, selector = '#editors') => {
+  await app.waitForFunction(`document.activeElement.closest("${selector}") != null`);
 };
 
 export const runButtonSelector = '[alt="Run"]';

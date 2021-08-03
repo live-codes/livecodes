@@ -101,3 +101,11 @@ export const stringToValidJson = (str: string) =>
     .replace(/(,\s*})/g, function removeLastComma() {
       return '}';
     });
+
+export const stringify = (obj: any, pretty = false) => {
+  try {
+    return JSON.stringify(obj, undefined, pretty ? 2 : undefined);
+  } catch {
+    return '';
+  }
+};

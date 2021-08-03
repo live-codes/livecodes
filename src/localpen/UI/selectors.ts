@@ -80,6 +80,9 @@ export const getSaveAsTemplateLink = () =>
 export const getExternalResourcesLink = () =>
   document.querySelector<HTMLAnchorElement>('#external-resources-link');
 
+export const getCustomSettingsLink = () =>
+  document.querySelector<HTMLAnchorElement>('#custom-settings-link');
+
 export const getShareLink = () => document.querySelector<HTMLAnchorElement>('#share-link');
 
 export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
@@ -106,6 +109,12 @@ export const getExternalResourcesTextareas = () =>
 
 export const getLoadResourcesButton = () =>
   document.querySelector<HTMLElement>('#resources-container #resources-load-btn');
+
+export const getCustomSettingsEditor = () =>
+  document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-editor');
+
+export const getLoadCustomSettingsButton = () =>
+  document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-load-btn');
 
 export const getUrlImportForm = (importContainer: HTMLElement) =>
   importContainer.querySelector<HTMLFormElement>('#url-import-form');

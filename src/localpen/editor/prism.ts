@@ -15,6 +15,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-coffeescript';
 import 'prismjs/components/prism-livescript';
 import 'prismjs/components/prism-python';
@@ -109,6 +110,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     //
   };
 
+  const destroy = () => {
+    container.innerHTML = '';
+  };
+
   return {
     getValue,
     setValue,
@@ -122,5 +127,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     format,
     isReadonly: true,
     prism: Prism,
+    destroy,
   };
 };

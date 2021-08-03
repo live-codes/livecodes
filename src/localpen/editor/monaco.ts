@@ -245,6 +245,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  const destroy = () => editor.getModel()?.dispose();
+
   return {
     getValue,
     setValue,
@@ -261,5 +263,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     format,
     isReadonly: readonly,
     monaco: editor,
+    destroy,
   };
 };

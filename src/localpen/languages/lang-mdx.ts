@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { typescriptOptions } from './lang-typescript';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const mdx: LanguageSpecs = {
   name: 'mdx',
@@ -22,11 +22,10 @@ export const mdx: LanguageSpecs = {
   compiler: {
     dependencies: ['typescript'],
     url: 'vendor/mdx/mdx.js',
-    factory: () => async (code, { options }) => {
-      const customConfig = getCustomConfig('mdx-config', options.customConfigs);
+    factory: () => async (code, { config }) => {
       const compiled = await (window as any).MDX.mdx(code, {
         skipExport: true,
-        ...customConfig,
+        ...getLanguageCustomSettings('mdx', config),
       });
       const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
       const jsx = removeShortcode(compiled);

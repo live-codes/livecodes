@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const less: LanguageSpecs = {
   name: 'less',
@@ -19,10 +19,10 @@ export const less: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/less/less.js',
-    factory: () => async (code, { options }) =>
+    factory: () => async (code, { config }) =>
       (
         await (window as any).less.render(code, {
-          ...getCustomConfig('less-config', options.customConfigs),
+          ...getLanguageCustomSettings('less', config),
         })
       ).css,
     umd: true,

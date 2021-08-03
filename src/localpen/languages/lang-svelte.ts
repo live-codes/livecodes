@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { getCustomConfig } from './custom-configs';
 import { parserPlugins } from './parser-plugins';
+import { getLanguageCustomSettings } from './utils';
 
 export const svelte: LanguageSpecs = {
   name: 'svelte',
@@ -21,9 +21,9 @@ export const svelte: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/svelte/svelte-compiler.3.37.0.min.js',
-    factory: () => async (code, { options }) => {
-      const customConfig = getCustomConfig('svelte-config', options.customConfigs);
-      const customElement = customConfig.customElement;
+    factory: () => async (code, { config }) => {
+      const customSettings = getLanguageCustomSettings('svelte', config);
+      const customElement = customSettings.customElement;
       const init =
         customElement === true
           ? ''
@@ -33,7 +33,7 @@ new Component({ target: app });
 `;
       const { js } = (window as any).svelte.compile(code, {
         css: true,
-        ...customConfig,
+        ...customSettings,
       });
       return js.code + init;
     },
