@@ -38,7 +38,10 @@ export const pug: LanguageSpecs = {
   <script>
   window.addEventListener("load", () => {
     ${clientFnSrc}
-    const content = clientFn({...${escapeCode(JSON.stringify(data))}, ...window.templateData});
+    const content = clientFn({
+      ...${escapeCode(JSON.stringify(data))},
+      ...window.templateData,
+    });
     console.log(content);
     document.body.innerHTML += content;
     parent.postMessage({type: 'compiled', payload: {language: 'pug', content}}, '*');

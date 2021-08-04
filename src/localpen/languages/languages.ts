@@ -32,14 +32,16 @@ import { solid } from './lang-solid';
 import { solidTsx } from './lang-solid-tsx';
 import { pyodide } from './lang-python-pyodide';
 import { liquid } from './lang-liquid';
+import { ejs } from './lang-ejs';
 
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
   mdx,
+  asciidoc,
   pug,
   haml,
-  asciidoc,
+  ejs,
   liquid,
   css,
   scss,

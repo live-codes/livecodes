@@ -1,6 +1,8 @@
 import { LanguageSpecs } from '../models';
 import { escapeCode } from './utils';
 
+const url = 'https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js';
+
 export const liquid: LanguageSpecs = {
   name: 'liquid',
   title: 'Liquid',
@@ -14,7 +16,7 @@ export const liquid: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js',
+    url,
     factory: () => async (code, { config }) => {
       if (config.customSettings.template?.prerender !== false) {
         const liquid = new (self as any).liquidjs.Liquid();
@@ -27,13 +29,13 @@ export const liquid: LanguageSpecs = {
 
       return `<!-- ... compiling ... -->
 
-<script src="https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js"></script>
+<script src="${url}"></script>
 <script>
 window.addEventListener("load", () => {
   new liquidjs.Liquid()
     .parseAndRender(\`${escapeCode(code)}\`, {
-      ...window.templateData,
       ...${escapeCode(JSON.stringify(config.customSettings.template?.data || {}))},
+      ...window.templateData,
       })
     .then((content) => {
       document.body.innerHTML += content

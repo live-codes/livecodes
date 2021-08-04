@@ -68,6 +68,7 @@ export type Language =
   | 'asc'
   | 'liquid'
   | 'liquidjs'
+  | 'ejs'
   | 'css'
   | 'scss'
   | 'sass'
