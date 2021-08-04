@@ -42,7 +42,6 @@ export const pug: LanguageSpecs = {
       ...${escapeCode(JSON.stringify(data))},
       ...window.templateData,
     });
-    console.log(content);
     document.body.innerHTML += content;
     parent.postMessage({type: 'compiled', payload: {language: 'pug', content}}, '*');
   });
