@@ -16,12 +16,40 @@ export const haml: LanguageSpecs = {
   `,
   compiler: {
     url: 'vendor/clientside-haml-js/haml.js',
-    factory: () => async (code, { config }) =>
-      (window as any).haml.compileHaml({
+    factory: () => async (code, { config, baseUrl }) => {
+      const options = {
         tolerateFaults: true,
         ...getLanguageCustomSettings('haml', config),
         source: code,
-      })(),
+      };
+      const data = config.customSettings.template?.data || {};
+
+      if (config.customSettings.template?.prerender !== false) {
+        const fn = (window as any).haml.compileHaml(options);
+        return fn(data);
+      }
+
+      const clientFnSrc = (window as any).haml.compileHaml({
+        ...options,
+        outputFormat: 'string',
+      });
+
+      return `<!-- ... compiling ... -->
+
+<script src="${baseUrl}vendor/clientside-haml-js/haml.js"></script>
+<script>
+window.addEventListener("load", () => {
+  const clientFn = ${clientFnSrc};
+  const content = clientFn({
+    ...${JSON.stringify(data)},
+    ...window.templateData,
+  });
+  document.body.innerHTML += content;
+  parent.postMessage({type: 'compiled', payload: {language: 'haml', content}}, '*');
+});
+</script>
+    `;
+    },
     umd: true,
   },
   extensions: ['haml'],

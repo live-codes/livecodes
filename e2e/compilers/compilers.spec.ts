@@ -8,15 +8,18 @@ test.describe('Compiler Results', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=HTML');
     await waitForEditorFocus(app);
     await page.keyboard.type('hello, ');
 
+    await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
     await page.keyboard.type('body {color: blue;}');
 
-    await app.click('text=JS');
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type('document.body.innerHTML += "world!"');
 
@@ -122,19 +125,165 @@ test.describe('Compiler Results', () => {
     expect(resultText).toContain('Hello, World!');
   });
 
+  test('Handlebars', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Handlebars"}}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Handlebars');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Handlebars');
+  });
+
+  test('Handlebars dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'Handlebars' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Handlebars');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Handlebars');
+  });
+
+  test('EJS', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "EJS"}}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=EJS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to <%= name %></h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to EJS');
+  });
+
+  test('EJS dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'EJS' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=EJS');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to <%= name %></h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to EJS');
+  });
+
   test('Liquid', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{data:{"name":"liquid"}}}`);
+    await app.click('text=Load');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Liquid');
     await waitForEditorFocus(app);
     await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
 
-    await app.click('text=JS');
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const body = await getResult().$('body');
+
+    expect(await body.innerHTML()).toContain('Welcome to Liquid');
+  });
+
+  test('Liquid dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.templateData = { name: 'liquid' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Liquid');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
 
     await app.click(runButtonSelector);
     await waitForResultUpdate();
@@ -142,6 +291,62 @@ test.describe('Compiler Results', () => {
     const body = await getResult().$('body');
 
     expect(await body.innerHTML()).toContain('Welcome to Liquid');
+  });
+
+  test('doT', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{data:{"name":"doT"}}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=doT');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to doT');
+  });
+
+  test('doT dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'doT' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=doT');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to doT');
   });
 
   test('SCSS', async ({ page, getTestUrl }) => {

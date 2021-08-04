@@ -1,6 +1,8 @@
 import { LanguageSpecs } from '../models';
 import { escapeCode } from './utils';
 
+const url = 'https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js';
+
 export const liquid: LanguageSpecs = {
   name: 'liquid',
   title: 'Liquid',
@@ -14,12 +16,27 @@ export const liquid: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'assets/noop.js',
-    factory: () => async (code) => `<!-- ... compiling ... -->
+    url,
+    factory: () => async (code, { config }) => {
+      if (config.customSettings.template?.prerender !== false) {
+        const liquid = new (self as any).liquidjs.Liquid();
+        const html = await liquid.parseAndRender(
+          escapeCode(code),
+          config.customSettings.template?.data || {},
+        );
+        return html;
+      }
+
+      return `<!-- ... compiling ... -->
+
+<script src="${url}"></script>
 <script>
 window.addEventListener("load", () => {
   new liquidjs.Liquid()
-    .parseAndRender(\`${escapeCode(code)}\`, window.templateData || {})
+    .parseAndRender(\`${escapeCode(code)}\`, {
+      ...${escapeCode(JSON.stringify(config.customSettings.template?.data || {}))},
+      ...window.templateData,
+      })
     .then((content) => {
       document.body.innerHTML += content
       parent.postMessage({type: 'compiled', payload: {language: 'liquid', content}}, '*');
@@ -29,8 +46,8 @@ window.addEventListener("load", () => {
     });
 });
 </script>
-`,
-    scripts: ['https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js'],
+`;
+    },
   },
   extensions: ['liquid', 'liquidjs'],
   editor: 'markup',
