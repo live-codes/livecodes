@@ -293,6 +293,62 @@ test.describe('Compiler Results', () => {
     expect(await body.innerHTML()).toContain('Welcome to Liquid');
   });
 
+  test('doT', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{data:{"name":"doT"}}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=doT');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to doT');
+  });
+
+  test('doT dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'doT' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=doT');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to doT');
+  });
+
   test('SCSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
