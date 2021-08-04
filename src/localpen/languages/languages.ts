@@ -33,6 +33,7 @@ import { solidTsx } from './lang-solid-tsx';
 import { pyodide } from './lang-python-pyodide';
 import { liquid } from './lang-liquid';
 import { ejs } from './lang-ejs';
+import { handlebars } from './lang-handlebars';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -41,6 +42,7 @@ export const languages: LanguageSpecs[] = [
   asciidoc,
   pug,
   haml,
+  handlebars,
   ejs,
   liquid,
   css,
