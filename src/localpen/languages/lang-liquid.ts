@@ -31,9 +31,10 @@ export const liquid: LanguageSpecs = {
 <script>
 window.addEventListener("load", () => {
   new liquidjs.Liquid()
-    .parseAndRender(\`${escapeCode(code)}\`, window.templateData || ${JSON.stringify(
-        config.customSettings.template?.data || {},
-      )})
+    .parseAndRender(\`${escapeCode(code)}\`, {
+      ...window.templateData,
+      ...${escapeCode(JSON.stringify(config.customSettings.template?.data || {}))},
+      })
     .then((content) => {
       document.body.innerHTML += content
       parent.postMessage({type: 'compiled', payload: {language: 'liquid', content}}, '*');

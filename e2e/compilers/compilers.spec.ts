@@ -127,6 +127,14 @@ test.describe('Compiler Results', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Delete');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Liquid');
     await waitForEditorFocus(app);
