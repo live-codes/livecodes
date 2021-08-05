@@ -35,6 +35,7 @@ import { liquid } from './lang-liquid';
 import { ejs } from './lang-ejs';
 import { handlebars } from './lang-handlebars';
 import { dot } from './lang-dot';
+import { nunjucks } from './lang-nunjucks';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -45,6 +46,7 @@ export const languages: LanguageSpecs[] = [
   haml,
   handlebars,
   ejs,
+  nunjucks,
   liquid,
   dot,
   css,

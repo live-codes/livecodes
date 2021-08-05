@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
 
-test.describe('Custom Settings', () => {
+test.describe.only('Custom Settings', () => {
   test('markdown', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -11,7 +11,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"markdown":{headerPrefix: 'pre-'}}`);
     await app.click('text=Load');
@@ -35,7 +35,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"asciidoc": { standalone: true }}`);
     await app.click('text=Load');
@@ -59,7 +59,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"scss": {"indent": "--"}}`);
     await app.click('text=Load');
@@ -83,7 +83,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"sass": {"indent": "--"}}`);
     await app.click('text=Load');
@@ -108,7 +108,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"less": {"math": "always"}}`);
     await app.click('text=Load');
@@ -132,7 +132,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"autoprefixer": {"add": false}}`);
     await app.click('text=Load');
@@ -157,7 +157,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"postcssPresetEnv": {"stage": 3}}`);
     await app.click('text=Load');
@@ -182,7 +182,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(
       `{"tailwindcss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
@@ -217,7 +217,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"babel": {"sourceMaps": "inline"}}`);
     await app.click('text=Load');
@@ -241,7 +241,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"typescript": {"target": "es5"}}`);
     await app.click('text=Load');
@@ -265,7 +265,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"svelte": {"css": false}}`);
     await app.click('text=Load');
@@ -284,7 +284,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"stencil": {"sourceMap": true}}`);
     await app.click('text=Load');
@@ -303,7 +303,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"coffeescript": {"bare": false}}`);
     await app.click('text=Load');
@@ -327,7 +327,7 @@ test.describe('Custom Settings', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"livescript": {"bare": false}}`);
     await app.click('text=Load');

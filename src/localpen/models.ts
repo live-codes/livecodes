@@ -69,6 +69,8 @@ export type Language =
   | 'handlebars'
   | 'hbs'
   | 'ejs'
+  | 'nunjucks'
+  | 'njk'
   | 'liquid'
   | 'liquidjs'
   | 'dot'

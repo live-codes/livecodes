@@ -133,7 +133,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Handlebars"}}}`);
     await app.click('text=Load');
@@ -158,7 +158,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('text=Load');
@@ -181,6 +181,62 @@ test.describe('Compiler Results', () => {
     expect(resultText).toContain('Welcome to Handlebars');
   });
 
+  test('Nunjucks', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Nunjucks"}}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Nunjucks');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Nunjucks');
+  });
+
+  test('Nunjucks dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('text=Load');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'Nunjucks' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Nunjucks');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Nunjucks');
+  });
+
   test('EJS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -189,7 +245,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "EJS"}}}`);
     await app.click('text=Load');
@@ -214,7 +270,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('text=Load');
@@ -245,7 +301,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{data:{"name":"liquid"}}}`);
     await app.click('text=Load');
@@ -270,7 +326,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('text=Load');
@@ -301,7 +357,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{data:{"name":"doT"}}}`);
     await app.click('text=Load');
@@ -326,7 +382,7 @@ test.describe('Compiler Results', () => {
     await app.click('[title=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Delete');
+    await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('text=Load');
