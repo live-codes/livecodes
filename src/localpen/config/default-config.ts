@@ -43,7 +43,12 @@ export const defaultConfig: Pen = {
       tailwindcss: false,
     },
   },
-  customSettings: {},
+  customSettings: {
+    template: {
+      data: {},
+      prerender: true,
+    },
+  },
   editor: '',
   version: process.env.VERSION as string,
   showVersion: false,

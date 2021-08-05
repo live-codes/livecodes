@@ -69,6 +69,8 @@ export type Language =
   | 'handlebars'
   | 'hbs'
   | 'ejs'
+  | 'nunjucks'
+  | 'njk'
   | 'liquid'
   | 'liquidjs'
   | 'dot'
@@ -355,7 +357,7 @@ export type customSettings = {
   [key in Language | keyof Pen['processors']['postcss']]?: any;
 } & {
   template?: {
-    data: any;
-    prerender: boolean;
+    data?: any;
+    prerender?: boolean;
   };
 };
