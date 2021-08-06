@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalPen Compiler Sandbox</title>
+    <script>
+      var worker;
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'init' && event.data.baseUrl) {
+          var baseUrl = event.data.baseUrl;
+          var origin = new URL(baseUrl).origin;
+          worker = new Worker(baseUrl + 'compile.worker.js');
+          worker.addEventListener('message', function (ev) {
+            parent.postMessage(Object.assign({}, ev.data, { from: 'compiler' }), origin);
+          });
+        } else if (worker) {
+          worker.postMessage(event.data);
+        }
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -8,16 +8,24 @@ import {
   processors,
 } from '../languages';
 import { Language, Pen, Compilers, EditorId, CompilerFunction } from '../models';
-import { stringify } from '../utils';
+import { sandboxService } from '../services';
+import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
+import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
-export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
+export const createCompiler = async (config: Pen, baseUrl: string): Promise<Compiler> => {
   const compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
+  const compilerUrl = sandboxService.getCompilerUrl();
+  const compilerOrigin = sandboxService.getOrigin();
 
-  const worker = new Worker(baseUrl + 'compile.worker.js');
-  const configMessage: CompilerMessage = { type: 'init', payload: config, baseUrl };
-  worker.postMessage(configMessage);
+  const compilerSandbox = await createCompilerSandbox(compilerUrl);
+  const configMessage: CompilerMessage = {
+    type: 'init',
+    payload: config,
+    baseUrl: isRelativeUrl(baseUrl) ? getAbsoluteUrl(baseUrl) : baseUrl,
+  };
+  compilerSandbox.postMessage(configMessage, compilerOrigin);
 
   const createLanguageCompiler = (language: LanguageOrProcessor): CompilerFunction => (
     content,
@@ -28,11 +36,12 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
         const message = event.data;
 
         if (
+          message.from === 'compiler' &&
           (message.type === 'compiled' || message.type === 'compile-failed') &&
           message.payload.language === language &&
           message.payload.content === content
         ) {
-          worker.removeEventListener('message', handler);
+          window.removeEventListener('message', handler);
 
           if (message.type === 'compiled') {
             resolve(message.payload.compiled);
@@ -41,13 +50,13 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
           }
         }
       };
-      worker.addEventListener('message', handler);
+      window.addEventListener('message', handler);
 
       const compileMessage: CompilerMessage = {
         type: 'compile',
         payload: { content, language, config, options },
       };
-      worker.postMessage(compileMessage);
+      compilerSandbox.postMessage(compileMessage, compilerOrigin);
     });
 
   const load = (languages: LanguageOrProcessor[], config: Pen) =>
@@ -60,14 +69,18 @@ export const createCompiler = (config: Pen, baseUrl: string): Compiler => {
             }
             const languageCompiler = compilers[language as keyof Compilers];
             if (languageCompiler && !languageCompiler.fn) {
-              worker.addEventListener('message', (event: CompilerMessageEvent) => {
-                if (event.data.type === 'loaded' && event.data.payload === language) {
+              window.addEventListener('message', (event: CompilerMessageEvent) => {
+                if (
+                  event.data.from === 'compiler' &&
+                  event.data.type === 'loaded' &&
+                  event.data.payload === language
+                ) {
                   languageCompiler.fn = createLanguageCompiler(language);
                   resolve('done');
                 }
               });
               const loadMessage: CompilerMessage = { type: 'load', payload: { language, config } };
-              worker.postMessage(loadMessage);
+              compilerSandbox.postMessage(loadMessage, compilerOrigin);
             } else {
               resolve('done');
             }
