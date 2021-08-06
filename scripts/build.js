@@ -134,14 +134,4 @@ esbuild.buildSync({
   format: 'esm',
 });
 
-fs.copyFileSync(
-  path.resolve('src/localpen/html/sandbox/v1/compiler.html'),
-  path.resolve('build/compiler.html'),
-);
-
-fs.copyFileSync(
-  path.resolve('src/localpen/html/sandbox/v1/result.html'),
-  path.resolve('build/result.html'),
-);
-
 console.log('built to: ' + buildOptions.outdir);
