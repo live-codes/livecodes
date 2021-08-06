@@ -9,12 +9,15 @@
       window.addEventListener('message', function (event) {
         if (event.data.type === 'init' && event.data.baseUrl) {
           var baseUrl = event.data.baseUrl;
+          var workerUrl = baseUrl + 'compile.worker.js';
           var origin = new URL(baseUrl).origin;
-          worker = new Worker(baseUrl + 'compile.worker.js');
+          var blob = new Blob(["importScripts('" + workerUrl + "');"]);
+          worker = new Worker(URL.createObjectURL(blob));
           worker.addEventListener('message', function (ev) {
             parent.postMessage(Object.assign({}, ev.data, { from: 'compiler' }), origin);
           });
-        } else if (worker) {
+        }
+        if (worker) {
           worker.postMessage(event.data);
         }
       });
