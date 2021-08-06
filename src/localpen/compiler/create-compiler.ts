@@ -36,6 +36,7 @@ export const createCompiler = async (config: Pen, baseUrl: string): Promise<Comp
         const message = event.data;
 
         if (
+          event.origin === compilerOrigin &&
           message.from === 'compiler' &&
           (message.type === 'compiled' || message.type === 'compile-failed') &&
           message.payload.language === language &&
@@ -71,6 +72,7 @@ export const createCompiler = async (config: Pen, baseUrl: string): Promise<Comp
             if (languageCompiler && !languageCompiler.fn) {
               window.addEventListener('message', (event: CompilerMessageEvent) => {
                 if (
+                  event.origin === compilerOrigin &&
                   event.data.from === 'compiler' &&
                   event.data.type === 'loaded' &&
                   event.data.payload === language
