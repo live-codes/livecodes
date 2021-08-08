@@ -276,7 +276,9 @@ test.describe('Custom Settings', () => {
     expect(await getResult().innerText('body script')).not.toContain('function add_css()');
   });
 
-  test('stencil', async ({ page, getTestUrl }) => {
+  test('stencil', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codemirror');
+
     await page.goto(getTestUrl({ template: 'stencil' } as any));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
