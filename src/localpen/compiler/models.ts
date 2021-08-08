@@ -11,13 +11,16 @@ export interface CompilerMessageEvent extends MessageEvent {
   data: CompilerMessage;
 }
 
-export type CompilerMessage =
+export type CompilerMessage = {
+  from?: 'compiler';
+} & (
   | InitMessage
   | LoadMessage
   | LoadedMessage
   | CompileMessage
   | CompiledMessage
-  | CompileFailedMessage;
+  | CompileFailedMessage
+);
 
 export interface InitMessage {
   type: 'init';

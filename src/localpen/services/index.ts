@@ -1,5 +1,5 @@
 export * from './auth';
 export * from './modules';
-export * from './result';
+export * from './sandbox';
 export * from './share';
 export * from './types';

@@ -50,7 +50,7 @@ import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
-import { createAuthService, resultService, shareService } from './services';
+import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string) => {
@@ -82,7 +82,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
   const setActiveEditor = async (config: Pen) => showEditor(config.activeEditor);
 
-  const createIframe = (container: HTMLElement, result?: string, service = resultService) =>
+  const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
     new Promise((resolve, reject) => {
       if (!container) {
         reject('Result container not found');
@@ -120,7 +120,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
         const { mode } = getConfig();
         if (mode !== 'codeblock' && mode !== 'editor') {
-          iframe.src = service.getUrl();
+          iframe.src = service.getResultUrl();
         }
 
         container.innerHTML = '';
@@ -142,7 +142,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       resultLanguages = getEditorLanguages();
     });
 
-  const compiler = getCompiler(getConfig(), baseUrl);
+  const compiler = await getCompiler(getConfig(), baseUrl);
 
   const typeLoader = createTypeLoader();
   const loadModuleTypes = async (editors: Editors, config: Pen) => {

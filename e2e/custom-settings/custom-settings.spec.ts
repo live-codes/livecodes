@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
 
-test.describe.only('Custom Settings', () => {
+test.describe('Custom Settings', () => {
   test('markdown', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -276,7 +276,9 @@ test.describe.only('Custom Settings', () => {
     expect(await getResult().innerText('body script')).not.toContain('function add_css()');
   });
 
-  test('stencil', async ({ page, getTestUrl }) => {
+  test('stencil', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codemirror');
+
     await page.goto(getTestUrl({ template: 'stencil' } as any));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -292,7 +294,7 @@ test.describe.only('Custom Settings', () => {
     await app.click(runButtonSelector);
     await waitForResultUpdate();
 
-    expect(await getResult().innerText('body script')).toContain('//# sourceMappingURL=');
+    expect(await getResult().innerHTML('body script')).toContain('//# sourceMappingURL=');
   });
 
   test('coffeescript', async ({ page, getTestUrl }) => {
