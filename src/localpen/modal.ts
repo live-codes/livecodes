@@ -10,14 +10,21 @@ export const createModal = () => {
   const modalContainer = document.querySelector('#modal-container') as HTMLElement;
   const modal = document.querySelector('#modal') as HTMLElement;
   let isOpening: boolean;
+  let onCloseFn: () => void = () => undefined;
 
   const show = (
     container: HTMLElement,
-    { size = 'large', closeButton = false, isAsync = false, onClose }: ModalOptions = {},
+    {
+      size = 'large',
+      closeButton = false,
+      isAsync = false,
+      onClose = () => undefined,
+    }: ModalOptions = {},
   ) => {
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
+    onCloseFn = onClose;
 
     if (closeButton) {
       const closeContainer = document.createElement('div');
@@ -25,9 +32,7 @@ export const createModal = () => {
       const closeBtn = document.createElement('button');
       closeBtn.className = 'button';
       closeBtn.innerHTML = 'Close';
-      closeBtn.onclick = () => {
-        close(onClose);
-      };
+      closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
       modal.appendChild(closeContainer);
     }
@@ -38,26 +43,20 @@ export const createModal = () => {
     overlay.classList.remove('hidden');
     modalContainer.classList.remove('hidden');
     isOpening = true;
-    document.addEventListener(
-      'click',
-      function onClickOutside(ev) {
-        if (!modal?.contains(ev.target as Node) && !isOpening) {
-          close(onClose);
-          document.removeEventListener('click', onClickOutside);
-        }
-        isOpening = false;
-      },
-      false,
-    );
+    // remove previous event listener if it was not cleared
+    document.removeEventListener('click', onClickOutside);
+    document.addEventListener('click', onClickOutside, false);
     if (isAsync) {
       container.click();
     }
   };
 
-  const close = (onClose?: () => void) => {
-    if (typeof onClose === 'function') {
-      onClose();
+  const close = () => {
+    if (typeof onCloseFn === 'function') {
+      onCloseFn();
     }
+    document.removeEventListener('click', onClickOutside);
+
     modal.innerHTML = '';
     modal.className = '';
     overlay.classList.add('hidden');
@@ -69,6 +68,13 @@ export const createModal = () => {
       isOpening = false;
     }, 400);
   };
+
+  function onClickOutside(ev: Event) {
+    if (!modal?.contains(ev.target as Node) && !isOpening) {
+      close();
+    }
+    isOpening = false;
+  }
 
   return {
     show,
