@@ -1156,7 +1156,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           );
         });
 
-        modal.show(templatesContainer);
+        modal.show(templatesContainer, { isAsync: true });
       };
       eventsManager.addEventListener(
         UI.getNewLink(),
@@ -1269,7 +1269,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           noDataMessage?.remove();
         }
 
-        modal.show(listContainer);
+        modal.show(listContainer, { isAsync: true });
       };
 
       eventsManager.addEventListener(
@@ -1370,7 +1370,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           reader.readAsText(file);
         });
 
-        modal.show(importContainer);
+        modal.show(importContainer, { isAsync: true });
         UI.getUrlImportInput(importContainer).focus();
       };
 
