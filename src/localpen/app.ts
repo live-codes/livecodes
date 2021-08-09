@@ -704,7 +704,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
               if (!user) {
                 reject('Login error!');
               } else {
-                notifications.success('Logged in as: ' + user.displayName);
+                const displayName = user.displayName || user.username;
+                const loginSuccessMessage = displayName
+                  ? 'Logged in as: ' + displayName
+                  : 'Logged in successfully';
+                notifications.success(loginSuccessMessage);
                 UI.displayLoggedIn(user);
                 resolve(user);
               }
