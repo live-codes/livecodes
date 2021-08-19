@@ -704,7 +704,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
               if (!user) {
                 reject('Login error!');
               } else {
-                notifications.success('Logged in as: ' + user.displayName);
+                const displayName = user.displayName || user.username;
+                const loginSuccessMessage = displayName
+                  ? 'Logged in as: ' + displayName
+                  : 'Logged in successfully';
+                notifications.success(loginSuccessMessage);
                 UI.displayLoggedIn(user);
                 resolve(user);
               }
@@ -1156,7 +1160,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           );
         });
 
-        modal.show(templatesContainer);
+        modal.show(templatesContainer, { isAsync: true });
       };
       eventsManager.addEventListener(
         UI.getNewLink(),
@@ -1269,7 +1273,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           noDataMessage?.remove();
         }
 
-        modal.show(listContainer);
+        modal.show(listContainer, { isAsync: true });
       };
 
       eventsManager.addEventListener(
@@ -1370,7 +1374,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           reader.readAsText(file);
         });
 
-        modal.show(importContainer);
+        modal.show(importContainer, { isAsync: true });
         UI.getUrlImportInput(importContainer).focus();
       };
 

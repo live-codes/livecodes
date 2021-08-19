@@ -62,7 +62,8 @@ export const displayLoggedIn = (user: User) => {
   }
   const logOutLink = getLogoutLink();
   if (logOutLink) {
-    logOutLink.innerHTML = `Log out (${user.displayName})`;
+    const displayName = user.displayName || user.username;
+    logOutLink.innerHTML = `Log out (${displayName})`;
     logOutLink.style.display = 'block';
   }
 };
