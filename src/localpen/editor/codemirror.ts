@@ -15,6 +15,7 @@ import { python } from '@codemirror/lang-python';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
 import { liveScript } from '@codemirror/legacy-modes/mode/livescript';
 import { ruby } from '@codemirror/legacy-modes/mode/ruby';
+import { go } from '@codemirror/legacy-modes/mode/go';
 import { perl } from '@codemirror/legacy-modes/mode/perl';
 import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
@@ -49,6 +50,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       coffeescript: () => legacy(coffeeScript),
       livescript: () => legacy(liveScript),
       ruby: () => legacy(ruby),
+      go: () => legacy(go),
       php: () => legacy(php),
       perl: () => legacy(perl),
       lua: () => legacy(lua),

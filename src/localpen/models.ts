@@ -111,6 +111,7 @@ export type Language =
   | 'py3'
   | 'ruby'
   | 'rb'
+  | 'go'
   | 'php'
   | 'perl'
   | 'pl'
