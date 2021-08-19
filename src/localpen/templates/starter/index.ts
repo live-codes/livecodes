@@ -7,6 +7,7 @@ import { blank } from './blank';
 import { bootstrapStarter } from './bootstrap-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
 import { d3Starter } from './d3-starter';
+import { goStarter } from './go-starter';
 import { jqueryStarter } from './jquery-starter';
 import { knockoutStarter } from './knockout-starter';
 import { livescriptStarter } from './livescript-starter';
@@ -55,6 +56,7 @@ export const starterTemplates = [
   pythonStarter,
   pyodideStarter,
   rubyStarter,
+  goStarter,
   phpStarter,
   perlStarter,
   luaStarter,

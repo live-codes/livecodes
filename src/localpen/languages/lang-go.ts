@@ -7,8 +7,8 @@ export const go: LanguageSpecs = {
   title: 'Go',
   info: `
   <h3>Go</h3>
-  <div>Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.</div>
-  <div>It is compiled to JavaScript using GopherJS.</div>
+  <div>Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.</div>
+  <div>Here, it is compiled to JavaScript using GopherJS.</div>
   <ul>
     <li><a href="https://golang.org/" target="_blank" rel="noopener">Go website</a></li>
     <li><a href="https://golang.org/doc/" target="_blank" rel="noopener">Go documentation</a></li>
@@ -32,7 +32,7 @@ export const go: LanguageSpecs = {
     },
     umd: true,
   },
-  extensions: ['go'],
+  extensions: ['go', 'golang'],
   editor: 'script',
   editorLanguage: 'go',
 };

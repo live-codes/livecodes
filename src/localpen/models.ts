@@ -112,6 +112,7 @@ export type Language =
   | 'ruby'
   | 'rb'
   | 'go'
+  | 'golang'
   | 'php'
   | 'perl'
   | 'pl'
