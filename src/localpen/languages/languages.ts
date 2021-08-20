@@ -36,6 +36,7 @@ import { ejs } from './lang-ejs';
 import { handlebars } from './lang-handlebars';
 import { dot } from './lang-dot';
 import { nunjucks } from './lang-nunjucks';
+import { go } from './lang-go';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -71,6 +72,7 @@ export const languages: LanguageSpecs[] = [
   python,
   pyodide,
   ruby,
+  go,
   php,
   perl,
   lua,

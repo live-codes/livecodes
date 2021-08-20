@@ -20,6 +20,7 @@ import 'prismjs/components/prism-coffeescript';
 import 'prismjs/components/prism-livescript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-ruby';
+import 'prismjs/components/prism-go';
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
 import 'prismjs/components/prism-perl';
