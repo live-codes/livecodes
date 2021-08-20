@@ -1,6 +1,7 @@
 import { LanguageSpecs } from '../models';
 
-const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/go2js@0.1.0/build';
+declare const importScripts: (...args: string[]) => void;
+const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/go2js@0.2.0/build';
 
 export const go: LanguageSpecs = {
   name: 'go',
@@ -17,6 +18,16 @@ export const go: LanguageSpecs = {
     <!-- <li><a href="#">Go usage in LocalPen</a></li> -->
   </ul>
   `,
+  formatter: {
+    factory: () => async (value: string) => {
+      const url = cdnBaseUrl + '/index.js';
+      importScripts(url);
+      return {
+        formatted: await (window as any).go2js.format(value, cdnBaseUrl),
+        cursorOffset: 0,
+      };
+    },
+  },
   compiler: {
     url: cdnBaseUrl + '/index.js',
     factory: () => async (code) => {

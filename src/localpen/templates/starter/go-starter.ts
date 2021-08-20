@@ -42,7 +42,7 @@ import (
 
 func main() {
 	title := querySelector("#title")
-	title.Set("innerHTML", "Go")
+	title.Set("innerHTML", "Golang")
 
 	registerCounter()
 

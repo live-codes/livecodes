@@ -159,6 +159,7 @@ export interface LanguageSpecs {
   longTitle?: string;
   info?: string;
   parser?: Parser;
+  formatter?: LanguageFormatter;
   compiler?: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
@@ -195,6 +196,11 @@ export type FormatFn = (
   value: string,
   cursorOffset: number,
 ) => Promise<{ formatted: string; cursorOffset: number }>;
+
+export interface LanguageFormatter {
+  factory: (baseUrl: string) => FormatFn;
+}
+
 export type CssPresetId =
   | ''
   | 'normalize.css'
