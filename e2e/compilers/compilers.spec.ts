@@ -900,6 +900,32 @@ $$.document.querySelector('#title').innerHTML = title`);
     expect(resultText).toContain(`Hello, Ruby`);
   });
 
+  test('Go', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=Go');
+    await waitForEditorFocus(app);
+
+    await page.keyboard.insertText(`package main
+import "syscall/js"
+func main() {
+	js.Global().Get("document").Call("querySelector", "#title").Set("innerHTML", "Golang")
+}`);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerText('h1');
+
+    expect(resultText).toContain(`Hello, Golang`);
+  });
+
   test('PHP', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
