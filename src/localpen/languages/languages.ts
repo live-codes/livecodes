@@ -72,6 +72,9 @@ export const languages: LanguageSpecs[] = [
   coffeescript,
   livescript,
   assemblyscript,
+  rescript,
+  reason,
+  ocaml,
   python,
   pyodide,
   ruby,
@@ -80,7 +83,4 @@ export const languages: LanguageSpecs[] = [
   perl,
   lua,
   scheme,
-  rescript,
-  reason,
-  ocaml,
 ];
