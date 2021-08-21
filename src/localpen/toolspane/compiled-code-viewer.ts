@@ -54,11 +54,26 @@ export const createCompiledCodeViewer = (
     return createEditor(editorOptions);
   };
 
+  // workaround to fix "cannot-redeclare-block-scoped-variable" error
+  // https://stackoverflow.com/questions/40900791/cannot-redeclare-block-scoped-variable-in-unrelated-files
+  const fixTypes = (language: 'html' | 'css' | 'javascript', content: string) => {
+    if (language === 'javascript' && (window as any).monaco && editor.monaco) {
+      editor?.setValue(content + '\nexport {}');
+      const monacoEditor = editor.monaco;
+      const lineCount = monacoEditor.getModel()?.getLineCount() || 1;
+      monacoEditor.setHiddenAreas([]);
+      monacoEditor.setHiddenAreas([
+        new (window as any).monaco.Range(lineCount + 1, 0, lineCount + 2, 0),
+      ]);
+    }
+  };
+
   const update = (language: 'html' | 'css' | 'javascript', content: string) => {
     if (!editor) return;
 
     editor.setLanguage(language);
     editor.setValue(content);
+    fixTypes(language, content);
     if (languageLabel) {
       const compiledLanguage = languages.find((lang) => lang.name === language);
       const title = compiledLanguage?.longTitle || compiledLanguage?.title || '';
