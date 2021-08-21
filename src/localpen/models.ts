@@ -122,7 +122,13 @@ export type Language =
   | 'scm'
   | 'rescript'
   | 'res'
-  | 'resi';
+  | 'resi'
+  | 'reason'
+  | 're'
+  | 'rei'
+  | 'ocaml'
+  | 'ml'
+  | 'mli';
 
 export interface Editor {
   language: Language;
@@ -201,7 +207,7 @@ export type FormatFn = (
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
 export interface LanguageFormatter {
-  factory: (baseUrl: string) => FormatFn;
+  factory: (baseUrl: string, language: Language) => FormatFn;
 }
 
 export type CssPresetId =

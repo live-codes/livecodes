@@ -1,5 +1,5 @@
 import { importsPattern } from '../compiler';
-import { CompilerFunction, LanguageSpecs } from '../models';
+import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -28,6 +28,8 @@ const replaceImports = (code: string, stdLibUrl: string) =>
   });
 
 export const runOutsideWorker: CompilerFunction = async (code: string, { language, baseUrl }) => {
+  if (!code) return '';
+
   if (!(window as any).rescript_compiler) {
     await Promise.all([loadScript(baseUrl + compilerUrl), loadScript(baseUrl + rescriptReactUrl)]);
   }
@@ -43,11 +45,11 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
     if (output.type === 'success' && output.js_code) {
       return replaceImports(output.js_code, stdLibBaseUrl);
     }
-    if (output.type === 'error' && output.errors) {
+    if (output.errors) {
       output.errors.forEach((err: any) => {
         log(err.fullMsg);
       });
-    } else if (output.type === 'msg' && output.msg) {
+    } else if (output.msg) {
       log(output.msg, output.type);
     }
     return '';
@@ -56,6 +58,30 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
     log(err);
     return '';
   }
+};
+
+export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language) => {
+  if (!(self as any).rescript_compiler) {
+    importScripts(baseUrl + compilerUrl);
+  }
+  const compiler = (self as any).rescript_compiler.make();
+  compiler.setModuleSystem('es6');
+  compiler.setFilename('index.bs.js');
+  return async (value: string) => {
+    let formatted = value;
+    try {
+      const output = compiler[language].format(value);
+      if (output.type === 'success') {
+        formatted = output.code;
+      }
+    } catch {
+      //
+    }
+    return {
+      formatted,
+      cursorOffset: 0,
+    };
+  };
 };
 
 export const rescript: LanguageSpecs = {
@@ -72,29 +98,7 @@ export const rescript: LanguageSpecs = {
   </ul>
   `,
   formatter: {
-    factory: (baseUrl) => {
-      if (!(self as any).rescript_compiler) {
-        importScripts(baseUrl + compilerUrl);
-      }
-      const compiler = (self as any).rescript_compiler.make();
-      compiler.setModuleSystem('es6');
-      compiler.setFilename('index.bs.js');
-      return async (value: string) => {
-        let formatted = value;
-        try {
-          const output = compiler.rescript.format(value);
-          if (output.type === 'success') {
-            formatted = output.code;
-          }
-        } catch {
-          //
-        }
-        return {
-          formatted,
-          cursorOffset: 0,
-        };
-      };
-    },
+    factory: formatterFactory,
   },
   compiler: {
     url: 'assets/noop.js',

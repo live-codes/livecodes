@@ -38,6 +38,8 @@ import { dot } from './lang-dot';
 import { nunjucks } from './lang-nunjucks';
 import { go } from './lang-go';
 import { rescript } from './lang-rescript';
+import { reason } from './lang-reason';
+import { ocaml } from './lang-ocaml';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -79,4 +81,6 @@ export const languages: LanguageSpecs[] = [
   lua,
   scheme,
   rescript,
+  reason,
+  ocaml,
 ];
