@@ -45,5 +45,4 @@ export const go: LanguageSpecs = {
   },
   extensions: ['go', 'golang'],
   editor: 'script',
-  editorLanguage: 'go',
 };

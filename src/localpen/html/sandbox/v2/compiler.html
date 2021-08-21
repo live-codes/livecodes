@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalPen Compiler Sandbox</title>
+
+    <script>
+      var worker;
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'init' && event.data.baseUrl) {
+          var baseUrl = event.data.baseUrl;
+          var workerUrl = baseUrl + 'compile.worker.js';
+          var origin = new URL(baseUrl).origin;
+          var blob = new Blob(["importScripts('" + workerUrl + "');"]);
+          worker = new Worker(URL.createObjectURL(blob));
+
+          const script = document.createElement('script');
+          script.src = baseUrl + 'compile.page.js';
+          document.head.appendChild(script);
+
+          worker.addEventListener('message', async function (ev) {
+            if (ev.data.payload && window.compilers && window.compilers[ev.data.payload.language]) {
+              ev.data.payload.compiled = await window.compilers[ev.data.payload.language](
+                ev.data.payload.compiled,
+                { language: ev.data.payload.language },
+              );
+            }
+            parent.postMessage(Object.assign({}, ev.data, { from: 'compiler' }), origin);
+          });
+        }
+        if (worker) {
+          worker.postMessage(event.data);
+        }
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

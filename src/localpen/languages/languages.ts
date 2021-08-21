@@ -37,6 +37,7 @@ import { handlebars } from './lang-handlebars';
 import { dot } from './lang-dot';
 import { nunjucks } from './lang-nunjucks';
 import { go } from './lang-go';
+import { rescript } from './lang-rescript';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -68,6 +69,7 @@ export const languages: LanguageSpecs[] = [
   solidTsx,
   coffeescript,
   livescript,
+  rescript,
   assemblyscript,
   python,
   pyodide,

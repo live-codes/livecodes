@@ -239,6 +239,7 @@ export interface Compiler {
   url: string;
   fn?: CompilerFunction;
   factory: (config: Pen) => CompilerFunction;
+  runOutsideWorker?: CompilerFunction;
   umd?: boolean;
   editors?: EditorId[];
   styles?: string[];
@@ -246,6 +247,7 @@ export interface Compiler {
   deferScripts?: boolean;
   inlineScript?: string;
   scriptType?:
+    | 'module'
     | 'text/liquid'
     | 'text/assemblyscript'
     | 'text/python'

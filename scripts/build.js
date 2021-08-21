@@ -87,6 +87,14 @@ for (let out of worker.outputFiles) {
 }
 
 esbuild.buildSync({
+  entryPoints: ['src/localpen/compiler/compile.page.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/compile.page.js',
+  format: 'iife',
+});
+
+esbuild.buildSync({
   entryPoints: ['src/localpen/editor/codemirror.ts'],
   bundle: true,
   minify: true,
