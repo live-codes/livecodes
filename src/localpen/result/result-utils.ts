@@ -120,7 +120,7 @@ window.addEventListener('error', (error) => {
 });
 
 window.addEventListener('message', (event) => {
-  if (event.origin.startsWith(location.origin) && event.data.console) {
+  if (event.data.console) {
     const evalCode = () => {
       try {
         return {

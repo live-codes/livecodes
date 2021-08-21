@@ -3,6 +3,7 @@ import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
+import { getResultIFrameElement } from '../UI';
 
 export const createConsole = (
   config: Pen,
@@ -64,16 +65,15 @@ export const createConsole = (
 
     consoleEmulator = new LunaConsole(consoleElement);
     eventsManager.addEventListener(window, 'message', (event: any) => {
-      const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
+      const iframe = getResultIFrameElement();
       if (
         !iframe ||
         !consoleElement ||
         event.source !== iframe.contentWindow ||
-        status === 'none'
+        event.data.type !== 'console'
       ) {
         return;
       }
-
       const message = event.data;
       const api = [
         'output', // to output messages from console input
@@ -94,7 +94,7 @@ export const createConsole = (
         'groupCollapsed',
         'groupEnd',
       ];
-      if (message.type === 'console' && api.includes(message.method)) {
+      if (api.includes(message.method)) {
         consoleEmulator[message.method as keyof typeof consoleEmulator](
           ...convertTypes(message.args),
         );
