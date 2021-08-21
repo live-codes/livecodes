@@ -1,8 +1,10 @@
 import { importsPattern } from '../compiler';
 import { CompilerFunction, LanguageSpecs } from '../models';
 
-const compilerUrl = 'https://cdn.rescript-lang.org/v9.1.2/compiler.js';
-const rescriptReactUrl = 'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js';
+declare const importScripts: (...args: string[]) => void;
+
+const compilerUrl = 'vendor/rescript/v9.1.2/compiler.js';
+const rescriptReactUrl = 'vendor/rescript/v9.1.2/cmij.js';
 const stdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
 
 const loadScript = (url: string) =>
@@ -25,9 +27,9 @@ const replaceImports = (code: string, stdLibUrl: string) =>
     return statement;
   });
 
-export const runOutsideWorker: CompilerFunction = async (code: string, { language }) => {
+export const runOutsideWorker: CompilerFunction = async (code: string, { language, baseUrl }) => {
   if (!(window as any).rescript_compiler) {
-    await Promise.all([loadScript(compilerUrl), loadScript(rescriptReactUrl)]);
+    await Promise.all([loadScript(baseUrl + compilerUrl), loadScript(baseUrl + rescriptReactUrl)]);
   }
   const compiler = (window as any).rescript_compiler.make();
   compiler.setModuleSystem('es6');
@@ -61,26 +63,39 @@ export const rescript: LanguageSpecs = {
   title: 'ReScript',
   info: `
   <h3>ReScript</h3>
-  <div>Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.</div>
-  <div>Here, it is compiled to JavaScript using GopherJS.</div>
+  <div>ReScript is a robustly typed language that compiles to efficient and human-readable JavaScript.</div>
   <ul>
-    <li><a href="https://golang.org/" target="_blank" rel="noopener">Go website</a></li>
-    <li><a href="https://golang.org/doc/" target="_blank" rel="noopener">Go documentation</a></li>
-    <li><a href="https://github.com/gopherjs/gopherjs" target="_blank" rel="noopener">GopherJS repo</a></li>
-    <li><a href="?template=go" target="_parent" data-template="go">Load starter template</a></li>
-    <!-- <li><a href="#">Go usage in LocalPen</a></li> -->
+    <li><a href="https://rescript-lang.org/" target="_blank" rel="noopener">ReScript website</a></li>
+    <li><a href="https://rescript-lang.org/docs/react/latest/introduction" target="_blank" rel="noopener">ReScript / React</a></li>
+    <li><a href="?template=rescript" target="_parent" data-template="rescript">Load starter template</a></li>
+    <!-- <li><a href="#">ReScript usage in LocalPen</a></li> -->
   </ul>
   `,
-  // formatter: {
-  //   factory: () => async (value: string) => {
-  //     const url = cdnBaseUrl + '/index.js';
-  //     importScripts(url);
-  //     return {
-  //       formatted: await (window as any).go2js.format(value, cdnBaseUrl),
-  //       cursorOffset: 0,
-  //     };
-  //   },
-  // },
+  formatter: {
+    factory: (baseUrl) => {
+      if (!(self as any).rescript_compiler) {
+        importScripts(baseUrl + compilerUrl);
+      }
+      const compiler = (self as any).rescript_compiler.make();
+      compiler.setModuleSystem('es6');
+      compiler.setFilename('index.bs.js');
+      return async (value: string) => {
+        let formatted = value;
+        try {
+          const output = compiler.rescript.format(value);
+          if (output.type === 'success') {
+            formatted = output.code;
+          }
+        } catch {
+          //
+        }
+        return {
+          formatted,
+          cursorOffset: 0,
+        };
+      };
+    },
+  },
   compiler: {
     url: 'assets/noop.js',
     factory: () => async (code) => code,

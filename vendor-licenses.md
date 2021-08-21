@@ -70,6 +70,10 @@ Pug: [MIT License](https://github.com/pugjs/pug/blob/bb0731f75813aa30d8e077808b5
 
 reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2236cb260016e8f57d532a602b4e58acf6f03/license)
 
+ReScript: [License](https://github.com/rescript-lang/rescript-compiler/blob/d93260cb2d4be63e387959e69f3204af85e5b1b3/LICENSE)
+
+ReScript/React: [MIT License](https://github.com/rescript-lang/rescript-react/blob/c3017ec4bbce5847c3b2da8d2d536450a3e2fd6d/LICENSE)
+
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)

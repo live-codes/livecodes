@@ -7,7 +7,7 @@
 
     <script>
       var worker;
-      window.addEventListener('message', function (event) {
+      window.addEventListener('message', async function (event) {
         if (event.data.type === 'init' && event.data.baseUrl) {
           var baseUrl = event.data.baseUrl;
           var workerUrl = baseUrl + 'compile.worker.js';
@@ -15,15 +15,18 @@
           var blob = new Blob(["importScripts('" + workerUrl + "');"]);
           worker = new Worker(URL.createObjectURL(blob));
 
-          const script = document.createElement('script');
-          script.src = baseUrl + 'compile.page.js';
-          document.head.appendChild(script);
+          await new Promise((resolve) => {
+            const script = document.createElement('script');
+            script.src = baseUrl + 'compile.page.js';
+            script.onload = () => resolve();
+            document.head.appendChild(script);
+          });
 
           worker.addEventListener('message', async function (ev) {
             if (ev.data.payload && window.compilers && window.compilers[ev.data.payload.language]) {
               ev.data.payload.compiled = await window.compilers[ev.data.payload.language](
                 ev.data.payload.compiled,
-                { language: ev.data.payload.language },
+                { language: ev.data.payload.language, baseUrl },
               );
             }
             parent.postMessage(Object.assign({}, ev.data, { from: 'compiler' }), origin);

@@ -119,7 +119,10 @@ export type Language =
   | 'pm'
   | 'lua'
   | 'scheme'
-  | 'scm';
+  | 'scm'
+  | 'rescript'
+  | 'res'
+  | 'resi';
 
 export interface Editor {
   language: Language;

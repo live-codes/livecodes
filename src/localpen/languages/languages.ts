@@ -69,7 +69,6 @@ export const languages: LanguageSpecs[] = [
   solidTsx,
   coffeescript,
   livescript,
-  rescript,
   assemblyscript,
   python,
   pyodide,
@@ -79,4 +78,5 @@ export const languages: LanguageSpecs[] = [
   perl,
   lua,
   scheme,
+  rescript,
 ];
