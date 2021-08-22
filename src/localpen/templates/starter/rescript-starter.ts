@@ -45,7 +45,7 @@ module App = {
       <h1> {title->React.string} </h1>
       <img
         className="logo"
-        src="http://127.0.0.1:8080/localpen/assets/templates/rescript.png"
+        src="{{ __localpen_baseUrl__ }}assets/templates/rescript.png"
       />
       <p> {React.string("You clicked " ++ times)} </p>
       <button onClick> {React.string("Click me")} </button>

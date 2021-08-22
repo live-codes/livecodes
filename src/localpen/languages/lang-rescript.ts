@@ -8,10 +8,15 @@ const rescriptReactUrl = 'vendor/rescript/v9.1.2/cmij.js';
 const stdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
 
 const loadScript = (url: string) =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = url;
-    script.onload = () => resolve('loaded');
+    script.addEventListener('load', () => {
+      resolve('loaded');
+    });
+    script.addEventListener('error', () => {
+      reject('failed to load: ' + url);
+    });
     document.body.appendChild(script);
   });
 

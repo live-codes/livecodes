@@ -141,6 +141,32 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('ReScript Starter', async ({ page, getTestUrl }) => {
+    test.fixme();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=ReScript Starter');
+    await waitForEditorFocus(app);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, ReScript React!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
   test('AssemblyScript Starter', async ({ page, getTestUrl }) => {
     test.fixme();
 
@@ -353,6 +379,28 @@ test.describe('Starter Templates from URL', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('ReScript Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.fixme();
+
+    await page.goto(getTestUrl({ template: 'rescript' } as any));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Rescript React!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
   });
 
   test('Bootstrap Starter (in URL)', async ({ page, getTestUrl }) => {
