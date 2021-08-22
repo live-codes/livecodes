@@ -21,6 +21,7 @@ import { pyodideStarter } from './pyodide-starter';
 import { pythonStarter } from './python-starter';
 import { reactStarter } from './react-starter';
 import { readmeTemplate } from './readme-template';
+import { rescriptStarter } from './rescript-starter';
 import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
 import { solidStarter } from './solid-starter';
@@ -50,6 +51,7 @@ export const starterTemplates = [
   coffeescriptStarter,
   livescriptStarter,
   assemblyscriptStarter,
+  rescriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
   d3Starter,
