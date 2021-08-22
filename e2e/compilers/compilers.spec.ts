@@ -854,6 +854,7 @@ document['header'].html = f"Hello, {title}"`);
   });
 
   test('Pyodide', async ({ page, getTestUrl }) => {
+    test.slow();
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
