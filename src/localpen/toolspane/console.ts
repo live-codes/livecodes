@@ -3,7 +3,7 @@ import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
-import { getResultIFrameElement } from '../UI';
+import { sandboxService } from '../services';
 
 export const createConsole = (
   config: Pen,
@@ -65,11 +65,9 @@ export const createConsole = (
 
     consoleEmulator = new LunaConsole(consoleElement);
     eventsManager.addEventListener(window, 'message', (event: any) => {
-      const iframe = getResultIFrameElement();
       if (
-        !iframe ||
         !consoleElement ||
-        event.source !== iframe.contentWindow ||
+        event.origin !== sandboxService.getOrigin() ||
         event.data.type !== 'console'
       ) {
         return;

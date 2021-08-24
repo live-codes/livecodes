@@ -127,6 +127,14 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
+  entryPoints: ['src/localpen/compiler/compiler-utils.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/localpen/compiler-utils.js',
+  format: 'iife',
+});
+
+esbuild.buildSync({
   entryPoints: ['src/localpen/templates/starter/index.ts'],
   bundle: true,
   minify: true,

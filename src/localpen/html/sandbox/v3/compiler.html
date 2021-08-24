@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalPen Compiler Sandbox</title>
+    <script>
+      window.addEventListener('message', function (event) {
+        if (event.data.type === 'init' && event.data.baseUrl) {
+          var script = document.createElement('script');
+          script.src = event.data.baseUrl + 'compiler-utils.js';
+          script.onload = function () {
+            initCompiler(event.data);
+          };
+          document.head.appendChild(script);
+        }
+      });
+    </script>
+  </head>
+  <body></body>
+</html>
