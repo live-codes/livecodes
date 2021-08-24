@@ -42,9 +42,6 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
   compiler.setModuleSystem('es6');
   compiler.setFilename('index.bs.js');
 
-  // eslint-disable-next-line no-console
-  const log = (...msg: string[]) => console.warn(...msg);
-
   const output = compiler[language].compile(code);
   try {
     if (output.type === 'success' && output.js_code) {
@@ -52,15 +49,17 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
     }
     if (output.errors) {
       output.errors.forEach((err: any) => {
-        log(err.fullMsg);
+        // eslint-disable-next-line no-console
+        console.error(err.fullMsg);
       });
     } else if (output.msg) {
-      log(output.msg, output.type);
+      // eslint-disable-next-line no-console
+      console.warn(output.msg, output.type);
     }
     return '';
   } catch (err) {
     // eslint-disable-next-line no-console
-    log(err);
+    console.error(err);
     return '';
   }
 };
