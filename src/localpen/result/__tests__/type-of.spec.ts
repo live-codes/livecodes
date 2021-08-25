@@ -1,4 +1,4 @@
-import { typeOf } from '../result-utils';
+import { typeOf } from '../utils';
 
 test('typeOf', () => {
   expect(typeOf(window)).toBe('window');

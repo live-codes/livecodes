@@ -81,7 +81,7 @@ const loadFormatter = (language: Language): FormatFn | undefined => {
   const formatter = getFormatter(language);
   if (!formatter) return;
 
-  formatters[language] = formatter.factory(baseUrl);
+  formatters[language] = formatter.factory(baseUrl, language);
   return formatters[language];
 };
 

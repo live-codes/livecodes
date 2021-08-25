@@ -119,7 +119,16 @@ export type Language =
   | 'pm'
   | 'lua'
   | 'scheme'
-  | 'scm';
+  | 'scm'
+  | 'rescript'
+  | 'res'
+  | 'resi'
+  | 'reason'
+  | 're'
+  | 'rei'
+  | 'ocaml'
+  | 'ml'
+  | 'mli';
 
 export interface Editor {
   language: Language;
@@ -198,7 +207,7 @@ export type FormatFn = (
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
 export interface LanguageFormatter {
-  factory: (baseUrl: string) => FormatFn;
+  factory: (baseUrl: string, language: Language) => FormatFn;
 }
 
 export type CssPresetId =
@@ -239,6 +248,7 @@ export interface Compiler {
   url: string;
   fn?: CompilerFunction;
   factory: (config: Pen) => CompilerFunction;
+  runOutsideWorker?: CompilerFunction;
   umd?: boolean;
   editors?: EditorId[];
   styles?: string[];
@@ -246,6 +256,7 @@ export interface Compiler {
   deferScripts?: boolean;
   inlineScript?: string;
   scriptType?:
+    | 'module'
     | 'text/liquid'
     | 'text/assemblyscript'
     | 'text/python'

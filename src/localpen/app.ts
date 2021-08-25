@@ -148,7 +148,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const loadModuleTypes = async (editors: Editors, config: Pen) => {
     if (
       editors.script &&
-      mapLanguage(editors.script.getLanguage()) === 'typescript' &&
+      ['typescript', 'javascript'].includes(mapLanguage(editors.script.getLanguage())) &&
       typeof editors.script.addTypes === 'function'
     ) {
       const libs = await typeLoader.load(editors.script.getValue(), config.types);
@@ -234,9 +234,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     };
 
     (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
-      editors[editorId].registerFormatter(
-        await formatter.getFormatFn(editorLanguages?.[editorId] || 'html'),
-      );
+      const language = editorLanguages?.[editorId] || 'html';
+      applyLanguageConfigs(language);
+      editors[editorId].registerFormatter(await formatter.getFormatFn(language));
       registerRun(editorId, editors);
     });
 
@@ -347,10 +347,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (consoleInputCodeCompletion) {
       consoleInputCodeCompletion.dispose();
     }
-    if (editorLanguages?.script === 'javascript') {
+    if (
+      editorLanguages?.script &&
+      ['javascript', 'typescript'].includes(mapLanguage(editorLanguages.script))
+    ) {
       if (editors.script && typeof editors.script.addTypes === 'function') {
         consoleInputCodeCompletion = editors.script.addTypes({
-          content: editors.script.getValue(),
+          content: editors.script.getValue() + '\nexport {}',
           filename: 'script.js',
         });
       }
@@ -366,6 +369,25 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       editor.setValue(addToken(editor.getValue()));
     }
     return;
+  };
+
+  const applyLanguageConfigs = (language: Language) => {
+    const editorId = getLanguageEditorId(language);
+    if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
+
+    if ((window as any).monaco && editorId === 'script' && mapLanguage(language) === 'javascript') {
+      if (['rescript', 'reason', 'ocaml'].includes(language)) {
+        (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+          noSemanticValidation: true,
+          noSyntaxValidation: true,
+        });
+      } else {
+        (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+          noSemanticValidation: false,
+          noSyntaxValidation: false,
+        });
+      }
+    }
   };
 
   const changeLanguage = async (language: Language, isUpdate = false) => {
@@ -391,6 +413,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     }
     addConsoleInputCodeCompletion();
     loadModuleTypes(editors, getConfig());
+    applyLanguageConfigs(language);
   };
 
   // Ctrl/Cmd + Enter triggers run
@@ -403,7 +426,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
   const updateCompiledCode = (fromCompiler = true, lastCompilation = lastCompiled) => {
     const scriptType =
-      fromCompiler && getLanguageCompiler(editors.script.getLanguage())?.scriptType;
+      fromCompiler &&
+      getLanguageCompiler(editors.script.getLanguage())?.scriptType &&
+      getLanguageCompiler(editors.script.getLanguage())?.scriptType !== 'module';
     const compiledLanguages: { [key in EditorId]: Language } = {
       markup: getEditorLanguage('markup') === 'mdx' ? 'javascript' : 'html',
       style: 'css',

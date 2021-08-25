@@ -5,12 +5,20 @@ import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './mo
 declare const importScripts: (...args: string[]) => void;
 
 let compilers: Compilers;
-let baseUrl = self.location.href.split('/').slice(0, -1).join('/') + '/';
+let baseUrl: string | undefined;
 
 const worker: Worker = self as any;
 (self as any).window = self;
 
-const loadLanguageCompiler = (language: LanguageOrProcessor, config: Pen, baseUrl: string) => {
+const loadLanguageCompiler = (
+  language: LanguageOrProcessor,
+  config: Pen,
+  baseUrl: string | undefined,
+) => {
+  if (!baseUrl) {
+    throw new Error('baseUrl is not set');
+  }
+
   if (!compilers) {
     compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
   }
@@ -47,7 +55,7 @@ const compile = async (
   options: any,
 ) => {
   const compiler = compilers[language]?.fn || ((code: string) => code);
-  if (typeof compiler !== 'function') {
+  if (!baseUrl || typeof compiler !== 'function') {
     throw new Error('Failed to load compiler for: ' + language);
   }
 
@@ -56,7 +64,7 @@ const compile = async (
     value = await compiler(content, { config, language, baseUrl, options });
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.warn('Failed compiling: ' + language, err);
+    console.error('Failed compiling: ' + language, err);
     value = content;
   }
   return value || '';

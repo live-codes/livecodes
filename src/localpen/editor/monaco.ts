@@ -96,18 +96,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     },
   };
 
-  const compilerOptions: Monaco.languages.typescript.CompilerOptions = {
-    jsx: monaco.languages.typescript.JsxEmit.Preserve,
-    allowNonTsExtensions: true,
-    allowJs: false,
-    target: monaco.languages.typescript.ScriptTarget.Latest,
-    experimentalDecorators: true,
-    allowSyntheticDefaultImports: true,
-    lib: ['es2020', 'dom'],
-  };
-  monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
+  const configureEditor = () => {
+    const compilerOptions: Monaco.languages.typescript.CompilerOptions = {
+      jsx: monaco.languages.typescript.JsxEmit.Preserve,
+      allowNonTsExtensions: true,
+      allowJs: false,
+      target: monaco.languages.typescript.ScriptTarget.Latest,
+      experimentalDecorators: true,
+      allowSyntheticDefaultImports: true,
+      lib: ['es2020', 'dom'],
+    };
+    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
-  const configureJSX = () => {
     if (language === 'tsx' || language === 'jsx') {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...compilerOptions,
@@ -135,21 +135,30 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const monacoMapLanguage = (language: Language): Language =>
     language === 'livescript' ? 'coffeescript' : mapLanguage(language);
 
-  const updateModel = (
+  const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
-    value = '',
+    value: string,
     language: Language,
+    update = false,
   ) => {
-    const random = String(Math.random()) + '-' + Date.now().toFixed();
-    const ext = getLanguageExtension(language);
-    const model = monaco.editor.createModel(
-      value,
-      monacoMapLanguage(language),
-      monaco.Uri.parse(`file:///main.${random}.${ext}`),
-    );
-    editor.setModel(model);
+    if (!update) {
+      const random = String(Math.random()) + '-' + Date.now().toFixed();
+      const ext = getLanguageExtension(language);
+      const model = monaco.editor.createModel(
+        value || '',
+        monacoMapLanguage(language),
+        monaco.Uri.parse(`file:///main.${random}.${ext}`),
+      );
+      editor.setModel(model);
+    } else {
+      const model = editor.getModel();
+      if (!model) return;
+      monaco.editor.setModelLanguage(model, monacoMapLanguage(language));
+      editor.setValue(value || '');
+    }
+
     upateListeners();
-    configureJSX();
+    configureEditor();
   };
 
   let language = options.language;
@@ -159,7 +168,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     ...options,
     language,
   });
-  updateModel(editor, options.value, language);
+  setModel(editor, options.value, language);
 
   if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
   if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
@@ -177,17 +186,32 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor.getModel()?.setValue(value);
   };
 
+  const types: Array<{ dispose: () => void }> = [];
+  const clearTypes = () => {
+    types.forEach((type) => {
+      type.dispose();
+    });
+    types.length = 0;
+  };
+
   const getLanguage = () => language;
   const setLanguage = (lang: Language) => {
     language = lang;
-    updateModel(editor, editor.getValue(), language);
+    clearTypes();
+    setModel(editor, editor.getValue(), language, true);
+  };
+
+  const addTypes = (lib: EditorLibrary) => {
+    types.push(
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename),
+    );
+    types.push(
+      monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
+    );
   };
 
   const focus = () => editor.focus();
   const layout = () => editor.layout();
-
-  const addTypes = (lib: EditorLibrary) =>
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename);
 
   const onContentChanged = (fn: () => void) => {
     listeners.push(fn);

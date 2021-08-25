@@ -37,7 +37,7 @@ export const go: LanguageSpecs = {
         return jsCode;
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn(err);
+        console.error(err);
         return '';
       }
     },
@@ -45,5 +45,4 @@ export const go: LanguageSpecs = {
   },
   extensions: ['go', 'golang'],
   editor: 'script',
-  editorLanguage: 'go',
 };
