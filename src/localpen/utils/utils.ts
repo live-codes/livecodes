@@ -109,3 +109,33 @@ export const stringify = (obj: any, pretty = false) => {
     return '';
   }
 };
+
+export const loadScript = (url: string, name?: string) =>
+  new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.async = true;
+    const removeEventListeners = () => {
+      script.removeEventListener('load', onLoad);
+      script.removeEventListener('error', onError);
+    };
+    const onLoad = () => {
+      removeEventListeners();
+      if (!name) {
+        return resolve('loaded: ' + url);
+      }
+      const i = setInterval(() => {
+        if ((window as any)[name]) {
+          clearInterval(i);
+          return resolve((window as any)[name]);
+        }
+      }, 5);
+    };
+    const onError = () => {
+      removeEventListeners();
+      reject('failed to load: ' + url);
+    };
+    script.addEventListener('load', onLoad);
+    script.addEventListener('error', onError);
+    document.head.appendChild(script);
+  });

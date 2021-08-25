@@ -1,24 +1,12 @@
 import { importsPattern } from '../compiler';
 import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
+import { loadScript } from '../utils';
 
 declare const importScripts: (...args: string[]) => void;
 
 const compilerUrl = 'vendor/rescript/v9.1.2/compiler.js';
 const rescriptReactUrl = 'vendor/rescript/v9.1.2/cmij.js';
 const stdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
-
-const loadScript = (url: string) =>
-  new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = url;
-    script.addEventListener('load', () => {
-      resolve('loaded');
-    });
-    script.addEventListener('error', () => {
-      reject('failed to load: ' + url);
-    });
-    document.body.appendChild(script);
-  });
 
 const replaceImports = (code: string, stdLibUrl: string) =>
   code.replace(new RegExp(importsPattern), (statement) => {
@@ -36,7 +24,10 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
   if (!code) return '';
 
   if (!(window as any).rescript_compiler) {
-    await Promise.all([loadScript(baseUrl + compilerUrl), loadScript(baseUrl + rescriptReactUrl)]);
+    await Promise.all([
+      loadScript(baseUrl + compilerUrl, 'rescript_compiler'),
+      loadScript(baseUrl + rescriptReactUrl),
+    ]);
   }
   const compiler = (window as any).rescript_compiler.make();
   compiler.setModuleSystem('es6');
