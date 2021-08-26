@@ -426,3 +426,10 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/rescript/v9.1.2/cmij.js'),
   path.resolve(targetDir + '/rescript/v9.1.2/cmij.js'),
 );
+
+// wabt
+mkdirp(targetDir + '/wabt');
+fs.copyFileSync(
+  path.resolve(vendor_modules + '/wabt/libwabt.js'),
+  path.resolve(targetDir + '/wabt/libwabt.js'),
+);

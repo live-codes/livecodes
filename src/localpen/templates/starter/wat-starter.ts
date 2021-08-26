@@ -1,18 +1,18 @@
 import { Template } from '../../models';
 
-export const assemblyscriptStarter: Template = {
-  name: 'assemblyscript',
-  title: 'AssemblyScript Starter',
-  thumbnail: 'assets/templates/assemblyscript.svg',
+export const watStarter: Template = {
+  name: 'wat',
+  title: 'WebAssembly Text Starter',
+  thumbnail: 'assets/templates/webassembly.svg',
   activeEditor: 'script',
   markup: {
     language: 'html',
     content: `
 <div class="container">
-  <h1>Hello, <span id="title">World</span>!</h1>
-  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/assemblyscript.svg" />
+  <h1>Hello, WebAssembly Text!</h1>
+  <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/webassembly.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
-  <button id="counter-button" disabled>loading...</button>
+  <button id="counter-button">Click me</button>
 </div>
 
 <script defer>
@@ -20,16 +20,11 @@ export const assemblyscriptStarter: Template = {
     // \`wasm\` is a global variable (promise)
     // which resolves to the compiled wasm module
     const wasmModule = await wasm;
-    const { __getString, getTitle, increment } = wasmModule.exports;
+    const { increment } = wasmModule.exports;
 
-    const title = document.querySelector('#title');
     const counter = document.querySelector("#counter");
     const button = document.querySelector("#counter-button");
     let count = 0;
-
-    title.innerHTML = __getString(getTitle());
-    button.innerText = 'Click me';
-    button.disabled = false;
 
     button.addEventListener("click", () => {
       count = increment(count);
@@ -54,25 +49,23 @@ export const assemblyscriptStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'assemblyscript',
+    language: 'wat',
     content: `
-export function getTitle(): string {
-  return "AssemblyScript";
-}
-export function increment(num: i32): i32 {
-  return num + 1;
-}
-`.trimStart(),
+(module
+ (type $i32_=>_i32 (func (param i32) (result i32)))
+ (memory $0 0)
+ (export "increment" (func $input/increment))
+ (export "memory" (memory $0))
+ (func $input/increment (param $0 i32) (result i32)
+  local.get $0
+  i32.const 1
+  i32.add
+ )
+)`.trimStart(),
   },
   stylesheets: [],
   scripts: [],
   cssPreset: '',
   imports: {},
-  types: {
-    assemblyscript: {
-      url: '{{ __localpen_baseUrl__ }}types/assemblyscript.d.ts',
-      declareAsModule: false,
-      autoload: true,
-    },
-  },
+  types: {},
 };

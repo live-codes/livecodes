@@ -31,6 +31,7 @@ import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
 import { vueStarter } from './vue-starter';
+import { watStarter } from './wat-starter';
 
 export const starterTemplates = [
   blank,
@@ -64,4 +65,5 @@ export const starterTemplates = [
   luaStarter,
   schemeStarter,
   readmeTemplate,
+  watStarter,
 ];

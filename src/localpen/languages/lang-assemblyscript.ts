@@ -61,7 +61,7 @@ export const assemblyscript: LanguageSpecs = {
           const { wasmModule, text, binary } = await compile(code);
           const content = '//\\n// WebAssembly Text Format (module.wat)\\n//\\n' + text;
           parent.postMessage({type: 'compiled', payload: {language: 'assemblyscript', content}}, '*');
-          resolveWasm({ wasmModule, text, binary });
+          resolveWasm(wasmModule);
         } catch (err) {
           console.log(err);
         }
