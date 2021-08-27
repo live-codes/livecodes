@@ -29,7 +29,7 @@ export const assemblyscript: LanguageSpecs = {
   longTitle: 'AssemblyScript',
   info: `
   <h3>AssemblyScript</h3>
-  <div>A language made for WebAssembly.</div>
+  <div>A TypeScript-like language for WebAssembly.</div>
   <ul>
     <li><a href="https://www.assemblyscript.org/" target="_blank" rel="noopener">AssemblyScript official website</a></li>
     <li><a href="https://www.assemblyscript.org/introduction.html" target="_blank" rel="noopener">AssemblyScript documentation</a></li>
@@ -69,7 +69,7 @@ export const assemblyscript: LanguageSpecs = {
           ...getLanguageCustomSettings('assemblyscript', config),
         });
     },
-    scripts: [requireUrl],
+    scripts: [loaderUrl],
     inlineScript: `
     (() => {
       globalThis.loadWasm = () => new Promise((resolve, reject) => {
@@ -89,15 +89,9 @@ export const assemblyscript: LanguageSpecs = {
           if (!binary) {
             resolve({ wasmModule: { exports: {} }, text, binary });
           } else {
-            require(['${loaderUrl}'], (loader) => {
-              const binaryBuffer = typedArrayToBuffer(binary);
-              try{
-                loader.instantiate(binaryBuffer).then(wasmModule => {
-                  resolve({wasmModule, text, binary});
-                });
-              } catch {
-                reject('failed to load wasm');
-              }
+            const binaryBuffer = typedArrayToBuffer(binary);
+            loader.instantiate(binaryBuffer).then(wasmModule => {
+              resolve({wasmModule, text, binary});
             });
           }
         });

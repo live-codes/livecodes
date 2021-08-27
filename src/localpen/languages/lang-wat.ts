@@ -3,6 +3,7 @@ import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
 
+const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js';
 const scriptType = 'application/wasm-uint8';
 
 const features = {
@@ -50,17 +51,19 @@ export const wat: LanguageSpecs = {
   info: `
   <h3>WebAssembly Text Format</h3>
   <div>Low-level textual representation of the WebAssembly (wasm) binary format.</div>
+  <div>It is converted to wasm using wabt.js.</div>
   <ul>
     <li><a href="https://webassembly.org/" target="_blank" rel="noopener">WebAssembly.org</a></li>
     <li><a href="https://webassembly.github.io/spec/core/text/index.html" target="_blank" rel="noopener">WebAssembly Text Specs</a></li>
-    <li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format" target="_blank" rel="noopener">WebAssembly on MDN</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly" target="_blank" rel="noopener">WebAssembly on MDN</a></li>
     <li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format" target="_blank" rel="noopener">Understanding WebAssembly text format</a></li>
+    <li><a href="https://github.com/AssemblyScript/wabt.js" target="_blank" rel="noopener">wabt.js documentation</a></li>
     <li><a href="?template=wat" target="_parent" data-template="wat">Load starter template</a></li>
     <!-- <li><a href="#">WebAssembly Text usage in LocalPen</a></li> -->
   </ul>
   `,
   compiler: {
-    url: 'vendor/wabt/libwabt.js',
+    url: wabtjsUrl,
     factory: () => async (code, { config }) =>
       watToArrayString(code, {
         ...features,
