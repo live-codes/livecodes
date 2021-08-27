@@ -15,21 +15,21 @@ const features = {
   reference_types: true,
 };
 
+export const toBase64 = (blob: Blob): Promise<string> =>
+  new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      resolve((reader.result as string) || '');
+    };
+  });
+
 const watToBase64 = async (code: string, options = features): Promise<string> => {
   if (!code) return '';
 
   const wabt = await (window as any).WabtModule();
   let base64 = null;
   let module: any;
-
-  const toBase64 = (blob: Blob): Promise<string> =>
-    new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => {
-        resolve((reader.result as string) || '');
-      };
-    });
 
   try {
     module = wabt.parseWat('module.wat', code, options);
@@ -51,6 +51,20 @@ const watToBase64 = async (code: string, options = features): Promise<string> =>
 
   return base64 || '';
 };
+
+export const base64ToWasm = `
+const base64ToWasm = async (b64Data) => {
+  const blob = await fetch(b64Data).then((res) => res.blob());
+  const binaryBuffer = await blob.arrayBuffer();
+  if (binaryBuffer === null) return;
+  try {
+    let wasm = new WebAssembly.Module(binaryBuffer);
+    const wasmInstance = new WebAssembly.Instance(wasm, {});
+    return wasmInstance;
+  } catch (e) {
+    console.error(String(e));
+  }
+};`;
 
 export const wat: LanguageSpecs = {
   name: 'wat',
@@ -80,32 +94,17 @@ export const wat: LanguageSpecs = {
   globalThis.wasm = new Promise((resolve) => {
     window.addEventListener("load", async () => {
       parent.postMessage({ type: "loading", payload: true }, "*");
-
-      const base64ToWasm = async (b64Data) => {
-        const blob = await fetch(b64Data).then((res) => res.blob());
-        const binaryBuffer = await blob.arrayBuffer();
-        if (binaryBuffer === null) return;
-        try {
-          let wasm = new WebAssembly.Module(binaryBuffer);
-          const wasmInstance = new WebAssembly.Instance(wasm, {});
-          return wasmInstance;
-        } catch (e) {
-          console.error(String(e));
-        }
-      };
-
-      const script = document.querySelector('script[type="text/webassembly-text"]');
+      ${base64ToWasm}
+      const script = document.querySelector('script[type="application/wasm-base64"]');
       const base64 = script?.innerHTML;
       const instance = base64 ? await base64ToWasm(base64) : {exports:{}};
       resolve(instance);
-
-      parent.postMessage({type: 'compiled', payload: {language: 'wat', base64}}, '*');
       parent.postMessage({ type: "loading", payload: false }, "*");
     });
   });
 })();
     `,
-    scriptType: 'text/webassembly-text',
+    scriptType: 'application/wasm-base64',
   },
   extensions: ['wat', 'wast', 'webassembly', 'wasm'],
   editor: 'script',

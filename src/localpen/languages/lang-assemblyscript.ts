@@ -1,4 +1,23 @@
 import { LanguageSpecs } from '../models';
+import { toBase64 } from './lang-wat';
+import { getLanguageCustomSettings } from './utils';
+
+declare const importScripts: (...args: string[]) => void;
+declare const requirejs: any;
+declare const require: any;
+
+const watHeader = `;; //
+;; // WebAssembly Text Format (module.wat)
+;; //
+
+`;
+const wasmHeader = `
+
+;; //
+;; // Base64-encoded WebAssembly Binary (module.wasm)
+;; //
+
+; `;
 
 export const assemblyscript: LanguageSpecs = {
   name: 'assemblyscript',
@@ -16,63 +35,65 @@ export const assemblyscript: LanguageSpecs = {
   `,
   compiler: {
     url: 'assets/noop.js',
-    factory: () => async (code) => '/* ... compiling ... */\n\n' + code,
-    liveReload: true,
+    factory: () => {
+      importScripts('https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js');
+      if ((self as any).assemblyscriptSDK === undefined) {
+        (self as any).assemblyscriptSDK = new Promise<void>(async (resolve) => {
+          requirejs.config({ waitSeconds: 0 });
+          require(['https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js'], (
+            sdk: any,
+          ) => {
+            resolve(sdk);
+          });
+        });
+      }
+      async function assemblyscriptToBase64(code: string, options: any) {
+        const asc = (await (self as any).assemblyscriptSDK).asc;
+        await asc.ready;
+        try {
+          const { text, binary } = await asc.compileString(code, options);
+          const blob = new Blob([binary.buffer]);
+          const base64 = await toBase64(blob);
+          return watHeader + text + wasmHeader + base64;
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.error(err);
+          return '';
+        }
+      }
+      return (code, { config }) =>
+        assemblyscriptToBase64(code, {
+          optimizeLevel: 3,
+          ...getLanguageCustomSettings('assemblyscript', config),
+        });
+    },
     scripts: ['https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'],
     inlineScript: `
-(() => {
-  globalThis.wasm = new Promise((resolveWasm) => {
-    window.addEventListener("load", async () => {
-      parent.postMessage({ type: "loading", payload: true }, "*");
-      if (globalThis.__assemblyscriptSDK === undefined) {
-        await new Promise(async (resolve) => {
-          requirejs.config({ waitSeconds: 0 });
-          require(
-            [
-              "https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js",
-              "https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js",
-            ],
-            (sdk, loader) => {
-              globalThis.__assemblyscriptSDK = sdk;
-              resolve();
-            }
-          );
-          requirejs.onError = () => { // reload
-            document.write(document.documentElement.outerHTML);
-            document.close();
-          };
-        })
-      }
-      let code = "";
-      const scripts = document.querySelectorAll('script[type="text/assemblyscript"]');
-      scripts.forEach((script) => (code += script.innerHTML + "\\n"));
-
-      async function evaluate(code) {
-        const asc = globalThis.__assemblyscriptSDK.asc;
-        await asc.ready;
-        async function compile(code) {
-          const { text, binary } = asc.compileString(code, {
-            optimizeLevel: 3,
-          });
-          const wasmModule = await loader.instantiate(binary);
-          return { wasmModule, text, binary };
-        }
-        try {
-          const { wasmModule, text, binary } = await compile(code);
-          const content = '//\\n// WebAssembly Text Format (module.wat)\\n//\\n' + text;
-          parent.postMessage({type: 'compiled', payload: {language: 'assemblyscript', content}}, '*');
-          resolveWasm(wasmModule);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-      await evaluate(code);
-      parent.postMessage({ type: "loading", payload: false }, "*");
-    });
-  });
-})();
+    (() => {
+      globalThis.wasm = new Promise((resolve, reject) => {
+        window.addEventListener("load", async () => {
+          const script = document.querySelector('script[type="application/wasm-base64"]');
+          const base64 = (script?.innerHTML || '').split(\`${wasmHeader}\`)[1];
+          if (!base64) {
+            resolve({exports:{}});
+          } else {
+            require([
+              'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js',
+            ], (loader) => {
+              fetch(base64).then(async (res) => {
+                const blob = await res.blob();
+                const binaryBuffer = await blob.arrayBuffer();
+                if (binaryBuffer === null) return reject();
+                const module = await loader.instantiate(binaryBuffer);
+                resolve(module);
+              });
+            });
+          }
+        });
+      });
+    })();
 `,
-    scriptType: 'text/assemblyscript',
+    scriptType: 'application/wasm-base64',
   },
   extensions: ['as', 'ts'],
   editor: 'script',
