@@ -269,7 +269,7 @@ export interface Compiler {
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua'
-    | 'application/wasm-base64';
+    | 'application/wasm';
   liveReload?: boolean;
   aliasTo?: Language;
 }

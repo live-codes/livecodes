@@ -1,5 +1,4 @@
 import { LanguageSpecs } from '../models';
-import { toBase64 } from './lang-wat';
 import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;
@@ -18,7 +17,7 @@ const watHeader = `;; //
 const wasmHeader = `
 
 ;; //
-;; // Base64-encoded WebAssembly Binary (module.wasm)
+;; // WebAssembly Binary - Uint8Array (module.wasm)
 ;; //
 
 ; `;
@@ -49,14 +48,13 @@ export const assemblyscript: LanguageSpecs = {
           });
         });
       }
-      async function assemblyscriptToBase64(code: string, options: any) {
+      async function compile(code: string, options: any) {
         const asc = (await (self as any).assemblyscriptSDK).asc;
         await asc.ready;
         try {
           const { text, binary } = await asc.compileString(code, options);
-          const blob = new Blob([binary.buffer]);
-          const base64 = await toBase64(blob);
-          return watHeader + text + wasmHeader + base64;
+          const arrayString = binary.toString('utf-8');
+          return watHeader + text + wasmHeader + arrayString;
         } catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);
@@ -64,7 +62,7 @@ export const assemblyscript: LanguageSpecs = {
         }
       }
       return (code, { config }) =>
-        assemblyscriptToBase64(code, {
+        compile(code, {
           optimizeLevel: 3,
           ...getLanguageCustomSettings('assemblyscript', config),
         });
@@ -74,23 +72,24 @@ export const assemblyscript: LanguageSpecs = {
     (() => {
       globalThis.wasm = new Promise((resolve, reject) => {
         const getWat = (code = '') => {
-          const base64 = code.split(\`${wasmHeader}\`)[1];
+          const arrayString = code.split(\`${wasmHeader}\`)[1];
           const text = code.split(\`${wasmHeader}\`)[0].split(\`${watHeader}\`)[1];
-          return [base64, text]
+          return [arrayString, text]
         }
         window.addEventListener("load", async () => {
-          const script = document.querySelector('script[type="application/wasm-base64"]');
-          const [base64, text] = getWat(script?.innerHTML);
-          if (!base64) {
+          const script = document.querySelector('script[type="application/wasm"]');
+          const [arrayString, text] = getWat(script?.innerHTML);
+          if (!arrayString) {
             resolve({exports:{}});
           } else {
             require(['${loaderUrl}'], (loader) => {
-              fetch(base64).then(async (res) => {
-                const blob = await res.blob();
-                const binaryBuffer = await blob.arrayBuffer();
-                if (binaryBuffer === null) return reject();
-                const wasmModule = await loader.instantiate(binaryBuffer);
-                const binary = new Uint8Array(binaryBuffer);
+              function arrayToBuffer(array) {
+                return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset)
+              }
+              const binary = new Uint8Array(arrayString.split(',').map(Number));
+              const binaryBuffer = arrayToBuffer(binary);
+              if (binaryBuffer === null) return reject();
+              loader.instantiate(binaryBuffer).then(wasmModule => {
                 resolve({wasmModule, text, binary});
               });
             });
@@ -99,7 +98,7 @@ export const assemblyscript: LanguageSpecs = {
       });
     })();
 `,
-    scriptType: 'application/wasm-base64',
+    scriptType: 'application/wasm',
   },
   extensions: ['as', 'ts'],
   editor: 'script',
