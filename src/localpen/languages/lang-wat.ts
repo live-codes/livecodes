@@ -3,7 +3,7 @@ import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
 
-const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js';
+const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.24/index.js';
 const scriptType = 'application/wasm-uint8';
 
 const features = {
