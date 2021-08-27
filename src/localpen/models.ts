@@ -269,7 +269,7 @@ export interface Compiler {
     | 'text/perl'
     | 'text/biwascheme'
     | 'application/lua'
-    | 'application/wasm';
+    | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
 }

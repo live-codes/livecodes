@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;
@@ -8,7 +9,7 @@ declare const require: any;
 const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
 const sdkUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js';
 const loaderUrl = 'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js';
-
+const scriptType = 'application/wasm-uint8';
 const watHeader = `;; //
 ;; // WebAssembly Text Format (module.wat)
 ;; //
@@ -17,7 +18,7 @@ const watHeader = `;; //
 const wasmHeader = `
 
 ;; //
-;; // WebAssembly Binary - Uint8Array (module.wasm)
+;; // WebAssembly Binary (module.wasm)
 ;; //
 
 ; `;
@@ -53,8 +54,9 @@ export const assemblyscript: LanguageSpecs = {
         await asc.ready;
         try {
           const { text, binary } = await asc.compileString(code, options);
-          const arrayString = binary.toString('utf-8');
-          return watHeader + text + wasmHeader + arrayString;
+          if (!binary) return '';
+          const arrayString = binary.toString();
+          return watHeader + text + wasmHeader + 'Uint8Array [' + arrayString + ']';
         } catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);
@@ -70,35 +72,39 @@ export const assemblyscript: LanguageSpecs = {
     scripts: [requireUrl],
     inlineScript: `
     (() => {
-      globalThis.wasm = new Promise((resolve, reject) => {
-        const getWat = (code = '') => {
-          const arrayString = code.split(\`${wasmHeader}\`)[1];
-          const text = code.split(\`${wasmHeader}\`)[0].split(\`${watHeader}\`)[1];
-          return [arrayString, text]
+      globalThis.loadWasm = () => new Promise((resolve, reject) => {
+        const stringToWasm = (code = '') => {
+          if (!code) {
+            return {text: '', binary: null}
+          }
+          const text = code.split(\`${watHeader}\`)[1].split(\`${wasmHeader}\`)[0];
+          const arrayString = code.split(\`${wasmHeader}\`)[1].split('[')[1].slice(0,-1);
+          const binary = new Uint8Array(arrayString.split(',').map(Number));
+          return {text, binary}
         }
-        window.addEventListener("load", async () => {
-          const script = document.querySelector('script[type="application/wasm"]');
-          const [arrayString, text] = getWat(script?.innerHTML);
-          if (!arrayString) {
-            resolve({exports:{}});
+        const typedArrayToBuffer = ${typedArrayToBuffer};
+        window.addEventListener("load", () => {
+          const script = document.querySelector('script[type="${scriptType}"]');
+          const {text, binary} = stringToWasm(script?.innerHTML);
+          if (!binary) {
+            resolve({ wasmModule: { exports: {} }, text, binary });
           } else {
             require(['${loaderUrl}'], (loader) => {
-              function arrayToBuffer(array) {
-                return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset)
+              const binaryBuffer = typedArrayToBuffer(binary);
+              try{
+                loader.instantiate(binaryBuffer).then(wasmModule => {
+                  resolve({wasmModule, text, binary});
+                });
+              } catch {
+                reject('failed to load wasm');
               }
-              const binary = new Uint8Array(arrayString.split(',').map(Number));
-              const binaryBuffer = arrayToBuffer(binary);
-              if (binaryBuffer === null) return reject();
-              loader.instantiate(binaryBuffer).then(wasmModule => {
-                resolve({wasmModule, text, binary});
-              });
             });
           }
         });
       });
     })();
 `,
-    scriptType: 'application/wasm',
+    scriptType,
   },
   extensions: ['as', 'ts'],
   editor: 'script',

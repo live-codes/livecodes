@@ -1,6 +1,9 @@
 /* eslint-disable camelcase */
 import { LanguageSpecs } from '../models';
+import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
+
+const scriptType = 'application/wasm-uint8';
 
 const features = {
   exceptions: true,
@@ -19,47 +22,26 @@ const watToArrayString = async (code: string, options = features): Promise<strin
   if (!code) return '';
 
   const wabt = await (window as any).WabtModule();
-  let arrayString = null;
+  let arrayString = '';
   let module: any;
 
   try {
     module = wabt.parseWat('module.wat', code, options);
     module.resolveNames();
     module.validate(options);
-    const binaryOutput = module.toBinary({
+    const binaryOutput: { log: string; buffer: Uint8Array } = module.toBinary({
       log: true,
       write_debug_names: true,
     });
-    // console.log(binaryOutput.log);
-    arrayString = binaryOutput.buffer.toString('utf-8');
+    arrayString = binaryOutput.buffer?.toString() || '';
   } catch (e) {
     // eslint-disable-next-line no-console
     console.warn(e.toString());
   } finally {
     if (module) module.destroy();
   }
-  return arrayString || '';
+  return 'Uint8Array [' + arrayString + ']';
 };
-
-export const arrayStringToWasm = `
-const arrayStringToWasm = async (arrayString) => {
-  function arrayToBuffer(array) {
-    return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset)
-  }
-  const binary = new Uint8Array(arrayString.split(',').map(Number));
-  const binaryBuffer = arrayToBuffer(binary);
-  console.log(binary)
-  try {
-    let wasm = new WebAssembly.Module(binaryBuffer);
-    const wasmModule = new WebAssembly.Instance(wasm, {});
-    return {
-      wasmModule,
-      binary,
-    };
-  } catch (e) {
-    console.error(String(e));
-  }
-};`;
 
 export const wat: LanguageSpecs = {
   name: 'wat',
@@ -86,10 +68,24 @@ export const wat: LanguageSpecs = {
       }),
     inlineScript: `
 (() => {
-  globalThis.wasm = new Promise((resolve) => {
+  globalThis.loadWasm = () => new Promise((resolve) => {
+    const arrayStringToWasm = async (arrayString) => {
+      const typedArrayToBuffer = ${typedArrayToBuffer};
+      const binary = new Uint8Array(arrayString.split('[')[1].slice(0,-1).split(',').map(Number));
+      const binaryBuffer = typedArrayToBuffer(binary);
+      try {
+        let wasm = new WebAssembly.Module(binaryBuffer);
+        const wasmModule = new WebAssembly.Instance(wasm, {});
+        return {
+          wasmModule,
+          binary,
+        };
+      } catch (e) {
+        console.error(String(e));
+      }
+    };
     window.addEventListener("load", async () => {
-      ${arrayStringToWasm}
-      const script = document.querySelector('script[type="application/wasm"]');
+      const script = document.querySelector('script[type="${scriptType}"]');
       const arrayString = script?.innerHTML;
       const wasm = arrayString ? await arrayStringToWasm(arrayString) : {};
       resolve(wasm);
@@ -97,7 +93,7 @@ export const wat: LanguageSpecs = {
   });
 })();
     `,
-    scriptType: 'application/wasm',
+    scriptType,
   },
   extensions: ['wat', 'wast', 'webassembly', 'wasm'],
   editor: 'script',
