@@ -6,6 +6,10 @@ declare const importScripts: (...args: string[]) => void;
 declare const requirejs: any;
 declare const require: any;
 
+const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
+const sdkUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js';
+const loaderUrl = 'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js';
+
 const watHeader = `;; //
 ;; // WebAssembly Text Format (module.wat)
 ;; //
@@ -36,13 +40,11 @@ export const assemblyscript: LanguageSpecs = {
   compiler: {
     url: 'assets/noop.js',
     factory: () => {
-      importScripts('https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js');
+      importScripts(requireUrl);
       if ((self as any).assemblyscriptSDK === undefined) {
         (self as any).assemblyscriptSDK = new Promise<void>(async (resolve) => {
           requirejs.config({ waitSeconds: 0 });
-          require(['https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js'], (
-            sdk: any,
-          ) => {
+          require([sdkUrl], (sdk: any) => {
             resolve(sdk);
           });
         });
@@ -67,25 +69,29 @@ export const assemblyscript: LanguageSpecs = {
           ...getLanguageCustomSettings('assemblyscript', config),
         });
     },
-    scripts: ['https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'],
+    scripts: [requireUrl],
     inlineScript: `
     (() => {
       globalThis.wasm = new Promise((resolve, reject) => {
+        const getWat = (code = '') => {
+          const base64 = code.split(\`${wasmHeader}\`)[1];
+          const text = code.split(\`${wasmHeader}\`)[0].split(\`${watHeader}\`)[1];
+          return [base64, text]
+        }
         window.addEventListener("load", async () => {
           const script = document.querySelector('script[type="application/wasm-base64"]');
-          const base64 = (script?.innerHTML || '').split(\`${wasmHeader}\`)[1];
+          const [base64, text] = getWat(script?.innerHTML);
           if (!base64) {
             resolve({exports:{}});
           } else {
-            require([
-              'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js',
-            ], (loader) => {
+            require(['${loaderUrl}'], (loader) => {
               fetch(base64).then(async (res) => {
                 const blob = await res.blob();
                 const binaryBuffer = await blob.arrayBuffer();
                 if (binaryBuffer === null) return reject();
-                const module = await loader.instantiate(binaryBuffer);
-                resolve(module);
+                const wasmModule = await loader.instantiate(binaryBuffer);
+                const binary = new Uint8Array(binaryBuffer);
+                resolve({wasmModule, text, binary});
               });
             });
           }

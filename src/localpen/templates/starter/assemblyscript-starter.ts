@@ -17,9 +17,9 @@ export const assemblyscriptStarter: Template = {
 
 <script defer>
   (async() => {
-    // \`wasm\` is a global variable (promise)
-    // which resolves to the compiled wasm module
-    const wasmModule = await wasm;
+    // \`wasm\` is a global variable (promise) which resolves to an object
+    // exposing the compiled wasm module, wasm text and wasm binary
+    const { wasmModule, text, binary } = await wasm;
     const { __getString, getTitle, increment } = wasmModule.exports;
 
     const title = document.querySelector('#title');

@@ -60,7 +60,10 @@ const base64ToWasm = async (b64Data) => {
   try {
     let wasm = new WebAssembly.Module(binaryBuffer);
     const wasmInstance = new WebAssembly.Instance(wasm, {});
-    return wasmInstance;
+    return {
+      wasmModule: wasmInstance,
+      binary: new Uint8Array(binaryBuffer),
+    };
   } catch (e) {
     console.error(String(e));
   }
@@ -93,13 +96,11 @@ export const wat: LanguageSpecs = {
 (() => {
   globalThis.wasm = new Promise((resolve) => {
     window.addEventListener("load", async () => {
-      parent.postMessage({ type: "loading", payload: true }, "*");
       ${base64ToWasm}
       const script = document.querySelector('script[type="application/wasm-base64"]');
       const base64 = script?.innerHTML;
-      const instance = base64 ? await base64ToWasm(base64) : {exports:{}};
-      resolve(instance);
-      parent.postMessage({ type: "loading", payload: false }, "*");
+      const wasm = base64 ? await base64ToWasm(base64) : {};
+      resolve(wasm);
     });
   });
 })();

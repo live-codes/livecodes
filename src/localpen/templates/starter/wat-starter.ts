@@ -17,9 +17,9 @@ export const watStarter: Template = {
 
 <script defer>
   (async() => {
-    // \`wasm\` is a global variable (promise)
-    // which resolves to the compiled wasm module
-    const wasmModule = await wasm;
+    // \`wasm\` is a global variable (promise) which resolves to an object
+    // exposing the compiled wasm module and wasm binary
+    const { wasmModule, binary } = await wasm;
     const { increment } = wasmModule.exports;
 
     const counter = document.querySelector("#counter");
