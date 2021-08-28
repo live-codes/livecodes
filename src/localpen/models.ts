@@ -194,6 +194,7 @@ export type ProcessorName = 'postcss';
 export type ParserName =
   | 'babel'
   | 'babel-ts'
+  | 'glimmer'
   | 'html'
   | 'markdown'
   | 'css'

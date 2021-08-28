@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
 const url = 'https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js';
@@ -15,6 +16,10 @@ export const liquid: LanguageSpecs = {
     <!-- <li><a href="#">LiquidJS usage in LocalPen</a></li> -->
   </ul>
   `,
+  parser: {
+    name: 'html',
+    pluginUrls: [parserPlugins.html],
+  },
   compiler: {
     url,
     factory: () => async (code, { config }) => {
