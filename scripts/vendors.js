@@ -399,18 +399,6 @@ fs.copyFileSync(
   path.resolve(targetDir + '/autocomplete.js/autoComplete.min.js'),
 );
 
-// rescript
-mkdirp(targetDir + '/rescript');
-mkdirp(targetDir + '/rescript/v9.1.2');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/rescript/v9.1.2/compiler.js'),
-  path.resolve(targetDir + '/rescript/v9.1.2/compiler.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/rescript/v9.1.2/cmij.js'),
-  path.resolve(targetDir + '/rescript/v9.1.2/cmij.js'),
-);
-
 // wast-refmt
 esbuild.buildSync({
   ...baseOptions,
