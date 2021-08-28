@@ -241,22 +241,6 @@ fs.copyFileSync(
   path.resolve(node_modules + '/prettier/standalone.js'),
   path.resolve(targetDir + '/prettier/standalone.js'),
 );
-fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/parser-babel.js'),
-  path.resolve(targetDir + '/prettier/parser-babel.js'),
-);
-fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/parser-html.js'),
-  path.resolve(targetDir + '/prettier/parser-html.js'),
-);
-fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/parser-postcss.js'),
-  path.resolve(targetDir + '/prettier/parser-postcss.js'),
-);
-fs.copyFileSync(
-  path.resolve(node_modules + '/prettier/parser-markdown.js'),
-  path.resolve(targetDir + '/prettier/parser-markdown.js'),
-);
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['node_modules/@prettier/plugin-pug/dist/index.js'],

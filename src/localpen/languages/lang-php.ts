@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { parserPlugins } from './prettier';
 
 export const php: LanguageSpecs = {
   name: 'php',
@@ -14,6 +15,10 @@ export const php: LanguageSpecs = {
     <li><a href="?template=php" target="_parent" data-template="php">Load starter template</a></li>
   </ul>
   `,
+  parser: {
+    name: 'php',
+    pluginUrls: [parserPlugins.php],
+  },
   compiler: {
     url: 'assets/noop.js',
     factory: () => async (code) => {

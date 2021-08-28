@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
 const url = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js';
@@ -15,6 +16,10 @@ export const handlebars: LanguageSpecs = {
     <!-- <li><a href="#">Handlebars usage in LocalPen</a></li> -->
   </ul>
   `,
+  parser: {
+    name: 'glimmer',
+    pluginUrls: [parserPlugins.glimmer],
+  },
   compiler: {
     url,
     factory: () => async (code, { config }) => {

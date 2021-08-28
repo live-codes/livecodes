@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
 const url = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
@@ -14,6 +15,10 @@ export const ejs: LanguageSpecs = {
     <!-- <li><a href="#">EJS usage in LocalPen</a></li> -->
   </ul>
   `,
+  parser: {
+    name: 'html',
+    pluginUrls: [parserPlugins.html],
+  },
   compiler: {
     url,
     factory: () => async (code, { config }) => {

@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { parserPlugins } from './parser-plugins';
+import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
 export const solid: LanguageSpecs = {

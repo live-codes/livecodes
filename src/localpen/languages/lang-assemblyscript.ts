@@ -1,5 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
+import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;
@@ -28,6 +29,10 @@ export const assemblyscript: LanguageSpecs = {
     <li><a href="?template=assemblyscript" target="_parent" data-template="assemblyscript">Load starter template</a></li>
   </ul>
   `,
+  parser: {
+    name: 'babel-ts',
+    pluginUrls: [parserPlugins.babel],
+  },
   compiler: {
     url: 'assets/noop.js',
     factory: () => {
