@@ -51,7 +51,6 @@ export const starterTemplates = [
   knockoutStarter,
   coffeescriptStarter,
   livescriptStarter,
-  assemblyscriptStarter,
   rescriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
@@ -65,5 +64,6 @@ export const starterTemplates = [
   luaStarter,
   schemeStarter,
   readmeTemplate,
+  assemblyscriptStarter,
   watStarter,
 ];

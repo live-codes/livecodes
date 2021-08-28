@@ -168,11 +168,9 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('AssemblyScript Starter', async ({ page, getTestUrl }) => {
-    test.fixme();
-
     await page.goto(getTestUrl());
 
-    const { app, getResult } = await getLoadedApp(page);
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[title=Settings]');
     await app.click('text=New');
@@ -180,7 +178,7 @@ test.describe('Starter Templates from UI', () => {
     await waitForEditorFocus(app);
 
     await app.click(runButtonSelector);
-    await app.waitForTimeout(15000);
+    await waitForResultUpdate();
 
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
@@ -188,6 +186,30 @@ test.describe('Starter Templates from UI', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, AssemblyScript!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('WebAssembly Text Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=WebAssembly Text Starter');
+    await waitForEditorFocus(app);
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, WebAssembly Text!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
@@ -360,15 +382,15 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('AssemblyScript Starter (in URL)', async ({ page, getTestUrl }) => {
-    test.fixme();
+    test.slow();
 
     await page.goto(getTestUrl({ template: 'assemblyscript' } as any));
 
-    const { app, getResult } = await getLoadedApp(page);
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
     await app.click(runButtonSelector);
-    await app.waitForTimeout(15000);
+    await waitForResultUpdate();
 
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
@@ -376,6 +398,26 @@ test.describe('Starter Templates from URL', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, AssemblyScript!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('WebAssembly Text Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'wat' } as any));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, WebAssembly Text!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
