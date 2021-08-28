@@ -15,7 +15,7 @@ export const assemblyscriptStarter: Template = {
   <button id="counter-button" disabled>loading...</button>
 </div>
 
-<script defer>
+<script>
   (async() => {
     // \`loadWasm\` is a global function.
     // It returns a promise which resolves to an object
