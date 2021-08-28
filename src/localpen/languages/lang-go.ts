@@ -19,13 +19,13 @@ export const go: LanguageSpecs = {
   </ul>
   `,
   formatter: {
-    factory: () => async (value: string) => {
+    factory: () => {
       const url = cdnBaseUrl + '/index.js';
       importScripts(url);
-      return {
+      return async (value: string) => ({
         formatted: await (window as any).go2js.format(value, cdnBaseUrl),
         cursorOffset: 0,
-      };
+      });
     },
   },
   compiler: {
