@@ -55,6 +55,7 @@ window.addEventListener("load", async () => {
 })
 `,
     scriptType: 'text/python',
+    compiledCodeLanguage: 'python',
   },
   extensions: ['py3'],
   editor: 'script',

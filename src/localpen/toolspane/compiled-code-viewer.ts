@@ -1,7 +1,7 @@
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { languages } from '../languages';
-import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
+import { Editors, Pen, Tool, CodeEditor, EditorOptions, Language } from '../models';
 
 export const createCompiledCodeViewer = (
   config: Pen,
@@ -56,7 +56,7 @@ export const createCompiledCodeViewer = (
 
   // workaround to fix "cannot-redeclare-block-scoped-variable" error
   // https://stackoverflow.com/questions/40900791/cannot-redeclare-block-scoped-variable-in-unrelated-files
-  const fixTypes = (language: 'html' | 'css' | 'javascript', content: string) => {
+  const fixTypes = (language: Language, content: string) => {
     if (language === 'javascript' && (window as any).monaco && editor.monaco) {
       editor?.setValue(content + '\nexport {}');
       const monacoEditor = editor.monaco;
@@ -68,15 +68,15 @@ export const createCompiledCodeViewer = (
     }
   };
 
-  const update = (language: 'html' | 'css' | 'javascript', content: string) => {
+  const update = (language: Language, content: string, label?: string) => {
     if (!editor) return;
 
     editor.setLanguage(language);
     editor.setValue(content);
     fixTypes(language, content);
     if (languageLabel) {
-      const compiledLanguage = languages.find((lang) => lang.name === language);
-      const title = compiledLanguage?.longTitle || compiledLanguage?.title || '';
+      const compiledLanguage = languages.find((lang) => lang.name === label);
+      const title = compiledLanguage?.longTitle || compiledLanguage?.title || label || '';
       languageLabel.innerHTML = title;
     }
   };

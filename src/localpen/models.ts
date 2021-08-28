@@ -132,7 +132,8 @@ export type Language =
   | 'wat'
   | 'wast'
   | 'webassembly'
-  | 'wasm';
+  | 'wasm'
+  | 'Binary';
 
 export interface Editor {
   language: Language;
@@ -273,6 +274,7 @@ export interface Compiler {
     | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
+  compiledCodeLanguage?: Language;
 }
 
 export interface Compilers {

@@ -94,6 +94,7 @@ export const assemblyscript: LanguageSpecs = {
     })();
 `,
     scriptType,
+    compiledCodeLanguage: 'wat',
   },
   extensions: ['as', 'ts'],
   editor: 'script',

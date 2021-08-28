@@ -19,6 +19,7 @@ export const lua: LanguageSpecs = {
     factory: () => async (code) => code,
     scripts: ['vendor/fengari-web/fengari-web.js'],
     scriptType: 'application/lua',
+    compiledCodeLanguage: 'lua',
   },
   extensions: ['lua'],
   editor: 'script',

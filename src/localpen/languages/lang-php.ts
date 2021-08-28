@@ -33,6 +33,7 @@ export const php: LanguageSpecs = {
     scripts: ['vendor/uniter/uniter.js'],
     deferScripts: true,
     scriptType: 'text/x-uniter-php',
+    compiledCodeLanguage: 'php',
   },
   extensions: ['php'],
   editor: 'script',

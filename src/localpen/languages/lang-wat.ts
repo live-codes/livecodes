@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { LanguageSpecs } from '../models';
+import { Language, LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
 
@@ -118,6 +118,7 @@ export const wat: LanguageSpecs = {
 })();
     `,
     scriptType,
+    compiledCodeLanguage: 'Binary',
   },
   extensions: ['wat', 'wast', 'webassembly', 'wasm'],
   editor: 'script',

@@ -18,6 +18,7 @@ export const scheme: LanguageSpecs = {
     factory: () => async (code) => code,
     scripts: ['vendor/biwascheme/biwascheme-min.js'],
     scriptType: 'text/biwascheme',
+    compiledCodeLanguage: 'scheme',
   },
   extensions: ['scm'],
   editor: 'script',

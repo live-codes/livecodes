@@ -27,6 +27,7 @@ export const ruby: LanguageSpecs = {
       Opal.load('native');
     `,
     scriptType: 'text/ruby',
+    compiledCodeLanguage: 'ruby',
   },
   extensions: ['rb'],
   editor: 'script',
