@@ -40,6 +40,7 @@ import { go } from './lang-go';
 import { rescript } from './lang-rescript';
 import { reason } from './lang-reason';
 import { ocaml } from './lang-ocaml';
+import { wat } from './lang-wat';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -71,7 +72,6 @@ export const languages: LanguageSpecs[] = [
   solidTsx,
   coffeescript,
   livescript,
-  assemblyscript,
   rescript,
   reason,
   ocaml,
@@ -83,4 +83,6 @@ export const languages: LanguageSpecs[] = [
   perl,
   lua,
   scheme,
+  assemblyscript,
+  wat,
 ];

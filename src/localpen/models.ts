@@ -128,7 +128,11 @@ export type Language =
   | 'rei'
   | 'ocaml'
   | 'ml'
-  | 'mli';
+  | 'mli'
+  | 'wat'
+  | 'wast'
+  | 'webassembly'
+  | 'wasm';
 
 export interface Editor {
   language: Language;
@@ -264,7 +268,8 @@ export interface Compiler {
     | 'text/x-uniter-php'
     | 'text/perl'
     | 'text/biwascheme'
-    | 'application/lua';
+    | 'application/lua'
+    | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
 }

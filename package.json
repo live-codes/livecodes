@@ -69,6 +69,7 @@
     "@prettier/plugin-pug": "1.13.2",
     "@snackbar/core": "1.7.0",
     "@tarekraafat/autocomplete.js": "10.1.5",
+    "@webassemblyjs/wast-refmt": "1.11.1",
     "asciidoctor": "2.2.1",
     "babel-preset-solid": "1.0.0",
     "emmet-monaco-es": "4.4.2",

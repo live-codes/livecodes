@@ -376,7 +376,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
 
     if ((window as any).monaco && editorId === 'script' && mapLanguage(language) === 'javascript') {
-      if (['rescript', 'reason', 'ocaml'].includes(language)) {
+      if (['rescript', 'reason', 'ocaml', 'wat'].includes(language)) {
         (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
           noSemanticValidation: true,
           noSyntaxValidation: true,

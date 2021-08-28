@@ -139,3 +139,6 @@ export const loadScript = (url: string, name?: string) =>
     script.addEventListener('error', onError);
     document.head.appendChild(script);
   });
+
+export const typedArrayToBuffer = (array: Uint8Array): ArrayBuffer =>
+  array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);

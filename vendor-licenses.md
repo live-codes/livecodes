@@ -98,4 +98,6 @@ Uniter: [MIT License](https://github.com/asmblah/uniter/blob/2c20bd03a8b658a1f4b
 
 vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-loader/blob/84b05a091fe5a283c7ed909c06cc31c0153ed103/LICENSE)
 
+wasm-refmt:[MIT License](https://github.com/xtuc/webassemblyjs/blob/45f733aa96476d74c8ac57598e13406a48a6fdc8/LICENSE)
+
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)

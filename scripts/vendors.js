@@ -426,3 +426,11 @@ fs.copyFileSync(
   path.resolve(vendor_modules + '/rescript/v9.1.2/cmij.js'),
   path.resolve(targetDir + '/rescript/v9.1.2/cmij.js'),
 );
+
+// wast-refmt
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/wast-refmt.ts'],
+  outfile: 'src/localpen/vendor/wast-refmt/wast-refmt.js',
+  globalName: 'wastRefmt',
+});
