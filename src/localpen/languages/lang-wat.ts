@@ -3,6 +3,8 @@ import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
 
+declare const importScripts: (...args: string[]) => void;
+
 const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.24/index.js';
 const scriptType = 'application/wasm-uint8';
 
@@ -22,7 +24,7 @@ const features = {
 const watToArrayString = async (code: string, options = features): Promise<string> => {
   if (!code) return '';
 
-  const wabt = await (window as any).WabtModule();
+  const wabt = await (self as any).WabtModule();
   let arrayString = '';
   let module: any;
 
@@ -62,6 +64,25 @@ export const wat: LanguageSpecs = {
     <!-- <li><a href="#">WebAssembly Text usage in LocalPen</a></li> -->
   </ul>
   `,
+  formatter: {
+    factory: (baseUrl) => {
+      const url = baseUrl + 'vendor/wast-refmt/wast-refmt.js';
+      importScripts(url);
+      return async (value: string) => {
+        let formatted = value;
+        try {
+          formatted = (self as any).wastRefmt.format(value);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.warn('failed parsing WAT', error);
+        }
+        return {
+          formatted,
+          cursorOffset: 0,
+        };
+      };
+    },
+  },
   compiler: {
     url: wabtjsUrl,
     factory: () => async (code, { config }) =>

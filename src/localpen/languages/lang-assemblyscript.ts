@@ -9,19 +9,10 @@ declare const require: any;
 const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
 const sdkUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.7/dist/sdk.js';
 const loaderUrl = 'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.7/umd/index.js';
+
 const scriptType = 'application/wasm-uint8';
-const watHeader = `;; //
-;; // WebAssembly Text Format (module.wat)
-;; //
-
-`;
-const wasmHeader = `
-
-;; //
-;; // WebAssembly Binary (module.wasm)
-;; //
-
-; `;
+const watHeader = `;; WebAssembly Text Format (module.wat)\n\n`;
+const wasmHeader = `\n\n;; WebAssembly Binary (module.wasm)\n;; `;
 
 export const assemblyscript: LanguageSpecs = {
   name: 'assemblyscript',

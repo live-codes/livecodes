@@ -58,11 +58,13 @@ export const watStarter: Template = {
  (export "increment" (func $input/increment))
  (export "memory" (memory $0))
  (func $input/increment (param $0 i32) (result i32)
-  local.get $0
-  i32.const 1
-  i32.add
+  (i32.add
+   (get_local $0)
+   (i32.const 1)
+  )
  )
-)`.trimStart(),
+)
+`.trimStart(),
   },
   stylesheets: [],
   scripts: [],
