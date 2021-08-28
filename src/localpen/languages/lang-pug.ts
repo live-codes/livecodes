@@ -48,7 +48,6 @@ export const pug: LanguageSpecs = {
   </script>
   `;
     },
-    umd: true,
   },
   extensions: ['pug', 'jade'],
   editor: 'markup',

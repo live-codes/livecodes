@@ -21,7 +21,6 @@ export const coffeescript: LanguageSpecs = {
         bare: true,
         ...getLanguageCustomSettings('coffeescript', config),
       }),
-    umd: true,
   },
   extensions: ['coffee'],
   editor: 'script',

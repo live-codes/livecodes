@@ -14,7 +14,6 @@ export const stylus: LanguageSpecs = {
   compiler: {
     url: 'vendor/stylus/stylus.min.js',
     factory: () => async (code) => (window as any).stylus.render(code),
-    umd: true,
   },
   extensions: ['styl'],
   editor: 'style',

@@ -251,11 +251,10 @@ export type CompilerFunction = (
 
 export interface Compiler {
   dependencies?: Language[];
-  url: string;
+  url?: string;
   fn?: CompilerFunction;
   factory: (config: Pen) => CompilerFunction;
   runOutsideWorker?: CompilerFunction;
-  umd?: boolean;
   editors?: EditorId[];
   styles?: string[];
   scripts?: string[];

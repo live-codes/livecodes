@@ -16,9 +16,7 @@ export const lua: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => code,
-    umd: true,
     scripts: ['vendor/fengari-web/fengari-web.js'],
     scriptType: 'application/lua',
   },

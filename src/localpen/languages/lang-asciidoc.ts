@@ -23,7 +23,6 @@ export const asciidoc: LanguageSpecs = {
           ...getLanguageCustomSettings('asciidoc', config),
         });
     },
-    umd: true,
   },
   extensions: ['adoc', 'asciidoc', 'asc'],
   editor: 'markup',

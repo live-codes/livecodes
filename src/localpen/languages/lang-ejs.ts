@@ -46,7 +46,6 @@ export const ejs: LanguageSpecs = {
   </script>
   `;
     },
-    umd: true,
   },
   extensions: ['ejs'],
   editor: 'markup',

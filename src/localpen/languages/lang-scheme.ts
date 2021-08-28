@@ -15,9 +15,7 @@ export const scheme: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => code,
-    umd: true,
     scripts: ['vendor/biwascheme/biwascheme-min.js'],
     scriptType: 'text/biwascheme',
   },

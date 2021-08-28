@@ -96,10 +96,8 @@ export const rescript: LanguageSpecs = {
     factory: formatterFactory,
   },
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => code,
     runOutsideWorker,
-    umd: true,
     scriptType: 'module',
   },
   extensions: ['res', 'resi'],

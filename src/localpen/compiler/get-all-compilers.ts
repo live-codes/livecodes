@@ -33,4 +33,5 @@ export const getAllCompilers = (
       return compilers;
     }, {} as Compilers);
 
-const getCompilerUrl = (url: string, baseUrl: string) => (isRelativeUrl(url) ? baseUrl + url : url);
+const getCompilerUrl = (url: string | undefined, baseUrl: string) =>
+  !url ? '' : isRelativeUrl(url) ? baseUrl + url : url;

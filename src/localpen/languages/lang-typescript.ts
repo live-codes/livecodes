@@ -34,7 +34,6 @@ export const typescript: LanguageSpecs = {
         ...typescriptOptions,
         ...getLanguageCustomSettings('typescript', config),
       }),
-    umd: true,
   },
   extensions: ['ts', 'typescript'],
   editor: 'script',

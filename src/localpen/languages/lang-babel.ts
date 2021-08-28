@@ -26,7 +26,6 @@ export const babel: LanguageSpecs = {
         presets: [['env', { modules: false }], 'typescript', 'react'],
         ...getLanguageCustomSettings('babel', config),
       }).code,
-    umd: true,
   },
   extensions: ['es', 'babel'],
   editor: 'script',

@@ -49,7 +49,6 @@ export const dot: LanguageSpecs = {
   </script>
   `;
     },
-    umd: true,
   },
   extensions: ['dot'],
   editor: 'markup',

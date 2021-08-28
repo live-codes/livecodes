@@ -50,7 +50,6 @@ window.addEventListener("load", () => {
 </script>
     `;
     },
-    umd: true,
   },
   extensions: ['haml'],
   editor: 'markup',

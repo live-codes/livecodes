@@ -25,7 +25,6 @@ export const less: LanguageSpecs = {
           ...getLanguageCustomSettings('less', config),
         })
       ).css,
-    umd: true,
   },
   extensions: ['less'],
   editor: 'style',

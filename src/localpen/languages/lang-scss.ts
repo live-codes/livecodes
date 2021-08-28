@@ -37,7 +37,6 @@ export const scss: LanguageSpecs = {
           });
         });
     },
-    umd: true,
   },
   extensions: ['scss'],
   editor: 'style',

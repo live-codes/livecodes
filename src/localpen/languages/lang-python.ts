@@ -15,7 +15,6 @@ export const python: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => code,
     scripts: ['vendor/brython/brython.min.js', 'vendor/brython/brython_stdlib.js'],
     inlineScript: `window.addEventListener("load", () => {brython({ indexedDB: false })})`,

@@ -20,7 +20,6 @@ export const pyodide: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => code,
     scripts: [],
     liveReload: true,

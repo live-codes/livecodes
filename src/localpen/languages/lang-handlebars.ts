@@ -48,7 +48,6 @@ export const handlebars: LanguageSpecs = {
   </script>
   `;
     },
-    umd: true,
   },
   extensions: ['hbs', 'handlebars'],
   editor: 'markup',
