@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
-import { parserPlugins } from './parser-plugins';
+import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;

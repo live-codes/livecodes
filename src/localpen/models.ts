@@ -199,6 +199,7 @@ export type ParserName =
   | 'css'
   | 'scss'
   | 'less'
+  | 'php'
   | 'pug';
 export interface Parser {
   name: ParserName;

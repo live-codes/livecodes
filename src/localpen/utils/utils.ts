@@ -57,8 +57,8 @@ export const isMobile = () => {
 
 export const isRelativeUrl = (url: string) => !url.startsWith('http');
 
-export const getAbsoluteUrl = (baseUrl: string) =>
-  isRelativeUrl(baseUrl) ? new URL(baseUrl, document.baseURI).href : baseUrl;
+export const getAbsoluteUrl = (url: string, baseUrl = document.baseURI) =>
+  isRelativeUrl(url) ? new URL(url, baseUrl).href : url;
 
 export const objectMap = (
   obj: Record<string, any>,

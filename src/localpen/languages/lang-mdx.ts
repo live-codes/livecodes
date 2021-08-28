@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { typescriptOptions } from './lang-typescript';
-import { parserPlugins } from './parser-plugins';
+import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
 export const mdx: LanguageSpecs = {

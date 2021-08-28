@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { parserPlugins } from './parser-plugins';
+import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
 export const vue2: LanguageSpecs = {
