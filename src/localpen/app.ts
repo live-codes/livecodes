@@ -1741,20 +1741,24 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         customSettingsEditor.focus();
 
         eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
+          let customSettings: any = {};
+          const editorContent = customSettingsEditor?.getValue() || '{}';
           try {
-            const customSettings = JSON.parse(
-              stringToValidJson(customSettingsEditor?.getValue() || '{}'),
-            );
-            if (customSettings !== getConfig().customSettings) {
-              setConfig({
-                ...getConfig(),
-                customSettings,
-              });
-              setSavedStatus(false);
-            }
+            customSettings = JSON.parse(editorContent);
           } catch {
-            notifications.error('Failed parsing settings as JSON');
-            return;
+            try {
+              customSettings = JSON.parse(stringToValidJson(editorContent));
+            } catch {
+              notifications.error('Failed parsing settings as JSON');
+              return;
+            }
+          }
+          if (customSettings !== getConfig().customSettings) {
+            setConfig({
+              ...getConfig(),
+              customSettings,
+            });
+            setSavedStatus(false);
           }
           customSettingsEditor?.destroy();
           modal.close();
