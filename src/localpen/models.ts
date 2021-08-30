@@ -254,7 +254,7 @@ export interface Compiler {
   dependencies?: Language[];
   url?: string;
   fn?: CompilerFunction;
-  factory: (config: Pen) => CompilerFunction;
+  factory: (config: Pen, baseUrl: string) => CompilerFunction;
   runOutsideWorker?: CompilerFunction;
   editors?: EditorId[];
   styles?: string[];
@@ -264,9 +264,7 @@ export interface Compiler {
   scriptType?:
     | 'module'
     | 'text/liquid'
-    | 'text/assemblyscript'
     | 'text/python'
-    | 'text/ruby'
     | 'text/x-uniter-php'
     | 'text/perl'
     | 'text/biwascheme'

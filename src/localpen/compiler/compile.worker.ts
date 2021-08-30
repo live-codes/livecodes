@@ -36,7 +36,7 @@ const loadLanguageCompiler = (
         if (languageCompiler.url) {
           importScripts(languageCompiler.url);
         }
-        languageCompiler.fn = languageCompiler.factory(config);
+        languageCompiler.fn = languageCompiler.factory(config, baseUrl);
         if (languageCompiler.aliasTo) {
           compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
         }
