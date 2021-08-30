@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Language, LanguageSpecs } from '../models';
+import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
 import { getLanguageCustomSettings } from './utils';
 
