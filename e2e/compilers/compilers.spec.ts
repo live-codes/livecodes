@@ -878,7 +878,7 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     expect(resultText).toContain(`Hello, Python`);
   });
 
-  test('Ruby', async ({ page, getTestUrl }) => {
+  test.only('Ruby', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -897,7 +897,7 @@ $$.document.querySelector('#title').innerHTML = title`);
 
     await app.click(runButtonSelector);
     await waitForResultUpdate();
-    const resultText = await getResult().innerText('h1');
+    const resultText = await getResult().innerText('text=Hello, Ruby');
 
     expect(resultText).toContain(`Hello, Ruby`);
   });
