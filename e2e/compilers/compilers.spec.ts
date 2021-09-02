@@ -878,7 +878,7 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     expect(resultText).toContain(`Hello, Python`);
   });
 
-  test.only('Ruby', async ({ page, getTestUrl }) => {
+  test('Ruby', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
