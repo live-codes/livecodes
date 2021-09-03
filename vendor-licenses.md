@@ -22,8 +22,6 @@ emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b
 
 ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blob/986733009f4c9374decd4c0348740134ff499157/LICENSE)
 
-fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/a9fb130f6851206e8a57be902af061e980be5610/LICENSE)
-
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)
 
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
@@ -89,8 +87,6 @@ SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
-
-Uniter: [MIT License](https://github.com/asmblah/uniter/blob/2c20bd03a8b658a1f4bfd81ab2dce72b088755cb/MIT-LICENSE.txt)
 
 vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-loader/blob/84b05a091fe5a283c7ed909c06cc31c0153ed103/LICENSE)
 

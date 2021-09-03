@@ -1,6 +1,8 @@
 import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 
+const cdnUrl = 'https://cdn.jsdelivr.net/npm/uniter@2.17.0/dist/uniter.js';
+
 export const php: LanguageSpecs = {
   name: 'php',
   title: 'PHP',
@@ -30,7 +32,7 @@ export const php: LanguageSpecs = {
       }
       return code;
     },
-    scripts: ['vendor/uniter/uniter.js'],
+    scripts: [cdnUrl],
     deferScripts: true,
     scriptType: 'text/x-uniter-php',
     compiledCodeLanguage: 'php',

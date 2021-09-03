@@ -1,5 +1,7 @@
 import { LanguageSpecs } from '../models';
 
+const cdnUrl = 'https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.min.js';
+
 export const lua: LanguageSpecs = {
   name: 'lua',
   title: 'Lua',
@@ -17,7 +19,7 @@ export const lua: LanguageSpecs = {
   `,
   compiler: {
     factory: () => async (code) => code,
-    scripts: ['vendor/fengari-web/fengari-web.js'],
+    scripts: [cdnUrl],
     scriptType: 'application/lua',
     compiledCodeLanguage: 'lua',
   },

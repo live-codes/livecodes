@@ -255,13 +255,6 @@ fs.copyFileSync(
   path.resolve(targetDir + '/snackbar/snackbar.min.css'),
 );
 
-// uniter
-mkdirp(targetDir + '/uniter');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/uniter/uniter.js'),
-  path.resolve(targetDir + '/uniter/uniter.js'),
-);
-
 // babel
 mkdirp(targetDir + '/babel');
 fs.copyFileSync(
@@ -293,7 +286,7 @@ fs.copyFileSync(
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/src/svelte/compiler.js'],
-  outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.37.0.min.js',
+  outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.42.4.min.js',
   globalName: 'svelte',
 });
 
@@ -312,13 +305,6 @@ esbuild.build({
   globalName: 'MDX',
   plugins: nodePolyfills,
 });
-
-// fengari-web
-mkdirp(targetDir + '/fengari-web');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/fengari-web/fengari-web.js'),
-  path.resolve(targetDir + '/fengari-web/fengari-web.js'),
-);
 
 // livescript
 mkdirp(targetDir + '/livescript');
