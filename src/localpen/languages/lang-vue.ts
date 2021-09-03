@@ -2,6 +2,10 @@ import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
+export const loaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/';
+const loaderCdnUrl = loaderCdnBaseUrl + 'vue3-sfc-loader.min.js';
+const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@3';
+
 export const vue: LanguageSpecs = {
   name: 'vue',
   title: 'Vue 3',
@@ -15,7 +19,7 @@ export const vue: LanguageSpecs = {
     <li><a href="https://v3.vuejs.org/guide/single-file-component.html" target="_blank" rel="noopener">Vue3 single file components</a></li>
     <li><a href="https://github.com/FranckFreiburger/vue3-sfc-loader" target="_blank" rel="noopener">vue3-sfc-loader GitHub repo</a></li>
     <!-- <li><a href="#">Vue3 SFC usage in LocalPen</a></li> -->
-    <li><a href="?template=vue3" target="_parent" data-template="vue3">Load starter template</a></li>
+    <li><a href="?template=vue" target="_parent" data-template="vue">Load starter template</a></li>
   </ul>
   `,
   parser: {
@@ -23,7 +27,6 @@ export const vue: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url: 'vendor/vue3-sfc-loader/vue3-sfc-loader.js',
     factory: () => async (code) =>
       `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
@@ -50,7 +53,7 @@ const App = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/component.
 App.mount(app)
 App.config.devtools = true;
 `,
-    scripts: ['https://unpkg.com/vue@3', 'vendor/vue3-sfc-loader/vue3-sfc-loader.js'],
+    scripts: [vueCdnUrl, loaderCdnUrl],
   },
   extensions: ['vue', 'vue3'],
   editor: 'script',

@@ -1,7 +1,7 @@
 import { Template } from '../../models';
 
 export const vueStarter: Template = {
-  name: 'vue',
+  name: 'vue2',
   title: 'Vue 2 Starter',
   thumbnail: 'assets/templates/vue.svg',
   activeEditor: 'script',

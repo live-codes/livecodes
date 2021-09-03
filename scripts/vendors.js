@@ -271,17 +271,6 @@ esbuild.build({
   plugins: nodePolyfills,
 });
 
-// vue3-sfc-loader
-mkdirp(targetDir + '/vue3-sfc-loader');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/vue3-sfc-loader/vue3-sfc-loader.js'),
-  path.resolve(targetDir + '/vue3-sfc-loader/vue3-sfc-loader.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/vue3-sfc-loader/vue2-sfc-loader.js'),
-  path.resolve(targetDir + '/vue3-sfc-loader/vue2-sfc-loader.js'),
-);
-
 // svelte
 esbuild.buildSync({
   ...baseOptions,

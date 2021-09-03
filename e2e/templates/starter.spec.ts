@@ -341,7 +341,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Vue 3 Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'vue3' } as any));
+    await page.goto(getTestUrl({ template: 'vue' } as any));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
