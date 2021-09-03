@@ -103,7 +103,7 @@ export const proxyConsole = () => {
           parent.postMessage({ type: 'console', method: 'error', args: consoleArgs([msg]) }, '*');
           return;
         }
-        target[method as keyof typeof console](...args);
+        (target[method as keyof typeof console] as any)(...args);
         parent.postMessage({ type: 'console', method, args: consoleArgs(args) }, '*');
       };
     },
