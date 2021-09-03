@@ -21,16 +21,10 @@ export const python: LanguageSpecs = {
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ compiled, config }) => {
-      const { autoloadStdlib, pythonpath } = getLanguageCustomSettings('python', config);
+      const { autoloadStdlib, ...options } = getLanguageCustomSettings('python', config);
       const importsPattern = /^(?:from[ ]+(\S+)[ ]+)?import[ ]+(\S+)(?:[ ]+as[ ]+\S+)?[ ]*$/gm;
       const stdlib = autoloadStdlib !== false && compiled.match(importsPattern) ? [stdlibUrl] : [];
-
-      const path = Array.isArray(pythonpath)
-        ? pythonpath.map((url) => '"' + url + '"').join(', ')
-        : typeof pythonpath === 'string'
-        ? '"' + pythonpath + '"'
-        : '';
-      const loader = `window.addEventListener("load", () => {brython({pythonpath: [${path}]})})`;
+      const loader = `window.addEventListener("load", () => {brython(${JSON.stringify(options)})})`;
       const loaderUrl = 'data:text/plain;base64,' + btoa(loader);
       return [brythonUrl, ...stdlib, loaderUrl];
     },
