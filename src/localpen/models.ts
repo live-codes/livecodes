@@ -257,8 +257,8 @@ export interface Compiler {
   factory: (config: Pen, baseUrl: string) => CompilerFunction;
   runOutsideWorker?: CompilerFunction;
   editors?: EditorId[];
-  styles?: string[];
-  scripts?: string[];
+  styles?: string[] | ((options: { compiled: string; baseUrl: string; config: Pen }) => string[]);
+  scripts?: string[] | ((options: { compiled: string; baseUrl: string; config: Pen }) => string[]);
   deferScripts?: boolean;
   inlineScript?: string;
   scriptType?:

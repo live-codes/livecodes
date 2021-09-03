@@ -89,18 +89,32 @@ export const createResultPage = (
   const mdx = code.markup.language === 'mdx' ? code.markup.content : '';
   dom.body.innerHTML += markup;
 
-  // dependencies (styles & scripts)
-  [code.markup.language, code.style.language, code.script.language].forEach((language) => {
+  // runtime styles & scripts
+  const runtimeDependencies = (['markup', 'style', 'script'] as EditorId[]).map(
+    (editorId: EditorId) => ({
+      language: code[editorId].language,
+      content: code[editorId].content,
+    }),
+  );
+  runtimeDependencies.forEach(({ language, content }) => {
     const compiler = getLanguageCompiler(language);
     if (!compiler) return;
 
-    compiler.styles?.forEach((depStyleUrl) => {
+    const compilerStyles =
+      typeof compiler.styles === 'function'
+        ? compiler.styles({ compiled: content, baseUrl: absoluteBaseUrl, config })
+        : compiler.styles || [];
+    compilerStyles.forEach((depStyleUrl) => {
       const stylesheet = dom.createElement('link');
       stylesheet.rel = 'stylesheet';
       stylesheet.href = isRelativeUrl(depStyleUrl) ? absoluteBaseUrl + depStyleUrl : depStyleUrl;
       dom.head.appendChild(stylesheet);
     });
-    compiler.scripts?.forEach((depScriptUrl) => {
+    const compilerScripts =
+      typeof compiler.scripts === 'function'
+        ? compiler.scripts({ compiled: content, baseUrl: absoluteBaseUrl, config })
+        : compiler.scripts || [];
+    compilerScripts.forEach((depScriptUrl) => {
       const depScript = dom.createElement('script');
       depScript.src = isRelativeUrl(depScriptUrl) ? absoluteBaseUrl + depScriptUrl : depScriptUrl;
       if (compiler.deferScripts) {

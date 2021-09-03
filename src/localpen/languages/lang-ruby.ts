@@ -4,22 +4,16 @@ import { getLanguageCustomSettings } from './utils';
 declare const importScripts: (...args: string[]) => void;
 
 const cdnBaselUrl = 'https://cdn.opalrb.com/opal/1.0.0/';
-const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
-
-const requirePattern = /^(?!#)(require\s+?)((?:".*?")|(?:'.*?')|(?:\(".*?"\))|(?:\('.*?'\)))([\s]*?(?:;|$|))/gm;
 const getImports = (code: string, requireMap: { [mod: string]: string } = {}) =>
   Array.from(
     new Set(
-      [...code.matchAll(new RegExp(requirePattern))]
-        .map((arr) =>
-          arr[2].replace(/"/g, '').replace(/'/g, '').replace(/\(/g, '').replace(/\)/g, ''),
-        )
+      [...code.matchAll(new RegExp(/^\s*self\.\$require\("(\S+)"\);/gm))]
+        .map((arr) => arr[1])
         .map((mod) => mod.split('/')[0])
         .filter((mod) => requireMap.hasOwnProperty(mod) || mod !== 'opal') // already loaded
-        .map((mod) => requireMap[mod] || `${cdnBaselUrl + mod}.min.js`)
-        .map((mod) => `"optional!${mod}"`),
+        .map((mod) => requireMap[mod] || `${cdnBaselUrl + mod}.min.js`),
     ),
-  ).join(', ');
+  );
 
 export const ruby: LanguageSpecs = {
   name: 'ruby',
@@ -44,38 +38,19 @@ export const ruby: LanguageSpecs = {
       (self as any).Opal.config.unsupported_features_severity = 'ignore';
       (self as any).Opal.load('opal-parser');
       return async (code, { config }) => {
-        const { autoLoadRequired, requireMap, ...options } = getLanguageCustomSettings(
+        const { autoloadStdlib, requireMap, ...options } = getLanguageCustomSettings(
           'ruby',
           config,
         );
-        const compiled = (self as any).Opal.compile(code, options);
-        const imports = getImports(code, requireMap);
-        return autoLoadRequired === false || !imports
-          ? compiled
-          : `require(getPackages(), function() {
-${compiled}});
-function getPackages() {
-  return [${imports}];
-}`;
+        return (self as any).Opal.compile(code, options);
       };
     },
-    scripts: [cdnBaselUrl + 'opal.min.js', requireUrl],
-    inlineScript: `
-define("optional", [], {
-  load : function (moduleName, parentRequire, onload, config){
-      var onLoadSuccess = function(moduleInstance){
-          onload(moduleInstance);
-      }
-      var onLoadFailure = function(err){
-          var failedId = err.requireModules && err.requireModules[0];
-          console.warn("Could not load optional module: " + failedId);
-          requirejs.undef(failedId);
-          define(failedId, [], function(){return {};});
-          parentRequire([failedId], onLoadSuccess);
-      }
-      parentRequire([moduleName], onLoadSuccess, onLoadFailure);
-  }
-});`,
+    scripts: ({ compiled, config }) => {
+      const { autoloadStdlib, requireMap } = getLanguageCustomSettings('ruby', config);
+      const imports = getImports(compiled, requireMap);
+      const stdlib = autoloadStdlib !== false ? imports : [];
+      return [cdnBaselUrl + 'opal.min.js', ...stdlib];
+    },
   },
   extensions: ['rb'],
   editor: 'script',
