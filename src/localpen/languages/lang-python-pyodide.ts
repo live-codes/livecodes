@@ -1,5 +1,7 @@
 import { LanguageSpecs } from '../models';
 
+const cdnBaselUrl = 'https://cdn.jsdelivr.net/pyodide/v0.17.0/full/';
+
 export const pyodide: LanguageSpecs = {
   name: 'pyodide',
   title: 'Pyodide',
@@ -26,7 +28,7 @@ export const pyodide: LanguageSpecs = {
     inlineScript: `
 if (globalThis.__pyodideLoading === undefined) {
   const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/pyodide/v0.17.0/full/pyodide.js';
+  script.src = '${cdnBaselUrl}pyodide.js';
   document.head.append(script);
 };
 window.addEventListener("load", async () => {
@@ -37,7 +39,7 @@ window.addEventListener("load", async () => {
   async function main() {
     if (globalThis.__pyodideLoading === false) return;
     await loadPyodide({
-      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.17.0/full/",
+      indexURL: "${cdnBaselUrl}",
     });
     globalThis.__pyodideLoading = false;
   }
