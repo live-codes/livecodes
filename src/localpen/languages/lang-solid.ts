@@ -40,7 +40,6 @@ export const solid: LanguageSpecs = {
         }).code;
       };
     },
-    umd: true,
   },
   extensions: ['solid.jsx'],
   editor: 'script',

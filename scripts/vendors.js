@@ -266,21 +266,6 @@ fs.copyFileSync(
   path.resolve(targetDir + '/brython/brython_stdlib.js'),
 );
 
-// opal
-mkdirp(targetDir + '/opal');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/opal/opal.min.js'),
-  path.resolve(targetDir + '/opal/opal.min.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/opal/native.min.js'),
-  path.resolve(targetDir + '/opal/native.min.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/opal/opal-parser.min.js'),
-  path.resolve(targetDir + '/opal/opal-parser.min.js'),
-);
-
 // uniter
 mkdirp(targetDir + '/uniter');
 fs.copyFileSync(
@@ -397,18 +382,6 @@ mkdirp(targetDir + '/autocomplete.js');
 fs.copyFileSync(
   path.resolve(node_modules + '/@tarekraafat/autocomplete.js/dist/autoComplete.min.js'),
   path.resolve(targetDir + '/autocomplete.js/autoComplete.min.js'),
-);
-
-// rescript
-mkdirp(targetDir + '/rescript');
-mkdirp(targetDir + '/rescript/v9.1.2');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/rescript/v9.1.2/compiler.js'),
-  path.resolve(targetDir + '/rescript/v9.1.2/compiler.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/rescript/v9.1.2/cmij.js'),
-  path.resolve(targetDir + '/rescript/v9.1.2/cmij.js'),
 );
 
 // wast-refmt

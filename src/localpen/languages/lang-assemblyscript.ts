@@ -34,7 +34,6 @@ export const assemblyscript: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel],
   },
   compiler: {
-    url: 'assets/noop.js',
     factory: () => {
       importScripts(requireUrl);
       if ((self as any).assemblyscriptSDK === undefined) {
@@ -95,6 +94,7 @@ export const assemblyscript: LanguageSpecs = {
     })();
 `,
     scriptType,
+    compiledCodeLanguage: 'wat',
   },
   extensions: ['as', 'ts'],
   editor: 'script',

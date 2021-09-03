@@ -1,11 +1,11 @@
 import { importsPattern } from '../compiler';
 import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
-import { loadScript } from '../utils';
+import { getAbsoluteUrl, loadScript } from '../utils';
 
 declare const importScripts: (...args: string[]) => void;
 
-const compilerUrl = 'vendor/rescript/v9.1.2/compiler.js';
-const rescriptReactUrl = 'vendor/rescript/v9.1.2/cmij.js';
+const compilerUrl = 'https://cdn.rescript-lang.org/v9.1.2/compiler.js';
+const rescriptReactUrl = 'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js';
 const stdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
 
 const replaceImports = (code: string, stdLibUrl: string) =>
@@ -25,8 +25,8 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
 
   if (!(window as any).rescript_compiler) {
     await Promise.all([
-      loadScript(baseUrl + compilerUrl, 'rescript_compiler'),
-      loadScript(baseUrl + rescriptReactUrl),
+      loadScript(getAbsoluteUrl(compilerUrl, baseUrl), 'rescript_compiler'),
+      loadScript(getAbsoluteUrl(rescriptReactUrl, baseUrl)),
     ]);
   }
   const compiler = (window as any).rescript_compiler.make();
@@ -36,7 +36,7 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
   const output = compiler[language].compile(code);
   try {
     if (output.type === 'success' && output.js_code) {
-      return replaceImports(output.js_code, stdLibBaseUrl);
+      return replaceImports(output.js_code, getAbsoluteUrl(stdLibBaseUrl, baseUrl));
     }
     if (output.errors) {
       output.errors.forEach((err: any) => {
@@ -57,7 +57,7 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
 
 export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language) => {
   if (!(self as any).rescript_compiler) {
-    importScripts(baseUrl + compilerUrl);
+    importScripts(getAbsoluteUrl(compilerUrl, baseUrl));
   }
   const compiler = (self as any).rescript_compiler.make();
   compiler.setModuleSystem('es6');
@@ -96,10 +96,8 @@ export const rescript: LanguageSpecs = {
     factory: formatterFactory,
   },
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => code,
     runOutsideWorker,
-    umd: true,
     scriptType: 'module',
   },
   extensions: ['res', 'resi'],

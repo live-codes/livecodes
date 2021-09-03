@@ -132,7 +132,8 @@ export type Language =
   | 'wat'
   | 'wast'
   | 'webassembly'
-  | 'wasm';
+  | 'wasm'
+  | 'Binary';
 
 export interface Editor {
   language: Language;
@@ -251,11 +252,10 @@ export type CompilerFunction = (
 
 export interface Compiler {
   dependencies?: Language[];
-  url: string;
+  url?: string;
   fn?: CompilerFunction;
-  factory: (config: Pen) => CompilerFunction;
+  factory: (config: Pen, baseUrl: string) => CompilerFunction;
   runOutsideWorker?: CompilerFunction;
-  umd?: boolean;
   editors?: EditorId[];
   styles?: string[];
   scripts?: string[];
@@ -264,9 +264,7 @@ export interface Compiler {
   scriptType?:
     | 'module'
     | 'text/liquid'
-    | 'text/assemblyscript'
     | 'text/python'
-    | 'text/ruby'
     | 'text/x-uniter-php'
     | 'text/perl'
     | 'text/biwascheme'
@@ -274,6 +272,7 @@ export interface Compiler {
     | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
+  compiledCodeLanguage?: Language;
 }
 
 export interface Compilers {

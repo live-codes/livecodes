@@ -50,7 +50,6 @@ loadModule('/component.vue', options)
 Vue.config.devtools = true;
 `,
     scripts: ['https://unpkg.com/vue@2', 'vendor/vue3-sfc-loader/vue2-sfc-loader.js'],
-    umd: true,
   },
   extensions: ['vue2'],
   editor: 'script',

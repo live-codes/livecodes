@@ -55,7 +55,7 @@ export const isMobile = () => {
   return mobile || safari;
 };
 
-export const isRelativeUrl = (url: string) => !url.startsWith('http');
+export const isRelativeUrl = (url?: string) => !url?.startsWith('http');
 
 export const getAbsoluteUrl = (url: string, baseUrl = document.baseURI) =>
   isRelativeUrl(url) ? new URL(url, baseUrl).href : url;
@@ -95,8 +95,8 @@ export const stringToValidJson = (str: string) =>
     .replace(/'[^'"]*'(?=(?:[^"]*"[^"]*")*[^"]*$)/g, function replaceSingleQuotes(matchedStr) {
       return '"' + matchedStr.substring(1, matchedStr.length - 1) + '"';
     })
-    .replace(/(\w+:)|(\w+ :)/g, function quoteNonQuoted(matchedStr) {
-      return '"' + matchedStr.substring(0, matchedStr.length - 1) + '":';
+    .replace(/(\w+)(\s*:)(?!(\w*)(?:"))/gm, function quoteNonQuoted(matchedStr) {
+      return '"' + matchedStr.substring(0, matchedStr.length - 1).trimEnd() + '":';
     })
     .replace(/(,\s*})/g, function removeLastComma() {
       return '}';

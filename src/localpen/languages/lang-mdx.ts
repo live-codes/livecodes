@@ -36,7 +36,7 @@ ReactDOM.render(<MDXContent />, document.body);
 `;
       return (window as any).typescript.transpile(result, typescriptOptions);
     },
-    umd: true,
+    compiledCodeLanguage: 'javascript',
   },
   extensions: ['mdx'],
   editor: 'markup',

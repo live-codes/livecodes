@@ -41,7 +41,6 @@ export const go: LanguageSpecs = {
         return '';
       }
     },
-    umd: true,
   },
   extensions: ['go', 'golang'],
   editor: 'script',

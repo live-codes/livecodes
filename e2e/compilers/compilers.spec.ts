@@ -303,7 +303,7 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"template":{data:{"name":"liquid"}}}`);
+    await page.keyboard.type(`{"template":{"data":{"name":"liquid"}}}`);
     await app.click('text=Load');
 
     await app.click(':nth-match([title="change language"], 1)');
@@ -359,7 +359,7 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"template":{data:{"name":"doT"}}}`);
+    await page.keyboard.type(`{"template":{"data":{"name":"doT"}}}`);
     await app.click('text=Load');
 
     await app.click(':nth-match([title="change language"], 1)');
@@ -891,12 +891,13 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     await app.click('text=Ruby');
     await waitForEditorFocus(app);
 
-    await page.keyboard.insertText(`title = 'Ruby'
+    await page.keyboard.insertText(`require "native"
+title = 'Ruby'
 $$.document.querySelector('#title').innerHTML = title`);
 
     await app.click(runButtonSelector);
     await waitForResultUpdate();
-    const resultText = await getResult().innerText('h1');
+    const resultText = await getResult().innerText('text=Hello, Ruby');
 
     expect(resultText).toContain(`Hello, Ruby`);
   });

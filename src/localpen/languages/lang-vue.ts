@@ -51,7 +51,6 @@ App.mount(app)
 App.config.devtools = true;
 `,
     scripts: ['https://unpkg.com/vue@3', 'vendor/vue3-sfc-loader/vue3-sfc-loader.js'],
-    umd: true,
   },
   extensions: ['vue', 'vue3'],
   editor: 'script',

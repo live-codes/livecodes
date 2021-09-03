@@ -25,7 +25,6 @@ export const markdown: LanguageSpecs = {
       (window as any).marked(code, {
         ...getLanguageCustomSettings('markdown', config),
       }),
-    umd: true,
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],
   editor: 'markup',

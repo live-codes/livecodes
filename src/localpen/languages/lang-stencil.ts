@@ -28,7 +28,6 @@ export const stencil: LanguageSpecs = {
       });
       return result.code;
     },
-    umd: true,
   },
   extensions: ['stencil.tsx'],
   editor: 'script',

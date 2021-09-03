@@ -20,7 +20,6 @@ export const php: LanguageSpecs = {
     pluginUrls: [parserPlugins.php],
   },
   compiler: {
-    url: 'assets/noop.js',
     factory: () => async (code) => {
       code = code.trim();
       if (code.startsWith('<?php')) {
@@ -31,10 +30,10 @@ export const php: LanguageSpecs = {
       }
       return code;
     },
-    umd: true,
     scripts: ['vendor/uniter/uniter.js'],
     deferScripts: true,
     scriptType: 'text/x-uniter-php',
+    compiledCodeLanguage: 'php',
   },
   extensions: ['php'],
   editor: 'script',

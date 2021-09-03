@@ -37,7 +37,6 @@ new Component({ target: app });
       });
       return js.code + init;
     },
-    umd: true,
   },
   extensions: ['svelte'],
   editor: 'script',

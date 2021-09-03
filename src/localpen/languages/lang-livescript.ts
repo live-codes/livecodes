@@ -21,7 +21,6 @@ export const livescript: LanguageSpecs = {
         ...getLanguageCustomSettings('livescript', config),
       }),
     scripts: ['vendor/livescript/prelude-browser-min.js'],
-    umd: true,
   },
   extensions: ['ls'],
   editor: 'script',

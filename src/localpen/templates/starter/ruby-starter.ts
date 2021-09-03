@@ -32,27 +32,32 @@ export const rubyStarter: Template = {
   script: {
     language: 'ruby',
     content: `
-title = 'Ruby'
-$$.document.querySelector('#title').innerHTML = title
+require "date"
+require "native"
+
+title = "Ruby"
+$$.document.querySelector("#title").innerHTML = title
 
 $counter = 0
-$counter_element = $$.document.querySelector('#counter')
+$counter_element = $$.document.querySelector "#counter"
 
 def increment
     $counter += 1
     $counter_element.innerHTML = "You clicked %d times." % [$counter]
 end
 
-$$.document.querySelector('button').onclick = -> {increment()}
+button = $$.document.querySelector "button"
+button.onclick = -> {increment}
 
 # check console
 current_time = Time.now.hour
+msg = Date.today.strftime "happy %A!"
 if current_time < 12
-    puts "Good morning"
-elsif 12 <= current_time and current_time < 18
-    puts "Good afternoon"
+    puts "Good morning, " + msg
+elsif current_time < 18
+    puts "Good afternoon, " + msg
 else
-    puts "Good evening"
+    puts "Good evening, " + msg
 end
 `.trimStart(),
   },

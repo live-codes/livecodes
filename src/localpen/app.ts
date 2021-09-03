@@ -424,15 +424,23 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     });
   };
 
-  const updateCompiledCode = (fromCompiler = true, lastCompilation = lastCompiled) => {
-    const scriptType =
-      fromCompiler &&
-      getLanguageCompiler(editors.script.getLanguage())?.scriptType &&
-      getLanguageCompiler(editors.script.getLanguage())?.scriptType !== 'module';
-    const compiledLanguages: { [key in EditorId]: Language } = {
-      markup: getEditorLanguage('markup') === 'mdx' ? 'javascript' : 'html',
-      style: 'css',
-      script: scriptType ? editors.script.getLanguage() : 'javascript',
+  const updateCompiledCode = (lastCompilation = lastCompiled) => {
+    const getCompiledLanguage = (editorId: EditorId) => {
+      const defaultLang: { [key in EditorId]: Language } = {
+        markup: 'html',
+        style: 'css',
+        script: 'javascript',
+      };
+      const lang = getLanguageCompiler(editors[editorId].getLanguage())?.compiledCodeLanguage;
+      return {
+        language: lang || defaultLang[editorId],
+        label: getLanguageByAlias(lang) || lang || defaultLang[editorId],
+      };
+    };
+    const compiledLanguages: { [key in EditorId]: { language: Language; label: string } } = {
+      markup: getCompiledLanguage('markup'),
+      style: getCompiledLanguage('style'),
+      script: getCompiledLanguage('script'),
     };
     if (toolsPane && toolsPane.compiled && lastCompilation) {
       Object.keys(lastCompilation).forEach((editorId) => {
@@ -441,7 +449,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         if (editorId === 'script' && editors.script.getLanguage() === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
         }
-        toolsPane.compiled.update(compiledLanguages[editorId], compiledCode);
+        toolsPane.compiled.update(
+          compiledLanguages[editorId].language,
+          compiledCode,
+          compiledLanguages[editorId].label,
+        );
       });
     }
   };
@@ -1729,20 +1741,24 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         customSettingsEditor.focus();
 
         eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
+          let customSettings: any = {};
+          const editorContent = customSettingsEditor?.getValue() || '{}';
           try {
-            const customSettings = JSON.parse(
-              stringToValidJson(customSettingsEditor?.getValue() || '{}'),
-            );
-            if (customSettings !== getConfig().customSettings) {
-              setConfig({
-                ...getConfig(),
-                customSettings,
-              });
-              setSavedStatus(false);
-            }
+            customSettings = JSON.parse(editorContent);
           } catch {
-            notifications.error('Failed parsing settings as JSON');
-            return;
+            try {
+              customSettings = JSON.parse(stringToValidJson(editorContent));
+            } catch {
+              notifications.error('Failed parsing settings as JSON');
+              return;
+            }
+          }
+          if (customSettings !== getConfig().customSettings) {
+            setConfig({
+              ...getConfig(),
+              customSettings,
+            });
+            setSavedStatus(false);
           }
           customSettingsEditor?.destroy();
           modal.close();
@@ -1775,7 +1791,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           if (lastCompiled) {
             const editorId = getLanguageEditorId(event.data.payload.language);
             if (!editorId) return;
-            updateCompiledCode(false, {
+            updateCompiledCode({
               ...lastCompiled,
               [editorId]: event.data.payload.content || '',
             });

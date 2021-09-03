@@ -123,7 +123,6 @@ ${escapeCode(code)}
         ).css;
       };
     },
-    umd: true,
   },
   editors: ['style'],
 };

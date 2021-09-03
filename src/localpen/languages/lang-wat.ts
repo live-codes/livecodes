@@ -118,6 +118,7 @@ export const wat: LanguageSpecs = {
 })();
     `,
     scriptType,
+    compiledCodeLanguage: 'Binary',
   },
   extensions: ['wat', 'wast', 'webassembly', 'wasm'],
   editor: 'script',

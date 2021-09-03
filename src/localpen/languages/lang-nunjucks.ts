@@ -51,7 +51,6 @@ export const nunjucks: LanguageSpecs = {
   </script>
   `;
     },
-    umd: true,
   },
   extensions: ['njk'],
   editor: 'markup',
