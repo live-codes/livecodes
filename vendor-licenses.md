@@ -14,8 +14,6 @@ Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582
 
 BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/b2dcab982f1b3954ad1f8b4b94595a803d83663c/MIT-LICENSE.txt)
 
-Brython: [BSD-3-Clause License](https://github.com/brython-dev/brython/blob/2600ff4dd0702e194aba1633613beadac98dfc8c/LICENCE.txt)
-
 clientside-haml-js: [MIT License](https://github.com/uglyog/clientside-haml-js/blob/d814d16f46e1629c149c18d7692ba16f249f436b/LICENSE)
 
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)

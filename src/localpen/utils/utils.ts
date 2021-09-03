@@ -55,7 +55,8 @@ export const isMobile = () => {
   return mobile || safari;
 };
 
-export const isRelativeUrl = (url?: string) => !url?.startsWith('http');
+export const isRelativeUrl = (url?: string) =>
+  !url?.startsWith('http') && !url?.startsWith('data:');
 
 export const getAbsoluteUrl = (url: string, baseUrl = document.baseURI) =>
   isRelativeUrl(url) ? new URL(url, baseUrl).href : url;

@@ -23,8 +23,8 @@ export const getLanguageSpecs = (alias: string) =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias));
 
 export const getLanguageCompiler = (alias: string): Compiler | undefined => {
-  const LanguageSpecs = getLanguageSpecs(alias);
-  let compiler = LanguageSpecs?.compiler;
+  const languageSpecs = getLanguageSpecs(alias);
+  let compiler = languageSpecs?.compiler;
   if (typeof compiler === 'string') {
     compiler = getLanguageCompiler(compiler);
   }

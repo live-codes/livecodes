@@ -255,17 +255,6 @@ fs.copyFileSync(
   path.resolve(targetDir + '/snackbar/snackbar.min.css'),
 );
 
-// brython
-mkdirp(targetDir + '/brython');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/brython/brython.min.js'),
-  path.resolve(targetDir + '/brython/brython.min.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/brython/brython_stdlib.js'),
-  path.resolve(targetDir + '/brython/brython_stdlib.js'),
-);
-
 // uniter
 mkdirp(targetDir + '/uniter');
 fs.copyFileSync(
