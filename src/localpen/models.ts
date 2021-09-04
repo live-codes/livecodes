@@ -99,6 +99,7 @@ export type Language =
   | 'solid'
   | 'solid.jsx'
   | 'solid.tsx'
+  | 'riot'
   | 'coffeescript'
   | 'coffee'
   | 'livescript'
