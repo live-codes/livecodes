@@ -1647,8 +1647,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             existingRepoNameInput.focus();
           });
 
+          const inputSelector = '#' + existingRepoNameInput.id;
+          if (!document.querySelector(inputSelector)) return;
           const autoCompleteJS = new autoComplete({
-            selector: '#' + existingRepoNameInput.id,
+            selector: inputSelector,
             placeHolder: 'Search your public repos...',
             data: {
               src: publicRepos,
