@@ -12,10 +12,6 @@ Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9
 
 Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582f1f3fdcdac0fa0d2f/LICENSE)
 
-BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/b2dcab982f1b3954ad1f8b4b94595a803d83663c/MIT-LICENSE.txt)
-
-Brython: [BSD-3-Clause License](https://github.com/brython-dev/brython/blob/2600ff4dd0702e194aba1633613beadac98dfc8c/LICENCE.txt)
-
 clientside-haml-js: [MIT License](https://github.com/uglyog/clientside-haml-js/blob/d814d16f46e1629c149c18d7692ba16f249f436b/LICENSE)
 
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
@@ -25,8 +21,6 @@ CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f64
 emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b578210738fb591c65fb34530d28c0d0341fbb7d/LICENSE)
 
 ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blob/986733009f4c9374decd4c0348740134ff499157/LICENSE)
-
-fengari-web: [MIT License](https://github.com/fengari-lua/fengari-web/blob/a9fb130f6851206e8a57be902af061e980be5610/LICENSE)
 
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)
 
@@ -93,8 +87,6 @@ SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
-
-Uniter: [MIT License](https://github.com/asmblah/uniter/blob/2c20bd03a8b658a1f4bfd81ab2dce72b088755cb/MIT-LICENSE.txt)
 
 vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-loader/blob/84b05a091fe5a283c7ed909c06cc31c0153ed103/LICENSE)
 

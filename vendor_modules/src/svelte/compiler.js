@@ -204,6 +204,7 @@
 	  regexp: new TokenType("regexp", startsExpr),
 	  string: new TokenType("string", startsExpr),
 	  name: new TokenType("name", startsExpr),
+	  privateId: new TokenType("privateId", startsExpr),
 	  eof: new TokenType("eof"),
 
 	  // Punctuation token types.
@@ -366,16 +367,17 @@
 	  }
 	}
 
-	// A second optional argument can be given to further configure
-	// the parser process. These options are recognized:
+	// A second argument must be given to configure the parser process.
+	// These options are recognized (only `ecmaVersion` is required):
 
 	var defaultOptions = {
 	  // `ecmaVersion` indicates the ECMAScript version to parse. Must be
-	  // either 3, 5, 6 (2015), 7 (2016), 8 (2017), 9 (2018), or 10
-	  // (2019). This influences support for strict mode, the set of
-	  // reserved words, and support for new syntax features. The default
-	  // is 10.
-	  ecmaVersion: 10,
+	  // either 3, 5, 6 (or 2015), 7 (2016), 8 (2017), 9 (2018), 10
+	  // (2019), 11 (2020), 12 (2021), 13 (2022), or `"latest"` (the
+	  // latest version the library supports). This influences support
+	  // for strict mode, the set of reserved words, and support for
+	  // new syntax features.
+	  ecmaVersion: null,
 	  // `sourceType` indicates the mode the code should be parsed in.
 	  // Can be either `"script"` or `"module"`. This influences global
 	  // strict mode and parsing of `import` and `export` declarations.
@@ -398,11 +400,16 @@
 	  // error.
 	  allowReturnOutsideFunction: false,
 	  // When enabled, import/export statements are not constrained to
-	  // appearing at the top of the program.
+	  // appearing at the top of the program, and an import.meta expression
+	  // in a script isn't considered an error.
 	  allowImportExportEverywhere: false,
+	  // By default, await identifiers are allowed to appear at the top-level scope only if ecmaVersion >= 2022.
 	  // When enabled, await identifiers are allowed to appear at the top-level scope,
 	  // but they are still not allowed in non-async functions.
-	  allowAwaitOutsideFunction: false,
+	  allowAwaitOutsideFunction: null,
+	  // When enabled, super identifiers are not constrained to
+	  // appearing in methods and do not raise an error when they appear elsewhere.
+	  allowSuperOutsideMethod: null,
 	  // When enabled, hashbang directive in the beginning of file
 	  // is allowed and treated as a line comment.
 	  allowHashBang: false,
@@ -456,14 +463,25 @@
 
 	// Interpret and default an options object
 
+	var warnedAboutEcmaVersion = false;
+
 	function getOptions(opts) {
 	  var options = {};
 
 	  for (var opt in defaultOptions)
 	    { options[opt] = opts && has(opts, opt) ? opts[opt] : defaultOptions[opt]; }
 
-	  if (options.ecmaVersion >= 2015)
-	    { options.ecmaVersion -= 2009; }
+	  if (options.ecmaVersion === "latest") {
+	    options.ecmaVersion = 1e8;
+	  } else if (options.ecmaVersion == null) {
+	    if (!warnedAboutEcmaVersion && typeof console === "object" && console.warn) {
+	      warnedAboutEcmaVersion = true;
+	      console.warn("Since Acorn 8.0.0, options.ecmaVersion is required.\nDefaulting to 2020, but this will stop working in the future.");
+	    }
+	    options.ecmaVersion = 11;
+	  } else if (options.ecmaVersion >= 2015) {
+	    options.ecmaVersion -= 2009;
+	  }
 
 	  if (options.allowReserved == null)
 	    { options.allowReserved = options.ecmaVersion < 5; }
@@ -510,7 +528,7 @@
 	  return SCOPE_FUNCTION | (async ? SCOPE_ASYNC : 0) | (generator ? SCOPE_GENERATOR : 0)
 	}
 
-	// Used in checkLVal and declareName to determine the type of a binding
+	// Used in checkLVal* and declareName to determine the type of a binding
 	var
 	    BIND_NONE = 0, // Not a binding
 	    BIND_VAR = 1, // Var-style binding
@@ -525,8 +543,7 @@
 	  this.keywords = wordsRegexp(keywords[options.ecmaVersion >= 6 ? 6 : options.sourceType === "module" ? "5module" : 5]);
 	  var reserved = "";
 	  if (options.allowReserved !== true) {
-	    for (var v = options.ecmaVersion;; v--)
-	      { if (reserved = reservedWords[v]) { break } }
+	    reserved = reservedWords[options.ecmaVersion >= 6 ? 6 : options.ecmaVersion === 5 ? 5 : 3];
 	    if (options.sourceType === "module") { reserved += " await"; }
 	  }
 	  this.reservedWords = wordsRegexp(reserved);
@@ -579,13 +596,14 @@
 
 	  // Used to signify the start of a potential arrow function
 	  this.potentialArrowAt = -1;
+	  this.potentialArrowInForAwait = false;
 
 	  // Positions to delayed-check that yield/await does not exist in default parameters.
 	  this.yieldPos = this.awaitPos = this.awaitIdentPos = 0;
 	  // Labels in scope.
 	  this.labels = [];
 	  // Thus-far undefined exports.
-	  this.undefinedExports = {};
+	  this.undefinedExports = Object.create(null);
 
 	  // If enabled, skip leading hashbang line.
 	  if (this.pos === 0 && options.allowHashBang && this.input.slice(0, 2) === "#!")
@@ -597,9 +615,14 @@
 
 	  // For RegExp validation
 	  this.regexpState = null;
+
+	  // The stack of private names.
+	  // Each element has two properties: 'declared' and 'used'.
+	  // When it exited from the outermost class definition, all used private names must be declared.
+	  this.privateNameStack = [];
 	};
 
-	var prototypeAccessors = { inFunction: { configurable: true },inGenerator: { configurable: true },inAsync: { configurable: true },allowSuper: { configurable: true },allowDirectSuper: { configurable: true },treatFunctionsAsVar: { configurable: true } };
+	var prototypeAccessors = { inFunction: { configurable: true },inGenerator: { configurable: true },inAsync: { configurable: true },canAwait: { configurable: true },allowSuper: { configurable: true },allowDirectSuper: { configurable: true },treatFunctionsAsVar: { configurable: true },inNonArrowFunction: { configurable: true } };
 
 	Parser.prototype.parse = function parse () {
 	  var node = this.options.program || this.startNode();
@@ -608,14 +631,30 @@
 	};
 
 	prototypeAccessors.inFunction.get = function () { return (this.currentVarScope().flags & SCOPE_FUNCTION) > 0 };
-	prototypeAccessors.inGenerator.get = function () { return (this.currentVarScope().flags & SCOPE_GENERATOR) > 0 };
-	prototypeAccessors.inAsync.get = function () { return (this.currentVarScope().flags & SCOPE_ASYNC) > 0 };
-	prototypeAccessors.allowSuper.get = function () { return (this.currentThisScope().flags & SCOPE_SUPER) > 0 };
+	prototypeAccessors.inGenerator.get = function () { return (this.currentVarScope().flags & SCOPE_GENERATOR) > 0 && !this.currentVarScope().inClassFieldInit };
+	prototypeAccessors.inAsync.get = function () { return (this.currentVarScope().flags & SCOPE_ASYNC) > 0 && !this.currentVarScope().inClassFieldInit };
+	prototypeAccessors.canAwait.get = function () {
+	  for (var i = this.scopeStack.length - 1; i >= 0; i--) {
+	    var scope = this.scopeStack[i];
+	    if (scope.inClassFieldInit) { return false }
+	    if (scope.flags & SCOPE_FUNCTION) { return (scope.flags & SCOPE_ASYNC) > 0 }
+	  }
+	  return (this.inModule && this.options.ecmaVersion >= 13) || this.options.allowAwaitOutsideFunction
+	};
+	prototypeAccessors.allowSuper.get = function () {
+	  var ref = this.currentThisScope();
+	    var flags = ref.flags;
+	    var inClassFieldInit = ref.inClassFieldInit;
+	  return (flags & SCOPE_SUPER) > 0 || inClassFieldInit || this.options.allowSuperOutsideMethod
+	};
 	prototypeAccessors.allowDirectSuper.get = function () { return (this.currentThisScope().flags & SCOPE_DIRECT_SUPER) > 0 };
 	prototypeAccessors.treatFunctionsAsVar.get = function () { return this.treatFunctionsAsVarInScope(this.currentScope()) };
-
-	// Switch to a getter for 7.0.0.
-	Parser.prototype.inNonArrowFunction = function inNonArrowFunction () { return (this.currentThisScope().flags & SCOPE_FUNCTION) > 0 };
+	prototypeAccessors.inNonArrowFunction.get = function () {
+	  var ref = this.currentThisScope();
+	    var flags = ref.flags;
+	    var inClassFieldInit = ref.inClassFieldInit;
+	  return (flags & SCOPE_FUNCTION) > 0 || inClassFieldInit
+	};
 
 	Parser.extend = function extend () {
 	    var plugins = [], len = arguments.length;
@@ -646,7 +685,7 @@
 
 	// ## Parser utilities
 
-	var literal = /^(?:'((?:\\.|[^'])*?)'|"((?:\\.|[^"])*?)")/;
+	var literal = /^(?:'((?:\\.|[^'\\])*?)'|"((?:\\.|[^"\\])*?)")/;
 	pp.strictDirective = function(start) {
 	  for (;;) {
 	    // Try to find string literal.
@@ -801,7 +840,7 @@
 	// to its body instead of creating a new node.
 
 	pp$1.parseTopLevel = function(node) {
-	  var exports = {};
+	  var exports = Object.create(null);
 	  if (!node.body) { node.body = []; }
 	  while (this.type !== types.eof) {
 	    var stmt = this.parseStatement(null, true, exports);
@@ -831,13 +870,14 @@
 	  // Statement) is allowed here. If context is not empty then only a Statement
 	  // is allowed. However, `let [` is an explicit negative lookahead for
 	  // ExpressionStatement, so special-case it first.
-	  if (nextCh === 91) { return true } // '['
+	  if (nextCh === 91 || nextCh === 92 || nextCh > 0xd7ff && nextCh < 0xdc00) { return true } // '[', '/', astral
 	  if (context) { return false }
 
 	  if (nextCh === 123) { return true } // '{'
 	  if (isIdentifierStart(nextCh, true)) {
 	    var pos = next + 1;
-	    while (isIdentifierChar(this.input.charCodeAt(pos), true)) { ++pos; }
+	    while (isIdentifierChar(nextCh = this.input.charCodeAt(pos), true)) { ++pos; }
+	    if (nextCh === 92 || nextCh > 0xd7ff && nextCh < 0xdc00) { return true }
 	    var ident = this.input.slice(next, pos);
 	    if (!keywordRelationalOperator.test(ident)) { return true }
 	  }
@@ -853,10 +893,11 @@
 
 	  skipWhiteSpace.lastIndex = this.pos;
 	  var skip = skipWhiteSpace.exec(this.input);
-	  var next = this.pos + skip[0].length;
+	  var next = this.pos + skip[0].length, after;
 	  return !lineBreak.test(this.input.slice(this.pos, next)) &&
 	    this.input.slice(next, next + 8) === "function" &&
-	    (next + 8 === this.input.length || !isIdentifierChar(this.input.charAt(next + 8)))
+	    (next + 8 === this.input.length ||
+	     !(isIdentifierChar(after = this.input.charCodeAt(next + 8)) || after > 0xd7ff && after < 0xdc00))
 	};
 
 	// Parse a single statement.
@@ -996,7 +1037,7 @@
 
 	pp$1.parseForStatement = function(node) {
 	  this.next();
-	  var awaitAt = (this.options.ecmaVersion >= 9 && (this.inAsync || (!this.inFunction && this.options.allowAwaitOutsideFunction)) && this.eatContextual("await")) ? this.lastTokStart : -1;
+	  var awaitAt = (this.options.ecmaVersion >= 9 && this.canAwait && this.eatContextual("await")) ? this.lastTokStart : -1;
 	  this.labels.push(loopLabel);
 	  this.enterScope(0);
 	  this.expect(types.parenL);
@@ -1022,7 +1063,7 @@
 	    return this.parseFor(node, init$1)
 	  }
 	  var refDestructuringErrors = new DestructuringErrors;
-	  var init = this.parseExpression(true, refDestructuringErrors);
+	  var init = this.parseExpression(awaitAt > -1 ? "await" : true, refDestructuringErrors);
 	  if (this.type === types._in || (this.options.ecmaVersion >= 6 && this.isContextual("of"))) {
 	    if (this.options.ecmaVersion >= 9) {
 	      if (this.type === types._in) {
@@ -1030,7 +1071,7 @@
 	      } else { node.await = awaitAt > -1; }
 	    }
 	    this.toAssignable(init, false, refDestructuringErrors);
-	    this.checkLVal(init);
+	    this.checkLValPattern(init);
 	    return this.parseForIn(node, init)
 	  } else {
 	    this.checkExpressionErrors(refDestructuringErrors, true);
@@ -1131,7 +1172,7 @@
 	      clause.param = this.parseBindingAtom();
 	      var simple = clause.param.type === "Identifier";
 	      this.enterScope(simple ? SCOPE_SIMPLE_CATCH : 0);
-	      this.checkLVal(clause.param, simple ? BIND_SIMPLE_CATCH : BIND_LEXICAL);
+	      this.checkLValPattern(clause.param, simple ? BIND_SIMPLE_CATCH : BIND_LEXICAL);
 	      this.expect(types.parenR);
 	    } else {
 	      if (this.options.ecmaVersion < 10) { this.unexpected(); }
@@ -1267,8 +1308,6 @@
 	      init.start,
 	      ((isForIn ? "for-in" : "for-of") + " loop variable declaration may not have an initializer")
 	    );
-	  } else if (init.type === "AssignmentPattern") {
-	    this.raise(init.start, "Invalid left-hand side in for-loop");
 	  }
 	  node.left = init;
 	  node.right = isForIn ? this.parseExpression() : this.parseMaybeAssign();
@@ -1304,7 +1343,7 @@
 
 	pp$1.parseVarId = function(decl, kind) {
 	  decl.id = this.parseBindingAtom();
-	  this.checkLVal(decl.id, kind === "var" ? BIND_VAR : BIND_LEXICAL, false);
+	  this.checkLValPattern(decl.id, kind === "var" ? BIND_VAR : BIND_LEXICAL, false);
 	};
 
 	var FUNC_STATEMENT = 1, FUNC_HANGING_STATEMENT = 2, FUNC_NULLABLE_ID = 4;
@@ -1330,7 +1369,7 @@
 	      // subject to Annex B semantics (BIND_FUNCTION). Otherwise, the binding
 	      // mode depends on properties of the current scope (see
 	      // treatFunctionsAsVar).
-	      { this.checkLVal(node.id, (this.strict || node.generator || node.async) ? this.treatFunctionsAsVar ? BIND_VAR : BIND_LEXICAL : BIND_FUNCTION); }
+	      { this.checkLValSimple(node.id, (this.strict || node.generator || node.async) ? this.treatFunctionsAsVar ? BIND_VAR : BIND_LEXICAL : BIND_FUNCTION); }
 	  }
 
 	  var oldYieldPos = this.yieldPos, oldAwaitPos = this.awaitPos, oldAwaitIdentPos = this.awaitIdentPos;
@@ -1370,6 +1409,7 @@
 
 	  this.parseClassId(node, isStatement);
 	  this.parseClassSuper(node);
+	  var privateNameMap = this.enterClassBody();
 	  var classBody = this.startNode();
 	  var hadConstructor = false;
 	  classBody.body = [];
@@ -1381,82 +1421,159 @@
 	      if (element.type === "MethodDefinition" && element.kind === "constructor") {
 	        if (hadConstructor) { this.raise(element.start, "Duplicate constructor in the same class"); }
 	        hadConstructor = true;
+	      } else if (element.key.type === "PrivateIdentifier" && isPrivateNameConflicted(privateNameMap, element)) {
+	        this.raiseRecoverable(element.key.start, ("Identifier '#" + (element.key.name) + "' has already been declared"));
 	      }
 	    }
 	  }
 	  this.strict = oldStrict;
 	  this.next();
 	  node.body = this.finishNode(classBody, "ClassBody");
+	  this.exitClassBody();
 	  return this.finishNode(node, isStatement ? "ClassDeclaration" : "ClassExpression")
 	};
 
 	pp$1.parseClassElement = function(constructorAllowsSuper) {
-	  var this$1 = this;
-
 	  if (this.eat(types.semi)) { return null }
 
-	  var method = this.startNode();
-	  var tryContextual = function (k, noLineBreak) {
-	    if ( noLineBreak === void 0 ) noLineBreak = false;
-
-	    var start = this$1.start, startLoc = this$1.startLoc;
-	    if (!this$1.eatContextual(k)) { return false }
-	    if (this$1.type !== types.parenL && (!noLineBreak || !this$1.canInsertSemicolon())) { return true }
-	    if (method.key) { this$1.unexpected(); }
-	    method.computed = false;
-	    method.key = this$1.startNodeAt(start, startLoc);
-	    method.key.name = k;
-	    this$1.finishNode(method.key, "Identifier");
-	    return false
-	  };
-
-	  method.kind = "method";
-	  method.static = tryContextual("static");
-	  var isGenerator = this.eat(types.star);
+	  var ecmaVersion = this.options.ecmaVersion;
+	  var node = this.startNode();
+	  var keyName = "";
+	  var isGenerator = false;
 	  var isAsync = false;
-	  if (!isGenerator) {
-	    if (this.options.ecmaVersion >= 8 && tryContextual("async", true)) {
-	      isAsync = true;
-	      isGenerator = this.options.ecmaVersion >= 9 && this.eat(types.star);
-	    } else if (tryContextual("get")) {
-	      method.kind = "get";
-	    } else if (tryContextual("set")) {
-	      method.kind = "set";
+	  var kind = "method";
+
+	  // Parse modifiers
+	  node.static = false;
+	  if (this.eatContextual("static")) {
+	    if (this.isClassElementNameStart() || this.type === types.star) {
+	      node.static = true;
+	    } else {
+	      keyName = "static";
 	    }
 	  }
-	  if (!method.key) { this.parsePropertyName(method); }
-	  var key = method.key;
-	  var allowsDirectSuper = false;
-	  if (!method.computed && !method.static && (key.type === "Identifier" && key.name === "constructor" ||
-	      key.type === "Literal" && key.value === "constructor")) {
-	    if (method.kind !== "method") { this.raise(key.start, "Constructor can't have get/set modifier"); }
-	    if (isGenerator) { this.raise(key.start, "Constructor can't be a generator"); }
-	    if (isAsync) { this.raise(key.start, "Constructor can't be an async method"); }
-	    method.kind = "constructor";
-	    allowsDirectSuper = constructorAllowsSuper;
-	  } else if (method.static && key.type === "Identifier" && key.name === "prototype") {
-	    this.raise(key.start, "Classes may not have a static property named prototype");
+	  if (!keyName && ecmaVersion >= 8 && this.eatContextual("async")) {
+	    if ((this.isClassElementNameStart() || this.type === types.star) && !this.canInsertSemicolon()) {
+	      isAsync = true;
+	    } else {
+	      keyName = "async";
+	    }
 	  }
-	  this.parseClassMethod(method, isGenerator, isAsync, allowsDirectSuper);
-	  if (method.kind === "get" && method.value.params.length !== 0)
-	    { this.raiseRecoverable(method.value.start, "getter should have no params"); }
-	  if (method.kind === "set" && method.value.params.length !== 1)
-	    { this.raiseRecoverable(method.value.start, "setter should have exactly one param"); }
-	  if (method.kind === "set" && method.value.params[0].type === "RestElement")
-	    { this.raiseRecoverable(method.value.params[0].start, "Setter cannot use rest params"); }
-	  return method
+	  if (!keyName && (ecmaVersion >= 9 || !isAsync) && this.eat(types.star)) {
+	    isGenerator = true;
+	  }
+	  if (!keyName && !isAsync && !isGenerator) {
+	    var lastValue = this.value;
+	    if (this.eatContextual("get") || this.eatContextual("set")) {
+	      if (this.isClassElementNameStart()) {
+	        kind = lastValue;
+	      } else {
+	        keyName = lastValue;
+	      }
+	    }
+	  }
+
+	  // Parse element name
+	  if (keyName) {
+	    // 'async', 'get', 'set', or 'static' were not a keyword contextually.
+	    // The last token is any of those. Make it the element name.
+	    node.computed = false;
+	    node.key = this.startNodeAt(this.lastTokStart, this.lastTokStartLoc);
+	    node.key.name = keyName;
+	    this.finishNode(node.key, "Identifier");
+	  } else {
+	    this.parseClassElementName(node);
+	  }
+
+	  // Parse element value
+	  if (ecmaVersion < 13 || this.type === types.parenL || kind !== "method" || isGenerator || isAsync) {
+	    var isConstructor = !node.static && checkKeyName(node, "constructor");
+	    var allowsDirectSuper = isConstructor && constructorAllowsSuper;
+	    // Couldn't move this check into the 'parseClassMethod' method for backward compatibility.
+	    if (isConstructor && kind !== "method") { this.raise(node.key.start, "Constructor can't have get/set modifier"); }
+	    node.kind = isConstructor ? "constructor" : kind;
+	    this.parseClassMethod(node, isGenerator, isAsync, allowsDirectSuper);
+	  } else {
+	    this.parseClassField(node);
+	  }
+
+	  return node
+	};
+
+	pp$1.isClassElementNameStart = function() {
+	  return (
+	    this.type === types.name ||
+	    this.type === types.privateId ||
+	    this.type === types.num ||
+	    this.type === types.string ||
+	    this.type === types.bracketL ||
+	    this.type.keyword
+	  )
+	};
+
+	pp$1.parseClassElementName = function(element) {
+	  if (this.type === types.privateId) {
+	    if (this.value === "constructor") {
+	      this.raise(this.start, "Classes can't have an element named '#constructor'");
+	    }
+	    element.computed = false;
+	    element.key = this.parsePrivateIdent();
+	  } else {
+	    this.parsePropertyName(element);
+	  }
 	};
 
 	pp$1.parseClassMethod = function(method, isGenerator, isAsync, allowsDirectSuper) {
-	  method.value = this.parseMethod(isGenerator, isAsync, allowsDirectSuper);
+	  // Check key and flags
+	  var key = method.key;
+	  if (method.kind === "constructor") {
+	    if (isGenerator) { this.raise(key.start, "Constructor can't be a generator"); }
+	    if (isAsync) { this.raise(key.start, "Constructor can't be an async method"); }
+	  } else if (method.static && checkKeyName(method, "prototype")) {
+	    this.raise(key.start, "Classes may not have a static property named prototype");
+	  }
+
+	  // Parse value
+	  var value = method.value = this.parseMethod(isGenerator, isAsync, allowsDirectSuper);
+
+	  // Check value
+	  if (method.kind === "get" && value.params.length !== 0)
+	    { this.raiseRecoverable(value.start, "getter should have no params"); }
+	  if (method.kind === "set" && value.params.length !== 1)
+	    { this.raiseRecoverable(value.start, "setter should have exactly one param"); }
+	  if (method.kind === "set" && value.params[0].type === "RestElement")
+	    { this.raiseRecoverable(value.params[0].start, "Setter cannot use rest params"); }
+
 	  return this.finishNode(method, "MethodDefinition")
+	};
+
+	pp$1.parseClassField = function(field) {
+	  if (checkKeyName(field, "constructor")) {
+	    this.raise(field.key.start, "Classes can't have a field named 'constructor'");
+	  } else if (field.static && checkKeyName(field, "prototype")) {
+	    this.raise(field.key.start, "Classes can't have a static field named 'prototype'");
+	  }
+
+	  if (this.eat(types.eq)) {
+	    // To raise SyntaxError if 'arguments' exists in the initializer.
+	    var scope = this.currentThisScope();
+	    var inClassFieldInit = scope.inClassFieldInit;
+	    scope.inClassFieldInit = true;
+	    field.value = this.parseMaybeAssign();
+	    scope.inClassFieldInit = inClassFieldInit;
+	  } else {
+	    field.value = null;
+	  }
+	  this.semicolon();
+
+	  return this.finishNode(field, "PropertyDefinition")
 	};
 
 	pp$1.parseClassId = function(node, isStatement) {
 	  if (this.type === types.name) {
 	    node.id = this.parseIdent();
 	    if (isStatement)
-	      { this.checkLVal(node.id, BIND_LEXICAL, false); }
+	      { this.checkLValSimple(node.id, BIND_LEXICAL, false); }
 	  } else {
 	    if (isStatement === true)
 	      { this.unexpected(); }
@@ -1467,6 +1584,65 @@
 	pp$1.parseClassSuper = function(node) {
 	  node.superClass = this.eat(types._extends) ? this.parseExprSubscripts() : null;
 	};
+
+	pp$1.enterClassBody = function() {
+	  var element = {declared: Object.create(null), used: []};
+	  this.privateNameStack.push(element);
+	  return element.declared
+	};
+
+	pp$1.exitClassBody = function() {
+	  var ref = this.privateNameStack.pop();
+	  var declared = ref.declared;
+	  var used = ref.used;
+	  var len = this.privateNameStack.length;
+	  var parent = len === 0 ? null : this.privateNameStack[len - 1];
+	  for (var i = 0; i < used.length; ++i) {
+	    var id = used[i];
+	    if (!has(declared, id.name)) {
+	      if (parent) {
+	        parent.used.push(id);
+	      } else {
+	        this.raiseRecoverable(id.start, ("Private field '#" + (id.name) + "' must be declared in an enclosing class"));
+	      }
+	    }
+	  }
+	};
+
+	function isPrivateNameConflicted(privateNameMap, element) {
+	  var name = element.key.name;
+	  var curr = privateNameMap[name];
+
+	  var next = "true";
+	  if (element.type === "MethodDefinition" && (element.kind === "get" || element.kind === "set")) {
+	    next = (element.static ? "s" : "i") + element.kind;
+	  }
+
+	  // `class { get #a(){}; static set #a(_){} }` is also conflict.
+	  if (
+	    curr === "iget" && next === "iset" ||
+	    curr === "iset" && next === "iget" ||
+	    curr === "sget" && next === "sset" ||
+	    curr === "sset" && next === "sget"
+	  ) {
+	    privateNameMap[name] = "true";
+	    return false
+	  } else if (!curr) {
+	    privateNameMap[name] = next;
+	    return false
+	  } else {
+	    return true
+	  }
+	}
+
+	function checkKeyName(node, name) {
+	  var computed = node.computed;
+	  var key = node.key;
+	  return !computed && (
+	    key.type === "Identifier" && key.name === name ||
+	    key.type === "Literal" && key.value === name
+	  )
+	}
 
 	// Parses module export declaration.
 
@@ -1636,7 +1812,7 @@
 	    // import defaultObj, { x, y as z } from '...'
 	    var node = this.startNode();
 	    node.local = this.parseIdent();
-	    this.checkLVal(node.local, BIND_LEXICAL);
+	    this.checkLValSimple(node.local, BIND_LEXICAL);
 	    nodes.push(this.finishNode(node, "ImportDefaultSpecifier"));
 	    if (!this.eat(types.comma)) { return nodes }
 	  }
@@ -1645,7 +1821,7 @@
 	    this.next();
 	    this.expectContextual("as");
 	    node$1.local = this.parseIdent();
-	    this.checkLVal(node$1.local, BIND_LEXICAL);
+	    this.checkLValSimple(node$1.local, BIND_LEXICAL);
 	    nodes.push(this.finishNode(node$1, "ImportNamespaceSpecifier"));
 	    return nodes
 	  }
@@ -1664,7 +1840,7 @@
 	      this.checkUnreserved(node$2.imported);
 	      node$2.local = node$2.imported;
 	    }
-	    this.checkLVal(node$2.local, BIND_LEXICAL);
+	    this.checkLValSimple(node$2.local, BIND_LEXICAL);
 	    nodes.push(this.finishNode(node$2, "ImportSpecifier"));
 	  }
 	  return nodes
@@ -1701,6 +1877,7 @@
 
 	    case "ObjectPattern":
 	    case "ArrayPattern":
+	    case "AssignmentPattern":
 	    case "RestElement":
 	      break
 
@@ -1749,9 +1926,6 @@
 	      node.type = "AssignmentPattern";
 	      delete node.operator;
 	      this.toAssignable(node.left, isBinding);
-	      // falls through to AssignmentPattern
-
-	    case "AssignmentPattern":
 	      break
 
 	    case "ParenthesizedExpression":
@@ -1868,28 +2042,89 @@
 	  return this.finishNode(node, "AssignmentPattern")
 	};
 
-	// Verify that a node is an lval — something that can be assigned
-	// to.
-	// bindingType can be either:
-	// 'var' indicating that the lval creates a 'var' binding
-	// 'let' indicating that the lval creates a lexical ('let' or 'const') binding
-	// 'none' indicating that the binding should be checked for illegal identifiers, but not for duplicate references
+	// The following three functions all verify that a node is an lvalue —
+	// something that can be bound, or assigned to. In order to do so, they perform
+	// a variety of checks:
+	//
+	// - Check that none of the bound/assigned-to identifiers are reserved words.
+	// - Record name declarations for bindings in the appropriate scope.
+	// - Check duplicate argument names, if checkClashes is set.
+	//
+	// If a complex binding pattern is encountered (e.g., object and array
+	// destructuring), the entire pattern is recursively checked.
+	//
+	// There are three versions of checkLVal*() appropriate for different
+	// circumstances:
+	//
+	// - checkLValSimple() shall be used if the syntactic construct supports
+	//   nothing other than identifiers and member expressions. Parenthesized
+	//   expressions are also correctly handled. This is generally appropriate for
+	//   constructs for which the spec says
+	//
+	//   > It is a Syntax Error if AssignmentTargetType of [the production] is not
+	//   > simple.
+	//
+	//   It is also appropriate for checking if an identifier is valid and not
+	//   defined elsewhere, like import declarations or function/class identifiers.
+	//
+	//   Examples where this is used include:
+	//     a += …;
+	//     import a from '…';
+	//   where a is the node to be checked.
+	//
+	// - checkLValPattern() shall be used if the syntactic construct supports
+	//   anything checkLValSimple() supports, as well as object and array
+	//   destructuring patterns. This is generally appropriate for constructs for
+	//   which the spec says
+	//
+	//   > It is a Syntax Error if [the production] is neither an ObjectLiteral nor
+	//   > an ArrayLiteral and AssignmentTargetType of [the production] is not
+	//   > simple.
+	//
+	//   Examples where this is used include:
+	//     (a = …);
+	//     const a = …;
+	//     try { … } catch (a) { … }
+	//   where a is the node to be checked.
+	//
+	// - checkLValInnerPattern() shall be used if the syntactic construct supports
+	//   anything checkLValPattern() supports, as well as default assignment
+	//   patterns, rest elements, and other constructs that may appear within an
+	//   object or array destructuring pattern.
+	//
+	//   As a special case, function parameters also use checkLValInnerPattern(),
+	//   as they also support defaults and rest constructs.
+	//
+	// These functions deliberately support both assignment and binding constructs,
+	// as the logic for both is exceedingly similar. If the node is the target of
+	// an assignment, then bindingType should be set to BIND_NONE. Otherwise, it
+	// should be set to the appropriate BIND_* constant, like BIND_VAR or
+	// BIND_LEXICAL.
+	//
+	// If the function is called with a non-BIND_NONE bindingType, then
+	// additionally a checkClashes object may be specified to allow checking for
+	// duplicate argument names. checkClashes is ignored if the provided construct
+	// is an assignment (i.e., bindingType is BIND_NONE).
 
-	pp$2.checkLVal = function(expr, bindingType, checkClashes) {
+	pp$2.checkLValSimple = function(expr, bindingType, checkClashes) {
 	  if ( bindingType === void 0 ) bindingType = BIND_NONE;
+
+	  var isBind = bindingType !== BIND_NONE;
 
 	  switch (expr.type) {
 	  case "Identifier":
-	    if (bindingType === BIND_LEXICAL && expr.name === "let")
-	      { this.raiseRecoverable(expr.start, "let is disallowed as a lexically bound name"); }
 	    if (this.strict && this.reservedWordsStrictBind.test(expr.name))
-	      { this.raiseRecoverable(expr.start, (bindingType ? "Binding " : "Assigning to ") + expr.name + " in strict mode"); }
-	    if (checkClashes) {
-	      if (has(checkClashes, expr.name))
-	        { this.raiseRecoverable(expr.start, "Argument name clash"); }
-	      checkClashes[expr.name] = true;
+	      { this.raiseRecoverable(expr.start, (isBind ? "Binding " : "Assigning to ") + expr.name + " in strict mode"); }
+	    if (isBind) {
+	      if (bindingType === BIND_LEXICAL && expr.name === "let")
+	        { this.raiseRecoverable(expr.start, "let is disallowed as a lexically bound name"); }
+	      if (checkClashes) {
+	        if (has(checkClashes, expr.name))
+	          { this.raiseRecoverable(expr.start, "Argument name clash"); }
+	        checkClashes[expr.name] = true;
+	      }
+	      if (bindingType !== BIND_OUTSIDE) { this.declareName(expr.name, bindingType, expr.start); }
 	    }
-	    if (bindingType !== BIND_NONE && bindingType !== BIND_OUTSIDE) { this.declareName(expr.name, bindingType, expr.start); }
 	    break
 
 	  case "ChainExpression":
@@ -1897,45 +2132,62 @@
 	    break
 
 	  case "MemberExpression":
-	    if (bindingType) { this.raiseRecoverable(expr.start, "Binding member expression"); }
+	    if (isBind) { this.raiseRecoverable(expr.start, "Binding member expression"); }
 	    break
 
-	  case "ObjectPattern":
-	    for (var i = 0, list = expr.properties; i < list.length; i += 1)
-	      {
-	    var prop = list[i];
+	  case "ParenthesizedExpression":
+	    if (isBind) { this.raiseRecoverable(expr.start, "Binding parenthesized expression"); }
+	    return this.checkLValSimple(expr.expression, bindingType, checkClashes)
 
-	    this.checkLVal(prop, bindingType, checkClashes);
+	  default:
+	    this.raise(expr.start, (isBind ? "Binding" : "Assigning to") + " rvalue");
 	  }
-	    break
+	};
 
-	  case "Property":
-	    // AssignmentProperty has type === "Property"
-	    this.checkLVal(expr.value, bindingType, checkClashes);
+	pp$2.checkLValPattern = function(expr, bindingType, checkClashes) {
+	  if ( bindingType === void 0 ) bindingType = BIND_NONE;
+
+	  switch (expr.type) {
+	  case "ObjectPattern":
+	    for (var i = 0, list = expr.properties; i < list.length; i += 1) {
+	      var prop = list[i];
+
+	    this.checkLValInnerPattern(prop, bindingType, checkClashes);
+	    }
 	    break
 
 	  case "ArrayPattern":
 	    for (var i$1 = 0, list$1 = expr.elements; i$1 < list$1.length; i$1 += 1) {
 	      var elem = list$1[i$1];
 
-	    if (elem) { this.checkLVal(elem, bindingType, checkClashes); }
+	    if (elem) { this.checkLValInnerPattern(elem, bindingType, checkClashes); }
 	    }
 	    break
 
+	  default:
+	    this.checkLValSimple(expr, bindingType, checkClashes);
+	  }
+	};
+
+	pp$2.checkLValInnerPattern = function(expr, bindingType, checkClashes) {
+	  if ( bindingType === void 0 ) bindingType = BIND_NONE;
+
+	  switch (expr.type) {
+	  case "Property":
+	    // AssignmentProperty has type === "Property"
+	    this.checkLValInnerPattern(expr.value, bindingType, checkClashes);
+	    break
+
 	  case "AssignmentPattern":
-	    this.checkLVal(expr.left, bindingType, checkClashes);
+	    this.checkLValPattern(expr.left, bindingType, checkClashes);
 	    break
 
 	  case "RestElement":
-	    this.checkLVal(expr.argument, bindingType, checkClashes);
-	    break
-
-	  case "ParenthesizedExpression":
-	    this.checkLVal(expr.expression, bindingType, checkClashes);
+	    this.checkLValPattern(expr.argument, bindingType, checkClashes);
 	    break
 
 	  default:
-	    this.raise(expr.start, (bindingType ? "Binding" : "Assigning to") + " rvalue");
+	    this.checkLValPattern(expr, bindingType, checkClashes);
 	  }
 	};
 
@@ -2010,13 +2262,13 @@
 	// and object pattern might appear (so it's possible to raise
 	// delayed syntax error at correct position).
 
-	pp$3.parseExpression = function(noIn, refDestructuringErrors) {
+	pp$3.parseExpression = function(forInit, refDestructuringErrors) {
 	  var startPos = this.start, startLoc = this.startLoc;
-	  var expr = this.parseMaybeAssign(noIn, refDestructuringErrors);
+	  var expr = this.parseMaybeAssign(forInit, refDestructuringErrors);
 	  if (this.type === types.comma) {
 	    var node = this.startNodeAt(startPos, startLoc);
 	    node.expressions = [expr];
-	    while (this.eat(types.comma)) { node.expressions.push(this.parseMaybeAssign(noIn, refDestructuringErrors)); }
+	    while (this.eat(types.comma)) { node.expressions.push(this.parseMaybeAssign(forInit, refDestructuringErrors)); }
 	    return this.finishNode(node, "SequenceExpression")
 	  }
 	  return expr
@@ -2025,9 +2277,9 @@
 	// Parse an assignment expression. This includes applications of
 	// operators like `+=`.
 
-	pp$3.parseMaybeAssign = function(noIn, refDestructuringErrors, afterLeftParse) {
+	pp$3.parseMaybeAssign = function(forInit, refDestructuringErrors, afterLeftParse) {
 	  if (this.isContextual("yield")) {
-	    if (this.inGenerator) { return this.parseYield(noIn) }
+	    if (this.inGenerator) { return this.parseYield(forInit) }
 	    // The tokenizer will assume an expression is allowed after
 	    // `yield`, but this isn't that kind of yield
 	    else { this.exprAllowed = false; }
@@ -2044,22 +2296,29 @@
 	  }
 
 	  var startPos = this.start, startLoc = this.startLoc;
-	  if (this.type === types.parenL || this.type === types.name)
-	    { this.potentialArrowAt = this.start; }
-	  var left = this.parseMaybeConditional(noIn, refDestructuringErrors);
+	  if (this.type === types.parenL || this.type === types.name) {
+	    this.potentialArrowAt = this.start;
+	    this.potentialArrowInForAwait = forInit === "await";
+	  }
+	  var left = this.parseMaybeConditional(forInit, refDestructuringErrors);
 	  if (afterLeftParse) { left = afterLeftParse.call(this, left, startPos, startLoc); }
 	  if (this.type.isAssign) {
 	    var node = this.startNodeAt(startPos, startLoc);
 	    node.operator = this.value;
-	    node.left = this.type === types.eq ? this.toAssignable(left, false, refDestructuringErrors) : left;
+	    if (this.type === types.eq)
+	      { left = this.toAssignable(left, false, refDestructuringErrors); }
 	    if (!ownDestructuringErrors) {
 	      refDestructuringErrors.parenthesizedAssign = refDestructuringErrors.trailingComma = refDestructuringErrors.doubleProto = -1;
 	    }
-	    if (refDestructuringErrors.shorthandAssign >= node.left.start)
+	    if (refDestructuringErrors.shorthandAssign >= left.start)
 	      { refDestructuringErrors.shorthandAssign = -1; } // reset because shorthand default was used correctly
-	    this.checkLVal(left);
+	    if (this.type === types.eq)
+	      { this.checkLValPattern(left); }
+	    else
+	      { this.checkLValSimple(left); }
+	    node.left = left;
 	    this.next();
-	    node.right = this.parseMaybeAssign(noIn);
+	    node.right = this.parseMaybeAssign(forInit);
 	    return this.finishNode(node, "AssignmentExpression")
 	  } else {
 	    if (ownDestructuringErrors) { this.checkExpressionErrors(refDestructuringErrors, true); }
@@ -2071,16 +2330,16 @@
 
 	// Parse a ternary conditional (`?:`) operator.
 
-	pp$3.parseMaybeConditional = function(noIn, refDestructuringErrors) {
+	pp$3.parseMaybeConditional = function(forInit, refDestructuringErrors) {
 	  var startPos = this.start, startLoc = this.startLoc;
-	  var expr = this.parseExprOps(noIn, refDestructuringErrors);
+	  var expr = this.parseExprOps(forInit, refDestructuringErrors);
 	  if (this.checkExpressionErrors(refDestructuringErrors)) { return expr }
 	  if (this.eat(types.question)) {
 	    var node = this.startNodeAt(startPos, startLoc);
 	    node.test = expr;
 	    node.consequent = this.parseMaybeAssign();
 	    this.expect(types.colon);
-	    node.alternate = this.parseMaybeAssign(noIn);
+	    node.alternate = this.parseMaybeAssign(forInit);
 	    return this.finishNode(node, "ConditionalExpression")
 	  }
 	  return expr
@@ -2088,11 +2347,11 @@
 
 	// Start the precedence parser.
 
-	pp$3.parseExprOps = function(noIn, refDestructuringErrors) {
+	pp$3.parseExprOps = function(forInit, refDestructuringErrors) {
 	  var startPos = this.start, startLoc = this.startLoc;
 	  var expr = this.parseMaybeUnary(refDestructuringErrors, false);
 	  if (this.checkExpressionErrors(refDestructuringErrors)) { return expr }
-	  return expr.start === startPos && expr.type === "ArrowFunctionExpression" ? expr : this.parseExprOp(expr, startPos, startLoc, -1, noIn)
+	  return expr.start === startPos && expr.type === "ArrowFunctionExpression" ? expr : this.parseExprOp(expr, startPos, startLoc, -1, forInit)
 	};
 
 	// Parse binary operators with the operator precedence parsing
@@ -2101,9 +2360,9 @@
 	// defer further parser to one of its callers when it encounters an
 	// operator that has a lower precedence than the set it is parsing.
 
-	pp$3.parseExprOp = function(left, leftStartPos, leftStartLoc, minPrec, noIn) {
+	pp$3.parseExprOp = function(left, leftStartPos, leftStartLoc, minPrec, forInit) {
 	  var prec = this.type.binop;
-	  if (prec != null && (!noIn || this.type !== types._in)) {
+	  if (prec != null && (!forInit || this.type !== types._in)) {
 	    if (prec > minPrec) {
 	      var logical = this.type === types.logicalOR || this.type === types.logicalAND;
 	      var coalesce = this.type === types.coalesce;
@@ -2115,12 +2374,12 @@
 	      var op = this.value;
 	      this.next();
 	      var startPos = this.start, startLoc = this.startLoc;
-	      var right = this.parseExprOp(this.parseMaybeUnary(null, false), startPos, startLoc, prec, noIn);
+	      var right = this.parseExprOp(this.parseMaybeUnary(null, false), startPos, startLoc, prec, forInit);
 	      var node = this.buildBinary(leftStartPos, leftStartLoc, left, right, op, logical || coalesce);
 	      if ((logical && this.type === types.coalesce) || (coalesce && (this.type === types.logicalOR || this.type === types.logicalAND))) {
 	        this.raiseRecoverable(this.start, "Logical expressions and coalesce expressions cannot be mixed. Wrap either by parentheses");
 	      }
-	      return this.parseExprOp(node, leftStartPos, leftStartLoc, minPrec, noIn)
+	      return this.parseExprOp(node, leftStartPos, leftStartLoc, minPrec, forInit)
 	    }
 	  }
 	  return left
@@ -2136,9 +2395,9 @@
 
 	// Parse unary operators, both prefix and postfix.
 
-	pp$3.parseMaybeUnary = function(refDestructuringErrors, sawUnary) {
+	pp$3.parseMaybeUnary = function(refDestructuringErrors, sawUnary, incDec) {
 	  var startPos = this.start, startLoc = this.startLoc, expr;
-	  if (this.isContextual("await") && (this.inAsync || (!this.inFunction && this.options.allowAwaitOutsideFunction))) {
+	  if (this.isContextual("await") && this.canAwait) {
 	    expr = this.parseAwait();
 	    sawUnary = true;
 	  } else if (this.type.prefix) {
@@ -2146,12 +2405,14 @@
 	    node.operator = this.value;
 	    node.prefix = true;
 	    this.next();
-	    node.argument = this.parseMaybeUnary(null, true);
+	    node.argument = this.parseMaybeUnary(null, true, update);
 	    this.checkExpressionErrors(refDestructuringErrors, true);
-	    if (update) { this.checkLVal(node.argument); }
+	    if (update) { this.checkLValSimple(node.argument); }
 	    else if (this.strict && node.operator === "delete" &&
 	             node.argument.type === "Identifier")
 	      { this.raiseRecoverable(node.start, "Deleting local variable in strict mode"); }
+	    else if (node.operator === "delete" && isPrivateFieldAccess(node.argument))
+	      { this.raiseRecoverable(node.start, "Private fields can not be deleted"); }
 	    else { sawUnary = true; }
 	    expr = this.finishNode(node, update ? "UpdateExpression" : "UnaryExpression");
 	  } else {
@@ -2162,17 +2423,28 @@
 	      node$1.operator = this.value;
 	      node$1.prefix = false;
 	      node$1.argument = expr;
-	      this.checkLVal(expr);
+	      this.checkLValSimple(expr);
 	      this.next();
 	      expr = this.finishNode(node$1, "UpdateExpression");
 	    }
 	  }
 
-	  if (!sawUnary && this.eat(types.starstar))
-	    { return this.buildBinary(startPos, startLoc, expr, this.parseMaybeUnary(null, false), "**", false) }
-	  else
-	    { return expr }
+	  if (!incDec && this.eat(types.starstar)) {
+	    if (sawUnary)
+	      { this.unexpected(this.lastTokStart); }
+	    else
+	      { return this.buildBinary(startPos, startLoc, expr, this.parseMaybeUnary(null, false), "**", false) }
+	  } else {
+	    return expr
+	  }
 	};
+
+	function isPrivateFieldAccess(node) {
+	  return (
+	    node.type === "MemberExpression" && node.property.type === "PrivateIdentifier" ||
+	    node.type === "ChainExpression" && isPrivateFieldAccess(node.expression)
+	  )
+	}
 
 	// Parse call, dot, and `[]`-subscript expressions.
 
@@ -2185,6 +2457,7 @@
 	  if (refDestructuringErrors && result.type === "MemberExpression") {
 	    if (refDestructuringErrors.parenthesizedAssign >= result.start) { refDestructuringErrors.parenthesizedAssign = -1; }
 	    if (refDestructuringErrors.parenthesizedBind >= result.start) { refDestructuringErrors.parenthesizedBind = -1; }
+	    if (refDestructuringErrors.trailingComma >= result.start) { refDestructuringErrors.trailingComma = -1; }
 	  }
 	  return result
 	};
@@ -2221,9 +2494,15 @@
 	  if (computed || (optional && this.type !== types.parenL && this.type !== types.backQuote) || this.eat(types.dot)) {
 	    var node = this.startNodeAt(startPos, startLoc);
 	    node.object = base;
-	    node.property = computed ? this.parseExpression() : this.parseIdent(this.options.allowReserved !== "never");
+	    if (computed) {
+	      node.property = this.parseExpression();
+	      this.expect(types.bracketR);
+	    } else if (this.type === types.privateId && base.type !== "Super") {
+	      node.property = this.parsePrivateIdent();
+	    } else {
+	      node.property = this.parseIdent(this.options.allowReserved !== "never");
+	    }
 	    node.computed = !!computed;
-	    if (computed) { this.expect(types.bracketR); }
 	    if (optionalSupported) {
 	      node.optional = optional;
 	    }
@@ -2309,7 +2588,8 @@
 	    if (canBeArrow && !this.canInsertSemicolon()) {
 	      if (this.eat(types.arrow))
 	        { return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), [id], false) }
-	      if (this.options.ecmaVersion >= 8 && id.name === "async" && this.type === types.name && !containsEsc) {
+	      if (this.options.ecmaVersion >= 8 && id.name === "async" && this.type === types.name && !containsEsc &&
+	          (!this.potentialArrowInForAwait || this.value !== "of" || this.containsEsc)) {
 	        id = this.parseIdent(false);
 	        if (this.canInsertSemicolon() || !this.eat(types.arrow))
 	          { this.unexpected(); }
@@ -2427,7 +2707,7 @@
 	    { this.raiseRecoverable(node.property.start, "The only valid meta property for import is 'import.meta'"); }
 	  if (containsEsc)
 	    { this.raiseRecoverable(node.start, "'import.meta' must not contain escaped characters"); }
-	  if (this.options.sourceType !== "module")
+	  if (this.options.sourceType !== "module" && !this.options.allowImportExportEverywhere)
 	    { this.raiseRecoverable(node.start, "Cannot use 'import.meta' outside a module"); }
 
 	  return this.finishNode(node, "MetaProperty")
@@ -2539,7 +2819,7 @@
 	      { this.raiseRecoverable(node.property.start, "The only valid meta property for new is 'new.target'"); }
 	    if (containsEsc)
 	      { this.raiseRecoverable(node.start, "'new.target' must not contain escaped characters"); }
-	    if (!this.inNonArrowFunction())
+	    if (!this.inNonArrowFunction)
 	      { this.raiseRecoverable(node.start, "'new.target' can only be used in functions"); }
 	    return this.finishNode(node, "MetaProperty")
 	  }
@@ -2712,13 +2992,13 @@
 	      { this.awaitIdentPos = startPos; }
 	    prop.kind = "init";
 	    if (isPattern) {
-	      prop.value = this.parseMaybeDefault(startPos, startLoc, prop.key);
+	      prop.value = this.parseMaybeDefault(startPos, startLoc, this.copyNode(prop.key));
 	    } else if (this.type === types.eq && refDestructuringErrors) {
 	      if (refDestructuringErrors.shorthandAssign < 0)
 	        { refDestructuringErrors.shorthandAssign = this.start; }
-	      prop.value = this.parseMaybeDefault(startPos, startLoc, prop.key);
+	      prop.value = this.parseMaybeDefault(startPos, startLoc, this.copyNode(prop.key));
 	    } else {
-	      prop.value = prop.key;
+	      prop.value = this.copyNode(prop.key);
 	    }
 	    prop.shorthand = true;
 	  } else { this.unexpected(); }
@@ -2825,7 +3105,7 @@
 	    // if a let/const declaration in the function clashes with one of the params.
 	    this.checkParams(node, !oldStrict && !useStrict && !isArrowFunction && !isMethod && this.isSimpleParamList(node.params));
 	    // Ensure the function name isn't a forbidden identifier in strict mode, e.g. 'eval'
-	    if (this.strict && node.id) { this.checkLVal(node.id, BIND_OUTSIDE); }
+	    if (this.strict && node.id) { this.checkLValSimple(node.id, BIND_OUTSIDE); }
 	    node.body = this.parseBlock(false, undefined, useStrict && !oldStrict);
 	    node.expression = false;
 	    this.adaptDirectivePrologue(node.body.body);
@@ -2848,12 +3128,12 @@
 	// or "arguments" and duplicate parameters.
 
 	pp$3.checkParams = function(node, allowDuplicates) {
-	  var nameHash = {};
+	  var nameHash = Object.create(null);
 	  for (var i = 0, list = node.params; i < list.length; i += 1)
 	    {
 	    var param = list[i];
 
-	    this.checkLVal(param, BIND_VAR, allowDuplicates ? null : nameHash);
+	    this.checkLValInnerPattern(param, BIND_VAR, allowDuplicates ? null : nameHash);
 	  }
 	};
 
@@ -2895,6 +3175,8 @@
 	    { this.raiseRecoverable(start, "Cannot use 'yield' as identifier inside a generator"); }
 	  if (this.inAsync && name === "await")
 	    { this.raiseRecoverable(start, "Cannot use 'await' as identifier inside an async function"); }
+	  if (this.currentThisScope().inClassFieldInit && name === "arguments")
+	    { this.raiseRecoverable(start, "Cannot use 'arguments' in class field initializer"); }
 	  if (this.keywords.test(name))
 	    { this.raise(start, ("Unexpected keyword '" + name + "'")); }
 	  if (this.options.ecmaVersion < 6 &&
@@ -2939,9 +3221,29 @@
 	  return node
 	};
 
+	pp$3.parsePrivateIdent = function() {
+	  var node = this.startNode();
+	  if (this.type === types.privateId) {
+	    node.name = this.value;
+	  } else {
+	    this.unexpected();
+	  }
+	  this.next();
+	  this.finishNode(node, "PrivateIdentifier");
+
+	  // For validating existence
+	  if (this.privateNameStack.length === 0) {
+	    this.raise(node.start, ("Private field '#" + (node.name) + "' must be declared in an enclosing class"));
+	  } else {
+	    this.privateNameStack[this.privateNameStack.length - 1].used.push(node);
+	  }
+
+	  return node
+	};
+
 	// Parses yield expression inside generator.
 
-	pp$3.parseYield = function(noIn) {
+	pp$3.parseYield = function(forInit) {
 	  if (!this.yieldPos) { this.yieldPos = this.start; }
 
 	  var node = this.startNode();
@@ -2951,7 +3253,7 @@
 	    node.argument = null;
 	  } else {
 	    node.delegate = this.eat(types.star);
-	    node.argument = this.parseMaybeAssign(noIn);
+	    node.argument = this.parseMaybeAssign(forInit);
 	  }
 	  return this.finishNode(node, "YieldExpression")
 	};
@@ -2961,7 +3263,7 @@
 
 	  var node = this.startNode();
 	  this.next();
-	  node.argument = this.parseMaybeUnary(null, false);
+	  node.argument = this.parseMaybeUnary(null, true);
 	  return this.finishNode(node, "AwaitExpression")
 	};
 
@@ -2999,6 +3301,8 @@
 	  this.lexical = [];
 	  // A list of lexically-declared FunctionDeclaration names in the current lexical scope
 	  this.functions = [];
+	  // A switch to disallow the identifier reference 'arguments'
+	  this.inClassFieldInit = false;
 	};
 
 	// The functions in this module keep track of declared variables in the current scope in order to detect duplicate variable names.
@@ -3126,6 +3430,12 @@
 	  return finishNodeAt.call(this, node, type, pos, loc)
 	};
 
+	pp$6.copyNode = function(node) {
+	  var newNode = new Node(this, node.start, this.startLoc);
+	  for (var prop in node) { newNode[prop] = node[prop]; }
+	  return newNode
+	};
+
 	// The algorithm used to determine whether a regexp can appear at a
 
 	var TokContext = function TokContext(token, isExpr, preserveSpace, override, generator) {
@@ -3230,7 +3540,8 @@
 	};
 
 	types._function.updateContext = types._class.updateContext = function(prevType) {
-	  if (prevType.beforeExpr && prevType !== types.semi && prevType !== types._else &&
+	  if (prevType.beforeExpr && prevType !== types._else &&
+	      !(prevType === types.semi && this.curContext() !== types$1.p_stat) &&
 	      !(prevType === types._return && lineBreak.test(this.input.slice(this.lastTokEnd, this.start))) &&
 	      !((prevType === types.colon || prevType === types.braceL) && this.curContext() === types$1.b_stat))
 	    { this.context.push(types$1.f_expr); }
@@ -3276,10 +3587,12 @@
 	var ecma9BinaryProperties = "ASCII ASCII_Hex_Digit AHex Alphabetic Alpha Any Assigned Bidi_Control Bidi_C Bidi_Mirrored Bidi_M Case_Ignorable CI Cased Changes_When_Casefolded CWCF Changes_When_Casemapped CWCM Changes_When_Lowercased CWL Changes_When_NFKC_Casefolded CWKCF Changes_When_Titlecased CWT Changes_When_Uppercased CWU Dash Default_Ignorable_Code_Point DI Deprecated Dep Diacritic Dia Emoji Emoji_Component Emoji_Modifier Emoji_Modifier_Base Emoji_Presentation Extender Ext Grapheme_Base Gr_Base Grapheme_Extend Gr_Ext Hex_Digit Hex IDS_Binary_Operator IDSB IDS_Trinary_Operator IDST ID_Continue IDC ID_Start IDS Ideographic Ideo Join_Control Join_C Logical_Order_Exception LOE Lowercase Lower Math Noncharacter_Code_Point NChar Pattern_Syntax Pat_Syn Pattern_White_Space Pat_WS Quotation_Mark QMark Radical Regional_Indicator RI Sentence_Terminal STerm Soft_Dotted SD Terminal_Punctuation Term Unified_Ideograph UIdeo Uppercase Upper Variation_Selector VS White_Space space XID_Continue XIDC XID_Start XIDS";
 	var ecma10BinaryProperties = ecma9BinaryProperties + " Extended_Pictographic";
 	var ecma11BinaryProperties = ecma10BinaryProperties;
+	var ecma12BinaryProperties = ecma11BinaryProperties + " EBase EComp EMod EPres ExtPict";
 	var unicodeBinaryProperties = {
 	  9: ecma9BinaryProperties,
 	  10: ecma10BinaryProperties,
-	  11: ecma11BinaryProperties
+	  11: ecma11BinaryProperties,
+	  12: ecma12BinaryProperties
 	};
 
 	// #table-unicode-general-category-values
@@ -3289,10 +3602,12 @@
 	var ecma9ScriptValues = "Adlam Adlm Ahom Ahom Anatolian_Hieroglyphs Hluw Arabic Arab Armenian Armn Avestan Avst Balinese Bali Bamum Bamu Bassa_Vah Bass Batak Batk Bengali Beng Bhaiksuki Bhks Bopomofo Bopo Brahmi Brah Braille Brai Buginese Bugi Buhid Buhd Canadian_Aboriginal Cans Carian Cari Caucasian_Albanian Aghb Chakma Cakm Cham Cham Cherokee Cher Common Zyyy Coptic Copt Qaac Cuneiform Xsux Cypriot Cprt Cyrillic Cyrl Deseret Dsrt Devanagari Deva Duployan Dupl Egyptian_Hieroglyphs Egyp Elbasan Elba Ethiopic Ethi Georgian Geor Glagolitic Glag Gothic Goth Grantha Gran Greek Grek Gujarati Gujr Gurmukhi Guru Han Hani Hangul Hang Hanunoo Hano Hatran Hatr Hebrew Hebr Hiragana Hira Imperial_Aramaic Armi Inherited Zinh Qaai Inscriptional_Pahlavi Phli Inscriptional_Parthian Prti Javanese Java Kaithi Kthi Kannada Knda Katakana Kana Kayah_Li Kali Kharoshthi Khar Khmer Khmr Khojki Khoj Khudawadi Sind Lao Laoo Latin Latn Lepcha Lepc Limbu Limb Linear_A Lina Linear_B Linb Lisu Lisu Lycian Lyci Lydian Lydi Mahajani Mahj Malayalam Mlym Mandaic Mand Manichaean Mani Marchen Marc Masaram_Gondi Gonm Meetei_Mayek Mtei Mende_Kikakui Mend Meroitic_Cursive Merc Meroitic_Hieroglyphs Mero Miao Plrd Modi Modi Mongolian Mong Mro Mroo Multani Mult Myanmar Mymr Nabataean Nbat New_Tai_Lue Talu Newa Newa Nko Nkoo Nushu Nshu Ogham Ogam Ol_Chiki Olck Old_Hungarian Hung Old_Italic Ital Old_North_Arabian Narb Old_Permic Perm Old_Persian Xpeo Old_South_Arabian Sarb Old_Turkic Orkh Oriya Orya Osage Osge Osmanya Osma Pahawh_Hmong Hmng Palmyrene Palm Pau_Cin_Hau Pauc Phags_Pa Phag Phoenician Phnx Psalter_Pahlavi Phlp Rejang Rjng Runic Runr Samaritan Samr Saurashtra Saur Sharada Shrd Shavian Shaw Siddham Sidd SignWriting Sgnw Sinhala Sinh Sora_Sompeng Sora Soyombo Soyo Sundanese Sund Syloti_Nagri Sylo Syriac Syrc Tagalog Tglg Tagbanwa Tagb Tai_Le Tale Tai_Tham Lana Tai_Viet Tavt Takri Takr Tamil Taml Tangut Tang Telugu Telu Thaana Thaa Thai Thai Tibetan Tibt Tifinagh Tfng Tirhuta Tirh Ugaritic Ugar Vai Vaii Warang_Citi Wara Yi Yiii Zanabazar_Square Zanb";
 	var ecma10ScriptValues = ecma9ScriptValues + " Dogra Dogr Gunjala_Gondi Gong Hanifi_Rohingya Rohg Makasar Maka Medefaidrin Medf Old_Sogdian Sogo Sogdian Sogd";
 	var ecma11ScriptValues = ecma10ScriptValues + " Elymaic Elym Nandinagari Nand Nyiakeng_Puachue_Hmong Hmnp Wancho Wcho";
+	var ecma12ScriptValues = ecma11ScriptValues + " Chorasmian Chrs Diak Dives_Akuru Khitan_Small_Script Kits Yezi Yezidi";
 	var unicodeScriptValues = {
 	  9: ecma9ScriptValues,
 	  10: ecma10ScriptValues,
-	  11: ecma11ScriptValues
+	  11: ecma11ScriptValues,
+	  12: ecma12ScriptValues
 	};
 
 	var data = {};
@@ -3313,13 +3628,14 @@
 	buildUnicodeData(9);
 	buildUnicodeData(10);
 	buildUnicodeData(11);
+	buildUnicodeData(12);
 
 	var pp$8 = Parser.prototype;
 
 	var RegExpValidationState = function RegExpValidationState(parser) {
 	  this.parser = parser;
-	  this.validFlags = "gim" + (parser.options.ecmaVersion >= 6 ? "uy" : "") + (parser.options.ecmaVersion >= 9 ? "s" : "");
-	  this.unicodeProperties = data[parser.options.ecmaVersion >= 11 ? 11 : parser.options.ecmaVersion];
+	  this.validFlags = "gim" + (parser.options.ecmaVersion >= 6 ? "uy" : "") + (parser.options.ecmaVersion >= 9 ? "s" : "") + (parser.options.ecmaVersion >= 13 ? "d" : "");
+	  this.unicodeProperties = data[parser.options.ecmaVersion >= 12 ? 12 : parser.options.ecmaVersion];
 	  this.source = "";
 	  this.flags = "";
 	  this.start = 0;
@@ -4463,9 +4779,9 @@
 
 	pp$9.fullCharCodeAtPos = function() {
 	  var code = this.input.charCodeAt(this.pos);
-	  if (code <= 0xd7ff || code >= 0xe000) { return code }
+	  if (code <= 0xd7ff || code >= 0xdc00) { return code }
 	  var next = this.input.charCodeAt(this.pos + 1);
-	  return (code << 10) + next - 0x35fdc00
+	  return next <= 0xdbff || next >= 0xe000 ? code : (code << 10) + next - 0x35fdc00
 	};
 
 	pp$9.skipBlockComment = function() {
@@ -4684,6 +5000,20 @@
 	  return this.finishOp(types.question, 1)
 	};
 
+	pp$9.readToken_numberSign = function() { // '#'
+	  var ecmaVersion = this.options.ecmaVersion;
+	  var code = 35; // '#'
+	  if (ecmaVersion >= 13) {
+	    ++this.pos;
+	    code = this.fullCharCodeAtPos();
+	    if (isIdentifierStart(code, true) || code === 92 /* '\' */) {
+	      return this.finishToken(types.privateId, this.readWord1())
+	    }
+	  }
+
+	  this.raise(this.pos, "Unexpected character '" + codePointToString$1(code) + "'");
+	};
+
 	pp$9.getTokenFromCode = function(code) {
 	  switch (code) {
 	  // The interpretation of a dot depends on whether it is followed
@@ -4755,6 +5085,9 @@
 
 	  case 126: // '~'
 	    return this.finishOp(types.prefix, 1)
+
+	  case 35: // '#'
+	    return this.readToken_numberSign()
 	  }
 
 	  this.raise(this.pos, "Unexpected character '" + codePointToString$1(code) + "'");
@@ -5064,6 +5397,12 @@
 	    return ""
 	  case 56:
 	  case 57:
+	    if (this.strict) {
+	      this.invalidStringToken(
+	        this.pos - 1,
+	        "Invalid escape sequence"
+	      );
+	    }
 	    if (inTemplate) {
 	      var codePos = this.pos - 1;
 
@@ -5160,7 +5499,7 @@
 
 	// Acorn is a tiny, fast JavaScript parser written in JavaScript.
 
-	var version = "7.4.0";
+	var version = "8.4.1";
 
 	Parser.acorn = {
 	  Parser: Parser,
@@ -5203,454 +5542,242 @@
 	  return Parser.parseExpressionAt(input, pos, options)
 	}
 
-	function walk(ast, { enter, leave }) {
-		return visit(ast, null, enter, leave);
-	}
+	// @ts-check
+	/** @typedef { import('estree').BaseNode} BaseNode */
 
-	let should_skip = false;
-	let should_remove = false;
-	let replacement = null;
-	const context = {
-		skip: () => should_skip = true,
-		remove: () => should_remove = true,
-		replace: (node) => replacement = node
-	};
+	/** @typedef {{
+		skip: () => void;
+		remove: () => void;
+		replace: (node: BaseNode) => void;
+	}} WalkerContext */
 
-	function replace(parent, prop, index, node) {
-		if (parent) {
-			if (index !== null) {
-				parent[prop][index] = node;
-			} else {
-				parent[prop] = node;
+	class WalkerBase {
+		constructor() {
+			/** @type {boolean} */
+			this.should_skip = false;
+
+			/** @type {boolean} */
+			this.should_remove = false;
+
+			/** @type {BaseNode | null} */
+			this.replacement = null;
+
+			/** @type {WalkerContext} */
+			this.context = {
+				skip: () => (this.should_skip = true),
+				remove: () => (this.should_remove = true),
+				replace: (node) => (this.replacement = node)
+			};
+		}
+
+		/**
+		 *
+		 * @param {any} parent
+		 * @param {string} prop
+		 * @param {number} index
+		 * @param {BaseNode} node
+		 */
+		replace(parent, prop, index, node) {
+			if (parent) {
+				if (index !== null) {
+					parent[prop][index] = node;
+				} else {
+					parent[prop] = node;
+				}
+			}
+		}
+
+		/**
+		 *
+		 * @param {any} parent
+		 * @param {string} prop
+		 * @param {number} index
+		 */
+		remove(parent, prop, index) {
+			if (parent) {
+				if (index !== null) {
+					parent[prop].splice(index, 1);
+				} else {
+					delete parent[prop];
+				}
 			}
 		}
 	}
 
-	function remove(parent, prop, index) {
-		if (parent) {
-			if (index !== null) {
-				parent[prop].splice(index, 1);
-			} else {
-				delete parent[prop];
-			}
+	// @ts-check
+
+	/** @typedef { import('estree').BaseNode} BaseNode */
+	/** @typedef { import('./walker.js').WalkerContext} WalkerContext */
+
+	/** @typedef {(
+	 *    this: WalkerContext,
+	 *    node: BaseNode,
+	 *    parent: BaseNode,
+	 *    key: string,
+	 *    index: number
+	 * ) => void} SyncHandler */
+
+	class SyncWalker extends WalkerBase {
+		/**
+		 *
+		 * @param {SyncHandler} enter
+		 * @param {SyncHandler} leave
+		 */
+		constructor(enter, leave) {
+			super();
+
+			/** @type {SyncHandler} */
+			this.enter = enter;
+
+			/** @type {SyncHandler} */
+			this.leave = leave;
 		}
-	}
 
-	function visit(
-		node,
-		parent,
-		enter,
-		leave,
-		prop,
-		index
-	) {
-		if (node) {
-			if (enter) {
-				const _should_skip = should_skip;
-				const _should_remove = should_remove;
-				const _replacement = replacement;
-				should_skip = false;
-				should_remove = false;
-				replacement = null;
+		/**
+		 *
+		 * @param {BaseNode} node
+		 * @param {BaseNode} parent
+		 * @param {string} [prop]
+		 * @param {number} [index]
+		 * @returns {BaseNode}
+		 */
+		visit(node, parent, prop, index) {
+			if (node) {
+				if (this.enter) {
+					const _should_skip = this.should_skip;
+					const _should_remove = this.should_remove;
+					const _replacement = this.replacement;
+					this.should_skip = false;
+					this.should_remove = false;
+					this.replacement = null;
 
-				enter.call(context, node, parent, prop, index);
+					this.enter.call(this.context, node, parent, prop, index);
 
-				if (replacement) {
-					node = replacement;
-					replace(parent, prop, index, node);
+					if (this.replacement) {
+						node = this.replacement;
+						this.replace(parent, prop, index, node);
+					}
+
+					if (this.should_remove) {
+						this.remove(parent, prop, index);
+					}
+
+					const skipped = this.should_skip;
+					const removed = this.should_remove;
+
+					this.should_skip = _should_skip;
+					this.should_remove = _should_remove;
+					this.replacement = _replacement;
+
+					if (skipped) return node;
+					if (removed) return null;
 				}
 
-				if (should_remove) {
-					remove(parent, prop, index);
-				}
+				for (const key in node) {
+					const value = node[key];
 
-				const skipped = should_skip;
-				const removed = should_remove;
-
-				should_skip = _should_skip;
-				should_remove = _should_remove;
-				replacement = _replacement;
-
-				if (skipped) return node;
-				if (removed) return null;
-			}
-
-			for (const key in node) {
-				const value = (node )[key];
-
-				if (typeof value !== 'object') {
-					continue;
-				}
-
-				else if (Array.isArray(value)) {
-					for (let j = 0, k = 0; j < value.length; j += 1, k += 1) {
-						if (value[j] !== null && typeof value[j].type === 'string') {
-							if (!visit(value[j], node, enter, leave, key, k)) {
-								// removed
-								j--;
+					if (typeof value !== "object") {
+						continue;
+					} else if (Array.isArray(value)) {
+						for (let i = 0; i < value.length; i += 1) {
+							if (value[i] !== null && typeof value[i].type === 'string') {
+								if (!this.visit(value[i], node, key, i)) {
+									// removed
+									i--;
+								}
 							}
 						}
+					} else if (value !== null && typeof value.type === "string") {
+						this.visit(value, node, key, null);
 					}
 				}
 
-				else if (value !== null && typeof value.type === 'string') {
-					visit(value, node, enter, leave, key, null);
-				}
-			}
+				if (this.leave) {
+					const _replacement = this.replacement;
+					const _should_remove = this.should_remove;
+					this.replacement = null;
+					this.should_remove = false;
 
-			if (leave) {
-				const _replacement = replacement;
-				const _should_remove = should_remove;
-				replacement = null;
-				should_remove = false;
+					this.leave.call(this.context, node, parent, prop, index);
 
-				leave.call(context, node, parent, prop, index);
-
-				if (replacement) {
-					node = replacement;
-					replace(parent, prop, index, node);
-				}
-
-				if (should_remove) {
-					remove(parent, prop, index);
-				}
-
-				const removed = should_remove;
-
-				replacement = _replacement;
-				should_remove = _should_remove;
-
-				if (removed) return null;
-			}
-		}
-
-		return node;
-	}
-
-	function isReference(node, parent) {
-	    if (node.type === 'MemberExpression') {
-	        return !node.computed && isReference(node.object, node);
-	    }
-	    if (node.type === 'Identifier') {
-	        if (!parent)
-	            return true;
-	        switch (parent.type) {
-	            // disregard `bar` in `foo.bar`
-	            case 'MemberExpression': return parent.computed || node === parent.object;
-	            // disregard the `foo` in `class {foo(){}}` but keep it in `class {[foo](){}}`
-	            case 'MethodDefinition': return parent.computed;
-	            // disregard the `foo` in `class {foo=bar}` but keep it in `class {[foo]=bar}` and `class {bar=foo}`
-	            case 'FieldDefinition': return parent.computed || node === parent.value;
-	            // disregard the `bar` in `{ bar: foo }`, but keep it in `{ [bar]: foo }`
-	            case 'Property': return parent.computed || node === parent.value;
-	            // disregard the `bar` in `export { foo as bar }` or
-	            // the foo in `import { foo as bar }`
-	            case 'ExportSpecifier':
-	            case 'ImportSpecifier': return node === parent.local;
-	            // disregard the `foo` in `foo: while (...) { ... break foo; ... continue foo;}`
-	            case 'LabeledStatement':
-	            case 'BreakStatement':
-	            case 'ContinueStatement': return false;
-	            default: return true;
-	        }
-	    }
-	    return false;
-	}
-
-	function analyze(expression) {
-		const map = new WeakMap();
-
-		let scope = new Scope$1(null, false);
-
-		walk(expression, {
-			enter(node, parent) {
-				if (node.type === 'ImportDeclaration') {
-					node.specifiers.forEach((specifier) => {
-						scope.declarations.set(specifier.local.name, specifier);
-					});
-				} else if (/(Function(Declaration|Expression)|ArrowFunctionExpression)/.test(node.type)) {
-					if (node.type === 'FunctionDeclaration') {
-						scope.declarations.set(node.id.name, node);
-						map.set(node, scope = new Scope$1(scope, false));
-					} else {
-						map.set(node, scope = new Scope$1(scope, false));
-						if (node.type === 'FunctionExpression' && node.id) scope.declarations.set(node.id.name, node);
+					if (this.replacement) {
+						node = this.replacement;
+						this.replace(parent, prop, index, node);
 					}
 
-					node.params.forEach((param) => {
-						extract_names(param).forEach(name => {
-							scope.declarations.set(name, node);
-						});
-					});
-				} else if (/For(?:In|Of)?Statement/.test(node.type)) {
-					map.set(node, scope = new Scope$1(scope, true));
-				} else if (node.type === 'BlockStatement') {
-					map.set(node, scope = new Scope$1(scope, true));
-				} else if (/(Class|Variable)Declaration/.test(node.type)) {
-					scope.add_declaration(node);
-				} else if (node.type === 'CatchClause') {
-					map.set(node, scope = new Scope$1(scope, true));
-
-					if (node.param) {
-						extract_names(node.param).forEach(name => {
-							scope.declarations.set(name, node.param);
-						});
+					if (this.should_remove) {
+						this.remove(parent, prop, index);
 					}
-				}
-			},
 
-			leave(node) {
-				if (map.has(node)) {
-					scope = scope.parent;
-				}
-			}
-		});
+					const removed = this.should_remove;
 
-		const globals = new Map();
+					this.replacement = _replacement;
+					this.should_remove = _should_remove;
 
-		walk(expression, {
-			enter(node, parent) {
-				if (map.has(node)) scope = map.get(node);
-
-				if (node.type === 'Identifier' && isReference(node, parent)) {
-					const owner = scope.find_owner(node.name);
-					if (!owner) globals.set(node.name, node);
-
-					add_reference(scope, node.name);
-				}
-			},
-			leave(node) {
-				if (map.has(node)) {
-					scope = scope.parent;
+					if (removed) return null;
 				}
 			}
-		});
 
-		return { map, scope, globals };
-	}
-
-	function add_reference(scope, name) {
-		scope.references.add(name);
-		if (scope.parent) add_reference(scope.parent, name);
-	}
-
-	class Scope$1 {
-		
-		
-		__init() {this.declarations = new Map();}
-		__init2() {this.initialised_declarations = new Set();}
-		__init3() {this.references = new Set();}
-
-		constructor(parent, block) {Scope$1.prototype.__init.call(this);Scope$1.prototype.__init2.call(this);Scope$1.prototype.__init3.call(this);
-			this.parent = parent;
-			this.block = block;
-		}
-
-
-		add_declaration(node) {
-			if (node.type === 'VariableDeclaration') {
-				if (node.kind === 'var' && this.block && this.parent) {
-					this.parent.add_declaration(node);
-				} else if (node.type === 'VariableDeclaration') {
-					node.declarations.forEach((declarator) => {
-						extract_names(declarator.id).forEach(name => {
-							this.declarations.set(name, node);
-							if (declarator.init) this.initialised_declarations.add(name);
-						});
-					});
-				}
-			} else {
-				this.declarations.set(node.id.name, node);
-			}
-		}
-
-		find_owner(name) {
-			if (this.declarations.has(name)) return this;
-			return this.parent && this.parent.find_owner(name);
-		}
-
-		has(name) {
-			return (
-				this.declarations.has(name) || (this.parent && this.parent.has(name))
-			);
+			return node;
 		}
 	}
 
-	function extract_names(param) {
-		return extract_identifiers(param).map(node => node.name);
-	}
+	// @ts-check
 
-	function extract_identifiers(param) {
-		const nodes = [];
-		extractors[param.type] && extractors[param.type](nodes, param);
-		return nodes;
-	}
+	/** @typedef { import('estree').BaseNode} BaseNode */
+	/** @typedef { import('./sync.js').SyncHandler} SyncHandler */
+	/** @typedef { import('./async.js').AsyncHandler} AsyncHandler */
 
-	const extractors = {
-		Identifier(nodes, param) {
-			nodes.push(param);
-		},
-
-		MemberExpression(nodes, param) {
-			let object = param;
-			while (object.type === 'MemberExpression') object = object.object;
-			nodes.push(object);
-		},
-
-		ObjectPattern(nodes, param) {
-			param.properties.forEach((prop) => {
-				if (prop.type === 'RestElement') {
-					nodes.push(prop.argument);
-				} else {
-					extractors[prop.value.type](nodes, prop.value);
-				}
-			});
-		},
-
-		ArrayPattern(nodes, param) {
-			param.elements.forEach((element) => {
-				if (element) extractors[element.type](nodes, element);
-			});
-		},
-
-		RestElement(nodes, param) {
-			extractors[param.argument.type](nodes, param.argument);
-		},
-
-		AssignmentPattern(nodes, param) {
-			extractors[param.left.type](nodes, param.left);
-		}
-	};
-
-	var charToInteger = {};
-	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-	for (var i = 0; i < chars.length; i++) {
-	    charToInteger[chars.charCodeAt(i)] = i;
-	}
-	function decode(mappings) {
-	    var decoded = [];
-	    var line = [];
-	    var segment = [
-	        0,
-	        0,
-	        0,
-	        0,
-	        0,
-	    ];
-	    var j = 0;
-	    for (var i = 0, shift = 0, value = 0; i < mappings.length; i++) {
-	        var c = mappings.charCodeAt(i);
-	        if (c === 44) { // ","
-	            segmentify(line, segment, j);
-	            j = 0;
-	        }
-	        else if (c === 59) { // ";"
-	            segmentify(line, segment, j);
-	            j = 0;
-	            decoded.push(line);
-	            line = [];
-	            segment[0] = 0;
-	        }
-	        else {
-	            var integer = charToInteger[c];
-	            if (integer === undefined) {
-	                throw new Error('Invalid character (' + String.fromCharCode(c) + ')');
-	            }
-	            var hasContinuationBit = integer & 32;
-	            integer &= 31;
-	            value += integer << shift;
-	            if (hasContinuationBit) {
-	                shift += 5;
-	            }
-	            else {
-	                var shouldNegate = value & 1;
-	                value >>>= 1;
-	                if (shouldNegate) {
-	                    value = value === 0 ? -0x80000000 : -value;
-	                }
-	                segment[j] += value;
-	                j++;
-	                value = shift = 0; // reset
-	            }
-	        }
-	    }
-	    segmentify(line, segment, j);
-	    decoded.push(line);
-	    return decoded;
-	}
-	function segmentify(line, segment, j) {
-	    // This looks ugly, but we're creating specialized arrays with a specific
-	    // length. This is much faster than creating a new array (which v8 expands to
-	    // a capacity of 17 after pushing the first item), or slicing out a subarray
-	    // (which is slow). Length 4 is assumed to be the most frequent, followed by
-	    // length 5 (since not everything will have an associated name), followed by
-	    // length 1 (it's probably rare for a source substring to not have an
-	    // associated segment data).
-	    if (j === 4)
-	        line.push([segment[0], segment[1], segment[2], segment[3]]);
-	    else if (j === 5)
-	        line.push([segment[0], segment[1], segment[2], segment[3], segment[4]]);
-	    else if (j === 1)
-	        line.push([segment[0]]);
-	}
-	function encode(decoded) {
-	    var sourceFileIndex = 0; // second field
-	    var sourceCodeLine = 0; // third field
-	    var sourceCodeColumn = 0; // fourth field
-	    var nameIndex = 0; // fifth field
-	    var mappings = '';
-	    for (var i = 0; i < decoded.length; i++) {
-	        var line = decoded[i];
-	        if (i > 0)
-	            mappings += ';';
-	        if (line.length === 0)
-	            continue;
-	        var generatedCodeColumn = 0; // first field
-	        var lineMappings = [];
-	        for (var _i = 0, line_1 = line; _i < line_1.length; _i++) {
-	            var segment = line_1[_i];
-	            var segmentMappings = encodeInteger(segment[0] - generatedCodeColumn);
-	            generatedCodeColumn = segment[0];
-	            if (segment.length > 1) {
-	                segmentMappings +=
-	                    encodeInteger(segment[1] - sourceFileIndex) +
-	                        encodeInteger(segment[2] - sourceCodeLine) +
-	                        encodeInteger(segment[3] - sourceCodeColumn);
-	                sourceFileIndex = segment[1];
-	                sourceCodeLine = segment[2];
-	                sourceCodeColumn = segment[3];
-	            }
-	            if (segment.length === 5) {
-	                segmentMappings += encodeInteger(segment[4] - nameIndex);
-	                nameIndex = segment[4];
-	            }
-	            lineMappings.push(segmentMappings);
-	        }
-	        mappings += lineMappings.join(',');
-	    }
-	    return mappings;
-	}
-	function encodeInteger(num) {
-	    var result = '';
-	    num = num < 0 ? (-num << 1) | 1 : num << 1;
-	    do {
-	        var clamped = num & 31;
-	        num >>>= 5;
-	        if (num > 0) {
-	            clamped |= 32;
-	        }
-	        result += chars[clamped];
-	    } while (num > 0);
-	    return result;
+	/**
+	 *
+	 * @param {BaseNode} ast
+	 * @param {{
+	 *   enter?: SyncHandler
+	 *   leave?: SyncHandler
+	 * }} walker
+	 * @returns {BaseNode}
+	 */
+	function walk(ast, { enter, leave }) {
+		const instance = new SyncWalker(enter, leave);
+		return instance.visit(ast, null);
 	}
 
 	// generate an ID that is, to all intents and purposes, unique
 	const id = (Math.round(Math.random() * 1e20)).toString(36);
 	const re = new RegExp(`_${id}_(?:(\\d+)|(AT)|(HASH))_(\\w+)?`, 'g');
 
+	/** @typedef {import('estree').Comment} Comment */
+	/** @typedef {import('estree').Node} Node */
+
+	/**
+	 * @typedef {Node & {
+	 *   start: number;
+	 *   end: number;
+	 *   has_trailing_newline?: boolean
+	 * }} NodeWithLocation
+	 */
+
+	/**
+	 * @typedef {Comment & {
+	 *   start: number;
+	 *   end: number;
+	 *   has_trailing_newline?: boolean
+	 * }} CommentWithLocation
+	 */
+
+	/**
+	 * @param {CommentWithLocation[]} comments
+	 * @param {string} raw
+	 */
 	const get_comment_handlers = (comments, raw) => ({
 
 		// pass to acorn options
+		/**
+		 * @param {boolean} block
+		 * @param {string} value
+		 * @param {number} start
+		 * @param {number} end
+		 */
 		onComment: (block, value, start, end) => {
 			if (block && /\n/.test(value)) {
 				let a = start;
@@ -5667,10 +5794,11 @@
 		},
 
 		// pass to estree-walker options
+		/** @param {NodeWithLocation} node */
 		enter(node) {
 			let comment;
 
-			while (comments[0] && comments[0].start < (node ).start) {
+			while (comments[0] && comments[0].start < node.start) {
 				comment = comments.shift();
 
 				comment.value = comment.value.replace(re, (match, id, at, hash, value) => {
@@ -5681,26 +5809,368 @@
 				});
 
 				const next = comments[0] || node;
-				(comment ).has_trailing_newline = (
+				comment.has_trailing_newline = (
 					comment.type === 'Line' ||
-					/\n/.test(raw.slice(comment.end, (next ).start))
+					/\n/.test(raw.slice(comment.end, next.start))
 				);
 
 				(node.leadingComments || (node.leadingComments = [])).push(comment);
 			}
 		},
+
+		/** @param {NodeWithLocation} node */
 		leave(node) {
 			if (comments[0]) {
-				const slice = raw.slice((node ).end, comments[0].start);
+				const slice = raw.slice(node.end, comments[0].start);
 
 				if (/^[,) \t]*$/.test(slice)) {
 					node.trailingComments = [comments.shift()];
 				}
 			}
 		}
-
 	});
 
+	//@ts-check
+	/** @typedef { import('estree').Node} Node */
+	/** @typedef {Node | {
+	 *   type: 'PropertyDefinition';
+	 *   computed: boolean;
+	 *   value: Node
+	 * }} NodeWithPropertyDefinition */
+
+	/**
+	 *
+	 * @param {NodeWithPropertyDefinition} node
+	 * @param {NodeWithPropertyDefinition} parent
+	 * @returns boolean
+	 */
+	function is_reference (node, parent) {
+		if (node.type === 'MemberExpression') {
+			return !node.computed && is_reference(node.object, node);
+		}
+
+		if (node.type === 'Identifier') {
+			if (!parent) return true;
+
+			switch (parent.type) {
+				// disregard `bar` in `foo.bar`
+				case 'MemberExpression': return parent.computed || node === parent.object;
+
+				// disregard the `foo` in `class {foo(){}}` but keep it in `class {[foo](){}}`
+				case 'MethodDefinition': return parent.computed;
+
+				// disregard the `foo` in `class {foo=bar}` but keep it in `class {[foo]=bar}` and `class {bar=foo}`
+				case 'PropertyDefinition': return parent.computed || node === parent.value;
+
+				// disregard the `bar` in `{ bar: foo }`, but keep it in `{ [bar]: foo }`
+				case 'Property': return parent.computed || node === parent.value;
+
+				// disregard the `bar` in `export { foo as bar }` or
+				// the foo in `import { foo as bar }`
+				case 'ExportSpecifier':
+				case 'ImportSpecifier': return node === parent.local;
+
+				// disregard the `foo` in `foo: while (...) { ... break foo; ... continue foo;}`
+				case 'LabeledStatement':
+				case 'BreakStatement':
+				case 'ContinueStatement': return false;
+				default: return true;
+			}
+		}
+
+		return false;
+	}
+
+	/** @param {import('estree').Node} expression */
+	function analyze(expression) {
+		/** @typedef {import('estree').Node} Node */
+
+		/** @type {WeakMap<Node, Scope>} */
+		const map = new WeakMap();
+
+		/** @type {Map<string, Node>} */
+		const globals = new Map();
+
+		const scope = new Scope$1(null, false);
+
+		/** @type {[Scope, import('estree').Identifier][]} */
+		const references = [];
+		let current_scope = scope;
+
+		walk(expression, {
+			/**
+			 * @param {Node} node
+			 * @param {any} parent
+			 */
+			enter(node, parent) {
+				switch (node.type) {
+					case 'Identifier':
+						if (is_reference(node, parent)) {
+							references.push([current_scope, node]);
+						}
+						break;
+
+					case 'ImportDeclaration':
+						node.specifiers.forEach((specifier) => {
+							current_scope.declarations.set(specifier.local.name, specifier);
+						});
+						break;
+
+					case 'FunctionExpression':
+					case 'FunctionDeclaration':
+					case 'ArrowFunctionExpression':
+						if (node.type === 'FunctionDeclaration') {
+							if (node.id) {
+								current_scope.declarations.set(node.id.name, node);
+							}
+
+							map.set(node, current_scope = new Scope$1(current_scope, false));
+						} else {
+							map.set(node, current_scope = new Scope$1(current_scope, false));
+
+							if (node.type === 'FunctionExpression' && node.id) {
+								current_scope.declarations.set(node.id.name, node);
+							}
+						}
+
+						node.params.forEach(param => {
+							extract_names(param).forEach(name => {
+								current_scope.declarations.set(name, node);
+							});
+						});
+						break;
+
+					case 'ForStatement':
+					case 'ForInStatement':
+					case 'ForOfStatement':
+						map.set(node, current_scope = new Scope$1(current_scope, true));
+						break;
+
+					case 'BlockStatement':
+						map.set(node, current_scope = new Scope$1(current_scope, true));
+						break;
+
+					case 'ClassDeclaration':
+					case 'VariableDeclaration':
+						current_scope.add_declaration(node);
+						break;
+
+					case 'CatchClause':
+						map.set(node, current_scope = new Scope$1(current_scope, true));
+
+						if (node.param) {
+							extract_names(node.param).forEach(name => {
+								current_scope.declarations.set(name, node.param);
+							});
+						}
+						break;
+				}
+			},
+
+			/** @param {Node} node */
+			leave(node) {
+				if (map.has(node)) {
+					current_scope = current_scope.parent;
+				}
+			}
+		});
+
+		for (let i = references.length - 1; i >= 0; --i) {
+			const [scope, reference] = references[i];
+
+			if (!scope.references.has(reference.name)) {
+				add_reference(scope, reference.name);
+			}
+			if (!scope.find_owner(reference.name)) {
+				globals.set(reference.name, reference);
+			}
+		}
+
+		return { map, scope, globals };
+	}
+
+	/**
+	 *
+	 * @param {Scope} scope
+	 * @param {string} name
+	 */
+	function add_reference(scope, name) {
+		scope.references.add(name);
+		if (scope.parent) add_reference(scope.parent, name);
+	}
+
+	class Scope$1 {
+		constructor(parent, block) {
+			/** @type {Scope | null} */
+			this.parent = parent;
+
+			/** @type {boolean} */
+			this.block = block;
+
+			/** @type {Map<string, import('estree').Node>} */
+			this.declarations = new Map();
+
+			/** @type {Set<string>} */
+			this.initialised_declarations = new Set();
+
+			/** @type {Set<string>} */
+			this.references = new Set();
+		}
+
+		/** @param {import('estree').VariableDeclaration | import('estree').ClassDeclaration} node */
+		add_declaration(node) {
+			if (node.type === 'VariableDeclaration') {
+				if (node.kind === 'var' && this.block && this.parent) {
+					this.parent.add_declaration(node);
+				} else {
+					/** @param {import('estree').VariableDeclarator} declarator */
+					const handle_declarator = (declarator) => {
+						extract_names(declarator.id).forEach(name => {
+							this.declarations.set(name, node);
+							if (declarator.init) this.initialised_declarations.add(name);
+						});				};
+
+					node.declarations.forEach(handle_declarator);
+				}
+			} else if (node.id) {
+				this.declarations.set(node.id.name, node);
+			}
+		}
+
+		/**
+		 * @param {string} name
+		 * @returns {Scope | null}
+		 */
+		find_owner(name) {
+			if (this.declarations.has(name)) return this;
+			return this.parent && this.parent.find_owner(name);
+		}
+
+		/**
+		 * @param {string} name
+		 * @returns {boolean}
+		 */
+		has(name) {
+			return (
+				this.declarations.has(name) || (!!this.parent && this.parent.has(name))
+			);
+		}
+	}
+
+	/**
+	 * @param {import('estree').Node} param
+	 * @returns {string[]}
+	 */
+	function extract_names(param) {
+		return extract_identifiers(param).map(node => node.name);
+	}
+
+	/**
+	 * @param {import('estree').Node} param
+	 * @param {import('estree').Identifier[]} nodes
+	 * @returns {import('estree').Identifier[]}
+	 */
+	function extract_identifiers(param, nodes = []) {
+		switch (param.type) {
+			case 'Identifier':
+				nodes.push(param);
+				break;
+
+			case 'MemberExpression':
+				let object = param;
+				while (object.type === 'MemberExpression') {
+					object = /** @type {any} */ (object.object);
+				}
+				nodes.push(/** @type {any} */ (object));
+				break;
+
+			case 'ObjectPattern':
+				/** @param {import('estree').Property | import('estree').RestElement} prop */
+				const handle_prop = (prop) => {
+					if (prop.type === 'RestElement') {
+						extract_identifiers(prop.argument, nodes);
+					} else {
+						extract_identifiers(prop.value, nodes);
+					}
+				};
+
+				param.properties.forEach(handle_prop);
+				break;
+
+			case 'ArrayPattern':
+				/** @param {import('estree').Node} element */
+				const handle_element = (element) => {
+					if (element) extract_identifiers(element, nodes);
+				};
+
+				param.elements.forEach(handle_element);
+				break;
+
+			case 'RestElement':
+				extract_identifiers(param.argument, nodes);
+				break;
+
+			case 'AssignmentPattern':
+				extract_identifiers(param.left, nodes);
+				break;
+		}
+
+		return nodes;
+	}
+
+	// heavily based on https://github.com/davidbonnet/astring
+
+	/** @typedef {import('estree').ArrowFunctionExpression} ArrowFunctionExpression */
+	/** @typedef {import('estree').BinaryExpression} BinaryExpression */
+	/** @typedef {import('estree').CallExpression} CallExpression */
+	/** @typedef {import('estree').Comment} Comment */
+	/** @typedef {import('estree').ExportSpecifier} ExportSpecifier */
+	/** @typedef {import('estree').Expression} Expression */
+	/** @typedef {import('estree').FunctionDeclaration} FunctionDeclaration */
+	/** @typedef {import('estree').ImportDeclaration} ImportDeclaration */
+	/** @typedef {import('estree').ImportSpecifier} ImportSpecifier */
+	/** @typedef {import('estree').Literal} Literal */
+	/** @typedef {import('estree').LogicalExpression} LogicalExpression */
+	/** @typedef {import('estree').NewExpression} NewExpression */
+	/** @typedef {import('estree').Node} Node */
+	/** @typedef {import('estree').ObjectExpression} ObjectExpression */
+	/** @typedef {import('estree').Pattern} Pattern */
+	/** @typedef {import('estree').SequenceExpression} SequenceExpression */
+	/** @typedef {import('estree').SimpleCallExpression} SimpleCallExpression */
+	/** @typedef {import('estree').SwitchStatement} SwitchStatement */
+	/** @typedef {import('estree').VariableDeclaration} VariableDeclaration */
+
+	/**
+	 * @typedef {{
+	 *   content: string;
+	 *   loc?: {
+	 *     start: { line: number; column: number; };
+	 *     end: { line: number; column: number; };
+	 *   };
+	 *   has_newline: boolean;
+	 * }} Chunk
+	 */
+
+	/**
+	 * @typedef {(node: any, state: State) => Chunk[]} Handler
+	 */
+
+	/**
+	 * @typedef {{
+	 *   indent: string;
+	 *   scope: any; // TODO import from periscopic
+	 *   scope_map: WeakMap<Node, any>;
+	 *   getName: (name: string) => string;
+	 *   deconflicted: WeakMap<Node, Map<string, string>>;
+	 *   comments: Comment[];
+	 * }} State
+	 */
+
+	/**
+	 * @param {Node} node
+	 * @param {State} state
+	 * @returns {Chunk[]}
+	 */
 	function handle(node, state) {
 		const handler = handlers[node.type];
 
@@ -5712,8 +6182,8 @@
 
 		if (node.leadingComments) {
 			result.unshift(c(node.leadingComments.map(comment => comment.type === 'Block'
-				? `/*${comment.value}*/${(comment ).has_trailing_newline ? `\n${state.indent}` : ` `}`
-				: `//${comment.value}${(comment ).has_trailing_newline ? `\n${state.indent}` : ` `}`).join(``)));
+				? `/*${comment.value}*/${/** @type {any} */ (comment).has_trailing_newline ? `\n${state.indent}` : ` `}`
+				: `//${comment.value}${/** @type {any} */ (comment).has_trailing_newline ? `\n${state.indent}` : ` `}`).join(``)));
 		}
 
 		if (node.trailingComments) {
@@ -5723,6 +6193,11 @@
 		return result;
 	}
 
+	/**
+	 * @param {string} content
+	 * @param {Node} [node]
+	 * @returns {Chunk}
+	 */
 	function c(content, node) {
 		return {
 			content,
@@ -5759,6 +6234,7 @@
 		'**': 13,
 	};
 
+	/** @type {Record<string, number>} */
 	const EXPRESSIONS_PRECEDENCE = {
 		ArrayExpression: 20,
 		TaggedTemplateExpression: 20,
@@ -5786,6 +6262,13 @@
 		RestElement: 1
 	};
 
+	/**
+	 *
+	 * @param {Expression} node
+	 * @param {BinaryExpression | LogicalExpression} parent
+	 * @param {boolean} is_right
+	 * @returns
+	 */
 	function needs_parens(node, parent, is_right) {
 		// special case where logical expressions and coalesce expressions cannot be mixed,
 		// either of them need to be wrapped with parentheses
@@ -5817,7 +6300,7 @@
 			return false;
 		}
 
-		if ((node ).operator === '**' && parent.operator === '**') {
+		if (/** @type {BinaryExpression} */ (node).operator === '**' && parent.operator === '**') {
 			// Exponentiation operator has right-to-left associativity
 			return !is_right;
 		}
@@ -5825,17 +6308,18 @@
 		if (is_right) {
 			// Parenthesis are used if both operators have the same precedence
 			return (
-				OPERATOR_PRECEDENCE[(node ).operator] <=
+				OPERATOR_PRECEDENCE[/** @type {BinaryExpression} */ (node).operator] <=
 				OPERATOR_PRECEDENCE[parent.operator]
 			);
 		}
 
 		return (
-			OPERATOR_PRECEDENCE[(node ).operator] <
+			OPERATOR_PRECEDENCE[/** @type {BinaryExpression} */ (node).operator] <
 			OPERATOR_PRECEDENCE[parent.operator]
 		);
 	}
 
+	/** @param {Node} node */
 	function has_call_expression(node) {
 		while (node) {
 			if (node.type[0] === 'CallExpression') {
@@ -5848,6 +6332,7 @@
 		}
 	}
 
+	/** @param {Chunk[]} chunks */
 	const has_newline = (chunks) => {
 		for (let i = 0; i < chunks.length; i += 1) {
 			if (chunks[i].has_newline) return true;
@@ -5855,6 +6340,7 @@
 		return false;
 	};
 
+	/** @param {Chunk[]} chunks */
 	const get_length = (chunks) => {
 		let total = 0;
 		for (let i = 0; i < chunks.length; i += 1) {
@@ -5863,26 +6349,49 @@
 		return total;
 	};
 
+	/**
+	 * @param {number} a
+	 * @param {number} b
+	 */
 	const sum = (a, b) => a + b;
 
+	/**
+	 * @param {Chunk[][]} nodes
+	 * @param {Chunk} separator
+	 * @returns {Chunk[]}
+	 */
 	const join = (nodes, separator) => {
 		if (nodes.length === 0) return [];
+
 		const joined = [...nodes[0]];
 		for (let i = 1; i < nodes.length; i += 1) {
-			joined.push(separator, ...nodes[i] );
+			joined.push(separator, ...nodes[i]);
 		}
 		return joined;
 	};
 
+	/**
+	 * @param {(node: any, state: State) => Chunk[]} fn
+	 */
 	const scoped = (fn) => {
-		return (node, state) => {
+		/**
+		 * @param {any} node
+		 * @param {State} state
+		 */
+		const scoped_fn = (node, state) => {
 			return fn(node, {
 				...state,
 				scope: state.scope_map.get(node)
 			});
 		};
+
+		return scoped_fn;
 	};
 
+	/**
+	 * @param {string} name
+	 * @param {Set<string>} names
+	 */
 	const deconflict = (name, names) => {
 		const original = name;
 		let i = 1;
@@ -5894,6 +6403,10 @@
 		return name;
 	};
 
+	/**
+	 * @param {Node[]} nodes
+	 * @param {State} state
+	 */
 	const handle_body = (nodes, state) => {
 		const chunks = [];
 
@@ -5940,6 +6453,10 @@
 		return chunks;
 	};
 
+	/**
+	 * @param {VariableDeclaration} node
+	 * @param {State} state
+	 */
 	const handle_var_declaration = (node, state) => {
 		const chunks = [c(`${node.kind} `)];
 
@@ -5966,6 +6483,7 @@
 		return chunks;
 	};
 
+	/** @type {Record<string, Handler>} */
 	const handlers = {
 		Program(node, state) {
 			return handle_body(node.body, state);
@@ -6053,7 +6571,7 @@
 			];
 		},
 
-		SwitchStatement(node, state) {
+		SwitchStatement(/** @type {SwitchStatement} */ node, state) {
 			const chunks = [
 				c('switch ('),
 				...handle(node.discriminant, state),
@@ -6154,8 +6672,8 @@
 			const chunks = [c('for (')];
 
 			if (node.init) {
-				if ((node.init ).type === 'VariableDeclaration') {
-					chunks.push(...handle_var_declaration(node.init , state));
+				if (node.init.type === 'VariableDeclaration') {
+					chunks.push(...handle_var_declaration(node.init, state));
 				} else {
 					chunks.push(...handle(node.init, state));
 				}
@@ -6176,11 +6694,11 @@
 
 		ForInStatement: scoped((node, state) => {
 			const chunks = [
-				c(`for ${(node ).await ? 'await ' : ''}(`)
+				c(`for ${node.await ? 'await ' : ''}(`)
 			];
 
-			if ((node.left ).type === 'VariableDeclaration') {
-				chunks.push(...handle_var_declaration(node.left , state));
+			if (node.left.type === 'VariableDeclaration') {
+				chunks.push(...handle_var_declaration(node.left, state));
 			} else {
 				chunks.push(...handle(node.left, state));
 			}
@@ -6199,7 +6717,7 @@
 			return [c('debugger', node), c(';')];
 		},
 
-		FunctionDeclaration: scoped((node, state) => {
+		FunctionDeclaration: scoped((/** @type {FunctionDeclaration} */ node, state) => {
 			const chunks = [];
 
 			if (node.async) chunks.push(c('async '));
@@ -6273,7 +6791,7 @@
 			return chunks;
 		},
 
-		ImportDeclaration(node, state) {
+		ImportDeclaration(/** @type {ImportDeclaration} */ node, state) {
 			const chunks = [c('import ')];
 
 			const { length } = node.specifiers;
@@ -6302,7 +6820,7 @@
 
 				if (i < length) {
 					// we have named specifiers
-					const specifiers = node.specifiers.slice(i).map((specifier) => {
+					const specifiers = node.specifiers.slice(i).map((/** @type {ImportSpecifier} */ specifier) => {
 						const name = handle(specifier.imported, state)[0];
 						const as = handle(specifier.local, state)[0];
 
@@ -6364,7 +6882,7 @@
 			if (node.declaration) {
 				chunks.push(...handle(node.declaration, state));
 			} else {
-				const specifiers = node.specifiers.map(specifier => {
+				const specifiers = node.specifiers.map((/** @type {ExportSpecifier} */ specifier) => {
 					const name = handle(specifier.local, state)[0];
 					const as = handle(specifier.exported, state)[0];
 
@@ -6458,7 +6976,7 @@
 			return chunks;
 		},
 
-		ArrowFunctionExpression: scoped((node, state) => {
+		ArrowFunctionExpression: scoped((/** @type {ArrowFunctionExpression} */ node, state) => {
 			const chunks = [];
 
 			if (node.async) chunks.push(c('async '));
@@ -6556,7 +7074,10 @@
 		ArrayExpression(node, state) {
 			const chunks = [c('[')];
 
+			/** @type {Chunk[][]} */
 			const elements = [];
+
+			/** @type {Chunk[]} */
 			let sparse_commas = [];
 
 			for (let i = 0; i < node.elements.length; i += 1) {
@@ -6594,13 +7115,14 @@
 			return chunks;
 		},
 
-		ObjectExpression(node, state) {
+		ObjectExpression(/** @type {ObjectExpression} */ node, state) {
 			if (node.properties.length === 0) {
 				return [c('{}')];
 			}
 
 			let has_inline_comment = false;
 
+			/** @type {Chunk[]} */
 			const chunks = [];
 			const separator = c(', ');
 
@@ -6662,12 +7184,12 @@
 				!node.computed &&
 				node.value.type === 'AssignmentPattern' &&
 				node.value.left.type === 'Identifier' &&
-				node.value.left.name === (node.key ).name
+				node.value.left.name === node.key.name
 			) {
 				return value;
 			}
 
-			if (node.value.type === 'Identifier' && (
+			if (!node.computed && node.value.type === 'Identifier' && (
 				(node.key.type === 'Identifier' && node.key.name === value[0].content) ||
 				(node.key.type === 'Literal' && node.key.value === value[0].content)
 			)) {
@@ -6696,9 +7218,9 @@
 				chunks.push(
 					...(node.computed ? [c('['), ...key, c(']')] : key),
 					c('('),
-					...join((node.value ).params.map(param => handle(param, state)), c(', ')),
+					...join(node.value.params.map((/** @type {Pattern} */ param) => handle(param, state)), c(', ')),
 					c(') '),
-					...handle((node.value ).body, state)
+					...handle(node.value.body, state)
 				);
 
 				return chunks;
@@ -6733,7 +7255,7 @@
 			return chunks;
 		},
 
-		SequenceExpression(node, state) {
+		SequenceExpression(/** @type {SequenceExpression} */ node, state) {
 			const expressions = node.expressions.map(e => handle(e, state));
 
 			return [
@@ -6860,7 +7382,7 @@
 			return chunks;
 		},
 
-		NewExpression(node, state) {
+		NewExpression(/** @type {NewExpression} */ node, state) {
 			const chunks = [c('new ')];
 
 			if (
@@ -6888,7 +7410,7 @@
 
 			chunks.push(
 				c('('),
-				...join(args, separator) ,
+				...join(args, separator),
 				c(')')
 			);
 
@@ -6899,7 +7421,7 @@
 			return handle(node.expression, state);
 		},
 
-		CallExpression(node, state) {
+		CallExpression(/** @type {CallExpression} */ node, state) {
 			const chunks = [];
 
 			if (
@@ -6915,7 +7437,7 @@
 				chunks.push(...handle(node.callee, state));
 			}
 
-			if ((node ).optional) {
+			if (/** @type {SimpleCallExpression} */ (node).optional) {
 				chunks.push(c('?.'));
 			}
 
@@ -7010,12 +7532,12 @@
 			return [c(name, node)];
 		},
 
-		Literal(node, state) {
+		Literal(/** @type {Literal} */ node, state) {
 			if (typeof node.value === 'string') {
 				return [
 					// TODO do we need to handle weird unicode characters somehow?
 					// str.replace(/\\u(\d{4})/g, (m, n) => String.fromCharCode(+n))
-					c(JSON.stringify(node.value).replace(re, (_m, _i, at, hash, name) => {
+					c((node.raw || JSON.stringify(node.value)).replace(re, (_m, _i, at, hash, name) => {
 						if (at)	return '@' + name;
 						if (hash) return '#' + name;
 						throw new Error(`this shouldn't happen`);
@@ -7023,12 +7545,7 @@
 				];
 			}
 
-			const { regex } = node ; // TODO is this right?
-			if (regex) {
-				return [c(`/${regex.pattern}/${regex.flags}`, node)];
-			}
-
-			return [c(String(node.value), node)];
+			return [c(node.raw || String(node.value), node)];
 		}
 	};
 
@@ -7041,32 +7558,167 @@
 	handlers.LogicalExpression = handlers.BinaryExpression;
 	handlers.AssignmentPattern = handlers.AssignmentExpression;
 
+	var charToInteger = {};
+	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+	for (var i = 0; i < chars.length; i++) {
+	    charToInteger[chars.charCodeAt(i)] = i;
+	}
+	function decode(mappings) {
+	    var decoded = [];
+	    var line = [];
+	    var segment = [
+	        0,
+	        0,
+	        0,
+	        0,
+	        0,
+	    ];
+	    var j = 0;
+	    for (var i = 0, shift = 0, value = 0; i < mappings.length; i++) {
+	        var c = mappings.charCodeAt(i);
+	        if (c === 44) { // ","
+	            segmentify(line, segment, j);
+	            j = 0;
+	        }
+	        else if (c === 59) { // ";"
+	            segmentify(line, segment, j);
+	            j = 0;
+	            decoded.push(line);
+	            line = [];
+	            segment[0] = 0;
+	        }
+	        else {
+	            var integer = charToInteger[c];
+	            if (integer === undefined) {
+	                throw new Error('Invalid character (' + String.fromCharCode(c) + ')');
+	            }
+	            var hasContinuationBit = integer & 32;
+	            integer &= 31;
+	            value += integer << shift;
+	            if (hasContinuationBit) {
+	                shift += 5;
+	            }
+	            else {
+	                var shouldNegate = value & 1;
+	                value >>>= 1;
+	                if (shouldNegate) {
+	                    value = value === 0 ? -0x80000000 : -value;
+	                }
+	                segment[j] += value;
+	                j++;
+	                value = shift = 0; // reset
+	            }
+	        }
+	    }
+	    segmentify(line, segment, j);
+	    decoded.push(line);
+	    return decoded;
+	}
+	function segmentify(line, segment, j) {
+	    // This looks ugly, but we're creating specialized arrays with a specific
+	    // length. This is much faster than creating a new array (which v8 expands to
+	    // a capacity of 17 after pushing the first item), or slicing out a subarray
+	    // (which is slow). Length 4 is assumed to be the most frequent, followed by
+	    // length 5 (since not everything will have an associated name), followed by
+	    // length 1 (it's probably rare for a source substring to not have an
+	    // associated segment data).
+	    if (j === 4)
+	        line.push([segment[0], segment[1], segment[2], segment[3]]);
+	    else if (j === 5)
+	        line.push([segment[0], segment[1], segment[2], segment[3], segment[4]]);
+	    else if (j === 1)
+	        line.push([segment[0]]);
+	}
+	function encode(decoded) {
+	    var sourceFileIndex = 0; // second field
+	    var sourceCodeLine = 0; // third field
+	    var sourceCodeColumn = 0; // fourth field
+	    var nameIndex = 0; // fifth field
+	    var mappings = '';
+	    for (var i = 0; i < decoded.length; i++) {
+	        var line = decoded[i];
+	        if (i > 0)
+	            mappings += ';';
+	        if (line.length === 0)
+	            continue;
+	        var generatedCodeColumn = 0; // first field
+	        var lineMappings = [];
+	        for (var _i = 0, line_1 = line; _i < line_1.length; _i++) {
+	            var segment = line_1[_i];
+	            var segmentMappings = encodeInteger(segment[0] - generatedCodeColumn);
+	            generatedCodeColumn = segment[0];
+	            if (segment.length > 1) {
+	                segmentMappings +=
+	                    encodeInteger(segment[1] - sourceFileIndex) +
+	                        encodeInteger(segment[2] - sourceCodeLine) +
+	                        encodeInteger(segment[3] - sourceCodeColumn);
+	                sourceFileIndex = segment[1];
+	                sourceCodeLine = segment[2];
+	                sourceCodeColumn = segment[3];
+	            }
+	            if (segment.length === 5) {
+	                segmentMappings += encodeInteger(segment[4] - nameIndex);
+	                nameIndex = segment[4];
+	            }
+	            lineMappings.push(segmentMappings);
+	        }
+	        mappings += lineMappings.join(',');
+	    }
+	    return mappings;
+	}
+	function encodeInteger(num) {
+	    var result = '';
+	    num = num < 0 ? (-num << 1) | 1 : num << 1;
+	    do {
+	        var clamped = num & 31;
+	        num >>>= 5;
+	        if (num > 0) {
+	            clamped |= 32;
+	        }
+	        result += chars[clamped];
+	    } while (num > 0);
+	    return result;
+	}
+
+	/** @type {(str?: string) => string} str */
 	let btoa$1 = () => {
 		throw new Error('Unsupported environment: `window.btoa` or `Buffer` should be supported.');
 	};
+
 	if (typeof window !== 'undefined' && typeof window.btoa === 'function') {
 		btoa$1 = (str) => window.btoa(unescape(encodeURIComponent(str)));
 	} else if (typeof Buffer === 'function') {
 		btoa$1 = (str) => Buffer.from(str, 'utf-8').toString('base64');
 	}
 
+	/** @typedef {import('estree').Node} Node */
 
+	/**
+	 * @typedef {{
+	 *   file?: string;
+	 *   sourceMapSource?: string;
+	 *   sourceMapContent?: string;
+	 *   sourceMapEncodeMappings?: boolean; // default true
+	 *   getName?: (name: string) => string;
+	 * }} PrintOptions
+	 */
 
-
-
-
-
-
+	/**
+	 * @param {Node} node
+	 * @param {PrintOptions} opts
+	 * @returns {{ code: string, map: any }} // TODO
+	 */
 	function print(node, opts = {}) {
 		if (Array.isArray(node)) {
 			return print({
 				type: 'Program',
-				body: node
-			} , opts);
+				body: node,
+				sourceType: 'module'
+			}, opts);
 		}
 
 		const {
-			getName = (x) => {
+			getName = /** @param {string} x */ (x) => {
 				throw new Error(`Unhandled sigil @${x}`);
 			}
 		} = opts;
@@ -7083,12 +7735,16 @@
 			comments: []
 		});
 
-		
+		/** @typedef {[number, number, number, number]} Segment */
 
 		let code = '';
-		let mappings = [];
-		let current_line = [];
 		let current_column = 0;
+
+		/** @type {Segment[][]} */
+		let mappings = [];
+
+		/** @type {Segment[]} */
+		let current_line = [];
 
 		for (let i = 0; i < chunks.length; i += 1) {
 			const chunk = chunks[i];
@@ -7128,10 +7784,12 @@
 
 		const map = {
 			version: 3,
-			names: [] ,
+			/** @type {string[]} */
+			names: [],
 			sources: [opts.sourceMapSource || null],
 			sourcesContent: [opts.sourceMapContent || null],
-			mappings: encode(mappings)
+			mappings: opts.sourceMapEncodeMappings == undefined || opts.sourceMapEncodeMappings
+				? encode(mappings) : mappings
 		};
 
 		Object.defineProperties(map, {
@@ -7155,19 +7813,36 @@
 		};
 	}
 
+	/** @typedef {import('estree').Expression} Expression */
+	/** @typedef {import('estree').Node} Node */
+	/** @typedef {import('estree').ObjectExpression} ObjectExpression */
+	/** @typedef {import('estree').Property} Property */
+	/** @typedef {import('estree').SpreadElement} SpreadElement */
+
+	/** @typedef {import('./utils/comments').CommentWithLocation} CommentWithLocation */
+
+	/** @type {Record<string, string>} */
 	const sigils = {
 		'@': 'AT',
 		'#': 'HASH'
 	};
 
+	/** @param {TemplateStringsArray} strings */
 	const join$1 = (strings) => {
 		let str = strings[0];
 		for (let i = 1; i < strings.length; i += 1) {
 			str += `_${id}_${i - 1}_${strings[i]}`;
 		}
-		return str.replace(/([@#])(\w+)/g, (_m, sigil, name) => `_${id}_${sigils[sigil]}_${name}`);
+		return str.replace(
+			/([@#])(\w+)/g,
+			(_m, sigil, name) => `_${id}_${sigils[sigil]}_${name}`
+		);
 	};
 
+	/**
+	 * @param {any[]} array
+	 * @param {any[]} target
+	 */
 	const flatten_body = (array, target) => {
 		for (let i = 0; i < array.length; i += 1) {
 			const statement = array[i];
@@ -7194,8 +7869,10 @@
 					continue;
 				}
 
-				if (statement.leadingComments) statement.expression.leadingComments = statement.leadingComments;
-				if (statement.trailingComments) statement.expression.trailingComments = statement.trailingComments;
+				if (statement.leadingComments)
+					statement.expression.leadingComments = statement.leadingComments;
+				if (statement.trailingComments)
+					statement.expression.trailingComments = statement.trailingComments;
 
 				target.push(statement.expression);
 				continue;
@@ -7207,6 +7884,10 @@
 		return target;
 	};
 
+	/**
+	 * @param {any[]} array
+	 * @param {any[]} target
+	 */
 	const flatten_properties = (array, target) => {
 		for (let i = 0; i < array.length; i += 1) {
 			const property = array[i];
@@ -7224,6 +7905,10 @@
 		return target;
 	};
 
+	/**
+	 * @param {any[]} nodes
+	 * @param {any[]} target
+	 */
 	const flatten = (nodes, target) => {
 		for (let i = 0; i < nodes.length; i += 1) {
 			const node = nodes[i];
@@ -7243,6 +7928,12 @@
 
 	const EMPTY = { type: 'Empty' };
 
+	/**
+	 *
+	 * @param {CommentWithLocation[]} comments
+	 * @param {string} raw
+	 * @returns {any}
+	 */
 	const acorn_opts = (comments, raw) => {
 		const { onComment } = get_comment_handlers(comments, raw);
 		return {
@@ -7252,12 +7943,20 @@
 			allowImportExportEverywhere: true,
 			allowReturnOutsideFunction: true,
 			onComment
-		} ;
+		};
 	};
 
+	/**
+	 * @param {string} raw
+	 * @param {Node} node
+	 * @param {any[]} values
+	 * @param {CommentWithLocation[]} comments
+	 */
 	const inject = (raw, node, values, comments) => {
-		comments.forEach(comment => {
-			comment.value = comment.value.replace(re, (m, i) => +i in values ? values[+i] : m);
+		comments.forEach((comment) => {
+			comment.value = comment.value.replace(re, (m, i) =>
+				+i in values ? values[+i] : m
+			);
 		});
 
 		const { enter, leave } = get_comment_handlers(comments, raw);
@@ -7265,7 +7964,8 @@
 		walk(node, {
 			enter,
 
-			leave(node, parent, key, index) {
+			/** @param {any} node */
+			leave(node) {
 				if (node.type === 'Identifier') {
 					re.lastIndex = 0;
 					const match = re.exec(node.name);
@@ -7276,9 +7976,19 @@
 								let value = values[+match[1]];
 
 								if (typeof value === 'string') {
-									value = { type: 'Identifier', name: value, leadingComments: node.leadingComments, trailingComments: node.trailingComments };
+									value = {
+										type: 'Identifier',
+										name: value,
+										leadingComments: node.leadingComments,
+										trailingComments: node.trailingComments
+									};
 								} else if (typeof value === 'number') {
-									value = { type: 'Literal', value, leadingComments: node.leadingComments, trailingComments: node.trailingComments };
+									value = {
+										type: 'Literal',
+										value,
+										leadingComments: node.leadingComments,
+										trailingComments: node.trailingComments
+									};
 								}
 
 								this.replace(value || EMPTY);
@@ -7292,13 +8002,28 @@
 				if (node.type === 'Literal') {
 					if (typeof node.value === 'string') {
 						re.lastIndex = 0;
-						node.value = node.value.replace(re, (m, i) => +i in values ? values[+i] : m);
+						const new_value = /** @type {string} */ (node.value).replace(
+							re,
+							(m, i) => (+i in values ? values[+i] : m)
+						);
+						const has_changed = new_value !== node.value;
+						node.value = new_value;
+						if (has_changed && node.raw) {
+							// preserve the quotes
+							node.raw = `${node.raw[0]}${JSON.stringify(node.value).slice(
+							1,
+							-1
+						)}${node.raw[node.raw.length - 1]}`;
+						}
 					}
 				}
 
 				if (node.type === 'TemplateElement') {
 					re.lastIndex = 0;
-					node.value.raw = (node.value.raw ).replace(re, (m, i) => +i in values ? values[+i] : m);
+					node.value.raw = /** @type {string} */ (node.value.raw).replace(
+						re,
+						(m, i) => (+i in values ? values[+i] : m)
+					);
 				}
 
 				if (node.type === 'Program' || node.type === 'BlockStatement') {
@@ -7313,7 +8038,11 @@
 					node.elements = flatten(node.elements, []);
 				}
 
-				if (node.type === 'FunctionExpression' || node.type === 'FunctionDeclaration' || node.type === 'ArrowFunctionExpression') {
+				if (
+					node.type === 'FunctionExpression' ||
+					node.type === 'FunctionDeclaration' ||
+					node.type === 'ArrowFunctionExpression'
+				) {
 					node.params = flatten(node.params, []);
 				}
 
@@ -7321,7 +8050,10 @@
 					node.arguments = flatten(node.arguments, []);
 				}
 
-				if (node.type === 'ImportDeclaration' || node.type === 'ExportNamedDeclaration') {
+				if (
+					node.type === 'ImportDeclaration' ||
+					node.type === 'ExportNamedDeclaration'
+				) {
 					node.specifiers = flatten(node.specifiers, []);
 				}
 
@@ -7331,17 +8063,28 @@
 					node.update = node.update === EMPTY ? null : node.update;
 				}
 
+				// @ts-ignore
 				leave(node);
 			}
 		});
 	};
 
+	/**
+	 *
+	 * @param {TemplateStringsArray} strings
+	 * @param  {any[]} values
+	 * @returns {Node[]}
+	 */
 	function b(strings, ...values) {
 		const str = join$1(strings);
+
+		/** @type {CommentWithLocation[]} */
 		const comments = [];
 
 		try {
-			const ast = parse(str,  acorn_opts(comments, str));
+			const ast = /** @type {any} */ (
+				parse(str, acorn_opts(comments, str))
+			);
 
 			inject(str, ast, values, comments);
 
@@ -7351,13 +8094,24 @@
 		}
 	}
 
+	/**
+	 *
+	 * @param {TemplateStringsArray} strings
+	 * @param  {any[]} values
+	 * @returns {Expression & { start: Number, end: number }}
+	 */
 	function x(strings, ...values) {
 		const str = join$1(strings);
+
+		/** @type {CommentWithLocation[]} */
 		const comments = [];
 
 		try {
-			const expression = parseExpressionAt(str, 0, acorn_opts(comments, str)) ;
-			const match = /\S+/.exec(str.slice((expression ).end));
+			const expression =
+				/** @type {Expression & { start: Number, end: number }} */ (
+					parseExpressionAt(str, 0, acorn_opts(comments, str))
+				);
+			const match = /\S+/.exec(str.slice(expression.end));
 			if (match) {
 				throw new Error(`Unexpected token '${match[0]}'`);
 			}
@@ -7370,12 +8124,22 @@
 		}
 	}
 
+	/**
+	 *
+	 * @param {TemplateStringsArray} strings
+	 * @param  {any[]} values
+	 * @returns {(Property | SpreadElement) & { start: Number, end: number }}
+	 */
 	function p(strings, ...values) {
 		const str = `{${join$1(strings)}}`;
+
+		/** @type {CommentWithLocation[]} */
 		const comments = [];
 
 		try {
-			const expression = parseExpressionAt(str, 0, acorn_opts(comments, str)) ;
+			const expression = /** @type {any} */ (
+				parseExpressionAt(str, 0, acorn_opts(comments, str))
+			);
 
 			inject(str, expression, values, comments);
 
@@ -7385,6 +8149,10 @@
 		}
 	}
 
+	/**
+	 * @param {string} str
+	 * @param {Error} err
+	 */
 	function handle_error(str, err) {
 		// TODO location/code frame
 
@@ -7401,19 +8169,32 @@
 		throw err;
 	}
 
+	/**
+	 * @param {string} source
+	 * @param {any} opts
+	 */
 	const parse$1 = (source, opts) => {
+		/** @type {CommentWithLocation[]} */
 		const comments = [];
 		const { onComment, enter, leave } = get_comment_handlers(comments, source);
-		const ast = parse(source, { onComment, ...opts });
-		walk(ast , { enter, leave });
+		const ast = /** @type {any} */ (parse(source, { onComment, ...opts }));
+		walk(ast, { enter, leave });
 		return ast;
 	};
 
+	/**
+	 * @param {string} source
+	 * @param {number} index
+	 * @param {any} opts
+	 */
 	const parseExpressionAt$1 = (source, index, opts) => {
+		/** @type {CommentWithLocation[]} */
 		const comments = [];
 		const { onComment, enter, leave } = get_comment_handlers(comments, source);
-		const ast = parseExpressionAt(source, index, { onComment, ...opts });
-		walk(ast , { enter, leave });
+		const ast = /** @type {any} */ (
+			parseExpressionAt(source, index, { onComment, ...opts })
+		);
+		walk(ast, { enter, leave });
 		return ast;
 	};
 
@@ -7431,6 +8212,207 @@
 	const whitespace = /[ \t\r\n]/;
 	const dimensions = /^(?:offset|client)(?:Width|Height)$/;
 
+	function list(items, conjunction = 'or') {
+	    if (items.length === 1)
+	        return items[0];
+	    return `${items.slice(0, -1).join(', ')} ${conjunction} ${items[items.length - 1]}`;
+	}
+
+	// All parser errors should be listed and accessed from here
+	/**
+	 * @internal
+	 */
+	var parser_errors = {
+	    css_syntax_error: (message) => ({
+	        code: 'css-syntax-error',
+	        message
+	    }),
+	    duplicate_attribute: {
+	        code: 'duplicate-attribute',
+	        message: 'Attributes need to be unique'
+	    },
+	    duplicate_element: (slug, name) => ({
+	        code: `duplicate-${slug}`,
+	        message: `A component can only have one <${name}> tag`
+	    }),
+	    duplicate_style: {
+	        code: 'duplicate-style',
+	        message: 'You can only have one top-level <style> tag per component'
+	    },
+	    empty_attribute_shorthand: {
+	        code: 'empty-attribute-shorthand',
+	        message: 'Attribute shorthand cannot be empty'
+	    },
+	    empty_directive_name: (type) => ({
+	        code: 'empty-directive-name',
+	        message: `${type} name cannot be empty`
+	    }),
+	    empty_global_selector: {
+	        code: 'css-syntax-error',
+	        message: ':global() must contain a selector'
+	    },
+	    expected_block_type: {
+	        code: 'expected-block-type',
+	        message: 'Expected if, each or await'
+	    },
+	    expected_name: {
+	        code: 'expected-name',
+	        message: 'Expected name'
+	    },
+	    invalid_catch_placement_unclosed_block: (block) => ({
+	        code: 'invalid-catch-placement',
+	        message: `Expected to close ${block} before seeing {:catch} block`
+	    }),
+	    invalid_catch_placement_without_await: {
+	        code: 'invalid-catch-placement',
+	        message: 'Cannot have an {:catch} block outside an {#await ...} block'
+	    },
+	    invalid_component_definition: {
+	        code: 'invalid-component-definition',
+	        message: 'invalid component definition'
+	    },
+	    invalid_closing_tag_unopened: (name) => ({
+	        code: 'invalid-closing-tag',
+	        message: `</${name}> attempted to close an element that was not open`
+	    }),
+	    invalid_closing_tag_autoclosed: (name, reason) => ({
+	        code: 'invalid-closing-tag',
+	        message: `</${name}> attempted to close <${name}> that was already automatically closed by <${reason}>`
+	    }),
+	    invalid_debug_args: {
+	        code: 'invalid-debug-args',
+	        message: '{@debug ...} arguments must be identifiers, not arbitrary expressions'
+	    },
+	    invalid_declaration: {
+	        code: 'invalid-declaration',
+	        message: 'Declaration cannot be empty'
+	    },
+	    invalid_directive_value: {
+	        code: 'invalid-directive-value',
+	        message: 'Directive value must be a JavaScript expression enclosed in curly braces'
+	    },
+	    invalid_elseif: {
+	        code: 'invalid-elseif',
+	        message: '\'elseif\' should be \'else if\''
+	    },
+	    invalid_elseif_placement_outside_if: {
+	        code: 'invalid-elseif-placement',
+	        message: 'Cannot have an {:else if ...} block outside an {#if ...} block'
+	    },
+	    invalid_elseif_placement_unclosed_block: (block) => ({
+	        code: 'invalid-elseif-placement',
+	        message: `Expected to close ${block} before seeing {:else if ...} block`
+	    }),
+	    invalid_else_placement_outside_if: {
+	        code: 'invalid-else-placement',
+	        message: 'Cannot have an {:else} block outside an {#if ...} or {#each ...} block'
+	    },
+	    invalid_else_placement_unclosed_block: (block) => ({
+	        code: 'invalid-else-placement',
+	        message: `Expected to close ${block} before seeing {:else} block`
+	    }),
+	    invalid_element_content: (slug, name) => ({
+	        code: `invalid-${slug}-content`,
+	        message: `<${name}> cannot have children`
+	    }),
+	    invalid_element_placement: (slug, name) => ({
+	        code: `invalid-${slug}-placement`,
+	        message: `<${name}> tags cannot be inside elements or blocks`
+	    }),
+	    invalid_ref_directive: (name) => ({
+	        code: 'invalid-ref-directive',
+	        message: `The ref directive is no longer supported — use \`bind:this={${name}}\` instead`
+	    }),
+	    invalid_ref_selector: {
+	        code: 'invalid-ref-selector',
+	        message: 'ref selectors are no longer supported'
+	    },
+	    invalid_self_placement: {
+	        code: 'invalid-self-placement',
+	        message: '<svelte:self> components can only exist inside {#if} blocks, {#each} blocks, or slots passed to components'
+	    },
+	    invalid_script_instance: {
+	        code: 'invalid-script',
+	        message: 'A component can only have one instance-level <script> element'
+	    },
+	    invalid_script_module: {
+	        code: 'invalid-script',
+	        message: 'A component can only have one <script context="module"> element'
+	    },
+	    invalid_script_context_attribute: {
+	        code: 'invalid-script',
+	        message: 'context attribute must be static'
+	    },
+	    invalid_script_context_value: {
+	        code: 'invalid-script',
+	        message: 'If the context attribute is supplied, its value must be "module"'
+	    },
+	    invalid_tag_name: {
+	        code: 'invalid-tag-name',
+	        message: 'Expected valid tag name'
+	    },
+	    invalid_tag_name_svelte_element: (tags, match) => ({
+	        code: 'invalid-tag-name',
+	        message: `Valid <svelte:...> tag names are ${list(tags)}${match ? ' (did you mean ' + match + '?)' : ''}`
+	    }),
+	    invalid_then_placement_unclosed_block: (block) => ({
+	        code: 'invalid-then-placement',
+	        message: `Expected to close ${block} before seeing {:then} block`
+	    }),
+	    invalid_then_placement_without_await: {
+	        code: 'invalid-then-placement',
+	        message: 'Cannot have an {:then} block outside an {#await ...} block'
+	    },
+	    invalid_void_content: (name) => ({
+	        code: 'invalid-void-content',
+	        message: `<${name}> is a void element and cannot have children, or a closing tag`
+	    }),
+	    missing_component_definition: {
+	        code: 'missing-component-definition',
+	        message: '<svelte:component> must have a \'this\' attribute'
+	    },
+	    missing_attribute_value: {
+	        code: 'missing-attribute-value',
+	        message: 'Expected value for the attribute'
+	    },
+	    unclosed_script: {
+	        code: 'unclosed-script',
+	        message: '<script> must have a closing tag'
+	    },
+	    unclosed_style: {
+	        code: 'unclosed-style',
+	        message: '<style> must have a closing tag'
+	    },
+	    unclosed_comment: {
+	        code: 'unclosed-comment',
+	        message: 'comment was left open, expected -->'
+	    },
+	    unclosed_attribute_value: (token) => ({
+	        code: 'unclosed-attribute-value',
+	        message: `Expected to close the attribute value with ${token}`
+	    }),
+	    unexpected_block_close: {
+	        code: 'unexpected-block-close',
+	        message: 'Unexpected block closing tag'
+	    },
+	    unexpected_eof: {
+	        code: 'unexpected-eof',
+	        message: 'Unexpected end of input'
+	    },
+	    unexpected_eof_token: (token) => ({
+	        code: 'unexpected-eof',
+	        message: `Unexpected ${token}`
+	    }),
+	    unexpected_token: (token) => ({
+	        code: 'unexpected-token',
+	        message: `Expected ${token}`
+	    }),
+	    unexpected_token_destructure: {
+	        code: 'unexpected-token',
+	        message: 'Expected identifier or destructure pattern'
+	    }
+	};
+
 	function read_expression(parser) {
 	    try {
 	        const node = parse_expression_at(parser.template, parser.index);
@@ -7446,10 +8428,7 @@
 	                num_parens -= 1;
 	            }
 	            else if (!whitespace.test(char)) {
-	                parser.error({
-	                    code: 'unexpected-token',
-	                    message: 'Expected )'
-	                }, index);
+	                parser.error(parser_errors.unexpected_token(')'), index);
 	            }
 	            index += 1;
 	        }
@@ -7461,38 +8440,27 @@
 	    }
 	}
 
-	const script_closing_tag = '</script>';
 	function get_context(parser, attributes, start) {
 	    const context = attributes.find(attribute => attribute.name === 'context');
 	    if (!context)
 	        return 'default';
 	    if (context.value.length !== 1 || context.value[0].type !== 'Text') {
-	        parser.error({
-	            code: 'invalid-script',
-	            message: 'context attribute must be static'
-	        }, start);
+	        parser.error(parser_errors.invalid_script_context_attribute, start);
 	    }
 	    const value = context.value[0].data;
 	    if (value !== 'module') {
-	        parser.error({
-	            code: 'invalid-script',
-	            message: 'If the context attribute is supplied, its value must be "module"'
-	        }, context.start);
+	        parser.error(parser_errors.invalid_script_context_value, context.start);
 	    }
 	    return value;
 	}
 	function read_script(parser, start, attributes) {
 	    const script_start = parser.index;
-	    const script_end = parser.template.indexOf(script_closing_tag, script_start);
-	    if (script_end === -1) {
-	        parser.error({
-	            code: 'unclosed-script',
-	            message: '<script> must have a closing tag'
-	        });
+	    const data = parser.read_until(/<\/script\s*>/, parser_errors.unclosed_script);
+	    if (parser.index >= parser.template.length) {
+	        parser.error(parser_errors.unclosed_script);
 	    }
-	    const source = parser.template.slice(0, script_start).replace(/[^\n]/g, ' ') +
-	        parser.template.slice(script_start, script_end);
-	    parser.index = script_end + script_closing_tag.length;
+	    const source = parser.template.slice(0, script_start).replace(/[^\n]/g, ' ') + data;
+	    parser.read(/<\/script\s*>/);
 	    let ast;
 	    try {
 	        ast = parse$2(source);
@@ -13124,7 +14092,10 @@
 
 	function read_style(parser, start, attributes) {
 	    const content_start = parser.index;
-	    const styles = parser.read_until(/<\/style>/);
+	    const styles = parser.read_until(/<\/style\s*>/, parser_errors.unclosed_style);
+	    if (parser.index >= parser.template.length) {
+	        parser.error(parser_errors.unclosed_style);
+	    }
 	    const content_end = parser.index;
 	    let ast;
 	    try {
@@ -13138,10 +14109,7 @@
 	    }
 	    catch (err) {
 	        if (err.name === 'SyntaxError') {
-	            parser.error({
-	                code: 'css-syntax-error',
-	                message: err.message
-	            }, err.offset);
+	            parser.error(parser_errors.css_syntax_error(err.message), err.offset);
 	        }
 	        else {
 	            throw err;
@@ -13157,24 +14125,15 @@
 	                    const a = node.children[i];
 	                    const b = node.children[i + 1];
 	                    if (is_ref_selector(a, b)) {
-	                        parser.error({
-	                            code: 'invalid-ref-selector',
-	                            message: 'ref selectors are no longer supported'
-	                        }, a.loc.start.offset);
+	                        parser.error(parser_errors.invalid_ref_selector, a.loc.start.offset);
 	                    }
 	                }
 	            }
 	            if (node.type === 'Declaration' && node.value.type === 'Value' && node.value.children.length === 0) {
-	                parser.error({
-	                    code: 'invalid-declaration',
-	                    message: 'Declaration cannot be empty'
-	                }, node.start);
+	                parser.error(parser_errors.invalid_declaration, node.start);
 	            }
 	            if (node.type === 'PseudoClassSelector' && node.name === 'global' && node.children === null) {
-	                parser.error({
-	                    code: 'css-syntax-error',
-	                    message: ':global() must contain a selector'
-	                }, node.loc.start.offset);
+	                parser.error(parser_errors.empty_global_selector, node.loc.start.offset);
 	            }
 	            if (node.loc) {
 	                node.start = node.loc.start.offset;
@@ -13183,7 +14142,7 @@
 	            }
 	        }
 	    });
-	    parser.eat('</style>', true);
+	    parser.read(/<\/style\s*>/);
 	    const end = parser.index;
 	    return {
 	        type: 'Style',
@@ -15381,6 +16340,7 @@
 	const globals = new Set([
 	    'alert',
 	    'Array',
+	    'BigInt',
 	    'Boolean',
 	    'clearInterval',
 	    'clearTimeout',
@@ -15401,6 +16361,7 @@
 	    'global',
 	    'globalThis',
 	    'history',
+	    'HTMLElement',
 	    'Infinity',
 	    'InternalError',
 	    'Intl',
@@ -15413,8 +16374,8 @@
 	    'Math',
 	    'NaN',
 	    'navigator',
-	    'Number',
 	    'Node',
+	    'Number',
 	    'Object',
 	    'parseFloat',
 	    'parseInt',
@@ -15429,6 +16390,7 @@
 	    'setInterval',
 	    'setTimeout',
 	    'String',
+	    'SVGElement',
 	    'SyntaxError',
 	    'TypeError',
 	    'undefined',
@@ -15715,10 +16677,44 @@
 	    }
 	}
 
-	function list(items, conjunction = 'or') {
-	    if (items.length === 1)
-	        return items[0];
-	    return `${items.slice(0, -1).join(', ')} ${conjunction} ${items[items.length - 1]}`;
+	function flatten$1(nodes, target = []) {
+	    for (let i = 0; i < nodes.length; i += 1) {
+	        const node = nodes[i];
+	        if (Array.isArray(node)) {
+	            flatten$1(node, target);
+	        }
+	        else {
+	            target.push(node);
+	        }
+	    }
+	    return target;
+	}
+
+	const pattern = /^\s*svelte-ignore\s+([\s\S]+)\s*$/m;
+	function extract_svelte_ignore(text) {
+	    const match = pattern.exec(text);
+	    return match ? match[1].split(/[^\S]/).map(x => x.trim()).filter(Boolean) : [];
+	}
+	function extract_svelte_ignore_from_comments(node) {
+	    return flatten$1((node.leadingComments || []).map(comment => extract_svelte_ignore(comment.value)));
+	}
+	function extract_ignores_above_position(position, template_nodes) {
+	    const previous_node_idx = template_nodes.findIndex(child => child.end === position);
+	    if (previous_node_idx === -1) {
+	        return [];
+	    }
+	    for (let i = previous_node_idx; i >= 0; i--) {
+	        const node = template_nodes[i];
+	        if (node.type !== 'Comment' && node.type !== 'Text') {
+	            return [];
+	        }
+	        if (node.type === 'Comment') {
+	            if (node.ignores.length) {
+	                return node.ignores;
+	            }
+	        }
+	    }
+	    return [];
 	}
 
 	// eslint-disable-next-line no-useless-escape
@@ -15765,12 +16761,13 @@
 	    let parent = parser.current();
 	    if (parser.eat('!--')) {
 	        const data = parser.read_until(/-->/);
-	        parser.eat('-->', true, 'comment was left open, expected -->');
+	        parser.eat('-->', true, parser_errors.unclosed_comment);
 	        parser.current().children.push({
 	            start,
 	            end: parser.index,
 	            type: 'Comment',
-	            data
+	            data,
+	            ignores: extract_svelte_ignore(data)
 	        });
 	        return;
 	    }
@@ -15781,24 +16778,15 @@
 	        if (is_closing_tag) {
 	            if ((name === 'svelte:window' || name === 'svelte:body') &&
 	                parser.current().children.length) {
-	                parser.error({
-	                    code: `invalid-${slug}-content`,
-	                    message: `<${name}> cannot have children`
-	                }, parser.current().children[0].start);
+	                parser.error(parser_errors.invalid_element_content(slug, name), parser.current().children[0].start);
 	            }
 	        }
 	        else {
 	            if (name in parser.meta_tags) {
-	                parser.error({
-	                    code: `duplicate-${slug}`,
-	                    message: `A component can only have one <${name}> tag`
-	                }, start);
+	                parser.error(parser_errors.duplicate_element(slug, name), start);
 	            }
 	            if (parser.stack.length > 1) {
-	                parser.error({
-	                    code: `invalid-${slug}-placement`,
-	                    message: `<${name}> tags cannot be inside elements or blocks`
-	                }, start);
+	                parser.error(parser_errors.invalid_element_placement(slug, name), start);
 	            }
 	            parser.meta_tags[name] = true;
 	        }
@@ -15820,22 +16808,16 @@
 	    parser.allow_whitespace();
 	    if (is_closing_tag) {
 	        if (is_void(name)) {
-	            parser.error({
-	                code: 'invalid-void-content',
-	                message: `<${name}> is a void element and cannot have children, or a closing tag`
-	            }, start);
+	            parser.error(parser_errors.invalid_void_content(name), start);
 	        }
 	        parser.eat('>', true);
 	        // close any elements that don't have their own closing tags, e.g. <div><p></div>
 	        while (parent.name !== name) {
 	            if (parent.type !== 'Element') {
-	                const message = parser.last_auto_closed_tag && parser.last_auto_closed_tag.tag === name
-	                    ? `</${name}> attempted to close <${name}> that was already automatically closed by <${parser.last_auto_closed_tag.reason}>`
-	                    : `</${name}> attempted to close an element that was not open`;
-	                parser.error({
-	                    code: 'invalid-closing-tag',
-	                    message
-	                }, start);
+	                const error = parser.last_auto_closed_tag && parser.last_auto_closed_tag.tag === name
+	                    ? parser_errors.invalid_closing_tag_autoclosed(name, parser.last_auto_closed_tag.reason)
+	                    : parser_errors.invalid_closing_tag_unopened(name);
+	                parser.error(error, start);
 	            }
 	            parent.end = start;
 	            parser.stack.pop();
@@ -15866,17 +16848,11 @@
 	    if (name === 'svelte:component') {
 	        const index = element.attributes.findIndex(attr => attr.type === 'Attribute' && attr.name === 'this');
 	        if (!~index) {
-	            parser.error({
-	                code: 'missing-component-definition',
-	                message: "<svelte:component> must have a 'this' attribute"
-	            }, start);
+	            parser.error(parser_errors.missing_component_definition, start);
 	        }
 	        const definition = element.attributes.splice(index, 1)[0];
 	        if (definition.value === true || definition.value.length !== 1 || definition.value[0].type === 'Text') {
-	            parser.error({
-	                code: 'invalid-component-definition',
-	                message: 'invalid component definition'
-	            }, definition.start);
+	            parser.error(parser_errors.invalid_component_definition, definition.start);
 	        }
 	        element.expression = definition.value[0].expression;
 	    }
@@ -15898,8 +16874,8 @@
 	    }
 	    else if (name === 'textarea') {
 	        // special case
-	        element.children = read_sequence(parser, () => parser.template.slice(parser.index, parser.index + 11) === '</textarea>');
-	        parser.read(/<\/textarea>/);
+	        element.children = read_sequence(parser, () => /^<\/textarea(\s[^>]*)?>/i.test(parser.template.slice(parser.index)));
+	        parser.read(/^<\/textarea(\s[^>]*)?>/i);
 	        element.end = parser.index;
 	    }
 	    else if (name === 'script' || name === 'style') {
@@ -15930,10 +16906,7 @@
 	            }
 	        }
 	        if (!legal) {
-	            parser.error({
-	                code: 'invalid-self-placement',
-	                message: '<svelte:self> components can only exist inside {#if} blocks, {#each} blocks, or slots passed to components'
-	            }, start);
+	            parser.error(parser_errors.invalid_self_placement, start);
 	        }
 	        return 'svelte:self';
 	    }
@@ -15946,19 +16919,10 @@
 	        return name;
 	    if (name.startsWith('svelte:')) {
 	        const match = fuzzymatch(name.slice(7), valid_meta_tags);
-	        let message = `Valid <svelte:...> tag names are ${list(valid_meta_tags)}`;
-	        if (match)
-	            message += ` (did you mean '${match}'?)`;
-	        parser.error({
-	            code: 'invalid-tag-name',
-	            message
-	        }, start);
+	        parser.error(parser_errors.invalid_tag_name_svelte_element(valid_meta_tags, match), start);
 	    }
 	    if (!valid_tag_name.test(name)) {
-	        parser.error({
-	            code: 'invalid-tag-name',
-	            message: 'Expected valid tag name'
-	        }, start);
+	        parser.error(parser_errors.invalid_tag_name, start);
 	    }
 	    return name;
 	}
@@ -15966,10 +16930,7 @@
 	    const start = parser.index;
 	    function check_unique(name) {
 	        if (unique_names.has(name)) {
-	            parser.error({
-	                code: 'duplicate-attribute',
-	                message: 'Attributes need to be unique'
-	            }, start);
+	            parser.error(parser_errors.duplicate_attribute, start);
 	        }
 	        unique_names.add(name);
 	    }
@@ -15991,6 +16952,9 @@
 	            const name = parser.read_identifier();
 	            parser.allow_whitespace();
 	            parser.eat('}', true);
+	            if (name === null) {
+	                parser.error(parser_errors.empty_attribute_shorthand, start);
+	            }
 	            check_unique(name);
 	            return {
 	                start,
@@ -16026,13 +16990,13 @@
 	        end = parser.index;
 	    }
 	    else if (parser.match_regex(/["']/)) {
-	        parser.error({
-	            code: 'unexpected-token',
-	            message: 'Expected ='
-	        }, parser.index);
+	        parser.error(parser_errors.unexpected_token('='), parser.index);
 	    }
 	    if (type) {
 	        const [directive_name, ...modifiers] = name.slice(colon_index + 1).split('|');
+	        if (directive_name === '') {
+	            parser.error(parser_errors.empty_directive_name(type), start + colon_index + 1);
+	        }
 	        if (type === 'Binding' && directive_name !== 'this') {
 	            check_unique(directive_name);
 	        }
@@ -16040,23 +17004,11 @@
 	            check_unique(name);
 	        }
 	        if (type === 'Ref') {
-	            parser.error({
-	                code: 'invalid-ref-directive',
-	                message: `The ref directive is no longer supported — use \`bind:this={${directive_name}}\` instead`
-	            }, start);
-	        }
-	        if (type === 'Class' && directive_name === '') {
-	            parser.error({
-	                code: 'invalid-class-directive',
-	                message: 'Class binding name cannot be empty'
-	            }, start + colon_index + 1);
+	            parser.error(parser_errors.invalid_ref_directive(directive_name), start);
 	        }
 	        if (value[0]) {
 	            if (value.length > 1 || value[0].type === 'Text') {
-	                parser.error({
-	                    code: 'invalid-directive-value',
-	                    message: 'Directive value must be a JavaScript expression enclosed in curly braces'
-	                }, value[0].start);
+	                parser.error(parser_errors.invalid_directive_value, value[0].start);
 	            }
 	        }
 	        const directive = {
@@ -16111,10 +17063,37 @@
 	}
 	function read_attribute_value(parser) {
 	    const quote_mark = parser.eat("'") ? "'" : parser.eat('"') ? '"' : null;
+	    if (quote_mark && parser.eat(quote_mark)) {
+	        return [{
+	                start: parser.index - 1,
+	                end: parser.index - 1,
+	                type: 'Text',
+	                raw: '',
+	                data: ''
+	            }];
+	    }
 	    const regex = (quote_mark === "'" ? /'/ :
 	        quote_mark === '"' ? /"/ :
 	            /(\/>|[\s"'=<>`])/);
-	    const value = read_sequence(parser, () => !!parser.match_regex(regex));
+	    let value;
+	    try {
+	        value = read_sequence(parser, () => !!parser.match_regex(regex));
+	    }
+	    catch (error) {
+	        if (error.code === 'parse-error') {
+	            // if the attribute value didn't close + self-closing tag
+	            // eg: `<Component test={{a:1} />`
+	            // acorn may throw a `Unterminated regular expression` because of `/>`
+	            if (parser.template.slice(error.pos - 1, error.pos + 1) === '/>') {
+	                parser.index = error.pos;
+	                parser.error(parser_errors.unclosed_attribute_value(quote_mark || '}'));
+	            }
+	        }
+	        throw error;
+	    }
+	    if (value.length === 0 && !quote_mark) {
+	        parser.error(parser_errors.missing_attribute_value);
+	    }
 	    if (quote_mark)
 	        parser.index += 1;
 	    return value;
@@ -16127,10 +17106,10 @@
 	        raw: '',
 	        data: null
 	    };
-	    function flush() {
+	    function flush(end) {
 	        if (current_chunk.raw) {
 	            current_chunk.data = decode_character_references(current_chunk.raw);
-	            current_chunk.end = parser.index;
+	            current_chunk.end = end;
 	            chunks.push(current_chunk);
 	        }
 	    }
@@ -16138,11 +17117,11 @@
 	    while (parser.index < parser.template.length) {
 	        const index = parser.index;
 	        if (done()) {
-	            flush();
+	            flush(parser.index);
 	            return chunks;
 	        }
 	        else if (parser.eat('{')) {
-	            flush();
+	            flush(parser.index - 1);
 	            parser.allow_whitespace();
 	            const expression = read_expression(parser);
 	            parser.allow_whitespace();
@@ -16165,10 +17144,7 @@
 	            current_chunk.raw += parser.template[parser.index++];
 	        }
 	    }
-	    parser.error({
-	        code: 'unexpected-eof',
-	        message: 'Unexpected end of input'
-	    });
+	    parser.error(parser_errors.unexpected_eof);
 	}
 
 	const SQUARE_BRACKET_OPEN = '['.charCodeAt(0);
@@ -16207,10 +17183,7 @@
 	        };
 	    }
 	    if (!is_bracket_open(code)) {
-	        parser.error({
-	            code: 'unexpected-token',
-	            message: 'Expected identifier or destructure pattern'
-	        });
+	        parser.error(parser_errors.unexpected_token_destructure);
 	    }
 	    const bracket_stack = [code];
 	    i += code <= 0xffff ? 1 : 2;
@@ -16221,10 +17194,7 @@
 	        }
 	        else if (is_bracket_close(code)) {
 	            if (!is_bracket_pair(bracket_stack[bracket_stack.length - 1], code)) {
-	                parser.error({
-	                    code: 'unexpected-token',
-	                    message: `Expected ${String.fromCharCode(get_bracket_close(bracket_stack[bracket_stack.length - 1]))}`
-	                });
+	                parser.error(parser_errors.unexpected_token(String.fromCharCode(get_bracket_close(bracket_stack[bracket_stack.length - 1]))));
 	            }
 	            bracket_stack.pop();
 	            if (bracket_stack.length === 0) {
@@ -16349,10 +17319,7 @@
 	            expected = 'key';
 	        }
 	        else {
-	            parser.error({
-	                code: 'unexpected-block-close',
-	                message: 'Unexpected block closing tag'
-	            });
+	            parser.error(parser_errors.unexpected_block_close);
 	        }
 	        parser.eat(expected, true);
 	        parser.allow_whitespace();
@@ -16376,22 +17343,16 @@
 	    }
 	    else if (parser.eat(':else')) {
 	        if (parser.eat('if')) {
-	            parser.error({
-	                code: 'invalid-elseif',
-	                message: "'elseif' should be 'else if'"
-	            });
+	            parser.error(parser_errors.invalid_elseif);
 	        }
 	        parser.allow_whitespace();
 	        // :else if
 	        if (parser.eat('if')) {
 	            const block = parser.current();
 	            if (block.type !== 'IfBlock') {
-	                parser.error({
-	                    code: 'invalid-elseif-placement',
-	                    message: parser.stack.some(block => block.type === 'IfBlock')
-	                        ? `Expected to close ${to_string(block)} before seeing {:else if ...} block`
-	                        : 'Cannot have an {:else if ...} block outside an {#if ...} block'
-	                });
+	                parser.error(parser.stack.some(block => block.type === 'IfBlock')
+	                    ? parser_errors.invalid_elseif_placement_unclosed_block(to_string(block))
+	                    : parser_errors.invalid_elseif_placement_outside_if);
 	            }
 	            parser.require_whitespace();
 	            const expression = read_expression(parser);
@@ -16418,12 +17379,9 @@
 	            // :else
 	            const block = parser.current();
 	            if (block.type !== 'IfBlock' && block.type !== 'EachBlock') {
-	                parser.error({
-	                    code: 'invalid-else-placement',
-	                    message: parser.stack.some(block => block.type === 'IfBlock' || block.type === 'EachBlock')
-	                        ? `Expected to close ${to_string(block)} before seeing {:else} block`
-	                        : 'Cannot have an {:else} block outside an {#if ...} or {#each ...} block'
-	                });
+	                parser.error(parser.stack.some(block => block.type === 'IfBlock' || block.type === 'EachBlock')
+	                    ? parser_errors.invalid_else_placement_unclosed_block(to_string(block))
+	                    : parser_errors.invalid_else_placement_outside_if);
 	            }
 	            parser.allow_whitespace();
 	            parser.eat('}', true);
@@ -16441,22 +17399,16 @@
 	        const is_then = parser.eat(':then') || !parser.eat(':catch');
 	        if (is_then) {
 	            if (block.type !== 'PendingBlock') {
-	                parser.error({
-	                    code: 'invalid-then-placement',
-	                    message: parser.stack.some(block => block.type === 'PendingBlock')
-	                        ? `Expected to close ${to_string(block)} before seeing {:then} block`
-	                        : 'Cannot have an {:then} block outside an {#await ...} block'
-	                });
+	                parser.error(parser.stack.some(block => block.type === 'PendingBlock')
+	                    ? parser_errors.invalid_then_placement_unclosed_block(to_string(block))
+	                    : parser_errors.invalid_then_placement_without_await);
 	            }
 	        }
 	        else {
 	            if (block.type !== 'ThenBlock' && block.type !== 'PendingBlock') {
-	                parser.error({
-	                    code: 'invalid-catch-placement',
-	                    message: parser.stack.some(block => block.type === 'ThenBlock' || block.type === 'PendingBlock')
-	                        ? `Expected to close ${to_string(block)} before seeing {:catch} block`
-	                        : 'Cannot have an {:catch} block outside an {#await ...} block'
-	                });
+	                parser.error(parser.stack.some(block => block.type === 'ThenBlock' || block.type === 'PendingBlock')
+	                    ? parser_errors.invalid_catch_placement_unclosed_block(to_string(block))
+	                    : parser_errors.invalid_catch_placement_without_await);
 	            }
 	        }
 	        block.end = start;
@@ -16494,10 +17446,7 @@
 	            type = 'KeyBlock';
 	        }
 	        else {
-	            parser.error({
-	                code: 'expected-block-type',
-	                message: 'Expected if, each, await or key'
-	            });
+	            parser.error(parser_errors.expected_block_type);
 	        }
 	        parser.require_whitespace();
 	        const expression = read_expression(parser);
@@ -16548,12 +17497,8 @@
 	            if (parser.eat(',')) {
 	                parser.allow_whitespace();
 	                block.index = parser.read_identifier();
-	                if (!block.index) {
-	                    parser.error({
-	                        code: 'expected-name',
-	                        message: 'Expected name'
-	                    });
-	                }
+	                if (!block.index)
+	                    parser.error(parser_errors.expected_name);
 	                parser.allow_whitespace();
 	            }
 	            if (parser.eat('(')) {
@@ -16566,15 +17511,25 @@
 	        }
 	        const await_block_shorthand = type === 'AwaitBlock' && parser.eat('then');
 	        if (await_block_shorthand) {
-	            parser.require_whitespace();
-	            block.value = read_context(parser);
-	            parser.allow_whitespace();
+	            if (parser.match_regex(/\s*}/)) {
+	                parser.allow_whitespace();
+	            }
+	            else {
+	                parser.require_whitespace();
+	                block.value = read_context(parser);
+	                parser.allow_whitespace();
+	            }
 	        }
 	        const await_block_catch_shorthand = !await_block_shorthand && type === 'AwaitBlock' && parser.eat('catch');
 	        if (await_block_catch_shorthand) {
-	            parser.require_whitespace();
-	            block.error = read_context(parser);
-	            parser.allow_whitespace();
+	            if (parser.match_regex(/\s*}/)) {
+	                parser.allow_whitespace();
+	            }
+	            else {
+	                parser.require_whitespace();
+	                block.error = read_context(parser);
+	                parser.allow_whitespace();
+	            }
 	        }
 	        parser.eat('}', true);
 	        parser.current().children.push(block);
@@ -16623,10 +17578,7 @@
 	                : [expression];
 	            identifiers.forEach(node => {
 	                if (node.type !== 'Identifier') {
-	                    parser.error({
-	                        code: 'invalid-debug-args',
-	                        message: '{@debug ...} arguments must be identifiers, not arbitrary expressions'
-	                    }, node.start);
+	                    parser.error(parser_errors.invalid_debug_args, node.start);
 	                }
 	            });
 	            parser.allow_whitespace();
@@ -16833,16 +17785,16 @@
 	            filename: this.filename
 	        });
 	    }
-	    eat(str, required, message) {
+	    eat(str, required, error) {
 	        if (this.match(str)) {
 	            this.index += str.length;
 	            return true;
 	        }
 	        if (required) {
-	            this.error({
-	                code: `unexpected-${this.index === this.template.length ? 'eof' : 'token'}`,
-	                message: message || `Expected ${str}`
-	            });
+	            this.error(error ||
+	                (this.index === this.template.length
+	                    ? parser_errors.unexpected_eof_token(str)
+	                    : parser_errors.unexpected_token(str)));
 	        }
 	        return false;
 	    }
@@ -16889,9 +17841,9 @@
 	        }
 	        return identifier;
 	    }
-	    read_until(pattern) {
+	    read_until(pattern, error_message) {
 	        if (this.index >= this.template.length) {
-	            this.error({
+	            this.error(error_message || {
 	                code: 'unexpected-eof',
 	                message: 'Unexpected end of input'
 	            });
@@ -16920,24 +17872,15 @@
 	    // TODO we may want to allow multiple <style> tags —
 	    // one scoped, one global. for now, only allow one
 	    if (parser.css.length > 1) {
-	        parser.error({
-	            code: 'duplicate-style',
-	            message: 'You can only have one top-level <style> tag per component'
-	        }, parser.css[1].start);
+	        parser.error(parser_errors.duplicate_style, parser.css[1].start);
 	    }
 	    const instance_scripts = parser.js.filter(script => script.context === 'default');
 	    const module_scripts = parser.js.filter(script => script.context === 'module');
 	    if (instance_scripts.length > 1) {
-	        parser.error({
-	            code: 'invalid-script',
-	            message: 'A component can only have one instance-level <script> element'
-	        }, instance_scripts[1].start);
+	        parser.error(parser_errors.invalid_script_instance, instance_scripts[1].start);
 	    }
 	    if (module_scripts.length > 1) {
-	        parser.error({
-	            code: 'invalid-script',
-	            message: 'A component can only have one <script context="module"> element'
-	        }, module_scripts[1].start);
+	        parser.error(parser_errors.invalid_script_module, module_scripts[1].start);
 	    }
 	    return {
 	        html: parser.html,
@@ -17088,7 +18031,12 @@
 	            }
 	        }
 	        if (this.autofocus) {
-	            this.chunks.mount.push(b `${this.autofocus}.focus();`);
+	            if (this.autofocus.condition_expression) {
+	                this.chunks.mount.push(b `if (${this.autofocus.condition_expression}) ${this.autofocus.element_var}.focus();`);
+	            }
+	            else {
+	                this.chunks.mount.push(b `${this.autofocus.element_var}.focus();`);
+	            }
 	        }
 	        this.render_listeners();
 	        const properties = {};
@@ -17529,16 +18477,7 @@
 	            block.chunks.intro.push(b `@transition_in(${info}.block);`);
 	        }
 	        const dependencies = this.node.expression.dynamic_dependencies();
-	        let update_child_context;
-	        if (this.then.value && this.catch.value) {
-	            update_child_context = b `#child_ctx[${this.then.value_index}] = #child_ctx[${this.catch.value_index}] = ${info}.resolved;`;
-	        }
-	        else if (this.then.value) {
-	            update_child_context = b `#child_ctx[${this.then.value_index}] = ${info}.resolved;`;
-	        }
-	        else if (this.catch.value) {
-	            update_child_context = b `#child_ctx[${this.catch.value_index}] = ${info}.resolved;`;
-	        }
+	        const update_await_block_branch = b `@update_await_block_branch(${info}, #ctx, #dirty)`;
 	        if (dependencies.length > 0) {
 	            const condition = x `
 				${block.renderer.dirty(dependencies)} &&
@@ -17550,9 +18489,7 @@
 					if (${condition}) {
 
 					} else {
-						const #child_ctx = #ctx.slice();
-						${update_child_context}
-						${info}.block.p(#child_ctx, #dirty);
+						${update_await_block_branch}
 					}
 				`);
 	            }
@@ -17565,11 +18502,7 @@
 	        else {
 	            if (this.pending.block.has_update_method) {
 	                block.chunks.update.push(b `
-					{
-						const #child_ctx = #ctx.slice();
-						${update_child_context}
-						${info}.block.p(#child_ctx, #dirty);
-					}
+					${update_await_block_branch}
 				`);
 	            }
 	        }
@@ -17602,7 +18535,7 @@
 	            this.parent.renderer.add_to_context(node.handler_name.name);
 	            this.parent.renderer.component.partly_hoisted.push(b `
 				function ${node.handler_name.name}(event) {
-					@bubble($$self, event);
+					@bubble.call(this, $$self, event);
 				}
 			`);
 	        }
@@ -17623,6 +18556,8 @@
 	            snippet = x `@stop_propagation(${snippet})`;
 	        if (this.node.modifiers.has('self'))
 	            snippet = x `@self(${snippet})`;
+	        if (this.node.modifiers.has('trusted'))
+	            snippet = x `@trusted(${snippet})`;
 	        const args = [];
 	        const opts = ['nonpassive', 'passive', 'once', 'capture'].filter(mod => this.node.modifiers.has(mod));
 	        if (opts.length) {
@@ -17653,6 +18588,58 @@
 	    handler.render(block, target);
 	}
 
+	const reserved_keywords = new Set(['$$props', '$$restProps', '$$slots']);
+	function is_reserved_keyword(name) {
+	    return reserved_keywords.has(name);
+	}
+
+	function is_contextual(component, scope, name) {
+	    if (is_reserved_keyword(name))
+	        return true;
+	    // if it's a name below root scope, it's contextual
+	    if (!scope.is_top_level(name))
+	        return true;
+	    const variable = component.var_lookup.get(name);
+	    // hoistables, module declarations, and imports are non-contextual
+	    if (!variable || variable.hoistable)
+	        return false;
+	    // assume contextual
+	    return true;
+	}
+
+	function add_actions(block, target, actions) {
+	    actions.forEach(action => add_action(block, target, action));
+	}
+	function add_action(block, target, action) {
+	    const { expression, template_scope } = action;
+	    let snippet;
+	    let dependencies;
+	    if (expression) {
+	        snippet = expression.manipulate(block);
+	        dependencies = expression.dynamic_dependencies();
+	    }
+	    const id = block.get_unique_name(`${action.name.replace(/[^a-zA-Z0-9_$]/g, '_')}_action`);
+	    block.add_variable(id);
+	    const [obj, ...properties] = action.name.split('.');
+	    const fn = is_contextual(action.component, template_scope, obj)
+	        ? block.renderer.reference(obj)
+	        : obj;
+	    if (properties.length) {
+	        const member_expression = properties.reduce((lhs, rhs) => x `${lhs}.${rhs}`, fn);
+	        block.event_listeners.push(x `@action_destroyer(${id} = ${member_expression}(${target}, ${snippet}))`);
+	    }
+	    else {
+	        block.event_listeners.push(x `@action_destroyer(${id} = ${fn}.call(null, ${target}, ${snippet}))`);
+	    }
+	    if (dependencies && dependencies.length > 0) {
+	        let condition = x `${id} && @is_function(${id}.update)`;
+	        if (dependencies.length > 0) {
+	            condition = x `${condition} && ${block.renderer.dirty(dependencies)}`;
+	        }
+	        block.chunks.update.push(b `if (${condition}) ${id}.update.call(null, ${snippet});`);
+	    }
+	}
+
 	class BodyWrapper extends Wrapper {
 	    constructor(renderer, block, parent, node) {
 	        super(renderer, block, parent, node);
@@ -17660,6 +18647,7 @@
 	    }
 	    render(block, _parent_node, _parent_nodes) {
 	        add_event_handlers(block, x `@_document.body`, this.handlers);
+	        add_actions(block, x `@_document.body`, this.node.actions);
 	    }
 	}
 
@@ -18212,7 +19200,15 @@
 	        if (this.skip)
 	            return;
 	        const use_space = this.use_space();
-	        block.add_element(this.var, use_space ? x `@space()` : x `@text("${this.data}")`, parent_nodes && (use_space ? x `@claim_space(${parent_nodes})` : x `@claim_text(${parent_nodes}, "${this.data}")`), parent_node);
+	        const string_literal = {
+	            type: 'Literal',
+	            value: this.data,
+	            loc: {
+	                start: this.renderer.locate(this.node.start),
+	                end: this.renderer.locate(this.node.end)
+	            }
+	        };
+	        block.add_element(this.var, use_space ? x `@space()` : x `@text(${string_literal})`, parent_nodes && (use_space ? x `@claim_space(${parent_nodes})` : x `@claim_text(${parent_nodes}, ${string_literal})`), parent_node);
 	    }
 	}
 
@@ -18317,7 +19313,8 @@
 	            this.is_select_value_attribute = this.name === 'value' && this.parent.node.name === 'select';
 	            this.is_input_value = this.name === 'value' && this.parent.node.name === 'input';
 	        }
-	        this.is_src = this.name === 'src'; // TODO retire this exception in favour of https://github.com/sveltejs/svelte/issues/3750
+	        // TODO retire this exception in favour of https://github.com/sveltejs/svelte/issues/3750
+	        this.is_src = this.name === 'src' && (!this.parent.node.namespace || this.parent.node.namespace === namespaces.html);
 	        this.should_cache = should_cache(this);
 	    }
 	    render(block) {
@@ -18354,7 +19351,7 @@
 			`);
 	        }
 	        else if (this.is_src) {
-	            block.chunks.hydrate.push(b `if (${element.var}.src !== ${init}) ${method}(${element.var}, "${name}", ${this.last});`);
+	            block.chunks.hydrate.push(b `if (!@src_url_equal(${element.var}.src, ${init})) ${method}(${element.var}, "${name}", ${this.last});`);
 	            updater = b `${method}(${element.var}, "${name}", ${should_cache ? this.last : value});`;
 	        }
 	        else if (property_name) {
@@ -18383,8 +19380,11 @@
 				}`);
 	        }
 	        // special case – autofocus. has to be handled in a bit of a weird way
-	        if (this.node.is_true && name === 'autofocus') {
-	            block.autofocus = element.var;
+	        if (name === 'autofocus') {
+	            block.autofocus = {
+	                element_var: element.var,
+	                condition_expression: this.node.is_true ? undefined : value
+	            };
 	        }
 	    }
 	    get_init(block, value) {
@@ -18400,7 +19400,7 @@
 	        let condition = dependency_condition;
 	        if (should_cache) {
 	            condition = this.is_src
-	                ? x `${condition} && (${element.var}.src !== (${last} = ${value}))`
+	                ? x `${condition} && (!@src_url_equal(${element.var}.src, (${last} = ${value})))`
 	                : x `${condition} && (${last} !== (${last} = ${value}))`;
 	        }
 	        if (this.is_input_value) {
@@ -19109,58 +20109,6 @@
 	    return x `this.${name}`;
 	}
 
-	const reserved_keywords = new Set(['$$props', '$$restProps', '$$slots']);
-	function is_reserved_keyword(name) {
-	    return reserved_keywords.has(name);
-	}
-
-	function is_contextual(component, scope, name) {
-	    if (is_reserved_keyword(name))
-	        return true;
-	    // if it's a name below root scope, it's contextual
-	    if (!scope.is_top_level(name))
-	        return true;
-	    const variable = component.var_lookup.get(name);
-	    // hoistables, module declarations, and imports are non-contextual
-	    if (!variable || variable.hoistable)
-	        return false;
-	    // assume contextual
-	    return true;
-	}
-
-	function add_actions(block, target, actions) {
-	    actions.forEach(action => add_action(block, target, action));
-	}
-	function add_action(block, target, action) {
-	    const { expression, template_scope } = action;
-	    let snippet;
-	    let dependencies;
-	    if (expression) {
-	        snippet = expression.manipulate(block);
-	        dependencies = expression.dynamic_dependencies();
-	    }
-	    const id = block.get_unique_name(`${action.name.replace(/[^a-zA-Z0-9_$]/g, '_')}_action`);
-	    block.add_variable(id);
-	    const [obj, ...properties] = action.name.split('.');
-	    const fn = is_contextual(action.component, template_scope, obj)
-	        ? block.renderer.reference(obj)
-	        : obj;
-	    if (properties.length) {
-	        const member_expression = properties.reduce((lhs, rhs) => x `${lhs}.${rhs}`, fn);
-	        block.event_listeners.push(x `@action_destroyer(${id} = ${member_expression}(${target}, ${snippet}))`);
-	    }
-	    else {
-	        block.event_listeners.push(x `@action_destroyer(${id} = ${fn}.call(null, ${target}, ${snippet}))`);
-	    }
-	    if (dependencies && dependencies.length > 0) {
-	        let condition = x `${id} && @is_function(${id}.update)`;
-	        if (dependencies.length > 0) {
-	            condition = x `${condition} && ${block.renderer.dirty(dependencies)}`;
-	        }
-	        block.chunks.update.push(b `if (${condition}) ${id}.update.call(null, ${snippet});`);
-	    }
-	}
-
 	function compare_node(a, b) {
 	    if (a === b)
 	        return true;
@@ -19491,6 +20439,251 @@
 	    return val;
 	}
 
+	// All compiler errors should be listed and accessed from here
+	/**
+	 * @internal
+	 */
+	var compiler_errors = {
+	    invalid_binding_elements: (element, binding) => ({
+	        code: 'invalid-binding',
+	        message: `'${binding}' is not a valid binding on <${element}> elements`
+	    }),
+	    invalid_binding_element_with: (elements, binding) => ({
+	        code: 'invalid-binding',
+	        message: `'${binding}' binding can only be used with ${elements}`
+	    }),
+	    invalid_binding_on: (binding, element, post) => ({
+	        code: 'invalid-binding',
+	        message: `'${binding}' is not a valid binding on ${element}` + (post || '')
+	    }),
+	    invalid_binding_foreign: (binding) => ({
+	        code: 'invalid-binding',
+	        message: `'${binding}' is not a valid binding. Foreign elements only support bind:this`
+	    }),
+	    invalid_binding_no_checkbox: (binding, is_radio) => ({
+	        code: 'invalid-binding',
+	        message: `'${binding}' binding can only be used with <input type="checkbox">` + (is_radio ? ' — for <input type="radio">, use \'group\' binding' : '')
+	    }),
+	    invalid_binding: (binding) => ({
+	        code: 'invalid-binding',
+	        message: `'${binding}' is not a valid binding`
+	    }),
+	    invalid_binding_window: (parts) => ({
+	        code: 'invalid-binding',
+	        message: `Bindings on <svelte:window> must be to top-level properties, e.g. '${parts[parts.length - 1]}' rather than '${parts.join('.')}'`
+	    }),
+	    invalid_binding_let: {
+	        code: 'invalid-binding',
+	        message: 'Cannot bind to a variable declared with the let: directive'
+	    },
+	    invalid_binding_await: {
+	        code: 'invalid-binding',
+	        message: 'Cannot bind to a variable declared with {#await ... then} or {:catch} blocks'
+	    },
+	    invalid_binding_writibale: {
+	        code: 'invalid-binding',
+	        message: 'Cannot bind to a variable which is not writable'
+	    },
+	    binding_undeclared: (name) => ({
+	        code: 'binding-undeclared',
+	        message: `${name} is not declared`
+	    }),
+	    invalid_type: {
+	        code: 'invalid-type',
+	        message: '\'type\' attribute cannot be dynamic if input uses two-way binding'
+	    },
+	    missing_type: {
+	        code: 'missing-type',
+	        message: '\'type\' attribute must be specified'
+	    },
+	    dynamic_multiple_attribute: {
+	        code: 'dynamic-multiple-attribute',
+	        message: '\'multiple\' attribute cannot be dynamic if select uses two-way binding'
+	    },
+	    missing_contenteditable_attribute: {
+	        code: 'missing-contenteditable-attribute',
+	        message: '\'contenteditable\' attribute is required for textContent and innerHTML two-way bindings'
+	    },
+	    dynamic_contenteditable_attribute: {
+	        code: 'dynamic-contenteditable-attribute',
+	        message: '\'contenteditable\' attribute cannot be dynamic if element uses two-way binding'
+	    },
+	    invalid_event_modifier_combination: (modifier1, modifier2) => ({
+	        code: 'invalid-event-modifier',
+	        message: `The '${modifier1}' and '${modifier2}' modifiers cannot be used together`
+	    }),
+	    invalid_event_modifier_legacy: (modifier) => ({
+	        code: 'invalid-event-modifier',
+	        message: `The '${modifier}' modifier cannot be used in legacy mode`
+	    }),
+	    invalid_event_modifier: (valid) => ({
+	        code: 'invalid-event-modifier',
+	        message: `Valid event modifiers are ${valid}`
+	    }),
+	    invalid_event_modifier_component: {
+	        code: 'invalid-event-modifier',
+	        message: "Event modifiers other than 'once' can only be used on DOM elements"
+	    },
+	    textarea_duplicate_value: {
+	        code: 'textarea-duplicate-value',
+	        message: 'A <textarea> can have either a value attribute or (equivalently) child content, but not both'
+	    },
+	    illegal_attribute: (name) => ({
+	        code: 'illegal-attribute',
+	        message: `'${name}' is not a valid attribute name`
+	    }),
+	    invalid_slot_attribute: {
+	        code: 'invalid-slot-attribute',
+	        message: 'slot attribute cannot have a dynamic value'
+	    },
+	    duplicate_slot_attribute: (name) => ({
+	        code: 'duplicate-slot-attribute',
+	        message: `Duplicate '${name}' slot`
+	    }),
+	    invalid_slotted_content: {
+	        code: 'invalid-slotted-content',
+	        message: 'Element with a slot=\'...\' attribute must be a child of a component or a descendant of a custom element'
+	    },
+	    invalid_attribute_head: {
+	        code: 'invalid-attribute',
+	        message: '<svelte:head> should not have any attributes or directives'
+	    },
+	    invalid_action: {
+	        code: 'invalid-action',
+	        message: 'Actions can only be applied to DOM elements, not components'
+	    },
+	    invalid_class: {
+	        code: 'invalid-class',
+	        message: 'Classes can only be applied to DOM elements, not components'
+	    },
+	    invalid_transition: {
+	        code: 'invalid-transition',
+	        message: 'Transitions can only be applied to DOM elements, not components'
+	    },
+	    invalid_let: {
+	        code: 'invalid-let',
+	        message: 'let directive value must be an identifier or an object/array pattern'
+	    },
+	    invalid_slot_directive: {
+	        code: 'invalid-slot-directive',
+	        message: '<slot> cannot have directives'
+	    },
+	    dynamic_slot_name: {
+	        code: 'dynamic-slot-name',
+	        message: '<slot> name cannot be dynamic'
+	    },
+	    invalid_slot_name: {
+	        code: 'invalid-slot-name',
+	        message: 'default is a reserved word — it cannot be used as a slot name'
+	    },
+	    invalid_slot_attribute_value_missing: {
+	        code: 'invalid-slot-attribute',
+	        message: 'slot attribute value is missing'
+	    },
+	    invalid_slotted_content_fragment: {
+	        code: 'invalid-slotted-content',
+	        message: '<svelte:fragment> must be a child of a component'
+	    },
+	    illegal_attribute_title: {
+	        code: 'illegal-attribute',
+	        message: '<title> cannot have attributes'
+	    },
+	    illegal_structure_title: {
+	        code: 'illegal-structure',
+	        message: '<title> can only contain text and {tags}'
+	    },
+	    duplicate_transition: (directive, parent_directive) => {
+	        function describe(_directive) {
+	            return _directive === 'transition'
+	                ? "a 'transition'"
+	                : `an '${_directive}'`;
+	        }
+	        const message = directive === parent_directive
+	            ? `An element can only have one '${directive}' directive`
+	            : `An element cannot have both ${describe(parent_directive)} directive and ${describe(directive)} directive`;
+	        return {
+	            code: 'duplicate-transition',
+	            message
+	        };
+	    },
+	    contextual_store: {
+	        code: 'contextual-store',
+	        message: 'Stores must be declared at the top level of the component (this may change in a future version of Svelte)'
+	    },
+	    default_export: {
+	        code: 'default-export',
+	        message: 'A component cannot have a default export'
+	    },
+	    illegal_declaration: {
+	        code: 'illegal-declaration',
+	        message: 'The $ prefix is reserved, and cannot be used for variable and import names'
+	    },
+	    illegal_subscription: {
+	        code: 'illegal-subscription',
+	        message: 'Cannot reference store value inside <script context="module">'
+	    },
+	    illegal_global: (name) => ({
+	        code: 'illegal-global',
+	        message: `${name} is an illegal variable name`
+	    }),
+	    cyclical_reactive_declaration: (cycle) => ({
+	        code: 'cyclical-reactive-declaration',
+	        message: `Cyclical dependency detected: ${cycle.join(' → ')}`
+	    }),
+	    invalid_tag_property: {
+	        code: 'invalid-tag-property',
+	        message: "tag name must be two or more words joined by the '-' character"
+	    },
+	    invalid_tag_attribute: {
+	        code: 'invalid-tag-attribute',
+	        message: "'tag' must be a string literal"
+	    },
+	    invalid_namespace_property: (namespace, suggestion) => ({
+	        code: 'invalid-namespace-property',
+	        message: `Invalid namespace '${namespace}'` + (suggestion ? ` (did you mean '${suggestion}'?)` : '')
+	    }),
+	    invalid_namespace_attribute: {
+	        code: 'invalid-namespace-attribute',
+	        message: "The 'namespace' attribute must be a string literal representing a valid namespace"
+	    },
+	    invalid_attribute_value: (name) => ({
+	        code: `invalid-${name}-value`,
+	        message: `${name} attribute must be true or false`
+	    }),
+	    invalid_options_attribute_unknown: {
+	        code: 'invalid-options-attribute',
+	        message: '<svelte:options> unknown attribute'
+	    },
+	    invalid_options_attribute: {
+	        code: 'invalid-options-attribute',
+	        message: "<svelte:options> can only have static 'tag', 'namespace', 'accessors', 'immutable' and 'preserveWhitespace' attributes"
+	    },
+	    css_invalid_global: {
+	        code: 'css-invalid-global',
+	        message: ':global(...) can be at the start or end of a selector sequence, but not in the middle'
+	    },
+	    css_invalid_global_selector: {
+	        code: 'css-invalid-global-selector',
+	        message: ':global(...) must contain a single selector'
+	    },
+	    duplicate_animation: {
+	        code: 'duplicate-animation',
+	        message: "An element can only have one 'animate' directive"
+	    },
+	    invalid_animation_immediate: {
+	        code: 'invalid-animation',
+	        message: 'An element that uses the animate directive must be the immediate child of a keyed each block'
+	    },
+	    invalid_animation_sole: {
+	        code: 'invalid-animation',
+	        message: 'An element that uses the animate directive must be the sole child of a keyed each block'
+	    },
+	    invalid_directive_value: {
+	        code: 'invalid-directive-value',
+	        message: 'Can only bind to an identifier (e.g. `foo`) or a member expression (e.g. `foo.bar` or `foo[baz]`)'
+	    }
+	};
+
 	class Expression {
 	    constructor(component, owner, template_scope, info, lazy) {
 	        this.type = 'Expression';
@@ -19518,7 +20711,7 @@
 	        walk(info, {
 	            enter(node, parent, key) {
 	                // don't manipulate shorthand props twice
-	                if (key === 'value' && parent.shorthand)
+	                if (key === 'key' && parent.shorthand)
 	                    return;
 	                // don't manipulate `import.meta`, `new.target`
 	                if (node.type === 'MetaProperty')
@@ -19529,7 +20722,7 @@
 	                if (!function_expression && /FunctionExpression/.test(node.type)) {
 	                    function_expression = node;
 	                }
-	                if (isReference(node, parent)) {
+	                if (is_reference(node, parent)) {
 	                    const { name, nodes } = flatten_reference(node);
 	                    references.add(name);
 	                    if (scope.has(name))
@@ -19537,10 +20730,7 @@
 	                    if (name[0] === '$') {
 	                        const store_name = name.slice(1);
 	                        if (template_scope.names.has(store_name) || scope.has(store_name)) {
-	                            component.error(node, {
-	                                code: 'contextual-store',
-	                                message: 'Stores must be declared at the top level of the component (this may change in a future version of Svelte)'
-	                            });
+	                            return component.error(node, compiler_errors.contextual_store);
 	                        }
 	                    }
 	                    if (template_scope.is_let(name)) {
@@ -19639,7 +20829,7 @@
 	                if (map.has(node)) {
 	                    scope = map.get(node);
 	                }
-	                if (node.type === 'Identifier' && isReference(node, parent)) {
+	                if (node.type === 'Identifier' && is_reference(node, parent)) {
 	                    const { name } = flatten_reference(node);
 	                    if (scope.has(name))
 	                        return;
@@ -19901,7 +21091,11 @@
 	            block.add_variable(html_tag);
 	            const { init } = this.rename_this_method(block, content => x `${html_tag}.p(${content})`);
 	            const update_anchor = needs_anchor ? html_anchor : this.next ? this.next.var : 'null';
-	            block.chunks.hydrate.push(b `${html_tag} = new @HtmlTag(${update_anchor});`);
+	            block.chunks.create.push(b `${html_tag} = new @HtmlTag();`);
+	            if (this.renderer.options.hydratable) {
+	                block.chunks.claim.push(b `${html_tag} = @claim_html_tag(${_parent_nodes});`);
+	            }
+	            block.chunks.hydrate.push(b `${html_tag}.a = ${update_anchor};`);
 	            block.chunks.mount.push(b `${html_tag}.m(${init}, ${parent_node || '#target'}, ${parent_node ? null : '#anchor'});`);
 	            if (needs_anchor) {
 	                block.add_element(html_anchor, x `@empty()`, x `@empty()`, parent_node);
@@ -20085,13 +21279,23 @@
 	            }
 	        }
 	        if (parent_node) {
-	            block.chunks.mount.push(b `@append(${parent_node}, ${node});`);
+	            const append = b `@append(${parent_node}, ${node});`;
+	            append[0].expression.callee.loc = {
+	                start: this.renderer.locate(this.node.start),
+	                end: this.renderer.locate(this.node.end)
+	            };
+	            block.chunks.mount.push(append);
 	            if (is_head(parent_node)) {
 	                block.chunks.destroy.push(b `@detach(${node});`);
 	            }
 	        }
 	        else {
-	            block.chunks.mount.push(b `@insert(#target, ${node}, #anchor);`);
+	            const insert = b `@insert(#target, ${node}, #anchor);`;
+	            insert[0].expression.callee.loc = {
+	                start: this.renderer.locate(this.node.start),
+	                end: this.renderer.locate(this.node.end)
+	            };
+	            block.chunks.mount.push(insert);
 	            // TODO we eventually need to consider what happens to elements
 	            // that belong to the same outgroup as an outroing element...
 	            block.chunks.destroy.push(b `if (detaching) @detach(${node});`);
@@ -20163,14 +21367,18 @@
 	        return x `@element("${name}")`;
 	    }
 	    get_claim_statement(nodes) {
-	        const attributes = this.node.attributes
-	            .filter((attr) => attr.type === 'Attribute')
+	        const attributes = this.attributes
+	            .filter((attr) => !(attr instanceof SpreadAttributeWrapper) && !attr.property_name)
 	            .map((attr) => p `${attr.name}: true`);
 	        const name = this.node.namespace
 	            ? this.node.name
 	            : this.node.name.toUpperCase();
-	        const svg = this.node.namespace === namespaces.svg ? 1 : null;
-	        return x `@claim_element(${nodes}, "${name}", { ${attributes} }, ${svg})`;
+	        if (this.node.namespace === namespaces.svg) {
+	            return x `@claim_svg_element(${nodes}, "${name}", { ${attributes} })`;
+	        }
+	        else {
+	            return x `@claim_element(${nodes}, "${name}", { ${attributes} })`;
+	        }
 	    }
 	    add_directives_in_order(block) {
 	        const binding_groups = events
@@ -20392,10 +21600,10 @@
 	                }
 	            }
 	            block.chunks.mount.push(b `
-				if (${data}.multiple) @select_options(${this.var}, ${data}.value);
+				(${data}.multiple ? @select_options : @select_option)(${this.var}, ${data}.value);
 			`);
 	            block.chunks.update.push(b `
-				if (${block.renderer.dirty(Array.from(dependencies))} && ${data}.multiple) @select_options(${this.var}, ${data}.value);
+				if (${block.renderer.dirty(Array.from(dependencies))} && 'value' in ${data}) (${data}.multiple ? @select_options : @select_option)(${this.var}, ${data}.value);;
 			`);
 	        }
 	        else if (this.node.name === 'input' && this.attributes.find(attr => attr.node.name === 'value')) {
@@ -20410,6 +21618,11 @@
 					}
 				`);
 	            }
+	        }
+	        if (['button', 'input', 'keygen', 'select', 'textarea'].includes(this.node.name)) {
+	            block.chunks.mount.push(b `
+				if (${this.var}.autofocus) ${this.var}.focus();
+			`);
 	        }
 	    }
 	    add_transitions(block) {
@@ -20466,7 +21679,7 @@
 	                    intro_block = b `
 						@add_render_callback(() => {
 							if (${outro_name}) ${outro_name}.end(1);
-							if (!${intro_name}) ${intro_name} = @create_in_transition(${this.var}, ${fn}, ${snippet});
+							${intro_name} = @create_in_transition(${this.var}, ${fn}, ${snippet});
 							${intro_name}.start();
 						});
 					`;
@@ -20857,7 +22070,7 @@
 			`);
 	        }
 	        block.chunks.init.push(b `
-			let ${current_block_type} = ${select_block_type}(#ctx, ${this.get_initial_dirty_bit()});
+			let ${current_block_type} = ${select_block_type}(#ctx, ${this.renderer.get_initial_dirty()});
 			let ${name} = ${get_block};
 		`);
 	        const initial_mount_node = parent_node || '#target';
@@ -20961,13 +22174,13 @@
 		`);
 	        if (has_else) {
 	            block.chunks.init.push(b `
-				${current_block_type_index} = ${select_block_type}(#ctx, ${this.get_initial_dirty_bit()});
+				${current_block_type_index} = ${select_block_type}(#ctx, ${this.renderer.get_initial_dirty()});
 				${name} = ${if_blocks}[${current_block_type_index}] = ${if_block_creators}[${current_block_type_index}](#ctx);
 			`);
 	        }
 	        else {
 	            block.chunks.init.push(b `
-				if (~(${current_block_type_index} = ${select_block_type}(#ctx, ${this.get_initial_dirty_bit()}))) {
+				if (~(${current_block_type_index} = ${select_block_type}(#ctx, ${this.renderer.get_initial_dirty()}))) {
 					${name} = ${if_blocks}[${current_block_type_index}] = ${if_block_creators}[${current_block_type_index}](#ctx);
 				}
 			`);
@@ -21113,22 +22326,6 @@
 				${name}.d(${detaching});
 			`);
 	        }
-	    }
-	    get_initial_dirty_bit() {
-	        const _this = this;
-	        // TODO: context-overflow make it less gross
-	        const val = x `-1`;
-	        return {
-	            get type() {
-	                return _this.renderer.context_overflow ? 'ArrayExpression' : 'UnaryExpression';
-	            },
-	            // as [-1]
-	            elements: [val],
-	            // as -1
-	            operator: val.operator,
-	            prefix: val.prefix,
-	            argument: val.argument
-	        };
 	    }
 	}
 
@@ -21357,6 +22554,149 @@
 	    return node;
 	}
 
+	// All compiler warnings should be listed and accessed from here
+	/**
+	 * @internal
+	 */
+	var compiler_warnings = {
+	    custom_element_no_tag: {
+	        code: 'custom-element-no-tag',
+	        message: 'No custom element \'tag\' option was specified. To automatically register a custom element, specify a name with a hyphen in it, e.g. <svelte:options tag="my-thing"/>. To hide this warning, use <svelte:options tag={null}/>'
+	    },
+	    unused_export_let: (component, property) => ({
+	        code: 'unused-export-let',
+	        message: `${component} has unused export property '${property}'. If it is for external reference only, please consider using \`export const ${property}\``
+	    }),
+	    module_script_reactive_declaration: {
+	        code: 'module-script-reactive-declaration',
+	        message: '$: has no effect in a module script'
+	    },
+	    non_top_level_reactive_declaration: {
+	        code: 'non-top-level-reactive-declaration',
+	        message: '$: has no effect outside of the top-level'
+	    },
+	    module_script_variable_reactive_declaration: (names) => ({
+	        code: 'module-script-reactive-declaration',
+	        message: `${names.map(name => `"${name}"`).join(', ')} ${names.length > 1 ? 'are' : 'is'} declared in a module script and will not be reactive`
+	    }),
+	    missing_declaration: (name, has_script) => ({
+	        code: 'missing-declaration',
+	        message: `'${name}' is not defined` + (has_script ? '' : `. Consider adding a <script> block with 'export let ${name}' to declare a prop`)
+	    }),
+	    missing_custom_element_compile_options: {
+	        code: 'missing-custom-element-compile-options',
+	        message: "The 'tag' option is used when generating a custom element. Did you forget the 'customElement: true' compile option?"
+	    },
+	    css_unused_selector: (selector) => ({
+	        code: 'css-unused-selector',
+	        message: `Unused CSS selector "${selector}"`
+	    }),
+	    empty_block: {
+	        code: 'empty-block',
+	        message: 'Empty block'
+	    },
+	    reactive_component: (name) => ({
+	        code: 'reactive-component',
+	        message: `<${name}/> will not be reactive if ${name} changes. Use <svelte:component this={${name}}/> if you want this reactivity.`
+	    }),
+	    component_name_lowercase: (name) => ({
+	        code: 'component-name-lowercase',
+	        message: `<${name}> will be treated as an HTML element unless it begins with a capital letter`
+	    }),
+	    avoid_is: {
+	        code: 'avoid-is',
+	        message: 'The \'is\' attribute is not supported cross-browser and should be avoided'
+	    },
+	    invalid_html_attribute: (name, suggestion) => ({
+	        code: 'invalid-html-attribute',
+	        message: `'${name}' is not a valid HTML attribute. Did you mean '${suggestion}'?`
+	    }),
+	    a11y_aria_attributes: (name) => ({
+	        code: 'a11y-aria-attributes',
+	        message: `A11y: <${name}> should not have aria-* attributes`
+	    }),
+	    a11y_unknown_aria_attribute: (attribute, suggestion) => ({
+	        code: 'a11y-unknown-aria-attribute',
+	        message: `A11y: Unknown aria attribute 'aria-${attribute}'` + (suggestion ? ` (did you mean '${suggestion}'?)` : '')
+	    }),
+	    a11y_hidden: (name) => ({
+	        code: 'a11y-hidden',
+	        message: `A11y: <${name}> element should not be hidden`
+	    }),
+	    a11y_misplaced_role: (name) => ({
+	        code: 'a11y-misplaced-role',
+	        message: `A11y: <${name}> should not have role attribute`
+	    }),
+	    a11y_unknown_role: (role, suggestion) => ({
+	        code: 'a11y-unknown-role',
+	        message: `A11y: Unknown role '${role}'` + (suggestion ? ` (did you mean '${suggestion}'?)` : '')
+	    }),
+	    a11y_accesskey: {
+	        code: 'a11y-accesskey',
+	        message: 'A11y: Avoid using accesskey'
+	    },
+	    a11y_autofocus: {
+	        code: 'a11y-autofocus',
+	        message: 'A11y: Avoid using autofocus'
+	    },
+	    a11y_misplaced_scope: {
+	        code: 'a11y-misplaced-scope',
+	        message: 'A11y: The scope attribute should only be used with <th> elements'
+	    },
+	    a11y_positive_tabindex: {
+	        code: 'a11y-positive-tabindex',
+	        message: 'A11y: avoid tabindex values above zero'
+	    },
+	    a11y_invalid_attribute: (href_attribute, href_value) => ({
+	        code: 'a11y-invalid-attribute',
+	        message: `A11y: '${href_value}' is not a valid ${href_attribute} attribute`
+	    }),
+	    a11y_missing_attribute: (name, article, sequence) => ({
+	        code: 'a11y-missing-attribute',
+	        message: `A11y: <${name}> element should have ${article} ${sequence} attribute`
+	    }),
+	    a11y_img_redundant_alt: {
+	        code: 'a11y-img-redundant-alt',
+	        message: 'A11y: Screenreaders already announce <img> elements as an image.'
+	    },
+	    a11y_label_has_associated_control: {
+	        code: 'a11y-label-has-associated-control',
+	        message: 'A11y: A form label must be associated with a control.'
+	    },
+	    a11y_media_has_caption: {
+	        code: 'a11y-media-has-caption',
+	        message: 'A11y: <video> elements must have a <track kind="captions">'
+	    },
+	    a11y_distracting_elements: (name) => ({
+	        code: 'a11y-distracting-elements',
+	        message: `A11y: Avoid <${name}> elements`
+	    }),
+	    a11y_structure_immediate: {
+	        code: 'a11y-structure',
+	        message: 'A11y: <figcaption> must be an immediate child of <figure>'
+	    },
+	    a11y_structure_first_or_last: {
+	        code: 'a11y-structure',
+	        message: 'A11y: <figcaption> must be first or last child of <figure>'
+	    },
+	    a11y_mouse_events_have_key_events: (event, accompanied_by) => ({
+	        code: 'a11y-mouse-events-have-key-events',
+	        message: `A11y: on:${event} must be accompanied by on:${accompanied_by}`
+	    }),
+	    a11y_missing_content: (name) => ({
+	        code: 'a11y-missing-content',
+	        message: `A11y: <${name}> element should have child content`
+	    }),
+	    redundant_event_modifier_for_touch: {
+	        code: 'redundant-event-modifier',
+	        message: 'Touch event handlers that don\'t use the \'event\' object are passive by default'
+	    },
+	    redundant_event_modifier_passive: {
+	        code: 'redundant-event-modifier',
+	        message: 'The passive modifier only works with wheel and touch events'
+	    }
+	};
+
 	class InlineComponentWrapper extends Wrapper {
 	    constructor(renderer, block, parent, node, strip_whitespace, next_sibling) {
 	        super(renderer, block, parent, node);
@@ -21380,6 +22720,9 @@
 	            if (handler.expression) {
 	                block.add_dependencies(handler.expression.dependencies);
 	            }
+	        });
+	        this.node.css_custom_properties.forEach(attr => {
+	            block.add_dependencies(attr.dependencies);
 	        });
 	        this.var = {
 	            type: 'Identifier',
@@ -21413,10 +22756,7 @@
 	            return;
 	        }
 	        if (variable.reassigned || variable.export_name || variable.is_reactive_dependency) {
-	            this.renderer.component.warn(this.node, {
-	                code: 'reactive-component',
-	                message: `<${name}/> will not be reactive if ${name} changes. Use <svelte:component this={${name}}/> if you want this reactivity.`
-	            });
+	            this.renderer.component.warn(this.node, compiler_warnings.reactive_component(name));
 	        }
 	    }
 	    render(block, parent_node, parent_nodes) {
@@ -21441,6 +22781,11 @@
 	                this.renderer.remove_block(this.slots.get(slot).block);
 	                this.slots.delete(slot);
 	            }
+	        }
+	        const has_css_custom_properties = this.node.css_custom_properties.length > 0;
+	        const css_custom_properties_wrapper = has_css_custom_properties ? block.get_unique_name('div') : null;
+	        if (has_css_custom_properties) {
+	            block.add_variable(css_custom_properties_wrapper);
 	        }
 	        const initial_props = this.slots.size > 0
 	            ? [
@@ -21727,11 +23072,60 @@
 				${munged_bindings}
 				${munged_handlers}
 			`);
+	            if (has_css_custom_properties) {
+	                block.chunks.create.push(b `${css_custom_properties_wrapper} = @element("div");`);
+	                block.chunks.hydrate.push(b `@set_style(${css_custom_properties_wrapper}, "display", "contents");`);
+	                this.node.css_custom_properties.forEach(attr => {
+	                    const dependencies = attr.get_dependencies();
+	                    const should_cache = attr.should_cache();
+	                    const last = should_cache && block.get_unique_name(`${attr.name.replace(/[^a-zA-Z_$]/g, '_')}_last`);
+	                    if (should_cache)
+	                        block.add_variable(last);
+	                    const value = attr.get_value(block);
+	                    const init = should_cache ? x `${last} = ${value}` : value;
+	                    block.chunks.hydrate.push(b `@set_style(${css_custom_properties_wrapper}, "${attr.name}", ${init});`);
+	                    if (dependencies.length > 0) {
+	                        let condition = block.renderer.dirty(dependencies);
+	                        if (should_cache)
+	                            condition = x `${condition} && (${last} !== (${last} = ${value}))`;
+	                        block.chunks.update.push(b `
+							if (${condition}) {
+								@set_style(${css_custom_properties_wrapper}, "${attr.name}", ${should_cache ? last : value});
+							}
+						`);
+	                    }
+	                });
+	            }
 	            block.chunks.create.push(b `@create_component(${name}.$$.fragment);`);
 	            if (parent_nodes && this.renderer.options.hydratable) {
-	                block.chunks.claim.push(b `@claim_component(${name}.$$.fragment, ${parent_nodes});`);
+	                let nodes = parent_nodes;
+	                if (has_css_custom_properties) {
+	                    nodes = block.get_unique_name(`${css_custom_properties_wrapper.name}_nodes`);
+	                    block.chunks.claim.push(b `
+						${css_custom_properties_wrapper} = @claim_element(${parent_nodes}, "DIV", { style: true })
+						var ${nodes} = @children(${css_custom_properties_wrapper});
+					`);
+	                }
+	                block.chunks.claim.push(b `@claim_component(${name}.$$.fragment, ${nodes});`);
 	            }
-	            block.chunks.mount.push(b `@mount_component(${name}, ${parent_node || '#target'}, ${parent_node ? 'null' : '#anchor'});`);
+	            if (has_css_custom_properties) {
+	                if (parent_node) {
+	                    block.chunks.mount.push(b `@append(${parent_node}, ${css_custom_properties_wrapper})`);
+	                    if (is_head(parent_node)) {
+	                        block.chunks.destroy.push(b `@detach(${css_custom_properties_wrapper});`);
+	                    }
+	                }
+	                else {
+	                    block.chunks.mount.push(b `@insert(#target, ${css_custom_properties_wrapper}, #anchor);`);
+	                    // TODO we eventually need to consider what happens to elements
+	                    // that belong to the same outgroup as an outroing element...
+	                    block.chunks.destroy.push(b `if (detaching) @detach(${css_custom_properties_wrapper});`);
+	                }
+	                block.chunks.mount.push(b `@mount_component(${name}, ${css_custom_properties_wrapper}, null);`);
+	            }
+	            else {
+	                block.chunks.mount.push(b `@mount_component(${name}, ${parent_node || '#target'}, ${parent_node ? 'null' : '#anchor'});`);
+	            }
 	            block.chunks.intro.push(b `
 				@transition_in(${name}.$$.fragment, #local);
 			`);
@@ -21841,7 +23235,7 @@
 	            if (spread_dynamic_dependencies.size) {
 	                get_slot_spread_changes_fn = renderer.component.get_unique_name(`get_${sanitize(slot_name)}_slot_spread_changes`);
 	                renderer.blocks.push(b `
-					const ${get_slot_spread_changes_fn} = #dirty => ${renderer.dirty(Array.from(spread_dynamic_dependencies))} > 0 ? -1 : 0;
+					const ${get_slot_spread_changes_fn} = #dirty => ${renderer.dirty(Array.from(spread_dynamic_dependencies))};
 				`);
 	            }
 	        }
@@ -21880,18 +23274,41 @@
 	        const fallback_dynamic_dependencies = has_fallback
 	            ? Array.from(this.fallback.dependencies).filter((name) => this.is_dependency_dynamic(name))
 	            : [];
-	        const slot_update = get_slot_spread_changes_fn ? b `
-			if (${slot}.p && ${renderer.dirty(dynamic_dependencies)}) {
-				@update_slot_spread(${slot}, ${slot_definition}, #ctx, ${renderer.reference('$$scope')}, #dirty, ${get_slot_changes_fn}, ${get_slot_spread_changes_fn}, ${get_slot_context_fn});
-			}
-		` : b `
-			if (${slot}.p && ${renderer.dirty(dynamic_dependencies)}) {
-				@update_slot(${slot}, ${slot_definition}, #ctx, ${renderer.reference('$$scope')}, #dirty, ${get_slot_changes_fn}, ${get_slot_context_fn});
-			}
-		`;
+	        let condition = renderer.dirty(dynamic_dependencies);
+	        if (block.has_outros) {
+	            condition = x `!#current || ${condition}`;
+	        }
+	        // conditions to treat everything as dirty
+	        const all_dirty_conditions = [
+	            get_slot_spread_changes_fn ? x `${get_slot_spread_changes_fn}(#dirty)` : null,
+	            block.has_outros ? x `!#current` : null
+	        ].filter(Boolean);
+	        const all_dirty_condition = all_dirty_conditions.length ? all_dirty_conditions.reduce((condition1, condition2) => x `${condition1} || ${condition2}`) : null;
+	        let slot_update;
+	        if (all_dirty_condition) {
+	            const dirty = x `${all_dirty_condition} ? @get_all_dirty_from_scope(${renderer.reference('$$scope')}) : @get_slot_changes(${slot_definition}, ${renderer.reference('$$scope')}, #dirty, ${get_slot_changes_fn})`;
+	            slot_update = b `
+				if (${slot}.p && ${condition}) {
+					@update_slot_base(${slot}, ${slot_definition}, #ctx, ${renderer.reference('$$scope')}, ${dirty}, ${get_slot_context_fn});
+				}
+			`;
+	        }
+	        else {
+	            slot_update = b `
+				if (${slot}.p && ${condition}) {
+					@update_slot(${slot}, ${slot_definition}, #ctx, ${renderer.reference('$$scope')}, #dirty, ${get_slot_changes_fn}, ${get_slot_context_fn});
+				}
+			`;
+	        }
+	        let fallback_condition = renderer.dirty(fallback_dynamic_dependencies);
+	        let fallback_dirty = x `#dirty`;
+	        if (block.has_outros) {
+	            fallback_condition = x `!#current || ${fallback_condition}`;
+	            fallback_dirty = x `!#current ? ${renderer.get_initial_dirty()} : ${fallback_dirty}`;
+	        }
 	        const fallback_update = has_fallback && fallback_dynamic_dependencies.length > 0 && b `
-			if (${slot_or_fallback} && ${slot_or_fallback}.p && ${renderer.dirty(fallback_dynamic_dependencies)}) {
-				${slot_or_fallback}.p(#ctx, #dirty);
+			if (${slot_or_fallback} && ${slot_or_fallback}.p && ${fallback_condition}) {
+				${slot_or_fallback}.p(#ctx, ${fallback_dirty});
 			}
 		`;
 	        if (fallback_update) {
@@ -22392,6 +23809,30 @@
 	                }
 	                return x `${dirty} & /*${names.join(', ')}*/ ${bitmask[0].n}`;
 	            }
+	        };
+	    }
+	    // NOTE: this method may be called before this.context_overflow / this.context is fully defined
+	    // therefore, they can only be evaluated later in a getter function
+	    get_initial_dirty() {
+	        const _this = this;
+	        // TODO: context-overflow make it less gross
+	        const val = x `-1`;
+	        return {
+	            get type() {
+	                return _this.context_overflow ? 'ArrayExpression' : 'UnaryExpression';
+	            },
+	            // as [-1]
+	            get elements() {
+	                const elements = [];
+	                for (let i = 0; i < _this.context.length; i += 31) {
+	                    elements.push(val);
+	                }
+	                return elements;
+	            },
+	            // as -1
+	            operator: val.operator,
+	            prefix: val.prefix,
+	            argument: val.argument
 	        };
 	    }
 	    reference(node) {
@@ -23417,6 +24858,11 @@
 	        }, true);
 	    if (!map.file)
 	        delete map.file; // skip optional field `file`
+	    // When source maps are combined and the leading map is empty, sources is not set.
+	    // Add the filename to the empty array in this case. 
+	    // Further improvements to remapping may help address this as well https://github.com/ampproject/remapping/issues/116
+	    if (!map.sources.length)
+	        map.sources = [filename];
 	    return map;
 	}
 	// browser vs node.js
@@ -23508,11 +24954,8 @@
 	        options.css !== false);
 	    if (should_add_css) {
 	        body.push(b `
-			function ${add_css}() {
-				var style = @element("style");
-				style.id = "${component.stylesheet.id}-style";
-				style.textContent = "${styles}";
-				@append(@_document.head, style);
+			function ${add_css}(target) {
+				@append_styles(target, "${component.stylesheet.id}", "${styles}");
 			}
 		`);
 	    }
@@ -23594,7 +25037,7 @@
 	                    kind: 'set',
 	                    key: { type: 'Identifier', name: prop.export_name },
 	                    value: x `function(${prop.name}) {
-						this.$set({ ${prop.export_name}: ${prop.name} });
+						this.$$set({ ${prop.export_name}: ${prop.name} });
 						@flush();
 					}`
 	                });
@@ -23620,6 +25063,34 @@
 				}`
 	            });
 	        }
+	    });
+	    component.instance_exports_from.forEach(exports_from => {
+	        const import_declaration = Object.assign(Object.assign({}, exports_from), { type: 'ImportDeclaration', specifiers: [], source: exports_from.source });
+	        component.imports.push(import_declaration);
+	        exports_from.specifiers.forEach(specifier => {
+	            if (component.component_options.accessors) {
+	                const name = component.get_unique_name(specifier.exported.name);
+	                import_declaration.specifiers.push(Object.assign(Object.assign({}, specifier), { type: 'ImportSpecifier', imported: specifier.local, local: name }));
+	                accessors.push({
+	                    type: 'MethodDefinition',
+	                    kind: 'get',
+	                    key: { type: 'Identifier', name: specifier.exported.name },
+	                    value: x `function() {
+						return ${name}
+					}`
+	                });
+	            }
+	            else if (component.compile_options.dev) {
+	                accessors.push({
+	                    type: 'MethodDefinition',
+	                    kind: 'get',
+	                    key: { type: 'Identifier', name: specifier.exported.name },
+	                    value: x `function() {
+						throw new @_Error("<${component.tag}>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+					}`
+	                });
+	            }
+	        });
 	    });
 	    if (component.compile_options.dev) {
 	        // checking that expected ones were passed
@@ -23803,7 +25274,7 @@
 	            unknown_props_check = b `
 				const writable_props = [${writable_props.map(prop => x `'${prop.export_name}'`)}];
 				@_Object.keys($$props).forEach(key => {
-					if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$') @_console.warn(\`<${component.tag}> was created with unknown prop '\${key}'\`);
+					if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') @_console.warn(\`<${component.tag}> was created with unknown prop '\${key}'\`);
 				});
 			`;
 	        }
@@ -23882,7 +25353,7 @@
 
 					${css.code && b `this.shadowRoot.innerHTML = \`<style>${css.code.replace(/\\/g, '\\\\')}${options.dev ? `\n/*# sourceMappingURL=${css.map.toUrl()} */` : ''}</style>\`;`}
 
-					@init(this, { target: this.shadowRoot, props: ${init_props}, customElement: true }, ${definition}, ${has_create_fragment ? 'create_fragment' : 'null'}, ${not_equal}, ${prop_indexes}, ${dirty});
+					@init(this, { target: this.shadowRoot, props: ${init_props}, customElement: true }, ${definition}, ${has_create_fragment ? 'create_fragment' : 'null'}, ${not_equal}, ${prop_indexes}, null, ${dirty});
 
 					${dev_props_check}
 
@@ -23925,12 +25396,21 @@
 	            type: 'Identifier',
 	            name: options.dev ? '@SvelteComponentDev' : '@SvelteComponent'
 	        };
+	        const optional_parameters = [];
+	        if (should_add_css) {
+	            optional_parameters.push(add_css);
+	        }
+	        else if (dirty) {
+	            optional_parameters.push(x `null`);
+	        }
+	        if (dirty) {
+	            optional_parameters.push(dirty);
+	        }
 	        const declaration = b `
 			class ${name} extends ${superclass} {
 				constructor(options) {
 					super(${options.dev && 'options'});
-					${should_add_css && b `if (!@_document.getElementById("${component.stylesheet.id}-style")) ${add_css}();`}
-					@init(this, options, ${definition}, ${has_create_fragment ? 'create_fragment' : 'null'}, ${not_equal}, ${prop_indexes}, ${dirty});
+					@init(this, options, ${definition}, ${has_create_fragment ? 'create_fragment' : 'null'}, ${not_equal}, ${prop_indexes}, ${optional_parameters});
 					${options.dev && b `@dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "${name.name}", options, id: create_fragment.name });`}
 
 					${dev_props_check}
@@ -23940,19 +25420,7 @@
 	        declaration.body.body.push(...accessors);
 	        body.push(declaration);
 	    }
-	    return { js: flatten$1(body, []), css };
-	}
-	function flatten$1(nodes, target) {
-	    for (let i = 0; i < nodes.length; i += 1) {
-	        const node = nodes[i];
-	        if (Array.isArray(node)) {
-	            flatten$1(node, target);
-	        }
-	        else {
-	            target.push(node);
-	        }
-	    }
-	    return target;
+	    return { js: flatten$1(body), css };
 	}
 
 	function AwaitBlock (node, renderer, options) {
@@ -23970,11 +25438,10 @@
 	`);
 	}
 
-	function Comment$1 (_node, _renderer, _options) {
-	    // TODO preserve comments
-	    // if (options.preserveComments) {
-	    // 	renderer.append(`<!--${node.data}-->`);
-	    // }
+	function Comment$1 (node, renderer, options) {
+	    if (options.preserveComments) {
+	        renderer.add_string(`<!--${node.data}-->`);
+	    }
 	}
 
 	function DebugTag (node, renderer, options) {
@@ -24025,6 +25492,12 @@
 	            : x `@escape(${chunk.node})`;
 	    })
 	        .reduce((lhs, rhs) => x `${lhs} + ${rhs}`);
+	}
+	function get_attribute_expression(attribute) {
+	    if (attribute.chunks.length === 1 && attribute.chunks[0].type === 'Expression') {
+	        return attribute.chunks[0].node;
+	    }
+	    return get_attribute_value(attribute);
 	}
 
 	// source: https://html.spec.whatwg.org/multipage/indices.html
@@ -24138,24 +25611,29 @@
 	        const args = [];
 	        node.attributes.forEach(attribute => {
 	            if (attribute.is_spread) {
-	                args.push(attribute.expression.node);
+	                args.push(x `@escape_object(${attribute.expression.node})`);
 	            }
 	            else {
+	                const attr_name = node.namespace === namespaces.foreign ? attribute.name : fix_attribute_casing(attribute.name);
 	                const name = attribute.name.toLowerCase();
 	                if (name === 'value' && node.name.toLowerCase() === 'textarea') {
 	                    node_contents = get_attribute_value(attribute);
 	                }
 	                else if (attribute.is_true) {
-	                    args.push(x `{ ${attribute.name}: true }`);
+	                    args.push(x `{ ${attr_name}: true }`);
 	                }
 	                else if (boolean_attributes.has(name) &&
 	                    attribute.chunks.length === 1 &&
 	                    attribute.chunks[0].type !== 'Text') {
 	                    // a boolean attribute with one non-Text chunk
-	                    args.push(x `{ ${attribute.name}: ${attribute.chunks[0].node} || null }`);
+	                    args.push(x `{ ${attr_name}: ${attribute.chunks[0].node} || null }`);
+	                }
+	                else if (attribute.chunks.length === 1 && attribute.chunks[0].type !== 'Text') {
+	                    const snippet = attribute.chunks[0].node;
+	                    args.push(x `{ ${attr_name}: @escape_attribute_value(${snippet}) }`);
 	                }
 	                else {
-	                    args.push(x `{ ${attribute.name}: ${get_attribute_value(attribute)} }`);
+	                    args.push(x `{ ${attr_name}: ${get_attribute_value(attribute)} }`);
 	                }
 	            }
 	        });
@@ -24165,31 +25643,32 @@
 	        let add_class_attribute = !!class_expression;
 	        node.attributes.forEach(attribute => {
 	            const name = attribute.name.toLowerCase();
+	            const attr_name = node.namespace === namespaces.foreign ? attribute.name : fix_attribute_casing(attribute.name);
 	            if (name === 'value' && node.name.toLowerCase() === 'textarea') {
 	                node_contents = get_attribute_value(attribute);
 	            }
 	            else if (attribute.is_true) {
-	                renderer.add_string(` ${attribute.name}`);
+	                renderer.add_string(` ${attr_name}`);
 	            }
 	            else if (boolean_attributes.has(name) &&
 	                attribute.chunks.length === 1 &&
 	                attribute.chunks[0].type !== 'Text') {
 	                // a boolean attribute with one non-Text chunk
 	                renderer.add_string(' ');
-	                renderer.add_expression(x `${attribute.chunks[0].node} ? "${attribute.name}" : ""`);
+	                renderer.add_expression(x `${attribute.chunks[0].node} ? "${attr_name}" : ""`);
 	            }
 	            else if (name === 'class' && class_expression) {
 	                add_class_attribute = false;
-	                renderer.add_string(` ${attribute.name}="`);
+	                renderer.add_string(` ${attr_name}="`);
 	                renderer.add_expression(x `[${get_class_attribute_value(attribute)}, ${class_expression}].join(' ').trim()`);
 	                renderer.add_string('"');
 	            }
 	            else if (attribute.chunks.length === 1 && attribute.chunks[0].type !== 'Text') {
 	                const snippet = attribute.chunks[0].node;
-	                renderer.add_expression(x `@add_attribute("${attribute.name}", ${snippet}, ${boolean_attributes.has(name) ? 1 : 0})`);
+	                renderer.add_expression(x `@add_attribute("${attr_name}", ${snippet}, ${boolean_attributes.has(name) ? 1 : 0})`);
 	            }
 	            else {
-	                renderer.add_string(` ${attribute.name}="`);
+	                renderer.add_string(` ${attr_name}="`);
 	                renderer.add_expression((name === 'class' ? get_class_attribute_value : get_attribute_value)(attribute));
 	                renderer.add_string('"');
 	            }
@@ -24203,7 +25682,16 @@
 	        if (binding.is_readonly) {
 	            return;
 	        }
-	        if (name === 'group') ;
+	        if (name === 'group') {
+	            const value_attribute = node.attributes.find(({ name }) => name === 'value');
+	            if (value_attribute) {
+	                const value = get_attribute_expression(value_attribute);
+	                const type = node.get_static_attribute_value('type');
+	                const bound = expression.node;
+	                const condition = type === 'checkbox' ? x `~${bound}.indexOf(${value})` : x `${value} === ${bound}`;
+	                renderer.add_expression(x `${condition} ? @add_attribute("checked", true, 1) : ""`);
+	            }
+	        }
 	        else if (contenteditable && (name === 'textContent' || name === 'innerHTML')) {
 	            node_contents = expression.node;
 	            // TODO where was this used?
@@ -24213,9 +25701,10 @@
 	            const snippet = expression.node;
 	            node_contents = x `${snippet} || ""`;
 	        }
+	        else if (binding.name === 'value' && node.name === 'select') ;
 	        else {
 	            const snippet = expression.node;
-	            renderer.add_expression(x `@add_attribute("${name}", ${snippet}, 1)`);
+	            renderer.add_expression(x `@add_attribute("${name}", ${snippet}, ${boolean_attributes.has(name) ? 1 : 0})`);
 	        }
 	    });
 	    if (options.hydratable && options.head_id) {
@@ -24252,8 +25741,12 @@
 	    renderer.add_expression(x `$$result.head += ${result}, ""`);
 	}
 
-	function HtmlTag (node, renderer, _options) {
+	function HtmlTag (node, renderer, options) {
+	    if (options.hydratable)
+	        renderer.add_string('<!-- HTML_TAG_START -->');
 	    renderer.add_expression(node.expression.node);
+	    if (options.hydratable)
+	        renderer.add_string('<!-- HTML_TAG_END -->');
 	}
 
 	function IfBlock (node, renderer, options) {
@@ -24333,7 +25826,19 @@
 	    const slots = x `{
 		${slot_fns}
 	}`;
+	    if (node.css_custom_properties.length > 0) {
+	        renderer.add_string('<div style="display: contents;');
+	        node.css_custom_properties.forEach(attr => {
+	            renderer.add_string(` ${attr.name}:`);
+	            renderer.add_expression(get_attribute_value(attr));
+	            renderer.add_string(';');
+	        });
+	        renderer.add_string('">');
+	    }
 	    renderer.add_expression(x `@validate_component(${expression}, "${node.name}").$$render($$result, ${props}, ${bindings}, ${slots})`);
+	    if (node.css_custom_properties.length > 0) {
+	        renderer.add_string('</div>');
+	    }
 	}
 
 	function KeyBlock (node, renderer, options) {
@@ -24397,10 +25902,7 @@
 	            return;
 	        const child = this.children[0];
 	        if (!child || (child.type === 'Text' && !/[^ \r\n\f\v\t]/.test(child.data))) {
-	            this.component.warn(this, {
-	                code: 'empty-block',
-	                message: 'Empty block'
-	            });
+	            this.component.warn(this, compiler_warnings.empty_block);
 	        }
 	    }
 	}
@@ -24516,7 +26018,7 @@
 	    expression = clone(expression);
 	    walk(expression, {
 	        enter(node, parent) {
-	            if (isReference(node, parent)) {
+	            if (is_reference(node, parent)) {
 	                this.replace(find_from_context(node));
 	                this.skip();
 	            }
@@ -24594,21 +26096,23 @@
 	    constructor(component, parent, scope, info) {
 	        super(component, parent, scope, info);
 	        this.handlers = [];
+	        this.actions = [];
 	        info.attributes.forEach((node) => {
 	            if (node.type === 'EventHandler') {
 	                this.handlers.push(new EventHandler(component, this, scope, node));
+	            }
+	            else if (node.type === 'Action') {
+	                this.actions.push(new Action(component, this, scope, node));
 	            }
 	        });
 	    }
 	}
 
-	const pattern = /^\s*svelte-ignore\s+([\s\S]+)\s*$/m;
 	class Comment$2 extends Node$1 {
 	    constructor(component, parent, scope, info) {
 	        super(component, parent, scope, info);
 	        this.data = info.data;
-	        const match = pattern.exec(this.data);
-	        this.ignores = match ? match[1].split(/[^\S]/).map(x => x.trim()).filter(Boolean) : [];
+	        this.ignores = info.ignores;
 	    }
 	}
 
@@ -24648,10 +26152,8 @@
 	        if (this.has_animation) {
 	            if (this.children.length !== 1) {
 	                const child = this.children.find(child => !!child.animation);
-	                component.error(child.animation, {
-	                    code: 'invalid-animation',
-	                    message: 'An element that uses the animate directive must be the sole child of a keyed each block'
-	                });
+	                component.error(child.animation, compiler_errors.invalid_animation_sole);
+	                return;
 	            }
 	        }
 	        this.warn_if_empty_block();
@@ -24721,7 +26223,7 @@
 	        return expression;
 	    }
 	    get_static_value() {
-	        if (this.is_spread || this.dependencies.size > 0)
+	        if (!this.is_static)
 	            return null;
 	        return this.is_true
 	            ? true
@@ -24755,10 +26257,8 @@
 	    constructor(component, parent, scope, info) {
 	        super(component, parent, scope, info);
 	        if (info.expression.type !== 'Identifier' && info.expression.type !== 'MemberExpression') {
-	            component.error(info, {
-	                code: 'invalid-directive-value',
-	                message: 'Can only bind to an identifier (e.g. `foo`) or a member expression (e.g. `foo.bar` or `foo[baz]`)'
-	            });
+	            component.error(info, compiler_errors.invalid_directive_value);
+	            return;
 	        }
 	        this.name = info.name;
 	        this.expression = new Expression(component, this, scope, info.expression);
@@ -24767,17 +26267,13 @@
 	        this.is_contextual = Array.from(this.expression.references).some(name => scope.names.has(name));
 	        // make sure we track this as a mutable ref
 	        if (scope.is_let(name)) {
-	            component.error(this, {
-	                code: 'invalid-binding',
-	                message: 'Cannot bind to a variable declared with the let: directive'
-	            });
+	            component.error(this, compiler_errors.invalid_binding_let);
+	            return;
 	        }
 	        else if (scope.names.has(name)) {
 	            if (scope.is_await(name)) {
-	                component.error(this, {
-	                    code: 'invalid-binding',
-	                    message: 'Cannot bind to a variable declared with {#await ... then} or {:catch} blocks'
-	                });
+	                component.error(this, compiler_errors.invalid_binding_await);
+	                return;
 	            }
 	            scope.dependencies_for_name.get(name).forEach(name => {
 	                const variable = component.var_lookup.get(name);
@@ -24789,17 +26285,13 @@
 	        else {
 	            const variable = component.var_lookup.get(name);
 	            if (!variable || variable.global) {
-	                component.error(this.expression.node, {
-	                    code: 'binding-undeclared',
-	                    message: `${name} is not declared`
-	                });
+	                component.error(this.expression.node, compiler_errors.binding_undeclared(name));
+	                return;
 	            }
 	            variable[this.expression.node.type === 'MemberExpression' ? 'mutated' : 'reassigned'] = true;
 	            if (info.expression.type === 'Identifier' && !variable.writable) {
-	                component.error(this.expression.node, {
-	                    code: 'invalid-binding',
-	                    message: 'Cannot bind to a variable which is not writable'
-	                });
+	                component.error(this.expression.node, compiler_errors.invalid_binding_writibale);
+	                return;
 	            }
 	        }
 	        const type = parent.get_static_attribute_value('type');
@@ -24827,23 +26319,13 @@
 	        this.is_local = info.modifiers.includes('local');
 	        if ((info.intro && parent.intro) || (info.outro && parent.outro)) {
 	            const parent_transition = (parent.intro || parent.outro);
-	            const message = this.directive === parent_transition.directive
-	                ? `An element can only have one '${this.directive}' directive`
-	                : `An element cannot have both ${describe(parent_transition)} directive and ${describe(this)} directive`;
-	            component.error(info, {
-	                code: 'duplicate-transition',
-	                message
-	            });
+	            component.error(info, compiler_errors.duplicate_transition(this.directive, parent_transition.directive));
+	            return;
 	        }
 	        this.expression = info.expression
 	            ? new Expression(component, this, scope, info.expression)
 	            : null;
 	    }
-	}
-	function describe(transition) {
-	    return transition.directive === 'transition'
-	        ? "a 'transition'"
-	        : `an '${transition.directive}'`;
 	}
 
 	class Animation extends Node$1 {
@@ -24853,18 +26335,14 @@
 	        this.name = info.name;
 	        component.add_reference(info.name.split('.')[0]);
 	        if (parent.animation) {
-	            component.error(this, {
-	                code: 'duplicate-animation',
-	                message: "An element can only have one 'animate' directive"
-	            });
+	            component.error(this, compiler_errors.duplicate_animation);
+	            return;
 	        }
 	        const block = parent.parent;
 	        if (!block || block.type !== 'EachBlock' || !block.key) {
 	            // TODO can we relax the 'immediate child' rule?
-	            component.error(this, {
-	                code: 'invalid-animation',
-	                message: 'An element that uses the animate directive must be the immediate child of a keyed each block'
-	            });
+	            component.error(this, compiler_errors.invalid_animation_immediate);
+	            return;
 	        }
 	        block.has_animation = true;
 	        this.expression = info.expression
@@ -24931,10 +26409,7 @@
 	            walk(info.expression, {
 	                enter(node) {
 	                    if (!applicable.has(node.type)) {
-	                        component.error(node, {
-	                            code: 'invalid-let',
-	                            message: 'let directive value must be an identifier or an object/array pattern'
-	                        });
+	                        return component.error(node, compiler_errors.invalid_let);
 	                    }
 	                    if (node.type === 'Identifier') {
 	                        names.push(node.name);
@@ -24985,10 +26460,6 @@
 	    'h5',
 	    'h6'
 	]);
-	const a11y_no_onchange = new Set([
-	    'select',
-	    'option'
-	]);
 	const a11y_labelable = new Set([
 	    'button',
 	    'input',
@@ -25007,7 +26478,8 @@
 	    'once',
 	    'passive',
 	    'nonpassive',
-	    'self'
+	    'self',
+	    'trusted'
 	]);
 	const passive_events = new Set([
 	    'wheel',
@@ -25020,6 +26492,7 @@
 	    ['className', 'class'],
 	    ['htmlFor', 'for']
 	]);
+	const attributes_to_compact_whitespace = ['class', 'style'];
 	function get_namespace(parent, element, explicit_namespace) {
 	    const parent_element = parent.find_nearest(/^Element/);
 	    if (!parent_element) {
@@ -25027,10 +26500,12 @@
 	            ? namespaces.svg
 	            : null);
 	    }
-	    if (svg$1.test(element.name.toLowerCase()))
-	        return namespaces.svg;
-	    if (parent_element.name.toLowerCase() === 'foreignobject')
-	        return null;
+	    if (parent_element.namespace !== namespaces.foreign) {
+	        if (svg$1.test(element.name.toLowerCase()))
+	            return namespaces.svg;
+	        if (parent_element.name.toLowerCase() === 'foreignobject')
+	            return null;
+	    }
 	    return parent_element.namespace;
 	}
 	class Element$1 extends Node$1 {
@@ -25052,10 +26527,8 @@
 	                if (info.children.length > 0) {
 	                    const value_attribute = info.attributes.find(node => node.name === 'value');
 	                    if (value_attribute) {
-	                        component.error(value_attribute, {
-	                            code: 'textarea-duplicate-value',
-	                            message: 'A <textarea> can have either a value attribute or (equivalently) child content, but not both'
-	                        });
+	                        component.error(value_attribute, compiler_errors.textarea_duplicate_value);
+	                        return;
 	                    }
 	                    // this is an egregious hack, but it's the easiest way to get <textarea>
 	                    // children treated the same way as a value attribute
@@ -25138,14 +26611,12 @@
 	        this.scope = scope;
 	        this.children = map_children(component, this, this.scope, info.children);
 	        this.validate();
+	        this.optimise();
 	        component.apply_stylesheet(this);
 	    }
 	    validate() {
 	        if (this.component.var_lookup.has(this.name) && this.component.var_lookup.get(this.name).imported) {
-	            this.component.warn(this, {
-	                code: 'component-name-lowercase',
-	                message: `<${this.name}> will be treated as an HTML element unless it begins with a capital letter`
-	            });
+	            this.component.warn(this, compiler_warnings.component_name_lowercase(this.name));
 	        }
 	        this.validate_attributes();
 	        this.validate_event_handlers();
@@ -25167,45 +26638,28 @@
 	            const name = attribute.name.toLowerCase();
 	            // Errors
 	            if (/(^[0-9-.])|[\^$@%&#?!|()[\]{}^*+~;]/.test(name)) {
-	                component.error(attribute, {
-	                    code: 'illegal-attribute',
-	                    message: `'${name}' is not a valid attribute name`
-	                });
+	                return component.error(attribute, compiler_errors.illegal_attribute(name));
 	            }
 	            if (name === 'slot') {
 	                if (!attribute.is_static) {
-	                    component.error(attribute, {
-	                        code: 'invalid-slot-attribute',
-	                        message: 'slot attribute cannot have a dynamic value'
-	                    });
+	                    return component.error(attribute, compiler_errors.invalid_slot_attribute);
 	                }
 	                if (component.slot_outlets.has(name)) {
-	                    component.error(attribute, {
-	                        code: 'duplicate-slot-attribute',
-	                        message: `Duplicate '${name}' slot`
-	                    });
-	                    component.slot_outlets.add(name);
+	                    return component.error(attribute, compiler_errors.duplicate_slot_attribute(name));
+	                    // this code was unreachable. Still needed?
+	                    // component.slot_outlets.add(name);
 	                }
 	                if (!(parent.type === 'SlotTemplate' || within_custom_element(parent))) {
-	                    component.error(attribute, {
-	                        code: 'invalid-slotted-content',
-	                        message: 'Element with a slot=\'...\' attribute must be a child of a component or a descendant of a custom element'
-	                    });
+	                    return component.error(attribute, compiler_errors.invalid_slotted_content);
 	                }
 	            }
 	            // Warnings
 	            if (this.namespace !== namespaces.foreign) {
 	                if (name === 'is') {
-	                    component.warn(attribute, {
-	                        code: 'avoid-is',
-	                        message: 'The \'is\' attribute is not supported cross-browser and should be avoided'
-	                    });
+	                    component.warn(attribute, compiler_warnings.avoid_is);
 	                }
 	                if (react_attributes.has(attribute.name)) {
-	                    component.warn(attribute, {
-	                        code: 'invalid-html-attribute',
-	                        message: `'${attribute.name}' is not a valid HTML attribute. Did you mean '${react_attributes.get(attribute.name)}'?`
-	                    });
+	                    component.warn(attribute, compiler_warnings.invalid_html_attribute(attribute.name, react_attributes.get(attribute.name)));
 	                }
 	            }
 	        });
@@ -25220,82 +26674,49 @@
 	            if (name.startsWith('aria-')) {
 	                if (invisible_elements.has(this.name)) {
 	                    // aria-unsupported-elements
-	                    component.warn(attribute, {
-	                        code: 'a11y-aria-attributes',
-	                        message: `A11y: <${this.name}> should not have aria-* attributes`
-	                    });
+	                    component.warn(attribute, compiler_warnings.a11y_aria_attributes(this.name));
 	                }
 	                const type = name.slice(5);
 	                if (!aria_attribute_set.has(type)) {
 	                    const match = fuzzymatch(type, aria_attributes);
-	                    let message = `A11y: Unknown aria attribute 'aria-${type}'`;
-	                    if (match)
-	                        message += ` (did you mean '${match}'?)`;
-	                    component.warn(attribute, {
-	                        code: 'a11y-unknown-aria-attribute',
-	                        message
-	                    });
+	                    component.warn(attribute, compiler_warnings.a11y_unknown_aria_attribute(type, match));
 	                }
 	                if (name === 'aria-hidden' && /^h[1-6]$/.test(this.name)) {
-	                    component.warn(attribute, {
-	                        code: 'a11y-hidden',
-	                        message: `A11y: <${this.name}> element should not be hidden`
-	                    });
+	                    component.warn(attribute, compiler_warnings.a11y_hidden(this.name));
 	                }
 	            }
 	            // aria-role
 	            if (name === 'role') {
 	                if (invisible_elements.has(this.name)) {
 	                    // aria-unsupported-elements
-	                    component.warn(attribute, {
-	                        code: 'a11y-misplaced-role',
-	                        message: `A11y: <${this.name}> should not have role attribute`
-	                    });
+	                    component.warn(attribute, compiler_warnings.a11y_misplaced_role(this.name));
 	                }
 	                const value = attribute.get_static_value();
 	                // @ts-ignore
 	                if (value && !aria_role_set.has(value)) {
 	                    // @ts-ignore
 	                    const match = fuzzymatch(value, aria_roles);
-	                    let message = `A11y: Unknown role '${value}'`;
-	                    if (match)
-	                        message += ` (did you mean '${match}'?)`;
-	                    component.warn(attribute, {
-	                        code: 'a11y-unknown-role',
-	                        message
-	                    });
+	                    component.warn(attribute, compiler_warnings.a11y_unknown_role(value, match));
 	                }
 	            }
 	            // no-access-key
 	            if (name === 'accesskey') {
-	                component.warn(attribute, {
-	                    code: 'a11y-accesskey',
-	                    message: 'A11y: Avoid using accesskey'
-	                });
+	                component.warn(attribute, compiler_warnings.a11y_accesskey);
 	            }
 	            // no-autofocus
 	            if (name === 'autofocus') {
-	                component.warn(attribute, {
-	                    code: 'a11y-autofocus',
-	                    message: 'A11y: Avoid using autofocus'
-	                });
+	                component.warn(attribute, compiler_warnings.a11y_autofocus);
 	            }
 	            // scope
 	            if (name === 'scope' && this.name !== 'th') {
-	                component.warn(attribute, {
-	                    code: 'a11y-misplaced-scope',
-	                    message: 'A11y: The scope attribute should only be used with <th> elements'
-	                });
+	                component.warn(attribute, compiler_warnings.a11y_misplaced_scope);
 	            }
 	            // tabindex-no-positive
 	            if (name === 'tabindex') {
 	                const value = attribute.get_static_value();
 	                // @ts-ignore todo is tabindex=true correct case?
 	                if (!isNaN(value) && +value > 0) {
-	                    component.warn(attribute, {
-	                        code: 'a11y-positive-tabindex',
-	                        message: 'A11y: avoid tabindex values above zero'
-	                    });
+	                    component.warn(attribute, compiler_warnings.a11y_positive_tabindex);
 	                }
 	            }
 	        });
@@ -25313,20 +26734,14 @@
 	            if (href_attribute) {
 	                const href_value = href_attribute.get_static_value();
 	                if (href_value === '' || href_value === '#' || /^\W*javascript:/i.test(href_value)) {
-	                    component.warn(href_attribute, {
-	                        code: 'a11y-invalid-attribute',
-	                        message: `A11y: '${href_value}' is not a valid ${href_attribute.name} attribute`
-	                    });
+	                    component.warn(href_attribute, compiler_warnings.a11y_invalid_attribute(href_attribute.name, href_value));
 	                }
 	            }
 	            else {
 	                const id_attribute_valid = id_attribute && id_attribute.get_static_value() !== '';
 	                const name_attribute_valid = name_attribute && name_attribute.get_static_value() !== '';
 	                if (!id_attribute_valid && !name_attribute_valid) {
-	                    component.warn(this, {
-	                        code: 'a11y-missing-attribute',
-	                        message: 'A11y: <a> element should have an href attribute'
-	                    });
+	                    component.warn(this, compiler_warnings.a11y_missing_attribute('a', 'an', 'href'));
 	                }
 	            }
 	        }
@@ -25356,23 +26771,17 @@
 	            if (alt_attribute && !aria_hidden_exist) {
 	                const alt_value = alt_attribute.get_static_value();
 	                if (/\b(image|picture|photo)\b/i.test(alt_value)) {
-	                    component.warn(this, {
-	                        code: 'a11y-img-redundant-alt',
-	                        message: 'A11y: Screenreaders already announce <img> elements as an image.'
-	                    });
+	                    component.warn(this, compiler_warnings.a11y_img_redundant_alt);
 	                }
 	            }
 	        }
 	        if (this.name === 'label') {
 	            const has_input_child = this.children.some(i => (i instanceof Element$1 && a11y_labelable.has(i.name)));
 	            if (!attribute_map.has('for') && !has_input_child) {
-	                component.warn(this, {
-	                    code: 'a11y-label-has-associated-control',
-	                    message: 'A11y: A form label must be associated with a control.'
-	                });
+	                component.warn(this, compiler_warnings.a11y_label_has_associated_control);
 	            }
 	        }
-	        if (this.is_media_node()) {
+	        if (this.name === 'video') {
 	            if (attribute_map.has('muted')) {
 	                return;
 	            }
@@ -25382,26 +26791,12 @@
 	                has_caption = track.attributes.find(a => a.name === 'kind' && a.get_static_value() === 'captions');
 	            }
 	            if (!has_caption) {
-	                component.warn(this, {
-	                    code: 'a11y-media-has-caption',
-	                    message: 'A11y: Media elements must have a <track kind="captions">'
-	                });
-	            }
-	        }
-	        if (a11y_no_onchange.has(this.name)) {
-	            if (handlers_map.has('change') && !handlers_map.has('blur')) {
-	                component.warn(this, {
-	                    code: 'a11y-no-onchange',
-	                    message: 'A11y: on:blur must be used instead of on:change, unless absolutely necessary and it causes no negative consequences for keyboard only or screen reader users.'
-	                });
+	                component.warn(this, compiler_warnings.a11y_media_has_caption);
 	            }
 	        }
 	        if (a11y_distracting_elements.has(this.name)) {
 	            // no-distracting-elements
-	            component.warn(this, {
-	                code: 'a11y-distracting-elements',
-	                message: `A11y: Avoid <${this.name}> elements`
-	            });
+	            component.warn(this, compiler_warnings.a11y_distracting_elements(this.name));
 	        }
 	        if (this.name === 'figcaption') {
 	            let { parent } = this;
@@ -25417,10 +26812,7 @@
 	                parent = parent.parent;
 	            }
 	            if (!is_figure_parent) {
-	                component.warn(this, {
-	                    code: 'a11y-structure',
-	                    message: 'A11y: <figcaption> must be an immediate child of <figure>'
-	                });
+	                component.warn(this, compiler_warnings.a11y_structure_immediate);
 	            }
 	        }
 	        if (this.name === 'figure') {
@@ -25433,20 +26825,20 @@
 	            });
 	            const index = children.findIndex(child => child.name === 'figcaption');
 	            if (index !== -1 && (index !== 0 && index !== children.length - 1)) {
-	                component.warn(children[index], {
-	                    code: 'a11y-structure',
-	                    message: 'A11y: <figcaption> must be first or last child of <figure>'
-	                });
+	                component.warn(children[index], compiler_warnings.a11y_structure_first_or_last);
 	            }
+	        }
+	        if (handlers_map.has('mouseover') && !handlers_map.has('focus')) {
+	            component.warn(this, compiler_warnings.a11y_mouse_events_have_key_events('mouseover', 'focus'));
+	        }
+	        if (handlers_map.has('mouseout') && !handlers_map.has('blur')) {
+	            component.warn(this, compiler_warnings.a11y_mouse_events_have_key_events('mouseout', 'blur'));
 	        }
 	    }
 	    validate_bindings_foreign() {
 	        this.bindings.forEach(binding => {
 	            if (binding.name !== 'this') {
-	                this.component.error(binding, {
-	                    code: 'invalid-binding',
-	                    message: `'${binding.name}' is not a valid binding. Foreign elements only support bind:this`
-	                });
+	                return this.component.error(binding, compiler_errors.invalid_binding_foreign(binding.name));
 	            }
 	        });
 	    }
@@ -25457,17 +26849,11 @@
 	            if (!attribute)
 	                return null;
 	            if (!attribute.is_static) {
-	                component.error(attribute, {
-	                    code: 'invalid-type',
-	                    message: '\'type\' attribute cannot be dynamic if input uses two-way binding'
-	                });
+	                return component.error(attribute, compiler_errors.invalid_type);
 	            }
 	            const value = attribute.get_static_value();
 	            if (value === true) {
-	                component.error(attribute, {
-	                    code: 'missing-type',
-	                    message: '\'type\' attribute must be specified'
-	                });
+	                return component.error(attribute, compiler_errors.missing_type);
 	            }
 	            return value;
 	        };
@@ -25477,18 +26863,12 @@
 	                if (this.name !== 'input' &&
 	                    this.name !== 'textarea' &&
 	                    this.name !== 'select') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'value' is not a valid binding on <${this.name}> elements`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_elements(this.name, 'value'));
 	                }
 	                if (this.name === 'select') {
 	                    const attribute = this.attributes.find((attribute) => attribute.name === 'multiple');
 	                    if (attribute && !attribute.is_static) {
-	                        component.error(attribute, {
-	                            code: 'dynamic-multiple-attribute',
-	                            message: '\'multiple\' attribute cannot be dynamic if select uses two-way binding'
-	                        });
+	                        return component.error(attribute, compiler_errors.dynamic_multiple_attribute);
 	                    }
 	                }
 	                else {
@@ -25497,55 +26877,34 @@
 	            }
 	            else if (name === 'checked' || name === 'indeterminate') {
 	                if (this.name !== 'input') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${name}' is not a valid binding on <${this.name}> elements`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_elements(this.name, name));
 	                }
 	                const type = check_type_attribute();
 	                if (type !== 'checkbox') {
-	                    let message = `'${name}' binding can only be used with <input type="checkbox">`;
-	                    if (type === 'radio')
-	                        message += ' — for <input type="radio">, use \'group\' binding';
-	                    component.error(binding, { code: 'invalid-binding', message });
+	                    return component.error(binding, compiler_errors.invalid_binding_no_checkbox(name, type === 'radio'));
 	                }
 	            }
 	            else if (name === 'group') {
 	                if (this.name !== 'input') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'group' is not a valid binding on <${this.name}> elements`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_elements(this.name, 'group'));
 	                }
 	                const type = check_type_attribute();
 	                if (type !== 'checkbox' && type !== 'radio') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: '\'group\' binding can only be used with <input type="checkbox"> or <input type="radio">'
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_element_with('<input type="checkbox"> or <input type="radio">', 'group'));
 	                }
 	            }
 	            else if (name === 'files') {
 	                if (this.name !== 'input') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'files' is not a valid binding on <${this.name}> elements`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_elements(this.name, 'files'));
 	                }
 	                const type = check_type_attribute();
 	                if (type !== 'file') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: '\'files\' binding can only be used with <input type="file">'
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_element_with('<input type="file">', 'files'));
 	                }
 	            }
 	            else if (name === 'open') {
 	                if (this.name !== 'details') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${name}' binding can only be used with <details>`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_element_with('<details>', name));
 	                }
 	            }
 	            else if (name === 'currentTime' ||
@@ -25560,62 +26919,38 @@
 	                name === 'seeking' ||
 	                name === 'ended') {
 	                if (this.name !== 'audio' && this.name !== 'video') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${name}' binding can only be used with <audio> or <video>`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_element_with('audio> or <video>', name));
 	                }
 	            }
 	            else if (name === 'videoHeight' ||
 	                name === 'videoWidth') {
 	                if (this.name !== 'video') {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${name}' binding can only be used with <video>`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_element_with('<video>', name));
 	                }
 	            }
 	            else if (dimensions.test(name)) {
 	                if (this.name === 'svg' && (name === 'offsetWidth' || name === 'offsetHeight')) {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${binding.name}' is not a valid binding on <svg>. Use '${name.replace('offset', 'client')}' instead`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_on(binding.name, `<svg>. Use '${name.replace('offset', 'client')}' instead`));
 	                }
 	                else if (svg$1.test(this.name)) {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${binding.name}' is not a valid binding on SVG elements`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_on(binding.name, 'SVG elements'));
 	                }
 	                else if (is_void(this.name)) {
-	                    component.error(binding, {
-	                        code: 'invalid-binding',
-	                        message: `'${binding.name}' is not a valid binding on void elements like <${this.name}>. Use a wrapper element instead`
-	                    });
+	                    return component.error(binding, compiler_errors.invalid_binding_on(binding.name, `void elements like <${this.name}>. Use a wrapper element instead`));
 	                }
 	            }
 	            else if (name === 'textContent' ||
 	                name === 'innerHTML') {
 	                const contenteditable = this.attributes.find((attribute) => attribute.name === 'contenteditable');
 	                if (!contenteditable) {
-	                    component.error(binding, {
-	                        code: 'missing-contenteditable-attribute',
-	                        message: '\'contenteditable\' attribute is required for textContent and innerHTML two-way bindings'
-	                    });
+	                    return component.error(binding, compiler_errors.missing_contenteditable_attribute);
 	                }
 	                else if (contenteditable && !contenteditable.is_static) {
-	                    component.error(contenteditable, {
-	                        code: 'dynamic-contenteditable-attribute',
-	                        message: '\'contenteditable\' attribute cannot be dynamic if element uses two-way binding'
-	                    });
+	                    return component.error(contenteditable, compiler_errors.dynamic_contenteditable_attribute);
 	                }
 	            }
 	            else if (name !== 'this') {
-	                component.error(binding, {
-	                    code: 'invalid-binding',
-	                    message: `'${binding.name}' is not a valid binding`
-	                });
+	                return component.error(binding, compiler_errors.invalid_binding(binding.name));
 	            }
 	        });
 	    }
@@ -25626,57 +26961,36 @@
 	            .some((binding) => ['textContent', 'innerHTML'].includes(binding.name)))
 	            return;
 	        if (this.children.length === 0) {
-	            this.component.warn(this, {
-	                code: 'a11y-missing-content',
-	                message: `A11y: <${this.name}> element should have child content`
-	            });
+	            this.component.warn(this, compiler_warnings.a11y_missing_content(this.name));
 	        }
 	    }
 	    validate_event_handlers() {
 	        const { component } = this;
 	        this.handlers.forEach(handler => {
 	            if (handler.modifiers.has('passive') && handler.modifiers.has('preventDefault')) {
-	                component.error(handler, {
-	                    code: 'invalid-event-modifier',
-	                    message: 'The \'passive\' and \'preventDefault\' modifiers cannot be used together'
-	                });
+	                return component.error(handler, compiler_errors.invalid_event_modifier_combination('passive', 'preventDefault'));
 	            }
 	            if (handler.modifiers.has('passive') && handler.modifiers.has('nonpassive')) {
-	                component.error(handler, {
-	                    code: 'invalid-event-modifier',
-	                    message: 'The \'passive\' and \'nonpassive\' modifiers cannot be used together'
-	                });
+	                return component.error(handler, compiler_errors.invalid_event_modifier_combination('passive', 'nonpassive'));
 	            }
 	            handler.modifiers.forEach(modifier => {
 	                if (!valid_modifiers.has(modifier)) {
-	                    component.error(handler, {
-	                        code: 'invalid-event-modifier',
-	                        message: `Valid event modifiers are ${list(Array.from(valid_modifiers))}`
-	                    });
+	                    return component.error(handler, compiler_errors.invalid_event_modifier(list(Array.from(valid_modifiers))));
 	                }
 	                if (modifier === 'passive') {
 	                    if (passive_events.has(handler.name)) {
 	                        if (handler.can_make_passive) {
-	                            component.warn(handler, {
-	                                code: 'redundant-event-modifier',
-	                                message: 'Touch event handlers that don\'t use the \'event\' object are passive by default'
-	                            });
+	                            component.warn(handler, compiler_warnings.redundant_event_modifier_for_touch);
 	                        }
 	                    }
 	                    else {
-	                        component.warn(handler, {
-	                            code: 'redundant-event-modifier',
-	                            message: 'The passive modifier only works with wheel and touch events'
-	                        });
+	                        component.warn(handler, compiler_warnings.redundant_event_modifier_passive);
 	                    }
 	                }
 	                if (component.compile_options.legacy && (modifier === 'once' || modifier === 'passive')) {
 	                    // TODO this could be supported, but it would need a few changes to
 	                    // how event listeners work
-	                    component.error(handler, {
-	                        code: 'invalid-event-modifier',
-	                        message: `The '${modifier}' modifier cannot be used in legacy mode`
-	                    });
+	                    return component.error(handler, compiler_errors.invalid_event_modifier_legacy(modifier));
 	                }
 	            });
 	            if (passive_events.has(handler.name) && handler.can_make_passive && !handler.modifiers.has('preventDefault') && !handler.modifiers.has('nonpassive')) {
@@ -25718,16 +27032,32 @@
 	    get slot_template_name() {
 	        return this.attributes.find(attribute => attribute.name === 'slot').get_static_value();
 	    }
+	    optimise() {
+	        attributes_to_compact_whitespace.forEach(attribute_name => {
+	            const attribute = this.attributes.find(a => a.name === attribute_name);
+	            if (attribute && !attribute.is_true) {
+	                attribute.chunks.forEach((chunk, index) => {
+	                    if (chunk.type === 'Text') {
+	                        let data = chunk.data.replace(/[\s\n\t]+/g, ' ');
+	                        if (index === 0) {
+	                            data = data.trimLeft();
+	                        }
+	                        else if (index === attribute.chunks.length - 1) {
+	                            data = data.trimRight();
+	                        }
+	                        chunk.data = data;
+	                    }
+	                });
+	            }
+	        });
+	    }
 	}
 	function should_have_attribute(node, attributes, name = node.name) {
 	    const article = /^[aeiou]/.test(attributes[0]) ? 'an' : 'a';
 	    const sequence = attributes.length > 1 ?
 	        attributes.slice(0, -1).join(', ') + ` or ${attributes[attributes.length - 1]}` :
 	        attributes[0];
-	    node.component.warn(node, {
-	        code: 'a11y-missing-attribute',
-	        message: `A11y: <${name}> element should have ${article} ${sequence} attribute`
-	    });
+	    node.component.warn(node, compiler_warnings.a11y_missing_attribute(name, article, sequence));
 	}
 	function within_custom_element(parent) {
 	    while (parent) {
@@ -25754,10 +27084,8 @@
 	    constructor(component, parent, scope, info) {
 	        super(component, parent, scope, info);
 	        if (info.attributes.length) {
-	            component.error(info.attributes[0], {
-	                code: 'invalid-attribute',
-	                message: '<svelte:head> should not have any attributes or directives'
-	            });
+	            component.error(info.attributes[0], compiler_errors.invalid_attribute_head);
+	            return;
 	        }
 	        this.children = map_children(component, parent, scope, info.children.filter(child => {
 	            return (child.type !== 'Text' || /\S/.test(child.data));
@@ -25787,6 +27115,7 @@
 	        this.bindings = [];
 	        this.handlers = [];
 	        this.lets = [];
+	        this.css_custom_properties = [];
 	        if (info.name !== 'svelte:component' && info.name !== 'svelte:self') {
 	            const name = info.name.split('.')[0]; // accommodate namespaces
 	            component.warn_if_undefined(name, info, scope);
@@ -25800,11 +27129,12 @@
 	            /* eslint-disable no-fallthrough */
 	            switch (node.type) {
 	                case 'Action':
-	                    component.error(node, {
-	                        code: 'invalid-action',
-	                        message: 'Actions can only be applied to DOM elements, not components'
-	                    });
+	                    return component.error(node, compiler_errors.invalid_action);
 	                case 'Attribute':
+	                    if (node.name.startsWith('--')) {
+	                        this.css_custom_properties.push(new Attribute(component, this, scope, node));
+	                        break;
+	                    }
 	                // fallthrough
 	                case 'Spread':
 	                    this.attributes.push(new Attribute(component, this, scope, node));
@@ -25813,10 +27143,7 @@
 	                    this.bindings.push(new Binding(component, this, scope, node));
 	                    break;
 	                case 'Class':
-	                    component.error(node, {
-	                        code: 'invalid-class',
-	                        message: 'Classes can only be applied to DOM elements, not components'
-	                    });
+	                    return component.error(node, compiler_errors.invalid_class);
 	                case 'EventHandler':
 	                    this.handlers.push(new EventHandler(component, this, scope, node));
 	                    break;
@@ -25824,10 +27151,7 @@
 	                    this.lets.push(new Let(component, this, scope, node));
 	                    break;
 	                case 'Transition':
-	                    component.error(node, {
-	                        code: 'invalid-transition',
-	                        message: 'Transitions can only be applied to DOM elements, not components'
-	                    });
+	                    return component.error(node, compiler_errors.invalid_transition);
 	                default:
 	                    throw new Error(`Not implemented: ${node.type}`);
 	            }
@@ -25848,10 +27172,7 @@
 	        this.handlers.forEach(handler => {
 	            handler.modifiers.forEach(modifier => {
 	                if (modifier !== 'once') {
-	                    component.error(handler, {
-	                        code: 'invalid-event-modifier',
-	                        message: "Event modifiers other than 'once' can only be used on DOM elements"
-	                    });
+	                    return component.error(handler, compiler_errors.invalid_event_modifier_component);
 	                }
 	            });
 	        });
@@ -25948,24 +27269,15 @@
 	        this.values = new Map();
 	        info.attributes.forEach(attr => {
 	            if (attr.type !== 'Attribute' && attr.type !== 'Spread') {
-	                component.error(attr, {
-	                    code: 'invalid-slot-directive',
-	                    message: '<slot> cannot have directives'
-	                });
+	                return component.error(attr, compiler_errors.invalid_slot_directive);
 	            }
 	            if (attr.name === 'name') {
 	                if (attr.value.length !== 1 || attr.value[0].type !== 'Text') {
-	                    component.error(attr, {
-	                        code: 'dynamic-slot-name',
-	                        message: '<slot> name cannot be dynamic'
-	                    });
+	                    return component.error(attr, compiler_errors.dynamic_slot_name);
 	                }
 	                this.slot_name = attr.value[0].data;
 	                if (this.slot_name === 'default') {
-	                    component.error(attr, {
-	                        code: 'invalid-slot-name',
-	                        message: 'default is a reserved word — it cannot be used as a slot name'
-	                    });
+	                    return component.error(attr, compiler_errors.invalid_slot_name);
 	                }
 	            }
 	            this.values.set(attr.name, new Attribute(component, this, scope, attr));
@@ -26003,17 +27315,12 @@
 	        super(component, parent, scope, info);
 	        this.children = map_children(component, parent, scope, info.children);
 	        if (info.attributes.length > 0) {
-	            component.error(info.attributes[0], {
-	                code: 'illegal-attribute',
-	                message: '<title> cannot have attributes'
-	            });
+	            component.error(info.attributes[0], compiler_errors.illegal_attribute_title);
+	            return;
 	        }
 	        info.children.forEach(child => {
 	            if (child.type !== 'Text' && child.type !== 'MustacheTag') {
-	                component.error(child, {
-	                    code: 'illegal-structure',
-	                    message: '<title> can only contain text and {tags}'
-	                });
+	                return component.error(child, compiler_errors.illegal_structure_title);
 	            }
 	        });
 	        this.should_cache = info.children.length === 1
@@ -26046,27 +27353,17 @@
 	                if (node.expression.type !== 'Identifier') {
 	                    const { parts } = flatten_reference(node.expression);
 	                    // TODO is this constraint necessary?
-	                    component.error(node.expression, {
-	                        code: 'invalid-binding',
-	                        message: `Bindings on <svelte:window> must be to top-level properties, e.g. '${parts[parts.length - 1]}' rather than '${parts.join('.')}'`
-	                    });
+	                    return component.error(node.expression, compiler_errors.invalid_binding_window(parts));
 	                }
 	                if (!~valid_bindings.indexOf(node.name)) {
 	                    const match = (node.name === 'width' ? 'innerWidth' :
 	                        node.name === 'height' ? 'innerHeight' :
 	                            fuzzymatch(node.name, valid_bindings));
-	                    const message = `'${node.name}' is not a valid binding on <svelte:window>`;
 	                    if (match) {
-	                        component.error(node, {
-	                            code: 'invalid-binding',
-	                            message: `${message} (did you mean '${match}'?)`
-	                        });
+	                        return component.error(node, compiler_errors.invalid_binding_on(node.name, '<svelte:window>', ` (did you mean '${match}'?)`));
 	                    }
 	                    else {
-	                        component.error(node, {
-	                            code: 'invalid-binding',
-	                            message: `${message} — valid bindings are ${list(valid_bindings)}`
-	                        });
+	                        return component.error(node, compiler_errors.invalid_binding_on(node.name, '<svelte:window>', ` — valid bindings are ${list(valid_bindings)}`));
 	                    }
 	                }
 	                this.bindings.push(new Binding(component, this, scope, node));
@@ -26148,17 +27445,11 @@
 	                    if (node.name === 'slot') {
 	                        this.slot_attribute = new Attribute(component, this, scope, node);
 	                        if (!this.slot_attribute.is_static) {
-	                            component.error(node, {
-	                                code: 'invalid-slot-attribute',
-	                                message: 'slot attribute cannot have a dynamic value'
-	                            });
+	                            return component.error(node, compiler_errors.invalid_slot_attribute);
 	                        }
 	                        const value = this.slot_attribute.get_static_value();
 	                        if (typeof value === 'boolean') {
-	                            component.error(node, {
-	                                code: 'invalid-slot-attribute',
-	                                message: 'slot attribute value is missing'
-	                            });
+	                            return component.error(node, compiler_errors.invalid_slot_attribute_value_missing);
 	                        }
 	                        this.slot_template_name = value;
 	                        break;
@@ -26174,10 +27465,7 @@
 	    }
 	    validate_slot_template_placement() {
 	        if (this.parent.type !== 'InlineComponent') {
-	            this.component.error(this, {
-	                code: 'invalid-slotted-content',
-	                message: '<svelte:fragment> must be a child of a component'
-	            });
+	            return this.component.error(this, compiler_errors.invalid_slotted_content_fragment);
 	        }
 	    }
 	}
@@ -26502,16 +27790,15 @@
 	}
 
 	const wrappers$1 = { esm, cjs };
-	function create_module(program, format, name, banner, sveltePath = 'svelte', helpers, globals, imports, module_exports) {
+	function create_module(program, format, name, banner, sveltePath = 'svelte', helpers, globals, imports, module_exports, exports_from) {
 	    const internal_path = `${sveltePath}/internal`;
 	    helpers.sort((a, b) => (a.name < b.name) ? -1 : 1);
 	    globals.sort((a, b) => (a.name < b.name) ? -1 : 1);
-	    if (format === 'esm') {
-	        return esm(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports);
+	    const formatter = wrappers$1[format];
+	    if (!formatter) {
+	        throw new Error(`options.format is invalid (must be ${list(Object.keys(wrappers$1))})`);
 	    }
-	    if (format === 'cjs')
-	        return cjs(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports);
-	    throw new Error(`options.format is invalid (must be ${list(Object.keys(wrappers$1))})`);
+	    return formatter(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports, exports_from);
 	}
 	function edit_source(source, sveltePath) {
 	    return source === 'svelte' || source.startsWith('svelte/')
@@ -26540,7 +27827,7 @@
 	            }]
 	    };
 	}
-	function esm(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports) {
+	function esm(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports, exports_from) {
 	    const import_declaration = {
 	        type: 'ImportDeclaration',
 	        specifiers: helpers.map(h => ({
@@ -26553,6 +27840,9 @@
 	    const internal_globals = get_internal_globals(globals, helpers);
 	    // edit user imports
 	    imports.forEach(node => {
+	        node.source.value = edit_source(node.source.value, sveltePath);
+	    });
+	    exports_from.forEach(node => {
 	        node.source.value = edit_source(node.source.value, sveltePath);
 	    });
 	    const exports = module_exports.length > 0 && {
@@ -26569,6 +27859,7 @@
 		${import_declaration}
 		${internal_globals}
 		${imports}
+		${exports_from}
 
 		${program.body}
 
@@ -26576,7 +27867,7 @@
 		${exports}
 	`;
 	}
-	function cjs(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports) {
+	function cjs(program, name, banner, sveltePath, internal_path, helpers, globals, imports, module_exports, exports_from) {
 	    const internal_requires = {
 	        type: 'VariableDeclaration',
 	        kind: 'const',
@@ -26627,6 +27918,12 @@
 	        };
 	    });
 	    const exports = module_exports.map(x => b `exports.${{ type: 'Identifier', name: x.as }} = ${{ type: 'Identifier', name: x.name }};`);
+	    const user_exports_from = exports_from.map(node => {
+	        const init = x `require("${edit_source(node.source.value, sveltePath)}")`;
+	        return node.specifiers.map(specifier => {
+	            return b `exports.${specifier.exported} = ${init}.${specifier.local};`;
+	        });
+	    });
 	    program.body = b `
 		/* ${banner} */
 
@@ -26634,6 +27931,7 @@
 		${internal_requires}
 		${internal_globals}
 		${user_requires}
+		${user_exports_from}
 
 		${program.body}
 
@@ -27687,7 +28985,8 @@
 	        }
 	        this.local_blocks = this.blocks.slice(0, i);
 	        const host_only = this.blocks.length === 1 && this.blocks[0].host;
-	        this.used = this.local_blocks.length === 0 || host_only;
+	        const root_only = this.blocks.length === 1 && this.blocks[0].root;
+	        this.used = this.local_blocks.length === 0 || host_only || root_only;
 	    }
 	    apply(node) {
 	        const to_encapsulate = [];
@@ -27713,7 +29012,17 @@
 	    }
 	    transform(code, attr, max_amount_class_specificity_increased) {
 	        const amount_class_specificity_to_increase = max_amount_class_specificity_increased - this.blocks.filter(block => block.should_encapsulate).length;
+	        function remove_global_pseudo_class(selector) {
+	            const first = selector.children[0];
+	            const last = selector.children[selector.children.length - 1];
+	            code.remove(selector.start, first.start).remove(last.end, selector.end);
+	        }
 	        function encapsulate_block(block, attr) {
+	            for (const selector of block.selectors) {
+	                if (selector.type === 'PseudoClassSelector' && selector.name === 'global') {
+	                    remove_global_pseudo_class(selector);
+	                }
+	            }
 	            let i = block.selectors.length;
 	            while (i--) {
 	                const selector = block.selectors[i];
@@ -27735,28 +29044,13 @@
 	        }
 	        this.blocks.forEach((block, index) => {
 	            if (block.global) {
-	                const selector = block.selectors[0];
-	                const first = selector.children[0];
-	                const last = selector.children[selector.children.length - 1];
-	                code.remove(selector.start, first.start).remove(last.end, selector.end);
+	                remove_global_pseudo_class(block.selectors[0]);
 	            }
 	            if (block.should_encapsulate)
 	                encapsulate_block(block, index === this.blocks.length - 1 ? attr.repeat(amount_class_specificity_to_increase + 1) : attr);
 	        });
 	    }
 	    validate(component) {
-	        this.blocks.forEach((block) => {
-	            let i = block.selectors.length;
-	            while (i-- > 1) {
-	                const selector = block.selectors[i];
-	                if (selector.type === 'PseudoClassSelector' && selector.name === 'global') {
-	                    component.error(selector, {
-	                        code: 'css-invalid-global',
-	                        message: ':global(...) must be the first element in a compound selector'
-	                    });
-	                }
-	            }
-	        });
 	        let start = 0;
 	        let end = this.blocks.length;
 	        for (; start < end; start += 1) {
@@ -27769,10 +29063,23 @@
 	        }
 	        for (let i = start; i < end; i += 1) {
 	            if (this.blocks[i].global) {
-	                component.error(this.blocks[i].selectors[0], {
-	                    code: 'css-invalid-global',
-	                    message: ':global(...) can be at the start or end of a selector sequence, but not in the middle'
-	                });
+	                return component.error(this.blocks[i].selectors[0], compiler_errors.css_invalid_global);
+	            }
+	        }
+	        this.validate_global_with_multiple_selectors(component);
+	    }
+	    validate_global_with_multiple_selectors(component) {
+	        if (this.blocks.length === 1 && this.blocks[0].selectors.length === 1) {
+	            // standalone :global() with multiple selectors is OK
+	            return;
+	        }
+	        for (const block of this.blocks) {
+	            for (const selector of block.selectors) {
+	                if (selector.type === 'PseudoClassSelector' && selector.name === 'global') {
+	                    if (/[^\\],(?!([^([]+[^\\]|[^([\\])[)\]])/.test(selector.children[0].value)) {
+	                        component.error(selector, compiler_errors.css_invalid_global_selector);
+	                    }
+	                }
 	            }
 	        }
 	    }
@@ -27830,7 +29137,8 @@
 	            return false;
 	        }
 	        else if (block.combinator.name === '>') {
-	            if (apply_selector(blocks, get_element_parent(node), to_encapsulate)) {
+	            const has_global_parent = blocks.every(block => block.global);
+	            if (has_global_parent || apply_selector(blocks, get_element_parent(node), to_encapsulate)) {
 	                to_encapsulate.push({ node, block });
 	                return true;
 	            }
@@ -27870,16 +29178,14 @@
 	    while (i--) {
 	        const selector = block.selectors[i];
 	        const name = typeof selector.name === 'string' && selector.name.replace(/\\(.)/g, '$1');
-	        if (selector.type === 'PseudoClassSelector' && name === 'host') {
+	        if (selector.type === 'PseudoClassSelector' && (name === 'host' || name === 'root')) {
+	            return BlockAppliesToNode.NotPossible;
+	        }
+	        if (block.selectors.length === 1 && selector.type === 'PseudoClassSelector' && name === 'global') {
 	            return BlockAppliesToNode.NotPossible;
 	        }
 	        if (selector.type === 'PseudoClassSelector' || selector.type === 'PseudoElementSelector') {
 	            continue;
-	        }
-	        if (selector.type === 'PseudoClassSelector' && name === 'global') {
-	            // TODO shouldn't see this here... maybe we should enforce that :global(...)
-	            // cannot be sandwiched between non-global selectors?
-	            return BlockAppliesToNode.NotPossible;
 	        }
 	        if (selector.type === 'ClassSelector') {
 	            if (!attribute_matches(node, 'class', name, '~=', false) && !node.classes.some(c => c.name === name))
@@ -28128,10 +29434,10 @@
 	}
 	function add_to_map(from, to) {
 	    from.forEach((exist, element) => {
-	        to.set(element, higher_existance(exist, to.get(element)));
+	        to.set(element, higher_existence(exist, to.get(element)));
 	    });
 	}
-	function higher_existance(exist1, exist2) {
+	function higher_existence(exist1, exist2) {
 	    if (exist1 === undefined || exist2 === undefined)
 	        return exist1 || exist2;
 	    return exist1 > exist2 ? exist1 : exist2;
@@ -28164,8 +29470,8 @@
 	class Block$2 {
 	    constructor(combinator) {
 	        this.combinator = combinator;
-	        this.global = false;
 	        this.host = false;
+	        this.root = false;
 	        this.selectors = [];
 	        this.start = null;
 	        this.end = null;
@@ -28174,11 +29480,17 @@
 	    add(selector) {
 	        if (this.selectors.length === 0) {
 	            this.start = selector.start;
-	            this.global = selector.type === 'PseudoClassSelector' && selector.name === 'global';
 	            this.host = selector.type === 'PseudoClassSelector' && selector.name === 'host';
 	        }
+	        this.root = this.root || selector.type === 'PseudoClassSelector' && selector.name === 'root';
 	        this.selectors.push(selector);
 	        this.end = selector.end;
+	    }
+	    get global() {
+	        return (this.selectors.length >= 1 &&
+	            this.selectors[0].type === 'PseudoClassSelector' &&
+	            this.selectors[0].name === 'global' &&
+	            this.selectors.every((selector) => selector.type === 'PseudoClassSelector' || selector.type === 'PseudoElementSelector'));
 	    }
 	}
 	function group_selectors(selector) {
@@ -28545,14 +29857,14 @@
 	        });
 	    }
 	    warn_on_unused_selectors(component) {
+	        const ignores = !this.ast.css ? [] : extract_ignores_above_position(this.ast.css.start, this.ast.html.children);
+	        component.push_ignores(ignores);
 	        this.children.forEach(child => {
 	            child.warn_on_unused_selector((selector) => {
-	                component.warn(selector.node, {
-	                    code: 'css-unused-selector',
-	                    message: `Unused CSS selector "${this.source.slice(selector.node.start, selector.node.end)}"`
-	                });
+	                component.warn(selector.node, compiler_warnings.css_unused_selector(this.source.slice(selector.node.start, selector.node.end)));
 	            });
 	        });
+	        component.pop_ignores();
 	    }
 	}
 
@@ -28601,10 +29913,10 @@
 	}
 
 	// This file is automatically generated
-	var internal_exports = new Set(["HtmlTag", "SvelteComponent", "SvelteComponentDev", "SvelteComponentTyped", "SvelteElement", "action_destroyer", "add_attribute", "add_classes", "add_flush_callback", "add_location", "add_render_callback", "add_resize_listener", "add_transform", "afterUpdate", "append", "append_dev", "assign", "attr", "attr_dev", "attribute_to_object", "beforeUpdate", "bind", "binding_callbacks", "blank_object", "bubble", "check_outros", "children", "claim_component", "claim_element", "claim_space", "claim_text", "clear_loops", "component_subscribe", "compute_rest_props", "compute_slots", "createEventDispatcher", "create_animation", "create_bidirectional_transition", "create_component", "create_in_transition", "create_out_transition", "create_slot", "create_ssr_component", "current_component", "custom_event", "dataset_dev", "debug", "destroy_block", "destroy_component", "destroy_each", "detach", "detach_after_dev", "detach_before_dev", "detach_between_dev", "detach_dev", "dirty_components", "dispatch_dev", "each", "element", "element_is", "empty", "escape", "escaped", "exclude_internal_props", "fix_and_destroy_block", "fix_and_outro_and_destroy_block", "fix_position", "flush", "getContext", "get_binding_group_value", "get_current_component", "get_custom_elements_slots", "get_slot_changes", "get_slot_context", "get_spread_object", "get_spread_update", "get_store_value", "globals", "group_outros", "handle_promise", "hasContext", "has_prop", "identity", "init", "insert", "insert_dev", "intros", "invalid_attribute_name_character", "is_client", "is_crossorigin", "is_empty", "is_function", "is_promise", "listen", "listen_dev", "loop", "loop_guard", "missing_component", "mount_component", "noop", "not_equal", "now", "null_to_empty", "object_without_properties", "onDestroy", "onMount", "once", "outro_and_destroy_block", "prevent_default", "prop_dev", "query_selector_all", "raf", "run", "run_all", "safe_not_equal", "schedule_update", "select_multiple_value", "select_option", "select_options", "select_value", "self", "setContext", "set_attributes", "set_current_component", "set_custom_element_data", "set_data", "set_data_dev", "set_input_type", "set_input_value", "set_now", "set_raf", "set_store_value", "set_style", "set_svg_attributes", "space", "spread", "stop_propagation", "subscribe", "svg_element", "text", "tick", "time_ranges_to_array", "to_number", "toggle_class", "transition_in", "transition_out", "update_keyed_each", "update_slot", "update_slot_spread", "validate_component", "validate_each_argument", "validate_each_keys", "validate_slots", "validate_store", "xlink_attr"]);
+	var internal_exports = new Set(["HtmlTag", "HtmlTagHydration", "SvelteComponent", "SvelteComponentDev", "SvelteComponentTyped", "SvelteElement", "action_destroyer", "add_attribute", "add_classes", "add_flush_callback", "add_location", "add_render_callback", "add_resize_listener", "add_transform", "afterUpdate", "append", "append_dev", "append_empty_stylesheet", "append_hydration", "append_hydration_dev", "append_styles", "assign", "attr", "attr_dev", "attribute_to_object", "beforeUpdate", "bind", "binding_callbacks", "blank_object", "bubble", "check_outros", "children", "claim_component", "claim_element", "claim_html_tag", "claim_space", "claim_svg_element", "claim_text", "clear_loops", "component_subscribe", "compute_rest_props", "compute_slots", "createEventDispatcher", "create_animation", "create_bidirectional_transition", "create_component", "create_in_transition", "create_out_transition", "create_slot", "create_ssr_component", "current_component", "custom_event", "dataset_dev", "debug", "destroy_block", "destroy_component", "destroy_each", "detach", "detach_after_dev", "detach_before_dev", "detach_between_dev", "detach_dev", "dirty_components", "dispatch_dev", "each", "element", "element_is", "empty", "end_hydrating", "escape", "escape_attribute_value", "escape_object", "escaped", "exclude_internal_props", "fix_and_destroy_block", "fix_and_outro_and_destroy_block", "fix_position", "flush", "getAllContexts", "getContext", "get_all_dirty_from_scope", "get_binding_group_value", "get_current_component", "get_custom_elements_slots", "get_root_for_style", "get_slot_changes", "get_spread_object", "get_spread_update", "get_store_value", "globals", "group_outros", "handle_promise", "hasContext", "has_prop", "identity", "init", "insert", "insert_dev", "insert_hydration", "insert_hydration_dev", "intros", "invalid_attribute_name_character", "is_client", "is_crossorigin", "is_empty", "is_function", "is_promise", "listen", "listen_dev", "loop", "loop_guard", "missing_component", "mount_component", "noop", "not_equal", "now", "null_to_empty", "object_without_properties", "onDestroy", "onMount", "once", "outro_and_destroy_block", "prevent_default", "prop_dev", "query_selector_all", "raf", "run", "run_all", "safe_not_equal", "schedule_update", "select_multiple_value", "select_option", "select_options", "select_value", "self", "setContext", "set_attributes", "set_current_component", "set_custom_element_data", "set_data", "set_data_dev", "set_input_type", "set_input_value", "set_now", "set_raf", "set_store_value", "set_style", "set_svg_attributes", "space", "spread", "src_url_equal", "start_hydrating", "stop_propagation", "subscribe", "svg_element", "text", "tick", "time_ranges_to_array", "to_number", "toggle_class", "transition_in", "transition_out", "trusted", "update_await_block_branch", "update_keyed_each", "update_slot", "update_slot_base", "validate_component", "validate_each_argument", "validate_each_keys", "validate_slots", "validate_store", "xlink_attr"]);
 
 	function is_used_as_reference(node, parent) {
-	    if (!isReference(node, parent)) {
+	    if (!is_reference(node, parent)) {
 	        return false;
 	    }
 	    if (!parent) {
@@ -28671,6 +29983,8 @@
 	        this.vars = [];
 	        this.var_lookup = new Map();
 	        this.imports = [];
+	        this.exports_from = [];
+	        this.instance_exports_from = [];
 	        this.hoistable_nodes = new Set();
 	        this.node_for_declaration = new Map();
 	        this.partly_hoisted = [];
@@ -28728,10 +30042,7 @@
 	            if (this.component_options.tag === undefined &&
 	                compile_options.tag === undefined) {
 	                const svelteOptions = ast.html.children.find(child => child.name === 'svelte:options') || { start: 0, end: 0 };
-	                this.warn(svelteOptions, {
-	                    code: 'custom-element-no-tag',
-	                    message: 'No custom element \'tag\' option was specified. To automatically register a custom element, specify a name with a hyphen in it, e.g. <svelte:options tag="my-thing"/>. To hide this warning, use <svelte:options tag={null}/>'
-	                });
+	                this.warn(svelteOptions, compiler_warnings.custom_element_no_tag);
 	            }
 	            this.tag = this.component_options.tag || compile_options.tag;
 	        }
@@ -28739,18 +30050,24 @@
 	            this.tag = this.name.name;
 	        }
 	        this.walk_module_js();
+	        this.push_ignores(this.ast.instance ? extract_ignores_above_position(this.ast.instance.start, this.ast.html.children) : []);
 	        this.walk_instance_js_pre_template();
+	        this.pop_ignores();
 	        this.fragment = new Fragment(this, ast.html);
 	        this.name = this.get_unique_name(name);
+	        this.push_ignores(this.ast.instance ? extract_ignores_above_position(this.ast.instance.start, this.ast.html.children) : []);
 	        this.walk_instance_js_post_template();
+	        this.pop_ignores();
 	        this.elements.forEach(element => this.stylesheet.apply(element));
 	        if (!compile_options.customElement)
 	            this.stylesheet.reify();
 	        this.stylesheet.warn_on_unused_selectors(this);
 	    }
-	    add_var(variable) {
+	    add_var(variable, add_to_lookup = true) {
 	        this.vars.push(variable);
-	        this.var_lookup.set(variable.name, variable);
+	        if (add_to_lookup) {
+	            this.var_lookup.set(variable.name, variable);
+	        }
 	    }
 	    add_reference(name) {
 	        const variable = this.var_lookup.get(name);
@@ -28780,6 +30097,9 @@
 	            }
 	        }
 	        else {
+	            if (this.compile_options.varsReport === 'full') {
+	                this.add_var({ name, referenced: true }, false);
+	            }
 	            this.used_names.add(name);
 	        }
 	    }
@@ -28803,7 +30123,7 @@
 	        if (result) {
 	            const { compile_options, name } = this;
 	            const { format = 'esm' } = compile_options;
-	            const banner = `${this.file ? `${this.file} ` : ''}generated by Svelte v${'3.37.0'}`;
+	            const banner = `${this.file ? `${this.file} ` : ''}generated by Svelte v${'3.42.4'}`;
 	            const program = { type: 'Program', body: result.js };
 	            walk(program, {
 	                enter: (node, parent, key) => {
@@ -28815,6 +30135,14 @@
 	                            }
 	                            else {
 	                                let name = node.name.slice(1);
+	                                if (compile_options.hydratable) {
+	                                    if (internal_exports.has(`${name}_hydration`)) {
+	                                        name += '_hydration';
+	                                    }
+	                                    else if (internal_exports.has(`${name}Hydration`)) {
+	                                        name += 'Hydration';
+	                                    }
+	                                }
 	                                if (compile_options.dev) {
 	                                    if (internal_exports.has(`${name}_dev`)) {
 	                                        name += '_dev';
@@ -28855,39 +30183,28 @@
 	                .map(variable => ({
 	                name: variable.name,
 	                as: variable.export_name
-	            })));
+	            })), this.exports_from);
 	            css = compile_options.customElement
 	                ? { code: null, map: null }
 	                : result.css;
+	            const sourcemap_source_filename = get_sourcemap_source_filename(compile_options);
 	            js = print(program, {
-	                sourceMapSource: compile_options.filename
+	                sourceMapSource: sourcemap_source_filename
 	            });
 	            js.map.sources = [
-	                compile_options.filename ? get_relative_path(compile_options.outputFilename || '', compile_options.filename) : null
+	                sourcemap_source_filename
 	            ];
 	            js.map.sourcesContent = [
 	                this.source
 	            ];
-	            js.map = apply_preprocessor_sourcemap(this.file, js.map, compile_options.sourcemap);
+	            js.map = apply_preprocessor_sourcemap(sourcemap_source_filename, js.map, compile_options.sourcemap);
 	        }
 	        return {
 	            js,
 	            css,
 	            ast: this.original_ast,
 	            warnings: this.warnings,
-	            vars: this.vars
-	                .filter(v => !v.global && !v.internal)
-	                .map(v => ({
-	                name: v.name,
-	                export_name: v.export_name || null,
-	                injected: v.injected || false,
-	                module: v.module || false,
-	                mutated: v.mutated || false,
-	                reassigned: v.reassigned || false,
-	                referenced: v.referenced || false,
-	                writable: v.writable || false,
-	                referenced_from_script: v.referenced_from_script || false
-	            })),
+	            vars: this.get_vars_report(),
 	            stats: this.stats.render()
 	        };
 	    }
@@ -28926,15 +30243,39 @@
 	            };
 	        };
 	    }
+	    get_vars_report() {
+	        const { compile_options, vars } = this;
+	        const vars_report = compile_options.varsReport === false
+	            ? []
+	            : compile_options.varsReport === 'full'
+	                ? vars
+	                : vars.filter(v => !v.global && !v.internal);
+	        return vars_report.map(v => ({
+	            name: v.name,
+	            export_name: v.export_name || null,
+	            injected: v.injected || false,
+	            module: v.module || false,
+	            mutated: v.mutated || false,
+	            reassigned: v.reassigned || false,
+	            referenced: v.referenced || false,
+	            writable: v.writable || false,
+	            referenced_from_script: v.referenced_from_script || false
+	        }));
+	    }
 	    error(pos, e) {
-	        error(e.message, {
-	            name: 'ValidationError',
-	            code: e.code,
-	            source: this.source,
-	            start: pos.start,
-	            end: pos.end,
-	            filename: this.compile_options.filename
-	        });
+	        if (this.compile_options.errorMode === 'warn') {
+	            this.warn(pos, e);
+	        }
+	        else {
+	            error(e.message, {
+	                name: 'ValidationError',
+	                code: e.code,
+	                source: this.source,
+	                start: pos.start,
+	                end: pos.end,
+	                filename: this.compile_options.filename
+	            });
+	        }
 	    }
 	    warn(pos, warning) {
 	        if (this.ignores && this.ignores.has(warning.code)) {
@@ -28957,19 +30298,28 @@
 	    extract_imports(node) {
 	        this.imports.push(node);
 	    }
-	    extract_exports(node) {
+	    extract_exports(node, module_script = false) {
+	        const ignores = extract_svelte_ignore_from_comments(node);
+	        if (ignores.length)
+	            this.push_ignores(ignores);
+	        const result = this._extract_exports(node, module_script);
+	        if (ignores.length)
+	            this.pop_ignores();
+	        return result;
+	    }
+	    _extract_exports(node, module_script) {
 	        if (node.type === 'ExportDefaultDeclaration') {
-	            this.error(node, {
-	                code: 'default-export',
-	                message: 'A component cannot have a default export'
-	            });
+	            return this.error(node, compiler_errors.default_export);
 	        }
 	        if (node.type === 'ExportNamedDeclaration') {
 	            if (node.source) {
-	                this.error(node, {
-	                    code: 'not-implemented',
-	                    message: 'A component currently cannot have an export ... from'
-	                });
+	                if (module_script) {
+	                    this.exports_from.push(node);
+	                }
+	                else {
+	                    this.instance_exports_from.push(node);
+	                }
+	                return null;
 	            }
 	            if (node.declaration) {
 	                if (node.declaration.type === 'VariableDeclaration') {
@@ -28978,10 +30328,7 @@
 	                            const variable = this.var_lookup.get(name);
 	                            variable.export_name = name;
 	                            if (variable.writable && !(variable.referenced || variable.referenced_from_script || variable.subscribable)) {
-	                                this.warn(declarator, {
-	                                    code: 'unused-export-let',
-	                                    message: `${this.name.name} has unused export property '${name}'. If it is for external reference only, please consider using \`export const ${name}\``
-	                                });
+	                                this.warn(declarator, compiler_warnings.unused_export_let(this.name.name, name));
 	                            }
 	                        });
 	                    });
@@ -28999,10 +30346,7 @@
 	                    if (variable) {
 	                        variable.export_name = specifier.exported.name;
 	                        if (variable.writable && !(variable.referenced || variable.referenced_from_script || variable.subscribable)) {
-	                            this.warn(specifier, {
-	                                code: 'unused-export-let',
-	                                message: `${this.name.name} has unused export property '${specifier.exported.name}'. If it is for external reference only, please consider using \`export const ${specifier.exported.name}\``
-	                            });
+	                            this.warn(specifier, compiler_warnings.unused_export_let(this.name.name, specifier.exported.name));
 	                        }
 	                    }
 	                });
@@ -29035,10 +30379,7 @@
 	        walk(script.content, {
 	            enter(node) {
 	                if (node.type === 'LabeledStatement' && node.label.name === '$') {
-	                    component.warn(node, {
-	                        code: 'module-script-reactive-declaration',
-	                        message: '$: has no effect in a module script'
-	                    });
+	                    component.warn(node, compiler_warnings.module_script_reactive_declaration);
 	                }
 	            }
 	        });
@@ -29046,10 +30387,7 @@
 	        this.module_scope = scope;
 	        scope.declarations.forEach((node, name) => {
 	            if (name[0] === '$') {
-	                this.error(node, {
-	                    code: 'illegal-declaration',
-	                    message: 'The $ prefix is reserved, and cannot be used for variable and import names'
-	                });
+	                return this.error(node, compiler_errors.illegal_declaration);
 	            }
 	            const writable = node.type === 'VariableDeclaration' && (node.kind === 'var' || node.kind === 'let');
 	            this.add_var({
@@ -29061,10 +30399,7 @@
 	        });
 	        globals.forEach((node, name) => {
 	            if (name[0] === '$') {
-	                this.error(node, {
-	                    code: 'illegal-subscription',
-	                    message: 'Cannot reference store value inside <script context="module">'
-	                });
+	                return this.error(node, compiler_errors.illegal_subscription);
 	            }
 	            else {
 	                this.add_var({
@@ -29083,7 +30418,7 @@
 	                body.splice(i, 1);
 	            }
 	            if (/^Export/.test(node.type)) {
-	                const replacement = this.extract_exports(node);
+	                const replacement = this.extract_exports(node, true);
 	                if (replacement) {
 	                    body[i] = replacement;
 	                }
@@ -29119,10 +30454,7 @@
 	        this.instance_scope_map = map;
 	        instance_scope.declarations.forEach((node, name) => {
 	            if (name[0] === '$') {
-	                this.error(node, {
-	                    code: 'illegal-declaration',
-	                    message: 'The $ prefix is reserved, and cannot be used for variable and import names'
-	                });
+	                return this.error(node, compiler_errors.illegal_declaration);
 	            }
 	            const writable = node.type === 'VariableDeclaration' && (node.kind === 'var' || node.kind === 'let');
 	            const imported = node.type.startsWith('Import');
@@ -29134,9 +30466,17 @@
 	            });
 	            this.node_for_declaration.set(name, node);
 	        });
-	        globals.forEach((node, name) => {
+	        // NOTE: add store variable first, then only $store value
+	        // as `$store` will mark `store` variable as referenced and subscribable
+	        const global_keys = Array.from(globals.keys());
+	        const sorted_globals = [
+	            ...global_keys.filter(key => key[0] !== '$'),
+	            ...global_keys.filter(key => key[0] === '$')
+	        ];
+	        sorted_globals.forEach(name => {
 	            if (this.var_lookup.has(name))
 	                return;
+	            const node = globals.get(name);
 	            if (this.injected_reactive_declaration_vars.has(name)) {
 	                this.add_var({
 	                    name,
@@ -29154,10 +30494,7 @@
 	            }
 	            else if (name[0] === '$') {
 	                if (name === '$' || name[1] === '$') {
-	                    this.error(node, {
-	                        code: 'illegal-global',
-	                        message: `${name} is an illegal variable name`
-	                    });
+	                    return this.error(node, compiler_errors.illegal_global(name));
 	                }
 	                this.add_var({
 	                    name,
@@ -29310,12 +30647,9 @@
 	        if (node.type === 'LabeledStatement' &&
 	            node.label.name === '$' &&
 	            parent.type !== 'Program') {
-	            this.warn(node, {
-	                code: 'non-top-level-reactive-declaration',
-	                message: '$: has no effect outside of the top-level'
-	            });
+	            this.warn(node, compiler_warnings.non_top_level_reactive_declaration);
 	        }
-	        if (isReference(node, parent)) {
+	        if (is_reference(node, parent)) {
 	            const object = get_object(node);
 	            const { name } = object;
 	            if (name[0] === '$') {
@@ -29324,10 +30658,7 @@
 	                }
 	                if (name[1] !== '$' && scope.has(name.slice(1)) && scope.find_owner(name.slice(1)) !== this.instance_scope) {
 	                    if (!((/Function/.test(parent.type) && prop === 'params') || (parent.type === 'VariableDeclarator' && prop === 'id'))) {
-	                        this.error(node, {
-	                            code: 'contextual-store',
-	                            message: 'Stores must be declared at the top level of the component (this may change in a future version of Svelte)'
-	                        });
+	                        return this.error(node, compiler_errors.contextual_store);
 	                    }
 	                }
 	            }
@@ -29366,73 +30697,128 @@
 	        const { instance_scope, instance_scope_map: map } = this;
 	        let scope = instance_scope;
 	        walk(this.ast.instance.content, {
-	            enter(node, parent, key, index) {
+	            enter(node) {
 	                if (/Function/.test(node.type)) {
 	                    return this.skip();
 	                }
 	                if (map.has(node)) {
 	                    scope = map.get(node);
 	                }
+	                if (node.type === 'ExportNamedDeclaration' && node.declaration) {
+	                    return this.replace(node.declaration);
+	                }
 	                if (node.type === 'VariableDeclaration') {
+	                    // NOTE: `var` does not follow block scoping
 	                    if (node.kind === 'var' || scope === instance_scope) {
-	                        node.declarations.forEach(declarator => {
-	                            if (declarator.id.type !== 'Identifier') {
-	                                const inserts = [];
-	                                extract_names(declarator.id).forEach(name => {
-	                                    const variable = component.var_lookup.get(name);
-	                                    if (variable.export_name) {
-	                                        // TODO is this still true post-#3539?
-	                                        component.error(declarator, {
-	                                            code: 'destructured-prop',
-	                                            message: 'Cannot declare props in destructured declaration'
-	                                        });
+	                        const inserts = [];
+	                        const props = [];
+	                        function add_new_props(exported, local, default_value) {
+	                            props.push({
+	                                type: 'Property',
+	                                method: false,
+	                                shorthand: false,
+	                                computed: false,
+	                                kind: 'init',
+	                                key: exported,
+	                                value: default_value
+	                                    ? {
+	                                        type: 'AssignmentPattern',
+	                                        left: local,
+	                                        right: default_value
 	                                    }
+	                                    : local
+	                            });
+	                        }
+	                        // transform
+	                        // ```
+	                        // export let { x, y = 123 } = OBJ, z = 456
+	                        // ```
+	                        // into
+	                        // ```
+	                        // let { x: x$, y: y$ = 123 } = OBJ;
+	                        // let { x = x$, y = y$, z = 456 } = $$props;
+	                        // ```
+	                        for (let index = 0; index < node.declarations.length; index++) {
+	                            const declarator = node.declarations[index];
+	                            if (declarator.id.type !== 'Identifier') {
+	                                function get_new_name(local) {
+	                                    const variable = component.var_lookup.get(local.name);
 	                                    if (variable.subscribable) {
 	                                        inserts.push(get_insert(variable));
 	                                    }
-	                                });
-	                                if (inserts.length) {
-	                                    parent[key].splice(index + 1, 0, ...inserts);
+	                                    if (variable.export_name && variable.writable) {
+	                                        const alias_name = component.get_unique_name(local.name);
+	                                        add_new_props({ type: 'Identifier', name: variable.export_name }, local, alias_name);
+	                                        return alias_name;
+	                                    }
+	                                    return local;
 	                                }
-	                                return;
-	                            }
-	                            const { name } = declarator.id;
-	                            const variable = component.var_lookup.get(name);
-	                            if (variable.export_name && variable.writable) {
-	                                declarator.id = {
-	                                    type: 'ObjectPattern',
-	                                    properties: [{
-	                                            type: 'Property',
-	                                            method: false,
-	                                            shorthand: false,
-	                                            computed: false,
-	                                            kind: 'init',
-	                                            key: { type: 'Identifier', name: variable.export_name },
-	                                            value: declarator.init
-	                                                ? {
-	                                                    type: 'AssignmentPattern',
-	                                                    left: declarator.id,
-	                                                    right: declarator.init
+	                                function rename_identifiers(param) {
+	                                    switch (param.type) {
+	                                        case 'ObjectPattern': {
+	                                            const handle_prop = (prop) => {
+	                                                if (prop.type === 'RestElement') {
+	                                                    rename_identifiers(prop);
 	                                                }
-	                                                : declarator.id
-	                                        }]
-	                                };
-	                                declarator.init = x `$$props`;
+	                                                else if (prop.value.type === 'Identifier') {
+	                                                    prop.value = get_new_name(prop.value);
+	                                                }
+	                                                else {
+	                                                    rename_identifiers(prop.value);
+	                                                }
+	                                            };
+	                                            param.properties.forEach(handle_prop);
+	                                            break;
+	                                        }
+	                                        case 'ArrayPattern': {
+	                                            const handle_element = (element, index, array) => {
+	                                                if (element) {
+	                                                    if (element.type === 'Identifier') {
+	                                                        array[index] = get_new_name(element);
+	                                                    }
+	                                                    else {
+	                                                        rename_identifiers(element);
+	                                                    }
+	                                                }
+	                                            };
+	                                            param.elements.forEach(handle_element);
+	                                            break;
+	                                        }
+	                                        case 'RestElement':
+	                                            param.argument = get_new_name(param.argument);
+	                                            break;
+	                                        case 'AssignmentPattern':
+	                                            param.left = get_new_name(param.left);
+	                                            break;
+	                                    }
+	                                }
+	                                rename_identifiers(declarator.id);
 	                            }
-	                            if (variable.subscribable && declarator.init) {
-	                                const insert = get_insert(variable);
-	                                parent[key].splice(index + 1, 0, ...insert);
+	                            else {
+	                                const { name } = declarator.id;
+	                                const variable = component.var_lookup.get(name);
+	                                const is_props = variable.export_name && variable.writable;
+	                                if (is_props) {
+	                                    add_new_props({ type: 'Identifier', name: variable.export_name }, declarator.id, declarator.init);
+	                                    node.declarations.splice(index--, 1);
+	                                }
+	                                if (variable.subscribable && (is_props || declarator.init)) {
+	                                    inserts.push(get_insert(variable));
+	                                }
 	                            }
-	                        });
+	                        }
+	                        this.replace(b `
+							${node.declarations.length ? node : null}
+							${props.length > 0 && b `let { ${props} } = $$props;`}
+							${inserts}
+						`);
+	                        return this.skip();
 	                    }
 	                }
 	            },
-	            leave(node, parent, _key, index) {
+	            leave(node) {
 	                if (map.has(node)) {
 	                    scope = scope.parent;
-	                }
-	                if (node.type === 'ExportNamedDeclaration' && node.declaration) {
-	                    parent.body[index] = node.declaration;
 	                }
 	            }
 	        });
@@ -29508,7 +30894,7 @@
 	                    if (map.has(node)) {
 	                        scope = map.get(node);
 	                    }
-	                    if (isReference(node, parent)) {
+	                    if (is_reference(node, parent)) {
 	                        const { name } = flatten_reference(node);
 	                        const owner = scope.find_owner(name);
 	                        if (injected_reactive_declaration_vars.has(name)) {
@@ -29578,11 +30964,15 @@
 	        const component = this;
 	        const unsorted_reactive_declarations = [];
 	        this.ast.instance.content.body.forEach(node => {
+	            const ignores = extract_svelte_ignore_from_comments(node);
+	            if (ignores.length)
+	                this.push_ignores(ignores);
 	            if (node.type === 'LabeledStatement' && node.label.name === '$') {
 	                this.reactive_declaration_nodes.add(node);
 	                const assignees = new Set();
 	                const assignee_nodes = new Set();
 	                const dependencies = new Set();
+	                const module_dependencies = new Set();
 	                let scope = this.instance_scope;
 	                const map = this.instance_scope_map;
 	                walk(node.body, {
@@ -29604,7 +30994,7 @@
 	                            const identifier = get_object(node.argument);
 	                            assignees.add(identifier.name);
 	                        }
-	                        else if (isReference(node, parent)) {
+	                        else if (is_reference(node, parent)) {
 	                            const identifier = get_object(node);
 	                            if (!assignee_nodes.has(identifier)) {
 	                                const { name } = identifier;
@@ -29613,12 +31003,9 @@
 	                                let should_add_as_dependency = true;
 	                                if (variable) {
 	                                    variable.is_reactive_dependency = true;
-	                                    if (variable.module) {
+	                                    if (variable.module && variable.writable) {
 	                                        should_add_as_dependency = false;
-	                                        component.warn(node, {
-	                                            code: 'module-script-reactive-declaration',
-	                                            message: `"${name}" is declared in a module script and will not be reactive`
-	                                        });
+	                                        module_dependencies.add(name);
 	                                    }
 	                                }
 	                                const is_writable_or_mutated = variable && (variable.writable || variable.mutated);
@@ -29637,6 +31024,9 @@
 	                        }
 	                    }
 	                });
+	                if (module_dependencies.size > 0 && dependencies.size === 0) {
+	                    component.warn(node.body, compiler_warnings.module_script_variable_reactive_declaration(Array.from(module_dependencies)));
+	                }
 	                const { expression } = node.body;
 	                const declaration = expression && expression.left;
 	                unsorted_reactive_declarations.push({
@@ -29646,6 +31036,8 @@
 	                    declaration
 	                });
 	            }
+	            if (ignores.length)
+	                this.pop_ignores();
 	        });
 	        const lookup = new Map();
 	        unsorted_reactive_declarations.forEach(declaration => {
@@ -29671,10 +31063,7 @@
 	        if (cycle && cycle.length) {
 	            const declarationList = lookup.get(cycle[0]);
 	            const declaration = declarationList[0];
-	            this.error(declaration.node, {
-	                code: 'cyclical-reactive-declaration',
-	                message: `Cyclical dependency detected: ${cycle.join(' → ')}`
-	            });
+	            return this.error(declaration.node, compiler_errors.cyclical_reactive_declaration(cycle));
 	        }
 	        const add_declaration = declaration => {
 	            if (this.reactive_declarations.includes(declaration))
@@ -29694,10 +31083,7 @@
 	    warn_if_undefined(name, node, template_scope) {
 	        if (name[0] === '$') {
 	            if (name === '$' || name[1] === '$' && !is_reserved_keyword(name)) {
-	                this.error(node, {
-	                    code: 'illegal-global',
-	                    message: `${name} is an illegal variable name`
-	                });
+	                return this.error(node, compiler_errors.illegal_global(name));
 	            }
 	            this.has_reactive_assignments = true; // TODO does this belong here?
 	            if (is_reserved_keyword(name))
@@ -29710,14 +31096,7 @@
 	            return;
 	        if (globals.has(name) && node.type !== 'InlineComponent')
 	            return;
-	        let message = `'${name}' is not defined`;
-	        if (!this.ast.instance) {
-	            message += `. Consider adding a <script> block with 'export let ${name}' to declare a prop`;
-	        }
-	        this.warn(node, {
-	            code: 'missing-declaration',
-	            message
-	        });
+	        this.warn(node, compiler_warnings.missing_declaration(name, !!this.ast.instance));
 	    }
 	    push_ignores(ignores) {
 	        this.ignores = new Set(this.ignores || []);
@@ -29739,18 +31118,18 @@
 	        namespace: component.compile_options.namespace
 	    };
 	    const node = nodes.find(node => node.name === 'svelte:options');
-	    function get_value(attribute, code, message) {
+	    function get_value(attribute, { code, message }) {
 	        const { value } = attribute;
 	        const chunk = value[0];
 	        if (!chunk)
 	            return true;
 	        if (value.length > 1) {
-	            component.error(attribute, { code, message });
+	            return component.error(attribute, { code, message });
 	        }
 	        if (chunk.type === 'Text')
 	            return chunk.data;
 	        if (chunk.expression.type !== 'Literal') {
-	            component.error(attribute, { code, message });
+	            return component.error(attribute, { code, message });
 	        }
 	        return chunk.expression.value;
 	    }
@@ -29760,48 +31139,27 @@
 	                const { name } = attribute;
 	                switch (name) {
 	                    case 'tag': {
-	                        const code = 'invalid-tag-attribute';
-	                        const message = "'tag' must be a string literal";
-	                        const tag = get_value(attribute, code, message);
+	                        const tag = get_value(attribute, compiler_errors.invalid_tag_attribute);
 	                        if (typeof tag !== 'string' && tag !== null) {
-	                            component.error(attribute, { code, message });
+	                            return component.error(attribute, compiler_errors.invalid_tag_attribute);
 	                        }
 	                        if (tag && !/^[a-zA-Z][a-zA-Z0-9]*-[a-zA-Z0-9-]+$/.test(tag)) {
-	                            component.error(attribute, {
-	                                code: 'invalid-tag-property',
-	                                message: "tag name must be two or more words joined by the '-' character"
-	                            });
+	                            return component.error(attribute, compiler_errors.invalid_tag_property);
 	                        }
 	                        if (tag && !component.compile_options.customElement) {
-	                            component.warn(attribute, {
-	                                code: 'missing-custom-element-compile-options',
-	                                message: "The 'tag' option is used when generating a custom element. Did you forget the 'customElement: true' compile option?"
-	                            });
+	                            component.warn(attribute, compiler_warnings.missing_custom_element_compile_options);
 	                        }
 	                        component_options.tag = tag;
 	                        break;
 	                    }
 	                    case 'namespace': {
-	                        const code = 'invalid-namespace-attribute';
-	                        const message = "The 'namespace' attribute must be a string literal representing a valid namespace";
-	                        const ns = get_value(attribute, code, message);
+	                        const ns = get_value(attribute, compiler_errors.invalid_namespace_attribute);
 	                        if (typeof ns !== 'string') {
-	                            component.error(attribute, { code, message });
+	                            return component.error(attribute, compiler_errors.invalid_namespace_attribute);
 	                        }
 	                        if (valid_namespaces.indexOf(ns) === -1) {
 	                            const match = fuzzymatch(ns, valid_namespaces);
-	                            if (match) {
-	                                component.error(attribute, {
-	                                    code: 'invalid-namespace-property',
-	                                    message: `Invalid namespace '${ns}' (did you mean '${match}'?)`
-	                                });
-	                            }
-	                            else {
-	                                component.error(attribute, {
-	                                    code: 'invalid-namespace-property',
-	                                    message: `Invalid namespace '${ns}'`
-	                                });
-	                            }
+	                            return component.error(attribute, compiler_errors.invalid_namespace_property(ns, match));
 	                        }
 	                        component_options.namespace = ns;
 	                        break;
@@ -29809,27 +31167,19 @@
 	                    case 'accessors':
 	                    case 'immutable':
 	                    case 'preserveWhitespace': {
-	                        const code = `invalid-${name}-value`;
-	                        const message = `${name} attribute must be true or false`;
-	                        const value = get_value(attribute, code, message);
+	                        const value = get_value(attribute, compiler_errors.invalid_attribute_value(name));
 	                        if (typeof value !== 'boolean') {
-	                            component.error(attribute, { code, message });
+	                            return component.error(attribute, compiler_errors.invalid_attribute_value(name));
 	                        }
 	                        component_options[name] = value;
 	                        break;
 	                    }
 	                    default:
-	                        component.error(attribute, {
-	                            code: 'invalid-options-attribute',
-	                            message: '<svelte:options> unknown attribute'
-	                        });
+	                        return component.error(attribute, compiler_errors.invalid_options_attribute_unknown);
 	                }
 	            }
 	            else {
-	                component.error(attribute, {
-	                    code: 'invalid-options-attribute',
-	                    message: "<svelte:options> can only have static 'tag', 'namespace', 'accessors', 'immutable' and 'preserveWhitespace' attributes"
-	                });
+	                return component.error(attribute, compiler_errors.invalid_options_attribute);
 	            }
 	        });
 	    }
@@ -29849,6 +31199,16 @@
 	            from_parts[i] = '..';
 	    }
 	    return from_parts.concat(to_parts).join('/');
+	}
+	function get_basename(filename) {
+	    return filename.split(/[/\\]/).pop();
+	}
+	function get_sourcemap_source_filename(compile_options) {
+	    if (!compile_options.filename)
+	        return null;
+	    return compile_options.outputFilename
+	        ? get_relative_path(compile_options.outputFilename, compile_options.filename)
+	        : get_basename(compile_options.filename);
 	}
 
 	function get_name_from_filename(filename) {
@@ -29881,6 +31241,8 @@
 	    'filename',
 	    'sourcemap',
 	    'generate',
+	    'errorMode',
+	    'varsReport',
 	    'outputFilename',
 	    'cssOutputFilename',
 	    'sveltePath',
@@ -30166,7 +31528,7 @@
 	 * Calculate the updates required to process all instances of the specified tag.
 	 */
 	async function process_tag(tag_name, preprocessor, source) {
-	    const { filename } = source;
+	    const { filename, source: markup } = source;
 	    const tag_regex = tag_name === 'style'
 	        ? /<!--[^]*?-->|<style(\s[^]*?)?(?:>([^]*?)<\/style>|\/>)/gi
 	        : /<!--[^]*?-->|<script(\s[^]*?)?(?:>([^]*?)<\/script>|\/>)/gi;
@@ -30178,6 +31540,7 @@
 	        const processed = await preprocessor({
 	            content: content || '',
 	            attributes: parse_tag_attributes(attributes || ''),
+	            markup,
 	            filename
 	        });
 	        if (!processed)
@@ -30234,7 +31597,7 @@
 	    return result.to_processed();
 	}
 
-	const VERSION = '3.37.0';
+	const VERSION = '3.42.4';
 
 	exports.VERSION = VERSION;
 	exports.compile = compile;

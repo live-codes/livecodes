@@ -20,7 +20,7 @@ export const svelte: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url: 'vendor/svelte/svelte-compiler.3.37.0.min.js',
+    url: 'vendor/svelte/svelte-compiler.3.42.4.min.js',
     factory: () => async (code, { config }) => {
       const customSettings = getLanguageCustomSettings('svelte', config);
       const customElement = customSettings.customElement;

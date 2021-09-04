@@ -255,24 +255,6 @@ fs.copyFileSync(
   path.resolve(targetDir + '/snackbar/snackbar.min.css'),
 );
 
-// brython
-mkdirp(targetDir + '/brython');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/brython/brython.min.js'),
-  path.resolve(targetDir + '/brython/brython.min.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/brython/brython_stdlib.js'),
-  path.resolve(targetDir + '/brython/brython_stdlib.js'),
-);
-
-// uniter
-mkdirp(targetDir + '/uniter');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/uniter/uniter.js'),
-  path.resolve(targetDir + '/uniter/uniter.js'),
-);
-
 // babel
 mkdirp(targetDir + '/babel');
 fs.copyFileSync(
@@ -289,38 +271,13 @@ esbuild.build({
   plugins: nodePolyfills,
 });
 
-// vue3-sfc-loader
-mkdirp(targetDir + '/vue3-sfc-loader');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/vue3-sfc-loader/vue3-sfc-loader.js'),
-  path.resolve(targetDir + '/vue3-sfc-loader/vue3-sfc-loader.js'),
-);
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/vue3-sfc-loader/vue2-sfc-loader.js'),
-  path.resolve(targetDir + '/vue3-sfc-loader/vue2-sfc-loader.js'),
-);
-
-// biwascheme
-mkdirp(targetDir + '/biwascheme');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/biwascheme/biwascheme-min.js'),
-  path.resolve(targetDir + '/biwascheme/biwascheme-min.js'),
-);
-
 // svelte
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/src/svelte/compiler.js'],
-  outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.37.0.min.js',
+  outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.42.4.min.js',
   globalName: 'svelte',
 });
-
-// stencil
-mkdirp(targetDir + '/stencil');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/stencil/stencil.min.js'),
-  path.resolve(targetDir + '/stencil/stencil.2.5.2.min.js'),
-);
 
 // clientside-haml-js
 mkdirp(targetDir + '/clientside-haml-js');
@@ -337,13 +294,6 @@ esbuild.build({
   globalName: 'MDX',
   plugins: nodePolyfills,
 });
-
-// fengari-web
-mkdirp(targetDir + '/fengari-web');
-fs.copyFileSync(
-  path.resolve(vendor_modules + '/fengari-web/fengari-web.js'),
-  path.resolve(targetDir + '/fengari-web/fengari-web.js'),
-);
 
 // livescript
 mkdirp(targetDir + '/livescript');

@@ -1,6 +1,10 @@
 import { LanguageSpecs } from '../models';
+import { loaderCdnBaseUrl } from './lang-vue';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
+
+const loaderCdnUrl = loaderCdnBaseUrl + 'vue2-sfc-loader.js';
+const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@2';
 
 export const vue2: LanguageSpecs = {
   name: 'vue2',
@@ -22,7 +26,6 @@ export const vue2: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url: 'vendor/vue3-sfc-loader/vue2-sfc-loader.js',
     factory: () => async (code) =>
       `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
@@ -49,7 +52,7 @@ loadModule('/component.vue', options)
 .then(component => new Vue(component).$mount(app));
 Vue.config.devtools = true;
 `,
-    scripts: ['https://unpkg.com/vue@2', 'vendor/vue3-sfc-loader/vue2-sfc-loader.js'],
+    scripts: [vueCdnUrl, loaderCdnUrl],
   },
   extensions: ['vue2'],
   editor: 'script',

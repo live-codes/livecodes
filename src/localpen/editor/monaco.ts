@@ -12,7 +12,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
   let monaco: typeof Monaco;
   try {
-    monaco = (await import(`${monacoPath}/monaco-editor.js`)).monaco;
+    (window as any).monaco =
+      (window as any).monaco || (await import(`${monacoPath}/monaco-editor.js`)).monaco;
+    monaco = (window as any).monaco;
   } catch {
     throw new Error('Failed to load monaco editor');
   }

@@ -39,7 +39,7 @@ const watToArrayString = async (code: string, options = features): Promise<strin
     arrayString = binaryOutput.buffer?.toString() || '';
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.warn(e.toString());
+    console.warn((e as Error).toString());
   } finally {
     if (module) module.destroy();
   }

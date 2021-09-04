@@ -1,6 +1,7 @@
 import { importsPattern } from '../compiler';
 import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
 import { getAbsoluteUrl, loadScript } from '../utils';
+import { requireUrl } from './lang-assemblyscript';
 
 declare const importScripts: (...args: string[]) => void;
 
@@ -20,40 +21,41 @@ const replaceImports = (code: string, stdLibUrl: string) =>
     return statement;
   });
 
-export const runOutsideWorker: CompilerFunction = async (code: string, { language, baseUrl }) => {
-  if (!code) return '';
+export const runOutsideWorker: CompilerFunction = async (code: string, { language, baseUrl }) =>
+  new Promise(async (resolve, reject) => {
+    if (!code) return resolve('');
 
-  if (!(window as any).rescript_compiler) {
-    await Promise.all([
-      loadScript(getAbsoluteUrl(compilerUrl, baseUrl), 'rescript_compiler'),
-      loadScript(getAbsoluteUrl(rescriptReactUrl, baseUrl)),
-    ]);
-  }
-  const compiler = (window as any).rescript_compiler.make();
-  compiler.setModuleSystem('es6');
-  compiler.setFilename('index.bs.js');
-
-  const output = compiler[language].compile(code);
-  try {
-    if (output.type === 'success' && output.js_code) {
-      return replaceImports(output.js_code, getAbsoluteUrl(stdLibBaseUrl, baseUrl));
+    if (!(window as any).require) {
+      await loadScript(requireUrl, 'require');
     }
-    if (output.errors) {
-      output.errors.forEach((err: any) => {
+
+    (window as any).require([compilerUrl, rescriptReactUrl], () => {
+      const compiler = (window as any).rescript_compiler.make();
+      compiler.setModuleSystem('es6');
+      compiler.setFilename('index.bs.js');
+
+      const output = compiler[language].compile(code);
+      try {
+        if (output.type === 'success' && output.js_code) {
+          return resolve(replaceImports(output.js_code, getAbsoluteUrl(stdLibBaseUrl, baseUrl)));
+        }
+        if (output.errors) {
+          output.errors.forEach((err: any) => {
+            // eslint-disable-next-line no-console
+            console.error(err.fullMsg);
+          });
+        } else if (output.msg) {
+          // eslint-disable-next-line no-console
+          console.warn(output.msg, output.type);
+        }
+        return reject('');
+      } catch (err) {
         // eslint-disable-next-line no-console
-        console.error(err.fullMsg);
-      });
-    } else if (output.msg) {
-      // eslint-disable-next-line no-console
-      console.warn(output.msg, output.type);
-    }
-    return '';
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    return '';
-  }
-};
+        console.error(err);
+        return reject('');
+      }
+    });
+  });
 
 export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language) => {
   if (!(self as any).rescript_compiler) {
