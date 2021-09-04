@@ -45,14 +45,7 @@ import { getStarterTemplates } from './templates';
 import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import {
-  compress,
-  copyToClipboard,
-  debounce,
-  objectMap,
-  stringify,
-  stringToValidJson,
-} from './utils';
+import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
 import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
