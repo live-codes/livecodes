@@ -4,7 +4,7 @@ import { EditorId, Language, Pen } from '../models';
 import { getAbsoluteUrl, isRelativeUrl } from '../utils';
 
 type Code = {
-  [key in EditorId]: { language: Language; content: string };
+  [key in EditorId]: { language: Language; compiled: string };
 };
 
 export const createResultPage = (
@@ -43,7 +43,7 @@ export const createResultPage = (
 
   // editor styles
   if (singleFile) {
-    const style = code.style.content;
+    const style = code.style.compiled;
     const styleElement = dom.createElement('style');
     styleElement.innerHTML = style;
     dom.head.appendChild(styleElement);
@@ -69,8 +69,8 @@ export const createResultPage = (
 
   // import maps
   const importMaps = {
-    ...(hasImports(code.script.content) ? createImportMap(code.script.content, config) : {}),
-    ...(code.markup.language === 'mdx' ? createImportMap(code.markup.content, config) : {}),
+    ...(hasImports(code.script.compiled) ? createImportMap(code.script.compiled, config) : {}),
+    ...(code.markup.language === 'mdx' ? createImportMap(code.markup.compiled, config) : {}),
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
@@ -85,24 +85,24 @@ export const createResultPage = (
   }
 
   // editor markup (MDX is added to the script not page markup)
-  const markup = code.markup.language !== 'mdx' ? code.markup.content : '';
-  const mdx = code.markup.language === 'mdx' ? code.markup.content : '';
+  const markup = code.markup.language !== 'mdx' ? code.markup.compiled : '';
+  const mdx = code.markup.language === 'mdx' ? code.markup.compiled : '';
   dom.body.innerHTML += markup;
 
   // runtime styles & scripts
   const runtimeDependencies = (['markup', 'style', 'script'] as EditorId[]).map(
     (editorId: EditorId) => ({
       language: code[editorId].language,
-      content: code[editorId].content,
+      compiled: code[editorId].compiled,
     }),
   );
-  runtimeDependencies.forEach(({ language, content }) => {
+  runtimeDependencies.forEach(({ language, compiled }) => {
     const compiler = getLanguageCompiler(language);
     if (!compiler) return;
 
     const compilerStyles =
       typeof compiler.styles === 'function'
-        ? compiler.styles({ compiled: content, baseUrl: absoluteBaseUrl, config })
+        ? compiler.styles({ compiled, baseUrl: absoluteBaseUrl, config })
         : compiler.styles || [];
     compilerStyles.forEach((depStyleUrl) => {
       const stylesheet = dom.createElement('link');
@@ -112,7 +112,7 @@ export const createResultPage = (
     });
     const compilerScripts =
       typeof compiler.scripts === 'function'
-        ? compiler.scripts({ compiled: content, baseUrl: absoluteBaseUrl, config })
+        ? compiler.scripts({ compiled, baseUrl: absoluteBaseUrl, config })
         : compiler.scripts || [];
     compilerScripts.forEach((depScriptUrl) => {
       const depScript = dom.createElement('script');
@@ -137,7 +137,7 @@ export const createResultPage = (
   });
 
   // editor script
-  const script = code.script.content;
+  const script = code.script.compiled;
   const scriptElement = dom.createElement('script');
   if (singleFile) {
     scriptElement.innerHTML = mdx ? script + '\n' + mdx : script;

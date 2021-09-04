@@ -69,11 +69,17 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let changingContent = false;
   let toolsPane: any;
   let resultLanguages: Language[] = [];
-  let lastCompiled: { [key in EditorId]: string } | undefined;
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
   const screens: Screen[] = [];
+  let cache: {
+    [key in EditorId]: { language: Language; content: string; compiled: string; modified: string };
+  } = {
+    markup: { language: 'html', content: '', compiled: '', modified: '' },
+    style: { language: 'css', content: '', compiled: '', modified: '' },
+    script: { language: 'javascript', content: '', compiled: '', modified: '' },
+  };
 
   const split = UI.createSplitPanes();
 
@@ -424,7 +430,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     });
   };
 
-  const updateCompiledCode = (lastCompilation = lastCompiled) => {
+  const updateCompiledCode = () => {
     const getCompiledLanguage = (editorId: EditorId) => {
       const defaultLang: { [key in EditorId]: Language } = {
         markup: 'html',
@@ -442,10 +448,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       style: getCompiledLanguage('style'),
       script: getCompiledLanguage('script'),
     };
-    if (toolsPane && toolsPane.compiled && lastCompilation) {
-      Object.keys(lastCompilation).forEach((editorId) => {
+    if (toolsPane && toolsPane.compiled) {
+      Object.keys(cache).forEach((editorId) => {
         if (editorId !== getConfig().activeEditor) return;
-        let compiledCode = lastCompilation?.[editorId] || '';
+        let compiledCode = cache[editorId].modified || cache[editorId].compiled || '';
         if (editorId === 'script' && editors.script.getLanguage() === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
         }
@@ -480,29 +486,28 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       compiler.compile(scriptContent, scriptLanguage, config),
     ]);
 
-    // cache compiled code
-    lastCompiled = {
-      markup: compiledMarkup,
-      style: compiledStyle,
-      script: compiledScript,
-    };
-
-    const compiledCode = {
+    cache = {
       markup: {
         language: markupLanguage,
-        content: compiledMarkup,
+        content: markupContent,
+        compiled: compiledMarkup,
+        modified: compiledMarkup === cache.markup.compiled ? cache.markup.modified : '',
       },
       style: {
         language: styleLanguage,
-        content: compiledStyle,
+        content: styleContent,
+        compiled: compiledStyle,
+        modified: compiledStyle === cache.style.compiled ? cache.style.modified : '',
       },
       script: {
         language: scriptLanguage,
-        content: compiledScript,
+        content: scriptContent,
+        compiled: compiledScript,
+        modified: compiledScript === cache.script.compiled ? cache.script.modified : '',
       },
     };
 
-    return createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
+    return createResultPage(cache, config, forExport, template, baseUrl, singleFile);
   };
 
   const setLoading = (status: boolean) => {
@@ -648,7 +653,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     setWindowTitle();
 
     // reset url params
-    updateUrl(url || location.origin + location.pathname);
+    updateUrl(url || location.origin + location.pathname, true);
 
     // load config
     await bootstrap(true);
@@ -1563,8 +1568,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             config: getContentConfig(getConfig()),
             content: {
               resultPage: resultHtml,
-              style: lastCompiled?.style || '',
-              script: lastCompiled?.script || '',
+              style: cache.style.compiled || '',
+              script: cache.script.compiled || '',
             },
             message,
             commitSource,
@@ -1642,8 +1647,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
             existingRepoNameInput.focus();
           });
 
+          const inputSelector = '#' + existingRepoNameInput.id;
+          if (!document.querySelector(inputSelector)) return;
           const autoCompleteJS = new autoComplete({
-            selector: '#' + existingRepoNameInput.id,
+            selector: inputSelector,
             placeHolder: 'Search your public repos...',
             data: {
               src: publicRepos,
@@ -1788,14 +1795,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           event.data.payload &&
           getEditorLanguages().includes(event.data.payload.language)
         ) {
-          if (lastCompiled) {
-            const editorId = getLanguageEditorId(event.data.payload.language);
-            if (!editorId) return;
-            updateCompiledCode({
-              ...lastCompiled,
-              [editorId]: event.data.payload.content || '',
-            });
-          }
+          const editorId = getLanguageEditorId(event.data.payload.language);
+          if (!editorId) return;
+          cache[editorId].modified = event.data.payload.content || '';
+          updateCompiledCode();
         }
       });
     };
