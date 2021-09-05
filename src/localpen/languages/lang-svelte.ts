@@ -17,7 +17,7 @@ export const svelte: LanguageSpecs = {
   `,
   parser: {
     name: 'html',
-    pluginUrls: [parserPlugins.html],
+    pluginUrls: [parserPlugins.html, parserPlugins.babel],
   },
   compiler: {
     url: 'vendor/svelte/svelte-compiler.3.42.4.min.js',

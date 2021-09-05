@@ -794,6 +794,27 @@ title = 'live script'
     expect(resultText).toContain(`Hello, LiveScript`);
   });
 
+  test('Riot.js', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText('<hello title="Riot.js"></hello>');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=Riot.js');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText('<hello><h1>Hello, {props.title}</h1></hello');
+
+    await app.click(runButtonSelector);
+    await waitForResultUpdate();
+    const resultText = await getResult().innerText('h1');
+
+    expect(resultText).toContain(`Hello, Riot.js`);
+  });
+
   test('AssemblyScript', async ({ page, getTestUrl }) => {
     test.fixme();
 

@@ -41,6 +41,7 @@ import { rescript } from './lang-rescript';
 import { reason } from './lang-reason';
 import { ocaml } from './lang-ocaml';
 import { wat } from './lang-wat';
+import { riot } from './lang-riot';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -70,6 +71,7 @@ export const languages: LanguageSpecs[] = [
   stencil,
   solid,
   solidTsx,
+  riot,
   coffeescript,
   livescript,
   rescript,
