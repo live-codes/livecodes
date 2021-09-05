@@ -29,7 +29,7 @@ export const riotStarter: Template = {
     <h1>Hello, { props.title }!</h1>
     <img class="logo" src="{{ __localpen_baseUrl__ }}assets/templates/riot.svg" />
     <p>You clicked { state.count } times.</p>
-    <button onclick={ increment }>Click me</button>
+    <button onclick="{ increment }">Click me</button>
     <div class="footer">
       <a href="{ props.url }" target="_blank">Riot.js Website</a>
     </div>

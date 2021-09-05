@@ -20,7 +20,7 @@ export const riot: LanguageSpecs = {
   `,
   parser: {
     name: 'html',
-    pluginUrls: [parserPlugins.babel, parserPlugins.html],
+    pluginUrls: [parserPlugins.html, parserPlugins.babel],
   },
   compiler: {
     url: compilerCdnUrl,
