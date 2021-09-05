@@ -26,14 +26,15 @@ export const riot: LanguageSpecs = {
     url: compilerCdnUrl,
     factory: () => async (code, { config }) => {
       if (!code) return '';
-      const result = await (window as any).riot.compileFromString(code, {
-        ...getLanguageCustomSettings('riot', config),
-      });
+      const { data, ...options } = getLanguageCustomSettings('riot', config);
+      const result = await (window as any).riot.compileFromString(code, options);
       const compiled: string = result.code;
-      const tagName = /^(?: *'name': (\S+))/gm.exec(compiled)?.[1] || "'app'";
       return `var Component = ${compiled.replace('export default ', '')}
-riot.register(${tagName}, Component);
-riot.mount(${tagName});
+riot.register(Component.name, Component);
+riot.mount(Component.name, {
+  ...${JSON.stringify(data || {})},
+  ...window.templateData
+});
 `;
     },
     scripts: [cdnUrl],

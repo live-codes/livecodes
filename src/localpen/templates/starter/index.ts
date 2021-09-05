@@ -22,6 +22,7 @@ import { pythonStarter } from './python-starter';
 import { reactStarter } from './react-starter';
 import { readmeTemplate } from './readme-template';
 import { rescriptStarter } from './rescript-starter';
+import { riotStarter } from './riot-starter';
 import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
 import { solidStarter } from './solid-starter';
@@ -44,6 +45,7 @@ export const starterTemplates = [
   svelteStarter,
   stencilStarter,
   solidStarter,
+  riotStarter,
   polymerStarter,
   mdxStarter,
   jqueryStarter,
