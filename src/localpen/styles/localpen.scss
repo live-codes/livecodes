@@ -479,6 +479,10 @@ li.editor-title {
     width: calc(100% + 18px);
   }
 
+  .menu-scroller-script {
+    width: calc(200% + 18px);
+  }
+
   > .language-menu-button:focus + .menu-scroller {
     animation: fadeIn 0.4s forwards;
     display: block;
@@ -506,6 +510,11 @@ li.editor-title {
   width: calc(100% - 12px);
 }
 
+.dropdown-menu-script {
+  column-count: 2;
+  column-rule: 1px solid lightblue;
+}
+
 #settings-menu-container:hover {
   animation: fadeIn 0.4s forwards;
   display: block;
@@ -528,6 +537,8 @@ li.editor-title {
 
 .dropdown-menu li,
 .dropdown-menu > li {
+  break-inside: avoid-column;
+
   &:hover {
     background-color: rgb(231, 232, 241);
   }
