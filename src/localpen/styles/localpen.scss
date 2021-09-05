@@ -479,6 +479,10 @@ li.editor-title {
     width: calc(100% + 18px);
   }
 
+  .menu-scroller-script {
+    width: calc(200% + 18px);
+  }
+
   > .language-menu-button:focus + .menu-scroller {
     animation: fadeIn 0.4s forwards;
     display: block;
@@ -506,6 +510,22 @@ li.editor-title {
   width: calc(100% - 12px);
 }
 
+.dropdown-menu-script {
+  column-count: 2;
+  column-rule: 1px solid lightblue;
+}
+
+@media only screen and (max-width: 1080px) {
+  .menu-scroller-script {
+    max-width: 80vw !important;
+    width: 300% !important;
+  }
+
+  #settings-menu {
+    max-width: 60vw !important;
+  }
+}
+
 #settings-menu-container:hover {
   animation: fadeIn 0.4s forwards;
   display: block;
@@ -528,6 +548,8 @@ li.editor-title {
 
 .dropdown-menu li,
 .dropdown-menu > li {
+  break-inside: avoid-column;
+
   &:hover {
     background-color: rgb(231, 232, 241);
   }
@@ -562,7 +584,7 @@ li.editor-title {
   position: absolute;
   right: 10px;
   top: 40px;
-  width: 500px;
+  width: 750px;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -574,12 +596,14 @@ li.editor-title {
 }
 
 #settings-menu {
+  column-count: 2;
+  column-rule: 1px solid lightblue;
   left: unset;
   margin-top: 0;
   max-width: 45vw;
   right: 0;
   top: 0;
-  width: 250px;
+  width: 500px;
 
   li {
     position: relative;
@@ -605,6 +629,10 @@ li.editor-title {
   position: absolute !important;
   right: 98%;
   top: 0;
+
+  &#export-menu {
+    top: -8em;
+  }
 }
 
 #open-link:hover + #open-list,

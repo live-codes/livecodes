@@ -38,10 +38,12 @@ export const createLanguageMenus = (
 
     const menuScroller = document.createElement('div');
     menuScroller.classList.add('menu-scroller');
+    menuScroller.classList.add('menu-scroller-' + editorId);
     editorSelector.appendChild(menuScroller);
 
     const languageMenu = document.createElement('ul');
     languageMenu.classList.add('dropdown-menu');
+    languageMenu.classList.add('dropdown-menu-' + editorId);
     menuScroller.appendChild(languageMenu);
 
     const editorLanguages = [...languages, ...processors]
