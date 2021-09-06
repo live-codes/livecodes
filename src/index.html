@@ -21,6 +21,7 @@
       sizes="16x16"
       href="/localpen/assets/images/favicon-16x16.png"
     />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="manifest" href="/localpen/assets/site.webmanifest" />
     <link rel="mask-icon" href="/localpen/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="apple-mobile-web-app-title" content="localpen" />
@@ -188,6 +189,8 @@
       window.addEventListener('resize', resize, false);
       window.__localpenReady = function (api) {
         document.querySelector('#animating-logo').remove();
+        // TODO: remove
+        window.api = api;
       };
     </script>
     <script src="index.ts"></script>

@@ -984,6 +984,12 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
     };
 
+    const handleResultButton = () => {
+      eventsManager.addEventListener(UI.getResultButton(), 'click', () =>
+        split.show('output', true),
+      );
+    };
+
     const handleProcessors = () => {
       const styleMenu = UI.getstyleMenu();
       const pluginList = pluginSpecs.map((plugin) => ({ name: plugin.name, title: plugin.title }));
@@ -1820,6 +1826,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     handleChangeContent();
     handleHotKeys();
     handleRunButton();
+    handleResultButton();
     handleProcessors();
     handleSettings();
     handleSettingsMenu();
@@ -1892,7 +1899,14 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     }
   };
 
+  const configureEmbed = () => {
+    if (parent.location.search.indexOf('embed') > -1) {
+      document.body.classList.add('embed');
+    }
+  };
+
   async function bootstrap(reload = false) {
+    configureEmbed();
     await createIframe(UI.getResultElement());
 
     if (!reload) {

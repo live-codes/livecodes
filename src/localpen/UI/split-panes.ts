@@ -43,16 +43,23 @@ export const createSplitPanes = () => {
     }
   };
 
-  const show = (pane: 'code' | 'output') => {
+  const show = (pane: 'code' | 'output', full = false) => {
     const smallScreen = window.innerWidth < 800;
-    const codeOpen = smallScreen ? [100, 0] : [50, 50];
-    const outputOpen = smallScreen ? [0, 100] : [50, 50];
-    if (pane === 'code' && split.getSizes()[0] < 10) {
+    const codeOpen = smallScreen || full ? [100, 0] : [50, 50];
+    const outputOpen = smallScreen || full ? [0, 100] : [50, 50];
+    if (pane === 'code' && (split.getSizes()[0] < 10 || full)) {
       split.setSizes(codeOpen);
-    } else if (pane === 'output' && split.getSizes()[1] < 10) {
-      split.setSizes(outputOpen);
+    } else if (pane === 'output' && (split.getSizes()[1] < 10 || full)) {
+      if (split.getSizes()[0] < 10) {
+        // toggle result
+        split.setSizes(codeOpen);
+      } else {
+        split.setSizes(outputOpen);
+      }
     }
   };
+
+  setAnimation(true);
 
   return {
     show,

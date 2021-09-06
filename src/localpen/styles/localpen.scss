@@ -186,7 +186,6 @@ a {
 }
 
 /* mouse down */
-
 #buttons > .button:active:hover {
   background-color: rgba(90, 96, 116, 0.855);
 }
@@ -201,6 +200,20 @@ a {
 
   &:active:hover {
     background-color: rgba(90, 96, 116, 0.855);
+  }
+}
+
+#result-button {
+  display: none !important;
+}
+
+.embed {
+  #result-button {
+    display: flex !important;
+  }
+
+  #settings-button {
+    display: none;
   }
 }
 
