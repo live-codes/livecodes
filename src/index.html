@@ -186,7 +186,7 @@
       }
       resize();
       window.addEventListener('resize', resize, false);
-      window.__localpenEmbed = () => {
+      window.__localpenReady = function (api) {
         document.querySelector('#animating-logo').remove();
       };
     </script>

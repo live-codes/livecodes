@@ -1,15 +1,16 @@
-import { loadConfig } from './config';
+import { buildConfig } from './config';
 import { appHTML } from './html';
-import { Pen } from './models';
+import { API, Pen } from './models';
 
-export const localpen = async (container: string, config: Partial<Pen> = {}) =>
+export { API, Pen };
+export const localpen = async (container: string, config: Partial<Pen> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
     const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/';
-    const mergedConfig = await loadConfig(config, baseUrl);
+    const mergedConfig = await buildConfig(config, baseUrl);
 
     if (mergedConfig.showVersion) {
       // variables added in scripts/build.js
@@ -57,16 +58,16 @@ export const localpen = async (container: string, config: Partial<Pen> = {}) =>
     iframe.addEventListener('load', async () => {
       const app = (iframe.contentWindow as any)?.app;
       if (typeof app === 'function') {
-        const pen = await app(mergedConfig, baseUrl);
+        const api: API = await app(mergedConfig, baseUrl);
         iframe.style.display = 'block';
 
         // eslint-disable-next-line no-underscore-dangle
-        const callback = (window as any).__localpenEmbed;
+        const callback = (window as any).__localpenReady;
         if (typeof callback === 'function') {
-          callback();
+          callback(api);
         }
 
-        resolve(pen);
+        resolve(api);
       }
     });
   });

@@ -1,14 +1,10 @@
 import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
-import { EditorId, Language, Pen } from '../models';
+import { Cache, EditorId, Pen } from '../models';
 import { getAbsoluteUrl, isRelativeUrl } from '../utils';
 
-type Code = {
-  [key in EditorId]: { language: Language; compiled: string };
-};
-
 export const createResultPage = (
-  code: Code,
+  code: Cache,
   config: Pen,
   forExport: boolean,
   template: string,
@@ -154,5 +150,5 @@ export const createResultPage = (
     scriptElement.type = 'module';
   }
 
-  return dom.documentElement.outerHTML;
+  return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
 };

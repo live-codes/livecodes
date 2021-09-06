@@ -1,5 +1,13 @@
 import { createEventsManager } from './events';
 
+export interface API {
+  run: () => Promise<void>;
+  save: () => void;
+  getConfig: () => Pen;
+  setConfig: (Config: Pen) => Promise<Pen>;
+  getCode: () => Promise<Code>;
+}
+
 export interface Pen {
   title: string;
   autoupdate: boolean;
@@ -387,3 +395,26 @@ export type customSettings = {
     prerender?: boolean;
   };
 };
+
+export type Cache = {
+  [key in EditorId]: { language: Language; content: string; compiled: string; modified?: string };
+} & { result?: string };
+
+export interface Code {
+  markup: {
+    language: Language;
+    content: string;
+    compiled: string;
+  };
+  style: {
+    language: Language;
+    content: string;
+    compiled: string;
+  };
+  script: {
+    language: Language;
+    content: string;
+    compiled: string;
+  };
+  result: string;
+}
