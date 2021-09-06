@@ -29,7 +29,7 @@ export const getLanguageMenuLinks = () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
 
 export const getLanguageMenuButtons = () =>
-  document.querySelectorAll<HTMLElement>('#select-editor>.language-menu-button');
+  document.querySelectorAll<HTMLElement>('#select-editor .language-menu-button');
 
 export const getstyleMenu = () =>
   document.querySelector<HTMLElement>('#style-selector .dropdown-menu');
