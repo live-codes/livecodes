@@ -1,15 +1,16 @@
 import { Pen } from '../models';
 import { allowedOrigin } from './allowed-origin';
 
-const apiUrl = 'https://api.localpen.io/share';
+const apiGetUrl = 'https://dpaste.com/';
+const apiPostUrl = 'https://dpaste.com/api/v2/';
 
 export const shareService = {
   getProject: async (id: string): Promise<Partial<Pen>> => {
     if (!allowedOrigin()) return {};
     try {
-      const res = await fetch(apiUrl + '?id=' + id);
+      const res = await fetch(apiGetUrl + id + '.txt');
       if (!res.ok) return {};
-      return res.json();
+      return JSON.parse(await res.text());
     } catch (error) {
       return {};
     }
@@ -17,17 +18,20 @@ export const shareService = {
   shareProject: async (config: Partial<Pen>): Promise<string> => {
     if (!allowedOrigin()) return '';
     try {
-      const res = await fetch(apiUrl, {
+      const res = await fetch(apiPostUrl, {
         method: 'POST',
         mode: 'cors',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'User-Agent': 'LocalPen / https://localpen.io/',
         },
-        body: JSON.stringify({ config }),
+        body: `content=${encodeURIComponent(JSON.stringify(config))}&title=${
+          config.title
+        }&syntax=json&expiry_days=365`,
       });
       if (!res.ok) return '';
-      return res.text();
+      const url = await res.text();
+      return url.replace(apiGetUrl, '');
     } catch (error) {
       return '';
     }
