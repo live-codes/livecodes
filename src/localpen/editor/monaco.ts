@@ -273,6 +273,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const destroy = () => editor.getModel()?.dispose();
 
+  // workaround for uncaught canceled promise rejection onMouseLeave
+  // https://github.com/microsoft/monaco-editor/issues/2382
+  window.addEventListener('unhandledrejection', function (event) {
+    if (event.reason && event.reason.name === 'Canceled') {
+      event.preventDefault();
+    }
+  });
+
   return {
     getValue,
     setValue,
