@@ -208,6 +208,31 @@ a {
 }
 
 .embed {
+  #toolbar {
+    justify-content: space-between;
+  }
+
+  #toolbar > * {
+    transform: scale(0.9);
+  }
+
+  #logo {
+    order: 1;
+  }
+
+  #select-editor {
+    margin-left: -20px;
+    top: 1px;
+  }
+
+  #project-title {
+    display: none !important;
+  }
+
+  #buttons {
+    position: relative !important;
+  }
+
   #result-button {
     display: flex !important;
   }
