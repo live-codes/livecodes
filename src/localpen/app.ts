@@ -56,6 +56,7 @@ import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
+import { configureEmbed } from './embed';
 
 export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> => {
   setConfig(config);
@@ -608,6 +609,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     types: config.types,
     version: config.version,
   });
+
+  const getShareUrl = () => {
+    const content = getContentConfig(getConfig());
+    const contentHash = '#code/' + compress(JSON.stringify(content));
+    const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+    return url + contentHash;
+  };
 
   const share = async (copy = true): Promise<ShareData> => {
     if (copy) notifications.info('Generating public URL …');
@@ -1899,14 +1907,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     }
   };
 
-  const configureEmbed = () => {
-    if (parent.location.search.indexOf('embed') > -1) {
-      document.body.classList.add('embed');
-    }
-  };
-
   async function bootstrap(reload = false) {
-    configureEmbed();
+    configureEmbed(eventsManager, getShareUrl);
     await createIframe(UI.getResultElement());
 
     if (!reload) {
@@ -1964,9 +1966,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       await run(editors);
     },
     save: () => save(),
-    getConfig: (): Pen => {
+    getShareUrl: () => getShareUrl(),
+    getConfig: (contentOnly = false): Pen => {
       updateConfig();
-      return JSON.parse(JSON.stringify(getConfig()));
+      const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
+      return JSON.parse(JSON.stringify(config));
     },
     setConfig: async (newConfig: Pen): Promise<Pen> => {
       const appConfig = await buildConfig(newConfig, baseUrl);

@@ -12,6 +12,7 @@ export const getResultIFrameElement = () =>
   document.querySelector('#result > iframe') as HTMLIFrameElement;
 export const getGutterElement = () =>
   document.querySelector('#editor-container .gutter') as HTMLElement;
+export const getLogoLink = () => document.querySelector('#logo a') as HTMLAnchorElement;
 export const getRunButton = () => document.querySelector('#run-button') as HTMLElement;
 export const getCodeRunButton = () => document.querySelector('#code-run-button') as HTMLElement;
 export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;

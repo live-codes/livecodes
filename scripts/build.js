@@ -57,20 +57,6 @@ var buildOptions = {
 esbuild.buildSync(buildOptions);
 
 /** @type {Partial<esbuild.BuildOptions>} */
-var buildOptionsUmd = {
-  entryPoints: ['src/localpen/embed.ts'],
-  bundle: true,
-  minify: true,
-  loader: { '.html': 'text', '.ttf': 'file' },
-  outfile: 'build/localpen/embed.js',
-  format: 'iife',
-  globalName: 'localpen',
-  logLevel: 'error',
-};
-
-esbuild.buildSync(buildOptionsUmd);
-
-/** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {
   entryPoints: [
     'src/localpen/compiler/compile.worker.ts',
