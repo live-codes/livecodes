@@ -210,19 +210,15 @@ a {
 .embed {
   #toolbar {
     justify-content: space-between;
+    height: 37px;
   }
 
   #toolbar > * {
-    transform: scale(0.9);
+    transform: scale(0.9) translate(-5%, -2px);
   }
 
   #logo {
     order: 1;
-  }
-
-  #select-editor {
-    margin-left: -20px;
-    top: 1px;
   }
 
   #project-title {
