@@ -5,6 +5,13 @@ import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { getLanguageExtension, mapLanguage } from '../languages';
 
+const monacoMapLanguage = (language: Language): Language =>
+  language === 'livescript'
+    ? 'coffeescript'
+    : ['rescript', 'reason', 'ocaml', 'wat'].includes(language)
+    ? 'csharp'
+    : mapLanguage(language);
+
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, baseUrl, readonly } = options;
   if (!container) throw new Error('editor container not found');
@@ -133,9 +140,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const upateListeners = () => {
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
-
-  const monacoMapLanguage = (language: Language): Language =>
-    language === 'livescript' ? 'coffeescript' : mapLanguage(language);
 
   const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,

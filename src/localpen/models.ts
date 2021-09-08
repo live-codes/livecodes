@@ -143,7 +143,8 @@ export type Language =
   | 'wast'
   | 'webassembly'
   | 'wasm'
-  | 'Binary';
+  | 'Binary'
+  | 'csharp';
 
 export interface Editor {
   language: Language;

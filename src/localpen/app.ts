@@ -377,20 +377,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
   const applyLanguageConfigs = (language: Language) => {
     const editorId = getLanguageEditorId(language);
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
-
-    if ((window as any).monaco && editorId === 'script' && mapLanguage(language) === 'javascript') {
-      if (['rescript', 'reason', 'ocaml', 'wat'].includes(language)) {
-        (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-          noSemanticValidation: true,
-          noSyntaxValidation: true,
-        });
-      } else {
-        (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
-        });
-      }
-    }
+    // apply config
   };
 
   const changeLanguage = async (language: Language, isUpdate = false) => {
