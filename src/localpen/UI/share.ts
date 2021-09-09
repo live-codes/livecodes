@@ -19,6 +19,15 @@ export const createShareContainer = (
   eventsManager: ReturnType<typeof createEventsManager>,
   notifications: ReturnType<typeof createNotifications>,
 ) => {
+  const copyUrl = (data: ShareData) => {
+    const copySucceeded = copyToClipboard(data.url);
+    if (copySucceeded) {
+      notifications.success('URL copied to clipboard');
+    } else {
+      notifications.error('Copy to clipboard failed!');
+    }
+  };
+
   const services: Service[] = [
     {
       name: 'Facebook',
@@ -104,22 +113,23 @@ export const createShareContainer = (
     {
       name: 'Copy URL',
       icon: 'copy.svg',
-      onClick: ({ url }) => {
-        const copySucceeded = copyToClipboard(url);
-        if (copySucceeded) {
-          notifications.success('URL copied to clipboard');
-        } else {
-          notifications.error('Copy to clipboard failed!');
-        }
-      },
+      onClick: copyUrl,
     },
   ];
 
   const div = document.createElement('div');
   div.innerHTML = shareScreen;
   const shareContainer = div.firstChild as HTMLElement;
-  const items = shareContainer.querySelector('#share-links');
+  const input = shareContainer.querySelector<HTMLInputElement>('#share-url-input');
+  if (input) {
+    input.value = shareData.url;
+    eventsManager.addEventListener(input, 'click', function () {
+      copyUrl(shareData);
+      input.select();
+    });
+  }
 
+  const items = shareContainer.querySelector('#share-links');
   services.forEach((service) => {
     const item = document.createElement('li');
     const link = document.createElement('a');

@@ -1132,6 +1132,18 @@ i.arrow {
     }
   }
 
+  #share-screen {
+    .modal-content {
+      margin-top: 0 !important;
+    }
+
+    #share-url-input {
+      font-size: 0.8em;
+      margin: 0 0 3em 0;
+      width: 95%;
+    }
+  }
+
   .error {
     color: red;
     font-weight: normal;
