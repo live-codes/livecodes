@@ -97,6 +97,9 @@ export const getAutoupdateToggle = () =>
 export const getAutosaveToggle = () =>
   document.querySelector('#settings-menu input#autosave') as HTMLInputElement;
 
+export const getFormatOnsaveToggle = () =>
+  document.querySelector('#settings-menu input#formatOnsave') as HTMLInputElement;
+
 export const getProcessorToggles = () =>
   document.querySelectorAll<HTMLInputElement>('#style-selector input');
 

@@ -107,7 +107,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     //
   };
 
-  const format = () => {
+  const format = async () => {
     //
   };
 

@@ -38,6 +38,7 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),
     ...(is(config.delay, 'number') ? { delay: config.delay } : {}),
+    ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),

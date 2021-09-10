@@ -6,24 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LocalPen</title>
     <style>
+      html {
+        height: 100vh;
+      }
       html,
       body,
       #pen {
         margin: 0;
         padding: 0;
       }
-      html {
-        height: 100vh;
-      }
       body,
       #pen {
-        width: 100%;
         height: 100%;
+        width: 100%;
+      }
+      #pen {
+        border: 0;
       }
     </style>
   </head>
   <body>
-    <iframe id="pen" frameborder="0" seamless></iframe>
+    <iframe id="pen" title="localpen" seamless></iframe>
     <script>
       function resize() {
         document.body.style.height = window.innerHeight + 'px';

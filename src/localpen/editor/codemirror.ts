@@ -168,15 +168,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     addKeyBinding('format', keyCodes.ShiftAltF, format);
   };
 
-  const format = () => {
+  const format = async () => {
     if (!formatter) return;
     const offset = view.state.selection.main.to;
     const oldValue = getValue();
-    formatter(oldValue, offset).then((newValue) => {
-      setValue(newValue.formatted, false);
-      const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
-      view.dispatch({ selection: { anchor: newOffset } });
-    });
+    const newValue = await formatter(oldValue, offset);
+    setValue(newValue.formatted, false);
+    const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
+    view.dispatch({ selection: { anchor: newOffset } });
   };
 
   const destroy = () => view.destroy();

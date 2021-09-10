@@ -517,19 +517,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       projectTitle.textContent = defaultTitle;
     }
     const title = projectTitle.textContent || defaultTitle;
-
-    const titleChanged = () => {
-      if (penId) {
-        if (title !== storage.getItem(penId)?.pen.title) return true;
-        return false;
-      }
-      if (title !== defaultTitle) return true;
-      return false;
-    };
-    if (titleChanged()) {
-      setSavedStatus(false);
-    }
     setConfig({ ...getConfig(), title });
+    setSavedStatus();
     if (getConfig().autosave) {
       save(!penId, false);
     }
@@ -557,9 +546,18 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     }
   };
 
-  const save = (notify = false, setTitle = true) => {
+  const format = async () => {
+    await Promise.all([editors.markup.format(), editors.style.format(), editors.script.format()]);
+    updateConfig();
+  };
+
+  const save = async (notify = false, setTitle = true) => {
     if (setTitle) {
       setProjectTitle(true);
+    }
+
+    if (editors && getConfig().formatOnsave) {
+      await format();
     }
 
     if (!penId) {
@@ -567,16 +565,18 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     } else {
       storage.updateItem(penId, getConfig());
     }
+    setSavedStatus();
+
     if (notify) {
       notifications.success('Project locally saved to device!');
     }
-    share().then(() => setSavedStatus(true));
+    await share();
   };
 
-  const fork = () => {
+  const fork = async () => {
     penId = '';
     loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
-    save();
+    await save();
     notifications.success('Forked as a new project');
   };
 
@@ -649,8 +649,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     changingContent = false;
   };
 
-  const setSavedStatus = (status: boolean) => {
-    isSaved = status;
+  const setSavedStatus = () => {
+    isSaved =
+      !penId || JSON.stringify(storage.getItem(penId)?.pen) !== JSON.stringify(getConfig())
+        ? false
+        : true;
 
     const projectTitle = UI.getProjectTitleElement();
 
@@ -669,8 +672,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       const div = document.createElement('div');
       div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, { size: 'small' });
-      eventsManager.addEventListener(UI.getModalSaveButton(), 'click', () => {
-        save(true);
+      eventsManager.addEventListener(UI.getModalSaveButton(), 'click', async () => {
+        await save(true);
         if (!doNotCloseModal) {
           modal.close();
         }
@@ -902,7 +905,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     const handleChangeContent = () => {
       const contentChanged = async (loading: boolean) => {
         updateConfig();
-        setSavedStatus(false);
+        setSavedStatus();
         addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
@@ -910,7 +913,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
         }
 
         if (getConfig().autosave) {
-          save();
+          await save();
         }
 
         loadModuleTypes(editors, getConfig());
@@ -918,7 +921,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
       const debouncecontentChanged = debounce(async () => {
         await contentChanged(changingContent);
-      }, getConfig().delay ?? 500);
+      }, getConfig().delay ?? defaultConfig.delay);
 
       editors.markup.onContentChanged(debouncecontentChanged);
       editors.style.onContentChanged(debouncecontentChanged);
@@ -933,14 +936,14 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
         // Cmd + Shift + S forks the project (save as...)
         if (ctrl(e) && e.shiftKey && e.keyCode === 83) {
           e.preventDefault();
-          fork();
+          await fork();
           return;
         }
 
         // Cmd + S saves the project
         if (ctrl(e) && e.keyCode === 83) {
           e.preventDefault();
-          save(true);
+          await save(true);
           return;
         }
 
@@ -1208,16 +1211,16 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     };
 
     const handleSave = () => {
-      eventsManager.addEventListener(UI.getSaveLink(), 'click', (event) => {
+      eventsManager.addEventListener(UI.getSaveLink(), 'click', async (event) => {
         (event as Event).preventDefault();
-        save(true);
+        await save(true);
       });
     };
 
     const handleFork = () => {
-      eventsManager.addEventListener(UI.getForkLink(), 'click', (event) => {
+      eventsManager.addEventListener(UI.getForkLink(), 'click', async (event) => {
         (event as Event).preventDefault();
-        fork();
+        await fork();
       });
     };
 
@@ -1701,7 +1704,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
                   .filter((x) => x !== '') || [],
             });
           });
-          setSavedStatus(false);
+          setSavedStatus();
           modal.close();
           await run(editors);
         });
@@ -1759,7 +1762,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
               ...getConfig(),
               customSettings,
             });
-            setSavedStatus(false);
+            setSavedStatus();
           }
           customSettingsEditor?.destroy();
           modal.close();
@@ -1839,6 +1842,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
     const autosaveToggle = UI.getAutosaveToggle();
     autosaveToggle.checked = config.autosave;
+
+    const formatOnsaveToggle = UI.getFormatOnsaveToggle();
+    formatOnsaveToggle.checked = config.formatOnsave;
 
     const processorToggles = UI.getProcessorToggles();
     processorToggles.forEach((toggle) => {
@@ -1922,7 +1928,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     loadSettings(getConfig());
     configureEmmet(getConfig());
     showMode(getConfig());
-    setSavedStatus(true);
     setTimeout(() => getActiveEditor().focus());
     await toolsPane?.load();
     updateCompiledCode();
@@ -1943,7 +1948,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     run: async () => {
       await run(editors);
     },
-    save: () => save(),
+    format: async () => format(),
     getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
     getConfig: (contentOnly = false): Pen => {
       updateConfig();
