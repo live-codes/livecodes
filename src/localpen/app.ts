@@ -570,7 +570,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     if (notify) {
       notifications.success('Project locally saved to device!');
     }
-    share(false).then(() => setSavedStatus(true));
+    share().then(() => setSavedStatus(true));
   };
 
   const fork = () => {
@@ -597,21 +597,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     version: config.version,
   });
 
-  const getShareUrl = () => {
-    const content = getContentConfig(getConfig());
-    const contentHash = '#code/' + compress(JSON.stringify(content));
-    const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
-    return url + contentHash;
-  };
-
-  const share = async (copy = true): Promise<ShareData> => {
-    if (copy) notifications.info('Generating public URL …');
-    const content = getContentConfig(getConfig());
-    const projectId = copy ? await shareService.shareProject(content) : '';
-    const contentHash = projectId
-      ? '#id/' + projectId
+  const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
+    const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
+    const contentHash = shortUrl
+      ? '#id/' + (await shareService.shareProject(content))
       : '#code/' + compress(JSON.stringify(content));
-    const shareURL = location.origin + location.pathname + contentHash;
+    const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+    const shareURL = url + contentHash;
     updateUrl(shareURL, true);
     const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
     return {
@@ -1506,14 +1498,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
     const handleShare = () => {
       const createShareUI = async () => {
-        const shareData = await share();
-        const shareContainer = UI.createShareContainer(
-          shareData,
+        const shareContainer = await UI.createShareContainer(
+          share,
           baseUrl,
           eventsManager,
           notifications,
         );
-        modal.show(shareContainer, { size: 'small', isAsync: true });
+        modal.show(shareContainer, { size: 'small' });
       };
       eventsManager.addEventListener(
         UI.getShareLink(),
@@ -1895,7 +1886,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
   };
 
   async function bootstrap(reload = false) {
-    configureEmbed(eventsManager, getShareUrl);
+    configureEmbed(eventsManager, share);
     await createIframe(UI.getResultElement());
 
     if (!reload) {
@@ -1953,7 +1944,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       await run(editors);
     },
     save: () => save(),
-    getShareUrl: () => getShareUrl(),
+    getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
     getConfig: (contentOnly = false): Pen => {
       updateConfig();
       const config = contentOnly ? getContentConfig(getConfig()) : getConfig();

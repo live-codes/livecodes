@@ -12,31 +12,31 @@ import {
 export const createNotifications = () => {
   const timeout = 2000;
 
-  const info = (message: string) =>
+  const info = (message: string, dismissable = true) =>
     createSnackbar(message, {
       theme: infoTheme,
-      actions: [closeButton],
+      actions: dismissable ? [closeButton] : [],
       timeout,
     });
 
-  const success = (message: string) =>
+  const success = (message: string, dismissable = true) =>
     createSnackbar('✓ ' + message, {
       theme: successTheme,
-      actions: [closeButton],
+      actions: dismissable ? [closeButton] : [],
       timeout,
     });
 
-  const warning = (message: string) =>
+  const warning = (message: string, dismissable = true) =>
     createSnackbar(message, {
       theme: warningTheme,
-      actions: [closeButton],
+      actions: dismissable ? [closeButton] : [],
       timeout,
     });
 
-  const error = (message: string) =>
+  const error = (message: string, dismissable = true) =>
     createSnackbar('✖ ' + message, {
       theme: dangerTheme,
-      actions: [closeButton],
+      actions: dismissable ? [closeButton] : [],
       timeout,
     });
 

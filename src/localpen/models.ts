@@ -3,7 +3,7 @@ import { createEventsManager } from './events';
 export interface API {
   run: () => Promise<void>;
   save: () => void;
-  getShareUrl: () => string;
+  getShareUrl: () => Promise<string>;
   getConfig: () => Pen;
   setConfig: (Config: Pen) => Promise<Pen>;
   getCode: () => Promise<Code>;

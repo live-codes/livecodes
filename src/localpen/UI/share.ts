@@ -13,18 +13,52 @@ interface Service {
 
 const encode = encodeURIComponent;
 
-export const createShareContainer = (
-  shareData: ShareData,
+export const createShareContainer = async (
+  shareFn: (shortUrl: boolean) => Promise<ShareData>,
   baseUrl: string,
   eventsManager: ReturnType<typeof createEventsManager>,
   notifications: ReturnType<typeof createNotifications>,
 ) => {
-  const copyUrl = (data: ShareData) => {
-    const copySucceeded = copyToClipboard(data.url);
-    if (copySucceeded) {
-      notifications.success('URL copied to clipboard');
-    } else {
-      notifications.error('Copy to clipboard failed!');
+  const copyUrl = (url?: string) => {
+    if (!url || !copyToClipboard(url)) {
+      notifications.error('Copy to clipboard failed!', false);
+    }
+    notifications.success('URL copied to clipboard', false);
+  };
+
+  const populateItems = (shareData: ShareData, services: Service[], items: HTMLElement | null) => {
+    if (!items) return;
+    items.innerHTML = '';
+    services.forEach((service) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = service.createShareUrl?.(shareData) || '#';
+      link.target = 'blank';
+      link.rel = 'noopener noreferrer';
+      link.innerHTML = `
+        <img
+          src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
+          alt="${service.name}"
+        />
+        ${service.name}
+      `;
+
+      if (service.onClick) {
+        eventsManager.addEventListener(link, 'click', async (event: Event) => {
+          event.preventDefault();
+          service.onClick?.(shareData);
+        });
+      }
+      item.appendChild(link);
+      items.appendChild(item);
+
+      if (service.name === 'Share via …' && !navigator.share) {
+        item.remove();
+      }
+    });
+
+    if (input) {
+      input.value = shareData.url;
     }
   };
 
@@ -113,49 +147,42 @@ export const createShareContainer = (
     {
       name: 'Copy URL',
       icon: 'copy.svg',
-      onClick: copyUrl,
+      onClick: ({ url }) => copyUrl(url),
     },
   ];
 
+  const shareData = await shareFn(false);
   const div = document.createElement('div');
   div.innerHTML = shareScreen;
   const shareContainer = div.firstChild as HTMLElement;
+  const items = shareContainer.querySelector<HTMLElement>('#share-links');
   const input = shareContainer.querySelector<HTMLInputElement>('#share-url-input');
-  if (input) {
-    input.value = shareData.url;
-    eventsManager.addEventListener(input, 'click', function () {
-      copyUrl(shareData);
-      input.select();
-    });
-  }
+  const shareExpiry = shareContainer.querySelector<HTMLElement>('#share-expiry');
+  const shortUrlLink = shareExpiry?.querySelector('#share-permanent-url-expiry a') as HTMLElement;
+  const permanentUrlLink = shareExpiry?.querySelector('#share-short-url-expiry a') as HTMLElement;
+  populateItems(shareData, services, items);
 
-  const items = shareContainer.querySelector('#share-links');
-  services.forEach((service) => {
-    const item = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = service.createShareUrl?.(shareData) || '#';
-    link.target = 'blank';
-    link.rel = 'noopener noreferrer';
-    link.innerHTML = `
-        <img
-          src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
-          alt="${service.name}"
-        />
-        ${service.name}
-      `;
-
-    if (service.onClick) {
-      eventsManager.addEventListener(link, 'click', async (event: Event) => {
-        event.preventDefault();
-        service.onClick?.(shareData);
-      });
+  eventsManager.addEventListener(shortUrlLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    notifications.info('Generating URL …', false);
+    try {
+      const shareDataShort = await shareFn(true);
+      populateItems(shareDataShort, services, items);
+      shareExpiry?.classList.add('short-url');
+    } catch {
+      notifications.error('Failed to generate short URL!', false);
     }
-    item.appendChild(link);
-    items?.appendChild(item);
+  });
 
-    if (service.name === 'Share via …' && !navigator.share) {
-      item.remove();
-    }
+  eventsManager.addEventListener(permanentUrlLink, 'click', (event: Event) => {
+    event.preventDefault();
+    populateItems(shareData, services, items);
+    shareExpiry?.classList.remove('short-url');
+  });
+
+  eventsManager.addEventListener(input, 'click', function () {
+    copyUrl(input?.value);
+    input?.select();
   });
 
   return shareContainer;

@@ -5,7 +5,7 @@ export const isEmbed = () => parent.location.search.indexOf('embed') > -1;
 
 export const configureEmbed = (
   eventsManager: ReturnType<typeof createEventsManager>,
-  getShareUrl: (contentOnly: boolean) => string,
+  shareFn: () => Promise<ShareData>,
 ) => {
   if (!isEmbed()) return;
 
@@ -13,8 +13,8 @@ export const configureEmbed = (
   const logoLink = UI.getLogoLink();
   logoLink.title = 'Edit in LocalPen 🡕';
 
-  eventsManager.addEventListener(logoLink, 'click', (event: Event) => {
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
-    window.open(getShareUrl(true), '_blank');
+    window.open((await shareFn()).url, '_blank');
   });
 };

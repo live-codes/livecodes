@@ -209,8 +209,8 @@ a {
 
 .embed {
   #toolbar {
-    justify-content: space-between;
     height: 37px;
+    justify-content: space-between;
   }
 
   #toolbar > * {
@@ -1139,8 +1139,30 @@ i.arrow {
 
     #share-url-input {
       font-size: 0.8em;
-      margin: 0 0 3em 0;
       width: 95%;
+    }
+
+    #share-expiry {
+      margin-top: -0.5em;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    #share-short-url-expiry {
+      display: none !important;
+    }
+
+    .short-url {
+      #share-permanent-url-expiry {
+        display: none !important;
+      }
+
+      #share-short-url-expiry {
+        display: flex !important;
+      }
     }
   }
 
@@ -1262,7 +1284,6 @@ i.arrow {
       flex-wrap: wrap;
       justify-content: space-between;
       list-style: none;
-      margin-top: -1em;
 
       li {
         margin-bottom: 0.5em;
