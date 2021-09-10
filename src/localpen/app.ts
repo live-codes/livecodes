@@ -13,6 +13,9 @@ import {
 } from './languages';
 import { createStorage } from './storage';
 import {
+  API,
+  Cache,
+  Code,
   CodeEditor,
   ContentPen,
   CssPresetId,
@@ -42,7 +45,7 @@ import {
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
-import { defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
+import { buildConfig, defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
 import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
@@ -52,8 +55,10 @@ import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
+import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
+import { configureEmbed } from './embed';
 
-export const app = async (config: Readonly<Pen>, baseUrl: string) => {
+export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> => {
   setConfig(config);
 
   const storage = createStorage();
@@ -73,14 +78,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   let starterTemplates: Template[];
   let authService: ReturnType<typeof createAuthService> | undefined;
   const screens: Screen[] = [];
-  let cache: {
-    [key in EditorId]: { language: Language; content: string; compiled: string; modified: string };
-  } = {
-    markup: { language: 'html', content: '', compiled: '', modified: '' },
-    style: { language: 'css', content: '', compiled: '', modified: '' },
-    script: { language: 'javascript', content: '', compiled: '', modified: '' },
-  };
-
   const split = UI.createSplitPanes();
 
   const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
@@ -380,20 +377,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   const applyLanguageConfigs = (language: Language) => {
     const editorId = getLanguageEditorId(language);
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
-
-    if ((window as any).monaco && editorId === 'script' && mapLanguage(language) === 'javascript') {
-      if (['rescript', 'reason', 'ocaml', 'wat'].includes(language)) {
-        (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-          noSemanticValidation: true,
-          noSyntaxValidation: true,
-        });
-      } else {
-        (window as any).monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
-        });
-      }
-    }
+    // apply config
   };
 
   const changeLanguage = async (language: Language, isUpdate = false) => {
@@ -449,6 +433,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       script: getCompiledLanguage('script'),
     };
     if (toolsPane && toolsPane.compiled) {
+      const cache = getCache();
       Object.keys(cache).forEach((editorId) => {
         if (editorId !== getConfig().activeEditor) return;
         let compiledCode = cache[editorId].modified || cache[editorId].compiled || '';
@@ -486,28 +471,32 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       compiler.compile(scriptContent, scriptLanguage, config),
     ]);
 
-    cache = {
+    const compiledCode: Cache = {
       markup: {
         language: markupLanguage,
         content: markupContent,
         compiled: compiledMarkup,
-        modified: compiledMarkup === cache.markup.compiled ? cache.markup.modified : '',
       },
       style: {
         language: styleLanguage,
         content: styleContent,
         compiled: compiledStyle,
-        modified: compiledStyle === cache.style.compiled ? cache.style.modified : '',
       },
       script: {
         language: scriptLanguage,
         content: scriptContent,
         compiled: compiledScript,
-        modified: compiledScript === cache.script.compiled ? cache.script.modified : '',
       },
     };
 
-    return createResultPage(cache, config, forExport, template, baseUrl, singleFile);
+    const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
+
+    setCache({
+      ...compiledCode,
+      result,
+    });
+
+    return result;
   };
 
   const setLoading = (status: boolean) => {
@@ -581,7 +570,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     if (notify) {
       notifications.success('Project locally saved to device!');
     }
-    share(false).then(() => setSavedStatus(true));
+    share().then(() => setSavedStatus(true));
   };
 
   const fork = () => {
@@ -608,14 +597,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     version: config.version,
   });
 
-  const share = async (copy = true): Promise<ShareData> => {
-    if (copy) notifications.info('Generating public URL …');
-    const content = getContentConfig(getConfig());
-    const projectId = copy ? await shareService.shareProject(content) : '';
-    const contentHash = projectId
-      ? '#id/' + projectId
+  const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
+    const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
+    const contentHash = shortUrl
+      ? '#id/' + (await shareService.shareProject(content))
       : '#code/' + compress(JSON.stringify(content));
-    const shareURL = location.origin + location.pathname + contentHash;
+    const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+    const shareURL = url + contentHash;
     updateUrl(shareURL, true);
     const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
     return {
@@ -981,6 +969,12 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       };
       eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
       eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
+    };
+
+    const handleResultButton = () => {
+      eventsManager.addEventListener(UI.getResultButton(), 'click', () =>
+        split.show('output', true),
+      );
     };
 
     const handleProcessors = () => {
@@ -1504,14 +1498,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
 
     const handleShare = () => {
       const createShareUI = async () => {
-        const shareData = await share();
-        const shareContainer = UI.createShareContainer(
-          shareData,
+        const shareContainer = await UI.createShareContainer(
+          share,
           baseUrl,
           eventsManager,
           notifications,
         );
-        modal.show(shareContainer, { size: 'small', isAsync: true });
+        modal.show(shareContainer, { size: 'small' });
       };
       eventsManager.addEventListener(
         UI.getShareLink(),
@@ -1562,6 +1555,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
           newRepoNameError.innerHTML = '';
 
           const resultHtml = await getResultPage(editors, forExport, resultTemplate, singleFile);
+          const cache = getCache();
           const deployResult = await deploy({
             user,
             repo,
@@ -1790,14 +1784,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
         if (event.data.type === 'loading') {
           setLoading(event.data.payload);
         }
-        if (
-          event.data.type === 'compiled' &&
-          event.data.payload &&
-          getEditorLanguages().includes(event.data.payload.language)
-        ) {
-          const editorId = getLanguageEditorId(event.data.payload.language);
+        const language = event.data.payload?.language;
+        if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
+          const editorId = getLanguageEditorId(language);
           if (!editorId) return;
-          cache[editorId].modified = event.data.payload.content || '';
+          updateCache(editorId, language, event.data.payload.content || '');
           updateCompiledCode();
         }
       });
@@ -1821,6 +1812,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
     handleChangeContent();
     handleHotKeys();
     handleRunButton();
+    handleResultButton();
     handleProcessors();
     handleSettings();
     handleSettingsMenu();
@@ -1894,6 +1886,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
   };
 
   async function bootstrap(reload = false) {
+    configureEmbed(eventsManager, share);
     await createIframe(UI.getResultElement());
 
     if (!reload) {
@@ -1951,6 +1944,22 @@ export const app = async (config: Readonly<Pen>, baseUrl: string) => {
       await run(editors);
     },
     save: () => save(),
-    getData: () => JSON.parse(JSON.stringify(getConfig())),
+    getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
+    getConfig: (contentOnly = false): Pen => {
+      updateConfig();
+      const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
+      return JSON.parse(JSON.stringify(config));
+    },
+    setConfig: async (newConfig: Pen): Promise<Pen> => {
+      const appConfig = await buildConfig(newConfig, baseUrl);
+      await loadConfig(appConfig);
+      return appConfig;
+    },
+    getCode: async (): Promise<Code> => {
+      if (!cacheIsValid(editors)) {
+        await getResultPage(editors);
+      }
+      return JSON.parse(JSON.stringify(getCachedCode()));
+    },
   };
 };

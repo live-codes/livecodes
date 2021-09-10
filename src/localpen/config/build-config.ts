@@ -6,7 +6,7 @@ import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const loadConfig = async (appConfig: Partial<Pen>, baseUrl: string) => {
+export const buildConfig = async (appConfig: Partial<Pen>, baseUrl: string) => {
   if (!appConfig) return { ...defaultConfig };
   if (!baseUrl) {
     baseUrl = '/localpen/';

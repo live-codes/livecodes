@@ -12,8 +12,10 @@ export const getResultIFrameElement = () =>
   document.querySelector('#result > iframe') as HTMLIFrameElement;
 export const getGutterElement = () =>
   document.querySelector('#editor-container .gutter') as HTMLElement;
+export const getLogoLink = () => document.querySelector('#logo a') as HTMLAnchorElement;
 export const getRunButton = () => document.querySelector('#run-button') as HTMLElement;
 export const getCodeRunButton = () => document.querySelector('#code-run-button') as HTMLElement;
+export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
 export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > div');
@@ -29,7 +31,7 @@ export const getLanguageMenuLinks = () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
 
 export const getLanguageMenuButtons = () =>
-  document.querySelectorAll<HTMLElement>('#select-editor>.language-menu-button');
+  document.querySelectorAll<HTMLElement>('#select-editor .language-menu-button');
 
 export const getstyleMenu = () =>
   document.querySelector<HTMLElement>('#style-selector .dropdown-menu');

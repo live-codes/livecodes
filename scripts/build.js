@@ -21,6 +21,10 @@ var srcDir = path.resolve(__dirname + '/../src/localpen');
 var outDir = path.resolve(__dirname + '/../build');
 mkdirp(outDir);
 fs.copyFileSync(path.resolve(srcDir + '/localpen.json'), path.resolve(outDir + '/localpen.json'));
+fs.copyFileSync(
+  path.resolve(__dirname + '/../src/favicon.ico'),
+  path.resolve(outDir + '/favicon.ico'),
+);
 
 var childProcess = require('child_process');
 var version, gitCommit, repoUrl;
@@ -51,20 +55,6 @@ var buildOptions = {
   },
 };
 esbuild.buildSync(buildOptions);
-
-/** @type {Partial<esbuild.BuildOptions>} */
-var buildOptionsUmd = {
-  entryPoints: ['src/localpen/embed.ts'],
-  bundle: true,
-  minify: true,
-  loader: { '.html': 'text', '.ttf': 'file' },
-  outfile: 'build/localpen/embed.js',
-  format: 'iife',
-  globalName: 'localpen',
-  logLevel: 'error',
-};
-
-esbuild.buildSync(buildOptionsUmd);
 
 /** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {

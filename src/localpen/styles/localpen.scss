@@ -186,7 +186,6 @@ a {
 }
 
 /* mouse down */
-
 #buttons > .button:active:hover {
   background-color: rgba(90, 96, 116, 0.855);
 }
@@ -201,6 +200,41 @@ a {
 
   &:active:hover {
     background-color: rgba(90, 96, 116, 0.855);
+  }
+}
+
+#result-button {
+  display: none !important;
+}
+
+.embed {
+  #toolbar {
+    height: 37px;
+    justify-content: space-between;
+  }
+
+  #toolbar > * {
+    transform: scale(0.9) translate(-5%, -2px);
+  }
+
+  #logo {
+    order: 1;
+  }
+
+  #project-title {
+    display: none !important;
+  }
+
+  #buttons {
+    position: relative !important;
+  }
+
+  #result-button {
+    display: flex !important;
+  }
+
+  #settings-button {
+    display: none;
   }
 }
 
@@ -1098,6 +1132,40 @@ i.arrow {
     }
   }
 
+  #share-screen {
+    .modal-content {
+      margin-top: 0 !important;
+    }
+
+    #share-url-input {
+      font-size: 0.8em;
+      width: 95%;
+    }
+
+    #share-expiry {
+      margin-top: -0.5em;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    #share-short-url-expiry {
+      display: none !important;
+    }
+
+    .short-url {
+      #share-permanent-url-expiry {
+        display: none !important;
+      }
+
+      #share-short-url-expiry {
+        display: flex !important;
+      }
+    }
+  }
+
   .error {
     color: red;
     font-weight: normal;
@@ -1216,7 +1284,6 @@ i.arrow {
       flex-wrap: wrap;
       justify-content: space-between;
       list-style: none;
-      margin-top: -1em;
 
       li {
         margin-bottom: 0.5em;
