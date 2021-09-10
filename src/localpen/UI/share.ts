@@ -1,7 +1,6 @@
 import { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import { ShareData } from '../models';
-import { createNotifications } from '../notifications';
 import { copyToClipboard, getAbsoluteUrl } from '../utils';
 
 interface Service {
@@ -17,13 +16,16 @@ export const createShareContainer = async (
   shareFn: (shortUrl: boolean) => Promise<ShareData>,
   baseUrl: string,
   eventsManager: ReturnType<typeof createEventsManager>,
-  notifications: ReturnType<typeof createNotifications>,
 ) => {
+  let messageTimeout: any;
   const copyUrl = (url?: string) => {
     if (!url || !copyToClipboard(url)) {
-      notifications.error('Copy to clipboard failed!', false);
+      setMessage('Copy to clipboard failed!');
     }
-    notifications.success('URL copied to clipboard', false);
+    setMessage('URL copied to clipboard');
+    messageTimeout = setTimeout(() => {
+      setMessage('Click to copy');
+    }, 5000);
   };
 
   const populateItems = (shareData: ShareData, services: Service[], items: HTMLElement | null) => {
@@ -60,6 +62,7 @@ export const createShareContainer = async (
     if (input) {
       input.value = shareData.url;
     }
+    setMessage('Click to copy');
   };
 
   const services: Service[] = [
@@ -156,21 +159,29 @@ export const createShareContainer = async (
   div.innerHTML = shareScreen;
   const shareContainer = div.firstChild as HTMLElement;
   const items = shareContainer.querySelector<HTMLElement>('#share-links');
+  const clickToCopy = shareContainer.querySelector('#share-click-to-copy') as HTMLElement;
   const input = shareContainer.querySelector<HTMLInputElement>('#share-url-input');
   const shareExpiry = shareContainer.querySelector<HTMLElement>('#share-expiry');
   const shortUrlLink = shareExpiry?.querySelector('#share-permanent-url-expiry a') as HTMLElement;
   const permanentUrlLink = shareExpiry?.querySelector('#share-short-url-expiry a') as HTMLElement;
+
+  const setMessage = (message: string) => {
+    if (!clickToCopy) return;
+    clearTimeout(messageTimeout);
+    clickToCopy.innerHTML = message;
+  };
+
   populateItems(shareData, services, items);
 
   eventsManager.addEventListener(shortUrlLink, 'click', async (event: Event) => {
     event.preventDefault();
-    notifications.info('Generating URL …', false);
+    setMessage('Generating URL …');
     try {
       const shareDataShort = await shareFn(true);
       populateItems(shareDataShort, services, items);
       shareExpiry?.classList.add('short-url');
     } catch {
-      notifications.error('Failed to generate short URL!', false);
+      setMessage('Failed to generate short URL!');
     }
   });
 

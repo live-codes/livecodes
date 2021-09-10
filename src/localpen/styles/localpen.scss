@@ -1140,7 +1140,12 @@ i.arrow {
 
   #share-screen {
     .modal-content {
-      margin-top: 0 !important;
+      margin-top: -2.5em !important;
+    }
+
+    #share-click-to-copy {
+      text-align: right;
+      width: 95%;
     }
 
     #share-url-input {
@@ -1150,6 +1155,7 @@ i.arrow {
 
     #share-expiry {
       margin-top: -0.5em;
+      width: 95%;
 
       div {
         display: flex;
@@ -1220,6 +1226,10 @@ i.arrow {
 
   #file-input {
     display: none;
+  }
+
+  .light {
+    color: rgb(114, 118, 133);
   }
 
   ul.thumbnails {
