@@ -43,8 +43,8 @@ test.describe('Starter Templates from UI', () => {
   });
 
   templates.forEach((template) => {
-    test(template + ' Starter', async ({ page, getTestUrl }) => {
-      test.skip(template === 'MDX', 'fails on CI');
+    test(template + ' Starter', async ({ page, getTestUrl, editor }) => {
+      test.skip(template === 'MDX' && editor === 'monaco', 'fails on CI');
 
       await page.goto(getTestUrl());
 
