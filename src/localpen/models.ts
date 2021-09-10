@@ -2,7 +2,7 @@ import { createEventsManager } from './events';
 
 export interface API {
   run: () => Promise<void>;
-  save: () => void;
+  format: () => Promise<void>;
   getShareUrl: () => Promise<string>;
   getConfig: () => Pen;
   setConfig: (Config: Pen) => Promise<Pen>;
@@ -14,6 +14,7 @@ export interface Pen {
   autoupdate: boolean;
   autosave: boolean;
   delay: number;
+  formatOnsave: boolean;
   emmet: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   readonly: boolean;
@@ -214,6 +215,7 @@ export type ParserName =
   | 'less'
   | 'php'
   | 'pug';
+
 export interface Parser {
   name: ParserName;
   plugins?: any[];
@@ -349,7 +351,7 @@ export interface CodeEditor {
     DownArrow: any;
   };
   registerFormatter: (formatFn: FormatFn | undefined) => void;
-  format: () => void;
+  format: () => Promise<void>;
   isReadonly: boolean;
   destroy: () => void;
   monaco?: any;

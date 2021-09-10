@@ -5,6 +5,7 @@ export const defaultConfig: Pen = {
   autoupdate: true,
   autosave: false,
   delay: 1500,
+  formatOnsave: false,
   emmet: true,
   mode: 'full',
   readonly: false,

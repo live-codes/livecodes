@@ -260,9 +260,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
-  const format = () => {
-    editor.getAction('editor.action.formatDocument').run();
-  };
+  const format = () => editor.getAction('editor.action.formatDocument').run();
 
   const disposeEmmet: { html?: any; css?: any } = {};
   const configureEmmet = (enabled: boolean) => {

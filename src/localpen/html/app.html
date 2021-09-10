@@ -109,13 +109,6 @@
                 <a href="#" id="deploy-link">Deploy …</a>
               </li>
               <li>
-                <a href="#" id="login-link">Login …</a>
-                <a href="#" id="logout-link" style="display: none">Log out</a>
-              </li>
-              <li>
-                <a href="#" id="external-resources-link">External CSS/JS …</a>
-              </li>
-              <li>
                 <i class="arrow left"></i>
                 <a href="#" id="css-preset-link">CSS Preset</a>
                 <ul class="dropdown-menu submenu" id="css-preset-menu">
@@ -131,10 +124,17 @@
                   <li>
                     <a href="#" data-preset="github-markdown-css">github-markdown-css</a>
                   </li>
-                  <li>
-                    <a href="#" data-preset="asciidoctor.css">Asciidoctor CSS</a>
-                  </li>
                 </ul>
+              </li>
+              <li>
+                <a href="#" id="external-resources-link">External CSS/JS …</a>
+              </li>
+              <li>
+                <a href="#" id="login-link">Login …</a>
+                <a href="#" id="logout-link" style="display: none">Log out</a>
+              </li>
+              <li>
+                <a href="#" id="info-link">Project Info …</a>
               </li>
               <li>
                 <label class="switch">
@@ -156,6 +156,15 @@
               </li>
               <li>
                 <label class="switch">
+                  <span>Format on-save</span>
+                  <div>
+                    <input id="formatOnsave" type="checkbox" data-config="formatOnsave" />
+                    <span class="slider round"></span>
+                  </div>
+                </label>
+              </li>
+              <li>
+                <label class="switch">
                   <span>Enable Emmet</span>
                   <div>
                     <input id="emmet" type="checkbox" data-config="emmet" />
@@ -165,6 +174,11 @@
               </li>
               <li>
                 <a href="#" id="custom-settings-link">Custom Settings …</a>
+              </li>
+              <li>
+                <a href="https://github.com/hatemhosny/localpen/" target="_blank" rel="noopener"
+                  >Documentations</a
+                >
               </li>
               <li>
                 <a href="https://github.com/hatemhosny/localpen/" target="_blank" rel="noopener"
