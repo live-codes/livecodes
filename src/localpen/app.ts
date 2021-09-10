@@ -650,10 +650,15 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
   };
 
   const setSavedStatus = () => {
+    updateConfig();
+    const savedConfig = storage.getItem(penId)?.pen;
     isSaved =
-      !penId || JSON.stringify(storage.getItem(penId)?.pen) !== JSON.stringify(getConfig())
-        ? false
-        : true;
+      changingContent ||
+      !!(
+        savedConfig &&
+        JSON.stringify(getContentConfig(savedConfig)) ===
+          JSON.stringify(getContentConfig(getConfig()))
+      );
 
     const projectTitle = UI.getProjectTitleElement();
 
@@ -905,7 +910,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     const handleChangeContent = () => {
       const contentChanged = async (loading: boolean) => {
         updateConfig();
-        setSavedStatus();
         addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
@@ -918,7 +922,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
         loadModuleTypes(editors, getConfig());
       };
-
       const debouncecontentChanged = debounce(async () => {
         await contentChanged(changingContent);
       }, getConfig().delay ?? defaultConfig.delay);
@@ -926,6 +929,10 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       editors.markup.onContentChanged(debouncecontentChanged);
       editors.style.onContentChanged(debouncecontentChanged);
       editors.script.onContentChanged(debouncecontentChanged);
+
+      editors.markup.onContentChanged(setSavedStatus);
+      editors.style.onContentChanged(setSavedStatus);
+      editors.script.onContentChanged(setSavedStatus);
     };
 
     const handleHotKeys = () => {
@@ -1920,7 +1927,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     } else {
       await updateEditors(editors, getConfig());
     }
-
     phpHelper({ editor: editors.script });
     setLoading(true);
 
@@ -1934,7 +1940,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     loadModuleTypes(editors, getConfig());
 
     compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
-      await run(editors);
+      if (!reload) {
+        await run(editors);
+      }
     });
     formatter.load(getEditorLanguages());
     initializeAuth();
