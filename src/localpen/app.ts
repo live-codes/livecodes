@@ -1508,12 +1508,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
     const handleShare = () => {
       const createShareUI = async () => {
-        const shareContainer = await UI.createShareContainer(
-          share,
-          baseUrl,
-          eventsManager,
-          notifications,
-        );
+        const shareContainer = await UI.createShareContainer(share, baseUrl, eventsManager);
         modal.show(shareContainer, { size: 'small' });
       };
       eventsManager.addEventListener(
