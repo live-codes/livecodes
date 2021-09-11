@@ -253,10 +253,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
   const updateEditors = async (editors: Editors, config: Pen) => {
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
-      editors[editorId].setValue(config[editorId].content);
       const language = getLanguageByAlias(config[editorId].language);
       if (language) {
-        await changeLanguage(language, true);
+        await changeLanguage(language, config[editorId].content, true);
       }
     }
   };
@@ -380,11 +379,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     // apply config
   };
 
-  const changeLanguage = async (language: Language, isUpdate = false) => {
+  const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
     const editorId = getLanguageEditorId(language);
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
     const editor = editors[editorId];
-    editor.setLanguage(language);
+    editor.setLanguage(language, value ?? editor.getValue());
     if (editorLanguages) {
       editorLanguages[editorId] = language;
     }
@@ -1924,7 +1923,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     }
     phpHelper({ editor: editors.script });
     setLoading(true);
-
     await setActiveEditor(getConfig());
     loadSettings(getConfig());
     configureEmmet(getConfig());
@@ -1935,9 +1933,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     loadModuleTypes(editors, getConfig());
 
     compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
-      if (!reload) {
-        await run(editors);
-      }
+      await run(editors);
     });
     formatter.load(getEditorLanguages());
     initializeAuth();

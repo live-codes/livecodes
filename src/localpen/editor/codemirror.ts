@@ -127,13 +127,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
   const focus = () => view.focus();
   const getLanguage = () => language;
-  const setLanguage = (lang: Language) => {
+  const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     mappedLanguage = mapLanguage(language);
     const languageExtension = getLanguageExtension(mappedLanguage)();
     view.dispatch({
       reconfigure: { [languageTag]: languageExtension },
     });
+    if (value != null) {
+      setValue(value);
+    }
   };
 
   const onContentChanged = (fn: Listener) => {

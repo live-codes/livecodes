@@ -337,7 +337,7 @@ export interface CodeEditor {
   getValue: () => string;
   setValue: (value?: string, newState?: boolean) => void;
   getLanguage: () => Language;
-  setLanguage: (language: Language) => void;
+  setLanguage: (language: Language, value?: string) => void;
   focus: () => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;

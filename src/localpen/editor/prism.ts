@@ -80,11 +80,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     container.focus();
   };
   const getLanguage = () => language;
-  const setLanguage = (lang: Language) => {
+  const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     mappedLanguage = mapLanguage(language);
     codeElement.className = 'language-' + mappedLanguage;
     Prism.highlightAllUnder(container);
+    if (value != null) {
+      setValue(value);
+    }
   };
 
   const onContentChanged = (_fn: () => void) => {
