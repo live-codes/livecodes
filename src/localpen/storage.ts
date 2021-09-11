@@ -29,7 +29,12 @@ export const createStorage = (name = '__localpen_data__') => {
     getData()
       .items?.map((item) => ({
         id: item.id,
-        title: item.pen?.title,
+        title: item.pen?.title || '',
+        description: item.pen?.description || '',
+        tags: item.pen?.tags || [],
+        languages: item.pen
+          ? [item.pen.markup.language, item.pen.style.language, item.pen.script.language]
+          : [],
         lastModified: item.lastModified,
       }))
       .sort((a, b) => b.lastModified - a.lastModified);

@@ -111,8 +111,14 @@ export const stringify = (obj: any, pretty = false) => {
   }
 };
 
+export const getRandomString = () => String(Math.random()) + '-' + Date.now().toFixed();
+
 export const loadScript = (url: string, name?: string) =>
   new Promise((resolve, reject) => {
+    if (name && (window as any)[name]) {
+      return resolve((window as any)[name]);
+    }
+
     const script = document.createElement('script');
     script.src = url;
     script.async = true;
@@ -140,6 +146,15 @@ export const loadScript = (url: string, name?: string) =>
     script.addEventListener('error', onError);
     document.head.appendChild(script);
   });
+
+export const loadStylesheet = (url: string, id?: string) => {
+  if (id && document.getElementById(id)) return;
+  const stylesheet = document.createElement('link');
+  stylesheet.rel = 'stylesheet';
+  stylesheet.href = url;
+  stylesheet.id = id || 'styles-' + getRandomString();
+  document.head.appendChild(stylesheet);
+};
 
 export const typedArrayToBuffer = (array: Uint8Array): ArrayBuffer =>
   array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);

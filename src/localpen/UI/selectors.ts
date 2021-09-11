@@ -118,6 +118,9 @@ export const getInfoTitleInput = () =>
 export const getInfoDescription = () =>
   document.querySelector('#info-container #description-textarea') as HTMLTextAreaElement;
 
+export const getInfoTagsInput = () =>
+  document.querySelector('#info-container input#tags-input') as HTMLInputElement;
+
 export const getSaveInfoButton = () =>
   document.querySelector<HTMLElement>('#info-container #info-save-btn');
 

@@ -1,4 +1,5 @@
 export * from './import';
+export * from './info';
 export * from './deploy';
 export * from './login';
 export * from './open';

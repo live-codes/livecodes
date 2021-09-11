@@ -38,7 +38,6 @@ import { createModal } from './modal';
 import {
   resultTemplate,
   customSettingsScreen,
-  infoScreen,
   resourcesScreen,
   savePromptScreen,
   openScreen,
@@ -1680,30 +1679,18 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     };
 
     const handleProjectInfo = () => {
-      const createProjectInfoUI = () => {
-        const div = document.createElement('div');
-        div.innerHTML = infoScreen;
-        const projectInfoContainer = div.firstChild as HTMLElement;
-        modal.show(projectInfoContainer);
-
-        const titleInput = UI.getInfoTitleInput();
-        titleInput.value = getConfig().title;
-        titleInput.focus();
-
-        const descriptionTextarea = UI.getInfoDescription();
-        descriptionTextarea.value = getConfig().description;
-
-        eventsManager.addEventListener(UI.getSaveInfoButton(), 'click', async () => {
-          UI.getProjectTitleElement().textContent = titleInput.value;
-          setConfig({
-            ...getConfig(),
-            title: titleInput.value,
-            description: descriptionTextarea.value,
-          });
-          save(!penId, true);
-          modal.close();
+      const onSave = (title: string, description: string, tags: string[]) => {
+        setConfig({
+          ...getConfig(),
+          title,
+          description,
+          tags,
         });
+        save(!penId, true);
       };
+      const createProjectInfoUI = () =>
+        UI.createProjectInfoUI(getConfig(), storage, modal, eventsManager, onSave);
+
       eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
       registerScreen('info', createProjectInfoUI);
     };
