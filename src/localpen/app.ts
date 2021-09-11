@@ -38,6 +38,7 @@ import { createModal } from './modal';
 import {
   resultTemplate,
   customSettingsScreen,
+  infoScreen,
   resourcesScreen,
   savePromptScreen,
   openScreen,
@@ -581,6 +582,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
   const getContentConfig = (config: Pen): ContentPen => ({
     title: config.title,
+    description: config.description,
+    tags: config.tags,
     activeEditor: config.activeEditor,
     languages: config.languages,
     markup: config.markup,
@@ -1676,6 +1679,35 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       registerScreen('deploy', createDeployUI);
     };
 
+    const handleProjectInfo = () => {
+      const createProjectInfoUI = () => {
+        const div = document.createElement('div');
+        div.innerHTML = infoScreen;
+        const projectInfoContainer = div.firstChild as HTMLElement;
+        modal.show(projectInfoContainer);
+
+        const titleInput = UI.getInfoTitleInput();
+        titleInput.value = getConfig().title;
+        titleInput.focus();
+
+        const descriptionTextarea = UI.getInfoDescription();
+        descriptionTextarea.value = getConfig().description;
+
+        eventsManager.addEventListener(UI.getSaveInfoButton(), 'click', async () => {
+          UI.getProjectTitleElement().textContent = titleInput.value;
+          setConfig({
+            ...getConfig(),
+            title: titleInput.value,
+            description: descriptionTextarea.value,
+          });
+          save(!penId, true);
+          modal.close();
+        });
+      };
+      eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
+      registerScreen('info', createProjectInfoUI);
+    };
+
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
@@ -1820,6 +1852,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     handleProcessors();
     handleSettings();
     handleSettingsMenu();
+    handleProjectInfo();
     handleExternalResources();
     handleCustomSettings();
     handleLogin();
