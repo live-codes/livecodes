@@ -58,27 +58,27 @@ import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { configureEmbed } from './embed';
 
-export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> => {
-  setConfig(config);
+export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<API> => {
+  setConfig(appConfig);
 
   const storage = createStorage();
   const templates = createStorage('__localpen_templates__');
   const formatter = getFormatter(getConfig(), baseUrl);
-  let editors: Editors;
-  let penId: string;
-  let editorLanguages: EditorLanguages | undefined;
   const notifications = createNotifications();
   const modal = createModal();
   const eventsManager = createEventsManager();
+  let authService: ReturnType<typeof createAuthService> | undefined;
+  const split = UI.createSplitPanes();
+  let penId: string;
+  let editors: Editors;
+  let editorLanguages: EditorLanguages | undefined;
+  let resultLanguages: Language[] = [];
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
-  let resultLanguages: Language[] = [];
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
-  let authService: ReturnType<typeof createAuthService> | undefined;
   const screens: Screen[] = [];
-  const split = UI.createSplitPanes();
 
   const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
   const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -1740,6 +1740,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
     const handleCustomSettings = () => {
       const createCustomSettingsUI = async () => {
+        const config = getConfig();
         // eslint-disable-next-line prefer-const
         let customSettingsEditor: CodeEditor | undefined;
         const div = document.createElement('div');
@@ -1975,9 +1976,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       return JSON.parse(JSON.stringify(config));
     },
     setConfig: async (newConfig: Pen): Promise<Pen> => {
-      const appConfig = await buildConfig(newConfig, baseUrl);
-      await loadConfig(appConfig);
-      return appConfig;
+      const newAppConfig = await buildConfig(newConfig, baseUrl);
+      await loadConfig(newAppConfig);
+      return newAppConfig;
     },
     getCode: async (): Promise<Code> => {
       if (!cacheIsValid(editors)) {
