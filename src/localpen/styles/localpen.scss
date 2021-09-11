@@ -1324,6 +1324,19 @@ i.arrow {
     text-align: initial;
     width: 80%;
   }
+
+  .tagify {
+    background-color: white;
+    border: 1px solid rgb(169, 169, 169);
+    border-radius: 5px;
+    box-sizing: content-box;
+    color: rgb(105, 105, 105);
+    font-size: 0.9em;
+    outline: none;
+    padding: 5px;
+    text-align: start;
+    width: 80%;
+  }
 }
 
 @media only screen and (max-width: 768px) {

@@ -4,6 +4,7 @@ import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { getLanguageExtension, mapLanguage } from '../languages';
+import { getRandomString } from '../utils';
 
 const monacoMapLanguage = (language: Language): Language =>
   language === 'livescript'
@@ -146,7 +147,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     value: string,
     language: Language,
   ) => {
-    const random = String(Math.random()) + '-' + Date.now().toFixed();
+    const random = getRandomString();
     const ext = getLanguageExtension(language);
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(

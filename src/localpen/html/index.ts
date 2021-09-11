@@ -10,6 +10,8 @@ import importScreen from './import.html';
 // @ts-ignore
 import deployScreen from './deploy.html';
 // @ts-ignore
+import infoScreen from './project-info.html';
+// @ts-ignore
 import resourcesScreen from './external-resources.html';
 // @ts-ignore
 import loginScreen from './login.html';
@@ -28,6 +30,7 @@ export {
   customSettingsScreen,
   importScreen,
   deployScreen,
+  infoScreen,
   resourcesScreen,
   loginScreen,
   savePromptScreen,

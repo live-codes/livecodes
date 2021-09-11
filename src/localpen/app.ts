@@ -581,6 +581,8 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
   const getContentConfig = (config: Pen): ContentPen => ({
     title: config.title,
+    description: config.description,
+    tags: config.tags,
     activeEditor: config.activeEditor,
     languages: config.languages,
     markup: config.markup,
@@ -1676,6 +1678,23 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       registerScreen('deploy', createDeployUI);
     };
 
+    const handleProjectInfo = () => {
+      const onSave = (title: string, description: string, tags: string[]) => {
+        setConfig({
+          ...getConfig(),
+          title,
+          description,
+          tags,
+        });
+        save(!penId, true);
+      };
+      const createProjectInfoUI = () =>
+        UI.createProjectInfoUI(getConfig(), storage, modal, eventsManager, onSave);
+
+      eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
+      registerScreen('info', createProjectInfoUI);
+    };
+
     const handleExternalResources = () => {
       const createExrenalResourcesUI = () => {
         const div = document.createElement('div');
@@ -1820,6 +1839,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     handleProcessors();
     handleSettings();
     handleSettingsMenu();
+    handleProjectInfo();
     handleExternalResources();
     handleCustomSettings();
     handleLogin();
