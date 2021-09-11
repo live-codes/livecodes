@@ -2,6 +2,8 @@ import { Pen } from '../models';
 
 export const defaultConfig: Pen = {
   title: 'Untitled Project',
+  description: '',
+  tags: [],
   autoupdate: true,
   autosave: false,
   delay: 1500,

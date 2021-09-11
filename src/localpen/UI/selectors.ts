@@ -109,6 +109,18 @@ export const getEmmetToggle = () =>
 export const getCSSPresetLinks = () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
+export const getProjectInfoLink = () =>
+  document.querySelector('#settings-menu #info-link') as HTMLInputElement;
+
+export const getInfoTitleInput = () =>
+  document.querySelector('#info-container input#title-input') as HTMLInputElement;
+
+export const getInfoDescription = () =>
+  document.querySelector('#info-container #description-textarea') as HTMLTextAreaElement;
+
+export const getSaveInfoButton = () =>
+  document.querySelector<HTMLElement>('#info-container #info-save-btn');
+
 export const getExternalResourcesTextareas = () =>
   document.querySelectorAll<HTMLTextAreaElement>('#resources-container textarea');
 

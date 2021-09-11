@@ -187,5 +187,13 @@ const loadParamConfig = (config: Pen, params: { [key: string]: string }) => {
       .filter(Boolean) as Language[];
   }
 
+  // ?tags=js,advanced,proof-of-concept
+  if (typeof params.tags === 'string') {
+    paramsConfig.tags = params.tags
+      .split(',')
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+
   return paramsConfig;
 };

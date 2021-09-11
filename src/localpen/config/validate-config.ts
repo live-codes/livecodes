@@ -35,6 +35,8 @@ export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
 
   return {
     ...(is(config.title, 'string') ? { title: config.title } : {}),
+    ...(is(config.description, 'string') ? { description: config.description } : {}),
+    ...(is(config.tags, 'array', 'string') ? { tags: config.tags } : {}),
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),
     ...(is(config.delay, 'number') ? { delay: config.delay } : {}),

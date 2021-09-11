@@ -11,6 +11,8 @@ export interface API {
 
 export interface Pen {
   title: string;
+  description: string;
+  tags: string[];
   autoupdate: boolean;
   autosave: boolean;
   delay: number;
@@ -47,6 +49,8 @@ export interface Pen {
 export type ContentPen = Pick<
   Pen,
   | 'title'
+  | 'description'
+  | 'tags'
   | 'activeEditor'
   | 'languages'
   | 'markup'
@@ -387,7 +391,16 @@ export interface ShareData {
 }
 
 export interface Screen {
-  screen: 'login' | 'new' | 'open' | 'import' | 'external' | 'share' | 'deploy' | 'custom-settings';
+  screen:
+    | 'login'
+    | 'info'
+    | 'new'
+    | 'open'
+    | 'import'
+    | 'external'
+    | 'share'
+    | 'deploy'
+    | 'custom-settings';
   show: () => void | Promise<unknown>;
 }
 
