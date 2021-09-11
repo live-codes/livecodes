@@ -145,23 +145,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor: Monaco.editor.IStandaloneCodeEditor,
     value: string,
     language: Language,
-    update = false,
   ) => {
-    if (!update) {
-      const random = String(Math.random()) + '-' + Date.now().toFixed();
-      const ext = getLanguageExtension(language);
-      const model = monaco.editor.createModel(
-        value || '',
-        monacoMapLanguage(language),
-        monaco.Uri.parse(`file:///main.${random}.${ext}`),
-      );
-      editor.setModel(model);
-    } else {
-      const model = editor.getModel();
-      if (!model) return;
-      monaco.editor.setModelLanguage(model, monacoMapLanguage(language));
-      editor.setValue(value || '');
-    }
+    const random = String(Math.random()) + '-' + Date.now().toFixed();
+    const ext = getLanguageExtension(language);
+    const oldModel = editor.getModel();
+    const model = monaco.editor.createModel(
+      value || '',
+      monacoMapLanguage(language),
+      monaco.Uri.parse(`file:///main.${random}.${ext}`),
+    );
+    editor.setModel(model);
+    oldModel?.dispose();
 
     upateListeners();
     configureEditor();
@@ -201,10 +195,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const getLanguage = () => language;
-  const setLanguage = (lang: Language) => {
+  const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     clearTypes();
-    setModel(editor, editor.getValue(), language, true);
+    setModel(editor, value ?? editor.getValue(), language);
   };
 
   const addTypes = (lib: EditorLibrary) => {
