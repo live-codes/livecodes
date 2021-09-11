@@ -17,7 +17,6 @@ import {
   Cache,
   Code,
   CodeEditor,
-  ContentPen,
   CssPresetId,
   EditorId,
   EditorLanguages,
@@ -45,7 +44,14 @@ import {
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
-import { buildConfig, defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
+import {
+  buildConfig,
+  defaultConfig,
+  getConfig,
+  getContentConfig,
+  setConfig,
+  upgradeAndValidate,
+} from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
 import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
@@ -398,7 +404,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         ...getConfig(),
         activeEditor: editorId,
       });
-      await run(editors);
+      await run();
     }
     addConsoleInputCodeCompletion();
     loadModuleTypes(editors, getConfig());
@@ -409,7 +415,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
   const registerRun = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
     editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
-      await run(editors);
+      await run();
     });
   };
 
@@ -449,20 +455,20 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
   };
 
   const getResultPage = async (
-    editors: Editors,
     forExport = false,
     template: string = resultTemplate,
     singleFile = true,
   ) => {
     updateConfig();
     const config = getConfig();
+    const contentConfig = getContentConfig(config);
 
-    const markupContent = editors.markup?.getValue();
-    const styleContent = editors.style?.getValue();
-    const scriptContent = editors.script?.getValue();
-    const markupLanguage = getEditorLanguage('markup') || 'html';
-    const styleLanguage = getEditorLanguage('style') || 'css';
-    const scriptLanguage = getEditorLanguage('script') || 'javascript';
+    const markupContent = config.markup.content || '';
+    const styleContent = config.style.content || '';
+    const scriptContent = config.script.content || '';
+    const markupLanguage = config.markup.language;
+    const styleLanguage = config.style.language;
+    const scriptLanguage = config.script.language;
 
     const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config);
     const [compiledStyle, compiledScript] = await Promise.all([
@@ -471,19 +477,17 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     ]);
 
     const compiledCode: Cache = {
+      ...contentConfig,
       markup: {
-        language: markupLanguage,
-        content: markupContent,
+        ...contentConfig.markup,
         compiled: compiledMarkup,
       },
       style: {
-        language: styleLanguage,
-        content: styleContent,
+        ...contentConfig.style,
         compiled: compiledStyle,
       },
       script: {
-        language: scriptLanguage,
-        content: scriptContent,
+        ...contentConfig.script,
         compiled: compiledScript,
       },
     };
@@ -530,9 +534,9 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
       (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LocalPen';
   };
 
-  const run = async (editors: Editors) => {
+  const run = async () => {
     setLoading(true);
-    const result = await getResultPage(editors);
+    const result = await getResultPage();
     await createIframe(UI.getResultElement(), result);
     updateCompiledCode();
   };
@@ -578,25 +582,6 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     await save();
     notifications.success('Forked as a new project');
   };
-
-  const getContentConfig = (config: Pen): ContentPen => ({
-    title: config.title,
-    description: config.description,
-    tags: config.tags,
-    activeEditor: config.activeEditor,
-    languages: config.languages,
-    markup: config.markup,
-    style: config.style,
-    script: config.script,
-    stylesheets: config.stylesheets,
-    scripts: config.scripts,
-    cssPreset: config.cssPreset,
-    processors: config.processors,
-    customSettings: config.customSettings,
-    imports: config.imports,
-    types: config.types,
-    version: config.version,
-  });
 
   const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
     const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
@@ -914,7 +899,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
-          await run(editors);
+          await run();
         }
 
         if (getConfig().autosave) {
@@ -976,7 +961,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     const handleRunButton = () => {
       const handleRun = async () => {
         split.show('output');
-        await run(editors);
+        await run();
       };
       eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
       eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
@@ -1020,7 +1005,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
                 },
               },
             });
-            await run(editors);
+            await run();
           },
           false,
         );
@@ -1042,13 +1027,13 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
           setConfig({ ...getConfig(), [configKey]: toggle.checked });
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
-            await run(editors);
+            await run();
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
           }
           if (configKey === 'autoprefixer') {
-            await run(editors);
+            await run();
           }
         });
       });
@@ -1068,7 +1053,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
               preset.classList.remove('active');
             });
             link.classList.add('active');
-            await run(editors);
+            await run();
           },
           false,
         );
@@ -1452,7 +1437,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'html', await getResultPage(editors, true));
+          exportPen(getConfig(), baseUrl, 'html', await getResultPage(true));
         },
         false,
       );
@@ -1464,7 +1449,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          const html = await getResultPage(editors, true);
+          const html = await getResultPage(true);
           exportPen(getConfig(), baseUrl, 'src', { JSZip, html });
         },
         false,
@@ -1560,7 +1545,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
           const singleFile = false;
           newRepoNameError.innerHTML = '';
 
-          const resultHtml = await getResultPage(editors, forExport, resultTemplate, singleFile);
+          const resultHtml = await getResultPage(forExport, resultTemplate, singleFile);
           const cache = getCache();
           const deployResult = await deploy({
             user,
@@ -1726,7 +1711,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
           });
           setSavedStatus();
           modal.close();
-          await run(editors);
+          await run();
         });
       };
       eventsManager.addEventListener(
@@ -1787,7 +1772,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
           }
           customSettingsEditor?.destroy();
           modal.close();
-          await run(editors);
+          await run();
         });
       };
       eventsManager.addEventListener(
@@ -1954,7 +1939,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     loadModuleTypes(editors, getConfig());
 
     compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
-      await run(editors);
+      await run();
     });
     formatter.load(getEditorLanguages());
     initializeAuth();
@@ -1966,7 +1951,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
 
   return {
     run: async () => {
-      await run(editors);
+      await run();
     },
     format: async () => format(),
     getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
@@ -1982,7 +1967,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     },
     getCode: async (): Promise<Code> => {
       if (!cacheIsValid(editors)) {
-        await getResultPage(editors);
+        await getResultPage();
       }
       return JSON.parse(JSON.stringify(getCachedCode()));
     },
