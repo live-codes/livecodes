@@ -110,12 +110,26 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         resultLanguages.includes(scriptLang) &&
         !editorsText.includes('__localpen_reload__');
 
-      if (liveReload) {
+      if (result && getCache().styleOnlyUpdate) {
+        // load the updated styles only
+        iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
+        const domParser = new DOMParser();
+        const dom = domParser.parseFromString(result, 'text/html');
+        const stylesElement = dom.querySelector('#__localpen_styles__');
+        if (stylesElement) {
+          const styles = stylesElement.innerHTML;
+          iframe.contentWindow?.postMessage({ styles }, service.getOrigin());
+        } else {
+          iframe.contentWindow?.postMessage({ result }, service.getOrigin());
+        }
+        resolve('loaded');
+      } else if (liveReload) {
         // allows only sending the updated code to the iframe without full page reload
         iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
         iframe.contentWindow?.postMessage({ result }, service.getOrigin());
         resolve('loaded');
       } else {
+        // full page reload
         iframe = document.createElement('iframe');
         iframe.name = 'result';
         iframe.id = 'result-frame';
@@ -494,9 +508,21 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
 
     const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
 
+    const styleOnlyUpdate = cacheIsValid(
+      {
+        ...getCache(),
+        style: { language: 'css', compiled: '' },
+      },
+      {
+        ...contentConfig,
+        style: { language: 'css' },
+      },
+    );
+
     setCache({
       ...compiledCode,
       result,
+      styleOnlyUpdate,
     });
 
     return result;
@@ -1966,7 +1992,8 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
       return newAppConfig;
     },
     getCode: async (): Promise<Code> => {
-      if (!cacheIsValid(editors)) {
+      updateConfig();
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
         await getResultPage();
       }
       return JSON.parse(JSON.stringify(getCachedCode()));

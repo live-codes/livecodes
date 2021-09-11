@@ -1,12 +1,14 @@
 import { defaultConfig, getContentConfig } from '../config';
-import { Cache, Code, EditorId, Editors, Language } from '../models';
+import { Cache, Code, EditorId, Language } from '../models';
 
+const defaultContentConfig = getContentConfig(defaultConfig);
 const initialCache: Cache = {
-  ...getContentConfig(defaultConfig),
-  markup: { language: 'html', content: '', compiled: '', modified: '' },
-  style: { language: 'css', content: '', compiled: '', modified: '' },
-  script: { language: 'javascript', content: '', compiled: '', modified: '' },
+  ...defaultContentConfig,
+  markup: { ...defaultContentConfig.markup, compiled: '', modified: '' },
+  style: { ...defaultContentConfig.style, compiled: '', modified: '' },
+  script: { ...defaultContentConfig.script, compiled: '', modified: '' },
   result: '',
+  styleOnlyUpdate: false,
 };
 
 let cache = initialCache;
@@ -37,14 +39,6 @@ export const updateCache = (editorId: EditorId, language: Language, modified: st
     cache[editorId].modified = modified;
   }
 };
-
-export const cacheIsValid = (editors: Editors) =>
-  cache.markup.language === editors.markup.getLanguage() &&
-  cache.markup.content === editors.markup.getValue() &&
-  cache.style.language === editors.style.getLanguage() &&
-  cache.style.content === editors.style.getValue() &&
-  cache.script.language === editors.script.getLanguage() &&
-  cache.script.content === editors.script.getValue();
 
 export const getCachedCode = (): Code => ({
   markup: {

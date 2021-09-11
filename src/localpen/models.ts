@@ -413,8 +413,8 @@ export type customSettings = {
   };
 };
 
-type EditorCache = Editor & {
-  compiled?: string;
+export type EditorCache = Editor & {
+  compiled: string;
   modified?: string;
 };
 
@@ -423,6 +423,7 @@ export type Cache = ContentPen & {
   style: EditorCache;
   script: EditorCache;
   result?: string;
+  styleOnlyUpdate?: boolean;
 };
 
 export interface Code {

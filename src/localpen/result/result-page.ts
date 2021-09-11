@@ -41,6 +41,7 @@ export const createResultPage = (
   if (singleFile) {
     const style = code.style.compiled;
     const styleElement = dom.createElement('style');
+    styleElement.id = '__localpen_styles__';
     styleElement.innerHTML = style;
     dom.head.appendChild(styleElement);
   } else {
