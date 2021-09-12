@@ -1,3 +1,4 @@
+import { defaultConfig, getContentConfig } from '../config';
 import { ContentPen, Cache, EditorCache } from '../models';
 
 const removeExtra = <T>(editor: T, keys: Array<keyof T>) => {
@@ -18,4 +19,19 @@ export const cacheIsValid = (cache: Cache, config: ContentPen) => {
   const contentConfig = removeExtra(config, excludedKeys);
 
   return JSON.stringify(contentCache) === JSON.stringify(contentConfig);
+};
+
+export const isStyleOnlyUpdate = (cache: Cache, config: ContentPen) => {
+  const sameContent = cacheIsValid(
+    {
+      ...cache,
+      style: { language: 'css', compiled: '' },
+    },
+    {
+      ...config,
+      style: { language: 'css' },
+    },
+  );
+  const initialLoad = cacheIsValid(cache, getContentConfig(defaultConfig));
+  return sameContent && !initialLoad;
 };

@@ -61,7 +61,14 @@ import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
-import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
+import {
+  cacheIsValid,
+  getCache,
+  getCachedCode,
+  isStyleOnlyUpdate,
+  setCache,
+  updateCache,
+} from './cache';
 import { configureEmbed } from './embed';
 
 export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<API> => {
@@ -508,16 +515,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
 
     const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
 
-    const styleOnlyUpdate = cacheIsValid(
-      {
-        ...getCache(),
-        style: { language: 'css', compiled: '' },
-      },
-      {
-        ...contentConfig,
-        style: { language: 'css' },
-      },
-    );
+    const styleOnlyUpdate = isStyleOnlyUpdate(getCache(), contentConfig);
 
     setCache({
       ...compiledCode,
