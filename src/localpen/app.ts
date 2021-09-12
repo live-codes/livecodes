@@ -443,7 +443,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
       const lang = getLanguageCompiler(editors[editorId].getLanguage())?.compiledCodeLanguage;
       return {
         language: lang || defaultLang[editorId],
-        label: getLanguageByAlias(lang) || lang || defaultLang[editorId],
+        label: lang === 'json' ? 'JSON' : getLanguageByAlias(lang) || lang || defaultLang[editorId],
       };
     };
     const compiledLanguages: { [key in EditorId]: { language: Language; label: string } } = {

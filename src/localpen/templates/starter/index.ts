@@ -26,6 +26,7 @@ import { riotStarter } from './riot-starter';
 import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
 import { solidStarter } from './solid-starter';
+import { sqlStarter } from './sql-starter';
 import { stencilStarter } from './stencil-starter';
 import { svelteStarter } from './svelte-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
@@ -68,4 +69,5 @@ export const starterTemplates = [
   readmeTemplate,
   assemblyscriptStarter,
   watStarter,
+  sqlStarter,
 ];

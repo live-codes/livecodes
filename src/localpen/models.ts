@@ -149,7 +149,10 @@ export type Language =
   | 'webassembly'
   | 'wasm'
   | 'Binary'
-  | 'csharp';
+  | 'csharp'
+  | 'sql'
+  | 'sqlite'
+  | 'sqlite3';
 
 export interface Editor {
   language: Language;
@@ -285,6 +288,7 @@ export interface Compiler {
     | 'text/x-uniter-php'
     | 'text/perl'
     | 'text/biwascheme'
+    | 'application/json'
     | 'application/lua'
     | 'application/wasm-uint8';
   liveReload?: boolean;

@@ -21,6 +21,7 @@ import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
+import { sql } from '@codemirror/legacy-modes/mode/sql';
 
 import { mapLanguage } from '../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
@@ -58,6 +59,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       less: () => legacy(less),
       scss: () => legacy(sCSS),
       stylus: () => legacy(stylus),
+      sql: () => legacy(sql({})),
     };
 
     return languages[language] || (languages.html as () => LanguageSupport);
