@@ -119,7 +119,7 @@ test.describe('Custom Settings', () => {
     expect(await getResult().innerText('head style')).toContain('b: 1px;');
   });
 
-  test.only('autoprefixer', async ({ page, getTestUrl }) => {
+  test('autoprefixer', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
