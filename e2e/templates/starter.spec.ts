@@ -35,7 +35,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Blank');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('body');
 
@@ -53,7 +52,6 @@ test.describe('Starter Templates from UI', () => {
       await app.click(`text=${template} Starter`);
       await waitForEditorFocus(app);
 
-      await app.click(runButtonSelector);
       await waitForResultUpdate();
 
       await getResult().click('text=Click me');
@@ -78,7 +76,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Vue 2 Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -102,7 +99,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Vue 3 SFC Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -126,7 +122,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Riot.js Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -151,7 +146,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Go Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -177,7 +171,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=ReScript Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -201,7 +194,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=AssemblyScript Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -225,7 +217,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=WebAssembly Text Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -249,7 +240,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Bootstrap Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const titleText = await getResult().innerText('h1');
@@ -266,7 +256,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Tailwind CSS Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const titleText = await getResult().innerText('h1');
@@ -283,7 +272,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=D3 Starter');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const bars = await getResult().$$('svg rect');
@@ -300,7 +288,6 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=README Template');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const titleText = await getResult().innerText('h1');
@@ -315,7 +302,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('body');
 
@@ -329,7 +315,6 @@ test.describe('Starter Templates from URL', () => {
       const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
       await waitForEditorFocus(app);
-      await app.click(runButtonSelector);
       await waitForResultUpdate();
 
       await getResult().click('text=Click me');
@@ -350,7 +335,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -370,7 +354,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -390,7 +373,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -411,7 +393,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -433,7 +414,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -453,7 +433,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -475,7 +454,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -495,7 +473,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const titleText = await getResult().innerText('h1');
@@ -508,7 +485,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const titleText = await getResult().innerText('h1');
@@ -521,7 +497,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const bars = await getResult().$$('svg rect');
@@ -534,7 +509,6 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     const titleText = await getResult().innerText('h1');

@@ -61,14 +61,7 @@ import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
-import {
-  cacheIsValid,
-  getCache,
-  getCachedCode,
-  isStyleOnlyUpdate,
-  setCache,
-  updateCache,
-} from './cache';
+import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { configureEmbed } from './embed';
 
 export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<API> => {
@@ -475,11 +468,12 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     }
   };
 
-  const getResultPage = async (
+  const getResultPage = async ({
+    sourceEditor = undefined as EditorId | undefined,
     forExport = false,
-    template: string = resultTemplate,
+    template = resultTemplate,
     singleFile = true,
-  ) => {
+  }) => {
     updateConfig();
     const config = getConfig();
     const contentConfig = getContentConfig(config);
@@ -515,7 +509,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
 
     const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
 
-    const styleOnlyUpdate = isStyleOnlyUpdate(getCache(), contentConfig);
+    const styleOnlyUpdate = sourceEditor === 'style';
 
     setCache({
       ...compiledCode,
@@ -558,9 +552,9 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
       (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LocalPen';
   };
 
-  const run = async () => {
+  const run = async (editorId?: EditorId) => {
     setLoading(true);
-    const result = await getResultPage();
+    const result = await getResultPage({ sourceEditor: editorId });
     await createIframe(UI.getResultElement(), result);
     updateCompiledCode();
   };
@@ -918,12 +912,12 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     };
 
     const handleChangeContent = () => {
-      const contentChanged = async (loading: boolean) => {
+      const contentChanged = async (editorId: EditorId, loading: boolean) => {
         updateConfig();
         addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
-          await run();
+          await run(editorId);
         }
 
         if (getConfig().autosave) {
@@ -932,17 +926,15 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
 
         loadModuleTypes(editors, getConfig());
       };
-      const debouncecontentChanged = debounce(async () => {
-        await contentChanged(changingContent);
-      }, getConfig().delay ?? defaultConfig.delay);
+      const debouncecontentChanged = (editorId: EditorId) =>
+        debounce(async () => {
+          await contentChanged(editorId, changingContent);
+        }, getConfig().delay ?? defaultConfig.delay);
 
-      editors.markup.onContentChanged(debouncecontentChanged);
-      editors.style.onContentChanged(debouncecontentChanged);
-      editors.script.onContentChanged(debouncecontentChanged);
-
-      editors.markup.onContentChanged(setSavedStatus);
-      editors.style.onContentChanged(setSavedStatus);
-      editors.script.onContentChanged(setSavedStatus);
+      (Object.keys(editors) as EditorId[]).forEach((editorId) => {
+        editors[editorId].onContentChanged(debouncecontentChanged(editorId));
+        editors[editorId].onContentChanged(setSavedStatus);
+      });
     };
 
     const handleHotKeys = () => {
@@ -1461,7 +1453,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'html', await getResultPage(true));
+          exportPen(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
         },
         false,
       );
@@ -1473,7 +1465,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          const html = await getResultPage(true);
+          const html = await getResultPage({ forExport: true });
           exportPen(getConfig(), baseUrl, 'src', { JSZip, html });
         },
         false,
@@ -1569,7 +1561,11 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
           const singleFile = false;
           newRepoNameError.innerHTML = '';
 
-          const resultHtml = await getResultPage(forExport, resultTemplate, singleFile);
+          const resultHtml = await getResultPage({
+            forExport,
+            template: resultTemplate,
+            singleFile,
+          });
           const cache = getCache();
           const deployResult = await deploy({
             user,
@@ -1992,7 +1988,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     getCode: async (): Promise<Code> => {
       updateConfig();
       if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-        await getResultPage();
+        await getResultPage({});
       }
       return JSON.parse(JSON.stringify(getCachedCode()));
     },

@@ -21,7 +21,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('# hello');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('h1#pre-hello')).toContain('hello');
@@ -45,7 +44,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('hello');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('#footer-text')).toContain('Last updated');
@@ -69,7 +67,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`h1 {color: blue}`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain('--color');
@@ -94,7 +91,6 @@ test.describe('Custom Settings', () => {
     await page.keyboard.type(`h1
     color: blue`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain('--color');
@@ -118,13 +114,12 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`.math { a: 1 + 1; b: 2px / 2; c: 2px ./ 2; d: (2px / 2); }`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain('b: 1px;');
   });
 
-  test('autoprefixer', async ({ page, getTestUrl }) => {
+  test.only('autoprefixer', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -143,7 +138,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('::placeholder {color: gray;}\n');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).not.toContain('::-moz-placeholder');
@@ -168,7 +162,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('html { overflow: hidden auto; }');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain('html { overflow: hidden auto; }');
@@ -198,7 +191,6 @@ test.describe('Custom Settings', () => {
     await app.click('text=CSS');
     await waitForEditorFocus(app);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain(
@@ -227,7 +219,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('const x = () => "hi";\n');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('body script')).toContain('//# sourceMappingURL=data:');
@@ -251,7 +242,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('const x = () => "hi";\n');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('body script')).toContain('var x = function () {');
@@ -270,7 +260,6 @@ test.describe('Custom Settings', () => {
     await page.keyboard.type(`{"svelte": {"css": false}}`);
     await app.click('text=Load');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('body script')).not.toContain('function add_css()');
@@ -291,7 +280,6 @@ test.describe('Custom Settings', () => {
     await page.keyboard.type(`{"stencil": {"sourceMap": true}}`);
     await app.click('text=Load');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerHTML('body script')).toContain('//# sourceMappingURL=');
@@ -315,7 +303,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('x = 10');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('body script')).toContain('(function()');
@@ -339,7 +326,6 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('x = 10');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
 
     expect(await getResult().innerText('body script')).toContain('(function()');

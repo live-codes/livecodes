@@ -23,7 +23,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('document.body.innerHTML += "world!"');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('body');
 
@@ -43,7 +42,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await app.page().keyboard.type('# Hi There');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -67,7 +65,6 @@ test.describe('Compiler Results', () => {
       .page()
       .keyboard.type('export const Hello = (props) => <h1>Hello, {props.title}!</h1>;');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -84,7 +81,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('h1 Hi There');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -101,7 +97,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('.content Hello, World!');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('.content');
 
@@ -118,7 +113,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type('== Hello, World!');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h2');
 
@@ -143,7 +137,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -173,7 +166,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     await app.waitForTimeout(3000);
     const resultText = await getResult().innerHTML('h1');
@@ -199,7 +191,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -229,7 +220,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     await app.waitForTimeout(3000);
     const resultText = await getResult().innerHTML('h1');
@@ -255,7 +245,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to <%= name %></h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -285,7 +274,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to <%= name %></h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     await app.waitForTimeout(3000);
     const resultText = await getResult().innerHTML('h1');
@@ -311,7 +299,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const body = await getResult().$('body');
 
@@ -341,7 +328,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     await app.waitForTimeout(3000);
     const body = await getResult().$('body');
@@ -367,7 +353,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -397,7 +382,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     await app.waitForTimeout(3000);
     const resultText = await getResult().innerHTML('h1');
@@ -417,7 +401,6 @@ test.describe('Compiler Results', () => {
       `$font-stack: Helvetica, sans-serif; body { font: 100% $font-stack; }`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
@@ -434,7 +417,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`$font-stack: Helvetica, sans-serif\nbody\n  font: 100% $font-stack`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
@@ -451,7 +433,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.type(`@width: 10px; #header { width: @width; }`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
@@ -468,7 +449,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`font-size = 14px\nbody\n  font font-size Arial, sans-serif`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
@@ -486,7 +466,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`.example { user-select: none; }`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
@@ -508,7 +487,6 @@ test.describe('Compiler Results', () => {
       `:root { --mainColor: #12345678; --secondaryColor: lab(32.5 38.5 -47.6 / 90%); }`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
@@ -527,7 +505,6 @@ test.describe('Compiler Results', () => {
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`[1, 2, 3].map(n => n + 1);`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('body > script');
 
@@ -556,7 +533,6 @@ function isFish(pet: Fish | Bird): pet is Fish {
 }`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('body > script');
 
@@ -588,7 +564,6 @@ ReactDOM.render(<Hello name="React" />, document.body);
 `,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -612,7 +587,6 @@ ReactDOM.render(<Hello name="React" />, document.body);
 `,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -643,7 +617,6 @@ h1 {
 </style>`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -673,7 +646,6 @@ h1 { color: blue; }
 </style>`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -704,7 +676,6 @@ h1 { color: blue; }
 `,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -740,7 +711,6 @@ export class App {
 }`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
 
@@ -758,7 +728,6 @@ export class App {
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`square = (x) -> x * x`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('body > script');
 
@@ -787,7 +756,6 @@ title = 'live script'
 |> join ''
 (document.getElementById \\title).textContent = title`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -808,7 +776,6 @@ title = 'live script'
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<hello><h1>Hello, {props.title}</h1></hello');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -844,7 +811,6 @@ title = 'live script'
     await page.keyboard.press('Delete');
     await page.keyboard.insertText(`}`);
 
-    await app.click(runButtonSelector);
     await app.waitForTimeout(15000);
     const resultText = await getResult().innerText('text=Hello, AssemblyScript');
 
@@ -867,7 +833,6 @@ title = 'live script'
 title = 'Python'
 document['header'].html = f"Hello, {title}"`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -891,7 +856,6 @@ document['header'].html = f"Hello, {title}"`);
 title = 'Python'
 document.getElementById('header').innerHTML = f"Hello, {title}"`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     await getResult().waitForSelector('text=Hello, Python');
     const resultText = await getResult().innerText('h1');
@@ -916,7 +880,6 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
 title = 'Ruby'
 $$.document.querySelector('#title').innerHTML = title`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('text=Hello, Ruby');
 
@@ -942,7 +905,6 @@ func main() {
 	js.Global().Get("document").Call("querySelector", "#title").Set("innerHTML", "Golang")
 }`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -969,7 +931,6 @@ func main() {
 $document->getElementById('title')->textContent = $title;`,
     );
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -993,7 +954,6 @@ $document->getElementById('title')->textContent = $title;`,
 my $title = 'Perl';
 JS::inline('document.getElementById("title").innerHTML') = $title;`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -1018,7 +978,6 @@ window = js.global
 document = window.document
 document:getElementById("title").innerHTML = "Lua"`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
@@ -1041,7 +1000,6 @@ document:getElementById("title").innerHTML = "Lua"`);
     await page.keyboard.insertText(`(let ((title "Scheme"))
   (set-content! "#title" title))`);
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
 
