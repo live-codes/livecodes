@@ -1,5 +1,7 @@
 export * from './build-config';
 export * from './default-config';
+export * from './utils';
+
 import { Pen } from '../models';
 import { upgradeConfig } from './upgrade-config';
 import { validateConfig } from './validate-config';

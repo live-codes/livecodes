@@ -17,7 +17,6 @@ import {
   Cache,
   Code,
   CodeEditor,
-  ContentPen,
   CssPresetId,
   EditorId,
   EditorLanguages,
@@ -45,7 +44,14 @@ import {
 import { exportPen } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
-import { buildConfig, defaultConfig, getConfig, setConfig, upgradeAndValidate } from './config';
+import {
+  buildConfig,
+  defaultConfig,
+  getConfig,
+  getContentConfig,
+  setConfig,
+  upgradeAndValidate,
+} from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
 import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
@@ -58,27 +64,27 @@ import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { configureEmbed } from './embed';
 
-export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> => {
-  setConfig(config);
+export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<API> => {
+  setConfig(appConfig);
 
   const storage = createStorage();
   const templates = createStorage('__localpen_templates__');
   const formatter = getFormatter(getConfig(), baseUrl);
-  let editors: Editors;
-  let penId: string;
-  let editorLanguages: EditorLanguages | undefined;
   const notifications = createNotifications();
   const modal = createModal();
   const eventsManager = createEventsManager();
+  let authService: ReturnType<typeof createAuthService> | undefined;
+  const split = UI.createSplitPanes();
+  let penId: string;
+  let editors: Editors;
+  let editorLanguages: EditorLanguages | undefined;
+  let resultLanguages: Language[] = [];
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
-  let resultLanguages: Language[] = [];
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
-  let authService: ReturnType<typeof createAuthService> | undefined;
   const screens: Screen[] = [];
-  const split = UI.createSplitPanes();
 
   const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
   const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -104,12 +110,26 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
         resultLanguages.includes(scriptLang) &&
         !editorsText.includes('__localpen_reload__');
 
-      if (liveReload) {
+      if (result && getCache().styleOnlyUpdate) {
+        // load the updated styles only
+        iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
+        const domParser = new DOMParser();
+        const dom = domParser.parseFromString(result, 'text/html');
+        const stylesElement = dom.querySelector('#__localpen_styles__');
+        if (stylesElement) {
+          const styles = stylesElement.innerHTML;
+          iframe.contentWindow?.postMessage({ styles }, service.getOrigin());
+        } else {
+          iframe.contentWindow?.postMessage({ result }, service.getOrigin());
+        }
+        resolve('loaded');
+      } else if (liveReload) {
         // allows only sending the updated code to the iframe without full page reload
         iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
         iframe.contentWindow?.postMessage({ result }, service.getOrigin());
         resolve('loaded');
       } else {
+        // full page reload
         iframe = document.createElement('iframe');
         iframe.name = 'result';
         iframe.id = 'result-frame';
@@ -398,7 +418,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
         ...getConfig(),
         activeEditor: editorId,
       });
-      await run(editors);
+      await run();
     }
     addConsoleInputCodeCompletion();
     loadModuleTypes(editors, getConfig());
@@ -409,7 +429,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
   const registerRun = (editorId: EditorId, editors: Editors) => {
     const editor = editors[editorId];
     editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
-      await run(editors);
+      await run();
     });
   };
 
@@ -448,21 +468,22 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     }
   };
 
-  const getResultPage = async (
-    editors: Editors,
+  const getResultPage = async ({
+    sourceEditor = undefined as EditorId | undefined,
     forExport = false,
-    template: string = resultTemplate,
+    template = resultTemplate,
     singleFile = true,
-  ) => {
+  }) => {
     updateConfig();
     const config = getConfig();
+    const contentConfig = getContentConfig(config);
 
-    const markupContent = editors.markup?.getValue();
-    const styleContent = editors.style?.getValue();
-    const scriptContent = editors.script?.getValue();
-    const markupLanguage = getEditorLanguage('markup') || 'html';
-    const styleLanguage = getEditorLanguage('style') || 'css';
-    const scriptLanguage = getEditorLanguage('script') || 'javascript';
+    const markupContent = config.markup.content || '';
+    const styleContent = config.style.content || '';
+    const scriptContent = config.script.content || '';
+    const markupLanguage = config.markup.language;
+    const styleLanguage = config.style.language;
+    const scriptLanguage = config.script.language;
 
     const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config);
     const [compiledStyle, compiledScript] = await Promise.all([
@@ -471,28 +492,29 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     ]);
 
     const compiledCode: Cache = {
+      ...contentConfig,
       markup: {
-        language: markupLanguage,
-        content: markupContent,
+        ...contentConfig.markup,
         compiled: compiledMarkup,
       },
       style: {
-        language: styleLanguage,
-        content: styleContent,
+        ...contentConfig.style,
         compiled: compiledStyle,
       },
       script: {
-        language: scriptLanguage,
-        content: scriptContent,
+        ...contentConfig.script,
         compiled: compiledScript,
       },
     };
 
     const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
 
+    const styleOnlyUpdate = sourceEditor === 'style';
+
     setCache({
       ...compiledCode,
       result,
+      styleOnlyUpdate,
     });
 
     return result;
@@ -530,9 +552,9 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LocalPen';
   };
 
-  const run = async (editors: Editors) => {
+  const run = async (editorId?: EditorId) => {
     setLoading(true);
-    const result = await getResultPage(editors);
+    const result = await getResultPage({ sourceEditor: editorId });
     await createIframe(UI.getResultElement(), result);
     updateCompiledCode();
   };
@@ -578,25 +600,6 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     await save();
     notifications.success('Forked as a new project');
   };
-
-  const getContentConfig = (config: Pen): ContentPen => ({
-    title: config.title,
-    description: config.description,
-    tags: config.tags,
-    activeEditor: config.activeEditor,
-    languages: config.languages,
-    markup: config.markup,
-    style: config.style,
-    script: config.script,
-    stylesheets: config.stylesheets,
-    scripts: config.scripts,
-    cssPreset: config.cssPreset,
-    processors: config.processors,
-    customSettings: config.customSettings,
-    imports: config.imports,
-    types: config.types,
-    version: config.version,
-  });
 
   const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
     const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
@@ -909,12 +912,12 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     };
 
     const handleChangeContent = () => {
-      const contentChanged = async (loading: boolean) => {
+      const contentChanged = async (editorId: EditorId, loading: boolean) => {
         updateConfig();
         addConsoleInputCodeCompletion();
 
         if (getConfig().autoupdate && !loading) {
-          await run(editors);
+          await run(editorId);
         }
 
         if (getConfig().autosave) {
@@ -923,17 +926,15 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
         loadModuleTypes(editors, getConfig());
       };
-      const debouncecontentChanged = debounce(async () => {
-        await contentChanged(changingContent);
-      }, getConfig().delay ?? defaultConfig.delay);
+      const debouncecontentChanged = (editorId: EditorId) =>
+        debounce(async () => {
+          await contentChanged(editorId, changingContent);
+        }, getConfig().delay ?? defaultConfig.delay);
 
-      editors.markup.onContentChanged(debouncecontentChanged);
-      editors.style.onContentChanged(debouncecontentChanged);
-      editors.script.onContentChanged(debouncecontentChanged);
-
-      editors.markup.onContentChanged(setSavedStatus);
-      editors.style.onContentChanged(setSavedStatus);
-      editors.script.onContentChanged(setSavedStatus);
+      (Object.keys(editors) as EditorId[]).forEach((editorId) => {
+        editors[editorId].onContentChanged(debouncecontentChanged(editorId));
+        editors[editorId].onContentChanged(setSavedStatus);
+      });
     };
 
     const handleHotKeys = () => {
@@ -976,7 +977,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     const handleRunButton = () => {
       const handleRun = async () => {
         split.show('output');
-        await run(editors);
+        await run();
       };
       eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
       eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
@@ -1020,7 +1021,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
                 },
               },
             });
-            await run(editors);
+            await run();
           },
           false,
         );
@@ -1042,13 +1043,13 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
           setConfig({ ...getConfig(), [configKey]: toggle.checked });
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
-            await run(editors);
+            await run();
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
           }
           if (configKey === 'autoprefixer') {
-            await run(editors);
+            await run();
           }
         });
       });
@@ -1068,7 +1069,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
               preset.classList.remove('active');
             });
             link.classList.add('active');
-            await run(editors);
+            await run();
           },
           false,
         );
@@ -1452,7 +1453,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'html', await getResultPage(editors, true));
+          exportPen(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
         },
         false,
       );
@@ -1464,7 +1465,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          const html = await getResultPage(editors, true);
+          const html = await getResultPage({ forExport: true });
           exportPen(getConfig(), baseUrl, 'src', { JSZip, html });
         },
         false,
@@ -1560,7 +1561,11 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
           const singleFile = false;
           newRepoNameError.innerHTML = '';
 
-          const resultHtml = await getResultPage(editors, forExport, resultTemplate, singleFile);
+          const resultHtml = await getResultPage({
+            forExport,
+            template: resultTemplate,
+            singleFile,
+          });
           const cache = getCache();
           const deployResult = await deploy({
             user,
@@ -1726,7 +1731,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
           });
           setSavedStatus();
           modal.close();
-          await run(editors);
+          await run();
         });
       };
       eventsManager.addEventListener(
@@ -1740,6 +1745,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
     const handleCustomSettings = () => {
       const createCustomSettingsUI = async () => {
+        const config = getConfig();
         // eslint-disable-next-line prefer-const
         let customSettingsEditor: CodeEditor | undefined;
         const div = document.createElement('div');
@@ -1786,7 +1792,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
           }
           customSettingsEditor?.destroy();
           modal.close();
-          await run(editors);
+          await run();
         });
       };
       eventsManager.addEventListener(
@@ -1953,7 +1959,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
     loadModuleTypes(editors, getConfig());
 
     compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
-      await run(editors);
+      await run();
     });
     formatter.load(getEditorLanguages());
     initializeAuth();
@@ -1965,7 +1971,7 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
 
   return {
     run: async () => {
-      await run(editors);
+      await run();
     },
     format: async () => format(),
     getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
@@ -1975,13 +1981,14 @@ export const app = async (config: Readonly<Pen>, baseUrl: string): Promise<API> 
       return JSON.parse(JSON.stringify(config));
     },
     setConfig: async (newConfig: Pen): Promise<Pen> => {
-      const appConfig = await buildConfig(newConfig, baseUrl);
-      await loadConfig(appConfig);
-      return appConfig;
+      const newAppConfig = await buildConfig(newConfig, baseUrl);
+      await loadConfig(newAppConfig);
+      return newAppConfig;
     },
     getCode: async (): Promise<Code> => {
-      if (!cacheIsValid(editors)) {
-        await getResultPage(editors);
+      updateConfig();
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
       }
       return JSON.parse(JSON.stringify(getCachedCode()));
     },

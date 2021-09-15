@@ -8,6 +8,7 @@ const config: PlaywrightTestConfig<{ editor: Pen['editor'] }> = {
   testDir: 'e2e',
   retries: process.env.CI ? 10 : 2,
   timeout: 60000,
+  globalTimeout: 45 * 60 * 1000,
   projects: [
     {
       name: 'monaco',

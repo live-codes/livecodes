@@ -413,9 +413,18 @@ export type customSettings = {
   };
 };
 
-export type Cache = {
-  [key in EditorId]: { language: Language; content: string; compiled: string; modified?: string };
-} & { result?: string };
+export type EditorCache = Editor & {
+  compiled: string;
+  modified?: string;
+};
+
+export type Cache = ContentPen & {
+  markup: EditorCache;
+  style: EditorCache;
+  script: EditorCache;
+  result?: string;
+  styleOnlyUpdate?: boolean;
+};
 
 export interface Code {
   markup: {

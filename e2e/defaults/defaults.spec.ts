@@ -25,7 +25,6 @@ test.describe('App Defaults', () => {
 
     await page.keyboard.type('hello, world!');
 
-    await app.click(runButtonSelector);
     await waitForResultUpdate();
     const resultText = await getResult().innerText('body');
 
