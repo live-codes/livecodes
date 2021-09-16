@@ -8,22 +8,33 @@ export const sqlStarter: Template = {
   markup: {
     language: 'html',
     content: `
-<div id="tables"></div>
-<pre id="raw-output" class="output"></pre>
-<pre id="flat-output" class="output"></pre>
+<div id="output">
+  <details open>
+    <summary>Tables</summary>
+    <div id="tables"></div>
+  </details>
+  <details open>
+    <summary>Result</summary>
+    <pre class="result"><code id="result"></code></pre>
+  </details>
+  <details open>
+    <summary>Result as objects</summary>
+    <pre class="result"><code id="obj-result"></code></pre>
+  </details>
+</div>
 
 <script>
   localpen.sql.render('#tables');
 
-  localpen.sql.getResult().then((raw) => {
-    console.log(raw)
-    document.querySelector('#raw-output').innerHTML = 'raw output: \\n' + JSON.stringify(raw, null, 2);
+  localpen.sql.getResult().then((result) => {
+    console.log(result)
+    document.querySelector('#result').innerHTML =  JSON.stringify(result, null, 2);
   }).catch(console.error);
 
 
-  localpen.sql.getResultAsTables().then((results) => {
+  localpen.sql.getResultAsObjects().then((results) => {
     results.forEach(console.table);
-    document.querySelector('#flat-output').innerHTML = 'flat output: \\n' + JSON.stringify(results, null, 2);
+    document.querySelector('#obj-result').innerHTML = JSON.stringify(results, null, 2);
   }).catch(console.error);
 </script>
 `.trimStart(),
@@ -31,35 +42,39 @@ export const sqlStarter: Template = {
   style: {
     language: 'css',
     content: `
-body {
-  color: #272727;
-  margin: 1em;
+#output {
+  color: #3d3d3d;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-table {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.9em;
+#output summary {
+  cursor: pointer;
+}
+
+#output table {
   border: 1px solid #ddd;
   border-collapse: separate;
   border-radius: 5px;
   border-spacing: 0;
+  font-size: 0.9em;
   margin: 1em;
   width: 95%;
 }
 
-th, td {
-  text-align: left;
+#output th, td {
   padding: 0.5em;
 }
 
-tr:nth-child(odd) {background-color: #f2f2f2;}
+#output tr:nth-child(odd) {background-color: #f2f2f2;}
 
-pre.output {
+#output pre.result {
   background-color: #fafafa;
   border: 1px solid #ddd;
   border-radius: 5px;
+  box-sizing: border-box;
   margin: 1em;
   padding: 1em;
+  width: 95%;
 }
 `.trimStart(),
   },
@@ -80,8 +95,6 @@ INSERT INTO \`quotes\` (\`id\`, \`rev\`, \`quote\`) VALUES
   ('2', '1', 'Change the world by being yourself. – Amy Poehler'),
   ('1', '2', 'Every moment is a fresh beginning. – T.S Eliot'),
   ('1', '3', 'Whatever you do, do it well. – Walt Disney');
-
-SELECT * FROM \`quotes\`;
 
 SELECT a.id, a.rev, a.quote
 FROM \`quotes\` a

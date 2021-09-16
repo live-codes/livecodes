@@ -62,7 +62,7 @@ window.localpen = {
           }
         });
       }),
-    getResultAsTables: () =>
+    getResultAsObjects: () =>
       new Promise(async (resolve, reject) => {
         try {
           const result = await localpen.sql.getResult();
@@ -114,7 +114,11 @@ window.localpen = {
                   rowElement.append(cell);
                 });
               });
-              const container = document.querySelector(selector) || document.body;
+              const container = typeof selector === 'string'
+              ? document.querySelector(selector)
+              : selector instanceof Element || selector instanceof HTMLDocument
+              ? selector
+              : document.body;
               container.append(tableElement);
               resolve()
             });
