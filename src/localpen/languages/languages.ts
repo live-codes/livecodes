@@ -42,6 +42,7 @@ import { reason } from './lang-reason';
 import { ocaml } from './lang-ocaml';
 import { wat } from './lang-wat';
 import { riot } from './lang-riot';
+import { sql } from './lang-sql';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -87,4 +88,5 @@ export const languages: LanguageSpecs[] = [
   scheme,
   assemblyscript,
   wat,
+  sql,
 ];
