@@ -75,9 +75,10 @@ export const sqlStarter: Template = {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
+  display: inline-block;
   margin: 1em;
+  min-width: 95%;
   padding: 1em;
-  width: 95%;
 }
 `.trimStart(),
   },
