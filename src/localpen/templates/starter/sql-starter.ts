@@ -15,11 +15,11 @@ export const sqlStarter: Template = {
   </details>
   <details open>
     <summary>Result</summary>
-    <pre class="result"><code id="result"></code></pre>
+    <pre><code id="result"></code></pre>
   </details>
   <details open>
     <summary>Result as objects</summary>
-    <pre class="result"><code id="obj-result"></code></pre>
+    <pre><code id="obj-result"></code></pre>
   </details>
 </div>
 
@@ -44,7 +44,7 @@ export const sqlStarter: Template = {
     content: `
 #output {
   color: #3d3d3d;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #output summary {
@@ -61,13 +61,16 @@ export const sqlStarter: Template = {
   width: 95%;
 }
 
-#output th, td {
+#output th,
+#output td {
   padding: 0.5em;
 }
 
-#output tr:nth-child(odd) {background-color: #f2f2f2;}
+#output tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
 
-#output pre.result {
+#output pre {
   background-color: #fafafa;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -114,7 +117,7 @@ SELECT a.id, a.rev, a.quote
   FROM (SELECT id, rev, quote,
                ROW_NUMBER() OVER (PARTITION BY id ORDER BY rev DESC) rank
           FROM \`quotes\`) a
-  WHERE a.rank = 1
+  WHERE a.rank = 1;
 `.trimStart(),
   },
   stylesheets: [],
