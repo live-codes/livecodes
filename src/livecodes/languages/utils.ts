@@ -1,4 +1,4 @@
-import { Compiler, Language, customSettings, Pen, Processors } from '../models';
+import { Compiler, Language, customSettings, Config, Processors } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 
@@ -34,21 +34,21 @@ export const getLanguageCompiler = (alias: string): Compiler | undefined => {
 export const mapLanguage = (language: Language): Language =>
   getLanguageSpecs(language)?.editorLanguage || language;
 
-export const languageIsEnabled = (language: Language, config: Pen) => {
+export const languageIsEnabled = (language: Language, config: Config) => {
   const lang = getLanguageByAlias(language);
   if (!lang) return false;
   if (!config.languages) return true;
   return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
 };
 
-export const processorIsEnabled = (processorName: Processors['name'], config: Pen) => {
+export const processorIsEnabled = (processorName: Processors['name'], config: Config) => {
   if (!processors.map((p) => p.name).includes(processorName)) return false;
   if (processorName !== 'postcss') return true;
   if (!config.languages) return true;
   return config.languages.includes(processorName);
 };
 
-export const processorIsActivated = (processorName: Processors['name'], config: Pen) =>
+export const processorIsActivated = (processorName: Processors['name'], config: Config) =>
   (config.processors as any)[processorName] === true ||
   (processorName === 'postcss' && Object.values(config.processors.postcss).includes(true));
 
@@ -56,7 +56,7 @@ export const processorIsActivated = (processorName: Processors['name'], config: 
  * returns a string with names of enabled processors/postcss plugins
  * for the supplied language (separated by hyphens)
  */
-export const getEnabledProcessors = (language: Language, config: Pen) => {
+export const getEnabledProcessors = (language: Language, config: Config) => {
   let processorsString = '';
   const editorId = getLanguageEditorId(language);
   if (!editorId) return processorsString;
@@ -77,11 +77,11 @@ export const getEnabledProcessors = (language: Language, config: Pen) => {
 
 export const escapeCode = (code: string) => code.replace(/\\/g, '\\\\').replace(/`/g, '\\`');
 
-export const getLanguageCustomSettings = (language: Language, config: Pen) => ({
+export const getLanguageCustomSettings = (language: Language, config: Config) => ({
   ...(config.customSettings as any)[language],
 });
 
-export const getCustomSettings = (language: Language, config: Pen): customSettings => {
+export const getCustomSettings = (language: Language, config: Config): customSettings => {
   const settings: customSettings = {
     ...getLanguageCustomSettings(language, config),
   };

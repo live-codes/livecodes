@@ -9,11 +9,11 @@ export {
 } from 'firebase/auth';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyBUM2Wc1c8ty2VqA-2GReorfVx5pOg4Ok4',
-  authDomain: 'localpen-io.firebaseapp.com',
-  projectId: 'localpen-io',
-  storageBucket: 'localpen-io.appspot.com',
-  messagingSenderId: '48384331783',
-  appId: '1:48384331783:web:dd5e6fe161d5b512fe5aa2',
-  measurementId: 'G-15VBRNJHBP',
+  apiKey: 'AIzaSyB352dJ_NKCZ43G5kv9Lt-sb5nMXTJRONQ',
+  authDomain: 'livecodes-io.firebaseapp.com',
+  projectId: 'livecodes-io',
+  storageBucket: 'livecodes-io.appspot.com',
+  messagingSenderId: '756660932772',
+  appId: '1:756660932772:web:4cbbf58f809d81c2189631',
+  measurementId: 'G-C5WYBVEKF7',
 };

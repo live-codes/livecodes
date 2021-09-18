@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language, Pen } from '../models';
+import { Language, Config } from '../models';
 import { pipe } from '../utils';
 
 const hostPatterns = ['https://github.com/', 'github.com/'];
@@ -46,7 +46,7 @@ interface FileData {
   endLine: number;
 }
 
-const getContent = async (fileData: FileData): Promise<Partial<Pen>> => {
+const getContent = async (fileData: FileData): Promise<Partial<Config>> => {
   const { rawURL, extension, startLine, endLine } = fileData;
   try {
     const fileContent = await fetch(rawURL).then((res) => res.text());
@@ -75,4 +75,4 @@ const getContent = async (fileData: FileData): Promise<Partial<Pen>> => {
 
 export const importFromGithub = pipe(getValidUrl, getfileData, getContent) as (
   url: string,
-) => Promise<Partial<Pen>>;
+) => Promise<Partial<Config>>;

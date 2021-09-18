@@ -1,7 +1,7 @@
-import { Pen } from '../models';
+import { Config } from '../models';
 import { downloadFile } from './utils';
 
-export const exportJSON = (config: Pen) => {
+export const exportJSON = (config: Config) => {
   const filename = config.title;
   const extension = 'json';
   const content =

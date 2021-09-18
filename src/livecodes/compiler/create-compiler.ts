@@ -7,14 +7,14 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import { Language, Pen, Compilers, EditorId, CompilerFunction } from '../models';
+import { Language, Config, Compilers, EditorId, CompilerFunction } from '../models';
 import { sandboxService } from '../services';
 import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
-export const createCompiler = async (config: Pen, baseUrl: string): Promise<Compiler> => {
+export const createCompiler = async (config: Config, baseUrl: string): Promise<Compiler> => {
   const compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
   const compilerUrl = sandboxService.getCompilerUrl();
   const compilerOrigin = sandboxService.getOrigin();
@@ -60,7 +60,7 @@ export const createCompiler = async (config: Pen, baseUrl: string): Promise<Comp
       compilerSandbox.postMessage(compileMessage, compilerOrigin);
     });
 
-  const load = (languages: LanguageOrProcessor[], config: Pen) =>
+  const load = (languages: LanguageOrProcessor[], config: Config) =>
     Promise.all(
       languages.map(
         (language) =>
@@ -102,7 +102,7 @@ export const createCompiler = async (config: Pen, baseUrl: string): Promise<Comp
   const compile = async (
     content: string,
     language: Language,
-    config: Pen,
+    config: Config,
     options?: any,
   ): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {

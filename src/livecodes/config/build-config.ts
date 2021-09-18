@@ -1,12 +1,12 @@
 import { importCode } from '../import';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Pen } from '../models';
+import { EditorId, Language, Config } from '../models';
 import { getTemplate } from '../templates';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = async (appConfig: Partial<Pen>, baseUrl: string) => {
+export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) => {
   if (!appConfig) return { ...defaultConfig };
   if (!baseUrl) {
     baseUrl = '/livecodes/';
@@ -35,7 +35,7 @@ export const buildConfig = async (appConfig: Partial<Pen>, baseUrl: string) => {
       )
     : {};
 
-  let config: Pen = {
+  let config: Config = {
     ...defaultConfig,
     ...fileConfig,
     ...userConfig,
@@ -63,7 +63,7 @@ export const buildConfig = async (appConfig: Partial<Pen>, baseUrl: string) => {
 };
 
 const loadExternalContent = async (
-  config: Pen,
+  config: Config,
   baseUrl: string,
   params: { [key: string]: string },
 ) => {
@@ -106,7 +106,7 @@ const loadExternalContent = async (
   };
 };
 
-const loadParamConfig = (config: Pen, params: { [key: string]: string }) => {
+const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
   // ?js
   // ?lang=js
   // ?language=js
@@ -116,14 +116,14 @@ const loadParamConfig = (config: Pen, params: { [key: string]: string }) => {
   // ?languages=html,md,css,scss,ts
 
   // initialize paramsConfig with defaultConfig keys and params values
-  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Pen>)
+  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Config>)
     .filter((key) => key !== 'version')
     .reduce(
       (acc, key) => ({
         ...acc,
         [key]: params[key],
       }),
-      {} as Partial<Pen>,
+      {} as Partial<Config>,
     );
 
   // populate params config from query string params

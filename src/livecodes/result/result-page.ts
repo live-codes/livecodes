@@ -1,11 +1,11 @@
 import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
-import { Cache, EditorId, Pen } from '../models';
+import { Cache, EditorId, Config } from '../models';
 import { getAbsoluteUrl, isRelativeUrl } from '../utils';
 
 export const createResultPage = (
   code: Cache,
-  config: Pen,
+  config: Config,
   forExport: boolean,
   template: string,
   baseUrl: string,

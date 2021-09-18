@@ -1,10 +1,10 @@
 import { languageIsEnabled, processors } from '../languages';
-import { Language, LanguageSpecs, Pen, Compiler, Compilers, Processors } from '../models';
+import { Language, LanguageSpecs, Config, Compiler, Compilers, Processors } from '../models';
 import { isRelativeUrl } from '../utils';
 
 export const getAllCompilers = (
   languages: Array<LanguageSpecs | Processors>,
-  config: Pen,
+  config: Config,
   baseUrl: string,
 ) =>
   languages

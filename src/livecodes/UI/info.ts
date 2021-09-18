@@ -1,7 +1,7 @@
 import { createEventsManager } from '../events';
 import { infoScreen } from '../html';
 import { createModal } from '../modal';
-import { Pen } from '../models';
+import { Config } from '../models';
 import { createStorage } from '../storage';
 import * as UI from '../UI';
 import { loadScript, loadStylesheet } from '../utils';
@@ -10,7 +10,7 @@ const tagifyStylesUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/
 const tagifyScriptUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/tagify.min.js';
 
 export const createProjectInfoUI = async (
-  config: Pen,
+  config: Config,
   storage: ReturnType<typeof createStorage>,
   modal: ReturnType<typeof createModal>,
   eventsManager: ReturnType<typeof createEventsManager>,

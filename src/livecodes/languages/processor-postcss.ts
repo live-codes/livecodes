@@ -1,9 +1,9 @@
-import { Pen, Processors } from '../models';
+import { Config, Processors } from '../models';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
-export type PluginName = keyof Pen['processors']['postcss'];
+export type PluginName = keyof Config['processors']['postcss'];
 type Plugin = () => any;
-type PluginFactory = ({ config, options }: { config: Pen; options?: any }) => Plugin;
+type PluginFactory = ({ config, options }: { config: Config; options?: any }) => Plugin;
 interface PluginSpecs {
   name: PluginName;
   title: string;
@@ -88,13 +88,13 @@ export const postcss: Processors = {
         }
       };
 
-      const getEnabledPluginNames = (config: Pen) => {
+      const getEnabledPluginNames = (config: Config) => {
         const configPlugins = config.processors.postcss;
         const isEnabled = (pluginName: PluginName) => configPlugins[pluginName] === true;
         return (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
       };
 
-      const getPlugins = (config: Pen, baseUrl: string, options: { html: string }) => {
+      const getPlugins = (config: Config, baseUrl: string, options: { html: string }) => {
         const pluginNames = getEnabledPluginNames(config);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
@@ -103,7 +103,7 @@ export const postcss: Processors = {
       };
 
       // TODO: revisit this
-      const twCode = (code: string, config: Pen) => {
+      const twCode = (code: string, config: Config) => {
         if (getEnabledPluginNames(config).includes('tailwindcss')) {
           return `@tailwind base;
 @tailwind components;

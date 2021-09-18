@@ -4,12 +4,12 @@ export interface API {
   run: () => Promise<void>;
   format: () => Promise<void>;
   getShareUrl: () => Promise<string>;
-  getConfig: () => Pen;
-  setConfig: (Config: Pen) => Promise<Pen>;
+  getConfig: () => Config;
+  setConfig: (Config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
 }
 
-export interface Pen {
+export interface Config {
   title: string;
   description: string;
   tags: string[];
@@ -46,8 +46,8 @@ export interface Pen {
   showVersion: boolean;
 }
 
-export type ContentPen = Pick<
-  Pen,
+export type ContentConfig = Pick<
+  Config,
   | 'title'
   | 'description'
   | 'tags'
@@ -263,7 +263,7 @@ export type CompilerFunction = (
     baseUrl,
     options,
   }: {
-    config: Pen;
+    config: Config;
     language: Language;
     baseUrl: string;
     options: any;
@@ -274,11 +274,15 @@ export interface Compiler {
   dependencies?: Language[];
   url?: string;
   fn?: CompilerFunction;
-  factory: (config: Pen, baseUrl: string) => CompilerFunction;
+  factory: (config: Config, baseUrl: string) => CompilerFunction;
   runOutsideWorker?: CompilerFunction;
   editors?: EditorId[];
-  styles?: string[] | ((options: { compiled: string; baseUrl: string; config: Pen }) => string[]);
-  scripts?: string[] | ((options: { compiled: string; baseUrl: string; config: Pen }) => string[]);
+  styles?:
+    | string[]
+    | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
+  scripts?:
+    | string[]
+    | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
   deferScripts?: boolean;
   inlineScript?: string;
   scriptType?:
@@ -334,7 +338,7 @@ export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
 export type ToolList = Array<{
   name: 'console' | 'compiled';
   factory: (
-    config: Pen,
+    config: Config,
     baseUrl: string,
     editors: Editors,
     eventsManager: ReturnType<typeof createEventsManager>,
@@ -372,9 +376,9 @@ export interface EditorOptions {
   container: HTMLElement | null;
   language: Language;
   value: string;
-  mode?: Pen['mode'];
+  mode?: Config['mode'];
   readonly: boolean;
-  editor?: Pen['editor'];
+  editor?: Config['editor'];
   editorType: 'code' | 'compiled' | 'console';
 }
 
@@ -409,7 +413,7 @@ export interface Screen {
 }
 
 export type customSettings = {
-  [key in Language | keyof Pen['processors']['postcss']]?: any;
+  [key in Language | keyof Config['processors']['postcss']]?: any;
 } & {
   template?: {
     data?: any;
@@ -422,7 +426,7 @@ export type EditorCache = Editor & {
   modified?: string;
 };
 
-export type Cache = ContentPen & {
+export type Cache = ContentConfig & {
   markup: EditorCache;
   style: EditorCache;
   script: EditorCache;

@@ -1,4 +1,4 @@
-import { Pen } from '../../models';
+import { Config } from '../../models';
 import { validateConfig } from '../validate-config';
 
 describe('validateConfig', () => {
@@ -90,7 +90,7 @@ describe('validateConfig', () => {
       all: 'properties',
       here: 'are',
       invalid: '!',
-    } as Partial<Pen>;
+    } as Partial<Config>;
     expect(validateConfig(testConfig)).toEqual(correctConfig);
     expect(validateConfig(invalidConfig)).toEqual({});
   });

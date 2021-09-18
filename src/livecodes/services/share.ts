@@ -1,11 +1,11 @@
-import { Pen } from '../models';
+import { Config } from '../models';
 import { allowedOrigin } from './allowed-origin';
 
 const apiGetUrl = 'https://dpaste.com/';
 const apiPostUrl = 'https://dpaste.com/api/v2/';
 
 export const shareService = {
-  getProject: async (id: string): Promise<Partial<Pen>> => {
+  getProject: async (id: string): Promise<Partial<Config>> => {
     if (!allowedOrigin()) return {};
     try {
       const res = await fetch(apiGetUrl + id + '.txt');
@@ -15,7 +15,7 @@ export const shareService = {
       return {};
     }
   },
-  shareProject: async (config: Partial<Pen>): Promise<string> => {
+  shareProject: async (config: Partial<Config>): Promise<string> => {
     if (!allowedOrigin()) return '';
     try {
       const res = await fetch(apiPostUrl, {

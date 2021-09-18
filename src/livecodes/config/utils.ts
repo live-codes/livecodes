@@ -1,6 +1,6 @@
-import { ContentPen, Pen } from '../models';
+import { ContentConfig, Config } from '../models';
 
-export const getContentConfig = (config: Pen): ContentPen => ({
+export const getContentConfig = (config: Config): ContentConfig => ({
   title: config.title,
   description: config.description,
   tags: config.tags,

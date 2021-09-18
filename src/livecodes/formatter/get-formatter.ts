@@ -1,8 +1,8 @@
-import { Language, Pen } from '../models';
+import { Language, Config } from '../models';
 import { createFormatter } from './formatter';
 import { Formatter } from './models';
 
-export const getFormatter = (config: Pen, baseUrl: string): Formatter => {
+export const getFormatter = (config: Config, baseUrl: string): Formatter => {
   const { editor, readonly, mode } = config;
 
   if (readonly || editor === 'prism' || mode === 'codeblock' || mode === 'result') {

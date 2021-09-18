@@ -1,5 +1,5 @@
 import { languages, processors } from '../languages';
-import { Compilers, Pen } from '../models';
+import { Compilers, Config } from '../models';
 import { getAllCompilers } from './get-all-compilers';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 declare const importScripts: (...args: string[]) => void;
@@ -12,7 +12,7 @@ const worker: Worker = self as any;
 
 const loadLanguageCompiler = (
   language: LanguageOrProcessor,
-  config: Pen,
+  config: Config,
   baseUrl: string | undefined,
 ) => {
   if (!baseUrl) {
@@ -53,7 +53,7 @@ const loadLanguageCompiler = (
 const compile = async (
   content: string,
   language: LanguageOrProcessor,
-  config: Pen,
+  config: Config,
   options: any,
 ) => {
   const compiler = compilers[language]?.fn || ((code: string) => code);
@@ -96,7 +96,7 @@ worker.addEventListener(
           payload: { language, content, compiled },
         };
         worker.postMessage(compiledMessage);
-      } catch (error) {
+      } catch (error: any) {
         const compileFailedMessage: CompilerMessage = {
           type: 'compile-failed',
           payload: { language, content, error: error.message },

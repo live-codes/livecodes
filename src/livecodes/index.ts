@@ -1,9 +1,9 @@
 import { buildConfig } from './config';
 import { appHTML } from './html';
-import { API, Pen } from './models';
+import { API, Config } from './models';
 
-export { API, Pen };
-export const livecodes = async (container: string, config: Partial<Pen> = {}): Promise<API> =>
+export { API, Config as Pen };
+export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {

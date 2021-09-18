@@ -1,6 +1,6 @@
-import { Editor, Pen } from '../models';
+import { Editor, Config } from '../models';
 
-export const validateConfig = (config: Partial<Pen>): Partial<Pen> => {
+export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   type types = 'array' | 'boolean' | 'object' | 'number' | 'string' | 'undefined';
   const is = (x: any, type: types, arrayType?: types): boolean => {
     if (type === 'array') {

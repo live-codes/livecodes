@@ -1,5 +1,5 @@
 import { getLanguageExtension } from '../languages';
-import { ContentPen, EditorId, Pen, User } from '../models';
+import { ContentConfig, EditorId, Config, User } from '../models';
 import { safeName } from '../utils';
 
 export const downloadFile = (filename: string, extension: string, content: string) => {
@@ -14,7 +14,7 @@ export const downloadFile = (filename: string, extension: string, content: strin
 export interface Files {
   [key: string]: { content: string };
 }
-export const getFilesFromConfig = (config: Pen | ContentPen): Files => {
+export const getFilesFromConfig = (config: Config | ContentConfig): Files => {
   const filenames = {
     markup: 'index',
     style: 'style',
@@ -58,7 +58,12 @@ export const getFilesFromConfig = (config: Pen | ContentPen): Files => {
   };
 };
 
-export const getDescriptionFile = (config: ContentPen, user?: User, url?: string, gist = true) => {
+export const getDescriptionFile = (
+  config: ContentConfig,
+  user?: User,
+  url?: string,
+  gist = true,
+) => {
   const githubUrl = gist ? 'https://gist.github.com/' : 'https://github.com/';
   const userInfo = !user
     ? ''

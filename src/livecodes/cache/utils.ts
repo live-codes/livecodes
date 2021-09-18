@@ -1,12 +1,12 @@
-import { ContentPen, Cache, EditorCache } from '../models';
+import { ContentConfig, Cache, EditorCache } from '../models';
 
 const removeExtra = <T>(editor: T, keys: Array<keyof T>) => {
   const contentEditor = { ...editor };
   keys.forEach((key) => delete contentEditor[key]);
   return contentEditor;
 };
-export const cacheIsValid = (cache: Cache, config: ContentPen) => {
-  const excludedKeys: Array<keyof ContentPen> = ['activeEditor', 'title', 'description'];
+export const cacheIsValid = (cache: Cache, config: ContentConfig) => {
+  const excludedKeys: Array<keyof ContentConfig> = ['activeEditor', 'title', 'description'];
   const extraCache: Array<keyof EditorCache> = ['compiled', 'modified'];
 
   const contentCache = {

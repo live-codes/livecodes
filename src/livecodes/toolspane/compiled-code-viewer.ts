@@ -1,10 +1,10 @@
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { languages } from '../languages';
-import { Editors, Pen, Tool, CodeEditor, EditorOptions, Language } from '../models';
+import { Editors, Config, Tool, CodeEditor, EditorOptions, Language } from '../models';
 
 export const createCompiledCodeViewer = (
-  config: Pen,
+  config: Config,
   baseUrl: string,
   _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,

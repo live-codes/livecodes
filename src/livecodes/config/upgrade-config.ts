@@ -1,8 +1,8 @@
 import { getLanguageEditorId } from '../languages';
-import { Pen } from '../models';
+import { Config } from '../models';
 import { defaultConfig } from './default-config';
 
-interface genericConfig extends Pen {
+interface genericConfig extends Config {
   [x: string]: any;
 }
 

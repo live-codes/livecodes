@@ -1,6 +1,6 @@
-import { Pen } from '../models';
+import { Config } from '../models';
 
-export const defaultConfig: Pen = {
+export const defaultConfig: Config = {
   title: 'Untitled Project',
   description: '',
   tags: [],

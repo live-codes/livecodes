@@ -1,4 +1,4 @@
-import { Pen } from '../../models';
+import { Config } from '../../models';
 import { createImportMap, replaceImports } from '../import-map';
 
 describe('Import map', () => {
@@ -10,7 +10,7 @@ describe('Import map', () => {
         similar: './should/not/be/used',
         unused: 'https://someurl2/path2/module2',
       },
-    } as unknown) as Pen;
+    } as unknown) as Config;
     const code = `
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";
@@ -39,7 +39,7 @@ describe('Import map', () => {
         mylib: 'https://someurl/path/module',
         lodash: 'https://unpkg.com/lodash',
       },
-    } as unknown) as Pen;
+    } as unknown) as Config;
     const code = `
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";

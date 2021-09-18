@@ -1,4 +1,4 @@
-import { Pen } from '../models';
+import { Config } from '../models';
 import { exportCodepen } from './export-codepen';
 import { exportGithubGist } from './export-github-gist';
 import { exportHTML } from './export-html';
@@ -8,9 +8,9 @@ import { exportSrc } from './export-src';
 
 type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle' | 'githubGist';
 type ExportFunctions = {
-  [key in ExportType]: (config: Pen, payload?: any, baseUrl?: string) => void;
+  [key in ExportType]: (config: Config, payload?: any, baseUrl?: string) => void;
 };
-export const exportPen = (config: Pen, baseUrl: string, type: ExportType, payload?: any) => {
+export const exportPen = (config: Config, baseUrl: string, type: ExportType, payload?: any) => {
   const exportFns: ExportFunctions = {
     json: exportJSON,
     src: exportSrc,

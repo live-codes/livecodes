@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
-import { EditorId, Language, Pen } from '../models';
+import { EditorId, Language, Config } from '../models';
 import { decodeHTML } from '../utils';
 
 type Selectors = {
@@ -34,8 +34,8 @@ const getCode = (dom: Document, selector: string) => {
 export const importFromUrl = async (
   url: string,
   params: { [key: string]: string },
-  config: Pen,
-): Promise<Partial<Pen>> => {
+  config: Config,
+): Promise<Partial<Config>> => {
   let html: string;
   try {
     html = await fetch(url).then((res) => res.text());
@@ -81,7 +81,7 @@ export const importFromUrl = async (
   };
 
   const selectedCode = (Object.keys(languageSelectors) as EditorId[]).reduce(
-    (config: Partial<Pen>, editorId) => {
+    (config: Partial<Config>, editorId) => {
       const code = getCode(dom, languageSelectors[editorId].selector);
       if (code === undefined) return config;
       return {
@@ -97,20 +97,23 @@ export const importFromUrl = async (
 
   // if not all editors are filled, check for default selectors for other languages
   if (Object.keys(selectedCode).length < 3) {
-    const defaults = Object.keys(defaultParams).reduce((config: Partial<Pen>, language: string) => {
-      const editorId = getLanguageEditorId(language as Language);
-      if (!editorId || selectedCode[editorId]) return config;
-      const code = getCode(dom, defaultParams[language]);
-      if (code === undefined) return config;
+    const defaults = Object.keys(defaultParams).reduce(
+      (config: Partial<Config>, language: string) => {
+        const editorId = getLanguageEditorId(language as Language);
+        if (!editorId || selectedCode[editorId]) return config;
+        const code = getCode(dom, defaultParams[language]);
+        if (code === undefined) return config;
 
-      return {
-        ...config,
-        [editorId]: {
-          language,
-          content: code,
-        },
-      };
-    }, {});
+        return {
+          ...config,
+          [editorId]: {
+            language,
+            content: code,
+          },
+        };
+      },
+      {},
+    );
     return {
       ...selectedCode,
       ...defaults,

@@ -1,11 +1,11 @@
 import { createEventsManager } from '../events';
-import { EditorId, Pen } from '../models';
+import { EditorId, Config } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 import { languageIsEnabled, processorIsEnabled } from './utils';
 
 export const createLanguageMenus = (
-  config: Pen,
+  config: Config,
   baseUrl: string,
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,

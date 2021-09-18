@@ -1,12 +1,12 @@
 import LunaConsole from 'luna-console';
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
-import { Editors, Pen, Tool, CodeEditor, EditorOptions } from '../models';
+import { Editors, Config, Tool, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 
 export const createConsole = (
-  config: Pen,
+  config: Config,
   baseUrl: string,
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,

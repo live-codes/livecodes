@@ -1,10 +1,10 @@
 import Split from 'split.js';
 import { createEventsManager } from '../events';
-import { Editors, Pen, ToolList, ToolsPaneStatus } from '../models';
+import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
 
 export const createToolsPane = (
   toolList: ToolList,
-  config: Pen,
+  config: Config,
   baseUrl: string,
   editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,

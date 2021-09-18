@@ -1,8 +1,8 @@
-import { Pen } from './models';
+import { Config } from './models';
 
 interface Item {
   id: string;
-  pen: Pen;
+  pen: Config;
   lastModified: number;
 }
 interface Storage {
@@ -41,7 +41,7 @@ export const createStorage = (name = '__livecodes_data__') => {
 
   const getItem = (itemId: string) => getData().items?.find((item) => itemId === item.id);
 
-  const updateItem = (id: string, pen: Pen) => {
+  const updateItem = (id: string, pen: Config) => {
     const data = getData();
     const item = data.items?.find((item) => id === item.id);
     if (!item) return;
@@ -52,7 +52,7 @@ export const createStorage = (name = '__livecodes_data__') => {
     setData(data);
   };
 
-  const addItem = (pen: Pen) => {
+  const addItem = (pen: Config) => {
     const id = (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(
       0,
       24,

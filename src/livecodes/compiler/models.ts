@@ -1,8 +1,8 @@
-import { Language, Pen, ProcessorName } from '../models';
+import { Language, Config, ProcessorName } from '../models';
 
 export interface Compiler {
-  load: (languages: LanguageOrProcessor[], config: Pen) => Promise<unknown[]>;
-  compile: (content: string, language: Language, config: Pen, options?: any) => Promise<string>;
+  load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
+  compile: (content: string, language: Language, config: Config, options?: any) => Promise<string>;
 }
 
 export type LanguageOrProcessor = Language | ProcessorName;
@@ -24,7 +24,7 @@ export type CompilerMessage = {
 
 export interface InitMessage {
   type: 'init';
-  payload: Pen;
+  payload: Config;
   baseUrl: string;
 }
 
@@ -32,7 +32,7 @@ export interface LoadMessage {
   type: 'load';
   payload: {
     language: LanguageOrProcessor;
-    config: Pen;
+    config: Config;
   };
 }
 
@@ -46,7 +46,7 @@ export interface CompileMessage {
   payload: {
     content: string;
     language: LanguageOrProcessor;
-    config: Pen;
+    config: Config;
     options: any;
   };
 }

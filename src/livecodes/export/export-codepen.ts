@@ -1,7 +1,7 @@
 import { replaceImports } from '../compiler';
-import { Pen } from '../models';
+import { Config } from '../models';
 
-export const exportCodepen = (config: Pen) => {
+export const exportCodepen = (config: Config) => {
   /* eslint-disable camelcase */
   const form = document.createElement('form') as HTMLFormElement;
   form.action = 'https://codepen.io/pen/define';

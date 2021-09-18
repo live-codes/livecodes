@@ -1,5 +1,5 @@
 import { languages, getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Pen } from '../models';
+import { EditorId, Language, Config } from '../models';
 
 export interface sourceFile {
   filename: string;
@@ -29,7 +29,7 @@ export const populateConfig = (
   // select files based on language in query params (e.g. ?html=index.html&js=script.js)
   const languagesInParams = Object.keys(params).some(getLanguageByAlias);
   if (languagesInParams) {
-    return Object.keys(params).reduce((output: Partial<Pen>, param: string) => {
+    return Object.keys(params).reduce((output: Partial<Config>, param: string) => {
       const language = getLanguageByAlias(param);
       if (!language) return output;
       const file = files.find((file) => file?.filename === params[param]);
@@ -45,7 +45,7 @@ export const populateConfig = (
           content: file.content,
         },
       };
-    }, {} as Partial<Pen>);
+    }, {} as Partial<Config>);
   }
 
   // select languages from files
@@ -55,7 +55,7 @@ export const populateConfig = (
         languages.findIndex((language) => language.name === a.language) -
         languages.findIndex((language) => language.name === b.language),
     )
-    .reduce((output: Partial<Pen>, file) => {
+    .reduce((output: Partial<Config>, file) => {
       if (!file?.editorId || output[file.editorId]) return output;
       return {
         ...output,
@@ -64,7 +64,7 @@ export const populateConfig = (
           content: file.content,
         },
       };
-    }, {} as Partial<Pen>);
+    }, {} as Partial<Config>);
 
   // extract external styles and scripts
   const stylesheets: string[] = [];

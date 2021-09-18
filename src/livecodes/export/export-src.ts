@@ -1,7 +1,7 @@
-import { EditorId, Pen } from '../models';
+import { EditorId, Config } from '../models';
 import { downloadFile, getFilesFromConfig } from './utils';
 
-export const exportSrc = async (config: Pen, { JSZip, html }: any, baseUrl?: string) => {
+export const exportSrc = async (config: Config, { JSZip, html }: any, baseUrl?: string) => {
   if (!JSZip) {
     JSZip = (await import(baseUrl + 'vendor/jszip/jszip.js')).default;
   }

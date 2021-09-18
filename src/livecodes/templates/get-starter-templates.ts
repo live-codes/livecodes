@@ -1,5 +1,5 @@
 import { getLanguageByAlias } from '../languages';
-import { Pen, Template } from '../models';
+import { Config, Template } from '../models';
 import { getAbsoluteUrl, objectMap } from '../utils';
 
 const mapBaseUrl = (content: any, baseUrl: string) => {
@@ -21,7 +21,7 @@ const loadTemplates = async (baseUrl: string): Promise<Template[]> =>
 /**
  * get starter templates with languages that are enabled in the current config
  */
-export const getStarterTemplates = async (config: Pen, baseUrl: string): Promise<Template[]> =>
+export const getStarterTemplates = async (config: Config, baseUrl: string): Promise<Template[]> =>
   (await loadTemplates(baseUrl))
     .filter((template) => {
       const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
@@ -57,7 +57,7 @@ export const getStarterTemplates = async (config: Pen, baseUrl: string): Promise
       types: objectMap(template.types, (url) => mapBaseUrl(url || '', baseUrl)),
     }));
 
-export const getTemplate = async (name: string, config: Pen, baseUrl: string) =>
+export const getTemplate = async (name: string, config: Config, baseUrl: string) =>
   (await getStarterTemplates(config, baseUrl)).filter(
     (template) => template.name.toLowerCase() === name.toLowerCase(),
   )[0];

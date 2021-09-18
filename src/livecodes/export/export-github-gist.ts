@@ -1,7 +1,7 @@
-import { Pen, User } from '../models';
+import { Config, User } from '../models';
 import { Files, getDescriptionFile, getFilesFromConfig } from './utils';
 
-export const exportGithubGist = async (config: Pen, { user }: { user: User }) => {
+export const exportGithubGist = async (config: Config, { user }: { user: User }) => {
   if (!user) return;
   const files = getFiles(config, user);
   const response = await saveGist(config, user, files);
@@ -14,7 +14,7 @@ export const exportGithubGist = async (config: Pen, { user }: { user: User }) =>
   }
 };
 
-const getFiles = (config: Pen, user?: User) => {
+const getFiles = (config: Config, user?: User) => {
   const descriptionFile = getDescriptionFile(config, user);
   const contentFiles = getFilesFromConfig(config);
 
@@ -24,7 +24,7 @@ const getFiles = (config: Pen, user?: User) => {
   };
 };
 
-const saveGist = (config: Pen, user: User, files: Files, gistId?: string) => {
+const saveGist = (config: Config, user: User, files: Files, gistId?: string) => {
   const body = {
     accept: 'application/vnd.github.v3+json',
     description: config.title,

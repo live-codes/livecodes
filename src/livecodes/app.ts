@@ -24,7 +24,7 @@ import {
   Editors,
   GithubScope,
   Language,
-  Pen,
+  Config,
   Screen,
   ShareData,
   Template,
@@ -64,7 +64,7 @@ import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { configureEmbed } from './embed';
 
-export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<API> => {
+export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise<API> => {
   setConfig(appConfig);
 
   const storage = createStorage();
@@ -89,7 +89,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
   const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
   const getEditorLanguages = () => Object.values(editorLanguages || {});
   const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
-  const setActiveEditor = async (config: Pen) => showEditor(config.activeEditor);
+  const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 
   const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
     new Promise((resolve, reject) => {
@@ -168,7 +168,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
   const compiler = await getCompiler(getConfig(), baseUrl);
 
   const typeLoader = createTypeLoader();
-  const loadModuleTypes = async (editors: Editors, config: Pen) => {
+  const loadModuleTypes = async (editors: Editors, config: Config) => {
     if (
       editors.script &&
       ['typescript', 'javascript'].includes(mapLanguage(editors.script.getLanguage())) &&
@@ -204,7 +204,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     });
   };
 
-  const createEditors = async (config: Pen) => {
+  const createEditors = async (config: Config) => {
     const baseOptions = {
       baseUrl,
       mode: config.mode,
@@ -270,7 +270,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     return editors;
   };
 
-  const updateEditors = async (editors: Editors, config: Pen) => {
+  const updateEditors = async (editors: Editors, config: Config) => {
     const editorIds = Object.keys(editors) as Array<keyof Editors>;
     for (const editorId of editorIds) {
       const language = getLanguageByAlias(config[editorId].language);
@@ -280,7 +280,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     }
   };
 
-  const showMode = (config: Pen) => {
+  const showMode = (config: Config) => {
     const modes = {
       full: '111',
       editor: '110',
@@ -630,7 +630,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     });
   };
 
-  const loadConfig = async (newConfig: Pen, url?: string) => {
+  const loadConfig = async (newConfig: Config, url?: string) => {
     changingContent = true;
 
     const content = getContentConfig({
@@ -705,7 +705,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     checkSavedStatus(true).then(() => setTimeout(fn));
   };
 
-  const configureEmmet = (config: Pen) => {
+  const configureEmmet = (config: Config) => {
     const editor = editors.markup;
     if (typeof editor?.configureEmmet === 'function') {
       editor.configureEmmet(config.emmet);
@@ -1863,7 +1863,7 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     handleUnload();
   };
 
-  const loadSettings = (config: Pen) => {
+  const loadSettings = (config: Config) => {
     const autoupdateToggle = UI.getAutoupdateToggle();
     autoupdateToggle.checked = config.autoupdate;
 
@@ -1975,12 +1975,12 @@ export const app = async (appConfig: Readonly<Pen>, baseUrl: string): Promise<AP
     },
     format: async () => format(),
     getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
-    getConfig: (contentOnly = false): Pen => {
+    getConfig: (contentOnly = false): Config => {
       updateConfig();
       const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
       return JSON.parse(JSON.stringify(config));
     },
-    setConfig: async (newConfig: Pen): Promise<Pen> => {
+    setConfig: async (newConfig: Config): Promise<Config> => {
       const newAppConfig = await buildConfig(newConfig, baseUrl);
       await loadConfig(newAppConfig);
       return newAppConfig;

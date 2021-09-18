@@ -1,10 +1,10 @@
 import { defaultConfig } from '../config';
 import { getDescriptionFile, getFilesFromConfig } from '../export';
-import { ContentPen, User } from '../models';
+import { ContentConfig, User } from '../models';
 import { safeName } from '../utils';
 import { getHeaders } from './get-headers';
 
-const createRepo = async (user: User, repo: string, config: ContentPen) => {
+const createRepo = async (user: User, repo: string, config: ContentConfig) => {
   const res = await fetch('https://api.github.com/user/repos', {
     method: 'POST',
     headers: getHeaders(user),
@@ -183,7 +183,7 @@ const prepareFiles = ({
   commitSource,
   singleFile,
 }: {
-  config: ContentPen;
+  config: ContentConfig;
   content: {
     resultPage: string;
     style?: string;
@@ -232,7 +232,7 @@ export const deploy = async ({
 }: {
   user: User;
   repo: string;
-  config: ContentPen;
+  config: ContentConfig;
   content: {
     resultPage: string;
     style: string;
@@ -285,7 +285,7 @@ export const deploy = async ({
       tree,
       commit,
     };
-  } catch (error) {
+  } catch (error: any) {
     if (error.message === 'Repo name already exists') {
       throw error;
     }
