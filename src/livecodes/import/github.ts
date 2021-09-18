@@ -1,11 +1,10 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { Language, Config } from '../models';
 import { pipe } from '../utils';
+import { hostPatterns } from './utils';
 
-const hostPatterns = ['https://github.com/', 'github.com/'];
-
-export const isGithubUrl = (url: string, patterns = hostPatterns) => {
-  if (!patterns.map((pattern) => url.startsWith(pattern)).some(Boolean)) return;
+export const isGithubUrl = (url: string, pattern = new RegExp(hostPatterns.github)) => {
+  if (!pattern.test(url)) return;
   try {
     const urlObj = getValidUrl(url);
     const pathSplit = urlObj.pathname.split('/');

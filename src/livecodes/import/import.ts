@@ -6,6 +6,7 @@ import { importFromGithubGist, isGithubGist } from './github-gist';
 import { importFromGitlab, isGitlabUrl } from './gitlab';
 import { importFromGitlabDir, isGitlabDir } from './gitlab-dir';
 import { importFromGitlabSnippet, isGitlabSnippet } from './gitlab-snippet';
+import { importFromJsbin, isJsbin } from './jsbin';
 import { importProject, isProjectId } from './project-id';
 import { importFromUrl } from './url';
 
@@ -37,6 +38,9 @@ export const importCode = async (
   }
   if (isGitlabUrl(url)) {
     return importFromGitlab(url);
+  }
+  if (isJsbin(url)) {
+    return importFromJsbin(url);
   }
   if (url) {
     return importFromUrl(url, params, config);

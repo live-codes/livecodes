@@ -2,8 +2,8 @@ import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { Language } from '../models';
 import { getValidUrl, hostPatterns, populateConfig } from './utils';
 
-export const isGitlabSnippet = (url: string, patterns = hostPatterns.gitlab) => {
-  if (!patterns.map((pattern) => url.startsWith(pattern)).some(Boolean)) return;
+export const isGitlabSnippet = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
+  if (!pattern.test(url)) return;
   const urlObj = getValidUrl(url);
   if (!urlObj) return;
   const pathSplit = urlObj.pathname.split('/');

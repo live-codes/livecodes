@@ -2,8 +2,8 @@ import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { Language } from '../models';
 import { getValidUrl, hostPatterns, populateConfig, sourceFile } from './utils';
 
-export const isGitlabDir = (url: string, patterns = hostPatterns.gitlab) => {
-  if (!patterns.map((pattern) => url.startsWith(pattern)).some(Boolean)) return;
+export const isGitlabDir = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
+  if (!pattern.test(url)) return;
   try {
     const urlObj = getValidUrl(url);
     if (!urlObj) return;

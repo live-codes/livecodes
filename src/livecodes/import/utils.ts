@@ -110,7 +110,8 @@ export const populateConfig = (
 };
 
 export const hostPatterns = {
-  github: ['https://github.com/', 'github.com/'],
-  githubGist: ['https://gist.github.com/', 'gist.github.com/'],
-  gitlab: ['https://gitlab.com/', 'gitlab.com/'],
+  github: /^(?:(?:http|https):\/\/)?github.com\/(?:.*)/g,
+  githubGist: /^(?:(?:http|https):\/\/)?gist.github.com(?:\/\S*)?\/(\w+)/g,
+  gitlab: /^(?:(?:(?:http|https):\/\/)?)?gitlab.com\/(?:.*)/g,
+  jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d)?)(?:.*)/g,
 };
