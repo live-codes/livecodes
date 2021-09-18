@@ -2,8 +2,8 @@ import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { Language } from '../models';
 import { hostPatterns, populateConfig } from './utils';
 
-export const isGithubDir = (url: string, patterns = hostPatterns.github) => {
-  if (!patterns.map((pattern) => url.startsWith(pattern)).some(Boolean)) return;
+export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.github)) => {
+  if (!pattern.test(url)) return;
   try {
     const urlObj = getValidUrl(url);
     const pathSplit = urlObj.pathname.split('/');

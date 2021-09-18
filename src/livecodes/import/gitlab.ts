@@ -3,8 +3,8 @@ import { Language, Config } from '../models';
 import { pipe } from '../utils';
 import { FileData, getValidUrl, hostPatterns } from './utils';
 
-export const isGitlabUrl = (url: string, patterns = hostPatterns.gitlab) => {
-  if (!patterns.map((pattern) => url.startsWith(pattern)).some(Boolean)) return;
+export const isGitlabUrl = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
+  if (!pattern.test(url)) return;
   try {
     const urlObj = getValidUrl(url);
     if (!urlObj) return;
@@ -14,6 +14,7 @@ export const isGitlabUrl = (url: string, patterns = hostPatterns.gitlab) => {
     return;
   }
 };
+
 // based on https://github.com/yusanshi/embed-like-gist
 const getfileData = async (urlObj: URL): Promise<FileData> => {
   const pathSplit = urlObj.pathname.split('/');

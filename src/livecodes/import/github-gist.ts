@@ -1,8 +1,8 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { getValidUrl, hostPatterns, populateConfig } from './utils';
 
-export const isGithubGist = (url: string, patterns = hostPatterns.githubGist) =>
-  patterns.map((pattern) => url.startsWith(pattern)).some(Boolean);
+export const isGithubGist = (url: string, pattern = new RegExp(hostPatterns.githubGist)) =>
+  pattern.test(url);
 
 export const importFromGithubGist = async (url: string, params: { [key: string]: string }) => {
   try {
