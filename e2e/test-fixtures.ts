@@ -1,6 +1,6 @@
 // my-test.ts
 import { test as base } from '@playwright/test';
-import { Pen } from '../src/localpen/models';
+import { Pen } from '../src/livecodes/models';
 
 export const test = base.extend<{
   editor: Pen['editor'];

@@ -1,5 +1,5 @@
 import { Frame, Page } from '@playwright/test';
-import { Pen } from '../src/localpen/models';
+import { Pen } from '../src/livecodes/models';
 
 export const getTestUrl = (config: Partial<Pen> = { autoupdate: false }) => {
   const query = Object.keys(config).reduce(

@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
-import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
+import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
 test.describe('Compiler Results', () => {
   test('HTML/CSS/JS', async ({ page, getTestUrl }) => {

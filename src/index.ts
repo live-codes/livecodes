@@ -1,5 +1,5 @@
-import('/localpen/' + 'index.js').then((module) => {
-  module.localpen('#pen', {
+import('/livecodes/' + 'index.js').then((module) => {
+  module.livecodes('#livecodes', {
     autoupdate: true,
   });
 });
