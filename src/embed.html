@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LocalPen</title>
+    <title>LiveCodes</title>
     <style>
       html {
         height: 100vh;
@@ -26,14 +26,14 @@
     </style>
   </head>
   <body>
-    <iframe id="pen" title="localpen" seamless></iframe>
+    <iframe id="pen" title="livecodes" seamless></iframe>
     <script>
       function resize() {
         document.body.style.height = window.innerHeight + 'px';
       }
       resize();
       window.addEventListener('resize', resize, false);
-      window.__localpenReady = function (api) {
+      window.__livecodesReady = function (api) {
         document.querySelector('#animating-logo').remove();
       };
       // document.querySelector('#pen').src = 'index.html?res';

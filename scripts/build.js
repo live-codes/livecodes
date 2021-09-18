@@ -17,10 +17,10 @@ function iife(code) {
   return '(function(){' + code.trim() + '})();\n';
 }
 
-var srcDir = path.resolve(__dirname + '/../src/localpen');
+var srcDir = path.resolve(__dirname + '/../src/livecodes');
 var outDir = path.resolve(__dirname + '/../build');
 mkdirp(outDir);
-fs.copyFileSync(path.resolve(srcDir + '/localpen.json'), path.resolve(outDir + '/localpen.json'));
+fs.copyFileSync(path.resolve(srcDir + '/livecodes.json'), path.resolve(outDir + '/livecodes.json'));
 fs.copyFileSync(
   path.resolve(__dirname + '/../src/favicon.ico'),
   path.resolve(outDir + '/favicon.ico'),
@@ -41,11 +41,11 @@ try {
 
 /** @type {Partial<esbuild.BuildOptions>} */
 var buildOptions = {
-  entryPoints: ['src/localpen/index.ts', 'src/localpen/app.ts'],
+  entryPoints: ['src/livecodes/index.ts', 'src/livecodes/app.ts'],
   bundle: true,
   minify: true,
   loader: { '.html': 'text', '.ttf': 'file' },
-  outdir: 'build/localpen',
+  outdir: 'build/livecodes',
   format: 'esm',
   logLevel: 'error',
   define: {
@@ -59,12 +59,12 @@ esbuild.buildSync(buildOptions);
 /** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {
   entryPoints: [
-    'src/localpen/compiler/compile.worker.ts',
-    'src/localpen/formatter/format.worker.ts',
+    'src/livecodes/compiler/compile.worker.ts',
+    'src/livecodes/formatter/format.worker.ts',
   ],
   bundle: true,
   minify: true,
-  outdir: 'build/localpen',
+  outdir: 'build/livecodes',
   format: 'esm',
   write: false,
 };
@@ -73,70 +73,70 @@ var worker = esbuild.buildSync(workerOptions);
 for (let out of worker.outputFiles) {
   var content = uint8arrayToString(out.contents);
   var filename = path.basename(out.path);
-  fs.writeFileSync(path.resolve('build/localpen', filename), iife(content));
+  fs.writeFileSync(path.resolve('build/livecodes', filename), iife(content));
 }
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/compiler/compile.page.ts'],
+  entryPoints: ['src/livecodes/compiler/compile.page.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/compile.page.js',
+  outfile: 'build/livecodes/compile.page.js',
   format: 'iife',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/editor/codemirror.ts'],
+  entryPoints: ['src/livecodes/editor/codemirror.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/codemirror.js',
+  outfile: 'build/livecodes/codemirror.js',
   format: 'esm',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/editor/monaco.ts'],
+  entryPoints: ['src/livecodes/editor/monaco.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/monaco.js',
+  outfile: 'build/livecodes/monaco.js',
   format: 'esm',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/editor/prism.ts'],
+  entryPoints: ['src/livecodes/editor/prism.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/prism.js',
+  outfile: 'build/livecodes/prism.js',
   format: 'esm',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/result/result-utils.ts'],
+  entryPoints: ['src/livecodes/result/result-utils.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/result-utils.js',
+  outfile: 'build/livecodes/result-utils.js',
   format: 'iife',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/compiler/compiler-utils.ts'],
+  entryPoints: ['src/livecodes/compiler/compiler-utils.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/compiler-utils.js',
+  outfile: 'build/livecodes/compiler-utils.js',
   format: 'iife',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/templates/starter/index.ts'],
+  entryPoints: ['src/livecodes/templates/starter/index.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/templates.js',
+  outfile: 'build/livecodes/templates.js',
   format: 'esm',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/localpen/services/firebase.ts'],
+  entryPoints: ['src/livecodes/services/firebase.ts'],
   bundle: true,
   minify: true,
-  outfile: 'build/localpen/firebase.js',
+  outfile: 'build/livecodes/firebase.js',
   format: 'esm',
 });
 

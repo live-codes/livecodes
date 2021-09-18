@@ -29,7 +29,7 @@ function deleteContent(file, content) {
 
 var node_modules = path.resolve(__dirname + '/../node_modules');
 var vendor_modules = path.resolve(__dirname + '/../vendor_modules/src');
-var targetDir = path.resolve(__dirname + '/../src/localpen/vendor');
+var targetDir = path.resolve(__dirname + '/../src/livecodes/vendor');
 
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
@@ -43,7 +43,7 @@ const baseOptions = {
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/monaco-editor.ts'],
-  outfile: 'src/localpen/vendor/monaco-editor/monaco-editor.js',
+  outfile: 'src/livecodes/vendor/monaco-editor/monaco-editor.js',
   loader: { '.ttf': 'file' },
   format: 'esm',
 });
@@ -59,7 +59,7 @@ const entryFiles = [
 
 /** @type {Bundler.ParcelOptions} */
 const options = {
-  outDir: './src/localpen/vendor/monaco-editor',
+  outDir: './src/livecodes/vendor/monaco-editor',
   minify: true,
   target: 'browser',
   sourceMaps: false,
@@ -90,7 +90,7 @@ fs.appendFileSync(
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/typescript.js'],
-  outfile: 'src/localpen/vendor/typescript/typescript.min.js',
+  outfile: 'src/livecodes/vendor/typescript/typescript.min.js',
   globalName: 'typescript',
 });
 
@@ -112,7 +112,7 @@ fs.copyFileSync(
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/less.js'],
-  outfile: 'src/localpen/vendor/less/less.js',
+  outfile: 'src/livecodes/vendor/less/less.js',
   globalName: 'less',
 });
 
@@ -198,7 +198,7 @@ fs.copyFileSync(
 esbuild.build({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/postcss.ts'],
-  outfile: 'src/localpen/vendor/postcss/postcss.js',
+  outfile: 'src/livecodes/vendor/postcss/postcss.js',
   globalName: 'postcss',
   plugins: nodePolyfills,
 });
@@ -207,7 +207,7 @@ esbuild.build({
 esbuild.build({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/autoprefixer.ts'],
-  outfile: 'src/localpen/vendor/autoprefixer/autoprefixer.js',
+  outfile: 'src/livecodes/vendor/autoprefixer/autoprefixer.js',
   globalName: 'autoprefixer',
   plugins: nodePolyfills,
 });
@@ -216,7 +216,7 @@ esbuild.build({
 esbuild.build({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/postcss-preset-env.ts'],
-  outfile: 'src/localpen/vendor/postcss-preset-env/postcss-preset-env.js',
+  outfile: 'src/livecodes/vendor/postcss-preset-env/postcss-preset-env.js',
   globalName: 'postcssPresetEnv',
   plugins: nodePolyfills,
 });
@@ -244,7 +244,7 @@ fs.copyFileSync(
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['node_modules/@prettier/plugin-pug/dist/index.js'],
-  outfile: 'src/localpen/vendor/prettier/parser-pug.js',
+  outfile: 'src/livecodes/vendor/prettier/parser-pug.js',
   globalName: 'pluginPug',
 });
 
@@ -266,7 +266,7 @@ fs.copyFileSync(
 esbuild.build({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/babel-preset-solid.js'],
-  outfile: 'src/localpen/vendor/babel-preset-solid/babel-preset-solid.js',
+  outfile: 'src/livecodes/vendor/babel-preset-solid/babel-preset-solid.js',
   globalName: 'babelPresetSolid',
   plugins: nodePolyfills,
 });
@@ -275,7 +275,7 @@ esbuild.build({
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/src/svelte/compiler.js'],
-  outfile: 'src/localpen/vendor/svelte/svelte-compiler.3.42.4.min.js',
+  outfile: 'src/livecodes/vendor/svelte/svelte-compiler.3.42.4.min.js',
   globalName: 'svelte',
 });
 
@@ -290,7 +290,7 @@ fs.copyFileSync(
 esbuild.build({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/mdx.ts'],
-  outfile: 'src/localpen/vendor/mdx/mdx.js',
+  outfile: 'src/livecodes/vendor/mdx/mdx.js',
   globalName: 'MDX',
   plugins: nodePolyfills,
 });
@@ -311,7 +311,7 @@ fs.copyFileSync(
 esbuild.buildSync({
   minify: true,
   entryPoints: ['vendor_modules/src/perlito/perlito5.js'],
-  outfile: 'src/localpen/vendor/perlito/perlito5.min.js',
+  outfile: 'src/livecodes/vendor/perlito/perlito5.min.js',
   format: 'esm',
   logLevel: 'error',
 });
@@ -338,6 +338,6 @@ fs.copyFileSync(
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['vendor_modules/imports/wast-refmt.ts'],
-  outfile: 'src/localpen/vendor/wast-refmt/wast-refmt.js',
+  outfile: 'src/livecodes/vendor/wast-refmt/wast-refmt.js',
   globalName: 'wastRefmt',
 });

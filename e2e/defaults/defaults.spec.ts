@@ -6,7 +6,7 @@ test.describe('App Defaults', () => {
   test('Title', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
     const name = await page.title();
-    expect(name).toBe('LocalPen');
+    expect(name).toBe('LiveCodes');
   });
 
   test('empty result page', async ({ page, getTestUrl }) => {

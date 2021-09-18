@@ -1,9 +1,9 @@
 spec:
-  name: localpen
+  name: livecodes
   static_sites:
     - github:
-        repo: hatemhosny/localpen
+        repo: hatemhosny/livecodes
         branch: master
         deploy_on_push: true
-      name: localpen
+      name: livecodes
       build_command: npm run build

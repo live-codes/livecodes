@@ -1,6 +1,6 @@
 # Third Party Licenses
 
-This is a list of software packages distributed with LocalPen (sorted alphabetically) and links to their licenses:
+This is a list of software packages distributed with LiveCodes (sorted alphabetically) and links to their licenses:
 
 Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob/9d57b34084966f35d5c542ae4feed4941bf57903/LICENSE)
 

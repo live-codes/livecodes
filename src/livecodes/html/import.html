@@ -1,0 +1,55 @@
+<div id="import-container" class="modal-container">
+  <div class="modal-title">Import</div>
+  <ul id="import-tabs" class="modal-tabs">
+    <li data-target="import-code" class="active">Import Code</li>
+    <li data-target="import-json">Import Project JSON</li>
+  </ul>
+  <div id="import-screens" class="modal-screen-container">
+    <div id="import-code" class="tab-content active">
+      <div class="modal-screen">
+        <form id="url-import-form">
+          <label for="code-url">URL</label>
+          <input type="text" id="code-url" placeholder="https://" />
+          <button id="url-import-btn" class="wide-button" type="submit">Import</button>
+        </form>
+        <div class="description">
+          Supported Sources:
+          <ul>
+            <li>GitHub gist</li>
+            <li>GitHub file</li>
+            <li>Directory in a GitHub repo</li>
+            <li>Gitlab snippet</li>
+            <li>Gitlab file</li>
+            <li>Directory in a Gitlab repo</li>
+            <li>Raw code</li>
+            <li>Webpage with code in DOM</li>
+          </ul>
+          Please visit the
+          <a
+            href="https://github.com/live-codes/livecodes#importing-code-editor-prefill"
+            target="_blank"
+            rel="noopener"
+            >documentations</a
+          >
+          for details.
+        </div>
+      </div>
+    </div>
+    <div id="import-json" class="tab-content">
+      <div class="modal-screen">
+        <form id="json-url-import-form">
+          <label for="json-url">URL</label>
+          <input type="text" id="json-url" placeholder="https://" />
+          <button id="json-url-import-btn" class="wide-button" type="submit">
+            Import from URL
+          </button>
+        </form>
+        <form id="file-url-import-form">
+          <label for="file-input">Local file</label>
+          <label for="file-input" id="file-input-label">Import from local file</label>
+          <input type="file" id="file-input" accept="application/json" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
