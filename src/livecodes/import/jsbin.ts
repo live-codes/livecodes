@@ -1,5 +1,6 @@
 import { getLanguageByAlias } from '../languages';
 import { Config } from '../models';
+import { corsService } from '../services';
 import { hostPatterns } from './utils';
 
 export const isJsbin = (url: string, pattern = new RegExp(hostPatterns.jsbin)) => pattern.test(url);
@@ -10,7 +11,7 @@ export const importFromJsbin = async (url: string): Promise<Partial<Config>> => 
   const binUrl = `https://jsbin.com/api/${binId}`;
 
   try {
-    const bin = await fetch(binUrl).then((res) => res.json());
+    const bin = await corsService.fetch(binUrl).then((res) => res.json());
     return {
       markup: {
         language: getLanguageByAlias(bin.settings?.processors?.html) || 'html',
