@@ -4,6 +4,7 @@ import { isGithubGist } from '../github-gist';
 import { isGitlabUrl } from '../gitlab';
 import { isGitlabDir } from '../gitlab-dir';
 import { isGitlabSnippet } from '../gitlab-snippet';
+import { isJsbin } from '../jsbin';
 
 describe('match hosts', () => {
   test('isGithubUrl', () => {
@@ -56,5 +57,29 @@ describe('match hosts', () => {
     expect(isGitlabSnippet('https://gitlab.com/-/snippets/2056374')).toBeTruthy();
     expect(isGitlabSnippet('gitlab.com/-/snippets/2056374')).toBeTruthy();
     expect(isGitlabSnippet('https://gitlab.com')).toBeFalsy();
+  });
+
+  test('isJsbin', () => {
+    const examples = [
+      'https://jsbin.com/fajac',
+      'https://jsbin.com/fajac/',
+      'https://jsbin.com/fajac/3',
+      'https://jsbin.com/fajac/3/',
+      'https://jsbin.com/fajac/edit',
+      'https://jsbin.com/fajac/edit?html,output',
+      'https://jsbin.com/fajac/3/edit',
+      'https://jsbin.com/fajac/3/edit?html,output',
+      'http://jsbin.com/fajac',
+      'jsbin.com/fajac',
+      'output.jsbin.com/fajac',
+      'https://output.jsbin.com/fajac',
+      'https://output.jsbin.com/fajac/3',
+      'https://dave.jsbin.com/fajac/3/',
+      'https://dave.jsbin.com/fajac/3/edit',
+    ];
+    examples.forEach((example) => {
+      expect(isJsbin(example)).toBeTruthy();
+    });
+    expect(isJsbin('https://jsbin.com')).toBeFalsy();
   });
 });
