@@ -7,7 +7,7 @@ export const allowedOrigin = (origin = location.origin) =>
     origin.startsWith('http://127.0.0.1') ||
     origin.startsWith('http://localhost'));
 
-export const allowedTarget = (url: string) =>
+export const whitelistTarget = (url: string) =>
   new RegExp(/^(?:(?:http|https):\/\/(?:\w+.)?)(githubusercontent.com|jsbin.com|)\/(?:.*)/g).test(
     url,
   );

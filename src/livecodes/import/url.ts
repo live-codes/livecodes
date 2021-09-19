@@ -1,5 +1,6 @@
 import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
 import { EditorId, Language, Config } from '../models';
+import { corsService } from '../services';
 import { decodeHTML } from '../utils';
 
 type Selectors = {
@@ -25,10 +26,22 @@ export const getLanguageSelectors = (params: { [key: string]: string }) =>
     };
   }, {} as Selectors);
 
-const getCode = (dom: Document, selector: string) => {
+const extractCodeFromHTML = (dom: Document, selector: string) => {
   const codeContainer = dom.querySelector(selector);
   if (!codeContainer) return;
-  return decodeHTML(codeContainer?.innerHTML || '');
+  return decodeHTML(codeContainer.innerHTML.trim() + '\n' || '');
+};
+
+const getRawCode = (content: string, lang: string): Partial<Config> => {
+  const language = getLanguageByAlias(lang) || 'html';
+  const editorId = getLanguageEditorId(language) || 'markup';
+  return {
+    [editorId]: {
+      language,
+      content,
+    },
+    activeEditor: editorId,
+  };
 };
 
 export const importFromUrl = async (
@@ -36,16 +49,21 @@ export const importFromUrl = async (
   params: { [key: string]: string },
   config: Config,
 ): Promise<Partial<Config>> => {
-  let html: string;
+  let fetchedContent: string;
   try {
-    html = await fetch(url).then((res) => res.text());
+    fetchedContent = await corsService.fetch(url).then((res) => res.text());
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error fetching ' + url);
     return {};
   }
+
+  if (params.raw) {
+    return getRawCode(fetchedContent, params.raw);
+  }
+
   const domparser = new DOMParser();
-  const dom = domparser.parseFromString(html, 'text/html');
+  const dom = domparser.parseFromString(fetchedContent, 'text/html');
 
   const defaultParams = languages
     .map((lang) => lang.name)
@@ -74,7 +92,7 @@ export const importFromUrl = async (
     {} as Selectors,
   );
 
-  const languageSelectors = {
+  const languageSelectors: Selectors = {
     ...getLanguageSelectors(defaultParams),
     ...configSelectors,
     ...getLanguageSelectors(params),
@@ -82,7 +100,7 @@ export const importFromUrl = async (
 
   const selectedCode = (Object.keys(languageSelectors) as EditorId[]).reduce(
     (config: Partial<Config>, editorId) => {
-      const code = getCode(dom, languageSelectors[editorId].selector);
+      const code = extractCodeFromHTML(dom, languageSelectors[editorId].selector);
       if (code === undefined) return config;
       return {
         ...config,
@@ -94,31 +112,47 @@ export const importFromUrl = async (
     },
     {},
   );
-
-  // if not all editors are filled, check for default selectors for other languages
-  if (Object.keys(selectedCode).length < 3) {
-    const defaults = Object.keys(defaultParams).reduce(
-      (config: Partial<Config>, language: string) => {
-        const editorId = getLanguageEditorId(language as Language);
-        if (!editorId || selectedCode[editorId]) return config;
-        const code = getCode(dom, defaultParams[language]);
-        if (code === undefined) return config;
-
-        return {
-          ...config,
-          [editorId]: {
-            language,
-            content: code,
-          },
-        };
-      },
-      {},
-    );
-    return {
-      ...selectedCode,
-      ...defaults,
-    };
+  if (Object.keys(selectedCode).length === 3) {
+    return selectedCode;
   }
 
-  return selectedCode;
+  // if not all editors are filled, check for default selectors for other languages
+  const defaults = Object.keys(defaultParams).reduce(
+    (config: Partial<Config>, language: string) => {
+      const editorId = getLanguageEditorId(language as Language);
+      if (!editorId || selectedCode[editorId]) return config;
+      const code = extractCodeFromHTML(dom, defaultParams[language]);
+      if (code === undefined) return config;
+
+      return {
+        ...config,
+        [editorId]: {
+          language,
+          content: code,
+        },
+      };
+    },
+    {},
+  );
+  const selectedWithDefaults = {
+    ...defaults,
+    ...selectedCode,
+  };
+
+  if (Object.keys(selectedWithDefaults).length > 0) {
+    return selectedWithDefaults;
+  } else {
+    // if no code was extracted, assume it is raw code
+    // if there is a file extension use it else assume it is html
+    const extension = url.slice(url.lastIndexOf('.') + 1);
+    const language = getLanguageByAlias(extension) || 'html';
+    const editorId = getLanguageEditorId(language) || 'markup';
+    return {
+      [editorId]: {
+        language,
+        content: fetchedContent || '',
+      },
+      activeEditor: editorId,
+    };
+  }
 };

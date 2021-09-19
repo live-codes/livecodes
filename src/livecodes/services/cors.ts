@@ -1,12 +1,18 @@
-import { allowedOrigin, allowedTarget } from './allowed-origin';
+import { allowedOrigin, whitelistTarget } from './allowed-origin';
 
 const corsApiUrl = 'https://api.livecodes.io/cors';
 
 export const corsService = {
   fetch: async (url: string, options?: RequestInit) => {
-    const fetchUrl =
-      allowedOrigin() && allowedTarget(url) ? corsApiUrl + '?url=' + encodeURIComponent(url) : url;
+    if (!allowedOrigin()) {
+      return fetch(url, options);
+    }
 
-    return fetch(fetchUrl, options);
+    const corsUrl = corsApiUrl + '?url=' + encodeURIComponent(url);
+    if (whitelistTarget(url)) {
+      return fetch(corsUrl, options);
+    }
+
+    return fetch(url, options).catch(() => fetch(corsUrl, options));
   },
 };
