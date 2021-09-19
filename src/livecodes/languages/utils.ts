@@ -2,7 +2,7 @@ import { Compiler, Language, customSettings, Config, Processors } from '../model
 import { languages } from './languages';
 import { processors } from './processors';
 
-export const getLanguageByAlias = (alias?: string): Language | undefined => {
+export const getLanguageByAlias = (alias: string = ''): Language | undefined => {
   if (!alias) return;
   const aliasLowerCase = alias?.toLowerCase();
   return languages.find(
@@ -13,16 +13,16 @@ export const getLanguageByAlias = (alias?: string): Language | undefined => {
   )?.name;
 };
 
-export const getLanguageEditorId = (alias: string) =>
+export const getLanguageEditorId = (alias: string = '') =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias))?.editor;
 
-export const getLanguageExtension = (alias: string) =>
+export const getLanguageExtension = (alias: string = '') =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias))?.extensions[0];
 
-export const getLanguageSpecs = (alias: string) =>
+export const getLanguageSpecs = (alias: string = '') =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias));
 
-export const getLanguageCompiler = (alias: string): Compiler | undefined => {
+export const getLanguageCompiler = (alias: string = ''): Compiler | undefined => {
   const languageSpecs = getLanguageSpecs(alias);
   let compiler = languageSpecs?.compiler;
   if (typeof compiler === 'string') {

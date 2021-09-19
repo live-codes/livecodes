@@ -92,7 +92,7 @@ export const importFromUrl = async (
     {} as Selectors,
   );
 
-  const languageSelectors = {
+  const languageSelectors: Selectors = {
     ...getLanguageSelectors(defaultParams),
     ...configSelectors,
     ...getLanguageSelectors(params),
@@ -112,31 +112,47 @@ export const importFromUrl = async (
     },
     {},
   );
-
-  // if not all editors are filled, check for default selectors for other languages
-  if (Object.keys(selectedCode).length < 3) {
-    const defaults = Object.keys(defaultParams).reduce(
-      (config: Partial<Config>, language: string) => {
-        const editorId = getLanguageEditorId(language as Language);
-        if (!editorId || selectedCode[editorId]) return config;
-        const code = extractCodeFromHTML(dom, defaultParams[language]);
-        if (code === undefined) return config;
-
-        return {
-          ...config,
-          [editorId]: {
-            language,
-            content: code,
-          },
-        };
-      },
-      {},
-    );
-    return {
-      ...defaults,
-      ...selectedCode,
-    };
+  if (Object.keys(selectedCode).length === 3) {
+    return selectedCode;
   }
 
-  return selectedCode;
+  // if not all editors are filled, check for default selectors for other languages
+  const defaults = Object.keys(defaultParams).reduce(
+    (config: Partial<Config>, language: string) => {
+      const editorId = getLanguageEditorId(language as Language);
+      if (!editorId || selectedCode[editorId]) return config;
+      const code = extractCodeFromHTML(dom, defaultParams[language]);
+      if (code === undefined) return config;
+
+      return {
+        ...config,
+        [editorId]: {
+          language,
+          content: code,
+        },
+      };
+    },
+    {},
+  );
+  const selectedWithDefaults = {
+    ...defaults,
+    ...selectedCode,
+  };
+
+  if (Object.keys(selectedWithDefaults).length > 0) {
+    return selectedWithDefaults;
+  } else {
+    // if no code was extracted, assume it is raw code
+    // if there is a file extension use it else assume it is html
+    const extension = url.slice(url.lastIndexOf('.') + 1);
+    const language = getLanguageByAlias(extension) || 'html';
+    const editorId = getLanguageEditorId(language) || 'markup';
+    return {
+      [editorId]: {
+        language,
+        content: fetchedContent || '',
+      },
+      activeEditor: editorId,
+    };
+  }
 };
