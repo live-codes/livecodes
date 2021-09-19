@@ -1,6 +1,6 @@
 import { ContentConfig, Config } from '../models';
 
-export const getContentConfig = (config: Config): ContentConfig => ({
+export const getContentConfig = (config: Config | ContentConfig): ContentConfig => ({
   title: config.title,
   description: config.description,
   tags: config.tags,

@@ -1,8 +1,8 @@
-import { Config } from './models';
+import { ContentConfig } from './models';
 
 interface Item {
   id: string;
-  pen: Config;
+  pen: ContentConfig;
   lastModified: number;
 }
 interface Storage {
@@ -10,7 +10,7 @@ interface Storage {
   items: Item[];
 }
 
-export const createStorage = (name = '__livecodes_data__') => {
+export const createStorage = (name = '__localpen_data__') => {
   const EMPTY: Storage = {
     activeItemId: null,
     items: [],
@@ -39,11 +39,13 @@ export const createStorage = (name = '__livecodes_data__') => {
       }))
       .sort((a, b) => b.lastModified - a.lastModified);
 
+  const getAllData = () => getData().items;
+
   const getItem = (itemId: string) => getData().items?.find((item) => itemId === item.id);
 
-  const updateItem = (id: string, pen: Config) => {
+  const updateItem = (id: string, pen: ContentConfig) => {
     const data = getData();
-    const item = data.items?.find((item) => id === item.id);
+    const item = data.items?.find((x) => id === x.id);
     if (!item) return;
 
     item.pen = pen;
@@ -52,7 +54,7 @@ export const createStorage = (name = '__livecodes_data__') => {
     setData(data);
   };
 
-  const addItem = (pen: Config) => {
+  const addItem = (pen: ContentConfig) => {
     const id = (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(
       0,
       24,
@@ -74,6 +76,14 @@ export const createStorage = (name = '__livecodes_data__') => {
     return id;
   };
 
+  const bulkInsert = (newItems: Item[]) => {
+    const data = getData();
+    setData({
+      ...data,
+      items: [...data.items, ...newItems],
+    });
+  };
+
   const deleteItem = (id: string) => {
     const data = getData();
     const items = data.items.filter((item) => item.id !== id);
@@ -89,10 +99,12 @@ export const createStorage = (name = '__livecodes_data__') => {
 
   return {
     getList,
+    getAllData,
     getItem,
     addItem,
     updateItem,
     deleteItem,
+    bulkInsert,
     clear,
   };
 };

@@ -30,6 +30,7 @@ import {
   Template,
   ToolList,
   User,
+  ContentConfig,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -41,7 +42,7 @@ import {
   savePromptScreen,
   openScreen,
 } from './html';
-import { exportPen } from './export';
+import { downloadFile, exportConfig } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
 import {
@@ -54,7 +55,14 @@ import {
 } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
+import {
+  compress,
+  copyToClipboard,
+  debounce,
+  getDate,
+  stringify,
+  stringToValidJson,
+} from './utils';
 import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -630,7 +638,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     });
   };
 
-  const loadConfig = async (newConfig: Config, url?: string) => {
+  const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
     changingContent = true;
 
     const content = getContentConfig({
@@ -1250,7 +1258,26 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         const list = document.createElement('ul') as HTMLElement;
         list.classList.add('open-list');
 
+        // const bulkImportButton = UI.getBulkImportButton(listContainer);
+        const exportAllButton = UI.getExportAllButton(listContainer);
         const deleteAllButton = UI.getDeleteAllButton(listContainer);
+
+        eventsManager.addEventListener(
+          exportAllButton,
+          'click',
+          () => {
+            const data = storage.getAllData().map((item) => ({
+              ...item,
+              pen: getContentConfig(item.pen),
+            }));
+            const filename = 'livecodes_export_' + getDate();
+            const content =
+              'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+            downloadFile(filename, 'json', content);
+          },
+          false,
+        );
+
         eventsManager.addEventListener(
           deleteAllButton,
           'click',
@@ -1260,6 +1287,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
             if (list) list.remove();
             if (noDataMessage) listContainer.appendChild(noDataMessage);
             deleteAllButton.classList.add('hidden');
+            exportAllButton.classList.add('hidden');
           },
           false,
         );
@@ -1317,6 +1345,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         if (userPens.length === 0) {
           list.remove();
           deleteAllButton.remove();
+          exportAllButton.remove();
         } else {
           noDataMessage?.remove();
         }
@@ -1442,7 +1471,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'json');
+          exportConfig(getConfig(), baseUrl, 'json');
         },
         false,
       );
@@ -1453,7 +1482,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
+          exportConfig(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
         },
         false,
       );
@@ -1466,7 +1495,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           event.preventDefault();
           updateConfig();
           const html = await getResultPage({ forExport: true });
-          exportPen(getConfig(), baseUrl, 'src', { JSZip, html });
+          exportConfig(getConfig(), baseUrl, 'src', { JSZip, html });
         },
         false,
       );
@@ -1476,7 +1505,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         'click',
         () => {
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'codepen');
+          exportConfig(getConfig(), baseUrl, 'codepen');
         },
         false,
       );
@@ -1486,7 +1515,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         'click',
         () => {
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'jsfiddle');
+          exportConfig(getConfig(), baseUrl, 'jsfiddle');
         },
         false,
       );
@@ -1502,7 +1531,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           }
           if (!user) return;
           notifications.info('Creating a public GitHub gist...');
-          exportPen(getConfig(), baseUrl, 'githubGist', { user });
+          exportConfig(getConfig(), baseUrl, 'githubGist', { user });
         },
         false,
       );

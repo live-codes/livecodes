@@ -10,7 +10,7 @@ type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle' | 'githubGist
 type ExportFunctions = {
   [key in ExportType]: (config: Config, payload?: any, baseUrl?: string) => void;
 };
-export const exportPen = (config: Config, baseUrl: string, type: ExportType, payload?: any) => {
+export const exportConfig = (config: Config, baseUrl: string, type: ExportType, payload?: any) => {
   const exportFns: ExportFunctions = {
     json: exportJSON,
     src: exportSrc,

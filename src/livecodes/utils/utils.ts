@@ -158,3 +158,10 @@ export const loadStylesheet = (url: string, id?: string) => {
 
 export const typedArrayToBuffer = (array: Uint8Array): ArrayBuffer =>
   array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);
+
+export const getDate = () => {
+  let date = new Date();
+  const offset = date.getTimezoneOffset();
+  date = new Date(date.getTime() - offset * 60 * 1000);
+  return date.toISOString().split('T')[0];
+};

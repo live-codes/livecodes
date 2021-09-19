@@ -183,5 +183,11 @@ export const getStarterTemplatesList = (templatesContainer: HTMLElement) =>
 export const getUserTemplatesScreen = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;
 
+export const getBulkImportButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#bulk-import-button') as HTMLElement;
+
+export const getExportAllButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#export-all-button') as HTMLElement;
+
 export const getDeleteAllButton = (listContainer: HTMLElement) =>
   listContainer.querySelector('#delete-all-button') as HTMLElement;
