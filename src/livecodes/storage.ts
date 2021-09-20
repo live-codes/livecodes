@@ -10,7 +10,7 @@ interface Storage {
   items: Item[];
 }
 
-export const createStorage = (name = '__localpen_data__') => {
+export const createStorage = (name = '__livecodes_data__') => {
   const EMPTY: Storage = {
     activeItemId: null,
     items: [],
