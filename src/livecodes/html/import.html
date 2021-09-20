@@ -3,6 +3,7 @@
   <ul id="import-tabs" class="modal-tabs">
     <li data-target="import-code" class="active">Import Code</li>
     <li data-target="import-json">Import Project JSON</li>
+    <li data-target="bulk-import-json">Bulk Import</li>
   </ul>
   <div id="import-screens" class="modal-screen-container">
     <div id="import-code" class="tab-content active">
@@ -23,7 +24,7 @@
             <li>Directory in a Gitlab repo</li>
             <li>JS Bin</li>
             <li>Raw code</li>
-            <li>Webpage with code in DOM</li>
+            <li>Code in web page DOM</li>
           </ul>
           Please visit the
           <a
@@ -38,17 +39,41 @@
     </div>
     <div id="import-json" class="tab-content">
       <div class="modal-screen">
+        <div class="description">
+          Import a single project JSON to editor. A project can be exported from
+          settings&nbsp;menu&nbsp;>> Export&nbsp;>> Export&nbsp;Project&nbsp;(JSON).
+        </div>
         <form id="json-url-import-form">
           <label for="json-url">URL</label>
           <input type="text" id="json-url" placeholder="https://" />
           <button id="json-url-import-btn" class="wide-button" type="submit">
-            Import from URL
+            Import project from URL
           </button>
         </form>
         <form id="file-url-import-form">
           <label for="file-input">Local file</label>
-          <label for="file-input" id="file-input-label">Import from local file</label>
-          <input type="file" id="file-input" accept="application/json" />
+          <label for="file-input" class="file-input-label">Import project from local file</label>
+          <input type="file" id="file-input" class="file-input" accept="application/json" />
+        </form>
+      </div>
+    </div>
+    <div id="bulk-import-json" class="tab-content">
+      <div class="modal-screen">
+        <div class="description">
+          Bulk import multiple projects to your saved projects. Projects can be exported from the
+          <a href="#" id="link-to-saved-projects">Saved Projects</a> screen.
+        </div>
+        <form id="bulk-json-url-import-form">
+          <label for="bulk-json-url">URL</label>
+          <input type="text" id="bulk-json-url" placeholder="https://" />
+          <button id="bulk-json-url-import-btn" class="wide-button" type="submit">
+            Bulk import from URL
+          </button>
+        </form>
+        <form id="bulk-file-url-import-form">
+          <label for="bulk-file-input">Local file</label>
+          <label for="bulk-file-input" class="file-input-label">Bulk import from local file</label>
+          <input type="file" id="bulk-file-input" class="file-input" accept="application/json" />
         </form>
       </div>
     </div>

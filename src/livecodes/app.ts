@@ -11,7 +11,7 @@ import {
   getLanguageByAlias,
   mapLanguage,
 } from './languages';
-import { createStorage } from './storage';
+import { createStorage, Item } from './storage';
 import {
   API,
   Cache,
@@ -30,6 +30,7 @@ import {
   Template,
   ToolList,
   User,
+  ContentConfig,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -41,7 +42,7 @@ import {
   savePromptScreen,
   openScreen,
 } from './html';
-import { exportPen } from './export';
+import { downloadFile, exportConfig } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
 import {
@@ -54,7 +55,15 @@ import {
 } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
 import { importCode } from './import';
-import { compress, copyToClipboard, debounce, stringify, stringToValidJson } from './utils';
+import {
+  compress,
+  copyToClipboard,
+  debounce,
+  fetchWithHandler,
+  getDate,
+  stringify,
+  stringToValidJson,
+} from './utils';
 import { getCompiler, getAllCompilers } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -630,7 +639,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     });
   };
 
-  const loadConfig = async (newConfig: Config, url?: string) => {
+  const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
     changingContent = true;
 
     const content = getContentConfig({
@@ -806,7 +815,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   };
 
-  const attachEventListeners = (editors: Editors) => {
+  const attachEventListeners = () => {
     const handleTitleEdit = () => {
       const projectTitle = UI.getProjectTitleElement();
       if (!projectTitle) return;
@@ -1250,16 +1259,47 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         const list = document.createElement('ul') as HTMLElement;
         list.classList.add('open-list');
 
+        const bulkImportButton = UI.getBulkImportButton(listContainer);
+        const exportAllButton = UI.getExportAllButton(listContainer);
         const deleteAllButton = UI.getDeleteAllButton(listContainer);
+
+        eventsManager.addEventListener(
+          bulkImportButton,
+          'click',
+          () => {
+            showScreen('import');
+          },
+          false,
+        );
+
+        eventsManager.addEventListener(
+          exportAllButton,
+          'click',
+          () => {
+            const data = storage.getAllData().map((item) => ({
+              ...item,
+              pen: getContentConfig(item.pen),
+            }));
+            const filename = 'livecodes_export_' + getDate();
+            const content =
+              'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+            downloadFile(filename, 'json', content);
+          },
+          false,
+        );
+
         eventsManager.addEventListener(
           deleteAllButton,
           'click',
           () => {
-            storage.clear();
-            penId = '';
-            if (list) list.remove();
-            if (noDataMessage) listContainer.appendChild(noDataMessage);
-            deleteAllButton.classList.add('hidden');
+            notifications.confirm('Delete all saved projects?', () => {
+              storage.clear();
+              penId = '';
+              if (list) list.remove();
+              if (noDataMessage) listContainer.appendChild(noDataMessage);
+              deleteAllButton.classList.add('hidden');
+              exportAllButton.classList.add('hidden');
+            });
           },
           false,
         );
@@ -1317,6 +1357,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         if (userPens.length === 0) {
           list.remove();
           deleteAllButton.remove();
+          exportAllButton.remove();
         } else {
           noDataMessage?.remove();
         }
@@ -1341,9 +1382,11 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         const importButton = UI.getUrlImportButton(importContainer);
         eventsManager.addEventListener(importForm, 'submit', async (e) => {
           e.preventDefault();
+          const buttonText = importButton.innerHTML;
           importButton.innerHTML = 'Loading...';
           importButton.disabled = true;
-          const url = UI.getUrlImportInput(importContainer).value;
+          const importInput = UI.getUrlImportInput(importContainer);
+          const url = importInput.value;
           const imported = await importCode(url, {}, defaultConfig);
           if (imported && Object.keys(imported).length > 0) {
             await loadConfig(
@@ -1353,73 +1396,127 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
               },
               location.origin + location.pathname + '#' + url,
             );
+            modal.close();
           } else {
+            importButton.innerHTML = buttonText;
+            importButton.disabled = false;
             notifications.error('failed to load URL');
+            importInput.focus();
           }
-          modal.close();
         });
 
         const importJsonUrlForm = UI.getImportJsonUrlForm(importContainer);
         const importJsonUrlButton = UI.getImportJsonUrlButton(importContainer);
         eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
           e.preventDefault();
+          const buttonText = importJsonUrlButton.innerHTML;
           importJsonUrlButton.innerHTML = 'Loading...';
           importJsonUrlButton.disabled = true;
-          const url = UI.getImportJsonUrlInput(importContainer).value;
-          const fileConfig = await fetch(url)
+          const importInput = UI.getImportJsonUrlInput(importContainer);
+          const url = importInput.value;
+          fetchWithHandler(url)
             .then((res) => res.json())
+            .then((fileConfig) =>
+              loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url),
+            )
+            .then(() => modal.close())
             .catch(() => {
-              modal.close();
-              notifications.error('failed to load URL');
-              return;
+              importJsonUrlButton.innerHTML = buttonText;
+              importJsonUrlButton.disabled = false;
+              notifications.error('Error: failed to load URL');
+              importInput.focus();
             });
-          if (fileConfig) {
-            await loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url);
-          }
-          modal.close();
         });
 
-        const fileInput = UI.getImportFileInput(importContainer);
+        const bulkImportJsonUrlForm = UI.getBulkImportJsonUrlForm(importContainer);
+        const bulkimportJsonUrlButton = UI.getBulkImportJsonUrlButton(importContainer);
+        eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
+          e.preventDefault();
+          const buttonText = bulkimportJsonUrlButton.innerHTML;
+          bulkimportJsonUrlButton.innerHTML = 'Loading...';
+          bulkimportJsonUrlButton.disabled = true;
+          const importInput = UI.getBulkImportJsonUrlInput(importContainer);
+          const url = importInput.value;
+          fetchWithHandler(url)
+            .then((res) => res.json())
+            .then(insertItems)
+            .catch(() => {
+              bulkimportJsonUrlButton.innerHTML = buttonText;
+              bulkimportJsonUrlButton.disabled = false;
+              notifications.error('Error: failed to load URL');
+              importInput.focus();
+            });
+        });
 
-        eventsManager.addEventListener(fileInput, 'change', () => {
-          if (fileInput.files?.length === 0) return;
+        const loadFile = <T>(input: HTMLInputElement) =>
+          new Promise<T>((resolve, reject) => {
+            if (input.files?.length === 0) return;
 
-          const file = (fileInput.files as FileList)[0];
+            const file = (input.files as FileList)[0];
 
-          const allowedTypes = ['application/json', 'text/plain'];
-          if (allowedTypes.indexOf(file.type) === -1) {
-            modal.close();
-            notifications.error('Error : Incorrect file type');
-            return;
-          }
-
-          // Max 2 MB allowed
-          const maxSizeAllowed = 2 * 1024 * 1024;
-          if (file.size > maxSizeAllowed) {
-            modal.close();
-            notifications.error('Error : Exceeded size 2MB');
-            return;
-          }
-
-          const reader = new FileReader();
-
-          eventsManager.addEventListener(reader, 'load', async (event: any) => {
-            const text = (event.target?.result as string) || '';
-            try {
-              await loadConfig(JSON.parse(text));
-            } catch (error) {
-              notifications.error('Invalid configuration file');
+            const allowedTypes = ['application/json', 'text/plain'];
+            if (allowedTypes.indexOf(file.type) === -1) {
+              reject('Error: Incorrect file type');
+              return;
             }
 
-            modal.close();
+            // Max 2 MB allowed
+            const maxSizeAllowed = 2 * 1024 * 1024;
+            if (file.size > maxSizeAllowed) {
+              reject('Error: Exceeded size 2MB');
+              return;
+            }
+
+            const reader = new FileReader();
+            eventsManager.addEventListener(reader, 'load', async (event: any) => {
+              const text = (event.target?.result as string) || '';
+              try {
+                resolve(JSON.parse(text));
+              } catch (error) {
+                reject('Invalid configuration file');
+              }
+            });
+
+            eventsManager.addEventListener(reader, 'error', () => {
+              reject('Error: Failed to read file');
+            });
+
+            reader.readAsText(file);
           });
 
-          eventsManager.addEventListener(reader, 'error', () => {
-            modal.close();
-            notifications.error('Error : Failed to read file');
-          });
+        const insertItems = (items: Item[]) => {
+          if (Array.isArray(items) && items.every((item) => item.pen)) {
+            storage.bulkInsert(items);
+            notifications.success('Import Successful!');
+            showScreen('open');
+            return;
+          }
+          return Promise.reject('Error: Invalid file');
+        };
 
-          reader.readAsText(file);
+        const fileInput = UI.getImportFileInput(importContainer);
+        eventsManager.addEventListener(fileInput, 'change', () => {
+          loadFile<Config>(fileInput)
+            .then(loadConfig)
+            .then(modal.close)
+            .catch((message) => {
+              notifications.error(message);
+            });
+        });
+
+        const bulkFileInput = UI.getBulkImportFileInput(importContainer);
+        eventsManager.addEventListener(bulkFileInput, 'change', () => {
+          loadFile<Item[]>(bulkFileInput)
+            .then(insertItems)
+            .catch((message) => {
+              notifications.error(message);
+            });
+        });
+
+        const linkToSavedProjects = UI.getLinkToSavedProjects(importContainer);
+        eventsManager.addEventListener(linkToSavedProjects, 'click', (e) => {
+          e.preventDefault();
+          showScreen('open');
         });
 
         modal.show(importContainer, { isAsync: true });
@@ -1442,7 +1539,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'json');
+          exportConfig(getConfig(), baseUrl, 'json');
         },
         false,
       );
@@ -1453,7 +1550,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         async (event: Event) => {
           event.preventDefault();
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
+          exportConfig(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
         },
         false,
       );
@@ -1466,7 +1563,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           event.preventDefault();
           updateConfig();
           const html = await getResultPage({ forExport: true });
-          exportPen(getConfig(), baseUrl, 'src', { JSZip, html });
+          exportConfig(getConfig(), baseUrl, 'src', { JSZip, html });
         },
         false,
       );
@@ -1476,7 +1573,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         'click',
         () => {
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'codepen');
+          exportConfig(getConfig(), baseUrl, 'codepen');
         },
         false,
       );
@@ -1486,7 +1583,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         'click',
         () => {
           updateConfig();
-          exportPen(getConfig(), baseUrl, 'jsfiddle');
+          exportConfig(getConfig(), baseUrl, 'jsfiddle');
         },
         false,
       );
@@ -1502,7 +1599,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           }
           if (!user) return;
           notifications.info('Creating a public GitHub gist...');
-          exportPen(getConfig(), baseUrl, 'githubGist', { user });
+          exportConfig(getConfig(), baseUrl, 'githubGist', { user });
         },
         false,
       );
@@ -1943,7 +2040,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         },
       ];
       toolsPane = createToolsPane(toolList, getConfig(), baseUrl, editors, eventsManager);
-      attachEventListeners(editors);
+      attachEventListeners();
     } else {
       await updateEditors(editors, getConfig());
     }
