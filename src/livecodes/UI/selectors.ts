@@ -156,6 +156,8 @@ export const getBulkImportJsonUrlButton = (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-json-url-import-btn') as HTMLInputElement;
 export const getBulkImportJsonUrlInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-json-url') as HTMLInputElement;
+export const getLinkToSavedProjects = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#link-to-saved-projects') as HTMLAnchorElement;
 
 export const getImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#file-input') as HTMLInputElement;

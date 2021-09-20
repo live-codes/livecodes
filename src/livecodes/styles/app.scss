@@ -997,9 +997,16 @@ i.arrow {
   }
 
   .buttons {
+    align-self: flex-start;
     display: flex;
     justify-content: space-evenly;
     margin: 1em 0.3em;
+    max-width: 100%;
+  }
+  @media only screen and (max-width: 480px) {
+    .buttons {
+      width: 100%;
+    }
   }
 
   .button {
@@ -1065,9 +1072,9 @@ i.arrow {
     border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
-    margin-bottom: 15px;
+    margin-bottom: 1em;
     min-height: calc(80% - 100px);
-    padding: 10px;
+    padding: 0.7em;
   }
 
   .tab-content {
@@ -1093,7 +1100,7 @@ i.arrow {
   label {
     display: inline-block;
     font-weight: 600;
-    margin: 10px;
+    margin: 0.7em;
     text-align: left;
     width: 80%;
   }
@@ -1195,9 +1202,9 @@ i.arrow {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1em;
     font-weight: 400;
-    margin: 20px;
+    margin: 1em;
     outline: none;
-    padding: 10px;
+    padding: 0.7em;
     text-align: center;
     width: 50%;
   }
@@ -1224,6 +1231,10 @@ i.arrow {
     li {
       width: 33%;
     }
+  }
+
+  .nowrap {
+    white-space: nowrap;
   }
 
   .file-input {

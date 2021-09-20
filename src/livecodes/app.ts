@@ -1513,6 +1513,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
             });
         });
 
+        const linkToSavedProjects = UI.getLinkToSavedProjects(importContainer);
+        eventsManager.addEventListener(linkToSavedProjects, 'click', (e) => {
+          e.preventDefault();
+          showScreen('open');
+        });
+
         modal.show(importContainer, { isAsync: true });
         UI.getUrlImportInput(importContainer).focus();
       };

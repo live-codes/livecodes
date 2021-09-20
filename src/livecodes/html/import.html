@@ -24,7 +24,7 @@
             <li>Directory in a Gitlab repo</li>
             <li>JS Bin</li>
             <li>Raw code</li>
-            <li>Webpage with code in DOM</li>
+            <li>Code in web page DOM</li>
           </ul>
           Please visit the
           <a
@@ -39,6 +39,10 @@
     </div>
     <div id="import-json" class="tab-content">
       <div class="modal-screen">
+        <div class="description">
+          Import a single project JSON to editor. A project can be exported from
+          settings&nbsp;menu&nbsp;>> Export&nbsp;>> Export&nbsp;Project&nbsp;(JSON).
+        </div>
         <form id="json-url-import-form">
           <label for="json-url">URL</label>
           <input type="text" id="json-url" placeholder="https://" />
@@ -55,6 +59,10 @@
     </div>
     <div id="bulk-import-json" class="tab-content">
       <div class="modal-screen">
+        <div class="description">
+          Bulk import multiple projects to your saved projects. Projects can be exported from the
+          <a href="#" id="link-to-saved-projects">Saved Projects</a> screen.
+        </div>
         <form id="bulk-json-url-import-form">
           <label for="bulk-json-url">URL</label>
           <input type="text" id="bulk-json-url" placeholder="https://" />
