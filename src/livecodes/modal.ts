@@ -70,7 +70,12 @@ export const createModal = () => {
   };
 
   function onClickOutside(ev: Event) {
-    if (!modal?.contains(ev.target as Node) && !isOpening) {
+    const notificationBar = document.querySelector('.snackbar');
+    if (
+      !modal?.contains(ev.target as Node) &&
+      !notificationBar?.contains(ev.target as Node) &&
+      !isOpening
+    ) {
       close();
     }
     isOpening = false;

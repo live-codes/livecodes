@@ -1,6 +1,6 @@
 import { ContentConfig } from './models';
 
-interface Item {
+export interface Item {
   id: string;
   pen: ContentConfig;
   lastModified: number;

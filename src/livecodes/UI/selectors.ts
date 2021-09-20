@@ -150,8 +150,18 @@ export const getImportJsonUrlButton = (importContainer: HTMLElement) =>
 export const getImportJsonUrlInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#json-url') as HTMLInputElement;
 
+export const getBulkImportJsonUrlForm = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#bulk-json-url-import-form') as HTMLInputElement;
+export const getBulkImportJsonUrlButton = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#bulk-json-url-import-btn') as HTMLInputElement;
+export const getBulkImportJsonUrlInput = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#bulk-json-url') as HTMLInputElement;
+
 export const getImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#file-input') as HTMLInputElement;
+
+export const getBulkImportFileInput = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#bulk-file-input') as HTMLInputElement;
 
 export const getNewRepoForm = (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#new-repo-form');

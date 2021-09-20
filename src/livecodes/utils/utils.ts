@@ -165,3 +165,7 @@ export const getDate = () => {
   date = new Date(date.getTime() - offset * 60 * 1000);
   return date.toISOString().split('T')[0];
 };
+
+export const handeFetchError = (res: Response) => (res.ok ? res : Promise.reject());
+export const fetchWithHandler = (input: RequestInfo, init?: RequestInit) =>
+  fetch(input, init).then(handeFetchError);
