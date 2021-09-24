@@ -9,7 +9,6 @@ const templates = [
   'Preact',
   'Svelte',
   'Stencil',
-  'Polymer',
   'MDX',
   'jQuery',
   'Backbone',

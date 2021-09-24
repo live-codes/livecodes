@@ -1,9 +1,9 @@
 /* eslint-disable import/no-internal-modules */
 import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
-import { Extension, tagExtension } from '@codemirror/state';
+import { Compartment, Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
-import { defaultTabBinding } from '@codemirror/commands';
+import { indentWithTab } from '@codemirror/commands';
 import { LanguageSupport } from '@codemirror/language';
 import { StreamParser, StreamLanguage } from '@codemirror/stream-parser';
 import { html } from '@codemirror/lang-html';
@@ -21,11 +21,12 @@ import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
-import { sql } from '@codemirror/legacy-modes/mode/sql';
+import { sql } from '@codemirror/lang-sql';
+import { php } from '@codemirror/lang-php';
+import { wast } from '@codemirror/lang-wast';
 
 import { mapLanguage } from '../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
-import { php } from './codemirror-php-mode';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly } = options;
@@ -48,18 +49,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tsx: () => javascript({ jsx: true, typescript: true }),
       json,
       python,
+      php,
+      sql,
+      wat: wast,
       coffeescript: () => legacy(coffeeScript),
       livescript: () => legacy(liveScript),
       ruby: () => legacy(ruby),
       go: () => legacy(go),
-      php: () => legacy(php),
       perl: () => legacy(perl),
       lua: () => legacy(lua),
       scheme: () => legacy(scheme),
       less: () => legacy(less),
       scss: () => legacy(sCSS),
       stylus: () => legacy(stylus),
-      sql: () => legacy(sql({})),
     };
 
     return languages[language] || (languages.html as () => LanguageSupport);
@@ -75,39 +77,44 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
-  const languageTag = Symbol('language');
-  const keyBindingsTag = Symbol('keyBindings');
+  const languageExtension = new Compartment();
+  const keyBindingsExtension = new Compartment();
   const readOnlyExtension = EditorView.editable.of(false);
+  const fullHeight = EditorView.theme({
+    '&': { height: '100%' },
+    '.cm-scroller': { overflow: 'auto' },
+  });
 
-  const defaultOptions: Extension[] = [
-    tagExtension(keyBindingsTag, keymap.of([])),
-    keymap.of([defaultTabBinding]),
-    basicSetup,
-    tagExtension(languageTag, getLanguageExtension(mappedLanguage)()),
-    EditorView.updateListener.of(notifyListeners),
-    oneDark,
-    readonly ? readOnlyExtension : [],
-  ];
+  const getExtensions = () => {
+    const defaultOptions: Extension[] = [
+      keyBindingsExtension.of(keymap.of(keyBindings)),
+      keymap.of([indentWithTab]),
+      basicSetup,
+      languageExtension.of(getLanguageExtension(mappedLanguage)()),
+      EditorView.updateListener.of(notifyListeners),
+      oneDark,
+      fullHeight,
+      readonly ? readOnlyExtension : [],
+    ];
 
-  const codeblockOptions = [readOnlyExtension, ...defaultOptions];
+    const codeblockOptions = [readOnlyExtension, ...defaultOptions];
 
-  const compiledCodeOptions = [readOnlyExtension, ...defaultOptions];
+    const compiledCodeOptions = [readOnlyExtension, ...defaultOptions];
 
-  const consoleOptions = [...defaultOptions];
+    const consoleOptions = [...defaultOptions];
 
-  const editorOptions =
-    options.editorType === 'console'
+    return options.editorType === 'console'
       ? consoleOptions
       : options.editorType === 'compiled'
       ? compiledCodeOptions
       : options.mode === 'codeblock'
       ? codeblockOptions
       : defaultOptions;
+  };
 
-  polyfill();
   const view = new EditorView({
     state: EditorState.create({
-      extensions: editorOptions,
+      extensions: getExtensions(),
       doc: options.value,
     }),
     parent: container,
@@ -116,7 +123,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getValue = () => view.state.doc.toString();
   const setValue = (value = '', newState = true) => {
     if (newState) {
-      view.setState(EditorState.create({ doc: value, extensions: editorOptions }));
+      view.setState(EditorState.create({ doc: value, extensions: getExtensions() }));
     } else {
       view.dispatch({
         changes: {
@@ -132,9 +139,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     mappedLanguage = mapLanguage(language);
-    const languageExtension = getLanguageExtension(mappedLanguage)();
     view.dispatch({
-      reconfigure: { [languageTag]: languageExtension },
+      effects: languageExtension.reconfigure(getLanguageExtension(mappedLanguage)()),
     });
     if (value != null) {
       setValue(value);
@@ -162,7 +168,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       },
     });
     view.dispatch({
-      reconfigure: { [keyBindingsTag]: keymap.of(keyBindings) },
+      effects: keyBindingsExtension.reconfigure(keymap.of(keyBindings)),
     });
   };
 
@@ -201,22 +207,3 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     destroy,
   };
 };
-
-/**
- * this is used to bypass an error occuring in firefox
- * where document.getSelection() evaluates to null
- */
-function polyfill() {
-  if (document.getSelection()) return;
-
-  const getSelection = document.getSelection.bind(document);
-  document.getSelection = () =>
-    getSelection()
-      ? getSelection()
-      : ({
-          anchorNode: null,
-          anchorOffset: 0,
-          focusNode: null,
-          focusOffset: 0,
-        } as Selection);
-}
