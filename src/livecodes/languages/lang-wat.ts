@@ -121,5 +121,4 @@ export const wat: LanguageSpecs = {
   },
   extensions: ['wat', 'wast', 'webassembly', 'wasm'],
   editor: 'script',
-  editorLanguage: 'javascript',
 };

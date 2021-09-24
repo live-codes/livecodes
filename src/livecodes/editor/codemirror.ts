@@ -21,11 +21,12 @@ import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
 import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
-import { sql } from '@codemirror/legacy-modes/mode/sql';
+import { sql } from '@codemirror/lang-sql';
+import { php } from '@codemirror/lang-php';
+import { wast } from '@codemirror/lang-wast';
 
 import { mapLanguage } from '../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
-import { php } from './codemirror-php-mode';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly } = options;
@@ -48,18 +49,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tsx: () => javascript({ jsx: true, typescript: true }),
       json,
       python,
+      php,
+      sql,
+      wat: wast,
       coffeescript: () => legacy(coffeeScript),
       livescript: () => legacy(liveScript),
       ruby: () => legacy(ruby),
       go: () => legacy(go),
-      php: () => legacy(php),
       perl: () => legacy(perl),
       lua: () => legacy(lua),
       scheme: () => legacy(scheme),
       less: () => legacy(less),
       scss: () => legacy(sCSS),
       stylus: () => legacy(stylus),
-      sql: () => legacy(sql({})),
     };
 
     return languages[language] || (languages.html as () => LanguageSupport);

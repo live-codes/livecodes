@@ -27,6 +27,7 @@ import 'prismjs/components/prism-perl';
 import 'prismjs/components/prism-lua';
 import 'prismjs/components/prism-scheme';
 import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-wasm';
 
 import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
 import { encodeHTML } from '../utils';
@@ -43,7 +44,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   let value = options.value;
   let language = options.language;
-  let mappedLanguage = mapLanguage(language);
+  let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
 
   if (!document.head.querySelector('#prism-styles')) {
     const stylesheet = document.createElement('link');
