@@ -12,7 +12,7 @@ export const solidTsx: LanguageSpecs = {
     <li><a href="https://www.solidjs.com/docs" target="_blank" rel="noopener">Solid documentation</a></li>
     <li><a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript website</a></li>
     <li><a href="https://www.typescriptlang.org/docs/" target="_blank" rel="noopener">TypeScript documentation</a></li>
-    <li><a href="?template=solid" target="_parent" data-template="solid">Load starter template</a></li>
+    <li><a href="?template=solid" target="_parent" data-template="solid">Load starter template (JSX)</a></li>
   </ul>
   `,
   parser: {

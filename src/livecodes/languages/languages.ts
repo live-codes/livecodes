@@ -43,6 +43,8 @@ import { ocaml } from './lang-ocaml';
 import { wat } from './lang-wat';
 import { riot } from './lang-riot';
 import { sql } from './lang-sql';
+import { reactNative } from './lang-react-native';
+import { reactNativeTsx } from './lang-react-native-tsx';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -66,6 +68,8 @@ export const languages: LanguageSpecs[] = [
   typescript,
   jsx,
   tsx,
+  reactNative,
+  reactNativeTsx,
   vue,
   vue2,
   svelte,

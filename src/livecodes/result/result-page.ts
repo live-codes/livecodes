@@ -1,7 +1,7 @@
 import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
-import { getAbsoluteUrl, isRelativeUrl } from '../utils';
+import { getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
 
 export const createResultPage = (
   code: Cache,
@@ -64,23 +64,6 @@ export const createResultPage = (
     dom.head.appendChild(utilsScript);
   }
 
-  // import maps
-  const importMaps = {
-    ...(hasImports(code.script.compiled) ? createImportMap(code.script.compiled, config) : {}),
-    ...(code.markup.language === 'mdx' ? createImportMap(code.markup.compiled, config) : {}),
-  };
-  if (Object.keys(importMaps).length > 0) {
-    const esModuleShims = dom.createElement('script');
-    esModuleShims.src = absoluteBaseUrl + 'vendor/es-module-shims/es-module-shims.min.js';
-    esModuleShims.async = true;
-    dom.head.appendChild(esModuleShims);
-
-    const importMapsScript = dom.createElement('script');
-    importMapsScript.type = 'importmap';
-    importMapsScript.innerHTML = `{"imports": ${JSON.stringify(importMaps, null, 2)}}`;
-    dom.head.appendChild(importMapsScript);
-  }
-
   // editor markup (MDX is added to the script not page markup)
   const markup = code.markup.language !== 'mdx' ? code.markup.compiled : '';
   const mdx = code.markup.language === 'mdx' ? code.markup.compiled : '';
@@ -93,6 +76,7 @@ export const createResultPage = (
       compiled: code[editorId].compiled,
     }),
   );
+  let compilerImports = {};
   runtimeDependencies.forEach(({ language, compiled }) => {
     const compiler = getLanguageCompiler(language);
     if (!compiler) return;
@@ -124,7 +108,31 @@ export const createResultPage = (
       inlineScript.innerHTML = compiler.inlineScript;
       dom.head.appendChild(inlineScript);
     }
+    if (compiler.imports) {
+      compilerImports = {
+        ...compilerImports,
+        ...objectMap(compiler.imports, (url) => getAbsoluteUrl(url, baseUrl)),
+      };
+    }
   });
+
+  // import maps
+  const importMaps = {
+    ...(hasImports(code.script.compiled) ? createImportMap(code.script.compiled, config) : {}),
+    ...(code.markup.language === 'mdx' ? createImportMap(code.markup.compiled, config) : {}),
+    ...compilerImports,
+  };
+  if (Object.keys(importMaps).length > 0) {
+    const esModuleShims = dom.createElement('script');
+    esModuleShims.src = absoluteBaseUrl + 'vendor/es-module-shims/es-module-shims.min.js';
+    esModuleShims.async = true;
+    dom.head.appendChild(esModuleShims);
+
+    const importMapsScript = dom.createElement('script');
+    importMapsScript.type = 'importmap';
+    importMapsScript.innerHTML = `{"imports": ${JSON.stringify(importMaps, null, 2)}}`;
+    dom.head.appendChild(importMapsScript);
+  }
 
   // external scripts
   config.scripts.forEach((url) => {
