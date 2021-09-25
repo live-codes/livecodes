@@ -1,4 +1,5 @@
 import { Config, Processors } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
 export type PluginName = keyof Config['processors']['postcss'];
@@ -15,7 +16,8 @@ export const pluginSpecs: PluginSpecs[] = [
   {
     name: 'tailwindcss',
     title: 'Tailwind CSS',
-    url: 'vendor/tailwindcss/tailwindcss.js',
+    url:
+      'https://cdn.jsdelivr.net/npm/tailwindcss-browser-plugin@0.2.0/dist/tailwindcss.umd.min.js',
     factory: ({ config, options }) =>
       (self as any).tailwindcss.tailwindcss({
         ...(self as any).tailwindcss.defaultConfig,
@@ -32,7 +34,7 @@ export const pluginSpecs: PluginSpecs[] = [
   {
     name: 'autoprefixer',
     title: 'Autoprefixer',
-    url: 'vendor/autoprefixer/autoprefixer.js',
+    url: vendorsBaseUrl + 'autoprefixer/autoprefixer.js',
     factory({ config }) {
       return (self as any).autoprefixer.autoprefixer({
         ...getLanguageCustomSettings('autoprefixer' as any, config),
@@ -42,7 +44,7 @@ export const pluginSpecs: PluginSpecs[] = [
   {
     name: 'postcssPresetEnv',
     title: 'Preset Env',
-    url: 'vendor/postcss-preset-env/postcss-preset-env.js',
+    url: vendorsBaseUrl + 'postcss-preset-env/postcss-preset-env.js',
     factory({ config }): Plugin {
       return (self as any).postcssPresetEnv.postcssPresetEnv({
         autoprefixer: false,
@@ -70,7 +72,7 @@ export const postcss: Processors = {
   </ul>
   `,
   compiler: {
-    url: 'vendor/postcss/postcss.js',
+    url: vendorsBaseUrl + 'postcss/postcss.js',
     factory: () => {
       const postCssOptions = { from: undefined };
 

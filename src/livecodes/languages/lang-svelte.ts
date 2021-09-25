@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -19,7 +20,7 @@ export const svelte: LanguageSpecs = {
     pluginUrls: [parserPlugins.html, parserPlugins.babel],
   },
   compiler: {
-    url: 'vendor/svelte/svelte-compiler.3.42.4.min.js',
+    url: vendorsBaseUrl + 'svelte/svelte-compiler.3.42.4.min.js',
     factory: () => async (code, { config }) => {
       const customSettings = getLanguageCustomSettings('svelte', config);
       const customElement = customSettings.customElement;

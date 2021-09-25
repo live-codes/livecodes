@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -19,7 +20,7 @@ export const scss: LanguageSpecs = {
     pluginUrls: [parserPlugins.postcss],
   },
   compiler: {
-    url: 'vendor/sass.js/sass.sync.js',
+    url: vendorsBaseUrl + 'sass.js/sass.sync.js',
     factory: () => {
       const Sass = (window as any).Sass;
       return async (code, { config, language }): Promise<string> =>

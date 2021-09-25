@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -17,7 +18,7 @@ export const less: LanguageSpecs = {
     pluginUrls: [parserPlugins.postcss],
   },
   compiler: {
-    url: 'vendor/less/less.js',
+    url: vendorsBaseUrl + 'less/less.js',
     factory: () => async (code, { config }) =>
       (
         await (window as any).less.render(code, {

@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
@@ -17,7 +18,7 @@ export const pug: LanguageSpecs = {
     pluginUrls: [parserPlugins.pug],
   },
   compiler: {
-    url: 'vendor/pug/pug.min.js',
+    url: vendorsBaseUrl + 'pug/pug.min.js',
     factory: () => async (code, { config }) => {
       const options = getLanguageCustomSettings('pug', config);
       const data = config.customSettings.template?.data || {};

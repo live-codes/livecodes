@@ -1739,7 +1739,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         });
 
         let autoComplete: any;
-        import(baseUrl + 'vendor/autocomplete.js/autoComplete.min.js').then(async () => {
+        const autoCompleteUrl =
+          'https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js';
+        import(autoCompleteUrl).then(async () => {
           autoComplete = (globalThis as any).autoComplete;
 
           if (!user) return;

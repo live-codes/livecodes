@@ -2,6 +2,7 @@ import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
 import { getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
+import { vendorsBaseUrl } from '../vendors';
 
 export const createResultPage = (
   code: Cache,
@@ -124,7 +125,7 @@ export const createResultPage = (
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
-    esModuleShims.src = absoluteBaseUrl + 'vendor/es-module-shims/es-module-shims.min.js';
+    esModuleShims.src = vendorsBaseUrl + 'es-module-shims/es-module-shims.min.js';
     esModuleShims.async = true;
     dom.head.appendChild(esModuleShims);
 

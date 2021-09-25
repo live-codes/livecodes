@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 
 export const perl: LanguageSpecs = {
   name: 'perl',
@@ -15,7 +16,7 @@ export const perl: LanguageSpecs = {
   `,
   compiler: {
     factory: () => async (code) => code,
-    scripts: ['vendor/perlito/perlito5.min.js'],
+    scripts: [vendorsBaseUrl + 'perlito/perlito5.min.js'],
     inlineScript: `
     window.addEventListener('load', function() {
       var script = document.querySelector('script[type="text/perl"]');

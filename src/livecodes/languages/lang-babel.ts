@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -18,7 +19,7 @@ export const babel: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url: 'vendor/babel/babel.min.js',
+    url: vendorsBaseUrl + 'babel/babel.min.js',
     factory: () => async (code, { config }) =>
       (window as any).Babel.transform(code, {
         filename: 'script.tsx',
