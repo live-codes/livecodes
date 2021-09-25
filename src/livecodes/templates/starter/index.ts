@@ -18,6 +18,7 @@ import { phpStarter } from './php-starter';
 import { preactStarter } from './preact-starter';
 import { pyodideStarter } from './pyodide-starter';
 import { pythonStarter } from './python-starter';
+import { reactNativeStarter } from './react-native-starter';
 import { reactStarter } from './react-starter';
 import { readmeTemplate } from './readme-template';
 import { rescriptStarter } from './rescript-starter';
@@ -38,6 +39,7 @@ export const starterTemplates = [
   blank,
   typescriptStarter,
   reactStarter,
+  reactNativeStarter,
   vueStarter,
   vueSfcStarter,
   angularStarter,

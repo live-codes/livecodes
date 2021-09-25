@@ -104,6 +104,10 @@ export type Language =
   | 'ts'
   | 'jsx'
   | 'tsx'
+  | 'react-native'
+  | 'react-native.jsx'
+  | 'react-native-tsx'
+  | 'react-native.tsx'
   | 'vue'
   | 'vue3'
   | 'vue2'
@@ -285,6 +289,7 @@ export interface Compiler {
     | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
   deferScripts?: boolean;
   inlineScript?: string;
+  imports?: { [key: string]: string };
   scriptType?:
     | 'module'
     | 'text/liquid'

@@ -28,10 +28,11 @@ export const typescript: LanguageSpecs = {
   },
   compiler: {
     url: 'vendor/typescript/typescript.min.js',
-    factory: () => async (code, { config }) =>
+    factory: () => async (code, { config, language }) =>
       (window as any).typescript.transpile(code, {
         ...typescriptOptions,
         ...getLanguageCustomSettings('typescript', config),
+        ...getLanguageCustomSettings(language, config),
       }),
   },
   extensions: ['ts', 'typescript'],

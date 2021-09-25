@@ -341,3 +341,11 @@ esbuild.buildSync({
   outfile: 'src/livecodes/vendor/wast-refmt/wast-refmt.js',
   globalName: 'wastRefmt',
 });
+
+// react-native-web
+esbuild.build({
+  ...baseOptions,
+  entryPoints: ['vendor_modules/imports/react-native-web.js'],
+  outfile: 'src/livecodes/vendor/react-native-web/react-native-web.js',
+  format: 'esm',
+});
