@@ -1,4 +1,5 @@
 import { Config, Processors } from '../models';
+import { getAbsoluteUrl } from '../utils';
 import { vendorsBaseUrl } from '../vendors';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
@@ -82,7 +83,7 @@ export const postcss: Processors = {
         const specs = getSpecs(pluginName);
         if (!specs || loadedPlugins[pluginName] != null) return;
         try {
-          (self as any).importScripts(baseUrl + specs.url);
+          (self as any).importScripts(getAbsoluteUrl(specs.url, baseUrl));
           const plugin = specs.factory;
           loadedPlugins[pluginName] = plugin;
         } catch (err) {
