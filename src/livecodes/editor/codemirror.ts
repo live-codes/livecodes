@@ -1,6 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
 import { Compartment, Extension } from '@codemirror/state';
+import { defaultHighlightStyle } from '@codemirror/highlight';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
@@ -26,10 +27,10 @@ import { php } from '@codemirror/lang-php';
 import { wast } from '@codemirror/lang-wast';
 
 import { mapLanguage } from '../languages';
-import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
+import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, readonly } = options;
+  const { container, readonly, theme } = options;
   if (!container) throw new Error('editor container not found');
 
   let language = options.language;
@@ -79,11 +80,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const languageExtension = new Compartment();
   const keyBindingsExtension = new Compartment();
+  const themeExtension = new Compartment();
   const readOnlyExtension = EditorView.editable.of(false);
   const fullHeight = EditorView.theme({
     '&': { height: '100%' },
     '.cm-scroller': { overflow: 'auto' },
   });
+
+  const themes = {
+    dark: oneDark,
+    light: [defaultHighlightStyle],
+  };
 
   const getExtensions = () => {
     const defaultOptions: Extension[] = [
@@ -92,7 +99,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       basicSetup,
       languageExtension.of(getLanguageExtension(mappedLanguage)()),
       EditorView.updateListener.of(notifyListeners),
-      oneDark,
+      themeExtension.of(themes[theme]),
       fullHeight,
       readonly ? readOnlyExtension : [],
     ];
@@ -189,6 +196,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     view.dispatch({ selection: { anchor: newOffset } });
   };
 
+  const setTheme = (theme: Theme) => {
+    view.dispatch({
+      effects: themeExtension.reconfigure(themes[theme]),
+    });
+  };
+
   const destroy = () => view.destroy();
 
   return {
@@ -203,7 +216,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     registerFormatter,
     format,
     isReadonly: readonly,
-    codemirror: view,
+    setTheme,
     destroy,
+    codemirror: view,
   };
 };

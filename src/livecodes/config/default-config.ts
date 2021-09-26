@@ -10,6 +10,7 @@ export const defaultConfig: Config = {
   formatOnsave: false,
   emmet: true,
   mode: 'full',
+  theme: 'dark',
   readonly: false,
   console: '',
   compiled: '',

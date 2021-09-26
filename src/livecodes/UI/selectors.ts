@@ -106,6 +106,9 @@ export const getProcessorToggles = () =>
 export const getEmmetToggle = () =>
   document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
 
+export const getThemeToggle = () =>
+  document.querySelector('#settings-menu input#theme') as HTMLInputElement;
+
 export const getCSSPresetLinks = () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 

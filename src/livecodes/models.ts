@@ -19,6 +19,7 @@ export interface Config {
   formatOnsave: boolean;
   emmet: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
+  theme: Theme;
   readonly: boolean;
   console: ToolsPaneStatus;
   compiled: ToolsPaneStatus;
@@ -336,6 +337,7 @@ export interface Tool {
   load: () => Promise<void>;
   onActivate: () => void;
   onDeactivate: () => void;
+  getEditor?: () => CodeEditor | undefined;
 }
 
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
@@ -370,6 +372,7 @@ export interface CodeEditor {
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;
   isReadonly: boolean;
+  setTheme: (theme: Theme) => void;
   destroy: () => void;
   monaco?: any;
   codemirror?: any;
@@ -385,6 +388,7 @@ export interface EditorOptions {
   readonly: boolean;
   editor?: Config['editor'];
   editorType: 'code' | 'compiled' | 'console';
+  theme: Theme;
 }
 
 export interface User {
@@ -457,3 +461,5 @@ export interface Code {
   };
   result: string;
 }
+
+export type Theme = 'light' | 'dark';

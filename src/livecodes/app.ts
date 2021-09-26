@@ -31,6 +31,7 @@ import {
   ToolList,
   User,
   ContentConfig,
+  Theme,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -220,6 +221,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       readonly: config.readonly,
       editor: config.editor,
       editorType: 'code' as EditorOptions['editorType'],
+      theme: config.theme,
     };
     const markupOptions: EditorOptions = {
       ...baseOptions,
@@ -815,6 +817,20 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   };
 
+  const getAllEditors = (): CodeEditor[] => [
+    ...Object.values(editors),
+    ...[toolsPane?.console.getEditor()],
+    ...[toolsPane?.compiled.getEditor()],
+  ];
+
+  const setTheme = (theme: Theme) => {
+    const themes = ['light', 'dark'];
+    const root = document.querySelector(':root');
+    root?.classList.remove(...themes);
+    root?.classList.add(theme);
+    getAllEditors().forEach((editor) => editor.setTheme(theme));
+  };
+
   const attachEventListeners = () => {
     const handleTitleEdit = () => {
       const projectTitle = UI.getProjectTitleElement();
@@ -1049,7 +1065,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           const configKey = toggle.dataset.config;
           if (!configKey || !(configKey in getConfig())) return;
 
-          setConfig({ ...getConfig(), [configKey]: toggle.checked });
+          if (configKey === 'theme') {
+            setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
+            setTheme(getConfig().theme);
+          } else {
+            setConfig({ ...getConfig(), [configKey]: toggle.checked });
+          }
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
             await run();
@@ -1865,6 +1886,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           container: UI.getCustomSettingsEditor(),
           language: 'json' as Language,
           value: stringify(getConfig().customSettings, true),
+          theme: config.theme,
         };
         customSettingsEditor = await createEditor(options);
         customSettingsEditor.focus();
@@ -1981,6 +2003,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
     const emmetToggle = UI.getEmmetToggle();
     emmetToggle.checked = config.emmet;
+
+    const themeToggle = UI.getThemeToggle();
+    themeToggle.checked = config.theme === 'dark';
 
     UI.getCSSPresetLinks().forEach((link) => {
       link.classList.remove('active');

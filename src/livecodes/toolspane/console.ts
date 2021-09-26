@@ -116,6 +116,7 @@ export const createConsole = (
       readonly: false,
       editor: config.editor,
       editorType: 'console',
+      theme: config.theme,
     };
     const consoleEditor = await createEditor(editorOptions);
 
@@ -263,6 +264,7 @@ export const createConsole = (
         clearButton.style.display = 'none';
       }
     },
+    getEditor: () => editor,
     log: (...args: any[]) => consoleEmulator?.log(...args),
     info: (...args: any[]) => consoleEmulator?.info(...args),
     table: (...args: any[]) => consoleEmulator?.table(...args),

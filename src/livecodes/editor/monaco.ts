@@ -2,7 +2,7 @@
 import * as Monaco from 'monaco-editor'; // only for typescript types
 import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions } from '../models';
+import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
 import { getLanguageExtension, mapLanguage } from '../languages';
 import { getRandomString } from '../utils';
 
@@ -14,7 +14,7 @@ const monacoMapLanguage = (language: Language): Language =>
     : mapLanguage(language);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly } = options;
+  const { container, baseUrl, readonly, theme, ...baseOptions } = options;
   if (!container) throw new Error('editor container not found');
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
@@ -31,7 +31,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const defaultOptions: Options = {
     fontSize: 14,
-    theme: 'vs-dark',
+    theme: 'vs-' + theme,
     formatOnType: false,
     tabSize: 2,
     lineNumbersMinChars: 3,
@@ -166,7 +166,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const editor = monaco.editor.create(container, {
     ...editorOptions,
-    ...options,
+    ...baseOptions,
     language,
   });
   setModel(editor, options.value, language);
@@ -268,6 +268,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  const setTheme = (theme: Theme) => {
+    monaco.editor.setTheme('vs-' + theme);
+  };
+
   const destroy = () => editor.getModel()?.dispose();
 
   // workaround for uncaught canceled promise rejection onMouseLeave
@@ -293,7 +297,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     registerFormatter,
     format,
     isReadonly: readonly,
-    monaco: editor,
+    setTheme,
     destroy,
+    monaco: editor,
   };
 };

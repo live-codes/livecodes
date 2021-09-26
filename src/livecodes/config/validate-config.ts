@@ -16,6 +16,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const includes = (arr: any[], x: any) => x != null && arr.includes(x);
 
   const modes = ['full', 'editor', 'codeblock', 'result'];
+  const themes = ['light', 'dark'];
   const toolsPaneStatus = ['', 'full', 'closed', 'open', 'none'];
   const editors = ['monaco', 'codemirror', 'prism', ''];
   const editorIds = ['markup', 'style', 'script'];
@@ -43,6 +44,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
+    ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(includes(toolsPaneStatus, config.console) ? { console: config.console } : {}),
     ...(includes(toolsPaneStatus, config.compiled) ? { compiled: config.compiled } : {}),

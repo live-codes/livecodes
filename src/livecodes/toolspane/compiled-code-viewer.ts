@@ -50,6 +50,7 @@ export const createCompiledCodeViewer = (
       readonly: true,
       editor: config.editor,
       editorType: 'compiled',
+      theme: config.theme,
     };
     return createEditor(editorOptions);
   };
@@ -99,6 +100,7 @@ export const createCompiledCodeViewer = (
         languageLabel.style.display = 'none';
       }
     },
+    getEditor: () => editor,
     update,
   } as Tool;
 };

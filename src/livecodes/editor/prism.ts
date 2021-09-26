@@ -29,7 +29,7 @@ import 'prismjs/components/prism-scheme';
 import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-wasm';
 
-import { FormatFn, Language, CodeEditor, EditorOptions } from '../models';
+import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
 import { encodeHTML } from '../utils';
 import { mapLanguage } from '../languages';
 
@@ -45,14 +45,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let value = options.value;
   let language = options.language;
   let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
-
-  if (!document.head.querySelector('#prism-styles')) {
-    const stylesheet = document.createElement('link');
-    stylesheet.rel = 'stylesheet';
-    stylesheet.href = baseUrl + 'styles/prism.css';
-    stylesheet.id = 'prism-styles';
-    document.head.appendChild(stylesheet);
-  }
 
   const preElement: HTMLElement = document.createElement('pre');
   const codeElement: HTMLElement = document.createElement('code');
@@ -116,6 +108,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     //
   };
 
+  const setTheme = (theme: Theme) => {
+    const id = 'prism-styles';
+    const styles = document.head.querySelector<HTMLLinkElement>('#' + id);
+    const stylesUrl = `${baseUrl}styles/prism-${theme}.css`;
+    if (styles && styles.href === stylesUrl) return;
+
+    styles?.remove();
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = stylesUrl;
+    stylesheet.id = id;
+    document.head.appendChild(stylesheet);
+  };
+  setTheme(options.theme);
+
   const destroy = () => {
     container.innerHTML = '';
   };
@@ -132,7 +139,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     registerFormatter,
     format,
     isReadonly: true,
-    prism: Prism,
+    setTheme,
     destroy,
+    prism: Prism,
   };
 };
