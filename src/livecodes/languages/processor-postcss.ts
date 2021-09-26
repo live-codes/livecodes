@@ -18,7 +18,7 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'tailwindcss',
     title: 'Tailwind CSS',
     url:
-      'https://cdn.jsdelivr.net/npm/tailwindcss-browser-plugin@0.2.0/dist/tailwindcss.umd.min.js',
+      'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.2.1/dist/tailwindcss.umd.min.js',
     factory: ({ config, options }) =>
       (self as any).tailwindcss.tailwindcss({
         ...(self as any).tailwindcss.defaultConfig,
