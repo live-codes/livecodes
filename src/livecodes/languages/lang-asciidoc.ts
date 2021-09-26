@@ -1,5 +1,4 @@
 import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
 import { getLanguageCustomSettings } from './utils';
 
 export const asciidoc: LanguageSpecs = {
@@ -16,7 +15,7 @@ export const asciidoc: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: vendorsBaseUrl + 'asciidoctor/asciidoctor.min.js',
+    url: 'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.5/dist/browser/asciidoctor.min.js',
     factory: () => {
       const asciidoctor = (window as any).Asciidoctor();
       return async (code, { config }) =>

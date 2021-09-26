@@ -125,7 +125,8 @@ export const createResultPage = (
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
-    esModuleShims.src = vendorsBaseUrl + 'es-module-shims/es-module-shims.min.js';
+    esModuleShims.src =
+      'https://cdn.jsdelivr.net/npm/es-module-shims@0.14.0/dist/es-module-shims.min.js';
     esModuleShims.async = true;
     dom.head.appendChild(esModuleShims);
 

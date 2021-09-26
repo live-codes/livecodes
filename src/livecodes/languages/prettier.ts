@@ -1,13 +1,14 @@
 import { vendorsBaseUrl } from '../vendors';
 
-export const prettierUrl = 'https://unpkg.com/prettier@2.3.2/standalone.js';
+const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.4.0/';
 
+export const prettierUrl = prettierBaseUrl + 'standalone.min.js';
 export const parserPlugins = {
-  babel: 'https://unpkg.com/prettier@2.3.2/parser-babel.js',
-  glimmer: 'https://unpkg.com/prettier@2.3.2/parser-glimmer.js',
-  html: 'https://unpkg.com/prettier@2.3.2/parser-html.js',
-  markdown: 'https://unpkg.com/prettier@2.3.2/parser-markdown.js',
-  postcss: 'https://unpkg.com/prettier@2.3.2/parser-postcss.js',
-  php: 'https://unpkg.com/@prettier/plugin-php@0.17.3/standalone.js',
+  babel: prettierBaseUrl + 'parser-babel.js',
+  glimmer: prettierBaseUrl + 'parser-glimmer.js',
+  html: prettierBaseUrl + 'parser-html.js',
+  markdown: prettierBaseUrl + 'parser-markdown.js',
+  postcss: prettierBaseUrl + 'parser-postcss.js',
+  php: 'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.17.5/standalone.js',
   pug: vendorsBaseUrl + 'prettier/parser-pug.js',
 };
