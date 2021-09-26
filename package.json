@@ -64,7 +64,6 @@
     "@codemirror/theme-one-dark": "0.19.0",
     "@codemirror/view": "0.19.7",
     "@snackbar/core": "1.7.0",
-    "@tarekraafat/autocomplete.js": "10.1.5",
     "emmet-monaco-es": "4.7.1",
     "firebase": "9.0.0-beta.2",
     "luna-console": "0.2.0",
