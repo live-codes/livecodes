@@ -1,9 +1,12 @@
 import { EditorId, Config } from '../models';
 import { downloadFile, getFilesFromConfig } from './utils';
 
-export const exportSrc = async (config: Config, { JSZip, html }: any, baseUrl?: string) => {
+const jsZipUrl =
+  'https://cdn.skypack.dev/-/jszip@v3.5.0-6VXsZ827XvJbsCGI3Q9F/dist=es2020,min/jszip.js';
+
+export const exportSrc = async (config: Config, { JSZip, html }: any, _baseUrl?: string) => {
   if (!JSZip) {
-    JSZip = (await import(baseUrl + 'vendor/jszip/jszip.js')).default;
+    JSZip = (await import(jsZipUrl)).default;
   }
 
   const zip = new JSZip();

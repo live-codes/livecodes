@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 
 export const stylus: LanguageSpecs = {
   name: 'stylus',
@@ -11,7 +12,7 @@ export const stylus: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'vendor/stylus/stylus.min.js',
+    url: vendorsBaseUrl + 'stylus/stylus.min.js',
     factory: () => async (code) => (window as any).stylus.render(code),
   },
   extensions: ['styl'],

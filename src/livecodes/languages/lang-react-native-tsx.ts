@@ -29,7 +29,7 @@ export const reactNativeTsx: LanguageSpecs = {
   compiler: {
     dependencies: ['typescript'],
     factory: () => async (code, { config, language }) =>
-      (window as any).typescript.transpile(code, {
+      (window as any).ts.transpile(code, {
         ...typescriptOptions,
         ...getLanguageCustomSettings('typescript', config),
         ...getLanguageCustomSettings(language, config),

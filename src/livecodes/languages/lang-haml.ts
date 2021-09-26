@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { getLanguageCustomSettings } from './utils';
 
 export const haml: LanguageSpecs = {
@@ -14,8 +15,8 @@ export const haml: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'vendor/clientside-haml-js/haml.js',
-    factory: () => async (code, { config, baseUrl }) => {
+    url: vendorsBaseUrl + 'clientside-haml-js/haml.js',
+    factory: () => async (code, { config }) => {
       const options = {
         tolerateFaults: true,
         ...getLanguageCustomSettings('haml', config),
@@ -35,7 +36,7 @@ export const haml: LanguageSpecs = {
 
       return `<!-- ... compiling ... -->
 
-<script src="${baseUrl}vendor/clientside-haml-js/haml.js"></script>
+<script src="${vendorsBaseUrl}clientside-haml-js/haml.js"></script>
 <script>
 window.addEventListener("load", () => {
   const clientFn = ${clientFnSrc};

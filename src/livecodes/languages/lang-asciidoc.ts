@@ -15,7 +15,7 @@ export const asciidoc: LanguageSpecs = {
   </ul>
   `,
   compiler: {
-    url: 'vendor/asciidoctor/asciidoctor.min.js',
+    url: 'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.5/dist/browser/asciidoctor.min.js',
     factory: () => {
       const asciidoctor = (window as any).Asciidoctor();
       return async (code, { config }) =>

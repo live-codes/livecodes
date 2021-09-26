@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -20,7 +21,7 @@ export const solid: LanguageSpecs = {
   },
   compiler: {
     dependencies: ['babel'],
-    url: 'vendor/babel-preset-solid/babel-preset-solid.js',
+    url: vendorsBaseUrl + 'babel-preset-solid/babel-preset-solid.js',
     factory: () => {
       const Babel = (self as any).Babel;
       Babel.registerPreset('solid', (self as any).babelPresetSolid.solid);

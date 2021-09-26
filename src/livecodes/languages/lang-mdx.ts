@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { typescriptOptions } from './lang-typescript';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
@@ -20,7 +21,7 @@ export const mdx: LanguageSpecs = {
   },
   compiler: {
     dependencies: ['typescript'],
-    url: 'vendor/mdx/mdx.js',
+    url: vendorsBaseUrl + 'mdx/mdx.js',
     factory: () => async (code, { config }) => {
       const compiled = await (window as any).MDX.mdx(code, {
         skipExport: true,
@@ -33,7 +34,7 @@ import ReactDOM from "react-dom";
 ${jsx}
 ReactDOM.render(<MDXContent />, document.body);
 `;
-      return (window as any).typescript.transpile(result, typescriptOptions);
+      return (window as any).ts.transpile(result, typescriptOptions);
     },
     compiledCodeLanguage: 'javascript',
   },

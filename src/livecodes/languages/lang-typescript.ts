@@ -27,9 +27,9 @@ export const typescript: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url: 'vendor/typescript/typescript.min.js',
+    url: 'https://cdn.jsdelivr.net/npm/typescript@4.4.3/lib/typescript.min.js',
     factory: () => async (code, { config, language }) =>
-      (window as any).typescript.transpile(code, {
+      (window as any).ts.transpile(code, {
         ...typescriptOptions,
         ...getLanguageCustomSettings('typescript', config),
         ...getLanguageCustomSettings(language, config),

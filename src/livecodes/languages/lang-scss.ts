@@ -19,7 +19,7 @@ export const scss: LanguageSpecs = {
     pluginUrls: [parserPlugins.postcss],
   },
   compiler: {
-    url: 'vendor/sass.js/sass.sync.js',
+    url: 'https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.min.js',
     factory: () => {
       const Sass = (window as any).Sass;
       return async (code, { config, language }): Promise<string> =>
