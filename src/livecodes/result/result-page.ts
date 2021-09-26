@@ -2,7 +2,6 @@ import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
 import { getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { vendorsBaseUrl } from '../vendors';
 
 export const createResultPage = (
   code: Cache,
