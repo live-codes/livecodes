@@ -53,7 +53,7 @@ export const defaultConfig: Config = {
       prerender: true,
     },
   },
-  editor: 'codemirror',
+  editor: '',
   version: process.env.VERSION as string,
   showVersion: false,
 };

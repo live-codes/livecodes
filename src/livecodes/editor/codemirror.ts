@@ -30,11 +30,12 @@ import { mapLanguage } from '../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, readonly, theme } = options;
+  const { container, readonly } = options;
   if (!container) throw new Error('editor container not found');
 
   let language = options.language;
   let mappedLanguage = mapLanguage(language);
+  let theme = options.theme;
 
   const legacy = (parser: StreamParser<unknown>) =>
     new LanguageSupport(StreamLanguage.define(parser));
@@ -196,7 +197,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     view.dispatch({ selection: { anchor: newOffset } });
   };
 
-  const setTheme = (theme: Theme) => {
+  const setTheme = (newTheme: Theme) => {
+    theme = newTheme;
     view.dispatch({
       effects: themeExtension.reconfigure(themes[theme]),
     });
