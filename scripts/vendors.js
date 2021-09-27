@@ -1,42 +1,20 @@
-const esbuild = require('esbuild');
-const Bundler = require('parcel-bundler');
+var fs = require('fs');
+var path = require('path');
+var rfs = require('recursive-fs');
 
-/** @type {Partial<esbuild.BuildOptions>} */
-const baseOptions = {
-  bundle: true,
-  minify: true,
-  format: 'iife',
-  define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
-};
+function mkdirp(dir) {
+  if (!fs.existsSync(path.resolve(dir))) {
+    fs.mkdirSync(path.resolve(dir));
+  }
+}
 
-// Monaco editor
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['vendor_modules/imports/monaco-editor.ts'],
-  outfile: 'src/livecodes/vendor/monaco-editor/monaco-editor.js',
-  loader: { '.ttf': 'file' },
-  format: 'esm',
-});
+var node_modules = path.resolve(__dirname + '/../node_modules');
+var browserCompilers = path.resolve(node_modules + '/@live-codes/browser-compilers/dist');
+var targetDir = path.resolve(__dirname + '/../build/livecodes/vendor');
+mkdirp(targetDir);
 
-// Monaco editor workers
-const entryFiles = [
-  'node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
-  'node_modules/monaco-editor/esm/vs/language/css/css.worker.js',
-  'node_modules/monaco-editor/esm/vs/language/html/html.worker.js',
-  'node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js',
-  'node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
-];
-
-/** @type {Bundler.ParcelOptions} */
-const options = {
-  outDir: './src/livecodes/vendor/monaco-editor',
-  minify: true,
-  target: 'browser',
-  sourceMaps: false,
-  watch: false,
-};
-
-entryFiles.forEach(async (file) => {
-  const parcelBundler = new Bundler([file], options);
-  await parcelBundler.bundle();
-});
+//monaco-editor
+rfs.copy(
+  path.resolve(browserCompilers + '/monaco-editor'),
+  path.resolve(targetDir + '/monaco-editor'),
+);
