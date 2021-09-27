@@ -179,12 +179,17 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const typeLoader = createTypeLoader();
   const loadModuleTypes = async (editors: Editors, config: Config) => {
+    const scriptLanguage = config.script.language;
     if (
       editors.script &&
-      ['typescript', 'javascript'].includes(mapLanguage(editors.script.getLanguage())) &&
+      ['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) &&
       typeof editors.script.addTypes === 'function'
     ) {
-      const libs = await typeLoader.load(editors.script.getValue(), config.types);
+      const configTypes = {
+        ...getLanguageCompiler(scriptLanguage)?.types,
+        ...config.types,
+      };
+      const libs = await typeLoader.load(editors.script.getValue(), configTypes);
       libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };

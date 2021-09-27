@@ -290,7 +290,6 @@ export interface Compiler {
     | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
   deferScripts?: boolean;
   inlineScript?: string;
-  imports?: { [key: string]: string };
   scriptType?:
     | 'module'
     | 'text/liquid'
@@ -304,6 +303,8 @@ export interface Compiler {
   liveReload?: boolean;
   aliasTo?: Language;
   compiledCodeLanguage?: Language;
+  imports?: { [key: string]: string };
+  types?: Types;
 }
 
 export interface Compilers {

@@ -56,10 +56,5 @@ export class App {
   scripts: [],
   cssPreset: '',
   imports: {},
-  types: {
-    '@stencil/core': {
-      url: `{{ __livecodes_baseUrl__ }}types/stencil-core.d.ts`,
-      declareAsModule: false,
-    },
-  },
+  types: {},
 };

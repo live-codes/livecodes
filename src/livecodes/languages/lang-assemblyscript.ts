@@ -1,5 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -95,6 +96,13 @@ export const assemblyscript: LanguageSpecs = {
 `,
     scriptType,
     compiledCodeLanguage: 'wat',
+    types: {
+      assemblyscript: {
+        url: vendorsBaseUrl + 'types/assemblyscript.d.ts',
+        declareAsModule: false,
+        autoload: true,
+      },
+    },
   },
   extensions: ['as', 'ts'],
   editor: 'script',

@@ -40,6 +40,12 @@ export const solid: LanguageSpecs = {
         }).code;
       };
     },
+    types: {
+      'solid-js': {
+        url: vendorsBaseUrl + 'types/solid-js.d.ts',
+        declareAsModule: false,
+      },
+    },
   },
   extensions: ['solid.jsx'],
   editor: 'script',

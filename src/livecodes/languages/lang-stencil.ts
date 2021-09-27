@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -28,6 +29,12 @@ export const stencil: LanguageSpecs = {
         ...getLanguageCustomSettings('stencil', config),
       });
       return result.code;
+    },
+    types: {
+      '@stencil/core': {
+        url: vendorsBaseUrl + 'types/stencil-core.d.ts',
+        declareAsModule: false,
+      },
     },
   },
   extensions: ['stencil.tsx'],

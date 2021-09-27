@@ -69,11 +69,5 @@ export function increment(num: i32): i32 {
   scripts: [],
   cssPreset: '',
   imports: {},
-  types: {
-    assemblyscript: {
-      url: '{{ __livecodes_baseUrl__ }}types/assemblyscript.d.ts',
-      declareAsModule: false,
-      autoload: true,
-    },
-  },
+  types: {},
 };
