@@ -8,7 +8,8 @@ export const reactNativeWebUrl = vendorsBaseUrl + 'react-native-web/react-native
 
 export const reactNative: LanguageSpecs = {
   name: 'react-native',
-  title: 'React Native',
+  title: 'RN',
+  longTitle: 'React Native',
   info: `
   <h3>React Native for Web</h3>
   <div>

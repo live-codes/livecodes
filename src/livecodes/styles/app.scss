@@ -1,3 +1,87 @@
+:root {
+  --link-color: rgb(1, 100, 180);
+  --toolbar-text-color: rgb(237, 237, 237);
+  --toolbar-text-active-color: rgb(237, 237, 237);
+  --toolbar-background-color: rgb(0, 27, 37);
+  --toolbar-background-active-color: rgb(68, 72, 87);
+  --background-color: rgb(0, 27, 37);
+  --foreground-color: rgb(90, 96, 116);
+  --split-bar-color: rgb(68, 72, 87);
+  --split-handle-color: rgb(237, 237, 237);
+  --button-color: rgb(90, 96, 116);
+  --button-hover-color: rgb(119, 124, 141);
+  --button-active-color: rgb(90, 96, 116);
+  --button-active-hover-color: rgb(119, 124, 141);
+  --language-menu-button-color: rgb(90, 96, 116);
+  --language-menu-button-hover-color: rgb(119, 124, 141);
+  --language-menu-button-active-color: rgb(0, 27, 37);
+  --language-menu-button-active-hover-color: rgb(119, 124, 141);
+  --scrollbar-color: rgb(121, 121, 121);
+  --scrollbar-hover-color: rgb(151, 151, 151);
+  --scrollbar-active-color: rgb(191, 191, 191);
+  --toolspane-bar-text-color: rgb(237, 237, 237);
+  --toolspane-buttons-text-color: rgb(237, 237, 237);
+  --toolspane-button-color: rgb(90, 96, 116);
+  --toolspane-accent-color: rgb(64, 169, 243);
+  --toolspane-non-accent-color: rgb(90, 96, 116);
+  --console-background-color: rgb(237, 237, 237);
+  --size-label-color: rgba(225, 225, 225, 0.7);
+  --menu-background-color: rgb(255, 255, 255);
+  --menu-border-color: rgb(204, 204, 204);
+  --menu-shadow-color: rgba(0, 0, 0, 0.175);
+  --menu-split-color: rgb(204, 204, 204);
+  --menu-hover-color: rgb(231, 232, 241);
+  --menu-text-color: rgb(34, 34, 34);
+  --submenu-arrow-color: rgb(128, 128, 128);
+  --switch-off-color: rgb(204, 204, 204);
+  --switch-on-color: rgb(33, 150, 243);
+  --switch-background-color: rgb(255, 255, 255);
+  --overlay-background-color: rgb(0, 0, 0);
+  --modal-background-color: rgb(245, 245, 245);
+}
+
+:root.light {
+  --link-color: rgb(1, 100, 180);
+  --toolbar-text-color: rgb(68, 72, 87);
+  --toolbar-text-active-color: rgb(237, 237, 237);
+  --toolbar-background-color: rgb(206, 205, 205);
+  --toolbar-background-active-color: rgb(248, 248, 248);
+  --background-color: rgb(243, 243, 243);
+  --foreground-color: rgb(237, 237, 237);
+  --split-bar-color: rgb(116, 116, 116);
+  --split-handle-color: rgb(237, 237, 237);
+  --button-color: rgb(116, 116, 116);
+  --button-hover-color: rgb(170, 170, 170);
+  --button-active-color: rgb(190, 190, 190);
+  --button-active-hover-color: rgb(190, 190, 190);
+  --language-menu-button-color: rgb(116, 116, 116);
+  --language-menu-button-hover-color: rgb(170, 170, 170);
+  --language-menu-button-active-color: rgb(170, 170, 170);
+  --language-menu-button-active-hover-color: rgb(190, 190, 190);
+  --scrollbar-color: rgb(200, 200, 200);
+  --scrollbar-hover-color: rgb(220, 220, 220);
+  --scrollbar-active-color: rgb(230, 230, 230);
+  --toolspane-bar-text-color: rgb(68, 72, 87);
+  --toolspane-buttons-text-color: rgb(237, 237, 237);
+  --toolspane-button-color: rgb(206, 205, 205);
+  --toolspane-accent-color: rgb(206, 205, 205);
+  --toolspane-non-accent-color: rgb(116, 116, 116);
+  --console-background-color: rgb(248, 248, 248);
+  --size-label-color: rgba(225, 225, 225, 0.7);
+  --menu-background-color: rgb(255, 255, 255);
+  --menu-border-color: rgb(204, 204, 204);
+  --menu-shadow-color: rgba(0, 0, 0, 0.175);
+  --menu-split-color: rgb(204, 204, 204);
+  --menu-hover-color: rgb(231, 232, 241);
+  --menu-text-color: rgb(34, 34, 34);
+  --submenu-arrow-color: rgb(128, 128, 128);
+  --switch-off-color: rgb(204, 204, 204);
+  --switch-on-color: rgb(33, 150, 243);
+  --switch-background-color: rgb(255, 255, 255);
+  --overlay-background-color: rgb(0, 0, 0);
+  --modal-background-color: rgb(245, 245, 245);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,14 +109,14 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(121, 121, 121, 0.4);
+  background: var(--scrollbar-color);
 
   &:hover {
-    background: rgba(151, 151, 151, 0.4);
+    background: var(--scrollbar-hover-color);
   }
 
   &:active {
-    background: rgba(191, 191, 191, 0.4);
+    background: var(--scrollbar-active-color);
   }
 }
 
@@ -51,10 +135,10 @@ body {
 }
 
 a {
-  color: rgb(1, 100, 180);
+  color: var(--link-color);
 
   &:visited {
-    color: rgb(1, 100, 180);
+    color: var(--link-color);
   }
 
   &[target='_blank']::after {
@@ -76,9 +160,9 @@ a {
 }
 
 #toolbar {
-  background: rgb(0, 27, 37);
-  border-bottom: 3px solid rgb(68, 72, 87);
-  color: rgb(237, 237, 237);
+  background: var(--background-color);
+  border-bottom: 3px solid var(--split-bar-color);
+  color: var(--toolbar-text-color);
   display: flex;
   height: 40px;
   position: relative;
@@ -167,7 +251,7 @@ a {
 #buttons > .button,
 #editors #code-run-button {
   align-items: center;
-  background-color: rgba(90, 96, 116, 0.855);
+  background-color: var(--button-color);
   border: 0;
   border-radius: 3px;
   cursor: pointer;
@@ -182,12 +266,12 @@ a {
 
 #buttons > .button:hover,
 #editors #code-run-button:hover {
-  background-color: rgba(119, 124, 141, 0.855);
+  background-color: var(--button-hover-color);
 }
 
 /* mouse down */
 #buttons > .button:active:hover {
-  background-color: rgba(90, 96, 116, 0.855);
+  background-color: var(--button-active-color);
 }
 
 #editors #code-run-button {
@@ -199,7 +283,7 @@ a {
   right: 10px;
 
   &:active:hover {
-    background-color: rgba(90, 96, 116, 0.855);
+    background-color: var(--button-active-hover-color);
   }
 }
 
@@ -245,7 +329,7 @@ a {
 }
 
 #editors {
-  background: rgb(30, 30, 30);
+  background: var(--background-color);
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -261,10 +345,10 @@ a {
 }
 
 .copy-button {
-  background-color: rgba(68, 72, 85, 0.69);
+  background-color: var(--foreground-color);
   border: 0;
   border-radius: 3px;
-  color: rgb(238, 238, 238);
+  color: var(--toolbar-text-color);
   cursor: pointer;
   display: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -297,7 +381,7 @@ a {
 }
 
 #tools-pane-bar {
-  color: rgb(238, 238, 238);
+  color: var(--toolspane-bar-text-color);
   font-size: 12px;
   justify-content: space-between;
   overflow: hidden;
@@ -317,8 +401,8 @@ a {
 
 .tools-pane-title {
   align-items: center;
-  background-color: rgb(92, 97, 110);
-  border-bottom: 3px solid rgb(92, 97, 110);
+  background-color: var(--toolspane-button-color);
+  border-bottom: 3px solid var(--toolspane-non-accent-color);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -326,11 +410,12 @@ a {
   padding: 0 20px;
 
   &.active {
-    border-bottom: 3px solid rgb(64, 169, 243);
+    border-bottom: 3px solid var(--toolspane-accent-color);
   }
 }
 
 #tools-pane-buttons {
+  color: var(--toolspane-buttons-text-color);
   min-width: 92px;
   text-align: right;
   white-space: nowrap;
@@ -353,7 +438,7 @@ a {
 }
 
 #console {
-  background-color: rgb(239, 239, 239);
+  background-color: var(--console-background-color);
   overflow: auto;
 
   .luna-object-viewer {
@@ -370,7 +455,7 @@ a {
 }
 
 #console-input-indicator {
-  color: rgb(64, 169, 243);
+  color: var(--toolspane-accent-color);
   padding-top: 2px;
 }
 
@@ -383,8 +468,7 @@ a {
 
 .gutter {
   align-items: center;
-
-  background-color: rgb(68, 72, 87);
+  background-color: var(--split-bar-color);
   display: flex !important;
   justify-content: center;
   position: relative;
@@ -398,7 +482,7 @@ a {
   }
 
   #handle {
-    background-color: rgb(231, 232, 241);
+    background-color: var(--split-handle-color);
     border-radius: 2px;
     height: 30px;
     width: 4px;
@@ -406,8 +490,8 @@ a {
 }
 
 #editor-container .gutter #size-label {
-  background-color: rgb(238, 238, 238);
-  border: 1px solid rgb(92, 97, 110);
+  background-color: var(--size-label-color);
+  border: 1px solid var(--foreground-color);
   border-radius: 5px;
   cursor: auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -437,7 +521,7 @@ a {
 }
 
 #select-editor {
-  color: rgb(238, 238, 238);
+  color: var(--toolbar-text-color);
   height: 100%;
   margin: 0;
   position: relative;
@@ -456,7 +540,8 @@ a {
 
 li.editor-title {
   align-items: center;
-  border: 2px solid rgb(68, 72, 87);
+  background-color: var(--toolbar-background-color);
+  border: 2px solid var(--split-bar-color);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   cursor: pointer;
@@ -471,13 +556,14 @@ li.editor-title {
   }
 
   &.active {
-    background-color: rgb(68, 72, 87);
+    background-color: var(--toolbar-background-active-color);
+    border-bottom-color: var(--toolbar-background-active-color);
 
     > .language-menu-button {
-      background-color: rgba(0, 27, 37, 0.827);
+      background-color: var(--language-menu-button-active-color);
 
       &:hover {
-        background-color: rgba(33, 60, 70, 0.827);
+        background-color: var(--language-menu-button-active-hover-color);
       }
     }
   }
@@ -487,7 +573,7 @@ li.editor-title {
   }
 
   > .language-menu-button {
-    background-color: rgba(90, 96, 116, 0.855);
+    background-color: var(--language-menu-button-color);
     border: 0;
     border-radius: 3px;
     cursor: pointer;
@@ -501,7 +587,7 @@ li.editor-title {
     width: 20px;
 
     &:hover {
-      background-color: rgba(119, 124, 141, 0.855);
+      background-color: var(--language-menu-button-hover-color);
     }
   }
 
@@ -530,10 +616,10 @@ li.editor-title {
 
 .dropdown-menu {
   background-clip: padding-box;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(204, 204, 204);
+  background-color: var(--menu-background-color);
+  border: 1px solid var(--menu-border-color);
   border-radius: 3px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 0 12px var(--menu-shadow-color);
   display: none;
   list-style: none;
   max-width: calc(100% - 12px);
@@ -546,7 +632,7 @@ li.editor-title {
 
 .dropdown-menu-script {
   column-count: 2;
-  column-rule: 1px solid lightblue;
+  column-rule: 1px solid var(--menu-split-color);
 }
 
 @media only screen and (max-width: 1080px) {
@@ -585,12 +671,12 @@ li.editor-title {
   break-inside: avoid-column;
 
   &:hover {
-    background-color: rgb(231, 232, 241);
+    background-color: var(--menu-hover-color);
   }
 
   > *,
   a.subtitle {
-    color: rgb(34, 34, 34);
+    color: var(--menu-text-color);
     display: block;
     padding: 0.4em 0.8em;
     text-decoration: none;
@@ -600,7 +686,7 @@ li.editor-title {
     cursor: default;
 
     &:hover {
-      background-color: rgb(255, 255, 255);
+      background-color: var(--menu-background-color);
     }
   }
 
@@ -631,7 +717,7 @@ li.editor-title {
 
 #settings-menu {
   column-count: 2;
-  column-rule: 1px solid lightblue;
+  column-rule: 1px solid var(--menu-split-color);
   left: unset;
   margin-top: 0;
   max-width: 45vw;
@@ -690,7 +776,7 @@ li.editor-title {
 }
 
 i.arrow {
-  color: rgb(128, 128, 128);
+  color: var(--submenu-arrow-color);
   display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -766,7 +852,7 @@ i.arrow {
   }
 
   .slider {
-    background-color: rgb(204, 204, 204);
+    background-color: var(--switch-off-color);
     bottom: 0;
     cursor: pointer;
     left: 0;
@@ -776,7 +862,7 @@ i.arrow {
     transition: 0.4s;
 
     &::before {
-      background-color: rgb(255, 255, 255);
+      background-color: var(--switch-background-color);
       bottom: 2px;
       content: '';
       height: 14px;
@@ -793,11 +879,11 @@ i.arrow {
     width: 0;
 
     &:checked + .slider {
-      background-color: rgb(33, 150, 243);
+      background-color: var(--switch-on-color);
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px rgb(33, 150, 243);
+      box-shadow: 0 0 1px var(--switch-on-color);
     }
 
     &:checked + .slider::before {
@@ -887,7 +973,7 @@ i.arrow {
 
 #overlay {
   animation: overlayfadeIn 0.4s forwards;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--overlay-background-color);
   opacity: 0.7;
 }
 
@@ -907,7 +993,7 @@ i.arrow {
 }
 
 #modal {
-  background-color: rgb(245, 245, 245);
+  background-color: var(--modal-background-color);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -1568,7 +1654,7 @@ i.arrow {
 .cm-wrap,
 .cm-activeLine,
 .cm-gutters {
-  background: rgb(0, 27, 37) !important;
+  background: var(--background-color) !important;
 }
 
 #console-input {

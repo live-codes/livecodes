@@ -53,7 +53,5 @@ render(() => <App title="Solid" />, document.getElementById("app"));
   scripts: [],
   cssPreset: '',
   imports: {},
-  types: {
-    'solid-js': `{{ __livecodes_baseUrl__ }}types/solid-js.d.ts`,
-  },
+  types: {},
 };

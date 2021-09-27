@@ -6,7 +6,8 @@ import { getLanguageCustomSettings } from './utils';
 
 export const reactNativeTsx: LanguageSpecs = {
   name: 'react-native-tsx',
-  title: 'React Native (TSX)',
+  title: 'RN (TSX)',
+  longTitle: 'React Native (TSX)',
   info: `
   <h3>React Native for Web (with TypeScript)</h3>
   <div>

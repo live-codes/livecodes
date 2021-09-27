@@ -10,6 +10,7 @@ export const defaultConfig: Config = {
   formatOnsave: false,
   emmet: true,
   mode: 'full',
+  theme: 'dark',
   readonly: false,
   console: '',
   compiled: '',
@@ -52,7 +53,7 @@ export const defaultConfig: Config = {
       prerender: true,
     },
   },
-  editor: 'codemirror',
+  editor: '',
   version: process.env.VERSION as string,
   showVersion: false,
 };

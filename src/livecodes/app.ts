@@ -31,6 +31,7 @@ import {
   ToolList,
   User,
   ContentConfig,
+  Theme,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -178,12 +179,17 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const typeLoader = createTypeLoader();
   const loadModuleTypes = async (editors: Editors, config: Config) => {
+    const scriptLanguage = config.script.language;
     if (
       editors.script &&
-      ['typescript', 'javascript'].includes(mapLanguage(editors.script.getLanguage())) &&
+      ['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) &&
       typeof editors.script.addTypes === 'function'
     ) {
-      const libs = await typeLoader.load(editors.script.getValue(), config.types);
+      const configTypes = {
+        ...getLanguageCompiler(scriptLanguage)?.types,
+        ...config.types,
+      };
+      const libs = await typeLoader.load(editors.script.getValue(), configTypes);
       libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };
@@ -220,6 +226,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       readonly: config.readonly,
       editor: config.editor,
       editorType: 'code' as EditorOptions['editorType'],
+      theme: config.theme,
     };
     const markupOptions: EditorOptions = {
       ...baseOptions,
@@ -815,6 +822,20 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   };
 
+  const getAllEditors = (): CodeEditor[] => [
+    ...Object.values(editors),
+    ...[toolsPane?.console.getEditor()],
+    ...[toolsPane?.compiled.getEditor()],
+  ];
+
+  const setTheme = (theme: Theme) => {
+    const themes = ['light', 'dark'];
+    const root = document.querySelector(':root');
+    root?.classList.remove(...themes);
+    root?.classList.add(theme);
+    getAllEditors().forEach((editor) => editor?.setTheme(theme));
+  };
+
   const attachEventListeners = () => {
     const handleTitleEdit = () => {
       const projectTitle = UI.getProjectTitleElement();
@@ -1049,7 +1070,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           const configKey = toggle.dataset.config;
           if (!configKey || !(configKey in getConfig())) return;
 
-          setConfig({ ...getConfig(), [configKey]: toggle.checked });
+          if (configKey === 'theme') {
+            setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
+            setTheme(getConfig().theme);
+          } else {
+            setConfig({ ...getConfig(), [configKey]: toggle.checked });
+          }
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
             await run();
@@ -1865,6 +1891,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           container: UI.getCustomSettingsEditor(),
           language: 'json' as Language,
           value: stringify(getConfig().customSettings, true),
+          theme: config.theme,
         };
         customSettingsEditor = await createEditor(options);
         customSettingsEditor.focus();
@@ -1982,6 +2009,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     const emmetToggle = UI.getEmmetToggle();
     emmetToggle.checked = config.emmet;
 
+    const themeToggle = UI.getThemeToggle();
+    themeToggle.checked = config.theme === 'dark';
+
     UI.getCSSPresetLinks().forEach((link) => {
       link.classList.remove('active');
       if (config.cssPreset === link.dataset.preset) {
@@ -2043,6 +2073,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       ];
       toolsPane = createToolsPane(toolList, getConfig(), baseUrl, editors, eventsManager);
       attachEventListeners();
+      setTheme(getConfig().theme);
     } else {
       await updateEditors(editors, getConfig());
     }
