@@ -833,7 +833,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     const root = document.querySelector(':root');
     root?.classList.remove(...themes);
     root?.classList.add(theme);
-    getAllEditors().forEach((editor) => editor.setTheme(theme));
+    getAllEditors().forEach((editor) => editor?.setTheme(theme));
   };
 
   const attachEventListeners = () => {
@@ -2073,6 +2073,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       ];
       toolsPane = createToolsPane(toolList, getConfig(), baseUrl, editors, eventsManager);
       attachEventListeners();
+      setTheme(getConfig().theme);
     } else {
       await updateEditors(editors, getConfig());
     }

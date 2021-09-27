@@ -1,12 +1,15 @@
 :root {
   --link-color: rgb(1, 100, 180);
   --toolbar-text-color: rgb(237, 237, 237);
+  --toolbar-text-active-color: rgb(237, 237, 237);
+  --toolbar-background-color: rgb(0, 27, 37);
+  --toolbar-background-active-color: rgb(90, 96, 116);
   --background-color: rgb(0, 27, 37);
   --foreground-color: rgb(90, 96, 116);
   --split-bar-color: rgb(68, 72, 87);
   --split-handle-color: rgb(237, 237, 237);
   --button-hover-color: rgb(119, 124, 141);
-  --button-hover-color-active: rgb(33, 60, 70);
+  --button-hover-active-color: rgb(33, 60, 70);
   --scrollbar-color: rgb(121, 121, 121);
   --scrollbar-hover-color: rgb(151, 151, 151);
   --scrollbar-active-color: rgb(191, 191, 191);
@@ -29,13 +32,14 @@
 
 :root.light {
   --link-color: rgb(1, 100, 180);
-  --toolbar-text-color: rgb(237, 237, 237);
-  --background-color: rgb(255, 255, 255);
-  --foreground-color: rgb(90, 96, 116);
-  --split-bar-color: rgb(68, 72, 87);
+  --toolbar-text-color: rgb(68, 72, 87);
+  --toolbar-text-active-color: rgb(237, 237, 237);
+  --background-color: rgb(237, 237, 237);
+  --foreground-color: rgb(160, 160, 160);
+  --split-bar-color: rgb(120, 120, 120);
   --split-handle-color: rgb(237, 237, 237);
   --button-hover-color: rgb(119, 124, 141);
-  --button-hover-color-active: rgb(33, 60, 70);
+  --button-hover-active-color: rgb(33, 60, 70);
   --scrollbar-color: rgb(121, 121, 121);
   --scrollbar-hover-color: rgb(151, 151, 151);
   --scrollbar-active-color: rgb(191, 191, 191);
@@ -535,7 +539,7 @@ li.editor-title {
       background-color: var(--background-color);
 
       &:hover {
-        background-color: var(--button-hover-color-active);
+        background-color: var(--button-hover-active-color);
       }
     }
   }
