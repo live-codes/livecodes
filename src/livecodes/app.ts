@@ -32,6 +32,7 @@ import {
   User,
   ContentConfig,
   Theme,
+  UserConfig,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -51,7 +52,9 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
+  getUserConfig,
   setConfig,
+  setUserConfig,
   upgradeAndValidate,
 } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
@@ -80,6 +83,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const storage = createStorage();
   const templates = createStorage('__livecodes_templates__');
+  const userConfigStore = createStorage('__livecodes_user_config__');
   const formatter = getFormatter(getConfig(), baseUrl);
   const notifications = createNotifications();
   const modal = createModal();
@@ -670,6 +674,26 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     changingContent = false;
   };
 
+  const storeUserConfig = (newConfig: Partial<UserConfig>) => {
+    const storeFn = (newItem: any) => {
+      userConfigStore.clear();
+      userConfigStore.addItem(newItem);
+    };
+    setUserConfig(getConfig(), newConfig, storeFn);
+  };
+
+  const loadUserConfig = () => {
+    const userConfig = userConfigStore.getAllData()?.[0]?.pen;
+    if (!userConfig) {
+      storeUserConfig(getUserConfig(getConfig()));
+      return;
+    }
+    setConfig({
+      ...getConfig(),
+      ...userConfig,
+    });
+  };
+
   const setSavedStatus = () => {
     updateConfig();
     const savedConfig = storage.getItem(penId)?.pen;
@@ -1077,15 +1101,13 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           } else {
             setConfig({ ...getConfig(), [configKey]: toggle.checked });
           }
+          storeUserConfig(getUserConfig(getConfig()));
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
             await run();
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
-          }
-          if (configKey === 'autoprefixer') {
-            await run();
           }
         });
       });
@@ -2047,6 +2069,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
   };
 
   async function bootstrap(reload = false) {
+    loadUserConfig();
     configureEmbed(eventsManager, share);
     await createIframe(UI.getResultElement());
 

@@ -75,6 +75,8 @@ export const isRelativeUrl = (url?: string) =>
 export const getAbsoluteUrl = (url: string, baseUrl = document.baseURI) =>
   isRelativeUrl(url) ? new URL(url, baseUrl).href : url;
 
+export const cloneObject = (x: Record<string, any>) => JSON.parse(JSON.stringify(x));
+
 export const objectMap = (
   obj: Record<string, any>,
   fn: (value: any, key: string, index: number) => any,
