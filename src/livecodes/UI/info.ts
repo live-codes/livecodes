@@ -5,9 +5,7 @@ import { Config } from '../models';
 import { createStorage } from '../storage';
 import * as UI from '../UI';
 import { loadScript, loadStylesheet } from '../utils';
-
-const tagifyStylesUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/tagify.css';
-const tagifyScriptUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/tagify.min.js';
+import { tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
 
 export const createProjectInfoUI = async (
   config: Config,

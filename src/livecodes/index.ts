@@ -2,7 +2,7 @@ import { buildConfig } from './config';
 import { appHTML } from './html';
 import { API, Config } from './models';
 
-export { API, Config as Pen };
+export { API, Config };
 export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);

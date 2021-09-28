@@ -1,4 +1,5 @@
 import { compress, debounce, decodeHTML, decompress, encodeHTML, safeName } from '..';
+import { defaultConfig } from '../../config';
 
 describe('utils', () => {
   test('debounce', async () => {
@@ -34,7 +35,7 @@ describe('utils', () => {
     expect(safe).toBe('some_unsafe_text_here_');
   });
 
-  test('compress/decompress', () => {
+  test('compress/decompress string', () => {
     const str = `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -42,7 +43,15 @@ describe('utils', () => {
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       `;
     const compressed = compress(str);
-    const decompressed = decompress(compressed);
+    const decompressed = decompress(compressed, false);
+    expect(decompressed).toBe(str);
+    expect(compressed.length).toBeLessThan(str.length);
+  });
+
+  test('compress/decompress JSON', () => {
+    const str = JSON.stringify(defaultConfig);
+    const compressed = compress(str);
+    const decompressed = decompress(compressed, false);
     expect(decompressed).toBe(str);
     expect(compressed.length).toBeLessThan(str.length);
   });
