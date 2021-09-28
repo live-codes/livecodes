@@ -27,6 +27,17 @@ export const getModalDoNotSaveButton = () =>
 export const getModalCancelButton = () =>
   document.querySelector('#modal #prompt-cancel-btn') as HTMLElement;
 
+export const getModalRestoreButton = () =>
+  document.querySelector('#modal #prompt-restore-btn') as HTMLElement;
+export const getModalSavePreviousButton = () =>
+  document.querySelector('#modal #prompt-save-previous-btn') as HTMLElement;
+export const getModalCancelRestoreButton = () =>
+  document.querySelector('#modal #prompt-cancel-restore-btn') as HTMLElement;
+export const getModalUnsavedName = () =>
+  document.querySelector('#modal #unsaved-project-name') as HTMLElement;
+export const getModalUnsavedLastModified = () =>
+  document.querySelector('#modal #unsaved-project-last-modified') as HTMLElement;
+
 export const getLanguageMenuLinks = () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
 

@@ -43,6 +43,7 @@ import {
   resourcesScreen,
   savePromptScreen,
   openScreen,
+  restorePromptScreen,
 } from './html';
 import { downloadFile, exportConfig } from './export';
 import { createEventsManager } from './events';
@@ -84,6 +85,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
   const storage = createStorage();
   const templates = createStorage('__livecodes_templates__');
   const userConfigStore = createStorage('__livecodes_user_config__');
+  const unsavedProjectRestore = createStorage('__livecodes_project_restore__');
   const formatter = getFormatter(getConfig(), baseUrl);
   const notifications = createNotifications();
   const modal = createModal();
@@ -709,8 +711,10 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
     if (!isSaved) {
       projectTitle.classList.add('unsaved');
+      setProjectRestore();
     } else {
       projectTitle.classList.remove('unsaved');
+      setProjectRestore(true);
     }
   };
 
@@ -744,6 +748,52 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const checkSavedAndExecute = (fn: () => void) => async () => {
     checkSavedStatus(true).then(() => setTimeout(fn));
+  };
+
+  const setProjectRestore = (reset = false) => {
+    unsavedProjectRestore.clear();
+    if (reset) return;
+    unsavedProjectRestore.addItem(getContentConfig(getConfig()));
+  };
+
+  const checkRestoreStatus = () => {
+    // if (getConfig().restoreUnsaved) {
+    //   return Promise.resolve('restore disabled');
+    // }
+    const unsavedItem = unsavedProjectRestore.getAllData().pop();
+    if (!unsavedItem) {
+      return Promise.resolve('no unsaved project');
+    }
+    const unsavedProject = unsavedItem.pen;
+    const projectName = unsavedProject.title;
+    return new Promise((resolve) => {
+      const div = document.createElement('div');
+      div.innerHTML = restorePromptScreen;
+      modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
+      UI.getModalUnsavedName().innerHTML = projectName;
+      UI.getModalUnsavedLastModified().innerHTML = new Date(
+        unsavedItem.lastModified,
+      ).toLocaleString();
+
+      eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
+        await loadConfig(unsavedProject);
+        setSavedStatus();
+        modal.close();
+        resolve('restore');
+      });
+      eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', () => {
+        storage.addItem(unsavedProject);
+        notifications.success(`Project "${projectName}" saved to device.`);
+        modal.close();
+        setProjectRestore(true);
+        resolve('save and continue');
+      });
+      eventsManager.addEventListener(UI.getModalCancelRestoreButton(), 'click', () => {
+        modal.close();
+        setProjectRestore(true);
+        resolve('cancel restore');
+      });
+    });
   };
 
   const configureEmmet = (config: Config) => {
@@ -2120,6 +2170,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   }
   await bootstrap();
+  checkRestoreStatus();
 
   return {
     run: async () => {
