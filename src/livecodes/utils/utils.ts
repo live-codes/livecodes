@@ -29,8 +29,21 @@ export const pipe = (...fns: Function[]) => fns.reduce((f, g) => (...args: any) 
 // replace non-alphanumeric with underscore
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
 
-export const compress = LZString.compressToBase64;
-export const decompress = LZString.decompressFromBase64;
+export const compress = LZString.compressToEncodedURIComponent;
+export const decompress = (str: string) => {
+  const decoded = LZString.decompressFromEncodedURIComponent(str);
+  if (decoded) {
+    try {
+      if (JSON.parse(decoded)) {
+        return decoded;
+      }
+    } catch {
+      //
+    }
+  }
+  // for backward compatibility
+  return LZString.decompressFromBase64(str);
+};
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
 // added safari (on mac & ios): monaco editor is broken on safari
