@@ -73,6 +73,7 @@ import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { configureEmbed } from './embed';
+import { autoCompleteUrl } from './vendors';
 
 export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise<API> => {
   setConfig(appConfig);
@@ -1765,8 +1766,6 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         });
 
         let autoComplete: any;
-        const autoCompleteUrl =
-          'https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js';
         import(autoCompleteUrl).then(async () => {
           autoComplete = (globalThis as any).autoComplete;
 
