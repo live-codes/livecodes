@@ -55,7 +55,6 @@ import {
   getContentConfig,
   getUserConfig,
   setConfig,
-  setUserConfig,
   upgradeAndValidate,
 } from './config';
 import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
@@ -660,7 +659,11 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       ...defaultConfig,
       ...upgradeAndValidate(newConfig),
     });
-    setConfig({ ...getConfig(), ...content, autosave: false });
+    setConfig({
+      ...getConfig(),
+      ...content,
+    });
+    setProjectRestore();
 
     // load title
     const projectTitle = UI.getProjectTitleElement();
@@ -676,18 +679,24 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     changingContent = false;
   };
 
-  const storeUserConfig = (newConfig: Partial<UserConfig>) => {
-    const storeFn = (newItem: any) => {
-      userConfigStore.clear();
-      userConfigStore.addItem(newItem);
-    };
-    setUserConfig(getConfig(), newConfig, storeFn);
+  const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
+    const userConfig = getUserConfig({
+      ...getConfig(),
+      ...(newConfig == null ? getUserConfig(defaultConfig) : newConfig),
+    });
+
+    setConfig({
+      ...getConfig(),
+      ...userConfig,
+    });
+    userConfigStore.clear();
+    userConfigStore.addItem(userConfig as Config);
   };
 
   const loadUserConfig = () => {
     const userConfig = userConfigStore.getAllData()?.pop()?.pen;
     if (!userConfig) {
-      storeUserConfig(getUserConfig(getConfig()));
+      setUserConfig(getUserConfig(getConfig()));
       return;
     }
     setConfig({
@@ -708,7 +717,6 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       );
 
     const projectTitle = UI.getProjectTitleElement();
-
     if (!isSaved) {
       projectTitle.classList.add('unsaved');
       setProjectRestore();
@@ -722,7 +730,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     if (isSaved) {
       return Promise.resolve('is saved');
     }
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const div = document.createElement('div');
       div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, { size: 'small' });
@@ -741,7 +749,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       });
       eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
         modal.close();
-        reject('cancel');
+        resolve('cancel');
       });
     });
   };
@@ -762,11 +770,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
     const unsavedItem = unsavedProjectRestore.getAllData().pop();
     const unsavedProject = unsavedItem?.pen;
-    if (
-      !unsavedProject ||
-      JSON.stringify({ ...getContentConfig(unsavedProject), activeEditor: undefined }) ===
-        JSON.stringify({ ...getContentConfig(defaultConfig), activeEditor: undefined })
-    ) {
+    if (!unsavedProject) {
       return Promise.resolve('no unsaved project');
     }
     const projectName = unsavedProject.title;
@@ -778,36 +782,30 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       UI.getModalUnsavedLastModified().innerHTML = new Date(
         unsavedItem.lastModified,
       ).toLocaleString();
-      const restoreToggle = UI.getRestoreToggle();
+      const disableRestoreCheckbox = UI.getModalDisableRestoreCheckbox();
 
-      const setRestoreConfig = () => {
-        if (!restoreToggle.checked) return;
-        setConfig({
-          ...getConfig(),
-          enableRestore: false,
-        });
-        storeUserConfig({
-          enableRestore: false,
-        });
+      const setRestoreConfig = (enableRestore: boolean) => {
+        setUserConfig({ enableRestore });
+        loadSettings(getConfig());
       };
 
       eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
         await loadConfig(unsavedProject);
         setSavedStatus();
-        setRestoreConfig();
+        setRestoreConfig(!disableRestoreCheckbox.checked);
         modal.close();
         resolve('restore');
       });
       eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', () => {
         storage.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
-        setRestoreConfig();
+        setRestoreConfig(!disableRestoreCheckbox.checked);
         modal.close();
         setProjectRestore(true);
         resolve('save and continue');
       });
       eventsManager.addEventListener(UI.getModalCancelRestoreButton(), 'click', () => {
-        setRestoreConfig();
+        setRestoreConfig(!disableRestoreCheckbox.checked);
         modal.close();
         setProjectRestore(true);
         resolve('cancel restore');
@@ -1170,7 +1168,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           } else {
             setConfig({ ...getConfig(), [configKey]: toggle.checked });
           }
-          storeUserConfig(getUserConfig(getConfig()));
+          setUserConfig(getUserConfig(getConfig()));
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
             await run();
@@ -1179,7 +1177,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
             configureEmmet(getConfig());
           }
           if (configKey === 'enableRestore') {
-            storeUserConfig({
+            setUserConfig({
               enableRestore: toggle.checked,
             });
             setProjectRestore();
@@ -2147,11 +2145,11 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
   };
 
   async function bootstrap(reload = false) {
-    loadUserConfig();
     configureEmbed(eventsManager, share);
     await createIframe(UI.getResultElement());
 
     if (!reload) {
+      loadUserConfig();
       createLanguageMenus(
         getConfig(),
         baseUrl,

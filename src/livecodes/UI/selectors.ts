@@ -37,6 +37,8 @@ export const getModalUnsavedName = () =>
   document.querySelector('#modal #unsaved-project-name') as HTMLElement;
 export const getModalUnsavedLastModified = () =>
   document.querySelector('#modal #unsaved-project-last-modified') as HTMLElement;
+export const getModalDisableRestoreCheckbox = () =>
+  document.querySelector('#modal #disable-restore-checkbox') as HTMLInputElement;
 
 export const getLanguageMenuLinks = () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');

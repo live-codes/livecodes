@@ -41,17 +41,5 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
     enableRestore: config.enableRestore,
   });
 
-export const setUserConfig = (
-  oldConfig: Config | UserConfig,
-  newConfig: Partial<UserConfig>,
-  storeFn: (config: UserConfig) => void | Promise<void>,
-) => {
-  const userConfig = getUserConfig({
-    ...oldConfig,
-    ...newConfig,
-  });
-  return storeFn(userConfig);
-};
-
 export const upgradeAndValidate = (config: Partial<Config>) =>
   validateConfig(upgradeConfig(config as any));
