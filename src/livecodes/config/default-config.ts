@@ -11,6 +11,7 @@ export const defaultConfig: Config = {
   emmet: true,
   mode: 'full',
   theme: 'dark',
+  enableRestore: true,
   readonly: false,
   console: '',
   compiled: '',

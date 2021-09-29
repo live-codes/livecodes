@@ -120,6 +120,9 @@ export const getEmmetToggle = () =>
 export const getThemeToggle = () =>
   document.querySelector('#settings-menu input#theme') as HTMLInputElement;
 
+export const getRestoreToggle = () =>
+  document.querySelector('#settings-menu input#enable-restore') as HTMLInputElement;
+
 export const getCSSPresetLinks = () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 

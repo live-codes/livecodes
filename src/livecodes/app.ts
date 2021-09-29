@@ -685,7 +685,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
   };
 
   const loadUserConfig = () => {
-    const userConfig = userConfigStore.getAllData()?.[0]?.pen;
+    const userConfig = userConfigStore.getAllData()?.pop()?.pen;
     if (!userConfig) {
       storeUserConfig(getUserConfig(getConfig()));
       return;
@@ -752,19 +752,23 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const setProjectRestore = (reset = false) => {
     unsavedProjectRestore.clear();
-    if (reset) return;
+    if (reset || !getConfig().enableRestore) return;
     unsavedProjectRestore.addItem(getContentConfig(getConfig()));
   };
 
   const checkRestoreStatus = () => {
-    // if (getConfig().restoreUnsaved) {
-    //   return Promise.resolve('restore disabled');
-    // }
+    if (!getConfig().enableRestore) {
+      return Promise.resolve('restore disabled');
+    }
     const unsavedItem = unsavedProjectRestore.getAllData().pop();
-    if (!unsavedItem) {
+    const unsavedProject = unsavedItem?.pen;
+    if (
+      !unsavedProject ||
+      JSON.stringify({ ...getContentConfig(unsavedProject), activeEditor: undefined }) ===
+        JSON.stringify({ ...getContentConfig(defaultConfig), activeEditor: undefined })
+    ) {
       return Promise.resolve('no unsaved project');
     }
-    const unsavedProject = unsavedItem.pen;
     const projectName = unsavedProject.title;
     return new Promise((resolve) => {
       const div = document.createElement('div');
@@ -774,21 +778,36 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       UI.getModalUnsavedLastModified().innerHTML = new Date(
         unsavedItem.lastModified,
       ).toLocaleString();
+      const restoreToggle = UI.getRestoreToggle();
+
+      const setRestoreConfig = () => {
+        if (!restoreToggle.checked) return;
+        setConfig({
+          ...getConfig(),
+          enableRestore: false,
+        });
+        storeUserConfig({
+          enableRestore: false,
+        });
+      };
 
       eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
         await loadConfig(unsavedProject);
         setSavedStatus();
+        setRestoreConfig();
         modal.close();
         resolve('restore');
       });
       eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', () => {
         storage.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
+        setRestoreConfig();
         modal.close();
         setProjectRestore(true);
         resolve('save and continue');
       });
       eventsManager.addEventListener(UI.getModalCancelRestoreButton(), 'click', () => {
+        setRestoreConfig();
         modal.close();
         setProjectRestore(true);
         resolve('cancel restore');
@@ -1158,6 +1177,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           }
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
+          }
+          if (configKey === 'enableRestore') {
+            storeUserConfig({
+              enableRestore: toggle.checked,
+            });
+            setProjectRestore();
           }
         });
       });
@@ -2082,6 +2107,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
     const themeToggle = UI.getThemeToggle();
     themeToggle.checked = config.theme === 'dark';
+
+    const restoreToggle = UI.getRestoreToggle();
+    restoreToggle.checked = config.enableRestore;
 
     UI.getCSSPresetLinks().forEach((link) => {
       link.classList.remove('active');

@@ -45,6 +45,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
+    ...(is(config.enableRestore, 'boolean') ? { enableRestore: config.enableRestore } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(includes(toolsPaneStatus, config.console) ? { console: config.console } : {}),
     ...(includes(toolsPaneStatus, config.compiled) ? { compiled: config.compiled } : {}),

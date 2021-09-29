@@ -10,11 +10,25 @@
       Last modified: <span id="unsaved-project-last-modified"></span>
     </div>
     <div class="centered"><br />Do you want to restore it now?</div>
+    <div class="buttons">
+      <button id="prompt-restore-btn" class="button" title="Restore project to editor">
+        Restore
+      </button>
+      <button id="prompt-save-previous-btn" class="button" title="Save to device and continue">
+        Save
+      </button>
+      <button id="prompt-cancel-restore-btn" class="button" title="Discard unsaved project">
+        Cancel
+      </button>
+    </div>
+    <div>
+      <input
+        type="checkbox"
+        value="enable-restore-checkbox"
+        id="enable-restore-checkbox"
+        name="enable-restore-checkbox"
+      />
+      <label for="enable-restore-checkbox">Do not show this again.</label>
+    </div>
   </div>
-  <div class="buttons">
-    <button id="prompt-restore-btn" class="button">Restore</button>
-    <button id="prompt-save-previous-btn" class="button">Save</button>
-    <button id="prompt-cancel-restore-btn" class="button">Cancel</button>
-  </div>
-  <div class="description">Do not show this prompt again.</div>
 </div>

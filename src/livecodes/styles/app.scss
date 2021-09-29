@@ -1089,6 +1089,17 @@ i.arrow {
     margin: 1em 0.3em;
     max-width: 100%;
   }
+
+  #prompt-restore-screen {
+    .modal-screen-container {
+      margin-bottom: 0;
+    }
+
+    .buttons {
+      margin-bottom: 0;
+    }
+  }
+
   @media only screen and (max-width: 480px) {
     .buttons {
       width: 100%;
