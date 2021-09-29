@@ -770,7 +770,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
     const unsavedItem = unsavedProjectRestore.getAllData().pop();
     const unsavedProject = unsavedItem?.pen;
-    if (!unsavedProject) {
+    if (!unsavedItem || !unsavedProject) {
       return Promise.resolve('no unsaved project');
     }
     const projectName = unsavedProject.title;
