@@ -26,7 +26,9 @@ export const createOpenItem = (
 
 export const createItemLoader = (item: { title: string }) => {
   const loading = document.createElement('div');
-  loading.innerHTML = 'Loading...<br /><br />' + item.title + '';
-  loading.className = 'centered';
+  loading.innerHTML = `
+    <div class="modal-message">Loading...</div>
+    <div class="modal-message">${item.title}</div>
+    `;
   return loading;
 };
