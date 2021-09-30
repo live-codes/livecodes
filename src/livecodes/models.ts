@@ -9,21 +9,12 @@ export interface API {
   getCode: () => Promise<Code>;
 }
 
-export interface Config {
+export type Config = ContentConfig & AppConfig & UserConfig;
+
+export interface ContentConfig {
   title: string;
   description: string;
   tags: string[];
-  autoupdate: boolean;
-  autosave: boolean;
-  delay: number;
-  formatOnsave: boolean;
-  emmet: boolean;
-  mode: 'full' | 'editor' | 'codeblock' | 'result';
-  theme: Theme;
-  readonly: boolean;
-  console: ToolsPaneStatus;
-  compiled: ToolsPaneStatus;
-  allowLangChange: boolean;
   activeEditor: EditorId | undefined;
   languages: Language[] | undefined;
   markup: Editor;
@@ -42,30 +33,28 @@ export interface Config {
   customSettings: customSettings;
   imports: { [key: string]: string };
   types: Types;
-  editor: 'monaco' | 'codemirror' | 'prism' | '';
   readonly version: string;
+}
+
+export interface AppConfig {
+  readonly: boolean;
+  console: ToolsPaneStatus;
+  compiled: ToolsPaneStatus;
+  allowLangChange: boolean;
+  mode: 'full' | 'editor' | 'codeblock' | 'result';
+  editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
 }
 
-export type ContentConfig = Pick<
-  Config,
-  | 'title'
-  | 'description'
-  | 'tags'
-  | 'activeEditor'
-  | 'languages'
-  | 'markup'
-  | 'style'
-  | 'script'
-  | 'stylesheets'
-  | 'scripts'
-  | 'cssPreset'
-  | 'processors'
-  | 'customSettings'
-  | 'imports'
-  | 'types'
-  | 'version'
->;
+export interface UserConfig {
+  autoupdate: boolean;
+  autosave: boolean;
+  delay: number;
+  formatOnsave: boolean;
+  emmet: boolean;
+  theme: Theme;
+  enableRestore: boolean;
+}
 
 export type Language =
   | 'html'

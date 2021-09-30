@@ -1,16 +1,18 @@
 // my-test.ts
 import { test as base } from '@playwright/test';
-import { Pen } from '../src/livecodes/models';
+import { Config } from '../src/livecodes/models';
 
 export const test = base.extend<{
-  editor: Pen['editor'];
-  getTestUrl: (config?: Partial<Pen>) => string;
+  editor: Config['editor'];
+  getTestUrl: (config?: Partial<Config>) => string;
 }>({
   editor: 'monaco',
   getTestUrl: async ({ editor }, use) => {
-    await use((config: Partial<Pen> = { autoupdate: false }) => {
+    await use((config: Partial<Config>) => {
       const options = {
         editor,
+        autoupdate: false,
+        enableRestore: false,
         ...config,
       };
       const query = Object.keys(options).reduce(

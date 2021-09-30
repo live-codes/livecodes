@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.2.0/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.3.0/dist/';
 
 export const esModuleShimsUrl =
   'https://cdn.jsdelivr.net/npm/es-module-shims@1.1.0/dist/es-module-shims.min.js';

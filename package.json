@@ -41,8 +41,8 @@
     "prepare-release": "run-s reset build test cov release",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "recursive-delete build",
-    "prepush:skip-e2e": "run-s fix vendors build test:lint test:unit",
-    "prepush": "run-s fix vendors build test"
+    "prepush:skip-e2e": "run-s fix build test:lint test:unit",
+    "prepush": "run-s fix build test"
   },
   "dependencies": {
     "@codemirror/basic-setup": "0.19.0",

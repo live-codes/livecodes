@@ -1,3 +1,4 @@
+import LZString from 'lz-string';
 import { ContentConfig } from './models';
 
 export interface Item {
@@ -18,11 +19,20 @@ export const createStorage = (name = '__livecodes_data__') => {
 
   const getData = () => {
     const data = window.localStorage.getItem(name);
-    return data ? (JSON.parse(data) as Storage) : EMPTY;
+    if (!data) return EMPTY;
+    try {
+      return JSON.parse(LZString.decompressFromUTF16(data) as string) as Storage;
+    } catch {
+      try {
+        return JSON.parse(data) as Storage;
+      } catch {
+        return EMPTY;
+      }
+    }
   };
 
   const setData = (data: Storage) => {
-    window.localStorage.setItem(name, JSON.stringify(data));
+    window.localStorage.setItem(name, LZString.compressToUTF16(JSON.stringify(data)));
   };
 
   const getList = () =>

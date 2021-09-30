@@ -71,9 +71,7 @@ export const createCompiledCodeViewer = (
 
   const update = (language: Language, content: string, label?: string) => {
     if (!editor) return;
-
-    editor.setLanguage(language);
-    editor.setValue(content);
+    editor.setLanguage(language, content);
     fixTypes(language, content);
     if (languageLabel) {
       const compiledLanguage = languages.find((lang) => lang.name === label);

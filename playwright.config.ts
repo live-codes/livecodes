@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { PlaywrightTestConfig } from '@playwright/test';
 // eslint-disable-next-line import/no-internal-modules
-import { Pen } from './src/livecodes/models';
+import { Config } from './src/livecodes/models';
 
-const config: PlaywrightTestConfig<{ editor: Pen['editor'] }> = {
+const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
   globalSetup: require.resolve('./e2e/global-setup'),
   testDir: 'e2e',
   retries: process.env.CI ? 10 : 2,

@@ -156,8 +156,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       monaco.Uri.parse(`file:///main.${random}.${ext}`),
     );
     editor.setModel(model);
-    oldModel?.dispose();
-
+    setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
     upateListeners();
     configureEditor();
   };

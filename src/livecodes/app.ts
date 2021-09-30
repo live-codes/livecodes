@@ -32,6 +32,7 @@ import {
   User,
   ContentConfig,
   Theme,
+  UserConfig,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -42,6 +43,7 @@ import {
   resourcesScreen,
   savePromptScreen,
   openScreen,
+  restorePromptScreen,
 } from './html';
 import { downloadFile, exportConfig } from './export';
 import { createEventsManager } from './events';
@@ -51,6 +53,7 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
+  getUserConfig,
   setConfig,
   upgradeAndValidate,
 } from './config';
@@ -80,6 +83,8 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const storage = createStorage();
   const templates = createStorage('__livecodes_templates__');
+  const userConfigStore = createStorage('__livecodes_user_config__');
+  const projectRestore = createStorage('__livecodes_project_restore__');
   const formatter = getFormatter(getConfig(), baseUrl);
   const notifications = createNotifications();
   const modal = createModal();
@@ -112,9 +117,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
       const scriptLang = getEditorLanguage('script') || 'javascript';
       const compilers = getAllCompilers(languages, getConfig(), baseUrl);
-      const editorsText = `${editors?.markup.getValue()}
-      ${editors?.style.getValue()}
-      ${editors?.script.getValue()}
+      const editorsText = `${getConfig().markup.content}
+      ${getConfig().style.content}
+      ${getConfig().script.content}
       `;
       const liveReload =
         compilers[scriptLang]?.liveReload &&
@@ -190,7 +195,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         ...getLanguageCompiler(scriptLanguage)?.types,
         ...config.types,
       };
-      const libs = await typeLoader.load(editors.script.getValue(), configTypes);
+      const libs = await typeLoader.load(getConfig().script.content || '', configTypes);
       libs.forEach((lib) => editors.script.addTypes?.(lib));
     }
   };
@@ -202,7 +207,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       languages.find((language) => language.name === getLanguageByAlias(title))?.title || '';
   };
 
-  const createCopyButtons = (editors: Editors) => {
+  const createCopyButtons = () => {
     const editorIds: EditorId[] = ['markup', 'style', 'script'];
     editorIds.forEach((editorId) => {
       const copyButton = document.createElement('button');
@@ -210,7 +215,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       copyButton.classList.add('copy-button');
       document.getElementById(editorId)?.appendChild(copyButton);
       eventsManager.addEventListener(copyButton, 'click', () => {
-        if (copyToClipboard(editors[editorId].getValue())) {
+        if (copyToClipboard(editors?.[editorId]?.getValue())) {
           copyButton.innerHTML = 'copied';
           setTimeout(() => {
             copyButton.innerHTML = 'copy';
@@ -281,7 +286,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     });
 
     if (config.mode === 'codeblock') {
-      createCopyButtons(editors);
+      createCopyButtons();
     }
 
     return editors;
@@ -364,20 +369,17 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     titles.forEach((selector) => selector.classList.remove('active'));
     const activeTitle = document.getElementById(editorId + '-selector');
     activeTitle?.classList.add('active');
-
     const editorDivs = UI.getEditorDivs();
     editorDivs.forEach((editor) => (editor.style.display = 'none'));
     const activeEditor = document.getElementById(editorId) as HTMLElement;
     activeEditor.style.display = 'block';
     editors[editorId].focus();
-
     if (!isUpdate) {
       setConfig({
         ...getConfig(),
         activeEditor: editorId,
       });
     }
-
     updateCompiledCode();
     split.show('code');
   };
@@ -392,7 +394,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     ) {
       if (editors.script && typeof editors.script.addTypes === 'function') {
         consoleInputCodeCompletion = editors.script.addTypes({
-          content: editors.script.getValue() + '\nexport {}',
+          content: getConfig().script.content + '\nexport {}',
           filename: 'script.js',
         });
       }
@@ -420,7 +422,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     const editorId = getLanguageEditorId(language);
     if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
     const editor = editors[editorId];
-    editor.setLanguage(language, value ?? editor.getValue());
+    editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
     if (editorLanguages) {
       editorLanguages[editorId] = language;
     }
@@ -437,6 +439,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       });
       await run();
     }
+    setSavedStatus();
     addConsoleInputCodeCompletion();
     loadModuleTypes(editors, getConfig());
     applyLanguageConfigs(language);
@@ -457,7 +460,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         style: 'css',
         script: 'javascript',
       };
-      const lang = getLanguageCompiler(editors[editorId].getLanguage())?.compiledCodeLanguage;
+      const lang = getLanguageCompiler(getConfig()[editorId].language)?.compiledCodeLanguage;
       return {
         language: lang || defaultLang[editorId],
         label: lang === 'json' ? 'JSON' : getLanguageByAlias(lang) || lang || defaultLang[editorId],
@@ -473,7 +476,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       Object.keys(cache).forEach((editorId) => {
         if (editorId !== getConfig().activeEditor) return;
         let compiledCode = cache[editorId].modified || cache[editorId].compiled || '';
-        if (editorId === 'script' && editors.script.getLanguage() === 'php') {
+        if (editorId === 'script' && getConfig().script.language === 'php') {
           compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
         }
         toolsPane.compiled.update(
@@ -654,7 +657,11 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       ...defaultConfig,
       ...upgradeAndValidate(newConfig),
     });
-    setConfig({ ...getConfig(), ...content, autosave: false });
+    setConfig({
+      ...getConfig(),
+      ...content,
+    });
+    setProjectRestore();
 
     // load title
     const projectTitle = UI.getProjectTitleElement();
@@ -670,6 +677,32 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     changingContent = false;
   };
 
+  const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
+    const userConfig = getUserConfig({
+      ...getConfig(),
+      ...(newConfig == null ? getUserConfig(defaultConfig) : newConfig),
+    });
+
+    setConfig({
+      ...getConfig(),
+      ...userConfig,
+    });
+    userConfigStore.clear();
+    userConfigStore.addItem(userConfig as Config);
+  };
+
+  const loadUserConfig = () => {
+    const userConfig = userConfigStore.getAllData()?.pop()?.pen;
+    if (!userConfig) {
+      setUserConfig(getUserConfig(getConfig()));
+      return;
+    }
+    setConfig({
+      ...getConfig(),
+      ...userConfig,
+    });
+  };
+
   const setSavedStatus = () => {
     updateConfig();
     const savedConfig = storage.getItem(penId)?.pen;
@@ -682,11 +715,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       );
 
     const projectTitle = UI.getProjectTitleElement();
-
     if (!isSaved) {
       projectTitle.classList.add('unsaved');
+      setProjectRestore();
     } else {
       projectTitle.classList.remove('unsaved');
+      setProjectRestore(true);
     }
   };
 
@@ -694,7 +728,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     if (isSaved) {
       return Promise.resolve('is saved');
     }
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const div = document.createElement('div');
       div.innerHTML = savePromptScreen;
       modal.show(div.firstChild as HTMLElement, { size: 'small' });
@@ -713,13 +747,68 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       });
       eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
         modal.close();
-        reject('cancel');
+        resolve('cancel');
       });
     });
   };
 
   const checkSavedAndExecute = (fn: () => void) => async () => {
     checkSavedStatus(true).then(() => setTimeout(fn));
+  };
+
+  const setProjectRestore = (reset = false) => {
+    projectRestore.clear();
+    if (reset || !getConfig().enableRestore) return;
+    projectRestore.addItem(getContentConfig(getConfig()));
+  };
+
+  const checkRestoreStatus = () => {
+    if (!getConfig().enableRestore) {
+      return Promise.resolve('restore disabled');
+    }
+    const unsavedItem = projectRestore.getAllData().pop();
+    const unsavedProject = unsavedItem?.pen;
+    if (!unsavedItem || !unsavedProject) {
+      return Promise.resolve('no unsaved project');
+    }
+    const projectName = unsavedProject.title;
+    return new Promise((resolve) => {
+      const div = document.createElement('div');
+      div.innerHTML = restorePromptScreen;
+      modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
+      UI.getModalUnsavedName().innerHTML = projectName;
+      UI.getModalUnsavedLastModified().innerHTML = new Date(
+        unsavedItem.lastModified,
+      ).toLocaleString();
+      const disableRestoreCheckbox = UI.getModalDisableRestoreCheckbox();
+
+      const setRestoreConfig = (enableRestore: boolean) => {
+        setUserConfig({ enableRestore });
+        loadSettings(getConfig());
+      };
+
+      eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
+        await loadConfig(unsavedProject);
+        setSavedStatus();
+        setRestoreConfig(!disableRestoreCheckbox.checked);
+        modal.close();
+        resolve('restore');
+      });
+      eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', () => {
+        storage.addItem(unsavedProject);
+        notifications.success(`Project "${projectName}" saved to device.`);
+        setRestoreConfig(!disableRestoreCheckbox.checked);
+        modal.close();
+        setProjectRestore(true);
+        resolve('save and continue');
+      });
+      eventsManager.addEventListener(UI.getModalCancelRestoreButton(), 'click', () => {
+        setRestoreConfig(!disableRestoreCheckbox.checked);
+        modal.close();
+        setProjectRestore(true);
+        resolve('cancel restore');
+      });
+    });
   };
 
   const configureEmmet = (config: Config) => {
@@ -917,6 +1006,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           'click',
           () => {
             showEditor(title.dataset.editor as EditorId);
+            setProjectRestore();
           },
           false,
         );
@@ -1077,6 +1167,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           } else {
             setConfig({ ...getConfig(), [configKey]: toggle.checked });
           }
+          setUserConfig(getUserConfig(getConfig()));
 
           if (configKey === 'autoupdate' && getConfig()[configKey]) {
             await run();
@@ -1084,8 +1175,11 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           if (configKey === 'emmet') {
             configureEmmet(getConfig());
           }
-          if (configKey === 'autoprefixer') {
-            await run();
+          if (configKey === 'enableRestore') {
+            setUserConfig({
+              enableRestore: toggle.checked,
+            });
+            setProjectRestore();
           }
         });
       });
@@ -2011,6 +2105,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     const themeToggle = UI.getThemeToggle();
     themeToggle.checked = config.theme === 'dark';
 
+    const restoreToggle = UI.getRestoreToggle();
+    restoreToggle.checked = config.enableRestore;
+
     UI.getCSSPresetLinks().forEach((link) => {
       link.classList.remove('active');
       if (config.cssPreset === link.dataset.preset) {
@@ -2051,6 +2148,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     await createIframe(UI.getResultElement());
 
     if (!reload) {
+      loadUserConfig();
       createLanguageMenus(
         getConfig(),
         baseUrl,
@@ -2097,6 +2195,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   }
   await bootstrap();
+  checkRestoreStatus();
 
   return {
     run: async () => {

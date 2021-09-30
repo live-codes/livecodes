@@ -18,6 +18,8 @@ import loginScreen from './login.html';
 // @ts-ignore
 import savePromptScreen from './save-prompt.html';
 // @ts-ignore
+import restorePromptScreen from './restore-prompt.html';
+// @ts-ignore
 import templatesScreen from './templates.html';
 // @ts-ignore
 import openScreen from './open.html';
@@ -34,6 +36,7 @@ export {
   resourcesScreen,
   loginScreen,
   savePromptScreen,
+  restorePromptScreen,
   templatesScreen,
   openScreen,
   shareScreen,
