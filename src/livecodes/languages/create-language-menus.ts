@@ -87,8 +87,8 @@ export const createLanguageMenus = (
 
       if (language.info) {
         const tooltip = document.createElement('span');
-        tooltip.classList.add('tooltip');
-        tooltip.title = 'Click for info...';
+        tooltip.classList.add('tooltip', 'hint--bottom-left');
+        tooltip.ariaLabel = 'Click for info...';
         tooltip.innerHTML = infoIcon;
         const languageInfo = document.createElement('div');
         languageInfo.classList.add('language-info');

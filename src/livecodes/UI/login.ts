@@ -63,7 +63,9 @@ export const displayLoggedIn = (user: User) => {
   const logOutLink = getLogoutLink();
   if (logOutLink) {
     const displayName = user.displayName || user.username;
-    logOutLink.innerHTML = `Log out (${displayName})`;
+    logOutLink.innerHTML = `Log out`;
+    logOutLink.classList.add('hint--bottom');
+    logOutLink.ariaLabel = 'Logged in as ' + displayName;
     logOutLink.style.display = 'block';
   }
 };
