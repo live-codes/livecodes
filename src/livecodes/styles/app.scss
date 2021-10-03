@@ -1668,6 +1668,16 @@ i.arrow {
   background: var(--background-color) !important;
 }
 
+// Codemirror emmet extension (remove when official extension is available)
+.cm-tooltip {
+  font-size: small;
+}
+
+.cm-tooltip:not(:root.light *) {
+  color: rgb(211, 211, 211);
+}
+// ----------------------
+
 #console-input {
   .cm-gutter {
     display: none !important;

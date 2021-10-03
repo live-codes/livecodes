@@ -812,15 +812,10 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
   };
 
   const configureEmmet = (config: Config) => {
-    const editor = editors.markup;
-    if (typeof editor?.configureEmmet === 'function') {
-      editor.configureEmmet(config.emmet);
-    } else {
-      const emmetSetting = document.querySelector('#settings-menu #emmet')?.closest('li');
-      if (emmetSetting) {
-        emmetSetting.style.display = 'none';
-      }
-    }
+    [editors.markup, editors.style].forEach((editor, editorIndex) => {
+      if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
+      editor.configureEmmet?.(config.emmet);
+    });
   };
 
   const getTemplates = async (): Promise<Template[]> => {
