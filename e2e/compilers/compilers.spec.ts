@@ -774,7 +774,7 @@ title = 'live script'
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=Riot.js');
     await waitForEditorFocus(app);
-    await page.keyboard.insertText('<hello><h1>Hello, {props.title}</h1></hello');
+    await page.keyboard.insertText('<hello><h1>Hello, {props.title}</h1></hello>');
 
     await waitForResultUpdate();
     const resultText = await getResult().innerText('h1');
