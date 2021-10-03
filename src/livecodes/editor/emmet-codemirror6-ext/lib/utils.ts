@@ -2,7 +2,7 @@
 // @ts-nocheck
 import { AttributeToken } from '@emmetio/html-matcher';
 import { CSSProperty, TextRange } from '@emmetio/action-utils';
-
+import { CodeMirror } from '@codemirror/view';
 /** Characters to indicate tab stop start and end in generated snippet */
 export const tabStopStart = String.fromCodePoint(0xfff0);
 export const tabStopEnd = String.fromCodePoint(0xfff1);
