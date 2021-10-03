@@ -29,6 +29,9 @@ import { wast } from '@codemirror/lang-wast';
 import { mapLanguage } from '../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
 
+// TODO: replace with official extension when available
+import emmetExt from './emmet-codemirror6-ext';
+
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly } = options;
   if (!container) throw new Error('editor container not found');
@@ -36,6 +39,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let language = options.language;
   let mappedLanguage = mapLanguage(language);
   let theme = options.theme;
+  const keyBindings: KeyBinding[] = [];
+  let emmetEnabled = true;
+
+  type Listener = (update: ViewUpdate) => void;
+  const listeners: Listener[] = [];
+  const notifyListeners = (update: ViewUpdate) => {
+    if (update.docChanged) {
+      listeners.forEach((fn) => fn(update));
+    }
+  };
 
   const legacy = (parser: StreamParser<unknown>) =>
     new LanguageSupport(StreamLanguage.define(parser));
@@ -69,19 +82,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return languages[language] || (languages.html as () => LanguageSupport);
   };
 
-  const keyBindings: KeyBinding[] = [];
-
-  type Listener = (update: ViewUpdate) => void;
-  const listeners: Listener[] = [];
-  const notifyListeners = (update: ViewUpdate) => {
-    if (update.docChanged) {
-      listeners.forEach((fn) => fn(update));
-    }
-  };
-
   const languageExtension = new Compartment();
   const keyBindingsExtension = new Compartment();
   const themeExtension = new Compartment();
+  const emmetExtension = new Compartment();
   const readOnlyExtension = EditorView.editable.of(false);
   const fullHeight = EditorView.theme({
     '&': { height: '100%' },
@@ -95,14 +99,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const getExtensions = () => {
     const defaultOptions: Extension[] = [
-      keyBindingsExtension.of(keymap.of(keyBindings)),
-      keymap.of([indentWithTab]),
-      basicSetup,
       languageExtension.of(getLanguageExtension(mappedLanguage)()),
       EditorView.updateListener.of(notifyListeners),
       themeExtension.of(themes[theme]),
       fullHeight,
       readonly ? readOnlyExtension : [],
+      !emmetEnabled
+        ? []
+        : emmetExtension.of(
+            emmetExt({
+              config: getEmmetConfig(),
+            } as any),
+          ),
+      keyBindingsExtension.of(keymap.of(keyBindings)),
+      basicSetup,
+      keymap.of([indentWithTab]),
     ];
 
     const codeblockOptions = [readOnlyExtension, ...defaultOptions];
@@ -204,6 +215,37 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  function getEmmetConfig(): any {
+    if (['css', 'scss', 'less', 'stylus'].includes(language)) {
+      return {
+        type: 'stylesheet',
+        syntax: 'css',
+      };
+    } else if (mappedLanguage === 'html') {
+      return {
+        type: 'markup',
+        syntax: 'html',
+      };
+    }
+    return {
+      type: '',
+      syntax: '',
+    };
+  }
+
+  const configureEmmet = (enabled: boolean) => {
+    emmetEnabled = enabled;
+    view.dispatch({
+      effects: emmetExtension.reconfigure(
+        !enabled
+          ? []
+          : emmetExt({
+              config: getEmmetConfig(),
+            } as any),
+      ),
+    });
+  };
+
   const destroy = () => view.destroy();
 
   return {
@@ -212,6 +254,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguage,
     setLanguage,
     focus,
+    configureEmmet,
     onContentChanged,
     keyCodes,
     addKeyBinding,
