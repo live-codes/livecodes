@@ -1,9 +1,21 @@
 import Split from 'split.js';
 import { createEventsManager } from '../events';
 import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
+import { createCompiledCodeViewer } from './compiled-code-viewer';
+import { createConsole } from './console';
+
+const toolList: ToolList = [
+  {
+    name: 'console',
+    factory: createConsole,
+  },
+  {
+    name: 'compiled',
+    factory: createCompiledCodeViewer,
+  },
+];
 
 export const createToolsPane = (
-  toolList: ToolList,
   config: Config,
   baseUrl: string,
   editors: Editors,

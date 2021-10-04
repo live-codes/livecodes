@@ -453,3 +453,5 @@ export interface Code {
 }
 
 export type Theme = 'light' | 'dark';
+
+export type Await<T> = T extends PromiseLike<infer U> ? U : T;

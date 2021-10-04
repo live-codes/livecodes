@@ -28,11 +28,11 @@ import {
   Screen,
   ShareData,
   Template,
-  ToolList,
   User,
   ContentConfig,
   Theme,
   UserConfig,
+  Await,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -57,7 +57,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { createToolsPane, createConsole, createCompiledCodeViewer } from './toolspane';
+import { createToolsPane } from './toolspane';
 import { importCode } from './import';
 import {
   compress,
@@ -79,28 +79,29 @@ import { configureEmbed } from './embed';
 import { autoCompleteUrl } from './vendors';
 
 export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise<API> => {
-  setConfig(appConfig);
-
-  const storage = createStorage();
-  const templates = createStorage('__livecodes_templates__');
-  const userConfigStore = createStorage('__livecodes_user_config__');
-  const projectRestore = createStorage('__livecodes_project_restore__');
-  const formatter = getFormatter(getConfig(), baseUrl);
+  const projectStorage = createStorage();
+  const templateStorage = createStorage('__livecodes_templates__');
+  const userConfigStorage = createStorage('__livecodes_user_config__');
+  const restoreStorage = createStorage('__livecodes_project_restore__');
+  const typeLoader = createTypeLoader();
   const notifications = createNotifications();
   const modal = createModal();
   const eventsManager = createEventsManager();
-  let authService: ReturnType<typeof createAuthService> | undefined;
   const split = UI.createSplitPanes();
-  let penId: string;
+  const screens: Screen[] = [];
+
+  let authService: ReturnType<typeof createAuthService> | undefined;
+  let compiler: Await<ReturnType<typeof getCompiler>>;
+  let formatter: ReturnType<typeof getFormatter>;
   let editors: Editors;
   let editorLanguages: EditorLanguages | undefined;
   let resultLanguages: Language[] = [];
+  let penId: string;
   let isSaved = true;
   let changingContent = false;
   let toolsPane: any;
   let consoleInputCodeCompletion: any;
   let starterTemplates: Template[];
-  const screens: Screen[] = [];
 
   const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
   const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -181,9 +182,6 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       resultLanguages = getEditorLanguages();
     });
 
-  const compiler = await getCompiler(getConfig(), baseUrl);
-
-  const typeLoader = createTypeLoader();
   const loadModuleTypes = async (editors: Editors, config: Config) => {
     const scriptLanguage = config.script.language;
     if (
@@ -602,9 +600,9 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
 
     if (!penId) {
-      penId = storage.addItem(getConfig());
+      penId = projectStorage.addItem(getConfig());
     } else {
-      storage.updateItem(penId, getConfig());
+      projectStorage.updateItem(penId, getConfig());
     }
     setSavedStatus();
 
@@ -687,12 +685,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
       ...getConfig(),
       ...userConfig,
     });
-    userConfigStore.clear();
-    userConfigStore.addItem(userConfig as Config);
+    userConfigStorage.clear();
+    userConfigStorage.addItem(userConfig as Config);
   };
 
   const loadUserConfig = () => {
-    const userConfig = userConfigStore.getAllData()?.pop()?.pen;
+    const userConfig = userConfigStorage.getAllData()?.pop()?.pen;
     if (!userConfig) {
       setUserConfig(getUserConfig(getConfig()));
       return;
@@ -705,7 +703,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const setSavedStatus = () => {
     updateConfig();
-    const savedConfig = storage.getItem(penId)?.pen;
+    const savedConfig = projectStorage.getItem(penId)?.pen;
     isSaved =
       changingContent ||
       !!(
@@ -757,16 +755,16 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
   };
 
   const setProjectRestore = (reset = false) => {
-    projectRestore.clear();
+    restoreStorage.clear();
     if (reset || !getConfig().enableRestore) return;
-    projectRestore.addItem(getContentConfig(getConfig()));
+    restoreStorage.addItem(getContentConfig(getConfig()));
   };
 
   const checkRestoreStatus = () => {
     if (!getConfig().enableRestore) {
       return Promise.resolve('restore disabled');
     }
-    const unsavedItem = projectRestore.getAllData().pop();
+    const unsavedItem = restoreStorage.getAllData().pop();
     const unsavedProject = unsavedItem?.pen;
     if (!unsavedItem || !unsavedProject) {
       return Promise.resolve('no unsaved project');
@@ -795,7 +793,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         resolve('restore');
       });
       eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', () => {
-        storage.addItem(unsavedProject);
+        projectStorage.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
         setRestoreConfig(!disableRestoreCheckbox.checked);
         modal.close();
@@ -826,8 +824,8 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     return starterTemplates;
   };
 
-  /** Lazy load authentication */
   const initializeAuth = async () => {
+    /** Lazy load authentication */
     authService = createAuthService();
     const user = await authService.getUser();
     if (user) {
@@ -919,6 +917,81 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     root?.classList.remove(...themes);
     root?.classList.add(theme);
     getAllEditors().forEach((editor) => editor?.setTheme(theme));
+  };
+
+  const loadSettings = (config: Config) => {
+    const autoupdateToggle = UI.getAutoupdateToggle();
+    autoupdateToggle.checked = config.autoupdate;
+
+    const autosaveToggle = UI.getAutosaveToggle();
+    autosaveToggle.checked = config.autosave;
+
+    const formatOnsaveToggle = UI.getFormatOnsaveToggle();
+    formatOnsaveToggle.checked = config.formatOnsave;
+
+    const processorToggles = UI.getProcessorToggles();
+    processorToggles.forEach((toggle) => {
+      const plugin = toggle.dataset.plugin as PluginName;
+      if (!plugin) return;
+      toggle.checked = config.processors.postcss[plugin];
+    });
+
+    const emmetToggle = UI.getEmmetToggle();
+    emmetToggle.checked = config.emmet;
+
+    const themeToggle = UI.getThemeToggle();
+    themeToggle.checked = config.theme === 'dark';
+
+    const restoreToggle = UI.getRestoreToggle();
+    restoreToggle.checked = config.enableRestore;
+
+    UI.getCSSPresetLinks().forEach((link) => {
+      link.classList.remove('active');
+      if (config.cssPreset === link.dataset.preset) {
+        link.classList.add('active');
+      }
+      if (!config.cssPreset && link.dataset.preset === 'none') {
+        link.classList.add('active');
+      }
+    });
+  };
+
+  const showLanguageInfo = (languageInfo: HTMLElement) => {
+    modal.show(languageInfo, { size: 'small' });
+  };
+
+  const loadStarterTemplate = async (templateName: string) => {
+    const templates = await getTemplates();
+    const template = templates.filter((template) => template.name === templateName)?.[0];
+    if (template) {
+      checkSavedAndExecute(() => {
+        loadConfig(
+          {
+            ...defaultConfig,
+            ...template,
+          },
+          '?template=' + templateName,
+        );
+      })().finally(() => {
+        modal.close();
+      });
+    } else {
+      notifications.error('Failed loading template');
+    }
+  };
+
+  const showVersion = () => {
+    if (getConfig().showVersion) {
+      // variables added in scripts/build.js
+      const version = process.env.VERSION || '';
+      const commitSHA = process.env.GIT_COMMIT || '';
+      const repoUrl = process.env.REPO_URL || '';
+
+      // eslint-disable-next-line no-console
+      console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
+      // eslint-disable-next-line no-console
+      console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+    }
   };
 
   const attachEventListeners = () => {
@@ -1269,7 +1342,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           });
 
         const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
-        const userTemplates = templates.getList();
+        const userTemplates = templateStorage.getList();
 
         if (userTemplates.length > 0) {
           userTemplatesScreen.innerHTML = '';
@@ -1299,7 +1372,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
             async (event) => {
               event.preventDefault();
               const itemId = (link as HTMLElement).dataset.id || '';
-              const template = templates.getItem(itemId)?.pen;
+              const template = templateStorage.getItem(itemId)?.pen;
               if (template) {
                 await loadConfig({
                   ...template,
@@ -1319,11 +1392,11 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
             deleteButton,
             'click',
             () => {
-              templates.deleteItem(item.id);
+              templateStorage.deleteItem(item.id);
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
-                if (templates.getList().length === 0 && noDataMessage) {
+                if (templateStorage.getList().length === 0 && noDataMessage) {
                   list.remove();
                   userTemplatesScreen.appendChild(noDataMessage);
                 }
@@ -1361,7 +1434,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     const handleSaveAsTemplate = () => {
       eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', (event) => {
         (event as Event).preventDefault();
-        templates.addItem(getConfig());
+        templateStorage.addItem(getConfig());
         notifications.success('Saved as a new template');
       });
     };
@@ -1392,7 +1465,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           exportAllButton,
           'click',
           () => {
-            const data = storage.getAllData().map((item) => ({
+            const data = projectStorage.getAllData().map((item) => ({
               ...item,
               pen: getContentConfig(item.pen),
             }));
@@ -1409,7 +1482,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           'click',
           () => {
             notifications.confirm('Delete all saved projects?', () => {
-              storage.clear();
+              projectStorage.clear();
               penId = '';
               if (list) list.remove();
               if (noDataMessage) listContainer.appendChild(noDataMessage);
@@ -1421,7 +1494,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         );
 
         listContainer.appendChild(list);
-        const userPens = storage.getList();
+        const userPens = projectStorage.getList();
 
         userPens.forEach((item) => {
           const { link, deleteButton } = UI.createOpenItem(item, list);
@@ -1436,7 +1509,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
               modal.show(loading, { size: 'small' });
 
               const itemId = (link as HTMLElement).dataset.id || '';
-              const savedPen = storage.getItem(itemId)?.pen;
+              const savedPen = projectStorage.getItem(itemId)?.pen;
               if (savedPen) {
                 await loadConfig(savedPen);
                 penId = itemId;
@@ -1454,12 +1527,12 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
               if (item.id === penId) {
                 penId = '';
               }
-              storage.deleteItem(item.id);
+              projectStorage.deleteItem(item.id);
               const li = deleteButton.parentElement as HTMLElement;
               li.classList.add('hidden');
               setTimeout(() => {
                 li.style.display = 'none';
-                if (storage.getList().length === 0 && noDataMessage) {
+                if (projectStorage.getList().length === 0 && noDataMessage) {
                   list.remove();
                   listContainer.appendChild(noDataMessage);
                   deleteAllButton.classList.add('hidden');
@@ -1602,7 +1675,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
         const insertItems = (items: Item[]) => {
           if (Array.isArray(items) && items.every((item) => item.pen)) {
-            storage.bulkInsert(items);
+            projectStorage.bulkInsert(items);
             notifications.success('Import Successful!');
             showScreen('open');
             return;
@@ -1907,7 +1980,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         save(!penId, true);
       };
       const createProjectInfoUI = () =>
-        UI.createProjectInfoUI(getConfig(), storage, modal, eventsManager, onSave);
+        UI.createProjectInfoUI(getConfig(), projectStorage, modal, eventsManager, onSave);
 
       eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
       registerScreen('info', createProjectInfoUI);
@@ -2077,68 +2150,10 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     handleUnload();
   };
 
-  const loadSettings = (config: Config) => {
-    const autoupdateToggle = UI.getAutoupdateToggle();
-    autoupdateToggle.checked = config.autoupdate;
-
-    const autosaveToggle = UI.getAutosaveToggle();
-    autosaveToggle.checked = config.autosave;
-
-    const formatOnsaveToggle = UI.getFormatOnsaveToggle();
-    formatOnsaveToggle.checked = config.formatOnsave;
-
-    const processorToggles = UI.getProcessorToggles();
-    processorToggles.forEach((toggle) => {
-      const plugin = toggle.dataset.plugin as PluginName;
-      if (!plugin) return;
-      toggle.checked = config.processors.postcss[plugin];
-    });
-
-    const emmetToggle = UI.getEmmetToggle();
-    emmetToggle.checked = config.emmet;
-
-    const themeToggle = UI.getThemeToggle();
-    themeToggle.checked = config.theme === 'dark';
-
-    const restoreToggle = UI.getRestoreToggle();
-    restoreToggle.checked = config.enableRestore;
-
-    UI.getCSSPresetLinks().forEach((link) => {
-      link.classList.remove('active');
-      if (config.cssPreset === link.dataset.preset) {
-        link.classList.add('active');
-      }
-      if (!config.cssPreset && link.dataset.preset === 'none') {
-        link.classList.add('active');
-      }
-    });
-  };
-
-  const showLanguageInfo = (languageInfo: HTMLElement) => {
-    modal.show(languageInfo, { size: 'small' });
-  };
-
-  const loadStarterTemplate = async (templateName: string) => {
-    const templates = await getTemplates();
-    const template = templates.filter((template) => template.name === templateName)?.[0];
-    if (template) {
-      checkSavedAndExecute(() => {
-        loadConfig(
-          {
-            ...defaultConfig,
-            ...template,
-          },
-          '?template=' + templateName,
-        );
-      })().finally(() => {
-        modal.close();
-      });
-    } else {
-      notifications.error('Failed loading template');
-    }
-  };
-
   async function bootstrap(reload = false) {
+    compiler = await getCompiler(getConfig(), baseUrl);
+    formatter = getFormatter(getConfig(), baseUrl);
+
     configureEmbed(eventsManager, share);
     await createIframe(UI.getResultElement());
 
@@ -2152,18 +2167,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         loadStarterTemplate,
       );
       editors = await createEditors(getConfig());
-
-      const toolList: ToolList = [
-        {
-          name: 'console',
-          factory: createConsole,
-        },
-        {
-          name: 'compiled',
-          factory: createCompiledCodeViewer,
-        },
-      ];
-      toolsPane = createToolsPane(toolList, getConfig(), baseUrl, editors, eventsManager);
+      toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
       attachEventListeners();
       setTheme(getConfig().theme);
     } else {
@@ -2187,10 +2191,13 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     initializeAuth();
     if (!reload) {
       loadSelectedScreen();
+      showVersion();
+      checkRestoreStatus();
     }
   }
+
+  setConfig(await buildConfig(appConfig, baseUrl));
   await bootstrap();
-  checkRestoreStatus();
 
   return {
     run: async () => {

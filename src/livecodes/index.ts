@@ -1,4 +1,3 @@
-import { buildConfig } from './config';
 import { appHTML } from './html';
 import { API, Config } from './models';
 
@@ -10,19 +9,6 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
     const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/';
-    const mergedConfig = await buildConfig(config, baseUrl);
-
-    if (mergedConfig.showVersion) {
-      // variables added in scripts/build.js
-      const version = process.env.VERSION || '';
-      const commitSHA = process.env.GIT_COMMIT || '';
-      const repoUrl = process.env.REPO_URL || '';
-
-      // eslint-disable-next-line no-console
-      console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
-      // eslint-disable-next-line no-console
-      console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
-    }
 
     const style = document.createElement('style');
     style.innerHTML = `
@@ -44,7 +30,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
             border-radius: 5px;
         }
     `;
-    document.body.appendChild(style);
+    document.head.appendChild(style);
 
     const iframe = document.createElement('iframe');
     iframe.name = 'app';
@@ -58,7 +44,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     iframe.addEventListener('load', async () => {
       const app = (iframe.contentWindow as any)?.app;
       if (typeof app === 'function') {
-        const api: API = await app(mergedConfig, baseUrl);
+        const api: API = await app(config, baseUrl);
         iframe.style.display = 'block';
 
         // eslint-disable-next-line no-underscore-dangle
