@@ -1,4 +1,4 @@
-import { Config } from '../models';
+import { Config, User } from '../models';
 import { importCompressedCode, isCompressedCode } from './code';
 import { importFromGithub, isGithubUrl } from './github';
 import { importFromGithubDir, isGithubDir } from './github-dir';
@@ -14,6 +14,7 @@ export const importCode = async (
   url: string,
   params: { [key: string]: any },
   config: Config,
+  user: User | null | void,
 ): Promise<Partial<Config>> => {
   if (isCompressedCode(url)) {
     return importCompressedCode(url);
@@ -25,10 +26,10 @@ export const importCode = async (
     return importFromGithubGist(url, params);
   }
   if (isGithubDir(url)) {
-    return importFromGithubDir(url, params);
+    return importFromGithubDir(url, params, user);
   }
   if (isGithubUrl(url)) {
-    return importFromGithub(url);
+    return importFromGithub(url, user);
   }
   if (isGitlabSnippet(url)) {
     return importFromGitlabSnippet(url, params);

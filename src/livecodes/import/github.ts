@@ -1,6 +1,6 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language, Config } from '../models';
-import { pipe } from '../utils';
+import { Language, Config, User } from '../models';
+import { getGithubHeaders } from './github-headers';
 import { hostPatterns } from './utils';
 
 export const isGithubUrl = (url: string, pattern = new RegExp(hostPatterns.github)) => {
@@ -29,9 +29,9 @@ const getfileData = (urlObj: URL): FileData => {
   const startLine = urlObj.hash !== '' ? Number(lineSplit[0].replace('#L', '')) : -1;
   const endLine =
     urlObj.hash !== '' && lineSplit.length > 1 ? Number(lineSplit[1].replace('L', '')) : startLine;
-  const rawURL = `https://raw.githubusercontent.com/${user}/${repository}/${branch}/${file}`;
+  const apiUrl = `https://api.github.com/repos/${user}/${repository}/contents/${file}?ref=${branch}`;
   return {
-    rawURL,
+    apiUrl,
     extension,
     startLine,
     endLine,
@@ -39,16 +39,23 @@ const getfileData = (urlObj: URL): FileData => {
 };
 
 interface FileData {
-  rawURL: string;
+  apiUrl: string;
   extension: Language;
   startLine: number;
   endLine: number;
 }
 
-const getContent = async (fileData: FileData): Promise<Partial<Config>> => {
-  const { rawURL, extension, startLine, endLine } = fileData;
+const getContent = async (
+  fileData: FileData,
+  loggedInUser: User | null | void,
+): Promise<Partial<Config>> => {
+  const { apiUrl, extension, startLine, endLine } = fileData;
   try {
-    const fileContent = await fetch(rawURL).then((res) => res.text());
+    const fileContent = await fetch(apiUrl, {
+      ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+    })
+      .then((res) => res.json())
+      .then((data) => atob(data.content));
     const content =
       startLine > 0
         ? fileContent
@@ -67,11 +74,16 @@ const getContent = async (fileData: FileData): Promise<Partial<Config>> => {
     };
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Cannot fetch: ' + rawURL);
+    console.error('Cannot fetch: ' + apiUrl);
     return {};
   }
 };
 
-export const importFromGithub = pipe(getValidUrl, getfileData, getContent) as (
+export const importFromGithub = (
   url: string,
-) => Promise<Partial<Config>>;
+  loggedInUser: User | null | void,
+): Promise<Partial<Config>> => {
+  const validUrl = getValidUrl(url);
+  const fileData = getfileData(validUrl);
+  return getContent(fileData, loggedInUser);
+};

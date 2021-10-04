@@ -1,5 +1,6 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language } from '../models';
+import { Language, User } from '../models';
+import { getGithubHeaders } from './github-headers';
 import { hostPatterns, populateConfig } from './utils';
 
 export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.github)) => {
@@ -15,7 +16,11 @@ export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.githu
 const getValidUrl = (url: string) =>
   url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
 
-export const importFromGithubDir = async (url: string, params: { [key: string]: string }) => {
+export const importFromGithubDir = async (
+  url: string,
+  params: { [key: string]: string },
+  loggedInUser: User | null | void,
+) => {
   try {
     const urlObj = url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
 
@@ -27,7 +32,9 @@ export const importFromGithubDir = async (url: string, params: { [key: string]: 
     let branch: string;
     let dir = '';
     if (rootDir) {
-      branch = await fetch(`https://api.github.com/repos/${user}/${repository}`)
+      branch = await fetch(`https://api.github.com/repos/${user}/${repository}`, {
+        ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+      })
         .then((res) => res.json())
         .then((data) => data.default_branch);
     } else {
@@ -36,7 +43,9 @@ export const importFromGithubDir = async (url: string, params: { [key: string]: 
     }
     const apiURL = `https://api.github.com/repos/${user}/${repository}/git/trees/${branch}?recursive=true`;
 
-    const tree = await fetch(apiURL)
+    const tree = await fetch(apiURL, {
+      ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+    })
       .then((res) => res.json())
       .then((data) => data.tree);
 
@@ -55,7 +64,9 @@ export const importFromGithubDir = async (url: string, params: { [key: string]: 
         const language = getLanguageByAlias(extension);
         const editorId = getLanguageEditorId(language as Language);
         const content = atob(
-          await fetch(file.url)
+          await fetch(file.url, {
+            ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
+          })
             .then((res) => res.json())
             .then((data) => data.content),
         );

@@ -1,13 +1,13 @@
 import { defaultConfig } from '../config';
 import { getDescriptionFile, getFilesFromConfig } from '../export';
+import { getGithubHeaders } from '../import';
 import { ContentConfig, User } from '../models';
 import { safeName } from '../utils';
-import { getHeaders } from './get-headers';
 
 const createRepo = async (user: User, repo: string, config: ContentConfig) => {
   const res = await fetch('https://api.github.com/user/repos', {
     method: 'POST',
-    headers: getHeaders(user),
+    headers: getGithubHeaders(user),
     body: JSON.stringify({
       name: repo,
       private: false,
@@ -40,7 +40,7 @@ const createFile = async (
   if (!initialize) {
     const response = await fetch(url, {
       method: 'GET',
-      headers: getHeaders(user),
+      headers: getGithubHeaders(user),
     });
     if (response.ok) {
       const files = await response.json();
@@ -50,7 +50,7 @@ const createFile = async (
 
   const res = await fetch(url + file.path, {
     method: 'PUT',
-    headers: getHeaders(user),
+    headers: getGithubHeaders(user),
     body: JSON.stringify({
       message: message || 'deploy',
       content: btoa(file.content),
@@ -80,7 +80,7 @@ const getLastCommit = async (user: User, repo: string, branch: string) => {
     `https://api.github.com/repos/${user.username}/${repo}/git/matching-refs/heads/${branch}?per_page=100`,
     {
       method: 'GET',
-      headers: getHeaders(user),
+      headers: getGithubHeaders(user),
     },
   );
   const refs = await res.json();
@@ -114,7 +114,7 @@ const createTree = async (
 
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/trees`, {
     method: 'POST',
-    headers: getHeaders(user),
+    headers: getGithubHeaders(user),
     body: JSON.stringify({ tree }),
   });
   if (!res.ok) {
@@ -132,7 +132,7 @@ const createCommit = async (
 ): Promise<string> => {
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/commits`, {
     method: 'POST',
-    headers: getHeaders(user),
+    headers: getGithubHeaders(user),
     body: JSON.stringify({
       tree,
       message: message || 'deploy',
@@ -148,7 +148,7 @@ const createCommit = async (
 const createBranch = async (user: User, repo: string, branch: string, commit: string) => {
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/refs`, {
     method: 'POST',
-    headers: getHeaders(user),
+    headers: getGithubHeaders(user),
     body: JSON.stringify({
       ref: `refs/heads/${branch}`,
       sha: commit,
@@ -165,7 +165,7 @@ const updateBranch = async (user: User, repo: string, branch: string, commit: st
     `https://api.github.com/repos/${user.username}/${repo}/git/refs/heads/${branch}`,
     {
       method: 'PATCH',
-      headers: getHeaders(user),
+      headers: getGithubHeaders(user),
       body: JSON.stringify({
         sha: commit,
       }),
