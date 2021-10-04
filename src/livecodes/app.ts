@@ -58,7 +58,7 @@ import {
   upgradeAndValidate,
 } from './config';
 import { createToolsPane } from './toolspane';
-import { importCode } from './import';
+import { importCode, isGithub } from './import';
 import {
   compress,
   copyToClipboard,
@@ -826,6 +826,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
   const initializeAuth = async () => {
     /** Lazy load authentication */
+    if (authService) return;
     authService = createAuthService();
     const user = await authService.getUser();
     if (user) {
@@ -1576,7 +1577,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           importButton.disabled = true;
           const importInput = UI.getUrlImportInput(importContainer);
           const url = importInput.value;
-          const imported = await importCode(url, {}, defaultConfig);
+          const imported = await importCode(url, {}, defaultConfig, await authService?.getUser());
           if (imported && Object.keys(imported).length > 0) {
             await loadConfig(
               {
@@ -2196,7 +2197,14 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   }
 
-  setConfig(await buildConfig(appConfig, baseUrl));
+  const getUserIfGithubUrl = async () => {
+    const url = parent.location.hash.substring(1);
+    if (!url || !isGithub(url)) return;
+    await initializeAuth();
+    return authService?.getUser();
+  };
+
+  setConfig(await buildConfig(appConfig, baseUrl, await getUserIfGithubUrl()));
   await bootstrap();
 
   return {

@@ -1,5 +1,5 @@
 import { User } from '../models';
-import { getHeaders } from './get-headers';
+import { getGithubHeaders } from '../import';
 
 export const getUserPublicRepos = async (user: User) => {
   let page = 1;
@@ -12,7 +12,7 @@ export const getUserPublicRepos = async (user: User) => {
       `https://api.github.com/user/repos?type=public&per_page=${pageSize}&page=${page}`,
       {
         method: 'GET',
-        headers: getHeaders(user),
+        headers: getGithubHeaders(user),
       },
     );
     page += 1;

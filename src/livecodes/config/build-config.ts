@@ -1,12 +1,16 @@
 import { importCode } from '../import';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Config } from '../models';
+import { EditorId, Language, Config, User } from '../models';
 import { getTemplate } from '../templates';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) => {
+export const buildConfig = async (
+  appConfig: Partial<Config>,
+  baseUrl: string,
+  user: User | null | void,
+) => {
   if (!appConfig) return { ...defaultConfig };
   if (!baseUrl) {
     baseUrl = '/livecodes/';
@@ -16,7 +20,7 @@ export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) =
 
   // get query string params
   const params = Object.fromEntries(
-    (new URLSearchParams(location.search) as unknown) as Iterable<any>,
+    (new URLSearchParams(parent.location.search) as unknown) as Iterable<any>,
   );
 
   Object.keys(params).forEach((key) => {
@@ -48,7 +52,9 @@ export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) =
     ...paramsConfig,
   };
 
-  const externalContent = upgradeAndValidate(await loadExternalContent(config, baseUrl, params));
+  const externalContent = upgradeAndValidate(
+    await loadExternalContent(config, baseUrl, params, user),
+  );
 
   const activeEditor =
     paramsConfig.activeEditor || externalContent.activeEditor || config.activeEditor || 'markup';
@@ -66,6 +72,7 @@ const loadExternalContent = async (
   config: Config,
   baseUrl: string,
   params: { [key: string]: string },
+  user: User | null | void,
 ) => {
   // load a starter template
   const templateName = params.template;
@@ -77,9 +84,9 @@ const loadExternalContent = async (
   }
 
   // import code from hash: code / github / github gist / url html / ...etc
-  const url = window.location.hash.substring(1);
+  const url = parent.location.hash.substring(1);
   if (url) {
-    return importCode(url, params, config);
+    return importCode(url, params, config, user);
   }
 
   // load content from config contentUrl
