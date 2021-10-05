@@ -1,6 +1,6 @@
 import { vendorsBaseUrl } from '../vendors';
 
-const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.4.0/';
+const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/';
 
 export const prettierUrl = prettierBaseUrl + 'standalone.min.js';
 export const parserPlugins = {

@@ -2,8 +2,8 @@ import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
-const url = 'https://mozilla.github.io/nunjucks/files/nunjucks.min.js';
-const runtimeUrl = 'https://mozilla.github.io/nunjucks/files/nunjucks-slim.min.js';
+const url = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.3/browser/nunjucks.min.js';
+const runtimeUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.3/browser/nunjucks-slim.min.js';
 
 export const nunjucks: LanguageSpecs = {
   name: 'nunjucks',

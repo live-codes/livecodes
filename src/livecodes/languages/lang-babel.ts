@@ -18,7 +18,7 @@ export const babel: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url: 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.15.6/babel.min.js',
+    url: 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.15.7/babel.min.js',
     factory: () => async (code, { config }) =>
       (window as any).Babel.transform(code, {
         filename: 'script.tsx',

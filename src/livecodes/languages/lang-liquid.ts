@@ -2,7 +2,7 @@ import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
-const url = 'https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js';
+const url = 'https://cdn.jsdelivr.net/npm/liquidjs@9.27.1/dist/liquid.browser.min.js';
 
 export const liquid: LanguageSpecs = {
   name: 'liquid',
