@@ -25,7 +25,8 @@ export const pyodide: LanguageSpecs = {
     scripts: [],
     liveReload: true,
     inlineScript: `
-if (globalThis.__pyodideLoading === undefined) {
+window.livecodes = window.livecodes || {};
+if (window.livecodes.pyodideLoading === undefined) {
   const script = document.createElement('script');
   script.src = '${cdnBaselUrl}pyodide.js';
   document.head.append(script);
@@ -36,17 +37,18 @@ window.addEventListener("load", async () => {
   const scripts = document.querySelectorAll('script[type="text/python"]');
   scripts.forEach(script => code += script.innerHTML + '\\n');
   async function main() {
-    if (globalThis.__pyodideLoading === false) return;
-    await loadPyodide({
+    if (window.livecodes.pyodideLoading === false) return;
+    window.livecodes.pyodide = await loadPyodide({
       indexURL: "${cdnBaselUrl}",
     });
-    globalThis.__pyodideLoading = false;
+    window.livecodes.pyodideLoading = false;
   }
-  let pyodideReady = main();
+  const pyodideReady = main();
   async function evaluatePython(code) {
     await pyodideReady;
     try {
-      await pyodide.runPythonAsync(code);
+      await window.livecodes.pyodide.loadPackagesFromImports(code);
+      await window.livecodes.pyodide.runPythonAsync(code);
     } catch (err) {
       console.log(err);
     }
