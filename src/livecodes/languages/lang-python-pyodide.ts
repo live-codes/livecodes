@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
 
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/pyodide/v0.17.0/full/';
+const cdnBaselUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
 
 export const pyodide: LanguageSpecs = {
   name: 'pyodide',

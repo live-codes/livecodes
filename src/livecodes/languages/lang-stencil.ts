@@ -3,7 +3,7 @@ import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
-const cdnUrl = 'https://cdn.jsdelivr.net/npm/@stencil/core@2.8.0/compiler/stencil.min.js';
+const cdnUrl = 'https://cdn.jsdelivr.net/npm/@stencil/core@2.8.1/compiler/stencil.min.js';
 
 export const stencil: LanguageSpecs = {
   name: 'stencil',

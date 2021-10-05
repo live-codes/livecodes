@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
 import { getLanguageCustomSettings } from './utils';
 
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.6.1/dist/';
+const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/';
 const scriptType = 'application/json';
 
 export const sql: LanguageSpecs = {
