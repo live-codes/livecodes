@@ -1,16 +1,11 @@
-import { importCode } from '../import';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Config, User } from '../models';
+import { EditorId, Language, Config } from '../models';
 import { getTemplate } from '../templates';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = async (
-  appConfig: Partial<Config>,
-  baseUrl: string,
-  user: User | null | void,
-) => {
+export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) => {
   if (!appConfig) return { ...defaultConfig };
   if (!baseUrl) {
     baseUrl = '/livecodes/';
@@ -19,15 +14,7 @@ export const buildConfig = async (
   const userConfig = upgradeAndValidate(appConfig);
 
   // get query string params
-  const params = Object.fromEntries(
-    (new URLSearchParams(parent.location.search) as unknown) as Iterable<any>,
-  );
-
-  Object.keys(params).forEach((key) => {
-    if (params[key] === '') params[key] = true;
-    if (params[key] === 'true') params[key] = true;
-    if (params[key] === 'false') params[key] = false;
-  });
+  const params = getParams();
 
   // load config from file
   const configUrl = params.config || './livecodes.json';
@@ -52,9 +39,7 @@ export const buildConfig = async (
     ...paramsConfig,
   };
 
-  const externalContent = upgradeAndValidate(
-    await loadExternalContent(config, baseUrl, params, user),
-  );
+  const externalContent = upgradeAndValidate(await loadTemplate(config, baseUrl, params));
 
   const activeEditor =
     paramsConfig.activeEditor || externalContent.activeEditor || config.activeEditor || 'markup';
@@ -68,49 +53,21 @@ export const buildConfig = async (
   return config;
 };
 
-const loadExternalContent = async (
-  config: Config,
-  baseUrl: string,
-  params: { [key: string]: string },
-  user: User | null | void,
-) => {
+export const getParams = (queryParams = parent.location.search) => {
+  const params = Object.fromEntries((new URLSearchParams(queryParams) as unknown) as Iterable<any>);
+
+  Object.keys(params).forEach((key) => {
+    if (params[key] === '') params[key] = true;
+    if (params[key] === 'true') params[key] = true;
+    if (params[key] === 'false') params[key] = false;
+  });
+  return params;
+};
+
+const loadTemplate = async (config: Config, baseUrl: string, params: { [key: string]: string }) => {
   // load a starter template
   const templateName = params.template;
-  const templateConfig = templateName
-    ? await getTemplate(templateName, config, baseUrl)
-    : undefined;
-  if (templateConfig) {
-    return templateConfig;
-  }
-
-  // import code from hash: code / github / github gist / url html / ...etc
-  const url = parent.location.hash.substring(1);
-  if (url) {
-    return importCode(url, params, config, user);
-  }
-
-  // load content from config contentUrl
-  const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const editors = await Promise.all(
-    editorIds.map((editorId) => {
-      const contentUrl = config[editorId].contentUrl;
-      if (contentUrl && !config[editorId].content) {
-        return fetch(contentUrl)
-          .then((res) => res.text())
-          .then((content) => ({
-            ...config[editorId],
-            content,
-          }));
-      } else {
-        return Promise.resolve(config[editorId]);
-      }
-    }),
-  );
-  return {
-    markup: editors[0],
-    style: editors[1],
-    script: editors[2],
-  };
+  return templateName ? getTemplate(templateName, config, baseUrl) : {};
 };
 
 const loadParamConfig = (config: Config, params: { [key: string]: string }) => {

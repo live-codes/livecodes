@@ -53,6 +53,7 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
+  getParams,
   getUserConfig,
   setConfig,
   upgradeAndValidate,
@@ -2197,15 +2198,68 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
     }
   }
 
-  const getUserIfGithubUrl = async () => {
+  const importExternalContent = async () => {
+    const config = getConfig();
     const url = parent.location.hash.substring(1);
-    if (!url || !isGithub(url)) return;
-    await initializeAuth();
-    return authService?.getUser();
+    const editorIds: EditorId[] = ['markup', 'style', 'script'];
+    const hasContentUrls =
+      editorIds.filter((editorId) => config[editorId].contentUrl && !config[editorId].content)
+        .length > 0;
+
+    if (!url && !hasContentUrls) return;
+
+    const loadingMessage = document.createElement('div');
+    loadingMessage.classList.add('modal-message');
+    loadingMessage.innerHTML = 'Importing Project...';
+    modal.show(loadingMessage, { size: 'small' });
+
+    let importedConfig: Partial<Config>;
+    if (url) {
+      // import code from hash: code / github / github gist / url html / ...etc
+      let user;
+      if (isGithub(url)) {
+        await initializeAuth();
+        user = await authService?.getUser();
+      }
+      importedConfig = await importCode(url, getParams(), getConfig(), user);
+    } else {
+      // load content from config contentUrl
+      const editorsContent = await Promise.all(
+        editorIds.map((editorId) => {
+          const contentUrl = config[editorId].contentUrl;
+          if (contentUrl && !config[editorId].content) {
+            return fetch(contentUrl)
+              .then((res) => res.text())
+              .then((content) => ({
+                ...config[editorId],
+                content,
+              }));
+          } else {
+            return Promise.resolve(config[editorId]);
+          }
+        }),
+      );
+      importedConfig = {
+        markup: editorsContent[0],
+        style: editorsContent[1],
+        script: editorsContent[2],
+      };
+    }
+
+    await loadConfig(
+      {
+        ...config,
+        ...importedConfig,
+      },
+      parent.location.href,
+    );
+
+    modal.close();
   };
 
-  setConfig(await buildConfig(appConfig, baseUrl, await getUserIfGithubUrl()));
+  setConfig(await buildConfig(appConfig, baseUrl));
   await bootstrap();
+  importExternalContent();
 
   return {
     run: async () => {
