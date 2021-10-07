@@ -2210,7 +2210,7 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
 
     const loadingMessage = document.createElement('div');
     loadingMessage.classList.add('modal-message');
-    loadingMessage.innerHTML = 'Importing Project...';
+    loadingMessage.innerHTML = 'Loading Project...';
     modal.show(loadingMessage, { size: 'small' });
 
     let importedConfig: Partial<Config>;
