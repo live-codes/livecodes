@@ -1046,18 +1046,18 @@ i.arrow {
       }
 
       select {
-        color: dimgray;
-        margin: 0.5em 1em;
-        width: 10em;
-        padding: 5px 35px 5px 5px;
-        font-size: 0.8em;
+        appearance: none;
+        appearance: none;
+        appearance: none;
+        background: url('../assets/images/down_arrow.svg') 95% / 8% no-repeat #fff;
         border: 1px solid #a9a9a9;
         border-radius: 3px;
+        color: dimgray;
+        font-size: 0.8em;
         height: 2.3em;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background: url(../assets/images/down_arrow.svg) 95% / 8% no-repeat #fff;
+        margin: 0.5em 1em;
+        padding: 5px 35px 5px 5px;
+        width: 10em;
       }
 
       .tagify {
@@ -1115,33 +1115,34 @@ i.arrow {
           font-weight: 600;
           margin-left: 5px;
         }
-
-        .project-tags {
-          .language-tag,
-          .user-tag {
-            padding: 0.2em;
-            border-radius: 4px;
-            border: 1px solid rgb(190, 190, 190);
-            background-color: rgb(237, 237, 237);
-            color: rgb(105, 105, 105);
-            font-size: 0.7em;
-            font-weight: normal;
-            margin: 0.5em;
-            display: inline-block;
-            min-width: 3em;
-            text-align: center;
-
-            &:hover {
-              cursor: pointer;
-              text-decoration: underline;
-            }
-          }
-          .user-tag {
-            background-color: #3f848d;
-            color: rgb(245, 245, 245);
-          }
-        }
       }
+    }
+  }
+
+  .project-tags {
+    .language-tag,
+    .user-tag {
+      background-color: rgb(237, 237, 237);
+      border: 1px solid rgb(190, 190, 190);
+      border-radius: 4px;
+      color: rgb(105, 105, 105);
+      display: inline-block;
+      font-size: 0.7em;
+      font-weight: normal;
+      margin: 0.5em;
+      min-width: 3em;
+      padding: 0.2em;
+      text-align: center;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+
+    .user-tag {
+      background-color: #3f848d;
+      color: rgb(245, 245, 245);
     }
   }
 
@@ -1222,9 +1223,9 @@ i.arrow {
     border-radius: 3px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     display: inline-flex;
-    min-height: 4em;
     list-style: none;
     margin: 10px auto;
+    min-height: 4em;
     padding: 0;
     text-align: left;
     transform: scaleY(1);
