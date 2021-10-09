@@ -13,6 +13,11 @@ export const getLanguageByAlias = (alias: string = ''): Language | undefined => 
   )?.name;
 };
 
+export const getLanguageTitle = (language: Language) => {
+  const languageSpecs = languages.find((lang) => lang.name === language);
+  return languageSpecs?.longTitle || languageSpecs?.title || language.toUpperCase();
+};
+
 export const getLanguageEditorId = (alias: string = '') =>
   languages.find((lang) => lang.name === getLanguageByAlias(alias))?.editor;
 

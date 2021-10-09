@@ -7,6 +7,15 @@ import * as UI from '../UI';
 import { loadScript, loadStylesheet } from '../utils';
 import { tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
 
+export const getTags = (value: string): string[] => {
+  try {
+    return JSON.parse(value).map((tag: { value: string }) => tag.value);
+  } catch {
+    // tagify is not loaded
+    return value.split(',').map((tag: string) => tag.trim());
+  }
+};
+
 export const createProjectInfoUI = async (
   config: Config,
   storage: ReturnType<typeof createStorage>,
@@ -28,15 +37,6 @@ export const createProjectInfoUI = async (
 
   const tagsInput = UI.getInfoTagsInput();
   tagsInput.value = config.tags.join(', ');
-
-  const getTags = (value: string) => {
-    try {
-      return JSON.parse(value).map((tag: { value: string }) => tag.value);
-    } catch {
-      // tagify is not loaded
-      return value.split(',').map((tag: string) => tag.trim());
-    }
-  };
 
   eventsManager.addEventListener(UI.getSaveInfoButton(), 'click', async () => {
     UI.getProjectTitleElement().textContent = titleInput.value;

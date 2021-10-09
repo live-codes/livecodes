@@ -11,7 +11,7 @@ import {
   getLanguageByAlias,
   mapLanguage,
 } from './languages';
-import { createStorage, Item } from './storage';
+import { createStorage, Item, SavedProject } from './storage';
 import {
   API,
   Cache,
@@ -78,6 +78,7 @@ import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { configureEmbed } from './embed';
 import { autoCompleteUrl } from './vendors';
+import { organizeProjects } from './UI';
 
 export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise<API> => {
   const projectStorage = createStorage();
@@ -1446,9 +1447,13 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
         const div = document.createElement('div');
         div.innerHTML = openScreen;
         const listContainer = div.firstChild as HTMLElement;
-        const noDataMessage = listContainer.querySelector('.no-data');
+        const noDataMessage = listContainer.querySelector('.no-data') as HTMLElement;
+        const noMatchMessage = listContainer.querySelector('#no-match.no-data') as HTMLElement;
+        const projectsContainer = listContainer.querySelector('#projects-container') as HTMLElement;
         const list = document.createElement('ul') as HTMLElement;
         list.classList.add('open-list');
+        let savedProjects = projectStorage.getList();
+        let visibleProjects = savedProjects;
 
         const bulkImportButton = UI.getBulkImportButton(listContainer);
         const exportAllButton = UI.getExportAllButton(listContainer);
@@ -1467,10 +1472,13 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           exportAllButton,
           'click',
           () => {
-            const data = projectStorage.getAllData().map((item) => ({
-              ...item,
-              pen: getContentConfig(item.pen),
-            }));
+            const data = projectStorage
+              .getAllData()
+              .filter((item) => visibleProjects.find((p) => p.id === item.id))
+              .map((item) => ({
+                ...item,
+                pen: getContentConfig(item.pen),
+              }));
             const filename = 'livecodes_export_' + getDate();
             const content =
               'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
@@ -1483,77 +1491,96 @@ export const app = async (appConfig: Readonly<Config>, baseUrl: string): Promise
           deleteAllButton,
           'click',
           () => {
-            notifications.confirm('Delete all saved projects?', () => {
-              projectStorage.clear();
-              penId = '';
-              if (list) list.remove();
-              if (noDataMessage) listContainer.appendChild(noDataMessage);
-              deleteAllButton.classList.add('hidden');
-              exportAllButton.classList.add('hidden');
+            notifications.confirm(`Delete ${visibleProjects.length} projects?`, () => {
+              visibleProjects.forEach((p) => {
+                projectStorage.deleteItem(p.id);
+                if (penId === p.id) {
+                  penId = '';
+                }
+              });
+              visibleProjects = [];
+              savedProjects = projectStorage.getList();
+              showList(visibleProjects);
             });
           },
           false,
         );
 
-        listContainer.appendChild(list);
-        const userPens = projectStorage.getList();
+        projectsContainer.appendChild(list);
 
-        userPens.forEach((item) => {
-          const { link, deleteButton } = UI.createOpenItem(item, list);
+        const showList = (projects: SavedProject[]) => {
+          visibleProjects = projects;
+          list.innerHTML = '';
+          projects.forEach((item) => {
+            const { link, deleteButton } = UI.createOpenItem(item, list);
 
-          eventsManager.addEventListener(
-            link,
-            'click',
-            async (event) => {
-              event.preventDefault();
+            eventsManager.addEventListener(
+              link,
+              'click',
+              async (event) => {
+                event.preventDefault();
 
-              const loading = UI.createItemLoader(item);
-              modal.show(loading, { size: 'small' });
+                const loading = UI.createItemLoader(item);
+                modal.show(loading, { size: 'small' });
 
-              const itemId = (link as HTMLElement).dataset.id || '';
-              const savedPen = projectStorage.getItem(itemId)?.pen;
-              if (savedPen) {
-                await loadConfig(savedPen);
-                penId = itemId;
-              }
-              modal.close();
-              loading.remove();
-            },
-            false,
-          );
-
-          eventsManager.addEventListener(
-            deleteButton,
-            'click',
-            () => {
-              if (item.id === penId) {
-                penId = '';
-              }
-              projectStorage.deleteItem(item.id);
-              const li = deleteButton.parentElement as HTMLElement;
-              li.classList.add('hidden');
-              setTimeout(() => {
-                li.style.display = 'none';
-                if (projectStorage.getList().length === 0 && noDataMessage) {
-                  list.remove();
-                  listContainer.appendChild(noDataMessage);
-                  deleteAllButton.classList.add('hidden');
+                const itemId = (link as HTMLElement).dataset.id || '';
+                const savedPen = projectStorage.getItem(itemId)?.pen;
+                if (savedPen) {
+                  await loadConfig(savedPen);
+                  penId = itemId;
                 }
-              }, 500);
-            },
-            false,
-          );
-        });
+                modal.close();
+                loading.remove();
+              },
+              false,
+            );
 
-        if (userPens.length === 0) {
-          list.remove();
-          deleteAllButton.remove();
-          exportAllButton.remove();
-        } else {
-          noDataMessage?.remove();
-        }
+            eventsManager.addEventListener(
+              deleteButton,
+              'click',
+              () => {
+                notifications.confirm(`Delete project: ${item.title}?`, () => {
+                  if (item.id === penId) {
+                    penId = '';
+                  }
+                  projectStorage.deleteItem(item.id);
+                  visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
+                  const li = deleteButton.parentElement as HTMLElement;
+                  li.classList.add('hidden');
+                  setTimeout(() => {
+                    showList(visibleProjects);
+                  }, 500);
+                });
+              },
+              false,
+            );
+          });
 
+          if (projects.length === 0) {
+            list.classList.add('hidden');
+            deleteAllButton.classList.add('hidden');
+            exportAllButton.classList.add('hidden');
+            if (projectStorage.getList().length === 0) {
+              noDataMessage.classList.remove('hidden');
+              noMatchMessage.classList.add('hidden');
+            } else {
+              noDataMessage.classList.add('hidden');
+              noMatchMessage.classList.remove('hidden');
+            }
+          } else {
+            list.classList.remove('hidden');
+            deleteAllButton.classList.remove('hidden');
+            exportAllButton.classList.remove('hidden');
+            noDataMessage.classList.add('hidden');
+            noMatchMessage.classList.add('hidden');
+          }
+        };
+
+        showList(savedProjects);
+
+        const getProjects = () => projectStorage.getList();
         modal.show(listContainer, { isAsync: true });
+        organizeProjects(getProjects, showList, eventsManager);
       };
 
       eventsManager.addEventListener(

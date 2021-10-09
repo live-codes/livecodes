@@ -5,11 +5,28 @@
     <button id="export-all-button" class="button">Export All</button>
     <button id="delete-all-button" class="button">Delete All</button>
   </div>
-  <div class="modal-message no-data">
-    <div>You have no saved projects.</div>
-    <div class="description">
-      You can save a project from (settings&nbsp;menu&nbsp;>&nbsp;Save) or by the keyboard shortcut
-      (Ctrl/Cmd&nbsp;+&nbsp;S).
+  <div class="modal-message" id="projects-container">
+    <span id="sort-by-label">Sort By:</span>
+    <a href="#" id="sort-by-last-modified" class="active">Last&nbsp;Modified</a>&nbsp;/&nbsp;<a
+      href="#"
+      id="sort-by-title"
+      >Title</a
+    >&nbsp;(<a href="#" id="sorted-asc" style="display: none">▲</a
+    ><a href="#" id="sorted-desc">▼</a>)
+    <select name="language-filter" id="language-filter">
+      <option value="">All languages</option>
+    </select>
+    <input id="filter-tags" type="text" placeholder="Filter by tags" />
+    <input id="search-projects" type="text" placeholder="Search" />
+    <div class="modal-message no-data">
+      <div>You have no saved projects.</div>
+      <div class="description">
+        You can save a project from (settings&nbsp;menu&nbsp;>&nbsp;Save) or by the keyboard
+        shortcut (Ctrl/Cmd&nbsp;+&nbsp;S).
+      </div>
+    </div>
+    <div class="modal-message no-data" id="no-match">
+      <div>No projects match these filters.</div>
     </div>
   </div>
 </div>

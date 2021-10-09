@@ -1032,6 +1032,61 @@ i.arrow {
       color: crimson;
     }
 
+    #projects-container {
+      height: calc(100% - 120px);
+      overflow: auto;
+
+      input,
+      .tagify {
+        display: inline;
+        font-size: 0.8em;
+        height: 1.3em;
+        margin: 0.5em 1em;
+        width: 10em;
+      }
+
+      select {
+        color: dimgray;
+        margin: 0.5em 1em;
+        width: 10em;
+        padding: 5px 35px 5px 5px;
+        font-size: 0.8em;
+        border: 1px solid #a9a9a9;
+        border-radius: 3px;
+        height: 2.3em;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url(../assets/images/down_arrow.svg) 95% / 8% no-repeat #fff;
+      }
+
+      .tagify {
+        top: 1px;
+      }
+
+      .tagify__input {
+        font-size: small;
+      }
+
+      a {
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 3px;
+        padding: 3px;
+        text-decoration: none;
+      }
+
+      a.active {
+        background-color: rgb(237, 237, 237);
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 3px;
+      }
+
+      ::placeholder {
+        color: rgba(0, 0, 0, 0.8);
+        opacity: 0.4;
+      }
+    }
+
     li {
       &.hidden {
         animation: disappear 500ms forwards;
@@ -1053,14 +1108,40 @@ i.arrow {
         .open-title {
           margin: 5px;
         }
-      }
-    }
 
-    a .modified-date {
-      color: rgb(128, 128, 128);
-      font-size: 0.8em;
-      font-weight: 600;
-      margin-left: 5px;
+        .light {
+          color: rgb(128, 128, 128);
+          font-size: 0.8em;
+          font-weight: 600;
+          margin-left: 5px;
+        }
+
+        .project-tags {
+          .language-tag,
+          .user-tag {
+            padding: 0.2em;
+            border-radius: 4px;
+            border: 1px solid rgb(190, 190, 190);
+            background-color: rgb(237, 237, 237);
+            color: rgb(105, 105, 105);
+            font-size: 0.7em;
+            font-weight: normal;
+            margin: 0.5em;
+            display: inline-block;
+            min-width: 3em;
+            text-align: center;
+
+            &:hover {
+              cursor: pointer;
+              text-decoration: underline;
+            }
+          }
+          .user-tag {
+            background-color: #3f848d;
+            color: rgb(245, 245, 245);
+          }
+        }
+      }
     }
   }
 
@@ -1124,12 +1205,14 @@ i.arrow {
   }
 
   ul.open-list {
-    height: calc(100% - 80px);
     margin: 0;
-    overflow: auto;
     padding: 0;
     text-align: center;
     width: 100%;
+
+    &.hidden {
+      visibility: hidden;
+    }
   }
 
   .open-list li {
@@ -1139,13 +1222,10 @@ i.arrow {
     border-radius: 3px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     display: inline-flex;
-    height: 4em;
+    min-height: 4em;
     list-style: none;
     margin: 10px auto;
-    overflow: hidden;
     padding: 0;
-
-    /* height: fit-content; */
     text-align: left;
     transform: scaleY(1);
     transition: transform 0.5s ease-out;
@@ -1377,6 +1457,10 @@ i.arrow {
     padding: 20px;
     text-align: center;
 
+    &.hidden {
+      display: none;
+    }
+
     > div {
       box-sizing: border-box;
       max-width: 100%;
@@ -1451,9 +1535,21 @@ i.arrow {
   }
 }
 
-@media only screen and (max-width: 768px) {
-  #modal #list-container .modified-date span {
+@media only screen and (max-width: 1024px) {
+  #modal #list-container #language-filter,
+  #modal #list-container #sort-by-label {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #modal #list-container .modified-date span,
+  #modal #list-container .tagify {
+    display: none !important;
+  }
+
+  #modal #list-container .buttons {
+    margin: 0;
   }
 }
 
