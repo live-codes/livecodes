@@ -86,6 +86,7 @@ export const organizeProjects = (
   const searchProjectsInput = document.querySelector(
     '#list-container #search-projects',
   ) as HTMLInputElement;
+  const resetFiltersLink = document.querySelector('#list-container #reset-filters') as HTMLElement;
 
   languages
     .map((x) => ({
@@ -311,4 +312,25 @@ export const organizeProjects = (
       false,
     );
   });
+
+  eventsManager.addEventListener(
+    resetFiltersLink,
+    'click',
+    (ev) => {
+      ev.preventDefault();
+      sortBy = 'lastModified';
+      sortByDirection = 'desc';
+      language = '' as Language;
+      tags = [];
+      searchResults = [];
+      lastModifiedButton.classList.add('active');
+      titleButton.classList.remove('active');
+      sortDescending();
+      languageSelect.value = '';
+      tagify?.removeAllTags();
+      searchProjectsInput.value = '';
+      reloadProjects();
+    },
+    false,
+  );
 };
