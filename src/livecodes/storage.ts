@@ -1,9 +1,17 @@
 import LZString from 'lz-string';
-import { ContentConfig } from './models';
+import { ContentConfig, Language } from './models';
 
 export interface Item {
   id: string;
   pen: ContentConfig;
+  lastModified: number;
+}
+export interface SavedProject {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  languages: Language[];
   lastModified: number;
 }
 interface Storage {
@@ -35,7 +43,7 @@ export const createStorage = (name = '__livecodes_data__') => {
     window.localStorage.setItem(name, LZString.compressToUTF16(JSON.stringify(data)));
   };
 
-  const getList = () =>
+  const getList = (): SavedProject[] =>
     getData()
       .items?.map((item) => ({
         id: item.id,
