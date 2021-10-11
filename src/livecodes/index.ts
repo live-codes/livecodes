@@ -2,7 +2,11 @@ import { appHTML } from './html';
 import { API, Config } from './models';
 
 export { API, Config };
-export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
+export const livecodes = async (
+  container: string,
+  config: Partial<Config> = {},
+  isEmbed = false,
+): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
@@ -38,7 +42,11 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
 
     containerElement.appendChild(iframe);
     iframe.contentWindow?.document.open();
-    iframe.contentWindow?.document.write(appHTML.replace(/{{baseUrl}}/g, baseUrl));
+    iframe.contentWindow?.document.write(
+      appHTML
+        .replace(/{{baseUrl}}/g, baseUrl)
+        .replace(/{{script}}/g, isEmbed ? 'embed.js' : 'app.js'),
+    );
     iframe.contentWindow?.document.close();
 
     iframe.addEventListener('load', async () => {

@@ -41,7 +41,7 @@ try {
 
 /** @type {Partial<esbuild.BuildOptions>} */
 var buildOptions = {
-  entryPoints: ['src/livecodes/index.ts', 'src/livecodes/app.ts'],
+  entryPoints: ['src/livecodes/index.ts', 'src/livecodes/app.ts', 'src/livecodes/embed.ts'],
   bundle: true,
   minify: true,
   loader: { '.html': 'text', '.ttf': 'file' },

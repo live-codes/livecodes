@@ -9,6 +9,7 @@ import {
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
+  createLanguageMenus,
 } from './languages';
 import { createStorage, Item, SavedProject } from './storage';
 import {
@@ -30,6 +31,7 @@ import {
   Theme,
   UserConfig,
   Await,
+  Code,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -46,6 +48,7 @@ import { downloadFile, exportConfig } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates } from './templates';
 import {
+  buildConfig,
   defaultConfig,
   getConfig,
   getContentConfig,
@@ -70,29 +73,11 @@ import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
-import { getCache, setCache, updateCache } from './cache';
+import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import { autoCompleteUrl } from './vendors';
+import { configureEmbed } from './embeds';
+import { createToolsPane } from './toolspane';
 
-// app sets/gets these variables
-let baseUrl: string;
-let bootstrap: (reload: boolean) => Promise<void>;
-let compiler: Await<ReturnType<typeof getCompiler>>;
-let formatter: ReturnType<typeof getFormatter>;
-let editors: Editors;
-let toolsPane: any;
-
-export const setVarBaseUrl = (value: typeof baseUrl) => (baseUrl = value);
-export const setVarBootstrap = (value: typeof bootstrap) => (bootstrap = value);
-export const getVarCompiler = () => compiler;
-export const setVarCompiler = (value: typeof compiler) => (compiler = value);
-export const getVarFormatter = () => formatter;
-export const setVarFormatter = (value: typeof formatter) => (formatter = value);
-export const getVarEditors = () => editors;
-export const setVarEditors = (value: typeof editors) => (editors = value);
-export const getVarToolspane = () => toolsPane;
-export const setVarToolspane = (value: typeof toolsPane) => (toolsPane = value);
-
-// local variables
 export const eventsManager = createEventsManager();
 const projectStorage = createStorage();
 const templateStorage = createStorage('__livecodes_templates__');
@@ -104,6 +89,12 @@ const modal = createModal();
 const split = UI.createSplitPanes();
 const screens: Screen[] = [];
 
+let baseUrl: string;
+let isEmbed: boolean;
+let compiler: Await<ReturnType<typeof getCompiler>>;
+let formatter: ReturnType<typeof getFormatter>;
+let editors: Editors;
+let toolsPane: any;
 let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
@@ -765,13 +756,14 @@ export const checkSavedAndExecute = (fn: () => void) => async () => {
 };
 
 export const setProjectRestore = (reset = false) => {
+  if (isEmbed) return;
   restoreStorage.clear();
   if (reset || !getConfig().enableRestore) return;
   restoreStorage.addItem(getContentConfig(getConfig()));
 };
 
 export const checkRestoreStatus = () => {
-  if (!getConfig().enableRestore) {
+  if (!getConfig().enableRestore || isEmbed) {
     return Promise.resolve('restore disabled');
   }
   const unsavedItem = restoreStorage.getAllData().pop();
@@ -1141,20 +1133,6 @@ export const handleHotKeys = () => {
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
 
-    // Cmd + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.keyCode === 83) {
-      e.preventDefault();
-      await fork();
-      return;
-    }
-
-    // Cmd + S saves the project
-    if (ctrl(e) && e.keyCode === 83) {
-      e.preventDefault();
-      await save(true);
-      return;
-    }
-
     // Cmd + p opens the command palette
     const activeEditor = getActiveEditor();
     if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
@@ -1166,6 +1144,22 @@ export const handleHotKeys = () => {
     // Cmd + d prevents browser bookmark dialog
     if (ctrl(e) && e.keyCode === 68) {
       e.preventDefault();
+      return;
+    }
+
+    if (isEmbed) return;
+
+    // Cmd + Shift + S forks the project (save as...)
+    if (ctrl(e) && e.shiftKey && e.keyCode === 83) {
+      e.preventDefault();
+      await fork();
+      return;
+    }
+
+    // Cmd + S saves the project
+    if (ctrl(e) && e.keyCode === 83) {
+      e.preventDefault();
+      await save(true);
       return;
     }
   };
@@ -2151,6 +2145,40 @@ export const handleUnload = () => {
   };
 };
 
+export const attachBasicEventListeners = () => {
+  handleResize();
+  handleIframeResize();
+  handleSelectEditor();
+  handlechangeLanguage();
+  handleChangeContent();
+  handleHotKeys();
+  handleRunButton();
+  handleResultButton();
+  handleProcessors();
+  handleShare();
+  handleResultLoading();
+};
+
+export const attachExtraEventListeners = () => {
+  handleTitleEdit();
+  handleSettings();
+  handleSettingsMenu();
+  handleProjectInfo();
+  handleExternalResources();
+  handleCustomSettings();
+  handleLogin();
+  handleLogout();
+  handleNew();
+  handleSave();
+  handleFork();
+  handleSaveAsTemplate();
+  handleOpen();
+  handleImport();
+  handleExport();
+  handleDeploy();
+  handleUnload();
+};
+
 export const importExternalContent = async () => {
   const config = getConfig();
   const url = parent.location.hash.substring(1);
@@ -2170,7 +2198,7 @@ export const importExternalContent = async () => {
   if (url) {
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
-    if (isGithub(url)) {
+    if (isGithub(url) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
@@ -2209,3 +2237,87 @@ export const importExternalContent = async () => {
 
   modal.close();
 };
+
+export const bootstrap = async (reload = false) => {
+  await createIframe(UI.getResultElement());
+  if (reload) {
+    await updateEditors(editors, getConfig());
+  }
+  phpHelper({ editor: editors.script });
+  setLoading(true);
+  await setActiveEditor(getConfig());
+  loadSettings(getConfig());
+  configureEmmet(getConfig());
+  showMode(getConfig());
+  setTimeout(() => getActiveEditor().focus());
+  await toolsPane?.load();
+  updateCompiledCode();
+  loadModuleTypes(editors, getConfig());
+
+  compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
+    await run();
+  });
+  formatter.load(getEditorLanguages());
+  if (!reload) {
+    loadSelectedScreen();
+    if (!isEmbed) {
+      initializeAuth();
+      checkRestoreStatus();
+    }
+    importExternalContent();
+  }
+};
+
+export const initializeApp = async (
+  options?: {
+    config?: Partial<Config>;
+    baseUrl?: string;
+    isEmbed?: boolean;
+  },
+  initializeFn?: () => void,
+) => {
+  const appConfig = options?.config ?? {};
+  baseUrl = options?.baseUrl ?? '/livecodes/';
+  isEmbed = options?.isEmbed ?? false;
+
+  setConfig(await buildConfig(appConfig, baseUrl));
+  compiler = await getCompiler(getConfig(), baseUrl);
+  formatter = getFormatter(getConfig(), baseUrl);
+  if (isEmbed) {
+    configureEmbed(eventsManager, share);
+  }
+  loadUserConfig();
+  createLanguageMenus(getConfig(), baseUrl, eventsManager, showLanguageInfo, loadStarterTemplate);
+  editors = await createEditors(getConfig());
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
+  attachBasicEventListeners();
+  initializeFn?.();
+  await bootstrap();
+  setTheme(getConfig().theme);
+  showVersion();
+};
+
+export const createApi = () => ({
+  run: async () => {
+    await run();
+  },
+  format: async () => format(),
+  getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
+  getConfig: (contentOnly = false): Config => {
+    updateConfig();
+    const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
+    return JSON.parse(JSON.stringify(config));
+  },
+  setConfig: async (newConfig: Config): Promise<Config> => {
+    const newAppConfig = await buildConfig(newConfig, baseUrl);
+    await loadConfig(newAppConfig);
+    return newAppConfig;
+  },
+  getCode: async (): Promise<Code> => {
+    updateConfig();
+    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+      await getResultPage({});
+    }
+    return JSON.parse(JSON.stringify(getCachedCode()));
+  },
+});
