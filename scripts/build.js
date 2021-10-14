@@ -85,10 +85,13 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/livecodes/editor/codemirror.ts'],
+  entryPoints: [
+    'src/livecodes/editor/codemirror/codemirror-basic.ts',
+    'src/livecodes/editor/codemirror/codemirror-full.ts',
+  ],
   bundle: true,
   minify: true,
-  outfile: 'build/livecodes/codemirror.js',
+  outdir: 'build/livecodes',
   format: 'esm',
 });
 
@@ -101,10 +104,13 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/livecodes/editor/prism.ts'],
+  entryPoints: [
+    'src/livecodes/editor/prism/prism-basic.ts',
+    'src/livecodes/editor/prism/prism-full.ts',
+  ],
   bundle: true,
   minify: true,
-  outfile: 'build/livecodes/prism.js',
+  outdir: 'build/livecodes',
   format: 'esm',
 });
 

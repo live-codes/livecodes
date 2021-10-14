@@ -271,7 +271,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.editor.setTheme('vs-' + theme);
   };
 
-  const destroy = () => editor.getModel()?.dispose();
+  const destroy = () => {
+    listeners.length = 0;
+    editor.getModel()?.dispose();
+  };
 
   // workaround for uncaught canceled promise rejection onMouseLeave
   // https://github.com/microsoft/monaco-editor/issues/2382

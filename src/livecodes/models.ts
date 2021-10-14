@@ -378,6 +378,7 @@ export interface EditorOptions {
   readonly: boolean;
   editor?: Config['editor'];
   editorType: 'code' | 'compiled' | 'console';
+  editorBuild?: 'basic' | 'full';
   theme: Theme;
 }
 

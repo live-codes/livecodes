@@ -1,4 +1,4 @@
-import { createEditor } from './editor';
+import { basicLanguages, createEditor, selectedEditor } from './editor';
 import {
   languages,
   getLanguageEditorId,
@@ -78,7 +78,7 @@ import { autoCompleteUrl } from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 
-export const eventsManager = createEventsManager();
+const eventsManager = createEventsManager();
 const projectStorage = createStorage();
 const templateStorage = createStorage('__livecodes_templates__');
 const userConfigStorage = createStorage('__livecodes_user_config__');
@@ -103,13 +103,15 @@ let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
+let editorBuild: EditorOptions['editorBuild'] = 'basic';
 
-export const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
-export const getEditorLanguages = () => Object.values(editorLanguages || {});
-export const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
-export const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
+const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
+const getEditorLanguages = () => Object.values(editorLanguages || {});
+const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
+const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
+const isBasicLanguage = (lang: Language) => basicLanguages.includes(lang);
 
-export const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
+const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
       reject('Result container not found');
@@ -183,7 +185,7 @@ export const createIframe = (container: HTMLElement, result?: string, service = 
     resultLanguages = getEditorLanguages();
   });
 
-export const loadModuleTypes = async (editors: Editors, config: Config) => {
+const loadModuleTypes = async (editors: Editors, config: Config) => {
   const scriptLanguage = config.script.language;
   if (
     editors.script &&
@@ -199,14 +201,14 @@ export const loadModuleTypes = async (editors: Editors, config: Config) => {
   }
 };
 
-export const setEditorTitle = (editorId: EditorId, title: string) => {
+const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`);
   if (!editorTitle) return;
   editorTitle.innerHTML =
     languages.find((language) => language.name === getLanguageByAlias(title))?.title || '';
 };
 
-export const createCopyButtons = () => {
+const createCopyButtons = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   editorIds.forEach((editorId) => {
     const copyButton = document.createElement('button');
@@ -224,7 +226,25 @@ export const createCopyButtons = () => {
   });
 };
 
-export const createEditors = async (config: Config) => {
+const shouldUpdateEditorBuild = (langs?: Language[]) => {
+  const editor = selectedEditor(getConfig());
+  if (editor === 'monaco') return false;
+  if (editorBuild === 'full') return false;
+  if (
+    langs?.some((lang) => !isBasicLanguage(lang)) ||
+    (editor === 'codemirror' && getConfig().emmet)
+  ) {
+    editorBuild = 'full';
+    return true;
+  }
+  return false;
+};
+
+const createEditors = async (config: Config) => {
+  if (editors) {
+    Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
+  }
+
   const baseOptions = {
     baseUrl,
     mode: config.mode,
@@ -257,9 +277,12 @@ export const createEditors = async (config: Config) => {
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
-  const markupEditor = await createEditor(markupOptions);
-  const styleEditor = await createEditor(styleOptions);
-  const scriptEditor = await createEditor(scriptOptions);
+
+  shouldUpdateEditorBuild([markupOptions.language, styleOptions.language, scriptOptions.language]);
+
+  const markupEditor = await createEditor({ ...markupOptions, editorBuild });
+  const styleEditor = await createEditor({ ...styleOptions, editorBuild });
+  const scriptEditor = await createEditor({ ...scriptOptions, editorBuild });
 
   setEditorTitle('markup', markupOptions.language);
   setEditorTitle('style', styleOptions.language);
@@ -271,7 +294,7 @@ export const createEditors = async (config: Config) => {
     script: scriptOptions.language,
   };
 
-  const editors = {
+  editors = {
     markup: markupEditor,
     style: styleEditor,
     script: scriptEditor,
@@ -287,11 +310,16 @@ export const createEditors = async (config: Config) => {
   if (config.mode === 'codeblock') {
     createCopyButtons();
   }
-
-  return editors;
 };
 
-export const updateEditors = async (editors: Editors, config: Config) => {
+const reloadEditors = async (config: Config) => {
+  await createEditors(config);
+  await toolsPane?.compiled.reloadEditor();
+  updateCompiledCode();
+  handleChangeContent();
+};
+
+const updateEditors = async (editors: Editors, config: Config) => {
   const editorIds = Object.keys(editors) as Array<keyof Editors>;
   for (const editorId of editorIds) {
     const language = getLanguageByAlias(config[editorId].language);
@@ -301,7 +329,7 @@ export const updateEditors = async (editors: Editors, config: Config) => {
   }
 };
 
-export const showMode = (config: Config) => {
+const showMode = (config: Config) => {
   const modes = {
     full: '111',
     editor: '110',
@@ -355,7 +383,7 @@ export const showMode = (config: Config) => {
   window.dispatchEvent(new Event('editor-resize'));
 };
 
-export const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
+const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   const titles = UI.getEditorTitles();
   const editorIsVisible = () =>
     Array.from(titles)
@@ -383,7 +411,7 @@ export const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   split.show('code');
 };
 
-export const addConsoleInputCodeCompletion = () => {
+const addConsoleInputCodeCompletion = () => {
   if (consoleInputCodeCompletion) {
     consoleInputCodeCompletion.dispose();
   }
@@ -393,14 +421,14 @@ export const addConsoleInputCodeCompletion = () => {
   ) {
     if (editors.script && typeof editors.script.addTypes === 'function') {
       consoleInputCodeCompletion = editors.script.addTypes({
-        content: getConfig().script.content + '\nexport {}',
+        content: getConfig().script.content + '\n{}',
         filename: 'script.js',
       });
     }
   }
 };
 
-export const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
+const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
   const addToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
   if (code) {
     return addToken(code);
@@ -411,15 +439,18 @@ export const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string
   return;
 };
 
-export const applyLanguageConfigs = (language: Language) => {
+const applyLanguageConfigs = (language: Language) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
   // apply config
 };
 
-export const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
+const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
+  if (shouldUpdateEditorBuild([language])) {
+    await reloadEditors(getConfig());
+  }
   const editor = editors[editorId];
   editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
   if (editorLanguages) {
@@ -445,14 +476,14 @@ export const changeLanguage = async (language: Language, value?: string, isUpdat
 };
 
 // Ctrl/Cmd + Enter triggers run
-export const registerRun = (editorId: EditorId, editors: Editors) => {
+const registerRun = (editorId: EditorId, editors: Editors) => {
   const editor = editors[editorId];
   editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
     await run();
   });
 };
 
-export const updateCompiledCode = () => {
+const updateCompiledCode = () => {
   const getCompiledLanguage = (editorId: EditorId) => {
     const defaultLang: { [key in EditorId]: Language } = {
       markup: 'html',
@@ -487,7 +518,7 @@ export const updateCompiledCode = () => {
   }
 };
 
-export const getResultPage = async ({
+const getResultPage = async ({
   sourceEditor = undefined as EditorId | undefined,
   forExport = false,
   template = resultTemplate,
@@ -539,7 +570,7 @@ export const getResultPage = async ({
   return result;
 };
 
-export const setLoading = (status: boolean) => {
+const setLoading = (status: boolean) => {
   const loading = UI.getToolspaneLoader();
   if (!loading) return;
   if (status === true) {
@@ -549,7 +580,7 @@ export const setLoading = (status: boolean) => {
   }
 };
 
-export const setProjectTitle = (setDefault = false) => {
+const setProjectTitle = (setDefault = false) => {
   const projectTitle = UI.getProjectTitleElement();
   if (!projectTitle) return;
   const defaultTitle = defaultConfig.title;
@@ -565,20 +596,20 @@ export const setProjectTitle = (setDefault = false) => {
   setWindowTitle();
 };
 
-export const setWindowTitle = () => {
+const setWindowTitle = () => {
   const title = getConfig().title;
   parent.document.title =
     (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
 
-export const run = async (editorId?: EditorId) => {
+const run = async (editorId?: EditorId) => {
   setLoading(true);
   const result = await getResultPage({ sourceEditor: editorId });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
 };
 
-export const updateUrl = (url: string, push = false) => {
+const updateUrl = (url: string, push = false) => {
   if (push) {
     parent.history.pushState(null, '', url);
   } else {
@@ -586,12 +617,12 @@ export const updateUrl = (url: string, push = false) => {
   }
 };
 
-export const format = async () => {
+const format = async () => {
   await Promise.all([editors.markup.format(), editors.style.format(), editors.script.format()]);
   updateConfig();
 };
 
-export const save = async (notify = false, setTitle = true) => {
+const save = async (notify = false, setTitle = true) => {
   if (setTitle) {
     setProjectTitle(true);
   }
@@ -613,14 +644,14 @@ export const save = async (notify = false, setTitle = true) => {
   await share();
 };
 
-export const fork = async () => {
+const fork = async () => {
   projectId = '';
   loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
   await save();
   notifications.success('Forked as a new project');
 };
 
-export const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
+const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
   const contentHash = shortUrl
     ? '#id/' + (await shareService.shareProject(content))
@@ -635,7 +666,7 @@ export const share = async (shortUrl = false, contentOnly = true): Promise<Share
   };
 };
 
-export const updateConfig = () => {
+const updateConfig = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   editorIds.forEach((editorId) => {
     setConfig({
@@ -649,7 +680,7 @@ export const updateConfig = () => {
   });
 };
 
-export const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
+const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
   changingContent = true;
 
   const content = getContentConfig({
@@ -676,7 +707,7 @@ export const loadConfig = async (newConfig: Config | ContentConfig, url?: string
   changingContent = false;
 };
 
-export const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
+const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
   const userConfig = getUserConfig({
     ...getConfig(),
     ...(newConfig == null ? getUserConfig(defaultConfig) : newConfig),
@@ -690,7 +721,7 @@ export const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
   userConfigStorage.addItem(userConfig as Config);
 };
 
-export const loadUserConfig = () => {
+const loadUserConfig = () => {
   const userConfig = userConfigStorage.getAllData()?.pop()?.pen;
   if (!userConfig) {
     setUserConfig(getUserConfig(getConfig()));
@@ -702,7 +733,7 @@ export const loadUserConfig = () => {
   });
 };
 
-export const setSavedStatus = () => {
+const setSavedStatus = () => {
   updateConfig();
   const savedConfig = projectStorage.getItem(projectId)?.pen;
   isSaved =
@@ -723,7 +754,7 @@ export const setSavedStatus = () => {
   }
 };
 
-export const checkSavedStatus = (doNotCloseModal = false) => {
+const checkSavedStatus = (doNotCloseModal = false) => {
   if (isSaved) {
     return Promise.resolve('is saved');
   }
@@ -751,18 +782,18 @@ export const checkSavedStatus = (doNotCloseModal = false) => {
   });
 };
 
-export const checkSavedAndExecute = (fn: () => void) => async () => {
+const checkSavedAndExecute = (fn: () => void) => async () => {
   checkSavedStatus(true).then(() => setTimeout(fn));
 };
 
-export const setProjectRestore = (reset = false) => {
+const setProjectRestore = (reset = false) => {
   if (isEmbed) return;
   restoreStorage.clear();
   if (reset || !getConfig().enableRestore) return;
   restoreStorage.addItem(getContentConfig(getConfig()));
 };
 
-export const checkRestoreStatus = () => {
+const checkRestoreStatus = () => {
   if (!getConfig().enableRestore || isEmbed) {
     return Promise.resolve('restore disabled');
   }
@@ -811,14 +842,17 @@ export const checkRestoreStatus = () => {
   });
 };
 
-export const configureEmmet = (config: Config) => {
+const configureEmmet = async (config: Config) => {
+  if (shouldUpdateEditorBuild()) {
+    await reloadEditors(getConfig());
+  }
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
     editor.configureEmmet?.(config.emmet);
   });
 };
 
-export const getTemplates = async (): Promise<Template[]> => {
+const getTemplates = async (): Promise<Template[]> => {
   if (starterTemplates) {
     return starterTemplates;
   }
@@ -826,7 +860,7 @@ export const getTemplates = async (): Promise<Template[]> => {
   return starterTemplates;
 };
 
-export const initializeAuth = async () => {
+const initializeAuth = async () => {
   /** Lazy load authentication */
   if (authService) return;
   authService = createAuthService();
@@ -836,7 +870,7 @@ export const initializeAuth = async () => {
   }
 };
 
-export const login = async () =>
+const login = async () =>
   new Promise<User | void>((resolve, reject) => {
     const loginHandler = (scopes: GithubScope[]) => {
       if (!authService) {
@@ -870,7 +904,7 @@ export const login = async () =>
     notifications.error('Login error!');
   });
 
-export const logout = () => {
+const logout = () => {
   if (!authService) return;
   authService
     .signOut()
@@ -883,7 +917,7 @@ export const logout = () => {
     });
 };
 
-export const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
+const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
   if (registered) {
     registered.show = fn;
@@ -892,13 +926,13 @@ export const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => 
   }
 };
 
-export const showScreen = async (screen: Screen['screen']) => {
+const showScreen = async (screen: Screen['screen']) => {
   await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show();
   const modalElement = document.querySelector('#modal') as HTMLElement;
   (modalElement.firstElementChild as HTMLElement)?.click();
 };
 
-export const loadSelectedScreen = () => {
+const loadSelectedScreen = () => {
   const params = Object.fromEntries(
     (new URLSearchParams(parent.location.search) as unknown) as Iterable<any>,
   );
@@ -908,13 +942,13 @@ export const loadSelectedScreen = () => {
   }
 };
 
-export const getAllEditors = (): CodeEditor[] => [
+const getAllEditors = (): CodeEditor[] => [
   ...Object.values(editors),
   ...[toolsPane?.console.getEditor()],
   ...[toolsPane?.compiled.getEditor()],
 ];
 
-export const setTheme = (theme: Theme) => {
+const setTheme = (theme: Theme) => {
   const themes = ['light', 'dark'];
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
@@ -922,7 +956,7 @@ export const setTheme = (theme: Theme) => {
   getAllEditors().forEach((editor) => editor?.setTheme(theme));
 };
 
-export const loadSettings = (config: Config) => {
+const loadSettings = (config: Config) => {
   const autoupdateToggle = UI.getAutoupdateToggle();
   autoupdateToggle.checked = config.autoupdate;
 
@@ -959,11 +993,11 @@ export const loadSettings = (config: Config) => {
   });
 };
 
-export const showLanguageInfo = (languageInfo: HTMLElement) => {
+const showLanguageInfo = (languageInfo: HTMLElement) => {
   modal.show(languageInfo, { size: 'small' });
 };
 
-export const loadStarterTemplate = async (templateName: string) => {
+const loadStarterTemplate = async (templateName: string) => {
   const templates = await getTemplates();
   const template = templates.filter((template) => template.name === templateName)?.[0];
   if (template) {
@@ -983,7 +1017,7 @@ export const loadStarterTemplate = async (templateName: string) => {
   }
 };
 
-export const showVersion = () => {
+const showVersion = () => {
   if (getConfig().showVersion) {
     // variables added in scripts/build.js
     const version = process.env.VERSION || '';
@@ -997,7 +1031,7 @@ export const showVersion = () => {
   }
 };
 
-export const handleTitleEdit = () => {
+const handleTitleEdit = () => {
   const projectTitle = UI.getProjectTitleElement();
   if (!projectTitle) return;
   projectTitle.textContent = getConfig().title || defaultConfig.title;
@@ -1020,7 +1054,7 @@ export const handleTitleEdit = () => {
   );
 };
 
-export const handleResize = () => {
+const handleResize = () => {
   const resizeEditors = () => {
     Object.values(editors).forEach((editor: CodeEditor) => {
       setTimeout(() => {
@@ -1035,7 +1069,7 @@ export const handleResize = () => {
   eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
 };
 
-export const handleIframeResize = () => {
+const handleIframeResize = () => {
   const gutter = UI.getGutterElement();
   const sizeLabel = document.createElement('div');
   sizeLabel.id = 'size-label';
@@ -1069,7 +1103,7 @@ export const handleIframeResize = () => {
   });
 };
 
-export const handleSelectEditor = () => {
+const handleSelectEditor = () => {
   UI.getEditorTitles().forEach((title) => {
     eventsManager.addEventListener(
       title,
@@ -1083,7 +1117,7 @@ export const handleSelectEditor = () => {
   });
 };
 
-export const handlechangeLanguage = () => {
+const handlechangeLanguage = () => {
   if (getConfig().allowLangChange) {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
@@ -1102,7 +1136,7 @@ export const handlechangeLanguage = () => {
   }
 };
 
-export const handleChangeContent = () => {
+const handleChangeContent = () => {
   const contentChanged = async (editorId: EditorId, loading: boolean) => {
     updateConfig();
     addConsoleInputCodeCompletion();
@@ -1128,7 +1162,7 @@ export const handleChangeContent = () => {
   });
 };
 
-export const handleHotKeys = () => {
+const handleHotKeys = () => {
   const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
@@ -1167,7 +1201,7 @@ export const handleHotKeys = () => {
   eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
 };
 
-export const handleRunButton = () => {
+const handleRunButton = () => {
   const handleRun = async () => {
     split.show('output');
     await run();
@@ -1176,11 +1210,11 @@ export const handleRunButton = () => {
   eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
 };
 
-export const handleResultButton = () => {
+const handleResultButton = () => {
   eventsManager.addEventListener(UI.getResultButton(), 'click', () => split.show('output', true));
 };
 
-export const handleProcessors = () => {
+const handleProcessors = () => {
   const styleMenu = UI.getstyleMenu();
   const pluginList = pluginSpecs.map((plugin) => ({ name: plugin.name, title: plugin.title }));
   if (!styleMenu || pluginList.length === 0 || !processorIsEnabled('postcss', getConfig())) {
@@ -1224,7 +1258,7 @@ export const handleProcessors = () => {
   });
 };
 
-export const handleSettings = () => {
+const handleSettings = () => {
   const toggles = UI.getSettingToggles();
   toggles.forEach((toggle) => {
     eventsManager.addEventListener(toggle, 'change', async () => {
@@ -1243,7 +1277,7 @@ export const handleSettings = () => {
         await run();
       }
       if (configKey === 'emmet') {
-        configureEmmet(getConfig());
+        await configureEmmet(getConfig());
       }
       if (configKey === 'enableRestore') {
         setUserConfig({
@@ -1276,7 +1310,7 @@ export const handleSettings = () => {
   });
 };
 
-export const handleSettingsMenu = () => {
+const handleSettingsMenu = () => {
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
@@ -1297,16 +1331,16 @@ export const handleSettingsMenu = () => {
   });
 };
 
-export const handleLogin = () => {
+const handleLogin = () => {
   eventsManager.addEventListener(UI.getLoginLink(), 'click', login, false);
   registerScreen('login', login);
 };
 
-export const handleLogout = () => {
+const handleLogout = () => {
   eventsManager.addEventListener(UI.getLogoutLink(), 'click', logout, false);
 };
 
-export const handleNew = () => {
+const handleNew = () => {
   const createTemplatesUI = () => {
     const templatesContainer = UI.createTemplatesContainer(eventsManager);
     const noDataMessage = templatesContainer.querySelector('.no-data');
@@ -1419,21 +1453,21 @@ export const handleNew = () => {
   registerScreen('new', checkSavedAndExecute(createTemplatesUI));
 };
 
-export const handleSave = () => {
+const handleSave = () => {
   eventsManager.addEventListener(UI.getSaveLink(), 'click', async (event) => {
     (event as Event).preventDefault();
     await save(true);
   });
 };
 
-export const handleFork = () => {
+const handleFork = () => {
   eventsManager.addEventListener(UI.getForkLink(), 'click', async (event) => {
     (event as Event).preventDefault();
     await fork();
   });
 };
 
-export const handleSaveAsTemplate = () => {
+const handleSaveAsTemplate = () => {
   eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', (event) => {
     (event as Event).preventDefault();
     templateStorage.addItem(getConfig());
@@ -1441,7 +1475,7 @@ export const handleSaveAsTemplate = () => {
   });
 };
 
-export const handleOpen = () => {
+const handleOpen = () => {
   const createList = () => {
     const div = document.createElement('div');
     div.innerHTML = openScreen;
@@ -1590,7 +1624,7 @@ export const handleOpen = () => {
   registerScreen('open', checkSavedAndExecute(createList));
 };
 
-export const handleImport = () => {
+const handleImport = () => {
   const createImportUI = () => {
     const importContainer = UI.createImportContainer(eventsManager);
 
@@ -1748,7 +1782,7 @@ export const handleImport = () => {
   registerScreen('import', checkSavedAndExecute(createImportUI));
 };
 
-export const handleExport = () => {
+const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportJSONLink(),
     'click',
@@ -1821,7 +1855,7 @@ export const handleExport = () => {
   );
 };
 
-export const handleShare = () => {
+const handleShare = () => {
   const createShareUI = async () => {
     const shareContainer = await UI.createShareContainer(share, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
@@ -1838,7 +1872,7 @@ export const handleShare = () => {
   registerScreen('share', createShareUI);
 };
 
-export const handleDeploy = () => {
+const handleDeploy = () => {
   const createDeployUI = async () => {
     let user = await authService?.getUser();
     if (!user) {
@@ -1996,7 +2030,7 @@ export const handleDeploy = () => {
   registerScreen('deploy', createDeployUI);
 };
 
-export const handleProjectInfo = () => {
+const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
       ...getConfig(),
@@ -2013,7 +2047,7 @@ export const handleProjectInfo = () => {
   registerScreen('info', createProjectInfoUI);
 };
 
-export const handleExternalResources = () => {
+const handleExternalResources = () => {
   const createExrenalResourcesUI = () => {
     const div = document.createElement('div');
     div.innerHTML = resourcesScreen;
@@ -2054,7 +2088,7 @@ export const handleExternalResources = () => {
   registerScreen('external', createExrenalResourcesUI);
 };
 
-export const handleCustomSettings = () => {
+const handleCustomSettings = () => {
   const createCustomSettingsUI = async () => {
     const config = getConfig();
     // eslint-disable-next-line prefer-const
@@ -2074,6 +2108,7 @@ export const handleCustomSettings = () => {
       readonly: config.readonly,
       editor: config.editor,
       editorType: 'code' as EditorOptions['editorType'],
+      editorBuild,
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
       value: stringify(getConfig().customSettings, true),
@@ -2116,7 +2151,7 @@ export const handleCustomSettings = () => {
   registerScreen('custom-settings', createCustomSettingsUI);
 };
 
-export const handleResultLoading = () => {
+const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', (event: any) => {
     const iframe = UI.getResultIFrameElement();
     if (!iframe || event.source !== iframe.contentWindow) {
@@ -2135,7 +2170,7 @@ export const handleResultLoading = () => {
   });
 };
 
-export const handleUnload = () => {
+const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
       return 'Changes you made may not be saved.';
@@ -2145,7 +2180,7 @@ export const handleUnload = () => {
   };
 };
 
-export const attachBasicEventListeners = () => {
+const attachBasicEventListeners = () => {
   handleResize();
   handleIframeResize();
   handleSelectEditor();
@@ -2159,7 +2194,7 @@ export const attachBasicEventListeners = () => {
   handleResultLoading();
 };
 
-export const attachExtraEventListeners = () => {
+const attachExtraEventListeners = () => {
   handleTitleEdit();
   handleSettings();
   handleSettingsMenu();
@@ -2179,7 +2214,7 @@ export const attachExtraEventListeners = () => {
   handleUnload();
 };
 
-export const importExternalContent = async () => {
+const importExternalContent = async () => {
   const config = getConfig();
   const url = parent.location.hash.substring(1);
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
@@ -2238,7 +2273,7 @@ export const importExternalContent = async () => {
   modal.close();
 };
 
-export const bootstrap = async (reload = false) => {
+const bootstrap = async (reload = false) => {
   await createIframe(UI.getResultElement());
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -2247,7 +2282,7 @@ export const bootstrap = async (reload = false) => {
   setLoading(true);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
-  configureEmmet(getConfig());
+  await configureEmmet(getConfig());
   showMode(getConfig());
   setTimeout(() => getActiveEditor().focus());
   await toolsPane?.load();
@@ -2268,7 +2303,7 @@ export const bootstrap = async (reload = false) => {
   }
 };
 
-export const initializeApp = async (
+const initializeApp = async (
   options?: {
     config?: Partial<Config>;
     baseUrl?: string;
@@ -2288,7 +2323,8 @@ export const initializeApp = async (
   }
   loadUserConfig();
   createLanguageMenus(getConfig(), baseUrl, eventsManager, showLanguageInfo, loadStarterTemplate);
-  editors = await createEditors(getConfig());
+  shouldUpdateEditorBuild();
+  await createEditors(getConfig());
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
   attachBasicEventListeners();
   initializeFn?.();
@@ -2297,7 +2333,7 @@ export const initializeApp = async (
   showVersion();
 };
 
-export const createApi = () => ({
+const createApi = () => ({
   run: async () => {
     await run();
   },
@@ -2321,3 +2357,5 @@ export const createApi = () => ({
     return JSON.parse(JSON.stringify(getCachedCode()));
   },
 });
+
+export { createApi, initializeApp, attachExtraEventListeners };

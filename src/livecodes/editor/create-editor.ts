@@ -1,12 +1,28 @@
-import { CodeEditor, EditorOptions } from '../models';
+import { CodeEditor, Config, EditorOptions, Language } from '../models';
 import { isMobile } from '../utils';
 
+export const basicLanguages: Language[] = [
+  'html',
+  'css',
+  'scss',
+  'javascript',
+  'typescript',
+  'jsx',
+  'tsx',
+  'json',
+];
+
+let editorBuildCache: EditorOptions['editorBuild'] = 'basic';
+
 const loadEditor = async (
-  editorName: 'monaco' | 'codemirror' | 'prism' | '' | undefined,
+  editorName: 'monaco' | 'codemirror' | 'prism',
   options: EditorOptions,
 ) => {
-  const { baseUrl } = options;
-  const editorUrl = baseUrl + editorName + '.js';
+  const { baseUrl, editorBuild = editorBuildCache } = options;
+  editorBuildCache = editorBuild;
+  const fileName =
+    editorName === 'monaco' ? editorName + '.js' : editorName + '-' + editorBuild + '.js';
+  const editorUrl = baseUrl + fileName;
 
   let editorModule = (window as any)[editorUrl];
   try {
@@ -23,25 +39,23 @@ const loadEditor = async (
   }
 };
 
-export const createEditor = async (options: EditorOptions) => {
-  if (!options) throw new Error();
-
+export const selectedEditor = (options: EditorOptions | Partial<Config>) => {
   const { editor, mode } = options;
-
-  const editorName = ['codemirror', 'monaco', 'prism'].includes(editor || '')
+  return ['codemirror', 'monaco', 'prism'].includes(editor || '')
     ? editor
     : mode === 'codeblock'
     ? 'prism'
     : isMobile()
     ? 'codemirror'
     : 'monaco';
+};
+export const createEditor = async (options: EditorOptions) => {
+  if (!options) throw new Error();
 
-  const codeEditor =
-    (await loadEditor(editorName, options)) || (await loadEditor('codemirror', options));
+  const editorName = selectedEditor(options);
+  const codeEditor = await loadEditor(editorName || 'codemirror', options);
 
-  if (codeEditor) {
-    return codeEditor;
-  } else {
-    throw new Error('Failed loading code editor');
-  }
+  if (!codeEditor) throw new Error('Failed loading code editor');
+
+  return codeEditor;
 };
