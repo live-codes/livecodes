@@ -1,9 +1,9 @@
-import { attachExtraEventListeners, createApi, initializeApp } from './core';
+import { extraHandlers, createApi, initializeApp } from './core';
 import { API, Config } from './models';
 
 export const app = async (config: Partial<Config>, baseUrl: string): Promise<API> => {
   await initializeApp({ config, baseUrl }, () => {
-    attachExtraEventListeners();
+    extraHandlers();
   });
   return createApi();
 };

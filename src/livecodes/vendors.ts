@@ -1,6 +1,9 @@
 export const vendorsBaseUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.3.0/dist/';
 
+export const emmetMonacoUrl =
+  'https://cdn.jsdelivr.net/npm/emmet-monaco-es@4.7.4/dist/emmet-monaco.min.js';
+
 export const esModuleShimsUrl =
   'https://cdn.jsdelivr.net/npm/es-module-shims@1.1.0/dist/es-module-shims.min.js';
 

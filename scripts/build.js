@@ -96,7 +96,7 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/livecodes/editor/monaco.ts'],
+  entryPoints: ['src/livecodes/editor/monaco/monaco.ts'],
   bundle: true,
   minify: true,
   outfile: 'build/livecodes/monaco.js',

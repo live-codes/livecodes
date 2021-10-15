@@ -2180,7 +2180,7 @@ const handleUnload = () => {
   };
 };
 
-const attachBasicEventListeners = () => {
+const basicHandlers = () => {
   handleResize();
   handleIframeResize();
   handleSelectEditor();
@@ -2194,7 +2194,7 @@ const attachBasicEventListeners = () => {
   handleResultLoading();
 };
 
-const attachExtraEventListeners = () => {
+const extraHandlers = () => {
   handleTitleEdit();
   handleSettings();
   handleSettingsMenu();
@@ -2326,7 +2326,7 @@ const initializeApp = async (
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
-  attachBasicEventListeners();
+  basicHandlers();
   initializeFn?.();
   await bootstrap();
   setTheme(getConfig().theme);
@@ -2358,4 +2358,4 @@ const createApi = () => ({
   },
 });
 
-export { createApi, initializeApp, attachExtraEventListeners };
+export { createApi, initializeApp, extraHandlers };

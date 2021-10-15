@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
 import * as Monaco from 'monaco-editor'; // only for typescript types
-import { emmetHTML, emmetCSS } from 'emmet-monaco-es';
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
-import { getLanguageExtension, mapLanguage } from '../languages';
-import { getRandomString } from '../utils';
+import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
+import { getLanguageExtension, mapLanguage } from '../../languages';
+import { getRandomString, loadScript } from '../../utils';
+import { emmetMonacoUrl } from '../../vendors';
 
 const monacoMapLanguage = (language: Language): Language =>
   language === 'livescript'
@@ -256,15 +256,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const format = () => editor.getAction('editor.action.formatDocument').run();
 
-  const disposeEmmet: { html?: any; css?: any } = {};
+  const disposeEmmet: { html?: any; css?: any; jsx?: any } = {};
   const configureEmmet = (enabled: boolean) => {
-    if (enabled) {
-      disposeEmmet.html = emmetHTML();
-      disposeEmmet.css = emmetCSS();
-    } else {
-      if (disposeEmmet.html) disposeEmmet.html();
-      if (disposeEmmet.css) disposeEmmet.css();
-    }
+    if (!enabled && !(window as any).emmetMonaco) return;
+
+    loadScript(emmetMonacoUrl, 'emmetMonaco').then((emmetMonaco: any) => {
+      if (enabled) {
+        disposeEmmet.html = emmetMonaco.emmetHTML();
+        disposeEmmet.css = emmetMonaco.emmetCSS();
+        disposeEmmet.jsx = emmetMonaco.emmetJSX();
+      } else {
+        disposeEmmet.html?.();
+        disposeEmmet.css?.();
+        disposeEmmet.jsx?.();
+      }
+    });
   };
 
   const setTheme = (theme: Theme) => {
