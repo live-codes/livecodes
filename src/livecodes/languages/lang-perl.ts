@@ -4,16 +4,6 @@ import { vendorsBaseUrl } from '../vendors';
 export const perl: LanguageSpecs = {
   name: 'perl',
   title: 'Perl',
-  info: `
-  <h3>Perl</h3>
-  <div>Perl running in the browser using Perlito.</div>
-  <ul>
-    <li><a href="https://www.perl.org/" target="_blank" rel="noopener">Perl official website</a></li>
-    <li><a href="https://perldoc.perl.org/" target="_blank" rel="noopener">Perl documentation</a></li>
-    <li><a href="https://github.com/fglock/Perlito/blob/master/README-perlito5.md" target="_blank" rel="noopener">Perlito5 Readme</a></li>
-    <li><a href="?template=perl" target="_parent" data-template="perl">Load starter template</a></li>
-  </ul>
-  `,
   compiler: {
     factory: () => async (code) => code,
     scripts: [vendorsBaseUrl + 'perlito/perlito5.min.js'],

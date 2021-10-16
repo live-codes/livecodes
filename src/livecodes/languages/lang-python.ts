@@ -7,16 +7,6 @@ const stdlibUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.0/brython_stdlib.js
 export const python: LanguageSpecs = {
   name: 'python',
   title: 'Python',
-  info: `
-  <h3>Python</h3>
-  <div>Python running in the browser using Brython.</div>
-  <ul>
-    <li><a href="https://www.python.org/" target="_blank" rel="noopener">Python official website</a></li>
-    <li><a href="https://www.python.org/doc/" target="_blank" rel="noopener">Python documentation</a></li>
-    <li><a href="https://brython.info/" target="_blank" rel="noopener">Brython documentation</a></li>
-    <li><a href="?template=python" target="_parent" data-template="python">Load starter template</a></li>
-  </ul>
-  `,
   compiler: {
     factory: () => async (code) => code,
     scripts: ({ compiled, config }) => {

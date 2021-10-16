@@ -7,13 +7,6 @@ const url = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 export const dot: LanguageSpecs = {
   name: 'dot',
   title: 'doT',
-  info: `
-  <h3>doT.js</h3>
-  <div>The fastest + concise javascript template engine for Node.js and browsers.</div>
-  <ul>
-    <li><a href="https://olado.github.io/doT/" target="_blank" rel="noopener">Official website</a></li>
-  </ul>
-  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],

@@ -127,4 +127,10 @@ esbuild.buildSync({
   entryPoints: ['src/livecodes/services/firebase.ts'],
 });
 
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/languages/language-info.ts'],
+  loader: { '.html': 'text' },
+});
+
 console.log('built to: ' + baseOptions.outdir);

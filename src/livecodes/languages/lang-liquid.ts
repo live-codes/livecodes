@@ -7,14 +7,6 @@ const url = 'https://cdn.jsdelivr.net/npm/liquidjs@9.27.1/dist/liquid.browser.mi
 export const liquid: LanguageSpecs = {
   name: 'liquid',
   title: 'Liquid',
-  info: `
-  <h3>LiquidJS</h3>
-  <div>A simple, expressive and safe template engine.</div>
-  <ul>
-    <li><a href="https://liquidjs.com" target="_blank" rel="noopener">LiquidJS official website</a></li>
-    <li><a href="https://liquidjs.com/tutorials/intro-to-liquid.html" target="_blank" rel="noopener">LiquidJS documentation</a></li>
-  </ul>
-  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],

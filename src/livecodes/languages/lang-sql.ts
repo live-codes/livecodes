@@ -7,16 +7,6 @@ const scriptType = 'application/json';
 export const sql: LanguageSpecs = {
   name: 'sql',
   title: 'SQL',
-  info: `
-  <h3>SQLite</h3>
-  <div>SQLite compiled to JavaScript using SQL.js</div>
-  <ul>
-    <li><a href="https://www.sqlite.org/" target="_blank" rel="noopener">SQLite official website</a></li>
-    <li><a href="https://www.sqlite.org/lang.html" target="_blank" rel="noopener">SQLite syntax documentation</a></li>
-    <li><a href="https://sql.js.org/" target="_blank" rel="noopener">SQL.js official website</a></li>
-    <li><a href="?template=sql" target="_parent" data-template="sql">Load starter template</a></li>
-  </ul>
-  `,
   compiler: {
     url: cdnBaselUrl + 'sql-wasm.min.js',
     factory: () => {

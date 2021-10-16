@@ -108,6 +108,7 @@ export type Language =
   | 'solid.jsx'
   | 'solid.tsx'
   | 'riot'
+  | 'riotjs'
   | 'coffeescript'
   | 'coffee'
   | 'livescript'
@@ -184,7 +185,7 @@ export interface LanguageSpecs {
   name: Language;
   title: string;
   longTitle?: string;
-  info?: string;
+  info?: boolean;
   parser?: Parser;
   formatter?: LanguageFormatter;
   compiler?: Compiler | Language;

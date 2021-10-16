@@ -8,15 +8,6 @@ const cdnUrl = 'https://cdn.jsdelivr.net/npm/riot@6.0.4/riot.min.js';
 export const riot: LanguageSpecs = {
   name: 'riot',
   title: 'Riot.js',
-  info: `
-  <h3>Riot.js</h3>
-  <div>Simple and elegant component-based UI library.</div>
-  <ul>
-    <li><a href="https://riot.js.org/" target="_blank" rel="noopener">Riot.js official website</a></li>
-    <li><a href="https://riot.js.org/documentation/" target="_blank" rel="noopener">Riot.js documentation</a></li>
-    <li><a href="?template=riot" target="_parent" data-template="riot">Load starter template</a></li>
-  </ul>
-  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html, parserPlugins.babel],
@@ -39,7 +30,7 @@ riot.mount(Component.name, {
     scripts: [cdnUrl],
     scriptType: 'module',
   },
-  extensions: ['riot'],
+  extensions: ['riot', 'riotjs'],
   editor: 'script',
   editorLanguage: 'html',
 };

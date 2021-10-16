@@ -52,19 +52,6 @@ export const wat: LanguageSpecs = {
   name: 'wat',
   title: 'WAT',
   longTitle: 'WebAssembly Text',
-  info: `
-  <h3>WebAssembly Text Format</h3>
-  <div>Low-level textual representation of the WebAssembly (wasm) binary format.</div>
-  <div>It is converted to wasm using wabt.js.</div>
-  <ul>
-    <li><a href="https://webassembly.org/" target="_blank" rel="noopener">WebAssembly.org</a></li>
-    <li><a href="https://webassembly.github.io/spec/core/text/index.html" target="_blank" rel="noopener">WebAssembly Text Specs</a></li>
-    <li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly" target="_blank" rel="noopener">WebAssembly on MDN</a></li>
-    <li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format" target="_blank" rel="noopener">Understanding WebAssembly text format</a></li>
-    <li><a href="https://github.com/AssemblyScript/wabt.js" target="_blank" rel="noopener">wabt.js documentation</a></li>
-    <li><a href="?template=wat" target="_parent" data-template="wat">Load starter template</a></li>
-  </ul>
-  `,
   formatter: {
     factory: () => {
       importScripts(formatterUrl);
