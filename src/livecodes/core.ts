@@ -121,9 +121,13 @@ const isBasicLanguage = (lang: Language) => basicLanguages.includes(lang);
 
 const loadStyles = () =>
   Promise.all(
-    [snackbarUrl, hintCssUrl, lunaObjViewerStylesUrl, lunaConsoleStylesUrl].map((url) =>
-      loadStylesheet(url),
-    ),
+    [
+      snackbarUrl,
+      hintCssUrl,
+      lunaObjViewerStylesUrl,
+      lunaConsoleStylesUrl,
+      baseUrl + 'styles/app.css',
+    ].map((url) => loadStylesheet(url)),
   );
 
 const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
