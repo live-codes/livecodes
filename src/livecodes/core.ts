@@ -37,6 +37,7 @@ import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
+  settingsMenuHTML,
   resultTemplate,
   customSettingsScreen,
   resourcesScreen,
@@ -64,6 +65,7 @@ import {
   debounce,
   fetchWithHandler,
   getDate,
+  loadStylesheet,
   stringify,
   stringToValidJson,
 } from './utils';
@@ -74,7 +76,13 @@ import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
 import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
-import { autoCompleteUrl } from './vendors';
+import {
+  autoCompleteUrl,
+  hintCssUrl,
+  lunaConsoleStylesUrl,
+  lunaObjViewerStylesUrl,
+  snackbarUrl,
+} from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 
@@ -110,6 +118,13 @@ const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 const isBasicLanguage = (lang: Language) => basicLanguages.includes(lang);
+
+const loadStyles = () =>
+  Promise.all(
+    [snackbarUrl, hintCssUrl, lunaObjViewerStylesUrl, lunaConsoleStylesUrl].map((url) =>
+      loadStylesheet(url),
+    ),
+  );
 
 const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
   new Promise((resolve, reject) => {
@@ -1258,6 +1273,27 @@ const handleProcessors = () => {
   });
 };
 
+const handleSettingsMenu = () => {
+  const menuContainer = UI.getSettingsMenuScroller();
+  const settingsButton = UI.getSettingsButton();
+  if (!menuContainer || !settingsButton) return;
+  menuContainer.innerHTML = settingsMenuHTML;
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the conatiner covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuContainer, 'mousedown', (event) => {
+    if (event.target === menuContainer) {
+      menuContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(settingsButton, 'mousedown', () => {
+    menuContainer.classList.remove('hidden');
+  });
+};
+
 const handleSettings = () => {
   const toggles = UI.getSettingToggles();
   toggles.forEach((toggle) => {
@@ -1307,27 +1343,6 @@ const handleSettings = () => {
       },
       false,
     );
-  });
-};
-
-const handleSettingsMenu = () => {
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the conatiner covers most of the screen
-  // which gives the effect of a non-responsive app
-
-  const menuScroller = UI.getSettingsMenuScroller();
-  const settingsButton = UI.getSettingsButton();
-  if (!menuScroller || !settingsButton) return;
-
-  eventsManager.addEventListener(menuScroller, 'mousedown', (event) => {
-    if (event.target === menuScroller) {
-      menuScroller.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(settingsButton, 'mousedown', () => {
-    menuScroller.classList.remove('hidden');
   });
 };
 
@@ -2196,8 +2211,8 @@ const basicHandlers = () => {
 
 const extraHandlers = () => {
   handleTitleEdit();
-  handleSettings();
   handleSettingsMenu();
+  handleSettings();
   handleProjectInfo();
   handleExternalResources();
   handleCustomSettings();
@@ -2328,6 +2343,7 @@ const initializeApp = async (
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
   basicHandlers();
   initializeFn?.();
+  loadStyles();
   await bootstrap();
   setTheme(getConfig().theme);
   showVersion();

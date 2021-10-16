@@ -182,6 +182,6 @@ export const getDate = () => {
   return date.toISOString().split('T')[0];
 };
 
-export const handeFetchError = (res: Response) => (res.ok ? res : Promise.reject());
+export const handleFetchError = (res: Response) => (res.ok ? res : Promise.reject());
 export const fetchWithHandler = (input: RequestInfo, init?: RequestInit) =>
-  fetch(input, init).then(handeFetchError);
+  fetch(input, init).then(handleFetchError);
