@@ -20,7 +20,6 @@ function iife(code) {
 var srcDir = path.resolve(__dirname + '/../src/livecodes');
 var outDir = path.resolve(__dirname + '/../build');
 mkdirp(outDir);
-fs.copyFileSync(path.resolve(srcDir + '/livecodes.json'), path.resolve(outDir + '/livecodes.json'));
 fs.copyFileSync(
   path.resolve(__dirname + '/../src/favicon.ico'),
   path.resolve(outDir + '/favicon.ico'),

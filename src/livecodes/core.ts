@@ -47,7 +47,7 @@ import {
 } from './html';
 import { downloadFile, exportConfig } from './export';
 import { createEventsManager } from './events';
-import { getStarterTemplates } from './templates';
+import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
   defaultConfig,
@@ -976,6 +976,15 @@ const setTheme = (theme: Theme) => {
 };
 
 const loadSettings = (config: Config) => {
+  const processorToggles = UI.getProcessorToggles();
+  processorToggles.forEach((toggle) => {
+    const plugin = toggle.dataset.plugin as PluginName;
+    if (!plugin) return;
+    toggle.checked = config.processors.postcss[plugin];
+  });
+
+  if (isEmbed) return;
+
   const autoupdateToggle = UI.getAutoupdateToggle();
   autoupdateToggle.checked = config.autoupdate;
 
@@ -984,13 +993,6 @@ const loadSettings = (config: Config) => {
 
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
-
-  const processorToggles = UI.getProcessorToggles();
-  processorToggles.forEach((toggle) => {
-    const plugin = toggle.dataset.plugin as PluginName;
-    if (!plugin) return;
-    toggle.checked = config.processors.postcss[plugin];
-  });
 
   const emmetToggle = UI.getEmmetToggle();
   emmetToggle.checked = config.emmet;
@@ -2235,13 +2237,16 @@ const extraHandlers = () => {
 
 const importExternalContent = async () => {
   const config = getConfig();
+  const params = getParams(); // get query string params
+  const configUrl = params.config;
+  const template = params.template;
   const url = parent.location.hash.substring(1);
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const hasContentUrls =
     editorIds.filter((editorId) => config[editorId].contentUrl && !config[editorId].content)
       .length > 0;
 
-  if (!url && !hasContentUrls) return;
+  if (!configUrl && !template && !url && !hasContentUrls) return;
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
@@ -2249,7 +2254,18 @@ const importExternalContent = async () => {
   modal.show(loadingMessage, { size: 'small' });
 
   let importedConfig: Partial<Config>;
-  if (url) {
+
+  if (configUrl) {
+    importedConfig = configUrl
+      ? upgradeAndValidate(
+          await fetch(configUrl)
+            .then((res) => res.json())
+            .catch(() => ({})),
+        )
+      : {};
+  } else if (template) {
+    importedConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
+  } else if (url) {
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
     if (isGithub(url) && !isEmbed) {
@@ -2334,7 +2350,7 @@ const initializeApp = async (
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isEmbed = options?.isEmbed ?? false;
 
-  setConfig(await buildConfig(appConfig, baseUrl));
+  setConfig(buildConfig(appConfig, baseUrl));
   compiler = await getCompiler(getConfig(), baseUrl);
   formatter = getFormatter(getConfig(), baseUrl);
   if (isEmbed) {

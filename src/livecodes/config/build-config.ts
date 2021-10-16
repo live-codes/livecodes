@@ -1,11 +1,10 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { EditorId, Language, Config } from '../models';
-import { getTemplate } from '../templates';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) => {
+export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
   if (!appConfig) return { ...defaultConfig };
   if (!baseUrl) {
     baseUrl = '/livecodes/';
@@ -16,19 +15,8 @@ export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) =
   // get query string params
   const params = getParams();
 
-  // load config from file
-  const configUrl = params.config || './livecodes.json';
-  const fileConfig = configUrl
-    ? upgradeAndValidate(
-        await fetch(configUrl)
-          .then((res) => res.json())
-          .catch(() => ({})),
-      )
-    : {};
-
   let config: Config = {
     ...defaultConfig,
-    ...fileConfig,
     ...userConfig,
   };
 
@@ -39,14 +27,10 @@ export const buildConfig = async (appConfig: Partial<Config>, baseUrl: string) =
     ...paramsConfig,
   };
 
-  const externalContent = upgradeAndValidate(await loadTemplate(config, baseUrl, params));
-
-  const activeEditor =
-    paramsConfig.activeEditor || externalContent.activeEditor || config.activeEditor || 'markup';
+  const activeEditor = config.activeEditor || 'markup';
 
   config = {
     ...config,
-    ...externalContent,
     activeEditor,
   };
 
@@ -62,12 +46,6 @@ export const getParams = (queryParams = parent.location.search) => {
     if (params[key] === 'false') params[key] = false;
   });
   return params;
-};
-
-const loadTemplate = async (config: Config, baseUrl: string, params: { [key: string]: string }) => {
-  // load a starter template
-  const templateName = params.template;
-  return templateName ? getTemplate(templateName, config, baseUrl) : {};
 };
 
 const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
