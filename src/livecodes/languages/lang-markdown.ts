@@ -5,15 +5,6 @@ import { getLanguageCustomSettings } from './utils';
 export const markdown: LanguageSpecs = {
   name: 'markdown',
   title: 'Markdown',
-  info: `
-  <h3>Markdown</h3>
-  <div>Markdown compiled to HTML using Marked.</div>
-  <ul>
-    <li><a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown official website</a></li>
-    <li><a href="https://marked.js.org/" target="_blank" rel="noopener">Marked documentation</a></li>
-    <li><a href="?template=markdown" target="_parent" data-template="markdown">Load Markdown Readme template</a></li>
-  </ul>
-  `,
   parser: {
     name: 'markdown',
     pluginUrls: [parserPlugins.markdown, parserPlugins.html],

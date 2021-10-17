@@ -8,15 +8,6 @@ const cdnUrl = 'https://cdn.jsdelivr.net/npm/@stencil/core@2.8.1/compiler/stenci
 export const stencil: LanguageSpecs = {
   name: 'stencil',
   title: 'Stencil',
-  info: `
-  <h3>Stencil</h3>
-  <div>A Compiler for Web Components and High Performance Web Apps.</div>
-  <ul>
-    <li><a href="https://stenciljs.com/" target="_blank" rel="noopener">Stencil official website</a></li>
-    <li><a href="https://stenciljs.com/docs/introduction" target="_blank" rel="noopener">Stencil documentation</a></li>
-    <li><a href="?template=stencil" target="_parent" data-template="stencil">Load starter template</a></li>
-  </ul>
-  `,
   parser: {
     name: 'babel-ts',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],

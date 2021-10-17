@@ -84,15 +84,6 @@ export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language
 export const rescript: LanguageSpecs = {
   name: 'rescript',
   title: 'ReScript',
-  info: `
-  <h3>ReScript</h3>
-  <div>ReScript is a robustly typed language that compiles to efficient and human-readable JavaScript.</div>
-  <ul>
-    <li><a href="https://rescript-lang.org/" target="_blank" rel="noopener">ReScript website</a></li>
-    <li><a href="https://rescript-lang.org/docs/react/latest/introduction" target="_blank" rel="noopener">ReScript / React</a></li>
-    <li><a href="?template=rescript" target="_parent" data-template="rescript">Load starter template</a></li>
-  </ul>
-  `,
   formatter: {
     factory: formatterFactory,
   },

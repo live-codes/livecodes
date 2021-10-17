@@ -10,17 +10,6 @@ export const vue: LanguageSpecs = {
   name: 'vue',
   title: 'Vue 3',
   longTitle: 'Vue 3 SFC',
-  info: `
-  <h3>Vue3 Single File Components</h3>
-  <div>Loaded using vue3-sfc-loader.</div>
-  <ul>
-    <li><a href="https://v3.vuejs.org/" target="_blank" rel="noopener">Vue.js v3 official website</a></li>
-    <li><a href="https://v3.vuejs.org/guide/introduction.html" target="_blank" rel="noopener">Vue3 documentation</a></li>
-    <li><a href="https://v3.vuejs.org/guide/single-file-component.html" target="_blank" rel="noopener">Vue3 single file components</a></li>
-    <li><a href="https://github.com/FranckFreiburger/vue3-sfc-loader" target="_blank" rel="noopener">vue3-sfc-loader GitHub repo</a></li>
-    <li><a href="?template=vue" target="_parent" data-template="vue">Load starter template</a></li>
-  </ul>
-  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],

@@ -39,8 +39,8 @@ export const createCompiledCodeViewer = (
     }
   };
 
-  const createCompiledEditor = () => {
-    if (editor) return editor;
+  const createCompiledEditor = (force = false) => {
+    if (editor && !force) return editor;
 
     const editorOptions: EditorOptions = {
       baseUrl,
@@ -85,6 +85,15 @@ export const createCompiledCodeViewer = (
     editor = await createCompiledEditor();
   };
 
+  const reloadEditor = async () => {
+    if (!compiledCodeElement) {
+      await load();
+      return;
+    }
+    editor?.destroy();
+    editor = await createCompiledEditor(true);
+  };
+
   return {
     title: 'Compiled',
     load,
@@ -100,5 +109,6 @@ export const createCompiledCodeViewer = (
     },
     getEditor: () => editor,
     update,
+    reloadEditor,
   } as Tool;
 };

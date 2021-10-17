@@ -60,18 +60,6 @@ const getSpecs = (pluginName: PluginName) => pluginSpecs.find((specs) => specs.n
 export const postcss: Processors = {
   name: 'postcss',
   title: 'PostCSS:',
-  info: `
-  <h3>PostCSS</h3>
-  <div>
-    <p>A tool for transforming CSS with JavaScript.</p>
-    <p><a href="https://postcss.org/" target="_blank" rel="noopener">PostCSS official website</a></p>
-    <h4>Plugins:</h4>
-  </div>
-  <ul>
-    <li><a href="https://github.com/postcss/autoprefixer" target="_blank" rel="noopener">Autoprefixer</a></li>
-    <li><a href="https://preset-env.cssdb.org/" target="_blank" rel="noopener">PostCSS Preset Env</a></li>
-  </ul>
-  `,
   compiler: {
     url: vendorsBaseUrl + 'postcss/postcss.js',
     factory: () => {

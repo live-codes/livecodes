@@ -8,13 +8,6 @@ const runtimeUrl = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebar
 export const handlebars: LanguageSpecs = {
   name: 'handlebars',
   title: 'Handlebars',
-  info: `
-  <h3>EJS</h3>
-  <div>Minimal templating on steroids.</div>
-  <ul>
-    <li><a href="https://handlebarsjs.com/" target="_blank" rel="noopener">Official website</a></li>
-  </ul>
-  `,
   parser: {
     name: 'glimmer',
     pluginUrls: [parserPlugins.glimmer],

@@ -1,5 +1,5 @@
 import { createEventsManager } from '../events';
-import { EditorId, Config } from '../models';
+import { EditorId, Config, Language } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 import { languageIsEnabled, processorIsEnabled } from './utils';
@@ -10,8 +10,9 @@ export const createLanguageMenus = (
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: string) => void,
-  editorIds: EditorId[] = ['markup', 'style', 'script'],
+  importCode: (options: { url: string }) => Promise<void>,
 ) => {
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');
   document.querySelector('#select-editor')?.appendChild(rootList);
 
@@ -85,18 +86,18 @@ export const createLanguageMenus = (
       }
       languageItem.appendChild(languageLink);
 
-      if (language.info) {
+      if (language.info !== false) {
         const tooltip = document.createElement('span');
         tooltip.classList.add('tooltip', 'hint--bottom-left');
         tooltip.dataset.hint = 'Click for info...';
         tooltip.innerHTML = infoIcon;
-        const languageInfo = document.createElement('div');
-        languageInfo.classList.add('language-info');
-        languageInfo.innerHTML = language.info;
         eventsManager.addEventListener(
           tooltip,
           'mousedown',
-          () => {
+          async () => {
+            const languageInfo = document.createElement('div');
+            languageInfo.classList.add('language-info');
+            languageInfo.innerHTML = await getLanguageInfo(language.name, baseUrl);
             showLanguageInfo(languageInfo);
             const templateLink: HTMLElement | null = languageInfo.querySelector('a[data-template]');
             const templateName = templateLink?.dataset.template;
@@ -107,6 +108,19 @@ export const createLanguageMenus = (
                 async (event) => {
                   event.preventDefault();
                   loadStarterTemplate(templateName);
+                },
+                false,
+              );
+            }
+            const codeLink: HTMLElement | null = languageInfo.querySelector('a[data-code]');
+            const codeUrl = codeLink?.dataset.code;
+            if (codeLink && codeUrl) {
+              eventsManager.addEventListener(
+                codeLink,
+                'click',
+                async (event) => {
+                  event.preventDefault();
+                  importCode({ url: codeUrl });
                 },
                 false,
               );
@@ -124,6 +138,16 @@ export const createLanguageMenus = (
       editorSelector.classList.add('half-width');
     });
   }
+};
+
+const getLanguageInfo = async (language: Language, baseUrl: string) => {
+  const languageInfoHTML = await import(baseUrl + 'language-info.js').then(
+    (mod) => mod.languageInfo,
+  );
+  const domParser = new DOMParser();
+  const dom = domParser.parseFromString(languageInfoHTML, 'text/html');
+  const info = dom.querySelector(`[data-lang="${language}"]`);
+  return info?.innerHTML || '';
 };
 
 const infoIcon = `<?xml version="1.0" encoding="iso-8859-1"?>

@@ -7,13 +7,6 @@ const url = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
 export const ejs: LanguageSpecs = {
   name: 'ejs',
   title: 'EJS',
-  info: `
-  <h3>EJS</h3>
-  <div>Embedded JavaScript templating.</div>
-  <ul>
-    <li><a href="https://ejs.co/" target="_blank" rel="noopener">Official website</a></li>
-  </ul>
-  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],

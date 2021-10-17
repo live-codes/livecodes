@@ -163,13 +163,16 @@ export const loadScript = (url: string, name?: string) =>
     document.head.appendChild(script);
   });
 
-export const loadStylesheet = (url: string, id?: string) => {
+export const loadStylesheet = (url: string, id?: string, insertBefore?: string) => {
   if (id && document.getElementById(id)) return;
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
   stylesheet.href = url;
   stylesheet.id = id || 'styles-' + getRandomString();
-  document.head.appendChild(stylesheet);
+  document.head.insertBefore(
+    stylesheet,
+    insertBefore ? document.querySelector(insertBefore) : null,
+  );
 };
 
 export const typedArrayToBuffer = (array: Uint8Array): ArrayBuffer =>
@@ -182,6 +185,6 @@ export const getDate = () => {
   return date.toISOString().split('T')[0];
 };
 
-export const handeFetchError = (res: Response) => (res.ok ? res : Promise.reject());
+export const handleFetchError = (res: Response) => (res.ok ? res : Promise.reject());
 export const fetchWithHandler = (input: RequestInfo, init?: RequestInit) =>
-  fetch(input, init).then(handeFetchError);
+  fetch(input, init).then(handleFetchError);

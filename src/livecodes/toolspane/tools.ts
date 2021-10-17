@@ -1,6 +1,7 @@
 import Split from 'split.js';
 import { createEventsManager } from '../events';
 import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
+import { getResultElement } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
 
@@ -27,7 +28,7 @@ export const createToolsPane = (
   let status: ToolsPaneStatus;
   let activeToolId = 0;
 
-  const result = document.querySelector('#result') as HTMLElement;
+  const result = getResultElement();
   const gutterSize = 30;
   type Sizes = {
     [key in ToolsPaneStatus]: [number, number];

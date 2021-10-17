@@ -5,15 +5,6 @@ import { getLanguageCustomSettings } from './utils';
 export const haml: LanguageSpecs = {
   name: 'haml',
   title: 'Haml',
-  info: `
-  <h3>Haml</h3>
-  <div>Haml compiler for client side javascript view templates using clientside-haml-js.</div>
-  <ul>
-    <li><a href="https://haml.info/" target="_blank" rel="noopener">Haml official website</a></li>
-    <li><a href="https://haml.info/docs.html" target="_blank" rel="noopener">Haml documentation</a></li>
-    <li><a href="https://github.com/uglyog/clientside-haml-js" target="_blank" rel="noopener">clientside-haml-js GitHub repo</a></li>
-  </ul>
-  `,
   compiler: {
     url: vendorsBaseUrl + 'clientside-haml-js/haml.js',
     factory: () => async (code, { config }) => {

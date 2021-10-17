@@ -20,16 +20,6 @@ export const assemblyscript: LanguageSpecs = {
   name: 'assemblyscript',
   title: 'AS',
   longTitle: 'AssemblyScript',
-  info: `
-  <h3>AssemblyScript</h3>
-  <div>A TypeScript-like language for WebAssembly.</div>
-  <ul>
-    <li><a href="https://www.assemblyscript.org/" target="_blank" rel="noopener">AssemblyScript official website</a></li>
-    <li><a href="https://www.assemblyscript.org/introduction.html" target="_blank" rel="noopener">AssemblyScript documentation</a></li>
-    <!-- <li><a href="#">AssemblyScript usage in LiveCodes</a></li> -->
-    <li><a href="?template=assemblyscript" target="_parent" data-template="assemblyscript">Load starter template</a></li>
-  </ul>
-  `,
   parser: {
     name: 'babel-ts',
     pluginUrls: [parserPlugins.babel],

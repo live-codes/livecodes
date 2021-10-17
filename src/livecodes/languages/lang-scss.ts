@@ -5,15 +5,6 @@ import { getLanguageCustomSettings } from './utils';
 export const scss: LanguageSpecs = {
   name: 'scss',
   title: 'SCSS',
-  info: `
-  <h3>SCSS</h3>
-  <div>Syntactically Awesome Style Sheets.</div>
-  <ul>
-    <li><a href="https://sass-lang.com/" target="_blank" rel="noopener">Sass official website</a></li>
-    <li><a href="https://sass-lang.com/documentation" target="_blank" rel="noopener">Sass documentation</a></li>
-    <li><a href="https://sass-lang.com/documentation/syntax#scss" target="_blank" rel="noopener">SCSS syntax</a></li>
-  </ul>
-  `,
   parser: {
     name: 'scss',
     pluginUrls: [parserPlugins.postcss],

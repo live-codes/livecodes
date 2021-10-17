@@ -1,4 +1,3 @@
-/* eslint-disable import/no-internal-modules */
 import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
 import { Compartment, Extension } from '@codemirror/state';
 import { defaultHighlightStyle } from '@codemirror/highlight';
@@ -6,35 +5,22 @@ import { oneDark } from '@codemirror/theme-one-dark';
 import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
 import { LanguageSupport } from '@codemirror/language';
-import { StreamParser, StreamLanguage } from '@codemirror/stream-parser';
-import { html } from '@codemirror/lang-html';
-import { css } from '@codemirror/lang-css';
-import { javascript } from '@codemirror/lang-javascript';
-import { json } from '@codemirror/lang-json';
-import { markdown } from '@codemirror/lang-markdown';
-import { python } from '@codemirror/lang-python';
-import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';
-import { liveScript } from '@codemirror/legacy-modes/mode/livescript';
-import { ruby } from '@codemirror/legacy-modes/mode/ruby';
-import { go } from '@codemirror/legacy-modes/mode/go';
-import { perl } from '@codemirror/legacy-modes/mode/perl';
-import { lua } from '@codemirror/legacy-modes/mode/lua';
-import { scheme } from '@codemirror/legacy-modes/mode/scheme';
-import { less, sCSS } from '@codemirror/legacy-modes/mode/css';
-import { stylus } from '@codemirror/legacy-modes/mode/stylus';
-import { sql } from '@codemirror/lang-sql';
-import { php } from '@codemirror/lang-php';
-import { wast } from '@codemirror/lang-wast';
+import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
 
-import { mapLanguage } from '../languages';
-import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../models';
+import { mapLanguage } from '../../languages';
+import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 
-// TODO: replace with official extension when available
-import emmetExt from './emmet-codemirror6-ext';
+export const legacy = (parser: StreamParser<unknown>) =>
+  new LanguageSupport(StreamLanguage.define(parser));
 
-export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
+export const createEditorCreator = (
+  languages: Partial<{ [key in Language]: () => LanguageSupport }>,
+  emmetExt: any,
+) => async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly } = options;
   if (!container) throw new Error('editor container not found');
+  const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
+    languages[language] || (languages.html as () => LanguageSupport);
 
   let language = options.language;
   let mappedLanguage = mapLanguage(language);
@@ -48,38 +34,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (update.docChanged) {
       listeners.forEach((fn) => fn(update));
     }
-  };
-
-  const legacy = (parser: StreamParser<unknown>) =>
-    new LanguageSupport(StreamLanguage.define(parser));
-
-  const getLanguageExtension = (language: Language): (() => LanguageSupport) => {
-    const languages: Partial<{ [key in Language]: () => LanguageSupport }> = {
-      html,
-      markdown,
-      css,
-      javascript,
-      typescript: () => javascript({ typescript: true }),
-      jsx: () => javascript({ jsx: true }),
-      tsx: () => javascript({ jsx: true, typescript: true }),
-      json,
-      python,
-      php,
-      sql,
-      wat: wast,
-      coffeescript: () => legacy(coffeeScript),
-      livescript: () => legacy(liveScript),
-      ruby: () => legacy(ruby),
-      go: () => legacy(go),
-      perl: () => legacy(perl),
-      lua: () => legacy(lua),
-      scheme: () => legacy(scheme),
-      less: () => legacy(less),
-      scss: () => legacy(sCSS),
-      stylus: () => legacy(stylus),
-    };
-
-    return languages[language] || (languages.html as () => LanguageSupport);
   };
 
   const languageExtension = new Compartment();
@@ -246,7 +200,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
-  const destroy = () => view.destroy();
+  const destroy = () => {
+    listeners.length = 0;
+    view.destroy();
+  };
 
   return {
     getValue,

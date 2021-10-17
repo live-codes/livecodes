@@ -4,6 +4,10 @@ import resultTemplate from './sandbox/v4/result.html';
 // @ts-ignore
 import appHTML from './app.html';
 // @ts-ignore
+import settingsMenuHTML from './settings-menu.html';
+// @ts-ignore
+import languageInfo from './language-info.html';
+// @ts-ignore
 import customSettingsScreen from './custom-settings.html';
 // @ts-ignore
 import importScreen from './import.html';
@@ -29,6 +33,8 @@ import shareScreen from './share.html';
 export {
   resultTemplate,
   appHTML,
+  settingsMenuHTML,
+  languageInfo,
   customSettingsScreen,
   importScreen,
   deployScreen,

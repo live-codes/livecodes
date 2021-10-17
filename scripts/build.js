@@ -20,7 +20,6 @@ function iife(code) {
 var srcDir = path.resolve(__dirname + '/../src/livecodes');
 var outDir = path.resolve(__dirname + '/../build');
 mkdirp(outDir);
-fs.copyFileSync(path.resolve(srcDir + '/livecodes.json'), path.resolve(outDir + '/livecodes.json'));
 fs.copyFileSync(
   path.resolve(__dirname + '/../src/favicon.ico'),
   path.resolve(outDir + '/favicon.ico'),
@@ -40,32 +39,32 @@ try {
 }
 
 /** @type {Partial<esbuild.BuildOptions>} */
-var buildOptions = {
-  entryPoints: ['src/livecodes/index.ts', 'src/livecodes/app.ts'],
+var baseOptions = {
   bundle: true,
   minify: true,
-  loader: { '.html': 'text', '.ttf': 'file' },
   outdir: 'build/livecodes',
   format: 'esm',
+};
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/index.ts', 'src/livecodes/app.ts', 'src/livecodes/embed.ts'],
+  loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
   define: {
     'process.env.VERSION': `"${version || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
   },
-};
-esbuild.buildSync(buildOptions);
+});
 
 /** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {
+  ...baseOptions,
   entryPoints: [
     'src/livecodes/compiler/compile.worker.ts',
     'src/livecodes/formatter/format.worker.ts',
   ],
-  bundle: true,
-  minify: true,
-  outdir: 'build/livecodes',
-  format: 'esm',
   write: false,
 };
 
@@ -77,50 +76,41 @@ for (let out of worker.outputFiles) {
 }
 
 esbuild.buildSync({
+  ...baseOptions,
   entryPoints: ['src/livecodes/compiler/compile.page.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/compile.page.js',
   format: 'iife',
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/livecodes/editor/codemirror.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/codemirror.js',
-  format: 'esm',
+  ...baseOptions,
+  entryPoints: [
+    'src/livecodes/editor/codemirror/codemirror-basic.ts',
+    'src/livecodes/editor/codemirror/codemirror-full.ts',
+  ],
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/livecodes/editor/monaco.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/monaco.js',
-  format: 'esm',
+  ...baseOptions,
+  entryPoints: ['src/livecodes/editor/monaco/monaco.ts'],
 });
 
 esbuild.buildSync({
-  entryPoints: ['src/livecodes/editor/prism.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/prism.js',
-  format: 'esm',
+  ...baseOptions,
+  entryPoints: [
+    'src/livecodes/editor/prism/prism-basic.ts',
+    'src/livecodes/editor/prism/prism-full.ts',
+  ],
 });
 
 esbuild.buildSync({
+  ...baseOptions,
   entryPoints: ['src/livecodes/result/result-utils.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/result-utils.js',
   format: 'iife',
 });
 
 esbuild.buildSync({
+  ...baseOptions,
   entryPoints: ['src/livecodes/compiler/compiler-utils.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/compiler-utils.js',
   format: 'iife',
 });
 
@@ -133,11 +123,14 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
+  ...baseOptions,
   entryPoints: ['src/livecodes/services/firebase.ts'],
-  bundle: true,
-  minify: true,
-  outfile: 'build/livecodes/firebase.js',
-  format: 'esm',
 });
 
-console.log('built to: ' + buildOptions.outdir);
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/languages/language-info.ts'],
+  loader: { '.html': 'text' },
+});
+
+console.log('built to: ' + baseOptions.outdir);

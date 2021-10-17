@@ -10,19 +10,6 @@ export const reactNative: LanguageSpecs = {
   name: 'react-native',
   title: 'RN',
   longTitle: 'React Native',
-  info: `
-  <h3>React Native for Web</h3>
-  <div>
-    React Native for Web is an accessible implementation of React Native's Components and APIs that is interoperable with React DOM.
-  </div>
-  <ul>
-    <li><a href="https://reactjs.org/" target="_blank" rel="noopener">React official website</a></li>
-    <li><a href="https://reactnative.dev/" target="_blank" rel="noopener">React Native website</a></li>
-    <li><a href="https://necolas.github.io/react-native-web/" target="_blank" rel="noopener">React Native for Web website</a></li>
-    <li><a href="https://reactnative.dev/docs/getting-started" target="_blank" rel="noopener">React Native documentation</a></li>
-    <li><a href="?template=react-native" target="_parent" data-template="react-native">Load starter template</a></li>
-  </ul>
-  `,
   parser: {
     name: 'babel',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],

@@ -8,15 +8,6 @@ const runtimeUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.3/browser/nunjucks
 export const nunjucks: LanguageSpecs = {
   name: 'nunjucks',
   title: 'Nunjucks',
-  info: `
-  <h3>Nunjucks</h3>
-  <div>
-    A rich and powerful templating language for JavaScript.
-    Nunjucks is essentially a port of <a href="http://jinja.pocoo.org/docs/" target="_blank" rel="noopener">jinja2</a>.</div>
-  <ul>
-    <li><a href="https://mozilla.github.io/nunjucks/" target="_blank" rel="noopener">Official website</a></li>
-  </ul>
-  `,
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],
