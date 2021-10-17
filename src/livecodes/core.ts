@@ -2247,17 +2247,14 @@ const importExternalContent = async (options: {
     editorIds.filter((editorId) => conf[editorId]?.contentUrl && !conf[editorId]?.content).length >
     0;
 
-  if (!configUrl && !template && !url && !hasContentUrls(config)) {
-    modal.close();
-    return;
-  }
+  if (!configUrl && !template && !url && !hasContentUrls(config)) return;
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
   loadingMessage.innerHTML = 'Loading Project...';
   modal.show(loadingMessage, { size: 'small' });
 
-  let importedConfig: Partial<Config>;
+  let importedConfig: Partial<Config> = {};
 
   if (configUrl) {
     importedConfig = upgradeAndValidate(
@@ -2279,7 +2276,7 @@ const importExternalContent = async (options: {
       user = await authService?.getUser();
     }
     importedConfig = await importCode(url, getParams(), getConfig(), user);
-  } else {
+  } else if (hasContentUrls(config)) {
     // load content from config contentUrl
     const editorsContent = await Promise.all(
       editorIds.map((editorId) => {
