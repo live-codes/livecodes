@@ -2235,18 +2235,22 @@ const extraHandlers = () => {
   handleUnload();
 };
 
-const importExternalContent = async () => {
-  const config = getConfig();
-  const params = getParams(); // get query string params
-  const configUrl = params.config;
-  const template = params.template;
-  const url = parent.location.hash.substring(1);
+const importExternalContent = async (options: {
+  config?: Config;
+  configUrl?: string;
+  template?: string;
+  url?: string;
+}) => {
+  const { config = defaultConfig, configUrl, template, url } = options;
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const hasContentUrls =
-    editorIds.filter((editorId) => config[editorId].contentUrl && !config[editorId].content)
-      .length > 0;
+  const hasContentUrls = (conf: Partial<Config>) =>
+    editorIds.filter((editorId) => conf[editorId]?.contentUrl && !conf[editorId]?.content).length >
+    0;
 
-  if (!configUrl && !template && !url && !hasContentUrls) return;
+  if (!configUrl && !template && !url && !hasContentUrls(config)) {
+    modal.close();
+    return;
+  }
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
@@ -2256,13 +2260,15 @@ const importExternalContent = async () => {
   let importedConfig: Partial<Config>;
 
   if (configUrl) {
-    importedConfig = configUrl
-      ? upgradeAndValidate(
-          await fetch(configUrl)
-            .then((res) => res.json())
-            .catch(() => ({})),
-        )
-      : {};
+    importedConfig = upgradeAndValidate(
+      await fetch(configUrl)
+        .then((res) => res.json())
+        .catch(() => ({})),
+    );
+    if (hasContentUrls(importedConfig)) {
+      await importExternalContent({ config: { ...config, ...importedConfig } });
+      return;
+    }
   } else if (template) {
     importedConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
   } else if (url) {
@@ -2334,7 +2340,14 @@ const bootstrap = async (reload = false) => {
       initializeAuth();
       checkRestoreStatus();
     }
-    importExternalContent();
+
+    const params = getParams(); // query string params
+    importExternalContent({
+      config: getConfig(),
+      configUrl: params.config,
+      template: params.template,
+      url: parent.location.hash.substring(1),
+    });
   }
 };
 
@@ -2357,7 +2370,14 @@ const initializeApp = async (
     configureEmbed(eventsManager, share);
   }
   loadUserConfig();
-  createLanguageMenus(getConfig(), baseUrl, eventsManager, showLanguageInfo, loadStarterTemplate);
+  createLanguageMenus(
+    getConfig(),
+    baseUrl,
+    eventsManager,
+    showLanguageInfo,
+    loadStarterTemplate,
+    importExternalContent,
+  );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);

@@ -10,8 +10,9 @@ export const createLanguageMenus = (
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: string) => void,
-  editorIds: EditorId[] = ['markup', 'style', 'script'],
+  importSomeCode: (options: { url: string }) => Promise<void>,
 ) => {
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');
   document.querySelector('#select-editor')?.appendChild(rootList);
 
@@ -107,6 +108,19 @@ export const createLanguageMenus = (
                 async (event) => {
                   event.preventDefault();
                   loadStarterTemplate(templateName);
+                },
+                false,
+              );
+            }
+            const codeLink: HTMLElement | null = languageInfo.querySelector('a[data-code]');
+            const codeUrl = codeLink?.dataset.code;
+            if (codeLink && codeUrl) {
+              eventsManager.addEventListener(
+                codeLink,
+                'click',
+                async (event) => {
+                  event.preventDefault();
+                  importSomeCode({ url: codeUrl });
                 },
                 false,
               );
