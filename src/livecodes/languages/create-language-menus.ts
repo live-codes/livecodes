@@ -10,7 +10,7 @@ export const createLanguageMenus = (
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: string) => void,
-  importSomeCode: (options: { url: string }) => Promise<void>,
+  importCode: (options: { url: string }) => Promise<void>,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');
@@ -120,7 +120,7 @@ export const createLanguageMenus = (
                 'click',
                 async (event) => {
                   event.preventDefault();
-                  importSomeCode({ url: codeUrl });
+                  importCode({ url: codeUrl });
                 },
                 false,
               );
