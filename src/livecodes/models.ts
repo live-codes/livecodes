@@ -147,7 +147,9 @@ export type Language =
   | 'csharp'
   | 'sql'
   | 'sqlite'
-  | 'sqlite3';
+  | 'sqlite3'
+  | 'blockly'
+  | 'blockly.xml';
 
 export interface Editor {
   language: Language;

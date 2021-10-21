@@ -293,10 +293,10 @@ export const createToolsPane = (
       if (status === 'none') {
         setHidden(true);
       }
+      tools.forEach(async (tool) => {
+        await tool.load();
+      });
     }
-    tools.forEach(async (tool) => {
-      await tool.load();
-    });
     setActiveTool(activeToolId);
   };
 
