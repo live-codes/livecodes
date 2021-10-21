@@ -476,8 +476,8 @@ const showBlockly = async (show: boolean, service = sandboxService) => {
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
       const blocklyHTML = (await import(baseUrl + 'blockly-editor.js')).blocklyHTML
-      .replace('{{theme}}', getConfig().theme)
-      .replace(
+        .replace('{{theme}}', getConfig().theme)
+        .replace(
           '<!-- startBlocks placeholder -->',
           `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>`,
         );
@@ -2299,7 +2299,6 @@ const basicHandlers = () => {
   handleRunButton();
   handleResultButton();
   handleProcessors();
-  handleShare();
   handleResultLoading();
 };
 
@@ -2317,6 +2316,7 @@ const extraHandlers = () => {
   handleFork();
   handleSaveAsTemplate();
   handleOpen();
+  handleShare();
   handleImport();
   handleExport();
   handleDeploy();
