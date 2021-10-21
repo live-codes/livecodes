@@ -26,17 +26,23 @@
   <body>
     <div id="blocklyDiv"></div>
 
-    <xml id="toolbox" style="display: none">
-      <category id="catLogic" colour="210" name="Logic">
+    <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+      <category name="Logic" colour="#5b80a5">
         <block type="controls_if"></block>
-        <block type="logic_compare"></block>
-        <block type="logic_operation"></block>
+        <block type="logic_compare">
+          <field name="OP">EQ</field>
+        </block>
+        <block type="logic_operation">
+          <field name="OP">AND</field>
+        </block>
         <block type="logic_negate"></block>
-        <block type="logic_boolean"></block>
+        <block type="logic_boolean">
+          <field name="BOOL">TRUE</field>
+        </block>
         <block type="logic_null"></block>
         <block type="logic_ternary"></block>
       </category>
-      <category id="catLoops" colour="120" name="Loops">
+      <category name="Loops" colour="#5ba55b">
         <block type="controls_repeat_ext">
           <value name="TIMES">
             <shadow type="math_number">
@@ -44,8 +50,11 @@
             </shadow>
           </value>
         </block>
-        <block type="controls_whileUntil"></block>
+        <block type="controls_whileUntil">
+          <field name="MODE">WHILE</field>
+        </block>
         <block type="controls_for">
+          <field name="VAR" id="mhPqYhZH,S)tSOh0bq]0">i</field>
           <value name="FROM">
             <shadow type="math_number">
               <field name="NUM">1</field>
@@ -62,12 +71,19 @@
             </shadow>
           </value>
         </block>
-        <block type="controls_forEach"></block>
-        <block type="controls_flow_statements"></block>
+        <block type="controls_forEach">
+          <field name="VAR" id="P*OGeY|!5)*O-0D2XaR?">j</field>
+        </block>
+        <block type="controls_flow_statements">
+          <field name="FLOW">BREAK</field>
+        </block>
       </category>
-      <category id="catMath" colour="230" name="Math">
-        <block type="math_number"></block>
+      <category name="Math" colour="#5b67a5">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
         <block type="math_arithmetic">
+          <field name="OP">ADD</field>
           <value name="A">
             <shadow type="math_number">
               <field name="NUM">1</field>
@@ -80,6 +96,7 @@
           </value>
         </block>
         <block type="math_single">
+          <field name="OP">ROOT</field>
           <value name="NUM">
             <shadow type="math_number">
               <field name="NUM">9</field>
@@ -87,35 +104,37 @@
           </value>
         </block>
         <block type="math_trig">
+          <field name="OP">SIN</field>
           <value name="NUM">
             <shadow type="math_number">
               <field name="NUM">45</field>
             </shadow>
           </value>
         </block>
-        <block type="math_constant"></block>
+        <block type="math_constant">
+          <field name="CONSTANT">PI</field>
+        </block>
         <block type="math_number_property">
+          <mutation divisor_input="false"></mutation>
+          <field name="PROPERTY">EVEN</field>
           <value name="NUMBER_TO_CHECK">
             <shadow type="math_number">
               <field name="NUM">0</field>
             </shadow>
           </value>
         </block>
-        <block type="math_change">
-          <value name="DELTA">
-            <shadow type="math_number">
-              <field name="NUM">1</field>
-            </shadow>
-          </value>
-        </block>
         <block type="math_round">
+          <field name="OP">ROUND</field>
           <value name="NUM">
             <shadow type="math_number">
               <field name="NUM">3.1</field>
             </shadow>
           </value>
         </block>
-        <block type="math_on_list"></block>
+        <block type="math_on_list">
+          <mutation op="SUM"></mutation>
+          <field name="OP">SUM</field>
+        </block>
         <block type="math_modulo">
           <value name="DIVIDEND">
             <shadow type="math_number">
@@ -159,12 +178,19 @@
         </block>
         <block type="math_random_float"></block>
       </category>
-      <category id="catText" colour="160" name="Text">
-        <block type="text"></block>
-        <block type="text_join"></block>
+      <category name="Text" colour="#5ba58c">
+        <block type="text">
+          <field name="TEXT"></field>
+        </block>
+        <block type="text_join">
+          <mutation items="2"></mutation>
+        </block>
         <block type="text_append">
+          <field name="VAR" id="{c*$G-wO_K85DOwAUN)0">item</field>
           <value name="TEXT">
-            <shadow type="text"></shadow>
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
           </value>
         </block>
         <block type="text_length">
@@ -182,9 +208,10 @@
           </value>
         </block>
         <block type="text_indexOf">
+          <field name="END">FIRST</field>
           <value name="VALUE">
             <block type="variables_get">
-              <field name="VAR">text</field>
+              <field name="VAR" id="56^Bs:W6[;bSlf.n%D.0">text</field>
             </block>
           </value>
           <value name="FIND">
@@ -194,20 +221,26 @@
           </value>
         </block>
         <block type="text_charAt">
+          <mutation at="true"></mutation>
+          <field name="WHERE">FROM_START</field>
           <value name="VALUE">
             <block type="variables_get">
-              <field name="VAR">text</field>
+              <field name="VAR" id="56^Bs:W6[;bSlf.n%D.0">text</field>
             </block>
           </value>
         </block>
         <block type="text_getSubstring">
+          <mutation at1="true" at2="true"></mutation>
+          <field name="WHERE1">FROM_START</field>
+          <field name="WHERE2">FROM_START</field>
           <value name="STRING">
             <block type="variables_get">
-              <field name="VAR">text</field>
+              <field name="VAR" id="56^Bs:W6[;bSlf.n%D.0">text</field>
             </block>
           </value>
         </block>
         <block type="text_changeCase">
+          <field name="CASE">UPPERCASE</field>
           <value name="TEXT">
             <shadow type="text">
               <field name="TEXT">abc</field>
@@ -215,6 +248,7 @@
           </value>
         </block>
         <block type="text_trim">
+          <field name="MODE">BOTH</field>
           <value name="TEXT">
             <shadow type="text">
               <field name="TEXT">abc</field>
@@ -229,6 +263,8 @@
           </value>
         </block>
         <block type="text_prompt_ext">
+          <mutation type="TEXT"></mutation>
+          <field name="TYPE">TEXT</field>
           <value name="TEXT">
             <shadow type="text">
               <field name="TEXT">abc</field>
@@ -236,11 +272,13 @@
           </value>
         </block>
       </category>
-      <category id="catLists" colour="260" name="Lists">
+      <category name="Lists" colour="#745ba5">
         <block type="lists_create_with">
           <mutation items="0"></mutation>
         </block>
-        <block type="lists_create_with"></block>
+        <block type="lists_create_with">
+          <mutation items="3"></mutation>
+        </block>
         <block type="lists_repeat">
           <value name="NUM">
             <shadow type="math_number">
@@ -251,44 +289,61 @@
         <block type="lists_length"></block>
         <block type="lists_isEmpty"></block>
         <block type="lists_indexOf">
+          <field name="END">FIRST</field>
           <value name="VALUE">
             <block type="variables_get">
-              <field name="VAR">list</field>
+              <field name="VAR" id="=[3|%qk6D5qw(*9IL-+N">list</field>
             </block>
           </value>
         </block>
         <block type="lists_getIndex">
+          <mutation statement="false" at="true"></mutation>
+          <field name="MODE">GET</field>
+          <field name="WHERE">FROM_START</field>
           <value name="VALUE">
             <block type="variables_get">
-              <field name="VAR">list</field>
+              <field name="VAR" id="=[3|%qk6D5qw(*9IL-+N">list</field>
             </block>
           </value>
         </block>
         <block type="lists_setIndex">
+          <mutation at="true"></mutation>
+          <field name="MODE">SET</field>
+          <field name="WHERE">FROM_START</field>
           <value name="LIST">
             <block type="variables_get">
-              <field name="VAR">list</field>
+              <field name="VAR" id="=[3|%qk6D5qw(*9IL-+N">list</field>
             </block>
           </value>
         </block>
         <block type="lists_getSublist">
+          <mutation at1="true" at2="true"></mutation>
+          <field name="WHERE1">FROM_START</field>
+          <field name="WHERE2">FROM_START</field>
           <value name="LIST">
             <block type="variables_get">
-              <field name="VAR">list</field>
+              <field name="VAR" id="=[3|%qk6D5qw(*9IL-+N">list</field>
             </block>
           </value>
         </block>
         <block type="lists_split">
+          <mutation mode="SPLIT"></mutation>
+          <field name="MODE">SPLIT</field>
           <value name="DELIM">
             <shadow type="text">
               <field name="TEXT">,</field>
             </shadow>
           </value>
         </block>
-        <block type="lists_sort"></block>
+        <block type="lists_sort">
+          <field name="TYPE">NUMERIC</field>
+          <field name="DIRECTION">1</field>
+        </block>
       </category>
-      <category id="catColour" colour="20" name="Color">
-        <block type="colour_picker"></block>
+      <category name="Colour" colour="#a5745b">
+        <block type="colour_picker">
+          <field name="COLOUR">#ff0000</field>
+        </block>
         <block type="colour_random"></block>
         <block type="colour_rgb">
           <value name="RED">
@@ -326,13 +381,180 @@
         </block>
       </category>
       <sep></sep>
-      <category id="catVariables" colour="330" custom="VARIABLE" name="Variables"></category>
-      <category id="catFunctions" colour="290" custom="PROCEDURE" name="Functions"></category>
+      <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
+      <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
+      <sep></sep>
+      <category name="DOM" colour="#A68D5C">
+        <block type="element_by_id">
+          <field name="id">button</field>
+        </block>
+        <block type="element_selector">
+          <field name="selector">button</field>
+        </block>
+        <block type="set_property">
+          <field name="property">innerHTML</field>
+        </block>
+        <block type="get_property">
+          <field name="property">innerHTML</field>
+        </block>
+        <block type="handle_event">
+          <field name="event">click</field>
+        </block>
+      </category>
     </xml>
 
     <!-- startBlocks placeholder -->
 
     <script>
+      Blockly.Blocks['element_by_id'] = {
+        init: function () {
+          this.appendDummyInput()
+            .appendField('with ID')
+            .appendField(new Blockly.FieldTextInput('button'), 'id');
+          this.setInputsInline(false);
+          this.setOutput(true, 'HTMLElement');
+          this.setColour(40);
+          this.setTooltip('Get element by ID');
+        },
+      };
+
+      Blockly.Blocks['element_selector'] = {
+        init: function () {
+          this.appendDummyInput()
+            .appendField('matching selector')
+            .appendField(new Blockly.FieldTextInput('button'), 'selector');
+          this.setInputsInline(false);
+          this.setOutput(true, 'HTMLElement');
+          this.setColour(40);
+          this.setTooltip('Get element by query selector');
+        },
+      };
+
+      Blockly.Blocks['set_property'] = {
+        init: function () {
+          this.appendValueInput('element')
+            .setCheck('HTMLElement')
+            .appendField('set value of element');
+          this.appendDummyInput()
+            .appendField('property')
+            .appendField(
+              new Blockly.FieldDropdown([
+                ['innerHTML', 'innerHTML'],
+                ['innerText', 'innerText'],
+                ['value', 'value'],
+              ]),
+              'property',
+            );
+          this.appendValueInput('value').setCheck(null).appendField('to');
+          this.setInputsInline(false);
+          this.setPreviousStatement(true, null);
+          this.setNextStatement(true, null);
+          this.setColour(40);
+          this.setTooltip('Set element property');
+        },
+      };
+
+      Blockly.Blocks['get_property'] = {
+        init: function () {
+          this.appendValueInput('element')
+            .setCheck('HTMLElement')
+            .appendField('get value of element');
+          this.appendDummyInput()
+            .appendField('property')
+            .appendField(
+              new Blockly.FieldDropdown([
+                ['innerHTML', 'innerHTML'],
+                ['innerText', 'innerText'],
+                ['value', 'value'],
+              ]),
+              'property',
+            );
+          this.setInputsInline(false);
+          this.setOutput(true, null);
+          this.setColour(40);
+          this.setTooltip('Get element property');
+        },
+      };
+
+      Blockly.Blocks['handle_event'] = {
+        init: function () {
+          this.appendValueInput('element').setCheck('HTMLElement').appendField('element');
+          this.appendDummyInput()
+            .appendField('on')
+            .appendField(
+              new Blockly.FieldDropdown([
+                ['click', 'click'],
+                ['mouseover', 'mouseover'],
+                ['mousedown', 'mouseover'],
+                ['mouseup', 'mouseup'],
+                ['input', 'input'],
+                ['change', 'change'],
+                ['select', 'select'],
+              ]),
+              'event',
+            );
+          this.appendStatementInput('event_handler').setCheck(null).appendField('do');
+          this.setInputsInline(false);
+          this.setNextStatement(true, null);
+          this.setColour(40);
+          this.setTooltip('Handle element event');
+        },
+      };
+
+      Blockly.JavaScript['element_by_id'] = function (block) {
+        var text_id = block.getFieldValue('id');
+        var code = `document.getElementById('${text_id}')`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['element_selector'] = function (block) {
+        var text_selector = block.getFieldValue('selector');
+        var code = `document.querySelector('${text_selector}')`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['set_property'] = function (block) {
+        var value_element = Blockly.JavaScript.valueToCode(
+          block,
+          'element',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var dropdown_property = block.getFieldValue('property');
+        var value_value = Blockly.JavaScript.valueToCode(
+          block,
+          'value',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var code = `${value_element}.${dropdown_property} = ${value_value};\n`;
+        return code;
+      };
+
+      Blockly.JavaScript['get_property'] = function (block) {
+        var value_element = Blockly.JavaScript.valueToCode(
+          block,
+          'element',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var dropdown_property = block.getFieldValue('property');
+        var code = `${value_element}.${dropdown_property}`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['handle_event'] = function (block) {
+        var value_element = Blockly.JavaScript.valueToCode(
+          block,
+          'element',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var dropdown_event = block.getFieldValue('event');
+        var statements_event_handler = Blockly.JavaScript.statementToCode(block, 'event_handler');
+
+        var code = `${value_element}.addEventListener('${dropdown_event}', function() {
+      ${statements_event_handler}});
+      `;
+        return code;
+      };
+
       var workspace = Blockly.inject('blocklyDiv', {
         media: 'https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/media/',
         toolbox: document.getElementById('toolbox'),
@@ -354,6 +576,7 @@
         light: Blockly.Themes.Classic,
         dark: Blockly.Themes.Dark,
       };
+      workspace.setTheme(themes['{{theme}}']);
 
       function updateCode() {
         window.LoopTrap = 1000;

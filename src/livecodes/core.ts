@@ -475,10 +475,12 @@ const showBlockly = async (show: boolean, service = sandboxService) => {
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
-      const blocklyHTML = (await import(baseUrl + 'blockly-editor.js')).blocklyHTML.replace(
-        '<!-- startBlocks placeholder -->',
-        `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>`,
-      );
+      const blocklyHTML = (await import(baseUrl + 'blockly-editor.js')).blocklyHTML
+      .replace('{{theme}}', getConfig().theme)
+      .replace(
+          '<!-- startBlocks placeholder -->',
+          `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>`,
+        );
 
       eventsManager.addEventListener(iframe, 'load', () => {
         iframe.contentWindow?.postMessage({ result: blocklyHTML }, service.getOrigin());
