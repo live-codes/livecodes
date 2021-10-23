@@ -17,10 +17,10 @@
         height: 100%;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/blockly_compressed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/blocks_compressed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/javascript_compressed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/msg/en.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blockly/blockly_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blockly/blocks_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blockly/javascript_compressed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blockly/msg/en.js"></script>
     <script src="https://blockly-demo.appspot.com/static/demos/custom-dialogs/custom-dialog.js"></script>
   </head>
   <body>
@@ -456,6 +456,11 @@
           <value name="method">
             <shadow type="dom_element_methods"></shadow>
           </value>
+          <value name="args">
+            <block type="dom_method_args">
+              <mutation items="1"></mutation>
+            </block>
+          </value>
         </block>
         <block type="dom_create_element">
           <value name="tag">
@@ -712,12 +717,35 @@
         init: function () {
           this.appendValueInput('element').setCheck('HTMLElement').appendField('call element');
           this.appendValueInput('method', 'text').appendField('method');
-          this.appendValueInput('args').appendField('with arg(s)');
+          this.appendValueInput('args').appendField('with');
           this.setInputsInline(false);
           this.setPreviousStatement(true, null);
           this.setNextStatement(true, null);
           this.setColour(40);
           this.setTooltip('Call element method');
+        },
+      };
+
+      Blockly.Blocks['dom_method_args'] = {
+        ...Blockly.Blocks['lists_create_with'],
+        updateShape_: function () {
+          if (this.itemCount_ && this.getInput('EMPTY')) {
+            this.removeInput('EMPTY');
+          } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+            this.appendDummyInput('EMPTY').appendField('no args');
+          }
+          for (var i = 0; i < this.itemCount_; i++) {
+            if (!this.getInput('ADD' + i)) {
+              var input = this.appendValueInput('ADD' + i).setAlign(Blockly.ALIGN_RIGHT);
+              if (i == 0) {
+                input.appendField('args');
+              }
+            }
+          }
+          while (this.getInput('ADD' + i)) {
+            this.removeInput('ADD' + i);
+            i++;
+          }
         },
       };
 
@@ -840,11 +868,14 @@
           block,
           'args',
           Blockly.JavaScript.ORDER_NONE,
-        );
-
-        var code = `${value_element}[${dropdown_method}](${
-          (value_args.trim().startsWith('[') ? '...' : '') + value_args
-        });\n`;
+        ).trim();
+        var args;
+        if (value_args.startsWith('[') && value_args.endsWith(']')) {
+          args = value_args.slice(1, -1);
+        } else {
+          args = value_args;
+        }
+        var code = `${value_element}[${dropdown_method}](${args});\n`;
         return code;
       };
 
@@ -854,8 +885,10 @@
         return [code, Blockly.JavaScript.ORDER_NONE];
       };
 
+      Blockly.JavaScript['dom_method_args'] = Blockly.JavaScript['lists_create_with'];
+
       var workspace = Blockly.inject('blocklyDiv', {
-        media: 'https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/media/',
+        media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
         toolbox: document.getElementById('toolbox'),
         zoom: {
           controls: true,

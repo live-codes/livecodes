@@ -3,6 +3,7 @@ import { getConfig } from '../config';
 import { createEventsManager } from '../events';
 import { Editors, Theme } from '../models';
 import { sandboxService } from '../services';
+import { blocklyCdnBaseUrl } from '../vendors';
 
 export interface blocklyOptions {
   baseUrl: string;
@@ -33,6 +34,7 @@ export const showBlockly = async (
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
       const blocklyHTML = (await import(baseUrl + 'blockly-editor.js')).blocklyHTML
+        .replace(/https:\/\/cdn.jsdelivr.net\/npm\/blockly\//g, blocklyCdnBaseUrl)
         .replace('{{theme}}', getConfig().theme)
         .replace(
           '<!-- startBlocks placeholder -->',
