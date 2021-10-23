@@ -462,11 +462,13 @@ const applyLanguageConfigs = async (language: Language) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
 
-  await showBlockly(language === 'blockly', {
-    baseUrl,
-    editors,
-    eventsManager,
-  });
+  if (language === 'blockly') {
+    await showBlockly(true, {
+      baseUrl,
+      editors,
+      eventsManager,
+    });
+  }
 };
 
 const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
@@ -562,7 +564,9 @@ const getResultPage = async ({
   const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config);
   const [compiledStyle, compiledScript] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, { html: compiledMarkup }),
-    compiler.compile(scriptContent, scriptLanguage, config, { blockly: getBlocklyContent() }),
+    compiler.compile(scriptContent, scriptLanguage, config, {
+      blockly: await getBlocklyContent({ baseUrl, editors, eventsManager }),
+    }),
   ]);
 
   const compiledCode: Cache = {
@@ -1167,6 +1171,14 @@ const handleChangeContent = () => {
   const contentChanged = async (editorId: EditorId, loading: boolean) => {
     updateConfig();
     addConsoleInputCodeCompletion();
+
+    if (getConfig().script.language === 'blockly') {
+      await showBlockly(true, {
+        baseUrl,
+        editors,
+        eventsManager,
+      });
+    }
 
     if (getConfig().autoupdate && !loading) {
       await run(editorId);

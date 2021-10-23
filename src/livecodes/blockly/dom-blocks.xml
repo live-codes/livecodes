@@ -1,0 +1,86 @@
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+<category name="DOM" colour="#A68D5C">
+<block type="dom_element_by_id">
+  <value name="id">
+    <shadow type="text">
+      <field name="TEXT">btn</field>
+    </shadow>
+  </value>
+</block>
+<block type="dom_element_selector">
+  <value name="selector">
+    <shadow type="text">
+      <field name="TEXT">.btn</field>
+    </shadow>
+  </value>
+</block>
+<block type="dom_element_selector_to_list">
+  <value name="selector">
+    <shadow type="text">
+      <field name="TEXT"></field>
+    </shadow>
+  </value>
+</block>
+<block type="dom_get_property">
+  <value name="element">
+    <shadow type="dom_element_selector">
+      <value name="selector">
+        <shadow type="text"></shadow>
+      </value>
+    </shadow>
+  </value>
+  <value name="property">
+    <shadow type="dom_element_properties"></shadow>
+  </value>
+</block>
+<block type="dom_set_property">
+  <value name="element">
+    <shadow type="dom_element_selector">
+      <value name="selector">
+        <shadow type="text"></shadow>
+      </value>
+    </shadow>
+  </value>
+  <value name="property">
+    <shadow type="dom_element_properties"></shadow>
+  </value>
+  <value name="value">
+    <shadow type="text"></shadow>
+  </value>
+</block>
+<block type="dom_handle_event">
+  <value name="element">
+    <shadow type="dom_element_selector">
+      <value name="selector">
+        <shadow type="text"></shadow>
+      </value>
+    </shadow>
+  </value>
+  <value name="event">
+    <shadow type="dom_events"></shadow>
+  </value>
+</block>
+<block type="dom_call_method">
+  <value name="element">
+    <shadow type="dom_element_selector">
+      <value name="selector">
+        <shadow type="text"></shadow>
+      </value>
+    </shadow>
+  </value>
+  <value name="method">
+    <shadow type="dom_element_methods"></shadow>
+  </value>
+  <value name="args">
+    <block type="dom_method_args">
+      <mutation items="1"></mutation>
+    </block>
+  </value>
+</block>
+<block type="dom_create_element">
+  <value name="tag">
+    <shadow type="dom_tags"></shadow>
+  </value>
+</block>
+</category>
+</xml>
