@@ -85,6 +85,7 @@ import {
 } from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
+import { getBlocklyContent, setBlocklyTheme, showBlockly } from './blockly';
 
 const eventsManager = createEventsManager();
 const projectStorage = createStorage();
@@ -112,7 +113,6 @@ let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
-let blocklyLoaded = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -458,97 +458,15 @@ const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => 
   return;
 };
 
-const showBlockly = async (show: boolean, service = sandboxService) => {
-  const blocklyEditor = document.querySelector('#blockly') as HTMLElement;
-  if (!show) {
-    blocklyEditor.style.display = 'none';
-    return;
-  }
-  blocklyEditor.style.display = 'unset';
-
-  if (!blocklyLoaded) {
-    await new Promise(async (resolve) => {
-      const iframe = document.createElement('iframe');
-      iframe.name = 'blockly';
-      iframe.id = 'blockly-frame';
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
-      const blocklyHTML = (await import(baseUrl + 'blockly-editor.js')).blocklyHTML
-        .replace('{{theme}}', getConfig().theme)
-        .replace(
-          '<!-- startBlocks placeholder -->',
-          `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>`,
-        );
-
-      eventsManager.addEventListener(iframe, 'load', () => {
-        iframe.contentWindow?.postMessage({ result: blocklyHTML }, service.getOrigin());
-      });
-
-      eventsManager.addEventListener(window, 'message', (event: any) => {
-        if (
-          event.source !== iframe.contentWindow ||
-          !['blocklyCode', 'blocklyLoaded'].includes(event.data.type)
-        ) {
-          return;
-        }
-
-        if (event.data.type === 'blocklyLoaded') {
-          blocklyLoaded = true;
-          setBlocklyTheme(getConfig().theme);
-          setTimeout(updateBlocklyCode);
-          resolve('loaded');
-          return;
-        }
-
-        const { xml, js } = event.data.payload;
-        setCache({
-          ...getCache(),
-          script: {
-            language: 'blockly',
-            content: xml,
-            compiled: js,
-          },
-        });
-        editors.script.setValue(xml);
-      });
-
-      iframe.src = service.getResultUrl();
-      blocklyEditor.appendChild(iframe);
-    });
-  }
-};
-
-const getBlocklyContent = () =>
-  getConfig().script.language === 'blockly'
-    ? {
-        xml: getCache().script.content,
-        js: getCache().script.compiled,
-      }
-    : {};
-
-const setBlocklyTheme = (theme: Theme) => {
-  document
-    .querySelector<HTMLIFrameElement>('#blockly-frame')
-    ?.contentWindow?.postMessage({ type: 'setTheme', payload: theme }, sandboxService.getOrigin());
-};
-
-const updateBlocklyCode = () => {
-  document
-    .querySelector<HTMLIFrameElement>('#blockly-frame')
-    ?.contentWindow?.postMessage({ type: 'updateCode' }, sandboxService.getOrigin());
-};
-
 const applyLanguageConfigs = async (language: Language) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
 
-  if (language === 'blockly') {
-    await showBlockly(true);
-  } else {
-    await showBlockly(false);
-  }
+  await showBlockly(language === 'blockly', {
+    baseUrl,
+    editors,
+    eventsManager,
+  });
 };
 
 const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
