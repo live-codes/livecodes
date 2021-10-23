@@ -385,20 +385,82 @@
       <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
       <sep></sep>
       <category name="DOM" colour="#A68D5C">
-        <block type="element_by_id">
-          <field name="id">button</field>
+        <block type="dom_element_by_id">
+          <value name="id">
+            <shadow type="text">
+              <field name="TEXT">btn</field>
+            </shadow>
+          </value>
         </block>
-        <block type="element_selector">
-          <field name="selector">button</field>
+        <block type="dom_element_selector">
+          <value name="selector">
+            <shadow type="text">
+              <field name="TEXT">.btn</field>
+            </shadow>
+          </value>
         </block>
-        <block type="set_property">
-          <field name="property">innerHTML</field>
+        <block type="dom_element_selector_to_list">
+          <value name="selector">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
         </block>
-        <block type="get_property">
-          <field name="property">innerHTML</field>
+        <block type="dom_get_property">
+          <value name="element">
+            <shadow type="dom_element_selector">
+              <value name="selector">
+                <shadow type="text"></shadow>
+              </value>
+            </shadow>
+          </value>
+          <value name="property">
+            <shadow type="dom_element_properties"></shadow>
+          </value>
         </block>
-        <block type="handle_event">
-          <field name="event">click</field>
+        <block type="dom_set_property">
+          <value name="element">
+            <shadow type="dom_element_selector">
+              <value name="selector">
+                <shadow type="text"></shadow>
+              </value>
+            </shadow>
+          </value>
+          <value name="property">
+            <shadow type="dom_element_properties"></shadow>
+          </value>
+          <value name="value">
+            <shadow type="text"></shadow>
+          </value>
+        </block>
+        <block type="dom_handle_event">
+          <value name="element">
+            <shadow type="dom_element_selector">
+              <value name="selector">
+                <shadow type="text"></shadow>
+              </value>
+            </shadow>
+          </value>
+          <value name="event">
+            <shadow type="dom_events"></shadow>
+          </value>
+        </block>
+        <block type="dom_call_method">
+          <value name="element">
+            <shadow type="dom_element_selector">
+              <value name="selector">
+                <shadow type="text"></shadow>
+              </value>
+            </shadow>
+          </value>
+          <value name="method">
+            <shadow type="dom_element_methods"></shadow>
+          </value>
+        </block>
+        <block type="dom_create_element">
+          <value name="tag">
+            <shadow type="dom_tags"></shadow>
+          </value>
         </block>
       </category>
     </xml>
@@ -406,11 +468,9 @@
     <!-- startBlocks placeholder -->
 
     <script>
-      Blockly.Blocks['element_by_id'] = {
+      Blockly.Blocks['dom_element_by_id'] = {
         init: function () {
-          this.appendDummyInput()
-            .appendField('with ID')
-            .appendField(new Blockly.FieldTextInput('button'), 'id');
+          this.appendValueInput('id', 'text').appendField('get by ID');
           this.setInputsInline(false);
           this.setOutput(true, 'HTMLElement');
           this.setColour(40);
@@ -418,11 +478,9 @@
         },
       };
 
-      Blockly.Blocks['element_selector'] = {
+      Blockly.Blocks['dom_element_selector'] = {
         init: function () {
-          this.appendDummyInput()
-            .appendField('matching selector')
-            .appendField(new Blockly.FieldTextInput('button'), 'selector');
+          this.appendValueInput('selector', 'text').appendField('match selector');
           this.setInputsInline(false);
           this.setOutput(true, 'HTMLElement');
           this.setColour(40);
@@ -430,21 +488,205 @@
         },
       };
 
-      Blockly.Blocks['set_property'] = {
+      Blockly.Blocks['dom_element_selector_to_list'] = {
         init: function () {
-          this.appendValueInput('element')
-            .setCheck('HTMLElement')
-            .appendField('set value of element');
-          this.appendDummyInput()
-            .appendField('property')
-            .appendField(
-              new Blockly.FieldDropdown([
-                ['innerHTML', 'innerHTML'],
-                ['innerText', 'innerText'],
-                ['value', 'value'],
-              ]),
-              'property',
-            );
+          this.appendValueInput('selector', 'text').appendField('create list from selector');
+          this.setInputsInline(false);
+          this.setOutput(true, 'Array');
+          this.setColour(40);
+          this.setTooltip('Get all elements by query selector as list');
+        },
+      };
+
+      Blockly.Blocks['dom_create_element'] = {
+        init: function () {
+          this.appendValueInput('tag', 'text').appendField('create element');
+          this.setInputsInline(false);
+          this.setOutput(true, 'HTMLElement');
+          this.setColour(40);
+          this.setTooltip('Create element');
+        },
+      };
+
+      Blockly.Blocks['dom_tags'] = {
+        init: function () {
+          const tagsList = new Blockly.FieldDropdown(
+            [
+              'br',
+              'button',
+              'code',
+              'dd',
+              'del',
+              'details',
+              'dialog',
+              'div',
+              'dl',
+              'dt',
+              'em',
+              'footer',
+              'form',
+              'h1',
+              'h2',
+              'h3',
+              'h4',
+              'h5',
+              'h6',
+              'header',
+              'hr',
+              'i',
+              'iframe',
+              'img',
+              'input',
+              'label',
+              'li',
+              'link',
+              'main',
+              'mark',
+              'nav',
+              'ol',
+              'optgroup',
+              'option',
+              'p',
+              'pre',
+              'progress',
+              'q',
+              'script',
+              'section',
+              'select',
+              'span',
+              'strong',
+              'style',
+              'sub',
+              'summary',
+              'sup',
+              'table',
+              'tbody',
+              'td',
+              'template',
+              'textarea',
+              'tfoot',
+              'th',
+              'thead',
+              'title',
+              'tr',
+              'u',
+              'ul',
+              'video',
+            ].map((x) => [x, x]),
+          );
+          tagsList.setValue('div');
+          this.appendDummyInput().appendField(tagsList, 'tag');
+          this.setInputsInline(false);
+          this.setOutput(true, 'text');
+          this.setColour(40);
+          this.setTooltip('HTML tags');
+        },
+      };
+
+      Blockly.Blocks['dom_element_properties'] = {
+        init: function () {
+          const propertiesList = new Blockly.FieldDropdown(
+            [
+              'className',
+              'href',
+              'id',
+              'innerHTML',
+              'innerText',
+              'src',
+              'style',
+              'textContent',
+              'target',
+              'title',
+              'value',
+            ].map((x) => [x, x]),
+          );
+          propertiesList.setValue('textContent');
+          this.appendDummyInput().appendField(propertiesList, 'property');
+          this.setInputsInline(false);
+          this.setOutput(true, 'text');
+          this.setColour(40);
+          this.setTooltip('Get element properties');
+        },
+      };
+
+      Blockly.Blocks['dom_element_methods'] = {
+        init: function () {
+          const methodsList = new Blockly.FieldDropdown(
+            [
+              'appendChild',
+              'blur',
+              'click',
+              'focus',
+              'insertAdjacentElement',
+              'insertAdjacentHTML',
+              'insertAdjacentText',
+              'insertBefore',
+              'remove',
+              'removeAttribute',
+              'removeChild',
+              'scrollIntoView',
+              'setAttribute',
+            ].map((x) => [x, x]),
+          );
+          this.appendDummyInput().appendField(methodsList, 'method');
+          this.setInputsInline(false);
+          this.setOutput(true, 'text');
+          this.setColour(40);
+          this.setTooltip('DOM element methods');
+        },
+      };
+
+      Blockly.Blocks['dom_events'] = {
+        init: function () {
+          const eventList = new Blockly.FieldDropdown(
+            [
+              'blur',
+              'change',
+              'click',
+              'contextmenu',
+              'dblclick',
+              'focus',
+              'hashchange',
+              'keydown',
+              'keypress',
+              'keyup',
+              'load',
+              'mousedown',
+              'mousemove',
+              'mouseout',
+              'mouseover',
+              'mouseup',
+              'mousewheel',
+              'resize',
+              'scroll',
+              'submit',
+              'unload',
+            ].map((x) => [x, x]),
+          );
+          eventList.setValue('click');
+          this.appendDummyInput().appendField(eventList, 'event');
+          this.setInputsInline(false);
+          this.setOutput(true, 'text');
+          this.setColour(40);
+          this.setTooltip('DOM events');
+        },
+      };
+
+      Blockly.Blocks['dom_get_property'] = {
+        init: function () {
+          this.appendValueInput('element').setCheck('HTMLElement').appendField('get element');
+          this.appendValueInput('property', 'text').appendField('property');
+          this.setInputsInline(false);
+          this.setOutput(true, null);
+          this.setColour(40);
+          this.setTooltip('Get element property');
+        },
+      };
+
+      Blockly.Blocks['dom_set_property'] = {
+        init: function () {
+          this.appendValueInput('element').setCheck('HTMLElement').appendField('set element');
+          this.appendValueInput('property', 'text').appendField('property');
           this.appendValueInput('value').setCheck(null).appendField('to');
           this.setInputsInline(false);
           this.setPreviousStatement(true, null);
@@ -454,45 +696,10 @@
         },
       };
 
-      Blockly.Blocks['get_property'] = {
+      Blockly.Blocks['dom_handle_event'] = {
         init: function () {
-          this.appendValueInput('element')
-            .setCheck('HTMLElement')
-            .appendField('get value of element');
-          this.appendDummyInput()
-            .appendField('property')
-            .appendField(
-              new Blockly.FieldDropdown([
-                ['innerHTML', 'innerHTML'],
-                ['innerText', 'innerText'],
-                ['value', 'value'],
-              ]),
-              'property',
-            );
-          this.setInputsInline(false);
-          this.setOutput(true, null);
-          this.setColour(40);
-          this.setTooltip('Get element property');
-        },
-      };
-
-      Blockly.Blocks['handle_event'] = {
-        init: function () {
-          this.appendValueInput('element').setCheck('HTMLElement').appendField('element');
-          this.appendDummyInput()
-            .appendField('on')
-            .appendField(
-              new Blockly.FieldDropdown([
-                ['click', 'click'],
-                ['mouseover', 'mouseover'],
-                ['mousedown', 'mouseover'],
-                ['mouseup', 'mouseup'],
-                ['input', 'input'],
-                ['change', 'change'],
-                ['select', 'select'],
-              ]),
-              'event',
-            );
+          this.appendValueInput('element').setCheck('HTMLElement').appendField('on element');
+          this.appendValueInput('event', 'text').appendField('event');
           this.appendStatementInput('event_handler').setCheck(null).appendField('do');
           this.setInputsInline(false);
           this.setNextStatement(true, null);
@@ -501,58 +708,150 @@
         },
       };
 
-      Blockly.JavaScript['element_by_id'] = function (block) {
-        var text_id = block.getFieldValue('id');
-        var code = `document.getElementById('${text_id}')`;
+      Blockly.Blocks['dom_call_method'] = {
+        init: function () {
+          this.appendValueInput('element').setCheck('HTMLElement').appendField('call element');
+          this.appendValueInput('method', 'text').appendField('method');
+          this.appendValueInput('args').appendField('with arg(s)');
+          this.setInputsInline(false);
+          this.setPreviousStatement(true, null);
+          this.setNextStatement(true, null);
+          this.setColour(40);
+          this.setTooltip('Call element method');
+        },
+      };
+
+      Blockly.JavaScript['dom_element_by_id'] = function (block) {
+        var text_id = Blockly.JavaScript.valueToCode(block, 'id', Blockly.JavaScript.ORDER_NONE);
+        var code = `document.getElementById(${text_id})`;
         return [code, Blockly.JavaScript.ORDER_NONE];
       };
 
-      Blockly.JavaScript['element_selector'] = function (block) {
-        var text_selector = block.getFieldValue('selector');
-        var code = `document.querySelector('${text_selector}')`;
+      Blockly.JavaScript['dom_element_selector'] = function (block) {
+        var text_selector = Blockly.JavaScript.valueToCode(
+          block,
+          'selector',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var code = `document.querySelector(${text_selector})`;
         return [code, Blockly.JavaScript.ORDER_NONE];
       };
 
-      Blockly.JavaScript['set_property'] = function (block) {
+      Blockly.JavaScript['dom_element_selector_to_list'] = function (block) {
+        var text_selector = Blockly.JavaScript.valueToCode(
+          block,
+          'selector',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var code = `[...document.querySelectorAll(${text_selector})]`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['dom_tags'] = function (block) {
+        var dropdown_tag = block.getFieldValue('tag');
+        var code = `'${dropdown_tag}'`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['dom_element_properties'] = function (block) {
+        var dropdown_property = block.getFieldValue('property');
+        var code = `'${dropdown_property}'`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['dom_element_methods'] = function (block) {
+        var dropdown_method = block.getFieldValue('method');
+        var code = `'${dropdown_method}'`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['dom_events'] = function (block) {
+        var dropdown_event = block.getFieldValue('event');
+        var code = `'${dropdown_event}'`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['dom_get_property'] = function (block) {
         var value_element = Blockly.JavaScript.valueToCode(
           block,
           'element',
           Blockly.JavaScript.ORDER_NONE,
         );
-        var dropdown_property = block.getFieldValue('property');
+        var dropdown_property = Blockly.JavaScript.valueToCode(
+          block,
+          'property',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var code = `${value_element}[${dropdown_property}]`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
+      };
+
+      Blockly.JavaScript['dom_set_property'] = function (block) {
+        var value_element = Blockly.JavaScript.valueToCode(
+          block,
+          'element',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var dropdown_property = Blockly.JavaScript.valueToCode(
+          block,
+          'property',
+          Blockly.JavaScript.ORDER_NONE,
+        );
         var value_value = Blockly.JavaScript.valueToCode(
           block,
           'value',
           Blockly.JavaScript.ORDER_NONE,
         );
-        var code = `${value_element}.${dropdown_property} = ${value_value};\n`;
+        var code = `${value_element}[${dropdown_property}] = ${value_value};\n`;
         return code;
       };
 
-      Blockly.JavaScript['get_property'] = function (block) {
+      Blockly.JavaScript['dom_handle_event'] = function (block) {
         var value_element = Blockly.JavaScript.valueToCode(
           block,
           'element',
           Blockly.JavaScript.ORDER_NONE,
         );
-        var dropdown_property = block.getFieldValue('property');
-        var code = `${value_element}.${dropdown_property}`;
-        return [code, Blockly.JavaScript.ORDER_NONE];
-      };
-
-      Blockly.JavaScript['handle_event'] = function (block) {
-        var value_element = Blockly.JavaScript.valueToCode(
+        var dropdown_event = Blockly.JavaScript.valueToCode(
           block,
-          'element',
+          'event',
           Blockly.JavaScript.ORDER_NONE,
         );
-        var dropdown_event = block.getFieldValue('event');
         var statements_event_handler = Blockly.JavaScript.statementToCode(block, 'event_handler');
 
-        var code = `${value_element}.addEventListener('${dropdown_event}', function() {
-      ${statements_event_handler}});
-      `;
+        var code = `${value_element}.addEventListener(${dropdown_event}, function() {
+  ${statements_event_handler}});
+`;
         return code;
+      };
+
+      Blockly.JavaScript['dom_call_method'] = function (block) {
+        var value_element = Blockly.JavaScript.valueToCode(
+          block,
+          'element',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var dropdown_method = Blockly.JavaScript.valueToCode(
+          block,
+          'method',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+        var value_args = Blockly.JavaScript.valueToCode(
+          block,
+          'args',
+          Blockly.JavaScript.ORDER_NONE,
+        );
+
+        var code = `${value_element}[${dropdown_method}](${
+          (value_args.trim().startsWith('[') ? '...' : '') + value_args
+        });\n`;
+        return code;
+      };
+
+      Blockly.JavaScript['dom_create_element'] = function (block) {
+        var value_tag = Blockly.JavaScript.valueToCode(block, 'tag', Blockly.JavaScript.ORDER_NONE);
+        var code = `document.createElement(${value_tag})`;
+        return [code, Blockly.JavaScript.ORDER_NONE];
       };
 
       var workspace = Blockly.inject('blocklyDiv', {
