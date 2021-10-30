@@ -1,48 +1,56 @@
 import { getConfig } from '../config';
 import { createEventsManager } from '../events';
-import { CodeEditor, Editors, Theme } from '../models';
+import { Editors, Theme } from '../models';
 import { sandboxService } from '../services';
 import { blocklyCdnBaseUrl } from '../vendors';
 
 export interface blocklyOptions {
   baseUrl: string;
   editors: Editors;
+  html: string;
   eventsManager: ReturnType<typeof createEventsManager>;
 }
 
 let blocklyLoaded = false;
 let cache: {
-  src?: string;
-  customScripts?: string[];
-  customXml?: string[];
-  cleanHtml?: string | null;
+  src: string;
+  customScripts: string[];
+  customXml: string[];
   js?: string;
   xml?: string;
-} = {};
+} = {
+  src: '',
+  customScripts: [],
+  customXml: [],
+};
 
 const getIframe = () => document.querySelector<HTMLIFrameElement>('#blockly-frame');
 
-const extractCustomContent = async (markupEditor: CodeEditor) => {
-  const html = markupEditor.getValue();
+const extractCustomContent = async (html: string): Promise<[string[], string[]]> => {
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(html, 'text/html');
   const scripts = Array.from(
-    dom.querySelectorAll<HTMLScriptElement>('script[type="blockly/script"]'),
+    dom.querySelectorAll<HTMLScriptElement>(
+      'script[type="blockly/script"], script[data-type="blockly/script"]',
+    ),
   );
-  const xml = Array.from(dom.querySelectorAll<HTMLScriptElement>('xml[data-type="blockly/xml"]'));
+  const xml = Array.from(
+    dom.querySelectorAll<HTMLScriptElement>(
+      'xml[type="blockly/xml"], xml[data-type="blockly/xml"]',
+    ),
+  );
 
   const scriptsSrc = scripts.map((el) => el.src || el.dataset.src || el.innerHTML);
   const xmlSrc = xml.map((el) => el.src || el.dataset.src || el.innerHTML);
   const src = JSON.stringify([scriptsSrc, xmlSrc]);
   if (cache.src === src) {
-    return [cache.customScripts, cache.customXml, cache.cleanHtml];
+    return [cache.customScripts, cache.customXml];
   }
   blocklyLoaded = false;
 
   const getContent = async (elements: HTMLScriptElement[]) =>
     Promise.all(
       elements.map(async (el) => {
-        el.remove();
         const src = el.src || el.dataset.src;
         if (src) {
           return fetch(src).then((res) => res.text());
@@ -53,31 +61,28 @@ const extractCustomContent = async (markupEditor: CodeEditor) => {
     );
 
   const [customScripts, customXml] = await Promise.all([getContent(scripts), getContent(xml)]);
-  const cleanHtml =
-    customScripts.length > 0 || customXml.length > 0 ? dom.documentElement.outerHTML : null;
 
   cache = {
     src,
     customScripts,
     customXml,
-    cleanHtml,
   };
 
-  return [customScripts, customXml, cleanHtml];
+  return [customScripts, customXml];
 };
 
 export const showBlockly = async (
   show: boolean,
-  { baseUrl, editors, eventsManager }: blocklyOptions,
+  { baseUrl, editors, html, eventsManager }: blocklyOptions,
 ) => {
   const blocklyEditor = document.querySelector('#blockly') as HTMLElement;
-  if (!show) {
+  if (!show || editors.script.getLanguage() !== 'blockly') {
     blocklyEditor.style.display = 'none';
     return;
   }
   blocklyEditor.style.display = 'unset';
 
-  const [customScripts, customXml, _cleanHtml] = await extractCustomContent(editors.markup);
+  const [customScripts, customXml] = await extractCustomContent(html);
 
   if (blocklyLoaded) return;
 
@@ -108,25 +113,6 @@ export const showBlockly = async (
 
   await new Promise(async (resolve) => {
     const onload = async () => {
-      getIframe()?.contentWindow?.postMessage(
-        { result: await getBlocklyHTML() },
-        sandboxService.getOrigin(),
-      );
-    };
-    let iframe = getIframe();
-    if (iframe) {
-      await onload();
-    } else {
-      iframe = document.createElement('iframe');
-      iframe.name = 'blockly';
-      iframe.id = 'blockly-frame';
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
-
-      eventsManager.addEventListener(iframe, 'load', onload);
-
       eventsManager.addEventListener(window, 'message', (event: any) => {
         if (
           event.source !== getIframe()?.contentWindow ||
@@ -139,7 +125,7 @@ export const showBlockly = async (
           blocklyLoaded = true;
           eventsManager.removeEventListener(iframe, 'load', onload);
           setBlocklyTheme(getConfig().theme);
-          setTimeout(updateBlocklyCode);
+          updateBlocklyCode();
           resolve('loaded');
           return;
         }
@@ -150,22 +136,41 @@ export const showBlockly = async (
         editors.script.setValue(xml);
       });
 
+      getIframe()?.contentWindow?.postMessage({ result: await getBlocklyHTML() }, '*');
+    };
+
+    let iframe = getIframe();
+    if (iframe) {
+      await onload();
+    } else {
+      iframe = document.createElement('iframe');
+      iframe.name = 'blockly';
+      iframe.id = 'blockly-frame';
+      iframe.setAttribute(
+        'sandbox',
+        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+      );
+      eventsManager.addEventListener(iframe, 'load', onload);
       iframe.src = sandboxService.getResultUrl();
       blocklyEditor.appendChild(iframe);
     }
   });
 };
 
-export const getBlocklyContent = async ({ baseUrl, editors, eventsManager }: blocklyOptions) => {
+export const getBlocklyContent = async ({
+  baseUrl,
+  editors,
+  html,
+  eventsManager,
+}: blocklyOptions) => {
   if (getConfig().script.language !== 'blockly') return {};
-  const [_customScripts, _customXml, cleanHtml] = await extractCustomContent(editors.markup);
+  await extractCustomContent(html);
   if (!blocklyLoaded || cache.js == null) {
-    await showBlockly(true, { baseUrl, editors, eventsManager });
+    await showBlockly(true, { baseUrl, editors, html, eventsManager });
   }
   return {
     xml: cache.xml,
     js: cache.js,
-    html: cleanHtml,
   };
 };
 
