@@ -7,10 +7,16 @@ export const blocklyStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    // TODO: fix absolute links
     content: `
-<xml data-src="http://127.0.0.1:8080/dom-blocks.xml" data-type="blockly/xml" style="display: none"></xml>
-<script src="http://127.0.0.1:8080/dom-blocks.js" type="blockly/script"></script>
+<xml
+  data-src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/dom-blocks.xml"
+  data-type="blockly/xml"
+  style="display: none"
+></xml>
+<script
+  src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/dom-blocks.js"
+  type="blockly/script"
+></script>
 
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
@@ -107,7 +113,7 @@ export const blocklyStarter: Template = {
               <shadow type="dom_element_selector" id="\`p]W.N%K-bP39x)tC,j0">
                 <value name="selector">
                   <shadow type="text" id="}uE=/^7ZJn-xR4v1Oumn">
-                      <field name="TEXT" />
+                    <field name="TEXT" />
                   </shadow>
                 </value>
               </shadow>
@@ -137,7 +143,8 @@ export const blocklyStarter: Template = {
       </block>
     </statement>
   </block>
-</xml>`.trimStart(),
+</xml>
+`.trimStart(),
   },
   stylesheets: [],
   scripts: [],
