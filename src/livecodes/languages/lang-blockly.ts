@@ -7,7 +7,7 @@ export const blockly: LanguageSpecs = {
   compiler: {
     factory: () => async (_code, { options }) => options?.blockly?.js || '',
   },
-  extensions: ['blockly.xml'],
+  extensions: ['blockly.xml', 'xml'],
   editor: 'script',
-  editorLanguage: 'html',
+  editorLanguage: 'xml',
 };

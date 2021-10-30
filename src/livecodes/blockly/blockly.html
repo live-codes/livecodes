@@ -389,74 +389,93 @@
     <!-- startBlocks placeholder -->
 
     <script>
-      var workspace = Blockly.inject('blocklyDiv', {
-        media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
-        toolbox: document.getElementById('toolbox'),
-        zoom: {
-          controls: true,
-          wheel: false,
-          startScale: 0.7,
-          maxScale: 2,
-          minScale: 0.3,
-          scaleSpeed: 1.2,
-          pinch: true,
-        },
-        trashcan: true,
-        readOnly: false,
-        renderer: 'zelos',
-      });
+      (function () {
+        var workspace = Blockly.inject('blocklyDiv', {
+          media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
+          toolbox: document.getElementById('toolbox'),
+          zoom: {
+            controls: true,
+            wheel: false,
+            startScale: 0.7,
+            maxScale: 2,
+            minScale: 0.3,
+            scaleSpeed: 1.2,
+            pinch: true,
+          },
+          trashcan: true,
+          readOnly: false,
+          renderer: 'zelos',
+        });
 
-      var themes = {
-        light: Blockly.Themes.Classic,
-        dark: Blockly.Themes.Dark,
-      };
-      workspace.setTheme(themes['{{theme}}']);
+        var themes = {
+          light: Blockly.Themes.Classic,
+          dark: Blockly.Themes.Dark,
+        };
+        workspace.setTheme(themes['{{theme}}']);
 
-      function updateCode() {
-        window.LoopTrap = 1000;
-        Blockly.JavaScript.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-        var js = Blockly.JavaScript.workspaceToCode(workspace);
-        var dom = Blockly.Xml.workspaceToDom(workspace);
-        var xml = Blockly.Xml.domToPrettyText(dom);
-        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-        parent.postMessage({ type: 'blocklyCode', payload: { xml, js } }, '*');
-      }
-
-      function loadWorkspace(xml) {
-        if (xml) {
-          workspace.clear();
-          var dom = Blockly.Xml.textToDom(xml);
-          Blockly.Xml.domToWorkspace(dom, workspace);
+        function updateCode() {
+          window.LoopTrap = 1000;
+          Blockly.JavaScript.INFINITE_LOOP_TRAP =
+            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+          var js = Blockly.JavaScript.workspaceToCode(workspace);
+          var dom = Blockly.Xml.workspaceToDom(workspace);
+          var xml = Blockly.Xml.domToPrettyText(dom);
+          Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+          parent.postMessage({ type: 'blocklyCode', payload: { xml, js } }, '*');
         }
-      }
 
-      window.addEventListener('message', function (event) {
-        if (event.data.result) {
-          document.write(event.data.result);
-          document.close();
-        } else if (event.data.type === 'updateCode') {
+        function loadWorkspace(xml) {
+          if (xml) {
+            workspace.clear();
+            var dom = Blockly.Xml.textToDom(xml);
+            Blockly.Xml.domToWorkspace(dom, workspace);
+          }
+        }
+
+        window.addEventListener('message', function (event) {
+          if (event.data.result) {
+            document.write(event.data.result);
+            document.close();
+          } else if (event.data.type === 'updateCode') {
+            updateCode();
+          } else if (event.data.type === 'setTheme') {
+            workspace.setTheme(themes[event.data.payload]);
+          }
+        });
+
+        var onresize = function (e) {
+          Blockly.svgResize(workspace);
+          setTimeout(() => Blockly.svgResize(workspace), 50);
+          setTimeout(() => Blockly.svgResize(workspace), 500);
+          setTimeout(() => Blockly.svgResize(workspace), 1000);
+        };
+        window.addEventListener('resize', onresize, false);
+
+        window.addEventListener('load', () => {
+          loadWorkspace(document.querySelector('#startBlocksContainer')?.innerHTML || '');
+          parent.postMessage({ type: 'blocklyLoaded', payload: true }, '*');
+          workspace.addChangeListener(updateCode);
           updateCode();
-        } else if (event.data.type === 'setTheme') {
-          workspace.setTheme(themes[event.data.payload]);
+          onresize();
+        });
+
+        function centerContent() {
+          workspace.markFocused();
+          workspace.beginCanvasTransition();
+          workspace.zoomToFit();
+          setTimeout(function () {
+            workspace.endCanvasTransition();
+          }, 500);
         }
-      });
-
-      var onresize = function (e) {
-        Blockly.svgResize(workspace);
-        setTimeout(() => Blockly.svgResize(workspace), 50);
-        setTimeout(() => Blockly.svgResize(workspace), 500);
-        setTimeout(() => Blockly.svgResize(workspace), 1000);
-      };
-      window.addEventListener('resize', onresize, false);
-
-      window.addEventListener('load', () => {
-        loadWorkspace(document.querySelector('#startBlocksContainer')?.innerHTML || '');
-        parent.postMessage({ type: 'blocklyLoaded', payload: true }, '*');
-        workspace.addChangeListener(updateCode);
-        updateCode();
-        onresize();
-      });
+        document.addEventListener('keydown', function (ev) {
+          if (ev.shiftKey && ev.altKey && ev.key === 'F') {
+            centerContent();
+          }
+          if (ev.ctrlKey && ev.key === 's') {
+            // save
+          }
+        });
+      })();
     </script>
   </body>
 </html>

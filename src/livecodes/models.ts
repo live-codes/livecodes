@@ -149,7 +149,8 @@ export type Language =
   | 'sqlite'
   | 'sqlite3'
   | 'blockly'
-  | 'blockly.xml';
+  | 'blockly.xml'
+  | 'xml';
 
 export interface Editor {
   language: Language;
