@@ -4,7 +4,7 @@ import { Editors, Theme } from '../models';
 import { sandboxService } from '../services';
 import { blocklyCdnBaseUrl } from '../vendors';
 
-export interface blocklyOptions {
+export interface BlocklyOptions {
   baseUrl: string;
   editors: Editors;
   html: string;
@@ -51,9 +51,9 @@ const extractCustomContent = async (html: string): Promise<[string[], string[]]>
   const getContent = async (elements: HTMLScriptElement[]) =>
     Promise.all(
       elements.map(async (el) => {
-        const src = el.src || el.dataset.src;
-        if (src) {
-          return fetch(src).then((res) => res.text());
+        const url = el.src || el.dataset.src;
+        if (url) {
+          return fetch(url).then((res) => res.text());
         } else {
           return el.innerHTML;
         }
@@ -73,7 +73,7 @@ const extractCustomContent = async (html: string): Promise<[string[], string[]]>
 
 export const showBlockly = async (
   show: boolean,
-  { baseUrl, editors, html, eventsManager }: blocklyOptions,
+  { baseUrl, editors, html, eventsManager }: BlocklyOptions,
 ) => {
   const blocklyEditor = document.querySelector('#blockly') as HTMLElement;
   if (!show || editors.script.getLanguage() !== 'blockly') {
@@ -93,7 +93,7 @@ export const showBlockly = async (
       .replace(
         '<!-- startBlocks placeholder -->',
         `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>
-    ${(customScripts as string[])?.map((script) => '<script>' + script + '</script>').join('/n')}
+    ${customScripts?.map((script) => '<script>' + script + '</script>').join('/n')}
       <script>
         if (typeof window.editToolbox !== 'function') {
           window.editToolbox = (toolboxElement, customXml) => {
@@ -104,7 +104,7 @@ export const showBlockly = async (
             })
           }
         }
-        window.editToolbox(document.getElementById('toolbox'), [${(customXml as string[])
+        window.editToolbox(document.getElementById('toolbox'), [${customXml
           ?.map((xml) => '`' + xml.replace(/\`/g, '\\`') + '`')
           .join(', ')}]);
       </script>
@@ -162,7 +162,7 @@ export const getBlocklyContent = async ({
   editors,
   html,
   eventsManager,
-}: blocklyOptions) => {
+}: BlocklyOptions) => {
   if (getConfig().script.language !== 'blockly') return {};
   await extractCustomContent(html);
   if (!blocklyLoaded || cache.js == null) {

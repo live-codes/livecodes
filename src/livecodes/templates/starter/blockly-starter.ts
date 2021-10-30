@@ -46,7 +46,7 @@ export const blocklyStarter: Template = {
   <variables>
     <variable id="?\`Dl!ysD-zLY64Lpe)c(">count</variable>
   </variables>
-  <block type="dom_set_property" id="sr4sLpCoHdr%yw}lz]{u" x="63" y="125">
+  <block type="dom_set_property" id="sr4sLpCoHdr%yw}lz]{u" x="35" y="35">
     <value name="element">
       <shadow type="dom_element_selector" id="8q6b-NxGim%yU^KHWg+M">
         <value name="selector">
@@ -84,7 +84,7 @@ export const blocklyStarter: Template = {
       </block>
     </next>
   </block>
-  <block type="dom_handle_event" id="K,_92]w;quNkxuUv*s9n" x="53" y="382">
+  <block type="dom_handle_event" id="K,_92]w;quNkxuUv*s9n" x="35" y="270">
     <value name="element">
       <shadow type="dom_element_selector" id="QV~_0VyIy(*b{r\`yJWy1">
         <value name="selector">

@@ -21,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/blockly/blocks_compressed.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/blockly/javascript_compressed.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/blockly/msg/en.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/custom-dialog.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/custom-dialog.js"></script> -->
   </head>
   <body>
     <div id="blocklyDiv"></div>
@@ -445,28 +445,21 @@
 
         var onresize = function (e) {
           Blockly.svgResize(workspace);
-          setTimeout(() => Blockly.svgResize(workspace), 50);
-          setTimeout(() => Blockly.svgResize(workspace), 500);
-          setTimeout(() => Blockly.svgResize(workspace), 1000);
         };
-        window.addEventListener('resize', onresize, false);
 
-        window.addEventListener('load', () => {
-          loadWorkspace(document.querySelector('#startBlocksContainer')?.innerHTML || '');
-          parent.postMessage({ type: 'blocklyLoaded', payload: true }, '*');
-          workspace.addChangeListener(updateCode);
-          updateCode();
-          onresize();
-        });
+        window.addEventListener('resize', onresize, false);
 
         function centerContent() {
           workspace.markFocused();
           workspace.beginCanvasTransition();
-          workspace.zoomToFit();
+          // workspace.zoomToFit();
+          workspace.zoomCenter(0);
+          workspace.scrollCenter();
           setTimeout(function () {
             workspace.endCanvasTransition();
           }, 500);
         }
+
         document.addEventListener('keydown', function (ev) {
           if (ev.shiftKey && ev.altKey && ev.key === 'F') {
             centerContent();
@@ -474,6 +467,14 @@
           if (ev.ctrlKey && ev.key === 's') {
             // save
           }
+        });
+
+        window.addEventListener('load', () => {
+          loadWorkspace(document.querySelector('#startBlocksContainer')?.innerHTML || '');
+          parent.postMessage({ type: 'blocklyLoaded', payload: true }, '*');
+          workspace.addChangeListener(updateCode);
+          updateCode();
+          onresize();
         });
       })();
     </script>
