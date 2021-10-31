@@ -21,6 +21,7 @@ const templates = [
   'Perl',
   'Lua',
   'Scheme',
+  'Blockly',
 ];
 
 test.describe('Starter Templates from UI', () => {
@@ -63,6 +64,29 @@ test.describe('Starter Templates from UI', () => {
       const counterText = await getResult().innerText('text=You clicked');
       expect(counterText).toBe('You clicked 3 times.');
     });
+  });
+
+  test('React Native Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=React Native Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('text=React Native');
+    expect(titleText).toBe('React Native for Web');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 
   test('Vue 2 Starter', async ({ page, getTestUrl }) => {
@@ -342,6 +366,25 @@ test.describe('Starter Templates from URL', () => {
       const counterText = await getResult().innerText('text=You clicked');
       expect(counterText).toBe('You clicked 3 times.');
     });
+  });
+
+  test('React Native Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'react-native' } as any));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('text=React Native');
+    expect(titleText).toBe('React Native for Web');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 
   test('Vue 2 Starter (in URL)', async ({ page, getTestUrl }) => {
