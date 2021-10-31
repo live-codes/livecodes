@@ -130,7 +130,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Handlebars"}}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Handlebars');
@@ -154,7 +154,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
@@ -184,7 +184,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Nunjucks"}}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Nunjucks');
@@ -208,7 +208,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
@@ -238,7 +238,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "EJS"}}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=EJS');
@@ -262,7 +262,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
@@ -292,7 +292,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name":"liquid"}}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Liquid');
@@ -316,7 +316,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
@@ -346,7 +346,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name":"doT"}}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=doT');
@@ -370,7 +370,7 @@ test.describe('Compiler Results', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
