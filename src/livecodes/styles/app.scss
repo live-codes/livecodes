@@ -38,6 +38,8 @@
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
+  --blockly-background-color: rgb(30, 30, 30);
+  --blockly-loading-color: rgb(255, 255, 255);
 }
 
 :root.light {
@@ -80,6 +82,8 @@
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
+  --blockly-background-color: rgb(255, 255, 255);
+  --blockly-loading-color: rgb(30, 30, 30);
 }
 
 * {
@@ -345,6 +349,33 @@ a {
     position: relative;
     resize: vertical;
     width: 100%;
+  }
+
+  #blockly {
+    background-color: var(--blockly-background-color);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+
+    > iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    #loading-blockly {
+      color: var(--blockly-loading-color);
+      margin: 1em;
+    }
   }
 }
 

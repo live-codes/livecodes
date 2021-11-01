@@ -20,6 +20,20 @@ export const createEventsManager = () => {
     });
   };
 
+  const removeEventListener = (
+    element: HTMLElement | Document | Window | FileReader | null,
+    eventType: string,
+    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
+  ) => {
+    if (!element) return;
+    element.removeEventListener(eventType, fn);
+    const event = events.find(
+      (ev) => ev.element === element && ev.eventType === eventType && ev.fn === fn,
+    );
+    if (!event) return;
+    events.splice(events.indexOf(event));
+  };
+
   const removeEventListeners = () => {
     events.forEach((event) => {
       event.element.removeEventListener(event.eventType, event.fn);
@@ -29,6 +43,7 @@ export const createEventsManager = () => {
 
   return {
     addEventListener,
+    removeEventListener,
     removeEventListeners,
   };
 };

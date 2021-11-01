@@ -14,7 +14,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"markdown":{headerPrefix: 'pre-'}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Markdown');
@@ -37,7 +37,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"asciidoc": { standalone: true }}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=AsciiDoc');
@@ -60,7 +60,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"scss": {"indent": "--"}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=SCSS');
@@ -83,7 +83,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"sass": {"indent": "--"}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=Sass');
@@ -107,7 +107,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"less": {"math": "always"}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=Less');
@@ -130,7 +130,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"autoprefixer": {"add": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=autoprefixer');
@@ -154,7 +154,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"postcssPresetEnv": {"stage": 3}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=Preset Env');
@@ -180,7 +180,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.type(
       `{"tailwindcss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
     );
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click('text=HTML');
     await waitForEditorFocus(app);
@@ -212,7 +212,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"babel": {"sourceMaps": "inline"}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=Babel');
@@ -235,7 +235,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"typescript": {"target": "es5"}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=TypeScript');
@@ -258,7 +258,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"svelte": {"css": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await waitForResultUpdate();
 
@@ -278,7 +278,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"stencil": {"sourceMap": true}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await waitForResultUpdate();
 
@@ -296,7 +296,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"coffeescript": {"bare": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=CoffeeScript');
@@ -319,7 +319,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"livescript": {"bare": false}}`);
-    await app.click('text=Load');
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=LiveScript');

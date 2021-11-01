@@ -115,7 +115,8 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
     if (
       cache[language]?.content === content &&
       cache[language]?.processors === enabledProcessors &&
-      cache[language]?.languageSettings === languageSettings
+      cache[language]?.languageSettings === languageSettings &&
+      cache[language]?.compiled
     ) {
       return cache[language]?.compiled || '';
     }

@@ -85,6 +85,7 @@ import {
 } from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
+import { getBlocklyContent, setBlocklyTheme, showBlockly } from './blockly';
 
 const eventsManager = createEventsManager();
 const projectStorage = createStorage();
@@ -132,7 +133,25 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
       reject('Result container not found');
       return;
     }
-    let iframe: HTMLIFrameElement;
+
+    let iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = 'result';
+      iframe.id = 'result-frame';
+      iframe.setAttribute('allow', 'camera; geolocation; microphone');
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('allowtransparency', 'true');
+      iframe.setAttribute(
+        'sandbox',
+        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+      );
+      container.appendChild(iframe);
+    }
+
+    if (['codeblock', 'editor'].includes(getConfig().mode)) {
+      result = '';
+    }
 
     const scriptLang = getEditorLanguage('script') || 'javascript';
     const compilers = getAllCompilers(languages, getConfig(), baseUrl);
@@ -147,7 +166,6 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
 
     if (result && getCache().styleOnlyUpdate) {
       // load the updated styles only
-      iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
       const domParser = new DOMParser();
       const dom = domParser.parseFromString(result, 'text/html');
       const stylesElement = dom.querySelector('#__livecodes_styles__');
@@ -160,30 +178,10 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
       resolve('loaded');
     } else if (liveReload) {
       // allows only sending the updated code to the iframe without full page reload
-      iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
       iframe.contentWindow?.postMessage({ result }, service.getOrigin());
       resolve('loaded');
     } else {
       // full page reload
-      iframe = document.createElement('iframe');
-      iframe.name = 'result';
-      iframe.id = 'result-frame';
-      iframe.setAttribute('allow', 'camera; geolocation; microphone');
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('allowtransparency', 'true');
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
-
-      const { mode } = getConfig();
-      if (mode !== 'codeblock' && mode !== 'editor') {
-        iframe.src = service.getResultUrl();
-      }
-
-      container.innerHTML = '';
-      container.appendChild(iframe);
-
       let loaded = false;
       eventsManager.addEventListener(iframe, 'load', () => {
         if (!result || loaded) {
@@ -195,6 +193,8 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
         loaded = true;
         resolve('loaded');
       });
+
+      iframe.src = service.getResultUrl();
     }
 
     resultLanguages = getEditorLanguages();
@@ -415,7 +415,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
-  editors[editorId].focus();
+  editors[editorId]?.focus();
   if (!isUpdate) {
     setConfig({
       ...getConfig(),
@@ -454,10 +454,16 @@ const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => 
   return;
 };
 
-const applyLanguageConfigs = (language: Language) => {
+const applyLanguageConfigs = async (language: Language) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
-  // apply config
+
+  await showBlockly(language === 'blockly', {
+    baseUrl,
+    editors,
+    html: getCache().markup.compiled || getConfig().markup.content || '',
+    eventsManager,
+  });
 };
 
 const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
@@ -487,7 +493,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   setSavedStatus();
   addConsoleInputCodeCompletion();
   loadModuleTypes(editors, getConfig());
-  applyLanguageConfigs(language);
+  await applyLanguageConfigs(language);
 };
 
 // Ctrl/Cmd + Enter triggers run
@@ -553,7 +559,9 @@ const getResultPage = async ({
   const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config);
   const [compiledStyle, compiledScript] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, { html: compiledMarkup }),
-    compiler.compile(scriptContent, scriptLanguage, config),
+    compiler.compile(scriptContent, scriptLanguage, config, {
+      blockly: await getBlocklyContent({ baseUrl, editors, html: compiledMarkup, eventsManager }),
+    }),
   ]);
 
   const compiledCode: Cache = {
@@ -575,8 +583,8 @@ const getResultPage = async ({
   const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
 
   const styleOnlyUpdate = sourceEditor === 'style';
-
   setCache({
+    ...getCache(),
     ...compiledCode,
     result,
     styleOnlyUpdate,
@@ -969,6 +977,7 @@ const setTheme = (theme: Theme) => {
   root?.classList.remove(...themes);
   root?.classList.add(theme);
   getAllEditors().forEach((editor) => editor?.setTheme(theme));
+  setBlocklyTheme(theme);
 };
 
 const loadSettings = (config: Config) => {
@@ -1160,6 +1169,18 @@ const handleChangeContent = () => {
 
     if (getConfig().autoupdate && !loading) {
       await run(editorId);
+    }
+
+    if (getConfig().script.language === 'blockly') {
+      if (getConfig().markup.content !== getCache().markup.content) {
+        await getResultPage({ sourceEditor: editorId });
+      }
+      await showBlockly(true, {
+        baseUrl,
+        editors,
+        html: getCache().markup.compiled || getConfig().markup.content || '',
+        eventsManager,
+      });
     }
 
     if (getConfig().autosave) {
@@ -2207,7 +2228,6 @@ const basicHandlers = () => {
   handleRunButton();
   handleResultButton();
   handleProcessors();
-  handleShare();
   handleResultLoading();
 };
 
@@ -2225,6 +2245,7 @@ const extraHandlers = () => {
   handleFork();
   handleSaveAsTemplate();
   handleOpen();
+  handleShare();
   handleImport();
   handleExport();
   handleDeploy();
@@ -2248,7 +2269,7 @@ const importExternalContent = async (options: {
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
   loadingMessage.innerHTML = 'Loading Project...';
-  modal.show(loadingMessage, { size: 'small' });
+  modal.show(loadingMessage, { size: 'small', isAsync: true });
 
   let importedConfig: Partial<Config> = {};
 
@@ -2295,7 +2316,6 @@ const importExternalContent = async (options: {
       script: editorsContent[2],
     };
   }
-
   await loadConfig(
     {
       ...config,
@@ -2308,7 +2328,6 @@ const importExternalContent = async (options: {
 };
 
 const bootstrap = async (reload = false) => {
-  await createIframe(UI.getResultElement());
   if (reload) {
     await updateEditors(editors, getConfig());
   }
@@ -2322,26 +2341,10 @@ const bootstrap = async (reload = false) => {
   await toolsPane?.load();
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
-
-  compiler.load(Object.values(editorLanguages || {}), getConfig()).then(async () => {
-    await run();
+  compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
+    setTimeout(run);
   });
   formatter.load(getEditorLanguages());
-  if (!reload) {
-    loadSelectedScreen();
-    if (!isEmbed) {
-      initializeAuth();
-      checkRestoreStatus();
-    }
-
-    const params = getParams(); // query string params
-    importExternalContent({
-      config: getConfig(),
-      configUrl: params.config,
-      template: params.template,
-      url: parent.location.hash.substring(1),
-    });
-  }
 };
 
 const initializeApp = async (
@@ -2377,8 +2380,21 @@ const initializeApp = async (
   basicHandlers();
   initializeFn?.();
   loadStyles();
+  await createIframe(UI.getResultElement());
   await bootstrap();
+  loadSelectedScreen();
   setTheme(getConfig().theme);
+  if (!isEmbed) {
+    initializeAuth();
+    checkRestoreStatus();
+  }
+  const params = getParams(); // query string params
+  importExternalContent({
+    config: getConfig(),
+    configUrl: params.config,
+    template: params.template,
+    url: parent.location.hash.substring(1),
+  });
   showVersion();
 };
 

@@ -70,6 +70,14 @@ export const createResultPage = (
   const mdx = code.markup.language === 'mdx' ? code.markup.compiled : '';
   dom.body.innerHTML += markup;
 
+  // cleanup custom configurations and scripts
+  if (code.script.language === 'blockly') {
+    const extra = dom.querySelectorAll(
+      'script[type="blockly/script"], script[data-type="blockly/script"], xml[type="blockly/xml"], xml[data-type="blockly/xml"]',
+    );
+    extra.forEach((el) => el.remove());
+  }
+
   // runtime styles & scripts
   const runtimeDependencies = (['markup', 'style', 'script'] as EditorId[]).map(
     (editorId: EditorId) => ({

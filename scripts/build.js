@@ -133,4 +133,10 @@ esbuild.buildSync({
   loader: { '.html': 'text' },
 });
 
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/blockly/blockly-editor.ts'],
+  loader: { '.html': 'text' },
+});
+
 console.log('built to: ' + baseOptions.outdir);
