@@ -27,7 +27,7 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
     const branch = pathSplit[5] || repoInfo.default_branch;
     const projectId = repoInfo.id;
     const dir = pathSplit.slice(6, pathSplit.length).join('/');
-    const apiURL = `${urlObj.origin}/api/v4/projects/${projectId}/repository/tree?per_page=100&path=${dir}`;
+    const apiURL = `${urlObj.origin}/api/v4/projects/${projectId}/repository/tree?per_page=100&ref=${branch}&path=${dir}`;
     const dirFiles = await fetch(apiURL)
       .then((res) => res.json())
       .then((data) => data.filter((node: any) => node.type === 'blob'));
