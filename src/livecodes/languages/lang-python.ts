@@ -1,8 +1,9 @@
 import { LanguageSpecs } from '../models';
 import { getLanguageCustomSettings } from './utils';
 
-const brythonUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.0/brython.min.js';
-const stdlibUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.0/brython_stdlib.js';
+const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.3/';
+const brythonUrl = cdnBaseUrl + 'brython.min.js';
+const stdlibUrl = cdnBaseUrl + 'brython_stdlib.js';
 
 export const python: LanguageSpecs = {
   name: 'python',
