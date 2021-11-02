@@ -12,7 +12,7 @@ export const autoCompleteUrl =
 
 export const tagifyStylesUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/tagify.css';
 export const tagifyScriptUrl =
-  'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/tagify.min.js';
+  'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.8.1/dist/tagify.min.js';
 
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
