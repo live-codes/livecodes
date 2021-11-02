@@ -20,7 +20,7 @@ export const flexSearchUrl =
 export const snackbarUrl =
   'https://cdn.jsdelivr.net/npm/@snackbar/core@1.7.0/dist/snackbar.min.css';
 
-export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.6.0/hint.min.css';
+export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.css';
 
 export const lunaObjViewerStylesUrl =
   'https://cdn.jsdelivr.net/npm/luna-object-viewer@0.2.0/luna-object-viewer.css';
