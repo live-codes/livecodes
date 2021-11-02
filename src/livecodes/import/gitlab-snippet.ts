@@ -30,9 +30,10 @@ export const importFromGitlabSnippet = async (url: string, params: { [key: strin
         const filename = file.path;
         const language = getLanguageByAlias(filename.split('.')[filename.split('.').length - 1]);
         const editorId = getLanguageEditorId(language as Language);
-
+        const fileUrlObj = getValidUrl(file.raw_url);
+        const branch = fileUrlObj?.pathname.split('/')[5] || 'main';
         const content = await fetch(
-          `${urlObj.origin}/api/v4/snippets/${snippetId}/files/master/${encodeURIComponent(
+          `${urlObj.origin}/api/v4/snippets/${snippetId}/files/${branch}/${encodeURIComponent(
             filename,
           )}/raw`,
         ).then((res) => res.text());
