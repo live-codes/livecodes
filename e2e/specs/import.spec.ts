@@ -166,30 +166,6 @@ test.describe('Import from URL', () => {
     });
   });
 
-  test('GitHub repo URL', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl() + '#' + githubRepo);
-
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-    await waitForEditorFocus(app);
-    await waitForResultUpdate();
-
-    const titleText = await getResult().innerText('h1');
-    expect(titleText).toBe('TypeScript Demo (for testing import)');
-  });
-
-  test('GitHub file URL', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl() + '#' + githubFile);
-
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-    await waitForEditorFocus(app);
-    await waitForResultUpdate();
-
-    const titleText = await getResult().innerText('h1');
-    expect(titleText).toBe('Hello, World!');
-  });
-
   test('GitLab repo URL', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl() + '#' + gitlabRepo);
 
@@ -204,6 +180,30 @@ test.describe('Import from URL', () => {
 
   test('GitLab file URL', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl() + '#' + gitlabFile);
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, World!');
+  });
+
+  test('GitHub repo URL', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl() + '#' + githubRepo);
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('TypeScript Demo (for testing import)');
+  });
+
+  test('GitHub file URL', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl() + '#' + githubFile);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
