@@ -1,8 +1,6 @@
 import { EditorId, Config } from '../models';
+import { jsZipUrl } from '../vendors';
 import { downloadFile, getFilesFromConfig } from './utils';
-
-const jsZipUrl =
-  'https://cdn.skypack.dev/-/jszip@v3.5.0-6VXsZ827XvJbsCGI3Q9F/dist=es2020,min/jszip.js';
 
 export const exportSrc = async (config: Config, { JSZip, html }: any, _baseUrl?: string) => {
   if (!JSZip) {
