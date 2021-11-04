@@ -1,6 +1,6 @@
 import { Config, Processors } from '../models';
 import { getAbsoluteUrl } from '../utils';
-import { vendorsBaseUrl } from '../vendors';
+import { tailwindcssUrl, vendorsBaseUrl } from '../vendors';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
 export type PluginName = keyof Config['processors']['postcss'];
@@ -17,8 +17,7 @@ export const pluginSpecs: PluginSpecs[] = [
   {
     name: 'tailwindcss',
     title: 'Tailwind CSS',
-    url:
-      'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.2.1/dist/tailwindcss.umd.min.js',
+    url: tailwindcssUrl,
     factory: ({ config, options }) =>
       (self as any).tailwindcss.tailwindcss({
         ...(self as any).tailwindcss.defaultConfig,
@@ -96,11 +95,7 @@ export const postcss: Processors = {
       // TODO: revisit this
       const twCode = (code: string, config: Config) => {
         if (getEnabledPluginNames(config).includes('tailwindcss')) {
-          return `@tailwind base;
-@tailwind components;
-${escapeCode(code)}
-@tailwind utilities;
-`;
+          return escapeCode(code);
         }
         return code;
       };

@@ -31,3 +31,6 @@ export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@6.2021070
 
 export const jsZipUrl =
   'https://cdn.skypack.dev/-/jszip@v3.7.1-quihaZrSeNyrwABoIb7Z/dist=es2020,mode=imports,min/optimized/jszip.js';
+
+export const tailwindcssUrl =
+  'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.2.2/dist/tailwindcss.umd.min.js';
