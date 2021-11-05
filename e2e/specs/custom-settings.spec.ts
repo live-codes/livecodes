@@ -167,7 +167,7 @@ test.describe('Custom Settings', () => {
     expect(await getResult().innerText('head style')).toContain('html { overflow: hidden auto; }');
   });
 
-  test.only('tailwindcss', async ({ page, getTestUrl }) => {
+  test('tailwindcss', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
