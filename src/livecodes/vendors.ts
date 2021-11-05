@@ -5,7 +5,7 @@ export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@4.7.4/dist/emmet-monaco.min.js';
 
 export const esModuleShimsUrl =
-  'https://cdn.jsdelivr.net/npm/es-module-shims@1.1.0/dist/es-module-shims.min.js';
+  'https://cdn.jsdelivr.net/npm/es-module-shims@1.3.1/dist/es-module-shims.min.js';
 
 export const autoCompleteUrl =
   'https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js';
