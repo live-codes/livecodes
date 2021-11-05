@@ -92,19 +92,11 @@ export const postcss: Processors = {
           .map((specs) => loadedPlugins[specs.name]?.({ config, options }));
       };
 
-      // TODO: revisit this
-      const twCode = (code: string, config: Config) => {
-        if (getEnabledPluginNames(config).includes('tailwindcss')) {
-          return escapeCode(code);
-        }
-        return code;
-      };
-
       return async function process(code, { config, baseUrl, options }): Promise<string> {
         if (!config || !baseUrl) return code;
         const plugins = getPlugins(config, baseUrl, options);
         return (
-          await (self as any).postcss.postcss(plugins).process(twCode(code, config), postCssOptions)
+          await (self as any).postcss.postcss(plugins).process(escapeCode(code), postCssOptions)
         ).css;
       };
     },
