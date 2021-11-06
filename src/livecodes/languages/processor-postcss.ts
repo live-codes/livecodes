@@ -10,6 +10,7 @@ interface PluginSpecs {
   name: PluginName;
   title: string;
   url: string;
+  isPostcssPlugin?: boolean;
   factory: PluginFactory;
 }
 
@@ -30,6 +31,64 @@ export const pluginSpecs: PluginSpecs[] = [
           },
         ],
       }),
+  },
+  {
+    name: 'windicss',
+    title: 'Windi CSS',
+    url: vendorsBaseUrl + 'windicss/windicss.js',
+    isPostcssPlugin: false,
+    factory: () => async (compileOptions?: {
+      html: string;
+      css: string;
+      config: Config;
+      options: any;
+    }) => {
+      const { html = '', css = '', config } = compileOptions || {};
+      const customSettings = getLanguageCustomSettings('windicss' as any, config as Config);
+      const { Processor, HTMLParser, CSSParser } = (self as any).windicss;
+      const processor = new Processor();
+      processor.loadConfig(customSettings);
+
+      const htmlParser = new HTMLParser(html);
+      let htmlSheet;
+      if (customSettings.attributify) {
+        const castArray = (val: unknown) => (Array.isArray(val) ? val : [val]);
+        const attrs = htmlParser.parseAttrs().reduceRight((acc: any, curr: any) => {
+          const attrKey = curr.key;
+          if (attrKey === 'class' || attrKey === 'className') return acc;
+          const attrValue = castArray(curr.value);
+          if (attrKey in acc) {
+            const attrKeyValue = castArray(acc[attrKey]);
+            acc[attrKey] = [...attrKeyValue, ...attrValue];
+          } else {
+            acc[attrKey] = attrValue;
+          }
+          return acc;
+        }, {});
+        htmlSheet = processor.attributify(attrs).styleSheet;
+      } else {
+        const htmlClasses = htmlParser
+          .parseClasses()
+          .map((i: { result: string }) => i.result)
+          .join(' ');
+        htmlSheet = processor.interpret(htmlClasses).styleSheet;
+      }
+
+      const includeBase = customSettings.preflight !== false;
+      const includeGlobal = customSettings.preflight !== false;
+      const includePlugins = customSettings.preflight !== false;
+      const preflightSheet = processor.preflight(html, includeBase, includeGlobal, includePlugins);
+
+      const cssSheet = new CSSParser(css, processor).parse();
+
+      const APPEND = true;
+      const MINIFY = false;
+      const styles = cssSheet
+        .extend(preflightSheet, !APPEND)
+        .extend(htmlSheet, APPEND)
+        .build(MINIFY);
+      return styles;
+    },
   },
   {
     name: 'autoprefixer',
@@ -70,7 +129,9 @@ export const postcss: Processors = {
         const specs = getSpecs(pluginName);
         if (!specs || loadedPlugins[pluginName] != null) return;
         try {
-          (self as any).importScripts(getAbsoluteUrl(specs.url, baseUrl));
+          if (specs.url) {
+            (self as any).importScripts(getAbsoluteUrl(specs.url, baseUrl));
+          }
           const plugin = specs.factory;
           loadedPlugins[pluginName] = plugin;
         } catch (err) {
@@ -89,14 +150,26 @@ export const postcss: Processors = {
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
+          .filter((specs) => specs.isPostcssPlugin !== false)
           .map((specs) => loadedPlugins[specs.name]?.({ config, options }));
       };
 
       return async function process(code, { config, baseUrl, options }): Promise<string> {
         if (!config || !baseUrl) return code;
         const plugins = getPlugins(config, baseUrl, options);
+        let css = code;
+        if (getEnabledPluginNames(config).includes('windicss')) {
+          const windiCss = loadedPlugins.windicss?.({ config, options }) as any;
+          if (windiCss) {
+            css = await windiCss({
+              html: options.html,
+              css,
+              config,
+            });
+          }
+        }
         return (
-          await (self as any).postcss.postcss(plugins).process(escapeCode(code), postCssOptions)
+          await (self as any).postcss.postcss(plugins).process(escapeCode(css), postCssOptions)
         ).css;
       };
     },

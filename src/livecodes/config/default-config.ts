@@ -43,9 +43,10 @@ export const defaultConfig: Config = {
   types: {},
   processors: {
     postcss: {
+      tailwindcss: false,
+      windicss: false,
       autoprefixer: false,
       postcssPresetEnv: false,
-      tailwindcss: false,
     },
   },
   customSettings: {

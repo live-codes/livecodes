@@ -156,7 +156,7 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
         if (typeof process !== 'function') {
           throw new Error('Failed to load processor: ' + processor.name);
         }
-        return process(content, { config, language, baseUrl, options });
+        content = await process(content, { config, language, baseUrl, options });
       }
     }
     return content;
