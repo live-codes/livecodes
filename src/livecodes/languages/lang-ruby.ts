@@ -3,7 +3,7 @@ import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;
 
-const cdnBaselUrl = 'https://cdn.opalrb.com/opal/1.2.0/';
+const cdnBaselUrl = 'https://cdn.opalrb.com/opal/1.3.1/';
 const getImports = (code: string, requireMap: { [mod: string]: string } = {}) =>
   Array.from(
     new Set(

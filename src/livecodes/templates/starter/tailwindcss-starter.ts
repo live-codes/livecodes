@@ -8,17 +8,7 @@ export const tailwindcssStarter: Template = {
   markup: {
     language: 'html',
     content: `
-<script type="tailwind-config">
-  {
-    theme: {
-      extend: {
-        colors: {
-          'dark-blue-800': '#0A214C',
-        }
-      }
-    }
-  }
-</script>
+<!-- check custom settings -->
 
 <div class="bg-gray-100 font-sans leading-normal tracking-normal">
   <nav id="header" class="fixed-header">
@@ -371,7 +361,12 @@ export const tailwindcssStarter: Template = {
   },
   style: {
     language: 'css',
-    content: `.fixed-header {
+    content: `
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fixed-header {
   @apply fixed w-full z-10 top-0;
 }
 `.trimStart(),
@@ -430,4 +425,15 @@ document.getElementById("nav-toggle").onclick = function () {
   },
   imports: {},
   types: {},
+  customSettings: {
+    tailwindcss: {
+      theme: {
+        extend: {
+          colors: {
+            'dark-blue-800': '#0A214C',
+          },
+        },
+      },
+    },
+  },
 };

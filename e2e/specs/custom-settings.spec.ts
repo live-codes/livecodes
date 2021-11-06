@@ -184,19 +184,20 @@ test.describe('Custom Settings', () => {
 
     await app.click('text=HTML');
     await waitForEditorFocus(app);
-    await page.keyboard.type('\n<span class="text-dark-blue-800">Hello</span>');
+    await page.keyboard.type('<span class="text-dark-blue-800">Hello</span>');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=Tailwind CSS');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
+    await page.keyboard.type('@tailwind utilities;');
 
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain(
       `.text-dark-blue-800 {
-  --tw-text-opacity: 1;
-  color: rgba(10, 33, 76, var(--tw-text-opacity));
+    --tw-text-opacity: 1;
+    color: rgba(10, 33, 76, var(--tw-text-opacity))
 }`,
     );
   });

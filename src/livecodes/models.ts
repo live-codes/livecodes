@@ -324,6 +324,7 @@ export interface Template {
   };
   imports: { [key: string]: string };
   types: Types;
+  customSettings?: customSettings;
 }
 
 export interface Tool {

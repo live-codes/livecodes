@@ -23,11 +23,13 @@ export const createResultPage = (
   // CSS Preset
   if (config.cssPreset) {
     const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
-    const cssPreset = dom.createElement('link');
-    cssPreset.rel = 'stylesheet';
-    cssPreset.id = '__livecodes__css-preset';
-    cssPreset.href = absoluteBaseUrl + presetUrl;
-    dom.head.appendChild(cssPreset);
+    if (presetUrl) {
+      const cssPreset = dom.createElement('link');
+      cssPreset.rel = 'stylesheet';
+      cssPreset.id = '__livecodes__css-preset';
+      cssPreset.href = getAbsoluteUrl(presetUrl, absoluteBaseUrl);
+      dom.head.appendChild(cssPreset);
+    }
   }
 
   // external stylesheets

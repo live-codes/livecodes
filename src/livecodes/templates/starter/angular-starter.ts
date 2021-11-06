@@ -16,10 +16,10 @@ export const angularStarter: Template = {
   script: {
     language: 'typescript',
     content: `
-import { Component, Input, NgModule, enableProdMode } from '@angular/core@12.1.3';
-import { CommonModule } from '@angular/common@12.1.3';
-import { BrowserModule } from '@angular/platform-browser@12.1.3';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic@12.1.3';
+import { Component, Input, NgModule, enableProdMode } from '@angular/core@12.2.13';
+import { CommonModule } from '@angular/common@12.2.13';
+import { BrowserModule } from '@angular/platform-browser@12.2.13';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic@12.2.13';
 import 'zone.js/dist/zone';
 
 // app.component.ts

@@ -10,9 +10,9 @@ export const markdown: LanguageSpecs = {
     pluginUrls: [parserPlugins.markdown, parserPlugins.html],
   },
   compiler: {
-    url: 'https://cdn.jsdelivr.net/npm/marked@3.0.4/lib/marked.min.js',
+    url: 'https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js',
     factory: () => async (code, { config }) =>
-      (window as any).marked(code, {
+      (window as any).marked.parse(code, {
         ...getLanguageCustomSettings('markdown', config),
       }),
   },
