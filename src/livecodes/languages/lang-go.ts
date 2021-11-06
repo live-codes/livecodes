@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
 
 declare const importScripts: (...args: string[]) => void;
-const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/go2js@0.2.0/build';
+const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/@live-codes/go2js@0.3.0/build';
 
 export const go: LanguageSpecs = {
   name: 'go',
