@@ -104,6 +104,7 @@ describe('upgradeConfig', () => {
           autoprefixer: true,
           postcssPresetEnv: false,
           tailwindcss: false,
+          windicss: false,
         },
       },
       version: process.env.VERSION,
