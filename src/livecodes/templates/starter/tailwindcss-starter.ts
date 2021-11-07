@@ -418,9 +418,10 @@ document.getElementById("nav-toggle").onclick = function () {
   cssPreset: '',
   processors: {
     postcss: {
+      tailwindcss: true,
+      windicss: true,
       autoprefixer: false,
       postcssPresetEnv: false,
-      tailwindcss: true,
     },
   },
   imports: {},

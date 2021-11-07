@@ -556,11 +556,21 @@ const getResultPage = async ({
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
 
-  const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config);
+  const forceCompileStyles =
+    (config.processors.postcss.tailwindcss || config.processors.postcss.windicss) &&
+    (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
+
+  const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config, {});
   const [compiledStyle, compiledScript] = await Promise.all([
-    compiler.compile(styleContent, styleLanguage, config, { html: compiledMarkup }),
+    compiler.compile(styleContent, styleLanguage, config, {
+      html: compiledMarkup,
+      forceCompile: forceCompileStyles,
+    }),
     compiler.compile(scriptContent, scriptLanguage, config, {
-      blockly: await getBlocklyContent({ baseUrl, editors, html: compiledMarkup, eventsManager }),
+      blockly:
+        scriptLanguage === 'blockly'
+          ? await getBlocklyContent({ baseUrl, editors, html: compiledMarkup, eventsManager })
+          : {},
     }),
   ]);
 

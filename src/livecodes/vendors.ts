@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.0/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.1/dist/';
 
 export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@4.7.4/dist/emmet-monaco.min.js';
