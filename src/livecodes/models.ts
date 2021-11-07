@@ -315,14 +315,13 @@ export type Template = Pick<
   | 'stylesheets'
   | 'scripts'
   | 'cssPreset'
-  | 'processors'
   | 'imports'
   | 'types'
-  | 'customSettings'
-> & {
-  name: string;
-  thumbnail: string;
-};
+> &
+  Partial<Pick<Config, 'processors' | 'customSettings'>> & {
+    name: string;
+    thumbnail: string;
+  };
 
 export interface Tool {
   title: string;
