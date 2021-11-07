@@ -31,6 +31,14 @@ export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
 
   config = {
     ...config,
+    processors: {
+      ...defaultConfig.processors,
+      ...config.processors,
+      postcss: {
+        ...defaultConfig.processors.postcss,
+        ...config.processors.postcss,
+      },
+    },
     activeEditor,
   };
 

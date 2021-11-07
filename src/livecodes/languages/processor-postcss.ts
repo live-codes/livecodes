@@ -26,7 +26,7 @@ export const pluginSpecs: PluginSpecs[] = [
         mode: 'jit',
         purge: [
           {
-            raw: options?.html || '',
+            raw: options?.html + '<template>' + config.script.content + '</template>' || '',
             extension: 'html',
           },
         ],
@@ -162,7 +162,7 @@ export const postcss: Processors = {
           const windiCss = loadedPlugins.windicss?.({ config, options }) as any;
           if (windiCss) {
             css = await windiCss({
-              html: options.html,
+              html: options.html + +'<template>' + config.script.content + '</template>',
               css,
               config,
             });

@@ -113,6 +113,7 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
     const languageSettings = stringify(getCustomSettings(language, config));
 
     if (
+      !options?.forceCompile &&
       cache[language]?.content === content &&
       cache[language]?.processors === enabledProcessors &&
       cache[language]?.languageSettings === languageSettings &&

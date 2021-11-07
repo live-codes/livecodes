@@ -305,28 +305,24 @@ export interface Compilers {
   [language: string]: Compiler;
 }
 
-export interface Template {
+export type Template = Pick<
+  Config,
+  | 'title'
+  | 'activeEditor'
+  | 'markup'
+  | 'style'
+  | 'script'
+  | 'stylesheets'
+  | 'scripts'
+  | 'cssPreset'
+  | 'processors'
+  | 'imports'
+  | 'types'
+  | 'customSettings'
+> & {
   name: string;
-  title: string;
   thumbnail: string;
-  activeEditor: EditorId;
-  markup: Editor;
-  style: Editor;
-  script: Editor;
-  stylesheets: string[];
-  scripts: string[];
-  cssPreset: CssPresetId;
-  processors?: {
-    postcss: {
-      autoprefixer: boolean;
-      postcssPresetEnv: boolean;
-      tailwindcss: boolean;
-    };
-  };
-  imports: { [key: string]: string };
-  types: Types;
-  customSettings?: customSettings;
-}
+};
 
 export interface Tool {
   title: string;
