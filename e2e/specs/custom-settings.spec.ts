@@ -202,6 +202,40 @@ test.describe('Custom Settings', () => {
     );
   });
 
+  test('windicss', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(
+      `{"windicss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
+    );
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click('text=HTML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type('<span class="text-dark-blue-800">Hello</span>');
+
+    await app.click(':nth-match([title="change language"], 2)');
+    await app.click('text=Windi CSS');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('head style')).toContain(
+      `.text-dark-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgba(10, 33, 76, var(--tw-text-opacity));
+}`,
+    );
+  });
+
   test('babel', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
