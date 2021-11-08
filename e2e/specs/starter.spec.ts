@@ -281,8 +281,8 @@ test.describe('Starter Templates from UI', () => {
 
     await waitForResultUpdate();
 
-    const titleText = await getResult().innerText('h1');
-    expect(titleText).toBe('Welcome to Minimal Blog');
+    const titleText = await getResult().innerText('p');
+    expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
 
   test('D3 Starter', async ({ page, getTestUrl }) => {
@@ -545,8 +545,8 @@ test.describe('Starter Templates from URL', () => {
     await waitForEditorFocus(app);
     await waitForResultUpdate();
 
-    const titleText = await getResult().innerText('h1');
-    expect(titleText).toBe('Welcome to Minimal Blog');
+    const titleText = await getResult().innerText('p');
+    expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
 
   test('D3 Starter (in URL)', async ({ page, getTestUrl }) => {
