@@ -1,5 +1,6 @@
 import { getConfig } from '../config';
 import { createEventsManager } from '../events';
+import { getCustomSettings } from '../languages';
 import { Editors, Theme } from '../models';
 import { sandboxService } from '../services';
 import { blocklyCdnBaseUrl } from '../vendors';
@@ -25,6 +26,13 @@ let cache: {
 };
 
 const getIframe = () => document.querySelector<HTMLIFrameElement>('#blockly-frame');
+const getCustomSettingsString = () =>
+  '...' +
+  JSON.stringify({
+    ...getCustomSettings('blockly', getConfig()),
+    ...(getConfig().readonly ? { readOnly: true } : {}),
+  }) +
+  ',';
 
 const extractCustomContent = async (html: string): Promise<[string[], string[]]> => {
   const domParser = new DOMParser();
@@ -42,7 +50,8 @@ const extractCustomContent = async (html: string): Promise<[string[], string[]]>
 
   const scriptsSrc = scripts.map((el) => el.src || el.dataset.src || el.innerHTML);
   const xmlSrc = xml.map((el) => el.src || el.dataset.src || el.innerHTML);
-  const src = JSON.stringify([scriptsSrc, xmlSrc]);
+  const customSettings = getCustomSettingsString();
+  const src = JSON.stringify([scriptsSrc, xmlSrc, customSettings]);
   if (cache.src === src) {
     return [cache.customScripts, cache.customXml];
   }
@@ -90,6 +99,7 @@ export const showBlockly = async (
     (await import(baseUrl + 'blockly-editor.js')).blocklyHTML
       .replace(/https:\/\/cdn.jsdelivr.net\/npm\/blockly\//g, blocklyCdnBaseUrl)
       .replace('{{theme}}', getConfig().theme)
+      .replace('// {{ custom config }}', getCustomSettingsString())
       .replace(
         '<!-- startBlocks placeholder -->',
         `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>

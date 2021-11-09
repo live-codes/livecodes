@@ -391,8 +391,6 @@
     <script>
       (function () {
         var workspace = Blockly.inject('blocklyDiv', {
-          media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
-          toolbox: document.getElementById('toolbox'),
           zoom: {
             controls: true,
             wheel: false,
@@ -403,8 +401,12 @@
             pinch: true,
           },
           trashcan: true,
-          readOnly: false,
           renderer: 'zelos',
+
+          // {{ custom config }}
+
+          media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
+          toolbox: document.getElementById('toolbox'),
         });
 
         var themes = {
