@@ -80,7 +80,11 @@ export const getEnabledProcessors = (language: Language, config: Config) => {
   return processorsString;
 };
 
-export const escapeCode = (code: string) => code.replace(/\\/g, '\\\\').replace(/`/g, '\\`');
+export const escapeCode = (code: string) =>
+  code
+    .replace(/\\/g, '\\\\')
+    .replace(/`/g, '\\`')
+    .replace(/<\/script>/g, '</scr` + `ipt>');
 
 export const getLanguageCustomSettings = (language: Language, config: Config) => ({
   ...(config.customSettings as any)[language],

@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { loaderCdnBaseUrl } from './lang-vue';
+import { loaderCdnBaseUrl, loaderOptions } from './lang-vue';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
@@ -21,27 +21,16 @@ export const vue2: LanguageSpecs = {
 /* <!-- */
 let content = \`${escapeCode(code)}\`;
 /* --> */
-const options = {
-moduleCache: { vue: Vue },
-async getFile(url) {
-  if (url === '/component.vue') return content;
-  const res = await fetch(url);
-  if ( !res.ok )
-    throw Object.assign(new Error(res.statusText + ' ' + url), { res });
-  return await res.text();
-},
-addStyle: (textContent) => {
-  const style = Object.assign(document.createElement('style'), { textContent });
-  const ref = document.head.getElementsByTagName('style')[0] || null;
-  document.head.insertBefore(style, ref);
-},
-};
+${loaderOptions}
 const { loadModule, vueVersion } = window['vue2-sfc-loader'];
 loadModule('/component.vue', options)
 .then(component => new Vue(component).$mount(app));
 Vue.config.devtools = true;
 `,
     scripts: [vueCdnUrl, loaderCdnUrl],
+    imports: {
+      vue: vueCdnUrl + '/dist/vue.runtime.esm-browser.prod.js',
+    },
   },
   extensions: ['vue2'],
   editor: 'script',
