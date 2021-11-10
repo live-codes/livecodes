@@ -18,6 +18,11 @@ proxyConsole();
   });
 
   worker.addEventListener('message', async function (ev) {
+    if (ev.data.type === 'compileInCompiler') {
+      // compile message sent from compiler (e.g ts in vue)
+      worker.postMessage(ev.data);
+      return;
+    }
     if (
       ev.data.payload &&
       (window as any).compilers &&
@@ -28,7 +33,11 @@ proxyConsole();
         { language: ev.data.payload.language, baseUrl },
       );
     }
-    parent.postMessage({ ...ev.data, from: 'compiler' }, origin);
+    if (ev.data.trigger === 'compileInCompiler') {
+      worker.postMessage({ ...ev.data, from: 'compiler' });
+    } else {
+      parent.postMessage({ ...ev.data, from: 'compiler' }, origin);
+    }
   });
 
   window.addEventListener('message', async function (event) {

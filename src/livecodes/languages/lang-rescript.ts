@@ -1,7 +1,7 @@
 import { importsPattern } from '../compiler';
 import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
 import { getAbsoluteUrl, loadScript } from '../utils';
-import { requireUrl } from './lang-assemblyscript';
+import { requireUrl } from '../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 

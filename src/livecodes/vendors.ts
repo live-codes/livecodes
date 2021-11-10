@@ -1,6 +1,8 @@
 export const vendorsBaseUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.1/dist/';
 
+export const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
+
 export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@4.7.4/dist/emmet-monaco.min.js';
 
