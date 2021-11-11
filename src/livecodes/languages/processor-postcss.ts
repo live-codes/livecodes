@@ -1,3 +1,4 @@
+import { CompileOptions } from '../compiler';
 import { Config, Processors } from '../models';
 import { getAbsoluteUrl } from '../utils';
 import { tailwindcssUrl, vendorsBaseUrl } from '../vendors';
@@ -145,7 +146,7 @@ export const postcss: Processors = {
         return (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
       };
 
-      const getPlugins = (config: Config, baseUrl: string, options: { html: string }) => {
+      const getPlugins = (config: Config, baseUrl: string, options: CompileOptions) => {
         const pluginNames = getEnabledPluginNames(config);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs

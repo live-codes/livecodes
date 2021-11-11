@@ -3,11 +3,15 @@ import { CompileOptions } from './models';
 
 export const compileInCompiler = async (
   content: string,
-  language: Language,
+  language: Language | undefined,
   config: Config,
   options: CompileOptions = {},
-) =>
+): Promise<string> =>
   new Promise((resolve) => {
+    if (!content || !language || !config) {
+      return resolve(content || '');
+    }
+    const worker: Worker = (self as unknown) as Worker;
     const handler = async function (ev: MessageEvent) {
       const message = ev.data.payload;
       if (
@@ -15,12 +19,12 @@ export const compileInCompiler = async (
         message?.content === content &&
         message?.language === language
       ) {
-        self.removeEventListener('message', handler);
+        worker.removeEventListener('message', handler);
         resolve(message.compiled);
       }
     };
-    self.addEventListener('message', handler);
-    self.postMessage({
+    worker.addEventListener('message', handler);
+    worker.postMessage({
       type: 'compileInCompiler',
       payload: { content, language, config, options },
     });

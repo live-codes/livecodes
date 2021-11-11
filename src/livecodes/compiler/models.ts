@@ -1,9 +1,9 @@
-import { getBlocklyContent } from '../blockly';
+import { BlocklyContent } from '../blockly';
 import { Language, Config, ProcessorName } from '../models';
 
 export interface CompileOptions {
   html?: string;
-  blockly?: ReturnType<typeof getBlocklyContent> | unknown;
+  blockly?: BlocklyContent;
   forceCompile?: boolean;
 }
 

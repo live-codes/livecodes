@@ -11,6 +11,10 @@ export interface BlocklyOptions {
   html: string;
   eventsManager: ReturnType<typeof createEventsManager>;
 }
+export interface BlocklyContent {
+  xml?: string;
+  js?: string;
+}
 
 let blocklyLoaded = false;
 let cache: {
@@ -172,7 +176,7 @@ export const getBlocklyContent = async ({
   editors,
   html,
   eventsManager,
-}: BlocklyOptions) => {
+}: BlocklyOptions): Promise<BlocklyContent> => {
   if (getConfig().script.language !== 'blockly') return {};
   await extractCustomContent(html);
   if (!blocklyLoaded || cache.js == null) {

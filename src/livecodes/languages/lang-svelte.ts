@@ -1,3 +1,4 @@
+import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
@@ -13,6 +14,7 @@ export const svelte: LanguageSpecs = {
   compiler: {
     url: vendorsBaseUrl + 'svelte/svelte-compiler.min.js',
     factory: () => async (code, { config }) => {
+      const processedCode = await compileAllBlocks(code, config, { removeEnclosingTemplate: true });
       const customSettings = getLanguageCustomSettings('svelte', config);
       const customElement = customSettings.customElement;
       const init =
@@ -22,7 +24,7 @@ export const svelte: LanguageSpecs = {
 let app = document.querySelector("#app") || document.body;
 new Component({ target: app });
 `;
-      const { js } = (window as any).svelte.compile(code, {
+      const { js } = (window as any).svelte.compile(processedCode, {
         css: true,
         ...customSettings,
       });

@@ -1,5 +1,5 @@
+import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
-import { compileInCompiler } from '../compiler';
 import { modulesService } from '../services';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
@@ -54,21 +54,18 @@ export const vue: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    factory: () => async (code, { config }) => {
-      const compiled = await compileInCompiler(`const x: number = 5`, 'typescript', config);
-      console.log(compiled);
-      return `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
+    factory: () => async (code, { config }) =>
+      `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
-let content = \`${escapeCode(code)}\`;
+let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
 /* --> */
 ${loaderOptions}
 const { loadModule } = window['vue3-sfc-loader'];
 const App = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/component.vue', options)));
 App.mount(app)
 App.config.devtools = true;
-`;
-    },
+`,
     scripts: [vueCdnUrl, loaderCdnUrl],
     imports: {
       vue: vueCdnUrl + '/dist/vue.runtime.esm-browser.prod.js',
