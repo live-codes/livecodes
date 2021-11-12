@@ -231,7 +231,7 @@ test.describe('Import from URL', () => {
   });
 
   test('code in URL DOM', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ html: 'h1' } as any) + '#' + rawCode);
+    await page.goto(getTestUrl({ html: 'h1' }) + '#' + rawCode);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -243,7 +243,7 @@ test.describe('Import from URL', () => {
   });
 
   test('Config JSON from URL', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ config: jsonURL } as any));
+    await page.goto(getTestUrl({ config: jsonURL }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
