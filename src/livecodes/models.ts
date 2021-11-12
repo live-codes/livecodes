@@ -1,3 +1,4 @@
+import { CompileOptions } from './compiler';
 import { createEventsManager } from './events';
 
 export interface API {
@@ -265,7 +266,7 @@ export type CompilerFunction = (
     config: Config;
     language: Language;
     baseUrl: string;
-    options: any;
+    options: CompileOptions;
   },
 ) => Promise<string>;
 

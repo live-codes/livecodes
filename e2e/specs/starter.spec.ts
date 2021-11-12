@@ -336,7 +336,7 @@ test.describe('Starter Templates from UI', () => {
 
 test.describe('Starter Templates from URL', () => {
   test('Blank Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'blank' } as any));
+    await page.goto(getTestUrl({ template: 'blank' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
     await waitForEditorFocus(app);
@@ -349,7 +349,7 @@ test.describe('Starter Templates from URL', () => {
 
   templates.forEach((template) => {
     test(template + ' Starter (in URL)', async ({ page, getTestUrl }) => {
-      await page.goto(getTestUrl({ template } as any));
+      await page.goto(getTestUrl({ template }));
 
       const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -369,7 +369,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('React Native Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'react-native' } as any));
+    await page.goto(getTestUrl({ template: 'react-native' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -388,7 +388,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Vue 2 Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'vue' } as any));
+    await page.goto(getTestUrl({ template: 'vue' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -407,7 +407,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Vue 3 Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'vue' } as any));
+    await page.goto(getTestUrl({ template: 'vue' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -426,7 +426,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Riot.js Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'riot' } as any));
+    await page.goto(getTestUrl({ template: 'riot' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -446,7 +446,7 @@ test.describe('Starter Templates from URL', () => {
 
   test('Go Starter (in URL)', async ({ page, getTestUrl }) => {
     test.slow();
-    await page.goto(getTestUrl({ template: 'go' } as any));
+    await page.goto(getTestUrl({ template: 'go' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -467,7 +467,7 @@ test.describe('Starter Templates from URL', () => {
   test('AssemblyScript Starter (in URL)', async ({ page, getTestUrl }) => {
     test.slow();
 
-    await page.goto(getTestUrl({ template: 'assemblyscript' } as any));
+    await page.goto(getTestUrl({ template: 'assemblyscript' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -486,7 +486,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('WebAssembly Text Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'wat' } as any));
+    await page.goto(getTestUrl({ template: 'wat' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -507,7 +507,7 @@ test.describe('Starter Templates from URL', () => {
   test('ReScript Starter (in URL)', async ({ page, getTestUrl }) => {
     test.fixme();
 
-    await page.goto(getTestUrl({ template: 'rescript' } as any));
+    await page.goto(getTestUrl({ template: 'rescript' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -526,7 +526,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Bootstrap Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'bootstrap' } as any));
+    await page.goto(getTestUrl({ template: 'bootstrap' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -538,7 +538,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Tailwind CSS Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'tailwindcss' } as any));
+    await page.goto(getTestUrl({ template: 'tailwindcss' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -550,7 +550,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('D3 Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'd3' } as any));
+    await page.goto(getTestUrl({ template: 'd3' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -562,7 +562,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('README Template (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'readme' } as any));
+    await page.goto(getTestUrl({ template: 'readme' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -574,7 +574,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('SQL Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'sql' } as any));
+    await page.goto(getTestUrl({ template: 'sql' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 

@@ -1,3 +1,4 @@
+import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
@@ -16,8 +17,13 @@ export const riot: LanguageSpecs = {
     url: compilerCdnUrl,
     factory: () => async (code, { config }) => {
       if (!code) return '';
-      const { data, ...options } = getLanguageCustomSettings('riot', config);
-      const result = await (window as any).riot.compileFromString(code, options);
+      const { data, template, ...options } = getLanguageCustomSettings('riot', config);
+      const source = template ? `<template type="${template}">${code}</template>` : code;
+      const processedCode = await compileAllBlocks(source, config, {
+        removeEnclosingTemplate: true,
+        languageAttribute: 'type',
+      });
+      const result = await (window as any).riot.compileFromString(processedCode, options);
       const compiled: string = result.code;
       return `var Component = ${compiled.replace('export default ', '')}
 riot.register(Component.name, Component);

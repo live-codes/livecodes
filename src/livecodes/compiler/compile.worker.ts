@@ -1,7 +1,12 @@
 import { languages, processors } from '../languages';
 import { Compilers, Config } from '../models';
 import { getAllCompilers } from './get-all-compilers';
-import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
+import {
+  LanguageOrProcessor,
+  CompilerMessage,
+  CompilerMessageEvent,
+  CompileOptions,
+} from './models';
 declare const importScripts: (...args: string[]) => void;
 
 let compilers: Compilers;
@@ -54,7 +59,7 @@ const compile = async (
   content: string,
   language: LanguageOrProcessor,
   config: Config,
-  options: any,
+  options: CompileOptions,
 ) => {
   const compiler = compilers[language]?.fn || ((code: string) => code);
   if (!baseUrl || typeof compiler !== 'function') {
@@ -82,23 +87,25 @@ worker.addEventListener(
       compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
     }
 
-    if (message.type === 'load') {
+    if (message.type === 'load' || message.type === 'compileInCompiler') {
       const { language, config } = message.payload;
       loadLanguageCompiler(language, config, baseUrl);
     }
 
-    if (message.type === 'compile') {
+    if (message.type === 'compile' || message.type === 'compileInCompiler') {
       const { content, language, config, options } = message.payload;
       try {
         const compiled = await compile(content, language, config, options);
         const compiledMessage: CompilerMessage = {
           type: 'compiled',
+          trigger: message.type,
           payload: { language, content, compiled },
         };
         worker.postMessage(compiledMessage);
       } catch (error: any) {
         const compileFailedMessage: CompilerMessage = {
           type: 'compile-failed',
+          trigger: message.type,
           payload: { language, content, error: error.message },
         };
         worker.postMessage(compileFailedMessage);

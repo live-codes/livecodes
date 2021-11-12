@@ -283,7 +283,7 @@ test.describe('Custom Settings', () => {
   });
 
   test('svelte', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'svelte' } as any));
+    await page.goto(getTestUrl({ template: 'svelte' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -303,7 +303,7 @@ test.describe('Custom Settings', () => {
   test('stencil', async ({ page, getTestUrl, editor }) => {
     test.skip(editor === 'codemirror');
 
-    await page.goto(getTestUrl({ template: 'stencil' } as any));
+    await page.goto(getTestUrl({ template: 'stencil' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 

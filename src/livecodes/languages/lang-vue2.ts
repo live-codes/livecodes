@@ -1,3 +1,4 @@
+import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { loaderCdnBaseUrl, loaderOptions } from './lang-vue';
 import { parserPlugins } from './prettier';
@@ -15,11 +16,11 @@ export const vue2: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    factory: () => async (code) =>
+    factory: () => async (code, { config }) =>
       `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
-let content = \`${escapeCode(code)}\`;
+let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
 /* --> */
 ${loaderOptions}
 const { loadModule, vueVersion } = window['vue2-sfc-loader'];

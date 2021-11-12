@@ -1,3 +1,4 @@
+import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { modulesService } from '../services';
 import { parserPlugins } from './prettier';
@@ -8,7 +9,9 @@ const loaderCdnUrl = loaderCdnBaseUrl + 'vue3-sfc-loader.min.js';
 const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@3';
 
 export const loaderOptions = `const options = {
-  moduleCache: { vue: Vue },
+  moduleCache: {
+    vue: Vue,
+  },
   pathResolve({ refPath, relPath }) {
     if ( relPath === '.' ) {
       return refPath;
@@ -30,10 +33,17 @@ export const loaderOptions = `const options = {
     return await res.text();
   },
   loadModule(path, options) {
-      if ( path === 'vue' ) return Vue;
-      if ( path.endsWith('.vue') ) return;
-      if ( !['http://', 'https://'].some(x => path.startsWith(x)) ) return;
-      return import(path).catch(() => import(path + '.js'));
+    if ( path === 'vue' ) return Vue;
+    if ( path.endsWith('.vue') || path.endsWith('.css') || path.endsWith('.scss') ) return;
+    if ( !['http://', 'https://'].some(x => path.startsWith(x)) ) return;
+    return import(path).catch(() => import(path + '.js'));
+  },
+  handleModule: async function (type, getContentData, path, options) {
+    switch (type) {
+      case '.css':
+        options.addStyle(await getContentData(false));
+        return null;
+    }
   },
   addStyle: (textContent) => {
     const style = Object.assign(document.createElement('style'), { textContent });
@@ -51,11 +61,11 @@ export const vue: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    factory: () => async (code) =>
+    factory: () => async (code, { config }) =>
       `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
-let content = \`${escapeCode(code)}\`;
+let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
 /* --> */
 ${loaderOptions}
 const { loadModule } = window['vue3-sfc-loader'];

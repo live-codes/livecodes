@@ -12,7 +12,13 @@ import { sandboxService } from '../services';
 import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
-import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
+import {
+  LanguageOrProcessor,
+  CompilerMessage,
+  CompilerMessageEvent,
+  Compiler,
+  CompileOptions,
+} from './models';
 
 export const createCompiler = async (config: Config, baseUrl: string): Promise<Compiler> => {
   const compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
@@ -103,7 +109,7 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
     content: string,
     language: Language,
     config: Config,
-    options?: any,
+    options: CompileOptions,
   ): Promise<string> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';

@@ -3,7 +3,7 @@ import { test } from '../test-fixtures';
 
 test.describe('Screens', () => {
   test('screen: login', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ screen: 'login' } as any));
+    await page.goto(getTestUrl({ screen: 'login' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
     await app.waitForLoadState();
@@ -12,7 +12,7 @@ test.describe('Screens', () => {
   });
 
   test('screen: new', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ screen: 'new' } as any));
+    await page.goto(getTestUrl({ screen: 'new' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
     await app.waitForLoadState();
@@ -21,7 +21,7 @@ test.describe('Screens', () => {
   });
 
   test('screen: open', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ screen: 'open' } as any));
+    await page.goto(getTestUrl({ screen: 'open' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
     await app.waitForLoadState();
@@ -30,7 +30,7 @@ test.describe('Screens', () => {
   });
 
   test('screen: import', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ screen: 'import' } as any));
+    await page.goto(getTestUrl({ screen: 'import' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
     await app.waitForLoadState();
@@ -39,7 +39,7 @@ test.describe('Screens', () => {
   });
 
   test('screen: deploy', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ screen: 'deploy' } as any));
+    await page.goto(getTestUrl({ screen: 'deploy' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
     await app.waitForLoadState();

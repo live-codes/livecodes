@@ -1,7 +1,11 @@
 import { Frame, Page } from '@playwright/test';
-import { Pen } from '../src/livecodes/models';
+import { Config, Language, Screen } from '../src/livecodes/models';
 
-export const getTestUrl = (config: Partial<Pen> = { autoupdate: false }) => {
+export type UrlQueryOptions = Partial<
+  Config & { [key in Language]: string } & Screen & { template: string; config: string }
+>;
+
+export const getTestUrl = (config: UrlQueryOptions = { autoupdate: false }) => {
   const query = Object.keys(config).reduce(
     (q, key, index) => q + (index > 0 ? '&' : '') + key + '=' + config[key],
     '',

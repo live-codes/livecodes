@@ -624,6 +624,128 @@ h1 {
     expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(0, 0, 255)');
   });
 
+  test('Vue 3 JSX', async ({ page, getTestUrl }) => {
+    const sfc = `<script>
+  export default {
+    data() {
+      return {
+        counter: 0,
+        align: "center",
+      };
+    },
+    methods: {
+      increment() {
+        this.counter += 1;
+      },
+    },
+    render() {
+      return (
+        <div class="container">
+          <h1>Hello, Vue!</h1>
+          <img
+            class="logo"
+            src="${getTestUrl({})}/livecodes/assets/templates/vue.svg"
+          />
+          <p>You clicked {this.counter} times.</p>
+          <button onClick={this.increment}>Click me</button>
+        </div>
+      );
+    },
+  };
+</script>
+
+<style scoped>
+  .container,
+  .container button {
+    text-align: v-bind("align");
+    font: 1em sans-serif;
+  }
+  .logo {
+    width: 150px;
+  }
+</style>
+`;
+
+    await page.goto(getTestUrl({ vue: encodeURIComponent(sfc) }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Vue!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('Vue 3 import', async ({ page, getTestUrl }) => {
+    const sfc = `<template>
+  <div class="container">
+    <p id="uuid">{{ uuid }}</p>
+    <Counter />
+    <ToDo />
+  </div>
+</template>
+
+<script>
+  import 'https://hatemhosny.github.io/typescript-demo-for-testing-import-/style.css';
+  import {v4} from 'uuid';
+  import Counter from 'https://hatemhosny.github.io/vue3-samples/src/components/Counter.vue';
+  import ToDo from 'https://hatemhosny.github.io/vue3-samples/src/components/ToDo.vue';
+  export default {
+    components: {
+      Counter,
+      ToDo
+    },
+    data() {
+      return {
+        uuid: v4(),
+      };
+    },
+  };
+</script>
+`;
+
+    await page.goto(getTestUrl({ vue: encodeURIComponent(sfc) }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    // css import
+    const headHTML = await getResult().innerHTML('head');
+    expect(headHTML).toContain('.container');
+
+    // bare module import
+    const uuidText = await getResult().innerText('#uuid');
+    expect(uuidText.length).toBeGreaterThan(10);
+
+    // import vue component
+    await getResult().click(':nth-match(button, 1)');
+    await getResult().click(':nth-match(button, 1)');
+    await getResult().click(':nth-match(button, 1)');
+
+    // import vue component that has relative imports and fetches absolute url
+    const buttonText = await getResult().innerText(':nth-match(button, 1)');
+    expect(buttonText).toBe('Count is: 3, double is: 6');
+
+    await getResult().click('#fetch-list');
+    await getResult()
+      .page()
+      .waitForResponse((resp) => resp.url().includes('todos.json'));
+    await getResult().click('#split-color');
+
+    const todoText = await getResult().innerText(':nth-match(li.list-0 span, 10)');
+    expect(todoText).toBe('illo expedita consequatur quia in');
+  });
+
   test('Vue 2', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

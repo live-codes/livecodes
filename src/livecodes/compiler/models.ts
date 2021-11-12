@@ -1,8 +1,20 @@
+import { BlocklyContent } from '../blockly';
 import { Language, Config, ProcessorName } from '../models';
+
+export interface CompileOptions {
+  html?: string;
+  blockly?: BlocklyContent;
+  forceCompile?: boolean;
+}
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
-  compile: (content: string, language: Language, config: Config, options?: any) => Promise<string>;
+  compile: (
+    content: string,
+    language: Language,
+    config: Config,
+    options: CompileOptions,
+  ) => Promise<string>;
 }
 
 export type LanguageOrProcessor = Language | ProcessorName;
@@ -18,6 +30,7 @@ export type CompilerMessage = {
   | LoadMessage
   | LoadedMessage
   | CompileMessage
+  | CompileInCompilerMessage
   | CompiledMessage
   | CompileFailedMessage
 );
@@ -51,8 +64,19 @@ export interface CompileMessage {
   };
 }
 
+export interface CompileInCompilerMessage {
+  type: 'compileInCompiler';
+  payload: {
+    content: string;
+    language: LanguageOrProcessor;
+    config: Config;
+    options: any;
+  };
+}
+
 export interface CompiledMessage {
   type: 'compiled';
+  trigger: 'compile' | 'compileInCompiler';
   payload: {
     content: string;
     language: LanguageOrProcessor;
@@ -62,6 +86,7 @@ export interface CompiledMessage {
 
 export interface CompileFailedMessage {
   type: 'compile-failed';
+  trigger: 'compile' | 'compileInCompiler';
   payload: {
     content: string;
     language: LanguageOrProcessor;
