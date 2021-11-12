@@ -34,9 +34,16 @@ export const loaderOptions = `const options = {
   },
   loadModule(path, options) {
     if ( path === 'vue' ) return Vue;
-    if ( path.endsWith('.vue') ) return;
+    if ( path.endsWith('.vue') || path.endsWith('.css') || path.endsWith('.scss') ) return;
     if ( !['http://', 'https://'].some(x => path.startsWith(x)) ) return;
     return import(path).catch(() => import(path + '.js'));
+  },
+  handleModule: async function (type, getContentData, path, options) {
+    switch (type) {
+      case '.css':
+        options.addStyle(await getContentData(false));
+        return null;
+    }
   },
   addStyle: (textContent) => {
     const style = Object.assign(document.createElement('style'), { textContent });

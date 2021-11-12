@@ -686,15 +686,18 @@ h1 {
 
   test('Vue 3 import', async ({ page, getTestUrl }) => {
     const sfc = `<template>
+  <div class="container">
     <p id="uuid">{{ uuid }}</p>
     <Counter />
     <ToDo />
+  </div>
 </template>
 
 <script>
+  import 'https://hatemhosny.github.io/typescript-demo-for-testing-import-/style.css';
   import {v4} from 'uuid';
-  import Counter from 'https://hatemhosny.github.io/vue3-samples/src/components/Counter.vue'
-  import ToDo from 'https://hatemhosny.github.io/vue3-samples/src/components/ToDo.vue'
+  import Counter from 'https://hatemhosny.github.io/vue3-samples/src/components/Counter.vue';
+  import ToDo from 'https://hatemhosny.github.io/vue3-samples/src/components/ToDo.vue';
   export default {
     components: {
       Counter,
@@ -715,6 +718,10 @@ h1 {
 
     await waitForEditorFocus(app);
     await waitForResultUpdate();
+
+    // css import
+    const headHTML = await getResult().innerHTML('head');
+    expect(headHTML).toContain('.container');
 
     // bare module import
     const uuidText = await getResult().innerText('#uuid');
