@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
-test.describe.only('Preprocessors', () => {
+test.describe('Preprocessors', () => {
   test('in Vue', async ({ page, getTestUrl }) => {
     const sfc = `
 <template lang="pug">
