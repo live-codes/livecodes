@@ -4,6 +4,7 @@ import { compileInCompiler } from './compile-in-compiler';
 
 interface CompileBlocksOptions {
   removeEnclosingTemplate?: boolean;
+  languageAttribute?: 'lang' | 'type';
 }
 
 export const compileBlocks = async (
@@ -12,9 +13,9 @@ export const compileBlocks = async (
   config: Config,
   options: CompileBlocksOptions = {},
 ) => {
-  const getBlockPattern = (el: typeof blockElement) =>
-    `(<${el}(?:[^(?:lang)]*))(?:\\slang=["']([A-Za-z0-9 _]*)["'])((?:[^>]*)>)([\\s\\S]*?)(<\\/${el}>)`;
-  const pattern = getBlockPattern(blockElement);
+  const getBlockPattern = (el: typeof blockElement, langAttr = 'lang') =>
+    `(<${el}(?:[^(?:${langAttr})]*))(?:\\s${langAttr}=["']([A-Za-z0-9 _]*)["'])((?:[^>]*)>)([\\s\\S]*?)(<\\/${el}>)`;
+  const pattern = getBlockPattern(blockElement, options.languageAttribute);
   const blocks: string[] = [];
   for (const arr of [...code.matchAll(new RegExp(pattern, 'g'))]) {
     const [element, opentagPre, language, opentagPost, content, closetag] = arr;
