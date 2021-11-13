@@ -6,6 +6,7 @@ import { getLanguageExtension, mapLanguage } from '../../languages';
 import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
+import { modulesService } from '../../services';
 
 let loaded = false;
 
@@ -295,20 +296,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const registerShowPackageInfo = () => {
     // from https://github.com/snowpackjs/astro-repl/blob/main/src/editor/modules/monaco.ts
-    const parseInput = (value: string) => {
-      const host = 'https://api.npms.io';
-      let urlScheme = `${host}/v2/search?q=${encodeURIComponent(value)}&size=30`;
-      let version = '';
-
-      const exec = /([\S]+)@([\S]+)/g.exec(value);
-      if (exec) {
-        const [, pkg, ver] = exec;
-        version = ver;
-        urlScheme = `${host}/v2/search?q=${encodeURIComponent(pkg)}&size=30`;
-      }
-
-      return { url: urlScheme, version };
-    };
 
     const FetchCache = new Map();
 
@@ -318,7 +305,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         let pkg = getImports(content)[0];
         if (!pkg) return;
 
-        if (/^(http(s)?:\/\/)\:/.test(pkg)) {
+        if (pkg.startsWith('https://') || pkg.startsWith('http://') || pkg.startsWith('.')) {
           return;
         } else if (/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/.test(pkg)) {
           pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/, '');
@@ -332,7 +319,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         pkg = parts.slice(0, end).join('/');
 
         return (async () => {
-          const { url } = parseInput(pkg);
+          const url = modulesService.getModuleInfoUrl(pkg);
           let response: Response;
           let result: any;
 
