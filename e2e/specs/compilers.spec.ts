@@ -389,6 +389,60 @@ test.describe('Compiler Results', () => {
     expect(resultText).toContain('Welcome to doT');
   });
 
+  test('Twig', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Twig"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Twig');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Twig');
+  });
+
+  test('Twig dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.templateData = { name: 'Twig' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Twig');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Twig');
+  });
+
   test('SCSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
