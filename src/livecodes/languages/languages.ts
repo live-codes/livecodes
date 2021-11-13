@@ -46,19 +46,21 @@ import { sql } from './lang-sql';
 import { reactNative } from './lang-react-native';
 import { reactNativeTsx } from './lang-react-native-tsx';
 import { blockly } from './lang-blockly';
+import { twig } from './lang-twig';
 
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
   mdx,
-  asciidoc,
   pug,
+  asciidoc,
   haml,
   handlebars,
   ejs,
   nunjucks,
   liquid,
   dot,
+  twig,
   css,
   scss,
   sass,

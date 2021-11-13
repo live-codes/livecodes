@@ -80,6 +80,7 @@ export type Language =
   | 'liquid'
   | 'liquidjs'
   | 'dot'
+  | 'twig'
   | 'css'
   | 'scss'
   | 'sass'
