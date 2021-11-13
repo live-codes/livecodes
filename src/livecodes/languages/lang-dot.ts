@@ -33,7 +33,7 @@ export const dot: LanguageSpecs = {
       });
     const content = template({
       ...${escapeCode(JSON.stringify(data || {}))},
-      ...window.templateData,
+      ...window.livecodes?.templateData,
     });
     document.body.innerHTML += content
     parent.postMessage({type: 'compiled', payload: {language: 'dot', content}}, '*');

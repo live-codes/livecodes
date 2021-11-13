@@ -159,7 +159,7 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`window.templateData = { name: 'Handlebars' };`);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Handlebars' };`);
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Handlebars');
@@ -213,7 +213,7 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`window.templateData = { name: 'Nunjucks' };`);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Nunjucks' };`);
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Nunjucks');
@@ -267,7 +267,7 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`window.templateData = { name: 'EJS' };`);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'EJS' };`);
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=EJS');
@@ -321,7 +321,7 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`window.templateData = { name: 'liquid' };`);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'liquid' };`);
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Liquid');
@@ -375,7 +375,7 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`window.templateData = { name: 'doT' };`);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'doT' };`);
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=doT');
@@ -429,7 +429,7 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`window.templateData = { name: 'Twig' };`);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Twig' };`);
 
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=Twig');
@@ -971,7 +971,7 @@ title = 'live script'
       `<h1>Hello, <span id="title">World</span></h1>
   <script>
   (async() => {
-    const { wasmModule } = await wasm;
+    const { wasmModule } = await livecodes.wasm;
     const { __getString, getTitle, increment } = wasmModule.exports;
     const title = document.querySelector('#title');
     title.innerHTML = __getString(getTitle());

@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
   new liquidjs.Liquid()
     .parseAndRender(\`${escapeCode(code)}\`, {
       ...${escapeCode(JSON.stringify(config.customSettings.template?.data || {}))},
-      ...window.templateData,
+      ...window.livecodes?.templateData,
       })
     .then((content) => {
       document.body.innerHTML += content

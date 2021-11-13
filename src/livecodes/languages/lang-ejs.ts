@@ -30,7 +30,7 @@ export const ejs: LanguageSpecs = {
     const template = ejs.compile(\`${escapeCode(code)}\`, ${escapeCode(JSON.stringify(options))});
     const content = template({
       ...${escapeCode(JSON.stringify(data || {}))},
-      ...window.templateData,
+      ...window.livecodes?.templateData,
     });
     document.body.innerHTML += content
     parent.postMessage({type: 'compiled', payload: {language: 'ejs', content}}, '*');

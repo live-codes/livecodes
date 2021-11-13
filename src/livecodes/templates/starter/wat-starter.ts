@@ -17,10 +17,10 @@ export const watStarter: Template = {
 
 <script>
   (async() => {
-    // \`loadWasm\` is a global function.
-    // It returns a promise which resolves to an object
+    // The \`loadWasm\` method of \`livecodes\` global object
+    // returns a promise which resolves to an object
     // exposing the compiled wasm module and wasm binary
-    const { wasmModule, binary } = await loadWasm();
+    const { wasmModule, binary } = await livecodes.loadWasm();
     const { increment } = wasmModule.exports;
 
     const counter = document.querySelector("#counter");

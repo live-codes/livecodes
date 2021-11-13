@@ -33,7 +33,7 @@ export const nunjucks: LanguageSpecs = {
     ${clientFn}
     const content = nunjucks.render('template', {
       ...${escapeCode(JSON.stringify(data || {}))},
-      ...window.templateData,
+      ...window.livecodes?.templateData,
     });
     document.body.innerHTML += content
     parent.postMessage({type: 'compiled', payload: {language: 'nunjucks', content}}, '*');
