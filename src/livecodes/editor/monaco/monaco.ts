@@ -5,6 +5,9 @@ import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } f
 import { getLanguageExtension, mapLanguage } from '../../languages';
 import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
+import { getImports } from '../../compiler';
+
+let loaded = false;
 
 const monacoMapLanguage = (language: Language): Language =>
   language === 'livescript'
@@ -290,6 +293,98 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   });
 
+  const registerShowPackageInfo = () => {
+    // from https://github.com/snowpackjs/astro-repl/blob/main/src/editor/modules/monaco.ts
+    const parseInput = (value: string) => {
+      const host = 'https://api.npms.io';
+      let urlScheme = `${host}/v2/search?q=${encodeURIComponent(value)}&size=30`;
+      let version = '';
+
+      const exec = /([\S]+)@([\S]+)/g.exec(value);
+      if (exec) {
+        const [, pkg, ver] = exec;
+        version = ver;
+        urlScheme = `${host}/v2/search?q=${encodeURIComponent(pkg)}&size=30`;
+      }
+
+      return { url: urlScheme, version };
+    };
+
+    const FetchCache = new Map();
+
+    const npmPackageHoverProvider: Monaco.languages.HoverProvider = {
+      provideHover(model, position) {
+        const content = model.getLineContent(position.lineNumber);
+        let pkg = getImports(content)[0];
+        if (!pkg) return;
+
+        if (/^(http(s)?:\/\/)\:/.test(pkg)) {
+          return;
+        } else if (/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/.test(pkg)) {
+          pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/, '');
+        }
+        // remove version
+        pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);
+
+        // remove sub-directories
+        const parts = pkg.split('/');
+        const end = parts[0].startsWith('@') ? 2 : 1;
+        pkg = parts.slice(0, end).join('/');
+
+        return (async () => {
+          const { url } = parseInput(pkg);
+          let response: Response;
+          let result: any;
+
+          try {
+            if (!FetchCache.has(url)) {
+              response = await fetch(url);
+              result = await response.json();
+              FetchCache.set(url, result);
+            } else {
+              result = FetchCache.get(url);
+            }
+          } catch {
+            return;
+          }
+
+          if (result?.results.length <= 0) return;
+
+          const { name, description, version, date, publisher, links } =
+            result?.results?.[0]?.package ?? {};
+          const author = publisher?.username;
+          const pubDate = new Date(date).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+
+          return {
+            contents: [
+              {
+                value: `## [${name}](${
+                  links?.npm
+                }) v${version}\n${description}\n\n\nPublished on ${pubDate} ${
+                  author ? `by [@${author}](https://www.npmjs.com/~${author})` : ''
+                }\n\n${
+                  links?.repository ? `[GitHub](${links?.repository})  |` : ''
+                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})`,
+              },
+            ],
+          };
+        })();
+      },
+    };
+    monaco.languages.registerHoverProvider('javascript', npmPackageHoverProvider);
+    monaco.languages.registerHoverProvider('typescript', npmPackageHoverProvider);
+    monaco.languages.registerHoverProvider('html', npmPackageHoverProvider);
+  };
+
+  if (!loaded) {
+    registerShowPackageInfo();
+  }
+
+  loaded = true;
   return {
     getValue,
     setValue,
