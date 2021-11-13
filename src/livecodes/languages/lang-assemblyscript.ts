@@ -57,7 +57,7 @@ export const assemblyscript: LanguageSpecs = {
     scripts: [loaderUrl],
     inlineScript: `
     (() => {
-      globalThis.loadWasm = () => new Promise((resolve, reject) => {
+      window.livecodes.loadWasm = () => new Promise((resolve, reject) => {
         const stringToWasm = (code = '') => {
           if (!code) {
             return {text: '', binary: null}

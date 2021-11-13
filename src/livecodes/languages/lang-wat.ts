@@ -79,7 +79,7 @@ export const wat: LanguageSpecs = {
       }),
     inlineScript: `
 (() => {
-  globalThis.loadWasm = () => new Promise((resolve) => {
+  window.livecodes.loadWasm = () => new Promise((resolve) => {
     const arrayStringToWasm = async (arrayString) => {
       const typedArrayToBuffer = ${typedArrayToBuffer};
       const binary = new Uint8Array(arrayString.split('[')[1].slice(0,-1).split(',').map(Number));

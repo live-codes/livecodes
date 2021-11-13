@@ -17,7 +17,8 @@ export const vue2: LanguageSpecs = {
   },
   compiler: {
     factory: () => async (code, { config }) =>
-      `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
+      `(() => {
+let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
 let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
@@ -27,6 +28,7 @@ const { loadModule, vueVersion } = window['vue2-sfc-loader'];
 loadModule('/component.vue', options)
 .then(component => new Vue(component).$mount(app));
 Vue.config.devtools = true;
+})();
 `,
     scripts: [vueCdnUrl, loaderCdnUrl],
     imports: {

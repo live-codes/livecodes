@@ -17,10 +17,10 @@ export const assemblyscriptStarter: Template = {
 
 <script>
   (async() => {
-    // \`loadWasm\` is a global function.
-    // It returns a promise which resolves to an object
+    // The \`loadWasm\` method of \`livecodes\` global object
+    // returns a promise which resolves to an object
     // exposing the compiled wasm module, wasm text and wasm binary
-    const { wasmModule, text, binary } = await loadWasm();
+    const { wasmModule, text, binary } = await livecodes.loadWasm();
     const { __getString, getTitle, increment } = wasmModule.exports;
 
     const title = document.querySelector('#title');

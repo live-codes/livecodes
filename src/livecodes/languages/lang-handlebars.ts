@@ -32,7 +32,7 @@ export const handlebars: LanguageSpecs = {
     const template = Handlebars.template(${templateSpec});
     const content = template({
       ...${escapeCode(JSON.stringify(data || {}))},
-      ...window.templateData,
+      ...window.livecodes?.templateData,
     });
     document.body.innerHTML += content
     parent.postMessage({type: 'compiled', payload: {language: 'handlebars', content}}, '*');

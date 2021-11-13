@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
   const clientFn = ${clientFnSrc};
   const content = clientFn({
     ...${JSON.stringify(data)},
-    ...window.templateData,
+    ...window.livecodes?.templateData,
   });
   document.body.innerHTML += content;
   parent.postMessage({type: 'compiled', payload: {language: 'haml', content}}, '*');

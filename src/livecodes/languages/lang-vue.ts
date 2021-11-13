@@ -62,7 +62,8 @@ export const vue: LanguageSpecs = {
   },
   compiler: {
     factory: () => async (code, { config }) =>
-      `let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
+      `(() => {
+let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
 let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
@@ -72,6 +73,7 @@ const { loadModule } = window['vue3-sfc-loader'];
 const App = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/component.vue', options)));
 App.mount(app)
 App.config.devtools = true;
+})();
 `,
     scripts: [vueCdnUrl, loaderCdnUrl],
     imports: {

@@ -11,7 +11,6 @@ export const pyodide: LanguageSpecs = {
     scripts: [],
     liveReload: true,
     inlineScript: `
-window.livecodes = window.livecodes || {};
 if (window.livecodes.pyodideLoading === undefined) {
   const script = document.createElement('script');
   script.src = '${cdnBaselUrl}pyodide.js';

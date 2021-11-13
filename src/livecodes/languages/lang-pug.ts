@@ -33,7 +33,7 @@ export const pug: LanguageSpecs = {
     ${clientFnSrc}
     const content = clientFn({
       ...${escapeCode(JSON.stringify(data))},
-      ...window.templateData,
+      ...window.livecodes?.templateData,
     });
     document.body.innerHTML += content;
     parent.postMessage({type: 'compiled', payload: {language: 'pug', content}}, '*');

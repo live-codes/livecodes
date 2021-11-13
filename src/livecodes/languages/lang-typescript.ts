@@ -2,6 +2,8 @@ import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
+const url = 'https://cdn.jsdelivr.net/npm/typescript@4.4.3/lib/typescript.min.js';
+
 export const typescriptOptions = {
   target: 'es2015',
   jsx: 'react',
@@ -18,7 +20,7 @@ export const typescript: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url: 'https://cdn.jsdelivr.net/npm/typescript@4.4.3/lib/typescript.min.js',
+    url,
     factory: () => async (code, { config, language }) =>
       (window as any).ts.transpile(code, {
         ...typescriptOptions,

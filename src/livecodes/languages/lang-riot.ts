@@ -25,12 +25,14 @@ export const riot: LanguageSpecs = {
       });
       const result = await (window as any).riot.compileFromString(processedCode, options);
       const compiled: string = result.code;
-      return `var Component = ${compiled.replace('export default ', '')}
+      return `(() => {
+const Component = ${compiled.replace('export default ', '')}
 riot.register(Component.name, Component);
 riot.mount(Component.name, {
   ...${JSON.stringify(data || {})},
-  ...window.templateData
+  ...window.livecodes?.templateData
 });
+})();
 `;
     },
     scripts: [cdnUrl],

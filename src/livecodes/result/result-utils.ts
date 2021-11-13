@@ -1,5 +1,6 @@
 import { handleEval, handleResize, proxyConsole } from './utils';
 
+(window as any).livecodes = (window as any).livecodes || {};
 proxyConsole();
 handleEval();
 handleResize();
