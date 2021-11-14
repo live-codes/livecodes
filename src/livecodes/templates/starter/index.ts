@@ -2,6 +2,7 @@
 
 import { angularStarter } from './angular-starter';
 import { assemblyscriptStarter } from './assemblyscript-starter';
+import { astroStarter } from './astro-starter';
 import { backboneStarter } from './backbone-starter';
 import { blank } from './blank';
 import { blocklyStarter } from './blockly-starter';
@@ -50,6 +51,7 @@ export const starterTemplates = [
   solidStarter,
   riotStarter,
   mdxStarter,
+  astroStarter,
   jqueryStarter,
   backboneStarter,
   knockoutStarter,

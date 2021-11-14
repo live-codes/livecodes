@@ -47,11 +47,13 @@ import { reactNative } from './lang-react-native';
 import { reactNativeTsx } from './lang-react-native-tsx';
 import { blockly } from './lang-blockly';
 import { twig } from './lang-twig';
+import { astro } from './lang-astro';
 
 export const languages: LanguageSpecs[] = [
   html,
   markdown,
   mdx,
+  astro,
   pug,
   asciidoc,
   haml,

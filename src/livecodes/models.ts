@@ -66,6 +66,7 @@ export type Language =
   | 'mdown'
   | 'mkdn'
   | 'mdx'
+  | 'astro'
   | 'pug'
   | 'jade'
   | 'haml'
