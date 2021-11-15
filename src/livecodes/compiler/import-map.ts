@@ -11,7 +11,13 @@ export const getImports = (code: string) =>
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (libName.startsWith('http') || libName.startsWith('.') || libName.startsWith('/')) {
+      if (
+        libName.startsWith('http') ||
+        libName.startsWith('.') ||
+        libName.startsWith('/') ||
+        libName.startsWith('data:') ||
+        libName.startsWith('blob:')
+      ) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
