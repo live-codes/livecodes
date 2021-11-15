@@ -21,11 +21,32 @@ export const astro: LanguageSpecs = {
       const compilerReady = initialize({ wasmURL });
       return async (code, { config }) => {
         await compilerReady;
+
+        // // nested astro component
+        // const script = await transform(config.script.content, {
+        //   ...getLanguageCustomSettings('astro', config),
+        //   sourcefile: 'script.jsx',
+        //   sourcemap: false,
+        //   internalURL,
+        //   // site: location.href,
+        //   as: 'fragment',
+        // });
+        // const url = `data:application/javascript;base64,${btoa(script.code)}`;
+
+        // // when renderers are enabled (react/preact/vue/svelte)
+        // // https://github.com/snowpackjs/astro-repl/blob/741460dfcbe894473f8e66153926cc653d0fe8b9/src/%40astro/internal/index.ts#L196
+        // const scriptCode = options.script || '';
+        // const url = `data:application/javascript;base64,${btoa(scriptCode)}`;
+
+        // code = code.replace('./script.jsx', url);
+
         const result = await transform(code, {
-          ...getLanguageCustomSettings('astro', config),
           sourcefile: 'file.astro',
-          sourcemap: 'both',
+          sourcemap: false,
           internalURL,
+          // site: location.href,
+          as: 'fragment',
+          ...getLanguageCustomSettings('astro', config),
         });
         const output = await renderAstroToHTML(result.code);
         if (output.errors) {
