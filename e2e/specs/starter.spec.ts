@@ -10,6 +10,7 @@ const templates = [
   'Svelte',
   'Stencil',
   'MDX',
+  'Astro',
   'jQuery',
   'Backbone',
   'Knockout',

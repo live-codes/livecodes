@@ -305,7 +305,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         let pkg = getImports(content)[0];
         if (!pkg) return;
 
-        if (pkg.startsWith('https://') || pkg.startsWith('http://') || pkg.startsWith('.')) {
+        if (
+          pkg.startsWith('https://') ||
+          pkg.startsWith('http://') ||
+          pkg.startsWith('.') ||
+          pkg.startsWith('data:') ||
+          pkg.startsWith('blob:')
+        ) {
           return;
         } else if (/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/.test(pkg)) {
           pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/, '');

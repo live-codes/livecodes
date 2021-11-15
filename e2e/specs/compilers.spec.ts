@@ -71,6 +71,26 @@ test.describe('Compiler Results', () => {
     expect(resultText).toBe('Hello, World!');
   });
 
+  test('Astro', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Astro');
+    await waitForEditorFocus(app);
+    await app.page().keyboard.type(`---
+const title = "World";
+---
+
+<h1>Hello, {title}!</h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toBe('Hello, World!');
+  });
+
   test('Pug', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
