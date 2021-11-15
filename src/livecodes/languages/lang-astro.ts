@@ -45,7 +45,6 @@ export const astro: LanguageSpecs = {
           sourcemap: false,
           internalURL,
           // site: location.href,
-          as: 'fragment',
           ...getLanguageCustomSettings('astro', config),
         });
         const output = await renderAstroToHTML(result.code);
