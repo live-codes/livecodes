@@ -1,3 +1,5 @@
+import { Config } from '..';
+import { compileInCompiler, replaceImports } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
@@ -6,6 +8,18 @@ const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/astro-internal@0.0
 const compilerURL = cdnBaselUrl + 'compiler.min.js';
 const internalURL = cdnBaselUrl + 'index.min.js';
 const wasmURL = 'https://cdn.jsdelivr.net/npm/@astrojs/compiler@0.2.23/astro.wasm';
+
+/**
+ * replace imports and compile typescript
+ */
+const compileFrontmatter = async (code: string, config: Config) => {
+  code = replaceImports(code, config);
+  const pattern = /^---((?:.|\n|\r)*)---((?:.|\n|\r)*)/;
+  const frontmatter = code.trim().match(new RegExp(pattern))?.[1];
+  if (!frontmatter) return code;
+  const compiled = await compileInCompiler(frontmatter, 'typescript', config);
+  return code.trim().replace(new RegExp(pattern), `---\n${compiled}\n---\n$2`);
+};
 
 export const astro: LanguageSpecs = {
   name: 'astro',
@@ -19,6 +33,7 @@ export const astro: LanguageSpecs = {
     factory: () => {
       const { transform, initialize, renderAstroToHTML } = (self as any).astroCompiler;
       const compilerReady = initialize({ wasmURL });
+
       return async (code, { config }) => {
         await compilerReady;
 
@@ -40,7 +55,9 @@ export const astro: LanguageSpecs = {
 
         // code = code.replace('./script.jsx', url);
 
-        const result = await transform(code, {
+        const processedCode = await compileFrontmatter(code, config);
+
+        const result = await transform(processedCode, {
           sourcefile: 'file.astro',
           sourcemap: false,
           internalURL,

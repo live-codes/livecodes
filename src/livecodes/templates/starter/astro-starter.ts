@@ -9,9 +9,12 @@ export const astroStarter: Template = {
     language: 'astro',
     content: `
 ---
+import {format} from 'date-fns';
+
 const title = "Astro";
-const url = "https://astro.build/";
-const items = ["Dog", "Cat", "Platipus"];
+
+const builtAt = new Date();
+const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
 ---
 <html lang="en">
 
@@ -28,6 +31,13 @@ const items = ["Dog", "Cat", "Platipus"];
     .logo {
       width: 150px;
     }
+    .note {
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #E4E5E6;
+      border: 1px solid #BBB;
+    }
   </style>
 </head>
 
@@ -37,19 +47,18 @@ const items = ["Dog", "Cat", "Platipus"];
     <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/astro.svg" />
     <p>You clicked <span id="counter">0</span> times.</p>
     <button id="counter-button">Click me</button>
+    <p class="note">
+      <strong>RENDERED AT:</strong><br/>
+      {builtAtFormatted}
+    </p>
   </div>
-    <ul>
-      {items.map((item) => (
-        <li>{item}</li>
-      ))}
-    </ul>
   <script>
-    const button = document.querySelector("#counter-button");
-    const counter = document.querySelector("#counter");
     let count = 0
-    button.addEventListener("click", () => {
+    document
+      .querySelector("#counter-button")
+      .addEventListener("click", () => {
         count += 1;
-        counter.textContent = count;
+        document.querySelector("#counter").textContent = count;
     });
   </script>
 </body>
