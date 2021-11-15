@@ -1,6 +1,5 @@
-import { Config } from '..';
 import { compileInCompiler, replaceImports } from '../compiler';
-import { LanguageSpecs } from '../models';
+import { LanguageSpecs, Config } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
