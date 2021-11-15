@@ -130,7 +130,7 @@ export const createResultPage = (
   // import maps
   const importMaps = {
     ...(hasImports(code.script.compiled) ? createImportMap(code.script.compiled, config) : {}),
-    ...(code.markup.language === 'mdx' ? createImportMap(code.markup.compiled, config) : {}),
+    ...(hasImports(code.markup.compiled) ? createImportMap(code.markup.compiled, config) : {}),
     ...compilerImports,
   };
   if (Object.keys(importMaps).length > 0) {
