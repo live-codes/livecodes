@@ -13,7 +13,7 @@ import {format} from 'date-fns';
 
 const title = "Astro";
 
-const builtAt = new Date();
+const builtAt: Date = new Date();
 const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
 ---
 <html lang="en">
