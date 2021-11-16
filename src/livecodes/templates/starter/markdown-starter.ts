@@ -1,8 +1,8 @@
 import { Template } from '../../models';
 
-export const readmeTemplate: Template = {
-  name: 'readme',
-  title: 'README Template',
+export const markdownStarter: Template = {
+  name: 'markdown',
+  title: 'Markdown Starter',
   thumbnail: 'assets/templates/markdown.svg',
   activeEditor: 'markup',
   markup: {
@@ -103,22 +103,23 @@ Source: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
   style: {
     language: 'css',
     content: `
-/* Page is styled by "github-markdown-css" CSS preset */
+@import "github-markdown-css";
+
 body {
-  margin: 20px;
   border: 1px solid #e1e4e8;
   border-radius: 6px;
   padding: 20px;
+  margin: 20px !important;
 }
 `.trimStart(),
   },
   script: {
     language: 'javascript',
-    content: '',
+    content: `document.body.classList.add('markdown-body');\n`,
   },
   stylesheets: [],
   scripts: [],
-  cssPreset: 'github-markdown-css',
+  cssPreset: '',
   imports: {},
   types: {},
 };

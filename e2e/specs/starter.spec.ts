@@ -302,14 +302,14 @@ test.describe('Starter Templates from UI', () => {
     expect(bars.length).toBe(4);
   });
 
-  test('README Template', async ({ page, getTestUrl }) => {
+  test('Markdown Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[title=Settings]');
     await app.click('text=New');
-    await app.click('text=README Template');
+    await app.click('text=Markdown Starter');
     await waitForEditorFocus(app);
 
     await waitForResultUpdate();
@@ -562,8 +562,8 @@ test.describe('Starter Templates from URL', () => {
     expect(bars.length).toBe(4);
   });
 
-  test('README Template (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'readme' }));
+  test('Markdown Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'markdown' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 

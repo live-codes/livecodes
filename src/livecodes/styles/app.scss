@@ -1533,16 +1533,26 @@ i.arrow {
 
       li {
         margin-bottom: 0.5em;
+        min-height: 25px;
         white-space: nowrap;
         width: 45%;
 
-        img {
-          margin-bottom: -0.3em;
-          margin-right: 0.5em;
-        }
-
         a {
           text-decoration: none;
+        }
+
+        .share-image-container {
+          display: inline-block;
+          height: 24px;
+          margin: 0;
+          padding: 0;
+          width: 21px;
+        }
+
+        img {
+          margin-bottom: -0.4em;
+          margin-right: 0.5em;
+          width: 21px;
         }
       }
     }
