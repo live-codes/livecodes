@@ -1,8 +1,8 @@
 import { Template } from '../../models';
 
-export const markdownTemplate: Template = {
+export const markdownStarter: Template = {
   name: 'markdown',
-  title: 'Markdown Template',
+  title: 'Markdown Starter',
   thumbnail: 'assets/templates/markdown.svg',
   activeEditor: 'markup',
   markup: {
