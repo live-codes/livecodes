@@ -38,4 +38,4 @@ export const tailwindcssUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.2.2/dist/tailwindcss.umd.min.js';
 
 export const postcssImportUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.0.1/dist/index.js';
+  'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.0/dist/index.js';
