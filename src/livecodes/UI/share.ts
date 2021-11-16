@@ -38,10 +38,12 @@ export const createShareContainer = async (
       link.target = 'blank';
       link.rel = 'noopener noreferrer';
       link.innerHTML = `
-        <img
-          src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
-          alt="${service.name}"
-        />
+        <span class="share-image-container">
+          <img
+            src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
+            alt="${service.name}"
+          />
+        </span>
         ${service.name}
       `;
 
