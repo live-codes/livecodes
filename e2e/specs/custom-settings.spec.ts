@@ -119,6 +119,29 @@ test.describe('Custom Settings', () => {
     expect(await getResult().innerText('head style')).toContain('b: 1px;');
   });
 
+  test('postcssImportUrl', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"postcssImportUrl": false}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(`@import "github-markdown-css";`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('style');
+
+    expect(resultText).not.toContain('.markdown-body');
+  });
+
   test('autoprefixer', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

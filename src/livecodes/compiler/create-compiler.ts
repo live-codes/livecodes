@@ -12,6 +12,7 @@ import { sandboxService } from '../services';
 import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
+import { hasStyleImports } from './import-map';
 import {
   LanguageOrProcessor,
   CompilerMessage,
@@ -152,9 +153,12 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
   const postProcess: CompilerFunction = async (content, { config, language, baseUrl, options }) => {
     for (const processor of processors) {
       if (
-        processorIsEnabled(processor.name, config) &&
-        processorIsActivated(processor.name, config) &&
-        processor.editors?.includes(getLanguageEditorId(language || '') as EditorId)
+        (processorIsEnabled(processor.name, config) &&
+          processorIsActivated(processor.name, config) &&
+          processor.editors?.includes(getLanguageEditorId(language || '') as EditorId)) ||
+        (getLanguageEditorId(language) === 'style' &&
+          processor.name === 'postcss' &&
+          hasStyleImports(content))
       ) {
         if (compilers[processor.name] && !compilers[processor.name].fn) {
           await load([processor.name], config);
@@ -169,8 +173,13 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
     return content;
   };
 
+  const clearCache = () => {
+    (Object.keys(cache) as Array<keyof typeof cache>).forEach((key) => delete cache[key]);
+  };
+
   return {
     load,
     compile,
+    clearCache,
   };
 };

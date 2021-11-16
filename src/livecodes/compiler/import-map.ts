@@ -8,16 +8,18 @@ export const getImports = (code: string) =>
     arr[2].replace(/"/g, '').replace(/'/g, ''),
   );
 
+const isBare = (mod: string) =>
+  !mod.startsWith('https://') &&
+  !mod.startsWith('http://') &&
+  !mod.startsWith('.') &&
+  !mod.startsWith('/') &&
+  !mod.startsWith('data:') &&
+  !mod.startsWith('blob:');
+
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (
-        libName.startsWith('http') ||
-        libName.startsWith('.') ||
-        libName.startsWith('/') ||
-        libName.startsWith('data:') ||
-        libName.startsWith('blob:')
-      ) {
+      if (!isBare(libName)) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
@@ -51,3 +53,19 @@ export const replaceImports = (code: string, config: Config) => {
     return statement.replace(key, importMap[key]);
   });
 };
+
+export const styleimportsPattern = /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
+
+export const hasStyleImports = (code: string) => new RegExp(styleimportsPattern).test(code);
+
+export const replaceStyleImports = (code: string) =>
+  code.replace(new RegExp(styleimportsPattern), (statement, match, media) => {
+    const url = match.replace(/"/g, '').replace(/'/g, '').replace(/url\(/g, '').replace(/\)/g, '');
+    const modified = '@import "' + modulesService.getModuleUrl(url, false) + '";';
+    const mediaQuery = media?.trim();
+    return !isBare(url)
+      ? statement
+      : mediaQuery
+      ? `@media ${mediaQuery} {\n${modified}\n}`
+      : modified;
+  });

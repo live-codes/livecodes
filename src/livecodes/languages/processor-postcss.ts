@@ -1,7 +1,7 @@
-import { CompileOptions } from '../compiler';
+import { CompileOptions, hasStyleImports, replaceStyleImports } from '../compiler';
 import { Config, Processors } from '../models';
 import { getAbsoluteUrl } from '../utils';
-import { tailwindcssUrl, vendorsBaseUrl } from '../vendors';
+import { postcssImportUrl, tailwindcssUrl, vendorsBaseUrl } from '../vendors';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
 export type PluginName = keyof Config['processors']['postcss'];
@@ -13,9 +13,20 @@ interface PluginSpecs {
   url: string;
   isPostcssPlugin?: boolean;
   factory: PluginFactory;
+  hidden?: boolean;
 }
 
 export const pluginSpecs: PluginSpecs[] = [
+  {
+    name: 'postcssImportUrl',
+    title: 'Import Url',
+    url: postcssImportUrl,
+    factory: ({ config }) =>
+      (self as any).postcssImportUrl({
+        ...getLanguageCustomSettings('postcssImportUrl' as any, config),
+      }),
+    hidden: true,
+  },
   {
     name: 'tailwindcss',
     title: 'Tailwind CSS',
@@ -140,14 +151,23 @@ export const postcss: Processors = {
         }
       };
 
-      const getEnabledPluginNames = (config: Config) => {
+      const getEnabledPluginNames = (code: string, config: Config) => {
         const configPlugins = config.processors.postcss;
-        const isEnabled = (pluginName: PluginName) => configPlugins[pluginName] === true;
-        return (Object.keys(configPlugins) as PluginName[]).filter(isEnabled);
+        const isEnabled = (pluginName: PluginName) =>
+          configPlugins[pluginName] === true ||
+          (pluginName === 'postcssImportUrl' &&
+            hasStyleImports(code) &&
+            config.customSettings.postcssImportUrl !== false);
+        return pluginSpecs.map((plugin) => plugin.name).filter(isEnabled);
       };
 
-      const getPlugins = (config: Config, baseUrl: string, options: CompileOptions) => {
-        const pluginNames = getEnabledPluginNames(config);
+      const getPlugins = (
+        code: string,
+        config: Config,
+        baseUrl: string,
+        options: CompileOptions,
+      ) => {
+        const pluginNames = getEnabledPluginNames(code, config);
         pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
         return pluginSpecs
           .filter((specs) => pluginNames.includes(specs.name))
@@ -155,11 +175,13 @@ export const postcss: Processors = {
           .map((specs) => loadedPlugins[specs.name]?.({ config, options }));
       };
 
+      const prepareCode = (code: string) => escapeCode(replaceStyleImports(code));
+
       return async function process(code, { config, baseUrl, options }): Promise<string> {
         if (!config || !baseUrl) return code;
-        const plugins = getPlugins(config, baseUrl, options);
+        const plugins = getPlugins(code, config, baseUrl, options);
         let css = code;
-        if (getEnabledPluginNames(config).includes('windicss')) {
+        if (getEnabledPluginNames(code, config).includes('windicss')) {
           const windiCss = loadedPlugins.windicss?.({ config, options }) as any;
           if (windiCss) {
             css = await windiCss({
@@ -170,7 +192,7 @@ export const postcss: Processors = {
           }
         }
         return (
-          await (self as any).postcss.postcss(plugins).process(escapeCode(css), postCssOptions)
+          await (self as any).postcss.postcss(plugins).process(prepareCode(css), postCssOptions)
         ).css;
       };
     },

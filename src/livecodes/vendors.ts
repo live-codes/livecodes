@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.1/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.3/dist/';
 
 export const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
 
@@ -36,3 +36,6 @@ export const jsZipUrl =
 
 export const tailwindcssUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.2.2/dist/tailwindcss.umd.min.js';
+
+export const postcssImportUrl =
+  'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';

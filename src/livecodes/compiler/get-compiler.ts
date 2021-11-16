@@ -15,5 +15,6 @@ async function createFakeCompiler(): Promise<Compiler> {
   return {
     load: (_languages: LanguageOrProcessor[], _config: Config) => Promise.resolve(['do nothing']),
     compile: (content: string, _language: Language, _config: Config) => Promise.resolve(content),
+    clearCache: () => undefined,
   };
 }
