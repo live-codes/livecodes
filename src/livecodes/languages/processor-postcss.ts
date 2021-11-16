@@ -186,7 +186,6 @@ export const postcss: Processors = {
             });
           }
         }
-        console.log(replaceStyleImports(code));
         return (
           await (self as any).postcss.postcss(plugins).process(prepareCode(css), postCssOptions)
         ).css;
