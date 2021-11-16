@@ -26,6 +26,7 @@ export interface ContentConfig {
   cssPreset: CssPresetId;
   processors: {
     postcss: {
+      postcssImportUrl?: boolean;
       tailwindcss: boolean;
       windicss: boolean;
       autoprefixer: boolean;

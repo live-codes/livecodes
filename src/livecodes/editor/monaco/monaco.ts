@@ -313,8 +313,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           pkg.startsWith('blob:')
         ) {
           return;
-        } else if (/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/.test(pkg)) {
-          pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh)\:/, '');
+        } else if (/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh|bundle\.run)\:/.test(pkg)) {
+          pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh|bundle\.run)\:/, '');
         }
         // remove version
         pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);

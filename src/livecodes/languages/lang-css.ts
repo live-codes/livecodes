@@ -1,3 +1,4 @@
+import { compileInCompiler } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 

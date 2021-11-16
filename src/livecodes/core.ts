@@ -995,7 +995,7 @@ const loadSettings = (config: Config) => {
   processorToggles.forEach((toggle) => {
     const plugin = toggle.dataset.plugin as PluginName;
     if (!plugin) return;
-    toggle.checked = config.processors.postcss[plugin];
+    toggle.checked = config.processors.postcss[plugin] || false;
   });
 
   if (isEmbed) return;
@@ -1264,7 +1264,9 @@ const handleResultButton = () => {
 
 const handleProcessors = () => {
   const styleMenu = UI.getstyleMenu();
-  const pluginList = pluginSpecs.map((plugin) => ({ name: plugin.name, title: plugin.title }));
+  const pluginList = pluginSpecs
+    .filter((plugin) => !plugin.hidden)
+    .map((plugin) => ({ name: plugin.name, title: plugin.title }));
   if (!styleMenu || pluginList.length === 0 || !processorIsEnabled('postcss', getConfig())) {
     return;
   }
