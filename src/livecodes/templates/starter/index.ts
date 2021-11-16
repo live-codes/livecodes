@@ -22,7 +22,7 @@ import { pyodideStarter } from './pyodide-starter';
 import { pythonStarter } from './python-starter';
 import { reactNativeStarter } from './react-native-starter';
 import { reactStarter } from './react-starter';
-import { readmeTemplate } from './readme-template';
+import { markdownTemplate } from './markdown-template';
 import { rescriptStarter } from './rescript-starter';
 import { riotStarter } from './riot-starter';
 import { rubyStarter } from './ruby-starter';
@@ -69,7 +69,7 @@ export const starterTemplates = [
   perlStarter,
   luaStarter,
   schemeStarter,
-  readmeTemplate,
+  markdownTemplate,
   assemblyscriptStarter,
   watStarter,
   sqlStarter,
