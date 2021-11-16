@@ -54,12 +54,18 @@ export const replaceImports = (code: string, config: Config) => {
   });
 };
 
-export const styleimportsPattern = /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(?:.*;)/g;
+export const styleimportsPattern = /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
 
 export const hasStyleImports = (code: string) => new RegExp(styleimportsPattern).test(code);
 
 export const replaceStyleImports = (code: string) =>
-  code.replace(new RegExp(styleimportsPattern), (statement, match) => {
+  code.replace(new RegExp(styleimportsPattern), (statement, match, media) => {
     const url = match.replace(/"/g, '').replace(/'/g, '').replace(/url\(/g, '').replace(/\)/g, '');
-    return !isBare(url) ? statement : '@import "' + modulesService.getModuleUrl(url, false) + '";';
+    const modified = '@import "' + modulesService.getModuleUrl(url, false) + '";';
+    const mediaQuery = media?.trim();
+    return !isBare(url)
+      ? statement
+      : mediaQuery
+      ? `@media ${mediaQuery} {\n${modified}\n}`
+      : modified;
   });

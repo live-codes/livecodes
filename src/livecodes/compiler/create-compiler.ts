@@ -156,7 +156,9 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
         (processorIsEnabled(processor.name, config) &&
           processorIsActivated(processor.name, config) &&
           processor.editors?.includes(getLanguageEditorId(language || '') as EditorId)) ||
-        (processor.name === 'postcss' && hasStyleImports(content))
+        (getLanguageEditorId(language) === 'style' &&
+          processor.name === 'postcss' &&
+          hasStyleImports(content))
       ) {
         if (compilers[processor.name] && !compilers[processor.name].fn) {
           await load([processor.name], config);
