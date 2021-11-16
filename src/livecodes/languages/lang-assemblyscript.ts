@@ -8,8 +8,8 @@ declare const importScripts: (...args: string[]) => void;
 declare const requirejs: any;
 declare const require: any;
 
-const sdkUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.17/dist/sdk.js';
-const loaderUrl = 'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.17/umd/index.js';
+const sdkUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.20/dist/sdk.js';
+const loaderUrl = 'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.20/umd/index.js';
 
 const scriptType = 'application/wasm-uint8';
 const watHeader = `;; WebAssembly Text Format (module.wat)\n\n`;
