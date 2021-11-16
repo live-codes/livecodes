@@ -529,6 +529,21 @@ const title = "World";
     expect(resultText).toContain('font: 14px Arial, sans-serif;');
   });
 
+  test('PostCSS/postcssImportUrl', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(`@import "github-markdown-css";`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('style');
+
+    expect(resultText).toContain('.markdown-body');
+  });
+
   test('PostCSS/Autoprefixer', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

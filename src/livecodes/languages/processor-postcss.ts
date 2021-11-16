@@ -21,7 +21,10 @@ export const pluginSpecs: PluginSpecs[] = [
     name: 'postcssImportUrl',
     title: 'Import Url',
     url: postcssImportUrl,
-    factory: () => (self as any).postcssImportUrl({}),
+    factory: ({ config }) =>
+      (self as any).postcssImportUrl({
+        ...getLanguageCustomSettings('postcssImportUrl' as any, config),
+      }),
     hidden: true,
   },
   {
@@ -154,7 +157,7 @@ export const postcss: Processors = {
           configPlugins[pluginName] === true ||
           (pluginName === 'postcssImportUrl' &&
             hasStyleImports(code) &&
-            getLanguageCustomSettings('postcss', config).postcssImportUrl !== false);
+            config.customSettings.postcssImportUrl !== false);
         return pluginSpecs.map((plugin) => plugin.name).filter(isEnabled);
       };
 

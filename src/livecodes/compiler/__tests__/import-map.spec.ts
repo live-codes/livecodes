@@ -1,5 +1,10 @@
 import { Config } from '../../models';
-import { createImportMap, replaceImports } from '../import-map';
+import {
+  createImportMap,
+  hasStyleImports,
+  replaceImports,
+  replaceStyleImports,
+} from '../import-map';
 
 describe('Import map', () => {
   test('create import map', () => {
@@ -59,6 +64,40 @@ describe('Import map', () => {
     `;
 
     const processedCode = replaceImports(code, config);
+    expect(processedCode).toEqual(expectedCode);
+  });
+
+  test('replace style imports', () => {
+    const code = `
+@import "github-markdown-css";
+@import "unpkg:github-markdown-css";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@import "github-markdown-css" print;
+@import "github-markdown-css" screen and (orientation:landscape);
+
+body {
+  color: blue;
+}    `;
+
+    const expectedCode = `
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@import "https://unpkg.com/github-markdown-css";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@media print {
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+}
+@media screen and (orientation:landscape) {
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+}
+
+body {
+  color: blue;
+}    `;
+
+    expect(hasStyleImports(code)).toBe(true);
+    expect(hasStyleImports('body {color: blue;}')).toBe(false);
+
+    const processedCode = replaceStyleImports(code);
     expect(processedCode).toEqual(expectedCode);
   });
 });
