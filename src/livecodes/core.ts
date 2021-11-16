@@ -2181,6 +2181,7 @@ const handleCustomSettings = () => {
         }
       }
       if (customSettings !== getConfig().customSettings) {
+        compiler.clearCache();
         setConfig({
           ...getConfig(),
           customSettings,

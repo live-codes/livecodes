@@ -15,6 +15,7 @@ export interface Compiler {
     config: Config,
     options: CompileOptions,
   ) => Promise<string>;
+  clearCache: () => void;
 }
 
 export type LanguageOrProcessor = Language | ProcessorName;

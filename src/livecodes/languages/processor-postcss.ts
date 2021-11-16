@@ -152,7 +152,9 @@ export const postcss: Processors = {
         const configPlugins = config.processors.postcss;
         const isEnabled = (pluginName: PluginName) =>
           configPlugins[pluginName] === true ||
-          (pluginName === 'postcssImportUrl' && hasStyleImports(code));
+          (pluginName === 'postcssImportUrl' &&
+            hasStyleImports(code) &&
+            getLanguageCustomSettings('postcss', config).postcssImportUrl !== false);
         return pluginSpecs.map((plugin) => plugin.name).filter(isEnabled);
       };
 

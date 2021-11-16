@@ -173,8 +173,13 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
     return content;
   };
 
+  const clearCache = () => {
+    (Object.keys(cache) as Array<keyof typeof cache>).forEach((key) => delete cache[key]);
+  };
+
   return {
     load,
     compile,
+    clearCache,
   };
 };
