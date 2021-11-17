@@ -11,7 +11,14 @@ import {
   mapLanguage,
   createLanguageMenus,
 } from './languages';
-import { createStorage, Item, SavedProject } from './storage';
+import {
+  createSimpleStorage,
+  createStorage,
+  StorageItem,
+  SavedProject,
+  RestoreItem,
+  ProjectStorage,
+} from './storage';
 import {
   Cache,
   CodeEditor,
@@ -88,10 +95,10 @@ import { createToolsPane } from './toolspane';
 import { getBlocklyContent, setBlocklyTheme, showBlockly } from './blockly';
 
 const eventsManager = createEventsManager();
-const projectStorage = createStorage();
-const templateStorage = createStorage('__livecodes_templates__');
-const userConfigStorage = createStorage('__livecodes_user_config__');
-const restoreStorage = createStorage('__livecodes_project_restore__');
+let projectStorage: ProjectStorage;
+let templateStorage: ProjectStorage;
+const userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__');
+const restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__');
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
@@ -490,7 +497,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     });
     await run();
   }
-  setSavedStatus();
+  await setSavedStatus();
   addConsoleInputCodeCompletion();
   loadModuleTypes(editors, getConfig());
   await applyLanguageConfigs(language);
@@ -622,11 +629,11 @@ const setProjectTitle = (setDefault = false) => {
   }
   const title = projectTitle.textContent || defaultTitle;
   setConfig({ ...getConfig(), title });
-  setSavedStatus();
   if (getConfig().autosave) {
     save(!projectId, false);
   }
   setWindowTitle();
+  setSavedStatus();
 };
 
 const setWindowTitle = () => {
@@ -665,11 +672,11 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   if (!projectId) {
-    projectId = projectStorage.addItem(getConfig());
+    projectId = await projectStorage.addItem(getConfig());
   } else {
-    projectStorage.updateItem(projectId, getConfig());
+    await projectStorage.updateItem(projectId, getConfig());
   }
-  setSavedStatus();
+  await setSavedStatus();
 
   if (notify) {
     notifications.success('Project locally saved to device!');
@@ -750,12 +757,11 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
     ...getConfig(),
     ...userConfig,
   });
-  userConfigStorage.clear();
-  userConfigStorage.addItem(userConfig as Config);
+  userConfigStorage.setValue(userConfig);
 };
 
 const loadUserConfig = () => {
-  const userConfig = userConfigStorage.getAllData()?.pop()?.pen;
+  const userConfig = userConfigStorage.getValue();
   if (!userConfig) {
     setUserConfig(getUserConfig(getConfig()));
     return;
@@ -766,9 +772,9 @@ const loadUserConfig = () => {
   });
 };
 
-const setSavedStatus = () => {
+const setSavedStatus = async () => {
   updateConfig();
-  const savedConfig = projectStorage.getItem(projectId)?.pen;
+  const savedConfig = (await projectStorage.getItem(projectId || ''))?.config;
   isSaved =
     changingContent ||
     !!(
@@ -823,15 +829,18 @@ const setProjectRestore = (reset = false) => {
   if (isEmbed) return;
   restoreStorage.clear();
   if (reset || !getConfig().enableRestore) return;
-  restoreStorage.addItem(getContentConfig(getConfig()));
+  restoreStorage.setValue({
+    config: getContentConfig(getConfig()),
+    lastModified: Date.now(),
+  });
 };
 
 const checkRestoreStatus = () => {
   if (!getConfig().enableRestore || isEmbed) {
     return Promise.resolve('restore disabled');
   }
-  const unsavedItem = restoreStorage.getAllData().pop();
-  const unsavedProject = unsavedItem?.pen;
+  const unsavedItem = restoreStorage.getValue();
+  const unsavedProject = unsavedItem?.config;
   if (!unsavedItem || !unsavedProject) {
     return Promise.resolve('no unsaved project');
   }
@@ -853,13 +862,13 @@ const checkRestoreStatus = () => {
 
     eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
       await loadConfig(unsavedProject);
-      setSavedStatus();
+      await setSavedStatus();
       setRestoreConfig(!disableRestoreCheckbox.checked);
       modal.close();
       resolve('restore');
     });
-    eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', () => {
-      projectStorage.addItem(unsavedProject);
+    eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
+      await projectStorage.addItem(unsavedProject);
       notifications.success(`Project "${projectName}" saved to device.`);
       setRestoreConfig(!disableRestoreCheckbox.checked);
       modal.close();
@@ -1391,7 +1400,7 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const createTemplatesUI = () => {
+  const createTemplatesUI = async () => {
     const templatesContainer = UI.createTemplatesContainer(eventsManager);
     const noDataMessage = templatesContainer.querySelector('.no-data');
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
@@ -1428,7 +1437,7 @@ const handleNew = () => {
       });
 
     const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
-    const userTemplates = templateStorage.getList();
+    const userTemplates = await templateStorage.getList();
 
     if (userTemplates.length > 0) {
       userTemplatesScreen.innerHTML = '';
@@ -1458,7 +1467,7 @@ const handleNew = () => {
         async (event) => {
           event.preventDefault();
           const itemId = (link as HTMLElement).dataset.id || '';
-          const template = templateStorage.getItem(itemId)?.pen;
+          const template = (await templateStorage.getItem(itemId))?.config;
           if (template) {
             await loadConfig({
               ...template,
@@ -1477,12 +1486,12 @@ const handleNew = () => {
       eventsManager.addEventListener(
         deleteButton,
         'click',
-        () => {
-          templateStorage.deleteItem(item.id);
+        async () => {
+          await templateStorage.deleteItem(item.id);
           li.classList.add('hidden');
-          setTimeout(() => {
+          setTimeout(async () => {
             li.style.display = 'none';
-            if (templateStorage.getList().length === 0 && noDataMessage) {
+            if ((await templateStorage.getList()).length === 0 && noDataMessage) {
               list.remove();
               userTemplatesScreen.appendChild(noDataMessage);
             }
@@ -1518,15 +1527,15 @@ const handleFork = () => {
 };
 
 const handleSaveAsTemplate = () => {
-  eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', (event) => {
+  eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', async (event) => {
     (event as Event).preventDefault();
-    templateStorage.addItem(getConfig());
+    await templateStorage.addItem(getConfig());
     notifications.success('Saved as a new template');
   });
 };
 
 const handleOpen = () => {
-  const createList = () => {
+  const createList = async () => {
     const div = document.createElement('div');
     div.innerHTML = openScreen;
     const listContainer = div.firstChild as HTMLElement;
@@ -1535,7 +1544,7 @@ const handleOpen = () => {
     const projectsContainer = listContainer.querySelector('#projects-container') as HTMLElement;
     const list = document.createElement('ul') as HTMLElement;
     list.classList.add('open-list');
-    let savedProjects = projectStorage.getList();
+    let savedProjects = await projectStorage.getList();
     let visibleProjects = savedProjects;
 
     const bulkImportButton = UI.getBulkImportButton(listContainer);
@@ -1554,13 +1563,12 @@ const handleOpen = () => {
     eventsManager.addEventListener(
       exportAllButton,
       'click',
-      () => {
-        const data = projectStorage
-          .getAllData()
+      async () => {
+        const data = (await projectStorage.getAllData())
           .filter((item) => visibleProjects.find((p) => p.id === item.id))
           .map((item) => ({
             ...item,
-            pen: getContentConfig(item.pen),
+            pen: getContentConfig(item.config),
           }));
         const filename = 'livecodes_export_' + getDate();
         const content = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
@@ -1572,17 +1580,17 @@ const handleOpen = () => {
     eventsManager.addEventListener(
       deleteAllButton,
       'click',
-      () => {
-        notifications.confirm(`Delete ${visibleProjects.length} projects?`, () => {
-          visibleProjects.forEach((p) => {
-            projectStorage.deleteItem(p.id);
+      async () => {
+        notifications.confirm(`Delete ${visibleProjects.length} projects?`, async () => {
+          for (const p of visibleProjects) {
+            await projectStorage.deleteItem(p.id);
             if (projectId === p.id) {
               projectId = '';
             }
-          });
+          }
           visibleProjects = [];
-          savedProjects = projectStorage.getList();
-          showList(visibleProjects);
+          savedProjects = await projectStorage.getList();
+          await showList(visibleProjects);
         });
       },
       false,
@@ -1590,7 +1598,7 @@ const handleOpen = () => {
 
     projectsContainer.appendChild(list);
 
-    const showList = (projects: SavedProject[]) => {
+    const showList = async (projects: SavedProject[]) => {
       visibleProjects = projects;
       list.innerHTML = '';
       projects.forEach((item) => {
@@ -1606,9 +1614,9 @@ const handleOpen = () => {
             modal.show(loading, { size: 'small' });
 
             const itemId = (link as HTMLElement).dataset.id || '';
-            const savedPen = projectStorage.getItem(itemId)?.pen;
-            if (savedPen) {
-              await loadConfig(savedPen);
+            const savedProject = (await projectStorage.getItem(itemId))?.config;
+            if (savedProject) {
+              await loadConfig(savedProject);
               projectId = itemId;
             }
             modal.close();
@@ -1621,11 +1629,11 @@ const handleOpen = () => {
           deleteButton,
           'click',
           () => {
-            notifications.confirm(`Delete project: ${item.title}?`, () => {
+            notifications.confirm(`Delete project: ${item.title}?`, async () => {
               if (item.id === projectId) {
                 projectId = '';
               }
-              projectStorage.deleteItem(item.id);
+              await projectStorage.deleteItem(item.id);
               visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
               const li = deleteButton.parentElement as HTMLElement;
               li.classList.add('hidden');
@@ -1642,7 +1650,7 @@ const handleOpen = () => {
         list.classList.add('hidden');
         deleteAllButton.classList.add('hidden');
         exportAllButton.classList.add('hidden');
-        if (projectStorage.getList().length === 0) {
+        if ((await projectStorage.getList()).length === 0) {
           noDataMessage.classList.remove('hidden');
           noMatchMessage.classList.add('hidden');
         } else {
@@ -1658,7 +1666,7 @@ const handleOpen = () => {
       }
     };
 
-    showList(savedProjects);
+    await showList(savedProjects);
 
     const getProjects = () => projectStorage.getList();
     modal.show(listContainer, { isAsync: true });
@@ -1784,9 +1792,10 @@ const handleImport = () => {
         reader.readAsText(file);
       });
 
-    const insertItems = (items: Item[]) => {
-      if (Array.isArray(items) && items.every((item) => item.pen)) {
-        projectStorage.bulkInsert(items);
+    const insertItems = async (items: StorageItem[]) => {
+      const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
+      if (Array.isArray(items) && items.every(getItemConfig)) {
+        await projectStorage.bulkInsert(items.map(getItemConfig));
         notifications.success('Import Successful!');
         showScreen('open');
         return;
@@ -1806,7 +1815,7 @@ const handleImport = () => {
 
     const bulkFileInput = UI.getBulkImportFileInput(importContainer);
     eventsManager.addEventListener(bulkFileInput, 'change', () => {
-      loadFile<Item[]>(bulkFileInput)
+      loadFile<StorageItem[]>(bulkFileInput)
         .then(insertItems)
         .catch((message) => {
           notifications.error(message);
@@ -2124,7 +2133,7 @@ const handleExternalResources = () => {
               .filter((x) => x !== '') || [],
         });
       });
-      setSavedStatus();
+      await setSavedStatus();
       modal.close();
       await run();
     });
@@ -2186,7 +2195,7 @@ const handleCustomSettings = () => {
           ...getConfig(),
           customSettings,
         });
-        setSavedStatus();
+        await setSavedStatus();
       }
       customSettingsEditor?.destroy();
       modal.close();
@@ -2368,6 +2377,8 @@ const initializeApp = async (
   },
   initializeFn?: () => void,
 ) => {
+  projectStorage = await createStorage('__livecodes_data__');
+  templateStorage = await createStorage('__livecodes_templates__');
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isEmbed = options?.isEmbed ?? false;

@@ -2,7 +2,7 @@ import { createEventsManager } from '../events';
 import { infoScreen } from '../html';
 import { createModal } from '../modal';
 import { Config } from '../models';
-import { createStorage } from '../storage';
+import { ProjectStorage } from '../storage';
 import * as UI from '../UI';
 import { loadScript, loadStylesheet } from '../utils';
 import { tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
@@ -18,7 +18,7 @@ export const getTags = (value: string): string[] => {
 
 export const createProjectInfoUI = async (
   config: Config,
-  storage: ReturnType<typeof createStorage>,
+  storage: ProjectStorage,
   modal: ReturnType<typeof createModal>,
   eventsManager: ReturnType<typeof createEventsManager>,
   onSave: (title: string, description: string, tags: string[]) => void,
@@ -50,12 +50,7 @@ export const createProjectInfoUI = async (
   if (Tagify) {
     new Tagify(tagsInput, {
       whitelist: Array.from(
-        new Set(
-          storage
-            .getList()
-            .map((item) => item.tags)
-            .flat(),
-        ),
+        new Set((await storage.getList()).map((item) => item.tags).flat()),
       ).sort((a, b) => (b > a ? -1 : 1)),
       dropdown: {
         maxItems: 40,

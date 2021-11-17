@@ -60,8 +60,8 @@ export const createItemLoader = (item: { title: string }) => {
 };
 
 export const organizeProjects = (
-  getProjects: () => SavedProject[],
-  showProjects: (projects: SavedProject[]) => void,
+  getProjects: () => Promise<SavedProject[]>,
+  showProjects: (projects: SavedProject[]) => Promise<void>,
   eventsManager: ReturnType<typeof createEventsManager>,
 ) => {
   let sortBy: 'lastModified' | 'title' = 'lastModified';
@@ -107,8 +107,8 @@ export const organizeProjects = (
       languageSelect.appendChild(option);
     });
 
-  const getFilteredAndSorted = () =>
-    getProjects()
+  const getFilteredAndSorted = async () =>
+    (await getProjects())
       .filter((p) => (language ? p.languages.includes(language) : true))
       .filter((p) =>
         tags.length > 0 ? tags.map((t) => p.tags.includes(t)).every((x) => x === true) : true,
@@ -139,10 +139,10 @@ export const organizeProjects = (
         eventsManager.addEventListener(
           tag,
           'click',
-          (ev) => {
+          async (ev) => {
             ev.stopPropagation();
             languageSelect.value = tag.dataset.lang || '';
-            filterByLanguage();
+            await filterByLanguage();
           },
           false,
         );
@@ -150,12 +150,12 @@ export const organizeProjects = (
         eventsManager.addEventListener(
           tag,
           'click',
-          (ev) => {
+          async (ev) => {
             ev.stopPropagation();
             if (tagify) {
               tagify.removeAllTags();
               tagify.addTags(tag.dataset.tag);
-              filterByTags();
+              await filterByTags();
             }
           },
           false,
@@ -164,8 +164,8 @@ export const organizeProjects = (
     });
   };
 
-  const reloadProjects = () => {
-    showProjects(getFilteredAndSorted());
+  const reloadProjects = async () => {
+    showProjects(await getFilteredAndSorted());
     registerLanguageFilters();
   };
 
@@ -181,20 +181,20 @@ export const organizeProjects = (
     sortedDescButton.style.display = 'unset';
   };
 
-  const filterByTags = (value = filterTagsInput.value) => {
+  const filterByTags = async (value = filterTagsInput.value) => {
     tags = getTags(value).filter((x) => x !== '');
-    reloadProjects();
+    await reloadProjects();
   };
 
-  const filterByLanguage = (value = languageSelect.value) => {
+  const filterByLanguage = async (value = languageSelect.value) => {
     language = value as Language;
-    reloadProjects();
+    await reloadProjects();
   };
 
   eventsManager.addEventListener(
     lastModifiedButton,
     'click',
-    (ev) => {
+    async (ev) => {
       ev.preventDefault();
       if (sortBy !== 'lastModified') {
         sortDescending();
@@ -206,7 +206,7 @@ export const organizeProjects = (
       sortBy = 'lastModified';
       lastModifiedButton.classList.add('active');
       titleButton.classList.remove('active');
-      reloadProjects();
+      await reloadProjects();
     },
     false,
   );
@@ -214,7 +214,7 @@ export const organizeProjects = (
   eventsManager.addEventListener(
     titleButton,
     'click',
-    (ev) => {
+    async (ev) => {
       ev.preventDefault();
       if (sortBy !== 'title') {
         sortAscending();
@@ -226,7 +226,7 @@ export const organizeProjects = (
       sortBy = 'title';
       lastModifiedButton.classList.remove('active');
       titleButton.classList.add('active');
-      reloadProjects();
+      await reloadProjects();
     },
     false,
   );
@@ -234,10 +234,10 @@ export const organizeProjects = (
   eventsManager.addEventListener(
     sortedAscButton,
     'click',
-    (ev) => {
+    async (ev) => {
       ev.preventDefault();
       sortDescending();
-      reloadProjects();
+      await reloadProjects();
     },
     false,
   );
@@ -245,10 +245,10 @@ export const organizeProjects = (
   eventsManager.addEventListener(
     sortedDescButton,
     'click',
-    (ev) => {
+    async (ev) => {
       ev.preventDefault();
       sortAscending();
-      reloadProjects();
+      await reloadProjects();
     },
     false,
   );
@@ -263,23 +263,19 @@ export const organizeProjects = (
   eventsManager.addEventListener(
     languageSelect,
     'change',
-    () => {
-      filterByLanguage();
+    async () => {
+      await filterByLanguage();
     },
     false,
   );
   registerLanguageFilters();
 
   loadStylesheet(tagifyStylesUrl, 'tagify-styles');
-  loadScript(tagifyScriptUrl, 'Tagify').then((Tagify: any) => {
+  loadScript(tagifyScriptUrl, 'Tagify').then(async (Tagify: any) => {
     if (Tagify) {
       tagify = new Tagify(filterTagsInput, {
         whitelist: Array.from(
-          new Set(
-            getProjects()
-              .map((item) => item.tags)
-              .flat(),
-          ),
+          new Set((await getProjects()).map((item) => item.tags).flat()),
         ).sort((a, b) => (b > a ? -1 : 1)),
         dropdown: {
           maxItems: 40,
@@ -299,7 +295,7 @@ export const organizeProjects = (
       worker: true,
     });
 
-    await Promise.all(getProjects().map((p) => index.add(p)));
+    await Promise.all((await getProjects()).map((p) => index.add(p)));
 
     eventsManager.addEventListener(
       searchProjectsInput,
@@ -307,7 +303,7 @@ export const organizeProjects = (
       async () => {
         const result = await index.searchAsync(searchProjectsInput.value);
         searchResults = result.map((field: any) => field.result).flat();
-        reloadProjects();
+        await reloadProjects();
       },
       false,
     );
@@ -316,7 +312,7 @@ export const organizeProjects = (
   eventsManager.addEventListener(
     resetFiltersLink,
     'click',
-    (ev) => {
+    async (ev) => {
       ev.preventDefault();
       sortBy = 'lastModified';
       sortByDirection = 'desc';
@@ -329,7 +325,7 @@ export const organizeProjects = (
       languageSelect.value = '';
       tagify?.removeAllTags();
       searchProjectsInput.value = '';
-      reloadProjects();
+      await reloadProjects();
     },
     false,
   );
