@@ -39,3 +39,6 @@ export const tailwindcssUrl =
 
 export const postcssImportUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';
+
+export const localforageUrl =
+  'https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js';

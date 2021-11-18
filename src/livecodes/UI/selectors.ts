@@ -208,9 +208,12 @@ export const getExistingRepoMessageInput = (deployContainer: HTMLElement) =>
 export const getExistingRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
 
+export const getStarterTemplatesTab = (templatesContainer: HTMLElement) =>
+  templatesContainer.querySelector<HTMLElement>(
+    '#templates-tabs [data-target="templates-starter"]',
+  );
 export const getStarterTemplatesList = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>('#starter-templates-list');
-
 export const getUserTemplatesScreen = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector('#templates-user .modal-screen') as HTMLElement;
 

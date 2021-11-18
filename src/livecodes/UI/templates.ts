@@ -2,7 +2,10 @@ import { createEventsManager } from '../events';
 import { templatesScreen } from '../html';
 import { Template } from '../models';
 
-export const createTemplatesContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
+export const createTemplatesContainer = (
+  eventsManager: ReturnType<typeof createEventsManager>,
+  loadUserTemplates: () => void,
+) => {
   const div = document.createElement('div');
   div.innerHTML = templatesScreen;
   const templatesContainer = div.firstChild as HTMLElement;
@@ -18,7 +21,9 @@ export const createTemplatesContainer = (eventsManager: ReturnType<typeof create
       });
       const target = templatesContainer.querySelector('#' + tab.dataset.target);
       target?.classList.add('active');
-      target?.querySelector('input')?.focus();
+      if (tab.dataset.target === 'templates-user') {
+        loadUserTemplates();
+      }
     });
   });
   return templatesContainer;
@@ -40,3 +45,13 @@ export const createStarterTemplateLink = (
   starterTemplatesList?.appendChild(li);
   return link;
 };
+
+export const noUserTemplates = `
+<div class="modal-message no-data">
+  <div>You have no saved templates.</div>
+  <div class="description">
+    You can save a project as a template from
+    <wbr />(settings&nbsp;menu&nbsp;>&nbsp;Save&nbsp;as&nbsp;> Template).
+  </div>
+</div>
+`;
