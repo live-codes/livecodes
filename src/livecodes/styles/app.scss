@@ -1480,8 +1480,14 @@ i.arrow {
     }
   }
 
-  #templates-user ul {
-    height: fit-content;
+  #templates-user {
+    .loading {
+      margin-top: 3em;
+    }
+
+    ul {
+      height: fit-content;
+    }
   }
 
   .modal-message {

@@ -775,7 +775,7 @@ const loadUserConfig = () => {
 const setSavedStatus = async () => {
   if (isEmbed) return;
   updateConfig();
-  const savedConfig = (await projectStorage.getItem(projectId || ''))?.config;
+  const savedConfig = projectId && (await projectStorage.getItem(projectId || ''))?.config;
   isSaved =
     changingContent ||
     !!(
@@ -1401,48 +1401,19 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const createTemplatesUI = async () => {
-    const templatesContainer = UI.createTemplatesContainer(eventsManager);
-    const noDataMessage = templatesContainer.querySelector('.no-data');
-    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
-    const loadingText = starterTemplatesList?.firstElementChild;
-    getTemplates()
-      .then((starterTemplates) => {
-        loadingText?.remove();
+  const templatesContainer = UI.createTemplatesContainer(eventsManager, () => loadUserTemplates());
+  const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const noDataMessage = templatesContainer.querySelector('.no-data');
 
-        starterTemplates.forEach((template) => {
-          const link = UI.createStarterTemplateLink(template, starterTemplatesList, baseUrl);
-          eventsManager.addEventListener(
-            link,
-            'click',
-            (event) => {
-              event.preventDefault();
-              const { title, thumbnail, ...templateConfig } = template;
-              projectId = '';
-              loadConfig(
-                {
-                  ...defaultConfig,
-                  ...templateConfig,
-                },
-                location.origin + location.pathname + '?template=' + template.name,
-              );
-              modal.close();
-            },
-            false,
-          );
-        });
-      })
-      .catch(() => {
-        loadingText?.remove();
-        notifications.error('Failed loading starter templates');
-      });
-
-    const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
+  const loadUserTemplates = async () => {
     const userTemplates = await templateStorage.getList();
 
-    if (userTemplates.length > 0) {
-      userTemplatesScreen.innerHTML = '';
+    if (userTemplates.length === 0) {
+      userTemplatesScreen.innerHTML = UI.noUserTemplates;
+      return;
     }
+    userTemplatesScreen.innerHTML = '';
+
     const list = document.createElement('ul') as HTMLElement;
     list.classList.add('open-list');
     userTemplatesScreen.appendChild(list);
@@ -1501,15 +1472,56 @@ const handleNew = () => {
         false,
       );
     });
+  };
 
+  let starterTemplatesCache: Template[];
+  const createTemplatesUI = async () => {
+    const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
+    const loadingText = starterTemplatesList?.firstElementChild;
+    if (!starterTemplatesCache) {
+      getTemplates()
+        .then((starterTemplates) => {
+          starterTemplatesCache = starterTemplates;
+          loadingText?.remove();
+          starterTemplates.forEach((template) => {
+            const link = UI.createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+            eventsManager.addEventListener(
+              link,
+              'click',
+              (event) => {
+                event.preventDefault();
+                const { title, thumbnail, ...templateConfig } = template;
+                projectId = '';
+                loadConfig(
+                  {
+                    ...defaultConfig,
+                    ...templateConfig,
+                  },
+                  location.origin + location.pathname + '?template=' + template.name,
+                );
+                modal.close();
+              },
+              false,
+            );
+          });
+        })
+        .catch(() => {
+          loadingText?.remove();
+          notifications.error('Failed loading starter templates');
+        });
+    }
+
+    setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
     modal.show(templatesContainer, { isAsync: true });
   };
+
   eventsManager.addEventListener(
     UI.getNewLink(),
     'click',
     checkSavedAndExecute(createTemplatesUI),
     false,
   );
+
   registerScreen('new', checkSavedAndExecute(createTemplatesUI));
 };
 

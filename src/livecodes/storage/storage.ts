@@ -3,28 +3,39 @@ import { loadScript } from '../utils';
 import { localforageUrl } from '../vendors';
 import { ProjectStorage, SavedProject, StorageItem } from './models';
 
-let localforage: typeof import('localforage');
+type LocalForage = typeof import('localforage');
+let localforage: LocalForage;
 const dbName = 'livecodes';
+const stores: Record<string, LocalForage> = {};
 
-const loadLocalforage = async () => {
-  localforage = localforage || (await loadScript(localforageUrl, 'localforage'));
-  localforage.config({
-    name: dbName,
-  });
+const loadLocalforage = async (store: string) => {
+  if (!localforage) {
+    localforage = (await loadScript(localforageUrl, 'localforage')) as LocalForage;
+    localforage.config({
+      name: dbName,
+    });
+  }
+  if (!stores[store]) {
+    stores[store] = localforage.createInstance({
+      name: dbName,
+      storeName: store,
+    });
+  }
 };
 
 /**
  * Creates asynchronous data store using localforage
  */
 export const createStorage = async (name: string): Promise<ProjectStorage> => {
-  await loadLocalforage();
+  let store: LocalForage;
 
-  const store = localforage.createInstance({
-    name: dbName,
-    storeName: name,
-  });
+  const load = async () => {
+    await loadLocalforage(name);
+    store = stores[name];
+  };
 
   const getList = async (): Promise<SavedProject[]> => {
+    await load();
     const list: SavedProject[] = [];
     await store.iterate((item: StorageItem, key) => {
       list.push({
@@ -42,6 +53,7 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
   };
 
   const getAllData = async (): Promise<StorageItem[]> => {
+    await load();
     const list: StorageItem[] = [];
     await store.iterate((item: StorageItem) => {
       list.push(item);
@@ -49,9 +61,13 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     return list.sort((a, b) => b.lastModified - a.lastModified);
   };
 
-  const getItem = (itemId: string): Promise<StorageItem | null> => store.getItem(itemId);
+  const getItem = async (itemId: string): Promise<StorageItem | null> => {
+    await load();
+    return store.getItem(itemId);
+  };
 
   const updateItem = async (id: string, config: ContentConfig) => {
+    await load();
     const newItem: StorageItem = {
       id,
       config,
@@ -61,7 +77,8 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     return id;
   };
 
-  const addItem = (config: ContentConfig) => {
+  const addItem = async (config: ContentConfig) => {
+    await load();
     const id = (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(
       0,
       24,
@@ -70,16 +87,19 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
   };
 
   const bulkInsert = async (newProjects: ContentConfig[]) => {
+    await load();
     for (const config of newProjects) {
       await addItem(config);
     }
   };
 
   const deleteItem = async (id: string) => {
+    await load();
     await store.removeItem(id);
   };
 
   const clear = async () => {
+    await load();
     await store.clear();
   };
 
