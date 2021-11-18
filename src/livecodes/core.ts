@@ -773,6 +773,7 @@ const loadUserConfig = () => {
 };
 
 const setSavedStatus = async () => {
+  if (isEmbed) return;
   updateConfig();
   const savedConfig = (await projectStorage.getItem(projectId || ''))?.config;
   isSaved =
@@ -794,7 +795,7 @@ const setSavedStatus = async () => {
 };
 
 const checkSavedStatus = (doNotCloseModal = false) => {
-  if (isSaved) {
+  if (isSaved || isEmbed) {
     return Promise.resolve('is saved');
   }
   return new Promise((resolve) => {
@@ -2253,7 +2254,10 @@ const basicHandlers = () => {
   handleResultLoading();
 };
 
-const extraHandlers = () => {
+const extraHandlers = async () => {
+  projectStorage = await createStorage('__livecodes_data__');
+  templateStorage = await createStorage('__livecodes_templates__');
+
   handleTitleEdit();
   handleSettingsMenu();
   handleSettings();
@@ -2375,10 +2379,8 @@ const initializeApp = async (
     baseUrl?: string;
     isEmbed?: boolean;
   },
-  initializeFn?: () => void,
+  initializeFn?: () => void | Promise<void>,
 ) => {
-  projectStorage = await createStorage('__livecodes_data__');
-  templateStorage = await createStorage('__livecodes_templates__');
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isEmbed = options?.isEmbed ?? false;
@@ -2402,7 +2404,8 @@ const initializeApp = async (
   await createEditors(getConfig());
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
   basicHandlers();
-  initializeFn?.();
+
+  await initializeFn?.();
   loadStyles();
   await createIframe(UI.getResultElement());
   await bootstrap();
