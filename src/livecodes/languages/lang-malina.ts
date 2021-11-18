@@ -1,10 +1,13 @@
 import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
-const cdnBaseUrl = vendorsBaseUrl + 'malinajs/';
+const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
+const astringUrl = 'https://cdn.jsdelivr.net/npm/astring@1.7.5/dist/astring.min.js';
+const csstreeUrl = 'https://cdn.jsdelivr.net/npm/css-tree@1.1.3/dist/csstree.min.js';
+const cjs2esUrl = 'https://cdn.jsdelivr.net/npm/cjs2es@1.1.1/dist/cjs2es.browser.min.js';
+const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.51/malina.js';
 
 export const malina: LanguageSpecs = {
   name: 'malina',
@@ -15,13 +18,10 @@ export const malina: LanguageSpecs = {
   },
   compiler: {
     factory: () => {
-      (self as any).importScripts(
-        cdnBaseUrl + 'acorn.js',
-        cdnBaseUrl + 'astring.js',
-        cdnBaseUrl + 'csstree.js',
-        cdnBaseUrl + 'cjs2es.js',
-        cdnBaseUrl + 'malina.js',
-      );
+      (self as any).importScripts(acornUrl, astringUrl, csstreeUrl, cjs2esUrl);
+      (self as any)['css-tree'] = (self as any).csstree; // yes, this is required!!
+      (self as any).importScripts(malinaUrl);
+
       return async (code, { config }) => {
         const processedCode = await compileAllBlocks(code, config, {
           removeEnclosingTemplate: true,
@@ -34,7 +34,7 @@ export const malina: LanguageSpecs = {
             autoSubscribe: true,
             name: 'Component',
             localConfig: false,
-            autoimport: (name: string) => `import ${name} from './${name}.xht';`,
+            // autoimport: (name: string) => `import ${name} from './${name}.xht';`,
             ...getLanguageCustomSettings('malina', config),
           });
 
