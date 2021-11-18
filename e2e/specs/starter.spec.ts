@@ -159,6 +159,29 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('Malina.js Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=Malina.js Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Malina.js!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
   test('Go Starter', async ({ page, getTestUrl }) => {
     test.slow();
     await page.goto(getTestUrl());
@@ -440,6 +463,25 @@ test.describe('Starter Templates from URL', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, Riot.js!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('Malina.js Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'malina' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Malina.js!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
