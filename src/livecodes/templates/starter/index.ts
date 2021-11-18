@@ -36,6 +36,7 @@ import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
 import { vueStarter } from './vue-starter';
 import { watStarter } from './wat-starter';
+import { malinaStarter } from './malina-starter';
 
 export const starterTemplates = [
   blank,
@@ -49,9 +50,10 @@ export const starterTemplates = [
   svelteStarter,
   stencilStarter,
   solidStarter,
-  riotStarter,
   mdxStarter,
   astroStarter,
+  riotStarter,
+  malinaStarter,
   jqueryStarter,
   backboneStarter,
   knockoutStarter,

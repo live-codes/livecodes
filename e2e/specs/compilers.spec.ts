@@ -894,6 +894,36 @@ h1 { color: blue; }
     expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(0, 0, 255)');
   });
 
+  test('Malina.js', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=Malina.js');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `<script>
+  let title = "Malina.js";
+</script>
+<style>
+  h1 {
+    color: blue;
+  }
+</style>
+<div class="container">
+  <h1>Hello, {title}</h1>
+</div>
+`,
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain(`Hello, Malina.js`);
+    expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(0, 0, 255)');
+  });
+
   test('Stencil', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

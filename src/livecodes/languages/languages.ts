@@ -48,6 +48,7 @@ import { reactNativeTsx } from './lang-react-native-tsx';
 import { blockly } from './lang-blockly';
 import { twig } from './lang-twig';
 import { astro } from './lang-astro';
+import { malina } from './lang-malina';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -82,6 +83,7 @@ export const languages: LanguageSpecs[] = [
   solid,
   solidTsx,
   riot,
+  malina,
   coffeescript,
   livescript,
   rescript,

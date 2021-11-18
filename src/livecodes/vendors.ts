@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.3/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.4.5/dist/';
 
 export const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
 
