@@ -201,7 +201,9 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
         resolve('loaded');
       });
 
-      iframe.src = service.getResultUrl();
+      const { markup, style, script } = getConfig();
+      const query = `?markup=${markup.language}&style=${style.language}&script=${script.language}&isembed=${isEmbed}`;
+      iframe.src = service.getResultUrl() + query;
     }
 
     resultLanguages = getEditorLanguages();
