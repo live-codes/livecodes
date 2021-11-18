@@ -51,7 +51,7 @@ export const malina: LanguageSpecs = {
       };
     },
   },
-  extensions: ['malina'],
+  extensions: ['xht'],
   editor: 'script',
   editorLanguage: 'html',
 };
