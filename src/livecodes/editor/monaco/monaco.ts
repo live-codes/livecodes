@@ -207,9 +207,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const addTypes = (lib: EditorLibrary) => {
     types.push(
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename),
-    );
-    types.push(
       monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
     );
   };
