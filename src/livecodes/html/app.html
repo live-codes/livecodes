@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveCodes</title>
+    <style>
+      body {
+        overflow: hidden;
+      }
+    </style>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="{{baseUrl}}styles/app.css" id="app-styles" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="toolbar">
+        <div id="logo">
+          <a
+            href="https://livecodes.io/"
+            target="_top"
+            title="LiveCodes: Code playground that runs in the browser!"
+            ><img
+              alt="LiveCodes Logo"
+              src="{{baseUrl}}assets/images/livecodes-logo.svg"
+              width="50"
+              loading="lazy"
+          /></a>
+        </div>
+        <div id="select-editor"></div>
+        <div id="project-title" contenteditable="true" tabindex="8">Untitled Project</div>
+        <div id="buttons">
+          <a
+            href="javascript:void(0)"
+            id="run-button"
+            class="button"
+            title="Run (Ctrl/Cmd + Enter)"
+            tabindex="9"
+          >
+            <img
+              width="20"
+              height="20"
+              alt="Run"
+              src="{{baseUrl}}assets/images/play.svg"
+              loading="lazy"
+            />
+          </a>
+          <a
+            href="javascript:void(0)"
+            id="result-button"
+            class="button"
+            title="Toggle Result"
+            tabindex="10"
+          >
+            <img
+              width="28"
+              height="28"
+              alt="Result"
+              src="{{baseUrl}}assets/images/document.svg"
+              loading="lazy"
+            />
+          </a>
+          <a
+            href="javascript:void(0)"
+            id="settings-button"
+            class="button"
+            title="Settings"
+            tabindex="10"
+          >
+            <img
+              width="20"
+              height="20"
+              alt="Settings"
+              src="{{baseUrl}}assets/images/gear.png"
+              loading="lazy"
+            />
+          </a>
+          <div id="settings-menu-container" class="menu-scroller"></div>
+        </div>
+      </div>
+      <div id="editor-container">
+        <div id="editors">
+          <div id="markup"></div>
+          <div id="style"></div>
+          <div id="script">
+            <div id="blockly" style="display: none">
+              <span id="loading-blockly">Loading blockly editor...</span>
+            </div>
+          </div>
+
+          <button id="code-run-button" title="Run (Ctrl/Cmd + Enter)">
+            <img
+              width="20"
+              height="20"
+              alt="Run"
+              src="{{baseUrl}}assets/images/play.svg"
+              loading="lazy"
+            />
+          </button>
+        </div>
+        <div id="output">
+          <div id="result"></div>
+          <div id="tools-pane"></div>
+        </div>
+      </div>
+    </div>
+    <div id="overlay" style="display: none"></div>
+    <div id="modal-container" style="display: none">
+      <div id="modal"></div>
+    </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js" crossorigin="anonymous"></script>
+    <script type="module">
+      import { app } from '{{baseUrl}}{{script}}';
+      window.app = app;
+    </script>
+  </body>
+</html>

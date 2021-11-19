@@ -1,20 +1,22 @@
-# LocalPen <!-- omit in toc -->
+# LiveCodes <!-- omit in toc -->
 
 Code pens that run locally!
 
 <p align="center">
-<img width="300" src="images/logo/localpen-logo.svg"></img>
+<img width="300" src="images/logo/livecodes-logo.svg"></img>
 </p>
 
 A powerful frontend coding playground that runs totally on the client and can be hosted on any static file server.
 
-[Try it now on localpen.io](https://localpen.io)
+[Try it now on livecodes.io](https://livecodes.io)
 
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/editor-languages-v0.3.0.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/editor-languages-v0.3.0.png" width="600" /></a>
 
 TL;DR: [Getting started](#getting-started)
 
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/hatemhosny/localpen/tree/master&refcode=fb8c00b45b91)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f268090585f8484abe5947bdf13e15b4)](https://app.codacy.com/gh/live-codes/livecodes?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade_Settings)
+
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/live-codes/livecodes/tree/master&refcode=fb8c00b45b91)
 
 ## Feature Summary: <!-- omit in toc -->
 
@@ -44,11 +46,11 @@ TL;DR: [Getting started](#getting-started)
 - **JS/TS Console** (using [Luna Console](https://github.com/liriliri/luna/tree/master/src/console))
 - **View compiled code**
 - **Keyboard shortcuts**
-- LocalPen is under active development with more features to come (see [Roadmap](#roadmap))
+- LiveCodes is under active development with more features to come (see [Roadmap](#roadmap))
 
 ## Table of Contents <!-- omit in toc -->
 
-- [What makes LocalPen different?](#what-makes-localpen-different)
+- [What makes LiveCodes different?](#what-makes-livecodes-different)
 - [Getting started](#getting-started)
 - [Screenshots](#screenshots)
 - [Examples](#examples)
@@ -62,7 +64,7 @@ TL;DR: [Getting started](#getting-started)
   - [Edit in other Services](#edit-in-other-services)
 - [Importing Code (Editor Prefill)](#importing-code-editor-prefill)
   - [Importing from URL](#importing-from-url)
-  - ["Edit in LocalPen" Bookmarklet](#edit-in-localpen-bookmarklet)
+  - ["Edit in LiveCodes" Bookmarklet](#edit-in-livecodes-bookmarklet)
   - [Importing from CodePen](#importing-from-codepen)
   - [Prefill From Code Blocks](#prefill-from-code-blocks)
   - [Prefill Editors by Querystring Parameters](#prefill-editors-by-querystring-parameters)
@@ -83,21 +85,21 @@ TL;DR: [Getting started](#getting-started)
 - [License](#license)
 - [Support the author](#support-the-author)
 
-## What makes LocalPen different?
+## What makes LiveCodes different?
 
-The are many great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/?html,output), [JSitor](https://jsitor.com/) and many others, which LocalPen does not aim to replace or compete with. On the contrary, it aims to integrate with many of these services as their APIs allow (e.g. import and export).
+The are many great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/?html,output), [JSitor](https://jsitor.com/) and many others, which LiveCodes does not aim to replace or compete with. On the contrary, it aims to integrate with many of these services as their APIs allow (e.g. import and export).
 
-However, LocalPen aims to stay as a client-side only app that can be hosted on any static file server. After the initial loading, using the app can be significantly faster than having to wait for server rounds. Any syncing or sharing capabilities would use external services. Having said that, it is an open-source software, and it should not be difficult to implement a backend for such features if you want to extend it as a different project (may be have a look at [parse starter](https://github.com/hatemhosny/parse-starter)).
+However, LiveCodes aims to stay as a client-side only app that can be hosted on any static file server. After the initial loading, using the app can be significantly faster than having to wait for server rounds. Any syncing or sharing capabilities would use external services. Having said that, it is an open-source software, and it should not be difficult to implement a backend for such features if you want to extend it as a different project (may be have a look at [parse starter](https://github.com/hatemhosny/parse-starter)).
 
-The other main goal for LocalPen (in fact, that was the motive for its development), is to provide a feature-rich, easy to use playground that library developers can use for the documentation of their libraries and as a showcase for their products. This includes using the hosted app ([localpen.io](https://localpen.io)), or as a self-hosted option (by including it in their website, or on a separate subdomain for example). Again, being a client-side only app, LocalPen becomes more convenient for not needing special server requirements.
+The other main goal for LiveCodes (in fact, that was the motive for its development), is to provide a feature-rich, easy to use playground that library developers can use for the documentation of their libraries and as a showcase for their products. This includes using the hosted app ([livecodes.io](https://livecodes.io)), or as a self-hosted option (by including it in their website, or on a separate subdomain for example). Again, being a client-side only app, LiveCodes becomes more convenient for not needing special server requirements.
 
 To have [embedded editors](#embeds) using a freely-available open-source software is very handy. That goal also drives the requirement for being able to import local (unpublished) modules with editor auto-completion and [intellisense](#intellisense).
 
-LocalPen uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. Your can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with the intellisense and the auto-completion features. All that is on a browser without having to `npm install` anything.
+LiveCodes uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. Your can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with the intellisense and the auto-completion features. All that is on a browser without having to `npm install` anything.
 
-LocalPen uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. You can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with all the intellisense and the auto-completion features, without having to `npm install` anything;
+LiveCodes uses Monaco editor (VS Code editor), Prettier, Emmet and Autoprefixer among others. You can import NPM modules without a build step. It feels like a very light weight version of your own local development environment with all the intellisense and the auto-completion features, without having to `npm install` anything;
 
-**Important note:** Please note that LocalPen is in early development and may not yet be ready for production use. API may change, and security and performance improvements may still be required. However please take the time to try it. Your feedback and contribution are highly appreciated.
+**Important note:** Please note that LiveCodes is in early development and may not yet be ready for production use. API may change, and security and performance improvements may still be required. However please take the time to try it. Your feedback and contribution are highly appreciated.
 
 Enough talk, let's get started.
 
@@ -105,15 +107,15 @@ Enough talk, let's get started.
 
 There are multiple options:
 
-- You may just use the hosted app ([localpen.io](https://localpen.io)) and use various methods to add your code like [embedded editors](#embeds), [code blocks](#prefill-from-code-blocks), ["Edit in LocalPen"](#edit-in-localpen-bookmarklet) and [code prefill](#importing-code-editor-prefill).
-- One-click [deploy to Digital Ocean](https://cloud.digitalocean.com/apps/new?repo=https://github.com/hatemhosny/localpen/tree/master&refcode=fb8c00b45b91)
+- You may just use the hosted app ([livecodes.io](https://livecodes.io)) and use various methods to add your code like [embedded editors](#embeds), [code blocks](#prefill-from-code-blocks), ["Edit in LiveCodes"](#edit-in-livecodes-bookmarklet) and [code prefill](#importing-code-editor-prefill).
+- One-click [deploy to Digital Ocean](https://cloud.digitalocean.com/apps/new?repo=https://github.com/live-codes/livecodes/tree/master&refcode=fb8c00b45b91)
 - Download the app from the releases, extract the folder and add it to your website.
 - Fork the repo, clone it. You may wish to use the included setup to publish to github pages:
 
   ```sh
   npm install
   npm run build
-  npm run serve         # locally serve to http://127.0.0.2:8080
+  npm run serve         # locally serve to http://localhost:8080
   npm start             # start local development with code watch, rebuild and live-reload
   npm run gh-pages      # publish to github pages
   ```
@@ -122,45 +124,45 @@ There are multiple options:
 
 ## Screenshots
 
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/editor-languages-v0.3.0.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/templates.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/templates.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/open.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/imports.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports-v0.3.0.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/exports-v0.3.0.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/console-input.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/console-input.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/console.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/console.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-ts.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-ts.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-scss.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/compiled-code-scss.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-empty.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-prefilled.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/embed-codeblock.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types1.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types1.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types2.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types2.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types3.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types3.png" width="600" /></a>
-<a href="https://hatemhosny.github.io/localpen-examples/images/screenshots/types4.png" target="_blank"><img src="https://hatemhosny.github.io/localpen-examples/images/screenshots/types4.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/editor-languages-v0.3.0.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/editor-languages-v0.3.0.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/templates.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/templates.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/open.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/open.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/imports.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/imports.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/exports-v0.3.0.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/exports-v0.3.0.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/console-input.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/console-input.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/console.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/console.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/compiled-code-ts.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/compiled-code-ts.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/compiled-code-scss.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/compiled-code-scss.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/embed-empty.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/embed-empty.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/embed-prefilled.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/embed-prefilled.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/embed-codeblock.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/embed-codeblock.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/types1.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/types1.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/types2.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/types2.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/types3.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/types3.png" width="600" /></a>
+<a href="https://live-codes.github.io/livecodes-examples/images/screenshots/types4.png" target="_blank"><img src="https://live-codes.github.io/livecodes-examples/images/screenshots/types4.png" width="600" /></a>
 
 ## Examples
 
 Please note that most of the examples presented in this section are code samples that were publicly available as code pens and were used for demonstration with no or little modifications.
 
-- [Simple jQuery Calculator](https://localpen.io/#https://gist.github.com/hatemhosny/07a742ca9df234cdd433e20cc4e675af) (jQuery) [from [CodePen](https://codepen.io/simonja2/pen/QbGYbR)]
-- [Bootstrap tab panel](https://localpen.io/#https://gist.github.com/hatemhosny/ce9a304057e2dbd66e2a5fa96b72df6a) (Bootstrap) [from [CodePen](https://codepen.io/wizly/pen/BlKxo)]
-- [Bootstrap Custom Button SCSS Mixin](https://localpen.io/#https://gist.github.com/hatemhosny/b4a61515f956c1fa7131f392872923a9) (Bootstrap, SCSS) [from [CodePen](https://codepen.io/andrewarchi/pen/wLIJB)]
-- Yet another [JavaScript Calculator](https://localpen.io/#https://gist.github.com/aviwarner/3f87dec85a3d84bd3b9bfe634b1e3fa4) (CSS, JS) [from [CodePen](https://codepen.io/andrewarchi/pen/wLIJB)]
-- [React Counter](https://localpen.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4) (React, JSX)
-- [Vue.js Counter](https://localpen.io/#https://gist.github.com/hatemhosny/b9ce0ee80da94073cb26cfe46212ea26) (Vue.js) [modified from [CodePen](https://codepen.io/IamManchanda/pen/GMJxXN)]
-- [Angular 11 Counter](https://localpen.io/#https://gist.github.com/hatemhosny/a639567e23592b96c2b4de1b53c77263) (Angular 11, Typescript) [modified from [CodePen](https://codepen.io/danielkocsan/pen/ejGGYy)]
-- [Preact without JSX](https://localpen.io/#https://gist.github.com/hatemhosny/8d2c23bb86923d351a76a1a2e5c03517) (Preact)
-- [Vue.js TodoMVC](https://localpen.io/#https://gist.github.com/hatemhosny/b4b966bdf517e27e712379b24bf625b9) (Vue.js) [from [vuejs.org](https://vuejs.org/v2/examples/todomvc.html)]
-- [CSS-only Animated Lantern](https://localpen.io/#https://gist.github.com/hatemhosny/594a6f0982fb012af0da4a94f80fec34) [from [CodePen](https://codepen.io/7oot/pen/byPKra)]
-- [Bootstrap 3 & AngularJS Dialog/Modals](https://localpen.io/#https://gist.github.com/hatemhosny/bd661723e19146ea41bc2bf62d4580b9) (Bootstrap 3, AngularJS) [from [CodePen](https://codepen.io/m-e-conroy/pen/ALsdF)]
-- [Shooting Star](https://localpen.io/#https://gist.github.com/hatemhosny/dea1f069177c73f515e20476009a5324) (Pug, SCSS, Three.js) [from [CodePen](https://codepen.io/ko-yelie/pen/LqXWWx)]
-- [Charts info graphic](https://localpen.io/#https://gist.github.com/hatemhosny/6ffa26033947f2b335d4582d7e62e4c9) (D3, SCSS) [from [CodePen](https://codepen.io/stefanjudis/pen/gkHwJ)]
-- [AngularJs + d3Js + bar chart](https://localpen.io/#https://gist.github.com/hatemhosny/0f3e65c9329f2bce08a7045e551218f1) (AngularJS, D3) [from [CodePen](https://codepen.io/danielemoraschi/pen/qFmol)]
-- [Rings Navigation](https://localpen.io/#https://gist.github.com/hatemhosny/3ca25b4cf2cea8772ff7680bb59a1c80) (SCSS, JS) [from [CodePen](https://codepen.io/bennettfeely/pen/qRJOZJ)]
-- [ThreeJS Hover Zoom Channel Displacement](https://localpen.io/#https://gist.github.com/hatemhosny/28e3d1438962da995b7d8909d4cfcce9) [from [CodePen](https://codepen.io/frost084/pen/OKZNRm)]
-- [D3 Gantt Chart](https://localpen.io/#https://gist.github.com/hatemhosny/e3e79de8a33168ba637d6986c49fc112) (CSS, D3) [from [CodePen](https://codepen.io/jey/pen/jmClJ)]
-- [Racing Lines](https://localpen.io/#https://gist.github.com/hatemhosny/9f150679343bc4bb213b7dfcc015e988) (Three.js, TweenMax) [from [CodePen](https://codepen.io/raurir/pen/oXmEPM)]
+- [Simple jQuery Calculator](https://livecodes.io/#https://gist.github.com/hatemhosny/07a742ca9df234cdd433e20cc4e675af) (jQuery) [from [CodePen](https://codepen.io/simonja2/pen/QbGYbR)]
+- [Bootstrap tab panel](https://livecodes.io/#https://gist.github.com/hatemhosny/ce9a304057e2dbd66e2a5fa96b72df6a) (Bootstrap) [from [CodePen](https://codepen.io/wizly/pen/BlKxo)]
+- [Bootstrap Custom Button SCSS Mixin](https://livecodes.io/#https://gist.github.com/hatemhosny/b4a61515f956c1fa7131f392872923a9) (Bootstrap, SCSS) [from [CodePen](https://codepen.io/andrewarchi/pen/wLIJB)]
+- Yet another [JavaScript Calculator](https://livecodes.io/#https://gist.github.com/aviwarner/3f87dec85a3d84bd3b9bfe634b1e3fa4) (CSS, JS) [from [CodePen](https://codepen.io/andrewarchi/pen/wLIJB)]
+- [React Counter](https://livecodes.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4) (React, JSX)
+- [Vue.js Counter](https://livecodes.io/#https://gist.github.com/hatemhosny/b9ce0ee80da94073cb26cfe46212ea26) (Vue.js) [modified from [CodePen](https://codepen.io/IamManchanda/pen/GMJxXN)]
+- [Angular 11 Counter](https://livecodes.io/#https://gist.github.com/hatemhosny/a639567e23592b96c2b4de1b53c77263) (Angular 11, Typescript) [modified from [CodePen](https://codepen.io/danielkocsan/pen/ejGGYy)]
+- [Preact without JSX](https://livecodes.io/#https://gist.github.com/hatemhosny/8d2c23bb86923d351a76a1a2e5c03517) (Preact)
+- [Vue.js TodoMVC](https://livecodes.io/#https://gist.github.com/hatemhosny/b4b966bdf517e27e712379b24bf625b9) (Vue.js) [from [vuejs.org](https://vuejs.org/v2/examples/todomvc.html)]
+- [CSS-only Animated Lantern](https://livecodes.io/#https://gist.github.com/hatemhosny/594a6f0982fb012af0da4a94f80fec34) [from [CodePen](https://codepen.io/7oot/pen/byPKra)]
+- [Bootstrap 3 & AngularJS Dialog/Modals](https://livecodes.io/#https://gist.github.com/hatemhosny/bd661723e19146ea41bc2bf62d4580b9) (Bootstrap 3, AngularJS) [from [CodePen](https://codepen.io/m-e-conroy/pen/ALsdF)]
+- [Shooting Star](https://livecodes.io/#https://gist.github.com/hatemhosny/dea1f069177c73f515e20476009a5324) (Pug, SCSS, Three.js) [from [CodePen](https://codepen.io/ko-yelie/pen/LqXWWx)]
+- [Charts info graphic](https://livecodes.io/#https://gist.github.com/hatemhosny/6ffa26033947f2b335d4582d7e62e4c9) (D3, SCSS) [from [CodePen](https://codepen.io/stefanjudis/pen/gkHwJ)]
+- [AngularJs + d3Js + bar chart](https://livecodes.io/#https://gist.github.com/hatemhosny/0f3e65c9329f2bce08a7045e551218f1) (AngularJS, D3) [from [CodePen](https://codepen.io/danielemoraschi/pen/qFmol)]
+- [Rings Navigation](https://livecodes.io/#https://gist.github.com/hatemhosny/3ca25b4cf2cea8772ff7680bb59a1c80) (SCSS, JS) [from [CodePen](https://codepen.io/bennettfeely/pen/qRJOZJ)]
+- [ThreeJS Hover Zoom Channel Displacement](https://livecodes.io/#https://gist.github.com/hatemhosny/28e3d1438962da995b7d8909d4cfcce9) [from [CodePen](https://codepen.io/frost084/pen/OKZNRm)]
+- [D3 Gantt Chart](https://livecodes.io/#https://gist.github.com/hatemhosny/e3e79de8a33168ba637d6986c49fc112) (CSS, D3) [from [CodePen](https://codepen.io/jey/pen/jmClJ)]
+- [Racing Lines](https://livecodes.io/#https://gist.github.com/hatemhosny/9f150679343bc4bb213b7dfcc015e988) (Three.js, TweenMax) [from [CodePen](https://codepen.io/raurir/pen/oXmEPM)]
 
 In fact, most pens on [CodePen](https://codepen.io/) can be imported with no or minor modifications (See [Importing from CodePen](#importing-from-codepen))
 
@@ -168,13 +170,13 @@ In fact, most pens on [CodePen](https://codepen.io/) can be imported with no or 
 
 Most of the settings can be configured from the UI through the settings menu (accessed from the top right gear icon). Many settings can also be configured by URL querystring parameters.
 
-LocalPen uses a configuration file (by default at the url: `/localpen.json`). This can be changed by the querystring parameter `config`, for example:
+LiveCodes uses a configuration file (by default at the url: `/livecodes.json`). This can be changed by the querystring parameter `config`, for example:
 
 ```
 ?config=/playground/custom-config.json"
 ```
 
-Full documentation for configuration will be available when the API gets stable. Meanwhile, the structure and valid values can be found [here](https://localpen.io/api-docs/interfaces/_models_.pen.html). Notice that this is currently subject to change.
+Full documentation for configuration will be available when the API gets stable. Meanwhile, the structure and valid values can be found [here](https://livecodes.io/api-docs/interfaces/_models_.pen.html). Notice that this is currently subject to change.
 
 ## Default Editors
 
@@ -182,11 +184,11 @@ By default, the loaded editors use HTML, CSS and Javascript. If you import code,
 
 For example, to load editors with HTML, SCSS and TypeScript (with Typescript as the active editor), go to:
 
-https://localpen.io/?ts&scss&html
+https://livecodes.io/?ts&scss&html
 
 To load markdown as the active editor, go to:
 
-https://localpen.io/?md
+https://livecodes.io/?md
 
 ## Templates
 
@@ -202,9 +204,9 @@ Importing and Exporting your code to other services (e.g. Codepen and Github gis
 
 ## Importing NPM Modules
 
-In LocalPen you can use node-style non-relative imports for node modules like you do in your local development. Yet, there is no build step.
+In LiveCodes you can use node-style non-relative imports for node modules like you do in your local development. Yet, there is no build step.
 
-e.g. consider the following code: ([try it here](<https://localpen.io/?js=import%20%7B%20v4%20%7D%20from%20%27uuid%27%3B%0A%0Adocument.body.innerHTML%20%3D%20v4()%3B>))
+e.g. consider the following code: ([try it here](<https://livecodes.io/?js=import%20%7B%20v4%20%7D%20from%20%27uuid%27%3B%0A%0Adocument.body.innerHTML%20%3D%20v4()%3B>))
 
 ```js
 import { v4 } from 'uuid';
@@ -218,7 +220,7 @@ If you run it in regular web page, you get this error:
 Uncaught TypeError: Failed to resolve module specifier "uuid". Relative references must start with either "/", "./", or "../".
 ```
 
-However, in LocalPen, all non-relative imports are converted on-the-fly to use the great service of [skypack.dev](https://www.skypack.dev/).
+However, in LiveCodes, all non-relative imports are converted on-the-fly to use the great service of [skypack.dev](https://www.skypack.dev/).
 
 So
 
@@ -232,7 +234,7 @@ gets converted to
 import { v4 } from 'https://cdn.skypack.dev/uuid';
 ```
 
-You can import React like that: ([Demo](https://localpen.io/?jsx=script.jsx&html=index.html&css=style.css#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4))
+You can import React like that: ([Demo](https://livecodes.io/?jsx=script.jsx&html=index.html&css=style.css#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4))
 
 ```js
 import React, { useState } from 'react';
@@ -256,7 +258,7 @@ Please note that the projects are locally saved on the device and are not upload
 
 ## Exporting Content
 
-Projects in LocalPen can be exported as:
+Projects in LiveCodes can be exported as:
 
 - JSON: this is a JSON representation of the project configuration with the project source code included. This allows re-importing or sharing your projects.
 - Source: The source code is exported as separate files in a single zip file. This is your untouched source code which you may wish to open in another code editor.
@@ -267,7 +269,7 @@ Projects in LocalPen can be exported as:
 
 ### Edit in other Services
 
-Currently LocalPen can export content to [CodePen](https://codepen.io/) and [JSFiddle](https://jsfiddle.net/). This is accessible from the settings menu > Export.
+Currently LiveCodes can export content to [CodePen](https://codepen.io/) and [JSFiddle](https://jsfiddle.net/). This is accessible from the settings menu > Export.
 
 It is planned to support more services. This allows you to move code between different services.
 
@@ -277,11 +279,11 @@ You can prefill editors with code. This can be great for documentation and shari
 
 ### Importing from URL
 
-Most commonly, code is imported from a URL. You can provide the source URL in the UI (settings button > Import), or by adding the URL as a hash to the LocalPen URL:
+Most commonly, code is imported from a URL. You can provide the source URL in the UI (settings button > Import), or by adding the URL as a hash to the LiveCodes URL:
 
-(e.g. https://localpen.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4)
+(e.g. https://livecodes.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4)
 
-LocalPen can detect and automatically load code from multiple sources. Currently the supported sources are:
+LiveCodes can detect and automatically load code from multiple sources. Currently the supported sources are:
 
 - Github gists (imports multiple files in the gist)
 - A directory in a github repo (multiple files)
@@ -292,50 +294,50 @@ LocalPen can detect and automatically load code from multiple sources. Currently
 - Extract code blocks from a webpage (see [code blocks](#prefill-from-code-blocks))
 - Otherwise the URL will be considered a raw file (like raw files on github)
 
-If the source URL points to multiple files (e.g github gists and directories), LocalPen tries to guess which file to load in which code editor (e.g index.html -> markup, my-style.css -> style, app.js -> script). All supported languages can be used. If the source URL points to multiple files of the same category, guessing may not work well. In this case, you may need to provide the files to load and the language for each as querystring parameters. For example:
+If the source URL points to multiple files (e.g github gists and directories), LiveCodes tries to guess which file to load in which code editor (e.g index.html -> markup, my-style.css -> style, app.js -> script). All supported languages can be used. If the source URL points to multiple files of the same category, guessing may not work well. In this case, you may need to provide the files to load and the language for each as querystring parameters. For example:
 
 ```
-https://localpen.io/?pug=page.pug&scss=styles.scss&ts=app.ts#https://github.com/myuser/myrepo/tree/master/mydir
+https://livecodes.io/?pug=page.pug&scss=styles.scss&ts=app.ts#https://github.com/myuser/myrepo/tree/master/mydir
 ```
 
-LocalPen will look for the directory `mydir` in the github repo `myuser/myrepo`, and load `page.pug` in the markup editor, `styles.scss` in the styles editor, and `app.ts` in the script editor. The first file in the query string will be shown by default (`page.pug` in this case).
+LiveCodes will look for the directory `mydir` in the github repo `myuser/myrepo`, and load `page.pug` in the markup editor, `styles.scss` in the styles editor, and `app.ts` in the script editor. The first file in the query string will be shown by default (`page.pug` in this case).
 
-### "Edit in LocalPen" Bookmarklet
+### "Edit in LiveCodes" Bookmarklet
 
-Instead of manually copy/pasting URLs to import, the bookmarklet can be very convenient. It opens LocalPen in a new window and adds the current webpage URL as a hash. Create a new bookmark in your browser and add this code as its URL:
+Instead of manually copy/pasting URLs to import, the bookmarklet can be very convenient. It opens LiveCodes in a new window and adds the current webpage URL as a hash. Create a new bookmark in your browser and add this code as its URL:
 
 ```js
 javascript: (function () {
-  window.open('https://localpen.io/#' + location.href, '_blank');
+  window.open('https://livecodes.io/#' + location.href, '_blank');
 })();
 ```
 
 ### Importing from CodePen
 
-Currently, CodePen API does not allow directly importing code from pens. However, you can export any saved pen as a Github gist and then import it to LocalPen. This is even easier if you use the [bookmarklet](#edit-in-localpen-bookmarklet). The format that Codepen exports to gists is well understood by LocalPen. Most pens can be imported with no or minimal changes.
+Currently, CodePen API does not allow directly importing code from pens. However, you can export any saved pen as a Github gist and then import it to LiveCodes. This is even easier if you use the [bookmarklet](#edit-in-livecodes-bookmarklet). The format that Codepen exports to gists is well understood by LiveCodes. Most pens can be imported with no or minimal changes.
 
-This is a summary overview of moving code between LocalPen, CodePen and GitHub gists:
+This is a summary overview of moving code between LiveCodes, CodePen and GitHub gists:
 
-<img src="images/localpen-export-import.svg" width="500" />
+<img src="images/livecodes-export-import.svg" width="500" />
 
-Remember, you can always export your code from LocalPen as raw source code files, compiled/transpiled code as an HTML file or as project configuration JSON.
+Remember, you can always export your code from LiveCodes as raw source code files, compiled/transpiled code as an HTML file or as project configuration JSON.
 
 ### Prefill From Code Blocks
 
 Editors can be prefilled by code blocks in web pages. The page is fetched, its HTML is parsed and code is extracted from elements with specific CSS selectors.
 
-**Important Note:** For this to work, CORS has to be enabled on the target host to allow fetch requests from LocalPen. This is not required if LocalPen is hosted on the same host of the target web page.
+**Important Note:** For this to work, CORS has to be enabled on the target host to allow fetch requests from LiveCodes. This is not required if LiveCodes is hosted on the same host of the target web page.
 
 Add the querystring parameter `url` with no value, and put the URL of the page with the code blocks as a hash. For example:
 
-https://localpen.io/?url#https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html
+https://livecodes.io/?url#https://live-codes.github.io/livecodes-examples/prefill-from-code-blocks.html
 
-By default, LocalPen looks for elements that match the CSS selector `.localpen [data-lang="${language}"]`.
+By default, LiveCodes looks for elements that match the CSS selector `.livecodes [data-lang="${language}"]`.
 
 for example, in this code block:
 
 ```html
-<code class="localpen">
+<code class="livecodes">
   <pre data-lang="html">
 This is identified as &lt;strong&gt;HTML&lt;/strong&gt; code
 </pre
@@ -349,23 +351,23 @@ Notice that the code should be encoded (e.g. angled brackets) to avoid interfere
 
 You may wish to specify CSS selectors for elements that contain the code for specific languages. The following example loads the content of the first element that matches the CSS selector `h3` as the HTML code:
 
-https://localpen.io/?url&html=h3#https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html
+https://livecodes.io/?url&html=h3#https://live-codes.github.io/livecodes-examples/prefill-from-code-blocks.html
 
-Please note that you may prefill LocalPen editors embedded in the same page. This works great for documentation websites.
+Please note that you may prefill LiveCodes editors embedded in the same page. This works great for documentation websites.
 
-[This is a demo](https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html) for automatic extraction of code blocks to prefill editors by creating "Edit in LocalPen" links. Also embedded editors are prefilled from the code blocks. ([View source](https://github.com/hatemhosny/localpen-examples/blob/master/prefill-from-code-blocks.html))
+[This is a demo](https://live-codes.github.io/livecodes-examples/prefill-from-code-blocks.html) for automatic extraction of code blocks to prefill editors by creating "Edit in LiveCodes" links. Also embedded editors are prefilled from the code blocks. ([View source](https://github.com/live-codes/livecodes-examples/blob/master/prefill-from-code-blocks.html))
 
 ### Prefill Editors by Querystring Parameters
 
 You can prefill the editors by writing content as querystring parameter values, e.g.:
 
-https://localpen.io/?css=h1{color:blue;}&html=%3Ch1%3EHello%20World%3C/h1%3E
+https://livecodes.io/?css=h1{color:blue;}&html=%3Ch1%3EHello%20World%3C/h1%3E
 
 This link preloads the CSS and HTML editors with content and makes the CSS the default editor. This can be convenient to share links with preloaded content without using an external service. However, please be cautious with this method because you quickly reach the ~2000 character limit of URL length. You also need to URI-encode the content (which you can do in JavaScript using the `encodeURI` and `encodeURIComponent` methods).
 
 ## Code Formatting
 
-The popular code formatter, [Prettier](https://prettier.io/), is included out-of-the-box in LocalPen. Code formatting and preview update are triggered by the keyboard shortcut `Ctrl + Enter` (on Windows) or `Cmd + Enter` (on Mac).
+The popular code formatter, [Prettier](https://prettier.io/), is included out-of-the-box in LiveCodes. Code formatting and preview update are triggered by the keyboard shortcut `Ctrl + Enter` (on Windows) or `Cmd + Enter` (on Mac).
 
 ## Tools Pane
 
@@ -378,7 +380,7 @@ It can be configured to have any of the following states:
 - `full`
 - `none`
 
-e.g. https://localpen.io/?js&console=open <br />
+e.g. https://livecodes.io/?js&console=open <br />
 sets JavaScript as the active editor and opens the console.
 
 ## JS/TS Console
@@ -388,17 +390,17 @@ Console messages are shown in the included console (in the tools pane, below the
 The code is evaluated in the context of the result page (i.e. variables defined in the script editor are accessible for evaluation in the console input). Also code completion works in the console input.
 The console input accepts JavaScript and TypeScript code for evaluation.
 
-e.g. https://localpen.io/?ts&console=full <br />
+e.g. https://livecodes.io/?ts&console=full <br />
 sets TypeScript as the active editor and shows the console maximized.
 
 ## View Compiled Code
 
 The resulting compiled/transpiled code can be seen in the compiled code viewer (in the tools pane) in real-time, as you type. This works for all compiled code (e.g. Markdown, Pug, SCSS, Less, Stylus, Typescript, CoffeeScript, ...etc.). This can be a great tool for learning. As you write code, you see the compiled code and the resulting page in the same time. The compiled code viewer shows the code compiled from the currently active editor (markup/style/script). This includes the CSS produced by Autoprefixer (if enabled).
 
-e.g. https://localpen.io/?ts&compiled=full <br />
+e.g. https://livecodes.io/?ts&compiled=full <br />
 sets TypeScript as the active editor and shows compiled code viewer maximized.
 
-[This example](https://localpen.io/?ts=playground.ts&compiled=full#https://gist.github.com/hatemhosny/4bed283ef9757a6a541aee685c710dc7) shows TypeScript code along with the compiled Javascript code, similar to the [official TypeScript Playground](https://www.typescriptlang.org/play).
+[This example](https://livecodes.io/?ts=playground.ts&compiled=full#https://gist.github.com/hatemhosny/4bed283ef9757a6a541aee685c710dc7) shows TypeScript code along with the compiled Javascript code, similar to the [official TypeScript Playground](https://www.typescriptlang.org/play).
 
 ## Keyboard Shortcuts
 
@@ -417,15 +419,15 @@ The following display modes are supported:
 
 - `full`: This is the default mode with a top toolbar, editor and results panes.
 
-  example: https://localpen.io/
+  example: https://livecodes.io/
 
 - `editor`: Hides the results pane and works as editor only.
 
-  example: https://localpen.io/?mode=editor
+  example: https://livecodes.io/?mode=editor
 
 - `codeblock`: A read-only mode just showing only the code block. On mouse-over a copy button appears that allows to copy the code. This is useful when embedded
 
-  example: [Demo](https://hatemhosny.github.io/localpen-examples/embed.html#codeblock) [View source](https://github.com/hatemhosny/localpen-examples/blob/master/embed.html#L56)
+  example: [Demo](https://live-codes.github.io/livecodes-examples/embed.html#codeblock) [View source](https://github.com/live-codes/livecodes-examples/blob/master/embed.html#L56)
 
 <!-- TODO -->
 
@@ -433,21 +435,21 @@ The following display modes are supported:
 
 The code editor can be embedded in web pages using iframes. They can still be fully functional and editable unless, for example mode is set to codeblock. Notice they can also prefilled with code, the same way [described before](#importing-code-editor-prefill).
 
-Examples: [Demo](https://hatemhosny.github.io/localpen-examples/embed.html) - [Full Source](https://github.com/hatemhosny/localpen-examples/blob/master/embed.html)
+Examples: [Demo](https://live-codes.github.io/livecodes-examples/embed.html) - [Full Source](https://github.com/live-codes/livecodes-examples/blob/master/embed.html)
 
 ```html
-<iframe src="https://localpen.io/"></iframe>
+<iframe src="https://livecodes.io/"></iframe>
 
 <iframe
-  src="https://localpen.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4"
+  src="https://livecodes.io/#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4"
 ></iframe>
 
 <iframe
-  src="https://localpen.io/?mode=codeblock&js=script.jsx#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4"
+  src="https://livecodes.io/?mode=codeblock&js=script.jsx#https://gist.github.com/hatemhosny/a0a32216df59e53879b7cd83856cdde4"
 ></iframe>
 ```
 
-[This is a demo](https://hatemhosny.github.io/localpen-examples/prefill-from-code-blocks.html) for embedded editors that are prefilled by code blocks in the HTML of the web page that contains them. ([View source](https://github.com/hatemhosny/localpen-examples/blob/master/prefill-from-code-blocks.html))
+[This is a demo](https://live-codes.github.io/livecodes-examples/prefill-from-code-blocks.html) for embedded editors that are prefilled by code blocks in the HTML of the web page that contains them. ([View source](https://github.com/live-codes/livecodes-examples/blob/master/prefill-from-code-blocks.html))
 
 ## Intellisense
 
@@ -455,7 +457,7 @@ You can import modules that may not yet be published to NPM and still get intell
 
 In the [configuration file](#settings), a `modules` property allows to map module names to URLs to retrieve from.
 
-Example `/localpen.json`:
+Example `/livecodes.json`:
 
 ```json
 {
@@ -478,7 +480,7 @@ const greeter = new Greeter();
 greeter.morning();
 ```
 
-[Working demo](https://localpen.io/?config=https://raw.githubusercontent.com/hatemhosny/localpen-examples/master/build/greeter.json) - [Source Repo](https://github.com/hatemhosny/localpen-examples/)
+[Working demo](https://livecodes.io/?config=https://raw.githubusercontent.com/live-codes/livecodes-examples/master/build/greeter.json) - [Source Repo](https://github.com/live-codes/livecodes-examples/)
 
 If your library implements this code, the code will actually work in the result page, and you get full intellisense and typing support in the editor. This can be of large benefit for library authors in documentation to serve as playground for their code with editor support and can unleash the full potential of such a strong editor like Monaco editor.
 
@@ -488,9 +490,9 @@ Each item in the `modules` array may contain the following properties:
 - `url`: The URL to the entry point javascript file
 - `typesUrl`: The URL to the types declaration file.
 
-The `url` and `typesUrl` properties should either be absolute URLs or relative to LocalPen index.html page.
+The `url` and `typesUrl` properties should either be absolute URLs or relative to LiveCodes index.html page.
 
-The types declaration file defined by the `typesUrl` property has to be a single file per module. The module name declared in the file has to match the module name you want to use. The library [dts-bundle](https://www.npmjs.com/package/dts-bundle) was found very helpful to prepare such file. ([example](https://github.com/hatemhosny/localpen-examples/blob/master/package.json#L8))
+The types declaration file defined by the `typesUrl` property has to be a single file per module. The module name declared in the file has to match the module name you want to use. The library [dts-bundle](https://www.npmjs.com/package/dts-bundle) was found very helpful to prepare such file. ([example](https://github.com/live-codes/livecodes-examples/blob/master/package.json#L8))
 
 This method can tremendously improve the experience of the developers exploring your code. They do not have to keep revisiting the documentation pages to now the names of the methods or the list of arguments they accept.
 
@@ -547,16 +549,16 @@ Feedback, ideas and pull requests are highly appreciated.
 
 ## Credits
 
-In addition to all the previously mentioned great products, LocalPen was inspired and initially based on [monacode](https://github.com/lukejacksonn/monacode/).
+In addition to all the previously mentioned great products, LiveCodes was inspired and initially based on [monacode](https://github.com/lukejacksonn/monacode/).
 
 ## License
 
 [MIT](LICENSE)
 
-Third party packages distributed with LocalPen and their licences are [listed here](vendor-licenses.md).
+Third party packages distributed with LiveCodes and their licences are [listed here](vendor-licenses.md).
 
 ## Support the author
 
-Supporting the author allows continued work on open-source software, and keeps [localpen.io](https://localpen.io) free of ads.
+Supporting the author allows continued work on open-source software, and keeps [livecodes.io](https://livecodes.io) free of ads.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N036P4Y)

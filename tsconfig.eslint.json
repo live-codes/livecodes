@@ -1,5 +1,12 @@
 {
-  "extends": "./tsconfig",
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "e2e/**/*.ts",
+    "playwright.config.ts"
+  ],
   "exclude": ["**/node_modules/**"]
 }

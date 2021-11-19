@@ -8,7 +8,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [14.x]
+
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
 
     steps:
       - name: Checkout code

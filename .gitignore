@@ -4,3 +4,4 @@ dist
 .vscode
 .cache
 **/*.log
+.env

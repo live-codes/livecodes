@@ -6,5 +6,4 @@ coverage
 vendor
 vendor_modules
 **/*.json
-src/modules
 scripts

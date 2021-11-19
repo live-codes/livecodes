@@ -3,46 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LocalPen</title>
+    <title>LiveCodes</title>
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/localpen/assets/images/apple-touch-icon.png"
+      href="/livecodes/assets/images/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/localpen/assets/images/favicon-32x32.png"
+      href="/livecodes/assets/images/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/localpen/assets/images/favicon-16x16.png"
+      href="/livecodes/assets/images/favicon-16x16.png"
     />
-    <link rel="manifest" href="/localpen/assets/site.webmanifest" />
-    <link rel="mask-icon" href="/localpen/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
-    <meta name="apple-mobile-web-app-title" content="localpen" />
-    <meta name="application-name" content="localpen" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/livecodes/assets/site.webmanifest" />
+    <link rel="mask-icon" href="/livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="apple-mobile-web-app-title" content="livecodes" />
+    <meta name="application-name" content="livecodes" />
     <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="msapplication-config" content="/localpen/assets/browserconfig.xml" />
+    <meta name="msapplication-config" content="/livecodes/assets/browserconfig.xml" />
     <meta name="theme-color" content="#ffffff" />
     <style>
       html,
       body,
-      #pen {
+      #livecodes {
         margin: 0;
         padding: 0;
       }
-      #pen {
-        width: 100vw;
+      html {
         height: 100vh;
+      }
+      body,
+      #livecodes {
+        height: 100%;
         overflow: hidden;
       }
       #animating-logo {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         top: 0;
         overflow: hidden;
         position: absolute;
@@ -140,7 +144,7 @@
     </style>
   </head>
   <body>
-    <div id="pen"></div>
+    <div id="livecodes"></div>
     <div id="animating-logo">
       <div class="cube">
         <div></div>
@@ -150,7 +154,7 @@
         <div></div>
         <div></div>
       </div>
-      <div id="loading-text">loading LocalPen...</div>
+      <div id="loading-text">loading LiveCodes...</div>
 
       <svg xmlns="http://www.w3.org/2000/svg" width="200" height="135" viewBox="0 0 492 332">
         <defs>
@@ -178,8 +182,15 @@
       </svg>
     </div>
     <script>
-      window.__localpenEmbed = () => {
+      function resize() {
+        document.body.style.height = window.innerHeight + 'px';
+      }
+      resize();
+      window.addEventListener('resize', resize, false);
+      window.__livecodesReady = function (api) {
         document.querySelector('#animating-logo').remove();
+        // TODO: remove
+        window.api = api;
       };
     </script>
     <script src="index.ts"></script>
