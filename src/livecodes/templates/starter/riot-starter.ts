@@ -11,7 +11,7 @@ export const riotStarter: Template = {
 <counter title="Riot.js"></counter>
 
 <script>
-  window.templateData = {
+  livecodes.templateData = {
     url: 'https://riot.js.org/'
   }
 </script>
