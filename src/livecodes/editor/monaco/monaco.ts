@@ -9,6 +9,7 @@ import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
 
 let loaded = false;
+const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 
 const monacoMapLanguage = (language: Language): Language =>
   language === 'livescript'
@@ -207,9 +208,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const addTypes = (lib: EditorLibrary) => {
     types.push(
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename),
-    );
-    types.push(
       monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
     );
   };
@@ -260,19 +258,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const format = () => editor.getAction('editor.action.formatDocument').run();
 
-  const disposeEmmet: { html?: any; css?: any; jsx?: any } = {};
   const configureEmmet = (enabled: boolean) => {
     if (!enabled && !(window as any).emmetMonaco) return;
 
     loadScript(emmetMonacoUrl, 'emmetMonaco').then((emmetMonaco: any) => {
       if (enabled) {
-        disposeEmmet.html = emmetMonaco.emmetHTML();
-        disposeEmmet.css = emmetMonaco.emmetCSS();
-        disposeEmmet.jsx = emmetMonaco.emmetJSX();
+        if (!disposeEmmet.html || disposeEmmet.disabled) {
+          disposeEmmet.html = emmetMonaco.emmetHTML();
+          disposeEmmet.css = emmetMonaco.emmetCSS();
+          disposeEmmet.jsx = emmetMonaco.emmetJSX();
+          disposeEmmet.disabled = false;
+        }
       } else {
         disposeEmmet.html?.();
         disposeEmmet.css?.();
         disposeEmmet.jsx?.();
+        disposeEmmet.disabled = true;
       }
     });
   };
@@ -282,6 +283,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const destroy = () => {
+    configureEmmet(false);
     listeners.length = 0;
     editor.getModel()?.dispose();
   };
