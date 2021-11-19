@@ -23,6 +23,8 @@ export const encodeHTML = (html: string) =>
     .replace(/'/g, '&#39;')
     .replace(/"/g, '&#34;');
 
+export const escapeScript = (code: string) => code.replace(/<\/script>/g, '<\\/script>');
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const pipe = (...fns: Function[]) => fns.reduce((f, g) => (...args: any) => g(f(...args)));
 

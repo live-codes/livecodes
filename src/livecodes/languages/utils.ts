@@ -84,7 +84,7 @@ export const escapeCode = (code: string) =>
   code
     .replace(/\\/g, '\\\\')
     .replace(/`/g, '\\`')
-    .replace(/<\/script>/g, '</scr` + `ipt>');
+    .replace(/<\/script>/g, '<\\/script>');
 
 export const getLanguageCustomSettings = (language: Language, config: Config) => ({
   ...(config.customSettings as any)[language],

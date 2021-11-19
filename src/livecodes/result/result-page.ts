@@ -1,7 +1,7 @@
 import { createImportMap, hasImports } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
-import { getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
+import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
 import { esModuleShimsUrl } from '../vendors';
 
 export const createResultPage = (
@@ -156,7 +156,7 @@ export const createResultPage = (
   const script = code.script.compiled;
   const scriptElement = dom.createElement('script');
   if (singleFile) {
-    scriptElement.innerHTML = mdx ? script + '\n' + mdx : script;
+    scriptElement.innerHTML = escapeScript(mdx ? script + '\n' + mdx : script);
   } else {
     scriptElement.src = './script.js';
   }
