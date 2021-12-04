@@ -149,6 +149,11 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['src/livecodes/blockly/blockly-editor.ts'],
   loader: { '.html': 'text' },
+  define: {
+    'process.env.VERSION': `"${version || ''}"`,
+    'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
+    'process.env.REPO_URL': `"${repoUrl || ''}"`,
+  },
 });
 
 console.log('built to: ' + baseOptions.outdir);

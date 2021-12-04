@@ -1,5 +1,4 @@
-import { BlocklyContent } from '../blockly';
-import { Language, Config, ProcessorName } from '../models';
+import { Language, Config, ProcessorName, BlocklyContent } from '../models';
 
 export interface CompileOptions {
   html?: string;

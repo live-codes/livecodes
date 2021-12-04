@@ -420,6 +420,30 @@ export interface EditorOptions {
   theme: Theme;
 }
 
+export interface CustomEditor {
+  language: Language;
+  show: (show: boolean, options: CustomEditorOptions) => Promise<void>;
+  getContent: (options: CustomEditorOptions) => Promise<unknown>;
+  setTheme: (theme: Theme) => void;
+}
+
+export interface CustomEditorOptions {
+  baseUrl: string;
+  editors: Editors;
+  config: Config;
+  html: string;
+  eventsManager: ReturnType<typeof createEventsManager>;
+}
+
+export type CustomEditors = {
+  [key in Language]?: CustomEditor;
+};
+
+export interface BlocklyContent {
+  xml?: string;
+  js?: string;
+}
+
 export interface User {
   uid: string;
   token: string | null;
