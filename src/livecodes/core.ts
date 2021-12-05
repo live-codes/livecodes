@@ -673,8 +673,13 @@ const setProjectTitle = (setDefault = false) => {
 
 const setWindowTitle = () => {
   const title = getConfig().title;
+  const hostLabel = location.hostname.startsWith('dev.livecodes.io')
+    ? '(dev) '
+    : location.hostname.startsWith('127.0.0.1') || location.hostname.startsWith('localhost')
+    ? '(local) '
+    : '';
   parent.document.title =
-    (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
+    hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
 
 const run = async (editorId?: EditorId) => {
