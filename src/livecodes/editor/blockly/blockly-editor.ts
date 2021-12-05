@@ -9,7 +9,8 @@ export const createBlocklyEditor = (baseUrl: string): CustomEditor => {
     const editorContainer = document.querySelector('#script') as HTMLElement;
     const blocklyElement = document.createElement('div');
     blocklyElement.id = 'blockly';
-    blocklyElement.innerHTML = `<span id="loading-blockly">Loading blockly editor...</span>`;
+    blocklyElement.classList.add('custom-editor');
+    blocklyElement.innerHTML = `<span class="loading-custom-editor">Loading blockly editor...</span>`;
     editorContainer.appendChild(blocklyElement);
 
     blockly = await import(baseUrl + 'blockly.js');

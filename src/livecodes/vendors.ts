@@ -30,6 +30,7 @@ export const lunaConsoleStylesUrl =
   'https://cdn.jsdelivr.net/npm/luna-console@0.2.1/luna-console.css';
 
 export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/';
+export const ckeditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/';
 
 export const jsZipUrl =
   'https://cdn.skypack.dev/-/jszip@v3.7.1-quihaZrSeNyrwABoIb7Z/dist=es2020,mode=imports,min/optimized/jszip.js';
