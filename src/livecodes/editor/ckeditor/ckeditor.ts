@@ -11,7 +11,9 @@ const getIframe = () => document.querySelector<HTMLIFrameElement>('#ckeditor-fra
 
 export const showCkeditor = async ({ editors, eventsManager }: CustomEditorOptions) => {
   if (ckeditorLoaded) {
-    getIframe()?.contentWindow?.postMessage({ html: editors.markup.getValue() }, '*');
+    if (ckeditorContent !== editors.markup.getValue()) {
+      getIframe()?.contentWindow?.postMessage({ html: editors.markup.getValue() }, '*');
+    }
     return;
   }
 
