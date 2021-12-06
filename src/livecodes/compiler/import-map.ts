@@ -82,6 +82,8 @@ export const cjs2esm = (code: string) => {
 
   const requires = getRequires(code);
 
+  if (requires.length === 0) return code;
+
   const imports = requires
     .map((id, i) =>
       [
