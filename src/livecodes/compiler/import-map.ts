@@ -69,3 +69,44 @@ export const replaceStyleImports = (code: string) =>
       ? `@media ${mediaQuery} {\n${modified}\n}`
       : modified;
   });
+
+// based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js
+export const cjs2esm = (code: string) => {
+  if (!/\b(require|module|exports)\b/.test(code)) return code;
+  const requirePattern = /require(?:\s*)\((?:\s*)('(.*?)'|"(.*?)")(?:\s*)\)/g;
+
+  const getRequires = (str: string) =>
+    [...str.matchAll(new RegExp(requirePattern))].map((arr) =>
+      arr[1].replace(/"/g, '').replace(/'/g, ''),
+    );
+
+  const requires = getRequires(code);
+
+  const imports = requires
+    .map((id, i) =>
+      [
+        `import __requires_${i}_default from '${id}';`,
+        `import * as __requires_${i} from '${id}';`,
+      ].join('\n'),
+    )
+    .join('\n');
+  const lookup = `const __requires_lookup = { ${requires
+    .map((id, i) => `'${id}': __requires_${i}_default || __requires_${i}`)
+    .join(', ')} };`;
+
+  const require = `window.require = window.require || ((id) => {
+	if (id in __requires_lookup) return __requires_lookup[id];
+	throw new Error(\`Cannot require modules dynamically (\${id})\`);
+});`;
+
+  const transformed = [
+    imports,
+    lookup,
+    require,
+    `const exports = {}; const module = { exports };`,
+    code,
+    `export default module.exports;`,
+  ].join('\n\n');
+
+  return transformed;
+};

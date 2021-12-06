@@ -76,7 +76,7 @@ import {
   stringify,
   stringToValidJson,
 } from './utils';
-import { getCompiler, getAllCompilers } from './compiler';
+import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
@@ -595,7 +595,7 @@ const getResultPage = async ({
     },
     script: {
       ...contentConfig.script,
-      compiled: compiledScript,
+      compiled: cjs2esm(compiledScript),
     },
   };
 
