@@ -99,7 +99,7 @@ export const cjs2esm = (code: string) => {
 	throw new Error(\`Cannot require modules dynamically (\${id})\`);
 });`;
 
-  const transformed = [
+  return [
     imports,
     lookup,
     require,
@@ -107,6 +107,4 @@ export const cjs2esm = (code: string) => {
     code,
     `export default module.exports;`,
   ].join('\n\n');
-
-  return transformed;
 };
