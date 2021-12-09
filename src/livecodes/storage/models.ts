@@ -8,6 +8,10 @@ export interface ProjectStorage {
   updateItem: (id: string, config: ContentConfig) => Promise<string>;
   deleteItem: (id: string) => Promise<void>;
   bulkInsert: (newProjects: ContentConfig[]) => Promise<void>;
+  addGenericItem: (value: any) => Promise<string>;
+  updateGenericItem: (id: string, value: any) => Promise<string>;
+  getGenericItem: <T>(id: string) => Promise<T | null>;
+  deleteGenericItem: (id: string) => Promise<void>;
   clear: () => Promise<void>;
 }
 

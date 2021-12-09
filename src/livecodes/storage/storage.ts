@@ -7,6 +7,8 @@ type LocalForage = typeof import('localforage');
 let localforage: LocalForage;
 const dbName = 'livecodes';
 const stores: Record<string, LocalForage> = {};
+const generateId = () =>
+  (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(0, 24);
 
 const loadLocalforage = async (store: string) => {
   if (!localforage) {
@@ -77,12 +79,8 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     return id;
   };
 
-  const addItem = async (config: ContentConfig) => {
-    await load();
-    const id = (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(
-      0,
-      24,
-    );
+  const addItem = (config: ContentConfig) => {
+    const id = generateId();
     return updateItem(id, config);
   };
 
@@ -103,6 +101,27 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     await store.clear();
   };
 
+  const updateGenericItem = async (id: string, value: any) => {
+    await load();
+    await store.setItem(id, value);
+    return id;
+  };
+
+  const addGenericItem = (value: any) => {
+    const id = generateId();
+    return updateGenericItem(id, value);
+  };
+
+  const getGenericItem = async <T>(id: string): Promise<T | null> => {
+    await load();
+    return store.getItem(id);
+  };
+
+  const deleteGenericItem = async (id: string) => {
+    await load();
+    await store.removeItem(id);
+  };
+
   return {
     getList,
     getAllData,
@@ -111,6 +130,10 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     updateItem,
     deleteItem,
     bulkInsert,
+    getGenericItem,
+    addGenericItem,
+    updateGenericItem,
+    deleteGenericItem,
     clear,
   };
 };
