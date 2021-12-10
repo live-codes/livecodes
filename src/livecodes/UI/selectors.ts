@@ -131,6 +131,9 @@ export const getCSSPresetLinks = () =>
 export const getProjectInfoLink = () =>
   document.querySelector('#settings-menu #info-link') as HTMLInputElement;
 
+export const getAssetsLink = () =>
+  document.querySelector('#settings-menu #assets-link') as HTMLInputElement;
+
 export const getInfoTitleInput = () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
 
@@ -225,3 +228,12 @@ export const getExportAllButton = (listContainer: HTMLElement) =>
 
 export const getDeleteAllButton = (listContainer: HTMLElement) =>
   listContainer.querySelector('#delete-all-button') as HTMLElement;
+
+export const getAssetsBulkImportButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-bulk-import-button') as HTMLElement;
+
+export const getAssetsExportAllButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-export-all-button') as HTMLElement;
+
+export const getAssetsDeleteAllButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-delete-all-button') as HTMLElement;

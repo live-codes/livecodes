@@ -1,5 +1,5 @@
 import { Config } from '../models';
-import { downloadFile } from './utils';
+import { downloadFile } from '../utils';
 
 export const exportJSON = (config: Config) => {
   const filename = config.title;

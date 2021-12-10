@@ -1050,7 +1050,8 @@ i.arrow {
     justify-content: center;
   }
 
-  #list-container {
+  #list-container,
+  #assets-list-container {
     display: flex;
     flex-wrap: wrap;
     height: 100%;
@@ -1067,7 +1068,8 @@ i.arrow {
       color: crimson;
     }
 
-    #projects-container {
+    #projects-container,
+    #assets-container {
       height: calc(100% - 120px);
       overflow: auto;
 

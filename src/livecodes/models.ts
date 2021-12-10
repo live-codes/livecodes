@@ -412,6 +412,7 @@ export interface Screen {
     | 'info'
     | 'new'
     | 'open'
+    | 'assets'
     | 'import'
     | 'external'
     | 'share'
@@ -464,3 +465,11 @@ export interface Code {
 export type Theme = 'light' | 'dark';
 
 export type Await<T> = T extends PromiseLike<infer U> ? U : T;
+
+export interface Asset {
+  id: string;
+  filename: string;
+  type: string;
+  url: string;
+  lastModified: number;
+}

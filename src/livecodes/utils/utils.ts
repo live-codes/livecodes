@@ -131,6 +131,15 @@ export const stringify = (obj: any, pretty = false) => {
 
 export const getRandomString = () => String(Math.random()) + '-' + Date.now().toFixed();
 
+export const downloadFile = (filename: string, extension: string, content: string) => {
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = content;
+  a.download = safeName(filename) + '.' + extension;
+  a.click();
+  a.remove();
+};
+
 export const loadScript = (url: string, name?: string) =>
   new Promise((resolve, reject) => {
     if (name && (window as any)[name]) {
