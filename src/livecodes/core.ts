@@ -49,7 +49,6 @@ import {
   customSettingsScreen,
   resourcesScreen,
   savePromptScreen,
-  addAssetScreen,
   restorePromptScreen,
 } from './html';
 import { exportConfig } from './export';
@@ -71,7 +70,6 @@ import {
   copyToClipboard,
   debounce,
   fetchWithHandler,
-  getDate,
   loadStylesheet,
   stringify,
   stringToValidJson,
@@ -2040,7 +2038,9 @@ const handleAssets = () => {
 
   eventsManager.addEventListener(UI.getAssetsLink(), 'click', createList, false);
   registerScreen('assets', createList);
-  registerScreen('add-asset', () => setTimeout(createAddAsset));
+  registerScreen('add-asset', () => {
+    setTimeout(createAddAsset);
+  });
 };
 
 const handleExternalResources = () => {
