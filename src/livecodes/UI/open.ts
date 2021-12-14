@@ -57,7 +57,7 @@ const createOpenItem = (
   return { link, deleteButton };
 };
 
-const createItemLoader = (item: { title: string }) => {
+const createItemLoader = (item: SavedProject) => {
   const loading = document.createElement('div');
   loading.innerHTML = `
     <div class="modal-message">Loading...</div>

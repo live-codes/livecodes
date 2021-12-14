@@ -7,7 +7,7 @@ type LocalForage = typeof import('localforage');
 let localforage: LocalForage;
 const dbName = 'livecodes';
 const stores: Record<string, LocalForage> = {};
-const generateId = () =>
+export const generateId = () =>
   (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(0, 24);
 
 const loadLocalforage = async (store: string) => {

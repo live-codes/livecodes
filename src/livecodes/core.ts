@@ -16,7 +16,6 @@ import {
   createSimpleStorage,
   createStorage,
   StorageItem,
-  SavedProject,
   RestoreItem,
   ProjectStorage,
 } from './storage';
@@ -40,7 +39,6 @@ import {
   UserConfig,
   Await,
   Code,
-  Asset,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -51,8 +49,7 @@ import {
   customSettingsScreen,
   resourcesScreen,
   savePromptScreen,
-  openScreen,
-  assetsScreen,
+  addAssetScreen,
   restorePromptScreen,
 } from './html';
 import { exportConfig } from './export';
@@ -1558,7 +1555,7 @@ const handleOpen = () => {
     modal.show(UI.loadingMessage());
 
     const openModule: typeof import('./UI/open') = await import(baseUrl + 'open.js');
-    openModule.createSavedProjectsList({
+    await openModule.createSavedProjectsList({
       eventsManager,
       getContentConfig,
       getProjectId: () => projectId,
@@ -2006,6 +2003,46 @@ const handleProjectInfo = () => {
   registerScreen('info', createProjectInfoUI);
 };
 
+const handleAssets = () => {
+  let assetsModule: typeof import('./UI/assets');
+  const loadModule = async () => {
+    modal.show(UI.loadingMessage());
+    assetsModule = assetsModule || (await import(baseUrl + 'assets.js'));
+  };
+
+  const createList = async () => {
+    await loadModule();
+    await assetsModule.createAssetsList({
+      eventsManager,
+      modal,
+      notifications,
+      assetsStorage,
+      showScreen,
+      baseUrl,
+    });
+  };
+
+  const createAddAsset = async () => {
+    await loadModule();
+    modal.show(
+      assetsModule.createAddAssetContainer({
+        eventsManager,
+        notifications,
+        assetsStorage,
+        showScreen,
+        baseUrl,
+      }),
+      {
+        isAsync: true,
+      },
+    );
+  };
+
+  eventsManager.addEventListener(UI.getAssetsLink(), 'click', createList, false);
+  registerScreen('assets', createList);
+  registerScreen('add-asset', () => setTimeout(createAddAsset));
+};
+
 const handleExternalResources = () => {
   const createExrenalResourcesUI = () => {
     const div = document.createElement('div');
@@ -2175,6 +2212,7 @@ const extraHandlers = async () => {
   handleImport();
   handleExport();
   handleDeploy();
+  handleAssets();
   handleUnload();
 };
 

@@ -30,6 +30,8 @@ import openScreen from './open.html';
 // @ts-ignore
 import assetsScreen from './assets.html';
 // @ts-ignore
+import addAssetScreen from './add-asset.html';
+// @ts-ignore
 import shareScreen from './share.html';
 
 export {
@@ -48,5 +50,6 @@ export {
   templatesScreen,
   openScreen,
   assetsScreen,
+  addAssetScreen,
   shareScreen,
 };

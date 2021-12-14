@@ -3,7 +3,7 @@ import { ContentConfig, Language } from '../models';
 export interface ProjectStorage {
   getList: () => Promise<SavedProject[]>;
   getAllData: <T = StorageItem>() => Promise<T[]>;
-  getItem: (itemId: string) => Promise<StorageItem | null>;
+  getItem: <T = StorageItem>(itemId: string) => Promise<T | null>;
   addItem: (config: ContentConfig) => Promise<string>;
   updateItem: (id: string, config: ContentConfig) => Promise<string>;
   deleteItem: (id: string) => Promise<void>;

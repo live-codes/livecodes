@@ -229,11 +229,17 @@ export const getExportAllButton = (listContainer: HTMLElement) =>
 export const getDeleteAllButton = (listContainer: HTMLElement) =>
   listContainer.querySelector('#delete-all-button') as HTMLElement;
 
-export const getAssetsBulkImportButton = (listContainer: HTMLElement) =>
-  listContainer.querySelector('#assets-bulk-import-button') as HTMLElement;
-
-export const getAssetsExportAllButton = (listContainer: HTMLElement) =>
-  listContainer.querySelector('#assets-export-all-button') as HTMLElement;
+export const getAddAssetButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-add-asset-button') as HTMLElement;
 
 export const getAssetsDeleteAllButton = (listContainer: HTMLElement) =>
   listContainer.querySelector('#assets-delete-all-button') as HTMLElement;
+
+export const getAssetsButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-button') as HTMLElement;
+
+export const getAssetDataUrlFileInput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-data-url-file-input') as HTMLInputElement;
+
+export const getAssetDataUrlOutput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#data-url-output') as HTMLElement;

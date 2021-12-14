@@ -1,24 +1,28 @@
 <div id="assets-list-container" class="list-container">
   <div class="modal-title">Assets</div>
   <div class="buttons">
-    <button id="assets-bulk-import-button" class="button">Import</button>
-    <button id="assets-export-all-button" class="button">Export All</button>
+    <button id="assets-add-asset-button" class="button">Add Asset</button>
     <button id="assets-delete-all-button" class="button">Delete All</button>
   </div>
   <div class="modal-message" id="assets-container" class="items-container">
     <span id="assets-sort-by-label">Sort By:</span>
-    <a href="#" id="assets-sort-by-last-modified" class="active">Last&nbsp;Modified</a
-    >&nbsp;/&nbsp;<a href="#" id="assets-sort-by-title">Title</a>&nbsp;(<a
+    <a href="#" id="assets-sort-by-last-modified" class="active">Date</a>&nbsp;/&nbsp;<a
       href="#"
-      id="assets-sorted-asc"
-      style="display: none"
-      >▲</a
+      id="assets-sort-by-title"
+      >File Name</a
+    >&nbsp;(<a href="#" id="assets-sorted-asc" style="display: none">▲</a
     ><a href="#" id="assets-sorted-desc">▼</a>)
     <select name="type-filter" id="assets-type-filter">
       <option value="">All types</option>
     </select>
     <input id="search-assets" type="text" placeholder="Search" />
-    <a href="#" id="assets-reset-filters" class="hint--bottom" data-hint="Reset">
+    <a
+      href="#"
+      id="assets-reset-filters"
+      class="hint--bottom"
+      data-hint="Reset"
+      style="width: auto"
+    >
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

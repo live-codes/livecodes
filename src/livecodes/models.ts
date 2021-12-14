@@ -413,6 +413,7 @@ export interface Screen {
     | 'new'
     | 'open'
     | 'assets'
+    | 'add-asset'
     | 'import'
     | 'external'
     | 'share'
@@ -466,10 +467,26 @@ export type Theme = 'light' | 'dark';
 
 export type Await<T> = T extends PromiseLike<infer U> ? U : T;
 
+export type FileType =
+  | 'image'
+  | 'audio'
+  | 'video'
+  | 'archive'
+  | 'html'
+  | 'stylesheet'
+  | 'script'
+  | 'font'
+  | 'icon'
+  | 'json'
+  | 'csv'
+  | 'xml'
+  | 'text'
+  | 'other';
+
 export interface Asset {
   id: string;
   filename: string;
-  type: string;
+  type: FileType;
   url: string;
   lastModified: number;
 }
