@@ -243,3 +243,15 @@ export const getAssetDataUrlFileInput = (listContainer: HTMLElement) =>
 
 export const getAssetDataUrlOutput = (listContainer: HTMLElement) =>
   listContainer.querySelector('#data-url-output') as HTMLElement;
+
+export const getAssetGHPagesFileInput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-gh-pages-file-input') as HTMLInputElement;
+
+export const getAssetGHPagesFileInputLabel = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-gh-pages-file-input-label') as HTMLElement;
+
+export const getAssetGHPagesFileInputButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-gh-pages-file-input-button') as HTMLElement;
+
+export const getAssetGHPagesOutput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#gh-pages-output') as HTMLElement;

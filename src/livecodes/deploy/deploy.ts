@@ -2,7 +2,20 @@ import { defaultConfig } from '../config';
 import { getDescriptionFile, getFilesFromConfig } from '../export';
 import { getGithubHeaders } from '../import';
 import { ContentConfig, User } from '../models';
+import { generateId } from '../storage';
 import { safeName } from '../utils';
+
+export const repoExists = async (user: User, repo: string) => {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}`, {
+      method: 'GET',
+      headers: getGithubHeaders(user),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+};
 
 const createRepo = async (user: User, repo: string, config: ContentConfig) => {
   const res = await fetch('https://api.github.com/user/repos', {
@@ -25,14 +38,23 @@ const createRepo = async (user: User, repo: string, config: ContentConfig) => {
   return res.json().then((data) => data.name);
 };
 
-const createFile = async (
-  user: User,
-  repo: string,
-  branch: string,
-  file: { path: string; content: string },
-  message: string,
+const createFile = async ({
+  user,
+  repo,
+  branch,
+  file,
+  message,
   initialize = false,
-) => {
+  encoded = false,
+}: {
+  user: User;
+  repo: string;
+  branch: string;
+  file: { path: string; content: string };
+  message: string;
+  initialize: boolean;
+  encoded: boolean;
+}) => {
   const url = `https://api.github.com/repos/${user.username}/${repo}/contents/`;
 
   let sha: string | undefined;
@@ -53,7 +75,7 @@ const createFile = async (
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       message: message || 'deploy',
-      content: btoa(file.content),
+      content: encoded ? file.content : btoa(file.content),
       branch,
       ...(sha ? { sha } : {}),
     }),
@@ -62,18 +84,21 @@ const createFile = async (
   if (!res.ok) {
     throw new Error('Error creating file');
   }
-  return res.json().then((data) => data.commit.sha);
+  return res.json();
 };
 
 const initializeRepo = async (user: User, repo: string, branch = 'main', readmeContent?: string) =>
-  createFile(
-    user,
-    repo,
-    branch,
-    { path: 'readme.md', content: `${readmeContent || '# ' + repo + '\n'}` },
-    'initial commit',
-    true,
-  );
+  (
+    await createFile({
+      user,
+      repo,
+      branch,
+      file: { path: 'readme.md', content: `${readmeContent || '# ' + repo + '\n'}` },
+      message: 'initial commit',
+      initialize: true,
+      encoded: false,
+    })
+  )?.commit.sha;
 
 const getLastCommit = async (user: User, repo: string, branch: string) => {
   const res = await fetch(
@@ -177,6 +202,11 @@ const updateBranch = async (user: User, repo: string, branch: string, commit: st
   return true;
 };
 
+export interface GitHubFile {
+  path: string;
+  content: string;
+}
+
 const prepareFiles = ({
   config,
   content,
@@ -191,7 +221,7 @@ const prepareFiles = ({
   };
   commitSource: boolean;
   singleFile: boolean;
-}) => {
+}): GitHubFile[] => {
   const files = [{ path: 'index.html', content: content.resultPage }];
   if (!singleFile) {
     files.push(
@@ -289,6 +319,56 @@ export const deploy = async ({
     if (error.message === 'Repo name already exists') {
       throw error;
     }
+    return null;
+  }
+};
+
+export const deployFile = async ({
+  user,
+  repo = 'livecodes-assets',
+  branch = 'gh-pages',
+  message,
+  file,
+}: {
+  user: User;
+  repo?: string;
+  branch?: string;
+  message?: string;
+  file: GitHubFile;
+}): Promise<DeployResult | null> => {
+  message = message || 'add ' + file.path;
+
+  try {
+    if (!(await repoExists(user, repo))) {
+      repo = safeName(repo, '-').toLowerCase();
+      if (repo === 'livecodes-assets') {
+        const description = 'LiveCodes assets';
+        await createRepo(user, repo, { title: description } as any);
+        await initializeRepo(user, repo, branch, '# ' + description);
+      } else {
+        await createRepo(user, repo, {} as any);
+        await initializeRepo(user, repo, branch);
+      }
+    }
+
+    const result = await createFile({
+      user,
+      repo,
+      branch,
+      file: { path: `assets/${generateId()}/${file.path}`, content: file.content },
+      message,
+      initialize: true,
+      encoded: true,
+    });
+
+    return {
+      url: `https://${user.username}.github.io/${repo}/${result.content.path}`,
+      username: user.username as string,
+      repo,
+      tree: result?.commit?.tree?.sha,
+      commit: result?.commit?.sha,
+    };
+  } catch (error: any) {
     return null;
   }
 };

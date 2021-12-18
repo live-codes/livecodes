@@ -419,7 +419,7 @@ export interface Screen {
     | 'share'
     | 'deploy'
     | 'custom-settings';
-  show: () => void | Promise<unknown>;
+  show: (options?: any) => void | Promise<unknown>;
 }
 
 export type customSettings = {

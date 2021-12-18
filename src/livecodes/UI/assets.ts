@@ -1,15 +1,19 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { Asset, FileType, Screen } from '../models';
+import type { Asset, FileType, Screen, User } from '../models';
 import type { createNotifications } from '../notifications';
 import { generateId, ProjectStorage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils';
 import { flexSearchUrl } from '../vendors';
+import { DeployResult, GitHubFile } from '../deploy';
 import {
   getAddAssetButton,
   getAssetDataUrlFileInput,
   getAssetDataUrlOutput,
+  getAssetGHPagesFileInput,
+  getAssetGHPagesFileInputLabel,
+  getAssetGHPagesOutput,
   getAssetsButton,
   getAssetsDeleteAllButton,
 } from './selectors';
@@ -34,6 +38,13 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
   const img = document.createElement('img');
   img.src = getThumbnailUrl(item, baseUrl);
   img.classList.add('img-preview');
+  img.onerror = function () {
+    const fallbackImg = baseUrl + 'assets/images/image.svg';
+    if (img.src !== fallbackImg) {
+      img.src = fallbackImg;
+    }
+  };
+
   container.appendChild(img);
 
   const detailsContainer = document.createElement('div');
@@ -396,36 +407,52 @@ export const createAddAssetContainer = ({
   eventsManager,
   showScreen,
   notifications,
+  deployAsset,
+  getUser,
   baseUrl,
+  activeTab,
 }: {
   assetsStorage: ProjectStorage;
   eventsManager: ReturnType<typeof createEventsManager>;
-  showScreen: (screen: Screen['screen']) => void;
+  showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
   notifications: ReturnType<typeof createNotifications>;
+  deployAsset: (user: User, file: GitHubFile) => Promise<DeployResult | null>;
+  getUser: (fn?: () => void) => Promise<User | void>;
   baseUrl: string;
+  activeTab: number;
 }) => {
+  let user: User | void;
   const div = document.createElement('div');
   div.innerHTML = addAssetScreen;
   const addAssetContainer = div.firstChild as HTMLElement;
 
   const tabs = addAssetContainer.querySelectorAll<HTMLElement>('#add-asset-tabs li');
-  tabs.forEach((tab) => {
-    eventsManager.addEventListener(tab, 'click', () => {
-      tabs.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
+  const activateTab = (tab: HTMLElement) => {
+    tabs.forEach((t) => t.classList.remove('active'));
+    tab.classList.add('active');
 
-      document.querySelectorAll('#add-asset-screens > div').forEach((screen) => {
-        screen.classList.remove('active');
-      });
-      const target = addAssetContainer.querySelector('#' + tab.dataset.target);
-      target?.classList.add('active');
-      target?.querySelector('input')?.focus();
+    document.querySelectorAll('#add-asset-screens > div').forEach((screen) => {
+      screen.classList.remove('active');
     });
+    const target = addAssetContainer.querySelector('#' + tab.dataset.target);
+    target?.classList.add('active');
+    target?.querySelector('input')?.focus();
+  };
+  tabs.forEach((tab) => {
+    eventsManager.addEventListener(tab, 'click', () => activateTab(tab));
+  });
+  setTimeout(() => {
+    if (activeTab) {
+      activateTab(tabs[activeTab]);
+    }
   });
 
   const assetsButton = getAssetsButton(addAssetContainer);
   const dataUrlFileInput = getAssetDataUrlFileInput(addAssetContainer);
   const dataUrlOutput = getAssetDataUrlOutput(addAssetContainer);
+  const ghPagesFileInput = getAssetGHPagesFileInput(addAssetContainer);
+  const ghPagesFileInputLabel = getAssetGHPagesFileInputLabel(addAssetContainer);
+  const ghPagesOutput = getAssetGHPagesOutput(addAssetContainer);
 
   eventsManager.addEventListener(
     assetsButton,
@@ -436,7 +463,7 @@ export const createAddAssetContainer = ({
     false,
   );
 
-  const loadFile = (input: HTMLInputElement): Promise<Asset> =>
+  const loadFile = (input: HTMLInputElement, deploy = false): Promise<Asset> =>
     new Promise((resolve, reject) => {
       if (input.files?.length === 0) return;
 
@@ -451,18 +478,34 @@ export const createAddAssetContainer = ({
 
       const reader = new FileReader();
       eventsManager.addEventListener(reader, 'load', async (event: any) => {
-        const url = (event.target?.result as string) || '';
-        try {
-          resolve({
-            id: generateId(),
-            filename: file.name,
-            type: getType(file.type, file.name),
-            url,
-            lastModified: Date.now(),
+        let url = '';
+        if (deploy) {
+          if (!user) {
+            reject('Error: Unauthenticated user');
+            return;
+          }
+          ghPagesFileInputLabel.innerText = 'Uploading...';
+          ghPagesFileInputLabel.classList.add('disabled');
+          const deployResult = await deployAsset(user, {
+            path: file.name,
+            content: event.target?.result.split('base64,')[1],
           });
-        } catch (error) {
-          reject('Invalid configuration file');
+          ghPagesFileInputLabel.innerText = 'Upload file';
+          ghPagesFileInputLabel.classList.remove('disabled');
+          if (deployResult) {
+            url = deployResult.url;
+          } else {
+            reject('Error: Failed to upload file');
+          }
         }
+        url = url || (event.target?.result as string);
+        resolve({
+          id: generateId(),
+          filename: file.name,
+          type: getType(file.type, file.name),
+          url,
+          lastModified: Date.now(),
+        });
       });
 
       eventsManager.addEventListener(reader, 'error', () => {
@@ -472,7 +515,7 @@ export const createAddAssetContainer = ({
       reader.readAsDataURL(file);
     });
 
-  const processAsset = async (asset: Asset) => {
+  const processAsset = async (asset: Asset, outputElement: HTMLElement, deploy = false) => {
     await assetsStorage.updateGenericItem(asset.id, asset);
 
     const AddedFile = document.createElement('p');
@@ -484,7 +527,7 @@ export const createAddAssetContainer = ({
     fileName.textContent += asset.filename;
     AddedFile.appendChild(fileName);
     AddedFile.classList.add('overflow-text');
-    dataUrlOutput.appendChild(AddedFile);
+    outputElement.appendChild(AddedFile);
 
     const urlText = document.createElement('p');
     const urlLabel = document.createElement('span');
@@ -495,35 +538,82 @@ export const createAddAssetContainer = ({
     url.textContent += asset.url;
     urlText.appendChild(url);
     urlText.classList.add('overflow-text');
-    dataUrlOutput.appendChild(urlText);
+    outputElement.appendChild(urlText);
 
-    const previewImg = document.createElement('img');
-    previewImg.src = getThumbnailUrl(asset, baseUrl);
-    previewImg.classList.add('img-preview');
-    dataUrlOutput.appendChild(previewImg);
+    if (deploy) {
+      const deployNotice = document.createElement('p');
+      deployNotice.textContent = 'The asset should be available on this URL soon.';
+      deployNotice.classList.add('description', 'center');
+      outputElement.appendChild(deployNotice);
+    } else {
+      const previewImg = document.createElement('img');
+      previewImg.src = getThumbnailUrl(asset, baseUrl);
+      previewImg.onerror = function () {
+        const fallbackImg = baseUrl + 'assets/images/image.svg';
+        if (previewImg.src !== fallbackImg) {
+          previewImg.src = fallbackImg;
+        }
+      };
+      previewImg.classList.add('img-preview-larger');
+      outputElement.appendChild(previewImg);
+    }
 
     const clickToCopy = document.createElement('p');
     clickToCopy.textContent = 'Click to copy URL';
-    dataUrlOutput.appendChild(clickToCopy);
+    clickToCopy.classList.add('description', 'center');
+    outputElement.appendChild(clickToCopy);
 
     const sep = document.createElement('hr');
     sep.style.margin = '1em';
-    dataUrlOutput.appendChild(sep);
+    outputElement.appendChild(sep);
 
-    dataUrlOutput.title = 'Click to copy URL';
+    outputElement.title = 'Click to copy URL';
     notifications.success('File added to assets!');
-    dataUrlOutput.onclick = () => copyUrl(asset.url, notifications);
+    outputElement.onclick = () => copyUrl(asset.url, notifications);
+  };
+
+  const inputHandler = async (
+    fileInput: HTMLInputElement,
+    outputElement: HTMLElement,
+    deploy = false,
+  ) => {
+    await loadFile(fileInput, deploy)
+      .then((asset) => processAsset(asset, outputElement, deploy))
+      .catch((message) => {
+        notifications.error(message);
+      });
   };
 
   eventsManager.addEventListener(
     dataUrlFileInput,
     'change',
     () => {
-      loadFile(dataUrlFileInput)
-        .then(processAsset)
-        .catch((message) => {
-          notifications.error(message);
-        });
+      inputHandler(dataUrlFileInput, dataUrlOutput);
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    ghPagesFileInputLabel,
+    'click',
+    async (ev: Event) => {
+      user = await getUser(async () => {
+        await showScreen('add-asset', 1);
+      });
+      if (!user) {
+        ev.preventDefault();
+        notifications.error('Authentication error!');
+        return;
+      }
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    ghPagesFileInput,
+    'change',
+    () => {
+      inputHandler(ghPagesFileInput, ghPagesOutput, true);
     },
     false,
   );

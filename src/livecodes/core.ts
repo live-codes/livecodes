@@ -79,7 +79,7 @@ import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
-import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
+import { deploy, deployedConfirmation, deployFile, getUserPublicRepos, GitHubFile } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   autoCompleteUrl,
@@ -961,6 +961,17 @@ const logout = () => {
     });
 };
 
+const getUser = async (fn?: () => void) => {
+  let user = await authService?.getUser();
+  if (!user) {
+    user = await login();
+    if (typeof fn === 'function') {
+      fn();
+    }
+  }
+  return user;
+};
+
 const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
   if (registered) {
@@ -970,8 +981,8 @@ const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   }
 };
 
-const showScreen = async (screen: Screen['screen']) => {
-  await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show();
+const showScreen = async (screen: Screen['screen'], options?: any) => {
+  await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show(options);
   const modalElement = document.querySelector('#modal') as HTMLElement;
   (modalElement.firstElementChild as HTMLElement)?.click();
 };
@@ -1828,10 +1839,7 @@ const handleShare = () => {
 
 const handleDeploy = () => {
   const createDeployUI = async () => {
-    let user = await authService?.getUser();
-    if (!user) {
-      user = await login();
-    }
+    const user = await getUser();
     if (!user) {
       notifications.error('Authentication error!');
       return;
@@ -2020,15 +2028,19 @@ const handleAssets = () => {
     });
   };
 
-  const createAddAsset = async () => {
+  const createAddAsset = async (activeTab: number) => {
     await loadModule();
+    const deployAsset = async (user: User, file: GitHubFile) => deployFile({ user, file });
     modal.show(
       assetsModule.createAddAssetContainer({
         eventsManager,
         notifications,
         assetsStorage,
         showScreen,
+        deployAsset,
+        getUser,
         baseUrl,
+        activeTab,
       }),
       {
         isAsync: true,
@@ -2038,8 +2050,8 @@ const handleAssets = () => {
 
   eventsManager.addEventListener(UI.getAssetsLink(), 'click', createList, false);
   registerScreen('assets', createList);
-  registerScreen('add-asset', () => {
-    setTimeout(createAddAsset);
+  registerScreen('add-asset', (tab: number) => {
+    setTimeout(() => createAddAsset(tab));
   });
 };
 
