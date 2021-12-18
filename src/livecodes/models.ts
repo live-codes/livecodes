@@ -139,6 +139,7 @@ export type Language =
   | 'scheme'
   | 'scm'
   | 'commonlisp'
+  | 'common-lisp'
   | 'lisp'
   | 'rescript'
   | 'res'

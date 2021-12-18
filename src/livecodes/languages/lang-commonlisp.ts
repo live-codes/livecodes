@@ -21,7 +21,7 @@ export const commonlisp: LanguageSpecs = {
     });
     `,
   },
-  extensions: ['lisp'],
+  extensions: ['lisp', 'common-lisp'],
   editor: 'script',
   editorLanguage: 'scheme',
 };
