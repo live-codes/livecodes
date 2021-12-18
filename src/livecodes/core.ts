@@ -91,6 +91,7 @@ import {
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 import { getBlocklyContent, setBlocklyTheme, showBlockly } from './blockly';
+import { createOpenItem } from './UI';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage;
@@ -1431,20 +1432,14 @@ const handleNew = () => {
     userTemplatesScreen.appendChild(list);
 
     userTemplates.forEach((item) => {
-      const li = document.createElement('li');
-      list.appendChild(li);
+      const { link, deleteButton } = createOpenItem(
+        item,
+        list,
+        getLanguageTitle,
+        getLanguageByAlias,
+        true,
+      );
 
-      const link = document.createElement('a');
-      link.href = '#';
-      link.dataset.id = item.id;
-      link.classList.add('open-project-link');
-      link.innerHTML = `
-            <div class="open-title">${item.title}</div>
-            <div class="modified-date"><span>Last modified: </span>${new Date(
-              item.lastModified,
-            ).toLocaleString()}</div>
-          `;
-      li.appendChild(link);
       eventsManager.addEventListener(
         link,
         'click',
@@ -1464,14 +1459,12 @@ const handleNew = () => {
         false,
       );
 
-      const deleteButton = document.createElement('button');
-      deleteButton.classList.add('delete-button');
-      li.appendChild(deleteButton);
       eventsManager.addEventListener(
         deleteButton,
         'click',
         async () => {
           await templateStorage.deleteItem(item.id);
+          const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
@@ -1576,6 +1569,7 @@ const handleOpen = () => {
       showScreen,
       languages,
       getLanguageTitle,
+      getLanguageByAlias,
     });
   };
 

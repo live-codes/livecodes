@@ -9,10 +9,12 @@ import { flexSearchUrl, tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
 import { getTags } from './info';
 import { getBulkImportButton, getDeleteAllButton, getExportAllButton } from './selectors';
 
-const createOpenItem = (
+export const createOpenItem = (
   item: SavedProject,
   list: HTMLElement,
   getLanguageTitle: (language: Language) => string,
+  getLanguageByAlias: (alias?: string) => Language | undefined,
+  isTemplate = false,
 ) => {
   const li = document.createElement('li');
   list.appendChild(li);
@@ -25,29 +27,56 @@ const createOpenItem = (
     ? new Date(item.lastModified).toLocaleDateString()
     : new Date(item.lastModified).toLocaleString();
 
-  let langs = '';
+  const langs: HTMLElement[] = [];
   if (!isMobile()) {
     item.languages.forEach((lang) => {
-      langs += `<span class="language-tag" data-lang="${lang}" title="filter by language">${getLanguageTitle(
-        lang,
-      )}</span>`;
+      const langEl = document.createElement('span');
+      langEl.classList.add('language-tag');
+      langEl.dataset.lang = getLanguageByAlias(lang);
+      if (isTemplate) {
+        langEl.classList.add('template-tag');
+      } else {
+        langEl.title = 'filter by language';
+      }
+      langEl.textContent = getLanguageTitle(lang);
+      langs.push(langEl);
     });
   }
 
-  let userTags = '';
+  const userTags: HTMLElement[] = [];
   item.tags = item.tags.filter(Boolean);
   if (!isMobile() && item.tags.length > 0) {
-    userTags += '<span class="light">|</span> ';
     item.tags.forEach((tag) => {
-      userTags += `<span class="user-tag" data-tag="${tag}" title="filter by tag">${tag}</span>`;
+      const tagEl = document.createElement('span');
+      tagEl.classList.add('user-tag');
+      tagEl.dataset.tag = tag;
+      if (isTemplate) {
+        tagEl.classList.add('template-tag');
+      } else {
+        tagEl.title = 'filter by tag';
+      }
+      tagEl.textContent = tag;
+      userTags.push(tagEl);
     });
   }
-  link.innerHTML = `
-    <div class="open-title">${item.title}</div>
-    <div class="light"><span>Last modified: </span>
-    ${lastModified}</div>
-    <div class="project-tags">${langs} ${userTags}</div>
-  `;
+
+  const title = document.createElement('div');
+  title.classList.add('open-title', 'overflow-text');
+  title.textContent = item.title;
+  link.appendChild(title);
+
+  const lastModifiedText = document.createElement('div');
+  lastModifiedText.classList.add('light');
+  lastModifiedText.textContent = 'Last modified: ' + lastModified;
+  link.appendChild(lastModifiedText);
+
+  const tags = document.createElement('div');
+  tags.classList.add('project-tags');
+  langs.forEach((lang) => tags.append(lang));
+  tags.innerHTML += userTags.length > 0 ? ' <span class="light">|</span> ' : '';
+  userTags.forEach((tag) => tags.append(tag));
+  link.appendChild(tags);
+
   li.appendChild(link);
 
   const deleteButton = document.createElement('button');
@@ -351,6 +380,7 @@ export const createSavedProjectsList = async ({
   setProjectId,
   languages,
   getLanguageTitle,
+  getLanguageByAlias,
 }: {
   projectStorage: ProjectStorage;
   eventsManager: ReturnType<typeof createEventsManager>;
@@ -363,6 +393,7 @@ export const createSavedProjectsList = async ({
   setProjectId: (id: string) => void;
   languages: LanguageSpecs[];
   getLanguageTitle: (language: Language) => string;
+  getLanguageByAlias: (alias?: string) => Language | undefined;
 }) => {
   const div = document.createElement('div');
   div.innerHTML = openScreen;
@@ -430,7 +461,12 @@ export const createSavedProjectsList = async ({
     visibleProjects = projects;
     list.innerHTML = '';
     projects.forEach((item) => {
-      const { link, deleteButton } = createOpenItem(item, list, getLanguageTitle);
+      const { link, deleteButton } = createOpenItem(
+        item,
+        list,
+        getLanguageTitle,
+        getLanguageByAlias,
+      );
 
       eventsManager.addEventListener(
         link,

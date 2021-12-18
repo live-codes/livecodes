@@ -44,7 +44,6 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
       img.src = fallbackImg;
     }
   };
-
   container.appendChild(img);
 
   const detailsContainer = document.createElement('div');
@@ -603,7 +602,6 @@ export const createAddAssetContainer = ({
       if (!user) {
         ev.preventDefault();
         notifications.error('Authentication error!');
-        return;
       }
     },
     false,

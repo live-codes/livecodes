@@ -1156,10 +1156,6 @@ i.arrow {
         padding: 10px;
         text-decoration: none;
 
-        .open-title {
-          margin: 5px;
-        }
-
         .light {
           color: rgb(128, 128, 128);
           font-size: 0.8em;
@@ -1191,7 +1187,9 @@ i.arrow {
     justify-content: end;
   }
 
-  .asset-title {
+  .asset-title,
+  .open-title {
+    height: auto;
     margin: 5px;
     margin-right: -52px;
     width: calc(100% + 52px);
@@ -1239,7 +1237,7 @@ i.arrow {
       padding: 0.2em;
       text-align: center;
 
-      &:hover {
+      &:hover:not(.template-tag) {
         cursor: pointer;
         text-decoration: underline;
       }
