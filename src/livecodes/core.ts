@@ -10,12 +10,12 @@ import {
   getLanguageByAlias,
   mapLanguage,
   createLanguageMenus,
+  getLanguageTitle,
 } from './languages';
 import {
   createSimpleStorage,
   createStorage,
   StorageItem,
-  SavedProject,
   RestoreItem,
   ProjectStorage,
 } from './storage';
@@ -49,10 +49,9 @@ import {
   customSettingsScreen,
   resourcesScreen,
   savePromptScreen,
-  openScreen,
   restorePromptScreen,
 } from './html';
-import { downloadFile, exportConfig } from './export';
+import { exportConfig } from './export';
 import { createEventsManager } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
 import {
@@ -71,7 +70,6 @@ import {
   copyToClipboard,
   debounce,
   fetchWithHandler,
-  getDate,
   loadStylesheet,
   stringify,
   stringToValidJson,
@@ -81,7 +79,7 @@ import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI';
 import { createAuthService, sandboxService, shareService } from './services';
-import { deploy, deployedConfirmation, getUserPublicRepos } from './deploy';
+import { deploy, deployedConfirmation, deployFile, getUserPublicRepos, GitHubFile } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   autoCompleteUrl,
@@ -93,10 +91,12 @@ import {
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 import { getBlocklyContent, setBlocklyTheme, showBlockly } from './blockly';
+import { createOpenItem } from './UI';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage;
 let templateStorage: ProjectStorage;
+let assetsStorage: ProjectStorage;
 const userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__');
 const restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__');
 const typeLoader = createTypeLoader();
@@ -962,6 +962,17 @@ const logout = () => {
     });
 };
 
+const getUser = async (fn?: () => void) => {
+  let user = await authService?.getUser();
+  if (!user) {
+    user = await login();
+    if (typeof fn === 'function') {
+      fn();
+    }
+  }
+  return user;
+};
+
 const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
   if (registered) {
@@ -971,8 +982,8 @@ const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   }
 };
 
-const showScreen = async (screen: Screen['screen']) => {
-  await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show();
+const showScreen = async (screen: Screen['screen'], options?: any) => {
+  await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show(options);
   const modalElement = document.querySelector('#modal') as HTMLElement;
   (modalElement.firstElementChild as HTMLElement)?.click();
 };
@@ -1421,20 +1432,14 @@ const handleNew = () => {
     userTemplatesScreen.appendChild(list);
 
     userTemplates.forEach((item) => {
-      const li = document.createElement('li');
-      list.appendChild(li);
+      const { link, deleteButton } = createOpenItem(
+        item,
+        list,
+        getLanguageTitle,
+        getLanguageByAlias,
+        true,
+      );
 
-      const link = document.createElement('a');
-      link.href = '#';
-      link.dataset.id = item.id;
-      link.classList.add('open-project-link');
-      link.innerHTML = `
-            <div class="open-title">${item.title}</div>
-            <div class="modified-date"><span>Last modified: </span>${new Date(
-              item.lastModified,
-            ).toLocaleString()}</div>
-          `;
-      li.appendChild(link);
       eventsManager.addEventListener(
         link,
         'click',
@@ -1454,14 +1459,12 @@ const handleNew = () => {
         false,
       );
 
-      const deleteButton = document.createElement('button');
-      deleteButton.classList.add('delete-button');
-      li.appendChild(deleteButton);
       eventsManager.addEventListener(
         deleteButton,
         'click',
         async () => {
           await templateStorage.deleteItem(item.id);
+          const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
@@ -1551,141 +1554,23 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    const div = document.createElement('div');
-    div.innerHTML = openScreen;
-    const listContainer = div.firstChild as HTMLElement;
-    const noDataMessage = listContainer.querySelector('.no-data') as HTMLElement;
-    const noMatchMessage = listContainer.querySelector('#no-match.no-data') as HTMLElement;
-    const projectsContainer = listContainer.querySelector('#projects-container') as HTMLElement;
-    const list = document.createElement('ul') as HTMLElement;
-    list.classList.add('open-list');
-    let savedProjects = await projectStorage.getList();
-    let visibleProjects = savedProjects;
+    modal.show(UI.loadingMessage());
 
-    const bulkImportButton = UI.getBulkImportButton(listContainer);
-    const exportAllButton = UI.getExportAllButton(listContainer);
-    const deleteAllButton = UI.getDeleteAllButton(listContainer);
-
-    eventsManager.addEventListener(
-      bulkImportButton,
-      'click',
-      () => {
-        showScreen('import');
-      },
-      false,
-    );
-
-    eventsManager.addEventListener(
-      exportAllButton,
-      'click',
-      async () => {
-        const data = (await projectStorage.getAllData())
-          .filter((item) => visibleProjects.find((p) => p.id === item.id))
-          .map((item) => ({
-            ...item,
-            pen: getContentConfig(item.config),
-          }));
-        const filename = 'livecodes_export_' + getDate();
-        const content = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-        downloadFile(filename, 'json', content);
-      },
-      false,
-    );
-
-    eventsManager.addEventListener(
-      deleteAllButton,
-      'click',
-      async () => {
-        notifications.confirm(`Delete ${visibleProjects.length} projects?`, async () => {
-          for (const p of visibleProjects) {
-            await projectStorage.deleteItem(p.id);
-            if (projectId === p.id) {
-              projectId = '';
-            }
-          }
-          visibleProjects = [];
-          savedProjects = await projectStorage.getList();
-          await showList(visibleProjects);
-        });
-      },
-      false,
-    );
-
-    projectsContainer.appendChild(list);
-
-    const showList = async (projects: SavedProject[]) => {
-      visibleProjects = projects;
-      list.innerHTML = '';
-      projects.forEach((item) => {
-        const { link, deleteButton } = UI.createOpenItem(item, list);
-
-        eventsManager.addEventListener(
-          link,
-          'click',
-          async (event) => {
-            event.preventDefault();
-
-            const loading = UI.createItemLoader(item);
-            modal.show(loading, { size: 'small' });
-
-            const itemId = (link as HTMLElement).dataset.id || '';
-            const savedProject = (await projectStorage.getItem(itemId))?.config;
-            if (savedProject) {
-              await loadConfig(savedProject);
-              projectId = itemId;
-            }
-            modal.close();
-            loading.remove();
-          },
-          false,
-        );
-
-        eventsManager.addEventListener(
-          deleteButton,
-          'click',
-          () => {
-            notifications.confirm(`Delete project: ${item.title}?`, async () => {
-              if (item.id === projectId) {
-                projectId = '';
-              }
-              await projectStorage.deleteItem(item.id);
-              visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
-              const li = deleteButton.parentElement as HTMLElement;
-              li.classList.add('hidden');
-              setTimeout(() => {
-                showList(visibleProjects);
-              }, 500);
-            });
-          },
-          false,
-        );
-      });
-
-      if (projects.length === 0) {
-        list.classList.add('hidden');
-        deleteAllButton.classList.add('hidden');
-        exportAllButton.classList.add('hidden');
-        if ((await projectStorage.getList()).length === 0) {
-          noDataMessage.classList.remove('hidden');
-          noMatchMessage.classList.add('hidden');
-        } else {
-          noDataMessage.classList.add('hidden');
-          noMatchMessage.classList.remove('hidden');
-        }
-      } else {
-        list.classList.remove('hidden');
-        deleteAllButton.classList.remove('hidden');
-        exportAllButton.classList.remove('hidden');
-        noDataMessage.classList.add('hidden');
-        noMatchMessage.classList.add('hidden');
-      }
-    };
-
-    await showList(savedProjects);
-
-    const getProjects = () => projectStorage.getList();
-    modal.show(listContainer, { isAsync: true });
-    UI.organizeProjects(getProjects, showList, eventsManager);
+    const openModule: typeof import('./UI/open') = await import(baseUrl + 'open.js');
+    await openModule.createSavedProjectsList({
+      eventsManager,
+      getContentConfig,
+      getProjectId: () => projectId,
+      loadConfig,
+      modal,
+      notifications,
+      projectStorage,
+      setProjectId: (id: string) => (projectId = id),
+      showScreen,
+      languages,
+      getLanguageTitle,
+      getLanguageByAlias,
+    });
   };
 
   eventsManager.addEventListener(
@@ -1948,10 +1833,7 @@ const handleShare = () => {
 
 const handleDeploy = () => {
   const createDeployUI = async () => {
-    let user = await authService?.getUser();
-    if (!user) {
-      user = await login();
-    }
+    const user = await getUser();
     if (!user) {
       notifications.error('Authentication error!');
       return;
@@ -2121,6 +2003,52 @@ const handleProjectInfo = () => {
   registerScreen('info', createProjectInfoUI);
 };
 
+const handleAssets = () => {
+  let assetsModule: typeof import('./UI/assets');
+  const loadModule = async () => {
+    modal.show(UI.loadingMessage());
+    assetsModule = assetsModule || (await import(baseUrl + 'assets.js'));
+  };
+
+  const createList = async () => {
+    await loadModule();
+    await assetsModule.createAssetsList({
+      eventsManager,
+      modal,
+      notifications,
+      assetsStorage,
+      showScreen,
+      baseUrl,
+    });
+  };
+
+  const createAddAsset = async (activeTab: number) => {
+    await loadModule();
+    const deployAsset = async (user: User, file: GitHubFile) => deployFile({ user, file });
+    modal.show(
+      assetsModule.createAddAssetContainer({
+        eventsManager,
+        notifications,
+        assetsStorage,
+        showScreen,
+        deployAsset,
+        getUser,
+        baseUrl,
+        activeTab,
+      }),
+      {
+        isAsync: true,
+      },
+    );
+  };
+
+  eventsManager.addEventListener(UI.getAssetsLink(), 'click', createList, false);
+  registerScreen('assets', createList);
+  registerScreen('add-asset', (tab: number) => {
+    setTimeout(() => createAddAsset(tab));
+  });
+};
+
 const handleExternalResources = () => {
   const createExrenalResourcesUI = () => {
     const div = document.createElement('div');
@@ -2271,6 +2199,7 @@ const basicHandlers = () => {
 const extraHandlers = async () => {
   projectStorage = await createStorage('__livecodes_data__');
   templateStorage = await createStorage('__livecodes_templates__');
+  assetsStorage = await createStorage('__livecodes_assets__');
 
   handleTitleEdit();
   handleSettingsMenu();
@@ -2289,6 +2218,7 @@ const extraHandlers = async () => {
   handleImport();
   handleExport();
   handleDeploy();
+  handleAssets();
   handleUnload();
 };
 

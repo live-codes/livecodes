@@ -1,12 +1,21 @@
-import { createEventsManager } from '../events';
-import { getLanguageTitle, languages } from '../languages';
-import { Language } from '../models';
-import { SavedProject } from '../storage';
-import { isMobile, loadScript, loadStylesheet } from '../utils';
+import type { createEventsManager } from '../events';
+import type { createModal } from '../modal';
+import type { Config, ContentConfig, Language, LanguageSpecs, Screen } from '../models';
+import type { createNotifications } from '../notifications';
+import type { ProjectStorage, SavedProject } from '../storage';
+import { openScreen } from '../html';
+import { getDate, isMobile, downloadFile, loadScript, loadStylesheet } from '../utils';
 import { flexSearchUrl, tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
 import { getTags } from './info';
+import { getBulkImportButton, getDeleteAllButton, getExportAllButton } from './selectors';
 
-export const createOpenItem = (item: SavedProject, list: HTMLElement) => {
+export const createOpenItem = (
+  item: SavedProject,
+  list: HTMLElement,
+  getLanguageTitle: (language: Language) => string,
+  getLanguageByAlias: (alias?: string) => Language | undefined,
+  isTemplate = false,
+) => {
   const li = document.createElement('li');
   list.appendChild(li);
 
@@ -18,29 +27,56 @@ export const createOpenItem = (item: SavedProject, list: HTMLElement) => {
     ? new Date(item.lastModified).toLocaleDateString()
     : new Date(item.lastModified).toLocaleString();
 
-  let langs = '';
+  const langs: HTMLElement[] = [];
   if (!isMobile()) {
     item.languages.forEach((lang) => {
-      langs += `<span class="language-tag" data-lang="${lang}" title="filter by language">${getLanguageTitle(
-        lang,
-      )}</span>`;
+      const langEl = document.createElement('span');
+      langEl.classList.add('language-tag');
+      langEl.dataset.lang = getLanguageByAlias(lang);
+      if (isTemplate) {
+        langEl.classList.add('template-tag');
+      } else {
+        langEl.title = 'filter by language';
+      }
+      langEl.textContent = getLanguageTitle(lang);
+      langs.push(langEl);
     });
   }
 
-  let userTags = '';
+  const userTags: HTMLElement[] = [];
   item.tags = item.tags.filter(Boolean);
   if (!isMobile() && item.tags.length > 0) {
-    userTags += '<span class="light">|</span> ';
     item.tags.forEach((tag) => {
-      userTags += `<span class="user-tag" data-tag="${tag}" title="filter by tag">${tag}</span>`;
+      const tagEl = document.createElement('span');
+      tagEl.classList.add('user-tag');
+      tagEl.dataset.tag = tag;
+      if (isTemplate) {
+        tagEl.classList.add('template-tag');
+      } else {
+        tagEl.title = 'filter by tag';
+      }
+      tagEl.textContent = tag;
+      userTags.push(tagEl);
     });
   }
-  link.innerHTML = `
-    <div class="open-title">${item.title}</div>
-    <div class="light"><span>Last modified: </span>
-    ${lastModified}</div>
-    <div class="project-tags">${langs} ${userTags}</div>
-  `;
+
+  const title = document.createElement('div');
+  title.classList.add('open-title', 'overflow-text');
+  title.textContent = item.title;
+  link.appendChild(title);
+
+  const lastModifiedText = document.createElement('div');
+  lastModifiedText.classList.add('light');
+  lastModifiedText.textContent = 'Last modified: ' + lastModified;
+  link.appendChild(lastModifiedText);
+
+  const tags = document.createElement('div');
+  tags.classList.add('project-tags');
+  langs.forEach((lang) => tags.append(lang));
+  tags.innerHTML += userTags.length > 0 ? ' <span class="light">|</span> ' : '';
+  userTags.forEach((tag) => tags.append(tag));
+  link.appendChild(tags);
+
   li.appendChild(link);
 
   const deleteButton = document.createElement('button');
@@ -50,7 +86,7 @@ export const createOpenItem = (item: SavedProject, list: HTMLElement) => {
   return { link, deleteButton };
 };
 
-export const createItemLoader = (item: { title: string }) => {
+const createItemLoader = (item: SavedProject) => {
   const loading = document.createElement('div');
   loading.innerHTML = `
     <div class="modal-message">Loading...</div>
@@ -59,10 +95,11 @@ export const createItemLoader = (item: { title: string }) => {
   return loading;
 };
 
-export const organizeProjects = (
+const organizeProjects = (
   getProjects: () => Promise<SavedProject[]>,
   showProjects: (projects: SavedProject[]) => Promise<void>,
   eventsManager: ReturnType<typeof createEventsManager>,
+  languages: LanguageSpecs[],
 ) => {
   let sortBy: 'lastModified' | 'title' = 'lastModified';
   let sortByDirection: 'asc' | 'desc' = 'desc';
@@ -329,4 +366,173 @@ export const organizeProjects = (
     },
     false,
   );
+};
+
+export const createSavedProjectsList = async ({
+  projectStorage,
+  eventsManager,
+  showScreen,
+  getContentConfig,
+  notifications,
+  modal,
+  loadConfig,
+  getProjectId,
+  setProjectId,
+  languages,
+  getLanguageTitle,
+  getLanguageByAlias,
+}: {
+  projectStorage: ProjectStorage;
+  eventsManager: ReturnType<typeof createEventsManager>;
+  showScreen: (screen: Screen['screen']) => void;
+  getContentConfig: (config: Config | ContentConfig) => ContentConfig;
+  notifications: ReturnType<typeof createNotifications>;
+  modal: ReturnType<typeof createModal>;
+  loadConfig: (config: ContentConfig) => Promise<void>;
+  getProjectId: () => string | undefined;
+  setProjectId: (id: string) => void;
+  languages: LanguageSpecs[];
+  getLanguageTitle: (language: Language) => string;
+  getLanguageByAlias: (alias?: string) => Language | undefined;
+}) => {
+  const div = document.createElement('div');
+  div.innerHTML = openScreen;
+  const listContainer = div.firstChild as HTMLElement;
+  const noDataMessage = listContainer.querySelector('.no-data') as HTMLElement;
+  const noMatchMessage = listContainer.querySelector('#no-match.no-data') as HTMLElement;
+  const projectsContainer = listContainer.querySelector('#projects-container') as HTMLElement;
+  const list = document.createElement('ul') as HTMLElement;
+  list.classList.add('open-list');
+  let savedProjects = await projectStorage.getList();
+  let visibleProjects = savedProjects;
+
+  const bulkImportButton = getBulkImportButton(listContainer);
+  const exportAllButton = getExportAllButton(listContainer);
+  const deleteAllButton = getDeleteAllButton(listContainer);
+
+  eventsManager.addEventListener(
+    bulkImportButton,
+    'click',
+    () => {
+      showScreen('import');
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    exportAllButton,
+    'click',
+    async () => {
+      const data = (await projectStorage.getAllData())
+        .filter((item) => visibleProjects.find((p) => p.id === item.id))
+        .map((item) => ({
+          ...item,
+          pen: getContentConfig(item.config),
+        }));
+      const filename = 'livecodes_export_' + getDate();
+      const content = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
+      downloadFile(filename, 'json', content);
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    deleteAllButton,
+    'click',
+    async () => {
+      notifications.confirm(`Delete ${visibleProjects.length} projects?`, async () => {
+        for (const p of visibleProjects) {
+          await projectStorage.deleteItem(p.id);
+          if (getProjectId() === p.id) {
+            setProjectId('');
+          }
+        }
+        visibleProjects = [];
+        savedProjects = await projectStorage.getList();
+        await showList(visibleProjects);
+      });
+    },
+    false,
+  );
+
+  projectsContainer.appendChild(list);
+
+  const showList = async (projects: SavedProject[]) => {
+    visibleProjects = projects;
+    list.innerHTML = '';
+    projects.forEach((item) => {
+      const { link, deleteButton } = createOpenItem(
+        item,
+        list,
+        getLanguageTitle,
+        getLanguageByAlias,
+      );
+
+      eventsManager.addEventListener(
+        link,
+        'click',
+        async (event) => {
+          event.preventDefault();
+
+          const loading = createItemLoader(item);
+          modal.show(loading, { size: 'small' });
+
+          const itemId = (link as HTMLElement).dataset.id || '';
+          const savedProject = (await projectStorage.getItem(itemId))?.config;
+          if (savedProject) {
+            await loadConfig(savedProject);
+            setProjectId(itemId);
+          }
+          modal.close();
+          loading.remove();
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        deleteButton,
+        'click',
+        () => {
+          notifications.confirm(`Delete project: ${item.title}?`, async () => {
+            if (item.id === getProjectId()) {
+              setProjectId('');
+            }
+            await projectStorage.deleteItem(item.id);
+            visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
+            const li = deleteButton.parentElement as HTMLElement;
+            li.classList.add('hidden');
+            setTimeout(() => {
+              showList(visibleProjects);
+            }, 500);
+          });
+        },
+        false,
+      );
+    });
+
+    if (projects.length === 0) {
+      list.classList.add('hidden');
+      deleteAllButton.classList.add('hidden');
+      exportAllButton.classList.add('hidden');
+      if ((await projectStorage.getList()).length === 0) {
+        noDataMessage.classList.remove('hidden');
+        noMatchMessage.classList.add('hidden');
+      } else {
+        noDataMessage.classList.add('hidden');
+        noMatchMessage.classList.remove('hidden');
+      }
+    } else {
+      list.classList.remove('hidden');
+      deleteAllButton.classList.remove('hidden');
+      exportAllButton.classList.remove('hidden');
+      noDataMessage.classList.add('hidden');
+      noMatchMessage.classList.add('hidden');
+    }
+  };
+
+  await showList(savedProjects);
+
+  const getProjects = () => projectStorage.getList();
+  modal.show(listContainer, { isAsync: true });
+  organizeProjects(getProjects, showList, eventsManager, languages);
 };

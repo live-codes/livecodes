@@ -135,6 +135,18 @@ esbuild.buildSync({
 
 esbuild.buildSync({
   ...baseOptions,
+  entryPoints: ['src/livecodes/UI/open.ts'],
+  loader: { '.html': 'text' },
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/UI/assets.ts'],
+  loader: { '.html': 'text' },
+});
+
+esbuild.buildSync({
+  ...baseOptions,
   entryPoints: ['src/livecodes/blockly/blockly-editor.ts'],
   loader: { '.html': 'text' },
 });

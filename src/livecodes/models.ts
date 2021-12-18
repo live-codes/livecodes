@@ -412,12 +412,14 @@ export interface Screen {
     | 'info'
     | 'new'
     | 'open'
+    | 'assets'
+    | 'add-asset'
     | 'import'
     | 'external'
     | 'share'
     | 'deploy'
     | 'custom-settings';
-  show: () => void | Promise<unknown>;
+  show: (options?: any) => void | Promise<unknown>;
 }
 
 export type customSettings = {
@@ -464,3 +466,27 @@ export interface Code {
 export type Theme = 'light' | 'dark';
 
 export type Await<T> = T extends PromiseLike<infer U> ? U : T;
+
+export type FileType =
+  | 'image'
+  | 'audio'
+  | 'video'
+  | 'archive'
+  | 'html'
+  | 'stylesheet'
+  | 'script'
+  | 'font'
+  | 'icon'
+  | 'json'
+  | 'csv'
+  | 'xml'
+  | 'text'
+  | 'other';
+
+export interface Asset {
+  id: string;
+  filename: string;
+  type: FileType;
+  url: string;
+  lastModified: number;
+}

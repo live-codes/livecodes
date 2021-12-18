@@ -7,7 +7,7 @@ type LocalForage = typeof import('localforage');
 let localforage: LocalForage;
 const dbName = 'livecodes';
 const stores: Record<string, LocalForage> = {};
-const generateId = () =>
+export const generateId = () =>
   (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(0, 24);
 
 const loadLocalforage = async (store: string) => {
@@ -54,16 +54,18 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     return list.sort((a, b) => b.lastModified - a.lastModified);
   };
 
-  const getAllData = async (): Promise<StorageItem[]> => {
+  const getAllData = async <T = StorageItem>(): Promise<T[]> => {
     await load();
-    const list: StorageItem[] = [];
-    await store.iterate((item: StorageItem) => {
+    const list: T[] = [];
+    await store.iterate((item: T) => {
       list.push(item);
     });
-    return list.sort((a, b) => b.lastModified - a.lastModified);
+    return list.sort((a: any, b: any) =>
+      b.lastModified && a.lastModified ? b.lastModified - a.lastModified : 0,
+    );
   };
 
-  const getItem = async (itemId: string): Promise<StorageItem | null> => {
+  const getItem = async <T = StorageItem>(itemId: string): Promise<T | null> => {
     await load();
     return store.getItem(itemId);
   };
@@ -112,16 +114,6 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     return updateGenericItem(id, value);
   };
 
-  const getGenericItem = async <T>(id: string): Promise<T | null> => {
-    await load();
-    return store.getItem(id);
-  };
-
-  const deleteGenericItem = async (id: string) => {
-    await load();
-    await store.removeItem(id);
-  };
-
   return {
     getList,
     getAllData,
@@ -130,10 +122,8 @@ export const createStorage = async (name: string): Promise<ProjectStorage> => {
     updateItem,
     deleteItem,
     bulkInsert,
-    getGenericItem,
     addGenericItem,
     updateGenericItem,
-    deleteGenericItem,
     clear,
   };
 };

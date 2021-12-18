@@ -24,7 +24,7 @@ const saveKey = async (key: string) => {
 
 const loadKey = async () => {
   await loadStorage();
-  const key = await keyStorage.getGenericItem<string>('__livecodes_key_id__');
+  const key = await keyStorage.getItem<string>('__livecodes_key_id__');
   return key ? decompress(key) : null;
 };
 

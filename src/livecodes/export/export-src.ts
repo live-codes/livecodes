@@ -1,6 +1,7 @@
 import { EditorId, Config } from '../models';
 import { jsZipUrl } from '../vendors';
-import { downloadFile, getFilesFromConfig } from './utils';
+import { downloadFile } from '../utils';
+import { getFilesFromConfig } from './utils';
 
 export const exportSrc = async (config: Config, { JSZip, html }: any, _baseUrl?: string) => {
   if (!JSZip) {

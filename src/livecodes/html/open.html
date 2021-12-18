@@ -1,11 +1,11 @@
-<div id="list-container">
+<div id="list-container" class="list-container">
   <div class="modal-title">Saved Projects</div>
   <div class="buttons">
     <button id="bulk-import-button" class="button">Import</button>
     <button id="export-all-button" class="button">Export All</button>
-    <button id="delete-all-button" class="button">Delete All</button>
+    <button id="delete-all-button" class="button danger">Delete All</button>
   </div>
-  <div class="modal-message" id="projects-container">
+  <div class="modal-message" id="projects-container" class="items-container">
     <span id="sort-by-label">Sort By:</span>
     <a href="#" id="sort-by-last-modified" class="active">Last&nbsp;Modified</a>&nbsp;/&nbsp;<a
       href="#"
@@ -18,7 +18,7 @@
     </select>
     <input id="filter-tags" type="text" placeholder="Filter by tags" />
     <input id="search-projects" type="text" placeholder="Search" />
-    <a href="#" id="reset-filters" class="hint--bottom" data-hint="Reset">
+    <a href="#" id="reset-filters" class="hint--bottom" data-hint="Reset" style="width: auto">
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
