@@ -1,11 +1,23 @@
 import { LanguageSpecs } from '../models';
+import { parinferUrl } from '../vendors';
 
 const cdnUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
+export const parenFormatter = () => {
+  const url = parinferUrl;
+  (self as any).importScripts(url);
+  return async (value: string) => ({
+    formatted: (window as any).parinfer.parenMode(value).text,
+    cursorOffset: 0,
+  });
+};
 
 export const commonlisp: LanguageSpecs = {
   name: 'commonlisp',
   title: 'Lisp',
   longTitle: 'Common Lisp',
+  formatter: {
+    factory: parenFormatter,
+  },
   compiler: {
     factory: () => async (code) => code,
     scripts: [cdnUrl],

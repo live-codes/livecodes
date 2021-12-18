@@ -34,7 +34,7 @@ export const commonlispStarter: Template = {
     content: `
 (defun set-attribute (&key selector attribute value)
   (let ((node
-	  (#j:document:querySelector selector)))
+         (#j:document:querySelector selector)))
     (setf (jscl::oget node attribute) value)
     node))
 
@@ -45,9 +45,9 @@ export const commonlispStarter: Template = {
 (let ((counter 0))
   (set-attribute :selector "#counter-button" :attribute "onclick"
     :value #'(lambda (ev)
-      (setf counter (+ counter 1))
-      (set-attribute :selector "#counter" :attribute "innerHTML"
-       :value counter))))
+              (setf counter (+ counter 1))
+              (set-attribute :selector "#counter" :attribute "innerHTML"
+               :value counter))))
 
 (#j:console:clear)
 (print "Hello, Common Lisp!")
