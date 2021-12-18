@@ -138,6 +138,8 @@ export type Language =
   | 'lua'
   | 'scheme'
   | 'scm'
+  | 'commonlisp'
+  | 'lisp'
   | 'rescript'
   | 'res'
   | 'resi'
@@ -298,6 +300,7 @@ export interface Compiler {
     | 'text/x-uniter-php'
     | 'text/perl'
     | 'text/biwascheme'
+    | 'text/commonlisp'
     | 'application/json'
     | 'application/lua'
     | 'application/wasm-uint8';
