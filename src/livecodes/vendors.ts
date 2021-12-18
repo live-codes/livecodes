@@ -42,3 +42,6 @@ export const postcssImportUrl =
 
 export const localforageUrl =
   'https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js';
+
+export const parinferUrl =
+  'https://cdn.jsdelivr.net/npm/@chrisoakman/parinfer@3.13.1/parinfer.min.js';
