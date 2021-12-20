@@ -14,6 +14,7 @@ import { less } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
 import { sql } from '@codemirror/lang-sql';
 import { php } from '@codemirror/lang-php';
+import { cpp } from '@codemirror/lang-cpp';
 import { wast } from '@codemirror/lang-wast';
 
 import { CodeEditor, EditorOptions, Language } from '../../models';
@@ -31,6 +32,7 @@ export const fullLanguages: Partial<{ [key in Language]: () => LanguageSupport }
   markdown,
   python,
   php,
+  cpp,
   sql,
   wat: wast,
   coffeescript: () => legacy(coffeeScript),

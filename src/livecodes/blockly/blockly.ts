@@ -88,7 +88,8 @@ export const showBlockly = async (
   show: boolean,
   { baseUrl, editors, html, eventsManager }: BlocklyOptions,
 ) => {
-  const blocklyEditor = document.querySelector('#blockly') as HTMLElement;
+  const blocklyEditor = document.querySelector<HTMLElement>('#blockly');
+  if (!blocklyEditor) return;
   if (!show || editors.script.getLanguage() !== 'blockly') {
     blocklyEditor.style.display = 'none';
     return;

@@ -50,7 +50,7 @@ export const commonlispStarter: Template = {
                :value counter))))
 
 (#j:console:clear)
-(print "Hello, Common Lisp!")
+(write "Hello, Common Lisp!")
 `.trimStart(),
   },
   stylesheets: [],

@@ -38,6 +38,7 @@ import { vueStarter } from './vue-starter';
 import { watStarter } from './wat-starter';
 import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
+import { cppStarter } from './cpp-starter';
 
 export const starterTemplates = [
   blank,
@@ -69,6 +70,7 @@ export const starterTemplates = [
   rubyStarter,
   goStarter,
   phpStarter,
+  cppStarter,
   perlStarter,
   luaStarter,
   schemeStarter,
