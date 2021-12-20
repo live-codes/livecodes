@@ -206,6 +206,30 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('C++ Starter', async ({ page, getTestUrl }) => {
+    test.slow();
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=C++ Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, C++!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
   test('ReScript Starter', async ({ page, getTestUrl }) => {
     test.fixme();
 
@@ -525,6 +549,26 @@ test.describe('Starter Templates from URL', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, Golang!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('C++ Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.slow();
+    await page.goto(getTestUrl({ template: 'cpp' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, C++!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');

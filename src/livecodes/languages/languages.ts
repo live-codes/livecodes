@@ -50,6 +50,7 @@ import { twig } from './lang-twig';
 import { astro } from './lang-astro';
 import { malina } from './lang-malina';
 import { commonlisp } from './lang-commonlisp';
+import { cpp } from './lang-cpp';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -95,6 +96,7 @@ export const languages: LanguageSpecs[] = [
   ruby,
   go,
   php,
+  cpp,
   perl,
   lua,
   scheme,
