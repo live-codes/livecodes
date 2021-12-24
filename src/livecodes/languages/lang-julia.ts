@@ -3,7 +3,6 @@ import { LanguageSpecs } from '../models';
 const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/julia-wasm@1.0.4';
 
 const workerSrc = `
-var window = self;
 let isCompilerloaded = false;
 let outputBuffer = '';
 let url = '${cdnBaselUrl}';
@@ -16,7 +15,8 @@ let ignoredErrors = [
   '(end of list)',
   'file packager has copied file data into memory, but in memory growth we are forced to copy it again (see --no-heap-copy)',
 ];
-window.Module = {
+
+self.Module = {
   locateFile: (path) =>
     path === 'julia-wasm/julia.wasm'
       ? url + '/julia.wasm'
@@ -35,13 +35,13 @@ window.Module = {
   },
   postRun: [
     function () {
-      window.Module._jl_initialize();
+      self.Module._jl_initialize();
       let input = 'Base.load_InteractiveUtils()';
-      let ptr = window.Module._malloc(input.length + 1);
-      window.Module.stringToUTF8(input, ptr, input.length + 1);
-      window.Module._jl_eval_string(ptr);
-      if (window.Module.initialize_jscall_runtime)
-        window.Module.initialize_jscall_runtime();
+      let ptr = self.Module._malloc(input.length + 1);
+      self.Module.stringToUTF8(input, ptr, input.length + 1);
+      self.Module._jl_eval_string(ptr);
+      if (self.Module.initialize_jscall_runtime)
+        self.Module.initialize_jscall_runtime();
       isCompilerloaded = true;
     },
   ],
@@ -49,12 +49,15 @@ window.Module = {
 
 importScripts(url + '/julia.min.js');
 
-let runCode = (code) => {
+let runCode = (code, input) => {
   let output = '';
   if (code) {
-    let ptr = window.Module._malloc(code.length + 1);
-    window.Module.stringToUTF8(code, ptr, code.length + 1);
-    window.Module._jl_eval_and_print(ptr);
+    if (input) {
+      code = 'livescodesInput = ' + input + '\\n' + code;
+    }
+    let ptr = self.Module._malloc(code.length + 1);
+    self.Module.stringToUTF8(code, ptr, code.length + 1);
+    self.Module._jl_eval_and_print(ptr);
     output = getOutput();
   }
   outputBuffer = '';
@@ -86,7 +89,8 @@ waitForCompiler().then(() => postMessage({ loaded: true }));
 addEventListener('message', async (e) => {
   await waitForCompiler();
   const code = e.data.code;
-  const output = code.trim() ? runCode(code) : '';
+  const input = e.data.input;
+  const output = code.trim() ? runCode(code, input) : null;
   postMessage({ output });
 });
 `;
@@ -99,8 +103,43 @@ export const julia: LanguageSpecs = {
     scripts: [],
     liveReload: true,
     inlineScript: `
-livecodes.julia = livecodes.julia || {};
+livecodes.julia = livecodes.julia || { autorun: true };
+livecodes.julia.run = livecodes.julia.run || ((input) => new Promise((resolve) => {
+  let code = '';
+  livecodes.julia.input = input;
+  livecodes.julia.output = '';
+  const scripts = document.querySelectorAll('script[type="text/julia"]');
+  scripts.forEach(script => code += script.innerHTML + '\\n');
+  livecodes.julia.worker.onmessage = function (e) {
+    if (e.data.loaded) {
+      console.log('Julia compiler loaded!');
+      livecodes.julia.worker.loaded = true;
+      return;
+    }
+    const output = e.data.output;
+    if (output != null) {
+      console.log(output);
+    }
+    livecodes.julia.output = output;
+    livecodes.julia.ready = true;
+    resolve(output);
+  };
+
+  livecodes.julia.worker.postMessage({ code, input: \`"\${String(input ?? '')}"\` });
+}));
+livecodes.julia.loaded = new Promise(async function (resolve) {
+  const i = setInterval(() => {
+    if (livecodes.julia.ready) {
+      clearInterval(i);
+      return resolve();
+    }
+  }, 50);
+});
+window.addEventListener('message', (ev) => {
+  livecodes.julia.input = '';
+});
 window.addEventListener('load', async () => {
+  livecodes.julia.ready = false;
   parent.postMessage({ type: 'loading', payload: true }, '*');
   const init = () => {
     if (livecodes.julia.worker) return;
@@ -108,27 +147,8 @@ window.addEventListener('load', async () => {
     const workerSrc = \`${workerSrc.replace(/\\/g, '\\\\')}\`;
     livecodes.julia.worker = new Worker('data:text/javascript;base64,' + btoa(workerSrc));
   };
-  const evaluateCode = () => new Promise((resolve) => {
-    let code = '';
-    const scripts = document.querySelectorAll('script[type="text/julia"]');
-    scripts.forEach(script => code += script.innerHTML + '\\n');
-    livecodes.julia.worker.onmessage = function (e) {
-      if (e.data.loaded) {
-        console.log('Julia compiler loaded!');
-        return;
-      }
-      const output = e.data.output;
-      if (output != null) {
-        if (output !== '') {
-          console.log(output);
-        }
-        resolve(output);
-      }
-    };
-    livecodes.julia.worker.postMessage({ code });
-  });
   init();
-  await evaluateCode();
+  await livecodes.julia.run(livecodes.julia.input);
   parent.postMessage({ type: 'loading', payload: false }, '*');
 });
 `,

@@ -39,6 +39,7 @@ import { watStarter } from './wat-starter';
 import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
+import { juliaStarter } from './julia-starter';
 
 export const starterTemplates = [
   blank,
@@ -73,6 +74,7 @@ export const starterTemplates = [
   cppStarter,
   perlStarter,
   luaStarter,
+  juliaStarter,
   schemeStarter,
   commonlispStarter,
   markdownStarter,
