@@ -157,4 +157,5 @@ window.addEventListener('load', async () => {
   },
   extensions: ['jl'],
   editor: 'script',
+  largeDownload: true,
 };

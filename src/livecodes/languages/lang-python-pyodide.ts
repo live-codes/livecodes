@@ -48,4 +48,5 @@ window.addEventListener("load", async () => {
   extensions: ['py3'],
   editor: 'script',
   editorLanguage: 'python',
+  largeDownload: true,
 };

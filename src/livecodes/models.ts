@@ -211,6 +211,7 @@ export interface LanguageSpecs {
   editor: EditorId;
   editorLanguage?: Language;
   preset?: CssPresetId;
+  largeDownload?: boolean;
 }
 
 export interface Processors {
