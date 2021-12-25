@@ -1,8 +1,8 @@
 import { Template } from '../../models';
 
-export const cppStarter: Template = {
-  name: 'cpp',
-  title: 'C++ Starter',
+export const clangStarter: Template = {
+  name: 'clang',
+  title: 'C++ (Clang) Starter',
   thumbnail: 'assets/templates/cpp.svg',
   activeEditor: 'script',
   markup: {
@@ -12,7 +12,7 @@ export const cppStarter: Template = {
   <h1>Hello, <span id="name">World</span>!</h1>
   <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
-  <button id="counter-button">Click me</button>
+  <button id="counter-button" disabled>Loading...</button>
 </div>
 
 <script>
@@ -30,6 +30,7 @@ export const cppStarter: Template = {
     update(initialOutput);
 
     button.onclick = async () => {
+    button.disabled = true;
       // run with new input
       const result = await livecodes.cpp.run(window.count);
       update(result.output);
@@ -48,6 +49,8 @@ export const cppStarter: Template = {
       if (title) {
         name.textContent = title;
       }
+      button.textContent = "Click me";
+      button.disabled = false;
     }
   });
 </script>
@@ -67,7 +70,7 @@ export const cppStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'cpp',
+    language: 'clang',
     content: `
 #include <iostream>
 using namespace std;

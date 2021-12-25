@@ -40,6 +40,7 @@ import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
 import { juliaStarter } from './julia-starter';
+import { clangStarter } from './clang-starter';
 
 export const starterTemplates = [
   blank,
@@ -72,6 +73,7 @@ export const starterTemplates = [
   goStarter,
   phpStarter,
   cppStarter,
+  clangStarter,
   perlStarter,
   luaStarter,
   juliaStarter,

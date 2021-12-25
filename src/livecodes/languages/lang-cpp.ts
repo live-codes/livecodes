@@ -74,6 +74,6 @@ export const cpp: LanguageSpecs = {
 })();
     `,
   },
-  extensions: ['cpp', 'c++'],
+  extensions: ['cpp', 'c', 'C', 'cp', 'cxx', 'c++', 'cppm', 'ixx', 'ii', 'hpp', 'h'],
   editor: 'script',
 };
