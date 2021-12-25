@@ -31,8 +31,8 @@ export const cppStarter: Template = {
 
     button.onclick = async () => {
       // run with new input
-      const result = await livecodes.cpp.run(window.count);
-      update(result.output);
+      const {output, error, exitCode} = await livecodes.cpp.run(window.count);
+      update(output);
     };
 
     function update(output) {

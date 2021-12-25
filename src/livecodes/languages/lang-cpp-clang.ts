@@ -11,23 +11,28 @@ window.CPP_READY.then(() => postMessage({ loaded: true }));
 
 const runCode = async (code, input) => {
   let output = null;
+  let error = null;
+  let exitCode = 0;
   try {
     window.CPP.memfs.setStdinStr(input ?? "");
     await window.CPP.compileLinkRun(code);
     output = window.CPP_OUTPUT;
+  } catch (err) {
+    error = err.message ?? err;
+    exitCode = err.code ?? 1;
   } finally {
     window.CPP.memfs.setStdinStr("");
     window.CPP_OUTPUT = "";
   }
-  return output;
+  return {input, output, error, exitCode};
 }
 
 addEventListener('message', async (e) => {
   await window.CPP_READY;
   const code = e.data.code;
   const input = e.data.input;
-  const output = code.trim() ? await runCode(code, input) : null;
-  postMessage({ output });
+  const result = code.trim() ? await runCode(code, input) : {};
+  postMessage(result);
 });
 `;
 
@@ -46,7 +51,7 @@ livecodes.cpp = livecodes.cpp || {};
 livecodes.cpp.run = livecodes.cpp.run || ((input) => new Promise((resolve) => {
   let code = '';
   livecodes.cpp.input = input;
-  livecodes.cpp.output = '';
+  livecodes.cpp.output = null;
   const scripts = document.querySelectorAll('script[type="text/cpp"]');
   scripts.forEach(script => code += script.innerHTML + '\\n');
   livecodes.cpp.worker.onmessage = function (e) {
@@ -56,10 +61,15 @@ livecodes.cpp.run = livecodes.cpp.run || ((input) => new Promise((resolve) => {
       return;
     }
     const result = e.data;
-    if (result.output != null) {
+    if (result.error != null) {
+      console.error(result.error);
+    } else if (result.output != null) {
       console.log(result.output);
     }
-    livecodes.cpp.output = result.output ?? '';
+    livecodes.cpp.input = result.input;
+    livecodes.cpp.output = result.output;
+    livecodes.cpp.error = result.error;
+    livecodes.cpp.exitCode = result.exitCode;
     livecodes.cpp.ready = true;
     resolve(result);
   };

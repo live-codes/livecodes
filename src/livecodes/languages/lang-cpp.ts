@@ -44,6 +44,7 @@ export const cpp: LanguageSpecs = {
         console.log(livecodes.cpp.output);
       } catch (err) {
         livecodes.cpp.error = err.message || err;
+        livecodes.cpp.exitCode = 1;
         console.error(livecodes.cpp.error);
       }
       loaded = true;
