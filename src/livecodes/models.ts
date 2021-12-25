@@ -138,6 +138,8 @@ export type Language =
   | 'pl'
   | 'pm'
   | 'lua'
+  | 'julia'
+  | 'jl'
   | 'scheme'
   | 'scm'
   | 'commonlisp'
@@ -209,6 +211,7 @@ export interface LanguageSpecs {
   editor: EditorId;
   editorLanguage?: Language;
   preset?: CssPresetId;
+  largeDownload?: boolean;
 }
 
 export interface Processors {
@@ -303,6 +306,7 @@ export interface Compiler {
     | 'text/x-uniter-php'
     | 'text/cpp'
     | 'text/perl'
+    | 'text/julia'
     | 'text/biwascheme'
     | 'text/commonlisp'
     | 'application/json'

@@ -51,6 +51,7 @@ import { astro } from './lang-astro';
 import { malina } from './lang-malina';
 import { commonlisp } from './lang-commonlisp';
 import { cpp } from './lang-cpp';
+import { julia } from './lang-julia';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -99,6 +100,7 @@ export const languages: LanguageSpecs[] = [
   cpp,
   perl,
   lua,
+  julia,
   scheme,
   commonlisp,
   assemblyscript,

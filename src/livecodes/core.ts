@@ -11,6 +11,7 @@ import {
   mapLanguage,
   createLanguageMenus,
   getLanguageTitle,
+  getLanguageSpecs,
 } from './languages';
 import {
   createSimpleStorage,
@@ -478,6 +479,9 @@ const applyLanguageConfigs = async (language: Language) => {
 const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
+  if (getLanguageSpecs(language)?.largeDownload) {
+    notifications.info(`Loading ${getLanguageTitle(language)}. This may take a while!`);
+  }
   if (shouldUpdateEditorBuild([language])) {
     await reloadEditors(getConfig());
   }

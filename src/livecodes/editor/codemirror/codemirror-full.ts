@@ -9,6 +9,7 @@ import { ruby } from '@codemirror/legacy-modes/mode/ruby';
 import { go } from '@codemirror/legacy-modes/mode/go';
 import { perl } from '@codemirror/legacy-modes/mode/perl';
 import { lua } from '@codemirror/legacy-modes/mode/lua';
+import { julia } from '@codemirror/legacy-modes/mode/julia';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
 import { less } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
@@ -41,6 +42,7 @@ export const fullLanguages: Partial<{ [key in Language]: () => LanguageSupport }
   go: () => legacy(go),
   perl: () => legacy(perl),
   lua: () => legacy(lua),
+  julia: () => legacy(julia),
   scheme: () => legacy(scheme),
   less: () => legacy(less),
   stylus: () => legacy(stylus),
