@@ -52,6 +52,7 @@ import { malina } from './lang-malina';
 import { commonlisp } from './lang-commonlisp';
 import { cpp } from './lang-cpp';
 import { julia } from './lang-julia';
+import { clang } from './lang-cpp-clang';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -98,6 +99,7 @@ export const languages: LanguageSpecs[] = [
   go,
   php,
   cpp,
+  clang,
   perl,
   lua,
   julia,

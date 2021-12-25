@@ -103,7 +103,7 @@ export const julia: LanguageSpecs = {
     scripts: [],
     liveReload: true,
     inlineScript: `
-livecodes.julia = livecodes.julia || { autorun: true };
+livecodes.julia = livecodes.julia || {};
 livecodes.julia.run = livecodes.julia.run || ((input) => new Promise((resolve) => {
   let code = '';
   livecodes.julia.input = input;
@@ -134,9 +134,6 @@ livecodes.julia.loaded = new Promise(async function (resolve) {
       return resolve();
     }
   }, 50);
-});
-window.addEventListener('message', (ev) => {
-  livecodes.julia.input = '';
 });
 window.addEventListener('load', async () => {
   livecodes.julia.ready = false;
