@@ -22,6 +22,7 @@ const templates = [
   'Perl',
   'Lua',
   'Scheme',
+  'Tcl',
   'Blockly',
 ];
 

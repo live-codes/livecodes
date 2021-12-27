@@ -11,6 +11,7 @@ import { perl } from '@codemirror/legacy-modes/mode/perl';
 import { lua } from '@codemirror/legacy-modes/mode/lua';
 import { julia } from '@codemirror/legacy-modes/mode/julia';
 import { scheme } from '@codemirror/legacy-modes/mode/scheme';
+import { tcl } from '@codemirror/legacy-modes/mode/tcl';
 import { less } from '@codemirror/legacy-modes/mode/css';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
 import { sql } from '@codemirror/lang-sql';
@@ -44,6 +45,7 @@ export const fullLanguages: Partial<{ [key in Language]: () => LanguageSupport }
   lua: () => legacy(lua),
   julia: () => legacy(julia),
   scheme: () => legacy(scheme),
+  tcl: () => legacy(tcl),
   less: () => legacy(less),
   stylus: () => legacy(stylus),
 };

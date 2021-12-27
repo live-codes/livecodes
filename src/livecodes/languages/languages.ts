@@ -53,6 +53,7 @@ import { commonlisp } from './lang-commonlisp';
 import { cpp } from './lang-cpp';
 import { julia } from './lang-julia';
 import { clang } from './lang-cpp-clang';
+import { tcl } from './lang-tcl';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -105,6 +106,7 @@ export const languages: LanguageSpecs[] = [
   julia,
   scheme,
   commonlisp,
+  tcl,
   assemblyscript,
   wat,
   sql,
