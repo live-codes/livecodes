@@ -41,6 +41,7 @@ import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
 import { juliaStarter } from './julia-starter';
 import { clangStarter } from './clang-starter';
+import { tclStarter } from './tcl-starter';
 
 export const starterTemplates = [
   blank,
@@ -79,6 +80,7 @@ export const starterTemplates = [
   juliaStarter,
   schemeStarter,
   commonlispStarter,
+  tclStarter,
   markdownStarter,
   assemblyscriptStarter,
   watStarter,

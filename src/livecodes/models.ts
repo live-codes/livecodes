@@ -165,6 +165,7 @@ export type Language =
   | 'ocaml'
   | 'ml'
   | 'mli'
+  | 'tcl'
   | 'wat'
   | 'wast'
   | 'webassembly'
@@ -320,6 +321,7 @@ export interface Compiler {
     | 'text/julia'
     | 'text/biwascheme'
     | 'text/commonlisp'
+    | 'text/tcl'
     | 'application/json'
     | 'application/lua'
     | 'application/wasm-uint8';

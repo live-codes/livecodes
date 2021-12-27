@@ -21,6 +21,7 @@ import 'prismjs/components/prism-perl';
 import 'prismjs/components/prism-lua';
 import 'prismjs/components/prism-julia';
 import 'prismjs/components/prism-scheme';
+import 'prismjs/components/prism-tcl';
 import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-wasm';
 
