@@ -69,6 +69,7 @@ export const prologStarter: Template = {
   color: #3d3d3d;
   margin: 1em;
   padding: 1em;
+  text-align: left;
 }
 `.trimStart(),
   },
