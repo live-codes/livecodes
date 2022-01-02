@@ -42,6 +42,7 @@ import { cppStarter } from './cpp-starter';
 import { juliaStarter } from './julia-starter';
 import { clangStarter } from './clang-starter';
 import { tclStarter } from './tcl-starter';
+import { prologStarter } from './prolog-starter';
 
 export const starterTemplates = [
   blank,
@@ -85,5 +86,6 @@ export const starterTemplates = [
   assemblyscriptStarter,
   watStarter,
   sqlStarter,
+  prologStarter,
   blocklyStarter,
 ];

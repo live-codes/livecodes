@@ -23,6 +23,7 @@ import 'prismjs/components/prism-julia';
 import 'prismjs/components/prism-scheme';
 import 'prismjs/components/prism-tcl';
 import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-prolog';
 import 'prismjs/components/prism-wasm';
 
 export { createEditor };
