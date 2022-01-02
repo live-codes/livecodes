@@ -27,19 +27,27 @@ export const prologStarter: Template = {
     });
   }
 
-  async function runQuery(ev) {
+  async function runQuery() {
     const query = document.getElementById("query").value;
     const result = document.getElementById("result");
 
     const session = await livecodes.prolog.createSession({limit: 1000});
-    await session.promiseQuery(query);
-    result.textContent = "";
-    for await (let answer of session.promiseAnswers()) {
-      if(pl.type.is_substitution(answer)) {
-        console.log(session.format_answer(answer));
-        result.textContent += session.format_answer(answer) + '\\n';
+    session.promiseQuery(query).then(async () => {
+      result.textContent = "";
+      for await (let answer of session.promiseAnswers()) {
+        if(pl.type.is_substitution(answer)) {
+          console.log(session.format_answer(answer));
+          result.textContent += session.format_answer(answer) + '\\n';
+        }
       }
-    }
+      if (result.textContent == "") {
+        result.textContent = "false.";
+      }
+      result.classList.remove('error');
+    }).catch((err) => {
+      result.textContent = err;
+      result.classList.add('error');
+    })
   }
 
   getTitle();
@@ -71,7 +79,9 @@ export const prologStarter: Template = {
   padding: 1em;
   text-align: left;
 }
-`.trimStart(),
+#result.error {
+  color: red;
+}`.trimStart(),
   },
   script: {
     language: 'prolog',
