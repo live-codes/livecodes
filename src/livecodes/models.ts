@@ -175,6 +175,8 @@ export type Language =
   | 'sql'
   | 'sqlite'
   | 'sqlite3'
+  | 'prolog.pl'
+  | 'prolog'
   | 'blockly'
   | 'blockly.xml'
   | 'xml';
@@ -322,6 +324,7 @@ export interface Compiler {
     | 'text/biwascheme'
     | 'text/commonlisp'
     | 'text/tcl'
+    | 'text/prolog'
     | 'application/json'
     | 'application/lua'
     | 'application/wasm-uint8';

@@ -54,6 +54,7 @@ import { cpp } from './lang-cpp';
 import { julia } from './lang-julia';
 import { clang } from './lang-cpp-clang';
 import { tcl } from './lang-tcl';
+import { prolog } from './lang-prolog';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -110,5 +111,6 @@ export const languages: LanguageSpecs[] = [
   assemblyscript,
   wat,
   sql,
+  prolog,
   blockly,
 ];

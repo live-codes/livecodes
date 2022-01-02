@@ -404,6 +404,25 @@ test.describe('Starter Templates from UI', () => {
     const resultText = await getResult().innerText('table');
     expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
   });
+
+  test('Prolog Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=Prolog Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Prolog!');
+
+    const resultText = await getResult().innerText('#result');
+    expect(resultText).toBe('X = ali ;\n');
+  });
 });
 
 test.describe('Starter Templates from URL', () => {
@@ -713,5 +732,20 @@ test.describe('Starter Templates from URL', () => {
 
     const resultText = await getResult().innerText('table');
     expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
+  });
+
+  test('Prolog Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'prolog' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Prolog!');
+
+    const resultText = await getResult().innerText('#result');
+    expect(resultText).toBe('X = ali ;\n');
   });
 });
