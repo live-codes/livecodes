@@ -43,6 +43,7 @@ import { juliaStarter } from './julia-starter';
 import { clangStarter } from './clang-starter';
 import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
+import { clioStarter } from './clio-starter';
 
 export const starterTemplates = [
   blank,
@@ -65,6 +66,7 @@ export const starterTemplates = [
   knockoutStarter,
   coffeescriptStarter,
   livescriptStarter,
+  clioStarter,
   rescriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
