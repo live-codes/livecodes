@@ -7,7 +7,7 @@ import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
-import { clio } from './languages';
+import { clio, astro } from './languages';
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
@@ -139,10 +139,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         jsxFactory: undefined,
         reactNamespace: 'h',
       });
-    }
-    if (language === 'clio') {
-      monaco.languages.register({ id: 'clio' });
-      monaco.languages.setMonarchTokensProvider('clio', clio as any);
     }
   };
 
@@ -382,6 +378,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   if (!loaded) {
     registerShowPackageInfo();
+
+    monaco.languages.register({ id: 'clio' });
+    monaco.languages.setMonarchTokensProvider('clio', clio as any);
+
+    monaco.languages.register({ id: 'astro', extensions: ['astro'] });
+    monaco.languages.setLanguageConfiguration('astro', astro.config as any);
+    monaco.languages.setMonarchTokensProvider('astro', astro.tokens as any);
   }
 
   loaded = true;

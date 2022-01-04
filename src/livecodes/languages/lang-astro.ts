@@ -77,5 +77,4 @@ export const astro: LanguageSpecs = {
   },
   extensions: ['astro'],
   editor: 'markup',
-  editorLanguage: 'html',
 };
