@@ -121,6 +121,7 @@ export type Language =
   | 'coffee'
   | 'livescript'
   | 'ls'
+  | 'clio'
   | 'assemblyscript'
   | 'as'
   | 'python'
