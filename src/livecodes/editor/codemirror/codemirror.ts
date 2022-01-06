@@ -1,6 +1,7 @@
 import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
 import { Compartment, Extension } from '@codemirror/state';
 import { defaultHighlightStyle } from '@codemirror/highlight';
+import { undo, redo } from '@codemirror/history';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
 import { indentWithTab } from '@codemirror/commands';
@@ -200,6 +201,15 @@ export const createEditorCreator = (
     });
   };
 
+  const editorUndo = () => {
+    undo({ state: view.state, dispatch: view.dispatch });
+  };
+
+  const editorRedo = () => {
+    redo({ state: view.state, dispatch: view.dispatch });
+  };
+  addKeyBinding('redo', 'Mod-Shift-z', editorRedo);
+
   const destroy = () => {
     listeners.length = 0;
     view.destroy();
@@ -219,6 +229,8 @@ export const createEditorCreator = (
     format,
     isReadonly: readonly,
     setTheme,
+    undo: editorUndo,
+    redo: editorRedo,
     destroy,
     codemirror: view,
   };

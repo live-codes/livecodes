@@ -399,6 +399,8 @@ export interface CodeEditor {
   format: () => Promise<void>;
   isReadonly: boolean;
   setTheme: (theme: Theme) => void;
+  undo: () => void;
+  redo: () => void;
   destroy: () => void;
   monaco?: any;
   codemirror?: any;

@@ -40,6 +40,7 @@
   --modal-background-color: rgb(245, 245, 245);
   --blockly-background-color: rgb(30, 30, 30);
   --blockly-loading-color: rgb(255, 255, 255);
+  --editor-tools-invert: invert(0.8);
 }
 
 :root.light {
@@ -84,6 +85,7 @@
   --modal-background-color: rgb(245, 245, 245);
   --blockly-background-color: rgb(255, 255, 255);
   --blockly-loading-color: rgb(30, 30, 30);
+  --editor-tools-invert: invert(0.3);
 }
 
 * {
@@ -269,6 +271,7 @@ a {
 
   #editors #code-run-button {
     display: flex !important;
+    margin-bottom: 30px !important;
   }
 }
 
@@ -358,17 +361,58 @@ a {
 
 #editors {
   background: var(--background-color);
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow: hidden;
   position: relative;
-  resize: both;
   top: 0;
 
   > div {
-    height: 100%;
+    flex-grow: 1;
+    min-height: 30px;
     position: relative;
-    resize: vertical;
     width: 100%;
+  }
+
+  #editor-tools {
+    background-color: var(--split-bar-color);
+    height: 30px;
+    max-height: 30px;
+    padding: 0;
+
+    &.hidden {
+      display: none;
+    }
+
+    > span {
+      background-color: var(--toolspane-button-color);
+      color: var(--toolbar-text-color);
+      cursor: pointer;
+      display: inline-block;
+      font-size: 12px;
+      margin-left: 1em;
+      text-align: center;
+      width: 30px;
+
+      img {
+        filter: var(--editor-tools-invert);
+        height: 20px;
+        margin: 4px auto;
+
+        &:hover {
+          filter: invert(1);
+        }
+
+        &:active {
+          filter: invert(0.9);
+        }
+      }
+
+      &.disabled img {
+        filter: invert(0.5);
+      }
+    }
   }
 
   #blockly {

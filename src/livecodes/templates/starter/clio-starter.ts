@@ -35,12 +35,12 @@ export const clioStarter: Template = {
 fn capitalize str:
   (str.charAt 0 -> .toUpperCase) + (str.slice 1 -> .toLowerCase)
 
-fn great name:
+fn greet name:
   f"Hello, {name}!"
 
 fn setTitle name:
-  el = document.querySelector "#title"
-  el.innerText = name -> capitalize -> great
+  title = document.querySelector "#title"
+  title.innerText = name -> capitalize -> greet
 
 fn increment value:
   (Number value) + 1
