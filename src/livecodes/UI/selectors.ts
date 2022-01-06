@@ -15,6 +15,12 @@ export const getGutterElement = () =>
 export const getLogoLink = () => document.querySelector('#logo a') as HTMLAnchorElement;
 export const getRunButton = () => document.querySelector('#run-button') as HTMLElement;
 export const getCodeRunButton = () => document.querySelector('#code-run-button') as HTMLElement;
+export const getEditorToolbar = () => document.querySelector('#editor-tools') as HTMLElement;
+export const getCopyButton = () => document.querySelector('#editor-tools #copy-btn') as HTMLElement;
+export const getUndoButton = () => document.querySelector('#editor-tools #undo-btn') as HTMLElement;
+export const getRedoButton = () => document.querySelector('#editor-tools #redo-btn') as HTMLElement;
+export const getFormatButton = () =>
+  document.querySelector('#editor-tools #format-btn') as HTMLElement;
 export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');

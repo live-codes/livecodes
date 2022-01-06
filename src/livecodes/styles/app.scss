@@ -361,24 +361,29 @@ a {
 
 #editors {
   background: var(--background-color);
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow: hidden;
   position: relative;
   top: 0;
 
   > div {
-    height: calc(100% - 30px);
+    flex-grow: 1;
+    min-height: 30px;
     position: relative;
     width: 100%;
   }
 
   #editor-tools {
     background-color: var(--split-bar-color);
-    bottom: 0;
-    display: block;
     height: 30px;
+    max-height: 30px;
     padding: 0;
-    position: absolute;
+
+    &.hidden {
+      display: none;
+    }
 
     > span {
       background-color: var(--toolspane-button-color);

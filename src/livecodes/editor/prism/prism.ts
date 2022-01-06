@@ -104,6 +104,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
   setTheme(options.theme);
 
+  const undo = () => {
+    //
+  };
+
+  const redo = () => {
+    //
+  };
+
   const destroy = () => {
     container.innerHTML = '';
   };
@@ -121,6 +129,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     format,
     isReadonly: true,
     setTheme,
+    undo,
+    redo,
     destroy,
     prism: Prism,
   };

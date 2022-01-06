@@ -283,6 +283,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.editor.setTheme('vs-' + theme);
   };
 
+  const undo = () => {
+    (editor.getModel() as any)?.undo?.();
+  };
+
+  const redo = () => {
+    (editor.getModel() as any)?.redo?.();
+  };
+
   const destroy = () => {
     configureEmmet(false);
     listeners.length = 0;
@@ -404,6 +412,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     format,
     isReadonly: readonly,
     setTheme,
+    undo,
+    redo,
     destroy,
     monaco: editor,
   };

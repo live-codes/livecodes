@@ -453,6 +453,22 @@ const addConsoleInputCodeCompletion = () => {
   }
 };
 
+const configureEditorTools = (language: Language) => {
+  if (getConfig().readonly || getActiveEditor().prism || language === 'blockly') {
+    UI.getEditorToolbar().classList.add('hidden');
+    return false;
+  }
+  UI.getEditorToolbar().classList.remove('hidden');
+
+  const langSpecs = getLanguageSpecs(language);
+  if (langSpecs?.formatter || langSpecs?.parser) {
+    UI.getFormatButton().classList.remove('disabled');
+  } else {
+    UI.getFormatButton().classList.add('disabled');
+  }
+  return true;
+};
+
 const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
   const addToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
   if (code) {
@@ -467,6 +483,8 @@ const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => 
 const applyLanguageConfigs = async (language: Language) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
+
+  configureEditorTools(language);
 
   await showBlockly(language === 'blockly', {
     baseUrl,
@@ -1287,6 +1305,30 @@ const handleRunButton = () => {
 
 const handleResultButton = () => {
   eventsManager.addEventListener(UI.getResultButton(), 'click', () => split.show('output', true));
+};
+
+const handleEditorTools = () => {
+  if (!configureEditorTools(getActiveEditor().getLanguage())) return;
+
+  eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
+    if (copyToClipboard(getActiveEditor().getValue())) {
+      notifications.success('Code copied to clipboard');
+    } else {
+      notifications.error('Failed to copy code');
+    }
+  });
+
+  eventsManager.addEventListener(UI.getUndoButton(), 'click', () => {
+    getActiveEditor().undo();
+  });
+
+  eventsManager.addEventListener(UI.getRedoButton(), 'click', () => {
+    getActiveEditor().redo();
+  });
+
+  eventsManager.addEventListener(UI.getFormatButton(), 'click', () => {
+    getActiveEditor().format();
+  });
 };
 
 const handleProcessors = () => {
@@ -2196,6 +2238,7 @@ const basicHandlers = () => {
   handleHotKeys();
   handleRunButton();
   handleResultButton();
+  handleEditorTools();
   handleProcessors();
   handleResultLoading();
 };
