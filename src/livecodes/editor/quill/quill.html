@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rich Text Editor</title>
+  </head>
+  <body>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      #standalone-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-height: 100%;
+      }
+      #editor-container {
+        flex-grow: 0;
+        overflow-y: auto;
+      }
+      body {
+        background: #fff;
+      }
+      .ql-snow.ql-toolbar {
+        background: #eaecec;
+      }
+      #toolbar-container .ql-font span[data-label='Arial']::before {
+        font-family: Arial, sans-serif;
+      }
+      #toolbar-container .ql-font span[data-label='Verdana']::before {
+        font-family: Verdana, sans-serif;
+      }
+      #toolbar-container .ql-font span[data-label='Helvetica']::before {
+        font-family: Helvetica, sans-serif;
+      }
+      #toolbar-container .ql-font span[data-label='Tahoma']::before {
+        font-family: Tahoma, sans-serif;
+      }
+      #toolbar-container .ql-font span[data-label='Trebuchet MS']::before {
+        font-family: Trebuchet MS, sans-serif;
+      }
+      #toolbar-container .ql-font span[data-label='Times New Roman']::before {
+        font-family: Times New Roman, serif;
+      }
+      #toolbar-container .ql-font span[data-label='Georgia']::before {
+        font-family: Georgia, serif;
+      }
+      #toolbar-container .ql-font span[data-label='Garamond']::before {
+        font-family: Garamond, serif;
+      }
+      #toolbar-container .ql-font span[data-label='Courier New']::before {
+        font-family: Courier New, monospace;
+      }
+      #toolbar-container .ql-font span[data-label='Brush Script MT']::before {
+        font-family: Brush Script MT, cursive;
+      }
+    </style>
+
+    <!-- styles placeholder -->
+
+    <div id="standalone-container">
+      <div id="toolbar-container">
+        <span class="ql-formats">
+          <select class="ql-font" title="Font Face">
+            <option selected>Default</option>
+            <option>Arial</option>
+            <option>Helvetica</option>
+            <option>Verdana</option>
+            <option>Tahoma</option>
+            <option>Trebuchet MS</option>
+            <option>Times New Roman</option>
+            <option>Georgia</option>
+            <option>Garamond</option>
+            <option>Courier New</option>
+            <option>Brush Script MT</option>
+          </select>
+          <select class="ql-size">
+            <option value="0.75em">Small</option>
+            <option selected>Normal</option>
+            <option value="1.5em">Large</option>
+            <option value="2.5em">Huge</option>
+          </select>
+          <select class="ql-header" title="Heading">
+            <option value=""></option>
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5"></option>
+            <option value="6"></option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-bold" title="Bold"></button>
+          <button class="ql-italic" title="Italic"></button>
+          <button class="ql-underline" title="Underline"></button>
+          <button class="ql-strike" title="Strike"></button>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-color" title="Font Color"></select>
+          <select class="ql-background" title="Background Color"></select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-script" value="sub" title="Subscript"></button>
+          <button class="ql-script" value="super" title="Superscript"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered" title="Ordered List"></button>
+          <button class="ql-list" value="bullet" title="Unordered List"></button>
+          <button class="ql-indent" value="-1" title="Outdent"></button>
+          <button class="ql-indent" value="+1" title="Indent"></button>
+          <button class="ql-blockquote" title="Quote"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-direction" value="rtl" title="Text Direction"></button>
+          <select class="ql-align" title="Align">
+            <option></option>
+            <option value="right"></option>
+            <option value="center"></option>
+            <option value="justify"></option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-link" title="Link"></button>
+          <button class="ql-image" title="Image"></button>
+          <button class="ql-video" title="Video"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-clean" title="Reset formatting"></button>
+        </span>
+      </div>
+      <div id="editor-container"></div>
+    </div>
+
+    <!-- script placeholder -->
+
+    <script>
+      (() => {
+        let updatingContent = false;
+
+        var Font = Quill.import('attributors/style/font');
+        Font.whitelist = [
+          'Arial',
+          'Helvetica',
+          'Verdana',
+          'Tahoma',
+          'Trebuchet MS',
+          'Times New Roman',
+          'Georgia',
+          'Garamond',
+          'Courier New',
+          'Brush Script MT',
+        ];
+        Quill.register(Font, true);
+
+        var SizeStyle = Quill.import('attributors/style/size');
+        SizeStyle.whitelist = ['0.75em', '1.5em', '2.5em'];
+        Quill.register(SizeStyle, true);
+
+        var Align = Quill.import('attributors/style/align');
+        Quill.register(Align, true);
+
+        var Direction = Quill.import('attributors/style/direction');
+        Quill.register(Direction, true);
+
+        var quill = new Quill('#editor-container', {
+          modules: {
+            toolbar: '#toolbar-container',
+          },
+          placeholder: 'Content...',
+          theme: 'snow',
+          // {{ custom config }}
+        });
+
+        function updateCode() {
+          parent.postMessage(
+            { type: 'quillEditorCode', payload: { html: quill.root.innerHTML || '' } },
+            '*',
+          );
+        }
+
+        quill.on('text-change', () => {
+          if (updatingContent) {
+            updatingContent = false;
+            return; // prevent infinite loop
+          }
+          updateCode();
+        });
+
+        window.addEventListener('message', function (event) {
+          if (event.data.html) {
+            updatingContent = true;
+            quill.root.innerHTML = event.data.html;
+          } else if (event.data.type === 'updateCode') {
+            updateCode();
+          } else if (event.data.type === 'setTheme') {
+          }
+        });
+        document.addEventListener('keydown', function (ev) {
+          if (ev.ctrlKey && ev.key === 's') {
+            // save
+          }
+        });
+
+        window.addEventListener('load', () => {
+          parent.postMessage({ type: 'quillEditorLoaded', payload: true }, '*');
+          updateCode();
+        });
+      })();
+    </script>
+  </body>
+</html>

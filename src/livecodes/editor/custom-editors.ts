@@ -1,8 +1,8 @@
 import { CustomEditors } from '../models';
 import { createBlocklyEditor } from './blockly';
-import { createCkeditor } from './ckeditor';
+import { createQuillEditor } from './quill';
 
 export const createCustomEditors = (baseUrl: string): CustomEditors => ({
   blockly: createBlocklyEditor(baseUrl),
-  richtext: createCkeditor(baseUrl),
+  richtext: createQuillEditor(baseUrl),
 });

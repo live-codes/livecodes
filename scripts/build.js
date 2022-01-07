@@ -147,13 +147,13 @@ esbuild.buildSync({
 
 esbuild.buildSync({
   ...baseOptions,
-  entryPoints: ['src/livecodes/blockly/blockly-editor.ts'],
+  entryPoints: ['src/livecodes/editor/blockly/blockly.ts'],
   loader: { '.html': 'text' },
 });
 
 esbuild.buildSync({
   ...baseOptions,
-  entryPoints: ['src/livecodes/editor/ckeditor/ckeditor.ts'],
+  entryPoints: ['src/livecodes/editor/quill/quill.ts'],
   loader: { '.html': 'text' },
 });
 

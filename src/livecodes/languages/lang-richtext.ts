@@ -6,6 +6,7 @@ export const richtext: LanguageSpecs = {
   longTitle: 'Rich Text Editor',
   compiler: {
     factory: () => async (_code, { config }) => config.markup.content || '',
+    styles: ['styles/quill.css'],
   },
   extensions: ['rte.html', 'rte', 'rich'],
   editor: 'markup',

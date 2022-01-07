@@ -488,8 +488,8 @@ const applyLanguageConfigs = async (language: Language) => {
 
   configureEditorTools(language);
 
-  (Object.keys(customEditors) as Language[]).forEach(async (key) => {
-    await customEditors[key]?.show(language === key, {
+  (Object.keys(customEditors) as Language[]).forEach(async (lang) => {
+    await customEditors[lang]?.show(Object.values(editorLanguages || []).includes(lang), {
       baseUrl,
       editors,
       config: getConfig(),
@@ -772,6 +772,9 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
     ...content,
   });
   setProjectRestore();
+
+  // flush result page
+  createIframe(UI.getResultElement(), '<!-- flush -->');
 
   // load title
   const projectTitle = UI.getProjectTitleElement();
