@@ -24,7 +24,6 @@ const templates = [
   'Lua',
   'Scheme',
   'Tcl',
-  'Blockly',
 ];
 
 test.describe('Starter Templates from UI', () => {
@@ -430,6 +429,8 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click('[title=Settings]');
+    await app.click('text=New');
     await app.click(`text=Blockly Starter`);
     await waitForEditorFocus(app);
 
