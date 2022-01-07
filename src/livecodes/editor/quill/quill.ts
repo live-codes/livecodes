@@ -1,6 +1,11 @@
 import { CustomEditorOptions, Theme } from '../../models';
 import { sandboxService } from '../../services';
-import { quillEditorCdnBaseUrl } from '../../vendors';
+import {
+  quillBetterTableBaseUrl,
+  quillBlotFormaterUrl,
+  quillEditorCdnBaseUrl,
+  quillHtmlEditUrl,
+} from '../../vendors';
 // @ts-ignore
 import quillEditorHTML from './quill.html';
 
@@ -22,15 +27,21 @@ export const showQuillEditor = async ({
     return;
   }
 
-  const quillEditorScript = `<script src="${quillEditorCdnBaseUrl}/quill.min.js"></script>`;
+  const quillEditorScripts = `
+  <script src="${quillEditorCdnBaseUrl}/quill.min.js"></script>
+  <script src="${quillHtmlEditUrl}"></script>
+  <script src="${quillBlotFormaterUrl}"></script>
+  <script src="${quillBetterTableBaseUrl}/quill-better-table.min.js"></script>
+    `;
   const quillEditorStyles = `
   <link rel="stylesheet" href="${baseUrl}styles/quill.css" />
   <link rel="stylesheet" href="${quillEditorCdnBaseUrl}/quill.snow.css" />
+  <link rel="stylesheet" href="${quillBetterTableBaseUrl}/quill-better-table.css" />
   `;
   const getQuillEditorHTML = () =>
     quillEditorHTML
       .replace('<!-- styles placeholder -->', quillEditorStyles)
-      .replace('<!-- script placeholder -->', quillEditorLoaded ? '' : quillEditorScript)
+      .replace('<!-- scripts placeholder -->', quillEditorLoaded ? '' : quillEditorScripts)
       // .replace('{{theme}}', config.theme)
       .replace('// {{ custom config }}', config.readonly ? 'readOnly: true' : '')
       .replace('<!-- content placeholder -->', editors.markup.getValue());
