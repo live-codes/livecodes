@@ -56,6 +56,7 @@ import { clang } from './lang-cpp-clang';
 import { tcl } from './lang-tcl';
 import { prolog } from './lang-prolog';
 import { clio } from './lang-clio';
+import { richtext } from './lang-richtext';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -71,6 +72,7 @@ export const languages: LanguageSpecs[] = [
   liquid,
   dot,
   twig,
+  richtext,
   css,
   scss,
   sass,

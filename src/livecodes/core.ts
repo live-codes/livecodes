@@ -1,4 +1,4 @@
-import { basicLanguages, createEditor, selectedEditor } from './editor';
+import { basicLanguages, createEditor, selectedEditor, createCustomEditors } from './editor';
 import {
   languages,
   getLanguageEditorId,
@@ -40,6 +40,8 @@ import {
   UserConfig,
   Await,
   Code,
+  CustomEditors,
+  BlocklyContent,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -91,7 +93,6 @@ import {
 } from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
-import { getBlocklyContent, setBlocklyTheme, showBlockly } from './blockly';
 import { createOpenItem } from './UI';
 
 const eventsManager = createEventsManager();
@@ -111,6 +112,7 @@ let isEmbed: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
+let customEditors: CustomEditors;
 let toolsPane: any;
 let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
@@ -454,7 +456,12 @@ const addConsoleInputCodeCompletion = () => {
 };
 
 const configureEditorTools = (language: Language) => {
-  if (getConfig().readonly || getActiveEditor().prism || language === 'blockly') {
+  if (
+    getConfig().readonly ||
+    getActiveEditor().prism ||
+    language === 'blockly' ||
+    language === 'richtext'
+  ) {
     UI.getEditorToolbar().classList.add('hidden');
     return false;
   }
@@ -486,11 +493,14 @@ const applyLanguageConfigs = async (language: Language) => {
 
   configureEditorTools(language);
 
-  await showBlockly(language === 'blockly', {
-    baseUrl,
-    editors,
-    html: getCache().markup.compiled || getConfig().markup.content || '',
-    eventsManager,
+  (Object.keys(customEditors) as Language[]).forEach(async (lang) => {
+    await customEditors[lang]?.show(Object.values(editorLanguages || []).includes(lang), {
+      baseUrl,
+      editors,
+      config: getConfig(),
+      html: getCache().markup.compiled || getConfig().markup.content || '',
+      eventsManager,
+    });
   });
 };
 
@@ -600,7 +610,13 @@ const getResultPage = async ({
     compiler.compile(scriptContent, scriptLanguage, config, {
       blockly:
         scriptLanguage === 'blockly'
-          ? await getBlocklyContent({ baseUrl, editors, html: compiledMarkup, eventsManager })
+          ? ((await customEditors.blockly?.getContent({
+              baseUrl,
+              editors,
+              config: getConfig(),
+              html: compiledMarkup,
+              eventsManager,
+            })) as BlocklyContent)
           : {},
     }),
   ]);
@@ -662,8 +678,13 @@ const setProjectTitle = (setDefault = false) => {
 
 const setWindowTitle = () => {
   const title = getConfig().title;
+  const hostLabel = location.hostname.startsWith('dev.livecodes.io')
+    ? '(dev) '
+    : location.hostname.startsWith('127.0.0.1') || location.hostname.startsWith('localhost')
+    ? '(local) '
+    : '';
   parent.document.title =
-    (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
+    hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
 
 const run = async (editorId?: EditorId) => {
@@ -756,6 +777,9 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
     ...content,
   });
   setProjectRestore();
+
+  // flush result page
+  createIframe(UI.getResultElement(), '<!-- flush -->');
 
   // load title
   const projectTitle = UI.getProjectTitleElement();
@@ -1031,8 +1055,10 @@ const setTheme = (theme: Theme) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
-  getAllEditors().forEach((editor) => editor?.setTheme(theme));
-  setBlocklyTheme(theme);
+  getAllEditors().forEach((editor) => {
+    editor?.setTheme(theme);
+    customEditors[editor?.getLanguage()]?.setTheme(theme);
+  });
 };
 
 const loadSettings = (config: Config) => {
@@ -1226,16 +1252,20 @@ const handleChangeContent = () => {
       await run(editorId);
     }
 
-    if (getConfig().script.language === 'blockly') {
-      if (getConfig().markup.content !== getCache().markup.content) {
-        await getResultPage({ sourceEditor: editorId });
+    if (getConfig().markup.content !== getCache().markup.content) {
+      await getResultPage({ sourceEditor: editorId });
+    }
+
+    for (const key of Object.keys(customEditors)) {
+      if (getConfig()[editorId].language === key) {
+        await customEditors[key]?.show(true, {
+          baseUrl,
+          editors,
+          config: getConfig(),
+          html: getCache().markup.compiled || getConfig().markup.content || '',
+          eventsManager,
+        });
       }
-      await showBlockly(true, {
-        baseUrl,
-        editors,
-        html: getCache().markup.compiled || getConfig().markup.content || '',
-        eventsManager,
-      });
     }
 
     if (getConfig().autosave) {
@@ -2379,6 +2409,7 @@ const initializeApp = async (
   setConfig(buildConfig(appConfig, baseUrl));
   compiler = await getCompiler(getConfig(), baseUrl);
   formatter = getFormatter(getConfig(), baseUrl);
+  customEditors = createCustomEditors(baseUrl);
   if (isEmbed) {
     configureEmbed(eventsManager, share);
   }

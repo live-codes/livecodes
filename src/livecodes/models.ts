@@ -83,6 +83,10 @@ export type Language =
   | 'liquidjs'
   | 'dot'
   | 'twig'
+  | 'richtext'
+  | 'rte'
+  | 'rich'
+  | 'rte.html'
   | 'css'
   | 'scss'
   | 'sass'
@@ -418,6 +422,30 @@ export interface EditorOptions {
   editorType: 'code' | 'compiled' | 'console';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
+}
+
+export interface CustomEditor {
+  language: Language;
+  show: (show: boolean, options: CustomEditorOptions) => Promise<void>;
+  getContent: (options: CustomEditorOptions) => Promise<unknown>;
+  setTheme: (theme: Theme) => void;
+}
+
+export interface CustomEditorOptions {
+  baseUrl: string;
+  editors: Editors;
+  config: Config;
+  html: string;
+  eventsManager: ReturnType<typeof createEventsManager>;
+}
+
+export type CustomEditors = {
+  [key in Language]?: CustomEditor;
+};
+
+export interface BlocklyContent {
+  xml?: string;
+  js?: string;
 }
 
 export interface User {

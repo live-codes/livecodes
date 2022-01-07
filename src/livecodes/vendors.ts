@@ -30,6 +30,13 @@ export const lunaConsoleStylesUrl =
   'https://cdn.jsdelivr.net/npm/luna-console@0.2.1/luna-console.css';
 
 export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/';
+export const quillEditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/quill@2.0.0-dev.4/dist';
+export const quillHtmlEditUrl =
+  'https://cdn.jsdelivr.net/npm/quill-html-edit-button@2.2.7/dist/quill.htmlEditButton.min.js';
+export const quillBlotFormaterUrl =
+  'https://cdn.jsdelivr.net/npm/quill-blot-formatter@1.0.5/dist/quill-blot-formatter.min.js';
+export const quillBetterTableBaseUrl =
+  'https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist';
 
 export const jsZipUrl =
   'https://cdn.skypack.dev/-/jszip@v3.7.1-quihaZrSeNyrwABoIb7Z/dist=es2020,mode=imports,min/optimized/jszip.js';

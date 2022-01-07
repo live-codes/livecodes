@@ -38,8 +38,8 @@
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
-  --blockly-background-color: rgb(30, 30, 30);
-  --blockly-loading-color: rgb(255, 255, 255);
+  --custom-editor-background-color: rgb(30, 30, 30);
+  --custom-editor-loading-color: rgb(255, 255, 255);
   --editor-tools-invert: invert(0.8);
 }
 
@@ -83,8 +83,8 @@
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
-  --blockly-background-color: rgb(255, 255, 255);
-  --blockly-loading-color: rgb(30, 30, 30);
+  --custom-editor-background-color: rgb(255, 255, 255);
+  --custom-editor-loading-color: rgb(30, 30, 30);
   --editor-tools-invert: invert(0.3);
 }
 
@@ -415,8 +415,8 @@ a {
     }
   }
 
-  #blockly {
-    background-color: var(--blockly-background-color);
+  .custom-editor {
+    background-color: var(--custom-editor-background-color);
     display: none;
     height: 100%;
     left: 0;
@@ -436,8 +436,8 @@ a {
       width: 100%;
     }
 
-    #loading-blockly {
-      color: var(--blockly-loading-color);
+    .loading-custom-editor {
+      color: var(--custom-editor-loading-color);
       margin: 1em;
     }
   }

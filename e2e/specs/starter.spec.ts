@@ -24,7 +24,6 @@ const templates = [
   'Lua',
   'Scheme',
   'Tcl',
-  'Blockly',
 ];
 
 test.describe('Starter Templates from UI', () => {
@@ -424,6 +423,30 @@ test.describe('Starter Templates from UI', () => {
     const resultText = await getResult().innerText('#result');
     expect(resultText).toBe('X = ali ;\n');
   });
+
+  test('Blockly Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click(`text=Blockly Starter`);
+    await waitForEditorFocus(app);
+
+    await app.waitForTimeout(2000);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe(`Hello, Blockly!`);
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
 });
 
 test.describe('Starter Templates from URL', () => {
@@ -748,5 +771,24 @@ test.describe('Starter Templates from URL', () => {
 
     const resultText = await getResult().innerText('#result');
     expect(resultText).toBe('X = ali ;\n');
+  });
+
+  test('Blockly Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'blockly' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.waitForTimeout(2000);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Blockly!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 });
