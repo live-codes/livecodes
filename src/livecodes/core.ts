@@ -456,7 +456,12 @@ const addConsoleInputCodeCompletion = () => {
 };
 
 const configureEditorTools = (language: Language) => {
-  if (getConfig().readonly || getActiveEditor().prism || language === 'blockly') {
+  if (
+    getConfig().readonly ||
+    getActiveEditor().prism ||
+    language === 'blockly' ||
+    language === 'richtext'
+  ) {
     UI.getEditorToolbar().classList.add('hidden');
     return false;
   }
