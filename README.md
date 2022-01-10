@@ -14,9 +14,9 @@ A powerful frontend coding playground that runs totally on the client and can be
 
 TL;DR: [Getting started](#getting-started)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f268090585f8484abe5947bdf13e15b4)](https://app.codacy.com/gh/live-codes/livecodes?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade_Settings)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
 
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/live-codes/livecodes/tree/master&refcode=fb8c00b45b91)
+[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/live-codes/livecodes/tree/develop&refcode=fb8c00b45b91)
 
 ## Feature Summary: <!-- omit in toc -->
 

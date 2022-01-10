@@ -2,8 +2,8 @@ spec:
   name: livecodes
   static_sites:
     - github:
-        repo: hatemhosny/livecodes
+        repo: live-codes/livecodes
         branch: master
-        deploy_on_push: true
+        deploy_on_push: false
       name: livecodes
       build_command: npm run build
