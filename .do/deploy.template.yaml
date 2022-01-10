@@ -2,7 +2,7 @@ spec:
   name: livecodes
   static_sites:
     - github:
-        repo: hatemhosny/livecodes
+        repo: live-codes/livecodes
         branch: master
         deploy_on_push: true
       name: livecodes
