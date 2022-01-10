@@ -4,6 +4,6 @@ spec:
     - github:
         repo: live-codes/livecodes
         branch: master
-        deploy_on_push: true
+        deploy_on_push: false
       name: livecodes
       build_command: npm run build
