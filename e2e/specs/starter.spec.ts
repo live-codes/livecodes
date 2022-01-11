@@ -447,6 +447,24 @@ test.describe('Starter Templates from UI', () => {
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
   });
+
+  test('Gnuplot Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click(`text=Gnuplot Starter`);
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    const images = await getResult().$$('img');
+    for (const img of images) {
+      expect((await img.getAttribute('src')).startsWith('data:image')).toBe(true);
+    }
+  });
 });
 
 test.describe('Starter Templates from URL', () => {
@@ -790,5 +808,19 @@ test.describe('Starter Templates from URL', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('Gnuplot Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'gnuplot' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const images = await getResult().$$('img');
+    for (const img of images) {
+      expect((await img.getAttribute('src')).startsWith('data:image')).toBe(true);
+    }
   });
 });
