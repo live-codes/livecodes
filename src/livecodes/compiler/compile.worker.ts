@@ -46,6 +46,8 @@ const loadLanguageCompiler = (
           compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
         throw new Error('Failed to load compiler for: ' + language);
       }
     }

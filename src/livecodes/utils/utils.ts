@@ -199,3 +199,16 @@ export const getDate = () => {
 export const handleFetchError = (res: Response) => (res.ok ? res : Promise.reject());
 export const fetchWithHandler = (input: RequestInfo, init?: RequestInit) =>
   fetch(input, init).then(handleFetchError);
+
+export const blobToBase64 = (file: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => (typeof reader.result === 'string' ? resolve(reader.result) : reject());
+    reader.onerror = (error) => reject(error);
+  });
+
+export const getWorkerDataURL = (url: string) => {
+  const content = `importScripts("${url}");`;
+  return 'data:text/javascript;base64,' + btoa(content);
+};
