@@ -720,12 +720,12 @@ li.editor-title {
 .menu-scroller {
   display: none;
   height: calc(100vh - 40px);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  position: absolute;
 
   max-width: 45vw;
   min-width: 150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
   right: -6px;
   top: 35px;
   width: calc(100% + 18px);
@@ -803,10 +803,10 @@ li.editor-title {
 }
 
 #settings-menu-container {
+  max-width: 90vw;
   right: 10px;
   top: 40px;
   width: 750px;
-  max-width: 90vw;
 }
 
 #settings-menu-container:hover {
