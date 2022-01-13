@@ -91,6 +91,8 @@
 * {
   margin: 0;
   padding: 0;
+  scrollbar-color: var(--scrollbar-color);
+  scrollbar-width: none;
 }
 
 html,
@@ -891,6 +893,7 @@ li.editor-title {
 }
 
 .submenu {
+  column-count: 1;
   display: none !important;
   left: unset;
   margin: 0 !important;
@@ -900,13 +903,11 @@ li.editor-title {
   top: 0;
 
   &#export-menu {
-    bottom: -6em;
-    top: unset;
+    top: -1em;
   }
 
   &#css-preset-menu {
-    bottom: 0;
-    top: unset;
+    top: -2em;
   }
 }
 
