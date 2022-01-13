@@ -690,18 +690,6 @@ li.editor-title {
     }
   }
 
-  .menu-scroller {
-    max-width: 45vw;
-    min-width: 150px;
-    right: -6px;
-    top: 35px;
-    width: calc(100% + 18px);
-  }
-
-  .menu-scroller-script {
-    width: calc(200% + 18px);
-  }
-
   > .language-menu-button:focus + .menu-scroller {
     animation: fadeIn 0.4s forwards;
     display: block;
@@ -729,20 +717,96 @@ li.editor-title {
   width: calc(100% - 12px);
 }
 
-.dropdown-menu-script {
+.menu-scroller {
+  display: none;
+  height: calc(100vh - 40px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
+
+  max-width: 45vw;
+  min-width: 150px;
+  right: -6px;
+  top: 35px;
+  width: calc(100% + 18px);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &.hidden {
+    display: none !important;
+  }
+}
+
+.menu-scroller-markup {
+  max-width: 50vw;
+  right: calc(-100% - 6px);
+  width: calc(200% + 18px);
+}
+
+.menu-scroller-script {
+  max-width: 75vw;
+  right: calc(-133% - 6px);
+  width: calc(400% + 18px);
+}
+
+.dropdown-menu-markup {
   column-count: 2;
   column-rule: 1px solid var(--menu-split-color);
 }
 
+.dropdown-menu-script {
+  column-count: 3;
+  column-rule: 1px solid var(--menu-split-color);
+}
+
 @media only screen and (max-width: 1080px) {
-  .menu-scroller-script {
-    max-width: 80vw !important;
-    width: 300% !important;
+  .menu-scroller {
+    max-width: 80vw;
+    width: 150%;
   }
 
-  #settings-menu {
-    max-width: 60vw !important;
+  .menu-scroller-markup {
+    right: calc(-150% - 6px);
+    width: 300%;
   }
+
+  .menu-scroller-script {
+    right: calc(-133% - 6px);
+    width: 400%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .menu-scroller {
+    max-width: 80vw;
+    width: 120%;
+  }
+
+  .menu-scroller-markup {
+    right: calc(-100% - 6px);
+    width: 200%;
+  }
+
+  .menu-scroller-script {
+    right: 0;
+    width: 400%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .menu-scroller-markup {
+    right: calc(-130% - 6px);
+    width: 300%;
+  }
+}
+
+#settings-menu-container {
+  right: 10px;
+  top: 40px;
+  width: 750px;
+  max-width: 90vw;
 }
 
 #settings-menu-container:hover {
@@ -795,25 +859,6 @@ li.editor-title {
   }
 }
 
-.menu-scroller {
-  display: none;
-  height: calc(100vh - 40px);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  position: absolute;
-  right: 10px;
-  top: 40px;
-  width: 750px;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &.hidden {
-    display: none !important;
-  }
-}
-
 #settings-menu {
   column-count: 2;
   column-rule: 1px solid var(--menu-split-color);
@@ -837,6 +882,11 @@ li.editor-title {
         margin-left: 7px;
       }
     }
+  }
+}
+@media only screen and (max-width: 1080px) {
+  #settings-menu {
+    max-width: 60vw;
   }
 }
 
