@@ -822,13 +822,13 @@ li.editor-title {
   &:focus + .menu-scroller .dropdown-menu,
   &:active + .menu-scroller .dropdown-menu {
     animation: fadeIn 0.4s forwards;
-    display: block;
+    display: flex;
   }
 }
 
 #settings-menu:hover {
   animation: fadeIn 0.4s forwards;
-  display: block;
+  display: flex;
 }
 
 .dropdown-menu li,
@@ -862,17 +862,24 @@ li.editor-title {
 }
 
 #settings-menu {
-  column-count: 2;
-  column-rule: 1px solid var(--menu-split-color);
   left: unset;
   margin-top: 0;
   max-width: 45vw;
+  max-height: 24em;
   right: 0;
   top: 0;
   width: 500px;
 
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  &:hover {
+    display: flex !important;
+  }
+
   li {
     position: relative;
+    flex: 40%;
 
     > {
       * {
