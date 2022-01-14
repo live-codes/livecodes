@@ -862,24 +862,24 @@ li.editor-title {
 }
 
 #settings-menu {
-  left: unset;
-  margin-top: 0;
-  max-width: 45vw;
-  max-height: 24em;
-  right: 0;
-  top: 0;
-  width: 500px;
 
   flex-direction: column;
   flex-wrap: wrap;
+  left: unset;
+  margin-top: 0;
+  max-height: 24em;
+  max-width: 45vw;
+  right: 0;
+  top: 0;
+  width: 500px;
 
   &:hover {
     display: flex !important;
   }
 
   li {
-    position: relative;
     flex: 40%;
+    position: relative;
 
     > {
       * {
