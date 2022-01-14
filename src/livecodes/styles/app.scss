@@ -893,7 +893,7 @@ li.editor-title {
 }
 
 .submenu {
-  column-count: 1;
+  column-count: 1 !important;
   display: none !important;
   left: unset;
   margin: 0 !important;
@@ -901,13 +901,14 @@ li.editor-title {
   position: absolute !important;
   right: 98%;
   top: 0;
+  transform: translate3d(0, 0, 0);
 
   &#export-menu {
-    top: -1em;
+    top: -2em;
   }
 
   &#css-preset-menu {
-    top: -2em;
+    top: -4em;
   }
 }
 
