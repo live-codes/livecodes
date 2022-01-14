@@ -91,6 +91,8 @@
 * {
   margin: 0;
   padding: 0;
+  scrollbar-color: var(--scrollbar-color);
+  scrollbar-width: none;
 }
 
 html,
@@ -690,18 +692,6 @@ li.editor-title {
     }
   }
 
-  .menu-scroller {
-    max-width: 45vw;
-    min-width: 150px;
-    right: -6px;
-    top: 35px;
-    width: calc(100% + 18px);
-  }
-
-  .menu-scroller-script {
-    width: calc(200% + 18px);
-  }
-
   > .language-menu-button:focus + .menu-scroller {
     animation: fadeIn 0.4s forwards;
     display: block;
@@ -729,20 +719,96 @@ li.editor-title {
   width: calc(100% - 12px);
 }
 
-.dropdown-menu-script {
+.menu-scroller {
+  display: none;
+  height: calc(100vh - 40px);
+
+  max-width: 45vw;
+  min-width: 150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: absolute;
+  right: -6px;
+  top: 35px;
+  width: calc(100% + 18px);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &.hidden {
+    display: none !important;
+  }
+}
+
+.menu-scroller-markup {
+  max-width: 50vw;
+  right: calc(-100% - 6px);
+  width: calc(200% + 18px);
+}
+
+.menu-scroller-script {
+  max-width: 75vw;
+  right: calc(-133% - 6px);
+  width: calc(400% + 18px);
+}
+
+.dropdown-menu-markup {
   column-count: 2;
   column-rule: 1px solid var(--menu-split-color);
 }
 
+.dropdown-menu-script {
+  column-count: 3;
+  column-rule: 1px solid var(--menu-split-color);
+}
+
 @media only screen and (max-width: 1080px) {
-  .menu-scroller-script {
-    max-width: 80vw !important;
-    width: 300% !important;
+  .menu-scroller {
+    max-width: 80vw;
+    width: 150%;
   }
 
-  #settings-menu {
-    max-width: 60vw !important;
+  .menu-scroller-markup {
+    right: calc(-150% - 6px);
+    width: 300%;
   }
+
+  .menu-scroller-script {
+    right: calc(-133% - 6px);
+    width: 400%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .menu-scroller {
+    max-width: 80vw;
+    width: 120%;
+  }
+
+  .menu-scroller-markup {
+    right: calc(-100% - 6px);
+    width: 200%;
+  }
+
+  .menu-scroller-script {
+    right: 0;
+    width: 400%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .menu-scroller-markup {
+    right: calc(-130% - 6px);
+    width: 300%;
+  }
+}
+
+#settings-menu-container {
+  max-width: 90vw;
+  right: 10px;
+  top: 40px;
+  width: 750px;
 }
 
 #settings-menu-container:hover {
@@ -756,13 +822,13 @@ li.editor-title {
   &:focus + .menu-scroller .dropdown-menu,
   &:active + .menu-scroller .dropdown-menu {
     animation: fadeIn 0.4s forwards;
-    display: block;
+    display: flex;
   }
 }
 
 #settings-menu:hover {
   animation: fadeIn 0.4s forwards;
-  display: block;
+  display: flex;
 }
 
 .dropdown-menu li,
@@ -795,36 +861,23 @@ li.editor-title {
   }
 }
 
-.menu-scroller {
-  display: none;
-  height: calc(100vh - 40px);
-  overflow-x: hidden;
-  overflow-y: scroll;
-  position: absolute;
-  right: 10px;
-  top: 40px;
-  width: 750px;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &.hidden {
-    display: none !important;
-  }
-}
-
 #settings-menu {
-  column-count: 2;
-  column-rule: 1px solid var(--menu-split-color);
+  flex-direction: column;
+  flex-wrap: wrap;
   left: unset;
   margin-top: 0;
+  max-height: 26em;
   max-width: 45vw;
   right: 0;
   top: 0;
   width: 500px;
 
+  &:hover {
+    display: flex !important;
+  }
+
   li {
+    flex: 40%;
     position: relative;
 
     > {
@@ -839,8 +892,14 @@ li.editor-title {
     }
   }
 }
+@media only screen and (max-width: 1080px) {
+  #settings-menu {
+    max-width: 60vw;
+  }
+}
 
 .submenu {
+  column-count: 1 !important;
   display: none !important;
   left: unset;
   margin: 0 !important;
@@ -848,10 +907,10 @@ li.editor-title {
   position: absolute !important;
   right: 98%;
   top: 0;
+  transform: translate3d(0, 0, 0);
 
   &#export-menu {
-    bottom: -6em;
-    top: unset;
+    top: -4em;
   }
 
   &#css-preset-menu {
