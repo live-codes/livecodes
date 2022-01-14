@@ -862,12 +862,11 @@ li.editor-title {
 }
 
 #settings-menu {
-
   flex-direction: column;
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 24em;
+  max-height: 26em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -911,11 +910,12 @@ li.editor-title {
   transform: translate3d(0, 0, 0);
 
   &#export-menu {
-    top: -2em;
+    top: -4em;
   }
 
   &#css-preset-menu {
-    top: -4em;
+    bottom: 0;
+    top: unset;
   }
 }
 
