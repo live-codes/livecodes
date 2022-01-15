@@ -6,15 +6,15 @@ export const gnuplotStarter: Template = {
   thumbnail: 'assets/templates/gnuplot.svg',
   activeEditor: 'markup',
   markup: {
-    language: 'gnuplot',
+    language: 'graph',
     content: `
 <div class="container">
   <img data-src="transparent_solids.svg" />
-  <img data-src="contour.svg" />
-  <img data-src="force.svg" />
+  <div data-src="contour.svg"></div>
+  <div data-src="force.svg"></div>
 </div>
 
-<script type="gnuplot/script">
+<script type="application/graph-gnuplot">
 set terminal svg size 600,400 dynamic enhanced fname 'arial'  fsize 10 mousing name "transparent_solids_2" butt solid
 set output 'transparent_solids.svg'
 unset border
@@ -53,7 +53,7 @@ GPFUN_z = "z(u,v) = a*log(tan(v/2.))+2.*cos(v)/(1+u**2.*(sin(v))**2)"
 splot x(u,v), y(u,v), z(u,v) with pm3d
 </script>
 
-<script type="gnuplot/script">
+<script type="application/graph-gnuplot">
 set terminal svg size 600,400 enhanced fname 'arial' fsize 10 butt solid
 set output 'contour.svg'
 set view 60, 30, 0.85, 1.1
@@ -76,7 +76,7 @@ set zrange [ -1.20000 : 1.20000 ] noreverse nowriteback
 splot "glass.dat" using 1
 </script>
 
-<script type="gnuplot/script">
+<script type="application/graph-gnuplot">
 # Scale font and line width (dpi) by changing the size! It will always display stretched.
 set terminal svg size 400,300 enhanced fname 'arial'  fsize 10 butt solid
 set output 'force.svg'
@@ -91,9 +91,9 @@ set title 'Sample data loaded from URL'
 plot  "force.dat" using 1:2 title 'Col-Force' with lines, "force.dat" using 1:3 title 'Beam-Force' with linespoints
 </script>
 
-<script type="gnuplot/file" data-url="https://cdn.jsdelivr.net/npm/gnuplot@0.3.1/dat/force.dat"></script>
+<script type="application/graph-gnuplot-file" data-url="https://cdn.jsdelivr.net/npm/gnuplot@0.3.1/dat/force.dat"></script>
 
-<script type="gnuplot/file" data-file="glass.dat">
+<script type="application/graph-gnuplot-file" data-file="glass.dat">
 # 16x16 grid Glass shape. Created Using DRAWFN3D, Gershon Elber 1990.
 #
   0.568000   0.000000  -0.911000
@@ -382,7 +382,8 @@ plot  "force.dat" using 1:2 title 'Col-Force' with lines, "force.dat" using 1:3 
 .container img {
   width: 80%;
   max-width: 600px;
-}`.trimStart(),
+}
+`.trimStart(),
   },
   script: {
     language: 'javascript',

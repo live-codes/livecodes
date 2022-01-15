@@ -57,7 +57,7 @@ import { tcl } from './lang-tcl';
 import { prolog } from './lang-prolog';
 import { clio } from './lang-clio';
 import { richtext } from './lang-richtext';
-import { gnuplot } from './lang-gnuplot';
+import { graph } from './lang-graph';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -73,7 +73,7 @@ export const languages: LanguageSpecs[] = [
   liquid,
   dot,
   twig,
-  gnuplot,
+  graph,
   richtext,
   css,
   scss,
