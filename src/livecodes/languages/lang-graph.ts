@@ -23,13 +23,16 @@ const compileMermaid = async (code: string) => {
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
     'script[type="application/graph-mermaid"]',
   );
-  if (scripts.length === 0) return code;
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
 
   const mermaid: any = await loadScript(mermaidCdnUrl, 'mermaid');
-  const render = (src: string, id: string) => {
-    mermaid.mermaidAPI.initialize();
-    return mermaid.mermaidAPI.render(id, src.trim());
-  };
+  mermaid.mermaidAPI.initialize({
+    startOnLoad: false,
+  });
+  let i = 1;
   for (const script of scripts) {
     const output = script.dataset.output;
     if (!output) continue;
@@ -37,16 +40,22 @@ const compileMermaid = async (code: string) => {
       ? await fetch(script.src).then((res) => res.text())
       : script.innerHTML;
 
+    const placeholder = document.createElement('div');
+    placeholder.id = 'livecodes-mermaid-chart-' + i;
+    temp.appendChild(placeholder);
+    const svg = mermaid.mermaidAPI.render(placeholder.id, content.trim());
+
     const elements = temp.querySelectorAll(`[data-src="${output}"]`);
     for (const el of elements) {
-      el.id = el.id || 'chart-' + getRandomString().slice(-10);
-      const svg = render(content, el.id);
       displaySVG(el, svg);
+      // console.log(svg);
     }
+    placeholder.remove();
     script.remove();
+    i += 1;
   }
   const result = temp.innerHTML;
-  temp.remove();
+  // temp.remove();
   return result;
 };
 
@@ -175,7 +184,10 @@ export const compileGraphviz = async (code: string) => {
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
     'script[type="application/graph-graphviz"]',
   );
-  if (scripts.length === 0) return code;
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
 
   const hpccWasm: any = await loadScript(hpccJsCdnUrl, '@hpcc-js/wasm');
   const render = (src: string, layout: string) => hpccWasm.graphviz.layout(src, 'svg', layout);
