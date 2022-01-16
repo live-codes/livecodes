@@ -51,22 +51,28 @@ const compileMermaid = async (code: string) => {
 };
 
 export const runOutsideWorker = async (code: string) => {
-  const result = await compileMermaid(code).then(compileGraphviz);
+  const result = await PostprocessGnuplot(code).then(compileMermaid).then(compileGraphviz);
   return result;
 };
 
 export const compileGnuplot = async (code: string) => {
-  const scriptPattern = /<script\s+type="application\/graph-gnuplot"\s*>([\s\S]*?)<\/script>/g;
+  const scriptPattern = /<script\s+type="application\/graph-gnuplot"[^>]*>([\s\S]*?)<\/script>/g;
   const inputFilePattern = /<script\s+type="application\/graph-gnuplot-file"[^>]*>([\s\S]*?)<\/script>/g;
   const inputFileNamePattern = /<script[^>]+data-file="([\s\S]*?)"/g;
-  const inputFileUrlPattern = /<script[^>]+data-url="([\s\S]*?)"/g;
+  const srcPattern = /<script[^>]+src="([\s\S]*?)"/g;
   const imgPattern = /<[^>]+data-src="([\s\S]*?)"/g;
 
-  const scripts: string[] = [];
-  const result = code.replace(new RegExp(scriptPattern), (_match, content) => {
-    scripts.push(content);
+  const scriptPromises: Array<Promise<string>> = [];
+  const result = code.replace(new RegExp(scriptPattern), (match, content) => {
+    const fileUrl = [...match.matchAll(new RegExp(srcPattern))]?.[0]?.[1];
+    if (fileUrl) {
+      scriptPromises.push(fetch(fileUrl).then((res) => res.text()));
+    } else {
+      scriptPromises.push(Promise.resolve(content));
+    }
     return '';
   });
+  const scripts = await Promise.all(scriptPromises);
 
   if (scripts.length === 0) return code;
 
@@ -106,10 +112,10 @@ export const compileGnuplot = async (code: string) => {
 
   const inputFiles = await Promise.all(
     [...result.matchAll(new RegExp(inputFilePattern))].map(async (arr) => {
-      const fileUrl = [...arr[0].matchAll(new RegExp(inputFileUrlPattern))]?.[0]?.[1];
+      const fileUrl = [...arr[0].matchAll(new RegExp(srcPattern))]?.[0]?.[1];
       const fileName =
         [...arr[0].matchAll(new RegExp(inputFileNamePattern))]?.[0]?.[1] ||
-        fileUrl.split('/')[fileUrl.split('/').length - 1] ||
+        fileUrl?.split('/')[fileUrl?.split('/').length - 1] ||
         'data.txt';
       const content = fileUrl ? await fetch(fileUrl).then((res) => res.text()) : arr[1] ?? '';
       return { fileName, content };
@@ -128,21 +134,37 @@ export const compileGnuplot = async (code: string) => {
 
   return `${result}
 
-<script>
-(() => {
-const dataUrls = ${JSON.stringify(dataUrls)};
-document.querySelectorAll('[data-src]').forEach(el => {
-const url = dataUrls[el.dataset.src];
-if (!url) return;
-if (el.tagName.toLowerCase() === 'img') {
-el.src = url;
-} else {
-el.innerHTML = atob(url.replace('data:image/svg+xml;base64,', ''));
-}
-})
-})();
+<script type="data-urls">
+${JSON.stringify(dataUrls)}
 </script>
 `;
+};
+
+export const PostprocessGnuplot = async (code: string) => {
+  const domParser = new DOMParser();
+  const dom = domParser.parseFromString(code, 'text/html');
+
+  const dataUrlsScript = dom.querySelector('script[type="data-urls"]');
+  let dataUrls: Record<string, string> = {};
+  try {
+    dataUrls = JSON.parse(dataUrlsScript?.innerHTML || '{}');
+
+    dom.querySelectorAll('[data-src]').forEach((el: any) => {
+      const url = dataUrls[el.dataset.src];
+      if (!url) return;
+      if (el.tagName.toLowerCase() === 'img') {
+        el.src = url;
+      } else {
+        el.innerHTML = atob(url.replace('data:image/svg+xml;base64,', ''));
+      }
+    });
+  } finally {
+    dataUrlsScript?.remove();
+    dom
+      .querySelectorAll('script[type="application/graph-gnuplot-file"]')
+      .forEach((inputFile) => inputFile.remove());
+  }
+  return dom.documentElement.innerHTML;
 };
 
 export const compileGraphviz = async (code: string) => {

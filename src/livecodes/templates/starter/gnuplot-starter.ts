@@ -91,7 +91,7 @@ set title 'Sample data loaded from URL'
 plot  "force.dat" using 1:2 title 'Col-Force' with lines, "force.dat" using 1:3 title 'Beam-Force' with linespoints
 </script>
 
-<script type="application/graph-gnuplot-file" data-url="https://cdn.jsdelivr.net/npm/gnuplot@0.3.1/dat/force.dat"></script>
+<script type="application/graph-gnuplot-file" src="https://cdn.jsdelivr.net/npm/gnuplot@0.3.1/dat/force.dat"></script>
 
 <script type="application/graph-gnuplot-file" data-file="glass.dat">
 # 16x16 grid Glass shape. Created Using DRAWFN3D, Gershon Elber 1990.
