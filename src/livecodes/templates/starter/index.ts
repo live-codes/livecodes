@@ -45,6 +45,7 @@ import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
 import { gnuplotStarter } from './gnuplot-starter';
+import { mermaidStarter } from './mermaid-starter';
 import { graphvizStarter } from './graphviz-starter';
 
 export const starterTemplates = [
@@ -94,4 +95,5 @@ export const starterTemplates = [
   blocklyStarter,
   gnuplotStarter,
   graphvizStarter,
+  mermaidStarter,
 ];
