@@ -1,11 +1,13 @@
 import { LanguageSpecs } from '../models';
-import { blobToBase64, getRandomString, getWorkerDataURL, loadScript } from '../utils';
+import { blobToBase64, getWorkerDataURL, loadScript } from '../utils';
 import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 
 const cdnBaseUrl = vendorsBaseUrl + 'gnuplot';
 const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js';
 const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js';
+const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
+const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -13,55 +15,6 @@ const displaySVG = (el: any, svg: string) => {
   } else {
     el.innerHTML = svg;
   }
-};
-
-const compileMermaid = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-  document.body.appendChild(temp);
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-mermaid"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  const mermaid: any = await loadScript(mermaidCdnUrl, 'mermaid');
-  mermaid.mermaidAPI.initialize({
-    startOnLoad: false,
-  });
-  let i = 1;
-  for (const script of scripts) {
-    const output = script.dataset.output;
-    if (!output) continue;
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const placeholder = document.createElement('div');
-    placeholder.id = 'livecodes-mermaid-chart-' + i;
-    temp.appendChild(placeholder);
-    const svg = mermaid.mermaidAPI.render(placeholder.id, content.trim());
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      displaySVG(el, svg);
-      // console.log(svg);
-    }
-    placeholder.remove();
-    script.remove();
-    i += 1;
-  }
-  const result = temp.innerHTML;
-  // temp.remove();
-  return result;
-};
-
-export const runOutsideWorker = async (code: string) => {
-  const result = await PostprocessGnuplot(code).then(compileMermaid).then(compileGraphviz);
-  return result;
 };
 
 export const compileGnuplot = async (code: string) => {
@@ -176,6 +129,52 @@ export const PostprocessGnuplot = async (code: string) => {
   return dom.documentElement.innerHTML;
 };
 
+const compileMermaid = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+  document.body.appendChild(temp);
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-mermaid"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  const mermaid: any = await loadScript(mermaidCdnUrl, 'mermaid');
+  mermaid.mermaidAPI.initialize({
+    startOnLoad: false,
+  });
+  let i = 1;
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    const placeholder = document.createElement('div');
+    placeholder.id = 'livecodes-mermaid-chart-' + i;
+    temp.appendChild(placeholder);
+    const svg = mermaid.mermaidAPI.render(placeholder.id, content.trim());
+
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
+      displaySVG(el, svg);
+      // console.log(svg);
+    }
+    placeholder.remove();
+    script.remove();
+    i += 1;
+  }
+  const result = temp.innerHTML;
+  // temp.remove();
+  return result;
+};
+
 export const compileGraphviz = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
@@ -193,6 +192,8 @@ export const compileGraphviz = async (code: string) => {
   const render = (src: string, layout: string) => hpccWasm.graphviz.layout(src, 'svg', layout);
 
   for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
     const output = script.dataset.output;
     if (!output) continue;
 
@@ -210,6 +211,94 @@ export const compileGraphviz = async (code: string) => {
   }
   const result = temp.innerHTML;
   temp.remove();
+  return result;
+};
+
+export const compileVega = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+  document.body.appendChild(temp);
+
+  const vegaLiteScripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-vega-lite"]',
+  );
+
+  let vega: any;
+  if (vegaLiteScripts.length > 0) {
+    vega = await loadScript(vegaCdnUrl, 'vega');
+    const vegaLite: any = await loadScript(vegaLiteCdnUrl, 'vegaLite');
+
+    for (const vegaLiteScript of vegaLiteScripts) {
+      if (!vegaLiteScript.src && !vegaLiteScript.innerHTML.trim()) continue;
+
+      const output = vegaLiteScript.dataset.output;
+      if (!output) continue;
+
+      const vegaLiteOptions = {};
+      try {
+        const content = vegaLiteScript.src
+          ? await fetch(vegaLiteScript.src).then((res) => res.json())
+          : JSON.parse(vegaLiteScript.innerHTML);
+
+        vegaLiteScript.innerHTML = JSON.stringify(vegaLite.compile(content, vegaLiteOptions).spec);
+        vegaLiteScript.type = 'application/graph-vega';
+        vegaLiteScript.removeAttribute('src');
+      } catch {
+        vegaLiteScript.remove();
+      }
+    }
+  }
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>('script[type="application/graph-vega"]');
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  vega = vega || (await loadScript(vegaCdnUrl, 'vega'));
+  const render = async (src: any, options: Record<string, any> = {}) => {
+    const graphContainer = document.createElement('div');
+    const view = new vega.View(vega.parse(src), {
+      ...options,
+      renderer: 'svg',
+      container: graphContainer,
+    });
+    await view.runAsync();
+    const svg = graphContainer.querySelector('svg')?.outerHTML || '';
+    graphContainer.remove();
+    return svg;
+  };
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const options = {};
+    try {
+      const content = script.src
+        ? await fetch(script.src).then((res) => res.json())
+        : JSON.parse(script.innerHTML);
+      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+      for (const el of elements) {
+        const svg = await render(content, options);
+        displaySVG(el, svg);
+      }
+    } finally {
+      script.remove();
+    }
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
+export const runOutsideWorker = async (code: string) => {
+  const result = await PostprocessGnuplot(code)
+    .then(compileMermaid)
+    .then(compileGraphviz)
+    .then(compileVega);
   return result;
 };
 
