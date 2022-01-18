@@ -8,6 +8,7 @@ const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.
 const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js';
 const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
 const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
+const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.8.3/dist/plotly.min.js';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -294,11 +295,63 @@ export const compileVega = async (code: string) => {
   return result;
 };
 
+export const compilePlotly = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+  // document.body.appendChild(temp);
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-plotly"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  const Plotly: any = await loadScript(plotlyCdnUrl, 'Plotly');
+  const render = (src: string) => {
+    try {
+      const specs = JSON.parse(src);
+      const graphContainer = document.createElement('div');
+      Plotly.newPlot(graphContainer, specs.data, specs.layout, { displayModeBar: false });
+      const svg = graphContainer.querySelector('svg')?.outerHTML || '';
+      graphContainer.remove();
+      return svg;
+    } catch {
+      // eslint-disable-next-line no-console
+      console.error('failed to parse plotly specs.');
+      return '';
+    }
+  };
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
+      const svg = render(content);
+      displaySVG(el, svg);
+    }
+    script.remove();
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
 export const runOutsideWorker = async (code: string) => {
   const result = await PostprocessGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
-    .then(compileVega);
+    .then(compileVega)
+    .then(compilePlotly);
   return result;
 };
 

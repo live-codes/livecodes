@@ -47,6 +47,7 @@ import { clioStarter } from './clio-starter';
 import { gnuplotStarter } from './gnuplot-starter';
 import { graphvizStarter } from './graphviz-starter';
 import { vegaStarter } from './vega-starter';
+import { plotlyStarter } from './plotly-starter';
 
 export const starterTemplates = [
   blank,
@@ -96,4 +97,5 @@ export const starterTemplates = [
   gnuplotStarter,
   graphvizStarter,
   vegaStarter,
+  plotlyStarter,
 ];
