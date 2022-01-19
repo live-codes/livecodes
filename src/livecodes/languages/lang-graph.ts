@@ -3,7 +3,7 @@ import { blobToBase64, getWorkerDataURL, loadScript, stringToValidJson } from '.
 import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 
-const cdnBaseUrl = vendorsBaseUrl + 'gnuplot';
+const gnuplotCdnBaseUrl = vendorsBaseUrl + 'gnuplot';
 const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js';
 const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js';
 const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
@@ -22,52 +22,42 @@ const displaySVG = (el: any, svg: string) => {
   }
 };
 
-export const compileGnuplot = async (code: string) => {
-  const scriptPattern = /<script\s+type="application\/graph-gnuplot"[^>]*>([\s\S]*?)<\/script>/g;
-  const inputFilePattern = /<script\s+type="application\/graph-gnuplot-file"[^>]*>([\s\S]*?)<\/script>/g;
-  const inputFileNamePattern = /<script[^>]+data-file="([\s\S]*?)"/g;
-  const srcPattern = /<script[^>]+src="([\s\S]*?)"/g;
-  const imgPattern = /<[^>]+data-src="([\s\S]*?)"/g;
+const compileGnuplot = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+  document.body.appendChild(temp);
 
-  const scriptPromises: Array<Promise<string>> = [];
-  const result = code.replace(new RegExp(scriptPattern), (match, content) => {
-    const fileUrl = [...match.matchAll(new RegExp(srcPattern))]?.[0]?.[1];
-    if (fileUrl) {
-      scriptPromises.push(fetch(fileUrl).then((res) => res.text()));
-    } else {
-      scriptPromises.push(Promise.resolve(content));
-    }
-    return '';
-  });
-  const scripts = await Promise.all(scriptPromises);
-
-  if (scripts.length === 0) return code;
-
-  if (!(self as any).Gnuplot) {
-    (self as any).importScripts(cdnBaseUrl + '/gnuplot_api.js');
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-gnuplot"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
   }
-  const workerUrl = getWorkerDataURL(cdnBaseUrl + '/gnuplot.js');
-  (self as any).gnuplot = (self as any).gnuplot || new (self as any).Gnuplot(workerUrl);
 
-  await new Promise((resolveDel) => (self as any).gnuplot.removeFiles(null, resolveDel));
-  const runCode = (code: string, files: Array<{ fileName: string; content: string }>) =>
+  type InputFiles = Array<{ fileName: string; content: string }>;
+
+  const Gnuplot: any = await loadScript(gnuplotCdnBaseUrl + '/gnuplot_api.js', 'Gnuplot');
+  const workerUrl = getWorkerDataURL(gnuplotCdnBaseUrl + '/gnuplot.js');
+  const gnuplot = ((window as any).gnuplot = (window as any).gnuplot || new Gnuplot(workerUrl));
+  const runCode = (code: string, files: InputFiles) =>
     new Promise(async (resolve) => {
       await Promise.all(
         files.map(
           (file) =>
             new Promise((resolvePut) => {
-              (self as any).gnuplot.putFile(file.fileName, file.content, resolvePut);
+              gnuplot.putFile(file.fileName, file.content, resolvePut);
             }),
         ),
       );
-      (self as any).gnuplot.run(code, resolve);
+      gnuplot.run(code, resolve);
     });
 
   const getImgUrl = (fileName: string) =>
     new Promise<string>((resolve) => {
-      (self as any).gnuplot.getFile(fileName, function (e: { content?: ArrayBuffer }) {
+      gnuplot.getFile(fileName, function (e: { content?: ArrayBuffer }) {
         if (!e?.content) {
-          // (self as any).gnuplot.onError(`Output file "${fileName}" is not found!`);
+          // gnuplot.onError(`Output file "${fileName}" is not found!`);
           resolve('');
           return;
         }
@@ -77,61 +67,49 @@ export const compileGnuplot = async (code: string) => {
       });
     });
 
-  const inputFiles = await Promise.all(
-    [...result.matchAll(new RegExp(inputFilePattern))].map(async (arr) => {
-      const fileUrl = [...arr[0].matchAll(new RegExp(srcPattern))]?.[0]?.[1];
-      const fileName =
-        [...arr[0].matchAll(new RegExp(inputFileNamePattern))]?.[0]?.[1] ||
-        fileUrl?.split('/')[fileUrl?.split('/').length - 1] ||
-        'data.txt';
-      const content = fileUrl ? await fetch(fileUrl).then((res) => res.text()) : arr[1] ?? '';
-      return { fileName, content };
-    }),
+  await new Promise((resolveDel) => gnuplot.removeFiles(null, resolveDel));
+
+  const inputFiles: InputFiles = [];
+  const fileScripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-gnuplot-file"]',
   );
+  for (const fileScript of fileScripts) {
+    if (!fileScript.dataset.file && !fileScript.src) continue;
+    const content = fileScript.src
+      ? await fetch(fileScript.src).then((res) => res.text())
+      : fileScript.innerHTML;
+    const fileName =
+      fileScript.dataset.file ||
+      fileScript.src?.split('/')[fileScript.src?.split('/').length - 1] ||
+      'data.txt';
+    inputFiles.push({ fileName, content });
+    fileScript.remove();
+  }
 
   for (const script of scripts) {
-    await runCode(script, inputFiles);
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    await runCode(content, inputFiles);
+    script.remove();
   }
 
-  const imgFileNames = [...result.matchAll(new RegExp(imgPattern))].map((arr) => arr[1]);
-  const dataUrls = (await Promise.all(imgFileNames.map(getImgUrl))).reduce(
-    (acc, url, index) => ({ ...acc, [imgFileNames[index]]: url }),
-    {},
-  );
-
-  return `${result}
-
-<script type="data-urls">
-${JSON.stringify(dataUrls)}
-</script>
-`;
-};
-
-export const PostprocessGnuplot = async (code: string) => {
-  const domParser = new DOMParser();
-  const dom = domParser.parseFromString(code, 'text/html');
-
-  const dataUrlsScript = dom.querySelector('script[type="data-urls"]');
-  let dataUrls: Record<string, string> = {};
-  try {
-    dataUrls = JSON.parse(dataUrlsScript?.innerHTML || '{}');
-
-    dom.querySelectorAll('[data-src]').forEach((el: any) => {
-      const url = dataUrls[el.dataset.src];
-      if (!url) return;
-      if (el.tagName.toLowerCase() === 'img') {
-        el.src = url;
-      } else {
-        el.innerHTML = atob(url.replace('data:image/svg+xml;base64,', ''));
-      }
-    });
-  } finally {
-    dataUrlsScript?.remove();
-    dom
-      .querySelectorAll('script[type="application/graph-gnuplot-file"]')
-      .forEach((inputFile) => inputFile.remove());
+  const elements = temp.querySelectorAll<HTMLImageElement>(`[data-src]`);
+  for (const el of elements) {
+    const imgUrl = await getImgUrl(el.dataset.src || '');
+    if (!imgUrl) continue;
+    if (el.tagName.toLowerCase() === 'img') {
+      el.src = imgUrl;
+    } else {
+      el.innerHTML = atob(imgUrl.replace('data:image/svg+xml;base64,', ''));
+    }
   }
-  return dom.documentElement.innerHTML;
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
 };
 
 const compileMermaid = async (code: string) => {
@@ -169,18 +147,17 @@ const compileMermaid = async (code: string) => {
     const elements = temp.querySelectorAll(`[data-src="${output}"]`);
     for (const el of elements) {
       displaySVG(el, svg);
-      // console.log(svg);
     }
     placeholder.remove();
     script.remove();
     i += 1;
   }
   const result = temp.innerHTML;
-  // temp.remove();
+  temp.remove();
   return result;
 };
 
-export const compileGraphviz = async (code: string) => {
+const compileGraphviz = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
   document.body.appendChild(temp);
@@ -219,7 +196,7 @@ export const compileGraphviz = async (code: string) => {
   return result;
 };
 
-export const compileVega = async (code: string) => {
+const compileVega = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
   document.body.appendChild(temp);
@@ -299,7 +276,7 @@ export const compileVega = async (code: string) => {
   return result;
 };
 
-export const compilePlotly = async (code: string) => {
+const compilePlotly = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
   // document.body.appendChild(temp);
@@ -350,7 +327,7 @@ export const compilePlotly = async (code: string) => {
   return result;
 };
 
-export const compileWaveDrom = async (code: string) => {
+const compileWaveDrom = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
   document.body.appendChild(temp);
@@ -404,7 +381,7 @@ export const compileWaveDrom = async (code: string) => {
   return result;
 };
 
-export const compileNomnoml = async (code: string) => {
+const compileNomnoml = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
 
@@ -443,7 +420,7 @@ export const compileNomnoml = async (code: string) => {
 };
 
 export const runOutsideWorker = async (code: string) => {
-  const result = await PostprocessGnuplot(code)
+  const result = await compileGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
     .then(compileVega)
@@ -461,11 +438,7 @@ export const graph: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    factory: () => async (code) => {
-      if (!code) return '';
-      const output = await compileGnuplot(code);
-      return output;
-    },
+    factory: () => async (code) => code || '',
     runOutsideWorker,
   },
   extensions: ['graph', 'plt'],
