@@ -48,6 +48,7 @@ import { gnuplotStarter } from './gnuplot-starter';
 import { graphvizStarter } from './graphviz-starter';
 import { vegaStarter } from './vega-starter';
 import { plotlyStarter } from './plotly-starter';
+import { wavedromStarter } from './wavedrom-starter';
 
 export const starterTemplates = [
   blank,
@@ -98,4 +99,5 @@ export const starterTemplates = [
   graphvizStarter,
   vegaStarter,
   plotlyStarter,
+  wavedromStarter,
 ];

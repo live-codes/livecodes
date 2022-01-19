@@ -114,12 +114,13 @@ export const stringToValidJson = (str: string) =>
     .replace(/'[^'"]*'(?=(?:[^"]*"[^"]*")*[^"]*$)/g, function replaceSingleQuotes(matchedStr) {
       return '"' + matchedStr.substring(1, matchedStr.length - 1) + '"';
     })
-    .replace(/(\w+)(\s*:)(?!(\w*)(?:"))/gm, function quoteNonQuoted(matchedStr) {
-      return '"' + matchedStr.substring(0, matchedStr.length - 1).trimEnd() + '":';
-    })
-    .replace(/(,\s*})/g, function removeLastComma() {
-      return '}';
-    });
+    .replace(
+      /(\w+(?=([^"\\]*(\\.|"([^"\\]*\\.)*[^"\\]*"))*[^"]*$))(\s*:)(?!(\w*)(?:"))/gm,
+      function quoteNonQuoted(matchedStr) {
+        return '"' + matchedStr.substring(0, matchedStr.length - 1).trimEnd() + '":';
+      },
+    )
+    .replace(/,\s*([\]}])/g, '$1'); // remove trailing comma
 
 export const stringify = (obj: any, pretty = false) => {
   try {
