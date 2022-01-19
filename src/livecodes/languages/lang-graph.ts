@@ -11,6 +11,8 @@ const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-
 const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.8.3/dist/plotly.min.js';
 const waveskinCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/skins/default.js';
 const wavedromCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/wavedrom.min.js';
+const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/graphre.js';
+const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -392,6 +394,44 @@ export const compileWaveDrom = async (code: string) => {
 
     const elements = temp.querySelectorAll(`[data-src="${output}"]`);
     for (const el of elements) {
+      const svg = render(content);
+      displaySVG(el, svg);
+    }
+    script.remove();
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
+export const compileNomnoml = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-nomnoml"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  await loadScript(graphreCdnUrl, 'graphre');
+  const nomnoml: any = await loadScript(nomnomlCdnUrl, 'nomnoml');
+  const render = (src: string) => nomnoml.renderSvg(src);
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
       const svg = await render(content);
       displaySVG(el, svg);
     }
@@ -408,7 +448,8 @@ export const runOutsideWorker = async (code: string) => {
     .then(compileGraphviz)
     .then(compileVega)
     .then(compilePlotly)
-    .then(compileWaveDrom);
+    .then(compileWaveDrom)
+    .then(compileNomnoml);
   return result;
 };
 
