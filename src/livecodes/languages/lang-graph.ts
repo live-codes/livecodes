@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { blobToBase64, getWorkerDataURL, loadScript } from '../utils';
+import { blobToBase64, getWorkerDataURL, loadScript, stringToValidJson } from '../utils';
 import { vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 
@@ -9,6 +9,8 @@ const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.
 const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
 const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
 const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.8.3/dist/plotly.min.js';
+const waveskinCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/skins/default.js';
+const wavedromCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/wavedrom.min.js';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -239,8 +241,7 @@ export const compileVega = async (code: string) => {
       try {
         const content = vegaLiteScript.src
           ? await fetch(vegaLiteScript.src).then((res) => res.json())
-          : JSON.parse(vegaLiteScript.innerHTML);
-
+          : JSON.parse(stringToValidJson(vegaLiteScript.innerHTML));
         vegaLiteScript.innerHTML = JSON.stringify(vegaLite.compile(content, vegaLiteOptions).spec);
         vegaLiteScript.type = 'application/graph-vega';
         vegaLiteScript.removeAttribute('src');
@@ -280,7 +281,8 @@ export const compileVega = async (code: string) => {
     try {
       const content = script.src
         ? await fetch(script.src).then((res) => res.json())
-        : JSON.parse(script.innerHTML);
+        : JSON.parse(stringToValidJson(script.innerHTML));
+
       const elements = temp.querySelectorAll(`[data-src="${output}"]`);
       for (const el of elements) {
         const svg = await render(content, options);
@@ -311,7 +313,7 @@ export const compilePlotly = async (code: string) => {
   const Plotly: any = await loadScript(plotlyCdnUrl, 'Plotly');
   const render = (src: string) => {
     try {
-      const specs = JSON.parse(src);
+      const specs = JSON.parse(stringToValidJson(src));
       const graphContainer = document.createElement('div');
       Plotly.newPlot(graphContainer, specs.data, specs.layout, { displayModeBar: false });
       const svg = graphContainer.querySelector('svg')?.outerHTML || '';
@@ -346,12 +348,67 @@ export const compilePlotly = async (code: string) => {
   return result;
 };
 
+export const compileWaveDrom = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+  document.body.appendChild(temp);
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-wavedrom"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  await loadScript(waveskinCdnUrl, 'WaveSkin');
+  const WaveDrom: any = await loadScript(wavedromCdnUrl, 'WaveDrom');
+  const render = (src: string) => {
+    try {
+      const obj = JSON.parse(stringToValidJson(src));
+      const graphContainer = document.createElement('div');
+      graphContainer.id = 'graph-id';
+      temp.appendChild(graphContainer);
+      WaveDrom.RenderWaveForm(graphContainer.id, obj, '');
+      const svg = graphContainer.innerHTML || '';
+      graphContainer.remove();
+      return svg;
+    } catch {
+      // eslint-disable-next-line no-console
+      console.error('failed to parse WaveDrom specs.');
+      return '';
+    }
+  };
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
+      const svg = await render(content);
+      displaySVG(el, svg);
+    }
+    script.remove();
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
 export const runOutsideWorker = async (code: string) => {
   const result = await PostprocessGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
     .then(compileVega)
-    .then(compilePlotly);
+    .then(compilePlotly)
+    .then(compileWaveDrom);
   return result;
 };
 
