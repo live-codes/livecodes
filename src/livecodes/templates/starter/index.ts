@@ -49,6 +49,7 @@ import { graphvizStarter } from './graphviz-starter';
 import { vegaStarter } from './vega-starter';
 import { plotlyStarter } from './plotly-starter';
 import { wavedromStarter } from './wavedrom-starter';
+import { mermaidStarter } from './mermaid-starter';
 
 export const starterTemplates = [
   blank,
@@ -97,6 +98,7 @@ export const starterTemplates = [
   blocklyStarter,
   gnuplotStarter,
   graphvizStarter,
+  mermaidStarter,
   vegaStarter,
   plotlyStarter,
   wavedromStarter,
