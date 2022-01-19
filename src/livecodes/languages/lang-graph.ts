@@ -115,7 +115,6 @@ const compileGnuplot = async (code: string) => {
 const compileMermaid = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
-  document.body.appendChild(temp);
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
     'script[type="application/graph-mermaid"]',
@@ -160,7 +159,6 @@ const compileMermaid = async (code: string) => {
 const compileGraphviz = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
-  document.body.appendChild(temp);
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
     'script[type="application/graph-graphviz"]',
@@ -199,7 +197,6 @@ const compileGraphviz = async (code: string) => {
 const compileVega = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
-  document.body.appendChild(temp);
 
   const vegaLiteScripts = temp.querySelectorAll<HTMLScriptElement>(
     'script[type="application/graph-vega-lite"]',
@@ -279,7 +276,6 @@ const compileVega = async (code: string) => {
 const compilePlotly = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
-  // document.body.appendChild(temp);
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
     'script[type="application/graph-plotly"]',
