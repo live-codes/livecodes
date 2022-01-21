@@ -11,7 +11,7 @@ export const mermaidStarter: Template = {
 <div class="container">
   <div data-src="flow-chart.svg"></div>
   <div data-src="class-diagram.svg"></div>
-  <img data-src="journey.svg"></div>
+  <div data-src="journey.svg"></div>
 </div>
 
 <script type="application/graph-mermaid" data-output="flow-chart.svg">
