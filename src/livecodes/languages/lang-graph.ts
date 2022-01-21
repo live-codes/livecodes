@@ -13,6 +13,7 @@ const waveskinCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/skins/defaul
 const wavedromCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/wavedrom.min.js';
 const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/graphre.js';
 const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
+const svgbobWasmCdnUrl = 'https://cdn.jsdelivr.net/npm/svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -323,6 +324,45 @@ const compilePlotly = async (code: string) => {
   return result;
 };
 
+const compileSvgBob = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-svgbob"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  const { svgbobWasm } = await import(vendorsBaseUrl + 'svgbob-wasm/svgbob-wasm.js');
+  const svgbob = await svgbobWasm(svgbobWasmCdnUrl);
+
+  const render = (src: string) => svgbob.convert_string(src);
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
+      const svg = await render(content);
+      displaySVG(el, svg);
+    }
+    script.remove();
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
 const compileWaveDrom = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
@@ -421,6 +461,7 @@ export const runOutsideWorker = async (code: string) => {
     .then(compileGraphviz)
     .then(compileVega)
     .then(compilePlotly)
+    .then(compileSvgBob)
     .then(compileWaveDrom)
     .then(compileNomnoml);
   return result;
