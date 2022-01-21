@@ -16,8 +16,6 @@ TL;DR: [Getting started](#getting-started)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
 
-[![Deploy to DO](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/live-codes/livecodes/tree/develop&refcode=fb8c00b45b91)
-
 ## Feature Summary: <!-- omit in toc -->
 
 - [**Monaco editor**](https://microsoft.github.io/monaco-editor/) (the beautiful code editor that powers [VS Code](https://github.com/Microsoft/vscode))
@@ -108,7 +106,6 @@ Enough talk, let's get started.
 There are multiple options:
 
 - You may just use the hosted app ([livecodes.io](https://livecodes.io)) and use various methods to add your code like [embedded editors](#embeds), [code blocks](#prefill-from-code-blocks), ["Edit in LiveCodes"](#edit-in-livecodes-bookmarklet) and [code prefill](#importing-code-editor-prefill).
-- One-click [deploy to Digital Ocean](https://cloud.digitalocean.com/apps/new?repo=https://github.com/live-codes/livecodes/tree/master&refcode=fb8c00b45b91)
 - Download the app from the releases, extract the folder and add it to your website.
 - Fork the repo, clone it. You may wish to use the included setup to publish to github pages:
 
@@ -121,6 +118,8 @@ There are multiple options:
   ```
 
 - An npm package is also planned.
+
+LiveCodes can be hosted on any static file server (e.g. [GitHub Pages](https://pages.github.com/), [Cloudflare Pages](https://pages.cloudflare.com/), [Firebase](https://firebase.google.com/products/hosting), [netlify](https://www.netlify.com/), [Vercel](https://vercel.com/), [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/), ...etc.)
 
 ## Screenshots
 
