@@ -549,7 +549,35 @@ Feedback, ideas and pull requests are highly appreciated.
 
 ## Credits
 
-In addition to all the previously mentioned great products, LiveCodes was inspired and initially based on [monacode](https://github.com/lukejacksonn/monacode/).
+LiveCodes uses services that are generously provided by:
+
+<a href="https://pages.cloudflare.com/" target="_blank" title="Cloudflare Pages">
+  <img alt="Cloudflare Pages" width="200" src="https://ik.imagekit.io/livecodes/cloudflare-pages_p6yEuK1Oa.svg">
+</a>
+<br />
+<br />
+<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
+  <img alt="jsDelivr" width="200" src="https://cdn.jsdelivr.net/www.jsdelivr.com/35507da1d543c7874252e26e5dd65f505d0f6241/img/logo-horizontal.svg">
+</a>
+<br />
+<br />
+<a href="https://www.skypack.dev/" target="_blank" title="Skypack">
+  <img alt="Skypack" width="200" src="https://ik.imagekit.io/livecodes/skypack_6wgtXBP8o.svg">
+</a>
+<br />
+<br />
+<a href="https://dpaste.com/" target="_blank" title="dpaste">
+  <img alt="dpaste" width="200" src="https://ik.imagekit.io/livecodes/dpaste_gCJlXaozu.png">
+</a>
+<br />
+<br />
+<a href="https://www.browserstack.com/" target="_blank" title="BrowserStack">
+  <img alt="BrowserStack" width="200" src="https://ik.imagekit.io/livecodes/browserstack_aVp7H4SNl.svg">
+</a>
+<br />
+<br />
+
+LiveCodes was inspired by [monacode](https://github.com/lukejacksonn/monacode/).
 
 ## License
 
