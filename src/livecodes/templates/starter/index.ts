@@ -44,12 +44,7 @@ import { clangStarter } from './clang-starter';
 import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
-import { gnuplotStarter } from './gnuplot-starter';
-import { graphvizStarter } from './graphviz-starter';
-import { vegaStarter } from './vega-starter';
-import { plotlyStarter } from './plotly-starter';
-import { wavedromStarter } from './wavedrom-starter';
-import { mermaidStarter } from './mermaid-starter';
+import { graphStarter } from './graph-starter';
 
 export const starterTemplates = [
   blank,
@@ -96,10 +91,5 @@ export const starterTemplates = [
   sqlStarter,
   prologStarter,
   blocklyStarter,
-  gnuplotStarter,
-  graphvizStarter,
-  mermaidStarter,
-  vegaStarter,
-  plotlyStarter,
-  wavedromStarter,
+  graphStarter,
 ];
