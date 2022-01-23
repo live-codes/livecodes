@@ -44,6 +44,6 @@
     "typeRoots": ["node_modules/@types"]
   },
   "compileOnSave": true,
-  "include": ["src/**/*.ts", "web/**/*.ts", "web/**/*.tsx", "web/**/*.js", "web/**/*.jsx"],
+  "include": ["src/**/*.ts"],
   "exclude": ["**/node_modules/**"]
 }
