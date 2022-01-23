@@ -6,15 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'LiveCodes',
+  tagline: 'Code playground that runs in the browser!',
+  url: 'https://livecodes.io/',
   baseUrl: '/web/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'LiveCodes',
+  projectName: 'LiveCodes',
 
   presets: [
     [
@@ -24,14 +24,12 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -44,21 +42,26 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'LiveCodes',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'LiveCodes Logo',
+          src: 'img/livecodes-logo.svg',
         },
         items: [
           {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
           { to: '/web/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://livecodes.io/',
+            label: 'Playground',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/live-codes/livecodes',
             label: 'GitHub',
             position: 'right',
           },
@@ -102,12 +105,12 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/live-codes/livecodes',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `<br /> Released under the MIT License <br /> Copyright © ${new Date().getFullYear()} Hatem Hosny`,
       },
       prism: {
         theme: lightCodeTheme,

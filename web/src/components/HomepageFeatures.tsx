@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
+import LiveCodes from './livecodes';
 
 type FeatureItem = {
   title: string;
@@ -59,6 +60,9 @@ export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">
+        <div className="row">
+          <LiveCodes src="/?embed&template=react"></LiveCodes>
+        </div>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
