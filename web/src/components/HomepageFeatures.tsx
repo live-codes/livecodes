@@ -3,11 +3,11 @@ import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 import LiveCodes from './livecodes';
 
-type FeatureItem = {
+interface FeatureItem {
   title: string;
   image: string;
   description: JSX.Element;
-};
+}
 
 const FeatureList: FeatureItem[] = [
   {

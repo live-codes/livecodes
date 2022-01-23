@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-unresolved
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
 export default function LiveCodes(props: {
@@ -8,8 +9,6 @@ export default function LiveCodes(props: {
   return (
     <BrowserOnly>
       {() => {
-        console.log(location.hostname);
-
         const baseUrl =
           location.hostname.startsWith('127.0.0.1') || location.hostname.startsWith('localhost')
             ? 'http://127.0.0.1:8080/'

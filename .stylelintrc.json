@@ -7,5 +7,6 @@
     "selector-max-compound-selectors": 5,
     "selector-max-id": 3,
     "selector-no-qualifying-type": null
-  }
+  },
+  "ignoreFiles": ["**/build/**/*"]
 }

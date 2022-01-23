@@ -1,6 +1,6 @@
 .features {
-  display: flex;
   align-items: center;
+  display: flex;
   padding: 2rem 0;
   width: 100%;
 }

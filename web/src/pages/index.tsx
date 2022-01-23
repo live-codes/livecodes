@@ -1,10 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
+// eslint-disable-next-line import/no-unresolved
 import Layout from '@theme/Layout';
+// eslint-disable-next-line import/no-unresolved
 import Link from '@docusaurus/Link';
+// eslint-disable-next-line import/no-unresolved
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import styles from './index.module.css';
+// eslint-disable-next-line import/no-internal-modules
 import HomepageFeatures from '../components/HomepageFeatures';
+import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
