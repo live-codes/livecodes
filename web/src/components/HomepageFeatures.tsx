@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
-import LiveCodes from './livecodes';
+import LiveCodes from './LiveCodes';
+import Sliders from './LanguageSliders';
 
 interface FeatureItem {
   title: string;
@@ -60,6 +61,9 @@ export default function HomepageFeatures(): JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">
+        <div className="row">
+          <Sliders></Sliders>
+        </div>
         <div className="row">
           <LiveCodes src="/?embed&template=react"></LiveCodes>
         </div>
