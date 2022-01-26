@@ -25,6 +25,7 @@
 .tryButton {
   background-color: var(--ifm-color-secondary-dark);
 }
+
 .tryButton:hover {
   background-color: var(--ifm-color-secondary-darkest);
 }
