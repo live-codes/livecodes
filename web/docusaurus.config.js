@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-// const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -56,7 +56,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'overview',
+            docId: 'index',
             position: 'left',
             label: 'Docs',
           },
@@ -81,7 +81,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/web/docs/overview',
+                to: '/web/docs',
               },
             ],
           },
@@ -105,10 +105,10 @@ const config = {
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/web/blog',
-              },
+              // {
+              //   label: 'Blog',
+              //   to: '/web/blog',
+              // },
               {
                 label: 'GitHub',
                 href: 'https://github.com/live-codes/livecodes',
@@ -120,7 +120,7 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
-        // darkTheme: darkCodeTheme,
+        darkTheme: darkCodeTheme,
       },
     }),
 };

@@ -79,9 +79,9 @@ const ModeList: ModeItem[] = [
     description: (
       <>
         Use the standalone hosted app on{' '}
-        <a href="https://livecodes.io" target="_blank">
+        <Link to="https://livecodes.io" target="_blank">
           livecodes.io
-        </a>
+        </Link>
         . It is free, with no-ads and no accounts required. Or{' '}
         <Link to="./docs/getting-started">self-host</Link> it on your own server. Do you need it for
         commercial use? No problem! It is{' '}
