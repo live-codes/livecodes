@@ -5,7 +5,22 @@
   width: 100%;
 }
 
+.center {
+  justify-content: center;
+}
+
+.editorHint {
+  justify-self: flex-start;
+  margin: 1em;
+  width: 90%;
+}
+
 .featureSvg {
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
+  margin: 1em;
+}
+
+.rowDark {
+  background-color: var(--ifm-color-secondary-lightest);
 }

@@ -13,7 +13,7 @@
   position: relative;
 }
 
-.sliders .buttons > Button {
+.sliders .buttons > * {
   margin: 1em;
   width: 11em;
 }

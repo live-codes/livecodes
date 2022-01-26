@@ -8,18 +8,26 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // eslint-disable-next-line import/no-internal-modules
 import HomepageFeatures from '../components/HomepageFeatures';
+import { appUrl } from '../utils';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
+  const openLivecodes = () => window.open(appUrl as string, '_blank');
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header
+      className={clsx('hero', styles.heroBanner)}
+      style={{ backgroundColor: 'var(--ifm-color-secondary)' }}
+    >
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link className="button button--secondary button--lg" to="./docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+          <Link
+            className={styles.tryButton + ' button button--secondary button--lg'}
+            onClick={openLivecodes}
+          >
+            Try LiveCodes Now ⚡
           </Link>
         </div>
       </div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-// eslint-disable-next-line import/no-internal-modules
-import Button from '@material-ui/core/Button';
+import React, { useEffect, useState } from 'react';
+// eslint-disable-next-line import/no-unresolved
+import Link from '@docusaurus/Link';
 import styles from './LanguageSliders.module.css';
 
 const getRandomItem = (list: any[]) => ({
@@ -114,12 +114,18 @@ export default function Sliders() {
       <span>+</span>
       <Slider slide="script" lists={lists} cb={update} flipper={flipper} />
       <div className={styles.buttons}>
-        <Button color="primary" variant="outlined" onClick={() => open(false)}>
-          Let's Build 🚀
-        </Button>
-        <Button color="secondary" variant="outlined" onClick={() => open(true)}>
+        <Link
+          className="button button--outline button--primary button--lg"
+          onClick={() => open(false)}
+        >
+          Let's Code 🚀
+        </Link>
+        <Link
+          className="button button--outline button--warning button--lg"
+          onClick={() => open(true)}
+        >
           Surprise me!
-        </Button>
+        </Link>
       </div>
     </div>
   );
@@ -134,6 +140,13 @@ function Slider(props: { lists: any; slide: any; cb: any; flipper: any }) {
     { ...list[0], id: Math.random() },
     getRandomItem(list.slice(1)),
   ]);
+
+  useEffect(
+    () => () => {
+      setLangs([]);
+    },
+    [],
+  );
 
   flipper[slide] = () => {
     setLangs([

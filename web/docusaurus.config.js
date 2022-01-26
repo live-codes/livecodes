@@ -17,7 +17,6 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'LiveCodes',
   projectName: 'LiveCodes',
-
   presets: [
     [
       'classic',
@@ -28,11 +27,12 @@ const config = {
           // Please change this to your repo.
           editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
-        },
+        blog: false,
+        // {
+        //   showReadingTime: true,
+        //   // Please change this to your repo.
+        //   editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
+        // },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -56,11 +56,11 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'overview',
             position: 'left',
             label: 'Docs',
           },
-          { to: '/web/blog', label: 'Blog', position: 'left' },
+          // { to: '/web/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://livecodes.io/',
             label: 'Playground',
@@ -81,7 +81,7 @@ const config = {
             items: [
               {
                 label: 'Tutorial',
-                to: '/web/docs/intro',
+                to: '/web/docs/overview',
               },
             ],
           },
