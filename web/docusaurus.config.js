@@ -1,5 +1,4 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 /* eslint-disable import/no-internal-modules */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
@@ -24,13 +23,11 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
         },
         blog: false,
         // {
         //   showReadingTime: true,
-        //   // Please change this to your repo.
         //   editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
         // },
         theme: {
@@ -83,8 +80,24 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Overview',
                 to: '/web/docs',
+              },
+              {
+                label: 'Getting Started',
+                to: '/web/docs/getting-started',
+              },
+              {
+                label: 'Why Another Playground?',
+                to: '/web/docs/why',
+              },
+              {
+                label: 'Features',
+                to: '/web/docs/features',
+              },
+              {
+                label: 'Languages',
+                to: '/web/docs/languages',
               },
             ],
           },
@@ -116,10 +129,24 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/live-codes/livecodes',
               },
+              {
+                label: 'Credits',
+                to: '/web/docs/credits',
+              },
+              {
+                label: 'License',
+                to: '/web/docs/license',
+              },
+              {
+                label: 'Sponsor',
+                to: '/web/docs/sponsor',
+              },
             ],
           },
         ],
-        copyright: `<br /> Released under the MIT License <br /> Copyright © ${new Date().getFullYear()} Hatem Hosny`,
+        copyright: `<br /> Released under the MIT License <br />
+        Copyright © ${new Date().getFullYear()}
+        <a href="https://github.com/hatemhosny" target="_blank" rel="noopener noreferrer">Hatem Hosny</a>`,
       },
       prism: {
         theme: lightCodeTheme,

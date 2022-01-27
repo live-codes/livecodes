@@ -1,7 +1,7 @@
 .features {
   align-items: center;
   display: flex;
-  padding: 2rem 0;
+  padding: 1rem 0;
   width: 100%;
 }
 
@@ -13,6 +13,7 @@
 
 .editorHint {
   justify-self: flex-start;
+  text-align: start;
   margin: 1em;
   width: 90%;
 }
@@ -29,4 +30,9 @@
 
 .carousel {
   max-width: 600px;
+}
+
+.buttons > * {
+  margin: 1em;
+  width: 11em;
 }

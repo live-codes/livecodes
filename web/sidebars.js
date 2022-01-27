@@ -5,7 +5,7 @@ const sidebars = {
   tutorialSidebar: [
     'index',
     'getting-started',
-    'goals',
+    'why',
     {
       type: 'category',
       label: 'Features',

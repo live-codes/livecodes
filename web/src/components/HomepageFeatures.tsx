@@ -2,10 +2,12 @@
 import Link from '@docusaurus/Link';
 import React from 'react';
 import clsx from 'clsx';
+import { appUrl } from '../utils';
 import styles from './HomepageFeatures.module.css';
 import LiveCodes from './LiveCodes';
 import Sliders from './LanguageSliders';
 import HomepageCarousel from './HomepageCarousel';
+
 interface FeatureItem {
   title: string;
   image: string;
@@ -167,6 +169,27 @@ export default function HomepageFeatures(): JSX.Element {
           <div className={['row', styles.carousel, styles.center].join(' ')}>
             <h3>Screenshots</h3>
             <HomepageCarousel></HomepageCarousel>
+          </div>
+        </div>
+      </section>
+      <section className={styles.rowDark}>
+        <div className={'container padding-vert--lg ' + styles.center}>
+          <div className={['row', styles.carousel, styles.center].join(' ')}>
+            <div className={styles.buttons}>
+              <Link
+                className=" button button--primary button--outline button--lg"
+                to="./docs/getting-started"
+              >
+                Get Started
+              </Link>
+              <Link
+                className=" button button--info button--outline button--lg"
+                to={appUrl + '?screen=new'}
+                target="_blank"
+              >
+                New Project ✨
+              </Link>
+            </div>
           </div>
         </div>
       </section>
