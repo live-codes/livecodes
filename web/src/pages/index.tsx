@@ -30,6 +30,10 @@ function HomepageHeader() {
             Try LiveCodes Now ⚡
           </Link>
         </div>
+        <div className={styles.description}>
+          A client-side playground for React, Vue, Angular, Svelte, Typescript, Python, Go, Ruby and
+          60+ languages/frameworks.
+        </div>
       </div>
     </header>
   );

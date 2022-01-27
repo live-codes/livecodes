@@ -43,6 +43,7 @@ const sidebars = {
     'configuration',
     'credits',
     'license',
+    'sponsor',
   ],
 };
 

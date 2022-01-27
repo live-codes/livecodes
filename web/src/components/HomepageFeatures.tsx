@@ -21,8 +21,8 @@ const FeatureList: FeatureItem[] = [
         <Link to="./docs/languages">
           <strong>60+ languages/frameworks</strong>
         </Link>
-        . Save/Import/Export/Share/Deploy/Auto-Complete/NPM Modules/Code Format/Starter Templates
-        and a lot more{' '}
+        . Save, Import, Export, Share, Deploy, NPM Modules, Code Format, Starter Templates, Console,
+        Intellisense, Auto-loading TS Types, Emmet Support, GitHub Integration and a lot more{' '}
         <Link to="./docs/features">
           <strong>features</strong>
         </Link>
@@ -36,9 +36,10 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         LiveCodes <strong>runs in the browser</strong>, where all the processing/transpilation
-        occurs, with <strong>no server rounds</strong> required. It can be hosted on any{' '}
-        <strong>static file server</strong>. However, it is dynamic by communicating with various{' '}
-        <strong>APIs</strong>.
+        occurs, with <strong>no server rounds</strong> required. So, after the initial load it
+        becomes pretty <strong>fast</strong>. It can be hosted on any{' '}
+        <strong>static file server or CDN</strong>. No <code>npm&nbsp;install</code>s. Just the
+        browser!
       </>
     ),
   },
@@ -47,9 +48,9 @@ const FeatureList: FeatureItem[] = [
     image: './img/responsive.svg',
     description: (
       <>
-        It has a <strong>responsive</strong> layout. Uses the powerful Monaco editor (that powers{' '}
-        <strong>VS&nbsp;code</strong>) on desktop, and the <strong>touch-friendly</strong>{' '}
-        CodeMirror 6 editor on mobile.
+        It has a <strong>responsive</strong> layout. We use the powerful Monaco editor (that powers{' '}
+        <strong>VS&nbsp;Code</strong>) on desktop, and the <strong>touch-friendly</strong>{' '}
+        CodeMirror 6 editor on mobile. Don't wait to be on your desk. Try your ideas on the go!
       </>
     ),
   },
@@ -82,13 +83,16 @@ const ModeList: ModeItem[] = [
         <Link to="https://livecodes.io" target="_blank">
           livecodes.io
         </Link>
-        . It is free, with no-ads and no accounts required. Or{' '}
+        . It is <strong>free</strong>, with no ads and no accounts required. Or{' '}
         <Link to="./docs/getting-started">self-host</Link> it on your own server. Do you need it for
         commercial use? No problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
-          <Link to="./docs/license">MIT-licensed</Link> 🎉
+          <Link to="./docs/license">
+            <strong>MIT-licensed</strong>
+          </Link>{' '}
+          🎉
         </span>
-        .
+        . Please consider <Link to="./docs/sponsor">sponsoring LiveCodes</Link> ❤.
       </>
     ),
   },
@@ -96,9 +100,10 @@ const ModeList: ModeItem[] = [
     title: 'Embeds',
     description: (
       <>
-        LiveCodes can be embedded in your web pages. Code can be easily{' '}
-        <Link to="./docs/features/code-preload">preloaded</Link> in the editors. This is
-        particularly useful for educational websites and for library documentations. It is highly{' '}
+        LiveCodes can be <Link to="./docs/features/embed">embedded</Link> in your web pages. Code
+        can be easily <Link to="./docs/features/code-preload">preloaded</Link>. This is particularly
+        useful for educational websites and for library documentations. It is{' '}
+        <Link to="./docs/features/security">secure</Link> and highly{' '}
         <Link to="./docs/configuration">configurable</Link>.{' '}
         <Link to="./docs/features/intellisense">Intellisense</Link> is available even for custom
         libraries!

@@ -29,3 +29,8 @@
 .tryButton:hover {
   background-color: var(--ifm-color-secondary-darkest);
 }
+
+.description {
+  margin-bottom: -1em;
+  margin-top: 2em;
+}
