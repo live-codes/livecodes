@@ -381,6 +381,7 @@ export type ToolList = Array<{
     baseUrl: string,
     editors: Editors,
     eventsManager: ReturnType<typeof createEventsManager>,
+    isEmbed: boolean,
   ) => Tool;
 }>;
 

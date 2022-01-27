@@ -8,6 +8,7 @@ export const createCompiledCodeViewer = (
   baseUrl: string,
   _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,
+  _isEmbed: boolean,
 ): Tool => {
   let compiledCodeElement: HTMLElement;
   let editor: CodeEditor;

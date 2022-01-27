@@ -427,7 +427,9 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
-  editors[editorId]?.focus();
+  if (!isEmbed) {
+    editors[editorId]?.focus();
+  }
   if (!isUpdate) {
     setConfig({
       ...getConfig(),
@@ -521,7 +523,9 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   setEditorTitle(editorId, language);
   showEditor(editorId, isUpdate);
   phpHelper({ editor: editors.script });
-  setTimeout(() => editor.focus());
+  if (!isEmbed) {
+    setTimeout(() => editor.focus());
+  }
   await compiler.load([language], getConfig());
   editor.registerFormatter(await formatter.getFormatFn(language));
   if (!isUpdate) {
@@ -2404,7 +2408,9 @@ const bootstrap = async (reload = false) => {
   loadSettings(getConfig());
   await configureEmmet(getConfig());
   showMode(getConfig());
-  setTimeout(() => getActiveEditor().focus());
+  if (!isEmbed) {
+    setTimeout(() => getActiveEditor().focus());
+  }
   setExternalResourcesMark();
   await toolsPane?.load();
   updateCompiledCode();
@@ -2445,7 +2451,7 @@ const initializeApp = async (
   );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
   basicHandlers();
 
   await initializeFn?.();

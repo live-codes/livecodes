@@ -21,8 +21,11 @@ export const createToolsPane = (
   baseUrl: string,
   editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
+  isEmbed: boolean,
 ) => {
-  const tools = toolList.map((tool) => tool.factory(config, baseUrl, editors, eventsManager));
+  const tools = toolList.map((tool) =>
+    tool.factory(config, baseUrl, editors, eventsManager, isEmbed),
+  );
 
   let toolsSplit: Split.Instance;
   let status: ToolsPaneStatus;
