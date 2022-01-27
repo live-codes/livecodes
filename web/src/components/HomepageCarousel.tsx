@@ -56,7 +56,7 @@ const screenshots = [
 function CarouselItem({ label, url }): JSX.Element {
   return (
     <div>
-      <img src={url} />
+      <img src={url} alt={label} />
       <p className="legend">{label}</p>
     </div>
   );
