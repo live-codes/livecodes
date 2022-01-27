@@ -1,0 +1,5 @@
+.carousel {
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 20px var(--ifm-color-secondary-darkest);
+}

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 import LiveCodes from './LiveCodes';
 import Sliders from './LanguageSliders';
+import HomepageCarousel from './HomepageCarousel';
 interface FeatureItem {
   title: string;
   image: string;
@@ -100,7 +101,7 @@ const ModeList: ModeItem[] = [
     title: 'Embeds',
     description: (
       <>
-        LiveCodes can be <Link to="./docs/features/embed">embedded</Link> in your web pages. Code
+        LiveCodes can be <Link to="./docs/features/embeds">embedded</Link> in your web pages. Code
         can be easily <Link to="./docs/features/code-preload">preloaded</Link>. This is particularly
         useful for educational websites and for library documentations. It is{' '}
         <Link to="./docs/features/security">secure</Link> and highly{' '}
@@ -158,6 +159,14 @@ export default function HomepageFeatures(): JSX.Element {
             {ModeList.map((props, idx) => (
               <Mode key={idx} {...{ ...props, idx }} />
             ))}
+          </div>
+        </div>
+      </section>
+      <section className={styles.rowDark}>
+        <div className={'container padding-vert--lg ' + styles.center}>
+          <div className={['row', styles.carousel, styles.center].join(' ')}>
+            <h3>Screenshots</h3>
+            <HomepageCarousel></HomepageCarousel>
           </div>
         </div>
       </section>

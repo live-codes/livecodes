@@ -6,7 +6,9 @@
 }
 
 .center {
+  display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .editorHint {
@@ -23,4 +25,8 @@
 
 .rowDark {
   background-color: var(--ifm-color-secondary-lightest);
+}
+
+.carousel {
+  max-width: 600px;
 }

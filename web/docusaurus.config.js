@@ -34,7 +34,10 @@ const config = {
         //   editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
         // },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: [
+            require.resolve('./src/css/custom.css'),
+            require.resolve('react-responsive-carousel/lib/styles/carousel.min.css'),
+          ],
         },
       }),
     ],
