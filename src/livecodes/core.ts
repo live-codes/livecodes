@@ -687,6 +687,19 @@ const setWindowTitle = () => {
     hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
 
+const setExternalResourcesMark = () => {
+  const mark = UI.getExternalResourcesMark();
+  const btn = UI.getExternalResourcesBtn();
+  if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
+    mark.classList.add('active');
+  } else {
+    mark.classList.remove('active');
+    if (isEmbed) {
+      btn.style.display = 'none';
+    }
+  }
+};
+
 const run = async (editorId?: EditorId) => {
   setLoading(true);
   const result = await getResultPage({ sourceEditor: editorId });
@@ -2152,6 +2165,7 @@ const handleExternalResources = () => {
               .filter((x) => x !== '') || [],
         });
       });
+      setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
       await run();
@@ -2159,6 +2173,12 @@ const handleExternalResources = () => {
   };
   eventsManager.addEventListener(
     UI.getExternalResourcesLink(),
+    'click',
+    createExrenalResourcesUI,
+    false,
+  );
+  eventsManager.addEventListener(
+    UI.getExternalResourcesBtn(),
     'click',
     createExrenalResourcesUI,
     false,
@@ -2271,6 +2291,7 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
+  handleExternalResources();
 };
 
 const extraHandlers = async () => {
@@ -2282,7 +2303,6 @@ const extraHandlers = async () => {
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();
-  handleExternalResources();
   handleCustomSettings();
   handleLogin();
   handleLogout();
@@ -2385,6 +2405,7 @@ const bootstrap = async (reload = false) => {
   await configureEmmet(getConfig());
   showMode(getConfig());
   setTimeout(() => getActiveEditor().focus());
+  setExternalResourcesMark();
   await toolsPane?.load();
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());

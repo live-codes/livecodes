@@ -41,6 +41,7 @@
   --custom-editor-background-color: rgb(30, 30, 30);
   --custom-editor-loading-color: rgb(255, 255, 255);
   --editor-tools-invert: invert(0.8);
+  --editor-tools-mark-color: rgb(37, 194, 160);
 }
 
 :root.light {
@@ -86,6 +87,7 @@
   --custom-editor-background-color: rgb(255, 255, 255);
   --custom-editor-loading-color: rgb(30, 30, 30);
   --editor-tools-invert: invert(0.3);
+  --editor-tools-mark-color: rgb(119, 53, 53);
 }
 
 * {
@@ -414,6 +416,20 @@ a {
       &.disabled img {
         filter: invert(0.5);
       }
+    }
+
+    #external-resources-btn {
+      position: absolute;
+      right: 1em;
+    }
+
+    #external-resources-mark.active {
+      border: 5px solid var(--editor-tools-mark-color);
+      border-radius: 5px;
+      bottom: 5px;
+      display: inline-block;
+      position: absolute;
+      right: 5px;
     }
   }
 
