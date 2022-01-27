@@ -48,8 +48,12 @@ const screenshots = [
     url: './img/screenshots/SCSS-Autoprefixer.jpg',
   },
   {
-    label: 'Tailwindcss',
+    label: 'CSS Processors',
     url: './img/screenshots/tailwindcss.jpg',
+  },
+  {
+    label: 'Light theme',
+    url: './img/screenshots/light-theme.jpg',
   },
 ];
 
