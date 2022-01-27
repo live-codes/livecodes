@@ -13,8 +13,8 @@
 
 .editorHint {
   justify-self: flex-start;
-  text-align: start;
   margin: 1em;
+  text-align: start;
   width: 90%;
 }
 
