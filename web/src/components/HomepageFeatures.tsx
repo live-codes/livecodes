@@ -144,6 +144,15 @@ export default function HomepageFeatures(): JSX.Element {
             <div className={styles.editorHint}>
               * Try editing the code above and see the changes reflected in the result page.
             </div>
+            <div>
+              <Link
+                className="button button--info button--outline button--lg margin-vert--md"
+                to={appUrl + '?screen=new'}
+                target="_blank"
+              >
+                Starter Templates 🎉
+              </Link>
+            </div>
           </div>
         </div>
       </section>
