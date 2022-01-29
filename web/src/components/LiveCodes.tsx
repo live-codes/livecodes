@@ -11,6 +11,7 @@ export const embedUrl = appUrl + '?embed&';
 export default function LiveCodes(props: {
   query: string;
   style?: Record<string, string>;
+  showCode?: boolean;
 }): JSX.Element {
   const codeBlockTitleHeight = '3.7rem';
   const [codeCollapsed, setCodeCollapsed] = useState(true);
@@ -42,34 +43,35 @@ export default function LiveCodes(props: {
             }}
             seamless
           ></iframe>
-
-          <details
-            className="details_node_modules-@docusaurus-theme-common-lib-components-Details-styles-module isBrowser_node_modules-@docusaurus-theme-common-lib-components-Details-styles-module alert alert--info details_node_modules-@docusaurus-theme-classic-lib-next-theme-Details-styles-module"
-            data-collapsed={codeCollapsed}
-            style={{
-              height: codeCollapsed ? codeBlockTitleHeight : height,
-              overflow: 'hidden',
-              willChange: 'height',
-              transition: `height ${codeCollapsed ? '250ms' : '265ms'} ease-in-out 0s`,
-            }}
-          >
-            <summary onClick={toggle}>show code</summary>
-            <div
-              ref={codeBlockContainer}
+          {props.showCode !== false && (
+            <details
+              className="details_node_modules-@docusaurus-theme-common-lib-components-Details-styles-module isBrowser_node_modules-@docusaurus-theme-common-lib-components-Details-styles-module alert alert--info details_node_modules-@docusaurus-theme-classic-lib-next-theme-Details-styles-module"
+              data-collapsed={codeCollapsed}
               style={{
-                display: 'block',
+                height: codeCollapsed ? codeBlockTitleHeight : height,
                 overflow: 'hidden',
+                willChange: 'height',
+                transition: `height ${codeCollapsed ? '250ms' : '265ms'} ease-in-out 0s`,
               }}
             >
-              <div className="collapsibleContent_node_modules-@docusaurus-theme-common-lib-components-Details-styles-module">
-                <CodeBlock language="html">
-                  {`<iframe
+              <summary onClick={toggle}>show code</summary>
+              <div
+                ref={codeBlockContainer}
+                style={{
+                  display: 'block',
+                  overflow: 'hidden',
+                }}
+              >
+                <div className="collapsibleContent_node_modules-@docusaurus-theme-common-lib-components-Details-styles-module">
+                  <CodeBlock language="html">
+                    {`<iframe
   src="${embedUrl + props.query}"
 ></iframe>`}
-                </CodeBlock>
+                  </CodeBlock>
+                </div>
               </div>
-            </div>
-          </details>
+            </details>
+          )}
         </>
       )}
     </BrowserOnly>

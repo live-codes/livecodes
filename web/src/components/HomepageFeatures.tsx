@@ -139,6 +139,7 @@ export default function HomepageFeatures(): JSX.Element {
             <LiveCodes
               query="template=react"
               style={{ width: '95%', boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)' }}
+              showCode={false}
             ></LiveCodes>
             <div className={styles.editorHint}>
               * Try editing the code above and see the changes reflected in the result page.
