@@ -383,7 +383,6 @@ const showMode = (config: Config) => {
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
   gutterElement.style.display = 'block';
-  gutterElement.style.display = 'block';
   runButton.style.visibility = 'visible';
   codeRunButton.style.visibility = 'visible';
 
@@ -394,14 +393,14 @@ const showMode = (config: Config) => {
   if (!showEditor) {
     outputElement.style.flexBasis = '100%';
     editorsElement.style.display = 'none';
-    split.destroy(true);
+    split?.destroy(true);
   }
   if (!showResult) {
     editorsElement.style.flexBasis = '100%';
     outputElement.style.display = 'none';
     resultElement.style.display = 'none';
     codeRunButton.style.display = 'none';
-    split.destroy(true);
+    split?.destroy(true);
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
