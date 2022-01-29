@@ -18,26 +18,8 @@ Demo: (console=open)
 
 <LiveCodes query="console=open&js=console.log('hello')"></LiveCodes>
 
-<details>
-<summary>show code</summary>
-
-```html
-<iframe src="https://livecodes.io/?embed&console=open&js=console.log('hello')"></iframe>
-```
-
-</details>
-
 <p>&nbsp;</p>
 
 Demo: (console=full)
 
 <LiveCodes query="console=full&js=console.log('hello')"></LiveCodes>
-
-<details>
-<summary>show code</summary>
-
-```html
-<iframe src="https://livecodes.io/?embed&console=full&js=console.log('hello')"></iframe>
-```
-
-</details>

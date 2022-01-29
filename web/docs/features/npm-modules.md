@@ -38,17 +38,6 @@ import { v4 } from 'https://cdn.skypack.dev/uuid';
 
 <LiveCodes query="js=import%20%7B%20v4%20%7D%20from%20%27uuid%27%3B%0A%0Adocument.body.innerHTML%20%3D%20v4()%3B"></LiveCodes>
 
-<details>
-<summary>show code</summary>
-
-```html
-<iframe
-  src="https://livecodes.io/?embed&js=import%20%7B%20v4%20%7D%20from%20%27uuid%27%3B%0A%0Adocument.body.innerHTML%20%3D%20v4()%3B"
-></iframe>
-```
-
-</details>
-
 <p>&nbsp;</p>
 
 You can import React like that:
@@ -61,15 +50,6 @@ import ReactDOM from 'react-dom';
 Demo:
 
 <LiveCodes query="template=react"></LiveCodes>
-
-<details>
-<summary>show code</summary>
-
-```html
-<iframe src="https://livecodes.io/?embed&template=react"></iframe>
-```
-
-</details>
 
 It just works without a build step and without you having to worry about. And when you export your code to another service (e.g CodePen or JSFiddle), the full url imports are used, so your code continue to work elsewhere.
 

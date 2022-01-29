@@ -15,19 +15,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.14",
-    "@docusaurus/preset-classic": "2.0.0-beta.14",
-    "@mdx-js/react": "^1.6.21",
-    "clsx": "^1.1.1",
-    "prism-react-renderer": "^1.2.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "@docusaurus/core": "2.0.0-beta.15",
+    "@docusaurus/preset-classic": "2.0.0-beta.15",
+    "@mdx-js/react": "1.6.21",
+    "clsx": "1.1.1",
+    "prism-react-renderer": "1.2.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-responsive-carousel": "3.2.22"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.14",
-    "@tsconfig/docusaurus": "^1.0.4",
-    "typescript": "^4.5.2"
+    "@docusaurus/module-type-aliases": "2.0.0-beta.15",
+    "@tsconfig/docusaurus": "1.0.4",
+    "typescript": "4.5.2"
   },
   "browserslist": {
     "production": [
