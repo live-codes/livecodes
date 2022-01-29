@@ -4,8 +4,8 @@
 const sidebars = {
   tutorialSidebar: [
     'index',
-    'getting-started',
     'why',
+    'getting-started',
     {
       type: 'category',
       label: 'Features',
@@ -21,6 +21,7 @@ const sidebars = {
         'features/resources-assets',
         'features/npm-modules',
         'features/deploy',
+        'features/tools-pane',
         'features/console',
         'features/compiled-code',
         'features/display-modes',
@@ -44,6 +45,7 @@ const sidebars = {
     'credits',
     'license',
     'sponsor',
+    'about',
   ],
 };
 

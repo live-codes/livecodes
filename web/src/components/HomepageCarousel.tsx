@@ -4,55 +4,51 @@ import styles from './HomepageCarousel.module.css';
 
 const screenshots = [
   {
-    label: 'Languages',
+    label: 'A large collection of languages',
     url: './img/screenshots/languages.jpg',
   },
   {
-    label: 'Settings',
+    label: 'Lots of features',
     url: './img/screenshots/settings-export.jpg',
   },
   {
-    label: 'Saved Projects',
+    label: 'Keep your projects organized',
     url: './img/screenshots/saved-projects.jpg',
   },
   {
-    label: 'Starter Templates',
+    label: 'Starter templates for quick start',
     url: './img/screenshots/starter-templates.jpg',
   },
   {
-    label: 'Starter Templates',
+    label: '... a large number of starter templates',
     url: './img/screenshots/starter-templates-2.jpg',
   },
   {
-    label: 'Console',
+    label: 'Developer console for quick inspection',
     url: './img/screenshots/console.jpg',
   },
   {
-    label: 'Compiled Code Viewer',
+    label: 'View compiled code',
     url: './img/screenshots/compiled-code.jpg',
   },
   {
-    label: 'Assets',
+    label: 'Assets manager',
     url: './img/screenshots/assets.jpg',
   },
   {
-    label: 'External CSS/JS',
+    label: 'Add external CSS/JS',
     url: './img/screenshots/external-css-js.jpg',
   },
   {
-    label: 'Restore unsaved project',
+    label: 'Restore unsaved projects',
     url: './img/screenshots/restore.jpg',
   },
   {
-    label: 'SCSS/Autoprefixer',
+    label: 'CSS Processors',
     url: './img/screenshots/SCSS-Autoprefixer.jpg',
   },
   {
-    label: 'CSS Processors',
-    url: './img/screenshots/tailwindcss.jpg',
-  },
-  {
-    label: 'Light theme',
+    label: '... and of course, a light theme :)',
     url: './img/screenshots/light-theme.jpg',
   },
 ];

@@ -1155,6 +1155,16 @@ const showVersion = () => {
   }
 };
 
+const resizeEditors = () => {
+  Object.values(editors).forEach((editor: CodeEditor) => {
+    setTimeout(() => {
+      if (editor.layout) {
+        editor.layout(); // resize monaco editor
+      }
+    });
+  });
+};
+
 const handleTitleEdit = () => {
   const projectTitle = UI.getProjectTitleElement();
   if (!projectTitle) return;
@@ -1179,15 +1189,6 @@ const handleTitleEdit = () => {
 };
 
 const handleResize = () => {
-  const resizeEditors = () => {
-    Object.values(editors).forEach((editor: CodeEditor) => {
-      setTimeout(() => {
-        if (editor.layout) {
-          editor.layout(); // resize monaco editor
-        }
-      });
-    });
-  };
   resizeEditors();
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
   eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
@@ -2472,6 +2473,7 @@ const initializeApp = async (
     url: parent.location.hash.substring(1),
   });
   showVersion();
+  setTimeout(resizeEditors, 500);
 };
 
 const createApi = () => ({

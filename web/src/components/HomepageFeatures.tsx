@@ -87,8 +87,8 @@ const ModeList: ModeItem[] = [
           livecodes.io
         </Link>
         . It is <strong>free</strong>, with no ads and no accounts required. Or{' '}
-        <Link to="./docs/getting-started">self-host</Link> it on your own server. Do you need it for
-        commercial use? No problem! It is{' '}
+        <Link to="./docs/getting-started#self-hosted">self-host</Link> it on your own server. Do you
+        need it for commercial use? No problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
           <Link to="./docs/license">
             <strong>MIT-licensed</strong>
@@ -137,8 +137,8 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
           <div className={'row ' + styles.center}>
             <LiveCodes
-              src="/?embed&template=react"
-              style={{ boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)' }}
+              query="template=react"
+              style={{ width: '95%', boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)' }}
             ></LiveCodes>
             <div className={styles.editorHint}>
               * Try editing the code above and see the changes reflected in the result page.
@@ -180,7 +180,7 @@ export default function HomepageFeatures(): JSX.Element {
                 className=" button button--primary button--outline button--lg"
                 to="./docs/getting-started"
               >
-                Get Started
+                Get Started 📖
               </Link>
               <Link
                 className=" button button--info button--outline button--lg"

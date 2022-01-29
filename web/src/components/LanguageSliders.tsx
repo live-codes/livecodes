@@ -124,7 +124,7 @@ export default function Sliders() {
           className="button button--outline button--warning button--lg"
           onClick={() => open(true)}
         >
-          Surprise me!
+          Surprise me 🎁
         </Link>
       </div>
     </div>
