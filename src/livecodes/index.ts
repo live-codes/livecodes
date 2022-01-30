@@ -39,6 +39,10 @@ export const livecodes = async (
     const iframe = document.createElement('iframe');
     iframe.name = 'app';
     iframe.style.display = 'none';
+    iframe.setAttribute(
+      'sandbox',
+      'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+    );
 
     containerElement.appendChild(iframe);
     iframe.contentWindow?.document.open();
