@@ -43,7 +43,7 @@ Demo:
 
 <LiveCodes query="mode=result&template=react"></LiveCodes>
 
-The tools pane (e.g. console/compiled code viewer) ca be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.md) documentation for details.
+The tools pane (e.g. console/compiled code viewer) is hidden by default in `result` mode. It can be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.md) documentation for details.
 
 Demo:
 
