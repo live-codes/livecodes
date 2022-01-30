@@ -1,5 +1,5 @@
 import { appHTML } from './html';
-import { API, Config } from './models';
+import { API, Config, ContentConfig } from './models';
 
 export { API, Config };
 export const livecodes = async (
@@ -48,6 +48,18 @@ export const livecodes = async (
         .replace(/{{script}}/g, isEmbed ? 'embed.js' : 'app.js'),
     );
     iframe.contentWindow?.document.close();
+
+    window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
+      if (isEmbed) {
+        parent.postMessage(
+          {
+            type: 'livecodes-change',
+            detail: e.detail,
+          },
+          '*',
+        );
+      }
+    });
 
     iframe.addEventListener('load', async () => {
       const app = (iframe.contentWindow as any)?.app;

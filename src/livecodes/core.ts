@@ -210,6 +210,12 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
     }
 
     resultLanguages = getEditorLanguages();
+
+    parent.dispatchEvent(
+      new CustomEvent('livecodes-change', {
+        detail: getContentConfig(getConfig()),
+      }),
+    );
   });
 
 const loadModuleTypes = async (editors: Editors, config: Config) => {
@@ -796,7 +802,7 @@ const updateConfig = () => {
   });
 };
 
-const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
+const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush = true) => {
   changingContent = true;
 
   const content = getContentConfig({
@@ -810,7 +816,9 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
   setProjectRestore();
 
   // flush result page
-  createIframe(UI.getResultElement(), '<!-- flush -->');
+  if (flush) {
+    createIframe(UI.getResultElement(), '<!-- flush -->');
+  }
 
   // load title
   const projectTitle = UI.getProjectTitleElement();
@@ -2408,6 +2416,7 @@ const importExternalContent = async (options: {
       ...importedConfig,
     },
     parent.location.href,
+    false,
   );
 
   modal.close();
@@ -2502,7 +2511,7 @@ const createApi = () => ({
     return JSON.parse(JSON.stringify(config));
   },
   setConfig: async (newConfig: Config): Promise<Config> => {
-    const newAppConfig = await buildConfig(newConfig, baseUrl);
+    const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;
   },
