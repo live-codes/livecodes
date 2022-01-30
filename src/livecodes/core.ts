@@ -373,6 +373,7 @@ const showMode = (config: Config) => {
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
   const codeRunButton = UI.getCodeRunButton();
+  const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
   const showEditor = modeConfig[1] === '1';
@@ -405,6 +406,14 @@ const showMode = (config: Config) => {
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
     codeRunButton.style.visibility = 'hidden';
+  }
+  if (config.mode === 'codeblock') {
+    editorTools.style.display = 'none';
+  }
+  if (config.mode === 'result') {
+    if (!['full', 'open'].includes(toolsPane.getStatus())) {
+      toolsPane?.hide();
+    }
   }
   window.dispatchEvent(new Event('editor-resize'));
 };
@@ -752,14 +761,20 @@ const fork = async () => {
   notifications.success('Forked as a new project');
 };
 
-const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
+const share = async (
+  shortUrl = false,
+  contentOnly = true,
+  urlUpdate = true,
+): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
   const contentHash = shortUrl
     ? '#id/' + (await shareService.shareProject(content))
     : '#code/' + compress(JSON.stringify(content));
   const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
   const shareURL = url + contentHash;
-  updateUrl(shareURL, true);
+  if (urlUpdate) {
+    updateUrl(shareURL, true);
+  }
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
   return {
     title: projectTitle + 'LiveCodes',
@@ -2407,12 +2422,12 @@ const bootstrap = async (reload = false) => {
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
   await configureEmmet(getConfig());
-  showMode(getConfig());
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
   await toolsPane?.load();
+  showMode(getConfig());
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
@@ -2437,8 +2452,8 @@ const initializeApp = async (
   compiler = await getCompiler(getConfig(), baseUrl);
   formatter = getFormatter(getConfig(), baseUrl);
   customEditors = createCustomEditors(baseUrl);
-  if (isEmbed) {
-    configureEmbed(eventsManager, share);
+  if (isEmbed || getConfig().mode === 'result') {
+    configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
   }
   loadUserConfig();
   createLanguageMenus(
@@ -2480,7 +2495,7 @@ const createApi = () => ({
     await run();
   },
   format: async () => format(),
-  getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
+  getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
   getConfig: (contentOnly = false): Config => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();

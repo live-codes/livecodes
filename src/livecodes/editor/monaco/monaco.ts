@@ -55,7 +55,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const codeblockOptions: Options = {
     ...defaultOptions,
     readOnly: true,
-    lineNumbers: 'off',
+    // lineNumbers: 'off',
     scrollBeyondLastLine: false,
     contextmenu: false,
   };

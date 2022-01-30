@@ -357,6 +357,35 @@ a {
   }
 }
 
+.result {
+  #toolbar {
+    background-color: rgb(0, 0, 0, 0.05);
+    border-bottom: 1px solid black;
+    border-bottom-left-radius: 5px;
+    border-left: 1px solid black;
+    display: block !important;
+    height: 40px;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    transition: opacity 0.3s;
+    width: 75px;
+
+    > *:not(:first-child) {
+      display: none !important;
+    }
+  }
+
+  #logo {
+    position: absolute;
+    right: 0;
+  }
+
+  :hover #toolbar {
+    opacity: 1;
+  }
+}
+
 #editor-container {
   display: flex;
   flex-direction: row;
@@ -2064,8 +2093,7 @@ i.arrow {
   }
 
   pre.codeblock {
-    padding-bottom: 1em !important;
-    padding-top: 1em !important;
+    padding-right: 2em !important;
   }
 }
 

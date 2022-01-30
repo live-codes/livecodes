@@ -6,6 +6,7 @@ const sidebars = {
     'index',
     'why',
     'getting-started',
+    'configuration',
     {
       type: 'category',
       label: 'Features',
@@ -41,7 +42,6 @@ const sidebars = {
       },
       items: ['languages/html'],
     },
-    'configuration',
     'credits',
     'license',
     'sponsor',

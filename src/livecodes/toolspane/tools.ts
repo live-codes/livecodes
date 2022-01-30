@@ -309,6 +309,7 @@ export const createToolsPane = (
     close: () => resize('closed'),
     maximize: () => resize('full'),
     hide: () => resize('none'),
+    getStatus: () => status,
     // console, compiled
     ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };
