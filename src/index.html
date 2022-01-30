@@ -187,6 +187,7 @@
       }
       resize();
       window.addEventListener('resize', resize, false);
+      setTimeout(resize, 500);
       window.__livecodesReady = function (api) {
         document.querySelector('#animating-logo').remove();
         // TODO: remove
