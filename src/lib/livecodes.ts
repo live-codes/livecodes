@@ -9,7 +9,7 @@ export interface EmbedOptions {
   appUrl?: string;
 }
 
-export const liveCodes = async (
+export const playground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<API> => {
@@ -42,6 +42,11 @@ export const liveCodes = async (
   } else if (typeof config === 'object' && Object.keys(config).length > 0) {
     try {
       const encoded = btoa(JSON.stringify(config));
+      for (const [key, value] of Object.entries(config)) {
+        if (['string', 'boolean', 'number', 'undefined'].includes(typeof value)) {
+          url.searchParams.set(key, String(value));
+        }
+      }
       url.searchParams.set('config', 'data:application/json;base64,' + encoded);
     } catch {
       throw new Error('Invalid configuration object.');

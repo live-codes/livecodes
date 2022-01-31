@@ -1,6 +1,7 @@
 import { ContentConfig } from '../models';
 import { loadScript } from '../utils';
 import { localforageUrl } from '../vendors';
+import { fakeStorage } from './fake-storage';
 import { ProjectStorage, SavedProject, StorageItem } from './models';
 
 type LocalForage = typeof import('localforage');
@@ -28,7 +29,10 @@ const loadLocalforage = async (store: string) => {
 /**
  * Creates asynchronous data store using localforage
  */
-export const createStorage = async (name: string): Promise<ProjectStorage> => {
+export const createStorage = async (name: string, isEmbed: boolean): Promise<ProjectStorage> => {
+  // do not allow access to storage in embeds
+  if (isEmbed) return fakeStorage;
+
   let store: LocalForage;
 
   const load = async () => {

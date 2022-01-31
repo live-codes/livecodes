@@ -26,9 +26,9 @@
       import { playground } from 'http://127.0.0.1:8080/lib/livecodes.esm.js';
 
       playground('#container1', {
-        config: { editor: 'codemirror' },
+        config: { editor: 'codemirror', theme: 'light', emmet: false },
         template: 'react',
-        appUrl: 'http://127.0.0.1:8080/?editor=codemirror&theme=light&emmet=false',
+        appUrl: 'http://127.0.0.1:8080/',
       }).then(async (api) => {
         window.api1 = api;
       });
