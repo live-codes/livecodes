@@ -2372,29 +2372,26 @@ const importExternalContent = async (options: {
   loadingMessage.innerHTML = 'Loading Project...';
   modal.show(loadingMessage, { size: 'small', isAsync: true });
 
-  let importedConfig: Partial<Config> = {};
+  let templateConfig: Partial<Config> = {};
+  let urlConfig: Partial<Config> = {};
+  let contentUrlConfig: Partial<Config> = {};
+  let configUrlConfig: Partial<Config> = {};
 
-  if (configUrl) {
-    importedConfig = upgradeAndValidate(
-      await fetch(configUrl)
-        .then((res) => res.json())
-        .catch(() => ({})),
-    );
-    if (hasContentUrls(importedConfig)) {
-      await importExternalContent({ config: { ...config, ...importedConfig } });
-      return;
-    }
-  } else if (template) {
-    importedConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
-  } else if (url) {
+  if (template) {
+    templateConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
+  }
+
+  if (url) {
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
     if (isGithub(url) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    importedConfig = await importCode(url, getParams(), getConfig(), user);
-  } else if (hasContentUrls(config)) {
+    urlConfig = await importCode(url, getParams(), getConfig(), user);
+  }
+
+  if (hasContentUrls(config)) {
     // load content from config contentUrl
     const editorsContent = await Promise.all(
       editorIds.map((editorId) => {
@@ -2411,16 +2408,32 @@ const importExternalContent = async (options: {
         }
       }),
     );
-    importedConfig = {
+    contentUrlConfig = {
       markup: editorsContent[0],
       style: editorsContent[1],
       script: editorsContent[2],
     };
   }
+
+  if (configUrl) {
+    configUrlConfig = upgradeAndValidate(
+      await fetch(configUrl)
+        .then((res) => res.json())
+        .catch(() => ({})),
+    );
+    if (hasContentUrls(configUrlConfig)) {
+      await importExternalContent({ config: { ...config, ...configUrlConfig } });
+      return;
+    }
+  }
+
   await loadConfig(
     {
       ...config,
-      ...importedConfig,
+      ...templateConfig,
+      ...urlConfig,
+      ...contentUrlConfig,
+      ...configUrlConfig,
     },
     parent.location.href,
     false,

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      #container {
+      #container1,
+      #container2 {
         height: 300px;
         width: 70%;
       }
@@ -19,17 +20,31 @@
     </style>
   </head>
   <body>
-    <div id="container"></div>
+    <div id="container1"></div>
+    <div id="container2"></div>
     <script type="module">
-      import { liveCodes } from 'http://127.0.0.1:8080/lib/livecodes.js';
+      import { playground } from 'http://127.0.0.1:8080/lib/livecodes.esm.js';
 
-      liveCodes('#container', {
-        // config: { title: 'hi' },
-        template: 'bootstrap',
-        appUrl: 'http://127.0.0.1:8080/',
+      playground('#container1', {
+        config: { editor: 'codemirror' },
+        template: 'react',
+        appUrl: 'http://127.0.0.1:8080/?editor=codemirror&theme=light&emmet=false',
       }).then(async (api) => {
-        window.api = api;
+        window.api1 = api;
       });
+    </script>
+
+    <script src="http://127.0.0.1:8080/lib/livecodes.js"></script>
+    <script>
+      livecodes
+        .playground('#container2', {
+          // config: { title: 'hi' },
+          template: 'bootstrap',
+          appUrl: 'http://127.0.0.1:8080/',
+        })
+        .then(async (api) => {
+          window.api2 = api;
+        });
     </script>
   </body>
 </html>
