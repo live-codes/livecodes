@@ -21,6 +21,7 @@ import {
   ProjectStorage,
 } from './storage';
 import {
+  API,
   Cache,
   CodeEditor,
   CssPresetId,
@@ -213,7 +214,10 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
 
     parent.dispatchEvent(
       new CustomEvent('livecodes-change', {
-        detail: getContentConfig(getConfig()),
+        detail: {
+          config: getContentConfig(getConfig()),
+          code: JSON.parse(JSON.stringify(getCachedCode())),
+        },
       }),
     );
   });
@@ -285,6 +289,7 @@ const createEditors = async (config: Config) => {
     editor: config.editor,
     editorType: 'code' as EditorOptions['editorType'],
     theme: config.theme,
+    isEmbed,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -710,6 +715,7 @@ const setExternalResourcesMark = () => {
   const btn = UI.getExternalResourcesBtn();
   if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
     mark.classList.add('active');
+    btn.style.display = 'unset';
   } else {
     mark.classList.remove('active');
     if (isEmbed) {
@@ -2238,6 +2244,7 @@ const handleCustomSettings = () => {
       language: 'json' as Language,
       value: stringify(getConfig().customSettings, true),
       theme: config.theme,
+      isEmbed,
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor.focus();
@@ -2494,18 +2501,21 @@ const initializeApp = async (
     configUrl: params.config,
     template: params.template,
     url: parent.location.hash.substring(1),
+  }).then(() => {
+    if (isEmbed) {
+      parent.dispatchEvent(new Event('livecodes-ready'));
+    }
   });
   showVersion();
-  setTimeout(resizeEditors, 500);
 };
 
-const createApi = () => ({
+const createApi = (): API => ({
   run: async () => {
     await run();
   },
   format: async () => format(),
   getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
-  getConfig: (contentOnly = false): Config => {
+  getConfig: async (contentOnly = false): Promise<Config> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
     return JSON.parse(JSON.stringify(config));

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        height: 300px;
+        width: 70%;
+      }
+      .livecodes {
+        border: 1px solid black;
+        border-radius: 5px;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="module">
+      import { liveCodes } from 'http://127.0.0.1:8080/lib/livecodes.js';
+
+      liveCodes('#container', {
+        // config: { title: 'hi' },
+        template: 'bootstrap',
+        appUrl: 'http://127.0.0.1:8080/',
+      }).then(async (api) => {
+        window.api = api;
+      });
+    </script>
+  </body>
+</html>

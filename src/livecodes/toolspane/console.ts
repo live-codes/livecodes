@@ -118,6 +118,7 @@ export const createConsole = (
       editor: config.editor,
       editorType: 'console',
       theme: config.theme,
+      isEmbed,
     };
     const consoleEditor = await createEditor(editorOptions);
 

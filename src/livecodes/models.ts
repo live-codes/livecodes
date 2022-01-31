@@ -4,8 +4,8 @@ import { createEventsManager } from './events';
 export interface API {
   run: () => Promise<void>;
   format: () => Promise<void>;
-  getShareUrl: () => Promise<string>;
-  getConfig: () => Config;
+  getShareUrl: (shortUrl?: boolean) => Promise<string>;
+  getConfig: () => Promise<Config>;
   setConfig: (Config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
 }
@@ -425,6 +425,7 @@ export interface EditorOptions {
   editorType: 'code' | 'compiled' | 'console';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
+  isEmbed: boolean;
 }
 
 export interface CustomEditor {

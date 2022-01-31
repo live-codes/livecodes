@@ -58,6 +58,12 @@ esbuild.buildSync({
   },
 });
 
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/lib/livecodes.ts'],
+  outdir: 'build/lib',
+});
+
 /** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {
   ...baseOptions,

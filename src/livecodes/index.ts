@@ -53,8 +53,16 @@ export const livecodes = async (
     );
     iframe.contentWindow?.document.close();
 
-    window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
-      if (isEmbed) {
+    if (isEmbed) {
+      window.addEventListener('livecodes-ready', () => {
+        parent.postMessage({ type: 'livecodes-ready' }, '*');
+      });
+
+      window.addEventListener('livecodes-app-loaded', () => {
+        parent.postMessage({ type: 'livecodes-app-loaded' }, '*');
+      });
+
+      window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
         parent.postMessage(
           {
             type: 'livecodes-change',
@@ -62,19 +70,40 @@ export const livecodes = async (
           },
           '*',
         );
-      }
-    });
+      });
+    }
 
     iframe.addEventListener('load', async () => {
       const app = (iframe.contentWindow as any)?.app;
       if (typeof app === 'function') {
         const api: API = await app(config, baseUrl);
         iframe.style.display = 'block';
+        window.dispatchEvent(
+          new CustomEvent('livecodes-app-loaded', {
+            detail: api,
+          }),
+        );
 
-        // eslint-disable-next-line no-underscore-dangle
-        const callback = (window as any).__livecodesReady;
-        if (typeof callback === 'function') {
-          callback(api);
+        if (isEmbed) {
+          addEventListener(
+            'message',
+            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+              if (e.source !== parent) return;
+
+              const { method, args } = e.data || {};
+              if (!method) return;
+              const methodArguments = Array.isArray(args) ? args : [args];
+
+              parent.postMessage(
+                {
+                  type: 'api-response',
+                  method,
+                  payload: await (api[method] as any)(...methodArguments),
+                },
+                '*',
+              );
+            },
+          );
         }
 
         resolve(api);
