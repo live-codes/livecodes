@@ -1,5 +1,5 @@
-import { CompileOptions, hasStyleImports, replaceStyleImports } from '../compiler';
-import { Config, Processors } from '../models';
+import { hasStyleImports, replaceStyleImports } from '../compiler';
+import { CompileOptions, Config, Processors } from '../models';
 import { getAbsoluteUrl } from '../utils';
 import { postcssImportUrl, tailwindcssUrl, vendorsBaseUrl } from '../vendors';
 import { escapeCode, getLanguageCustomSettings } from './utils';

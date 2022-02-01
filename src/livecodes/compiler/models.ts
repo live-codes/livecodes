@@ -1,10 +1,4 @@
-import { Language, Config, ProcessorName, BlocklyContent } from '../models';
-
-export interface CompileOptions {
-  html?: string;
-  blockly?: BlocklyContent;
-  forceCompile?: boolean;
-}
+import { Language, Config, ProcessorName, CompileOptions } from '../models';
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;

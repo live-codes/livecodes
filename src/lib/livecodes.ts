@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-internal-modules
-import { API, Code, Config } from '../livecodes/models';
+import { API, Code, Config } from './models';
 
 export { API, Code, Config };
 export interface EmbedOptions {

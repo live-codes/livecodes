@@ -58,6 +58,8 @@ esbuild.buildSync({
   },
 });
 
+fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/lib/models.ts'));
+
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['src/lib/livecodes.ts'],

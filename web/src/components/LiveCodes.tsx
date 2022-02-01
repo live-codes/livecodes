@@ -2,13 +2,11 @@ import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { appUrl } from '../utils';
 // eslint-disable-next-line import/no-internal-modules
-import { playground } from '../../../build/lib/livecodes.esm';
-// eslint-disable-next-line import/no-internal-modules
-import type { Config } from '../../../build/lib';
+import { playground, Config } from '../../../src/lib/livecodes';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
 
-export const embedUrl = appUrl + '?embed&';
+const url = appUrl + '?';
 
 export default function LiveCodes(props: {
   config?: Config;
@@ -20,14 +18,14 @@ export default function LiveCodes(props: {
   const containerRef = useRef(null);
   useEffect(() => {
     playground(containerRef.current, {
-      config: props.config,
+      appUrl: url + props.query,
       template: props.template,
-      appUrl: 'http://127.0.0.1:8080/?' + props.query,
+      config: props.config,
     });
   }, []);
 
   const options = {
-    ...(props.query ? { appUrl: 'https://livecodes.io/?' + props.query } : {}),
+    ...(props.query ? { appUrl: url + props.query } : {}),
     ...(props.template ? { template: props.template } : {}),
     ...(props.config ? { config: props.config } : {}),
   };

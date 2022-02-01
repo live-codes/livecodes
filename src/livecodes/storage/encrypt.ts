@@ -4,7 +4,7 @@ import { createStorage } from './storage';
 
 let keyStorage: ProjectStorage;
 const loadStorage = async () => {
-  keyStorage = keyStorage || (await createStorage('__livecodes_key__'));
+  keyStorage = keyStorage || (await createStorage('__livecodes_key__', false));
 };
 
 const encode = (text: string) => {
