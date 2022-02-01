@@ -138,7 +138,11 @@ export default function HomepageFeatures(): JSX.Element {
           <div className={'row ' + styles.center}>
             <LiveCodes
               query="template=react"
-              style={{ width: '95%', boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)' }}
+              style={{
+                height: '70vh',
+                width: '95%',
+                boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)',
+              }}
               showCode={false}
             ></LiveCodes>
             <div className={styles.editorHint}>

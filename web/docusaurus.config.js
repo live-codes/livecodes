@@ -153,6 +153,16 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+  scripts: [
+    {
+      src: 'https://unpkg.com/prettier@2.5.1/standalone.js',
+      async: true,
+    },
+    {
+      src: 'https://unpkg.com/prettier@2.5.1/parser-babel.js',
+      async: true,
+    },
+  ],
 };
 
 module.exports = config;

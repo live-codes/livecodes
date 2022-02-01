@@ -1,39 +1,49 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line import/no-unresolved
-import BrowserOnly from '@docusaurus/BrowserOnly';
 import { appUrl } from '../utils';
+// eslint-disable-next-line import/no-internal-modules
+import { playground } from '../../../build/lib/livecodes.esm';
+// eslint-disable-next-line import/no-internal-modules
+import type { Config } from '../../../build/lib';
 import ShowCode from './ShowCode';
+import styles from './LiveCodes.module.css';
 
 export const embedUrl = appUrl + '?embed&';
 
 export default function LiveCodes(props: {
-  query: string;
+  config?: Config;
+  template?: string;
+  query?: string;
   style?: Record<string, string>;
   showCode?: boolean;
 }): JSX.Element {
-  const code = `<iframe
-src="${embedUrl + props.query}"
-></iframe>`;
+  const containerRef = useRef(null);
+  useEffect(() => {
+    playground(containerRef.current, {
+      config: props.config,
+      template: props.template,
+      appUrl: 'http://127.0.0.1:8080/?' + props.query,
+    });
+  }, []);
+
+  const options = {
+    ...(props.query ? { appUrl: 'https://livecodes.io/?' + props.query } : {}),
+    ...(props.template ? { template: props.template } : {}),
+    ...(props.config ? { config: props.config } : {}),
+  };
+
+  const code = `
+import { playground } from '@live-codes/livecodes';
+
+const options = ${JSON.stringify(options, null, 2)};
+playground('#container', options);
+
+`.trimStart();
 
   return (
-    <BrowserOnly>
-      {() => (
-        <>
-          <iframe
-            src={embedUrl + props.query}
-            style={{
-              width: '100%',
-              height: '70vh',
-              borderRadius: '5px',
-              border: '1px solid black',
-              backgroundColor: '#fff',
-              ...props.style,
-            }}
-            seamless
-          ></iframe>
-          {props.showCode !== false && <ShowCode language="html">{code}</ShowCode>}
-        </>
-      )}
-    </BrowserOnly>
+    <>
+      <div ref={containerRef} className={styles.container} style={props.style}></div>
+      {props.showCode !== false && <ShowCode language="js">{code}</ShowCode>}
+    </>
   );
 }
