@@ -1,5 +1,8 @@
 // eslint-disable-next-line import/no-unresolved
 import Link from '@docusaurus/Link';
+// eslint-disable-next-line import/no-unresolved
+import CodeBlock from '@theme/CodeBlock';
+
 import React from 'react';
 import clsx from 'clsx';
 import { appUrl } from '../utils';
@@ -127,6 +130,12 @@ function Mode({ title, description, idx }: ModeItem & { idx: number }) {
   );
 }
 
+const codeSample = `
+import { playground } from "@live-codes/livecodes";
+
+playground("#container", { template: "react" });
+`.trimStart();
+
 export default function HomepageFeatures(): JSX.Element {
   return (
     <>
@@ -145,18 +154,29 @@ export default function HomepageFeatures(): JSX.Element {
               }}
               showCode={false}
             ></LiveCodes>
-            <div className={styles.editorHint}>
+            <div className="margin-vert--md">
               * Try editing the code above and see the changes reflected in the result page.
             </div>
-            <div>
-              <Link
-                className="button button--info button--outline button--lg margin-vert--md"
-                to={appUrl + '?screen=new'}
-                target="_blank"
-              >
-                Starter Templates 🎉
-              </Link>
-            </div>
+          </div>
+          <div className={'row ' + styles.center}>
+            <p>Want a similar playground for your website?</p>
+          </div>
+          <div style={{ maxWidth: '35em', margin: 'auto' }}>
+            <CodeBlock language="js">{codeSample}</CodeBlock>
+          </div>
+          <div className={`row ${styles.center} ${styles.buttons}`}>
+            <Link
+              className="button button--primary button--outline button--lg"
+              to="/web/docs/examples/display-modes/"
+            >
+              Examples 🎨
+            </Link>
+            <Link
+              className=" button button--info button--outline button--lg"
+              to="./docs/getting-started"
+            >
+              Get Started ✈️
+            </Link>
           </div>
         </div>
       </section>
@@ -191,10 +211,10 @@ export default function HomepageFeatures(): JSX.Element {
           <div className={['row', styles.carousel, styles.center].join(' ')}>
             <div className={styles.buttons}>
               <Link
-                className=" button button--primary button--outline button--lg"
+                className="button button--primary button--outline button--lg"
                 to="./docs/getting-started"
               >
-                Get Started 📖
+                Documentation 📖
               </Link>
               <Link
                 className=" button button--info button--outline button--lg"

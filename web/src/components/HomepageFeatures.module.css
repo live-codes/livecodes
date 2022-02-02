@@ -29,10 +29,10 @@
 }
 
 .carousel {
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .buttons > * {
   margin: 1em;
-  width: 11em;
+  width: 13em;
 }
