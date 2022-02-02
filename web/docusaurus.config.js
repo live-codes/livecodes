@@ -60,6 +60,12 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
+          {
+            type: 'doc',
+            docId: 'examples/display-modes/index',
+            position: 'left',
+            label: 'Examples',
+          },
           // { to: '/web/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://livecodes.io/',
@@ -73,6 +79,7 @@ const config = {
           },
         ],
       },
+      hideableSidebar: true,
       footer: {
         style: 'dark',
         links: [

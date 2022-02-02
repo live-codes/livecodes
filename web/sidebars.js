@@ -2,7 +2,7 @@
 
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
-  tutorialSidebar: [
+  docsSidebar: [
     'index',
     'why',
     'getting-started',
@@ -46,6 +46,22 @@ const sidebars = {
     'license',
     'sponsor',
     'about',
+  ],
+  examplesSidebar: [
+    {
+      type: 'category',
+      label: 'Display Modes',
+      link: {
+        type: 'doc',
+        id: 'examples/display-modes/index',
+      },
+      items: [
+        'examples/display-modes/full',
+        'examples/display-modes/editor',
+        'examples/display-modes/codeblock',
+        'examples/display-modes/result',
+      ],
+    },
   ],
 };
 
