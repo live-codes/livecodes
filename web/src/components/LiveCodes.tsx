@@ -13,6 +13,7 @@ export default function LiveCodes(props: {
   template?: string;
   query?: string;
   style?: Record<string, string>;
+  className?: string;
   showCode?: boolean;
 }): JSX.Element {
   const containerRef = useRef(null);
@@ -40,7 +41,11 @@ playground('#container', options);
 
   return (
     <>
-      <div ref={containerRef} className={styles.container} style={props.style}></div>
+      <div
+        ref={containerRef}
+        className={`${styles.container} ${props.className}`}
+        style={props.style}
+      ></div>
       {props.showCode !== false && <ShowCode language="js">{code}</ShowCode>}
     </>
   );

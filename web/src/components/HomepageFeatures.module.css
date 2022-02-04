@@ -36,3 +36,9 @@
   margin: 1em;
   width: 13em;
 }
+
+.finePrint {
+  font-size: 0.7em;
+  margin-top: 2em;
+  margin-bottom: -2em;
+}

@@ -13,11 +13,11 @@ import HomepageCarousel from './HomepageCarousel';
 
 interface FeatureItem {
   title: string;
-  image: string;
+  image?: string;
   description: JSX.Element;
 }
 
-const FeatureList: FeatureItem[] = [
+const FeatureList1: FeatureItem[] = [
   {
     title: 'Feature-Rich',
     image: './img/light-bulb.svg',
@@ -28,11 +28,11 @@ const FeatureList: FeatureItem[] = [
           <strong>60+ languages/frameworks</strong>
         </Link>
         . Save, Import, Export, Share, Deploy, NPM Modules, Code Format, Starter Templates, Console,
-        Intellisense, Auto-loading TS Types, Emmet Support, GitHub Integration and a lot more{' '}
+        Intellisense, Auto-loading TS Types, Emmet Support and a lot more{' '}
         <Link to="./docs/features">
           <strong>features</strong>
         </Link>
-        . Only used features are loaded to stay light-weight.
+        . Features are downloaded only when used.
       </>
     ),
   },
@@ -62,48 +62,20 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({ title, image, description }: FeatureItem) {
-  return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <img className={styles.featureSvg} alt={title} src={image} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-    </div>
-  );
-}
-interface ModeItem {
-  title: string;
-  description: JSX.Element;
-}
-
-const ModeList: ModeItem[] = [
+const FeatureList2: FeatureItem[] = [
   {
     title: 'Standalone App',
+    image: './img/star.svg',
     description: (
       <>
-        Use the standalone hosted app on{' '}
-        <Link to="https://livecodes.io" target="_blank">
-          livecodes.io
-        </Link>
-        . It is <strong>free</strong>, with no ads and no accounts required. Or{' '}
-        <Link to="./docs/getting-started#self-hosted">self-host</Link> it on your own server. Do you
-        need it for commercial use? No problem! It is{' '}
-        <span style={{ whiteSpace: 'nowrap' }}>
-          <Link to="./docs/license">
-            <strong>MIT-licensed</strong>
-          </Link>{' '}
-          🎉
-        </span>
-        . Please consider <Link to="./docs/sponsor">sponsoring LiveCodes</Link> ❤.
+        Use the standalone app for quick prototyping, testing new ideas or learning a new
+        framework/language. Share your code with friends. Deploy your project to a public URL.
       </>
     ),
   },
   {
     title: 'Embeds',
+    image: './img/add-frame.svg',
     description: (
       <>
         LiveCodes can be <Link to="./docs/features/embeds">embedded</Link> in your web pages. Code
@@ -116,12 +88,51 @@ const ModeList: ModeItem[] = [
       </>
     ),
   },
+  {
+    title: 'Integrations',
+    image: './img/integrations.svg',
+    description: (
+      <>
+        Rich set of integrations. <Link to="./docs/features/import">Import</Link> code from{' '}
+        <strong>GitHub</strong> files/repos/gists, <strong>Gitlab</strong> files/repos/snippets,{' '}
+        <strong>JsBin</strong> or <strong>web pages</strong>.{' '}
+        <Link to="./docs/features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
+        <strong>JsFiddle</strong>. <Link to="./docs/features/deploy">Deploy</Link> to GitHub Pages.
+      </>
+    ),
+  },
 ];
 
-function Mode({ title, description, idx }: ModeItem & { idx: number }) {
+const FeatureList3: FeatureItem[] = [
+  {
+    title: 'Free and Open-Source',
+    image: './img/oss.svg',
+    description: (
+      <>
+        LiveCodes is <strong>free</strong>,<br></br> with no ads and no account required.*<br></br>
+        Do you need to <Link to="./docs/getting-started#self-hosted">self-host</Link> it for
+        commercial use? No problem! It is{' '}
+        <span style={{ whiteSpace: 'nowrap' }}>
+          <Link to="./docs/license">
+            <strong>MIT-licensed</strong>
+          </Link>{' '}
+          🎉
+        </span>
+        <br></br>
+        Please consider <Link to="./docs/sponsor">sponsoring LiveCodes</Link> ❤
+      </>
+    ),
+  },
+];
+
+function Feature({ title, image, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4 col--offset-' + (idx + 1))}>
-      <div className="text--center"></div>
+    <div className={clsx('col col--4')}>
+      {image && (
+        <div className="text--center">
+          <img className={styles.featureSvg} alt={title} src={image} />
+        </div>
+      )}
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
@@ -155,7 +166,21 @@ export default function HomepageFeatures(): JSX.Element {
               showCode={false}
             ></LiveCodes>
             <div className="margin-vert--md">
-              * Try editing the code above and see the changes reflected in the result page.
+              <p>
+                Psst. This is an interactive playground!
+                <img
+                  src="./img/arrow.svg"
+                  alt="arrow-up"
+                  style={{
+                    height: '2em',
+                    verticalAlign: 'middle',
+                    marginLeft: '0.5em',
+                    marginBottom: '0.7em',
+                  }}
+                ></img>
+                <br></br>
+                Try editing the code above and see the changes reflected in the result page.
+              </p>
             </div>
           </div>
           <div className={'row ' + styles.center}>
@@ -182,8 +207,8 @@ export default function HomepageFeatures(): JSX.Element {
       </section>
       <section className={styles.rowDark}>
         <div className="container padding-vert--lg">
-          <div className="row">
-            {FeatureList.map((props, idx) => (
+          <div className={'row ' + styles.center}>
+            {FeatureList1.map((props, idx) => (
               <Feature key={idx} {...props} />
             ))}
           </div>
@@ -191,22 +216,34 @@ export default function HomepageFeatures(): JSX.Element {
       </section>
       <section>
         <div className="container padding-vert--lg">
-          <div className="row">
-            {ModeList.map((props, idx) => (
-              <Mode key={idx} {...{ ...props, idx }} />
+          <div className={'row ' + styles.center}>
+            {FeatureList2.map((props, idx) => (
+              <Feature key={idx} {...{ ...props, idx }} />
             ))}
           </div>
         </div>
       </section>
       <section className={styles.rowDark}>
+        <div className="container padding-vert--lg">
+          <div className={'row ' + styles.center}>
+            {FeatureList3.map((props, idx) => (
+              <Feature key={idx} {...props} />
+            ))}
+          </div>
+          <p className={styles.finePrint}>
+            The OSI logo trademark is the trademark of Open Source Initiative.<br></br>* GitHub
+            account is required only for features that use GitHub Integration.
+          </p>
+        </div>
+      </section>
+      <section>
         <div className={'container padding-vert--lg ' + styles.center}>
           <div className={['row', styles.carousel, styles.center].join(' ')}>
-            <h3>Screenshots</h3>
             <HomepageCarousel></HomepageCarousel>
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section>
         <div className={'container padding-vert--lg ' + styles.center}>
           <div className={['row', styles.carousel, styles.center].join(' ')}>
             <div className={styles.buttons}>
