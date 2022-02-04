@@ -50,13 +50,15 @@ const FeatureList1: FeatureItem[] = [
     ),
   },
   {
-    title: 'Mobile-Friendly',
-    image: './img/responsive.svg',
+    title: 'Integrations',
+    image: './img/integrations.svg',
     description: (
       <>
-        It has a <strong>responsive</strong> layout. We use the powerful Monaco editor (that powers{' '}
-        <strong>VS&nbsp;Code</strong>) on desktop, and the <strong>touch-friendly</strong>{' '}
-        CodeMirror 6 editor on mobile. Don't wait to be on your desk. Try your ideas on the go!
+        Rich set of integrations. <Link to="./docs/features/import">Import</Link> code from{' '}
+        <strong>GitHub</strong> files/repos/gists, <strong>Gitlab</strong> files/repos/snippets,{' '}
+        <strong>JsBin</strong> or <strong>web pages</strong>.{' '}
+        <Link to="./docs/features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
+        <strong>JsFiddle</strong>. <Link to="./docs/features/deploy">Deploy</Link> to GitHub Pages.
       </>
     ),
   },
@@ -69,7 +71,8 @@ const FeatureList2: FeatureItem[] = [
     description: (
       <>
         Use the standalone app for quick prototyping, testing new ideas or learning a new
-        framework/language. Share your code with friends. Deploy your project to a public URL.
+        framework/language. The app remembers your settings. Organize your projects and assets.
+        Share code with friends. Deploy projects to public URLs.
       </>
     ),
   },
@@ -89,21 +92,49 @@ const FeatureList2: FeatureItem[] = [
     ),
   },
   {
-    title: 'Integrations',
-    image: './img/integrations.svg',
+    title: 'Mobile-Friendly',
+    image: './img/responsive.svg',
     description: (
       <>
-        Rich set of integrations. <Link to="./docs/features/import">Import</Link> code from{' '}
-        <strong>GitHub</strong> files/repos/gists, <strong>Gitlab</strong> files/repos/snippets,{' '}
-        <strong>JsBin</strong> or <strong>web pages</strong>.{' '}
-        <Link to="./docs/features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
-        <strong>JsFiddle</strong>. <Link to="./docs/features/deploy">Deploy</Link> to GitHub Pages.
+        The <strong>responsive</strong> layout allows working on devices with different screen
+        sizes. The powerful Monaco editor (that powers <strong>VS&nbsp;Code</strong>) is used on
+        desktop, and the <strong>touch-friendly</strong> CodeMirror 6 editor is used on mobile.
+        Don't wait to be on your desk. Try your ideas on the go!
       </>
     ),
   },
 ];
 
 const FeatureList3: FeatureItem[] = [
+  {
+    title: 'Developer-Friendly',
+    image: './img/code.svg',
+    description: (
+      <>
+        LiveCodes is highly{' '}
+        <Link to="./docs/configuration">
+          <strong>configurable</strong>
+        </Link>
+        . Lots of features can be configured by URL query params . The <strong>npm package</strong>{' '}
+        facilitates embedding playgrounds. Embedded playgrounds expose{' '}
+        <Link to="./docs/advanced/api">
+          <strong>API</strong>
+        </Link>{' '}
+        to communicate with embedding pages.
+      </>
+    ),
+  },
+  {
+    title: 'Focused on Privacy',
+    image: './img/data-privacy.svg',
+    description: (
+      <>
+        The code you write in LiveCodes never leaves your computer, unless you choose to share or
+        export it. No cookies are used. User settings are stored in the browser. LiveCodes is
+        GDPR-Compliant.
+      </>
+    ),
+  },
   {
     title: 'Free and Open-Source',
     image: './img/oss.svg',

@@ -1,18 +1,25 @@
-import { API, Code, Config } from './models';
+import type { API, Code, Config } from './models';
 
-export { API, Code, Config };
+export type { API, Code, Config };
 export interface EmbedOptions {
   config?: Partial<Config> | string;
   template?: string;
   importUrl?: string;
   appUrl?: string;
+  loading?: 'lazy' | 'eager' | 'auto';
 }
 
 export const playground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<API> => {
-  const { config = {}, template, importUrl, appUrl = 'https://livecodes.io/' } = options;
+  const {
+    config = {},
+    template,
+    importUrl,
+    appUrl = 'https://livecodes.io/',
+    loading = 'lazy',
+  } = options;
 
   let containerElement: HTMLElement | null;
   if (typeof container === 'string') {
@@ -71,6 +78,7 @@ export const playground = async (
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
+      frame.setAttribute('loading', loading);
       frame.classList.add('livecodes');
       frame.src = url.href;
       frame.onload = () => {
