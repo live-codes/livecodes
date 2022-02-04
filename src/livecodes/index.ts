@@ -13,6 +13,7 @@ export const livecodes = async (
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
     const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/';
+    const anyOrigin = '*';
 
     const style = document.createElement('style');
     style.innerHTML = `
@@ -55,11 +56,11 @@ export const livecodes = async (
 
     if (isEmbed) {
       window.addEventListener('livecodes-ready', () => {
-        parent.postMessage({ type: 'livecodes-ready' }, '*');
+        parent.postMessage({ type: 'livecodes-ready' }, anyOrigin);
       });
 
       window.addEventListener('livecodes-app-loaded', () => {
-        parent.postMessage({ type: 'livecodes-app-loaded' }, '*');
+        parent.postMessage({ type: 'livecodes-app-loaded' }, anyOrigin);
       });
 
       window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
@@ -68,7 +69,7 @@ export const livecodes = async (
             type: 'livecodes-change',
             detail: e.detail,
           },
-          '*',
+          anyOrigin,
         );
       });
     }
@@ -100,7 +101,7 @@ export const livecodes = async (
                   method,
                   payload: await (api[method] as any)(...methodArguments),
                 },
-                '*',
+                anyOrigin,
               );
             },
           );
