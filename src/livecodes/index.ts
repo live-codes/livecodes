@@ -110,8 +110,14 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         }
       });
     };
-    if (isEmbed && clickToLoad) {
+    if (clickToLoad) {
       window.addEventListener('run', run, false);
+
+      const preloadLink = document.createElement('link');
+      preloadLink.href = baseUrl + 'embed.js';
+      preloadLink.rel = 'preload';
+      preloadLink.as = 'script';
+      document.head.appendChild(preloadLink);
     } else {
       run();
     }
