@@ -55,6 +55,9 @@
         align-items: center;
         justify-content: center;
       }
+      .embed #animating-logo {
+        transform: scale(0.8);
+      }
       #animating-logo > svg {
         position: absolute;
       }
@@ -155,7 +158,11 @@
         <div></div>
       </div>
       <div id="loading-text">loading LiveCodes...</div>
-
+      <script>
+        if (location.search.includes('embed')) {
+          document.body.classList.add('embed');
+        }
+      </script>
       <svg xmlns="http://www.w3.org/2000/svg" width="200" height="135" viewBox="0 0 492 332">
         <defs>
           <filter id="A">
@@ -187,11 +194,14 @@
       }
       resize();
       window.addEventListener('resize', resize, false);
-      window.__livecodesReady = function (api) {
+      setTimeout(resize, 500);
+      window.addEventListener('livecodes-app-loaded', function (e) {
         document.querySelector('#animating-logo').remove();
-        // TODO: remove
-        window.api = api;
-      };
+        window.api = e.detail;
+      });
+      window.addEventListener('livecodes-ready', function () {
+        // project loaded
+      });
     </script>
     <script src="index.ts"></script>
   </body>

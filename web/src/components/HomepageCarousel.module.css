@@ -1,0 +1,21 @@
+.carousel {
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 20px var(--ifm-color-secondary-darkest);
+}
+
+.carousel [class~='carousel-slider'] {
+  overflow: visible !important;
+}
+
+.carousel [class~='control-dots'] {
+  bottom: -50px !important;
+}
+
+.carousel [class~='dot'] {
+  background-color: rgb(97, 96, 96) !important;
+}
+
+.carousel [class~='legend'] {
+  bottom: 10px !important;
+}

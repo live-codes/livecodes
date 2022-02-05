@@ -21,8 +21,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { baseUrl, container, mode } = options;
   if (!container) throw new Error('editor container not found');
 
-  const lineNumbers = mode === 'codeblock' ? false : true;
-
   let value = options.value;
   let language = options.language;
   let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
@@ -36,9 +34,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   codeElement.className = 'language-' + mappedLanguage;
   codeElement.innerHTML = encodeHTML(value).trim();
 
-  if (lineNumbers) {
-    preElement.classList.add('line-numbers');
-  }
+  preElement.classList.add('line-numbers');
   if (mode === 'codeblock') {
     preElement.classList.add('codeblock');
   }

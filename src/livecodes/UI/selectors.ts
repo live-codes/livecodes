@@ -21,6 +21,10 @@ export const getUndoButton = () => document.querySelector('#editor-tools #undo-b
 export const getRedoButton = () => document.querySelector('#editor-tools #redo-btn') as HTMLElement;
 export const getFormatButton = () =>
   document.querySelector('#editor-tools #format-btn') as HTMLElement;
+export const getExternalResourcesBtn = () =>
+  document.querySelector('#editor-tools #external-resources-btn') as HTMLElement;
+export const getExternalResourcesMark = () =>
+  document.querySelector('#editor-tools #external-resources-mark') as HTMLElement;
 export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');

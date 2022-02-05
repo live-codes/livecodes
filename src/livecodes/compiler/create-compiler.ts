@@ -7,19 +7,13 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import { Language, Config, Compilers, EditorId, CompilerFunction } from '../models';
+import { Language, Config, Compilers, EditorId, CompilerFunction, CompileOptions } from '../models';
 import { sandboxService } from '../services';
 import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
-import {
-  LanguageOrProcessor,
-  CompilerMessage,
-  CompilerMessageEvent,
-  Compiler,
-  CompileOptions,
-} from './models';
+import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
 export const createCompiler = async (config: Config, baseUrl: string): Promise<Compiler> => {
   const compilers = getAllCompilers([...languages, ...processors], config, baseUrl);

@@ -18,7 +18,7 @@ export const createEditorCreator = (
   languages: Partial<{ [key in Language]: () => LanguageSupport }>,
   emmetExt: any,
 ) => async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, readonly } = options;
+  const { container, readonly, isEmbed } = options;
   if (!container) throw new Error('editor container not found');
   const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
     languages[language] || (languages.html as () => LanguageSupport);
@@ -43,7 +43,7 @@ export const createEditorCreator = (
   const emmetExtension = new Compartment();
   const readOnlyExtension = EditorView.editable.of(false);
   const fullHeight = EditorView.theme({
-    '&': { height: '100%' },
+    '&': { height: '100%', fontSize: isEmbed ? '12px' : '14px' },
     '.cm-scroller': { overflow: 'auto' },
   });
 

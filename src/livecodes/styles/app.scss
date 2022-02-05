@@ -41,6 +41,7 @@
   --custom-editor-background-color: rgb(30, 30, 30);
   --custom-editor-loading-color: rgb(255, 255, 255);
   --editor-tools-invert: invert(0.8);
+  --editor-tools-mark-color: rgb(37, 194, 160);
 }
 
 :root.light {
@@ -86,6 +87,7 @@
   --custom-editor-background-color: rgb(255, 255, 255);
   --custom-editor-loading-color: rgb(30, 30, 30);
   --editor-tools-invert: invert(0.3);
+  --editor-tools-mark-color: rgb(119, 53, 53);
 }
 
 * {
@@ -355,6 +357,35 @@ a {
   }
 }
 
+.result {
+  #toolbar {
+    background-color: rgb(0, 0, 0, 0.05);
+    border-bottom: 1px solid black;
+    border-bottom-left-radius: 5px;
+    border-left: 1px solid black;
+    display: block !important;
+    height: 40px;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    transition: opacity 0.3s;
+    width: 75px;
+
+    > *:not(:first-child) {
+      display: none !important;
+    }
+  }
+
+  #logo {
+    position: absolute;
+    right: 0;
+  }
+
+  :hover #toolbar {
+    opacity: 1;
+  }
+}
+
 #editor-container {
   display: flex;
   flex-direction: row;
@@ -414,6 +445,20 @@ a {
       &.disabled img {
         filter: invert(0.5);
       }
+    }
+
+    #external-resources-btn {
+      position: absolute;
+      right: 1em;
+    }
+
+    #external-resources-mark.active {
+      border: 5px solid var(--editor-tools-mark-color);
+      border-radius: 5px;
+      bottom: 5px;
+      display: inline-block;
+      position: absolute;
+      right: 5px;
     }
   }
 
@@ -1773,6 +1818,14 @@ i.arrow {
   }
 }
 
+.embed #modal {
+  transform: scale(0.8);
+}
+// .embed #modal.small {
+//   min-height: 140px !important;
+//   width: 300px !important;
+// }
+
 @media only screen and (max-width: 1024px) {
   #modal #list-container #language-filter,
   #modal #list-container #sort-by-label {
@@ -2037,6 +2090,10 @@ i.arrow {
     height: 100% !important;
     margin: 0 !important;
     max-height: 100% !important;
+
+    .codeblock {
+      padding-right: 2em !important;
+    }
   }
 
   code {
@@ -2046,9 +2103,12 @@ i.arrow {
     overflow: auto;
     padding-bottom: 1em !important;
   }
+}
 
-  pre.codeblock {
-    padding: 0.5em !important;
+.embed .prism {
+  pre[class*='language-'],
+  code[class*='language-'] {
+    font-size: 12px !important;
   }
 }
 

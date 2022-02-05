@@ -1,0 +1,13 @@
+.container {
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 50vh;
+  min-height: 250px;
+  width: 100%;
+}
+
+.container iframe {
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}

@@ -1,5 +1,5 @@
 import { appHTML } from './html';
-import { API, Config } from './models';
+import { API, Config, ContentConfig } from './models';
 
 export { API, Config };
 export const livecodes = async (
@@ -13,6 +13,7 @@ export const livecodes = async (
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
     const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/';
+    const anyOrigin = '*';
 
     const style = document.createElement('style');
     style.innerHTML = `
@@ -39,6 +40,10 @@ export const livecodes = async (
     const iframe = document.createElement('iframe');
     iframe.name = 'app';
     iframe.style.display = 'none';
+    iframe.setAttribute(
+      'sandbox',
+      'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+    );
 
     containerElement.appendChild(iframe);
     iframe.contentWindow?.document.open();
@@ -49,16 +54,57 @@ export const livecodes = async (
     );
     iframe.contentWindow?.document.close();
 
+    if (isEmbed) {
+      window.addEventListener('livecodes-ready', () => {
+        parent.postMessage({ type: 'livecodes-ready' }, anyOrigin);
+      });
+
+      window.addEventListener('livecodes-app-loaded', () => {
+        parent.postMessage({ type: 'livecodes-app-loaded' }, anyOrigin);
+      });
+
+      window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
+        parent.postMessage(
+          {
+            type: 'livecodes-change',
+            detail: e.detail,
+          },
+          anyOrigin,
+        );
+      });
+    }
+
     iframe.addEventListener('load', async () => {
       const app = (iframe.contentWindow as any)?.app;
       if (typeof app === 'function') {
         const api: API = await app(config, baseUrl);
         iframe.style.display = 'block';
+        window.dispatchEvent(
+          new CustomEvent('livecodes-app-loaded', {
+            detail: api,
+          }),
+        );
 
-        // eslint-disable-next-line no-underscore-dangle
-        const callback = (window as any).__livecodesReady;
-        if (typeof callback === 'function') {
-          callback(api);
+        if (isEmbed) {
+          addEventListener(
+            'message',
+            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+              if (e.source !== parent) return;
+
+              const { method, args } = e.data || {};
+              if (!method) return;
+              const methodArguments = Array.isArray(args) ? args : [args];
+
+              parent.postMessage(
+                {
+                  type: 'api-response',
+                  method,
+                  payload: await (api[method] as any)(...methodArguments),
+                },
+                anyOrigin,
+              );
+            },
+          );
         }
 
         resolve(api);

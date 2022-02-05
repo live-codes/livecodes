@@ -58,6 +58,24 @@ esbuild.buildSync({
   },
 });
 
+fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/lib/models.ts'));
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/lib/livecodes.ts'],
+  outdir: undefined,
+  outfile: 'build/lib/livecodes.esm.js',
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/lib/livecodes.ts'],
+  outdir: undefined,
+  outfile: 'build/lib/livecodes.js',
+  format: 'iife',
+  globalName: 'livecodes',
+});
+
 /** @type {Partial<esbuild.BuildOptions>} */
 var workerOptions = {
   ...baseOptions,

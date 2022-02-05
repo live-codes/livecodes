@@ -5,6 +5,10 @@
     "src/**/*.tsx",
     "src/**/*.js",
     "src/**/*.jsx",
+    "web/**/*.ts",
+    "web/**/*.tsx",
+    "web/**/*.js",
+    "web/**/*.jsx",
     "e2e/**/*.ts",
     "playwright.config.ts"
   ],

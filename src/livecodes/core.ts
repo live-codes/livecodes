@@ -19,8 +19,11 @@ import {
   StorageItem,
   RestoreItem,
   ProjectStorage,
+  SimpleStorage,
+  fakeStorage,
 } from './storage';
 import {
+  API,
   Cache,
   CodeEditor,
   CssPresetId,
@@ -96,11 +99,11 @@ import { createToolsPane } from './toolspane';
 import { createOpenItem } from './UI';
 
 const eventsManager = createEventsManager();
-let projectStorage: ProjectStorage;
-let templateStorage: ProjectStorage;
-let assetsStorage: ProjectStorage;
-const userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__');
-const restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__');
+let projectStorage: ProjectStorage | undefined;
+let templateStorage: ProjectStorage | undefined;
+let assetsStorage: ProjectStorage | undefined;
+let userConfigStorage: SimpleStorage<UserConfig> | undefined;
+let restoreStorage: SimpleStorage<RestoreItem> | undefined;
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
@@ -210,6 +213,15 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
     }
 
     resultLanguages = getEditorLanguages();
+
+    parent.dispatchEvent(
+      new CustomEvent('livecodes-change', {
+        detail: {
+          config: getContentConfig(getConfig()),
+          code: JSON.parse(JSON.stringify(getCachedCode())),
+        },
+      }),
+    );
   });
 
 const loadModuleTypes = async (editors: Editors, config: Config) => {
@@ -279,6 +291,7 @@ const createEditors = async (config: Config) => {
     editor: config.editor,
     editorType: 'code' as EditorOptions['editorType'],
     theme: config.theme,
+    isEmbed,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -373,6 +386,7 @@ const showMode = (config: Config) => {
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
   const codeRunButton = UI.getCodeRunButton();
+  const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
   const showEditor = modeConfig[1] === '1';
@@ -382,7 +396,6 @@ const showMode = (config: Config) => {
   editorsElement.style.display = 'flex';
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
-  gutterElement.style.display = 'block';
   gutterElement.style.display = 'block';
   runButton.style.visibility = 'visible';
   codeRunButton.style.visibility = 'visible';
@@ -394,18 +407,26 @@ const showMode = (config: Config) => {
   if (!showEditor) {
     outputElement.style.flexBasis = '100%';
     editorsElement.style.display = 'none';
-    split.destroy(true);
+    split?.destroy(true);
   }
   if (!showResult) {
     editorsElement.style.flexBasis = '100%';
     outputElement.style.display = 'none';
     resultElement.style.display = 'none';
     codeRunButton.style.display = 'none';
-    split.destroy(true);
+    split?.destroy(true);
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
     codeRunButton.style.visibility = 'hidden';
+  }
+  if (config.mode === 'codeblock') {
+    editorTools.style.display = 'none';
+  }
+  if (config.mode === 'result') {
+    if (!['full', 'open'].includes(toolsPane.getStatus())) {
+      toolsPane?.hide();
+    }
   }
   window.dispatchEvent(new Event('editor-resize'));
 };
@@ -427,7 +448,9 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
-  editors[editorId]?.focus();
+  if (!isEmbed) {
+    editors[editorId]?.focus();
+  }
   if (!isUpdate) {
     setConfig({
       ...getConfig(),
@@ -521,7 +544,9 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   setEditorTitle(editorId, language);
   showEditor(editorId, isUpdate);
   phpHelper({ editor: editors.script });
-  setTimeout(() => editor.focus());
+  if (!isEmbed) {
+    setTimeout(() => editor.focus());
+  }
   await compiler.load([language], getConfig());
   editor.registerFormatter(await formatter.getFormatFn(language));
   if (!isUpdate) {
@@ -687,6 +712,20 @@ const setWindowTitle = () => {
     hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
 
+const setExternalResourcesMark = () => {
+  const mark = UI.getExternalResourcesMark();
+  const btn = UI.getExternalResourcesBtn();
+  if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
+    mark.classList.add('active');
+    btn.style.display = 'unset';
+  } else {
+    mark.classList.remove('active');
+    if (isEmbed) {
+      btn.style.display = 'none';
+    }
+  }
+};
+
 const run = async (editorId?: EditorId) => {
   setLoading(true);
   const result = await getResultPage({ sourceEditor: editorId });
@@ -717,9 +756,9 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   if (!projectId) {
-    projectId = await projectStorage.addItem(getConfig());
+    projectId = (await projectStorage?.addItem(getConfig())) || '';
   } else {
-    await projectStorage.updateItem(projectId, getConfig());
+    await projectStorage?.updateItem(projectId, getConfig());
   }
   await setSavedStatus();
 
@@ -736,14 +775,20 @@ const fork = async () => {
   notifications.success('Forked as a new project');
 };
 
-const share = async (shortUrl = false, contentOnly = true): Promise<ShareData> => {
+const share = async (
+  shortUrl = false,
+  contentOnly = true,
+  urlUpdate = true,
+): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
   const contentHash = shortUrl
     ? '#id/' + (await shareService.shareProject(content))
     : '#code/' + compress(JSON.stringify(content));
   const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
   const shareURL = url + contentHash;
-  updateUrl(shareURL, true);
+  if (urlUpdate) {
+    updateUrl(shareURL, true);
+  }
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
   return {
     title: projectTitle + 'LiveCodes',
@@ -765,7 +810,7 @@ const updateConfig = () => {
   });
 };
 
-const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
+const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush = true) => {
   changingContent = true;
 
   const content = getContentConfig({
@@ -779,7 +824,9 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string) => {
   setProjectRestore();
 
   // flush result page
-  createIframe(UI.getResultElement(), '<!-- flush -->');
+  if (flush) {
+    createIframe(UI.getResultElement(), '<!-- flush -->');
+  }
 
   // load title
   const projectTitle = UI.getProjectTitleElement();
@@ -805,11 +852,11 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
     ...getConfig(),
     ...userConfig,
   });
-  userConfigStorage.setValue(userConfig);
+  userConfigStorage?.setValue(userConfig);
 };
 
 const loadUserConfig = () => {
-  const userConfig = userConfigStorage.getValue();
+  const userConfig = userConfigStorage?.getValue();
   if (!userConfig) {
     setUserConfig(getUserConfig(getConfig()));
     return;
@@ -823,7 +870,7 @@ const loadUserConfig = () => {
 const setSavedStatus = async () => {
   if (isEmbed) return;
   updateConfig();
-  const savedConfig = projectId && (await projectStorage.getItem(projectId || ''))?.config;
+  const savedConfig = projectId && (await projectStorage?.getItem(projectId || ''))?.config;
   isSaved =
     changingContent ||
     !!(
@@ -876,9 +923,9 @@ const checkSavedAndExecute = (fn: () => void) => async () => {
 
 const setProjectRestore = (reset = false) => {
   if (isEmbed) return;
-  restoreStorage.clear();
+  restoreStorage?.clear();
   if (reset || !getConfig().enableRestore) return;
-  restoreStorage.setValue({
+  restoreStorage?.setValue({
     config: getContentConfig(getConfig()),
     lastModified: Date.now(),
   });
@@ -888,7 +935,7 @@ const checkRestoreStatus = () => {
   if (!getConfig().enableRestore || isEmbed) {
     return Promise.resolve('restore disabled');
   }
-  const unsavedItem = restoreStorage.getValue();
+  const unsavedItem = restoreStorage?.getValue();
   const unsavedProject = unsavedItem?.config;
   if (!unsavedItem || !unsavedProject) {
     return Promise.resolve('no unsaved project');
@@ -917,9 +964,11 @@ const checkRestoreStatus = () => {
       resolve('restore');
     });
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
-      await projectStorage.addItem(unsavedProject);
-      notifications.success(`Project "${projectName}" saved to device.`);
-      setRestoreConfig(!disableRestoreCheckbox.checked);
+      if (projectStorage) {
+        await projectStorage.addItem(unsavedProject);
+        notifications.success(`Project "${projectName}" saved to device.`);
+        setRestoreConfig(!disableRestoreCheckbox.checked);
+      }
       modal.close();
       setProjectRestore(true);
       resolve('save and continue');
@@ -954,7 +1003,7 @@ const getTemplates = async (): Promise<Template[]> => {
 const initializeAuth = async () => {
   /** Lazy load authentication */
   if (authService) return;
-  authService = createAuthService();
+  authService = createAuthService(isEmbed);
   const user = await authService.getUser();
   if (user) {
     UI.displayLoggedIn(user);
@@ -1138,6 +1187,16 @@ const showVersion = () => {
   }
 };
 
+const resizeEditors = () => {
+  Object.values(editors).forEach((editor: CodeEditor) => {
+    setTimeout(() => {
+      if (editor.layout) {
+        editor.layout(); // resize monaco editor
+      }
+    });
+  });
+};
+
 const handleTitleEdit = () => {
   const projectTitle = UI.getProjectTitleElement();
   if (!projectTitle) return;
@@ -1162,15 +1221,6 @@ const handleTitleEdit = () => {
 };
 
 const handleResize = () => {
-  const resizeEditors = () => {
-    Object.values(editors).forEach((editor: CodeEditor) => {
-      setTimeout(() => {
-        if (editor.layout) {
-          editor.layout(); // resize monaco editor
-        }
-      });
-    });
-  };
   resizeEditors();
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
   eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
@@ -1495,7 +1545,7 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const userTemplates = await templateStorage.getList();
+    const userTemplates = (await templateStorage?.getList()) || [];
 
     if (userTemplates.length === 0) {
       userTemplatesScreen.innerHTML = UI.noUserTemplates;
@@ -1522,7 +1572,7 @@ const handleNew = () => {
         async (event) => {
           event.preventDefault();
           const itemId = (link as HTMLElement).dataset.id || '';
-          const template = (await templateStorage.getItem(itemId))?.config;
+          const template = (await templateStorage?.getItem(itemId))?.config;
           if (template) {
             await loadConfig({
               ...template,
@@ -1539,12 +1589,17 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
+          if (!templateStorage) return;
           await templateStorage.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
-            if ((await templateStorage.getList()).length === 0 && noDataMessage) {
+            if (
+              templateStorage &&
+              (await templateStorage.getList()).length === 0 &&
+              noDataMessage
+            ) {
               list.remove();
               userTemplatesScreen.appendChild(noDataMessage);
             }
@@ -1623,8 +1678,10 @@ const handleFork = () => {
 const handleSaveAsTemplate = () => {
   eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', async (event) => {
     (event as Event).preventDefault();
-    await templateStorage.addItem(getConfig());
-    notifications.success('Saved as a new template');
+    if (templateStorage) {
+      await templateStorage.addItem(getConfig());
+      notifications.success('Saved as a new template');
+    }
   });
 };
 
@@ -1640,7 +1697,7 @@ const handleOpen = () => {
       loadConfig,
       modal,
       notifications,
-      projectStorage,
+      projectStorage: projectStorage || fakeStorage,
       setProjectId: (id: string) => (projectId = id),
       showScreen,
       languages,
@@ -1770,7 +1827,7 @@ const handleImport = () => {
 
     const insertItems = async (items: StorageItem[]) => {
       const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
-      if (Array.isArray(items) && items.every(getItemConfig)) {
+      if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
         await projectStorage.bulkInsert(items.map(getItemConfig));
         notifications.success('Import Successful!');
         showScreen('open');
@@ -2073,7 +2130,13 @@ const handleProjectInfo = () => {
     save(!projectId, true);
   };
   const createProjectInfoUI = () =>
-    UI.createProjectInfoUI(getConfig(), projectStorage, modal, eventsManager, onSave);
+    UI.createProjectInfoUI(
+      getConfig(),
+      projectStorage || fakeStorage,
+      modal,
+      eventsManager,
+      onSave,
+    );
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
   registerScreen('info', createProjectInfoUI);
@@ -2092,7 +2155,7 @@ const handleAssets = () => {
       eventsManager,
       modal,
       notifications,
-      assetsStorage,
+      assetsStorage: assetsStorage || fakeStorage,
       showScreen,
       baseUrl,
     });
@@ -2105,7 +2168,7 @@ const handleAssets = () => {
       assetsModule.createAddAssetContainer({
         eventsManager,
         notifications,
-        assetsStorage,
+        assetsStorage: assetsStorage || fakeStorage,
         showScreen,
         deployAsset,
         getUser,
@@ -2152,6 +2215,7 @@ const handleExternalResources = () => {
               .filter((x) => x !== '') || [],
         });
       });
+      setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
       await run();
@@ -2159,6 +2223,12 @@ const handleExternalResources = () => {
   };
   eventsManager.addEventListener(
     UI.getExternalResourcesLink(),
+    'click',
+    createExrenalResourcesUI,
+    false,
+  );
+  eventsManager.addEventListener(
+    UI.getExternalResourcesBtn(),
     'click',
     createExrenalResourcesUI,
     false,
@@ -2191,6 +2261,7 @@ const handleCustomSettings = () => {
       language: 'json' as Language,
       value: stringify(getConfig().customSettings, true),
       theme: config.theme,
+      isEmbed,
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor.focus();
@@ -2271,18 +2342,20 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
+  handleExternalResources();
 };
 
 const extraHandlers = async () => {
-  projectStorage = await createStorage('__livecodes_data__');
-  templateStorage = await createStorage('__livecodes_templates__');
-  assetsStorage = await createStorage('__livecodes_assets__');
+  projectStorage = await createStorage('__livecodes_data__', isEmbed);
+  templateStorage = await createStorage('__livecodes_templates__', isEmbed);
+  assetsStorage = await createStorage('__livecodes_assets__', isEmbed);
+  userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
+  restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
 
   handleTitleEdit();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();
-  handleExternalResources();
   handleCustomSettings();
   handleLogin();
   handleLogout();
@@ -2318,29 +2391,26 @@ const importExternalContent = async (options: {
   loadingMessage.innerHTML = 'Loading Project...';
   modal.show(loadingMessage, { size: 'small', isAsync: true });
 
-  let importedConfig: Partial<Config> = {};
+  let templateConfig: Partial<Config> = {};
+  let urlConfig: Partial<Config> = {};
+  let contentUrlConfig: Partial<Config> = {};
+  let configUrlConfig: Partial<Config> = {};
 
-  if (configUrl) {
-    importedConfig = upgradeAndValidate(
-      await fetch(configUrl)
-        .then((res) => res.json())
-        .catch(() => ({})),
-    );
-    if (hasContentUrls(importedConfig)) {
-      await importExternalContent({ config: { ...config, ...importedConfig } });
-      return;
-    }
-  } else if (template) {
-    importedConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
-  } else if (url) {
+  if (template) {
+    templateConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
+  }
+
+  if (url) {
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
     if (isGithub(url) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    importedConfig = await importCode(url, getParams(), getConfig(), user);
-  } else if (hasContentUrls(config)) {
+    urlConfig = await importCode(url, getParams(), getConfig(), user);
+  }
+
+  if (hasContentUrls(config)) {
     // load content from config contentUrl
     const editorsContent = await Promise.all(
       editorIds.map((editorId) => {
@@ -2357,18 +2427,35 @@ const importExternalContent = async (options: {
         }
       }),
     );
-    importedConfig = {
+    contentUrlConfig = {
       markup: editorsContent[0],
       style: editorsContent[1],
       script: editorsContent[2],
     };
   }
+
+  if (configUrl) {
+    configUrlConfig = upgradeAndValidate(
+      await fetch(configUrl)
+        .then((res) => res.json())
+        .catch(() => ({})),
+    );
+    if (hasContentUrls(configUrlConfig)) {
+      await importExternalContent({ config: { ...config, ...configUrlConfig } });
+      return;
+    }
+  }
+
   await loadConfig(
     {
       ...config,
-      ...importedConfig,
+      ...templateConfig,
+      ...urlConfig,
+      ...contentUrlConfig,
+      ...configUrlConfig,
     },
     parent.location.href,
+    false,
   );
 
   modal.close();
@@ -2383,9 +2470,12 @@ const bootstrap = async (reload = false) => {
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
   await configureEmmet(getConfig());
-  showMode(getConfig());
-  setTimeout(() => getActiveEditor().focus());
+  if (!isEmbed) {
+    setTimeout(() => getActiveEditor().focus());
+  }
+  setExternalResourcesMark();
   await toolsPane?.load();
+  showMode(getConfig());
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
@@ -2410,8 +2500,8 @@ const initializeApp = async (
   compiler = await getCompiler(getConfig(), baseUrl);
   formatter = getFormatter(getConfig(), baseUrl);
   customEditors = createCustomEditors(baseUrl);
-  if (isEmbed) {
-    configureEmbed(eventsManager, share);
+  if (isEmbed || getConfig().mode === 'result') {
+    configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
   }
   loadUserConfig();
   createLanguageMenus(
@@ -2424,7 +2514,7 @@ const initializeApp = async (
   );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager);
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
   basicHandlers();
 
   await initializeFn?.();
@@ -2443,23 +2533,27 @@ const initializeApp = async (
     configUrl: params.config,
     template: params.template,
     url: parent.location.hash.substring(1),
+  }).then(() => {
+    if (isEmbed) {
+      parent.dispatchEvent(new Event('livecodes-ready'));
+    }
   });
   showVersion();
 };
 
-const createApi = () => ({
+const createApi = (): API => ({
   run: async () => {
     await run();
   },
   format: async () => format(),
-  getShareUrl: async (shortUrl = false) => (await share(shortUrl)).url,
-  getConfig: (contentOnly = false): Config => {
+  getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
+  getConfig: async (contentOnly = false): Promise<Config> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
     return JSON.parse(JSON.stringify(config));
   },
   setConfig: async (newConfig: Config): Promise<Config> => {
-    const newAppConfig = await buildConfig(newConfig, baseUrl);
+    const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;
   },

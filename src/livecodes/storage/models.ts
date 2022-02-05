@@ -30,3 +30,8 @@ export interface SavedProject {
   languages: Language[];
   lastModified: number;
 }
+export interface SimpleStorage<T> {
+  getValue: () => T | null;
+  setValue: (value: T | null) => void;
+  clear: () => void;
+}

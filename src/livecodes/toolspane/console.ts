@@ -10,6 +10,7 @@ export const createConsole = (
   baseUrl: string,
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
+  isEmbed: boolean,
 ): Tool => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
@@ -117,6 +118,7 @@ export const createConsole = (
       editor: config.editor,
       editorType: 'console',
       theme: config.theme,
+      isEmbed,
     };
     const consoleEditor = await createEditor(editorOptions);
 
@@ -251,7 +253,7 @@ export const createConsole = (
     title: 'Console',
     load,
     onActivate: () => {
-      if (!isMobile()) {
+      if (!isMobile() && !isEmbed) {
         editor?.focus();
       }
       if (clearButton) {

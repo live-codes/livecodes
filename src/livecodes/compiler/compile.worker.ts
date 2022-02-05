@@ -1,12 +1,7 @@
 import { languages, processors } from '../languages';
-import { Compilers, Config } from '../models';
+import { Compilers, Config, CompileOptions } from '../models';
 import { getAllCompilers } from './get-all-compilers';
-import {
-  LanguageOrProcessor,
-  CompilerMessage,
-  CompilerMessageEvent,
-  CompileOptions,
-} from './models';
+import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 declare const importScripts: (...args: string[]) => void;
 
 let compilers: Compilers;

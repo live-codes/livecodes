@@ -20,7 +20,7 @@ const monacoMapLanguage = (language: Language): Language =>
     : mapLanguage(language);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly, theme, ...baseOptions } = options;
+  const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
   if (!container) throw new Error('editor container not found');
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
@@ -36,7 +36,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
   const defaultOptions: Options = {
-    fontSize: 14,
+    fontSize: isEmbed ? 12 : 14,
     theme: 'vs-' + theme,
     formatOnType: false,
     tabSize: 2,
@@ -55,7 +55,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const codeblockOptions: Options = {
     ...defaultOptions,
     readOnly: true,
-    lineNumbers: 'off',
+    // lineNumbers: 'off',
     scrollBeyondLastLine: false,
     contextmenu: false,
   };

@@ -21,8 +21,11 @@ export const createToolsPane = (
   baseUrl: string,
   editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
+  isEmbed: boolean,
 ) => {
-  const tools = toolList.map((tool) => tool.factory(config, baseUrl, editors, eventsManager));
+  const tools = toolList.map((tool) =>
+    tool.factory(config, baseUrl, editors, eventsManager, isEmbed),
+  );
 
   let toolsSplit: Split.Instance;
   let status: ToolsPaneStatus;
@@ -306,6 +309,7 @@ export const createToolsPane = (
     close: () => resize('closed'),
     maximize: () => resize('full'),
     hide: () => resize('none'),
+    getStatus: () => status,
     // console, compiled
     ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };

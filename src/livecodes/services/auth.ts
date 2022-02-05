@@ -1,10 +1,27 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { GithubScope, User } from '../models';
 import { decrypt, encrypt } from '../storage';
 import { getImportInstance } from '../utils';
 
 type FirebaseUser = import('firebase/auth').User;
+interface AuthService {
+  load(): Promise<void>;
+  getUser(): Promise<User | void>;
+  signIn(scopes?: GithubScope[]): Promise<User | void>;
+  signOut(): Promise<void>;
+}
 
-export const createAuthService = () => {
+const fakeAuthService: AuthService = {
+  load: async () => {},
+  getUser: async () => {},
+  signIn: async () => {},
+  signOut: async () => {},
+};
+
+export const createAuthService = (isEmbed: boolean): AuthService => {
+  // do not allow access to auth in embeds
+  if (isEmbed) return fakeAuthService;
+
   let initializeApp: typeof import('firebase/app').initializeApp;
   let getApp: typeof import('firebase/app').getApp;
   let getAuth: typeof import('firebase/auth').getAuth;
