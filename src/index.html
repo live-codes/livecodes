@@ -156,7 +156,7 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -235,6 +235,7 @@
           const animatingLogo = document.querySelector('#animating-logo');
           const clickToLoad = document.querySelector('#click-to-load');
           animatingLogo.classList.add('hidden');
+          clickToLoad.style.display = 'flex';
           clickToLoad.classList.add('visible');
           clickToLoad.addEventListener('click', () => {
             clickToLoad.classList.remove('visible');
