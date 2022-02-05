@@ -7,6 +7,7 @@ export interface EmbedOptions {
   importUrl?: string;
   appUrl?: string;
   loading?: 'lazy' | 'eager' | 'auto';
+  clickToLoad?: boolean;
 }
 
 export const playground = async (
@@ -68,6 +69,9 @@ export const playground = async (
   }
 
   url.searchParams.set('embed', 'true');
+  if (options.clickToLoad === false) {
+    url.searchParams.set('click-to-load', 'false');
+  }
 
   const createIframe = () =>
     new Promise<HTMLIFrameElement>((resolve) => {
