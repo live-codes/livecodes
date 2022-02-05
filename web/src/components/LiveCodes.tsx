@@ -15,6 +15,7 @@ export default function LiveCodes(props: {
   style?: Record<string, string>;
   className?: string;
   showCode?: boolean;
+  clickToLoad?: boolean;
 }): JSX.Element {
   const containerRef = useRef(null);
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function LiveCodes(props: {
       appUrl: url + props.query,
       template: props.template,
       config: props.config,
+      clickToLoad: props.clickToLoad,
     });
   }, []);
 
@@ -29,6 +31,7 @@ export default function LiveCodes(props: {
     ...(props.query ? { appUrl: url + props.query } : {}),
     ...(props.template ? { template: props.template } : {}),
     ...(props.config ? { config: props.config } : {}),
+    ...(props.clickToLoad === false ? { clickToLoad: false } : {}),
   };
 
   const code = `
