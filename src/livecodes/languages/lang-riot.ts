@@ -3,8 +3,9 @@ import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
-const compilerCdnUrl = 'https://cdn.jsdelivr.net/npm/riot@6.0.4/riot+compiler.min.js';
-const cdnUrl = 'https://cdn.jsdelivr.net/npm/riot@6.0.4/riot.min.js';
+const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/riot@6.1.2/';
+const compilerCdnUrl = cdnBaselUrl + 'riot+compiler.min.js';
+const cdnUrl = cdnBaselUrl + 'riot.min.js';
 
 export const riot: LanguageSpecs = {
   name: 'riot',
