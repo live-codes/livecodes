@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
 import { getLanguageCustomSettings } from './utils';
 
-const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.3/';
+const cdnBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.4/';
 const brythonUrl = cdnBaseUrl + 'brython.min.js';
 const stdlibUrl = cdnBaseUrl + 'brython_stdlib.js';
 
