@@ -2,7 +2,7 @@ import { LanguageSpecs } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
-const url = 'https://cdn.jsdelivr.net/npm/typescript@4.5.2/lib/typescript.min.js';
+const url = 'https://cdn.jsdelivr.net/npm/typescript@4.5.5/lib/typescript.min.js';
 
 export const typescriptOptions = {
   target: 'es2015',
