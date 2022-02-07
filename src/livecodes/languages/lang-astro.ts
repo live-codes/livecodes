@@ -3,10 +3,10 @@ import { LanguageSpecs, Config } from '../models';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/astro-internal@0.0.3/';
+const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/astro-internal@0.0.4/';
 const compilerURL = cdnBaselUrl + 'compiler.min.js';
 const internalURL = cdnBaselUrl + 'index.min.js';
-const wasmURL = 'https://cdn.jsdelivr.net/npm/@astrojs/compiler@0.2.23/astro.wasm';
+const wasmURL = 'https://cdn.jsdelivr.net/npm/@astrojs/compiler@0.9.2/astro.wasm';
 
 /**
  * replace imports and compile typescript
