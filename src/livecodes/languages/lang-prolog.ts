@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
 
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.1/modules/';
+const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/modules/';
 
 export const prolog: LanguageSpecs = {
   name: 'prolog',
