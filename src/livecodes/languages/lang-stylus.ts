@@ -5,7 +5,7 @@ export const stylus: LanguageSpecs = {
   name: 'stylus',
   title: 'Stylus',
   compiler: {
-    url: vendorsBaseUrl + 'stylus/stylus.min.js',
+    url: vendorsBaseUrl + 'stylus/stylus.js',
     factory: () => async (code) => (window as any).stylus.render(code),
   },
   extensions: ['styl'],

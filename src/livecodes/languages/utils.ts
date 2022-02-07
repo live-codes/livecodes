@@ -80,9 +80,9 @@ export const getEnabledProcessors = (language: Language, config: Config) => {
   return processorsString;
 };
 
-export const escapeCode = (code: string) =>
+export const escapeCode = (code: string, slash = true) =>
   code
-    .replace(/\\/g, '\\\\')
+    .replace(/\\/g, slash ? '\\\\' : '\\')
     .replace(/`/g, '\\`')
     .replace(/<\/script>/g, '<\\/script>');
 

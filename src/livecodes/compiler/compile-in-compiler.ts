@@ -5,12 +5,12 @@ export const compileInCompiler = async (
   language: Language | undefined,
   config: Config,
   options: CompileOptions = {},
+  worker: Worker = (self as unknown) as Worker,
 ): Promise<string> =>
   new Promise((resolve) => {
     if (!content || !language || !config) {
       return resolve(content || '');
     }
-    const worker: Worker = (self as unknown) as Worker;
     const handler = async function (ev: MessageEvent) {
       const message = ev.data.payload;
       if (

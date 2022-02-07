@@ -30,7 +30,13 @@ proxyConsole();
     ) {
       ev.data.payload.compiled = await (window as any).compilers[ev.data.payload.language](
         ev.data.payload.compiled,
-        { language: ev.data.payload.language, baseUrl },
+        {
+          config: ev.data.payload.config,
+          language: ev.data.payload.language,
+          baseUrl,
+          options: ev.data.payload.options,
+          worker,
+        },
       );
     }
     if (ev.data.trigger === 'compileInCompiler') {

@@ -300,11 +300,13 @@ export type CompilerFunction = (
     language,
     baseUrl,
     options,
+    worker,
   }: {
     config: Config;
     language: Language;
     baseUrl: string;
     options: CompileOptions;
+    worker?: Worker;
   },
 ) => Promise<string>;
 

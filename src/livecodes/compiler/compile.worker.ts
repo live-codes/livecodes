@@ -96,7 +96,7 @@ worker.addEventListener(
         const compiledMessage: CompilerMessage = {
           type: 'compiled',
           trigger: message.type,
-          payload: { language, content, compiled },
+          payload: { language, content, compiled, config, options },
         };
         worker.postMessage(compiledMessage);
       } catch (error: any) {

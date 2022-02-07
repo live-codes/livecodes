@@ -75,6 +75,8 @@ export interface CompiledMessage {
     content: string;
     language: LanguageOrProcessor;
     compiled: string;
+    config: Config;
+    options: any;
   };
 }
 
