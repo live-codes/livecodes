@@ -36,7 +36,7 @@ export const pluginSpecs: PluginSpecs[] = [
         ...(self as any).tailwindcss.defaultConfig,
         ...getLanguageCustomSettings('tailwindcss' as any, config),
         mode: 'jit',
-        purge: [
+        content: [
           {
             raw: `<template>${options?.html}\n<script>${config.script.content}</script></template>`,
             extension: 'html',
