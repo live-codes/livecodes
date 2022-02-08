@@ -42,7 +42,7 @@ export const jsZipUrl =
   'https://cdn.skypack.dev/-/jszip@v3.7.1-quihaZrSeNyrwABoIb7Z/dist=es2020,mode=imports,min/optimized/jszip.js';
 
 export const tailwindcssUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.3.0/dist/tailwindcss.umd.min.js';
+  'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.3.1/dist/tailwindcss.umd.min.js';
 
 export const postcssImportUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';
