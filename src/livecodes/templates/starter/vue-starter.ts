@@ -46,7 +46,7 @@ new Vue({
 `.trimStart(),
   },
   stylesheets: [],
-  scripts: ['https://unpkg.com/vue@2'],
+  scripts: ['https://cdn.jsdelivr.net/npm/vue@2'],
   cssPreset: '',
   imports: {},
   types: {},

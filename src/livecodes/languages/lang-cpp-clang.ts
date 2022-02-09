@@ -1,10 +1,9 @@
 import { LanguageSpecs } from '../models';
-
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/cpp-wasm@1.0.2';
+import { cppWasmBaseUrl } from '../vendors';
 
 const workerSrc = `
 var window = self;
-const url = '${cdnBaselUrl}';
+const url = '${cppWasmBaseUrl}';
 importScripts(url + '/shared.min.js');
 
 window.CPP_READY.then(() => postMessage({ loaded: true }));

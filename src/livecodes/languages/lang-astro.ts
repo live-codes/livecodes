@@ -1,12 +1,11 @@
 import { compileInCompiler, replaceImports } from '../compiler';
 import { LanguageSpecs, Config } from '../models';
+import { astroBaseUrl, astroWasmURL } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/astro-internal@0.0.4/';
-const compilerURL = cdnBaselUrl + 'compiler.min.js';
-const internalURL = cdnBaselUrl + 'index.min.js';
-const wasmURL = 'https://cdn.jsdelivr.net/npm/@astrojs/compiler@0.9.2/astro.wasm';
+const compilerURL = astroBaseUrl + 'compiler.min.js';
+const internalURL = astroBaseUrl + 'index.min.js';
 
 /**
  * replace imports and compile typescript
@@ -31,7 +30,7 @@ export const astro: LanguageSpecs = {
     url: compilerURL,
     factory: () => {
       const { transform, initialize, renderAstroToHTML } = (self as any).astroCompiler;
-      const compilerReady = initialize({ wasmURL });
+      const compilerReady = initialize({ wasmURL: astroWasmURL });
 
       return async (code, { config }) => {
         await compilerReady;

@@ -1,9 +1,7 @@
 import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
+import { stencilUrl, vendorsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
-
-const cdnUrl = 'https://cdn.jsdelivr.net/npm/@stencil/core@2.13.0/compiler/stencil.min.js';
 
 export const stencil: LanguageSpecs = {
   name: 'stencil',
@@ -13,7 +11,7 @@ export const stencil: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url: cdnUrl,
+    url: stencilUrl,
     factory: () => async (code, { config }) => {
       const result = await (window as any).stencil.transpile(code, {
         // TranspileOptions interface

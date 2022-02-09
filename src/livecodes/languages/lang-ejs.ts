@@ -1,8 +1,7 @@
 import { LanguageSpecs } from '../models';
+import { ejsUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
-
-const url = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
 
 export const ejs: LanguageSpecs = {
   name: 'ejs',
@@ -12,7 +11,7 @@ export const ejs: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url,
+    url: ejsUrl,
     factory: () => async (code, { config }) => {
       const options = getLanguageCustomSettings('ejs', config);
       const data = config.customSettings.template?.data || {};
@@ -24,7 +23,7 @@ export const ejs: LanguageSpecs = {
 
       return `<!-- ... compiling ... -->
 
-  <script src="${url}"></script>
+  <script src="${ejsUrl}"></script>
   <script>
   window.addEventListener("load", () => {
     const template = ejs.compile(\`${escapeCode(code)}\`, ${escapeCode(JSON.stringify(options))});

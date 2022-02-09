@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
-import { vendorsBaseUrl } from '../vendors';
+import { vendorsBaseUrl, wabtjsUrl } from '../vendors';
 import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;
 
-const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.24/index.js';
 const formatterUrl = vendorsBaseUrl + 'wast-refmt/wast-refmt.js';
 const scriptType = 'application/wasm-uint8';
 

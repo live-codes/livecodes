@@ -1,8 +1,7 @@
 import { LanguageSpecs } from '../models';
+import { dotUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
-
-const url = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 
 export const dot: LanguageSpecs = {
   name: 'dot',
@@ -12,7 +11,7 @@ export const dot: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url,
+    url: dotUrl,
     factory: () => async (code, { config }) => {
       const dotOptions = getLanguageCustomSettings('dot', config);
       const options = Object.keys(dotOptions).length === 0 ? null : dotOptions;
@@ -25,7 +24,7 @@ export const dot: LanguageSpecs = {
 
       return `<!-- ... compiling ... -->
 
-  <script src="${url}"></script>
+  <script src="${dotUrl}"></script>
   <script>
   window.addEventListener("load", () => {
     const template = doT.template(\`${escapeCode(code)}\`, ${

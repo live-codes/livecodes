@@ -1,11 +1,11 @@
 import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { modulesService } from '../services';
+import { vueSfcLoaderCdnBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
-export const loaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/';
-const loaderCdnUrl = loaderCdnBaseUrl + 'vue3-sfc-loader.min.js';
+const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue3-sfc-loader.min.js';
 const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@3';
 
 export const loaderOptions = `const options = {

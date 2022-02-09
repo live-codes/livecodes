@@ -1,8 +1,7 @@
 import { LanguageSpecs } from '../models';
+import { liquidJsUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
-
-const url = 'https://cdn.jsdelivr.net/npm/liquidjs@9.28.4/dist/liquid.browser.min.js';
 
 export const liquid: LanguageSpecs = {
   name: 'liquid',
@@ -12,7 +11,7 @@ export const liquid: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url,
+    url: liquidJsUrl,
     factory: () => async (code, { config }) => {
       if (config.customSettings.template?.prerender !== false) {
         const liquid = new (self as any).liquidjs.Liquid();
@@ -25,7 +24,7 @@ export const liquid: LanguageSpecs = {
 
       return `<!-- ... compiling ... -->
 
-<script src="${url}"></script>
+<script src="${liquidJsUrl}"></script>
 <script>
 window.addEventListener("load", () => {
   new liquidjs.Liquid()

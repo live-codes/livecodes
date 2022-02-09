@@ -1,4 +1,5 @@
 import { LanguageSpecs } from '../models';
+import { markedUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
@@ -10,7 +11,7 @@ export const markdown: LanguageSpecs = {
     pluginUrls: [parserPlugins.markdown, parserPlugins.html],
   },
   compiler: {
-    url: 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js',
+    url: markedUrl,
     factory: () => async (code, { config }) =>
       (window as any).marked.parse(code, {
         ...getLanguageCustomSettings('markdown', config),

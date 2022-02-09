@@ -1,10 +1,11 @@
 import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
-import { loaderCdnBaseUrl, loaderOptions } from './lang-vue';
+import { vueSfcLoaderCdnBaseUrl } from '../vendors';
+import { loaderOptions } from './lang-vue';
 import { parserPlugins } from './prettier';
 import { escapeCode } from './utils';
 
-const loaderCdnUrl = loaderCdnBaseUrl + 'vue2-sfc-loader.js';
+const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue2-sfc-loader.js';
 const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@2';
 
 export const vue2: LanguageSpecs = {

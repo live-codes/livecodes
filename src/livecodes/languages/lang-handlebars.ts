@@ -1,9 +1,10 @@
 import { LanguageSpecs } from '../models';
+import { handlebarsBaseUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { escapeCode, getLanguageCustomSettings } from './utils';
 
-const url = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js';
-const runtimeUrl = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.runtime.min.js';
+const url = handlebarsBaseUrl + 'handlebars.min.js';
+const runtimeUrl = handlebarsBaseUrl + 'handlebars.runtime.min.js';
 
 export const handlebars: LanguageSpecs = {
   name: 'handlebars',

@@ -1,8 +1,7 @@
 import { LanguageSpecs } from '../models';
+import { typescriptUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
-
-export const typescriptUrl = 'https://cdn.jsdelivr.net/npm/typescript@4.5.5/lib/typescript.min.js';
 
 export const typescriptOptions = {
   target: 'es2015',
