@@ -29,7 +29,7 @@ export const lunaObjViewerStylesUrl =
 export const lunaConsoleStylesUrl =
   'https://cdn.jsdelivr.net/npm/luna-console@0.2.1/luna-console.css';
 
-export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@6.20210701.0/';
+export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.20211209.2/';
 export const quillEditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/quill@2.0.0-dev.4/dist';
 export const quillHtmlEditUrl =
   'https://cdn.jsdelivr.net/npm/quill-html-edit-button@2.2.7/dist/quill.htmlEditButton.min.js';
