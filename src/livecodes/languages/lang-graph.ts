@@ -10,8 +10,7 @@ import {
   vegaCdnUrl,
   vegaLiteCdnUrl,
   vendorsBaseUrl,
-  wavedromCdnUrl,
-  waveskinCdnUrl,
+  waveDromBaseUrl,
 } from '../vendors';
 import { parserPlugins } from './prettier';
 
@@ -376,9 +375,8 @@ const compileWaveDrom = async (code: string) => {
     temp.remove();
     return code;
   }
-
-  await loadScript(waveskinCdnUrl, 'WaveSkin');
-  const WaveDrom: any = await loadScript(wavedromCdnUrl, 'WaveDrom');
+  await loadScript(waveDromBaseUrl + 'skins/default.js', 'WaveSkin');
+  const WaveDrom: any = await loadScript(waveDromBaseUrl + 'wavedrom.min.js', 'WaveDrom');
   const render = (src: string) => {
     try {
       const obj = JSON.parse(stringToValidJson(src));
