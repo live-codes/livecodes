@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
-import * as Monaco from 'monaco-editor'; // only for typescript types
+import type * as Monaco from 'monaco-editor'; // only for typescript types
 
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 import { getLanguageExtension, mapLanguage } from '../../languages';
-import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl } from '../../vendors';
+import { getRandomString, getWorkerDataURL, loadScript } from '../../utils';
+import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
 import { clio, astro } from './languages';
@@ -23,11 +23,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
   if (!container) throw new Error('editor container not found');
 
-  const monacoPath = baseUrl + 'vendor/monaco-editor';
+  const monacoBaseUrl = vendorsBaseUrl + 'monaco-editor';
   let monaco: typeof Monaco;
   try {
     (window as any).monaco =
-      (window as any).monaco || (await import(`${monacoPath}/monaco-editor.js`)).monaco;
+      (window as any).monaco || (await import(`${monacoBaseUrl}/monaco-editor.js`)).monaco;
     monaco = (window as any).monaco;
   } catch {
     throw new Error('Failed to load monaco editor');
@@ -92,23 +92,25 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (!document.head.querySelector('#__livecodes__monaco-styles')) {
     const stylesheet = document.createElement('link');
     stylesheet.setAttribute('rel', 'stylesheet');
-    stylesheet.setAttribute('href', `${monacoPath}/monaco-editor.css`);
+    stylesheet.setAttribute('href', `${monacoBaseUrl}/monaco-editor.css`);
     stylesheet.id = '__livecodes__monaco-styles';
     document.head.appendChild(stylesheet);
   }
 
   (window as any).MonacoEnvironment = {
     getWorkerUrl(_moduleId: string, label: string) {
-      if (label === 'json') return `${monacoPath}/json.worker.js`;
-      if (label === 'css') return `${monacoPath}/css.worker.js`;
-      if (label === 'scss') return `${monacoPath}/css.worker.js`;
-      if (label === 'sass') return `${monacoPath}/css.worker.js`;
-      if (label === 'less') return `${monacoPath}/css.worker.js`;
-      if (label === 'html') return `${monacoPath}/html.worker.js`;
-      if (label === 'typescript' || label === 'javascript') {
-        return `${monacoPath}/ts.worker.js`;
-      }
-      return `${monacoPath}/editor.worker.js`;
+      const workers: Record<string, string> = {
+        json: 'json',
+        css: 'css',
+        scss: 'css',
+        sass: 'css',
+        less: 'css',
+        html: 'html',
+        handlebars: 'html',
+        javascript: 'ts',
+        typescript: 'ts',
+      };
+      return getWorkerDataURL(`${monacoBaseUrl}/${workers[label] || 'editor'}.worker.js`);
     },
   };
 
