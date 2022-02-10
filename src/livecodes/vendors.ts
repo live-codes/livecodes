@@ -89,7 +89,7 @@ export const lunaObjViewerStylesUrl =
 export const lunaConsoleStylesUrl =
   'https://cdn.jsdelivr.net/npm/luna-console@0.2.1/luna-console.css';
 
-export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.51/malina.js';
+export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js';
 
 export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
 
