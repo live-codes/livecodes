@@ -93,7 +93,7 @@ export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js
 
 export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
 
-export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js';
+export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js';
 
 export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
 
