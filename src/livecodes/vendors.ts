@@ -56,7 +56,7 @@ export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
 
 export const githubMarkdownCss =
-  'https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css';
+  'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css';
 
 export const go2jsBaseUrl = 'https://cdn.jsdelivr.net/npm/@live-codes/go2js@0.3.0/build';
 
