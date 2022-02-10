@@ -1,19 +1,18 @@
 import { LanguageSpecs } from '../models';
 import { blobToBase64, getWorkerDataURL, loadScript, stringToValidJson } from '../utils';
-import { vendorsBaseUrl } from '../vendors';
+import {
+  graphreCdnUrl,
+  hpccJsCdnUrl,
+  mermaidCdnUrl,
+  nomnomlCdnUrl,
+  plotlyCdnUrl,
+  svgbobWasmCdnUrl,
+  vegaCdnUrl,
+  vegaLiteCdnUrl,
+  vendorsBaseUrl,
+  waveDromBaseUrl,
+} from '../vendors';
 import { parserPlugins } from './prettier';
-
-const gnuplotCdnBaseUrl = vendorsBaseUrl + 'gnuplot';
-const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js';
-const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js';
-const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
-const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
-const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.8.3/dist/plotly.min.js';
-const waveskinCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/skins/default.js';
-const wavedromCdnUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/wavedrom.min.js';
-const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/graphre.js';
-const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
-const svgbobWasmCdnUrl = 'https://cdn.jsdelivr.net/npm/svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -38,6 +37,7 @@ const compileGnuplot = async (code: string) => {
 
   type InputFiles = Array<{ fileName: string; content: string }>;
 
+  const gnuplotCdnBaseUrl = vendorsBaseUrl + 'gnuplot';
   const Gnuplot: any = await loadScript(gnuplotCdnBaseUrl + '/gnuplot_api.js', 'Gnuplot');
   const workerUrl = getWorkerDataURL(gnuplotCdnBaseUrl + '/gnuplot.js');
   const gnuplot = ((window as any).gnuplot = (window as any).gnuplot || new Gnuplot(workerUrl));
@@ -375,9 +375,8 @@ const compileWaveDrom = async (code: string) => {
     temp.remove();
     return code;
   }
-
-  await loadScript(waveskinCdnUrl, 'WaveSkin');
-  const WaveDrom: any = await loadScript(wavedromCdnUrl, 'WaveDrom');
+  await loadScript(waveDromBaseUrl + 'skins/default.js', 'WaveSkin');
+  const WaveDrom: any = await loadScript(waveDromBaseUrl + 'wavedrom.min.js', 'WaveDrom');
   const render = (src: string) => {
     try {
       const obj = JSON.parse(stringToValidJson(src));

@@ -1,21 +1,21 @@
 import { CssPreset } from '../models';
-import { vendorsBaseUrl } from '../vendors';
+import { githubMarkdownCss, normalizeCssUrl, resetCssUrl, vendorsBaseUrl } from '../vendors';
 
 export const cssPresets: CssPreset[] = [
   {
     id: 'normalize.css',
     name: 'Normalize.css',
-    url: 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css',
+    url: normalizeCssUrl,
   },
   {
     id: 'reset-css',
     name: 'CSS reset',
-    url: 'https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css',
+    url: resetCssUrl,
   },
   {
     id: 'github-markdown-css',
     name: 'github-markdown-css',
-    url: 'https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css',
+    url: githubMarkdownCss,
   },
   {
     id: 'asciidoctor.css',

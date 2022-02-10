@@ -13,23 +13,27 @@ export const svelte: LanguageSpecs = {
   },
   compiler: {
     url: vendorsBaseUrl + 'svelte/svelte-compiler.min.js',
-    factory: () => async (code, { config }) => {
-      const processedCode = await compileAllBlocks(code, config, { removeEnclosingTemplate: true });
-      const customSettings = getLanguageCustomSettings('svelte', config);
-      const customElement = customSettings.customElement;
-      const init =
-        customElement === true
-          ? ''
-          : `\n
+    factory:
+      () =>
+      async (code, { config }) => {
+        const processedCode = await compileAllBlocks(code, config, {
+          removeEnclosingTemplate: true,
+        });
+        const customSettings = getLanguageCustomSettings('svelte', config);
+        const customElement = customSettings.customElement;
+        const init =
+          customElement === true
+            ? ''
+            : `\n
 let app = document.querySelector("#app") || document.body;
 new Component({ target: app });
 `;
-      const { js } = (window as any).svelte.compile(processedCode, {
-        css: true,
-        ...customSettings,
-      });
-      return js.code + init;
-    },
+        const { js } = (window as any).svelte.compile(processedCode, {
+          css: true,
+          ...customSettings,
+        });
+        return js.code + init;
+      },
   },
   extensions: ['svelte'],
   editor: 'script',

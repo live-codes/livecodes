@@ -1,7 +1,6 @@
 import { LanguageSpecs } from '../models';
-import { parinferUrl } from '../vendors';
+import { jsclUrl, parinferUrl } from '../vendors';
 
-const cdnUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
 export const parenFormatter = () => {
   const url = parinferUrl;
   (self as any).importScripts(url);
@@ -20,7 +19,7 @@ export const commonlisp: LanguageSpecs = {
   },
   compiler: {
     factory: () => async (code) => code,
-    scripts: [cdnUrl],
+    scripts: [jsclUrl],
     scriptType: 'text/commonlisp',
     compiledCodeLanguage: 'commonlisp',
     inlineScript: `

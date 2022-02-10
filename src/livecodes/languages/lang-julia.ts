@@ -1,11 +1,10 @@
 import { LanguageSpecs } from '../models';
-
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/julia-wasm@1.0.4';
+import { juliaWasmBaseUrl } from '../vendors';
 
 const workerSrc = `
 let isCompilerloaded = false;
 let outputBuffer = '';
-let url = '${cdnBaselUrl}';
+let url = '${juliaWasmBaseUrl}';
 let errCalls = 0;
 let ignoredErrors = [
   'still waiting on run dependencies:',

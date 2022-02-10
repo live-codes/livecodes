@@ -7,25 +7,27 @@ export const haml: LanguageSpecs = {
   title: 'Haml',
   compiler: {
     url: vendorsBaseUrl + 'clientside-haml-js/haml.js',
-    factory: () => async (code, { config }) => {
-      const options = {
-        tolerateFaults: true,
-        ...getLanguageCustomSettings('haml', config),
-        source: code,
-      };
-      const data = config.customSettings.template?.data || {};
+    factory:
+      () =>
+      async (code, { config }) => {
+        const options = {
+          tolerateFaults: true,
+          ...getLanguageCustomSettings('haml', config),
+          source: code,
+        };
+        const data = config.customSettings.template?.data || {};
 
-      if (config.customSettings.template?.prerender !== false) {
-        const fn = (window as any).haml.compileHaml(options);
-        return fn(data);
-      }
+        if (config.customSettings.template?.prerender !== false) {
+          const fn = (window as any).haml.compileHaml(options);
+          return fn(data);
+        }
 
-      const clientFnSrc = (window as any).haml.compileHaml({
-        ...options,
-        outputFormat: 'string',
-      });
+        const clientFnSrc = (window as any).haml.compileHaml({
+          ...options,
+          outputFormat: 'string',
+        });
 
-      return `<!-- ... compiling ... -->
+        return `<!-- ... compiling ... -->
 
 <script src="${vendorsBaseUrl}clientside-haml-js/haml.js"></script>
 <script>
@@ -40,7 +42,7 @@ window.addEventListener("load", () => {
 });
 </script>
     `;
-    },
+      },
   },
   extensions: ['haml'],
   editor: 'markup',

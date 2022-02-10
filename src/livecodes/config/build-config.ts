@@ -46,7 +46,7 @@ export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
 };
 
 export const getParams = (queryParams = parent.location.search) => {
-  const params = Object.fromEntries((new URLSearchParams(queryParams) as unknown) as Iterable<any>);
+  const params = Object.fromEntries(new URLSearchParams(queryParams) as unknown as Iterable<any>);
 
   Object.keys(params).forEach((key) => {
     if (params[key] === '') params[key] = true;

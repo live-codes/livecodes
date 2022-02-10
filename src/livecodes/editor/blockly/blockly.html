@@ -17,10 +17,7 @@
         height: 100%;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/blockly/blockly_compressed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/blockly/blocks_compressed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/blockly/javascript_compressed.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/blockly/msg/en.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blockly/blockly.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/custom-dialog.js"></script> -->
   </head>
   <body>
@@ -390,6 +387,29 @@
 
     <script>
       (function () {
+        var darkTheme = Blockly.Theme.defineTheme('dark', {
+          base: Blockly.Themes.Classic,
+          componentStyles: {
+            workspaceBackgroundColour: '#1e1e1e',
+            toolboxBackgroundColour: 'blackBackground',
+            toolboxForegroundColour: '#fff',
+            flyoutBackgroundColour: '#252526',
+            flyoutForegroundColour: '#ccc',
+            flyoutOpacity: 1,
+            scrollbarColour: '#797979',
+            insertionMarkerColour: '#fff',
+            insertionMarkerOpacity: 0.3,
+            scrollbarOpacity: 0.4,
+            cursorColour: '#d0d0d0',
+            blackBackground: '#333',
+          },
+        });
+
+        var themes = {
+          light: Blockly.Themes.Classic,
+          dark: darkTheme,
+        };
+
         var workspace = Blockly.inject('blocklyDiv', {
           zoom: {
             controls: true,
@@ -402,18 +422,13 @@
           },
           trashcan: true,
           renderer: 'zelos',
+          theme: themes['{{theme}}'],
 
           // {{ custom config }}
 
           media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
           toolbox: document.getElementById('toolbox'),
         });
-
-        var themes = {
-          light: Blockly.Themes.Classic,
-          dark: Blockly.Themes.Dark,
-        };
-        workspace.setTheme(themes['{{theme}}']);
 
         function updateCode() {
           window.LoopTrap = 1000;

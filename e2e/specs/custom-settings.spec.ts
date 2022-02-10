@@ -232,7 +232,7 @@ body
     expect(await getResult().innerText('head style')).toContain(
       `.text-dark-blue-800 {
     --tw-text-opacity: 1;
-    color: rgba(10, 33, 76, var(--tw-text-opacity))
+    color: rgb(10 33 76 / var(--tw-text-opacity))
 }`,
     );
   });

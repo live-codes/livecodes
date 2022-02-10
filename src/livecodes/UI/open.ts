@@ -5,7 +5,7 @@ import type { createNotifications } from '../notifications';
 import type { ProjectStorage, SavedProject } from '../storage';
 import { openScreen } from '../html';
 import { getDate, isMobile, downloadFile, loadScript, loadStylesheet } from '../utils';
-import { flexSearchUrl, tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
+import { flexSearchUrl, tagifyBaseUrl } from '../vendors';
 import { getTags } from './info';
 import { getBulkImportButton, getDeleteAllButton, getExportAllButton } from './selectors';
 
@@ -307,13 +307,13 @@ const organizeProjects = (
   );
   registerLanguageFilters();
 
-  loadStylesheet(tagifyStylesUrl, 'tagify-styles');
-  loadScript(tagifyScriptUrl, 'Tagify').then(async (Tagify: any) => {
+  loadStylesheet(tagifyBaseUrl + 'tagify.css', 'tagify-styles');
+  loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify').then(async (Tagify: any) => {
     if (Tagify) {
       tagify = new Tagify(filterTagsInput, {
-        whitelist: Array.from(
-          new Set((await getProjects()).map((item) => item.tags).flat()),
-        ).sort((a, b) => (b > a ? -1 : 1)),
+        whitelist: Array.from(new Set((await getProjects()).map((item) => item.tags).flat())).sort(
+          (a, b) => (b > a ? -1 : 1),
+        ),
         dropdown: {
           maxItems: 40,
           enabled: 0,

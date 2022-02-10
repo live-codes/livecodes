@@ -1,7 +1,8 @@
 import { Config } from '../models';
 import { modulesService } from '../services';
 
-export const importsPattern = /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
+export const importsPattern =
+  /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
 export const getImports = (code: string) =>
   [...code.matchAll(new RegExp(importsPattern))].map((arr) =>
@@ -54,7 +55,8 @@ export const replaceImports = (code: string, config: Config) => {
   });
 };
 
-export const styleimportsPattern = /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
+export const styleimportsPattern =
+  /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
 
 export const hasStyleImports = (code: string) => new RegExp(styleimportsPattern).test(code);
 

@@ -579,9 +579,7 @@ const title = "World";
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
-    expect(resultText).toContain(
-      ':root { --mainColor: rgba(18,52,86,0.47059); --secondaryColor: rgba(102, 51, 153, 0.9); }',
-    );
+    expect(resultText).toContain('--mainColor: rgba(18,52,86,0.47059);');
   });
 
   test('Babel', async ({ page, getTestUrl }) => {

@@ -1,6 +1,5 @@
 import { LanguageSpecs } from '../models';
-
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.1/modules/';
+import { tauPrologBaseUrl } from '../vendors';
 
 export const prolog: LanguageSpecs = {
   name: 'prolog',
@@ -8,16 +7,16 @@ export const prolog: LanguageSpecs = {
   compiler: {
     factory: () => async (code) => code,
     scripts: [
-      cdnBaselUrl + 'core.js',
-      cdnBaselUrl + 'charsio.js',
-      cdnBaselUrl + 'dom.js',
-      cdnBaselUrl + 'format.js',
-      cdnBaselUrl + 'js.js',
-      cdnBaselUrl + 'lists.js',
-      cdnBaselUrl + 'os.js',
-      cdnBaselUrl + 'promises.js',
-      cdnBaselUrl + 'random.js',
-      cdnBaselUrl + 'statistics.js',
+      tauPrologBaseUrl + 'core.js',
+      tauPrologBaseUrl + 'charsio.js',
+      tauPrologBaseUrl + 'dom.js',
+      tauPrologBaseUrl + 'format.js',
+      tauPrologBaseUrl + 'js.js',
+      tauPrologBaseUrl + 'lists.js',
+      tauPrologBaseUrl + 'os.js',
+      tauPrologBaseUrl + 'promises.js',
+      tauPrologBaseUrl + 'random.js',
+      tauPrologBaseUrl + 'statistics.js',
     ],
     scriptType: 'text/prolog',
     compiledCodeLanguage: 'prolog',

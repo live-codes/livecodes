@@ -1,15 +1,17 @@
 import { LanguageSpecs } from '../models';
 import { typedArrayToBuffer } from '../utils';
-import { requireUrl, vendorsBaseUrl } from '../vendors';
+import {
+  assemblyscriptLoaderUrl,
+  assemblyscriptSdkUrl,
+  requireUrl,
+  vendorsBaseUrl,
+} from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
 
 declare const importScripts: (...args: string[]) => void;
 declare const requirejs: any;
 declare const require: any;
-
-const sdkUrl = 'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.20/dist/sdk.js';
-const loaderUrl = 'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.20/umd/index.js';
 
 const scriptType = 'application/wasm-uint8';
 const watHeader = `;; WebAssembly Text Format (module.wat)\n\n`;
@@ -29,7 +31,7 @@ export const assemblyscript: LanguageSpecs = {
       if ((self as any).assemblyscriptSDK === undefined) {
         (self as any).assemblyscriptSDK = new Promise<void>(async (resolve) => {
           requirejs.config({ waitSeconds: 0 });
-          require([sdkUrl], (sdk: any) => {
+          require([assemblyscriptSdkUrl], (sdk: any) => {
             resolve(sdk);
           });
         });
@@ -54,7 +56,7 @@ export const assemblyscript: LanguageSpecs = {
           ...getLanguageCustomSettings('assemblyscript', config),
         });
     },
-    scripts: [loaderUrl],
+    scripts: [assemblyscriptLoaderUrl],
     inlineScript: `
     (() => {
       window.livecodes.loadWasm = () => new Promise((resolve, reject) => {

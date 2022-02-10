@@ -59,7 +59,7 @@ export const watStarter: Template = {
  (export "memory" (memory $0))
  (func $input/increment (param $0 i32) (result i32)
   (i32.add
-   (get_local $0)
+   (local.get $0)
    (i32.const 1)
   )
  )

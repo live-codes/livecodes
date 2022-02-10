@@ -28,38 +28,37 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
   };
   compilerSandbox.postMessage(configMessage, compilerOrigin);
 
-  const createLanguageCompiler = (language: LanguageOrProcessor): CompilerFunction => (
-    content,
-    { config, options },
-  ): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const handler = (event: CompilerMessageEvent) => {
-        const message = event.data;
+  const createLanguageCompiler =
+    (language: LanguageOrProcessor): CompilerFunction =>
+    (content, { config, options }): Promise<string> =>
+      new Promise((resolve, reject) => {
+        const handler = (event: CompilerMessageEvent) => {
+          const message = event.data;
 
-        if (
-          event.origin === compilerOrigin &&
-          message.from === 'compiler' &&
-          (message.type === 'compiled' || message.type === 'compile-failed') &&
-          message.payload.language === language &&
-          message.payload.content === content
-        ) {
-          window.removeEventListener('message', handler);
+          if (
+            event.origin === compilerOrigin &&
+            message.from === 'compiler' &&
+            (message.type === 'compiled' || message.type === 'compile-failed') &&
+            message.payload.language === language &&
+            message.payload.content === content
+          ) {
+            window.removeEventListener('message', handler);
 
-          if (message.type === 'compiled') {
-            resolve(message.payload.compiled);
-          } else if (message.type === 'compile-failed') {
-            reject(language + ' compile failed.\n' + message.payload.error);
+            if (message.type === 'compiled') {
+              resolve(message.payload.compiled);
+            } else if (message.type === 'compile-failed') {
+              reject(language + ' compile failed.\n' + message.payload.error);
+            }
           }
-        }
-      };
-      window.addEventListener('message', handler);
+        };
+        window.addEventListener('message', handler);
 
-      const compileMessage: CompilerMessage = {
-        type: 'compile',
-        payload: { content, language, config, options },
-      };
-      compilerSandbox.postMessage(compileMessage, compilerOrigin);
-    });
+        const compileMessage: CompilerMessage = {
+          type: 'compile',
+          payload: { content, language, config, options },
+        };
+        compilerSandbox.postMessage(compileMessage, compilerOrigin);
+      });
 
   const load = (languages: LanguageOrProcessor[], config: Config) =>
     Promise.all(
