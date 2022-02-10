@@ -152,10 +152,7 @@ export const stencilUrl =
 export const svgbobWasmCdnUrl =
   'https://cdn.jsdelivr.net/npm/svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm';
 
-export const tagifyStylesUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.7.2/dist/tagify.css';
-
-export const tagifyScriptUrl =
-  'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.8.1/dist/tagify.min.js';
+export const tagifyBaseUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.9.6/dist/';
 
 export const tailwindcssUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.3.1/dist/tailwindcss.umd.min.js';
