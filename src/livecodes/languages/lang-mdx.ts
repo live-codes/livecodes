@@ -17,7 +17,13 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { config,
         ...getLanguageCustomSettings('mdx', config),
       })
     ).value;
-    const removeComponentDeclaration = (str: string) => str.replace(/, {[^}]*} = _components/g, '');
+
+    // TODO: improve this
+    const removeComponentDeclaration = (str: string) =>
+      str
+        .replace(/, {[^}]*} = _components/g, '')
+        .replace(/const {[^:]*} = props.components[^;]*;/g, '');
+
     const jsx = removeComponentDeclaration(compiled);
     const result = `import React from "react";
 import ReactDOM from "react-dom";
