@@ -16,12 +16,14 @@ export const reactNative: LanguageSpecs = {
   },
   compiler: {
     dependencies: ['typescript'],
-    factory: () => async (code, { config, language }) =>
-      (window as any).ts.transpile(code, {
-        ...typescriptOptions,
-        ...getLanguageCustomSettings('typescript', config),
-        ...getLanguageCustomSettings(language, config),
-      }),
+    factory:
+      () =>
+      async (code, { config, language }) =>
+        (window as any).ts.transpile(code, {
+          ...typescriptOptions,
+          ...getLanguageCustomSettings('typescript', config),
+          ...getLanguageCustomSettings(language, config),
+        }),
     imports: {
       react: reactNativeWebUrl,
       'react-native': reactNativeWebUrl,

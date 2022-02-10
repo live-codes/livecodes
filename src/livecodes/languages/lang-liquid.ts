@@ -12,17 +12,19 @@ export const liquid: LanguageSpecs = {
   },
   compiler: {
     url: liquidJsUrl,
-    factory: () => async (code, { config }) => {
-      if (config.customSettings.template?.prerender !== false) {
-        const liquid = new (self as any).liquidjs.Liquid();
-        const html = await liquid.parseAndRender(
-          escapeCode(code),
-          config.customSettings.template?.data || {},
-        );
-        return html;
-      }
+    factory:
+      () =>
+      async (code, { config }) => {
+        if (config.customSettings.template?.prerender !== false) {
+          const liquid = new (self as any).liquidjs.Liquid();
+          const html = await liquid.parseAndRender(
+            escapeCode(code),
+            config.customSettings.template?.data || {},
+          );
+          return html;
+        }
 
-      return `<!-- ... compiling ... -->
+        return `<!-- ... compiling ... -->
 
 <script src="${liquidJsUrl}"></script>
 <script>
@@ -42,7 +44,7 @@ window.addEventListener("load", () => {
 });
 </script>
 `;
-    },
+      },
   },
   extensions: ['liquid', 'liquidjs'],
   editor: 'markup',

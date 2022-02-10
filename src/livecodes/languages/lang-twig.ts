@@ -12,16 +12,18 @@ export const twig: LanguageSpecs = {
   },
   compiler: {
     url: twigUrl,
-    factory: () => async (code, { config }) => {
-      const options = getLanguageCustomSettings('twig', config);
-      const data = config.customSettings.template?.data || {};
+    factory:
+      () =>
+      async (code, { config }) => {
+        const options = getLanguageCustomSettings('twig', config);
+        const data = config.customSettings.template?.data || {};
 
-      if (config.customSettings.template?.prerender !== false) {
-        const template = (self as any).Twig.twig({ ...options, data: code });
-        return template.render(data);
-      }
+        if (config.customSettings.template?.prerender !== false) {
+          const template = (self as any).Twig.twig({ ...options, data: code });
+          return template.render(data);
+        }
 
-      return `<!-- ... compiling ... -->
+        return `<!-- ... compiling ... -->
 
   <script src="${twigUrl}"></script>
   <script>
@@ -39,7 +41,7 @@ export const twig: LanguageSpecs = {
   });
   </script>
   `;
-    },
+      },
   },
   extensions: ['twig'],
   editor: 'markup',

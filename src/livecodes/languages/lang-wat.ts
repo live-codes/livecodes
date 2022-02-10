@@ -71,11 +71,13 @@ export const wat: LanguageSpecs = {
   },
   compiler: {
     url: wabtjsUrl,
-    factory: () => async (code, { config }) =>
-      watToArrayString(code, {
-        ...features,
-        ...getLanguageCustomSettings('wat', config),
-      }),
+    factory:
+      () =>
+      async (code, { config }) =>
+        watToArrayString(code, {
+          ...features,
+          ...getLanguageCustomSettings('wat', config),
+        }),
     inlineScript: `
 (() => {
   window.livecodes.loadWasm = () => new Promise((resolve) => {

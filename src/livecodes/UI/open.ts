@@ -311,9 +311,9 @@ const organizeProjects = (
   loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify').then(async (Tagify: any) => {
     if (Tagify) {
       tagify = new Tagify(filterTagsInput, {
-        whitelist: Array.from(
-          new Set((await getProjects()).map((item) => item.tags).flat()),
-        ).sort((a, b) => (b > a ? -1 : 1)),
+        whitelist: Array.from(new Set((await getProjects()).map((item) => item.tags).flat())).sort(
+          (a, b) => (b > a ? -1 : 1),
+        ),
         dropdown: {
           maxItems: 40,
           enabled: 0,

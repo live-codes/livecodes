@@ -5,7 +5,7 @@ export const compileInCompiler = async (
   language: Language | undefined,
   config: Config,
   options: CompileOptions = {},
-  worker: Worker = (self as unknown) as Worker,
+  worker: Worker = self as unknown as Worker,
 ): Promise<string> =>
   new Promise((resolve) => {
     if (!content || !language || !config) {

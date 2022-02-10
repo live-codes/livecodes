@@ -12,12 +12,14 @@ export const babel: LanguageSpecs = {
   },
   compiler: {
     url: babelUrl,
-    factory: () => async (code, { config }) =>
-      (window as any).Babel.transform(code, {
-        filename: 'script.tsx',
-        presets: [['env', { modules: false }], 'typescript', 'react'],
-        ...getLanguageCustomSettings('babel', config),
-      }).code,
+    factory:
+      () =>
+      async (code, { config }) =>
+        (window as any).Babel.transform(code, {
+          filename: 'script.tsx',
+          presets: [['env', { modules: false }], 'typescript', 'react'],
+          ...getLanguageCustomSettings('babel', config),
+        }).code,
   },
   extensions: ['es', 'babel'],
   editor: 'script',

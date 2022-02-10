@@ -61,9 +61,8 @@ export const createLanguageMenus = (
       editorSelector.classList.add('hidden');
       editorsNumber -= 1;
     } else if (editorLanguages.length === 1) {
-      const changeLanguageButton = editorSelector.querySelector<HTMLElement>(
-        '.language-menu-button',
-      );
+      const changeLanguageButton =
+        editorSelector.querySelector<HTMLElement>('.language-menu-button');
       if (changeLanguageButton) {
         changeLanguageButton.style.display = 'none';
       }

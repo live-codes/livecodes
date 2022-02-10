@@ -12,10 +12,12 @@ export const markdown: LanguageSpecs = {
   },
   compiler: {
     url: markedUrl,
-    factory: () => async (code, { config }) =>
-      (window as any).marked.parse(code, {
-        ...getLanguageCustomSettings('markdown', config),
-      }),
+    factory:
+      () =>
+      async (code, { config }) =>
+        (window as any).marked.parse(code, {
+          ...getLanguageCustomSettings('markdown', config),
+        }),
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],
   editor: 'markup',

@@ -20,12 +20,14 @@ export const typescript: LanguageSpecs = {
   },
   compiler: {
     url: typescriptUrl,
-    factory: () => async (code, { config, language }) =>
-      (window as any).ts.transpile(code, {
-        ...typescriptOptions,
-        ...getLanguageCustomSettings('typescript', config),
-        ...getLanguageCustomSettings(language, config),
-      }),
+    factory:
+      () =>
+      async (code, { config, language }) =>
+        (window as any).ts.transpile(code, {
+          ...typescriptOptions,
+          ...getLanguageCustomSettings('typescript', config),
+          ...getLanguageCustomSettings(language, config),
+        }),
   },
   extensions: ['ts', 'typescript'],
   editor: 'script',

@@ -12,16 +12,18 @@ export const ejs: LanguageSpecs = {
   },
   compiler: {
     url: ejsUrl,
-    factory: () => async (code, { config }) => {
-      const options = getLanguageCustomSettings('ejs', config);
-      const data = config.customSettings.template?.data || {};
+    factory:
+      () =>
+      async (code, { config }) => {
+        const options = getLanguageCustomSettings('ejs', config);
+        const data = config.customSettings.template?.data || {};
 
-      if (config.customSettings.template?.prerender !== false) {
-        const template = (self as any).ejs.compile(code, options);
-        return template(data);
-      }
+        if (config.customSettings.template?.prerender !== false) {
+          const template = (self as any).ejs.compile(code, options);
+          return template(data);
+        }
 
-      return `<!-- ... compiling ... -->
+        return `<!-- ... compiling ... -->
 
   <script src="${ejsUrl}"></script>
   <script>
@@ -36,7 +38,7 @@ export const ejs: LanguageSpecs = {
   });
   </script>
   `;
-    },
+      },
   },
   extensions: ['ejs'],
   editor: 'markup',

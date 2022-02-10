@@ -1085,7 +1085,7 @@ const showScreen = async (screen: Screen['screen'], options?: any) => {
 
 const loadSelectedScreen = () => {
   const params = Object.fromEntries(
-    (new URLSearchParams(parent.location.search) as unknown) as Iterable<any>,
+    new URLSearchParams(parent.location.search) as unknown as Iterable<any>,
   );
   const screen = params.screen;
   if (screen) {

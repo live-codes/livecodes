@@ -94,9 +94,7 @@ export const createConsole = (
         'groupEnd',
       ];
       if (api.includes(message.method)) {
-        consoleEmulator[message.method as keyof typeof consoleEmulator](
-          ...convertTypes(message.args),
-        );
+        (consoleEmulator as any)[message.method](...convertTypes(message.args));
       }
     });
 
@@ -125,7 +123,7 @@ export const createConsole = (
     consoleEditor.addKeyBinding('exec', consoleEditor.keyCodes.Enter, () => {
       const command = consoleEditor.getValue();
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
-      consoleEmulator.insert({
+      (consoleEmulator as any).insert({
         type: 'input',
         args: [command],
         ignoreFilter: true,

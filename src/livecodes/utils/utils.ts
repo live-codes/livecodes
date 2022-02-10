@@ -26,7 +26,12 @@ export const encodeHTML = (html: string) =>
 export const escapeScript = (code: string) => code.replace(/<\/script>/g, '<\\/script>');
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const pipe = (...fns: Function[]) => fns.reduce((f, g) => (...args: any) => g(f(...args)));
+export const pipe = (...fns: Function[]) =>
+  fns.reduce(
+    (f, g) =>
+      (...args: any) =>
+        g(f(...args)),
+  );
 
 // replace non-alphanumeric with underscore
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);

@@ -7,11 +7,13 @@ export const livescript: LanguageSpecs = {
   title: 'LiveScript',
   compiler: {
     url: vendorsBaseUrl + 'livescript/livescript-min.js',
-    factory: () => async (code, { config }) =>
-      (window as any).require('livescript').compile(code, {
-        bare: true,
-        ...getLanguageCustomSettings('livescript', config),
-      }),
+    factory:
+      () =>
+      async (code, { config }) =>
+        (window as any).require('livescript').compile(code, {
+          bare: true,
+          ...getLanguageCustomSettings('livescript', config),
+        }),
     scripts: [vendorsBaseUrl + 'livescript/prelude-browser-min.js'],
   },
   extensions: ['ls'],

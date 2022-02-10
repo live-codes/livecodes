@@ -7,14 +7,12 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.eslint.json'],
   },
-  plugins: ['@typescript-eslint', 'jest', 'jsdoc'],
+  plugins: ['@typescript-eslint', 'jsdoc'],
   extends: [
-    'plugin:jest/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
     'prettier',
-    'prettier/@typescript-eslint',
   ],
   rules: {
     '@typescript-eslint/adjacent-overload-signatures': 'error',

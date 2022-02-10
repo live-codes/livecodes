@@ -44,6 +44,7 @@ var baseOptions = {
   minify: true,
   outdir: 'build/livecodes',
   format: 'esm',
+  target: 'es2020',
 };
 
 esbuild.buildSync({

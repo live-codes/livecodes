@@ -61,8 +61,10 @@ export const vue: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    factory: () => async (code, { config }) =>
-      `(() => {
+    factory:
+      () =>
+      async (code, { config }) =>
+        `(() => {
 let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
