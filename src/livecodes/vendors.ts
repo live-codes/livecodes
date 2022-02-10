@@ -114,7 +114,7 @@ export const postcssImportUrl =
 export const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.5.1/';
 
 export const prettierPhpUrl =
-  'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.17.5/standalone.js';
+  'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.18.0/standalone.js';
 
 export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
 
