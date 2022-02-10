@@ -1,7 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { blobToBase64, getWorkerDataURL, loadScript, stringToValidJson } from '../utils';
 import {
-  gnuplotCdnBaseUrl,
   graphreCdnUrl,
   hpccJsCdnUrl,
   mermaidCdnUrl,
@@ -39,6 +38,7 @@ const compileGnuplot = async (code: string) => {
 
   type InputFiles = Array<{ fileName: string; content: string }>;
 
+  const gnuplotCdnBaseUrl = vendorsBaseUrl + 'gnuplot';
   const Gnuplot: any = await loadScript(gnuplotCdnBaseUrl + '/gnuplot_api.js', 'Gnuplot');
   const workerUrl = getWorkerDataURL(gnuplotCdnBaseUrl + '/gnuplot.js');
   const gnuplot = ((window as any).gnuplot = (window as any).gnuplot || new Gnuplot(workerUrl));

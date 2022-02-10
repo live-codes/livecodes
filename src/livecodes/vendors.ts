@@ -60,15 +60,13 @@ export const githubMarkdownCss =
 
 export const go2jsBaseUrl = 'https://cdn.jsdelivr.net/npm/@live-codes/go2js@0.3.0/build';
 
-export const gnuplotCdnBaseUrl = vendorsBaseUrl + 'gnuplot';
-
 export const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/graphre.js';
 
 export const handlebarsBaseUrl = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/';
 
 export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.css';
 
-export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js';
+export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/dist/index.min.js';
 
 export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
 
