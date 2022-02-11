@@ -27,13 +27,10 @@ tag app-counter
 	css .btn h:2em	w:10em	fs:1em
 
 	<self>
-		<h1> "Hello, "
-			<span> name
+		<h1> "Hello, {name}!"
 		<img[h:100px] src="{{ __livecodes_baseUrl__ }}assets/templates/imba.svg">
-		<p> "You clicked "
-			<span> count
-			" times."
-		<button.btn @click=count++> "click me"
+		<p> "You clicked {count} times."
+		<button.btn @click=count++> "Click me"
 
 imba.mount <app-counter>
 `.trimStart(),
