@@ -58,6 +58,7 @@ import { prolog } from './lang-prolog';
 import { clio } from './lang-clio';
 import { richtext } from './lang-richtext';
 import { graph } from './lang-graph';
+import { imba } from './lang-imba';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -98,6 +99,7 @@ export const languages: LanguageSpecs[] = [
   coffeescript,
   livescript,
   clio,
+  imba,
   rescript,
   reason,
   ocaml,

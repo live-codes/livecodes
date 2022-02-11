@@ -7,7 +7,7 @@ import { getRandomString, getWorkerDataURL, loadScript } from '../../utils';
 import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
-import { clio, astro } from './languages';
+import { clio, astro, imba } from './languages';
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
@@ -395,6 +395,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.register({ id: 'astro', extensions: ['astro'] });
     monaco.languages.setLanguageConfiguration('astro', astro.config as any);
     monaco.languages.setMonarchTokensProvider('astro', astro.tokens as any);
+
+    monaco.languages.register({ id: 'imba', extensions: ['imba'], aliases: ['imba', 'Imba'] });
+    monaco.languages.setLanguageConfiguration('imba', imba.config as any);
+    monaco.languages.setMonarchTokensProvider('imba', imba.tokens as any);
   }
 
   loaded = true;

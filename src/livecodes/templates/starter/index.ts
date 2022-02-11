@@ -45,6 +45,7 @@ import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
 import { graphStarter } from './graph-starter';
+import { imbaStarter } from './imba-starter';
 
 export const starterTemplates = [
   blank,
@@ -68,6 +69,7 @@ export const starterTemplates = [
   coffeescriptStarter,
   livescriptStarter,
   clioStarter,
+  imbaStarter,
   rescriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
