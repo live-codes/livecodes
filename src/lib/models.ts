@@ -125,6 +125,7 @@ export type Language =
   | 'livescript'
   | 'ls'
   | 'clio'
+  | 'imba'
   | 'assemblyscript'
   | 'as'
   | 'python'

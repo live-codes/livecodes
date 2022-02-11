@@ -7,7 +7,6 @@ import { getRandomString, getWorkerDataURL, loadScript } from '../../utils';
 import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
-import { clio, astro } from './languages';
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
@@ -189,6 +188,31 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       });
   }
 
+  const customLanguages: Partial<Record<Language, string>> = {
+    astro: monacoBaseUrl + '/languages/astro.js',
+    clio: monacoBaseUrl + '/languages/clio.js',
+    imba: monacoBaseUrl + '/languages/imba.js',
+    // wat: monacoBaseUrl + '/languages/wat.js',
+  };
+
+  interface CustomLanguageDefinition {
+    config?: Monaco.languages.LanguageConfiguration;
+    tokens?: Monaco.languages.IMonarchLanguage;
+  }
+  const loadMonacoLanguage = async (lang: Language) => {
+    const langUrl = customLanguages[lang];
+    if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
+      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
+      monaco.languages.register({ id: lang });
+      if (mod.config) {
+        monaco.languages.setLanguageConfiguration(lang, mod.config);
+      }
+      if (mod.tokens) {
+        monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
+      }
+    }
+  };
+
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
@@ -207,6 +231,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language = lang;
     clearTypes();
     setModel(editor, value ?? editor.getValue(), language);
+    loadMonacoLanguage(lang);
   };
 
   const addTypes = (lib: EditorLibrary) => {
@@ -388,13 +413,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   if (!loaded) {
     registerShowPackageInfo();
-
-    monaco.languages.register({ id: 'clio' });
-    monaco.languages.setMonarchTokensProvider('clio', clio as any);
-
-    monaco.languages.register({ id: 'astro', extensions: ['astro'] });
-    monaco.languages.setLanguageConfiguration('astro', astro.config as any);
-    monaco.languages.setMonarchTokensProvider('astro', astro.tokens as any);
   }
 
   loaded = true;

@@ -17,6 +17,7 @@ const templates = [
   'CoffeeScript',
   'LiveScript',
   'Clio',
+  'Imba',
   'Python',
   'Ruby',
   'PHP',
