@@ -33,6 +33,9 @@ export const graphStarter: Template = {
 
   <h3>WaveDrom</h3>
   <div data-src="diagram.svg"></div>
+
+  <h3>Pintora</h3>
+  <img data-src="pintora.svg">
 </div>
 
 <script type="application/graph-gnuplot">
@@ -288,6 +291,20 @@ Class08 <--> C2: Cool label
   { name: "wire", wave: "0.1..0." },
 ]}
 </script>
+
+
+<script type="application/graph-pintora" data-output="pintora.svg">
+mindmap
+@param layoutDirection TB
+* Pintora diagrams
+** UML Diagrams
+*** Sequence Diagram
+*** Activity Diagram
+*** Component Diagram
+** Non-UML Diagrams
+*** Entity Relationship Diagram
+*** Mind Map
+</script>
 `.trimStart(),
   },
   style: {
@@ -302,6 +319,10 @@ Class08 <--> C2: Cool label
 .container img {
   width: 80%;
   max-width: 600px;
+}
+
+.container h3:not(:nth-child(1)) {
+  margin-top: 3em;
 }
 `.trimStart(),
   },

@@ -108,6 +108,9 @@ export const opalBaseUrl = 'https://cdn.opalrb.com/opal/1.4.1/';
 export const parinferUrl =
   'https://cdn.jsdelivr.net/npm/@chrisoakman/parinfer@3.13.1/parinfer.min.js';
 
+export const pintoraUrl =
+  'https://cdn.jsdelivr.net/npm/@pintora/standalone@0.1.0/lib/pintora-standalone.umd.min.js';
+
 export const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.9.0/dist/plotly.min.js';
 
 export const postcssImportUrl =
