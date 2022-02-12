@@ -1,10 +1,11 @@
-import { LanguageSpecs } from '../models';
+import type { Config, CompilerFunction, LanguageSpecs } from '../models';
 import { blobToBase64, getWorkerDataURL, loadScript, stringToValidJson } from '../utils';
 import {
   graphreCdnUrl,
   hpccJsCdnUrl,
   mermaidCdnUrl,
   nomnomlCdnUrl,
+  pintoraUrl,
   plotlyCdnUrl,
   svgbobWasmCdnUrl,
   vegaCdnUrl,
@@ -13,6 +14,7 @@ import {
   waveDromBaseUrl,
 } from '../vendors';
 import { parserPlugins } from './prettier';
+import { getLanguageCustomSettings } from './utils';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -454,7 +456,57 @@ const compileNomnoml = async (code: string) => {
   return result;
 };
 
-export const runOutsideWorker = async (code: string) => {
+const compilePintora = async (code: string, config: Config) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/graph-pintora"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  const pintora: any = await loadScript(pintoraUrl, 'pintora');
+  const render = (src: string) => {
+    const container = document.createElement('div');
+    pintora.default.renderTo(src, {
+      container,
+      config: {
+        ...getLanguageCustomSettings('pintora', config),
+      },
+    });
+    // allow svg to be rendered as image
+    const svg = container.firstElementChild;
+    svg?.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svg?.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+    return container.innerHTML;
+  };
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
+      const svg = render(content);
+      displaySVG(el, svg);
+    }
+    script.remove();
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
+export const runOutsideWorker: CompilerFunction = async (code: string, { config }) => {
   const result = await compileGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
@@ -462,7 +514,8 @@ export const runOutsideWorker = async (code: string) => {
     .then(compilePlotly)
     .then(compileSvgBob)
     .then(compileWaveDrom)
-    .then(compileNomnoml);
+    .then(compileNomnoml)
+    .then((src) => compilePintora(src, config));
   return result;
 };
 

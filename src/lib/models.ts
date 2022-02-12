@@ -184,7 +184,8 @@ export type Language =
   | 'prolog'
   | 'blockly'
   | 'blockly.xml'
-  | 'xml';
+  | 'xml'
+  | 'pintora';
 
 export interface Editor {
   language: Language;
