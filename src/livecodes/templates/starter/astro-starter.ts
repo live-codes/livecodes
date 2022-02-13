@@ -58,7 +58,7 @@ const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
       .querySelector("#counter-button")
       .addEventListener("click", () => {
         count += 1;
-        document.querySelector("#counter").textContent = count;
+        document.querySelector("#counter").innerText = count;
     });
   </script>
 </body>

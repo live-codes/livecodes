@@ -44,12 +44,12 @@ export const clangStarter: Template = {
 
       if (parseInt(count) !== NaN) {
         window.count = count;
-        counter.textContent = window.count;
+        counter.innerText = window.count;
       }
       if (title) {
-        name.textContent = title;
+        name.innerText = title;
       }
-      button.textContent = "Click me";
+      button.innerText = "Click me";
       button.disabled = false;
     }
   });

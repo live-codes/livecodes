@@ -51,7 +51,9 @@ export const blocklyStarter: Template = {
       <shadow type="dom_element_selector" id="8q6b-NxGim%yU^KHWg+M">
         <value name="selector">
           <shadow type="text" id="8MF#)_03uL#%YWyCDgM^">
-            <field name="TEXT" />
+            <field name="TEXT">
+
+            </field>
           </shadow>
         </value>
       </shadow>
@@ -65,7 +67,7 @@ export const blocklyStarter: Template = {
     </value>
     <value name="property">
       <shadow type="dom_element_properties" id="AHLrrpzt[m1Yx/4?2U-{">
-        <field name="property">textContent</field>
+        <field name="property">innerText</field>
       </shadow>
     </value>
     <value name="value">
@@ -113,7 +115,9 @@ export const blocklyStarter: Template = {
               <shadow type="dom_element_selector" id="\`p]W.N%K-bP39x)tC,j0">
                 <value name="selector">
                   <shadow type="text" id="}uE=/^7ZJn-xR4v1Oumn">
-                    <field name="TEXT" />
+                    <field name="TEXT">
+
+                    </field>
                   </shadow>
                 </value>
               </shadow>
@@ -127,12 +131,14 @@ export const blocklyStarter: Template = {
             </value>
             <value name="property">
               <shadow type="dom_element_properties" id=")K$1i925QSZjn/w:{j[Z">
-                <field name="property">textContent</field>
+                <field name="property">innerText</field>
               </shadow>
             </value>
             <value name="value">
               <shadow type="text" id="gu4kA*Ig3*6\`sGaI*P6C">
-                <field name="TEXT" />
+                <field name="TEXT">
+
+                </field>
               </shadow>
               <block type="variables_get" id="LmiNr+~z9=zAWH]H8gqm">
                 <field name="VAR" id="?\`Dl!ysD-zLY64Lpe)c(">count</field>

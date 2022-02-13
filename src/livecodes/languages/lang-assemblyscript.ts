@@ -59,7 +59,7 @@ export const assemblyscript: LanguageSpecs = {
     scripts: [assemblyscriptLoaderUrl],
     inlineScript: `
     (() => {
-      window.livecodes.loadWasm = () => new Promise((resolve, reject) => {
+      window.livecodes.loadWasm = (importObject = {}) => new Promise((resolve, reject) => {
         const stringToWasm = (code = '') => {
           if (!code) {
             return {text: '', binary: null}
@@ -77,7 +77,7 @@ export const assemblyscript: LanguageSpecs = {
             resolve({ wasmModule: { exports: {} }, text, binary });
           } else {
             const binaryBuffer = typedArrayToBuffer(binary);
-            loader.instantiate(binaryBuffer).then(wasmModule => {
+            loader.instantiate(binaryBuffer, importObject).then(wasmModule => {
               resolve({wasmModule, text, binary});
             });
           }

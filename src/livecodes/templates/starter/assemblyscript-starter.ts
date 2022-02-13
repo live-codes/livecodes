@@ -18,6 +18,7 @@ export const assemblyscriptStarter: Template = {
 <script>
   (async() => {
     // The \`loadWasm\` method of \`livecodes\` global object
+    // optionally takes an import object and
     // returns a promise which resolves to an object
     // exposing the compiled wasm module, wasm text and wasm binary
     const { wasmModule, text, binary } = await livecodes.loadWasm();
@@ -34,7 +35,7 @@ export const assemblyscriptStarter: Template = {
 
     button.addEventListener("click", () => {
       count = increment(count);
-      counter.textContent = count;
+      counter.innerText = count;
     }, false);
 
   })();
