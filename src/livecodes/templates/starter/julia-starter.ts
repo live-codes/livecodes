@@ -29,7 +29,7 @@ export const juliaStarter: Template = {
     const initialOutput = livecodes.julia.output;
     update(initialOutput);
 
-    button.textContent = "Click me";
+    button.innerText = "Click me";
     button.disabled = false;
     button.onclick = async () => {
       // run with new input
@@ -49,10 +49,10 @@ export const juliaStarter: Template = {
 
       if (parseInt(count) !== NaN) {
         window.count = count;
-        counter.textContent = window.count;
+        counter.innerText = window.count;
       }
       if (title) {
-        name.textContent = title;
+        name.innerText = title;
       }
     }
   });

@@ -43,10 +43,10 @@ export const cppStarter: Template = {
 
       if (parseInt(count) !== NaN) {
         window.count = count;
-        counter.textContent = window.count;
+        counter.innerText = window.count;
       }
       if (title) {
-        name.textContent = title;
+        name.innerText = title;
       }
     }
   });

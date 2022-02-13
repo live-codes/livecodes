@@ -23,7 +23,7 @@ export const tclStarter: Template = {
     const button = document.querySelector("#counter-button");
     // wait till loaded
     await livecodes.tcl.loaded;
-    button.textContent = "Click me";
+    button.innerText = "Click me";
     button.disabled = false;
 
     button.onclick = async () => {
@@ -50,7 +50,7 @@ export const tclStarter: Template = {
     language: 'tcl',
     content: `
 set title "Tcl"
-::wacl::dom attr "#name" textContent $title
+::wacl::dom attr "#name" innerText $title
 
 set input [gets stdin]
 if {[info exists count]} {
@@ -58,7 +58,7 @@ if {[info exists count]} {
 } else {
   set count [expr $input + 1]
 }
-::wacl::dom attr "#counter" textContent $count
+::wacl::dom attr "#counter" innerText $count
 puts $count
 `.trimStart(),
   },

@@ -23,7 +23,7 @@ export const prologStarter: Template = {
     const session = await livecodes.prolog.createSession();
     session.query('title(X).');
     session.answer(function(answer) {
-      document.getElementById("title").textContent = answer.lookup('X');
+      document.getElementById("title").innerText = answer.lookup('X');
     });
   }
 
@@ -33,19 +33,19 @@ export const prologStarter: Template = {
 
     const session = await livecodes.prolog.createSession({limit: 1000});
     session.promiseQuery(query).then(async () => {
-      result.textContent = "";
+      result.innerText = "";
       for await (let answer of session.promiseAnswers()) {
         if(pl.type.is_substitution(answer)) {
           console.log(session.format_answer(answer));
-          result.textContent += session.format_answer(answer) + '\\n';
+          result.innerText += session.format_answer(answer) + '\\n';
         }
       }
-      if (result.textContent == "") {
-        result.textContent = "false.";
+      if (result.innerText == "") {
+        result.innerText = "false.";
       }
       result.classList.remove('error');
     }).catch((err) => {
-      result.textContent = err;
+      result.innerText = err;
       result.classList.add('error');
     })
   }

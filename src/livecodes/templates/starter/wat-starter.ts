@@ -48,7 +48,7 @@ export const watStarter: Template = {
       "click",
       () => {
         count = increment(count);
-        counter.textContent = count;
+        counter.innerText = count;
       },
       false
     );
