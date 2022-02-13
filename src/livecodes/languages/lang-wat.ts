@@ -80,14 +80,14 @@ export const wat: LanguageSpecs = {
         }),
     inlineScript: `
 (() => {
-  window.livecodes.loadWasm = () => new Promise((resolve) => {
+  window.livecodes.loadWasm = (importObject = {}) => new Promise((resolve) => {
     const arrayStringToWasm = async (arrayString) => {
       const typedArrayToBuffer = ${typedArrayToBuffer};
       const binary = new Uint8Array(arrayString.split('[')[1].slice(0,-1).split(',').map(Number));
       const binaryBuffer = typedArrayToBuffer(binary);
       try {
         let wasm = new WebAssembly.Module(binaryBuffer);
-        const wasmModule = new WebAssembly.Instance(wasm, {});
+        const wasmModule = new WebAssembly.Instance(wasm, importObject);
         return {
           wasmModule,
           binary,

@@ -2203,6 +2203,11 @@ body {
     z-index: 1000;
   }
 
+  // monaco menus
+  .overflowingContentWidgets {
+    z-index: 1500;
+  }
+
   #overlay,
   #modal-container {
     z-index: 2000;
