@@ -14,7 +14,7 @@ const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {
 const monacoMapLanguage = (language: Language): Language =>
   language === 'livescript'
     ? 'coffeescript'
-    : ['rescript', 'reason', 'ocaml', 'wat'].includes(language)
+    : ['rescript', 'reason', 'ocaml'].includes(language)
     ? 'csharp'
     : mapLanguage(language);
 
@@ -190,7 +190,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: vendorsBaseUrl + 'monaco-editor/languages/astro.js',
     clio: vendorsBaseUrl + 'monaco-editor/languages/clio.js',
     imba: vendorsBaseUrl + 'monaco-editor/languages/imba.js',
-    // wat: vendorsBaseUrl + 'monaco-editor/languages/wat.js',
+    wat: vendorsBaseUrl + 'monaco-editor/languages/wat.js',
   };
 
   interface CustomLanguageDefinition {
