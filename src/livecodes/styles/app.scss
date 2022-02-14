@@ -152,13 +152,6 @@ body {
   font-weight: bold;
 }
 
-.code {
-  background-color: rgb(231, 231, 231);
-  border: 1px solid rgb(191, 191, 191);
-  border-radius: 2px;
-  padding: 2px;
-}
-
 .danger {
   background-color: rgb(255, 245, 246);
   color: crimson;
@@ -1211,6 +1204,13 @@ i.arrow {
     max-width: calc(100vw - 40px);
     min-height: 180px;
     width: 400px;
+  }
+
+  .code {
+    background-color: rgb(231, 231, 231);
+    border: 1px solid rgb(191, 191, 191);
+    border-radius: 2px;
+    padding: 2px;
   }
 
   .close-container {
