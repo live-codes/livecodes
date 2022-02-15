@@ -17,6 +17,7 @@
     "dev:build": "run-p build:lib build:html build:styles",
     "build": "run-s clean build:* copy:*",
     "build:lib": "node ./scripts/build.js",
+    "build:vendors": "node ./scripts/vendors.js",
     "build:ts": "tsc --emitDeclarationOnly --outFile build/livecodes/index.d.ts",
     "build:ts-lib": "tsc --emitDeclarationOnly --outFile build/lib/index.d.ts -p tsconfig.lib.json",
     "build:ts-web": "cd web && npm run typecheck",
@@ -79,7 +80,7 @@
     "luna-console": "0.2.1",
     "luna-object-viewer": "0.2.0",
     "lz-string": "1.4.4",
-    "monaco-editor": "0.31.1",
+    "monaco-editor": "0.32.1",
     "prismjs": "1.26.0",
     "split.js": "1.6.5"
   },

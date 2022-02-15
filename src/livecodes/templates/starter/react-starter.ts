@@ -32,7 +32,7 @@ function App(props) {
   const [count, setCount] = useState(0);
 
   return (
-    <div class="container">
+    <div className="container">
       <h1>Hello, {props.name}!</h1>
       <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/react.svg" />
       <p>You clicked {count} times.</p>
