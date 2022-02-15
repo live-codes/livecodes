@@ -216,10 +216,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor.getModel()?.setValue(value);
   };
 
-  const types: Array<{ dispose: () => void }> = [];
+  const types: Array<{
+    filename: string;
+    libJs: { dispose: () => void };
+    libTs: { dispose: () => void };
+  }> = [];
   const clearTypes = () => {
     types.forEach((type) => {
-      type.dispose();
+      type.libJs.dispose();
+      type.libTs.dispose();
     });
     types.length = 0;
   };
@@ -233,9 +238,27 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const addTypes = (lib: EditorLibrary) => {
-    types.push(
-      monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
-    );
+    const cached = types.find((cachedType) => cachedType.filename === lib.filename);
+    if (cached) {
+      if (!lib.filename.startsWith('file:///node_modules/')) {
+        cached.libJs.dispose();
+        cached.libTs.dispose();
+        cached.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
+          lib.content,
+          lib.filename,
+        );
+        cached.libTs = monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          lib.content,
+          lib.filename,
+        );
+      }
+      return;
+    }
+    types.push({
+      filename: lib.filename,
+      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
+      libTs: monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename),
+    });
   };
 
   const focus = () => editor.focus();

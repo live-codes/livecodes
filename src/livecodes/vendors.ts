@@ -47,7 +47,7 @@ export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
 
 export const emmetMonacoUrl =
-  'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.2/dist/emmet-monaco.min.js';
+  'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.0/dist/emmet-monaco.min.js';
 
 export const esModuleShimsUrl =
   'https://cdn.jsdelivr.net/npm/es-module-shims@1.4.4/dist/es-module-shims.min.js';
