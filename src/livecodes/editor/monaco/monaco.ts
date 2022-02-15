@@ -313,9 +313,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     loadScript(emmetMonacoUrl, 'emmetMonaco').then((emmetMonaco: any) => {
       if (enabled) {
         if (!disposeEmmet.html || disposeEmmet.disabled) {
-          disposeEmmet.html = emmetMonaco.emmetHTML();
-          disposeEmmet.css = emmetMonaco.emmetCSS();
-          disposeEmmet.jsx = emmetMonaco.emmetJSX();
+          disposeEmmet.html = emmetMonaco.emmetHTML(monaco, [
+            'html',
+            'php',
+            'astro',
+            'markdown',
+            'mdx',
+          ]);
+          disposeEmmet.css = emmetMonaco.emmetCSS(monaco, ['css', 'scss', 'less']);
+          disposeEmmet.jsx = emmetMonaco.emmetJSX(monaco, [
+            'javascript',
+            'typescript',
+            'jsx',
+            'tsx',
+          ]);
           disposeEmmet.disabled = false;
         }
       } else {
