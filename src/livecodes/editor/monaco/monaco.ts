@@ -221,43 +221,54 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     libJs: { dispose: () => void };
     libTs: { dispose: () => void };
   }> = [];
-  const clearTypes = () => {
-    types.forEach((type) => {
-      type.libJs.dispose();
-      type.libTs.dispose();
-    });
+
+  const isEditorType = (type: { filename: string }) =>
+    !type.filename.startsWith('file:///node_modules/');
+
+  const clearTypes = (allTypes = true) => {
+    types
+      .filter((type) => (allTypes ? true : isEditorType(type)))
+      .forEach((type) => {
+        type.libJs.dispose();
+        type.libTs.dispose();
+      });
     types.length = 0;
   };
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
-    clearTypes();
+    clearTypes(false);
     setModel(editor, value ?? editor.getValue(), language);
     loadMonacoLanguage(lang);
   };
 
-  const addTypes = (lib: EditorLibrary) => {
-    const cached = types.find((cachedType) => cachedType.filename === lib.filename);
-    if (cached) {
-      if (!lib.filename.startsWith('file:///node_modules/')) {
-        cached.libJs.dispose();
-        cached.libTs.dispose();
-        cached.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          lib.content,
-          lib.filename,
-        );
-        cached.libTs = monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          lib.content,
-          lib.filename,
+  const addTypes = (type: EditorLibrary) => {
+    const loaded = types.find((cachedType) => cachedType.filename === type.filename);
+    if (loaded) {
+      if (isEditorType(type)) {
+        loaded.libJs.dispose();
+        loaded.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
+          type.content,
+          type.filename,
         );
       }
       return;
     }
     types.push({
-      filename: lib.filename,
-      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
-      libTs: monaco.languages.typescript.typescriptDefaults.addExtraLib(lib.content, lib.filename),
+      filename: type.filename,
+      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(
+        type.content,
+        type.filename,
+      ),
+      libTs: isEditorType(type)
+        ? {
+            // avoid duplicate declarations for typescript
+            dispose: () => {
+              // do nothing
+            },
+          }
+        : monaco.languages.typescript.typescriptDefaults.addExtraLib(type.content, type.filename),
     });
   };
 
