@@ -244,7 +244,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const addTypes = (type: EditorLibrary) => {
-    const loadedType = types.find((cachedType) => cachedType.filename === type.filename);
+    const loadedType = types.find((t) => t.filename === type.filename);
     if (loadedType) {
       if (isEditorType(type)) {
         loadedType.libJs.dispose();
