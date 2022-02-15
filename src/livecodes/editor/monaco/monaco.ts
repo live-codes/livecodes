@@ -244,11 +244,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const addTypes = (type: EditorLibrary) => {
-    const loaded = types.find((cachedType) => cachedType.filename === type.filename);
-    if (loaded) {
+    const loadedType = types.find((cachedType) => cachedType.filename === type.filename);
+    if (loadedType) {
       if (isEditorType(type)) {
-        loaded.libJs.dispose();
-        loaded.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
+        loadedType.libJs.dispose();
+        loadedType.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
           type.content,
           type.filename,
         );
