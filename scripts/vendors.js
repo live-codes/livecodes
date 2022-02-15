@@ -1,6 +1,6 @@
 const esbuild = require('esbuild');
 
-const srcDir = 'src/livecodes/editor/monaco/modules/';
+const srcDir = 'scripts/modules/';
 const outputDir = 'build/livecodes/vendor/monaco-editor/';
 
 /** @type {Partial<esbuild.BuildOptions>} */
