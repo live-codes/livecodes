@@ -23,7 +23,7 @@ export const emmetExt = [
   wrapWithAbbreviation(),
   keymap.of([
     {
-      key: 'Enter',
+      key: 'Shift-Enter',
       run: expandAbbreviation,
     },
     {
