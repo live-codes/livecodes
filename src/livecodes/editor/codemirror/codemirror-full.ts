@@ -23,9 +23,6 @@ import { CodeEditor, EditorOptions, Language } from '../../models';
 import { createEditorCreator } from './codemirror';
 import { basicLanguages } from './codemirror-basic';
 
-// TODO: replace with official extension when available
-import emmetExt from './emmet-codemirror6-ext';
-
 const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
 
@@ -51,4 +48,4 @@ export const fullLanguages: Partial<{ [key in Language]: () => LanguageSupport }
 };
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> =>
-  createEditorCreator(fullLanguages, emmetExt)(options);
+  createEditorCreator(fullLanguages)(options);

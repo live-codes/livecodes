@@ -10,12 +10,13 @@ import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
 
 import { mapLanguage } from '../../languages';
 import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
+import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
 
 export const createEditorCreator =
-  (languages: Partial<{ [key in Language]: () => LanguageSupport }>, emmetExt: any) =>
+  (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
   async (options: EditorOptions): Promise<CodeEditor> => {
     const { container, readonly, isEmbed } = options;
     if (!container) throw new Error('editor container not found');
@@ -58,13 +59,7 @@ export const createEditorCreator =
         themeExtension.of(themes[theme]),
         fullHeight,
         readonly ? readOnlyExtension : [],
-        !emmetEnabled
-          ? []
-          : emmetExtension.of(
-              emmetExt({
-                config: getEmmetConfig(),
-              } as any),
-            ),
+        !emmetEnabled ? [] : emmetExtension.of(emmetExt),
         keyBindingsExtension.of(keymap.of(keyBindings)),
         basicSetup,
         keymap.of([indentWithTab]),
@@ -169,34 +164,10 @@ export const createEditorCreator =
       });
     };
 
-    function getEmmetConfig(): any {
-      if (['css', 'scss', 'less', 'stylus'].includes(language)) {
-        return {
-          type: 'stylesheet',
-          syntax: 'css',
-        };
-      } else if (mappedLanguage === 'html') {
-        return {
-          type: 'markup',
-          syntax: 'html',
-        };
-      }
-      return {
-        type: '',
-        syntax: '',
-      };
-    }
-
     const configureEmmet = (enabled: boolean) => {
       emmetEnabled = enabled;
       view.dispatch({
-        effects: emmetExtension.reconfigure(
-          !enabled
-            ? []
-            : emmetExt({
-                config: getEmmetConfig(),
-              } as any),
-        ),
+        effects: emmetExtension.reconfigure(!enabled ? [] : emmetExt),
       });
     };
 
