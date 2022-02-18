@@ -1,11 +1,12 @@
 import { Config } from '../models';
 import { modulesService } from '../services';
+import { removeComments, removeCommentsAndStrings } from '../utils';
 
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
 export const getImports = (code: string) =>
-  [...code.matchAll(new RegExp(importsPattern))].map((arr) =>
+  [...removeComments(code).matchAll(new RegExp(importsPattern))].map((arr) =>
     arr[2].replace(/"/g, '').replace(/'/g, ''),
   );
 
@@ -34,8 +35,16 @@ export const createImportMap = (code: string, config: Config) =>
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {} as Record<string, string>);
 
-export const hasImports = (code: string) =>
-  new RegExp(importsPattern).test(code) || new RegExp(/export {}/).test(code);
+export const hasImports = (code: string) => new RegExp(importsPattern).test(removeComments(code));
+
+export const hasExports = (code: string) =>
+  new RegExp(/(^export\s)|([\s|;]export\s)/).test(removeCommentsAndStrings(code));
+
+export const hasAwait = (code: string) =>
+  new RegExp(/(^await\s)|([\s|;]await\s)/).test(removeCommentsAndStrings(code));
+
+export const isModuleScript = (code: string) =>
+  hasImports(code) || hasExports(code) || hasAwait(code);
 
 export const replaceImports = (code: string, config: Config) => {
   const importMap = createImportMap(code, config);
@@ -74,7 +83,8 @@ export const replaceStyleImports = (code: string) =>
 
 // based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js
 export const cjs2esm = (code: string) => {
-  if (!/\b(require|module|exports)\b/.test(code)) return code;
+  const strippedCode = removeComments(code);
+  if (!/\b(require|module|exports)\b/.test(strippedCode)) return code;
   const requirePattern = /require(?:\s*)\((?:\s*)('(.*?)'|"(.*?)")(?:\s*)\)/g;
 
   const getRequires = (str: string) =>
@@ -82,7 +92,7 @@ export const cjs2esm = (code: string) => {
       arr[1].replace(/"/g, '').replace(/'/g, ''),
     );
 
-  const requires = getRequires(code);
+  const requires = getRequires(strippedCode);
 
   if (requires.length === 0) return code;
 
