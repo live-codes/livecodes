@@ -71,6 +71,7 @@ export type Language =
   | 'asciidoc'
   | 'adoc'
   | 'asc'
+  | 'mustache'
   | 'handlebars'
   | 'hbs'
   | 'ejs'

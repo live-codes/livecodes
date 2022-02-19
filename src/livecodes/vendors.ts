@@ -97,6 +97,8 @@ export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.
 
 export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js';
 
+export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
+
 export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
 
 export const normalizeCssUrl = 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css';
