@@ -1205,20 +1205,24 @@ const handleTitleEdit = () => {
 
   setWindowTitle();
 
+  const blurOnEnter = (e: KeyboardEvent) => {
+    if (e.which === 13) {
+      /* Enter */
+      e.preventDefault();
+      projectTitle.blur();
+    }
+  };
+
+  const removeFormatting = (e: any) => {
+    e.preventDefault();
+    const text = e.clipboardData.getData('text/plain');
+    document.execCommand('insertHTML', false, text);
+  };
+
   eventsManager.addEventListener(projectTitle, 'input', () => setProjectTitle(), false);
   eventsManager.addEventListener(projectTitle, 'blur', () => setProjectTitle(true), false);
-  eventsManager.addEventListener(
-    projectTitle,
-    'keypress',
-    ((e: KeyboardEvent) => {
-      if ((e as KeyboardEvent).which === 13) {
-        /* Enter */
-        (e as KeyboardEvent).preventDefault();
-        projectTitle.blur();
-      }
-    }) as any,
-    false,
-  );
+  eventsManager.addEventListener(projectTitle, 'keypress', blurOnEnter as any, false);
+  eventsManager.addEventListener(projectTitle, 'paste', removeFormatting, false);
 };
 
 const handleResize = () => {
