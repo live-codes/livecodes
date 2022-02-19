@@ -5,10 +5,13 @@ import { removeComments, removeCommentsAndStrings } from '../utils';
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
 
+export const dynamicImportsPattern = /(import\s*?\(\s*?((?:".*?")|(?:'.*?'))\s*?\))/g;
+
 export const getImports = (code: string) =>
-  [...removeComments(code).matchAll(new RegExp(importsPattern))].map((arr) =>
-    arr[2].replace(/"/g, '').replace(/'/g, ''),
-  );
+  [
+    ...[...removeComments(code).matchAll(new RegExp(importsPattern))],
+    ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
+  ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
 const isBare = (mod: string) =>
   !mod.startsWith('https://') &&
@@ -35,7 +38,7 @@ export const createImportMap = (code: string, config: Config) =>
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {} as Record<string, string>);
 
-export const hasImports = (code: string) => new RegExp(importsPattern).test(removeComments(code));
+export const hasImports = (code: string) => getImports(code).length > 0;
 
 export const hasExports = (code: string) =>
   new RegExp(/(^export\s)|([\s|;]export\s)/).test(removeCommentsAndStrings(code));

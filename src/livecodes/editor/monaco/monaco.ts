@@ -119,7 +119,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       target: monaco.languages.typescript.ScriptTarget.Latest,
       experimentalDecorators: true,
       allowSyntheticDefaultImports: true,
-      lib: ['es2020', 'dom'],
+      lib: ['esnext', 'dom'],
+      module: monaco.languages.typescript.ModuleKind.ESNext,
     };
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
