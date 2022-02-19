@@ -658,7 +658,8 @@ const getResultPage = async ({
     },
     script: {
       ...contentConfig.script,
-      compiled: cjs2esm(compiledScript),
+      compiled:
+        config.customSettings.convertCommonjs === false ? compiledScript : cjs2esm(compiledScript),
     },
   };
 

@@ -128,9 +128,19 @@ export const createResultPage = (
   });
 
   // import maps
+  const userImports =
+    config.customSettings.mapImports === false
+      ? {}
+      : {
+          ...(hasImports(code.script.compiled)
+            ? createImportMap(code.script.compiled, config)
+            : {}),
+          ...(hasImports(code.markup.compiled)
+            ? createImportMap(code.markup.compiled, config)
+            : {}),
+        };
   const importMaps = {
-    ...(hasImports(code.script.compiled) ? createImportMap(code.script.compiled, config) : {}),
-    ...(hasImports(code.markup.compiled) ? createImportMap(code.markup.compiled, config) : {}),
+    ...userImports,
     ...compilerImports,
   };
   if (Object.keys(importMaps).length > 0) {
@@ -166,6 +176,8 @@ export const createResultPage = (
   const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
   if (scriptType) {
     scriptElement.type = scriptType;
+  } else if (config.customSettings.scriptType != null) {
+    scriptElement.type = config.customSettings.scriptType;
   } else if (isModuleScript(script) || mdx) {
     scriptElement.type = 'module';
   }
