@@ -177,7 +177,10 @@ export const createResultPage = (
   if (scriptType) {
     scriptElement.type = scriptType;
   } else if (config.customSettings.scriptType != null) {
-    scriptElement.type = config.customSettings.scriptType;
+    // do not add type if scriptType === ''
+    if (config.customSettings.scriptType) {
+      scriptElement.type = config.customSettings.scriptType;
+    }
   } else if (isModuleScript(script) || mdx) {
     scriptElement.type = 'module';
   }

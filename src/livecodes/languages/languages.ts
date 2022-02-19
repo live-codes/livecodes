@@ -59,6 +59,7 @@ import { clio } from './lang-clio';
 import { richtext } from './lang-richtext';
 import { graph } from './lang-graph';
 import { imba } from './lang-imba';
+import { mustache } from './lang-mustache';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -68,6 +69,7 @@ export const languages: LanguageSpecs[] = [
   pug,
   asciidoc,
   haml,
+  mustache,
   handlebars,
   ejs,
   nunjucks,
