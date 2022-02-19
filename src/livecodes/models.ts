@@ -491,14 +491,26 @@ export interface Screen {
   show: (options?: any) => void | Promise<unknown>;
 }
 
-export type customSettings = {
-  [key in Language | keyof Config['processors']['postcss']]?: any;
-} & {
-  template?: {
-    data?: any;
-    prerender?: boolean;
-  };
-};
+export type customSettings = Partial<
+  {
+    [key in Language | keyof Config['processors']['postcss']]: any;
+  } & {
+    template: {
+      data?: any;
+      prerender?: boolean;
+    };
+    scriptType:
+      | 'module'
+      | 'application/javascript'
+      | 'application/ecmascript'
+      | 'text/javascript'
+      | 'text/ecmascript'
+      | ''
+      | Compiler['scriptType'];
+    mapImports: boolean;
+    convertCommonjs: boolean;
+  }
+>;
 
 export type EditorCache = Editor & {
   compiled: string;

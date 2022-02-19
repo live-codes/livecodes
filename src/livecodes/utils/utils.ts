@@ -218,3 +218,14 @@ export const getWorkerDataURL = (url: string) => {
   const content = `importScripts("${url}");`;
   return 'data:text/javascript;base64,' + btoa(content);
 };
+
+export const removeComments = (src: string) =>
+  src.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1');
+
+export const removeStrings = (src: string) =>
+  src
+    .replace(/'[^\n']*'/gm, "''")
+    .replace(/"[^\n"]*"/gm, '""')
+    .replace(/`[^`]*`/gm, '``');
+
+export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));
