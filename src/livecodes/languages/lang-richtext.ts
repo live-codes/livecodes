@@ -11,7 +11,7 @@ export const richtext: LanguageSpecs = {
         config.markup.content || '',
     styles: ['styles/quill.css'],
   },
-  extensions: ['rte.html', 'rte', 'rich'],
+  extensions: ['rte', 'rte.html', 'rich'],
   editor: 'markup',
   editorLanguage: 'html',
 };
