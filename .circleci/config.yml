@@ -10,10 +10,10 @@ parameters:
 jobs:
   build_and_test:
     docker:
-      - image: cimg/node:14.17.0
+      - image: cimg/node:14.17.6
         environment:
           CI: 'true'
-          # NODE_OPTIONS: '--max_old_space_size=4096'
+          NODE_OPTIONS: '--max_old_space_size=4096'
 
     steps:
       - checkout
