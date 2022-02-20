@@ -2504,7 +2504,7 @@ const initializeApp = async (
   setConfig(buildConfig(appConfig, baseUrl));
   compiler = await getCompiler(getConfig(), baseUrl);
   formatter = getFormatter(getConfig(), baseUrl);
-  customEditors = createCustomEditors(baseUrl);
+  customEditors = createCustomEditors({ baseUrl, eventsManager });
   if (isEmbed || getConfig().mode === 'result') {
     configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
   }

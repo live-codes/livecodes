@@ -134,6 +134,12 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/editor/custom-editor-utils.ts'],
+  format: 'iife',
+});
+
+esbuild.buildSync({
   entryPoints: ['src/livecodes/templates/starter/index.ts'],
   bundle: true,
   minify: true,

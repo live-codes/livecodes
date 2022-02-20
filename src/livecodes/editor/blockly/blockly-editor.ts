@@ -1,6 +1,13 @@
-import { CustomEditor } from '../../models';
+import { CustomEditor, EventsManager } from '../../models';
+import { registerEditorCommands } from '../custom-editor-commands';
 
-export const createBlocklyEditor = (baseUrl: string): CustomEditor => {
+export const createBlocklyEditor = ({
+  baseUrl,
+  eventsManager,
+}: {
+  baseUrl: string;
+  eventsManager: EventsManager;
+}): CustomEditor => {
   let blockly: typeof import('./blockly');
 
   const loadBlockly = async () => {
@@ -31,6 +38,7 @@ export const createBlocklyEditor = (baseUrl: string): CustomEditor => {
       if (blocklyEditor) blocklyEditor.style.display = 'unset';
 
       await blockly.showBlockly(options);
+      registerEditorCommands(show, eventsManager);
     },
     getContent: async (options) => {
       await loadBlockly();

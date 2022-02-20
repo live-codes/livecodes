@@ -1,8 +1,11 @@
-import { CustomEditors } from '../models';
+import { CustomEditors, EventsManager } from '../models';
 import { createBlocklyEditor } from './blockly';
 import { createQuillEditor } from './quill';
 
-export const createCustomEditors = (baseUrl: string): CustomEditors => ({
-  blockly: createBlocklyEditor(baseUrl),
-  richtext: createQuillEditor(baseUrl),
+export const createCustomEditors = (options: {
+  baseUrl: string;
+  eventsManager: EventsManager;
+}): CustomEditors => ({
+  blockly: createBlocklyEditor(options),
+  richtext: createQuillEditor(options),
 });

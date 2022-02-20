@@ -77,6 +77,7 @@ const extractCustomContent = async (
 };
 
 export const showBlockly = async ({
+  baseUrl,
   editors,
   config,
   html,
@@ -109,6 +110,7 @@ export const showBlockly = async ({
           ?.map((xml) => '`' + xml.replace(/\`/g, '\\`') + '`')
           .join(', ')}]);
       </script>
+      <script src="${baseUrl}custom-editor-utils.js"></script>
     `,
       );
 
