@@ -36,7 +36,7 @@
     "test": "run-s test:*",
     "test:lint": "run-s lint:*",
     "test:unit": "jest src",
-    "test:e2e": "playwright test",
+    "test:e2e": "cross-env-shell CIRCLECI_INDEX=${CIRCLE_NODE_INDEX:1} CIRCLECI_TOTAL=${CIRCLE_NODE_TOTAL:1} playwright test --shard=$CIRCLECI_INDEX/$CIRCLECI_TOTAL",
     "lint:prettier": "prettier src --ignore-path .eslintignore --list-different",
     "lint:eslint": "eslint --ext js,jsx,ts,tsx . ",
     "lint:stylelint": "stylelint \"src/livecodes/styles/*\"",
@@ -86,6 +86,7 @@
   "devDependencies": {
     "@bitjson/typedoc": "0.15.0-0",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
+    "@naholyr/cross-env": "1.0.0",
     "@playwright/test": "1.12.0",
     "@types/jest": "25.2.3",
     "@types/live-server": "1.2.0",

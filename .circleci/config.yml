@@ -24,7 +24,7 @@ jobs:
           command: npm run build
       - run:
           name: Test
-          command: npx playwright test --shard=$CIRCLE_NODE_INDEX/$CIRCLE_NODE_TOTAL
+          command: npm run test:e2e
 
     parallelism: 4
 
