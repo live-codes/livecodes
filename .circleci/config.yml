@@ -24,9 +24,9 @@ jobs:
           command: npm run build
       - run:
           name: Test
-          command: npm run test
+          command: npx playwright test --shard=$CIRCLE_NODE_INDEX/$CIRCLE_NODE_TOTAL
 
-    # parallelism: 4
+    parallelism: 4
 
 workflows:
   push:
