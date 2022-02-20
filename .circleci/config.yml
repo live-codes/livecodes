@@ -26,7 +26,7 @@ jobs:
           name: Test
           command: npm run test
 
-    parallelism: 4
+    # parallelism: 4
 
 workflows:
   push:
