@@ -605,7 +605,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Imba Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'malina' }));
+    await page.goto(getTestUrl({ template: 'imba' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
