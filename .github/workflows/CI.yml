@@ -3,32 +3,40 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  test1:
+  setup:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [14.x]
-
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Install dependencies
         run: npm ci
 
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
+    steps:
       - name: Build
         run: npm run build
 
-      - name: Test
+  test1:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test 1
         run: npm run test:e2e
         env:
           CI: true
@@ -36,31 +44,10 @@ jobs:
           CI_SHARD_TOTAL: 3
 
   test2:
+    needs: build
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
-    env:
-      NODE_OPTIONS: '--max_old_space_size=4096'
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Test
+      - name: Test 2
         run: npm run test:e2e
         env:
           CI: true
@@ -68,31 +55,10 @@ jobs:
           CI_SHARD_TOTAL: 3
 
   test3:
+    needs: build
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
-    env:
-      NODE_OPTIONS: '--max_old_space_size=4096'
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Test
+      - name: Test 3
         run: npm run test:e2e
         env:
           CI: true
