@@ -87,7 +87,6 @@
   "devDependencies": {
     "@bitjson/typedoc": "0.15.0-0",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
-    "@naholyr/cross-env": "1.0.0",
     "@playwright/test": "1.12.0",
     "@types/jest": "25.2.3",
     "@types/live-server": "1.2.0",
