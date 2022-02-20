@@ -10,7 +10,7 @@ parameters:
 jobs:
   build_and_test:
     docker:
-      - image: cimg/node:17.2.0
+      - image: cimg/node:14.17.0
         environment:
           CI: 'true'
           # NODE_OPTIONS: '--max_old_space_size=4096'
@@ -25,6 +25,8 @@ jobs:
       - run:
           name: Test
           command: npm run test
+
+    parallelism: 4
 
 workflows:
   push:
