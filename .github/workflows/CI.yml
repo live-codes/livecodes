@@ -22,7 +22,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test 1
-        run: npm run test:e2e
+        run: npx playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL
         env:
           CI: true
           CI_SHARD_INDEX: 1
@@ -47,7 +47,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test 2
-        run: npm run test:e2e
+        run: npx playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL
         env:
           CI: true
           CI_SHARD_INDEX: 2
@@ -72,7 +72,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test 3
-        run: npm run test:e2e
+        run: npx playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL
         env:
           CI: true
           CI_SHARD_INDEX: 3
@@ -97,7 +97,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Test 4
-        run: npm run test:e2e
+        run: npx playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL
         env:
           CI: true
           CI_SHARD_INDEX: 4
