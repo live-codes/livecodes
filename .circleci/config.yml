@@ -1,0 +1,49 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.7.0
+
+parameters:
+  pull_request:
+    type: boolean
+    default: false
+
+jobs:
+  build_and_test:
+    docker:
+      - image: cimg/node:17.2.0
+        environment:
+          CI: 'true'
+          # NODE_OPTIONS: '--max_old_space_size=4096'
+
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Test
+          command: npm run test
+
+workflows:
+  push:
+    unless: << pipeline.parameters.pull_request >>
+    jobs:
+      - build_and_test
+
+  pull_request:
+    when: << pipeline.parameters.pull_request >>
+    jobs:
+      - build_and_test
+
+  # nightly:
+  #   triggers:
+  #     - schedule:
+  #         cron: '0 0 * * *'
+  #         filters:
+  #           branches:
+  #             only:
+  #               - develop
+  #   jobs:
+  #     - build_and_test
