@@ -32,6 +32,7 @@ export const showQuillEditor = async ({
   <script src="${quillHtmlEditUrl}"></script>
   <script src="${quillBlotFormaterUrl}"></script>
   <script src="${quillBetterTableBaseUrl}/quill-better-table.min.js"></script>
+  <script src="${baseUrl}custom-editor-utils.js"></script>
     `;
   const quillEditorStyles = `
   <link rel="stylesheet" href="${baseUrl}styles/quill.css" />

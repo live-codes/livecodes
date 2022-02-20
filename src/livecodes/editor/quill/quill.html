@@ -151,7 +151,9 @@
           <button class="ql-clean" title="Reset formatting"></button>
         </span>
       </div>
-      <div id="editor-container"></div>
+      <div id="editor-container">
+        <!-- content placeholder -->
+      </div>
     </div>
 
     <!-- scripts placeholder -->
@@ -285,11 +287,6 @@
           } else if (event.data.type === 'updateCode') {
             updateCode();
           } else if (event.data.type === 'setTheme') {
-          }
-        });
-        document.addEventListener('keydown', function (ev) {
-          if (ev.ctrlKey && ev.key === 's') {
-            // save
           }
         });
 

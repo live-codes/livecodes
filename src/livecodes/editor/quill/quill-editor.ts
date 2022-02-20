@@ -1,6 +1,13 @@
-import { CustomEditor } from '../../models';
+import { CustomEditor, EventsManager } from '../../models';
+import { registerEditorCommands } from '../custom-editor-commands';
 
-export const createQuillEditor = (baseUrl: string): CustomEditor => {
+export const createQuillEditor = ({
+  baseUrl,
+  eventsManager,
+}: {
+  baseUrl: string;
+  eventsManager: EventsManager;
+}): CustomEditor => {
   let quillEditor: typeof import('./quill');
 
   const loadEditor = async () => {
@@ -30,6 +37,7 @@ export const createQuillEditor = (baseUrl: string): CustomEditor => {
       if (editorContainer) editorContainer.style.display = 'unset';
 
       await quillEditor.showQuillEditor(options);
+      registerEditorCommands(show, eventsManager);
     },
     getContent: async (options) => {
       await loadEditor();
