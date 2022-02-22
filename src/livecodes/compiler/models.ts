@@ -21,8 +21,10 @@ export type CompilerMessage = {
   from?: 'compiler';
 } & (
   | InitMessage
+  | InitSuccessMessage
   | LoadMessage
   | LoadedMessage
+  | LoadFailedMessage
   | CompileMessage
   | CompileInCompilerMessage
   | CompiledMessage
@@ -35,6 +37,10 @@ export interface InitMessage {
   baseUrl: string;
 }
 
+export interface InitSuccessMessage {
+  type: 'init-success';
+}
+
 export interface LoadMessage {
   type: 'load';
   payload: {
@@ -45,6 +51,11 @@ export interface LoadMessage {
 
 export interface LoadedMessage {
   type: 'loaded';
+  payload: LanguageOrProcessor;
+}
+
+export interface LoadFailedMessage {
+  type: 'load-failed';
   payload: LanguageOrProcessor;
 }
 

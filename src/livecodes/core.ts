@@ -2538,7 +2538,7 @@ const initializeApp = async (
   isEmbed = options?.isEmbed ?? false;
 
   setConfig(buildConfig(appConfig, baseUrl));
-  compiler = await getCompiler(getConfig(), baseUrl);
+  compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   if (isEmbed || getConfig().mode === 'result') {

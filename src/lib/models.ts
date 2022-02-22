@@ -227,7 +227,7 @@ export interface LanguageSpecs {
   info?: boolean;
   parser?: Parser;
   formatter?: LanguageFormatter;
-  compiler?: Compiler | Language;
+  compiler: Compiler | Language;
   extensions: Language[];
   editor: EditorId;
   editorLanguage?: Language;

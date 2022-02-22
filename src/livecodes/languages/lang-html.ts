@@ -9,6 +9,9 @@ export const html: LanguageSpecs = {
     name: 'html',
     pluginUrls: [parserPlugins.html],
   },
+  compiler: {
+    factory: () => async (code) => code,
+  },
   extensions: ['html', 'htm'],
   editor: 'markup',
 };

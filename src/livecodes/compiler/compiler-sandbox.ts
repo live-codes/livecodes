@@ -1,8 +1,15 @@
 export const createCompilerSandbox = (sandboxUrl: string): Promise<Window> =>
   new Promise((resolve) => {
+    const frameId = 'compiler-frame';
+
+    const previousFrame = document.getElementById(frameId);
+    if (previousFrame) {
+      previousFrame.remove();
+    }
+
     const iframe = document.createElement('iframe');
     iframe.name = 'compiler';
-    iframe.id = 'compiler-frame';
+    iframe.id = frameId;
     // display: 'none' causes problems with mermaid.js renedering
     iframe.style.width = '0';
     iframe.style.height = '0';

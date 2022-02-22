@@ -51,6 +51,7 @@ const loadLanguageCompiler = (
           } else {
             // eslint-disable-next-line no-console
             console.warn(`Failed to load compiler for: ${language}. Reloading...`);
+            worker.postMessage({ type: 'load-failed', payload: language });
           }
         }
       };
@@ -69,7 +70,7 @@ const compile = async (
   config: Config,
   options: CompileOptions,
 ) => {
-  const compiler = compilers[language]?.fn || ((code: string) => code);
+  const compiler = compilers[language]?.fn;
   if (!baseUrl || typeof compiler !== 'function') {
     throw new Error('Failed to load compiler for: ' + language);
   }
@@ -93,6 +94,11 @@ worker.addEventListener(
       const config = message.payload;
       baseUrl = message.baseUrl;
       compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
+
+      const initSuccessMessage: CompilerMessage = {
+        type: 'init-success',
+      };
+      worker.postMessage(initSuccessMessage);
     }
 
     if (message.type === 'load' || message.type === 'compileInCompiler') {

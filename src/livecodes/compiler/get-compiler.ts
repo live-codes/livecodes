@@ -1,13 +1,17 @@
-import { Language, Config } from '../models';
+import { Language, Config, EventsManager } from '../models';
 import { createCompiler } from './create-compiler';
 import { Compiler, LanguageOrProcessor } from './models';
 
-export const getCompiler = (config: Config, baseUrl: string): Promise<Compiler> => {
-  const { mode } = config;
+export const getCompiler = (options: {
+  config: Config;
+  baseUrl: string;
+  eventsManager: EventsManager;
+}): Promise<Compiler> => {
+  const mode = options.config.mode;
   if (mode === 'codeblock' || mode === 'editor') {
     return createFakeCompiler();
   } else {
-    return createCompiler(config, baseUrl);
+    return createCompiler(options);
   }
 };
 
