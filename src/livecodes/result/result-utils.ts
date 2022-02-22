@@ -11,7 +11,11 @@ window.addEventListener('message', function (event) {
     if (!styles) return;
     styles.innerHTML = event.data.styles;
   }
-  parent.postMessage({ type: 'loading', payload: false }, '*');
+  if (event.data.flush) {
+    document.body.innerHTML = '';
+  } else {
+    parent.postMessage({ type: 'loading', payload: false }, '*');
+  }
 });
 
 window.addEventListener('load', () => {

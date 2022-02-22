@@ -147,7 +147,7 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
       return;
     }
 
-    let iframe = document.querySelector('iframe#result-frame') as HTMLIFrameElement;
+    let iframe = UI.getResultIFrameElement();
     if (!iframe) {
       iframe = document.createElement('iframe');
       iframe.name = 'result';
@@ -196,7 +196,9 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
     } else {
       // full page reload
       let loaded = false;
-      eventsManager.addEventListener(iframe, 'load', () => {
+      eventsManager.addEventListener(iframe, 'load', function onload() {
+        eventsManager.removeEventListener(iframe, 'load', onload);
+
         if (!result || loaded) {
           resolve('loaded');
           return; // prevent infinite loop
@@ -686,6 +688,41 @@ const setLoading = (status: boolean) => {
   }
 };
 
+const flushResult = () => {
+  const iframe = UI.getResultIFrameElement();
+  if (!iframe?.contentWindow) return;
+
+  setLoading(true);
+
+  iframe.contentWindow.postMessage({ flush: true }, sandboxService.getOrigin());
+
+  const compiledLanguages = {
+    markup: getLanguageCompiler(getConfig().markup.language)?.compiledCodeLanguage || 'html',
+    style: getLanguageCompiler(getConfig().style.language)?.compiledCodeLanguage || 'css',
+    script: getLanguageCompiler(getConfig().script.language)?.compiledCodeLanguage || 'javascript',
+  };
+
+  const loadingComments: Partial<Record<Language, string>> = {
+    html: '<!-- loading -->',
+    css: '/* loading */',
+    javascript: '// loading',
+    wat: ';; loading',
+  };
+
+  updateCache(
+    'markup',
+    compiledLanguages.markup,
+    loadingComments[compiledLanguages.markup] || 'html',
+  );
+  updateCache('style', compiledLanguages.style, loadingComments[compiledLanguages.style] || 'css');
+  updateCache(
+    'script',
+    compiledLanguages.script,
+    loadingComments[compiledLanguages.script] || 'javascript',
+  );
+  updateCompiledCode();
+};
+
 const setProjectTitle = (setDefault = false) => {
   const projectTitle = UI.getProjectTitleElement();
   if (!projectTitle) return;
@@ -824,9 +861,8 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush
   });
   setProjectRestore();
 
-  // flush result page
   if (flush) {
-    createIframe(UI.getResultElement(), '<!-- flush -->');
+    flushResult();
   }
 
   // load title
