@@ -81,7 +81,7 @@ export const createCompiler = async (options: {
       });
 
   const load = (languages: LanguageOrProcessor[], config: Config) =>
-    Promise.all(
+    Promise.allSettled(
       languages.map(
         (language) =>
           new Promise(async (resolve, reject) => {
@@ -113,7 +113,17 @@ export const createCompiler = async (options: {
                     } else {
                       reloads -= 1;
                       await initialize();
-                      await load(languages, config);
+                      await load(
+                        Array.from(
+                          new Set([
+                            ...languages,
+                            config.markup.language,
+                            config.style.language,
+                            config.script.language,
+                          ]),
+                        ),
+                        config,
+                      );
                       resolve('done');
                     }
                   }
