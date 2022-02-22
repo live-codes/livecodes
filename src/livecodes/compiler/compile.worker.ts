@@ -32,19 +32,30 @@ const loadLanguageCompiler = (
     if (languageCompiler.aliasTo && typeof compilers[languageCompiler.aliasTo]?.fn === 'function') {
       languageCompiler.fn = compilers[languageCompiler.aliasTo].fn;
     } else {
-      try {
-        if (languageCompiler.url) {
-          importScripts(languageCompiler.url);
+      let tries = 3;
+      const load = () => {
+        try {
+          if (languageCompiler.url) {
+            importScripts(languageCompiler.url);
+          }
+          languageCompiler.fn = languageCompiler.factory(config, baseUrl);
+          if (languageCompiler.aliasTo) {
+            compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
+          }
+        } catch {
+          tries -= 1;
+          if (tries > 0) {
+            // eslint-disable-next-line no-console
+            console.warn(`Failed to load compiler for: ${language}. Retrying...`);
+            load();
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn(`Failed to load compiler for: ${language}. Reloading...`);
+          }
         }
-        languageCompiler.fn = languageCompiler.factory(config, baseUrl);
-        if (languageCompiler.aliasTo) {
-          compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        throw new Error('Failed to load compiler for: ' + language);
-      }
+      };
+
+      load();
     }
   }
 
