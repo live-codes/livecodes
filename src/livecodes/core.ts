@@ -140,7 +140,7 @@ const loadStyles = () =>
     ),
   );
 
-const createIframe = (container: HTMLElement, result?: string, service = sandboxService) =>
+const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
       reject('Result container not found');
@@ -159,7 +159,6 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
-      container.appendChild(iframe);
     }
 
     if (['codeblock', 'editor'].includes(getConfig().mode)) {
@@ -172,12 +171,15 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
       ${getConfig().style.content}
       ${getConfig().script.content}
       `;
+    const iframeIsPlaced = iframe.parentElement === container;
+    const styleOnlyUpdate = iframeIsPlaced && getCache().styleOnlyUpdate;
     const liveReload =
+      iframeIsPlaced &&
       compilers[scriptLang]?.liveReload &&
       resultLanguages.includes(scriptLang) &&
       !editorsText.includes('__livecodes_reload__');
 
-    if (result && getCache().styleOnlyUpdate) {
+    if (styleOnlyUpdate) {
       // load the updated styles only
       const domParser = new DOMParser();
       const dom = domParser.parseFromString(result, 'text/html');
@@ -209,9 +211,11 @@ const createIframe = (container: HTMLElement, result?: string, service = sandbox
         resolve('loaded');
       });
 
+      iframe.remove(); // avoid changing browser history
       const { markup, style, script } = getConfig();
       const query = `?markup=${markup.language}&style=${style.language}&script=${script.language}&isembed=${isEmbed}`;
       iframe.src = service.getResultUrl() + query;
+      container.appendChild(iframe);
     }
 
     resultLanguages = getEditorLanguages();
@@ -772,7 +776,7 @@ const run = async (editorId?: EditorId) => {
 };
 
 const updateUrl = (url: string, push = false) => {
-  if (push) {
+  if (push && !isEmbed) {
     parent.history.pushState(null, '', url);
   } else {
     parent.history.replaceState(null, '', url);
