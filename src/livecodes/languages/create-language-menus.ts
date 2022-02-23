@@ -10,7 +10,7 @@ export const createLanguageMenus = (
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: string) => void,
-  importCode: (options: { url: string }) => Promise<void>,
+  importCode: (options: { url: string }) => Promise<boolean>,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');

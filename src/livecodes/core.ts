@@ -2418,14 +2418,14 @@ const importExternalContent = async (options: {
   configUrl?: string;
   template?: string;
   url?: string;
-}) => {
+}): Promise<boolean> => {
   const { config = defaultConfig, configUrl, template, url } = options;
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter((editorId) => conf[editorId]?.contentUrl && !conf[editorId]?.content).length >
     0;
 
-  if (!configUrl && !template && !url && !hasContentUrls(config)) return;
+  if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
@@ -2482,8 +2482,7 @@ const importExternalContent = async (options: {
         .catch(() => ({})),
     );
     if (hasContentUrls(configUrlConfig)) {
-      await importExternalContent({ config: { ...config, ...configUrlConfig } });
-      return;
+      return importExternalContent({ config: { ...config, ...configUrlConfig } });
     }
   }
 
@@ -2500,6 +2499,7 @@ const importExternalContent = async (options: {
   );
 
   modal.close();
+  return true;
 };
 
 const bootstrap = async (reload = false) => {
@@ -2561,7 +2561,6 @@ const initializeApp = async (
   await initializeFn?.();
   loadStyles();
   await createIframe(UI.getResultElement());
-  await bootstrap();
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
@@ -2574,7 +2573,10 @@ const initializeApp = async (
     configUrl: params.config,
     template: params.template,
     url: parent.location.hash.substring(1),
-  }).then(() => {
+  }).then(async (contentImported) => {
+    if (!contentImported) {
+      await bootstrap();
+    }
     if (isEmbed) {
       parent.dispatchEvent(new Event('livecodes-ready'));
     }
