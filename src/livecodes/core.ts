@@ -2418,14 +2418,14 @@ const importExternalContent = async (options: {
   configUrl?: string;
   template?: string;
   url?: string;
-}) => {
+}): Promise<boolean> => {
   const { config = defaultConfig, configUrl, template, url } = options;
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const hasContentUrls = (conf: Partial<Config>) =>
     editorIds.filter((editorId) => conf[editorId]?.contentUrl && !conf[editorId]?.content).length >
     0;
 
-  if (!configUrl && !template && !url && !hasContentUrls(config)) return;
+  if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
@@ -2482,8 +2482,7 @@ const importExternalContent = async (options: {
         .catch(() => ({})),
     );
     if (hasContentUrls(configUrlConfig)) {
-      await importExternalContent({ config: { ...config, ...configUrlConfig } });
-      return;
+      return importExternalContent({ config: { ...config, ...configUrlConfig } });
     }
   }
 
@@ -2500,6 +2499,7 @@ const importExternalContent = async (options: {
   );
 
   modal.close();
+  return true;
 };
 
 const bootstrap = async (reload = false) => {
@@ -2510,13 +2510,10 @@ const bootstrap = async (reload = false) => {
   setLoading(true);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
-  await configureEmmet(getConfig());
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
-  await toolsPane?.load();
-  showMode(getConfig());
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
@@ -2538,7 +2535,7 @@ const initializeApp = async (
   isEmbed = options?.isEmbed ?? false;
 
   setConfig(buildConfig(appConfig, baseUrl));
-  compiler = await getCompiler(getConfig(), baseUrl);
+  compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   if (isEmbed || getConfig().mode === 'result') {
@@ -2556,12 +2553,12 @@ const initializeApp = async (
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
+  await toolsPane.load();
   basicHandlers();
-
   await initializeFn?.();
   loadStyles();
   await createIframe(UI.getResultElement());
-  await bootstrap();
+  showMode(getConfig());
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
@@ -2574,11 +2571,15 @@ const initializeApp = async (
     configUrl: params.config,
     template: params.template,
     url: parent.location.hash.substring(1),
-  }).then(() => {
+  }).then(async (contentImported) => {
+    if (!contentImported) {
+      await bootstrap();
+    }
     if (isEmbed) {
       parent.dispatchEvent(new Event('livecodes-ready'));
     }
   });
+  configureEmmet(getConfig());
   showVersion();
 };
 

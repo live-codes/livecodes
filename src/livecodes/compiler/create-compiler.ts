@@ -15,18 +15,41 @@ import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
-export const createCompiler = async (config: Config, baseUrl: string): Promise<Compiler> => {
-  const compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
-  const compilerUrl = sandboxService.getCompilerUrl();
+export const createCompiler = async ({
+  config,
+  baseUrl,
+  eventsManager,
+}: {
+  config: Config;
+  baseUrl: string;
+  eventsManager: any;
+}): Promise<Compiler> => {
+  let compilers: Compilers;
+  let compilerSandbox: Window;
   const compilerOrigin = sandboxService.getOrigin();
 
-  const compilerSandbox = await createCompilerSandbox(compilerUrl);
-  const configMessage: CompilerMessage = {
-    type: 'init',
-    payload: config,
-    baseUrl: isRelativeUrl(baseUrl) ? getAbsoluteUrl(baseUrl) : baseUrl,
-  };
-  compilerSandbox.postMessage(configMessage, compilerOrigin);
+  // number of tries to reload the compilers if loading fails
+  let reloads = 3;
+
+  const initialize = async () =>
+    new Promise(async (resolve) => {
+      compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
+      const compilerUrl = sandboxService.getCompilerUrl();
+      compilerSandbox = await createCompilerSandbox(compilerUrl);
+
+      eventsManager.addEventListener(window, 'message', async (event: CompilerMessageEvent) => {
+        if (event.origin === compilerOrigin && event.data.type === 'init-success') {
+          resolve('done');
+        }
+      });
+
+      const configMessage: CompilerMessage = {
+        type: 'init',
+        payload: config,
+        baseUrl: isRelativeUrl(baseUrl) ? getAbsoluteUrl(baseUrl) : baseUrl,
+      };
+      compilerSandbox.postMessage(configMessage, compilerOrigin);
+    });
 
   const createLanguageCompiler =
     (language: LanguageOrProcessor): CompilerFunction =>
@@ -61,26 +84,54 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
       });
 
   const load = (languages: LanguageOrProcessor[], config: Config) =>
-    Promise.all(
+    Promise.allSettled(
       languages.map(
         (language) =>
-          new Promise(async (resolve) => {
+          new Promise(async (resolve, reject) => {
             if (['jsx', 'tsx'].includes(language)) {
               language = 'typescript';
             }
             const languageCompiler = compilers[language as keyof Compilers];
             if (languageCompiler && !languageCompiler.fn) {
-              window.addEventListener('message', (event: CompilerMessageEvent) => {
-                if (
-                  event.origin === compilerOrigin &&
-                  event.data.from === 'compiler' &&
-                  event.data.type === 'loaded' &&
-                  event.data.payload === language
-                ) {
-                  languageCompiler.fn = createLanguageCompiler(language);
-                  resolve('done');
-                }
-              });
+              eventsManager.addEventListener(
+                window,
+                'message',
+                async (event: CompilerMessageEvent) => {
+                  if (
+                    event.origin === compilerOrigin &&
+                    event.data.from === 'compiler' &&
+                    event.data.type === 'loaded' &&
+                    event.data.payload === language
+                  ) {
+                    languageCompiler.fn = createLanguageCompiler(language);
+                    resolve('done');
+                  } else if (
+                    event.origin === compilerOrigin &&
+                    event.data.from === 'compiler' &&
+                    event.data.type === 'load-failed' &&
+                    event.data.payload === language
+                  ) {
+                    if (reloads === 0) {
+                      reject(`Failed to load compiler for: ${language}.`);
+                    } else {
+                      reloads -= 1;
+                      await initialize();
+                      await load(
+                        Array.from(
+                          new Set([
+                            ...languages,
+                            config.markup.language,
+                            config.style.language,
+                            config.script.language,
+                          ]),
+                        ),
+                        config,
+                      );
+                      resolve('done');
+                    }
+                  }
+                },
+              );
               const loadMessage: CompilerMessage = { type: 'load', payload: { language, config } };
               compilerSandbox.postMessage(loadMessage, compilerOrigin);
             } else {
@@ -125,7 +176,7 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
       await load([language], config);
     }
 
-    const compiler = compilers[language]?.fn || ((code: string) => code);
+    const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
       throw new Error('Failed to load compiler for: ' + language);
     }
@@ -169,6 +220,8 @@ export const createCompiler = async (config: Config, baseUrl: string): Promise<C
   const clearCache = () => {
     (Object.keys(cache) as Array<keyof typeof cache>).forEach((key) => delete cache[key]);
   };
+
+  await initialize();
 
   return {
     load,

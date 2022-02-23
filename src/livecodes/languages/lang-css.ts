@@ -9,6 +9,9 @@ export const css: LanguageSpecs = {
     name: 'css',
     pluginUrls: [parserPlugins.postcss],
   },
+  compiler: {
+    factory: () => async (code) => code,
+  },
   extensions: ['css'],
   editor: 'style',
 };
