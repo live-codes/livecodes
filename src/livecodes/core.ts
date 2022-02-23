@@ -2510,13 +2510,10 @@ const bootstrap = async (reload = false) => {
   setLoading(true);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
-  await configureEmmet(getConfig());
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
-  await toolsPane?.load();
-  showMode(getConfig());
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
@@ -2556,11 +2553,12 @@ const initializeApp = async (
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
+  await toolsPane.load();
   basicHandlers();
-
   await initializeFn?.();
   loadStyles();
   await createIframe(UI.getResultElement());
+  showMode(getConfig());
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
@@ -2581,6 +2579,7 @@ const initializeApp = async (
       parent.dispatchEvent(new Event('livecodes-ready'));
     }
   });
+  configureEmmet(getConfig());
   showVersion();
 };
 
