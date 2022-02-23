@@ -9,7 +9,7 @@ test.describe('App Defaults', () => {
     expect(name).toBe('LiveCodes');
   });
 
-  test.only('empty result page', async ({ page, getTestUrl }) => {
+  test('empty result page', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { getResult, waitForResultUpdate } = await getLoadedApp(page);
