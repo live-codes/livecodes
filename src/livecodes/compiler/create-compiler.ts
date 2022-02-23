@@ -15,12 +15,15 @@ import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
 
-export const createCompiler = async (options: {
+export const createCompiler = async ({
+  config,
+  baseUrl,
+  eventsManager,
+}: {
   config: Config;
   baseUrl: string;
   eventsManager: any;
 }): Promise<Compiler> => {
-  const { config, baseUrl, eventsManager } = options;
   let compilers: Compilers;
   let compilerSandbox: Window;
   const compilerOrigin = sandboxService.getOrigin();
