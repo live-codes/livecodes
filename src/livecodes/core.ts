@@ -140,7 +140,7 @@ const loadStyles = () =>
     ),
   );
 
-const createIframe = (container: HTMLElement, result = resultTemplate, service = sandboxService) =>
+const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
       reject('Result container not found');
