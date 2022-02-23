@@ -3,9 +3,7 @@ export const createCompilerSandbox = (sandboxUrl: string): Promise<Window> =>
     const frameId = 'compiler-frame';
 
     const previousFrame = document.getElementById(frameId);
-    if (previousFrame) {
-      previousFrame.remove();
-    }
+    previousFrame?.remove();
 
     const iframe = document.createElement('iframe');
     iframe.name = 'compiler';
