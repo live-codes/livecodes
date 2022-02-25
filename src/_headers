@@ -1,2 +1,2 @@
-:url
-  Link: <https://api.livecodes.io/oembed?url=:url&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes oEmbed"
+/:url
+  Link: <https://api.livecodes.io/oembed?url=https%3A%2F%2Flivecodes.io%2F:url&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes oEmbed"
