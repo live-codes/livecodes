@@ -10,6 +10,8 @@
     "web/**/*.js",
     "web/**/*.jsx",
     "e2e/**/*.ts",
+    "functions/**/*.js",
+    "functions/**/*.ts",
     "playwright.config.ts"
   ],
   "exclude": ["**/node_modules/**"]
