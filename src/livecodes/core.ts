@@ -823,11 +823,11 @@ const share = async (
   urlUpdate = true,
 ): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
-  const contentHash = shortUrl
-    ? '#id/' + (await shareService.shareProject(content))
-    : '#code/' + compress(JSON.stringify(content));
+  const contentParam = shortUrl
+    ? '?x=id/' + (await shareService.shareProject(content))
+    : '?x=code/' + compress(JSON.stringify(content));
   const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
-  const shareURL = url + contentHash;
+  const shareURL = url + contentParam;
   if (urlUpdate) {
     updateUrl(shareURL, true);
   }
@@ -1780,7 +1780,7 @@ const handleImport = () => {
             ...defaultConfig,
             ...imported,
           },
-          location.origin + location.pathname + '#' + url,
+          location.origin + location.pathname + '?x=' + encodeURIComponent(url),
         );
         modal.close();
       } else {
@@ -2446,13 +2446,21 @@ const importExternalContent = async (options: {
   }
 
   if (url) {
+    let validUrl = url;
+    if (url.startsWith('http')) {
+      try {
+        validUrl = new URL(url).href;
+      } catch {
+        validUrl = decodeURIComponent(url);
+      }
+    }
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
-    if (isGithub(url) && !isEmbed) {
+    if (isGithub(validUrl) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    urlConfig = await importCode(url, getParams(), getConfig(), user);
+    urlConfig = await importCode(validUrl, getParams(), getConfig(), user);
   }
 
   if (hasContentUrls(config)) {
@@ -2574,7 +2582,7 @@ const initializeApp = async (
     config: getConfig(),
     configUrl: params.config,
     template: params.template,
-    url: parent.location.hash.substring(1),
+    url: params.x || parent.location.hash.substring(1),
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();
