@@ -1,10 +1,12 @@
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const response = await env.ASSETS.fetch(request);
-    const newResponse = new Response(response.body, response);
-    newResponse.headers.append('x-workers-hello', 'Hello from Cloudflare Workers');
-    newResponse.headers.append('x-myurl', url.href);
-    return newResponse;
-  },
-};
+addEventListener('fetch', (event) => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  const url = new URL(request.url);
+  const response = await fetch(request);
+  const newResponse = new Response(response.body, response);
+  newResponse.headers.append('x-workers-hello', 'Hello from Cloudflare Workers');
+  newResponse.headers.append('x-myurl', url.href);
+  return newResponse;
+}
