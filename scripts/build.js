@@ -24,10 +24,10 @@ fs.copyFileSync(
   path.resolve(__dirname + '/../src/favicon.ico'),
   path.resolve(outDir + '/favicon.ico'),
 );
-fs.copyFileSync(
-  path.resolve(__dirname + '/../src/_worker.js'),
-  path.resolve(outDir + '/_worker.js'),
-);
+// fs.copyFileSync(
+//   path.resolve(__dirname + '/../src/_worker.js'),
+//   path.resolve(outDir + '/_worker.js'),
+// );
 
 var childProcess = require('child_process');
 var version, gitCommit, repoUrl;
