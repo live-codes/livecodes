@@ -1,6 +1,7 @@
 import { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import { ShareData } from '../models';
+import { allowedOrigin } from '../services';
 import { copyToClipboard, getAbsoluteUrl } from '../utils';
 
 interface Service {
@@ -156,16 +157,24 @@ export const createShareContainer = async (
     },
   ];
 
-  const shareData = await shareFn(false);
+  const selfHosted = !allowedOrigin();
   const div = document.createElement('div');
   div.innerHTML = shareScreen;
   const shareContainer = div.firstChild as HTMLElement;
+  if (selfHosted) {
+    (shareContainer.querySelector('#share-expiry') as HTMLElement).outerHTML = '';
+  } else {
+    (shareContainer.querySelector('#share-expiry-self-hosted') as HTMLElement).outerHTML = '';
+  }
+
+  const shareData = await shareFn(false);
+  let shareDataShort: ShareData;
   const items = shareContainer.querySelector<HTMLElement>('#share-links');
   const clickToCopy = shareContainer.querySelector('#share-click-to-copy') as HTMLElement;
   const input = shareContainer.querySelector<HTMLInputElement>('#share-url-input');
-  const shareExpiry = shareContainer.querySelector<HTMLElement>('#share-expiry');
-  const shortUrlLink = shareExpiry?.querySelector('#share-permanent-url-expiry a') as HTMLElement;
-  const permanentUrlLink = shareExpiry?.querySelector('#share-short-url-expiry a') as HTMLElement;
+  const shareExpiry = shareContainer.querySelector<HTMLElement>('.share-expiry');
+  const shortUrlLink = shareExpiry?.querySelector('.share-permanent-url-expiry a') as HTMLElement;
+  const permanentUrlLink = shareExpiry?.querySelector('.share-short-url-expiry a') as HTMLElement;
 
   const setMessage = (message: string) => {
     if (!clickToCopy) return;
@@ -179,7 +188,7 @@ export const createShareContainer = async (
     event.preventDefault();
     setMessage('Generating URL …');
     try {
-      const shareDataShort = await shareFn(true);
+      shareDataShort = shareDataShort || (await shareFn(true));
       populateItems(shareDataShort, services, items);
       shareExpiry?.classList.add('short-url');
     } catch {

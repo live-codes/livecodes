@@ -1589,7 +1589,7 @@ i.arrow {
       width: 95%;
     }
 
-    #share-expiry {
+    .share-expiry {
       margin-top: -0.5em;
       width: 95%;
 
@@ -1599,16 +1599,16 @@ i.arrow {
       }
     }
 
-    #share-short-url-expiry {
+    .share-short-url-expiry {
       display: none !important;
     }
 
     .short-url {
-      #share-permanent-url-expiry {
+      .share-permanent-url-expiry {
         display: none !important;
       }
 
-      #share-short-url-expiry {
+      .share-short-url-expiry {
         display: flex !important;
       }
     }

@@ -807,7 +807,7 @@ const save = async (notify = false, setTitle = true) => {
   if (notify) {
     notifications.success('Project locally saved to device!');
   }
-  await share();
+  await share(false);
 };
 
 const fork = async () => {
