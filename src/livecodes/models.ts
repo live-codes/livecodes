@@ -1,6 +1,6 @@
 export interface API {
   run: () => Promise<void>;
-  format: () => Promise<void>;
+  format: (allEditors?: boolean) => Promise<void>;
   getShareUrl: (shortUrl?: boolean) => Promise<string>;
   getConfig: () => Promise<Config>;
   setConfig: (Config: Config) => Promise<Config>;
