@@ -151,6 +151,9 @@ export const riotBaseUrl = 'https://cdn.jsdelivr.net/npm/riot@6.1.2/';
 export const snackbarUrl =
   'https://cdn.jsdelivr.net/npm/@snackbar/core@1.7.0/dist/snackbar.min.css';
 
+export const sqlFormatterUrl =
+  'https://cdn.jsdelivr.net/npm/sql-formatter@4.0.2/dist/sql-formatter.min.js';
+
 export const sqljsBaseUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/';
 
 export const stencilUrl =
