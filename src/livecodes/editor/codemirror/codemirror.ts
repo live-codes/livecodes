@@ -144,7 +144,10 @@ export const createEditorCreator =
     const registerFormatter = (formatFn: FormatFn | undefined) => {
       if (!formatFn) return;
       formatter = formatFn;
-      addKeyBinding('format', keyCodes.ShiftAltF, format);
+      addKeyBinding('format', keyCodes.ShiftAltF, async () => {
+        await format();
+        focus();
+      });
     };
 
     const format = async () => {

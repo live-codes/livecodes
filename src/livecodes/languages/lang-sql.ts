@@ -1,12 +1,24 @@
 import { LanguageSpecs } from '../models';
-import { sqljsBaseUrl } from '../vendors';
+import { sqlFormatterUrl, sqljsBaseUrl } from '../vendors';
 import { getLanguageCustomSettings } from './utils';
+
+declare const importScripts: (...args: string[]) => void;
 
 const scriptType = 'application/json';
 
 export const sql: LanguageSpecs = {
   name: 'sql',
   title: 'SQL',
+  formatter: {
+    factory: () => {
+      const url = sqlFormatterUrl;
+      importScripts(url);
+      return async (value: string) => ({
+        formatted: await (self as any).sqlFormatter.format(value, { linesBetweenQueries: 2 }),
+        cursorOffset: 0,
+      });
+    },
+  },
   compiler: {
     url: sqljsBaseUrl + 'sql-wasm.min.js',
     factory: () => {

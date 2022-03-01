@@ -13,7 +13,7 @@ export const getFormatter = (config: Config, baseUrl: string): Formatter => {
 };
 
 /**
- * create a fake compiler with same API
+ * create a fake formatter with same API
  * to avoid loading the formatter if read only
  */
 function createFakeFormatter(): Formatter {

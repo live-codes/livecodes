@@ -783,8 +783,14 @@ const updateUrl = (url: string, push = false) => {
   }
 };
 
-const format = async () => {
-  await Promise.all([editors.markup.format(), editors.style.format(), editors.script.format()]);
+const format = async (allEditors = true) => {
+  if (allEditors) {
+    await Promise.all([editors.markup.format(), editors.style.format(), editors.script.format()]);
+  } else {
+    const activeEditor = getActiveEditor();
+    await activeEditor.format();
+    activeEditor.focus();
+  }
   updateConfig();
 };
 
@@ -794,7 +800,7 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   if (editors && getConfig().formatOnsave) {
-    await format();
+    await format(true);
   }
 
   if (!projectId) {
@@ -1444,15 +1450,19 @@ const handleEditorTools = () => {
   });
 
   eventsManager.addEventListener(UI.getUndoButton(), 'click', () => {
-    getActiveEditor().undo();
+    const activeEditor = getActiveEditor();
+    activeEditor.undo();
+    activeEditor.focus();
   });
 
   eventsManager.addEventListener(UI.getRedoButton(), 'click', () => {
-    getActiveEditor().redo();
+    const activeEditor = getActiveEditor();
+    activeEditor.redo();
+    activeEditor.focus();
   });
 
-  eventsManager.addEventListener(UI.getFormatButton(), 'click', () => {
-    getActiveEditor().format();
+  eventsManager.addEventListener(UI.getFormatButton(), 'click', async () => {
+    await format(false);
   });
 };
 
@@ -2599,7 +2609,7 @@ const createApi = (): API => ({
   run: async () => {
     await run();
   },
-  format: async () => format(),
+  format: async (allEditors?: boolean) => format(allEditors),
   getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
   getConfig: async (contentOnly = false): Promise<Config> => {
     updateConfig();
