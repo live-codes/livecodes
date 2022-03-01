@@ -509,6 +509,7 @@ export type customSettings = Partial<
       | ''
       | Compiler['scriptType'];
     mapImports: boolean;
+    imports: Record<string, string>;
     convertCommonjs: boolean;
   }
 >;
