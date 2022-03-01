@@ -159,16 +159,21 @@ export const createShareContainer = async (
 
   const selfHosted = !allowedOrigin();
   const div = document.createElement('div');
-  div.innerHTML = shareScreen;
+
+  const shareData = await shareFn(false);
+  let shareDataShort: ShareData;
+
+  const urlLength = shareData.url.length;
+  div.innerHTML = shareScreen
+    .replace(/{{urlLength}}/g, urlLength)
+    .replace(/{{warnClass}}/g, urlLength > 2048 ? 'danger' : 'warn');
+
   const shareContainer = div.firstChild as HTMLElement;
   if (selfHosted) {
     (shareContainer.querySelector('#share-expiry') as HTMLElement).outerHTML = '';
   } else {
     (shareContainer.querySelector('#share-expiry-self-hosted') as HTMLElement).outerHTML = '';
   }
-
-  const shareData = await shareFn(false);
-  let shareDataShort: ShareData;
   const items = shareContainer.querySelector<HTMLElement>('#share-links');
   const clickToCopy = shareContainer.querySelector('#share-click-to-copy') as HTMLElement;
   const input = shareContainer.querySelector<HTMLInputElement>('#share-url-input');
