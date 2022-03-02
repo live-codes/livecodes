@@ -142,6 +142,7 @@ export const createResultPage = (
   const importMaps = {
     ...userImports,
     ...compilerImports,
+    ...config.customSettings.imports,
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');

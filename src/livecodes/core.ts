@@ -45,6 +45,7 @@ import {
   Code,
   CustomEditors,
   BlocklyContent,
+  CustomSettings,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -240,6 +241,7 @@ const loadModuleTypes = async (editors: Editors, config: Config) => {
     const configTypes = {
       ...getLanguageCompiler(scriptLanguage)?.types,
       ...config.types,
+      ...config.customSettings.types,
     };
     const libs = await typeLoader.load(getConfig().script.content || '', configTypes);
     libs.forEach((lib) => editors.script.addTypes?.(lib));
@@ -2322,7 +2324,7 @@ const handleCustomSettings = () => {
     customSettingsEditor.focus();
 
     eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
-      let customSettings: any = {};
+      let customSettings: CustomSettings = {};
       const editorContent = customSettingsEditor?.getValue() || '{}';
       try {
         customSettings = JSON.parse(editorContent);
@@ -2341,6 +2343,9 @@ const handleCustomSettings = () => {
           customSettings,
         });
         await setSavedStatus();
+        if (customSettings.types) {
+          loadModuleTypes(editors, getConfig());
+        }
       }
       customSettingsEditor?.destroy();
       modal.close();

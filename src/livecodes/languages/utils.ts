@@ -1,4 +1,4 @@
-import { Compiler, Language, customSettings, Config, Processors } from '../models';
+import { Compiler, Language, CustomSettings, Config, Processors } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 
@@ -90,8 +90,8 @@ export const getLanguageCustomSettings = (language: Language, config: Config) =>
   ...(config.customSettings as any)[language],
 });
 
-export const getCustomSettings = (language: Language, config: Config): customSettings => {
-  const settings: customSettings = {
+export const getCustomSettings = (language: Language, config: Config): CustomSettings => {
+  const settings: CustomSettings = {
     ...getLanguageCustomSettings(language, config),
   };
 
