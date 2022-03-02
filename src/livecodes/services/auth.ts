@@ -9,6 +9,7 @@ interface AuthService {
   getUser(): Promise<User | void>;
   signIn(scopes?: GithubScope[]): Promise<User | void>;
   signOut(): Promise<void>;
+  isLoggedIn(): boolean;
 }
 
 const fakeAuthService: AuthService = {
@@ -16,6 +17,7 @@ const fakeAuthService: AuthService = {
   getUser: async () => {},
   signIn: async () => {},
   signOut: async () => {},
+  isLoggedIn: () => false,
 };
 
 export const createAuthService = (isEmbed: boolean): AuthService => {
@@ -96,6 +98,9 @@ export const createAuthService = (isEmbed: boolean): AuthService => {
       await signOut(auth);
       deleteUserData(currentUser?.uid);
       currentUser = null;
+    },
+    isLoggedIn() {
+      return currentUser != null;
     },
   };
 };
