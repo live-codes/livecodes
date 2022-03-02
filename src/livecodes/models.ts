@@ -30,7 +30,7 @@ export interface ContentConfig {
       postcssPresetEnv: boolean;
     };
   };
-  customSettings: customSettings;
+  customSettings: CustomSettings;
   imports: { [key: string]: string };
   types: Types;
   readonly version: string;
@@ -492,7 +492,7 @@ export interface Screen {
   show: (options?: any) => void | Promise<unknown>;
 }
 
-export type customSettings = Partial<
+export type CustomSettings = Partial<
   {
     [key in Language | keyof Config['processors']['postcss']]: any;
   } & {
@@ -511,6 +511,7 @@ export type customSettings = Partial<
     mapImports: boolean;
     imports: Record<string, string>;
     convertCommonjs: boolean;
+    types: Types;
   }
 >;
 
