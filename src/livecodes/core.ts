@@ -214,7 +214,9 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
 
       iframe.remove(); // avoid changing browser history
       const { markup, style, script } = getConfig();
-      const query = `?markup=${markup.language}&style=${style.language}&script=${script.language}&isembed=${isEmbed}`;
+      const query = `?markup=${markup.language}&style=${style.language}&script=${
+        script.language
+      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}`;
       iframe.src = service.getResultUrl() + query;
       container.appendChild(iframe);
     }
