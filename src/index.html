@@ -13,27 +13,27 @@
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/livecodes/assets/images/apple-touch-icon.png"
+      href="livecodes/assets/images/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/livecodes/assets/images/favicon-32x32.png"
+      href="livecodes/assets/images/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/livecodes/assets/images/favicon-16x16.png"
+      href="livecodes/assets/images/favicon-16x16.png"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="manifest" href="/livecodes/assets/site.webmanifest" />
-    <link rel="mask-icon" href="/livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="manifest" href="livecodes/assets/site.webmanifest" />
+    <link rel="mask-icon" href="livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="apple-mobile-web-app-title" content="livecodes" />
     <meta name="application-name" content="livecodes" />
     <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="msapplication-config" content="/livecodes/assets/browserconfig.xml" />
+    <meta name="msapplication-config" content="livecodes/assets/browserconfig.xml" />
     <meta name="theme-color" content="#ffffff" />
     <style>
       html,
@@ -170,6 +170,7 @@
         cursor: pointer;
         opacity: 0;
         transition: opacity 0.3s ease-in-out;
+        z-index: 2;
       }
       #click-to-load.visible {
         opacity: 1;
@@ -184,6 +185,25 @@
         font-size: 0.8em;
         position: absolute;
         top: calc(50% + 50px);
+        padding: 0.3em;
+        margin: 1em;
+        border: 1px solid rgba(48, 48, 48, 0.5);
+        border-radius: 2px;
+        background-color: rgb(235, 235, 235);
+      }
+      .preview {
+        position: absolute;
+        top: 0;
+        border: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+        opacity: 0.1;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .preview.hidden {
+        opacity: 0;
       }
     </style>
   </head>
@@ -233,24 +253,29 @@
       <div id="click-to-load-text">Click to load LiveCodes</div>
     </div>
     <script>
+      const animatingLogo = document.querySelector('#animating-logo');
+      const cube = document.querySelector('#cube');
+      const clickToLoad = document.querySelector('#click-to-load');
       if (location.search.includes('embed') && !location.search.includes('embed=false')) {
         document.body.classList.add('embed');
         if (!location.search.includes('click-to-load=false')) {
           document.body.classList.add('click-to-load');
-          document.querySelector('#cube').classList.remove('cube');
-          const animatingLogo = document.querySelector('#animating-logo');
-          const clickToLoad = document.querySelector('#click-to-load');
+          cube.classList.remove('cube');
           animatingLogo.classList.add('hidden');
+          animatingLogo.style.display = 'none';
           clickToLoad.style.display = 'flex';
           clickToLoad.classList.add('visible');
           clickToLoad.addEventListener('click', () => {
             clickToLoad.classList.remove('visible');
+            document.querySelector('.preview')?.classList.add('hidden');
             setTimeout(() => {
               document.body.classList.remove('click-to-load');
+              animatingLogo.style.display = 'flex';
               animatingLogo.classList.remove('hidden');
-              document.querySelector('#cube').classList.add('cube');
+              cube.classList.add('cube');
               setTimeout(() => {
                 clickToLoad.remove();
+                document.querySelector('.preview')?.remove();
               }, 300);
             }, 500);
             window.dispatchEvent(new Event('run'));
@@ -264,13 +289,13 @@
       window.addEventListener('resize', resize, false);
       setTimeout(resize, 500);
       window.addEventListener('livecodes-app-loaded', function (e) {
-        document.querySelector('#animating-logo').remove();
+        animatingLogo.remove();
         window.api = e.detail;
       });
       window.addEventListener('livecodes-ready', function () {
         // project loaded
       });
     </script>
-    <script src="index.ts" defer></script>
+    <script src="./index.ts" type="module"></script>
   </body>
 </html>
