@@ -831,10 +831,15 @@ const share = async (
   shortUrl = false,
   contentOnly = true,
   urlUpdate = true,
+  includeResult = false,
 ): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
   const contentParam = shortUrl
-    ? '?x=id/' + (await shareService.shareProject(content))
+    ? '?x=id/' +
+      (await shareService.shareProject({
+        ...content,
+        result: includeResult ? getCache().result : undefined,
+      }))
     : '?x=code/' + compress(JSON.stringify(content));
   const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
   const shareURL = url + contentParam;

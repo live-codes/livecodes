@@ -5,13 +5,14 @@ const dpasteGetUrl = 'https://dpaste.com/';
 const dpastePostUrl = 'https://dpaste.com/api/v2/';
 const apiUrl = 'https://api2.livecodes.io/share';
 
+type ConfigWithResult = Partial<Config & { result: string }>;
 interface ShareService {
-  getProject: (id: string) => Promise<Partial<Config>>;
-  shareProject: (config: Partial<Config>) => Promise<string>;
+  getProject: (id: string) => Promise<ConfigWithResult>;
+  shareProject: (config: ConfigWithResult) => Promise<string>;
 }
 
 const dpasteService = {
-  getProject: async (id: string): Promise<Partial<Config>> => {
+  getProject: async (id: string): Promise<ConfigWithResult> => {
     try {
       const res = await fetch(dpasteGetUrl + id + '.txt');
       if (!res.ok) return {};
@@ -20,7 +21,7 @@ const dpasteService = {
       return {};
     }
   },
-  shareProject: async (config: Partial<Config>): Promise<string> => {
+  shareProject: async (config: ConfigWithResult): Promise<string> => {
     try {
       const res = await fetch(dpastePostUrl, {
         method: 'POST',
@@ -43,7 +44,7 @@ const dpasteService = {
 };
 
 const apiService = {
-  getProject: async (id: string): Promise<Partial<Config>> => {
+  getProject: async (id: string): Promise<ConfigWithResult> => {
     // for backward compatibility
     if (id.length < 11) return dpasteService.getProject(id);
 
@@ -56,7 +57,7 @@ const apiService = {
       return {};
     }
   },
-  shareProject: async (config: Partial<Config>): Promise<string> => {
+  shareProject: async (config: ConfigWithResult): Promise<string> => {
     if (!allowedOrigin()) return '';
     try {
       const res = await fetch(apiUrl, {
