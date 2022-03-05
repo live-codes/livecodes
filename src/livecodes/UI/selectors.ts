@@ -29,6 +29,7 @@ export const getResultButton = () => document.querySelector('#result-button') as
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
 export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > .editor');
+export const getToolspaneTitles = () => document.querySelector<HTMLElement>('#tools-pane-titles');
 export const getToolspaneLoader = () => document.querySelector<HTMLElement>('#tools-pane-loading');
 export const getModalSaveButton = () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;

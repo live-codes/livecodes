@@ -235,9 +235,12 @@ export const createToolsPane = (
     buttons.id = 'tools-pane-buttons';
     toolsPaneBar.appendChild(buttons);
 
+    const btnContainer = document.createElement('span');
+    btnContainer.classList.add('hint--top-left');
+    btnContainer.dataset.hint = 'Close';
     const closeButton = document.createElement('button');
     closeButton.classList.add('delete-button');
-    closeButton.title = 'Close';
+
     eventsManager.addEventListener(
       closeButton,
       'click',
@@ -254,7 +257,8 @@ export const createToolsPane = (
       },
       false,
     );
-    buttons.appendChild(closeButton);
+    btnContainer.appendChild(closeButton);
+    buttons.appendChild(btnContainer);
 
     return toolsSplit;
   };

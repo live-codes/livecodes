@@ -2387,6 +2387,27 @@ const handleResultLoading = () => {
   });
 };
 
+const handleResultPopup = () => {
+  const popupBtn = document.createElement('div');
+  popupBtn.classList.add('tool-buttons', 'hint--top-left');
+  popupBtn.dataset.hint = 'Show result in new window';
+  const imgUrl = baseUrl + 'assets/images/new-window.svg';
+  popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  const openWindow = async () => {
+    popupBtn.classList.add('loading');
+    const html = await getResultPage({ forExport: true, singleFile: true });
+    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    // add a notice to URL that it is a temporary URL to prevent users from sharing it.
+    // revoking the URL after opening the window prevents viewing the page source.
+    const notice = '#---TEMPORARY-URL---';
+    window.open(url + notice, 'result-popup', `width=800,height=400,noopener,noreferrer`);
+    popupBtn.classList.remove('loading');
+  };
+  eventsManager.addEventListener(popupBtn, 'click', openWindow);
+  eventsManager.addEventListener(popupBtn, 'touchstart', openWindow);
+  UI.getToolspaneTitles()?.appendChild(popupBtn);
+};
+
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
@@ -2420,6 +2441,7 @@ const extraHandlers = async () => {
   restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
 
   handleTitleEdit();
+  handleResultPopup();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();

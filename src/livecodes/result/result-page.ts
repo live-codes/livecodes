@@ -20,6 +20,15 @@ export const createResultPage = (
   // title
   dom.title = config.title;
 
+  // if export => clean, else => add utils
+  if (forExport) {
+    dom.querySelector('script')?.remove();
+  } else {
+    const utilsScript = dom.createElement('script');
+    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
+    dom.head.appendChild(utilsScript);
+  }
+
   // CSS Preset
   if (config.cssPreset) {
     const presetUrl = cssPresets.find((preset) => preset.id === config.cssPreset)?.url;
@@ -56,15 +65,6 @@ export const createResultPage = (
 
   if (config.cssPreset === 'github-markdown-css') {
     dom.body.classList.add('markdown-body');
-  }
-
-  // if export => clean, else => add utils
-  if (forExport) {
-    dom.body.innerHTML = '';
-  } else {
-    const utilsScript = dom.createElement('script');
-    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
-    dom.head.appendChild(utilsScript);
   }
 
   // editor markup (MDX is added to the script not page markup)
