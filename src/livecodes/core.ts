@@ -2393,7 +2393,7 @@ const handleResultPopup = () => {
   popupBtn.dataset.hint = 'Show result in new window';
   const imgUrl = baseUrl + 'assets/images/new-window.svg';
   popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
-  eventsManager.addEventListener(popupBtn, 'click', async () => {
+  const openWindow = async () => {
     popupBtn.classList.add('loading');
     const html = await getResultPage({ forExport: true, singleFile: true });
     const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
@@ -2402,7 +2402,9 @@ const handleResultPopup = () => {
     const notice = '#---TEMPORARY-URL---';
     window.open(url + notice, 'result-popup', `width=800,height=400,noopener,noreferrer`);
     popupBtn.classList.remove('loading');
-  });
+  };
+  eventsManager.addEventListener(popupBtn, 'click', openWindow);
+  eventsManager.addEventListener(popupBtn, 'touchstart', openWindow);
   UI.getToolspaneTitles()?.appendChild(popupBtn);
 };
 
