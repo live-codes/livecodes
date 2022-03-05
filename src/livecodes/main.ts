@@ -3,7 +3,8 @@
 import appHTML from './html/app.html?raw';
 import type { API, Config, ContentConfig } from './models';
 
-export { API, Config };
+export type { API, Config };
+
 export const livecodes = async (
   container: string,
   baseUrl: string,
