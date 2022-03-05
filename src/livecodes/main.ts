@@ -1,8 +1,14 @@
-import { appHTML } from './html';
-import { API, Config, ContentConfig } from './models';
+// @ts-ignore
+// eslint-disable-next-line import/no-unresolved
+import appHTML from './html/app.html?raw';
+import type { API, Config, ContentConfig } from './models';
 
 export { API, Config };
-export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
+export const livecodes = async (
+  container: string,
+  baseUrl: string,
+  config: Partial<Config> = {},
+): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
@@ -10,7 +16,6 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     }
     const isEmbed = location.search.includes('embed') && !location.search.includes('embed=false');
     const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
-    const baseUrl = import.meta.url.split('/').slice(0, -1).join('/') + '/';
     const anyOrigin = '*';
 
     const style = document.createElement('style');
