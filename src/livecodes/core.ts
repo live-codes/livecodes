@@ -2387,6 +2387,24 @@ const handleResultLoading = () => {
   });
 };
 
+const handleResultPopup = () => {
+  const popupBtn = document.createElement('div');
+  popupBtn.classList.add('tool-buttons');
+  popupBtn.innerHTML = `
+    <span
+      class="hint--top-left"
+      data-hint="Show result in new window"
+    ><img src="${baseUrl}assets/images/new-window.svg" /></span>
+  `;
+  eventsManager.addEventListener(popupBtn, 'click', () => {
+    const html = getCache().result || '';
+    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    window.open(url, 'result-popup', `width=800,height=400,noopener,noreferrer`);
+    URL.revokeObjectURL(url);
+  });
+  UI.getToolspaneTitles()?.appendChild(popupBtn);
+};
+
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
@@ -2420,6 +2438,7 @@ const extraHandlers = async () => {
   restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
 
   handleTitleEdit();
+  handleResultPopup();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();
