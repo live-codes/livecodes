@@ -1,6 +1,7 @@
 import type { API, Code, Config } from './models';
 
 export type { API, Code, Config };
+
 export interface EmbedOptions {
   config?: Partial<Config> | string;
   template?: string;
