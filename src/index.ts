@@ -30,5 +30,6 @@ if (
   }
 }
 
-const baseUrl = location.href.split('/').slice(0, -1).join('/') + '/livecodes/';
+const baseUrl =
+  (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
 livecodes('#livecodes', baseUrl, {});
