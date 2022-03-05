@@ -2389,18 +2389,19 @@ const handleResultLoading = () => {
 
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
-  popupBtn.classList.add('tool-buttons');
-  popupBtn.innerHTML = `
-    <span
-      class="hint--top-left"
-      data-hint="Show result in new window"
-    ><img src="${baseUrl}assets/images/new-window.svg" /></span>
-  `;
-  eventsManager.addEventListener(popupBtn, 'click', () => {
-    const html = getCache().result || '';
+  popupBtn.classList.add('tool-buttons', 'hint--top-left');
+  popupBtn.dataset.hint = 'Show result in new window';
+  const imgUrl = baseUrl + 'assets/images/new-window.svg';
+  popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  eventsManager.addEventListener(popupBtn, 'click', async () => {
+    popupBtn.classList.add('loading');
+    const html = await getResultPage({ forExport: true, singleFile: true });
     const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-    window.open(url, 'result-popup', `width=800,height=400,noopener,noreferrer`);
-    URL.revokeObjectURL(url);
+    // add a notice to URL that it is a temporary URL to prevent users from sharing it.
+    // revoking the URL after opening the window prevents viewing the page source.
+    const notice = '#---TEMPORARY-URL---';
+    window.open(url + notice, 'result-popup', `width=800,height=400,noopener,noreferrer`);
+    popupBtn.classList.remove('loading');
   });
   UI.getToolspaneTitles()?.appendChild(popupBtn);
 };
