@@ -51,41 +51,33 @@ body,
 @keyframes cube {
   0% {
     transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
   }
 
   50% {
     transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
   }
 
   100% {
-    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
     transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
   }
 }
 @keyframes cube {
   0% {
     transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
   }
 
   50% {
     transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
   }
 
   100% {
-    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
     transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
   }
 }
 
 .cube {
   animation: cube 2s infinite ease;
-  animation: cube 2s infinite ease;
   height: 40px;
-  transform-style: preserve-3d;
   transform-style: preserve-3d;
   width: 40px;
 }
@@ -100,39 +92,29 @@ body,
 
 .cube div:nth-of-type(1) {
   transform: translateZ(-20px) rotateY(180deg);
-  transform: translateZ(-20px) rotateY(180deg);
 }
 
 .cube div:nth-of-type(2) {
   transform: rotateY(-270deg) translateX(50%);
-  transform: rotateY(-270deg) translateX(50%);
-  transform-origin: top right;
   transform-origin: top right;
 }
 
 .cube div:nth-of-type(3) {
   transform: rotateY(270deg) translateX(-50%);
-  transform: rotateY(270deg) translateX(-50%);
-  transform-origin: center left;
   transform-origin: center left;
 }
 
 .cube div:nth-of-type(4) {
   transform: rotateX(90deg) translateY(-50%);
-  transform: rotateX(90deg) translateY(-50%);
-  transform-origin: top center;
   transform-origin: top center;
 }
 
 .cube div:nth-of-type(5) {
   transform: rotateX(-90deg) translateY(50%);
-  transform: rotateX(-90deg) translateY(50%);
-  transform-origin: bottom center;
   transform-origin: bottom center;
 }
 
 .cube div:nth-of-type(6) {
-  transform: translateZ(20px);
   transform: translateZ(20px);
 }
 
