@@ -1,5 +1,6 @@
-// eslint-disable-next-line import/no-internal-modules
+/* eslint-disable import/no-internal-modules */
 import { shareService } from './livecodes/services';
+import { livecodes } from './livecodes/main';
 
 const loadPreview = async (id: string) => {
   if (!id) return;
@@ -29,7 +30,5 @@ if (
   }
 }
 
-const file = 'index.js';
-import('/livecodes/' + file).then((module) => {
-  module.livecodes('#livecodes', {});
-});
+const baseUrl = location.href.split('/').slice(0, -1).join('/') + '/livecodes/';
+livecodes('#livecodes', baseUrl, {});
