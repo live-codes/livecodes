@@ -208,9 +208,12 @@ export const createConsole = (
 
     const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
     if (toolsPaneButtons) {
+      const btnContainer = document.createElement('span');
+      btnContainer.classList.add('hint--top-left');
+      btnContainer.dataset.hint = 'Clear console';
+
       clearButton = document.createElement('button');
       clearButton.classList.add('clear-button');
-      clearButton.title = 'Clear console';
       clearButton.style.display = 'none';
       eventsManager.addEventListener(
         clearButton,
@@ -228,7 +231,8 @@ export const createConsole = (
         },
         false,
       );
-      toolsPaneButtons.prepend(clearButton);
+      btnContainer.appendChild(clearButton);
+      toolsPaneButtons.prepend(btnContainer);
     }
   };
 
