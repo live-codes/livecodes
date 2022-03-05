@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var htmlFile = 'build/index.html';
-var cssFile = 'src/index.css';
+var cssFile = 'src/livecodes/styles/index.css';
 
 var html = fs.readFileSync(path.resolve(htmlFile), 'utf8');
 var css = fs.readFileSync(path.resolve(cssFile), 'utf8');
