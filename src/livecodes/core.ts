@@ -2603,7 +2603,6 @@ const initializeApp = async (
   if (isEmbed || getConfig().mode === 'result') {
     configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
   }
-  loadUserConfig();
   createLanguageMenus(
     getConfig(),
     baseUrl,
@@ -2618,6 +2617,7 @@ const initializeApp = async (
   await toolsPane.load();
   basicHandlers();
   await initializeFn?.();
+  loadUserConfig();
   loadStyles();
   await createIframe(UI.getResultElement());
   showMode(getConfig());
