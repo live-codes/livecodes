@@ -45,6 +45,12 @@ var baseOptions = {
   outdir: 'build/livecodes',
   format: 'esm',
   target: 'es2020',
+  define: {
+    'process.env.VERSION': `"${version || ''}"`,
+    'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
+    'process.env.REPO_URL': `"${repoUrl || ''}"`,
+    'process.env.CI': `${process.env.CI || false}`,
+  },
 };
 
 esbuild.buildSync({
@@ -52,11 +58,6 @@ esbuild.buildSync({
   entryPoints: ['src/livecodes/app.ts', 'src/livecodes/embed.ts'],
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
-  define: {
-    'process.env.VERSION': `"${version || ''}"`,
-    'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
-    'process.env.REPO_URL': `"${repoUrl || ''}"`,
-  },
 });
 
 fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/lib/models.ts'));
