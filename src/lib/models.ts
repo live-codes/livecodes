@@ -54,6 +54,7 @@ export interface UserConfig {
   emmet: boolean;
   theme: Theme;
   enableRestore: boolean;
+  showSpacing: boolean;
 }
 
 export type Language =

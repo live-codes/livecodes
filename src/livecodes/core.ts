@@ -1569,6 +1569,12 @@ const handleSettings = () => {
         });
         setProjectRestore();
       }
+      if (configKey === 'showSpacing') {
+        setUserConfig({
+          showSpacing: toggle.checked,
+        });
+        await run();
+      }
     });
   });
 
