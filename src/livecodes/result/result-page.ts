@@ -2,7 +2,7 @@ import { createImportMap, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl } from '../vendors';
+import { esModuleShimsUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = (
   code: Cache,
@@ -184,6 +184,13 @@ export const createResultPage = (
     }
   } else if (isModuleScript(script) || mdx) {
     scriptElement.type = 'module';
+  }
+
+  // spacing
+  if (config.showSpacing && !forExport) {
+    const spacingScript = dom.createElement('script');
+    spacingScript.src = spacingJsUrl;
+    dom.body.appendChild(spacingScript);
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;

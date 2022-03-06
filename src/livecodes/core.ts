@@ -1194,6 +1194,9 @@ const loadSettings = (config: Config) => {
   const restoreToggle = UI.getRestoreToggle();
   restoreToggle.checked = config.enableRestore;
 
+  const spacingToggle = UI.getSpacingToggle();
+  spacingToggle.checked = config.showSpacing;
+
   UI.getCSSPresetLinks().forEach((link) => {
     link.classList.remove('active');
     if (config.cssPreset === link.dataset.preset) {
@@ -1568,6 +1571,12 @@ const handleSettings = () => {
           enableRestore: toggle.checked,
         });
         setProjectRestore();
+      }
+      if (configKey === 'showSpacing') {
+        setUserConfig({
+          showSpacing: toggle.checked,
+        });
+        await run();
       }
     });
   });
@@ -2597,7 +2606,6 @@ const initializeApp = async (
   if (isEmbed || getConfig().mode === 'result') {
     configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
   }
-  loadUserConfig();
   createLanguageMenus(
     getConfig(),
     baseUrl,
@@ -2612,6 +2620,7 @@ const initializeApp = async (
   await toolsPane.load();
   basicHandlers();
   await initializeFn?.();
+  loadUserConfig();
   loadStyles();
   await createIframe(UI.getResultElement());
   showMode(getConfig());

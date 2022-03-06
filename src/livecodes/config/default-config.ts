@@ -12,6 +12,7 @@ export const defaultConfig: Config = {
   mode: 'full',
   theme: 'dark',
   enableRestore: true,
+  showSpacing: false,
   readonly: false,
   console: '',
   compiled: '',

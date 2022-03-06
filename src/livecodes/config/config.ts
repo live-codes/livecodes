@@ -39,6 +39,7 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
     emmet: config.emmet,
     theme: config.theme,
     enableRestore: config.enableRestore,
+    showSpacing: config.showSpacing,
   });
 
 export const upgradeAndValidate = (config: Partial<Config>) =>
