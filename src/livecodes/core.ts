@@ -1194,6 +1194,9 @@ const loadSettings = (config: Config) => {
   const restoreToggle = UI.getRestoreToggle();
   restoreToggle.checked = config.enableRestore;
 
+  const spacingToggle = UI.getSpacingToggle();
+  spacingToggle.checked = config.showSpacing;
+
   UI.getCSSPresetLinks().forEach((link) => {
     link.classList.remove('active');
     if (config.cssPreset === link.dataset.preset) {

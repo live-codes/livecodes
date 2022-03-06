@@ -136,6 +136,9 @@ export const getThemeToggle = () =>
 export const getRestoreToggle = () =>
   document.querySelector('#settings-menu input#enable-restore') as HTMLInputElement;
 
+export const getSpacingToggle = () =>
+  document.querySelector('#settings-menu input#show-spacing') as HTMLInputElement;
+
 export const getCSSPresetLinks = () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
