@@ -109,19 +109,15 @@ const config = {
             ],
           },
           {
-            title: 'Community',
+            title: 'App',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Home',
+                href: 'https://livecodes.io',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'Starter Templates',
+                href: 'https://livecodes.io/?screen=new',
               },
             ],
           },
@@ -147,6 +143,10 @@ const config = {
               {
                 label: 'Sponsor',
                 to: '/web/docs/sponsor',
+              },
+              {
+                label: 'About',
+                to: '/web/docs/about',
               },
             ],
           },
