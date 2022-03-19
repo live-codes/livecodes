@@ -2,7 +2,7 @@
 
 ## Introduction
 
-There are great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/?html,output), [Replit](https://replit.com/), [CodeSandbox](https://codesandbox.io/) and many others, which LiveCodes does not aim to replace or compete with. On the contrary, it aims to integrate with many of these services as their APIs allow (e.g. import and export).
+There are great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/?html,output), [CodeSandbox](https://codesandbox.io/), [Replit](https://replit.com/) and many others, which LiveCodes does not aim to replace or compete with. On the contrary, it aims to integrate with many of these services as their APIs allow (e.g. import and export).
 
 ## What makes LiveCodes different?
 
@@ -16,7 +16,7 @@ Currently, there are 60+ languages/frameworks supported. These include:
 - Data manipulation/logic languages (e.g. SQL, Prolog).
 - Authoring/templating languages (e.g Markdown, MDX, AsciiDoc, Pug, Handlebars, Haml).
 - Low code/blocks (e.g. blockly, rich text editor).
-- Modeling languages/graph-as-code (e.g. Gnuplot, Graphviz, Vega, Plotly).
+- Modeling languages/graph-as-code (e.g. Gnuplot, Graphviz, Mermaid, Vega).
 - ... and others.
 
 For a full list check the [Languages](./languages/index.md) section.

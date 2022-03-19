@@ -18,6 +18,11 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
+<a href="https://github.com/" target="_blank" title="GitHub">
+  <img alt="GitHub" width="200" src="/web/img/credits/github.png">
+</img></a>
+</p>
+<p>
 <a href="https://dpaste.com/" target="_blank" title="dpaste">
   <img alt="dpaste" width="200" src="/web/img/credits/dpaste.png">
 </img></a>

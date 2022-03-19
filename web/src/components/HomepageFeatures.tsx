@@ -271,6 +271,7 @@ export default function HomepageFeatures(): JSX.Element {
       <section>
         <div className={'container padding-vert--lg ' + styles.center}>
           <div className={['row', styles.carousel, styles.center].join(' ')}>
+            <h3>Screenshots</h3>
             <HomepageCarousel></HomepageCarousel>
           </div>
         </div>
@@ -279,10 +280,7 @@ export default function HomepageFeatures(): JSX.Element {
         <div className={'container padding-vert--lg ' + styles.center}>
           <div className={['row', styles.carousel, styles.center].join(' ')}>
             <div className={styles.buttons}>
-              <Link
-                className="button button--primary button--outline button--lg"
-                to="./docs/getting-started"
-              >
+              <Link className="button button--primary button--outline button--lg" to="./docs/">
                 Documentation 📖
               </Link>
               <Link
