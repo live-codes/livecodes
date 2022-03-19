@@ -10,6 +10,9 @@ export const javascript: LanguageSpecs = {
     name: 'babel',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
+  compiler: {
+    factory: () => async (code) => code,
+  },
   extensions: ['js'],
   editor: 'script',
 };

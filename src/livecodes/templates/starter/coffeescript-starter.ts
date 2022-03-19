@@ -37,13 +37,13 @@ counterElement = document.getElementById 'counter'
 button = document.getElementById 'counter-button'
 
 title = 'CoffeeScript'
-titleElement.textContent = title
+titleElement.innerText = title
 
 counter = (count) -> -> count += 1
 increment = counter 0
 
 button.addEventListener('click',
-  -> counterElement.textContent = increment())
+  -> counterElement.innerText = increment())
 `.trimStart(),
   },
   stylesheets: [],

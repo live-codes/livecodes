@@ -45,17 +45,17 @@ class Counter {
   }
 }
 
-const title = document.querySelector("#title");
-const count = document.querySelector("#counter");
-const button = document.querySelector("#counter-button");
+const title = document.querySelector<HTMLElement>("#title");
+const count = document.querySelector<HTMLElement>("#counter");
+const button = document.querySelector<HTMLElement>("#counter-button");
 
-title.textContent = "TypeScript";
+title.innerText = "TypeScript";
 const counter = new Counter();
 button.addEventListener(
   "click",
   () => {
     counter.increment();
-    count.textContent = String(counter.getValue());
+    count.innerText = String(counter.getValue());
   },
   false
 );

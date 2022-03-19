@@ -1,6 +1,5 @@
 import { LanguageSpecs } from '../models';
-
-const cdnBaselUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
+import { pyodideBaseUrl } from '../vendors';
 
 export const pyodide: LanguageSpecs = {
   name: 'pyodide',
@@ -13,7 +12,7 @@ export const pyodide: LanguageSpecs = {
     inlineScript: `
 if (window.livecodes.pyodideLoading === undefined) {
   const script = document.createElement('script');
-  script.src = '${cdnBaselUrl}pyodide.js';
+  script.src = '${pyodideBaseUrl}pyodide.js';
   document.head.append(script);
 };
 window.addEventListener("load", async () => {
@@ -24,7 +23,7 @@ window.addEventListener("load", async () => {
   async function main() {
     if (window.livecodes.pyodideLoading === false) return;
     window.livecodes.pyodide = await loadPyodide({
-      indexURL: "${cdnBaselUrl}",
+      indexURL: "${pyodideBaseUrl}",
     });
     window.livecodes.pyodideLoading = false;
   }
@@ -48,4 +47,5 @@ window.addEventListener("load", async () => {
   extensions: ['py3'],
   editor: 'script',
   editorLanguage: 'python',
+  largeDownload: true,
 };

@@ -1,0 +1,46 @@
+.sliders {
+  font: 1.2em sans-serif;
+  margin: 1em auto;
+  max-width: 40em;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.sliders > span {
+  bottom: 0.2em;
+  display: inline-block;
+  position: relative;
+}
+
+.sliders .buttons > * {
+  margin: 1em;
+  width: 13em;
+}
+
+.slider {
+  display: inline-block;
+  height: 1.4em;
+  overflow-y: hidden;
+  position: relative;
+  text-align: center;
+  width: 30%;
+}
+
+.slider > div {
+  background-color: white;
+  margin: 0.2em;
+  overflow: hidden;
+  position: absolute;
+  top: -1.4em;
+  transition: ease 0.5s;
+  width: calc(100% - 0.4em);
+}
+
+.slider .current {
+  top: 0;
+}
+
+.slider .hidden {
+  top: 1.4em;
+}

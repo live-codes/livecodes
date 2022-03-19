@@ -28,6 +28,10 @@ import templatesScreen from './templates.html';
 // @ts-ignore
 import openScreen from './open.html';
 // @ts-ignore
+import assetsScreen from './assets.html';
+// @ts-ignore
+import addAssetScreen from './add-asset.html';
+// @ts-ignore
 import shareScreen from './share.html';
 
 export {
@@ -45,5 +49,7 @@ export {
   restorePromptScreen,
   templatesScreen,
   openScreen,
+  assetsScreen,
+  addAssetScreen,
   shareScreen,
 };

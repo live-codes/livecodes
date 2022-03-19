@@ -34,7 +34,7 @@ export const phpStarter: Template = {
     content: `
 <?php
 $title = 'PHP';
-$document->getElementById('title')->textContent = $title;
+$document->getElementById('title')->innerText = $title;
 
 $count = 0;
 
@@ -42,7 +42,7 @@ $document
   ->getElementById('counter-button')
   ->addEventListener('click', function () use (&$count, $document) {
       $count += 1;
-      $document->getElementById('counter')->textContent = $count;
+      $document->getElementById('counter')->innerText = $count;
       echo "count: $count";
   });
 `.trimStart(),

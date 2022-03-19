@@ -1,11 +1,4 @@
-import { BlocklyContent } from '../blockly';
-import { Language, Config, ProcessorName } from '../models';
-
-export interface CompileOptions {
-  html?: string;
-  blockly?: BlocklyContent;
-  forceCompile?: boolean;
-}
+import { Language, Config, ProcessorName, CompileOptions } from '../models';
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
@@ -28,8 +21,10 @@ export type CompilerMessage = {
   from?: 'compiler';
 } & (
   | InitMessage
+  | InitSuccessMessage
   | LoadMessage
   | LoadedMessage
+  | LoadFailedMessage
   | CompileMessage
   | CompileInCompilerMessage
   | CompiledMessage
@@ -42,6 +37,10 @@ export interface InitMessage {
   baseUrl: string;
 }
 
+export interface InitSuccessMessage {
+  type: 'init-success';
+}
+
 export interface LoadMessage {
   type: 'load';
   payload: {
@@ -52,6 +51,11 @@ export interface LoadMessage {
 
 export interface LoadedMessage {
   type: 'loaded';
+  payload: LanguageOrProcessor;
+}
+
+export interface LoadFailedMessage {
+  type: 'load-failed';
   payload: LanguageOrProcessor;
 }
 
@@ -82,6 +86,8 @@ export interface CompiledMessage {
     content: string;
     language: LanguageOrProcessor;
     compiled: string;
+    config: Config;
+    options: any;
   };
 }
 

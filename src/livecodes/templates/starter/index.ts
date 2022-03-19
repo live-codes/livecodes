@@ -37,6 +37,15 @@ import { vueSfcStarter } from './vue-sfc-starter';
 import { vueStarter } from './vue-starter';
 import { watStarter } from './wat-starter';
 import { malinaStarter } from './malina-starter';
+import { commonlispStarter } from './commonlisp-starter';
+import { cppStarter } from './cpp-starter';
+import { juliaStarter } from './julia-starter';
+import { clangStarter } from './clang-starter';
+import { tclStarter } from './tcl-starter';
+import { prologStarter } from './prolog-starter';
+import { clioStarter } from './clio-starter';
+import { graphStarter } from './graph-starter';
+import { imbaStarter } from './imba-starter';
 
 export const starterTemplates = [
   blank,
@@ -59,6 +68,8 @@ export const starterTemplates = [
   knockoutStarter,
   coffeescriptStarter,
   livescriptStarter,
+  clioStarter,
+  imbaStarter,
   rescriptStarter,
   bootstrapStarter,
   tailwindcssStarter,
@@ -68,12 +79,19 @@ export const starterTemplates = [
   rubyStarter,
   goStarter,
   phpStarter,
+  cppStarter,
+  clangStarter,
   perlStarter,
   luaStarter,
+  juliaStarter,
   schemeStarter,
+  commonlispStarter,
+  tclStarter,
   markdownStarter,
   assemblyscriptStarter,
   watStarter,
   sqlStarter,
+  prologStarter,
   blocklyStarter,
+  graphStarter,
 ];

@@ -1,9 +1,0 @@
-spec:
-  name: livecodes
-  static_sites:
-    - github:
-        repo: hatemhosny/livecodes
-        branch: master
-        deploy_on_push: true
-      name: livecodes
-      build_command: npm run build

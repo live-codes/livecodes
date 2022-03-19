@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
-import { getLoadedApp, runButtonSelector, waitForEditorFocus } from '../helpers';
+import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
 test.describe('Custom Settings', () => {
   test('markdown', async ({ page, getTestUrl }) => {
@@ -59,17 +59,21 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"scss": {"indent": "--"}}`);
+    await page.keyboard.type(`{"scss": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=SCSS');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`h1 {color: blue}`);
+    await page.keyboard.type(
+      `$font-stack: Helvetica, sans-serif; $primary-color: #333; body {font: 100% $font-stack; color: $primary-color;}`,
+    );
 
     await waitForResultUpdate();
 
-    expect(await getResult().innerText('head style')).toContain('--color');
+    expect(await getResult().innerText('head style')).toContain(
+      'body{font:100% Helvetica,sans-serif;color:#333}',
+    );
   });
 
   test('sass', async ({ page, getTestUrl }) => {
@@ -82,18 +86,26 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"sass": {"indent": "--"}}`);
+    await page.keyboard.type(`{"sass": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([title="change language"], 2)');
     await app.click('text=Sass');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`h1
-    color: blue`);
+    await page.keyboard.type(`
+$font-stack: Helvetica, sans-serif
+$primary-color: #333
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+`);
 
     await waitForResultUpdate();
 
-    expect(await getResult().innerText('head style')).toContain('--color');
+    expect(await getResult().innerText('head style')).toContain(
+      'body{font:100% Helvetica,sans-serif;font-color:#333}',
+    );
   });
 
   test('less', async ({ page, getTestUrl }) => {
@@ -220,7 +232,7 @@ test.describe('Custom Settings', () => {
     expect(await getResult().innerText('head style')).toContain(
       `.text-dark-blue-800 {
     --tw-text-opacity: 1;
-    color: rgba(10, 33, 76, var(--tw-text-opacity))
+    color: rgb(10 33 76 / var(--tw-text-opacity))
 }`,
     );
   });

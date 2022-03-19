@@ -5,7 +5,7 @@ import { Config } from '../models';
 import { ProjectStorage } from '../storage';
 import * as UI from '../UI';
 import { loadScript, loadStylesheet } from '../utils';
-import { tagifyScriptUrl, tagifyStylesUrl } from '../vendors';
+import { tagifyBaseUrl } from '../vendors';
 
 export const getTags = (value: string): string[] => {
   try {
@@ -44,8 +44,8 @@ export const createProjectInfoUI = async (
     modal.close();
   });
 
-  loadStylesheet(tagifyStylesUrl, 'tagify-styles');
-  await loadScript(tagifyScriptUrl, 'Tagify');
+  loadStylesheet(tagifyBaseUrl + 'tagify.css', 'tagify-styles');
+  await loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify');
   const Tagify = (window as any).Tagify;
   if (Tagify) {
     new Tagify(tagsInput, {

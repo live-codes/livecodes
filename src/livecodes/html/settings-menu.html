@@ -1,5 +1,9 @@
 <ul id="settings-menu" class="dropdown-menu">
   <li>
+    <a href="#" id="login-link">Login …</a>
+    <a href="#" id="logout-link" style="display: none">Log out</a>
+  </li>
+  <li>
     <a href="#" id="new-link">New …</a>
   </li>
   <li>
@@ -78,11 +82,10 @@
     <a href="#" id="custom-settings-link">Custom Settings …</a>
   </li>
   <li>
-    <a href="#" id="login-link">Login …</a>
-    <a href="#" id="logout-link" style="display: none">Log out</a>
+    <a href="#" id="info-link">Project Info …</a>
   </li>
   <li>
-    <a href="#" id="info-link">Project Info …</a>
+    <a href="#" id="assets-link">Assets …</a>
   </li>
   <li>
     <label class="switch">
@@ -138,12 +141,19 @@
       </div>
     </label>
   </li>
-  <li>
-    <a href="https://github.com/live-codes/livecodes/" target="_blank" rel="noopener"
-      >Documentations</a
-    >
+  <li class="hint--bottom-left" data-hint="Press Alt/Options and move your cursor over result page">
+    <label class="switch">
+      <span>Show Spacing</span>
+      <div>
+        <input id="show-spacing" type="checkbox" data-config="showSpacing" />
+        <span class="slider round"></span>
+      </div>
+    </label>
   </li>
   <li>
-    <a href="https://github.com/live-codes/livecodes/" target="_blank" rel="noopener">About</a>
+    <a href="./web/docs/" target="_blank" rel="noopener">Documentations</a>
+  </li>
+  <li>
+    <a href="./web/" target="_blank" rel="noopener">About</a>
   </li>
 </ul>

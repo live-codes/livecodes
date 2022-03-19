@@ -1,8 +1,8 @@
-import { createImportMap, hasImports } from '../compiler';
+import { createImportMap, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl } from '../vendors';
+import { esModuleShimsUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = (
   code: Cache,
@@ -19,6 +19,15 @@ export const createResultPage = (
 
   // title
   dom.title = config.title;
+
+  // if export => clean, else => add utils
+  if (forExport) {
+    dom.querySelector('script')?.remove();
+  } else {
+    const utilsScript = dom.createElement('script');
+    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
+    dom.head.appendChild(utilsScript);
+  }
 
   // CSS Preset
   if (config.cssPreset) {
@@ -56,15 +65,6 @@ export const createResultPage = (
 
   if (config.cssPreset === 'github-markdown-css') {
     dom.body.classList.add('markdown-body');
-  }
-
-  // if export => clean, else => add utils
-  if (forExport) {
-    dom.body.innerHTML = '';
-  } else {
-    const utilsScript = dom.createElement('script');
-    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
-    dom.head.appendChild(utilsScript);
   }
 
   // editor markup (MDX is added to the script not page markup)
@@ -128,10 +128,21 @@ export const createResultPage = (
   });
 
   // import maps
+  const userImports =
+    config.customSettings.mapImports === false
+      ? {}
+      : {
+          ...(hasImports(code.script.compiled)
+            ? createImportMap(code.script.compiled, config)
+            : {}),
+          ...(hasImports(code.markup.compiled)
+            ? createImportMap(code.markup.compiled, config)
+            : {}),
+        };
   const importMaps = {
-    ...(hasImports(code.script.compiled) ? createImportMap(code.script.compiled, config) : {}),
-    ...(hasImports(code.markup.compiled) ? createImportMap(code.markup.compiled, config) : {}),
+    ...userImports,
     ...compilerImports,
+    ...config.customSettings.imports,
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
@@ -166,8 +177,20 @@ export const createResultPage = (
   const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
   if (scriptType) {
     scriptElement.type = scriptType;
-  } else if (hasImports(script) || mdx) {
+  } else if (config.customSettings.scriptType != null) {
+    // do not add type if scriptType === ''
+    if (config.customSettings.scriptType) {
+      scriptElement.type = config.customSettings.scriptType;
+    }
+  } else if (isModuleScript(script) || mdx) {
     scriptElement.type = 'module';
+  }
+
+  // spacing
+  if (config.showSpacing && !forExport) {
+    const spacingScript = dom.createElement('script');
+    spacingScript.src = spacingJsUrl;
+    dom.body.appendChild(spacingScript);
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;

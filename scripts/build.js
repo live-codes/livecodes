@@ -24,6 +24,7 @@ fs.copyFileSync(
   path.resolve(__dirname + '/../src/favicon.ico'),
   path.resolve(outDir + '/favicon.ico'),
 );
+fs.copyFileSync(path.resolve(__dirname + '/../src/404.html'), path.resolve(outDir + '/404.html'));
 
 var childProcess = require('child_process');
 var version, gitCommit, repoUrl;
@@ -44,18 +45,38 @@ var baseOptions = {
   minify: true,
   outdir: 'build/livecodes',
   format: 'esm',
-};
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/index.ts', 'src/livecodes/app.ts', 'src/livecodes/embed.ts'],
-  loader: { '.html': 'text', '.ttf': 'file' },
-  logLevel: 'error',
+  target: 'es2020',
   define: {
     'process.env.VERSION': `"${version || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
+    'process.env.CI': `${process.env.CI || false}`,
   },
+};
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/app.ts', 'src/livecodes/embed.ts'],
+  loader: { '.html': 'text', '.ttf': 'file' },
+  logLevel: 'error',
+});
+
+fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/lib/models.ts'));
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/lib/livecodes.ts'],
+  outdir: undefined,
+  outfile: 'build/lib/livecodes.esm.js',
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/lib/livecodes.ts'],
+  outdir: undefined,
+  outfile: 'build/lib/livecodes.js',
+  format: 'iife',
+  globalName: 'livecodes',
 });
 
 /** @type {Partial<esbuild.BuildOptions>} */
@@ -115,6 +136,12 @@ esbuild.buildSync({
 });
 
 esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/editor/custom-editor-utils.ts'],
+  format: 'iife',
+});
+
+esbuild.buildSync({
   entryPoints: ['src/livecodes/templates/starter/index.ts'],
   bundle: true,
   minify: true,
@@ -135,7 +162,25 @@ esbuild.buildSync({
 
 esbuild.buildSync({
   ...baseOptions,
-  entryPoints: ['src/livecodes/blockly/blockly-editor.ts'],
+  entryPoints: ['src/livecodes/UI/open.ts'],
+  loader: { '.html': 'text' },
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/UI/assets.ts'],
+  loader: { '.html': 'text' },
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/editor/blockly/blockly.ts'],
+  loader: { '.html': 'text' },
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: ['src/livecodes/editor/quill/quill.ts'],
   loader: { '.html': 'text' },
 });
 

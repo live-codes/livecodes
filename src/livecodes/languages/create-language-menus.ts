@@ -10,7 +10,7 @@ export const createLanguageMenus = (
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
   loadStarterTemplate: (templateName: string) => void,
-  importCode: (options: { url: string }) => Promise<void>,
+  importCode: (options: { url: string }) => Promise<boolean>,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const rootList = document.createElement('ul');
@@ -61,9 +61,8 @@ export const createLanguageMenus = (
       editorSelector.classList.add('hidden');
       editorsNumber -= 1;
     } else if (editorLanguages.length === 1) {
-      const changeLanguageButton = editorSelector.querySelector<HTMLElement>(
-        '.language-menu-button',
-      );
+      const changeLanguageButton =
+        editorSelector.querySelector<HTMLElement>('.language-menu-button');
       if (changeLanguageButton) {
         changeLanguageButton.style.display = 'none';
       }

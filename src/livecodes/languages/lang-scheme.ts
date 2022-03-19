@@ -1,13 +1,16 @@
 import { LanguageSpecs } from '../models';
-
-const cdnUrl = 'https://cdn.jsdelivr.net/npm/biwascheme@0.7.4/release/biwascheme-min.js';
+import { biwaschemeUrl } from '../vendors';
+import { parenFormatter } from './lang-commonlisp';
 
 export const scheme: LanguageSpecs = {
   name: 'scheme',
   title: 'Scheme',
+  formatter: {
+    factory: parenFormatter,
+  },
   compiler: {
     factory: () => async (code) => code,
-    scripts: [cdnUrl],
+    scripts: [biwaschemeUrl],
     scriptType: 'text/biwascheme',
     compiledCodeLanguage: 'scheme',
   },

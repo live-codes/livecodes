@@ -1,8 +1,7 @@
 import { LanguageSpecs } from '../models';
+import { typescriptUrl } from '../vendors';
 import { parserPlugins } from './prettier';
 import { getLanguageCustomSettings } from './utils';
-
-const url = 'https://cdn.jsdelivr.net/npm/typescript@4.5.2/lib/typescript.min.js';
 
 export const typescriptOptions = {
   target: 'es2015',
@@ -20,13 +19,15 @@ export const typescript: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url,
-    factory: () => async (code, { config, language }) =>
-      (window as any).ts.transpile(code, {
-        ...typescriptOptions,
-        ...getLanguageCustomSettings('typescript', config),
-        ...getLanguageCustomSettings(language, config),
-      }),
+    url: typescriptUrl,
+    factory:
+      () =>
+      async (code, { config, language }) =>
+        (window as any).ts.transpile(code, {
+          ...typescriptOptions,
+          ...getLanguageCustomSettings('typescript', config),
+          ...getLanguageCustomSettings(language, config),
+        }),
   },
   extensions: ['ts', 'typescript'],
   editor: 'script',

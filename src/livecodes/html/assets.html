@@ -1,0 +1,53 @@
+<div id="assets-list-container" class="list-container">
+  <div class="modal-title">Assets</div>
+  <div class="buttons">
+    <button id="assets-add-asset-button" class="button">Add Asset</button>
+    <button id="assets-delete-all-button" class="button danger">Delete All</button>
+  </div>
+  <div class="modal-message" id="assets-container" class="items-container">
+    <span id="assets-sort-by-label">Sort By:</span>
+    <a href="#" id="assets-sort-by-last-modified" class="active">Date</a>&nbsp;/&nbsp;<a
+      href="#"
+      id="assets-sort-by-title"
+      >File Name</a
+    >&nbsp;(<a href="#" id="assets-sorted-asc" style="display: none">▲</a
+    ><a href="#" id="assets-sorted-desc">▼</a>)
+    <select name="type-filter" id="assets-type-filter">
+      <option value="">All types</option>
+    </select>
+    <input id="search-assets" type="text" placeholder="Search" />
+    <a
+      href="#"
+      id="assets-reset-filters"
+      class="hint--bottom"
+      data-hint="Reset"
+      style="width: auto"
+    >
+      <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 489.533 489.533"
+        style="width: 1em; height: 1em"
+        xml:space="preserve"
+      >
+        <g>
+          <path
+            d="M268.175,488.161c98.2-11,176.9-89.5,188.1-187.7c14.7-128.4-85.1-237.7-210.2-239.1v-57.6c0-3.2-4-4.9-6.7-2.9
+		l-118.6,87.1c-2,1.5-2,4.4,0,5.9l118.6,87.1c2.7,2,6.7,0.2,6.7-2.9v-57.5c87.9,1.4,158.3,76.2,152.3,165.6
+		c-5.1,76.9-67.8,139.3-144.7,144.2c-81.5,5.2-150.8-53-163.2-130c-2.3-14.3-14.8-24.7-29.2-24.7c-17.9,0-31.9,15.9-29.1,33.6
+		C49.575,418.961,150.875,501.261,268.175,488.161z"
+          />
+        </g>
+      </svg>
+    </a>
+    <div class="modal-message no-data">
+      <div>You have no saved assets.</div>
+    </div>
+    <div class="modal-message no-data" id="assets-no-match">
+      <div>No assets match these filters.</div>
+    </div>
+  </div>
+</div>

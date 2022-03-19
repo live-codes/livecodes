@@ -2,6 +2,7 @@ import Split from 'split.js';
 
 export const createSplitPanes = () => {
   const gutterSize = 10;
+  let destroyed = false;
   const split = Split(['#editors', '#output'], {
     minSize: [0, 0],
     gutterSize,
@@ -59,10 +60,17 @@ export const createSplitPanes = () => {
     }
   };
 
+  const destroy = (preserveStyles?: boolean | undefined, preserveGutters?: boolean | undefined) => {
+    if (!destroyed) {
+      split.destroy(preserveStyles, preserveGutters);
+      destroyed = true;
+    }
+  };
+
   setAnimation(true);
 
   return {
     show,
-    destroy: split.destroy.bind(split),
+    destroy,
   };
 };

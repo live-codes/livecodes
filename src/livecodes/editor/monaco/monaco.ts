@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-unresolved
-import * as Monaco from 'monaco-editor'; // only for typescript types
+import type * as Monaco from 'monaco-editor'; // only for typescript types
 
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 import { getLanguageExtension, mapLanguage } from '../../languages';
 import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl } from '../../vendors';
+import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
 
@@ -14,12 +14,12 @@ const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {
 const monacoMapLanguage = (language: Language): Language =>
   language === 'livescript'
     ? 'coffeescript'
-    : ['rescript', 'reason', 'ocaml', 'wat'].includes(language)
+    : ['rescript', 'reason', 'ocaml'].includes(language)
     ? 'csharp'
     : mapLanguage(language);
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly, theme, ...baseOptions } = options;
+  const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
   if (!container) throw new Error('editor container not found');
 
   const monacoPath = baseUrl + 'vendor/monaco-editor';
@@ -35,7 +35,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
   const defaultOptions: Options = {
-    fontSize: 14,
+    fontSize: isEmbed ? 12 : 14,
     theme: 'vs-' + theme,
     formatOnType: false,
     tabSize: 2,
@@ -54,7 +54,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const codeblockOptions: Options = {
     ...defaultOptions,
     readOnly: true,
-    lineNumbers: 'off',
+    // lineNumbers: 'off',
     scrollBeyondLastLine: false,
     contextmenu: false,
   };
@@ -119,7 +119,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       target: monaco.languages.typescript.ScriptTarget.Latest,
       experimentalDecorators: true,
       allowSyntheticDefaultImports: true,
-      lib: ['es2020', 'dom'],
+      lib: ['esnext', 'dom'],
+      module: monaco.languages.typescript.ModuleKind.ESNext,
     };
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
@@ -186,30 +187,90 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       });
   }
 
+  const customLanguages: Partial<Record<Language, string>> = {
+    astro: vendorsBaseUrl + 'monaco-editor/languages/astro.js',
+    clio: vendorsBaseUrl + 'monaco-editor/languages/clio.js',
+    imba: vendorsBaseUrl + 'monaco-editor/languages/imba.js',
+    wat: vendorsBaseUrl + 'monaco-editor/languages/wat.js',
+  };
+
+  interface CustomLanguageDefinition {
+    config?: Monaco.languages.LanguageConfiguration;
+    tokens?: Monaco.languages.IMonarchLanguage;
+  }
+  const loadMonacoLanguage = async (lang: Language) => {
+    const langUrl = customLanguages[lang];
+    if (langUrl && !monaco.languages.getLanguages().find((l) => l.id === lang)) {
+      const mod: CustomLanguageDefinition = (await import(langUrl)).default;
+      monaco.languages.register({ id: lang });
+      if (mod.config) {
+        monaco.languages.setLanguageConfiguration(lang, mod.config);
+      }
+      if (mod.tokens) {
+        monaco.languages.setMonarchTokensProvider(lang, mod.tokens);
+      }
+    }
+  };
+
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
   };
 
-  const types: Array<{ dispose: () => void }> = [];
-  const clearTypes = () => {
-    types.forEach((type) => {
-      type.dispose();
-    });
+  const types: Array<{
+    filename: string;
+    libJs: { dispose: () => void };
+    libTs: { dispose: () => void };
+  }> = [];
+
+  const isEditorType = (type: { filename: string }) =>
+    !type.filename.startsWith('file:///node_modules/');
+
+  const clearTypes = (allTypes = true) => {
+    types
+      .filter((type) => (allTypes ? true : isEditorType(type)))
+      .forEach((type) => {
+        type.libJs.dispose();
+        type.libTs.dispose();
+      });
     types.length = 0;
   };
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
-    clearTypes();
+    clearTypes(false);
     setModel(editor, value ?? editor.getValue(), language);
+    loadMonacoLanguage(lang);
   };
 
-  const addTypes = (lib: EditorLibrary) => {
-    types.push(
-      monaco.languages.typescript.javascriptDefaults.addExtraLib(lib.content, lib.filename),
-    );
+  const addTypes = (type: EditorLibrary) => {
+    const loadedType = types.find((t) => t.filename === type.filename);
+    if (loadedType) {
+      if (isEditorType(type)) {
+        loadedType.libJs.dispose();
+        loadedType.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
+          type.content,
+          type.filename,
+        );
+      }
+      return;
+    }
+    types.push({
+      filename: type.filename,
+      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(
+        type.content,
+        type.filename,
+      ),
+      libTs: isEditorType(type)
+        ? {
+            // avoid duplicate declarations for typescript
+            dispose: () => {
+              // do nothing
+            },
+          }
+        : monaco.languages.typescript.typescriptDefaults.addExtraLib(type.content, type.filename),
+    });
   };
 
   const focus = () => editor.focus();
@@ -264,9 +325,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     loadScript(emmetMonacoUrl, 'emmetMonaco').then((emmetMonaco: any) => {
       if (enabled) {
         if (!disposeEmmet.html || disposeEmmet.disabled) {
-          disposeEmmet.html = emmetMonaco.emmetHTML();
-          disposeEmmet.css = emmetMonaco.emmetCSS();
-          disposeEmmet.jsx = emmetMonaco.emmetJSX();
+          disposeEmmet.html = emmetMonaco.emmetHTML(monaco, [
+            'html',
+            'php',
+            'astro',
+            'markdown',
+            'mdx',
+          ]);
+          disposeEmmet.css = emmetMonaco.emmetCSS(monaco, ['css', 'scss', 'less']);
+          disposeEmmet.jsx = emmetMonaco.emmetJSX(monaco, [
+            'javascript',
+            'typescript',
+            'jsx',
+            'tsx',
+          ]);
           disposeEmmet.disabled = false;
         }
       } else {
@@ -280,6 +352,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const setTheme = (theme: Theme) => {
     monaco.editor.setTheme('vs-' + theme);
+  };
+
+  const undo = () => {
+    (editor.getModel() as any)?.undo?.();
+  };
+
+  const redo = () => {
+    (editor.getModel() as any)?.redo?.();
   };
 
   const destroy = () => {
@@ -396,6 +476,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     format,
     isReadonly: readonly,
     setTheme,
+    undo,
+    redo,
     destroy,
     monaco: editor,
   };

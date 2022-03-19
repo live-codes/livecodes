@@ -1,0 +1,50 @@
+<div id="add-asset-container" class="modal-container">
+  <div class="modal-title">Add Asset</div>
+  <div class="buttons">
+    <button id="assets-button" class="button">Assets</button>
+  </div>
+  <ul id="add-asset-tabs" class="modal-tabs">
+    <li data-target="add-asset-data-url" class="active">Data URL</li>
+    <li data-target="add-asset-gh-pages">GitHub Pages</li>
+  </ul>
+  <div id="add-asset-screens" class="modal-screen-container">
+    <div id="add-asset-data-url" class="tab-content active">
+      <div class="modal-screen">
+        <div class="description">
+          Add asset as a base64-encoded
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs"
+            target="_blank"
+            rel="noopener"
+            >data url</a
+          >.
+        </div>
+        <form id="add-asset-data-url-form">
+          <label for="asset-data-url-file-input" class="file-input-label">Add file</label>
+          <input type="file" id="asset-data-url-file-input" class="file-input" />
+        </form>
+        <div id="data-url-output" class="clickable" style="width: 100%"></div>
+      </div>
+    </div>
+    <div id="add-asset-gh-pages" class="tab-content">
+      <div class="modal-screen">
+        <div class="description">
+          Deploy asset to GitHub Pages. The file is pushed to
+          <span class="code">gh-pages</span> branch of the repo
+          <span class="code">livecodes-assets</span> on your GitHub account. If the repo does not
+          already exist, a public repo will be created.
+        </div>
+        <form id="add-asset-gh-pages-form">
+          <label
+            for="asset-gh-pages-file-input"
+            id="asset-gh-pages-file-input-label"
+            class="file-input-label"
+            >Upload file</label
+          >
+          <input type="file" id="asset-gh-pages-file-input" class="file-input" />
+        </form>
+        <div id="gh-pages-output" class="clickable" style="width: 100%"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,14 +8,14 @@ import {
 
 describe('Import map', () => {
   test('create import map', () => {
-    const config = ({
+    const config = {
       imports: {
         mylib: 'https://someurl/path/module',
         lodash: 'https://unpkg.com/lodash',
         similar: './should/not/be/used',
         unused: 'https://someurl2/path2/module2',
       },
-    } as unknown) as Config;
+    } as unknown as Config;
     const code = `
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";
@@ -39,12 +39,12 @@ describe('Import map', () => {
   });
 
   test('replace imports', () => {
-    const config = ({
+    const config = {
       imports: {
         mylib: 'https://someurl/path/module',
         lodash: 'https://unpkg.com/lodash',
       },
-    } as unknown) as Config;
+    } as unknown as Config;
     const code = `
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";

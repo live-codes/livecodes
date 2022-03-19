@@ -1,17 +1,16 @@
-import { Config, Language } from '../models';
-import { CompileOptions } from './models';
+import { Config, Language, CompileOptions } from '../models';
 
 export const compileInCompiler = async (
   content: string,
   language: Language | undefined,
   config: Config,
   options: CompileOptions = {},
+  worker: Worker = self as unknown as Worker,
 ): Promise<string> =>
   new Promise((resolve) => {
     if (!content || !language || !config) {
       return resolve(content || '');
     }
-    const worker: Worker = (self as unknown) as Worker;
     const handler = async function (ev: MessageEvent) {
       const message = ev.data.payload;
       if (

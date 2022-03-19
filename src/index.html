@@ -5,148 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LiveCodes</title>
     <link
+      rel="alternate"
+      type="application/json+oembed"
+      href="https://api.livecodes.io/oembed?url=https%3A%2F%2Flivecodes.io&format=json"
+      title="LiveCodes oEmbed"
+    />
+    <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="/livecodes/assets/images/apple-touch-icon.png"
+      href="livecodes/assets/images/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="/livecodes/assets/images/favicon-32x32.png"
+      href="livecodes/assets/images/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/livecodes/assets/images/favicon-16x16.png"
+      href="livecodes/assets/images/favicon-16x16.png"
     />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="manifest" href="/livecodes/assets/site.webmanifest" />
-    <link rel="mask-icon" href="/livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="manifest" href="livecodes/assets/site.webmanifest" />
+    <link rel="mask-icon" href="livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="apple-mobile-web-app-title" content="livecodes" />
     <meta name="application-name" content="livecodes" />
     <meta name="msapplication-TileColor" content="#da532c" />
-    <meta name="msapplication-config" content="/livecodes/assets/browserconfig.xml" />
+    <meta name="msapplication-config" content="livecodes/assets/browserconfig.xml" />
     <meta name="theme-color" content="#ffffff" />
-    <style>
-      html,
-      body,
-      #livecodes {
-        margin: 0;
-        padding: 0;
-      }
-      html {
-        height: 100vh;
-      }
-      body,
-      #livecodes {
-        height: 100%;
-        overflow: hidden;
-      }
-      #animating-logo {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        overflow: hidden;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      #animating-logo > svg {
-        position: absolute;
-      }
-      #loading-text {
-        margin-top: 50px;
-        margin-bottom: -70px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 1em;
-      }
-
-      @-webkit-keyframes cube {
-        0% {
-          -webkit-transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-          transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-        }
-        50% {
-          -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-          transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-        }
-        100% {
-          -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-          transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-        }
-      }
-      @keyframes cube {
-        0% {
-          -webkit-transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-          transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-        }
-        50% {
-          -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-          transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-        }
-        100% {
-          -webkit-transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-          transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-        }
-      }
-
-      .cube {
-        -webkit-animation: cube 2s infinite ease;
-        animation: cube 2s infinite ease;
-        height: 40px;
-        -webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
-        width: 40px;
-      }
-      .cube div {
-        background-color: rgba(255, 255, 255, 0.25);
-        height: 100%;
-        position: absolute;
-        width: 100%;
-        border: 3px solid grey;
-      }
-      .cube div:nth-of-type(1) {
-        -webkit-transform: translateZ(-20px) rotateY(180deg);
-        transform: translateZ(-20px) rotateY(180deg);
-      }
-      .cube div:nth-of-type(2) {
-        -webkit-transform: rotateY(-270deg) translateX(50%);
-        transform: rotateY(-270deg) translateX(50%);
-        -webkit-transform-origin: top right;
-        transform-origin: top right;
-      }
-      .cube div:nth-of-type(3) {
-        -webkit-transform: rotateY(270deg) translateX(-50%);
-        transform: rotateY(270deg) translateX(-50%);
-        -webkit-transform-origin: center left;
-        transform-origin: center left;
-      }
-      .cube div:nth-of-type(4) {
-        -webkit-transform: rotateX(90deg) translateY(-50%);
-        transform: rotateX(90deg) translateY(-50%);
-        -webkit-transform-origin: top center;
-        transform-origin: top center;
-      }
-      .cube div:nth-of-type(5) {
-        -webkit-transform: rotateX(-90deg) translateY(50%);
-        transform: rotateX(-90deg) translateY(50%);
-        -webkit-transform-origin: bottom center;
-        transform-origin: bottom center;
-      }
-      .cube div:nth-of-type(6) {
-        -webkit-transform: translateZ(20px);
-        transform: translateZ(20px);
-      }
-    </style>
+    <!-- main.css -->
   </head>
   <body>
     <div id="livecodes"></div>
     <div id="animating-logo">
-      <div class="cube">
+      <div id="cube" class="cube">
         <div></div>
         <div></div>
         <div></div>
@@ -154,8 +48,7 @@
         <div></div>
         <div></div>
       </div>
-      <div id="loading-text">loading LiveCodes...</div>
-
+      <div id="loading-text">Loading LiveCodes...</div>
       <svg xmlns="http://www.w3.org/2000/svg" width="200" height="135" viewBox="0 0 492 332">
         <defs>
           <filter id="A">
@@ -181,18 +74,58 @@
         </g>
       </svg>
     </div>
+    <div id="click-to-load">
+      <img
+        src="./livecodes/assets/images/livecodes-logo.svg"
+        title="Click to Load"
+        alt="LiveCodes logo"
+      />
+      <div id="click-to-load-text">Click to load LiveCodes</div>
+    </div>
     <script>
+      const animatingLogo = document.querySelector('#animating-logo');
+      const cube = document.querySelector('#cube');
+      const clickToLoad = document.querySelector('#click-to-load');
+      if (location.search.includes('embed') && !location.search.includes('embed=false')) {
+        document.body.classList.add('embed');
+        if (!location.search.includes('click-to-load=false')) {
+          document.body.classList.add('click-to-load');
+          cube.classList.remove('cube');
+          animatingLogo.classList.add('hidden');
+          animatingLogo.style.display = 'none';
+          clickToLoad.style.display = 'flex';
+          clickToLoad.classList.add('visible');
+          clickToLoad.addEventListener('click', () => {
+            clickToLoad.classList.remove('visible');
+            document.querySelector('.preview')?.classList.add('hidden');
+            setTimeout(() => {
+              document.body.classList.remove('click-to-load');
+              animatingLogo.style.display = 'flex';
+              animatingLogo.classList.remove('hidden');
+              cube.classList.add('cube');
+              setTimeout(() => {
+                clickToLoad.remove();
+                document.querySelector('.preview')?.remove();
+              }, 300);
+            }, 500);
+            window.dispatchEvent(new Event('run'));
+          });
+        }
+      }
       function resize() {
         document.body.style.height = window.innerHeight + 'px';
       }
       resize();
       window.addEventListener('resize', resize, false);
-      window.__livecodesReady = function (api) {
-        document.querySelector('#animating-logo').remove();
-        // TODO: remove
-        window.api = api;
-      };
+      setTimeout(resize, 500);
+      window.addEventListener('livecodes-app-loaded', function (e) {
+        animatingLogo.remove();
+        window.api = e.detail;
+      });
+      window.addEventListener('livecodes-ready', function () {
+        // project loaded
+      });
     </script>
-    <script src="index.ts"></script>
+    <script src="./index.ts" type="module"></script>
   </body>
 </html>

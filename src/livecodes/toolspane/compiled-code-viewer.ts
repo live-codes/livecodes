@@ -8,6 +8,7 @@ export const createCompiledCodeViewer = (
   baseUrl: string,
   _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,
+  isEmbed: boolean,
 ): Tool => {
   let compiledCodeElement: HTMLElement;
   let editor: CodeEditor;
@@ -51,6 +52,7 @@ export const createCompiledCodeViewer = (
       editor: config.editor,
       editorType: 'compiled',
       theme: config.theme,
+      isEmbed,
     };
     return createEditor(editorOptions);
   };

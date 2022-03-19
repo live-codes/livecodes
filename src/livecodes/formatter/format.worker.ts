@@ -144,7 +144,7 @@ worker.addEventListener(
           },
         };
         worker.postMessage(formattedMessage);
-      } catch (error) {
+      } catch (error: any) {
         const formatFailedMessage: FormatterMessage = {
           type: 'format-failed',
           payload: { language, value, cursorOffset, error: error.message },

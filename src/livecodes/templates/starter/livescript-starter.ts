@@ -39,7 +39,7 @@ title = 'live script'
 |> map capitalize
 |> join ''
 
-(document.getElementById \\title).textContent = title
+(document.getElementById \\title).innerText = title
 
 increment = (count) -> -> count += 1
 counter = increment 0
@@ -48,7 +48,7 @@ counter-element = document.getElementById \\counter
 button = document.getElementById \\counter-button
 
 button.addEventListener \\click,
-  -> counter-element.textContent = counter!
+  -> counter-element.innerText = counter!
 `.trimStart(),
   },
   stylesheets: [],

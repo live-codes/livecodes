@@ -139,6 +139,60 @@ const title = "World";
     expect(resultText).toContain('Hello, World!');
   });
 
+  test('Mustache', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Mustache"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Mustache');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Mustache');
+  });
+
+  test('Mustache dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([title="change language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Mustache' };`);
+
+    await app.click(':nth-match([title="change language"], 1)');
+    await app.click('text=Mustache');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Mustache');
+  });
+
   test('Handlebars', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -579,9 +633,7 @@ const title = "World";
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
-    expect(resultText).toContain(
-      ':root { --mainColor: rgba(18,52,86,0.47059); --secondaryColor: rgba(102, 51, 153, 0.9); }',
-    );
+    expect(resultText).toContain('--mainColor: rgba(18,52,86,0.47059);');
   });
 
   test('Babel', async ({ page, getTestUrl }) => {

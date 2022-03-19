@@ -15,10 +15,15 @@ import 'prismjs/components/prism-ruby';
 import 'prismjs/components/prism-go';
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
 import 'prismjs/components/prism-perl';
 import 'prismjs/components/prism-lua';
+import 'prismjs/components/prism-julia';
 import 'prismjs/components/prism-scheme';
+import 'prismjs/components/prism-tcl';
 import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-prolog';
 import 'prismjs/components/prism-wasm';
 
 export { createEditor };

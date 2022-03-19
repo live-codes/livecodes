@@ -1,7 +1,13 @@
+import { fakeSimpleStorage } from './fake-storage';
+import { SimpleStorage } from './models';
+
 /**
  * Creates a simple synchronous key/value data store using localstorage
  */
-export const createSimpleStorage = <T>(name: string) => {
+export const createSimpleStorage = <T>(name: string, isEmbed: boolean): SimpleStorage<T> => {
+  // do not allow access to storage in embeds
+  if (isEmbed) return fakeSimpleStorage;
+
   const setValue = (value: T | null) => {
     window.localStorage.setItem(name, JSON.stringify(value));
   };

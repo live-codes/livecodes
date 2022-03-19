@@ -1,20 +1,46 @@
-var fs = require('fs');
-var path = require('path');
-var rfs = require('recursive-fs');
+const esbuild = require('esbuild');
 
-function mkdirp(dir) {
-  if (!fs.existsSync(path.resolve(dir))) {
-    fs.mkdirSync(path.resolve(dir));
-  }
-}
+const srcDir = 'scripts/modules/';
+const outputDir = 'build/livecodes/vendor/monaco-editor/';
 
-var node_modules = path.resolve(__dirname + '/../node_modules');
-var browserCompilers = path.resolve(node_modules + '/@live-codes/browser-compilers/dist');
-var targetDir = path.resolve(__dirname + '/../build/livecodes/vendor');
-mkdirp(targetDir);
+/** @type {Partial<esbuild.BuildOptions>} */
+const baseOptions = {
+  bundle: true,
+  minify: true,
+  format: 'iife',
+  define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
+};
 
-//monaco-editor
-rfs.copy(
-  path.resolve(browserCompilers + '/monaco-editor'),
-  path.resolve(targetDir + '/monaco-editor'),
-);
+// Monaco editor
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: [srcDir + 'monaco-editor.ts'],
+  outfile: outputDir + 'monaco-editor.js',
+  loader: { '.ttf': 'file' },
+  format: 'esm',
+});
+
+// Monaco editor workers
+const entryFiles = [
+  'node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
+  'node_modules/monaco-editor/esm/vs/language/css/css.worker.js',
+  'node_modules/monaco-editor/esm/vs/language/html/html.worker.js',
+  'node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js',
+  'node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
+];
+
+entryFiles.forEach((entry) => {
+  esbuild.build({
+    ...baseOptions,
+    entryPoints: [entry],
+    outdir: outputDir,
+  });
+});
+
+// Monaco languages
+esbuild.build({
+  ...baseOptions,
+  entryPoints: ['astro.ts', 'clio.ts', 'imba.ts', 'wat.ts'].map((entry) => srcDir + entry),
+  format: 'esm',
+  outdir: outputDir + 'languages',
+});

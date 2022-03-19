@@ -21,9 +21,9 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
     const pathSplit = urlObj.pathname.split('/');
     const user = pathSplit[1];
     const repository = pathSplit[2];
-    const repoInfo = await fetch(
-      `${urlObj.origin}/api/v4/projects/${user}%2F${repository}`,
-    ).then((res) => res.json());
+    const repoInfo = await fetch(`${urlObj.origin}/api/v4/projects/${user}%2F${repository}`).then(
+      (res) => res.json(),
+    );
     const branch = pathSplit[5] || repoInfo.default_branch;
     const projectId = repoInfo.id;
     const dir = pathSplit.slice(6, pathSplit.length).join('/');
@@ -33,28 +33,26 @@ export const importFromGitlabDir = async (url: string, params: { [key: string]: 
       .then((data) => data.filter((node: any) => node.type === 'blob'));
 
     const files = await Promise.all(
-      Object.values(dirFiles).map(
-        async (file: any): Promise<Partial<sourceFile>> => {
-          const filename = file.path.split('/')[file.path.split('/').length - 1];
-          const extension = filename.split('.')[filename.split('.').length - 1];
-          const language = getLanguageByAlias(extension);
-          const editorId = getLanguageEditorId(language as Language);
-          const rawURL = `${
-            urlObj.origin
-          }/api/v4/projects/${projectId}/repository/files/${encodeURIComponent(
-            file.path,
-          )}/raw?ref=${branch}`;
+      Object.values(dirFiles).map(async (file: any): Promise<Partial<sourceFile>> => {
+        const filename = file.path.split('/')[file.path.split('/').length - 1];
+        const extension = filename.split('.')[filename.split('.').length - 1];
+        const language = getLanguageByAlias(extension);
+        const editorId = getLanguageEditorId(language as Language);
+        const rawURL = `${
+          urlObj.origin
+        }/api/v4/projects/${projectId}/repository/files/${encodeURIComponent(
+          file.path,
+        )}/raw?ref=${branch}`;
 
-          const content = await fetch(rawURL).then((res) => res.text());
+        const content = await fetch(rawURL).then((res) => res.text());
 
-          return {
-            filename,
-            language,
-            content,
-            editorId,
-          };
-        },
-      ),
+        return {
+          filename,
+          language,
+          content,
+          editorId,
+        };
+      }),
     );
 
     return populateConfig(files, params);

@@ -1,13 +1,14 @@
 import { importsPattern } from '../compiler';
 import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
 import { getAbsoluteUrl, loadScript } from '../utils';
-import { requireUrl } from '../vendors';
+import {
+  requireUrl,
+  rescriptCompilerUrl,
+  rescriptReactUrl,
+  rescriptStdLibBaseUrl,
+} from '../vendors';
 
 declare const importScripts: (...args: string[]) => void;
-
-const compilerUrl = 'https://cdn.rescript-lang.org/v9.1.2/compiler.js';
-const rescriptReactUrl = 'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js';
-const stdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
 
 const replaceImports = (code: string, stdLibUrl: string) =>
   code.replace(new RegExp(importsPattern), (statement) => {
@@ -29,7 +30,7 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
       await loadScript(requireUrl, 'require');
     }
 
-    (window as any).require([compilerUrl, rescriptReactUrl], () => {
+    (window as any).require([rescriptCompilerUrl, rescriptReactUrl], () => {
       const compiler = (window as any).rescript_compiler.make();
       compiler.setModuleSystem('es6');
       compiler.setFilename('index.bs.js');
@@ -37,7 +38,9 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
       const output = compiler[language].compile(code);
       try {
         if (output.type === 'success' && output.js_code) {
-          return resolve(replaceImports(output.js_code, getAbsoluteUrl(stdLibBaseUrl, baseUrl)));
+          return resolve(
+            replaceImports(output.js_code, getAbsoluteUrl(rescriptStdLibBaseUrl, baseUrl)),
+          );
         }
         if (output.errors) {
           output.errors.forEach((err: any) => {
@@ -59,7 +62,7 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
 
 export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language) => {
   if (!(self as any).rescript_compiler) {
-    importScripts(getAbsoluteUrl(compilerUrl, baseUrl));
+    importScripts(getAbsoluteUrl(rescriptCompilerUrl, baseUrl));
   }
   const compiler = (self as any).rescript_compiler.make();
   compiler.setModuleSystem('es6');

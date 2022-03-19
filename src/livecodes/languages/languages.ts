@@ -49,6 +49,17 @@ import { blockly } from './lang-blockly';
 import { twig } from './lang-twig';
 import { astro } from './lang-astro';
 import { malina } from './lang-malina';
+import { commonlisp } from './lang-commonlisp';
+import { cpp } from './lang-cpp';
+import { julia } from './lang-julia';
+import { clang } from './lang-cpp-clang';
+import { tcl } from './lang-tcl';
+import { prolog } from './lang-prolog';
+import { clio } from './lang-clio';
+import { richtext } from './lang-richtext';
+import { graph } from './lang-graph';
+import { imba } from './lang-imba';
+import { mustache } from './lang-mustache';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -58,12 +69,15 @@ export const languages: LanguageSpecs[] = [
   pug,
   asciidoc,
   haml,
+  mustache,
   handlebars,
   ejs,
   nunjucks,
   liquid,
   dot,
   twig,
+  graph,
+  richtext,
   css,
   scss,
   sass,
@@ -86,6 +100,8 @@ export const languages: LanguageSpecs[] = [
   malina,
   coffeescript,
   livescript,
+  clio,
+  imba,
   rescript,
   reason,
   ocaml,
@@ -94,11 +110,17 @@ export const languages: LanguageSpecs[] = [
   ruby,
   go,
   php,
+  cpp,
+  clang,
   perl,
   lua,
+  julia,
   scheme,
+  commonlisp,
+  tcl,
   assemblyscript,
   wat,
   sql,
+  prolog,
   blockly,
 ];

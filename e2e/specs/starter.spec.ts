@@ -16,13 +16,14 @@ const templates = [
   'Knockout',
   'CoffeeScript',
   'LiveScript',
+  'Clio',
   'Python',
   'Ruby',
   'PHP',
   'Perl',
   'Lua',
   'Scheme',
-  'Blockly',
+  'Tcl',
 ];
 
 test.describe('Starter Templates from UI', () => {
@@ -182,6 +183,32 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('Imba Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=Imba Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await app.waitForTimeout(500);
+    await getResult().click('text=Click me');
+    await app.waitForTimeout(500);
+    await getResult().click('text=Click me');
+    await app.waitForTimeout(500);
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Imba!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
   test('Go Starter', async ({ page, getTestUrl }) => {
     test.slow();
     await page.goto(getTestUrl());
@@ -201,6 +228,30 @@ test.describe('Starter Templates from UI', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, Golang!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('C++ Starter', async ({ page, getTestUrl }) => {
+    test.slow();
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=C++ Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, C++!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
@@ -229,6 +280,29 @@ test.describe('Starter Templates from UI', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('Common Lisp Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=Common Lisp Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Common Lisp!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 
   test('AssemblyScript Starter', async ({ page, getTestUrl }) => {
@@ -355,6 +429,49 @@ test.describe('Starter Templates from UI', () => {
 
     const resultText = await getResult().innerText('table');
     expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
+  });
+
+  test('Prolog Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click('text=Prolog Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Prolog!');
+
+    const resultText = await getResult().innerText('#result');
+    expect(resultText).toBe('X = ali ;\n');
+  });
+
+  test('Blockly Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[title=Settings]');
+    await app.click('text=New');
+    await app.click(`text=Blockly Starter`);
+    await waitForEditorFocus(app);
+
+    await app.waitForTimeout(2000);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe(`Hello, Blockly!`);
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 });
 
@@ -487,6 +604,25 @@ test.describe('Starter Templates from URL', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('Imba Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'imba' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Imba!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).not.toBe('You clicked 0 times.');
+  });
+
   test('Go Starter (in URL)', async ({ page, getTestUrl }) => {
     test.slow();
     await page.goto(getTestUrl({ template: 'go' }));
@@ -502,6 +638,45 @@ test.describe('Starter Templates from URL', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, Golang!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('C++ Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.slow();
+    await page.goto(getTestUrl({ template: 'cpp' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, C++!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('Common Lisp Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'commonlisp' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Common Lisp!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
@@ -626,5 +801,39 @@ test.describe('Starter Templates from URL', () => {
 
     const resultText = await getResult().innerText('table');
     expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
+  });
+
+  test('Prolog Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'prolog' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Prolog!');
+
+    const resultText = await getResult().innerText('#result');
+    expect(resultText).toBe('X = ali ;\n');
+  });
+
+  test('Blockly Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'blockly' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.waitForTimeout(2000);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Blockly!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 });

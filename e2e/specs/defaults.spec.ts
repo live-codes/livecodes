@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
-import { getLoadedApp, runButtonSelector } from '../helpers';
+import { getLoadedApp } from '../helpers';
 
 test.describe('App Defaults', () => {
   test('Title', async ({ page, getTestUrl }) => {
@@ -12,7 +12,8 @@ test.describe('App Defaults', () => {
   test('empty result page', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
-    const { getResult } = await getLoadedApp(page);
+    const { getResult, waitForResultUpdate } = await getLoadedApp(page);
+    await waitForResultUpdate();
     const resultText = await getResult().innerText('body');
 
     expect(resultText.trim()).toBe('');
@@ -21,7 +22,7 @@ test.describe('App Defaults', () => {
   test('autofocus active editor', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+    const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await page.keyboard.type('hello, world!');
 

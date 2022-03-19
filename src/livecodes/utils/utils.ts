@@ -26,7 +26,12 @@ export const encodeHTML = (html: string) =>
 export const escapeScript = (code: string) => code.replace(/<\/script>/g, '<\\/script>');
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const pipe = (...fns: Function[]) => fns.reduce((f, g) => (...args: any) => g(f(...args)));
+export const pipe = (...fns: Function[]) =>
+  fns.reduce(
+    (f, g) =>
+      (...args: any) =>
+        g(f(...args)),
+  );
 
 // replace non-alphanumeric with underscore
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
@@ -114,12 +119,13 @@ export const stringToValidJson = (str: string) =>
     .replace(/'[^'"]*'(?=(?:[^"]*"[^"]*")*[^"]*$)/g, function replaceSingleQuotes(matchedStr) {
       return '"' + matchedStr.substring(1, matchedStr.length - 1) + '"';
     })
-    .replace(/(\w+)(\s*:)(?!(\w*)(?:"))/gm, function quoteNonQuoted(matchedStr) {
-      return '"' + matchedStr.substring(0, matchedStr.length - 1).trimEnd() + '":';
-    })
-    .replace(/(,\s*})/g, function removeLastComma() {
-      return '}';
-    });
+    .replace(
+      /(\w+(?=([^"\\]*(\\.|"([^"\\]*\\.)*[^"\\]*"))*[^"]*$))(\s*:)(?!(\w*)(?:"))/gm,
+      function quoteNonQuoted(matchedStr) {
+        return '"' + matchedStr.substring(0, matchedStr.length - 1).trimEnd() + '":';
+      },
+    )
+    .replace(/,\s*([\]}])/g, '$1'); // remove trailing comma
 
 export const stringify = (obj: any, pretty = false) => {
   try {
@@ -130,6 +136,15 @@ export const stringify = (obj: any, pretty = false) => {
 };
 
 export const getRandomString = () => String(Math.random()) + '-' + Date.now().toFixed();
+
+export const downloadFile = (filename: string, extension: string, content: string) => {
+  const a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = content;
+  a.download = safeName(filename) + '.' + extension;
+  a.click();
+  a.remove();
+};
 
 export const loadScript = (url: string, name?: string) =>
   new Promise((resolve, reject) => {
@@ -190,3 +205,27 @@ export const getDate = () => {
 export const handleFetchError = (res: Response) => (res.ok ? res : Promise.reject());
 export const fetchWithHandler = (input: RequestInfo, init?: RequestInit) =>
   fetch(input, init).then(handleFetchError);
+
+export const blobToBase64 = (file: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => (typeof reader.result === 'string' ? resolve(reader.result) : reject());
+    reader.onerror = (error) => reject(error);
+  });
+
+export const getWorkerDataURL = (url: string) => {
+  const content = `importScripts("${url}");`;
+  return 'data:text/javascript;base64,' + btoa(content);
+};
+
+export const removeComments = (src: string) =>
+  src.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1');
+
+export const removeStrings = (src: string) =>
+  src
+    .replace(/'[^\n']*'/gm, "''")
+    .replace(/"[^\n"]*"/gm, '""')
+    .replace(/`[^`]*`/gm, '``');
+
+export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));

@@ -15,10 +15,21 @@ export const getGutterElement = () =>
 export const getLogoLink = () => document.querySelector('#logo a') as HTMLAnchorElement;
 export const getRunButton = () => document.querySelector('#run-button') as HTMLElement;
 export const getCodeRunButton = () => document.querySelector('#code-run-button') as HTMLElement;
+export const getEditorToolbar = () => document.querySelector('#editor-tools') as HTMLElement;
+export const getCopyButton = () => document.querySelector('#editor-tools #copy-btn') as HTMLElement;
+export const getUndoButton = () => document.querySelector('#editor-tools #undo-btn') as HTMLElement;
+export const getRedoButton = () => document.querySelector('#editor-tools #redo-btn') as HTMLElement;
+export const getFormatButton = () =>
+  document.querySelector('#editor-tools #format-btn') as HTMLElement;
+export const getExternalResourcesBtn = () =>
+  document.querySelector('#editor-tools #external-resources-btn') as HTMLElement;
+export const getExternalResourcesMark = () =>
+  document.querySelector('#editor-tools #external-resources-mark') as HTMLElement;
 export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
-export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > div');
+export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > .editor');
+export const getToolspaneTitles = () => document.querySelector<HTMLElement>('#tools-pane-titles');
 export const getToolspaneLoader = () => document.querySelector<HTMLElement>('#tools-pane-loading');
 export const getModalSaveButton = () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;
@@ -125,11 +136,17 @@ export const getThemeToggle = () =>
 export const getRestoreToggle = () =>
   document.querySelector('#settings-menu input#enable-restore') as HTMLInputElement;
 
+export const getSpacingToggle = () =>
+  document.querySelector('#settings-menu input#show-spacing') as HTMLInputElement;
+
 export const getCSSPresetLinks = () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
 export const getProjectInfoLink = () =>
   document.querySelector('#settings-menu #info-link') as HTMLInputElement;
+
+export const getAssetsLink = () =>
+  document.querySelector('#settings-menu #assets-link') as HTMLInputElement;
 
 export const getInfoTitleInput = () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
@@ -225,3 +242,30 @@ export const getExportAllButton = (listContainer: HTMLElement) =>
 
 export const getDeleteAllButton = (listContainer: HTMLElement) =>
   listContainer.querySelector('#delete-all-button') as HTMLElement;
+
+export const getAddAssetButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-add-asset-button') as HTMLElement;
+
+export const getAssetsDeleteAllButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-delete-all-button') as HTMLElement;
+
+export const getAssetsButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#assets-button') as HTMLElement;
+
+export const getAssetDataUrlFileInput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-data-url-file-input') as HTMLInputElement;
+
+export const getAssetDataUrlOutput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#data-url-output') as HTMLElement;
+
+export const getAssetGHPagesFileInput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-gh-pages-file-input') as HTMLInputElement;
+
+export const getAssetGHPagesFileInputLabel = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-gh-pages-file-input-label') as HTMLElement;
+
+export const getAssetGHPagesFileInputButton = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#asset-gh-pages-file-input-button') as HTMLElement;
+
+export const getAssetGHPagesOutput = (listContainer: HTMLElement) =>
+  listContainer.querySelector('#gh-pages-output') as HTMLElement;

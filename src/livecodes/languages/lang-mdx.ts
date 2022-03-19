@@ -1,8 +1,38 @@
-import { LanguageSpecs } from '../models';
+import { compileInCompiler } from '../compiler';
+import { CompilerFunction, LanguageSpecs } from '../models';
 import { vendorsBaseUrl } from '../vendors';
-import { typescriptOptions } from './lang-typescript';
 import { parserPlugins } from './prettier';
-import { getLanguageCustomSettings } from './utils';
+import { escapeCode, getLanguageCustomSettings } from './utils';
+
+export const runOutsideWorker: CompilerFunction = async (code: string, { config, worker }) =>
+  new Promise(async (resolve) => {
+    if (!code) return resolve('');
+
+    const mdx = await import(vendorsBaseUrl + 'mdx/mdx.js');
+    const remarkGfm = (await import(vendorsBaseUrl + 'remark-gfm/remark-gfm.js')).default;
+
+    const compiled = (
+      await mdx.compile(code, {
+        remarkPlugins: [remarkGfm],
+        ...getLanguageCustomSettings('mdx', config),
+      })
+    ).value;
+
+    // TODO: improve this
+    const removeComponentDeclaration = (str: string) =>
+      str
+        .replace(/, {[^}]*} = _components/g, '')
+        .replace(/const {[^:]*} = props.components[^;]*;/g, '');
+
+    const jsx = removeComponentDeclaration(compiled);
+    const result = `import React from "react";
+import ReactDOM from "react-dom";
+${escapeCode(jsx, false)}
+ReactDOM.render(<MDXContent />, document.body);
+`;
+    const js = await compileInCompiler(result, 'jsx', config, {}, worker);
+    resolve(js);
+  });
 
 export const mdx: LanguageSpecs = {
   name: 'mdx',
@@ -12,23 +42,12 @@ export const mdx: LanguageSpecs = {
     pluginUrls: [parserPlugins.markdown, parserPlugins.html],
   },
   compiler: {
-    dependencies: ['typescript'],
-    url: vendorsBaseUrl + 'mdx/mdx.js',
-    factory: () => async (code, { config }) => {
-      const compiled = await (window as any).MDX.mdx(code, {
-        skipExport: true,
-        ...getLanguageCustomSettings('mdx', config),
-      });
-      const removeShortcode = (str: string) => str.replace(/^.+= makeShortcode\(".+$/gm, '');
-      const jsx = removeShortcode(compiled);
-      const result = `import React from "react";
-import ReactDOM from "react-dom";
-${jsx}
-ReactDOM.render(<MDXContent />, document.body);
-`;
-      return (window as any).ts.transpile(result, typescriptOptions);
-    },
+    factory: () => async (code) => code,
+    runOutsideWorker,
     compiledCodeLanguage: 'javascript',
+    imports: {
+      'react/jsx-runtime': 'https://esm.sh/react/jsx-runtime',
+    },
   },
   extensions: ['mdx'],
   editor: 'markup',

@@ -10,6 +10,7 @@ export const createConsole = (
   baseUrl: string,
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
+  isEmbed: boolean,
 ): Tool => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
@@ -93,9 +94,7 @@ export const createConsole = (
         'groupEnd',
       ];
       if (api.includes(message.method)) {
-        consoleEmulator[message.method as keyof typeof consoleEmulator](
-          ...convertTypes(message.args),
-        );
+        (consoleEmulator as any)[message.method](...convertTypes(message.args));
       }
     });
 
@@ -117,13 +116,14 @@ export const createConsole = (
       editor: config.editor,
       editorType: 'console',
       theme: config.theme,
+      isEmbed,
     };
     const consoleEditor = await createEditor(editorOptions);
 
     consoleEditor.addKeyBinding('exec', consoleEditor.keyCodes.Enter, () => {
       const command = consoleEditor.getValue();
       const iframe = document.querySelector(sourceSelector) as HTMLIFrameElement;
-      consoleEmulator.insert({
+      (consoleEmulator as any).insert({
         type: 'input',
         args: [command],
         ignoreFilter: true,
@@ -208,9 +208,12 @@ export const createConsole = (
 
     const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
     if (toolsPaneButtons) {
+      const btnContainer = document.createElement('span');
+      btnContainer.classList.add('hint--top-left');
+      btnContainer.dataset.hint = 'Clear console';
+
       clearButton = document.createElement('button');
       clearButton.classList.add('clear-button');
-      clearButton.title = 'Clear console';
       clearButton.style.display = 'none';
       eventsManager.addEventListener(
         clearButton,
@@ -228,7 +231,8 @@ export const createConsole = (
         },
         false,
       );
-      toolsPaneButtons.prepend(clearButton);
+      btnContainer.appendChild(clearButton);
+      toolsPaneButtons.prepend(btnContainer);
     }
   };
 
@@ -251,7 +255,7 @@ export const createConsole = (
     title: 'Console',
     load,
     onActivate: () => {
-      if (!isMobile()) {
+      if (!isMobile() && !isEmbed) {
         editor?.focus();
       }
       if (clearButton) {

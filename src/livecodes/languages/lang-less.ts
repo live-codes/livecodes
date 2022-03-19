@@ -12,12 +12,14 @@ export const less: LanguageSpecs = {
   },
   compiler: {
     url: vendorsBaseUrl + 'less/less.js',
-    factory: () => async (code, { config }) =>
-      (
-        await (window as any).less.render(code, {
-          ...getLanguageCustomSettings('less', config),
-        })
-      ).css,
+    factory:
+      () =>
+      async (code, { config }) =>
+        (
+          await (window as any).less.render(code, {
+            ...getLanguageCustomSettings('less', config),
+          })
+        ).css,
   },
   extensions: ['less'],
   editor: 'style',

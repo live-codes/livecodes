@@ -21,4 +21,4 @@ export const basicLanguages: Partial<{ [key in Language]: () => LanguageSupport 
 };
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> =>
-  createEditorCreator(basicLanguages, () => [])(options);
+  createEditorCreator(basicLanguages)(options);

@@ -26,7 +26,7 @@ export const solid: LanguageSpecs = {
             ['env', { modules: false }],
             ...(Array.isArray(customSettings.presets) ? customSettings.presets : []),
             ...(isTsx ? ['typescript'] : []),
-            'solid',
+            ['solid', { generate: 'dom', hydratable: true }],
           ],
         }).code;
       };

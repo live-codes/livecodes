@@ -1,9 +1,29 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { GithubScope, User } from '../models';
+import { decrypt, encrypt } from '../storage';
 import { getImportInstance } from '../utils';
 
 type FirebaseUser = import('firebase/auth').User;
+interface AuthService {
+  load(): Promise<void>;
+  getUser(): Promise<User | void>;
+  signIn(scopes?: GithubScope[]): Promise<User | void>;
+  signOut(): Promise<void>;
+  isLoggedIn(): boolean;
+}
 
-export const createAuthService = () => {
+const fakeAuthService: AuthService = {
+  load: async () => {},
+  getUser: async () => {},
+  signIn: async () => {},
+  signOut: async () => {},
+  isLoggedIn: () => false,
+};
+
+export const createAuthService = (isEmbed: boolean): AuthService => {
+  // do not allow access to auth in embeds
+  if (isEmbed) return fakeAuthService;
+
   let initializeApp: typeof import('firebase/app').initializeApp;
   let getApp: typeof import('firebase/app').getApp;
   let getAuth: typeof import('firebase/auth').getAuth;
@@ -40,6 +60,9 @@ export const createAuthService = () => {
         await this.load();
       }
       if (currentUser) {
+        if (!(await getToken(currentUser.uid))) {
+          return;
+        }
         return Promise.resolve(await getUserInfo(currentUser));
       }
       return new Promise((resolve) => {
@@ -64,7 +87,7 @@ export const createAuthService = () => {
       const token = GithubAuthProvider.credentialFromResult(result)?.accessToken;
       if (!token) return;
       currentUser = result.user;
-      saveToken(currentUser.uid, token);
+      await saveToken(currentUser.uid, token);
       await fetchUserName(currentUser);
       return getUserInfo(result.user);
     },
@@ -76,16 +99,21 @@ export const createAuthService = () => {
       deleteUserData(currentUser?.uid);
       currentUser = null;
     },
+    isLoggedIn() {
+      return currentUser != null;
+    },
   };
 };
 
-const saveToken = (uid: string, token: string) => {
-  localStorage.setItem('token_' + uid, token);
+const saveToken = async (uid: string, token: string) => {
+  localStorage.setItem('token_' + uid, await encrypt(token));
 };
 
-const getToken = (uid?: string) => {
+const getToken = async (uid?: string) => {
   if (!uid) return null;
-  return localStorage.getItem('token_' + uid);
+  const token = localStorage.getItem('token_' + uid);
+  if (!token) return null;
+  return decrypt(token);
 };
 
 const saveUsername = (uid: string, username: string) => {
@@ -104,7 +132,7 @@ const getUserInfo = async (user: FirebaseUser): Promise<User> => ({
   username: await fetchUserName(user),
   email: user.email,
   photoURL: user.photoURL,
-  token: getToken(user.uid),
+  token: await getToken(user.uid),
 });
 
 const fetchUserName = async (user: FirebaseUser) => {
@@ -124,7 +152,7 @@ const fetchUserName = async (user: FirebaseUser) => {
   const response = await fetch('https://api.github.com/user', {
     headers: {
       Accept: 'application/vnd.github.v3+json',
-      Authorization: 'token ' + getToken(uid),
+      Authorization: 'token ' + (await getToken(uid)),
     },
   });
   const userInfo = await response.json();

@@ -12,21 +12,23 @@ export const pug: LanguageSpecs = {
   },
   compiler: {
     url: vendorsBaseUrl + 'pug/pug.min.js',
-    factory: () => async (code, { config }) => {
-      const options = getLanguageCustomSettings('pug', config);
-      const data = config.customSettings.template?.data || {};
+    factory:
+      () =>
+      async (code, { config }) => {
+        const options = getLanguageCustomSettings('pug', config);
+        const data = config.customSettings.template?.data || {};
 
-      const fn = (window as any).pug.compile(code, options);
-      if (config.customSettings.template?.prerender !== false) {
-        return fn(data);
-      }
+        const fn = (window as any).pug.compile(code, options);
+        if (config.customSettings.template?.prerender !== false) {
+          return fn(data);
+        }
 
-      const clientFnSrc = (window as any).pug.compileClient(code, {
-        ...options,
-        name: 'clientFn',
-      });
+        const clientFnSrc = (window as any).pug.compileClient(code, {
+          ...options,
+          name: 'clientFn',
+        });
 
-      return `<!-- ... compiling ... -->
+        return `<!-- ... compiling ... -->
 
   <script>
   window.addEventListener("load", () => {
@@ -40,7 +42,7 @@ export const pug: LanguageSpecs = {
   });
   </script>
   `;
-    },
+      },
   },
   extensions: ['pug', 'jade'],
   editor: 'markup',
