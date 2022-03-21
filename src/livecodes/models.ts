@@ -33,6 +33,7 @@ export interface ContentConfig {
   customSettings: CustomSettings;
   imports: { [key: string]: string };
   types: Types;
+  tests: Partial<Editor> | undefined;
   readonly version: string;
 }
 
@@ -44,6 +45,11 @@ export interface AppConfig {
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
+  // tools: {
+  //   enabled: Array<Tool['title']> | 'all';
+  //   active: Tool['title'];
+  //   status: ToolsPaneStatus;
+  // }
 }
 
 export interface UserConfig {
@@ -384,7 +390,7 @@ export interface Tool {
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
 
 export type ToolList = Array<{
-  name: 'console' | 'compiled';
+  name: 'console' | 'compiled' | 'tests';
   factory: (
     config: Config,
     baseUrl: string,

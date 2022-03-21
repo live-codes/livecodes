@@ -4,6 +4,7 @@ import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
 import { getResultElement } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
+import { createTestsViewer } from './tests-viewer';
 
 const toolList: ToolList = [
   {
@@ -13,6 +14,10 @@ const toolList: ToolList = [
   {
     name: 'compiled',
     factory: createCompiledCodeViewer,
+  },
+  {
+    name: 'tests',
+    factory: createTestsViewer,
   },
 ];
 
@@ -286,8 +291,9 @@ export const createToolsPane = (
     const initialLoad = status === undefined;
     toolList.forEach((tool, index) => {
       if (status) return;
-      if (config[tool.name]) {
-        status = config[tool.name];
+      const toolName = config[tool.name];
+      if (toolName && typeof toolName === 'string') {
+        status = toolName;
         activeToolId = index;
       }
     });

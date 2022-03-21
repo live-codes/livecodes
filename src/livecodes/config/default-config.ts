@@ -42,6 +42,7 @@ export const defaultConfig: Config = {
   cssPreset: '',
   imports: {},
   types: {},
+  tests: undefined,
   processors: {
     postcss: {
       tailwindcss: false,

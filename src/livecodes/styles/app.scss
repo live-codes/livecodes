@@ -574,11 +574,13 @@ a {
   display: flex;
   flex-direction: column;
   height: 0;
+  visibility: hidden;
 
   /* (display: none) disables console logs when inactive */
 
   &.active {
     height: 100%;
+    visibility: visible;
   }
 }
 
