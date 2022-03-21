@@ -1,16 +1,16 @@
 import { Config, Editors, EventsManager, Tool } from '../models';
 
-export const createTestsViewer = (
+export const createTestViewer = (
   config: Config,
   baseUrl: string,
   _editors: Editors,
   eventsManager: EventsManager,
   isEmbed: boolean,
 ): Tool => {
-  let testsViewerElement: HTMLElement;
+  let testViewerElement: HTMLElement;
 
   const createElements = () => {
-    if (testsViewerElement) return;
+    if (testViewerElement) return;
 
     const toolsPaneSelector = '#output #tools-pane';
     const toolsPaneElement = document.querySelector(toolsPaneSelector);
@@ -19,13 +19,23 @@ export const createTestsViewer = (
     }
 
     const container = document.createElement('div');
-    container.id = 'tests-container';
+    container.id = 'test-container';
     toolsPaneElement.appendChild(container);
 
-    testsViewerElement = document.createElement('div');
-    testsViewerElement.id = 'tests-viewer';
-    testsViewerElement.innerHTML = 'hi tests!';
-    container.appendChild(testsViewerElement);
+    const testActions = document.createElement('div');
+    testActions.id = 'test-actions';
+    testActions.innerHTML = `
+    <button id="edit-tests-btn">Edit Tests</button>
+    <button>Run Tests</button>
+    <button>Reset</button>
+    `;
+    container.appendChild(testActions);
+
+    testViewerElement = document.createElement('div');
+    testViewerElement.id = 'test-viewer';
+    testViewerElement.classList.add('luna-console');
+    testViewerElement.innerHTML = 'hi test!';
+    container.appendChild(testViewerElement);
   };
 
   return {

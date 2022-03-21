@@ -4,7 +4,7 @@ import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
 import { getResultElement } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
-import { createTestsViewer } from './tests-viewer';
+import { createTestViewer } from './test-viewer';
 
 const toolList: ToolList = [
   {
@@ -17,7 +17,7 @@ const toolList: ToolList = [
   },
   {
     name: 'tests',
-    factory: createTestsViewer,
+    factory: createTestViewer,
   },
 ];
 

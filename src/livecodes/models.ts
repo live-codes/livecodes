@@ -495,7 +495,8 @@ export interface Screen {
     | 'external'
     | 'share'
     | 'deploy'
-    | 'custom-settings';
+    | 'custom-settings'
+    | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }
 

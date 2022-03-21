@@ -54,6 +54,7 @@ import {
   settingsMenuHTML,
   resultTemplate,
   customSettingsScreen,
+  testEditorScreen,
   resourcesScreen,
   savePromptScreen,
   restorePromptScreen,
@@ -2377,6 +2378,59 @@ const handleCustomSettings = () => {
   registerScreen('custom-settings', createCustomSettingsUI);
 };
 
+const handleTestEditor = () => {
+  const createTestEditorUI = async () => {
+    const config = getConfig();
+    // eslint-disable-next-line prefer-const
+    let testEditor: CodeEditor | undefined;
+    const div = document.createElement('div');
+    div.innerHTML = testEditorScreen;
+    const testEditorContainer = div.firstChild as HTMLElement;
+    modal.show(testEditorContainer, {
+      onClose: () => {
+        testEditor?.destroy();
+      },
+    });
+
+    const editorLanguage: Language = 'javascript';
+    const options = {
+      baseUrl,
+      mode: config.mode,
+      readonly: config.readonly,
+      editor: config.editor,
+      editorType: 'code' as EditorOptions['editorType'],
+      editorBuild,
+      container: UI.getTestEditor(),
+      language: editorLanguage,
+      value: getConfig().tests?.content || '',
+      theme: config.theme,
+      isEmbed,
+    };
+    testEditor = await createEditor(options);
+    testEditor.focus();
+
+    eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {
+      const editorContent = testEditor?.getValue() || '';
+      if (editorContent !== getConfig().tests?.content) {
+        compiler.clearCache();
+        setConfig({
+          ...getConfig(),
+          tests: {
+            language: editorLanguage,
+            content: editorContent,
+          },
+        });
+        await setSavedStatus();
+      }
+      testEditor?.destroy();
+      modal.close();
+      await run();
+    });
+  };
+  eventsManager.addEventListener(UI.getEditTestsButton(), 'click', createTestEditorUI, false);
+  registerScreen('test-editor', createTestEditorUI);
+};
+
 const handleResultLoading = () => {
   eventsManager.addEventListener(window, 'message', (event: any) => {
     const iframe = UI.getResultIFrameElement();
@@ -2455,6 +2509,7 @@ const extraHandlers = async () => {
   handleSettings();
   handleProjectInfo();
   handleCustomSettings();
+  handleTestEditor();
   handleLogin();
   handleLogout();
   handleNew();
