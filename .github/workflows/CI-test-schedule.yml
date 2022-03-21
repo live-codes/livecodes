@@ -34,7 +34,7 @@ jobs:
         env:
           CI: true
 
-  test-master:
+  test-main:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -45,7 +45,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: main
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -58,7 +58,7 @@ jobs:
         run: npm run test
         env:
           CI: true
-      # - name: e2e
-      #   run: npm run e2e
-      #   env:
-      #     CI: true
+      - name: e2e
+        run: npm run e2e
+        env:
+          CI: true
