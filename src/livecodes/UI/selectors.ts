@@ -172,6 +172,15 @@ export const getCustomSettingsEditor = () =>
 export const getLoadCustomSettingsButton = () =>
   document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-load-btn');
 
+export const getTestEditor = () =>
+  document.querySelector<HTMLElement>('#test-editor-container #test-editor');
+
+export const getLoadTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-editor-container #test-load-btn');
+
+export const getEditTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-container #edit-tests-btn');
+
 export const getUrlImportForm = (importContainer: HTMLElement) =>
   importContainer.querySelector<HTMLFormElement>('#url-import-form');
 export const getUrlImportButton = (importContainer: HTMLElement) =>

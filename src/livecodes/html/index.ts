@@ -10,6 +10,8 @@ import languageInfo from './language-info.html';
 // @ts-ignore
 import customSettingsScreen from './custom-settings.html';
 // @ts-ignore
+import testEditorScreen from './test-editor.html';
+// @ts-ignore
 import importScreen from './import.html';
 // @ts-ignore
 import deployScreen from './deploy.html';
@@ -40,6 +42,7 @@ export {
   settingsMenuHTML,
   languageInfo,
   customSettingsScreen,
+  testEditorScreen,
   importScreen,
   deployScreen,
   infoScreen,
