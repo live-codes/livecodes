@@ -25,6 +25,11 @@
   --toolspane-accent-color: rgb(64, 169, 243);
   --toolspane-non-accent-color: rgb(90, 96, 116);
   --console-background-color: rgb(237, 237, 237);
+  --tests-background-color: rgb(237, 237, 237);
+  --test-results-background-color: rgb(225, 225, 225, 0.7);
+  --test-results-border-color: rgb(128, 128, 128);
+  --test-pass-color: rgb(0, 128, 0);
+  --test-fail-color: rgb(255, 0, 0);
   --size-label-color: rgba(225, 225, 225, 0.7);
   --menu-background-color: rgb(255, 255, 255);
   --menu-border-color: rgb(204, 204, 204);
@@ -71,6 +76,11 @@
   --toolspane-accent-color: rgb(206, 205, 205);
   --toolspane-non-accent-color: rgb(116, 116, 116);
   --console-background-color: rgb(248, 248, 248);
+  --tests-background-color: rgb(237, 237, 237);
+  --test-results-background-color: rgb(225, 225, 225, 0.7);
+  --test-results-border-color: rgb(128, 128, 128);
+  --test-pass-color: rgb(0, 128, 0);
+  --test-fail-color: rgb(255, 0, 0);
   --size-label-color: rgba(225, 225, 225, 0.7);
   --menu-background-color: rgb(255, 255, 255);
   --menu-border-color: rgb(204, 204, 204);
@@ -458,7 +468,7 @@ a {
 
     img {
       filter: var(--editor-tools-invert);
-      height: 20px;
+      height: 18px;
       margin: 4px auto;
 
       &:hover {
@@ -611,6 +621,53 @@ a {
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+#test-container,
+#test-results {
+  background-color: var(--tests-background-color);
+
+  .test-result {
+    background-color: var(--test-results-background-color);
+    border: 1px solid var(--test-results-border-color);
+    margin: 0.5em;
+    padding: 0.5em;
+    padding-left: 3em;
+
+    &::before {
+      content: '🧪';
+      display: inline-block;
+      margin-left: -2em;
+      margin-right: 0.5em;
+      width: 1.5em;
+    }
+
+    &.fail {
+      color: var(--test-fail-color);
+
+      &::before {
+        content: '✖';
+      }
+    }
+
+    &.pass {
+      color: var(--test-pass-color);
+
+      &::before {
+        content: '✔';
+      }
+    }
+  }
+
+  .test-error {
+    margin-left: 1em;
+    margin-top: 0.5em;
+  }
+
+  .test-summary {
+    margin: 0.5em;
+    padding: 0.5em;
+  }
 }
 
 .gutter {

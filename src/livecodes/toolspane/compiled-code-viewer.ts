@@ -2,6 +2,7 @@ import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { languages } from '../languages';
 import { Editors, Config, Tool, CodeEditor, EditorOptions, Language } from '../models';
+import { getToolspaneButtons, getToolspaneElement } from '../UI';
 
 export const createCompiledCodeViewer = (
   config: Config,
@@ -9,6 +10,7 @@ export const createCompiledCodeViewer = (
   _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
+  _runTests: () => Promise<void>,
 ): Tool => {
   let compiledCodeElement: HTMLElement;
   let editor: CodeEditor;
@@ -16,12 +18,7 @@ export const createCompiledCodeViewer = (
 
   const createElements = () => {
     if (compiledCodeElement) return;
-
-    const toolsPaneSelector = '#output #tools-pane';
-    const toolsPaneElement = document.querySelector(toolsPaneSelector);
-    if (!toolsPaneElement) {
-      throw new Error('Cannot find element with selector: ' + toolsPaneSelector);
-    }
+    const toolsPaneElement = getToolspaneElement();
 
     const container = document.createElement('div');
     container.id = 'compiled-code-container';
@@ -31,7 +28,7 @@ export const createCompiledCodeViewer = (
     compiledCodeElement.id = 'compiled-code';
     container.appendChild(compiledCodeElement);
 
-    const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
+    const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       languageLabel = document.createElement('div');
       languageLabel.id = 'compiled-code-language-label';

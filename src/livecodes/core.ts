@@ -621,6 +621,7 @@ const getResultPage = async ({
   forExport = false,
   template = resultTemplate,
   singleFile = true,
+  runTests = false,
 }) => {
   updateConfig();
   const config = getConfig();
@@ -674,7 +675,15 @@ const getResultPage = async ({
     },
   };
 
-  const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
+  const result = createResultPage({
+    code: compiledCode,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    singleFile,
+    runTests,
+  });
 
   const styleOnlyUpdate = sourceEditor === 'style';
   setCache({
@@ -773,12 +782,17 @@ const setExternalResourcesMark = () => {
   }
 };
 
-const run = async (editorId?: EditorId) => {
+const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
-  const result = await getResultPage({ sourceEditor: editorId });
+  const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
+  if (!runTests && getConfig().tests?.content) {
+    toolsPane?.tests?.resetTests();
+  }
 };
+
+const runTests = () => run(undefined, true);
 
 const updateUrl = (url: string, push = false) => {
   if (push && !isEmbed) {
@@ -1406,14 +1420,14 @@ const handleHotKeys = () => {
 
     // Cmd + p opens the command palette
     const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
+    if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
       return;
     }
 
     // Cmd + d prevents browser bookmark dialog
-    if (ctrl(e) && e.keyCode === 68) {
+    if (ctrl(e) && e.key.toLowerCase() === 'd') {
       e.preventDefault();
       return;
     }
@@ -1421,16 +1435,23 @@ const handleHotKeys = () => {
     if (isEmbed) return;
 
     // Cmd + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.keyCode === 83) {
+    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await fork();
       return;
     }
 
     // Cmd + S saves the project
-    if (ctrl(e) && e.keyCode === 83) {
+    if (ctrl(e) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await save(true);
+      return;
+    }
+
+    // Cmd + Alt + T runs tests
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
+      e.preventDefault();
+      await runTests();
       return;
     }
   };
@@ -2433,10 +2454,17 @@ const handleTestEditor = () => {
       }
       testEditor?.destroy();
       modal.close();
-      await run();
+      await runTests();
     });
   };
+  eventsManager.addEventListener(window, 'message', (ev: any) => {
+    if (ev.origin !== sandboxService.getOrigin()) return;
+    if (ev.data.type !== 'testResults') return;
+    toolsPane?.tests?.showResults(ev.data.payload);
+  });
   eventsManager.addEventListener(UI.getEditTestsButton(), 'click', createTestEditorUI, false);
+  eventsManager.addEventListener(UI.getRunTestsButton(), 'click', runTests, false);
+
   registerScreen('test-editor', createTestEditorUI);
 };
 
@@ -2681,7 +2709,7 @@ const initializeApp = async (
   );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
   await toolsPane.load();
   basicHandlers();
   await initializeFn?.();

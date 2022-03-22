@@ -397,6 +397,7 @@ export type ToolList = Array<{
     editors: Editors,
     eventsManager: EventsManager,
     isEmbed: boolean,
+    runTests: () => Promise<void>,
   ) => Tool;
 }>;
 
