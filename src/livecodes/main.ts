@@ -90,12 +90,11 @@ export const livecodes = async (
             }),
           );
 
-          if (isEmbed) {
-            addEventListener(
-              'message',
-              async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+          addEventListener(
+            'message',
+            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+              if (isEmbed) {
                 if (e.source !== parent) return;
-
                 const { method, args } = e.data || {};
                 if (!method) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
@@ -108,9 +107,14 @@ export const livecodes = async (
                   },
                   anyOrigin,
                 );
-              },
-            );
-          }
+              } else {
+                if (e.source !== iframe.contentWindow) return;
+                if (e.data?.args === 'home') {
+                  location.href = '/';
+                }
+              }
+            },
+          );
 
           resolve(api);
         }
