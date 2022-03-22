@@ -1438,6 +1438,15 @@ const handleHotKeys = () => {
   eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
 };
 
+const handleLogoLink = () => {
+  if (isEmbed) return;
+  const logoLink = UI.getLogoLink();
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    parent.postMessage({ args: 'home' }, location.origin);
+  });
+};
+
 const handleRunButton = () => {
   const handleRun = async () => {
     split.show('output');
@@ -2482,6 +2491,7 @@ const handleUnload = () => {
 };
 
 const basicHandlers = () => {
+  handleLogoLink();
   handleResize();
   handleIframeResize();
   handleSelectEditor();

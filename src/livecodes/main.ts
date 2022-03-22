@@ -88,12 +88,11 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
             }),
           );
 
-          if (isEmbed) {
-            addEventListener(
-              'message',
-              async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+          addEventListener(
+            'message',
+            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+              if (isEmbed) {
                 if (e.source !== parent) return;
-
                 const { method, args } = e.data || {};
                 if (!method) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
@@ -106,9 +105,14 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
                   },
                   anyOrigin,
                 );
-              },
-            );
-          }
+              } else {
+                if (e.source !== iframe.contentWindow) return;
+                if (e.data?.args === 'home') {
+                  location.href = '/';
+                }
+              }
+            },
+          );
 
           resolve(api);
         }
