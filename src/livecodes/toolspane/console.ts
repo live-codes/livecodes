@@ -4,6 +4,7 @@ import { createEventsManager } from '../events';
 import { Editors, Config, Tool, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
+import { getToolspaneButtons, getToolspaneElement } from '../UI';
 
 export const createConsole = (
   config: Config,
@@ -11,6 +12,7 @@ export const createConsole = (
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
+  _runTests: () => Promise<void>,
 ): Tool => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
@@ -187,12 +189,7 @@ export const createConsole = (
 
   const createConsoleElements = () => {
     if (consoleElement) return;
-
-    const toolsPaneSelector = '#output #tools-pane';
-    const toolsPaneElement = document.querySelector(toolsPaneSelector);
-    if (!toolsPaneElement) {
-      throw new Error('Cannot find element with selector: ' + toolsPaneSelector);
-    }
+    const toolsPaneElement = getToolspaneElement();
 
     const container = document.createElement('div');
     container.id = 'console-container';
@@ -206,7 +203,7 @@ export const createConsole = (
     consoleInput.id = 'console-input';
     container.appendChild(consoleInput);
 
-    const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
+    const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       const btnContainer = document.createElement('span');
       btnContainer.classList.add('hint--top-left');

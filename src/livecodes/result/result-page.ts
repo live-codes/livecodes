@@ -2,16 +2,25 @@ import { createImportMap, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl, spacingJsUrl } from '../vendors';
+import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
 
-export const createResultPage = (
-  code: Cache,
-  config: Config,
-  forExport: boolean,
-  template: string,
-  baseUrl: string,
-  singleFile: boolean,
-) => {
+export const createResultPage = ({
+  code,
+  config,
+  forExport,
+  template,
+  baseUrl,
+  singleFile,
+  runTests,
+}: {
+  code: Cache;
+  config: Config;
+  forExport: boolean;
+  template: string;
+  baseUrl: string;
+  singleFile: boolean;
+  runTests: boolean;
+}) => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
@@ -191,6 +200,26 @@ export const createResultPage = (
     const spacingScript = dom.createElement('script');
     spacingScript.src = spacingJsUrl;
     dom.body.appendChild(spacingScript);
+  }
+
+  // tests
+  if (runTests && !forExport) {
+    const jestScript = dom.createElement('script');
+    jestScript.src = jestLiteUrl;
+    dom.body.appendChild(jestScript);
+
+    const testScript = dom.createElement('script');
+    testScript.innerHTML = `
+const {
+  core: { describe, it, expect },
+  // enzyme: { mount },
+} = window.jestLite;
+${escapeScript(config.tests?.content || '')}
+window.jestLite.core.run().then(results => {
+  parent.postMessage({type: 'testResults', payload: results}, '*');
+});
+    `;
+    dom.body.appendChild(testScript);
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;

@@ -1,6 +1,5 @@
 import Split from 'split.js';
-import { createEventsManager } from '../events';
-import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
+import { Editors, Config, ToolList, ToolsPaneStatus, EventsManager } from '../models';
 import { getResultElement } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
@@ -25,11 +24,12 @@ export const createToolsPane = (
   config: Config,
   baseUrl: string,
   editors: Editors,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   isEmbed: boolean,
+  runTests: () => Promise<void>,
 ) => {
   const tools = toolList.map((tool) =>
-    tool.factory(config, baseUrl, editors, eventsManager, isEmbed),
+    tool.factory(config, baseUrl, editors, eventsManager, isEmbed, runTests),
   );
 
   let toolsSplit: Split.Instance;

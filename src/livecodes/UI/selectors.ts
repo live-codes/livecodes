@@ -29,6 +29,10 @@ export const getResultButton = () => document.querySelector('#result-button') as
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
 export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > .editor');
+export const getToolspaneElement = () =>
+  document.querySelector('#output #tools-pane') as HTMLElement;
+export const getToolspaneButtons = () =>
+  document.querySelector('#tools-pane-buttons') as HTMLElement;
 export const getToolspaneTitles = () => document.querySelector<HTMLElement>('#tools-pane-titles');
 export const getToolspaneLoader = () => document.querySelector<HTMLElement>('#tools-pane-loading');
 export const getModalSaveButton = () =>
@@ -180,6 +184,9 @@ export const getLoadTestsButton = () =>
 
 export const getEditTestsButton = () =>
   document.querySelector<HTMLElement>('#test-container #edit-tests-btn');
+
+export const getRunTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-container #run-tests-btn');
 
 export const getUrlImportForm = (importContainer: HTMLElement) =>
   importContainer.querySelector<HTMLFormElement>('#url-import-form');

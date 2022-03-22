@@ -70,6 +70,8 @@ export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/d
 
 export const imbaBaseUrl = 'https://cdn.jsdelivr.net/npm/imba@2.0.0-alpha.201/dist/';
 
+export const jestLiteUrl = 'https://cdn.jsdelivr.net/npm/jest-lite@1.0.0-alpha.4/dist/core.js';
+
 export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
 
 export const jsZipUrl =
