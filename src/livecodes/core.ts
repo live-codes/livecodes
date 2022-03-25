@@ -128,6 +128,7 @@ let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
+let watchTests = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -787,9 +788,6 @@ const run = async (editorId?: EditorId, runTests = false) => {
   const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
-  if (!runTests && getConfig().tests?.content) {
-    toolsPane?.tests?.resetTests();
-  }
 };
 
 const runTests = () => run(undefined, true);
@@ -1376,8 +1374,9 @@ const handleChangeContent = () => {
     updateConfig();
     addConsoleInputCodeCompletion();
 
-    if (getConfig().autoupdate && !loading) {
-      await run(editorId);
+    const shouldRunTests = Boolean(watchTests && getConfig().tests?.content);
+    if ((getConfig().autoupdate || shouldRunTests) && !loading) {
+      await run(editorId, shouldRunTests);
     }
 
     if (getConfig().markup.content !== getCache().markup.content) {
@@ -2462,8 +2461,39 @@ const handleTestEditor = () => {
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
   });
-  eventsManager.addEventListener(UI.getEditTestsButton(), 'click', createTestEditorUI, false);
-  eventsManager.addEventListener(UI.getRunTestsButton(), 'click', runTests, false);
+  eventsManager.addEventListener(
+    UI.getEditTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      createTestEditorUI();
+    },
+    false,
+  );
+  eventsManager.addEventListener(
+    UI.getRunTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      runTests();
+    },
+    false,
+  );
+  eventsManager.addEventListener(
+    UI.getWatchTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      watchTests = !watchTests;
+      if (watchTests) {
+        UI.getWatchTestsButton()?.classList.add('enabled');
+        runTests();
+      } else {
+        UI.getWatchTestsButton()?.classList.remove('enabled');
+      }
+    },
+    false,
+  );
 
   registerScreen('test-editor', createTestEditorUI);
 };

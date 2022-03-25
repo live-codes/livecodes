@@ -23,9 +23,10 @@ export const createTestViewer = (
     const testActions = document.createElement('div');
     testActions.id = 'test-actions';
     testActions.innerHTML = `
-    ${isEmbed ? '' : '<button id="edit-tests-btn">Edit Tests</button>'}
-    <button id="run-tests-btn">Run Tests</button>
-    <button id="reset-tests-btn">Reset</button>
+    <a id="run-tests-btn" href="#">Run</a>
+    <a id="watch-tests-btn" href="#">Watch</a>
+    <a id="reset-tests-btn" href="#">Reset</a>
+    ${isEmbed ? '' : '<a id="edit-tests-btn" href="#">Edit</a>'}
     `;
     container.appendChild(testActions);
 
@@ -38,7 +39,10 @@ export const createTestViewer = (
     eventsManager.addEventListener(
       document.querySelector('#reset-tests-btn') as HTMLElement,
       'click',
-      resetTests,
+      (ev: Event) => {
+        ev.preventDefault();
+        resetTests();
+      },
     );
   };
 
@@ -71,7 +75,7 @@ export const createTestViewer = (
 
     testResultsElement.innerHTML = '';
     if (results.length === 0) {
-      testResultsElement.innerHTML = '<div class="test-summary">This project has no tests!</div>';
+      testResultsElement.innerHTML = '<div class="no-tests">This project has no tests!</div>';
       return;
     }
 

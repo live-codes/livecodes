@@ -188,6 +188,9 @@ export const getEditTestsButton = () =>
 export const getRunTestsButton = () =>
   document.querySelector<HTMLElement>('#test-container #run-tests-btn');
 
+export const getWatchTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-container #watch-tests-btn');
+
 export const getUrlImportForm = (importContainer: HTMLElement) =>
   importContainer.querySelector<HTMLFormElement>('#url-import-form');
 export const getUrlImportButton = (importContainer: HTMLElement) =>
