@@ -630,6 +630,7 @@ a {
   .test-result {
     background-color: var(--test-results-background-color);
     border: 1px solid var(--test-results-border-color);
+    border-radius: 3px;
     margin: 0.5em;
     padding: 0.5em;
     padding-left: 3em;
@@ -668,6 +669,69 @@ a {
   .no-tests {
     margin: 0.5em;
     padding: 0.5em;
+
+    .fail {
+      color: var(--test-fail-color);
+    }
+
+    .pass {
+      color: var(--test-pass-color);
+    }
+  }
+}
+
+#test-container {
+  .buttons {
+    align-self: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.3em;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .button {
+    border: 1px solid rgb(47, 79, 79);
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
+    color: unset;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin: 3px 5px;
+    outline: none;
+    padding: 3px;
+    place-self: center;
+    text-align: center;
+    text-decoration: none;
+    width: 100px;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &.disabled {
+      color: grey;
+    }
+  }
+}
+
+#watch-tests-btn {
+  img.checked {
+    display: unset;
+  }
+
+  img.unchecked {
+    display: none;
+  }
+
+  &.disabled {
+    img.checked {
+      display: none;
+    }
+
+    img.unchecked {
+      display: unset;
+    }
   }
 }
 

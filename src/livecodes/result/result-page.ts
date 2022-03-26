@@ -209,6 +209,7 @@ export const createResultPage = ({
     dom.body.appendChild(jestScript);
 
     const testScript = dom.createElement('script');
+    testScript.type = 'module';
     testScript.innerHTML = `
 const {
   core: { describe, it, expect },
