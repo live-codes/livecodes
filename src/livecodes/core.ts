@@ -2486,10 +2486,10 @@ const handleTestEditor = () => {
       ev.preventDefault();
       watchTests = !watchTests;
       if (watchTests) {
-        UI.getWatchTestsButton()?.classList.add('enabled');
+        UI.getWatchTestsButton()?.classList.remove('disabled');
         runTests();
       } else {
-        UI.getWatchTestsButton()?.classList.remove('enabled');
+        UI.getWatchTestsButton()?.classList.add('disabled');
       }
     },
     false,
