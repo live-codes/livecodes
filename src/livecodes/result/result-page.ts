@@ -1,6 +1,8 @@
 import { createImportMap, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
 import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
 
@@ -25,6 +27,8 @@ export const createResultPage = ({
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(template, 'text/html');
+
+  const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
   // title
   dom.title = config.title;
@@ -147,10 +151,13 @@ export const createResultPage = ({
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
+          ...(runTests && hasImports(compiledTests) ? createImportMap(compiledTests, config) : {}),
         };
+
   const importMaps = {
     ...userImports,
     ...compilerImports,
+    ...(runTests ? testImports : {}),
     ...config.customSettings.imports,
   };
   if (Object.keys(importMaps).length > 0) {
@@ -211,14 +218,13 @@ export const createResultPage = ({
     const testScript = dom.createElement('script');
     testScript.type = 'module';
     testScript.innerHTML = `
-const {
-  core: { describe, it, expect },
-  // enzyme: { mount },
-} = window.jestLite;
-${escapeScript(config.tests?.content || '')}
-window.jestLite.core.run().then(results => {
-  parent.postMessage({type: 'testResults', payload: results}, '*');
-});
+  const {describe, it, test, expect} = window.jestLite.core;
+  ${escapeScript(compiledTests)}
+  window.jestLite.core.run().then(results => {
+    parent.postMessage({type: 'testResults', payload: {results}}, '*');
+  }).catch(() => {
+    parent.postMessage({type: 'testResults', payload: {error: true}}, '*');
+  });
     `;
     dom.body.appendChild(testScript);
   }

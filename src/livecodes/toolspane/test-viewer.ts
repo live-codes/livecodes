@@ -11,6 +11,7 @@ export const createTestViewer = (
 ): Tool => {
   let testResultsElement: HTMLElement;
   let initialRun = true;
+  const loading = '<div class="test-summary">Loading tests...</div>';
 
   const createElements = () => {
     if (testResultsElement) return;
@@ -24,7 +25,7 @@ export const createTestViewer = (
     testActions.id = 'test-actions';
     testActions.classList.add('buttons');
     testActions.innerHTML = `
-    <a id="run-tests-btn" href="#" class="button">
+    <a id="run-tests-btn" href="#" class="button hint--top" data-hint="Ctrl/Cmd + Alt + T">
       <img height="12" src="${icons.run}" />
       Run
     </a>
@@ -50,7 +51,7 @@ export const createTestViewer = (
     testResultsElement = document.createElement('div');
     testResultsElement.id = 'test-results';
     testResultsElement.classList.add('luna-console');
-    testResultsElement.innerHTML = '<div class="test-summary">Loading tests...</div>';
+    testResultsElement.innerHTML = loading;
     container.appendChild(testResultsElement);
 
     eventsManager.addEventListener(
@@ -79,18 +80,30 @@ export const createTestViewer = (
     }
   };
 
+  const clearTests = () => {
+    if (testResultsElement) {
+      testResultsElement.innerHTML = loading;
+    }
+  };
+
   interface TestResult {
     duration: number;
     errors: string[];
     status: 'pass' | 'fail';
     testPath: string[];
   }
-  const showResults = (results: TestResult[]) => {
+  const showResults = ({ results, error }: { results: TestResult[]; error?: boolean }) => {
     if (!testResultsElement) {
       createElements();
     }
-
     testResultsElement.innerHTML = '';
+
+    if (error) {
+      testResultsElement.innerHTML =
+        '<div class="no-tests"><span class="fail">Test error!</span></div>';
+      return;
+    }
+
     if (results.length === 0) {
       testResultsElement.innerHTML = '<div class="no-tests">This project has no tests!</div>';
       return;
@@ -146,6 +159,7 @@ export const createTestViewer = (
     },
     showResults,
     resetTests,
+    clearTests,
   } as Tool;
 };
 
