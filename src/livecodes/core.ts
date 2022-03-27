@@ -631,16 +631,23 @@ const getResultPage = async ({
   const markupContent = config.markup.content || '';
   const styleContent = config.style.content || '';
   const scriptContent = config.script.content || '';
+  const testsContent = config.tests?.content || '';
   const markupLanguage = config.markup.language;
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
+  const testsLanguage = config.tests?.language || 'typescript';
 
   const forceCompileStyles =
     (config.processors.postcss.tailwindcss || config.processors.postcss.windicss) &&
     (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
 
+  const testsNotChanged =
+    config.tests?.language === getCache().tests?.language &&
+    config.tests?.content === getCache().tests?.content &&
+    getCache().tests?.compiled;
+
   const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config, {});
-  const [compiledStyle, compiledScript] = await Promise.all([
+  const [compiledStyle, compiledScript, compiledTests] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: compiledMarkup,
       forceCompile: forceCompileStyles,
@@ -657,6 +664,11 @@ const getResultPage = async ({
             })) as BlocklyContent)
           : {},
     }),
+    runTests
+      ? testsNotChanged
+        ? Promise.resolve(getCache().tests?.compiled || '')
+        : compiler.compile(testsContent, testsLanguage, config, {})
+      : Promise.resolve(getCache().tests?.compiled || ''),
   ]);
 
   const compiledCode: Cache = {
@@ -673,6 +685,11 @@ const getResultPage = async ({
       ...contentConfig.script,
       compiled:
         config.customSettings.convertCommonjs === false ? compiledScript : cjs2esm(compiledScript),
+    },
+    tests: {
+      language: testsLanguage,
+      ...contentConfig.tests,
+      compiled: compiledTests,
     },
   };
 
@@ -740,6 +757,7 @@ const flushResult = () => {
     loadingComments[compiledLanguages.script] || 'javascript',
   );
   updateCompiledCode();
+  toolsPane?.tests?.clearTests();
 };
 
 const setProjectTitle = (setDefault = false) => {
@@ -2421,7 +2439,7 @@ const handleTestEditor = () => {
       },
     });
 
-    const editorLanguage: Language = 'javascript';
+    const editorLanguage: Language = config.tests?.language || 'typescript';
     const options = {
       baseUrl,
       mode: config.mode,
@@ -2453,6 +2471,7 @@ const handleTestEditor = () => {
       }
       testEditor?.destroy();
       modal.close();
+      toolsPane?.tests?.resetTests();
       await runTests();
     });
   };

@@ -533,6 +533,7 @@ export type Cache = ContentConfig & {
   markup: EditorCache;
   style: EditorCache;
   script: EditorCache;
+  tests?: EditorCache;
   result?: string;
   styleOnlyUpdate?: boolean;
 };

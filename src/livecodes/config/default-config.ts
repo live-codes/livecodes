@@ -42,7 +42,10 @@ export const defaultConfig: Config = {
   cssPreset: '',
   imports: {},
   types: {},
-  tests: undefined,
+  tests: {
+    language: 'typescript',
+    content: '',
+  },
   processors: {
     postcss: {
       tailwindcss: false,
