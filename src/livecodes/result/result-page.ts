@@ -1,4 +1,4 @@
-import { createImportMap, hasImports, isModuleScript } from '../compiler';
+import { createImportMap, getImports, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
 // eslint-disable-next-line import/no-internal-modules
@@ -100,6 +100,9 @@ export const createResultPage = ({
       compiled: code[editorId].compiled,
     }),
   );
+
+  const importFromScript = runTests && !forExport && getImports(compiledTests).includes('./script');
+
   let compilerImports = {};
   runtimeDependencies.forEach(({ language, compiled }) => {
     const compiler = getLanguageCompiler(language);
@@ -151,7 +154,12 @@ export const createResultPage = ({
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
-          ...(runTests && hasImports(compiledTests) ? createImportMap(compiledTests, config) : {}),
+          ...(runTests && !forExport && hasImports(compiledTests)
+            ? createImportMap(compiledTests, config)
+            : {}),
+          ...(importFromScript
+            ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
+            : {}),
         };
 
   const importMaps = {
@@ -179,27 +187,29 @@ export const createResultPage = ({
     dom.head.appendChild(externalScript);
   });
 
-  // editor script
-  const script = code.script.compiled;
-  const scriptElement = dom.createElement('script');
-  if (singleFile) {
-    scriptElement.innerHTML = escapeScript(mdx ? script + '\n' + mdx : script);
-  } else {
-    scriptElement.src = './script.js';
-  }
-  dom.body.appendChild(scriptElement);
-
-  // script type
-  const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
-  if (scriptType) {
-    scriptElement.type = scriptType;
-  } else if (config.customSettings.scriptType != null) {
-    // do not add type if scriptType === ''
-    if (config.customSettings.scriptType) {
-      scriptElement.type = config.customSettings.scriptType;
+  if (!importFromScript) {
+    // editor script
+    const script = code.script.compiled;
+    const scriptElement = dom.createElement('script');
+    if (singleFile) {
+      scriptElement.innerHTML = escapeScript(mdx ? script + '\n' + mdx : script);
+    } else {
+      scriptElement.src = './script.js';
     }
-  } else if (isModuleScript(script) || mdx) {
-    scriptElement.type = 'module';
+    dom.body.appendChild(scriptElement);
+
+    // script type
+    const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
+    if (scriptType) {
+      scriptElement.type = scriptType;
+    } else if (config.customSettings.scriptType != null) {
+      // do not add type if scriptType === ''
+      if (config.customSettings.scriptType) {
+        scriptElement.type = config.customSettings.scriptType;
+      }
+    } else if (isModuleScript(script) || mdx) {
+      scriptElement.type = 'module';
+    }
   }
 
   // spacing
