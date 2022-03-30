@@ -14,6 +14,7 @@ export const cacheIsValid = (cache: Cache, config: ContentConfig) => {
     markup: removeExtra(cache.markup, extraCache),
     style: removeExtra(cache.style, extraCache),
     script: removeExtra(cache.script, extraCache),
+    tests: removeExtra(cache.tests, extraCache as any),
   };
   const contentConfig = removeExtra(config, excludedKeys);
 
