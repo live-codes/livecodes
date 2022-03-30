@@ -218,7 +218,7 @@ export const createResultPage = ({
     const testScript = dom.createElement('script');
     testScript.type = 'module';
     testScript.innerHTML = `
-  const {describe, it, test, expect} = window.jestLite.core;
+  const { afterAll, afterEach, beforeAll, beforeEach, describe, it, test, expect } = window.jestLite.core;
   ${escapeScript(compiledTests)}
   window.jestLite.core.run().then(results => {
     parent.postMessage({type: 'testResults', payload: {results}}, '*');

@@ -1,4 +1,7 @@
+import { vendorsBaseUrl } from '../vendors';
+
 export const testImports = {
-  '@testing-library/dom': 'http://127.0.0.1:8081/@testing-library/dom.js',
-  '@testing-library/jest-dom': 'http://127.0.0.1:8081/@testing-library/jest-dom.js',
+  '@testing-library/dom': vendorsBaseUrl + '@testing-library/dom.js',
+  '@testing-library/jest-dom': vendorsBaseUrl + '@testing-library/jest-dom.js',
+  '@testing-library/react': vendorsBaseUrl + '@testing-library/react.js',
 };

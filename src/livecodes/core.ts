@@ -756,6 +756,15 @@ const flushResult = () => {
     compiledLanguages.script,
     loadingComments[compiledLanguages.script] || 'javascript',
   );
+  setCache({
+    ...getCache(),
+    tests: {
+      language: 'javascript',
+      content: '',
+      compiled: '',
+    },
+  });
+
   updateCompiledCode();
   toolsPane?.tests?.clearTests();
 };
@@ -2448,7 +2457,7 @@ const handleTestEditor = () => {
       editorType: 'code' as EditorOptions['editorType'],
       editorBuild,
       container: UI.getTestEditor(),
-      language: editorLanguage,
+      language: 'javascript' as Language, // editorLanguage,
       value: getConfig().tests?.content || '',
       theme: config.theme,
       isEmbed,
@@ -2724,7 +2733,16 @@ const bootstrap = async (reload = false) => {
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
-    setTimeout(run);
+    setTimeout(() => {
+      if (
+        toolsPane?.getActiveTool() === 'Tests' &&
+        ['open', 'full'].includes(toolsPane?.getStatus())
+      ) {
+        run(undefined, true);
+      } else {
+        run();
+      }
+    });
   });
   formatter.load(getEditorLanguages());
 };
