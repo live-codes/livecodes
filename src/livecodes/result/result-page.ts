@@ -80,9 +80,8 @@ export const createResultPage = ({
     dom.body.classList.add('markdown-body');
   }
 
-  // editor markup (MDX is added to the script not page markup)
-  const markup = code.markup.language !== 'mdx' ? code.markup.compiled : '';
-  const mdx = code.markup.language === 'mdx' ? code.markup.compiled : '';
+  // editor markup
+  const markup = code.markup.compiled;
   dom.body.innerHTML += markup;
 
   // cleanup custom configurations and scripts
@@ -101,7 +100,9 @@ export const createResultPage = ({
     }),
   );
 
-  const importFromScript = runTests && !forExport && getImports(compiledTests).includes('./script');
+  const importFromScript =
+    getImports(markup).includes('./script') ||
+    (runTests && !forExport && getImports(compiledTests).includes('./script'));
 
   let compilerImports = {};
   runtimeDependencies.forEach(({ language, compiled }) => {
@@ -192,7 +193,7 @@ export const createResultPage = ({
     const script = code.script.compiled;
     const scriptElement = dom.createElement('script');
     if (singleFile) {
-      scriptElement.innerHTML = escapeScript(mdx ? script + '\n' + mdx : script);
+      scriptElement.innerHTML = escapeScript(script);
     } else {
       scriptElement.src = './script.js';
     }
@@ -207,7 +208,7 @@ export const createResultPage = ({
       if (config.customSettings.scriptType) {
         scriptElement.type = config.customSettings.scriptType;
       }
-    } else if (isModuleScript(script) || mdx) {
+    } else if (isModuleScript(script)) {
       scriptElement.type = 'module';
     }
   }
