@@ -10,7 +10,6 @@ export const createTestViewer = (
   runTests: () => Promise<void>,
 ): Tool => {
   let testResultsElement: HTMLElement;
-  let initialRun = true;
   const loading = '<div class="test-summary">Loading tests...</div>';
 
   const createElements = () => {
@@ -137,11 +136,6 @@ export const createTestViewer = (
     Time: ${duration}s
 `;
     testResultsElement.appendChild(summary);
-
-    if (initialRun) {
-      resetTests();
-    }
-    initialRun = false;
   };
 
   return {
@@ -150,9 +144,7 @@ export const createTestViewer = (
       createElements();
     },
     onActivate: () => {
-      if (initialRun) {
-        runTests();
-      }
+      runTests();
     },
     onDeactivate: () => {
       //

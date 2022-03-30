@@ -110,8 +110,10 @@ export const createToolsPane = (
   const open = (toolId: number, maximize = false) => {
     if (maximize) {
       toolsSplit.collapse(0);
+      status = 'full';
     } else {
       toolsSplit.setSizes(sizes.open);
+      status = 'open';
     }
     sizeChanged();
     setActiveTool(toolId);
@@ -119,6 +121,7 @@ export const createToolsPane = (
 
   const close = () => {
     toolsSplit.collapse(1);
+    status = 'closed';
     sizeChanged();
     tools.forEach((tool) => tool.onDeactivate());
   };
@@ -320,6 +323,7 @@ export const createToolsPane = (
     maximize: () => resize('full'),
     hide: () => resize('none'),
     getStatus: () => status,
+    getActiveTool: () => tools[activeToolId].title,
     // console, compiled
     ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };
