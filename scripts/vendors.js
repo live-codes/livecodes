@@ -1,7 +1,8 @@
 const esbuild = require('esbuild');
+const pkg = require('../package.json');
 
 const srcDir = 'scripts/modules/';
-const outputDir = 'build/livecodes/vendor/monaco-editor/';
+const outputDir = `build/livecodes/vendor/monaco-editor/v${pkg.dependencies['monaco-editor']}/`;
 
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {

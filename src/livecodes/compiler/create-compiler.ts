@@ -46,7 +46,8 @@ export const createCompiler = async ({
       const configMessage: CompilerMessage = {
         type: 'init',
         payload: config,
-        baseUrl: isRelativeUrl(baseUrl) ? getAbsoluteUrl(baseUrl) : baseUrl,
+        baseUrl,
+        scriptUrl: baseUrl + 'compiler-utils.js',
       };
       compilerSandbox.postMessage(configMessage, compilerOrigin);
     });

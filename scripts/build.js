@@ -1,6 +1,7 @@
 var esbuild = require('esbuild');
 var fs = require('fs');
 var path = require('path');
+var pkg = require('../package.json');
 
 /** @param {string} dir */
 function mkdirp(dir) {
@@ -51,6 +52,7 @@ var baseOptions = {
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.CI': `${process.env.CI || false}`,
+    'process.env.monacoVersion': `"v${pkg.dependencies['monaco-editor']}"`,
   },
 };
 
@@ -184,4 +186,4 @@ esbuild.buildSync({
   loader: { '.html': 'text' },
 });
 
-console.log('built to: ' + baseOptions.outdir);
+console.log('built to: ' + baseOptions.outdir + '/');

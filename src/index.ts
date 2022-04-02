@@ -30,6 +30,4 @@ if (
   }
 }
 
-const baseUrl =
-  (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
-livecodes('#livecodes', baseUrl, {});
+livecodes('#livecodes', {});

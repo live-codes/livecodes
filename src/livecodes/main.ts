@@ -5,16 +5,14 @@ import type { API, Config, ContentConfig } from './models';
 
 export type { API, Config };
 
-export const livecodes = async (
-  container: string,
-  baseUrl: string,
-  config: Partial<Config> = {},
-): Promise<API> =>
+export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
+    const baseUrl =
+      (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
     const isEmbed = location.search.includes('embed') && !location.search.includes('embed=false');
     const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
     const anyOrigin = '*';

@@ -6,9 +6,9 @@
     <title>LiveCodes Compiler Sandbox</title>
     <script>
       window.addEventListener('message', function (event) {
-        if (event.data.type === 'init' && event.data.baseUrl) {
+        if (event.data.type === 'init' && event.data.scriptUrl) {
           var script = document.createElement('script');
-          script.src = event.data.baseUrl + 'compiler-utils.js';
+          script.src = event.data.scriptUrl;
           script.onload = function () {
             initCompiler(event.data);
           };

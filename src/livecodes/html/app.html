@@ -11,7 +11,7 @@
     </style>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="{{baseUrl}}styles/app.css" id="app-styles" />
+    <link rel="stylesheet" href="{{baseUrl}}app.css" id="app-styles" />
   </head>
   <body>
     <div id="container">
@@ -129,7 +129,7 @@
     </div>
     <script src="https://polyfill.io/v3/polyfill.min.js" crossorigin="anonymous"></script>
     <script type="module">
-      import { app } from '{{baseUrl}}{{script}}';
+      import { app } from './livecodes/{{script}}';
       window.app = app;
     </script>
   </body>

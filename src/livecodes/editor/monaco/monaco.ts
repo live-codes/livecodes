@@ -22,7 +22,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
   if (!container) throw new Error('editor container not found');
 
-  const monacoPath = baseUrl + 'vendor/monaco-editor';
+  const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   let monaco: typeof Monaco;
   try {
     (window as any).monaco =
