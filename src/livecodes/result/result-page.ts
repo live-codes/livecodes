@@ -25,7 +25,7 @@ export const createResultPage = (
     dom.querySelector('script')?.remove();
   } else {
     const utilsScript = dom.createElement('script');
-    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
+    utilsScript.src = absoluteBaseUrl + '{{hash:result-utils.js}}';
     dom.head.appendChild(utilsScript);
   }
 

@@ -9,7 +9,7 @@ import {
 } from '../languages';
 import { Language, Config, Compilers, EditorId, CompilerFunction, CompileOptions } from '../models';
 import { sandboxService } from '../services';
-import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
+import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
@@ -46,7 +46,8 @@ export const createCompiler = async ({
       const configMessage: CompilerMessage = {
         type: 'init',
         payload: config,
-        baseUrl: isRelativeUrl(baseUrl) ? getAbsoluteUrl(baseUrl) : baseUrl,
+        baseUrl,
+        scriptUrl: baseUrl + '{{hash:compiler-utils.js}}',
       };
       compilerSandbox.postMessage(configMessage, compilerOrigin);
     });

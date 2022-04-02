@@ -1,6 +1,6 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
-import resultTemplate from './sandbox/v4/result.html';
+import resultTemplate from './sandbox/v5/result.html';
 // @ts-ignore
 import appHTML from './app.html';
 // @ts-ignore

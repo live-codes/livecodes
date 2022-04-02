@@ -32,10 +32,10 @@ export const showQuillEditor = async ({
   <script src="${quillHtmlEditUrl}"></script>
   <script src="${quillBlotFormaterUrl}"></script>
   <script src="${quillBetterTableBaseUrl}/quill-better-table.min.js"></script>
-  <script src="${baseUrl}custom-editor-utils.js"></script>
+  <script src="${baseUrl}{{hash:custom-editor-utils.js}}"></script>
     `;
   const quillEditorStyles = `
-  <link rel="stylesheet" href="${baseUrl}styles/quill.css" />
+  <link rel="stylesheet" href="${baseUrl}{{hash:quill.css}}" />
   <link rel="stylesheet" href="${quillEditorCdnBaseUrl}/quill.snow.css" />
   <link rel="stylesheet" href="${quillBetterTableBaseUrl}/quill-better-table.css" />
   `;

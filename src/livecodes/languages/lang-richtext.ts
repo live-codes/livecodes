@@ -9,7 +9,7 @@ export const richtext: LanguageSpecs = {
       () =>
       async (_code, { config }) =>
         config.markup.content || '',
-    styles: ['styles/quill.css'],
+    styles: ['{{hash:quill.css}}'],
   },
   extensions: ['rte', 'rte.html', 'rich'],
   editor: 'markup',

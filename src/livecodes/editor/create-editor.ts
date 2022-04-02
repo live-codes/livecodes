@@ -14,14 +14,27 @@ export const basicLanguages: Language[] = [
 
 let editorBuildCache: EditorOptions['editorBuild'] = 'basic';
 
-const loadEditor = async (
-  editorName: 'monaco' | 'codemirror' | 'prism',
-  options: EditorOptions,
+const getEditorFileName = (
+  editorName: Exclude<Config['editor'], ''>,
+  editorBuild: EditorOptions['editorBuild'],
 ) => {
+  if (editorName === 'codemirror') {
+    if (editorBuild === 'full') return '{{hash:codemirror-full.js}}';
+    return '{{hash:codemirror-basic.js}}';
+  }
+
+  if (editorName === 'prism') {
+    if (editorBuild === 'full') return '{{hash:prism-full.js}}';
+    return '{{hash:prism-basic.js}}';
+  }
+
+  return '{{hash:monaco.js}}';
+};
+
+const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: EditorOptions) => {
   const { baseUrl, editorBuild = editorBuildCache } = options;
   editorBuildCache = editorBuild;
-  const fileName =
-    editorName === 'monaco' ? editorName + '.js' : editorName + '-' + editorBuild + '.js';
+  const fileName = getEditorFileName(editorName, editorBuild);
   const editorUrl = baseUrl + fileName;
 
   let editorModule = (window as any)[editorUrl];

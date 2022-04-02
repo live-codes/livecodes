@@ -5,16 +5,14 @@ import type { API, Config, ContentConfig } from './models';
 
 export type { API, Config };
 
-export const livecodes = async (
-  container: string,
-  baseUrl: string,
-  config: Partial<Config> = {},
-): Promise<API> =>
+export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
+    const baseUrl =
+      (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
     const isEmbed = location.search.includes('embed') && !location.search.includes('embed=false');
     const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
     const anyOrigin = '*';
@@ -55,7 +53,7 @@ export const livecodes = async (
       iframe.contentWindow?.document.write(
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
-          .replace(/{{script}}/g, isEmbed ? 'embed.js' : 'app.js'),
+          .replace(/{{script}}/g, isEmbed ? '{{hash:embed.js}}' : '{{hash:app.js}}'),
       );
       iframe.contentWindow?.document.close();
 
@@ -120,7 +118,7 @@ export const livecodes = async (
       window.addEventListener('run', run, false);
 
       const preloadLink = document.createElement('link');
-      preloadLink.href = baseUrl + 'embed.js';
+      preloadLink.href = baseUrl + '{{hash:embed.js}}';
       preloadLink.rel = 'preload';
       preloadLink.as = 'script';
       document.head.appendChild(preloadLink);

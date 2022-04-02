@@ -35,6 +35,7 @@ export interface InitMessage {
   type: 'init';
   payload: Config;
   baseUrl: string;
+  scriptUrl: string;
 }
 
 export interface InitSuccessMessage {

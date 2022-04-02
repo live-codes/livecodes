@@ -5,14 +5,14 @@ proxyConsole();
 
 (window as any).initCompiler = async (message: InitMessage) => {
   const baseUrl = message.baseUrl;
-  const workerUrl = baseUrl + 'compile.worker.js';
+  const workerUrl = baseUrl + '{{hash:compile.worker.js}}';
   const origin = new URL(baseUrl).origin;
-  const blob = new Blob(["importScripts('" + workerUrl + "');"]);
-  const worker = new Worker(URL.createObjectURL(blob));
+  const content = `importScripts("${workerUrl}");`;
+  const worker = new Worker('data:text/javascript;base64,' + btoa(content));
 
   await new Promise<void>((resolve) => {
     const script = document.createElement('script');
-    script.src = baseUrl + 'compile.page.js';
+    script.src = baseUrl + '{{hash:compile.page.js}}';
     script.onload = () => resolve();
     document.head.appendChild(script);
   });

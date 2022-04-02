@@ -88,7 +88,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setTheme = (theme: Theme) => {
     const id = 'prism-styles';
     const styles = document.head.querySelector<HTMLLinkElement>('#' + id);
-    const stylesUrl = `${baseUrl}styles/prism-${theme}.css`;
+    const fileName = theme === 'light' ? '{{hash:prism-light.css}}' : '{{hash:prism-dark.css}}';
+    const stylesUrl = baseUrl + fileName;
     if (styles && styles.href === stylesUrl) return;
 
     styles?.remove();
