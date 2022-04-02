@@ -34,7 +34,6 @@ const patch = (
       fs.writeFile(filePath, result, 'utf8', function (err) {
         if (err) return reject(err);
         resolve();
-        console.log(filePath);
       });
     });
   });
