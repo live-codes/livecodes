@@ -53,7 +53,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       iframe.contentWindow?.document.write(
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
-          .replace(/{{script}}/g, isEmbed ? 'embed.js' : 'app.js'),
+          .replace(/{{script}}/g, isEmbed ? '{{hash:embed.js}}' : '{{hash:app.js}}'),
       );
       iframe.contentWindow?.document.close();
 
@@ -118,7 +118,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       window.addEventListener('run', run, false);
 
       const preloadLink = document.createElement('link');
-      preloadLink.href = baseUrl + 'embed.js';
+      preloadLink.href = baseUrl + '{{hash:embed.js}}';
       preloadLink.rel = 'preload';
       preloadLink.as = 'script';
       document.head.appendChild(preloadLink);

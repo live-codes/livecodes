@@ -16,7 +16,7 @@ const mapBaseUrl = (content: any, baseUrl: string) => {
 };
 
 const loadTemplates = async (baseUrl: string): Promise<Template[]> =>
-  (await import(baseUrl + 'templates.js')).starterTemplates;
+  (await import(baseUrl + '{{hash:templates.js}}')).starterTemplates;
 
 /**
  * get starter templates with languages that are enabled in the current config

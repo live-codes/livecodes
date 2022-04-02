@@ -110,7 +110,7 @@ export const showBlockly = async ({
           ?.map((xml) => '`' + xml.replace(/\`/g, '\\`') + '`')
           .join(', ')}]);
       </script>
-      <script src="${baseUrl}custom-editor-utils.js"></script>
+      <script src="${baseUrl}{{hash:custom-editor-utils.js}}"></script>
     `,
       );
 

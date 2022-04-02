@@ -1762,7 +1762,7 @@ const handleOpen = () => {
   const createList = async () => {
     modal.show(UI.loadingMessage());
 
-    const openModule: typeof import('./UI/open') = await import(baseUrl + 'open.js');
+    const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
       getContentConfig,
@@ -2219,7 +2219,7 @@ const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
     modal.show(UI.loadingMessage());
-    assetsModule = assetsModule || (await import(baseUrl + 'assets.js'));
+    assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
   const createList = async () => {

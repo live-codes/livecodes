@@ -37,7 +37,7 @@ export const createAuthService = (isEmbed: boolean): AuthService => {
 
   return {
     async load() {
-      const firebase = await getImportInstance('./firebase.js');
+      const firebase = await getImportInstance('./{{hash:firebase.js}}');
 
       initializeApp = firebase.initializeApp;
       getApp = firebase.getApp;

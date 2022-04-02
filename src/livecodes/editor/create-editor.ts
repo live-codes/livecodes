@@ -19,16 +19,16 @@ const getEditorFileName = (
   editorBuild: EditorOptions['editorBuild'],
 ) => {
   if (editorName === 'codemirror') {
-    if (editorBuild === 'full') return 'codemirror-full.js';
-    return 'codemirror-basic.js';
+    if (editorBuild === 'full') return '{{hash:codemirror-full.js}}';
+    return '{{hash:codemirror-basic.js}}';
   }
 
   if (editorName === 'prism') {
-    if (editorBuild === 'full') return 'prism-full.js';
-    return 'prism-basic.js';
+    if (editorBuild === 'full') return '{{hash:prism-full.js}}';
+    return '{{hash:prism-basic.js}}';
   }
 
-  return 'monaco.js';
+  return '{{hash:monaco.js}}';
 };
 
 const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: EditorOptions) => {

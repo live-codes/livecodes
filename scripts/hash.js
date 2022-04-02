@@ -47,11 +47,15 @@ const patch = (
       await getFiles()
     ).map(async (file) => {
       if (!filetypes.some((ext) => file.endsWith(`.${ext}`))) return;
-      if (file.length > 35 && file.split('.').length > 0) return; // already hashed
+      if (file.length > 35 && file.split('.').length > 0) {
+        // previous hashed build
+        await fs.promises.rm(buildDir + file);
+        return;
+      }
 
       const hash = await md5File(buildDir + file);
       const newFile = addHash(file, hash);
-      hashMap[file] = newFile;
+      hashMap[`{{hash:${file}}}`] = newFile;
       try {
         await fs.promises.rename(buildDir + file, buildDir + newFile);
       } catch {

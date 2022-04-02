@@ -140,7 +140,7 @@ export const createLanguageMenus = (
 };
 
 const getLanguageInfo = async (language: Language, baseUrl: string) => {
-  const languageInfoHTML = await import(baseUrl + 'language-info.js').then(
+  const languageInfoHTML = await import(baseUrl + '{{hash:language-info.js}}').then(
     (mod) => mod.languageInfo,
   );
   const domParser = new DOMParser();
