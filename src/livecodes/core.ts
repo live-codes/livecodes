@@ -2589,7 +2589,9 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
-  handleExternalResources();
+  if (isEmbed) {
+    handleExternalResources();
+  }
 };
 
 const extraHandlers = async () => {
@@ -2619,6 +2621,7 @@ const extraHandlers = async () => {
   handleDeploy();
   handleAssets();
   handleUnload();
+  handleExternalResources();
 };
 
 const importExternalContent = async (options: {
