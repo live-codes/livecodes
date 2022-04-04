@@ -116,7 +116,7 @@ export const createConsole = (
       value: '',
       readonly: false,
       editor: config.editor,
-      editorType: 'console',
+      editorId: 'console',
       theme: config.theme,
       isEmbed,
     };

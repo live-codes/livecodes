@@ -47,7 +47,7 @@ export const createCompiledCodeViewer = (
       value: '',
       readonly: true,
       editor: config.editor,
-      editorType: 'compiled',
+      editorId: 'compiled',
       theme: config.theme,
       isEmbed,
     };

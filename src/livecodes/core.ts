@@ -301,13 +301,13 @@ const createEditors = async (config: Config) => {
     mode: config.mode,
     readonly: config.readonly,
     editor: config.editor,
-    editorType: 'code' as EditorOptions['editorType'],
     theme: config.theme,
     isEmbed,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getMarkupElement(),
+    editorId: 'markup',
     language: languageIsEnabled(config.markup.language, config)
       ? config.markup.language
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') || 'html',
@@ -316,6 +316,7 @@ const createEditors = async (config: Config) => {
   const styleOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getStyleElement(),
+    editorId: 'style',
     language: languageIsEnabled(config.style.language, config)
       ? config.style.language
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') || 'css',
@@ -324,6 +325,7 @@ const createEditors = async (config: Config) => {
   const scriptOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getScriptElement(),
+    editorId: 'script',
     language: languageIsEnabled(config.script.language, config)
       ? config.script.language
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
@@ -560,7 +562,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     setTimeout(() => editor.focus());
   }
   await compiler.load([language], getConfig());
-  editor.registerFormatter(await formatter.getFormatFn(language));
+  formatter.getFormatFn(language).then((fn) => editor.registerFormatter(fn));
   if (!isUpdate) {
     setConfig({
       ...getConfig(),
@@ -2380,12 +2382,12 @@ const handleCustomSettings = () => {
       },
     });
 
-    const options = {
+    const options: EditorOptions = {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
       editor: config.editor,
-      editorType: 'code' as EditorOptions['editorType'],
+      editorId: 'customSettings',
       editorBuild,
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
@@ -2445,24 +2447,33 @@ const handleTestEditor = () => {
     modal.show(testEditorContainer, {
       onClose: () => {
         testEditor?.destroy();
+
+        // fix monaco mixing up model of script with test editors
+        if (editors.script.monaco) {
+          formatter
+            .getFormatFn(getConfig().script.language)
+            .then((fn) => editors.script.registerFormatter(fn));
+        }
       },
     });
 
-    const editorLanguage: Language = config.tests?.language || 'typescript';
-    const options = {
+    const testLanguage: Language = config.tests?.language || 'typescript';
+    const editorLanguage: Language = 'javascript'; // editorLanguage,
+    const options: EditorOptions = {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
       editor: config.editor,
-      editorType: 'code' as EditorOptions['editorType'],
+      editorId: 'tests',
       editorBuild,
       container: UI.getTestEditor(),
-      language: 'javascript' as Language, // editorLanguage,
+      language: editorLanguage,
       value: getConfig().tests?.content || '',
       theme: config.theme,
       isEmbed,
     };
     testEditor = await createEditor(options);
+    formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
     testEditor.focus();
 
     eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {
@@ -2472,13 +2483,12 @@ const handleTestEditor = () => {
         setConfig({
           ...getConfig(),
           tests: {
-            language: editorLanguage,
+            language: testLanguage,
             content: editorContent,
           },
         });
         await setSavedStatus();
       }
-      testEditor?.destroy();
       modal.close();
       toolsPane?.tests?.resetTests();
       await runTests();

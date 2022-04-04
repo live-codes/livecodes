@@ -79,10 +79,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     contextmenu: false,
   };
 
+  const editorId = options.editorId;
   const editorOptions =
-    options.editorType === 'console'
+    editorId === 'console'
       ? consoleOptions
-      : options.editorType === 'compiled'
+      : editorId === 'compiled'
       ? compiledCodeOptions
       : options.mode === 'codeblock'
       ? codeblockOptions
@@ -148,6 +149,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
+  let modelUri = '';
   const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
     value: string,
@@ -155,11 +157,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   ) => {
     const random = getRandomString();
     const ext = getLanguageExtension(language);
+    modelUri = `file:///${editorId}.${random}.${ext}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
       value || '',
       monacoMapLanguage(language),
-      monaco.Uri.parse(`file:///main.${random}.${ext}`),
+      monaco.Uri.parse(modelUri),
     );
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
@@ -212,6 +215,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  const getEditorId = () => editorId;
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
@@ -365,7 +369,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const destroy = () => {
     configureEmmet(false);
     listeners.length = 0;
-    editor.getModel()?.dispose();
+    // editor.getModel()?.dispose();
   };
 
   // workaround for uncaught canceled promise rejection onMouseLeave
@@ -465,6 +469,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setValue,
     getLanguage,
     setLanguage,
+    getEditorId,
     focus,
     layout,
     addTypes,

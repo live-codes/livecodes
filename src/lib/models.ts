@@ -406,6 +406,7 @@ export interface CodeEditor {
   setValue: (value?: string, newState?: boolean) => void;
   getLanguage: () => Language;
   setLanguage: (language: Language, value?: string) => void;
+  getEditorId: () => string;
   focus: () => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
@@ -438,7 +439,7 @@ export interface EditorOptions {
   mode?: Config['mode'];
   readonly: boolean;
   editor?: Config['editor'];
-  editorType: 'code' | 'compiled' | 'console';
+  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
