@@ -48,7 +48,7 @@ test.describe('Compiler Results', () => {
     expect(resultText).toBe('Hi There');
   });
 
-  test('MDX', async ({ page, getTestUrl }) => {
+  test.only('MDX', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -56,14 +56,19 @@ test.describe('Compiler Results', () => {
     await app.click(':nth-match([title="change language"], 1)');
     await app.click('text=MDX');
     await waitForEditorFocus(app);
-    await app.page().keyboard.type('<Hello title="World" />');
+    await app.page().keyboard.type(`
+import {Hello} from './script';
+
+<Hello title="World" />
+`);
 
     await app.click(':nth-match([title="change language"], 3)');
     await app.click('text=JSX');
     await waitForEditorFocus(app);
-    await app
-      .page()
-      .keyboard.type('export const Hello = (props) => <h1>Hello, {props.title}!</h1>;');
+    await app.page().keyboard.type(`
+import React from 'react';
+export const Hello = (props) => <h1>Hello, {props.title}!</h1>;
+`);
 
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
