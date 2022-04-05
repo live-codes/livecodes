@@ -30,7 +30,6 @@ export const createLanguageMenus = (
         <img
           width="20"
           height="20"
-          style="filter: invert(1)"
           src="${baseUrl}assets/images/down_arrow.svg"
         />
       </a>
