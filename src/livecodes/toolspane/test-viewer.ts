@@ -28,7 +28,7 @@ export const createTestViewer = (
       <img height="12" src="${icons.run}" />
       Run
     </a>
-    <a id="watch-tests-btn" href="#" class="button disabled">
+    <a id="watch-tests-btn" href="#" class="button disabled hint--top" data-hint="Run tests when code changes">
       <img height="12" class="checked" src="${icons.checked}" />
       <img height="12" class="unchecked" src="${icons.unchecked}" />
       Watch
