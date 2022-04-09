@@ -816,6 +816,7 @@ const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
   const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
+  toolsPane?.console?.clear();
   updateCompiledCode();
 };
 
