@@ -2437,6 +2437,40 @@ const handleCustomSettings = () => {
   registerScreen('custom-settings', createCustomSettingsUI);
 };
 
+const handleTests = () => {
+  eventsManager.addEventListener(window, 'message', (ev: any) => {
+    if (ev.origin !== sandboxService.getOrigin()) return;
+    if (ev.data.type !== 'testResults') return;
+    toolsPane?.tests?.showResults(ev.data.payload);
+  });
+
+  eventsManager.addEventListener(
+    UI.getRunTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      runTests();
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    UI.getWatchTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      watchTests = !watchTests;
+      if (watchTests) {
+        UI.getWatchTestsButton()?.classList.remove('disabled');
+        runTests();
+      } else {
+        UI.getWatchTestsButton()?.classList.add('disabled');
+      }
+    },
+    false,
+  );
+};
+
 const handleTestEditor = () => {
   const createTestEditorUI = async () => {
     const config = getConfig();
@@ -2495,41 +2529,13 @@ const handleTestEditor = () => {
       await runTests();
     });
   };
-  eventsManager.addEventListener(window, 'message', (ev: any) => {
-    if (ev.origin !== sandboxService.getOrigin()) return;
-    if (ev.data.type !== 'testResults') return;
-    toolsPane?.tests?.showResults(ev.data.payload);
-  });
+
   eventsManager.addEventListener(
     UI.getEditTestsButton(),
     'click',
     (ev: Event) => {
       ev.preventDefault();
       createTestEditorUI();
-    },
-    false,
-  );
-  eventsManager.addEventListener(
-    UI.getRunTestsButton(),
-    'click',
-    (ev: Event) => {
-      ev.preventDefault();
-      runTests();
-    },
-    false,
-  );
-  eventsManager.addEventListener(
-    UI.getWatchTestsButton(),
-    'click',
-    (ev: Event) => {
-      ev.preventDefault();
-      watchTests = !watchTests;
-      if (watchTests) {
-        UI.getWatchTestsButton()?.classList.remove('disabled');
-        runTests();
-      } else {
-        UI.getWatchTestsButton()?.classList.add('disabled');
-      }
     },
     false,
   );
@@ -2600,6 +2606,7 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
+  handleTests();
   if (isEmbed) {
     handleExternalResources();
   }
