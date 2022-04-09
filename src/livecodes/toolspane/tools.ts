@@ -102,8 +102,10 @@ export const createToolsPane = (
     if (toolsSplit.getSizes()[0] > 90) {
       consoleButtons.style.visibility = 'hidden';
     } else {
-      consoleButtons.style.visibility = 'visible';
-      tools[activeToolId].onActivate();
+      if (consoleButtons.style.visibility === 'hidden') {
+        consoleButtons.style.visibility = 'visible';
+        tools[activeToolId].onActivate();
+      }
     }
   };
 
