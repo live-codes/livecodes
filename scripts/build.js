@@ -119,9 +119,13 @@ esbuild.buildSync({
 
 esbuild.build({
   ...baseOptions,
-  entryPoints: ['monaco-astro.ts', 'monaco-clio.ts', 'monaco-imba.ts', 'monaco-wat.ts'].map(
-    (entry) => 'src/livecodes/editor/monaco/languages/' + entry,
-  ),
+  entryPoints: [
+    'monaco-astro.ts',
+    'monaco-clio.ts',
+    'monaco-imba.ts',
+    'monaco-sql.ts',
+    'monaco-wat.ts',
+  ].map((entry) => 'src/livecodes/editor/monaco/languages/' + entry),
 });
 
 esbuild.buildSync({

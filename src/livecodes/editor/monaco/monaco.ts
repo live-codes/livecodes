@@ -194,6 +194,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     astro: baseUrl + '{{hash:monaco-astro.js}}',
     clio: baseUrl + '{{hash:monaco-clio.js}}',
     imba: baseUrl + '{{hash:monaco-imba.js}}',
+    // sql: baseUrl + '{{hash:monaco-sql.js}}', // TODO: add autocomplete
     wat: baseUrl + '{{hash:monaco-wat.js}}',
   };
 
