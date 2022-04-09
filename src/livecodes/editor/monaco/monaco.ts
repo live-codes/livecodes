@@ -4,7 +4,7 @@ import type * as Monaco from 'monaco-editor'; // only for typescript types
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 import { getLanguageExtension, mapLanguage } from '../../languages';
 import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
+import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
 
@@ -191,10 +191,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   }
 
   const customLanguages: Partial<Record<Language, string>> = {
-    astro: vendorsBaseUrl + 'monaco-editor/languages/astro.js',
-    clio: vendorsBaseUrl + 'monaco-editor/languages/clio.js',
-    imba: vendorsBaseUrl + 'monaco-editor/languages/imba.js',
-    wat: vendorsBaseUrl + 'monaco-editor/languages/wat.js',
+    astro: baseUrl + '{{hash:monaco-astro.js}}',
+    clio: baseUrl + '{{hash:monaco-clio.js}}',
+    imba: baseUrl + '{{hash:monaco-imba.js}}',
+    wat: baseUrl + '{{hash:monaco-wat.js}}',
   };
 
   interface CustomLanguageDefinition {
