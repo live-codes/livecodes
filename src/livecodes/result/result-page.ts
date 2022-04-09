@@ -229,13 +229,26 @@ export const createResultPage = ({
     const testScript = dom.createElement('script');
     testScript.type = 'module';
     testScript.innerHTML = `
-  const { afterAll, afterEach, beforeAll, beforeEach, describe, it, test, expect } = window.jestLite.core;
-  ${escapeScript(compiledTests)}
-  window.jestLite.core.run().then(results => {
-    parent.postMessage({type: 'testResults', payload: {results}}, '*');
-  }).catch(() => {
-    parent.postMessage({type: 'testResults', payload: {error: true}}, '*');
-  });
+const {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  describe: { only: fdescribe, skip: xdescribe },
+  it,
+  test,
+  test: { only: fit, skip: xtest, skip: xit },
+  expect,
+  jest } = window.jestLite.core;
+
+${escapeScript(compiledTests)}
+
+window.jestLite.core.run().then(results => {
+  parent.postMessage({type: 'testResults', payload: {results}}, '*');
+}).catch(() => {
+  parent.postMessage({type: 'testResults', payload: {error: true}}, '*');
+});
     `;
     dom.body.appendChild(testScript);
   }
