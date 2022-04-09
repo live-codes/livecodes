@@ -462,7 +462,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
-  if (!isEmbed) {
+  if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
   if (!isUpdate) {
@@ -558,7 +558,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   setEditorTitle(editorId, language);
   showEditor(editorId, isUpdate);
   phpHelper({ editor: editors.script });
-  if (!isEmbed) {
+  if (!isEmbed && !isUpdate) {
     setTimeout(() => editor.focus());
   }
   await compiler.load([language], getConfig());
