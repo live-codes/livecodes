@@ -31,7 +31,7 @@ export const createTypeLoader = () => {
   const loadTypes = (types: Types) =>
     Promise.all(Object.keys(types).map((t) => getTypeContents({ [t]: types[t] })));
 
-  const load = async (code: string, configTypes: Types) => {
+  const load = async (code: string, configTypes: Types, forceLoad = false) => {
     const imports = getImports(code);
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
@@ -43,7 +43,7 @@ export const createTypeLoader = () => {
       const fromConfig =
         Object.keys(configTypes).find((t) => lib === t) ||
         Object.keys(configTypes).find((t) => lib.startsWith(t + '/'));
-      if (loaded) {
+      if (loaded && !forceLoad) {
         currentType = {};
       } else if (fromConfig) {
         currentType = { [fromConfig]: configTypes[fromConfig] };
@@ -62,7 +62,7 @@ export const createTypeLoader = () => {
     const autoloadTypes: Types = objectFilter(
       configTypes,
       (value: TypeValue, key: string) =>
-        !Object.keys(loadedTypes).includes(key) &&
+        (!Object.keys(loadedTypes).includes(key) || forceLoad) &&
         typeof value !== 'string' &&
         value.autoload === true,
     );

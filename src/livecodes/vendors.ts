@@ -72,6 +72,8 @@ export const imbaBaseUrl = 'https://cdn.jsdelivr.net/npm/imba@2.0.0-alpha.201/di
 
 export const jestLiteUrl = 'https://cdn.jsdelivr.net/npm/jest-lite@1.0.0-alpha.4/dist/core.js';
 
+export const jestTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/jest@27.4.1/index.d.ts';
+
 export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
 
 export const jsZipUrl =

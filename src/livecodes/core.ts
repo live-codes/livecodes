@@ -22,7 +22,7 @@ import {
   SimpleStorage,
   fakeStorage,
 } from './storage';
-import {
+import type {
   API,
   Cache,
   CodeEditor,
@@ -46,6 +46,7 @@ import {
   CustomEditors,
   BlocklyContent,
   CustomSettings,
+  Types,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -92,6 +93,7 @@ import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './
 import {
   autoCompleteUrl,
   hintCssUrl,
+  jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaObjViewerStylesUrl,
   snackbarUrl,
@@ -2510,6 +2512,18 @@ const handleTestEditor = () => {
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
     testEditor.focus();
+
+    if (typeof testEditor.addTypes === 'function') {
+      const testTypes: Types = {
+        jest: {
+          url: jestTypesUrl,
+          autoload: true,
+        },
+      };
+      typeLoader.load('', testTypes, true).then((libs) => {
+        libs.forEach((lib) => testEditor?.addTypes?.(lib));
+      });
+    }
 
     eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {
       const editorContent = testEditor?.getValue() || '';

@@ -370,6 +370,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const destroy = () => {
     configureEmmet(false);
     listeners.length = 0;
+    clearTypes(true);
     // editor.getModel()?.dispose();
   };
 
