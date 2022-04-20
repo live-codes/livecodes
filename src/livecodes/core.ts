@@ -92,6 +92,7 @@ import { deploy, deployedConfirmation, deployFile, getUserPublicRepos, GitHubFil
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   autoCompleteUrl,
+  chaiTypesUrl,
   hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
@@ -2495,7 +2496,7 @@ const handleTestEditor = () => {
     });
 
     const testLanguage: Language = config.tests?.language || 'typescript';
-    const editorLanguage: Language = 'javascript'; // editorLanguage,
+    const editorLanguage: Language = 'javascript';
     const options: EditorOptions = {
       baseUrl,
       mode: config.mode,
@@ -2517,6 +2518,10 @@ const handleTestEditor = () => {
       const testTypes: Types = {
         jest: {
           url: jestTypesUrl,
+          autoload: true,
+        },
+        chai: {
+          url: chaiTypesUrl,
           autoload: true,
         },
       };

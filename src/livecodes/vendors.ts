@@ -30,6 +30,10 @@ export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.2021120
 
 export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.4/';
 
+export const chaiUrl = 'https://cdn.esm.sh/v77/chai@4.3.6/es2020/chai.js';
+
+export const chaiTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/chai@4.2.22/index.d.ts';
+
 export const cjs2esUrl = 'https://cdn.jsdelivr.net/npm/cjs2es@1.1.1/dist/cjs2es.browser.min.js';
 
 export const clioBaseUrl =
