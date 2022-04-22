@@ -114,6 +114,9 @@ export const createTestViewer = (
       item.classList.add('test-result', result.status);
       result.errors
         .map((err) => err.split('at Object.<anonymous>')[0]?.trim())
+        .map((err) =>
+          err.startsWith('AssertionError: ') ? err.replace('AssertionError: ', '') : err,
+        )
         .forEach((err) => {
           const testError = document.createElement('pre');
           testError.classList.add('test-error');
