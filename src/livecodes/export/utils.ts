@@ -42,10 +42,19 @@ export const getFilesFromConfig = (config: Config | ContentConfig): Files => {
         }
       : undefined;
 
+  const tests = config.tests?.content
+    ? {
+        ['script.spec.' + getLanguageExtension(config.tests?.language) || 'js']: {
+          content: config.tests?.content,
+        },
+      }
+    : undefined;
+
   return {
     ...codeFiles,
     ...externalStyles,
     ...externalScripts,
+    ...tests,
   };
 };
 
