@@ -5,6 +5,7 @@ export interface API {
   getConfig: () => Promise<Config>;
   setConfig: (Config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
+  runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
 }
 
 export type Config = ContentConfig & AppConfig & UserConfig;
@@ -599,4 +600,11 @@ export interface EventsManager {
     fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
   ) => void;
   removeEventListeners: () => void;
+}
+
+export interface TestResult {
+  duration: number;
+  errors: string[];
+  status: 'pass' | 'fail';
+  testPath: string[];
 }

@@ -100,8 +100,8 @@ export const playground = async (
 
   const iframe = await createIframe();
 
-  const callAPI = (method: string, args?: any[]) =>
-    new Promise((resolve) => {
+  const callAPI = <T>(method: string, args?: any[]) =>
+    new Promise<T>((resolve) => {
       addEventListener('message', function handler(e) {
         if (
           e.source !== iframe.contentWindow ||
@@ -120,12 +120,13 @@ export const playground = async (
     });
 
   return {
-    run: () => callAPI('run') as Promise<void>,
-    format: () => callAPI('format') as Promise<void>,
-    getShareUrl: (shortUrl = false) => callAPI('getShareUrl', [shortUrl]) as Promise<string>,
-    getConfig: () => callAPI('getConfig') as Promise<Config>,
-    setConfig: (config: Config) => callAPI('setConfig', [config]) as Promise<Config>,
-    getCode: () => callAPI('getCode') as Promise<Code>,
+    run: () => callAPI('run'),
+    format: () => callAPI('format'),
+    getShareUrl: (shortUrl = false) => callAPI('getShareUrl', [shortUrl]),
+    getConfig: () => callAPI('getConfig'),
+    setConfig: (config: Config) => callAPI('setConfig', [config]),
+    getCode: () => callAPI('getCode'),
     // onChange: () => {},
+    runTests: () => callAPI('runTests'),
   };
 };

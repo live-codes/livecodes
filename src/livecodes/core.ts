@@ -47,6 +47,7 @@ import type {
   BlocklyContent,
   CustomSettings,
   Types,
+  TestResult,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -2445,6 +2446,14 @@ const handleTests = () => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
+    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: boolean }>(
+      'livecodes-test-results',
+      {
+        detail: JSON.parse(JSON.stringify(ev.data.payload)),
+      },
+    );
+    dispatchEvent(resultEvent);
+    parent.dispatchEvent(resultEvent);
   });
 
   eventsManager.addEventListener(
@@ -2871,6 +2880,18 @@ const createApi = (): API => ({
     }
     return JSON.parse(JSON.stringify(getCachedCode()));
   },
+  runTests: () =>
+    new Promise((resolve) => {
+      eventsManager.addEventListener(
+        document,
+        'livecodes-test-results',
+        ((ev: CustomEventInit<{ results: TestResult[]; error?: boolean }>) => {
+          resolve(ev.detail || { results: [] });
+        }) as any,
+        { once: true },
+      );
+      runTests();
+    }),
 });
 
 export { createApi, initializeApp, extraHandlers };

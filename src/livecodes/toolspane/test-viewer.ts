@@ -1,4 +1,4 @@
-import { Config, Editors, EventsManager, Tool } from '../models';
+import { Config, Editors, EventsManager, TestResult, Tool } from '../models';
 import { getToolspaneElement } from '../UI';
 
 export const createTestViewer = (
@@ -73,12 +73,6 @@ export const createTestViewer = (
     }
   };
 
-  interface TestResult {
-    duration: number;
-    errors: string[];
-    status: 'pass' | 'fail';
-    testPath: string[];
-  }
   const showResults = ({ results, error }: { results: TestResult[]; error?: boolean }) => {
     if (!testResultsElement) {
       createElements();
