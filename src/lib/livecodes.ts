@@ -1,4 +1,4 @@
-import type { API, Code, Config, EditorId } from './models';
+import type { API, Code, Config } from './models';
 
 export type { API, Code, Config };
 
