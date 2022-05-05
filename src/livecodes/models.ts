@@ -374,7 +374,7 @@ export type Template = Pick<
   | 'imports'
   | 'types'
 > &
-  Partial<Pick<Config, 'processors' | 'customSettings'>> & {
+  Partial<Pick<Config, 'processors' | 'customSettings' | 'tests'>> & {
     name: string;
     thumbnail: string;
   };

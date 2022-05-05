@@ -44,7 +44,7 @@ export const getFilesFromConfig = (config: Config | ContentConfig): Files => {
 
   const tests = config.tests?.content
     ? {
-        ['script.spec.' + getLanguageExtension(config.tests?.language) || 'js']: {
+        ['script.spec.' + getLanguageExtension(config.tests?.language) || 'ts']: {
           content: config.tests?.content,
         },
       }
