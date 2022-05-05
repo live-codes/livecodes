@@ -128,5 +128,6 @@ export const playground = async (
     getCode: () => callAPI('getCode'),
     runTests: () => callAPI('runTests'),
     onChange: (fn) => callAPI('onChange', [fn]),
+    destroy: () => callAPI('destroy'),
   };
 };

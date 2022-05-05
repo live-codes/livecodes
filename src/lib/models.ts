@@ -3,10 +3,11 @@ export interface API {
   format: (allEditors?: boolean) => Promise<void>;
   getShareUrl: (shortUrl?: boolean) => Promise<string>;
   getConfig: () => Promise<Config>;
-  setConfig: (Config: Config) => Promise<Config>;
+  setConfig: (config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
   runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
   onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
+  destroy: () => void;
 }
 
 export type Config = ContentConfig & AppConfig & UserConfig;

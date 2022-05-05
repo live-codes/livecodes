@@ -2912,15 +2912,30 @@ const createApi = (): API => {
       });
     });
   };
+  let isDestroyed = false;
+  const apiDestroy = () => {
+    getAllEditors().forEach((editor) => editor.destroy());
+    eventsManager.removeEventListeners();
+    parent.dispatchEvent(new Event('livecodes-destroy'));
+    formatter?.destroy();
+    document.body.innerHTML = '';
+    document.head.innerHTML = '';
+    isDestroyed = true;
+  };
+  const logError = async (): Promise<any> => {
+    // eslint-disable-next-line no-console
+    console.error('Cannot call API methods after calling `destroy()`.');
+  };
   return {
-    run: apiRun,
-    format: apiFormat,
-    getShareUrl: apiGetShareUrl,
-    getConfig: apiGetConfig,
-    setConfig: apiSetConfig,
-    getCode: apiGetCode,
-    runTests: apiRunTests,
-    onChange: apiOnChange,
+    run: () => (!isDestroyed ? apiRun() : logError()),
+    format: () => (!isDestroyed ? apiFormat() : logError()),
+    getShareUrl: () => (!isDestroyed ? apiGetShareUrl() : logError()),
+    getConfig: () => (!isDestroyed ? apiGetConfig() : logError()),
+    setConfig: (config) => (!isDestroyed ? apiSetConfig(config) : logError()),
+    getCode: () => (!isDestroyed ? apiGetCode() : logError()),
+    runTests: () => (!isDestroyed ? apiRunTests() : logError()),
+    onChange: (fn) => (!isDestroyed ? apiOnChange(fn) : logError()),
+    destroy: () => (!isDestroyed ? apiDestroy() : logError()),
   };
 };
 

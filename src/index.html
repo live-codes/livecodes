@@ -131,6 +131,11 @@
       window.addEventListener('livecodes-test-results', function (e) {
         const testResults = e.detail;
       });
+      window.addEventListener('livecodes-destroy', function () {
+        window.removeEventListener('resize', resize);
+        document.body.innerHTML = '';
+        document.head.innerHTML = '';
+      });
     </script>
     <script src="./index.ts" type="module"></script>
   </body>
