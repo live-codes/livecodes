@@ -23,5 +23,6 @@ function createFakeFormatter(): Formatter {
       Promise.resolve((value: string, cursorOffset: number) =>
         Promise.resolve({ formatted: value, cursorOffset }),
       ),
+    destroy: () => undefined,
   };
 }
