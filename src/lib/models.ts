@@ -6,6 +6,7 @@ export interface API {
   setConfig: (Config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
   runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
+  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
 }
 
 export type Config = ContentConfig & AppConfig & UserConfig;

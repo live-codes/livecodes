@@ -575,6 +575,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     await run();
   }
   await setSavedStatus();
+  dispatchChangeEvent();
   addConsoleInputCodeCompletion();
   loadModuleTypes(editors, getConfig());
   await applyLanguageConfigs(language);
@@ -783,12 +784,15 @@ const setProjectTitle = (setDefault = false) => {
     projectTitle.textContent = defaultTitle;
   }
   const title = projectTitle.textContent || defaultTitle;
+  if (title === getConfig().title) return;
+
   setConfig({ ...getConfig(), title });
   if (getConfig().autosave) {
     save(!projectId, false);
   }
   setWindowTitle();
   setSavedStatus();
+  dispatchChangeEvent();
 };
 
 const setWindowTitle = () => {
@@ -968,6 +972,12 @@ const loadUserConfig = () => {
     ...getConfig(),
     ...userConfig,
   });
+};
+
+const dispatchChangeEvent = () => {
+  const changeEvent = new Event('livecodes-change');
+  document.dispatchEvent(changeEvent);
+  parent.dispatchEvent(changeEvent);
 };
 
 const setSavedStatus = async () => {
@@ -1384,7 +1394,7 @@ const handleSelectEditor = () => {
   });
 };
 
-const handlechangeLanguage = () => {
+const handleChangeLanguage = () => {
   if (getConfig().allowLangChange) {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
@@ -1433,8 +1443,10 @@ const handleChangeContent = () => {
       await save();
     }
 
+    dispatchChangeEvent();
     loadModuleTypes(editors, getConfig());
   };
+
   const debouncecontentChanged = (editorId: EditorId) =>
     debounce(async () => {
       await contentChanged(editorId, changingContent);
@@ -2430,6 +2442,7 @@ const handleCustomSettings = () => {
       customSettingsEditor?.destroy();
       modal.close();
       await run();
+      dispatchChangeEvent();
     });
   };
   eventsManager.addEventListener(
@@ -2452,7 +2465,7 @@ const handleTests = () => {
         detail: JSON.parse(JSON.stringify(ev.data.payload)),
       },
     );
-    dispatchEvent(resultEvent);
+    document.dispatchEvent(resultEvent);
     parent.dispatchEvent(resultEvent);
   });
 
@@ -2555,6 +2568,7 @@ const handleTestEditor = () => {
       modal.close();
       toolsPane?.tests?.resetTests();
       await runTests();
+      dispatchChangeEvent();
     });
   };
 
@@ -2626,7 +2640,7 @@ const basicHandlers = () => {
   handleResize();
   handleIframeResize();
   handleSelectEditor();
-  handlechangeLanguage();
+  handleChangeLanguage();
   handleChangeContent();
   handleHotKeys();
   handleRunButton();
@@ -2857,31 +2871,29 @@ const initializeApp = async (
   showVersion();
 };
 
-const createApi = (): API => ({
-  run: async () => {
-    await run();
-  },
-  format: async (allEditors?: boolean) => format(allEditors),
-  getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
-  getConfig: async (contentOnly = false): Promise<Config> => {
+const createApi = (): API => {
+  const apiRun = () => run();
+  const apiFormat = (allEditors?: boolean) => format(allEditors);
+  const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
+  const apiGetConfig = async (contentOnly = false): Promise<Config> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
     return JSON.parse(JSON.stringify(config));
-  },
-  setConfig: async (newConfig: Config): Promise<Config> => {
+  };
+  const apiSetConfig = async (newConfig: Config): Promise<Config> => {
     const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;
-  },
-  getCode: async (): Promise<Code> => {
+  };
+  const apiGetCode = async (): Promise<Code> => {
     updateConfig();
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({});
     }
     return JSON.parse(JSON.stringify(getCachedCode()));
-  },
-  runTests: () =>
-    new Promise((resolve) => {
+  };
+  const apiRunTests = () =>
+    new Promise<{ results: TestResult[]; error?: boolean }>((resolve) => {
       eventsManager.addEventListener(
         document,
         'livecodes-test-results',
@@ -2891,7 +2903,25 @@ const createApi = (): API => ({
         { once: true },
       );
       runTests();
-    }),
-});
+    });
+  const apiOnChange = (fn: ({ code, config }: { code: Code; config: Config }) => void) => {
+    eventsManager.addEventListener(document, 'livecodes-change', async function () {
+      fn({
+        code: await apiGetCode(),
+        config: await apiGetConfig(),
+      });
+    });
+  };
+  return {
+    run: apiRun,
+    format: apiFormat,
+    getShareUrl: apiGetShareUrl,
+    getConfig: apiGetConfig,
+    setConfig: apiSetConfig,
+    getCode: apiGetCode,
+    runTests: apiRunTests,
+    onChange: apiOnChange,
+  };
+};
 
 export { createApi, initializeApp, extraHandlers };

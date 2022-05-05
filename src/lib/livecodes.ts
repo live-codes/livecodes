@@ -100,7 +100,7 @@ export const playground = async (
 
   const iframe = await createIframe();
 
-  const callAPI = <T>(method: string, args?: any[]) =>
+  const callAPI = <T>(method: keyof API, args?: any[]) =>
     new Promise<T>((resolve) => {
       addEventListener('message', function handler(e) {
         if (
@@ -126,7 +126,7 @@ export const playground = async (
     getConfig: () => callAPI('getConfig'),
     setConfig: (config: Config) => callAPI('setConfig', [config]),
     getCode: () => callAPI('getCode'),
-    // onChange: () => {},
     runTests: () => callAPI('runTests'),
+    onChange: (fn) => callAPI('onChange', [fn]),
   };
 };

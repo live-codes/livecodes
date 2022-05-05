@@ -125,6 +125,12 @@
       window.addEventListener('livecodes-ready', function () {
         // project loaded
       });
+      window.addEventListener('livecodes-change', function () {
+        // content change
+      });
+      window.addEventListener('livecodes-test-results', function (e) {
+        const testResults = e.detail;
+      });
     </script>
     <script src="./index.ts" type="module"></script>
   </body>
