@@ -68,6 +68,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const keyCodes = {
     CtrlEnter: 'Ctrl-Enter',
+    ShiftEnter: 'Shift-Enter',
     Enter: 'Enter',
     UpArrow: 'ArrowUp',
     DownArrow: 'ArrowDown',

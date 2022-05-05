@@ -289,6 +289,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const keyCodes = {
     // eslint-disable-next-line
     CtrlEnter: monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+    // eslint-disable-next-line
+    ShiftEnter: monaco.KeyMod.Shift | monaco.KeyCode.Enter,
     Enter: monaco.KeyCode.Enter,
     UpArrow: monaco.KeyCode.UpArrow,
     DownArrow: monaco.KeyCode.DownArrow,

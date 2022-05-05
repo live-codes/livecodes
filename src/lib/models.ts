@@ -419,6 +419,7 @@ export interface CodeEditor {
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
   keyCodes: {
     CtrlEnter: any;
+    ShiftEnter: any;
     Enter: any;
     UpArrow: any;
     DownArrow: any;

@@ -582,10 +582,10 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   await applyLanguageConfigs(language);
 };
 
-// Ctrl/Cmd + Enter triggers run
+// Shift + Enter triggers run
 const registerRun = (editorId: EditorId, editors: Editors) => {
   const editor = editors[editorId];
-  editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
+  editor.addKeyBinding('run', editor.keyCodes.ShiftEnter, async () => {
     await run();
   });
 };
@@ -1464,7 +1464,7 @@ const handleHotKeys = () => {
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
 
-    // Cmd + p opens the command palette
+    // Ctrl + p opens the command palette
     const activeEditor = getActiveEditor();
     if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
       e.preventDefault();
@@ -1472,7 +1472,7 @@ const handleHotKeys = () => {
       return;
     }
 
-    // Cmd + d prevents browser bookmark dialog
+    // Ctrl + d prevents browser bookmark dialog
     if (ctrl(e) && e.key.toLowerCase() === 'd') {
       e.preventDefault();
       return;
@@ -1480,24 +1480,37 @@ const handleHotKeys = () => {
 
     if (isEmbed) return;
 
-    // Cmd + Shift + S forks the project (save as...)
+    // Ctrl + Shift + S forks the project (save as...)
     if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await fork();
       return;
     }
 
-    // Cmd + S saves the project
+    // Ctrl + S saves the project
     if (ctrl(e) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await save(true);
       return;
     }
 
-    // Cmd + Alt + T runs tests
+    // Ctrl + Alt + T runs tests
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
       e.preventDefault();
+      split.show('output');
+      toolsPane?.setActiveTool('tests');
+      if (toolsPane?.getStatus() === 'closed') {
+        toolsPane?.open();
+      }
       await runTests();
+      return;
+    }
+
+    // Ctrl + Enter triggers run
+    if (e.shiftKey && e.key === 'Enter') {
+      e.preventDefault();
+      split.show('output');
+      await run();
       return;
     }
   };

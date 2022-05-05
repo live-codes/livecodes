@@ -629,6 +629,10 @@ a {
 #test-container,
 #test-results {
   background-color: var(--tests-background-color);
+}
+
+#test-results {
+  padding-bottom: 1.5em;
 
   .test-result {
     background-color: var(--test-results-background-color);
@@ -671,6 +675,7 @@ a {
   .test-summary,
   .no-tests {
     margin: 0.5em;
+    min-height: 2.5em;
     padding: 0.5em;
 
     .fail {

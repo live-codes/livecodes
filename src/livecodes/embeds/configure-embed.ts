@@ -13,7 +13,9 @@ export const configureEmbed = (
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.title = 'Edit in LiveCodes 🡕';
+  logoLink.classList.add('hint--bottom-left');
+  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
+  logoLink.title = '';
 
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();

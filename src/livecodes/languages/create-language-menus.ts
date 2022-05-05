@@ -26,7 +26,13 @@ export const createLanguageMenus = (
     editorSelector.tabIndex = 1;
     editorSelector.innerHTML = `
       <span></span>
-      <a href="javascript:void(0)" onclick="event.stopPropagation();" tabIndex="1" title="change language" class="language-menu-button">
+      <a
+        href="javascript:void(0)"
+        onclick="event.stopPropagation();"
+        tabIndex="1"
+        class="language-menu-button hint--bottom"
+        data-hint="Change Language"
+      >
         <img
           width="20"
           height="20"

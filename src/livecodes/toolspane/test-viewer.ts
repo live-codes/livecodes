@@ -120,7 +120,7 @@ export const createTestViewer = (
            ${total} total <br />
     Time: ${duration}s
 `;
-    testResultsElement.appendChild(summary);
+    testResultsElement.prepend(summary);
   };
 
   return {

@@ -122,6 +122,7 @@ export const createEditorCreator =
 
     const keyCodes = {
       CtrlEnter: 'Ctrl-Enter',
+      ShiftEnter: 'Shift-Enter',
       Enter: 'Enter',
       UpArrow: 'ArrowUp',
       DownArrow: 'ArrowDown',
