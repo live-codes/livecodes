@@ -102,7 +102,7 @@ describe("Page", () => {
   });
 
   test("Should display logo", async () => {
-    expect(document.querySelector('.logo').src).toContain('react.svg');
+    expect(document.querySelector('.logo').src).toContain('jest.svg');
   });
 
   test("Should increment counter on button click", async () => {
