@@ -318,6 +318,11 @@ export const createToolsPane = (
     setActiveTool(activeToolId);
   };
 
+  const getToolId = (title: string) => {
+    const id = tools.findIndex((t) => t.title.toLowerCase() === title);
+    return id > -1 ? id : 0;
+  };
+
   return {
     load,
     open: () => resize('open'),
@@ -326,6 +331,7 @@ export const createToolsPane = (
     hide: () => resize('none'),
     getStatus: () => status,
     getActiveTool: () => tools[activeToolId].title,
+    setActiveTool: (title: string) => setActiveTool(getToolId(title)),
     // console, compiled
     ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };

@@ -1,4 +1,4 @@
-import type { API, Code, Config } from './models';
+import type { API, Code, Config, EditorId } from './models';
 
 export type { API, Code, Config };
 
@@ -121,11 +121,12 @@ export const playground = async (
 
   return {
     run: () => callAPI('run'),
-    format: () => callAPI('format'),
-    getShareUrl: (shortUrl = false) => callAPI('getShareUrl', [shortUrl]),
-    getConfig: () => callAPI('getConfig'),
+    format: (allEditors) => callAPI('format', [allEditors]),
+    getShareUrl: (shortUrl) => callAPI('getShareUrl', [shortUrl]),
+    getConfig: (contentOnly) => callAPI('getConfig', [contentOnly]),
     setConfig: (config: Config) => callAPI('setConfig', [config]),
     getCode: () => callAPI('getCode'),
+    show: (pane) => callAPI('show', [pane]),
     runTests: () => callAPI('runTests'),
     onChange: (fn) => callAPI('onChange', [fn]),
     destroy: () => callAPI('destroy'),

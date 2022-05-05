@@ -48,6 +48,7 @@ import type {
   CustomSettings,
   Types,
   TestResult,
+  Tool,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -2872,19 +2873,20 @@ const initializeApp = async (
 };
 
 const createApi = (): API => {
-  const apiRun = () => run();
-  const apiFormat = (allEditors?: boolean) => format(allEditors);
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
+
   const apiGetConfig = async (contentOnly = false): Promise<Config> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
     return JSON.parse(JSON.stringify(config));
   };
+
   const apiSetConfig = async (newConfig: Config): Promise<Config> => {
     const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;
   };
+
   const apiGetCode = async (): Promise<Code> => {
     updateConfig();
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
@@ -2892,6 +2894,27 @@ const createApi = (): API => {
     }
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
+
+  const apiShow = async (pane: EditorId | Lowercase<Tool['title']> | 'result', full = false) => {
+    if (pane === 'result') {
+      split.show('output', full);
+      toolsPane?.close();
+    } else if (pane === 'console' || pane === 'compiled' || pane === 'tests') {
+      split.show('output');
+      toolsPane?.setActiveTool(pane);
+      if (full) {
+        toolsPane?.maximize();
+      } else {
+        toolsPane?.open();
+      }
+    } else if (Object.keys(editors).includes(pane)) {
+      showEditor(pane);
+      split.show('code', full);
+    } else {
+      throw new Error('Invalid pane id');
+    }
+  };
+
   const apiRunTests = () =>
     new Promise<{ results: TestResult[]; error?: boolean }>((resolve) => {
       eventsManager.addEventListener(
@@ -2904,6 +2927,7 @@ const createApi = (): API => {
       );
       runTests();
     });
+
   const apiOnChange = (fn: ({ code, config }: { code: Code; config: Config }) => void) => {
     eventsManager.addEventListener(document, 'livecodes-change', async function () {
       fn({
@@ -2912,8 +2936,9 @@ const createApi = (): API => {
       });
     });
   };
+
   let isDestroyed = false;
-  const apiDestroy = () => {
+  const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
     parent.dispatchEvent(new Event('livecodes-destroy'));
@@ -2922,20 +2947,22 @@ const createApi = (): API => {
     document.head.innerHTML = '';
     isDestroyed = true;
   };
-  const logError = async (): Promise<any> => {
-    // eslint-disable-next-line no-console
-    console.error('Cannot call API methods after calling `destroy()`.');
+
+  const throwError = () => {
+    throw new Error('Cannot call API methods after calling `destroy()`.');
   };
+
   return {
-    run: () => (!isDestroyed ? apiRun() : logError()),
-    format: () => (!isDestroyed ? apiFormat() : logError()),
-    getShareUrl: () => (!isDestroyed ? apiGetShareUrl() : logError()),
-    getConfig: () => (!isDestroyed ? apiGetConfig() : logError()),
-    setConfig: (config) => (!isDestroyed ? apiSetConfig(config) : logError()),
-    getCode: () => (!isDestroyed ? apiGetCode() : logError()),
-    runTests: () => (!isDestroyed ? apiRunTests() : logError()),
-    onChange: (fn) => (!isDestroyed ? apiOnChange(fn) : logError()),
-    destroy: () => (!isDestroyed ? apiDestroy() : logError()),
+    run: () => (!isDestroyed ? run() : throwError()),
+    format: (allEditors) => (!isDestroyed ? format(allEditors) : throwError()),
+    getShareUrl: (shortUrl) => (!isDestroyed ? apiGetShareUrl(shortUrl) : throwError()),
+    getConfig: (contentOnly) => (!isDestroyed ? apiGetConfig(contentOnly) : throwError()),
+    setConfig: (config) => (!isDestroyed ? apiSetConfig(config) : throwError()),
+    getCode: () => (!isDestroyed ? apiGetCode() : throwError()),
+    show: (pane, full) => (!isDestroyed ? apiShow(pane, full) : throwError()),
+    runTests: () => (!isDestroyed ? apiRunTests() : throwError()),
+    onChange: (fn) => (!isDestroyed ? apiOnChange(fn) : throwError()),
+    destroy: () => (!isDestroyed ? apiDestroy() : throwError()),
   };
 };
 

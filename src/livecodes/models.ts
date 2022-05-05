@@ -2,12 +2,13 @@ export interface API {
   run: () => Promise<void>;
   format: (allEditors?: boolean) => Promise<void>;
   getShareUrl: (shortUrl?: boolean) => Promise<string>;
-  getConfig: () => Promise<Config>;
+  getConfig: (contentOnly?: boolean) => Promise<Config>;
   setConfig: (config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
+  show: (pane: EditorId | Lowercase<Tool['title']> | 'result', full?: boolean) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
   onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
-  destroy: () => void;
+  destroy: () => Promise<void>;
 }
 
 export type Config = ContentConfig & AppConfig & UserConfig;
@@ -383,7 +384,7 @@ export type Template = Pick<
   };
 
 export interface Tool {
-  title: string;
+  title: 'Console' | 'Compiled' | 'Tests';
   load: () => Promise<void>;
   onActivate: () => void;
   onDeactivate: () => void;
@@ -393,7 +394,7 @@ export interface Tool {
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
 
 export type ToolList = Array<{
-  name: 'console' | 'compiled' | 'tests';
+  name: Lowercase<Tool['title']>;
   factory: (
     config: Config,
     baseUrl: string,
