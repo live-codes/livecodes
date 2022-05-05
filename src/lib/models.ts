@@ -405,6 +405,45 @@ export type ToolList = Array<{
   ) => Tool;
 }>;
 
+export interface Console extends Tool {
+  title: 'Console';
+  log: (...args: any[]) => void;
+  info: (...args: any[]) => void;
+  table: (...args: any[]) => void;
+  warn: (...args: any[]) => void;
+  error: (...args: any[]) => void;
+  clear: () => void;
+  // filterLog: (filter: string) => void;
+  evaluate: (code: string) => void;
+}
+
+export interface CompiledCodeViewer extends Tool {
+  title: 'Compiled';
+  update: (language: Language, content: string, label?: string | undefined) => void;
+  reloadEditor: () => Promise<void>;
+}
+
+export interface TestViewer extends Tool {
+  title: 'Tests';
+  showResults: ({ results, error }: { results: TestResult[]; error?: boolean }) => void;
+  resetTests: () => void;
+  clearTests: () => void;
+}
+
+export interface ToolsPane {
+  load: () => Promise<void>;
+  open: () => void;
+  close: () => void;
+  maximize: () => void;
+  hide: () => void;
+  getStatus: () => ToolsPaneStatus;
+  getActiveTool: () => Lowercase<Tool['title']>;
+  setActiveTool: (title: Lowercase<Tool['title']>) => void;
+  console?: Console;
+  compiled?: CompiledCodeViewer;
+  tests?: TestViewer;
+}
+
 export interface CodeEditor {
   getValue: () => string;
   setValue: (value?: string, newState?: boolean) => void;

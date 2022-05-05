@@ -36,6 +36,7 @@ const sidebars = {
             'features/tools-pane',
             'features/console',
             'features/compiled-code',
+            'features/tests',
             'features/display-modes',
             'features/embeds',
             'features/code-preload',

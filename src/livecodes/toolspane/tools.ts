@@ -1,5 +1,13 @@
 import Split from 'split.js';
-import { Editors, Config, ToolList, ToolsPaneStatus, EventsManager } from '../models';
+import {
+  Editors,
+  Config,
+  ToolList,
+  ToolsPaneStatus,
+  EventsManager,
+  ToolsPane,
+  Tool,
+} from '../models';
 import { getResultElement } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
@@ -27,7 +35,7 @@ export const createToolsPane = (
   eventsManager: EventsManager,
   isEmbed: boolean,
   runTests: () => Promise<void>,
-) => {
+): ToolsPane => {
   const tools = toolList.map((tool) =>
     tool.factory(config, baseUrl, editors, eventsManager, isEmbed, runTests),
   );
@@ -318,7 +326,7 @@ export const createToolsPane = (
     setActiveTool(activeToolId);
   };
 
-  const getToolId = (title: string) => {
+  const getToolId = (title: Lowercase<Tool['title']>) => {
     const id = tools.findIndex((t) => t.title.toLowerCase() === title);
     return id > -1 ? id : 0;
   };
@@ -330,9 +338,9 @@ export const createToolsPane = (
     maximize: () => resize('full'),
     hide: () => resize('none'),
     getStatus: () => status,
-    getActiveTool: () => tools[activeToolId].title,
-    setActiveTool: (title: string) => setActiveTool(getToolId(title)),
-    // console, compiled
+    getActiveTool: () => tools[activeToolId].title.toLowerCase() as Lowercase<Tool['title']>,
+    setActiveTool: (title: Lowercase<Tool['title']>) => setActiveTool(getToolId(title)),
+    // console, compiled, tests
     ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };
 };

@@ -1,7 +1,7 @@
 import LunaConsole from 'luna-console';
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
-import { Editors, Config, Tool, CodeEditor, EditorOptions } from '../models';
+import { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
@@ -13,7 +13,7 @@ export const createConsole = (
   eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
   _runTests: () => Promise<void>,
-): Tool => {
+): Console => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
 
@@ -274,5 +274,5 @@ export const createConsole = (
     clear: () => consoleEmulator?.clear(),
     // filterLog: (filter: string) => consoleEmulator?.filterLog(filter),
     evaluate: (code: string) => consoleEmulator?.evaluate(code),
-  } as Tool;
+  };
 };

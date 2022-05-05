@@ -2,7 +2,15 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-The resizeable tools pane (below the result page) provides an area for developer tools. This currently includes the [console](./console.md) and [compiled code viewer](./compiled-code.md). In addition, it shows a loading spinner when the result page is loading. The pane can be resized by dragging the bar. Clicking a tool button toggles opening/closing the pane. Double-click toggles maximize/close.
+The resizeable tools pane (below the result page) provides an area for developer tools. This currently includes:
+
+- [Console](./console.md)
+- [Compiled code viewer](./compiled-code.md)
+- [Tests](./tests.md)
+- Open result page in new window (not in embeds)
+- Loading spinner that appears when the result page is loading
+
+The pane can be resized by dragging the bar. Clicking a tool button toggles opening/closing the pane. Double-click toggles maximize/close.
 
 It can be configured to have any of the following states:
 

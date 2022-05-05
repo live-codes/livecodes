@@ -1,7 +1,14 @@
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { languages } from '../languages';
-import { Editors, Config, Tool, CodeEditor, EditorOptions, Language } from '../models';
+import type {
+  Editors,
+  Config,
+  CodeEditor,
+  EditorOptions,
+  Language,
+  CompiledCodeViewer,
+} from '../models';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
 
 export const createCompiledCodeViewer = (
@@ -11,7 +18,7 @@ export const createCompiledCodeViewer = (
   _eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
   _runTests: () => Promise<void>,
-): Tool => {
+): CompiledCodeViewer => {
   let compiledCodeElement: HTMLElement;
   let editor: CodeEditor;
   let languageLabel: HTMLElement;
@@ -109,5 +116,5 @@ export const createCompiledCodeViewer = (
     getEditor: () => editor,
     update,
     reloadEditor,
-  } as Tool;
+  };
 };

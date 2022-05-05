@@ -1,4 +1,4 @@
-import { Config, Editors, EventsManager, TestResult, Tool } from '../models';
+import { Config, Editors, EventsManager, TestResult, TestViewer } from '../models';
 import { getToolspaneElement } from '../UI';
 
 export const createTestViewer = (
@@ -8,7 +8,7 @@ export const createTestViewer = (
   eventsManager: EventsManager,
   isEmbed: boolean,
   runTests: () => Promise<void>,
-): Tool => {
+): TestViewer => {
   let testResultsElement: HTMLElement;
   const loading = '<div class="test-summary">Loading tests...</div>';
 
@@ -137,7 +137,7 @@ export const createTestViewer = (
     showResults,
     resetTests,
     clearTests,
-  } as Tool;
+  };
 };
 
 const icons = {

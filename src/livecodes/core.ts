@@ -49,6 +49,7 @@ import type {
   Types,
   TestResult,
   Tool,
+  ToolsPane,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -123,7 +124,7 @@ let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
 let customEditors: CustomEditors;
-let toolsPane: any;
+let toolsPane: ToolsPane | undefined;
 let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
@@ -373,7 +374,7 @@ const createEditors = async (config: Config) => {
 
 const reloadEditors = async (config: Config) => {
   await createEditors(config);
-  await toolsPane?.compiled.reloadEditor();
+  await toolsPane?.compiled?.reloadEditor();
   updateCompiledCode();
   handleChangeContent();
 };
@@ -443,7 +444,7 @@ const showMode = (config: Config) => {
     editorTools.style.display = 'none';
   }
   if (config.mode === 'result') {
-    if (!['full', 'open'].includes(toolsPane.getStatus())) {
+    if (!['full', 'open'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
@@ -616,7 +617,7 @@ const updateCompiledCode = () => {
       if (editorId === 'script' && getConfig().script.language === 'php') {
         compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
       }
-      toolsPane.compiled.update(
+      toolsPane?.compiled?.update(
         compiledLanguages[editorId].language,
         compiledCode,
         compiledLanguages[editorId].label,
@@ -1209,8 +1210,8 @@ const loadSelectedScreen = () => {
 
 const getAllEditors = (): CodeEditor[] => [
   ...Object.values(editors),
-  ...[toolsPane?.console.getEditor()],
-  ...[toolsPane?.compiled.getEditor()],
+  ...[toolsPane?.console?.getEditor?.()],
+  ...[toolsPane?.compiled?.getEditor?.()],
 ];
 
 const setTheme = (theme: Theme) => {
@@ -2812,7 +2813,7 @@ const bootstrap = async (reload = false) => {
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
     setTimeout(() => {
       if (
-        toolsPane?.getActiveTool() === 'Tests' &&
+        toolsPane?.getActiveTool() === 'tests' &&
         ['open', 'full'].includes(toolsPane?.getStatus())
       ) {
         run(undefined, true);
