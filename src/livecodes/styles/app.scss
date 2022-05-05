@@ -694,17 +694,19 @@ a {
   }
 
   .button {
+    align-items: center;
     border: 1px solid rgb(47, 79, 79);
     border-radius: 3px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
     color: unset;
     cursor: pointer;
+    display: flex;
     font-size: 0.8em;
+    gap: 0.3em;
+    justify-content: center;
     margin: 3px 5px;
     outline: none;
     padding: 3px;
-    place-self: center;
-    text-align: center;
     text-decoration: none;
     width: 100px;
 
@@ -715,24 +717,28 @@ a {
     &.disabled {
       color: grey;
     }
+
+    svg {
+      height: 12px;
+    }
   }
 }
 
 #watch-tests-btn {
-  img.checked {
+  .checked {
     display: unset;
   }
 
-  img.unchecked {
+  .unchecked {
     display: none;
   }
 
   &.disabled {
-    img.checked {
+    .checked {
       display: none;
     }
 
-    img.unchecked {
+    .unchecked {
       display: unset;
     }
   }
