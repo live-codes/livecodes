@@ -59,7 +59,7 @@ ReactDOM.render(<App name="Jest with React" />, document.querySelector("#app"));
   imports: {},
   types: {},
   tests: {
-    language: 'jsx',
+    language: 'tsx',
     content: `
 import React from "react";
 import { unmountComponentAtNode } from "react-dom";

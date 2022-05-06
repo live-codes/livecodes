@@ -73,7 +73,7 @@ button.addEventListener(
   imports: {},
   types: {},
   tests: {
-    language: 'javascript',
+    language: 'tsx',
     content: `
 import { fireEvent, screen } from "@testing-library/dom";
 import "@testing-library/jest-dom";

@@ -1,6 +1,7 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
+import { customEvents } from './custom-events';
 import type { API, Config, ContentConfig } from './models';
 
 export type { API, Config };
@@ -39,7 +40,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
-    const run = () => {
+    const loadApp = () => {
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
@@ -58,18 +59,18 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       iframe.contentWindow?.document.close();
 
       if (isEmbed) {
-        window.addEventListener('livecodes-ready', () => {
-          parent.postMessage({ type: 'livecodes-ready' }, anyOrigin);
+        window.addEventListener(customEvents.appLoaded, () => {
+          parent.postMessage({ type: customEvents.appLoaded }, anyOrigin);
         });
 
-        window.addEventListener('livecodes-app-loaded', () => {
-          parent.postMessage({ type: 'livecodes-app-loaded' }, anyOrigin);
+        window.addEventListener(customEvents.ready, () => {
+          parent.postMessage({ type: customEvents.ready }, anyOrigin);
         });
 
-        window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
+        window.addEventListener(customEvents.change, (e: CustomEventInit<ContentConfig>) => {
           parent.postMessage(
             {
-              type: 'livecodes-change',
+              type: customEvents.change,
               detail: e.detail,
             },
             anyOrigin,
@@ -83,7 +84,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
           const api: API = await app(config, baseUrl);
           iframe.style.display = 'block';
           window.dispatchEvent(
-            new CustomEvent('livecodes-app-loaded', {
+            new CustomEvent(customEvents.appLoaded, {
               detail: api,
             }),
           );
@@ -119,7 +120,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       });
     };
     if (clickToLoad) {
-      window.addEventListener('run', run, false);
+      window.addEventListener(customEvents.load, loadApp, false);
 
       const preloadLink = document.createElement('link');
       preloadLink.href = baseUrl + '{{hash:embed.js}}';
@@ -127,6 +128,6 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       preloadLink.as = 'script';
       document.head.appendChild(preloadLink);
     } else {
-      run();
+      loadApp();
     }
   });

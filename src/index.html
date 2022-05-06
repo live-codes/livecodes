@@ -82,61 +82,6 @@
       />
       <div id="click-to-load-text">Click to load LiveCodes</div>
     </div>
-    <script>
-      const animatingLogo = document.querySelector('#animating-logo');
-      const cube = document.querySelector('#cube');
-      const clickToLoad = document.querySelector('#click-to-load');
-      if (location.search.includes('embed') && !location.search.includes('embed=false')) {
-        document.body.classList.add('embed');
-        if (!location.search.includes('click-to-load=false')) {
-          document.body.classList.add('click-to-load');
-          cube.classList.remove('cube');
-          animatingLogo.classList.add('hidden');
-          animatingLogo.style.display = 'none';
-          clickToLoad.style.display = 'flex';
-          clickToLoad.classList.add('visible');
-          clickToLoad.addEventListener('click', () => {
-            clickToLoad.classList.remove('visible');
-            document.querySelector('.preview')?.classList.add('hidden');
-            setTimeout(() => {
-              document.body.classList.remove('click-to-load');
-              animatingLogo.style.display = 'flex';
-              animatingLogo.classList.remove('hidden');
-              cube.classList.add('cube');
-              setTimeout(() => {
-                clickToLoad.remove();
-                document.querySelector('.preview')?.remove();
-              }, 300);
-            }, 500);
-            window.dispatchEvent(new Event('run'));
-          });
-        }
-      }
-      function resize() {
-        document.body.style.height = window.innerHeight + 'px';
-      }
-      resize();
-      window.addEventListener('resize', resize, false);
-      setTimeout(resize, 500);
-      window.addEventListener('livecodes-app-loaded', function (e) {
-        animatingLogo.remove();
-        window.api = e.detail;
-      });
-      window.addEventListener('livecodes-ready', function () {
-        // project loaded
-      });
-      window.addEventListener('livecodes-change', function () {
-        // content change
-      });
-      window.addEventListener('livecodes-test-results', function (e) {
-        const testResults = e.detail;
-      });
-      window.addEventListener('livecodes-destroy', function () {
-        window.removeEventListener('resize', resize);
-        document.body.innerHTML = '';
-        document.head.innerHTML = '';
-      });
-    </script>
     <script src="./index.ts" type="module"></script>
   </body>
 </html>

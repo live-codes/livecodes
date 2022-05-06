@@ -105,6 +105,7 @@ import {
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 import { createOpenItem } from './UI';
+import { customEvents } from './custom-events';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage | undefined;
@@ -232,7 +233,7 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     resultLanguages = getEditorLanguages();
 
     parent.dispatchEvent(
-      new CustomEvent('livecodes-change', {
+      new CustomEvent(customEvents.change, {
         detail: {
           config: getContentConfig(getConfig()),
           code: JSON.parse(JSON.stringify(getCachedCode())),
@@ -448,7 +449,7 @@ const showMode = (config: Config) => {
       toolsPane?.hide();
     }
   }
-  window.dispatchEvent(new Event('editor-resize'));
+  window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
@@ -977,7 +978,7 @@ const loadUserConfig = () => {
 };
 
 const dispatchChangeEvent = () => {
-  const changeEvent = new Event('livecodes-change');
+  const changeEvent = new Event(customEvents.change);
   document.dispatchEvent(changeEvent);
   parent.dispatchEvent(changeEvent);
 };
@@ -1345,7 +1346,7 @@ const handleTitleEdit = () => {
 const handleResize = () => {
   resizeEditors();
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
-  eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
+  eventsManager.addEventListener(window, customEvents.resizeEditor, resizeEditors, false);
 };
 
 const handleIframeResize = () => {
@@ -2475,7 +2476,7 @@ const handleTests = () => {
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
     const resultEvent = new CustomEvent<{ results: TestResult[]; error?: boolean }>(
-      'livecodes-test-results',
+      customEvents.testResults,
       {
         detail: JSON.parse(JSON.stringify(ev.data.payload)),
       },
@@ -2532,8 +2533,8 @@ const handleTestEditor = () => {
       },
     });
 
-    const testLanguage: Language = config.tests?.language || 'typescript';
-    const editorLanguage: Language = 'javascript';
+    const testLanguage: Language = config.tests?.language || 'tsx';
+    const editorLanguage: Language = 'jsx';
     const options: EditorOptions = {
       baseUrl,
       mode: config.mode,
@@ -2879,7 +2880,7 @@ const initializeApp = async (
       await bootstrap();
     }
     if (isEmbed) {
-      parent.dispatchEvent(new Event('livecodes-ready'));
+      parent.dispatchEvent(new Event(customEvents.ready));
     }
   });
   configureEmmet(getConfig());
@@ -2933,7 +2934,7 @@ const createApi = (): API => {
     new Promise<{ results: TestResult[]; error?: boolean }>((resolve) => {
       eventsManager.addEventListener(
         document,
-        'livecodes-test-results',
+        customEvents.testResults,
         ((ev: CustomEventInit<{ results: TestResult[]; error?: boolean }>) => {
           resolve(ev.detail || { results: [] });
         }) as any,
@@ -2943,7 +2944,7 @@ const createApi = (): API => {
     });
 
   const apiOnChange = (fn: ({ code, config }: { code: Code; config: Config }) => void) => {
-    eventsManager.addEventListener(document, 'livecodes-change', async function () {
+    eventsManager.addEventListener(document, customEvents.change, async function () {
       fn({
         code: await apiGetCode(),
         config: await apiGetConfig(),
@@ -2955,7 +2956,7 @@ const createApi = (): API => {
   const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
-    parent.dispatchEvent(new Event('livecodes-destroy'));
+    parent.dispatchEvent(new Event(customEvents.destroy));
     formatter?.destroy();
     document.body.innerHTML = '';
     document.head.innerHTML = '';

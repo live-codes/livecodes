@@ -1,6 +1,10 @@
 import type { API, Code, Config } from './models';
 
-export type { API, Code, Config };
+export type { Code, Config };
+
+export interface Playground extends API {
+  load: () => Promise<void>;
+}
 
 export interface EmbedOptions {
   config?: Partial<Config> | string;
@@ -14,7 +18,7 @@ export interface EmbedOptions {
 export const playground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
-): Promise<API> => {
+): Promise<Playground> => {
   const {
     config = {},
     template,
@@ -66,7 +70,7 @@ export const playground = async (
   }
 
   if (importUrl) {
-    url.hash = '#' + importUrl;
+    url.searchParams.set('x', importUrl);
   }
 
   url.searchParams.set('embed', 'true');
@@ -74,6 +78,8 @@ export const playground = async (
     url.searchParams.set('click-to-load', 'false');
   }
 
+  let livecodesReady = false;
+  let destroyed = false;
   const createIframe = () =>
     new Promise<HTMLIFrameElement>((resolve) => {
       if (!containerElement) return;
@@ -91,9 +97,10 @@ export const playground = async (
           if (e.source !== frame.contentWindow || e.origin !== origin) return;
           if (e.data.type === 'livecodes-ready') {
             removeEventListener('message', readyHandler);
-            resolve(frame);
+            livecodesReady = true;
           }
         });
+        resolve(frame);
       };
       containerElement.appendChild(frame);
     });
@@ -101,7 +108,10 @@ export const playground = async (
   const iframe = await createIframe();
 
   const callAPI = <T>(method: keyof API, args?: any[]) =>
-    new Promise<T>((resolve) => {
+    new Promise<T>(async (resolve) => {
+      if (!livecodesReady) {
+        await loadLivecodes();
+      }
       addEventListener('message', function handler(e) {
         if (
           e.source !== iframe.contentWindow ||
@@ -119,16 +129,36 @@ export const playground = async (
       iframe.contentWindow?.postMessage({ method, args }, origin);
     });
 
+  const delay = (duration = 100) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, duration);
+    });
+
+  const loadLivecodes = (): Promise<void> =>
+    destroyed
+      ? callAPI('run')
+      : new Promise(async (resolve) => {
+          iframe.contentWindow?.postMessage({ type: 'livecodes-load' }, origin);
+          while (!livecodesReady) {
+            await delay();
+          }
+          resolve();
+        });
+
   return {
+    load: () => loadLivecodes(),
     run: () => callAPI('run'),
     format: (allEditors) => callAPI('format', [allEditors]),
     getShareUrl: (shortUrl) => callAPI('getShareUrl', [shortUrl]),
     getConfig: (contentOnly) => callAPI('getConfig', [contentOnly]),
     setConfig: (config: Config) => callAPI('setConfig', [config]),
     getCode: () => callAPI('getCode'),
-    show: (pane) => callAPI('show', [pane]),
+    show: (pane, full) => callAPI('show', [pane, full]),
     runTests: () => callAPI('runTests'),
     onChange: (fn) => callAPI('onChange', [fn]),
-    destroy: () => callAPI('destroy'),
+    destroy: () => {
+      destroyed = true;
+      return callAPI('destroy');
+    },
   };
 };
