@@ -123,7 +123,7 @@ export const createToolsPane = (
     } else {
       if (consoleButtons.style.visibility === 'hidden') {
         consoleButtons.style.visibility = 'visible';
-        tools[activeToolId].onActivate();
+        tools[activeToolId]?.onActivate();
       }
     }
   };
@@ -390,7 +390,7 @@ export const createToolsPane = (
     maximize: () => resize('full'),
     hide: () => resize('none'),
     getStatus: () => status,
-    getActiveTool: () => tools[activeToolId].title.toLowerCase() as Lowercase<Tool['title']>,
+    getActiveTool: () => tools[activeToolId]?.title.toLowerCase() as Lowercase<Tool['title']>,
     setActiveTool: (title: Lowercase<Tool['title']>) => setActiveTool(getToolId(title)),
     disableTool,
     enableTool,
