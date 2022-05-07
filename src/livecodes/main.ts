@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './custom-events';
-import type { API, Config, ContentConfig } from './models';
+import type { API, Config } from './models';
 
 export type { API, Config };
 
@@ -67,14 +67,8 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
           parent.postMessage({ type: customEvents.ready }, anyOrigin);
         });
 
-        window.addEventListener(customEvents.change, (e: CustomEventInit<ContentConfig>) => {
-          parent.postMessage(
-            {
-              type: customEvents.change,
-              detail: e.detail,
-            },
-            anyOrigin,
-          );
+        window.addEventListener(customEvents.change, () => {
+          parent.postMessage({ type: customEvents.change }, anyOrigin);
         });
       }
 
@@ -98,11 +92,17 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
                 if (!method) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
 
+                let payload;
+                try {
+                  payload = await (api[method] as any)(...methodArguments);
+                } catch (error: any) {
+                  payload = { error: error.message || error };
+                }
                 parent.postMessage(
                   {
                     type: 'api-response',
                     method,
-                    payload: await (api[method] as any)(...methodArguments),
+                    payload,
                   },
                   anyOrigin,
                 );
@@ -119,8 +119,9 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         }
       });
     };
+
     if (clickToLoad) {
-      window.addEventListener(customEvents.load, loadApp, false);
+      window.addEventListener(customEvents.load, loadApp, { once: true });
 
       const preloadLink = document.createElement('link');
       preloadLink.href = baseUrl + '{{hash:embed.js}}';

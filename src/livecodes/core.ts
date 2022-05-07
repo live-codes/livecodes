@@ -231,15 +231,6 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     }
 
     resultLanguages = getEditorLanguages();
-
-    parent.dispatchEvent(
-      new CustomEvent(customEvents.change, {
-        detail: {
-          config: getContentConfig(getConfig()),
-          code: JSON.parse(JSON.stringify(getCachedCode())),
-        },
-      }),
-    );
   });
 
 const loadModuleTypes = async (editors: Editors, config: Config) => {
@@ -2966,21 +2957,22 @@ const createApi = (): API => {
     isDestroyed = true;
   };
 
-  const throwError = () => {
-    throw new Error('Cannot call API methods after calling `destroy()`.');
-  };
+  const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
+  const reject = () => Promise.reject(alreadyDestroyedMessage);
+  const call = <T>(fn: () => Promise<T>) => (!isDestroyed ? fn() : reject());
+  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : { error: alreadyDestroyedMessage });
 
   return {
-    run: () => (!isDestroyed ? run() : throwError()),
-    format: (allEditors) => (!isDestroyed ? format(allEditors) : throwError()),
-    getShareUrl: (shortUrl) => (!isDestroyed ? apiGetShareUrl(shortUrl) : throwError()),
-    getConfig: (contentOnly) => (!isDestroyed ? apiGetConfig(contentOnly) : throwError()),
-    setConfig: (config) => (!isDestroyed ? apiSetConfig(config) : throwError()),
-    getCode: () => (!isDestroyed ? apiGetCode() : throwError()),
-    show: (pane, full) => (!isDestroyed ? apiShow(pane, full) : throwError()),
-    runTests: () => (!isDestroyed ? apiRunTests() : throwError()),
-    onChange: (fn) => (!isDestroyed ? apiOnChange(fn) : throwError()),
-    destroy: () => (!isDestroyed ? apiDestroy() : throwError()),
+    run: () => call(() => run()),
+    format: (allEditors) => call(() => format(allEditors)),
+    getShareUrl: (shortUrl) => call(() => apiGetShareUrl(shortUrl)),
+    getConfig: (contentOnly) => call(() => apiGetConfig(contentOnly)),
+    setConfig: (config) => call(() => apiSetConfig(config)),
+    getCode: () => call(() => apiGetCode()),
+    show: (pane, full) => call(() => apiShow(pane, full)),
+    runTests: () => call(() => apiRunTests()),
+    onChange: (fn) => callSync(() => apiOnChange(fn)),
+    destroy: () => call(() => apiDestroy()),
   };
 };
 

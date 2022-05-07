@@ -2,8 +2,9 @@ import type { API, Code, Config } from './models';
 
 export type { Code, Config };
 
-export interface Playground extends API {
+export interface Playground extends Omit<API, 'addWatcher, removeWatcher'> {
   load: () => Promise<void>;
+  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
 }
 
 export interface EmbedOptions {
@@ -80,6 +81,7 @@ export const playground = async (
 
   let livecodesReady = false;
   let destroyed = false;
+  const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
   const createIframe = () =>
     new Promise<HTMLIFrameElement>((resolve) => {
       if (!containerElement) return;
@@ -108,7 +110,10 @@ export const playground = async (
   const iframe = await createIframe();
 
   const callAPI = <T>(method: keyof API, args?: any[]) =>
-    new Promise<T>(async (resolve) => {
+    new Promise<T>(async (resolve, reject) => {
+      if (destroyed) {
+        return reject(alreadyDestroyedMessage);
+      }
       if (!livecodesReady) {
         await loadLivecodes();
       }
@@ -123,7 +128,12 @@ export const playground = async (
 
         if (e.data.method === method) {
           removeEventListener('message', handler);
-          resolve(e.data.payload);
+          const payload = e.data.payload;
+          if (payload?.error) {
+            reject(payload.error);
+          } else {
+            resolve(payload);
+          }
         }
       });
       iframe.contentWindow?.postMessage({ method, args }, origin);
@@ -136,7 +146,7 @@ export const playground = async (
 
   const loadLivecodes = (): Promise<void> =>
     destroyed
-      ? callAPI('run')
+      ? Promise.reject(alreadyDestroyedMessage)
       : new Promise(async (resolve) => {
           iframe.contentWindow?.postMessage({ type: 'livecodes-load' }, origin);
           while (!livecodesReady) {
@@ -144,6 +154,43 @@ export const playground = async (
           }
           resolve();
         });
+
+  type Watcher = ({ code, config }: { code: Code; config: Config }) => void;
+  let watchers: Watcher[] = [];
+  const onChange = (fn: Watcher) => {
+    if (destroyed) {
+      throw new Error(alreadyDestroyedMessage);
+    }
+    watchers.push(fn);
+    return {
+      remove: () => {
+        watchers = watchers.filter((w) => w !== fn);
+      },
+    };
+  };
+  addEventListener('message', async (e: MessageEvent) => {
+    if (
+      e.source !== iframe.contentWindow ||
+      e.origin !== origin ||
+      e.data?.type !== 'livecodes-change'
+    ) {
+      return;
+    }
+    const code = await callAPI<Code>('getCode');
+    const config = await callAPI<Config>('getConfig');
+
+    watchers.forEach((fn) => {
+      fn({ code, config });
+    });
+  });
+
+  const destroy = () => {
+    watchers.length = 0;
+    if (containerElement) {
+      containerElement.innerHTML = '';
+    }
+    destroyed = true;
+  };
 
   return {
     load: () => loadLivecodes(),
@@ -155,10 +202,16 @@ export const playground = async (
     getCode: () => callAPI('getCode'),
     show: (pane, full) => callAPI('show', [pane, full]),
     runTests: () => callAPI('runTests'),
-    onChange: (fn) => callAPI('onChange', [fn]),
+    onChange: (fn) => onChange(fn),
     destroy: () => {
-      destroyed = true;
-      return callAPI('destroy');
+      if (!livecodesReady) {
+        if (destroyed) {
+          return Promise.reject(alreadyDestroyedMessage);
+        }
+        destroy();
+        return Promise.resolve();
+      }
+      return callAPI('destroy').then(destroy);
     },
   };
 };
