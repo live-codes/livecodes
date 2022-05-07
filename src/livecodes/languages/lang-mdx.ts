@@ -31,7 +31,7 @@ ${escapeCode(jsx, false)}
 ReactDOM.render(<MDXContent />, document.body);
 `;
     const js = await compileInCompiler(result, 'jsx', config, {}, worker);
-    resolve(js);
+    resolve(`<script type="module">${js}</script>`);
   });
 
 export const mdx: LanguageSpecs = {

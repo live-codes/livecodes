@@ -46,6 +46,8 @@ import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
 import { graphStarter } from './graph-starter';
 import { imbaStarter } from './imba-starter';
+import { jestStarter } from './jest-starter';
+import { jestReactStarter } from './jest-react-starter';
 
 export const starterTemplates = [
   blank,
@@ -66,6 +68,8 @@ export const starterTemplates = [
   jqueryStarter,
   backboneStarter,
   knockoutStarter,
+  jestStarter,
+  jestReactStarter,
   coffeescriptStarter,
   livescriptStarter,
   clioStarter,

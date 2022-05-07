@@ -6,7 +6,12 @@ const removeExtra = <T>(editor: T, keys: Array<keyof T>) => {
   return contentEditor;
 };
 export const cacheIsValid = (cache: Cache, config: ContentConfig) => {
-  const excludedKeys: Array<keyof ContentConfig> = ['activeEditor', 'title', 'description'];
+  const excludedKeys: Array<keyof ContentConfig> = [
+    'activeEditor',
+    'title',
+    'description',
+    'tests',
+  ];
   const extraCache: Array<keyof EditorCache> = ['compiled', 'modified'];
 
   const contentCache = {

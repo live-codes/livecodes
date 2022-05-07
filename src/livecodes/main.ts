@@ -1,7 +1,8 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
-import type { API, Config, ContentConfig } from './models';
+import { customEvents } from './custom-events';
+import type { API, Config } from './models';
 
 export type { API, Config };
 
@@ -39,7 +40,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
-    const run = () => {
+    const loadApp = () => {
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
@@ -58,22 +59,16 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       iframe.contentWindow?.document.close();
 
       if (isEmbed) {
-        window.addEventListener('livecodes-ready', () => {
-          parent.postMessage({ type: 'livecodes-ready' }, anyOrigin);
+        window.addEventListener(customEvents.appLoaded, () => {
+          parent.postMessage({ type: customEvents.appLoaded }, anyOrigin);
         });
 
-        window.addEventListener('livecodes-app-loaded', () => {
-          parent.postMessage({ type: 'livecodes-app-loaded' }, anyOrigin);
+        window.addEventListener(customEvents.ready, () => {
+          parent.postMessage({ type: customEvents.ready }, anyOrigin);
         });
 
-        window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
-          parent.postMessage(
-            {
-              type: 'livecodes-change',
-              detail: e.detail,
-            },
-            anyOrigin,
-          );
+        window.addEventListener(customEvents.change, () => {
+          parent.postMessage({ type: customEvents.change }, anyOrigin);
         });
       }
 
@@ -83,39 +78,50 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
           const api: API = await app(config, baseUrl);
           iframe.style.display = 'block';
           window.dispatchEvent(
-            new CustomEvent('livecodes-app-loaded', {
+            new CustomEvent(customEvents.appLoaded, {
               detail: api,
             }),
           );
 
-          if (isEmbed) {
-            addEventListener(
-              'message',
-              async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+          addEventListener(
+            'message',
+            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+              if (isEmbed) {
                 if (e.source !== parent) return;
-
                 const { method, args } = e.data || {};
                 if (!method) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
 
+                let payload;
+                try {
+                  payload = await (api[method] as any)(...methodArguments);
+                } catch (error: any) {
+                  payload = { error: error.message || error };
+                }
                 parent.postMessage(
                   {
                     type: 'api-response',
                     method,
-                    payload: await (api[method] as any)(...methodArguments),
+                    payload,
                   },
                   anyOrigin,
                 );
-              },
-            );
-          }
+              } else {
+                if (e.source !== iframe.contentWindow) return;
+                if (e.data?.args === 'home') {
+                  location.href = '/';
+                }
+              }
+            },
+          );
 
           resolve(api);
         }
       });
     };
+
     if (clickToLoad) {
-      window.addEventListener('run', run, false);
+      window.addEventListener(customEvents.load, loadApp, { once: true });
 
       const preloadLink = document.createElement('link');
       preloadLink.href = baseUrl + '{{hash:embed.js}}';
@@ -123,6 +129,6 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       preloadLink.as = 'script';
       document.head.appendChild(preloadLink);
     } else {
-      run();
+      loadApp();
     }
   });

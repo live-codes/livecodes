@@ -1,5 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language, User } from '../models';
+import { User } from '../models';
 import { getGithubHeaders } from './github-headers';
 import { hostPatterns, populateConfig } from './utils';
 
@@ -60,9 +59,6 @@ export const importFromGithubDir = async (
     const files = await Promise.all(
       Object.values(dirFiles).map(async (file: any) => {
         const filename = file.path.split('/')[file.path.split('/').length - 1];
-        const extension = filename.split('.')[filename.split('.').length - 1];
-        const language = getLanguageByAlias(extension);
-        const editorId = getLanguageEditorId(language as Language);
         const content = atob(
           await fetch(file.url, {
             ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
@@ -73,9 +69,7 @@ export const importFromGithubDir = async (
 
         return {
           filename,
-          language,
           content,
-          editorId,
         };
       }),
     );

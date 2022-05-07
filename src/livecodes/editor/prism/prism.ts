@@ -18,7 +18,7 @@ declare const Prism: any;
 Prism.manual = true;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { baseUrl, container, mode } = options;
+  const { baseUrl, container, mode, editorId } = options;
   if (!container) throw new Error('editor container not found');
 
   let value = options.value;
@@ -41,6 +41,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   Prism.highlightAllUnder(container);
 
+  const getEditorId = () => editorId;
   const getValue = () => value;
   const setValue = (newValue = '') => {
     value = newValue;
@@ -67,6 +68,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const keyCodes = {
     CtrlEnter: 'Ctrl-Enter',
+    ShiftEnter: 'Shift-Enter',
     Enter: 'Enter',
     UpArrow: 'ArrowUp',
     DownArrow: 'ArrowDown',
@@ -118,6 +120,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setValue,
     getLanguage,
     setLanguage,
+    getEditorId,
     focus,
     onContentChanged,
     keyCodes,

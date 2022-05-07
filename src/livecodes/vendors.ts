@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.2/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.4/dist/';
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
 
@@ -29,6 +29,10 @@ export const biwaschemeUrl =
 export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.20211209.2/';
 
 export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.4/';
+
+export const chaiUrl = 'https://cdn.jsdelivr.net/npm/chai@4.3.6/+esm';
+
+export const chaiTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/chai@4.2.22/index.d.ts';
 
 export const cjs2esUrl = 'https://cdn.jsdelivr.net/npm/cjs2es@1.1.1/dist/cjs2es.browser.min.js';
 
@@ -69,6 +73,10 @@ export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.
 export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/dist/index.min.js';
 
 export const imbaBaseUrl = 'https://cdn.jsdelivr.net/npm/imba@2.0.0-alpha.201/dist/';
+
+export const jestLiteUrl = 'https://cdn.jsdelivr.net/npm/jest-lite@1.0.0-alpha.4/dist/core.js';
+
+export const jestTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/jest@27.4.1/index.d.ts';
 
 export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
 

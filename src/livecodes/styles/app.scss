@@ -4,6 +4,8 @@
   --toolbar-text-active-color: rgb(237, 237, 237);
   --toolbar-background-color: rgb(0, 27, 37);
   --toolbar-background-active-color: rgb(68, 72, 87);
+  --editor-title-text-color: rgb(143, 154, 174);
+  --editor-title-text-active-color: rgb(237, 237, 237);
   --background-color: rgb(0, 27, 37);
   --foreground-color: rgb(90, 96, 116);
   --split-bar-color: rgb(68, 72, 87);
@@ -25,6 +27,11 @@
   --toolspane-accent-color: rgb(64, 169, 243);
   --toolspane-non-accent-color: rgb(90, 96, 116);
   --console-background-color: rgb(237, 237, 237);
+  --tests-background-color: rgb(237, 237, 237);
+  --test-results-background-color: rgb(225, 225, 225, 0.7);
+  --test-results-border-color: rgb(128, 128, 128);
+  --test-pass-color: rgb(0, 128, 0);
+  --test-fail-color: rgb(255, 0, 0);
   --size-label-color: rgba(225, 225, 225, 0.7);
   --menu-background-color: rgb(255, 255, 255);
   --menu-border-color: rgb(204, 204, 204);
@@ -50,6 +57,8 @@
   --toolbar-text-active-color: rgb(237, 237, 237);
   --toolbar-background-color: rgb(206, 205, 205);
   --toolbar-background-active-color: rgb(248, 248, 248);
+  --editor-title-text-color: rgb(130, 130, 130);
+  --editor-title-text-active-color: rgb(68, 72, 87);
   --background-color: rgb(243, 243, 243);
   --foreground-color: rgb(237, 237, 237);
   --split-bar-color: rgb(116, 116, 116);
@@ -71,6 +80,11 @@
   --toolspane-accent-color: rgb(206, 205, 205);
   --toolspane-non-accent-color: rgb(116, 116, 116);
   --console-background-color: rgb(248, 248, 248);
+  --tests-background-color: rgb(237, 237, 237);
+  --test-results-background-color: rgb(225, 225, 225, 0.7);
+  --test-results-border-color: rgb(128, 128, 128);
+  --test-pass-color: rgb(0, 128, 0);
+  --test-fail-color: rgb(255, 0, 0);
   --size-label-color: rgba(225, 225, 225, 0.7);
   --menu-background-color: rgb(255, 255, 255);
   --menu-border-color: rgb(204, 204, 204);
@@ -452,13 +466,12 @@ a {
     cursor: pointer;
     display: inline-block;
     font-size: 12px;
-    margin-left: 1em;
     text-align: center;
     width: 30px;
 
     img {
       filter: var(--editor-tools-invert);
-      height: 20px;
+      height: 18px;
       margin: 4px auto;
 
       &:hover {
@@ -552,7 +565,7 @@ a {
   display: flex;
   justify-content: center;
   margin-right: 2px;
-  padding: 0 20px;
+  padding: 0 10px;
 
   &.active {
     border-bottom: 3px solid var(--toolspane-accent-color);
@@ -574,11 +587,13 @@ a {
   display: flex;
   flex-direction: column;
   height: 0;
+  visibility: hidden;
 
   /* (display: none) disables console logs when inactive */
 
   &.active {
     height: 100%;
+    visibility: visible;
   }
 }
 
@@ -609,6 +624,129 @@ a {
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+#test-container,
+#test-results {
+  background-color: var(--tests-background-color);
+}
+
+#test-results {
+  padding-bottom: 1.5em;
+
+  .test-result {
+    background-color: var(--test-results-background-color);
+    border: 1px solid var(--test-results-border-color);
+    border-radius: 3px;
+    margin: 0.5em;
+    padding: 0.5em;
+    padding-left: 3em;
+
+    &::before {
+      content: '🧪';
+      display: inline-block;
+      margin-left: -2em;
+      margin-right: 0.5em;
+      width: 1.5em;
+    }
+
+    &.fail {
+      color: var(--test-fail-color);
+
+      &::before {
+        content: '✖';
+      }
+    }
+
+    &.pass {
+      color: var(--test-pass-color);
+
+      &::before {
+        content: '✔';
+      }
+    }
+  }
+
+  .test-error {
+    margin-left: 1em;
+    margin-top: 0.5em;
+  }
+
+  .test-summary,
+  .no-tests {
+    margin: 0.5em;
+    min-height: 2.5em;
+    padding: 0.5em;
+
+    .fail {
+      color: var(--test-fail-color);
+    }
+
+    .pass {
+      color: var(--test-pass-color);
+    }
+  }
+}
+
+#test-container {
+  .buttons {
+    align-self: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.3em;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .button {
+    align-items: center;
+    border: 1px solid rgb(47, 79, 79);
+    border-radius: 3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
+    color: unset;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.8em;
+    gap: 0.3em;
+    justify-content: center;
+    margin: 3px 5px;
+    outline: none;
+    padding: 3px;
+    text-decoration: none;
+    width: 100px;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &.disabled {
+      color: grey;
+    }
+
+    svg {
+      height: 12px;
+    }
+  }
+}
+
+#watch-tests-btn {
+  .checked {
+    display: unset;
+  }
+
+  .unchecked {
+    display: none;
+  }
+
+  &.disabled {
+    .checked {
+      display: none;
+    }
+
+    .unchecked {
+      display: unset;
+    }
+  }
 }
 
 .gutter {
@@ -689,6 +827,7 @@ li.editor-title {
   border: 2px solid var(--split-bar-color);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  color: var(--editor-title-text-color);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -703,12 +842,17 @@ li.editor-title {
   &.active {
     background-color: var(--toolbar-background-active-color);
     border-bottom-color: var(--toolbar-background-active-color);
+    color: var(--editor-title-text-active-color);
 
     > .language-menu-button {
       background-color: var(--language-menu-button-active-color);
 
       &:hover {
         background-color: var(--language-menu-button-active-hover-color);
+      }
+
+      > img {
+        filter: invert(1);
       }
     }
   }
@@ -733,6 +877,14 @@ li.editor-title {
 
     &:hover {
       background-color: var(--language-menu-button-hover-color);
+
+      > img {
+        filter: invert(1);
+      }
+    }
+
+    > img {
+      filter: invert(0.8);
     }
   }
 
@@ -1212,7 +1364,7 @@ i.arrow {
     width: 400px;
   }
 
-  .code {
+  span.code {
     background-color: rgb(231, 231, 231);
     border: 1px solid rgb(191, 191, 191);
     border-radius: 2px;
@@ -1803,11 +1955,11 @@ i.arrow {
     }
   }
 
-  #custom-settings-editor {
+  .custom-editor {
     height: 400px;
     max-height: 40vh;
     text-align: initial;
-    width: 80%;
+    width: 90%;
   }
 
   .tagify {

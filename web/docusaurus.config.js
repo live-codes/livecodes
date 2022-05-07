@@ -69,7 +69,7 @@ const config = {
           // { to: '/web/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://livecodes.io/',
-            label: 'Playground',
+            label: 'App',
             position: 'right',
           },
           {

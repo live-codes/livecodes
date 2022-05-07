@@ -22,7 +22,7 @@ import {
   SimpleStorage,
   fakeStorage,
 } from './storage';
-import {
+import type {
   API,
   Cache,
   CodeEditor,
@@ -46,6 +46,10 @@ import {
   CustomEditors,
   BlocklyContent,
   CustomSettings,
+  Types,
+  TestResult,
+  Tool,
+  ToolsPane,
 } from './models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
@@ -54,6 +58,7 @@ import {
   settingsMenuHTML,
   resultTemplate,
   customSettingsScreen,
+  testEditorScreen,
   resourcesScreen,
   savePromptScreen,
   restorePromptScreen,
@@ -90,7 +95,9 @@ import { deploy, deployedConfirmation, deployFile, getUserPublicRepos, GitHubFil
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   autoCompleteUrl,
+  chaiTypesUrl,
   hintCssUrl,
+  jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaObjViewerStylesUrl,
   snackbarUrl,
@@ -98,6 +105,7 @@ import {
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 import { createOpenItem } from './UI';
+import { customEvents } from './custom-events';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage | undefined;
@@ -117,7 +125,7 @@ let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
 let customEditors: CustomEditors;
-let toolsPane: any;
+let toolsPane: ToolsPane | undefined;
 let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
@@ -127,6 +135,7 @@ let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
+let watchTests = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -222,15 +231,6 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     }
 
     resultLanguages = getEditorLanguages();
-
-    parent.dispatchEvent(
-      new CustomEvent('livecodes-change', {
-        detail: {
-          config: getContentConfig(getConfig()),
-          code: JSON.parse(JSON.stringify(getCachedCode())),
-        },
-      }),
-    );
   });
 
 const loadModuleTypes = async (editors: Editors, config: Config) => {
@@ -299,13 +299,13 @@ const createEditors = async (config: Config) => {
     mode: config.mode,
     readonly: config.readonly,
     editor: config.editor,
-    editorType: 'code' as EditorOptions['editorType'],
     theme: config.theme,
     isEmbed,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getMarkupElement(),
+    editorId: 'markup',
     language: languageIsEnabled(config.markup.language, config)
       ? config.markup.language
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') || 'html',
@@ -314,6 +314,7 @@ const createEditors = async (config: Config) => {
   const styleOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getStyleElement(),
+    editorId: 'style',
     language: languageIsEnabled(config.style.language, config)
       ? config.style.language
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') || 'css',
@@ -322,6 +323,7 @@ const createEditors = async (config: Config) => {
   const scriptOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getScriptElement(),
+    editorId: 'script',
     language: languageIsEnabled(config.script.language, config)
       ? config.script.language
       : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
@@ -364,7 +366,7 @@ const createEditors = async (config: Config) => {
 
 const reloadEditors = async (config: Config) => {
   await createEditors(config);
-  await toolsPane?.compiled.reloadEditor();
+  await toolsPane?.compiled?.reloadEditor();
   updateCompiledCode();
   handleChangeContent();
 };
@@ -434,11 +436,11 @@ const showMode = (config: Config) => {
     editorTools.style.display = 'none';
   }
   if (config.mode === 'result') {
-    if (!['full', 'open'].includes(toolsPane.getStatus())) {
+    if (!['full', 'open'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
-  window.dispatchEvent(new Event('editor-resize'));
+  window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
@@ -458,7 +460,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
-  if (!isEmbed) {
+  if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
   if (!isUpdate) {
@@ -554,11 +556,11 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   setEditorTitle(editorId, language);
   showEditor(editorId, isUpdate);
   phpHelper({ editor: editors.script });
-  if (!isEmbed) {
+  if (!isEmbed && !isUpdate) {
     setTimeout(() => editor.focus());
   }
   await compiler.load([language], getConfig());
-  editor.registerFormatter(await formatter.getFormatFn(language));
+  formatter.getFormatFn(language).then((fn) => editor.registerFormatter(fn));
   if (!isUpdate) {
     setConfig({
       ...getConfig(),
@@ -567,15 +569,16 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     await run();
   }
   await setSavedStatus();
+  dispatchChangeEvent();
   addConsoleInputCodeCompletion();
   loadModuleTypes(editors, getConfig());
   await applyLanguageConfigs(language);
 };
 
-// Ctrl/Cmd + Enter triggers run
+// Shift + Enter triggers run
 const registerRun = (editorId: EditorId, editors: Editors) => {
   const editor = editors[editorId];
-  editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
+  editor.addKeyBinding('run', editor.keyCodes.ShiftEnter, async () => {
     await run();
   });
 };
@@ -606,7 +609,7 @@ const updateCompiledCode = () => {
       if (editorId === 'script' && getConfig().script.language === 'php') {
         compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
       }
-      toolsPane.compiled.update(
+      toolsPane?.compiled?.update(
         compiledLanguages[editorId].language,
         compiledCode,
         compiledLanguages[editorId].label,
@@ -620,6 +623,7 @@ const getResultPage = async ({
   forExport = false,
   template = resultTemplate,
   singleFile = true,
+  runTests = false,
 }) => {
   updateConfig();
   const config = getConfig();
@@ -628,16 +632,23 @@ const getResultPage = async ({
   const markupContent = config.markup.content || '';
   const styleContent = config.style.content || '';
   const scriptContent = config.script.content || '';
+  const testsContent = config.tests?.content || '';
   const markupLanguage = config.markup.language;
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
+  const testsLanguage = config.tests?.language || 'typescript';
 
   const forceCompileStyles =
     (config.processors.postcss.tailwindcss || config.processors.postcss.windicss) &&
     (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
 
+  const testsNotChanged =
+    config.tests?.language === getCache().tests?.language &&
+    config.tests?.content === getCache().tests?.content &&
+    getCache().tests?.compiled;
+
   const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config, {});
-  const [compiledStyle, compiledScript] = await Promise.all([
+  const [compiledStyle, compiledScript, compiledTests] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: compiledMarkup,
       forceCompile: forceCompileStyles,
@@ -654,6 +665,11 @@ const getResultPage = async ({
             })) as BlocklyContent)
           : {},
     }),
+    runTests
+      ? testsNotChanged
+        ? Promise.resolve(getCache().tests?.compiled || '')
+        : compiler.compile(testsContent, testsLanguage, config, {})
+      : Promise.resolve(getCache().tests?.compiled || ''),
   ]);
 
   const compiledCode: Cache = {
@@ -671,9 +687,22 @@ const getResultPage = async ({
       compiled:
         config.customSettings.convertCommonjs === false ? compiledScript : cjs2esm(compiledScript),
     },
+    tests: {
+      language: testsLanguage,
+      ...contentConfig.tests,
+      compiled: compiledTests,
+    },
   };
 
-  const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
+  const result = createResultPage({
+    code: compiledCode,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    singleFile,
+    runTests,
+  });
 
   const styleOnlyUpdate = sourceEditor === 'style';
   setCache({
@@ -728,7 +757,17 @@ const flushResult = () => {
     compiledLanguages.script,
     loadingComments[compiledLanguages.script] || 'javascript',
   );
+  setCache({
+    ...getCache(),
+    tests: {
+      language: 'javascript',
+      content: '',
+      compiled: '',
+    },
+  });
+
   updateCompiledCode();
+  toolsPane?.tests?.clearTests();
 };
 
 const setProjectTitle = (setDefault = false) => {
@@ -739,12 +778,15 @@ const setProjectTitle = (setDefault = false) => {
     projectTitle.textContent = defaultTitle;
   }
   const title = projectTitle.textContent || defaultTitle;
+  if (title === getConfig().title) return;
+
   setConfig({ ...getConfig(), title });
   if (getConfig().autosave) {
     save(!projectId, false);
   }
   setWindowTitle();
   setSavedStatus();
+  dispatchChangeEvent();
 };
 
 const setWindowTitle = () => {
@@ -772,12 +814,15 @@ const setExternalResourcesMark = () => {
   }
 };
 
-const run = async (editorId?: EditorId) => {
+const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
-  const result = await getResultPage({ sourceEditor: editorId });
+  const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
+  toolsPane?.console?.clear();
   updateCompiledCode();
 };
+
+const runTests = () => run(undefined, true);
 
 const updateUrl = (url: string, push = false) => {
   if (push && !isEmbed) {
@@ -921,6 +966,12 @@ const loadUserConfig = () => {
     ...getConfig(),
     ...userConfig,
   });
+};
+
+const dispatchChangeEvent = () => {
+  const changeEvent = new Event(customEvents.change);
+  document.dispatchEvent(changeEvent);
+  parent.dispatchEvent(changeEvent);
 };
 
 const setSavedStatus = async () => {
@@ -1151,8 +1202,8 @@ const loadSelectedScreen = () => {
 
 const getAllEditors = (): CodeEditor[] => [
   ...Object.values(editors),
-  ...[toolsPane?.console.getEditor()],
-  ...[toolsPane?.compiled.getEditor()],
+  ...[toolsPane?.console?.getEditor?.()],
+  ...[toolsPane?.compiled?.getEditor?.()],
 ];
 
 const setTheme = (theme: Theme) => {
@@ -1286,7 +1337,7 @@ const handleTitleEdit = () => {
 const handleResize = () => {
   resizeEditors();
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
-  eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
+  eventsManager.addEventListener(window, customEvents.resizeEditor, resizeEditors, false);
 };
 
 const handleIframeResize = () => {
@@ -1337,7 +1388,7 @@ const handleSelectEditor = () => {
   });
 };
 
-const handlechangeLanguage = () => {
+const handleChangeLanguage = () => {
   if (getConfig().allowLangChange) {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
@@ -1361,8 +1412,9 @@ const handleChangeContent = () => {
     updateConfig();
     addConsoleInputCodeCompletion();
 
-    if (getConfig().autoupdate && !loading) {
-      await run(editorId);
+    const shouldRunTests = Boolean(watchTests && getConfig().tests?.content);
+    if ((getConfig().autoupdate || shouldRunTests) && !loading) {
+      await run(editorId, shouldRunTests);
     }
 
     if (getConfig().markup.content !== getCache().markup.content) {
@@ -1385,8 +1437,10 @@ const handleChangeContent = () => {
       await save();
     }
 
+    dispatchChangeEvent();
     loadModuleTypes(editors, getConfig());
   };
+
   const debouncecontentChanged = (editorId: EditorId) =>
     debounce(async () => {
       await contentChanged(editorId, changingContent);
@@ -1403,38 +1457,67 @@ const handleHotKeys = () => {
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
 
-    // Cmd + p opens the command palette
+    // Ctrl + p opens the command palette
     const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
+    if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
       return;
     }
 
-    // Cmd + d prevents browser bookmark dialog
-    if (ctrl(e) && e.keyCode === 68) {
+    // Ctrl + d prevents browser bookmark dialog
+    if (ctrl(e) && e.key.toLowerCase() === 'd') {
       e.preventDefault();
       return;
     }
 
     if (isEmbed) return;
 
-    // Cmd + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.keyCode === 83) {
+    // Ctrl + Shift + S forks the project (save as...)
+    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await fork();
       return;
     }
 
-    // Cmd + S saves the project
-    if (ctrl(e) && e.keyCode === 83) {
+    // Ctrl + S saves the project
+    if (ctrl(e) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await save(true);
+      return;
+    }
+
+    // Ctrl + Alt + T runs tests
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
+      e.preventDefault();
+      split.show('output');
+      toolsPane?.setActiveTool('tests');
+      if (toolsPane?.getStatus() === 'closed') {
+        toolsPane?.open();
+      }
+      await runTests();
+      return;
+    }
+
+    // Ctrl + Enter triggers run
+    if (e.shiftKey && e.key === 'Enter') {
+      e.preventDefault();
+      split.show('output');
+      await run();
       return;
     }
   };
 
   eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
+};
+
+const handleLogoLink = () => {
+  if (isEmbed) return;
+  const logoLink = UI.getLogoLink();
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    parent.postMessage({ args: 'home' }, location.origin);
+  });
 };
 
 const handleRunButton = () => {
@@ -2323,12 +2406,12 @@ const handleCustomSettings = () => {
       },
     });
 
-    const options = {
+    const options: EditorOptions = {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
       editor: config.editor,
-      editorType: 'code' as EditorOptions['editorType'],
+      editorId: 'customSettings',
       editorBuild,
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
@@ -2366,6 +2449,7 @@ const handleCustomSettings = () => {
       customSettingsEditor?.destroy();
       modal.close();
       await run();
+      dispatchChangeEvent();
     });
   };
   eventsManager.addEventListener(
@@ -2375,6 +2459,137 @@ const handleCustomSettings = () => {
     false,
   );
   registerScreen('custom-settings', createCustomSettingsUI);
+};
+
+const handleTests = () => {
+  eventsManager.addEventListener(window, 'message', (ev: any) => {
+    if (ev.origin !== sandboxService.getOrigin()) return;
+    if (ev.data.type !== 'testResults') return;
+    toolsPane?.tests?.showResults(ev.data.payload);
+    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: boolean }>(
+      customEvents.testResults,
+      {
+        detail: JSON.parse(JSON.stringify(ev.data.payload)),
+      },
+    );
+    document.dispatchEvent(resultEvent);
+    parent.dispatchEvent(resultEvent);
+  });
+
+  eventsManager.addEventListener(
+    UI.getRunTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      runTests();
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    UI.getWatchTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      watchTests = !watchTests;
+      if (watchTests) {
+        UI.getWatchTestsButton()?.classList.remove('disabled');
+        runTests();
+      } else {
+        UI.getWatchTestsButton()?.classList.add('disabled');
+      }
+    },
+    false,
+  );
+};
+
+const handleTestEditor = () => {
+  const createTestEditorUI = async () => {
+    const config = getConfig();
+    // eslint-disable-next-line prefer-const
+    let testEditor: CodeEditor | undefined;
+    const div = document.createElement('div');
+    div.innerHTML = testEditorScreen;
+    const testEditorContainer = div.firstChild as HTMLElement;
+    modal.show(testEditorContainer, {
+      onClose: () => {
+        testEditor?.destroy();
+
+        // fix monaco mixing up model of script with test editors
+        if (editors.script.monaco) {
+          formatter
+            .getFormatFn(getConfig().script.language)
+            .then((fn) => editors.script.registerFormatter(fn));
+        }
+      },
+    });
+
+    const testLanguage: Language = config.tests?.language || 'tsx';
+    const editorLanguage: Language = 'jsx';
+    const options: EditorOptions = {
+      baseUrl,
+      mode: config.mode,
+      readonly: config.readonly,
+      editor: config.editor,
+      editorId: 'tests',
+      editorBuild,
+      container: UI.getTestEditor(),
+      language: editorLanguage,
+      value: getConfig().tests?.content || '',
+      theme: config.theme,
+      isEmbed,
+    };
+    testEditor = await createEditor(options);
+    formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
+    testEditor.focus();
+
+    if (typeof testEditor.addTypes === 'function') {
+      const testTypes: Types = {
+        jest: {
+          url: jestTypesUrl,
+          autoload: true,
+        },
+        chai: {
+          url: chaiTypesUrl,
+          autoload: true,
+        },
+      };
+      typeLoader.load('', testTypes, true).then((libs) => {
+        libs.forEach((lib) => testEditor?.addTypes?.(lib));
+      });
+    }
+
+    eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {
+      const editorContent = testEditor?.getValue() || '';
+      if (editorContent !== getConfig().tests?.content) {
+        compiler.clearCache();
+        setConfig({
+          ...getConfig(),
+          tests: {
+            language: testLanguage,
+            content: editorContent,
+          },
+        });
+        await setSavedStatus();
+      }
+      modal.close();
+      toolsPane?.tests?.resetTests();
+      await runTests();
+      dispatchChangeEvent();
+    });
+  };
+
+  eventsManager.addEventListener(
+    UI.getEditTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      createTestEditorUI();
+    },
+    false,
+  );
+
+  registerScreen('test-editor', createTestEditorUI);
 };
 
 const handleResultLoading = () => {
@@ -2428,10 +2643,11 @@ const handleUnload = () => {
 };
 
 const basicHandlers = () => {
+  handleLogoLink();
   handleResize();
   handleIframeResize();
   handleSelectEditor();
-  handlechangeLanguage();
+  handleChangeLanguage();
   handleChangeContent();
   handleHotKeys();
   handleRunButton();
@@ -2439,7 +2655,10 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
-  handleExternalResources();
+  handleTests();
+  if (isEmbed) {
+    handleExternalResources();
+  }
 };
 
 const extraHandlers = async () => {
@@ -2455,6 +2674,7 @@ const extraHandlers = async () => {
   handleSettings();
   handleProjectInfo();
   handleCustomSettings();
+  handleTestEditor();
   handleLogin();
   handleLogout();
   handleNew();
@@ -2468,6 +2688,7 @@ const extraHandlers = async () => {
   handleDeploy();
   handleAssets();
   handleUnload();
+  handleExternalResources();
 };
 
 const importExternalContent = async (options: {
@@ -2582,9 +2803,21 @@ const bootstrap = async (reload = false) => {
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
-    setTimeout(run);
+    setTimeout(() => {
+      if (
+        toolsPane?.getActiveTool() === 'tests' &&
+        ['open', 'full'].includes(toolsPane?.getStatus())
+      ) {
+        run(undefined, true);
+      } else {
+        run();
+      }
+    });
   });
   formatter.load(getEditorLanguages());
+  if (isEmbed && !getConfig().tests?.content?.trim()) {
+    toolsPane?.disableTool('tests');
+  }
 };
 
 const initializeApp = async (
@@ -2616,7 +2849,7 @@ const initializeApp = async (
   );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
   await toolsPane.load();
   basicHandlers();
   await initializeFn?.();
@@ -2641,36 +2874,106 @@ const initializeApp = async (
       await bootstrap();
     }
     if (isEmbed) {
-      parent.dispatchEvent(new Event('livecodes-ready'));
+      parent.dispatchEvent(new Event(customEvents.ready));
     }
   });
   configureEmmet(getConfig());
   showVersion();
 };
 
-const createApi = (): API => ({
-  run: async () => {
-    await run();
-  },
-  format: async (allEditors?: boolean) => format(allEditors),
-  getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
-  getConfig: async (contentOnly = false): Promise<Config> => {
+const createApi = (): API => {
+  const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
+
+  const apiGetConfig = async (contentOnly = false): Promise<Config> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
     return JSON.parse(JSON.stringify(config));
-  },
-  setConfig: async (newConfig: Config): Promise<Config> => {
+  };
+
+  const apiSetConfig = async (newConfig: Config): Promise<Config> => {
     const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;
-  },
-  getCode: async (): Promise<Code> => {
+  };
+
+  const apiGetCode = async (): Promise<Code> => {
     updateConfig();
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({});
     }
     return JSON.parse(JSON.stringify(getCachedCode()));
-  },
-});
+  };
+
+  const apiShow = async (pane: EditorId | Lowercase<Tool['title']> | 'result', full = false) => {
+    if (pane === 'result') {
+      split.show('output', full);
+      toolsPane?.close();
+    } else if (pane === 'console' || pane === 'compiled' || pane === 'tests') {
+      split.show('output');
+      toolsPane?.setActiveTool(pane);
+      if (full) {
+        toolsPane?.maximize();
+      } else {
+        toolsPane?.open();
+      }
+    } else if (Object.keys(editors).includes(pane)) {
+      showEditor(pane);
+      split.show('code', full);
+    } else {
+      throw new Error('Invalid pane id');
+    }
+  };
+
+  const apiRunTests = () =>
+    new Promise<{ results: TestResult[]; error?: boolean }>((resolve) => {
+      eventsManager.addEventListener(
+        document,
+        customEvents.testResults,
+        ((ev: CustomEventInit<{ results: TestResult[]; error?: boolean }>) => {
+          resolve(ev.detail || { results: [] });
+        }) as any,
+        { once: true },
+      );
+      runTests();
+    });
+
+  const apiOnChange = (fn: ({ code, config }: { code: Code; config: Config }) => void) => {
+    eventsManager.addEventListener(document, customEvents.change, async function () {
+      fn({
+        code: await apiGetCode(),
+        config: await apiGetConfig(),
+      });
+    });
+  };
+
+  let isDestroyed = false;
+  const apiDestroy = async () => {
+    getAllEditors().forEach((editor) => editor.destroy());
+    eventsManager.removeEventListeners();
+    parent.dispatchEvent(new Event(customEvents.destroy));
+    formatter?.destroy();
+    document.body.innerHTML = '';
+    document.head.innerHTML = '';
+    isDestroyed = true;
+  };
+
+  const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
+  const reject = () => Promise.reject(alreadyDestroyedMessage);
+  const call = <T>(fn: () => Promise<T>) => (!isDestroyed ? fn() : reject());
+  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : { error: alreadyDestroyedMessage });
+
+  return {
+    run: () => call(() => run()),
+    format: (allEditors) => call(() => format(allEditors)),
+    getShareUrl: (shortUrl) => call(() => apiGetShareUrl(shortUrl)),
+    getConfig: (contentOnly) => call(() => apiGetConfig(contentOnly)),
+    setConfig: (config) => call(() => apiSetConfig(config)),
+    getCode: () => call(() => apiGetCode()),
+    show: (pane, full) => call(() => apiShow(pane, full)),
+    runTests: () => call(() => apiRunTests()),
+    onChange: (fn) => callSync(() => apiOnChange(fn)),
+    destroy: () => call(() => apiDestroy()),
+  };
+};
 
 export { createApi, initializeApp, extraHandlers };

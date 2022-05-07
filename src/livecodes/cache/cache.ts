@@ -7,6 +7,7 @@ const initialCache: Cache = {
   markup: { ...defaultContentConfig.markup, compiled: '', modified: '' },
   style: { ...defaultContentConfig.style, compiled: '', modified: '' },
   script: { ...defaultContentConfig.script, compiled: '', modified: '' },
+  tests: { language: 'javascript', ...defaultContentConfig.tests, compiled: '' },
   result: '',
   styleOnlyUpdate: false,
 };
@@ -29,6 +30,11 @@ export const setCache = (newCache = initialCache) => {
     script: {
       modified: newCache.script.compiled === cache.script.compiled ? cache.script.modified : '',
       ...newCache.script,
+    },
+    tests: {
+      language: 'javascript',
+      compiled: '',
+      ...newCache.tests,
     },
     result: newCache.result || '',
   };

@@ -8,17 +8,17 @@ test.describe('Compiler Results', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=HTML');
     await waitForEditorFocus(app);
     await page.keyboard.type('hello, ');
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
     await page.keyboard.type('body {color: blue;}');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type('document.body.innerHTML += "world!"');
@@ -37,7 +37,7 @@ test.describe('Compiler Results', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Markdown');
     await waitForEditorFocus(app);
     await app.page().keyboard.type('# Hi There');
@@ -53,17 +53,22 @@ test.describe('Compiler Results', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=MDX');
     await waitForEditorFocus(app);
-    await app.page().keyboard.type('<Hello title="World" />');
+    await app.page().keyboard.type(`
+import {Hello} from './script';
 
-    await app.click(':nth-match([title="change language"], 3)');
+<Hello title="World" />
+`);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JSX');
     await waitForEditorFocus(app);
-    await app
-      .page()
-      .keyboard.type('export const Hello = (props) => <h1>Hello, {props.title}!</h1>;');
+    await app.page().keyboard.type(`
+import React from 'react';
+export const Hello = (props) => <h1>Hello, {props.title}!</h1>;
+`);
 
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('h1');
@@ -76,7 +81,7 @@ test.describe('Compiler Results', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Astro');
     await waitForEditorFocus(app);
     await app.page().keyboard.type(`---
@@ -96,7 +101,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Pug');
     await waitForEditorFocus(app);
     await page.keyboard.type('h1 Hi There');
@@ -112,7 +117,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Haml');
     await waitForEditorFocus(app);
     await page.keyboard.type('.content Hello, World!');
@@ -128,7 +133,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=AsciiDoc');
     await waitForEditorFocus(app);
     await page.keyboard.type('== Hello, World!');
@@ -144,7 +149,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -152,7 +157,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name": "Mustache"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Mustache');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
@@ -168,7 +173,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -176,12 +181,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'Mustache' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Mustache');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
@@ -198,7 +203,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -206,7 +211,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name": "Handlebars"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Handlebars');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
@@ -222,7 +227,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -230,12 +235,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'Handlebars' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Handlebars');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
@@ -252,7 +257,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -260,7 +265,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name": "Nunjucks"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Nunjucks');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
@@ -276,7 +281,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -284,12 +289,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'Nunjucks' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Nunjucks');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{name}}</h1>`);
@@ -306,7 +311,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -314,7 +319,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name": "EJS"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=EJS');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to <%= name %></h1>`);
@@ -330,7 +335,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -338,12 +343,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'EJS' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=EJS');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to <%= name %></h1>`);
@@ -360,7 +365,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -368,7 +373,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name":"liquid"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Liquid');
     await waitForEditorFocus(app);
     await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
@@ -384,7 +389,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -392,12 +397,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'liquid' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Liquid');
     await waitForEditorFocus(app);
     await page.keyboard.type(`{{ name | capitalize | prepend: "Welcome to "}}`);
@@ -414,7 +419,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -422,7 +427,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name":"doT"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=doT');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
@@ -438,7 +443,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -446,12 +451,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'doT' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=doT');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{=it.name}}</h1>`);
@@ -468,7 +473,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -476,7 +481,7 @@ const title = "World";
     await page.keyboard.type(`{"template":{"data":{"name": "Twig"}}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Twig');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
@@ -492,7 +497,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[data-hint=Settings]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -500,12 +505,12 @@ const title = "World";
     await page.keyboard.type(`{"template":{"prerender": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(`window.livecodes.templateData = { name: 'Twig' };`);
 
-    await app.click(':nth-match([title="change language"], 1)');
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Twig');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
@@ -522,7 +527,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=SCSS');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -540,7 +545,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Sass');
     await waitForEditorFocus(app);
     await page.keyboard.type(`$font-stack: Helvetica, sans-serif\nbody\n  font: 100% $font-stack`);
@@ -556,7 +561,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Less');
     await waitForEditorFocus(app);
     await page.keyboard.type(`@width: 10px; #header { width: @width; }`);
@@ -572,7 +577,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Stylus');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`font-size = 14px\nbody\n  font font-size Arial, sans-serif`);
@@ -603,7 +608,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Autoprefixer');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -622,7 +627,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 2)');
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Preset Env');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -641,7 +646,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Babel');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`[1, 2, 3].map(n => n + 1);`);
@@ -661,7 +666,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=TypeScript');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -694,7 +699,7 @@ function isFish(pet) {
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`<div id="app">Loading...</div>`);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JSX');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -716,7 +721,7 @@ ReactDOM.render(<Hello name="React" />, document.body);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=TSX');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -739,7 +744,7 @@ ReactDOM.render(<Hello name="React" />, document.body);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Vue 3');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -892,7 +897,7 @@ h1 {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Vue 2');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -921,7 +926,7 @@ h1 { color: blue; }
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Svelte');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -951,7 +956,7 @@ h1 { color: blue; }
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Malina.js');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -985,7 +990,7 @@ h1 { color: blue; }
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<my-app title="Stencil"></my-app>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Stencil');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -1016,7 +1021,7 @@ export class App {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=CoffeeScript');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`square = (x) -> x * x`);
@@ -1039,7 +1044,7 @@ export class App {
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">World</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=LiveScript');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`{ capitalize, join, map, words } = require 'prelude-ls'
@@ -1064,7 +1069,7 @@ title = 'live script'
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<hello title="Riot.js"></hello>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Riot.js');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<hello><h1>Hello, {props.title}</h1></hello>');
@@ -1096,7 +1101,7 @@ title = 'live script'
   </script>`,
     );
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=AssemblyScript');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`export function getTitle(): string {return "AssemblyScript";`);
@@ -1119,7 +1124,7 @@ title = 'live script'
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1 id="header">Hello, World</h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Python');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`from browser import document
@@ -1142,7 +1147,7 @@ document['header'].html = f"Hello, {title}"`);
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1 id="header">Hello, World</h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Pyodide');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`from js import document
@@ -1165,7 +1170,7 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Ruby');
     await waitForEditorFocus(app);
 
@@ -1188,7 +1193,7 @@ $$.document.querySelector('#title').innerHTML = title`);
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Go');
     await waitForEditorFocus(app);
 
@@ -1213,7 +1218,7 @@ func main() {
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=PHP');
     await waitForEditorFocus(app);
 
@@ -1239,7 +1244,7 @@ $document->getElementById('title')->textContent = $title;`,
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Perl');
     await waitForEditorFocus(app);
 
@@ -1262,7 +1267,7 @@ JS::inline('document.getElementById("title").innerHTML') = $title;`);
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Lua');
     await waitForEditorFocus(app);
 
@@ -1286,7 +1291,7 @@ document:getElementById("title").innerHTML = "Lua"`);
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
-    await app.click(':nth-match([title="change language"], 3)');
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Scheme');
     await waitForEditorFocus(app);
 

@@ -4,7 +4,7 @@ import type * as Monaco from 'monaco-editor'; // only for typescript types
 import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 import { getLanguageExtension, mapLanguage } from '../../languages';
 import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
+import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
 
@@ -79,10 +79,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     contextmenu: false,
   };
 
+  const editorId = options.editorId;
   const editorOptions =
-    options.editorType === 'console'
+    editorId === 'console'
       ? consoleOptions
-      : options.editorType === 'compiled'
+      : editorId === 'compiled'
       ? compiledCodeOptions
       : options.mode === 'codeblock'
       ? codeblockOptions
@@ -148,6 +149,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
+  let modelUri = '';
   const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
     value: string,
@@ -155,11 +157,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   ) => {
     const random = getRandomString();
     const ext = getLanguageExtension(language);
+    modelUri = `file:///${editorId}.${random}.${ext}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
       value || '',
       monacoMapLanguage(language),
-      monaco.Uri.parse(`file:///main.${random}.${ext}`),
+      monaco.Uri.parse(modelUri),
     );
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
@@ -188,10 +191,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   }
 
   const customLanguages: Partial<Record<Language, string>> = {
-    astro: vendorsBaseUrl + 'monaco-editor/languages/astro.js',
-    clio: vendorsBaseUrl + 'monaco-editor/languages/clio.js',
-    imba: vendorsBaseUrl + 'monaco-editor/languages/imba.js',
-    wat: vendorsBaseUrl + 'monaco-editor/languages/wat.js',
+    astro: baseUrl + '{{hash:monaco-astro.js}}',
+    clio: baseUrl + '{{hash:monaco-clio.js}}',
+    imba: baseUrl + '{{hash:monaco-imba.js}}',
+    // sql: baseUrl + '{{hash:monaco-sql.js}}', // TODO: add autocomplete
+    wat: baseUrl + '{{hash:monaco-wat.js}}',
   };
 
   interface CustomLanguageDefinition {
@@ -212,6 +216,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  const getEditorId = () => editorId;
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
@@ -284,6 +289,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const keyCodes = {
     // eslint-disable-next-line
     CtrlEnter: monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+    // eslint-disable-next-line
+    ShiftEnter: monaco.KeyMod.Shift | monaco.KeyCode.Enter,
     Enter: monaco.KeyCode.Enter,
     UpArrow: monaco.KeyCode.UpArrow,
     DownArrow: monaco.KeyCode.DownArrow,
@@ -365,7 +372,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const destroy = () => {
     configureEmmet(false);
     listeners.length = 0;
-    editor.getModel()?.dispose();
+    clearTypes(true);
+    // editor.getModel()?.dispose();
   };
 
   // workaround for uncaught canceled promise rejection onMouseLeave
@@ -465,6 +473,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setValue,
     getLanguage,
     setLanguage,
+    getEditorId,
     focus,
     layout,
     addTypes,

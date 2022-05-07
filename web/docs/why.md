@@ -10,12 +10,12 @@ There are great products like [CodePen](https://codepen.io/), [JSFiddle](https:/
 
 Currently, there are 60+ languages/frameworks supported. These include:
 
-- Syntax used by web technologies (e.g. React JSX, Vue SFC, Svelte SFC).
+- Syntax used by web libraries/frameworks (e.g. JSX, TSX, Vue SFC, Svelte SFC, MDX).
 - Languages that transpile to JavaScript (e.g. TypeScript, CoffeeScript, LiveScript, ReScript).
-- Traditional programming languages (e.g. Python, Ruby, Go, PHP, Lua, Scheme).
+- Traditional programming languages (e.g. Python, Ruby, Go, PHP, C++, Lua, Scheme).
 - Data manipulation/logic languages (e.g. SQL, Prolog).
-- Authoring/templating languages (e.g Markdown, MDX, AsciiDoc, Pug, Handlebars, Haml).
-- Low code/blocks (e.g. blockly, rich text editor).
+- Authoring/templating languages (e.g Markdown, AsciiDoc, Pug, Handlebars, Haml).
+- Low-code/visual editors (e.g. blockly, rich text editor).
 - Modeling languages/graph-as-code (e.g. Gnuplot, Graphviz, Mermaid, Vega).
 - ... and others.
 

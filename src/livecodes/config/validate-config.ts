@@ -33,6 +33,13 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
   });
 
+  const validateTestsProps = (x: Partial<Editor>): Partial<Editor> => ({
+    ...(is(x.language, 'string') ? { language: x.language } : {}),
+    ...(is(x.content, 'string') ? { content: x.content } : {}),
+    ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+    ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
+  });
+
   const isProcessors = (x: any) => is(x, 'object') && is(x.postcss, 'object');
   const validateProcessors = (x: any): Config['processors'] => ({
     postcss: {
@@ -74,6 +81,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(isEditor(config.markup) ? { markup: validateEditorProps(config.markup as Editor) } : {}),
     ...(isEditor(config.style) ? { style: validateEditorProps(config.style as Editor) } : {}),
     ...(isEditor(config.script) ? { script: validateEditorProps(config.script as Editor) } : {}),
+    ...(is(config.tests, 'object')
+      ? { tests: validateTestsProps(config.tests as Partial<Editor>) }
+      : {}),
     ...(is(config.stylesheets, 'array', 'string') ? { stylesheets: config.stylesheets } : {}),
     ...(is(config.scripts, 'array', 'string') ? { scripts: config.scripts } : {}),
     ...(is(config.cssPreset, 'string') ? { cssPreset: config.cssPreset } : {}),

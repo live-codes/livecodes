@@ -77,8 +77,13 @@ export const createFormatter = (baseUrl: string): Formatter => {
     return formatFn;
   };
 
+  const destroy = () => {
+    worker.terminate();
+  };
+
   return {
     load,
     getFormatFn,
+    destroy,
   };
 };

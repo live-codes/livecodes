@@ -1,21 +1,34 @@
-import { createImportMap, hasImports, isModuleScript } from '../compiler';
+import { createImportMap, getImports, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
 import { Cache, EditorId, Config } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl, spacingJsUrl } from '../vendors';
+import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
 
-export const createResultPage = (
-  code: Cache,
-  config: Config,
-  forExport: boolean,
-  template: string,
-  baseUrl: string,
-  singleFile: boolean,
-) => {
+export const createResultPage = ({
+  code,
+  config,
+  forExport,
+  template,
+  baseUrl,
+  singleFile,
+  runTests,
+}: {
+  code: Cache;
+  config: Config;
+  forExport: boolean;
+  template: string;
+  baseUrl: string;
+  singleFile: boolean;
+  runTests: boolean;
+}) => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(template, 'text/html');
+
+  const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
   // title
   dom.title = config.title;
@@ -67,9 +80,8 @@ export const createResultPage = (
     dom.body.classList.add('markdown-body');
   }
 
-  // editor markup (MDX is added to the script not page markup)
-  const markup = code.markup.language !== 'mdx' ? code.markup.compiled : '';
-  const mdx = code.markup.language === 'mdx' ? code.markup.compiled : '';
+  // editor markup
+  const markup = code.markup.compiled;
   dom.body.innerHTML += markup;
 
   // cleanup custom configurations and scripts
@@ -87,6 +99,11 @@ export const createResultPage = (
       compiled: code[editorId].compiled,
     }),
   );
+
+  const importFromScript =
+    getImports(markup).includes('./script') ||
+    (runTests && !forExport && getImports(compiledTests).includes('./script'));
+
   let compilerImports = {};
   runtimeDependencies.forEach(({ language, compiled }) => {
     const compiler = getLanguageCompiler(language);
@@ -138,10 +155,18 @@ export const createResultPage = (
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
+          ...(runTests && !forExport && hasImports(compiledTests)
+            ? createImportMap(compiledTests, config)
+            : {}),
+          ...(importFromScript
+            ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
+            : {}),
         };
+
   const importMaps = {
     ...userImports,
     ...compilerImports,
+    ...(runTests ? testImports : {}),
     ...config.customSettings.imports,
   };
   if (Object.keys(importMaps).length > 0) {
@@ -163,27 +188,29 @@ export const createResultPage = (
     dom.head.appendChild(externalScript);
   });
 
-  // editor script
-  const script = code.script.compiled;
-  const scriptElement = dom.createElement('script');
-  if (singleFile) {
-    scriptElement.innerHTML = escapeScript(mdx ? script + '\n' + mdx : script);
-  } else {
-    scriptElement.src = './script.js';
-  }
-  dom.body.appendChild(scriptElement);
-
-  // script type
-  const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
-  if (scriptType) {
-    scriptElement.type = scriptType;
-  } else if (config.customSettings.scriptType != null) {
-    // do not add type if scriptType === ''
-    if (config.customSettings.scriptType) {
-      scriptElement.type = config.customSettings.scriptType;
+  if (!importFromScript) {
+    // editor script
+    const script = code.script.compiled;
+    const scriptElement = dom.createElement('script');
+    if (singleFile) {
+      scriptElement.innerHTML = escapeScript(script);
+    } else {
+      scriptElement.src = './script.js';
     }
-  } else if (isModuleScript(script) || mdx) {
-    scriptElement.type = 'module';
+    dom.body.appendChild(scriptElement);
+
+    // script type
+    const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
+    if (scriptType) {
+      scriptElement.type = scriptType;
+    } else if (config.customSettings.scriptType != null) {
+      // do not add type if scriptType === ''
+      if (config.customSettings.scriptType) {
+        scriptElement.type = config.customSettings.scriptType;
+      }
+    } else if (isModuleScript(script)) {
+      scriptElement.type = 'module';
+    }
   }
 
   // spacing
@@ -191,6 +218,39 @@ export const createResultPage = (
     const spacingScript = dom.createElement('script');
     spacingScript.src = spacingJsUrl;
     dom.body.appendChild(spacingScript);
+  }
+
+  // tests
+  if (runTests && !forExport) {
+    const jestScript = dom.createElement('script');
+    jestScript.src = jestLiteUrl;
+    dom.body.appendChild(jestScript);
+
+    const testScript = dom.createElement('script');
+    testScript.type = 'module';
+    testScript.innerHTML = `
+const {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  describe: { only: fdescribe, skip: xdescribe },
+  it,
+  test,
+  test: { only: fit, skip: xtest, skip: xit },
+  expect,
+  jest } = window.jestLite.core;
+
+${escapeScript(compiledTests)}
+
+window.jestLite.core.run().then(results => {
+  parent.postMessage({type: 'testResults', payload: {results}}, '*');
+}).catch(() => {
+  parent.postMessage({type: 'testResults', payload: {error: true}}, '*');
+});
+    `;
+    dom.body.appendChild(testScript);
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;

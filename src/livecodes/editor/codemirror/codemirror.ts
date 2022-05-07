@@ -18,7 +18,7 @@ export const legacy = (parser: StreamParser<unknown>) =>
 export const createEditorCreator =
   (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
   async (options: EditorOptions): Promise<CodeEditor> => {
-    const { container, readonly, isEmbed } = options;
+    const { container, readonly, isEmbed, editorId } = options;
     if (!container) throw new Error('editor container not found');
     const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
       languages[language] || (languages.html as () => LanguageSupport);
@@ -71,9 +71,9 @@ export const createEditorCreator =
 
       const consoleOptions = [...defaultOptions];
 
-      return options.editorType === 'console'
+      return editorId === 'console'
         ? consoleOptions
-        : options.editorType === 'compiled'
+        : editorId === 'compiled'
         ? compiledCodeOptions
         : options.mode === 'codeblock'
         ? codeblockOptions
@@ -88,6 +88,7 @@ export const createEditorCreator =
       parent: container,
     });
 
+    const getEditorId = () => editorId;
     const getValue = () => view.state.doc.toString();
     const setValue = (value = '', newState = true) => {
       if (newState) {
@@ -121,6 +122,7 @@ export const createEditorCreator =
 
     const keyCodes = {
       CtrlEnter: 'Ctrl-Enter',
+      ShiftEnter: 'Shift-Enter',
       Enter: 'Enter',
       UpArrow: 'ArrowUp',
       DownArrow: 'ArrowDown',
@@ -193,6 +195,7 @@ export const createEditorCreator =
       setValue,
       getLanguage,
       setLanguage,
+      getEditorId,
       focus,
       configureEmmet,
       onContentChanged,

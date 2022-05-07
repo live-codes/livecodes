@@ -1,9 +1,10 @@
 import LunaConsole from 'luna-console';
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
-import { Editors, Config, Tool, CodeEditor, EditorOptions } from '../models';
+import { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
+import { getToolspaneButtons, getToolspaneElement } from '../UI';
 
 export const createConsole = (
   config: Config,
@@ -11,7 +12,8 @@ export const createConsole = (
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
-): Tool => {
+  _runTests: () => Promise<void>,
+): Console => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
 
@@ -114,7 +116,7 @@ export const createConsole = (
       value: '',
       readonly: false,
       editor: config.editor,
-      editorType: 'console',
+      editorId: 'console',
       theme: config.theme,
       isEmbed,
     };
@@ -187,12 +189,7 @@ export const createConsole = (
 
   const createConsoleElements = () => {
     if (consoleElement) return;
-
-    const toolsPaneSelector = '#output #tools-pane';
-    const toolsPaneElement = document.querySelector(toolsPaneSelector);
-    if (!toolsPaneElement) {
-      throw new Error('Cannot find element with selector: ' + toolsPaneSelector);
-    }
+    const toolsPaneElement = getToolspaneElement();
 
     const container = document.createElement('div');
     container.id = 'console-container';
@@ -206,7 +203,7 @@ export const createConsole = (
     consoleInput.id = 'console-input';
     container.appendChild(consoleInput);
 
-    const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
+    const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       const btnContainer = document.createElement('span');
       btnContainer.classList.add('hint--top-left');
@@ -277,5 +274,5 @@ export const createConsole = (
     clear: () => consoleEmulator?.clear(),
     // filterLog: (filter: string) => consoleEmulator?.filterLog(filter),
     evaluate: (code: string) => consoleEmulator?.evaluate(code),
-  } as Tool;
+  };
 };

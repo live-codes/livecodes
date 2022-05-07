@@ -20,8 +20,18 @@ export const loaderOptions = `const options = {
       return relPath;
     }
     // relPath is a module name ?
-    if ( relPath[0] !== '.' && relPath[0] !== '/' )
+    if ( relPath[0] !== '.' && relPath[0] !== '/' ) {
+      const importMapScript = document.querySelector('script[type="importmap"]')?.innerHTML.trim();
+      if (importMapScript) {
+        try {
+          const importMap = JSON.parse(importMapScript);
+          if (importMap?.imports?.[relPath]) {
+            return importMap.imports[relPath];
+          }
+        } catch {}
+      }
       return '${modulesService.getModuleUrl('')}' + relPath;
+    }
 
     return refPath === undefined || !refPath.startsWith('http') ? relPath : String(new URL(relPath, refPath));
   },

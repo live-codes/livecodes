@@ -27,6 +27,7 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
     customSettings: config.customSettings,
     imports: config.imports,
     types: config.types,
+    tests: config.tests,
     version: config.version,
   });
 

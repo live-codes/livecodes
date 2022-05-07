@@ -3,6 +3,7 @@ import { FormatFn, Language } from '../models';
 export interface Formatter {
   load: (languages: Language[]) => Promise<string>;
   getFormatFn: (language: Language) => Promise<FormatFn>;
+  destroy: () => void;
 }
 
 export interface FormatterMessageEvent extends MessageEvent {

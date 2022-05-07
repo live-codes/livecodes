@@ -2,9 +2,13 @@ export interface API {
   run: () => Promise<void>;
   format: (allEditors?: boolean) => Promise<void>;
   getShareUrl: (shortUrl?: boolean) => Promise<string>;
-  getConfig: () => Promise<Config>;
-  setConfig: (Config: Config) => Promise<Config>;
+  getConfig: (contentOnly?: boolean) => Promise<Config>;
+  setConfig: (config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
+  show: (pane: EditorId | Lowercase<Tool['title']> | 'result', full?: boolean) => Promise<void>;
+  runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
+  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
+  destroy: () => Promise<void>;
 }
 
 export type Config = ContentConfig & AppConfig & UserConfig;
@@ -33,6 +37,7 @@ export interface ContentConfig {
   customSettings: CustomSettings;
   imports: { [key: string]: string };
   types: Types;
+  tests: Partial<Editor> | undefined;
   readonly version: string;
 }
 
@@ -44,6 +49,11 @@ export interface AppConfig {
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   editor: 'monaco' | 'codemirror' | 'prism' | '';
   showVersion: boolean;
+  // tools: {
+  //   enabled: Array<Tool['title']> | 'all';
+  //   active: Tool['title'];
+  //   status: ToolsPaneStatus;
+  // }
 }
 
 export interface UserConfig {
@@ -368,13 +378,13 @@ export type Template = Pick<
   | 'imports'
   | 'types'
 > &
-  Partial<Pick<Config, 'processors' | 'customSettings'>> & {
+  Partial<Pick<Config, 'processors' | 'customSettings' | 'tests'>> & {
     name: string;
     thumbnail: string;
   };
 
 export interface Tool {
-  title: string;
+  title: 'Console' | 'Compiled' | 'Tests';
   load: () => Promise<void>;
   onActivate: () => void;
   onDeactivate: () => void;
@@ -384,21 +394,64 @@ export interface Tool {
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
 
 export type ToolList = Array<{
-  name: 'console' | 'compiled';
+  name: Lowercase<Tool['title']>;
   factory: (
     config: Config,
     baseUrl: string,
     editors: Editors,
     eventsManager: EventsManager,
     isEmbed: boolean,
+    runTests: () => Promise<void>,
   ) => Tool;
 }>;
+
+export interface Console extends Tool {
+  title: 'Console';
+  log: (...args: any[]) => void;
+  info: (...args: any[]) => void;
+  table: (...args: any[]) => void;
+  warn: (...args: any[]) => void;
+  error: (...args: any[]) => void;
+  clear: () => void;
+  // filterLog: (filter: string) => void;
+  evaluate: (code: string) => void;
+}
+
+export interface CompiledCodeViewer extends Tool {
+  title: 'Compiled';
+  update: (language: Language, content: string, label?: string | undefined) => void;
+  reloadEditor: () => Promise<void>;
+}
+
+export interface TestViewer extends Tool {
+  title: 'Tests';
+  showResults: ({ results, error }: { results: TestResult[]; error?: boolean }) => void;
+  resetTests: () => void;
+  clearTests: () => void;
+}
+
+export interface ToolsPane {
+  load: () => Promise<void>;
+  open: () => void;
+  close: () => void;
+  maximize: () => void;
+  hide: () => void;
+  getStatus: () => ToolsPaneStatus;
+  getActiveTool: () => Lowercase<Tool['title']>;
+  setActiveTool: (title: Lowercase<Tool['title']>) => void;
+  disableTool: (title: Lowercase<Tool['title']>) => void;
+  enableTool: (title: Lowercase<Tool['title']>) => void;
+  console?: Console;
+  compiled?: CompiledCodeViewer;
+  tests?: TestViewer;
+}
 
 export interface CodeEditor {
   getValue: () => string;
   setValue: (value?: string, newState?: boolean) => void;
   getLanguage: () => Language;
   setLanguage: (language: Language, value?: string) => void;
+  getEditorId: () => string;
   focus: () => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
@@ -407,6 +460,7 @@ export interface CodeEditor {
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
   keyCodes: {
     CtrlEnter: any;
+    ShiftEnter: any;
     Enter: any;
     UpArrow: any;
     DownArrow: any;
@@ -431,7 +485,7 @@ export interface EditorOptions {
   mode?: Config['mode'];
   readonly: boolean;
   editor?: Config['editor'];
-  editorType: 'code' | 'compiled' | 'console';
+  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
@@ -489,7 +543,8 @@ export interface Screen {
     | 'external'
     | 'share'
     | 'deploy'
-    | 'custom-settings';
+    | 'custom-settings'
+    | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }
 
@@ -525,6 +580,7 @@ export type Cache = ContentConfig & {
   markup: EditorCache;
   style: EditorCache;
   script: EditorCache;
+  tests?: EditorCache;
   result?: string;
   styleOnlyUpdate?: boolean;
 };
@@ -589,4 +645,11 @@ export interface EventsManager {
     fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
   ) => void;
   removeEventListeners: () => void;
+}
+
+export interface TestResult {
+  duration: number;
+  errors: string[];
+  status: 'pass' | 'fail';
+  testPath: string[];
 }
