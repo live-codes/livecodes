@@ -195,9 +195,9 @@ export const playground = async (
   if (loading === 'scroll' && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries, observer) => {
-        entries.forEach((entry) => {
+        entries.forEach(async (entry) => {
           if (entry.isIntersecting) {
-            loadLivecodes();
+            await loadLivecodes();
             observer.unobserve(containerElement!);
           }
         });
