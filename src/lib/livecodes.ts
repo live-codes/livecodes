@@ -12,8 +12,7 @@ export interface EmbedOptions {
   template?: string;
   importUrl?: string;
   appUrl?: string;
-  loading?: 'lazy' | 'eager' | 'auto';
-  clickToLoad?: boolean;
+  loading?: 'scroll' | 'click' | 'eager';
 }
 
 export const playground = async (
@@ -25,7 +24,7 @@ export const playground = async (
     template,
     importUrl,
     appUrl = 'https://livecodes.io/',
-    loading = 'lazy',
+    loading = 'scroll',
   } = options;
 
   let containerElement: HTMLElement | null;
@@ -75,7 +74,7 @@ export const playground = async (
   }
 
   url.searchParams.set('embed', 'true');
-  if (options.clickToLoad === false) {
+  if (loading === 'eager') {
     url.searchParams.set('click-to-load', 'false');
   }
 
@@ -91,7 +90,8 @@ export const playground = async (
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
-      frame.setAttribute('loading', loading);
+      const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
+      frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
       frame.src = url.href;
       frame.onload = () => {
@@ -191,6 +191,21 @@ export const playground = async (
     }
     destroyed = true;
   };
+
+  if (loading === 'scroll' && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadLivecodes();
+            observer.unobserve(containerElement!);
+          }
+        });
+      },
+      { rootMargin: '150px' },
+    );
+    observer.observe(containerElement);
+  }
 
   return {
     load: () => loadLivecodes(),
