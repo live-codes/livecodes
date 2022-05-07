@@ -439,6 +439,8 @@ export interface ToolsPane {
   getStatus: () => ToolsPaneStatus;
   getActiveTool: () => Lowercase<Tool['title']>;
   setActiveTool: (title: Lowercase<Tool['title']>) => void;
+  disableTool: (title: Lowercase<Tool['title']>) => void;
+  enableTool: (title: Lowercase<Tool['title']>) => void;
   console?: Console;
   compiled?: CompiledCodeViewer;
   tests?: TestViewer;

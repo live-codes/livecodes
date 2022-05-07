@@ -2824,6 +2824,9 @@ const bootstrap = async (reload = false) => {
     });
   });
   formatter.load(getEditorLanguages());
+  if (isEmbed && !getConfig().tests?.content?.trim()) {
+    toolsPane?.disableTool('tests');
+  }
 };
 
 const initializeApp = async (
