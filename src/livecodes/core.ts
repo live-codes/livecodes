@@ -48,7 +48,6 @@ import type {
   CustomSettings,
   Types,
   TestResult,
-  Tool,
   ToolsPane,
 } from './models';
 import { getFormatter } from './formatter';
