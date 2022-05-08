@@ -195,7 +195,7 @@ export default function HomepageFeatures(): JSX.Element {
                 boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)',
               }}
               showCode={false}
-              clickToLoad={false}
+              loading="eager"
             ></LiveCodes>
             <div className="margin-vert--md">
               <p>
