@@ -18,7 +18,7 @@
     "build:app": "run-p build:app:* && run-s build:post:*",
     "build:app:js": "node ./scripts/build.js",
     "build:app:styles": "sass src/livecodes/styles:build/livecodes --style=compressed --no-source-map=true && postcss build/livecodes/*.css --replace --no-map --use autoprefixer",
-    "build:app:html": "vite build --outDir ../build src",
+    "build:app:html": "vite build --outDir ../build src --sourcemap true",
     "build:post:hash": "node ./scripts/hash.js",
     "build:post:inject-css": "node ./scripts/inject-css.js",
     "build:vendors": "node ./scripts/vendors.js",

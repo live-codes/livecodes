@@ -15,7 +15,7 @@ function uint8arrayToString(uint8array) {
 }
 /** @param {string} code */
 function iife(code) {
-  return '(function(){' + code.trim() + '})();\n';
+  return '(function(){' + code.trim() + '\n})();\n';
 }
 
 var srcDir = path.resolve(__dirname + '/../src/livecodes');
@@ -47,6 +47,8 @@ var baseOptions = {
   outdir: 'build/livecodes',
   format: 'esm',
   target: 'es2020',
+  sourcemap: true,
+  sourcesContent: true,
   define: {
     'process.env.VERSION': `"${version || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
