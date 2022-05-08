@@ -5,7 +5,10 @@ export interface API {
   getConfig: (contentOnly?: boolean) => Promise<Config>;
   setConfig: (config: Config) => Promise<Config>;
   getCode: () => Promise<Code>;
-  show: (pane: EditorId | Lowercase<Tool['title']> | 'result', full?: boolean) => Promise<void>;
+  show: (
+    panel: EditorId | Lowercase<Tool['title']> | 'result',
+    options: { full?: boolean },
+  ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
   onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
   destroy: () => Promise<void>;
