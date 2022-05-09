@@ -2465,14 +2465,13 @@ const handleTests = () => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
-    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: boolean }>(
+    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: string }>(
       customEvents.testResults,
       {
         detail: JSON.parse(JSON.stringify(ev.data.payload)),
       },
     );
     document.dispatchEvent(resultEvent);
-    parent.dispatchEvent(resultEvent);
   });
 
   eventsManager.addEventListener(
@@ -2928,8 +2927,8 @@ const createApi = (): API => {
       eventsManager.addEventListener(
         document,
         customEvents.testResults,
-        ((ev: CustomEventInit<{ results: TestResult[]; error?: boolean }>) => {
-          resolve(ev.detail || { results: [] });
+        ((ev: CustomEventInit<{ results: TestResult[] }>) => {
+          resolve({ results: ev.detail?.results || [] });
         }) as any,
         { once: true },
       );
@@ -2937,12 +2936,18 @@ const createApi = (): API => {
     });
 
   const apiOnChange: API['onChange'] = (fn) => {
-    eventsManager.addEventListener(document, customEvents.change, async function () {
+    const handler = async function () {
       fn({
         code: await apiGetCode(),
         config: await apiGetConfig(),
       });
-    });
+    };
+    eventsManager.addEventListener(document, customEvents.change, handler);
+    return {
+      remove: () => {
+        eventsManager.removeEventListener(document, customEvents.change, handler);
+      },
+    };
   };
 
   let isDestroyed = false;
@@ -2958,8 +2963,11 @@ const createApi = (): API => {
 
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
   const reject = () => Promise.reject(alreadyDestroyedMessage);
+  const throwError = () => {
+    throw new Error(alreadyDestroyedMessage);
+  };
   const call = <T>(fn: () => Promise<T>) => (!isDestroyed ? fn() : reject());
-  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : { error: alreadyDestroyedMessage });
+  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : throwError());
 
   return {
     run: () => call(() => run()),

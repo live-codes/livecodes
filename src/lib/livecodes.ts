@@ -1,10 +1,9 @@
-import type { API, Code, Config } from './models';
+import type { API, Code, Config, ChangeHandler } from './models';
 
 export type { Code, Config };
 
-export interface Playground extends Omit<API, 'addWatcher, removeWatcher'> {
+export interface Playground extends API {
   load: () => Promise<void>;
-  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
 }
 
 export interface EmbedOptions {
@@ -155,9 +154,8 @@ export const playground = async (
           resolve();
         });
 
-  type Watcher = ({ code, config }: { code: Code; config: Config }) => void;
-  let watchers: Watcher[] = [];
-  const onChange = (fn: Watcher) => {
+  let watchers: ChangeHandler[] = [];
+  const onChange = (fn: ChangeHandler) => {
     if (destroyed) {
       throw new Error(alreadyDestroyedMessage);
     }

@@ -9,10 +9,12 @@ export interface API {
     panel: EditorId | Lowercase<Tool['title']> | 'result',
     options: { full?: boolean },
   ) => Promise<void>;
-  runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
-  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
+  runTests: () => Promise<{ results: TestResult[] }>;
+  onChange: (fn: ChangeHandler) => { remove: () => void };
   destroy: () => Promise<void>;
 }
+
+export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
 
 export type Config = ContentConfig & AppConfig & UserConfig;
 
@@ -428,7 +430,7 @@ export interface CompiledCodeViewer extends Tool {
 
 export interface TestViewer extends Tool {
   title: 'Tests';
-  showResults: ({ results, error }: { results: TestResult[]; error?: boolean }) => void;
+  showResults: ({ results, error }: { results: TestResult[]; error?: string }) => void;
   resetTests: () => void;
   clearTests: () => void;
 }
