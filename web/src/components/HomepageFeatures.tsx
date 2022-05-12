@@ -173,9 +173,9 @@ function Feature({ title, image, description }: FeatureItem) {
 }
 
 const codeSample = `
-import { playground } from "@live-codes/livecodes";
+import { createPlayground } from "@live-codes/livecodes";
 
-playground("#container", { template: "react" });
+createPlayground("#container", { template: "react" });
 `.trimStart();
 
 export default function HomepageFeatures(): JSX.Element {

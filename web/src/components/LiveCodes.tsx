@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { appUrl } from '../utils';
 // eslint-disable-next-line import/no-internal-modules
-import { playground, EmbedOptions } from '../../../src/lib/livecodes';
+import { createPlayground, EmbedOptions } from '../../../src/lib/livecodes';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
 
@@ -18,7 +18,7 @@ export default function LiveCodes(
   const url = (props.appUrl || appUrl) + '?';
   const containerRef = useRef(null);
   useEffect(() => {
-    playground(containerRef.current, {
+    createPlayground(containerRef.current, {
       appUrl: url + props.query,
       template: props.template,
       config: props.config,
@@ -34,10 +34,10 @@ export default function LiveCodes(
   };
 
   const code = `
-import { playground } from '@live-codes/livecodes';
+import { createPlayground } from '@live-codes/livecodes';
 
 const options = ${JSON.stringify(options, null, 2)};
-playground('#container', options);
+createPlayground('#container', options);
 
 `.trimStart();
 

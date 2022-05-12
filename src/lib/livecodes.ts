@@ -7,14 +7,14 @@ export interface Playground extends API {
 }
 
 export interface EmbedOptions {
-  config?: Partial<Config> | string;
-  template?: string;
-  importUrl?: string;
   appUrl?: string;
+  config?: Partial<Config> | string;
+  importUrl?: string;
   loading?: 'scroll' | 'click' | 'eager';
+  template?: string;
 }
 
-export const playground = async (
+export const createPlayground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
