@@ -16,7 +16,7 @@ export interface API {
 
 export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
 
-export type Config = ContentConfig & AppConfig & UserConfig;
+export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface ContentConfig {
   title: string;
@@ -225,16 +225,14 @@ export interface EditorLanguages {
 }
 
 export interface Types {
-  [key: string]: TypeValue;
+  [key: string]:
+    | string
+    | {
+        url: string;
+        declareAsModule?: boolean;
+        autoload?: boolean;
+      };
 }
-
-export type TypeValue =
-  | string
-  | {
-      url: string;
-      declareAsModule?: boolean;
-      autoload?: boolean;
-    };
 
 export interface LanguageSpecs {
   name: Language;
