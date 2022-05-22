@@ -2794,6 +2794,8 @@ const bootstrap = async (reload = false) => {
   setLoading(true);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
+  // TODO: Fix
+  toolsPane?.console?.clear();
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
@@ -2888,7 +2890,7 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(config));
   };
 
-  const apiSetConfig = async (newConfig: Config): Promise<Config> => {
+  const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
     const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;

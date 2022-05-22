@@ -3,7 +3,7 @@ export interface API {
   format: (allEditors?: boolean) => Promise<void>;
   getShareUrl: (shortUrl?: boolean) => Promise<string>;
   getConfig: (contentOnly?: boolean) => Promise<Config>;
-  setConfig: (config: Config) => Promise<Config>;
+  setConfig: (config: Partial<Config>) => Promise<Config>;
   getCode: () => Promise<Code>;
   show: (
     panel: EditorId | Lowercase<Tool['title']> | 'result',
