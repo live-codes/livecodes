@@ -6,7 +6,7 @@ import { exportJsfiddle } from './export-jsfiddle';
 import { exportJSON } from './export-json';
 import { exportSrc } from './export-src';
 
-type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle' | 'githubGist';
+export type ExportType = 'json' | 'src' | 'html' | 'codepen' | 'jsfiddle' | 'githubGist';
 type ExportFunctions = {
   [key in ExportType]: (config: Config, payload?: any, baseUrl?: string) => void;
 };

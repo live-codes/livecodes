@@ -451,7 +451,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
                   author ? `by [@${author}](https://www.npmjs.com/~${author})` : ''
                 }\n\n${
                   links?.repository ? `[GitHub](${links?.repository})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})`,
+                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\n[Importing modules](${baseUrl.replace(
+                  '/livecodes/',
+                  '',
+                )}/web/docs/features/npm-modules)`,
               },
             ],
           };

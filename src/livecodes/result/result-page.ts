@@ -246,8 +246,8 @@ ${escapeScript(compiledTests)}
 
 window.jestLite.core.run().then(results => {
   parent.postMessage({type: 'testResults', payload: {results}}, '*');
-}).catch(() => {
-  parent.postMessage({type: 'testResults', payload: {error: true}}, '*');
+}).catch((error) => {
+  parent.postMessage({type: 'testResults', payload: {error: error.message || String(error)}}, '*');
 });
     `;
     dom.body.appendChild(testScript);

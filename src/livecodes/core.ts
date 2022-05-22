@@ -48,7 +48,6 @@ import type {
   CustomSettings,
   Types,
   TestResult,
-  Tool,
   ToolsPane,
 } from './models';
 import { getFormatter } from './formatter';
@@ -2466,14 +2465,13 @@ const handleTests = () => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
-    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: boolean }>(
+    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: string }>(
       customEvents.testResults,
       {
         detail: JSON.parse(JSON.stringify(ev.data.payload)),
       },
     );
     document.dispatchEvent(resultEvent);
-    parent.dispatchEvent(resultEvent);
   });
 
   eventsManager.addEventListener(
@@ -2796,6 +2794,8 @@ const bootstrap = async (reload = false) => {
   setLoading(true);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
+  // TODO: Fix
+  toolsPane?.console?.clear();
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
@@ -2890,7 +2890,7 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(config));
   };
 
-  const apiSetConfig = async (newConfig: Config): Promise<Config> => {
+  const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
     const newAppConfig = buildConfig(newConfig, baseUrl);
     await loadConfig(newAppConfig);
     return newAppConfig;
@@ -2904,46 +2904,52 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
-  const apiShow = async (pane: EditorId | Lowercase<Tool['title']> | 'result', full = false) => {
-    if (pane === 'result') {
+  const apiShow: API['show'] = async (panel, { full = false }) => {
+    if (panel === 'result') {
       split.show('output', full);
       toolsPane?.close();
-    } else if (pane === 'console' || pane === 'compiled' || pane === 'tests') {
+    } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split.show('output');
-      toolsPane?.setActiveTool(pane);
+      toolsPane?.setActiveTool(panel);
       if (full) {
         toolsPane?.maximize();
       } else {
         toolsPane?.open();
       }
-    } else if (Object.keys(editors).includes(pane)) {
-      showEditor(pane);
+    } else if (Object.keys(editors).includes(panel)) {
+      showEditor(panel);
       split.show('code', full);
     } else {
-      throw new Error('Invalid pane id');
+      throw new Error('Invalid panel id');
     }
   };
 
-  const apiRunTests = () =>
-    new Promise<{ results: TestResult[]; error?: boolean }>((resolve) => {
+  const apiRunTests: API['runTests'] = () =>
+    new Promise((resolve) => {
       eventsManager.addEventListener(
         document,
         customEvents.testResults,
-        ((ev: CustomEventInit<{ results: TestResult[]; error?: boolean }>) => {
-          resolve(ev.detail || { results: [] });
+        ((ev: CustomEventInit<{ results: TestResult[] }>) => {
+          resolve({ results: ev.detail?.results || [] });
         }) as any,
         { once: true },
       );
       runTests();
     });
 
-  const apiOnChange = (fn: ({ code, config }: { code: Code; config: Config }) => void) => {
-    eventsManager.addEventListener(document, customEvents.change, async function () {
+  const apiOnChange: API['onChange'] = (fn) => {
+    const handler = async function () {
       fn({
         code: await apiGetCode(),
         config: await apiGetConfig(),
       });
-    });
+    };
+    eventsManager.addEventListener(document, customEvents.change, handler);
+    return {
+      remove: () => {
+        eventsManager.removeEventListener(document, customEvents.change, handler);
+      },
+    };
   };
 
   let isDestroyed = false;
@@ -2959,8 +2965,11 @@ const createApi = (): API => {
 
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
   const reject = () => Promise.reject(alreadyDestroyedMessage);
+  const throwError = () => {
+    throw new Error(alreadyDestroyedMessage);
+  };
   const call = <T>(fn: () => Promise<T>) => (!isDestroyed ? fn() : reject());
-  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : { error: alreadyDestroyedMessage });
+  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : throwError());
 
   return {
     run: () => call(() => run()),
@@ -2969,7 +2978,7 @@ const createApi = (): API => {
     getConfig: (contentOnly) => call(() => apiGetConfig(contentOnly)),
     setConfig: (config) => call(() => apiSetConfig(config)),
     getCode: () => call(() => apiGetCode()),
-    show: (pane, full) => call(() => apiShow(pane, full)),
+    show: (pane, options) => call(() => apiShow(pane, options)),
     runTests: () => call(() => apiRunTests()),
     onChange: (fn) => callSync(() => apiOnChange(fn)),
     destroy: () => call(() => apiDestroy()),

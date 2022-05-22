@@ -73,7 +73,7 @@ export const createTestViewer = (
     }
   };
 
-  const showResults = ({ results, error }: { results: TestResult[]; error?: boolean }) => {
+  const showResults = ({ results, error }: { results: TestResult[]; error?: string }) => {
     if (!testResultsElement) {
       createElements();
     }

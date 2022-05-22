@@ -173,9 +173,9 @@ function Feature({ title, image, description }: FeatureItem) {
 }
 
 const codeSample = `
-import { playground } from "@live-codes/livecodes";
+import { createPlayground } from "@live-codes/livecodes";
 
-playground("#container", { template: "react" });
+createPlayground("#container", { template: "react" });
 `.trimStart();
 
 export default function HomepageFeatures(): JSX.Element {
@@ -195,7 +195,7 @@ export default function HomepageFeatures(): JSX.Element {
                 boxShadow: '0 0 20px var(--ifm-color-secondary-darkest)',
               }}
               showCode={false}
-              clickToLoad={false}
+              loading="eager"
             ></LiveCodes>
             <div className="margin-vert--md">
               <p>

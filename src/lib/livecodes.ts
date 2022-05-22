@@ -1,22 +1,20 @@
-import type { API, Code, Config } from './models';
+import type { API, Code, Config, ChangeHandler } from './models';
 
 export type { Code, Config };
 
-export interface Playground extends Omit<API, 'addWatcher, removeWatcher'> {
+export interface Playground extends API {
   load: () => Promise<void>;
-  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
 }
 
 export interface EmbedOptions {
-  config?: Partial<Config> | string;
-  template?: string;
-  importUrl?: string;
   appUrl?: string;
-  loading?: 'lazy' | 'eager' | 'auto';
-  clickToLoad?: boolean;
+  config?: Partial<Config> | string;
+  importUrl?: string;
+  loading?: 'scroll' | 'click' | 'eager';
+  template?: string;
 }
 
-export const playground = async (
+export const createPlayground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
@@ -25,7 +23,7 @@ export const playground = async (
     template,
     importUrl,
     appUrl = 'https://livecodes.io/',
-    loading = 'lazy',
+    loading = 'scroll',
   } = options;
 
   let containerElement: HTMLElement | null;
@@ -75,7 +73,7 @@ export const playground = async (
   }
 
   url.searchParams.set('embed', 'true');
-  if (options.clickToLoad === false) {
+  if (loading === 'eager') {
     url.searchParams.set('click-to-load', 'false');
   }
 
@@ -91,7 +89,8 @@ export const playground = async (
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
-      frame.setAttribute('loading', loading);
+      const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
+      frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
       frame.src = url.href;
       frame.onload = () => {
@@ -155,9 +154,8 @@ export const playground = async (
           resolve();
         });
 
-  type Watcher = ({ code, config }: { code: Code; config: Config }) => void;
-  let watchers: Watcher[] = [];
-  const onChange = (fn: Watcher) => {
+  let watchers: ChangeHandler[] = [];
+  const onChange = (fn: ChangeHandler) => {
     if (destroyed) {
       throw new Error(alreadyDestroyedMessage);
     }
@@ -192,13 +190,28 @@ export const playground = async (
     destroyed = true;
   };
 
+  if (loading === 'scroll' && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            await loadLivecodes();
+            observer.unobserve(containerElement!);
+          }
+        });
+      },
+      { rootMargin: '150px' },
+    );
+    observer.observe(containerElement);
+  }
+
   return {
     load: () => loadLivecodes(),
     run: () => callAPI('run'),
     format: (allEditors) => callAPI('format', [allEditors]),
     getShareUrl: (shortUrl) => callAPI('getShareUrl', [shortUrl]),
     getConfig: (contentOnly) => callAPI('getConfig', [contentOnly]),
-    setConfig: (config: Config) => callAPI('setConfig', [config]),
+    setConfig: (config) => callAPI('setConfig', [config]),
     getCode: () => callAPI('getCode'),
     show: (pane, full) => callAPI('show', [pane, full]),
     runTests: () => callAPI('runTests'),

@@ -1,5 +1,5 @@
 import { getImports } from '../compiler';
-import { EditorLibrary, Types, TypeValue } from '../models';
+import { EditorLibrary, Types } from '../models';
 import { typesService } from '../services';
 import { objectFilter } from '../utils';
 
@@ -61,7 +61,7 @@ export const createTypeLoader = () => {
 
     const autoloadTypes: Types = objectFilter(
       configTypes,
-      (value: TypeValue, key: string) =>
+      (value, key) =>
         (!Object.keys(loadedTypes).includes(key) || forceLoad) &&
         typeof value !== 'string' &&
         value.autoload === true,

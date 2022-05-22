@@ -3,15 +3,20 @@ export interface API {
   format: (allEditors?: boolean) => Promise<void>;
   getShareUrl: (shortUrl?: boolean) => Promise<string>;
   getConfig: (contentOnly?: boolean) => Promise<Config>;
-  setConfig: (config: Config) => Promise<Config>;
+  setConfig: (config: Partial<Config>) => Promise<Config>;
   getCode: () => Promise<Code>;
-  show: (pane: EditorId | Lowercase<Tool['title']> | 'result', full?: boolean) => Promise<void>;
-  runTests: () => Promise<{ results: TestResult[]; error?: boolean }>;
-  onChange: (fn: ({ code, config }: { code: Code; config: Config }) => void) => void;
+  show: (
+    panel: EditorId | Lowercase<Tool['title']> | 'result',
+    options: { full?: boolean },
+  ) => Promise<void>;
+  runTests: () => Promise<{ results: TestResult[] }>;
+  onChange: (fn: ChangeHandler) => { remove: () => void };
   destroy: () => Promise<void>;
 }
 
-export type Config = ContentConfig & AppConfig & UserConfig;
+export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
+
+export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface ContentConfig {
   title: string;
@@ -220,16 +225,14 @@ export interface EditorLanguages {
 }
 
 export interface Types {
-  [key: string]: TypeValue;
+  [key: string]:
+    | string
+    | {
+        url: string;
+        declareAsModule?: boolean;
+        autoload?: boolean;
+      };
 }
-
-export type TypeValue =
-  | string
-  | {
-      url: string;
-      declareAsModule?: boolean;
-      autoload?: boolean;
-    };
 
 export interface LanguageSpecs {
   name: Language;
@@ -425,7 +428,7 @@ export interface CompiledCodeViewer extends Tool {
 
 export interface TestViewer extends Tool {
   title: 'Tests';
-  showResults: ({ results, error }: { results: TestResult[]; error?: boolean }) => void;
+  showResults: ({ results, error }: { results: TestResult[]; error?: string }) => void;
   resetTests: () => void;
   clearTests: () => void;
 }

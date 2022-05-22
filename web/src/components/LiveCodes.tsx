@@ -2,28 +2,27 @@ import React, { useEffect, useRef } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { appUrl } from '../utils';
 // eslint-disable-next-line import/no-internal-modules
-import { playground, Config } from '../../../src/lib/livecodes';
+import { createPlayground, EmbedOptions } from '../../../src/lib/livecodes';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
 
-const url = appUrl + '?';
-
-export default function LiveCodes(props: {
-  config?: Config;
-  template?: string;
-  query?: string;
-  style?: Record<string, string>;
-  className?: string;
-  showCode?: boolean;
-  clickToLoad?: boolean;
-}): JSX.Element {
+export default function LiveCodes(
+  props: EmbedOptions & {
+    query?: string;
+    style?: Record<string, string>;
+    className?: string;
+    showCode?: boolean;
+  },
+): JSX.Element {
+  // TODO: improve this: use `new URL()` & searchParams
+  const url = (props.appUrl || appUrl) + '?';
   const containerRef = useRef(null);
   useEffect(() => {
-    playground(containerRef.current, {
+    createPlayground(containerRef.current, {
       appUrl: url + props.query,
       template: props.template,
       config: props.config,
-      clickToLoad: props.clickToLoad,
+      loading: props.loading,
     });
   }, []);
 
@@ -31,14 +30,14 @@ export default function LiveCodes(props: {
     ...(props.query ? { appUrl: url + props.query } : {}),
     ...(props.template ? { template: props.template } : {}),
     ...(props.config ? { config: props.config } : {}),
-    ...(props.clickToLoad === false ? { clickToLoad: false } : {}),
+    ...(props.loading ? { loading: props.loading } : {}),
   };
 
   const code = `
-import { playground } from '@live-codes/livecodes';
+import { createPlayground } from '@live-codes/livecodes';
 
 const options = ${JSON.stringify(options, null, 2)};
-playground('#container', options);
+createPlayground('#container', options);
 
 `.trimStart();
 

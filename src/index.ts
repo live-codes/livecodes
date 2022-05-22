@@ -34,6 +34,7 @@ if (
 const animatingLogo = document.querySelector<HTMLElement>('#animating-logo')!;
 const cube = document.querySelector<HTMLElement>('#cube')!;
 const clickToLoad = document.querySelector<HTMLElement>('#click-to-load')!;
+
 if (location.search.includes('embed') && !location.search.includes('embed=false')) {
   document.body.classList.add('embed');
   if (!location.search.includes('click-to-load=false')) {
@@ -52,6 +53,7 @@ if (location.search.includes('embed') && !location.search.includes('embed=false'
     });
   }
 }
+
 function load() {
   clickToLoad.classList.remove('visible');
   document.querySelector('.preview')?.classList.add('hidden');
@@ -67,25 +69,32 @@ function load() {
   }, 500);
   window.dispatchEvent(new Event(customEvents.load));
 }
+
 function resize() {
   document.body.style.height = window.innerHeight + 'px';
 }
+
 resize();
 window.addEventListener('resize', resize, false);
 setTimeout(resize, 500);
+
 window.addEventListener(customEvents.appLoaded, (e: CustomEventInit) => {
   animatingLogo.remove();
   (window as any).api = e.detail;
 });
+
 window.addEventListener(customEvents.ready, () => {
   // project loaded
 });
+
 window.addEventListener(customEvents.change, () => {
   // content change
 });
+
 window.addEventListener(customEvents.testResults, (_e: CustomEventInit) => {
   // const testResults = e.detail;
 });
+
 window.addEventListener(customEvents.destroy, () => {
   window.removeEventListener('resize', resize);
   document.body.innerHTML = '';
