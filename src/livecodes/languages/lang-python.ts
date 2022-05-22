@@ -16,7 +16,7 @@ export const python: LanguageSpecs = {
       const stdlib = autoloadStdlib !== false && compiled.match(importsPattern) ? [stdlibUrl] : [];
       const loader = `window.addEventListener("load", () => {brython(${JSON.stringify(options)})})`;
       const loaderUrl = 'data:text/plain;base64,' + btoa(loader);
-      const compiledCode = `window.addEventListener("load", async () => {
+      const compiledCode = `window.addEventListener("load", () => {
         const content = __BRYTHON__.python_to_js(\`${escapeCode(compiled)}\`);
         parent.postMessage({type: "compiled", payload: {language: "python", content}}, "*");
       });`;
