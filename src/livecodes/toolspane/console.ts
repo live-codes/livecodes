@@ -236,12 +236,7 @@ export const createConsole = (
   const load = async () => {
     createConsoleElements();
     consoleEmulator = createConsoleEmulator();
-    if (
-      config.readonly ||
-      config.editor === 'prism' ||
-      config.mode === 'codeblock' ||
-      config.mode === 'editor'
-    ) {
+    if (config.readonly || config.mode === 'codeblock' || config.mode === 'editor') {
       return;
     } else {
       editor = await createConsoleInput();

@@ -23,9 +23,9 @@ const getEditorFileName = (
     return '{{hash:codemirror-basic.js}}';
   }
 
-  if (editorName === 'prism') {
-    if (editorBuild === 'full') return '{{hash:prism-full.js}}';
-    return '{{hash:prism-basic.js}}';
+  if (editorName === 'codejar') {
+    if (editorBuild === 'full') return '{{hash:codejar-full.js}}';
+    return '{{hash:codejar-basic.js}}';
   }
 
   return '{{hash:monaco.js}}';
@@ -54,10 +54,10 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
 
 export const selectedEditor = (options: EditorOptions | Partial<Config>) => {
   const { editor, mode } = options;
-  return ['codemirror', 'monaco', 'prism'].includes(editor || '')
+  return ['codemirror', 'monaco', 'codejar'].includes(editor || '')
     ? editor
     : mode === 'codeblock'
-    ? 'prism'
+    ? 'codejar'
     : isMobile()
     ? 'codemirror'
     : 'monaco';

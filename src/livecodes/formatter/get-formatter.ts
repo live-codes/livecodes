@@ -3,9 +3,9 @@ import { createFormatter } from './formatter';
 import { Formatter } from './models';
 
 export const getFormatter = (config: Config, baseUrl: string): Formatter => {
-  const { editor, readonly, mode } = config;
+  const { readonly, mode } = config;
 
-  if (readonly || editor === 'prism' || mode === 'codeblock' || mode === 'result') {
+  if (readonly || mode === 'codeblock' || mode === 'result') {
     return createFakeFormatter();
   } else {
     return createFormatter(baseUrl);

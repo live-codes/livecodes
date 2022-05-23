@@ -136,8 +136,8 @@ esbuild.build({
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: [
-    'src/livecodes/editor/prism/prism-basic.ts',
-    'src/livecodes/editor/prism/prism-full.ts',
+    'src/livecodes/editor/codejar/codejar-basic.ts',
+    'src/livecodes/editor/codejar/codejar-full.ts',
   ],
 });
 

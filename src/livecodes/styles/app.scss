@@ -2277,6 +2277,11 @@ i.arrow {
     max-height: 100% !important;
     overflow: auto;
     padding-bottom: 1em !important;
+    padding-top: 2px !important;
+    top: 2px !important;
+  }
+  &.codejar code {
+    white-space: nowrap !important;
   }
 }
 

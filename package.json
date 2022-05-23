@@ -79,6 +79,7 @@
     "@codemirror/view": "0.19.42",
     "@emmetio/codemirror6-plugin": "0.0.6",
     "@snackbar/core": "1.7.0",
+    "codejar": "3.6.0",
     "firebase": "9.6.6",
     "luna-console": "0.2.1",
     "luna-object-viewer": "0.2.0",
