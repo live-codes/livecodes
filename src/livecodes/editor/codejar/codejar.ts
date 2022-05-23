@@ -13,7 +13,6 @@ import 'prismjs/components/prism-json';
 
 import type { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 import { encodeHTML } from '../../utils';
-import { mapLanguage } from '../../languages';
 
 declare const Prism: any;
 Prism.manual = true;
@@ -23,6 +22,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (!container) throw new Error('editor container not found');
 
   let { value, language } = options;
+  const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
   let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
 
   const preElement: HTMLElement = document.createElement('pre');

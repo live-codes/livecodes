@@ -12,6 +12,7 @@ import {
   createLanguageMenus,
   getLanguageTitle,
   getLanguageSpecs,
+  getLanguageExtension,
 } from './languages';
 import {
   createSimpleStorage,
@@ -300,6 +301,8 @@ const createEditors = async (config: Config) => {
     editor: config.editor,
     theme: config.theme,
     isEmbed,
+    mapLanguage,
+    getLanguageExtension,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -2412,6 +2415,8 @@ const handleCustomSettings = () => {
       value: stringify(getConfig().customSettings, true),
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor.focus();
@@ -2531,6 +2536,8 @@ const handleTestEditor = () => {
       value: getConfig().tests?.content || '',
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));

@@ -1,8 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
 import type * as Monaco from 'monaco-editor'; // only for typescript types
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
-import { getLanguageExtension, mapLanguage } from '../../languages';
+import type {
+  EditorLibrary,
+  FormatFn,
+  Language,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+} from '../../models';
 import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
@@ -10,17 +16,25 @@ import { modulesService } from '../../services';
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
-
-const monacoMapLanguage = (language: Language): Language =>
-  language === 'livescript'
-    ? 'coffeescript'
-    : ['rescript', 'reason', 'ocaml'].includes(language)
-    ? 'csharp'
-    : mapLanguage(language);
-
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
+  const {
+    container,
+    baseUrl,
+    readonly,
+    theme,
+    isEmbed,
+    getLanguageExtension,
+    mapLanguage,
+    ...baseOptions
+  } = options;
   if (!container) throw new Error('editor container not found');
+
+  const monacoMapLanguage = (language: Language): Language =>
+    language === 'livescript'
+      ? 'coffeescript'
+      : ['rescript', 'reason', 'ocaml'].includes(language)
+      ? 'csharp'
+      : mapLanguage(language);
 
   const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   let monaco: typeof Monaco;

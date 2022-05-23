@@ -493,6 +493,8 @@ export interface EditorOptions {
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
+  getLanguageExtension: (alias: string) => Language | undefined;
+  mapLanguage: (language: Language) => Language;
 }
 
 export interface CustomEditor {
