@@ -52,7 +52,7 @@ export interface AppConfig {
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  editor: 'monaco' | 'codemirror' | 'prism' | 'codejar' | '';
+  editor: 'monaco' | 'codemirror' | 'codejar' | '';
   showVersion: boolean;
   // tools: {
   //   enabled: Array<Tool['title']> | 'all';

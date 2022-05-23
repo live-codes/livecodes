@@ -33,25 +33,29 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   container.classList.add('prism');
   if (!readonly) {
     container.classList.add('codejar');
+    preElement.onclick = () => codeElement.focus();
   }
   codeElement.className = 'language-' + mappedLanguage;
-  codeElement.innerHTML = encodeHTML(value).trim();
+  codeElement.innerHTML = encodeHTML(value).trim() || '\n';
 
   preElement.classList.add('line-numbers');
   if (mode === 'codeblock') {
     preElement.classList.add('codeblock');
   }
 
+  const highlight = () => {
+    Prism.highlightElement(codeElement);
+  };
+
   if (readonly) {
-    Prism.highlightAllUnder(container);
+    highlight();
   }
 
   const codejarOptions = {
     tab: ' '.repeat(2),
   };
-  const codejar = readonly
-    ? undefined
-    : CodeJar(codeElement, () => Prism.highlightAllUnder(container), codejarOptions);
+
+  const codejar = readonly ? undefined : CodeJar(codeElement, highlight, codejarOptions);
 
   codejar?.recordHistory();
 
@@ -63,14 +67,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const getEditorId = () => editorId;
   const getValue = () => (codejar ? codejar?.toString() : value);
-  const setValue = (newValue = '') => {
+  const setValue = (newValue = '\n') => {
     value = newValue;
     if (codejar) {
       codejar.updateCode(value);
       codejar.recordHistory();
     } else {
       codeElement.innerHTML = encodeHTML(value).trim();
-      Prism.highlightAllUnder(container);
+      highlight();
     }
   };
   const focus = () => {
@@ -81,7 +85,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language = lang;
     mappedLanguage = mapLanguage(language);
     codeElement.className = 'language-' + mappedLanguage;
-    Prism.highlightAllUnder(container);
+    highlight();
     if (newValue != null) {
       setValue(newValue);
     }
