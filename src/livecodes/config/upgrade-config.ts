@@ -8,6 +8,19 @@ interface genericConfig extends Config {
 
 const upgradeSteps = [
   {
+    to: '0.5.0',
+    upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
+      const config: genericConfig = clone(oldConfig);
+      if ('editor' in config && config.editor === ('prism' as any)) {
+        config.editor = 'codejar';
+      }
+      return {
+        ...config,
+        version,
+      };
+    },
+  },
+  {
     to: '0.4.0',
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
       let config: genericConfig = clone(oldConfig);
@@ -71,7 +84,7 @@ const upgradeSteps = [
       };
     },
   },
-].sort((a, b) => (isEarlier({ version: a.to, comparedTo: b.to }) ? -1 : 1));
+];
 
 export const upgradeConfig = (oldConfig: genericConfig) => {
   const oldVersion = isValidVersion(oldConfig.version) ? oldConfig.version : '0.0.0';
@@ -84,13 +97,15 @@ export const upgradeConfig = (oldConfig: genericConfig) => {
   }
   if (oldVersion === currentVersion) return oldConfig;
 
-  return upgradeSteps.reduce(
-    (config, step) =>
-      isEarlier({ version: config.version, comparedTo: step.to })
-        ? step.upgrade(config, step.to)
-        : config,
-    oldConfig,
-  );
+  return upgradeSteps
+    .sort((a, b) => (isEarlier({ version: a.to, comparedTo: b.to }) ? -1 : 1))
+    .reduce(
+      (config, step) =>
+        isEarlier({ version: config.version, comparedTo: step.to })
+          ? step.upgrade(config, step.to)
+          : config,
+      oldConfig,
+    );
 };
 
 const isValidVersion = (version: any) => {
