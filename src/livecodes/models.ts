@@ -467,6 +467,7 @@ export interface CodeEditor {
     Enter: any;
     UpArrow: any;
     DownArrow: any;
+    ShiftAltF: any;
   };
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;

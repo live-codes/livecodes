@@ -187,7 +187,9 @@ export const createEditorCreator =
 
     const destroy = () => {
       listeners.length = 0;
+      keyBindings.length = 0;
       view.destroy();
+      container.innerHTML = '';
     };
 
     return {

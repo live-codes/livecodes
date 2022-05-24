@@ -308,6 +308,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     Enter: monaco.KeyCode.Enter,
     UpArrow: monaco.KeyCode.UpArrow,
     DownArrow: monaco.KeyCode.DownArrow,
+    // eslint-disable-next-line
+    ShiftAltF: monaco.KeyMod.Shift | monaco.KeyMod.Alt | monaco.KeyCode.KeyF,
   };
 
   const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
@@ -388,6 +390,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.length = 0;
     clearTypes(true);
     // editor.getModel()?.dispose();
+    container.innerHTML = '';
   };
 
   // workaround for uncaught canceled promise rejection onMouseLeave

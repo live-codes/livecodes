@@ -33,16 +33,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   container.classList.add('prism');
   if (!readonly) {
     container.classList.add('codejar');
-    preElement.onclick = () => codeElement.focus();
+    preElement.addEventListener('click', () => focus());
   }
   codeElement.className = 'language-' + mappedLanguage;
   codeElement.innerHTML = encodeHTML(value).trim() || '\n';
 
-  preElement.classList.add('line-numbers');
+  if (options.editorId !== 'console') {
+    preElement.classList.add('line-numbers');
+  }
   if (mode === 'codeblock') {
     preElement.classList.add('codeblock');
   }
-
   const highlight = () => {
     Prism.highlightElement(codeElement);
   };
@@ -55,14 +56,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     tab: ' '.repeat(2),
   };
 
-  const codejar = readonly ? undefined : CodeJar(codeElement, highlight, codejarOptions);
-
+  const codejar =
+    readonly || options.editorId === 'console'
+      ? undefined
+      : CodeJar(codeElement, highlight, codejarOptions);
   codejar?.recordHistory();
 
   type Listener = () => void;
   const listeners: Listener[] = [];
   codejar?.onUpdate(() => {
+    if (getValue() === value) return;
     listeners.forEach((fn) => fn());
+    // make sure there is some value
+    if (!getValue()) {
+      setValue();
+    }
+    value = getValue();
   });
 
   const getEditorId = () => editorId;
@@ -95,18 +104,79 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.push(fn);
   };
 
-  const keyCodes = {
-    CtrlEnter: 'Ctrl-Enter',
-    ShiftEnter: 'Shift-Enter',
-    Enter: 'Enter',
-    UpArrow: 'ArrowUp',
-    DownArrow: 'ArrowDown',
-    ShiftAltF: 'Shift-Alt-f',
+  const ctrl = navigator.platform.match('Mac') ? 'metaKey' : 'ctrlKey';
+  type Keys = keyof CodeEditor['keyCodes'];
+  interface KeyCode {
+    name: Keys;
+    code: KeyboardEventInit;
+  }
+  type KeyCodes = {
+    [key in Keys]: KeyCode;
+  };
+  const keyCodes: KeyCodes = {
+    CtrlEnter: {
+      name: 'CtrlEnter',
+      code: {
+        [ctrl]: true,
+        key: 'Enter',
+      },
+    },
+    ShiftEnter: {
+      name: 'ShiftEnter',
+      code: {
+        shiftKey: true,
+        key: 'Enter',
+      },
+    },
+    Enter: {
+      name: 'Enter',
+      code: {
+        key: 'Enter',
+      },
+    },
+    UpArrow: {
+      name: 'UpArrow',
+      code: {
+        key: 'ArrowUp',
+      },
+    },
+    DownArrow: {
+      name: 'DownArrow',
+      code: {
+        key: 'ArrowDown',
+      },
+    },
+    ShiftAltF: {
+      name: 'ShiftAltF',
+      code: {
+        altKey: true,
+        shiftKey: true,
+        key: 'F',
+      },
+    },
   };
 
-  const addKeyBinding = (_label: string, _keyCode: any, _callback: () => void) => {
-    //
+  const keyBindings: { [key in Keys]?: () => void } = {};
+  const addKeyBinding = (_label: string, keyCode: KeyCode, callback: () => void) => {
+    keyBindings[keyCode.name] = callback;
   };
+  container.addEventListener('keydown', (ev: KeyboardEvent) => {
+    let found = false;
+    const keys = Object.keys(keyCodes) as unknown as Keys[];
+    keys.forEach((key) => {
+      if (found) return;
+      const evObj = keyCodes[key].code;
+      for (const k in evObj) {
+        if ({}.hasOwnProperty.call(evObj, k)) {
+          if (evObj[k as keyof KeyboardEventInit] !== (ev as any)[k]) {
+            return;
+          }
+        }
+      }
+      keyBindings[key]?.();
+      found = true;
+    });
+  });
 
   let formatter: FormatFn | undefined;
   const registerFormatter = (formatFn: FormatFn | undefined) => {
@@ -145,7 +215,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
   setTheme(options.theme);
 
-  // const ctrl = navigator.platform.match('Mac') ? 'metaKey' : 'ctrlKey';
   const undo = () => {
     // codeElement.dispatchEvent(
     //   new KeyboardEvent('keydown', {
@@ -168,6 +237,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const destroy = () => {
     codejar?.destroy();
     listeners.length = 0;
+    Object.keys(keyBindings).forEach((k) => delete (keyBindings as any)[k]);
     container.innerHTML = '';
   };
 
