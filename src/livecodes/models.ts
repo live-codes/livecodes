@@ -7,7 +7,7 @@ export interface API {
   getCode: () => Promise<Code>;
   show: (
     panel: EditorId | Lowercase<Tool['title']> | 'result',
-    options: { full?: boolean },
+    options: { full?: boolean; line?: number; column?: number },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };

@@ -7,7 +7,7 @@ export interface API {
   getCode: () => Promise<Code>;
   show: (
     panel: EditorId | Lowercase<Tool['title']> | 'result',
-    options: { full?: boolean },
+    options: { full?: boolean; line?: number; column?: number },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };
@@ -456,6 +456,7 @@ export interface CodeEditor {
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
   focus: () => void;
+  goToLine: (line: number, column?: number) => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
   configureEmmet?: (enabled: boolean) => void;

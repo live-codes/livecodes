@@ -2906,7 +2906,7 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
-  const apiShow: API['show'] = async (panel, { full = false }) => {
+  const apiShow: API['show'] = async (panel, { full = false, line, column }) => {
     if (panel === 'result') {
       split.show('output', full);
       toolsPane?.close();
@@ -2921,6 +2921,11 @@ const createApi = (): API => {
     } else if (Object.keys(editors).includes(panel)) {
       showEditor(panel);
       split.show('code', full);
+      if (typeof line === 'number' && line > 0) {
+        const col = typeof column === 'number' && column > -1 ? column : 0;
+        getActiveEditor().goToLine(line, col);
+        getActiveEditor().focus();
+      }
     } else {
       throw new Error('Invalid panel id');
     }
