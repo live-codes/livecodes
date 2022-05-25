@@ -12,6 +12,7 @@ import {
   createLanguageMenus,
   getLanguageTitle,
   getLanguageSpecs,
+  getLanguageExtension,
 } from './languages';
 import {
   createSimpleStorage,
@@ -300,6 +301,8 @@ const createEditors = async (config: Config) => {
     editor: config.editor,
     theme: config.theme,
     isEmbed,
+    mapLanguage,
+    getLanguageExtension,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -490,12 +493,7 @@ const addConsoleInputCodeCompletion = () => {
 };
 
 const configureEditorTools = (language: Language) => {
-  if (
-    getConfig().readonly ||
-    getActiveEditor().prism ||
-    language === 'blockly' ||
-    language === 'richtext'
-  ) {
+  if (getConfig().readonly || language === 'blockly' || language === 'richtext') {
     UI.getEditorToolbar().classList.add('hidden');
     return false;
   }
@@ -2417,6 +2415,8 @@ const handleCustomSettings = () => {
       value: stringify(getConfig().customSettings, true),
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor.focus();
@@ -2536,6 +2536,8 @@ const handleTestEditor = () => {
       value: getConfig().tests?.content || '',
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
@@ -2904,7 +2906,7 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
-  const apiShow: API['show'] = async (panel, { full = false }) => {
+  const apiShow: API['show'] = async (panel, { full = false, line, column }) => {
     if (panel === 'result') {
       split.show('output', full);
       toolsPane?.close();
@@ -2919,6 +2921,11 @@ const createApi = (): API => {
     } else if (Object.keys(editors).includes(panel)) {
       showEditor(panel);
       split.show('code', full);
+      if (typeof line === 'number' && line > 0) {
+        const col = typeof column === 'number' && column > -1 ? column : 0;
+        getActiveEditor().goToLine(line, col);
+        getActiveEditor().focus();
+      }
     } else {
       throw new Error('Invalid panel id');
     }

@@ -2232,16 +2232,6 @@ i.arrow {
   background: var(--background-color) !important;
 }
 
-// Codemirror emmet extension (remove when official extension is available)
-.cm-tooltip {
-  font-size: small;
-}
-
-.cm-tooltip:not(:root.light *) {
-  color: rgb(211, 211, 211);
-}
-// ----------------------
-
 #console-input {
   .cm-gutter {
     display: none !important;
@@ -2260,6 +2250,17 @@ i.arrow {
   margin: 0 !important;
   max-height: 100% !important;
 
+  &#console-input {
+    // height: 25px !important;
+    // max-height: 25px !important;
+    height: 0 !important;
+    min-height: 0 !important;
+
+    > pre {
+      padding-left: 1em !important;
+    }
+  }
+
   .code-toolbar,
   pre {
     height: 100% !important;
@@ -2277,6 +2278,16 @@ i.arrow {
     max-height: 100% !important;
     overflow: auto;
     padding-bottom: 1em !important;
+    padding-top: 2px !important;
+    top: 2px !important;
+  }
+
+  &.codejar pre {
+    cursor: text;
+  }
+
+  &.codejar code {
+    white-space: nowrap !important;
   }
 }
 

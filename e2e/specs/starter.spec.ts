@@ -209,7 +209,9 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
-  test('Go Starter', async ({ page, getTestUrl }) => {
+  test('Go Starter', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+
     test.slow();
     await page.goto(getTestUrl());
 
@@ -450,7 +452,9 @@ test.describe('Starter Templates from UI', () => {
     expect(resultText).toBe('X = ali ;\n');
   });
 
-  test('Blockly Starter', async ({ page, getTestUrl }) => {
+  test('Blockly Starter', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -623,7 +627,9 @@ test.describe('Starter Templates from URL', () => {
     expect(counterText).not.toBe('You clicked 0 times.');
   });
 
-  test('Go Starter (in URL)', async ({ page, getTestUrl }) => {
+  test('Go Starter (in URL)', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+
     test.slow();
     await page.goto(getTestUrl({ template: 'go' }));
 

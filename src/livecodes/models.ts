@@ -7,7 +7,7 @@ export interface API {
   getCode: () => Promise<Code>;
   show: (
     panel: EditorId | Lowercase<Tool['title']> | 'result',
-    options: { full?: boolean },
+    options: { full?: boolean; line?: number; column?: number },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };
@@ -52,7 +52,7 @@ export interface AppConfig {
   compiled: ToolsPaneStatus;
   allowLangChange: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  editor: 'monaco' | 'codemirror' | 'prism' | '';
+  editor: 'monaco' | 'codemirror' | 'codejar' | '';
   showVersion: boolean;
   // tools: {
   //   enabled: Array<Tool['title']> | 'all';
@@ -456,6 +456,7 @@ export interface CodeEditor {
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
   focus: () => void;
+  goToLine: (line: number, column?: number) => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
   configureEmmet?: (enabled: boolean) => void;
@@ -467,6 +468,7 @@ export interface CodeEditor {
     Enter: any;
     UpArrow: any;
     DownArrow: any;
+    ShiftAltF: any;
   };
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;
@@ -478,6 +480,7 @@ export interface CodeEditor {
   monaco?: any;
   codemirror?: any;
   prism?: any;
+  codejar?: any;
 }
 
 export interface EditorOptions {
@@ -492,6 +495,8 @@ export interface EditorOptions {
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
+  getLanguageExtension: (alias: string) => Language | undefined;
+  mapLanguage: (language: Language) => Language;
 }
 
 export interface CustomEditor {

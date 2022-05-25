@@ -97,7 +97,10 @@ var worker = esbuild.buildSync(workerOptions);
 for (let out of worker.outputFiles) {
   var content = uint8arrayToString(out.contents);
   var filename = path.basename(out.path);
-  fs.writeFileSync(path.resolve('build/livecodes', filename), iife(content));
+  fs.writeFileSync(
+    path.resolve('build/livecodes', filename),
+    filename.endsWith('.map') ? content : iife(content),
+  );
 }
 
 esbuild.buildSync({
@@ -133,8 +136,8 @@ esbuild.build({
 esbuild.buildSync({
   ...baseOptions,
   entryPoints: [
-    'src/livecodes/editor/prism/prism-basic.ts',
-    'src/livecodes/editor/prism/prism-full.ts',
+    'src/livecodes/editor/codejar/codejar-basic.ts',
+    'src/livecodes/editor/codejar/codejar-full.ts',
   ],
 });
 

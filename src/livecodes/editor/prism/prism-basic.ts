@@ -1,1 +1,0 @@
-export { createEditor } from './prism';

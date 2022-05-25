@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { createEditor } from './prism';
+import { createEditor } from './codejar';
 
 import 'prismjs/components/prism-markdown';
 import 'prismjs/components/prism-pug';

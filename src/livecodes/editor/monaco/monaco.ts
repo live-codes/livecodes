@@ -1,8 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
-import type * as Monaco from 'monaco-editor'; // only for typescript types
+import * as Monaco from 'monaco-editor'; // only for typescript types
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
-import { getLanguageExtension, mapLanguage } from '../../languages';
+import type {
+  EditorLibrary,
+  FormatFn,
+  Language,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+} from '../../models';
 import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
@@ -10,17 +16,25 @@ import { modulesService } from '../../services';
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
-
-const monacoMapLanguage = (language: Language): Language =>
-  language === 'livescript'
-    ? 'coffeescript'
-    : ['rescript', 'reason', 'ocaml'].includes(language)
-    ? 'csharp'
-    : mapLanguage(language);
-
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
+  const {
+    container,
+    baseUrl,
+    readonly,
+    theme,
+    isEmbed,
+    getLanguageExtension,
+    mapLanguage,
+    ...baseOptions
+  } = options;
   if (!container) throw new Error('editor container not found');
+
+  const monacoMapLanguage = (language: Language): Language =>
+    language === 'livescript'
+      ? 'coffeescript'
+      : ['rescript', 'reason', 'ocaml'].includes(language)
+      ? 'csharp'
+      : mapLanguage(language);
 
   const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   let monaco: typeof Monaco;
@@ -294,6 +308,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     Enter: monaco.KeyCode.Enter,
     UpArrow: monaco.KeyCode.UpArrow,
     DownArrow: monaco.KeyCode.DownArrow,
+    // eslint-disable-next-line
+    ShiftAltF: monaco.KeyMod.Shift | monaco.KeyMod.Alt | monaco.KeyCode.KeyF,
   };
 
   const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
@@ -369,11 +385,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     (editor.getModel() as any)?.redo?.();
   };
 
+  const goToLine = (line: number, column = 0) => {
+    const position = { column, lineNumber: line };
+    editor.setPosition(position);
+    setTimeout(() => editor.revealPositionInCenter(position, 0), 50);
+  };
+
   const destroy = () => {
     configureEmmet(false);
     listeners.length = 0;
     clearTypes(true);
     // editor.getModel()?.dispose();
+    container.innerHTML = '';
   };
 
   // workaround for uncaught canceled promise rejection onMouseLeave
@@ -478,6 +501,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     focus,
+    goToLine,
     layout,
     addTypes,
     configureEmmet,

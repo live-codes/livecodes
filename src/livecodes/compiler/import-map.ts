@@ -88,7 +88,7 @@ export const replaceStyleImports = (code: string) =>
 export const cjs2esm = (code: string) => {
   const strippedCode = removeComments(code);
   if (!/\b(require|module|exports)\b/.test(strippedCode)) return code;
-  const requirePattern = /require(?:\s*)\((?:\s*)('(.*?)'|"(.*?)")(?:\s*)\)/g;
+  const requirePattern = /(?:^|\s)require(?:\s*)\((?:\s*)('(.*?)'|"(.*?)")(?:\s*)\)/g;
 
   const getRequires = (str: string) =>
     [...str.matchAll(new RegExp(requirePattern))].map((arr) =>

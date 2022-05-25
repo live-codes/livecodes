@@ -8,8 +8,7 @@ import { indentWithTab } from '@codemirror/commands';
 import { LanguageSupport } from '@codemirror/language';
 import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
 
-import { mapLanguage } from '../../languages';
-import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
+import type { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
 import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
@@ -24,6 +23,7 @@ export const createEditorCreator =
       languages[language] || (languages.html as () => LanguageSupport);
 
     let language = options.language;
+    const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
     let mappedLanguage = mapLanguage(language);
     let theme = options.theme;
     const keyBindings: KeyBinding[] = [];
@@ -185,9 +185,22 @@ export const createEditorCreator =
     };
     addKeyBinding('redo', 'Mod-Shift-z', editorRedo);
 
+    const goToLine = (line: number, column = 0) => {
+      const lineNumber = view.state.doc.lines > line ? line : view.state.doc.lines;
+      const lineInfo = view.state.doc.line(lineNumber);
+      const columnNumber = lineInfo.length > column ? column : lineInfo.length;
+      const position = lineInfo.from + columnNumber;
+      view.dispatch({
+        selection: { anchor: position },
+        effects: [EditorView.scrollIntoView(position, { x: 'center', y: 'center' })],
+      });
+    };
+
     const destroy = () => {
       listeners.length = 0;
+      keyBindings.length = 0;
       view.destroy();
+      container.innerHTML = '';
     };
 
     return {
@@ -197,6 +210,7 @@ export const createEditorCreator =
       setLanguage,
       getEditorId,
       focus,
+      goToLine,
       configureEmmet,
       onContentChanged,
       keyCodes,

@@ -22,7 +22,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const modes = ['full', 'editor', 'codeblock', 'result'];
   const themes = ['light', 'dark'];
   const toolsPaneStatus = ['', 'full', 'closed', 'open', 'none'];
-  const editors = ['monaco', 'codemirror', 'prism', ''];
+  const editors = ['monaco', 'codemirror', 'codejar', ''];
   const editorIds = ['markup', 'style', 'script'];
 
   const isEditor = (x: any) => is(x, 'object') && is(x.language, 'string');

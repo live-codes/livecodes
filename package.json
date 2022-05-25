@@ -1,6 +1,6 @@
 {
   "name": "livecodes",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Code playground that runs in the browser",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "prepare-release": "run-s reset build test cov release",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "recursive-delete build",
-    "postinstall": "cd web && npm ci",
+    "postinstall": "patch-package && cd web && npm ci",
     "prepush:skip-e2e": "run-s fix build test:lint test:unit",
     "prepush": "run-s fix build test"
   },
@@ -79,12 +79,14 @@
     "@codemirror/view": "0.19.42",
     "@emmetio/codemirror6-plugin": "0.0.6",
     "@snackbar/core": "1.7.0",
+    "codejar": "3.6.0",
     "firebase": "9.6.6",
     "luna-console": "0.2.1",
     "luna-object-viewer": "0.2.0",
     "lz-string": "1.4.4",
     "md5-file": "5.0.0",
     "monaco-editor": "0.32.1",
+    "patch-package": "6.4.7",
     "prismjs": "1.26.0",
     "split.js": "1.6.5"
   },
