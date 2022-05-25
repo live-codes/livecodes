@@ -234,6 +234,35 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     );
   };
 
+  const goToLine = (line: number, column = 0) => {
+    const allLines = getValue().split('\n');
+    const lineNumber = allLines.length > line ? line : allLines.length;
+    const selectedLine = allLines[lineNumber - 1];
+    const columnNumber = selectedLine.length > column ? column : selectedLine.length;
+    const previuosLines = allLines.slice(0, lineNumber - 1);
+    const nextLines = allLines.slice(lineNumber);
+    const position = previuosLines.join('\n').length + columnNumber;
+
+    codeElement.innerHTML =
+      previuosLines.join('\n') +
+      '\n' +
+      selectedLine.slice(0, columnNumber) +
+      `<div id="scroll-target">​</div>` +
+      selectedLine.slice(columnNumber) +
+      '\n' +
+      nextLines.join('\n');
+
+    // scroll to view
+    const target = codeElement.querySelector('#scroll-target');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      target.remove();
+    }
+
+    highlight();
+    codejar?.restore({ start: position, end: position });
+  };
+
   const destroy = () => {
     codejar?.destroy();
     listeners.length = 0;
@@ -248,6 +277,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     focus,
+    goToLine,
     onContentChanged,
     keyCodes,
     addKeyBinding,

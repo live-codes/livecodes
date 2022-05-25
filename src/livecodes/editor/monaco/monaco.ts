@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import type * as Monaco from 'monaco-editor'; // only for typescript types
+import * as Monaco from 'monaco-editor'; // only for typescript types
 
 import type {
   EditorLibrary,
@@ -385,6 +385,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     (editor.getModel() as any)?.redo?.();
   };
 
+  const goToLine = (line: number, column = 0) => {
+    const position = { column, lineNumber: line };
+    editor.setPosition(position);
+    setTimeout(() => editor.revealPositionInCenter(position, 0), 50);
+  };
+
   const destroy = () => {
     configureEmmet(false);
     listeners.length = 0;
@@ -495,6 +501,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     focus,
+    goToLine,
     layout,
     addTypes,
     configureEmmet,

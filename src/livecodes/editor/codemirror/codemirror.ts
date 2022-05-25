@@ -185,6 +185,17 @@ export const createEditorCreator =
     };
     addKeyBinding('redo', 'Mod-Shift-z', editorRedo);
 
+    const goToLine = (line: number, column = 0) => {
+      const lineNumber = view.state.doc.lines > line ? line : view.state.doc.lines;
+      const lineInfo = view.state.doc.line(lineNumber);
+      const columnNumber = lineInfo.length > column ? column : lineInfo.length;
+      const position = lineInfo.from + columnNumber;
+      view.dispatch({
+        selection: { anchor: position },
+        effects: [EditorView.scrollIntoView(position, { x: 'center', y: 'center' })],
+      });
+    };
+
     const destroy = () => {
       listeners.length = 0;
       keyBindings.length = 0;
@@ -199,6 +210,7 @@ export const createEditorCreator =
       setLanguage,
       getEditorId,
       focus,
+      goToLine,
       configureEmmet,
       onContentChanged,
       keyCodes,
