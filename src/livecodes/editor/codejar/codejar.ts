@@ -216,22 +216,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   setTheme(options.theme);
 
   const undo = () => {
-    // codeElement.dispatchEvent(
-    //   new KeyboardEvent('keydown', {
-    //     code: 'KeyZ',
-    //     [ctrl]: true,
-    //   }),
-    // );
+    codejar?.handleUndoRedo(
+      new KeyboardEvent('keydown', {
+        code: 'KeyZ',
+        [ctrl]: true,
+      }),
+    );
   };
 
   const redo = () => {
-    // codeElement.dispatchEvent(
-    //   new KeyboardEvent('keydown', {
-    //     code: 'KeyZ',
-    //     [ctrl]: true,
-    //     shiftKey: true,
-    //   }),
-    // );
+    codejar?.handleUndoRedo(
+      new KeyboardEvent('keydown', {
+        code: 'KeyZ',
+        [ctrl]: true,
+        shiftKey: true,
+      }),
+    );
   };
 
   const destroy = () => {

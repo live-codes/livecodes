@@ -51,7 +51,7 @@
     "prepare-release": "run-s reset build test cov release",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "recursive-delete build",
-    "postinstall": "cd web && npm ci",
+    "postinstall": "patch-package && cd web && npm ci",
     "prepush:skip-e2e": "run-s fix build test:lint test:unit",
     "prepush": "run-s fix build test"
   },
@@ -86,6 +86,7 @@
     "lz-string": "1.4.4",
     "md5-file": "5.0.0",
     "monaco-editor": "0.32.1",
+    "patch-package": "6.4.7",
     "prismjs": "1.26.0",
     "split.js": "1.6.5"
   },
