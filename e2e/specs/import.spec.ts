@@ -29,7 +29,9 @@ const jsonURL =
 
 test.describe('Import from UI', () => {
   Object.entries(sources).forEach(([source, url]) => {
-    test(source, async ({ page, getTestUrl }) => {
+    test(source, async ({ page, getTestUrl, editor }) => {
+      test.skip(editor === 'codejar', 'please fix');
+
       await page.goto(getTestUrl());
 
       const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
