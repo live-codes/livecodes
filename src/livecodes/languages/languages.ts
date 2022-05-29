@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { asciidoc } from './lang-asciidoc';
+import { asciidoc } from './asciidoc';
 import { babel } from './lang-babel';
 import { css } from './lang-css';
 import { haml } from './lang-haml';

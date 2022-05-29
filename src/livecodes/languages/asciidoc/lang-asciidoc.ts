@@ -1,6 +1,6 @@
-import { LanguageSpecs } from '../models';
-import { asciidocUrl } from '../vendors';
-import { getLanguageCustomSettings } from './utils';
+import { LanguageSpecs } from '../../models';
+import { asciidocUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../utils';
 
 export const asciidoc: LanguageSpecs = {
   name: 'asciidoc',
