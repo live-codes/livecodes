@@ -10,6 +10,7 @@ export interface EmbedOptions {
   appUrl?: string;
   config?: Partial<Config> | string;
   importUrl?: string;
+  lite?: boolean;
   loading?: 'scroll' | 'click' | 'eager';
   template?: string;
 }
@@ -19,11 +20,12 @@ export const createPlayground = async (
   options: EmbedOptions = {},
 ): Promise<Playground> => {
   const {
-    config = {},
-    template,
-    importUrl,
     appUrl = 'https://livecodes.io/',
+    config = {},
+    importUrl,
     loading = 'scroll',
+    lite,
+    template,
   } = options;
 
   let containerElement: HTMLElement | null;
@@ -72,7 +74,7 @@ export const createPlayground = async (
     url.searchParams.set('x', importUrl);
   }
 
-  url.searchParams.set('embed', 'true');
+  url.searchParams.set(lite ? 'lite' : 'embed', 'true');
   if (loading === 'eager') {
     url.searchParams.set('click-to-load', 'false');
   }
