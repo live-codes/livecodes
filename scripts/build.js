@@ -60,7 +60,7 @@ var baseOptions = {
 
 esbuild.buildSync({
   ...baseOptions,
-  entryPoints: ['src/livecodes/app.ts', 'src/livecodes/embed.ts'],
+  entryPoints: ['src/livecodes/app.ts', 'src/livecodes/embed.ts', 'src/livecodes/lite.ts'],
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
 });

@@ -104,7 +104,7 @@ import {
 } from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
-import { createOpenItem } from './UI';
+import { createOpenItem, getResultElement } from './UI';
 import { customEvents } from './custom-events';
 
 const eventsManager = createEventsManager();
@@ -121,6 +121,7 @@ const screens: Screen[] = [];
 
 let baseUrl: string;
 let isEmbed: boolean;
+let isLite: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
@@ -2642,6 +2643,12 @@ const handleUnload = () => {
   };
 };
 
+const loadToolsPane = async () => {
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
+  await toolsPane.load();
+  getResultElement().classList.remove('full');
+};
+
 const basicHandlers = () => {
   handleLogoLink();
   handleResize();
@@ -2827,16 +2834,18 @@ const initializeApp = async (
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
+    isLite?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
-  isEmbed = options?.isEmbed ?? false;
+  isLite = options?.isLite ?? false;
+  isEmbed = isLite || (options?.isEmbed ?? false);
 
   setConfig(buildConfig(appConfig, baseUrl));
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  formatter = getFormatter(getConfig(), baseUrl);
+  formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   if (isEmbed || getConfig().mode === 'result') {
     configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
@@ -2851,8 +2860,6 @@ const initializeApp = async (
   );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
-  await toolsPane.load();
   basicHandlers();
   await initializeFn?.();
   loadUserConfig();
@@ -2992,4 +2999,4 @@ const createApi = (): API => {
   };
 };
 
-export { createApi, initializeApp, extraHandlers };
+export { createApi, initializeApp, loadToolsPane, extraHandlers };

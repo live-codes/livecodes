@@ -19,12 +19,12 @@ const loadPreview = async (id: string) => {
   document.body.appendChild(previewFrame);
 };
 
-if (
-  location.search.includes('embed') &&
-  !location.search.includes('embed=false') &&
-  !location.search.includes('click-to-load=false') &&
-  !location.search.includes('preview=false')
-) {
+const isLite = location.search.includes('lite') && !location.search.includes('lite=false');
+const isEmbed =
+  isLite || (location.search.includes('embed') && !location.search.includes('embed=false'));
+const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
+
+if (clickToLoad && !location.search.includes('preview=false')) {
   const id = new URL(location.href).searchParams.get('x');
   if (id?.startsWith('id/')) {
     loadPreview(id.replace('id/', ''));
@@ -33,18 +33,18 @@ if (
 
 const animatingLogo = document.querySelector<HTMLElement>('#animating-logo')!;
 const cube = document.querySelector<HTMLElement>('#cube')!;
-const clickToLoad = document.querySelector<HTMLElement>('#click-to-load')!;
+const clickToLoadEl = document.querySelector<HTMLElement>('#click-to-load')!;
 
-if (location.search.includes('embed') && !location.search.includes('embed=false')) {
+if (isEmbed) {
   document.body.classList.add('embed');
-  if (!location.search.includes('click-to-load=false')) {
+  if (clickToLoad) {
     document.body.classList.add('click-to-load');
     cube.classList.remove('cube');
     animatingLogo.classList.add('hidden');
     animatingLogo.style.display = 'none';
-    clickToLoad.style.display = 'flex';
-    clickToLoad.classList.add('visible');
-    clickToLoad.addEventListener('click', load);
+    clickToLoadEl.style.display = 'flex';
+    clickToLoadEl.classList.add('visible');
+    clickToLoadEl.addEventListener('click', load);
     addEventListener('message', (e) => {
       // load from API
       if (e.source === parent && e.data?.type === customEvents.load) {
@@ -55,7 +55,7 @@ if (location.search.includes('embed') && !location.search.includes('embed=false'
 }
 
 function load() {
-  clickToLoad.classList.remove('visible');
+  clickToLoadEl.classList.remove('visible');
   document.querySelector('.preview')?.classList.add('hidden');
   setTimeout(() => {
     document.body.classList.remove('click-to-load');
@@ -63,7 +63,7 @@ function load() {
     animatingLogo.classList.remove('hidden');
     cube.classList.add('cube');
     setTimeout(() => {
-      clickToLoad.remove();
+      clickToLoadEl.remove();
       document.querySelector('.preview')?.remove();
     }, 300);
   }, 500);
