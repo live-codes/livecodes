@@ -2834,6 +2834,8 @@ const configureLite = () => {
     ...getConfig(),
     editor: 'codejar',
     emmet: false,
+    console: 'none',
+    compiled: 'none',
   });
   UI.getFormatButton().style.display = 'none';
 };
