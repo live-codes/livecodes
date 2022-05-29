@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../../models';
+import type { LanguageSpecs } from '../../models';
 import { astroBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 

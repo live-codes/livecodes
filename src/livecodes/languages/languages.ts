@@ -1,6 +1,6 @@
 import { LanguageSpecs } from '../models';
 import { asciidoc } from './asciidoc';
-import { babel } from './lang-babel';
+import { babel } from './babel';
 import { css } from './lang-css';
 import { haml } from './lang-haml';
 import { html } from './lang-html';
