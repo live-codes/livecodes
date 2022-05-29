@@ -202,4 +202,15 @@ esbuild.buildSync({
   loader: { '.html': 'text' },
 });
 
+[
+  'assemblyscript/lang-assemblyscript-script.ts',
+  'assemblyscript/lang-assemblyscript-factory.ts',
+].forEach((entry) => {
+  esbuild.buildSync({
+    ...baseOptions,
+    entryPoints: ['src/livecodes/languages/' + entry],
+    format: 'iife',
+  });
+});
+
 console.log('built to: ' + baseOptions.outdir + '/');
