@@ -1,4 +1,6 @@
+import { CompilerFunction } from '../../models';
 import { assemblyscriptSdkUrl, requireUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../utils';
 
 declare const importScripts: (...args: string[]) => void;
 declare const requirejs: any;
@@ -17,7 +19,7 @@ if ((self as any).assemblyscriptSDK === undefined) {
   });
 }
 
-(self as any).compileAssemblyscript = async (code: string, options: any) => {
+const compile = async (code: string, options: any) => {
   const asc = (await (self as any).assemblyscriptSDK).asc;
   await asc.ready;
   try {
@@ -31,3 +33,11 @@ if ((self as any).assemblyscriptSDK === undefined) {
     return '';
   }
 };
+
+(self as any).createAssemblyscriptCompiler =
+  (): CompilerFunction =>
+  (code, { config }) =>
+    compile(code, {
+      optimizeLevel: 3,
+      ...getLanguageCustomSettings('assemblyscript', config),
+    });

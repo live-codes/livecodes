@@ -47,7 +47,7 @@ import { reactNative } from './lang-react-native';
 import { reactNativeTsx } from './lang-react-native-tsx';
 import { blockly } from './lang-blockly';
 import { twig } from './lang-twig';
-import { astro } from './lang-astro';
+import { astro } from './astro';
 import { malina } from './lang-malina';
 import { commonlisp } from './lang-commonlisp';
 import { cpp } from './lang-cpp';

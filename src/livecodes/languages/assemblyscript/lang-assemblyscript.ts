@@ -1,12 +1,6 @@
 import type { LanguageSpecs } from '../../models';
 import { assemblyscriptLoaderUrl, vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
-import { getLanguageCustomSettings } from '../utils';
-
-declare const importScripts: (...args: string[]) => void;
-declare const compileAssemblyscript: any;
-
-const scriptType = 'application/wasm-uint8';
 
 export const assemblyscript: LanguageSpecs = {
   name: 'assemblyscript',
@@ -18,18 +12,14 @@ export const assemblyscript: LanguageSpecs = {
   },
   compiler: {
     factory: (_config, baseUrl) => {
-      importScripts(baseUrl + '{{hash:lang-assemblyscript-factory.js}}');
-      return (code, { config }) =>
-        compileAssemblyscript(code, {
-          optimizeLevel: 3,
-          ...getLanguageCustomSettings('assemblyscript', config),
-        });
+      (self as any).importScripts(baseUrl + '{{hash:lang-assemblyscript-compiler.js}}');
+      return (self as any).createAssemblyscriptCompiler();
     },
     scripts: ({ baseUrl }) => [
       assemblyscriptLoaderUrl,
       baseUrl + '{{hash:lang-assemblyscript-script.js}}',
     ],
-    scriptType,
+    scriptType: 'application/wasm-uint8',
     compiledCodeLanguage: 'wat',
     types: {
       assemblyscript: {
