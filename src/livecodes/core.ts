@@ -2829,6 +2829,15 @@ const bootstrap = async (reload = false) => {
   }
 };
 
+const configureLite = () => {
+  setConfig({
+    ...getConfig(),
+    editor: 'codejar',
+    emmet: false,
+  });
+  UI.getFormatButton().style.display = 'none';
+};
+
 const initializeApp = async (
   options?: {
     config?: Partial<Config>;
@@ -2844,6 +2853,9 @@ const initializeApp = async (
   isEmbed = isLite || (options?.isEmbed ?? false);
 
   setConfig(buildConfig(appConfig, baseUrl));
+  if (isLite) {
+    configureLite();
+  }
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
