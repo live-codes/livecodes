@@ -1,6 +1,6 @@
 import { CompilerFunction } from '../../models';
 import { assemblyscriptSdkUrl, requireUrl } from '../../vendors';
-import { getLanguageCustomSettings } from '../utils';
+import { getLanguageCustomSettings } from '../../utils';
 
 declare const importScripts: (...args: string[]) => void;
 declare const requirejs: any;

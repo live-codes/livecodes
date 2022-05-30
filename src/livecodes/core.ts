@@ -78,7 +78,6 @@ import {
 } from './config';
 import { importCode, isGithub } from './import';
 import {
-  compress,
   copyToClipboard,
   debounce,
   fetchWithHandler,
@@ -86,6 +85,8 @@ import {
   stringify,
   stringToValidJson,
 } from './utils';
+// eslint-disable-next-line import/no-internal-modules
+import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';

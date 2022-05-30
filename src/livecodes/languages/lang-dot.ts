@@ -1,7 +1,8 @@
 import { LanguageSpecs } from '../models';
 import { dotUrl } from '../vendors';
+import { escapeCode } from '../utils';
 import { parserPlugins } from './prettier';
-import { escapeCode, getLanguageCustomSettings } from './utils';
+import { getLanguageCustomSettings } from './utils';
 
 export const dot: LanguageSpecs = {
   name: 'dot',

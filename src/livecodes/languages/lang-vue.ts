@@ -2,8 +2,8 @@ import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { modulesService } from '../services';
 import { vueSfcLoaderCdnBaseUrl } from '../vendors';
+import { escapeCode } from '../utils';
 import { parserPlugins } from './prettier';
-import { escapeCode } from './utils';
 
 const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue3-sfc-loader.min.js';
 const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@3';

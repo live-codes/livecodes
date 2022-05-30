@@ -1,9 +1,9 @@
 import { compileAllBlocks } from '../compiler';
 import { LanguageSpecs } from '../models';
 import { vueSfcLoaderCdnBaseUrl } from '../vendors';
+import { escapeCode } from '../utils';
 import { loaderOptions } from './lang-vue';
 import { parserPlugins } from './prettier';
-import { escapeCode } from './utils';
 
 const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue2-sfc-loader.js';
 const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@2';

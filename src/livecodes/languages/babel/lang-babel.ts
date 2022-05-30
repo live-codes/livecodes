@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../../models';
 import { babelUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../../utils';
 import { parserPlugins } from '../prettier';
-import { getLanguageCustomSettings } from '../utils';
 
 export const babel: LanguageSpecs = {
   name: 'babel',

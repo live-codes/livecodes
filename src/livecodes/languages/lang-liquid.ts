@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
 import { liquidJsUrl } from '../vendors';
+import { escapeCode } from '../utils';
 import { parserPlugins } from './prettier';
-import { escapeCode } from './utils';
 
 export const liquid: LanguageSpecs = {
   name: 'liquid',

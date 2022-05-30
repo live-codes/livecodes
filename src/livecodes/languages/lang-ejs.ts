@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
 import { ejsUrl } from '../vendors';
+import { escapeCode, getLanguageCustomSettings } from '../utils';
 import { parserPlugins } from './prettier';
-import { escapeCode, getLanguageCustomSettings } from './utils';
 
 export const ejs: LanguageSpecs = {
   name: 'ejs',

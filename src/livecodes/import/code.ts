@@ -1,5 +1,6 @@
-import { Config } from '../models';
-import { decompress } from '../utils';
+import type { Config } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { decompress } from '../utils/compression';
 
 export const isCompressedCode = (url: string) => url.startsWith('code/');
 

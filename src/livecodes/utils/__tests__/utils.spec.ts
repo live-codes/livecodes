@@ -1,4 +1,5 @@
-import { compress, debounce, decodeHTML, decompress, encodeHTML, safeName } from '..';
+import { debounce, decodeHTML, encodeHTML, safeName } from '..';
+import { compress, decompress } from '../compression';
 import { defaultConfig } from '../../config';
 
 describe('utils', () => {
