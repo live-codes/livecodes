@@ -1,5 +1,6 @@
-import { proxyConsole } from '../result';
-import { InitMessage } from './models';
+// eslint-disable-next-line import/no-internal-modules
+import { proxyConsole } from '../result/utils';
+import type { InitMessage } from './models';
 
 proxyConsole();
 
