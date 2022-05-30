@@ -33,7 +33,7 @@ import { solidTsx } from './lang-solid-tsx';
 import { pyodide } from './lang-python-pyodide';
 import { liquid } from './lang-liquid';
 import { ejs } from './ejs';
-import { handlebars } from './lang-handlebars';
+import { handlebars } from './handlebars';
 import { dot } from './dot';
 import { nunjucks } from './lang-nunjucks';
 import { go } from './go';
