@@ -210,6 +210,7 @@ esbuild.buildSync({
   'commonlisp/lang-commonlisp-script.ts',
   'cpp/lang-cpp-script.ts',
   'dot/lang-dot-compiler.ts',
+  'ejs/lang-ejs-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,

@@ -1,22 +1,22 @@
 import type { LanguageSpecs } from '../../models';
-import { dotUrl } from '../../vendors';
+import { ejsUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
-export const dot: LanguageSpecs = {
-  name: 'dot',
-  title: 'doT',
+export const ejs: LanguageSpecs = {
+  name: 'ejs',
+  title: 'EJS',
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
-    url: dotUrl,
+    url: ejsUrl,
     factory: (_config, baseUrl) => {
-      (self as any).importScripts(baseUrl + '{{hash:lang-dot-compiler.js}}');
-      return (self as any).createDotCompiler();
+      (self as any).importScripts(baseUrl + '{{hash:lang-ejs-compiler.js}}');
+      return (self as any).createEjsCompiler();
     },
   },
-  extensions: ['dot'],
+  extensions: ['ejs'],
   editor: 'markup',
   editorLanguage: 'html',
 };

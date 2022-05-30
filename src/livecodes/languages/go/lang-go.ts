@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { go2jsBaseUrl } from '../vendors';
+import type { LanguageSpecs } from '../../models';
+import { go2jsBaseUrl } from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 
