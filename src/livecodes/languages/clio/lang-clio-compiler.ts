@@ -1,4 +1,4 @@
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { clioBaseUrl } from '../../vendors';
 import { escapeCode } from '../../utils';
 

@@ -19,7 +19,7 @@ import { typescript } from './lang-typescript';
 import { vue } from './lang-vue';
 import { vue2 } from './lang-vue2';
 import { stencil } from './lang-stencil';
-import { coffeescript } from './lang-coffeescript';
+import { coffeescript } from './coffeescript';
 import { livescript } from './lang-livescript';
 import { assemblyscript } from './assemblyscript';
 import { python } from './lang-python';

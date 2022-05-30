@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../../models';
+import type { LanguageSpecs } from '../../models';
 import { clioBaseUrl } from '../../vendors';
 
 export const clio: LanguageSpecs = {

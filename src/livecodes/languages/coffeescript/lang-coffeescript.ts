@@ -1,6 +1,6 @@
-import { LanguageSpecs } from '../models';
-import { coffeeScriptUrl } from '../vendors';
-import { getLanguageCustomSettings } from './utils';
+import type { LanguageSpecs } from '../../models';
+import { coffeeScriptUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../../utils';
 
 export const coffeescript: LanguageSpecs = {
   name: 'coffeescript',
