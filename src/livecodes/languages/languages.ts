@@ -2,7 +2,7 @@ import { LanguageSpecs } from '../models';
 import { asciidoc } from './asciidoc';
 import { babel } from './babel';
 import { css } from './css';
-import { haml } from './lang-haml';
+import { haml } from './haml';
 import { html } from './lang-html';
 import { javascript } from './lang-javascript';
 import { jsx } from './lang-jsx';
