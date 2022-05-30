@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../models';
+import { LanguageSpecs } from '../../models';
 
 export const blockly: LanguageSpecs = {
   name: 'blockly',

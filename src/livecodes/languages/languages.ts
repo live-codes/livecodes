@@ -45,7 +45,7 @@ import { riot } from './lang-riot';
 import { sql } from './lang-sql';
 import { reactNative } from './lang-react-native';
 import { reactNativeTsx } from './lang-react-native-tsx';
-import { blockly } from './lang-blockly';
+import { blockly } from './blockly';
 import { twig } from './lang-twig';
 import { astro } from './astro';
 import { malina } from './lang-malina';
