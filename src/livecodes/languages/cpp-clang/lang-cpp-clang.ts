@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { cppWasmBaseUrl } from '../vendors';
+import { LanguageSpecs } from '../../models';
+import { cppWasmBaseUrl } from '../../vendors';
 
 const workerSrc = `
 var window = self;

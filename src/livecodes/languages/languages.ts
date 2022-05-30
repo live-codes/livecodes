@@ -52,7 +52,7 @@ import { malina } from './lang-malina';
 import { commonlisp } from './commonlisp';
 import { cpp } from './lang-cpp';
 import { julia } from './lang-julia';
-import { clang } from './lang-cpp-clang';
+import { clang } from './cpp-clang';
 import { tcl } from './lang-tcl';
 import { prolog } from './lang-prolog';
 import { clio } from './clio';
