@@ -34,7 +34,7 @@ import { pyodide } from './lang-python-pyodide';
 import { liquid } from './lang-liquid';
 import { ejs } from './lang-ejs';
 import { handlebars } from './lang-handlebars';
-import { dot } from './lang-dot';
+import { dot } from './dot';
 import { nunjucks } from './lang-nunjucks';
 import { go } from './lang-go';
 import { rescript } from './lang-rescript';
