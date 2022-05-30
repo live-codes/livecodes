@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { parserPlugins } from './prettier';
+import type { LanguageSpecs } from '../../models';
+import { parserPlugins } from '../prettier';
 
 export const css: LanguageSpecs = {
   name: 'css',

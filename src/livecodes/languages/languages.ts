@@ -1,7 +1,7 @@
 import { LanguageSpecs } from '../models';
 import { asciidoc } from './asciidoc';
 import { babel } from './babel';
-import { css } from './lang-css';
+import { css } from './css';
 import { haml } from './lang-haml';
 import { html } from './lang-html';
 import { javascript } from './lang-javascript';
