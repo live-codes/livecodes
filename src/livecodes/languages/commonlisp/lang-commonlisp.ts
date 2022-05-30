@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { jsclUrl, parinferUrl } from '../vendors';
+import type { LanguageSpecs } from '../../models';
+import { jsclUrl, parinferUrl } from '../../vendors';
 
 export const parenFormatter = () => {
   const url = parinferUrl;
@@ -19,17 +19,11 @@ export const commonlisp: LanguageSpecs = {
   },
   compiler: {
     factory: () => async (code) => code,
-    scripts: [jsclUrl],
+    scripts: ({ baseUrl }) => [jsclUrl, baseUrl + '{{hash:lang-commonlisp-script.js}}'],
     scriptType: 'text/commonlisp',
     compiledCodeLanguage: 'commonlisp',
     inlineScript: `
-    window.addEventListener('load', function() {
-      var script = document.querySelector('script[type="text/commonlisp"]');
-      var source = script?.innerHTML;
-      if (source?.trim()) {
-        jscl.evaluateString('(progn ' + source + ')');
-      }
-    });
+
     `,
   },
   extensions: ['lisp', 'common-lisp'],

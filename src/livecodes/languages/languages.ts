@@ -49,7 +49,7 @@ import { blockly } from './blockly';
 import { twig } from './lang-twig';
 import { astro } from './astro';
 import { malina } from './lang-malina';
-import { commonlisp } from './lang-commonlisp';
+import { commonlisp } from './commonlisp';
 import { cpp } from './lang-cpp';
 import { julia } from './lang-julia';
 import { clang } from './lang-cpp-clang';
