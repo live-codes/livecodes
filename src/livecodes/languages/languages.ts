@@ -3,7 +3,7 @@ import { asciidoc } from './asciidoc';
 import { babel } from './babel';
 import { css } from './css';
 import { haml } from './haml';
-import { html } from './lang-html';
+import { html } from './html';
 import { javascript } from './lang-javascript';
 import { jsx } from './lang-jsx';
 import { less } from './lang-less';
