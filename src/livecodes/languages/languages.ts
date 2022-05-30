@@ -50,7 +50,7 @@ import { twig } from './lang-twig';
 import { astro } from './astro';
 import { malina } from './lang-malina';
 import { commonlisp } from './commonlisp';
-import { cpp } from './lang-cpp';
+import { cpp } from './cpp';
 import { julia } from './lang-julia';
 import { clang } from './cpp-clang';
 import { tcl } from './lang-tcl';

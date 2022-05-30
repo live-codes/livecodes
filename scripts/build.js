@@ -208,6 +208,7 @@ esbuild.buildSync({
   'astro/lang-astro-compiler.ts',
   'clio/lang-clio-compiler.ts',
   'commonlisp/lang-commonlisp-script.ts',
+  'cpp/lang-cpp-script.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
