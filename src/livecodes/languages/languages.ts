@@ -4,7 +4,7 @@ import { babel } from './babel';
 import { css } from './css';
 import { haml } from './haml';
 import { html } from './html';
-import { javascript } from './lang-javascript';
+import { javascript } from './javascript';
 import { jsx } from './lang-jsx';
 import { less } from './lang-less';
 import { markdown } from './lang-markdown';
@@ -58,7 +58,7 @@ import { prolog } from './lang-prolog';
 import { clio } from './clio';
 import { richtext } from './lang-richtext';
 import { graph } from './lang-graph';
-import { imba } from './lang-imba';
+import { imba } from './imba';
 import { mustache } from './lang-mustache';
 
 export const languages: LanguageSpecs[] = [

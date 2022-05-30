@@ -211,6 +211,9 @@ esbuild.buildSync({
   'cpp/lang-cpp-script.ts',
   'dot/lang-dot-compiler.ts',
   'ejs/lang-ejs-compiler.ts',
+  'haml/lang-haml-compiler.ts',
+  'handlebars/lang-handlebars-compiler.ts',
+  'imba/lang-imba-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
