@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { juliaWasmBaseUrl } from '../vendors';
+import type { LanguageSpecs } from '../../models';
+import { juliaWasmBaseUrl } from '../../vendors';
 
 const workerSrc = `
 let isCompilerloaded = false;
