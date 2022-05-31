@@ -1,7 +1,7 @@
-import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
-import { parserPlugins } from './prettier';
-import { getLanguageCustomSettings } from './utils';
+import { LanguageSpecs } from '../../models';
+import { vendorsBaseUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../../utils';
+import { parserPlugins } from '../prettier';
 
 export const less: LanguageSpecs = {
   name: 'less',

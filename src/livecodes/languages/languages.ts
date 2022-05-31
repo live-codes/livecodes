@@ -6,7 +6,7 @@ import { haml } from './haml';
 import { html } from './html';
 import { javascript } from './javascript';
 import { jsx } from './jsx';
-import { less } from './lang-less';
+import { less } from './less';
 import { markdown } from './lang-markdown';
 import { mdx } from './lang-mdx';
 import { pug } from './lang-pug';
