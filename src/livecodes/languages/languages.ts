@@ -31,7 +31,7 @@ import { scheme } from './lang-scheme';
 import { solid } from './lang-solid';
 import { solidTsx } from './lang-solid-tsx';
 import { pyodide } from './lang-python-pyodide';
-import { liquid } from './lang-liquid';
+import { liquid } from './liquid';
 import { ejs } from './ejs';
 import { handlebars } from './handlebars';
 import { dot } from './dot';
