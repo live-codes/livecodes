@@ -35,7 +35,7 @@ import { liquid } from './liquid';
 import { ejs } from './ejs';
 import { handlebars } from './handlebars';
 import { dot } from './dot';
-import { nunjucks } from './lang-nunjucks';
+import { nunjucks } from './nunjucks';
 import { go } from './go';
 import { rescript } from './rescript';
 import { reason } from './lang-reason';
