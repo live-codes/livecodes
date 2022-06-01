@@ -7,7 +7,7 @@ import { html } from './html';
 import { javascript } from './javascript';
 import { jsx } from './jsx';
 import { less } from './less';
-import { markdown } from './lang-markdown';
+import { markdown } from './markdown';
 import { mdx } from './lang-mdx';
 import { pug } from './lang-pug';
 import { sass } from './lang-sass';
