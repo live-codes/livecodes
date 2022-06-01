@@ -1,8 +1,8 @@
-import { compileInCompiler } from '../compiler';
-import { CompilerFunction, LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
-import { parserPlugins } from './prettier';
-import { escapeCode, getLanguageCustomSettings } from './utils';
+import { compileInCompiler } from '../../compiler';
+import type { CompilerFunction, LanguageSpecs } from '../../models';
+import { vendorsBaseUrl } from '../../vendors';
+import { escapeCode, getLanguageCustomSettings } from '../../utils';
+import { parserPlugins } from '../prettier';
 
 export const runOutsideWorker: CompilerFunction = async (code: string, { config, worker }) =>
   new Promise(async (resolve) => {

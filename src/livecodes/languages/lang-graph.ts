@@ -1,5 +1,11 @@
 import type { Config, CompilerFunction, LanguageSpecs } from '../models';
-import { blobToBase64, getWorkerDataURL, loadScript, stringToValidJson } from '../utils';
+import {
+  blobToBase64,
+  getWorkerDataURL,
+  loadScript,
+  stringToValidJson,
+  getLanguageCustomSettings,
+} from '../utils';
 import {
   graphreCdnUrl,
   hpccJsCdnUrl,
@@ -14,7 +20,6 @@ import {
   waveDromBaseUrl,
 } from '../vendors';
 import { parserPlugins } from './prettier';
-import { getLanguageCustomSettings } from './utils';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {

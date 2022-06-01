@@ -1,4 +1,5 @@
-import { importsPattern } from '../compiler';
+// eslint-disable-next-line import/no-internal-modules
+import { importsPattern } from '../compiler/import-map';
 import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
 import { getAbsoluteUrl, loadScript } from '../utils';
 import {

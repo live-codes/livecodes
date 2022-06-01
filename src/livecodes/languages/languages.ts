@@ -8,7 +8,7 @@ import { javascript } from './javascript';
 import { jsx } from './jsx';
 import { less } from './less';
 import { markdown } from './markdown';
-import { mdx } from './lang-mdx';
+import { mdx } from './mdx';
 import { pug } from './lang-pug';
 import { sass } from './lang-sass';
 import { scss } from './lang-scss';

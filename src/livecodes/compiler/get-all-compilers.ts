@@ -1,5 +1,5 @@
 import { languageIsEnabled, processors } from '../languages';
-import { Language, LanguageSpecs, Config, Compiler, Compilers, Processors } from '../models';
+import type { Language, LanguageSpecs, Config, Compiler, Compilers, Processors } from '../models';
 import { isRelativeUrl } from '../utils';
 
 export const getAllCompilers = (
