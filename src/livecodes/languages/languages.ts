@@ -20,7 +20,7 @@ import { vue } from './lang-vue';
 import { vue2 } from './lang-vue2';
 import { stencil } from './lang-stencil';
 import { coffeescript } from './coffeescript';
-import { livescript } from './lang-livescript';
+import { livescript } from './livescript';
 import { assemblyscript } from './assemblyscript';
 import { python } from './lang-python';
 import { ruby } from './lang-ruby';

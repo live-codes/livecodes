@@ -1,6 +1,6 @@
-import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
-import { getLanguageCustomSettings } from './utils';
+import { LanguageSpecs } from '../../models';
+import { vendorsBaseUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../../utils';
 
 export const livescript: LanguageSpecs = {
   name: 'livescript',
