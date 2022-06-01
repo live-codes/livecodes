@@ -1,38 +1,13 @@
-import { compileInCompiler } from '../../compiler';
 import type { CompilerFunction, LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
-import { escapeCode, getLanguageCustomSettings } from '../../utils';
 import { parserPlugins } from '../prettier';
 
-export const runOutsideWorker: CompilerFunction = async (code: string, { config, worker }) =>
-  new Promise(async (resolve) => {
-    if (!code) return resolve('');
-
-    const mdx = await import(vendorsBaseUrl + 'mdx/mdx.js');
-    const remarkGfm = (await import(vendorsBaseUrl + 'remark-gfm/remark-gfm.js')).default;
-
-    const compiled = (
-      await mdx.compile(code, {
-        remarkPlugins: [remarkGfm],
-        ...getLanguageCustomSettings('mdx', config),
-      })
-    ).value;
-
-    // TODO: improve this
-    const removeComponentDeclaration = (str: string) =>
-      str
-        .replace(/, {[^}]*} = _components/g, '')
-        .replace(/const {[^:]*} = props.components[^;]*;/g, '');
-
-    const jsx = removeComponentDeclaration(compiled);
-    const result = `import React from "react";
-import ReactDOM from "react-dom";
-${escapeCode(jsx, false)}
-ReactDOM.render(<MDXContent />, document.body);
-`;
-    const js = await compileInCompiler(result, 'jsx', config, {}, worker);
-    resolve(`<script type="module">${js}</script>`);
-  });
+export const runOutsideWorker: CompilerFunction = async (
+  code: string,
+  { baseUrl, config, worker },
+) => {
+  const { mdxCompiler } = await import(baseUrl + '{{hash:lang-mdx-compiler-esm.js}}');
+  return mdxCompiler(code, { config, worker });
+};
 
 export const mdx: LanguageSpecs = {
   name: 'mdx',

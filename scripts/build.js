@@ -216,11 +216,12 @@ esbuild.buildSync({
   'imba/lang-imba-compiler.ts',
   'liquid/lang-liquid-compiler.ts',
   'malina/lang-malina-compiler.ts',
+  'mdx/lang-mdx-compiler-esm.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
     entryPoints: ['src/livecodes/languages/' + entry],
-    format: 'iife',
+    format: entry.endsWith('-esm.ts') ? 'esm' : 'iife',
   });
 });
 
