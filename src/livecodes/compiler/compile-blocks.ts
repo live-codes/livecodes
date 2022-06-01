@@ -1,5 +1,5 @@
+import type { Config } from '../models';
 import { getLanguageByAlias } from '../languages';
-import { Config } from '../models';
 import { compileInCompiler } from './compile-in-compiler';
 
 interface CompileBlocksOptions {

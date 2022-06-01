@@ -215,6 +215,7 @@ esbuild.buildSync({
   'handlebars/lang-handlebars-compiler.ts',
   'imba/lang-imba-compiler.ts',
   'liquid/lang-liquid-compiler.ts',
+  'malina/lang-malina-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
