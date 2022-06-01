@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { luaUrl } from '../vendors';
+import type { LanguageSpecs } from '../../models';
+import { luaUrl } from '../../vendors';
 
 export const lua: LanguageSpecs = {
   name: 'lua',

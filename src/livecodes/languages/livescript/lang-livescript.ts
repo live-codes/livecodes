@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../../models';
+import type { LanguageSpecs } from '../../models';
 import { vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 
