@@ -25,7 +25,7 @@ import { assemblyscript } from './assemblyscript';
 import { python } from './lang-python';
 import { ruby } from './lang-ruby';
 import { php } from './lang-php';
-import { perl } from './lang-perl';
+import { perl } from './perl';
 import { lua } from './lua';
 import { scheme } from './lang-scheme';
 import { solid } from './lang-solid';

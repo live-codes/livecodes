@@ -222,6 +222,7 @@ esbuild.buildSync({
   'rescript/lang-rescript-formatter.ts',
   'mustache/lang-mustache-compiler.ts',
   'nunjucks/lang-nunjucks-compiler.ts',
+  'perl/lang-perl-script.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
