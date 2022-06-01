@@ -1,5 +1,5 @@
 import { LanguageSpecs } from '../models';
-import { formatterFactory as rescriptFormatterFactory } from './lang-rescript';
+import { formatterFactory as rescriptFormatterFactory } from './rescript';
 
 export const reason: LanguageSpecs = {
   name: 'reason',

@@ -37,7 +37,7 @@ import { handlebars } from './handlebars';
 import { dot } from './dot';
 import { nunjucks } from './lang-nunjucks';
 import { go } from './go';
-import { rescript } from './lang-rescript';
+import { rescript } from './rescript';
 import { reason } from './lang-reason';
 import { ocaml } from './lang-ocaml';
 import { wat } from './lang-wat';

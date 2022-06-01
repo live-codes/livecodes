@@ -1,15 +1,13 @@
-// eslint-disable-next-line import/no-internal-modules
-import { importsPattern } from '../compiler/import-map';
-import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../models';
-import { getAbsoluteUrl, loadScript } from '../utils';
+import { CompilerFunction } from '../../models';
+import { getAbsoluteUrl, loadScript } from '../../utils';
 import {
   requireUrl,
   rescriptCompilerUrl,
   rescriptReactUrl,
   rescriptStdLibBaseUrl,
-} from '../vendors';
-
-declare const importScripts: (...args: string[]) => void;
+} from '../../vendors';
+// eslint-disable-next-line import/no-internal-modules
+import { importsPattern } from '../../compiler/import-map';
 
 const replaceImports = (code: string, stdLibUrl: string) =>
   code.replace(new RegExp(importsPattern), (statement) => {
@@ -23,7 +21,7 @@ const replaceImports = (code: string, stdLibUrl: string) =>
     return statement;
   });
 
-export const runOutsideWorker: CompilerFunction = async (code: string, { language, baseUrl }) =>
+export const rescriptCompiler: CompilerFunction = async (code: string, { baseUrl, language }) =>
   new Promise(async (resolve, reject) => {
     if (!code) return resolve('');
 
@@ -60,43 +58,3 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { languag
       }
     });
   });
-
-export const formatterFactory: LanguageFormatter['factory'] = (baseUrl, language) => {
-  if (!(self as any).rescript_compiler) {
-    importScripts(getAbsoluteUrl(rescriptCompilerUrl, baseUrl));
-  }
-  const compiler = (self as any).rescript_compiler.make();
-  compiler.setModuleSystem('es6');
-  compiler.setFilename('index.bs.js');
-  return async (value: string) => {
-    let formatted = value;
-    try {
-      const output = compiler[language].format(value);
-      if (output.type === 'success') {
-        formatted = output.code;
-      }
-    } catch {
-      //
-    }
-    return {
-      formatted,
-      cursorOffset: 0,
-    };
-  };
-};
-
-export const rescript: LanguageSpecs = {
-  name: 'rescript',
-  title: 'ReScript',
-  formatter: {
-    factory: formatterFactory,
-  },
-  compiler: {
-    factory: () => async (code) => code,
-    runOutsideWorker,
-    scriptType: 'module',
-  },
-  extensions: ['res', 'resi'],
-  editor: 'script',
-  editorLanguage: 'javascript',
-};
