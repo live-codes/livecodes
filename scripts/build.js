@@ -209,6 +209,7 @@ esbuild.buildSync({
   'clio/lang-clio-compiler.ts',
   'commonlisp/lang-commonlisp-script.ts',
   'cpp/lang-cpp-script.ts',
+  'diagram/lang-diagram-compiler-esm.ts',
   'dot/lang-dot-compiler.ts',
   'ejs/lang-ejs-compiler.ts',
   'haml/lang-haml-compiler.ts',
@@ -219,7 +220,7 @@ esbuild.buildSync({
   'mdx/lang-mdx-compiler-esm.ts',
   'rescript/lang-rescript-compiler-esm.ts',
   'rescript/lang-rescript-formatter.ts',
-  'diagram/lang-diagram-compiler-esm.ts',
+  'mustache/lang-mustache-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,

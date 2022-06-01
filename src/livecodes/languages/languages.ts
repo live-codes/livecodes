@@ -59,7 +59,7 @@ import { clio } from './clio';
 import { richtext } from './lang-richtext';
 import { diagram } from './diagram';
 import { imba } from './imba';
-import { mustache } from './lang-mustache';
+import { mustache } from './mustache';
 
 export const languages: LanguageSpecs[] = [
   html,
