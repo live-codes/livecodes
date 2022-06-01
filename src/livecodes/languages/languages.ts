@@ -39,7 +39,7 @@ import { nunjucks } from './nunjucks';
 import { go } from './go';
 import { rescript } from './rescript';
 import { reason } from './lang-reason';
-import { ocaml } from './lang-ocaml';
+import { ocaml } from './ocaml';
 import { wat } from './lang-wat';
 import { riot } from './lang-riot';
 import { sql } from './lang-sql';
