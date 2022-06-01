@@ -1,6 +1,6 @@
-import { LanguageSpecs } from '../models';
-import { uniterUrl } from '../vendors';
-import { parserPlugins } from './prettier';
+import type { LanguageSpecs } from '../../models';
+import { uniterUrl } from '../../vendors';
+import { parserPlugins } from '../prettier';
 
 export const php: LanguageSpecs = {
   name: 'php',
