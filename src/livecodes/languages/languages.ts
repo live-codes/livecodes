@@ -57,7 +57,7 @@ import { tcl } from './lang-tcl';
 import { prolog } from './lang-prolog';
 import { clio } from './clio';
 import { richtext } from './lang-richtext';
-import { graph } from './lang-graph';
+import { diagram } from './diagram';
 import { imba } from './imba';
 import { mustache } from './lang-mustache';
 
@@ -76,7 +76,7 @@ export const languages: LanguageSpecs[] = [
   liquid,
   dot,
   twig,
-  graph,
+  diagram,
   richtext,
   css,
   scss,

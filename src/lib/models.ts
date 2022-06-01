@@ -97,6 +97,7 @@ export type Language =
   | 'liquidjs'
   | 'dot'
   | 'twig'
+  | 'diagram'
   | 'graph'
   | 'plt'
   | 'richtext'

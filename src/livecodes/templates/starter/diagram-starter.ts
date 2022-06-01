@@ -1,12 +1,12 @@
 import { Template } from '../../models';
 
-export const graphStarter: Template = {
-  name: 'graph',
-  title: 'Graph Starter',
-  thumbnail: 'assets/templates/graph.svg',
+export const diagramStarter: Template = {
+  name: 'diagram',
+  title: 'Diagram Starter',
+  thumbnail: 'assets/templates/diagram.svg',
   activeEditor: 'markup',
   markup: {
-    language: 'graph',
+    language: 'diagram',
     content: `
 <div class="container">
   <h3>Gnuplot</h3>
@@ -38,7 +38,7 @@ export const graphStarter: Template = {
   <img data-src="pintora.svg">
 </div>
 
-<script type="application/graph-gnuplot">
+<script type="application/diagram-gnuplot">
 set terminal svg size 600,400 enhanced fname 'arial' fsize 10 butt solid
 set output 'contour.svg'
 set view 60, 30, 0.85, 1.1
@@ -61,10 +61,10 @@ set zrange [ -1.20000 : 1.20000 ] noreverse nowriteback
 splot "glass.dat" using 1
 </script>
 
-<script type="application/graph-gnuplot-file" src="https://raw.githubusercontent.com/gnuplot/gnuplot/master/demo/glass.dat"></script>
+<script type="application/diagram-gnuplot-file" src="https://raw.githubusercontent.com/gnuplot/gnuplot/master/demo/glass.dat"></script>
 <!--  or inline content in script block -->
 <!--
-<script type="application/graph-gnuplot-file" data-file="glass.dat">
+<script type="application/diagram-gnuplot-file" data-file="glass.dat">
   0.568000   0.000000  -0.911000
   0.518894   0.231026  -0.911000
   0.380066   0.422106  -0.911000
@@ -74,7 +74,7 @@ splot "glass.dat" using 1
  -->
 
 
-<script type="application/graph-graphviz" data-output="flow-chart.svg">
+<script type="application/diagram-graphviz" data-output="flow-chart.svg">
   digraph G {
       node [shape=rect];
 
@@ -107,7 +107,7 @@ splot "glass.dat" using 1
 </script>
 
 
-<script type="application/graph-mermaid" data-output="class-diagram.svg">
+<script type="application/diagram-mermaid" data-output="class-diagram.svg">
 classDiagram
 Class01 <|-- AveryLongClass : Cool
 Class03 *-- Class04
@@ -126,19 +126,19 @@ Class08 <--> C2: Cool label
 
 
 <script
-  type="application/graph-vega"
+  type="application/diagram-vega"
   data-output="vega.svg"
   src="https://vega.github.io/vega/examples/stacked-bar-chart.vg.json"
 ></script>
 
 
 <script
-  type="application/graph-vega-lite"
+  type="application/diagram-vega-lite"
   data-output="vega-lite.svg"
   src="https://vega.github.io/vega-lite/examples/sequence_line_fold.vl.json"
 ></script>
 
-<script type="application/graph-plotly" data-output="box.svg">
+<script type="application/diagram-plotly" data-output="box.svg">
 {
   "data": [
     {
@@ -258,7 +258,7 @@ Class08 <--> C2: Cool label
 </script>
 
 
-<script type="application/graph-nomnoml" data-output="nomnoml.svg">
+<script type="application/diagram-nomnoml" data-output="nomnoml.svg">
 [Pirate|eyeCount: Int|raid();pillage()|
   [beard]--[parrot]
   [beard]-:>[foul mouth]
@@ -284,7 +284,7 @@ Class08 <--> C2: Cool label
 </script>
 
 
-<script type="application/graph-wavedrom" data-output="diagram.svg">
+<script type="application/diagram-wavedrom" data-output="diagram.svg">
 { signal : [
   { name: "clk",  wave: "p......" },
   { name: "bus",  wave: "x.34.5x",   data: "head body tail" },
@@ -293,7 +293,7 @@ Class08 <--> C2: Cool label
 </script>
 
 
-<script type="application/graph-pintora" data-output="pintora.svg">
+<script type="application/diagram-pintora" data-output="pintora.svg">
 mindmap
 @param layoutDirection TB
 * Pintora diagrams

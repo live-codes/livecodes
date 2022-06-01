@@ -219,6 +219,7 @@ esbuild.buildSync({
   'mdx/lang-mdx-compiler-esm.ts',
   'rescript/lang-rescript-compiler-esm.ts',
   'rescript/lang-rescript-formatter.ts',
+  'diagram/lang-diagram-compiler-esm.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,

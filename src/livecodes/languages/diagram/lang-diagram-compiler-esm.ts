@@ -1,11 +1,11 @@
-import type { Config, CompilerFunction, LanguageSpecs } from '../models';
+import type { Config, CompilerFunction, LanguageSpecs } from '../../models';
 import {
   blobToBase64,
   getWorkerDataURL,
   loadScript,
   stringToValidJson,
   getLanguageCustomSettings,
-} from '../utils';
+} from '../../utils';
 import {
   graphreCdnUrl,
   hpccJsCdnUrl,
@@ -18,8 +18,8 @@ import {
   vegaLiteCdnUrl,
   vendorsBaseUrl,
   waveDromBaseUrl,
-} from '../vendors';
-import { parserPlugins } from './prettier';
+} from '../../vendors';
+import { parserPlugins } from '../prettier';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
@@ -35,7 +35,7 @@ const compileGnuplot = async (code: string) => {
   document.body.appendChild(temp);
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-gnuplot"]',
+    'script[type="application/diagram-gnuplot"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -79,7 +79,7 @@ const compileGnuplot = async (code: string) => {
 
   const inputFiles: InputFiles = [];
   const fileScripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-gnuplot-file"]',
+    'script[type="application/diagram-gnuplot-file"]',
   );
   for (const fileScript of fileScripts) {
     if (!fileScript.dataset.file && !fileScript.src) continue;
@@ -125,7 +125,7 @@ const compileMermaid = async (code: string) => {
   temp.innerHTML = code;
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-mermaid"]',
+    'script[type="application/diagram-mermaid"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -169,7 +169,7 @@ const compileGraphviz = async (code: string) => {
   temp.innerHTML = code;
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-graphviz"]',
+    'script[type="application/diagram-graphviz"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -207,7 +207,7 @@ const compileVega = async (code: string) => {
   temp.innerHTML = code;
 
   const vegaLiteScripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-vega-lite"]',
+    'script[type="application/diagram-vega-lite"]',
   );
 
   let vega: any;
@@ -227,7 +227,7 @@ const compileVega = async (code: string) => {
           ? await fetch(vegaLiteScript.src).then((res) => res.json())
           : JSON.parse(stringToValidJson(vegaLiteScript.innerHTML));
         vegaLiteScript.innerHTML = JSON.stringify(vegaLite.compile(content, vegaLiteOptions).spec);
-        vegaLiteScript.type = 'application/graph-vega';
+        vegaLiteScript.type = 'application/diagram-vega';
         vegaLiteScript.removeAttribute('src');
       } catch {
         vegaLiteScript.remove();
@@ -235,7 +235,9 @@ const compileVega = async (code: string) => {
     }
   }
 
-  const scripts = temp.querySelectorAll<HTMLScriptElement>('script[type="application/graph-vega"]');
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/diagram-vega"]',
+  );
   if (scripts.length === 0) {
     temp.remove();
     return code;
@@ -243,15 +245,15 @@ const compileVega = async (code: string) => {
 
   vega = vega || (await loadScript(vegaCdnUrl, 'vega'));
   const render = async (src: any, options: Record<string, any> = {}) => {
-    const graphContainer = document.createElement('div');
+    const diagramContainer = document.createElement('div');
     const view = new vega.View(vega.parse(src), {
       ...options,
       renderer: 'svg',
-      container: graphContainer,
+      container: diagramContainer,
     });
     await view.runAsync();
-    const svg = graphContainer.querySelector('svg')?.outerHTML || '';
-    graphContainer.remove();
+    const svg = diagramContainer.querySelector('svg')?.outerHTML || '';
+    diagramContainer.remove();
     return svg;
   };
 
@@ -286,7 +288,7 @@ const compilePlotly = async (code: string) => {
   temp.innerHTML = code;
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-plotly"]',
+    'script[type="application/diagram-plotly"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -297,10 +299,10 @@ const compilePlotly = async (code: string) => {
   const render = (src: string) => {
     try {
       const specs = JSON.parse(stringToValidJson(src));
-      const graphContainer = document.createElement('div');
-      Plotly.newPlot(graphContainer, specs.data, specs.layout, { displayModeBar: false });
-      const svg = graphContainer.querySelector('svg')?.outerHTML || '';
-      graphContainer.remove();
+      const diagramContainer = document.createElement('div');
+      Plotly.newPlot(diagramContainer, specs.data, specs.layout, { displayModeBar: false });
+      const svg = diagramContainer.querySelector('svg')?.outerHTML || '';
+      diagramContainer.remove();
       return svg;
     } catch {
       // eslint-disable-next-line no-console
@@ -336,7 +338,7 @@ const compileSvgBob = async (code: string) => {
   temp.innerHTML = code;
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-svgbob"]',
+    'script[type="application/diagram-svgbob"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -376,7 +378,7 @@ const compileWaveDrom = async (code: string) => {
   document.body.appendChild(temp);
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-wavedrom"]',
+    'script[type="application/diagram-wavedrom"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -387,12 +389,12 @@ const compileWaveDrom = async (code: string) => {
   const render = (src: string) => {
     try {
       const obj = JSON.parse(stringToValidJson(src));
-      const graphContainer = document.createElement('div');
-      graphContainer.id = 'graph-id';
-      temp.appendChild(graphContainer);
-      WaveDrom.RenderWaveForm(graphContainer.id, obj, '');
-      const svg = graphContainer.innerHTML || '';
-      graphContainer.remove();
+      const diagramContainer = document.createElement('div');
+      diagramContainer.id = 'diagram-id';
+      temp.appendChild(diagramContainer);
+      WaveDrom.RenderWaveForm(diagramContainer.id, obj, '');
+      const svg = diagramContainer.innerHTML || '';
+      diagramContainer.remove();
       return svg;
     } catch {
       // eslint-disable-next-line no-console
@@ -428,7 +430,7 @@ const compileNomnoml = async (code: string) => {
   temp.innerHTML = code;
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-nomnoml"]',
+    'script[type="application/diagram-nomnoml"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -466,7 +468,7 @@ const compilePintora = async (code: string, config: Config) => {
   temp.innerHTML = code;
 
   const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/graph-pintora"]',
+    'script[type="application/diagram-pintora"]',
   );
   if (scripts.length === 0) {
     temp.remove();
@@ -511,7 +513,7 @@ const compilePintora = async (code: string, config: Config) => {
   return result;
 };
 
-export const runOutsideWorker: CompilerFunction = async (code: string, { config }) => {
+export const diagramCompiler: CompilerFunction = async (code: string, { config }) => {
   const result = await compileGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
@@ -522,20 +524,4 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { config 
     .then(compileNomnoml)
     .then((src) => compilePintora(src, config));
   return result;
-};
-
-export const graph: LanguageSpecs = {
-  name: 'graph',
-  title: 'Graph',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
-  },
-  compiler: {
-    factory: () => async (code) => code || '',
-    runOutsideWorker,
-  },
-  extensions: ['graph', 'plt'],
-  editor: 'markup',
-  editorLanguage: 'html',
 };

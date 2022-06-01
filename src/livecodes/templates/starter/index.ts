@@ -44,7 +44,7 @@ import { clangStarter } from './clang-starter';
 import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
-import { graphStarter } from './graph-starter';
+import { diagramStarter } from './diagram-starter';
 import { imbaStarter } from './imba-starter';
 import { jestStarter } from './jest-starter';
 import { jestReactStarter } from './jest-react-starter';
@@ -97,5 +97,5 @@ export const starterTemplates = [
   sqlStarter,
   prologStarter,
   blocklyStarter,
-  graphStarter,
+  diagramStarter,
 ];
