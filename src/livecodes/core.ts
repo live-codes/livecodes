@@ -693,7 +693,7 @@ const getResultPage = async ({
     },
   };
 
-  const result = createResultPage({
+  const result = await createResultPage({
     code: compiledCode,
     config,
     forExport,

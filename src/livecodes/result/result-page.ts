@@ -6,7 +6,7 @@ import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
 import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
 
-export const createResultPage = ({
+export const createResultPage = async ({
   code,
   config,
   forExport,
@@ -22,7 +22,7 @@ export const createResultPage = ({
   baseUrl: string;
   singleFile: boolean;
   runTests: boolean;
-}) => {
+}): Promise<string> => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
@@ -105,9 +105,10 @@ export const createResultPage = ({
     (runTests && !forExport && getImports(compiledTests).includes('./script'));
 
   let compilerImports = {};
-  runtimeDependencies.forEach(({ language, compiled }) => {
+
+  for (const { language, compiled } of runtimeDependencies) {
     const compiler = getLanguageCompiler(language);
-    if (!compiler) return;
+    if (!compiler) continue;
 
     const compilerStyles =
       typeof compiler.styles === 'function'
@@ -132,6 +133,11 @@ export const createResultPage = ({
       dom.head.appendChild(depScript);
     });
     if (compiler.inlineScript) {
+      if (typeof compiler.inlineScript === 'function') {
+        compiler.inlineScript = await compiler.inlineScript({
+          baseUrl,
+        });
+      }
       const inlineScript = document.createElement('script');
       inlineScript.innerHTML = compiler.inlineScript;
       dom.head.appendChild(inlineScript);
@@ -142,7 +148,7 @@ export const createResultPage = ({
         ...objectMap(compiler.imports, (url) => getAbsoluteUrl(url, baseUrl)),
       };
     }
-  });
+  }
 
   // import maps
   const userImports =

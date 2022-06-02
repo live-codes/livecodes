@@ -342,7 +342,7 @@ export interface Compiler {
     | string[]
     | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
   deferScripts?: boolean;
-  inlineScript?: string;
+  inlineScript?: string | ((options: { baseUrl: string }) => Promise<string>);
   scriptType?:
     | 'module'
     | 'text/liquid'
