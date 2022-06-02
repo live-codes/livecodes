@@ -22,7 +22,7 @@ import { stencil } from './lang-stencil';
 import { coffeescript } from './coffeescript';
 import { livescript } from './livescript';
 import { assemblyscript } from './assemblyscript';
-import { python } from './lang-python';
+import { python } from './python';
 import { ruby } from './lang-ruby';
 import { php } from './php';
 import { perl } from './perl';
