@@ -12,7 +12,7 @@ import { mdx } from './mdx';
 import { pug } from './pug';
 import { scss, sass } from './scss';
 import { svelte } from './lang-svelte';
-import { stylus } from './lang-stylus';
+import { stylus } from './stylus';
 import { typescript } from './lang-typescript';
 import { vue } from './lang-vue';
 import { vue2 } from './lang-vue2';

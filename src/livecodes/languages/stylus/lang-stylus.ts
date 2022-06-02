@@ -1,5 +1,5 @@
-import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
+import type { LanguageSpecs } from '../../models';
+import { vendorsBaseUrl } from '../../vendors';
 
 export const stylus: LanguageSpecs = {
   name: 'stylus',
