@@ -1,4 +1,4 @@
-import type { Config, CompilerFunction, LanguageSpecs } from '../../models';
+import type { Config, CompilerFunction } from '../../models';
 import {
   blobToBase64,
   getWorkerDataURL,
@@ -19,7 +19,6 @@ import {
   vendorsBaseUrl,
   waveDromBaseUrl,
 } from '../../vendors';
-import { parserPlugins } from '../prettier';
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
