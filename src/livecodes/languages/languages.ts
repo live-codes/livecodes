@@ -41,7 +41,7 @@ import { rescript } from './rescript';
 import { reason } from './reason';
 import { ocaml } from './ocaml';
 import { wat } from './lang-wat';
-import { riot } from './lang-riot';
+import { riot } from './riot';
 import { sql } from './lang-sql';
 import { reactNative } from './react-native';
 import { reactNativeTsx } from './react-native-tsx';

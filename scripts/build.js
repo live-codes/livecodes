@@ -227,6 +227,7 @@ esbuild.buildSync({
   'prolog/lang-prolog-script.ts',
   'pug/lang-pug-compiler.ts',
   'python-pyodide/lang-python-pyodide-script.ts',
+  'riot/lang-riot-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
