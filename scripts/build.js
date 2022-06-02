@@ -215,6 +215,7 @@ esbuild.buildSync({
   'haml/lang-haml-compiler.ts',
   'handlebars/lang-handlebars-compiler.ts',
   'imba/lang-imba-compiler.ts',
+  'julia/lang-julia-script.ts',
   'liquid/lang-liquid-compiler.ts',
   'malina/lang-malina-compiler.ts',
   'mdx/lang-mdx-compiler-esm.ts',
