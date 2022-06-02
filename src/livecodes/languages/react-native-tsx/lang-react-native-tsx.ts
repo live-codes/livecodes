@@ -1,15 +1,13 @@
-import { LanguageSpecs } from '../models';
-import { vendorsBaseUrl } from '../vendors';
-import { typescriptOptions } from './lang-typescript';
-import { parserPlugins } from './prettier';
-import { getLanguageCustomSettings } from './utils';
+import type { LanguageSpecs } from '../../models';
+import { reactNativeWebUrl } from '../react-native';
+import { typescriptOptions } from '../lang-typescript';
+import { getLanguageCustomSettings } from '../utils';
+import { parserPlugins } from '../prettier';
 
-export const reactNativeWebUrl = vendorsBaseUrl + 'react-native-web/react-native-web.js';
-
-export const reactNative: LanguageSpecs = {
-  name: 'react-native',
-  title: 'RN',
-  longTitle: 'React Native',
+export const reactNativeTsx: LanguageSpecs = {
+  name: 'react-native-tsx',
+  title: 'RN (TSX)',
+  longTitle: 'React Native (TSX)',
   parser: {
     name: 'babel',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
@@ -29,7 +27,7 @@ export const reactNative: LanguageSpecs = {
       'react-native': reactNativeWebUrl,
     },
   },
-  extensions: ['react-native.jsx'],
+  extensions: ['react-native.tsx'],
   editor: 'script',
-  editorLanguage: 'javascript',
+  editorLanguage: 'typescript',
 };
