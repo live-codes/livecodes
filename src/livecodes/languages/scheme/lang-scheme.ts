@@ -1,6 +1,6 @@
-import { LanguageSpecs } from '../models';
-import { biwaschemeUrl } from '../vendors';
-import { parenFormatter } from './commonlisp';
+import type { LanguageSpecs } from '../../models';
+import { biwaschemeUrl } from '../../vendors';
+import { parenFormatter } from '../commonlisp';
 
 export const scheme: LanguageSpecs = {
   name: 'scheme',

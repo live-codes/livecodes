@@ -27,7 +27,7 @@ import { ruby } from './ruby';
 import { php } from './php';
 import { perl } from './perl';
 import { lua } from './lua';
-import { scheme } from './lang-scheme';
+import { scheme } from './scheme';
 import { solid } from './lang-solid';
 import { solidTsx } from './lang-solid-tsx';
 import { pyodide } from './python-pyodide';
