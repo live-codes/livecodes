@@ -16,7 +16,7 @@ import { stylus } from './lang-stylus';
 import { typescript } from './lang-typescript';
 import { vue } from './lang-vue';
 import { vue2 } from './lang-vue2';
-import { stencil } from './lang-stencil';
+import { stencil } from './stencil';
 import { coffeescript } from './coffeescript';
 import { livescript } from './livescript';
 import { assemblyscript } from './assemblyscript';
