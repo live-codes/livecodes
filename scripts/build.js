@@ -236,6 +236,8 @@ esbuild.buildSync({
   'tcl/lang-tcl-script.ts',
   'twig/lang-twig-compiler.ts',
   'vue/lang-vue-compiler.ts',
+  'wat/lang-wat-compiler.ts',
+  'wat/lang-wat-script.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
