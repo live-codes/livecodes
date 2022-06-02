@@ -9,7 +9,7 @@ import { jsx } from './jsx';
 import { less } from './less';
 import { markdown } from './markdown';
 import { mdx } from './mdx';
-import { pug } from './lang-pug';
+import { pug } from './pug';
 import { sass } from './lang-sass';
 import { scss } from './lang-scss';
 import { svelte } from './lang-svelte';

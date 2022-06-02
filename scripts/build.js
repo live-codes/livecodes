@@ -225,6 +225,7 @@ esbuild.buildSync({
   'nunjucks/lang-nunjucks-compiler.ts',
   'perl/lang-perl-script.ts',
   'prolog/lang-prolog-script.ts',
+  'pug/lang-pug-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
