@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
 import { vendorsBaseUrl } from '../../vendors';
-import { typescriptOptions } from '../lang-typescript';
+import { typescriptOptions } from '../typescript';
 import { getLanguageCustomSettings } from '../utils';
 import { parserPlugins } from '../prettier';
 

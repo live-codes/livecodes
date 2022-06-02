@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { typescriptOptions } from '../lang-typescript';
+import { typescriptOptions } from '../typescript';
 import { getLanguageCustomSettings } from '../utils';
 import { parserPlugins } from '../prettier';
 import { reactNativeWebUrl } from './lang-react-native';

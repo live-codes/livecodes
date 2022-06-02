@@ -13,7 +13,7 @@ import { pug } from './pug';
 import { scss, sass } from './scss';
 import { svelte } from './svelte';
 import { stylus } from './stylus';
-import { typescript } from './lang-typescript';
+import { typescript } from './typescript';
 import { vue } from './lang-vue';
 import { vue2 } from './lang-vue2';
 import { stencil } from './stencil';

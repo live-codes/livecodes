@@ -1,7 +1,7 @@
-import { LanguageSpecs } from '../models';
-import { typescriptUrl } from '../vendors';
-import { parserPlugins } from './prettier';
-import { getLanguageCustomSettings } from './utils';
+import type { LanguageSpecs } from '../../models';
+import { typescriptUrl } from '../../vendors';
+import { getLanguageCustomSettings } from '../../utils';
+import { parserPlugins } from '../prettier';
 
 export const typescriptOptions = {
   target: 'es2015',
