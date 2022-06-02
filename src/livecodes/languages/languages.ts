@@ -11,7 +11,7 @@ import { markdown } from './markdown';
 import { mdx } from './mdx';
 import { pug } from './pug';
 import { sass } from './sass';
-import { scss } from './lang-scss';
+import { scss } from './scss';
 import { svelte } from './lang-svelte';
 import { stylus } from './lang-stylus';
 import { tsx } from './lang-tsx';
