@@ -229,6 +229,7 @@ esbuild.buildSync({
   'python-pyodide/lang-python-pyodide-script.ts',
   'riot/lang-riot-compiler.ts',
   'scss/lang-scss-compiler.ts',
+  'solid/lang-solid-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
