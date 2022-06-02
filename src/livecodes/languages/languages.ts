@@ -39,7 +39,7 @@ import { reason } from './reason';
 import { ocaml } from './ocaml';
 import { wat } from './lang-wat';
 import { riot } from './riot';
-import { sql } from './lang-sql';
+import { sql } from './sql';
 import { reactNative, reactNativeTsx } from './react-native';
 import { blockly } from './blockly';
 import { twig } from './lang-twig';

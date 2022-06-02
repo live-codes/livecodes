@@ -230,6 +230,8 @@ esbuild.buildSync({
   'riot/lang-riot-compiler.ts',
   'scss/lang-scss-compiler.ts',
   'solid/lang-solid-compiler.ts',
+  'sql/lang-sql-compiler.ts',
+  'sql/lang-sql-script.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
