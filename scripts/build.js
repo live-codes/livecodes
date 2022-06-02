@@ -209,6 +209,7 @@ esbuild.buildSync({
   'clio/lang-clio-compiler.ts',
   'commonlisp/lang-commonlisp-script.ts',
   'cpp/lang-cpp-script.ts',
+  'cpp-clang/lang-cpp-clang-script.ts',
   'diagram/lang-diagram-compiler-esm.ts',
   'dot/lang-dot-compiler.ts',
   'ejs/lang-ejs-compiler.ts',
