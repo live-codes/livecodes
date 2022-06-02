@@ -1,14 +1,10 @@
-import { compileAllBlocks } from '../compiler';
-import { LanguageSpecs } from '../models';
-import { modulesService } from '../services';
-import { vueSfcLoaderCdnBaseUrl } from '../vendors';
-import { escapeCode } from '../utils';
-import { parserPlugins } from './prettier';
+/* eslint-disable import/no-internal-modules */
+import type { CompilerFunction } from '../../models';
+import { compileAllBlocks } from '../../compiler/compile-blocks';
+import { modulesService } from '../../services/modules';
+import { escapeCode } from '../../utils';
 
-const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue3-sfc-loader.min.js';
-const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@3';
-
-export const loaderOptions = `const options = {
+const loaderOptions = `const options = {
   moduleCache: {
     vue: Vue,
   },
@@ -62,19 +58,11 @@ export const loaderOptions = `const options = {
   },
 };
 `;
-export const vue: LanguageSpecs = {
-  name: 'vue',
-  title: 'Vue 3',
-  longTitle: 'Vue 3 SFC',
-  parser: {
-    name: 'html',
-    pluginUrls: [parserPlugins.html],
-  },
-  compiler: {
-    factory:
-      () =>
-      async (code, { config }) =>
-        `(() => {
+
+(self as any).createVueCompiler =
+  (): CompilerFunction =>
+  async (code, { config }) =>
+    `(() => {
 let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
@@ -86,13 +74,21 @@ const App = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/component.
 App.mount(app)
 App.config.devtools = true;
 })();
-`,
-    scripts: [vueCdnUrl, loaderCdnUrl],
-    imports: {
-      vue: vueCdnUrl + '/dist/vue.runtime.esm-browser.prod.js',
-    },
-  },
-  extensions: ['vue', 'vue3'],
-  editor: 'script',
-  editorLanguage: 'html',
-};
+`;
+
+(self as any).createVue2Compiler =
+  (): CompilerFunction =>
+  async (code, { config }) =>
+    `(() => {
+let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
+
+/* <!-- */
+let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
+/* --> */
+${loaderOptions}
+const { loadModule, vueVersion } = window['vue2-sfc-loader'];
+loadModule('/component.vue', options)
+.then(component => new Vue(component).$mount(app));
+Vue.config.devtools = true;
+})();
+`;

@@ -235,6 +235,7 @@ esbuild.buildSync({
   'svelte/lang-svelte-compiler.ts',
   'tcl/lang-tcl-script.ts',
   'twig/lang-twig-compiler.ts',
+  'vue/lang-vue-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
