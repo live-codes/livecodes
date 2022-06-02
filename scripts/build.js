@@ -233,6 +233,7 @@ esbuild.buildSync({
   'sql/lang-sql-compiler.ts',
   'sql/lang-sql-script.ts',
   'svelte/lang-svelte-compiler.ts',
+  'tcl/lang-tcl-script.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,

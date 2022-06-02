@@ -49,7 +49,7 @@ import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
 import { julia } from './julia';
 import { clang } from './cpp-clang';
-import { tcl } from './lang-tcl';
+import { tcl } from './tcl';
 import { prolog } from './prolog';
 import { clio } from './clio';
 import { richtext } from './richtext';
