@@ -219,7 +219,6 @@ esbuild.buildSync({
   'julia/lang-julia-script.ts',
   'liquid/lang-liquid-compiler.ts',
   'malina/lang-malina-compiler.ts',
-  'mdx/lang-mdx-compiler-esm.ts',
   'rescript/lang-rescript-compiler-esm.ts',
   'rescript/lang-rescript-formatter.ts',
   'mustache/lang-mustache-compiler.ts',
