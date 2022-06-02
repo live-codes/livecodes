@@ -1,8 +1,8 @@
 import type { LanguageSpecs } from '../../models';
-import { reactNativeWebUrl } from '../react-native';
 import { typescriptOptions } from '../lang-typescript';
 import { getLanguageCustomSettings } from '../utils';
 import { parserPlugins } from '../prettier';
+import { reactNativeWebUrl } from './lang-react-native';
 
 export const reactNativeTsx: LanguageSpecs = {
   name: 'react-native-tsx',
