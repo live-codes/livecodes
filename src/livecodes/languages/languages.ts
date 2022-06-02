@@ -54,7 +54,7 @@ import { cpp } from './cpp';
 import { julia } from './julia';
 import { clang } from './cpp-clang';
 import { tcl } from './lang-tcl';
-import { prolog } from './lang-prolog';
+import { prolog } from './prolog';
 import { clio } from './clio';
 import { richtext } from './lang-richtext';
 import { diagram } from './diagram';
