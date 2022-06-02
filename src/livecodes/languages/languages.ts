@@ -42,7 +42,7 @@ import { riot } from './riot';
 import { sql } from './sql';
 import { reactNative, reactNativeTsx } from './react-native';
 import { blockly } from './blockly';
-import { twig } from './lang-twig';
+import { twig } from './twig';
 import { astro } from './astro';
 import { malina } from './malina';
 import { commonlisp } from './commonlisp';
