@@ -10,7 +10,7 @@ import { less } from './less';
 import { markdown } from './markdown';
 import { mdx } from './mdx';
 import { pug } from './pug';
-import { sass } from './lang-sass';
+import { sass } from './sass';
 import { scss } from './lang-scss';
 import { svelte } from './lang-svelte';
 import { stylus } from './lang-stylus';
