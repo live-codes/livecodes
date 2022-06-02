@@ -1,1 +1,1 @@
-export * from './lang-markdown'
+export * from './lang-markdown';
