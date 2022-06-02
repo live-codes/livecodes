@@ -23,7 +23,7 @@ import { coffeescript } from './coffeescript';
 import { livescript } from './livescript';
 import { assemblyscript } from './assemblyscript';
 import { python } from './python';
-import { ruby } from './lang-ruby';
+import { ruby } from './ruby';
 import { php } from './php';
 import { perl } from './perl';
 import { lua } from './lua';
