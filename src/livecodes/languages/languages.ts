@@ -56,7 +56,7 @@ import { clang } from './cpp-clang';
 import { tcl } from './lang-tcl';
 import { prolog } from './prolog';
 import { clio } from './clio';
-import { richtext } from './lang-richtext';
+import { richtext } from './richtext';
 import { diagram } from './diagram';
 import { imba } from './imba';
 import { mustache } from './mustache';

@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../models';
+import type { LanguageSpecs } from '../../models';
 
 export const richtext: LanguageSpecs = {
   name: 'richtext',
