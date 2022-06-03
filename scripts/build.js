@@ -221,6 +221,7 @@ esbuild.buildSync({
   'malina/lang-malina-compiler.ts',
   'rescript/lang-rescript-compiler-esm.ts',
   'rescript/lang-rescript-formatter.ts',
+  'mdx/lang-mdx-compiler-esm.ts',
   'mustache/lang-mustache-compiler.ts',
   'nunjucks/lang-nunjucks-compiler.ts',
   'perl/lang-perl-script.ts',
