@@ -238,6 +238,8 @@ esbuild.buildSync({
   'vue/lang-vue-compiler.ts',
   'wat/lang-wat-compiler.ts',
   'wat/lang-wat-script.ts',
+  'windicss/processor-windicss-compiler.ts',
+  'postcss/processor-postcss-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,
