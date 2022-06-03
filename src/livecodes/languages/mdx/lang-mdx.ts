@@ -1,16 +1,17 @@
 import type { CompilerFunction, LanguageSpecs } from '../../models';
-import { parserPlugins } from '../prettier';
 // eslint-disable-next-line import/no-internal-modules
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { escapeCode, getLanguageCustomSettings } from '../../utils';
 import { vendorsBaseUrl } from '../../vendors';
+import { parserPlugins } from '../prettier';
 
 export const runOutsideWorker: CompilerFunction = async (code: string, { config, worker }) =>
   new Promise(async (resolve) => {
     if (!code) return resolve('');
-
-    const mdx = await import(vendorsBaseUrl + 'mdx/mdx.js');
-    const remarkGfm = (await import(vendorsBaseUrl + 'remark-gfm/remark-gfm.js')).default;
+    const [mdx, { default: remarkGfm }] = await Promise.all([
+      import(vendorsBaseUrl + 'mdx/mdx.js'),
+      import(vendorsBaseUrl + 'remark-gfm/remark-gfm.js'),
+    ]);
 
     const compiled = (
       await mdx.compile(code, {
