@@ -4,12 +4,11 @@ import { parserPlugins } from '../prettier';
 export const runOutsideWorker: CompilerFunction = async (
   code: string,
   { config, worker, baseUrl },
-) =>
-  new Promise(async (resolve) => {
-    if (!code) return resolve('');
-    const { mdxCompiler } = await import(baseUrl + '{{hash:lang-mdx-compiler-esm.js}}');
-    resolve(await mdxCompiler(code, { config, worker }));
-  });
+) => {
+  if (!code) return '';
+  const { mdxCompiler } = await import(baseUrl + '{{hash:lang-mdx-compiler-esm.js}}');
+  return mdxCompiler(code, { config, worker });
+};
 
 export const mdx: LanguageSpecs = {
   name: 'mdx',
