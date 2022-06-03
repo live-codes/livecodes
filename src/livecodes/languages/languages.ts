@@ -1,65 +1,60 @@
 import { LanguageSpecs } from '../models';
-import { asciidoc } from './lang-asciidoc';
-import { babel } from './lang-babel';
-import { css } from './lang-css';
-import { haml } from './lang-haml';
-import { html } from './lang-html';
-import { javascript } from './lang-javascript';
-import { jsx } from './lang-jsx';
-import { less } from './lang-less';
-import { markdown } from './lang-markdown';
-import { mdx } from './lang-mdx';
-import { pug } from './lang-pug';
-import { sass } from './lang-sass';
-import { scss } from './lang-scss';
-import { svelte } from './lang-svelte';
-import { stylus } from './lang-stylus';
-import { tsx } from './lang-tsx';
-import { typescript } from './lang-typescript';
-import { vue } from './lang-vue';
-import { vue2 } from './lang-vue2';
-import { stencil } from './lang-stencil';
-import { coffeescript } from './lang-coffeescript';
-import { livescript } from './lang-livescript';
-import { assemblyscript } from './lang-assemblyscript';
-import { python } from './lang-python';
-import { ruby } from './lang-ruby';
-import { php } from './lang-php';
-import { perl } from './lang-perl';
-import { lua } from './lang-lua';
-import { scheme } from './lang-scheme';
-import { solid } from './lang-solid';
-import { solidTsx } from './lang-solid-tsx';
-import { pyodide } from './lang-python-pyodide';
-import { liquid } from './lang-liquid';
-import { ejs } from './lang-ejs';
-import { handlebars } from './lang-handlebars';
-import { dot } from './lang-dot';
-import { nunjucks } from './lang-nunjucks';
-import { go } from './lang-go';
-import { rescript } from './lang-rescript';
-import { reason } from './lang-reason';
-import { ocaml } from './lang-ocaml';
-import { wat } from './lang-wat';
-import { riot } from './lang-riot';
-import { sql } from './lang-sql';
-import { reactNative } from './lang-react-native';
-import { reactNativeTsx } from './lang-react-native-tsx';
-import { blockly } from './lang-blockly';
-import { twig } from './lang-twig';
-import { astro } from './lang-astro';
-import { malina } from './lang-malina';
-import { commonlisp } from './lang-commonlisp';
-import { cpp } from './lang-cpp';
-import { julia } from './lang-julia';
-import { clang } from './lang-cpp-clang';
-import { tcl } from './lang-tcl';
-import { prolog } from './lang-prolog';
-import { clio } from './lang-clio';
-import { richtext } from './lang-richtext';
-import { graph } from './lang-graph';
-import { imba } from './lang-imba';
-import { mustache } from './lang-mustache';
+import { asciidoc } from './asciidoc';
+import { babel } from './babel';
+import { css } from './css';
+import { haml } from './haml';
+import { html } from './html';
+import { javascript } from './javascript';
+import { jsx, tsx } from './jsx';
+import { less } from './less';
+import { markdown } from './markdown';
+import { mdx } from './mdx';
+import { pug } from './pug';
+import { scss, sass } from './scss';
+import { svelte } from './svelte';
+import { stylus } from './stylus';
+import { typescript } from './typescript';
+import { vue, vue2 } from './vue';
+import { stencil } from './stencil';
+import { coffeescript } from './coffeescript';
+import { livescript } from './livescript';
+import { assemblyscript } from './assemblyscript';
+import { python } from './python';
+import { ruby } from './ruby';
+import { php } from './php';
+import { perl } from './perl';
+import { lua } from './lua';
+import { scheme } from './scheme';
+import { solid, solidTsx } from './solid';
+import { pyodide } from './python-pyodide';
+import { liquid } from './liquid';
+import { ejs } from './ejs';
+import { handlebars } from './handlebars';
+import { dot } from './dot';
+import { nunjucks } from './nunjucks';
+import { go } from './go';
+import { rescript } from './rescript';
+import { reason } from './reason';
+import { ocaml } from './ocaml';
+import { wat } from './wat';
+import { riot } from './riot';
+import { sql } from './sql';
+import { reactNative, reactNativeTsx } from './react-native';
+import { blockly } from './blockly';
+import { twig } from './twig';
+import { astro } from './astro';
+import { malina } from './malina';
+import { commonlisp } from './commonlisp';
+import { cpp } from './cpp';
+import { julia } from './julia';
+import { clang } from './cpp-clang';
+import { tcl } from './tcl';
+import { prolog } from './prolog';
+import { clio } from './clio';
+import { richtext } from './richtext';
+import { diagram } from './diagram';
+import { imba } from './imba';
+import { mustache } from './mustache';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -76,7 +71,7 @@ export const languages: LanguageSpecs[] = [
   liquid,
   dot,
   twig,
-  graph,
+  diagram,
   richtext,
   css,
   scss,

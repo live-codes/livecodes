@@ -7,7 +7,14 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import { Language, Config, Compilers, EditorId, CompilerFunction, CompileOptions } from '../models';
+import type {
+  Language,
+  Config,
+  Compilers,
+  EditorId,
+  CompilerFunction,
+  CompileOptions,
+} from '../models';
 import { sandboxService } from '../services';
 import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';

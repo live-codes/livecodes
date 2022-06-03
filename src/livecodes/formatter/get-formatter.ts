@@ -2,10 +2,10 @@ import { Language, Config } from '../models';
 import { createFormatter } from './formatter';
 import { Formatter } from './models';
 
-export const getFormatter = (config: Config, baseUrl: string): Formatter => {
+export const getFormatter = (config: Config, baseUrl: string, isLite: boolean): Formatter => {
   const { readonly, mode } = config;
 
-  if (readonly || mode === 'codeblock' || mode === 'result') {
+  if (readonly || mode === 'codeblock' || mode === 'result' || isLite) {
     return createFakeFormatter();
   } else {
     return createFormatter(baseUrl);

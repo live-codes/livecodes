@@ -1,4 +1,4 @@
-import { Config } from '../models';
+import type { Config } from '../models';
 import { modulesService } from '../services';
 import { removeComments, removeCommentsAndStrings } from '../utils';
 

@@ -1,5 +1,6 @@
-import { compress, decompress } from '../utils';
-import { ProjectStorage } from './models';
+// eslint-disable-next-line import/no-internal-modules
+import { compress, decompress } from '../utils/compression';
+import type { ProjectStorage } from './models';
 import { createStorage } from './storage';
 
 let keyStorage: ProjectStorage;

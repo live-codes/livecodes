@@ -1,4 +1,4 @@
-import LZString from 'lz-string';
+import { Config, Language } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number) => {
   let timeout: any;
@@ -25,6 +25,12 @@ export const encodeHTML = (html: string) =>
 
 export const escapeScript = (code: string) => code.replace(/<\/script>/g, '<\\/script>');
 
+export const escapeCode = (code: string, slash = true) =>
+  code
+    .replace(/\\/g, slash ? '\\\\' : '\\')
+    .replace(/`/g, '\\`')
+    .replace(/<\/script>/g, '<\\/script>');
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const pipe = (...fns: Function[]) =>
   fns.reduce(
@@ -35,23 +41,6 @@ export const pipe = (...fns: Function[]) =>
 
 // replace non-alphanumeric with underscore
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
-
-export const compress = LZString.compressToEncodedURIComponent;
-export const decompress = (compressed: string, isJSON = true) => {
-  const decoded = LZString.decompressFromEncodedURIComponent(compressed);
-  if (decoded) {
-    if (!isJSON) return decoded;
-    try {
-      if (JSON.parse(decoded)) {
-        return decoded;
-      }
-    } catch {
-      //
-    }
-  }
-  // for backward compatibility
-  return LZString.decompressFromBase64(compressed);
-};
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
 // added safari (on mac & ios): monaco editor is broken on safari
@@ -229,3 +218,7 @@ export const removeStrings = (src: string) =>
     .replace(/`[^`]*`/gm, '``');
 
 export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));
+
+export const getLanguageCustomSettings = (language: Language, config: Config) => ({
+  ...(config.customSettings as any)[language],
+});

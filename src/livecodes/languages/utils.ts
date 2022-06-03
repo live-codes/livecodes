@@ -1,4 +1,5 @@
 import { Compiler, Language, CustomSettings, Config, Processors } from '../models';
+import { getLanguageCustomSettings } from '../utils';
 import { languages } from './languages';
 import { processors } from './processors';
 
@@ -86,10 +87,6 @@ export const escapeCode = (code: string, slash = true) =>
     .replace(/`/g, '\\`')
     .replace(/<\/script>/g, '<\\/script>');
 
-export const getLanguageCustomSettings = (language: Language, config: Config) => ({
-  ...(config.customSettings as any)[language],
-});
-
 export const getCustomSettings = (language: Language, config: Config): CustomSettings => {
   const settings: CustomSettings = {
     ...getLanguageCustomSettings(language, config),
@@ -117,3 +114,5 @@ export const getCustomSettings = (language: Language, config: Config): CustomSet
 
   return settings;
 };
+
+export { getLanguageCustomSettings };

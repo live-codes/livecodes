@@ -60,7 +60,7 @@ var baseOptions = {
 
 esbuild.buildSync({
   ...baseOptions,
-  entryPoints: ['src/livecodes/app.ts', 'src/livecodes/embed.ts'],
+  entryPoints: ['src/livecodes/app.ts', 'src/livecodes/embed.ts', 'src/livecodes/lite.ts'],
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
 });
@@ -200,6 +200,52 @@ esbuild.buildSync({
   ...baseOptions,
   entryPoints: ['src/livecodes/editor/quill/quill.ts'],
   loader: { '.html': 'text' },
+});
+
+[
+  'assemblyscript/lang-assemblyscript-script.ts',
+  'assemblyscript/lang-assemblyscript-compiler.ts',
+  'astro/lang-astro-compiler.ts',
+  'clio/lang-clio-compiler.ts',
+  'commonlisp/lang-commonlisp-script.ts',
+  'cpp/lang-cpp-script.ts',
+  'cpp-clang/lang-cpp-clang-script.ts',
+  'diagram/lang-diagram-compiler-esm.ts',
+  'dot/lang-dot-compiler.ts',
+  'ejs/lang-ejs-compiler.ts',
+  'haml/lang-haml-compiler.ts',
+  'handlebars/lang-handlebars-compiler.ts',
+  'imba/lang-imba-compiler.ts',
+  'julia/lang-julia-script.ts',
+  'liquid/lang-liquid-compiler.ts',
+  'malina/lang-malina-compiler.ts',
+  'rescript/lang-rescript-compiler-esm.ts',
+  'rescript/lang-rescript-formatter.ts',
+  'mustache/lang-mustache-compiler.ts',
+  'nunjucks/lang-nunjucks-compiler.ts',
+  'perl/lang-perl-script.ts',
+  'prolog/lang-prolog-script.ts',
+  'pug/lang-pug-compiler.ts',
+  'python-pyodide/lang-python-pyodide-script.ts',
+  'riot/lang-riot-compiler.ts',
+  'scss/lang-scss-compiler.ts',
+  'solid/lang-solid-compiler.ts',
+  'sql/lang-sql-compiler.ts',
+  'sql/lang-sql-script.ts',
+  'svelte/lang-svelte-compiler.ts',
+  'tcl/lang-tcl-script.ts',
+  'twig/lang-twig-compiler.ts',
+  'vue/lang-vue-compiler.ts',
+  'wat/lang-wat-compiler.ts',
+  'wat/lang-wat-script.ts',
+  'windicss/processor-windicss-compiler.ts',
+  'postcss/processor-postcss-compiler.ts',
+].forEach((entry) => {
+  esbuild.buildSync({
+    ...baseOptions,
+    entryPoints: ['src/livecodes/languages/' + entry],
+    format: entry.endsWith('-esm.ts') ? 'esm' : 'iife',
+  });
 });
 
 console.log('built to: ' + baseOptions.outdir + '/');

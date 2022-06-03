@@ -14,8 +14,15 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     }
     const baseUrl =
       (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
-    const isEmbed = location.search.includes('embed') && !location.search.includes('embed=false');
+    const isLite = location.search.includes('lite') && !location.search.includes('lite=false');
+    const isEmbed =
+      isLite || (location.search.includes('embed') && !location.search.includes('embed=false'));
     const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
+    const scriptFile = isLite
+      ? '{{hash:lite.js}}'
+      : isEmbed
+      ? '{{hash:embed.js}}'
+      : '{{hash:app.js}}';
     const anyOrigin = '*';
 
     const style = document.createElement('style');
@@ -52,9 +59,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       containerElement.appendChild(iframe);
       iframe.contentWindow?.document.open();
       iframe.contentWindow?.document.write(
-        appHTML
-          .replace(/{{baseUrl}}/g, baseUrl)
-          .replace(/{{script}}/g, isEmbed ? '{{hash:embed.js}}' : '{{hash:app.js}}'),
+        appHTML.replace(/{{baseUrl}}/g, baseUrl).replace(/{{script}}/g, scriptFile),
       );
       iframe.contentWindow?.document.close();
 
@@ -124,7 +129,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       window.addEventListener(customEvents.load, loadApp, { once: true });
 
       const preloadLink = document.createElement('link');
-      preloadLink.href = baseUrl + '{{hash:embed.js}}';
+      preloadLink.href = baseUrl + scriptFile;
       preloadLink.rel = 'preload';
       preloadLink.as = 'script';
       document.head.appendChild(preloadLink);

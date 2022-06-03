@@ -78,7 +78,6 @@ import {
 } from './config';
 import { importCode, isGithub } from './import';
 import {
-  compress,
   copyToClipboard,
   debounce,
   fetchWithHandler,
@@ -86,6 +85,8 @@ import {
   stringify,
   stringToValidJson,
 } from './utils';
+// eslint-disable-next-line import/no-internal-modules
+import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
@@ -104,7 +105,7 @@ import {
 } from './vendors';
 import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
-import { createOpenItem } from './UI';
+import { createOpenItem, getResultElement } from './UI';
 import { customEvents } from './custom-events';
 
 const eventsManager = createEventsManager();
@@ -121,6 +122,7 @@ const screens: Screen[] = [];
 
 let baseUrl: string;
 let isEmbed: boolean;
+let isLite: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
@@ -691,7 +693,7 @@ const getResultPage = async ({
     },
   };
 
-  const result = createResultPage({
+  const result = await createResultPage({
     code: compiledCode,
     config,
     forExport,
@@ -2642,6 +2644,12 @@ const handleUnload = () => {
   };
 };
 
+const loadToolsPane = async () => {
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
+  await toolsPane.load();
+  getResultElement().classList.remove('full');
+};
+
 const basicHandlers = () => {
   handleLogoLink();
   handleResize();
@@ -2822,21 +2830,37 @@ const bootstrap = async (reload = false) => {
   }
 };
 
+const configureLite = () => {
+  setConfig({
+    ...getConfig(),
+    editor: 'codejar',
+    emmet: false,
+    console: 'none',
+    compiled: 'none',
+  });
+  UI.getFormatButton().style.display = 'none';
+};
+
 const initializeApp = async (
   options?: {
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
+    isLite?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
-  isEmbed = options?.isEmbed ?? false;
+  isLite = options?.isLite ?? false;
+  isEmbed = isLite || (options?.isEmbed ?? false);
 
   setConfig(buildConfig(appConfig, baseUrl));
+  if (isLite) {
+    configureLite();
+  }
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  formatter = getFormatter(getConfig(), baseUrl);
+  formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   if (isEmbed || getConfig().mode === 'result') {
     configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
@@ -2851,8 +2875,6 @@ const initializeApp = async (
   );
   shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
-  await toolsPane.load();
   basicHandlers();
   await initializeFn?.();
   loadUserConfig();
@@ -2992,4 +3014,4 @@ const createApi = (): API => {
   };
 };
 
-export { createApi, initializeApp, extraHandlers };
+export { createApi, initializeApp, loadToolsPane, extraHandlers };
