@@ -22,6 +22,7 @@ export default function LiveCodes(
       appUrl: url + props.query,
       template: props.template,
       config: props.config,
+      lite: props.lite,
       loading: props.loading,
     });
   }, []);
@@ -30,6 +31,7 @@ export default function LiveCodes(
     ...(props.query ? { appUrl: url + props.query } : {}),
     ...(props.template ? { template: props.template } : {}),
     ...(props.config ? { config: props.config } : {}),
+    ...(props.lite ? { lite: props.lite } : {}),
     ...(props.loading ? { loading: props.loading } : {}),
   };
 
