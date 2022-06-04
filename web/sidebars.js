@@ -40,6 +40,7 @@ const sidebars = {
             'features/tests',
             'features/display-modes',
             'features/embeds',
+            'features/lite',
             'features/code-preload',
             'features/intellisense',
             'features/code-format',
