@@ -1,4 +1,4 @@
-import { Editor, Config } from '../models';
+import { Editor, Config, ToolsPaneStatus } from '../models';
 import { defaultConfig } from './default-config';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
@@ -33,12 +33,22 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
   });
 
-  const validateTestsProps = (x: Partial<Editor>): Partial<Editor> => ({
-    ...(is(x.language, 'string') ? { language: x.language } : {}),
-    ...(is(x.content, 'string') ? { content: x.content } : {}),
-    ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
-    ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
-  });
+  const validateTestsProps = (
+    x: Partial<Config['tests']> | ToolsPaneStatus,
+  ): Partial<Config['tests']> => {
+    if (typeof x === 'string') {
+      return {
+        ...(x && includes(toolsPaneStatus, x) ? { status: x } : {}),
+      };
+    }
+    return {
+      ...(x && is(x.language, 'string') ? { language: x.language } : {}),
+      ...(x && is(x.content, 'string') ? { content: x.content } : {}),
+      ...(x && is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+      ...(x && is(x.selector, 'string') ? { selector: x.selector } : {}),
+      ...(x && includes(toolsPaneStatus, x.status) ? { status: x.status } : {}),
+    };
+  };
 
   const isProcessors = (x: any) => is(x, 'object') && is(x.postcss, 'object');
   const validateProcessors = (x: any): Config['processors'] => ({

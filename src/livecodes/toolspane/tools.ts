@@ -13,21 +13,6 @@ import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
 import { createTestViewer } from './test-viewer';
 
-const toolList: ToolList = [
-  {
-    name: 'console',
-    factory: createConsole,
-  },
-  {
-    name: 'compiled',
-    factory: createCompiledCodeViewer,
-  },
-  {
-    name: 'tests',
-    factory: createTestViewer,
-  },
-];
-
 export const createToolsPane = (
   config: Config,
   baseUrl: string,
@@ -39,6 +24,30 @@ export const createToolsPane = (
   let toolsSplit: Split.Instance;
   let status: ToolsPaneStatus;
   let activeToolId = 0;
+
+  const fullList: ToolList = [
+    {
+      name: 'console',
+      factory: createConsole,
+    },
+    {
+      name: 'compiled',
+      factory: createCompiledCodeViewer,
+    },
+    {
+      name: 'tests',
+      factory: createTestViewer,
+    },
+  ];
+
+  const isEnabled = (tool: ToolList[number]) => {
+    if (tool.name === 'tests') {
+      return config.tests?.status !== 'none';
+    }
+    return config[tool.name] !== 'none';
+  };
+
+  const toolList: ToolList = fullList.filter(isEnabled);
 
   const populateTools = (
     config: Config,
@@ -313,11 +322,17 @@ export const createToolsPane = (
 
   const load = async () => {
     const initialLoad = status === undefined;
+
     toolList.forEach((tool, index) => {
       if (status) return;
-      const toolName = config[tool.name];
-      if (toolName && typeof toolName === 'string') {
-        status = toolName;
+      const toolStatus = config[tool.name];
+      if (typeof toolStatus === 'string') {
+        if (toolStatus !== '') {
+          status = toolStatus;
+          activeToolId = index;
+        }
+      } else if (typeof toolStatus?.status === 'string' && toolStatus.status !== '') {
+        status = toolStatus.status;
         activeToolId = index;
       }
     });

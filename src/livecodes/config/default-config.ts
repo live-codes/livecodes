@@ -45,6 +45,7 @@ export const defaultConfig: Config = {
   tests: {
     language: 'typescript',
     content: '',
+    status: '',
   },
   processors: {
     postcss: {

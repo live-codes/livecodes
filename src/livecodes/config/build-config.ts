@@ -1,5 +1,5 @@
+import type { EditorId, Language, Config, Tool } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Config } from '../models';
 import { decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
@@ -144,6 +144,36 @@ const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
       .map((tag) => tag.trim())
       .filter(Boolean);
   }
+
+  // ?tools=none
+  // ?tools=open
+  // ?console=open
+  // ?console (same as ?console=open)
+  // ?compiled=open&console=open
+  const tools: Array<Lowercase<Tool['title']>> = ['console', 'compiled', 'tests'];
+  const isToolsDisabled = params.tools === 'none' || params.tools === 'false';
+  tools.forEach((tool) => {
+    if (isToolsDisabled) {
+      paramsConfig[tool] = 'none';
+    }
+
+    if (paramsConfig[tool] === true) {
+      paramsConfig[tool] = 'open';
+    }
+
+    if (tool === 'tests') {
+      if (paramsConfig.tests === 'none' || paramsConfig.tests === false) {
+        (paramsConfig.tests as any) = {
+          status: 'none',
+        };
+      } else {
+        (paramsConfig.tests as any) = {
+          ...config.tests,
+          status: paramsConfig.tests,
+        };
+      }
+    }
+  });
 
   return paramsConfig;
 };

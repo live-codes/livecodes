@@ -42,7 +42,7 @@ export interface ContentConfig {
   customSettings: CustomSettings;
   imports: { [key: string]: string };
   types: Types;
-  tests: Partial<Editor> | undefined;
+  tests: Partial<Editor & { status: ToolsPaneStatus }> | undefined;
   readonly version: string;
 }
 
