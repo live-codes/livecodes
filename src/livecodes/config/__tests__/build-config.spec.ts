@@ -317,4 +317,15 @@ describe('loadParamConfig', () => {
       status: 'open',
     });
   });
+
+  test('?tools=tests,console|open', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      tools: 'tests,console|open',
+    });
+    expect(output.tools).toEqual({
+      enabled: ['tests', 'console'],
+      active: 'tests',
+      status: 'open',
+    });
+  });
 });

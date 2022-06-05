@@ -154,6 +154,7 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
   // ?console (same as ?console=open)
   // ?compiled=open&console=open
   // ?console=none&compiled=open
+  // ?tools=tests,console|open
   const isToolsDisabled = params.tools === 'none' || (params.tools as any) === false;
   if (isToolsDisabled) {
     paramsConfig.tools = { enabled: [], status: 'none' } as unknown as Config['tools'];
@@ -162,6 +163,17 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
     let status: ToolsPaneStatus | undefined;
 
     const allTools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
+    const [paramToolsList, paramToolsStatus] = params.tools?.split('|') || ['', ''];
+    const paramTools = paramToolsList
+      .split(',')
+      .map((t) => t.trim())
+      .filter((t) => allTools.includes(t as Tool['name'])) as Array<Tool['name']>;
+
+    if (paramTools.length > 0) {
+      paramsConfig.tools!.enabled = paramTools;
+      paramsConfig.tools!.active = paramTools[0];
+    }
+
     const tools = Object.keys(params).filter((k) => allTools.includes(k as Tool['name'])) as Array<
       Tool['name']
     >;
@@ -196,8 +208,13 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
         }
       }
     });
+
     if (['open', 'full', 'closed'].includes(params.tools)) {
       paramsConfig.tools!.status = params.tools as ToolsPaneStatus;
+    } else if (['open', 'full', 'closed'].includes(paramToolsStatus)) {
+      paramsConfig.tools!.status = paramToolsStatus as ToolsPaneStatus;
+    } else if (!paramsConfig.tools!.status) {
+      paramsConfig.tools!.status = 'closed';
     }
   }
 
