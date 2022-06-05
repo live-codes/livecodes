@@ -11,7 +11,7 @@ describe('upgradeConfig', () => {
       emmet: true,
       autoprefixer: true,
       mode: 'full',
-      console: '',
+      console: 'open',
       compiled: '',
       editor: {
         fontSize: 14,
@@ -67,8 +67,6 @@ describe('upgradeConfig', () => {
       delay: 500,
       emmet: true,
       mode: 'full',
-      console: '',
-      compiled: '',
       editor: '',
       allowLangChange: true,
       activeEditor: 'markup',
@@ -106,6 +104,11 @@ describe('upgradeConfig', () => {
           tailwindcss: false,
           windicss: false,
         },
+      },
+      tools: {
+        active: 'console',
+        enabled: 'all',
+        status: 'open',
       },
       version: process.env.VERSION,
     };

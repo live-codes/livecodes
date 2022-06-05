@@ -60,8 +60,6 @@ describe('validateConfig', () => {
       autosave: false,
       emmet: true,
       mode: 'full',
-      console: '',
-      compiled: '',
       allowLangChange: true,
       activeEditor: 'markup',
       markup: {
