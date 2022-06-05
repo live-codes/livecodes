@@ -135,6 +135,7 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
   if (typeof params.languages === 'string') {
     paramsConfig.languages = params.languages
       .split(',')
+      .map((lang) => lang.trim())
       .map(getLanguageByAlias)
       .filter(Boolean) as Language[];
   }
@@ -149,10 +150,10 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
 
   // ?tools=none
   // ?tools=open
-  // ?tools=full&compiled
   // ?console=open
   // ?console (same as ?console=open)
   // ?compiled=open&console=open
+  // ?console=none&compiled=open
   const isToolsDisabled = params.tools === 'none' || (params.tools as any) === false;
   if (isToolsDisabled) {
     paramsConfig.tools = { enabled: [], status: 'none' } as unknown as Config['tools'];
