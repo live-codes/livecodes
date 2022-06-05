@@ -1,4 +1,4 @@
-import { Editor, Config } from '../models';
+import { Editor, Config, ToolsPaneStatus, EditorId, Tool } from '../models';
 import { defaultConfig } from './default-config';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
@@ -19,11 +19,12 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const includes = (arr: any[], x: any) => x != null && arr.includes(x);
 
-  const modes = ['full', 'editor', 'codeblock', 'result'];
-  const themes = ['light', 'dark'];
-  const toolsPaneStatus = ['', 'full', 'closed', 'open', 'none'];
-  const editors = ['monaco', 'codemirror', 'codejar', ''];
-  const editorIds = ['markup', 'style', 'script'];
+  const modes: Array<Config['mode']> = ['full', 'editor', 'codeblock', 'result'];
+  const themes: Array<Config['theme']> = ['light', 'dark'];
+  const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
+  const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
+  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', ''];
+  const editorIds: EditorId[] = ['markup', 'style', 'script'];
 
   const isEditor = (x: any) => is(x, 'object') && is(x.language, 'string');
   const validateEditorProps = (x: Editor): Editor => ({
@@ -33,11 +34,26 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
   });
 
-  const validateTestsProps = (x: Partial<Editor>): Partial<Editor> => ({
-    ...(is(x.language, 'string') ? { language: x.language } : {}),
-    ...(is(x.content, 'string') ? { content: x.content } : {}),
-    ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
-    ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
+  const validateTestsProps = (x: Partial<Config['tests']>): Partial<Config['tests']> => ({
+    ...(x && is(x.language, 'string') ? { language: x.language } : {}),
+    ...(x && is(x.content, 'string') ? { content: x.content } : {}),
+    ...(x && is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+    ...(x && is(x.selector, 'string') ? { selector: x.selector } : {}),
+  });
+
+  const validateToolsProps = (x: Partial<Config['tools']>): Config['tools'] => ({
+    ...defaultConfig.tools,
+    ...(x && (x.enabled === 'all' || x.enabled?.every((t) => includes(tools, t)))
+      ? { enabled: x.enabled }
+      : {}),
+    ...(x &&
+    includes(tools, x.active) &&
+    (x.enabled === 'all' ||
+      !x.enabled ||
+      (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
+      ? { active: x.active }
+      : {}),
+    ...(x && includes(toolsPaneStatus, x.status) ? { status: x.status } : {}),
   });
 
   const isProcessors = (x: any) => is(x, 'object') && is(x.postcss, 'object');
@@ -73,14 +89,15 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.enableRestore, 'boolean') ? { enableRestore: config.enableRestore } : {}),
     ...(is(config.showSpacing, 'boolean') ? { showSpacing: config.showSpacing } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
-    ...(includes(toolsPaneStatus, config.console) ? { console: config.console } : {}),
-    ...(includes(toolsPaneStatus, config.compiled) ? { compiled: config.compiled } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
     ...(includes(editorIds, config.activeEditor) ? { activeEditor: config.activeEditor } : {}),
     ...(is(config.languages, 'array', 'string') ? { languages: config.languages } : {}),
     ...(isEditor(config.markup) ? { markup: validateEditorProps(config.markup as Editor) } : {}),
     ...(isEditor(config.style) ? { style: validateEditorProps(config.style as Editor) } : {}),
     ...(isEditor(config.script) ? { script: validateEditorProps(config.script as Editor) } : {}),
+    ...(is(config.tools, 'object')
+      ? { tools: validateToolsProps(config.tools as Config['tools']) }
+      : {}),
     ...(is(config.tests, 'object')
       ? { tests: validateTestsProps(config.tests as Partial<Editor>) }
       : {}),

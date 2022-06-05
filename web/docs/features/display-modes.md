@@ -55,8 +55,8 @@ Demo:
 
 The tools pane (e.g. console/compiled code viewer) is hidden by default in `result` mode. It can be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.md) documentation for details.
 
-Example: https://livecodes.io/?mode=result&console=open&template=react
+Example: https://livecodes.io/?mode=result&tools=console|full
 
 Demo:
 
-<LiveCodes config={{mode:'result', console:'open'}} template="react"></LiveCodes>
+<LiveCodes query="mode=result&tools=console|full"></LiveCodes>

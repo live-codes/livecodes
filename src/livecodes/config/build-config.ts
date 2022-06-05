@@ -1,6 +1,6 @@
+import type { EditorId, Language, Config, Tool, ToolsPaneStatus } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Config } from '../models';
-import { decodeHTML } from '../utils';
+import { cloneObject, decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
@@ -56,7 +56,7 @@ export const getParams = (queryParams = parent.location.search) => {
   return params;
 };
 
-const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
+export const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
   // ?js
   // ?lang=js
   // ?language=js
@@ -64,9 +64,11 @@ const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
   // ?html=hi&scss&ls
   // ?html=hi&scss=body{}&ts=//hi&lang=scss
   // ?languages=html,md,css,scss,ts
+  // ?console
+  // ?tests=full
 
   // initialize paramsConfig with defaultConfig keys and params values
-  const paramsConfig = (Object.keys(defaultConfig) as Array<keyof Config>)
+  const paramsConfig = ([...Object.keys(defaultConfig), ...[]] as Array<keyof Config>)
     .filter((key) => key !== 'version')
     .reduce(
       (acc, key) => ({
@@ -133,6 +135,7 @@ const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
   if (typeof params.languages === 'string') {
     paramsConfig.languages = params.languages
       .split(',')
+      .map((lang) => lang.trim())
       .map(getLanguageByAlias)
       .filter(Boolean) as Language[];
   }
@@ -143,6 +146,76 @@ const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
       .split(',')
       .map((tag) => tag.trim())
       .filter(Boolean);
+  }
+
+  // ?tools=none
+  // ?tools=open
+  // ?console=open
+  // ?console (same as ?console=open)
+  // ?compiled=open&console=open
+  // ?console=none&compiled=open
+  // ?tools=tests,console|open
+  const isToolsDisabled = params.tools === 'none' || (params.tools as any) === false;
+  if (isToolsDisabled) {
+    paramsConfig.tools = { enabled: [], status: 'none' } as unknown as Config['tools'];
+  } else {
+    paramsConfig.tools = cloneObject(defaultConfig.tools);
+    let status: ToolsPaneStatus | undefined;
+
+    const allTools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
+    const [paramToolsList, paramToolsStatus] = params.tools?.split('|') || ['', ''];
+    const paramTools = paramToolsList
+      .split(',')
+      .map((t) => t.trim())
+      .filter((t) => allTools.includes(t as Tool['name'])) as Array<Tool['name']>;
+
+    if (paramTools.length > 0) {
+      paramsConfig.tools!.enabled = paramTools;
+      paramsConfig.tools!.active = paramTools[0];
+    }
+
+    const tools = Object.keys(params).filter((k) => allTools.includes(k as Tool['name'])) as Array<
+      Tool['name']
+    >;
+
+    tools.forEach((tool) => {
+      if (!paramsConfig.tools) return;
+
+      if ((params[tool] as any) === true) {
+        params[tool] = 'open';
+      }
+
+      if ((params[tool] as any) === false) {
+        params[tool] = 'none';
+      }
+
+      if (!status && ['open', 'full'].includes(params[tool])) {
+        if (paramsConfig.tools.enabled !== 'all' && !paramsConfig.tools.enabled.includes(tool)) {
+          paramsConfig.tools.enabled.push(tool);
+        }
+        paramsConfig.tools.active = tool;
+        paramsConfig.tools.status = params[tool] as ToolsPaneStatus;
+        status = paramsConfig.tools.status;
+      }
+
+      if (params[tool] === 'none') {
+        if (paramsConfig.tools.enabled === 'all') {
+          paramsConfig.tools.enabled = [...allTools];
+        }
+        paramsConfig.tools.enabled = paramsConfig.tools.enabled.filter((t) => t !== tool);
+        if (paramsConfig.tools.active === tool) {
+          paramsConfig.tools.active = paramsConfig.tools.enabled[0];
+        }
+      }
+    });
+
+    if (['open', 'full', 'closed'].includes(params.tools)) {
+      paramsConfig.tools!.status = params.tools as ToolsPaneStatus;
+    } else if (['open', 'full', 'closed'].includes(paramToolsStatus)) {
+      paramsConfig.tools!.status = paramToolsStatus as ToolsPaneStatus;
+    } else if (!paramsConfig.tools!.status) {
+      paramsConfig.tools!.status = 'closed';
+    }
   }
 
   return paramsConfig;

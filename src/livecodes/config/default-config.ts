@@ -14,8 +14,6 @@ export const defaultConfig: Config = {
   enableRestore: true,
   showSpacing: false,
   readonly: false,
-  console: '',
-  compiled: '',
   allowLangChange: true,
   activeEditor: undefined,
   languages: undefined,
@@ -45,6 +43,11 @@ export const defaultConfig: Config = {
   tests: {
     language: 'typescript',
     content: '',
+  },
+  tools: {
+    enabled: 'all',
+    status: 'closed',
+    active: 'console',
   },
   processors: {
     postcss: {

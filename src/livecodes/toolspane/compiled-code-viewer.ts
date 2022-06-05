@@ -103,6 +103,7 @@ export const createCompiledCodeViewer = (
   };
 
   return {
+    name: 'compiled',
     title: 'Compiled',
     load,
     onActivate: () => {
