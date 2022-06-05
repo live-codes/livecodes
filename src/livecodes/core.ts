@@ -2615,8 +2615,9 @@ const handleResultLoading = () => {
 
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
-  popupBtn.classList.add('tool-buttons', 'hint--top-left');
+  popupBtn.classList.add('tool-buttons', 'hint--top');
   popupBtn.dataset.hint = 'Show result in new window';
+  popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/new-window.svg';
   popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
   const openWindow = async () => {
@@ -2835,8 +2836,11 @@ const configureLite = () => {
     ...getConfig(),
     editor: 'codejar',
     emmet: false,
-    console: 'none',
-    compiled: 'none',
+    tools: {
+      enabled: [],
+      active: 'console',
+      status: 'none',
+    },
   });
   UI.getFormatButton().style.display = 'none';
 };

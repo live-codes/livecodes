@@ -31,6 +31,8 @@ export const getEditorTitles = () =>
 export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > .editor');
 export const getToolspaneElement = () =>
   document.querySelector('#output #tools-pane') as HTMLElement;
+export const getToolspaneBar = () =>
+  document.querySelector('#output #tools-pane-bar') as HTMLElement;
 export const getToolspaneButtons = () =>
   document.querySelector('#tools-pane-buttons') as HTMLElement;
 export const getToolspaneTitles = () => document.querySelector<HTMLElement>('#tools-pane-titles');

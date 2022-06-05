@@ -8,7 +8,7 @@ import {
   ToolsPane,
   Tool,
 } from '../models';
-import { getResultElement } from '../UI';
+import { getResultElement, getToolspaneBar } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
 import { createTestViewer } from './test-viewer';
@@ -40,12 +40,8 @@ export const createToolsPane = (
     },
   ];
 
-  const isEnabled = (tool: ToolList[number]) => {
-    if (tool.name === 'tests') {
-      return config.tests?.status !== 'none';
-    }
-    return config[tool.name] !== 'none';
-  };
+  const isEnabled = (tool: ToolList[number]) =>
+    config.tools.enabled === 'all' || config.tools.enabled.includes(tool.name);
 
   const toolList: ToolList = fullList.filter(isEnabled);
 
@@ -192,7 +188,7 @@ export const createToolsPane = (
     tools.forEach((tool, index) => {
       const toolTitle = document.createElement('div');
       toolTitle.dataset.id = String(index);
-      toolTitle.classList.add('tools-pane-title', tool.title.toLowerCase());
+      toolTitle.classList.add('tools-pane-title', tool.name);
       toolTitle.innerHTML = tool.title;
       toolsPaneTitles.appendChild(toolTitle);
 
@@ -322,28 +318,16 @@ export const createToolsPane = (
 
   const load = async () => {
     const initialLoad = status === undefined;
-
-    toolList.forEach((tool, index) => {
-      if (status) return;
-      const toolStatus = config[tool.name];
-      if (typeof toolStatus === 'string') {
-        if (toolStatus !== '') {
-          status = toolStatus;
-          activeToolId = index;
-        }
-      } else if (typeof toolStatus?.status === 'string' && toolStatus.status !== '') {
-        status = toolStatus.status;
-        activeToolId = index;
-      }
-    });
-    status = status || 'closed';
+    activeToolId = getToolId(config.tools.active);
+    status = config.tools.status || 'closed';
 
     if (initialLoad) {
       toolsSplit = createToolsSplit();
       toolsSplit.setSizes(sizes[status]);
       sizeChanged();
       if (status === 'none') {
-        setHidden(true);
+        // setHidden(true);
+        getToolspaneBar().style.pointerEvents = 'none';
       }
       tools.forEach(async (tool) => {
         await tool.load();
@@ -352,22 +336,22 @@ export const createToolsPane = (
     setActiveTool(activeToolId);
   };
 
-  const getToolId = (title: Lowercase<Tool['title']>) => {
-    const id = tools.findIndex((t) => t?.title.toLowerCase() === title);
+  const getToolId = (name: Tool['name']) => {
+    const id = tools.findIndex((t) => t?.name === name);
     return id > -1 ? id : 0;
   };
 
-  const disableTool = (title: Lowercase<Tool['title']>) => {
-    const id = tools.findIndex((t) => t?.title.toLowerCase() === title);
+  const disableTool = (name: Tool['name']) => {
+    const id = tools.findIndex((t) => t?.name === name);
     if (id === -1) return;
     delete tools[id];
     if (activeToolId === id) {
       setActiveTool(tools.findIndex((t) => t));
     }
-    if (title in api) {
-      delete api[title];
+    if (name in api) {
+      delete api[name];
     }
-    const domTitle = document.querySelector<HTMLElement>('#tools-pane-titles .' + title);
+    const domTitle = document.querySelector<HTMLElement>('#tools-pane-titles .' + name);
     if (domTitle) {
       domTitle.classList.remove('active');
       domTitle.style.display = 'none';
@@ -377,22 +361,22 @@ export const createToolsPane = (
     }
   };
 
-  const enableTool = (title: Lowercase<Tool['title']>) => {
+  const enableTool = (name: Tool['name']) => {
     // wrong title
-    const id = allTools.findIndex((t) => t.title.toLowerCase() === title);
+    const id = allTools.findIndex((t) => t.name === name);
     if (id === -1) return;
     // already enabled
-    if (tools.find((t) => t?.title.toLowerCase() === title)) return;
+    if (tools.find((t) => t?.name === name)) return;
 
     if (tools.filter((t) => t).length === 0) {
       resize('closed');
       setActiveTool(id);
     }
 
-    api[title] = allTools[id] as any;
+    api[name] = allTools[id] as any;
     tools[id] = allTools[id];
 
-    const toolTitle = document.querySelector<HTMLElement>('.tools-pane-title.' + title);
+    const toolTitle = document.querySelector<HTMLElement>('.tools-pane-title.' + name);
     if (toolTitle) {
       toolTitle.style.display = 'flex';
     }
@@ -405,8 +389,8 @@ export const createToolsPane = (
     maximize: () => resize('full'),
     hide: () => resize('none'),
     getStatus: () => status,
-    getActiveTool: () => tools[activeToolId]?.title.toLowerCase() as Lowercase<Tool['title']>,
-    setActiveTool: (title: Lowercase<Tool['title']>) => setActiveTool(getToolId(title)),
+    getActiveTool: () => tools[activeToolId]?.name as Tool['name'],
+    setActiveTool: (title: Tool['name']) => setActiveTool(getToolId(title)),
     disableTool,
     enableTool,
     // console, compiled, tests

@@ -14,6 +14,19 @@ const upgradeSteps = [
       if ('editor' in config && config.editor === ('prism' as any)) {
         config.editor = 'codejar';
       }
+      if ('compiled' in config) {
+        config.tools = config.tools || clone(defaultConfig.tools);
+        config.tools.active = 'compiled';
+        config.tools.status = config.compiled;
+        delete config.compiled;
+      }
+      if ('console' in config) {
+        config.tools = config.tools || clone(defaultConfig.tools);
+        config.tools.active = 'console';
+        config.tools.status = config.console;
+        delete config.console;
+      }
+
       return {
         ...config,
         version,

@@ -247,6 +247,7 @@ export const createConsole = (
   };
 
   return {
+    name: 'console',
     title: 'Console',
     load,
     onActivate: () => {

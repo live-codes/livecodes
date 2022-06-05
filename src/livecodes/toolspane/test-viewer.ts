@@ -124,6 +124,7 @@ export const createTestViewer = (
   };
 
   return {
+    name: 'tests',
     title: 'Tests',
     load: async () => {
       createElements();

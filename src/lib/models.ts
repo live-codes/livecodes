@@ -6,7 +6,7 @@ export interface API {
   setConfig: (config: Partial<Config>) => Promise<Config>;
   getCode: () => Promise<Code>;
   show: (
-    panel: EditorId | Lowercase<Tool['title']> | 'result',
+    panel: EditorId | Tool['name'] | 'result',
     options: { full?: boolean; line?: number; column?: number },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
@@ -42,23 +42,21 @@ export interface ContentConfig {
   customSettings: CustomSettings;
   imports: { [key: string]: string };
   types: Types;
-  tests: Partial<Editor & { status: ToolsPaneStatus }> | undefined;
+  tests: Partial<Editor> | undefined;
   readonly version: string;
 }
 
 export interface AppConfig {
   readonly: boolean;
-  console: ToolsPaneStatus;
-  compiled: ToolsPaneStatus;
   allowLangChange: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
   editor: 'monaco' | 'codemirror' | 'codejar' | '';
   showVersion: boolean;
-  // tools: {
-  //   enabled: Array<Tool['title']> | 'all';
-  //   active: Tool['title'];
-  //   status: ToolsPaneStatus;
-  // }
+  tools: {
+    enabled: Array<Tool['name']> | 'all';
+    active: Tool['name'];
+    status: ToolsPaneStatus;
+  };
 }
 
 export interface UserConfig {
@@ -388,6 +386,7 @@ export type Template = Pick<
   };
 
 export interface Tool {
+  name: 'console' | 'compiled' | 'tests';
   title: 'Console' | 'Compiled' | 'Tests';
   load: () => Promise<void>;
   onActivate: () => void;
@@ -398,7 +397,7 @@ export interface Tool {
 export type ToolsPaneStatus = 'closed' | 'open' | 'full' | 'none' | '';
 
 export type ToolList = Array<{
-  name: Lowercase<Tool['title']>;
+  name: Tool['name'];
   factory: (
     config: Config,
     baseUrl: string,
@@ -441,10 +440,10 @@ export interface ToolsPane {
   maximize: () => void;
   hide: () => void;
   getStatus: () => ToolsPaneStatus;
-  getActiveTool: () => Lowercase<Tool['title']>;
-  setActiveTool: (title: Lowercase<Tool['title']>) => void;
-  disableTool: (title: Lowercase<Tool['title']>) => void;
-  enableTool: (title: Lowercase<Tool['title']>) => void;
+  getActiveTool: () => Tool['name'];
+  setActiveTool: (name: Tool['name']) => void;
+  disableTool: (name: Tool['name']) => void;
+  enableTool: (name: Tool['name']) => void;
   console?: Console;
   compiled?: CompiledCodeViewer;
   tests?: TestViewer;
