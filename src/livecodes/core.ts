@@ -2863,6 +2863,9 @@ const initializeApp = async (
   if (isLite) {
     configureLite();
   }
+  if (getConfig().mode === 'codeblock') {
+    setConfig({ ...getConfig(), readonly: true });
+  }
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
