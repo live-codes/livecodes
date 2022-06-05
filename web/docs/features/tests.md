@@ -26,13 +26,13 @@ Screenshots:
 
 Demo: (template=jest)
 
-<LiveCodes query="template=jest"></LiveCodes>
+<LiveCodes query="template=jest&tests"></LiveCodes>
 
 <p>&nbsp;</p>
 
 Demo: (template=jest-react)
 
-<LiveCodes query="template=jest-react"></LiveCodes>
+<LiveCodes query="template=jest-react&tests"></LiveCodes>
 
 In the tests panel, you can find:
 
@@ -47,9 +47,9 @@ In the tests panel, you can find:
 The testing code can be written using JavaScript, TypeScript, JSX or TSX.
 However, since the tests are run against the result web page, they can test projects that use any language/framework.
 
-This is <a href="https://livecodes.io/?x=id/3i8wrwcwhud" target="_blank">a demo</a> for running tests against a Python project.
+This is <a href="https://livecodes.io/?x=id/3i8wrwcwhud&tests" target="_blank">a demo</a> for running tests against a Python project.
 
-<LiveCodes query="x=id/3i8wrwcwhud"></LiveCodes>
+<LiveCodes query="x=id/3i8wrwcwhud&tests"></LiveCodes>
 
 ## Importing Code
 
