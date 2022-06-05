@@ -389,7 +389,7 @@ export const createToolsPane = (
     maximize: () => resize('full'),
     hide: () => resize('none'),
     getStatus: () => status,
-    getActiveTool: () => tools[activeToolId]?.name as Tool['name'],
+    getActiveTool: () => tools[activeToolId]?.name,
     setActiveTool: (title: Tool['name']) => setActiveTool(getToolId(title)),
     disableTool,
     enableTool,
