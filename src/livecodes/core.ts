@@ -119,6 +119,7 @@ const notifications = createNotifications();
 const modal = createModal();
 const split = UI.createSplitPanes();
 const screens: Screen[] = [];
+const params = getParams(); // query string params
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -138,6 +139,7 @@ let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
+let initialized = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -474,7 +476,9 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
     });
   }
   updateCompiledCode();
-  split.show('code');
+  if (initialized || params.view !== 'result') {
+    split.show('code');
+  }
 };
 
 const addConsoleInputCodeCompletion = () => {
@@ -2860,11 +2864,20 @@ const initializeApp = async (
   isEmbed = isLite || (options?.isEmbed ?? false);
 
   setConfig(buildConfig(appConfig, baseUrl));
-  if (isLite) {
-    configureLite();
+
+  if (getConfig().mode === 'full') {
+    if (params.view === 'editor') {
+      split.show('code', true);
+    }
+    if (params.view === 'result') {
+      split.show('output', true);
+    }
   }
   if (getConfig().mode === 'codeblock') {
     setConfig({ ...getConfig(), readonly: true });
+  }
+  if (isLite) {
+    configureLite();
   }
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
@@ -2894,7 +2907,6 @@ const initializeApp = async (
     initializeAuth();
     checkRestoreStatus();
   }
-  const params = getParams(); // query string params
   importExternalContent({
     config: getConfig(),
     configUrl: params.config,
@@ -2907,6 +2919,7 @@ const initializeApp = async (
     if (isEmbed) {
       parent.dispatchEvent(new Event(customEvents.ready));
     }
+    initialized = true;
   });
   configureEmmet(getConfig());
   showVersion();
