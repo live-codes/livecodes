@@ -1,19 +1,6 @@
-import type { API, Code, Config, ChangeHandler } from './models';
+import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from './models';
 
-export type { Code, Config };
-
-export interface Playground extends API {
-  load: () => Promise<void>;
-}
-
-export interface EmbedOptions {
-  appUrl?: string;
-  config?: Partial<Config> | string;
-  importUrl?: string;
-  lite?: boolean;
-  loading?: 'scroll' | 'click' | 'eager';
-  template?: string;
-}
+export type { Code, Config, EmbedOptions, Playground };
 
 export const createPlayground = async (
   container: string | HTMLElement,
@@ -23,7 +10,7 @@ export const createPlayground = async (
     appUrl = 'https://livecodes.io/',
     config = {},
     importUrl,
-    loading = 'scroll',
+    loading = 'lazy',
     lite,
     template,
   } = options;
@@ -75,9 +62,7 @@ export const createPlayground = async (
   }
 
   url.searchParams.set(lite ? 'lite' : 'embed', 'true');
-  if (loading === 'eager') {
-    url.searchParams.set('click-to-load', 'false');
-  }
+  url.searchParams.set('loading', loading);
 
   let livecodesReady = false;
   let destroyed = false;
@@ -192,7 +177,7 @@ export const createPlayground = async (
     destroyed = true;
   };
 
-  if (loading === 'scroll' && 'IntersectionObserver' in window) {
+  if (loading === 'lazy' && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach(async (entry) => {

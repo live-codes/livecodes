@@ -2,6 +2,7 @@
 import { shareService } from './livecodes/services';
 import { livecodes } from './livecodes/main';
 import { customEvents } from './livecodes/custom-events';
+import { EmbedOptions } from './livecodes/models';
 
 const loadPreview = async (id: string) => {
   if (!id) return;
@@ -19,13 +20,19 @@ const loadPreview = async (id: string) => {
   document.body.appendChild(previewFrame);
 };
 
-const isLite = location.search.includes('lite') && !location.search.includes('lite=false');
-const isEmbed =
-  isLite || (location.search.includes('embed') && !location.search.includes('embed=false'));
-const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
+const params = new URLSearchParams(location.search);
+const isLite = params.get('lite') != null && params.get('lite') !== 'false';
+const isEmbed = isLite || (params.get('embed') != null && params.get('embed') !== 'false');
+const loadingParam = params.get('loading');
+const clickToLoad = isEmbed && loadingParam !== 'eager';
+const loading: EmbedOptions['loading'] = !isEmbed
+  ? 'eager'
+  : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
+  ? loadingParam
+  : 'lazy';
 
-if (clickToLoad && !location.search.includes('preview=false')) {
-  const id = new URL(location.href).searchParams.get('x');
+if (clickToLoad && params.get('preview') !== 'false') {
+  const id = params.get('x');
   if (id?.startsWith('id/')) {
     loadPreview(id.replace('id/', ''));
   }
@@ -44,17 +51,38 @@ if (isEmbed) {
     animatingLogo.style.display = 'none';
     clickToLoadEl.style.display = 'flex';
     clickToLoadEl.classList.add('visible');
+
+    // load on click
     clickToLoadEl.addEventListener('click', load);
+
+    // load from API
     addEventListener('message', (e) => {
-      // load from API
       if (e.source === parent && e.data?.type === customEvents.load) {
         load();
       }
     });
+
+    // load on visible
+    if (loading === 'lazy' && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach(async (entry) => {
+            if (entry.isIntersecting) {
+              load();
+              observer.unobserve(document.body);
+            }
+          });
+        },
+        { rootMargin: '150px' },
+      );
+      observer.observe(document.body);
+    }
   }
 }
 
+let loadTriggered = false;
 function load() {
+  if (loadTriggered) return;
   clickToLoadEl.classList.remove('visible');
   document.querySelector('.preview')?.classList.add('hidden');
   setTimeout(() => {
@@ -68,6 +96,7 @@ function load() {
     }, 300);
   }, 500);
   window.dispatchEvent(new Event(customEvents.load));
+  loadTriggered = true;
 }
 
 function resize() {

@@ -16,6 +16,19 @@ export interface API {
 
 export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
 
+export interface Playground extends API {
+  load: () => Promise<void>;
+}
+
+export interface EmbedOptions {
+  appUrl?: string;
+  config?: Partial<Config> | string;
+  importUrl?: string;
+  lite?: boolean;
+  loading?: 'lazy' | 'click' | 'eager';
+  template?: string;
+}
+
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface ContentConfig {

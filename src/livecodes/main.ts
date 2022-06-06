@@ -17,7 +17,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     const isLite = location.search.includes('lite') && !location.search.includes('lite=false');
     const isEmbed =
       isLite || (location.search.includes('embed') && !location.search.includes('embed=false'));
-    const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
+    const clickToLoad = isEmbed && !location.search.includes('loading=eager');
     const scriptFile = isLite
       ? '{{hash:lite.js}}'
       : isEmbed
