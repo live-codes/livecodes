@@ -60,3 +60,15 @@ Example: https://livecodes.io/?mode=result&tools=console|full
 Demo:
 
 <LiveCodes query="mode=result&tools=console|full"></LiveCodes>
+
+## Display Mode vs Default View
+
+:::info
+
+"Display Mode" is different from "[Default View](./default-view.md)".
+
+In `editor` display mode, only the editor is loaded and the result page is not available. While `editor` default view shows the editor by default, and the result page can be shown by dragging the split gutter.
+
+The same applies for `result` display mode and default view.
+
+:::

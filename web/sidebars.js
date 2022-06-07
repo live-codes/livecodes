@@ -39,6 +39,7 @@ const sidebars = {
             'features/compiled-code',
             'features/tests',
             'features/display-modes',
+            'features/default-view',
             'features/embeds',
             'features/lite',
             'features/code-preload',
