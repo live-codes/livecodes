@@ -494,6 +494,7 @@ export interface CodeEditor {
   codemirror?: any;
   prism?: any;
   codejar?: any;
+  isFake?: boolean;
 }
 
 export interface EditorOptions {

@@ -1,5 +1,6 @@
 import { CodeEditor, Config, EditorOptions, Language } from '../models';
 import { isMobile } from '../utils';
+import { createFakeEditor } from './fake-editor';
 
 export const basicLanguages: Language[] = [
   'html',
@@ -54,7 +55,9 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
 
 export const selectedEditor = (options: EditorOptions | Partial<Config>) => {
   const { editor, mode } = options;
-  return ['codemirror', 'monaco', 'codejar'].includes(editor || '')
+  return mode === 'result'
+    ? 'fake'
+    : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
     ? editor
     : mode === 'codeblock'
     ? 'codejar'
@@ -66,6 +69,8 @@ export const createEditor = async (options: EditorOptions) => {
   if (!options) throw new Error();
 
   const editorName = selectedEditor(options);
+  if (editorName === 'fake') return createFakeEditor(options);
+
   const codeEditor = await loadEditor(editorName || 'codemirror', options);
 
   if (!codeEditor) throw new Error('Failed loading code editor');
