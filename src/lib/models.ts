@@ -27,6 +27,7 @@ export interface EmbedOptions {
   lite?: boolean;
   loading?: 'lazy' | 'click' | 'eager';
   template?: string;
+  view?: 'editor+result' | 'editor' | 'result';
 }
 
 export interface Config extends ContentConfig, AppConfig, UserConfig {}

@@ -13,6 +13,7 @@ export const createPlayground = async (
     loading = 'lazy',
     lite,
     template,
+    view = 'editor+result',
   } = options;
 
   let containerElement: HTMLElement | null;
@@ -63,6 +64,7 @@ export const createPlayground = async (
 
   url.searchParams.set(lite ? 'lite' : 'embed', 'true');
   url.searchParams.set('loading', loading);
+  url.searchParams.set('view', view);
 
   let livecodesReady = false;
   let destroyed = false;

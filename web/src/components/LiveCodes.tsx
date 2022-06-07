@@ -20,10 +20,11 @@ export default function LiveCodes(
   useEffect(() => {
     createPlayground(containerRef.current, {
       appUrl: url + props.query,
-      template: props.template,
       config: props.config,
       lite: props.lite,
       loading: props.loading,
+      template: props.template,
+      view: props.view,
     });
   }, []);
 
@@ -33,6 +34,7 @@ export default function LiveCodes(
     ...(props.config ? { config: props.config } : {}),
     ...(props.lite ? { lite: props.lite } : {}),
     ...(props.loading ? { loading: props.loading } : {}),
+    ...(props.view ? { view: props.view } : {}),
   };
 
   const code = `
