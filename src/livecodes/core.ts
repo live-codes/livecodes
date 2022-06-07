@@ -103,7 +103,6 @@ import {
   lunaObjViewerStylesUrl,
   snackbarUrl,
 } from './vendors';
-import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 import { createOpenItem, getResultElement } from './UI';
 import { customEvents } from './custom-events';
@@ -280,7 +279,7 @@ const createCopyButtons = () => {
 };
 
 const shouldUpdateEditorBuild = (langs?: Language[]) => {
-  const editor = selectedEditor(getConfig());
+  const editor = selectedEditor({ editor: getConfig().editor, mode: getConfig().mode });
   if (editor === 'monaco') return false;
   if (editorBuild === 'full') return false;
   if (
@@ -442,7 +441,7 @@ const showMode = (config: Config) => {
     editorTools.style.display = 'none';
   }
   if (config.mode === 'result') {
-    if (!['full', 'open'].includes(toolsPane?.getStatus() || '')) {
+    if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
@@ -2704,6 +2703,71 @@ const extraHandlers = async () => {
   handleExternalResources();
 };
 
+const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+  document.body.classList.add('embed');
+  if (config.mode === 'result') {
+    document.body.classList.add('result');
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock') {
+    document.body.classList.add('no-result');
+  }
+
+  const logoLink = UI.getLogoLink();
+  logoLink.classList.add('hint--bottom-left');
+  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
+  logoLink.title = '';
+
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    window.open((await share(false, true, false)).url, '_blank');
+  });
+};
+
+const configureLite = () => {
+  setConfig({
+    ...getConfig(),
+    editor: 'codejar',
+    emmet: false,
+    tools: {
+      enabled: [],
+      active: '',
+      status: 'none',
+    },
+  });
+  UI.getFormatButton().style.display = 'none';
+};
+
+const configureModes = ({
+  config,
+  isEmbed,
+  isLite,
+}: {
+  config: Config;
+  isEmbed: boolean;
+  isLite: boolean;
+}) => {
+  if (config.mode === 'full') {
+    if (params.view === 'editor') {
+      split.show('code', true);
+    }
+    if (params.view === 'result') {
+      split.show('output', true);
+    }
+  }
+  if (config.mode === 'codeblock') {
+    setConfig({ ...config, readonly: true });
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+    split.show = () => undefined;
+  }
+  if (isLite) {
+    configureLite();
+  }
+  if (isEmbed || config.mode === 'result') {
+    configureEmbed(config, eventsManager);
+  }
+};
+
 const importExternalContent = async (options: {
   config?: Config;
   configUrl?: string;
@@ -2835,20 +2899,6 @@ const bootstrap = async (reload = false) => {
   }
 };
 
-const configureLite = () => {
-  setConfig({
-    ...getConfig(),
-    editor: 'codejar',
-    emmet: false,
-    tools: {
-      enabled: [],
-      active: 'console',
-      status: 'none',
-    },
-  });
-  UI.getFormatButton().style.display = 'none';
-};
-
 const initializeApp = async (
   options?: {
     config?: Partial<Config>;
@@ -2864,27 +2914,11 @@ const initializeApp = async (
   isEmbed = isLite || (options?.isEmbed ?? false);
 
   setConfig(buildConfig(appConfig, baseUrl));
+  configureModes({ config: getConfig(), isEmbed, isLite });
 
-  if (getConfig().mode === 'full') {
-    if (params.view === 'editor') {
-      split.show('code', true);
-    }
-    if (params.view === 'result') {
-      split.show('output', true);
-    }
-  }
-  if (getConfig().mode === 'codeblock') {
-    setConfig({ ...getConfig(), readonly: true });
-  }
-  if (isLite) {
-    configureLite();
-  }
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
-  if (isEmbed || getConfig().mode === 'result') {
-    configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
-  }
   createLanguageMenus(
     getConfig(),
     baseUrl,

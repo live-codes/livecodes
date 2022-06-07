@@ -53,9 +53,11 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
   }
 };
 
-export const selectedEditor = (options: EditorOptions | Partial<Config>) => {
-  const { editor, mode } = options;
-  return mode === 'result'
+export const selectedEditor = (
+  options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>,
+) => {
+  const { editor, mode, editorId } = options;
+  return mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
     ? 'fake'
     : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
     ? editor
@@ -65,6 +67,7 @@ export const selectedEditor = (options: EditorOptions | Partial<Config>) => {
     ? 'codemirror'
     : 'monaco';
 };
+
 export const createEditor = async (options: EditorOptions) => {
   if (!options) throw new Error();
 

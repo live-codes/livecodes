@@ -68,7 +68,7 @@ export interface AppConfig {
   showVersion: boolean;
   tools: {
     enabled: Array<Tool['name']> | 'all';
-    active: Tool['name'];
+    active: Tool['name'] | '';
     status: ToolsPaneStatus;
   };
 }

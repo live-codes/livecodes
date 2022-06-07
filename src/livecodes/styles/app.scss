@@ -362,7 +362,7 @@ a {
     position: relative !important;
   }
 
-  #result-button {
+  &:not(.no-result) #result-button {
     display: flex !important;
   }
 

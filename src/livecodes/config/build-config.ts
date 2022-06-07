@@ -157,7 +157,7 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
   // ?tools=tests,console|open
   const isToolsDisabled = params.tools === 'none' || (params.tools as any) === false;
   if (isToolsDisabled) {
-    paramsConfig.tools = { enabled: [], status: 'none' } as unknown as Config['tools'];
+    paramsConfig.tools = { enabled: [], active: '', status: 'none' };
   } else {
     paramsConfig.tools = cloneObject(defaultConfig.tools);
     let status: ToolsPaneStatus | undefined;
@@ -189,7 +189,7 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
         params[tool] = 'none';
       }
 
-      if (!status && ['open', 'full'].includes(params[tool])) {
+      if (!status && ['open', 'full', 'closed'].includes(params[tool])) {
         if (paramsConfig.tools.enabled !== 'all' && !paramsConfig.tools.enabled.includes(tool)) {
           paramsConfig.tools.enabled.push(tool);
         }
@@ -213,6 +213,11 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
       paramsConfig.tools!.status = params.tools as ToolsPaneStatus;
     } else if (['open', 'full', 'closed'].includes(paramToolsStatus)) {
       paramsConfig.tools!.status = paramToolsStatus as ToolsPaneStatus;
+    } else if (
+      !paramsConfig.tools?.status &&
+      ['editor', 'codeblock', 'result'].includes(paramsConfig.mode || '')
+    ) {
+      paramsConfig.tools = { enabled: [], active: '', status: 'none' };
     } else if (!paramsConfig.tools!.status) {
       paramsConfig.tools!.status = 'closed';
     }

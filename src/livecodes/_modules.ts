@@ -13,7 +13,6 @@ export * as compiler from './compiler';
 export * as config from './config';
 export * as deploy from './deploy';
 export * as editor from './editor';
-export * as embeds from './embeds';
 export * as events from './events';
 export * as export from './export';
 export * as formatter from './formatter';
