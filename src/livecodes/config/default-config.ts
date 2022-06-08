@@ -46,8 +46,8 @@ export const defaultConfig: Config = {
   },
   tools: {
     enabled: 'all',
-    status: '',
     active: '',
+    status: '',
   },
   processors: {
     postcss: {

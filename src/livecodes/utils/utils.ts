@@ -222,3 +222,17 @@ export const removeCommentsAndStrings = (src: string) => removeStrings(removeCom
 export const getLanguageCustomSettings = (language: Language, config: Config) => ({
   ...(config.customSettings as any)[language],
 });
+
+export const getValidUrl = (url: string) => {
+  let validUrl = null;
+  try {
+    validUrl = new URL(url).href;
+  } catch {
+    try {
+      validUrl = new URL(decodeURIComponent(url)).href;
+    } catch {
+      //
+    }
+  }
+  return validUrl;
+};

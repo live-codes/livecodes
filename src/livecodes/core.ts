@@ -81,6 +81,7 @@ import {
   copyToClipboard,
   debounce,
   fetchWithHandler,
+  getValidUrl,
   loadStylesheet,
   stringify,
   stringToValidJson,
@@ -2770,9 +2771,9 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
-  configUrl?: string;
+  configUrl?: string | null;
   template?: string;
-  url?: string;
+  url?: string | null;
 }): Promise<boolean> => {
   const { config = defaultConfig, configUrl, template, url } = options;
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
@@ -2797,21 +2798,13 @@ const importExternalContent = async (options: {
   }
 
   if (url) {
-    let validUrl = url;
-    if (url.startsWith('http')) {
-      try {
-        validUrl = new URL(url).href;
-      } catch {
-        validUrl = decodeURIComponent(url);
-      }
-    }
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
-    if (isGithub(validUrl) && !isEmbed) {
+    if (isGithub(url) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    urlConfig = await importCode(validUrl, getParams(), getConfig(), user);
+    urlConfig = await importCode(url, getParams(), getConfig(), user);
   }
 
   if (hasContentUrls(config)) {
@@ -2943,9 +2936,9 @@ const initializeApp = async (
   }
   importExternalContent({
     config: getConfig(),
-    configUrl: params.config,
+    configUrl: getValidUrl(params.config),
     template: params.template,
-    url: params.x || parent.location.hash.substring(1),
+    url: getValidUrl(params.x || parent.location.hash.substring(1)),
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();

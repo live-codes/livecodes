@@ -12,13 +12,13 @@ export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
 
   const userConfig = upgradeAndValidate(appConfig);
 
-  // get query string params
-  const params = getParams();
-
   let config: Config = {
     ...defaultConfig,
     ...userConfig,
   };
+
+  // get query string params
+  const params = getParams();
 
   const paramsConfig = upgradeAndValidate(loadParamConfig(config, params));
 
@@ -47,8 +47,8 @@ export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
 
 export const getParams = (queryParams = parent.location.search) => {
   const params = Object.fromEntries(new URLSearchParams(queryParams) as unknown as Iterable<any>);
-
   Object.keys(params).forEach((key) => {
+    params[key] = decodeURIComponent(params[key]);
     if (params[key] === '') params[key] = true;
     if (params[key] === 'true') params[key] = true;
     if (params[key] === 'false') params[key] = false;

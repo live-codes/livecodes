@@ -4,15 +4,15 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 The playground can be loaded in one of the following views:
 
-## `editor+result`
+## `editor,result`
 
 Both the code editor and the result page are visible. This is the default.
 
-Example: https://livecodes.io/?view=editor+result
+Example: https://livecodes.io/?view=editor,result
 
 Demo:
 
-<LiveCodes view="editor+result"></LiveCodes>
+<LiveCodes view="editor,result"></LiveCodes>
 
 ## `editor`
 

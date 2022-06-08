@@ -13,7 +13,7 @@ export const createPlayground = async (
     loading = 'lazy',
     lite,
     template,
-    view = 'editor+result',
+    view = 'editor,result',
   } = options;
 
   let containerElement: HTMLElement | null;
@@ -46,6 +46,21 @@ export const createPlayground = async (
       for (const [key, value] of Object.entries(config)) {
         if (['string', 'boolean', 'number', 'undefined'].includes(typeof value)) {
           url.searchParams.set(key, String(value));
+        }
+        if (key === 'tools' && typeof value === 'object') {
+          const tools = value as Partial<Config['tools']>;
+          if (tools.active) {
+            url.searchParams.set(tools.active, tools.status || '');
+          }
+          if (Array.isArray(tools.enabled)) {
+            if (tools.enabled.length === 0) {
+              url.searchParams.set('tools', 'none');
+            } else {
+              url.searchParams.set('tools', tools.enabled.join(','));
+            }
+          } else if (tools.status) {
+            url.searchParams.set('tools', tools.status);
+          }
         }
       }
       url.searchParams.set('config', 'data:application/json;base64,' + encoded);
