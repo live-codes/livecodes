@@ -2771,9 +2771,9 @@ const configureModes = ({
 
 const importExternalContent = async (options: {
   config?: Config;
-  configUrl?: string | null;
+  configUrl?: string;
   template?: string;
-  url?: string | null;
+  url?: string;
 }): Promise<boolean> => {
   const { config = defaultConfig, configUrl, template, url } = options;
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
@@ -2798,13 +2798,21 @@ const importExternalContent = async (options: {
   }
 
   if (url) {
+    let validUrl = url;
+    if (url.startsWith('http') || url.startsWith('data')) {
+      try {
+        validUrl = new URL(url).href;
+      } catch {
+        validUrl = decodeURIComponent(url);
+      }
+    }
     // import code from hash: code / github / github gist / url html / ...etc
     let user;
-    if (isGithub(url) && !isEmbed) {
+    if (isGithub(validUrl) && !isEmbed) {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    urlConfig = await importCode(url, getParams(), getConfig(), user);
+    urlConfig = await importCode(validUrl, getParams(), getConfig(), user);
   }
 
   if (hasContentUrls(config)) {
@@ -2831,9 +2839,10 @@ const importExternalContent = async (options: {
     };
   }
 
-  if (configUrl) {
+  const validConfigUrl = getValidUrl(configUrl);
+  if (validConfigUrl) {
     configUrlConfig = upgradeAndValidate(
-      await fetch(configUrl)
+      await fetch(validConfigUrl)
         .then((res) => res.json())
         .catch(() => ({})),
     );
@@ -2936,9 +2945,9 @@ const initializeApp = async (
   }
   importExternalContent({
     config: getConfig(),
-    configUrl: getValidUrl(params.config),
+    configUrl: params.config,
     template: params.template,
-    url: getValidUrl(params.x || parent.location.hash.substring(1)),
+    url: params.x || parent.location.hash.substring(1),
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();

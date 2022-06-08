@@ -223,15 +223,18 @@ export const getLanguageCustomSettings = (language: Language, config: Config) =>
   ...(config.customSettings as any)[language],
 });
 
-export const getValidUrl = (url: string) => {
+export const getValidUrl = (url?: string) => {
+  if (!url) return null;
   let validUrl = null;
-  try {
-    validUrl = new URL(url).href;
-  } catch {
+  if (url.startsWith('http') || url.startsWith('data:')) {
     try {
-      validUrl = new URL(decodeURIComponent(url)).href;
+      validUrl = new URL(url).href;
     } catch {
-      //
+      try {
+        validUrl = new URL(decodeURIComponent(url)).href;
+      } catch {
+        //
+      }
     }
   }
   return validUrl;
