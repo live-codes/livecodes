@@ -14,7 +14,6 @@ const sidebars = {
       items: [
         'why',
         'getting-started',
-        'configuration',
         {
           type: 'category',
           label: 'Features',
@@ -61,6 +60,15 @@ const sidebars = {
             id: 'languages/index',
           },
           items: ['languages/html'],
+        },
+        {
+          type: 'category',
+          label: 'Configuration',
+          link: {
+            type: 'doc',
+            id: 'configuration/index',
+          },
+          items: ['configuration/configuration-object', 'configuration/query-params'],
         },
         {
           type: 'category',
