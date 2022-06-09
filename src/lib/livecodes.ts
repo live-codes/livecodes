@@ -96,6 +96,9 @@ export const createPlayground = async (
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
+      frame.style.border = '0';
+      frame.style.height = '100%';
+      frame.style.width = '100%';
       frame.src = url.href;
       frame.onload = () => {
         addEventListener('message', function readyHandler(e) {
@@ -107,6 +110,7 @@ export const createPlayground = async (
         });
         resolve(frame);
       };
+      containerElement.innerHTML = '';
       containerElement.appendChild(frame);
     });
 

@@ -35,6 +35,8 @@ import assetsScreen from './assets.html';
 import addAssetScreen from './add-asset.html';
 // @ts-ignore
 import shareScreen from './share.html';
+// @ts-ignore
+import embedScreen from './embed.html';
 
 export {
   resultTemplate,
@@ -55,4 +57,5 @@ export {
   assetsScreen,
   addAssetScreen,
   shareScreen,
+  embedScreen,
 };

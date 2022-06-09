@@ -506,7 +506,7 @@ export interface EditorOptions {
   mode?: Config['mode'];
   readonly: boolean;
   editor?: Config['editor'];
-  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests';
+  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests' | 'embed';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
@@ -565,6 +565,7 @@ export interface Screen {
     | 'import'
     | 'external'
     | 'share'
+    | 'embed'
     | 'deploy'
     | 'custom-settings'
     | 'test-editor';

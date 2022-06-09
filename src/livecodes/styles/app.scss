@@ -1777,6 +1777,31 @@ i.arrow {
     }
   }
 
+  #embed-container {
+    .input-container {
+      align-self: flex-start;
+      text-align: left;
+      margin-left: 10%;
+    }
+
+    input[type='radio'] {
+      height: 1em;
+      width: unset;
+    }
+
+    .radio-label {
+      width: unset;
+      font-weight: unset;
+      margin-right: 1.5em;
+    }
+
+    #embed-code {
+      height: 15em;
+      width: 80%;
+      text-align: left;
+    }
+  }
+
   .error {
     color: red;
     font-weight: normal;

@@ -117,6 +117,8 @@ export const getCustomSettingsLink = () =>
 
 export const getShareLink = () => document.querySelector<HTMLAnchorElement>('#share-link');
 
+export const getEmbedLink = () => document.querySelector<HTMLAnchorElement>('#embed-link');
+
 export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
 
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');

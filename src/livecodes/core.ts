@@ -2301,6 +2301,35 @@ const handleProjectInfo = () => {
   registerScreen('info', createProjectInfoUI);
 };
 
+const handleEmbed = () => {
+  const getUrl = async () => (await share(true, true, false, true)).url;
+  const createEditorFn = async (container: HTMLElement) =>
+    createEditor({
+      baseUrl,
+      container,
+      editorId: 'embed',
+      getLanguageExtension,
+      isEmbed,
+      language: 'html',
+      mapLanguage,
+      readonly: true,
+      theme: getConfig().theme,
+      value: '',
+    });
+  const createEmbedUI = async () =>
+    UI.createEmbedUI({
+      title: getConfig().title,
+      url: await getUrl(),
+      modal,
+      notifications,
+      eventsManager,
+      createEditorFn,
+    });
+
+  eventsManager.addEventListener(UI.getEmbedLink(), 'click', createEmbedUI, false);
+  registerScreen('embed', createEmbedUI);
+};
+
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
@@ -2696,6 +2725,7 @@ const extraHandlers = async () => {
   handleSaveAsTemplate();
   handleOpen();
   handleShare();
+  handleEmbed();
   handleImport();
   handleExport();
   handleDeploy();
