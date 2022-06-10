@@ -2302,11 +2302,12 @@ const handleProjectInfo = () => {
 };
 
 const handleEmbed = () => {
-  const getUrl = async () => (await share(true, true, false, true)).url;
+  const getUrlFn = async () => (await share(true, true, false, true)).url;
   const createEditorFn = async (container: HTMLElement) =>
     createEditor({
       baseUrl,
       container,
+      editor: 'codejar',
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
@@ -2316,14 +2317,14 @@ const handleEmbed = () => {
       theme: getConfig().theme,
       value: '',
     });
-  const createEmbedUI = async () =>
+  const createEmbedUI = () =>
     UI.createEmbedUI({
       title: getConfig().title,
-      url: await getUrl(),
       modal,
       notifications,
       eventsManager,
       createEditorFn,
+      getUrlFn,
     });
 
   eventsManager.addEventListener(UI.getEmbedLink(), 'click', createEmbedUI, false);

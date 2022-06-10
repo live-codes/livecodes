@@ -38,7 +38,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   codeElement.className = 'language-' + mappedLanguage;
   codeElement.innerHTML = encodeHTML(value).trim() || '\n';
 
-  if (options.editorId !== 'console') {
+  if (options.editorId !== 'console' && options.editorId !== 'embed') {
     preElement.classList.add('line-numbers');
   }
   if (mode === 'codeblock') {

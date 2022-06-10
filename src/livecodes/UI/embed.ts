@@ -8,18 +8,18 @@ import { copyToClipboard } from '../utils';
 
 export const createEmbedUI = async ({
   title,
-  url,
   modal,
   notifications,
   eventsManager,
   createEditorFn,
+  getUrlFn,
 }: {
   title: string;
-  url: string;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
+  getUrlFn: () => Promise<string>;
 }) => {
   const div = document.createElement('div');
   div.innerHTML = embedScreen;
@@ -140,19 +140,23 @@ export const createEmbedUI = async ({
     field.options.forEach((option) => {
       const name = `embed-${field.name}`;
       const id = `${name}-${option.value}`;
+
+      const optionContainer = document.createElement('span');
+      fieldContainer.appendChild(optionContainer);
+
       const input = document.createElement('input');
       input.type = 'radio';
       input.name = name;
       input.id = id;
       input.value = option.value;
       input.checked = option.selected || false;
-      fieldContainer.appendChild(input);
+      optionContainer.appendChild(input);
 
       const label = document.createElement('label') as HTMLLabelElement;
       label.classList.add('radio-label');
       label.htmlFor = id;
       label.innerHTML = option.label;
-      fieldContainer.appendChild(label);
+      optionContainer.appendChild(label);
     });
   });
 
@@ -160,6 +164,8 @@ export const createEmbedUI = async ({
     [key in FormField['name']]: string | boolean;
   };
 
+  const editor = await createEditorFn(codeArea);
+  const url = await getUrlFn();
   const urlObj = new URL(url);
   const appUrl = urlObj.origin + urlObj.pathname;
   const codeTemlates = {
@@ -194,7 +200,6 @@ createPlayground("#container", options);
     iframe: ``,
   };
 
-  const editor = await createEditorFn(codeArea);
   const generateCode = async () => {
     const formData = Array.from(new FormData(form)).reduce(
       (acc, [name, value]) => ({
