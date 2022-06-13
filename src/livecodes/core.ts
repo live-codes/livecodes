@@ -2317,8 +2317,13 @@ const handleEmbed = () => {
       theme: getConfig().theme,
       value: '',
     });
-  const createEmbedUI = () =>
-    UI.createEmbedUI({
+  const createEmbedUI = async () => {
+    modal.show(UI.loadingMessage());
+
+    const embedModule: typeof import('./UI/embed-ui') = await import(
+      baseUrl + '{{hash:embed-ui.js}}'
+    );
+    await embedModule.createEmbedUI({
       title: getConfig().title,
       modal,
       notifications,
@@ -2326,6 +2331,7 @@ const handleEmbed = () => {
       createEditorFn,
       getUrlFn,
     });
+  };
 
   eventsManager.addEventListener(UI.getEmbedLink(), 'click', createEmbedUI, false);
   registerScreen('embed', createEmbedUI);

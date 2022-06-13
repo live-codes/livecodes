@@ -1,4 +1,3 @@
-export * from './embed';
 export * from './import';
 export * from './info';
 export * from './deploy';

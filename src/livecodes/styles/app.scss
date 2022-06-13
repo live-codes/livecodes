@@ -1771,6 +1771,33 @@ i.arrow {
   }
 
   #embed-container {
+    #embed-preview-container {
+      border: 1px solid black;
+      border-radius: 3px;
+      height: 300px;
+      margin: 1em 0;
+      width: 95%;
+    }
+
+    #embed-preview-iframe {
+      border: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .embed-help-link {
+      margin-left: 0.5em;
+
+      &::after {
+        content: unset !important;
+      }
+
+      img {
+        height: 0.8em;
+        opacity: 0.7;
+      }
+    }
+
     .input-container {
       align-self: flex-start;
       margin-bottom: 1em;
@@ -1792,7 +1819,8 @@ i.arrow {
     }
 
     #embed-code {
-      height: 10em;
+      height: 10em !important;
+      margin-bottom: 1em !important;
       text-align: left;
       width: 80%;
 
@@ -2400,11 +2428,11 @@ i.arrow {
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type='checkbox'],
   input[type='radio'] {
-    --active: #275efe;
+    --active: #2194f1;
     --active-inner: #fff;
     --focus: 2px rgba(39, 94, 254, 0.3);
     --border: #bbc1e1;
-    --border-hover: #275efe;
+    --border-hover: #2194f1;
     --background: #fff;
     --disabled: #f6f8ff;
     --disabled-inner: #e1e6f9;
