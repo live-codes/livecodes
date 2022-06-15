@@ -2462,7 +2462,7 @@ const handleCustomSettings = () => {
       getLanguageExtension,
     };
     customSettingsEditor = await createEditor(options);
-    customSettingsEditor.focus();
+    customSettingsEditor?.focus();
 
     eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
       let customSettings: CustomSettings = {};
@@ -2584,9 +2584,9 @@ const handleTestEditor = () => {
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
-    testEditor.focus();
+    testEditor?.focus();
 
-    if (typeof testEditor.addTypes === 'function') {
+    if (typeof testEditor?.addTypes === 'function') {
       const testTypes: Types = {
         jest: {
           url: jestTypesUrl,
