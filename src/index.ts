@@ -1,8 +1,8 @@
 /* eslint-disable import/no-internal-modules */
-import { shareService } from './livecodes/services';
+import { shareService } from './livecodes/services/share';
 import { livecodes } from './livecodes/main';
 import { customEvents } from './livecodes/custom-events';
-import { EmbedOptions } from './livecodes/models';
+import type { EmbedOptions } from './livecodes/models';
 
 const loadPreview = async (id: string) => {
   if (!id) return;
@@ -31,7 +31,7 @@ const loading: EmbedOptions['loading'] = !isEmbed
   ? loadingParam
   : 'lazy';
 
-if (clickToLoad && params.get('preview') !== 'false') {
+if (loadingParam === 'click' && params.get('preview') !== 'false') {
   const id = params.get('x');
   if (id?.startsWith('id/')) {
     loadPreview(id.replace('id/', ''));

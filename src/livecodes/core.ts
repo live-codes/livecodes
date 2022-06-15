@@ -2324,6 +2324,7 @@ const handleEmbed = () => {
       baseUrl + '{{hash:embed-ui.js}}'
     );
     await embedModule.createEmbedUI({
+      baseUrl,
       title: getConfig().title,
       modal,
       notifications,

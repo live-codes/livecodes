@@ -1,12 +1,14 @@
-import { defaultConfig } from '../config';
-import { createEventsManager } from '../events';
+/* eslint-disable import/no-internal-modules */
+import type { createEventsManager } from '../events';
+import type { createModal } from '../modal';
+import type { CodeEditor } from '../models';
+import type { createNotifications } from '../notifications';
+import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
-import { createModal } from '../modal';
-import { CodeEditor } from '../models';
-import { createNotifications } from '../notifications';
 import { copyToClipboard } from '../utils';
 
 export const createEmbedUI = async ({
+  baseUrl,
   title,
   modal,
   notifications,
@@ -14,6 +16,7 @@ export const createEmbedUI = async ({
   createEditorFn,
   getUrlFn,
 }: {
+  baseUrl: string;
   title: string;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
@@ -24,7 +27,7 @@ export const createEmbedUI = async ({
   const div = document.createElement('div');
   div.innerHTML = embedScreen;
   const embedContainer = div.firstChild as HTMLElement;
-  modal.show(embedContainer);
+  modal.show(embedContainer, { isAsync: true });
 
   const previewContainer = embedContainer.querySelector<HTMLElement>('#embed-preview-container');
   const form = embedContainer.querySelector<HTMLFormElement>('#embed-form');
@@ -68,7 +71,7 @@ export const createEmbedUI = async ({
     {
       title: 'Show Result Preview',
       name: 'preview',
-      options: [{ value: 'true', checked: true }],
+      options: [{ value: 'true' }],
     },
     {
       title: 'Lite Mode',
@@ -138,7 +141,7 @@ export const createEmbedUI = async ({
       title.appendChild(helpLink);
 
       const helpIcon: HTMLImageElement = document.createElement('img');
-      helpIcon.src = '/livecodes/assets/icons/info.svg';
+      helpIcon.src = baseUrl + 'assets/icons/info.svg';
       helpLink.appendChild(helpIcon);
     }
 
@@ -205,7 +208,7 @@ export const createEmbedUI = async ({
     },
     ...(data.lite ? { lite: data.lite } : {}),
     ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
-    ...(data.preview !== true ? { preview: data.preview } : {}),
+    ...(data.loading === 'click' && !data.preview ? { preview: false } : {}),
     ...(data.view && data.view !== 'editor,result' ? { view: data.view } : {}),
   });
 
@@ -216,8 +219,8 @@ export const createEmbedUI = async ({
     if (data.loading && data.loading !== 'lazy') {
       iframeUrl.searchParams.set('loading', String(data.loading));
     }
-    if (data.preview !== undefined) {
-      iframeUrl.searchParams.set('preview', String(data.preview));
+    if (data.loading === 'click' && !data.preview) {
+      iframeUrl.searchParams.set('preview', 'false');
     }
     if (data.view && data.view !== 'editor,result') {
       iframeUrl.searchParams.set('view', String(data.view));
@@ -279,34 +282,24 @@ createPlayground("#${containerId}", options);
   const previousSelections: FormData = {
     view: 'editor,result',
     tools: 'closed',
-    preview: true,
   };
 
   const generateCode = async () => {
     const formData = Array.from(new FormData(form)).reduce(
       (acc, [name, value]) => ({
         ...acc,
-        [name.replace('embed-', '')]: value === 'yes' ? true : value === 'no' ? false : value,
+        [name.replace('embed-', '')]: value === 'true' ? true : value,
       }),
       {} as FormData,
     );
 
     const previewInput = document.querySelector<HTMLInputElement>('input[name="embed-preview"]')!;
     if (formData.loading !== 'click') {
-      previousSelections.preview = formData.preview ?? previousSelections.preview;
-      delete formData.preview;
       previewInput.checked = false;
       previewInput.disabled = true;
+      formData.preview = false;
     } else {
-      if (
-        previousSelections.preview !== undefined &&
-        typeof previousSelections.preview === 'boolean'
-      ) {
-        previewInput.checked = previousSelections.preview;
-      }
       previewInput.disabled = false;
-      previousSelections.preview = undefined;
-      formData.preview = previewInput.checked;
     }
 
     const viewInputs = document.querySelectorAll<HTMLInputElement>('input[name="embed-view"]');

@@ -1594,6 +1594,10 @@ i.arrow {
     .buttons {
       margin-bottom: 0;
     }
+
+    #disable-restore-checkbox {
+      margin: 0.7em 0 0 1em;
+    }
   }
 
   @media only screen and (max-width: 480px) {
@@ -1770,11 +1774,26 @@ i.arrow {
     }
   }
 
+  #login-screen {
+    input[type='checkbox'] {
+      margin-top: 0.7em;
+    }
+  }
+
+  #deploy-container {
+    input[type='checkbox'] {
+      margin-right: 0.7em;
+    }
+  }
+
   #embed-container {
     #embed-preview-container {
+      align-items: center;
       border: 1px solid black;
       border-radius: 3px;
+      display: flex;
       height: 300px;
+      justify-content: center;
       margin: 1em 0;
       width: 95%;
     }
@@ -1827,6 +1846,10 @@ i.arrow {
       > pre {
         padding: 0.5em;
       }
+    }
+
+    .description {
+      margin-left: 10%;
     }
   }
 
@@ -2428,15 +2451,14 @@ i.arrow {
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type='checkbox'],
   input[type='radio'] {
-    --active: #2194f1;
+    --active: var(--switch-on-color);
     --active-inner: #fff;
     --focus: 2px rgba(39, 94, 254, 0.3);
     --border: #bbc1e1;
-    --border-hover: #2194f1;
+    --border-hover: var(--switch-on-color);
     --background: #fff;
     --disabled: #f6f8ff;
     --disabled-inner: #e1e6f9;
-    appearance: none;
     appearance: none;
     background: var(--b, var(--background));
     border: 1px solid var(--bc, var(--border));
