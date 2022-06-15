@@ -1,5 +1,6 @@
 import { Compiler, Language, CustomSettings, Config, Processors } from '../models';
 import { getLanguageCustomSettings } from '../utils';
+import { highlightjsUrl } from '../vendors';
 import { languages } from './languages';
 import { processors } from './processors';
 
@@ -113,6 +114,16 @@ export const getCustomSettings = (language: Language, config: Config): CustomSet
   }
 
   return settings;
+};
+
+export const detectLanguage = async (code: string, languages: Language[]) => {
+  (window as any).HighlightJS =
+    (window as any).HighlightJS || (await import(highlightjsUrl)).default;
+  const result = (window as any).HighlightJS.highlightAuto(code, languages);
+  return {
+    language: result.language as Language,
+    secondBest: result.secondBest.language as Language,
+  };
 };
 
 export { getLanguageCustomSettings };
