@@ -2056,7 +2056,6 @@ const handleExport = () => {
     false,
   );
 
-  let JSZip: any;
   eventsManager.addEventListener(
     UI.getExportSourceLink(),
     'click',
@@ -2064,7 +2063,7 @@ const handleExport = () => {
       event.preventDefault();
       updateConfig();
       const html = await getResultPage({ forExport: true });
-      exportConfig(getConfig(), baseUrl, 'src', { JSZip, html });
+      exportConfig(getConfig(), baseUrl, 'src', { html });
     },
     false,
   );

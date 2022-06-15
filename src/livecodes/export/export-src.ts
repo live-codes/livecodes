@@ -3,12 +3,12 @@ import { jsZipUrl } from '../vendors';
 import { downloadFile } from '../utils';
 import { getFilesFromConfig } from './utils';
 
-export const exportSrc = async (config: Config, { JSZip, html }: any, _baseUrl?: string) => {
-  if (!JSZip) {
-    JSZip = (await import(jsZipUrl)).default;
+export const exportSrc = async (config: Config, { html }: any, _baseUrl?: string) => {
+  if (!(window as any).JSZip) {
+    (window as any).JSZip = (await import(jsZipUrl)).default;
   }
 
-  const zip = new JSZip();
+  const zip = new (window as any).JSZip();
 
   const files = getFilesFromConfig(config);
   (Object.keys(files) as EditorId[]).forEach((filename) => {
