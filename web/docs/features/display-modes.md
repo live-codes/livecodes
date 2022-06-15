@@ -27,7 +27,7 @@ Demo:
 
 ## `codeblock`
 
-A read-only mode just showing only the code block. On mouse-over a copy button appears that allows to copy the code. This can useful when embedded.
+A read-only mode showing only the code block without editor interface. On mouse-over a copy button appears that allows to copy the code. This is specially useful when embedded.
 
 Example: https://livecodes.io/?mode=codeblock&template=react
 
@@ -35,7 +35,7 @@ Demo:
 
 <LiveCodes config={{mode:'codeblock'}} template="react"></LiveCodes>
 
-By default, in `codeblock` mode, `prism` editor is used. You can override this by setting the `editor` option. Refer to [Editors](./editors.md) for details.
+By default, in `codeblock` mode, the light-weight `CodeJar` editor is used (in read-only mode). You can override this by setting the `editor` option. Refer to [Editors](./editors.md) for details.
 
 Example: https://livecodes.io/?mode=codeblock&editor=monaco&template=react
 
@@ -60,3 +60,15 @@ Example: https://livecodes.io/?mode=result&tools=console|full
 Demo:
 
 <LiveCodes query="mode=result&tools=console|full"></LiveCodes>
+
+## Display Mode vs Default View
+
+:::info
+
+"Display Mode" is different from "[Default View](./default-view.md)".
+
+In `editor` display mode, only the editor is loaded and the result page is not available. While `editor` default view shows the editor by default, and the result page can be shown by dragging the split gutter.
+
+The same applies for `result` display mode and default view.
+
+:::

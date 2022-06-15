@@ -16,6 +16,20 @@ export interface API {
 
 export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
 
+export interface Playground extends API {
+  load: () => Promise<void>;
+}
+
+export interface EmbedOptions {
+  appUrl?: string;
+  config?: Partial<Config> | string;
+  importUrl?: string;
+  lite?: boolean;
+  loading?: 'lazy' | 'click' | 'eager';
+  template?: string;
+  view?: 'editor,result' | 'editor' | 'result';
+}
+
 export interface Config extends ContentConfig, AppConfig, UserConfig {}
 
 export interface ContentConfig {
@@ -54,7 +68,7 @@ export interface AppConfig {
   showVersion: boolean;
   tools: {
     enabled: Array<Tool['name']> | 'all';
-    active: Tool['name'];
+    active: Tool['name'] | '';
     status: ToolsPaneStatus;
   };
 }
@@ -481,6 +495,7 @@ export interface CodeEditor {
   codemirror?: any;
   prism?: any;
   codejar?: any;
+  isFake?: boolean;
 }
 
 export interface EditorOptions {
@@ -491,7 +506,7 @@ export interface EditorOptions {
   mode?: Config['mode'];
   readonly: boolean;
   editor?: Config['editor'];
-  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests';
+  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests' | 'embed';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
@@ -550,6 +565,7 @@ export interface Screen {
     | 'import'
     | 'external'
     | 'share'
+    | 'embed'
     | 'deploy'
     | 'custom-settings'
     | 'test-editor';

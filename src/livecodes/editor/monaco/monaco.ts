@@ -93,12 +93,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     contextmenu: false,
   };
 
+  const embedOptions: Options = {
+    ...consoleOptions,
+    readOnly: true,
+  };
+
   const editorId = options.editorId;
   const editorOptions =
     editorId === 'console'
       ? consoleOptions
       : editorId === 'compiled'
       ? compiledCodeOptions
+      : editorId === 'embed'
+      ? embedOptions
       : options.mode === 'codeblock'
       ? codeblockOptions
       : defaultOptions;

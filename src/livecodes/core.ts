@@ -81,6 +81,7 @@ import {
   copyToClipboard,
   debounce,
   fetchWithHandler,
+  getValidUrl,
   loadStylesheet,
   stringify,
   stringToValidJson,
@@ -103,7 +104,6 @@ import {
   lunaObjViewerStylesUrl,
   snackbarUrl,
 } from './vendors';
-import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
 import { createOpenItem, getResultElement } from './UI';
 import { customEvents } from './custom-events';
@@ -119,6 +119,7 @@ const notifications = createNotifications();
 const modal = createModal();
 const split = UI.createSplitPanes();
 const screens: Screen[] = [];
+const params = getParams(); // query string params
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -138,6 +139,7 @@ let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
+let initialized = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -278,7 +280,7 @@ const createCopyButtons = () => {
 };
 
 const shouldUpdateEditorBuild = (langs?: Language[]) => {
-  const editor = selectedEditor(getConfig());
+  const editor = selectedEditor({ editor: getConfig().editor, mode: getConfig().mode });
   if (editor === 'monaco') return false;
   if (editorBuild === 'full') return false;
   if (
@@ -440,7 +442,7 @@ const showMode = (config: Config) => {
     editorTools.style.display = 'none';
   }
   if (config.mode === 'result') {
-    if (!['full', 'open'].includes(toolsPane?.getStatus() || '')) {
+    if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
@@ -474,7 +476,9 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
     });
   }
   updateCompiledCode();
-  split.show('code');
+  if (initialized || params.view !== 'result') {
+    split.show('code');
+  }
 };
 
 const addConsoleInputCodeCompletion = () => {
@@ -2297,6 +2301,43 @@ const handleProjectInfo = () => {
   registerScreen('info', createProjectInfoUI);
 };
 
+const handleEmbed = () => {
+  const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const createEditorFn = async (container: HTMLElement) =>
+    createEditor({
+      baseUrl,
+      container,
+      editor: 'codejar',
+      editorId: 'embed',
+      getLanguageExtension,
+      isEmbed,
+      language: 'html',
+      mapLanguage,
+      readonly: true,
+      theme: getConfig().theme,
+      value: '',
+    });
+  const createEmbedUI = async () => {
+    modal.show(UI.loadingMessage());
+
+    const embedModule: typeof import('./UI/embed-ui') = await import(
+      baseUrl + '{{hash:embed-ui.js}}'
+    );
+    await embedModule.createEmbedUI({
+      baseUrl,
+      title: getConfig().title,
+      modal,
+      notifications,
+      eventsManager,
+      createEditorFn,
+      getUrlFn,
+    });
+  };
+
+  eventsManager.addEventListener(UI.getEmbedLink(), 'click', createEmbedUI, false);
+  registerScreen('embed', createEmbedUI);
+};
+
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
@@ -2692,12 +2733,78 @@ const extraHandlers = async () => {
   handleSaveAsTemplate();
   handleOpen();
   handleShare();
+  handleEmbed();
   handleImport();
   handleExport();
   handleDeploy();
   handleAssets();
   handleUnload();
   handleExternalResources();
+};
+
+const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+  document.body.classList.add('embed');
+  if (config.mode === 'result') {
+    document.body.classList.add('result');
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock') {
+    document.body.classList.add('no-result');
+  }
+
+  const logoLink = UI.getLogoLink();
+  logoLink.classList.add('hint--bottom-left');
+  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
+  logoLink.title = '';
+
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    window.open((await share(false, true, false)).url, '_blank');
+  });
+};
+
+const configureLite = () => {
+  setConfig({
+    ...getConfig(),
+    editor: 'codejar',
+    emmet: false,
+    tools: {
+      enabled: [],
+      active: '',
+      status: 'none',
+    },
+  });
+  UI.getFormatButton().style.display = 'none';
+};
+
+const configureModes = ({
+  config,
+  isEmbed,
+  isLite,
+}: {
+  config: Config;
+  isEmbed: boolean;
+  isLite: boolean;
+}) => {
+  if (config.mode === 'full') {
+    if (params.view === 'editor') {
+      split.show('code', true);
+    }
+    if (params.view === 'result') {
+      split.show('output', true);
+    }
+  }
+  if (config.mode === 'codeblock') {
+    setConfig({ ...config, readonly: true });
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+    split.show = () => undefined;
+  }
+  if (isLite) {
+    configureLite();
+  }
+  if (isEmbed || config.mode === 'result') {
+    configureEmbed(config, eventsManager);
+  }
 };
 
 const importExternalContent = async (options: {
@@ -2730,7 +2837,7 @@ const importExternalContent = async (options: {
 
   if (url) {
     let validUrl = url;
-    if (url.startsWith('http')) {
+    if (url.startsWith('http') || url.startsWith('data')) {
       try {
         validUrl = new URL(url).href;
       } catch {
@@ -2770,9 +2877,10 @@ const importExternalContent = async (options: {
     };
   }
 
-  if (configUrl) {
+  const validConfigUrl = getValidUrl(configUrl);
+  if (validConfigUrl) {
     configUrlConfig = upgradeAndValidate(
-      await fetch(configUrl)
+      await fetch(validConfigUrl)
         .then((res) => res.json())
         .catch(() => ({})),
     );
@@ -2831,20 +2939,6 @@ const bootstrap = async (reload = false) => {
   }
 };
 
-const configureLite = () => {
-  setConfig({
-    ...getConfig(),
-    editor: 'codejar',
-    emmet: false,
-    tools: {
-      enabled: [],
-      active: 'console',
-      status: 'none',
-    },
-  });
-  UI.getFormatButton().style.display = 'none';
-};
-
 const initializeApp = async (
   options?: {
     config?: Partial<Config>;
@@ -2860,18 +2954,11 @@ const initializeApp = async (
   isEmbed = isLite || (options?.isEmbed ?? false);
 
   setConfig(buildConfig(appConfig, baseUrl));
-  if (isLite) {
-    configureLite();
-  }
-  if (getConfig().mode === 'codeblock') {
-    setConfig({ ...getConfig(), readonly: true });
-  }
+  configureModes({ config: getConfig(), isEmbed, isLite });
+
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
-  if (isEmbed || getConfig().mode === 'result') {
-    configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
-  }
   createLanguageMenus(
     getConfig(),
     baseUrl,
@@ -2894,7 +2981,6 @@ const initializeApp = async (
     initializeAuth();
     checkRestoreStatus();
   }
-  const params = getParams(); // query string params
   importExternalContent({
     config: getConfig(),
     configUrl: params.config,
@@ -2907,6 +2993,7 @@ const initializeApp = async (
     if (isEmbed) {
       parent.dispatchEvent(new Event(customEvents.ready));
     }
+    initialized = true;
   });
   configureEmmet(getConfig());
   showVersion();

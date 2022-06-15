@@ -1,19 +1,6 @@
-import type { API, Code, Config, ChangeHandler } from './models';
+import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from './models';
 
-export type { Code, Config };
-
-export interface Playground extends API {
-  load: () => Promise<void>;
-}
-
-export interface EmbedOptions {
-  appUrl?: string;
-  config?: Partial<Config> | string;
-  importUrl?: string;
-  lite?: boolean;
-  loading?: 'scroll' | 'click' | 'eager';
-  template?: string;
-}
+export type { Code, Config, EmbedOptions, Playground };
 
 export const createPlayground = async (
   container: string | HTMLElement,
@@ -23,9 +10,10 @@ export const createPlayground = async (
     appUrl = 'https://livecodes.io/',
     config = {},
     importUrl,
-    loading = 'scroll',
+    loading = 'lazy',
     lite,
     template,
+    view = 'editor,result',
   } = options;
 
   let containerElement: HTMLElement | null;
@@ -59,6 +47,21 @@ export const createPlayground = async (
         if (['string', 'boolean', 'number', 'undefined'].includes(typeof value)) {
           url.searchParams.set(key, String(value));
         }
+        if (key === 'tools' && typeof value === 'object') {
+          const tools = value as Partial<Config['tools']>;
+          if (tools.active) {
+            url.searchParams.set(tools.active, tools.status || '');
+          }
+          if (Array.isArray(tools.enabled)) {
+            if (tools.enabled.length === 0) {
+              url.searchParams.set('tools', 'none');
+            } else {
+              url.searchParams.set('tools', tools.enabled.join(','));
+            }
+          } else if (tools.status) {
+            url.searchParams.set('tools', tools.status);
+          }
+        }
       }
       url.searchParams.set('config', 'data:application/json;base64,' + encoded);
     } catch {
@@ -75,9 +78,8 @@ export const createPlayground = async (
   }
 
   url.searchParams.set(lite ? 'lite' : 'embed', 'true');
-  if (loading === 'eager') {
-    url.searchParams.set('click-to-load', 'false');
-  }
+  url.searchParams.set('loading', loading);
+  url.searchParams.set('view', view);
 
   let livecodesReady = false;
   let destroyed = false;
@@ -94,6 +96,9 @@ export const createPlayground = async (
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
+      frame.style.border = '0';
+      frame.style.height = '100%';
+      frame.style.width = '100%';
       frame.src = url.href;
       frame.onload = () => {
         addEventListener('message', function readyHandler(e) {
@@ -105,6 +110,7 @@ export const createPlayground = async (
         });
         resolve(frame);
       };
+      containerElement.innerHTML = '';
       containerElement.appendChild(frame);
     });
 
@@ -192,7 +198,7 @@ export const createPlayground = async (
     destroyed = true;
   };
 
-  if (loading === 'scroll' && 'IntersectionObserver' in window) {
+  if (loading === 'lazy' && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach(async (entry) => {

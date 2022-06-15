@@ -336,7 +336,7 @@ export const createToolsPane = (
     setActiveTool(activeToolId);
   };
 
-  const getToolId = (name: Tool['name']) => {
+  const getToolId = (name: Tool['name'] | '') => {
     const id = tools.findIndex((t) => t?.name === name);
     return id > -1 ? id : 0;
   };

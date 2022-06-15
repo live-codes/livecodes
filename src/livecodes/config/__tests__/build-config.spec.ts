@@ -202,6 +202,7 @@ describe('loadParamConfig', () => {
     });
     expect(output.tools).toEqual({
       enabled: [],
+      active: '',
       status: 'none',
     });
   });
@@ -212,7 +213,7 @@ describe('loadParamConfig', () => {
     });
     expect(output.tools).toEqual({
       enabled: 'all',
-      active: 'console',
+      active: '',
       status: 'open',
     });
   });
@@ -287,7 +288,7 @@ describe('loadParamConfig', () => {
     });
     expect(output.tools).toEqual({
       enabled: ['compiled', 'tests'],
-      active: 'compiled',
+      active: '',
       status: 'closed',
     });
   });
@@ -300,7 +301,7 @@ describe('loadParamConfig', () => {
     });
     expect(output.tools).toEqual({
       enabled: ['tests'],
-      active: 'tests',
+      active: '',
       status: 'open',
     });
   });
@@ -325,6 +326,98 @@ describe('loadParamConfig', () => {
     expect(output.tools).toEqual({
       enabled: ['tests', 'console'],
       active: 'tests',
+      status: 'open',
+    });
+  });
+
+  test('?mode=result', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'result',
+    });
+    expect(output.tools).toEqual({
+      enabled: [],
+      active: '',
+      status: 'none',
+    });
+  });
+
+  test('?mode=editor', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'editor',
+    });
+    expect(output.tools).toEqual({
+      enabled: [],
+      active: '',
+      status: 'none',
+    });
+  });
+
+  test('?mode=codeblock', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'codeblock',
+    });
+    expect(output.tools).toEqual({
+      enabled: [],
+      active: '',
+      status: 'none',
+    });
+  });
+
+  test('?mode=full', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'full',
+    });
+    expect(output.tools).toEqual({
+      enabled: 'all',
+      active: '',
+      status: 'closed',
+    });
+  });
+
+  test('?mode=result&console=closed', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'result',
+      console: 'closed',
+    });
+    expect(output.tools).toEqual({
+      enabled: 'all',
+      active: 'console',
+      status: 'closed',
+    });
+  });
+
+  test('?mode=result&console=open', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'result',
+      console: 'open',
+    });
+    expect(output.tools).toEqual({
+      enabled: 'all',
+      active: 'console',
+      status: 'open',
+    });
+  });
+
+  test('?mode=result&compiled=open', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'result',
+      compiled: 'open',
+    });
+    expect(output.tools).toEqual({
+      enabled: 'all',
+      active: 'compiled',
+      status: 'open',
+    });
+  });
+
+  test('?mode=result&tools=open', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      mode: 'result',
+      tools: 'open',
+    });
+    expect(output.tools).toEqual({
+      enabled: 'all',
+      active: '',
       status: 'open',
     });
   });
