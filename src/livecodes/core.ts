@@ -107,6 +107,8 @@ import {
 import { createToolsPane } from './toolspane';
 import { createOpenItem, getResultElement } from './UI';
 import { customEvents } from './custom-events';
+// eslint-disable-next-line import/no-internal-modules
+import { populateConfig, SourceFile } from './import/utils';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage | undefined;
@@ -1903,6 +1905,53 @@ const handleImport = () => {
         notifications.error('failed to load URL');
         importInput.focus();
       }
+    });
+
+    const loadFiles = (input: HTMLInputElement) =>
+      new Promise<SourceFile[]>((resolve, reject) => {
+        if (input.files?.length === 0) return;
+
+        const files = Array.from(input.files as FileList);
+        const sourceFiles: SourceFile[] = [];
+
+        for (const file of files) {
+          // Max 2 MB allowed
+          const maxSizeAllowed = 2 * 1024 * 1024;
+          if (file.size > maxSizeAllowed) {
+            reject('Error: Exceeded size 2MB');
+            return;
+          }
+
+          const reader = new FileReader();
+          eventsManager.addEventListener(reader, 'load', async (event: any) => {
+            const text = (event.target?.result as string) || '';
+            sourceFiles.push({
+              filename: file.name,
+              content: text,
+            });
+
+            if (sourceFiles.length === files.length) {
+              resolve(sourceFiles);
+            }
+          });
+
+          eventsManager.addEventListener(reader, 'error', () => {
+            reject('Error: Failed to read file');
+          });
+
+          reader.readAsText(file);
+        }
+      });
+
+    const codeImportInput = UI.getCodeImportInput(importContainer);
+    eventsManager.addEventListener(codeImportInput, 'change', () => {
+      loadFiles(codeImportInput)
+        .then((importedFiles) => populateConfig(importedFiles, {}) as ContentConfig)
+        .then(loadConfig)
+        .then(modal.close)
+        .catch((message) => {
+          notifications.error(message);
+        });
     });
 
     const importJsonUrlForm = UI.getImportJsonUrlForm(importContainer);

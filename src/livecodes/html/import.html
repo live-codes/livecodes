@@ -11,7 +11,12 @@
         <form id="url-import-form">
           <label for="code-url">URL</label>
           <input type="text" id="code-url" placeholder="https://" />
-          <button id="url-import-btn" class="wide-button" type="submit">Import</button>
+          <button id="url-import-btn" class="wide-button" type="submit">Import from URL</button>
+        </form>
+        <form id="local-code-import-form">
+          <label for="local-code-input">Local file</label>
+          <label for="local-code-input" class="file-input-label">Import local files</label>
+          <input type="file" id="local-code-input" class="file-input" multiple />
         </form>
         <div class="description">
           Supported Sources:

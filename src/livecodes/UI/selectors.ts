@@ -201,6 +201,8 @@ export const getUrlImportButton = (importContainer: HTMLElement) =>
   importContainer.querySelector('#url-import-btn') as HTMLButtonElement;
 export const getUrlImportInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#code-url') as HTMLInputElement;
+export const getCodeImportInput = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#local-code-input') as HTMLInputElement;
 
 export const getImportJsonUrlForm = (importContainer: HTMLElement) =>
   importContainer.querySelector('#json-url-import-form') as HTMLInputElement;
