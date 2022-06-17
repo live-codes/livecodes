@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { CodeEditor, EditorId, Language } from '../models';
+import type { CodeEditor, EditorId } from '../models';
 import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
