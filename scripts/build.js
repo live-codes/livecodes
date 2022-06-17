@@ -18,7 +18,6 @@ function iife(code) {
   return '(function(){' + code.trim() + '\n})();\n';
 }
 
-var srcDir = path.resolve(__dirname + '/../src/livecodes');
 var outDir = path.resolve(__dirname + '/../build');
 mkdirp(outDir);
 fs.copyFileSync(
@@ -94,7 +93,7 @@ var workerOptions = {
 };
 
 var worker = esbuild.buildSync(workerOptions);
-for (let out of worker.outputFiles) {
+for (let out of worker.outputFiles || []) {
   var content = uint8arrayToString(out.contents);
   var filename = path.basename(out.path);
   fs.writeFileSync(
@@ -104,62 +103,6 @@ for (let out of worker.outputFiles) {
 }
 
 esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/compiler/compile.page.ts'],
-  format: 'iife',
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: [
-    'src/livecodes/editor/codemirror/codemirror-basic.ts',
-    'src/livecodes/editor/codemirror/codemirror-full.ts',
-  ],
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/editor/monaco/monaco.ts'],
-});
-
-esbuild.build({
-  ...baseOptions,
-  entryPoints: [
-    'monaco-astro.ts',
-    'monaco-clio.ts',
-    'monaco-imba.ts',
-    'monaco-sql.ts',
-    'monaco-wat.ts',
-  ].map((entry) => 'src/livecodes/editor/monaco/languages/' + entry),
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: [
-    'src/livecodes/editor/codejar/codejar-basic.ts',
-    'src/livecodes/editor/codejar/codejar-full.ts',
-  ],
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/result/result-utils.ts'],
-  format: 'iife',
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/compiler/compiler-utils.ts'],
-  format: 'iife',
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/editor/custom-editor-utils.ts'],
-  format: 'iife',
-});
-
-esbuild.buildSync({
   entryPoints: ['src/livecodes/templates/starter/index.ts'],
   bundle: true,
   minify: true,
@@ -167,63 +110,46 @@ esbuild.buildSync({
   format: 'esm',
 });
 
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/services/firebase.ts'],
+[
+  'editor/codemirror/codemirror-basic.ts',
+  'editor/codemirror/codemirror-full.ts',
+  'editor/monaco/monaco.ts',
+  'editor/monaco/languages/monaco-astro.ts',
+  'editor/monaco/languages/monaco-clio.ts',
+  'editor/monaco/languages/monaco-imba.ts',
+  'editor/monaco/languages/monaco-sql.ts',
+  'editor/monaco/languages/monaco-wat.ts',
+  'editor/codejar/codejar-basic.ts',
+  'editor/codejar/codejar-full.ts',
+  'editor/blockly/blockly.ts',
+  'editor/quill/quill.ts',
+  'services/firebase.ts',
+  'languages/language-info.ts',
+  'UI/open.ts',
+  'UI/assets.ts',
+  'UI/import.ts',
+  'UI/share.ts',
+  'UI/deploy.ts',
+  'UI/embed-ui.ts',
+].forEach((entry) => {
+  esbuild.buildSync({
+    ...baseOptions,
+    entryPoints: ['src/livecodes/' + entry],
+    loader: { '.html': 'text' },
+  });
 });
 
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/languages/language-info.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/UI/open.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/UI/assets.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/UI/import.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/UI/share.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/UI/deploy.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/UI/embed-ui.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/editor/blockly/blockly.ts'],
-  loader: { '.html': 'text' },
-});
-
-esbuild.buildSync({
-  ...baseOptions,
-  entryPoints: ['src/livecodes/editor/quill/quill.ts'],
-  loader: { '.html': 'text' },
+[
+  'compiler/compile.page.ts',
+  'compiler/compiler-utils.ts',
+  'editor/custom-editor-utils.ts',
+  'result/result-utils.ts',
+].forEach((entry) => {
+  esbuild.buildSync({
+    ...baseOptions,
+    entryPoints: ['src/livecodes/' + entry],
+    format: 'iife',
+  });
 });
 
 [
