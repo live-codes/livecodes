@@ -17,7 +17,6 @@ import {
 import {
   createSimpleStorage,
   createStorage,
-  StorageItem,
   RestoreItem,
   ProjectStorage,
   SimpleStorage,
@@ -80,7 +79,6 @@ import { importCode, isGithub } from './import';
 import {
   copyToClipboard,
   debounce,
-  fetchWithHandler,
   getValidUrl,
   loadStylesheet,
   stringify,
@@ -108,7 +106,7 @@ import { createToolsPane } from './toolspane';
 import { createOpenItem, getResultElement } from './UI';
 import { customEvents } from './custom-events';
 // eslint-disable-next-line import/no-internal-modules
-import { populateConfig, SourceFile } from './import/utils';
+import { populateConfig } from './import/utils';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage | undefined;
@@ -1877,200 +1875,20 @@ const handleOpen = () => {
 };
 
 const handleImport = () => {
-  const createImportUI = () => {
-    const importContainer = UI.createImportContainer(eventsManager);
-
-    const importForm = UI.getUrlImportForm(importContainer);
-    const importButton = UI.getUrlImportButton(importContainer);
-    eventsManager.addEventListener(importForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = importButton.innerHTML;
-      importButton.innerHTML = 'Loading...';
-      importButton.disabled = true;
-      const importInput = UI.getUrlImportInput(importContainer);
-      const url = importInput.value;
-      const imported = await importCode(url, {}, defaultConfig, await authService?.getUser());
-      if (imported && Object.keys(imported).length > 0) {
-        await loadConfig(
-          {
-            ...defaultConfig,
-            ...imported,
-          },
-          location.origin + location.pathname + '?x=' + encodeURIComponent(url),
-        );
-        modal.close();
-      } else {
-        importButton.innerHTML = buttonText;
-        importButton.disabled = false;
-        notifications.error('failed to load URL');
-        importInput.focus();
-      }
+  const createImportUI = async () => {
+    modal.show(UI.loadingMessage());
+    const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
+    importModule.createImportUI({
+      modal,
+      notifications,
+      eventsManager,
+      importCode,
+      getUser: authService?.getUser,
+      loadConfig,
+      populateConfig,
+      projectStorage,
+      showScreen,
     });
-
-    const loadFiles = (input: HTMLInputElement) =>
-      new Promise<SourceFile[]>((resolve, reject) => {
-        if (input.files?.length === 0) return;
-
-        const files = Array.from(input.files as FileList);
-        const sourceFiles: SourceFile[] = [];
-
-        for (const file of files) {
-          // Max 2 MB allowed
-          const maxSizeAllowed = 2 * 1024 * 1024;
-          if (file.size > maxSizeAllowed) {
-            reject('Error: Exceeded size 2MB');
-            return;
-          }
-
-          const reader = new FileReader();
-          eventsManager.addEventListener(reader, 'load', async (event: any) => {
-            const text = (event.target?.result as string) || '';
-            sourceFiles.push({
-              filename: file.name,
-              content: text,
-            });
-
-            if (sourceFiles.length === files.length) {
-              resolve(sourceFiles);
-            }
-          });
-
-          eventsManager.addEventListener(reader, 'error', () => {
-            reject('Error: Failed to read file');
-          });
-
-          reader.readAsText(file);
-        }
-      });
-
-    const codeImportInput = UI.getCodeImportInput(importContainer);
-    eventsManager.addEventListener(codeImportInput, 'change', () => {
-      loadFiles(codeImportInput)
-        .then((importedFiles) => populateConfig(importedFiles, {}) as ContentConfig)
-        .then(loadConfig)
-        .then(modal.close)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const importJsonUrlForm = UI.getImportJsonUrlForm(importContainer);
-    const importJsonUrlButton = UI.getImportJsonUrlButton(importContainer);
-    eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = importJsonUrlButton.innerHTML;
-      importJsonUrlButton.innerHTML = 'Loading...';
-      importJsonUrlButton.disabled = true;
-      const importInput = UI.getImportJsonUrlInput(importContainer);
-      const url = importInput.value;
-      fetchWithHandler(url)
-        .then((res) => res.json())
-        .then((fileConfig) =>
-          loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url),
-        )
-        .then(() => modal.close())
-        .catch(() => {
-          importJsonUrlButton.innerHTML = buttonText;
-          importJsonUrlButton.disabled = false;
-          notifications.error('Error: failed to load URL');
-          importInput.focus();
-        });
-    });
-
-    const bulkImportJsonUrlForm = UI.getBulkImportJsonUrlForm(importContainer);
-    const bulkimportJsonUrlButton = UI.getBulkImportJsonUrlButton(importContainer);
-    eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = bulkimportJsonUrlButton.innerHTML;
-      bulkimportJsonUrlButton.innerHTML = 'Loading...';
-      bulkimportJsonUrlButton.disabled = true;
-      const importInput = UI.getBulkImportJsonUrlInput(importContainer);
-      const url = importInput.value;
-      fetchWithHandler(url)
-        .then((res) => res.json())
-        .then(insertItems)
-        .catch(() => {
-          bulkimportJsonUrlButton.innerHTML = buttonText;
-          bulkimportJsonUrlButton.disabled = false;
-          notifications.error('Error: failed to load URL');
-          importInput.focus();
-        });
-    });
-
-    const loadFile = <T>(input: HTMLInputElement) =>
-      new Promise<T>((resolve, reject) => {
-        if (input.files?.length === 0) return;
-
-        const file = (input.files as FileList)[0];
-
-        const allowedTypes = ['application/json', 'text/plain'];
-        if (allowedTypes.indexOf(file.type) === -1) {
-          reject('Error: Incorrect file type');
-          return;
-        }
-
-        // Max 2 MB allowed
-        const maxSizeAllowed = 2 * 1024 * 1024;
-        if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 2MB');
-          return;
-        }
-
-        const reader = new FileReader();
-        eventsManager.addEventListener(reader, 'load', async (event: any) => {
-          const text = (event.target?.result as string) || '';
-          try {
-            resolve(JSON.parse(text));
-          } catch (error) {
-            reject('Invalid configuration file');
-          }
-        });
-
-        eventsManager.addEventListener(reader, 'error', () => {
-          reject('Error: Failed to read file');
-        });
-
-        reader.readAsText(file);
-      });
-
-    const insertItems = async (items: StorageItem[]) => {
-      const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
-      if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
-        await projectStorage.bulkInsert(items.map(getItemConfig));
-        notifications.success('Import Successful!');
-        showScreen('open');
-        return;
-      }
-      return Promise.reject('Error: Invalid file');
-    };
-
-    const fileInput = UI.getImportFileInput(importContainer);
-    eventsManager.addEventListener(fileInput, 'change', () => {
-      loadFile<Config>(fileInput)
-        .then(loadConfig)
-        .then(modal.close)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const bulkFileInput = UI.getBulkImportFileInput(importContainer);
-    eventsManager.addEventListener(bulkFileInput, 'change', () => {
-      loadFile<StorageItem[]>(bulkFileInput)
-        .then(insertItems)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const linkToSavedProjects = UI.getLinkToSavedProjects(importContainer);
-    eventsManager.addEventListener(linkToSavedProjects, 'click', (e) => {
-      e.preventDefault();
-      showScreen('open');
-    });
-
-    modal.show(importContainer, { isAsync: true });
-    UI.getUrlImportInput(importContainer).focus();
   };
 
   eventsManager.addEventListener(
