@@ -56,7 +56,7 @@ export const createDeployUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
-  getResultPage: ({}: {
+  getResultPage: (_: {
     forExport: boolean;
     template: string;
     singleFile: boolean;

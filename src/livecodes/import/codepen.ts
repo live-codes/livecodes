@@ -12,13 +12,17 @@ const languages: { [key in EditorId]: Language[] } = {
 };
 
 const getCode = async (url: string, editor: EditorId) => {
+  const [_, penUser, penId] = new RegExp(hostPatterns.codepen).exec(url) || [];
+  if (!penUser || !penId) return {};
+  const penUrl = `https://codepen.io/${penUser}/pen/${penId}`;
+
   const srcExtension = languages[editor][1];
   let compiledExtension = languages[editor][0];
   if (compiledExtension === 'javascript') {
     compiledExtension = 'js';
   }
   const [src, compiled] = await Promise.all(
-    [`${url}.${srcExtension}`, `${url}.${compiledExtension}`].map((pageUrl) =>
+    [`${penUrl}.${srcExtension}`, `${penUrl}.${compiledExtension}`].map((pageUrl) =>
       fetch(pageUrl).then((res) => res.text()),
     ),
   );
