@@ -204,6 +204,12 @@ esbuild.buildSync({
 
 esbuild.buildSync({
   ...baseOptions,
+  entryPoints: ['src/livecodes/UI/deploy.ts'],
+  loader: { '.html': 'text' },
+});
+
+esbuild.buildSync({
+  ...baseOptions,
   entryPoints: ['src/livecodes/UI/embed-ui.ts'],
   loader: { '.html': 'text' },
 });
