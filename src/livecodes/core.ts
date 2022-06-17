@@ -1847,7 +1847,6 @@ const handleSaveAsTemplate = () => {
 const handleOpen = () => {
   const createList = async () => {
     modal.show(UI.loadingMessage());
-
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -1974,7 +1973,9 @@ const handleExport = () => {
 
 const handleShare = () => {
   const createShareUI = async () => {
-    const shareContainer = await UI.createShareContainer(share, baseUrl, eventsManager);
+    modal.show(UI.loadingMessage(), { size: 'small' });
+    const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
+    const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
   };
   eventsManager.addEventListener(

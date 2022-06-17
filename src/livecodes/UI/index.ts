@@ -1,4 +1,3 @@
-export * from './import';
 export * from './info';
 export * from './deploy';
 export * from './loading';
@@ -6,6 +5,5 @@ export * from './login';
 export * from './open';
 export * from './postcss-plugins';
 export * from './selectors';
-export * from './share';
 export * from './split-panes';
 export * from './templates';
