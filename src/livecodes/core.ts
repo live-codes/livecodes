@@ -914,7 +914,11 @@ const updateConfig = () => {
   });
 };
 
-const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush = true) => {
+const loadConfig = async (
+  newConfig: Partial<Config | ContentConfig>,
+  url?: string,
+  flush = true,
+) => {
   changingContent = true;
 
   const content = getContentConfig({
