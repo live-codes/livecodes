@@ -6,7 +6,7 @@ const proxyUrl = 'https://api.allorigins.win/raw?url=';
 
 export const corsService = {
   fetch: async (url: string, options?: RequestInit) => {
-    const corsUrl = (!allowedOrigin() ? corsApiUrl : proxyUrl) + encodeURIComponent(url);
+    const corsUrl = (allowedOrigin() ? corsApiUrl : proxyUrl) + encodeURIComponent(url);
     if (whitelistTarget(url)) {
       return fetchWithHandler(corsUrl, options);
     }
