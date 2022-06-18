@@ -9,7 +9,7 @@ import { defaultConfig } from '../config/default-config';
 import { createEventsManager } from '../events';
 import { importScreen } from '../html';
 import { fetchWithHandler } from '../utils';
-import { jsZipUrl } from '../vendors';
+import { importFromZip } from '../import/zip';
 import {
   getBulkImportFileInput,
   getBulkImportJsonUrlButton,
@@ -132,44 +132,7 @@ export const createImportUI = ({
       }
     });
 
-  const loadZipFile = (input: HTMLInputElement) =>
-    new Promise<Partial<ContentConfig>>(async (resolve, reject) => {
-      if (!(window as any).JSZip) {
-        (window as any).JSZip = (await import(jsZipUrl)).default;
-      }
-
-      (window as any).JSZip.loadAsync(input.files![0]).then(async (zip: any) => {
-        const projectJson: any[] = zip.file(/livecodes\.json/);
-        if (projectJson.length > 0) {
-          projectJson[0]
-            .async('string')
-            .then((str: string) => {
-              resolve(JSON.parse(str));
-            })
-            .catch(reject);
-          return;
-        }
-
-        const filesInSrcDir: any[] = zip.file(/((^src\/)|(\/src\/))/);
-        const allFiles: any[] = zip.file(/.*/);
-        const rootFiles = allFiles.filter((file) => !file.name.includes('/'));
-        const selectedFiles =
-          filesInSrcDir.length > 0 ? filesInSrcDir : rootFiles.length > 0 ? rootFiles : allFiles;
-
-        if (selectedFiles.length > 0) {
-          const sourceFiles: SourceFile[] = await Promise.all(
-            selectedFiles.map(async (file) => ({
-              filename: file.name,
-              content: await file.async('string'),
-            })),
-          );
-          resolve(populateConfig(sourceFiles, {}));
-          return;
-        }
-
-        resolve({});
-      });
-    });
+  const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0]);
 
   const codeImportInput = getCodeImportInput(importContainer);
   eventsManager.addEventListener(codeImportInput, 'change', () => {
