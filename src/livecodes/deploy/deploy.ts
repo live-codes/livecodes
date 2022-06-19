@@ -1,6 +1,7 @@
 import { defaultConfig } from '../config';
 import { getDescriptionFile, getFilesFromConfig } from '../export';
-import { getGithubHeaders } from '../import';
+// eslint-disable-next-line import/no-internal-modules
+import { getGithubHeaders } from '../import/github-headers';
 import { ContentConfig, User } from '../models';
 import { generateId } from '../storage';
 import { safeName } from '../utils';

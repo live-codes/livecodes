@@ -1,14 +1,14 @@
 /* eslint-disable import/no-internal-modules */
-import type { importCode as importCodeFn } from '../import';
 import type { SourceFile, populateConfig as populateConfigFn } from '../import/utils';
 import type { createModal } from '../modal';
 import type { Config, ContentConfig, User, Screen } from '../models';
 import type { createNotifications } from '../notifications';
 import type { ProjectStorage, StorageItem } from '../storage';
+import type { createEventsManager } from '../events';
 import { defaultConfig } from '../config/default-config';
-import { createEventsManager } from '../events';
 import { importScreen } from '../html';
-import { fetchWithHandler } from '../utils';
+import { fetchWithHandler } from '../utils/utils';
+import { importCode } from '../import/import';
 import { importFromZip } from '../import/zip';
 import {
   getBulkImportFileInput,
@@ -25,6 +25,7 @@ import {
   getUrlImportForm,
   getUrlImportInput,
 } from './selectors';
+export { importCode };
 
 const createImportContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
   const div = document.createElement('div');
@@ -53,17 +54,16 @@ export const createImportUI = ({
   modal,
   notifications,
   eventsManager,
-  importCode,
   getUser,
   loadConfig,
   populateConfig,
   projectStorage,
   showScreen,
 }: {
+  baseUrl: string;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
-  importCode: typeof importCodeFn;
   getUser: (() => Promise<void | User>) | undefined;
   loadConfig: (newConfig: Partial<ContentConfig>, url?: string) => Promise<void>;
   populateConfig: typeof populateConfigFn;
@@ -80,6 +80,7 @@ export const createImportUI = ({
     importButton.disabled = true;
     const importInput = getUrlImportInput(importContainer);
     const url = importInput.value;
+
     const imported = await importCode(url, {}, defaultConfig, await getUser?.());
     if (imported && Object.keys(imported).length > 0) {
       await loadConfig(

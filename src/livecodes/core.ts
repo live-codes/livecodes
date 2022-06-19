@@ -50,6 +50,7 @@ import type {
   TestResult,
   ToolsPane,
 } from './models';
+import type { GitHubFile } from './deploy';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -75,7 +76,8 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { importCode, isGithub } from './import';
+// eslint-disable-next-line import/no-internal-modules
+import { isGithub } from './import/github';
 import {
   copyToClipboard,
   debounce,
@@ -89,9 +91,9 @@ import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
-import * as UI from './UI';
+// eslint-disable-next-line import/no-internal-modules
+import * as UI from './UI/selectors';
 import { createAuthService, sandboxService, shareService } from './services';
-import { deployFile, GitHubFile } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   chaiTypesUrl,
@@ -102,7 +104,20 @@ import {
   snackbarUrl,
 } from './vendors';
 import { createToolsPane } from './toolspane';
-import { createOpenItem, getResultElement } from './UI';
+import {
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  displayLoggedIn,
+  displayLoggedOut,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+  createLoginContainer,
+  createTemplatesContainer,
+  createPluginItem,
+} from './UI';
 import { customEvents } from './custom-events';
 // eslint-disable-next-line import/no-internal-modules
 import { populateConfig } from './import/utils';
@@ -116,7 +131,7 @@ let restoreStorage: SimpleStorage<RestoreItem> | undefined;
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
-const split = UI.createSplitPanes();
+const split = createSplitPanes();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 
@@ -1119,7 +1134,7 @@ const initializeAuth = async () => {
   authService = createAuthService(isEmbed);
   const user = await authService.getUser();
   if (user) {
-    UI.displayLoggedIn(user);
+    displayLoggedIn(user);
   }
 };
 
@@ -1140,7 +1155,7 @@ const login = async () =>
                 ? 'Logged in as: ' + displayName
                 : 'Logged in successfully';
               notifications.success(loginSuccessMessage);
-              UI.displayLoggedIn(user);
+              displayLoggedIn(user);
               resolve(user);
             }
           })
@@ -1151,7 +1166,7 @@ const login = async () =>
       modal.close();
     };
 
-    const loginContainer = UI.createLoginContainer(eventsManager, loginHandler);
+    const loginContainer = createLoginContainer(eventsManager, loginHandler);
     modal.show(loginContainer, { size: 'small' });
   }).catch(() => {
     notifications.error('Login error!');
@@ -1163,7 +1178,7 @@ const logout = () => {
     .signOut()
     .then(() => {
       notifications.success('Logged out successfully');
-      UI.displayLoggedOut();
+      displayLoggedOut();
     })
     .catch(() => {
       notifications.error('Logout error!');
@@ -1577,7 +1592,7 @@ const handleProcessors = () => {
   }
 
   pluginList.forEach((plugin) => {
-    const pluginItem = UI.createPluginItem(plugin);
+    const pluginItem = createPluginItem(plugin);
     styleMenu.append(pluginItem);
     eventsManager.addEventListener(
       pluginItem,
@@ -1702,7 +1717,7 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = UI.createTemplatesContainer(eventsManager, () => loadUserTemplates());
+  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
   const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
@@ -1710,7 +1725,7 @@ const handleNew = () => {
     const userTemplates = (await templateStorage?.getList()) || [];
 
     if (userTemplates.length === 0) {
-      userTemplatesScreen.innerHTML = UI.noUserTemplates;
+      userTemplatesScreen.innerHTML = noUserTemplates;
       return;
     }
     userTemplatesScreen.innerHTML = '';
@@ -1782,7 +1797,7 @@ const handleNew = () => {
           starterTemplatesCache = starterTemplates;
           loadingText?.remove();
           starterTemplates.forEach((template) => {
-            const link = UI.createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
             eventsManager.addEventListener(
               link,
               'click',
@@ -1849,7 +1864,7 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(UI.loadingMessage());
+    modal.show(loadingMessage());
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -1878,13 +1893,13 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(UI.loadingMessage());
+    modal.show(loadingMessage());
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
+      baseUrl,
       modal,
       notifications,
       eventsManager,
-      importCode,
       getUser: authService?.getUser,
       loadConfig,
       populateConfig,
@@ -1976,7 +1991,7 @@ const handleExport = () => {
 
 const handleShare = () => {
   const createShareUI = async () => {
-    modal.show(UI.loadingMessage(), { size: 'small' });
+    modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
     const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
@@ -2000,9 +2015,9 @@ const handleDeploy = () => {
       notifications.error('Authentication error!');
       return;
     }
-    modal.show(UI.loadingMessage());
-    const importModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
-    importModule.createDeployUI({
+    modal.show(loadingMessage());
+    const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
+    deployModule.createDeployUI({
       modal,
       notifications,
       eventsManager,
@@ -2028,17 +2043,11 @@ const handleProjectInfo = () => {
     });
     save(!projectId, true);
   };
-  const createProjectInfoUI = () =>
-    UI.createProjectInfoUI(
-      getConfig(),
-      projectStorage || fakeStorage,
-      modal,
-      eventsManager,
-      onSave,
-    );
+  const createProjectInfo = () =>
+    createProjectInfoUI(getConfig(), projectStorage || fakeStorage, modal, eventsManager, onSave);
 
-  eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
-  registerScreen('info', createProjectInfoUI);
+  eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
+  registerScreen('info', createProjectInfo);
 };
 
 const handleEmbed = () => {
@@ -2058,7 +2067,7 @@ const handleEmbed = () => {
       value: '',
     });
   const createEmbedUI = async () => {
-    modal.show(UI.loadingMessage());
+    modal.show(loadingMessage());
 
     const embedModule: typeof import('./UI/embed-ui') = await import(
       baseUrl + '{{hash:embed-ui.js}}'
@@ -2087,7 +2096,7 @@ const handleEmbed = () => {
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(UI.loadingMessage());
+    modal.show(loadingMessage());
     assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
@@ -2105,7 +2114,10 @@ const handleAssets = () => {
 
   const createAddAsset = async (activeTab: number) => {
     await loadModule();
-    const deployAsset = async (user: User, file: GitHubFile) => deployFile({ user, file });
+
+    const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
+    const deployAsset = async (user: User, file: GitHubFile) =>
+      deployModule.deployFile({ user, file });
     modal.show(
       assetsModule.createAddAssetContainer({
         eventsManager,
@@ -2596,7 +2608,9 @@ const importExternalContent = async (options: {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    urlConfig = await importCode(validUrl, getParams(), getConfig(), user);
+
+    const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
+    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user);
   }
 
   if (hasContentUrls(config)) {

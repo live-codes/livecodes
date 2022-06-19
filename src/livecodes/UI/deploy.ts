@@ -4,7 +4,7 @@ import type { createNotifications } from '../notifications';
 import type { Config, ContentConfig, Cache, User } from '../models';
 import { deployScreen, resultTemplate } from '../html';
 import { autoCompleteUrl } from '../vendors';
-import { deploy, deployedConfirmation, getUserPublicRepos } from '../deploy';
+import { deploy, deployFile, deployedConfirmation, getUserPublicRepos } from '../deploy';
 import {
   getExistingRepoButton,
   getExistingRepoCommitSource,
@@ -18,6 +18,8 @@ import {
   getNewRepoNameError,
   getNewRepoNameInput,
 } from './selectors';
+
+export { deployFile };
 
 const createDeployContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
   const div = document.createElement('div');
@@ -109,7 +111,7 @@ export const createDeployUI = async ({
       commitSource,
       singleFile,
       newRepo,
-    }).catch((error) => {
+    }).catch((error: any) => {
       if (error.message === 'Repo name already exists') {
         newRepoNameError.innerHTML = error.message;
       }
