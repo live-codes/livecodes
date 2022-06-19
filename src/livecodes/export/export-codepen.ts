@@ -15,13 +15,19 @@ export const exportCodepen = (config: Config) => {
   dataInput.value = JSON.stringify({
     title: config.title,
     html: config.markup.content,
-    html_pre_processor: ['markdown'].includes(config.markup.language)
+    html_pre_processor: ['markdown', 'haml'].includes(config.markup.language)
       ? config.markup.language
       : 'none',
     css: config.style.content,
     css_pre_processor: ['less', 'scss', 'sass', 'stylus'].includes(config.style.language)
       ? config.style.language
       : 'none',
+    css_starter:
+      config.cssPreset === 'normalize.css'
+        ? 'normalize'
+        : config.cssPreset === 'reset-css'
+        ? 'reset'
+        : 'neither',
     css_prefix: config.processors.postcss.autoprefixer ? 'autoprefixer' : 'neither',
     js: replaceImports(config.script.content || '', config),
     js_pre_processor: ['typescript', 'coffeescript'].includes(config.script.language)
@@ -29,8 +35,10 @@ export const exportCodepen = (config: Config) => {
       : config.script.language === 'jsx'
       ? 'babel'
       : 'none',
-    js_external: config.scripts.join(';'),
+    html_classes: config.customSettings.htmlClasses || '',
+    head: config.customSettings.head || '',
     css_external: config.stylesheets.join(';'),
+    js_external: config.scripts.join(';'),
   });
   form.appendChild(dataInput);
   document.body.appendChild(form);

@@ -33,6 +33,16 @@ export const createResultPage = async ({
   // title
   dom.title = config.title;
 
+  // html classes
+  if (config.customSettings.htmlClasses) {
+    dom.documentElement.classList.add(...config.customSettings.htmlClasses.split(' '));
+  }
+
+  // head content
+  if (config.customSettings.head) {
+    dom.head.innerHTML += config.customSettings.head;
+  }
+
   // if export => clean, else => add utils
   if (forExport) {
     dom.querySelector('script')?.remove();
