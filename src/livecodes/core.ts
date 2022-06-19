@@ -63,7 +63,8 @@ import {
   savePromptScreen,
   restorePromptScreen,
 } from './html';
-import { exportConfig } from './export';
+// eslint-disable-next-line import/no-internal-modules
+import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
 import {
@@ -1918,13 +1919,18 @@ const handleImport = () => {
 };
 
 const handleExport = () => {
+  let exportModule: typeof import('./export/export');
+  const loadModule = async () => {
+    exportModule = exportModule || (await import(baseUrl + '{{hash:export.js}}'));
+  };
+
   eventsManager.addEventListener(
     UI.getExportJSONLink(),
     'click',
     (event: Event) => {
       event.preventDefault();
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'json');
+      exportJSON(getConfig());
     },
     false,
   );
@@ -1935,7 +1941,13 @@ const handleExport = () => {
     async (event: Event) => {
       event.preventDefault();
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
+      await loadModule();
+      exportModule.exportConfig(
+        getConfig(),
+        baseUrl,
+        'html',
+        await getResultPage({ forExport: true }),
+      );
     },
     false,
   );
@@ -1947,7 +1959,8 @@ const handleExport = () => {
       event.preventDefault();
       updateConfig();
       const html = await getResultPage({ forExport: true });
-      exportConfig(getConfig(), baseUrl, 'src', { html });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'src', { html });
     },
     false,
   );
@@ -1966,7 +1979,15 @@ const handleExport = () => {
         style: cache.style.compiled,
         script: cache.script.compiled,
       };
-      exportConfig(getConfig(), baseUrl, 'codepen', { baseUrl, compiled });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'codepen', {
+        baseUrl,
+        compiled,
+        deps: {
+          getLanguageExtension,
+          getLanguageCompiler,
+        },
+      });
     },
     false,
   );
@@ -1974,9 +1995,26 @@ const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportJsfiddleLink(),
     'click',
-    () => {
+    async () => {
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'jsfiddle');
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
+      }
+      const cache = getCachedCode();
+      const compiled = {
+        markup: cache.markup.compiled,
+        style: cache.style.compiled,
+        script: cache.script.compiled,
+      };
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'jsfiddle', {
+        baseUrl,
+        compiled,
+        deps: {
+          getLanguageExtension,
+          getLanguageCompiler,
+        },
+      });
     },
     false,
   );
@@ -1992,7 +2030,8 @@ const handleExport = () => {
       }
       if (!user) return;
       notifications.info('Creating a public GitHub gist...');
-      exportConfig(getConfig(), baseUrl, 'githubGist', { user });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', { user });
     },
     false,
   );
@@ -2031,10 +2070,13 @@ const handleDeploy = () => {
       notifications,
       eventsManager,
       user,
-      getResultPage,
-      getCache,
-      getConfig,
-      getContentConfig,
+      deps: {
+        getResultPage,
+        getCache,
+        getConfig,
+        getContentConfig,
+        getLanguageExtension,
+      },
     });
   };
 

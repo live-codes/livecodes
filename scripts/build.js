@@ -125,6 +125,7 @@ esbuild.buildSync({
   'editor/quill/quill.ts',
   'services/firebase.ts',
   'languages/language-info.ts',
+  'export/export.ts',
   'UI/open.ts',
   'UI/assets.ts',
   'UI/import.ts',

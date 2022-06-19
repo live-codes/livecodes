@@ -2,6 +2,7 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { Config, ContentConfig, Cache, User } from '../models';
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { deployScreen, resultTemplate } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { deploy, deployFile, deployedConfirmation, getUserPublicRepos } from '../deploy';
@@ -49,23 +50,23 @@ export const createDeployUI = async ({
   notifications,
   eventsManager,
   user,
-  getResultPage,
-  getCache,
-  getConfig,
-  getContentConfig,
+  deps,
 }: {
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
-  getResultPage: (_: {
-    forExport: boolean;
-    template: string;
-    singleFile: boolean;
-  }) => Promise<string>;
-  getCache: () => Cache;
-  getConfig: () => Config;
-  getContentConfig: (config: Config | ContentConfig) => ContentConfig;
+  deps: {
+    getResultPage: (_: {
+      forExport: boolean;
+      template: string;
+      singleFile: boolean;
+    }) => Promise<string>;
+    getCache: () => Cache;
+    getConfig: () => Config;
+    getContentConfig: (config: Config | ContentConfig) => ContentConfig;
+    getLanguageExtension: typeof getLanguageExtensionFn;
+  };
 }) => {
   const deployContainer = createDeployContainer(eventsManager);
 
@@ -92,16 +93,16 @@ export const createDeployUI = async ({
     const singleFile = false;
     newRepoNameError.innerHTML = '';
 
-    const resultHtml = await getResultPage({
+    const resultHtml = await deps.getResultPage({
       forExport,
       template: resultTemplate,
       singleFile,
     });
-    const cache = getCache();
+    const cache = deps.getCache();
     const deployResult = await deploy({
       user,
       repo,
-      config: getContentConfig(getConfig()),
+      config: deps.getContentConfig(deps.getConfig()),
       content: {
         resultPage: resultHtml,
         style: cache.style.compiled || '',
@@ -111,6 +112,7 @@ export const createDeployUI = async ({
       commitSource,
       singleFile,
       newRepo,
+      deps: { getLanguageExtension: deps.getLanguageExtension },
     }).catch((error: any) => {
       if (error.message === 'Repo name already exists') {
         newRepoNameError.innerHTML = error.message;
