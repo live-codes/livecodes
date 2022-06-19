@@ -1955,9 +1955,18 @@ const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportCodepenLink(),
     'click',
-    () => {
+    async () => {
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'codepen');
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
+      }
+      const cache = getCachedCode();
+      const compiled = {
+        markup: cache.markup.compiled,
+        style: cache.style.compiled,
+        script: cache.script.compiled,
+      };
+      exportConfig(getConfig(), baseUrl, 'codepen', { baseUrl, compiled });
     },
     false,
   );
