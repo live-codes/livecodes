@@ -1960,7 +1960,10 @@ const handleExport = () => {
       updateConfig();
       const html = await getResultPage({ forExport: true });
       await loadModule();
-      exportModule.exportConfig(getConfig(), baseUrl, 'src', { html });
+      exportModule.exportConfig(getConfig(), baseUrl, 'src', {
+        html,
+        deps: { getLanguageExtension },
+      });
     },
     false,
   );
@@ -2031,7 +2034,10 @@ const handleExport = () => {
       if (!user) return;
       notifications.info('Creating a public GitHub gist...');
       await loadModule();
-      exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', { user });
+      exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', {
+        user,
+        deps: { getLanguageExtension },
+      });
     },
     false,
   );

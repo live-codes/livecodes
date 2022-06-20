@@ -82,7 +82,7 @@ export const getDescriptionFile = (
     : !user.username
     ? 'by ' + user.displayName
     : 'by [' + user.displayName + '](' + githubUrl + user.username + ')';
-  const projectInfo = url ? `[project](https://livecodes.io/#${url})` : 'project';
+  const projectInfo = url ? `[project](https://livecodes.io/?x=${url})` : 'project';
 
   return {
     [safeName(config.title) + '.md']: {
