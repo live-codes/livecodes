@@ -3,30 +3,32 @@ module.exports = {
     {
       path: './build/assets/*.js',
       maxSize: '10kB',
+      compression: 'brotli',
     },
     {
       path: './build/livecodes/app*.js',
       maxSize: '100kB',
+      compression: 'brotli',
     },
     {
       path: './build/livecodes/embed*.js',
       maxSize: '100kB',
+      compression: 'brotli',
     },
     {
       path: './build/livecodes/lite*.js',
       maxSize: '100kB',
+      compression: 'brotli',
     },
     {
       path: './build/livecodes/codemirror-*.js',
-      maxSize: '350kB',
+      maxSize: '300kB',
+      compression: 'brotli',
     },
     {
-      path: './build/livecodes/codejar-*.js',
-      maxSize: '35kB',
-    },
-    {
-      path: './build/livecodes/!(app|embed|lite|codemirror-*|codejar-*)*.js',
+      path: './build/livecodes/!(app|embed|lite|codemirror-*|lang-)*.js',
       maxSize: '30kB',
+      compression: 'brotli',
     },
   ],
   normalizeFilenames: /^.+?(\.[^.]+?)\.\w+$/,
