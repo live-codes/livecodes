@@ -25,3 +25,7 @@ jobs:
         run: npm run test
         env:
           CI: true
+          CI_REPO_OWNER: ${{ github.GITHUB_REPOSITORY_OWNER }}
+          CI_REPO_NAME: ${{ github.GITHUB_REPOSITORY }}
+          CI_COMMIT_SHA: ${{ github.GITHUB_SHA }}
+          CI_BRANCH: ${{ github.GITHUB_REF_NAME }}
