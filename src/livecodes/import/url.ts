@@ -2,6 +2,7 @@ import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages
 import { EditorId, Language, Config } from '../models';
 import { corsService } from '../services';
 import { decodeHTML } from '../utils';
+import { importFromZip } from './zip';
 
 type Selectors = {
   [key in EditorId]: {
@@ -49,14 +50,29 @@ export const importFromUrl = async (
   params: { [key: string]: string },
   config: Config,
 ): Promise<Partial<Config>> => {
-  let fetchedContent: string;
+  let res: Response;
   try {
-    fetchedContent = await corsService.fetch(url).then((res) => res.text());
+    res = await corsService.fetch(url);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error fetching ' + url);
     return {};
   }
+
+  // zip file
+  if (
+    url.endsWith('.zip') ||
+    ['application/zip', 'application/octet-stream'].includes(
+      res.headers.get('Content-Type') || '',
+    ) ||
+    url.startsWith('data:application/zip') ||
+    url.startsWith('data:application/octet-stream')
+  ) {
+    const zip = await res.blob();
+    return importFromZip(zip);
+  }
+
+  const fetchedContent = await res.text();
 
   if (params.raw) {
     return getRawCode(fetchedContent, params.raw);

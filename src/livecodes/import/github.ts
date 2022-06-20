@@ -1,5 +1,6 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { Language, Config, User } from '../models';
+import { isGithubDir } from './github-dir';
 import { getGithubHeaders } from './github-headers';
 import { hostPatterns } from './utils';
 
@@ -13,6 +14,8 @@ export const isGithubUrl = (url: string, pattern = new RegExp(hostPatterns.githu
     return;
   }
 };
+
+export const isGithub = (url: string) => isGithubDir(url) || isGithubUrl(url);
 
 const getValidUrl = (url: string) =>
   url.startsWith('https://') ? new URL(url) : new URL('https://' + url);

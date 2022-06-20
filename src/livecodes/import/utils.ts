@@ -22,6 +22,7 @@ export const getValidUrl = (url: string) => {
     return;
   }
 };
+
 export const populateConfig = (files: SourceFile[], params: { [key: string]: string }) => {
   if (files.length === 0) return {};
 
@@ -190,6 +191,7 @@ export const populateConfig = (files: SourceFile[], params: { [key: string]: str
 export const hostPatterns = {
   github: /^(?:(?:http|https):\/\/)?github.com\/(?:.*)/g,
   githubGist: /^(?:(?:http|https):\/\/)?gist.github.com(?:\/\S*)?\/(\w+)/g,
-  gitlab: /^(?:(?:(?:http|https):\/\/)?)?gitlab.com\/(?:.*)/g,
+  gitlab: /^(?:(?:http|https):\/\/)?gitlab.com\/(?:.*)/g,
+  codepen: /^(?:(?:http|https):\/\/)?codepen.io\/(\w+)\/pen\/(\w+)/g,
   jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d)?)(?:.*)/g,
 };

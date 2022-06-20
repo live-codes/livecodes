@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import { basicLanguages, createEditor, selectedEditor, createCustomEditors } from './editor';
 import {
   languages,
@@ -17,7 +18,6 @@ import {
 import {
   createSimpleStorage,
   createStorage,
-  StorageItem,
   RestoreItem,
   ProjectStorage,
   SimpleStorage,
@@ -51,6 +51,7 @@ import type {
   TestResult,
   ToolsPane,
 } from './models';
+import type { GitHubFile } from './deploy';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -63,7 +64,7 @@ import {
   savePromptScreen,
   restorePromptScreen,
 } from './html';
-import { exportConfig } from './export';
+import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
 import {
@@ -76,27 +77,23 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { importCode, isGithub } from './import';
+import { isGithub } from './import/github';
 import {
   copyToClipboard,
   debounce,
-  fetchWithHandler,
   getValidUrl,
   loadStylesheet,
   stringify,
   stringToValidJson,
 } from './utils';
-// eslint-disable-next-line import/no-internal-modules
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
-import * as UI from './UI';
+import * as UI from './UI/selectors';
 import { createAuthService, sandboxService, shareService } from './services';
-import { deploy, deployedConfirmation, deployFile, getUserPublicRepos, GitHubFile } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
-  autoCompleteUrl,
   chaiTypesUrl,
   hintCssUrl,
   jestTypesUrl,
@@ -105,8 +102,22 @@ import {
   snackbarUrl,
 } from './vendors';
 import { createToolsPane } from './toolspane';
-import { createOpenItem, getResultElement } from './UI';
+import {
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  displayLoggedIn,
+  displayLoggedOut,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+  createLoginContainer,
+  createTemplatesContainer,
+  createPluginItem,
+} from './UI';
 import { customEvents } from './custom-events';
+import { populateConfig } from './import/utils';
 
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage | undefined;
@@ -117,7 +128,7 @@ let restoreStorage: SimpleStorage<RestoreItem> | undefined;
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
-const split = UI.createSplitPanes();
+const split = createSplitPanes();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 
@@ -915,7 +926,11 @@ const updateConfig = () => {
   });
 };
 
-const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush = true) => {
+const loadConfig = async (
+  newConfig: Partial<Config | ContentConfig>,
+  url?: string,
+  flush = true,
+) => {
   changingContent = true;
 
   const content = getContentConfig({
@@ -1116,7 +1131,7 @@ const initializeAuth = async () => {
   authService = createAuthService(isEmbed);
   const user = await authService.getUser();
   if (user) {
-    UI.displayLoggedIn(user);
+    displayLoggedIn(user);
   }
 };
 
@@ -1137,7 +1152,7 @@ const login = async () =>
                 ? 'Logged in as: ' + displayName
                 : 'Logged in successfully';
               notifications.success(loginSuccessMessage);
-              UI.displayLoggedIn(user);
+              displayLoggedIn(user);
               resolve(user);
             }
           })
@@ -1148,7 +1163,7 @@ const login = async () =>
       modal.close();
     };
 
-    const loginContainer = UI.createLoginContainer(eventsManager, loginHandler);
+    const loginContainer = createLoginContainer(eventsManager, loginHandler);
     modal.show(loginContainer, { size: 'small' });
   }).catch(() => {
     notifications.error('Login error!');
@@ -1160,7 +1175,7 @@ const logout = () => {
     .signOut()
     .then(() => {
       notifications.success('Logged out successfully');
-      UI.displayLoggedOut();
+      displayLoggedOut();
     })
     .catch(() => {
       notifications.error('Logout error!');
@@ -1574,7 +1589,7 @@ const handleProcessors = () => {
   }
 
   pluginList.forEach((plugin) => {
-    const pluginItem = UI.createPluginItem(plugin);
+    const pluginItem = createPluginItem(plugin);
     styleMenu.append(pluginItem);
     eventsManager.addEventListener(
       pluginItem,
@@ -1699,7 +1714,7 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = UI.createTemplatesContainer(eventsManager, () => loadUserTemplates());
+  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
   const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
@@ -1707,7 +1722,7 @@ const handleNew = () => {
     const userTemplates = (await templateStorage?.getList()) || [];
 
     if (userTemplates.length === 0) {
-      userTemplatesScreen.innerHTML = UI.noUserTemplates;
+      userTemplatesScreen.innerHTML = noUserTemplates;
       return;
     }
     userTemplatesScreen.innerHTML = '';
@@ -1779,7 +1794,7 @@ const handleNew = () => {
           starterTemplatesCache = starterTemplates;
           loadingText?.remove();
           starterTemplates.forEach((template) => {
-            const link = UI.createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
             eventsManager.addEventListener(
               link,
               'click',
@@ -1846,8 +1861,7 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(UI.loadingMessage());
-
+    modal.show(loadingMessage());
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -1875,153 +1889,20 @@ const handleOpen = () => {
 };
 
 const handleImport = () => {
-  const createImportUI = () => {
-    const importContainer = UI.createImportContainer(eventsManager);
-
-    const importForm = UI.getUrlImportForm(importContainer);
-    const importButton = UI.getUrlImportButton(importContainer);
-    eventsManager.addEventListener(importForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = importButton.innerHTML;
-      importButton.innerHTML = 'Loading...';
-      importButton.disabled = true;
-      const importInput = UI.getUrlImportInput(importContainer);
-      const url = importInput.value;
-      const imported = await importCode(url, {}, defaultConfig, await authService?.getUser());
-      if (imported && Object.keys(imported).length > 0) {
-        await loadConfig(
-          {
-            ...defaultConfig,
-            ...imported,
-          },
-          location.origin + location.pathname + '?x=' + encodeURIComponent(url),
-        );
-        modal.close();
-      } else {
-        importButton.innerHTML = buttonText;
-        importButton.disabled = false;
-        notifications.error('failed to load URL');
-        importInput.focus();
-      }
+  const createImportUI = async () => {
+    modal.show(loadingMessage());
+    const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
+    importModule.createImportUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      getUser: authService?.getUser,
+      loadConfig,
+      populateConfig,
+      projectStorage,
+      showScreen,
     });
-
-    const importJsonUrlForm = UI.getImportJsonUrlForm(importContainer);
-    const importJsonUrlButton = UI.getImportJsonUrlButton(importContainer);
-    eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = importJsonUrlButton.innerHTML;
-      importJsonUrlButton.innerHTML = 'Loading...';
-      importJsonUrlButton.disabled = true;
-      const importInput = UI.getImportJsonUrlInput(importContainer);
-      const url = importInput.value;
-      fetchWithHandler(url)
-        .then((res) => res.json())
-        .then((fileConfig) =>
-          loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url),
-        )
-        .then(() => modal.close())
-        .catch(() => {
-          importJsonUrlButton.innerHTML = buttonText;
-          importJsonUrlButton.disabled = false;
-          notifications.error('Error: failed to load URL');
-          importInput.focus();
-        });
-    });
-
-    const bulkImportJsonUrlForm = UI.getBulkImportJsonUrlForm(importContainer);
-    const bulkimportJsonUrlButton = UI.getBulkImportJsonUrlButton(importContainer);
-    eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = bulkimportJsonUrlButton.innerHTML;
-      bulkimportJsonUrlButton.innerHTML = 'Loading...';
-      bulkimportJsonUrlButton.disabled = true;
-      const importInput = UI.getBulkImportJsonUrlInput(importContainer);
-      const url = importInput.value;
-      fetchWithHandler(url)
-        .then((res) => res.json())
-        .then(insertItems)
-        .catch(() => {
-          bulkimportJsonUrlButton.innerHTML = buttonText;
-          bulkimportJsonUrlButton.disabled = false;
-          notifications.error('Error: failed to load URL');
-          importInput.focus();
-        });
-    });
-
-    const loadFile = <T>(input: HTMLInputElement) =>
-      new Promise<T>((resolve, reject) => {
-        if (input.files?.length === 0) return;
-
-        const file = (input.files as FileList)[0];
-
-        const allowedTypes = ['application/json', 'text/plain'];
-        if (allowedTypes.indexOf(file.type) === -1) {
-          reject('Error: Incorrect file type');
-          return;
-        }
-
-        // Max 2 MB allowed
-        const maxSizeAllowed = 2 * 1024 * 1024;
-        if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 2MB');
-          return;
-        }
-
-        const reader = new FileReader();
-        eventsManager.addEventListener(reader, 'load', async (event: any) => {
-          const text = (event.target?.result as string) || '';
-          try {
-            resolve(JSON.parse(text));
-          } catch (error) {
-            reject('Invalid configuration file');
-          }
-        });
-
-        eventsManager.addEventListener(reader, 'error', () => {
-          reject('Error: Failed to read file');
-        });
-
-        reader.readAsText(file);
-      });
-
-    const insertItems = async (items: StorageItem[]) => {
-      const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
-      if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
-        await projectStorage.bulkInsert(items.map(getItemConfig));
-        notifications.success('Import Successful!');
-        showScreen('open');
-        return;
-      }
-      return Promise.reject('Error: Invalid file');
-    };
-
-    const fileInput = UI.getImportFileInput(importContainer);
-    eventsManager.addEventListener(fileInput, 'change', () => {
-      loadFile<Config>(fileInput)
-        .then(loadConfig)
-        .then(modal.close)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const bulkFileInput = UI.getBulkImportFileInput(importContainer);
-    eventsManager.addEventListener(bulkFileInput, 'change', () => {
-      loadFile<StorageItem[]>(bulkFileInput)
-        .then(insertItems)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const linkToSavedProjects = UI.getLinkToSavedProjects(importContainer);
-    eventsManager.addEventListener(linkToSavedProjects, 'click', (e) => {
-      e.preventDefault();
-      showScreen('open');
-    });
-
-    modal.show(importContainer, { isAsync: true });
-    UI.getUrlImportInput(importContainer).focus();
   };
 
   eventsManager.addEventListener(
@@ -2034,13 +1915,18 @@ const handleImport = () => {
 };
 
 const handleExport = () => {
+  let exportModule: typeof import('./export/export');
+  const loadModule = async () => {
+    exportModule = exportModule || (await import(baseUrl + '{{hash:export.js}}'));
+  };
+
   eventsManager.addEventListener(
     UI.getExportJSONLink(),
     'click',
     (event: Event) => {
       event.preventDefault();
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'json');
+      exportJSON(getConfig());
     },
     false,
   );
@@ -2051,12 +1937,17 @@ const handleExport = () => {
     async (event: Event) => {
       event.preventDefault();
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
+      await loadModule();
+      exportModule.exportConfig(
+        getConfig(),
+        baseUrl,
+        'html',
+        await getResultPage({ forExport: true }),
+      );
     },
     false,
   );
 
-  let JSZip: any;
   eventsManager.addEventListener(
     UI.getExportSourceLink(),
     'click',
@@ -2064,7 +1955,11 @@ const handleExport = () => {
       event.preventDefault();
       updateConfig();
       const html = await getResultPage({ forExport: true });
-      exportConfig(getConfig(), baseUrl, 'src', { JSZip, html });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'src', {
+        html,
+        deps: { getLanguageExtension },
+      });
     },
     false,
   );
@@ -2072,9 +1967,26 @@ const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportCodepenLink(),
     'click',
-    () => {
+    async () => {
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'codepen');
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
+      }
+      const cache = getCachedCode();
+      const compiled = {
+        markup: cache.markup.compiled,
+        style: cache.style.compiled,
+        script: cache.script.compiled,
+      };
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'codepen', {
+        baseUrl,
+        compiled,
+        deps: {
+          getLanguageExtension,
+          getLanguageCompiler,
+        },
+      });
     },
     false,
   );
@@ -2082,9 +1994,26 @@ const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportJsfiddleLink(),
     'click',
-    () => {
+    async () => {
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'jsfiddle');
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
+      }
+      const cache = getCachedCode();
+      const compiled = {
+        markup: cache.markup.compiled,
+        style: cache.style.compiled,
+        script: cache.script.compiled,
+      };
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'jsfiddle', {
+        baseUrl,
+        compiled,
+        deps: {
+          getLanguageExtension,
+          getLanguageCompiler,
+        },
+      });
     },
     false,
   );
@@ -2100,7 +2029,11 @@ const handleExport = () => {
       }
       if (!user) return;
       notifications.info('Creating a public GitHub gist...');
-      exportConfig(getConfig(), baseUrl, 'githubGist', { user });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', {
+        user,
+        deps: { getLanguageExtension },
+      });
     },
     false,
   );
@@ -2108,7 +2041,9 @@ const handleExport = () => {
 
 const handleShare = () => {
   const createShareUI = async () => {
-    const shareContainer = await UI.createShareContainer(share, baseUrl, eventsManager);
+    modal.show(loadingMessage(), { size: 'small' });
+    const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
+    const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
   };
   eventsManager.addEventListener(
@@ -2130,148 +2065,21 @@ const handleDeploy = () => {
       notifications.error('Authentication error!');
       return;
     }
-
-    const deployContainer = UI.createDeployContainer(eventsManager);
-
-    const newRepoForm = UI.getNewRepoForm(deployContainer);
-    const newRepoButton = UI.getNewRepoButton(deployContainer);
-    const newRepoNameInput = UI.getNewRepoNameInput(deployContainer);
-    const newRepoNameError = UI.getNewRepoNameError(deployContainer);
-    const newRepoMessageInput = UI.getNewRepoMessageInput(deployContainer);
-    const newRepoCommitSource = UI.getNewRepoCommitSource(deployContainer);
-    const existingRepoForm = UI.getExistingRepoForm(deployContainer);
-    const existingRepoButton = UI.getExistingRepoButton(deployContainer);
-    const existingRepoNameInput = UI.getExistingRepoNameInput(deployContainer);
-    const existingRepoMessageInput = UI.getExistingRepoMessageInput(deployContainer);
-    const existingRepoCommitSource = UI.getExistingRepoCommitSource(deployContainer);
-
-    const publish = async (
-      user: User,
-      repo: string,
-      message: string,
-      commitSource: boolean,
-      newRepo: boolean,
-    ) => {
-      const forExport = true;
-      const singleFile = false;
-      newRepoNameError.innerHTML = '';
-
-      const resultHtml = await getResultPage({
-        forExport,
-        template: resultTemplate,
-        singleFile,
-      });
-      const cache = getCache();
-      const deployResult = await deploy({
-        user,
-        repo,
-        config: getContentConfig(getConfig()),
-        content: {
-          resultPage: resultHtml,
-          style: cache.style.compiled || '',
-          script: cache.script.compiled || '',
-        },
-        message,
-        commitSource,
-        singleFile,
-        newRepo,
-      }).catch((error) => {
-        if (error.message === 'Repo name already exists') {
-          newRepoNameError.innerHTML = error.message;
-        }
-      });
-
-      if (newRepoNameError.innerHTML !== '') {
-        return false;
-      } else if (deployResult) {
-        const confirmationContianer = deployedConfirmation(deployResult, commitSource);
-        modal.show(confirmationContianer, { size: 'small', closeButton: true });
-        return true;
-      } else {
-        modal.close();
-        notifications.error('Deployment failed!');
-        return true;
-      }
-    };
-
-    eventsManager.addEventListener(newRepoForm, 'submit', async (e) => {
-      e.preventDefault();
-      if (!user) return;
-
-      const name = newRepoNameInput.value;
-      const message = newRepoMessageInput.value;
-      const commitSource = newRepoCommitSource.checked;
-      const newRepo = true;
-      if (!name) {
-        notifications.error('Repo name is required');
-        return;
-      }
-
-      newRepoButton.innerHTML = 'Deploying...';
-      newRepoButton.disabled = true;
-
-      const result = await publish(user, name, message, commitSource, newRepo);
-      if (!result) {
-        newRepoButton.innerHTML = 'Deploy';
-        newRepoButton.disabled = false;
-      }
+    modal.show(loadingMessage());
+    const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
+    deployModule.createDeployUI({
+      modal,
+      notifications,
+      eventsManager,
+      user,
+      deps: {
+        getResultPage,
+        getCache,
+        getConfig,
+        getContentConfig,
+        getLanguageExtension,
+      },
     });
-
-    eventsManager.addEventListener(existingRepoForm, 'submit', async (e) => {
-      e.preventDefault();
-      if (!user) return;
-
-      const name = existingRepoNameInput.value;
-      const message = existingRepoMessageInput.value;
-      const commitSource = existingRepoCommitSource.checked;
-      const newRepo = false;
-      if (!name) {
-        notifications.error('Repo name is required');
-        return;
-      }
-
-      existingRepoButton.innerHTML = 'Deploying...';
-      existingRepoButton.disabled = true;
-
-      await publish(user, name, message, commitSource, newRepo);
-    });
-
-    let autoComplete: any;
-    import(autoCompleteUrl).then(async () => {
-      autoComplete = (globalThis as any).autoComplete;
-
-      if (!user) return;
-      const publicRepos = await getUserPublicRepos(user);
-
-      eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
-        existingRepoNameInput.focus();
-      });
-
-      const inputSelector = '#' + existingRepoNameInput.id;
-      if (!document.querySelector(inputSelector)) return;
-      const autoCompleteJS = new autoComplete({
-        selector: inputSelector,
-        placeHolder: 'Search your public repos...',
-        data: {
-          src: publicRepos,
-        },
-        resultItem: {
-          highlight: {
-            render: true,
-          },
-        },
-      });
-
-      eventsManager.addEventListener(autoCompleteJS.input, 'selection', function (event: any) {
-        const feedback = event.detail;
-        autoCompleteJS.input.blur();
-        const selection = feedback.selection.value;
-        autoCompleteJS.input.value = selection;
-      });
-    });
-
-    modal.show(deployContainer);
-    newRepoNameInput.focus();
   };
 
   eventsManager.addEventListener(UI.getDeployLink(), 'click', createDeployUI, false);
@@ -2288,17 +2096,11 @@ const handleProjectInfo = () => {
     });
     save(!projectId, true);
   };
-  const createProjectInfoUI = () =>
-    UI.createProjectInfoUI(
-      getConfig(),
-      projectStorage || fakeStorage,
-      modal,
-      eventsManager,
-      onSave,
-    );
+  const createProjectInfo = () =>
+    createProjectInfoUI(getConfig(), projectStorage || fakeStorage, modal, eventsManager, onSave);
 
-  eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
-  registerScreen('info', createProjectInfoUI);
+  eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
+  registerScreen('info', createProjectInfo);
 };
 
 const handleEmbed = () => {
@@ -2318,7 +2120,7 @@ const handleEmbed = () => {
       value: '',
     });
   const createEmbedUI = async () => {
-    modal.show(UI.loadingMessage());
+    modal.show(loadingMessage());
 
     const embedModule: typeof import('./UI/embed-ui') = await import(
       baseUrl + '{{hash:embed-ui.js}}'
@@ -2326,6 +2128,12 @@ const handleEmbed = () => {
     await embedModule.createEmbedUI({
       baseUrl,
       title: getConfig().title,
+      editors: {
+        markup: getLanguageTitle(getConfig().markup.language),
+        style: getLanguageTitle(getConfig().style.language),
+        script: getLanguageTitle(getConfig().script.language),
+      },
+      activeEditor: getConfig().activeEditor || 'markup',
       modal,
       notifications,
       eventsManager,
@@ -2341,7 +2149,7 @@ const handleEmbed = () => {
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(UI.loadingMessage());
+    modal.show(loadingMessage());
     assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
@@ -2359,7 +2167,10 @@ const handleAssets = () => {
 
   const createAddAsset = async (activeTab: number) => {
     await loadModule();
-    const deployAsset = async (user: User, file: GitHubFile) => deployFile({ user, file });
+
+    const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
+    const deployAsset = async (user: User, file: GitHubFile) =>
+      deployModule.deployFile({ user, file });
     modal.show(
       assetsModule.createAddAssetContainer({
         eventsManager,
@@ -2462,7 +2273,7 @@ const handleCustomSettings = () => {
       getLanguageExtension,
     };
     customSettingsEditor = await createEditor(options);
-    customSettingsEditor.focus();
+    customSettingsEditor?.focus();
 
     eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
       let customSettings: CustomSettings = {};
@@ -2584,9 +2395,9 @@ const handleTestEditor = () => {
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
-    testEditor.focus();
+    testEditor?.focus();
 
-    if (typeof testEditor.addTypes === 'function') {
+    if (typeof testEditor?.addTypes === 'function') {
       const testTypes: Types = {
         jest: {
           url: jestTypesUrl,
@@ -2850,7 +2661,9 @@ const importExternalContent = async (options: {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    urlConfig = await importCode(validUrl, getParams(), getConfig(), user);
+
+    const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
+    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user);
   }
 
   if (hasContentUrls(config)) {

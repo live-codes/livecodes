@@ -1,5 +1,6 @@
 import { User } from '../models';
-import { getGithubHeaders } from '../import';
+// eslint-disable-next-line import/no-internal-modules
+import { getGithubHeaders } from '../import/github-headers';
 
 export const getUserPublicRepos = async (user: User) => {
   let page = 1;

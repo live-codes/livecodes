@@ -1,9 +1,11 @@
+/* eslint-disable import/no-internal-modules */
 import { defaultConfig } from '../config';
-import { getDescriptionFile, getFilesFromConfig } from '../export';
-import { getGithubHeaders } from '../import';
+import { getDescriptionFile, getFilesFromConfig } from '../export/utils';
+import { getGithubHeaders } from '../import/github-headers';
 import { ContentConfig, User } from '../models';
 import { generateId } from '../storage';
 import { safeName } from '../utils';
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 
 export const repoExists = async (user: User, repo: string) => {
   try {
@@ -212,6 +214,7 @@ const prepareFiles = ({
   content,
   commitSource,
   singleFile,
+  deps,
 }: {
   config: ContentConfig;
   content: {
@@ -221,6 +224,9 @@ const prepareFiles = ({
   };
   commitSource: boolean;
   singleFile: boolean;
+  deps: {
+    getLanguageExtension: typeof getLanguageExtensionFn;
+  };
 }): GitHubFile[] => {
   const files = [{ path: 'index.html', content: content.resultPage }];
   if (!singleFile) {
@@ -230,7 +236,7 @@ const prepareFiles = ({
     );
   }
   if (commitSource) {
-    const sourceFiles = getFilesFromConfig(config);
+    const sourceFiles = getFilesFromConfig(config, deps);
     files.push(
       ...Object.keys(sourceFiles).map((filename) => ({
         path: 'src/' + filename,
@@ -259,6 +265,7 @@ export const deploy = async ({
   commitSource = true,
   singleFile,
   newRepo = true,
+  deps,
 }: {
   user: User;
   repo: string;
@@ -272,6 +279,9 @@ export const deploy = async ({
   commitSource: boolean;
   singleFile: boolean;
   newRepo: boolean;
+  deps: {
+    getLanguageExtension: typeof getLanguageExtensionFn;
+  };
 }): Promise<DeployResult | null> => {
   let lastCommit: string | null;
   let tree: string | null;
@@ -282,7 +292,7 @@ export const deploy = async ({
     repo = safeName(repo, '-').toLowerCase();
   }
 
-  const files = prepareFiles({ config, content, commitSource, singleFile });
+  const files = prepareFiles({ config, content, commitSource, singleFile, deps });
   const branch = 'gh-pages';
   const urlToSrc = commitSource
     ? `https://github.com/${user.username}/${repo}/tree/gh-pages/src`

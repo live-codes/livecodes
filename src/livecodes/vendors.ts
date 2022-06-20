@@ -68,6 +68,9 @@ export const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/gr
 
 export const handlebarsBaseUrl = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/';
 
+export const highlightjsUrl =
+  'https://cdn.skypack.dev/pin/highlight.js@v11.5.1-ByzFRPBe5lvvwKChRHdq/mode=imports,min/optimized/highlightjs.js';
+
 export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.css';
 
 export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/dist/index.min.js';

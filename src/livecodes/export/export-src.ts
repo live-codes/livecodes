@@ -1,16 +1,30 @@
-import { EditorId, Config } from '../models';
+import type { EditorId, Config } from '../models';
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+
 import { jsZipUrl } from '../vendors';
 import { downloadFile } from '../utils';
 import { getFilesFromConfig } from './utils';
 
-export const exportSrc = async (config: Config, { JSZip, html }: any, _baseUrl?: string) => {
-  if (!JSZip) {
-    JSZip = (await import(jsZipUrl)).default;
+export const exportSrc = async (
+  config: Config,
+  {
+    html,
+    deps,
+  }: {
+    html: string;
+    deps: {
+      getLanguageExtension: typeof getLanguageExtensionFn;
+    };
+  },
+  _baseUrl?: string,
+) => {
+  if (!(window as any).JSZip) {
+    (window as any).JSZip = (await import(jsZipUrl)).default;
   }
 
-  const zip = new JSZip();
+  const zip = new (window as any).JSZip();
 
-  const files = getFilesFromConfig(config);
+  const files = getFilesFromConfig(config, deps);
   (Object.keys(files) as EditorId[]).forEach((filename) => {
     zip.file(filename, files[filename]?.content);
   });

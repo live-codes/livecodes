@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { CodeEditor } from '../models';
+import type { CodeEditor, EditorId } from '../models';
 import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
@@ -10,6 +10,8 @@ import { copyToClipboard } from '../utils';
 export const createEmbedUI = async ({
   baseUrl,
   title,
+  editors,
+  activeEditor,
   modal,
   notifications,
   eventsManager,
@@ -18,6 +20,8 @@ export const createEmbedUI = async ({
 }: {
   baseUrl: string;
   title: string;
+  editors: { [key in EditorId]: string };
+  activeEditor: EditorId;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
@@ -46,6 +50,7 @@ export const createEmbedUI = async ({
       | 'readonly'
       | 'mode'
       | 'view'
+      | 'activeEditor'
       | 'tools';
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
@@ -104,6 +109,15 @@ export const createEmbedUI = async ({
         { label: 'Result', value: 'result' },
       ],
       help: '/web/docs/features/default-view',
+    },
+    {
+      title: 'Active Editor',
+      name: 'activeEditor',
+      options: [
+        { label: editors.markup, value: 'markup', checked: activeEditor === 'markup' },
+        { label: editors.style, value: 'style', checked: activeEditor === 'style' },
+        { label: editors.script, value: 'script', checked: activeEditor === 'script' },
+      ],
     },
     {
       title: 'Tools',
@@ -205,6 +219,9 @@ export const createEmbedUI = async ({
       ...(data.theme !== defaultConfig.theme ? { theme: data.theme } : {}),
       ...(data.tools !== 'closed' ? { tools: { status: data.tools } } : {}),
       ...(data.readonly ? { readonly: data.readonly } : {}),
+      ...(data.mode !== 'result' && data.activeEditor !== activeEditor
+        ? { activeEditor: data.activeEditor }
+        : {}),
     },
     ...(data.lite ? { lite: data.lite } : {}),
     ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
@@ -224,6 +241,9 @@ export const createEmbedUI = async ({
     }
     if (data.view && data.view !== 'editor,result') {
       iframeUrl.searchParams.set('view', String(data.view));
+    }
+    if (data.mode !== 'result' && data.activeEditor && data.activeEditor !== activeEditor) {
+      iframeUrl.searchParams.set('activeEditor', String(data.activeEditor));
     }
     if (data.mode && data.mode !== defaultConfig.mode) {
       iframeUrl.searchParams.set('mode', String(data.mode));
@@ -341,6 +361,19 @@ createPlayground("#${containerId}", options);
         }
       });
     }
+
+    const activeEditorInputs = document.querySelectorAll<HTMLInputElement>(
+      'input[name="embed-activeEditor"]',
+    );
+    activeEditorInputs.forEach((input) => {
+      if (formData.mode === 'result') {
+        input.checked = input.value === activeEditor;
+        input.disabled = true;
+        delete formData.activeEditor;
+      } else {
+        input.disabled = false;
+      }
+    });
 
     previewIframe.src = getIframeUrl(formData);
     const html = (codeTemlates as any)[(formData as any).type]?.(formData);

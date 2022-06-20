@@ -592,6 +592,8 @@ export type CustomSettings = Partial<
     imports: Record<string, string>;
     convertCommonjs: boolean;
     types: Types;
+    head: string;
+    htmlClasses: string;
   }
 >;
 
