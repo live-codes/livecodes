@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import { basicLanguages, createEditor, selectedEditor, createCustomEditors } from './editor';
 import {
   languages,
@@ -63,7 +64,6 @@ import {
   savePromptScreen,
   restorePromptScreen,
 } from './html';
-// eslint-disable-next-line import/no-internal-modules
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
@@ -77,7 +77,6 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-// eslint-disable-next-line import/no-internal-modules
 import { isGithub } from './import/github';
 import {
   copyToClipboard,
@@ -87,12 +86,10 @@ import {
   stringify,
   stringToValidJson,
 } from './utils';
-// eslint-disable-next-line import/no-internal-modules
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
-// eslint-disable-next-line import/no-internal-modules
 import * as UI from './UI/selectors';
 import { createAuthService, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
@@ -120,7 +117,6 @@ import {
   createPluginItem,
 } from './UI';
 import { customEvents } from './custom-events';
-// eslint-disable-next-line import/no-internal-modules
 import { populateConfig } from './import/utils';
 
 const eventsManager = createEventsManager();
