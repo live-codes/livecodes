@@ -39,7 +39,7 @@
     "test": "run-s test:*",
     "test:lint": "run-s lint:*",
     "test:unit": "jest src",
-    "test:bundlewatch": "bundlewatch --config .bundlewatch.config.js && bundlewatch --config .bundlewatch-lang.config.js",
+    "test:bundlewatch": "bundlewatch --config .bundlewatch.config.js",
     "lint:prettier": "prettier src --ignore-path .eslintignore --list-different",
     "lint:eslint": "eslint --ext js,jsx,ts,tsx . ",
     "lint:stylelint": "stylelint \"src/livecodes/styles/*\"",

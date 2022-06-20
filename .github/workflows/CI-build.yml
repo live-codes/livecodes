@@ -26,7 +26,3 @@ jobs:
         env:
           CI: true
           BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
-          CI_REPO_OWNER: ${{ github.GITHUB_REPOSITORY_OWNER }}
-          CI_REPO_NAME: ${{ github.GITHUB_REPOSITORY }}
-          CI_COMMIT_SHA: ${{ github.GITHUB_SHA }}
-          CI_BRANCH: ${{ github.GITHUB_REF_NAME }}
