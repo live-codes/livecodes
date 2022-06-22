@@ -1,6 +1,10 @@
 module.exports = {
   files: [
     {
+      path: './build/lib/*.js',
+      maxSize: '3kB',
+    },
+    {
       path: './build/assets/*.js',
       maxSize: '10kB',
     },
