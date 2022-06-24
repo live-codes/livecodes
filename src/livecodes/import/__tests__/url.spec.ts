@@ -1,4 +1,4 @@
-import { getLanguageSelectors } from '../url';
+import { getLanguageSelectors } from '../dom';
 
 describe('getLanguageSelectors', () => {
   test('defaults first', () => {
