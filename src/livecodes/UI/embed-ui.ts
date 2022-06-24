@@ -322,7 +322,7 @@ createPlayground("#${containerId}", options);
       if (Object.keys(projectConfig).length > 0) {
         options.config = projectConfig;
       }
-      const optionsAttr = escapeCode(encodeHTML(JSON.stringify(options)));
+      const optionsAttr = escapeCode(JSON.stringify(options).replace(/'/g, '&#39;'));
       return `
 <div class="livecodes" style="height: 300px; border: 1px solid black; border-radius: 3px;" data-options='${optionsAttr}'>
 <pre data-lang="${config.markup.language}">${escapeCode(
