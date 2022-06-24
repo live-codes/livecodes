@@ -212,9 +212,8 @@ export const createEmbedUI = async ({
   <span>See the project <a href="${url}" target="_blank">${title}</a> on <a href="${appUrl}" target="_blank">LiveCodes</a></span>
 </div>`;
 
-  const getOptions = (data: FormData) => ({
-    appUrl: url,
-    config: {
+  const getOptions = (data: FormData) => {
+    const config = {
       ...(data.mode !== defaultConfig.mode ? { mode: data.mode } : {}),
       ...(data.theme !== defaultConfig.theme ? { theme: data.theme } : {}),
       ...(data.tools !== 'closed' ? { tools: { status: data.tools } } : {}),
@@ -222,12 +221,18 @@ export const createEmbedUI = async ({
       ...(data.mode !== 'result' && data.activeEditor !== activeEditor
         ? { activeEditor: data.activeEditor }
         : {}),
-    },
-    ...(data.lite ? { lite: data.lite } : {}),
-    ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
-    ...(data.loading === 'click' && !data.preview ? { preview: false } : {}),
-    ...(data.view && data.view !== 'editor,result' ? { view: data.view } : {}),
-  });
+    };
+    const importId = urlObj.searchParams.get('x');
+    return {
+      ...(appUrl !== 'https://livecodes.io/' ? { appUrl } : {}),
+      ...(Object.keys(config).length > 0 ? { config } : {}),
+      ...(importId ? { import: importId } : {}),
+      ...(data.lite ? { lite: data.lite } : {}),
+      ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
+      ...(data.loading === 'click' && !data.preview ? { preview: false } : {}),
+      ...(data.view && data.view !== 'editor,result' ? { view: data.view } : {}),
+    };
+  };
 
   const getIframeUrl = (data: FormData) => {
     const iframeUrl = new URL(url);

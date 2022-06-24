@@ -23,7 +23,7 @@ export interface Playground extends API {
 export interface EmbedOptions {
   appUrl?: string;
   config?: Partial<Config> | string;
-  importUrl?: string;
+  import?: string;
   lite?: boolean;
   loading?: 'lazy' | 'click' | 'eager';
   template?: string;

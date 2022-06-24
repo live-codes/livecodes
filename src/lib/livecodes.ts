@@ -3,20 +3,20 @@ import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from 
 export type { Code, Config, EmbedOptions, Playground };
 
 export const createPlayground = async (
-  container: string | HTMLElement,
+  container: string | Element,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
   const {
     appUrl = 'https://livecodes.io/',
     config = {},
-    importUrl,
+    import: importFrom,
     loading = 'lazy',
     lite,
     template,
     view = 'editor,result',
   } = options;
 
-  let containerElement: HTMLElement | null;
+  let containerElement: Element | null;
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
   } else {
@@ -73,8 +73,8 @@ export const createPlayground = async (
     url.searchParams.set('template', template);
   }
 
-  if (importUrl) {
-    url.searchParams.set('x', importUrl);
+  if (importFrom) {
+    url.searchParams.set('x', importFrom);
   }
 
   url.searchParams.set(lite ? 'lite' : 'embed', 'true');
@@ -236,3 +236,24 @@ export const createPlayground = async (
     },
   };
 };
+
+if (document.currentScript && 'prefill' in document.currentScript?.dataset) {
+  window.addEventListener('load', () => {
+    document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
+      let config: Config | undefined;
+      const configStr = codeblock.dataset.config || codeblock.dataset.prefill;
+      if (configStr) {
+        try {
+          config = JSON.parse(configStr);
+        } catch {
+          //
+        }
+      }
+      createPlayground(codeblock, {
+        appUrl: 'http://127.0.0.1:8080/',
+        import: 'dom/' + encodeURIComponent(codeblock.outerHTML),
+        ...(config ? { config } : {}),
+      });
+    });
+  });
+}
