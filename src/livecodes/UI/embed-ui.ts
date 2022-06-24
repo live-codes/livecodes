@@ -335,7 +335,7 @@ createPlayground("#${containerId}", options);
         encodeHTML(config.script.content || ''),
       )}</pre>
 </div>
-<script async src="${appUrl + 'lib/livecodes.js'}" data-prefill></script>
+<script defer src="${appUrl + 'lib/livecodes.js'}" data-prefill></script>
 `.trimStart();
     },
   };

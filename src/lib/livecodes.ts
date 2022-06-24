@@ -237,7 +237,11 @@ export const createPlayground = async (
   };
 };
 
-if (document.currentScript && 'prefill' in document.currentScript?.dataset) {
+if (
+  globalThis.document && // to escape SSG in docusaurus
+  document.currentScript &&
+  'prefill' in document.currentScript?.dataset
+) {
   window.addEventListener('load', () => {
     document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
       let options: EmbedOptions | undefined;
