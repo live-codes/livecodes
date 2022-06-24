@@ -1,17 +1,16 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { CodeEditor, EditorId } from '../models';
+import type { CodeEditor, ContentConfig, EditorId } from '../models';
 import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
-import { copyToClipboard } from '../utils';
+import { cloneObject, copyToClipboard, encodeHTML, escapeCode } from '../utils';
 
 export const createEmbedUI = async ({
   baseUrl,
-  title,
-  editors,
-  activeEditor,
+  config,
+  editorLanguages,
   modal,
   notifications,
   eventsManager,
@@ -19,15 +18,17 @@ export const createEmbedUI = async ({
   getUrlFn,
 }: {
   baseUrl: string;
-  title: string;
-  editors: { [key in EditorId]: string };
-  activeEditor: EditorId;
+  config: ContentConfig;
+  editorLanguages: { [key in EditorId]: string };
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
   getUrlFn: () => Promise<string>;
 }) => {
+  const title = config.title;
+  const activeEditor = config.activeEditor || 'markup';
+
   const div = document.createElement('div');
   div.innerHTML = embedScreen;
   const embedContainer = div.firstChild as HTMLElement;
@@ -114,9 +115,9 @@ export const createEmbedUI = async ({
       title: 'Active Editor',
       name: 'activeEditor',
       options: [
-        { label: editors.markup, value: 'markup', checked: activeEditor === 'markup' },
-        { label: editors.style, value: 'style', checked: activeEditor === 'style' },
-        { label: editors.script, value: 'script', checked: activeEditor === 'script' },
+        { label: editorLanguages.markup, value: 'markup', checked: activeEditor === 'markup' },
+        { label: editorLanguages.style, value: 'style', checked: activeEditor === 'style' },
+        { label: editorLanguages.script, value: 'script', checked: activeEditor === 'script' },
       ],
     },
     {
@@ -137,6 +138,7 @@ export const createEmbedUI = async ({
         { label: 'Script (CDN)', value: 'cdn', checked: true },
         { label: 'Script (npm)', value: 'npm' },
         { label: 'Iframe', value: 'iframe' },
+        { label: 'HTML', value: 'html' },
       ],
     },
   ];
@@ -300,6 +302,40 @@ createPlayground("#${containerId}", options);
 <iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:3px; margin: 1em 0;" src="${iframeUrl}">
   See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${appUrl}" target="_blank">LiveCodes</a>
 </iframe>
+`.trimStart();
+    },
+    html: (data: FormData) => {
+      const { import: _, ...options } = getOptions(data);
+      const projectConfig = {
+        ...cloneObject<ContentConfig>(config),
+        ...options.config,
+      };
+      (Object.keys(projectConfig) as Array<keyof ContentConfig>).forEach((key) => {
+        if (
+          JSON.stringify(projectConfig[key]) === JSON.stringify(defaultConfig[key]) ||
+          (key === 'activeEditor' && projectConfig.activeEditor === 'markup') ||
+          ['markup', 'style', 'script'].includes(key)
+        ) {
+          delete projectConfig[key];
+        }
+      });
+      if (Object.keys(projectConfig).length > 0) {
+        options.config = projectConfig;
+      }
+      const optionsAttr = escapeCode(encodeHTML(JSON.stringify(options)));
+      return `
+<div class="livecodes" style="height: 300px; border: 1px solid black; border-radius: 3px;" data-options='${optionsAttr}'>
+<pre data-lang="${config.markup.language}">${escapeCode(
+        encodeHTML(config.markup.content || ''),
+      )}</pre>
+<pre data-lang="${config.style.language}">${escapeCode(
+        encodeHTML(config.style.content || ''),
+      )}</pre>
+<pre data-lang="${config.script.language}">${escapeCode(
+        encodeHTML(config.script.content || ''),
+      )}</pre>
+</div>
+<script async src="${appUrl + 'lib/livecodes.js'}" data-prefill></script>
 `.trimStart();
     },
   };

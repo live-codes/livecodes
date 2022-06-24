@@ -240,6 +240,15 @@ export const createPlayground = async (
 if (document.currentScript && 'prefill' in document.currentScript?.dataset) {
   window.addEventListener('load', () => {
     document.querySelectorAll<HTMLElement>('.livecodes').forEach((codeblock) => {
+      let options: EmbedOptions | undefined;
+      const optionsStr = codeblock.dataset.options;
+      if (optionsStr) {
+        try {
+          options = JSON.parse(optionsStr);
+        } catch {
+          //
+        }
+      }
       let config: Config | undefined;
       const configStr = codeblock.dataset.config || codeblock.dataset.prefill;
       if (configStr) {
@@ -250,8 +259,8 @@ if (document.currentScript && 'prefill' in document.currentScript?.dataset) {
         }
       }
       createPlayground(codeblock, {
-        appUrl: 'http://127.0.0.1:8080/',
         import: 'dom/' + encodeURIComponent(codeblock.outerHTML),
+        ...options,
         ...(config ? { config } : {}),
       });
     });

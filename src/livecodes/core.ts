@@ -2127,13 +2127,12 @@ const handleEmbed = () => {
     );
     await embedModule.createEmbedUI({
       baseUrl,
-      title: getConfig().title,
-      editors: {
+      config: getContentConfig(getConfig()),
+      editorLanguages: {
         markup: getLanguageTitle(getConfig().markup.language),
         style: getLanguageTitle(getConfig().style.language),
         script: getLanguageTitle(getConfig().script.language),
       },
-      activeEditor: getConfig().activeEditor || 'markup',
       modal,
       notifications,
       eventsManager,
