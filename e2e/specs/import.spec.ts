@@ -233,7 +233,7 @@ test.describe('Import from URL', () => {
   });
 
   test('code in URL DOM', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ html: 'h1' }) + '#' + rawCode);
+    await page.goto(getTestUrl({ html: 'h1', css: 'span{color:blue}', x: rawCode }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
@@ -242,6 +242,9 @@ test.describe('Import from URL', () => {
 
     const titleText = await getResult().innerText('body');
     expect(titleText).toBe('Hello, World!');
+    expect(await getResult().$eval('span', (e) => getComputedStyle(e).color)).toBe(
+      'rgb(0, 0, 255)',
+    );
   });
 
   test('Config JSON from URL', async ({ page, getTestUrl }) => {

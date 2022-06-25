@@ -12,7 +12,7 @@ type Selectors = {
 };
 
 export const getLanguageSelectors = (params: { [key: string]: string }) =>
-  Object.keys(params).reduce((selectors: Selectors, key) => {
+  Object.keys(params).reduce((selectors: Partial<Selectors>, key) => {
     const language = getLanguageByAlias(key);
     if (!language) return selectors;
 
@@ -26,12 +26,17 @@ export const getLanguageSelectors = (params: { [key: string]: string }) =>
         selector: params[key],
       },
     };
-  }, {} as Selectors);
+  }, {} as Partial<Selectors>);
 
 const extractCodeFromHTML = (dom: Document, selector: string) => {
-  const codeContainer = dom.querySelector(selector);
-  if (!codeContainer) return;
-  return decodeHTML(codeContainer.innerHTML.trim() + '\n' || '');
+  try {
+    const codeContainer = dom.querySelector(selector);
+    if (!codeContainer) return;
+    return decodeHTML(codeContainer.innerHTML.trim() + '\n' || '');
+  } catch {
+    // invalid selector
+    return;
+  }
 };
 
 export const importFromDom = async (
@@ -73,16 +78,27 @@ export const importFromDom = async (
     {} as Selectors,
   );
 
+  const defaultSelectors = getLanguageSelectors(defaultParams);
+  const paramSelectors = getLanguageSelectors(params);
   const languageSelectors: Selectors = {
-    ...getLanguageSelectors(defaultParams),
+    ...defaultSelectors,
     ...configSelectors,
-    ...getLanguageSelectors(params),
+    ...paramSelectors,
   };
 
   const selectedCode = (Object.keys(languageSelectors) as EditorId[]).reduce(
     (config: Partial<Config>, editorId) => {
-      const code = extractCodeFromHTML(dom, languageSelectors[editorId].selector);
-      if (code === undefined) return config;
+      let code = extractCodeFromHTML(dom, languageSelectors[editorId].selector);
+      if (code === undefined) {
+        const paramValue = paramSelectors[editorId]?.selector;
+        if (paramValue) {
+          // assume it is raw code supplied in param
+          // e.g. ?js=console.log('hi')
+          code = paramValue;
+        } else {
+          return config;
+        }
+      }
       return {
         ...config,
         [editorId]: {

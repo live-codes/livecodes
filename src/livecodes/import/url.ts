@@ -49,7 +49,7 @@ export const importFromUrl = async (
     return getRawCode(fetchedContent, params.raw);
   }
 
-  const importedFromDom = importFromDom(fetchedContent, params, config);
+  const importedFromDom = await importFromDom(fetchedContent, params, config);
 
   if (Object.keys(importedFromDom).length > 0) {
     return importedFromDom;
