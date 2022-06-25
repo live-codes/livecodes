@@ -50,6 +50,7 @@ export const importFromDom = async (
 
   const domparser = new DOMParser();
   const dom = domparser.parseFromString(html, 'text/html');
+  const activeEditor = config.activeEditor;
 
   const defaultParams = languages
     .map((lang) => lang.name)
@@ -87,27 +88,27 @@ export const importFromDom = async (
   };
 
   const selectedCode = (Object.keys(languageSelectors) as EditorId[]).reduce(
-    (config: Partial<Config>, editorId) => {
+    (selectedCodeConfig: Partial<Config>, editorId) => {
       let code = extractCodeFromHTML(dom, languageSelectors[editorId].selector);
       if (code === undefined) {
-        const paramValue = paramSelectors[editorId]?.selector;
+        const paramValue: string | undefined = paramSelectors[editorId]?.selector;
         if (paramValue) {
           // assume it is raw code supplied in param
           // e.g. ?js=console.log('hi')
           code = paramValue;
         } else {
-          return config;
+          return selectedCodeConfig;
         }
       }
       return {
-        ...config,
+        ...selectedCodeConfig,
         [editorId]: {
           language: languageSelectors[editorId].language,
           content: code,
         },
       };
     },
-    {},
+    { activeEditor },
   );
 
   if (Object.keys(selectedCode).length === 3) {
@@ -116,21 +117,21 @@ export const importFromDom = async (
 
   // if not all editors are filled, check for default selectors for other languages
   const defaults = Object.keys(defaultParams).reduce(
-    (config: Partial<Config>, language: string) => {
+    (defaultsConfig: Partial<Config>, language: string) => {
       const editorId = getLanguageEditorId(language as Language);
-      if (!editorId || selectedCode[editorId]) return config;
+      if (!editorId || selectedCode[editorId]) return defaultsConfig;
       const code = extractCodeFromHTML(dom, defaultParams[language]);
-      if (code === undefined) return config;
+      if (code === undefined) return defaultsConfig;
 
       return {
-        ...config,
+        ...defaultsConfig,
         [editorId]: {
           language,
           content: code,
         },
       };
     },
-    {},
+    { activeEditor },
   );
 
   return {
