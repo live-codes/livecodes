@@ -62,6 +62,16 @@ export const importFromDom = async (
       {} as { [key: string]: string },
     );
 
+  const selectorParams = Object.keys(params)
+    .filter((key) => key.endsWith('-selector'))
+    .reduce(
+      (acc, key) => ({
+        ...acc,
+        [key.replace('-selector', '')]: params[key],
+      }),
+      {} as { [key: string]: string },
+    );
+
   const configSelectors = (['markup', 'style', 'script'] as EditorId[]).reduce(
     (selectors: Selectors, editorId) => {
       if (config[editorId].language && config[editorId].selector) {
@@ -80,7 +90,7 @@ export const importFromDom = async (
   );
 
   const defaultSelectors = getLanguageSelectors(defaultParams);
-  const paramSelectors = getLanguageSelectors(params);
+  const paramSelectors = getLanguageSelectors(selectorParams);
   const languageSelectors: Selectors = {
     ...defaultSelectors,
     ...configSelectors,
@@ -89,17 +99,9 @@ export const importFromDom = async (
 
   const selectedCode = (Object.keys(languageSelectors) as EditorId[]).reduce(
     (selectedCodeConfig: Partial<Config>, editorId) => {
-      let code = extractCodeFromHTML(dom, languageSelectors[editorId].selector);
-      if (code === undefined) {
-        const paramValue: string | undefined = paramSelectors[editorId]?.selector;
-        if (paramValue) {
-          // assume it is raw code supplied in param
-          // e.g. ?js=console.log('hi')
-          code = paramValue;
-        } else {
-          return selectedCodeConfig;
-        }
-      }
+      const code = extractCodeFromHTML(dom, languageSelectors[editorId].selector);
+      if (code === undefined) return selectedCodeConfig;
+
       return {
         ...selectedCodeConfig,
         [editorId]: {

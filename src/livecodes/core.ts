@@ -2702,13 +2702,13 @@ const importExternalContent = async (options: {
   }
 
   await loadConfig(
-    {
+    buildConfig({
       ...config,
       ...templateConfig,
       ...urlConfig,
       ...contentUrlConfig,
       ...configUrlConfig,
-    },
+    }),
     parent.location.href,
     false,
   );
@@ -2765,7 +2765,7 @@ const initializeApp = async (
   isLite = options?.isLite ?? false;
   isEmbed = isLite || (options?.isEmbed ?? false);
 
-  setConfig(buildConfig(appConfig, baseUrl));
+  setConfig(buildConfig(appConfig));
   configureModes({ config: getConfig(), isEmbed, isLite });
 
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
@@ -2821,7 +2821,7 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = buildConfig(newConfig, baseUrl);
+    const newAppConfig = buildConfig(newConfig);
     await loadConfig(newAppConfig);
     return newAppConfig;
   };

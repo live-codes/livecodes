@@ -4,11 +4,8 @@ import { cloneObject, decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
+export const buildConfig = (appConfig: Partial<Config>) => {
   if (!appConfig) return { ...defaultConfig };
-  if (!baseUrl) {
-    baseUrl = '/livecodes/';
-  }
 
   const userConfig = upgradeAndValidate(appConfig);
 

@@ -1,8 +1,9 @@
 import { Frame, Page } from '@playwright/test';
 import { Config, Language, Screen } from '../src/livecodes/models';
 
+type languageSelector = `${Language}-selector`;
 export type UrlQueryOptions = Partial<
-  Config & { [key in Language]: string } & Screen & {
+  Config & { [key in Language]: string } & { [key in languageSelector]: string } & Screen & {
       template: string;
       config: string;
       embed: string;

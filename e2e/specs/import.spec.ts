@@ -233,7 +233,7 @@ test.describe('Import from URL', () => {
   });
 
   test('code in URL DOM', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ html: 'h1', css: 'span{color:blue}', x: rawCode }));
+    await page.goto(getTestUrl({ 'html-selector': 'h1', css: 'span{color:blue}', x: rawCode }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
