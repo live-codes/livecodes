@@ -30,7 +30,7 @@ module.exports = {
     },
   ],
   defaultCompression: 'brotli',
-  normalizeFilenames: /^.+?((\.[^.]+?)|())\.\w+$/,
+  normalizeFilenames: /^.+?((\.[^.]{20,}}?)|())\.\w+$/,
   ci: {
     trackBranches: ['main', 'develop'],
   },
