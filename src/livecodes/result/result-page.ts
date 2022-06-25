@@ -28,7 +28,14 @@ export const createResultPage = async ({
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(template, 'text/html');
 
-  const compiledTests = runTests ? code.tests?.compiled || '' : '';
+  // if export => clean, else => add utils
+  if (forExport) {
+    dom.querySelector('script')?.remove();
+  } else {
+    const utilsScript = dom.createElement('script');
+    utilsScript.src = absoluteBaseUrl + '{{hash:result-utils.js}}';
+    dom.head.appendChild(utilsScript);
+  }
 
   // title
   dom.title = config.title;
@@ -41,15 +48,6 @@ export const createResultPage = async ({
   // head content
   if (config.customSettings.head) {
     dom.head.innerHTML += config.customSettings.head;
-  }
-
-  // if export => clean, else => add utils
-  if (forExport) {
-    dom.querySelector('script')?.remove();
-  } else {
-    const utilsScript = dom.createElement('script');
-    utilsScript.src = absoluteBaseUrl + '{{hash:result-utils.js}}';
-    dom.head.appendChild(utilsScript);
   }
 
   // CSS Preset
@@ -109,6 +107,8 @@ export const createResultPage = async ({
       compiled: code[editorId].compiled,
     }),
   );
+
+  const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
   const importFromScript =
     getImports(markup).includes('./script') ||
