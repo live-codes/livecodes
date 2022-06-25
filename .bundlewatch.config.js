@@ -32,6 +32,7 @@ module.exports = {
   defaultCompression: 'brotli',
   normalizeFilenames: /^.+?((\.[^.]{20,}}?)|())\.\w+$/,
   ci: {
+    repoBranchBase: 'develop',
     trackBranches: ['main', 'develop'],
   },
 };
