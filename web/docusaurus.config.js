@@ -62,6 +62,12 @@ const config = {
           },
           {
             type: 'doc',
+            docId: 'api/modules',
+            position: 'left',
+            label: 'API',
+          },
+          {
+            type: 'doc',
             docId: 'examples/display-modes/index',
             position: 'left',
             label: 'Examples',
@@ -169,6 +175,15 @@ const config = {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-babel.js',
       async: true,
     },
+  ],
+  plugins: [
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['../src/lib/docs.ts'],
+        tsconfig: '../tsconfig.json',
+      },
+    ],
   ],
 };
 

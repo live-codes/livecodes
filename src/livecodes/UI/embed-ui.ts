@@ -272,6 +272,7 @@ export const createEmbedUI = async ({
       const containerId = getContainerId();
       const containerHtml = getContainerHtml(containerId);
       const options = getOptions(data);
+      // TODO use jsDelivr url
       return `${containerHtml}
 <script src="${appUrl + 'lib/livecodes.js'}"></script>
 <script>
