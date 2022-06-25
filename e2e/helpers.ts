@@ -1,8 +1,16 @@
 import { Frame, Page } from '@playwright/test';
 import { Config, Language, Screen } from '../src/livecodes/models';
 
+type languageSelector = `${Language}-selector`;
 export type UrlQueryOptions = Partial<
-  Config & { [key in Language]: string } & Screen & { template: string; config: string }
+  Config & { [key in Language]: string } & { [key in languageSelector]: string } & Screen & {
+      template: string;
+      config: string;
+      embed: string;
+      lite: string;
+      x: string;
+      raw: string;
+    }
 >;
 
 export const getTestUrl = (config: UrlQueryOptions = { autoupdate: false }) => {
@@ -16,7 +24,7 @@ export const getTestUrl = (config: UrlQueryOptions = { autoupdate: false }) => {
 
 export const getLoadedApp = async (page: Page) => {
   await page.waitForSelector('iframe[name="app"]');
-  const app = page.frame('app');
+  const app = page.frame('app')!;
   await app.waitForLoadState();
   let result = getResultFrame(app);
   return {
@@ -31,7 +39,7 @@ export const getLoadedApp = async (page: Page) => {
   };
 };
 
-const getResultFrame = (app: Frame) => app.page().frame('result');
+const getResultFrame = (app: Frame) => app.page().frame('result')!;
 
 const getUpdatedResultFrame = async (app: Frame) => {
   const loaded = new Promise<void>(async (resolve) => {

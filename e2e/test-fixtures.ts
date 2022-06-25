@@ -9,7 +9,7 @@ export const test = base.extend<{
 }>({
   editor: 'monaco',
   getTestUrl: async ({ editor }, use) => {
-    await use((config: UrlQueryOptions) => {
+    await use((config?: UrlQueryOptions) => {
       const options = {
         editor,
         autoupdate: false,

@@ -4,11 +4,8 @@ import { cloneObject, decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
-export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
+export const buildConfig = (appConfig: Partial<Config>) => {
   if (!appConfig) return { ...defaultConfig };
-  if (!baseUrl) {
-    baseUrl = '/livecodes/';
-  }
 
   const userConfig = upgradeAndValidate(appConfig);
 
@@ -48,7 +45,11 @@ export const buildConfig = (appConfig: Partial<Config>, baseUrl: string) => {
 export const getParams = (queryParams = parent.location.search) => {
   const params = Object.fromEntries(new URLSearchParams(queryParams) as unknown as Iterable<any>);
   Object.keys(params).forEach((key) => {
-    params[key] = decodeURIComponent(params[key]);
+    try {
+      params[key] = decodeURIComponent(params[key]);
+    } catch {
+      //
+    }
     if (params[key] === '') params[key] = true;
     if (params[key] === 'true') params[key] = true;
     if (params[key] === 'false') params[key] = false;

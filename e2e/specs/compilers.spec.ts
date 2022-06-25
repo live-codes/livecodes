@@ -381,7 +381,7 @@ const title = "World";
     await waitForResultUpdate();
     const body = await getResult().$('body');
 
-    expect(await body.innerHTML()).toContain('Welcome to Liquid');
+    expect(await body?.innerHTML()).toContain('Welcome to Liquid');
   });
 
   test('Liquid dynamic', async ({ page, getTestUrl }) => {
@@ -411,7 +411,7 @@ const title = "World";
     await app.waitForTimeout(3000);
     const body = await getResult().$('body');
 
-    expect(await body.innerHTML()).toContain('Welcome to Liquid');
+    expect(await body?.innerHTML()).toContain('Welcome to Liquid');
   });
 
   test('doT', async ({ page, getTestUrl }) => {
