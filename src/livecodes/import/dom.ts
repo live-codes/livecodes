@@ -113,7 +113,7 @@ export const importFromDom = async (
     { activeEditor },
   );
 
-  if (Object.keys(selectedCode).length === 3) {
+  if (Object.keys(selectedCode).length === 4) {
     return selectedCode;
   }
 
@@ -136,8 +136,13 @@ export const importFromDom = async (
     { activeEditor },
   );
 
-  return {
+  const selectedWithDefaults = {
     ...defaults,
     ...selectedCode,
   };
+
+  if (Object.keys(selectedWithDefaults).filter((key) => key !== 'activeEditor').length === 0) {
+    return {};
+  }
+  return selectedWithDefaults;
 };
