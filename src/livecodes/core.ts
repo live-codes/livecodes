@@ -51,7 +51,7 @@ import type {
   TestResult,
   ToolsPane,
 } from './models';
-import type { GitHubFile } from './deploy';
+import type { GitHubFile } from './services/github';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';

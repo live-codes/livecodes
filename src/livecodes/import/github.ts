@@ -1,7 +1,8 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { Language, Config, User } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { getGithubHeaders } from '../services/github';
 import { isGithubDir } from './github-dir';
-import { getGithubHeaders } from './github-headers';
 import { hostPatterns } from './utils';
 
 export const isGithubUrl = (url: string, pattern = new RegExp(hostPatterns.github)) => {
