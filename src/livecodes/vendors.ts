@@ -3,6 +3,9 @@ export const vendorsBaseUrl =
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
 
+export const artTemplateUrl =
+  'https://cdn.jsdelivr.net/npm/art-template@4.13.2/lib/template-web.js';
+
 export const asciidocUrl =
   'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.5/dist/browser/asciidoctor.min.js';
 

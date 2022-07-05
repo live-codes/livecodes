@@ -55,6 +55,7 @@ import { richtext } from './richtext';
 import { diagram } from './diagram';
 import { imba } from './imba';
 import { mustache } from './mustache';
+import { artTemplate } from './art-template';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -71,6 +72,7 @@ export const languages: LanguageSpecs[] = [
   liquid,
   dot,
   twig,
+  artTemplate,
   diagram,
   richtext,
   css,
