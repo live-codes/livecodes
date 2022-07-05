@@ -37,6 +37,11 @@ export const createModal = () => {
       modal.appendChild(closeContainer);
     }
 
+    const cornerCloseBtn = document.createElement('div');
+    cornerCloseBtn.className = 'close-button';
+    cornerCloseBtn.onclick = close;
+    modal.appendChild(cornerCloseBtn);
+
     overlay.style.display = 'flex';
     modalContainer.style.display = 'flex';
     modal.style.display = 'flex';
