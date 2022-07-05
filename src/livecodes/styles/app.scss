@@ -1359,8 +1359,8 @@ i.arrow {
   flex-direction: column;
   height: 80vh;
   opacity: 1;
-  overflow: hidden;
   padding: 10px;
+  position: relative;
   width: 80vw;
 
   &.small {
@@ -2099,7 +2099,8 @@ i.arrow {
 }
 
 .delete-button,
-.clear-button {
+.clear-button,
+.close-button {
   background: transparent;
   border: 0;
   border-radius: 50%;
@@ -2113,7 +2114,8 @@ i.arrow {
   width: 32px;
 }
 
-.delete-button {
+.delete-button,
+.close-button {
   &:focus,
   &:hover {
     background: rgba(128, 128, 128, 0.5);
@@ -2173,6 +2175,20 @@ i.arrow {
 .delete-button:active,
 .clear-button:active {
   background: rgba(128, 128, 128, 0.9);
+}
+
+.close-button {
+  background: rgb(177, 177, 177, 0.9);
+  opacity: 1;
+  position: absolute;
+  right: -26px;
+  top: -26px;
+  transform: scale(0.8);
+
+  &:focus,
+  &:hover {
+    background: rgba(201, 201, 201, 0.9);
+  }
 }
 
 .modal-container {
