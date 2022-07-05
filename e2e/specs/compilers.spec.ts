@@ -522,6 +522,60 @@ const title = "World";
     expect(resultText).toContain('Welcome to Twig');
   });
 
+  test('art-template', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[data-hint=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "art-template"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=art-template');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to art-template');
+  });
+
+  test('art-template dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[data-hint=Settings]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'art-template' };`);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=art-template');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to art-template');
+  });
+
   test('SCSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
