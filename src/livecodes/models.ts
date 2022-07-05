@@ -109,6 +109,8 @@ export type Language =
   | 'liquidjs'
   | 'dot'
   | 'twig'
+  | 'art-template'
+  | 'art'
   | 'diagram'
   | 'graph'
   | 'plt'

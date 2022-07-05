@@ -154,6 +154,7 @@ esbuild.buildSync({
 });
 
 [
+  'art-template/lang-art-template-compiler.ts',
   'assemblyscript/lang-assemblyscript-script.ts',
   'assemblyscript/lang-assemblyscript-compiler.ts',
   'astro/lang-astro-compiler.ts',
