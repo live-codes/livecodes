@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.6/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.7/dist/';
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
 
@@ -52,6 +52,8 @@ export const csstreeUrl = 'https://cdn.jsdelivr.net/npm/css-tree@1.1.3/dist/csst
 export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 
 export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
+
+export const elkjsUrl = 'https://cdn.jsdelivr.net/npm/elkjs@0.7.1/lib/elk.bundled.js';
 
 export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.0/dist/emmet-monaco.min.js';

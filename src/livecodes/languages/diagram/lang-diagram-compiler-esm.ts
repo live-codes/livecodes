@@ -7,6 +7,7 @@ import {
   getLanguageCustomSettings,
 } from '../../utils';
 import {
+  elkjsUrl,
   graphreCdnUrl,
   hpccJsCdnUrl,
   mermaidCdnUrl,
@@ -462,6 +463,53 @@ const compileNomnoml = async (code: string) => {
   return result;
 };
 
+const compileElk = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/diagram-elk"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+  const elksvgUrl = vendorsBaseUrl + 'elkjs-svg/elkjs-svg.js';
+  const ELK: any = await loadScript(elkjsUrl, 'ELK');
+  const elksvg: any = await loadScript(elksvgUrl, 'elksvg');
+  const elk = new ELK();
+  const renderer = new elksvg.Renderer();
+  const render = (src: string) =>
+    elk.layout(JSON.parse(src)).then((data: string) => renderer.toSvg(data));
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    try {
+      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+      for (const el of elements) {
+        const svg = await render(content);
+        displaySVG(el, svg);
+      }
+      script.remove();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('Invalid ELK JSON:', content);
+      continue;
+    }
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
 const compilePintora = async (code: string, config: Config) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
@@ -521,6 +569,7 @@ export const diagramCompiler: CompilerFunction = async (code: string, { config }
     .then(compileSvgBob)
     .then(compileWaveDrom)
     .then(compileNomnoml)
+    .then(compileElk)
     .then((src) => compilePintora(src, config));
   return result;
 };

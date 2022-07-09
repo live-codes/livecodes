@@ -36,6 +36,9 @@ export const diagramStarter: Template = {
 
   <h3>Pintora</h3>
   <img data-src="pintora.svg">
+
+  <h3>ELK</h3>
+  <img data-src="elk.svg">
 </div>
 
 <script type="application/diagram-gnuplot">
@@ -304,6 +307,32 @@ mindmap
 ** Non-UML Diagrams
 *** Entity Relationship Diagram
 *** Mind Map
+</script>
+
+
+<script type="application/diagram-elk" data-output="elk.svg">
+{
+  "id": "root",
+  "layoutOptions": {
+    "elk.algorithm": "layered"
+  },
+  "children": [
+    {"id": "n1", "width": 30, "height": 30},
+    {"id": "n2", "width": 30, "height": 30},
+    {"id": "n3", "width": 30, "height": 30},
+    {"id": "n4", "width": 30, "height": 30},
+    {"id": "n5", "width": 30, "height": 30},
+    {"id": "n6", "width": 30, "height": 30}
+  ],
+  "edges": [
+    {"id": "e1", "sources": ["n1"], "targets": ["n2"]},
+    {"id": "e2", "sources": ["n1"], "targets": ["n3"]},
+    {"id": "e3", "sources": ["n2"], "targets": ["n4"]},
+    {"id": "e4", "sources": ["n3"], "targets": ["n5"]},
+    {"id": "e5", "sources": ["n5"], "targets": ["n6"]},
+    {"id": "e6", "sources": ["n4"], "targets": ["n6"]}
+  ]
+}
 </script>
 `.trimStart(),
   },
