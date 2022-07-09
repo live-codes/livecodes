@@ -196,7 +196,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const editor = monaco.editor.create(container, {
     ...editorOptions,
     ...baseOptions,
-    language,
+    language: monacoMapLanguage(language),
   });
   setModel(editor, options.value, language);
 
