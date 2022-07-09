@@ -7,7 +7,7 @@ import {
   getLanguageCustomSettings,
 } from '../../utils';
 import {
-  elkjsUrl,
+  elkjsBaseUrl,
   graphreCdnUrl,
   hpccJsCdnUrl,
   mermaidCdnUrl,
@@ -474,10 +474,12 @@ const compileElk = async (code: string) => {
     temp.remove();
     return code;
   }
+  const elkjsUrl = elkjsBaseUrl + 'elk-api.js';
+  const elkjsWorkerUrl = elkjsBaseUrl + 'elk-worker.min.js';
   const elksvgUrl = vendorsBaseUrl + 'elkjs-svg/elkjs-svg.js';
   const ELK: any = await loadScript(elkjsUrl, 'ELK');
   const elksvg: any = await loadScript(elksvgUrl, 'elksvg');
-  const elk = new ELK();
+  const elk = new ELK({ workerUrl: getWorkerDataURL(elkjsWorkerUrl) });
   const renderer = new elksvg.Renderer();
   const render = (src: string) =>
     elk.layout(JSON.parse(src)).then((data: string) => renderer.toSvg(data));
