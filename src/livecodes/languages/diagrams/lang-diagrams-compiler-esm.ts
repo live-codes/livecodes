@@ -489,6 +489,7 @@ const compileElk = async (code: string) => {
   const render = (src: string) =>
     elk.layout(JSON.parse(toValidJson(src))).then((data: string) => renderer.toSvg(data));
 
+  let useShadowDom = false;
   for (const script of scripts) {
     if (!script.src && !script.innerHTML.trim()) continue;
 
@@ -502,7 +503,11 @@ const compileElk = async (code: string) => {
     try {
       const elements = temp.querySelectorAll(`[data-src="${output}"]`);
       for (const el of elements) {
-        const svg = await render(content);
+        let svg = await render(content);
+        if (el.tagName.toLowerCase() !== 'img') {
+          useShadowDom = true;
+          svg = `<svg-container> ${svg} </svg-container>`;
+        }
         displaySVG(el, svg);
       }
       script.remove();
@@ -512,7 +517,24 @@ const compileElk = async (code: string) => {
       continue;
     }
   }
-  const result = temp.innerHTML;
+
+  // scope global styles added in SVG
+  const shadowDomScript = useShadowDom
+    ? `
+<script>
+  class SVGContainer extends HTMLElement {
+    constructor() {
+      super();
+      const shadowRoot = this.attachShadow({mode: 'closed'});
+      shadowRoot.append(...this.childNodes);
+    }
+  }
+  customElements.define('svg-container', SVGContainer);
+</script>
+`
+    : '';
+
+  const result = temp.innerHTML + shadowDomScript;
   temp.remove();
   return result;
 };

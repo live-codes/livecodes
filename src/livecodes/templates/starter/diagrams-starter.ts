@@ -41,7 +41,7 @@ export const diagramsStarter: Template = {
   <div data-src="cytoscape.svg"></div>
 
   <h3>ELK</h3>
-  <img data-src="elk.svg">
+  <div data-src="elk.svg"></div>
 </div>
 
 <script type="application/diagram-gnuplot">
@@ -359,12 +359,12 @@ mindmap
     "elk.algorithm": "layered"
   },
   "children": [
-    {"id": "n1", "width": 30, "height": 30},
-    {"id": "n2", "width": 30, "height": 30},
-    {"id": "n3", "width": 30, "height": 30},
-    {"id": "n4", "width": 30, "height": 30},
-    {"id": "n5", "width": 30, "height": 30},
-    {"id": "n6", "width": 30, "height": 30}
+    {"id": "n1", "width": 70, "height": 70},
+    {"id": "n2", "width": 70, "height": 70},
+    {"id": "n3", "width": 70, "height": 70},
+    {"id": "n4", "width": 70, "height": 70},
+    {"id": "n5", "width": 70, "height": 70},
+    {"id": "n6", "width": 70, "height": 70}
   ],
   "edges": [
     {"id": "e1", "sources": ["n1"], "targets": ["n2"]},
