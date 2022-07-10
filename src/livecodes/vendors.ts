@@ -49,6 +49,11 @@ export const cppWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/cpp-wasm@
 
 export const csstreeUrl = 'https://cdn.jsdelivr.net/npm/css-tree@1.1.3/dist/csstree.min.js';
 
+export const cytoscapeSvgUrl =
+  'https://cdn.jsdelivr.net/npm/cytoscape-svg@0.4.0/cytoscape-svg.min.js';
+
+export const cytoscapeUrl = 'https://cdn.jsdelivr.net/npm/cytoscape@3.22.0/dist/cytoscape.min.js';
+
 export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 
 export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';

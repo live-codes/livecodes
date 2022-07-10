@@ -5,8 +5,11 @@ import {
   loadScript,
   stringToValidJson,
   getLanguageCustomSettings,
+  removeComments,
 } from '../../utils';
 import {
+  cytoscapeSvgUrl,
+  cytoscapeUrl,
   elkjsBaseUrl,
   graphreCdnUrl,
   hpccJsCdnUrl,
@@ -28,6 +31,8 @@ const displaySVG = (el: any, svg: string) => {
     el.innerHTML = svg;
   }
 };
+
+const toValidJson = (str: string) => stringToValidJson(removeComments(str));
 
 const compileGnuplot = async (code: string) => {
   const temp = document.createElement('div');
@@ -225,7 +230,7 @@ const compileVega = async (code: string) => {
       try {
         const content = vegaLiteScript.src
           ? await fetch(vegaLiteScript.src).then((res) => res.json())
-          : JSON.parse(stringToValidJson(vegaLiteScript.innerHTML));
+          : JSON.parse(toValidJson(vegaLiteScript.innerHTML));
         vegaLiteScript.innerHTML = JSON.stringify(vegaLite.compile(content, vegaLiteOptions).spec);
         vegaLiteScript.type = 'application/diagram-vega';
         vegaLiteScript.removeAttribute('src');
@@ -267,7 +272,7 @@ const compileVega = async (code: string) => {
     try {
       const content = script.src
         ? await fetch(script.src).then((res) => res.json())
-        : JSON.parse(stringToValidJson(script.innerHTML));
+        : JSON.parse(toValidJson(script.innerHTML));
 
       const elements = temp.querySelectorAll(`[data-src="${output}"]`);
       for (const el of elements) {
@@ -298,7 +303,7 @@ const compilePlotly = async (code: string) => {
   const Plotly: any = await loadScript(plotlyCdnUrl, 'Plotly');
   const render = (src: string) => {
     try {
-      const specs = JSON.parse(stringToValidJson(src));
+      const specs = JSON.parse(toValidJson(src));
       const diagramContainer = document.createElement('div');
       Plotly.newPlot(diagramContainer, specs.data, specs.layout, { displayModeBar: false });
       const svg = diagramContainer.querySelector('svg')?.outerHTML || '';
@@ -388,7 +393,7 @@ const compileWaveDrom = async (code: string) => {
   const WaveDrom: any = await loadScript(waveDromBaseUrl + 'wavedrom.min.js', 'WaveDrom');
   const render = (src: string) => {
     try {
-      const obj = JSON.parse(stringToValidJson(src));
+      const obj = JSON.parse(toValidJson(src));
       const diagramContainer = document.createElement('div');
       diagramContainer.id = 'diagram-id';
       temp.appendChild(diagramContainer);
@@ -482,7 +487,7 @@ const compileElk = async (code: string) => {
   const elk = new ELK({ workerUrl: getWorkerDataURL(elkjsWorkerUrl) });
   const renderer = new elksvg.Renderer();
   const render = (src: string) =>
-    elk.layout(JSON.parse(src)).then((data: string) => renderer.toSvg(data));
+    elk.layout(JSON.parse(toValidJson(src))).then((data: string) => renderer.toSvg(data));
 
   for (const script of scripts) {
     if (!script.src && !script.innerHTML.trim()) continue;
@@ -504,6 +509,68 @@ const compileElk = async (code: string) => {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Invalid ELK JSON:', content);
+      continue;
+    }
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
+const compileCytoscape = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/diagram-cytoscape"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  const [cytoscape, cytoscapeSvg]: any[] = await Promise.all([
+    loadScript(cytoscapeUrl, 'cytoscape'),
+    loadScript(cytoscapeSvgUrl, 'cytoscapeSvg'),
+  ]);
+  cytoscape.use(cytoscapeSvg);
+
+  const render = (src: string) => {
+    const cyEl = document.createElement('div');
+    cyEl.style.display = 'block';
+    cyEl.style.visibility = 'none';
+    cyEl.style.height = '300px';
+    cyEl.style.width = '300px';
+    document.body.appendChild(cyEl);
+    const options = {
+      ...JSON.parse(toValidJson(removeComments(src))),
+      container: cyEl,
+    };
+    const svg = cytoscape(options).svg({ scale: 1, full: true });
+    cyEl.remove();
+    return svg;
+  };
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    try {
+      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+      for (const el of elements) {
+        const svg = render(content);
+        displaySVG(el, svg);
+      }
+      script.remove();
+    } catch {
+      // eslint-disable-next-line no-console
+      console.error('Invalid Cytoscape options:', content);
       continue;
     }
   }
@@ -572,6 +639,7 @@ export const diagramCompiler: CompilerFunction = async (code: string, { config }
     .then(compileWaveDrom)
     .then(compileNomnoml)
     .then(compileElk)
+    .then(compileCytoscape)
     .then((src) => compilePintora(src, config));
   return result;
 };

@@ -37,6 +37,9 @@ export const diagramStarter: Template = {
   <h3>Pintora</h3>
   <img data-src="pintora.svg">
 
+  <h3>Cytoscape</h3>
+  <div data-src="cytoscape.svg"></div>
+
   <h3>ELK</h3>
   <img data-src="elk.svg">
 </div>
@@ -307,6 +310,45 @@ mindmap
 ** Non-UML Diagrams
 *** Entity Relationship Diagram
 *** Mind Map
+</script>
+
+
+<script type="application/diagram-cytoscape" data-output="cytoscape.svg">
+{
+  "elements": [
+    {
+      "data": { "id": "a" }},
+    {
+      "data": { "id": "b" }},
+    {
+      "data": { "id": "ab", "source": "a", "target": "b" }}],
+
+  "style": [
+    {
+      "selector": "node",
+      "style": {
+        "background-color": "#666",
+        "label": "data(id)"}
+    },
+
+    {
+      "selector": "edge",
+      "style": {
+        "width": 3,
+        "line-color": "#ccc",
+        "target-arrow-color": "#ccc",
+        "target-arrow-shape": "triangle",
+        "curve-style": "bezier"
+      }
+    }
+  ],
+
+  "layout": {
+    "name": "grid",
+    "rows": 1
+  }
+
+}
 </script>
 
 
