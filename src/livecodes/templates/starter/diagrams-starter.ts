@@ -1,12 +1,12 @@
 import { Template } from '../../models';
 
-export const diagramStarter: Template = {
-  name: 'diagram',
-  title: 'Diagram Starter',
-  thumbnail: 'assets/templates/diagram.svg',
+export const diagramsStarter: Template = {
+  name: 'diagrams',
+  title: 'Diagrams Starter',
+  thumbnail: 'assets/templates/diagrams.svg',
   activeEditor: 'markup',
   markup: {
-    language: 'diagram',
+    language: 'diagrams',
     content: `
 <div class="container">
   <h3>Gnuplot</h3>

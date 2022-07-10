@@ -111,6 +111,7 @@ export type Language =
   | 'twig'
   | 'art-template'
   | 'art'
+  | 'diagrams'
   | 'diagram'
   | 'graph'
   | 'plt'

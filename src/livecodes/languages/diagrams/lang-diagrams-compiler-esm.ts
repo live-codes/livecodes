@@ -629,7 +629,7 @@ const compilePintora = async (code: string, config: Config) => {
   return result;
 };
 
-export const diagramCompiler: CompilerFunction = async (code: string, { config }) => {
+export const diagramsCompiler: CompilerFunction = async (code: string, { config }) => {
   const result = await compileGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
