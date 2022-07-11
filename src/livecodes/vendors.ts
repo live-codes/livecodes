@@ -116,7 +116,7 @@ export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js
 
 export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
 
-export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js';
+export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
 
 export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
 
