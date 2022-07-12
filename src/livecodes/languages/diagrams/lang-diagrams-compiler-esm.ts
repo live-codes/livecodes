@@ -5,8 +5,12 @@ import {
   loadScript,
   stringToValidJson,
   getLanguageCustomSettings,
+  removeComments,
 } from '../../utils';
 import {
+  cytoscapeSvgUrl,
+  cytoscapeUrl,
+  elkjsBaseUrl,
   graphreCdnUrl,
   hpccJsCdnUrl,
   mermaidCdnUrl,
@@ -20,13 +24,17 @@ import {
   waveDromBaseUrl,
 } from '../../vendors';
 
+let useShadowDom = false;
+
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
-    el.src = 'data:image/svg+xml;base64,' + btoa(svg);
+    el.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
   } else {
     el.innerHTML = svg;
   }
 };
+
+const toValidJson = (str: string) => stringToValidJson(removeComments(str));
 
 const compileGnuplot = async (code: string) => {
   const temp = document.createElement('div');
@@ -224,7 +232,7 @@ const compileVega = async (code: string) => {
       try {
         const content = vegaLiteScript.src
           ? await fetch(vegaLiteScript.src).then((res) => res.json())
-          : JSON.parse(stringToValidJson(vegaLiteScript.innerHTML));
+          : JSON.parse(toValidJson(vegaLiteScript.innerHTML));
         vegaLiteScript.innerHTML = JSON.stringify(vegaLite.compile(content, vegaLiteOptions).spec);
         vegaLiteScript.type = 'application/diagram-vega';
         vegaLiteScript.removeAttribute('src');
@@ -266,7 +274,7 @@ const compileVega = async (code: string) => {
     try {
       const content = script.src
         ? await fetch(script.src).then((res) => res.json())
-        : JSON.parse(stringToValidJson(script.innerHTML));
+        : JSON.parse(toValidJson(script.innerHTML));
 
       const elements = temp.querySelectorAll(`[data-src="${output}"]`);
       for (const el of elements) {
@@ -297,7 +305,7 @@ const compilePlotly = async (code: string) => {
   const Plotly: any = await loadScript(plotlyCdnUrl, 'Plotly');
   const render = (src: string) => {
     try {
-      const specs = JSON.parse(stringToValidJson(src));
+      const specs = JSON.parse(toValidJson(src));
       const diagramContainer = document.createElement('div');
       Plotly.newPlot(diagramContainer, specs.data, specs.layout, { displayModeBar: false });
       const svg = diagramContainer.querySelector('svg')?.outerHTML || '';
@@ -343,7 +351,6 @@ const compileSvgBob = async (code: string) => {
     temp.remove();
     return code;
   }
-
   const { svgbobWasm } = await import(vendorsBaseUrl + 'svgbob-wasm/svgbob-wasm.js');
   const svgbob = await svgbobWasm(svgbobWasmCdnUrl);
 
@@ -361,11 +368,17 @@ const compileSvgBob = async (code: string) => {
 
     const elements = temp.querySelectorAll(`[data-src="${output}"]`);
     for (const el of elements) {
-      const svg = await render(content);
+      let svg = await render(content);
+      if (el.tagName.toLowerCase() !== 'img') {
+        // scope global styles added in SVG
+        useShadowDom = true;
+        svg = `<svg-container> ${svg} </svg-container>`;
+      }
       displaySVG(el, svg);
     }
     script.remove();
   }
+
   const result = temp.innerHTML;
   temp.remove();
   return result;
@@ -387,7 +400,7 @@ const compileWaveDrom = async (code: string) => {
   const WaveDrom: any = await loadScript(waveDromBaseUrl + 'wavedrom.min.js', 'WaveDrom');
   const render = (src: string) => {
     try {
-      const obj = JSON.parse(stringToValidJson(src));
+      const obj = JSON.parse(toValidJson(src));
       const diagramContainer = document.createElement('div');
       diagramContainer.id = 'diagram-id';
       temp.appendChild(diagramContainer);
@@ -462,6 +475,123 @@ const compileNomnoml = async (code: string) => {
   return result;
 };
 
+const compileElk = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/diagram-elk"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+  const elkjsUrl = elkjsBaseUrl + 'elk-api.js';
+  const elkjsWorkerUrl = elkjsBaseUrl + 'elk-worker.min.js';
+  const elksvgUrl = vendorsBaseUrl + 'elkjs-svg/elkjs-svg.js';
+  const ELK: any = await loadScript(elkjsUrl, 'ELK');
+  const elksvg: any = await loadScript(elksvgUrl, 'elksvg');
+  const elk = new ELK({ workerUrl: getWorkerDataURL(elkjsWorkerUrl) });
+  const renderer = new elksvg.Renderer();
+  const render = (src: string) =>
+    elk.layout(JSON.parse(toValidJson(src))).then((data: string) => renderer.toSvg(data));
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    try {
+      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+      for (const el of elements) {
+        let svg = await render(content);
+        if (el.tagName.toLowerCase() !== 'img') {
+          // scope global styles added in SVG
+          useShadowDom = true;
+          svg = `<svg-container> ${svg} </svg-container>`;
+        }
+        displaySVG(el, svg);
+      }
+      script.remove();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('Invalid ELK JSON:', content);
+      continue;
+    }
+  }
+
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
+const compileCytoscape = async (code: string) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    'script[type="application/diagram-cytoscape"]',
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+
+  const [cytoscape, cytoscapeSvg]: any[] = await Promise.all([
+    loadScript(cytoscapeUrl, 'cytoscape'),
+    loadScript(cytoscapeSvgUrl, 'cytoscapeSvg'),
+  ]);
+  cytoscape.use(cytoscapeSvg);
+
+  const render = (src: string) => {
+    const cyEl = document.createElement('div');
+    cyEl.style.display = 'block';
+    cyEl.style.visibility = 'none';
+    cyEl.style.height = '300px';
+    cyEl.style.width = '300px';
+    document.body.appendChild(cyEl);
+    const options = {
+      ...JSON.parse(toValidJson(removeComments(src))),
+      container: cyEl,
+    };
+    const svg = cytoscape(options).svg({ scale: 1, full: true });
+    cyEl.remove();
+    return svg;
+  };
+
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    try {
+      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+      for (const el of elements) {
+        const svg = render(content);
+        displaySVG(el, svg);
+      }
+      script.remove();
+    } catch {
+      // eslint-disable-next-line no-console
+      console.error('Invalid Cytoscape options:', content);
+      continue;
+    }
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
 const compilePintora = async (code: string, config: Config) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
@@ -512,7 +642,23 @@ const compilePintora = async (code: string, config: Config) => {
   return result;
 };
 
-export const diagramCompiler: CompilerFunction = async (code: string, { config }) => {
+const getShadowDomScript = () =>
+  useShadowDom
+    ? `
+<script>
+  class SVGContainer extends HTMLElement {
+    constructor() {
+      super();
+      const shadowRoot = this.attachShadow({mode: 'closed'});
+      shadowRoot.append(...this.childNodes);
+    }
+  }
+  customElements.define('svg-container', SVGContainer);
+</script>
+`
+    : '';
+
+export const diagramsCompiler: CompilerFunction = async (code: string, { config }) => {
   const result = await compileGnuplot(code)
     .then(compileMermaid)
     .then(compileGraphviz)
@@ -521,6 +667,13 @@ export const diagramCompiler: CompilerFunction = async (code: string, { config }
     .then(compileSvgBob)
     .then(compileWaveDrom)
     .then(compileNomnoml)
-    .then((src) => compilePintora(src, config));
-  return result;
+    .then(compileElk)
+    .then(compileCytoscape)
+    .then((src) => compilePintora(src, config))
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      return code;
+    });
+  return result + getShadowDomScript();
 };

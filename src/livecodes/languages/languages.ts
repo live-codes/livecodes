@@ -52,7 +52,7 @@ import { tcl } from './tcl';
 import { prolog } from './prolog';
 import { clio } from './clio';
 import { richtext } from './richtext';
-import { diagram } from './diagram';
+import { diagrams } from './diagrams';
 import { imba } from './imba';
 import { mustache } from './mustache';
 import { artTemplate } from './art-template';
@@ -73,7 +73,7 @@ export const languages: LanguageSpecs[] = [
   dot,
   twig,
   artTemplate,
-  diagram,
+  diagrams,
   richtext,
   css,
   scss,

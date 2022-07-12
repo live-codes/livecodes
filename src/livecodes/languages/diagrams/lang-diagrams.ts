@@ -2,13 +2,13 @@ import { CompilerFunction, LanguageSpecs } from '../../models';
 import { parserPlugins } from '../prettier';
 
 export const runOutsideWorker: CompilerFunction = async (code: string, { baseUrl, config }) => {
-  const { diagramCompiler } = await import(baseUrl + '{{hash:lang-diagram-compiler-esm.js}}');
-  return diagramCompiler(code, { config });
+  const { diagramsCompiler } = await import(baseUrl + '{{hash:lang-diagrams-compiler-esm.js}}');
+  return diagramsCompiler(code, { config });
 };
 
-export const diagram: LanguageSpecs = {
-  name: 'diagram',
-  title: 'Diagram',
+export const diagrams: LanguageSpecs = {
+  name: 'diagrams',
+  title: 'Diagrams',
   parser: {
     name: 'html',
     pluginUrls: [parserPlugins.html],
@@ -17,7 +17,7 @@ export const diagram: LanguageSpecs = {
     factory: () => async (code) => code || '',
     runOutsideWorker,
   },
-  extensions: ['diagram', 'graph', 'plt'],
+  extensions: ['diagrams', 'diagram', 'graph', 'plt'],
   editor: 'markup',
   editorLanguage: 'html',
 };

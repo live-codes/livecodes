@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.6/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.7/dist/';
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
 
@@ -49,9 +49,16 @@ export const cppWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/cpp-wasm@
 
 export const csstreeUrl = 'https://cdn.jsdelivr.net/npm/css-tree@1.1.3/dist/csstree.min.js';
 
+export const cytoscapeSvgUrl =
+  'https://cdn.jsdelivr.net/npm/cytoscape-svg@0.4.0/cytoscape-svg.min.js';
+
+export const cytoscapeUrl = 'https://cdn.jsdelivr.net/npm/cytoscape@3.22.0/dist/cytoscape.min.js';
+
 export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 
 export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
+
+export const elkjsBaseUrl = 'https://cdn.jsdelivr.net/npm/elkjs@0.7.1/lib/';
 
 export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.0/dist/emmet-monaco.min.js';
@@ -109,7 +116,7 @@ export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js
 
 export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
 
-export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js';
+export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
 
 export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
 

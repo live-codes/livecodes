@@ -941,6 +941,9 @@ const loadConfig = async (
     ...getConfig(),
     ...content,
   });
+  await importExternalContent({
+    config: getConfig(),
+  });
   setProjectRestore();
 
   if (flush) {
