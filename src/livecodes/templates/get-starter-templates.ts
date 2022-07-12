@@ -44,14 +44,23 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
       markup: {
         ...template.markup,
         content: mapBaseUrl(template.markup.content || '', baseUrl),
+        ...(template.markup.contentUrl
+          ? { contentUrl: mapBaseUrl(template.markup.contentUrl || '', baseUrl) }
+          : {}),
       },
       style: {
         ...template.style,
         content: mapBaseUrl(template.style.content || '', baseUrl),
+        ...(template.style.contentUrl
+          ? { contentUrl: mapBaseUrl(template.style.contentUrl || '', baseUrl) }
+          : {}),
       },
       script: {
         ...template.script,
         content: mapBaseUrl(template.script.content || '', baseUrl),
+        ...(template.script.contentUrl
+          ? { contentUrl: mapBaseUrl(template.script.contentUrl || '', baseUrl) }
+          : {}),
       },
       imports: objectMap(template.imports, (url) => mapBaseUrl(url || '', baseUrl)),
       types: objectMap(template.types, (url) => mapBaseUrl(url || '', baseUrl)),
