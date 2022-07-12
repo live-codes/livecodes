@@ -59,7 +59,7 @@ const sidebars = {
             type: 'doc',
             id: 'languages/index',
           },
-          items: ['languages/html'],
+          items: ['languages/diagrams', 'languages/html'],
         },
         {
           type: 'category',
