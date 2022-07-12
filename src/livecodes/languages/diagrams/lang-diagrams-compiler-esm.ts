@@ -24,9 +24,11 @@ import {
   waveDromBaseUrl,
 } from '../../vendors';
 
+let useShadowDom = false;
+
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
-    el.src = 'data:image/svg+xml;base64,' + btoa(svg);
+    el.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
   } else {
     el.innerHTML = svg;
   }
@@ -349,7 +351,6 @@ const compileSvgBob = async (code: string) => {
     temp.remove();
     return code;
   }
-
   const { svgbobWasm } = await import(vendorsBaseUrl + 'svgbob-wasm/svgbob-wasm.js');
   const svgbob = await svgbobWasm(svgbobWasmCdnUrl);
 
@@ -367,11 +368,17 @@ const compileSvgBob = async (code: string) => {
 
     const elements = temp.querySelectorAll(`[data-src="${output}"]`);
     for (const el of elements) {
-      const svg = await render(content);
+      let svg = await render(content);
+      if (el.tagName.toLowerCase() !== 'img') {
+        // scope global styles added in SVG
+        useShadowDom = true;
+        svg = `<svg-container> ${svg} </svg-container>`;
+      }
       displaySVG(el, svg);
     }
     script.remove();
   }
+
   const result = temp.innerHTML;
   temp.remove();
   return result;
@@ -489,7 +496,6 @@ const compileElk = async (code: string) => {
   const render = (src: string) =>
     elk.layout(JSON.parse(toValidJson(src))).then((data: string) => renderer.toSvg(data));
 
-  let useShadowDom = false;
   for (const script of scripts) {
     if (!script.src && !script.innerHTML.trim()) continue;
 
@@ -505,6 +511,7 @@ const compileElk = async (code: string) => {
       for (const el of elements) {
         let svg = await render(content);
         if (el.tagName.toLowerCase() !== 'img') {
+          // scope global styles added in SVG
           useShadowDom = true;
           svg = `<svg-container> ${svg} </svg-container>`;
         }
@@ -518,23 +525,7 @@ const compileElk = async (code: string) => {
     }
   }
 
-  // scope global styles added in SVG
-  const shadowDomScript = useShadowDom
-    ? `
-<script>
-  class SVGContainer extends HTMLElement {
-    constructor() {
-      super();
-      const shadowRoot = this.attachShadow({mode: 'closed'});
-      shadowRoot.append(...this.childNodes);
-    }
-  }
-  customElements.define('svg-container', SVGContainer);
-</script>
-`
-    : '';
-
-  const result = temp.innerHTML + shadowDomScript;
+  const result = temp.innerHTML;
   temp.remove();
   return result;
 };
@@ -651,6 +642,22 @@ const compilePintora = async (code: string, config: Config) => {
   return result;
 };
 
+const getShadowDomScript = () =>
+  useShadowDom
+    ? `
+<script>
+  class SVGContainer extends HTMLElement {
+    constructor() {
+      super();
+      const shadowRoot = this.attachShadow({mode: 'closed'});
+      shadowRoot.append(...this.childNodes);
+    }
+  }
+  customElements.define('svg-container', SVGContainer);
+</script>
+`
+    : '';
+
 export const diagramsCompiler: CompilerFunction = async (code: string, { config }) => {
   const result = await compileGnuplot(code)
     .then(compileMermaid)
@@ -662,6 +669,11 @@ export const diagramsCompiler: CompilerFunction = async (code: string, { config 
     .then(compileNomnoml)
     .then(compileElk)
     .then(compileCytoscape)
-    .then((src) => compilePintora(src, config));
-  return result;
+    .then((src) => compilePintora(src, config))
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      return code;
+    });
+  return result + getShadowDomScript();
 };
