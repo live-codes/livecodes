@@ -38,6 +38,52 @@ const displaySVG = (el: any, svg: string) => {
 
 const toValidJson = (str: string) => stringToValidJson(removeComments(str));
 
+const compile = async (
+  code: string,
+  type: string,
+  loadFn: () => Promise<void>,
+  renderFn: (src: string, script: HTMLScriptElement) => string | Promise<string>,
+  shadowDom = false,
+): Promise<string> => {
+  if (!code) return '';
+
+  const temp = document.createElement('div');
+  temp.innerHTML = code;
+
+  const scripts = temp.querySelectorAll<HTMLScriptElement>(
+    `script[type="application/diagram-${type}"]`,
+  );
+  if (scripts.length === 0) {
+    temp.remove();
+    return code;
+  }
+  await loadFn();
+  for (const script of scripts) {
+    if (!script.src && !script.innerHTML.trim()) continue;
+
+    const output = script.dataset.output;
+    if (!output) continue;
+    const content = script.src
+      ? await fetch(script.src).then((res) => res.text())
+      : script.innerHTML;
+
+    let svg = await renderFn(content, script);
+    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
+    for (const el of elements) {
+      if (el.tagName.toLowerCase() !== 'img' && shadowDom) {
+        // scope global styles added in SVG
+        useShadowDom = true;
+        svg = `<svg-container> ${svg} </svg-container>`;
+      }
+      displaySVG(el, svg);
+    }
+    script.remove();
+  }
+  const result = temp.innerHTML;
+  temp.remove();
+  return result;
+};
+
 const compileGnuplot = async (code: string) => {
   const temp = document.createElement('div');
   temp.innerHTML = code;
@@ -130,85 +176,36 @@ const compileGnuplot = async (code: string) => {
 };
 
 const compileMermaid = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-mermaid"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  const mermaid: any = await loadScript(mermaidCdnUrl, 'mermaid');
-  mermaid.mermaidAPI.initialize({
-    startOnLoad: false,
-  });
-  let i = 1;
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
+  let mermaid: any;
+  const load = async () => {
+    mermaid = await loadScript(mermaidCdnUrl, 'mermaid');
+    mermaid.mermaidAPI.initialize({
+      startOnLoad: false,
+    });
+  };
+  let count = 0;
+  const counter = () => count++;
+  const render = (src: string) => {
     const placeholder = document.createElement('div');
-    placeholder.id = 'livecodes-mermaid-chart-' + i;
-    temp.appendChild(placeholder);
-    const svg = mermaid.mermaidAPI.render(placeholder.id, content.trim());
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      displaySVG(el, svg);
-    }
+    placeholder.id = 'livecodes-mermaid-chart-' + counter();
+    document.body.appendChild(placeholder);
+    const svg = mermaid.mermaidAPI.render(placeholder.id, src.trim());
     placeholder.remove();
-    script.remove();
-    i += 1;
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+    return svg;
+  };
+  return compile(code, 'mermaid', load, render);
 };
 
 const compileGraphviz = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-graphviz"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  const hpccWasm: any = await loadScript(hpccJsCdnUrl, '@hpcc-js/wasm');
-  const render = (src: string, layout: string) => hpccWasm.graphviz.layout(src, 'svg', layout);
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
+  let hpccWasm: any;
+  const load = async () => {
+    hpccWasm = await loadScript(hpccJsCdnUrl, '@hpcc-js/wasm');
+  };
+  const render = (src: string, script: HTMLScriptElement) => {
     const layout = script.dataset.layout || 'dot';
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      const svg = await render(content, layout);
-      displaySVG(el, svg);
-    }
-    script.remove();
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+    return hpccWasm.graphviz.layout(src, 'svg', layout);
+  };
+  return compile(code, 'graphviz', load, render);
 };
 
 const compileVega = async (code: string) => {
@@ -240,316 +237,134 @@ const compileVega = async (code: string) => {
         vegaLiteScript.removeAttribute('src');
       } catch {
         vegaLiteScript.remove();
+        throw new Error('failed to parse vegaLite specs.');
       }
     }
   }
 
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-vega"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  vega = vega || (await loadScript(vegaCdnUrl, 'vega'));
+  const load = async () => {
+    vega = vega || (await loadScript(vegaCdnUrl, 'vega'));
+  };
   const render = async (src: any, options: Record<string, any> = {}) => {
     const diagramContainer = document.createElement('div');
-    const view = new vega.View(vega.parse(src), {
-      ...options,
-      renderer: 'svg',
-      container: diagramContainer,
-    });
-    await view.runAsync();
-    const svg = diagramContainer.querySelector('svg')?.outerHTML || '';
-    diagramContainer.remove();
-    return svg;
+    try {
+      const specs = JSON.parse(toValidJson(src));
+      const view = new vega.View(vega.parse(specs), {
+        ...options,
+        renderer: 'svg',
+        container: diagramContainer,
+      });
+      await view.runAsync();
+      return diagramContainer.querySelector('svg')?.outerHTML || '';
+    } catch {
+      throw new Error('failed to parse vega specs.');
+    } finally {
+      diagramContainer.remove();
+    }
   };
 
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const options = {};
-    try {
-      const content = script.src
-        ? await fetch(script.src).then((res) => res.json())
-        : JSON.parse(toValidJson(script.innerHTML));
-
-      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-      for (const el of elements) {
-        const svg = await render(content, options);
-        displaySVG(el, svg);
-      }
-    } finally {
-      script.remove();
-    }
-  }
-  const result = temp.innerHTML;
+  const result = await compile(temp.innerHTML, 'vega', load, render);
   temp.remove();
   return result;
 };
 
 const compilePlotly = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-plotly"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  const Plotly: any = await loadScript(plotlyCdnUrl, 'Plotly');
+  let Plotly: any;
+  const load = async () => {
+    Plotly = await loadScript(plotlyCdnUrl, 'Plotly');
+  };
   const render = (src: string) => {
+    const diagramContainer = document.createElement('div');
     try {
       const specs = JSON.parse(toValidJson(src));
-      const diagramContainer = document.createElement('div');
       Plotly.newPlot(diagramContainer, specs.data, specs.layout, { displayModeBar: false });
-      const svg = diagramContainer.querySelector('svg')?.outerHTML || '';
-      diagramContainer.remove();
-      return svg;
+      return diagramContainer.querySelector('svg')?.outerHTML || '';
     } catch {
-      // eslint-disable-next-line no-console
-      console.error('failed to parse plotly specs.');
-      return '';
+      throw new Error('failed to parse plotly specs.');
+    } finally {
+      diagramContainer.remove();
     }
   };
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      const svg = render(content);
-      displaySVG(el, svg);
-    }
-    script.remove();
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  return compile(code, 'plotly', load, render);
 };
 
 const compileSvgBob = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-svgbob"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-  const { svgbobWasm } = await import(vendorsBaseUrl + 'svgbob-wasm/svgbob-wasm.js');
-  const svgbob = await svgbobWasm(svgbobWasmCdnUrl);
-
+  let svgbob: any;
+  const load = async () => {
+    const { svgbobWasm } = await import(vendorsBaseUrl + 'svgbob-wasm/svgbob-wasm.js');
+    svgbob = await svgbobWasm(svgbobWasmCdnUrl);
+  };
   const render = (src: string) => svgbob.convert_string(src);
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      let svg = await render(content);
-      if (el.tagName.toLowerCase() !== 'img') {
-        // scope global styles added in SVG
-        useShadowDom = true;
-        svg = `<svg-container> ${svg} </svg-container>`;
-      }
-      displaySVG(el, svg);
-    }
-    script.remove();
-  }
-
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  return compile(code, 'svgbob', load, render, true);
 };
 
 const compileWaveDrom = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-  document.body.appendChild(temp);
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-wavedrom"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-  await loadScript(waveDromBaseUrl + 'skins/default.js', 'WaveSkin');
-  const WaveDrom: any = await loadScript(waveDromBaseUrl + 'wavedrom.min.js', 'WaveDrom');
+  let WaveDrom: any;
+  const load = async () => {
+    await loadScript(waveDromBaseUrl + 'skins/default.js', 'WaveSkin');
+    WaveDrom = await loadScript(waveDromBaseUrl + 'wavedrom.min.js', 'WaveDrom');
+  };
   const render = (src: string) => {
+    const diagramContainer = document.createElement('div');
     try {
       const obj = JSON.parse(toValidJson(src));
-      const diagramContainer = document.createElement('div');
       diagramContainer.id = 'diagram-id';
-      temp.appendChild(diagramContainer);
+      document.body.appendChild(diagramContainer);
       WaveDrom.RenderWaveForm(diagramContainer.id, obj, '');
       const svg = diagramContainer.innerHTML || '';
-      diagramContainer.remove();
       return svg;
     } catch {
-      // eslint-disable-next-line no-console
-      console.error('failed to parse WaveDrom specs.');
-      return '';
+      throw new Error('failed to parse WaveDrom specs.');
+    } finally {
+      diagramContainer.remove();
     }
   };
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      const svg = render(content);
-      displaySVG(el, svg);
-    }
-    script.remove();
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  return compile(code, 'wavedrom', load, render);
 };
 
 const compileNomnoml = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-nomnoml"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  await loadScript(graphreCdnUrl, 'graphre');
-  const nomnoml: any = await loadScript(nomnomlCdnUrl, 'nomnoml');
+  let nomnoml: any;
+  const load = async () => {
+    await loadScript(graphreCdnUrl, 'graphre');
+    nomnoml = await loadScript(nomnomlCdnUrl, 'nomnoml');
+  };
   const render = (src: string) => nomnoml.renderSvg(src);
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      const svg = await render(content);
-      displaySVG(el, svg);
-    }
-    script.remove();
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  return compile(code, 'nomnoml', load, render);
 };
 
 const compileElk = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-elk"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-  const elkjsUrl = elkjsBaseUrl + 'elk-api.js';
-  const elkjsWorkerUrl = elkjsBaseUrl + 'elk-worker.min.js';
-  const elksvgUrl = vendorsBaseUrl + 'elkjs-svg/elkjs-svg.js';
-  const ELK: any = await loadScript(elkjsUrl, 'ELK');
-  const elksvg: any = await loadScript(elksvgUrl, 'elksvg');
-  const elk = new ELK({ workerUrl: getWorkerDataURL(elkjsWorkerUrl) });
-  const renderer = new elksvg.Renderer();
-  const render = (src: string) =>
-    elk.layout(JSON.parse(toValidJson(src))).then((data: string) => renderer.toSvg(data));
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
+  let elk: any;
+  let renderer: any;
+  const load = async () => {
+    const elkjsUrl = elkjsBaseUrl + 'elk-api.js';
+    const elkjsWorkerUrl = elkjsBaseUrl + 'elk-worker.min.js';
+    const elksvgUrl = vendorsBaseUrl + 'elkjs-svg/elkjs-svg.js';
+    const ELK: any = await loadScript(elkjsUrl, 'ELK');
+    const elksvg: any = await loadScript(elksvgUrl, 'elksvg');
+    elk = new ELK({ workerUrl: getWorkerDataURL(elkjsWorkerUrl) });
+    renderer = new elksvg.Renderer();
+  };
+  const render = (src: string) => {
     try {
-      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-      for (const el of elements) {
-        let svg = await render(content);
-        if (el.tagName.toLowerCase() !== 'img') {
-          // scope global styles added in SVG
-          useShadowDom = true;
-          svg = `<svg-container> ${svg} </svg-container>`;
-        }
-        displaySVG(el, svg);
-      }
-      script.remove();
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('Invalid ELK JSON:', content);
-      continue;
+      const specs = JSON.parse(toValidJson(src));
+      return elk.layout(specs).then((data: string) => renderer.toSvg(data));
+    } catch {
+      throw new Error('failed to parse ELK JSON.');
     }
-  }
-
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  };
+  return compile(code, 'elk', load, render, true);
 };
 
 const compileCytoscape = async (code: string) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-cytoscape"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  const [cytoscape, cytoscapeSvg]: any[] = await Promise.all([
-    loadScript(cytoscapeUrl, 'cytoscape'),
-    loadScript(cytoscapeSvgUrl, 'cytoscapeSvg'),
-  ]);
-  cytoscape.use(cytoscapeSvg);
-
+  let cytoscape: any;
+  let cytoscapeSvg: any;
+  const load = async () => {
+    [cytoscape, cytoscapeSvg] = await Promise.all([
+      loadScript(cytoscapeUrl, 'cytoscape'),
+      loadScript(cytoscapeSvgUrl, 'cytoscapeSvg'),
+    ]);
+    cytoscape.use(cytoscapeSvg);
+  };
   const render = (src: string) => {
     const cyEl = document.createElement('div');
     cyEl.style.display = 'block';
@@ -557,56 +372,26 @@ const compileCytoscape = async (code: string) => {
     cyEl.style.height = '300px';
     cyEl.style.width = '300px';
     document.body.appendChild(cyEl);
-    const options = {
-      ...JSON.parse(toValidJson(removeComments(src))),
-      container: cyEl,
-    };
-    const svg = cytoscape(options).svg({ scale: 1, full: true });
-    cyEl.remove();
-    return svg;
-  };
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
     try {
-      const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-      for (const el of elements) {
-        const svg = render(content);
-        displaySVG(el, svg);
-      }
-      script.remove();
+      const options = {
+        ...JSON.parse(toValidJson(removeComments(src))),
+        container: cyEl,
+      };
+      return cytoscape(options).svg({ scale: 1, full: true });
     } catch {
-      // eslint-disable-next-line no-console
-      console.error('Invalid Cytoscape options:', content);
-      continue;
+      throw new Error('failed to parse Cytoscape options.');
+    } finally {
+      cyEl.remove();
     }
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  };
+  return compile(code, 'cytoscape', load, render);
 };
 
 const compilePintora = async (code: string, config: Config) => {
-  const temp = document.createElement('div');
-  temp.innerHTML = code;
-
-  const scripts = temp.querySelectorAll<HTMLScriptElement>(
-    'script[type="application/diagram-pintora"]',
-  );
-  if (scripts.length === 0) {
-    temp.remove();
-    return code;
-  }
-
-  const pintora: any = await loadScript(pintoraUrl, 'pintora');
+  let pintora: any;
+  const load = async () => {
+    pintora = await loadScript(pintoraUrl, 'pintora');
+  };
   const render = (src: string) => {
     const container = document.createElement('div');
     pintora.default.renderTo(src, {
@@ -621,27 +406,7 @@ const compilePintora = async (code: string, config: Config) => {
     svg?.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
     return container.innerHTML;
   };
-
-  for (const script of scripts) {
-    if (!script.src && !script.innerHTML.trim()) continue;
-
-    const output = script.dataset.output;
-    if (!output) continue;
-
-    const content = script.src
-      ? await fetch(script.src).then((res) => res.text())
-      : script.innerHTML;
-
-    const elements = temp.querySelectorAll(`[data-src="${output}"]`);
-    for (const el of elements) {
-      const svg = render(content);
-      displaySVG(el, svg);
-    }
-    script.remove();
-  }
-  const result = temp.innerHTML;
-  temp.remove();
-  return result;
+  return compile(code, 'pintora', load, render);
 };
 
 const getShadowDomScript = () =>
