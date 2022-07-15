@@ -239,3 +239,17 @@ export const getValidUrl = (url?: string) => {
   }
   return validUrl;
 };
+
+export const runOrContinue =
+  <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) =>
+  async (x: T): Promise<T> => {
+    try {
+      const result = await fn(x);
+      return result;
+    } catch (error) {
+      if (typeof catchFn === 'function') {
+        catchFn(error);
+      }
+      return x;
+    }
+  };
