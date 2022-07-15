@@ -4,18 +4,7 @@ import type { getLanguageExtension as getLanguageExtensionFn } from '../language
 import { getDescriptionFile, getFilesFromConfig } from '../export/utils';
 import { generateId } from '../storage';
 import { safeName } from '../utils';
-import {
-  createBranch,
-  createCommit,
-  createFile,
-  createRepo,
-  createTree,
-  getLastCommit,
-  GitHubFile,
-  initializeRepo,
-  repoExists,
-  updateBranch,
-} from '../services/github';
+import { commitFile, commitFiles, GitHubFile } from '../services/github';
 import { defaultConfig } from '../config/default-config';
 
 const prepareFiles = ({
@@ -92,11 +81,6 @@ export const deploy = async ({
     getLanguageExtension: typeof getLanguageExtensionFn;
   };
 }): Promise<DeployResult | null> => {
-  let lastCommit: string | null;
-  let tree: string | null;
-  let commit: string | null;
-  let succeeded = false;
-
   if (newRepo) {
     repo = safeName(repo, '-').toLowerCase();
   }
@@ -109,88 +93,64 @@ export const deploy = async ({
   const description = config.title !== defaultConfig.title ? config.title : '';
   const readmeContent = Object.values(getDescriptionFile(config, user, urlToSrc, false))[0].content;
 
-  try {
-    if (newRepo) {
-      await createRepo(user, repo, description);
-      await initializeRepo(user, repo, 'main', readmeContent);
-      lastCommit = null;
-    } else {
-      lastCommit = await getLastCommit(user, repo, branch);
-    }
-    tree = await createTree(user, repo, files);
-    commit = await createCommit(user, repo, message, tree, lastCommit);
-
-    if (lastCommit) {
-      succeeded = await updateBranch(user, repo, branch, commit);
-    } else {
-      succeeded = await createBranch(user, repo, branch, commit);
-    }
-
-    if (!succeeded) return null;
-
-    return {
-      url: `https://${user.username}.github.io/${repo}/`,
-      username: user.username as string,
-      repo,
-      tree,
-      commit,
-    };
-  } catch (error: any) {
-    if (error.message === 'Repo name already exists') {
-      throw error;
-    }
-    return null;
-  }
+  const result = await commitFiles({
+    files,
+    user,
+    repo,
+    branch,
+    message,
+    newRepo,
+    description,
+    readmeContent,
+  });
+  if (!result) return null;
+  return {
+    url: `https://${user.username}.github.io/${repo}/`,
+    username: user.username as string,
+    repo,
+    tree: result.tree,
+    commit: result.commit,
+  };
 };
 
 export const deployFile = async ({
-  user,
-  repo = 'livecodes-assets',
-  branch = 'gh-pages',
-  message,
   file,
+  user,
+  repo,
+  branch,
+  message,
+  description,
+  readmeContent,
 }: {
-  user: User;
-  repo?: string;
-  branch?: string;
-  message?: string;
   file: GitHubFile;
+  user: User;
+  repo: string;
+  branch: string;
+  message: string;
+  description?: string;
+  readmeContent?: string;
 }): Promise<DeployResult | null> => {
-  message = message || 'add ' + file.path;
-
-  try {
-    if (!(await repoExists(user, repo))) {
-      repo = safeName(repo, '-').toLowerCase();
-      if (repo === 'livecodes-assets') {
-        const description = 'LiveCodes assets';
-        await createRepo(user, repo, { title: description } as any);
-        await initializeRepo(user, repo, branch, '# ' + description);
-      } else {
-        await createRepo(user, repo, {} as any);
-        await initializeRepo(user, repo, branch);
-      }
-    }
-
-    const result = await createFile({
-      user,
-      repo,
-      branch,
-      file: { path: `assets/${generateId()}/${file.path}`, content: file.content },
-      message,
-      initialize: true,
-      encoded: true,
-    });
-
-    return {
-      url: `https://${user.username}.github.io/${repo}/${result.content.path}`,
-      username: user.username as string,
-      repo,
-      tree: result?.commit?.tree?.sha,
-      commit: result?.commit?.sha,
-    };
-  } catch (error: any) {
-    return null;
-  }
+  const githubFile: GitHubFile = {
+    path: `assets/${generateId()}/${file.path}`,
+    content: file.content,
+  };
+  const result = await commitFile({
+    file: githubFile,
+    user,
+    repo,
+    branch,
+    message,
+    description,
+    readmeContent,
+  });
+  if (!result) return null;
+  return {
+    url: `https://${user.username}.github.io/${repo}/${githubFile.path}`,
+    username: user.username as string,
+    repo,
+    tree: result?.tree,
+    commit: result?.commit,
+  };
 };
 
 export const deployedConfirmation = (deployResult: DeployResult, sourcePublished: boolean) => {

@@ -2089,6 +2089,8 @@ const handleDeploy = () => {
   registerScreen('deploy', createDeployUI);
 };
 
+const handleSync = () => {};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -2172,7 +2174,15 @@ const handleAssets = () => {
 
     const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
     const deployAsset = async (user: User, file: GitHubFile) =>
-      deployModule.deployFile({ user, file });
+      deployModule.deployFile({
+        file,
+        user,
+        repo: 'livecodes-assets',
+        branch: 'gh-pages',
+        message: 'add ' + file.path,
+        description: 'LiveCodes assets',
+        readmeContent: '#LiveCodes assets',
+      });
     modal.show(
       assetsModule.createAddAssetContainer({
         eventsManager,
@@ -2551,6 +2561,7 @@ const extraHandlers = async () => {
   handleExport();
   handleDeploy();
   handleAssets();
+  handleSync();
   handleUnload();
   handleExternalResources();
 };

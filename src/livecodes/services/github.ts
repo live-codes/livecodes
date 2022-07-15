@@ -1,4 +1,6 @@
 import type { User } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { safeName } from '../utils/utils';
 
 export interface GitHubFile {
   path: string;
@@ -23,7 +25,7 @@ export const repoExists = async (user: User, repo: string) => {
   }
 };
 
-export const createRepo = async (user: User, repo: string, description?: string) => {
+const createRepo = async (user: User, repo: string, description?: string) => {
   const res = await fetch('https://api.github.com/user/repos', {
     method: 'POST',
     headers: getGithubHeaders(user),
@@ -44,7 +46,7 @@ export const createRepo = async (user: User, repo: string, description?: string)
   return res.json().then((data) => data.name);
 };
 
-export const createFile = async ({
+const createFile = async ({
   user,
   repo,
   branch,
@@ -93,12 +95,7 @@ export const createFile = async ({
   return res.json();
 };
 
-export const initializeRepo = async (
-  user: User,
-  repo: string,
-  branch = 'main',
-  readmeContent?: string,
-) =>
+const initializeRepo = async (user: User, repo: string, branch = 'main', readmeContent?: string) =>
   (
     await createFile({
       user,
@@ -111,7 +108,7 @@ export const initializeRepo = async (
     })
   )?.commit.sha;
 
-export const getLastCommit = async (user: User, repo: string, branch: string) => {
+const getLastCommit = async (user: User, repo: string, branch: string) => {
   const res = await fetch(
     `https://api.github.com/repos/${user.username}/${repo}/git/matching-refs/heads/${branch}?per_page=100`,
     {
@@ -136,11 +133,7 @@ export const getLastCommit = async (user: User, repo: string, branch: string) =>
   return branchRef.object.sha;
 };
 
-export const createTree = async (
-  user: User,
-  repo: string,
-  files: GitHubFile[],
-): Promise<string> => {
+const createTree = async (user: User, repo: string, files: GitHubFile[]): Promise<string> => {
   const tree = files.map((file) => ({
     path: file.path,
     mode: '100644',
@@ -159,7 +152,7 @@ export const createTree = async (
   return res.json().then((data) => data.sha);
 };
 
-export const createCommit = async (
+const createCommit = async (
   user: User,
   repo: string,
   message: string,
@@ -181,7 +174,7 @@ export const createCommit = async (
   return res.json().then((data) => data.sha);
 };
 
-export const createBranch = async (user: User, repo: string, branch: string, commit: string) => {
+const createBranch = async (user: User, repo: string, branch: string, commit: string) => {
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/refs`, {
     method: 'POST',
     headers: getGithubHeaders(user),
@@ -196,7 +189,7 @@ export const createBranch = async (user: User, repo: string, branch: string, com
   return true;
 };
 
-export const updateBranch = async (user: User, repo: string, branch: string, commit: string) => {
+const updateBranch = async (user: User, repo: string, branch: string, commit: string) => {
   const res = await fetch(
     `https://api.github.com/repos/${user.username}/${repo}/git/refs/heads/${branch}`,
     {
@@ -211,6 +204,107 @@ export const updateBranch = async (user: User, repo: string, branch: string, com
     throw new Error('Error updating branch');
   }
   return true;
+};
+
+export const commitFiles = async ({
+  files,
+  user,
+  repo,
+  branch,
+  message,
+  newRepo,
+  description,
+  readmeContent,
+}: {
+  files: GitHubFile[];
+  user: User;
+  repo: string;
+  branch: string;
+  message: string;
+  newRepo?: boolean;
+  description?: string;
+  readmeContent?: string;
+}) => {
+  let lastCommit: string | null;
+  let tree: string | null;
+  let commit: string | null;
+  let succeeded = false;
+
+  if (newRepo) {
+    repo = safeName(repo, '-').toLowerCase();
+  }
+
+  try {
+    if (newRepo || !(await repoExists(user, repo))) {
+      await createRepo(user, repo, description);
+      await initializeRepo(user, repo, 'main', readmeContent);
+      lastCommit = null;
+    } else {
+      lastCommit = await getLastCommit(user, repo, branch);
+    }
+    tree = await createTree(user, repo, files);
+    commit = await createCommit(user, repo, message, tree, lastCommit);
+
+    if (lastCommit) {
+      succeeded = await updateBranch(user, repo, branch, commit);
+    } else {
+      succeeded = await createBranch(user, repo, branch, commit);
+    }
+
+    if (!succeeded) return null;
+
+    return {
+      tree,
+      commit,
+    };
+  } catch (error: any) {
+    return null;
+  }
+};
+
+export const commitFile = async ({
+  file,
+  user,
+  repo,
+  branch,
+  message,
+  newRepo,
+  description,
+  readmeContent,
+}: {
+  file: GitHubFile;
+  user: User;
+  repo: string;
+  branch: string;
+  message: string;
+  newRepo?: boolean;
+  description?: string;
+  readmeContent?: string;
+}) => {
+  try {
+    if (newRepo || !(await repoExists(user, repo))) {
+      repo = safeName(repo, '-').toLowerCase();
+      await createRepo(user, repo, (description ? { title: description } : {}) as any);
+      await initializeRepo(user, repo, branch, readmeContent);
+    }
+
+    const result = await createFile({
+      user,
+      repo,
+      branch,
+      file,
+      message,
+      initialize: true,
+      encoded: true,
+    });
+
+    return {
+      tree: result?.commit?.tree?.sha,
+      commit: result?.commit?.sha,
+    };
+  } catch (error: any) {
+    return null;
+  }
 };
 
 export const getUserPublicRepos = async (user: User) => {
