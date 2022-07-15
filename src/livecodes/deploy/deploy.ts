@@ -2,8 +2,8 @@
 import type { ContentConfig, User } from '../models';
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { getDescriptionFile, getFilesFromConfig } from '../export/utils';
-import { generateId } from '../storage';
-import { safeName } from '../utils';
+import { generateId } from '../storage/storage';
+import { safeName } from '../utils/utils';
 import { commitFile, commitFiles, GitHubFile } from '../services/github';
 import { defaultConfig } from '../config/default-config';
 
@@ -100,8 +100,10 @@ export const deploy = async ({
     branch,
     message,
     newRepo,
+    privateRepo: false,
     description,
     readmeContent,
+    clearPrevious: true,
   });
   if (!result) return null;
   return {
@@ -140,6 +142,7 @@ export const deployFile = async ({
     repo,
     branch,
     message,
+    privateRepo: false,
     description,
     readmeContent,
   });

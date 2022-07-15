@@ -121,6 +121,8 @@ export const getEmbedLink = () => document.querySelector<HTMLAnchorElement>('#em
 
 export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
 
+export const getSyncLink = () => document.querySelector<HTMLAnchorElement>('#sync-link');
+
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');
 
 export const getAutoupdateToggle = () =>
@@ -238,6 +240,8 @@ export const getNewRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
 export const getNewRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-source') as HTMLInputElement;
+export const getNewRepoAutoSync = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-autosync') as HTMLInputElement;
 
 export const getExistingRepoForm = (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#existing-repo-form');
@@ -249,6 +253,8 @@ export const getExistingRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-message') as HTMLInputElement;
 export const getExistingRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
+export const getExistingRepoAutoSync = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-autosync') as HTMLInputElement;
 
 export const getStarterTemplatesTab = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>(

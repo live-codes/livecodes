@@ -203,6 +203,16 @@ export const blobToBase64 = (file: Blob): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
+export const Uint8ArrayToBase64 = (u8: Uint8Array) =>
+  btoa(String.fromCharCode.apply(null, u8 as any));
+
+export const base64ToUint8Array = (str: string) =>
+  new Uint8Array(
+    atob(str)
+      .split('')
+      .map((c) => c.charCodeAt(0)),
+  );
+
 export const getWorkerDataURL = (url: string) => {
   const content = `importScripts("${url}");`;
   return 'data:text/javascript;base64,' + btoa(content);

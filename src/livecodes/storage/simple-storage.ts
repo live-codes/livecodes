@@ -1,5 +1,5 @@
+import type { SimpleStorage } from './models';
 import { fakeSimpleStorage } from './fake-storage';
-import { SimpleStorage } from './models';
 
 /**
  * Creates a simple synchronous key/value data store using localstorage

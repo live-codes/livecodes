@@ -570,6 +570,7 @@ export interface Screen {
     | 'share'
     | 'embed'
     | 'deploy'
+    | 'sync'
     | 'custom-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;

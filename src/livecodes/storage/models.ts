@@ -35,3 +35,9 @@ export interface SimpleStorage<T> {
   setValue: (value: T | null) => void;
   clear: () => void;
 }
+
+export type StorageKey = 'projects' | 'templates' | 'assets' | 'user-config';
+
+export type Stores = { [key in StorageKey]: ProjectStorage | SimpleStorage<any> | undefined };
+
+export type StorageData = { [key in StorageKey]: any | undefined };

@@ -25,13 +25,13 @@ export const repoExists = async (user: User, repo: string) => {
   }
 };
 
-const createRepo = async (user: User, repo: string, description?: string) => {
+const createRepo = async (user: User, repo: string, privateRepo = false, description?: string) => {
   const res = await fetch('https://api.github.com/user/repos', {
     method: 'POST',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       name: repo,
-      private: false,
+      private: privateRepo,
       homepage: `https://${user.username}.github.io/${repo}/`,
       ...(description ? { description } : {}),
     }),
@@ -64,11 +64,12 @@ const createFile = async ({
   encoded: boolean;
 }) => {
   const url = `https://api.github.com/repos/${user.username}/${repo}/contents/`;
+  const path = file.path.split('/').slice(0, -1).join('/');
 
   let sha: string | undefined;
 
   if (!initialize) {
-    const response = await fetch(url, {
+    const response = await fetch(url + path, {
       method: 'GET',
       headers: getGithubHeaders(user),
     });
@@ -92,6 +93,33 @@ const createFile = async ({
   if (!res.ok) {
     throw new Error('Error creating file');
   }
+  return res.json();
+};
+
+export const getFile = async ({
+  user,
+  repo,
+  branch,
+  path,
+}: {
+  user: User;
+  repo: string;
+  branch?: string;
+  path: string;
+}) => {
+  const url =
+    `https://api.github.com/repos/${user.username}/${repo}/contents/${path}` +
+    (branch ? `?ref=${branch}` : '');
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: getGithubHeaders(user),
+  });
+
+  if (!res.ok) {
+    throw new Error('Error getting file');
+  }
+
   return res.json();
 };
 
@@ -133,7 +161,32 @@ const getLastCommit = async (user: User, repo: string, branch: string) => {
   return branchRef.object.sha;
 };
 
-const createTree = async (user: User, repo: string, files: GitHubFile[]): Promise<string> => {
+const getTree = async (user: User, repo: string, commit: string) => {
+  const res = await fetch(
+    `https://api.github.com/repos/${user.username}/${repo}/commits/${commit}`,
+    {
+      method: 'GET',
+      headers: getGithubHeaders(user),
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error('Error getting commit tree');
+  }
+
+  const data = await res.json();
+  const tree = data?.commit?.tree?.sha;
+
+  if (!tree) return null;
+  return tree;
+};
+
+const createTree = async (
+  user: User,
+  repo: string,
+  files: GitHubFile[],
+  baseTree: string | null,
+): Promise<string> => {
   const tree = files.map((file) => ({
     path: file.path,
     mode: '100644',
@@ -144,7 +197,11 @@ const createTree = async (user: User, repo: string, files: GitHubFile[]): Promis
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/trees`, {
     method: 'POST',
     headers: getGithubHeaders(user),
-    body: JSON.stringify({ tree }),
+    body: JSON.stringify({
+      // eslint-disable-next-line camelcase
+      ...(baseTree ? { base_tree: baseTree } : {}),
+      tree,
+    }),
   });
   if (!res.ok) {
     throw new Error('Error creating tree');
@@ -213,8 +270,10 @@ export const commitFiles = async ({
   branch,
   message,
   newRepo,
+  privateRepo,
   description,
   readmeContent,
+  clearPrevious = true,
 }: {
   files: GitHubFile[];
   user: User;
@@ -222,8 +281,10 @@ export const commitFiles = async ({
   branch: string;
   message: string;
   newRepo?: boolean;
+  privateRepo?: boolean;
   description?: string;
   readmeContent?: string;
+  clearPrevious?: boolean;
 }) => {
   let lastCommit: string | null;
   let tree: string | null;
@@ -236,13 +297,15 @@ export const commitFiles = async ({
 
   try {
     if (newRepo || !(await repoExists(user, repo))) {
-      await createRepo(user, repo, description);
-      await initializeRepo(user, repo, 'main', readmeContent);
-      lastCommit = null;
+      newRepo = true;
+      await createRepo(user, repo, privateRepo, description);
+      const initialCommit = await initializeRepo(user, repo, 'main', readmeContent);
+      lastCommit = branch === 'main' ? initialCommit : null;
     } else {
       lastCommit = await getLastCommit(user, repo, branch);
     }
-    tree = await createTree(user, repo, files);
+    const baseTree = lastCommit && !clearPrevious ? await getTree(user, repo, lastCommit) : null;
+    tree = await createTree(user, repo, files, baseTree);
     commit = await createCommit(user, repo, message, tree, lastCommit);
 
     if (lastCommit) {
@@ -269,6 +332,7 @@ export const commitFile = async ({
   branch,
   message,
   newRepo,
+  privateRepo,
   description,
   readmeContent,
 }: {
@@ -278,13 +342,15 @@ export const commitFile = async ({
   branch: string;
   message: string;
   newRepo?: boolean;
+  privateRepo?: boolean;
   description?: string;
   readmeContent?: string;
 }) => {
   try {
     if (newRepo || !(await repoExists(user, repo))) {
+      newRepo = true;
       repo = safeName(repo, '-').toLowerCase();
-      await createRepo(user, repo, (description ? { title: description } : {}) as any);
+      await createRepo(user, repo, privateRepo, (description ? { title: description } : {}) as any);
       await initializeRepo(user, repo, branch, readmeContent);
     }
 
@@ -294,7 +360,7 @@ export const commitFile = async ({
       branch,
       file,
       message,
-      initialize: true,
+      initialize: newRepo || false,
       encoded: true,
     });
 
@@ -307,7 +373,10 @@ export const commitFile = async ({
   }
 };
 
-export const getUserPublicRepos = async (user: User) => {
+export const getUserRepos = async (
+  user: User,
+  reposType: 'all' | 'owner' | 'public' | 'private' | 'member' = 'public',
+) => {
   let page = 1;
   const pageSize = 100;
   const maxPages = 5;
@@ -315,7 +384,7 @@ export const getUserPublicRepos = async (user: User) => {
 
   while (page <= maxPages) {
     const response = await fetch(
-      `https://api.github.com/user/repos?type=public&per_page=${pageSize}&page=${page}`,
+      `https://api.github.com/user/repos?type=${reposType}&per_page=${pageSize}&page=${page}`,
       {
         method: 'GET',
         headers: getGithubHeaders(user),

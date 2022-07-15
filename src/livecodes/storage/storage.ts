@@ -1,13 +1,14 @@
-import { ContentConfig } from '../models';
 import { loadScript } from '../utils';
 import { localforageUrl } from '../vendors';
+import type { ContentConfig } from '../models';
+import type { ProjectStorage, SavedProject, StorageItem } from './models';
 import { fakeStorage } from './fake-storage';
-import { ProjectStorage, SavedProject, StorageItem } from './models';
 
 type LocalForage = typeof import('localforage');
 let localforage: LocalForage;
 const dbName = 'livecodes';
 const stores: Record<string, LocalForage> = {};
+
 export const generateId = () =>
   (Date.now() + '' + Math.floor(Math.floor(Math.random() * Date.now()))).substring(0, 24);
 

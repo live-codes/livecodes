@@ -131,6 +131,7 @@ esbuild.buildSync({
   'UI/import.ts',
   'UI/share.ts',
   'UI/deploy.ts',
+  'UI/sync.ts',
   'UI/embed-ui.ts',
 ].forEach((entry) => {
   esbuild.buildSync({

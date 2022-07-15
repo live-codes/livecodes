@@ -125,6 +125,7 @@ let templateStorage: ProjectStorage | undefined;
 let assetsStorage: ProjectStorage | undefined;
 let userConfigStorage: SimpleStorage<UserConfig> | undefined;
 let restoreStorage: SimpleStorage<RestoreItem> | undefined;
+let syncStorage: ProjectStorage | undefined;
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
@@ -2089,7 +2090,34 @@ const handleDeploy = () => {
   registerScreen('deploy', createDeployUI);
 };
 
-const handleSync = () => {};
+const handleSync = () => {
+  const createSyncUI = async () => {
+    if (isEmbed) return;
+    const user = await getUser();
+    if (!user) {
+      notifications.error('Authentication error!');
+      return;
+    }
+    modal.show(loadingMessage());
+    const syncModule: typeof import('./UI/sync') = await import(baseUrl + '{{hash:sync.js}}');
+    syncModule.createSyncUI({
+      modal,
+      notifications,
+      eventsManager,
+      user,
+      stores: {
+        projects: projectStorage,
+        templates: templateStorage,
+        assets: assetsStorage,
+        'user-config': userConfigStorage,
+      },
+      syncStorage,
+    });
+  };
+
+  eventsManager.addEventListener(UI.getSyncLink(), 'click', createSyncUI, false);
+  registerScreen('sync', createSyncUI);
+};
 
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
@@ -2540,6 +2568,7 @@ const extraHandlers = async () => {
   assetsStorage = await createStorage('__livecodes_assets__', isEmbed);
   userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
   restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
+  syncStorage = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();
   handleResultPopup();
