@@ -26,7 +26,7 @@ const upgradeSteps = [
         config.tools.status = config.console;
         delete config.console;
       }
-      if (config.script.language === 'graph') {
+      if (config.script?.language === 'graph') {
         config.script.language = 'diagrams';
       }
       if (config.languages?.includes('graph')) {
