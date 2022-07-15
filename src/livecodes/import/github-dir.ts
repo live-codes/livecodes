@@ -1,5 +1,6 @@
-import { User } from '../models';
-import { getGithubHeaders } from './github-headers';
+import type { User } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { getGithubHeaders } from '../services/github';
 import { hostPatterns, populateConfig } from './utils';
 
 export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.github)) => {

@@ -1,213 +1,22 @@
 /* eslint-disable import/no-internal-modules */
-import { defaultConfig } from '../config';
+import type { ContentConfig, User } from '../models';
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { getDescriptionFile, getFilesFromConfig } from '../export/utils';
-import { getGithubHeaders } from '../import/github-headers';
-import { ContentConfig, User } from '../models';
 import { generateId } from '../storage';
 import { safeName } from '../utils';
-import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
-
-export const repoExists = async (user: User, repo: string) => {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}`, {
-      method: 'GET',
-      headers: getGithubHeaders(user),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
-};
-
-const createRepo = async (user: User, repo: string, config: ContentConfig) => {
-  const res = await fetch('https://api.github.com/user/repos', {
-    method: 'POST',
-    headers: getGithubHeaders(user),
-    body: JSON.stringify({
-      name: repo,
-      private: false,
-      homepage: `https://${user.username}.github.io/${repo}/`,
-      ...(config.title !== defaultConfig.title ? { description: config.title } : {}),
-    }),
-  });
-  if (!res.ok) {
-    const error = await res.json().then((data) => data.errors[0]?.message);
-    if (error === 'name already exists on this account') {
-      throw new Error('Repo name already exists');
-    }
-    throw new Error('Error creating repo');
-  }
-  return res.json().then((data) => data.name);
-};
-
-const createFile = async ({
-  user,
-  repo,
-  branch,
-  file,
-  message,
-  initialize = false,
-  encoded = false,
-}: {
-  user: User;
-  repo: string;
-  branch: string;
-  file: { path: string; content: string };
-  message: string;
-  initialize: boolean;
-  encoded: boolean;
-}) => {
-  const url = `https://api.github.com/repos/${user.username}/${repo}/contents/`;
-
-  let sha: string | undefined;
-
-  if (!initialize) {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: getGithubHeaders(user),
-    });
-    if (response.ok) {
-      const files = await response.json();
-      sha = files.find((f: any) => f.path === file.path)?.sha;
-    }
-  }
-
-  const res = await fetch(url + file.path, {
-    method: 'PUT',
-    headers: getGithubHeaders(user),
-    body: JSON.stringify({
-      message: message || 'deploy',
-      content: encoded ? file.content : btoa(file.content),
-      branch,
-      ...(sha ? { sha } : {}),
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error('Error creating file');
-  }
-  return res.json();
-};
-
-const initializeRepo = async (user: User, repo: string, branch = 'main', readmeContent?: string) =>
-  (
-    await createFile({
-      user,
-      repo,
-      branch,
-      file: { path: 'readme.md', content: `${readmeContent || '# ' + repo + '\n'}` },
-      message: 'initial commit',
-      initialize: true,
-      encoded: false,
-    })
-  )?.commit.sha;
-
-const getLastCommit = async (user: User, repo: string, branch: string) => {
-  const res = await fetch(
-    `https://api.github.com/repos/${user.username}/${repo}/git/matching-refs/heads/${branch}?per_page=100`,
-    {
-      method: 'GET',
-      headers: getGithubHeaders(user),
-    },
-  );
-  const refs = await res.json();
-
-  if (refs.message === 'Git Repository is empty.') {
-    const commit = await initializeRepo(user, repo, 'main');
-    return branch === 'main' ? commit : null;
-  }
-
-  if (!res.ok) {
-    throw new Error('Error getting last commit');
-  }
-
-  const branchRef = refs.find((ref: any) => ref.ref === `refs/heads/${branch}`);
-
-  if (!branchRef) return null;
-  return branchRef.object.sha;
-};
-
-const createTree = async (
-  user: User,
-  repo: string,
-  files: Array<{ path: string; content: string }>,
-): Promise<string> => {
-  const tree = files.map((file) => ({
-    path: file.path,
-    mode: '100644',
-    type: 'blob',
-    content: file.content,
-  }));
-
-  const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/trees`, {
-    method: 'POST',
-    headers: getGithubHeaders(user),
-    body: JSON.stringify({ tree }),
-  });
-  if (!res.ok) {
-    throw new Error('Error creating tree');
-  }
-  return res.json().then((data) => data.sha);
-};
-
-const createCommit = async (
-  user: User,
-  repo: string,
-  message: string,
-  tree: string,
-  lastCommit: string | null,
-): Promise<string> => {
-  const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/commits`, {
-    method: 'POST',
-    headers: getGithubHeaders(user),
-    body: JSON.stringify({
-      tree,
-      message: message || 'deploy',
-      ...(lastCommit ? { parents: [lastCommit] } : {}),
-    }),
-  });
-  if (!res.ok) {
-    throw new Error('Error creating commit');
-  }
-  return res.json().then((data) => data.sha);
-};
-
-const createBranch = async (user: User, repo: string, branch: string, commit: string) => {
-  const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/refs`, {
-    method: 'POST',
-    headers: getGithubHeaders(user),
-    body: JSON.stringify({
-      ref: `refs/heads/${branch}`,
-      sha: commit,
-    }),
-  });
-  if (!res.ok) {
-    throw new Error('Error creating branch');
-  }
-  return true;
-};
-
-const updateBranch = async (user: User, repo: string, branch: string, commit: string) => {
-  const res = await fetch(
-    `https://api.github.com/repos/${user.username}/${repo}/git/refs/heads/${branch}`,
-    {
-      method: 'PATCH',
-      headers: getGithubHeaders(user),
-      body: JSON.stringify({
-        sha: commit,
-      }),
-    },
-  );
-  if (!res.ok) {
-    throw new Error('Error updating branch');
-  }
-  return true;
-};
-
-export interface GitHubFile {
-  path: string;
-  content: string;
-}
+import {
+  createBranch,
+  createCommit,
+  createFile,
+  createRepo,
+  createTree,
+  getLastCommit,
+  GitHubFile,
+  initializeRepo,
+  repoExists,
+  updateBranch,
+} from '../services/github';
+import { defaultConfig } from '../config/default-config';
 
 const prepareFiles = ({
   config,
@@ -297,12 +106,13 @@ export const deploy = async ({
   const urlToSrc = commitSource
     ? `https://github.com/${user.username}/${repo}/tree/gh-pages/src`
     : undefined;
-  const description = Object.values(getDescriptionFile(config, user, urlToSrc, false))[0].content;
+  const description = config.title !== defaultConfig.title ? config.title : '';
+  const readmeContent = Object.values(getDescriptionFile(config, user, urlToSrc, false))[0].content;
 
   try {
     if (newRepo) {
-      await createRepo(user, repo, config);
-      await initializeRepo(user, repo, 'main', description);
+      await createRepo(user, repo, description);
+      await initializeRepo(user, repo, 'main', readmeContent);
       lastCommit = null;
     } else {
       lastCommit = await getLastCommit(user, repo, branch);

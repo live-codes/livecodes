@@ -5,7 +5,9 @@ import type { Config, ContentConfig, Cache, User } from '../models';
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { deployScreen, resultTemplate } from '../html';
 import { autoCompleteUrl } from '../vendors';
-import { deploy, deployFile, deployedConfirmation, getUserPublicRepos } from '../deploy';
+import { deploy, deployFile, deployedConfirmation } from '../deploy';
+// eslint-disable-next-line import/no-internal-modules
+import { getUserPublicRepos } from '../services/github';
 import {
   getExistingRepoButton,
   getExistingRepoCommitSource,
