@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { Config, CompilerFunction } from '../../models';
 import {
   blobToBase64,
@@ -6,6 +7,7 @@ import {
   stringToValidJson,
   getLanguageCustomSettings,
   removeComments,
+  runOrContinue,
 } from '../../utils';
 import {
   cytoscapeSvgUrl,
@@ -658,18 +660,21 @@ const getShadowDomScript = () =>
 `
     : '';
 
+const run = (fn: (str: string) => Promise<string>) => runOrContinue(fn, console.error);
+
 export const diagramsCompiler: CompilerFunction = async (code: string, { config }) => {
-  const result = await compileGnuplot(code)
-    .then(compileMermaid)
-    .then(compileGraphviz)
-    .then(compileVega)
-    .then(compilePlotly)
-    .then(compileSvgBob)
-    .then(compileWaveDrom)
-    .then(compileNomnoml)
-    .then(compileElk)
-    .then(compileCytoscape)
-    .then((src) => compilePintora(src, config))
+  const result = await Promise.resolve(code)
+    .then(run(compileGnuplot))
+    .then(run(compileMermaid))
+    .then(run(compileGraphviz))
+    .then(run(compileVega))
+    .then(run(compilePlotly))
+    .then(run(compileSvgBob))
+    .then(run(compileWaveDrom))
+    .then(run(compileNomnoml))
+    .then(run(compileElk))
+    .then(run(compileCytoscape))
+    .then(run((src) => compilePintora(src, config)))
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.error(err);
