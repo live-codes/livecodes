@@ -116,7 +116,7 @@ import {
   createTemplatesContainer,
   createPluginItem,
 } from './UI';
-import { customEvents } from './custom-events';
+import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 
 const eventsManager = createEventsManager();

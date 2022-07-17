@@ -117,7 +117,7 @@ export const sync = async ({
 
   // save to local stores
   for (const key of Object.keys(localDoc)) {
-    await setStorageData(stores[key], localDoc[key]);
+    await setStorageData((stores as any)[key], (localDoc as any)[key]);
   }
 
   // push to remote

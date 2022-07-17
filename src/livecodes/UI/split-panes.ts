@@ -1,5 +1,5 @@
 import Split from 'split.js';
-import { customEvents } from '../custom-events';
+import { customEvents } from '../events';
 
 export const createSplitPanes = () => {
   const gutterSize = 10;
