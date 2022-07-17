@@ -3,7 +3,8 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { User } from '../models';
-import type { ProjectStorage, Stores } from '../storage';
+import type { Storage, Stores } from '../storage';
+import type { StoredSyncData } from '../sync/sync';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
@@ -15,7 +16,6 @@ import {
   getNewRepoAutoSync,
   getNewRepoButton,
   getNewRepoForm,
-  getNewRepoNameError,
   getNewRepoNameInput,
 } from './selectors';
 
@@ -57,14 +57,13 @@ export const createSyncUI = async ({
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
   stores: Stores;
-  syncStorage: ProjectStorage | undefined;
+  syncStorage: Storage<StoredSyncData> | undefined;
 }) => {
   const syncContainer = createSyncContainer(eventsManager);
 
   const newRepoForm = getNewRepoForm(syncContainer);
   const newRepoButton = getNewRepoButton(syncContainer);
   const newRepoNameInput = getNewRepoNameInput(syncContainer);
-  const newRepoNameError = getNewRepoNameError(syncContainer);
   const newRepoAutoSync = getNewRepoAutoSync(syncContainer);
   const existingRepoForm = getExistingRepoForm(syncContainer);
   const existingRepoButton = getExistingRepoButton(syncContainer);
@@ -104,6 +103,8 @@ export const createSyncUI = async ({
 
     const name = newRepoNameInput.value;
     const autoSync = newRepoAutoSync.checked;
+    // eslint-disable-next-line no-console
+    console.log(autoSync);
     const newRepo = true;
     if (!name) {
       notifications.error('Repo name is required');
@@ -124,6 +125,8 @@ export const createSyncUI = async ({
 
     const name = existingRepoNameInput.value;
     const autoSync = existingRepoAutoSync.checked;
+    // eslint-disable-next-line no-console
+    console.log(autoSync);
     const newRepo = false;
     if (!name) {
       notifications.error('Repo name is required');

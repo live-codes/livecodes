@@ -1,7 +1,7 @@
 import { loadScript } from '../utils';
 import { localforageUrl } from '../vendors';
-import type { ContentConfig } from '../models';
-import type { ProjectStorage, SavedProject, StorageItem } from './models';
+// import { createPub } from '../events';
+import type { Storage } from './models';
 import { fakeStorage } from './fake-storage';
 
 type LocalForage = typeof import('localforage');
@@ -30,36 +30,24 @@ const loadLocalforage = async (store: string) => {
 /**
  * Creates asynchronous data store using localforage
  */
-export const createStorage = async (name: string, isEmbed: boolean): Promise<ProjectStorage> => {
+export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<Storage<T>> => {
   // do not allow access to storage in embeds
   if (isEmbed) return fakeStorage;
 
   let store: LocalForage;
+  // const pub = createPub<any>();
 
   const load = async () => {
     await loadLocalforage(name);
     store = stores[name];
   };
 
-  const getList = async (): Promise<SavedProject[]> => {
+  const getList = async (): Promise<string[]> => {
     await load();
-    const list: SavedProject[] = [];
-    await store.iterate((item: StorageItem, key) => {
-      list.push({
-        id: key,
-        title: item.config?.title || '',
-        description: item.config?.description || '',
-        tags: item.config?.tags || [],
-        languages: item.config
-          ? [item.config.markup.language, item.config.style.language, item.config.script.language]
-          : [],
-        lastModified: item.lastModified,
-      });
-    });
-    return list.sort((a, b) => b.lastModified - a.lastModified);
+    return store.keys();
   };
 
-  const getAllData = async <T = StorageItem>(): Promise<T[]> => {
+  const getAllData = async (): Promise<T[]> => {
     await load();
     const list: T[] = [];
     await store.iterate((item: T) => {
@@ -70,32 +58,20 @@ export const createStorage = async (name: string, isEmbed: boolean): Promise<Pro
     );
   };
 
-  const getItem = async <T = StorageItem>(itemId: string): Promise<T | null> => {
+  const getItem = async (itemId: string): Promise<T | null> => {
     await load();
     return store.getItem(itemId);
   };
 
-  const updateItem = async (id: string, config: ContentConfig) => {
+  const updateItem = async (id: string, value: T) => {
     await load();
-    const newItem: StorageItem = {
-      id,
-      config,
-      lastModified: Date.now(),
-    };
-    await store.setItem(id, newItem);
+    await store.setItem(id, value);
     return id;
   };
 
-  const addItem = (config: ContentConfig) => {
+  const addItem = (value: T) => {
     const id = generateId();
-    return updateItem(id, config);
-  };
-
-  const bulkInsert = async (newProjects: ContentConfig[]) => {
-    await load();
-    for (const config of newProjects) {
-      await addItem(config);
-    }
+    return updateItem(id, value);
   };
 
   const deleteItem = async (id: string) => {
@@ -103,20 +79,26 @@ export const createStorage = async (name: string, isEmbed: boolean): Promise<Pro
     await store.removeItem(id);
   };
 
+  const bulkInsert = async (data: T[]) => {
+    for (const item of data) {
+      await addItem(item);
+    }
+  };
+
+  // like bulkInsert, with same ids
+  const restore = async (data: T[]) => {
+    for (const item of data as any) {
+      if (item.id) {
+        await updateItem(item.id, item);
+      } else {
+        await addItem(item);
+      }
+    }
+  };
+
   const clear = async () => {
     await load();
     await store.clear();
-  };
-
-  const updateGenericItem = async (id: string, value: any) => {
-    await load();
-    await store.setItem(id, value);
-    return id;
-  };
-
-  const addGenericItem = (value: any) => {
-    const id = generateId();
-    return updateGenericItem(id, value);
   };
 
   return {
@@ -127,8 +109,7 @@ export const createStorage = async (name: string, isEmbed: boolean): Promise<Pro
     updateItem,
     deleteItem,
     bulkInsert,
-    addGenericItem,
-    updateGenericItem,
+    restore,
     clear,
   };
 };

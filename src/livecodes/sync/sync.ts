@@ -3,15 +3,21 @@ import { Doc, getActorId, merge, change, init, save, load, BinaryDocument } from
 import { diff, applyChange } from 'deep-diff';
 
 import type { User } from '../models';
-import type { ProjectStorage, SimpleStorage, StorageData, StorageItem, Stores } from '../storage';
+import type { Storage, SimpleStorage, StorageData, Stores, ProjectStorage } from '../storage';
 import { commitFile, getFile as getFileFromGithub, GitHubFile } from '../services/github';
 import { base64ToUint8Array, Uint8ArrayToBase64 } from '../utils/utils';
 
 const Automerge = { getActorId, merge, change, init, save, load };
 const DeepDiff = { diff, applyChange };
 
+export interface StoredSyncData {
+  lastModified: number;
+  data: BinaryDocument;
+  lastSyncSha: string;
+}
+
 const getStorageData = async (
-  storage: ProjectStorage | SimpleStorage<any> | undefined,
+  storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined,
 ): Promise<any[]> => {
   if (!storage) return [];
   if ('getValue' in storage) {
@@ -24,7 +30,7 @@ const getStorageData = async (
 };
 
 const setStorageData = async (
-  storage: ProjectStorage | SimpleStorage<any> | undefined,
+  storage: Storage<unknown> | SimpleStorage<any> | undefined,
   data: any,
 ): Promise<void> => {
   if (!storage) return;
@@ -35,7 +41,7 @@ const setStorageData = async (
   }
   // ProjectStorage
   await storage.clear();
-  await storage.bulkInsert(data.map((item: StorageItem) => item.config));
+  await storage.restore(data);
 };
 
 const changeDoc = (oldDoc: Doc<Partial<StorageData>>, newData: Record<string, any>) => {
@@ -64,7 +70,7 @@ export const sync = async ({
   repo: string;
   newRepo: boolean;
   stores: Stores;
-  syncStorage: ProjectStorage | undefined;
+  syncStorage: Storage<StoredSyncData> | undefined;
 }) => {
   // get local data from stores
   const data: Partial<StorageData> = {};
@@ -73,12 +79,7 @@ export const sync = async ({
   }
 
   // get previously saved sync data
-  interface StoredSyncData {
-    lastModified: number;
-    data: BinaryDocument;
-    lastSyncSha: string;
-  }
-  const storedSyncData = (await syncStorage?.getAllData<StoredSyncData>())?.[0];
+  const storedSyncData = (await syncStorage?.getAllData())?.[0];
   let localDoc: Doc<Partial<StorageData>> = storedSyncData
     ? Automerge.load(storedSyncData.data)
     : changeDoc(init(), {});
@@ -148,7 +149,7 @@ export const sync = async ({
       lastSyncSha: result.commit,
     };
     await syncStorage?.clear();
-    await syncStorage?.addGenericItem(newData);
+    await syncStorage?.addItem(newData);
   } catch {
     return false;
   }

@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-internal-modules
 import { compress, decompress } from '../utils/compression';
-import type { ProjectStorage } from './models';
+import type { Storage } from './models';
 import { createStorage } from './storage';
 
-let keyStorage: ProjectStorage;
+let keyStorage: Storage<string>;
 const loadStorage = async () => {
   keyStorage = keyStorage || (await createStorage('__livecodes_key__', false));
 };
@@ -20,12 +20,12 @@ const decode = (encoded: BufferSource) => {
 
 const saveKey = async (key: string) => {
   await loadStorage();
-  await keyStorage.updateGenericItem('__livecodes_key_id__', compress(key));
+  await keyStorage.updateItem('__livecodes_key_id__', compress(key));
 };
 
 const loadKey = async () => {
   await loadStorage();
-  const key = await keyStorage.getItem<string>('__livecodes_key_id__');
+  const key = await keyStorage.getItem('__livecodes_key_id__');
   return key ? decompress(key) : null;
 };
 

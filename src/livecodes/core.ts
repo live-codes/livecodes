@@ -19,9 +19,11 @@ import {
   createSimpleStorage,
   createStorage,
   RestoreItem,
-  ProjectStorage,
+  Storage,
   SimpleStorage,
   fakeStorage,
+  ProjectStorage,
+  createProjectStorage,
 } from './storage';
 import type {
   API,
@@ -50,8 +52,10 @@ import type {
   Types,
   TestResult,
   ToolsPane,
+  Asset,
 } from './models';
 import type { GitHubFile } from './services/github';
+import type { StoredSyncData } from './sync/sync';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -122,10 +126,10 @@ import { populateConfig } from './import/utils';
 const eventsManager = createEventsManager();
 let projectStorage: ProjectStorage | undefined;
 let templateStorage: ProjectStorage | undefined;
-let assetsStorage: ProjectStorage | undefined;
+let assetsStorage: Storage<Asset> | undefined;
 let userConfigStorage: SimpleStorage<UserConfig> | undefined;
 let restoreStorage: SimpleStorage<RestoreItem> | undefined;
-let syncStorage: ProjectStorage | undefined;
+let syncStorage: Storage<StoredSyncData> | undefined;
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
@@ -2567,8 +2571,8 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
-  projectStorage = await createStorage('__livecodes_data__', isEmbed);
-  templateStorage = await createStorage('__livecodes_templates__', isEmbed);
+  projectStorage = await createProjectStorage('__livecodes_data__', isEmbed);
+  templateStorage = await createProjectStorage('__livecodes_templates__', isEmbed);
   assetsStorage = await createStorage('__livecodes_assets__', isEmbed);
   userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
   restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
