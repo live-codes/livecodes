@@ -19,10 +19,8 @@ import {
   createSimpleStorage,
   createStorage,
   RestoreItem,
-  Storage,
-  SimpleStorage,
   fakeStorage,
-  ProjectStorage,
+  Stores,
   createProjectStorage,
 } from './storage';
 import type {
@@ -52,10 +50,8 @@ import type {
   Types,
   TestResult,
   ToolsPane,
-  Asset,
 } from './models';
 import type { GitHubFile } from './services/github';
-import type { StoredSyncData } from './sync/sync';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -124,12 +120,16 @@ import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 
 const eventsManager = createEventsManager();
-let projectStorage: ProjectStorage | undefined;
-let templateStorage: ProjectStorage | undefined;
-let assetsStorage: Storage<Asset> | undefined;
-let userConfigStorage: SimpleStorage<UserConfig> | undefined;
-let restoreStorage: SimpleStorage<RestoreItem> | undefined;
-let syncStorage: Storage<StoredSyncData> | undefined;
+
+const stores: Stores = {
+  projects: undefined,
+  templates: undefined,
+  assets: undefined,
+  userConfig: undefined,
+  restore: undefined,
+  sync: undefined,
+};
+
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
@@ -872,9 +872,9 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   if (!projectId) {
-    projectId = (await projectStorage?.addItem(getConfig())) || '';
+    projectId = (await stores.projects?.addItem(getConfig())) || '';
   } else {
-    await projectStorage?.updateItem(projectId, getConfig());
+    await stores.projects?.updateItem(projectId, getConfig());
   }
   await setSavedStatus();
 
@@ -979,11 +979,11 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
     ...getConfig(),
     ...userConfig,
   });
-  userConfigStorage?.setValue(userConfig);
+  stores.userConfig?.setValue(userConfig);
 };
 
 const loadUserConfig = () => {
-  const userConfig = userConfigStorage?.getValue();
+  const userConfig = stores.userConfig?.getValue();
   if (!userConfig) {
     setUserConfig(getUserConfig(getConfig()));
     return;
@@ -1003,7 +1003,7 @@ const dispatchChangeEvent = () => {
 const setSavedStatus = async () => {
   if (isEmbed) return;
   updateConfig();
-  const savedConfig = projectId && (await projectStorage?.getItem(projectId || ''))?.config;
+  const savedConfig = projectId && (await stores.projects?.getItem(projectId || ''))?.config;
   isSaved =
     changingContent ||
     !!(
@@ -1056,9 +1056,9 @@ const checkSavedAndExecute = (fn: () => void) => async () => {
 
 const setProjectRestore = (reset = false) => {
   if (isEmbed) return;
-  restoreStorage?.clear();
+  stores.restore?.clear();
   if (reset || !getConfig().enableRestore) return;
-  restoreStorage?.setValue({
+  stores.restore?.setValue({
     config: getContentConfig(getConfig()),
     lastModified: Date.now(),
   });
@@ -1068,7 +1068,7 @@ const checkRestoreStatus = () => {
   if (!getConfig().enableRestore || isEmbed) {
     return Promise.resolve('restore disabled');
   }
-  const unsavedItem = restoreStorage?.getValue();
+  const unsavedItem = stores.restore?.getValue();
   const unsavedProject = unsavedItem?.config;
   if (!unsavedItem || !unsavedProject) {
     return Promise.resolve('no unsaved project');
@@ -1097,8 +1097,8 @@ const checkRestoreStatus = () => {
       resolve('restore');
     });
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
-      if (projectStorage) {
-        await projectStorage.addItem(unsavedProject);
+      if (stores.projects) {
+        await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
         setRestoreConfig(!disableRestoreCheckbox.checked);
       }
@@ -1728,7 +1728,7 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const userTemplates = (await templateStorage?.getList()) || [];
+    const userTemplates = (await stores.templates?.getList()) || [];
 
     if (userTemplates.length === 0) {
       userTemplatesScreen.innerHTML = noUserTemplates;
@@ -1755,7 +1755,7 @@ const handleNew = () => {
         async (event) => {
           event.preventDefault();
           const itemId = (link as HTMLElement).dataset.id || '';
-          const template = (await templateStorage?.getItem(itemId))?.config;
+          const template = (await stores.templates?.getItem(itemId))?.config;
           if (template) {
             await loadConfig({
               ...template,
@@ -1772,15 +1772,15 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          if (!templateStorage) return;
-          await templateStorage.deleteItem(item.id);
+          if (!stores.templates) return;
+          await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
             if (
-              templateStorage &&
-              (await templateStorage.getList()).length === 0 &&
+              stores.templates &&
+              (await stores.templates.getList()).length === 0 &&
               noDataMessage
             ) {
               list.remove();
@@ -1861,8 +1861,8 @@ const handleFork = () => {
 const handleSaveAsTemplate = () => {
   eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', async (event) => {
     (event as Event).preventDefault();
-    if (templateStorage) {
-      await templateStorage.addItem(getConfig());
+    if (stores.templates) {
+      await stores.templates.addItem(getConfig());
       notifications.success('Saved as a new template');
     }
   });
@@ -1879,7 +1879,7 @@ const handleOpen = () => {
       loadConfig,
       modal,
       notifications,
-      projectStorage: projectStorage || fakeStorage,
+      projectStorage: stores.projects || fakeStorage,
       setProjectId: (id: string) => (projectId = id),
       showScreen,
       languages,
@@ -1909,7 +1909,7 @@ const handleImport = () => {
       getUser: authService?.getUser,
       loadConfig,
       populateConfig,
-      projectStorage,
+      projectStorage: stores.projects,
       showScreen,
     });
   };
@@ -2113,13 +2113,7 @@ const handleSync = () => {
       notifications,
       eventsManager,
       user,
-      stores: {
-        projects: projectStorage,
-        templates: templateStorage,
-        assets: assetsStorage,
-        'user-config': userConfigStorage,
-      },
-      syncStorage,
+      stores,
     });
   };
 
@@ -2138,7 +2132,7 @@ const handleProjectInfo = () => {
     save(!projectId, true);
   };
   const createProjectInfo = () =>
-    createProjectInfoUI(getConfig(), projectStorage || fakeStorage, modal, eventsManager, onSave);
+    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, eventsManager, onSave);
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
   registerScreen('info', createProjectInfo);
@@ -2199,7 +2193,7 @@ const handleAssets = () => {
       eventsManager,
       modal,
       notifications,
-      assetsStorage: assetsStorage || fakeStorage,
+      assetsStorage: stores.assets || fakeStorage,
       showScreen,
       baseUrl,
     });
@@ -2223,7 +2217,7 @@ const handleAssets = () => {
       assetsModule.createAddAssetContainer({
         eventsManager,
         notifications,
-        assetsStorage: assetsStorage || fakeStorage,
+        assetsStorage: stores.assets || fakeStorage,
         showScreen,
         deployAsset,
         getUser,
@@ -2571,12 +2565,12 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
-  projectStorage = await createProjectStorage('__livecodes_data__', isEmbed);
-  templateStorage = await createProjectStorage('__livecodes_templates__', isEmbed);
-  assetsStorage = await createStorage('__livecodes_assets__', isEmbed);
-  userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
-  restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
-  syncStorage = await createStorage('__livecodes_sync_data__', isEmbed);
+  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
+  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
+  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
+  stores.userConfig = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
+  stores.restore = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
+  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();
   handleResultPopup();
@@ -2942,6 +2936,7 @@ const createApi = (): API => {
   const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
+    Object.values(stores).forEach((store) => store?.unsubscribeAll?.());
     parent.dispatchEvent(new Event(customEvents.destroy));
     formatter?.destroy();
     document.body.innerHTML = '';

@@ -3,8 +3,7 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { User } from '../models';
-import type { Storage, Stores } from '../storage';
-import type { StoredSyncData } from '../sync/sync';
+import type { Stores } from '../storage';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
@@ -49,7 +48,6 @@ export const createSyncUI = async ({
   eventsManager,
   user,
   stores,
-  syncStorage,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
@@ -57,7 +55,6 @@ export const createSyncUI = async ({
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
   stores: Stores;
-  syncStorage: Storage<StoredSyncData> | undefined;
 }) => {
   const syncContainer = createSyncContainer(eventsManager);
 
@@ -84,7 +81,6 @@ export const createSyncUI = async ({
           repo,
           newRepo,
           stores,
-          syncStorage,
         });
         if (!syncResult) {
           notifications.error('Sync failed!');

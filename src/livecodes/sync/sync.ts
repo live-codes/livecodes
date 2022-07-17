@@ -64,22 +64,21 @@ export const sync = async ({
   repo,
   newRepo,
   stores,
-  syncStorage,
 }: {
   user: User;
   repo: string;
   newRepo: boolean;
   stores: Stores;
-  syncStorage: Storage<StoredSyncData> | undefined;
 }) => {
   // get local data from stores
   const data: Partial<StorageData> = {};
   for (const [key, storage] of Object.entries(stores)) {
+    if (['restore', 'sync'].includes(key)) continue;
     data[key as keyof Stores] = await getStorageData(storage);
   }
 
   // get previously saved sync data
-  const storedSyncData = (await syncStorage?.getAllData())?.[0];
+  const storedSyncData = (await stores.sync?.getAllData())?.[0];
   let localDoc: Doc<Partial<StorageData>> = storedSyncData
     ? Automerge.load(storedSyncData.data)
     : changeDoc(init(), {});
@@ -148,8 +147,8 @@ export const sync = async ({
       data: newSyncData,
       lastSyncSha: result.commit,
     };
-    await syncStorage?.clear();
-    await syncStorage?.addItem(newData);
+    await stores.sync?.clear();
+    await stores.sync?.addItem(newData);
   } catch {
     return false;
   }
