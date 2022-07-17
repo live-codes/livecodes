@@ -126,12 +126,13 @@ esbuild.buildSync({
   'services/firebase.ts',
   'languages/language-info.ts',
   'export/export.ts',
+  'sync/sync.ts',
   'UI/open.ts',
   'UI/assets.ts',
   'UI/import.ts',
   'UI/share.ts',
   'UI/deploy.ts',
-  'UI/sync.ts',
+  'UI/sync-ui.ts',
   'UI/embed-ui.ts',
 ].forEach((entry) => {
   esbuild.buildSync({

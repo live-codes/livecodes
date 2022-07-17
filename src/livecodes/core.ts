@@ -1187,6 +1187,7 @@ const logout = () => {
 };
 
 const getUser = async (fn?: () => void) => {
+  await initializeAuth();
   let user = await authService?.getUser();
   if (!user) {
     user = await login();
@@ -2099,8 +2100,11 @@ const handleSync = () => {
       return;
     }
     modal.show(loadingMessage());
-    const syncModule: typeof import('./UI/sync') = await import(baseUrl + '{{hash:sync.js}}');
-    syncModule.createSyncUI({
+    const syncUIModule: typeof import('./UI/sync-ui') = await import(
+      baseUrl + '{{hash:sync-ui.js}}'
+    );
+    syncUIModule.createSyncUI({
+      baseUrl,
       modal,
       notifications,
       eventsManager,

@@ -1,16 +1,12 @@
 /* eslint-disable import/no-internal-modules */
-import { Doc, getActorId, merge, change, init, save, load, BinaryDocument } from 'automerge';
-import { diff, applyChange } from 'deep-diff';
-
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { User } from '../models';
+import type { ProjectStorage, Stores } from '../storage';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
-import { commitFile, getFile, getUserRepos, GitHubFile } from '../services/github';
-import { ProjectStorage, SimpleStorage, StorageData, Stores } from '../storage';
-import { base64ToUint8Array, Uint8ArrayToBase64 } from '../utils/utils';
+import { getUserRepos } from '../services/github';
 import {
   getExistingRepoAutoSync,
   getExistingRepoButton,
@@ -22,9 +18,6 @@ import {
   getNewRepoNameError,
   getNewRepoNameInput,
 } from './selectors';
-
-const Automerge = { getActorId, merge, change, init, save, load };
-const DeepDiff = { diff, applyChange };
 
 const createSyncContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
   const div = document.createElement('div');
@@ -50,6 +43,7 @@ const createSyncContainer = (eventsManager: ReturnType<typeof createEventsManage
 };
 
 export const createSyncUI = async ({
+  baseUrl,
   modal,
   notifications,
   eventsManager,
@@ -57,6 +51,7 @@ export const createSyncUI = async ({
   stores,
   syncStorage,
 }: {
+  baseUrl: string;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
@@ -76,24 +71,31 @@ export const createSyncUI = async ({
   const existingRepoNameInput = getExistingRepoNameInput(syncContainer);
   const existingRepoAutoSync = getExistingRepoAutoSync(syncContainer);
 
-  const publish = async (user: User, repo: string, newRepo: boolean) => {
-    newRepoNameError.innerHTML = '';
+  // start loading the module
+  const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
 
-    const syncResult = await sync({
-      user,
-      repo,
-      newRepo,
-      stores,
-      syncStorage,
-    });
+  const sync = (user: User, repo: string, newRepo: boolean) => {
+    notifications.info('Sync started...');
+    modal.close();
 
-    if (!syncResult) {
-      newRepoNameError.innerHTML = 'Sync failed!';
-      return false;
-    }
-
-    notifications.success('Sync complete!');
-    return true;
+    return syncModule
+      .then(async (mod) => {
+        const syncResult = await mod.sync({
+          user,
+          repo,
+          newRepo,
+          stores,
+          syncStorage,
+        });
+        if (!syncResult) {
+          notifications.error('Sync failed!');
+          return;
+        }
+        notifications.success('Sync complete!');
+      })
+      .catch(() => {
+        notifications.error('Sync failed!');
+      });
   };
 
   eventsManager.addEventListener(newRepoForm, 'submit', async (e) => {
@@ -111,7 +113,7 @@ export const createSyncUI = async ({
     newRepoButton.innerHTML = 'Sync started...';
     newRepoButton.disabled = true;
 
-    await publish(user, name, newRepo);
+    await sync(user, name, newRepo);
     newRepoButton.innerHTML = 'Sync';
     newRepoButton.disabled = false;
   });
@@ -131,7 +133,7 @@ export const createSyncUI = async ({
     existingRepoButton.innerHTML = 'Sync started...';
     existingRepoButton.disabled = true;
 
-    await publish(user, name, newRepo);
+    await sync(user, name, newRepo);
     existingRepoButton.innerHTML = 'Sync';
     existingRepoButton.disabled = false;
   });
@@ -172,134 +174,4 @@ export const createSyncUI = async ({
 
   modal.show(syncContainer, { isAsync: true });
   newRepoNameInput.focus();
-};
-
-const getStorageAsFiles = async ([path, storage]: [
-  path: string,
-  storage: ProjectStorage | SimpleStorage<any> | undefined,
-]): Promise<GitHubFile[]> => {
-  if (!storage) return [];
-  if ('getValue' in storage) {
-    // SimpleStorage
-    return [
-      {
-        path: `${path}.json`,
-        content: JSON.stringify((await storage.getValue()) || {}),
-      },
-    ];
-  }
-  // ProjectStorage
-  const items = await storage.getAllData();
-  return items.map((item) => ({
-    path: `${path}/${item.id}.json`,
-    content: JSON.stringify(item),
-  }));
-};
-
-const getStorageData = async (
-  storage: ProjectStorage | SimpleStorage<any> | undefined,
-): Promise<any[]> => {
-  if (!storage) return [];
-  if ('getValue' in storage) {
-    // SimpleStorage
-    return [JSON.stringify((await storage.getValue()) || {})];
-  }
-  // ProjectStorage
-  const items = await storage.getAllData();
-  return items.map((item) => JSON.stringify(item));
-};
-
-const changeDoc = (oldDoc: Doc<Partial<StorageData>>, newData: Record<string, any>) => {
-  let data = newData;
-  try {
-    // convert automerge document to plain object
-    Automerge.getActorId(newData);
-    data = JSON.parse(JSON.stringify(newData));
-  } catch {
-    // not automerge document, continue
-  }
-  const changes = DeepDiff.diff(oldDoc, data) || [];
-  return Automerge.change(oldDoc, (doc: Doc<Partial<StorageData>>) => {
-    changes.forEach((change) => DeepDiff.applyChange(doc, undefined, change));
-  });
-};
-
-export const sync = async ({
-  user,
-  repo,
-  newRepo,
-  stores,
-  syncStorage,
-}: {
-  user: User;
-  repo: string;
-  newRepo: boolean;
-  stores: Stores;
-  syncStorage: ProjectStorage | undefined;
-}) => {
-  const data: Partial<StorageData> = {};
-  for (const [key, storage] of Object.entries(stores)) {
-    data[key as keyof Stores] = await getStorageData(storage);
-  }
-
-  interface StoredSyncData {
-    lastModified: number;
-    data: BinaryDocument;
-    lastSyncSha: string;
-  }
-
-  const storedSyncData = (await syncStorage?.getAllData<StoredSyncData>())?.[0];
-  let localDoc: Doc<Partial<StorageData>> = storedSyncData
-    ? Automerge.load(storedSyncData.data)
-    : changeDoc(init(), {});
-  localDoc = changeDoc(localDoc, data);
-
-  const path = 'data/stores';
-  let remoteFile: any;
-  try {
-    remoteFile = await getFile({
-      user,
-      repo,
-      branch: 'main',
-      path,
-    });
-
-    if (remoteFile?.content) {
-      const remoteSyncData = base64ToUint8Array(remoteFile.content) as BinaryDocument;
-      let remoteDoc = Automerge.load(remoteSyncData);
-      console.log(DeepDiff.diff(localDoc, remoteDoc));
-      localDoc = Automerge.merge(localDoc, remoteDoc);
-      remoteDoc = Automerge.merge(remoteDoc, localDoc);
-    }
-  } catch {
-    //
-  }
-
-  if (!DeepDiff.diff(localDoc, data)) return;
-
-  const newSyncData = Automerge.save(localDoc);
-  const file: GitHubFile = {
-    path,
-    content: Uint8ArrayToBase64(newSyncData),
-  };
-
-  const result = await commitFile({
-    file,
-    user,
-    repo,
-    branch: 'main',
-    message: 'sync',
-    newRepo,
-    privateRepo: true,
-    description: 'Livecodes Sync',
-    readmeContent: '# Livecodes Sync',
-  });
-
-  const newData: StoredSyncData = {
-    lastModified: Date.now(),
-    data: newSyncData,
-    lastSyncSha: result?.commit,
-  };
-  await syncStorage?.clear();
-  await syncStorage?.addGenericItem(newData);
 };

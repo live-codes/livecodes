@@ -32,7 +32,7 @@ const createRepo = async (user: User, repo: string, privateRepo = false, descrip
     body: JSON.stringify({
       name: repo,
       private: privateRepo,
-      homepage: `https://${user.username}.github.io/${repo}/`,
+      ...(privateRepo ? {} : { homepage: `https://${user.username}.github.io/${repo}/` }),
       ...(description ? { description } : {}),
     }),
   });
@@ -350,7 +350,7 @@ export const commitFile = async ({
     if (newRepo || !(await repoExists(user, repo))) {
       newRepo = true;
       repo = safeName(repo, '-').toLowerCase();
-      await createRepo(user, repo, privateRepo, (description ? { title: description } : {}) as any);
+      await createRepo(user, repo, privateRepo, description);
       await initializeRepo(user, repo, branch, readmeContent);
     }
 

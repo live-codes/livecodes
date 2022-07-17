@@ -203,8 +203,14 @@ export const blobToBase64 = (file: Blob): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-export const Uint8ArrayToBase64 = (u8: Uint8Array) =>
-  btoa(String.fromCharCode.apply(null, u8 as any));
+export const Uint8ArrayToBase64 = (u8: Uint8Array) => {
+  const CHUNK_SZ = 0x8000;
+  const c = [];
+  for (let i = 0; i < u8.length; i += CHUNK_SZ) {
+    c.push(String.fromCharCode.apply(null, (u8 as any).subarray(i, i + CHUNK_SZ)));
+  }
+  return btoa(c.join(''));
+};
 
 export const base64ToUint8Array = (str: string) =>
   new Uint8Array(
