@@ -1,6 +1,6 @@
 import { loadScript } from '../utils';
 import { localforageUrl } from '../vendors';
-// import { createPub } from '../events';
+import { createPub } from '../events';
 import type { Storage } from './models';
 import { fakeStorage } from './fake-storage';
 
@@ -35,7 +35,23 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
   if (isEmbed) return fakeStorage;
 
   let store: LocalForage;
-  // const pub = createPub<any>();
+  const pub = createPub<T[]>();
+
+  const subscribe = (fn: (data: T[]) => void) => {
+    pub.subscribe(fn);
+  };
+
+  const unsubscribeAll = () => {
+    pub.unsubscribeAll();
+  };
+
+  const notifyPub = () => {
+    if (pub.hasSubscribers()) {
+      getAllData().then((data) => {
+        pub.notify(data);
+      });
+    }
+  };
 
   const load = async () => {
     await loadLocalforage(name);
@@ -66,23 +82,28 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
   const updateItem = async (id: string, value: T) => {
     await load();
     await store.setItem(id, value);
+    notifyPub();
     return id;
   };
 
-  const addItem = (value: T) => {
+  const addItem = async (value: T) => {
     const id = generateId();
-    return updateItem(id, value);
+    await updateItem(id, value);
+    notifyPub();
+    return id;
   };
 
   const deleteItem = async (id: string) => {
     await load();
     await store.removeItem(id);
+    notifyPub();
   };
 
   const bulkInsert = async (data: T[]) => {
     for (const item of data) {
       await addItem(item);
     }
+    notifyPub();
   };
 
   // like bulkInsert, with same ids
@@ -94,11 +115,13 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
         await addItem(item);
       }
     }
+    notifyPub();
   };
 
   const clear = async () => {
     await load();
     await store.clear();
+    notifyPub();
   };
 
   return {
@@ -111,5 +134,7 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
     bulkInsert,
     restore,
     clear,
+    subscribe,
+    unsubscribeAll,
   };
 };

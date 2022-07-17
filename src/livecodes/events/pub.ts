@@ -21,9 +21,12 @@ export const createPub = <T>() => {
     subscribers.length = 0;
   };
 
+  const hasSubscribers = () => subscribers.length > 0;
+
   return {
     subscribe,
     notify,
+    hasSubscribers,
     unsubscribeAll,
   };
 };

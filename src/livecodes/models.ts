@@ -683,3 +683,8 @@ export interface TestResult {
   status: 'pass' | 'fail';
   testPath: string[];
 }
+
+export interface Subscribable<T> {
+  subscribe: (fn: (data: T) => void) => void;
+  unsubscribeAll: () => void;
+}

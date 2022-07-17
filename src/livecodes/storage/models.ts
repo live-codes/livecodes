@@ -1,6 +1,6 @@
-import { ContentConfig, Language } from '../models';
+import { ContentConfig, Language, Subscribable } from '../models';
 
-export interface Storage<T> {
+export interface Storage<T> extends Subscribable<T[]> {
   getList: () => Promise<string[]>;
   getAllData: () => Promise<T[]>;
   getItem: (itemId: string) => Promise<T | null>;
@@ -38,7 +38,7 @@ export interface SavedProject {
   languages: Language[];
   lastModified: number;
 }
-export interface SimpleStorage<T> {
+export interface SimpleStorage<T> extends Subscribable<T | null> {
   getValue: () => T | null;
   setValue: (value: T | null) => void;
   clear: () => void;

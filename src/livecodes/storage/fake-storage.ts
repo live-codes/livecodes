@@ -10,10 +10,14 @@ export const fakeStorage: Omit<Storage<any>, 'getList'> & { getList: () => Promi
   bulkInsert: async () => undefined,
   restore: async () => undefined,
   clear: async () => undefined,
+  subscribe: () => undefined,
+  unsubscribeAll: () => undefined,
 };
 
 export const fakeSimpleStorage: SimpleStorage<any> = {
   getValue: () => null,
   setValue: () => undefined,
   clear: () => undefined,
+  subscribe: () => undefined,
+  unsubscribeAll: () => undefined,
 };

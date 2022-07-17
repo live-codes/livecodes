@@ -1,3 +1,4 @@
+import { createPub } from '../events';
 import type { SimpleStorage } from './models';
 import { fakeSimpleStorage } from './fake-storage';
 
@@ -8,9 +9,25 @@ export const createSimpleStorage = <T>(name: string, isEmbed: boolean): SimpleSt
   // do not allow access to storage in embeds
   if (isEmbed) return fakeSimpleStorage;
 
+  const pub = createPub<T | null>();
+
+  const subscribe = (fn: (data: T | null) => void) => {
+    pub.subscribe(fn);
+  };
+
+  const unsubscribeAll = () => {
+    pub.unsubscribeAll();
+  };
+
+  const notifyPub = () => {
+    pub.notify(getValue());
+  };
+
   const setValue = (value: T | null) => {
     window.localStorage.setItem(name, JSON.stringify(value));
+    notifyPub();
   };
+
   const getValue = (): T | null => {
     const value = window.localStorage.getItem(name);
     if (!value) return null;
@@ -20,11 +37,17 @@ export const createSimpleStorage = <T>(name: string, isEmbed: boolean): SimpleSt
       return null;
     }
   };
-  const clear = () => setValue(null);
+
+  const clear = () => {
+    setValue(null);
+    notifyPub();
+  };
 
   return {
     getValue,
     setValue,
     clear,
+    subscribe,
+    unsubscribeAll,
   };
 };
