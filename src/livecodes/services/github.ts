@@ -6,9 +6,8 @@ export interface GitHubFile {
   path: string;
   content: string;
 }
-
-export const getGithubHeaders = (user: User) => ({
-  Accept: 'application/vnd.github.v3+json',
+export const getGithubHeaders = (user: User, mediaType?: 'object' | 'raw') => ({
+  Accept: `application/vnd.github.v3${mediaType ? '.' + mediaType : ''}+json`,
   'Content-Type': 'application/json',
   Authorization: 'token ' + user.token,
 });
@@ -113,14 +112,29 @@ export const getFile = async ({
 
   const res = await fetch(url, {
     method: 'GET',
-    headers: getGithubHeaders(user),
+    headers: getGithubHeaders(user, 'object'),
   });
 
   if (!res.ok) {
     throw new Error('Error getting file');
   }
 
-  return res.json();
+  const result = await res.json();
+
+  // https://docs.github.com/en/rest/repos/contents#size-limits
+  if (result.content === '' && result.encoding === 'none') {
+    const rawRes = await fetch(url, {
+      method: 'GET',
+      headers: getGithubHeaders(user, 'raw'),
+    });
+    if (!rawRes.ok) {
+      throw new Error('Error getting file');
+    }
+    result.content = btoa(await rawRes.text());
+    result.encoding = 'base64';
+  }
+
+  return result;
 };
 
 const initializeRepo = async (user: User, repo: string, branch = 'main', readmeContent?: string) =>
