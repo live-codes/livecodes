@@ -1,61 +1,52 @@
 /* eslint-disable import/no-internal-modules */
-import { Doc, getActorId, merge, change, init, save, load, BinaryDocument } from 'automerge';
-import { diff, applyChange } from 'deep-diff';
-
 import type { User } from '../models';
 import type { Storage, SimpleStorage, StorageData, Stores, ProjectStorage } from '../storage';
 import { commitFile, getFile as getFileFromGithub, GitHubFile } from '../services/github';
 import { base64ToUint8Array, Uint8ArrayToBase64 } from '../utils/utils';
-
-const Automerge = { getActorId, merge, change, init, save, load };
-const DeepDiff = { diff, applyChange };
+import { Y, DeepDiff, applyChange, toJSON, YMap } from './diff';
 
 export interface StoredSyncData {
   lastModified: number;
-  data: BinaryDocument;
+  data: Uint8Array;
   lastSyncSha: string;
 }
 
-const getStorageData = async (
-  storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined,
-): Promise<any[]> => {
+const getStorageData = async <T>(
+  storage: SimpleStorage<T> | Storage<T> | ProjectStorage | undefined,
+) => {
   if (!storage) return [];
   if ('getValue' in storage) {
     // SimpleStorage
-    return [JSON.stringify(storage.getValue() || {})];
+    const value = storage.getValue();
+    return [...(value ? [value] : [])];
   }
   // ProjectStorage
   const items = await storage.getAllData();
-  return items.map((item) => JSON.stringify(item));
+  return items;
 };
 
-const setStorageData = async (
-  storage: Storage<unknown> | SimpleStorage<any> | undefined,
-  data: any,
-): Promise<void> => {
+const setStorageData = async <T>(
+  storage: Storage<T> | SimpleStorage<T> | undefined,
+  data: T[] | T,
+) => {
   if (!storage) return;
   if ('setValue' in storage) {
     // SimpleStorage
-    storage.setValue(data);
+    storage.setValue(data as T);
     return;
   }
+
   // ProjectStorage
   await storage.clear();
-  await storage.restore(data);
+  await storage.restore(data as T[]);
 };
 
-const changeDoc = (oldDoc: Doc<Partial<StorageData>>, newData: Record<string, any>) => {
-  let data = newData;
-  try {
-    // convert automerge document to plain object
-    Automerge.getActorId(newData);
-    data = JSON.parse(JSON.stringify(newData));
-  } catch {
-    // not automerge document, continue
-  }
-  const changes = DeepDiff.diff(oldDoc, data) || [];
-  return Automerge.change(oldDoc, (doc: Doc<Partial<StorageData>>) => {
-    changes.forEach((change) => DeepDiff.applyChange(doc, undefined, change));
+const changeDoc = (target: YMap<any>, data: Record<string, any>) => {
+  const changes = DeepDiff.diff(toJSON(target), data) || [];
+  target.doc?.transact(() => {
+    for (const change of changes) {
+      applyChange(target, change);
+    }
   });
 };
 
@@ -79,12 +70,14 @@ export const sync = async ({
 
   // get previously saved sync data
   const storedSyncData = (await stores.sync?.getAllData())?.[0];
-  let localDoc: Doc<Partial<StorageData>> = storedSyncData
-    ? Automerge.load(storedSyncData.data)
-    : changeDoc(init(), {});
+  const localDoc = new Y.Doc();
+
+  if (storedSyncData) {
+    Y.applyUpdate(localDoc, storedSyncData.data);
+  }
 
   // update sync data from stores
-  localDoc = changeDoc(localDoc, data);
+  changeDoc(localDoc.getMap<any>('data'), data);
 
   const path = 'livecodes-data.b64';
 
@@ -104,9 +97,8 @@ export const sync = async ({
 
     try {
       if (remoteFile?.content) {
-        const remoteSyncData = base64ToUint8Array(remoteFile.content) as BinaryDocument;
-        const remoteDoc = Automerge.load(remoteSyncData);
-        localDoc = Automerge.merge(localDoc, remoteDoc);
+        const remoteSyncData = base64ToUint8Array(remoteFile.content);
+        Y.applyUpdate(localDoc, remoteSyncData);
 
         if (!DeepDiff.diff(localDoc, data)) return true;
       }
@@ -121,7 +113,7 @@ export const sync = async ({
   }
 
   // push to remote
-  const newSyncData = Automerge.save(localDoc);
+  const newSyncData = Y.encodeStateAsUpdate(localDoc);
   const file: GitHubFile = {
     path,
     content: Uint8ArrayToBase64(newSyncData),
