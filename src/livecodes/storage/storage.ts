@@ -79,17 +79,18 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
     return store.getItem(itemId);
   };
 
-  const updateItem = async (id: string, value: T) => {
+  const updateItem = async (id: string, value: T, notify = true) => {
     await load();
     await store.setItem(id, value);
-    notifyPub();
+    if (notify) {
+      notifyPub();
+    }
     return id;
   };
 
-  const addItem = async (value: T) => {
+  const addItem = async (value: T, notify = true) => {
     const id = generateId();
-    await updateItem(id, value);
-    notifyPub();
+    await updateItem(id, value, notify);
     return id;
   };
 
@@ -101,7 +102,7 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
 
   const bulkInsert = async (data: T[]) => {
     for (const item of data) {
-      await addItem(item);
+      await addItem(item, false);
     }
     notifyPub();
   };
@@ -110,9 +111,9 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
   const restore = async (data: T[]) => {
     for (const item of data as any) {
       if (item.id) {
-        await updateItem(item.id, item);
+        await updateItem(item.id, item, false);
       } else {
-        await addItem(item);
+        await addItem(item, false);
       }
     }
     notifyPub();
@@ -128,8 +129,8 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
     getList,
     getAllData,
     getItem,
-    addItem,
-    updateItem,
+    addItem: (value) => addItem(value),
+    updateItem: (id, value) => updateItem(id, value),
     deleteItem,
     bulkInsert,
     restore,
