@@ -219,6 +219,21 @@ export const base64ToUint8Array = (str: string) =>
       .map((c) => c.charCodeAt(0)),
   );
 
+export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
+  if (a === b) {
+    return true;
+  }
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  for (let i = 0; i < a.byteLength; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export const getWorkerDataURL = (url: string) => {
   const content = `importScripts("${url}");`;
   return 'data:text/javascript;base64,' + btoa(content);

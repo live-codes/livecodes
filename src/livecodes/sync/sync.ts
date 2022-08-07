@@ -1,9 +1,9 @@
 /* eslint-disable import/no-internal-modules */
 import type { User } from '../models';
-import type { Storage, SimpleStorage, StorageData, Stores, ProjectStorage } from '../storage';
-import { commitFile, getFile as getFileFromGithub, GitHubFile } from '../services/github';
-import { base64ToUint8Array, Uint8ArrayToBase64 } from '../utils/utils';
-import { Y, DeepDiff, applyChange, toJSON, YMap } from './diff';
+import type { Storage, SimpleStorage, Stores, ProjectStorage } from '../storage';
+import { commitFile, getContent, GitHubFile } from '../services/github';
+import { base64ToUint8Array, typedArraysAreEqual, Uint8ArrayToBase64 } from '../utils/utils';
+import { Y, DeepDiff, applyChange, toJSON } from './diff';
 
 export interface StoredSyncData {
   lastModified: number;
@@ -11,37 +11,24 @@ export interface StoredSyncData {
   lastSyncSha: string;
 }
 
-const getStorageData = async <T>(
-  storage: SimpleStorage<T> | Storage<T> | ProjectStorage | undefined,
-) => {
+interface GitHubContent {
+  name: string;
+  sha: string;
+  type: 'file' | 'dir';
+}
+
+const getStorageData = async <T>(storage: Storage<T> | ProjectStorage | undefined) => {
   if (!storage) return [];
-  if ('getValue' in storage) {
-    // SimpleStorage
-    const value = storage.getValue();
-    return [...(value ? [value] : [])];
-  }
-  // ProjectStorage
-  const items = await storage.getAllData();
-  return items;
+  return storage.getAllData();
 };
 
-const setStorageData = async <T>(
-  storage: Storage<T> | SimpleStorage<T> | undefined,
-  data: T[] | T,
-) => {
+const setStorageData = async <T>(storage: Storage<T> | ProjectStorage | undefined, data: T[]) => {
   if (!storage) return;
-  if ('setValue' in storage) {
-    // SimpleStorage
-    storage.setValue(data as T);
-    return;
-  }
-
-  // ProjectStorage
   await storage.clear();
-  await storage.restore(data as T[]);
+  await storage.restore(data as any);
 };
 
-const changeDoc = (target: YMap<any>, data: Record<string, any>) => {
+const changeDoc = (target: Y.Array<any>, data: any[] = []) => {
   const changes = DeepDiff.diff(toJSON(target), data) || [];
   target.doc?.transact(() => {
     for (const change of changes) {
@@ -50,100 +37,216 @@ const changeDoc = (target: YMap<any>, data: Record<string, any>) => {
   });
 };
 
-export const sync = async ({
+const repoDir = 'livecodes-data';
+const rootArrayKey = 'data';
+
+const syncStore = async ({
   user,
   repo,
-  newRepo,
+  branch,
   stores,
+  storeKey,
+  remoteContent,
 }: {
   user: User;
   repo: string;
-  newRepo: boolean;
+  branch: string;
   stores: Stores;
+  storeKey: keyof Stores;
+  remoteContent: GitHubContent[];
 }) => {
-  // get local data from stores
-  const data: Partial<StorageData> = {};
-  for (const [key, storage] of Object.entries(stores)) {
-    if (['restore', 'sync'].includes(key)) continue;
-    data[key as keyof Stores] = await getStorageData(storage);
-  }
+  const lastSyncSha = (await stores.sync?.getItem(storeKey))?.lastSyncSha;
+  const filename = `${storeKey}.b64`;
+  const path = `${repoDir}/${filename}`;
 
-  // get previously saved sync data
-  const storedSyncData = (await stores.sync?.getAllData())?.[0];
-  const localDoc = new Y.Doc();
+  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  if (!storage) return true;
 
-  if (storedSyncData) {
-    Y.applyUpdate(localDoc, storedSyncData.data);
-  }
+  const isSimpleStorage = 'getValue' in storage;
+  if (isSimpleStorage) return true;
 
-  // update sync data from stores
-  changeDoc(localDoc.getMap<any>('data'), data);
+  // ***************************
+  // Get data: remote update, local update, current data in store
+  // ***************************
 
-  const path = 'livecodes-data.b64';
+  let remoteUpdate;
+  const newRemoteFile = remoteContent.find((f) => f.name === filename && f.sha !== lastSyncSha);
+  try {
+    const remoteFile = !newRemoteFile
+      ? undefined
+      : await getContent({
+          user,
+          repo,
+          branch,
+          path,
+        });
 
-  // pull from remote
-  if (!newRepo) {
-    let remoteFile: any;
-    try {
-      remoteFile = await getFileFromGithub({
-        user,
-        repo,
-        branch: 'main',
-        path,
-      });
-    } catch {
-      //
+    if (remoteFile?.content) {
+      remoteUpdate = base64ToUint8Array(remoteFile.content);
     }
+  } catch {
+    return false;
+  }
 
-    try {
-      if (remoteFile?.content) {
-        const remoteSyncData = base64ToUint8Array(remoteFile.content);
-        Y.applyUpdate(localDoc, remoteSyncData);
+  const localUpdate = (await stores.sync?.getItem(storeKey))?.data;
 
-        if (!DeepDiff.diff(localDoc, data)) return true;
-      }
-    } catch {
-      return false;
+  const currentData = await getStorageData(storage);
+
+  // ***************************
+  //           Merge
+  // ***************************
+
+  const doc = new Y.Doc();
+
+  if (localUpdate) {
+    Y.applyUpdate(doc, localUpdate);
+    changeDoc(doc.getArray(rootArrayKey), currentData);
+    if (remoteUpdate) {
+      Y.applyUpdate(doc, remoteUpdate);
     }
   }
 
-  // save to local stores
-  for (const key of Object.keys(localDoc)) {
-    await setStorageData((stores as any)[key], (localDoc as any)[key]);
+  if (!localUpdate && !remoteUpdate) {
+    changeDoc(doc.getArray(rootArrayKey), currentData);
   }
 
-  // push to remote
-  const newSyncData = Y.encodeStateAsUpdate(localDoc);
-  const file: GitHubFile = {
-    path,
-    content: Uint8ArrayToBase64(newSyncData),
-  };
+  if (!localUpdate && remoteUpdate) {
+    const remoteDoc = new Y.Doc();
+    Y.applyUpdate(remoteDoc, remoteUpdate);
+    const remoteData = toJSON<any[]>(remoteDoc.getArray(rootArrayKey));
+    remoteDoc.destroy();
+
+    // concat (currentData wins)
+    const data = [...remoteData, ...currentData];
+
+    changeDoc(doc.getArray(rootArrayKey), data);
+  }
+
+  // ***************************
+  //       Save and push
+  // ***************************
 
   try {
-    const result = await commitFile({
-      file,
-      user,
-      repo,
-      branch: 'main',
-      message: 'sync',
-      newRepo,
-      privateRepo: true,
-      description: 'Livecodes Sync',
-      readmeContent: '# Livecodes Sync',
-    });
-    if (!result) return false;
+    // save to local stores
+    await setStorageData(storage, toJSON(doc.getArray(rootArrayKey)));
 
-    // save sync data
-    const newData: StoredSyncData = {
-      lastModified: Date.now(),
-      data: newSyncData,
-      lastSyncSha: result.commit,
-    };
-    await stores.sync?.clear();
-    await stores.sync?.addItem(newData);
+    // push to remote
+    const newSyncUpdate = Y.encodeStateAsUpdate(doc);
+
+    if (!remoteUpdate || !typedArraysAreEqual(remoteUpdate, newSyncUpdate)) {
+      const file: GitHubFile = {
+        path,
+        content: Uint8ArrayToBase64(newSyncUpdate),
+      };
+
+      const result = await commitFile({
+        file,
+        user,
+        repo,
+        branch,
+        message: 'sync ' + storeKey,
+      });
+      if (!result) {
+        return false;
+      }
+
+      const dirEntries: GitHubContent[] = (
+        await getContent({
+          user,
+          repo,
+          branch,
+          path: repoDir,
+        })
+      )?.entries;
+      const sha = dirEntries?.find?.((f) => f.name === filename)?.sha;
+
+      // save sync data
+      const newData: StoredSyncData = {
+        lastModified: Date.now(),
+        data: newSyncUpdate,
+        lastSyncSha: sha || '',
+      };
+      await stores.sync?.updateItem(storeKey, newData);
+    }
   } catch {
     return false;
   }
 
   return true;
+};
+
+export const sync = async ({
+  user,
+  repo,
+  branch = 'main',
+  newRepo,
+  stores,
+}: {
+  user: User;
+  repo: string;
+  branch?: string;
+  newRepo: boolean;
+  stores: Stores;
+}) => {
+  let remoteContent: GitHubContent[] = [];
+  try {
+    if (newRepo) {
+      await commitFile({
+        file: {
+          path: repoDir + '/.gitkeep',
+          content: '',
+        },
+        user,
+        repo,
+        branch,
+        message: 'create data dir',
+        description: 'LiveCodes Sync',
+        newRepo,
+        privateRepo: true,
+        readmeContent: '# LiveCodes Sync',
+      });
+    } else {
+      const repoRootEntries: GitHubContent[] = (
+        await getContent({
+          user,
+          repo,
+          branch,
+          path: '',
+        })
+      )?.entries;
+
+      if (repoRootEntries?.find?.((x) => x.type === 'dir' && x.name === repoDir)) {
+        remoteContent = (
+          await getContent({
+            user,
+            repo,
+            branch,
+            path: repoDir,
+          })
+        )?.entries;
+      }
+    }
+  } catch {
+    return false;
+  }
+
+  let success = true;
+  const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter((k) =>
+    ['projects', 'templates', 'assets'].includes(k),
+  );
+
+  for (const storeKey of storeKeys) {
+    const result = await syncStore({
+      user,
+      repo,
+      branch,
+      stores,
+      storeKey,
+      remoteContent,
+    });
+    if (!result) {
+      success = false;
+    }
+  }
+  return success;
 };

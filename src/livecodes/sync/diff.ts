@@ -1,25 +1,18 @@
-import { diff, Diff } from 'deep-diff';
+import * as Y from 'yjs';
+import * as DeepDiff from 'deep-diff';
 
-import {
-  Doc,
-  Map as YMap,
-  Array as YArray,
-  AbstractType,
-  encodeStateAsUpdate,
-  applyUpdate,
-} from 'yjs';
+export { Y, DeepDiff };
 
-export const Y = { Doc, Map: YMap, Array: YArray, AbstractType, encodeStateAsUpdate, applyUpdate };
-export const DeepDiff = { diff };
-export type { Diff, YMap, YArray, Doc, AbstractType };
-
-export function toJSON(source: any): any {
+export function toJSON<T>(source: unknown): T {
   if (source instanceof Y.AbstractType) {
     source = source.toJSON();
+    for (const [key, value] of getEntries(source)) {
+      setValue(source, key, value, toJSON);
+    }
   }
 
   if (Array.isArray(source)) {
-    return source.map(toJSON);
+    return source.map(toJSON) as unknown as T;
   }
 
   if (typeof source === 'object' && source !== null) {
@@ -27,10 +20,10 @@ export function toJSON(source: any): any {
     for (const [key, value] of Object.entries(source)) {
       (obj as any)[key] = toJSON(value);
     }
-    return obj;
+    return obj as unknown as T;
   }
 
-  return source;
+  return source as unknown as T;
 }
 
 function toYjsType(source: any) {
@@ -65,8 +58,8 @@ function getEntries(source: any): any[] {
   return [];
 }
 
-function setValue(target: any, key: string | number, value: any) {
-  const yValue = toYjsType(value);
+function setValue(target: any, key: string | number, value: any, mapFn = toYjsType) {
+  const yValue = mapFn(value);
 
   if (target instanceof Y.Map) {
     target.set(String(key), yValue);
@@ -95,7 +88,7 @@ function setValue(target: any, key: string | number, value: any) {
   target[key] = yValue;
 }
 
-function applyArrayChange(arr: YArray<any>, index: number, change: Diff<any>) {
+function applyArrayChange(arr: Y.Array<any>, index: number, change: DeepDiff.Diff<any>) {
   if (change.path && change.path.length) {
     let it = arr.get(index);
     let i: number;
@@ -133,7 +126,7 @@ function applyArrayChange(arr: YArray<any>, index: number, change: Diff<any>) {
   return arr;
 }
 
-export function applyChange<LHS = any, RHS = any>(target: any, change: Diff<LHS, RHS>) {
+export function applyChange<LHS = any, RHS = any>(target: any, change: DeepDiff.Diff<LHS, RHS>) {
   if (target && change && change.kind) {
     let it = target;
     let i = -1;

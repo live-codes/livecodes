@@ -95,7 +95,7 @@ const createFile = async ({
   return res.json();
 };
 
-export const getFile = async ({
+export const getContent = async ({
   user,
   repo,
   branch,
@@ -143,7 +143,7 @@ const initializeRepo = async (user: User, repo: string, branch = 'main', readmeC
       user,
       repo,
       branch,
-      file: { path: 'readme.md', content: `${readmeContent || '# ' + repo + '\n'}` },
+      file: { path: 'README.md', content: `${readmeContent || '# ' + repo + '\n'}` },
       message: 'initial commit',
       initialize: true,
       encoded: false,
