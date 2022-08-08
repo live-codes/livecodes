@@ -131,6 +131,9 @@ export const getAutoupdateToggle = () =>
 export const getAutosaveToggle = () =>
   document.querySelector('#settings-menu input#autosave') as HTMLInputElement;
 
+export const getAutosyncToggle = () =>
+  document.querySelector('#settings-menu input#autosync') as HTMLInputElement;
+
 export const getFormatOnsaveToggle = () =>
   document.querySelector('#settings-menu input#formatOnsave') as HTMLInputElement;
 

@@ -76,6 +76,7 @@ export interface AppConfig {
 export interface UserConfig {
   autoupdate: boolean;
   autosave: boolean;
+  autosync: boolean;
   delay: number;
   formatOnsave: boolean;
   emmet: boolean;

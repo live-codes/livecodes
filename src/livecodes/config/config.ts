@@ -35,6 +35,7 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
   cloneObject({
     autoupdate: config.autoupdate,
     autosave: config.autosave,
+    autosync: config.autosync,
     delay: config.delay,
     formatOnsave: config.formatOnsave,
     emmet: config.emmet,

@@ -127,6 +127,7 @@ const stores: Stores = {
   assets: undefined,
   userConfig: undefined,
   restore: undefined,
+  syncRepo: undefined,
   sync: undefined,
 };
 
@@ -1155,6 +1156,8 @@ const login = async () =>
             if (!user) {
               reject('Login error!');
             } else {
+              // TODO: load user data
+
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
                 ? 'Logged in as: ' + displayName
@@ -1182,6 +1185,8 @@ const logout = () => {
   authService
     .signOut()
     .then(() => {
+      // TODO: clear user data
+
       notifications.success('Logged out successfully');
       displayLoggedOut();
     })
@@ -1259,6 +1264,9 @@ const loadSettings = (config: Config) => {
 
   const autosaveToggle = UI.getAutosaveToggle();
   autosaveToggle.checked = config.autosave;
+
+  const autosyncToggle = UI.getAutosyncToggle();
+  autosyncToggle.checked = config.autosync;
 
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
@@ -1672,6 +1680,10 @@ const handleSettings = () => {
 
       if (configKey === 'autoupdate' && getConfig()[configKey]) {
         await run();
+      }
+      if (configKey === 'autosync' && toggle.checked && !stores.syncRepo?.getValue()) {
+        toggle.checked = false;
+        await showScreen('sync');
       }
       if (configKey === 'emmet') {
         await configureEmmet(getConfig());
@@ -2114,6 +2126,12 @@ const handleSync = () => {
       eventsManager,
       user,
       stores,
+      deps: {
+        setAutosync: (autosync: boolean) => {
+          setUserConfig({ autosync });
+          loadSettings(getConfig());
+        },
+      },
     });
   };
 
@@ -2568,8 +2586,9 @@ const extraHandlers = async () => {
   stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
   stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
   stores.assets = await createStorage('__livecodes_assets__', isEmbed);
-  stores.userConfig = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
-  stores.restore = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
+  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
+  stores.restore = createSimpleStorage('__livecodes_project_restore__', isEmbed);
+  stores.syncRepo = createSimpleStorage('__livecodes_sync_repo__', isEmbed);
   stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();

@@ -18,7 +18,10 @@ import {
   getNewRepoNameInput,
 } from './selectors';
 
-const createSyncContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
+const createSyncContainer = (
+  eventsManager: ReturnType<typeof createEventsManager>,
+  repo: string | null | undefined,
+) => {
   const div = document.createElement('div');
   div.innerHTML = syncScreen;
   const syncContainer = div.firstChild as HTMLElement;
@@ -38,6 +41,14 @@ const createSyncContainer = (eventsManager: ReturnType<typeof createEventsManage
     });
   });
 
+  if (repo) {
+    setTimeout(() => {
+      tabs[1].click();
+      const existingRepoNameInput = getExistingRepoNameInput(syncContainer);
+      existingRepoNameInput.value = repo;
+    });
+  }
+
   return syncContainer;
 };
 
@@ -48,6 +59,7 @@ export const createSyncUI = async ({
   eventsManager,
   user,
   stores,
+  deps,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
@@ -55,8 +67,11 @@ export const createSyncUI = async ({
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
   stores: Stores;
+  deps: {
+    setAutosync: (autosync: boolean) => void;
+  };
 }) => {
-  const syncContainer = createSyncContainer(eventsManager);
+  const syncContainer = createSyncContainer(eventsManager, stores.syncRepo?.getValue());
 
   const newRepoForm = getNewRepoForm(syncContainer);
   const newRepoButton = getNewRepoButton(syncContainer);
@@ -73,6 +88,7 @@ export const createSyncUI = async ({
   const sync = (user: User, repo: string, newRepo: boolean) => {
     notifications.info('Sync started...');
     modal.close();
+    stores.syncRepo?.setValue(repo);
 
     return syncModule
       .then(async (mod) => {
@@ -98,9 +114,9 @@ export const createSyncUI = async ({
     if (!user) return;
 
     const name = newRepoNameInput.value;
-    const autoSync = newRepoAutoSync.checked;
-    // eslint-disable-next-line no-console
-    console.log(autoSync);
+    const autosync = newRepoAutoSync.checked;
+    deps.setAutosync(autosync);
+
     const newRepo = true;
     if (!name) {
       notifications.error('Repo name is required');
@@ -120,9 +136,9 @@ export const createSyncUI = async ({
     if (!user) return;
 
     const name = existingRepoNameInput.value;
-    const autoSync = existingRepoAutoSync.checked;
-    // eslint-disable-next-line no-console
-    console.log(autoSync);
+    const autosync = existingRepoAutoSync.checked;
+    deps.setAutosync(autosync);
+
     const newRepo = false;
     if (!name) {
       notifications.error('Repo name is required');

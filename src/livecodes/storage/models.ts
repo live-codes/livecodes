@@ -52,6 +52,7 @@ export interface Stores {
   assets: Storage<Asset> | undefined;
   userConfig: SimpleStorage<UserConfig> | undefined;
   restore: SimpleStorage<RestoreItem> | undefined;
+  syncRepo: SimpleStorage<string> | undefined;
   sync: Storage<StoredSyncData> | undefined;
 }
 

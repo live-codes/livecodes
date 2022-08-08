@@ -1082,6 +1082,14 @@ li.editor-title {
     flex: 40%;
     position: relative;
 
+    &.link-and-swich {
+      display: flex;
+
+      a {
+        flex-grow: 1;
+      }
+    }
+
     > {
       * {
         position: relative;
