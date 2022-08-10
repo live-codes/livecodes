@@ -70,16 +70,18 @@ const syncStore = async ({
   // ***************************
 
   let remoteUpdate;
-  const newRemoteFile = remoteContent.find((f) => f.name === filename && f.sha !== lastSyncSha);
+  const remoteFileExists = remoteContent.find((f) => f.name === filename) != null;
+  const uptodate = remoteContent.find((f) => f.sha === lastSyncSha) != null;
   try {
-    const remoteFile = !newRemoteFile
-      ? undefined
-      : await getContent({
-          user,
-          repo,
-          branch,
-          path,
-        });
+    const remoteFile =
+      !remoteFileExists || uptodate
+        ? undefined
+        : await getContent({
+            user,
+            repo,
+            branch,
+            path,
+          });
 
     if (remoteFile?.content) {
       remoteUpdate = base64ToUint8Array(remoteFile.content);
@@ -128,12 +130,21 @@ const syncStore = async ({
 
   try {
     // save to local stores
-    await setStorageData(storage, toJSON(doc.getArray(rootArrayKey)));
+    const newData: any[] = toJSON(doc.getArray(rootArrayKey));
+    const dataChanged = DeepDiff.diff(newData, currentData) != null;
+    if (dataChanged) {
+      await setStorageData(storage, newData);
+    }
 
     // push to remote
     const newSyncUpdate = Y.encodeStateAsUpdate(doc);
 
-    if (!remoteUpdate || !typedArraysAreEqual(remoteUpdate, newSyncUpdate)) {
+    const shouldPushUpdate =
+      !remoteFileExists ||
+      (remoteUpdate && !typedArraysAreEqual(remoteUpdate, newSyncUpdate)) ||
+      (uptodate && localUpdate && !typedArraysAreEqual(localUpdate, newSyncUpdate));
+
+    if (shouldPushUpdate) {
       const file: GitHubFile = {
         path,
         content: Uint8ArrayToBase64(newSyncUpdate),

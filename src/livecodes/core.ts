@@ -157,6 +157,7 @@ let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
 let initialized = false;
+let isDestroyed = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -2139,6 +2140,42 @@ const handleSync = () => {
   registerScreen('sync', createSyncUI);
 };
 
+const handleAutosync = async () => {
+  if (isEmbed) return;
+
+  const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+
+  let syncInterval: number;
+  const sync = async () => {
+    if (isDestroyed) {
+      clearInterval(syncInterval);
+      return;
+    }
+
+    if (!getConfig().autosync) return;
+    const user = await authService?.getUser();
+    const repo = stores.syncRepo?.getValue();
+    if (!user || !repo) return;
+
+    syncModule.sync({
+      user,
+      repo,
+      newRepo: false,
+      stores,
+    });
+  };
+
+  const minute = 1000 * 60;
+  const triggerSync = () => {
+    setTimeout(() => {
+      sync();
+      syncInterval = window.setInterval(sync, 5 * minute);
+    }, minute);
+  };
+
+  triggerSync();
+};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -2612,6 +2649,7 @@ const extraHandlers = async () => {
   handleDeploy();
   handleAssets();
   handleSync();
+  handleAutosync();
   handleUnload();
   handleExternalResources();
 };
@@ -2951,7 +2989,6 @@ const createApi = (): API => {
     };
   };
 
-  let isDestroyed = false;
   const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
