@@ -18,7 +18,6 @@ import {
 import {
   createSimpleStorage,
   createStorage,
-  RestoreItem,
   fakeStorage,
   Stores,
   createProjectStorage,

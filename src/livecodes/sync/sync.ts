@@ -172,12 +172,12 @@ const syncStore = async ({
       const sha = dirEntries?.find?.((f) => f.name === filename)?.sha;
 
       // save sync data
-      const newData: StoredSyncData = {
+      const newSyncData: StoredSyncData = {
         lastModified: Date.now(),
         data: newSyncUpdate,
         lastSyncSha: sha || '',
       };
-      await stores.sync?.updateItem(storeKey, newData);
+      await stores.sync?.updateItem(storeKey, newSyncData);
     }
   } catch {
     return false;
