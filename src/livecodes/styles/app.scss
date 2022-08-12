@@ -1862,6 +1862,14 @@ i.arrow {
     }
   }
 
+  #sync-container {
+    #sync-status {
+      margin-bottom: 1em;
+      margin-top: -1.5em;
+      text-align: right;
+    }
+  }
+
   .error {
     color: red;
     font-weight: normal;

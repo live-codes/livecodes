@@ -9,13 +9,14 @@ import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
 import {
   getExistingRepoAutoSync,
-  getExistingRepoButton,
   getExistingRepoForm,
   getExistingRepoNameInput,
   getNewRepoAutoSync,
-  getNewRepoButton,
   getNewRepoForm,
   getNewRepoNameInput,
+  getStartSyncBtns,
+  getSyncLink,
+  getSyncStatus,
 } from './selectors';
 
 const createSyncContainer = (
@@ -52,6 +53,48 @@ const createSyncContainer = (
   return syncContainer;
 };
 
+const syncInProgressMessage = 'Sync in progress...';
+export const isSyncInProgress = () => getSyncLink()?.dataset.hint === syncInProgressMessage;
+
+export const updateSyncStatus = ({
+  inProgress,
+  lastSync,
+  syncContainer,
+}: {
+  inProgress?: boolean;
+  lastSync?: number;
+  syncContainer?: HTMLElement;
+}) => {
+  const syncLink = getSyncLink();
+  const syncStatus = getSyncStatus(syncContainer);
+  const startSyncBtns = getStartSyncBtns(syncContainer);
+
+  const lastSyncMessage = lastSync ? `Last sync: ${new Date(lastSync).toLocaleString()}` : '';
+  if (syncStatus) {
+    syncStatus.innerText = lastSyncMessage;
+  }
+
+  if (inProgress ?? isSyncInProgress()) {
+    if (syncLink) {
+      syncLink.classList.add('hint--bottom');
+      syncLink.dataset.hint = syncInProgressMessage;
+    }
+    startSyncBtns?.forEach((btn) => {
+      btn.innerHTML = syncInProgressMessage;
+      btn.disabled = true;
+    });
+  } else {
+    if (syncLink) {
+      syncLink.classList.toggle('hint--bottom', Boolean(lastSyncMessage));
+      syncLink.dataset.hint = lastSyncMessage;
+    }
+    startSyncBtns?.forEach((btn) => {
+      btn.innerHTML = 'Sync';
+      btn.disabled = false;
+    });
+  }
+};
+
 export const createSyncUI = async ({
   baseUrl,
   modal,
@@ -76,13 +119,13 @@ export const createSyncUI = async ({
   const syncContainer = createSyncContainer(eventsManager, syncData?.repo);
 
   const newRepoForm = getNewRepoForm(syncContainer);
-  const newRepoButton = getNewRepoButton(syncContainer);
   const newRepoNameInput = getNewRepoNameInput(syncContainer);
   const newRepoAutoSync = getNewRepoAutoSync(syncContainer);
   const existingRepoForm = getExistingRepoForm(syncContainer);
-  const existingRepoButton = getExistingRepoButton(syncContainer);
   const existingRepoNameInput = getExistingRepoNameInput(syncContainer);
   const existingRepoAutoSync = getExistingRepoAutoSync(syncContainer);
+
+  updateSyncStatus({ inProgress: isSyncInProgress(), lastSync: syncData?.lastSync, syncContainer });
 
   // start loading the module
   const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
@@ -112,7 +155,7 @@ export const createSyncUI = async ({
 
   eventsManager.addEventListener(newRepoForm, 'submit', async (e) => {
     e.preventDefault();
-    if (!user) return;
+    if (!user || isSyncInProgress()) return;
 
     const repo = newRepoNameInput.value;
     const autosync = newRepoAutoSync.checked;
@@ -123,19 +166,18 @@ export const createSyncUI = async ({
       return;
     }
 
-    newRepoButton.innerHTML = 'Sync started...';
-    newRepoButton.disabled = true;
+    updateSyncStatus({ inProgress: true });
 
     await sync(user, repo, newRepo);
-    await deps.setSyncData({ autosync, repo, lastSync: Date.now() });
+    const lastSync = Date.now();
+    await deps.setSyncData({ autosync, repo, lastSync });
 
-    newRepoButton.innerHTML = 'Sync';
-    newRepoButton.disabled = false;
+    updateSyncStatus({ inProgress: false, lastSync });
   });
 
   eventsManager.addEventListener(existingRepoForm, 'submit', async (e) => {
     e.preventDefault();
-    if (!user) return;
+    if (!user || isSyncInProgress()) return;
 
     const repo = existingRepoNameInput.value;
     const autosync = existingRepoAutoSync.checked;
@@ -146,14 +188,13 @@ export const createSyncUI = async ({
       return;
     }
 
-    existingRepoButton.innerHTML = 'Sync started...';
-    existingRepoButton.disabled = true;
+    updateSyncStatus({ inProgress: true });
 
     await sync(user, repo, newRepo);
-    await deps.setSyncData({ autosync, repo, lastSync: Date.now() });
+    const lastSync = Date.now();
+    await deps.setSyncData({ autosync, repo, lastSync });
 
-    existingRepoButton.innerHTML = 'Sync';
-    existingRepoButton.disabled = false;
+    updateSyncStatus({ inProgress: false, lastSync });
   });
 
   let autoComplete: any;

@@ -1,5 +1,6 @@
 <div id="sync-container" class="modal-container">
   <div class="modal-title">Sync to GitHub Repo</div>
+  <div id="sync-status"></div>
   <ul id="sync-tabs" class="modal-tabs">
     <li data-target="new-repo" class="active">Create New Repo</li>
     <li data-target="existing-repo">Existing Repo</li>
@@ -18,7 +19,7 @@
             <input type="checkbox" id="new-repo-autosync" checked />
             <label for="new-repo-autosync">Auto sync</label>
           </div>
-          <button id="new-repo-btn" class="wide-button" type="submit">Sync</button>
+          <button id="new-repo-btn" class="wide-button start-sync-btn" type="submit">Sync</button>
         </form>
         <div class="description">
           A new <strong>private</strong> repo will be created. Your LiveCodes local data will be
@@ -42,7 +43,9 @@
             <input type="checkbox" id="existing-repo-autosync" checked />
             <label for="existing-repo-autosync">Auto sync</label>
           </div>
-          <button id="existing-repo-btn" class="wide-button" type="submit">sync</button>
+          <button id="existing-repo-btn" class="wide-button start-sync-btn" type="submit">
+            sync
+          </button>
         </form>
         <div class="description">
           Your LiveCodes local data will be synchronized with

@@ -1224,6 +1224,16 @@ const setUserData = async (data: Partial<UserData>) => {
   });
 };
 
+const showSyncStatus = async () => {
+  const lastSync = (await getUserData())?.sync?.lastSync;
+  if (lastSync) {
+    const syncUIModule: typeof import('./UI/sync-ui') = await import(
+      baseUrl + '{{hash:sync-ui.js}}'
+    );
+    syncUIModule.updateSyncStatus({ lastSync });
+  }
+};
+
 const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
   if (registered) {
@@ -2145,6 +2155,7 @@ const handleSync = () => {
       return;
     }
     modal.show(loadingMessage());
+
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
     );
@@ -2929,7 +2940,7 @@ const initializeApp = async (
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
-    initializeAuth();
+    initializeAuth().then(showSyncStatus);
     checkRestoreStatus();
   }
   importExternalContent({

@@ -303,3 +303,9 @@ export const getAssetGHPagesFileInputButton = (listContainer: HTMLElement) =>
 
 export const getAssetGHPagesOutput = (listContainer: HTMLElement) =>
   listContainer.querySelector('#gh-pages-output') as HTMLElement;
+
+export const getSyncStatus = (syncContainer: HTMLElement | undefined) =>
+  (syncContainer || document).querySelector<HTMLElement>('#sync-status');
+
+export const getStartSyncBtns = (syncContainer: HTMLElement | undefined) =>
+  (syncContainer || document).querySelectorAll<HTMLButtonElement>('.start-sync-btn');
