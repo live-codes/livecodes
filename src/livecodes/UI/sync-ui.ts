@@ -2,7 +2,7 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
-import type { User } from '../models';
+import type { User, UserData } from '../models';
 import type { Stores } from '../storage';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
@@ -68,10 +68,12 @@ export const createSyncUI = async ({
   user: User;
   stores: Stores;
   deps: {
-    setAutosync: (autosync: boolean) => void;
+    getSyncData: () => Promise<UserData['sync'] | null>;
+    setSyncData: (syncData: UserData['sync']) => Promise<void>;
   };
 }) => {
-  const syncContainer = createSyncContainer(eventsManager, stores.syncRepo?.getValue());
+  const syncData = await deps.getSyncData();
+  const syncContainer = createSyncContainer(eventsManager, syncData?.repo);
 
   const newRepoForm = getNewRepoForm(syncContainer);
   const newRepoButton = getNewRepoButton(syncContainer);
@@ -88,7 +90,6 @@ export const createSyncUI = async ({
   const sync = (user: User, repo: string, newRepo: boolean) => {
     notifications.info('Sync started...');
     modal.close();
-    stores.syncRepo?.setValue(repo);
 
     return syncModule
       .then(async (mod) => {
@@ -113,12 +114,11 @@ export const createSyncUI = async ({
     e.preventDefault();
     if (!user) return;
 
-    const name = newRepoNameInput.value;
+    const repo = newRepoNameInput.value;
     const autosync = newRepoAutoSync.checked;
-    deps.setAutosync(autosync);
 
     const newRepo = true;
-    if (!name) {
+    if (!repo) {
       notifications.error('Repo name is required');
       return;
     }
@@ -126,7 +126,9 @@ export const createSyncUI = async ({
     newRepoButton.innerHTML = 'Sync started...';
     newRepoButton.disabled = true;
 
-    await sync(user, name, newRepo);
+    await sync(user, repo, newRepo);
+    await deps.setSyncData({ autosync, repo, lastSync: Date.now() });
+
     newRepoButton.innerHTML = 'Sync';
     newRepoButton.disabled = false;
   });
@@ -135,12 +137,11 @@ export const createSyncUI = async ({
     e.preventDefault();
     if (!user) return;
 
-    const name = existingRepoNameInput.value;
+    const repo = existingRepoNameInput.value;
     const autosync = existingRepoAutoSync.checked;
-    deps.setAutosync(autosync);
 
     const newRepo = false;
-    if (!name) {
+    if (!repo) {
       notifications.error('Repo name is required');
       return;
     }
@@ -148,7 +149,9 @@ export const createSyncUI = async ({
     existingRepoButton.innerHTML = 'Sync started...';
     existingRepoButton.disabled = true;
 
-    await sync(user, name, newRepo);
+    await sync(user, repo, newRepo);
+    await deps.setSyncData({ autosync, repo, lastSync: Date.now() });
+
     existingRepoButton.innerHTML = 'Sync';
     existingRepoButton.disabled = false;
   });

@@ -76,13 +76,20 @@ export interface AppConfig {
 export interface UserConfig {
   autoupdate: boolean;
   autosave: boolean;
-  autosync: boolean;
   delay: number;
   formatOnsave: boolean;
   emmet: boolean;
   theme: Theme;
   enableRestore: boolean;
   showSpacing: boolean;
+}
+
+export interface UserData {
+  sync: {
+    autosync: boolean;
+    repo: string;
+    lastSync: number;
+  };
 }
 
 export type Language =

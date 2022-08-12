@@ -55,7 +55,8 @@ const syncStore = async ({
   storeKey: keyof Stores;
   remoteContent: GitHubContent[];
 }) => {
-  const lastSyncSha = (await stores.sync?.getItem(storeKey))?.lastSyncSha;
+  const syncKey = `${user.username}_${storeKey}`;
+  const lastSyncSha = (await stores.sync?.getItem(syncKey))?.lastSyncSha;
   const filename = `${storeKey}.b64`;
   const path = `${repoDir}/${filename}`;
 
@@ -68,7 +69,7 @@ const syncStore = async ({
   // ***************************
   // Get data: remote update, local update, current data in store
   // ***************************
-
+  // #region
   let remoteUpdate;
   const remoteFileExists = remoteContent.find((f) => f.name === filename) != null;
   const uptodate = remoteContent.find((f) => f.sha === lastSyncSha) != null;
@@ -90,13 +91,15 @@ const syncStore = async ({
     return false;
   }
 
-  const localUpdate = (await stores.sync?.getItem(storeKey))?.data;
+  const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
 
   const currentData = await getStorageData(storage);
+  // #endregion
 
   // ***************************
   //           Merge
   // ***************************
+  // #region
 
   const doc = new Y.Doc();
 
@@ -123,10 +126,12 @@ const syncStore = async ({
 
     changeDoc(doc.getArray(rootArrayKey), data);
   }
+  // #endregion
 
   // ***************************
   //       Save and push
   // ***************************
+  // #region
 
   try {
     // save to local stores
@@ -177,8 +182,9 @@ const syncStore = async ({
         data: newSyncUpdate,
         lastSyncSha: sha || '',
       };
-      await stores.sync?.updateItem(storeKey, newSyncData);
+      await stores.sync?.updateItem(syncKey, newSyncData);
     }
+    // #endregion
   } catch {
     return false;
   }

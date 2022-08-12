@@ -74,9 +74,9 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
     );
   };
 
-  const getItem = async (itemId: string): Promise<T | null> => {
+  const getItem = async (id: string): Promise<T | null> => {
     await load();
-    return store.getItem(itemId);
+    return store.getItem(id);
   };
 
   const updateItem = async (id: string, value: T, notify = true) => {

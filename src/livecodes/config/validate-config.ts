@@ -81,7 +81,6 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.tags, 'array', 'string') ? { tags: config.tags } : {}),
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),
-    ...(is(config.autosync, 'boolean') ? { autosync: config.autosync } : {}),
     ...(is(config.delay, 'number') ? { delay: config.delay } : {}),
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),

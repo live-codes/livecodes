@@ -49,6 +49,7 @@ import type {
   Types,
   TestResult,
   ToolsPane,
+  UserData,
 } from './models';
 import type { GitHubFile } from './services/github';
 import { getFormatter } from './formatter';
@@ -126,8 +127,8 @@ const stores: Stores = {
   assets: undefined,
   userConfig: undefined,
   restore: undefined,
-  syncRepo: undefined,
   sync: undefined,
+  userData: undefined,
 };
 
 const typeLoader = createTypeLoader();
@@ -1207,6 +1208,22 @@ const getUser = async (fn?: () => void) => {
   return user;
 };
 
+const getUserData = async () => {
+  const user = await authService?.getUser();
+  if (!user || !stores.userData) return null;
+  return stores.userData.getItem(user.uid);
+};
+
+const setUserData = async (data: Partial<UserData>) => {
+  const user = await authService?.getUser();
+  if (!user || !stores.userData) return null;
+  const oldData = await stores.userData.getItem(user.uid);
+  return stores.userData?.updateItem(user.uid, {
+    ...oldData,
+    ...data,
+  });
+};
+
 const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
   const registered = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
   if (registered) {
@@ -1266,7 +1283,9 @@ const loadSettings = (config: Config) => {
   autosaveToggle.checked = config.autosave;
 
   const autosyncToggle = UI.getAutosyncToggle();
-  autosyncToggle.checked = config.autosync;
+  getUserData().then((userData) => {
+    autosyncToggle.checked = userData?.sync?.autosync || false;
+  });
 
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
@@ -1673,6 +1692,20 @@ const handleSettings = () => {
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
         setTheme(getConfig().theme);
+      } else if (configKey === 'autosync') {
+        const syncData = (await getUserData())?.sync;
+        if (syncData?.repo) {
+          await setUserData({
+            sync: {
+              ...syncData,
+              autosync: toggle.checked,
+            },
+          });
+        }
+        if (toggle.checked && !syncData?.repo) {
+          toggle.checked = false;
+          await showScreen('sync');
+        }
       } else {
         setConfig({ ...getConfig(), [configKey]: toggle.checked });
       }
@@ -1680,10 +1713,6 @@ const handleSettings = () => {
 
       if (configKey === 'autoupdate' && getConfig()[configKey]) {
         await run();
-      }
-      if (configKey === 'autosync' && toggle.checked && !stores.syncRepo?.getValue()) {
-        toggle.checked = false;
-        await showScreen('sync');
       }
       if (configKey === 'emmet') {
         await configureEmmet(getConfig());
@@ -2127,8 +2156,9 @@ const handleSync = () => {
       user,
       stores,
       deps: {
-        setAutosync: (autosync: boolean) => {
-          setUserConfig({ autosync });
+        getSyncData: async () => (await getUserData())?.sync || null,
+        setSyncData: async (syncData: UserData['sync']) => {
+          await setUserData({ sync: syncData });
           loadSettings(getConfig());
         },
       },
@@ -2142,8 +2172,6 @@ const handleSync = () => {
 const handleAutosync = async () => {
   if (isEmbed) return;
 
-  const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
-
   let syncInterval: number;
   const sync = async () => {
     if (isDestroyed) {
@@ -2151,17 +2179,27 @@ const handleAutosync = async () => {
       return;
     }
 
-    if (!getConfig().autosync) return;
+    const syncData = (await getUserData())?.sync;
+    if (!syncData?.autosync) return;
     const user = await authService?.getUser();
-    const repo = stores.syncRepo?.getValue();
+    const repo = syncData.repo;
     if (!user || !repo) return;
 
-    syncModule.sync({
+    const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+    const syncResult = await syncModule.sync({
       user,
       repo,
       newRepo: false,
       stores,
     });
+    if (syncResult) {
+      setUserData({
+        sync: {
+          ...syncData,
+          lastSync: Date.now(),
+        },
+      });
+    }
   };
 
   const minute = 1000 * 60;
@@ -2624,8 +2662,8 @@ const extraHandlers = async () => {
   stores.assets = await createStorage('__livecodes_assets__', isEmbed);
   stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
   stores.restore = createSimpleStorage('__livecodes_project_restore__', isEmbed);
-  stores.syncRepo = createSimpleStorage('__livecodes_sync_repo__', isEmbed);
   stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
+  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
 
   handleTitleEdit();
   handleResultPopup();

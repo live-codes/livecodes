@@ -1,11 +1,11 @@
-import type { Asset, ContentConfig, Language, Subscribable, UserConfig } from '../models';
+import type { Asset, ContentConfig, Language, Subscribable, UserConfig, UserData } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import type { StoredSyncData } from '../sync/sync';
 
 export interface Storage<T> extends Subscribable<T[]> {
   getList: () => Promise<string[]>;
   getAllData: () => Promise<T[]>;
-  getItem: (itemId: string) => Promise<T | null>;
+  getItem: (id: string) => Promise<T | null>;
   addItem: (item: T) => Promise<string>;
   updateItem: (id: string, item: T) => Promise<string>;
   deleteItem: (id: string) => Promise<void>;
@@ -52,8 +52,8 @@ export interface Stores {
   assets: Storage<Asset> | undefined;
   userConfig: SimpleStorage<UserConfig> | undefined;
   restore: SimpleStorage<RestoreItem> | undefined;
-  syncRepo: SimpleStorage<string> | undefined;
   sync: Storage<StoredSyncData> | undefined;
+  userData: Storage<Partial<UserData>> | undefined;
 }
 
 export type StorageData = { [key in keyof Stores]: any | undefined };
