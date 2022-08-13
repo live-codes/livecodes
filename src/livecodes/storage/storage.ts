@@ -37,9 +37,7 @@ export const createStorage = async <T>(name: string, isEmbed: boolean): Promise<
   let store: LocalForage;
   const pub = createPub<T[]>();
 
-  const subscribe = (fn: (data: T[]) => void) => {
-    pub.subscribe(fn);
-  };
+  const subscribe = (fn: (data: T[]) => void) => pub.subscribe(fn);
 
   const unsubscribeAll = () => {
     pub.unsubscribeAll();

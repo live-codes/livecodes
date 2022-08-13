@@ -11,9 +11,7 @@ export const createSimpleStorage = <T>(name: string, isEmbed: boolean): SimpleSt
 
   const pub = createPub<T | null>();
 
-  const subscribe = (fn: (data: T | null) => void) => {
-    pub.subscribe(fn);
-  };
+  const subscribe = (fn: (data: T | null) => void) => pub.subscribe(fn);
 
   const unsubscribeAll = () => {
     pub.unsubscribeAll();

@@ -5,6 +5,9 @@ import { commitFile, getContent, GitHubFile } from '../services/github';
 import { base64ToUint8Array, typedArraysAreEqual, Uint8ArrayToBase64 } from '../utils/utils';
 import { Y, DeepDiff, applyChange, toJSON } from './diff';
 
+const repoDir = 'livecodes-data';
+const rootArrayKey = 'data';
+
 export interface StoredSyncData {
   lastModified: number;
   data: Uint8Array;
@@ -53,9 +56,6 @@ const changeDoc = (target: Y.Array<any>, data: any[] = []) => {
     }
   });
 };
-
-const repoDir = 'livecodes-data';
-const rootArrayKey = 'data';
 
 const syncStore = async ({
   user,

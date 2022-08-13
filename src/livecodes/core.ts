@@ -2181,8 +2181,9 @@ const handleDeploy = () => {
 };
 
 const handleSync = () => {
+  if (isEmbed) return;
+
   const createSyncUI = async () => {
-    if (isEmbed) return;
     const user = await getUser();
     if (!user) {
       notifications.error('Authentication error!');
@@ -2256,6 +2257,32 @@ const handleAutosync = async () => {
   };
 
   triggerSync();
+};
+
+const handlePersistantStorage = async () => {
+  if (isEmbed) return;
+
+  let alreadyRequested = false;
+
+  const unsubscribe = () => {
+    projectSubscription?.unsubscribe();
+    templateSubscription?.unsubscribe();
+    assetSubscription?.unsubscribe();
+  };
+
+  const requestPersistance = () => {
+    if (alreadyRequested) return unsubscribe();
+    setTimeout(async () => {
+      alreadyRequested = true;
+      if (navigator.storage && navigator.storage.persist) {
+        await navigator.storage.persist();
+      }
+    }, 2000);
+  };
+
+  const projectSubscription = stores.projects?.subscribe(requestPersistance);
+  const templateSubscription = stores.templates?.subscribe(requestPersistance);
+  const assetSubscription = stores.assets?.subscribe(requestPersistance);
 };
 
 const handleProjectInfo = () => {
@@ -2732,8 +2759,9 @@ const extraHandlers = async () => {
   handleAssets();
   handleSync();
   handleAutosync();
-  handleUnload();
+  handlePersistantStorage();
   handleExternalResources();
+  handleUnload();
 };
 
 const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {

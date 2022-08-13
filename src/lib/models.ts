@@ -696,6 +696,6 @@ export interface TestResult {
 }
 
 export interface Subscribable<T> {
-  subscribe: (fn: (data: T) => void) => void;
+  subscribe: (fn: (data: T) => void) => { unsubscribe: () => void };
   unsubscribeAll: () => void;
 }
