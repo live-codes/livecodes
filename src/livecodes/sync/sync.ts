@@ -323,6 +323,20 @@ export const exportToLocalSync = async ({
   doc.destroy();
 };
 
+export const exportStoreAsBase64Update = async ({
+  storage,
+}: {
+  storage: SimpleStorage<any> | Storage<any> | ProjectStorage;
+}) => {
+  const currentData = await getStorageData(storage);
+  const doc = new Y.Doc();
+  changeDoc(doc.getArray(rootArrayKey), currentData);
+  const update = Y.encodeStateAsUpdate(doc);
+  const base64 = Uint8ArrayToBase64(update);
+  doc.destroy();
+  return base64;
+};
+
 export const restoreFromLocalSync = async ({
   user,
   stores,

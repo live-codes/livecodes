@@ -582,6 +582,7 @@ export interface Screen {
     | 'embed'
     | 'deploy'
     | 'sync'
+    | 'backup'
     | 'custom-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;

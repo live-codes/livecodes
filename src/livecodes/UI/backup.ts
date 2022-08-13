@@ -1,31 +1,18 @@
 /* eslint-disable import/no-internal-modules */
-import type { SourceFile, populateConfig as populateConfigFn } from '../import/utils';
+import type { Screen } from '../models';
 import type { createModal } from '../modal';
-import type { Config, ContentConfig, User, Screen } from '../models';
 import type { createNotifications } from '../notifications';
-import type { ProjectStorage, StorageItem } from '../storage';
 import type { createEventsManager } from '../events';
-import { defaultConfig } from '../config/default-config';
-import { backupScreen, importScreen } from '../html';
-import { fetchWithHandler } from '../utils/utils';
-import { importCode } from '../import/import';
-import { importFromZip } from '../import/zip';
+import { backupScreen } from '../html';
+import { Stores } from '../storage';
+import { downloadFile, getDate } from '../utils/utils';
+import { jsZipUrl } from '../vendors';
 import {
-  getBulkImportFileInput,
-  getBulkImportJsonUrlButton,
-  getBulkImportJsonUrlForm,
-  getBulkImportJsonUrlInput,
-  getCodeImportInput,
+  getBackupBtn,
+  getBackupCheckedInputs,
+  getBackupForm,
   getImportFileInput,
-  getImportJsonUrlButton,
-  getImportJsonUrlForm,
-  getImportJsonUrlInput,
-  getLinkToSavedProjects,
-  getUrlImportButton,
-  getUrlImportForm,
-  getUrlImportInput,
 } from './selectors';
-export { importCode };
 
 const createBackupContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
   const div = document.createElement('div');
@@ -51,221 +38,126 @@ const createBackupContainer = (eventsManager: ReturnType<typeof createEventsMana
 };
 
 export const createBackupUI = ({
+  baseUrl,
   modal,
   notifications,
   eventsManager,
-  getUser,
-  loadConfig,
-  populateConfig,
-  projectStorage,
-  showScreen,
+  stores,
+  deps,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
-  getUser: (() => Promise<void | User>) | undefined;
-  loadConfig: (newConfig: Partial<ContentConfig>, url?: string) => Promise<void>;
-  populateConfig: typeof populateConfigFn;
-  projectStorage: ProjectStorage | undefined;
-  showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
+  stores: Stores;
+  deps: {
+    showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
+  };
 }) => {
   const backupContainer = createBackupContainer(eventsManager);
-  // const backupForm = getBackupForm(backupContainer);
-  // const backupButton = getBackupButton(backupContainer);
-  // eventsManager.addEventListener(backupForm, 'submit', async (e) => {
-  //   e.preventDefault();
-  //   const buttonText = backupButton.innerHTML;
-  //   backupButton.innerHTML = 'Loading...';
-  //   backupButton.disabled = true;
-  //   const backupInput = getUrlImportInput(backupContainer);
-  //   const url = backupInput.value;
+  const backupForm = getBackupForm(backupContainer);
+  const backupBtn = getBackupBtn(backupContainer);
+  const fileInput = getImportFileInput(backupContainer);
 
-  //   const imported = await importCode(url, {}, defaultConfig, await getUser?.());
-  //   if (imported && Object.keys(imported).length > 0) {
-  //     await loadConfig(
-  //       {
-  //         ...defaultConfig,
-  //         ...imported,
-  //       },
-  //       location.origin + location.pathname + '?x=' + encodeURIComponent(url),
-  //     );
-  //     modal.close();
-  //   } else {
-  //     importButton.innerHTML = buttonText;
-  //     importButton.disabled = false;
-  //     notifications.error('failed to load URL');
-  //     importInput.focus();
-  //   }
-  // });
+  const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
 
-  // const loadFiles = (input: HTMLInputElement) =>
-  //   new Promise<Partial<ContentConfig>>((resolve, reject) => {
-  //     const files = Array.from(input.files as FileList);
-  //     const sourceFiles: SourceFile[] = [];
+  const createZip = async (files: Array<{ filename: string; content: string }>) => {
+    if (!(window as any).JSZip) {
+      (window as any).JSZip = (await import(jsZipUrl)).default;
+    }
 
-  //     for (const file of files) {
-  //       // Max 2 MB allowed
-  //       const maxSizeAllowed = 2 * 1024 * 1024;
-  //       if (file.size > maxSizeAllowed) {
-  //         reject('Error: Exceeded size 2MB');
-  //         return;
-  //       }
+    const zip = new (window as any).JSZip();
 
-  //       const reader = new FileReader();
-  //       eventsManager.addEventListener(reader, 'load', async (event: any) => {
-  //         const text = (event.target?.result as string) || '';
-  //         sourceFiles.push({
-  //           filename: file.name,
-  //           content: text,
-  //         });
+    files.forEach(({ filename, content }) => {
+      zip.file(filename, content);
+    });
+    const output = await zip.generateAsync({ type: 'base64' });
 
-  //         if (sourceFiles.length === files.length) {
-  //           resolve(populateConfig(sourceFiles, {}));
-  //         }
-  //       });
+    const filename = 'livecodes_backup_' + getDate();
+    const extension = 'zip';
+    const content = 'data:application/zip;base64,' + encodeURIComponent(output);
+    downloadFile(filename, extension, content);
+  };
 
-  //       eventsManager.addEventListener(reader, 'error', () => {
-  //         reject('Error: Failed to read file');
-  //       });
+  const backup = async () => {
+    const storeKeys = [...getBackupCheckedInputs(backupContainer)]
+      .map((input) => input.dataset.store)
+      .filter(Boolean) as Array<keyof Stores>;
 
-  //       reader.readAsText(file);
-  //     }
-  //   });
+    if (storeKeys.includes('userConfig')) {
+      storeKeys.push('userData');
+    }
+
+    const loadedSyncModule = await syncModule;
+
+    const files = await Promise.all(
+      storeKeys
+        .filter((storeKey) => Boolean(stores[storeKey]))
+        .map(async (storeKey) => ({
+          filename: storeKey + '.b64',
+          content: await loadedSyncModule.exportStoreAsBase64Update({ storage: stores[storeKey]! }),
+        })),
+    );
+    await createZip(files);
+  };
 
   // const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0]);
 
-  // const codeImportInput = getCodeImportInput(importContainer);
-  // eventsManager.addEventListener(codeImportInput, 'change', () => {
-  //   if (codeImportInput.files?.length === 0) return;
+  const loadFile = <T>(input: HTMLInputElement) =>
+    new Promise<T>((resolve, reject) => {
+      if (input.files?.length === 0) return;
 
-  //   const getConfigFromFiles =
-  //     codeImportInput.files?.length === 1 && codeImportInput.files[0].name.endsWith('.zip')
-  //       ? loadZipFile
-  //       : loadFiles;
+      const file = (input.files as FileList)[0];
 
-  //   getConfigFromFiles(codeImportInput)
-  //     .then(loadConfig)
-  //     .then(modal.close)
-  //     .catch((message) => {
-  //       notifications.error(message);
-  //     });
-  // });
+      const allowedTypes = ['application/json', 'text/plain'];
+      if (allowedTypes.indexOf(file.type) === -1) {
+        reject('Error: Incorrect file type');
+        return;
+      }
 
-  // const importJsonUrlForm = getImportJsonUrlForm(importContainer);
-  // const importJsonUrlButton = getImportJsonUrlButton(importContainer);
-  // eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
-  //   e.preventDefault();
-  //   const buttonText = importJsonUrlButton.innerHTML;
-  //   importJsonUrlButton.innerHTML = 'Loading...';
-  //   importJsonUrlButton.disabled = true;
-  //   const importInput = getImportJsonUrlInput(importContainer);
-  //   const url = importInput.value;
-  //   fetchWithHandler(url)
-  //     .then((res) => res.json())
-  //     .then((fileConfig) =>
-  //       loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url),
-  //     )
-  //     .then(() => modal.close())
-  //     .catch(() => {
-  //       importJsonUrlButton.innerHTML = buttonText;
-  //       importJsonUrlButton.disabled = false;
-  //       notifications.error('Error: failed to load URL');
-  //       importInput.focus();
-  //     });
-  // });
+      // Max 20 MB allowed
+      const maxSizeAllowed = 20 * 1024 * 1024;
+      if (file.size > maxSizeAllowed) {
+        reject('Error: Exceeded size 20MB');
+        return;
+      }
 
-  // const bulkImportJsonUrlForm = getBulkImportJsonUrlForm(importContainer);
-  // const bulkimportJsonUrlButton = getBulkImportJsonUrlButton(importContainer);
-  // eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
-  //   e.preventDefault();
-  //   const buttonText = bulkimportJsonUrlButton.innerHTML;
-  //   bulkimportJsonUrlButton.innerHTML = 'Loading...';
-  //   bulkimportJsonUrlButton.disabled = true;
-  //   const importInput = getBulkImportJsonUrlInput(importContainer);
-  //   const url = importInput.value;
-  //   fetchWithHandler(url)
-  //     .then((res) => res.json())
-  //     .then(insertItems)
-  //     .catch(() => {
-  //       bulkimportJsonUrlButton.innerHTML = buttonText;
-  //       bulkimportJsonUrlButton.disabled = false;
-  //       notifications.error('Error: failed to load URL');
-  //       importInput.focus();
-  //     });
-  // });
+      const reader = new FileReader();
+      eventsManager.addEventListener(reader, 'load', async (event: any) => {
+        const text = (event.target?.result as string) || '';
+        try {
+          resolve(JSON.parse(text));
+        } catch (error) {
+          reject('Invalid configuration file');
+        }
+      });
 
-  // const loadFile = <T>(input: HTMLInputElement) =>
-  //   new Promise<T>((resolve, reject) => {
-  //     if (input.files?.length === 0) return;
+      eventsManager.addEventListener(reader, 'error', () => {
+        reject('Error: Failed to read file');
+      });
 
-  //     const file = (input.files as FileList)[0];
+      reader.readAsText(file);
+    });
 
-  //     const allowedTypes = ['application/json', 'text/plain'];
-  //     if (allowedTypes.indexOf(file.type) === -1) {
-  //       reject('Error: Incorrect file type');
-  //       return;
-  //     }
+  const restore = async () => {
+    notifications.success('Import Successful!');
+    deps.showScreen('open');
+  };
 
-  //     // Max 2 MB allowed
-  //     const maxSizeAllowed = 2 * 1024 * 1024;
-  //     if (file.size > maxSizeAllowed) {
-  //       reject('Error: Exceeded size 2MB');
-  //       return;
-  //     }
+  eventsManager.addEventListener(backupForm, 'submit', async (e) => {
+    e.preventDefault();
+    backupBtn.disabled = true;
+    await backup();
+    backupBtn.disabled = false;
+  });
 
-  //     const reader = new FileReader();
-  //     eventsManager.addEventListener(reader, 'load', async (event: any) => {
-  //       const text = (event.target?.result as string) || '';
-  //       try {
-  //         resolve(JSON.parse(text));
-  //       } catch (error) {
-  //         reject('Invalid configuration file');
-  //       }
-  //     });
-
-  //     eventsManager.addEventListener(reader, 'error', () => {
-  //       reject('Error: Failed to read file');
-  //     });
-
-  //     reader.readAsText(file);
-  //   });
-
-  // const insertItems = async (items: StorageItem[]) => {
-  //   const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
-  //   if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
-  //     await projectStorage.bulkInsert(items.map(getItemConfig));
-  //     notifications.success('Import Successful!');
-  //     showScreen('open');
-  //     return;
-  //   }
-  //   return Promise.reject('Error: Invalid file');
-  // };
-
-  // const fileInput = getImportFileInput(importContainer);
-  // eventsManager.addEventListener(fileInput, 'change', () => {
-  //   loadFile<Config>(fileInput)
-  //     .then(loadConfig)
-  //     .then(modal.close)
-  //     .catch((message) => {
-  //       notifications.error(message);
-  //     });
-  // });
-
-  // const bulkFileInput = getBulkImportFileInput(importContainer);
-  // eventsManager.addEventListener(bulkFileInput, 'change', () => {
-  //   loadFile<StorageItem[]>(bulkFileInput)
-  //     .then(insertItems)
-  //     .catch((message) => {
-  //       notifications.error(message);
-  //     });
-  // });
-
-  // const linkToSavedProjects = getLinkToSavedProjects(importContainer);
-  // eventsManager.addEventListener(linkToSavedProjects, 'click', (e) => {
-  //   e.preventDefault();
-  //   showScreen('open');
-  // });
+  eventsManager.addEventListener(fileInput, 'change', () => {
+    loadFile(fileInput)
+      .then(restore)
+      .catch((message) => {
+        notifications.error(message);
+      });
+  });
 
   modal.show(backupContainer, { isAsync: true });
 };

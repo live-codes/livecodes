@@ -2294,11 +2294,8 @@ const handleBackup = () => {
       modal,
       notifications,
       eventsManager,
-      getUser: authService?.getUser,
-      loadConfig,
-      populateConfig,
-      projectStorage: stores.projects,
-      showScreen,
+      stores,
+      deps: { showScreen },
     });
   };
 

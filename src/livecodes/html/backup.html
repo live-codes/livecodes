@@ -18,27 +18,39 @@
         <form id="backup-form">
           <div id="backup-stores">
             <div class="backup-store">
-              <input type="checkbox" id="backup-projects-checkbox" checked />
+              <input type="checkbox" id="backup-projects-checkbox" data-store="projects" checked />
               <label for="backup-projects-checkbox">Projects</label>
             </div>
             <div class="backup-store">
-              <input type="checkbox" id="backup-templates-checkbox" checked />
+              <input
+                type="checkbox"
+                id="backup-templates-checkbox"
+                data-store="templates"
+                checked
+              />
               <label for="backup-templates-checkbox">User Templates</label>
             </div>
+            <!--
             <div class="backup-store">
-              <input type="checkbox" id="backup-snippets-checkbox" checked />
+              <input type="checkbox" id="backup-snippets-checkbox" data-store="snippets" checked />
               <label for="backup-snippets-checkbox">Code Snippets</label>
             </div>
+            -->
             <div class="backup-store">
-              <input type="checkbox" id="backup-assets-checkbox" checked />
+              <input type="checkbox" id="backup-assets-checkbox" data-store="assets" checked />
               <label for="backup-assets-checkbox">Assets</label>
             </div>
             <div class="backup-store">
-              <input type="checkbox" id="backup-user-settings-checkbox" checked />
+              <input
+                type="checkbox"
+                id="backup-user-settings-checkbox"
+                data-store="userConfig"
+                checked
+              />
               <label for="backup-user-settings-checkbox">User Settings</label>
             </div>
           </div>
-          <button id="url-import-btn" class="wide-button" type="submit">Backup</button>
+          <button id="backup-btn" class="wide-button" type="submit">Backup</button>
         </form>
       </div>
     </div>

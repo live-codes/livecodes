@@ -311,3 +311,12 @@ export const getSyncStatus = (syncContainer: HTMLElement | undefined) =>
 
 export const getStartSyncBtns = (syncContainer: HTMLElement | undefined) =>
   (syncContainer || document).querySelectorAll<HTMLButtonElement>('.start-sync-btn');
+
+export const getBackupForm = (backupContainer: HTMLElement) =>
+  backupContainer.querySelector('#backup-form') as HTMLFormElement;
+
+export const getBackupBtn = (backupContainer: HTMLElement) =>
+  backupContainer.querySelector('#backup-btn') as HTMLButtonElement;
+
+export const getBackupCheckedInputs = (backupContainer: HTMLElement) =>
+  backupContainer.querySelectorAll<HTMLInputElement>('#backup input[type="checkbox"]:checked');
