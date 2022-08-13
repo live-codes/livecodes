@@ -17,13 +17,30 @@ interface GitHubContent {
   type: 'file' | 'dir';
 }
 
-const getStorageData = async <T>(storage: Storage<T> | ProjectStorage | undefined) => {
+const getStorageData = async <T>(
+  storage: SimpleStorage<T> | Storage<T> | ProjectStorage | undefined,
+) => {
   if (!storage) return [];
+  if ('getValue' in storage) {
+    // SimpleStorage
+    const value = storage.getValue();
+    return value != null ? [value] : [];
+  }
+  // Storage
   return storage.getAllData();
 };
 
-const setStorageData = async <T>(storage: Storage<T> | ProjectStorage | undefined, data: T[]) => {
+const setStorageData = async <T>(
+  storage: SimpleStorage<T> | Storage<T> | ProjectStorage | undefined,
+  data: T[],
+) => {
   if (!storage) return;
+  if ('setValue' in storage) {
+    // SimpleStorage
+    storage.setValue(data[0]);
+    return;
+  }
+  // Storage
   await storage.clear();
   await storage.restore(data as any);
 };
@@ -187,6 +204,8 @@ const syncStore = async ({
     // #endregion
   } catch {
     return false;
+  } finally {
+    doc.destroy();
   }
 
   return true;
@@ -266,4 +285,79 @@ export const sync = async ({
     }
   }
   return success;
+};
+
+export const exportToLocalSync = async ({
+  user,
+  stores,
+  storeKey,
+}: {
+  user: User;
+  stores: Stores;
+  storeKey: keyof Stores;
+}) => {
+  const syncKey = `${user.username}_${storeKey}`;
+  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  if (!storage) return;
+
+  const { data: localUpdate, lastSyncSha = '' } = (await stores.sync?.getItem(syncKey)) || {};
+
+  const currentData = await getStorageData(storage);
+
+  const doc = new Y.Doc();
+
+  if (localUpdate) {
+    Y.applyUpdate(doc, localUpdate);
+  }
+  changeDoc(doc.getArray(rootArrayKey), currentData);
+
+  const newSyncUpdate = Y.encodeStateAsUpdate(doc);
+
+  const newSyncData: StoredSyncData = {
+    lastModified: Date.now(),
+    data: newSyncUpdate,
+    lastSyncSha,
+  };
+  await stores.sync?.updateItem(syncKey, newSyncData);
+
+  doc.destroy();
+};
+
+export const restoreFromLocalSync = async ({
+  user,
+  stores,
+  storeKey,
+  mergeCurrent = true,
+}: {
+  user: User;
+  stores: Stores;
+  storeKey: keyof Stores;
+  mergeCurrent?: boolean;
+}) => {
+  const syncKey = `${user.username}_${storeKey}`;
+  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  if (!storage) return;
+  const isSimpleStorage = 'getValue' in storage;
+
+  const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
+  if (!localUpdate) return;
+
+  const currentData = await getStorageData(storage);
+  const doc = new Y.Doc();
+  Y.applyUpdate(doc, localUpdate);
+  if (mergeCurrent) {
+    const savedData = toJSON<any[]>(doc.getArray(rootArrayKey));
+    const data = isSimpleStorage ? savedData : [...savedData, ...currentData];
+    changeDoc(doc.getArray(rootArrayKey), data);
+  }
+
+  try {
+    const newData: any[] = toJSON(doc.getArray(rootArrayKey));
+    const dataChanged = DeepDiff.diff(newData, currentData) != null;
+    if (dataChanged) {
+      await setStorageData(storage, newData);
+    }
+  } finally {
+    doc.destroy();
+  }
 };

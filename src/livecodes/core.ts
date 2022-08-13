@@ -1157,7 +1157,7 @@ const login = async () =>
             if (!user) {
               reject('Login error!');
             } else {
-              // TODO: load user data
+              manageUserData(user, 'restore');
 
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
@@ -1184,16 +1184,22 @@ const login = async () =>
 const logout = () => {
   if (!authService) return;
   authService
-    .signOut()
-    .then(() => {
-      // TODO: clear user data
-
-      notifications.success('Logged out successfully');
-      displayLoggedOut();
+    ?.getUser()
+    .then(async (user) => {
+      if (!user) return;
+      await manageUserData(user, 'clear');
     })
-    .catch(() => {
-      notifications.error('Logout error!');
-    });
+    .then(() =>
+      authService
+        ?.signOut()
+        .then(() => {
+          notifications.success('Logged out successfully');
+          displayLoggedOut();
+        })
+        .catch(() => {
+          notifications.error('Logout error!');
+        }),
+    );
 };
 
 const getUser = async (fn?: () => void) => {
@@ -1211,22 +1217,53 @@ const getUser = async (fn?: () => void) => {
 const getUserData = async () => {
   const user = await authService?.getUser();
   if (!user || !stores.userData) return null;
-  return stores.userData.getItem(user.uid);
+  const id = user.username || user.uid;
+  return (await stores.userData.getItem(id))?.data;
 };
 
-const setUserData = async (data: Partial<UserData>) => {
+const setUserData = async (data: UserData['data']) => {
   const user = await authService?.getUser();
   if (!user || !stores.userData) return null;
-  const oldData = await stores.userData.getItem(user.uid);
-  return stores.userData?.updateItem(user.uid, {
-    ...oldData,
-    ...data,
+  const id = user.username || user.uid;
+  const oldData = (await stores.userData.getItem(id))?.data;
+  const key = await stores.userData?.updateItem(id, {
+    id,
+    data: {
+      ...oldData,
+      ...data,
+    },
   });
+  return key;
 };
 
-const showSyncStatus = async () => {
+const manageUserData = async (user: User, action: 'clear' | 'restore') => {
+  const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
+    (k) => !['restore', 'sync'].includes(k),
+  );
+  const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+
+  for (const storeKey of storeKeys) {
+    if (action === 'clear') {
+      await syncModule.exportToLocalSync({ user, stores, storeKey });
+      stores[storeKey]?.clear();
+    } else {
+      await syncModule.restoreFromLocalSync({ user, stores, storeKey });
+    }
+  }
+
+  if (action === 'clear') {
+    setUserConfig(defaultConfig);
+  }
+
+  loadUserConfig();
+  loadSettings(getConfig());
+  setTheme(getConfig().theme);
+  await showSyncStatus(true);
+};
+
+const showSyncStatus = async (force = false) => {
   const lastSync = (await getUserData())?.sync?.lastSync;
-  if (lastSync) {
+  if (lastSync || force) {
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
     );
@@ -2083,10 +2120,7 @@ const handleExport = () => {
     'click',
     async () => {
       updateConfig();
-      let user = await authService?.getUser();
-      if (!user) {
-        user = await login();
-      }
+      const user = await getUser();
       if (!user) return;
       notifications.info('Creating a public GitHub gist...');
       await loadModule();
@@ -2168,7 +2202,7 @@ const handleSync = () => {
       stores,
       deps: {
         getSyncData: async () => (await getUserData())?.sync || null,
-        setSyncData: async (syncData: UserData['sync']) => {
+        setSyncData: async (syncData: UserData['data']['sync']) => {
           await setUserData({ sync: syncData });
           loadSettings(getConfig());
         },
@@ -2940,7 +2974,7 @@ const initializeApp = async (
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
-    initializeAuth().then(showSyncStatus);
+    initializeAuth().then(() => showSyncStatus());
     checkRestoreStatus();
   }
   importExternalContent({

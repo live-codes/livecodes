@@ -111,8 +111,8 @@ export const createSyncUI = async ({
   user: User;
   stores: Stores;
   deps: {
-    getSyncData: () => Promise<UserData['sync'] | null>;
-    setSyncData: (syncData: UserData['sync']) => Promise<void>;
+    getSyncData: () => Promise<UserData['data']['sync'] | null>;
+    setSyncData: (syncData: UserData['data']['sync']) => Promise<void>;
   };
 }) => {
   const syncData = await deps.getSyncData();

@@ -85,11 +85,14 @@ export interface UserConfig {
 }
 
 export interface UserData {
-  sync: {
-    autosync: boolean;
-    repo: string;
-    lastSync: number;
-  };
+  id: string;
+  data: Partial<{
+    sync: {
+      autosync: boolean;
+      repo: string;
+      lastSync: number;
+    };
+  }>;
 }
 
 export type Language =
