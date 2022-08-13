@@ -125,6 +125,8 @@ export const getSyncLink = () => document.querySelector<HTMLAnchorElement>('#syn
 
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');
 
+export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#backup-link');
+
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 

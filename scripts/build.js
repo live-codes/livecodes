@@ -129,6 +129,7 @@ esbuild.buildSync({
   'sync/sync.ts',
   'UI/open.ts',
   'UI/assets.ts',
+  'UI/backup.ts',
   'UI/import.ts',
   'UI/share.ts',
   'UI/deploy.ts',

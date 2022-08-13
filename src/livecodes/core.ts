@@ -1157,7 +1157,7 @@ const login = async () =>
             if (!user) {
               reject('Login error!');
             } else {
-              manageUserData(user, 'restore');
+              manageStoredUserData(user, 'restore');
 
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
@@ -1187,7 +1187,7 @@ const logout = () => {
     ?.getUser()
     .then(async (user) => {
       if (!user) return;
-      await manageUserData(user, 'clear');
+      await manageStoredUserData(user, 'clear');
     })
     .then(() =>
       authService
@@ -1236,7 +1236,7 @@ const setUserData = async (data: UserData['data']) => {
   return key;
 };
 
-const manageUserData = async (user: User, action: 'clear' | 'restore') => {
+const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => {
   const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
     (k) => !['restore', 'sync'].includes(k),
   );
@@ -2285,6 +2285,27 @@ const handlePersistantStorage = async () => {
   const assetSubscription = stores.assets?.subscribe(requestPersistance);
 };
 
+const handleBackup = () => {
+  const createBackupUI = async () => {
+    modal.show(loadingMessage());
+    const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
+    backupModule.createBackupUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      getUser: authService?.getUser,
+      loadConfig,
+      populateConfig,
+      projectStorage: stores.projects,
+      showScreen,
+    });
+  };
+
+  eventsManager.addEventListener(UI.getBackupLink(), 'click', createBackupUI, false);
+  registerScreen('backup', createBackupUI);
+};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -2760,6 +2781,7 @@ const extraHandlers = async () => {
   handleSync();
   handleAutosync();
   handlePersistantStorage();
+  handleBackup();
   handleExternalResources();
   handleUnload();
 };
