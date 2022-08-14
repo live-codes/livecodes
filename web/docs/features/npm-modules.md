@@ -45,7 +45,7 @@ Demo:
 
 It just works without a build step and without you having to worry about. And when you export your code to another service (e.g CodePen or JSFiddle), the full url imports are used, so your code continue to work elsewhere.
 
-It is recommended to use this method for dependencies over using [external scripts](./resources-assets.md#external-stylesheetsscripts). The dependencies are explicitly stated in the code. And if you move to a local development environment, your bundler will take care of importing them and doing other optimizations like tree-shaking.
+It is recommended to use this method for dependencies over using [external scripts](./external-css-js.md). The dependencies are explicitly stated in the code. And if you move to a local development environment, your bundler will take care of importing them and doing other optimizations like tree-shaking.
 
 ### Other CDN Providers
 
