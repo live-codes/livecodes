@@ -88,6 +88,11 @@ export const createBackupUI = ({
       .map((input) => input.dataset.store)
       .filter(Boolean) as Array<keyof Stores>;
 
+    if (storeKeys.length === 0) {
+      notifications.warning('Please select at least one store to backup');
+      return;
+    }
+
     if (storeKeys.includes('userConfig')) {
       storeKeys.push('userData');
     }
