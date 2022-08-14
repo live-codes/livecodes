@@ -41,7 +41,7 @@ const screenshots = [
   },
   {
     label: 'Restore unsaved projects',
-    url: './img/screenshots/restore.jpg',
+    url: './img/screenshots/restore-project.jpg',
   },
   {
     label: 'CSS Processors',
