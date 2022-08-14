@@ -82,15 +82,15 @@ const syncStore = async ({
 
   const isSimpleStorage = 'getValue' in storage;
   if (isSimpleStorage) return true;
-
-  // ***************************
-  // Get data: remote update, local update, current data in store
-  // ***************************
-  // #region
-  let remoteUpdate;
-  const remoteFileExists = remoteContent.find((f) => f.name === filename) != null;
-  const uptodate = remoteContent.find((f) => f.sha === lastSyncSha) != null;
+  const doc = new Y.Doc();
   try {
+    // ***************************
+    // Get data: remote update, local update, current data in store
+    // ***************************
+    // #region
+    let remoteUpdate;
+    const remoteFileExists = remoteContent.find((f) => f.name === filename) != null;
+    const uptodate = remoteContent.find((f) => f.sha === lastSyncSha) != null;
     const remoteFile =
       !remoteFileExists || uptodate
         ? undefined
@@ -104,53 +104,47 @@ const syncStore = async ({
     if (remoteFile?.content) {
       remoteUpdate = base64ToUint8Array(remoteFile.content);
     }
-  } catch {
-    return false;
-  }
 
-  const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
+    const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
 
-  const currentData = await getStorageData(storage);
-  // #endregion
+    const currentData = await getStorageData(storage);
+    // #endregion
 
-  // ***************************
-  //           Merge
-  // ***************************
-  // #region
+    // ***************************
+    //           Merge
+    // ***************************
+    // #region
 
-  const doc = new Y.Doc();
-
-  if (localUpdate) {
-    Y.applyUpdate(doc, localUpdate);
-    changeDoc(doc.getArray(rootArrayKey), currentData);
-    if (remoteUpdate) {
-      Y.applyUpdate(doc, remoteUpdate);
+    if (localUpdate) {
+      Y.applyUpdate(doc, localUpdate);
+      changeDoc(doc.getArray(rootArrayKey), currentData);
+      if (remoteUpdate) {
+        Y.applyUpdate(doc, remoteUpdate);
+      }
     }
-  }
 
-  if (!localUpdate && !remoteUpdate) {
-    changeDoc(doc.getArray(rootArrayKey), currentData);
-  }
+    if (!localUpdate && !remoteUpdate) {
+      changeDoc(doc.getArray(rootArrayKey), currentData);
+    }
 
-  if (!localUpdate && remoteUpdate) {
-    const remoteDoc = new Y.Doc();
-    Y.applyUpdate(remoteDoc, remoteUpdate);
-    const remoteData = toJSON<any[]>(remoteDoc.getArray(rootArrayKey));
-    remoteDoc.destroy();
+    if (!localUpdate && remoteUpdate) {
+      const remoteDoc = new Y.Doc();
+      Y.applyUpdate(remoteDoc, remoteUpdate);
+      const remoteData = toJSON<any[]>(remoteDoc.getArray(rootArrayKey));
+      remoteDoc.destroy();
 
-    // concat (currentData wins)
-    const data = [...remoteData, ...currentData];
+      // concat (currentData wins)
+      const data = [...remoteData, ...currentData];
 
-    changeDoc(doc.getArray(rootArrayKey), data);
-  }
-  // #endregion
+      changeDoc(doc.getArray(rootArrayKey), data);
+    }
+    // #endregion
 
-  // ***************************
-  //       Save and push
-  // ***************************
-  // #region
+    // ***************************
+    //       Save and push
+    // ***************************
+    // #region
 
-  try {
     // save to local stores
     const newData: any[] = toJSON(doc.getArray(rootArrayKey));
     const dataChanged = DeepDiff.diff(newData, currentData) != null;
@@ -306,21 +300,23 @@ export const exportToLocalSync = async ({
 
   const doc = new Y.Doc();
 
-  if (localUpdate) {
-    Y.applyUpdate(doc, localUpdate);
+  try {
+    if (localUpdate) {
+      Y.applyUpdate(doc, localUpdate);
+    }
+    changeDoc(doc.getArray(rootArrayKey), currentData);
+
+    const newSyncUpdate = Y.encodeStateAsUpdate(doc);
+
+    const newSyncData: StoredSyncData = {
+      lastModified: Date.now(),
+      data: newSyncUpdate,
+      lastSyncSha,
+    };
+    await stores.sync?.updateItem(syncKey, newSyncData);
+  } finally {
+    doc.destroy();
   }
-  changeDoc(doc.getArray(rootArrayKey), currentData);
-
-  const newSyncUpdate = Y.encodeStateAsUpdate(doc);
-
-  const newSyncData: StoredSyncData = {
-    lastModified: Date.now(),
-    data: newSyncUpdate,
-    lastSyncSha,
-  };
-  await stores.sync?.updateItem(syncKey, newSyncData);
-
-  doc.destroy();
 };
 
 export const exportStoreAsBase64Update = async ({
@@ -337,6 +333,37 @@ export const exportStoreAsBase64Update = async ({
   return base64;
 };
 
+export const restoreFromUpdate = async ({
+  update,
+  storage,
+  mergeCurrent = true,
+}: {
+  update: Uint8Array;
+  storage: SimpleStorage<any> | Storage<any> | ProjectStorage;
+  mergeCurrent?: boolean;
+}) => {
+  const isSimpleStorage = 'getValue' in storage;
+  const currentData = await getStorageData(storage);
+  const doc = new Y.Doc();
+
+  try {
+    Y.applyUpdate(doc, update);
+    if (mergeCurrent) {
+      const savedData = toJSON<any[]>(doc.getArray(rootArrayKey));
+      const data = isSimpleStorage ? savedData : [...savedData, ...currentData];
+      changeDoc(doc.getArray(rootArrayKey), data);
+    }
+
+    const newData: any[] = toJSON(doc.getArray(rootArrayKey));
+    const dataChanged = DeepDiff.diff(newData, currentData) != null;
+    if (dataChanged) {
+      await setStorageData(storage, newData);
+    }
+  } finally {
+    doc.destroy();
+  }
+};
+
 export const restoreFromLocalSync = async ({
   user,
   stores,
@@ -351,27 +378,9 @@ export const restoreFromLocalSync = async ({
   const syncKey = `${user.username}_${storeKey}`;
   const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
   if (!storage) return;
-  const isSimpleStorage = 'getValue' in storage;
 
-  const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
-  if (!localUpdate) return;
+  const update = (await stores.sync?.getItem(syncKey))?.data;
+  if (!update) return;
 
-  const currentData = await getStorageData(storage);
-  const doc = new Y.Doc();
-  Y.applyUpdate(doc, localUpdate);
-  if (mergeCurrent) {
-    const savedData = toJSON<any[]>(doc.getArray(rootArrayKey));
-    const data = isSimpleStorage ? savedData : [...savedData, ...currentData];
-    changeDoc(doc.getArray(rootArrayKey), data);
-  }
-
-  try {
-    const newData: any[] = toJSON(doc.getArray(rootArrayKey));
-    const dataChanged = DeepDiff.diff(newData, currentData) != null;
-    if (dataChanged) {
-      await setStorageData(storage, newData);
-    }
-  } finally {
-    doc.destroy();
-  }
+  return restoreFromUpdate({ update, storage, mergeCurrent });
 };

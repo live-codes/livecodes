@@ -1,11 +1,10 @@
 /* eslint-disable import/no-internal-modules */
-import type { Screen } from '../models';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { createEventsManager } from '../events';
+import type { Stores } from '../storage';
 import { backupScreen } from '../html';
-import { Stores } from '../storage';
-import { downloadFile, getDate } from '../utils/utils';
+import { base64ToUint8Array, downloadFile, getDate } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import {
   getBackupBtn,
@@ -51,7 +50,7 @@ export const createBackupUI = ({
   eventsManager: ReturnType<typeof createEventsManager>;
   stores: Stores;
   deps: {
-    showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
+    loadUserConfig: () => void;
   };
 }) => {
   const backupContainer = createBackupContainer(eventsManager);
@@ -61,7 +60,12 @@ export const createBackupUI = ({
 
   const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
 
-  const createZip = async (files: Array<{ filename: string; content: string }>) => {
+  interface File {
+    filename: string;
+    content: string;
+  }
+
+  const createZip = async (files: File[]) => {
     if (!(window as any).JSZip) {
       (window as any).JSZip = (await import(jsZipUrl)).default;
     }
@@ -101,16 +105,13 @@ export const createBackupUI = ({
     await createZip(files);
   };
 
-  // const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0]);
-
-  const loadFile = <T>(input: HTMLInputElement) =>
-    new Promise<T>((resolve, reject) => {
+  const loadFile = (input: HTMLInputElement) =>
+    new Promise<Blob>((resolve, reject) => {
       if (input.files?.length === 0) return;
 
       const file = (input.files as FileList)[0];
 
-      const allowedTypes = ['application/json', 'text/plain'];
-      if (allowedTypes.indexOf(file.type) === -1) {
+      if (!file.name.endsWith('.zip')) {
         reject('Error: Incorrect file type');
         return;
       }
@@ -122,26 +123,46 @@ export const createBackupUI = ({
         return;
       }
 
-      const reader = new FileReader();
-      eventsManager.addEventListener(reader, 'load', async (event: any) => {
-        const text = (event.target?.result as string) || '';
-        try {
-          resolve(JSON.parse(text));
-        } catch (error) {
-          reject('Invalid configuration file');
-        }
-      });
-
-      eventsManager.addEventListener(reader, 'error', () => {
-        reject('Error: Failed to read file');
-      });
-
-      reader.readAsText(file);
+      resolve(file);
     });
 
-  const restore = async () => {
-    notifications.success('Import Successful!');
-    deps.showScreen('open');
+  const extractZip = async (blob: Blob): Promise<File[]> => {
+    if (!(window as any).JSZip) {
+      (window as any).JSZip = (await import(jsZipUrl)).default;
+    }
+
+    const zip = await (window as any).JSZip.loadAsync(blob);
+    const files: any[] = zip.file(/.*\.b64/);
+    return Promise.all(
+      files.map(async (file) => ({
+        filename: file.name,
+        content: await file.async('string'),
+      })),
+    );
+  };
+
+  const restore = async (files: File[]) => {
+    const loadedSyncModule = await syncModule;
+    const formData = new FormData(backupForm);
+    const mergeCurrent = formData.get('restore-mode') === 'merge';
+
+    for (const file of files) {
+      const key = file.filename.slice(0, -4);
+      const storage = (stores as any)[key];
+      if (storage) {
+        const update = base64ToUint8Array(file.content);
+        await loadedSyncModule.restoreFromUpdate({
+          update,
+          storage,
+          mergeCurrent,
+        });
+      }
+    }
+    const hasUserConfig = files.find((f) => f.filename.startsWith('user'));
+    if (hasUserConfig) {
+      deps.loadUserConfig();
+    }
+    notifications.success('Restored Successfully!');
   };
 
   eventsManager.addEventListener(backupForm, 'submit', async (e) => {
@@ -152,7 +173,9 @@ export const createBackupUI = ({
   });
 
   eventsManager.addEventListener(fileInput, 'change', () => {
-    loadFile(fileInput)
+    Promise.resolve(fileInput)
+      .then(loadFile)
+      .then(extractZip)
       .then(restore)
       .catch((message) => {
         notifications.error(message);

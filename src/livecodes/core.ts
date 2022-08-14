@@ -994,6 +994,10 @@ const loadUserConfig = () => {
     ...getConfig(),
     ...userConfig,
   });
+
+  loadSettings(getConfig());
+  setTheme(getConfig().theme);
+  showSyncStatus(true);
 };
 
 const dispatchChangeEvent = () => {
@@ -1256,12 +1260,10 @@ const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => 
   }
 
   loadUserConfig();
-  loadSettings(getConfig());
-  setTheme(getConfig().theme);
-  await showSyncStatus(true);
 };
 
 const showSyncStatus = async (force = false) => {
+  if (isEmbed) return;
   const lastSync = (await getUserData())?.sync?.lastSync;
   if (lastSync || force) {
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
@@ -2295,7 +2297,9 @@ const handleBackup = () => {
       notifications,
       eventsManager,
       stores,
-      deps: { showScreen },
+      deps: {
+        loadUserConfig,
+      },
     });
   };
 

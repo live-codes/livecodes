@@ -72,19 +72,24 @@
                 type="radio"
                 name="restore-mode"
                 id="restore-mode-replace"
-                value="full"
+                value="replace"
                 checked
               />
               <label class="radio-label" for="restore-mode-replace">Replace current content</label>
             </span>
             <span>
-              <input type="radio" name="restore-mode" id="restore-mode-merge" value="editor" />
+              <input type="radio" name="restore-mode" id="restore-mode-merge" value="merge" />
               <label class="radio-label" for="restore-mode-merge">Merge with current content</label>
             </span>
           </div>
 
           <label for="file-input" class="file-input-label">Restore from file</label>
-          <input type="file" id="file-input" class="file-input" accept="application/json" />
+          <input
+            type="file"
+            id="file-input"
+            class="file-input"
+            accept=".zip,zip,application/zip,application/x-zip,application/x-zip-compressed"
+          />
         </form>
       </div>
     </div>
