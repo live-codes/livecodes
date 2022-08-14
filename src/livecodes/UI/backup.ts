@@ -132,7 +132,7 @@ export const createBackupUI = ({
     }
 
     const zip = await (window as any).JSZip.loadAsync(blob);
-    const files: any[] = zip.file(/.*\.b64/);
+    const files: any[] = zip.file(/\.b64$/);
     return Promise.all(
       files.map(async (file) => ({
         filename: file.name,
