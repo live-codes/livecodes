@@ -1,7 +1,8 @@
+/* eslint-disable import/no-internal-modules */
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
-import { customEvents } from './custom-events';
+import { customEvents } from './events/custom-events';
 import type { API, Config } from './models';
 
 export type { API, Config };

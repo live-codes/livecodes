@@ -1,16 +1,26 @@
-import { ContentConfig, Language } from '../models';
+import type { Asset, ContentConfig, Language, Subscribable, UserConfig, UserData } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import type { StoredSyncData } from '../sync/sync';
 
-export interface ProjectStorage {
+export interface Storage<T> extends Subscribable<T[]> {
+  getList: () => Promise<string[]>;
+  getAllData: () => Promise<T[]>;
+  getItem: (id: string) => Promise<T | null>;
+  addItem: (item: T) => Promise<string>;
+  updateItem: (id: string, item: T) => Promise<string>;
+  deleteItem: (id: string) => Promise<void>;
+  bulkInsert: (data: T[]) => Promise<void>;
+  restore: (data: T[]) => Promise<void>;
+  clear: () => Promise<void>;
+}
+
+export interface ProjectStorage
+  extends Omit<Storage<StorageItem>, 'getList' | 'addItem' | 'updateItem' | 'bulkInsert'> {
   getList: () => Promise<SavedProject[]>;
-  getAllData: <T = StorageItem>() => Promise<T[]>;
-  getItem: <T = StorageItem>(itemId: string) => Promise<T | null>;
   addItem: (config: ContentConfig) => Promise<string>;
   updateItem: (id: string, config: ContentConfig) => Promise<string>;
   deleteItem: (id: string) => Promise<void>;
   bulkInsert: (newProjects: ContentConfig[]) => Promise<void>;
-  addGenericItem: (value: any) => Promise<string>;
-  updateGenericItem: (id: string, value: any) => Promise<string>;
-  clear: () => Promise<void>;
 }
 
 export interface StorageItem {
@@ -30,8 +40,20 @@ export interface SavedProject {
   languages: Language[];
   lastModified: number;
 }
-export interface SimpleStorage<T> {
+export interface SimpleStorage<T> extends Subscribable<T | null> {
   getValue: () => T | null;
   setValue: (value: T | null) => void;
   clear: () => void;
 }
+
+export interface Stores {
+  projects: ProjectStorage | undefined;
+  templates: ProjectStorage | undefined;
+  assets: Storage<Asset> | undefined;
+  userConfig: SimpleStorage<UserConfig> | undefined;
+  restore: SimpleStorage<RestoreItem> | undefined;
+  sync: Storage<StoredSyncData> | undefined;
+  userData: Storage<Partial<UserData>> | undefined;
+}
+
+export type StorageData = { [key in keyof Stores]: any | undefined };

@@ -121,13 +121,20 @@ export const getEmbedLink = () => document.querySelector<HTMLAnchorElement>('#em
 
 export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
 
+export const getSyncLink = () => document.querySelector<HTMLAnchorElement>('#sync-link');
+
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');
+
+export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#backup-link');
 
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 
 export const getAutosaveToggle = () =>
   document.querySelector('#settings-menu input#autosave') as HTMLInputElement;
+
+export const getAutosyncToggle = () =>
+  document.querySelector('#settings-menu input#autosync') as HTMLInputElement;
 
 export const getFormatOnsaveToggle = () =>
   document.querySelector('#settings-menu input#formatOnsave') as HTMLInputElement;
@@ -238,6 +245,8 @@ export const getNewRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
 export const getNewRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-source') as HTMLInputElement;
+export const getNewRepoAutoSync = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-autosync') as HTMLInputElement;
 
 export const getExistingRepoForm = (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#existing-repo-form');
@@ -249,6 +258,8 @@ export const getExistingRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-message') as HTMLInputElement;
 export const getExistingRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
+export const getExistingRepoAutoSync = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-autosync') as HTMLInputElement;
 
 export const getStarterTemplatesTab = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>(
@@ -294,3 +305,18 @@ export const getAssetGHPagesFileInputButton = (listContainer: HTMLElement) =>
 
 export const getAssetGHPagesOutput = (listContainer: HTMLElement) =>
   listContainer.querySelector('#gh-pages-output') as HTMLElement;
+
+export const getSyncStatus = (syncContainer: HTMLElement | undefined) =>
+  (syncContainer || document).querySelector<HTMLElement>('#sync-status');
+
+export const getStartSyncBtns = (syncContainer: HTMLElement | undefined) =>
+  (syncContainer || document).querySelectorAll<HTMLButtonElement>('.start-sync-btn');
+
+export const getBackupForm = (backupContainer: HTMLElement) =>
+  backupContainer.querySelector('#backup-form') as HTMLFormElement;
+
+export const getBackupBtn = (backupContainer: HTMLElement) =>
+  backupContainer.querySelector('#backup-btn') as HTMLButtonElement;
+
+export const getBackupCheckedInputs = (backupContainer: HTMLElement) =>
+  backupContainer.querySelectorAll<HTMLInputElement>('#backup input[type="checkbox"]:checked');

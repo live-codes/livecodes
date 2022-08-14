@@ -5,7 +5,9 @@ import type { Config, ContentConfig, Cache, User } from '../models';
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { deployScreen, resultTemplate } from '../html';
 import { autoCompleteUrl } from '../vendors';
-import { deploy, deployFile, deployedConfirmation, getUserPublicRepos } from '../deploy';
+import { deploy, deployFile, deployedConfirmation } from '../deploy';
+// eslint-disable-next-line import/no-internal-modules
+import { getUserRepos } from '../services/github';
 import {
   getExistingRepoButton,
   getExistingRepoCommitSource,
@@ -179,7 +181,7 @@ export const createDeployUI = async ({
     autoComplete = (globalThis as any).autoComplete;
 
     if (!user) return;
-    const publicRepos = await getUserPublicRepos(user);
+    const publicRepos = await getUserRepos(user);
 
     eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
       existingRepoNameInput.focus();

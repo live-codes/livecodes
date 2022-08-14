@@ -1068,7 +1068,7 @@ li.editor-title {
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 26em;
+  max-height: 28em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -1081,6 +1081,14 @@ li.editor-title {
   li {
     flex: 40%;
     position: relative;
+
+    &.link-and-swich {
+      display: flex;
+
+      a {
+        flex-grow: 1;
+      }
+    }
 
     > {
       * {
@@ -1388,6 +1396,7 @@ i.arrow {
     flex-wrap: wrap;
     height: 100%;
     justify-content: space-between;
+    overflow: scroll;
     width: 100%;
 
     .list-button:hover {
@@ -1398,7 +1407,6 @@ i.arrow {
     #projects-container,
     #assets-container {
       height: calc(100% - 120px);
-      overflow: auto;
 
       input,
       .tagify {
@@ -1818,26 +1826,6 @@ i.arrow {
       }
     }
 
-    .input-container {
-      align-self: flex-start;
-      margin-bottom: 1em;
-      margin-left: 10%;
-      text-align: left;
-
-      > span {
-        display: inline-block;
-        margin-bottom: 0.5em;
-        margin-right: 1.5em;
-      }
-
-      .radio-label {
-        font-weight: unset;
-        margin: 0;
-        padding-left: 0.5em;
-        width: unset;
-      }
-    }
-
     #embed-code {
       height: 10em !important;
       margin-bottom: 1em !important;
@@ -1851,6 +1839,42 @@ i.arrow {
 
     .description {
       margin-left: 10%;
+    }
+  }
+
+  #sync-container {
+    #sync-status {
+      margin-bottom: 1em;
+      margin-top: -1.5em;
+      text-align: right;
+    }
+  }
+
+  #backup-container {
+    #backup-stores {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
+      .backup-store {
+        margin: 1.5em 0;
+        white-space: nowrap;
+      }
+    }
+
+    input[type='checkbox'] {
+      margin-top: 0.7em;
+    }
+
+    .input-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      margin: 1em;
+
+      span {
+        white-space: nowrap;
+      }
     }
   }
 
@@ -1950,6 +1974,26 @@ i.arrow {
     img {
       height: 120px;
       width: 120px;
+    }
+  }
+
+  .input-container {
+    align-self: flex-start;
+    margin-bottom: 1em;
+    margin-left: 10%;
+    text-align: left;
+
+    > span {
+      display: inline-block;
+      margin-bottom: 0.5em;
+      margin-right: 1.5em;
+    }
+
+    .radio-label {
+      font-weight: unset;
+      margin: 0;
+      padding-left: 0.5em;
+      width: unset;
     }
   }
 

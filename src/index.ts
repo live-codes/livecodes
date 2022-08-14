@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import { shareService } from './livecodes/services/share';
 import { livecodes } from './livecodes/main';
-import { customEvents } from './livecodes/custom-events';
+import { customEvents } from './livecodes/events/custom-events';
 import type { EmbedOptions } from './livecodes/models';
 
 const loadPreview = async (id: string) => {

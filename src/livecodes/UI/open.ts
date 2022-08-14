@@ -2,7 +2,7 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { Config, ContentConfig, Language, LanguageSpecs, Screen } from '../models';
 import type { createNotifications } from '../notifications';
-import type { ProjectStorage, SavedProject } from '../storage';
+import type { SavedProject, ProjectStorage } from '../storage';
 import { openScreen } from '../html';
 import { getDate, isMobile, downloadFile, loadScript, loadStylesheet } from '../utils';
 import { flexSearchUrl, tagifyBaseUrl } from '../vendors';
@@ -427,8 +427,10 @@ export const createSavedProjectsList = async ({
         .filter((item) => visibleProjects.find((p) => p.id === item.id))
         .map((item) => ({
           ...item,
-          pen: getContentConfig(item.config),
-        }));
+          config: getContentConfig(item.config),
+        }))
+        .sort((a, b) => a.lastModified - b.lastModified);
+
       const filename = 'livecodes_export_' + getDate();
       const content = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
       downloadFile(filename, 'json', content);

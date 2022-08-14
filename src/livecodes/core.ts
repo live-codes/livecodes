@@ -18,10 +18,9 @@ import {
 import {
   createSimpleStorage,
   createStorage,
-  RestoreItem,
-  ProjectStorage,
-  SimpleStorage,
   fakeStorage,
+  Stores,
+  createProjectStorage,
 } from './storage';
 import type {
   API,
@@ -50,8 +49,9 @@ import type {
   Types,
   TestResult,
   ToolsPane,
+  UserData,
 } from './models';
-import type { GitHubFile } from './deploy';
+import type { GitHubFile } from './services/github';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -116,15 +116,21 @@ import {
   createTemplatesContainer,
   createPluginItem,
 } from './UI';
-import { customEvents } from './custom-events';
+import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 
 const eventsManager = createEventsManager();
-let projectStorage: ProjectStorage | undefined;
-let templateStorage: ProjectStorage | undefined;
-let assetsStorage: ProjectStorage | undefined;
-let userConfigStorage: SimpleStorage<UserConfig> | undefined;
-let restoreStorage: SimpleStorage<RestoreItem> | undefined;
+
+const stores: Stores = {
+  projects: undefined,
+  templates: undefined,
+  assets: undefined,
+  userConfig: undefined,
+  restore: undefined,
+  sync: undefined,
+  userData: undefined,
+};
+
 const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
@@ -151,6 +157,7 @@ let starterTemplates: Template[];
 let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
 let initialized = false;
+let isDestroyed = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -867,9 +874,9 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   if (!projectId) {
-    projectId = (await projectStorage?.addItem(getConfig())) || '';
+    projectId = (await stores.projects?.addItem(getConfig())) || '';
   } else {
-    await projectStorage?.updateItem(projectId, getConfig());
+    await stores.projects?.updateItem(projectId, getConfig());
   }
   await setSavedStatus();
 
@@ -974,11 +981,11 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
     ...getConfig(),
     ...userConfig,
   });
-  userConfigStorage?.setValue(userConfig);
+  stores.userConfig?.setValue(userConfig);
 };
 
 const loadUserConfig = () => {
-  const userConfig = userConfigStorage?.getValue();
+  const userConfig = stores.userConfig?.getValue();
   if (!userConfig) {
     setUserConfig(getUserConfig(getConfig()));
     return;
@@ -987,6 +994,10 @@ const loadUserConfig = () => {
     ...getConfig(),
     ...userConfig,
   });
+
+  loadSettings(getConfig());
+  setTheme(getConfig().theme);
+  showSyncStatus(true);
 };
 
 const dispatchChangeEvent = () => {
@@ -998,7 +1009,7 @@ const dispatchChangeEvent = () => {
 const setSavedStatus = async () => {
   if (isEmbed) return;
   updateConfig();
-  const savedConfig = projectId && (await projectStorage?.getItem(projectId || ''))?.config;
+  const savedConfig = projectId && (await stores.projects?.getItem(projectId || ''))?.config;
   isSaved =
     changingContent ||
     !!(
@@ -1051,9 +1062,9 @@ const checkSavedAndExecute = (fn: () => void) => async () => {
 
 const setProjectRestore = (reset = false) => {
   if (isEmbed) return;
-  restoreStorage?.clear();
+  stores.restore?.clear();
   if (reset || !getConfig().enableRestore) return;
-  restoreStorage?.setValue({
+  stores.restore?.setValue({
     config: getContentConfig(getConfig()),
     lastModified: Date.now(),
   });
@@ -1063,7 +1074,7 @@ const checkRestoreStatus = () => {
   if (!getConfig().enableRestore || isEmbed) {
     return Promise.resolve('restore disabled');
   }
-  const unsavedItem = restoreStorage?.getValue();
+  const unsavedItem = stores.restore?.getValue();
   const unsavedProject = unsavedItem?.config;
   if (!unsavedItem || !unsavedProject) {
     return Promise.resolve('no unsaved project');
@@ -1092,8 +1103,8 @@ const checkRestoreStatus = () => {
       resolve('restore');
     });
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
-      if (projectStorage) {
-        await projectStorage.addItem(unsavedProject);
+      if (stores.projects) {
+        await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
         setRestoreConfig(!disableRestoreCheckbox.checked);
       }
@@ -1150,6 +1161,8 @@ const login = async () =>
             if (!user) {
               reject('Login error!');
             } else {
+              manageStoredUserData(user, 'restore');
+
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
                 ? 'Logged in as: ' + displayName
@@ -1175,17 +1188,26 @@ const login = async () =>
 const logout = () => {
   if (!authService) return;
   authService
-    .signOut()
-    .then(() => {
-      notifications.success('Logged out successfully');
-      displayLoggedOut();
+    ?.getUser()
+    .then(async (user) => {
+      if (!user) return;
+      await manageStoredUserData(user, 'clear');
     })
-    .catch(() => {
-      notifications.error('Logout error!');
-    });
+    .then(() =>
+      authService
+        ?.signOut()
+        .then(() => {
+          notifications.success('Logged out successfully');
+          displayLoggedOut();
+        })
+        .catch(() => {
+          notifications.error('Logout error!');
+        }),
+    );
 };
 
 const getUser = async (fn?: () => void) => {
+  await initializeAuth();
   let user = await authService?.getUser();
   if (!user) {
     user = await login();
@@ -1194,6 +1216,61 @@ const getUser = async (fn?: () => void) => {
     }
   }
   return user;
+};
+
+const getUserData = async () => {
+  const user = await authService?.getUser();
+  if (!user || !stores.userData) return null;
+  const id = user.username || user.uid;
+  return (await stores.userData.getItem(id))?.data;
+};
+
+const setUserData = async (data: UserData['data']) => {
+  const user = await authService?.getUser();
+  if (!user || !stores.userData) return null;
+  const id = user.username || user.uid;
+  const oldData = (await stores.userData.getItem(id))?.data;
+  const key = await stores.userData?.updateItem(id, {
+    id,
+    data: {
+      ...oldData,
+      ...data,
+    },
+  });
+  return key;
+};
+
+const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => {
+  const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
+    (k) => !['restore', 'sync'].includes(k),
+  );
+  const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+
+  for (const storeKey of storeKeys) {
+    if (action === 'clear') {
+      await syncModule.exportToLocalSync({ user, stores, storeKey });
+      stores[storeKey]?.clear();
+    } else {
+      await syncModule.restoreFromLocalSync({ user, stores, storeKey });
+    }
+  }
+
+  if (action === 'clear') {
+    setUserConfig(defaultConfig);
+  }
+
+  loadUserConfig();
+};
+
+const showSyncStatus = async (force = false) => {
+  if (isEmbed) return;
+  const lastSync = (await getUserData())?.sync?.lastSync;
+  if (lastSync || force) {
+    const syncUIModule: typeof import('./UI/sync-ui') = await import(
+      baseUrl + '{{hash:sync-ui.js}}'
+    );
+    syncUIModule.updateSyncStatus({ lastSync });
+  }
 };
 
 const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
@@ -1253,6 +1330,11 @@ const loadSettings = (config: Config) => {
 
   const autosaveToggle = UI.getAutosaveToggle();
   autosaveToggle.checked = config.autosave;
+
+  const autosyncToggle = UI.getAutosyncToggle();
+  getUserData().then((userData) => {
+    autosyncToggle.checked = userData?.sync?.autosync || false;
+  });
 
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
@@ -1659,6 +1741,20 @@ const handleSettings = () => {
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
         setTheme(getConfig().theme);
+      } else if (configKey === 'autosync') {
+        const syncData = (await getUserData())?.sync;
+        if (syncData?.repo) {
+          await setUserData({
+            sync: {
+              ...syncData,
+              autosync: toggle.checked,
+            },
+          });
+        }
+        if (toggle.checked && !syncData?.repo) {
+          toggle.checked = false;
+          await showScreen('sync');
+        }
       } else {
         setConfig({ ...getConfig(), [configKey]: toggle.checked });
       }
@@ -1722,7 +1818,7 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const userTemplates = (await templateStorage?.getList()) || [];
+    const userTemplates = (await stores.templates?.getList()) || [];
 
     if (userTemplates.length === 0) {
       userTemplatesScreen.innerHTML = noUserTemplates;
@@ -1749,7 +1845,7 @@ const handleNew = () => {
         async (event) => {
           event.preventDefault();
           const itemId = (link as HTMLElement).dataset.id || '';
-          const template = (await templateStorage?.getItem(itemId))?.config;
+          const template = (await stores.templates?.getItem(itemId))?.config;
           if (template) {
             await loadConfig({
               ...template,
@@ -1766,15 +1862,15 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          if (!templateStorage) return;
-          await templateStorage.deleteItem(item.id);
+          if (!stores.templates) return;
+          await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
             if (
-              templateStorage &&
-              (await templateStorage.getList()).length === 0 &&
+              stores.templates &&
+              (await stores.templates.getList()).length === 0 &&
               noDataMessage
             ) {
               list.remove();
@@ -1855,8 +1951,8 @@ const handleFork = () => {
 const handleSaveAsTemplate = () => {
   eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', async (event) => {
     (event as Event).preventDefault();
-    if (templateStorage) {
-      await templateStorage.addItem(getConfig());
+    if (stores.templates) {
+      await stores.templates.addItem(getConfig());
       notifications.success('Saved as a new template');
     }
   });
@@ -1873,7 +1969,7 @@ const handleOpen = () => {
       loadConfig,
       modal,
       notifications,
-      projectStorage: projectStorage || fakeStorage,
+      projectStorage: stores.projects || fakeStorage,
       setProjectId: (id: string) => (projectId = id),
       showScreen,
       languages,
@@ -1903,7 +1999,7 @@ const handleImport = () => {
       getUser: authService?.getUser,
       loadConfig,
       populateConfig,
-      projectStorage,
+      projectStorage: stores.projects,
       showScreen,
     });
   };
@@ -2026,10 +2122,7 @@ const handleExport = () => {
     'click',
     async () => {
       updateConfig();
-      let user = await authService?.getUser();
-      if (!user) {
-        user = await login();
-      }
+      const user = await getUser();
       if (!user) return;
       notifications.info('Creating a public GitHub gist...');
       await loadModule();
@@ -2089,6 +2182,131 @@ const handleDeploy = () => {
   registerScreen('deploy', createDeployUI);
 };
 
+const handleSync = () => {
+  if (isEmbed) return;
+
+  const createSyncUI = async () => {
+    const user = await getUser();
+    if (!user) {
+      notifications.error('Authentication error!');
+      return;
+    }
+    modal.show(loadingMessage());
+
+    const syncUIModule: typeof import('./UI/sync-ui') = await import(
+      baseUrl + '{{hash:sync-ui.js}}'
+    );
+    syncUIModule.createSyncUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      user,
+      stores,
+      deps: {
+        getSyncData: async () => (await getUserData())?.sync || null,
+        setSyncData: async (syncData: UserData['data']['sync']) => {
+          await setUserData({ sync: syncData });
+          loadSettings(getConfig());
+        },
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getSyncLink(), 'click', createSyncUI, false);
+  registerScreen('sync', createSyncUI);
+};
+
+const handleAutosync = async () => {
+  if (isEmbed) return;
+
+  let syncInterval: number;
+  const sync = async () => {
+    if (isDestroyed) {
+      clearInterval(syncInterval);
+      return;
+    }
+
+    const syncData = (await getUserData())?.sync;
+    if (!syncData?.autosync) return;
+    const user = await authService?.getUser();
+    const repo = syncData.repo;
+    if (!user || !repo) return;
+
+    const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+    const syncResult = await syncModule.sync({
+      user,
+      repo,
+      newRepo: false,
+      stores,
+    });
+    if (syncResult) {
+      setUserData({
+        sync: {
+          ...syncData,
+          lastSync: Date.now(),
+        },
+      });
+    }
+  };
+
+  const minute = 1000 * 60;
+  const triggerSync = () => {
+    setTimeout(() => {
+      sync();
+      syncInterval = window.setInterval(sync, 5 * minute);
+    }, minute);
+  };
+
+  triggerSync();
+};
+
+const handlePersistantStorage = async () => {
+  if (isEmbed) return;
+
+  let alreadyRequested = false;
+
+  const unsubscribe = () => {
+    projectSubscription?.unsubscribe();
+    templateSubscription?.unsubscribe();
+    assetSubscription?.unsubscribe();
+  };
+
+  const requestPersistance = () => {
+    if (alreadyRequested) return unsubscribe();
+    setTimeout(async () => {
+      alreadyRequested = true;
+      if (navigator.storage && navigator.storage.persist) {
+        await navigator.storage.persist();
+      }
+    }, 2000);
+  };
+
+  const projectSubscription = stores.projects?.subscribe(requestPersistance);
+  const templateSubscription = stores.templates?.subscribe(requestPersistance);
+  const assetSubscription = stores.assets?.subscribe(requestPersistance);
+};
+
+const handleBackup = () => {
+  const createBackupUI = async () => {
+    modal.show(loadingMessage());
+    const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
+    backupModule.createBackupUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      stores,
+      deps: {
+        loadUserConfig,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getBackupLink(), 'click', createBackupUI, false);
+  registerScreen('backup', createBackupUI);
+};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -2100,7 +2318,7 @@ const handleProjectInfo = () => {
     save(!projectId, true);
   };
   const createProjectInfo = () =>
-    createProjectInfoUI(getConfig(), projectStorage || fakeStorage, modal, eventsManager, onSave);
+    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, eventsManager, onSave);
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
   registerScreen('info', createProjectInfo);
@@ -2161,7 +2379,7 @@ const handleAssets = () => {
       eventsManager,
       modal,
       notifications,
-      assetsStorage: assetsStorage || fakeStorage,
+      assetsStorage: stores.assets || fakeStorage,
       showScreen,
       baseUrl,
     });
@@ -2172,12 +2390,20 @@ const handleAssets = () => {
 
     const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
     const deployAsset = async (user: User, file: GitHubFile) =>
-      deployModule.deployFile({ user, file });
+      deployModule.deployFile({
+        file,
+        user,
+        repo: 'livecodes-assets',
+        branch: 'gh-pages',
+        message: 'add ' + file.path,
+        description: 'LiveCodes assets',
+        readmeContent: '#LiveCodes assets',
+      });
     modal.show(
       assetsModule.createAddAssetContainer({
         eventsManager,
         notifications,
-        assetsStorage: assetsStorage || fakeStorage,
+        assetsStorage: stores.assets || fakeStorage,
         showScreen,
         deployAsset,
         getUser,
@@ -2525,11 +2751,13 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
-  projectStorage = await createStorage('__livecodes_data__', isEmbed);
-  templateStorage = await createStorage('__livecodes_templates__', isEmbed);
-  assetsStorage = await createStorage('__livecodes_assets__', isEmbed);
-  userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
-  restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
+  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
+  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
+  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
+  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
+  stores.restore = createSimpleStorage('__livecodes_project_restore__', isEmbed);
+  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
+  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
 
   handleTitleEdit();
   handleResultPopup();
@@ -2551,8 +2779,12 @@ const extraHandlers = async () => {
   handleExport();
   handleDeploy();
   handleAssets();
-  handleUnload();
+  handleSync();
+  handleAutosync();
+  handlePersistantStorage();
+  handleBackup();
   handleExternalResources();
+  handleUnload();
 };
 
 const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
@@ -2793,7 +3025,7 @@ const initializeApp = async (
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
-    initializeAuth();
+    initializeAuth().then(() => showSyncStatus());
     checkRestoreStatus();
   }
   importExternalContent({
@@ -2890,10 +3122,10 @@ const createApi = (): API => {
     };
   };
 
-  let isDestroyed = false;
   const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
+    Object.values(stores).forEach((store) => store?.unsubscribeAll?.());
     parent.dispatchEvent(new Event(customEvents.destroy));
     formatter?.destroy();
     document.body.innerHTML = '';

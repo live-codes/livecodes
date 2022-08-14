@@ -80,7 +80,9 @@
     "@codemirror/view": "0.19.42",
     "@emmetio/codemirror6-plugin": "0.0.6",
     "@snackbar/core": "1.7.0",
+    "@types/deep-diff": "1.0.1",
     "codejar": "3.6.0",
+    "deep-diff": "1.0.2",
     "firebase": "9.6.6",
     "luna-console": "0.2.1",
     "luna-object-viewer": "0.2.0",
@@ -89,7 +91,8 @@
     "monaco-editor": "0.32.1",
     "patch-package": "6.4.7",
     "prismjs": "1.26.0",
-    "split.js": "1.6.5"
+    "split.js": "1.6.5",
+    "yjs": "13.5.40"
   },
   "devDependencies": {
     "@bitjson/typedoc": "0.15.0-0",

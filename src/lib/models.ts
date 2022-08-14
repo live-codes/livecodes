@@ -84,6 +84,17 @@ export interface UserConfig {
   showSpacing: boolean;
 }
 
+export interface UserData {
+  id: string;
+  data: Partial<{
+    sync: {
+      autosync: boolean;
+      repo: string;
+      lastSync: number;
+    };
+  }>;
+}
+
 export type Language =
   | 'html'
   | 'htm'
@@ -570,6 +581,8 @@ export interface Screen {
     | 'share'
     | 'embed'
     | 'deploy'
+    | 'sync'
+    | 'backup'
     | 'custom-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
@@ -681,4 +694,9 @@ export interface TestResult {
   errors: string[];
   status: 'pass' | 'fail';
   testPath: string[];
+}
+
+export interface Subscribable<T> {
+  subscribe: (fn: (data: T) => void) => { unsubscribe: () => void };
+  unsubscribeAll: () => void;
 }

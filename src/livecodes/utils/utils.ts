@@ -203,6 +203,37 @@ export const blobToBase64 = (file: Blob): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
+export const Uint8ArrayToBase64 = (u8: Uint8Array) => {
+  const CHUNK_SZ = 0x8000;
+  const c = [];
+  for (let i = 0; i < u8.length; i += CHUNK_SZ) {
+    c.push(String.fromCharCode.apply(null, (u8 as any).subarray(i, i + CHUNK_SZ)));
+  }
+  return btoa(c.join(''));
+};
+
+export const base64ToUint8Array = (str: string) =>
+  new Uint8Array(
+    atob(str)
+      .split('')
+      .map((c) => c.charCodeAt(0)),
+  );
+
+export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
+  if (a === b) {
+    return true;
+  }
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  for (let i = 0; i < a.byteLength; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export const getWorkerDataURL = (url: string) => {
   const content = `importScripts("${url}");`;
   return 'data:text/javascript;base64,' + btoa(content);

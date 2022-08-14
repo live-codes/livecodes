@@ -16,6 +16,10 @@ import importScreen from './import.html';
 // @ts-ignore
 import deployScreen from './deploy.html';
 // @ts-ignore
+import syncScreen from './sync.html';
+// @ts-ignore
+import backupScreen from './backup.html';
+// @ts-ignore
 import infoScreen from './project-info.html';
 // @ts-ignore
 import resourcesScreen from './external-resources.html';
@@ -47,6 +51,8 @@ export {
   testEditorScreen,
   importScreen,
   deployScreen,
+  syncScreen,
+  backupScreen,
   infoScreen,
   resourcesScreen,
   loginScreen,
