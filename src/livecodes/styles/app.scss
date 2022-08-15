@@ -1068,7 +1068,7 @@ li.editor-title {
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 30em;
+  max-height: 31em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -1498,7 +1498,7 @@ i.arrow {
     width: 90%;
   }
 
-  #add-snippet-container #snippet-editor {
+  #add-snippet-container #add-snippet-editor {
     height: 10em !important;
     width: 81%;
   }
@@ -1700,6 +1700,10 @@ i.arrow {
     transform: scaleY(1);
     transition: transform 0.5s ease-out;
     width: 80%;
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
 
     &:hover {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
