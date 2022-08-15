@@ -1,4 +1,12 @@
-import type { Asset, ContentConfig, Language, Subscribable, UserConfig, UserData } from '../models';
+import type {
+  Asset,
+  ContentConfig,
+  Language,
+  Snippet,
+  Subscribable,
+  UserConfig,
+  UserData,
+} from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import type { StoredSyncData } from '../sync/sync';
 
@@ -50,6 +58,7 @@ export interface Stores {
   projects: ProjectStorage | undefined;
   templates: ProjectStorage | undefined;
   assets: Storage<Asset> | undefined;
+  snippets: Storage<Snippet> | undefined;
   userConfig: SimpleStorage<UserConfig> | undefined;
   restore: SimpleStorage<RestoreItem> | undefined;
   sync: Storage<StoredSyncData> | undefined;

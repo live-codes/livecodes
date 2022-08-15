@@ -125,6 +125,7 @@ const stores: Stores = {
   projects: undefined,
   templates: undefined,
   assets: undefined,
+  snippets: undefined,
   userConfig: undefined,
   restore: undefined,
   sync: undefined,
@@ -1218,11 +1219,11 @@ const getUser = async (fn?: () => void) => {
   return user;
 };
 
-const getUserData = async () => {
+const getUserData = async (): Promise<UserData['data'] | null> => {
   const user = await authService?.getUser();
   if (!user || !stores.userData) return null;
   const id = user.username || user.uid;
-  return (await stores.userData.getItem(id))?.data;
+  return (await stores.userData.getItem(id))?.data || null;
 };
 
 const setUserData = async (data: UserData['data']) => {
@@ -2423,6 +2424,64 @@ const handleAssets = () => {
   });
 };
 
+const handleSnippets = () => {
+  let snippetsModule: typeof import('./UI/snippets');
+  const loadModule = async () => {
+    modal.show(loadingMessage());
+    snippetsModule = snippetsModule || (await import(baseUrl + '{{hash:snippets.js}}'));
+  };
+
+  const createEditorFn = async (options: Partial<EditorOptions>) =>
+    createEditor({
+      baseUrl,
+      editorId: 'snippet',
+      getLanguageExtension,
+      isEmbed,
+      language: 'html',
+      mapLanguage,
+      theme: getConfig().theme,
+      value: '',
+      ...options,
+    } as EditorOptions);
+
+  const createList = async () => {
+    await loadModule();
+    await snippetsModule.createSnippetsList({
+      eventsManager,
+      modal,
+      notifications,
+      snippetsStorage: stores.snippets || fakeStorage,
+      deps: { createEditorFn, showScreen },
+    });
+  };
+
+  const createAddSnippet = async (snippetId?: string) => {
+    await loadModule();
+    const snippetContainer = await snippetsModule.createAddSnippetContainer({
+      snippetId,
+      eventsManager,
+      notifications,
+      snippetsStorage: stores.snippets || fakeStorage,
+      showScreen,
+      deps: {
+        createEditorFn,
+        getUserData,
+        setUserData,
+      },
+    });
+
+    modal.show(snippetContainer, {
+      isAsync: true,
+    });
+  };
+
+  eventsManager.addEventListener(UI.getSnippetsLink(), 'click', createList, false);
+  registerScreen('snippets', createList);
+  registerScreen('add-snippet', (snippetId?: string) => {
+    setTimeout(() => createAddSnippet(snippetId));
+  });
+};
+
 const handleExternalResources = () => {
   const createExrenalResourcesUI = () => {
     const div = document.createElement('div');
@@ -2754,6 +2813,7 @@ const extraHandlers = async () => {
   stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
   stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
   stores.assets = await createStorage('__livecodes_assets__', isEmbed);
+  stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
   stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
   stores.restore = createSimpleStorage('__livecodes_project_restore__', isEmbed);
   stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
@@ -2779,6 +2839,7 @@ const extraHandlers = async () => {
   handleExport();
   handleDeploy();
   handleAssets();
+  handleSnippets();
   handleSync();
   handleAutosync();
   handlePersistantStorage();

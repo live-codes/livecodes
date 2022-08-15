@@ -92,6 +92,9 @@ export interface UserData {
       repo: string;
       lastSync: number;
     };
+    snippets: {
+      language: Language;
+    };
   }>;
 }
 
@@ -520,7 +523,15 @@ export interface EditorOptions {
   mode?: Config['mode'];
   readonly: boolean;
   editor?: Config['editor'];
-  editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'tests' | 'embed';
+  editorId:
+    | EditorId
+    | 'compiled'
+    | 'console'
+    | 'customSettings'
+    | 'tests'
+    | 'embed'
+    | 'snippet'
+    | 'add-snippet';
   editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
@@ -576,6 +587,8 @@ export interface Screen {
     | 'open'
     | 'assets'
     | 'add-asset'
+    | 'snippets'
+    | 'add-snippet'
     | 'import'
     | 'external'
     | 'share'
@@ -671,6 +684,15 @@ export interface Asset {
   filename: string;
   type: FileType;
   url: string;
+  lastModified: number;
+}
+
+export interface Snippet {
+  id: string;
+  title: string;
+  description: string;
+  language: Language;
+  code: string;
   lastModified: number;
 }
 
