@@ -401,6 +401,7 @@ export const createSnippetsList = async ({
         editorId: 'snippet',
         editor: 'codejar',
         readonly: true,
+        language: item.language,
         value: item.code,
       });
 
@@ -535,6 +536,7 @@ export const createAddSnippetContainer = async ({
     await deps.setUserData({ snippets: { language: snippet.language } });
 
     notifications.success('Snippet locally saved to device!');
+    showScreen('snippets');
   };
 
   eventsManager.addEventListener(
