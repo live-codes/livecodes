@@ -21,6 +21,10 @@ import {
   getSnippetTitleInput,
 } from './selectors';
 
+const textLanguage = { name: 'text', title: 'Plain Text', editorLanguage: '' };
+const getLanguage = (name: Language) =>
+  name === textLanguage.name ? textLanguage.title : getLanguageTitle(name);
+
 const copySnippet = (url: string, notifications: any) => {
   if (copyToClipboard(url)) {
     notifications.success('Snippet is copied to clipboard.');
@@ -70,7 +74,7 @@ const createSnippetItem = (
   langEl.classList.add('language-tag');
   langEl.dataset.lang = item.language;
   langEl.title = 'filter by language';
-  langEl.textContent = getLanguageTitle(item.language);
+  langEl.textContent = getLanguage(item.language);
   tags.append(langEl);
   link.appendChild(tags);
 
@@ -152,7 +156,7 @@ const organizeSnippets = async (
     )
     .forEach((lang) => {
       const option = document.createElement('option');
-      option.text = getLanguageTitle(lang);
+      option.text = getLanguage(lang);
       option.value = lang;
       langSelect.appendChild(option);
     });
@@ -486,14 +490,16 @@ export const createAddSnippetContainer = async ({
   const selectedLanguage =
     loadedSnippet?.language || (await deps.getUserData())?.snippets?.language || 'javascript';
 
-  languages
+  [...languages, textLanguage]
     .filter(
       (lang) =>
         ['jsx', 'tsx', 'rescript', 'reason', 'ocaml'].includes(lang.name) ||
         (!['blockly', 'richtext'].includes(lang.name) &&
-          !['html', 'javascript', 'typescript', 'cpp', 'python'].includes(lang.editorLanguage!)),
+          !['html', 'javascript', 'typescript', 'cpp', 'python'].includes(
+            lang.editorLanguage || '',
+          )),
     )
-    .map((lang) => ({ name: lang.name, title: getLanguageTitle(lang.name) }))
+    .map((lang) => ({ name: lang.name, title: getLanguage(lang.name as Language) }))
     .sort((a, b) =>
       a.title.toLowerCase() < b.title.toLowerCase()
         ? -1
