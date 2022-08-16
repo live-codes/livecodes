@@ -38,6 +38,10 @@ import assetsScreen from './assets.html';
 // @ts-ignore
 import addAssetScreen from './add-asset.html';
 // @ts-ignore
+import snippetsScreen from './snippets.html';
+// @ts-ignore
+import addSnippetScreen from './add-snippet.html';
+// @ts-ignore
 import shareScreen from './share.html';
 // @ts-ignore
 import embedScreen from './embed.html';
@@ -62,6 +66,8 @@ export {
   openScreen,
   assetsScreen,
   addAssetScreen,
+  snippetsScreen,
+  addSnippetScreen,
   shareScreen,
   embedScreen,
 };

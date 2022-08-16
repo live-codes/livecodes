@@ -1068,7 +1068,7 @@ li.editor-title {
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 28em;
+  max-height: 31em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -1391,7 +1391,8 @@ i.arrow {
   }
 
   #list-container,
-  #assets-list-container {
+  #assets-list-container,
+  #snippets-list-container {
     display: flex;
     flex-wrap: wrap;
     height: 100%;
@@ -1405,7 +1406,8 @@ i.arrow {
     }
 
     #projects-container,
-    #assets-container {
+    #assets-container,
+    #snippets-container {
       height: calc(100% - 120px);
 
       input,
@@ -1496,7 +1498,45 @@ i.arrow {
     width: 90%;
   }
 
-  #add-asset-container .buttons {
+  #add-snippet-container #add-snippet-editor {
+    height: 10em !important;
+    width: 81%;
+  }
+
+  #snippets-container {
+    .editor {
+      height: 10em !important;
+      margin: 1em auto !important;
+      width: 95%;
+    }
+
+    .actions {
+      align-items: center;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+
+      .action-button {
+        background: transparent;
+        border-radius: 50%;
+        cursor: pointer;
+        height: 26px;
+        margin-top: 15px;
+        opacity: 0.6;
+        padding: 5px;
+        width: 26px;
+
+        &:focus,
+        &:hover {
+          background: rgba(128, 128, 128, 0.5);
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  #add-asset-container .buttons,
+  #add-snippet-container .buttons {
     justify-content: end;
     margin-top: -3em;
   }
@@ -1532,11 +1572,13 @@ i.arrow {
     width: calc(100% - 70px);
   }
 
-  .asset-link::before {
+  .asset-link::before,
+  .snippet-item::before {
     display: none;
   }
 
-  .asset-link::after {
+  .asset-link::after,
+  .snippet-item::after {
     height: 1em !important;
     opacity: 0.8;
     top: 10px !important;
@@ -1659,6 +1701,10 @@ i.arrow {
     transition: transform 0.5s ease-out;
     width: 80%;
 
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
+
     &:hover {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
       transform: translateY(1px) 0.5s;
@@ -1710,7 +1756,8 @@ i.arrow {
     width: 80%;
   }
 
-  input:not([type='radio']):not([type='checkbox']) {
+  input:not([type='radio']):not([type='checkbox']),
+  select {
     border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
     color: rgb(105, 105, 105);
@@ -1718,6 +1765,15 @@ i.arrow {
     outline: none;
     padding: 5px;
     width: 80%;
+  }
+
+  select {
+    appearance: none;
+    background: url('./assets/images/down_arrow.svg') 97%/0.5em no-repeat #fff;
+    cursor: pointer;
+    font-size: 1em;
+    height: 2.4em;
+    width: 81%;
   }
 
   textarea:not(.inputarea) {

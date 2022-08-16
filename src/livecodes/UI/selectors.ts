@@ -163,6 +163,9 @@ export const getProjectInfoLink = () =>
 export const getAssetsLink = () =>
   document.querySelector('#settings-menu #assets-link') as HTMLInputElement;
 
+export const getSnippetsLink = () =>
+  document.querySelector('#settings-menu #snippets-link') as HTMLInputElement;
+
 export const getInfoTitleInput = () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
 
@@ -320,3 +323,27 @@ export const getBackupBtn = (backupContainer: HTMLElement) =>
 
 export const getBackupCheckedInputs = (backupContainer: HTMLElement) =>
   backupContainer.querySelectorAll<HTMLInputElement>('#backup input[type="checkbox"]:checked');
+
+export const getAddSnippetButton = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#snippets-add-snippet-button') as HTMLElement;
+
+export const getSnippetsDeleteAllButton = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#snippets-delete-all-button') as HTMLElement;
+
+export const getSnippetLanguageSelect = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#language-select') as HTMLSelectElement;
+
+export const getAddSnippetEditor = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-editor') as HTMLElement;
+
+export const getSnippetTitleInput = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-title-input') as HTMLInputElement;
+
+export const getSnippetDescriptionArea = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-description-textarea') as HTMLTextAreaElement;
+
+export const getSaveSnippetBtn = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-save-btn') as HTMLButtonElement;
+
+export const getSnippetsBtn = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#snippets-button') as HTMLButtonElement;

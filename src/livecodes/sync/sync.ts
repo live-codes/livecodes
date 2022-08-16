@@ -5,6 +5,7 @@ import { commitFile, getContent, GitHubFile } from '../services/github';
 import { base64ToUint8Array, typedArraysAreEqual, Uint8ArrayToBase64 } from '../utils/utils';
 import { Y, DeepDiff, applyChange, toJSON } from './diff';
 
+const storesToSync: Array<keyof Stores> = ['projects', 'templates', 'assets', 'snippets'];
 const repoDir = 'livecodes-data';
 const rootArrayKey = 'data';
 
@@ -262,7 +263,7 @@ export const sync = async ({
 
   let success = true;
   const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter((k) =>
-    ['projects', 'templates', 'assets'].includes(k),
+    storesToSync.includes(k),
   );
 
   for (const storeKey of storeKeys) {

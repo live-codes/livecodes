@@ -49,6 +49,7 @@ const sidebars = {
             'features/emmet',
             'features/user-settings',
             'features/assets',
+            'features/snippets',
             'features/deploy',
             'features/sync',
             'features/backup-restore',
