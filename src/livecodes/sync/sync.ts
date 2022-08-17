@@ -181,25 +181,27 @@ const syncStore = async ({
       if (!result) {
         return false;
       }
-
-      const dirEntries: GitHubContent[] = (
-        await getContent({
-          user,
-          repo,
-          branch,
-          path: repoDir,
-        })
-      )?.entries;
-      const sha = dirEntries?.find?.((f) => f.name === filename)?.sha;
-
-      // save sync data
-      const newSyncData: StoredSyncData = {
-        lastModified: Date.now(),
-        data: newSyncUpdate,
-        lastSyncSha: sha || '',
-      };
-      await stores.sync?.updateItem(syncKey, newSyncData);
     }
+
+    const dirEntries: GitHubContent[] = !shouldPushUpdate
+      ? remoteContent
+      : (
+          await getContent({
+            user,
+            repo,
+            branch,
+            path: repoDir,
+          })
+        )?.entries;
+    const sha = dirEntries?.find?.((f) => f.name === filename)?.sha;
+
+    // save sync data
+    const newSyncData: StoredSyncData = {
+      lastModified: Date.now(),
+      data: newSyncUpdate,
+      lastSyncSha: sha || '',
+    };
+    await stores.sync?.updateItem(syncKey, newSyncData);
     // #endregion
   } catch {
     return false;
