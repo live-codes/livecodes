@@ -1,6 +1,6 @@
 import type { User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
-import { getFileExtension, safeName, Uint8ArrayToBase64 } from '../utils/utils';
+import { safeName } from '../utils/utils';
 
 export interface GitHubFile {
   path: string;
