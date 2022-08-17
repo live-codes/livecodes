@@ -103,7 +103,11 @@ const syncStore = async ({
           });
 
     if (remoteFile?.content) {
-      remoteUpdate = base64ToUint8Array(remoteFile.content);
+      const content =
+        remoteFile.encoding === 'arrayBuffer'
+          ? Uint8ArrayToBase64(new Uint8Array(remoteFile.content))
+          : remoteFile.content;
+      remoteUpdate = base64ToUint8Array(content);
     }
 
     const localUpdate = (await stores.sync?.getItem(syncKey))?.data;

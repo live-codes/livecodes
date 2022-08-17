@@ -284,3 +284,5 @@ export const runOrContinue =
       return x;
     }
   };
+
+export const getFileExtension = (file: string) => file.split('.')[file.split('.').length - 1];
