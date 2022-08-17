@@ -16,6 +16,7 @@ export const repoExists = async (user: User, repo: string) => {
   try {
     const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}`, {
       method: 'GET',
+      cache: 'no-store',
       headers: getGithubHeaders(user),
     });
     return res.ok;
@@ -27,6 +28,7 @@ export const repoExists = async (user: User, repo: string) => {
 const createRepo = async (user: User, repo: string, privateRepo = false, description?: string) => {
   const res = await fetch('https://api.github.com/user/repos', {
     method: 'POST',
+    cache: 'no-store',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       name: repo,
@@ -70,6 +72,7 @@ const createFile = async ({
   if (!initialize) {
     const response = await fetch(url + path, {
       method: 'GET',
+      cache: 'no-store',
       headers: getGithubHeaders(user),
     });
     if (response.ok) {
@@ -77,9 +80,9 @@ const createFile = async ({
       sha = files.find((f: any) => f.path === file.path)?.sha;
     }
   }
-
   const res = await fetch(url + file.path, {
     method: 'PUT',
+    cache: 'no-store',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       message: message || 'deploy',
@@ -112,6 +115,7 @@ export const getContent = async ({
 
   const res = await fetch(url, {
     method: 'GET',
+    cache: 'no-store',
     headers: getGithubHeaders(user, 'object'),
   });
 
@@ -125,13 +129,20 @@ export const getContent = async ({
   if (result.content === '' && result.encoding === 'none') {
     const rawRes = await fetch(url, {
       method: 'GET',
+      cache: 'no-store',
       headers: getGithubHeaders(user, 'raw'),
     });
     if (!rawRes.ok) {
       throw new Error('Error getting file');
     }
-    result.content = btoa(await rawRes.text());
-    result.encoding = 'base64';
+
+    if (path.endsWith('.b64')) {
+      result.content = await rawRes.arrayBuffer();
+      result.encoding = 'arrayBuffer';
+    } else {
+      result.content = btoa(await rawRes.text());
+      result.encoding = 'base64';
+    }
   }
 
   return result;
@@ -155,6 +166,7 @@ const getLastCommit = async (user: User, repo: string, branch: string) => {
     `https://api.github.com/repos/${user.username}/${repo}/git/matching-refs/heads/${branch}?per_page=100`,
     {
       method: 'GET',
+      cache: 'no-store',
       headers: getGithubHeaders(user),
     },
   );
@@ -180,6 +192,7 @@ const getTree = async (user: User, repo: string, commit: string) => {
     `https://api.github.com/repos/${user.username}/${repo}/commits/${commit}`,
     {
       method: 'GET',
+      cache: 'no-store',
       headers: getGithubHeaders(user),
     },
   );
@@ -210,6 +223,7 @@ const createTree = async (
 
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/trees`, {
     method: 'POST',
+    cache: 'no-store',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       // eslint-disable-next-line camelcase
@@ -232,6 +246,7 @@ const createCommit = async (
 ): Promise<string> => {
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/commits`, {
     method: 'POST',
+    cache: 'no-store',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       tree,
@@ -248,6 +263,7 @@ const createCommit = async (
 const createBranch = async (user: User, repo: string, branch: string, commit: string) => {
   const res = await fetch(`https://api.github.com/repos/${user.username}/${repo}/git/refs`, {
     method: 'POST',
+    cache: 'no-store',
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       ref: `refs/heads/${branch}`,
@@ -265,6 +281,7 @@ const updateBranch = async (user: User, repo: string, branch: string, commit: st
     `https://api.github.com/repos/${user.username}/${repo}/git/refs/heads/${branch}`,
     {
       method: 'PATCH',
+      cache: 'no-store',
       headers: getGithubHeaders(user),
       body: JSON.stringify({
         sha: commit,
@@ -401,6 +418,7 @@ export const getUserRepos = async (
       `https://api.github.com/user/repos?type=${reposType}&per_page=${pageSize}&page=${page}`,
       {
         method: 'GET',
+        cache: 'no-store',
         headers: getGithubHeaders(user),
       },
     );

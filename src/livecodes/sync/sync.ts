@@ -103,7 +103,11 @@ const syncStore = async ({
           });
 
     if (remoteFile?.content) {
-      remoteUpdate = base64ToUint8Array(remoteFile.content);
+      const content =
+        remoteFile.encoding === 'arrayBuffer'
+          ? Uint8ArrayToBase64(new Uint8Array(remoteFile.content))
+          : remoteFile.content;
+      remoteUpdate = base64ToUint8Array(content);
     }
 
     const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
@@ -177,25 +181,27 @@ const syncStore = async ({
       if (!result) {
         return false;
       }
-
-      const dirEntries: GitHubContent[] = (
-        await getContent({
-          user,
-          repo,
-          branch,
-          path: repoDir,
-        })
-      )?.entries;
-      const sha = dirEntries?.find?.((f) => f.name === filename)?.sha;
-
-      // save sync data
-      const newSyncData: StoredSyncData = {
-        lastModified: Date.now(),
-        data: newSyncUpdate,
-        lastSyncSha: sha || '',
-      };
-      await stores.sync?.updateItem(syncKey, newSyncData);
     }
+
+    const dirEntries: GitHubContent[] = !shouldPushUpdate
+      ? remoteContent
+      : (
+          await getContent({
+            user,
+            repo,
+            branch,
+            path: repoDir,
+          })
+        )?.entries;
+    const sha = dirEntries?.find?.((f) => f.name === filename)?.sha;
+
+    // save sync data
+    const newSyncData: StoredSyncData = {
+      lastModified: Date.now(),
+      data: newSyncUpdate,
+      lastSyncSha: sha || '',
+    };
+    await stores.sync?.updateItem(syncKey, newSyncData);
     // #endregion
   } catch {
     return false;
