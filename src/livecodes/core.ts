@@ -3059,7 +3059,6 @@ const loadDefaults = async () => {
 
     const getDefaultTemplate = async () => {
       if (!stores.templates) return;
-      if (!defaultTemplateId) return;
       return stores.templates?.getItem(defaultTemplateId);
     };
     const defaultTemplate = (await getDefaultTemplate())?.config;
@@ -3072,9 +3071,11 @@ const loadDefaults = async () => {
 
   const lastUsedLanguage = (await getUserData())?.language;
   if (lastUsedLanguage) {
+    changingContent = true;
     await changeLanguage(lastUsedLanguage);
-    return;
+    changingContent = false;
   }
+  setProjectRestore(/* reset = */ true);
 };
 
 const bootstrap = async (reload = false) => {
