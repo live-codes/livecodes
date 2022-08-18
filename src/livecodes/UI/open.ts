@@ -44,7 +44,7 @@ export const createOpenItem = (
   }
 
   const userTags: HTMLElement[] = [];
-  item.tags = item.tags.filter(Boolean);
+  item.tags = [...new Set(item.tags)].filter(Boolean);
   if (!isMobile() && item.tags.length > 0) {
     item.tags.forEach((tag) => {
       const tagEl = document.createElement('span');
