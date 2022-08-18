@@ -39,7 +39,7 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
     formatOnsave: config.formatOnsave,
     emmet: config.emmet,
     theme: config.theme,
-    enableRestore: config.enableRestore,
+    recoverUnsaved: config.recoverUnsaved,
     showSpacing: config.showSpacing,
   });
 

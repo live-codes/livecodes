@@ -80,7 +80,7 @@ export interface UserConfig {
   formatOnsave: boolean;
   emmet: boolean;
   theme: Theme;
-  enableRestore: boolean;
+  recoverUnsaved: boolean;
   showSpacing: boolean;
 }
 

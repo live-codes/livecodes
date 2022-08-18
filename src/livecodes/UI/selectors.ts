@@ -44,18 +44,18 @@ export const getModalDoNotSaveButton = () =>
 export const getModalCancelButton = () =>
   document.querySelector('#modal #prompt-cancel-btn') as HTMLElement;
 
-export const getModalRestoreButton = () =>
-  document.querySelector('#modal #prompt-restore-btn') as HTMLElement;
+export const getModalRecoverButton = () =>
+  document.querySelector('#modal #prompt-recover-btn') as HTMLElement;
 export const getModalSavePreviousButton = () =>
   document.querySelector('#modal #prompt-save-previous-btn') as HTMLElement;
-export const getModalCancelRestoreButton = () =>
-  document.querySelector('#modal #prompt-cancel-restore-btn') as HTMLElement;
+export const getModalCancelRecoverButton = () =>
+  document.querySelector('#modal #prompt-cancel-recover-btn') as HTMLElement;
 export const getModalUnsavedName = () =>
   document.querySelector('#modal #unsaved-project-name') as HTMLElement;
 export const getModalUnsavedLastModified = () =>
   document.querySelector('#modal #unsaved-project-last-modified') as HTMLElement;
-export const getModalDisableRestoreCheckbox = () =>
-  document.querySelector('#modal #disable-restore-checkbox') as HTMLInputElement;
+export const getModalDisableRecoverCheckbox = () =>
+  document.querySelector('#modal #disable-recover-checkbox') as HTMLInputElement;
 
 export const getLanguageMenuLinks = () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
@@ -148,8 +148,8 @@ export const getEmmetToggle = () =>
 export const getThemeToggle = () =>
   document.querySelector('#settings-menu input#theme') as HTMLInputElement;
 
-export const getRestoreToggle = () =>
-  document.querySelector('#settings-menu input#enable-restore') as HTMLInputElement;
+export const getRecoverToggle = () =>
+  document.querySelector('#settings-menu input#recover-unsaved') as HTMLInputElement;
 
 export const getSpacingToggle = () =>
   document.querySelector('#settings-menu input#show-spacing') as HTMLInputElement;

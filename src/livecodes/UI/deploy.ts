@@ -155,7 +155,7 @@ export const createDeployUI = async ({
     e.preventDefault();
     if (!user) return;
 
-    const name = newRepoNameInput.value;
+    const name = newRepoNameInput.value.replace(/[^A-Za-z0-9_.-]/g, '-');
     const message = newRepoMessageInput.value;
     const commitSource = newRepoCommitSource.checked;
     const newRepo = true;

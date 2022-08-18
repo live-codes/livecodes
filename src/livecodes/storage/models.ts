@@ -36,7 +36,7 @@ export interface StorageItem {
   config: ContentConfig;
   lastModified: number;
 }
-export interface RestoreItem {
+export interface RecoverItem {
   config: ContentConfig;
   lastModified: number;
 }
@@ -59,10 +59,10 @@ export interface Stores {
   templates: ProjectStorage | undefined;
   assets: Storage<Asset> | undefined;
   snippets: Storage<Snippet> | undefined;
+  recover: SimpleStorage<RecoverItem> | undefined;
   userConfig: SimpleStorage<UserConfig> | undefined;
-  restore: SimpleStorage<RestoreItem> | undefined;
-  sync: Storage<StoredSyncData> | undefined;
   userData: Storage<Partial<UserData>> | undefined;
+  sync: Storage<StoredSyncData> | undefined;
 }
 
 export type StorageData = { [key in keyof Stores]: any | undefined };
