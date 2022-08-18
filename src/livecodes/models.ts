@@ -97,6 +97,9 @@ export interface UserData {
       repo: string;
       lastSync: number;
     };
+    deploys: {
+      [key: string]: string; // projectId => repoName
+    };
   }>;
 }
 

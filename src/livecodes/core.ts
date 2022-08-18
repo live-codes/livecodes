@@ -2200,18 +2200,36 @@ const handleDeploy = () => {
       return;
     }
     modal.show(loadingMessage());
+
+    const getProjectDeployRepo = async () => {
+      if (!projectId) return;
+      return (await getUserData())?.deploys?.[projectId];
+    };
+
+    const setProjectDeployRepo = async (repo: string) => {
+      if (!projectId) return;
+      await setUserData({
+        deploys: {
+          ...(await getUserData())?.deploys,
+          [projectId]: repo,
+        },
+      });
+    };
+
     const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
     deployModule.createDeployUI({
       modal,
       notifications,
       eventsManager,
       user,
+      deployRepo: await getProjectDeployRepo(),
       deps: {
         getResultPage,
         getCache,
         getConfig,
         getContentConfig,
         getLanguageExtension,
+        setProjectDeployRepo,
       },
     });
   };
