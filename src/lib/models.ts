@@ -724,3 +724,31 @@ export interface Subscribable<T> {
   subscribe: (fn: (data: T) => void) => { unsubscribe: () => void };
   unsubscribeAll: () => void;
 }
+
+type languageSelector = `${Language}-selector`;
+type ToolNames =
+  | `${Tool['name']}`
+  | `${Tool['name']},${Tool['name']}`
+  | `${Tool['name']},${Tool['name']},${Tool['name']}`;
+type ToolsStatus = `${ToolNames}|${Config['tools']['status']}`;
+
+export type UrlQueryParams = Partial<
+  EmbedOptions &
+    Config &
+    Screen & { [key in Language]: string } & { [key in languageSelector]: string } & {
+      config: string;
+      embed: boolean;
+      preview: boolean;
+      x: string;
+      raw: string;
+      language: Language;
+      lang: Language;
+      languages: string; // comma-separated languages
+      active: EditorId;
+      tags: string | string[];
+      'no-defaults': boolean;
+      tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
+    } & {
+      [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none';
+    }
+>;
