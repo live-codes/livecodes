@@ -1485,6 +1485,7 @@ const handleSelectEditor = () => {
       'click',
       () => {
         showEditor(title.dataset.editor as EditorId);
+        setUserData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRestore();
       },
       false,
@@ -1500,6 +1501,7 @@ const handleChangeLanguage = () => {
         'mousedown', // fire this event before unhover
         async () => {
           await changeLanguage(menuItem.dataset.lang as Language);
+          setUserData({ language: menuItem.dataset.lang as Language });
         },
         false,
       );
@@ -3065,6 +3067,12 @@ const loadDefaults = async () => {
     if (defaultTemplate) {
       await loadConfig(defaultTemplate);
     }
+    return;
+  }
+
+  const lastUsedLanguage = (await getUserData())?.language;
+  if (lastUsedLanguage) {
+    await changeLanguage(lastUsedLanguage);
     return;
   }
 };

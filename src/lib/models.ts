@@ -88,6 +88,7 @@ export interface UserData {
   id: string;
   data: Partial<{
     defaultTemplate: string | null;
+    language: Language;
     snippets: {
       language: Language;
     };
