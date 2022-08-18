@@ -3051,7 +3051,7 @@ const importExternalContent = async (options: {
 };
 
 const loadDefaults = async () => {
-  if (isEmbed) return;
+  if (isEmbed || params['no-defaults']) return;
 
   const defaultTemplateId = (await getUserData())?.defaultTemplate;
   if (defaultTemplateId) {
