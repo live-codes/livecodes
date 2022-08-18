@@ -87,13 +87,16 @@ export interface UserConfig {
 export interface UserData {
   id: string;
   data: Partial<{
+    templates: {
+      default: string | null;
+    };
+    snippets: {
+      language: Language;
+    };
     sync: {
       autosync: boolean;
       repo: string;
       lastSync: number;
-    };
-    snippets: {
-      language: Language;
     };
   }>;
 }

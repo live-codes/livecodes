@@ -77,13 +77,34 @@ export const createOpenItem = (
   userTags.forEach((tag) => tags.append(tag));
   link.appendChild(tags);
 
+  const setAsDefault = document.createElement('div');
+  setAsDefault.classList.add('template-default');
+
+  const setAsDefaultLink = document.createElement('span');
+  setAsDefaultLink.innerText = 'Set as default';
+  setAsDefaultLink.classList.add('template-default-link');
+  setAsDefault.appendChild(setAsDefaultLink);
+
+  const defaultTemplateLabel = document.createElement('span');
+  defaultTemplateLabel.classList.add('default-template-label');
+  defaultTemplateLabel.innerText = 'Default template ';
+  setAsDefault.appendChild(defaultTemplateLabel);
+
+  const removeDefaultLink = document.createElement('span');
+  removeDefaultLink.innerText = '(remove)';
+  removeDefaultLink.classList.add('template-remove-default-link');
+  defaultTemplateLabel.appendChild(removeDefaultLink);
+
+  if (isTemplate) {
+    link.appendChild(setAsDefault);
+  }
   li.appendChild(link);
 
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-button');
   li.appendChild(deleteButton);
 
-  return { link, deleteButton };
+  return { link, deleteButton, setAsDefaultLink, removeDefaultLink };
 };
 
 const createItemLoader = (item: SavedProject) => {

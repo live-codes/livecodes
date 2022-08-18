@@ -1819,7 +1819,10 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const userTemplates = (await stores.templates?.getList()) || [];
+    const defaultTemplate = (await getUserData())?.templates?.default;
+    const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
+      a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
+    );
 
     if (userTemplates.length === 0) {
       userTemplatesScreen.innerHTML = noUserTemplates;
@@ -1832,13 +1835,17 @@ const handleNew = () => {
     userTemplatesScreen.appendChild(list);
 
     userTemplates.forEach((item) => {
-      const { link, deleteButton } = createOpenItem(
+      const { link, deleteButton, setAsDefaultLink, removeDefaultLink } = createOpenItem(
         item,
         list,
         getLanguageTitle,
         getLanguageByAlias,
         true,
       );
+
+      if (defaultTemplate === item.id) {
+        link.parentElement?.classList.add('selected');
+      }
 
       eventsManager.addEventListener(
         link,
@@ -1864,6 +1871,14 @@ const handleNew = () => {
         'click',
         async () => {
           if (!stores.templates) return;
+          if ((await getUserData())?.templates?.default === item.id) {
+            await setUserData({
+              templates: {
+                ...(await getUserData())?.templates,
+                default: null,
+              },
+            });
+          }
           await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
@@ -1878,6 +1893,41 @@ const handleNew = () => {
               userTemplatesScreen.appendChild(noDataMessage);
             }
           }, 500);
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        setAsDefaultLink,
+        'click',
+        async (ev) => {
+          ev.stopPropagation();
+          await setUserData({
+            templates: {
+              ...(await getUserData())?.templates,
+              default: item.id,
+            },
+          });
+          [...list.children].forEach((li) => {
+            li.classList.remove('selected');
+          });
+          link.parentElement?.classList.add('selected');
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        removeDefaultLink,
+        'click',
+        async (ev) => {
+          ev.stopPropagation();
+          await setUserData({
+            templates: {
+              ...(await getUserData())?.templates,
+              default: null,
+            },
+          });
+          link.parentElement?.classList.remove('selected');
         },
         false,
       );

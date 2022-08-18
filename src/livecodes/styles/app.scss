@@ -1469,6 +1469,33 @@ i.arrow {
         }
       }
 
+      &.selected {
+        .default-template-label {
+          display: unset;
+        }
+
+        .template-default-link {
+          display: none;
+        }
+      }
+
+      .default-template-label {
+        color: rgb(100, 100, 100);
+        display: none;
+        font-size: 0.7em;
+        font-weight: 500;
+        margin-left: 5px;
+
+        span {
+          color: rgb(128, 128, 128);
+          font-size: 1em !important;
+        }
+      }
+
+      .template-default-link {
+        display: unset;
+      }
+
       a {
         color: darkslategrey;
         display: block;
@@ -1477,13 +1504,28 @@ i.arrow {
         margin: 0;
         padding: 10px;
         text-decoration: none;
+      }
 
-        .light {
-          color: rgb(128, 128, 128);
-          font-size: 0.8em;
-          font-weight: 600;
-          margin-left: 5px;
+      .template-default-link,
+      .template-remove-default-link {
+        color: rgb(105, 105, 105);
+        display: inline-block;
+        font-size: 0.7em;
+        font-weight: normal;
+        margin: 0.5em;
+        min-width: 3em;
+        padding: 0.2em;
+
+        &:hover {
+          text-decoration: underline;
         }
+      }
+
+      .light {
+        color: rgb(128, 128, 128);
+        font-size: 0.8em;
+        font-weight: 600;
+        margin-left: 5px;
       }
     }
   }
@@ -1708,6 +1750,10 @@ i.arrow {
     &:hover {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
       transform: translateY(1px) 0.5s;
+    }
+
+    &.selected {
+      background-color: hsl(231, 54%, 95%);
     }
   }
 
