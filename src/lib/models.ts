@@ -87,9 +87,7 @@ export interface UserConfig {
 export interface UserData {
   id: string;
   data: Partial<{
-    templates: {
-      default: string | null;
-    };
+    defaultTemplate: string | null;
     snippets: {
       language: Language;
     };

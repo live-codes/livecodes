@@ -1819,7 +1819,7 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const defaultTemplate = (await getUserData())?.templates?.default;
+    const defaultTemplate = (await getUserData())?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
     );
@@ -1871,13 +1871,8 @@ const handleNew = () => {
         'click',
         async () => {
           if (!stores.templates) return;
-          if ((await getUserData())?.templates?.default === item.id) {
-            await setUserData({
-              templates: {
-                ...(await getUserData())?.templates,
-                default: null,
-              },
-            });
+          if ((await getUserData())?.defaultTemplate === item.id) {
+            await setUserData({ defaultTemplate: null });
           }
           await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
@@ -1902,12 +1897,7 @@ const handleNew = () => {
         'click',
         async (ev) => {
           ev.stopPropagation();
-          await setUserData({
-            templates: {
-              ...(await getUserData())?.templates,
-              default: item.id,
-            },
-          });
+          await setUserData({ defaultTemplate: item.id });
           [...list.children].forEach((li) => {
             li.classList.remove('selected');
           });
@@ -1921,12 +1911,7 @@ const handleNew = () => {
         'click',
         async (ev) => {
           ev.stopPropagation();
-          await setUserData({
-            templates: {
-              ...(await getUserData())?.templates,
-              default: null,
-            },
-          });
+          await setUserData({ defaultTemplate: null });
           link.parentElement?.classList.remove('selected');
         },
         false,
@@ -3063,6 +3048,27 @@ const importExternalContent = async (options: {
   return true;
 };
 
+const loadDefaults = async () => {
+  if (isEmbed) return;
+
+  const defaultTemplateId = (await getUserData())?.defaultTemplate;
+  if (defaultTemplateId) {
+    notifications.info('Loading default template');
+
+    const getDefaultTemplate = async () => {
+      if (!stores.templates) return;
+      if (!defaultTemplateId) return;
+      return stores.templates?.getItem(defaultTemplateId);
+    };
+    const defaultTemplate = (await getDefaultTemplate())?.config;
+
+    if (defaultTemplate) {
+      await loadConfig(defaultTemplate);
+    }
+    return;
+  }
+};
+
 const bootstrap = async (reload = false) => {
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -3147,6 +3153,7 @@ const initializeApp = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();
+      await loadDefaults();
     }
     if (isEmbed) {
       parent.dispatchEvent(new Event(customEvents.ready));
