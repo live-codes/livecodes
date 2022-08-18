@@ -24,7 +24,10 @@ import {
 
 export { deployFile };
 
-const createDeployContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
+const createDeployContainer = (
+  eventsManager: ReturnType<typeof createEventsManager>,
+  repo: string | undefined,
+) => {
   const div = document.createElement('div');
   div.innerHTML = deployScreen;
   const deployContainer = div.firstChild as HTMLElement;
@@ -44,6 +47,16 @@ const createDeployContainer = (eventsManager: ReturnType<typeof createEventsMana
     });
   });
 
+  if (repo) {
+    setTimeout(() => {
+      tabs[1].click();
+      const existingRepoNameInput = getExistingRepoNameInput(deployContainer);
+      const existingRepoMessageInput = getExistingRepoMessageInput(deployContainer);
+      existingRepoNameInput.value = repo;
+      existingRepoMessageInput.focus();
+    });
+  }
+
   return deployContainer;
 };
 
@@ -52,12 +65,14 @@ export const createDeployUI = async ({
   notifications,
   eventsManager,
   user,
+  deployRepo,
   deps,
 }: {
   modal: ReturnType<typeof createModal>;
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
+  deployRepo: string | undefined;
   deps: {
     getResultPage: (_: {
       forExport: boolean;
@@ -68,9 +83,10 @@ export const createDeployUI = async ({
     getConfig: () => Config;
     getContentConfig: (config: Config | ContentConfig) => ContentConfig;
     getLanguageExtension: typeof getLanguageExtensionFn;
+    setProjectDeployRepo: (repo: string) => Promise<void>;
   };
 }) => {
-  const deployContainer = createDeployContainer(eventsManager);
+  const deployContainer = createDeployContainer(eventsManager, deployRepo);
 
   const newRepoForm = getNewRepoForm(deployContainer);
   const newRepoButton = getNewRepoButton(deployContainer);
@@ -124,6 +140,7 @@ export const createDeployUI = async ({
     if (newRepoNameError.innerHTML !== '') {
       return false;
     } else if (deployResult) {
+      await deps.setProjectDeployRepo(repo);
       const confirmationContianer = deployedConfirmation(deployResult, commitSource);
       modal.show(confirmationContianer, { size: 'small', closeButton: true });
       return true;
@@ -184,7 +201,9 @@ export const createDeployUI = async ({
     const publicRepos = await getUserRepos(user);
 
     eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
-      existingRepoNameInput.focus();
+      if (!deployRepo) {
+        existingRepoNameInput.focus();
+      }
     });
 
     const inputSelector = '#' + existingRepoNameInput.id;

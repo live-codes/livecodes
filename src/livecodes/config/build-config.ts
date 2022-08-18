@@ -1,4 +1,4 @@
-import type { EditorId, Language, Config, Tool, ToolsPaneStatus } from '../models';
+import type { EditorId, Language, Config, Tool, ToolsPaneStatus, UrlQueryParams } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { cloneObject, decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
@@ -42,7 +42,7 @@ export const buildConfig = (appConfig: Partial<Config>) => {
   return config;
 };
 
-export const getParams = (queryParams = parent.location.search) => {
+export const getParams = (queryParams = parent.location.search): UrlQueryParams => {
   const params = Object.fromEntries(new URLSearchParams(queryParams) as unknown as Iterable<any>);
   Object.keys(params).forEach((key) => {
     try {
@@ -57,7 +57,7 @@ export const getParams = (queryParams = parent.location.search) => {
   return params;
 };
 
-export const loadParamConfig = (config: Config, params: { [key: string]: string }) => {
+export const loadParamConfig = (config: Config, params: UrlQueryParams) => {
   // ?js
   // ?lang=js
   // ?language=js
@@ -82,13 +82,13 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
   // populate params config from query string params
 
   // ?html=hi&scss&ts
-  Object.keys(params).forEach((key) => {
+  (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((key) => {
     const language = getLanguageByAlias(key);
     if (!language) return;
     const editorId = getLanguageEditorId(language);
     if (editorId && !paramsConfig[editorId]) {
-      const content =
-        typeof params[key] === 'string' ? decodeHTML(decodeURIComponent(params[key])) : '';
+      const value = params[key];
+      const content = typeof value === 'string' ? decodeHTML(decodeURIComponent(value)) : '';
       paramsConfig[editorId] = { language, content };
       if (!paramsConfig.activeEditor) {
         paramsConfig.activeEditor = editorId;
@@ -190,7 +190,7 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
         params[tool] = 'none';
       }
 
-      if (!status && ['open', 'full', 'closed'].includes(params[tool])) {
+      if (!status && ['open', 'full', 'closed'].includes(params[tool]!)) {
         if (paramsConfig.tools.enabled !== 'all' && !paramsConfig.tools.enabled.includes(tool)) {
           paramsConfig.tools.enabled.push(tool);
         }
@@ -210,7 +210,7 @@ export const loadParamConfig = (config: Config, params: { [key: string]: string 
       }
     });
 
-    if (['open', 'full', 'closed'].includes(params.tools)) {
+    if (['open', 'full', 'closed'].includes(params.tools!)) {
       paramsConfig.tools!.status = params.tools as ToolsPaneStatus;
     } else if (['open', 'full', 'closed'].includes(paramToolsStatus)) {
       paramsConfig.tools!.status = paramToolsStatus as ToolsPaneStatus;

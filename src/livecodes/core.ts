@@ -1485,6 +1485,7 @@ const handleSelectEditor = () => {
       'click',
       () => {
         showEditor(title.dataset.editor as EditorId);
+        setUserData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRestore();
       },
       false,
@@ -1500,6 +1501,7 @@ const handleChangeLanguage = () => {
         'mousedown', // fire this event before unhover
         async () => {
           await changeLanguage(menuItem.dataset.lang as Language);
+          setUserData({ language: menuItem.dataset.lang as Language });
         },
         false,
       );
@@ -1819,7 +1821,10 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const userTemplates = (await stores.templates?.getList()) || [];
+    const defaultTemplate = (await getUserData())?.defaultTemplate;
+    const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
+      a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
+    );
 
     if (userTemplates.length === 0) {
       userTemplatesScreen.innerHTML = noUserTemplates;
@@ -1832,13 +1837,17 @@ const handleNew = () => {
     userTemplatesScreen.appendChild(list);
 
     userTemplates.forEach((item) => {
-      const { link, deleteButton } = createOpenItem(
+      const { link, deleteButton, setAsDefaultLink, removeDefaultLink } = createOpenItem(
         item,
         list,
         getLanguageTitle,
         getLanguageByAlias,
         true,
       );
+
+      if (defaultTemplate === item.id) {
+        link.parentElement?.classList.add('selected');
+      }
 
       eventsManager.addEventListener(
         link,
@@ -1864,6 +1873,9 @@ const handleNew = () => {
         'click',
         async () => {
           if (!stores.templates) return;
+          if ((await getUserData())?.defaultTemplate === item.id) {
+            await setUserData({ defaultTemplate: null });
+          }
           await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
@@ -1878,6 +1890,31 @@ const handleNew = () => {
               userTemplatesScreen.appendChild(noDataMessage);
             }
           }, 500);
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        setAsDefaultLink,
+        'click',
+        async (ev) => {
+          ev.stopPropagation();
+          await setUserData({ defaultTemplate: item.id });
+          [...list.children].forEach((li) => {
+            li.classList.remove('selected');
+          });
+          link.parentElement?.classList.add('selected');
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        removeDefaultLink,
+        'click',
+        async (ev) => {
+          ev.stopPropagation();
+          await setUserData({ defaultTemplate: null });
+          link.parentElement?.classList.remove('selected');
         },
         false,
       );
@@ -2163,18 +2200,36 @@ const handleDeploy = () => {
       return;
     }
     modal.show(loadingMessage());
+
+    const getProjectDeployRepo = async () => {
+      if (!projectId) return;
+      return (await getUserData())?.deploys?.[projectId];
+    };
+
+    const setProjectDeployRepo = async (repo: string) => {
+      if (!projectId) return;
+      await setUserData({
+        deploys: {
+          ...(await getUserData())?.deploys,
+          [projectId]: repo,
+        },
+      });
+    };
+
     const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
     deployModule.createDeployUI({
       modal,
       notifications,
       eventsManager,
       user,
+      deployRepo: await getProjectDeployRepo(),
       deps: {
         getResultPage,
         getCache,
         getConfig,
         getContentConfig,
         getLanguageExtension,
+        setProjectDeployRepo,
       },
     });
   };
@@ -3013,6 +3068,34 @@ const importExternalContent = async (options: {
   return true;
 };
 
+const loadDefaults = async () => {
+  if (isEmbed || params['no-defaults']) return;
+
+  const defaultTemplateId = (await getUserData())?.defaultTemplate;
+  if (defaultTemplateId) {
+    notifications.info('Loading default template');
+
+    const getDefaultTemplate = async () => {
+      if (!stores.templates) return;
+      return stores.templates?.getItem(defaultTemplateId);
+    };
+    const defaultTemplate = (await getDefaultTemplate())?.config;
+
+    if (defaultTemplate) {
+      await loadConfig(defaultTemplate);
+    }
+    return;
+  }
+
+  const lastUsedLanguage = (await getUserData())?.language;
+  if (lastUsedLanguage) {
+    changingContent = true;
+    await changeLanguage(lastUsedLanguage);
+    changingContent = false;
+  }
+  setProjectRestore(/* reset = */ true);
+};
+
 const bootstrap = async (reload = false) => {
   if (reload) {
     await updateEditors(editors, getConfig());
@@ -3097,6 +3180,7 @@ const initializeApp = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();
+      await loadDefaults();
     }
     if (isEmbed) {
       parent.dispatchEvent(new Event(customEvents.ready));

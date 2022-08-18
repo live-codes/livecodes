@@ -1,19 +1,7 @@
 import { Frame, Page } from '@playwright/test';
-import { Config, Language, Screen } from '../src/livecodes/models';
+import { UrlQueryParams } from '../src/livecodes/models';
 
-type languageSelector = `${Language}-selector`;
-export type UrlQueryOptions = Partial<
-  Config & { [key in Language]: string } & { [key in languageSelector]: string } & Screen & {
-      template: string;
-      config: string;
-      embed: string;
-      lite: string;
-      x: string;
-      raw: string;
-    }
->;
-
-export const getTestUrl = (config: UrlQueryOptions = { autoupdate: false }) => {
+export const getTestUrl = (config: UrlQueryParams = { autoupdate: false, 'no-defaults': true }) => {
   const query = Object.keys(config).reduce(
     (q, key, index) => q + (index > 0 ? '&' : '') + key + '=' + config[key],
     '',
