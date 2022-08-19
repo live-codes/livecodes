@@ -62,7 +62,7 @@ import {
   testEditorScreen,
   resourcesScreen,
   savePromptScreen,
-  restorePromptScreen,
+  recoverPromptScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -126,10 +126,10 @@ const stores: Stores = {
   templates: undefined,
   assets: undefined,
   snippets: undefined,
+  recover: undefined,
   userConfig: undefined,
-  restore: undefined,
-  sync: undefined,
   userData: undefined,
+  sync: undefined,
 };
 
 const typeLoader = createTypeLoader();
@@ -952,7 +952,7 @@ const loadConfig = async (
   await importExternalContent({
     config: getConfig(),
   });
-  setProjectRestore();
+  setProjectRecover();
 
   if (flush) {
     flushResult();
@@ -1022,10 +1022,10 @@ const setSavedStatus = async () => {
   const projectTitle = UI.getProjectTitleElement();
   if (!isSaved) {
     projectTitle.classList.add('unsaved');
-    setProjectRestore();
+    setProjectRecover();
   } else {
     projectTitle.classList.remove('unsaved');
-    setProjectRestore(true);
+    setProjectRecover(true);
   }
 };
 
@@ -1061,21 +1061,21 @@ const checkSavedAndExecute = (fn: () => void) => async () => {
   checkSavedStatus(true).then(() => setTimeout(fn));
 };
 
-const setProjectRestore = (reset = false) => {
+const setProjectRecover = (reset = false) => {
   if (isEmbed) return;
-  stores.restore?.clear();
-  if (reset || !getConfig().enableRestore) return;
-  stores.restore?.setValue({
+  stores.recover?.clear();
+  if (reset || !getConfig().recoverUnsaved) return;
+  stores.recover?.setValue({
     config: getContentConfig(getConfig()),
     lastModified: Date.now(),
   });
 };
 
-const checkRestoreStatus = () => {
-  if (!getConfig().enableRestore || isEmbed) {
-    return Promise.resolve('restore disabled');
+const checkRecoverStatus = () => {
+  if (!getConfig().recoverUnsaved || isEmbed) {
+    return Promise.resolve('recover disabled');
   }
-  const unsavedItem = stores.restore?.getValue();
+  const unsavedItem = stores.recover?.getValue();
   const unsavedProject = unsavedItem?.config;
   if (!unsavedItem || !unsavedProject) {
     return Promise.resolve('no unsaved project');
@@ -1083,41 +1083,41 @@ const checkRestoreStatus = () => {
   const projectName = unsavedProject.title;
   return new Promise((resolve) => {
     const div = document.createElement('div');
-    div.innerHTML = restorePromptScreen;
+    div.innerHTML = recoverPromptScreen;
     modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
     UI.getModalUnsavedName().innerHTML = projectName;
     UI.getModalUnsavedLastModified().innerHTML = new Date(
       unsavedItem.lastModified,
     ).toLocaleString();
-    const disableRestoreCheckbox = UI.getModalDisableRestoreCheckbox();
+    const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
 
-    const setRestoreConfig = (enableRestore: boolean) => {
-      setUserConfig({ enableRestore });
+    const setRecoverConfig = (recoverUnsaved: boolean) => {
+      setUserConfig({ recoverUnsaved });
       loadSettings(getConfig());
     };
 
-    eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
+    eventsManager.addEventListener(UI.getModalRecoverButton(), 'click', async () => {
       await loadConfig(unsavedProject);
       await setSavedStatus();
-      setRestoreConfig(!disableRestoreCheckbox.checked);
+      setRecoverConfig(!disableRecoverCheckbox.checked);
       modal.close();
-      resolve('restore');
+      resolve('recover');
     });
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
       if (stores.projects) {
         await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
-        setRestoreConfig(!disableRestoreCheckbox.checked);
+        setRecoverConfig(!disableRecoverCheckbox.checked);
       }
       modal.close();
-      setProjectRestore(true);
+      setProjectRecover(true);
       resolve('save and continue');
     });
-    eventsManager.addEventListener(UI.getModalCancelRestoreButton(), 'click', () => {
-      setRestoreConfig(!disableRestoreCheckbox.checked);
+    eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
+      setRecoverConfig(!disableRecoverCheckbox.checked);
       modal.close();
-      setProjectRestore(true);
-      resolve('cancel restore');
+      setProjectRecover(true);
+      resolve('cancel recover');
     });
   });
 };
@@ -1243,7 +1243,7 @@ const setUserData = async (data: UserData['data']) => {
 
 const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => {
   const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
-    (k) => !['restore', 'sync'].includes(k),
+    (k) => !['recover', 'sync'].includes(k),
   );
   const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
 
@@ -1346,8 +1346,8 @@ const loadSettings = (config: Config) => {
   const themeToggle = UI.getThemeToggle();
   themeToggle.checked = config.theme === 'dark';
 
-  const restoreToggle = UI.getRestoreToggle();
-  restoreToggle.checked = config.enableRestore;
+  const recoverToggle = UI.getRecoverToggle();
+  recoverToggle.checked = config.recoverUnsaved;
 
   const spacingToggle = UI.getSpacingToggle();
   spacingToggle.checked = config.showSpacing;
@@ -1486,7 +1486,7 @@ const handleSelectEditor = () => {
       () => {
         showEditor(title.dataset.editor as EditorId);
         setUserData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
-        setProjectRestore();
+        setProjectRecover();
       },
       false,
     );
@@ -1769,11 +1769,11 @@ const handleSettings = () => {
       if (configKey === 'emmet') {
         await configureEmmet(getConfig());
       }
-      if (configKey === 'enableRestore') {
+      if (configKey === 'recoverUnsaved') {
         setUserConfig({
-          enableRestore: toggle.checked,
+          recoverUnsaved: toggle.checked,
         });
-        setProjectRestore();
+        setProjectRecover();
       }
       if (configKey === 'showSpacing') {
         setUserConfig({
@@ -2869,10 +2869,10 @@ const extraHandlers = async () => {
   stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
   stores.assets = await createStorage('__livecodes_assets__', isEmbed);
   stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
+  stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
   stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
-  stores.restore = createSimpleStorage('__livecodes_project_restore__', isEmbed);
-  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
   stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
+  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();
   handleResultPopup();
@@ -3093,7 +3093,7 @@ const loadDefaults = async () => {
     await changeLanguage(lastUsedLanguage);
     changingContent = false;
   }
-  setProjectRestore(/* reset = */ true);
+  setProjectRecover(/* reset = */ true);
 };
 
 const bootstrap = async (reload = false) => {
@@ -3170,7 +3170,7 @@ const initializeApp = async (
   setTheme(getConfig().theme);
   if (!isEmbed) {
     initializeAuth().then(() => showSyncStatus());
-    checkRestoreStatus();
+    checkRecoverStatus();
   }
   importExternalContent({
     config: getConfig(),

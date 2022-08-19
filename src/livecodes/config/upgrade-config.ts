@@ -32,7 +32,10 @@ const upgradeSteps = [
       if (config.languages?.includes('graph')) {
         config.languages = config.languages.map((l) => (l === 'graph' ? 'diagrams' : l));
       }
-
+      if ('enableRestore' in config) {
+        config.recoverUnsaved = config.enableRestore;
+        delete config.enableRestore;
+      }
       return {
         ...config,
         version,
