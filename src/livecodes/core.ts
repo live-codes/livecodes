@@ -119,8 +119,6 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 
-const eventsManager = createEventsManager();
-
 const stores: Stores = {
   projects: undefined,
   templates: undefined,
@@ -131,11 +129,11 @@ const stores: Stores = {
   userData: undefined,
   sync: undefined,
 };
-
-const typeLoader = createTypeLoader();
+const eventsManager = createEventsManager();
 const notifications = createNotifications();
 const modal = createModal();
 const split = createSplitPanes();
+const typeLoader = createTypeLoader();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 
@@ -159,6 +157,7 @@ let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
 let initialized = false;
 let isDestroyed = false;
+let isBroadcasting = false;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -734,6 +733,10 @@ const getResultPage = async ({
     styleOnlyUpdate,
   });
 
+  if (isBroadcasting) {
+    broadcast();
+  }
+
   return result;
 };
 
@@ -1258,6 +1261,7 @@ const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => 
 
   if (action === 'clear') {
     setUserConfig(defaultConfig);
+    isBroadcasting = false;
   }
 
   loadUserConfig();
@@ -1384,6 +1388,45 @@ const loadStarterTemplate = async (templateName: string) => {
     });
   } else {
     notifications.error('Failed loading template');
+  }
+};
+
+const broadcast = async ({
+  serverUrl,
+  channel,
+  broadcastSource,
+}: {
+  serverUrl?: string;
+  channel?: string;
+  broadcastSource?: boolean;
+} = {}): Promise<{ channel: string; url: string } | undefined> => {
+  if (isEmbed) return;
+  const broadcastData = (await getUserData())?.broadcast;
+  if (!serverUrl) {
+    serverUrl = broadcastData?.serverUrl;
+  }
+  if (!serverUrl) return;
+  if (broadcastSource == null) {
+    broadcastSource = broadcastData?.broadcastSource || false;
+  }
+  if (channel == null) {
+    channel = broadcastData?.channel;
+  }
+  const code = getCachedCode();
+  const data = !broadcastSource ? { result: code.result } : code;
+  try {
+    const res = await fetch(serverUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...data,
+        ...(channel ? { channel } : {}),
+      }),
+    });
+    if (!res.ok) return;
+    return res.json();
+  } catch {
+    return;
   }
 };
 
@@ -2363,6 +2406,37 @@ const handleBackup = () => {
   registerScreen('backup', createBackupUI);
 };
 
+const handleBroadcast = () => {
+  if (isEmbed) return;
+
+  const createBroadcastUI = async () => {
+    modal.show(loadingMessage());
+
+    const syncUIModule: typeof import('./UI/broadcast') = await import(
+      baseUrl + '{{hash:broadcast.js}}'
+    );
+    syncUIModule.createBroadcastUI({
+      modal,
+      notifications,
+      eventsManager,
+      deps: {
+        getBroadcastData: async () => (await getUserData())?.broadcast || null,
+        setBroadcastData: async (broadcastData: UserData['data']['broadcast']) => {
+          await setUserData({ broadcast: broadcastData });
+        },
+        getBroadcastStatus: () => isBroadcasting,
+        setBroadcastStatus: (status: boolean) => {
+          isBroadcasting = status;
+        },
+        broadcast,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getBroadcastLink(), 'click', createBroadcastUI, false);
+  registerScreen('sync', createBroadcastUI);
+};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -2898,8 +2972,9 @@ const extraHandlers = async () => {
   handleSync();
   handleAutosync();
   handlePersistantStorage();
-  handleBackup();
   handleExternalResources();
+  handleBackup();
+  handleBroadcast();
   handleUnload();
 };
 

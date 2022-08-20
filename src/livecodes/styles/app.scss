@@ -1944,14 +1944,6 @@ i.arrow {
     }
   }
 
-  #sync-container {
-    #sync-status {
-      margin-bottom: 1em;
-      margin-top: -1.5em;
-      text-align: right;
-    }
-  }
-
   #backup-container {
     #backup-stores {
       display: flex;
@@ -1977,6 +1969,16 @@ i.arrow {
       span {
         white-space: nowrap;
       }
+    }
+  }
+
+  #broadcast-container {
+    #broadcast-channel-url-section {
+      display: none;
+    }
+
+    #broadcast-channel-url {
+      overflow-wrap: break-word;
     }
   }
 
@@ -2134,6 +2136,13 @@ i.arrow {
     min-width: calc(100% - 40px);
     padding: 10px;
     text-align: left;
+  }
+
+  .modal-status {
+    height: 1em;
+    margin-bottom: 1em;
+    margin-top: -1.5em;
+    text-align: right;
   }
 
   > #list-container > .modal-message {

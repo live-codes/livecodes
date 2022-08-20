@@ -20,6 +20,8 @@ import syncScreen from './sync.html';
 // @ts-ignore
 import backupScreen from './backup.html';
 // @ts-ignore
+import broadcastScreen from './broadcast.html';
+// @ts-ignore
 import infoScreen from './project-info.html';
 // @ts-ignore
 import resourcesScreen from './external-resources.html';
@@ -57,6 +59,7 @@ export {
   deployScreen,
   syncScreen,
   backupScreen,
+  broadcastScreen,
   infoScreen,
   resourcesScreen,
   loginScreen,

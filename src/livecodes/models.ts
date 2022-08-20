@@ -100,6 +100,12 @@ export interface UserData {
     deploys: {
       [key: string]: string; // projectId => repoName
     };
+    broadcast: {
+      serverUrl: string;
+      channel: string;
+      channelUrl: string;
+      broadcastSource: boolean;
+    };
   }>;
 }
 
