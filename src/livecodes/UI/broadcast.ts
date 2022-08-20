@@ -1,7 +1,7 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
-import type { Code, UserData } from '../models';
+import type { UserData } from '../models';
 import { broadcastScreen } from '../html';
 import {
   getBroadcastBtn,
