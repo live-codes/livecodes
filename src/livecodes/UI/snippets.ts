@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { Snippet, CodeEditor, EditorOptions, Screen, Language, UserData } from '../models';
+import type { Snippet, CodeEditor, EditorOptions, Screen, Language, AppData } from '../models';
 import type { createNotifications } from '../notifications';
 import { generateId, Storage } from '../storage';
 import { addSnippetScreen, snippetsScreen } from '../html';
@@ -467,8 +467,8 @@ export const createAddSnippetContainer = async ({
   notifications: ReturnType<typeof createNotifications>;
   deps: {
     createEditorFn: (options: Partial<EditorOptions>) => Promise<CodeEditor>;
-    getUserData: () => Promise<UserData['data'] | null>;
-    setUserData: (data: UserData['data']) => Promise<string | null>;
+    getAppData: () => AppData | null;
+    setAppData: (data: AppData) => void;
   };
 }) => {
   const div = document.createElement('div');
@@ -488,7 +488,7 @@ export const createAddSnippetContainer = async ({
   }
 
   const selectedLanguage =
-    loadedSnippet?.language || (await deps.getUserData())?.snippets?.language || 'javascript';
+    loadedSnippet?.language || deps.getAppData()?.snippets?.language || 'javascript';
 
   [...languages, textLanguage]
     .filter(
@@ -539,7 +539,7 @@ export const createAddSnippetContainer = async ({
     };
 
     await snippetsStorage.updateItem(snippet.id, snippet);
-    await deps.setUserData({ snippets: { language: snippet.language } });
+    deps.setAppData({ snippets: { language: snippet.language } });
 
     notifications.success('Snippet locally saved to device!');
     showScreen('snippets');

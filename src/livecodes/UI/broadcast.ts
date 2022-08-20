@@ -1,7 +1,7 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
-import type { UserData } from '../models';
+import type { AppData } from '../models';
 import { broadcastScreen } from '../html';
 import {
   getBroadcastBtn,
@@ -23,8 +23,8 @@ export const createBroadcastUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   deps: {
-    getBroadcastData: () => Promise<UserData['data']['broadcast'] | null>;
-    setBroadcastData: (broadcastData: UserData['data']['broadcast']) => Promise<void>;
+    getBroadcastData: () => AppData['broadcast'] | null;
+    setBroadcastData: (broadcastData: AppData['broadcast']) => void;
     getBroadcastStatus: () => boolean;
     setBroadcastStatus: (status: boolean) => void;
     broadcast: ({

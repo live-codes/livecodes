@@ -87,11 +87,6 @@ export interface UserConfig {
 export interface UserData {
   id: string;
   data: Partial<{
-    defaultTemplate: string | null;
-    language: Language;
-    snippets: {
-      language: Language;
-    };
     sync: {
       autosync: boolean;
       repo: string;
@@ -100,13 +95,21 @@ export interface UserData {
     deploys: {
       [key: string]: string; // projectId => repoName
     };
-    broadcast: {
-      serverUrl: string;
-      channel: string;
-      channelUrl: string;
-      broadcastSource: boolean;
-    };
   }>;
+}
+
+export interface AppData {
+  defaultTemplate?: string | null;
+  language?: Language;
+  snippets?: {
+    language: Language;
+  };
+  broadcast?: {
+    serverUrl: string;
+    channel: string;
+    channelUrl: string;
+    broadcastSource: boolean;
+  };
 }
 
 export type Language =

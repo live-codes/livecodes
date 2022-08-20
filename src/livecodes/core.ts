@@ -50,6 +50,7 @@ import type {
   TestResult,
   ToolsPane,
   UserData,
+  AppData,
 } from './models';
 import type { GitHubFile } from './services/github';
 import { getFormatter } from './formatter';
@@ -127,6 +128,7 @@ const stores: Stores = {
   recover: undefined,
   userConfig: undefined,
   userData: undefined,
+  appData: undefined,
   sync: undefined,
 };
 const eventsManager = createEventsManager();
@@ -756,7 +758,11 @@ const flushResult = () => {
 
   setLoading(true);
 
-  iframe.contentWindow.postMessage({ flush: true }, sandboxService.getOrigin());
+  try {
+    iframe.contentWindow.postMessage({ flush: true }, sandboxService.getOrigin());
+  } catch {
+    //
+  }
 
   const compiledLanguages = {
     markup: getLanguageCompiler(getConfig().markup.language)?.compiledCodeLanguage || 'html',
@@ -1244,6 +1250,15 @@ const setUserData = async (data: UserData['data']) => {
   return key;
 };
 
+const getAppData = () => stores.appData?.getValue() || null;
+
+const setAppData = (data: AppData) => {
+  stores.appData?.setValue({
+    ...stores.appData.getValue(),
+    ...data,
+  });
+};
+
 const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => {
   const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
     (k) => !['recover', 'sync'].includes(k),
@@ -1401,7 +1416,7 @@ const broadcast = async ({
   broadcastSource?: boolean;
 } = {}): Promise<{ channel: string; url: string } | undefined> => {
   if (isEmbed) return;
-  const broadcastData = (await getUserData())?.broadcast;
+  const broadcastData = getAppData()?.broadcast;
   if (!serverUrl) {
     serverUrl = broadcastData?.serverUrl;
   }
@@ -1541,7 +1556,7 @@ const handleSelectEditor = () => {
       'click',
       () => {
         showEditor(title.dataset.editor as EditorId);
-        setUserData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
+        setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRecover();
       },
       false,
@@ -1557,7 +1572,7 @@ const handleChangeLanguage = () => {
         'mousedown', // fire this event before unhover
         async () => {
           await changeLanguage(menuItem.dataset.lang as Language);
-          setUserData({ language: menuItem.dataset.lang as Language });
+          setAppData({ language: menuItem.dataset.lang as Language });
         },
         false,
       );
@@ -1877,7 +1892,7 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const defaultTemplate = (await getUserData())?.defaultTemplate;
+    const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
     );
@@ -1929,8 +1944,8 @@ const handleNew = () => {
         'click',
         async () => {
           if (!stores.templates) return;
-          if ((await getUserData())?.defaultTemplate === item.id) {
-            await setUserData({ defaultTemplate: null });
+          if (getAppData()?.defaultTemplate === item.id) {
+            setAppData({ defaultTemplate: null });
           }
           await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
@@ -1953,9 +1968,9 @@ const handleNew = () => {
       eventsManager.addEventListener(
         setAsDefaultLink,
         'click',
-        async (ev) => {
+        (ev) => {
           ev.stopPropagation();
-          await setUserData({ defaultTemplate: item.id });
+          setAppData({ defaultTemplate: item.id });
           [...list.children].forEach((li) => {
             li.classList.remove('selected');
           });
@@ -1967,9 +1982,9 @@ const handleNew = () => {
       eventsManager.addEventListener(
         removeDefaultLink,
         'click',
-        async (ev) => {
+        (ev) => {
           ev.stopPropagation();
-          await setUserData({ defaultTemplate: null });
+          setAppData({ defaultTemplate: null });
           link.parentElement?.classList.remove('selected');
         },
         false,
@@ -2433,9 +2448,9 @@ const handleBroadcast = () => {
       notifications,
       eventsManager,
       deps: {
-        getBroadcastData: async () => (await getUserData())?.broadcast || null,
-        setBroadcastData: async (broadcastData: UserData['data']['broadcast']) => {
-          await setUserData({ broadcast: broadcastData });
+        getBroadcastData: () => getAppData()?.broadcast || null,
+        setBroadcastData: (broadcastData: AppData['broadcast']) => {
+          setAppData({ broadcast: broadcastData });
         },
         getBroadcastStatus: () => isBroadcasting,
         setBroadcastStatus,
@@ -2605,8 +2620,8 @@ const handleSnippets = () => {
       showScreen,
       deps: {
         createEditorFn,
-        getUserData,
-        setUserData,
+        getAppData,
+        setAppData,
       },
     });
 
@@ -2973,6 +2988,7 @@ const extraHandlers = async () => {
   stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
   stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
   stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
+  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
   stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();
@@ -3174,11 +3190,11 @@ const importExternalContent = async (options: {
 const loadDefaults = async () => {
   if (isEmbed || params['no-defaults']) return;
 
-  const defaultTemplateId = (await getUserData())?.defaultTemplate;
+  const defaultTemplateId = getAppData()?.defaultTemplate;
   if (defaultTemplateId) {
     notifications.info('Loading default template');
 
-    const getDefaultTemplate = async () => {
+    const getDefaultTemplate = () => {
       if (!stores.templates) return;
       return stores.templates?.getItem(defaultTemplateId);
     };
@@ -3190,7 +3206,7 @@ const loadDefaults = async () => {
     return;
   }
 
-  const lastUsedLanguage = (await getUserData())?.language;
+  const lastUsedLanguage = getAppData()?.language;
   if (lastUsedLanguage) {
     changingContent = true;
     await changeLanguage(lastUsedLanguage);
