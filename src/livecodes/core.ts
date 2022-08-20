@@ -1430,6 +1430,19 @@ const broadcast = async ({
   }
 };
 
+const setBroadcastStatus = (status: boolean) => {
+  isBroadcasting = status;
+
+  const broadcastStatusBtn = UI.getBroadcastStatusBtn();
+  if (isBroadcasting) {
+    broadcastStatusBtn.firstElementChild?.classList.add('active');
+    broadcastStatusBtn.dataset.hint = 'Broadcasting...';
+  } else {
+    broadcastStatusBtn.firstElementChild?.classList.remove('active');
+    broadcastStatusBtn.dataset.hint = 'Broadcast';
+  }
+};
+
 const showVersion = () => {
   if (getConfig().showVersion) {
     // variables added in scripts/build.js
@@ -2425,16 +2438,14 @@ const handleBroadcast = () => {
           await setUserData({ broadcast: broadcastData });
         },
         getBroadcastStatus: () => isBroadcasting,
-        setBroadcastStatus: (status: boolean) => {
-          isBroadcasting = status;
-        },
+        setBroadcastStatus,
         broadcast,
       },
     });
   };
 
   eventsManager.addEventListener(UI.getBroadcastLink(), 'click', createBroadcastUI, false);
-  registerScreen('sync', createBroadcastUI);
+  registerScreen('broadcast', createBroadcastUI);
 };
 
 const handleProjectInfo = () => {
@@ -2903,6 +2914,22 @@ const handleResultPopup = () => {
   UI.getToolspaneTitles()?.appendChild(popupBtn);
 };
 
+const handleBroadcastStatus = () => {
+  const broadcastStatusBtn = document.createElement('div');
+  broadcastStatusBtn.id = 'broadcast-status-btn';
+  broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
+  broadcastStatusBtn.dataset.hint = 'Broadcast';
+  broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+  const imgUrl = baseUrl + 'assets/images/broadcast.svg';
+  broadcastStatusBtn.innerHTML = `<span id="broadcast-status"><img src="${imgUrl}" /></span>`;
+  const showBroadcast = () => {
+    showScreen('broadcast');
+  };
+  eventsManager.addEventListener(broadcastStatusBtn, 'click', showBroadcast);
+  eventsManager.addEventListener(broadcastStatusBtn, 'touchstart', showBroadcast);
+  UI.getToolspaneTitles()?.appendChild(broadcastStatusBtn);
+};
+
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
@@ -2950,6 +2977,7 @@ const extraHandlers = async () => {
 
   handleTitleEdit();
   handleResultPopup();
+  handleBroadcastStatus();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();

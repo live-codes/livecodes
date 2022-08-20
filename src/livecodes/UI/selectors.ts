@@ -370,3 +370,6 @@ export const getBroadcastChannelUrlSection = (broadcastContainer: HTMLElement) =
 
 export const getBroadcastChannelUrl = (broadcastContainer: HTMLElement) =>
   broadcastContainer.querySelector('#broadcast-channel-url') as HTMLAnchorElement;
+
+export const getBroadcastStatusBtn = () =>
+  document.querySelector('#broadcast-status-btn') as HTMLElement;

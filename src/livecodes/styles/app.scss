@@ -466,6 +466,7 @@ a {
     cursor: pointer;
     display: inline-block;
     font-size: 12px;
+    margin-right: 2px;
     text-align: center;
     width: 30px;
 
@@ -481,6 +482,10 @@ a {
       &:active {
         filter: invert(0.9);
       }
+    }
+
+    &.active img {
+      filter: invert(1);
     }
 
     &.disabled img {

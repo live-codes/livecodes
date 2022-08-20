@@ -607,6 +607,7 @@ export interface Screen {
     | 'deploy'
     | 'sync'
     | 'backup'
+    | 'broadcast'
     | 'custom-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
