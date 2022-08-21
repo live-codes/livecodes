@@ -758,11 +758,7 @@ const flushResult = () => {
 
   setLoading(true);
 
-  try {
-    iframe.contentWindow.postMessage({ flush: true }, sandboxService.getOrigin());
-  } catch {
-    //
-  }
+  iframe.contentWindow.postMessage({ flush: true }, '*');
 
   const compiledLanguages = {
     markup: getLanguageCompiler(getConfig().markup.language)?.compiledCodeLanguage || 'html',
