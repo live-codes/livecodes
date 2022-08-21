@@ -106,9 +106,6 @@ export interface AppData {
   };
   broadcast?: {
     serverUrl: string;
-    channel: string;
-    channelUrl: string;
-    broadcastSource: boolean;
   };
 }
 

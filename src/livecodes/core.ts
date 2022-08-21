@@ -53,6 +53,12 @@ import type {
   AppData,
 } from './models';
 import type { GitHubFile } from './services/github';
+import type {
+  BroadcastData,
+  BroadcastInfo,
+  BroadcastResponseData,
+  BroadcastResponseError,
+} from './UI/broadcast';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -159,7 +165,13 @@ let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
 let initialized = false;
 let isDestroyed = false;
-let isBroadcasting = false;
+const broadcastInfo: BroadcastInfo = {
+  isBroadcasting: false,
+  channel: '',
+  channelUrl: '',
+  channelToken: '',
+  broadcastSource: false,
+};
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -735,7 +747,7 @@ const getResultPage = async ({
     styleOnlyUpdate,
   });
 
-  if (isBroadcasting) {
+  if (broadcastInfo.isBroadcasting) {
     broadcast();
   }
 
@@ -1272,7 +1284,11 @@ const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => 
 
   if (action === 'clear') {
     setUserConfig(defaultConfig);
-    isBroadcasting = false;
+    broadcastInfo.isBroadcasting = false;
+    broadcastInfo.channel = '';
+    broadcastInfo.channelUrl = '';
+    broadcastInfo.channelToken = '';
+    broadcastInfo.broadcastSource = false;
   }
 
   loadUserConfig();
@@ -1405,12 +1421,11 @@ const loadStarterTemplate = async (templateName: string) => {
 const broadcast = async ({
   serverUrl,
   channel,
+  channelToken,
   broadcastSource,
-}: {
-  serverUrl?: string;
-  channel?: string;
-  broadcastSource?: boolean;
-} = {}): Promise<{ channel: string; url: string } | undefined> => {
+}: Partial<BroadcastData> = {}): Promise<
+  BroadcastResponseData | BroadcastResponseError | undefined
+> => {
   if (isEmbed) return;
   const broadcastData = getAppData()?.broadcast;
   if (!serverUrl) {
@@ -1418,10 +1433,13 @@ const broadcast = async ({
   }
   if (!serverUrl) return;
   if (broadcastSource == null) {
-    broadcastSource = broadcastData?.broadcastSource || false;
+    broadcastSource = broadcastInfo.broadcastSource;
   }
   if (channel == null) {
-    channel = broadcastData?.channel;
+    channel = broadcastInfo.channel;
+  }
+  if (channelToken == null) {
+    channelToken = broadcastInfo.channelToken;
   }
   const code = getCachedCode();
   const data = !broadcastSource ? { result: code.result } : code;
@@ -1432,6 +1450,7 @@ const broadcast = async ({
       body: JSON.stringify({
         ...data,
         ...(channel ? { channel } : {}),
+        ...(channelToken ? { channelToken } : {}),
       }),
     });
     if (!res.ok) return;
@@ -1441,11 +1460,15 @@ const broadcast = async ({
   }
 };
 
-const setBroadcastStatus = (status: boolean) => {
-  isBroadcasting = status;
+const setBroadcastStatus = (info: typeof broadcastInfo) => {
+  broadcastInfo.isBroadcasting = info.isBroadcasting;
+  broadcastInfo.channel = info.channel;
+  broadcastInfo.channelUrl = info.channelUrl;
+  broadcastInfo.channelToken = info.channelToken;
+  broadcastInfo.broadcastSource = info.broadcastSource;
 
   const broadcastStatusBtn = UI.getBroadcastStatusBtn();
-  if (isBroadcasting) {
+  if (info.isBroadcasting) {
     broadcastStatusBtn.firstElementChild?.classList.add('active');
     broadcastStatusBtn.dataset.hint = 'Broadcasting...';
   } else {
@@ -2444,12 +2467,14 @@ const handleBroadcast = () => {
       notifications,
       eventsManager,
       deps: {
-        getBroadcastData: () => getAppData()?.broadcast || null,
-        setBroadcastData: (broadcastData: AppData['broadcast']) => {
-          setAppData({ broadcast: broadcastData });
+        getBroadcastData: () => ({
+          ...broadcastInfo,
+          serverUrl: getAppData()?.broadcast?.serverUrl || '',
+        }),
+        setBroadcastData: (broadcastData) => {
+          setBroadcastStatus(broadcastData);
+          setAppData({ broadcast: { serverUrl: broadcastData.serverUrl } });
         },
-        getBroadcastStatus: () => isBroadcasting,
-        setBroadcastStatus,
         broadcast,
       },
     });

@@ -15,6 +15,23 @@ import {
   getBroadcastStatusLabel,
 } from './selectors';
 
+export interface BroadcastInfo {
+  isBroadcasting: boolean;
+  channel: string;
+  channelUrl: string;
+  channelToken: string;
+  broadcastSource: boolean;
+}
+export type BroadcastData = BroadcastInfo & AppData['broadcast'];
+export interface BroadcastResponseData {
+  channel: string;
+  channelUrl: string;
+  channelToken?: string;
+}
+export interface BroadcastResponseError {
+  error: string;
+}
+
 export const createBroadcastUI = async ({
   modal,
   notifications,
@@ -25,25 +42,11 @@ export const createBroadcastUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   deps: {
-    getBroadcastData: () => AppData['broadcast'] | null;
-    setBroadcastData: (broadcastData: AppData['broadcast']) => void;
-    getBroadcastStatus: () => boolean;
-    setBroadcastStatus: (status: boolean) => void;
-    broadcast: ({
-      serverUrl,
-      channel,
-      broadcastSource,
-    }: {
-      serverUrl?: string | undefined;
-      channel?: string | undefined;
-      broadcastSource?: boolean | undefined;
-    }) => Promise<
-      | {
-          channel: string;
-          url: string;
-        }
-      | undefined
-    >;
+    getBroadcastData: () => BroadcastData | null;
+    setBroadcastData: (broadcastData: BroadcastData) => void;
+    broadcast: (
+      broadcastData: Partial<BroadcastData>,
+    ) => Promise<BroadcastResponseData | BroadcastResponseError | undefined>;
   };
 }) => {
   const div = document.createElement('div');
@@ -63,12 +66,14 @@ export const createBroadcastUI = async ({
 
   const updateBroadcastUI = () => {
     broadcastBtn.disabled = false;
+    broadcastData = deps.getBroadcastData();
 
-    if (deps.getBroadcastStatus()) {
+    if (broadcastData?.isBroadcasting) {
       broadcastStatusLabel.innerText = 'Broadcasting...';
       broadcastServerUrlInput.disabled = true;
       broadcastSourceCheckbox.disabled = true;
       broadcastBtn.innerText = 'Stop broadcast';
+      broadcastSourceCheckbox.checked = broadcastData?.broadcastSource === true;
       if (broadcastData?.channelUrl) {
         broadcastChannelUrlSection.style.display = 'unset';
         broadcastChannelUrl.innerText = broadcastData.channelUrl;
@@ -90,8 +95,17 @@ export const createBroadcastUI = async ({
   eventsManager.addEventListener(broadcastForm, 'submit', async (ev) => {
     ev.preventDefault();
 
-    if (deps.getBroadcastStatus()) {
-      deps.setBroadcastStatus(false);
+    broadcastData = deps.getBroadcastData();
+
+    if (broadcastData?.isBroadcasting) {
+      deps.setBroadcastData({
+        isBroadcasting: false,
+        channel: '',
+        channelUrl: '',
+        channelToken: '',
+        broadcastSource: false,
+        serverUrl: broadcastData?.serverUrl || broadcastServerUrlInput.value,
+      });
       updateBroadcastUI();
       return;
     }
@@ -108,22 +122,24 @@ export const createBroadcastUI = async ({
     const result = await deps.broadcast({
       serverUrl,
       channel: '', // do not use saved
+      channelToken: '', // do not use saved
       broadcastSource: broadcastSourceCheckbox.checked,
     });
-    if (!result) {
+    if (!result || 'error' in result) {
       notifications.error('Broadcast failed!');
       updateBroadcastUI();
       return;
     }
-    deps.setBroadcastStatus(true);
-    broadcastData = {
+
+    deps.setBroadcastData({
+      isBroadcasting: true,
       serverUrl,
       channel: result.channel,
-      channelUrl: result.url,
+      channelUrl: result.channelUrl,
+      channelToken: result.channelToken || '',
       broadcastSource: broadcastSourceCheckbox.checked,
-    };
+    });
     updateBroadcastUI();
-    deps.setBroadcastData(broadcastData);
     notifications.success('Broadcasting...');
   });
 };
