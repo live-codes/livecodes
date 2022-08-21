@@ -1,8 +1,10 @@
+/* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { AppData } from '../models';
 import { broadcastScreen } from '../html';
+import { broadcastService } from '../services/broadcast';
 import {
   getBroadcastBtn,
   getBroadcastChannelUrl,
@@ -57,7 +59,7 @@ export const createBroadcastUI = async ({
   const broadcastChannelUrlSection = getBroadcastChannelUrlSection(broadcastContainer);
   const broadcastChannelUrl = getBroadcastChannelUrl(broadcastContainer);
 
-  let broadcastData = await deps.getBroadcastData();
+  let broadcastData = deps.getBroadcastData();
 
   const updateBroadcastUI = () => {
     broadcastBtn.disabled = false;
@@ -79,9 +81,9 @@ export const createBroadcastUI = async ({
       broadcastBtn.innerText = 'Broadcast';
       broadcastChannelUrlSection.style.display = 'none';
     }
-    if (broadcastData?.serverUrl) {
-      broadcastServerUrlInput.value = broadcastData.serverUrl;
-    }
+
+    broadcastServerUrlInput.value =
+      broadcastServerUrlInput.value.trim() || broadcastData?.serverUrl || broadcastService.getUrl();
   };
   updateBroadcastUI();
 
@@ -121,7 +123,7 @@ export const createBroadcastUI = async ({
       broadcastSource: broadcastSourceCheckbox.checked,
     };
     updateBroadcastUI();
-    await deps.setBroadcastData(broadcastData);
+    deps.setBroadcastData(broadcastData);
     notifications.success('Broadcasting...');
   });
 };
