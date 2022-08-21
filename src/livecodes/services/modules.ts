@@ -15,7 +15,7 @@ export const modulesService = {
       : 'https://cdn.jsdelivr.net/npm/' + moduleName;
   },
 
-  getModuleInfoUrl: (moduleName: string) => `https://api.npms.io/v2/search?q=${moduleName}&size=30`,
+  getModuleInfoUrl: (moduleName: string) => `https://api.npms.io/v2/search?q=${moduleName}&size=1`,
 };
 
 // based on https://github.com/neoascetic/rawgithack/blob/master/web/rawgithack.js

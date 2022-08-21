@@ -463,25 +463,39 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
           if (result?.results.length <= 0) return;
 
-          const { name, description, version, date, publisher, links } =
-            result?.results?.[0]?.package ?? {};
-          const author = publisher?.username;
-          const pubDate = new Date(date).toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          });
+          // const { name, description, version, date, publisher, links } =
+          //   result?.results?.[0]?.package ?? {};
+          // const author = publisher?.username;
+          // const pubDate = new Date(date).toLocaleDateString(undefined, {
+          //   year: 'numeric',
+          //   month: 'long',
+          //   day: 'numeric',
+          // });
+
+          // return {
+          //   contents: [
+          //     {
+          //       value: `## [${name}](${
+          //         links?.npm
+          //       }) v${version}\n${description}\n\n\nPublished on ${pubDate} ${
+          //         author ? `by [@${author}](https://www.npmjs.com/~${author})` : ''
+          //       }\n\n${
+          //         links?.repository ? `[GitHub](${links?.repository})  |` : ''
+          //       }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
+          //         '/livecodes/',
+          //         '',
+          //       )}/web/docs/features/npm-modules)`,
+          //     },
+          //   ],
+          // };
+          const { name, description, links } = result?.results?.[0]?.package ?? {};
 
           return {
             contents: [
               {
-                value: `## [${name}](${
-                  links?.npm
-                }) v${version}\n${description}\n\n\nPublished on ${pubDate} ${
-                  author ? `by [@${author}](https://www.npmjs.com/~${author})` : ''
-                }\n\n${
+                value: `## [${name}](${links?.npm})\n${description}\n\n\n${
                   links?.repository ? `[GitHub](${links?.repository})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\n[Importing modules](${baseUrl.replace(
+                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
                   '/livecodes/',
                   '',
                 )}/web/docs/features/npm-modules)`,
