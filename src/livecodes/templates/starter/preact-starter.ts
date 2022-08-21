@@ -23,7 +23,7 @@ export const preactStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'javascript',
+    language: 'jsx',
     content: `
 /** @jsx h */
 import { h, render } from 'preact@v10.10.1';
