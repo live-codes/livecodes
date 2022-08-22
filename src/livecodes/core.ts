@@ -70,6 +70,7 @@ import {
   resourcesScreen,
   savePromptScreen,
   recoverPromptScreen,
+  resultPopupHTML,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -172,6 +173,7 @@ const broadcastInfo: BroadcastInfo = {
   channelToken: '',
   broadcastSource: false,
 };
+let resultPopup: Window | null = null;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -747,8 +749,13 @@ const getResultPage = async ({
     styleOnlyUpdate,
   });
 
-  if (broadcastInfo.isBroadcasting) {
-    broadcast();
+  if (singleFile) {
+    if (broadcastInfo.isBroadcasting) {
+      broadcast();
+    }
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup?.postMessage({ result }, location.origin);
+    }
   }
 
   return result;
@@ -2935,14 +2942,27 @@ const handleResultPopup = () => {
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/new-window.svg';
   popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  let url: string | undefined;
   const openWindow = async () => {
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup.focus();
+      return;
+    }
     popupBtn.classList.add('loading');
-    const html = await getResultPage({ forExport: true, singleFile: true });
-    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const result = await getResultPage({ forExport: true, singleFile: true });
+    url = url || URL.createObjectURL(new Blob([resultPopupHTML], { type: 'text/html' }));
     // add a notice to URL that it is a temporary URL to prevent users from sharing it.
     // revoking the URL after opening the window prevents viewing the page source.
     const notice = '#---TEMPORARY-URL---';
-    window.open(url + notice, 'result-popup', `width=800,height=400,noopener,noreferrer`);
+    resultPopup = window.open(url + notice, 'livecodes-result', `width=800,height=400`);
+    eventsManager.addEventListener(
+      resultPopup,
+      'load',
+      () => {
+        resultPopup?.postMessage({ result }, location.origin);
+      },
+      { once: true },
+    );
     popupBtn.classList.remove('loading');
   };
   eventsManager.addEventListener(popupBtn, 'click', openWindow);

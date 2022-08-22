@@ -47,6 +47,8 @@ import addSnippetScreen from './add-snippet.html';
 import shareScreen from './share.html';
 // @ts-ignore
 import embedScreen from './embed.html';
+// @ts-ignore
+import resultPopupHTML from './result-popup.html';
 
 export {
   resultTemplate,
@@ -73,4 +75,5 @@ export {
   addSnippetScreen,
   shareScreen,
   embedScreen,
+  resultPopupHTML,
 };
