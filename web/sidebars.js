@@ -52,6 +52,7 @@ const sidebars = {
             'features/snippets',
             'features/deploy',
             'features/sync',
+            'features/broadcast',
             'features/backup-restore',
             'features/security',
           ],

@@ -1477,6 +1477,7 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   broadcastInfo.broadcastSource = info.broadcastSource;
 
   const broadcastStatusBtn = UI.getBroadcastStatusBtn();
+  if (!broadcastStatusBtn) return;
   if (info.isBroadcasting) {
     broadcastStatusBtn.firstElementChild?.classList.add('active');
     broadcastStatusBtn.dataset.hint = 'Broadcasting...';
@@ -3040,8 +3041,6 @@ const extraHandlers = async () => {
   stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();
-  handleResultPopup();
-  handleBroadcastStatus();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();
@@ -3067,6 +3066,8 @@ const extraHandlers = async () => {
   handleExternalResources();
   handleBackup();
   handleBroadcast();
+  handleResultPopup();
+  handleBroadcastStatus();
   handleUnload();
 };
 
