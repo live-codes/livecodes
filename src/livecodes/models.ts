@@ -11,10 +11,12 @@ export interface API {
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };
+  exec: (command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>;
   destroy: () => Promise<void>;
 }
 
 export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
+export type APICommands = 'setBroadcastToken';
 
 export interface Playground extends API {
   load: () => Promise<void>;
@@ -106,6 +108,7 @@ export interface AppData {
   };
   broadcast?: {
     serverUrl: string;
+    userToken?: string;
   };
 }
 

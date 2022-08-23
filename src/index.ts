@@ -109,7 +109,7 @@ setTimeout(resize, 500);
 
 window.addEventListener(customEvents.appLoaded, (e: CustomEventInit) => {
   animatingLogo.remove();
-  (window as any).api = e.detail;
+  (window as any).livecodes = e.detail;
 });
 
 window.addEventListener(customEvents.ready, () => {

@@ -1448,6 +1448,7 @@ const broadcast = async ({
   if (channelToken == null) {
     channelToken = broadcastInfo.channelToken;
   }
+  const userToken = broadcastData?.userToken;
   const code = getCachedCode();
   const data = !broadcastSource ? { result: code.result } : code;
   try {
@@ -1458,6 +1459,7 @@ const broadcast = async ({
         ...data,
         ...(channel ? { channel } : {}),
         ...(channelToken ? { channelToken } : {}),
+        ...(userToken ? { userToken } : {}),
       }),
     });
     if (!res.ok) return;
@@ -1467,7 +1469,7 @@ const broadcast = async ({
   }
 };
 
-const setBroadcastStatus = (info: typeof broadcastInfo) => {
+const setBroadcastStatus = (info: BroadcastInfo) => {
   broadcastInfo.isBroadcasting = info.isBroadcasting;
   broadcastInfo.channel = info.channel;
   broadcastInfo.channelUrl = info.channelUrl;
@@ -2480,7 +2482,12 @@ const handleBroadcast = () => {
         }),
         setBroadcastData: (broadcastData) => {
           setBroadcastStatus(broadcastData);
-          setAppData({ broadcast: { serverUrl: broadcastData.serverUrl } });
+          setAppData({
+            broadcast: {
+              ...getAppData()?.broadcast,
+              serverUrl: broadcastData.serverUrl,
+            },
+          });
         },
         broadcast,
       },
@@ -3427,6 +3434,24 @@ const createApi = (): API => {
     };
   };
 
+  const apiExec: API['exec'] = async (command: string, ...args: any[]) => {
+    if (command === 'setBroadcastToken') {
+      if (isEmbed) return { error: 'Command unavailable for embeds' };
+      const broadcastData = getAppData()?.broadcast;
+      if (!broadcastData) return { error: 'Command unavailable' };
+      const token = args[0];
+      if (typeof token !== 'string') return { error: 'Invalid token!' };
+      setAppData({
+        broadcast: {
+          ...broadcastData,
+          userToken: token,
+        },
+      });
+      return { output: 'Broadcast user token set successfully' };
+    }
+    return { error: 'Invalid command!' };
+  };
+
   const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
@@ -3456,6 +3481,7 @@ const createApi = (): API => {
     show: (pane, options) => call(() => apiShow(pane, options)),
     runTests: () => call(() => apiRunTests()),
     onChange: (fn) => callSync(() => apiOnChange(fn)),
+    exec: (command, ...args) => call(() => apiExec(command, ...args)),
     destroy: () => call(() => apiDestroy()),
   };
 };
