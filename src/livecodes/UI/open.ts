@@ -91,7 +91,7 @@ export const createOpenItem = (
   setAsDefault.appendChild(defaultTemplateLabel);
 
   const removeDefaultLink = document.createElement('span');
-  removeDefaultLink.innerText = '(remove)';
+  removeDefaultLink.innerText = '(unset)';
   removeDefaultLink.classList.add('template-remove-default-link');
   defaultTemplateLabel.appendChild(removeDefaultLink);
 

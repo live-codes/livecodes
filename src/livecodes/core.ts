@@ -50,8 +50,15 @@ import type {
   TestResult,
   ToolsPane,
   UserData,
+  AppData,
 } from './models';
 import type { GitHubFile } from './services/github';
+import type {
+  BroadcastData,
+  BroadcastInfo,
+  BroadcastResponseData,
+  BroadcastResponseError,
+} from './UI/broadcast';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -63,6 +70,7 @@ import {
   resourcesScreen,
   savePromptScreen,
   recoverPromptScreen,
+  resultPopupHTML,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -119,8 +127,6 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 
-const eventsManager = createEventsManager();
-
 const stores: Stores = {
   projects: undefined,
   templates: undefined,
@@ -129,13 +135,14 @@ const stores: Stores = {
   recover: undefined,
   userConfig: undefined,
   userData: undefined,
+  appData: undefined,
   sync: undefined,
 };
-
-const typeLoader = createTypeLoader();
+const eventsManager = createEventsManager();
 const notifications = createNotifications();
 const modal = createModal();
 const split = createSplitPanes();
+const typeLoader = createTypeLoader();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 
@@ -159,6 +166,14 @@ let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
 let initialized = false;
 let isDestroyed = false;
+const broadcastInfo: BroadcastInfo = {
+  isBroadcasting: false,
+  channel: '',
+  channelUrl: '',
+  channelToken: '',
+  broadcastSource: false,
+};
+let resultPopup: Window | null = null;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -734,6 +749,15 @@ const getResultPage = async ({
     styleOnlyUpdate,
   });
 
+  if (singleFile) {
+    if (broadcastInfo.isBroadcasting) {
+      broadcast();
+    }
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup?.postMessage({ result }, location.origin);
+    }
+  }
+
   return result;
 };
 
@@ -753,7 +777,7 @@ const flushResult = () => {
 
   setLoading(true);
 
-  iframe.contentWindow.postMessage({ flush: true }, sandboxService.getOrigin());
+  iframe.contentWindow.postMessage({ flush: true }, '*');
 
   const compiledLanguages = {
     markup: getLanguageCompiler(getConfig().markup.language)?.compiledCodeLanguage || 'html',
@@ -1241,6 +1265,15 @@ const setUserData = async (data: UserData['data']) => {
   return key;
 };
 
+const getAppData = () => stores.appData?.getValue() || null;
+
+const setAppData = (data: AppData) => {
+  stores.appData?.setValue({
+    ...stores.appData.getValue(),
+    ...data,
+  });
+};
+
 const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => {
   const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
     (k) => !['recover', 'sync'].includes(k),
@@ -1258,6 +1291,11 @@ const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => 
 
   if (action === 'clear') {
     setUserConfig(defaultConfig);
+    broadcastInfo.isBroadcasting = false;
+    broadcastInfo.channel = '';
+    broadcastInfo.channelUrl = '';
+    broadcastInfo.channelToken = '';
+    broadcastInfo.broadcastSource = false;
   }
 
   loadUserConfig();
@@ -1387,6 +1425,68 @@ const loadStarterTemplate = async (templateName: string) => {
   }
 };
 
+const broadcast = async ({
+  serverUrl,
+  channel,
+  channelToken,
+  broadcastSource,
+}: Partial<BroadcastData> = {}): Promise<
+  BroadcastResponseData | BroadcastResponseError | undefined
+> => {
+  if (isEmbed) return;
+  const broadcastData = getAppData()?.broadcast;
+  if (!serverUrl) {
+    serverUrl = broadcastData?.serverUrl;
+  }
+  if (!serverUrl) return;
+  if (broadcastSource == null) {
+    broadcastSource = broadcastInfo.broadcastSource;
+  }
+  if (channel == null) {
+    channel = broadcastInfo.channel;
+  }
+  if (channelToken == null) {
+    channelToken = broadcastInfo.channelToken;
+  }
+  const userToken = broadcastData?.userToken;
+  const code = getCachedCode();
+  const data = !broadcastSource ? { result: code.result } : code;
+  try {
+    const res = await fetch(serverUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...data,
+        ...(channel ? { channel } : {}),
+        ...(channelToken ? { channelToken } : {}),
+        ...(userToken ? { userToken } : {}),
+      }),
+    });
+    if (!res.ok) return;
+    return res.json();
+  } catch {
+    return;
+  }
+};
+
+const setBroadcastStatus = (info: BroadcastInfo) => {
+  broadcastInfo.isBroadcasting = info.isBroadcasting;
+  broadcastInfo.channel = info.channel;
+  broadcastInfo.channelUrl = info.channelUrl;
+  broadcastInfo.channelToken = info.channelToken;
+  broadcastInfo.broadcastSource = info.broadcastSource;
+
+  const broadcastStatusBtn = UI.getBroadcastStatusBtn();
+  if (!broadcastStatusBtn) return;
+  if (info.isBroadcasting) {
+    broadcastStatusBtn.firstElementChild?.classList.add('active');
+    broadcastStatusBtn.dataset.hint = 'Broadcasting...';
+  } else {
+    broadcastStatusBtn.firstElementChild?.classList.remove('active');
+    broadcastStatusBtn.dataset.hint = 'Broadcast';
+  }
+};
+
 const showVersion = () => {
   if (getConfig().showVersion) {
     // variables added in scripts/build.js
@@ -1485,7 +1585,7 @@ const handleSelectEditor = () => {
       'click',
       () => {
         showEditor(title.dataset.editor as EditorId);
-        setUserData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
+        setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
         setProjectRecover();
       },
       false,
@@ -1501,7 +1601,7 @@ const handleChangeLanguage = () => {
         'mousedown', // fire this event before unhover
         async () => {
           await changeLanguage(menuItem.dataset.lang as Language);
-          setUserData({ language: menuItem.dataset.lang as Language });
+          setAppData({ language: menuItem.dataset.lang as Language });
         },
         false,
       );
@@ -1821,7 +1921,7 @@ const handleNew = () => {
   const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const defaultTemplate = (await getUserData())?.defaultTemplate;
+    const defaultTemplate = getAppData()?.defaultTemplate;
     const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
       a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
     );
@@ -1873,8 +1973,8 @@ const handleNew = () => {
         'click',
         async () => {
           if (!stores.templates) return;
-          if ((await getUserData())?.defaultTemplate === item.id) {
-            await setUserData({ defaultTemplate: null });
+          if (getAppData()?.defaultTemplate === item.id) {
+            setAppData({ defaultTemplate: null });
           }
           await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
@@ -1897,9 +1997,9 @@ const handleNew = () => {
       eventsManager.addEventListener(
         setAsDefaultLink,
         'click',
-        async (ev) => {
+        (ev) => {
           ev.stopPropagation();
-          await setUserData({ defaultTemplate: item.id });
+          setAppData({ defaultTemplate: item.id });
           [...list.children].forEach((li) => {
             li.classList.remove('selected');
           });
@@ -1911,9 +2011,9 @@ const handleNew = () => {
       eventsManager.addEventListener(
         removeDefaultLink,
         'click',
-        async (ev) => {
+        (ev) => {
           ev.stopPropagation();
-          await setUserData({ defaultTemplate: null });
+          setAppData({ defaultTemplate: null });
           link.parentElement?.classList.remove('selected');
         },
         false,
@@ -2363,6 +2463,42 @@ const handleBackup = () => {
   registerScreen('backup', createBackupUI);
 };
 
+const handleBroadcast = () => {
+  if (isEmbed) return;
+
+  const createBroadcastUI = async () => {
+    modal.show(loadingMessage());
+
+    const syncUIModule: typeof import('./UI/broadcast') = await import(
+      baseUrl + '{{hash:broadcast.js}}'
+    );
+    syncUIModule.createBroadcastUI({
+      modal,
+      notifications,
+      eventsManager,
+      deps: {
+        getBroadcastData: () => ({
+          ...broadcastInfo,
+          serverUrl: getAppData()?.broadcast?.serverUrl || '',
+        }),
+        setBroadcastData: (broadcastData) => {
+          setBroadcastStatus(broadcastData);
+          setAppData({
+            broadcast: {
+              ...getAppData()?.broadcast,
+              serverUrl: broadcastData.serverUrl,
+            },
+          });
+        },
+        broadcast,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getBroadcastLink(), 'click', createBroadcastUI, false);
+  registerScreen('broadcast', createBroadcastUI);
+};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -2520,8 +2656,8 @@ const handleSnippets = () => {
       showScreen,
       deps: {
         createEditorFn,
-        getUserData,
-        setUserData,
+        getAppData,
+        setAppData,
       },
     });
 
@@ -2814,19 +2950,48 @@ const handleResultPopup = () => {
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/new-window.svg';
   popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  let url: string | undefined;
   const openWindow = async () => {
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup.focus();
+      return;
+    }
     popupBtn.classList.add('loading');
-    const html = await getResultPage({ forExport: true, singleFile: true });
-    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const result = await getResultPage({ forExport: true, singleFile: true });
+    url = url || URL.createObjectURL(new Blob([resultPopupHTML], { type: 'text/html' }));
     // add a notice to URL that it is a temporary URL to prevent users from sharing it.
     // revoking the URL after opening the window prevents viewing the page source.
     const notice = '#---TEMPORARY-URL---';
-    window.open(url + notice, 'result-popup', `width=800,height=400,noopener,noreferrer`);
+    resultPopup = window.open(url + notice, 'livecodes-result', `width=800,height=400`);
+    eventsManager.addEventListener(
+      resultPopup,
+      'load',
+      () => {
+        resultPopup?.postMessage({ result }, location.origin);
+      },
+      { once: true },
+    );
     popupBtn.classList.remove('loading');
   };
   eventsManager.addEventListener(popupBtn, 'click', openWindow);
   eventsManager.addEventListener(popupBtn, 'touchstart', openWindow);
   UI.getToolspaneTitles()?.appendChild(popupBtn);
+};
+
+const handleBroadcastStatus = () => {
+  const broadcastStatusBtn = document.createElement('div');
+  broadcastStatusBtn.id = 'broadcast-status-btn';
+  broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
+  broadcastStatusBtn.dataset.hint = 'Broadcast';
+  broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+  const imgUrl = baseUrl + 'assets/images/broadcast.svg';
+  broadcastStatusBtn.innerHTML = `<span id="broadcast-status"><img src="${imgUrl}" /></span>`;
+  const showBroadcast = () => {
+    showScreen('broadcast');
+  };
+  eventsManager.addEventListener(broadcastStatusBtn, 'click', showBroadcast);
+  eventsManager.addEventListener(broadcastStatusBtn, 'touchstart', showBroadcast);
+  UI.getToolspaneTitles()?.appendChild(broadcastStatusBtn);
 };
 
 const handleUnload = () => {
@@ -2872,10 +3037,10 @@ const extraHandlers = async () => {
   stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
   stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
   stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
+  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
   stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 
   handleTitleEdit();
-  handleResultPopup();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();
@@ -2898,8 +3063,11 @@ const extraHandlers = async () => {
   handleSync();
   handleAutosync();
   handlePersistantStorage();
-  handleBackup();
   handleExternalResources();
+  handleBackup();
+  handleBroadcast();
+  handleResultPopup();
+  handleBroadcastStatus();
   handleUnload();
 };
 
@@ -3071,11 +3239,11 @@ const importExternalContent = async (options: {
 const loadDefaults = async () => {
   if (isEmbed || params['no-defaults']) return;
 
-  const defaultTemplateId = (await getUserData())?.defaultTemplate;
+  const defaultTemplateId = getAppData()?.defaultTemplate;
   if (defaultTemplateId) {
     notifications.info('Loading default template');
 
-    const getDefaultTemplate = async () => {
+    const getDefaultTemplate = () => {
       if (!stores.templates) return;
       return stores.templates?.getItem(defaultTemplateId);
     };
@@ -3087,7 +3255,7 @@ const loadDefaults = async () => {
     return;
   }
 
-  const lastUsedLanguage = (await getUserData())?.language;
+  const lastUsedLanguage = getAppData()?.language;
   if (lastUsedLanguage) {
     changingContent = true;
     await changeLanguage(lastUsedLanguage);
@@ -3267,6 +3435,24 @@ const createApi = (): API => {
     };
   };
 
+  const apiExec: API['exec'] = async (command: string, ...args: any[]) => {
+    if (command === 'setBroadcastToken') {
+      if (isEmbed) return { error: 'Command unavailable for embeds' };
+      const broadcastData = getAppData()?.broadcast;
+      if (!broadcastData) return { error: 'Command unavailable' };
+      const token = args[0];
+      if (typeof token !== 'string') return { error: 'Invalid token!' };
+      setAppData({
+        broadcast: {
+          ...broadcastData,
+          userToken: token,
+        },
+      });
+      return { output: 'Broadcast user token set successfully' };
+    }
+    return { error: 'Invalid command!' };
+  };
+
   const apiDestroy = async () => {
     getAllEditors().forEach((editor) => editor.destroy());
     eventsManager.removeEventListeners();
@@ -3296,6 +3482,7 @@ const createApi = (): API => {
     show: (pane, options) => call(() => apiShow(pane, options)),
     runTests: () => call(() => apiRunTests()),
     onChange: (fn) => callSync(() => apiOnChange(fn)),
+    exec: (command, ...args) => call(() => apiExec(command, ...args)),
     destroy: () => call(() => apiDestroy()),
   };
 };

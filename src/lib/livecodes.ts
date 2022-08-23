@@ -224,6 +224,7 @@ export const createPlayground = async (
     show: (pane, full) => callAPI('show', [pane, full]),
     runTests: () => callAPI('runTests'),
     onChange: (fn) => onChange(fn),
+    exec: (command, ...args) => callAPI('exec', [command, ...args]),
     destroy: () => {
       if (!livecodesReady) {
         if (destroyed) {

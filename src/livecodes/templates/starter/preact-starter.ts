@@ -23,27 +23,24 @@ export const preactStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'javascript',
+    language: 'jsx',
     content: `
-import { h, Component, render } from "preact";
-import { useState } from "preact/hooks";
-import htm from "htm";
-
-const html = htm.bind(h);
+/** @jsx h */
+import { h, render } from 'preact@v10.10.1';
+import { useState } from 'preact@v10.10.1/hooks';
 
 function App(props) {
-  const [counter, setCounter] = useState(0);
-  return html\`
-  <div class="container">
-    <h1>Hello, \${props.name}!</h1>
-    <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/preact.svg" />
-    <p>You clicked \${counter} times.</p>
-    <button onClick=\${() => setCounter(counter + 1)}>Click me</button>
-  </div>
-  \`;
+  const [count, setCount] = useState(0);
+  return (
+    <div class="container">
+      <h1>Hello, {props.name}!</h1>
+      <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/preact.svg" />
+      <p>You clicked {count} times.</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
 }
-
-render(html\`<\${App} name="Preact" />\`, document.querySelector("#app"));
+render(<App name="Preact" />, document.body);
 `.trimStart(),
   },
   stylesheets: [],

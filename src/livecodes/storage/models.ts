@@ -1,4 +1,5 @@
 import type {
+  AppData,
   Asset,
   ContentConfig,
   Language,
@@ -62,6 +63,7 @@ export interface Stores {
   recover: SimpleStorage<RecoverItem> | undefined;
   userConfig: SimpleStorage<UserConfig> | undefined;
   userData: Storage<Partial<UserData>> | undefined;
+  appData: SimpleStorage<AppData> | undefined;
   sync: Storage<StoredSyncData> | undefined;
 }
 

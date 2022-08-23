@@ -20,6 +20,8 @@ import syncScreen from './sync.html';
 // @ts-ignore
 import backupScreen from './backup.html';
 // @ts-ignore
+import broadcastScreen from './broadcast.html';
+// @ts-ignore
 import infoScreen from './project-info.html';
 // @ts-ignore
 import resourcesScreen from './external-resources.html';
@@ -45,6 +47,8 @@ import addSnippetScreen from './add-snippet.html';
 import shareScreen from './share.html';
 // @ts-ignore
 import embedScreen from './embed.html';
+// @ts-ignore
+import resultPopupHTML from './result-popup.html';
 
 export {
   resultTemplate,
@@ -57,6 +61,7 @@ export {
   deployScreen,
   syncScreen,
   backupScreen,
+  broadcastScreen,
   infoScreen,
   resourcesScreen,
   loginScreen,
@@ -70,4 +75,5 @@ export {
   addSnippetScreen,
   shareScreen,
   embedScreen,
+  resultPopupHTML,
 };

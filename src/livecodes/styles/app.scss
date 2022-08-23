@@ -466,6 +466,7 @@ a {
     cursor: pointer;
     display: inline-block;
     font-size: 12px;
+    margin-right: 2px;
     text-align: center;
     width: 30px;
 
@@ -481,6 +482,10 @@ a {
       &:active {
         filter: invert(0.9);
       }
+    }
+
+    &.active img {
+      filter: invert(1);
     }
 
     &.disabled img {
@@ -1944,14 +1949,6 @@ i.arrow {
     }
   }
 
-  #sync-container {
-    #sync-status {
-      margin-bottom: 1em;
-      margin-top: -1.5em;
-      text-align: right;
-    }
-  }
-
   #backup-container {
     #backup-stores {
       display: flex;
@@ -1977,6 +1974,18 @@ i.arrow {
       span {
         white-space: nowrap;
       }
+    }
+  }
+
+  #broadcast-container {
+    #broadcast-channel-url-section {
+      display: none;
+    }
+
+    #broadcast-channel-url {
+      display: inline-block;
+      margin-bottom: 1em;
+      overflow-wrap: break-word;
     }
   }
 
@@ -2134,6 +2143,13 @@ i.arrow {
     min-width: calc(100% - 40px);
     padding: 10px;
     text-align: left;
+  }
+
+  .modal-status {
+    height: 1em;
+    margin-bottom: 1em;
+    margin-top: -1.5em;
+    text-align: right;
   }
 
   > #list-container > .modal-message {

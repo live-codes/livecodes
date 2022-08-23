@@ -127,6 +127,8 @@ export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#i
 
 export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#backup-link');
 
+export const getBroadcastLink = () => document.querySelector<HTMLAnchorElement>('#broadcast-link');
+
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 
@@ -347,3 +349,27 @@ export const getSaveSnippetBtn = (snippetsContainer: HTMLElement) =>
 
 export const getSnippetsBtn = (snippetsContainer: HTMLElement) =>
   snippetsContainer.querySelector('#snippets-button') as HTMLButtonElement;
+
+export const getBroadcastStatusLabel = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-status') as HTMLElement;
+
+export const getBroadcastForm = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-form') as HTMLFormElement;
+
+export const getBroadcastServerUrlInput = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-server-url') as HTMLInputElement;
+
+export const getBroadcastSourceCheckbox = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-source') as HTMLInputElement;
+
+export const getBroadcastBtn = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-btn') as HTMLButtonElement;
+
+export const getBroadcastChannelUrlSection = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-channel-url-section') as HTMLElement;
+
+export const getBroadcastChannelUrl = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-channel-url') as HTMLAnchorElement;
+
+export const getBroadcastStatusBtn = () =>
+  document.querySelector('#broadcast-status-btn') as HTMLElement | null;

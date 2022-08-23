@@ -11,10 +11,12 @@ export interface API {
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };
+  exec: (command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>;
   destroy: () => Promise<void>;
 }
 
 export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
+export type APICommands = 'setBroadcastToken';
 
 export interface Playground extends API {
   load: () => Promise<void>;
@@ -87,11 +89,6 @@ export interface UserConfig {
 export interface UserData {
   id: string;
   data: Partial<{
-    defaultTemplate: string | null;
-    language: Language;
-    snippets: {
-      language: Language;
-    };
     sync: {
       autosync: boolean;
       repo: string;
@@ -101,6 +98,18 @@ export interface UserData {
       [key: string]: string; // projectId => repoName
     };
   }>;
+}
+
+export interface AppData {
+  defaultTemplate?: string | null;
+  language?: Language;
+  snippets?: {
+    language: Language;
+  };
+  broadcast?: {
+    serverUrl: string;
+    userToken?: string;
+  };
 }
 
 export type Language =
@@ -601,6 +610,7 @@ export interface Screen {
     | 'deploy'
     | 'sync'
     | 'backup'
+    | 'broadcast'
     | 'custom-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
