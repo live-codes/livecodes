@@ -18,7 +18,8 @@ export const createFakeEditor = (options: EditorOptions): CodeEditor => {
     },
     getEditorId: () => getLanguageEditorId(language) || 'markup',
     focus: () => undefined,
-    goToLine: () => undefined,
+    getPosition: () => ({ lineNumber: 1, column: 1 }),
+    setPosition: () => undefined,
     onContentChanged: () => undefined,
     addKeyBinding: () => undefined,
     keyCodes: {
