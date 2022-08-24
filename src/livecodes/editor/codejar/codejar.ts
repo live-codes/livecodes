@@ -234,23 +234,37 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     );
   };
 
-  const goToLine = (line: number, column = 0) => {
+  const getPosition = () => {
+    const position = codejar?.save().start ?? 0;
     const allLines = getValue().split('\n');
-    const lineNumber = allLines.length > line ? line : allLines.length;
-    const selectedLine = allLines[lineNumber - 1];
+    let length = 0;
+    let lineNumber = 1;
+    let column = 0;
+    for (const line of allLines) {
+      if (length + line.length < position) {
+        length += line.length + 1; // add line break
+        lineNumber += 1;
+      } else {
+        column = position - length + 1;
+        break;
+      }
+    }
+    return { lineNumber, column };
+  };
+
+  const setPosition = ({ lineNumber, column = 0 }: { lineNumber: number; column?: number }) => {
+    const allLines = getValue().split('\n');
+    const line = allLines.length > lineNumber ? lineNumber : allLines.length;
+    const selectedLine = allLines[line - 1];
     const columnNumber = selectedLine.length > column ? column : selectedLine.length;
-    const previuosLines = allLines.slice(0, lineNumber - 1);
-    const nextLines = allLines.slice(lineNumber);
+    const previuosLines = allLines.slice(0, line - 1);
+    const nextLines = allLines.slice(line);
     const position = previuosLines.join('\n').length + columnNumber;
 
     codeElement.innerHTML =
-      previuosLines.join('\n') +
-      '\n' +
-      selectedLine.slice(0, columnNumber) +
+      encodeHTML(previuosLines.join('\n') + '\n' + selectedLine.slice(0, columnNumber)) +
       `<div id="scroll-target">​</div>` +
-      selectedLine.slice(columnNumber) +
-      '\n' +
-      nextLines.join('\n');
+      encodeHTML(selectedLine.slice(columnNumber) + '\n' + nextLines.join('\n'));
 
     // scroll to view
     const target = codeElement.querySelector('#scroll-target');
@@ -277,7 +291,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     focus,
-    goToLine,
+    getPosition,
+    setPosition,
     onContentChanged,
     keyCodes,
     addKeyBinding,

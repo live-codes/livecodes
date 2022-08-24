@@ -501,7 +501,8 @@ export interface CodeEditor {
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
   focus: () => void;
-  goToLine: (line: number, column?: number) => void;
+  getPosition: () => { lineNumber: number; column?: number };
+  setPosition: (position: { lineNumber: number; column?: number }) => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
   configureEmmet?: (enabled: boolean) => void;

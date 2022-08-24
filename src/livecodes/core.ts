@@ -3399,7 +3399,7 @@ const createApi = (): API => {
       split.show('code', full);
       if (typeof line === 'number' && line > 0) {
         const col = typeof column === 'number' && column > -1 ? column : 0;
-        getActiveEditor().goToLine(line, col);
+        getActiveEditor().setPosition({ lineNumber: line, column: col });
         getActiveEditor().focus();
       }
     } else {
@@ -3471,7 +3471,6 @@ const createApi = (): API => {
   };
   const call = <T>(fn: () => Promise<T>) => (!isDestroyed ? fn() : reject());
   const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : throwError());
-
   return {
     run: () => call(() => run()),
     format: (allEditors) => call(() => format(allEditors)),

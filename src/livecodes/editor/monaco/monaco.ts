@@ -392,10 +392,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     (editor.getModel() as any)?.redo?.();
   };
 
-  const goToLine = (line: number, column = 0) => {
-    const position = { column, lineNumber: line };
-    editor.setPosition(position);
-    setTimeout(() => editor.revealPositionInCenter(position, 0), 50);
+  const getPosition = () => {
+    const position = editor.getPosition();
+    return {
+      lineNumber: position?.lineNumber ?? 0,
+      column: position?.column ?? 0,
+    };
+  };
+
+  const setPosition = (position: { lineNumber: number; column?: number }) => {
+    const newPosition = {
+      lineNumber: position.lineNumber,
+      column: position.column ?? 0,
+    };
+    editor.setPosition(newPosition);
+    setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);
   };
 
   const destroy = () => {
@@ -522,7 +533,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setLanguage,
     getEditorId,
     focus,
-    goToLine,
+    getPosition,
+    setPosition,
     layout,
     addTypes,
     configureEmmet,
