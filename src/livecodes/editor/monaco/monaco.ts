@@ -8,6 +8,7 @@ import type {
   CodeEditor,
   EditorOptions,
   Theme,
+  EditorPosition,
 } from '../../models';
 import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
@@ -392,7 +393,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     (editor.getModel() as any)?.redo?.();
   };
 
-  const getPosition = () => {
+  const getPosition = (): EditorPosition => {
     const position = editor.getPosition();
     return {
       lineNumber: position?.lineNumber ?? 0,
@@ -400,7 +401,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
   };
 
-  const setPosition = (position: { lineNumber: number; column?: number }) => {
+  const setPosition = (position: EditorPosition) => {
     const newPosition = {
       lineNumber: position.lineNumber,
       column: position.column ?? 0,

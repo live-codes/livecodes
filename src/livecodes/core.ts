@@ -1425,6 +1425,35 @@ const loadStarterTemplate = async (templateName: string) => {
   }
 };
 
+const getPlaygroundState = (): Config & Code => {
+  const config = getConfig();
+  const cachedCode = getCachedCode();
+  return {
+    ...config,
+    ...cachedCode,
+    markup: {
+      ...config.markup,
+      ...cachedCode.markup,
+      position: editors.markup.getPosition(),
+    },
+    style: {
+      ...config.style,
+      ...cachedCode.style,
+      position: editors.style.getPosition(),
+    },
+    script: {
+      ...config.script,
+      ...cachedCode.script,
+      position: editors.script.getPosition(),
+    },
+    tools: {
+      enabled: config.tools.enabled,
+      active: toolsPane?.getActiveTool() ?? '',
+      status: toolsPane?.getStatus() ?? '',
+    },
+  };
+};
+
 const broadcast = async ({
   serverUrl,
   channel,
@@ -1449,14 +1478,13 @@ const broadcast = async ({
     channelToken = broadcastInfo.channelToken;
   }
   const userToken = broadcastData?.userToken;
-  const code = getCachedCode();
-  const data = !broadcastSource ? { result: code.result } : code;
+  const { result, ...data } = getPlaygroundState();
   try {
     const res = await fetch(serverUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...data,
+        ...(broadcastSource ? { result, data } : { result }),
         ...(channel ? { channel } : {}),
         ...(channelToken ? { channelToken } : {}),
         ...(userToken ? { userToken } : {}),

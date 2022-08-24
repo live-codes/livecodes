@@ -253,6 +253,12 @@ export interface Editor {
   content?: string;
   contentUrl?: string;
   selector?: string;
+  position?: EditorPosition;
+}
+
+export interface EditorPosition {
+  lineNumber: number;
+  column?: number;
 }
 
 export type EditorId = 'markup' | 'style' | 'script';
@@ -501,8 +507,8 @@ export interface CodeEditor {
   setLanguage: (language: Language, value?: string) => void;
   getEditorId: () => string;
   focus: () => void;
-  getPosition: () => { lineNumber: number; column?: number };
-  setPosition: (position: { lineNumber: number; column?: number }) => void;
+  getPosition: () => EditorPosition;
+  setPosition: (position: EditorPosition) => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
   configureEmmet?: (enabled: boolean) => void;

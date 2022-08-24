@@ -11,7 +11,14 @@ import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
 import 'prismjs/components/prism-json';
 
-import type { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
+import type {
+  FormatFn,
+  Language,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+  EditorPosition,
+} from '../../models';
 import { encodeHTML } from '../../utils';
 
 declare const Prism: any;
@@ -234,7 +241,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     );
   };
 
-  const getPosition = () => {
+  const getPosition = (): EditorPosition => {
     const position = codejar?.save().start ?? 0;
     const allLines = getValue().split('\n');
     let length = 0;
@@ -252,7 +259,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return { lineNumber, column };
   };
 
-  const setPosition = ({ lineNumber, column = 0 }: { lineNumber: number; column?: number }) => {
+  const setPosition = ({ lineNumber, column = 0 }: EditorPosition) => {
     const allLines = getValue().split('\n');
     const line = allLines.length > lineNumber ? lineNumber : allLines.length;
     const selectedLine = allLines[line - 1];
