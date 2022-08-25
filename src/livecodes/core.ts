@@ -1484,7 +1484,8 @@ const broadcast = async ({
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...(broadcastSource ? { result, data } : { result }),
+        result,
+        ...(broadcastSource ? { data } : {}),
         ...(channel ? { channel } : {}),
         ...(channelToken ? { channelToken } : {}),
         ...(userToken ? { userToken } : {}),
