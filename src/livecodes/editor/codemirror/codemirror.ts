@@ -8,7 +8,14 @@ import { indentWithTab } from '@codemirror/commands';
 import { LanguageSupport } from '@codemirror/language';
 import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
 
-import type { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
+import type {
+  FormatFn,
+  Language,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+  EditorPosition,
+} from '../../models';
 import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
@@ -185,9 +192,17 @@ export const createEditorCreator =
     };
     addKeyBinding('redo', 'Mod-Shift-z', editorRedo);
 
-    const goToLine = (line: number, column = 0) => {
-      const lineNumber = view.state.doc.lines > line ? line : view.state.doc.lines;
-      const lineInfo = view.state.doc.line(lineNumber);
+    const getPosition = (): EditorPosition => {
+      const position = view.state.selection.asSingle().ranges[0].from;
+      const lineInfo = view.state.doc.lineAt(position);
+      const lineNumber = lineInfo.number;
+      const column = position - lineInfo.from + 1;
+      return { lineNumber, column };
+    };
+
+    const setPosition = ({ lineNumber, column = 0 }: EditorPosition) => {
+      const line = view.state.doc.lines > lineNumber ? lineNumber : view.state.doc.lines;
+      const lineInfo = view.state.doc.line(line);
       const columnNumber = lineInfo.length > column ? column : lineInfo.length;
       const position = lineInfo.from + columnNumber;
       view.dispatch({
@@ -210,7 +225,8 @@ export const createEditorCreator =
       setLanguage,
       getEditorId,
       focus,
-      goToLine,
+      getPosition,
+      setPosition,
       configureEmmet,
       onContentChanged,
       keyCodes,
