@@ -6,7 +6,7 @@ The [library](../getting-started.md#npm-package) provides an API that the embedd
 
 A demo page that shows the usage of the API can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
 
-Or [edit the API demo in LiveCodes](https://livecodes.io/?x=id/sxyzszjn3fb), à la [Inception](https://en.wikipedia.org/wiki/Inception) :)
+Or [edit the API demo in LiveCodes](https://livecodes.io/?x=id/y4wxj92fq6j). How meta! :)
 
 ## `createPlayground`
 
