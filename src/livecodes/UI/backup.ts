@@ -95,6 +95,7 @@ export const createBackupUI = ({
 
     if (storeKeys.includes('userConfig')) {
       storeKeys.push('userData');
+      storeKeys.push('appData');
     }
 
     const loadedSyncModule = await syncModule;
