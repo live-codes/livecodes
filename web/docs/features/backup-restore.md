@@ -10,10 +10,10 @@ The Backup/Restore UI can be accessed from the settings menu → Backup / Restor
 
 The backup can include one or more of the following:
 
-- Projects
-- User Templates
-- Code Snippets
-- Assets
+- [Projects](./projects.md)
+- [User Templates](./templates.md)
+- [Code Snippets](./snippets.md)
+- [Assets](./assets.md)
 - User Settings
 
 A zip file containing the (base64-encoded binary) backup data is downloaded. This file can be restored later on the same or different device.
