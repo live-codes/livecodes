@@ -56,6 +56,7 @@ import { diagrams } from './diagrams';
 import { imba } from './imba';
 import { mustache } from './mustache';
 import { artTemplate } from './art-template';
+import { v } from './v';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -115,6 +116,7 @@ export const languages: LanguageSpecs[] = [
   scheme,
   commonlisp,
   tcl,
+  v,
   assemblyscript,
   wat,
   sql,

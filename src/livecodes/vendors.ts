@@ -190,6 +190,8 @@ export const tagifyBaseUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.9.6/
 export const tailwindcssUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.3.2/dist/tailwindcss.umd.min.js';
 
+export const tarjsUrl = 'https://cdn.jsdelivr.net/npm/@gera2ld/tarjs@0.1.2/dist/index.umd.min.js';
+
 export const tauPrologBaseUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/modules/';
 
 export const twigUrl = 'https://cdn.jsdelivr.net/npm/twig@1.15.4/twig.min.js';
@@ -203,6 +205,8 @@ export const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.m
 export const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
 
 export const vueSfcLoaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/';
+
+export const vwasmBaseUrl = 'http://127.0.0.1:8081/v-wasm/';
 
 export const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.26/index.js';
 

@@ -192,6 +192,7 @@ esbuild.buildSync({
   'svelte/lang-svelte-compiler.ts',
   'tcl/lang-tcl-script.ts',
   'twig/lang-twig-compiler.ts',
+  'v/lang-v-compiler.ts',
   'vue/lang-vue-compiler.ts',
   'wat/lang-wat-compiler.ts',
   'wat/lang-wat-script.ts',
