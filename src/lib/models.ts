@@ -247,7 +247,8 @@ export type Language =
   | 'blockly.xml'
   | 'xml'
   | 'pintora'
-  | 'v';
+  | 'v'
+  | 'vlang';
 
 export interface Editor {
   language: Language;

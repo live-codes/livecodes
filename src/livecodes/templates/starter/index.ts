@@ -48,6 +48,7 @@ import { diagramsStarter } from './diagrams-starter';
 import { imbaStarter } from './imba-starter';
 import { jestStarter } from './jest-starter';
 import { jestReactStarter } from './jest-react-starter';
+import { vStarter } from './v-starter';
 
 export const starterTemplates = [
   blank,
@@ -88,6 +89,7 @@ export const starterTemplates = [
   perlStarter,
   luaStarter,
   juliaStarter,
+  vStarter,
   schemeStarter,
   commonlispStarter,
   tclStarter,

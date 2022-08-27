@@ -10,7 +10,7 @@ export const go: LanguageSpecs = {
     factory: () => {
       const url = go2jsBaseUrl + '/index.js';
       importScripts(url);
-      return async (value: string) => ({
+      return async (value) => ({
         formatted: await (window as any).go2js.format(value, go2jsBaseUrl),
         cursorOffset: 0,
       });

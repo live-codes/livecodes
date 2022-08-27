@@ -193,6 +193,7 @@ esbuild.buildSync({
   'tcl/lang-tcl-script.ts',
   'twig/lang-twig-compiler.ts',
   'v/lang-v-compiler.ts',
+  'v/lang-v-script.ts',
   'vue/lang-vue-compiler.ts',
   'wat/lang-wat-compiler.ts',
   'wat/lang-wat-script.ts',

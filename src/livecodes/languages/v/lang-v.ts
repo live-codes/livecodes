@@ -8,7 +8,9 @@ export const v: LanguageSpecs = {
       (self as any).importScripts(baseUrl + '{{hash:lang-v-compiler.js}}');
       return (self as any).createVCompiler();
     },
+    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-v-script.js}}'],
   },
-  extensions: ['v'],
+  extensions: ['v', 'vlang'],
   editor: 'script',
+  editorLanguage: 'go',
 };

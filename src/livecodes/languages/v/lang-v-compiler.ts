@@ -1,14 +1,14 @@
 // based on https://github.com/zamfofex/v-wasm (license — zero‐clause BSD (0BSD))
 
 /* eslint-disable no-console */
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { tarjsUrl, vwasmBaseUrl } from '../../vendors';
 
 declare const importScripts: (...args: string[]) => void;
 
 importScripts(vwasmBaseUrl + 'v-wasm.js', tarjsUrl);
 
-const VCompiler = new Promise<(code: string) => Promise<string>>(async (resolve) => {
+const VCompiler = new Promise<CompilerFunction>(async (resolve) => {
   const { WASI, bindings, WasmFs, path, fsn, lowerI64Imports, wasmTransformerInit } = (self as any)
     .vwasm;
   const { TarReader } = (self as any).tarball;
@@ -74,11 +74,11 @@ const VCompiler = new Promise<(code: string) => Promise<string>>(async (resolve)
     }
   }
 
-  const compile = async (code: string): Promise<string> => {
+  const run = async (code: string): Promise<string> => {
     let success = true;
 
     const wasi = new WASI({
-      args: ['v', '-b', 'js', '-nocolor', 'main.v'],
+      args: ['v', '-b', 'js', 'main.v'],
       bindings: {
         ...bindings,
         fs,
@@ -96,20 +96,20 @@ const VCompiler = new Promise<(code: string) => Promise<string>>(async (resolve)
       ...wasi.getImports(module),
       env: createProxy(),
     });
-    // const {
-    //   exports: { memory },
-    // } = instance;
+    const {
+      exports: { memory },
+    } = instance;
 
     try {
       wasi.start(instance);
     } catch (error) {
+      console.error(error);
       success = false;
     }
 
     if (success) {
       try {
-        const js = fs.readFileSync('main.js', 'utf-8');
-        return js;
+        return fs.readFileSync('main.js', 'utf-8');
       } catch (error) {
         console.error(error);
       }
@@ -118,10 +118,10 @@ const VCompiler = new Promise<(code: string) => Promise<string>>(async (resolve)
     }
     return '';
   };
-  resolve(compile);
+  resolve(run);
 });
 
-(self as any).createVCompiler = (): CompilerFunction => async (code, _options) => {
-  const compile = await VCompiler;
-  return compile(code);
+(self as any).createVCompiler = (): CompilerFunction => async (code, options) => {
+  const run = await VCompiler;
+  return run(code, options);
 };
