@@ -33,9 +33,15 @@ It is a [simple implementation](https://github.com/live-codes/broadcast/blob/mai
 A demo, free-to-test, instance is hosted on:
 https://livecodes-broadcast.herokuapp.com/ (low resources - sleeps after 30 mins of inactivity)
 
-You can use this link to self-host it on [Heroku](https://heroku.com/):
+You can use one of these links to self-host it:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/live-codes/broadcast/tree/main)
+<a href="https://render.com/deploy?repo=https://github.com/live-codes/broadcast">
+  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" width="150" />
+</a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://heroku.com/deploy?template=https://github.com/live-codes/broadcast/tree/main">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" width="150" />
+</a>
 
 :::
 

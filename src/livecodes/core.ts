@@ -3483,7 +3483,7 @@ const createApi = (): API => {
   };
 
   const apiDestroy = async () => {
-    getAllEditors().forEach((editor) => editor.destroy());
+    getAllEditors().forEach((editor) => editor?.destroy());
     eventsManager.removeEventListeners();
     Object.values(stores).forEach((store) => store?.unsubscribeAll?.());
     parent.dispatchEvent(new Event(customEvents.destroy));
