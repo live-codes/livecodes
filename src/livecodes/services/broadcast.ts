@@ -1,3 +1,3 @@
 export const broadcastService = {
-  getUrl: () => 'https://livecodes-broadcast.herokuapp.com/',
+  getUrl: () => 'https://livecodes-broadcast.onrender.com/',
 };
