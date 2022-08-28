@@ -98,13 +98,23 @@ export const createBroadcastUI = async ({
     broadcastData = deps.getBroadcastData();
 
     if (broadcastData?.isBroadcasting) {
+      const url = broadcastData.serverUrl;
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          channel: broadcastData.channel,
+          channelToken: broadcastData.channelToken,
+          stop: true,
+        }),
+      }).catch(() => undefined);
       deps.setBroadcastData({
         isBroadcasting: false,
         channel: '',
         channelUrl: '',
         channelToken: '',
         broadcastSource: false,
-        serverUrl: broadcastData?.serverUrl || broadcastServerUrlInput.value,
+        serverUrl: url,
       });
       updateBroadcastUI();
       return;
