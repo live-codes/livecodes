@@ -496,7 +496,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           //       }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
           //         '/livecodes/',
           //         '',
-          //       )}/web/docs/features/npm-modules)`,
+          //       )}/docs/features/npm-modules)`,
           //     },
           //   ],
           // };
@@ -510,7 +510,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
                 }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
                   '/livecodes/',
                   '',
-                )}/web/docs/features/npm-modules)`,
+                )}/docs/features/npm-modules)`,
               },
             ],
           };

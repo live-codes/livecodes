@@ -24,12 +24,12 @@ const FeatureList1: FeatureItem[] = [
     description: (
       <>
         Supports{' '}
-        <Link to="./docs/languages">
+        <Link to="./languages">
           <strong>60+ languages/frameworks</strong>
         </Link>
         . Save, Import, Export, Share, Deploy, NPM Modules, Code Format, Starter Templates, Console,
         Intellisense, Auto-loading TS Types, Emmet Support and a lot more{' '}
-        <Link to="./docs/features">
+        <Link to="./features">
           <strong>features</strong>
         </Link>
         . Features are downloaded only when used.
@@ -54,11 +54,11 @@ const FeatureList1: FeatureItem[] = [
     image: './img/integrations.svg',
     description: (
       <>
-        Rich set of integrations. <Link to="./docs/features/import">Import</Link> code from{' '}
+        Rich set of integrations. <Link to="./features/import">Import</Link> code from{' '}
         <strong>GitHub</strong> files/repos/gists, <strong>Gitlab</strong> files/repos/snippets,{' '}
         <strong>JsBin</strong> or <strong>web pages</strong>.{' '}
-        <Link to="./docs/features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
-        <strong>JsFiddle</strong>. <Link to="./docs/features/deploy">Deploy</Link> to GitHub Pages.
+        <Link to="./features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
+        <strong>JsFiddle</strong>. <Link to="./features/deploy">Deploy</Link> to GitHub Pages.
       </>
     ),
   },
@@ -81,12 +81,12 @@ const FeatureList2: FeatureItem[] = [
     image: './img/add-frame.svg',
     description: (
       <>
-        LiveCodes can be <Link to="./docs/features/embeds">embedded</Link> in your web pages. Code
-        can be easily <Link to="./docs/features/code-preload">preloaded</Link>. This is particularly
-        useful for educational websites and for library documentations. It is{' '}
-        <Link to="./docs/features/security">secure</Link> and highly{' '}
-        <Link to="./docs/configuration">configurable</Link>.{' '}
-        <Link to="./docs/features/intellisense">Intellisense</Link> is available even for custom
+        LiveCodes can be <Link to="./features/embeds">embedded</Link> in your web pages. Code can be
+        easily <Link to="./features/code-preload">preloaded</Link>. This is particularly useful for
+        educational websites and for library documentations. It is{' '}
+        <Link to="./features/security">secure</Link> and highly{' '}
+        <Link to="./configuration">configurable</Link>.{' '}
+        <Link to="./features/intellisense">Intellisense</Link> is available even for custom
         libraries!
       </>
     ),
@@ -112,12 +112,12 @@ const FeatureList3: FeatureItem[] = [
     description: (
       <>
         LiveCodes is highly{' '}
-        <Link to="./docs/configuration">
+        <Link to="./configuration">
           <strong>configurable</strong>
         </Link>
         . Lots of features can be configured by URL query params . The <strong>npm package</strong>{' '}
         facilitates embedding playgrounds. Embedded playgrounds expose{' '}
-        <Link to="./docs/advanced/api">
+        <Link to="./advanced/api">
           <strong>API</strong>
         </Link>{' '}
         to communicate with embedding pages.
@@ -141,16 +141,16 @@ const FeatureList3: FeatureItem[] = [
     description: (
       <>
         LiveCodes is <strong>free</strong>,<br></br> with no ads and no account required.*<br></br>
-        Do you need to <Link to="./docs/getting-started#self-hosted">self-host</Link> it for
-        commercial use? No problem! It is{' '}
+        Do you need to <Link to="./getting-started#self-hosted">self-host</Link> it for commercial
+        use? No problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
-          <Link to="./docs/license">
+          <Link to="./license">
             <strong>MIT-licensed</strong>
           </Link>{' '}
           🎉
         </span>
         <br></br>
-        Please consider <Link to="./docs/sponsor">sponsoring LiveCodes</Link> ❤
+        Please consider <Link to="./sponsor">sponsoring LiveCodes</Link> ❤
       </>
     ),
   },
@@ -224,13 +224,13 @@ export default function HomepageFeatures(): JSX.Element {
           <div className={`row ${styles.center} ${styles.buttons}`}>
             <Link
               className="button button--primary button--outline button--lg"
-              to="/web/docs/examples/display-modes/"
+              to="./examples/display-modes/"
             >
               Examples 🎨
             </Link>
             <Link
               className=" button button--info button--outline button--lg"
-              to="./docs/getting-started"
+              to="./getting-started"
             >
               Get Started ✈️
             </Link>
@@ -280,7 +280,7 @@ export default function HomepageFeatures(): JSX.Element {
         <div className={'container padding-vert--lg ' + styles.center}>
           <div className={['row', styles.carousel, styles.center].join(' ')}>
             <div className={styles.buttons}>
-              <Link className="button button--primary button--outline button--lg" to="./docs/">
+              <Link className="button button--primary button--outline button--lg" to="./">
                 Documentation 📖
               </Link>
               <Link

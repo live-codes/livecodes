@@ -10,7 +10,7 @@ const config = {
   title: 'LiveCodes',
   tagline: 'Code playground that runs in the browser!',
   url: 'https://livecodes.io/',
-  baseUrl: '/web/',
+  baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -22,14 +22,11 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
+          editUrl: 'https://github.com/live-codes/livecodes/tree/develop/docs/',
         },
         blog: false,
-        // {
-        //   showReadingTime: true,
-        //   editUrl: 'https://github.com/live-codes/livecodes/tree/develop/web/',
-        // },
         theme: {
           customCss: [
             require.resolve('./src/css/custom.css'),
@@ -56,7 +53,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'index',
+            docId: 'overview',
             position: 'left',
             label: 'Docs',
           },
@@ -72,7 +69,7 @@ const config = {
             position: 'left',
             label: 'Examples',
           },
-          // { to: '/web/blog', label: 'Blog', position: 'left' },
+          // { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://livecodes.io/',
             label: 'App',
@@ -94,23 +91,23 @@ const config = {
             items: [
               {
                 label: 'Overview',
-                to: '/web/docs',
+                to: '/overview',
               },
               {
                 label: 'Getting Started',
-                to: '/web/docs/getting-started',
+                to: '/docs/getting-started',
               },
               {
                 label: 'Why Another Playground?',
-                to: '/web/docs/why',
+                to: '/docs/why',
               },
               {
                 label: 'Features',
-                to: '/web/docs/features',
+                to: '/docs/features',
               },
               {
                 label: 'Languages',
-                to: '/web/docs/languages',
+                to: '/docs/languages',
               },
             ],
           },
@@ -132,7 +129,7 @@ const config = {
             items: [
               // {
               //   label: 'Blog',
-              //   to: '/web/blog',
+              //   to: '/blog',
               // },
               {
                 label: 'GitHub',
@@ -140,19 +137,19 @@ const config = {
               },
               {
                 label: 'Credits',
-                to: '/web/docs/credits',
+                to: '/docs/credits',
               },
               {
                 label: 'License',
-                to: '/web/docs/license',
+                to: '/docs/license',
               },
               {
                 label: 'Sponsor',
-                to: '/web/docs/sponsor',
+                to: '/docs/sponsor',
               },
               {
                 label: 'About',
-                to: '/web/docs/about',
+                to: '/docs/about',
               },
             ],
           },

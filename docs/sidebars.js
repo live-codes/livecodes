@@ -8,7 +8,7 @@ const sidebars = {
       label: 'Docs',
       link: {
         type: 'doc',
-        id: 'index',
+        id: 'overview',
       },
       collapsible: false,
       items: [
