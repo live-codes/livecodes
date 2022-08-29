@@ -1,3 +1,7 @@
+---
+slug: /overview
+---
+
 # Overview
 
 ```mdx-code-block
