@@ -1894,9 +1894,12 @@ i.arrow {
     }
 
     #qrcode-container {
+      align-items: center;
+      display: none;
+      height: 200px;
+      justify-content: center;
       padding-top: 2em;
       position: absolute;
-      text-align: center;
       top: 0;
       width: 100%;
     }

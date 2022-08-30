@@ -31,6 +31,28 @@ export const createShareContainer = async (
     }, 5000);
   };
 
+  const generateQrCode = async () => {
+    const qrcodeContainer = getQrCodeContainer();
+    items!.style.visibility = 'hidden';
+    qrcodeContainer.style.display = 'flex';
+    if (qrcodeImg && qrcodeContainer) {
+      shareExpiry?.classList.add('short-url');
+      if (input && shareDataShort) {
+        input.value = shareDataShort.url;
+      }
+      return;
+    }
+    await generateShortUrl(undefined);
+    const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
+    const typeNumber = 0;
+    const errorCorrectionLevel = 'L';
+    const qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData(shareDataShort.url);
+    qr.make();
+    qrcodeImg = qr.createImgTag(6, 10);
+    qrcodeContainer.innerHTML = qrcodeImg;
+  };
+
   const populateItems = (shareData: ShareData, services: Service[], items: HTMLElement | null) => {
     if (!items) return;
     items.innerHTML = '';
@@ -148,11 +170,6 @@ export const createShareContainer = async (
       createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
     },
     {
-      name: 'Share via …',
-      icon: 'share.svg',
-      onClick: ({ url, title }) => navigator.share({ url, title }),
-    },
-    {
       name: 'Copy URL',
       icon: 'copy.svg',
       onClick: ({ url }) => copyUrl(url),
@@ -160,30 +177,12 @@ export const createShareContainer = async (
     {
       name: 'QR code',
       icon: 'qr-code.svg',
-      onClick: async () => {
-        const qrcodeContainer = getQrCodeContainer();
-        items!.style.visibility = 'hidden';
-        if (qrcodeSvg && qrcodeContainer) {
-          qrcodeContainer.style.display = 'unset';
-          shareExpiry?.classList.add('short-url');
-          if (input && shareDataShort) {
-            input.value = shareDataShort.url;
-          }
-          return;
-        }
-        await generateShortUrl(undefined);
-        const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
-        const typeNumber = 0;
-        const errorCorrectionLevel = 'L';
-        const qr = qrcode(typeNumber, errorCorrectionLevel);
-        qr.addData(shareDataShort.url);
-        qr.make();
-        qrcodeSvg = qr.createSvgTag({
-          cellSize: 6,
-          margin: 10,
-        });
-        qrcodeContainer.innerHTML = qrcodeSvg;
-      },
+      onClick: generateQrCode,
+    },
+    {
+      name: 'Share via …',
+      icon: 'share.svg',
+      onClick: ({ url, title }) => navigator.share({ url, title }),
     },
   ];
 
@@ -192,7 +191,7 @@ export const createShareContainer = async (
 
   const shareData = await shareFn(false);
   let shareDataShort: ShareData;
-  let qrcodeSvg: string;
+  let qrcodeImg: string;
 
   const urlLength = shareData.url.length;
   div.innerHTML = shareScreen
