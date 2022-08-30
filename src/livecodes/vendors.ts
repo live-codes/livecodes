@@ -146,6 +146,8 @@ export const prettierPhpUrl =
 
 export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
 
+export const qrcodeUrl = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+
 export const quillEditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/quill@2.0.0-dev.4/dist';
 
 export const quillHtmlEditUrl =

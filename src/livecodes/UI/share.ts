@@ -2,7 +2,9 @@ import { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import { ShareData } from '../models';
 import { allowedOrigin } from '../services';
-import { copyToClipboard, getAbsoluteUrl } from '../utils';
+import { copyToClipboard, getAbsoluteUrl, loadScript } from '../utils';
+import { qrcodeUrl } from '../vendors';
+import { getQrCodeContainer } from './selectors';
 
 interface Service {
   name: string;
@@ -155,6 +157,34 @@ export const createShareContainer = async (
       icon: 'copy.svg',
       onClick: ({ url }) => copyUrl(url),
     },
+    {
+      name: 'QR code',
+      icon: 'qr-code.svg',
+      onClick: async () => {
+        const qrcodeContainer = getQrCodeContainer();
+        items!.style.visibility = 'hidden';
+        if (qrcodeSvg && qrcodeContainer) {
+          qrcodeContainer.style.display = 'unset';
+          shareExpiry?.classList.add('short-url');
+          if (input && shareDataShort) {
+            input.value = shareDataShort.url;
+          }
+          return;
+        }
+        await generateShortUrl(undefined);
+        const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
+        const typeNumber = 0;
+        const errorCorrectionLevel = 'L';
+        const qr = qrcode(typeNumber, errorCorrectionLevel);
+        qr.addData(shareDataShort.url);
+        qr.make();
+        qrcodeSvg = qr.createSvgTag({
+          cellSize: 6,
+          margin: 10,
+        });
+        qrcodeContainer.innerHTML = qrcodeSvg;
+      },
+    },
   ];
 
   const selfHosted = !allowedOrigin();
@@ -162,6 +192,7 @@ export const createShareContainer = async (
 
   const shareData = await shareFn(false);
   let shareDataShort: ShareData;
+  let qrcodeSvg: string;
 
   const urlLength = shareData.url.length;
   div.innerHTML = shareScreen
@@ -189,8 +220,8 @@ export const createShareContainer = async (
 
   populateItems(shareData, services, items);
 
-  eventsManager.addEventListener(shortUrlLink, 'click', async (event: Event) => {
-    event.preventDefault();
+  const generateShortUrl = async (event?: Event) => {
+    event?.preventDefault();
     setMessage('Generating URL …');
     try {
       shareDataShort = shareDataShort || (await shareFn(true));
@@ -199,12 +230,17 @@ export const createShareContainer = async (
     } catch {
       setMessage('Failed to generate short URL!');
     }
-  });
+  };
+
+  eventsManager.addEventListener(shortUrlLink, 'click', generateShortUrl);
 
   eventsManager.addEventListener(permanentUrlLink, 'click', (event: Event) => {
     event.preventDefault();
     populateItems(shareData, services, items);
     shareExpiry?.classList.remove('short-url');
+    const qrcodeContainer = getQrCodeContainer();
+    qrcodeContainer.style.display = 'none';
+    items!.style.visibility = 'visible';
   });
 
   eventsManager.addEventListener(input, 'click', function () {

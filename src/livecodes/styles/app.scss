@@ -1888,6 +1888,18 @@ i.arrow {
         display: flex !important;
       }
     }
+
+    #share-links-container {
+      position: relative;
+    }
+
+    #qrcode-container {
+      padding-top: 2em;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 100%;
+    }
   }
 
   #login-screen {

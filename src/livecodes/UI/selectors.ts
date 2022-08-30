@@ -373,3 +373,5 @@ export const getBroadcastChannelUrl = (broadcastContainer: HTMLElement) =>
 
 export const getBroadcastStatusBtn = () =>
   document.querySelector('#broadcast-status-btn') as HTMLElement | null;
+
+export const getQrCodeContainer = () => document.querySelector('#qrcode-container') as HTMLElement;
