@@ -35,14 +35,14 @@ export const createShareContainer = async (
     const qrcodeContainer = getQrCodeContainer();
     items!.style.visibility = 'hidden';
     qrcodeContainer.style.display = 'flex';
-    if (qrcodeImg && qrcodeContainer) {
+    if (qrcodeImg) {
       shareExpiry?.classList.add('short-url');
       if (input && shareDataShort) {
         input.value = shareDataShort.url;
       }
       return;
     }
-    await generateShortUrl(undefined);
+    await generateShortUrl();
     const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
     const typeNumber = 0;
     const errorCorrectionLevel = 'L';
