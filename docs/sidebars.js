@@ -92,6 +92,7 @@ const sidebars = {
         'credits',
         'license',
         'sponsor',
+        'contact',
         'about',
       ],
     },

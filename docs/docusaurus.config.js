@@ -148,6 +148,10 @@ const config = {
                 to: '/docs/sponsor',
               },
               {
+                label: 'Contact',
+                to: '/docs/contact',
+              },
+              {
                 label: 'About',
                 to: '/docs/about',
               },
