@@ -42,7 +42,7 @@ const sidebars = {
             'features/default-view',
             'features/embeds',
             'features/lite',
-            'features/code-preload',
+            'features/code-prefill',
             'features/intellisense',
             'features/code-format',
             'features/keyboard-shortcuts',

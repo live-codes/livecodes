@@ -11,10 +11,10 @@ Assets UI can be accessed from settings menu → Assets
 Assets are either:
 
 - Encoded as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
-- Uploaded to a [GitHub Pages](https://pages.github.com/). This requires logging in by a GitHub account (allowing access to repos). A **public** repo called `livecodes-assets` is created if not present. The assets are pushed to `gh-pages` branch. They can then be accessed by URLs like:
+- Uploaded to a [GitHub Pages](https://pages.github.com/). This requires login with a [GitHub account](./github-integration.md) (allowing access to repos). A **public** repo called `livecodes-assets` is created if not present. The assets are pushed to `gh-pages` branch. They can then be accessed by URLs like:
 
-  https://{your-account}.github.io/livecodes-assets/assets/...
+  https://{user}.github.io/livecodes-assets/assets/...
 
-Clicking on an asset item causes the URL to be copied to clipboard. The URL can then be used in projects.
+When an asset item is clicked, the URL is copied to clipboard. The URL can then be used in projects.
 
 ![Assets](/img/screenshots/assets.jpg)

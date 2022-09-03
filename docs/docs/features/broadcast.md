@@ -31,7 +31,7 @@ An open-source example implementation of an API server is available on: [live-co
 It is a [simple implementation](https://github.com/live-codes/broadcast/blob/main/index.js), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.md) and [API](../advanced/api.md) for code broadcasting.
 
 A demo, free-to-test, instance is hosted on:
-https://livecodes-broadcast.herokuapp.com/ (low resources - sleeps after 30 mins of inactivity)
+https://livecodes-broadcast.onrender.com/ (low resources - sleeps after 15 minutes of inactivity)
 
 You can use one of these links to self-host it:
 
