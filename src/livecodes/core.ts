@@ -3267,6 +3267,9 @@ const importExternalContent = async (options: {
 
 const loadDefaults = async () => {
   if (isEmbed || params['no-defaults']) return;
+  for (const param of Object.keys(params)) {
+    if (getLanguageByAlias(param)) return;
+  }
 
   const defaultTemplateId = getAppData()?.defaultTemplate;
   if (defaultTemplateId) {
