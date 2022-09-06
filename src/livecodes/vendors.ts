@@ -69,6 +69,8 @@ export const esModuleShimsUrl =
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
 
+export const fscreenUrl = 'https://cdn.jsdelivr.net/npm/fscreen@1.2.0/dist/fscreen.esm.js';
+
 export const githubMarkdownCss =
   'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css';
 

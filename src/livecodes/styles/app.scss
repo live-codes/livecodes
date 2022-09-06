@@ -267,6 +267,10 @@ a {
     #select-editor {
       width: calc(80% - 70px);
     }
+
+    #run-button {
+      display: none;
+    }
   }
 
   #logo {
@@ -276,20 +280,20 @@ a {
   .dropdown-menu {
     font-size: 0.8em;
   }
+
+  #editors #code-run-button {
+    display: flex !important;
+  }
 }
 
 @media only screen and (max-width: 480px) {
   #toolbar {
     font-size: 0.8em;
 
-    #run-button {
-      display: none;
+    #buttons > .button {
+      margin: 3px;
+      width: 35px;
     }
-  }
-
-  #editors #code-run-button {
-    display: flex !important;
-    margin-bottom: 30px !important;
   }
 }
 
@@ -321,8 +325,8 @@ a {
 
 #editors #code-run-button {
   bottom: 10px;
-
   display: none;
+  margin-bottom: 30px;
   opacity: 0.8;
   position: absolute;
   right: 10px;
@@ -332,6 +336,7 @@ a {
   }
 }
 
+#fullscreen-button,
 #result-button {
   display: none !important;
 }
@@ -362,6 +367,7 @@ a {
     position: relative !important;
   }
 
+  #fullscreen-button,
   &:not(.no-result) #result-button {
     display: flex !important;
   }

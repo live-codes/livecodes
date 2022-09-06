@@ -103,6 +103,7 @@ import { createAuthService, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   chaiTypesUrl,
+  fscreenUrl,
   hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
@@ -123,6 +124,7 @@ import {
   createLoginContainer,
   createTemplatesContainer,
   createPluginItem,
+  getFullscreenButton,
 } from './UI';
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
@@ -200,9 +202,13 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       iframe = document.createElement('iframe');
       iframe.name = 'result';
       iframe.id = 'result-frame';
-      iframe.setAttribute('allow', 'camera; geolocation; microphone');
-      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
+      );
       iframe.setAttribute('allowtransparency', 'true');
+      iframe.setAttribute('allowpaymentrequest', 'true');
+      iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute(
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
@@ -3023,6 +3029,28 @@ const handleBroadcastStatus = () => {
   UI.getToolspaneTitles()?.appendChild(broadcastStatusBtn);
 };
 
+const handleFullscreen = async () => {
+  if (!isEmbed) return;
+  const fullscreenButton = getFullscreenButton();
+  const buttonImg = fullscreenButton.querySelector('img')!;
+  const fscreen = (await import(fscreenUrl)).default;
+  if (!fscreen.fullscreenEnabled) {
+    fullscreenButton.style.visibility = 'hidden';
+    return;
+  }
+  eventsManager.addEventListener(fullscreenButton, 'click', async () => {
+    if (fscreen.fullscreenElement) {
+      await fscreen.exitFullscreen();
+      buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
+      fullscreenButton.dataset.hint = 'Full Screen';
+      return;
+    }
+    await fscreen.requestFullscreen(document.body);
+    buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
+    fullscreenButton.dataset.hint = 'Exit Full Screen';
+  });
+};
+
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
@@ -3055,6 +3083,7 @@ const basicHandlers = () => {
   handleTests();
   if (isEmbed) {
     handleExternalResources();
+    handleFullscreen();
   }
 };
 

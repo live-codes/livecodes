@@ -90,6 +90,13 @@ export const createPlayground = async (
 
       const frame = document.createElement('iframe');
       frame.setAttribute(
+        'allow',
+        'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
+      );
+      frame.setAttribute('allowtransparency', 'true');
+      frame.setAttribute('allowpaymentrequest', 'true');
+      frame.setAttribute('allowfullscreen', 'true');
+      frame.setAttribute(
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
       );
