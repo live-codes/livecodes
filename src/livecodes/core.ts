@@ -3038,16 +3038,23 @@ const handleFullscreen = async () => {
     fullscreenButton.style.visibility = 'hidden';
     return;
   }
-  eventsManager.addEventListener(fullscreenButton, 'click', async () => {
-    if (fscreen.fullscreenElement) {
-      await fscreen.exitFullscreen();
+
+  eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
+    if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
       fullscreenButton.dataset.hint = 'Full Screen';
       return;
     }
-    await fscreen.requestFullscreen(document.body);
     buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
     fullscreenButton.dataset.hint = 'Exit Full Screen';
+  });
+
+  eventsManager.addEventListener(fullscreenButton, 'click', async () => {
+    if (fscreen.fullscreenElement) {
+      await fscreen.exitFullscreen();
+      return;
+    }
+    await fscreen.requestFullscreen(document.body);
   });
 };
 
