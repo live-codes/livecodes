@@ -760,7 +760,7 @@ export type UrlQueryParams = Partial<
       embed: boolean;
       preview: boolean;
       x: string;
-      raw: string;
+      raw: Language;
       language: Language;
       lang: Language;
       languages: string; // comma-separated languages

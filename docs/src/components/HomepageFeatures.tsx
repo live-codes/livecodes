@@ -82,7 +82,7 @@ const FeatureList2: FeatureItem[] = [
     description: (
       <>
         LiveCodes can be <Link to="./features/embeds">embedded</Link> in your web pages. Code can be
-        easily <Link to="./features/code-preload">preloaded</Link>. This is particularly useful for
+        easily <Link to="./features/code-prefill">prefilled</Link>. This is particularly useful for
         educational websites and for library documentations. It is{' '}
         <Link to="./features/security">secure</Link> and highly{' '}
         <Link to="./configuration">configurable</Link>.{' '}
