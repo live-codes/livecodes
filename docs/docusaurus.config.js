@@ -94,12 +94,12 @@ const config = {
                 to: '/overview',
               },
               {
-                label: 'Getting Started',
-                to: '/docs/getting-started',
-              },
-              {
                 label: 'Why Another Playground?',
                 to: '/docs/why',
+              },
+              {
+                label: 'Getting Started',
+                to: '/docs/getting-started',
               },
               {
                 label: 'Features',
@@ -112,10 +112,10 @@ const config = {
             ],
           },
           {
-            title: 'App',
+            title: 'LiveCodes',
             items: [
               {
-                label: 'Home',
+                label: 'App',
                 href: 'https://livecodes.io',
               },
               {
