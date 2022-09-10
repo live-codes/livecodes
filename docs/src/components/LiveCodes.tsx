@@ -21,6 +21,7 @@ export default function LiveCodes(
     createPlayground(containerRef.current, {
       appUrl: url + props.query,
       config: props.config,
+      import: props.import,
       lite: props.lite,
       loading: props.loading,
       template: props.template,
@@ -30,10 +31,11 @@ export default function LiveCodes(
 
   const options = {
     ...(props.query ? { appUrl: url + props.query } : {}),
-    ...(props.template ? { template: props.template } : {}),
     ...(props.config ? { config: props.config } : {}),
+    ...(props.import ? { import: props.import } : {}),
     ...(props.lite ? { lite: props.lite } : {}),
     ...(props.loading ? { loading: props.loading } : {}),
+    ...(props.template ? { template: props.template } : {}),
     ...(props.view ? { view: props.view } : {}),
   };
 

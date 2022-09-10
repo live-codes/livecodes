@@ -151,4 +151,4 @@ The test code is added to the result page and run in its context. Please note th
 
 ## API
 
-Tests can be run and test results collected by the [API](../advanced/api.md).
+The [API](../advanced/api.md) allows [running tests](../advanced/api.md#runtests) and collecting results.

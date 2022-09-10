@@ -9,3 +9,19 @@ In lite mode, a light-weight, minimal code editor is used ([CodeJar](./editors.m
 Demo:
 
 <LiveCodes template="react" lite={true}></LiveCodes>
+
+## Using API
+
+set [EmbedOptions.lite](../advanced/api.md#lite) to `true`.
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', { lite: true });
+```
+
+## Using query params
+
+add the [query parameter](../configuration/query-params.md) `lite` (no need to set a value).
+
+https://livecodes.io?lite
