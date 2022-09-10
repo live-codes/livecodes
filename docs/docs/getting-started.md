@@ -6,7 +6,7 @@ There are multiple options:
 
 The easiest way to use LiveCodes is to through the hosted app ([livecodes.io](https://livecodes.io)).
 
-Use various methods to add your code like [embedded editors](./features/embeds.md), [code blocks](./features/import.md#import-code-from-dom), ["Edit in LiveCodes"](./features/import.md#edit-in-livecodes-bookmarklet) and [code prefill](./features/code-prefill.md).
+Use various methods to add your code like [embedded editors](./features/embeds.md), [code blocks](./features/import.md#import-code-from-dom), ["Edit in LiveCodes" bookmarklet](./features/import.md#edit-in-livecodes-bookmarklet) and [code prefill](./features/code-prefill.md).
 
 ### NPM Package
 

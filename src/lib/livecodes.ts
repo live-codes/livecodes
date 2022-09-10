@@ -10,8 +10,8 @@ export const createPlayground = async (
     appUrl = 'https://livecodes.io/',
     config = {},
     import: importFrom,
+    lite = false,
     loading = 'lazy',
-    lite,
     template,
     view = 'editor,result',
   } = options;

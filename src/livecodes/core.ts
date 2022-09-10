@@ -3450,7 +3450,7 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
-  const apiShow: API['show'] = async (panel, { full = false, line, column }) => {
+  const apiShow: API['show'] = async (panel, { full = false, line, column } = {}) => {
     if (panel === 'result') {
       split.show('output', full);
       toolsPane?.close();

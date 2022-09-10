@@ -1,6 +1,6 @@
 # API
 
-The [library](../getting-started.md#npm-package) provides an API that the embedding page can use to communicate with the embedded playground.
+The [library](../getting-started.md#npm-package) provides an API for [embedding](./../features/embeds.md) and communicating with playgrounds.
 
 ## API Demo
 
@@ -8,14 +8,24 @@ A demo page that shows the usage of the API can be [found here](https://live-cod
 
 Or [edit the API demo in LiveCodes](https://livecodes.io/?x=id/y4wxj92fq6j). How meta! :)
 
+## TypeScript Types
+
+TypeScript types are [documented here](../api/modules.md) and can be imported from the library.
+
+```ts
+import { createPlayground, EmbedOptions, Playground } from 'livecodes';
+```
+
 ## `createPlayground`
+
+[`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/modules.md#createplayground)
 
 The library exports the function `createPlayground` which takes 2 arguments:
 
-- `container`: (required) HTMLElement or a CSS selector of an element
-- `options`: (optional) an object with embed options
+- `container` (required): HTMLElement or a string representing a CSS selector.
+- `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
-The `createPlayground` function return a promise which resolves to an object that exposes the API methods.
+The `createPlayground` function return a promise which resolves to an object that exposes the API methods ([Playground](../api/interfaces/Playground.md)).
 
 ```ts
 import { createPlayground, EmbedOptions } from 'livecodes';
@@ -24,8 +34,10 @@ const options: EmbedOptions = {
   // appUrl: ...
   // config: ...
   // import: ...
+  // lite: ...
   // loading: ...
   // template: ...
+  // view: ...
 };
 
 createPlayground('#container', options).then((playground) => {
@@ -34,17 +46,73 @@ createPlayground('#container', options).then((playground) => {
 });
 ```
 
-:::tip
+## Embed Options
 
-The TypeScript types are [documented here](../api/modules.md).
+The secong argument of the `createPlayground` function is an optional object with the following optional properties ([EmbedOptions](../api/interfaces/EmbedOptions.md)):
 
-:::
+### `appUrl`
+
+[`string`](../api/interfaces/EmbedOptions#appurl)
+
+Default: `"https://livecodes.io/"`
+
+Allows the library to load the playground from a custom URL (e.g. [hosted app](../getting-started.md#hosted-app)).
+
+### `config`
+
+[`string | Partial<Config>`](../api/interfaces/EmbedOptions#config)
+
+Default: `{}`
+
+A [configuration object](../configuration/configuration-object.md) or a URL to a JSON file representing a configuration object to load.
+
+### `import`
+
+[`string`](../api/interfaces/EmbedOptions#import)
+
+A URL to [import](../features/import.md).
+
+### `lite`
+
+[`boolean`](../api/interfaces/EmbedOptions#lite)
+
+Default: `false`
+
+If `true`, the playground is loaded in [lite mode](../features/lite.md).
+
+### `loading`
+
+[`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions#loading)
+
+Default: `"lazy"`
+
+"eager": The playground loads immediately.
+
+"lazy": A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
+
+"click": The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
+
+### `template`
+
+[`string`](../api/interfaces/EmbedOptions#template)
+
+A [starter template](../features/templates.md) to load.
+
+### `view`
+
+[`"editor" | "result" | "editor,result"`](../api/interfaces/EmbedOptions#view)
+
+Default: `"editor,result"`
+
+The [default view](../features/default-view.md) for the playground.
 
 ## API Methods
 
+([`Playground`](../api/interfaces/Playground.md))
+
 ### `load`
 
-`() => Promise<void>`
+[`() => Promise<void>`](../api/interfaces/Playground.md#load)
 
 When the embed option `loading` is set to `click`, the playground is not loaded automatically. Instead, a screen is shown with "Click to load" button.
 Calling the API method `load()` allows loading the playground.
@@ -62,7 +130,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `run`
 
-`() => Promise<void>`
+[`() => Promise<void>`](../api/interfaces/Playground.md#run)
 
 Runs the [result page](../features/result.md) (after any required compilation for code).
 
@@ -77,7 +145,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `format`
 
-`(allEditors?: boolean) => Promise<void>`
+[`(allEditors?: boolean) => Promise<void>`](../api/interfaces/Playground.md#format)
 
 [Formats the code](../features/code-format.md).
 
@@ -95,7 +163,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `getShareUrl`
 
-`(shortUrl?: boolean) => Promise<string>`
+[`(shortUrl?: boolean) => Promise<string>`](../api/interfaces/Playground.md#getshareurl)
 
 Gets a [share url](../features/share.md).
 
@@ -112,7 +180,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `getConfig`
 
-`(contentOnly?: boolean) => Promise<Config>`
+[`(contentOnly?: boolean) => Promise<Config>`](../api/interfaces/Playground.md#getconfig)
 
 Gets a config object representing the playground state. This can be used to restore state if passed as [embed option](#createplayground) property on creating playground, or can be manipulated and loaded in run-time using [`setConfig`](#setconfig) method.
 
@@ -126,7 +194,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `setConfig`
 
-`(config: Partial<Config>) => Promise<Config>`
+[`(config: Partial<Config>) => Promise<Config>`](../api/interfaces/Playground.md#setconfig)
 
 Loads a new project using the passed configuration object.
 
@@ -147,7 +215,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `getCode`
 
-`() => Promise<Code>`
+[`() => Promise<Code>`](../api/interfaces/Playground.md#getcode)
 
 Gets the playground code (including source code, source language and compiled code) for each editor (`markup`, `style`, `script`), in addition to result page HTML.
 
@@ -167,7 +235,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `show`
 
-`(panel: EditorId | Lowercase<Tool['title']> | 'result', options: { full?: boolean }) => Promise<void>`
+[`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number }) => Promise<void>`](../api/interfaces/Playground.md#show)
 
 Shows the selected panel, which is either:
 
@@ -175,7 +243,8 @@ Shows the selected panel, which is either:
 - Tool: `console`, `compiled` or `tests`
 - Result page: `result`
 
-The second optional argument is an object that may have the boolean property `full`. If `true`, selected editor or result page will take the full vertical and horizontal space of the playground, while tools will take the full vertical and half the horizontal space,leaving some space for the active editor.
+The second optional argument is an object. It may have the boolean property `full`, which If `true`, selected editor or result page will take the full vertical and horizontal space of the playground, while tools will take the full vertical and half the horizontal space, leaving some space for the active editor.
+The optional properties `line` and `column` allow scrolling to line/column number in the shown editor.
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -198,7 +267,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `runTests`
 
-`() => Promise<{ results: TestResult[] }>`
+[`() => Promise<{ results: TestResult[] }>`](../api/interfaces/Playground.md#runtests)
 
 Runs project [tests](./../features/tests.md) (if present) and gets test results.
 
@@ -212,7 +281,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `onChange`
 
-`(fn: ChangeHandler) => { remove: () => void }`
+[`(fn: ChangeHandler) => { remove: () => void }`](../api/interfaces/Playground.md#onchange)
 
 Allows to watch the playground for changes. It takes a callback function that will be called on every change.
 
@@ -238,7 +307,7 @@ createPlayground('#container').then((playground) => {
 
 ### `destroy`
 
-`() => Promise<void>`
+[`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
 
 Destoys the playground instance, and removes event listeners. Further call to any API methods throws an error.
 
