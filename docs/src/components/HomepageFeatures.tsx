@@ -27,8 +27,9 @@ const FeatureList1: FeatureItem[] = [
         <Link to="./languages">
           <strong>60+ languages/frameworks</strong>
         </Link>
-        . Save, Import, Export, Share, Deploy, NPM Modules, Code Format, Starter Templates, Console,
-        Intellisense, Auto-loading TS Types, Emmet Support and a lot more{' '}
+        . Code Format, NPM Modules, Intellisense, TypeScript Support, Emmet, Console, Compiled code
+        viewer, Tests, Starter Templates, Save, Import, Export, Share, Deploy, Assets, Snippets,
+        Backup/Restore, Sync, Broadcast and a lot more{' '}
         <Link to="./features">
           <strong>features</strong>
         </Link>
@@ -58,7 +59,8 @@ const FeatureList1: FeatureItem[] = [
         <strong>GitHub</strong> files/repos/gists, <strong>Gitlab</strong> files/repos/snippets,{' '}
         <strong>JsBin</strong> or <strong>web pages</strong>.{' '}
         <Link to="./features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
-        <strong>JsFiddle</strong>. <Link to="./features/deploy">Deploy</Link> to GitHub Pages.
+        <strong>JsFiddle</strong>. <Link to="./features/deploy">Deploy</Link> to GitHub Pages.{' '}
+        <Link to="./features/sync">Sync</Link> to GitHub Repo.
       </>
     ),
   },
@@ -111,16 +113,11 @@ const FeatureList3: FeatureItem[] = [
     image: './img/code.svg',
     description: (
       <>
-        LiveCodes is highly{' '}
-        <Link to="./configuration">
-          <strong>configurable</strong>
-        </Link>
-        . Lots of features can be configured by URL query params . The <strong>npm package</strong>{' '}
-        facilitates embedding playgrounds. Embedded playgrounds expose{' '}
-        <Link to="./advanced/api">
-          <strong>API</strong>
-        </Link>{' '}
-        to communicate with embedding pages.
+        LiveCodes is highly <Link to="./configuration">configurable</Link>. Lots of features can be
+        configured by URL <Link to="./configuration/query-params">query params</Link>. The{' '}
+        <Link to="./getting-started#npm-package">npm package</Link> facilitates{' '}
+        <Link to="./features/embeds">embedding</Link> playgrounds. Embedded playgrounds expose a
+        rich <Link to="./advanced/api">API</Link> to communicate with embedding pages.
       </>
     ),
   },
@@ -129,9 +126,9 @@ const FeatureList3: FeatureItem[] = [
     image: './img/data-privacy.svg',
     description: (
       <>
-        The code you write in LiveCodes never leaves your computer, unless you choose to share or
-        export it. No cookies are used. User settings are stored in the browser. LiveCodes is
-        GDPR-Compliant.
+        Projects are private by default. The code you write in LiveCodes never leaves your computer,
+        unless you choose to share, export or sync it. No cookies are used. User data is stored in
+        the browser.
       </>
     ),
   },
@@ -140,8 +137,10 @@ const FeatureList3: FeatureItem[] = [
     image: './img/oss.svg',
     description: (
       <>
-        LiveCodes is <strong>free</strong>,<br></br> with no ads and no account required.*<br></br>
-        Do you need to <Link to="./getting-started#self-hosted">self-host</Link> it for commercial
+        LiveCodes is <strong>free</strong>, with <strong>no&nbsp;limits</strong> for use,{' '}
+        <strong>no&nbsp;ads</strong> and no&nbsp;account required*.
+        <br></br>
+        Do you want to <Link to="./getting-started#self-hosted">self-host</Link> it for commercial
         use? No problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
           <Link to="./license">
@@ -264,7 +263,8 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
           <p className={styles.finePrint}>
             The OSI logo trademark is the trademark of Open Source Initiative.<br></br>* GitHub
-            account is required only for features that use GitHub Integration.
+            account is required only for features that use{' '}
+            <Link to="./features/github-integration">GitHub Integration</Link>.
           </p>
         </div>
       </section>
