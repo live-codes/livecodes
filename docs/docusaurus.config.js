@@ -27,6 +27,9 @@ const config = {
           editUrl: 'https://github.com/live-codes/livecodes/tree/develop/docs/',
         },
         blog: false,
+        // blog: {
+        //   routeBasePath: '/blog',
+        // },
         theme: {
           customCss: [
             require.resolve('./src/css/custom.css'),
@@ -58,8 +61,7 @@ const config = {
             label: 'Docs',
           },
           {
-            type: 'doc',
-            docId: 'api/modules',
+            to: 'advanced/api',
             position: 'left',
             label: 'API',
           },

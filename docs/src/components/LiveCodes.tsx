@@ -38,7 +38,7 @@ export default function LiveCodes(
   };
 
   const code = `
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 const options = ${JSON.stringify(options, null, 2)};
 createPlayground('#container', options);

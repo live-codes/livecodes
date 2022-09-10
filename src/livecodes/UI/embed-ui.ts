@@ -287,7 +287,7 @@ livecodes.createPlayground("#${containerId}", options);
       const options = getOptions(data);
       return `${containerHtml}
 <script type="module">
-import { createPlayground } from "@live-codes/livecodes";
+import { createPlayground } from "livecodes";
 const options = ${JSON.stringify(options, null, 2)};
 createPlayground("#${containerId}", options);
 </script>

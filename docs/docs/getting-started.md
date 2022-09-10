@@ -15,13 +15,13 @@ An npm package is available to allow easy [embedding](./features/embeds.md) of p
 1. Install from npm.
 
 ```sh
-npm i @live-codes/livecodes
+npm i livecodes
 ```
 
 then you can use it like that:
 
 ```js title="index.js"
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container', { template: 'react' });
 ```
@@ -33,7 +33,7 @@ ESM:
 ```html title="index.html"
 <div id="container"></div>
 <script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/@live-codes/livecodes/lib/livecodes.esm.js';
+  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes/lib/livecodes.esm.js';
 
   createPlayground('#container', { template: 'react' });
 </script>
@@ -43,7 +43,7 @@ UMD:
 
 ```html title="index.html"
 <div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/@live-codes/livecodes/lib/livecodes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/livecodes/lib/livecodes.js"></script>
 <script>
   // the UMD version provides the global object `livecodes`
   livecodes.createPlayground('#container', { template: 'react' });
@@ -76,7 +76,7 @@ The built app can be obtained by one of the following ways:
 You may still use the npm package with the self-hosted app by providing the `appUrl` configuration option.
 
 ```js title="index.js"
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 const options = {
   appUrl: 'https://playground.myserver.com/',

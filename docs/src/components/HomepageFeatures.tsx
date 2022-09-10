@@ -172,7 +172,7 @@ function Feature({ title, image, description }: FeatureItem) {
 }
 
 const codeSample = `
-import { createPlayground } from "@live-codes/livecodes";
+import { createPlayground } from "livecodes";
 
 createPlayground("#container", { template: "react" });
 `.trimStart();

@@ -18,7 +18,7 @@ The library exports the function `createPlayground` which takes 2 arguments:
 The `createPlayground` function return a promise which resolves to an object that exposes the API methods.
 
 ```ts
-import { createPlayground, EmbedOptions } from '@live-codes/livecodes';
+import { createPlayground, EmbedOptions } from 'livecodes';
 
 const options: EmbedOptions = {
   // appUrl: ...
@@ -36,7 +36,7 @@ createPlayground('#container', options).then((playground) => {
 
 :::tip
 
-The TypeScript types are [documented here](https://livecodes.io/api-docs/lib/modules.html).
+The TypeScript types are [documented here](../api/modules.md).
 
 :::
 
@@ -52,7 +52,7 @@ Calling the API method `load()` allows loading the playground.
 If the playground was not loaded, calling any other method will load the playground first before executing.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   await playground.load();
@@ -67,7 +67,7 @@ createPlayground('#container').then(async (playground) => {
 Runs the [result page](../features/result.md) (after any required compilation for code).
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   await playground.run();
@@ -85,7 +85,7 @@ By default, the code in all editors (markup, style and script) is formatted.
 If you wish to format only the active editor, pass the value `false` as an argument.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   await playground.format();
@@ -102,7 +102,7 @@ Gets a [share url](../features/share.md).
 By default, the url is has a long query string representing the compressed config object. If the argument `shortUrl` was set to `true`, a short url is generated.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   const longUrl = await playground.getShareUrl();
@@ -117,7 +117,7 @@ createPlayground('#container').then(async (playground) => {
 Gets a config object representing the playground state. This can be used to restore state if passed as [embed option](#createplayground) property on creating playground, or can be manipulated and loaded in run-time using [`setConfig`](#setconfig) method.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   const config = await playground.getConfig();
@@ -131,7 +131,7 @@ createPlayground('#container').then(async (playground) => {
 Loads a new project using the passed configuration object.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   const config = {
@@ -152,7 +152,7 @@ createPlayground('#container').then(async (playground) => {
 Gets the playground code (including source code, source language and compiled code) for each editor (`markup`, `style`, `script`), in addition to result page HTML.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   const code = await playground.getCode();
@@ -178,7 +178,7 @@ Shows the selected panel, which is either:
 The second optional argument is an object that may have the boolean property `full`. If `true`, selected editor or result page will take the full vertical and horizontal space of the playground, while tools will take the full vertical and half the horizontal space,leaving some space for the active editor.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   const delay = (duration) =>
@@ -203,7 +203,7 @@ createPlayground('#container').then(async (playground) => {
 Runs project [tests](./../features/tests.md) (if present) and gets test results.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   const { results } = await playground.runTests();
@@ -221,7 +221,7 @@ The callback function will be called with an object that has 2 properties: `code
 The `onChange` method returns an object with a single method `remove`, which when called will remove the callback from watching changes.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then((playground) => {
   const watcher = playground.onChange(({ code, config }) => {
@@ -243,7 +243,7 @@ createPlayground('#container').then((playground) => {
 Destoys the playground instance, and removes event listeners. Further call to any API methods throws an error.
 
 ```js
-import { createPlayground } from '@live-codes/livecodes';
+import { createPlayground } from 'livecodes';
 
 createPlayground('#container').then(async (playground) => {
   await playground.destroy();
