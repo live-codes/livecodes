@@ -73,7 +73,11 @@ The built app can be obtained by one of the following ways:
 
 - Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Vercel](https://vercel.com/docs/concepts/git), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration)). When prompted, the build command is `npm run build` and the build output directory is `build`.
 
-You may still use the npm package with the self-hosted app by providing the `appUrl` configuration option.
+The app needs to be served from the root of the domain/subdomain.
+
+You may wish to edit one or more of the used [services](./advanced/services.md) to use your own.
+
+The npm package can still be used with the self-hosted app by providing the [`appUrl`](./advanced/api.md#appurl) [embed option](./advanced/api.md#embed-options).
 
 ```js title="index.js"
 import { createPlayground } from 'livecodes';
