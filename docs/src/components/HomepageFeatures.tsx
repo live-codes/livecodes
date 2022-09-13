@@ -280,8 +280,8 @@ export default function HomepageFeatures(): JSX.Element {
         <div className={'container padding-vert--lg ' + styles.center}>
           <div className={['row', styles.carousel, styles.center].join(' ')}>
             <div className={styles.buttons}>
-              <Link className="button button--primary button--outline button--lg" to="./">
-                Documentation 📖
+              <Link className="button button--primary button--outline button--lg" to="./overview">
+                Documentations 📖
               </Link>
               <Link
                 className=" button button--info button--outline button--lg"

@@ -110,3 +110,9 @@ javascript: (() => {
   window.open('https://livecodes.io/?x=' + location.href, '_blank');
 })();
 ```
+
+## Import from CodePen
+
+Currently, CodePen API does not allow directly importing code from Pens (except for Pens of Pro users, which can be imported!). However, you can export any saved Pen as a [zip file](https://blog.codepen.io/documentation/exporting-pens/#export-zip-1) or [Github gist](https://blog.codepen.io/documentation/exporting-pens/#save-as-github-gist-2) and then import it to LiveCodes. The format that Codepen exports is well understood by LiveCodes. Most Pens can be imported with no or minimal changes.
+
+**Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-css-js.md).
