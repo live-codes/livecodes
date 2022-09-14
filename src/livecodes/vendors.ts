@@ -69,6 +69,8 @@ export const esModuleShimsUrl =
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
 
+export const fscreenUrl = 'https://cdn.jsdelivr.net/npm/fscreen@1.2.0/dist/fscreen.esm.js';
+
 export const githubMarkdownCss =
   'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css';
 
@@ -145,6 +147,8 @@ export const prettierPhpUrl =
   'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.18.0/standalone.js';
 
 export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
+
+export const qrcodeUrl = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
 
 export const quillEditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/quill@2.0.0-dev.4/dist';
 

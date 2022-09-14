@@ -26,6 +26,8 @@ export const getExternalResourcesBtn = () =>
 export const getExternalResourcesMark = () =>
   document.querySelector('#editor-tools #external-resources-mark') as HTMLElement;
 export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;
+export const getFullscreenButton = () =>
+  document.querySelector('#fullscreen-button') as HTMLElement;
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
 export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > .editor');
@@ -373,3 +375,5 @@ export const getBroadcastChannelUrl = (broadcastContainer: HTMLElement) =>
 
 export const getBroadcastStatusBtn = () =>
   document.querySelector('#broadcast-status-btn') as HTMLElement | null;
+
+export const getQrCodeContainer = () => document.querySelector('#qrcode-container') as HTMLElement;

@@ -83,7 +83,7 @@ export const createEmbedUI = async ({
       title: 'Lite Mode',
       name: 'lite',
       options: [{ value: 'true', checked: false }],
-      help: '/web/docs/features/lite',
+      help: '/docs/features/lite',
     },
     {
       title: 'Read only',
@@ -99,7 +99,7 @@ export const createEmbedUI = async ({
         { label: 'Code Block', value: 'codeblock' },
         { label: 'Result', value: 'result' },
       ],
-      help: '/web/docs/features/display-modes',
+      help: '/docs/features/display-modes',
     },
     {
       title: 'Default View',
@@ -109,7 +109,7 @@ export const createEmbedUI = async ({
         { label: 'Editor', value: 'editor' },
         { label: 'Result', value: 'result' },
       ],
-      help: '/web/docs/features/default-view',
+      help: '/docs/features/default-view',
     },
     {
       title: 'Active Editor',
@@ -129,7 +129,7 @@ export const createEmbedUI = async ({
         { label: 'Full', value: 'full' },
         { label: 'None', value: 'none' },
       ],
-      help: '/web/docs/features/tools-pane',
+      help: '/docs/features/tools-pane',
     },
     {
       title: 'Embed Type',
@@ -287,7 +287,7 @@ livecodes.createPlayground("#${containerId}", options);
       const options = getOptions(data);
       return `${containerHtml}
 <script type="module">
-import { createPlayground } from "@live-codes/livecodes";
+import { createPlayground } from "livecodes";
 const options = ${JSON.stringify(options, null, 2)};
 createPlayground("#${containerId}", options);
 </script>

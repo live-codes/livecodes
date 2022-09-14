@@ -84,8 +84,8 @@ export const populateConfig = (files: SourceFile[], params: { [key: string]: str
         a.editorId === b.editorId &&
         a.editorId === 'markup'
       ) {
-        if (a.filename.startsWith('readme')) return 1;
-        if (b.filename.startsWith('readme')) return -1;
+        if (a.filename.toLowerCase().startsWith('readme')) return 1;
+        if (b.filename.toLowerCase().startsWith('readme')) return -1;
       }
       if (a.language === b.language) {
         // if same language, sort by filename

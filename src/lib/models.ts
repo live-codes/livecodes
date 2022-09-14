@@ -7,7 +7,7 @@ export interface API {
   getCode: () => Promise<Code>;
   show: (
     panel: EditorId | Tool['name'] | 'result',
-    options: { full?: boolean; line?: number; column?: number },
+    options?: { full?: boolean; line?: number; column?: number },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };
@@ -760,7 +760,7 @@ export type UrlQueryParams = Partial<
       embed: boolean;
       preview: boolean;
       x: string;
-      raw: string;
+      raw: Language;
       language: Language;
       lang: Language;
       languages: string; // comma-separated languages
