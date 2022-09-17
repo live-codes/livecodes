@@ -682,7 +682,9 @@ const getResultPage = async ({
   const testsLanguage = config.tests?.language || 'typescript';
 
   const forceCompileStyles =
-    (config.processors.postcss.tailwindcss || config.processors.postcss.windicss) &&
+    (config.processors.postcss.tailwindcss ||
+      config.processors.postcss.windicss ||
+      config.processors.postcss.unocss) &&
     (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
 
   const testsNotChanged =
