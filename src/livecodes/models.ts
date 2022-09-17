@@ -51,6 +51,7 @@ export interface ContentConfig {
       postcssImportUrl?: boolean;
       tailwindcss: boolean;
       windicss: boolean;
+      lightningcss: boolean;
       autoprefixer: boolean;
       postcssPresetEnv: boolean;
     };

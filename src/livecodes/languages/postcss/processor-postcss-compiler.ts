@@ -59,6 +59,12 @@ const getSpecs = (pluginName: PluginName) => pluginSpecs.find((specs) => specs.n
         });
       }
     }
+    if (getEnabledPluginNames(code, config).includes('lightningcss')) {
+      const lightningCss = loadedPlugins.lightningcss?.({ config, options, baseUrl }) as any;
+      if (lightningCss) {
+        css = await lightningCss({ css, config });
+      }
+    }
     return (await (self as any).postcss.postcss(plugins).process(prepareCode(css), postCssOptions))
       .css;
   };

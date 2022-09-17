@@ -60,6 +60,16 @@ export const pluginSpecs: PluginSpecs[] = [
     },
   },
   {
+    name: 'lightningcss',
+    title: 'Lightning CSS',
+    url: vendorsBaseUrl + 'lightningcss/lightningcss.js',
+    isPostcssPlugin: false,
+    factory: ({ baseUrl }) => {
+      (self as any).importScripts(baseUrl + '{{hash:processor-lightningcss-compiler.js}}');
+      return (self as any).createLightningcssCompiler();
+    },
+  },
+  {
     name: 'autoprefixer',
     title: 'Autoprefixer',
     url: vendorsBaseUrl + 'autoprefixer/autoprefixer.js',
@@ -84,7 +94,7 @@ export const pluginSpecs: PluginSpecs[] = [
 
 export const postcss: Processors = {
   name: 'postcss',
-  title: 'PostCSS:',
+  title: 'Processors:',
   compiler: {
     url: vendorsBaseUrl + 'postcss/postcss.js',
     factory: (_config, baseUrl) => {

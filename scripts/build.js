@@ -196,6 +196,7 @@ esbuild.buildSync({
   'wat/lang-wat-compiler.ts',
   'wat/lang-wat-script.ts',
   'windicss/processor-windicss-compiler.ts',
+  'lightningcss/processor-lightningcss-compiler.ts',
   'postcss/processor-postcss-compiler.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
