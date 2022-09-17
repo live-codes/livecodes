@@ -486,44 +486,54 @@ a {
     display: inline-block;
     font-size: 12px;
     margin-right: 2px;
+    min-width: 32px;
     text-align: center;
-    width: 30px;
+
+    &.text {
+      align-items: center;
+      border-bottom: 2px solid var(--toolspane-button-color);
+      display: flex;
+      height: 28px;
+      justify-content: center;
+    }
 
     img {
       filter: var(--editor-tools-invert);
       height: 18px;
       margin: 4px auto;
-
-      &:hover {
-        filter: invert(1);
-      }
-
-      &:active {
-        filter: invert(0.9);
-      }
     }
 
-    &.active img {
+    &:hover img {
       filter: invert(1);
+    }
+
+    &:active img {
+      filter: invert(0.9);
     }
 
     &.disabled img {
       filter: invert(0.5);
+    }
+
+    &.active {
+      img {
+        filter: invert(1);
+      }
+
+      .mark {
+        border: 4px solid var(--editor-tools-mark-color);
+        border-radius: 4px;
+        bottom: 5px;
+        display: inline-block;
+        position: absolute;
+        right: 5px;
+      }
     }
   }
 
   #external-resources-btn {
     position: absolute;
     right: 1em;
-  }
-
-  #external-resources-mark.active {
-    border: 5px solid var(--editor-tools-mark-color);
-    border-radius: 5px;
-    bottom: 5px;
-    display: inline-block;
-    position: absolute;
-    right: 5px;
   }
 }
 
@@ -565,7 +575,23 @@ a {
   iframe {
     border: 0;
     height: 100%;
+    transform-origin: top left;
     width: 100%;
+    z-index: 1;
+
+    &.zoom50 {
+      height: 200%;
+      min-width: 200%;
+      transform: scale(0.5);
+      width: 200%;
+    }
+
+    &.zoom25 {
+      height: 400%;
+      min-width: 400%;
+      transform: scale(0.25);
+      width: 400%;
+    }
   }
 }
 
@@ -816,6 +842,7 @@ a {
   top: 5px !important;
   transition: opacity 0.1s;
   white-space: nowrap;
+  z-index: 10;
 
   &.visible {
     opacity: 100%;

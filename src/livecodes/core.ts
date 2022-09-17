@@ -853,13 +853,12 @@ const setWindowTitle = () => {
 };
 
 const setExternalResourcesMark = () => {
-  const mark = UI.getExternalResourcesMark();
   const btn = UI.getExternalResourcesBtn();
   if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
-    mark.classList.add('active');
+    btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
-    mark.classList.remove('active');
+    btn.classList.remove('active');
     if (isEmbed) {
       btn.style.display = 'none';
     }
@@ -3013,6 +3012,49 @@ const handleResultPopup = () => {
   UI.getToolspaneTitles()?.appendChild(popupBtn);
 };
 
+const handleResultZoom = () => {
+  const zoomBtn = document.createElement('div');
+  zoomBtn.classList.add('tool-buttons', 'hint--top');
+  zoomBtn.dataset.hint = 'Zoom';
+  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+  const zoomLevels = {
+    x100: '1&times;',
+    x50: '0.5&times;',
+    x25: '0.25&times;',
+  };
+  const zoomBtnText = document.createElement('span');
+  zoomBtnText.classList.add('text');
+  zoomBtnText.innerHTML = zoomLevels.x100;
+  zoomBtn.appendChild(zoomBtnText);
+  const zoom = () => {
+    const iframe = UI.getResultIFrameElement();
+    const zoom = iframe.classList.contains('zoom50')
+      ? zoomLevels.x50
+      : iframe.classList.contains('zoom25')
+      ? zoomLevels.x25
+      : zoomLevels.x100;
+
+    if (zoom === zoomLevels.x100) {
+      iframe.classList.add('zoom50');
+      zoomBtnText.innerHTML = zoomLevels.x50;
+    }
+
+    if (zoom === zoomLevels.x50) {
+      iframe.classList.remove('zoom50');
+      iframe.classList.add('zoom25');
+      zoomBtnText.innerHTML = zoomLevels.x25;
+    }
+
+    if (zoom === zoomLevels.x25) {
+      iframe.classList.remove('zoom25');
+      zoomBtnText.innerHTML = zoomLevels.x100;
+    }
+  };
+  eventsManager.addEventListener(zoomBtn, 'click', zoom);
+  eventsManager.addEventListener(zoomBtn, 'touchstart', zoom);
+  UI.getToolspaneTitles()?.appendChild(zoomBtn);
+};
+
 const handleBroadcastStatus = () => {
   const broadcastStatusBtn = document.createElement('div');
   broadcastStatusBtn.id = 'broadcast-status-btn';
@@ -3020,7 +3062,11 @@ const handleBroadcastStatus = () => {
   broadcastStatusBtn.dataset.hint = 'Broadcast';
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/broadcast.svg';
-  broadcastStatusBtn.innerHTML = `<span id="broadcast-status"><img src="${imgUrl}" /></span>`;
+  broadcastStatusBtn.innerHTML = `
+  <span id="broadcast-status">
+    <img src="${imgUrl}" />
+    <span class="mark"></span>
+  </span>`;
   const showBroadcast = () => {
     showScreen('broadcast');
   };
@@ -3071,6 +3117,7 @@ const handleUnload = () => {
 const loadToolsPane = async () => {
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
   await toolsPane.load();
+  handleResultZoom();
   getResultElement().classList.remove('full');
 };
 
