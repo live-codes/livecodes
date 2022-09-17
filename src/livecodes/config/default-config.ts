@@ -53,6 +53,7 @@ export const defaultConfig: Config = {
     postcss: {
       tailwindcss: false,
       windicss: false,
+      unocss: true,
       lightningcss: false,
       autoprefixer: false,
       postcssPresetEnv: false,

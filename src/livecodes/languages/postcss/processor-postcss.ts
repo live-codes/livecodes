@@ -60,6 +60,16 @@ export const pluginSpecs: PluginSpecs[] = [
     },
   },
   {
+    name: 'unocss',
+    title: 'UnoCSS',
+    url: vendorsBaseUrl + 'unocss/unocss.js',
+    isPostcssPlugin: false,
+    factory: ({ baseUrl }) => {
+      (self as any).importScripts(baseUrl + '{{hash:processor-unocss-compiler.js}}');
+      return (self as any).createUnocssCompiler();
+    },
+  },
+  {
     name: 'lightningcss',
     title: 'Lightning CSS',
     url: vendorsBaseUrl + 'lightningcss/lightningcss.js',

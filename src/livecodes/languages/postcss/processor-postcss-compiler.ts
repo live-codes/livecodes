@@ -47,24 +47,19 @@ const getSpecs = (pluginName: PluginName) => pluginSpecs.find((specs) => specs.n
 
   return async function process(code, { config, baseUrl, options }): Promise<string> {
     if (!config || !baseUrl) return code;
-    const plugins = getPlugins(code, config, baseUrl, options);
     let css = code;
-    if (getEnabledPluginNames(code, config).includes('windicss')) {
-      const windiCss = loadedPlugins.windicss?.({ config, options, baseUrl }) as any;
-      if (windiCss) {
-        css = await windiCss({
-          html: `<template>${options.html}\n<script>${config.script.content}</script></template>`,
+    for (const pluginName of getEnabledPluginNames(code, config)) {
+      const plugin = loadedPlugins[pluginName]?.({ config, options, baseUrl }) as any;
+      const specs = getSpecs(pluginName);
+      if (plugin && specs?.isPostcssPlugin === false) {
+        css = await plugin({
+          html: options.html,
           css,
           config,
         });
       }
     }
-    if (getEnabledPluginNames(code, config).includes('lightningcss')) {
-      const lightningCss = loadedPlugins.lightningcss?.({ config, options, baseUrl }) as any;
-      if (lightningCss) {
-        css = await lightningCss({ css, config });
-      }
-    }
+    const plugins = getPlugins(css, config, baseUrl, options);
     return (await (self as any).postcss.postcss(plugins).process(prepareCode(css), postCssOptions))
       .css;
   };

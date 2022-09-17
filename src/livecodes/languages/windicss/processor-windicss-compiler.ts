@@ -4,12 +4,16 @@ import { getLanguageCustomSettings } from '../../utils';
 (self as any).createWindicssCompiler =
   () => async (compileOptions?: { html: string; css: string; config: Config; options: any }) => {
     const { html = '', css = '', config } = compileOptions || {};
+    const htmlTemplate = `<template>${html}\n<script>${
+      config?.script.content || ''
+    }</script></template>`;
+
     const customSettings = getLanguageCustomSettings('windicss' as any, config as Config);
     const { Processor, HTMLParser, CSSParser } = (self as any).windicss;
     const processor = new Processor();
     processor.loadConfig(customSettings);
 
-    const htmlParser = new HTMLParser(html);
+    const htmlParser = new HTMLParser(htmlTemplate);
     let htmlSheet;
     if (customSettings.attributify) {
       const castArray = (val: unknown) => (Array.isArray(val) ? val : [val]);
@@ -37,7 +41,12 @@ import { getLanguageCustomSettings } from '../../utils';
     const includeBase = customSettings.preflight !== false;
     const includeGlobal = customSettings.preflight !== false;
     const includePlugins = customSettings.preflight !== false;
-    const preflightSheet = processor.preflight(html, includeBase, includeGlobal, includePlugins);
+    const preflightSheet = processor.preflight(
+      htmlTemplate,
+      includeBase,
+      includeGlobal,
+      includePlugins,
+    );
 
     const cssSheet = new CSSParser(css, processor).parse();
 
