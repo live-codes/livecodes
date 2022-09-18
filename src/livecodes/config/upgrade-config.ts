@@ -65,6 +65,7 @@ const upgradeSteps = [
       config = renameProperty(config, 'allow_lang_change', 'allowLangChange');
       if ('autoprefixer' in config) {
         config.processors = clone(defaultConfig.processors);
+        (config.processors as any).postcss = (config.processors as any).postcss || {};
         (config.processors as any).postcss.autoprefixer = config.autoprefixer;
         delete config.autoprefixer;
       }
