@@ -1,5 +1,5 @@
 import {
-  getEnabledProcessors,
+  getActivatedProcessors,
   getLanguageEditorId,
   getCustomSettings,
   languages,
@@ -7,14 +7,7 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import type {
-  Language,
-  Config,
-  Compilers,
-  EditorId,
-  CompilerFunction,
-  CompileOptions,
-} from '../models';
+import type { Language, Config, Compilers, CompilerFunction, CompileOptions } from '../models';
 import { sandboxService } from '../services';
 import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
@@ -168,7 +161,7 @@ export const createCompiler = async ({
       language = 'typescript';
     }
 
-    const enabledProcessors = getEnabledProcessors(language, config);
+    const enabledProcessors = getActivatedProcessors(language, config);
     const languageSettings = stringify(getCustomSettings(language, config));
 
     if (
@@ -203,25 +196,32 @@ export const createCompiler = async ({
   };
 
   const postProcess: CompilerFunction = async (content, { config, language, baseUrl, options }) => {
+    let postcssRequired = false;
+    const editorId = getLanguageEditorId(language) || 'markup';
+
     for (const processor of processors) {
       if (
         (processorIsEnabled(processor.name, config) &&
           processorIsActivated(processor.name, config) &&
-          processor.editors?.includes(getLanguageEditorId(language || '') as EditorId)) ||
-        (getLanguageEditorId(language) === 'style' &&
-          processor.name === 'postcss' &&
-          hasStyleImports(content))
+          processor.editor === editorId) ||
+        (editorId === 'style' && processor.name === 'postcss')
       ) {
-        if (compilers[processor.name] && !compilers[processor.name].fn) {
-          await load([processor.name], config);
+        if (processor.isPostcssPlugin || (editorId === 'style' && hasStyleImports(content))) {
+          postcssRequired = true;
+        } else {
+          if (processor.name === 'postcss' && !postcssRequired) continue;
+          if (compilers[processor.name] && !compilers[processor.name].fn) {
+            await load([processor.name], config);
+          }
+          const process = compilers[processor.name].fn || ((code: string) => code);
+          if (typeof process !== 'function') {
+            throw new Error('Failed to load processor: ' + processor.name);
+          }
+          content = await process(content, { config, language, baseUrl, options });
         }
-        const process = compilers[processor.name].fn || ((code: string) => code);
-        if (typeof process !== 'function') {
-          throw new Error('Failed to load processor: ' + processor.name);
-        }
-        content = await process(content, { config, language, baseUrl, options });
       }
     }
+
     return content;
   };
 

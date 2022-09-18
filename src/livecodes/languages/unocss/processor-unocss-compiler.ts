@@ -1,12 +1,12 @@
-import { Config } from '../../models';
+import { CompilerFunction, Config } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 
-(self as any).createUnocssCompiler = () => {
+(self as any).createUnocssCompiler = (): CompilerFunction => {
   const unocss = (self as any).unocss;
   const { createGenerator, defineConfig } = unocss;
 
-  return async (compileOptions?: { html: string; css: string; config: Config; options: any }) => {
-    const { html = '', css = '', config } = compileOptions || {};
+  return async (css, { config, options }) => {
+    const { html } = options;
     const customSettings = getLanguageCustomSettings('unocss' as any, config as Config);
 
     const loadPresets = (presetsObj: Record<string, any> = {}) =>

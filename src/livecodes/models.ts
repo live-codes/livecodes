@@ -39,24 +39,14 @@ export interface ContentConfig {
   description: string;
   tags: string[];
   activeEditor: EditorId | undefined;
-  languages: Language[] | undefined;
+  languages: Array<Language | Processor> | undefined;
   markup: Editor;
   style: Editor;
   script: Editor;
   stylesheets: string[];
   scripts: string[];
   cssPreset: CssPresetId;
-  processors: {
-    postcss: {
-      postcssImportUrl?: boolean;
-      tailwindcss: boolean;
-      windicss: boolean;
-      unocss: boolean;
-      lightningcss: boolean;
-      autoprefixer: boolean;
-      postcssPresetEnv: boolean;
-    };
-  };
+  processors: Processor[];
   customSettings: CustomSettings;
   imports: { [key: string]: string };
   types: Types;
@@ -301,16 +291,29 @@ export interface LanguageSpecs {
   largeDownload?: boolean;
 }
 
-export interface Processors {
-  name: ProcessorName | Language;
+export interface ProcessorSpecs {
+  name: Processor;
   title: string;
   longTitle?: string;
   info?: string;
-  compiler: Compiler | ProcessorName | Language;
-  editors?: EditorId[];
+  isPostcssPlugin: boolean;
+  compiler: {
+    url: string;
+    factory: (config: Config, baseUrl: string, options: CompileOptions) => CompilerFunction;
+  };
+  editor: EditorId;
+  hidden?: boolean;
 }
 
-export type ProcessorName = 'postcss';
+export type Processor =
+  | 'postcss'
+  | 'postcssImportUrl'
+  | 'tailwindcss'
+  | 'windicss'
+  | 'unocss'
+  | 'lightningcss'
+  | 'autoprefixer'
+  | 'postcssPresetEnv';
 
 export type ParserName =
   | 'babel'
@@ -372,7 +375,7 @@ export type CompilerFunction = (
     worker,
   }: {
     config: Config;
-    language: Language;
+    language: Language | Processor;
     baseUrl: string;
     options: CompileOptions;
     worker?: Worker;
@@ -627,7 +630,7 @@ export interface Screen {
 
 export type CustomSettings = Partial<
   {
-    [key in Language | keyof Config['processors']['postcss']]: any;
+    [key in Language | Processor]: any;
   } & {
     template: {
       data?: any;
@@ -766,6 +769,7 @@ export type UrlQueryParams = Partial<
       language: Language;
       lang: Language;
       languages: string; // comma-separated languages
+      processors: string; // comma-separated processors
       active: EditorId;
       tags: string | string[];
       'no-defaults': boolean;

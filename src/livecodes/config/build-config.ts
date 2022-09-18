@@ -1,4 +1,12 @@
-import type { EditorId, Language, Config, Tool, ToolsPaneStatus, UrlQueryParams } from '../models';
+import type {
+  EditorId,
+  Language,
+  Config,
+  Tool,
+  ToolsPaneStatus,
+  UrlQueryParams,
+  Processor,
+} from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { cloneObject, decodeHTML } from '../utils';
 import { defaultConfig } from './default-config';
@@ -28,14 +36,6 @@ export const buildConfig = (appConfig: Partial<Config>) => {
 
   config = {
     ...config,
-    processors: {
-      ...defaultConfig.processors,
-      ...config.processors,
-      postcss: {
-        ...defaultConfig.processors.postcss,
-        ...config.processors.postcss,
-      },
-    },
     activeEditor,
   };
 
@@ -139,6 +139,14 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams) => {
       .map((lang) => lang.trim())
       .map(getLanguageByAlias)
       .filter(Boolean) as Language[];
+  }
+
+  // ?processors=tailwindcss,autoprefixer
+  if (typeof params.processors === 'string') {
+    paramsConfig.processors = params.processors
+      .split(',')
+      .map((processor) => processor.trim())
+      .filter(Boolean) as Processor[];
   }
 
   // ?tags=js,advanced,proof-of-concept

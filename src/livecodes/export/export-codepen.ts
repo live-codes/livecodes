@@ -59,7 +59,7 @@ export const exportCodepen = (
         : config.cssPreset === 'reset-css'
         ? 'reset'
         : 'neither',
-    css_prefix: config.processors.postcss.autoprefixer ? 'autoprefixer' : 'neither',
+    css_prefix: config.processors.includes('autoprefixer') ? 'autoprefixer' : 'neither',
     js: getEditorContent('script'),
     js_pre_processor: supportedLanguages.script.includes(config.script.language)
       ? config.script.language

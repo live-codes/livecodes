@@ -85,14 +85,7 @@ export const tailwindcssStarter: Template = {
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  processors: {
-    postcss: {
-      tailwindcss: true,
-      windicss: false,
-      autoprefixer: false,
-      postcssPresetEnv: false,
-    },
-  },
+  processors: ['tailwindcss'],
   imports: {},
   types: {},
   customSettings: {

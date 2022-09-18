@@ -1,13 +1,12 @@
-import { Config } from '../../models';
+import { CompilerFunction, Config } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 import { vendorsBaseUrl } from '../../vendors';
 
-(self as any).createLightningcssCompiler = () => {
+(self as any).createLightningcssCompiler = (): CompilerFunction => {
   const { init, transform } = (self as any).lightningcss;
   const initialized = init(new URL(vendorsBaseUrl + 'lightningcss/lightningcss_node_bg.wasm'));
 
-  return async (compileOptions?: { html: string; css: string; config: Config; options: any }) => {
-    const { css = '', config } = compileOptions || {};
+  return async (css, { config }) => {
     const customSettings = getLanguageCustomSettings('lightningcss' as any, config as Config);
     await initialized;
     const { code, map, warnings } = transform({

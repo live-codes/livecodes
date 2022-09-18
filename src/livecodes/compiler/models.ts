@@ -1,4 +1,4 @@
-import { Language, Config, ProcessorName, CompileOptions } from '../models';
+import { Language, Config, Processor, CompileOptions } from '../models';
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
@@ -11,7 +11,7 @@ export interface Compiler {
   clearCache: () => void;
 }
 
-export type LanguageOrProcessor = Language | ProcessorName;
+export type LanguageOrProcessor = Language | Processor;
 
 export interface CompilerMessageEvent extends MessageEvent {
   data: CompilerMessage;

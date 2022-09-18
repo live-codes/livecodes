@@ -138,7 +138,7 @@ export const pintoraUrl =
 
 export const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.9.0/dist/plotly.min.js';
 
-export const postcssImportUrl =
+export const postcssImportUrlUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';
 
 export const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.5.1/';

@@ -1,4 +1,4 @@
-import { Compiler, Language, CustomSettings, Config, Processors } from '../models';
+import { Compiler, Language, CustomSettings, Config, Processor } from '../models';
 import { getLanguageCustomSettings } from '../utils';
 import { highlightjsUrl } from '../vendors';
 import { languages } from './languages';
@@ -48,38 +48,28 @@ export const languageIsEnabled = (language: Language, config: Config) => {
   return config.languages?.map(getLanguageByAlias).filter(Boolean).includes(lang);
 };
 
-export const processorIsEnabled = (processorName: Processors['name'], config: Config) => {
-  if (!processors.map((p) => p.name).includes(processorName)) return false;
-  if (processorName !== 'postcss') return true;
+export const processorIsEnabled = (processor: Processor, config: Config) => {
+  if (!processors.map((p) => p.name).includes(processor)) return false;
   if (!config.languages) return true;
-  return config.languages.includes(processorName);
+  return config.languages.includes(processor);
 };
 
-export const processorIsActivated = (processorName: Processors['name'], config: Config) =>
-  (config.processors as any)[processorName] === true ||
-  (processorName === 'postcss' && Object.values(config.processors.postcss).includes(true));
+export const processorIsActivated = (processor: Processor, config: Config) =>
+  config.processors.includes(processor);
 
 /**
  * returns a string with names of enabled processors/postcss plugins
  * for the supplied language (separated by hyphens)
  */
-export const getEnabledProcessors = (language: Language, config: Config) => {
-  let processorsString = '';
+export const getActivatedProcessors = (language: Language, config: Config) => {
   const editorId = getLanguageEditorId(language);
-  if (!editorId) return processorsString;
-
-  Object.keys(config.processors).forEach((processor) => {
-    if (processors.filter((p) => p.editors?.includes(editorId)).length === 0) return;
-    if ((config.processors as any)[processor] === true) {
-      processorsString += processor + '-';
-    }
-  });
-  Object.keys(config.processors.postcss).forEach((plugin) => {
-    if ((config.processors.postcss as any)[plugin] === true) {
-      processorsString += plugin + '-';
-    }
-  });
-  return processorsString;
+  if (!editorId) return '';
+  return processors
+    .filter((p) => p.editor === editorId)
+    .map((p) => p.name)
+    .filter((p) => processorIsEnabled(p, config))
+    .filter((p) => processorIsActivated(p, config))
+    .join('-');
 };
 
 export const escapeCode = (code: string, slash = true) =>
@@ -88,31 +78,16 @@ export const escapeCode = (code: string, slash = true) =>
     .replace(/`/g, '\\`')
     .replace(/<\/script>/g, '<\\/script>');
 
-export const getCustomSettings = (language: Language, config: Config): CustomSettings => {
+export const getCustomSettings = (
+  language: Language | Processor,
+  config: Config,
+): CustomSettings => {
   const settings: CustomSettings = {
     ...getLanguageCustomSettings(language, config),
   };
-
   if (getLanguageEditorId(language) === 'markup') {
     settings.template = config.customSettings.template;
   }
-
-  const processor = 'postcss';
-  if (
-    processorIsEnabled(processor, config) &&
-    processorIsActivated(processor, config) &&
-    getLanguageEditorId(language) === 'style'
-  ) {
-    for (const plugin of Object.keys(config.processors.postcss)) {
-      if (
-        (config.processors?.postcss as any)?.[plugin] === true &&
-        (config.customSettings as any)[plugin]
-      ) {
-        (settings as any)[plugin] = (config.customSettings as any)[plugin];
-      }
-    }
-  }
-
   return settings;
 };
 

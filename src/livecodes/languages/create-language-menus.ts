@@ -1,5 +1,5 @@
 import { createEventsManager } from '../events';
-import { EditorId, Config, Language } from '../models';
+import { EditorId, Config, Language, Processor, LanguageSpecs } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 import { languageIsEnabled, processorIsEnabled } from './utils';
@@ -52,15 +52,9 @@ export const createLanguageMenus = (
     languageMenu.classList.add('dropdown-menu-' + editorId);
     menuScroller.appendChild(languageMenu);
 
-    const editorLanguages = [...languages, ...processors]
-      .filter((language) =>
-        'editor' in language ? language.editor === editorId : language.editors?.includes(editorId),
-      )
-      .filter((language) =>
-        'editor' in language
-          ? languageIsEnabled(language.name, config)
-          : processorIsEnabled(language.name, config),
-      );
+    const editorLanguages = [...languages]
+      .filter((language) => language.editor === editorId)
+      .filter((language) => languageIsEnabled(language.name, config));
 
     if (editorLanguages.length === 0) {
       editorSelector.classList.add('hidden');
@@ -71,6 +65,23 @@ export const createLanguageMenus = (
       if (changeLanguageButton) {
         changeLanguageButton.style.display = 'none';
       }
+    }
+
+    const enabledProcessors = processors.filter(
+      (p) => p.editor === editorId && processorIsEnabled(p.name, config),
+    );
+    const processorsHeader =
+      enabledProcessors.length > 0
+        ? {
+            name: editorId + '-processors',
+            title: 'Processors:',
+            longTitle: 'Processors:',
+            editor: editorId,
+          }
+        : undefined;
+
+    if (processorsHeader) {
+      editorLanguages.push(processorsHeader as LanguageSpecs);
     }
 
     editorLanguages.forEach((language) => {
@@ -85,7 +96,7 @@ export const createLanguageMenus = (
       languageLink.title = language.longTitle || language.title;
       languageLink.innerHTML = language.longTitle || language.title;
 
-      if ('editors' in language) {
+      if (!('extensions' in language)) {
         languageLink.classList.add('subtitle');
       }
       languageItem.appendChild(languageLink);
@@ -144,7 +155,22 @@ export const createLanguageMenus = (
   }
 };
 
-const getLanguageInfo = async (language: Language, baseUrl: string) => {
+export const createProcessorItem = (processor: { name: string; title: string }) => {
+  const processorItem = document.createElement('li');
+  processorItem.classList.add('language-item', 'processor-item');
+  processorItem.innerHTML = `
+        <label class="switch">
+          <span>${processor.title}</span>
+          <div>
+            <input id="${processor.name}" type="checkbox" data-processor="${processor.name}" />
+            <span class="slider round"></span>
+          </div>
+        </label>
+        `;
+  return processorItem;
+};
+
+const getLanguageInfo = async (language: Language | Processor, baseUrl: string) => {
   const languageInfoHTML = await import(baseUrl + '{{hash:language-info.js}}').then(
     (mod) => mod.languageInfo,
   );

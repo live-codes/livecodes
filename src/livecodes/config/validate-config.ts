@@ -56,25 +56,6 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(x && includes(toolsPaneStatus, x.status) ? { status: x.status } : {}),
   });
 
-  const isProcessors = (x: any) => is(x, 'object') && is(x.postcss, 'object');
-  const validateProcessors = (x: any): Config['processors'] => ({
-    postcss: {
-      ...x.postcss,
-      ...(is(x.postcss?.tailwindcss, 'boolean')
-        ? { tailwindcss: x.postcss.tailwindcss }
-        : { tailwindcss: defaultConfig.processors.postcss.tailwindcss }),
-      ...(is(x.postcss?.windicss, 'boolean')
-        ? { windicss: x.postcss.windicss }
-        : { windicss: defaultConfig.processors.postcss.windicss }),
-      ...(is(x.postcss?.autoprefixer, 'boolean')
-        ? { autoprefixer: x.postcss.autoprefixer }
-        : { autoprefixer: defaultConfig.processors.postcss.autoprefixer }),
-      ...(is(x.postcss?.postcssPresetEnv, 'boolean')
-        ? { postcssPresetEnv: x.postcss.postcssPresetEnv }
-        : { postcssPresetEnv: defaultConfig.processors.postcss.postcssPresetEnv }),
-    },
-  });
-
   return {
     ...(is(config.title, 'string') ? { title: config.title } : {}),
     ...(is(config.description, 'string') ? { description: config.description } : {}),
@@ -104,9 +85,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.stylesheets, 'array', 'string') ? { stylesheets: config.stylesheets } : {}),
     ...(is(config.scripts, 'array', 'string') ? { scripts: config.scripts } : {}),
     ...(is(config.cssPreset, 'string') ? { cssPreset: config.cssPreset } : {}),
-    ...(isProcessors(config.processors)
-      ? { processors: validateProcessors(config.processors) }
-      : {}),
+    ...(is(config.processors, 'array', 'string') ? { processors: config.processors } : {}),
     ...(is(config.customSettings, 'object') ? { customSettings: config.customSettings } : {}),
     ...(includes(editors, config.editor) ? { editor: config.editor } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
