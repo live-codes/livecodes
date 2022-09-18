@@ -297,6 +297,7 @@ export interface ProcessorSpecs {
   longTitle?: string;
   info?: string;
   isPostcssPlugin: boolean;
+  needsHTML?: boolean;
   compiler: {
     url: string;
     factory: (config: Config, baseUrl: string, options: CompileOptions) => CompilerFunction;

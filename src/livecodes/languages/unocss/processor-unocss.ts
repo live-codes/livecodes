@@ -5,6 +5,7 @@ export const unocss: ProcessorSpecs = {
   name: 'unocss',
   title: 'UnoCSS',
   isPostcssPlugin: false,
+  needsHTML: true,
   compiler: {
     url: vendorsBaseUrl + 'unocss/unocss.js',
     factory: (_config, baseUrl) => {

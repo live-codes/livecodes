@@ -50,6 +50,7 @@ export const tailwindcss: ProcessorSpecs = {
   name: 'tailwindcss',
   title: 'Tailwind CSS',
   isPostcssPlugin: true,
+  needsHTML: true,
   compiler: {
     url: tailwindcssUrl,
     factory: (config, _baseUrl, options) =>

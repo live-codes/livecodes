@@ -4,9 +4,7 @@ import { getLanguageCustomSettings } from '../../utils';
 (self as any).createWindicssCompiler =
   (): CompilerFunction =>
   async (css, { config, options }) => {
-    const html = `<template>${options.html}\n<script>${
-      config?.script.content || ''
-    }</script></template>`;
+    const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
 
     const customSettings = getLanguageCustomSettings('windicss' as any, config as Config);
     const { Processor, HTMLParser, CSSParser } = (self as any).windicss;

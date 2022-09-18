@@ -5,6 +5,7 @@ export const windicss: ProcessorSpecs = {
   name: 'windicss',
   title: 'Windi CSS',
   isPostcssPlugin: false,
+  needsHTML: true,
   compiler: {
     url: vendorsBaseUrl + 'windicss/windicss.js',
     factory: (_config, baseUrl) => {

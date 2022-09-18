@@ -685,8 +685,9 @@ const getResultPage = async ({
   const testsLanguage = config.tests?.language || 'typescript';
 
   const forceCompileStyles =
-    config.processors.find((p) => ['tailwindcss', 'windicss', 'unocss'].includes(p)) &&
-    (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
+    config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
+    (markupContent !== getCache().markup.content ||
+      scriptContent !== getCache().script.content) /* e.g. jsx */;
 
   const testsNotChanged =
     config.tests?.language === getCache().tests?.language &&

@@ -6,7 +6,7 @@ import { getLanguageCustomSettings } from '../../utils';
   const { createGenerator, defineConfig } = unocss;
 
   return async (css, { config, options }) => {
-    const { html } = options;
+    const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
     const customSettings = getLanguageCustomSettings('unocss' as any, config as Config);
 
     const loadPresets = (presetsObj: Record<string, any> = {}) =>
