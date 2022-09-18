@@ -687,7 +687,7 @@ const getResultPage = async ({
   const forceCompileStyles =
     config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
     (markupContent !== getCache().markup.content ||
-      scriptContent !== getCache().script.content) /* e.g. jsx */;
+      scriptContent !== getCache().script.content); /* e.g. jsx */
 
   const testsNotChanged =
     config.tests?.language === getCache().tests?.language &&

@@ -1,4 +1,4 @@
-import { ProcessorSpecs } from '../../models';
+import type { ProcessorSpecs } from '../../models';
 import { postcssImportUrlUrl, tailwindcssUrl, vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 

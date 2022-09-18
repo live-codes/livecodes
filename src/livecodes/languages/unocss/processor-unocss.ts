@@ -1,4 +1,4 @@
-import { ProcessorSpecs } from '../../models';
+import type { ProcessorSpecs } from '../../models';
 import { vendorsBaseUrl } from '../../vendors';
 
 export const unocss: ProcessorSpecs = {
