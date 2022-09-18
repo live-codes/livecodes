@@ -10,7 +10,7 @@ export const autoprefixer: ProcessorSpecs = {
     url: vendorsBaseUrl + 'autoprefixer/autoprefixer.js',
     factory: (config) =>
       (self as any).autoprefixer.autoprefixer({
-        ...getLanguageCustomSettings('autoprefixer' as any, config),
+        ...getLanguageCustomSettings('autoprefixer', config),
       }),
   },
   editor: 'style',
@@ -24,7 +24,7 @@ export const postcssImportUrl: ProcessorSpecs = {
     url: postcssImportUrlUrl,
     factory: (config) =>
       (self as any).postcssImportUrl({
-        ...getLanguageCustomSettings('postcssImportUrl' as any, config),
+        ...getLanguageCustomSettings('postcssImportUrl', config),
       }),
   },
   editor: 'style',
@@ -40,7 +40,7 @@ export const postcssPresetEnv: ProcessorSpecs = {
     factory: (config) =>
       (self as any).postcssPresetEnv.postcssPresetEnv({
         autoprefixer: false,
-        ...getLanguageCustomSettings('postcssPresetEnv' as any, config),
+        ...getLanguageCustomSettings('postcssPresetEnv', config),
       }),
   },
   editor: 'style',
