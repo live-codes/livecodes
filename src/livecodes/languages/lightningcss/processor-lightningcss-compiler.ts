@@ -1,4 +1,4 @@
-import { CompilerFunction, Config } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 import { vendorsBaseUrl } from '../../vendors';
 
@@ -7,7 +7,7 @@ import { vendorsBaseUrl } from '../../vendors';
   const initialized = init(new URL(vendorsBaseUrl + 'lightningcss/lightningcss_node_bg.wasm'));
 
   return async (css, { config }) => {
-    const customSettings = getLanguageCustomSettings('lightningcss' as any, config as Config);
+    const customSettings = getLanguageCustomSettings('lightningcss', config);
     await initialized;
     const { code, map, warnings } = transform({
       filename: 'style.css',

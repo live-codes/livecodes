@@ -1,4 +1,4 @@
-import { CompilerFunction, Config } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createUnocssCompiler = (): CompilerFunction => {
@@ -7,7 +7,7 @@ import { getLanguageCustomSettings } from '../../utils';
 
   return async (css, { config, options }) => {
     const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
-    const customSettings = getLanguageCustomSettings('unocss' as any, config as Config);
+    const customSettings = getLanguageCustomSettings('unocss', config);
 
     const loadPresets = (presetsObj: Record<string, any> = {}) =>
       Object.keys(presetsObj)

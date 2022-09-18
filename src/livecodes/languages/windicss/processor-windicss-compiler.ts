@@ -1,4 +1,4 @@
-import { CompilerFunction, Config } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createWindicssCompiler =
@@ -6,7 +6,7 @@ import { getLanguageCustomSettings } from '../../utils';
   async (css, { config, options }) => {
     const html = `<template>${options.html}\n<script>${config.script.content}</script></template>`;
 
-    const customSettings = getLanguageCustomSettings('windicss' as any, config as Config);
+    const customSettings = getLanguageCustomSettings('windicss', config);
     const { Processor, HTMLParser, CSSParser } = (self as any).windicss;
     const processor = new Processor();
     processor.loadConfig(customSettings);
