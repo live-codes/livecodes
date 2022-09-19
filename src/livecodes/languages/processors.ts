@@ -5,16 +5,13 @@ import { unocss } from './unocss';
 import { windicss } from './windicss';
 
 export const processors: ProcessorSpecs[] = [
+  tailwindcss,
   windicss,
   unocss,
   lightningcss,
-
-  // postcss plugins
   postcssImportUrl,
-  tailwindcss,
   autoprefixer,
   postcssPresetEnv,
-
   postcss,
 ]
   // keep postcss as last processor
