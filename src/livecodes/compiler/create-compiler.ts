@@ -198,6 +198,9 @@ export const createCompiler = async ({
   const postProcess: CompilerFunction = async (content, { config, language, baseUrl, options }) => {
     let postcssRequired = false;
     const editorId = getLanguageEditorId(language) || 'markup';
+    if (editorId === 'style' && hasStyleImports(content)) {
+      postcssRequired = true;
+    }
 
     for (const processor of processors) {
       if (
@@ -206,7 +209,7 @@ export const createCompiler = async ({
           processor.editor === editorId) ||
         (editorId === 'style' && processor.name === 'postcss')
       ) {
-        if (processor.isPostcssPlugin || (editorId === 'style' && hasStyleImports(content))) {
+        if (processor.isPostcssPlugin) {
           postcssRequired = true;
         } else {
           if (processor.name === 'postcss' && !postcssRequired) continue;
