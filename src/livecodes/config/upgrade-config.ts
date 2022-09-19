@@ -12,8 +12,8 @@ const upgradeSteps = [
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
       const config: genericConfig = clone(oldConfig);
       if (config.processors && 'postcss' in config.processors) {
-        config.processors = Object.values((config.processors as any).postcss).filter(
-          Boolean,
+        config.processors = Object.keys((config.processors as any).postcss).filter(
+          (p) => (config.processors as any).postcss[p],
         ) as Processor[];
       }
       return {
