@@ -312,6 +312,7 @@ export type Processor =
   | 'tailwindcss'
   | 'windicss'
   | 'unocss'
+  | 'tokencss'
   | 'lightningcss'
   | 'autoprefixer'
   | 'postcssPresetEnv';

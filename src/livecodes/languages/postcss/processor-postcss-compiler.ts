@@ -47,6 +47,10 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
   return async function process(code, { config, baseUrl, options }): Promise<string> {
     if (!config || !baseUrl) return code;
     const plugins = getPlugins(code, config, baseUrl, options);
+    const pluginNames = getEnabledPluginNames(code, config);
+    if (pluginNames.includes('tokencss')) {
+      code = '@inject "tokencss:base";\n' + code;
+    }
     return (await (self as any).postcss.postcss(plugins).process(prepareCode(code), postCssOptions))
       .css;
   };

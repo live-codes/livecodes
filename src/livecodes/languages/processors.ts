@@ -1,6 +1,13 @@
 import { ProcessorSpecs } from '../models';
 import { lightningcss } from './lightningcss';
-import { postcss, autoprefixer, postcssPresetEnv, tailwindcss, postcssImportUrl } from './postcss';
+import {
+  postcss,
+  autoprefixer,
+  postcssPresetEnv,
+  tailwindcss,
+  postcssImportUrl,
+  tokencss,
+} from './postcss';
 import { unocss } from './unocss';
 import { windicss } from './windicss';
 
@@ -8,6 +15,7 @@ export const processors: ProcessorSpecs[] = [
   tailwindcss,
   windicss,
   unocss,
+  tokencss,
   lightningcss,
   postcssImportUrl,
   autoprefixer,

@@ -67,3 +67,38 @@ export const tailwindcss: ProcessorSpecs = {
   },
   editor: 'style',
 };
+
+export const tokencss: ProcessorSpecs = {
+  name: 'tokencss',
+  title: 'Token CSS',
+  isPostcssPlugin: true,
+  compiler: {
+    url: vendorsBaseUrl + 'tokencss/tokencss.js',
+    factory: (config) => {
+      const customSettings = getLanguageCustomSettings('tokencss', config);
+      if (Object.keys(customSettings).length === 0) {
+        customSettings.$schema = 'https://tokencss.com/schema@0.0.1';
+        customSettings.extends = '@tokencss/core/preset';
+      }
+      const extendTokens = (base: any, tokens: any) => {
+        const result = JSON.parse(JSON.stringify(base));
+        Object.keys(tokens).forEach((key) => {
+          result[key] =
+            typeof tokens[key] !== 'object' || Array.isArray(tokens[key])
+              ? tokens[key]
+              : {
+                  ...result[key],
+                  ...tokens[key],
+                };
+        });
+        return result;
+      };
+      const tokensConfig = customSettings.extends?.includes('@tokencss/core/preset')
+        ? extendTokens((self as any).tokencss.preset, customSettings)
+        : customSettings;
+
+      return (self as any).tokencss.tokencss({ config: tokensConfig });
+    },
+  },
+  editor: 'style',
+};
