@@ -299,6 +299,7 @@ const organizeSnippets = async (
   loadScript(flexSearchUrl, 'FlexSearch').then(async (FlexSearch: any) => {
     const index = new FlexSearch.Document({
       index: ['title', 'language', 'description'],
+      tokenize: 'full',
       worker: true,
     });
 
