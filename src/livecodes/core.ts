@@ -5,12 +5,12 @@ import {
   getLanguageEditorId,
   getLanguageCompiler,
   languageIsEnabled,
-  pluginSpecs,
-  PluginName,
+  processors,
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
   createLanguageMenus,
+  createProcessorItem,
   getLanguageTitle,
   getLanguageSpecs,
   getLanguageExtension,
@@ -51,6 +51,7 @@ import type {
   ToolsPane,
   UserData,
   AppData,
+  Processor,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -123,7 +124,6 @@ import {
   noUserTemplates,
   createLoginContainer,
   createTemplatesContainer,
-  createPluginItem,
   getFullscreenButton,
 } from './UI';
 import { customEvents } from './events/custom-events';
@@ -354,7 +354,8 @@ const createEditors = async (config: Config) => {
     editorId: 'markup',
     language: languageIsEnabled(config.markup.language, config)
       ? config.markup.language
-      : config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') || 'html',
+      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') as Language) ||
+        'html',
     value: languageIsEnabled(config.markup.language, config) ? config.markup.content || '' : '',
   };
   const styleOptions: EditorOptions = {
@@ -363,7 +364,8 @@ const createEditors = async (config: Config) => {
     editorId: 'style',
     language: languageIsEnabled(config.style.language, config)
       ? config.style.language
-      : config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') || 'css',
+      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') as Language) ||
+        'css',
     value: languageIsEnabled(config.style.language, config) ? config.style.content || '' : '',
   };
   const scriptOptions: EditorOptions = {
@@ -372,7 +374,8 @@ const createEditors = async (config: Config) => {
     editorId: 'script',
     language: languageIsEnabled(config.script.language, config)
       ? config.script.language
-      : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
+      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') as Language) ||
+        'javascript',
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
 
@@ -682,8 +685,9 @@ const getResultPage = async ({
   const testsLanguage = config.tests?.language || 'typescript';
 
   const forceCompileStyles =
-    (config.processors.postcss.tailwindcss || config.processors.postcss.windicss) &&
-    (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
+    config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
+    (markupContent !== getCache().markup.content ||
+      scriptContent !== getCache().script.content); /* e.g. jsx */
 
   const testsNotChanged =
     config.tests?.language === getCache().tests?.language &&
@@ -1362,9 +1366,9 @@ const setTheme = (theme: Theme) => {
 const loadSettings = (config: Config) => {
   const processorToggles = UI.getProcessorToggles();
   processorToggles.forEach((toggle) => {
-    const plugin = toggle.dataset.plugin as PluginName;
-    if (!plugin) return;
-    toggle.checked = config.processors.postcss[plugin] || false;
+    const processor = toggle.dataset.processor as Processor;
+    if (!processor) return;
+    toggle.checked = config.processors.includes(processor);
   });
 
   if (isEmbed) return;
@@ -1803,44 +1807,45 @@ const handleEditorTools = () => {
 
 const handleProcessors = () => {
   const styleMenu = UI.getstyleMenu();
-  const pluginList = pluginSpecs
-    .filter((plugin) => !plugin.hidden)
-    .map((plugin) => ({ name: plugin.name, title: plugin.title }));
-  if (!styleMenu || pluginList.length === 0 || !processorIsEnabled('postcss', getConfig())) {
+  const processorList = processors
+    .filter((p) => processorIsEnabled(p.name, getConfig()))
+    .filter((p) => !p.hidden)
+    .map((p) => ({ name: p.name, title: p.title }));
+
+  if (!styleMenu || processorList.length === 0) {
     return;
   }
 
-  pluginList.forEach((plugin) => {
-    const pluginItem = createPluginItem(plugin);
-    styleMenu.append(pluginItem);
+  processorList.forEach((processor) => {
+    const processorItem = createProcessorItem(processor);
+    styleMenu.append(processorItem);
     eventsManager.addEventListener(
-      pluginItem,
+      processorItem,
       'mousedown',
       async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        const toggle = pluginItem.querySelector<HTMLInputElement>('input');
+        const toggle = processorItem.querySelector<HTMLInputElement>('input');
         if (!toggle) return;
         toggle.checked = !toggle.checked;
 
-        const pluginName = toggle.dataset.plugin;
-        if (!pluginName || !(pluginName in getConfig().processors.postcss)) return;
+        const processorName = toggle.dataset.processor as Processor;
+        if (!processorName || !processorList.find((p) => p.name === processorName)) return;
+
         setConfig({
           ...getConfig(),
-          processors: {
-            ...getConfig().processors,
-            postcss: {
-              ...getConfig().processors.postcss,
-              [pluginName]: toggle.checked,
-            },
-          },
+          processors: [
+            ...(toggle.checked
+              ? [...getConfig().processors, processorName]
+              : getConfig().processors.filter((p) => p !== processorName)),
+          ],
         });
         await run();
       },
       false,
     );
 
-    eventsManager.addEventListener(pluginItem, 'click', async (event) => {
+    eventsManager.addEventListener(processorItem, 'click', async (event) => {
       event.preventDefault();
       event.stopPropagation();
     });

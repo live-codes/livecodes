@@ -49,14 +49,7 @@ export const defaultConfig: Config = {
     active: '',
     status: '',
   },
-  processors: {
-    postcss: {
-      tailwindcss: false,
-      windicss: false,
-      autoprefixer: false,
-      postcssPresetEnv: false,
-    },
-  },
+  processors: [],
   customSettings: {
     template: {
       data: {},

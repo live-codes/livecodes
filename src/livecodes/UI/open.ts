@@ -350,6 +350,7 @@ const organizeProjects = (
   loadScript(flexSearchUrl, 'FlexSearch').then(async (FlexSearch: any) => {
     const index = new FlexSearch.Document({
       index: ['title', 'description', 'tags', 'languages'],
+      tokenize: 'full',
       worker: true,
     });
 

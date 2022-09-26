@@ -261,6 +261,7 @@ const organizeAssets = async (
   loadScript(flexSearchUrl, 'FlexSearch').then(async (FlexSearch: any) => {
     const index = new FlexSearch.Document({
       index: ['filename', 'type'],
+      tokenize: 'full',
       worker: true,
     });
 

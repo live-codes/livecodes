@@ -1,5 +1,5 @@
 import { getLanguageEditorId } from '../languages';
-import { Config } from '../models';
+import { Config, Processor } from '../models';
 import { defaultConfig } from './default-config';
 
 interface genericConfig extends Config {
@@ -7,6 +7,21 @@ interface genericConfig extends Config {
 }
 
 const upgradeSteps = [
+  {
+    to: '0.6.0',
+    upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
+      const config: genericConfig = clone(oldConfig);
+      if (config.processors && 'postcss' in config.processors) {
+        config.processors = Object.keys((config.processors as any).postcss).filter(
+          (p) => (config.processors as any).postcss[p],
+        ) as Processor[];
+      }
+      return {
+        ...config,
+        version,
+      };
+    },
+  },
   {
     to: '0.5.0',
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
@@ -50,7 +65,8 @@ const upgradeSteps = [
       config = renameProperty(config, 'allow_lang_change', 'allowLangChange');
       if ('autoprefixer' in config) {
         config.processors = clone(defaultConfig.processors);
-        config.processors.postcss.autoprefixer = config.autoprefixer;
+        (config.processors as any).postcss = (config.processors as any).postcss || {};
+        (config.processors as any).postcss.autoprefixer = config.autoprefixer;
         delete config.autoprefixer;
       }
       if ('baseUrl' in config) {

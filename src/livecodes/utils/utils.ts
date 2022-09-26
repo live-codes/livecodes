@@ -1,4 +1,4 @@
-import { Config, Language } from '../models';
+import { Config, Language, Processor } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number) => {
   let timeout: any;
@@ -250,7 +250,7 @@ export const removeStrings = (src: string) =>
 
 export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));
 
-export const getLanguageCustomSettings = (language: Language, config: Config) => ({
+export const getLanguageCustomSettings = (language: Language | Processor, config: Config) => ({
   ...(config.customSettings as any)[language],
 });
 
