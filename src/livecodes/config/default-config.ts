@@ -55,7 +55,7 @@ export const defaultConfig: Config = {
       prerender: true,
     },
   },
-  editor: '',
+  editor: undefined,
   fontFamily: 'Consolas, "Courier New", monospace',
   fontSize: undefined,
   useTabs: false,

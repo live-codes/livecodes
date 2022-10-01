@@ -77,7 +77,7 @@ export interface UserConfig extends EditorConfig {
 }
 
 export interface EditorConfig {
-  editor: 'monaco' | 'codemirror' | 'codejar' | '';
+  editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
   fontFamily: string;
   fontSize: number | undefined;
   useTabs: boolean;

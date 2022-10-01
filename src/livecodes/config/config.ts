@@ -1,9 +1,10 @@
 import { ContentConfig, Config, UserConfig, EditorConfig } from '../models';
 import { cloneObject } from '../utils';
+import { defaultConfig } from './default-config';
 import { upgradeConfig } from './upgrade-config';
 import { validateConfig } from './validate-config';
 
-let appConfig: Config;
+let appConfig = defaultConfig;
 export const getConfig = (): Config => cloneObject(appConfig);
 
 export const setConfig = (newConfig: Config) => {

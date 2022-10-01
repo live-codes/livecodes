@@ -14,6 +14,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     if (type === 'object') {
       return x && typeof x === type;
     }
+    if (type === 'number' && !isNaN(Number(x))) {
+      return true;
+    }
     return typeof x === type;
   };
 
@@ -23,7 +26,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
-  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar', ''];
+  const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar'];
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
 
   const isEditor = (x: any) => is(x, 'object') && is(x.language, 'string');
@@ -64,7 +67,6 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),
     ...(is(config.delay, 'number') ? { delay: config.delay } : {}),
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
-    ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
     ...(is(config.recoverUnsaved, 'boolean') ? { recoverUnsaved: config.recoverUnsaved } : {}),
@@ -88,6 +90,14 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.processors, 'array', 'string') ? { processors: config.processors } : {}),
     ...(is(config.customSettings, 'object') ? { customSettings: config.customSettings } : {}),
     ...(includes(editors, config.editor) ? { editor: config.editor } : {}),
+    ...(is(config.fontFamily, 'string') ? { fontFamily: config.fontFamily } : {}),
+    ...(is(config.fontSize, 'number') ? { fontSize: Number(config.fontSize) } : {}),
+    ...(is(config.useTabs, 'boolean') ? { useTabs: config.useTabs } : {}),
+    ...(is(config.tabSize, 'number') ? { tabSize: Number(config.tabSize) } : {}),
+    ...(is(config.lineNumbers, 'boolean') ? { lineNumbers: config.lineNumbers } : {}),
+    ...(is(config.wordWrap, 'boolean') ? { wordWrap: config.wordWrap } : {}),
+    ...(is(config.closeBrackets, 'boolean') ? { closeBrackets: config.closeBrackets } : {}),
+    ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),

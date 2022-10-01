@@ -1016,15 +1016,13 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
     ...getConfig(),
     ...userConfig,
   });
-  stores.userConfig?.setValue(userConfig);
+  if (save) {
+    stores.userConfig?.setValue(userConfig);
+  }
 };
 
 const loadUserConfig = (updateUI = true) => {
   const userConfig = stores.userConfig?.getValue();
-  if (!userConfig) {
-    setUserConfig(getUserConfig(getConfig()));
-    return;
-  }
   setConfig({
     ...getConfig(),
     ...userConfig,
@@ -1757,7 +1755,7 @@ const handleHotKeys = () => {
 };
 
 const handleLogoLink = () => {
-  if (isEmbed) return;
+  if (isEmbed || getConfig().mode === 'result') return;
   const logoLink = UI.getLogoLink();
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
@@ -3440,9 +3438,16 @@ const initializeApp = async (
   isLite = options?.isLite ?? false;
   isEmbed = isLite || (options?.isEmbed ?? false);
 
-  setConfig(buildConfig(appConfig));
-  configureModes({ config: getConfig(), isEmbed, isLite });
+  await initializeStores();
+  loadUserConfig(/* updateUI = */ false);
+  setConfig(
+    buildConfig({
+      ...getConfig(),
+      ...appConfig,
+    }),
+  );
 
+  configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
@@ -3455,8 +3460,6 @@ const initializeApp = async (
     importExternalContent,
   );
   shouldUpdateEditorBuild();
-  await initializeStores();
-  loadUserConfig(/* updateUI = */ false);
   await createEditors(getConfig());
   basicHandlers();
   await initializeFn?.();
