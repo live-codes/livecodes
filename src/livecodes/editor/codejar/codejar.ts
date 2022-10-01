@@ -246,13 +246,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     tabSize: String(opt.tabSize),
     lineNumbers: opt.lineNumbers,
     wordWrap: opt.wordWrap ? 'pre-wrap' : 'nowrap',
+    addClosing: opt.closeBrackets,
   });
 
   const changeSettings = (settings: EditorConfig) => {
     editorOptions = convertOptions(settings);
     codejar?.updateOptions({
       tab: editorOptions.tab,
-      addClosing: true,
+      addClosing: editorOptions.addClosing,
     });
     [preElement, codeElement].forEach((el) => {
       el.style.setProperty('font-family', editorOptions.fontFamily, 'important');

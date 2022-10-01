@@ -2547,13 +2547,11 @@ i.arrow {
   overflow: auto;
 }
 
-.cm-wrap,
-.cm-activeLine,
-.cm-gutters {
-  background: var(--background-color) !important;
-}
-
 #console-input {
+  .cm-activeLine {
+    background: var(--background-color) !important;
+  }
+
   .cm-gutter {
     display: none !important;
   }

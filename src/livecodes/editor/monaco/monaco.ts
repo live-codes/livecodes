@@ -32,6 +32,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     tabSize: opt.tabSize,
     lineNumbers: opt.lineNumbers ? 'on' : 'off',
     wordWrap: opt.wordWrap ? 'on' : 'off',
+    autoClosingBrackets: opt.closeBrackets ? 'always' : 'never',
+    autoClosingQuotes: opt.closeBrackets ? 'always' : 'never',
+    autoClosingDelete: opt.closeBrackets ? 'always' : 'never',
   });
 
   const baseOptions = convertOptions(options);

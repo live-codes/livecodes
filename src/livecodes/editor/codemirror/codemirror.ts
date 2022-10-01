@@ -63,6 +63,7 @@ export const createEditorCreator =
       const useTabs = settings.useTabs ?? editorSettings.useTabs;
       const lineNumbers = settings.lineNumbers ?? editorSettings.lineNumbers;
       const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
+      const closeBrackets = settings.closeBrackets ?? editorSettings.closeBrackets;
       const emmet = settings.emmet ?? editorSettings.emmet;
 
       return [
@@ -73,6 +74,7 @@ export const createEditorCreator =
         basicSetupExtension.of(
           basicSetup({
             lineNumbers,
+            closeBrackets,
           }),
         ),
         EditorView.theme({

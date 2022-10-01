@@ -84,6 +84,7 @@ export interface EditorConfig {
   tabSize: number;
   lineNumbers: boolean;
   wordWrap: boolean;
+  closeBrackets: boolean;
   emmet: boolean;
 }
 

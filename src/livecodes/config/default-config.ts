@@ -62,6 +62,7 @@ export const defaultConfig: Config = {
   tabSize: 2,
   lineNumbers: true,
   wordWrap: false,
+  closeBrackets: true,
   emmet: true,
   version: process.env.VERSION as string,
   showVersion: false,

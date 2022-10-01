@@ -52,6 +52,7 @@ export const getEditorSettings = (config: Config | UserConfig): EditorConfig =>
     tabSize: config.tabSize,
     lineNumbers: config.lineNumbers,
     wordWrap: config.wordWrap,
+    closeBrackets: config.closeBrackets,
     emmet: config.emmet,
   });
 
