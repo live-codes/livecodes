@@ -3,7 +3,14 @@ import { Compartment, Extension, EditorState } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
 import { indentWithTab, undo, redo } from '@codemirror/commands';
-import { indentUnit, LanguageSupport, StreamLanguage, StreamParser } from '@codemirror/language';
+import {
+  defaultHighlightStyle,
+  syntaxHighlighting,
+  indentUnit,
+  LanguageSupport,
+  StreamLanguage,
+  StreamParser,
+} from '@codemirror/language';
 
 import type {
   FormatFn,
@@ -81,7 +88,7 @@ export const createEditorCreator =
     };
     const themes = {
       dark: oneDark,
-      light: [],
+      light: [syntaxHighlighting(defaultHighlightStyle)],
     };
 
     const getExtensions = () => {
