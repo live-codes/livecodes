@@ -2572,8 +2572,7 @@ i.arrow {
   &#console-input {
     // height: 25px !important;
     // max-height: 25px !important;
-    height: 0 !important;
-    min-height: 0 !important;
+    display: none !important;
 
     > pre {
       padding-left: 1em !important;
@@ -2607,13 +2606,6 @@ i.arrow {
 
   &.codejar code {
     white-space: nowrap !important;
-  }
-}
-
-.embed .prism {
-  pre[class*='language-'],
-  code[class*='language-'] {
-    font-size: 12px !important;
   }
 }
 

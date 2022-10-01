@@ -74,6 +74,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const codejar =
     readonly || options.editorId === 'console' ? undefined : CodeJar(codeElement, highlight, {});
+
   codejar?.recordHistory();
 
   type Listener = () => void;
@@ -245,7 +246,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     tab: opt.useTabs ? '\t' : ' '.repeat(opt.tabSize || 2),
     tabSize: String(opt.tabSize),
     lineNumbers: opt.lineNumbers,
-    wordWrap: opt.wordWrap ? 'pre-wrap' : 'nowrap',
+    wordWrap: opt.wordWrap ? 'pre-wrap' : 'pre',
     addClosing: opt.closeBrackets,
   });
 
