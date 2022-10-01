@@ -2848,6 +2848,14 @@ body {
     z-index: 40;
   }
 
+  #editor-container {
+    z-index: 100;
+  }
+
+  #toolbar {
+    z-index: 500;
+  }
+
   .copy-button {
     z-index: 900;
   }

@@ -1006,7 +1006,7 @@ const loadConfig = async (
   changingContent = false;
 };
 
-const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
+const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
   const userConfig = getUserConfig({
     ...getConfig(),
     ...(newConfig == null ? getUserConfig(defaultConfig) : newConfig),
