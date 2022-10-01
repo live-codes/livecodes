@@ -1,7 +1,6 @@
-import { EditorView, basicSetup } from 'codemirror';
 import { Compartment, Extension, EditorState } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
-import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
+import { EditorView, KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
 import { indentWithTab, undo, redo } from '@codemirror/commands';
 import {
   defaultHighlightStyle,
@@ -21,6 +20,7 @@ import type {
   EditorPosition,
   EditorConfig,
 } from '../../models';
+import { basicSetup } from './basic-setup';
 import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
@@ -54,6 +54,7 @@ export const createEditorCreator =
     const themeExtension = new Compartment();
     const readOnlyExtension = EditorView.editable.of(false);
     const editorSettingsExtension = new Compartment();
+    const basicSetupExtension = new Compartment();
 
     const configureSettingsExtension = (settings: Partial<EditorConfig>) => {
       const fontSize = settings.fontSize ?? editorSettings.fontSize;
@@ -69,6 +70,11 @@ export const createEditorCreator =
         indentUnit.of(useTabs ? '\t' : ' '.repeat(tabSize)),
         ...(wordWrap ? [EditorView.lineWrapping] : []),
         ...(emmet ? [emmetExt] : []),
+        basicSetupExtension.of(
+          basicSetup({
+            lineNumbers,
+          }),
+        ),
         EditorView.theme({
           '&': {
             height: '100%',
@@ -77,11 +83,6 @@ export const createEditorCreator =
           '.cm-scroller': {
             overflow: 'auto',
             fontFamily,
-          },
-          '.cm-gutters': {
-            width: lineNumbers ? 'unset' : '5px',
-            'overflow-x': lineNumbers ? 'unset' : 'hidden',
-            visibility: lineNumbers ? 'unset' : 'hidden',
           },
         }),
       ];
@@ -96,10 +97,9 @@ export const createEditorCreator =
         languageExtension.of(getLanguageExtension(mappedLanguage)()),
         EditorView.updateListener.of(notifyListeners),
         themeExtension.of(themes[theme]),
+        keyBindingsExtension.of(keymap.of(keyBindings)),
         editorSettingsExtension.of(configureSettingsExtension({})),
         readonly ? readOnlyExtension : [],
-        keyBindingsExtension.of(keymap.of(keyBindings)),
-        basicSetup,
         keymap.of([indentWithTab]),
       ];
 
