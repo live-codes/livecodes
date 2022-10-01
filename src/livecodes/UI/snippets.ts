@@ -519,8 +519,8 @@ export const createAddSnippetContainer = async ({
   const editor = await deps.createEditorFn({
     container: snippetEditor,
     editorId: 'add-snippet',
-    value: loadedSnippet?.code || '',
     language: selectedLanguage,
+    value: loadedSnippet?.code || '',
   });
 
   const saveSnippet = async () => {

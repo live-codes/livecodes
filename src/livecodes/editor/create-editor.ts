@@ -68,13 +68,45 @@ export const selectedEditor = (
     : 'monaco';
 };
 
+const getEditorOptions = (options: EditorOptions): EditorOptions => {
+  const codeblockOptions = {
+    ...options,
+    readOnly: true,
+  };
+  const compiledCodeOptions = {
+    ...options,
+    readOnly: true,
+  };
+  const consoleOptions = {
+    ...options,
+    lineNumbers: false,
+  };
+  const embedOptions = {
+    ...options,
+    lineNumbers: false,
+    readOnly: true,
+  };
+  const editorId = options.editorId;
+  return editorId === 'console'
+    ? consoleOptions
+    : editorId === 'compiled'
+    ? compiledCodeOptions
+    : editorId === 'embed'
+    ? embedOptions
+    : options.mode === 'codeblock'
+    ? codeblockOptions
+    : options;
+};
+
 export const createEditor = async (options: EditorOptions) => {
   if (!options) throw new Error();
 
-  const editorName = selectedEditor(options);
-  if (editorName === 'fake') return createFakeEditor(options);
+  const editorOptions = getEditorOptions(options);
 
-  const codeEditor = await loadEditor(editorName || 'codemirror', options);
+  const editorName = selectedEditor(editorOptions);
+  if (editorName === 'fake') return createFakeEditor(editorOptions);
+
+  const codeEditor = await loadEditor(editorName || 'codemirror', editorOptions);
 
   if (!codeEditor) throw new Error('Failed loading code editor');
 

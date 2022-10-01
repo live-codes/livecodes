@@ -81,6 +81,7 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
+  getEditorSettings,
   getParams,
   getUserConfig,
   setConfig,
@@ -342,8 +343,8 @@ const createEditors = async (config: Config) => {
     baseUrl,
     mode: config.mode,
     readonly: config.readonly,
-    editor: config.editor,
     theme: config.theme,
+    ...getEditorSettings(config),
     isEmbed,
     mapLanguage,
     getLanguageExtension,
@@ -1018,7 +1019,7 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
   stores.userConfig?.setValue(userConfig);
 };
 
-const loadUserConfig = () => {
+const loadUserConfig = (updateUI = true) => {
   const userConfig = stores.userConfig?.getValue();
   if (!userConfig) {
     setUserConfig(getUserConfig(getConfig()));
@@ -1028,7 +1029,7 @@ const loadUserConfig = () => {
     ...getConfig(),
     ...userConfig,
   });
-
+  if (!updateUI) return;
   loadSettings(getConfig());
   setTheme(getConfig().theme);
   showSyncStatus(true);
@@ -1161,7 +1162,7 @@ const configureEmmet = async (config: Config) => {
   }
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
-    editor.configureEmmet?.(config.emmet);
+    editor.changeSettings(getEditorSettings(config));
   });
 };
 
@@ -2557,19 +2558,22 @@ const handleProjectInfo = () => {
 
 const handleEmbed = () => {
   const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const config = getConfig();
+
   const createEditorFn = async (container: HTMLElement) =>
     createEditor({
       baseUrl,
       container,
-      editor: 'codejar',
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
       language: 'html',
       mapLanguage,
       readonly: true,
-      theme: getConfig().theme,
+      theme: config.theme,
       value: '',
+      ...getEditorSettings(config),
+      editor: 'codejar',
     });
   const createEmbedUI = async () => {
     modal.show(loadingMessage());
@@ -2668,9 +2672,10 @@ const handleSnippets = () => {
       getLanguageExtension,
       isEmbed,
       language: 'html',
-      mapLanguage,
-      theme: getConfig().theme,
       value: '',
+      theme: getConfig().theme,
+      mapLanguage,
+      ...getEditorSettings(getConfig()),
       ...options,
     } as EditorOptions);
 
@@ -2778,16 +2783,16 @@ const handleCustomSettings = () => {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
-      editor: config.editor,
       editorId: 'customSettings',
       editorBuild,
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
-      value: stringify(getConfig().customSettings, true),
+      value: stringify(config.customSettings, true),
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      ...getEditorSettings(config),
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor?.focus();
@@ -2899,16 +2904,16 @@ const handleTestEditor = () => {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
-      editor: config.editor,
       editorId: 'tests',
       editorBuild,
       container: UI.getTestEditor(),
       language: editorLanguage,
-      value: getConfig().tests?.content || '',
+      value: config.tests?.content || '',
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      ...getEditorSettings(config),
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
@@ -3147,16 +3152,6 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
-  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
-  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
-  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
-  stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
-  stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
-  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
-  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
-  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
-  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
-
   handleTitleEdit();
   handleSettingsMenu();
   handleSettings();
@@ -3186,6 +3181,19 @@ const extraHandlers = async () => {
   handleResultPopup();
   handleBroadcastStatus();
   handleUnload();
+};
+
+const initializeStores = async () => {
+  if (isEmbed) return;
+  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
+  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
+  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
+  stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
+  stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
+  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
+  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
+  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
+  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 };
 
 const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
@@ -3447,10 +3455,12 @@ const initializeApp = async (
     importExternalContent,
   );
   shouldUpdateEditorBuild();
+  await initializeStores();
+  loadUserConfig(/* updateUI = */ false);
   await createEditors(getConfig());
   basicHandlers();
   await initializeFn?.();
-  loadUserConfig();
+  loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
   showMode(getConfig());

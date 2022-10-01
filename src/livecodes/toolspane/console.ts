@@ -6,6 +6,7 @@ import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
 import { getLanguageExtension, mapLanguage } from '../languages';
+import { getEditorSettings } from '../config';
 
 export const createConsole = (
   config: Config,
@@ -116,13 +117,13 @@ export const createConsole = (
       language: 'javascript',
       value: '',
       readonly: false,
-      editor: config.editor,
       mode: config.mode,
       editorId: 'console',
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      ...getEditorSettings(config),
     };
     const consoleEditor = await createEditor(editorOptions);
 

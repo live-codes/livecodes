@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { CodeJar, Position } from 'codejar';
+import { CodeJar } from 'codejar';
 import 'prismjs';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/components/prism-markup';
@@ -33,6 +33,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let currentPosition: EditorPosition = { lineNumber: 1 };
   const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
   let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
+  let editorOptions: ReturnType<typeof convertOptions>;
 
   const preElement: HTMLElement = document.createElement('pre');
   const codeElement: HTMLElement = document.createElement('code');
@@ -44,12 +45,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     container.classList.add('codejar');
     preElement.addEventListener('click', () => {
       currentPosition = getPosition();
-      focus(false);
+      focus(/* restorePosition = */ false);
     });
     preElement.addEventListener('blur', () => {
       currentPosition = getPosition();
     });
   }
+  new ResizeObserver(() => {
+    if (!editorOptions.wordWrap) return;
+    highlight();
+  }).observe(preElement);
   codeElement.className = 'language-' + mappedLanguage;
   codeElement.innerHTML = encodeHTML(value).trim() || '\n';
 
@@ -236,22 +241,26 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const convertOptions = (opt: EditorConfig) => ({
     fontFamily: opt.fontFamily,
-    fontSize: opt.fontSize || (isEmbed ? 12 : 14),
+    fontSize: (opt.fontSize || (isEmbed ? 12 : 14)) + 'px',
     tab: opt.useTabs ? '\t' : ' '.repeat(opt.tabSize || 2),
-    tabSize: opt.tabSize,
+    tabSize: String(opt.tabSize),
     lineNumbers: opt.lineNumbers,
-    wordWrap: opt.wordWrap,
+    wordWrap: opt.wordWrap ? 'pre-wrap' : 'nowrap',
   });
 
   const changeSettings = (settings: EditorConfig) => {
-    const newOptions = convertOptions(settings);
+    editorOptions = convertOptions(settings);
     codejar?.updateOptions({
-      tab: newOptions.tab,
+      tab: editorOptions.tab,
       addClosing: true,
     });
-    container.style.fontFamily = newOptions.fontFamily;
-    container.style.fontSize = newOptions.fontSize + 'px';
-    container.style.tabSize = String(newOptions.tabSize);
+    [preElement, codeElement].forEach((el) => {
+      el.style.setProperty('font-family', editorOptions.fontFamily, 'important');
+      el.style.setProperty('font-size', editorOptions.fontSize + 'px', 'important');
+      el.style.setProperty('tab-size', editorOptions.tabSize, 'important');
+      el.style.setProperty('white-space', editorOptions.wordWrap, 'important');
+    });
+    highlight();
   };
   changeSettings(options);
 

@@ -58,7 +58,6 @@ export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  editor: 'monaco' | 'codemirror' | 'codejar' | '';
   showVersion: boolean;
   tools: {
     enabled: Array<Tool['name']> | 'all';
@@ -67,15 +66,25 @@ export interface AppConfig {
   };
 }
 
-export interface UserConfig {
+export interface UserConfig extends EditorConfig {
   autoupdate: boolean;
   autosave: boolean;
   delay: number;
   formatOnsave: boolean;
-  emmet: boolean;
   theme: Theme;
   recoverUnsaved: boolean;
   showSpacing: boolean;
+}
+
+export interface EditorConfig {
+  editor: 'monaco' | 'codemirror' | 'codejar' | '';
+  fontFamily: string;
+  fontSize: number | undefined;
+  useTabs: boolean;
+  tabSize: number;
+  lineNumbers: boolean;
+  wordWrap: boolean;
+  emmet: boolean;
 }
 
 export interface UserData {
@@ -518,7 +527,6 @@ export interface CodeEditor {
   setPosition: (position: EditorPosition) => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
-  configureEmmet?: (enabled: boolean) => void;
   onContentChanged: (callback: () => void) => void;
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
   keyCodes: {
@@ -529,6 +537,7 @@ export interface CodeEditor {
     DownArrow: any;
     ShiftAltF: any;
   };
+  changeSettings: (editorSettings: EditorConfig) => void;
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;
   isReadonly: boolean;
@@ -543,14 +552,13 @@ export interface CodeEditor {
   isFake?: boolean;
 }
 
-export interface EditorOptions {
+export interface EditorOptions extends EditorConfig {
   baseUrl: string;
   container: HTMLElement | null;
   language: Language;
   value: string;
   mode?: Config['mode'];
   readonly: boolean;
-  editor?: Config['editor'];
   editorId:
     | EditorId
     | 'compiled'
