@@ -26,7 +26,7 @@ declare const Prism: any;
 Prism.manual = true;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { baseUrl, container, mode, editorId, readonly, isEmbed } = options;
+  const { baseUrl, container, mode, editorId, readonly, isEmbed, getFormatterConfig } = options;
   if (!container) throw new Error('editor container not found');
 
   let { value, language } = options;
@@ -209,7 +209,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     formatter = formatFn;
     addKeyBinding('format', keyCodes.ShiftAltF, async () => {
       await format();
-      focus(false);
+      focus(/* restorePosition = */ false);
     });
   };
 
@@ -218,7 +218,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const position = codejar?.save();
     const offset = (position?.dir === '<-' ? position.start : position?.end) || 0;
     const oldValue = getValue();
-    const newValue = await formatter(oldValue, offset);
+    const newValue = await formatter(oldValue, offset, getFormatterConfig());
     setValue(newValue.formatted);
     const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
     codejar?.restore({ start: newOffset, end: newOffset });

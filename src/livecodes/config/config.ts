@@ -1,4 +1,4 @@
-import { ContentConfig, Config, UserConfig, EditorConfig } from '../models';
+import { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig } from '../models';
 import { cloneObject } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeConfig } from './upgrade-config';
@@ -41,10 +41,11 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
     recoverUnsaved: config.recoverUnsaved,
     showSpacing: config.showSpacing,
     theme: config.theme,
-    ...getEditorSettings(config),
+    ...getEditorConfig(config),
+    ...getFormatterConfig(config),
   });
 
-export const getEditorSettings = (config: Config | UserConfig): EditorConfig =>
+export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
   cloneObject({
     editor: config.editor,
     fontFamily: config.fontFamily,
@@ -55,6 +56,15 @@ export const getEditorSettings = (config: Config | UserConfig): EditorConfig =>
     wordWrap: config.wordWrap,
     closeBrackets: config.closeBrackets,
     emmet: config.emmet,
+  });
+
+export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig =>
+  cloneObject({
+    useTabs: config.useTabs,
+    tabSize: config.tabSize,
+    semicolons: config.semicolons,
+    singleQuote: config.singleQuote,
+    trailingComma: config.trailingComma,
   });
 
 export const upgradeAndValidate = (config: Partial<Config>) =>

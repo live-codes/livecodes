@@ -6,7 +6,7 @@ import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
 import { getLanguageExtension, mapLanguage } from '../languages';
-import { getEditorSettings } from '../config';
+import { getEditorConfig } from '../config';
 
 export const createConsole = (
   config: Config,
@@ -123,7 +123,8 @@ export const createConsole = (
       isEmbed,
       mapLanguage,
       getLanguageExtension,
-      ...getEditorSettings(config),
+      getFormatterConfig: () => ({}),
+      ...getEditorConfig(config),
     };
     const consoleEditor = await createEditor(editorOptions);
 

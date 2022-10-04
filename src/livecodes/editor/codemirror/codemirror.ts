@@ -29,7 +29,7 @@ export const legacy = (parser: StreamParser<unknown>) =>
 export const createEditorCreator =
   (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
   async (options: EditorOptions): Promise<CodeEditor> => {
-    const { container, readonly, isEmbed, editorId } = options;
+    const { container, readonly, isEmbed, editorId, getFormatterConfig } = options;
     let editorSettings: EditorConfig = { ...options };
     if (!container) throw new Error('editor container not found');
     const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
@@ -196,7 +196,7 @@ export const createEditorCreator =
       if (!formatter) return;
       const offset = view.state.selection.main.to;
       const oldValue = getValue();
-      const newValue = await formatter(oldValue, offset);
+      const newValue = await formatter(oldValue, offset, getFormatterConfig());
       setValue(newValue.formatted, false);
       const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
       view.dispatch({ selection: { anchor: newOffset } });

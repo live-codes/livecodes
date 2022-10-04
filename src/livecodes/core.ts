@@ -81,7 +81,8 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
-  getEditorSettings,
+  getEditorConfig,
+  getFormatterConfig,
   getParams,
   getUserConfig,
   setConfig,
@@ -344,10 +345,11 @@ const createEditors = async (config: Config) => {
     mode: config.mode,
     readonly: config.readonly,
     theme: config.theme,
-    ...getEditorSettings(config),
+    ...getEditorConfig(config),
     isEmbed,
     mapLanguage,
     getLanguageExtension,
+    getFormatterConfig: () => getFormatterConfig(getConfig()),
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -1017,16 +1019,21 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
     ...userConfig,
   });
   if (save) {
-    stores.userConfig?.setValue(userConfig);
+    stores.userConfig?.setValue({
+      ...stores.userConfig.getValue(),
+      ...newConfig,
+    } as UserConfig);
   }
 };
 
 const loadUserConfig = (updateUI = true) => {
   const userConfig = stores.userConfig?.getValue();
-  setConfig({
-    ...getConfig(),
-    ...userConfig,
-  });
+  setConfig(
+    buildConfig({
+      ...getConfig(),
+      ...userConfig,
+    }),
+  );
   if (!updateUI) return;
   loadSettings(getConfig());
   setTheme(getConfig().theme);
@@ -1160,7 +1167,7 @@ const configureEmmet = async (config: Config) => {
   }
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
-    editor.changeSettings(getEditorSettings(config));
+    editor.changeSettings(getEditorConfig(config));
   });
 };
 
@@ -2570,8 +2577,9 @@ const handleEmbed = () => {
       readonly: true,
       theme: config.theme,
       value: '',
-      ...getEditorSettings(config),
+      ...getEditorConfig(config),
       editor: 'codejar',
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
     });
   const createEmbedUI = async () => {
     modal.show(loadingMessage());
@@ -2673,7 +2681,7 @@ const handleSnippets = () => {
       value: '',
       theme: getConfig().theme,
       mapLanguage,
-      ...getEditorSettings(getConfig()),
+      ...getEditorConfig(getConfig()),
       ...options,
     } as EditorOptions);
 
@@ -2790,7 +2798,8 @@ const handleCustomSettings = () => {
       isEmbed,
       mapLanguage,
       getLanguageExtension,
-      ...getEditorSettings(config),
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      ...getEditorConfig(config),
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor?.focus();
@@ -2911,7 +2920,8 @@ const handleTestEditor = () => {
       isEmbed,
       mapLanguage,
       getLanguageExtension,
-      ...getEditorSettings(config),
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      ...getEditorConfig(config),
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));

@@ -1,4 +1,4 @@
-import { getEditorSettings } from '../config';
+import { getEditorConfig } from '../config';
 import { createEditor } from '../editor';
 import { createEventsManager } from '../events';
 import { getLanguageExtension, languages, mapLanguage } from '../languages';
@@ -60,7 +60,8 @@ export const createCompiledCodeViewer = (
       isEmbed,
       mapLanguage,
       getLanguageExtension,
-      ...getEditorSettings(config),
+      getFormatterConfig: () => ({}),
+      ...getEditorConfig(config),
     };
     return createEditor(editorOptions);
   };

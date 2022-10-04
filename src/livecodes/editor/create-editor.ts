@@ -105,7 +105,7 @@ export const createEditor = async (options: EditorOptions) => {
 
   const editorName = selectedEditor(editorOptions);
   if (editorName === 'fake') return createFakeEditor(editorOptions);
-
+  // console.log(editorOptions);
   const codeEditor = await loadEditor(editorName || 'codemirror', editorOptions);
 
   if (!codeEditor) throw new Error('Failed loading code editor');

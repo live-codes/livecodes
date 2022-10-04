@@ -1,4 +1,6 @@
-import { FormatFn, Language, Parser } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { defaultConfig } from '../config/default-config';
+import { FormatFn, FormatterConfig, Language, Parser } from '../models';
 import { languages, prettierUrl } from '../languages';
 import { getAbsoluteUrl } from '../utils';
 import { FormatterMessage, FormatterMessageEvent } from './models';
@@ -91,6 +93,7 @@ const format = async (
   language: Language,
   value: string,
   cursorOffset: number,
+  formatterConfig: Partial<FormatterConfig>,
 ): Promise<ReturnType<FormatFn>> => {
   const unFormatted = {
     formatted: value,
@@ -99,11 +102,19 @@ const format = async (
 
   if (getParser(language) != null) {
     const parser = loadParser(language);
+    const options = {
+      useTabs: formatterConfig.useTabs ?? defaultConfig.useTabs,
+      tabWidth: formatterConfig.tabSize ?? defaultConfig.tabSize,
+      semi: formatterConfig.semicolons ?? defaultConfig.semicolons,
+      singleQuote: formatterConfig.singleQuote ?? defaultConfig.singleQuote,
+      trailingComma: formatterConfig.trailingComma === false ? 'none' : 'es5',
+    };
     return (
       (self as any).prettier.formatWithCursor(value, {
         parser: parser?.name,
         plugins: prettierPlugins,
         cursorOffset,
+        ...options,
       }) || unFormatted
     );
   }
@@ -130,9 +141,9 @@ worker.addEventListener(
     }
 
     if (message.type === 'format') {
-      const { language, value, cursorOffset } = message.payload;
+      const { language, value, cursorOffset, formatterConfig } = message.payload;
       try {
-        const formatResult = await format(language, value, cursorOffset);
+        const formatResult = await format(language, value, cursorOffset, formatterConfig);
         const formattedMessage: FormatterMessage = {
           type: 'formatted',
           payload: {

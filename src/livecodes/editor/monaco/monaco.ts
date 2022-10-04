@@ -21,14 +21,23 @@ type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly, theme, isEmbed, getLanguageExtension, mapLanguage } =
-    options;
+  const {
+    container,
+    baseUrl,
+    readonly,
+    theme,
+    isEmbed,
+    getLanguageExtension,
+    mapLanguage,
+    getFormatterConfig,
+  } = options;
   if (!container) throw new Error('editor container not found');
 
   const convertOptions = (opt: EditorConfig): Options => ({
     fontFamily: opt.fontFamily,
     fontSize: opt.fontSize || (isEmbed ? 12 : 14),
     insertSpaces: !opt.useTabs,
+    detectIndentation: false,
     tabSize: opt.tabSize,
     lineNumbers: opt.lineNumbers ? 'on' : 'off',
     wordWrap: opt.wordWrap ? 'on' : 'off',
@@ -333,7 +342,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
         const val = editor.getValue();
-        const prettyVal = await formatFn(val, 0);
+        const prettyVal = await formatFn(val, 0, getFormatterConfig());
         return [
           {
             range: editorModel.getFullModelRange(),

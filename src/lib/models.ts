@@ -66,7 +66,7 @@ export interface AppConfig {
   };
 }
 
-export interface UserConfig extends EditorConfig {
+export interface UserConfig extends EditorConfig, FormatterConfig {
   autoupdate: boolean;
   autosave: boolean;
   delay: number;
@@ -86,6 +86,14 @@ export interface EditorConfig {
   wordWrap: boolean;
   closeBrackets: boolean;
   emmet: boolean;
+}
+
+export interface FormatterConfig {
+  useTabs: boolean;
+  tabSize: number;
+  semicolons: boolean;
+  singleQuote: boolean;
+  trailingComma: boolean;
 }
 
 export interface UserData {
@@ -347,6 +355,7 @@ export interface Parser {
 export type FormatFn = (
   value: string,
   cursorOffset: number,
+  formatterConfig?: Partial<FormatterConfig>,
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
 export interface LanguageFormatter {
@@ -574,6 +583,7 @@ export interface EditorOptions extends EditorConfig {
   isEmbed: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
   mapLanguage: (language: Language) => Language;
+  getFormatterConfig: () => Partial<FormatterConfig>;
 }
 
 export interface CustomEditor {
