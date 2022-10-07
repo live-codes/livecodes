@@ -6,6 +6,7 @@ import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
 import { defaultConfig } from '../config/default-config';
+import { fonts, getFontFamily } from '../editor/fonts';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -59,9 +60,8 @@ export const createEditorSettingsUI = async ({
       title: 'Font Family',
       name: 'fontFamily',
       options: [
-        { label: 'Fira Code', value: 'Fira Code' },
-        { label: 'On-click', value: 'click' },
-        { label: 'Eager', value: 'eager' },
+        { label: 'Default', value: '' },
+        ...fonts.map((font) => ({ label: font.label || font.name, value: font.name })),
       ],
     },
     {
@@ -150,6 +150,7 @@ export const createEditorSettingsUI = async ({
     ...getEditorConfig(userConfig),
     ...getFormatterConfig(userConfig),
     getFormatterConfig: () => getFormatterConfig(deps.getUserConfig()),
+    getFontFamily,
   };
   let codeEditor = editorOptions.editor;
 
@@ -158,7 +159,8 @@ export const createEditorSettingsUI = async ({
     deps.getFormatFn().then((fn) => {
       setTimeout(() => {
         editor.registerFormatter(fn);
-      }, 1000);
+        editor.format();
+      }, 500);
     });
 
     getEditorSettingsFormatLink(editorSettingsContainer).onclick = (ev) => {
@@ -272,13 +274,15 @@ export const createEditorSettingsUI = async ({
     if (formData.editor === codeEditor) {
       editor.changeSettings(formData);
     } else {
+      const value = editor.getValue();
       editor.destroy();
       editor = await initializeEditor({
         ...editorOptions,
         ...getEditorConfig(formData as any),
+        value,
       });
     }
-    // console.log(formData);
+
     if (!init) {
       deps.changeSettings(formData);
       codeEditor = formData.editor;
@@ -291,20 +295,25 @@ export const createEditorSettingsUI = async ({
 };
 
 const editorContent = `
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
 function App(props) {
-  const [count, setCount] = useState(0);
-
+  const [count, setCount] = useState('zero');
+  const onClick = () => setCount(count === 'zero' ? 1 : count + 1);
   return (
     <div className="container">
       <h1>Hello, {props.name}!</h1>
-      <img className="logo" title="a long title to demonstrate word-wrap" src="https://livecodes.io/livecodes/assets/templates/react.svg" />
+      <img
+        className="logo"
+        title="a long title that describes this image in details so that we can demonstrate word-wrap"
+        src="https://livecodes.io/livecodes/assets/templates/react.svg"
+      />
       <p>You clicked {count} times.</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={onClick}>Click me</button>
     </div>
   );
 }
-ReactDOM.render(<App name="React" />, document.querySelector("#app"));
+
+ReactDOM.render(<App name="React" />, document.querySelector('#app'));
 `.trimStart();

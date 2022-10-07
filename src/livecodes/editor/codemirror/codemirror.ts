@@ -29,7 +29,7 @@ export const legacy = (parser: StreamParser<unknown>) =>
 export const createEditorCreator =
   (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
   async (options: EditorOptions): Promise<CodeEditor> => {
-    const { container, readonly, isEmbed, editorId, getFormatterConfig } = options;
+    const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
     let editorSettings: EditorConfig = { ...options };
     if (!container) throw new Error('editor container not found');
     const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
@@ -57,8 +57,8 @@ export const createEditorCreator =
     const basicSetupExtension = new Compartment();
 
     const configureSettingsExtension = (settings: Partial<EditorConfig>) => {
-      const fontSize = settings.fontSize ?? editorSettings.fontSize;
-      const fontFamily = settings.fontFamily ?? editorSettings.fontFamily;
+      const fontSize = (settings.fontSize ?? editorSettings.fontSize) || (isEmbed ? 12 : 14);
+      const fontFamily = getFontFamily(settings.fontFamily ?? editorSettings.fontFamily);
       const tabSize = settings.tabSize ?? editorSettings.tabSize;
       const useTabs = settings.useTabs ?? editorSettings.useTabs;
       const lineNumbers = settings.lineNumbers ?? editorSettings.lineNumbers;
@@ -80,7 +80,7 @@ export const createEditorCreator =
         EditorView.theme({
           '&': {
             height: '100%',
-            fontSize: (fontSize || (isEmbed ? 12 : 14)) + 'px',
+            fontSize: fontSize + 'px',
           },
           '.cm-scroller': {
             overflow: 'auto',

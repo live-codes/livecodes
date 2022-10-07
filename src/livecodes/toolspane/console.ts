@@ -1,5 +1,5 @@
 import LunaConsole from 'luna-console';
-import { createEditor } from '../editor';
+import { createEditor, getFontFamily } from '../editor';
 import { createEventsManager } from '../events';
 import { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
@@ -124,6 +124,7 @@ export const createConsole = (
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => ({}),
+      getFontFamily,
       ...getEditorConfig(config),
     };
     const consoleEditor = await createEditor(editorOptions);

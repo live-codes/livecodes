@@ -26,7 +26,16 @@ declare const Prism: any;
 Prism.manual = true;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { baseUrl, container, mode, editorId, readonly, isEmbed, getFormatterConfig } = options;
+  const {
+    baseUrl,
+    container,
+    mode,
+    editorId,
+    readonly,
+    isEmbed,
+    getFormatterConfig,
+    getFontFamily,
+  } = options;
   if (!container) throw new Error('editor container not found');
 
   let { value, language } = options;
@@ -241,7 +250,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   setTheme(options.theme);
 
   const convertOptions = (opt: EditorConfig) => ({
-    fontFamily: opt.fontFamily,
+    fontFamily: getFontFamily(opt.fontFamily),
     fontSize: (opt.fontSize || (isEmbed ? 12 : 14)) + 'px',
     tab: opt.useTabs ? '\t' : ' '.repeat(opt.tabSize || 2),
     tabSize: String(opt.tabSize),

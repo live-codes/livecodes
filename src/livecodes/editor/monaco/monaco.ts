@@ -30,11 +30,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getLanguageExtension,
     mapLanguage,
     getFormatterConfig,
+    getFontFamily,
   } = options;
   if (!container) throw new Error('editor container not found');
 
   const convertOptions = (opt: EditorConfig): Options => ({
-    fontFamily: opt.fontFamily,
+    fontFamily: getFontFamily(opt.fontFamily),
     fontSize: opt.fontSize || (isEmbed ? 12 : 14),
     insertSpaces: !opt.useTabs,
     detectIndentation: false,
@@ -429,7 +430,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEmmet(false);
     listeners.length = 0;
     clearTypes(true);
-    // editor.getModel()?.dispose();
+    editor.getModel()?.dispose();
+    editor.dispose();
     container.innerHTML = '';
   };
 

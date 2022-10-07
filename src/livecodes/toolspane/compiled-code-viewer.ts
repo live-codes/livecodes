@@ -1,5 +1,5 @@
 import { getEditorConfig } from '../config';
-import { createEditor } from '../editor';
+import { createEditor, getFontFamily } from '../editor';
 import { createEventsManager } from '../events';
 import { getLanguageExtension, languages, mapLanguage } from '../languages';
 import type {
@@ -61,6 +61,7 @@ export const createCompiledCodeViewer = (
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => ({}),
+      getFontFamily,
       ...getEditorConfig(config),
     };
     return createEditor(editorOptions);

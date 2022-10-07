@@ -1,5 +1,11 @@
 /* eslint-disable import/no-internal-modules */
-import { basicLanguages, createEditor, selectedEditor, createCustomEditors } from './editor';
+import {
+  basicLanguages,
+  createEditor,
+  selectedEditor,
+  createCustomEditors,
+  getFontFamily,
+} from './editor';
 import {
   languages,
   getLanguageEditorId,
@@ -350,6 +356,7 @@ const createEditors = async (config: Config) => {
     mapLanguage,
     getLanguageExtension,
     getFormatterConfig: () => getFormatterConfig(getConfig()),
+    getFontFamily,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -2577,6 +2584,7 @@ const handleEmbed = () => {
       ...getEditorConfig(config),
       editor: 'codejar',
       getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
     });
   const createEmbedUI = async () => {
     modal.show(loadingMessage());
@@ -2713,16 +2721,20 @@ const handleSnippets = () => {
   const createEditorFn = async (options: Partial<EditorOptions>) =>
     createEditor({
       baseUrl,
+      container: null,
       editorId: 'snippet',
       getLanguageExtension,
       isEmbed,
       language: 'html',
       value: '',
       theme: getConfig().theme,
+      readonly: getConfig().readonly,
       mapLanguage,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
       ...getEditorConfig(getConfig()),
       ...options,
-    } as EditorOptions);
+    });
 
   const createList = async () => {
     await loadModule();
@@ -2838,6 +2850,7 @@ const handleCustomSettings = () => {
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
       ...getEditorConfig(config),
     };
     customSettingsEditor = await createEditor(options);
@@ -2960,6 +2973,7 @@ const handleTestEditor = () => {
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
       ...getEditorConfig(config),
     };
     testEditor = await createEditor(options);

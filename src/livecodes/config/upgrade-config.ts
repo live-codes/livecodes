@@ -76,7 +76,7 @@ const upgradeSteps = [
         config.cssPreset = '';
       }
       if ('editor' in config && typeof config.editor !== 'string') {
-        config.editor = '';
+        config.editor = undefined;
       }
       if ('language' in config) {
         config.activeEditor = getLanguageEditorId(config.language);

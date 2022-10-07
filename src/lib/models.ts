@@ -78,7 +78,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
 
 export interface EditorConfig {
   editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
-  fontFamily: string;
+  fontFamily: string | undefined;
   fontSize: number | undefined;
   useTabs: boolean;
   tabSize: number;
@@ -585,6 +585,7 @@ export interface EditorOptions extends EditorConfig {
   getLanguageExtension: (alias: string) => Language | undefined;
   mapLanguage: (language: Language) => Language;
   getFormatterConfig: () => Partial<FormatterConfig>;
+  getFontFamily: (font: string | undefined) => string;
 }
 
 export interface CustomEditor {
