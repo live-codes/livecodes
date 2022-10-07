@@ -95,10 +95,7 @@ const format = async (
   cursorOffset: number,
   formatterConfig: Partial<FormatterConfig>,
 ): Promise<ReturnType<FormatFn>> => {
-  const unFormatted = {
-    formatted: value,
-    cursorOffset,
-  };
+  const unFormatted = { formatted: value, cursorOffset };
 
   if (getParser(language) != null) {
     const parser = loadParser(language);

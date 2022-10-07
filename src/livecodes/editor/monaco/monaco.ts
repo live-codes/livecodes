@@ -67,6 +67,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const defaultOptions: Options = {
     theme: 'vs-' + theme,
+    fontLigatures: true,
     formatOnType: false,
     lineNumbersMinChars: 3,
     minimap: { enabled: false },

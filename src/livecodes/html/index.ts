@@ -48,6 +48,8 @@ import shareScreen from './share.html';
 // @ts-ignore
 import embedScreen from './embed.html';
 // @ts-ignore
+import editorSettingsScreen from './editor-settings.html';
+// @ts-ignore
 import resultPopupHTML from './result-popup.html';
 
 export {
@@ -75,5 +77,6 @@ export {
   addSnippetScreen,
   shareScreen,
   embedScreen,
+  editorSettingsScreen,
   resultPopupHTML,
 };

@@ -574,6 +574,7 @@ export interface EditorOptions extends EditorConfig {
     | 'compiled'
     | 'console'
     | 'customSettings'
+    | 'editorSettings'
     | 'tests'
     | 'embed'
     | 'snippet'
@@ -645,6 +646,7 @@ export interface Screen {
     | 'backup'
     | 'broadcast'
     | 'custom-settings'
+    | 'editor-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }

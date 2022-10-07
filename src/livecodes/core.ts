@@ -1393,9 +1393,6 @@ const loadSettings = (config: Config) => {
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
 
-  const emmetToggle = UI.getEmmetToggle();
-  emmetToggle.checked = config.emmet;
-
   const themeToggle = UI.getThemeToggle();
   themeToggle.checked = config.theme === 'dark';
 
@@ -2607,6 +2604,48 @@ const handleEmbed = () => {
   registerScreen('embed', createEmbedUI);
 };
 
+const handleEditorSettings = () => {
+  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
+    setUserConfig(newConfig);
+    if (newConfig && newConfig?.editor === getConfig().editor) {
+      Object.values(editors).forEach((ed: CodeEditor) => {
+        ed.changeSettings(newConfig as UserConfig);
+      });
+      return;
+    }
+    reloadEditors({
+      ...getConfig(),
+      ...newConfig,
+    });
+  };
+  const createEditorSettingsUI = async () => {
+    modal.show(loadingMessage());
+
+    const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
+      baseUrl + '{{hash:editor-settings.js}}'
+    );
+    await editorSettingsModule.createEditorSettingsUI({
+      baseUrl,
+      modal,
+      eventsManager,
+      deps: {
+        getUserConfig: () => getUserConfig(getConfig()),
+        createEditor,
+        getFormatFn: () => formatter.getFormatFn('jsx'),
+        changeSettings,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(
+    UI.getEditorSettingsLink(),
+    'click',
+    createEditorSettingsUI,
+    false,
+  );
+  registerScreen('editor-settings', createEditorSettingsUI);
+};
+
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
@@ -3180,6 +3219,7 @@ const extraHandlers = async () => {
   handleDeploy();
   handleAssets();
   handleSnippets();
+  handleEditorSettings();
   handleSync();
   handleAutosync();
   handlePersistantStorage();
