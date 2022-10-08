@@ -58,6 +58,7 @@ describe('validateConfig', () => {
 
     const correctConfig: any = {
       autosave: false,
+      delay: 500,
       emmet: true,
       mode: 'full',
       allowLangChange: true,
