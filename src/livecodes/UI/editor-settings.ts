@@ -69,10 +69,15 @@ export const createEditorSettingsUI = async ({
       name: 'fontSize',
       options: [
         { label: '10', value: '10' },
+        { label: '11', value: '11' },
         { label: '12', value: '12' },
-        { label: '14', value: '14' },
+        { label: '13', value: '13' },
+        { label: '14', value: '14', checked: true },
+        { label: '15', value: '15' },
         { label: '16', value: '16' },
+        { label: '17', value: '17' },
         { label: '18', value: '18' },
+        { label: '19', value: '19' },
         { label: '20', value: '20' },
         { label: '22', value: '22' },
         { label: '24', value: '24' },
@@ -92,10 +97,10 @@ export const createEditorSettingsUI = async ({
       name: 'tabSize',
       options: [
         { label: '1', value: '1' },
-        { label: '2', value: '2' },
-        { label: '3', value: '8' },
+        { label: '2', value: '2', checked: true },
+        { label: '3', value: '3' },
         { label: '4', value: '4' },
-        { label: '5', value: '4' },
+        { label: '5', value: '5' },
         { label: '6', value: '6' },
       ],
     },
@@ -115,7 +120,7 @@ export const createEditorSettingsUI = async ({
       options: [{ value: 'true' }],
     },
     {
-      title: 'Enable Emmet',
+      title: 'Enable Emmet *',
       name: 'emmet',
       options: [{ value: 'true' }],
     },
@@ -125,12 +130,12 @@ export const createEditorSettingsUI = async ({
       options: [{ value: 'true' }],
     },
     {
-      title: 'Format: Use Single Quote',
+      title: 'Format: Use Single Quotes',
       name: 'singleQuote',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Format: Use Trailing Comma',
+      title: 'Format: Use Trailing Commas',
       name: 'trailingComma',
       options: [{ value: 'true' }],
     },
@@ -172,7 +177,10 @@ export const createEditorSettingsUI = async ({
 
   formFields.forEach((field) => {
     const title = document.createElement('label');
-    title.innerHTML = field.title;
+    title.innerHTML = field.title.replace(
+      '*',
+      `<a href="#codejar-info" class="hint--top" data-hint="Not available in CodeJar" style="text-decoration: none;">*</a>`,
+    );
     form.appendChild(title);
 
     if (field.help) {
@@ -205,7 +213,7 @@ export const createEditorSettingsUI = async ({
         const optionEl = document.createElement('option');
         optionEl.text = option.label || '';
         optionEl.value = option.value;
-        optionEl.selected = optionValue === option.value;
+        optionEl.selected = optionValue === option.value || option.checked === true;
         select.appendChild(optionEl);
       });
       return;
@@ -229,7 +237,7 @@ export const createEditorSettingsUI = async ({
       if (isCheckBox) {
         input.classList.add('switch');
       } else {
-        const label = document.createElement('label') as HTMLLabelElement;
+        const label = document.createElement('label');
         label.classList.add('radio-label');
         label.htmlFor = id;
         label.innerHTML = option.label || '';
@@ -249,6 +257,8 @@ export const createEditorSettingsUI = async ({
             ? true
             : value === 'false'
             ? false
+            : value === ''
+            ? undefined
             : !isNaN(Number(value))
             ? Number(value)
             : value,
@@ -290,7 +300,6 @@ export const createEditorSettingsUI = async ({
   };
 
   eventsManager.addEventListener(form, 'change', () => updateOptions());
-
   updateOptions(true);
 };
 
@@ -305,8 +314,8 @@ function App(props) {
     <div className="container">
       <h1>Hello, {props.name}!</h1>
       <img
+        alt="a long alt attribute value that describes this image in details so that we can demonstrate word-wrap"
         className="logo"
-        title="a long title that describes this image in details so that we can demonstrate word-wrap"
         src="https://livecodes.io/livecodes/assets/templates/react.svg"
       />
       <p>You clicked {count} times.</p>

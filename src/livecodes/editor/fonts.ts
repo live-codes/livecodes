@@ -135,7 +135,11 @@ export const fonts: Font[] = [
 
 export const getFontFamily = (font: string | undefined) => {
   const defaultFonts =
-    'Consolas, ui-monospace, "Ubuntu Mono", "Roboto Mono", "Courier New", monospace';
+    'Consolas, ' + // windows
+    '"Roboto Mono", ' + // android
+    '"Ubuntu Mono", ' + // ubuntu
+    'ui-monospace, ' + // SF Mono on mac & ios
+    'monospace';
   if (!font) return defaultFonts;
   const fontName = fonts.find((f) => [f.id, f.name, f.label].includes(font))?.name;
   return fontName ? `"${fontName}", ${defaultFonts}` : defaultFonts;

@@ -104,7 +104,7 @@ const format = async (
       tabWidth: formatterConfig.tabSize ?? defaultConfig.tabSize,
       semi: formatterConfig.semicolons ?? defaultConfig.semicolons,
       singleQuote: formatterConfig.singleQuote ?? defaultConfig.singleQuote,
-      trailingComma: formatterConfig.trailingComma === false ? 'none' : 'es5',
+      trailingComma: formatterConfig.trailingComma === false ? 'none' : 'all',
     };
     return (
       (self as any).prettier.formatWithCursor(value, {
