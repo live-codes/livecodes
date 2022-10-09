@@ -271,6 +271,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       el.style.setProperty('tab-size', editorOptions.tabSize, 'important');
       el.style.setProperty('white-space', editorOptions.wordWrap, 'important');
     });
+    preElement.classList.toggle('line-numbers', editorOptions.lineNumbers);
     highlight();
   };
   changeSettings(options);

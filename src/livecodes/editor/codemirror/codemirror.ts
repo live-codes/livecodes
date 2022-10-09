@@ -20,7 +20,7 @@ import type {
   EditorPosition,
   EditorConfig,
 } from '../../models';
-import { basicSetup } from './basic-setup';
+import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
@@ -54,16 +54,15 @@ export const createEditorCreator =
     const themeExtension = new Compartment();
     const readOnlyExtension = EditorView.editable.of(false);
     const editorSettingsExtension = new Compartment();
-    const basicSetupExtension = new Compartment();
+    const lineNumbersExtension = new Compartment();
+    const closeBracketsExtension = new Compartment();
 
     const configureSettingsExtension = (settings: Partial<EditorConfig>) => {
       const fontSize = (settings.fontSize ?? editorSettings.fontSize) || (isEmbed ? 12 : 14);
       const fontFamily = getFontFamily(settings.fontFamily ?? editorSettings.fontFamily);
       const tabSize = settings.tabSize ?? editorSettings.tabSize;
       const useTabs = settings.useTabs ?? editorSettings.useTabs;
-      const lineNumbers = settings.lineNumbers ?? editorSettings.lineNumbers;
       const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
-      const closeBrackets = settings.closeBrackets ?? editorSettings.closeBrackets;
       const emmet = settings.emmet ?? editorSettings.emmet;
 
       return [
@@ -71,12 +70,6 @@ export const createEditorCreator =
         indentUnit.of(useTabs ? '\t' : ' '.repeat(tabSize)),
         ...(wordWrap ? [EditorView.lineWrapping] : []),
         ...(emmet ? [emmetExt] : []),
-        basicSetupExtension.of(
-          basicSetup({
-            lineNumbers,
-            closeBrackets,
-          }),
-        ),
         EditorView.theme({
           '&': {
             height: '100%',
@@ -101,6 +94,9 @@ export const createEditorCreator =
         themeExtension.of(themes[theme]),
         keyBindingsExtension.of(keymap.of(keyBindings)),
         editorSettingsExtension.of(configureSettingsExtension({})),
+        lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),
+        closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
+        basicSetup,
         readonly ? readOnlyExtension : [],
         keymap.of([indentWithTab]),
       ];
@@ -212,7 +208,11 @@ export const createEditorCreator =
     const changeSettings = (settings: EditorConfig) => {
       editorSettings = { ...settings };
       view.dispatch({
-        effects: editorSettingsExtension.reconfigure(configureSettingsExtension(editorSettings)),
+        effects: [
+          editorSettingsExtension.reconfigure(configureSettingsExtension(editorSettings)),
+          lineNumbersExtension.reconfigure(editorSettings.lineNumbers ? lineNumbers() : []),
+          closeBracketsExtension.reconfigure(editorSettings.closeBrackets ? closeBrackets() : []),
+        ],
       });
     };
 

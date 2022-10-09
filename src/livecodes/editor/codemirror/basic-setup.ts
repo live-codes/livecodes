@@ -68,10 +68,8 @@ import { lintKeymap } from '@codemirror/lint';
 /// you take this package's source (which is just a bunch of imports
 /// and an array literal), copy it into your own code, and adjust it
 /// as desired.
-export const basicSetup = (
-  config: { lineNumbers?: boolean; closeBrackets?: boolean } = {},
-): Extension => [
-  ...(config.lineNumbers === false ? [] : [lineNumbers()]),
+export const basicSetup: Extension = (() => [
+  // lineNumbers(),
   highlightActiveLineGutter(),
   highlightSpecialChars(),
   history(),
@@ -82,7 +80,7 @@ export const basicSetup = (
   indentOnInput(),
   syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
   bracketMatching(),
-  ...(config.closeBrackets === false ? [] : [closeBrackets()]),
+  // closeBrackets(),
   autocompletion(),
   rectangularSelection(),
   crosshairCursor(),
@@ -97,7 +95,7 @@ export const basicSetup = (
     ...completionKeymap,
     ...lintKeymap,
   ]),
-];
+])();
 
 /// A minimal set of extensions to create a functional editor. Only
 /// includes [the default keymap](#commands.defaultKeymap), [undo
@@ -114,3 +112,4 @@ export const minimalSetup: Extension = (() => [
 ])();
 
 export { EditorView } from '@codemirror/view';
+export { lineNumbers, closeBrackets };
