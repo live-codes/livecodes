@@ -97,7 +97,8 @@ export const createCompiledCodeViewer = (
     editor = await createCompiledEditor();
   };
 
-  const reloadEditor = async () => {
+  const reloadEditor = async (newConfig: Config) => {
+    config = newConfig;
     if (!compiledCodeElement) {
       await load();
       return;

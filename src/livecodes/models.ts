@@ -495,12 +495,13 @@ export interface Console extends Tool {
   clear: () => void;
   // filterLog: (filter: string) => void;
   evaluate: (code: string) => void;
+  reloadEditor: (config: Config) => Promise<void>;
 }
 
 export interface CompiledCodeViewer extends Tool {
   title: 'Compiled';
   update: (language: Language, content: string, label?: string | undefined) => void;
-  reloadEditor: () => Promise<void>;
+  reloadEditor: (config: Config) => Promise<void>;
 }
 
 export interface TestViewer extends Tool {

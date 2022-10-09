@@ -425,7 +425,8 @@ const createEditors = async (config: Config) => {
 
 const reloadEditors = async (config: Config) => {
   await createEditors(config);
-  await toolsPane?.compiled?.reloadEditor();
+  await toolsPane?.console?.reloadEditor(config);
+  await toolsPane?.compiled?.reloadEditor(config);
   updateCompiledCode();
   handleChangeContent();
 };
@@ -2614,17 +2615,14 @@ const handleEmbed = () => {
 
 const handleEditorSettings = () => {
   const changeSettings = (newConfig: Partial<UserConfig> | null) => {
+    if (!newConfig) return;
+    const shouldReload = newConfig.editor !== getConfig().editor;
     setUserConfig(newConfig);
-    if (newConfig && newConfig?.editor === getConfig().editor) {
-      Object.values(editors).forEach((ed: CodeEditor) => {
-        ed.changeSettings(newConfig as UserConfig);
-      });
-      return;
+    if (shouldReload) {
+      reloadEditors(getConfig());
+    } else {
+      getAllEditors().forEach((editor) => editor.changeSettings(newConfig as UserConfig));
     }
-    reloadEditors({
-      ...getConfig(),
-      ...newConfig,
-    });
   };
   const createEditorSettingsUI = async () => {
     modal.show(loadingMessage());
