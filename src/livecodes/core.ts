@@ -1,5 +1,11 @@
 /* eslint-disable import/no-internal-modules */
-import { basicLanguages, createEditor, selectedEditor, createCustomEditors } from './editor';
+import {
+  basicLanguages,
+  createEditor,
+  selectedEditor,
+  createCustomEditors,
+  getFontFamily,
+} from './editor';
 import {
   languages,
   getLanguageEditorId,
@@ -81,6 +87,8 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
+  getEditorConfig,
+  getFormatterConfig,
   getParams,
   getUserConfig,
   setConfig,
@@ -342,11 +350,13 @@ const createEditors = async (config: Config) => {
     baseUrl,
     mode: config.mode,
     readonly: config.readonly,
-    editor: config.editor,
     theme: config.theme,
+    ...getEditorConfig(config),
     isEmbed,
     mapLanguage,
     getLanguageExtension,
+    getFormatterConfig: () => getFormatterConfig(getConfig()),
+    getFontFamily,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
@@ -415,7 +425,8 @@ const createEditors = async (config: Config) => {
 
 const reloadEditors = async (config: Config) => {
   await createEditors(config);
-  await toolsPane?.compiled?.reloadEditor();
+  await toolsPane?.console?.reloadEditor(config);
+  await toolsPane?.compiled?.reloadEditor(config);
   updateCompiledCode();
   handleChangeContent();
 };
@@ -1005,7 +1016,7 @@ const loadConfig = async (
   changingContent = false;
 };
 
-const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
+const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
   const userConfig = getUserConfig({
     ...getConfig(),
     ...(newConfig == null ? getUserConfig(defaultConfig) : newConfig),
@@ -1015,20 +1026,23 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
     ...getConfig(),
     ...userConfig,
   });
-  stores.userConfig?.setValue(userConfig);
+  if (save) {
+    stores.userConfig?.setValue({
+      ...stores.userConfig.getValue(),
+      ...newConfig,
+    } as UserConfig);
+  }
 };
 
-const loadUserConfig = () => {
+const loadUserConfig = (updateUI = true) => {
   const userConfig = stores.userConfig?.getValue();
-  if (!userConfig) {
-    setUserConfig(getUserConfig(getConfig()));
-    return;
-  }
-  setConfig({
-    ...getConfig(),
-    ...userConfig,
-  });
-
+  setConfig(
+    buildConfig({
+      ...getConfig(),
+      ...userConfig,
+    }),
+  );
+  if (!updateUI) return;
   loadSettings(getConfig());
   setTheme(getConfig().theme);
   showSyncStatus(true);
@@ -1161,7 +1175,7 @@ const configureEmmet = async (config: Config) => {
   }
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
-    editor.configureEmmet?.(config.emmet);
+    editor.changeSettings(getEditorConfig(config));
   });
 };
 
@@ -1386,9 +1400,6 @@ const loadSettings = (config: Config) => {
 
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
-
-  const emmetToggle = UI.getEmmetToggle();
-  emmetToggle.checked = config.emmet;
 
   const themeToggle = UI.getThemeToggle();
   themeToggle.checked = config.theme === 'dark';
@@ -1756,7 +1767,7 @@ const handleHotKeys = () => {
 };
 
 const handleLogoLink = () => {
-  if (isEmbed) return;
+  if (isEmbed || getConfig().mode === 'result') return;
   const logoLink = UI.getLogoLink();
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
@@ -2557,19 +2568,24 @@ const handleProjectInfo = () => {
 
 const handleEmbed = () => {
   const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const config = getConfig();
+
   const createEditorFn = async (container: HTMLElement) =>
     createEditor({
       baseUrl,
       container,
-      editor: 'codejar',
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
       language: 'html',
       mapLanguage,
       readonly: true,
-      theme: getConfig().theme,
+      theme: config.theme,
       value: '',
+      ...getEditorConfig(config),
+      editor: 'codejar',
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
     });
   const createEmbedUI = async () => {
     modal.show(loadingMessage());
@@ -2595,6 +2611,45 @@ const handleEmbed = () => {
 
   eventsManager.addEventListener(UI.getEmbedLink(), 'click', createEmbedUI, false);
   registerScreen('embed', createEmbedUI);
+};
+
+const handleEditorSettings = () => {
+  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
+    if (!newConfig) return;
+    const shouldReload = newConfig.editor !== getConfig().editor;
+    setUserConfig(newConfig);
+    if (shouldReload) {
+      reloadEditors(getConfig());
+    } else {
+      getAllEditors().forEach((editor) => editor.changeSettings(newConfig as UserConfig));
+    }
+  };
+  const createEditorSettingsUI = async () => {
+    modal.show(loadingMessage());
+
+    const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
+      baseUrl + '{{hash:editor-settings.js}}'
+    );
+    await editorSettingsModule.createEditorSettingsUI({
+      baseUrl,
+      modal,
+      eventsManager,
+      deps: {
+        getUserConfig: () => getUserConfig(getConfig()),
+        createEditor,
+        getFormatFn: () => formatter.getFormatFn('jsx'),
+        changeSettings,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(
+    UI.getEditorSettingsLink(),
+    'click',
+    createEditorSettingsUI,
+    false,
+  );
+  registerScreen('editor-settings', createEditorSettingsUI);
 };
 
 const handleAssets = () => {
@@ -2664,15 +2719,20 @@ const handleSnippets = () => {
   const createEditorFn = async (options: Partial<EditorOptions>) =>
     createEditor({
       baseUrl,
+      container: null,
       editorId: 'snippet',
       getLanguageExtension,
       isEmbed,
       language: 'html',
-      mapLanguage,
-      theme: getConfig().theme,
       value: '',
+      theme: getConfig().theme,
+      readonly: getConfig().readonly,
+      mapLanguage,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+      ...getEditorConfig(getConfig()),
       ...options,
-    } as EditorOptions);
+    });
 
   const createList = async () => {
     await loadModule();
@@ -2778,16 +2838,18 @@ const handleCustomSettings = () => {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
-      editor: config.editor,
       editorId: 'customSettings',
       editorBuild,
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
-      value: stringify(getConfig().customSettings, true),
+      value: stringify(config.customSettings, true),
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     customSettingsEditor = await createEditor(options);
     customSettingsEditor?.focus();
@@ -2899,16 +2961,18 @@ const handleTestEditor = () => {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
-      editor: config.editor,
       editorId: 'tests',
       editorBuild,
       container: UI.getTestEditor(),
       language: editorLanguage,
-      value: getConfig().tests?.content || '',
+      value: config.tests?.content || '',
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     testEditor = await createEditor(options);
     formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
@@ -3147,16 +3211,6 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
-  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
-  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
-  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
-  stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
-  stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
-  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
-  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
-  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
-  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
-
   handleTitleEdit();
   handleSettingsMenu();
   handleSettings();
@@ -3177,6 +3231,7 @@ const extraHandlers = async () => {
   handleDeploy();
   handleAssets();
   handleSnippets();
+  handleEditorSettings();
   handleSync();
   handleAutosync();
   handlePersistantStorage();
@@ -3186,6 +3241,19 @@ const extraHandlers = async () => {
   handleResultPopup();
   handleBroadcastStatus();
   handleUnload();
+};
+
+const initializeStores = async () => {
+  if (isEmbed) return;
+  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
+  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
+  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
+  stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
+  stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
+  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
+  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
+  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
+  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
 };
 
 const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
@@ -3432,9 +3500,16 @@ const initializeApp = async (
   isLite = options?.isLite ?? false;
   isEmbed = isLite || (options?.isEmbed ?? false);
 
-  setConfig(buildConfig(appConfig));
-  configureModes({ config: getConfig(), isEmbed, isLite });
+  await initializeStores();
+  loadUserConfig(/* updateUI = */ false);
+  setConfig(
+    buildConfig({
+      ...getConfig(),
+      ...appConfig,
+    }),
+  );
 
+  configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
@@ -3450,7 +3525,7 @@ const initializeApp = async (
   await createEditors(getConfig());
   basicHandlers();
   await initializeFn?.();
-  loadUserConfig();
+  loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
   showMode(getConfig());

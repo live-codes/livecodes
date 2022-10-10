@@ -58,7 +58,6 @@ export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  editor: 'monaco' | 'codemirror' | 'codejar' | '';
   showVersion: boolean;
   tools: {
     enabled: Array<Tool['name']> | 'all';
@@ -67,15 +66,34 @@ export interface AppConfig {
   };
 }
 
-export interface UserConfig {
+export interface UserConfig extends EditorConfig, FormatterConfig {
   autoupdate: boolean;
   autosave: boolean;
   delay: number;
   formatOnsave: boolean;
-  emmet: boolean;
   theme: Theme;
   recoverUnsaved: boolean;
   showSpacing: boolean;
+}
+
+export interface EditorConfig {
+  editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+  fontFamily: string | undefined;
+  fontSize: number | undefined;
+  useTabs: boolean;
+  tabSize: number;
+  lineNumbers: boolean;
+  wordWrap: boolean;
+  closeBrackets: boolean;
+  emmet: boolean;
+}
+
+export interface FormatterConfig {
+  useTabs: boolean;
+  tabSize: number;
+  semicolons: boolean;
+  singleQuote: boolean;
+  trailingComma: boolean;
 }
 
 export interface UserData {
@@ -337,6 +355,7 @@ export interface Parser {
 export type FormatFn = (
   value: string,
   cursorOffset: number,
+  formatterConfig?: Partial<FormatterConfig>,
 ) => Promise<{ formatted: string; cursorOffset: number }>;
 
 export interface LanguageFormatter {
@@ -476,12 +495,13 @@ export interface Console extends Tool {
   clear: () => void;
   // filterLog: (filter: string) => void;
   evaluate: (code: string) => void;
+  reloadEditor: (config: Config) => Promise<void>;
 }
 
 export interface CompiledCodeViewer extends Tool {
   title: 'Compiled';
   update: (language: Language, content: string, label?: string | undefined) => void;
-  reloadEditor: () => Promise<void>;
+  reloadEditor: (config: Config) => Promise<void>;
 }
 
 export interface TestViewer extends Tool {
@@ -518,7 +538,6 @@ export interface CodeEditor {
   setPosition: (position: EditorPosition) => void;
   layout?: () => void;
   addTypes?: (lib: EditorLibrary) => any;
-  configureEmmet?: (enabled: boolean) => void;
   onContentChanged: (callback: () => void) => void;
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
   keyCodes: {
@@ -529,6 +548,7 @@ export interface CodeEditor {
     DownArrow: any;
     ShiftAltF: any;
   };
+  changeSettings: (editorSettings: EditorConfig) => void;
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;
   isReadonly: boolean;
@@ -543,19 +563,19 @@ export interface CodeEditor {
   isFake?: boolean;
 }
 
-export interface EditorOptions {
+export interface EditorOptions extends EditorConfig {
   baseUrl: string;
   container: HTMLElement | null;
   language: Language;
   value: string;
   mode?: Config['mode'];
   readonly: boolean;
-  editor?: Config['editor'];
   editorId:
     | EditorId
     | 'compiled'
     | 'console'
     | 'customSettings'
+    | 'editorSettings'
     | 'tests'
     | 'embed'
     | 'snippet'
@@ -565,6 +585,8 @@ export interface EditorOptions {
   isEmbed: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
   mapLanguage: (language: Language) => Language;
+  getFormatterConfig: () => Partial<FormatterConfig>;
+  getFontFamily: (font: string | undefined) => string;
 }
 
 export interface CustomEditor {
@@ -626,6 +648,7 @@ export interface Screen {
     | 'backup'
     | 'broadcast'
     | 'custom-settings'
+    | 'editor-settings'
     | 'test-editor';
   show: (options?: any) => void | Promise<unknown>;
 }

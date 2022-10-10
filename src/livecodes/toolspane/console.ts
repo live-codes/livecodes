@@ -1,11 +1,12 @@
 import LunaConsole from 'luna-console';
-import { createEditor } from '../editor';
+import { createEditor, getFontFamily } from '../editor';
 import { createEventsManager } from '../events';
 import { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';
 import { getLanguageExtension, mapLanguage } from '../languages';
+import { getEditorConfig } from '../config';
 
 export const createConsole = (
   config: Config,
@@ -104,8 +105,8 @@ export const createConsole = (
     return consoleEmulator;
   };
 
-  const createConsoleInput = async () => {
-    if (editor) return editor;
+  const createConsoleInput = async (force = false) => {
+    if (editor && !force) return editor;
 
     const container = document.querySelector('#console-input') as HTMLElement;
     if (!container) throw new Error('Console input container not found');
@@ -116,13 +117,15 @@ export const createConsole = (
       language: 'javascript',
       value: '',
       readonly: false,
-      editor: config.editor,
       mode: config.mode,
       editorId: 'console',
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      getFormatterConfig: () => ({}),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     const consoleEditor = await createEditor(editorOptions);
 
@@ -163,6 +166,8 @@ export const createConsole = (
           : consoleEditor.monaco.getContentHeight() * 2;
       container.style.height = height + 'px';
     });
+
+    if (editor) return consoleEditor;
 
     // workaround to remove 'luna-console-' added to variable names called by console input
     const observer = new MutationObserver(() => {
@@ -247,6 +252,16 @@ export const createConsole = (
     }
   };
 
+  const reloadEditor = async (newConfig: Config) => {
+    config = newConfig;
+    if (!editor) {
+      await load();
+      return;
+    }
+    editor?.destroy();
+    editor = await createConsoleInput(true);
+  };
+
   return {
     name: 'console',
     title: 'Console',
@@ -266,6 +281,7 @@ export const createConsole = (
       }
     },
     getEditor: () => editor,
+    reloadEditor,
     log: (...args: any[]) => consoleEmulator?.log(...args),
     info: (...args: any[]) => consoleEmulator?.info(...args),
     table: (...args: any[]) => consoleEmulator?.table(...args),

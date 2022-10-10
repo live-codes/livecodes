@@ -18,6 +18,7 @@ import type {
   EditorOptions,
   Theme,
   EditorPosition,
+  EditorConfig,
 } from '../../models';
 import { encodeHTML } from '../../utils';
 
@@ -25,12 +26,23 @@ declare const Prism: any;
 Prism.manual = true;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { baseUrl, container, mode, editorId, readonly } = options;
+  const {
+    baseUrl,
+    container,
+    mode,
+    editorId,
+    readonly,
+    isEmbed,
+    getFormatterConfig,
+    getFontFamily,
+  } = options;
   if (!container) throw new Error('editor container not found');
 
   let { value, language } = options;
+  let currentPosition: EditorPosition = { lineNumber: 1 };
   const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
   let mappedLanguage = language === 'wat' ? 'wasm' : mapLanguage(language);
+  let editorOptions: ReturnType<typeof convertOptions>;
 
   const preElement: HTMLElement = document.createElement('pre');
   const codeElement: HTMLElement = document.createElement('code');
@@ -40,8 +52,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   container.classList.add('prism');
   if (!readonly) {
     container.classList.add('codejar');
-    preElement.addEventListener('click', () => focus());
+    preElement.addEventListener('click', () => {
+      currentPosition = getPosition();
+      focus(/* restorePosition = */ false);
+    });
+    preElement.addEventListener('blur', () => {
+      currentPosition = getPosition();
+    });
   }
+  new ResizeObserver(() => {
+    if (!editorOptions.wordWrap) return;
+    highlight();
+  }).observe(preElement);
   codeElement.className = 'language-' + mappedLanguage;
   codeElement.innerHTML = encodeHTML(value).trim() || '\n';
 
@@ -59,19 +81,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     highlight();
   }
 
-  const codejarOptions = {
-    tab: ' '.repeat(2),
-  };
-
   const codejar =
-    readonly || options.editorId === 'console'
-      ? undefined
-      : CodeJar(codeElement, highlight, codejarOptions);
+    readonly || options.editorId === 'console' ? undefined : CodeJar(codeElement, highlight, {});
+
   codejar?.recordHistory();
 
   type Listener = () => void;
   const listeners: Listener[] = [];
   codejar?.onUpdate(() => {
+    currentPosition = getPosition();
     if (getValue() === value) return;
     listeners.forEach((fn) => fn());
     // make sure there is some value
@@ -93,9 +111,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       highlight();
     }
   };
-  const focus = () => {
+  setTimeout(() => {
+    setValue(value || '\n');
+  }, 1000);
+
+  const focus = (restorePosition = true) => {
     codeElement.focus();
+    if (restorePosition) {
+      setPosition(currentPosition, /* smoothScroll = */ false);
+      currentPosition = getPosition();
+    }
   };
+
   const getLanguage = () => language;
   const setLanguage = (lang: Language, newValue?: string) => {
     language = lang;
@@ -191,7 +218,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     formatter = formatFn;
     addKeyBinding('format', keyCodes.ShiftAltF, async () => {
       await format();
-      focus();
+      focus(/* restorePosition = */ false);
     });
   };
 
@@ -200,7 +227,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const position = codejar?.save();
     const offset = (position?.dir === '<-' ? position.start : position?.end) || 0;
     const oldValue = getValue();
-    const newValue = await formatter(oldValue, offset);
+    const newValue = await formatter(oldValue, offset, getFormatterConfig());
     setValue(newValue.formatted);
     const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
     codejar?.restore({ start: newOffset, end: newOffset });
@@ -221,6 +248,33 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     document.head.appendChild(stylesheet);
   };
   setTheme(options.theme);
+
+  const convertOptions = (opt: EditorConfig) => ({
+    fontFamily: getFontFamily(opt.fontFamily),
+    fontSize: (opt.fontSize || (isEmbed ? 12 : 14)) + 'px',
+    tab: opt.useTabs ? '\t' : ' '.repeat(opt.tabSize || 2),
+    tabSize: String(opt.tabSize),
+    lineNumbers: opt.lineNumbers,
+    wordWrap: opt.wordWrap ? 'pre-wrap' : 'pre',
+    addClosing: opt.closeBrackets,
+  });
+
+  const changeSettings = (settings: EditorConfig) => {
+    editorOptions = convertOptions(settings);
+    codejar?.updateOptions({
+      tab: editorOptions.tab,
+      addClosing: editorOptions.addClosing,
+    });
+    [preElement, codeElement].forEach((el) => {
+      el.style.setProperty('font-family', editorOptions.fontFamily, 'important');
+      el.style.setProperty('font-size', editorOptions.fontSize + 'px', 'important');
+      el.style.setProperty('tab-size', editorOptions.tabSize, 'important');
+      el.style.setProperty('white-space', editorOptions.wordWrap, 'important');
+    });
+    preElement.classList.toggle('line-numbers', editorOptions.lineNumbers);
+    highlight();
+  };
+  changeSettings(options);
 
   const undo = () => {
     codejar?.handleUndoRedo(
@@ -252,31 +306,40 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         length += line.length + 1; // add line break
         lineNumber += 1;
       } else {
-        column = position - length + 1;
+        column = position - length;
         break;
       }
     }
     return { lineNumber, column };
   };
 
-  const setPosition = ({ lineNumber, column = 0 }: EditorPosition) => {
+  const setPosition = ({ lineNumber, column = 0 }: EditorPosition, smoothScroll = true) => {
     const allLines = getValue().split('\n');
     const line = allLines.length > lineNumber ? lineNumber : allLines.length;
     const selectedLine = allLines[line - 1];
-    const columnNumber = selectedLine.length > column ? column : selectedLine.length;
+    const columnNumber = (selectedLine.length > column ? column : selectedLine.length) + 1;
     const previuosLines = allLines.slice(0, line - 1);
     const nextLines = allLines.slice(line);
-    const position = previuosLines.join('\n').length + columnNumber;
+    const position =
+      previuosLines.join('\n').length + columnNumber - (previuosLines.length > 0 ? 0 : 1);
 
     codeElement.innerHTML =
-      encodeHTML(previuosLines.join('\n') + '\n' + selectedLine.slice(0, columnNumber)) +
+      encodeHTML(
+        previuosLines.join('\n') +
+          (previuosLines.length > 0 ? '\n' : '') +
+          selectedLine.slice(0, columnNumber),
+      ) +
       `<div id="scroll-target">​</div>` +
       encodeHTML(selectedLine.slice(columnNumber) + '\n' + nextLines.join('\n'));
 
     // scroll to view
     const target = codeElement.querySelector('#scroll-target');
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      target.scrollIntoView({
+        behavior: smoothScroll ? 'smooth' : undefined,
+        block: 'center',
+        inline: 'center',
+      });
       target.remove();
     }
 
@@ -299,10 +362,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getEditorId,
     focus,
     getPosition,
-    setPosition,
+    setPosition: (position) => setPosition(position),
     onContentChanged,
     keyCodes,
     addKeyBinding,
+    changeSettings,
     registerFormatter,
     format,
     isReadonly: readonly,

@@ -1,12 +1,17 @@
-import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
-import { Compartment, Extension } from '@codemirror/state';
-import { defaultHighlightStyle } from '@codemirror/highlight';
-import { undo, redo } from '@codemirror/history';
+import { Compartment, Extension, EditorState } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
-import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
-import { indentWithTab } from '@codemirror/commands';
-import { LanguageSupport } from '@codemirror/language';
-import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
+import { EditorView, KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
+import { indentWithTab, undo, redo } from '@codemirror/commands';
+import {
+  defaultHighlightStyle,
+  syntaxHighlighting,
+  indentUnit,
+  LanguageSupport,
+  StreamLanguage,
+  StreamParser,
+  HighlightStyle,
+} from '@codemirror/language';
+import { tags } from '@lezer/highlight';
 
 import type {
   FormatFn,
@@ -15,7 +20,9 @@ import type {
   EditorOptions,
   Theme,
   EditorPosition,
+  EditorConfig,
 } from '../../models';
+import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
@@ -24,7 +31,8 @@ export const legacy = (parser: StreamParser<unknown>) =>
 export const createEditorCreator =
   (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
   async (options: EditorOptions): Promise<CodeEditor> => {
-    const { container, readonly, isEmbed, editorId } = options;
+    const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
+    let editorSettings: EditorConfig = { ...options };
     if (!container) throw new Error('editor container not found');
     const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
       languages[language] || (languages.html as () => LanguageSupport);
@@ -34,7 +42,6 @@ export const createEditorCreator =
     let mappedLanguage = mapLanguage(language);
     let theme = options.theme;
     const keyBindings: KeyBinding[] = [];
-    let emmetEnabled = true;
 
     type Listener = (update: ViewUpdate) => void;
     const listeners: Listener[] = [];
@@ -47,16 +54,40 @@ export const createEditorCreator =
     const languageExtension = new Compartment();
     const keyBindingsExtension = new Compartment();
     const themeExtension = new Compartment();
-    const emmetExtension = new Compartment();
     const readOnlyExtension = EditorView.editable.of(false);
-    const fullHeight = EditorView.theme({
-      '&': { height: '100%', fontSize: isEmbed ? '12px' : '14px' },
-      '.cm-scroller': { overflow: 'auto' },
-    });
+    const editorSettingsExtension = new Compartment();
+    const lineNumbersExtension = new Compartment();
+    const closeBracketsExtension = new Compartment();
+    const italicComments = HighlightStyle.define([{ tag: tags.comment, fontStyle: 'italic' }]);
 
+    const configureSettingsExtension = (settings: Partial<EditorConfig>) => {
+      const fontSize = (settings.fontSize ?? editorSettings.fontSize) || (isEmbed ? 12 : 14);
+      const fontFamily = getFontFamily(settings.fontFamily ?? editorSettings.fontFamily);
+      const tabSize = settings.tabSize ?? editorSettings.tabSize;
+      const useTabs = settings.useTabs ?? editorSettings.useTabs;
+      const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
+      const emmet = settings.emmet ?? editorSettings.emmet;
+
+      return [
+        EditorState.tabSize.of(tabSize),
+        indentUnit.of(useTabs ? '\t' : ' '.repeat(tabSize)),
+        ...(wordWrap ? [EditorView.lineWrapping] : []),
+        ...(emmet ? [emmetExt] : []),
+        EditorView.theme({
+          '&': {
+            height: '100%',
+            fontSize: fontSize + 'px',
+          },
+          '.cm-scroller': {
+            overflow: 'auto',
+            fontFamily,
+          },
+        }),
+      ];
+    };
     const themes = {
       dark: oneDark,
-      light: [defaultHighlightStyle],
+      light: [syntaxHighlighting(defaultHighlightStyle)],
     };
 
     const getExtensions = () => {
@@ -64,11 +95,13 @@ export const createEditorCreator =
         languageExtension.of(getLanguageExtension(mappedLanguage)()),
         EditorView.updateListener.of(notifyListeners),
         themeExtension.of(themes[theme]),
-        fullHeight,
-        readonly ? readOnlyExtension : [],
-        !emmetEnabled ? [] : emmetExtension.of(emmetExt),
+        syntaxHighlighting(italicComments),
         keyBindingsExtension.of(keymap.of(keyBindings)),
+        editorSettingsExtension.of(configureSettingsExtension({})),
+        lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),
+        closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
         basicSetup,
+        readonly ? readOnlyExtension : [],
         keymap.of([indentWithTab]),
       ];
 
@@ -163,7 +196,7 @@ export const createEditorCreator =
       if (!formatter) return;
       const offset = view.state.selection.main.to;
       const oldValue = getValue();
-      const newValue = await formatter(oldValue, offset);
+      const newValue = await formatter(oldValue, offset, getFormatterConfig());
       setValue(newValue.formatted, false);
       const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
       view.dispatch({ selection: { anchor: newOffset } });
@@ -176,10 +209,14 @@ export const createEditorCreator =
       });
     };
 
-    const configureEmmet = (enabled: boolean) => {
-      emmetEnabled = enabled;
+    const changeSettings = (settings: EditorConfig) => {
+      editorSettings = { ...settings };
       view.dispatch({
-        effects: emmetExtension.reconfigure(!enabled ? [] : emmetExt),
+        effects: [
+          editorSettingsExtension.reconfigure(configureSettingsExtension(editorSettings)),
+          lineNumbersExtension.reconfigure(editorSettings.lineNumbers ? lineNumbers() : []),
+          closeBracketsExtension.reconfigure(editorSettings.closeBrackets ? closeBrackets() : []),
+        ],
       });
     };
 
@@ -227,10 +264,10 @@ export const createEditorCreator =
       focus,
       getPosition,
       setPosition,
-      configureEmmet,
       onContentChanged,
       keyCodes,
       addKeyBinding,
+      changeSettings,
       registerFormatter,
       format,
       isReadonly: readonly,

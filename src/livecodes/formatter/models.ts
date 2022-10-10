@@ -1,4 +1,4 @@
-import { FormatFn, Language } from '../models';
+import { FormatFn, FormatterConfig, Language } from '../models';
 
 export interface Formatter {
   load: (languages: Language[]) => Promise<string>;
@@ -43,6 +43,7 @@ export interface FormatMessage {
     language: Language;
     value: string;
     cursorOffset: number;
+    formatterConfig: Partial<FormatterConfig>;
   };
 }
 

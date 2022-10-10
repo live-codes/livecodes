@@ -1,4 +1,5 @@
-import { createEditor } from '../editor';
+import { getEditorConfig } from '../config';
+import { createEditor, getFontFamily } from '../editor';
 import { createEventsManager } from '../events';
 import { getLanguageExtension, languages, mapLanguage } from '../languages';
 import type {
@@ -53,13 +54,15 @@ export const createCompiledCodeViewer = (
       language: 'javascript',
       value: '',
       readonly: true,
-      editor: config.editor,
       mode: config.mode,
       editorId: 'compiled',
       theme: config.theme,
       isEmbed,
       mapLanguage,
       getLanguageExtension,
+      getFormatterConfig: () => ({}),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     return createEditor(editorOptions);
   };
@@ -94,7 +97,8 @@ export const createCompiledCodeViewer = (
     editor = await createCompiledEditor();
   };
 
-  const reloadEditor = async () => {
+  const reloadEditor = async (newConfig: Config) => {
+    config = newConfig;
     if (!compiledCodeElement) {
       await load();
       return;

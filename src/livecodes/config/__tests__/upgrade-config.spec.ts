@@ -74,7 +74,6 @@ describe('upgradeConfig', () => {
       delay: 500,
       emmet: true,
       mode: 'full',
-      editor: '',
       allowLangChange: true,
       activeEditor: 'markup',
       markup: {

@@ -121,6 +121,9 @@ export const getShareLink = () => document.querySelector<HTMLAnchorElement>('#sh
 
 export const getEmbedLink = () => document.querySelector<HTMLAnchorElement>('#embed-link');
 
+export const getEditorSettingsLink = () =>
+  document.querySelector<HTMLAnchorElement>('#editor-settings-link');
+
 export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
 
 export const getSyncLink = () => document.querySelector<HTMLAnchorElement>('#sync-link');
@@ -377,3 +380,6 @@ export const getBroadcastStatusBtn = () =>
   document.querySelector('#broadcast-status-btn') as HTMLElement | null;
 
 export const getQrCodeContainer = () => document.querySelector('#qrcode-container') as HTMLElement;
+
+export const getEditorSettingsFormatLink = (editorSettingsContainer: HTMLElement) =>
+  editorSettingsContainer.querySelector('#editor-settings-format-link') as HTMLAnchorElement;

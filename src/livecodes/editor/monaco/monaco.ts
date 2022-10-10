@@ -9,11 +9,14 @@ import type {
   EditorOptions,
   Theme,
   EditorPosition,
+  EditorConfig,
 } from '../../models';
 import { getRandomString, loadScript } from '../../utils';
 import { emmetMonacoUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
+
+type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
@@ -26,9 +29,25 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     isEmbed,
     getLanguageExtension,
     mapLanguage,
-    ...baseOptions
+    getFormatterConfig,
+    getFontFamily,
   } = options;
   if (!container) throw new Error('editor container not found');
+
+  const convertOptions = (opt: EditorConfig): Options => ({
+    fontFamily: getFontFamily(opt.fontFamily),
+    fontSize: opt.fontSize || (isEmbed ? 12 : 14),
+    insertSpaces: !opt.useTabs,
+    detectIndentation: false,
+    tabSize: opt.tabSize,
+    lineNumbers: opt.lineNumbers ? 'on' : 'off',
+    wordWrap: opt.wordWrap ? 'on' : 'off',
+    autoClosingBrackets: opt.closeBrackets ? 'always' : 'never',
+    autoClosingQuotes: opt.closeBrackets ? 'always' : 'never',
+    autoClosingDelete: opt.closeBrackets ? 'always' : 'never',
+  });
+
+  const baseOptions = convertOptions(options);
 
   const monacoMapLanguage = (language: Language): Language =>
     language === 'livescript'
@@ -47,20 +66,26 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     throw new Error('Failed to load monaco editor');
   }
 
-  type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
+  monaco.editor.defineTheme('custom-vs-light', {
+    base: 'vs',
+    inherit: true,
+    rules: [{ token: 'comment', fontStyle: 'italic' }],
+    colors: {},
+  });
+  monaco.editor.defineTheme('custom-vs-dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [{ token: 'comment', fontStyle: 'italic' }],
+    colors: {},
+  });
 
   const defaultOptions: Options = {
-    fontSize: isEmbed ? 12 : 14,
-    theme: 'vs-' + theme,
+    theme: 'custom-vs-' + theme,
+    fontLigatures: true,
     formatOnType: false,
-    tabSize: 2,
     lineNumbersMinChars: 3,
-    minimap: {
-      enabled: false,
-    },
-    scrollbar: {
-      useShadows: false,
-    },
+    minimap: { enabled: false },
+    scrollbar: { useShadows: false },
     mouseWheelZoom: true,
     automaticLayout: true,
     readOnly: readonly,
@@ -68,8 +93,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const codeblockOptions: Options = {
     ...defaultOptions,
-    readOnly: true,
-    // lineNumbers: 'off',
     scrollBeyondLastLine: false,
     contextmenu: false,
   };
@@ -77,12 +100,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const compiledCodeOptions: Options = {
     ...defaultOptions,
     scrollBeyondLastLine: false,
-    readOnly: true,
   };
 
   const consoleOptions: Options = {
     ...defaultOptions,
-    lineNumbers: 'off',
     glyphMargin: true,
     folding: false,
     lineDecorationsWidth: 0,
@@ -96,7 +117,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const embedOptions: Options = {
     ...consoleOptions,
-    readOnly: true,
   };
 
   const editorId = options.editorId;
@@ -195,8 +215,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let language = options.language;
 
   const editor = monaco.editor.create(container, {
-    ...editorOptions,
     ...baseOptions,
+    ...editorOptions,
     language: monacoMapLanguage(language),
   });
   setModel(editor, options.value, language);
@@ -337,7 +357,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
         const val = editor.getValue();
-        const prettyVal = await formatFn(val, 0);
+        const prettyVal = await formatFn(val, 0, getFormatterConfig());
         return [
           {
             range: editorModel.getFullModelRange(),
@@ -382,7 +402,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const setTheme = (theme: Theme) => {
-    monaco.editor.setTheme('vs-' + theme);
+    monaco.editor.setTheme('custom-vs-' + theme);
+  };
+
+  const changeSettings = (settings: EditorConfig) => {
+    const newOptions = {
+      ...convertOptions(settings),
+      ...editorOptions,
+    };
+    configureEmmet(settings.emmet);
+    editor.updateOptions(newOptions);
   };
 
   const undo = () => {
@@ -414,7 +443,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEmmet(false);
     listeners.length = 0;
     clearTypes(true);
-    // editor.getModel()?.dispose();
+    editor.getModel()?.dispose();
+    editor.dispose();
     container.innerHTML = '';
   };
 
@@ -538,7 +568,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setPosition,
     layout,
     addTypes,
-    configureEmmet,
+    changeSettings,
     onContentChanged,
     keyCodes,
     addKeyBinding,

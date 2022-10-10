@@ -30,6 +30,7 @@ export const createFakeEditor = (options: EditorOptions): CodeEditor => {
       DownArrow: '',
       ShiftAltF: '',
     },
+    changeSettings: () => undefined,
     registerFormatter: () => undefined,
     format: async () => undefined,
     isReadonly: true,

@@ -137,6 +137,7 @@ esbuild.buildSync({
   'UI/deploy.ts',
   'UI/sync-ui.ts',
   'UI/embed-ui.ts',
+  'UI/editor-settings.ts',
 ].forEach((entry) => {
   esbuild.buildSync({
     ...baseOptions,

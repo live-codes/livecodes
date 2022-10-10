@@ -34,7 +34,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
     });
 
   const getFormatFn = async (language: Language) => {
-    const formatFn: FormatFn = (value: string, cursorOffset: number) =>
+    const formatFn: FormatFn = (value: string, cursorOffset: number, formatterConfig = {}) =>
       new Promise((resolve, reject) => {
         const handler = (event: FormatterMessageEvent) => {
           const message = event.data;
@@ -69,6 +69,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
             language,
             value,
             cursorOffset,
+            formatterConfig,
           },
         };
         worker.postMessage(formatMessage);

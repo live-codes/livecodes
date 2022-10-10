@@ -69,6 +69,81 @@ export const esModuleShimsUrl =
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
 
+export const fontAnonymousProUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/anonymous-pro@4.5.9/index.min.css';
+
+export const fontCascadiaCodeUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@4.2.1/index.min.css';
+
+export const fontCodeNewRomanUrl = 'https://fonts.cdnfonts.com/css/code-new-roman-2';
+
+export const fontComicMonoUrl = 'https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/index.min.css';
+
+export const fontCourierPrimeUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/courier-prime@4.5.9/index.min.css';
+
+export const fontDECTerminalModernUrl = 'https://fonts.cdnfonts.com/css/dec-terminal-modern';
+
+export const fontDejaVuMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/dejavu-mono@4.5.4/index.min.css';
+
+export const fontFantasqueUrl =
+  'https://cdn.jsdelivr.net/npm/@typopro/web-fantasque-sans-mono@3.7.5/TypoPRO-FantasqueSansMono.css';
+
+export const fontFiraCodeUrl = 'https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css';
+
+export const fontFixedsysUrl = 'https://fonts.cdnfonts.com/css/fixedsys-62';
+
+export const fontHackUrl = 'https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css';
+
+export const fontHermitUrl = 'https://cdn.jsdelivr.net/npm/typeface-hermit@0.0.44/index.min.css';
+
+export const fontIBMPlexMonoUrl =
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap';
+
+export const fontInconsolataUrl =
+  'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap';
+
+export const fontIosevkaUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/iosevka@4.5.4/index.min.css';
+
+export const fontJetbrainsMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/index.min.css';
+
+export const fontMenloUrl = 'https://fonts.cdnfonts.com/css/menlo';
+
+export const fontMonofurUrl = 'https://fonts.cdnfonts.com/css/monofur';
+
+export const fontMonoidUrl =
+  'https://cdn.jsdelivr.net/npm/@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css';
+
+export const fontNotoUrl = 'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap';
+
+export const fontNovaMonoUrl = 'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap';
+
+export const fontOpenDyslexicUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@4.5.4/index.min.css';
+
+export const fontProFontWindowsUrl = 'https://fonts.cdnfonts.com/css/profontwindows';
+
+export const fontRobotoMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/roboto-mono@4.5.8/index.min.css';
+
+export const fontSFMonoUrl = 'https://fonts.cdnfonts.com/css/sf-mono';
+
+export const fontSourceCodeProUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/source-code-pro@4.5.12/index.min.css';
+
+export const fontSpaceMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/space-mono@4.5.10/index.min.css';
+
+export const fontSudoVarUrl = 'https://fonts.cdnfonts.com/css/sudo-var';
+
+export const fontUbuntuMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/ubuntu-mono@4.5.11/index.min.css';
+
+export const fontVictorMonoUrl = 'https://cdn.jsdelivr.net/npm/victormono@1.5.4/dist/index.min.css';
+
 export const fscreenUrl = 'https://cdn.jsdelivr.net/npm/fscreen@1.2.0/dist/fscreen.esm.js';
 
 export const githubMarkdownCss =

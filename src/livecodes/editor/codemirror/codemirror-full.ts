@@ -1,6 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { LanguageSupport } from '@codemirror/language';
-import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
+import { LanguageSupport, StreamLanguage, StreamParser } from '@codemirror/language';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { coffeeScript } from '@codemirror/legacy-modes/mode/coffeescript';

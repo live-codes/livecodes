@@ -152,7 +152,7 @@ export const createEmbedUI = async ({
       const helpLink: HTMLAnchorElement = document.createElement('a');
       helpLink.href = field.help;
       helpLink.target = '_blank';
-      helpLink.classList.add('embed-help-link');
+      helpLink.classList.add('help-link');
       helpLink.title = 'Click for info...';
       title.appendChild(helpLink);
 

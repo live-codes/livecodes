@@ -1,6 +1,7 @@
 import { CodeEditor, Config, EditorOptions, Language } from '../models';
-import { isMobile } from '../utils';
+import { isMobile, loadStylesheet } from '../utils';
 import { createFakeEditor } from './fake-editor';
+import { fonts } from './fonts';
 
 export const basicLanguages: Language[] = [
   'html',
@@ -68,15 +69,65 @@ export const selectedEditor = (
     : 'monaco';
 };
 
+const getEditorOptions = (options: EditorOptions): EditorOptions => {
+  const codeblockOptions = {
+    ...options,
+    readOnly: true,
+  };
+  const compiledCodeOptions = {
+    ...options,
+    readOnly: true,
+  };
+  const consoleOptions = {
+    ...options,
+    lineNumbers: false,
+  };
+  const embedOptions = {
+    ...options,
+    lineNumbers: false,
+    readOnly: true,
+  };
+  const editorId = options.editorId;
+  return editorId === 'console'
+    ? consoleOptions
+    : editorId === 'compiled'
+    ? compiledCodeOptions
+    : editorId === 'embed'
+    ? embedOptions
+    : options.mode === 'codeblock'
+    ? codeblockOptions
+    : options;
+};
+
+const loadFont = (fontName: string) => {
+  if (!fontName) return;
+  const font = fonts.find((f) => [f.id, f.name, f.label].includes(fontName));
+  if (!font) return;
+  loadStylesheet(font.url, 'font-' + font.id);
+};
+
 export const createEditor = async (options: EditorOptions) => {
   if (!options) throw new Error();
 
-  const editorName = selectedEditor(options);
-  if (editorName === 'fake') return createFakeEditor(options);
+  const editorOptions = getEditorOptions(options);
 
-  const codeEditor = await loadEditor(editorName || 'codemirror', options);
+  const editorName = selectedEditor(editorOptions);
+  if (editorName === 'fake') return createFakeEditor(editorOptions);
+
+  if (editorOptions.fontFamily) {
+    loadFont(editorOptions.fontFamily);
+  }
+  const codeEditor = await loadEditor(editorName || 'codemirror', editorOptions);
 
   if (!codeEditor) throw new Error('Failed loading code editor');
+
+  const changeSettings = codeEditor.changeSettings;
+  codeEditor.changeSettings = (settings) => {
+    if (settings.fontFamily) {
+      loadFont(settings.fontFamily);
+    }
+    return changeSettings(settings);
+  };
 
   return codeEditor;
 };

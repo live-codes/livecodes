@@ -1981,19 +1981,6 @@ i.arrow {
       width: 100%;
     }
 
-    .embed-help-link {
-      margin-left: 0.5em;
-
-      &::after {
-        content: unset !important;
-      }
-
-      img {
-        height: 0.8em;
-        opacity: 0.7;
-      }
-    }
-
     #embed-code {
       height: 10em !important;
       margin-bottom: 1em !important;
@@ -2047,6 +2034,24 @@ i.arrow {
       display: inline-block;
       margin-bottom: 1em;
       overflow-wrap: break-word;
+    }
+  }
+
+  #editor-settings-container {
+    .modal-screen {
+      position: relative;
+    }
+
+    #editor-settings-format-link {
+      font-size: 0.9em;
+      position: absolute;
+      right: 10%;
+      top: 0.75em;
+    }
+
+    #editor-settings-preview-container {
+      height: 250px !important;
+      max-height: 250px;
     }
   }
 
@@ -2261,8 +2266,12 @@ i.arrow {
   }
 
   .custom-editor {
+    background-color: var(--custom-editor-background-color);
+    border: 1px solid gray;
+    border-radius: 5px;
     height: 400px;
     max-height: 40vh;
+    overflow: hidden;
     text-align: initial;
     width: 90%;
   }
@@ -2278,6 +2287,19 @@ i.arrow {
     padding: 5px;
     text-align: start;
     width: 80%;
+  }
+
+  .help-link {
+    margin-left: 0.5em;
+
+    &::after {
+      content: unset !important;
+    }
+
+    img {
+      height: 0.8em;
+      opacity: 0.7;
+    }
   }
 }
 
@@ -2547,13 +2569,11 @@ i.arrow {
   overflow: auto;
 }
 
-.cm-wrap,
-.cm-activeLine,
-.cm-gutters {
-  background: var(--background-color) !important;
-}
-
 #console-input {
+  .cm-activeLine {
+    background: var(--background-color) !important;
+  }
+
   .cm-gutter {
     display: none !important;
   }
@@ -2574,8 +2594,7 @@ i.arrow {
   &#console-input {
     // height: 25px !important;
     // max-height: 25px !important;
-    height: 0 !important;
-    min-height: 0 !important;
+    display: none !important;
 
     > pre {
       padding-left: 1em !important;
@@ -2610,12 +2629,9 @@ i.arrow {
   &.codejar code {
     white-space: nowrap !important;
   }
-}
 
-.embed .prism {
-  pre[class*='language-'],
-  code[class*='language-'] {
-    font-size: 12px !important;
+  .token.comment {
+    font-style: italic;
   }
 }
 
@@ -2856,6 +2872,14 @@ body {
 
   #console .luna-console-error {
     z-index: 40;
+  }
+
+  #editor-container {
+    z-index: 100;
+  }
+
+  #toolbar {
+    z-index: 500;
   }
 
   .copy-button {
