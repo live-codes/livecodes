@@ -46,6 +46,27 @@ export const postcssPresetEnv: ProcessorSpecs = {
   editor: 'style',
 };
 
+export const purgecss: ProcessorSpecs = {
+  name: 'purgecss',
+  title: 'PurgeCSS',
+  isPostcssPlugin: true,
+  needsHTML: true,
+  compiler: {
+    url: vendorsBaseUrl + 'purgecss/purgecss.js',
+    factory: (config, _baseUrl, options) =>
+      (self as any).purgecss.purgecss({
+        ...getLanguageCustomSettings('purgecss', config),
+        content: [
+          {
+            raw: `<template>${options.html}\n<script>${config.script.content}</script></template>`,
+            extension: 'html',
+          },
+        ],
+      }),
+  },
+  editor: 'style',
+};
+
 export const tailwindcss: ProcessorSpecs = {
   name: 'tailwindcss',
   title: 'Tailwind CSS',

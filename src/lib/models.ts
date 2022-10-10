@@ -333,7 +333,9 @@ export type Processor =
   | 'tokencss'
   | 'lightningcss'
   | 'autoprefixer'
-  | 'postcssPresetEnv';
+  | 'postcssPresetEnv'
+  | 'purgecss'
+  | 'cssnano';
 
 export type ParserName =
   | 'babel'
