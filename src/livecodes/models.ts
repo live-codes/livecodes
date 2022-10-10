@@ -318,7 +318,11 @@ export interface ProcessorSpecs {
   needsHTML?: boolean;
   compiler: {
     url: string;
-    factory: (config: Config, baseUrl: string, options: CompileOptions) => CompilerFunction;
+    factory: (
+      config: Config,
+      baseUrl: string,
+      options: CompileOptions,
+    ) => CompilerFunction | CompilerFunction[];
   };
   editor: EditorId;
   hidden?: boolean;
@@ -333,7 +337,9 @@ export type Processor =
   | 'tokencss'
   | 'lightningcss'
   | 'autoprefixer'
-  | 'postcssPresetEnv';
+  | 'postcssPresetEnv'
+  | 'purgecss'
+  | 'cssnano';
 
 export type ParserName =
   | 'babel'

@@ -7,20 +7,25 @@ import {
   tailwindcss,
   postcssImportUrl,
   tokencss,
+  purgecss,
+  cssnano,
 } from './postcss';
 import { unocss } from './unocss';
 import { windicss } from './windicss';
 
 export const processors: ProcessorSpecs[] = [
-  tailwindcss,
-  windicss,
-  unocss,
-  tokencss,
-  lightningcss,
-  postcssImportUrl,
-  autoprefixer,
-  postcssPresetEnv,
-  postcss,
-]
+  ...[
+    tailwindcss,
+    windicss,
+    unocss,
+    tokencss,
+    purgecss,
+    postcssImportUrl,
+    autoprefixer,
+    postcssPresetEnv,
+    lightningcss,
+    cssnano,
+  ],
   // keep postcss as last processor
-  .sort((a, b) => (a.name === 'postcss' ? 1 : b.name === 'postcss' ? -1 : 0));
+  postcss,
+];
