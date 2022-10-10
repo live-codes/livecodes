@@ -1,22 +1,32 @@
 import {
   fontAnonymousProUrl,
   fontCascadiaCodeUrl,
+  fontCodeNewRomanUrl,
   fontComicMonoUrl,
   fontCourierPrimeUrl,
+  fontDECTerminalModernUrl,
   fontDejaVuMonoUrl,
   fontFantasqueUrl,
   fontFiraCodeUrl,
+  fontFixedsysUrl,
   fontHackUrl,
   fontHermitUrl,
   fontIBMPlexMonoUrl,
   fontInconsolataUrl,
   fontIosevkaUrl,
   fontJetbrainsMonoUrl,
+  fontMenloUrl,
+  fontMonofurUrl,
   fontMonoidUrl,
   fontNotoUrl,
+  fontNovaMonoUrl,
+  fontOpenDyslexicUrl,
+  fontProFontWindowsUrl,
   fontRobotoMonoUrl,
+  fontSFMonoUrl,
   fontSourceCodeProUrl,
   fontSpaceMonoUrl,
+  fontSudoVarUrl,
   fontUbuntuMonoUrl,
   fontVictorMonoUrl,
 } from '../vendors';
@@ -41,6 +51,11 @@ export const fonts: Font[] = [
   },
   {
     id: 'comic-mono',
+    name: 'Code New Roman',
+    url: fontCodeNewRomanUrl,
+  },
+  {
+    id: 'comic-mono',
     name: 'Comic Mono',
     url: fontComicMonoUrl,
   },
@@ -48,6 +63,11 @@ export const fonts: Font[] = [
     id: 'courier-prime',
     name: 'Courier Prime',
     url: fontCourierPrimeUrl,
+  },
+  {
+    id: 'dec-terminal-modern',
+    name: 'DEC Terminal Modern',
+    url: fontDECTerminalModernUrl,
   },
   {
     id: 'dejavu-mono',
@@ -64,6 +84,12 @@ export const fonts: Font[] = [
     id: 'fira-code',
     name: 'Fira Code',
     url: fontFiraCodeUrl,
+  },
+  {
+    id: 'fixedsys',
+    name: 'Fixedsys 62',
+    label: 'Fixedsys',
+    url: fontFixedsysUrl,
   },
   {
     id: 'hack',
@@ -96,6 +122,16 @@ export const fonts: Font[] = [
     url: fontJetbrainsMonoUrl,
   },
   {
+    id: 'menlo',
+    name: 'Menlo',
+    url: fontMenloUrl,
+  },
+  {
+    id: 'monofur',
+    name: 'Monofur',
+    url: fontMonofurUrl,
+  },
+  {
     id: 'monoid',
     name: 'TypoPRO Monoid',
     label: 'Monoid',
@@ -107,9 +143,30 @@ export const fonts: Font[] = [
     url: fontNotoUrl,
   },
   {
+    id: 'nova-mono',
+    name: 'Nova Mono',
+    url: fontNovaMonoUrl,
+  },
+  {
+    id: 'opendyslexic',
+    name: 'OpenDyslexic',
+    url: fontOpenDyslexicUrl,
+  },
+  {
+    id: 'profontwindows',
+    name: 'ProFontWindows',
+    label: 'ProFont',
+    url: fontProFontWindowsUrl,
+  },
+  {
     id: 'roboto-mono',
     name: 'Roboto Mono',
     url: fontRobotoMonoUrl,
+  },
+  {
+    id: 'sf-mono',
+    name: 'SF Mono',
+    url: fontSFMonoUrl,
   },
   {
     id: 'source-code-pro',
@@ -120,6 +177,11 @@ export const fonts: Font[] = [
     id: 'space-mono',
     name: 'Space Mono',
     url: fontSpaceMonoUrl,
+  },
+  {
+    id: 'sudo-var',
+    name: 'Sudo Var',
+    url: fontSudoVarUrl,
   },
   {
     id: 'ubuntu-mono',
