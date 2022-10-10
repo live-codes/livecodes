@@ -309,6 +309,7 @@ import ReactDOM from 'react-dom';
 
 function App(props) {
   const [count, setCount] = useState('zero');
+  // increment on click!
   const onClick = () => setCount(count === 'zero' ? 1 : count + 1);
   return (
     <div className="container">
