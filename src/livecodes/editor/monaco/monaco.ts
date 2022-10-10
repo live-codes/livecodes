@@ -66,8 +66,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     throw new Error('Failed to load monaco editor');
   }
 
+  monaco.editor.defineTheme('custom-vs-light', {
+    base: 'vs',
+    inherit: true,
+    rules: [{ token: 'comment', fontStyle: 'italic' }],
+    colors: {},
+  });
+  monaco.editor.defineTheme('custom-vs-dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [{ token: 'comment', fontStyle: 'italic' }],
+    colors: {},
+  });
+
   const defaultOptions: Options = {
-    theme: 'vs-' + theme,
+    theme: 'custom-vs-' + theme,
     fontLigatures: true,
     formatOnType: false,
     lineNumbersMinChars: 3,
@@ -389,7 +402,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const setTheme = (theme: Theme) => {
-    monaco.editor.setTheme('vs-' + theme);
+    monaco.editor.setTheme('custom-vs-' + theme);
   };
 
   const changeSettings = (settings: EditorConfig) => {

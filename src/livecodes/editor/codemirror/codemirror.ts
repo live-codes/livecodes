@@ -9,7 +9,9 @@ import {
   LanguageSupport,
   StreamLanguage,
   StreamParser,
+  HighlightStyle,
 } from '@codemirror/language';
+import { tags } from '@lezer/highlight';
 
 import type {
   FormatFn,
@@ -56,6 +58,7 @@ export const createEditorCreator =
     const editorSettingsExtension = new Compartment();
     const lineNumbersExtension = new Compartment();
     const closeBracketsExtension = new Compartment();
+    const italicComments = HighlightStyle.define([{ tag: tags.comment, fontStyle: 'italic' }]);
 
     const configureSettingsExtension = (settings: Partial<EditorConfig>) => {
       const fontSize = (settings.fontSize ?? editorSettings.fontSize) || (isEmbed ? 12 : 14);
@@ -92,6 +95,7 @@ export const createEditorCreator =
         languageExtension.of(getLanguageExtension(mappedLanguage)()),
         EditorView.updateListener.of(notifyListeners),
         themeExtension.of(themes[theme]),
+        syntaxHighlighting(italicComments),
         keyBindingsExtension.of(keymap.of(keyBindings)),
         editorSettingsExtension.of(configureSettingsExtension({})),
         lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),

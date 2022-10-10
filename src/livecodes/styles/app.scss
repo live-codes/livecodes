@@ -2629,6 +2629,10 @@ i.arrow {
   &.codejar code {
     white-space: nowrap !important;
   }
+
+  .token.comment {
+    font-style: italic;
+  }
 }
 
 .autoComplete_wrapper {

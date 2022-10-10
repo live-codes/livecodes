@@ -77,6 +77,7 @@
     "@codemirror/theme-one-dark": "6.1.0",
     "@codemirror/view": "6.3.0",
     "@emmetio/codemirror6-plugin": "0.2.0",
+    "@lezer/highlight": "1.1.1",
     "@snackbar/core": "1.7.0",
     "@types/deep-diff": "1.0.1",
     "codejar": "3.6.0",
