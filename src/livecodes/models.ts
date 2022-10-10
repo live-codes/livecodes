@@ -318,7 +318,11 @@ export interface ProcessorSpecs {
   needsHTML?: boolean;
   compiler: {
     url: string;
-    factory: (config: Config, baseUrl: string, options: CompileOptions) => CompilerFunction;
+    factory: (
+      config: Config,
+      baseUrl: string,
+      options: CompileOptions,
+    ) => CompilerFunction | CompilerFunction[];
   };
   editor: EditorId;
   hidden?: boolean;

@@ -39,7 +39,8 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
     pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
     return processors
       .filter((specs) => pluginNames.includes(specs.name))
-      .map((specs) => loadedPlugins[specs.name]?.(config, baseUrl, options));
+      .map((specs) => loadedPlugins[specs.name]?.(config, baseUrl, options))
+      .flat(); // allow plugins to have arrays of plugins
   };
 
   const prepareCode = (code: string) => escapeCode(replaceStyleImports(code));

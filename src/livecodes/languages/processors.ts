@@ -8,6 +8,7 @@ import {
   postcssImportUrl,
   tokencss,
   purgecss,
+  cssnano,
 } from './postcss';
 import { unocss } from './unocss';
 import { windicss } from './windicss';
@@ -23,6 +24,7 @@ export const processors: ProcessorSpecs[] = [
     autoprefixer,
     postcssPresetEnv,
     lightningcss,
+    cssnano,
   ],
   // keep postcss as last processor
   postcss,

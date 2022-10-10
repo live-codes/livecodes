@@ -16,6 +16,31 @@ export const autoprefixer: ProcessorSpecs = {
   editor: 'style',
 };
 
+export const cssnano: ProcessorSpecs = {
+  name: 'cssnano',
+  title: 'cssnano',
+  isPostcssPlugin: true,
+  compiler: {
+    url: vendorsBaseUrl + 'cssnano/cssnano.js',
+    factory: () => {
+      const nanoPlugins = (self as any).cssnano.cssnanoPresetDefault().plugins;
+      const postcssPlugins = [];
+      for (const plugin of nanoPlugins) {
+        const [processor, opts] = plugin;
+        if (
+          typeof opts === 'undefined' ||
+          (typeof opts === 'object' && !opts.exclude) ||
+          (typeof opts === 'boolean' && opts === true)
+        ) {
+          postcssPlugins.push(processor(opts));
+        }
+      }
+      return postcssPlugins;
+    },
+  },
+  editor: 'style',
+};
+
 export const postcssImportUrl: ProcessorSpecs = {
   name: 'postcssImportUrl',
   title: 'Import Url',
