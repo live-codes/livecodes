@@ -533,6 +533,14 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   if (initialized || params.view !== 'result') {
     split.show('code');
   }
+  const editorStatusNodes = document.querySelectorAll<HTMLElement>('#editor-status > span');
+  editorStatusNodes.forEach((node) => {
+    if (node.dataset.status === editorId) {
+      node.style.display = 'block';
+    } else {
+      node.style.display = 'none';
+    }
+  });
 };
 
 const addConsoleInputCodeCompletion = () => {

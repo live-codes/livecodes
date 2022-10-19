@@ -12,7 +12,7 @@ import type {
   EditorConfig,
 } from '../../models';
 import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl } from '../../vendors';
+import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler';
 import { modulesService } from '../../services';
 
@@ -20,6 +20,9 @@ type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
+let monaco: typeof Monaco;
+let keyBindingMode: any | undefined;
+
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
     container,
@@ -57,7 +60,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       : mapLanguage(language);
 
   const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
-  let monaco: typeof Monaco;
   try {
     (window as any).monaco =
       (window as any).monaco || (await import(`${monacoPath}/monaco-editor.js`)).monaco;
@@ -350,6 +352,36 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const configureKeyBindings = async (mode: EditorConfig['keyBindings']) => {
+    const statusNode = document.querySelector<HTMLElement>(
+      `#editor-status [data-status="${options.editorId}"]`,
+    );
+
+    if (!mode) {
+      if (statusNode) statusNode.innerHTML = '';
+      keyBindingMode?.dispose();
+      return;
+    }
+
+    if (mode === 'vim' && keyBindingMode?.state?.keyMap !== 'vim') {
+      const MonacoVim: any = await loadScript(monacoVimUrl, 'MonacoVim');
+      keyBindingMode = MonacoVim.initVimMode(editor, statusNode);
+    }
+
+    if (mode === 'emacs') {
+      const MonacoEmacs: any = await loadScript(monacoEmacsUrl, 'MonacoEmacs');
+      keyBindingMode = new MonacoEmacs.EmacsExtension(editor);
+      keyBindingMode.onDidMarkChange(function (ev: Event) {
+        if (statusNode) statusNode.textContent = ev ? 'Mark Set!' : 'Mark Unset';
+      });
+      keyBindingMode.onDidChangeKey(function (str: string) {
+        if (statusNode) statusNode.textContent = str;
+      });
+      keyBindingMode.start();
+    }
+  };
+  configureKeyBindings(options.keyBindings);
+
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     const editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
@@ -411,6 +443,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...editorOptions,
     };
     configureEmmet(settings.emmet);
+    configureKeyBindings(settings.keyBindings);
     editor.updateOptions(newOptions);
   };
 
