@@ -353,12 +353,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const configureEditorMode = async (mode: EditorConfig['editorMode']) => {
+    const editorModeNode = document.querySelector<HTMLElement>('#editor-mode');
+
     const statusNode = document.querySelector<HTMLElement>(
       `#editor-status [data-status="${options.editorId}"]`,
     );
 
     if (!mode) {
       if (statusNode) statusNode.innerHTML = '';
+      if (editorModeNode) editorModeNode.innerHTML = '';
       editorMode?.dispose();
       return;
     }
@@ -366,6 +369,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     if (mode === 'vim' && editorMode?.state?.keyMap !== 'vim') {
       const MonacoVim: any = await loadScript(monacoVimUrl, 'MonacoVim');
       editorMode = MonacoVim.initVimMode(editor, statusNode);
+      if (editorModeNode) editorModeNode.innerHTML = 'Vim: ';
     }
 
     if (mode === 'emacs') {
@@ -378,6 +382,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         if (statusNode) statusNode.textContent = str;
       });
       editorMode.start();
+      if (editorModeNode) editorModeNode.innerHTML = 'Emacs';
     }
   };
   configureEditorMode(options.editorMode);

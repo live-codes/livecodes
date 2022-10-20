@@ -533,7 +533,9 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   if (initialized || params.view !== 'result') {
     split.show('code');
   }
-  const editorStatusNodes = document.querySelectorAll<HTMLElement>('#editor-status > span');
+  const editorStatusNodes = document.querySelectorAll<HTMLElement>(
+    '#editor-status > span[data-status]',
+  );
   editorStatusNodes.forEach((node) => {
     if (node.dataset.status === editorId) {
       node.style.display = 'block';
