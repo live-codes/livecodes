@@ -86,7 +86,7 @@ export interface EditorConfig {
   wordWrap: boolean;
   closeBrackets: boolean;
   emmet: boolean;
-  keyBindings: 'vim' | 'emacs' | undefined;
+  editorMode: 'vim' | 'emacs' | undefined;
 }
 
 export interface FormatterConfig {

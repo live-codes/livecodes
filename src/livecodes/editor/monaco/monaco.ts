@@ -21,7 +21,7 @@ type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 let loaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
-let keyBindingMode: any | undefined;
+let editorMode: any | undefined;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -352,35 +352,35 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
-  const configureKeyBindings = async (mode: EditorConfig['keyBindings']) => {
+  const configureEditorMode = async (mode: EditorConfig['editorMode']) => {
     const statusNode = document.querySelector<HTMLElement>(
       `#editor-status [data-status="${options.editorId}"]`,
     );
 
     if (!mode) {
       if (statusNode) statusNode.innerHTML = '';
-      keyBindingMode?.dispose();
+      editorMode?.dispose();
       return;
     }
 
-    if (mode === 'vim' && keyBindingMode?.state?.keyMap !== 'vim') {
+    if (mode === 'vim' && editorMode?.state?.keyMap !== 'vim') {
       const MonacoVim: any = await loadScript(monacoVimUrl, 'MonacoVim');
-      keyBindingMode = MonacoVim.initVimMode(editor, statusNode);
+      editorMode = MonacoVim.initVimMode(editor, statusNode);
     }
 
     if (mode === 'emacs') {
       const MonacoEmacs: any = await loadScript(monacoEmacsUrl, 'MonacoEmacs');
-      keyBindingMode = new MonacoEmacs.EmacsExtension(editor);
-      keyBindingMode.onDidMarkChange(function (ev: Event) {
+      editorMode = new MonacoEmacs.EmacsExtension(editor);
+      editorMode.onDidMarkChange(function (ev: Event) {
         if (statusNode) statusNode.textContent = ev ? 'Mark Set!' : 'Mark Unset';
       });
-      keyBindingMode.onDidChangeKey(function (str: string) {
+      editorMode.onDidChangeKey(function (str: string) {
         if (statusNode) statusNode.textContent = str;
       });
-      keyBindingMode.start();
+      editorMode.start();
     }
   };
-  configureKeyBindings(options.keyBindings);
+  configureEditorMode(options.editorMode);
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     const editorModel = editor.getModel();
@@ -443,7 +443,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...editorOptions,
     };
     configureEmmet(settings.emmet);
-    configureKeyBindings(settings.keyBindings);
+    configureEditorMode(settings.editorMode);
     editor.updateOptions(newOptions);
   };
 
