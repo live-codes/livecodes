@@ -533,14 +533,24 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   if (initialized || params.view !== 'result') {
     split.show('code');
   }
+  showEditorModeStatus(editorId);
+};
+
+const showEditorModeStatus = (editorId: EditorId) => {
   const editorStatusNodes = document.querySelectorAll<HTMLElement>(
     '#editor-status > span[data-status]',
   );
   editorStatusNodes.forEach((node) => {
     if (node.dataset.status === editorId) {
-      node.style.display = 'block';
+      // node.style.display = 'block';
+      node.style.position = 'unset';
+      node.style.width = 'unset';
+      node.style.overflow = 'unset';
     } else {
-      node.style.display = 'none';
+      // node.style.display = 'none';
+      node.style.position = 'absolute';
+      node.style.width = '0';
+      node.style.overflow = 'hidden';
     }
   });
 };
@@ -1824,6 +1834,10 @@ const handleEditorTools = () => {
   eventsManager.addEventListener(UI.getFormatButton(), 'click', async () => {
     await format(false);
   });
+
+  eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
+    showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
+  });
 };
 
 const handleProcessors = () => {
@@ -2633,8 +2647,11 @@ const handleEditorSettings = () => {
     } else {
       getAllEditors().forEach((editor) => editor.changeSettings(newConfig as UserConfig));
     }
+    showEditorModeStatus(getConfig().activeEditor || 'markup');
   };
-  const createEditorSettingsUI = async () => {
+  const createEditorSettingsUI = async ({
+    scrollToSelector = '',
+  }: { scrollToSelector?: string } = {}) => {
     modal.show(loadingMessage());
 
     const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
@@ -2644,6 +2661,7 @@ const handleEditorSettings = () => {
       baseUrl,
       modal,
       eventsManager,
+      scrollToSelector,
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
@@ -2656,7 +2674,7 @@ const handleEditorSettings = () => {
   eventsManager.addEventListener(
     UI.getEditorSettingsLink(),
     'click',
-    createEditorSettingsUI,
+    () => createEditorSettingsUI(),
     false,
   );
   registerScreen('editor-settings', createEditorSettingsUI);

@@ -3,6 +3,7 @@ interface ModalOptions {
   closeButton?: boolean;
   isAsync?: boolean;
   onClose?: () => void;
+  scrollToSelector?: string;
 }
 
 export const createModal = () => {
@@ -19,12 +20,23 @@ export const createModal = () => {
       closeButton = false,
       isAsync = false,
       onClose = () => undefined,
+      scrollToSelector = '',
     }: ModalOptions = {},
   ) => {
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
     onCloseFn = onClose;
+
+    if (scrollToSelector) {
+      setTimeout(() => {
+        const target = container.querySelector<HTMLElement>(scrollToSelector);
+        container.style.scrollBehavior = 'smooth';
+        if (target) {
+          target.scrollIntoView();
+        }
+      }, 500);
+    }
 
     if (closeButton) {
       const closeContainer = document.createElement('div');

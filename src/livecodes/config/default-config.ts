@@ -67,7 +67,7 @@ export const defaultConfig: Config = {
   singleQuote: false,
   trailingComma: true,
   emmet: true,
-  editorMode: 'vim',
+  editorMode: undefined,
   version: process.env.VERSION as string,
   showVersion: false,
 };

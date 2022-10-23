@@ -13,11 +13,13 @@ export const createEditorSettingsUI = async ({
   baseUrl,
   modal,
   eventsManager,
+  scrollToSelector,
   deps,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
   eventsManager: ReturnType<typeof createEventsManager>;
+  scrollToSelector: string;
   deps: {
     getUserConfig: () => UserConfig;
     createEditor: typeof createEditor;
@@ -30,7 +32,7 @@ export const createEditorSettingsUI = async ({
   const div = document.createElement('div');
   div.innerHTML = editorSettingsScreen;
   const editorSettingsContainer = div.firstChild as HTMLElement;
-  modal.show(editorSettingsContainer, { isAsync: true });
+  modal.show(editorSettingsContainer, { isAsync: true, scrollToSelector });
 
   const previewContainer = editorSettingsContainer.querySelector<HTMLElement>(
     '#editor-settings-preview-container',
@@ -125,6 +127,16 @@ export const createEditorSettingsUI = async ({
       options: [{ value: 'true' }],
     },
     {
+      title: 'Editor Mode *',
+      name: 'editorMode',
+      options: [
+        { label: 'Default', value: '' },
+        { label: 'Vim', value: 'vim' },
+        { label: 'Emacs', value: 'emacs' },
+      ],
+      help: '/docs/features/editors',
+    },
+    {
       title: 'Format: Use Semicolons',
       name: 'semicolons',
       options: [{ value: 'true' }],
@@ -181,6 +193,7 @@ export const createEditorSettingsUI = async ({
       '*',
       `<a href="#codejar-info" class="hint--top" data-hint="Not available in CodeJar" style="text-decoration: none;">*</a>`,
     );
+    title.dataset.name = field.name;
     form.appendChild(title);
 
     if (field.help) {

@@ -18,10 +18,9 @@ import { modulesService } from '../../services';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
-let loaded = false;
+let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
-let editorMode: any | undefined;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -36,6 +35,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getFontFamily,
   } = options;
   if (!container) throw new Error('editor container not found');
+
+  let editorMode: any | undefined;
 
   const convertOptions = (opt: EditorConfig): Options => ({
     fontFamily: getFontFamily(opt.fontFamily),
@@ -354,35 +355,57 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const configureEditorMode = async (mode: EditorConfig['editorMode']) => {
     const editorModeNode = document.querySelector<HTMLElement>('#editor-mode');
-
     const statusNode = document.querySelector<HTMLElement>(
       `#editor-status [data-status="${options.editorId}"]`,
     );
+    const setEditorModeText = (str: string) => {
+      if (!editorModeNode) return;
+      editorModeNode.textContent = str;
+    };
+    const setStatusText = (str: string) => {
+      if (!statusNode) return;
+      statusNode.textContent = str;
+    };
 
     if (!mode) {
-      if (statusNode) statusNode.innerHTML = '';
-      if (editorModeNode) editorModeNode.innerHTML = '';
       editorMode?.dispose();
+      editorMode = undefined;
+      setStatusText('');
+      setEditorModeText('');
       return;
     }
 
-    if (mode === 'vim' && editorMode?.state?.keyMap !== 'vim') {
+    if (mode === 'vim') {
+      if (editorMode?.mode === 'vim') return;
+      if (editorMode?.mode === 'emacs') {
+        editorMode.dispose();
+        setStatusText('');
+      }
       const MonacoVim: any = await loadScript(monacoVimUrl, 'MonacoVim');
-      editorMode = MonacoVim.initVimMode(editor, statusNode);
-      if (editorModeNode) editorModeNode.innerHTML = 'Vim: ';
+      const stNode = statusNode?.innerHTML !== '' ? undefined : statusNode; // avoid duplication
+      editorMode = MonacoVim.initVimMode(editor, stNode);
+      editorMode.mode = 'vim';
+      setEditorModeText('Vim');
     }
 
     if (mode === 'emacs') {
+      if (editorMode?.mode === 'emacs') return;
+      if (editorMode?.mode === 'vim') {
+        editorMode.dispose();
+        setStatusText('');
+      }
       const MonacoEmacs: any = await loadScript(monacoEmacsUrl, 'MonacoEmacs');
       editorMode = new MonacoEmacs.EmacsExtension(editor);
+      setStatusText('');
       editorMode.onDidMarkChange(function (ev: Event) {
-        if (statusNode) statusNode.textContent = ev ? 'Mark Set!' : 'Mark Unset';
+        setStatusText(ev ? 'Mark Set!' : 'Mark Unset');
       });
       editorMode.onDidChangeKey(function (str: string) {
-        if (statusNode) statusNode.textContent = str;
+        setStatusText(str);
       });
       editorMode.start();
-      if (editorModeNode) editorModeNode.innerHTML = 'Emacs';
+      editorMode.mode = 'emacs';
+      setEditorModeText('Emacs');
     }
   };
   configureEditorMode(options.editorMode);
@@ -479,6 +502,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const destroy = () => {
     configureEmmet(false);
+    editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);
     editor.getModel()?.dispose();
@@ -590,11 +614,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerHoverProvider('html', npmPackageHoverProvider);
   };
 
-  if (!loaded) {
+  if (!monacoGloballyLoaded) {
     registerShowPackageInfo();
   }
 
-  loaded = true;
+  monacoGloballyLoaded = true;
   return {
     getValue,
     setValue,
