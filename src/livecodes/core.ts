@@ -328,12 +328,13 @@ const createCopyButtons = () => {
 };
 
 const shouldUpdateEditorBuild = (langs?: Language[]) => {
-  const editor = selectedEditor({ editor: getConfig().editor, mode: getConfig().mode });
+  const config = getConfig();
+  const editor = selectedEditor({ editor: config.editor, mode: config.mode });
   if (editor === 'monaco') return false;
   if (editorBuild === 'full') return false;
   if (
     langs?.some((lang) => !isBasicLanguage(lang)) ||
-    (editor === 'codemirror' && getConfig().emmet)
+    (editor === 'codemirror' && (config.emmet || config.editorMode))
   ) {
     editorBuild = 'full';
     return true;

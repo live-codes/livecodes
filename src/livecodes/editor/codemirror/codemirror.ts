@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import { Compartment, Extension, EditorState } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView, KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
@@ -22,14 +23,24 @@ import type {
   EditorPosition,
   EditorConfig,
 } from '../../models';
+import { getEditorModeNode } from '../../UI/selectors';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
-import { emmetExt } from './emmet-codemirror';
 
 export const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
 
 export const createEditorCreator =
-  (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
+  ({
+    languages,
+    emmet,
+    vim,
+    emacs,
+  }: {
+    languages: Partial<{ [key in Language]: () => LanguageSupport }>;
+    emmet: Extension;
+    vim: () => Extension;
+    emacs: () => Extension;
+  }) =>
   async (options: EditorOptions): Promise<CodeEditor> => {
     const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
     let editorSettings: EditorConfig = { ...options };
@@ -66,13 +77,15 @@ export const createEditorCreator =
       const tabSize = settings.tabSize ?? editorSettings.tabSize;
       const useTabs = settings.useTabs ?? editorSettings.useTabs;
       const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
-      const emmet = settings.emmet ?? editorSettings.emmet;
+      const enableEmmet = settings.emmet ?? editorSettings.emmet;
+      const editorMode = settings.editorMode ?? editorSettings.editorMode;
 
       return [
         EditorState.tabSize.of(tabSize),
         indentUnit.of(useTabs ? '\t' : ' '.repeat(tabSize)),
         ...(wordWrap ? [EditorView.lineWrapping] : []),
-        ...(emmet ? [emmetExt] : []),
+        ...(editorMode === 'vim' ? [vim()] : editorMode === 'emacs' ? [emacs()] : []),
+        ...(enableEmmet ? [emmet] : []),
         EditorView.theme({
           '&': {
             height: '100%',
@@ -96,8 +109,8 @@ export const createEditorCreator =
         EditorView.updateListener.of(notifyListeners),
         themeExtension.of(themes[theme]),
         syntaxHighlighting(italicComments),
-        keyBindingsExtension.of(keymap.of(keyBindings)),
         editorSettingsExtension.of(configureSettingsExtension({})),
+        keyBindingsExtension.of(keymap.of(keyBindings)),
         lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),
         closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
         basicSetup,
@@ -120,6 +133,23 @@ export const createEditorCreator =
         : defaultOptions;
     };
 
+    const showEditorMode = async (mode: EditorConfig['editorMode']) => {
+      const editorModeNode = getEditorModeNode();
+      const setEditorModeText = (str: string) => {
+        if (!editorModeNode) return;
+        editorModeNode.textContent = str;
+      };
+      if (!mode) {
+        setEditorModeText('');
+      }
+      if (mode === 'vim') {
+        setEditorModeText('Vim');
+      }
+      if (mode === 'emacs') {
+        setEditorModeText('Emacs');
+      }
+    };
+
     const view = new EditorView({
       state: EditorState.create({
         extensions: getExtensions(),
@@ -127,6 +157,7 @@ export const createEditorCreator =
       }),
       parent: container,
     });
+    showEditorMode(options.editorMode);
 
     const getEditorId = () => editorId;
     const getValue = () => view.state.doc.toString();
@@ -218,6 +249,7 @@ export const createEditorCreator =
           closeBracketsExtension.reconfigure(editorSettings.closeBrackets ? closeBrackets() : []),
         ],
       });
+      showEditorMode(editorSettings.editorMode);
     };
 
     const editorUndo = () => {

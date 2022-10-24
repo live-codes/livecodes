@@ -78,6 +78,8 @@
     "@codemirror/view": "6.3.0",
     "@emmetio/codemirror6-plugin": "0.2.0",
     "@lezer/highlight": "1.1.1",
+    "@replit/codemirror-emacs": "6.0.0",
+    "@replit/codemirror-vim": "6.0.3",
     "@snackbar/core": "1.7.0",
     "@types/deep-diff": "1.0.1",
     "codejar": "3.6.0",

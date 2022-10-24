@@ -1,12 +1,12 @@
 /* eslint-disable import/no-internal-modules */
-import { LanguageSupport } from '@codemirror/language';
+import type { LanguageSupport } from '@codemirror/language';
 import { html } from '@codemirror/lang-html';
 import { css } from '@codemirror/lang-css';
 import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
 import { sCSS } from '@codemirror/legacy-modes/mode/css';
 
-import { CodeEditor, EditorOptions, Language } from '../../models';
+import type { CodeEditor, EditorOptions, Language } from '../../models';
 import { createEditorCreator, legacy } from './codemirror';
 
 export const basicLanguages: Partial<{ [key in Language]: () => LanguageSupport }> = {
@@ -21,4 +21,4 @@ export const basicLanguages: Partial<{ [key in Language]: () => LanguageSupport 
 };
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> =>
-  createEditorCreator(basicLanguages)(options);
+  createEditorCreator({ languages: {}, emmet: [], vim: () => [], emacs: () => [] })(options);

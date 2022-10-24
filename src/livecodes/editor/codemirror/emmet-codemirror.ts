@@ -18,7 +18,7 @@ import {
   wrapWithAbbreviation,
 } from '@emmetio/codemirror6-plugin';
 
-export const emmetExt = [
+export const emmet = [
   abbreviationTracker(),
   wrapWithAbbreviation(),
   keymap.of([

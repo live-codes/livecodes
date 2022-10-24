@@ -17,10 +17,13 @@ import { sql } from '@codemirror/lang-sql';
 import { php } from '@codemirror/lang-php';
 import { cpp } from '@codemirror/lang-cpp';
 import { wast } from '@codemirror/lang-wast';
+import { vim } from '@replit/codemirror-vim';
+import { emacs } from '@replit/codemirror-emacs';
 
 import { CodeEditor, EditorOptions, Language } from '../../models';
 import { createEditorCreator } from './codemirror';
 import { basicLanguages } from './codemirror-basic';
+import { emmet } from './emmet-codemirror';
 
 const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
@@ -47,4 +50,4 @@ export const fullLanguages: Partial<{ [key in Language]: () => LanguageSupport }
 };
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> =>
-  createEditorCreator(fullLanguages)(options);
+  createEditorCreator({ languages: fullLanguages, emmet, vim, emacs })(options);

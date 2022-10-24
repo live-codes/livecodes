@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
 import * as Monaco from 'monaco-editor'; // only for typescript types
 
@@ -11,10 +12,11 @@ import type {
   EditorPosition,
   EditorConfig,
 } from '../../models';
-import { getRandomString, loadScript } from '../../utils';
+import { getRandomString, loadScript } from '../../utils/utils';
 import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
-import { getImports } from '../../compiler';
-import { modulesService } from '../../services';
+import { getImports } from '../../compiler/import-map';
+import { modulesService } from '../../services/modules';
+import { getEditorModeNode } from '../../UI/selectors';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
@@ -354,7 +356,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const configureEditorMode = async (mode: EditorConfig['editorMode']) => {
-    const editorModeNode = document.querySelector<HTMLElement>('#editor-mode');
+    const editorModeNode = getEditorModeNode();
     const statusNode = document.querySelector<HTMLElement>(
       `#editor-status [data-status="${options.editorId}"]`,
     );
