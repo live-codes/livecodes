@@ -111,8 +111,6 @@ esbuild.buildSync({
 });
 
 [
-  'editor/codemirror/codemirror-basic.ts',
-  'editor/codemirror/codemirror-full.ts',
   'editor/monaco/monaco.ts',
   'editor/monaco/languages/monaco-astro.ts',
   'editor/monaco/languages/monaco-clio.ts',
@@ -144,6 +142,63 @@ esbuild.buildSync({
     entryPoints: ['src/livecodes/' + entry],
     loader: { '.html': 'text' },
   });
+});
+
+esbuild.buildSync({
+  entryPoints: ['src/livecodes/editor/codemirror/codemirror-core.ts'],
+  bundle: true,
+  minify: true,
+  outfile: 'build/livecodes/codemirror-core.js',
+  format: 'esm',
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: [
+    'src/livecodes/editor/codemirror/codemirror.ts',
+    'src/livecodes/editor/codemirror/codemirror-vim.ts',
+    'src/livecodes/editor/codemirror/codemirror-emacs.ts',
+    'src/livecodes/editor/codemirror/codemirror-emmet.ts',
+  ],
+  external: ['@codemirror/*', '@lezer/highlight', '@lezer/common', '@lezer/lr'],
+});
+
+esbuild.buildSync({
+  ...baseOptions,
+  entryPoints: [
+    'codemirror-lang-json.ts',
+    'codemirror-lang-markdown.ts',
+    'codemirror-lang-python.ts',
+    'codemirror-lang-scss.ts',
+    'codemirror-lang-coffeescript.ts',
+    'codemirror-lang-livescript.ts',
+    'codemirror-lang-php.ts',
+    'codemirror-lang-cpp.ts',
+    'codemirror-lang-sql.ts',
+    'codemirror-lang-wast.ts',
+    'codemirror-lang-ruby.ts',
+    'codemirror-lang-go.ts',
+    'codemirror-lang-perl.ts',
+    'codemirror-lang-lua.ts',
+    'codemirror-lang-julia.ts',
+    'codemirror-lang-scheme.ts',
+    'codemirror-lang-tcl.ts',
+    'codemirror-lang-less.ts',
+    'codemirror-lang-stylus.ts',
+  ].map((m) => 'src/livecodes/editor/codemirror/languages/' + m),
+  external: [
+    '@codemirror/state',
+    '@codemirror/theme-one-dark',
+    '@codemirror/view',
+    '@codemirror/commands',
+    '@codemirror/language',
+    '@codemirror/search',
+    '@codemirror/autocomplete',
+    '@codemirror/lint',
+    '@lezer/highlight',
+    '@lezer/common',
+    '@lezer/lr',
+  ],
 });
 
 [

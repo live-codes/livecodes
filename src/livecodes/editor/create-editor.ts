@@ -21,15 +21,12 @@ const getEditorFileName = (
   editorBuild: EditorOptions['editorBuild'],
 ) => {
   if (editorName === 'codemirror') {
-    if (editorBuild === 'full') return '{{hash:codemirror-full.js}}';
-    return '{{hash:codemirror-basic.js}}';
+    return '{{hash:codemirror.js}}';
   }
-
   if (editorName === 'codejar') {
     if (editorBuild === 'full') return '{{hash:codejar-full.js}}';
     return '{{hash:codejar-basic.js}}';
   }
-
   return '{{hash:monaco.js}}';
 };
 
@@ -40,18 +37,14 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
   const editorUrl = baseUrl + fileName;
 
   let editorModule = (window as any)[editorUrl];
-  try {
-    if (!editorModule) {
-      editorModule = await import(editorUrl);
-      (window as any)[editorUrl] = editorModule;
-    }
-    const createCodeEditor: (options: EditorOptions) => Promise<CodeEditor> =
-      editorModule.createEditor;
-    const codeEditor = await createCodeEditor(options);
-    return codeEditor;
-  } catch (err) {
-    return false;
+  if (!editorModule) {
+    editorModule = await import(editorUrl);
+    (window as any)[editorUrl] = editorModule;
   }
+  const createCodeEditor: (options: EditorOptions) => Promise<CodeEditor> =
+    editorModule.createEditor;
+  const codeEditor = await createCodeEditor(options);
+  return codeEditor;
 };
 
 export const selectedEditor = (
@@ -118,8 +111,6 @@ export const createEditor = async (options: EditorOptions) => {
     loadFont(editorOptions.fontFamily);
   }
   const codeEditor = await loadEditor(editorName || 'codemirror', editorOptions);
-
-  if (!codeEditor) throw new Error('Failed loading code editor');
 
   const changeSettings = codeEditor.changeSettings;
   codeEditor.changeSettings = (settings) => {
