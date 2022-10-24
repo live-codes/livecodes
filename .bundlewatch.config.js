@@ -9,7 +9,7 @@ module.exports = {
       maxSize: '10kB',
     },
     {
-      path: './build/livecodes/!(lang-)*.js',
+      path: './build/livecodes/!(*lang-)*.js',
       maxSize: '30kB',
     },
     {
@@ -17,7 +17,7 @@ module.exports = {
       maxSize: '100kB',
     },
     {
-      path: './build/livecodes/codemirror-*.js',
+      path: './build/livecodes/codemirror-!(lang-)*.js',
       maxSize: '300kB',
     },
     // {
