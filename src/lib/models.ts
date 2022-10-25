@@ -587,7 +587,6 @@ export interface EditorOptions extends EditorConfig {
     | 'embed'
     | 'snippet'
     | 'add-snippet';
-  editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;

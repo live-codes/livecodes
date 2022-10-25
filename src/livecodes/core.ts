@@ -1,11 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import {
-  basicLanguages,
-  createEditor,
-  selectedEditor,
-  createCustomEditors,
-  getFontFamily,
-} from './editor';
+import { createEditor, createCustomEditors, getFontFamily } from './editor';
 import {
   languages,
   getLanguageEditorId,
@@ -172,7 +166,6 @@ let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
-let editorBuild: EditorOptions['editorBuild'] = 'basic';
 let watchTests = false;
 let initialized = false;
 let isDestroyed = false;
@@ -189,7 +182,6 @@ const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[e
 const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
-const isBasicLanguage = (lang: Language) => basicLanguages.includes(lang);
 
 const loadStyles = () =>
   Promise.all(
@@ -327,18 +319,6 @@ const createCopyButtons = () => {
   });
 };
 
-const shouldUpdateEditorBuild = (langs?: Language[]) => {
-  const config = getConfig();
-  const editor = selectedEditor({ editor: config.editor, mode: config.mode });
-  if (editor === 'monaco' || editor === 'codemirror') return false;
-  if (editorBuild === 'full') return false;
-  if (langs?.some((lang) => !isBasicLanguage(lang))) {
-    editorBuild = 'full';
-    return true;
-  }
-  return false;
-};
-
 const createEditors = async (config: Config) => {
   if (editors) {
     Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
@@ -387,11 +367,9 @@ const createEditors = async (config: Config) => {
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
 
-  shouldUpdateEditorBuild([markupOptions.language, styleOptions.language, scriptOptions.language]);
-
-  const markupEditor = await createEditor({ ...markupOptions, editorBuild });
-  const styleEditor = await createEditor({ ...styleOptions, editorBuild });
-  const scriptEditor = await createEditor({ ...scriptOptions, editorBuild });
+  const markupEditor = await createEditor(markupOptions);
+  const styleEditor = await createEditor(styleOptions);
+  const scriptEditor = await createEditor(scriptOptions);
 
   setEditorTitle('markup', markupOptions.language);
   setEditorTitle('style', styleOptions.language);
@@ -619,9 +597,6 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
   if (getLanguageSpecs(language)?.largeDownload) {
     notifications.info(`Loading ${getLanguageTitle(language)}. This may take a while!`);
-  }
-  if (shouldUpdateEditorBuild([language])) {
-    await reloadEditors(getConfig());
   }
   const editor = editors[editorId];
   editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
@@ -1188,9 +1163,6 @@ const checkRecoverStatus = () => {
 };
 
 const configureEmmet = async (config: Config) => {
-  if (shouldUpdateEditorBuild()) {
-    await reloadEditors(getConfig());
-  }
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
     editor.changeSettings(getEditorConfig(config));
@@ -2865,7 +2837,6 @@ const handleCustomSettings = () => {
       mode: config.mode,
       readonly: config.readonly,
       editorId: 'customSettings',
-      editorBuild,
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
       value: stringify(config.customSettings, true),
@@ -2988,7 +2959,6 @@ const handleTestEditor = () => {
       mode: config.mode,
       readonly: config.readonly,
       editorId: 'tests',
-      editorBuild,
       container: UI.getTestEditor(),
       language: editorLanguage,
       value: config.tests?.content || '',
@@ -3547,7 +3517,6 @@ const initializeApp = async (
     loadStarterTemplate,
     importExternalContent,
   );
-  shouldUpdateEditorBuild();
   await createEditors(getConfig());
   basicHandlers();
   await initializeFn?.();

@@ -1,20 +1,7 @@
-import { CodeEditor, Config, EditorOptions, Language } from '../models';
+import type { CodeEditor, Config, EditorOptions } from '../models';
 import { isMobile, loadStylesheet } from '../utils';
 import { createFakeEditor } from './fake-editor';
 import { fonts } from './fonts';
-
-export const basicLanguages: Language[] = [
-  'html',
-  'css',
-  'scss',
-  'javascript',
-  'typescript',
-  'jsx',
-  'tsx',
-  'json',
-];
-
-let editorBuildCache: EditorOptions['editorBuild'] = 'basic';
 
 const getEditorFileName = (editorName: Exclude<Config['editor'], ''>) =>
   editorName === 'codemirror'
@@ -24,8 +11,7 @@ const getEditorFileName = (editorName: Exclude<Config['editor'], ''>) =>
     : '{{hash:monaco.js}}';
 
 const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: EditorOptions) => {
-  const { baseUrl, editorBuild = editorBuildCache } = options;
-  editorBuildCache = editorBuild;
+  const { baseUrl } = options;
   const fileName = getEditorFileName(editorName);
   const editorUrl = baseUrl + fileName;
 
@@ -40,9 +26,7 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
   return codeEditor;
 };
 
-export const selectedEditor = (
-  options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>,
-) => {
+const selectedEditor = (options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>) => {
   const { editor, mode, editorId } = options;
   return mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
     ? 'fake'

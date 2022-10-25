@@ -1,8 +1,8 @@
 /* eslint-disable import/no-internal-modules */
 import { CodeJar } from 'codejar';
 import 'prismjs';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/autoloader/prism-autoloader';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-javascript';
