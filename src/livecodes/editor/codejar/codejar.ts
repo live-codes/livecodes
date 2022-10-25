@@ -2,9 +2,9 @@
 import { CodeJar } from 'codejar';
 import 'prismjs';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/plugins/autoloader/prism-autoloader';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-jsx';
@@ -21,9 +21,12 @@ import type {
   EditorConfig,
 } from '../../models';
 import { encodeHTML } from '../../utils';
+import { prismBaseUrl } from '../../vendors';
 
 declare const Prism: any;
 Prism.manual = true;
+// eslint-disable-next-line camelcase
+Prism.plugins.autoloader.languages_path = prismBaseUrl;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {

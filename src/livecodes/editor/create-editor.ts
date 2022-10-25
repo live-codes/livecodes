@@ -16,24 +16,17 @@ export const basicLanguages: Language[] = [
 
 let editorBuildCache: EditorOptions['editorBuild'] = 'basic';
 
-const getEditorFileName = (
-  editorName: Exclude<Config['editor'], ''>,
-  editorBuild: EditorOptions['editorBuild'],
-) => {
-  if (editorName === 'codemirror') {
-    return '{{hash:codemirror.js}}';
-  }
-  if (editorName === 'codejar') {
-    if (editorBuild === 'full') return '{{hash:codejar-full.js}}';
-    return '{{hash:codejar-basic.js}}';
-  }
-  return '{{hash:monaco.js}}';
-};
+const getEditorFileName = (editorName: Exclude<Config['editor'], ''>) =>
+  editorName === 'codemirror'
+    ? `{{hash:codemirror.js}}`
+    : editorName === 'codejar'
+    ? '{{hash:codejar.js}}'
+    : '{{hash:monaco.js}}';
 
 const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: EditorOptions) => {
   const { baseUrl, editorBuild = editorBuildCache } = options;
   editorBuildCache = editorBuild;
-  const fileName = getEditorFileName(editorName, editorBuild);
+  const fileName = getEditorFileName(editorName);
   const editorUrl = baseUrl + fileName;
 
   let editorModule = (window as any)[editorUrl];
