@@ -322,6 +322,7 @@ const createCopyButtons = () => {
 const createEditors = async (config: Config) => {
   if (editors) {
     Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
+    resetEditorModeStatus();
   }
 
   const baseOptions = {
@@ -528,6 +529,19 @@ const showEditorModeStatus = (editorId: EditorId) => {
       node.style.width = '0';
       node.style.overflow = 'hidden';
     }
+  });
+};
+
+const resetEditorModeStatus = () => {
+  const editorModeNode = UI.getEditorModeNode();
+  if (editorModeNode) {
+    editorModeNode.textContent = '';
+  }
+  const editorStatusNodes = document.querySelectorAll<HTMLElement>(
+    '#editor-status > span[data-status]',
+  );
+  editorStatusNodes.forEach((node) => {
+    node.innerHTML = '';
   });
 };
 
