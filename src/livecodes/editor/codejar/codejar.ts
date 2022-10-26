@@ -85,21 +85,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tempEl.remove();
     });
 
-  const highlight = () => {
+  const highlight = async () => {
     if (mappedLanguage in Prism.languages) {
       Prism.highlightElement(codeElement);
       return;
     }
-    loadLanguage(mappedLanguage).then(() => {
-      const fn = debounce(() => {
-        // after loading a new language wait for user to stop typing before applying highlight
-        // this fixes the problem of cursor resetting position while typing
-        Prism.highlightElement(codeElement);
-        listeners.splice(listeners.indexOf(fn), 1);
-      }, 100);
-      fn();
-      onContentChanged(fn);
-    });
+    await loadLanguage(mappedLanguage);
+    const fn = debounce(() => {
+      // after loading a new language wait for user to stop typing before applying highlight
+      // this fixes the problem of cursor resetting position while typing
+      Prism.highlightElement(codeElement);
+      listeners.splice(listeners.indexOf(fn), 1);
+    }, 100);
+    fn();
+    onContentChanged(fn);
   };
 
   if (readonly) {
