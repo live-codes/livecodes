@@ -76,7 +76,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (mode === 'codeblock') {
     preElement.classList.add('codeblock');
   }
-  const highlight = async () => {
+  const highlight = () => {
     Prism.highlightElement(codeElement);
   };
 
@@ -114,9 +114,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       highlight();
     }
   };
-  setTimeout(() => {
-    setValue(value || '\n');
-  }, 1000);
 
   const focus = (restorePosition = true) => {
     codeElement.focus();
@@ -128,13 +125,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const getLanguage = () => language;
   const setLanguage = (lang: Language, newValue?: string) => {
-    if (newValue != null) {
-      setValue(newValue);
-    }
     language = lang;
     mappedLanguage = mapLanguage(language);
     codeElement.className = 'language-' + mappedLanguage;
     highlight();
+    if (newValue != null) {
+      setValue(newValue);
+    }
   };
 
   const onContentChanged = (fn: Listener) => {
