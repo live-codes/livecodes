@@ -20,7 +20,7 @@ import type {
   EditorPosition,
   EditorConfig,
 } from '../../models';
-import { encodeHTML } from '../../utils';
+import { debounce, encodeHTML } from '../../utils/utils';
 import { prismBaseUrl } from '../../vendors';
 
 declare const Prism: any;
@@ -76,8 +76,30 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   if (mode === 'codeblock') {
     preElement.classList.add('codeblock');
   }
+
+  const loadLanguage = (lang: Language) =>
+    new Promise((res) => {
+      const tempEl: HTMLElement = document.createElement('code');
+      tempEl.className = 'language-' + lang;
+      Prism.highlightElement(tempEl, false, res);
+      tempEl.remove();
+    });
+
   const highlight = () => {
-    Prism.highlightElement(codeElement);
+    if (mappedLanguage in Prism.languages) {
+      Prism.highlightElement(codeElement);
+      return;
+    }
+    loadLanguage(mappedLanguage).then(() => {
+      const fn = debounce(() => {
+        // after loading a new language wait for user to stop typing before applying highlight
+        // this fixes the problem of cursor resetting position while typing
+        Prism.highlightElement(codeElement);
+        listeners.splice(listeners.indexOf(fn), 1);
+      }, 100);
+      fn();
+      onContentChanged(fn);
+    });
   };
 
   if (readonly) {
