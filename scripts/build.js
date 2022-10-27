@@ -159,6 +159,7 @@ esbuild.buildSync({
     'src/livecodes/editor/codemirror/codemirror-emacs.ts',
     'src/livecodes/editor/codemirror/codemirror-emmet.ts',
   ],
+  ignoreAnnotations: true,
   external: ['@codemirror/*', '@lezer/highlight', '@lezer/common', '@lezer/lr'],
 });
 
