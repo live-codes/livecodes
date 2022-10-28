@@ -29,6 +29,7 @@ import type {
 import { getEditorModeNode } from '../../UI/selectors';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
+import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
@@ -122,6 +123,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       basicSetup,
       readonly ? readOnlyExtension : [],
       keymap.of([indentWithTab]),
+      keymap.of(vscodeKeymap),
+      indentationMarkers(),
+      colorPicker,
     ];
 
     const codeblockOptions = [readOnlyExtension, ...defaultOptions];
