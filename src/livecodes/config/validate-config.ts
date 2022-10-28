@@ -24,6 +24,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const modes: Array<Config['mode']> = ['full', 'editor', 'codeblock', 'result'];
   const themes: Array<Config['theme']> = ['light', 'dark'];
+  const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
   const tools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
   const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar'];
@@ -101,6 +102,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.singleQuote, 'boolean') ? { singleQuote: config.singleQuote } : {}),
     ...(is(config.trailingComma, 'boolean') ? { trailingComma: config.trailingComma } : {}),
     ...(is(config.emmet, 'boolean') ? { emmet: config.emmet } : {}),
+    ...(includes(editorModes, config.editorMode) ? { editorMode: config.editorMode } : {}),
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),

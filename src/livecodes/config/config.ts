@@ -54,6 +54,7 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig => ({
   wordWrap: config.wordWrap,
   closeBrackets: config.closeBrackets,
   emmet: config.emmet,
+  editorMode: config.editorMode,
 });
 
 export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig => ({

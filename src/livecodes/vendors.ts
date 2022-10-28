@@ -195,6 +195,10 @@ export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.
 
 export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
 
+export const monacoEmacsUrl = 'https://unpkg.com/monaco-emacs@0.3.0/dist/monaco-emacs.js';
+
+export const monacoVimUrl = 'https://unpkg.com/monaco-vim@0.3.5/dist/monaco-vim.js';
+
 export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
 
 export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
@@ -220,6 +224,8 @@ export const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.5.1/';
 
 export const prettierPhpUrl =
   'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.18.0/standalone.js';
+
+export const prismBaseUrl = 'https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/';
 
 export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
 

@@ -531,9 +531,27 @@ a {
     }
   }
 
-  #external-resources-btn {
-    position: absolute;
-    right: 1em;
+  &#editor-tools {
+    align-items: center;
+    display: flex;
+
+    > span {
+      margin-right: 4px;
+    }
+
+    #editor-status {
+      background-color: transparent;
+      display: flex;
+      flex-grow: 1;
+
+      > span {
+        margin: auto 4px;
+      }
+    }
+
+    #external-resources-btn {
+      right: 1em;
+    }
   }
 }
 

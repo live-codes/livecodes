@@ -1,62 +1,32 @@
-import { CodeEditor, Config, EditorOptions, Language } from '../models';
+import type { CodeEditor, Config, EditorOptions } from '../models';
 import { isMobile, loadStylesheet } from '../utils';
 import { createFakeEditor } from './fake-editor';
 import { fonts } from './fonts';
 
-export const basicLanguages: Language[] = [
-  'html',
-  'css',
-  'scss',
-  'javascript',
-  'typescript',
-  'jsx',
-  'tsx',
-  'json',
-];
-
-let editorBuildCache: EditorOptions['editorBuild'] = 'basic';
-
-const getEditorFileName = (
-  editorName: Exclude<Config['editor'], ''>,
-  editorBuild: EditorOptions['editorBuild'],
-) => {
-  if (editorName === 'codemirror') {
-    if (editorBuild === 'full') return '{{hash:codemirror-full.js}}';
-    return '{{hash:codemirror-basic.js}}';
-  }
-
-  if (editorName === 'codejar') {
-    if (editorBuild === 'full') return '{{hash:codejar-full.js}}';
-    return '{{hash:codejar-basic.js}}';
-  }
-
-  return '{{hash:monaco.js}}';
-};
+const getEditorFileName = (editorName: Exclude<Config['editor'], ''>) =>
+  editorName === 'codemirror'
+    ? `{{hash:codemirror.js}}`
+    : editorName === 'codejar'
+    ? '{{hash:codejar.js}}'
+    : '{{hash:monaco.js}}';
 
 const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: EditorOptions) => {
-  const { baseUrl, editorBuild = editorBuildCache } = options;
-  editorBuildCache = editorBuild;
-  const fileName = getEditorFileName(editorName, editorBuild);
+  const { baseUrl } = options;
+  const fileName = getEditorFileName(editorName);
   const editorUrl = baseUrl + fileName;
 
   let editorModule = (window as any)[editorUrl];
-  try {
-    if (!editorModule) {
-      editorModule = await import(editorUrl);
-      (window as any)[editorUrl] = editorModule;
-    }
-    const createCodeEditor: (options: EditorOptions) => Promise<CodeEditor> =
-      editorModule.createEditor;
-    const codeEditor = await createCodeEditor(options);
-    return codeEditor;
-  } catch (err) {
-    return false;
+  if (!editorModule) {
+    editorModule = await import(editorUrl);
+    (window as any)[editorUrl] = editorModule;
   }
+  const createCodeEditor: (options: EditorOptions) => Promise<CodeEditor> =
+    editorModule.createEditor;
+  const codeEditor = await createCodeEditor(options);
+  return codeEditor;
 };
 
-export const selectedEditor = (
-  options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>,
-) => {
+const selectedEditor = (options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>) => {
   const { editor, mode, editorId } = options;
   return mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
     ? 'fake'
@@ -118,8 +88,6 @@ export const createEditor = async (options: EditorOptions) => {
     loadFont(editorOptions.fontFamily);
   }
   const codeEditor = await loadEditor(editorName || 'codemirror', editorOptions);
-
-  if (!codeEditor) throw new Error('Failed loading code editor');
 
   const changeSettings = codeEditor.changeSettings;
   codeEditor.changeSettings = (settings) => {

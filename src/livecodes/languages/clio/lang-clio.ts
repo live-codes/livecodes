@@ -14,4 +14,5 @@ export const clio: LanguageSpecs = {
   },
   extensions: ['clio'],
   editor: 'script',
+  editorLanguage: 'coffeescript',
 };

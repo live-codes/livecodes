@@ -12,6 +12,26 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@codemirror/autocomplete": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/commands": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/language": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/lint": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/search": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/state": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/theme-one-dark": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/view": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/lang-html": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/lang-css": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@codemirror/lang-javascript": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@lezer/common": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@lezer/highlight": "{{baseUrl}}{{hash:codemirror-core.js}}",
+          "@lezer/lr": "{{baseUrl}}{{hash:codemirror-core.js}}"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="container">
@@ -113,6 +133,12 @@
             </span>
             <span id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)">
               <img src="{{baseUrl}}assets/images/format.svg" alt="format" />
+            </span>
+            <span id="editor-status">
+              <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
+              <span data-status="markup"></span>
+              <span data-status="style"></span>
+              <span data-status="script"></span>
             </span>
             <span id="external-resources-btn" class="hint--top-left" data-hint="External CSS/JS">
               <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="External CSS/JS" />

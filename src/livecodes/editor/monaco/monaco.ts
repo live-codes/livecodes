@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
 import * as Monaco from 'monaco-editor'; // only for typescript types
 
@@ -11,15 +12,18 @@ import type {
   EditorPosition,
   EditorConfig,
 } from '../../models';
-import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl } from '../../vendors';
-import { getImports } from '../../compiler';
-import { modulesService } from '../../services';
+import { getRandomString, loadScript } from '../../utils/utils';
+import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
+import { getImports } from '../../compiler/import-map';
+import { modulesService } from '../../services/modules';
+import { getEditorModeNode } from '../../UI/selectors';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
-let loaded = false;
+let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
+let monaco: typeof Monaco;
+
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
     container,
@@ -33,6 +37,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getFontFamily,
   } = options;
   if (!container) throw new Error('editor container not found');
+
+  let editorMode: any | undefined;
 
   const convertOptions = (opt: EditorConfig): Options => ({
     fontFamily: getFontFamily(opt.fontFamily),
@@ -57,7 +63,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       : mapLanguage(language);
 
   const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
-  let monaco: typeof Monaco;
   try {
     (window as any).monaco =
       (window as any).monaco || (await import(`${monacoPath}/monaco-editor.js`)).monaco;
@@ -350,6 +355,63 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const configureEditorMode = async (mode: EditorConfig['editorMode']) => {
+    const editorModeNode = getEditorModeNode();
+    const statusNode = document.querySelector<HTMLElement>(
+      `#editor-status [data-status="${options.editorId}"]`,
+    );
+    const setEditorModeText = (str: string) => {
+      if (!editorModeNode) return;
+      editorModeNode.textContent = str;
+    };
+    const setStatusText = (str: string) => {
+      if (!statusNode) return;
+      statusNode.textContent = str;
+    };
+
+    if (!mode) {
+      editorMode?.dispose();
+      editorMode = undefined;
+      setStatusText('');
+      setEditorModeText('');
+      return;
+    }
+
+    if (mode === 'vim') {
+      if (editorMode?.mode === 'vim') return;
+      if (editorMode?.mode === 'emacs') {
+        editorMode.dispose();
+        setStatusText('');
+      }
+      const MonacoVim: any = await loadScript(monacoVimUrl, 'MonacoVim');
+      const stNode = statusNode?.innerHTML !== '' ? undefined : statusNode; // avoid duplication
+      editorMode = MonacoVim.initVimMode(editor, stNode);
+      editorMode.mode = 'vim';
+      setEditorModeText('Vim');
+    }
+
+    if (mode === 'emacs') {
+      if (editorMode?.mode === 'emacs') return;
+      if (editorMode?.mode === 'vim') {
+        editorMode.dispose();
+        setStatusText('');
+      }
+      const MonacoEmacs: any = await loadScript(monacoEmacsUrl, 'MonacoEmacs');
+      editorMode = new MonacoEmacs.EmacsExtension(editor);
+      setStatusText('');
+      editorMode.onDidMarkChange(function (ev: Event) {
+        setStatusText(ev ? 'Mark Set!' : 'Mark Unset');
+      });
+      editorMode.onDidChangeKey(function (str: string) {
+        setStatusText(str);
+      });
+      editorMode.start();
+      editorMode.mode = 'emacs';
+      setEditorModeText('Emacs');
+    }
+  };
+  configureEditorMode(options.editorMode);
+
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     const editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
@@ -411,6 +473,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...editorOptions,
     };
     configureEmmet(settings.emmet);
+    configureEditorMode(settings.editorMode);
     editor.updateOptions(newOptions);
   };
 
@@ -441,6 +504,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const destroy = () => {
     configureEmmet(false);
+    editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);
     editor.getModel()?.dispose();
@@ -552,11 +616,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerHoverProvider('html', npmPackageHoverProvider);
   };
 
-  if (!loaded) {
+  if (!monacoGloballyLoaded) {
     registerShowPackageInfo();
   }
 
-  loaded = true;
+  monacoGloballyLoaded = true;
   return {
     getValue,
     setValue,

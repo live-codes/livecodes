@@ -86,6 +86,7 @@ export interface EditorConfig {
   wordWrap: boolean;
   closeBrackets: boolean;
   emmet: boolean;
+  editorMode: 'vim' | 'emacs' | undefined;
 }
 
 export interface FormatterConfig {
@@ -586,7 +587,6 @@ export interface EditorOptions extends EditorConfig {
     | 'embed'
     | 'snippet'
     | 'add-snippet';
-  editorBuild?: 'basic' | 'full';
   theme: Theme;
   isEmbed: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
