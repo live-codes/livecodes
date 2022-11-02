@@ -59,9 +59,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const loadExtensions = async (opt: EditorConfig) => {
     const modules = {
-      vim: './{{hash:codemirror-vim.js}}',
-      emacs: './{{hash:codemirror-emacs.js}}',
-      emmet: './{{hash:codemirror-emmet.js}}',
+      vim: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-vim.js`,
+      emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
+      emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
     };
     vim = opt.editorMode === 'vim' ? (await import(modules.vim)).vim : undefined;
     emacs = opt.editorMode === 'emacs' ? (await import(modules.emacs)).emacs : undefined;

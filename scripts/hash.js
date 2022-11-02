@@ -9,10 +9,17 @@ const applyHash = async () => {
     (await fs.promises.readdir(dir)).filter((name) => !fs.statSync(dir + name).isDirectory());
 
   const addHash = (/** @type {string} */ file, /** @type {string} */ hash) => {
-    filetypes.forEach((ext) => {
-      file = file.replace(`.${ext}`, `.${hash}.${ext}`);
-    });
+    const ext = filetypes.find((t) => file.endsWith('.' + t));
+    if (ext) {
+      file = removeHash(file).replace(`.${ext}`, `.${hash}.${ext}`);
+    }
     return file;
+  };
+
+  const removeHash = (/** @type {string} */ file) => {
+    const fileParts = file.split('.');
+    if (file.length < 35 || fileParts.length < 3) return file;
+    return fileParts.filter((x, id) => x.length !== 32 || id === 0).join('.');
   };
 
   const patch = (
@@ -39,27 +46,40 @@ const applyHash = async () => {
 
   /** @type {Record<string, string>} */
   const hashMap = {};
+  const toBeDeleted = [];
+  const toBeRenamed = {};
+
   await Promise.all(
     (
       await getFileNames()
     ).map(async (file) => {
       if (!filetypes.some((ext) => file.endsWith(`.${ext}`))) return;
-      if (file.length > 35 && file.split('.').length > 0) {
-        // previous hashed build
-        await fs.promises.rm(buildDir + file);
-        return;
-      }
 
       const hash = await md5File(buildDir + file);
-      const newFile = addHash(file, hash);
-      hashMap[`{{hash:${file}}}`] = newFile;
-      try {
-        await fs.promises.rename(buildDir + file, buildDir + newFile);
-      } catch {
-        // retry
-        await fs.promises.rename(buildDir + file, buildDir + newFile);
+      const originalFile = removeHash(file);
+      const newFile = addHash(originalFile, hash);
+
+      if (file.length > 35 && file.split('.').length > 0) {
+        // previous hashed build
+        hashMap[file] = newFile;
+        if (fs.existsSync(buildDir + originalFile)) {
+          toBeDeleted.push(file);
+        }
+      } else {
+        hashMap[`{{hash:${file}}}`] = newFile;
+        toBeRenamed[file] = newFile;
       }
     }),
+  );
+
+  await Promise.all(toBeDeleted.map((x) => fs.promises.rm(buildDir + x)));
+  await Promise.all(
+    Object.keys(toBeRenamed).map(
+      (x) =>
+        fs.promises
+          .rename(buildDir + x, buildDir + toBeRenamed[x])
+          .catch(() => fs.promises.rename(buildDir + x, buildDir + toBeRenamed[x])), // retry
+    ),
   );
 
   const dirsToPatch = ['build/', 'build/assets/', buildDir];

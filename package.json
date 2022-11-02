@@ -12,10 +12,10 @@
   "scripts": {
     "start": "run-p watch serve",
     "docs": "cd docs && npm run start",
-    "serve": "live-server build --cors --quiet --wait=1000",
+    "serve": "live-server build --cors --quiet --wait=2000",
     "watch": "nodemon --watch src -e * node ./scripts/build.js --dev",
-    "build": "run-s clean copy:* build:*",
-    "build:app": "node ./scripts/build.js",
+    "build": "run-s build:*",
+    "build:app": "run-s clean copy:* && node ./scripts/build.js",
     "build:ts": "tsc --emitDeclarationOnly --outFile build/livecodes/index.d.ts",
     "build:ts-lib": "tsc --emitDeclarationOnly --outFile build/lib/index.d.ts -p tsconfig.lib.json",
     "build:ts-docs": "cd docs && npm run typecheck",

@@ -1,16 +1,20 @@
-var esbuild = require('esbuild');
-var fs = require('fs');
-var path = require('path');
-var childProcess = require('child_process');
-var vite = require('vite');
+const esbuild = require('esbuild');
+const fs = require('fs');
+const path = require('path');
+const childProcess = require('child_process');
+const vite = require('vite');
 
-var pkg = require('../package.json');
-var { applyHash } = require('./hash');
-var { injectCss } = require('./inject-css');
+const pkg = require('../package.json');
+const { applyHash } = require('./hash');
+const { injectCss } = require('./inject-css');
 const { buildVendors } = require('./vendors');
 
-var args = process.argv.slice(2);
-var devMode = args.includes('--dev');
+const args = process.argv.slice(2);
+const devMode = args.includes('--dev');
+const outDir = path.resolve(__dirname + '/../build');
+const monacoVersion = `v${pkg.dependencies['monaco-editor']}`;
+const codemirrorVersion = `v${pkg.dependencies['codemirror']}`;
+let version, gitCommit, repoUrl;
 
 /** @param {string} dir */
 function mkdirp(dir) {
@@ -44,7 +48,6 @@ function arrToObj(acc, cur) {
   };
 }
 
-var outDir = path.resolve(__dirname + '/../build');
 mkdirp(outDir);
 fs.copyFileSync(
   path.resolve(__dirname + '/../src/favicon.ico'),
@@ -52,7 +55,6 @@ fs.copyFileSync(
 );
 fs.copyFileSync(path.resolve(__dirname + '/../src/404.html'), path.resolve(outDir + '/404.html'));
 
-var version, gitCommit, repoUrl;
 try {
   version = require('../package.json').version;
   gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
@@ -65,7 +67,7 @@ try {
 }
 
 /** @type {Partial<esbuild.BuildOptions>} */
-var baseOptions = {
+const baseOptions = {
   bundle: true,
   minify: devMode ? false : true,
   outdir: 'build/livecodes',
@@ -78,7 +80,8 @@ var baseOptions = {
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.CI': `${process.env.CI || false}`,
-    'process.env.monacoVersion': `"v${pkg.dependencies['monaco-editor']}"`,
+    'process.env.monacoVersion': `"${monacoVersion}"`,
+    'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
   },
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
@@ -194,7 +197,7 @@ const iifeBuild = esbuild.build({
 });
 
 /** @type {Partial<esbuild.BuildOptions>} */
-var workerOptions = {
+const workerOptions = {
   ...baseOptions,
   entryPoints: [
     'src/livecodes/compiler/compile.worker.ts',
@@ -203,10 +206,10 @@ var workerOptions = {
   write: false,
 };
 
-var workersBuild = esbuild.build(workerOptions).then((worker) => {
+const workersBuild = esbuild.build(workerOptions).then((worker) => {
   for (let out of worker.outputFiles || []) {
-    var content = uint8arrayToString(out.contents);
-    var filename = path.basename(out.path);
+    const content = uint8arrayToString(out.contents);
+    const filename = path.basename(out.path);
     fs.writeFile(
       path.resolve('build/livecodes', filename),
       filename.endsWith('.map') ? content : iife(content),
@@ -225,7 +228,11 @@ const stylesBuild = new Promise((res) => {
 
 const htmlBuild = vite.build({
   root: path.resolve('src'),
+  define: {
+    'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
+  },
   build: {
+    minify: devMode ? false : true,
     outDir,
     sourcemap: true,
   },

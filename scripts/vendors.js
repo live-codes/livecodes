@@ -5,6 +5,7 @@ const buildVendors = () => {
   const srcDir = 'src/livecodes/editor/monaco/';
   const outputDir = 'build/livecodes/';
   const monacoOutDir = outputDir + `vendor/monaco-editor/v${pkg.dependencies['monaco-editor']}/`;
+  const codemirrorOutDir = outputDir + `vendor/codemirror/v${pkg.dependencies['codemirror']}/`;
 
   /**
    * @param {Record<string,string>} acc
@@ -75,12 +76,14 @@ const buildVendors = () => {
   esbuild.buildSync({
     ...baseOptions,
     format: 'esm',
+    outdir: codemirrorOutDir,
     entryPoints: ['src/livecodes/editor/codemirror/codemirror-core.ts'],
   });
 
   esbuild.buildSync({
     ...baseOptions,
     format: 'esm',
+    outdir: codemirrorOutDir,
     ignoreAnnotations: true, // required for codemirror-emacs
     entryPoints: [
       'codemirror-vim.ts',
