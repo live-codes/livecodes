@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 
-(async () => {
+const injectCss = async () => {
   var htmlFile = 'build/index.html';
   var outDir = 'build/livecodes/';
   const cssFile =
@@ -15,4 +15,10 @@ var path = require('path');
 
   var result = html.replace('<!-- main.css -->', `<style>\n${css}</style>`);
   fs.writeFileSync(path.resolve(htmlFile), result, 'utf8');
-})();
+};
+
+module.exports = { injectCss };
+
+if (require.main === module) {
+  injectCss();
+}

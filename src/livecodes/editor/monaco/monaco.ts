@@ -238,11 +238,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   }
 
   const customLanguages: Partial<Record<Language, string>> = {
-    astro: baseUrl + '{{hash:monaco-astro.js}}',
-    clio: baseUrl + '{{hash:monaco-clio.js}}',
-    imba: baseUrl + '{{hash:monaco-imba.js}}',
-    // sql: baseUrl + '{{hash:monaco-sql.js}}', // TODO: add autocomplete
-    wat: baseUrl + '{{hash:monaco-wat.js}}',
+    astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
+    clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
+    imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
+    wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
 
   interface CustomLanguageDefinition {
