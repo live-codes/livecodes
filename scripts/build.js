@@ -10,6 +10,7 @@ var { injectCss } = require('./inject-css');
 const { buildVendors } = require('./vendors');
 
 var args = process.argv.slice(2);
+var devMode = args.includes('--dev');
 
 /** @param {string} dir */
 function mkdirp(dir) {
@@ -66,7 +67,7 @@ try {
 /** @type {Partial<esbuild.BuildOptions>} */
 var baseOptions = {
   bundle: true,
-  minify: true,
+  minify: devMode ? false : true,
   outdir: 'build/livecodes',
   format: 'esm',
   target: 'es2020',
@@ -215,8 +216,9 @@ var workersBuild = esbuild.build(workerOptions).then((worker) => {
 });
 
 const stylesBuild = new Promise((res) => {
+  const style = devMode ? 'expanded' : 'compressed';
   childProcess.exec(
-    `npx sass src/livecodes/styles:build/livecodes --style=compressed --no-source-map=true && npx postcss build/livecodes/*.css --replace --no-map --use autoprefixer`,
+    `npx sass src/livecodes/styles:build/livecodes --style=${style} --no-source-map=true && npx postcss build/livecodes/*.css --replace --no-map --use autoprefixer`,
     res,
   );
 });
@@ -230,7 +232,7 @@ const htmlBuild = vite.build({
 });
 
 Promise.all([esmBuild, iifeBuild, workersBuild, stylesBuild, htmlBuild]).then(async () => {
-  if (!args.includes('--dev')) {
+  if (!devMode) {
     buildVendors();
   }
   await applyHash();
