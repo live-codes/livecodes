@@ -26,17 +26,19 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
   return codeEditor;
 };
 
-const selectedEditor = (options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>) => {
+const selectEditor = (options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>) => {
   const { editor, mode, editorId } = options;
-  return mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
-    ? 'fake'
-    : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
-    ? editor
-    : mode === 'codeblock'
-    ? 'codejar'
-    : isMobile()
-    ? 'codemirror'
-    : 'monaco';
+  return (
+    (mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
+      ? 'fake'
+      : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
+      ? editor
+      : mode === 'codeblock'
+      ? 'codejar'
+      : isMobile()
+      ? 'codemirror'
+      : 'monaco') || 'monaco'
+  );
 };
 
 const getEditorOptions = (options: EditorOptions): EditorOptions => {
@@ -81,13 +83,13 @@ export const createEditor = async (options: EditorOptions) => {
 
   const editorOptions = getEditorOptions(options);
 
-  const editorName = selectedEditor(editorOptions);
+  const editorName = selectEditor(editorOptions);
   if (editorName === 'fake') return createFakeEditor(editorOptions);
 
   if (editorOptions.fontFamily) {
     loadFont(editorOptions.fontFamily);
   }
-  const codeEditor = await loadEditor(editorName || 'codemirror', editorOptions);
+  const codeEditor = await loadEditor(editorName, editorOptions);
 
   const changeSettings = codeEditor.changeSettings;
   codeEditor.changeSettings = (settings) => {
