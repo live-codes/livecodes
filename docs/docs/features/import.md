@@ -4,7 +4,7 @@
 
 LiveCodes supports importing code from a wide variety of sources.
 
-The Import screen can be accessed from the settings menu → Import.
+The Import screen can be accessed from the app menu → Import.
 
 ![LiveCodes Import](../../static/img/screenshots/import.jpg)
 

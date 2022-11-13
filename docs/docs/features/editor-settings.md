@@ -2,7 +2,7 @@
 
 LiveCodes allows a lot of flexibility for configuring which code editor to use and its settings.
 
-`Editor Settings` screen can be accessed from settings menu → Editor Settings.
+`Editor Settings` screen can be accessed from app menu → Editor Settings.
 
 ![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings.jpg)
 

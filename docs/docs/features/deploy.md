@@ -2,7 +2,7 @@
 
 The result page (of any number of projects) can be deployed and hosted at [GitHub Pages](https://pages.github.com/) (a free service from GitHub for hosting static websites). This requires login with a [GitHub account](./github-integration.md).
 
-The `Deploy` screen can be accessed from the settings menu → Deploy.
+The `Deploy` screen can be accessed from the app menu → Deploy.
 
 ![LiveCodes Deploy](../../static/img/screenshots/deploy.jpg)
 

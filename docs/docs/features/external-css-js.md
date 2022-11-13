@@ -1,6 +1,6 @@
 # External CSS/JS
 
-URLs to external CSS stylesheets and JavaScript files can be added to the page from the UI using the settings menu → External CSS/JS. There, URLs can be added (each in a separate line).
+URLs to external CSS stylesheets and JavaScript files can be added to the page from the UI using the app menu → External CSS/JS. There, URLs can be added (each in a separate line).
 
 These are loaded before the editor codes. You can override CSS properties in them. Global javascript variables defined there should be available to your code.
 

@@ -2,7 +2,7 @@
 
 LiveCodes data can be backed-up, so that it can be later restored on the same or different device.
 
-The Backup/Restore screen can be accessed from the settings menu → Backup / Restore.
+The Backup/Restore screen can be accessed from the app menu → Backup / Restore.
 
 ## Backup
 
