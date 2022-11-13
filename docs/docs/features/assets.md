@@ -6,7 +6,7 @@ The assets are saved locally on the user's device and are available across proje
 
 In addition, assets are supported in [sync](./sync.md), [backup](./backup-restore.md#backup) and [restore](./backup-restore.md#restore).
 
-Assets UI can be accessed from settings menu → Assets
+The `Assets` screen can be accessed from settings menu → Assets
 
 Assets are either:
 
