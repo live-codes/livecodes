@@ -149,7 +149,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -173,7 +173,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -203,7 +203,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -227,7 +227,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -257,7 +257,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -281,7 +281,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -311,7 +311,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -335,7 +335,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -365,7 +365,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -389,7 +389,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -419,7 +419,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -443,7 +443,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -473,7 +473,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -497,7 +497,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -527,7 +527,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
@@ -551,7 +551,7 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[data-hint=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=Custom Settings');
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
