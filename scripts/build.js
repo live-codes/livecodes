@@ -261,7 +261,7 @@ prepareDir().then(() => {
       if (!devMode) {
         buildVendors();
       }
-      await applyHash();
+      await applyHash(devMode);
       await injectCss();
       console.log('built to: ' + baseOptions.outdir + '/');
     },

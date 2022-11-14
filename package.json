@@ -12,7 +12,7 @@
   "scripts": {
     "start": "run-p watch serve",
     "docs": "cd docs && npm run start",
-    "serve": "live-server build --cors --quiet --wait=3000",
+    "serve": "live-server build --cors --quiet --wait=2000",
     "watch": "nodemon --watch src -e * ./scripts/build.js --dev",
     "build": "run-s build:*",
     "build:app": "run-s clean copy:* && node ./scripts/build.js",

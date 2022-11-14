@@ -1,12 +1,14 @@
 const fs = require('fs');
 const md5File = require('md5-file');
 
-const applyHash = async () => {
+const applyHash = async (devMode = false) => {
   const buildDir = './build/livecodes/';
-  const filetypes = ['js', 'css'];
+  const filetypes = ['js', 'css', 'html'];
 
   const getFileNames = async (dir = buildDir) =>
-    (await fs.promises.readdir(dir)).filter((name) => !fs.statSync(dir + name).isDirectory());
+    (await fs.promises.readdir(dir))
+      .filter((name) => !fs.statSync(dir + name).isDirectory())
+      .filter((name) => filetypes.some((t) => name.endsWith('.' + t)));
 
   const addHash = (/** @type {string} */ file, /** @type {string} */ hash) => {
     const ext = filetypes.find((t) => file.endsWith('.' + t));
@@ -43,6 +45,10 @@ const applyHash = async () => {
       await getFileNames()
     ).map(async (file) => {
       if (!filetypes.some((ext) => file.endsWith(`.${ext}`))) return;
+      if (devMode) {
+        hashMap[file] = file;
+        return;
+      }
       const hash = await md5File(buildDir + file);
       const newFile = addHash(file, hash);
       hashMap[file] = newFile;
