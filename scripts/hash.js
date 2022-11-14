@@ -22,63 +22,39 @@ const applyHash = async () => {
     return fileParts.filter((x, id) => x.length !== 32 || id === 0).join('.');
   };
 
-  const patch = (
+  const patch = async (
     /** @type {string} */ filePath,
     /** @type {Record<string, string>} */ replacements = {},
-  ) =>
-    new Promise((resolve, reject) => {
-      fs.readFile(filePath, 'utf8', function (err, data) {
-        if (err) return reject(err);
-
-        var result = data;
-        for (const key of Object.keys(replacements)) {
-          result = result.split(key).join(replacements[key]);
-        }
-
-        if (result === data) return resolve(null);
-
-        fs.writeFile(filePath, result, 'utf8', function (err) {
-          if (err) return reject(err);
-          resolve(null);
-        });
-      });
-    });
+  ) => {
+    const data = await fs.promises.readFile(filePath, 'utf8');
+    var result = data;
+    for (const key of Object.keys(replacements)) {
+      result = result.split(`{{hash:${key}}}`).join(replacements[key]);
+    }
+    if (result === data) return;
+    await fs.promises.writeFile(filePath, result, 'utf8');
+  };
 
   /** @type {Record<string, string>} */
   const hashMap = {};
-  const toBeDeleted = [];
-  const toBeRenamed = {};
 
   await Promise.all(
     (
       await getFileNames()
     ).map(async (file) => {
       if (!filetypes.some((ext) => file.endsWith(`.${ext}`))) return;
-
       const hash = await md5File(buildDir + file);
-      const originalFile = removeHash(file);
-      const newFile = addHash(originalFile, hash);
-
-      if (file.length > 35 && file.split('.').length > 0) {
-        // previous hashed build
-        hashMap[file] = newFile;
-        if (fs.existsSync(buildDir + originalFile)) {
-          toBeDeleted.push(file);
-        }
-      } else {
-        hashMap[`{{hash:${file}}}`] = newFile;
-        toBeRenamed[file] = newFile;
-      }
+      const newFile = addHash(file, hash);
+      hashMap[file] = newFile;
     }),
   );
 
-  await Promise.all(toBeDeleted.map((x) => fs.promises.rm(buildDir + x)));
   await Promise.all(
-    Object.keys(toBeRenamed).map(
+    Object.keys(hashMap).map(
       (x) =>
         fs.promises
-          .rename(buildDir + x, buildDir + toBeRenamed[x])
-          .catch(() => fs.promises.rename(buildDir + x, buildDir + toBeRenamed[x])), // retry
+          .rename(buildDir + x, buildDir + hashMap[x])
+          .catch(() => fs.promises.rename(buildDir + x, buildDir + hashMap[x])), // retry
     ),
   );
 

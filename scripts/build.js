@@ -48,12 +48,24 @@ function arrToObj(acc, cur) {
   };
 }
 
-mkdirp(outDir);
-fs.copyFileSync(
-  path.resolve(__dirname + '/../src/favicon.ico'),
-  path.resolve(outDir + '/favicon.ico'),
-);
-fs.copyFileSync(path.resolve(__dirname + '/../src/404.html'), path.resolve(outDir + '/404.html'));
+const getFileNames = async (dir) =>
+  (await fs.promises.readdir(dir)).filter((name) => !fs.statSync(dir + name).isDirectory());
+
+const prepareDir = async () => {
+  mkdirp(outDir);
+  mkdirp(outDir + '/livecodes/');
+  const fileNames = await getFileNames(outDir + '/livecodes/');
+  await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
+
+  await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/favicon.ico'),
+    path.resolve(outDir + '/favicon.ico'),
+  );
+  await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/404.html'),
+    path.resolve(outDir + '/404.html'),
+  );
+};
 
 try {
   version = require('../package.json').version;
@@ -109,92 +121,94 @@ const buildLibrary = () => {
   ]);
 };
 
-const esmBuild = esbuild
-  .build({
+const esmBuild = () =>
+  esbuild
+    .build({
+      ...baseOptions,
+      entryPoints: [
+        'app.ts',
+        'embed.ts',
+        'lite.ts',
+        'templates/starter/index.ts',
+        'editor/monaco/monaco.ts',
+        'editor/codemirror/codemirror.ts',
+        'editor/codejar/codejar.ts',
+        'editor/blockly/blockly.ts',
+        'editor/quill/quill.ts',
+        'services/firebase.ts',
+        'languages/language-info.ts',
+        'export/export.ts',
+        'sync/sync.ts',
+        'UI/open.ts',
+        'UI/assets.ts',
+        'UI/snippets.ts',
+        'UI/backup.ts',
+        'UI/broadcast.ts',
+        'UI/import.ts',
+        'UI/share.ts',
+        'UI/deploy.ts',
+        'UI/sync-ui.ts',
+        'UI/embed-ui.ts',
+        'UI/editor-settings.ts',
+        'languages/diagrams/lang-diagrams-compiler-esm.ts',
+        'languages/rescript/lang-rescript-compiler-esm.ts',
+      ]
+        .map((x) => 'src/livecodes/' + x)
+        .reduce(arrToObj, {}),
+    })
+    .then(buildLibrary);
+
+const iifeBuild = () =>
+  esbuild.build({
     ...baseOptions,
+    format: 'iife',
     entryPoints: [
-      'app.ts',
-      'embed.ts',
-      'lite.ts',
-      'templates/starter/index.ts',
-      'editor/monaco/monaco.ts',
-      'editor/codemirror/codemirror.ts',
-      'editor/codejar/codejar.ts',
-      'editor/blockly/blockly.ts',
-      'editor/quill/quill.ts',
-      'services/firebase.ts',
-      'languages/language-info.ts',
-      'export/export.ts',
-      'sync/sync.ts',
-      'UI/open.ts',
-      'UI/assets.ts',
-      'UI/snippets.ts',
-      'UI/backup.ts',
-      'UI/broadcast.ts',
-      'UI/import.ts',
-      'UI/share.ts',
-      'UI/deploy.ts',
-      'UI/sync-ui.ts',
-      'UI/embed-ui.ts',
-      'UI/editor-settings.ts',
-      'languages/diagrams/lang-diagrams-compiler-esm.ts',
-      'languages/rescript/lang-rescript-compiler-esm.ts',
+      'compiler/compile.page.ts',
+      'compiler/compiler-utils.ts',
+      'editor/custom-editor-utils.ts',
+      'result/result-utils.ts',
+      'languages/art-template/lang-art-template-compiler.ts',
+      'languages/assemblyscript/lang-assemblyscript-script.ts',
+      'languages/assemblyscript/lang-assemblyscript-compiler.ts',
+      'languages/astro/lang-astro-compiler.ts',
+      'languages/clio/lang-clio-compiler.ts',
+      'languages/commonlisp/lang-commonlisp-script.ts',
+      'languages/cpp/lang-cpp-script.ts',
+      'languages/cpp-clang/lang-cpp-clang-script.ts',
+      'languages/dot/lang-dot-compiler.ts',
+      'languages/ejs/lang-ejs-compiler.ts',
+      'languages/haml/lang-haml-compiler.ts',
+      'languages/handlebars/lang-handlebars-compiler.ts',
+      'languages/imba/lang-imba-compiler.ts',
+      'languages/julia/lang-julia-script.ts',
+      'languages/liquid/lang-liquid-compiler.ts',
+      'languages/malina/lang-malina-compiler.ts',
+      'languages/rescript/lang-rescript-formatter.ts',
+      'languages/mustache/lang-mustache-compiler.ts',
+      'languages/nunjucks/lang-nunjucks-compiler.ts',
+      'languages/perl/lang-perl-script.ts',
+      'languages/prolog/lang-prolog-script.ts',
+      'languages/pug/lang-pug-compiler.ts',
+      'languages/python-pyodide/lang-python-pyodide-script.ts',
+      'languages/riot/lang-riot-compiler.ts',
+      'languages/scss/lang-scss-compiler.ts',
+      'languages/solid/lang-solid-compiler.ts',
+      'languages/sql/lang-sql-compiler.ts',
+      'languages/sql/lang-sql-script.ts',
+      'languages/svelte/lang-svelte-compiler.ts',
+      'languages/tcl/lang-tcl-script.ts',
+      'languages/twig/lang-twig-compiler.ts',
+      'languages/vue/lang-vue-compiler.ts',
+      'languages/wat/lang-wat-compiler.ts',
+      'languages/wat/lang-wat-script.ts',
+      'languages/windicss/processor-windicss-compiler.ts',
+      'languages/unocss/processor-unocss-compiler.ts',
+      'languages/lightningcss/processor-lightningcss-compiler.ts',
+      'languages/postcss/processor-postcss-compiler.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),
-  })
-  .then(buildLibrary);
-
-const iifeBuild = esbuild.build({
-  ...baseOptions,
-  format: 'iife',
-  entryPoints: [
-    'compiler/compile.page.ts',
-    'compiler/compiler-utils.ts',
-    'editor/custom-editor-utils.ts',
-    'result/result-utils.ts',
-    'languages/art-template/lang-art-template-compiler.ts',
-    'languages/assemblyscript/lang-assemblyscript-script.ts',
-    'languages/assemblyscript/lang-assemblyscript-compiler.ts',
-    'languages/astro/lang-astro-compiler.ts',
-    'languages/clio/lang-clio-compiler.ts',
-    'languages/commonlisp/lang-commonlisp-script.ts',
-    'languages/cpp/lang-cpp-script.ts',
-    'languages/cpp-clang/lang-cpp-clang-script.ts',
-    'languages/dot/lang-dot-compiler.ts',
-    'languages/ejs/lang-ejs-compiler.ts',
-    'languages/haml/lang-haml-compiler.ts',
-    'languages/handlebars/lang-handlebars-compiler.ts',
-    'languages/imba/lang-imba-compiler.ts',
-    'languages/julia/lang-julia-script.ts',
-    'languages/liquid/lang-liquid-compiler.ts',
-    'languages/malina/lang-malina-compiler.ts',
-    'languages/rescript/lang-rescript-formatter.ts',
-    'languages/mustache/lang-mustache-compiler.ts',
-    'languages/nunjucks/lang-nunjucks-compiler.ts',
-    'languages/perl/lang-perl-script.ts',
-    'languages/prolog/lang-prolog-script.ts',
-    'languages/pug/lang-pug-compiler.ts',
-    'languages/python-pyodide/lang-python-pyodide-script.ts',
-    'languages/riot/lang-riot-compiler.ts',
-    'languages/scss/lang-scss-compiler.ts',
-    'languages/solid/lang-solid-compiler.ts',
-    'languages/sql/lang-sql-compiler.ts',
-    'languages/sql/lang-sql-script.ts',
-    'languages/svelte/lang-svelte-compiler.ts',
-    'languages/tcl/lang-tcl-script.ts',
-    'languages/twig/lang-twig-compiler.ts',
-    'languages/vue/lang-vue-compiler.ts',
-    'languages/wat/lang-wat-compiler.ts',
-    'languages/wat/lang-wat-script.ts',
-    'languages/windicss/processor-windicss-compiler.ts',
-    'languages/unocss/processor-unocss-compiler.ts',
-    'languages/lightningcss/processor-lightningcss-compiler.ts',
-    'languages/postcss/processor-postcss-compiler.ts',
-  ]
-    .map((x) => 'src/livecodes/' + x)
-    .reduce(arrToObj, {}),
-});
+  });
 
 /** @type {Partial<esbuild.BuildOptions>} */
 const workerOptions = {
@@ -206,43 +220,50 @@ const workerOptions = {
   write: false,
 };
 
-const workersBuild = esbuild.build(workerOptions).then((worker) => {
-  for (let out of worker.outputFiles || []) {
-    const content = uint8arrayToString(out.contents);
-    const filename = path.basename(out.path);
-    fs.writeFile(
-      path.resolve('build/livecodes', filename),
-      filename.endsWith('.map') ? content : iife(content),
-      () => {},
+const workersBuild = () =>
+  esbuild.build(workerOptions).then((worker) => {
+    for (let out of worker.outputFiles || []) {
+      const content = uint8arrayToString(out.contents);
+      const filename = path.basename(out.path);
+      fs.writeFile(
+        path.resolve('build/livecodes', filename),
+        filename.endsWith('.map') ? content : iife(content),
+        () => {},
+      );
+    }
+  });
+
+const stylesBuild = () =>
+  new Promise((res) => {
+    const style = devMode ? 'expanded' : 'compressed';
+    childProcess.exec(
+      `npx sass src/livecodes/styles:build/livecodes --style=${style} --no-source-map=true && npx postcss build/livecodes/*.css --replace --no-map --use autoprefixer`,
+      res,
     );
-  }
-});
+  });
 
-const stylesBuild = new Promise((res) => {
-  const style = devMode ? 'expanded' : 'compressed';
-  childProcess.exec(
-    `npx sass src/livecodes/styles:build/livecodes --style=${style} --no-source-map=true && npx postcss build/livecodes/*.css --replace --no-map --use autoprefixer`,
-    res,
+const htmlBuild = () =>
+  vite.build({
+    root: path.resolve('src'),
+    define: {
+      'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
+    },
+    build: {
+      minify: devMode ? false : true,
+      outDir,
+      sourcemap: true,
+    },
+  });
+
+prepareDir().then(() => {
+  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), htmlBuild()]).then(
+    async () => {
+      if (!devMode) {
+        buildVendors();
+      }
+      await applyHash();
+      await injectCss();
+      console.log('built to: ' + baseOptions.outdir + '/');
+    },
   );
-});
-
-const htmlBuild = vite.build({
-  root: path.resolve('src'),
-  define: {
-    'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
-  },
-  build: {
-    minify: devMode ? false : true,
-    outDir,
-    sourcemap: true,
-  },
-});
-
-Promise.all([esmBuild, iifeBuild, workersBuild, stylesBuild, htmlBuild]).then(async () => {
-  if (!devMode) {
-    buildVendors();
-  }
-  await applyHash();
-  await injectCss();
-  console.log('built to: ' + baseOptions.outdir + '/');
 });
