@@ -88,11 +88,33 @@
     <a href="#" id="info-link">Project Info …</a>
   </li>
   <li>
+    <a href="#" id="broadcast-link">Broadcast …</a>
+  </li>
+  <li>
     <label class="switch">
       <span>Auto update</span>
       <div>
         <input id="autoupdate" type="checkbox" data-config="autoupdate" />
         <span class="slider round"></span>
+      </div>
+    </label>
+  </li>
+  <li>
+    <label
+      class="range-slider-label hint--bottom"
+      data-hint="Delay before auto-update and auto-save"
+    >
+      <span>Delay: <span id="delay-value">1.5</span>s</span>
+      <div>
+        <input
+          type="range"
+          id="delay-range"
+          min="0"
+          max="3000"
+          step="250"
+          value="1500"
+          class="range-slider"
+        />
       </div>
     </label>
   </li>
@@ -141,7 +163,7 @@
       </div>
     </label>
   </li>
-  <li class="link-and-swich">
+  <li class="link-and-switch">
     <a href="#" id="sync-link">Sync …</a>
     <label class="switch">
       <div>
@@ -161,9 +183,6 @@
   </li>
   <li>
     <a href="#" id="backup-link">Backup / Restore …</a>
-  </li>
-  <li>
-    <a href="#" id="broadcast-link">Broadcast …</a>
   </li>
   <li>
     <a href="./docs/overview" target="_blank" rel="noopener">Documentations</a>

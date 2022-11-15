@@ -140,6 +140,12 @@ export const getBroadcastLink = () => document.querySelector<HTMLAnchorElement>(
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 
+export const getDelayValue = () =>
+  document.querySelector('#settings-menu #delay-value') as HTMLElement;
+
+export const getDelayRange = () =>
+  document.querySelector('#settings-menu input#delay-range') as HTMLInputElement;
+
 export const getAutosaveToggle = () =>
   document.querySelector('#settings-menu input#autosave') as HTMLInputElement;
 
