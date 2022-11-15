@@ -4,7 +4,7 @@ LiveCodes supports saving and organizing code snippets in different languages.
 
 Code snippets are saved locally on user's device. However, they are supported in [sync](./sync.md), [backup](./backup-restore.md#backup) and [restore](./backup-restore.md#restore).
 
-Code snippets screen can be accessed from settings menu → Code Snippets.
+Code snippets screen can be accessed from app menu → Code Snippets.
 
 Each snippet has a title, description, language and code.
 

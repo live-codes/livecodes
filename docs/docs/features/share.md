@@ -4,7 +4,7 @@ It is easy to share LiveCodes projects!
 
 A URL is generated to load the shared project. This URL can be copied or shared to different social media.
 
-The share screen can be accessed from settings menu → Share.
+The share screen can be accessed from app menu → Share.
 
 ![LiveCodes Share](../../static/img/screenshots/share.jpg)
 

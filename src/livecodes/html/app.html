@@ -15,20 +15,20 @@
     <script type="importmap">
       {
         "imports": {
-          "@codemirror/autocomplete": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/commands": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/language": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/lint": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/search": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/state": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/theme-one-dark": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/view": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/lang-html": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/lang-css": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@codemirror/lang-javascript": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@lezer/common": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@lezer/highlight": "{{baseUrl}}{{hash:codemirror-core.js}}",
-          "@lezer/lr": "{{baseUrl}}{{hash:codemirror-core.js}}"
+          "@codemirror/autocomplete": "{{codemirrorCoreUrl}}",
+          "@codemirror/commands": "{{codemirrorCoreUrl}}",
+          "@codemirror/language": "{{codemirrorCoreUrl}}",
+          "@codemirror/lint": "{{codemirrorCoreUrl}}",
+          "@codemirror/search": "{{codemirrorCoreUrl}}",
+          "@codemirror/state": "{{codemirrorCoreUrl}}",
+          "@codemirror/theme-one-dark": "{{codemirrorCoreUrl}}",
+          "@codemirror/view": "{{codemirrorCoreUrl}}",
+          "@codemirror/lang-html": "{{codemirrorCoreUrl}}",
+          "@codemirror/lang-css": "{{codemirrorCoreUrl}}",
+          "@codemirror/lang-javascript": "{{codemirrorCoreUrl}}",
+          "@lezer/common": "{{codemirrorCoreUrl}}",
+          "@lezer/highlight": "{{codemirrorCoreUrl}}",
+          "@lezer/lr": "{{codemirrorCoreUrl}}"
         }
       }
     </script>
@@ -96,15 +96,15 @@
           <a
             href="javascript:void(0)"
             id="settings-button"
-            class="button hint--bottom"
-            data-hint="Settings"
+            class="button"
+            aria-label="Menu"
             tabindex="12"
           >
             <img
-              width="20"
-              height="20"
-              alt="Settings"
-              src="{{baseUrl}}assets/images/gear.png"
+              width="30"
+              height="30"
+              alt="Menu"
+              src="{{baseUrl}}assets/images/menu.svg"
               loading="lazy"
             />
           </a>

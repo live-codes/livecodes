@@ -29,6 +29,7 @@ import type {
 import { getEditorModeNode } from '../../UI/selectors';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
+import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
@@ -58,9 +59,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const loadExtensions = async (opt: EditorConfig) => {
     const modules = {
-      vim: './{{hash:codemirror-vim.js}}',
-      emacs: './{{hash:codemirror-emacs.js}}',
-      emmet: './{{hash:codemirror-emmet.js}}',
+      vim: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-vim.js`,
+      emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
+      emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
     };
     vim = opt.editorMode === 'vim' ? (await import(modules.vim)).vim : undefined;
     emacs = opt.editorMode === 'emacs' ? (await import(modules.emacs)).emacs : undefined;
@@ -122,6 +123,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       basicSetup,
       readonly ? readOnlyExtension : [],
       keymap.of([indentWithTab]),
+      keymap.of(vscodeKeymap),
+      indentationMarkers(),
+      colorPicker,
     ];
 
     const codeblockOptions = [readOnlyExtension, ...defaultOptions];

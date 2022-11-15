@@ -16,10 +16,6 @@ module.exports = {
       path: './build/livecodes/*(app|embed|lite).*.js',
       maxSize: '100kB',
     },
-    {
-      path: './build/livecodes/codemirror-!(lang-)*.js',
-      maxSize: '300kB',
-    },
     // {
     //   path: './build/livecodes/lang-*.js',
     //   maxSize: '10kB',

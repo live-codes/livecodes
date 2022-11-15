@@ -2,9 +2,9 @@
 
 The result page (of any number of projects) can be deployed and hosted at [GitHub Pages](https://pages.github.com/) (a free service from GitHub for hosting static websites). This requires login with a [GitHub account](./github-integration.md).
 
-The Deploy screen can be accessed from the settings menu → Deploy.
+The `Deploy` screen can be accessed from the app menu → Deploy.
 
-![LiveCode Deploy](../../static/img/screenshots/deploy.jpg)
+![LiveCodes Deploy](../../static/img/screenshots/deploy.jpg)
 
 The result page (and optionally the source code) is pushed to `gh-pages` branch of a **public** GitHub repo (new or existing). The page, shortly, becomes available on `https://{user}.github.io/{repo}/`.
 

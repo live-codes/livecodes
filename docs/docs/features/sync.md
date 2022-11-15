@@ -4,7 +4,7 @@ LiveCodes local data can be synchronized to a GitHub repo. This can be used as a
 
 A GitHub account is required. The user must give access to [(Private Repos) while logging in](./github-integration.md).
 
-The Sync screen can be accessed from the settings menu → Sync.
+The Sync screen can be accessed from the app menu → Sync.
 
 ![LiveCodes Sync](../../static/img/screenshots/sync.png)
 
@@ -14,6 +14,6 @@ The data is synchronized with the `main` branch in a directory named `livecodes-
 
 If `Auto sync` is selected, the sync will be attempted every 5 minutes. Remote files are downloaded only when changed (e.g. sync from another device).
 
-`Auto sync` can be turned off and on by the switch on the settings menu.
+`Auto sync` can be turned off and on by the switch on the app menu.
 
 The sync can be manually triggered at any time from the Sync UI. Information regarding the last sync time and repo are displayed on the UI screen.

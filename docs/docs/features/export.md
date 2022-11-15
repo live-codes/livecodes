@@ -2,7 +2,7 @@
 
 ## Exporting A Single Project
 
-Project export can be accessed from settings menu → Export.
+Project export can be accessed from app menu → Export.
 
 ![LiveCodes Export](../../static/img/screenshots/export.jpg)
 
@@ -24,7 +24,7 @@ Any project can be exported to:
 
 ## Exporting Multiple Projects
 
-Multiple projects can be exportd in bulk from the [Saved Projects](./projects.md) screen (settings menu → Open) using the button `Export All`.
+Multiple projects can be exportd in bulk from the [Saved Projects](./projects.md) screen (app menu → Open) using the button `Export All`.
 
 ![saved projects](../../static/img/screenshots/saved-projects.jpg)
 

@@ -60,7 +60,13 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
       containerElement.appendChild(iframe);
       iframe.contentWindow?.document.open();
       iframe.contentWindow?.document.write(
-        appHTML.replace(/{{baseUrl}}/g, baseUrl).replace(/{{script}}/g, scriptFile),
+        appHTML
+          .replace(/{{baseUrl}}/g, baseUrl)
+          .replace(/{{script}}/g, scriptFile)
+          .replace(
+            /{{codemirrorCoreUrl}}/g,
+            `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
+          ),
       );
       iframe.contentWindow?.document.close();
 

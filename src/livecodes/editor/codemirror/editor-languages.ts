@@ -5,27 +5,29 @@ import type { Language } from '../../models';
 const legacy = (parser: StreamParser<unknown>) =>
   new LanguageSupport(StreamLanguage.define(parser));
 
+const getPath = (mod: string) => `./vendor/codemirror/${process.env.codemirrorVersion}/${mod}`;
+
 const moduleUrls = {
-  core: './{{hash:codemirror-core.js}}',
-  json: './{{hash:codemirror-lang-json.js}}',
-  markdown: './{{hash:codemirror-lang-markdown.js}}',
-  python: './{{hash:codemirror-lang-python.js}}',
-  php: './{{hash:codemirror-lang-php.js}}',
-  cpp: './{{hash:codemirror-lang-cpp.js}}',
-  sql: './{{hash:codemirror-lang-sql.js}}',
-  wast: './{{hash:codemirror-lang-wast.js}}',
-  scss: './{{hash:codemirror-lang-scss.js}}',
-  coffeescript: './{{hash:codemirror-lang-coffeescript.js}}',
-  livescript: './{{hash:codemirror-lang-livescript.js}}',
-  ruby: './{{hash:codemirror-lang-ruby.js}}',
-  go: './{{hash:codemirror-lang-go.js}}',
-  perl: './{{hash:codemirror-lang-perl.js}}',
-  lua: './{{hash:codemirror-lang-lua.js}}',
-  julia: './{{hash:codemirror-lang-julia.js}}',
-  scheme: './{{hash:codemirror-lang-scheme.js}}',
-  tcl: './{{hash:codemirror-lang-tcl.js}}',
-  less: './{{hash:codemirror-lang-less.js}}',
-  stylus: './{{hash:codemirror-lang-stylus.js}}',
+  core: getPath('codemirror-core.js'),
+  json: getPath('codemirror-lang-json.js'),
+  markdown: getPath('codemirror-lang-markdown.js'),
+  python: getPath('codemirror-lang-python.js'),
+  php: getPath('codemirror-lang-php.js'),
+  cpp: getPath('codemirror-lang-cpp.js'),
+  sql: getPath('codemirror-lang-sql.js'),
+  wast: getPath('codemirror-lang-wast.js'),
+  scss: getPath('codemirror-lang-scss.js'),
+  coffeescript: getPath('codemirror-lang-coffeescript.js'),
+  livescript: getPath('codemirror-lang-livescript.js'),
+  ruby: getPath('codemirror-lang-ruby.js'),
+  go: getPath('codemirror-lang-go.js'),
+  perl: getPath('codemirror-lang-perl.js'),
+  lua: getPath('codemirror-lang-lua.js'),
+  julia: getPath('codemirror-lang-julia.js'),
+  scheme: getPath('codemirror-lang-scheme.js'),
+  tcl: getPath('codemirror-lang-tcl.js'),
+  less: getPath('codemirror-lang-less.js'),
+  stylus: getPath('codemirror-lang-stylus.js'),
 };
 
 export const editorLanguages: Partial<{ [key in Language]: () => Promise<LanguageSupport> }> = {

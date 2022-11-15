@@ -18,9 +18,9 @@
   --language-menu-button-hover-color: rgb(119, 124, 141);
   --language-menu-button-active-color: rgb(0, 27, 37);
   --language-menu-button-active-hover-color: rgb(119, 124, 141);
-  --scrollbar-color: rgb(121, 121, 121);
-  --scrollbar-hover-color: rgb(151, 151, 151);
-  --scrollbar-active-color: rgb(191, 191, 191);
+  --scrollbar-color: rgb(192, 192, 192);
+  --scrollbar-hover-color: rgb(167, 167, 167);
+  --scrollbar-active-color: rgb(175, 175, 175);
   --toolspane-bar-text-color: rgb(237, 237, 237);
   --toolspane-buttons-text-color: rgb(237, 237, 237);
   --toolspane-button-color: rgb(90, 96, 116);
@@ -71,9 +71,9 @@
   --language-menu-button-hover-color: rgb(170, 170, 170);
   --language-menu-button-active-color: rgb(170, 170, 170);
   --language-menu-button-active-hover-color: rgb(190, 190, 190);
-  --scrollbar-color: rgb(200, 200, 200);
-  --scrollbar-hover-color: rgb(220, 220, 220);
-  --scrollbar-active-color: rgb(230, 230, 230);
+  --scrollbar-color: rgb(192, 192, 192);
+  --scrollbar-hover-color: rgb(167, 167, 167);
+  --scrollbar-active-color: rgb(175, 175, 175);
   --toolspane-bar-text-color: rgb(68, 72, 87);
   --toolspane-buttons-text-color: rgb(237, 237, 237);
   --toolspane-button-color: rgb(206, 205, 205);
@@ -104,11 +104,38 @@
   --editor-tools-mark-color: rgb(119, 53, 53);
 }
 
+// reset
 * {
   margin: 0;
   padding: 0;
-  scrollbar-color: var(--scrollbar-color);
-  scrollbar-width: none;
+}
+
+// scrollbar
+* {
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-hover-color);
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbar-active-color);
+  }
 }
 
 html,
@@ -119,29 +146,6 @@ body {
   height: 100%;
   justify-content: center;
   width: 100%;
-}
-
-::-webkit-scrollbar {
-  background: transparent;
-  height: 14px;
-  width: 14px;
-}
-
-::-webkit-scrollbar-corner,
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-color);
-
-  &:hover {
-    background: var(--scrollbar-hover-color);
-  }
-
-  &:active {
-    background: var(--scrollbar-active-color);
-  }
 }
 
 .centered {
