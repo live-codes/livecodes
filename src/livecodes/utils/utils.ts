@@ -1,11 +1,11 @@
 import { Config, Language, Processor } from '../models';
 
-export const debounce = (fn: (...x: any[]) => any, delay: number) => {
+export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
   let timeout: any;
 
   return (...args: unknown[]) => {
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(null, args), delay);
+    timeout = setTimeout(() => fn.apply(null, args), typeof delay === 'function' ? delay() : delay);
   };
 };
 

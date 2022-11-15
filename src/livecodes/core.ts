@@ -1394,6 +1394,11 @@ const loadSettings = (config: Config) => {
   const autoupdateToggle = UI.getAutoupdateToggle();
   autoupdateToggle.checked = config.autoupdate;
 
+  const delayValue = UI.getDelayValue();
+  const delayRange = UI.getDelayRange();
+  delayRange.value = String(config.delay);
+  delayValue.textContent = String(config.delay / 1000);
+
   const autosaveToggle = UI.getAutosaveToggle();
   autosaveToggle.checked = config.autosave;
 
@@ -1701,9 +1706,12 @@ const handleChangeContent = () => {
   };
 
   const debouncecontentChanged = (editorId: EditorId) =>
-    debounce(async () => {
-      await contentChanged(editorId, changingContent);
-    }, getConfig().delay ?? defaultConfig.delay);
+    debounce(
+      async () => {
+        await contentChanged(editorId, changingContent);
+      },
+      () => getConfig().delay ?? defaultConfig.delay,
+    );
 
   (Object.keys(editors) as EditorId[]).forEach((editorId) => {
     editors[editorId].onContentChanged(debouncecontentChanged(editorId));
@@ -1940,6 +1948,15 @@ const handleSettings = () => {
         await run();
       }
     });
+  });
+
+  const delayRange = UI.getDelayRange();
+  eventsManager.addEventListener(delayRange, 'input', () => {
+    const delayValue = UI.getDelayValue();
+    const value = Number(delayRange.value);
+    delayValue.textContent = String(value / 1000);
+    setConfig({ ...getConfig(), delay: value });
+    setUserConfig(getUserConfig(getConfig()));
   });
 
   const cssPresets = UI.getCssPresetLinks();

@@ -115,13 +115,17 @@
   scrollbar-width: thin;
 
   &::-webkit-scrollbar {
-    height: 7px;
-    width: 7px;
+    height: 10px;
+    width: 10px;
   }
 
   &::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -1141,7 +1145,7 @@ li.editor-title {
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 31em;
+  max-height: 33em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -1151,11 +1155,15 @@ li.editor-title {
     display: flex !important;
   }
 
+  > li {
+    width: 50%;
+  }
+
   li {
     flex: 40%;
     position: relative;
 
-    &.link-and-swich {
+    &.link-and-switch {
       display: flex;
 
       a {
@@ -1173,8 +1181,24 @@ li.editor-title {
         margin-left: 7px;
       }
     }
+
+    .range-slider-label {
+      display: flex;
+      justify-content: space-between;
+
+      input[type='range'] {
+        width: 8em;
+      }
+
+      @media only screen and (max-width: 768px) {
+        input[type='range'] {
+          width: 3em;
+        }
+      }
+    }
   }
 }
+
 @media only screen and (max-width: 1080px) {
   #settings-menu {
     max-width: 60vw;
@@ -1276,6 +1300,30 @@ i.arrow {
   #settings-menu i.arrow {
     left: 0;
     top: calc(50% - 0.9em);
+  }
+}
+
+.range-slider {
+  appearance: none;
+  background: var(--switch-off-color);
+  border-radius: 4px;
+  height: 8px;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    background: var(--switch-on-color);
+    border-radius: 50%;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+  }
+
+  &::-moz-range-thumb {
+    background: var(--switch-on-color);
+    border-radius: 50%;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
   }
 }
 
