@@ -564,18 +564,14 @@ a {
 }
 
 .copy-button {
-  background-color: var(--foreground-color);
-  border: 0;
-  border-radius: 3px;
-  color: var(--toolbar-text-color);
+  background-color: var(--toolspane-button-color);
+  border-radius: 5px;
   cursor: pointer;
   display: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.9em;
-  outline: none;
-  padding: 5px;
+  padding: 1px;
   position: absolute;
   right: 20px;
+  scale: 0.9;
   top: 5px;
 }
 
