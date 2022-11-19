@@ -303,16 +303,24 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
 
 const createCopyButtons = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const copyImgHtml = `<span><img src="${baseUrl}assets/images/copy.svg" alt="copy"></span>`;
   editorIds.forEach((editorId) => {
-    const copyButton = document.createElement('button');
-    copyButton.innerHTML = 'copy';
-    copyButton.classList.add('copy-button');
+    const copyButton = document.createElement('div');
+    copyButton.innerHTML = copyImgHtml;
+    copyButton.classList.add('copy-button', 'tool-buttons');
+    copyButton.title = 'Copy';
     document.getElementById(editorId)?.appendChild(copyButton);
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
-        copyButton.innerHTML = 'copied';
+        copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
+        copyButton.classList.add('hint--left', 'visible');
+        copyButton.dataset.hint = 'Copied!';
+        copyButton.title = '';
         setTimeout(() => {
-          copyButton.innerHTML = 'copy';
+          copyButton.innerHTML = copyImgHtml;
+          copyButton.classList.remove('hint--left', 'visible');
+          copyButton.dataset.hint = '';
+          copyButton.title = 'Copy';
         }, 2000);
       }
     });
