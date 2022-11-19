@@ -313,12 +313,12 @@ const createCopyButtons = () => {
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
         copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
-        copyButton.classList.add('hint--left');
-        copyButton.dataset.hint = 'Copied';
+        copyButton.classList.add('hint--left', 'visible');
+        copyButton.dataset.hint = 'Copied!';
         copyButton.title = '';
         setTimeout(() => {
           copyButton.innerHTML = copyImgHtml;
-          copyButton.classList.remove('hint--left');
+          copyButton.classList.remove('hint--left', 'visible');
           copyButton.dataset.hint = '';
           copyButton.title = 'Copy';
         }, 2000);

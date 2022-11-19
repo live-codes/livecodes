@@ -573,6 +573,10 @@ a {
   right: 20px;
   scale: 0.9;
   top: 5px;
+
+  &.visible {
+    display: unset;
+  }
 }
 
 #editors > div:hover .copy-button {
