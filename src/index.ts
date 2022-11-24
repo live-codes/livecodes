@@ -22,7 +22,10 @@ const loadPreview = async (id: string) => {
 
 const params = new URLSearchParams(location.search);
 const isLite = params.get('lite') != null && params.get('lite') !== 'false';
-const isEmbed = isLite || (params.get('embed') != null && params.get('embed') !== 'false');
+const isEmbed =
+  isLite ||
+  (params.get('embed') != null && params.get('embed') !== 'false') ||
+  window.location !== window.parent.location; // in iframe
 const loadingParam = params.get('loading');
 const clickToLoad = isEmbed && loadingParam !== 'eager';
 const loading: EmbedOptions['loading'] = !isEmbed
