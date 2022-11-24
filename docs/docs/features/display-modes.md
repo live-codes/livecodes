@@ -35,7 +35,7 @@ Demo:
 
 <LiveCodes config={{mode:'codeblock'}} template="react"></LiveCodes>
 
-By default, in `codeblock` mode, the light-weight `CodeJar` editor is used (in read-only mode). You can override this by setting the `editor` option. Refer to [Editors](./editors.md) for details.
+By default, in `codeblock` mode, the light-weight `CodeJar` editor is used (in read-only mode). You can override this by setting the `editor` option. Refer to [Editor Settings](./editor-settings.md#code-editor) for details.
 
 Example: https://livecodes.io/?mode=codeblock&editor=monaco&template=react
 
