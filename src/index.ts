@@ -1,8 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import { shareService } from './livecodes/services/share';
-import { livecodes } from './livecodes/main';
+import { livecodes, params, isEmbed, loadingParam, clickToLoad, loading } from './livecodes/main';
 import { customEvents } from './livecodes/events/custom-events';
-import type { EmbedOptions } from './livecodes/models';
 
 const loadPreview = async (id: string) => {
   if (!id) return;
@@ -19,20 +18,6 @@ const loadPreview = async (id: string) => {
   previewFrame.srcdoc = content.result;
   document.body.appendChild(previewFrame);
 };
-
-const params = new URLSearchParams(location.search);
-const isLite = params.get('lite') != null && params.get('lite') !== 'false';
-const isEmbed =
-  isLite ||
-  (params.get('embed') != null && params.get('embed') !== 'false') ||
-  window.location !== window.parent.location; // in iframe
-const loadingParam = params.get('loading');
-const clickToLoad = isEmbed && loadingParam !== 'eager';
-const loading: EmbedOptions['loading'] = !isEmbed
-  ? 'eager'
-  : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
-  ? loadingParam
-  : 'lazy';
 
 if (loadingParam === 'click' && params.get('preview') !== 'false') {
   const id = params.get('x');
