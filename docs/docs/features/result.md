@@ -2,6 +2,8 @@
 
 The output of a LiveCodes project is a single HTML page. This includes the (compiled) code from editors (markup + style + script) and [external resources](./external-css-js.md) (CSS + JS), in addition to customizations specified in [custom settings](../advanced/custom-settings.md).
 
+This page is loaded in a [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) with a unique origin to enforce [security](./security.md). The page code is sent to the iframe in the browser (no code is sent to the server).
+
 ## Result page structure
 
 This is the pseudo-code for the structure of the result page (inspired by [CodePen docs](https://blog.codepen.io/documentation/preview-template/)).
@@ -76,7 +78,7 @@ The spacing between elements on the result page can be measured by adding [Spaci
 
 ![Show Spacings](../../static/img/screenshots/spacings.jpg)
 
-1. Enable `Show Spacing` setting in the app menu
+1. Enable `Show Spacing` setting in the app menu.
 2. Move your cursor to an element and press Alt on Windows, or Option on a Mac.
 3. Move your cursor to another element, the measurement results will be there.
 

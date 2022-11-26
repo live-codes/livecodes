@@ -16,7 +16,7 @@ export interface API {
 }
 
 export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
-export type APICommands = 'setBroadcastToken';
+export type APICommands = 'setBroadcastToken' | 'showVersion';
 
 export interface Playground extends API {
   load: () => Promise<void>;
@@ -58,7 +58,6 @@ export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
   mode: 'full' | 'editor' | 'codeblock' | 'result';
-  showVersion: boolean;
   tools: {
     enabled: Array<Tool['name']> | 'all';
     active: Tool['name'] | '';
@@ -781,12 +780,12 @@ export interface Subscribable<T> {
   unsubscribeAll: () => void;
 }
 
-type languageSelector = `${Language}-selector`;
-type ToolNames =
+export type languageSelector = `${Language}-selector`;
+export type ToolNames =
   | `${Tool['name']}`
   | `${Tool['name']},${Tool['name']}`
   | `${Tool['name']},${Tool['name']},${Tool['name']}`;
-type ToolsStatus = `${ToolNames}|${Config['tools']['status']}`;
+export type ToolsStatus = `${ToolNames}|${Config['tools']['status']}`;
 
 export type UrlQueryParams = Partial<
   EmbedOptions &

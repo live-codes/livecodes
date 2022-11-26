@@ -106,6 +106,5 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.imports, 'object') ? { imports: config.imports } : {}),
     ...(is(config.types, 'object') ? { types: config.types } : {}),
     ...(is(config.version, 'string') ? { version: config.version } : {}),
-    ...(is(config.showVersion, 'boolean') ? { showVersion: config.showVersion } : {}),
   };
 };

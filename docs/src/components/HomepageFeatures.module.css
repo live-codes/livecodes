@@ -24,8 +24,12 @@
   width: 100px;
 }
 
+.rowLight {
+  background-color: rgb(250, 250, 250);
+}
+
 .rowDark {
-  background-color: var(--ifm-color-secondary-lightest);
+  background-color: var(--ifm-color-secondary-lighter);
 }
 
 .carousel {
@@ -41,4 +45,5 @@
   font-size: 0.7em;
   margin-bottom: -2em;
   margin-top: 2em;
+  text-align: center;
 }

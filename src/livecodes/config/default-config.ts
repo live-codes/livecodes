@@ -19,20 +19,14 @@ export const defaultConfig: Config = {
   markup: {
     language: 'html',
     content: '',
-    contentUrl: '',
-    selector: '',
   },
   style: {
     language: 'css',
     content: '',
-    contentUrl: '',
-    selector: '',
   },
   script: {
     language: 'javascript',
     content: '',
-    contentUrl: '',
-    selector: '',
   },
   stylesheets: [],
   scripts: [],
@@ -49,12 +43,7 @@ export const defaultConfig: Config = {
     status: '',
   },
   processors: [],
-  customSettings: {
-    template: {
-      data: {},
-      prerender: true,
-    },
-  },
+  customSettings: {},
   editor: undefined,
   fontFamily: undefined,
   fontSize: undefined,
@@ -69,5 +58,4 @@ export const defaultConfig: Config = {
   emmet: true,
   editorMode: undefined,
   version: process.env.VERSION as string,
-  showVersion: false,
 };

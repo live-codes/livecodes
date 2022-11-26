@@ -2,6 +2,8 @@
 
 The [library](../getting-started.md#npm-package) provides an API for [embedding](./../features/embeds.md) and communicating with playgrounds.
 
+In the full [standalone app](../getting-started.md#hosted-app), this API is accessible under the global variable `livecodes`, which can be interacted with in the browser console.
+
 ## API Demo
 
 A demo page that shows the usage of the API can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
@@ -303,6 +305,26 @@ createPlayground('#container').then((playground) => {
   watcher.remove();
   // changes are no longer watched
 });
+```
+
+### `exec`
+
+[`(command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>`](../api/interfaces/Playground.md#exec)
+
+Execute custom commands, including:
+
+- `"setBroadcastToken"`: Sets [broadcast `userToken`](../features/broadcast.md#technical-details).
+
+```js
+// in browser console of full app (e.g. https://livecodes.io)
+await livecodes.exec('setBroadcastToken', 'my-token');
+```
+
+- `"showVersion"`: Logs current LiveCodes version and commitSHA in the browser console.
+
+```js
+// in browser console of full app (e.g. https://livecodes.io)
+await livecodes.exec('showVersion');
 ```
 
 ### `destroy`
