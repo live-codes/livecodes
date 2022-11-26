@@ -33,6 +33,10 @@ export default function Sliders() {
       { name: 'sass', title: 'Sass' },
       { name: 'less', title: 'Less' },
       { name: 'stylus', title: 'Stylus' },
+      { name: 'tailwindcss', title: 'Tailwind CSS', processor: true },
+      { name: 'windicss', title: 'Windi CSS', processor: true },
+      { name: 'unocss', title: 'UnoCSS', processor: true },
+      { name: 'tokencss', title: 'Token CSS', processor: true },
     ],
     script: [
       { name: 'javascript', title: 'JS' },
@@ -89,15 +93,20 @@ export default function Sliders() {
   };
 
   const open = (random: boolean) => {
+    const selectedStyle = random ? getRandomItem(lists.style).name : slideLang.style;
+    const isProcessor = lists.style.find((item) => item.name === selectedStyle).processor;
+
     const query = random
       ? getRandomItem(lists.markup).name +
         '&' +
-        getRandomItem(lists.style).name +
+        (isProcessor ? 'css' : selectedStyle) +
         '&' +
         getRandomItem(lists.script).name
-      : slideLang.markup + '&' + slideLang.style + '&' + slideLang.script;
+      : slideLang.markup + '&' + (isProcessor ? 'css' : selectedStyle) + '&' + slideLang.script;
 
-    window.open(location.origin + '?' + query, '_blank');
+    const processor = isProcessor ? '&processors=' + selectedStyle : '';
+
+    window.open(location.origin + '?' + query + processor, '_blank');
   };
 
   setInterval(() => {
@@ -118,7 +127,7 @@ export default function Sliders() {
           className="button button--outline button--primary button--lg"
           onClick={() => open(false)}
         >
-          Let's Code 🚀
+          Looks Good 🚀
         </Link>
         <Link
           className="button button--outline button--warning button--lg"
