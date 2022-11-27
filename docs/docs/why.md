@@ -31,7 +31,7 @@ All proccessing and code transformations run in the browser on the client-side. 
 
 The code you write in LiveCodes does not leave your computer. All projects are private unless you choose to share/export/deploy them.
 
-Being client-side allows the app to be hosted on any static file server or CDN, which removes the restrictions provided by other alternatives (like server storage or memory allocation). This makes LiveCodes available for a large number of developers without requiring them to pay for servers, so it can stay free with unlimited usage.
+Being client-side allows the app to be hosted on any static file server or CDN, which removes the restrictions provided by other alternatives (like server storage or memory allocation). This makes LiveCodes available for a large number of developers without requiring them to pay for servers, so it can stay free with unlimited usage 😊.
 
 ### Developer Tool
 

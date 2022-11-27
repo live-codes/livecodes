@@ -8,6 +8,10 @@ TypeScript types are [documented here](../api/interfaces/Config.md) and can be i
 import type { Config } from 'livecodes';
 ```
 
+## Default Config
+
+Default config is [defined here](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/default-config.ts).
+
 ## Project Content
 
 These are properties that define the content of the current [project](../features/projects.md).
@@ -119,6 +123,63 @@ Default: `{}`
 Defines [custom settings](../advanced/custom-settings.md) for the current project.
 
 ### `imports`
+
+[`[key: string]: string`](../api/interfaces/ContentConfig.md#imports)
+
+Default: `{}`
+
+Allows specifying custom [import maps](https://github.com/WICG/import-maps) for [module imports](../features/npm-modules.md).
+
+For example, adding this JavaScript code:
+
+```js
+import moment from 'moment';
+import { partition } from 'lodash';
+```
+
+would add this import map in the result page:
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "moment": "https://cdn.skypack.dev/moment",
+      "lodash": "https://cdn.skypack.dev/lodash"
+    }
+  }
+</script>
+```
+
+However, if `imports` is specified as follows:
+
+```json
+{
+  "imports": {
+    "moment": "https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js"
+  }
+}
+```
+
+The import map becomes like this:
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "moment": "https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js",
+      "lodash": "https://cdn.skypack.dev/lodash"
+    }
+  }
+</script>
+```
+
+:::info Note
+
+Currently, multiple import maps are not yet supported. https://crbug.com/927119
+
+When bare module imports are encountered, LiveCodes adds an import map to the result page. If you need to add custom import map or override the automatically generated one, you need to add them to `imports` config property or `imports` [customSettings](#customsettings) property.
+
+:::
 
 ### `types`
 

@@ -128,7 +128,7 @@ const FeatureList3: FeatureItem[] = [
       <>
         Projects are private by default. The code you write in LiveCodes never leaves your computer,
         unless you choose to share, export or sync it. No cookies are used. User data is stored in
-        the browser.
+        the browser. <Link to="./features/security">Security</Link> is taken seriously.
       </>
     ),
   },
@@ -137,8 +137,10 @@ const FeatureList3: FeatureItem[] = [
     image: './img/docs.svg',
     description: (
       <>
-        Comprehensive <Link to="./overview">documentations</Link> for the app and the NPM package
-        with code samples, live demos and screenshots.
+        Comprehensive <Link to="./overview">documentations</Link> (including{' '}
+        <Link to="./api/modules">TypeScript types</Link>) for the App{' '}
+        <Link to="./features">features</Link> and the NPM package{' '}
+        <Link to="./advanced/API">API</Link>, with code samples, live demos and screenshots.
       </>
     ),
   },
