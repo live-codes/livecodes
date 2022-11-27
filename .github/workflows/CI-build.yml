@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [17.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
