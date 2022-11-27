@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
