@@ -47,6 +47,11 @@ const config = {
         defaultMode: 'light',
         disableSwitch: true,
       },
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       navbar: {
         title: 'LiveCodes',
         logo: {
@@ -84,7 +89,6 @@ const config = {
           },
         ],
       },
-      hideableSidebar: true,
       footer: {
         style: 'dark',
         links: [
@@ -183,8 +187,11 @@ const config = {
     [
       'docusaurus-plugin-typedoc',
       {
-        entryPoints: ['../src/lib/docs.ts'],
+        entryPoints: ['../src/lib/livecodes.ts'],
         tsconfig: '../tsconfig.json',
+        plugin: ['typedoc-plugin-missing-exports'],
+        excludeExternals: true,
+        internalModule: '_internal',
       },
     ],
   ],

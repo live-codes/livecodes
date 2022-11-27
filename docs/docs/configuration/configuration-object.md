@@ -18,7 +18,7 @@ These are properties that define the content of the current [project](../feature
 
 ### `title`
 
-[`string`](../api/interfaces/ContentConfig#title)
+[`string`](../api/interfaces/internal.ContentConfig#title)
 
 Default: `"Untitled Project"`
 
@@ -26,7 +26,7 @@ Project title. This is used as [result page](../features/result.md) title.
 
 ### `description`
 
-[`string`](../api/interfaces/ContentConfig#description)
+[`string`](../api/interfaces/internal.ContentConfig#description)
 
 Default: `""`
 
@@ -34,7 +34,7 @@ Project description. Used in [project](../features/projects.md) search. This can
 
 ### `tags`
 
-[`string[]`](../api/interfaces/ContentConfig#tags)
+[`string[]`](../api/interfaces/internal.ContentConfig#tags)
 
 Default: `[]`
 
@@ -42,7 +42,7 @@ Project tags. Used in [project](../features/projects.md) filter and search. This
 
 ### `activeEditor`
 
-[`"markup" | "style" | "script" | undefined`](../api/interfaces/ContentConfig#activeeditor)
+[`"markup" | "style" | "script" | undefined`](../api/interfaces/internal.ContentConfig#activeeditor)
 
 Default: Last used editor for user, otherwise "markup"
 
@@ -50,7 +50,7 @@ Selects the active editor to show.
 
 ### `languages`
 
-[`Language[] | undefined`](../api/interfaces/ContentConfig#languages)
+[`Language[] | undefined`](../api/interfaces/internal.ContentConfig#languages)
 
 Default: all supported languages in full app and only current editor languages in [embeds](../features/embeds.md).
 
@@ -60,7 +60,7 @@ List of enabled languages. Languages that are not already loaded in the editors 
 
 ### `markup`
 
-[`Editor`](../api/interfaces/Editor)
+[`Editor`](../api/interfaces/internal.Editor)
 
 Default: `{ language: 'html', content: '' }`
 
@@ -68,7 +68,7 @@ Configures the language and content of the markup editor.
 
 ### `style`
 
-[`Editor`](../api/interfaces/Editor)
+[`Editor`](../api/interfaces/internal.Editor)
 
 Default: `{ language: 'css', content: '' }`
 
@@ -76,7 +76,7 @@ Configures the language and content of the style editor.
 
 ### `script`
 
-[`Editor`](../api/interfaces/Editor)
+[`Editor`](../api/interfaces/internal.Editor)
 
 Default: `{ language: 'javascript', content: '' }`
 
@@ -84,7 +84,7 @@ Configures the language and content of the script editor.
 
 ### `stylesheets`
 
-[`string[]`](../api/interfaces/ContentConfig#stylesheets)
+[`string[]`](../api/interfaces/internal.ContentConfig#stylesheets)
 
 Default: `[]`
 
@@ -92,7 +92,7 @@ List of URLs for [external stylesheets](../features/external-css-js.md) to add t
 
 ### `scripts`
 
-[`string[]`](../api/interfaces/ContentConfig#scripts)
+[`string[]`](../api/interfaces/internal.ContentConfig#scripts)
 
 Default: `[]`
 
@@ -100,7 +100,7 @@ List of URLs for [external scripts](../features/external-css-js.md) to add to th
 
 ### `cssPreset`
 
-[`"" | "normalize.css" | "reset-css"`](../api/interfaces/ContentConfig.md#csspreset)
+[`"" | "normalize.css" | "reset-css"`](../api/interfaces/internal.ContentConfig.md#csspreset)
 
 Default: `""`
 
@@ -116,7 +116,7 @@ List of enabled [CSS processors](../features/css-processors.md).
 
 ### `customSettings`
 
-[`CustomSettings`](../api/interfaces/ContentConfig.md#customsettings)
+[`CustomSettings`](../api/interfaces/internal.ContentConfig.md#customsettings)
 
 Default: `{}`
 
@@ -124,7 +124,7 @@ Defines [custom settings](../advanced/custom-settings.md) for the current projec
 
 ### `imports`
 
-[`[key: string]: string`](../api/interfaces/ContentConfig.md#imports)
+[`[key: string]: string`](../api/interfaces/internal.ContentConfig.md#imports)
 
 Default: `{}`
 
