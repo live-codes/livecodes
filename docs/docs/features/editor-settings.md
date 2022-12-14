@@ -20,7 +20,7 @@ The following code editors are supported:
 - [**CodeMirror**](https://codemirror.net/): Has [many editing features](https://codemirror.net/docs/extensions/), including autocomplete, with good **mobile support**. (compressed download size: **~180 kB**)
 - [**CodeJar**](https://medv.io/codejar/): A **lightweight** code editor with very basic editing features. [PrismJs](https://prismjs.com/) is used for syntax highlighting. Please note that some editor settings are not supported in CodeJar (see below). (compressed download size: **~18 kB**)
 
-By default, Monaco editor is used on desktop, CodeMirror is used on mobile and CodeJar is used in [codeblocks](./display-modes.md#codeblock), in [Lite mode](./lite.md) and in [readonly](../configuration/configuration-object.md) playgrounds.
+By default, Monaco editor is used on desktop, CodeMirror is used on mobile and CodeJar is used in [codeblocks](./display-modes.md#codeblock), in [lite mode](./lite.md) and in [readonly](../configuration/configuration-object.md#readonly) playgrounds.
 
 ### Editor Options
 

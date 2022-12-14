@@ -197,6 +197,50 @@ describe('loadParamConfig', () => {
     expect(output.tags).toEqual(['js', 'advanced', 'proof-of-concept']);
   });
 
+  test('?stylesheets', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      stylesheets:
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css,https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap-grid.css',
+    });
+    expect(output.stylesheets).toEqual([
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css',
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap-grid.css',
+    ]);
+  });
+
+  test('?stylesheets (with spaces)', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      stylesheets:
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css, https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap-grid.css',
+    });
+    expect(output.stylesheets).toEqual([
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.css',
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap-grid.css',
+    ]);
+  });
+
+  test('?scripts', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      scripts:
+        'https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js,https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js',
+    });
+    expect(output.scripts).toEqual([
+      'https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js',
+      'https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js',
+    ]);
+  });
+
+  test('?scripts (with spaces)', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      scripts:
+        'https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js, https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js',
+    });
+    expect(output.scripts).toEqual([
+      'https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js',
+      'https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js',
+    ]);
+  });
+
   test('?tools=none', () => {
     const output: Partial<Config> = loadParamConfig(defaultConfig, {
       tools: 'none',

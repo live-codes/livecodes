@@ -800,6 +800,8 @@ export type UrlQueryParams = Partial<
       lang: Language;
       languages: string; // comma-separated languages
       processors: string; // comma-separated processors
+      stylesheets: string; // comma-separated stylesheets
+      scripts: string; // comma-separated scripts
       active: EditorId;
       tags: string | string[];
       'no-defaults': boolean;

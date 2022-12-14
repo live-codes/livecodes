@@ -48,6 +48,7 @@ const sidebars = {
             'features/github-integration',
             'features/display-modes',
             'features/default-view',
+            'features/themes',
             'features/embeds',
             'features/lite',
             'features/code-prefill',

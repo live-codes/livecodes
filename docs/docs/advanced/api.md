@@ -20,7 +20,7 @@ import { createPlayground, EmbedOptions, Playground } from 'livecodes';
 
 ## `createPlayground`
 
-[`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/modules.md#createplayground)
+Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/modules.md#createplayground)
 
 The library exports the function `createPlayground` which takes 2 arguments:
 
@@ -54,7 +54,7 @@ The secong argument of the `createPlayground` function is an optional object wit
 
 ### `appUrl`
 
-[`string`](../api/interfaces/EmbedOptions#appurl)
+Type: [`string`](../api/interfaces/EmbedOptions#appurl)
 
 Default: `"https://livecodes.io/"`
 
@@ -62,7 +62,7 @@ Allows the library to load the playground from a custom URL (e.g. [hosted app](.
 
 ### `config`
 
-[`string | Partial<Config>`](../api/interfaces/EmbedOptions#config)
+Type: [`string | Partial<Config>`](../api/interfaces/EmbedOptions#config)
 
 Default: `{}`
 
@@ -70,13 +70,13 @@ A [configuration object](../configuration/configuration-object.md) or a URL to a
 
 ### `import`
 
-[`string`](../api/interfaces/EmbedOptions#import)
+Type: [`string`](../api/interfaces/EmbedOptions#import)
 
 A URL to [import](../features/import.md).
 
 ### `lite`
 
-[`boolean`](../api/interfaces/EmbedOptions#lite)
+Type: [`boolean`](../api/interfaces/EmbedOptions#lite)
 
 Default: `false`
 
@@ -84,7 +84,7 @@ If `true`, the playground is loaded in [lite mode](../features/lite.md).
 
 ### `loading`
 
-[`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions#loading)
+Type: [`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions#loading)
 
 Default: `"lazy"`
 
@@ -96,13 +96,13 @@ Default: `"lazy"`
 
 ### `template`
 
-[`string`](../api/interfaces/EmbedOptions#template)
+Type: [`string`](../api/interfaces/EmbedOptions#template)
 
 A [starter template](../features/templates.md) to load.
 
 ### `view`
 
-[`"editor" | "result" | "editor,result"`](../api/interfaces/EmbedOptions#view)
+Type: [`"editor" | "result" | "editor,result"`](../api/interfaces/EmbedOptions#view)
 
 Default: `"editor,result"`
 
@@ -114,7 +114,7 @@ The [default view](../features/default-view.md) for the playground.
 
 ### `load`
 
-[`() => Promise<void>`](../api/interfaces/Playground.md#load)
+Type: [`() => Promise<void>`](../api/interfaces/Playground.md#load)
 
 When the embed option `loading` is set to `click`, the playground is not loaded automatically. Instead, a screen is shown with "Click to load" button.
 Calling the API method `load()` allows loading the playground.
@@ -132,7 +132,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `run`
 
-[`() => Promise<void>`](../api/interfaces/Playground.md#run)
+Type: [`() => Promise<void>`](../api/interfaces/Playground.md#run)
 
 Runs the [result page](../features/result.md) (after any required compilation for code).
 
@@ -147,7 +147,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `format`
 
-[`(allEditors?: boolean) => Promise<void>`](../api/interfaces/Playground.md#format)
+Type: [`(allEditors?: boolean) => Promise<void>`](../api/interfaces/Playground.md#format)
 
 [Formats the code](../features/code-format.md).
 
@@ -165,7 +165,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `getShareUrl`
 
-[`(shortUrl?: boolean) => Promise<string>`](../api/interfaces/Playground.md#getshareurl)
+Type: [`(shortUrl?: boolean) => Promise<string>`](../api/interfaces/Playground.md#getshareurl)
 
 Gets a [share url](../features/share.md).
 
@@ -182,7 +182,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `getConfig`
 
-[`(contentOnly?: boolean) => Promise<Config>`](../api/interfaces/Playground.md#getconfig)
+Type: [`(contentOnly?: boolean) => Promise<Config>`](../api/interfaces/Playground.md#getconfig)
 
 Gets a config object representing the playground state. This can be used to restore state if passed as [embed option](#createplayground) property on creating playground, or can be manipulated and loaded in run-time using [`setConfig`](#setconfig) method.
 
@@ -196,7 +196,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `setConfig`
 
-[`(config: Partial<Config>) => Promise<Config>`](../api/interfaces/Playground.md#setconfig)
+Type: [`(config: Partial<Config>) => Promise<Config>`](../api/interfaces/Playground.md#setconfig)
 
 Loads a new project using the passed configuration object.
 
@@ -217,7 +217,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `getCode`
 
-[`() => Promise<Code>`](../api/interfaces/Playground.md#getcode)
+Type: [`() => Promise<Code>`](../api/interfaces/Playground.md#getcode)
 
 Gets the playground code (including source code, source language and compiled code) for each editor (`markup`, `style`, `script`), in addition to result page HTML.
 
@@ -237,7 +237,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `show`
 
-[`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number }) => Promise<void>`](../api/interfaces/Playground.md#show)
+Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number }) => Promise<void>`](../api/interfaces/Playground.md#show)
 
 Shows the selected panel, which is either:
 
@@ -269,7 +269,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `runTests`
 
-[`() => Promise<{ results: TestResult[] }>`](../api/interfaces/Playground.md#runtests)
+Type: [`() => Promise<{ results: TestResult[] }>`](../api/interfaces/Playground.md#runtests)
 
 Runs project [tests](./../features/tests.md) (if present) and gets test results.
 
@@ -283,7 +283,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `onChange`
 
-[`(fn: ChangeHandler) => { remove: () => void }`](../api/interfaces/Playground.md#onchange)
+Type: [`(fn: ChangeHandler) => { remove: () => void }`](../api/interfaces/Playground.md#onchange)
 
 Allows to watch the playground for changes. It takes a callback function that will be called on every change.
 
@@ -309,7 +309,7 @@ createPlayground('#container').then((playground) => {
 
 ### `exec`
 
-[`(command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>`](../api/interfaces/Playground.md#exec)
+Type: [`(command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>`](../api/interfaces/Playground.md#exec)
 
 Execute custom commands, including:
 
@@ -329,7 +329,7 @@ await livecodes.exec('showVersion');
 
 ### `destroy`
 
-[`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
+Type: [`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
 
 Destoys the playground instance, and removes event listeners. Further call to any API methods throws an error.
 
