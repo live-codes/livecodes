@@ -385,21 +385,21 @@ test.describe('Starter Templates from UI', () => {
     expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
 
-  test('D3 Starter', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl());
+  // test('D3 Starter', async ({ page, getTestUrl }) => {
+  //   await page.goto(getTestUrl());
 
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+  //   const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[aria-label="Menu"]');
-    await app.click('text=New');
-    await app.click('text=D3 Starter');
-    await waitForEditorFocus(app);
+  //   await app.click('[aria-label="Menu"]');
+  //   await app.click('text=New');
+  //   await app.click('text=D3 Starter');
+  //   await waitForEditorFocus(app);
 
-    await waitForResultUpdate();
+  //   await waitForResultUpdate();
 
-    const bars = await getResult().$$('svg rect');
-    expect(bars.length).toBe(4);
-  });
+  //   const bars = await getResult().$$('svg rect');
+  //   expect(bars.length).toBe(4);
+  // });
 
   test('Markdown Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
@@ -773,17 +773,17 @@ test.describe('Starter Templates from URL', () => {
     expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
 
-  test('D3 Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'd3' }));
+  // test('D3 Starter (in URL)', async ({ page, getTestUrl }) => {
+  //   await page.goto(getTestUrl({ template: 'd3' }));
 
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+  //   const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await waitForEditorFocus(app);
-    await waitForResultUpdate();
+  //   await waitForEditorFocus(app);
+  //   await waitForResultUpdate();
 
-    const bars = await getResult().$$('svg rect');
-    expect(bars.length).toBe(4);
-  });
+  //   const bars = await getResult().$$('svg rect');
+  //   expect(bars.length).toBe(4);
+  // });
 
   test('Markdown Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'markdown' }));
