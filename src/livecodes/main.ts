@@ -3,9 +3,22 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
-import type { API, Config } from './models';
+import type { API, Config, EmbedOptions } from './models';
+import { isInIframe } from './utils/utils';
 
 export type { API, Config };
+
+export const params = new URLSearchParams(location.search);
+export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
+export const isEmbed =
+  isLite || (params.get('embed') != null && params.get('embed') !== 'false') || isInIframe();
+export const loadingParam = params.get('loading');
+export const clickToLoad = isEmbed && loadingParam !== 'eager';
+export const loading: EmbedOptions['loading'] = !isEmbed
+  ? 'eager'
+  : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
+  ? loadingParam
+  : 'lazy';
 
 export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
@@ -15,10 +28,6 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     }
     const baseUrl =
       (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
-    const params = new URLSearchParams(location.search);
-    const isLite = params.get('lite') != null && params.get('lite') !== 'false';
-    const isEmbed = isLite || (params.get('embed') != null && params.get('embed') !== 'false');
-    const clickToLoad = isEmbed && params.get('loading') !== 'eager';
     const scriptFile = isLite
       ? '{{hash:lite.js}}'
       : isEmbed

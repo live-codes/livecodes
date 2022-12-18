@@ -52,6 +52,7 @@ import type {
   UserData,
   AppData,
   Processor,
+  APICommands,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -1554,17 +1555,20 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
 };
 
 const showVersion = () => {
-  if (getConfig().showVersion) {
-    // variables added in scripts/build.js
-    const version = process.env.VERSION || '';
-    const commitSHA = process.env.GIT_COMMIT || '';
-    const repoUrl = process.env.REPO_URL || '';
+  // variables added in scripts/build.js
+  const version = process.env.VERSION || '';
+  const commitSHA = process.env.GIT_COMMIT || '';
+  const repoUrl = process.env.REPO_URL || '';
 
-    // eslint-disable-next-line no-console
-    console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
-    // eslint-disable-next-line no-console
-    console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
-  }
+  // eslint-disable-next-line no-console
+  console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
+  // eslint-disable-next-line no-console
+  console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+
+  return {
+    version,
+    commitSHA,
+  };
 };
 
 const resizeEditors = () => {
@@ -3457,7 +3461,19 @@ const importExternalContent = async (options: {
 };
 
 const loadDefaults = async () => {
-  if (isEmbed || params['no-defaults']) return;
+  if (
+    isEmbed ||
+    params['no-defaults'] !== false ||
+    params.languages ||
+    params.template ||
+    params.config ||
+    params.active ||
+    params.activeEditor ||
+    getLanguageByAlias(params.lang) ||
+    getLanguageByAlias(params.language)
+  ) {
+    return;
+  }
   for (const param of Object.keys(params)) {
     if (getLanguageByAlias(param)) return;
   }
@@ -3585,7 +3601,6 @@ const initializeApp = async (
     initialized = true;
   });
   configureEmmet(getConfig());
-  showVersion();
 };
 
 const createApi = (): API => {
@@ -3664,7 +3679,7 @@ const createApi = (): API => {
     };
   };
 
-  const apiExec: API['exec'] = async (command: string, ...args: any[]) => {
+  const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
     if (command === 'setBroadcastToken') {
       if (isEmbed) return { error: 'Command unavailable for embeds' };
       const broadcastData = getAppData()?.broadcast;
@@ -3678,6 +3693,10 @@ const createApi = (): API => {
         },
       });
       return { output: 'Broadcast user token set successfully' };
+    }
+    if (command === 'showVersion') {
+      const output = showVersion();
+      return { output };
     }
     return { error: 'Invalid command!' };
   };

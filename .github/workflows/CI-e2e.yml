@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [17.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Test 1
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [17.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Test 2
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [17.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Test 3
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [17.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -93,7 +93,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Test 4

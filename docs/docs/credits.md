@@ -1,5 +1,7 @@
 # Credits
 
+## Services
+
 LiveCodes uses services that are generously provided by:
 
 <p>
@@ -33,4 +35,19 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 
-LiveCodes was inspired by [monacode](https://github.com/lukejacksonn/monacode/).
+## Third Party Packages
+
+Packages used by LiveCodes and their licenses are [listed here](https://github.com/live-codes/livecodes/blob/develop/vendor-licenses.md).
+
+## Prior Art
+
+Many of LiveCodes features/ideas were inspired by:
+
+- [CodePen](https://codepen.io/)
+- [JSFiddle](https://jsfiddle.net/)
+- [JS Bin](https://jsbin.com/)
+- [CodeSandbox](https://codesandbox.io/)
+- [Replit](https://replit.com/)
+- [Monacode](https://github.com/lukejacksonn/monacode/)
+
+Thank you!

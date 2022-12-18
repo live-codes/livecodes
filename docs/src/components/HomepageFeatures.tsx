@@ -43,7 +43,7 @@ const FeatureList1: FeatureItem[] = [
     description: (
       <>
         LiveCodes <strong>runs in the browser</strong>, where all the processing/transpilation
-        occurs, with <strong>no server rounds</strong> required. So, after the initial load it
+        occurs, with <strong>no server rounds</strong> required. So, after the initial load, it
         becomes pretty <strong>fast</strong>. It can be hosted on any{' '}
         <strong>static file server or CDN</strong>. No <code>npm&nbsp;install</code>s. Just the
         browser!
@@ -128,10 +128,25 @@ const FeatureList3: FeatureItem[] = [
       <>
         Projects are private by default. The code you write in LiveCodes never leaves your computer,
         unless you choose to share, export or sync it. No cookies are used. User data is stored in
-        the browser.
+        the browser. <Link to="./features/security">Security</Link> is taken seriously.
       </>
     ),
   },
+  {
+    title: 'Documentations',
+    image: './img/docs.svg',
+    description: (
+      <>
+        Comprehensive <Link to="./overview">documentations</Link> (including{' '}
+        <Link to="./api/modules">TypeScript types</Link>) for the App{' '}
+        <Link to="./features">features</Link> and the NPM package{' '}
+        <Link to="./advanced/API">API</Link>, with code samples, live demos and screenshots.
+      </>
+    ),
+  },
+];
+
+const FeatureList4: FeatureItem[] = [
   {
     title: 'Free and Open-Source',
     image: './img/oss.svg',
@@ -245,7 +260,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section>
+      <section className={styles.rowLight}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList2.map((props, idx) => (
@@ -258,6 +273,15 @@ export default function HomepageFeatures(): JSX.Element {
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList3.map((props, idx) => (
+              <Feature key={idx} {...props} />
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className={styles.rowLight}>
+        <div className="container padding-vert--lg">
+          <div className={'row ' + styles.center}>
+            {FeatureList4.map((props, idx) => (
               <Feature key={idx} {...props} />
             ))}
           </div>

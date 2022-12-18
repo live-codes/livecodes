@@ -7,22 +7,11 @@ type Context = EventContext<Env, 'id', Data>;
 
 export const onRequest: PgFunction = async function (context) {
   const { request, env } = context;
-  const url = new URL(request.url);
-
-  // oEmbed
-  const oembedUrl = encodeURIComponent(url.href);
   const originalResponse = await env.ASSETS.fetch(request);
-  const modifiedBody = (await originalResponse.text()).replace(
-    'href="https://api.livecodes.io/oembed?url=https%3A%2F%2Flivecodes.io&format=json"',
-    `href="https://api.livecodes.io/oembed?url=${oembedUrl}&format=json"`,
-  );
-  const response = new Response(modifiedBody, originalResponse);
-  const linkHeader = `<https://api.livecodes.io/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes oEmbed"`;
-  response.headers.append('Link', linkHeader);
+  const cf = (request as any).cf;
 
   // server-side analytics
-  const cf = (request as any).cf;
-  context.data = {
+  const data = {
     url: request.url,
     resource: 'app',
     method: request.method,
@@ -48,17 +37,41 @@ export const onRequest: PgFunction = async function (context) {
     'sec-fetch-mode': request.headers.get('sec-fetch-mode'),
     'sec-fetch-site': request.headers.get('sec-fetch-site'),
     'user-agent': request.headers.get('user-agent'),
-
-    ok: response.ok,
-    'content-encoding': response.headers.get('content-encoding'),
-    'content-type': response.headers.get('content-type'),
-    status: response.status,
-    statusText: response.statusText,
   };
 
-  context.waitUntil(logToAPI(context));
+  try {
+    // oEmbed
+    const url = new URL(request.url);
+    const oembedUrl = encodeURIComponent(url.href);
+    const modifiedBody = (await originalResponse.text()).replace(
+      'href="https://api.livecodes.io/oembed?url=https%3A%2F%2Flivecodes.io&format=json"',
+      `href="https://api.livecodes.io/oembed?url=${oembedUrl}&format=json"`,
+    );
+    const response = new Response(modifiedBody, originalResponse);
+    const linkHeader = `<https://api.livecodes.io/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes oEmbed"`;
+    response.headers.append('Link', linkHeader);
 
-  return response;
+    context.data = {
+      ...data,
+      ok: response.ok,
+      'content-encoding': response.headers.get('content-encoding'),
+      'content-type': response.headers.get('content-type'),
+      status: response.status,
+      statusText: response.statusText,
+    };
+
+    context.waitUntil(logToAPI(context));
+    return response;
+  } catch (err) {
+    context.data = {
+      ...data,
+      ok: false,
+      error: err.message || err,
+    };
+
+    context.waitUntil(logToAPI(context));
+    return originalResponse;
+  }
 };
 
 const logToAPI = (context: Context) => {
@@ -73,5 +86,7 @@ const logToAPI = (context: Context) => {
       type: 'analytics',
       data,
     }),
+  }).catch(() => {
+    //
   });
 };

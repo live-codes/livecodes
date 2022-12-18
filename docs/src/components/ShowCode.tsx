@@ -4,8 +4,8 @@
 import React, { useState, useRef } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import CodeBlock from '@theme/CodeBlock';
-import detailsStyles from '@docusaurus/theme-common/lib/components/Details/styles.module.css';
-import detailsStyles2 from '@docusaurus/theme-classic/src/theme/Details/styles.module.css';
+import detailsStyles from '../../node_modules/@docusaurus/theme-common/src/components/Details/styles.module.css';
+import detailsStyles2 from '../../node_modules/@docusaurus/theme-classic/src/theme/Details/styles.module.css';
 
 export default function ShowCode(props: { children: string; language: string }): JSX.Element {
   const codeBlockTitleHeight = '3.7rem';

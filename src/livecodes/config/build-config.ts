@@ -34,13 +34,40 @@ export const buildConfig = (appConfig: Partial<Config>) => {
 
   const activeEditor = config.activeEditor || 'markup';
 
-  config = {
+  config = fixLanguageNames({
     ...config,
     activeEditor,
-  };
+  });
 
   return config;
 };
+
+const fixLanguageNames = (config: Config): Config => ({
+  ...config,
+  markup: {
+    ...config.markup,
+    language: getLanguageByAlias(config.markup.language) || defaultConfig.markup.language,
+  },
+  style: {
+    ...config.style,
+    language: getLanguageByAlias(config.style.language) || defaultConfig.style.language,
+  },
+  script: {
+    ...config.script,
+    language: getLanguageByAlias(config.script.language) || defaultConfig.script.language,
+  },
+  ...(config.tests?.language
+    ? {
+        tests: {
+          ...config.tests,
+          language:
+            getLanguageByAlias(config.tests.language) ||
+            defaultConfig.tests?.language ||
+            'typescript',
+        },
+      }
+    : {}),
+});
 
 export const getParams = (queryParams = parent.location.search): UrlQueryParams => {
   const params = Object.fromEntries(new URLSearchParams(queryParams) as unknown as Iterable<any>);
@@ -57,7 +84,7 @@ export const getParams = (queryParams = parent.location.search): UrlQueryParams 
   return params;
 };
 
-export const loadParamConfig = (config: Config, params: UrlQueryParams) => {
+export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial<Config> => {
   // ?js
   // ?lang=js
   // ?language=js
@@ -154,6 +181,22 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams) => {
     paramsConfig.tags = params.tags
       .split(',')
       .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+
+  // ?stylesheets
+  if (typeof params.stylesheets === 'string') {
+    paramsConfig.stylesheets = params.stylesheets
+      .split(',')
+      .map((url) => url.trim())
+      .filter(Boolean);
+  }
+
+  // ?scripts
+  if (typeof params.scripts === 'string') {
+    paramsConfig.scripts = params.scripts
+      .split(',')
+      .map((url) => url.trim())
       .filter(Boolean);
   }
 

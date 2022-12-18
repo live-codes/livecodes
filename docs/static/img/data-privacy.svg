@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Uploaded to SVGRepo https://www.svgrepo.com -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
-<g id="data--privacy_1_">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32; stroke:currentColor; fill:currentColor; stroke-width:0.5" xml:space="preserve">
+<g>
 	<path d="M16,31.36C9.185,31.36,3.64,25.815,3.64,19V6c0-0.199,0.161-0.36,0.36-0.36c4.354,0,8.635-1.784,11.746-4.895
 		c0.141-0.141,0.368-0.141,0.509,0C19.365,3.856,23.646,5.64,28,5.64c0.199,0,0.36,0.161,0.36,0.36v13
 		C28.36,25.815,22.815,31.36,16,31.36z M4.36,6.356V19c0,6.418,5.222,11.64,11.64,11.64S27.64,25.418,27.64,19V6.356
@@ -13,5 +12,4 @@
 		C13.111,14.999,12.64,14.03,12.64,13c0-1.853,1.507-3.36,3.36-3.36s3.36,1.507,3.36,3.36c0,1.03-0.471,1.999-1.243,2.634
 		c1.968,0.83,3.243,2.703,3.243,4.866V22z"/>
 </g>
-<rect id="_Transparent_Rectangle" style="fill:none;" width="32" height="32"/>
 </svg>

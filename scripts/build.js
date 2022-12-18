@@ -1,13 +1,16 @@
 const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 const childProcess = require('child_process');
+const exec = util.promisify(require('child_process').exec);
 const vite = require('vite');
 
 const pkg = require('../package.json');
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildVendors } = require('./vendors');
+const { buildStyles } = require('./styles');
 
 const args = process.argv.slice(2);
 const devMode = args.includes('--dev');
@@ -233,14 +236,7 @@ const workersBuild = () =>
     }
   });
 
-const stylesBuild = () =>
-  new Promise((res) => {
-    const style = devMode ? 'expanded' : 'compressed';
-    childProcess.exec(
-      `npx sass src/livecodes/styles:build/livecodes --style=${style} --no-source-map=true && npx postcss build/livecodes/*.css --replace --no-map --use autoprefixer`,
-      res,
-    );
-  });
+const stylesBuild = () => buildStyles(devMode);
 
 const htmlBuild = () =>
   vite.build({

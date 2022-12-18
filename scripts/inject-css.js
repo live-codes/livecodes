@@ -4,14 +4,14 @@ var path = require('path');
 const injectCss = async () => {
   var htmlFile = 'build/index.html';
   var outDir = 'build/livecodes/';
-  const cssFile =
-    outDir +
-    (await fs.promises.readdir(outDir)).find(
-      (file) => file.startsWith('index.') && file.endsWith('.css'),
-    );
+  const cssFile = (await fs.promises.readdir(outDir)).find(
+    (file) => file.startsWith('index.') && file.endsWith('.css'),
+  );
+
+  if (!cssFile) return;
 
   var html = fs.readFileSync(path.resolve(htmlFile), 'utf8');
-  var css = fs.readFileSync(path.resolve(cssFile), 'utf8');
+  var css = fs.readFileSync(path.resolve(outDir + cssFile), 'utf8');
 
   var result = html.replace('<!-- main.css -->', `<style>\n${css}</style>`);
   fs.writeFileSync(path.resolve(htmlFile), result, 'utf8');

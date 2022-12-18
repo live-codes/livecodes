@@ -286,3 +286,11 @@ export const runOrContinue =
   };
 
 export const getFileExtension = (file: string) => file.split('.')[file.split('.').length - 1];
+
+export const isInIframe = () => {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+};
