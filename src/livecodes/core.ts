@@ -3461,7 +3461,19 @@ const importExternalContent = async (options: {
 };
 
 const loadDefaults = async () => {
-  if (isEmbed || params['no-defaults']) return;
+  if (
+    isEmbed ||
+    params['no-defaults'] !== false ||
+    params.languages ||
+    params.template ||
+    params.config ||
+    params.active ||
+    params.activeEditor ||
+    getLanguageByAlias(params.lang) ||
+    getLanguageByAlias(params.language)
+  ) {
+    return;
+  }
   for (const param of Object.keys(params)) {
     if (getLanguageByAlias(param)) return;
   }

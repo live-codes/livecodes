@@ -802,7 +802,7 @@ export type UrlQueryParams = Partial<
       processors: string; // comma-separated processors
       stylesheets: string; // comma-separated stylesheets
       scripts: string; // comma-separated scripts
-      active: EditorId;
+      active: EditorId | 0 | 1 | 2;
       tags: string | string[];
       'no-defaults': boolean;
       tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;

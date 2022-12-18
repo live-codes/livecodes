@@ -15,7 +15,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
 ## Usage
 
-- All properties of [configuration object](./configuration-object.md) and [embed options](../advanced/api.md#embed-options) that have values of primitive types (e.g. string, number, boolean) can be used as usual.
+- All properties of [configuration object](./configuration-object.md) and [embed options](../advanced/api.md#embed-options) that have values of primitive types (e.g. string, number, boolean) can be assigned to a query parameter with the same name.
 
   These include:
   [config](../advanced/api.md#config),
@@ -88,6 +88,62 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   ?languages=html,md,css,ts
   ```
 
-- Values set in the URL query parameters ovverride those set in [configuration object](./configuration-object.md).
+- Values set in the URL query parameters override those set in [configuration object](./configuration-object.md).
 
 - Unlike [user settings](../features/user-settings.md) that are set in the UI which are saved and subsequently used, those that are set in query parameters are not automatically saved.
+
+- Additional query parameters include:
+
+  - `no-defaults`: `boolean` (Default: `false`).
+
+    If `true`, the app will not load the [default template/language](../features/default-template-language.md).
+
+  - `x`: `string`.
+
+    Alias to [`import`](../advanced/api.md#import) (a URL to [import](../features/import.md)).
+
+  - `raw`: [`Language`](../api/modules/internal#language).
+
+    When used with `import` or `x`, imports the URL as code of the provided language.
+
+  - `language`: [`Language`](../api/modules/internal#language).
+
+    The language to load by default in the editor.
+
+  - `lang`: [`Language`](../api/modules/internal#language).
+
+    Alias to `language`.
+
+  - `active`: `"markup" | "style" | "script" | 0 | 1 | 2`.
+
+    Alias to [`activeEditor`](./configuration-object.md#activeEditor).
+
+  - `tools`: `"open" | "full" | "closed" | "console" | "compiled" | "tests" | "none"`
+
+    The [tools pane](../features/tools-pane.md) status.
+
+  - `console`: `"open" | "full" | "closed" | "none"`
+
+    The [console](../features/console.md) status.
+
+  - `compiled`: `"open" | "full" | "closed" | "none"`
+
+    The [compiled code viewer](../features/compiled-code.md) status.
+
+  - `tests`: `"open" | "full" | "closed" | "none"`
+
+    The [tests panel](../features/tests.md) status.
+
+  - Any [`Language`](../api/modules/internal#language) can used as a query parameter, and the value will be used as its code.
+
+    Example:
+
+    ```
+    https://livecodes.io?js=console.log('Hello World!')
+    ```
+
+:::info Examples
+For usage examples, check [unit tests](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/__tests__/build-config.spec.ts).
+:::
+
+<!-- TODO: add docs for languageSelector and ToolsStatus -->
