@@ -10,7 +10,7 @@ Use various methods to add your code like [embedded editors](./features/embeds.m
 
 ### NPM Package
 
-An npm package is available to allow easy [embedding](./features/embeds.md) of playgrouds and facilitates communication with the [API](./advanced/api.md).
+An npm package is available to allow easy [embedding](./features/embeds.md) of playgrouds and facilitates communication with the [SDK](./sdk/index.md).
 
 1. Install from npm.
 
@@ -77,7 +77,7 @@ The app needs to be served from the root of the domain/subdomain.
 
 You may wish to edit one or more of the used [services](./advanced/services.md) to use your own.
 
-The npm package can still be used with the self-hosted app by providing the [`appUrl`](./advanced/api.md#appurl) [embed option](./advanced/api.md#embed-options).
+The npm package can still be used with the self-hosted app by providing the [`appUrl`](./sdk/index.md#appurl) [embed option](./sdk/index.md#embed-options).
 
 ```js title="index.js"
 import { createPlayground } from 'livecodes';

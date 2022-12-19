@@ -28,7 +28,7 @@ The Broadcast icon (in tools pane), shows the broadcast status. Clicking the ico
 
 An open-source example implementation of an API server is available on: [live-codes/broadcast](https://github.com/live-codes/broadcast).
 
-It is a [simple implementation](https://github.com/live-codes/broadcast/blob/main/index.js), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.md) and [API](../advanced/api.md) for code broadcasting.
+It is a [simple implementation](https://github.com/live-codes/broadcast/blob/main/index.js), which you can use or extend. It makes use of LiveCodes [Embeds](./embeds.md) and [SDK](../sdk/index.md) for code broadcasting.
 
 A demo, free-to-test, instance is hosted on:
 https://livecodes-broadcast.onrender.com/ (low resources - sleeps after 15 minutes of inactivity)

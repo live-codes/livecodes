@@ -10,9 +10,9 @@ Demo:
 
 <LiveCodes template="react" lite={true}></LiveCodes>
 
-## Using API
+## Using SDK
 
-set [EmbedOptions.lite](../advanced/api.md#lite) to `true`.
+set [EmbedOptions.lite](../sdk/index.md#lite) to `true`.
 
 ```js
 import { createPlayground } from 'livecodes';

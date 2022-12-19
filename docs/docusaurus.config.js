@@ -66,9 +66,9 @@ const config = {
             label: 'Docs',
           },
           {
-            to: 'advanced/api',
+            to: 'sdk',
             position: 'left',
-            label: 'API',
+            label: 'SDK',
           },
           {
             type: 'doc',
@@ -114,6 +114,10 @@ const config = {
               {
                 label: 'Languages',
                 to: '/docs/languages',
+              },
+              {
+                label: 'SDK',
+                to: '/docs/sdk',
               },
             ],
           },
