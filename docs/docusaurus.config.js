@@ -191,7 +191,7 @@ const config = {
     [
       'docusaurus-plugin-typedoc',
       {
-        entryPoints: ['../src/lib/livecodes.ts'],
+        entryPoints: ['../src/sdk/livecodes.ts'],
         tsconfig: '../tsconfig.json',
         plugin: ['typedoc-plugin-missing-exports'],
         excludeExternals: true,

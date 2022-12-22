@@ -274,7 +274,7 @@ export const createEmbedUI = async ({
       const options = getOptions(data);
       // TODO use jsDelivr url
       return `${containerHtml}
-<script src="${appUrl + 'lib/livecodes.js'}"></script>
+<script src="${appUrl + 'sdk/livecodes.umd.js'}"></script>
 <script>
 const options = ${JSON.stringify(options, null, 2)};
 livecodes.createPlayground("#${containerId}", options);

@@ -4,7 +4,7 @@ LiveCodes (being a client-side app) uses multiple services (for example for auth
 
 These services are [defined here](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services).
 
-If you [self-host](../getting-started.md#self-hosted) your app and need to change any of these services, start by following the [guide described there](../getting-started.md#self-hosted).
+If you [self-host](../getting-started.md#self-hosting) your app and need to change any of these services, start by following the [guide described there](../getting-started.md#self-hosting).
 
 Then, edit the services you want (in `src/livecodes/services`). The used services need to have the same API.
 
