@@ -1,9 +1,7 @@
 const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 const childProcess = require('child_process');
-const exec = util.promisify(require('child_process').exec);
 const vite = require('vite');
 
 const pkg = require('../package.json');
@@ -20,7 +18,7 @@ const codemirrorVersion = `v${pkg.dependencies['codemirror']}`;
 let version, gitCommit, repoUrl;
 
 /** @param {string} dir */
-function mkdirp(dir) {
+function mkdir(dir) {
   if (!fs.existsSync(path.resolve(dir))) {
     fs.mkdirSync(path.resolve(dir));
   }
@@ -55,8 +53,9 @@ const getFileNames = async (dir) =>
   (await fs.promises.readdir(dir)).filter((name) => !fs.statSync(dir + name).isDirectory());
 
 const prepareDir = async () => {
-  mkdirp(outDir);
-  mkdirp(outDir + '/livecodes/');
+  mkdir(outDir);
+  mkdir(outDir + '/livecodes/');
+  mkdir(outDir + '/sdk/');
   const fileNames = await getFileNames(outDir + '/livecodes/');
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
 
@@ -103,70 +102,85 @@ const baseOptions = {
   external: ['@codemirror/*', '@lezer/*'],
 };
 
-const buildSDK = () => {
-  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/sdk/models.ts'));
+const sdkBuild = () => {
+  const sdkSrcDir = 'src/sdk/';
+  const sdkSrcMod = sdkSrcDir + 'index.ts';
+  const sdkOutDir = 'build/sdk/';
+
+  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve(sdkSrcDir + 'models.ts'));
+  fs.copyFileSync(path.resolve('LICENSE'), path.resolve(sdkOutDir + 'LICENSE'));
+  fs.copyFileSync(path.resolve('README.md'), path.resolve(sdkOutDir + 'README.md'));
+  fs.copyFileSync(
+    path.resolve(sdkSrcDir + 'package.sdk.json'),
+    path.resolve(sdkOutDir + 'package.json'),
+  );
 
   return Promise.all([
     esbuild.build({
       ...baseOptions,
-      entryPoints: ['src/sdk/livecodes.ts'],
+      entryPoints: [sdkSrcMod],
       outdir: undefined,
-      outfile: 'build/sdk/livecodes.js',
+      outfile: sdkOutDir + 'livecodes.js',
     }),
-    esbuild
-      .build({
-        ...baseOptions,
-        entryPoints: ['src/sdk/livecodes.ts'],
-        outdir: undefined,
-        outfile: 'build/sdk/livecodes.umd.js',
-        format: 'iife',
-        globalName: 'livecodes',
-      })
-      .then(copySDKWrappers),
+    esbuild.build({
+      ...baseOptions,
+      entryPoints: [sdkSrcMod],
+      outdir: undefined,
+      outfile: sdkOutDir + 'livecodes.cjs',
+      format: 'cjs',
+    }),
+    esbuild.build({
+      ...baseOptions,
+      entryPoints: [sdkSrcMod],
+      outdir: undefined,
+      outfile: sdkOutDir + 'livecodes.umd.js',
+      format: 'iife',
+      globalName: 'livecodes',
+    }),
+    esbuild.build({
+      ...baseOptions,
+      entryPoints: [sdkSrcDir + 'react.tsx'],
+      outdir: undefined,
+      outfile: sdkOutDir + 'react.js',
+      external: ['react'],
+    }),
   ]);
 };
 
-const copySDKWrappers = () => {
-  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('build/sdk/models.ts'));
-  fs.copyFileSync(path.resolve('src/livecodes/react.jsx'), path.resolve('build/sdk/react.jsx'));
-};
-
 const esmBuild = () =>
-  esbuild
-    .build({
-      ...baseOptions,
-      entryPoints: [
-        'app.ts',
-        'embed.ts',
-        'lite.ts',
-        'templates/starter/index.ts',
-        'editor/monaco/monaco.ts',
-        'editor/codemirror/codemirror.ts',
-        'editor/codejar/codejar.ts',
-        'editor/blockly/blockly.ts',
-        'editor/quill/quill.ts',
-        'services/firebase.ts',
-        'languages/language-info.ts',
-        'export/export.ts',
-        'sync/sync.ts',
-        'UI/open.ts',
-        'UI/assets.ts',
-        'UI/snippets.ts',
-        'UI/backup.ts',
-        'UI/broadcast.ts',
-        'UI/import.ts',
-        'UI/share.ts',
-        'UI/deploy.ts',
-        'UI/sync-ui.ts',
-        'UI/embed-ui.ts',
-        'UI/editor-settings.ts',
-        'languages/diagrams/lang-diagrams-compiler-esm.ts',
-        'languages/rescript/lang-rescript-compiler-esm.ts',
-      ]
-        .map((x) => 'src/livecodes/' + x)
-        .reduce(arrToObj, {}),
-    })
-    .then(buildSDK);
+  esbuild.build({
+    ...baseOptions,
+    entryPoints: [
+      'app.ts',
+      'embed.ts',
+      'lite.ts',
+      'templates/starter/index.ts',
+      'editor/monaco/monaco.ts',
+      'editor/codemirror/codemirror.ts',
+      'editor/codejar/codejar.ts',
+      'editor/blockly/blockly.ts',
+      'editor/quill/quill.ts',
+      'services/firebase.ts',
+      'languages/language-info.ts',
+      'export/export.ts',
+      'sync/sync.ts',
+      'UI/open.ts',
+      'UI/assets.ts',
+      'UI/snippets.ts',
+      'UI/backup.ts',
+      'UI/broadcast.ts',
+      'UI/import.ts',
+      'UI/share.ts',
+      'UI/deploy.ts',
+      'UI/sync-ui.ts',
+      'UI/embed-ui.ts',
+      'UI/editor-settings.ts',
+      'languages/diagrams/lang-diagrams-compiler-esm.ts',
+      'languages/rescript/lang-rescript-compiler-esm.ts',
+    ]
+      .map((x) => 'src/livecodes/' + x)
+      .reduce(arrToObj, {}),
+  });
 
 const iifeBuild = () =>
   esbuild.build({
@@ -259,14 +273,19 @@ const htmlBuild = () =>
   });
 
 prepareDir().then(() => {
-  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), htmlBuild()]).then(
-    async () => {
-      if (!devMode) {
-        buildVendors();
-      }
-      await applyHash(devMode);
-      await injectCss();
-      console.log('built to: ' + baseOptions.outdir + '/');
-    },
-  );
+  Promise.all([
+    esmBuild(),
+    iifeBuild(),
+    workersBuild(),
+    stylesBuild(),
+    htmlBuild(),
+    sdkBuild(),
+  ]).then(async () => {
+    if (!devMode) {
+      buildVendors();
+    }
+    await applyHash(devMode);
+    await injectCss();
+    console.log('built to: ' + baseOptions.outdir + '/');
+  });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { appUrl } from '../utils';
 /* eslint-disable import/no-internal-modules */
-import { EmbedOptions } from '../../../src/sdk/livecodes';
+import { EmbedOptions } from '../../../src/sdk';
 import LiveCodesReact from '../../../src/sdk/react';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';

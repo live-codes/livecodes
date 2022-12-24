@@ -3,7 +3,7 @@ import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from 
 export type { Code, Config, EmbedOptions, Playground };
 
 export const createPlayground = async (
-  container: string | Element,
+  container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
   const {
@@ -16,7 +16,7 @@ export const createPlayground = async (
     view = 'editor,result',
   } = options;
 
-  let containerElement: Element | null;
+  let containerElement: HTMLElement | null;
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
   } else {
@@ -103,9 +103,12 @@ export const createPlayground = async (
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
-      frame.style.border = '0';
       frame.style.height = '100%';
+      frame.style.minHeight = '200px';
       frame.style.width = '100%';
+      frame.style.margin = '0';
+      frame.style.border = '0';
+      frame.style.borderRadius = containerElement.style.borderRadius;
       frame.src = url.href;
       frame.onload = () => {
         addEventListener('message', function readyHandler(e) {

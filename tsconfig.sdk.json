@@ -39,11 +39,12 @@
     // "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     // "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
 
+    "jsx": "react",
     "lib": ["es2020", "dom", "dom.iterable"],
-    "types": ["node", "jest"],
+    "types": ["node", "jest", "react"],
     "typeRoots": ["node_modules/@types"]
   },
   "compileOnSave": true,
-  "include": ["src/sdk/**/*.ts"],
+  "include": ["src/sdk/**/*.ts", "src/sdk/**/*.tsx"],
   "exclude": ["**/node_modules/**"]
 }
