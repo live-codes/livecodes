@@ -19,6 +19,8 @@ export default function LiveCodes(props: Props) {
     if (containerRef.current) {
       createPlayground(containerRef.current, options).then((p) => {
         playground = p;
+        // eslint-disable-next-line no-console
+        console.log(playground);
       });
     }
   }, []);
