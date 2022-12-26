@@ -7,6 +7,12 @@ import type { Playground, EmbedOptions } from './models';
 import { defaultStyles } from './shared';
 import { createPlayground } from '.';
 
+type Props = {
+  [key in keyof EmbedOptions | 'class' | 'style']: PropType<
+    EmbedOptions[keyof EmbedOptions] | string | Record<string, string>
+  >;
+};
+
 const props = {
   appUrl: String as PropType<EmbedOptions['appUrl']>,
   config: [Object, String] as PropType<EmbedOptions['config']>,
@@ -15,21 +21,22 @@ const props = {
   loading: String as PropType<EmbedOptions['loading']>,
   template: String as PropType<EmbedOptions['template']>,
   view: String as PropType<EmbedOptions['view']>,
-  style: Object,
-  class: String,
-};
+  class: String as PropType<string>,
+  style: Object as PropType<Record<string, string>>,
+} satisfies Props;
 
 const LiveCodes = defineComponent({
   props,
   setup(props, context) {
-    const { style, class: className, ...options } = props;
+    const { class: className, style, ...options } = props;
     const containerRef = ref<HTMLElement>();
     let playground: Playground | undefined;
 
     onMounted(() => {
-      createPlayground(containerRef.value!, options).then((api) => {
+      if (!containerRef.value) return;
+      createPlayground(containerRef.value, options).then((api) => {
         playground = api;
-        context.emit('api', playground);
+        context.emit('api', api);
       });
     });
 
@@ -40,11 +47,11 @@ const LiveCodes = defineComponent({
     return () =>
       h('div', {
         ref: containerRef,
+        class: className,
         style: {
           ...defaultStyles,
           ...style,
         },
-        class: className,
       });
   },
 });
