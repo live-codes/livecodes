@@ -8,7 +8,7 @@ import { createPlayground } from '.';
 interface Props extends EmbedOptions {
   className?: string;
   style?: Record<string, string>;
-  getAPI: (api: Playground) => void;
+  getAPI?: (api: Playground) => void;
 }
 
 export default function LiveCodes(props: Props) {
