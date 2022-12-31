@@ -50,9 +50,11 @@ import { diagramsStarter } from './diagrams-starter';
 import { imbaStarter } from './imba-starter';
 import { jestStarter } from './jest-starter';
 import { jestReactStarter } from './jest-react-starter';
+import { javascriptStarter } from './javascript-starter';
 
 export const starterTemplates = [
   blank,
+  javascriptStarter,
   typescriptStarter,
   reactStarter,
   reactNativeStarter,
