@@ -7,7 +7,7 @@ import type { Playground, EmbedOptions } from './models';
 import { defaultStyles } from './shared';
 import { createPlayground } from '.';
 
-type Props = {
+export type Props = {
   [key in keyof EmbedOptions | 'class' | 'style']: PropType<
     EmbedOptions[keyof EmbedOptions] | string | Record<string, string>
   >;
@@ -34,9 +34,9 @@ const LiveCodes = defineComponent({
 
     onMounted(() => {
       if (!containerRef.value) return;
-      createPlayground(containerRef.value, options).then((api) => {
-        playground = api;
-        context.emit('api', api);
+      createPlayground(containerRef.value, options).then((sdk) => {
+        playground = sdk;
+        context.emit('sdk', sdk);
       });
     });
 

@@ -5,23 +5,23 @@ import { defaultStyles } from './shared';
 import type { EmbedOptions, Playground } from './models';
 import { createPlayground } from '.';
 
-interface Props extends EmbedOptions {
+export interface Props extends EmbedOptions {
   className?: string;
   style?: Record<string, string>;
-  getAPI?: (api: Playground) => void;
+  getSDK?: (sdk: Playground) => void;
 }
 
 export default function LiveCodes(props: Props) {
-  const { className, style, getAPI, ...options } = props;
+  const { className, style, getSDK, ...options } = props;
   const containerRef = useRef<HTMLDivElement | null>(null);
   let playground: Playground | undefined;
 
   useEffect(() => {
     if (!containerRef.current) return;
-    createPlayground(containerRef.current, options).then((api) => {
-      playground = api;
-      if (typeof getAPI === 'function') {
-        getAPI(api);
+    createPlayground(containerRef.current, options).then((sdk) => {
+      playground = sdk;
+      if (typeof getSDK === 'function') {
+        getSDK(sdk);
       }
     });
 
