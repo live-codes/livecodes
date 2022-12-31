@@ -28,7 +28,7 @@ export default function LiveCodes(
     ...(props.view ? { view: props.view } : {}),
   };
 
-  const code = `
+  const jsCode = `
 import { createPlayground } from 'livecodes';
 
 const options = ${JSON.stringify(options, null, 2)};
@@ -36,15 +36,35 @@ createPlayground('#container', options);
 
 `.trimStart();
 
+  const tsCode = `
+import { createPlayground, EmbedOptions } from 'livecodes';
+
+const options: EmbedOptions = ${JSON.stringify(options, null, 2)};
+createPlayground('#container', options);
+
+`.trimStart();
+
+  const reactCode = `
+import LiveCodes from 'livecodes/react';
+export default function app() {
+  const options = ${JSON.stringify(options, null, 2)};
+  return (<LiveCodes {...options}></LiveCodes>);
+}
+
+`.trimStart();
+
   return (
     <>
       <LiveCodesReact
         className={`${styles.container} ${props.className}`}
-        style={props.style}
+        style={{
+          height: '50vh',
+          ...props.style,
+        }}
         appUrl={url + props.query}
         {...props}
       ></LiveCodesReact>
-      {props.showCode !== false && <ShowCode language="js">{code}</ShowCode>}
+      {props.showCode !== false && <ShowCode js={jsCode} ts={tsCode} react={reactCode}></ShowCode>}
     </>
   );
 }

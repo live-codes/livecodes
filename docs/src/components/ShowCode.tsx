@@ -4,10 +4,12 @@
 import React, { useState, useRef } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 import detailsStyles from '../../node_modules/@docusaurus/theme-common/src/components/Details/styles.module.css';
 import detailsStyles2 from '../../node_modules/@docusaurus/theme-classic/src/theme/Details/styles.module.css';
 
-export default function ShowCode(props: { children: string; language: string }): JSX.Element {
+export default function ShowCode(props: { js: string; ts: string; react: string }): JSX.Element {
   const codeBlockTitleHeight = '3.7rem';
   const [codeCollapsed, setCodeCollapsed] = useState(true);
   const [height, setHeight] = useState(codeBlockTitleHeight);
@@ -53,7 +55,17 @@ export default function ShowCode(props: { children: string; language: string }):
               }}
             >
               <div className={detailsStyles.collapsibleContent}>
-                <CodeBlock language={props.language}>{format(props.children)}</CodeBlock>
+                <Tabs groupId="sdk-code">
+                  <TabItem value="js" label="JS">
+                    <CodeBlock language="js">{format(props.js)}</CodeBlock>
+                  </TabItem>
+                  <TabItem value="ts" label="TS">
+                    <CodeBlock language="ts">{format(props.ts)}</CodeBlock>
+                  </TabItem>
+                  <TabItem value="react" label="React">
+                    <CodeBlock language="jsx">{format(props.react)}</CodeBlock>
+                  </TabItem>
+                </Tabs>
               </div>
             </div>
           </details>
