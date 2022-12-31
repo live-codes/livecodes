@@ -3,6 +3,7 @@ import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
 const templates = [
+  'JavaScript',
   'TypeScript',
   'React',
   'Angular',
@@ -260,7 +261,7 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('ReScript Starter', async ({ page, getTestUrl }) => {
-    test.fixme();
+    // test.fixme();
 
     await page.goto(getTestUrl());
 
@@ -279,6 +280,56 @@ test.describe('Starter Templates from UI', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, ReScript React!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('Reason Starter', async ({ page, getTestUrl }) => {
+    // test.fixme();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=Reason Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, ReasonReact!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('OCaml Starter', async ({ page, getTestUrl }) => {
+    // test.fixme();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=OCaml Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, OCaml!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times');
@@ -384,22 +435,6 @@ test.describe('Starter Templates from UI', () => {
     const titleText = await getResult().innerText('p');
     expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
-
-  // test('D3 Starter', async ({ page, getTestUrl }) => {
-  //   await page.goto(getTestUrl());
-
-  //   const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-  //   await app.click('[aria-label="Menu"]');
-  //   await app.click('text=New');
-  //   await app.click('text=D3 Starter');
-  //   await waitForEditorFocus(app);
-
-  //   await waitForResultUpdate();
-
-  //   const bars = await getResult().$$('svg rect');
-  //   expect(bars.length).toBe(4);
-  // });
 
   test('Markdown Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
@@ -729,7 +764,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('ReScript Starter (in URL)', async ({ page, getTestUrl }) => {
-    test.fixme();
+    // test.fixme();
 
     await page.goto(getTestUrl({ template: 'rescript' }));
 
@@ -744,6 +779,48 @@ test.describe('Starter Templates from URL', () => {
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, Rescript React!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('Reason Starter (in URL)', async ({ page, getTestUrl }) => {
+    // test.fixme();
+
+    await page.goto(getTestUrl({ template: 'rescript' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, ReasonReact!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('OCaml Starter (in URL)', async ({ page, getTestUrl }) => {
+    // test.fixme();
+
+    await page.goto(getTestUrl({ template: 'rescript' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, OCaml!');
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times');
@@ -772,18 +849,6 @@ test.describe('Starter Templates from URL', () => {
     const titleText = await getResult().innerText('p');
     expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
-
-  // test('D3 Starter (in URL)', async ({ page, getTestUrl }) => {
-  //   await page.goto(getTestUrl({ template: 'd3' }));
-
-  //   const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-  //   await waitForEditorFocus(app);
-  //   await waitForResultUpdate();
-
-  //   const bars = await getResult().$$('svg rect');
-  //   expect(bars.length).toBe(4);
-  // });
 
   test('Markdown Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'markdown' }));
