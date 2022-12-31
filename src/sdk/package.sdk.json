@@ -21,6 +21,9 @@
     "./react": {
       "import": "./react.js"
     },
+    "./vue": {
+      "import": "./vue.js"
+    },
     "./package.json": "./package.json"
   }
 }

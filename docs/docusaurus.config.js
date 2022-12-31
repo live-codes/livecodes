@@ -186,6 +186,10 @@ const config = {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-babel.js',
       async: true,
     },
+    {
+      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-html.js',
+      async: true,
+    },
   ],
   plugins: [
     [

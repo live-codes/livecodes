@@ -144,6 +144,13 @@ const sdkBuild = () => {
       outfile: sdkOutDir + 'react.js',
       external: ['react'],
     }),
+    esbuild.build({
+      ...baseOptions,
+      entryPoints: [sdkSrcDir + 'vue.ts'],
+      outdir: undefined,
+      outfile: sdkOutDir + 'vue.js',
+      external: ['vue'],
+    }),
   ]);
 };
 

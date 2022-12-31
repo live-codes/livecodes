@@ -53,6 +53,17 @@ export default function app() {
 
 `.trimStart();
 
+  const vueCode = `
+<script setup>
+import LiveCodes from "livecodes/vue";
+const options = ${JSON.stringify(options, null, 2)};
+</script>
+<template>
+  <LiveCodes v-bind="options" />
+</template>
+
+`;
+
   return (
     <>
       <LiveCodesReact
@@ -64,7 +75,9 @@ export default function app() {
         appUrl={url + props.query}
         {...props}
       ></LiveCodesReact>
-      {props.showCode !== false && <ShowCode js={jsCode} ts={tsCode} react={reactCode}></ShowCode>}
+      {props.showCode !== false && (
+        <ShowCode js={jsCode} ts={tsCode} react={reactCode} vue={vueCode}></ShowCode>
+      )}
     </>
   );
 }
