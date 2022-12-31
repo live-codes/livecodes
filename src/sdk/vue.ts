@@ -21,26 +21,21 @@ const props = {
 
 const LiveCodes = defineComponent({
   props,
-  setup(props) {
+  setup(props, context) {
     const { style, class: className, ...options } = props;
     const containerRef = ref<HTMLElement>();
     let playground: Playground | undefined;
 
     onMounted(() => {
-      createPlayground(containerRef.value!, options).then((p) => {
-        playground = p;
-        // eslint-disable-next-line no-console
-        console.log(playground);
+      createPlayground(containerRef.value!, options).then((api) => {
+        playground = api;
+        context.emit('api', playground);
       });
     });
 
     onUnmounted(() => {
       playground?.destroy();
     });
-
-    // ctx.expose({
-    //   increment,
-    // });
 
     return () =>
       h('div', {
