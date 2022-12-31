@@ -25,6 +25,9 @@ export const rescriptStarter: Template = {
   script: {
     language: 'rescript',
     content: `
+// import npm modules
+@module("leftpad") external leftpad: int => int => string = "default"
+
 module App = {
   @react.component
   let make = (~name: string) => {
@@ -38,7 +41,9 @@ module App = {
     let times = switch count {
     | 1 => "once"
     | 2 => "twice"
-    | n => Belt.Int.toString(n) ++ " times"
+    | (n) if n < 6 =>
+        Belt.Int.toString(n) ++ " times"
+    | n => leftpad(n, 3) ++ " times"
     }
 
     <div className="container">

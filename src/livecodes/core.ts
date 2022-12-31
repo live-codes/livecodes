@@ -295,11 +295,25 @@ const loadModuleTypes = async (editors: Editors, config: Config) => {
   }
 };
 
+const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
+  const menuItems = document.querySelectorAll<HTMLElement>(
+    `.dropdown-menu-${editorId} .language-item a`,
+  );
+  menuItems.forEach((item) => {
+    if (item.dataset.lang === language) {
+      item.parentElement?.classList.add('active');
+    } else {
+      item.parentElement?.classList.remove('active');
+    }
+  });
+};
+
 const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`);
-  if (!editorTitle) return;
-  editorTitle.innerHTML =
-    languages.find((language) => language.name === getLanguageByAlias(title))?.title || '';
+  const language = getLanguageByAlias(title);
+  if (!editorTitle || !language) return;
+  editorTitle.innerHTML = languages.find((lang) => lang.name === language)?.title || '';
+  highlightSelectedLanguage(editorId, language);
 };
 
 const createCopyButtons = () => {
@@ -1092,9 +1106,9 @@ const setSavedStatus = async () => {
   }
 };
 
-const checkSavedStatus = (doNotCloseModal = false) => {
+const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
   if (isSaved || isEmbed) {
-    return Promise.resolve('is saved');
+    return Promise.resolve(true);
   }
   return new Promise((resolve) => {
     const div = document.createElement('div');
@@ -1105,24 +1119,27 @@ const checkSavedStatus = (doNotCloseModal = false) => {
       if (!doNotCloseModal) {
         modal.close();
       }
-      resolve('save');
+      resolve(true);
     });
     eventsManager.addEventListener(UI.getModalDoNotSaveButton(), 'click', () => {
       if (!doNotCloseModal) {
         modal.close();
       }
-      resolve('do not save');
+      resolve(true);
     });
     eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
       modal.close();
-      resolve('cancel');
+      resolve(false);
     });
   });
 };
 
-const checkSavedAndExecute = (fn: () => void) => async () => {
-  checkSavedStatus(true).then(() => setTimeout(fn));
-};
+const checkSavedAndExecute = (fn: () => void) => () =>
+  checkSavedStatus(true).then((confirmed) => {
+    if (confirmed) {
+      setTimeout(fn);
+    }
+  });
 
 const setProjectRecover = (reset = false) => {
   if (isEmbed) return;
