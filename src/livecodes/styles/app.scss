@@ -1114,7 +1114,7 @@ li.editor-title {
 .dropdown-menu > li {
   break-inside: avoid-column;
 
-  &:hover {
+  &:hover, &.active {
     background-color: var(--menu-hover-color);
   }
 

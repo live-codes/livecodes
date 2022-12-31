@@ -399,6 +399,7 @@ const createEditors = async (config: Config) => {
 
   (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
     const language = editorLanguages?.[editorId] || 'html';
+    highlightSelectedLanguage(editorId, language);
     applyLanguageConfigs(language);
     editors[editorId].registerFormatter(await formatter.getFormatFn(language));
     registerRun(editorId, editors);
@@ -615,6 +616,19 @@ const applyLanguageConfigs = async (language: Language) => {
   });
 };
 
+const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
+  const menuItems = document.querySelectorAll<HTMLElement>(
+    `.dropdown-menu-${editorId} .language-item a`,
+  );
+  menuItems.forEach((item) => {
+    if (item.dataset.lang === language) {
+      item.parentElement?.classList.add('active');
+    } else {
+      item.parentElement?.classList.remove('active');
+    }
+  });
+};
+
 const changeLanguage = async (language: Language, value?: string, isUpdate = false) => {
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
@@ -622,6 +636,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     notifications.info(`Loading ${getLanguageTitle(language)}. This may take a while!`);
   }
   const editor = editors[editorId];
+  highlightSelectedLanguage(editorId, language);
   editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
   if (editorLanguages) {
     editorLanguages[editorId] = language;
