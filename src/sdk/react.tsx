@@ -6,23 +6,28 @@ import type { EmbedOptions, Playground } from './models';
 import { createPlayground } from '.';
 
 interface Props extends EmbedOptions {
-  style?: Record<string, string>;
   className?: string;
+  style?: Record<string, string>;
+  getAPI: (api: Playground) => void;
 }
 
 export default function LiveCodes(props: Props) {
-  const { style, className, ...options } = props;
+  const { className, style, getAPI, ...options } = props;
   const containerRef = useRef<HTMLDivElement | null>(null);
   let playground: Playground | undefined;
 
   useEffect(() => {
-    if (containerRef.current) {
-      createPlayground(containerRef.current, options).then((p) => {
-        playground = p;
-        // eslint-disable-next-line no-console
-        console.log(playground);
-      });
-    }
+    if (!containerRef.current) return;
+    createPlayground(containerRef.current, options).then((api) => {
+      playground = api;
+      if (typeof getAPI === 'function') {
+        getAPI(api);
+      }
+    });
+
+    return () => {
+      playground?.destroy();
+    };
   }, []);
 
   return (
