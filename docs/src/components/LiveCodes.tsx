@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { appUrl } from '../utils';
-// eslint-disable-next-line import/no-internal-modules
-import { createPlayground, EmbedOptions } from '../../../src/lib/livecodes';
+/* eslint-disable import/no-internal-modules */
+import { EmbedOptions } from '../../../src/sdk/livecodes';
+import LiveCodesReact from '../../../src/sdk/react';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
 
@@ -16,18 +17,6 @@ export default function LiveCodes(
 ): JSX.Element {
   // TODO: improve this: use `new URL()` & searchParams
   const url = (props.appUrl || appUrl) + '?';
-  const containerRef = useRef(null);
-  useEffect(() => {
-    createPlayground(containerRef.current, {
-      appUrl: url + props.query,
-      config: props.config,
-      import: props.import,
-      lite: props.lite,
-      loading: props.loading,
-      template: props.template,
-      view: props.view,
-    });
-  }, []);
 
   const options = {
     ...(props.query ? { appUrl: url + props.query } : {}),
@@ -49,11 +38,12 @@ createPlayground('#container', options);
 
   return (
     <>
-      <div
-        ref={containerRef}
+      <LiveCodesReact
         className={`${styles.container} ${props.className}`}
         style={props.style}
-      ></div>
+        appUrl={url + props.query}
+        {...props}
+      ></LiveCodesReact>
       {props.showCode !== false && <ShowCode language="js">{code}</ShowCode>}
     </>
   );
