@@ -1106,9 +1106,9 @@ const setSavedStatus = async () => {
   }
 };
 
-const checkSavedStatus = (doNotCloseModal = false) => {
+const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
   if (isSaved || isEmbed) {
-    return Promise.resolve('is saved');
+    return Promise.resolve(true);
   }
   return new Promise((resolve) => {
     const div = document.createElement('div');
@@ -1119,24 +1119,27 @@ const checkSavedStatus = (doNotCloseModal = false) => {
       if (!doNotCloseModal) {
         modal.close();
       }
-      resolve('save');
+      resolve(true);
     });
     eventsManager.addEventListener(UI.getModalDoNotSaveButton(), 'click', () => {
       if (!doNotCloseModal) {
         modal.close();
       }
-      resolve('do not save');
+      resolve(true);
     });
     eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
       modal.close();
-      resolve('cancel');
+      resolve(false);
     });
   });
 };
 
-const checkSavedAndExecute = (fn: () => void) => async () => {
-  checkSavedStatus(true).then(() => setTimeout(fn));
-};
+const checkSavedAndExecute = (fn: () => void) => () =>
+  checkSavedStatus(true).then((confirmed) => {
+    if (confirmed) {
+      setTimeout(fn);
+    }
+  });
 
 const setProjectRecover = (reset = false) => {
   if (isEmbed) return;
