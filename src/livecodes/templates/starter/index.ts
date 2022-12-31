@@ -8,7 +8,6 @@ import { blank } from './blank';
 import { blocklyStarter } from './blockly-starter';
 import { bootstrapStarter } from './bootstrap-starter';
 import { coffeescriptStarter } from './coffeescript-starter';
-// import { d3Starter } from './d3-starter';
 import { goStarter } from './go-starter';
 import { jqueryStarter } from './jquery-starter';
 import { knockoutStarter } from './knockout-starter';
@@ -74,6 +73,8 @@ export const starterTemplates = [
   knockoutStarter,
   jestStarter,
   jestReactStarter,
+  bootstrapStarter,
+  tailwindcssStarter,
   coffeescriptStarter,
   livescriptStarter,
   clioStarter,
@@ -81,9 +82,6 @@ export const starterTemplates = [
   rescriptStarter,
   reasonStarter,
   ocamlStarter,
-  bootstrapStarter,
-  tailwindcssStarter,
-  // d3Starter,
   pythonStarter,
   pyodideStarter,
   rubyStarter,
