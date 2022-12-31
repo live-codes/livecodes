@@ -41,7 +41,7 @@ module App =
       ((div ~className: "container"
           ~children:[((h1 ~children: [React.string title] ())[@JSX ]);
                     ((img ~className: "logo"
-                        ~src: "http://127.0.0.1:8080/livecodes/assets/templates/ocaml.svg"
+                        ~src: "{{ __livecodes_baseUrl__ }}assets/templates/ocaml.svg"
                         ~children:[] ())[@JSX ]);
                     ((p
                         ~children:[React.string ("You clicked "
