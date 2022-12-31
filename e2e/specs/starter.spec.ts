@@ -261,7 +261,7 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('ReScript Starter', async ({ page, getTestUrl }) => {
-    // test.fixme();
+    test.fixme();
 
     await page.goto(getTestUrl());
 
@@ -286,7 +286,7 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('Reason Starter', async ({ page, getTestUrl }) => {
-    // test.fixme();
+    test.fixme();
 
     await page.goto(getTestUrl());
 
@@ -311,7 +311,7 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('OCaml Starter', async ({ page, getTestUrl }) => {
-    // test.fixme();
+    test.fixme();
 
     await page.goto(getTestUrl());
 
@@ -764,7 +764,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('ReScript Starter (in URL)', async ({ page, getTestUrl }) => {
-    // test.fixme();
+    test.fixme();
 
     await page.goto(getTestUrl({ template: 'rescript' }));
 
@@ -785,7 +785,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Reason Starter (in URL)', async ({ page, getTestUrl }) => {
-    // test.fixme();
+    test.fixme();
 
     await page.goto(getTestUrl({ template: 'rescript' }));
 
@@ -806,7 +806,7 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('OCaml Starter (in URL)', async ({ page, getTestUrl }) => {
-    // test.fixme();
+    test.fixme();
 
     await page.goto(getTestUrl({ template: 'rescript' }));
 
