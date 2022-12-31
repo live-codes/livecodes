@@ -24,6 +24,7 @@ import { reactNativeStarter } from './react-native-starter';
 import { reactStarter } from './react-starter';
 import { markdownStarter } from './markdown-starter';
 import { rescriptStarter } from './rescript-starter';
+import { reasonStarter } from './reason-starter';
 import { riotStarter } from './riot-starter';
 import { rubyStarter } from './ruby-starter';
 import { schemeStarter } from './scheme-starter';
@@ -75,6 +76,7 @@ export const starterTemplates = [
   clioStarter,
   imbaStarter,
   rescriptStarter,
+  reasonStarter,
   bootstrapStarter,
   tailwindcssStarter,
   // d3Starter,
