@@ -150,6 +150,9 @@ const sdkBuild = () => {
       outdir: undefined,
       outfile: sdkOutDir + 'vue.js',
       external: ['vue'],
+      alias: {
+        '@vue/runtime-core': 'vue',
+      },
     }),
   ]);
 };
