@@ -1,14 +1,14 @@
-# API
+# JS/TS SDK
 
-The [library](../getting-started.md#npm-package) provides an API for [embedding](./../features/embeds.md) and communicating with playgrounds.
+The [library](../getting-started.md#npm-package) provides an SDK for [embedding](./../features/embeds.md) and communicating with playgrounds.
 
-In the full [standalone app](../getting-started.md#hosted-app), this API is accessible under the global variable `livecodes`, which can be interacted with in the browser console.
+In the full [standalone app](../getting-started.md#hosted-app), the SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
 
-## API Demo
+## SDK Demo
 
-A demo page that shows the usage of the API can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
+A demo page that shows the usage of the SDK can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
 
-Or [edit the API demo in LiveCodes](https://livecodes.io/?x=id/y4wxj92fq6j). How meta! :)
+Or [edit the SDK demo in LiveCodes](https://livecodes.io/?x=id/y4wxj92fq6j). How meta! :)
 
 ## TypeScript Types
 
@@ -27,7 +27,7 @@ The library exports the function `createPlayground` which takes 2 arguments:
 - `container` (required): HTMLElement or a string representing a CSS selector.
 - `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
-The `createPlayground` function return a promise which resolves to an object that exposes the API methods ([Playground](../api/interfaces/Playground.md)).
+The `createPlayground` function return a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
 
 ```ts
 import { createPlayground, EmbedOptions } from 'livecodes';
@@ -43,7 +43,7 @@ const options: EmbedOptions = {
 };
 
 createPlayground('#container', options).then((playground) => {
-  // `playground` object exposes the API methods
+  // `playground` object exposes the SDK methods
   // e.g. playground.run()
 });
 ```
@@ -108,7 +108,7 @@ Default: `"editor,result"`
 
 The [default view](../features/default-view.md) for the playground.
 
-## API Methods
+## SDK Methods
 
 ([`Playground`](../api/interfaces/Playground.md))
 
@@ -117,7 +117,7 @@ The [default view](../features/default-view.md) for the playground.
 Type: [`() => Promise<void>`](../api/interfaces/Playground.md#load)
 
 When the embed option `loading` is set to `click`, the playground is not loaded automatically. Instead, a screen is shown with "Click to load" button.
-Calling the API method `load()` allows loading the playground.
+Calling the SDK method `load()` allows loading the playground.
 
 If the playground was not loaded, calling any other method will load the playground first before executing.
 
@@ -331,7 +331,7 @@ await livecodes.exec('showVersion');
 
 Type: [`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
 
-Destoys the playground instance, and removes event listeners. Further call to any API methods throws an error.
+Destoys the playground instance, and removes event listeners. Further call to any SDK methods throws an error.
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -339,6 +339,6 @@ import { createPlayground } from 'livecodes';
 createPlayground('#container').then(async (playground) => {
   await playground.destroy();
   // playground destroyed
-  // any further API call throws an error
+  // any further SDK call throws an error
 });
 ```

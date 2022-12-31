@@ -116,8 +116,8 @@ const FeatureList3: FeatureItem[] = [
         LiveCodes is highly <Link to="./configuration">configurable</Link>. Lots of features can be
         configured by URL <Link to="./configuration/query-params">query params</Link>. The{' '}
         <Link to="./getting-started#npm-package">npm package</Link> facilitates{' '}
-        <Link to="./features/embeds">embedding</Link> playgrounds. Embedded playgrounds expose a
-        rich <Link to="./advanced/api">API</Link> to communicate with embedding pages.
+        <Link to="./features/embeds">embedding</Link> playgrounds. A rich{' '}
+        <Link to="./sdk/">SDK</Link> allows embedding pages to communicate with the playgrounds.
       </>
     ),
   },
@@ -138,9 +138,9 @@ const FeatureList3: FeatureItem[] = [
     description: (
       <>
         Comprehensive <Link to="./overview">documentations</Link> (including{' '}
-        <Link to="./api/modules">TypeScript types</Link>) for the App{' '}
-        <Link to="./features">features</Link> and the NPM package{' '}
-        <Link to="./advanced/API">API</Link>, with code samples, live demos and screenshots.
+        <Link to="./api/modules">TypeScript types</Link>) for App{' '}
+        <Link to="./features">features</Link> and <Link to="./sdk">SDK</Link>, with code samples,
+        live demos and screenshots.
       </>
     ),
   },

@@ -85,17 +85,21 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'SDK',
+          link: {
+            type: 'doc',
+            id: 'sdk/index',
+          },
+          items: ['sdk/index'],
+        },
+        {
+          type: 'category',
           label: 'Advanced',
           link: {
             type: 'doc',
-            id: 'advanced/api',
+            id: 'advanced/custom-settings',
           },
-          items: [
-            'advanced/api',
-            'advanced/custom-settings',
-            'advanced/services',
-            'advanced/data-collection',
-          ],
+          items: ['advanced/custom-settings', 'advanced/services', 'advanced/data-collection'],
         },
         'credits',
         'license',
