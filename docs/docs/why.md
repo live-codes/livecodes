@@ -37,7 +37,7 @@ Being client-side allows the app to be hosted on any static file server or CDN, 
 
 LiveCodes aims to be a feature-rich, easy to use playground that can be used for prototyping and education. The other main goal (in fact, that was the motive for its development), is to allow library developers to use it for the documentation of their libraries and as a showcase for their products. This can be achieved by [embedding playgrounds](./features/embeds.md) in documentation and educational websites. In addition, private (unpublished) modules can be imported with editor auto-completion and [intellisense](./features/intellisense.md).
 
-That can be done using the hosted app ([livecodes.io](https://livecodes.io)), or as a [self-hosted](./getting-started.md#self-hosted) option. Again, being a client-side only app, LiveCodes becomes more convenient for not needing special server requirements, while features like export and deploy are provided by APIs of external services.
+That can be done using the hosted app ([livecodes.io](https://livecodes.io)), or as a [self-hosted](./getting-started.md#self-hosting) option. Again, being a client-side only app, LiveCodes becomes more convenient for not needing special server requirements, while features like export and deploy are provided by APIs of external services.
 
 LiveCodes does NOT aim to be a social coding platform. It will stay as a backendless developer tool. Other platforms are already doing a great job in this regards.
 
@@ -57,7 +57,7 @@ Of course, the app can be still used as a REPL with the output seen in the integ
 
 ### Powerful SDK
 
-The LiveCodes app ([hosted](./getting-started.md#hosted-app) or [self-hosted](./getting-started.md#self-hosted)) can be [embedded](./features/embeds.md) in any web page. The provided [library](./getting-started.md#npm-package) provides a powerful [SDK](./sdk/index.md) that allows the embedding page to interact with the playground (e.g. run, get/set source code, format, get result page or compiled code, get share URL, listen to changes, run tests, get test results, change layout, etc.). This enables other apps to be built on top of LiveCodes.
+The LiveCodes app ([hosted](./getting-started.md#hosted-app) or [self-hosted](./getting-started.md#self-hosting)) can be [embedded](./features/embeds.md) in any web page. The provided [library](./getting-started.md#npm-package) provides a powerful [SDK](./sdk/index.md) that allows the embedding page to interact with the playground (e.g. run, get/set source code, format, get result page or compiled code, get share URL, listen to changes, run tests, get test results, change layout, etc.). This enables other apps to be built on top of LiveCodes.
 
 Your imagination is the limit!
 

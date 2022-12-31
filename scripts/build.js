@@ -103,25 +103,32 @@ const baseOptions = {
   external: ['@codemirror/*', '@lezer/*'],
 };
 
-const buildLibrary = () => {
-  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/lib/models.ts'));
+const buildSDK = () => {
+  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('src/sdk/models.ts'));
 
   return Promise.all([
     esbuild.build({
       ...baseOptions,
-      entryPoints: ['src/lib/livecodes.ts'],
+      entryPoints: ['src/sdk/livecodes.ts'],
       outdir: undefined,
-      outfile: 'build/lib/livecodes.esm.js',
+      outfile: 'build/sdk/livecodes.js',
     }),
-    esbuild.build({
-      ...baseOptions,
-      entryPoints: ['src/lib/livecodes.ts'],
-      outdir: undefined,
-      outfile: 'build/lib/livecodes.js',
-      format: 'iife',
-      globalName: 'livecodes',
-    }),
+    esbuild
+      .build({
+        ...baseOptions,
+        entryPoints: ['src/sdk/livecodes.ts'],
+        outdir: undefined,
+        outfile: 'build/sdk/livecodes.umd.js',
+        format: 'iife',
+        globalName: 'livecodes',
+      })
+      .then(copySDKWrappers),
   ]);
+};
+
+const copySDKWrappers = () => {
+  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve('build/sdk/models.ts'));
+  fs.copyFileSync(path.resolve('src/livecodes/react.jsx'), path.resolve('build/sdk/react.jsx'));
 };
 
 const esmBuild = () =>
@@ -159,7 +166,7 @@ const esmBuild = () =>
         .map((x) => 'src/livecodes/' + x)
         .reduce(arrToObj, {}),
     })
-    .then(buildLibrary);
+    .then(buildSDK);
 
 const iifeBuild = () =>
   esbuild.build({
