@@ -7,11 +7,12 @@ import { createPlayground } from '.';
 export interface Props extends EmbedOptions {
   className?: string;
   style?: Record<string, string>;
+  height?: string;
   getSDK?: (sdk: Playground) => void;
 }
 
 export default function LiveCodes(props: Props) {
-  const { className, style, getSDK, ...options } = props;
+  const { className, style, height, getSDK, ...options } = props;
   const containerRef = useRef<HTMLDivElement | null>(null);
   let playground: Playground | undefined;
 
@@ -29,5 +30,5 @@ export default function LiveCodes(props: Props) {
     };
   });
 
-  return <div ref={containerRef} className={className} style={style}></div>;
+  return <div ref={containerRef} className={className} style={style} data-height={height}></div>;
 }

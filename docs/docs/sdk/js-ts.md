@@ -1,14 +1,18 @@
-# JS/TS SDK
+---
+title: JS/TS SDK
+---
 
-The [library](../getting-started.md#npm-package) provides an SDK for [embedding](./../features/embeds.md) and communicating with playgrounds.
+# JavaScript/<wbr />TypeScript SDK
 
-In the full [standalone app](../getting-started.md#hosted-app), the SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
+## Installation
 
-## SDK Demo
+Please refer to the [SDK installation](./index.md#installation) section.
 
-A demo page that shows the usage of the SDK can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
+:::info
 
-Or [edit the SDK demo in LiveCodes](https://livecodes.io/?x=id/y4wxj92fq6j). How meta! :)
+In the full [standalone app](../getting-started.md#hosted-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
+
+:::
 
 ## TypeScript Types
 
@@ -50,11 +54,13 @@ createPlayground('#container', options).then((playground) => {
 
 ## Embed Options
 
-The secong argument of the `createPlayground` function is an optional object with the following optional properties ([EmbedOptions](../api/interfaces/EmbedOptions.md)):
+Type: [`EmbedOptions`](../api/interfaces/EmbedOptions.md)
+
+The secong argument of the `createPlayground` function is an optional object with the following optional properties:
 
 ### `appUrl`
 
-Type: [`string`](../api/interfaces/EmbedOptions#appurl)
+Type: [`string`](../api/interfaces/EmbedOptions.md#appurl)
 
 Default: `"https://livecodes.io/"`
 
@@ -62,7 +68,7 @@ Allows the library to load the playground from a custom URL (e.g. [hosted app](.
 
 ### `config`
 
-Type: [`string | Partial<Config>`](../api/interfaces/EmbedOptions#config)
+Type: [`string | Partial<Config>`](../api/interfaces/EmbedOptions.md#config)
 
 Default: `{}`
 
@@ -70,13 +76,13 @@ A [configuration object](../configuration/configuration-object.md) or a URL to a
 
 ### `import`
 
-Type: [`string`](../api/interfaces/EmbedOptions#import)
+Type: [`string`](../api/interfaces/EmbedOptions.md#import)
 
 A URL to [import](../features/import.md).
 
 ### `lite`
 
-Type: [`boolean`](../api/interfaces/EmbedOptions#lite)
+Type: [`boolean`](../api/interfaces/EmbedOptions.md#lite)
 
 Default: `false`
 
@@ -84,7 +90,7 @@ If `true`, the playground is loaded in [lite mode](../features/lite.md).
 
 ### `loading`
 
-Type: [`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions#loading)
+Type: [`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions.md#loading)
 
 Default: `"lazy"`
 
@@ -96,13 +102,13 @@ Default: `"lazy"`
 
 ### `template`
 
-Type: [`string`](../api/interfaces/EmbedOptions#template)
+Type: [`string`](../api/interfaces/EmbedOptions.md#template)
 
 A [starter template](../features/templates.md) to load.
 
 ### `view`
 
-Type: [`"editor" | "result" | "editor,result"`](../api/interfaces/EmbedOptions#view)
+Type: [`"editor" | "result" | "editor,result"`](../api/interfaces/EmbedOptions.md#view)
 
 Default: `"editor,result"`
 
@@ -110,7 +116,7 @@ The [default view](../features/default-view.md) for the playground.
 
 ## SDK Methods
 
-([`Playground`](../api/interfaces/Playground.md))
+Type: ([`Playground`](../api/interfaces/Playground.md))
 
 ### `load`
 
@@ -341,4 +347,34 @@ createPlayground('#container').then(async (playground) => {
   // playground destroyed
   // any further SDK call throws an error
 });
+```
+
+## Styles
+
+### Default Styles
+
+By default, the container element is styled when the SDK is initialized (including width, height, border, etc.). To disable default styles set the attribute `data-default-styles` to `"false"` before initializing.
+
+Example:
+
+```html
+<div id="container" data-default-styles="false" class="custom"></div>
+<script type="module">
+  import { createPlayground } from 'livecodes';
+  createPlayground('#container');
+</script>
+```
+
+### Height
+
+By default, the playground container height is set to `"300px"`. To change the height, either disable the default styles and override them, or simply set the `data-height` attribute to a number (in pixels) or any valid CSS value (e.g. `"100%"` to take the full height of its parent element).
+
+Example:
+
+```html
+<div id="container" data-height="500"></div>
+<script type="module">
+  import { createPlayground } from 'livecodes';
+  createPlayground('#container');
+</script>
 ```

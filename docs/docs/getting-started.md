@@ -10,7 +10,7 @@ The app is packed with [features](./features/index.md) and offers various ways t
 
 ### SDK
 
-LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) of playgrouds and facilitates communication with them.
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) and communication with playgrouds.
 
 1. Install from npm.
 
@@ -33,7 +33,7 @@ ESM:
 ```html title="index.html"
 <div id="container"></div>
 <script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes/sdk/livecodes.js';
+  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
 
   createPlayground('#container', { template: 'react' });
 </script>
@@ -43,14 +43,14 @@ UMD:
 
 ```html title="index.html"
 <div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/livecodes/sdk/livecodes.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js"></script>
 <script>
   // the UMD version provides the global object `livecodes`
   livecodes.createPlayground('#container', { template: 'react' });
 </script>
 ```
 
-Please refer to [SDK documentation](./sdk/index.md) for detailed usage.
+Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
 
 ### Self-Hosting
 

@@ -94,11 +94,13 @@ export const createPlayground = async (
         containerElement.style.height = cssHeight;
       }
       if (containerElement.dataset.defaultStyles !== 'false') {
-        containerElement.style.border = '1px solid black';
-        containerElement.style.borderRadius = '5px';
-        containerElement.style.height = containerElement.style.height || '300px';
-        containerElement.style.width = '100%';
-        containerElement.style.padding = '0';
+        containerElement.style.border ||= '1px solid black';
+        containerElement.style.borderRadius ||= '5px';
+        containerElement.style.padding ||= '0';
+        containerElement.style.width ||= '100%';
+        containerElement.style.height ||= containerElement.style.height || '300px';
+        containerElement.style.overflow ||= 'hidden';
+        containerElement.style.resize ||= 'vertical';
       }
 
       const frame = document.createElement('iframe');
