@@ -37,7 +37,7 @@ createPlayground('#container', options);
 `.trimStart();
 
   const tsCode = `
-import { createPlayground, EmbedOptions } from 'livecodes';
+import { createPlayground, type EmbedOptions } from 'livecodes';
 
 const options: EmbedOptions = ${JSON.stringify(options, null, 2)};
 createPlayground('#container', options);
