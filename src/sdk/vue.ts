@@ -4,7 +4,6 @@
 import { h, onMounted, onUnmounted, ref, defineComponent, type PropType } from '@vue/runtime-core';
 
 import type { Playground, EmbedOptions } from './models';
-import { defaultStyles } from './shared';
 import { createPlayground } from '.';
 
 export type Props = {
@@ -48,10 +47,7 @@ const LiveCodes = defineComponent({
       h('div', {
         ref: containerRef,
         class: className,
-        style: {
-          ...defaultStyles,
-          ...style,
-        },
+        style,
       });
   },
 });

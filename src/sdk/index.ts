@@ -88,6 +88,19 @@ export const createPlayground = async (
     new Promise<HTMLIFrameElement>((resolve) => {
       if (!containerElement) return;
 
+      const height = containerElement.dataset.height || containerElement.style.height;
+      if (height) {
+        const cssHeight = isNaN(Number(height)) ? height : height + 'px';
+        containerElement.style.height = cssHeight;
+      }
+      if (containerElement.dataset.defaultStyles !== 'false') {
+        containerElement.style.border = '1px solid black';
+        containerElement.style.borderRadius = '5px';
+        containerElement.style.height = containerElement.style.height || '300px';
+        containerElement.style.width = '100%';
+        containerElement.style.padding = '0';
+      }
+
       const frame = document.createElement('iframe');
       frame.setAttribute(
         'allow',

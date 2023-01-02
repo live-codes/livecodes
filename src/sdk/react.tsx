@@ -1,7 +1,6 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import React, { useEffect, useRef } from 'react';
-import { defaultStyles } from './shared';
 import type { EmbedOptions, Playground } from './models';
 import { createPlayground } from '.';
 
@@ -28,9 +27,7 @@ export default function LiveCodes(props: Props) {
     return () => {
       playground?.destroy();
     };
-  }, []);
+  });
 
-  return (
-    <div ref={containerRef} className={className} style={{ ...defaultStyles, ...style }}></div>
-  );
+  return <div ref={containerRef} className={className} style={style}></div>;
 }

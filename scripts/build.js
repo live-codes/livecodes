@@ -115,22 +115,28 @@ const sdkBuild = () => {
     path.resolve(sdkOutDir + 'package.json'),
   );
 
+  const sdkOptions = {
+    ...baseOptions,
+    target: 'es2018',
+    outdir: undefined,
+  };
+
   return Promise.all([
     esbuild.build({
-      ...baseOptions,
+      ...sdkOptions,
       entryPoints: [sdkSrcMod],
       outdir: undefined,
       outfile: sdkOutDir + 'livecodes.js',
     }),
     esbuild.build({
-      ...baseOptions,
+      ...sdkOptions,
       entryPoints: [sdkSrcMod],
       outdir: undefined,
       outfile: sdkOutDir + 'livecodes.cjs',
       format: 'cjs',
     }),
     esbuild.build({
-      ...baseOptions,
+      ...sdkOptions,
       entryPoints: [sdkSrcMod],
       outdir: undefined,
       outfile: sdkOutDir + 'livecodes.umd.js',
@@ -138,14 +144,14 @@ const sdkBuild = () => {
       globalName: 'livecodes',
     }),
     esbuild.build({
-      ...baseOptions,
+      ...sdkOptions,
       entryPoints: [sdkSrcDir + 'react.tsx'],
       outdir: undefined,
       outfile: sdkOutDir + 'react.js',
       external: ['react'],
     }),
     esbuild.build({
-      ...baseOptions,
+      ...sdkOptions,
       entryPoints: [sdkSrcDir + 'vue.ts'],
       outdir: undefined,
       outfile: sdkOutDir + 'vue.js',
