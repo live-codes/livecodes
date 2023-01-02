@@ -1,39 +1,41 @@
 // '@vue/runtime-core' is used for type definitions,
 // and is replaced by external dependency 'vue' during build
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { h, onMounted, onUnmounted, ref, defineComponent, type PropType } from '@vue/runtime-core';
+import { h, onMounted, onUnmounted, ref, DefineComponent } from '@vue/runtime-core';
 
 import type { Playground, EmbedOptions } from './models';
 import { createPlayground } from '.';
 
-export type Props = {
-  [key in keyof EmbedOptions | 'class' | 'style']: PropType<
-    EmbedOptions[keyof EmbedOptions] | string | Record<string, string>
-  >;
-};
+export interface Props extends EmbedOptions {
+  class?: string;
+  style?: Record<string, string>;
+  height?: string;
+}
 
 const props = {
-  appUrl: String as PropType<EmbedOptions['appUrl']>,
-  config: [Object, String] as PropType<EmbedOptions['config']>,
-  import: String as PropType<EmbedOptions['import']>,
-  lite: Boolean as PropType<EmbedOptions['lite']>,
-  loading: String as PropType<EmbedOptions['loading']>,
-  template: String as PropType<EmbedOptions['template']>,
-  view: String as PropType<EmbedOptions['view']>,
-  class: String as PropType<string>,
-  style: Object as PropType<Record<string, string>>,
-} satisfies Props;
+  appUrl: String,
+  config: [Object, String],
+  import: String,
+  lite: Boolean,
+  loading: String,
+  template: String,
+  view: String,
+  class: String,
+  style: Object,
+  height: String,
+} satisfies { [key in keyof Required<Props>]: any };
 
-const LiveCodes = defineComponent({
+// @ts-ignore
+const LiveCodes: DefineComponent<Props> = {
   props,
   setup(props, context) {
-    const { class: className, style, ...options } = props;
+    const { class: className, style, height, ...options } = props;
     const containerRef = ref<HTMLElement>();
     let playground: Playground | undefined;
 
     onMounted(() => {
       if (!containerRef.value) return;
-      createPlayground(containerRef.value, options).then((sdk) => {
+      createPlayground(containerRef.value, options as EmbedOptions).then((sdk) => {
         playground = sdk;
         context.emit('sdk', sdk);
       });
@@ -42,14 +44,14 @@ const LiveCodes = defineComponent({
     onUnmounted(() => {
       playground?.destroy();
     });
-
     return () =>
       h('div', {
         ref: containerRef,
         class: className,
         style,
+        'data-height': height,
       });
   },
-});
+};
 
 export default LiveCodes;
