@@ -12,7 +12,7 @@ Demo:
 
 ## Using SDK
 
-set [EmbedOptions.lite](../sdk/index.md#lite) to `true`.
+set [EmbedOptions.lite](../sdk/js-ts.md#lite) to `true`.
 
 ```js
 import { createPlayground } from 'livecodes';

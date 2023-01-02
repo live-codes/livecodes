@@ -3,7 +3,7 @@
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 A flexible and convient way to configure the app is to use URL query parameters.
-It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.md) and [embed options](../sdk/index.md#embed-options).
+It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.md) and [embed options](../sdk/js-ts.md#embed-options).
 
 Example:
 
@@ -15,15 +15,15 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
 ## Usage
 
-- All properties of [configuration object](./configuration-object.md) and [embed options](../sdk/index.md#embed-options) that have values of primitive types (e.g. string, number, boolean) can be assigned to a query parameter with the same name.
+- All properties of [configuration object](./configuration-object.md) and [embed options](../sdk/js-ts.md#embed-options) that have values of primitive types (e.g. string, number, boolean) can be assigned to a query parameter with the same name.
 
   These include:
-  [config](../sdk/index.md#config),
-  [import](../sdk/index.md#import),
-  [lite](../sdk/index.md#lite),
-  [loading](../sdk/index.md#loading),
-  [template](../sdk/index.md#template),
-  [view](../sdk/index.md#view),
+  [config](../sdk/js-ts.md#config),
+  [import](../sdk/js-ts.md#import),
+  [lite](../sdk/js-ts.md#lite),
+  [loading](../sdk/js-ts.md#loading),
+  [template](../sdk/js-ts.md#template),
+  [view](../sdk/js-ts.md#view),
   [title](./configuration-object.md#title),
   [description](./configuration-object.md#description),
   [activeEditor](./configuration-object.md#activeEditor),
@@ -100,7 +100,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
   - `x`: `string`.
 
-    Alias to [`import`](../sdk/index.md#import) (a URL to [import](../features/import.md)).
+    Alias to [`import`](../sdk/js-ts.md#import) (a URL to [import](../features/import.md)).
 
   - `raw`: [`Language`](../api/modules/internal#language).
 

@@ -90,7 +90,7 @@ const sidebars = {
             type: 'doc',
             id: 'sdk/index',
           },
-          items: ['sdk/index'],
+          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue'],
         },
         {
           type: 'category',

@@ -79,7 +79,7 @@ The app needs to be served from the root of the domain/subdomain.
 
 You may wish to edit one or more of the used [services](./advanced/services.md) to use your own.
 
-The [SDK](./sdk/index.md) can still be used with the self-hosted app by providing the [`appUrl`](./sdk/index.md#appurl) [embed option](./sdk/index.md#embed-options).
+The [SDK](./sdk/index.md) can still be used with the self-hosted app by providing the [`appUrl`](./sdk/js-ts.md#appurl) [embed option](./sdk/js-ts.md#embed-options).
 
 ```js title="index.js"
 import { createPlayground } from 'livecodes';

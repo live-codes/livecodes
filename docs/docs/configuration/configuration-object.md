@@ -282,7 +282,7 @@ Type: `Readonly` [`string`](../api/interfaces/Config#description)
 
 Default: Current LiveCodes Version.
 
-This is a read-only property which specifies the current LiveCodes version. It can be shown using the SDK [`exec`](../sdk/index.md#exec) method.
+This is a read-only property which specifies the current LiveCodes version. It can be shown using the SDK [`exec`](../sdk/js-ts.md#exec) method.
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)

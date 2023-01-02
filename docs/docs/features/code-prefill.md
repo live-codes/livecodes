@@ -6,11 +6,11 @@ There are many ways to pre-fill code into playgrounds. This is generally achieve
 
 ## Prefill using SDK
 
-When creating an embeded playground, the following [embed options](../sdk/index.md#embed-options) allow prefill with code:
+When creating an embeded playground, the following [embed options](../sdk/js-ts.md#embed-options) allow prefill with code:
 
 ### config
 
-[EmbedOptions.config](../sdk/index.md#config)
+[EmbedOptions.config](../sdk/js-ts.md#config)
 
 loads a [configuration object](../configuration/configuration-object.md) (or a URL to JSON file represention the configuration object)
 
@@ -18,7 +18,7 @@ loads a [configuration object](../configuration/configuration-object.md) (or a U
 
 ### import
 
-[EmbedOptions.import](../sdk/index.md#import)
+[EmbedOptions.import](../sdk/js-ts.md#import)
 
 allows [importing](./import.md) from many sources.
 
@@ -34,7 +34,7 @@ Import shared project:
 
 ### template
 
-[EmbedOptions.template](../sdk/index.md#template)
+[EmbedOptions.template](../sdk/js-ts.md#template)
 
 loads one of the [starter templates](./templates.md).
 
