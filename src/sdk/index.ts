@@ -99,6 +99,7 @@ export const createPlayground = async (
         containerElement.style.padding ||= '0';
         containerElement.style.width ||= '100%';
         containerElement.style.height ||= containerElement.style.height || '300px';
+        containerElement.style.minHeight = '200px';
         containerElement.style.overflow ||= 'hidden';
         containerElement.style.resize ||= 'vertical';
       }
