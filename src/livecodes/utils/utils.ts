@@ -294,3 +294,6 @@ export const isInIframe = () => {
     return true;
   }
 };
+
+export const indentCode = (code: string, spaces: number, skipFirstLine = true) =>
+  (skipFirstLine ? '' : ' '.repeat(spaces)) + code.split('\n').join('\n' + ' '.repeat(spaces));

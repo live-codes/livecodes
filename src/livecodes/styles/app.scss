@@ -2038,7 +2038,7 @@ i.arrow {
     #embed-preview-container {
       align-items: center;
       border: 1px solid black;
-      border-radius: 3px;
+      border-radius: 5px;
       display: flex;
       height: 300px;
       justify-content: center;
@@ -2048,6 +2048,7 @@ i.arrow {
 
     #embed-preview-iframe {
       border: 0;
+      border-radius: 5px;
       height: 100%;
       width: 100%;
     }

@@ -46,7 +46,7 @@ createPlayground('#container', options);
 
   const reactCode = `
 import LiveCodes from 'livecodes/react';
-export default function app() {
+export default function App() {
   const options = ${JSON.stringify(options, null, 2)};
   return (<LiveCodes {...options}></LiveCodes>);
 }

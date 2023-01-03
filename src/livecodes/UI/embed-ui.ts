@@ -5,7 +5,7 @@ import type { CodeEditor, ContentConfig, EditorId } from '../models';
 import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
-import { cloneObject, copyToClipboard, encodeHTML, escapeCode } from '../utils';
+import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
 
 export const createEmbedUI = async ({
   baseUrl,
@@ -137,6 +137,8 @@ export const createEmbedUI = async ({
       options: [
         { label: 'Script (CDN)', value: 'cdn', checked: true },
         { label: 'Script (npm)', value: 'npm' },
+        { label: 'React', value: 'react' },
+        { label: 'Vue', value: 'vue' },
         { label: 'Iframe', value: 'iframe' },
         { label: 'HTML', value: 'html' },
       ],
@@ -210,9 +212,11 @@ export const createEmbedUI = async ({
   const getContainerId = () => 'livecodes-' + (Math.random() + 1).toString(36).substring(2);
 
   const getContainerHtml = (id: string) =>
-    `<div id="${id}" style="height:300px; box-sizing: border-box; border:1px solid black; border-radius:3px; display:flex; align-items:center; justify-content:center; margin: 1em 0;">
-  <span>See the project <a href="${url}" target="_blank">${title}</a> on <a href="${appUrl}" target="_blank">LiveCodes</a></span>
-</div>`;
+    `
+<div id="${id}">
+  <span>Open the project <a href="${url}" target="_blank">${title}</a> in <a href="${appUrl}" target="_blank">LiveCodes</a></span>
+</div>
+`.trimStart();
 
   const getOptions = (data: FormData) => {
     const config = {
@@ -272,26 +276,59 @@ export const createEmbedUI = async ({
       const containerId = getContainerId();
       const containerHtml = getContainerHtml(containerId);
       const options = getOptions(data);
+      const formatted = JSON.stringify(options, null, 2);
+      const indented = indentCode(formatted, 2);
       // TODO use jsDelivr url
-      return `${containerHtml}
+      return `
+${containerHtml}
 <script src="${appUrl + 'sdk/livecodes.umd.js'}"></script>
 <script>
-const options = ${JSON.stringify(options, null, 2)};
-livecodes.createPlayground("#${containerId}", options);
+  const options = ${indented};
+  livecodes.createPlayground("#${containerId}", options);
 </script>
-`;
+`.trimStart();
     },
     npm(data: FormData) {
       const containerId = getContainerId();
       const containerHtml = getContainerHtml(containerId);
       const options = getOptions(data);
-      return `${containerHtml}
+      const formatted = JSON.stringify(options, null, 2);
+      const indented = indentCode(formatted, 2);
+      return `
+${containerHtml}
 <script type="module">
-import { createPlayground } from "livecodes";
-const options = ${JSON.stringify(options, null, 2)};
-createPlayground("#${containerId}", options);
+  import { createPlayground } from "livecodes";
+  const options = ${indented};
+  createPlayground("#${containerId}", options);
 </script>
-`;
+`.trimStart();
+    },
+    react(data: FormData) {
+      const options = getOptions(data);
+      const formatted = JSON.stringify(options, null, 2);
+      const indented = indentCode(formatted, 2);
+      return `
+import LiveCodes from "livecodes/react";
+export default function App() {
+  const options = ${indented};
+  return <LiveCodes {...options}></LiveCodes>;
+}
+`.trimStart();
+    },
+    vue(data: FormData) {
+      const options = getOptions(data);
+      const formatted = JSON.stringify(options, null, 2);
+      const indented = indentCode(formatted, 2);
+      return `
+<script setup>
+  import LiveCodes from 'livecodes/vue';
+  const options = ${indented};
+</script>
+
+<template>
+  <LiveCodes v-bind="options" />
+</template>
+`.trimStart();
     },
     iframe: (data: FormData) => {
       const iframeUrl = getIframeUrl(data);
@@ -300,7 +337,7 @@ createPlayground("#${containerId}", options);
       nonEmbeddedUrl.searchParams.delete('lite');
       const projectUrl = decodeURIComponent(nonEmbeddedUrl.href);
       return `
-<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:3px; margin: 1em 0;" src="${iframeUrl}">
+<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:5px; margin: 1em 0;" src="${iframeUrl}">
   See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${appUrl}" target="_blank">LiveCodes</a>
 </iframe>
 `.trimStart();
@@ -325,7 +362,7 @@ createPlayground("#${containerId}", options);
       }
       const optionsAttr = escapeCode(JSON.stringify(options).replace(/'/g, '&#39;'));
       return `
-<div class="livecodes" style="height: 300px; border: 1px solid black; border-radius: 3px;" data-options='${optionsAttr}'>
+<div class="livecodes" style="height: 300px; border: 1px solid black; border-radius: 5px;" data-options='${optionsAttr}'>
 <pre data-lang="${config.markup.language}">${escapeCode(
         encodeHTML(config.markup.content || ''),
       )}</pre>
@@ -336,7 +373,7 @@ createPlayground("#${containerId}", options);
         encodeHTML(config.script.content || ''),
       )}</pre>
 </div>
-<script defer src="${appUrl + 'lib/livecodes.js'}" data-prefill></script>
+<script defer src="${appUrl + 'sdk/livecodes.js'}" data-prefill></script>
 `.trimStart();
     },
   };
@@ -418,8 +455,14 @@ createPlayground("#${containerId}", options);
     });
 
     previewIframe.src = getIframeUrl(formData);
-    const html = (codeTemlates as any)[(formData as any).type]?.(formData);
-    editor.setValue(html);
+    const embedType = (formData as any).type;
+    const code = (codeTemlates as any)[embedType]?.(formData);
+    const embedTypeLanguage = embedType === 'react' ? 'jsx' : 'html';
+    if (editor.getLanguage() !== embedTypeLanguage) {
+      editor.setLanguage(embedTypeLanguage, code);
+    } else {
+      editor.setValue(code);
+    }
   };
 
   eventsManager.addEventListener(form, 'change', generateCode);
