@@ -1,7 +1,7 @@
 module.exports = {
   files: [
     {
-      path: './build/lib/*.js',
+      path: './build/sdk/*.js',
       maxSize: '3kB',
     },
     {

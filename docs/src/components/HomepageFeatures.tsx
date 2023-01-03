@@ -113,11 +113,11 @@ const FeatureList3: FeatureItem[] = [
     image: './img/code.svg',
     description: (
       <>
-        LiveCodes is highly <Link to="./configuration">configurable</Link>. Lots of features can be
+        LiveCodes makes it easy to <Link to="./getting-started">get started</Link>. It is highly{' '}
+        <Link to="./configuration/configuration-object">configurable</Link>. Lots of features can be
         configured by URL <Link to="./configuration/query-params">query params</Link>. The{' '}
-        <Link to="./getting-started#npm-package">npm package</Link> facilitates{' '}
-        <Link to="./features/embeds">embedding</Link> playgrounds. Embedded playgrounds expose a
-        rich <Link to="./advanced/api">API</Link> to communicate with embedding pages.
+        <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
+        playgrounds and allows easy communication with them.
       </>
     ),
   },
@@ -138,9 +138,8 @@ const FeatureList3: FeatureItem[] = [
     description: (
       <>
         Comprehensive <Link to="./overview">documentations</Link> (including{' '}
-        <Link to="./api/modules">TypeScript types</Link>) for the App{' '}
-        <Link to="./features">features</Link> and the NPM package{' '}
-        <Link to="./advanced/API">API</Link>, with code samples, live demos and screenshots.
+        <Link to="./api/modules">TypeScript types</Link>) for <Link to="./features">features</Link>{' '}
+        and <Link to="./sdk">SDK</Link>, with code samples, live demos and screenshots.
       </>
     ),
   },
@@ -155,7 +154,7 @@ const FeatureList4: FeatureItem[] = [
         LiveCodes is <strong>free</strong>, with <strong>no&nbsp;limits</strong> for use,{' '}
         <strong>no&nbsp;ads</strong> and no&nbsp;account required*.
         <br></br>
-        Do you want to <Link to="./getting-started#self-hosted">self-host</Link> it for commercial
+        Do you want to <Link to="./getting-started#self-hosting">self-host</Link> it for commercial
         use? No problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
           <Link to="./license">

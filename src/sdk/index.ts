@@ -3,7 +3,7 @@ import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from 
 export type { Code, Config, EmbedOptions, Playground };
 
 export const createPlayground = async (
-  container: string | Element,
+  container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
   const {
@@ -16,7 +16,7 @@ export const createPlayground = async (
     view = 'editor,result',
   } = options;
 
-  let containerElement: Element | null;
+  let containerElement: HTMLElement | null;
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
   } else {
@@ -88,6 +88,24 @@ export const createPlayground = async (
     new Promise<HTMLIFrameElement>((resolve) => {
       if (!containerElement) return;
 
+      const height = containerElement.dataset.height || containerElement.style.height;
+      if (height) {
+        const cssHeight = isNaN(Number(height)) ? height : height + 'px';
+        containerElement.style.height = cssHeight;
+      }
+      if (containerElement.dataset.defaultStyles !== 'false') {
+        containerElement.style.backgroundColor ||= '#fff';
+        containerElement.style.border ||= '1px solid black';
+        containerElement.style.borderRadius ||= '5px';
+        containerElement.style.boxSizing ||= 'border-box';
+        containerElement.style.padding ||= '0';
+        containerElement.style.width ||= '100%';
+        containerElement.style.height ||= containerElement.style.height || '300px';
+        containerElement.style.minHeight = '200px';
+        containerElement.style.overflow ||= 'hidden';
+        containerElement.style.resize ||= 'vertical';
+      }
+
       const frame = document.createElement('iframe');
       frame.setAttribute(
         'allow',
@@ -103,9 +121,12 @@ export const createPlayground = async (
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
-      frame.style.border = '0';
       frame.style.height = '100%';
+      frame.style.minHeight = '200px';
       frame.style.width = '100%';
+      frame.style.margin = '0';
+      frame.style.border = '0';
+      frame.style.borderRadius = containerElement.style.borderRadius;
       frame.src = url.href;
       frame.onload = () => {
         addEventListener('message', function readyHandler(e) {

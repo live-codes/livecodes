@@ -4,13 +4,13 @@ There are multiple options:
 
 ### Hosted App
 
-The easiest way to use LiveCodes is to through the hosted app (https://livecodes.io).
+The easiest way to get started with LiveCodes is to use the hosted app (https://livecodes.io).
 
-Use various methods to add your code like [embedded editors](./features/embeds.md), [code blocks](./features/import.md#import-code-from-dom), ["Edit in LiveCodes" bookmarklet](./features/import.md#edit-in-livecodes-bookmarklet) and [code prefill](./features/code-prefill.md).
+The app is packed with [features](./features/index.md) and offers various ways to [import code](./features/import.md).
 
-### NPM Package
+### SDK
 
-An npm package is available to allow easy [embedding](./features/embeds.md) of playgrouds and facilitates communication with the [API](./advanced/api.md).
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) and communication with playgrouds.
 
 1. Install from npm.
 
@@ -33,7 +33,7 @@ ESM:
 ```html title="index.html"
 <div id="container"></div>
 <script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes/lib/livecodes.esm.js';
+  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
 
   createPlayground('#container', { template: 'react' });
 </script>
@@ -43,14 +43,16 @@ UMD:
 
 ```html title="index.html"
 <div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/livecodes/lib/livecodes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js"></script>
 <script>
   // the UMD version provides the global object `livecodes`
   livecodes.createPlayground('#container', { template: 'react' });
 </script>
 ```
 
-### Self-Hosted
+Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
+
+### Self-Hosting
 
 LiveCodes can be hosted on any static file server or CDN.
 
@@ -77,7 +79,7 @@ The app needs to be served from the root of the domain/subdomain.
 
 You may wish to edit one or more of the used [services](./advanced/services.md) to use your own.
 
-The npm package can still be used with the self-hosted app by providing the [`appUrl`](./advanced/api.md#appurl) [embed option](./advanced/api.md#embed-options).
+The [SDK](./sdk/index.md) can still be used with the self-hosted app by providing the [`appUrl`](./sdk/js-ts.md#appurl) [embed option](./sdk/js-ts.md#embed-options).
 
 ```js title="index.js"
 import { createPlayground } from 'livecodes';

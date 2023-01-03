@@ -66,9 +66,9 @@ const config = {
             label: 'Docs',
           },
           {
-            to: 'advanced/api',
+            to: 'sdk',
             position: 'left',
-            label: 'API',
+            label: 'SDK',
           },
           {
             type: 'doc',
@@ -114,6 +114,10 @@ const config = {
               {
                 label: 'Languages',
                 to: '/docs/languages',
+              },
+              {
+                label: 'SDK',
+                to: '/docs/sdk',
               },
             ],
           },
@@ -182,12 +186,16 @@ const config = {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-babel.js',
       async: true,
     },
+    {
+      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-html.js',
+      async: true,
+    },
   ],
   plugins: [
     [
       'docusaurus-plugin-typedoc',
       {
-        entryPoints: ['../src/lib/livecodes.ts'],
+        entryPoints: ['../src/sdk/index.ts'],
         tsconfig: '../tsconfig.json',
         plugin: ['typedoc-plugin-missing-exports'],
         excludeExternals: true,

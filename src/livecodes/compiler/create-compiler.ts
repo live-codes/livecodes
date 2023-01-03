@@ -179,7 +179,13 @@ export const createCompiler = async ({
 
     const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
-      throw new Error('Failed to load compiler for: ' + language);
+      return new Promise((res) => {
+        if (language !== 'html' && language !== 'css' && language !== 'javascript') {
+          // eslint-disable-next-line no-console
+          console.error('Failed to load compiler for: ' + language);
+        }
+        res('');
+      });
     }
 
     const compiled = (await compiler(content, { config, language, baseUrl, options })) || '';
@@ -218,7 +224,9 @@ export const createCompiler = async ({
           }
           const process = compilers[processor.name].fn || ((code: string) => code);
           if (typeof process !== 'function') {
-            throw new Error('Failed to load processor: ' + processor.name);
+            // eslint-disable-next-line no-console
+            console.error('Failed to load processor: ' + processor.name);
+            return content;
           }
           content = await process(content, { config, language, baseUrl, options });
         }

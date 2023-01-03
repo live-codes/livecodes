@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { appUrl } from '../utils';
-// eslint-disable-next-line import/no-internal-modules
-import { createPlayground, EmbedOptions } from '../../../src/lib/livecodes';
+/* eslint-disable import/no-internal-modules */
+import { EmbedOptions } from '../../../src/sdk';
+import LiveCodesReact from '../../../src/sdk/react';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
 
@@ -16,18 +17,6 @@ export default function LiveCodes(
 ): JSX.Element {
   // TODO: improve this: use `new URL()` & searchParams
   const url = (props.appUrl || appUrl) + '?';
-  const containerRef = useRef(null);
-  useEffect(() => {
-    createPlayground(containerRef.current, {
-      appUrl: url + props.query,
-      config: props.config,
-      import: props.import,
-      lite: props.lite,
-      loading: props.loading,
-      template: props.template,
-      view: props.view,
-    });
-  }, []);
 
   const options = {
     ...(props.query ? { appUrl: url + props.query } : {}),
@@ -39,7 +28,7 @@ export default function LiveCodes(
     ...(props.view ? { view: props.view } : {}),
   };
 
-  const code = `
+  const jsCode = `
 import { createPlayground } from 'livecodes';
 
 const options = ${JSON.stringify(options, null, 2)};
@@ -47,14 +36,48 @@ createPlayground('#container', options);
 
 `.trimStart();
 
+  const tsCode = `
+import { createPlayground, type EmbedOptions } from 'livecodes';
+
+const options: EmbedOptions = ${JSON.stringify(options, null, 2)};
+createPlayground('#container', options);
+
+`.trimStart();
+
+  const reactCode = `
+import LiveCodes from 'livecodes/react';
+export default function App() {
+  const options = ${JSON.stringify(options, null, 2)};
+  return (<LiveCodes {...options}></LiveCodes>);
+}
+
+`.trimStart();
+
+  const vueCode = `
+<script setup>
+import LiveCodes from "livecodes/vue";
+const options = ${JSON.stringify(options, null, 2)};
+</script>
+<template>
+  <LiveCodes v-bind="options" />
+</template>
+
+`;
+
   return (
     <>
-      <div
-        ref={containerRef}
+      <LiveCodesReact
         className={`${styles.container} ${props.className}`}
-        style={props.style}
-      ></div>
-      {props.showCode !== false && <ShowCode language="js">{code}</ShowCode>}
+        style={{
+          height: '50vh',
+          ...props.style,
+        }}
+        appUrl={url + props.query}
+        {...props}
+      ></LiveCodesReact>
+      {props.showCode !== false && (
+        <ShowCode js={jsCode} ts={tsCode} react={reactCode} vue={vueCode}></ShowCode>
+      )}
     </>
   );
 }

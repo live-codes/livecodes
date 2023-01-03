@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "rootDir": "src/lib",
-    "outDir": "build/lib",
+    "rootDir": "src/sdk",
+    "outDir": "build/sdk",
     "moduleResolution": "node",
     "target": "es6",
     "module": "esnext",
@@ -39,11 +39,12 @@
     // "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     // "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
 
+    "jsx": "react",
     "lib": ["es2020", "dom", "dom.iterable"],
-    "types": ["node", "jest"],
+    "types": ["node", "jest", "react"],
     "typeRoots": ["node_modules/@types"]
   },
   "compileOnSave": true,
-  "include": ["src/lib/**/*.ts"],
+  "include": ["src/sdk/**/*.ts", "src/sdk/**/*.tsx"],
   "exclude": ["**/node_modules/**"]
 }

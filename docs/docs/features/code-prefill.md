@@ -2,15 +2,15 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-There are many ways to pre-fill code into playgrounds. This is generally achieved either by the [library](../getting-started.md#npm-package) [API](../advanced/api.md) or using [query params](../configuration/query-params.md).
+There are many ways to pre-fill code into playgrounds. This is generally achieved either by the [SDK](../sdk/index.md) or using [query params](../configuration/query-params.md).
 
-## Prefill using API
+## Prefill using SDK
 
-When creating an embeded playground, the following [embed options](../advanced/api.md#embed-options) allow prefill with code:
+When creating an embeded playground, the following [embed options](../sdk/js-ts.md#embed-options) allow prefill with code:
 
 ### config
 
-[EmbedOptions.config](../advanced/api.md#config)
+[EmbedOptions.config](../sdk/js-ts.md#config)
 
 loads a [configuration object](../configuration/configuration-object.md) (or a URL to JSON file represention the configuration object)
 
@@ -18,7 +18,7 @@ loads a [configuration object](../configuration/configuration-object.md) (or a U
 
 ### import
 
-[EmbedOptions.import](../advanced/api.md#import)
+[EmbedOptions.import](../sdk/js-ts.md#import)
 
 allows [importing](./import.md) from many sources.
 
@@ -34,7 +34,7 @@ Import shared project:
 
 ### template
 
-[EmbedOptions.template](../advanced/api.md#template)
+[EmbedOptions.template](../sdk/js-ts.md#template)
 
 loads one of the [starter templates](./templates.md).
 
