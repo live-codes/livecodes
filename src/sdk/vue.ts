@@ -22,8 +22,6 @@ import {
 import { createPlayground, type Playground, type EmbedOptions } from '.';
 
 export interface Props extends EmbedOptions {
-  class?: string;
-  style?: Record<string, string>;
   height?: string;
 }
 
@@ -35,8 +33,6 @@ const props = {
   loading: String,
   template: String,
   view: String,
-  class: String,
-  style: Object,
   height: String,
 } satisfies { [key in keyof Required<Props>]: any };
 
@@ -45,7 +41,7 @@ const LiveCodes: LiveCodesComponent = {
   props,
   emits: ['sdkReady'],
   setup(props, ctx) {
-    const { class: className, style, height, ...options } = props;
+    const { height, ...options } = props;
     const containerRef = ref<HTMLElement>();
     let playground: Playground | undefined;
 
@@ -63,8 +59,6 @@ const LiveCodes: LiveCodesComponent = {
     return () =>
       h('div', {
         ref: containerRef,
-        class: className,
-        style,
         'data-height': height,
       });
   },

@@ -94,6 +94,7 @@ export const createPlayground = async (
         containerElement.style.height = cssHeight;
       }
       if (containerElement.dataset.defaultStyles !== 'false') {
+        containerElement.style.backgroundColor ||= '#fff';
         containerElement.style.border ||= '1px solid black';
         containerElement.style.borderRadius ||= '5px';
         containerElement.style.boxSizing ||= 'border-box';

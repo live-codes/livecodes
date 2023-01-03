@@ -64,31 +64,13 @@ Example:
 </template>
 ```
 
-In addition, the following props are also available:
-
-- `class`
-
-  Type: `string`.
-
-  Class name(s) to add to playground container element.
-
-  Example:
-
-  ```html title="App.vue"
-  <script setup>
-    import LiveCodes from 'livecodes/vue';
-  </script>
-
-  <template>
-    <LiveCodes class="centered" />
-  </template>
-  ```
+In addition, the following prop is also available:
 
 - `height`
 
   Type: `string`.
 
-  Sets the hight of playground container element.
+  Sets the [height of playground container](js-ts.md#height) element.
 
   Example:
 
@@ -99,29 +81,6 @@ In addition, the following props are also available:
 
   <template>
     <LiveCodes height="500px" />
-  </template>
-  ```
-
-- `style`
-
-  Type: `Record<string, string>`.
-
-  Defines styles to add to playground container element. Styles set here override the [default styles](js-ts.md#default-styles).
-
-  Example:
-
-  ```html title="App.vue"
-  <script setup>
-    import LiveCodes from 'livecodes/vue';
-
-    const style = {
-      margin: 'auto',
-      width: '80%',
-    };
-  </script>
-
-  <template>
-    <LiveCodes :style="style" />
   </template>
   ```
 
@@ -160,7 +119,30 @@ In addition, the following props are also available:
   </script>
 
   <template>
-    <LiveCodes v-bind="options" @sdkReady="onReady" />
+    <LiveCodes v-bind="options" @sdk-ready="onReady" />
     <button @click="run">run</button>
   </template>
   ```
+
+### Styles
+
+Styles can be applied to the component [as usual](https://vuejs.org/guide/essentials/class-and-style.html#binding-html-classes).
+
+By default, a set of [default styles](js-ts.md#default-styles) are applied to the playground container. Styles passed to the component override these default styles.
+
+Example:
+
+```html title="App.vue"
+<script setup>
+  import LiveCodes from 'livecodes/vue';
+
+  const style = {
+    margin: 'auto',
+    width: '80%',
+  };
+</script>
+
+<template>
+  <LiveCodes :style="style" />
+</template>
+```
