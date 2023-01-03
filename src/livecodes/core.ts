@@ -3631,6 +3631,10 @@ const createApi = (): API => {
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
     const newAppConfig = buildConfig(newConfig);
+    setConfig({
+      ...getConfig(),
+      ...newConfig,
+    });
     await loadConfig(newAppConfig);
     return newAppConfig;
   };
