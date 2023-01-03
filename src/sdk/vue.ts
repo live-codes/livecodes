@@ -1,10 +1,25 @@
-// '@vue/runtime-core' is used for type definitions,
-// and is replaced by external dependency 'vue' during build
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { h, onMounted, onUnmounted, ref, DefineComponent } from '@vue/runtime-core';
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable import/no-extraneous-dependencies */
 
-import type { Playground, EmbedOptions } from './models';
-import { createPlayground } from '.';
+// '@vue/runtime-core' is used for generating type definitions,
+// and is replaced by external dependency 'vue' during build
+import {
+  h,
+  onMounted,
+  onUnmounted,
+  ref,
+  type DefineComponent,
+  type AllowedComponentProps,
+  type ComponentCustomProps,
+  type ComponentOptionsMixin,
+  type ExtractPropTypes,
+  type RendererElement,
+  type RendererNode,
+  type VNode,
+  type VNodeProps,
+} from '@vue/runtime-core';
+
+import { createPlayground, type Playground, type EmbedOptions } from '.';
 
 export interface Props extends EmbedOptions {
   class?: string;
@@ -26,9 +41,10 @@ const props = {
 } satisfies { [key in keyof Required<Props>]: any };
 
 // @ts-ignore
-const LiveCodes: DefineComponent<Props> = {
+const LiveCodes: LiveCodesComponent = {
   props,
-  setup(props, context) {
+  emits: ['sdk'],
+  setup(props, ctx) {
     const { class: className, style, height, ...options } = props;
     const containerRef = ref<HTMLElement>();
     let playground: Playground | undefined;
@@ -37,7 +53,7 @@ const LiveCodes: DefineComponent<Props> = {
       if (!containerRef.value) return;
       createPlayground(containerRef.value, options as EmbedOptions).then((sdk) => {
         playground = sdk;
-        context.emit('sdk', sdk);
+        ctx.emit('sdk', sdk);
       });
     });
 
@@ -55,3 +71,20 @@ const LiveCodes: DefineComponent<Props> = {
 };
 
 export default LiveCodes;
+
+// this avoids having to run the vue compiler (thus adding vue as dependency)
+// to generate type definitions
+type LiveCodesComponent = DefineComponent<
+  Props,
+  () => VNode<RendererNode, RendererElement, { [key: string]: any }>,
+  unknown,
+  {},
+  {},
+  ComponentOptionsMixin,
+  ComponentOptionsMixin,
+  { sdk: (sdk: Playground) => true },
+  string,
+  VNodeProps & AllowedComponentProps & ComponentCustomProps,
+  Readonly<ExtractPropTypes<Props>> & { onSdk?: (sdk: Playground) => void },
+  {}
+>;
