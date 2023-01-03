@@ -8,11 +8,11 @@ export interface Props extends EmbedOptions {
   className?: string;
   style?: Record<string, string>;
   height?: string;
-  getSDK?: (sdk: Playground) => void;
+  sdkReady?: (sdk: Playground) => void;
 }
 
 export default function LiveCodes(props: Props) {
-  const { className, style, height, getSDK, ...options } = props;
+  const { className, style, height, sdkReady, ...options } = props;
   const containerRef = useRef<HTMLDivElement | null>(null);
   let playground: Playground | undefined;
 
@@ -20,8 +20,8 @@ export default function LiveCodes(props: Props) {
     if (!containerRef.current) return;
     createPlayground(containerRef.current, options).then((sdk) => {
       playground = sdk;
-      if (typeof getSDK === 'function') {
-        getSDK(sdk);
+      if (typeof sdkReady === 'function') {
+        sdkReady(sdk);
       }
     });
 

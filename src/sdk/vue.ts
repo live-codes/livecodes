@@ -43,7 +43,7 @@ const props = {
 // @ts-ignore
 const LiveCodes: LiveCodesComponent = {
   props,
-  emits: ['sdk'],
+  emits: ['sdkReady'],
   setup(props, ctx) {
     const { class: className, style, height, ...options } = props;
     const containerRef = ref<HTMLElement>();
@@ -53,7 +53,7 @@ const LiveCodes: LiveCodesComponent = {
       if (!containerRef.value) return;
       createPlayground(containerRef.value, options as EmbedOptions).then((sdk) => {
         playground = sdk;
-        ctx.emit('sdk', sdk);
+        ctx.emit('sdkReady', sdk);
       });
     });
 
@@ -82,9 +82,9 @@ type LiveCodesComponent = DefineComponent<
   {},
   ComponentOptionsMixin,
   ComponentOptionsMixin,
-  { sdk: (sdk: Playground) => true },
+  { sdkReady: (sdk: Playground) => true },
   string,
   VNodeProps & AllowedComponentProps & ComponentCustomProps,
-  Readonly<ExtractPropTypes<Props>> & { onSdk?: (sdk: Playground) => void },
+  Readonly<ExtractPropTypes<Props>> & { onSdkReady?: (sdk: Playground) => void },
   {}
 >;

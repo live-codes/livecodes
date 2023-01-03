@@ -4,6 +4,8 @@ title: JS/TS SDK
 
 # JavaScript/<wbr />TypeScript SDK
 
+This is the core SDK on which others ([React](react.md) & [Vue](vue.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
+
 ## Installation
 
 Please refer to the [SDK installation](./index.md#installation) section.
@@ -353,7 +355,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### Default Styles
 
-By default, the container element is styled when the SDK is initialized (including width, height, border, etc.). To disable default styles set the attribute `data-default-styles` to `"false"` before initializing.
+By default, the container element is styled when the SDK is initialized (including width, height, border, etc.). To disable default styles, set the container element attribute `data-default-styles` to `"false"` before initializing.
 
 Example:
 

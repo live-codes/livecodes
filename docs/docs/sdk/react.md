@@ -12,7 +12,7 @@ Please refer to the [SDK installation](./index.md#installation) section.
 
 The react component is provided as the default export from `livecodes/react`.
 
-```jsx
+```jsx title="JSX"
 import LiveCodes from 'livecodes/react';
 
 export const Playground = () => <LiveCodes />;
@@ -22,12 +22,16 @@ export const Playground = () => <LiveCodes />;
 
 Prop types are exported as `Props` from `livecodes/react`.
 
-```tsx
+```tsx title="TSX"
 import LiveCodes, { type Props } from 'livecodes/react';
 
-const props: Props = {};
-export const Playground = () => <LiveCodes {...props} />;
+const options: Props = {
+  // embed options
+};
+export const Playground = () => <LiveCodes {...options} />;
 ```
+
+TypeScript types are [documented here](../api/modules.md).
 
 ### Props
 
@@ -35,7 +39,7 @@ All [embed options](js-ts.md#embed-options) are available as props with the corr
 
 Example:
 
-```jsx
+```jsx title="JSX"
 import LiveCodes from 'livecodes/react';
 
 const config = {
@@ -57,10 +61,10 @@ In addition, the following props are also available:
 
   Example:
 
-  ```jsx
+  ```jsx title="JSX"
   import LiveCodes from 'livecodes/react';
 
-  export const Playground = () => <LiveCodes className="dark" />;
+  export const Playground = () => <LiveCodes className="centered" />;
   ```
 
 - `height`
@@ -71,7 +75,7 @@ In addition, the following props are also available:
 
   Example:
 
-  ```jsx
+  ```jsx title="JSX"
   import LiveCodes from 'livecodes/react';
 
   export const Playground = () => <LiveCodes height="500px" />;
@@ -81,11 +85,11 @@ In addition, the following props are also available:
 
   Type: `Record<string, string>`.
 
-  Styles to add to playground container element. Styles set here override the [default styles](js-ts.md#default-styles).
+  Defines styles to add to playground container element. Styles set here override the [default styles](js-ts.md#default-styles).
 
   Example:
 
-  ```jsx
+  ```tsx title="JSX"
   import LiveCodes from 'livecodes/react';
 
   const style = {
@@ -95,7 +99,7 @@ In addition, the following props are also available:
   export const Playground = () => <LiveCodes style={style} />;
   ```
 
-- `getSDK`
+- `sdkReady`
 
   Type: `(sdk: Playground) => void`.
 
@@ -103,14 +107,14 @@ In addition, the following props are also available:
 
   Example:
 
-  ```tsx
+  ```tsx title="TSX"
   import LiveCodes from 'livecodes/react';
   import type { Playground } from 'livecodes';
 
   export const App = () => {
     let playground: Playground | undefined;
 
-    const getSDK = (sdk: Playground) => {
+    const onReady = (sdk: Playground) => {
       playground = sdk;
     };
 
@@ -120,7 +124,7 @@ In addition, the following props are also available:
 
     return (
       <>
-        <LiveCodes getSDK={getSDK} />
+        <LiveCodes sdkReady={onReady} />
         <button onClick={run}>Run</button>
       </>
     );
