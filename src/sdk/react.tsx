@@ -28,7 +28,7 @@ export default function LiveCodes(props: Props) {
     return () => {
       playground?.destroy();
     };
-  });
+  }, []);
 
   return <div ref={containerRef} className={className} style={style} data-height={height}></div>;
 }
