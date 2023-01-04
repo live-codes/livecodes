@@ -13,7 +13,7 @@ export const createPlayground = async (
     lite = false,
     loading = 'lazy',
     template,
-    view = 'editor,result',
+    view = 'split',
   } = options;
 
   let containerElement: HTMLElement | null;

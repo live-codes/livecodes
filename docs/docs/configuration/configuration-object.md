@@ -343,6 +343,14 @@ Example:
 
 <LiveCodes config={{script: {language: "javascript", content: "console.log('Hello World!');"}, activeEditor: "script", tools: {enabled: ["console", "compiled"], active: "console", status: "open"}}}></LiveCodes>
 
+### `zoom`
+
+Type: [`1 | 0.5 | 0.25`](../api/interfaces/Config#zoom)
+
+Default: `1`
+
+Sets result page [zoom level](../features/result.md#result-page-zoom).
+
 ## User Settings
 
 These are properties that define the [user settings](./../features/user-settings.md), including [editor settings](../features/editor-settings.md).

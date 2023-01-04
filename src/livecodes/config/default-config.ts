@@ -42,6 +42,7 @@ export const defaultConfig: Config = {
     active: '',
     status: '',
   },
+  zoom: 1,
   processors: [],
   customSettings: {},
   editor: undefined,

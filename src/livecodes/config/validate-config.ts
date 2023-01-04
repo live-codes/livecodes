@@ -29,6 +29,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const toolsPaneStatus: ToolsPaneStatus[] = ['', 'full', 'closed', 'open', 'none'];
   const editors: Array<Config['editor']> = ['monaco', 'codemirror', 'codejar'];
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const zoomLevels: Array<Config['zoom']> = [1, 0.5, 0.25];
 
   const isEditor = (x: any) => is(x, 'object') && is(x.language, 'string');
   const validateEditorProps = (x: Editor): Editor => ({
@@ -84,6 +85,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       : {}),
     ...(is(config.tests, 'object')
       ? { tests: validateTestsProps(config.tests as Partial<Editor>) }
+      : {}),
+    ...(includes(zoomLevels, Number(config.zoom))
+      ? { zoom: Number(config.zoom) as Config['zoom'] }
       : {}),
     ...(is(config.stylesheets, 'array', 'string') ? { stylesheets: config.stylesheets } : {}),
     ...(is(config.scripts, 'array', 'string') ? { scripts: config.scripts } : {}),
