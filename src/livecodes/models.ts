@@ -7,7 +7,7 @@ export interface API {
   getCode: () => Promise<Code>;
   show: (
     panel: EditorId | Tool['name'] | 'result',
-    options?: { full?: boolean; line?: number; column?: number },
+    options?: { full?: boolean; line?: number; column?: number; zoom?: Config['zoom'] },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
   onChange: (fn: ChangeHandler) => { remove: () => void };
@@ -63,6 +63,7 @@ export interface AppConfig {
     active: Tool['name'] | '';
     status: ToolsPaneStatus;
   };
+  zoom: 1 | 0.5 | 0.25;
 }
 
 export interface UserConfig extends EditorConfig, FormatterConfig {

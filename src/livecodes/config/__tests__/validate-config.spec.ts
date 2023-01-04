@@ -54,6 +54,7 @@ describe('validateConfig', () => {
       modules: [],
       imports: {},
       types: {},
+      zoom: '0.5',
     };
 
     const correctConfig: any = {
@@ -84,6 +85,7 @@ describe('validateConfig', () => {
       cssPreset: '',
       imports: {},
       types: {},
+      zoom: 0.5,
     };
     const invalidConfig = {
       all: 'properties',

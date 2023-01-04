@@ -3137,46 +3137,61 @@ const handleResultPopup = () => {
   UI.getToolspaneTitles()?.appendChild(popupBtn);
 };
 
-const handleResultZoom = () => {
-  const zoomBtn = document.createElement('div');
-  zoomBtn.classList.add('tool-buttons', 'hint--top');
-  zoomBtn.dataset.hint = 'Zoom';
-  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+const zoom = (level: Config['zoom'] = 1) => {
+  const iframe = UI.getResultIFrameElement();
+  const zoomBtnText = UI.getZoomButtonText();
+  if (!iframe || !zoomBtnText) return;
+
   const zoomLevels = {
     x100: '1&times;',
     x50: '0.5&times;',
     x25: '0.25&times;',
   };
+
+  if (level === 1) {
+    iframe.classList.remove('zoom25');
+    iframe.classList.remove('zoom50');
+    zoomBtnText.innerHTML = zoomLevels.x100;
+  }
+
+  if (level === 0.5) {
+    iframe.classList.remove('zoom25');
+    iframe.classList.add('zoom50');
+    zoomBtnText.innerHTML = zoomLevels.x50;
+  }
+
+  if (level === 0.25) {
+    iframe.classList.remove('zoom50');
+    iframe.classList.add('zoom25');
+    zoomBtnText.innerHTML = zoomLevels.x25;
+  }
+};
+
+const handleResultZoom = () => {
+  const zoomBtn = document.createElement('div');
+  zoomBtn.id = 'zoom-button';
+  zoomBtn.classList.add('tool-buttons', 'hint--top');
+  zoomBtn.dataset.hint = 'Zoom';
+  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+
   const zoomBtnText = document.createElement('span');
   zoomBtnText.classList.add('text');
-  zoomBtnText.innerHTML = zoomLevels.x100;
+  zoomBtnText.innerHTML = '1&times;';
   zoomBtn.appendChild(zoomBtnText);
-  const zoom = () => {
-    const iframe = UI.getResultIFrameElement();
-    const zoom = iframe.classList.contains('zoom50')
-      ? zoomLevels.x50
-      : iframe.classList.contains('zoom25')
-      ? zoomLevels.x25
-      : zoomLevels.x100;
 
-    if (zoom === zoomLevels.x100) {
-      iframe.classList.add('zoom50');
-      zoomBtnText.innerHTML = zoomLevels.x50;
-    }
-
-    if (zoom === zoomLevels.x50) {
-      iframe.classList.remove('zoom50');
-      iframe.classList.add('zoom25');
-      zoomBtnText.innerHTML = zoomLevels.x25;
-    }
-
-    if (zoom === zoomLevels.x25) {
-      iframe.classList.remove('zoom25');
-      zoomBtnText.innerHTML = zoomLevels.x100;
-    }
+  const toggleZoom = () => {
+    const config = getConfig();
+    const currentZoom = config.zoom;
+    const newZoom = currentZoom === 1 ? 0.5 : currentZoom === 0.5 ? 0.25 : 1;
+    setConfig({
+      ...config,
+      zoom: newZoom,
+    });
+    zoom(newZoom);
   };
-  eventsManager.addEventListener(zoomBtn, 'click', zoom);
-  eventsManager.addEventListener(zoomBtn, 'touchstart', zoom);
+
+  eventsManager.addEventListener(zoomBtn, 'click', toggleZoom);
+  eventsManager.addEventListener(zoomBtn, 'touchstart', toggleZoom);
   UI.getToolspaneTitles()?.appendChild(zoomBtn);
 };
 
@@ -3526,6 +3541,7 @@ const bootstrap = async (reload = false) => {
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
+  zoom(getConfig().zoom);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
   // TODO: Fix
@@ -3647,10 +3663,16 @@ const createApi = (): API => {
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
-  const apiShow: API['show'] = async (panel, { full = false, line, column } = {}) => {
+  const apiShow: API['show'] = async (
+    panel,
+    { full = false, line, column, zoom: zoomLevel } = {},
+  ) => {
     if (panel === 'result') {
       split.show('output', full);
       toolsPane?.close();
+      if (zoomLevel) {
+        zoom(zoomLevel);
+      }
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
       split.show('output');
       toolsPane?.setActiveTool(panel);
