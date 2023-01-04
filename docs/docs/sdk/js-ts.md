@@ -245,7 +245,7 @@ createPlayground('#container').then(async (playground) => {
 
 ### `show`
 
-Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number }) => Promise<void>`](../api/interfaces/Playground.md#show)
+Type: [`(panel: EditorId | Lowercase<Tool['title']> | 'result', options?: { full?: boolean; line?: number; column?: number; zoom?: 1 | 0.5 | 0.25 }) => Promise<void>`](../api/interfaces/Playground.md#show)
 
 Shows the selected panel, which is either:
 
@@ -253,8 +253,13 @@ Shows the selected panel, which is either:
 - Tool: `console`, `compiled` or `tests`
 - Result page: `result`
 
-The second optional argument is an object. It may have the boolean property `full`, which If `true`, selected editor or result page will take the full vertical and horizontal space of the playground, while tools will take the full vertical and half the horizontal space, leaving some space for the active editor.
-The optional properties `line` and `column` allow scrolling to line/column number in the shown editor.
+The second optional argument is an object:
+
+- It may have the boolean property `full`, which If `true`, selected editor or result page will take the full vertical and horizontal space of the playground, while tools will take the full vertical and half the horizontal space, leaving some space for the active editor.
+
+- The optional properties `line` and `column` allow scrolling to line/column number in the shown editor.
+
+- The optional property `zoom` sets the result page [zoom level](../features/result.md#result-page-zoom) (the selected panel must be `result`).
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -270,6 +275,8 @@ createPlayground('#container').then(async (playground) => {
   await playground.show('result', { full: true });
   await delay(2000);
   await playground.show('script');
+  await delay(2000);
+  await playground.show('result', { zoom: 0.5 });
   await delay(2000);
   await playground.show('console', { full: true });
 });

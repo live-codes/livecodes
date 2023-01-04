@@ -69,11 +69,11 @@ In the full [standalone app](../getting-started.md#hosted-app), the JavaScript S
 
 The SDK is currently provided in the following variations:
 
-- [JavaScript/TypeScript](./js-ts.md)
+### [JavaScript/TypeScript](./js-ts.md)
 
-- [React](./react.md)
+### [React](./react.md)
 
-- [Vue](./vue.md)
+### [Vue](./vue.md)
 
 ## SDK Playground!
 
