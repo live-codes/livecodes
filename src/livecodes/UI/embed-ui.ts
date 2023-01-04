@@ -105,7 +105,7 @@ export const createEmbedUI = async ({
       title: 'Default View',
       name: 'view',
       options: [
-        { label: 'Editor + Result', value: 'editor,result', checked: true },
+        { label: 'Editor + Result', value: 'split', checked: true },
         { label: 'Editor', value: 'editor' },
         { label: 'Result', value: 'result' },
       ],
@@ -236,7 +236,7 @@ export const createEmbedUI = async ({
       ...(data.lite ? { lite: data.lite } : {}),
       ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
       ...(data.loading === 'click' && !data.preview ? { preview: false } : {}),
-      ...(data.view && data.view !== 'editor,result' ? { view: data.view } : {}),
+      ...(data.view && data.view !== 'split' ? { view: data.view } : {}),
     };
   };
 
@@ -250,7 +250,7 @@ export const createEmbedUI = async ({
     if (data.loading === 'click' && !data.preview) {
       iframeUrl.searchParams.set('preview', 'false');
     }
-    if (data.view && data.view !== 'editor,result') {
+    if (data.view && data.view !== 'split') {
       iframeUrl.searchParams.set('view', String(data.view));
     }
     if (data.mode !== 'result' && data.activeEditor && data.activeEditor !== activeEditor) {
@@ -379,7 +379,7 @@ export default function App() {
   };
 
   const previousSelections: FormData = {
-    view: 'editor,result',
+    view: 'split',
     tools: 'closed',
   };
 

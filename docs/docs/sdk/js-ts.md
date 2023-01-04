@@ -110,9 +110,9 @@ A [starter template](../features/templates.md) to load.
 
 ### `view`
 
-Type: [`"editor" | "result" | "editor,result"`](../api/interfaces/EmbedOptions.md#view)
+Type: [`"editor" | "result" | "split"`](../api/interfaces/EmbedOptions.md#view)
 
-Default: `"editor,result"`
+Default: `"split"`
 
 The [default view](../features/default-view.md) for the playground.
 
