@@ -42,7 +42,8 @@ export const getToolspaneButtons = () =>
   document.querySelector('#tools-pane-buttons') as HTMLElement;
 export const getToolspaneTitles = () => document.querySelector<HTMLElement>('#tools-pane-titles');
 export const getToolspaneLoader = () => document.querySelector<HTMLElement>('#tools-pane-loading');
-export const getZoomButtonText = () => document.querySelector<HTMLElement>('#zoom-button .text');
+export const getZoomButtonValue = () =>
+  document.querySelector<HTMLElement>('#zoom-button #zoom-value');
 export const getModalSaveButton = () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;
 export const getModalDoNotSaveButton = () =>

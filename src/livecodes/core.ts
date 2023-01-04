@@ -1509,6 +1509,25 @@ const getPlaygroundState = (): Config & Code => {
   };
 };
 
+const zoom = (level: Config['zoom'] = 1) => {
+  const iframe = UI.getResultIFrameElement();
+  const zoomBtnValue = UI.getZoomButtonValue();
+  if (!iframe || !zoomBtnValue) return;
+
+  iframe.classList.remove('zoom25');
+  iframe.classList.remove('zoom50');
+
+  if (level === 0.5) {
+    iframe.classList.add('zoom50');
+  }
+
+  if (level === 0.25) {
+    iframe.classList.add('zoom25');
+  }
+
+  zoomBtnValue.textContent = String(level);
+};
+
 const broadcast = async ({
   serverUrl,
   channel,
@@ -3137,47 +3156,17 @@ const handleResultPopup = () => {
   UI.getToolspaneTitles()?.appendChild(popupBtn);
 };
 
-const zoom = (level: Config['zoom'] = 1) => {
-  const iframe = UI.getResultIFrameElement();
-  const zoomBtnText = UI.getZoomButtonText();
-  if (!iframe || !zoomBtnText) return;
-
-  const zoomLevels = {
-    x100: '1&times;',
-    x50: '0.5&times;',
-    x25: '0.25&times;',
-  };
-
-  if (level === 1) {
-    iframe.classList.remove('zoom25');
-    iframe.classList.remove('zoom50');
-    zoomBtnText.innerHTML = zoomLevels.x100;
-  }
-
-  if (level === 0.5) {
-    iframe.classList.remove('zoom25');
-    iframe.classList.add('zoom50');
-    zoomBtnText.innerHTML = zoomLevels.x50;
-  }
-
-  if (level === 0.25) {
-    iframe.classList.remove('zoom50');
-    iframe.classList.add('zoom25');
-    zoomBtnText.innerHTML = zoomLevels.x25;
-  }
-};
-
 const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
   zoomBtn.classList.add('tool-buttons', 'hint--top');
   zoomBtn.dataset.hint = 'Zoom';
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-
-  const zoomBtnText = document.createElement('span');
-  zoomBtnText.classList.add('text');
-  zoomBtnText.innerHTML = '1&times;';
-  zoomBtn.appendChild(zoomBtnText);
+  zoomBtn.innerHTML = `
+  <span class="text">
+    <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
+    &times;
+  </span>`;
 
   const toggleZoom = () => {
     const config = getConfig();
