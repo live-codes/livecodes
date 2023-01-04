@@ -107,7 +107,6 @@ const sdkBuild = () => {
   const sdkSrcMod = sdkSrcDir + 'index.ts';
   const sdkOutDir = 'build/sdk/';
 
-  fs.copyFileSync(path.resolve('src/livecodes/models.ts'), path.resolve(sdkSrcDir + 'models.ts'));
   fs.copyFileSync(path.resolve('LICENSE'), path.resolve(sdkOutDir + 'LICENSE'));
   fs.copyFileSync(path.resolve('README.md'), path.resolve(sdkOutDir + 'README.md'));
   fs.copyFileSync(
