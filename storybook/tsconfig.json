@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".."
+  },
+  "include": ["stories/**/*.ts", "stories/**/*.tsx", "stories/**/*.js", "stories/**/*.jsx"],
+  "exclude": ["**/node_modules/**"]
+}
