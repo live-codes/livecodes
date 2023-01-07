@@ -3,6 +3,12 @@
   "compilerOptions": {
     "rootDir": ".."
   },
-  "include": ["stories/**/*.ts", "stories/**/*.tsx", "stories/**/*.js", "stories/**/*.jsx"],
+  "include": [
+    "stories/**/*.ts",
+    "stories/**/*.tsx",
+    "stories/**/*.js",
+    "stories/**/*.jsx",
+    "src/LiveCodes.ts"
+  ],
   "exclude": ["**/node_modules/**"]
 }
