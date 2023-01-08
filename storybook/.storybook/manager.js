@@ -4,7 +4,7 @@ import { create } from '@storybook/theming';
 const theme = create({
   base: 'light',
   brandTitle: 'LiveCodes storybook',
-  brandImage: './livecodes-logo.svg',
+  brandImage: './livecodes-text-logo.svg',
   brandTarget: '_self',
 });
 
