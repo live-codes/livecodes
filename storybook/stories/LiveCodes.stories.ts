@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-internal-modules
-import { livecodesStory } from '../src/LiveCodes';
+import { livecodesStory } from '../src';
 
 export default {
   title: 'Example/LiveCodes',

@@ -1,7 +1,12 @@
+/* eslint-disable import/no-internal-modules */
 /* eslint-disable camelcase */
-import { flatten } from 'flat';
-// eslint-disable-next-line import/no-internal-modules
+import type { ArgTypes, Story } from '@storybook/html';
+import { flatten, unflatten } from 'flat';
+
 import { defaultConfig } from '../../src/livecodes/config/default-config';
+import { starterTemplates } from '../../src/livecodes/templates/starter';
+import { languages } from '../../src/livecodes/languages';
+import type { LiveCodesArgs } from './LiveCodes';
 
 const delimiter = '__';
 
@@ -37,10 +42,9 @@ const getControlInfo = (name: string, defaultObj = defaultConfig) => {
   };
 };
 
-const argTypes = {
+const argTypes: Partial<ArgTypes<LiveCodesArgs>> = {
   appUrl: {
     control: 'text',
-    defaultValue: 'http://127.0.0.1:8080/',
     required: false,
     table: {
       category: 'Embed Options',
@@ -69,11 +73,12 @@ const argTypes = {
     },
   },
   template: {
-    control: 'text',
+    control: 'select',
     required: false,
     table: {
       category: 'Embed Options',
     },
+    options: starterTemplates.map((template) => template.name),
   },
   view: {
     control: 'inline-radio',
@@ -94,22 +99,33 @@ const argTypes = {
   config__autosave: getControlInfo('config__autosave'),
   config__delay: getControlInfo('config__delay'),
   config__formatOnsave: getControlInfo('config__formatOnsave'),
-  config__mode: getControlInfo('config__mode'),
-  config__theme: getControlInfo('config__theme'),
+  config__mode: {
+    ...getControlInfo('config__mode'),
+    control: 'inline-radio',
+    options: ['full', 'editor', 'codeblock', 'result'],
+  },
+  config__theme: {
+    ...getControlInfo('config__theme'),
+    control: 'inline-radio',
+    options: ['light', 'dark'],
+  },
   config__recoverUnsaved: getControlInfo('config__recoverUnsaved'),
   config__showSpacing: getControlInfo('config__showSpacing'),
   config__readonly: getControlInfo('config__readonly'),
   config__allowLangChange: getControlInfo('config__allowLangChange'),
   config__activeEditor: {
     ...getControlInfo('config__activeEditor'),
-    control: { type: 'inline-radio', options: ['markup', 'style', 'script'] },
+    control: 'inline-radio',
+    options: ['markup', 'style', 'script'],
   },
   config__languages: {
     ...getControlInfo('config__languages'),
-    control: { type: 'object' },
+    control: 'object',
   },
   config__markup__language: {
     ...getControlInfo('config__markup__language'),
+    control: 'select',
+    options: languages.filter((lang) => lang.editor === 'markup').map((lang) => lang.name),
   },
   config__markup__content: {
     ...getControlInfo('config__markup__content'),
@@ -128,6 +144,8 @@ const argTypes = {
   },
   config__style__language: {
     ...getControlInfo('config__style__language'),
+    control: 'select',
+    options: languages.filter((lang) => lang.editor === 'style').map((lang) => lang.name),
   },
   config__style__content: {
     ...getControlInfo('config__style__content'),
@@ -146,6 +164,8 @@ const argTypes = {
   },
   config__script__language: {
     ...getControlInfo('config__script__language'),
+    control: 'select',
+    options: languages.filter((lang) => lang.editor === 'script').map((lang) => lang.name),
   },
   config__script__content: {
     ...getControlInfo('config__script__content'),
@@ -172,7 +192,8 @@ const argTypes = {
   },
   config__cssPreset: {
     ...getControlInfo('config__cssPreset'),
-    control: 'text',
+    control: 'inline-radio',
+    options: ['normalize.css', 'reset-css'],
   },
   config__imports: {
     ...getControlInfo('config__imports'),
@@ -184,6 +205,8 @@ const argTypes = {
   },
   config__tests__language: {
     ...getControlInfo('config__tests__language'),
+    control: 'select',
+    options: languages.filter((lang) => lang.editor === 'script').map((lang) => lang.name),
   },
   config__tests__content: {
     ...getControlInfo('config__tests__content'),
@@ -193,14 +216,18 @@ const argTypes = {
   },
   config__tools__active: {
     ...getControlInfo('config__tools__active'),
-    control: { type: 'inline-radio', options: ['console', 'compiled', 'tests'] },
+    control: 'inline-radio',
+    options: ['console', 'compiled', 'tests'],
   },
   config__tools__status: {
     ...getControlInfo('config__tools__status'),
-    control: { type: 'inline-radio', options: ['full', 'closed', 'open', 'none'] },
+    control: 'inline-radio',
+    options: ['full', 'closed', 'open', 'none'],
   },
   config__zoom: {
     ...getControlInfo('config__zoom'),
+    control: 'inline-radio',
+    options: [1, 0.5, 0.25],
   },
   config__processors: {
     ...getControlInfo('config__processors'),
@@ -212,7 +239,8 @@ const argTypes = {
   },
   config__editor: {
     ...getControlInfo('config__editor'),
-    control: { type: 'inline-radio', options: ['monaco', 'codemirror', 'codejar'] },
+    control: 'inline-radio',
+    options: ['monaco', 'codemirror', 'codejar'],
   },
   config__fontFamily: {
     ...getControlInfo('config__fontFamily'),
@@ -233,13 +261,14 @@ const argTypes = {
   config__emmet: getControlInfo('config__emmet'),
   config__editorMode: {
     ...getControlInfo('config__editorMode'),
-    control: { type: 'inline-radio', options: ['vim', 'emacs'] },
+    control: 'inline-radio',
+    options: ['vim', 'emacs'],
   },
   config__version: getControlInfo('config__version'),
 
   attrs: {
     description: 'Attributes to add to container element',
-    type: 'object',
+    control: 'object',
     required: false,
     table: {
       category: 'Container Element',
@@ -247,11 +276,21 @@ const argTypes = {
   },
 };
 
-export const createStory = (createComponent: any) => (args: any) => {
-  const template = createComponent;
-  const story = template.bind({});
-  story.argTypes = argTypes;
-  const { attrs, ...options } = args;
-  story.args = { ...flatten(options, { delimiter }), attrs };
-  return story;
-};
+const appUrl =
+  location.hostname.startsWith('localhost') || location.hostname.startsWith('localhost')
+    ? 'http://127.0.0.1:8080'
+    : location.origin;
+
+export const createStory =
+  (createComponent: (args: LiveCodesArgs) => HTMLElement) => (args: LiveCodesArgs) => {
+    const template = (args: LiveCodesArgs) => createComponent(unflatten(args, { delimiter }));
+    const story: Story<LiveCodesArgs> = template.bind({});
+    story.argTypes = argTypes;
+    const { attrs, ...options } = args;
+    story.args = {
+      appUrl,
+      ...flatten(options, { delimiter }),
+      ...(attrs ? { attrs } : {}),
+    };
+    return story;
+  };

@@ -1,5 +1,4 @@
 /* eslint-disable import/no-internal-modules */
-import type { Story } from '@storybook/html';
 import { createPlayground, EmbedOptions } from '../../src/sdk';
 // eslint-disable-next-line import/no-internal-modules
 import { createStory } from './create-story';
@@ -15,5 +14,4 @@ const createLiveCodes = ({ attrs = {}, ...options }: LiveCodesArgs) => {
   return container;
 };
 
-export const livecodesStory: (options: LiveCodesArgs) => Story<LiveCodesArgs> =
-  createStory(createLiveCodes);
+export const livecodesStory = createStory(createLiveCodes);
