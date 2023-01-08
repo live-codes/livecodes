@@ -7,4 +7,5 @@ module.exports = {
     '@storybook/addon-storysource',
   ],
   framework: '@storybook/html',
+  staticDirs: ['../public'],
 };

@@ -285,12 +285,44 @@ export const createStory =
   (createComponent: (args: LiveCodesArgs) => HTMLElement) => (args: LiveCodesArgs) => {
     const template = (args: LiveCodesArgs) => createComponent(unflatten(args, { delimiter }));
     const story: Story<LiveCodesArgs> = template.bind({});
+
     story.argTypes = argTypes;
+
     const { attrs, ...options } = args;
     story.args = {
       appUrl,
       ...flatten(options, { delimiter }),
       ...(attrs ? { attrs } : {}),
+    };
+
+    const attrsToStr = () => {
+      let str = '';
+      if (!attrs || Object.keys(attrs).length === 0) return str;
+      Object.entries(attrs).forEach(([key, value]) => {
+        str += ` ${key}="${value}"`;
+      });
+      return str;
+    };
+
+    const code = `
+<div id="container"${attrsToStr()}></div>
+<script type="module">
+import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+const options = ${JSON.stringify(options, null, 2)};
+createPlayground('#container', options);
+</script>
+
+`.trimStart();
+
+    story.parameters = {
+      docs: {
+        source: {
+          code,
+          language: 'html',
+          type: 'auto',
+          format: true,
+        },
+      },
     };
     return story;
   };
