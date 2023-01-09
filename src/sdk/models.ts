@@ -28,7 +28,7 @@ export interface EmbedOptions {
   import?: string;
   lite?: boolean;
   loading?: 'lazy' | 'click' | 'eager';
-  template?: string;
+  template?: TemplateName;
   view?: 'split' | 'editor' | 'result';
 }
 
@@ -451,23 +451,63 @@ export interface Compilers {
   [language: string]: Compiler;
 }
 
-export type Template = Pick<
-  Config,
-  | 'title'
-  | 'activeEditor'
-  | 'markup'
-  | 'style'
-  | 'script'
-  | 'stylesheets'
-  | 'scripts'
-  | 'cssPreset'
-  | 'imports'
-  | 'types'
-> &
-  Partial<Pick<Config, 'processors' | 'customSettings' | 'tests'>> & {
-    name: string;
+export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
+  Partial<ContentConfig> & {
+    name: TemplateName;
     thumbnail: string;
   };
+
+export type TemplateName =
+  | 'blank'
+  | 'javascript'
+  | 'typescript'
+  | 'react'
+  | 'react-native'
+  | 'vue2'
+  | 'vue'
+  | 'angular'
+  | 'preact'
+  | 'svelte'
+  | 'stencil'
+  | 'solid'
+  | 'mdx'
+  | 'astro'
+  | 'riot'
+  | 'malina'
+  | 'jquery'
+  | 'backbone'
+  | 'knockout'
+  | 'jest'
+  | 'jest-react'
+  | 'bootstrap'
+  | 'tailwindcss'
+  | 'coffeescript'
+  | 'livescript'
+  | 'clio'
+  | 'imba'
+  | 'rescript'
+  | 'reason'
+  | 'ocaml'
+  | 'python'
+  | 'pyodide'
+  | 'ruby'
+  | 'go'
+  | 'php'
+  | 'cpp'
+  | 'clang'
+  | 'perl'
+  | 'lua'
+  | 'julia'
+  | 'scheme'
+  | 'commonlisp'
+  | 'tcl'
+  | 'markdown'
+  | 'assemblyscript'
+  | 'wat'
+  | 'sql'
+  | 'prolog'
+  | 'blockly'
+  | 'diagrams';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';

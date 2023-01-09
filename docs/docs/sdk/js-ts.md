@@ -104,7 +104,7 @@ Default: `"lazy"`
 
 ### `template`
 
-Type: [`string`](../api/interfaces/EmbedOptions.md#template)
+Type: [`TemplateName`](../api/interfaces/EmbedOptions.md#template)
 
 A [starter template](../features/templates.md) to load.
 
