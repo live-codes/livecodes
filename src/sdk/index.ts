@@ -1,4 +1,12 @@
-import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from './models';
+import type {
+  API,
+  Code,
+  Config,
+  ChangeHandler,
+  EmbedOptions,
+  Playground,
+  UrlQueryParams,
+} from './models';
 
 export type { Code, Config, EmbedOptions, Playground };
 
@@ -8,6 +16,7 @@ export const createPlayground = async (
 ): Promise<Playground> => {
   const {
     appUrl = 'https://livecodes.io/',
+    params = {},
     config = {},
     import: importFrom,
     lite = false,
@@ -38,35 +47,14 @@ export const createPlayground = async (
 
   const origin = url.origin;
 
+  if (typeof params === 'object') {
+    (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+      url.searchParams.set(param, String(params[param]));
+    });
+  }
+
   if (typeof config === 'string') {
     url.searchParams.set('config', config);
-  } else if (typeof config === 'object' && Object.keys(config).length > 0) {
-    try {
-      const encoded = btoa(JSON.stringify(config));
-      for (const [key, value] of Object.entries(config)) {
-        if (['string', 'boolean', 'number', 'undefined'].includes(typeof value)) {
-          url.searchParams.set(key, String(value));
-        }
-        if (key === 'tools' && typeof value === 'object') {
-          const tools = value as Partial<Config['tools']>;
-          if (tools.active) {
-            url.searchParams.set(tools.active, tools.status || '');
-          }
-          if (Array.isArray(tools.enabled)) {
-            if (tools.enabled.length === 0) {
-              url.searchParams.set('tools', 'none');
-            } else {
-              url.searchParams.set('tools', tools.enabled.join(','));
-            }
-          } else if (tools.status) {
-            url.searchParams.set('tools', tools.status);
-          }
-        }
-      }
-      url.searchParams.set('config', 'data:application/json;base64,' + encoded);
-    } catch {
-      throw new Error('Invalid configuration object.');
-    }
   }
 
   if (template) {
@@ -174,6 +162,10 @@ export const createPlayground = async (
       iframe.contentWindow?.postMessage({ method, args }, origin);
     });
 
+  if (typeof config === 'object' && Object.keys(config).length > 0) {
+    callAPI('setConfig', [config]);
+  }
+
   const delay = (duration = 100) =>
     new Promise((resolve) => {
       setTimeout(resolve, duration);
@@ -202,6 +194,7 @@ export const createPlayground = async (
       },
     };
   };
+
   addEventListener('message', async (e: MessageEvent) => {
     if (
       e.source !== iframe.contentWindow ||

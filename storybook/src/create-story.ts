@@ -72,6 +72,13 @@ const argTypes: Partial<ArgTypes<LiveCodesArgs>> = {
       category: 'Embed Options',
     },
   },
+  params: {
+    control: 'object',
+    required: false,
+    table: {
+      category: 'Embed Options',
+    },
+  },
   template: {
     control: 'select',
     required: false,
@@ -288,10 +295,11 @@ export const createStory =
 
     story.argTypes = argTypes;
 
-    const { attrs, ...options } = args;
+    const { attrs, params, ...options } = args;
     story.args = {
       appUrl,
       ...flatten(options, { delimiter }),
+      ...(params ? { params } : {}),
       ...(attrs ? { attrs } : {}),
     };
 
