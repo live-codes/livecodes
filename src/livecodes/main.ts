@@ -112,7 +112,6 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
                 const { method, args } = e.data || {};
                 if (!method) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
-
                 let payload;
                 try {
                   payload = await (api[method] as any)(...methodArguments);
@@ -121,7 +120,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
                 }
                 parent.postMessage(
                   {
-                    type: 'api-response',
+                    type: customEvents.apiResponse,
                     method,
                     payload,
                   },

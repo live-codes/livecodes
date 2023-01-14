@@ -11,7 +11,7 @@ Example:
 https://livecodes.io?js=console.log('Hello World!')&console=open
 ```
 
-<LiveCodes query="js=console.log('Hello World!')&console=open"></LiveCodes>
+<LiveCodes params={{js: "console.log('Hello World!')", console: 'open'}}></LiveCodes>
 
 ## Usage
 
