@@ -140,9 +140,10 @@ const FeatureList3: FeatureItem[] = [
     description: (
       <>
         Comprehensive <Link to="./overview">documentations</Link> (including{' '}
-        <Link to="./api/modules">TypeScript types</Link>) for <Link to="./features">features</Link>{' '}
-        and <Link to="./sdk">SDK</Link>, with code samples, live demos and screenshots. A gallery of{' '}
-        usage examples is provided as a <Link to="pathname:///../stories">storybook.</Link>
+        <Link to="./api/modules">TypeScript types</Link>) for <Link to="./features">features</Link>,{' '}
+        <Link to="./configuration">configuration</Link> and <Link to="./sdk">SDK</Link>.
+        Documentations are rich with code samples, live demos and screenshots. A gallery of usage
+        examples is provided as a <Link to="pathname:///../stories">storybook.</Link>
       </>
     ),
   },
