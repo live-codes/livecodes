@@ -118,21 +118,17 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-const loadConfig = async () => {
-  let config = {};
-  const configParam = params.get('config');
-  if (configParam) {
+const decodeConfig = (configParam: string | null) => {
+  const dataUrlPrefix = 'data%3Aapplication%2Fjson%3Bbase64%2C';
+  if (configParam && configParam.startsWith(dataUrlPrefix)) {
     try {
-      const res = await fetch(decodeURIComponent(configParam));
-      if (!res.ok) throw new Error('failed loading config');
-      config = await res.json();
+      const decoded = decodeURIComponent(configParam.replace(dataUrlPrefix, ''));
+      return JSON.parse(atob(decoded));
     } catch (err) {
       //
     }
   }
-  return config;
+  return {};
 };
 
-loadConfig().then((config) => {
-  livecodes('#livecodes', config);
-});
+livecodes('#livecodes', decodeConfig(params.get('config')));
