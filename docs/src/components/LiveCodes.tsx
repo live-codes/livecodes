@@ -1,32 +1,19 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
-import { appUrl } from '../utils';
 /* eslint-disable import/no-internal-modules */
-import { EmbedOptions } from '../../../src/sdk';
+import type { EmbedOptions } from '../../../src/sdk';
 import LiveCodesReact from '../../../src/sdk/react';
+import { appUrl } from '../utils';
 import ShowCode from './ShowCode';
 import styles from './LiveCodes.module.css';
 
 export default function LiveCodes(
   props: EmbedOptions & {
-    query?: string;
     style?: Record<string, string>;
     className?: string;
     showCode?: boolean;
   },
 ): JSX.Element {
-  // TODO: improve this: use `new URL()` & searchParams
-  const url = (props.appUrl || appUrl) + '?';
-
-  const options = {
-    ...(props.query ? { appUrl: url + props.query } : {}),
-    ...(props.config ? { config: props.config } : {}),
-    ...(props.import ? { import: props.import } : {}),
-    ...(props.lite ? { lite: props.lite } : {}),
-    ...(props.loading ? { loading: props.loading } : {}),
-    ...(props.template ? { template: props.template } : {}),
-    ...(props.view ? { view: props.view } : {}),
-  };
+  const { className, style, showCode, ...options } = props;
 
   const jsCode = `
 import { createPlayground } from 'livecodes';
@@ -72,7 +59,7 @@ const options = ${JSON.stringify(options, null, 2)};
           height: '50vh',
           ...props.style,
         }}
-        appUrl={url + props.query}
+        appUrl={appUrl}
         {...props}
       ></LiveCodesReact>
       {props.showCode !== false && (

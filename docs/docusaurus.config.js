@@ -71,14 +71,13 @@ const config = {
             label: 'SDK',
           },
           {
-            type: 'doc',
-            docId: 'examples/display-modes/index',
+            href: 'pathname:///../stories',
             position: 'left',
-            label: 'Examples',
+            label: 'Storybook',
           },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://livecodes.io/',
+            href: 'pathname:///../',
             label: 'App',
             position: 'right',
           },

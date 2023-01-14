@@ -1,13 +1,22 @@
-import type { API, Code, Config, ChangeHandler, EmbedOptions, Playground } from './models';
+import type {
+  API,
+  Code,
+  Config,
+  ChangeHandler,
+  EmbedOptions,
+  Playground,
+  UrlQueryParams,
+  CustomEvents,
+} from './models';
 
 export type { Code, Config, EmbedOptions, Playground };
-
 export const createPlayground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
   const {
     appUrl = 'https://livecodes.io/',
+    params = {},
     config = {},
     import: importFrom,
     lite = false,
@@ -38,31 +47,17 @@ export const createPlayground = async (
 
   const origin = url.origin;
 
+  if (typeof params === 'object') {
+    (Object.keys(params) as Array<keyof UrlQueryParams>).forEach((param) => {
+      url.searchParams.set(param, String(params[param]));
+    });
+  }
+
   if (typeof config === 'string') {
     url.searchParams.set('config', config);
   } else if (typeof config === 'object' && Object.keys(config).length > 0) {
     try {
       const encoded = btoa(JSON.stringify(config));
-      for (const [key, value] of Object.entries(config)) {
-        if (['string', 'boolean', 'number', 'undefined'].includes(typeof value)) {
-          url.searchParams.set(key, String(value));
-        }
-        if (key === 'tools' && typeof value === 'object') {
-          const tools = value as Partial<Config['tools']>;
-          if (tools.active) {
-            url.searchParams.set(tools.active, tools.status || '');
-          }
-          if (Array.isArray(tools.enabled)) {
-            if (tools.enabled.length === 0) {
-              url.searchParams.set('tools', 'none');
-            } else {
-              url.searchParams.set('tools', tools.enabled.join(','));
-            }
-          } else if (tools.status) {
-            url.searchParams.set('tools', tools.status);
-          }
-        }
-      }
       url.searchParams.set('config', 'data:application/json;base64,' + encoded);
     } catch {
       throw new Error('Invalid configuration object.');
@@ -129,13 +124,22 @@ export const createPlayground = async (
       frame.style.borderRadius = containerElement.style.borderRadius;
       frame.src = url.href;
       frame.onload = () => {
-        addEventListener('message', function readyHandler(e) {
-          if (e.source !== frame.contentWindow || e.origin !== origin) return;
-          if (e.data.type === 'livecodes-ready') {
-            removeEventListener('message', readyHandler);
-            livecodesReady = true;
-          }
-        });
+        addEventListener(
+          'message',
+          function readyHandler(
+            e: MessageEventInit<{
+              type: CustomEvents['ready'];
+              method: keyof API;
+              payload?: any;
+            }>,
+          ) {
+            if (e.source !== frame.contentWindow || e.origin !== origin) return;
+            if (e.data?.type === 'livecodes-ready') {
+              removeEventListener('message', readyHandler);
+              livecodesReady = true;
+            }
+          },
+        );
         resolve(frame);
       };
       containerElement.innerHTML = '';
@@ -143,36 +147,6 @@ export const createPlayground = async (
     });
 
   const iframe = await createIframe();
-
-  const callAPI = <T>(method: keyof API, args?: any[]) =>
-    new Promise<T>(async (resolve, reject) => {
-      if (destroyed) {
-        return reject(alreadyDestroyedMessage);
-      }
-      if (!livecodesReady) {
-        await loadLivecodes();
-      }
-      addEventListener('message', function handler(e) {
-        if (
-          e.source !== iframe.contentWindow ||
-          e.origin !== origin ||
-          e.data?.type !== 'api-response'
-        ) {
-          return;
-        }
-
-        if (e.data.method === method) {
-          removeEventListener('message', handler);
-          const payload = e.data.payload;
-          if (payload?.error) {
-            reject(payload.error);
-          } else {
-            resolve(payload);
-          }
-        }
-      });
-      iframe.contentWindow?.postMessage({ method, args }, origin);
-    });
 
   const delay = (duration = 100) =>
     new Promise((resolve) => {
@@ -183,12 +157,52 @@ export const createPlayground = async (
     destroyed
       ? Promise.reject(alreadyDestroyedMessage)
       : new Promise(async (resolve) => {
-          iframe.contentWindow?.postMessage({ type: 'livecodes-load' }, origin);
+          const message: { type: CustomEvents['load'] } = { type: 'livecodes-load' };
+          iframe.contentWindow?.postMessage(message, origin);
           while (!livecodesReady) {
             await delay();
           }
           resolve();
         });
+
+  const callAPI = <T>(method: keyof API, args?: any[]) =>
+    new Promise<T>(async (resolve, reject) => {
+      if (destroyed) {
+        return reject(alreadyDestroyedMessage);
+      }
+      if (!livecodesReady) {
+        await loadLivecodes();
+      }
+      addEventListener(
+        'message',
+        function handler(
+          e: MessageEventInit<{
+            type: CustomEvents['apiResponse'];
+            method: keyof API;
+            payload?: any;
+          }>,
+        ) {
+          if (
+            e.source !== iframe.contentWindow ||
+            e.origin !== origin ||
+            e.data?.type !== 'livecodes-api-response'
+          ) {
+            return;
+          }
+
+          if (e.data.method === method) {
+            removeEventListener('message', handler);
+            const payload = e.data.payload;
+            if (payload?.error) {
+              reject(payload.error);
+            } else {
+              resolve(payload);
+            }
+          }
+        },
+      );
+      iframe.contentWindow?.postMessage({ method, args }, origin);
+    });
 
   let watchers: ChangeHandler[] = [];
   const onChange = (fn: ChangeHandler) => {
@@ -202,21 +216,29 @@ export const createPlayground = async (
       },
     };
   };
-  addEventListener('message', async (e: MessageEvent) => {
-    if (
-      e.source !== iframe.contentWindow ||
-      e.origin !== origin ||
-      e.data?.type !== 'livecodes-change'
-    ) {
-      return;
-    }
-    const code = await callAPI<Code>('getCode');
-    const config = await callAPI<Config>('getConfig');
 
-    watchers.forEach((fn) => {
-      fn({ code, config });
-    });
-  });
+  addEventListener(
+    'message',
+    async (
+      e: MessageEventInit<{
+        type: CustomEvents['change'];
+      }>,
+    ) => {
+      if (
+        e.source !== iframe.contentWindow ||
+        e.origin !== origin ||
+        e.data?.type !== 'livecodes-change'
+      ) {
+        return;
+      }
+      const code = await callAPI<Code>('getCode');
+      const config = await callAPI<Config>('getConfig');
+
+      watchers.forEach((fn) => {
+        fn({ code, config });
+      });
+    },
+  );
 
   const destroy = () => {
     watchers.length = 0;

@@ -48,4 +48,4 @@ Example:
 
 <a href="https://livecodes.io/?md=**Hello World!**" target="_blank">https://livecodes.io/?md=**Hello World!**</a><br /><br />
 
-<LiveCodes query="md=**Hello World!**"></LiveCodes>
+<LiveCodes params={{md: '**Hello World!**'}}></LiveCodes>

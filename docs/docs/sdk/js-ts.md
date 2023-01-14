@@ -44,6 +44,7 @@ const options: EmbedOptions = {
   // import: ...
   // lite: ...
   // loading: ...
+  // params: ...
   // template: ...
   // view: ...
 };
@@ -102,9 +103,34 @@ Default: `"lazy"`
 
 "click": The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
 
+### `params`
+
+Type: [`UrlQueryParams`](../api/interfaces/EmbedOptions.md#params)
+
+An object that represents [URL Query parameters](../configuration/query-params.md).
+
+These 2 snippets produce similar output:
+
+```js
+import { createPlayground } from 'livecodes';
+
+// use config
+createPlayground('#container1', {
+  config: {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World!',
+    },
+  },
+});
+
+// use params
+createPlayground('#container2', { params: { md: '# Hello World!' } });
+```
+
 ### `template`
 
-Type: [`string`](../api/interfaces/EmbedOptions.md#template)
+Type: [`TemplateName`](../api/interfaces/EmbedOptions.md#template)
 
 A [starter template](../features/templates.md) to load.
 

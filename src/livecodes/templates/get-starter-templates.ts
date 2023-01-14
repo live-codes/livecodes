@@ -29,9 +29,9 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
       if (template.title === 'Blank Project') return true;
 
       const templateLanguages = [
-        template.markup.language,
-        template.style.language,
-        template.script.language,
+        template.markup?.language,
+        template.style?.language,
+        template.script?.language,
       ];
       for (const language of templateLanguages) {
         const lang = getLanguageByAlias(language);
@@ -43,27 +43,30 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
       ...template,
       markup: {
         ...template.markup,
-        content: mapBaseUrl(template.markup.content || '', baseUrl),
-        ...(template.markup.contentUrl
-          ? { contentUrl: mapBaseUrl(template.markup.contentUrl || '', baseUrl) }
+        language: template.markup?.language || 'html',
+        content: mapBaseUrl(template.markup?.content || '', baseUrl),
+        ...(template.markup?.contentUrl
+          ? { contentUrl: mapBaseUrl(template.markup?.contentUrl || '', baseUrl) }
           : {}),
       },
       style: {
         ...template.style,
-        content: mapBaseUrl(template.style.content || '', baseUrl),
-        ...(template.style.contentUrl
-          ? { contentUrl: mapBaseUrl(template.style.contentUrl || '', baseUrl) }
+        language: template.style?.language || 'css',
+        content: mapBaseUrl(template.style?.content || '', baseUrl),
+        ...(template.style?.contentUrl
+          ? { contentUrl: mapBaseUrl(template.style?.contentUrl || '', baseUrl) }
           : {}),
       },
       script: {
         ...template.script,
-        content: mapBaseUrl(template.script.content || '', baseUrl),
-        ...(template.script.contentUrl
-          ? { contentUrl: mapBaseUrl(template.script.contentUrl || '', baseUrl) }
+        language: template.script?.language || 'javascript',
+        content: mapBaseUrl(template.script?.content || '', baseUrl),
+        ...(template.script?.contentUrl
+          ? { contentUrl: mapBaseUrl(template.script?.contentUrl || '', baseUrl) }
           : {}),
       },
-      imports: objectMap(template.imports, (url) => mapBaseUrl(url || '', baseUrl)),
-      types: objectMap(template.types, (url) => mapBaseUrl(url || '', baseUrl)),
+      imports: objectMap(template.imports || {}, (url) => mapBaseUrl(url || '', baseUrl)),
+      types: objectMap(template.types || {}, (url) => mapBaseUrl(url || '', baseUrl)),
     }));
 
 export const getTemplate = async (name: string, config: Config, baseUrl: string) =>

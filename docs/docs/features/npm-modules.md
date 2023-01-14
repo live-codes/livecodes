@@ -28,7 +28,7 @@ This is made possible by using [import maps](https://github.com/WICG/import-maps
 
 <p id="npm-modules-demo1">Demo:</p>
 
-<LiveCodes query="js=import%20%7B%20v4%20%7D%20from%20%27uuid%27%3B%0A%0Adocument.body.innerHTML%20%3D%20v4()%3B"></LiveCodes>
+<LiveCodes params={{js: "import { v4 } from 'uuid';\n\ndocument.body.innerHTML = v4();"}}></LiveCodes>
 
 <p>&nbsp;</p>
 
@@ -93,7 +93,7 @@ Exercise:
 
 Copy the previous code snippet and paste it in the playground below. Check the generated code in the compiled code viewer.
 
-<LiveCodes config={{ activeEditor: 'script' }}></LiveCodes>
+<LiveCodes params={{ activeEditor: 'script', compiled: 'open' }}></LiveCodes>
 
 :::info
 

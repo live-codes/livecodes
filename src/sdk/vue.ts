@@ -31,6 +31,7 @@ const props = {
   import: String,
   lite: Boolean,
   loading: String,
+  params: Object,
   template: String,
   view: String,
   height: String,

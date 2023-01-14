@@ -11,4 +11,4 @@ sets TypeScript as the active editor and shows compiled code viewer maximized.
 
 This demo shows TypeScript code along with the compiled Javascript code, similar to the [official TypeScript Playground](https://www.typescriptlang.org/play):
 
-<LiveCodes query="ts=playground.ts&compiled=full#https://gist.github.com/hatemhosny/4bed283ef9757a6a541aee685c710dc7"></LiveCodes>
+<LiveCodes import="https://gist.github.com/hatemhosny/4bed283ef9757a6a541aee685c710dc7" params={{'ts-selector': 'playground.ts', activeEditor: 'script', compiled: 'full'}}></LiveCodes>

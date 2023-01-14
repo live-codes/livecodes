@@ -118,4 +118,17 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-livecodes('#livecodes', {});
+const decodeConfig = (configParam: string | null) => {
+  const dataUrlPrefix = 'data%3Aapplication%2Fjson%3Bbase64%2C';
+  if (configParam && configParam.startsWith(dataUrlPrefix)) {
+    try {
+      const decoded = decodeURIComponent(configParam.replace(dataUrlPrefix, ''));
+      return JSON.parse(atob(decoded));
+    } catch (err) {
+      //
+    }
+  }
+  return {};
+};
+
+livecodes('#livecodes', decodeConfig(params.get('config')));

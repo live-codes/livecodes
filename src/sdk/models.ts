@@ -24,11 +24,12 @@ export interface Playground extends API {
 
 export interface EmbedOptions {
   appUrl?: string;
+  params?: UrlQueryParams;
   config?: Partial<Config> | string;
   import?: string;
   lite?: boolean;
   loading?: 'lazy' | 'click' | 'eager';
-  template?: string;
+  template?: TemplateName;
   view?: 'split' | 'editor' | 'result';
 }
 
@@ -451,23 +452,63 @@ export interface Compilers {
   [language: string]: Compiler;
 }
 
-export type Template = Pick<
-  Config,
-  | 'title'
-  | 'activeEditor'
-  | 'markup'
-  | 'style'
-  | 'script'
-  | 'stylesheets'
-  | 'scripts'
-  | 'cssPreset'
-  | 'imports'
-  | 'types'
-> &
-  Partial<Pick<Config, 'processors' | 'customSettings' | 'tests'>> & {
-    name: string;
+export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
+  Partial<ContentConfig> & {
+    name: TemplateName;
     thumbnail: string;
   };
+
+export type TemplateName =
+  | 'blank'
+  | 'javascript'
+  | 'typescript'
+  | 'react'
+  | 'react-native'
+  | 'vue2'
+  | 'vue'
+  | 'angular'
+  | 'preact'
+  | 'svelte'
+  | 'stencil'
+  | 'solid'
+  | 'mdx'
+  | 'astro'
+  | 'riot'
+  | 'malina'
+  | 'jquery'
+  | 'backbone'
+  | 'knockout'
+  | 'jest'
+  | 'jest-react'
+  | 'bootstrap'
+  | 'tailwindcss'
+  | 'coffeescript'
+  | 'livescript'
+  | 'clio'
+  | 'imba'
+  | 'rescript'
+  | 'reason'
+  | 'ocaml'
+  | 'python'
+  | 'pyodide'
+  | 'ruby'
+  | 'go'
+  | 'php'
+  | 'cpp'
+  | 'clang'
+  | 'perl'
+  | 'lua'
+  | 'julia'
+  | 'scheme'
+  | 'commonlisp'
+  | 'tcl'
+  | 'markdown'
+  | 'assemblyscript'
+  | 'wat'
+  | 'sql'
+  | 'prolog'
+  | 'blockly'
+  | 'diagrams';
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
@@ -790,7 +831,10 @@ export type ToolsStatus = `${ToolNames}|${Config['tools']['status']}`;
 
 export type UrlQueryParams = Partial<
   EmbedOptions &
-    Config &
+    Omit<
+      Config,
+      'activeEditor' | 'languages' | 'tags' | 'processors' | 'stylesheets' | 'scripts' | 'tools'
+    > &
     Screen & { [key in Language]: string } & { [key in languageSelector]: string } & {
       config: string;
       embed: boolean;
@@ -803,11 +847,23 @@ export type UrlQueryParams = Partial<
       processors: string; // comma-separated processors
       stylesheets: string; // comma-separated stylesheets
       scripts: string; // comma-separated scripts
+      activeEditor: EditorId | 0 | 1 | 2;
       active: EditorId | 0 | 1 | 2;
       tags: string | string[];
       'no-defaults': boolean;
       tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
-      [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none';
+      [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
     }
 >;
+
+export interface CustomEvents {
+  load: 'livecodes-load';
+  appLoaded: 'livecodes-app-loaded';
+  ready: 'livecodes-ready';
+  change: 'livecodes-change';
+  testResults: 'livecodes-test-results';
+  destroy: 'livecodes-destroy';
+  resizeEditor: 'livecodes-resize-editor';
+  apiResponse: 'livecodes-api-response';
+}
