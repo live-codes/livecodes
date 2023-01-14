@@ -146,7 +146,7 @@ const stores: Stores = {
 const eventsManager = createEventsManager();
 const notifications = createNotifications();
 const modal = createModal();
-const split = createSplitPanes();
+let split: ReturnType<typeof createSplitPanes> | null = createSplitPanes();
 const typeLoader = createTypeLoader();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
@@ -480,6 +480,7 @@ const showMode = (config: Config) => {
     outputElement.style.flexBasis = '100%';
     editorsElement.style.display = 'none';
     split?.destroy(true);
+    split = null;
   }
   if (!showResult) {
     editorsElement.style.flexBasis = '100%';
@@ -487,6 +488,7 @@ const showMode = (config: Config) => {
     resultElement.style.display = 'none';
     codeRunButton.style.display = 'none';
     split?.destroy(true);
+    split = null;
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
@@ -499,6 +501,9 @@ const showMode = (config: Config) => {
     if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
+  }
+  if (config.mode === 'full' && !split) {
+    split = createSplitPanes();
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
@@ -531,7 +536,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   }
   updateCompiledCode();
   if (initialized || params.view !== 'result') {
-    split.show('code');
+    split?.show('code');
   }
   showEditorModeStatus(editorId);
 };
@@ -1805,7 +1810,7 @@ const handleHotKeys = () => {
     // Ctrl + Alt + T runs tests
     if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
       e.preventDefault();
-      split.show('output');
+      split?.show('output');
       toolsPane?.setActiveTool('tests');
       if (toolsPane?.getStatus() === 'closed') {
         toolsPane?.open();
@@ -1817,7 +1822,7 @@ const handleHotKeys = () => {
     // Ctrl + Enter triggers run
     if (e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
-      split.show('output');
+      split?.show('output');
       await run();
       return;
     }
@@ -1837,7 +1842,7 @@ const handleLogoLink = () => {
 
 const handleRunButton = () => {
   const handleRun = async () => {
-    split.show('output');
+    split?.show('output');
     await run();
   };
   eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
@@ -1845,7 +1850,7 @@ const handleRunButton = () => {
 };
 
 const handleResultButton = () => {
-  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split.show('output', true));
+  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('output', true));
 };
 
 const handleEditorTools = () => {
@@ -3361,17 +3366,18 @@ const configureModes = ({
 }) => {
   if (config.mode === 'full') {
     if (params.view === 'editor') {
-      split.show('code', true);
+      split?.show('code', true);
     }
     if (params.view === 'result') {
-      split.show('output', true);
+      split?.show('output', true);
     }
   }
   if (config.mode === 'codeblock') {
     setConfig({ ...config, readonly: true });
   }
   if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
-    split.show = () => undefined;
+    split?.destroy();
+    split = null;
   }
   if (isLite) {
     configureLite();
@@ -3635,11 +3641,17 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = buildConfig(newConfig);
-    setConfig({
+    const newAppConfig = {
       ...getConfig(),
-      ...newConfig,
-    });
+      ...buildConfig(newConfig),
+    };
+
+    // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
+    if (newAppConfig.mode !== getConfig().mode) {
+      showMode(newAppConfig);
+    }
+
+    setConfig(newAppConfig);
     await loadConfig(newAppConfig);
     return newAppConfig;
   };
@@ -3657,13 +3669,13 @@ const createApi = (): API => {
     { full = false, line, column, zoom: zoomLevel } = {},
   ) => {
     if (panel === 'result') {
-      split.show('output', full);
+      split?.show('output', full);
       toolsPane?.close();
       if (zoomLevel) {
         zoom(zoomLevel);
       }
     } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
-      split.show('output');
+      split?.show('output');
       toolsPane?.setActiveTool(panel);
       if (full) {
         toolsPane?.maximize();
@@ -3672,7 +3684,7 @@ const createApi = (): API => {
       }
     } else if (Object.keys(editors).includes(panel)) {
       showEditor(panel);
-      split.show('code', full);
+      split?.show('code', full);
       if (typeof line === 'number' && line > 0) {
         const col = typeof column === 'number' && column > -1 ? column : 0;
         getActiveEditor().setPosition({ lineNumber: line, column: col });
