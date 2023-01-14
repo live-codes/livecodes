@@ -1,12 +1,12 @@
-const prefix = 'livecodes-';
+import { CustomEvents } from '../models';
 
-export const customEvents = {
-  load: prefix + 'load',
-  appLoaded: prefix + 'app-loaded',
-  ready: prefix + 'ready',
-  change: prefix + 'change',
-  testResults: prefix + 'test-results',
-  destroy: prefix + 'destroy',
-  resizeEditor: prefix + 'resize-editor',
-  apiResponse: prefix + 'api-response',
+export const customEvents: CustomEvents = {
+  load: 'livecodes-load',
+  appLoaded: 'livecodes-app-loaded',
+  ready: 'livecodes-ready',
+  change: 'livecodes-change',
+  testResults: 'livecodes-test-results',
+  destroy: 'livecodes-destroy',
+  resizeEditor: 'livecodes-resize-editor',
+  apiResponse: 'livecodes-api-response',
 };

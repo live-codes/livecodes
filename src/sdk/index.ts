@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-internal-modules
-import { customEvents } from '../livecodes/events';
 import type {
   API,
   Code,
@@ -8,6 +6,7 @@ import type {
   EmbedOptions,
   Playground,
   UrlQueryParams,
+  CustomEvents,
 } from './models';
 
 export type { Code, Config, EmbedOptions, Playground };
@@ -125,13 +124,22 @@ export const createPlayground = async (
       frame.style.borderRadius = containerElement.style.borderRadius;
       frame.src = url.href;
       frame.onload = () => {
-        addEventListener('message', function readyHandler(e) {
-          if (e.source !== frame.contentWindow || e.origin !== origin) return;
-          if (e.data.type === 'livecodes-ready') {
-            removeEventListener('message', readyHandler);
-            livecodesReady = true;
-          }
-        });
+        addEventListener(
+          'message',
+          function readyHandler(
+            e: MessageEventInit<{
+              type: CustomEvents['ready'];
+              method: keyof API;
+              payload?: any;
+            }>,
+          ) {
+            if (e.source !== frame.contentWindow || e.origin !== origin) return;
+            if (e.data?.type === 'livecodes-ready') {
+              removeEventListener('message', readyHandler);
+              livecodesReady = true;
+            }
+          },
+        );
         resolve(frame);
       };
       containerElement.innerHTML = '';
@@ -149,7 +157,8 @@ export const createPlayground = async (
     destroyed
       ? Promise.reject(alreadyDestroyedMessage)
       : new Promise(async (resolve) => {
-          iframe.contentWindow?.postMessage({ type: customEvents.load }, origin);
+          const message: { type: CustomEvents['load'] } = { type: 'livecodes-load' };
+          iframe.contentWindow?.postMessage(message, origin);
           while (!livecodesReady) {
             await delay();
           }
@@ -164,25 +173,34 @@ export const createPlayground = async (
       if (!livecodesReady) {
         await loadLivecodes();
       }
-      addEventListener('message', function handler(e) {
-        if (
-          e.source !== iframe.contentWindow ||
-          e.origin !== origin ||
-          e.data?.type !== customEvents.apiResponse
+      addEventListener(
+        'message',
+        function handler(
+          e: MessageEventInit<{
+            type: CustomEvents['apiResponse'];
+            method: keyof API;
+            payload?: any;
+          }>,
         ) {
-          return;
-        }
-
-        if (e.data.method === method) {
-          removeEventListener('message', handler);
-          const payload = e.data.payload;
-          if (payload?.error) {
-            reject(payload.error);
-          } else {
-            resolve(payload);
+          if (
+            e.source !== iframe.contentWindow ||
+            e.origin !== origin ||
+            e.data?.type !== 'livecodes-api-response'
+          ) {
+            return;
           }
-        }
-      });
+
+          if (e.data.method === method) {
+            removeEventListener('message', handler);
+            const payload = e.data.payload;
+            if (payload?.error) {
+              reject(payload.error);
+            } else {
+              resolve(payload);
+            }
+          }
+        },
+      );
       iframe.contentWindow?.postMessage({ method, args }, origin);
     });
 
@@ -199,21 +217,28 @@ export const createPlayground = async (
     };
   };
 
-  addEventListener('message', async (e: MessageEvent) => {
-    if (
-      e.source !== iframe.contentWindow ||
-      e.origin !== origin ||
-      e.data?.type !== customEvents.change
-    ) {
-      return;
-    }
-    const code = await callAPI<Code>('getCode');
-    const config = await callAPI<Config>('getConfig');
+  addEventListener(
+    'message',
+    async (
+      e: MessageEventInit<{
+        type: CustomEvents['change'];
+      }>,
+    ) => {
+      if (
+        e.source !== iframe.contentWindow ||
+        e.origin !== origin ||
+        e.data?.type !== 'livecodes-change'
+      ) {
+        return;
+      }
+      const code = await callAPI<Code>('getCode');
+      const config = await callAPI<Config>('getConfig');
 
-    watchers.forEach((fn) => {
-      fn({ code, config });
-    });
-  });
+      watchers.forEach((fn) => {
+        fn({ code, config });
+      });
+    },
+  );
 
   const destroy = () => {
     watchers.length = 0;
