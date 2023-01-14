@@ -117,7 +117,9 @@ const FeatureList3: FeatureItem[] = [
         <Link to="./configuration/configuration-object">configurable</Link>. Lots of features can be
         configured by URL <Link to="./configuration/query-params">query params</Link>. The{' '}
         <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
-        playgrounds and allows easy communication with them.
+        playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
+        them. The SDK is available as a <Link to="./sdk/js-ts">JS/TS</Link> library, as well as{' '}
+        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> Components.
       </>
     ),
   },
@@ -139,7 +141,8 @@ const FeatureList3: FeatureItem[] = [
       <>
         Comprehensive <Link to="./overview">documentations</Link> (including{' '}
         <Link to="./api/modules">TypeScript types</Link>) for <Link to="./features">features</Link>{' '}
-        and <Link to="./sdk">SDK</Link>, with code samples, live demos and screenshots.
+        and <Link to="./sdk">SDK</Link>, with code samples, live demos and screenshots. A gallery of{' '}
+        usage examples is provided as a <Link to="pathname:///../stories">storybook.</Link>
       </>
     ),
   },

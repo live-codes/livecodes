@@ -143,7 +143,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
     ```
 
 :::info Examples
-For usage examples, check [unit tests](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/__tests__/build-config.spec.ts).
+For usage examples, check [storybook](pathname:///../stories/?path=/story/embed-options-params--select-language) and [unit tests](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/config/__tests__/build-config.spec.ts).
 :::
 
 <!-- TODO: add docs for languageSelector and ToolsStatus -->
