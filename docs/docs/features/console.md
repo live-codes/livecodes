@@ -13,7 +13,7 @@ sets TypeScript as the active editor and shows the console maximized.
 
 Demo: (console=full)
 
-<LiveCodes query="console=full&js=const%20x%20=%205;%0Aconsole.log(%27x:%27,%20x);%0Aconsole.log({x,%20y:%206});%0Aconsole.table({x,%20y:%206});%0Aconsole.warn(%27take%20care!%27);%0Aconst%20z%20=%20x%20*%20y;"></LiveCodes>
+<LiveCodes params={{console: 'full', js: `const x = 5;\nconsole.log('x:', x);\nconsole.log({x, y: 6});\nconsole.table({x, y: 6});\nconsole.warn('take care!');\nconst z = x * y;`}}></LiveCodes>
 
 <p>&nbsp;</p>
 
@@ -26,4 +26,4 @@ Selecting one language and setting console to `full` gives an environment simila
 
 Demo: (Python - print to console)
 
-<LiveCodes query="languages=py&console=full&py=print('hello%20from%20python')"></LiveCodes>
+<LiveCodes params={{languages: 'py', console: 'full', py: "print('hello from python')"}}></LiveCodes>

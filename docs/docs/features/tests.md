@@ -26,13 +26,13 @@ Screenshots:
 
 Demo: (template=jest)
 
-<LiveCodes query="template=jest&tests"></LiveCodes>
+<LiveCodes template="jest" params={{tests: 'open'}}></LiveCodes>
 
 <p>&nbsp;</p>
 
 Demo: (template=jest-react)
 
-<LiveCodes query="template=jest-react&tests"></LiveCodes>
+<LiveCodes template="jest-react" params={{tests: 'open'}}></LiveCodes>
 
 In the tests panel, you can find:
 
@@ -49,7 +49,7 @@ However, since the tests are run against the result web page, they can test proj
 
 This is <a href="https://livecodes.io/?x=id/3i8wrwcwhud&tests" target="_blank">a demo</a> for running tests against a Python project.
 
-<LiveCodes query="x=id/3i8wrwcwhud&tests"></LiveCodes>
+<LiveCodes import="id/3i8wrwcwhud" params={{tests: "open"}}></LiveCodes>
 
 ## Importing Code
 

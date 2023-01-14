@@ -59,7 +59,7 @@ Example: https://livecodes.io/?mode=result&tools=console|full
 
 Demo:
 
-<LiveCodes query="mode=result&tools=console|full"></LiveCodes>
+<LiveCodes params={{mode: 'result', tools: 'console|full'}}></LiveCodes>
 
 ## Display Mode vs Default View
 

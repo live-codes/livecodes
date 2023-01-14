@@ -25,10 +25,10 @@ opens the console and sets JavaScript code.
 
 Demo: (console=open)
 
-<LiveCodes query="console=open&js=console.log('hello')"></LiveCodes>
+<LiveCodes params={{console: "open", js: "console.log('hello')"}}></LiveCodes>
 
 <p>&nbsp;</p>
 
 Demo: (console=full)
 
-<LiveCodes query="console=full&js=console.log('hello')"></LiveCodes>
+<LiveCodes params={{console: "full", js: "console.log('hello')"}}></LiveCodes>

@@ -201,7 +201,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
           <div className={'row ' + styles.center}>
             <LiveCodes
-              query="template=react"
+              template="react"
               style={{
                 height: '70vh',
                 width: '95%',
