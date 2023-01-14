@@ -1657,6 +1657,8 @@ const handleResize = () => {
 
 const handleIframeResize = () => {
   const gutter = UI.getGutterElement();
+  if (!gutter) return;
+
   const sizeLabel = document.createElement('div');
   sizeLabel.id = 'size-label';
   gutter.appendChild(sizeLabel);

@@ -118,4 +118,21 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-livecodes('#livecodes', {});
+const loadConfig = async () => {
+  let config = {};
+  const configParam = params.get('config');
+  if (configParam) {
+    try {
+      const res = await fetch(decodeURIComponent(configParam));
+      if (!res.ok) throw new Error('failed loading config');
+      config = await res.json();
+    } catch (err) {
+      //
+    }
+  }
+  return config;
+};
+
+loadConfig().then((config) => {
+  livecodes('#livecodes', config);
+});

@@ -59,26 +59,6 @@ export const createPlayground = async (
   } else if (typeof config === 'object' && Object.keys(config).length > 0) {
     try {
       const encoded = btoa(JSON.stringify(config));
-      for (const [key, value] of Object.entries(config)) {
-        if (['string', 'boolean', 'number', 'undefined'].includes(typeof value)) {
-          url.searchParams.set(key, String(value));
-        }
-        if (key === 'tools' && typeof value === 'object') {
-          const tools = value as Partial<Config['tools']>;
-          if (tools.active) {
-            url.searchParams.set(tools.active, tools.status || '');
-          }
-          if (Array.isArray(tools.enabled)) {
-            if (tools.enabled.length === 0) {
-              url.searchParams.set('tools', 'none');
-            } else {
-              url.searchParams.set('tools', tools.enabled.join(','));
-            }
-          } else if (tools.status) {
-            url.searchParams.set('tools', tools.status);
-          }
-        }
-      }
       url.searchParams.set('config', 'data:application/json;base64,' + encoded);
     } catch {
       throw new Error('Invalid configuration object.');
@@ -205,10 +185,6 @@ export const createPlayground = async (
       });
       iframe.contentWindow?.postMessage({ method, args }, origin);
     });
-
-  // if (typeof config === 'object' && Object.keys(config).length > 0) {
-  //   callAPI('setConfig', [config]);
-  // }
 
   let watchers: ChangeHandler[] = [];
   const onChange = (fn: ChangeHandler) => {
