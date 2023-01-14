@@ -1,7 +1,7 @@
 import { livecodesStory } from '../../src';
 
 export default {
-  title: 'Embed Options/Lite',
+  title: 'Embed Options/lite',
 };
 
 export const Lite = livecodesStory({ lite: true });

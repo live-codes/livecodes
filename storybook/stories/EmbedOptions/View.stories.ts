@@ -1,7 +1,7 @@
 import { livecodesStory } from '../../src';
 
 export default {
-  title: 'Embed Options/View',
+  title: 'Embed Options/view',
 };
 
 export const Split = livecodesStory({ view: 'split' });

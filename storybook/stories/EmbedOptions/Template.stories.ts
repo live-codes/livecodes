@@ -1,7 +1,7 @@
 import { livecodesStory } from '../../src';
 
 export default {
-  title: 'Embed Options/Template',
+  title: 'Embed Options/template',
 };
 
 export const Blank = livecodesStory({ template: 'blank' });

@@ -1,7 +1,7 @@
 import { livecodesStory } from '../../src';
 
 export default {
-  title: 'Embed Options/Loading',
+  title: 'Embed Options/loading',
 };
 
 export const Lazy = livecodesStory({ loading: 'lazy' });

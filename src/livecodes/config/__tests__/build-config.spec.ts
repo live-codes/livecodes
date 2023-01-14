@@ -183,6 +183,20 @@ describe('loadParamConfig', () => {
     expect(output.activeEditor).toEqual('style');
   });
 
+  test('?active=style', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      active: 'style',
+    });
+    expect(output.activeEditor).toEqual('style');
+  });
+
+  test('?active=1', () => {
+    const output: Partial<Config> = loadParamConfig(defaultConfig, {
+      active: '1',
+    });
+    expect(output.activeEditor).toEqual('style');
+  });
+
   test('?tags=js,advanced,proof-of-concept', () => {
     const output: Partial<Config> = loadParamConfig(defaultConfig, {
       tags: 'js,advanced,proof-of-concept',

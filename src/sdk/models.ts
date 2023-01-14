@@ -831,7 +831,10 @@ export type ToolsStatus = `${ToolNames}|${Config['tools']['status']}`;
 
 export type UrlQueryParams = Partial<
   EmbedOptions &
-    Config &
+    Omit<
+      Config,
+      'activeEditor' | 'languages' | 'tags' | 'processors' | 'stylesheets' | 'scripts' | 'tools'
+    > &
     Screen & { [key in Language]: string } & { [key in languageSelector]: string } & {
       config: string;
       embed: boolean;
@@ -844,11 +847,12 @@ export type UrlQueryParams = Partial<
       processors: string; // comma-separated processors
       stylesheets: string; // comma-separated stylesheets
       scripts: string; // comma-separated scripts
+      activeEditor: EditorId | 0 | 1 | 2;
       active: EditorId | 0 | 1 | 2;
       tags: string | string[];
       'no-defaults': boolean;
       tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
-      [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none';
+      [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
     }
 >;

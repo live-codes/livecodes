@@ -57,11 +57,6 @@ export const Introduction = livecodesStory({
                       console.log('Hello from JS!');
                       `,
     },
-    tools: {
-      status: 'open',
-      active: 'console',
-      enabled: 'all',
-    },
   },
 });
 
