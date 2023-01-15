@@ -33,7 +33,11 @@ export const createImportMap = (code: string, config: Config) =>
         if (key) {
           return { [key]: config.imports[key] };
         }
-        return { [libName]: modulesService.getModuleUrl(libName) };
+        return {
+          [libName]: modulesService.getModuleUrl(libName, {
+            defaultCDN: config?.customSettings?.defaultCDN,
+          }),
+        };
       }
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {} as Record<string, string>);
@@ -74,8 +78,15 @@ export const hasStyleImports = (code: string) => new RegExp(styleimportsPattern)
 
 export const replaceStyleImports = (code: string) =>
   code.replace(new RegExp(styleimportsPattern), (statement, match, media) => {
-    const url = match.replace(/"/g, '').replace(/'/g, '').replace(/url\(/g, '').replace(/\)/g, '');
-    const modified = '@import "' + modulesService.getModuleUrl(url, false) + '";';
+    const url: string = match
+      .replace(/"/g, '')
+      .replace(/'/g, '')
+      .replace(/url\(/g, '')
+      .replace(/\)/g, '');
+    const modified =
+      '@import "' +
+      modulesService.getModuleUrl(url, { isModule: false, defaultCDN: 'jsdelivr' }) +
+      '";';
     const mediaQuery = media?.trim();
     return !isBare(url)
       ? statement

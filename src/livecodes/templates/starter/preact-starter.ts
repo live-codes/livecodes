@@ -26,8 +26,8 @@ export const preactStarter: Template = {
     language: 'jsx',
     content: `
 /** @jsx h */
-import { h, render } from 'preact@v10.10.1';
-import { useState } from 'preact@v10.10.1/hooks';
+import { h, render } from 'preact';
+import { useState } from 'preact/hooks';
 
 function App(props) {
   const [count, setCount] = useState(0);
