@@ -1,10 +1,10 @@
 /* eslint-disable import/no-internal-modules */
-import type { CompilerFunction } from '../../models';
+import type { CDN, CompilerFunction } from '../../models';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { modulesService } from '../../services/modules';
 import { escapeCode } from '../../utils';
 
-const loaderOptions = `const options = {
+const getLoaderOptions = (defaultCDN?: CDN) => `const options = {
   moduleCache: {
     vue: Vue,
   },
@@ -26,7 +26,7 @@ const loaderOptions = `const options = {
           }
         } catch {}
       }
-      return '${modulesService.getModuleUrl('')}' + relPath;
+      return '${modulesService.getModuleUrl('', { defaultCDN })}' + relPath;
     }
 
     return refPath === undefined || !refPath.startsWith('http') ? relPath : String(new URL(relPath, refPath));
@@ -68,7 +68,7 @@ let app = document.querySelector("#app") || document.body.appendChild(document.c
 /* <!-- */
 let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
 /* --> */
-${loaderOptions}
+${getLoaderOptions(config.customSettings.defaultCDN)}
 const { loadModule } = window['vue3-sfc-loader'];
 const App = Vue.createApp(Vue.defineAsyncComponent(() => loadModule('/component.vue', options)));
 App.mount(app)
@@ -85,7 +85,7 @@ let app = document.querySelector("#app") || document.body.appendChild(document.c
 /* <!-- */
 let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
 /* --> */
-${loaderOptions}
+${getLoaderOptions(config.customSettings.defaultCDN)}
 const { loadModule, vueVersion } = window['vue2-sfc-loader'];
 loadModule('/component.vue', options)
 .then(component => new Vue(component).$mount(app));

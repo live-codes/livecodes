@@ -58,9 +58,5 @@ export function Counter(props) {
 }
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
+  customSettings: { defaultCDN: 'skypack' },
 };

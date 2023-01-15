@@ -719,11 +719,23 @@ export type CustomSettings = Partial<
     mapImports: boolean;
     imports: Record<string, string>;
     convertCommonjs: boolean;
+    defaultCDN: CDN;
     types: Types;
     head: string;
     htmlClasses: string;
   }
 >;
+
+export type CDN =
+  | 'jspm'
+  | 'skypack'
+  | 'jsdelivr'
+  | 'jsdelivr.gh'
+  | 'esm.run'
+  | 'esm.sh'
+  | 'esbuild'
+  | 'bundle.run'
+  | 'unpkg';
 
 export type EditorCache = Editor & {
   compiled: string;

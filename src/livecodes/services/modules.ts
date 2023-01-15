@@ -1,17 +1,28 @@
-export const modulesService = {
-  getModuleUrl: (moduleName: string, isModule = true) => {
-    const post = isModule && moduleName.startsWith('unpkg:') ? '?module' : '';
+import { CDN } from '../models';
 
-    for (const i of TEMPLATES) {
-      const [pattern, template] = i;
-      if (pattern.test(moduleName)) {
-        return moduleName.replace(pattern, template) + post;
+export const modulesService = {
+  getModuleUrl: (
+    moduleName: string,
+    { isModule = true, defaultCDN = 'jspm' }: { isModule?: boolean; defaultCDN?: CDN } = {},
+  ) => {
+    const getCdnUrl = (modName: string) => {
+      const post = isModule && modName.startsWith('unpkg:') ? '?module' : '';
+      for (const i of TEMPLATES) {
+        const [pattern, template] = i;
+        if (pattern.test(modName)) {
+          return modName.replace(pattern, template) + post;
+        }
       }
+      return null;
+    };
+
+    const moduleUrl = getCdnUrl(moduleName) || getCdnUrl(defaultCDN + ':' + moduleName);
+    if (moduleUrl) {
+      return moduleUrl;
     }
 
-    // default
     return isModule
-      ? 'https://cdn.skypack.dev/' + moduleName
+      ? 'https://jspm.dev/' + moduleName
       : 'https://cdn.jsdelivr.net/npm/' + moduleName;
   },
 
@@ -20,6 +31,8 @@ export const modulesService = {
 
 // based on https://github.com/neoascetic/rawgithack/blob/master/web/rawgithack.js
 const TEMPLATES: Array<[RegExp, string]> = [
+  [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
+
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
@@ -29,8 +42,6 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(esm.run:)(.+)/i, 'https://esm.run/$2'],
 
   [/^(esm.sh:)(.+)/i, 'https://esm.sh/$2'],
-
-  [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
 
   [/^(esbuild:)(.+)/i, 'https://esbuild.vercel.app/$2'],
 
