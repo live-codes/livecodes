@@ -39,7 +39,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
 
   let language = options.language;
-  const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
+
+  const mapLanguage = (lang: Language) => {
+    if (['vue', 'vue3', 'vue2'].includes(lang)) return 'vue';
+    return options.mapLanguage?.(lang) || lang;
+  };
+
   let mappedLanguage = mapLanguage(language);
   let mappedLanguageSupport = await getLanguageSupport(mappedLanguage);
   let theme = options.theme;

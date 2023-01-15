@@ -108,6 +108,7 @@ const buildVendors = () => {
       'languages/codemirror-lang-tcl.ts',
       'languages/codemirror-lang-less.ts',
       'languages/codemirror-lang-stylus.ts',
+      'languages/codemirror-lang-vue.ts',
     ]
       .map((x) => 'src/livecodes/editor/codemirror/' + x)
       .reduce(arrToObj, {}),
