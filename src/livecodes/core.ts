@@ -2901,7 +2901,7 @@ const handleExternalResources = () => {
     createExrenalResourcesUI,
     false,
   );
-  registerScreen('external', createExrenalResourcesUI);
+  registerScreen('resources', createExrenalResourcesUI);
 };
 
 const handleCustomSettings = () => {

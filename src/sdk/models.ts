@@ -682,7 +682,7 @@ export interface Screen {
     | 'snippets'
     | 'add-snippet'
     | 'import'
-    | 'external'
+    | 'resources'
     | 'share'
     | 'embed'
     | 'deploy'
