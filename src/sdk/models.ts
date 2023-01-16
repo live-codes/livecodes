@@ -370,12 +370,7 @@ export interface LanguageFormatter {
   factory: (baseUrl: string, language: Language) => FormatFn;
 }
 
-export type CssPresetId =
-  | ''
-  | 'normalize.css'
-  | 'reset-css'
-  | 'github-markdown-css'
-  | 'asciidoctor.css';
+export type CssPresetId = '' | 'normalize.css' | 'reset-css';
 
 export interface CssPreset {
   id: CssPresetId;
