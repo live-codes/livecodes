@@ -2,6 +2,9 @@
   <div class="modal-title">External Resources</div>
   <div id="resources-screen-container" class="modal-screen-container">
     <div class="modal-screen">
+      <div class="description">
+        Add URLs to CSS and/or JS files to be added to the page. Put each URL in a separate line.
+      </div>
       <label for="external-stylesheets">External Stylesheets</label>
       <textarea
         id="external-stylesheets"
@@ -10,10 +13,32 @@
       ></textarea>
       <label for="external-scripts">External Scripts</label>
       <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
+      <label>CSS Presets</label>
+      <div class="input-container">
+        <span>
+          <input type="radio" id="resources-css-preset-none" name="css-preset" value="" checked />
+          <label class="radio-label" for="resources-css-preset-none">None</label>
+        </span>
+        <span>
+          <input
+            type="radio"
+            id="resources-css-preset-normalize-css"
+            name="css-preset"
+            value="normalize.css"
+          />
+          <label class="radio-label" for="resources-css-preset-normalize-css">Normalize.css</label>
+        </span>
+        <span>
+          <input
+            type="radio"
+            id="resources-css-preset-reset-css"
+            name="css-preset"
+            value="reset-css"
+          />
+          <label class="radio-label" for="resources-css-preset-reset-css">Reset CSS</label>
+        </span>
+      </div>
       <button id="resources-load-btn" class="wide-button">Load</button>
-    </div>
-    <div class="description">
-      Add URLs to CSS and/or JS files to be added to the page. Put each URL in a separate line.
     </div>
   </div>
 </div>

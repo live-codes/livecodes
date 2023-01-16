@@ -904,7 +904,8 @@ const setWindowTitle = () => {
 
 const setExternalResourcesMark = () => {
   const btn = UI.getExternalResourcesBtn();
-  if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
+  const config = getConfig();
+  if (config.scripts.length > 0 || config.stylesheets.length > 0 || config.cssPreset) {
     btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
@@ -2013,27 +2014,6 @@ const handleSettings = () => {
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
   });
-
-  const cssPresets = UI.getCssPresetLinks();
-  cssPresets.forEach((link) => {
-    eventsManager.addEventListener(
-      link,
-      'click',
-      async (event: Event) => {
-        event.preventDefault();
-        setConfig({
-          ...getConfig(),
-          cssPreset: link.dataset.preset as CssPresetId,
-        });
-        cssPresets.forEach((preset) => {
-          preset.classList.remove('active');
-        });
-        link.classList.add('active');
-        await run();
-      },
-      false,
-    );
-  });
 };
 
 const handleLogin = () => {
@@ -2869,6 +2849,14 @@ const handleExternalResources = () => {
       textarea.value = resourceContent.length !== 0 ? resourceContent.join('\n') + '\n' : '';
     });
 
+    const cssPresetInputs = UI.getExternalResourcesCssPresetInputs();
+    cssPresetInputs.forEach((input) => {
+      const cssPreset = getConfig().cssPreset;
+      if (cssPreset === input.value) {
+        input.checked = true;
+      }
+    });
+
     externalResources[0]?.focus();
 
     eventsManager.addEventListener(UI.getLoadResourcesButton(), 'click', async () => {
@@ -2883,6 +2871,16 @@ const handleExternalResources = () => {
               .filter((x) => x !== '') || [],
         });
       });
+
+      cssPresetInputs.forEach((input) => {
+        if (input.checked) {
+          setConfig({
+            ...getConfig(),
+            cssPreset: input.value as CssPresetId,
+          });
+        }
+      });
+
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
