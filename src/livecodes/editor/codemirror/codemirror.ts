@@ -35,11 +35,16 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
+
   const getLanguageSupport = async (language: Language): Promise<LanguageSupport> =>
     editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
 
+  const mapLanguage = (lang: Language) => {
+    if (['vue', 'vue3', 'vue2'].includes(lang)) return 'vue';
+    return options.mapLanguage?.(lang) || lang;
+  };
+
   let language = options.language;
-  const mapLanguage = options.mapLanguage || ((lang: Language) => lang);
   let mappedLanguage = mapLanguage(language);
   let mappedLanguageSupport = await getLanguageSupport(mappedLanguage);
   let theme = options.theme;

@@ -27,19 +27,20 @@ export const preactStarter: Template = {
     content: `
 /** @jsx h */
 import { h, render } from 'preact';
-import { useState } from 'preact/hooks';
+import { useSignal } from "@preact/signals";
 
 function App(props) {
-  const [count, setCount] = useState(0);
+  const count = useSignal(0);
   return (
     <div class="container">
       <h1>Hello, {props.name}!</h1>
       <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/preact.svg" />
       <p>You clicked {count} times.</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={() => count.value++}>Click me</button>
     </div>
   );
 }
+
 render(<App name="Preact" />, document.body);
 `.trimStart(),
   },

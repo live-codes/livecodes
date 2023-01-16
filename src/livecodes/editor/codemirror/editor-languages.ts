@@ -9,6 +9,7 @@ const getPath = (mod: string) => `./vendor/codemirror/${process.env.codemirrorVe
 
 const moduleUrls = {
   core: getPath('codemirror-core.js'),
+  vue: getPath('codemirror-lang-vue.js'),
   json: getPath('codemirror-lang-json.js'),
   markdown: getPath('codemirror-lang-markdown.js'),
   python: getPath('codemirror-lang-python.js'),
@@ -37,6 +38,7 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   typescript: async () => (await import(moduleUrls.core)).javascript({ typescript: true }),
   jsx: async () => (await import(moduleUrls.core)).javascript({ jsx: true }),
   tsx: async () => (await import(moduleUrls.core)).javascript({ jsx: true, typescript: true }),
+  vue: async () => (await import(moduleUrls.vue)).vue(),
   json: async () => (await import(moduleUrls.json)).json(),
   markdown: async () => (await import(moduleUrls.markdown)).markdown(),
   python: async () => (await import(moduleUrls.python)).python(),
