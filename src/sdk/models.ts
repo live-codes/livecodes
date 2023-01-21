@@ -874,3 +874,26 @@ export interface CustomEvents {
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';
 }
+
+export interface PkgInfo {
+  name: string;
+  description?: string;
+  version?: string;
+  repository?: {
+    url?: string;
+  };
+  homepage?: string;
+}
+
+export interface APIError {
+  error: boolean;
+  status?: number;
+  message?: string;
+}
+
+export interface CDNService {
+  search: (query: string, limit?: number) => Promise<PkgInfo[] | APIError>;
+  getPkgInfo: (pkgName: string) => Promise<PkgInfo | APIError>;
+  getPkgFiles: (pkgName: string) => Promise<{ default: string; files: string[] } | APIError>;
+  getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
+}
