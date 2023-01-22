@@ -11,12 +11,15 @@ import type {
   Theme,
   EditorPosition,
   EditorConfig,
+  PkgInfo,
+  APIError,
 } from '../../models';
 import { getRandomString, loadScript } from '../../utils/utils';
 import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { modulesService } from '../../services/modules';
 import { getEditorModeNode } from '../../UI/selectors';
+import { jsdelivr } from '../../services';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
@@ -523,7 +526,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const registerShowPackageInfo = () => {
     // from https://github.com/snowpackjs/astro-repl/blob/main/src/editor/modules/monaco.ts
 
-    const FetchCache = new Map();
+    const pkgCache = new Map<string, PkgInfo>();
 
     const npmPackageHoverProvider: Monaco.languages.HoverProvider = {
       provideHover(model, position) {
@@ -543,7 +546,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh|bundle\.run)\:/, '');
         }
         // remove version
-        pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);
+        // pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);
 
         // remove sub-directories
         const parts = pkg.split('/');
@@ -551,57 +554,25 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         pkg = parts.slice(0, end).join('/');
 
         return (async () => {
-          const url = modulesService.getModuleInfoUrl(pkg);
-          let response: Response;
-          let result: any;
+          let pkgInfo: PkgInfo | APIError | undefined;
 
-          try {
-            if (!FetchCache.has(url)) {
-              response = await fetch(url);
-              result = await response.json();
-              FetchCache.set(url, result);
-            } else {
-              result = FetchCache.get(url);
-            }
-          } catch {
-            return;
+          if (!pkgCache.has(pkg)) {
+            pkgInfo = await jsdelivr.getPkgInfo(pkg);
+            if ('error' in pkgInfo) return;
+            pkgCache.set(pkg, pkgInfo);
+          } else {
+            pkgInfo = pkgCache.get(pkg);
           }
+          if (!pkgInfo || 'error' in pkgInfo) return;
 
-          if (result?.results.length <= 0) return;
-
-          // const { name, description, version, date, publisher, links } =
-          //   result?.results?.[0]?.package ?? {};
-          // const author = publisher?.username;
-          // const pubDate = new Date(date).toLocaleDateString(undefined, {
-          //   year: 'numeric',
-          //   month: 'long',
-          //   day: 'numeric',
-          // });
-
-          // return {
-          //   contents: [
-          //     {
-          //       value: `## [${name}](${
-          //         links?.npm
-          //       }) v${version}\n${description}\n\n\nPublished on ${pubDate} ${
-          //         author ? `by [@${author}](https://www.npmjs.com/~${author})` : ''
-          //       }\n\n${
-          //         links?.repository ? `[GitHub](${links?.repository})  |` : ''
-          //       }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
-          //         '/livecodes/',
-          //         '',
-          //       )}/docs/features/npm-modules)`,
-          //     },
-          //   ],
-          // };
-          const { name, description, links } = result?.results?.[0]?.package ?? {};
+          const { name, version = '', description = '', repo = '' } = pkgInfo;
 
           return {
             contents: [
               {
-                value: `## [${name}](${links?.npm})\n${description}\n\n\n${
-                  links?.repository ? `[GitHub](${links?.repository})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
+                value: `## [${name}](https://www.npmjs.com/package/${name}/v/${version}) (v${version})\n${description}\n\n\n${
+                  repo ? `[GitHub](${repo})  |` : ''
+                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name}?version=${version})  |  [Unpkg](https://unpkg.com/browse/${name}@${version}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
                   '/livecodes/',
                   '',
                 )}/docs/features/npm-modules)`,
