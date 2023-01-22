@@ -4,7 +4,9 @@ import { APIError, CDNService, PkgInfo } from '../models';
 // info: https://github.com/jsdelivr/data.jsdelivr.com/issues/6
 
 const getSearchApiUrl = (query: string) =>
-  `https://ofcncog2cu-dsn.algolia.net/1/indexes/npm-search/${query}?x-algolia-agent=Browser`;
+  `https://ofcncog2cu-dsn.algolia.net/1/indexes/npm-search/${encodeURIComponent(
+    query,
+  )}?x-algolia-agent=Browser`;
 
 const algoliaHeaders = {
   'X-Algolia-Application-Id': 'OFCNCOG2CU',
