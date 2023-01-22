@@ -2,7 +2,6 @@ export * from './allowed-origin';
 export * from './auth';
 export * from './broadcast';
 export * from './cors';
-export * from './jsdelivr';
 export * from './modules';
 export * from './sandbox';
 export * from './share';

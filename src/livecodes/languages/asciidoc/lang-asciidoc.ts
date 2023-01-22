@@ -17,5 +17,4 @@ export const asciidoc: LanguageSpecs = {
   },
   extensions: ['adoc', 'asciidoc', 'asc'],
   editor: 'markup',
-  preset: 'asciidoctor.css',
 };

@@ -1,5 +1,5 @@
 import { CssPreset } from '../models';
-import { githubMarkdownCss, normalizeCssUrl, resetCssUrl, vendorsBaseUrl } from '../vendors';
+import { normalizeCssUrl, resetCssUrl } from '../vendors';
 
 export const cssPresets: CssPreset[] = [
   {
@@ -11,15 +11,5 @@ export const cssPresets: CssPreset[] = [
     id: 'reset-css',
     name: 'CSS reset',
     url: resetCssUrl,
-  },
-  {
-    id: 'github-markdown-css',
-    name: 'github-markdown-css',
-    url: githubMarkdownCss,
-  },
-  {
-    id: 'asciidoctor.css',
-    name: 'Asciidoctor CSS',
-    url: vendorsBaseUrl + 'asciidoctor.css/asciidoctor.css',
   },
 ];

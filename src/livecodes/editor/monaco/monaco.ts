@@ -17,9 +17,8 @@ import type {
 import { getRandomString, loadScript } from '../../utils/utils';
 import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
-import { modulesService } from '../../services/modules';
 import { getEditorModeNode } from '../../UI/selectors';
-import { jsdelivr } from '../../services';
+import { jsdelivr } from '../../services/jsdelivr';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
