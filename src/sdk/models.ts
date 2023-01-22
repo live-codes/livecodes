@@ -882,6 +882,7 @@ export interface PkgInfo {
   repository?: {
     url?: string;
   };
+  repo?: string;
   homepage?: string;
 }
 
@@ -894,6 +895,6 @@ export interface APIError {
 export interface CDNService {
   search: (query: string, limit?: number) => Promise<PkgInfo[] | APIError>;
   getPkgInfo: (pkgName: string) => Promise<PkgInfo | APIError>;
-  getPkgFiles: (pkgName: string) => Promise<{ default: string; files: string[] } | APIError>;
+  getPkgFiles: (pkgName: string) => Promise<{ default?: string; files: string[] } | APIError>;
   getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
 }

@@ -30,6 +30,13 @@ interface EntryPoints {
   };
 }
 
+const splitNameVersion = (nameVersion: string) => {
+  const scoped = nameVersion.startsWith('@');
+  const str = scoped ? nameVersion.slice(1) : nameVersion;
+  const [name, version] = str.split('@');
+  return [(scoped ? '@' : '') + name, version];
+};
+
 const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> => {
   const options = {
     page: 0,
@@ -39,12 +46,12 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
     analyticsTags: ['jsdelivr'],
   };
 
-  const [name, version] = query.split('@');
+  const [name, version] = splitNameVersion(query);
   let exactVersion: string | undefined;
   if (version) {
     const versioned = await addPkgVersion(query);
     if (typeof versioned === 'string') {
-      exactVersion = versioned.split('@')[1];
+      exactVersion = splitNameVersion(versioned)[1];
     }
   }
 
@@ -75,6 +82,9 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
     if (pkg.name === name && exactVersion) {
       pkg.version = exactVersion;
     }
+    if (pkg.repository?.url) {
+      pkg.repo = pkg.repository?.url;
+    }
     return pkg;
   });
   // An exact match should always come first.
@@ -95,17 +105,17 @@ const addPkgVersion = async (pkgName: string): Promise<string | APIError> => {
       ...data,
     };
   }
-  return `${pkgName.split('@')[0]}@${data.version}`;
+  return `${splitNameVersion(pkgName)[0]}@${data.version}`;
 };
 
 const getPkgInfo = async (pkgName: string): Promise<PkgInfo | APIError> => {
-  const [name, version] = pkgName.split('@');
+  const [name, version] = splitNameVersion(pkgName);
 
   let exactVersion: string | undefined;
   if (version) {
     const versioned = await addPkgVersion(pkgName);
     if (typeof versioned === 'string') {
-      exactVersion = versioned.split('@')[1];
+      exactVersion = splitNameVersion(versioned)[1];
     }
   }
 
@@ -129,13 +139,16 @@ const getPkgInfo = async (pkgName: string): Promise<PkgInfo | APIError> => {
   if (exactVersion) {
     data.version = exactVersion;
   }
+  if (data.repository?.url) {
+    data.repo = data.repository?.url;
+  }
 
   return data;
 };
 
 const getPkgFiles = async (
   pkgName: string,
-): Promise<{ default: string; files: string[] } | APIError> => {
+): Promise<{ default?: string; files: string[] } | APIError> => {
   const pkgNameVersion = await addPkgVersion(pkgName);
   const url = `${apiEndpoint}/package/npm/${pkgNameVersion}/flat`;
   const res = await fetch(url);
@@ -150,7 +163,7 @@ const getPkgFiles = async (
   }
   const basePath = `https://cdn.jsdelivr.net/npm/${pkgNameVersion}`;
   return {
-    default: basePath + data.default,
+    ...(data.default ? { default: basePath + data.default } : {}),
     files: data.files.map((f: { name: string }) => basePath + f.name),
   };
 };
