@@ -2482,6 +2482,8 @@ const handleSync = () => {
 };
 
 const handleAutosync = async () => {
+  // TODO: fix performance issue
+  if (true) return;
   if (isEmbed) return;
 
   let syncInterval: number;
