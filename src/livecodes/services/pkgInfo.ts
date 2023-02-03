@@ -16,6 +16,10 @@ const attributesToRetrieve = ['name', 'description', 'homepage', 'repository.url
 
 const apiEndpoint = 'https://data.jsdelivr.com/v1';
 
+const jsDelivrHeaders = {
+  'User-Agent': 'https://livecodes.io',
+};
+
 interface APIPkgFiles {
   default: string;
   files: Array<{ name: string }>;
@@ -99,7 +103,7 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
 
 const addPkgVersion = async (pkgName: string): Promise<string | APIError> => {
   const url = `${apiEndpoint}/package/resolve/npm/${pkgName}`;
-  const data: PkgInfo | APIError = await fetch(url)
+  const data: PkgInfo | APIError = await fetch(url, { headers: jsDelivrHeaders })
     .then((res) => {
       if (!res.ok) throw new Error('failed to fetch');
       return res;
@@ -163,7 +167,7 @@ const getPkgFiles = async (
 ): Promise<{ default?: string; files: string[] } | APIError> => {
   const pkgNameVersion = await addPkgVersion(pkgName);
   const url = `${apiEndpoint}/package/npm/${pkgNameVersion}/flat`;
-  const data: APIPkgFiles | APIError = await fetch(url)
+  const data: APIPkgFiles | APIError = await fetch(url, { headers: jsDelivrHeaders })
     .then((res) => {
       if (!res.ok) throw new Error('failed to fetch');
       return res;
@@ -189,7 +193,7 @@ const getPkgDefaultFiles = async (
 ): Promise<{ js?: string; css?: string } | APIError> => {
   const pkgNameVersion = await addPkgVersion(pkgName);
   const url = `${apiEndpoint}/package/npm/${pkgNameVersion}/entrypoints`;
-  const data: EntryPoints | APIError = await fetch(url)
+  const data: EntryPoints | APIError = await fetch(url, { headers: jsDelivrHeaders })
     .then((res) => {
       if (!res.ok) throw new Error('failed to fetch');
       return res;
