@@ -301,12 +301,13 @@ export const indentCode = (code: string, spaces: number, skipFirstLine = true) =
 export const hideOnClickOutside = (element: HTMLElement) => {
   const hideElement = () => {
     element.style.display = 'none';
+    removeListeners();
+    (window as any).watchingEscape = false;
   };
 
   const outsideClickListener = (event: MouseEvent) => {
     if (!element.contains(event.target as Node) && isVisible(element)) {
       hideElement();
-      removeListeners();
     }
   };
 
@@ -327,6 +328,7 @@ export const hideOnClickOutside = (element: HTMLElement) => {
 
   document.addEventListener('click', outsideClickListener);
   document.addEventListener('keydown', escapeListener);
+  (window as any).watchingEscape = true;
 
   return {
     clear: () => removeListeners(),
