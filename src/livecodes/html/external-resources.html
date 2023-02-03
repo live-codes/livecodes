@@ -12,18 +12,28 @@
       />
       <div id="resources-result-container"><ul id="resources-search-results"></ul></div>
 
-      <div id="resources-description" class="description center">
-        Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.
+      <div id="resources-textarea-container">
+        <div class="description center">
+          Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.
+        </div>
+
+        <label for="external-stylesheets">External Stylesheets</label>
+        <textarea
+          id="external-stylesheets"
+          placeholder="https://"
+          data-resource="stylesheets"
+        ></textarea>
+        <label for="external-scripts">External Scripts</label>
+        <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
       </div>
 
-      <label for="external-stylesheets">External Stylesheets</label>
-      <textarea
-        id="external-stylesheets"
-        placeholder="https://"
-        data-resource="stylesheets"
-      ></textarea>
-      <label for="external-scripts">External Scripts</label>
-      <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
+      <label>Fonts <span class="nowrap label-description">(powered by Google Fonts)</span></label>
+      <div id="fonts-container">
+        <select>
+          <option value="">Loading...</option>
+        </select>
+        <button class="btn">Add</button>
+      </div>
 
       <label>CSS Presets</label>
       <div class="input-container">
@@ -50,6 +60,7 @@
           <label class="radio-label" for="resources-css-preset-reset-css">Reset CSS</label>
         </span>
       </div>
+
       <button id="resources-load-btn" class="wide-button">Load</button>
     </div>
   </div>

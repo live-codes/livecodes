@@ -2846,10 +2846,10 @@ const handleExternalResources = () => {
     };
 
     modal.show(loadingMessage());
-    const openModule: typeof import('./UI/resources') = await import(
+    const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
-    openModule.createExternalResourcesUI({
+    resourcesModule.createExternalResourcesUI({
       baseUrl,
       modal,
       eventsManager,

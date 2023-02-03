@@ -54,9 +54,21 @@ export const createExternalResourcesUI = ({
     }
   });
 
-  const searchInput = document.querySelector<HTMLInputElement>('#resources-search-input')!;
-  const resultContainer = document.querySelector<HTMLElement>('#resources-result-container')!;
-  const searchResultsEl = document.querySelector<HTMLElement>('#resources-search-results')!;
+  const searchInput = document.querySelector<HTMLInputElement>(
+    '#resources-container #resources-search-input',
+  )!;
+  const resultContainer = document.querySelector<HTMLElement>(
+    '#resources-container #resources-result-container',
+  )!;
+  const searchResultsEl = document.querySelector<HTMLElement>(
+    '#resources-container #resources-search-results',
+  )!;
+  const fontsSelect = document.querySelector<HTMLSelectElement>(
+    '#resources-container #fonts-container select',
+  )!;
+  const addFontsBtn = document.querySelector<HTMLElement>(
+    '#resources-container #fonts-container button',
+  )!;
 
   const addResource = (url: string, type: ResourceType) => {
     if (!url || isAdded(url, type)) return;
@@ -229,6 +241,29 @@ export const createExternalResourcesUI = ({
     }
 
     debounce(search, 300)();
+  });
+
+  const fontsModule: Promise<typeof import('../services/google-fonts')> = import(
+    baseUrl + '{{hash:google-fonts.js}}'
+  );
+  fontsModule.then((mod) => {
+    fontsSelect.innerHTML = '<option value="">Select font ...</option>';
+    const fonts = mod.googleFonts.getFonts();
+    fonts.forEach((font) => {
+      const option = document.createElement('option');
+      option.innerText = font;
+      fontsSelect.appendChild(option);
+    });
+
+    eventsManager.addEventListener(addFontsBtn, 'click', () => {
+      if (fontsSelect.value === '') return;
+      addResource(mod.googleFonts.getStylesheetUrl(fontsSelect.value), 'stylesheets');
+      fontsSelect.value = '';
+      addFontsBtn.innerText = '✔';
+      setTimeout(() => {
+        addFontsBtn.innerText = 'Add';
+      }, 1000);
+    });
   });
 
   eventsManager.addEventListener(getLoadResourcesButton(), 'click', async () => {

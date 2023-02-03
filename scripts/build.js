@@ -176,6 +176,7 @@ const esmBuild = () =>
       'editor/blockly/blockly.ts',
       'editor/quill/quill.ts',
       'services/firebase.ts',
+      'services/google-fonts.ts',
       'languages/language-info.ts',
       'export/export.ts',
       'sync/sync.ts',
