@@ -18,7 +18,7 @@ import { getRandomString, loadScript } from '../../utils/utils';
 import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
-import { jsdelivr } from '../../services/jsdelivr';
+import { pkgInfoService } from '../../services/pkgInfo';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
@@ -556,7 +556,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           let pkgInfo: PkgInfo | APIError | undefined;
 
           if (!pkgCache.has(pkg)) {
-            pkgInfo = await jsdelivr.getPkgInfo(pkg);
+            pkgInfo = await pkgInfoService.getPkgInfo(pkg);
             if ('error' in pkgInfo) return;
             pkgCache.set(pkg, pkgInfo);
           } else {

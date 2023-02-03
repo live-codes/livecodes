@@ -180,6 +180,7 @@ const esmBuild = () =>
       'export/export.ts',
       'sync/sync.ts',
       'UI/open.ts',
+      'UI/resources.ts',
       'UI/assets.ts',
       'UI/snippets.ts',
       'UI/backup.ts',

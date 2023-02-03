@@ -2,9 +2,20 @@
   <div class="modal-title">External Resources</div>
   <div id="resources-screen-container" class="modal-screen-container">
     <div class="modal-screen">
-      <div class="description">
-        Add URLs to CSS and/or JS files to be added to the page. Put each URL in a separate line.
+      <label for="resources-search-input"
+        >Search Packages <span class="nowrap label-description">(powered by jsDelivr)</span></label
+      >
+      <input
+        type="text"
+        id="resources-search-input"
+        placeholder="e.g. jquery, lodash@4, bootstrap@5.2.3, ..."
+      />
+      <div id="resources-result-container"><ul id="resources-search-results"></ul></div>
+
+      <div id="resources-description" class="description center">
+        Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.
       </div>
+
       <label for="external-stylesheets">External Stylesheets</label>
       <textarea
         id="external-stylesheets"
@@ -13,6 +24,7 @@
       ></textarea>
       <label for="external-scripts">External Scripts</label>
       <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
+
       <label>CSS Presets</label>
       <div class="input-container">
         <span>
@@ -42,3 +54,4 @@
     </div>
   </div>
 </div>
+<style></style>

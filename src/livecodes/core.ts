@@ -26,7 +26,6 @@ import type {
   API,
   Cache,
   CodeEditor,
-  CssPresetId,
   EditorId,
   EditorLanguages,
   EditorOptions,
@@ -69,7 +68,6 @@ import {
   resultTemplate,
   customSettingsScreen,
   testEditorScreen,
-  resourcesScreen,
   savePromptScreen,
   recoverPromptScreen,
   resultPopupHTML,
@@ -2837,56 +2835,30 @@ const handleSnippets = () => {
 };
 
 const handleExternalResources = () => {
-  const createExrenalResourcesUI = () => {
-    const div = document.createElement('div');
-    div.innerHTML = resourcesScreen;
-    const resourcesContainer = div.firstChild as HTMLElement;
-    modal.show(resourcesContainer);
-
-    const externalResources = UI.getExternalResourcesTextareas();
-    externalResources.forEach((textarea) => {
-      const resourceContent = getConfig()[textarea.dataset.resource as 'stylesheets' | 'scripts'];
-      textarea.value = resourceContent.length !== 0 ? resourceContent.join('\n') + '\n' : '';
-    });
-
-    const cssPresetInputs = UI.getExternalResourcesCssPresetInputs();
-    cssPresetInputs.forEach((input) => {
-      const cssPreset = getConfig().cssPreset;
-      if (cssPreset === input.value) {
-        input.checked = true;
-      }
-    });
-
-    externalResources[0]?.focus();
-
-    eventsManager.addEventListener(UI.getLoadResourcesButton(), 'click', async () => {
-      externalResources.forEach((textarea) => {
-        const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
-        setConfig({
-          ...getConfig(),
-          [resource]:
-            textarea.value
-              ?.split('\n')
-              .map((x) => x.trim())
-              .filter((x) => x !== '') || [],
-        });
-      });
-
-      cssPresetInputs.forEach((input) => {
-        if (input.checked) {
-          setConfig({
-            ...getConfig(),
-            cssPreset: input.value as CssPresetId,
-          });
-        }
-      });
-
+  const createExrenalResourcesUI = async () => {
+    const loadResources = async () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
       await run();
+    };
+
+    modal.show(loadingMessage());
+    const openModule: typeof import('./UI/resources') = await import(
+      baseUrl + '{{hash:resources.js}}'
+    );
+    openModule.createExternalResourcesUI({
+      baseUrl,
+      modal,
+      eventsManager,
+      deps: {
+        getConfig,
+        setConfig,
+        loadResources,
+      },
     });
   };
+
   eventsManager.addEventListener(
     UI.getExternalResourcesLink(),
     'click',

@@ -57,7 +57,7 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
     }
   }
 
-  const res = await fetch(getSearchApiUrl('query'), {
+  const data: { hits: PkgInfo[] } | APIError = await fetch(getSearchApiUrl('query'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -67,17 +67,19 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
       query: name,
       ...options,
     }),
-  });
-
-  const data: { hits: PkgInfo[] } | APIError = await res
-    .json()
-    .catch((err) => ({ error: true, message: err.mesage || String(err) }));
-
-  if (!res.ok || 'error' in data || 'status' in data) {
-    return {
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('failed to fetch');
+      return res;
+    })
+    .then((res) => res.json())
+    .catch((err) => ({
       error: true,
-      ...data,
-    };
+      message: err.mesage || String(err),
+    }));
+
+  if ('error' in data) {
+    return data;
   }
 
   const results: PkgInfo[] = data.hits.map((pkg) => {
@@ -97,17 +99,23 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
 
 const addPkgVersion = async (pkgName: string): Promise<string | APIError> => {
   const url = `${apiEndpoint}/package/resolve/npm/${pkgName}`;
-  const res = await fetch(url);
-  const data: { version: string } | APIError = await res
-    .json()
-    .catch((err) => ({ error: true, message: err.mesage || String(err) }));
-  if (!res.ok || 'error' in data || 'status' in data || !data.version) {
-    return {
+  const data: PkgInfo | APIError = await fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error('failed to fetch');
+      return res;
+    })
+    .then((res) => res.json())
+    .catch((err) => ({
       error: true,
-      ...data,
-    };
+      message: err.mesage || String(err),
+    }));
+
+  if ('error' in data) {
+    return data;
   }
-  return `${splitNameVersion(pkgName)[0]}@${data.version}`;
+  const name = splitNameVersion(pkgName)[0];
+  const version = data.version;
+  return version ? `${name}@${version}` : name;
 };
 
 const getPkgInfo = async (pkgName: string): Promise<PkgInfo | APIError> => {
@@ -122,20 +130,22 @@ const getPkgInfo = async (pkgName: string): Promise<PkgInfo | APIError> => {
   }
 
   const url = getSearchApiUrl(name) + '&attributesToRetrieve=' + attributesToRetrieve.join(',');
-  const res = await fetch(url, {
+  const data: PkgInfo | APIError = await fetch(url, {
     method: 'GET',
     headers: algoliaHeaders,
-  });
-
-  const data: PkgInfo | APIError = await res
-    .json()
-    .catch((err) => ({ error: true, message: err.mesage || String(err) }));
-
-  if (!res.ok || 'error' in data || 'status' in data) {
-    return {
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error('failed to fetch');
+      return res;
+    })
+    .then((res) => res.json())
+    .catch((err) => ({
       error: true,
-      ...data,
-    };
+      message: err.mesage || String(err),
+    }));
+
+  if ('error' in data) {
+    return data;
   }
 
   if (exactVersion) {
@@ -153,15 +163,19 @@ const getPkgFiles = async (
 ): Promise<{ default?: string; files: string[] } | APIError> => {
   const pkgNameVersion = await addPkgVersion(pkgName);
   const url = `${apiEndpoint}/package/npm/${pkgNameVersion}/flat`;
-  const res = await fetch(url);
-  const data: APIPkgFiles | APIError = await res
-    .json()
-    .catch((err) => ({ error: true, message: err.mesage || String(err) }));
-  if (!res.ok || 'error' in data || 'status' in data) {
-    return {
+  const data: APIPkgFiles | APIError = await fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error('failed to fetch');
+      return res;
+    })
+    .then((res) => res.json())
+    .catch((err) => ({
       error: true,
-      ...data,
-    };
+      message: err.mesage || String(err),
+    }));
+
+  if ('error' in data) {
+    return data;
   }
   const basePath = `https://cdn.jsdelivr.net/npm/${pkgNameVersion}`;
   return {
@@ -175,15 +189,19 @@ const getPkgDefaultFiles = async (
 ): Promise<{ js?: string; css?: string } | APIError> => {
   const pkgNameVersion = await addPkgVersion(pkgName);
   const url = `${apiEndpoint}/package/npm/${pkgNameVersion}/entrypoints`;
-  const res = await fetch(url);
-  const data: EntryPoints | APIError = await res
-    .json()
-    .catch((err) => ({ error: true, message: err.mesage || String(err) }));
-  if (!res.ok || 'error' in data || 'status' in data) {
-    return {
+  const data: EntryPoints | APIError = await fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error('failed to fetch');
+      return res;
+    })
+    .then((res) => res.json())
+    .catch((err) => ({
       error: true,
-      ...data,
-    };
+      message: err.mesage || String(err),
+    }));
+
+  if ('error' in data) {
+    return data;
   }
   const basePath = `https://cdn.jsdelivr.net/npm/${pkgNameVersion}`;
   return {
@@ -192,7 +210,7 @@ const getPkgDefaultFiles = async (
   };
 };
 
-export const jsdelivr: CDNService = {
+export const pkgInfoService: CDNService = {
   search,
   getPkgInfo,
   getPkgFiles,
