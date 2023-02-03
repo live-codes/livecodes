@@ -54,8 +54,6 @@ export const createExternalResourcesUI = ({
     }
   });
 
-  // externalResources[0]?.focus();
-
   const searchInput = document.querySelector<HTMLInputElement>('#resources-search-input')!;
   const resultContainer = document.querySelector<HTMLElement>('#resources-result-container')!;
   const searchResultsEl = document.querySelector<HTMLElement>('#resources-search-results')!;
@@ -216,6 +214,7 @@ export const createExternalResourcesUI = ({
 
   let menuEvents: ReturnType<typeof hideOnClickOutside> | undefined;
 
+  searchInput?.focus();
   searchInput.addEventListener('input', async () => {
     searchResultsEl.innerHTML =
       '<li><div class="search-result-item-description">Loading...</div></li>';

@@ -311,7 +311,7 @@ export const hideOnClickOutside = (element: HTMLElement) => {
   };
 
   const escapeListener = (event: KeyboardEvent) => {
-    if (event.which === 27) {
+    if (event.key === 'Escape') {
       hideElement();
       event.preventDefault();
     }

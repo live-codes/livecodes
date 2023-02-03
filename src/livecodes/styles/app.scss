@@ -2151,9 +2151,10 @@ i.arrow {
     }
 
     #resources-search-results {
-      background-color: rgb(249, 249, 249);
+      background-color: rgb(241, 241, 241);
       border: 1px solid rgb(169, 169, 169);
       border-radius: 5px;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 18%);
       list-style: none;
       margin: 0;
       margin-left: 10%;
