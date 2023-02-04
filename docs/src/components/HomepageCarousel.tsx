@@ -36,8 +36,8 @@ const screenshots = [
     url: './img/screenshots/assets.jpg',
   },
   {
-    label: 'Add external CSS/JS',
-    url: './img/screenshots/external-css-js.jpg',
+    label: 'Add external resources',
+    url: './img/screenshots/external-resources.jpg',
   },
   {
     label: 'Restore unsaved projects',
