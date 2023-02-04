@@ -125,7 +125,7 @@ Type: [`string[]`](../api/interfaces/Config#stylesheets)
 
 Default: `[]`
 
-List of URLs for [external stylesheets](../features/external-css-js.md) to add to the [result page](../features/result.md).
+List of URLs for [external stylesheets](../features/external-resources.md) to add to the [result page](../features/result.md).
 
 ### `scripts`
 
@@ -133,7 +133,7 @@ Type: [`string[]`](../api/interfaces/Config#scripts)
 
 Default: `[]`
 
-List of URLs for [external scripts](../features/external-css-js.md) to add to the [result page](../features/result.md).
+List of URLs for [external scripts](../features/external-resources.md) to add to the [result page](../features/result.md).
 
 ### `cssPreset`
 
@@ -141,7 +141,7 @@ Type: [`"" | "normalize.css" | "reset-css"`](../api/interfaces/Config.md#csspres
 
 Default: `""`
 
-[CSS Preset](../features/css-presets.md) to use.
+[CSS Preset](../features/external-resources.md#css-presets) to use.
 
 ### `processors`
 

@@ -42,7 +42,7 @@ export const createModal = () => {
       const closeContainer = document.createElement('div');
       closeContainer.className = 'close-container';
       const closeBtn = document.createElement('button');
-      closeBtn.className = 'button';
+      closeBtn.classList.add('button');
       closeBtn.innerHTML = 'Close';
       closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
@@ -50,7 +50,8 @@ export const createModal = () => {
     }
 
     const cornerCloseBtn = document.createElement('div');
-    cornerCloseBtn.className = 'close-button';
+    cornerCloseBtn.classList.add('close-button');
+    cornerCloseBtn.title = 'Esc';
     cornerCloseBtn.onclick = close;
     modal.appendChild(cornerCloseBtn);
 
@@ -62,7 +63,9 @@ export const createModal = () => {
     isOpening = true;
     // remove previous event listener if it was not cleared
     document.removeEventListener('click', onClickOutside);
+    document.removeEventListener('keydown', escapeListener);
     document.addEventListener('click', onClickOutside, false);
+    document.addEventListener('keydown', escapeListener, false);
     if (isAsync) {
       container.click();
     }
@@ -73,6 +76,7 @@ export const createModal = () => {
       onCloseFn();
     }
     document.removeEventListener('click', onClickOutside);
+    document.removeEventListener('keydown', escapeListener);
 
     modal.innerHTML = '';
     modal.className = '';
@@ -97,6 +101,13 @@ export const createModal = () => {
     }
     isOpening = false;
   }
+
+  const escapeListener = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && !(window as any).watchingEscape) {
+      close();
+      event.preventDefault();
+    }
+  };
 
   return {
     show,

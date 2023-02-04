@@ -199,6 +199,9 @@ export const getSaveInfoButton = () =>
 export const getExternalResourcesTextareas = () =>
   document.querySelectorAll<HTMLTextAreaElement>('#resources-container textarea');
 
+export const getExternalResourcesCssPresetInputs = () =>
+  document.querySelectorAll<HTMLInputElement>('#resources-container input[type="radio"]');
+
 export const getLoadResourcesButton = () =>
   document.querySelector<HTMLElement>('#resources-container #resources-load-btn');
 

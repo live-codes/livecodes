@@ -26,7 +26,6 @@ import type {
   API,
   Cache,
   CodeEditor,
-  CssPresetId,
   EditorId,
   EditorLanguages,
   EditorOptions,
@@ -69,7 +68,6 @@ import {
   resultTemplate,
   customSettingsScreen,
   testEditorScreen,
-  resourcesScreen,
   savePromptScreen,
   recoverPromptScreen,
   resultPopupHTML,
@@ -904,7 +902,8 @@ const setWindowTitle = () => {
 
 const setExternalResourcesMark = () => {
   const btn = UI.getExternalResourcesBtn();
-  if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
+  const config = getConfig();
+  if (config.scripts.length > 0 || config.stylesheets.length > 0 || config.cssPreset) {
     btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
@@ -2013,27 +2012,6 @@ const handleSettings = () => {
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
   });
-
-  const cssPresets = UI.getCssPresetLinks();
-  cssPresets.forEach((link) => {
-    eventsManager.addEventListener(
-      link,
-      'click',
-      async (event: Event) => {
-        event.preventDefault();
-        setConfig({
-          ...getConfig(),
-          cssPreset: link.dataset.preset as CssPresetId,
-        });
-        cssPresets.forEach((preset) => {
-          preset.classList.remove('active');
-        });
-        link.classList.add('active');
-        await run();
-      },
-      false,
-    );
-  });
 };
 
 const handleLogin = () => {
@@ -2504,6 +2482,8 @@ const handleSync = () => {
 };
 
 const handleAutosync = async () => {
+  // TODO: fix performance issue
+  if (true) return;
   if (isEmbed) return;
 
   let syncInterval: number;
@@ -2857,38 +2837,30 @@ const handleSnippets = () => {
 };
 
 const handleExternalResources = () => {
-  const createExrenalResourcesUI = () => {
-    const div = document.createElement('div');
-    div.innerHTML = resourcesScreen;
-    const resourcesContainer = div.firstChild as HTMLElement;
-    modal.show(resourcesContainer);
-
-    const externalResources = UI.getExternalResourcesTextareas();
-    externalResources.forEach((textarea) => {
-      const resourceContent = getConfig()[textarea.dataset.resource as 'stylesheets' | 'scripts'];
-      textarea.value = resourceContent.length !== 0 ? resourceContent.join('\n') + '\n' : '';
-    });
-
-    externalResources[0]?.focus();
-
-    eventsManager.addEventListener(UI.getLoadResourcesButton(), 'click', async () => {
-      externalResources.forEach((textarea) => {
-        const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
-        setConfig({
-          ...getConfig(),
-          [resource]:
-            textarea.value
-              ?.split('\n')
-              .map((x) => x.trim())
-              .filter((x) => x !== '') || [],
-        });
-      });
+  const createExrenalResourcesUI = async () => {
+    const loadResources = async () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
       await run();
+    };
+
+    modal.show(loadingMessage());
+    const resourcesModule: typeof import('./UI/resources') = await import(
+      baseUrl + '{{hash:resources.js}}'
+    );
+    resourcesModule.createExternalResourcesUI({
+      baseUrl,
+      modal,
+      eventsManager,
+      deps: {
+        getConfig,
+        setConfig,
+        loadResources,
+      },
     });
   };
+
   eventsManager.addEventListener(
     UI.getExternalResourcesLink(),
     'click',
@@ -2901,7 +2873,7 @@ const handleExternalResources = () => {
     createExrenalResourcesUI,
     false,
   );
-  registerScreen('external', createExrenalResourcesUI);
+  registerScreen('resources', createExrenalResourcesUI);
 };
 
 const handleCustomSettings = () => {

@@ -84,10 +84,6 @@ export const createResultPage = async ({
     dom.head.appendChild(EditorStylesheet);
   }
 
-  if (config.cssPreset === 'github-markdown-css') {
-    dom.body.classList.add('markdown-body');
-  }
-
   // editor markup
   const markup = code.markup.compiled;
   dom.body.innerHTML += markup;

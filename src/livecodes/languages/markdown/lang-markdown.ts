@@ -21,5 +21,4 @@ export const markdown: LanguageSpecs = {
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],
   editor: 'markup',
-  preset: 'github-markdown-css',
 };

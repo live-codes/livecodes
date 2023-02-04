@@ -1146,7 +1146,7 @@ li.editor-title {
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 33em;
+  max-height: 31em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -1832,6 +1832,10 @@ i.arrow {
     padding: 5px;
     place-self: center;
     width: 100px;
+
+    &:active {
+      transform: translateY(1px);
+    }
   }
 
   .button.hidden {
@@ -1922,6 +1926,13 @@ i.arrow {
     margin: 0.7em;
     text-align: left;
     width: 80%;
+  }
+
+  .label-description {
+    color: rgb(102, 102, 102);
+    float: right;
+    font-size: 0.8em;
+    font-weight: normal;
   }
 
   input:not([type='radio']):not([type='checkbox']),
@@ -2127,8 +2138,152 @@ i.arrow {
     }
   }
 
+  #resources-container {
+    #resources-textarea-container {
+      margin: 2.5em 0;
+      width: 100%;
+    }
+
+    #resources-result-container {
+      align-self: flex-start;
+      display: none;
+      position: relative;
+      width: 100%;
+    }
+
+    #resources-search-results {
+      background-color: rgb(249, 249, 249);
+      border: 1px solid rgb(169, 169, 169);
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 18%);
+      list-style: none;
+      margin: 0;
+      margin-bottom: 8px;
+      margin-left: 10%;
+      padding: 0;
+      position: absolute;
+      top: 0.3em;
+      width: 80%;
+      z-index: 10;
+
+      li {
+        border-bottom: 1px solid rgb(128, 128, 128);
+        padding: 0.8em;
+      }
+
+      li:last-child {
+        border: 0;
+      }
+
+      .search-result-item-title {
+        font-weight: bold;
+        overflow: hidden;
+        text-align: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .search-result-item-description {
+        font-size: 0.9em;
+        margin: 0.5em 0;
+        overflow: hidden;
+        text-align: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .search-result-item-error {
+        color: rgb(255, 0, 0);
+        font-size: 0.9em;
+        margin: 0.5em 0;
+        text-align: left;
+      }
+
+      .search-result-item-files {
+        display: flex;
+        flex-wrap: wrap;
+
+        > span {
+          display: flex;
+          justify-content: center;
+          margin-top: 0.5em;
+          min-width: 9em;
+          width: 33%;
+        }
+
+        a {
+          border: 1px solid rgb(210, 210, 210);
+          border-radius: 3px;
+          color: rgb(102, 102, 102);
+          display: flex;
+          gap: 0.5em;
+          height: 20px;
+          padding: 0.7em;
+          text-decoration: none;
+        }
+
+        a:hover {
+          background-color: rgb(230, 230, 230);
+        }
+
+        a:active {
+          transform: translateY(1px);
+        }
+      }
+
+      .add-resource::after {
+        content: 'add +';
+      }
+
+      .resource-added {
+        background-color: rgb(230, 230, 230);
+        color: rgb(0, 128, 0) !important;
+        cursor: default;
+
+        &:active {
+          transform: none !important;
+        }
+
+        &::after {
+          content: 'Added ✔';
+        }
+      }
+    }
+
+    #fonts-container {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5em;
+      width: 81%;
+
+      select {
+        width: calc(100% - 4em);
+      }
+
+      .btn {
+        background-color: rgb(239, 239, 239);
+        border: 1px solid rgb(128, 128, 128);
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
+        cursor: pointer;
+        height: 2.8em;
+        width: 3em;
+
+        &:hover {
+          transform: none;
+        }
+
+        &:active {
+          box-shadow: none;
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+
   .error {
-    color: red;
+    color: rgb(255, 0, 0);
     font-weight: normal;
     margin-left: 1em;
   }
@@ -2153,12 +2308,16 @@ i.arrow {
     &.disabled {
       color: rgb(190, 190, 190);
     }
+
+    &:active {
+      transform: translateY(1px);
+    }
   }
 
   button:hover,
   .file-input-label:hover {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
-    transform: translateY(1px) 0.5s;
+    transform: translateY(1px);
 
     &.disabled {
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);

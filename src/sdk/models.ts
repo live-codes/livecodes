@@ -370,12 +370,7 @@ export interface LanguageFormatter {
   factory: (baseUrl: string, language: Language) => FormatFn;
 }
 
-export type CssPresetId =
-  | ''
-  | 'normalize.css'
-  | 'reset-css'
-  | 'github-markdown-css'
-  | 'asciidoctor.css';
+export type CssPresetId = '' | 'normalize.css' | 'reset-css';
 
 export interface CssPreset {
   id: CssPresetId;
@@ -687,7 +682,7 @@ export interface Screen {
     | 'snippets'
     | 'add-snippet'
     | 'import'
-    | 'external'
+    | 'resources'
     | 'share'
     | 'embed'
     | 'deploy'
@@ -878,4 +873,28 @@ export interface CustomEvents {
   destroy: 'livecodes-destroy';
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';
+}
+
+export interface PkgInfo {
+  name: string;
+  description?: string;
+  version?: string;
+  repository?: {
+    url?: string;
+  };
+  repo?: string;
+  homepage?: string;
+}
+
+export interface APIError {
+  error: boolean;
+  status?: number;
+  message?: string;
+}
+
+export interface CDNService {
+  search: (query: string, limit?: number) => Promise<PkgInfo[] | APIError>;
+  getPkgInfo: (pkgName: string) => Promise<PkgInfo | APIError>;
+  getPkgFiles: (pkgName: string) => Promise<{ default?: string; files: string[] } | APIError>;
+  getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
 }

@@ -297,3 +297,40 @@ export const isInIframe = () => {
 
 export const indentCode = (code: string, spaces: number, skipFirstLine = true) =>
   (skipFirstLine ? '' : ' '.repeat(spaces)) + code.split('\n').join('\n' + ' '.repeat(spaces));
+
+export const hideOnClickOutside = (element: HTMLElement) => {
+  const hideElement = () => {
+    element.style.display = 'none';
+    removeListeners();
+    (window as any).watchingEscape = false;
+  };
+
+  const outsideClickListener = (event: MouseEvent) => {
+    if (!element.contains(event.target as Node) && isVisible(element)) {
+      hideElement();
+    }
+  };
+
+  const escapeListener = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      hideElement();
+      event.preventDefault();
+    }
+  };
+
+  const isVisible = (elem: HTMLElement) =>
+    !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+
+  const removeListeners = () => {
+    document.removeEventListener('click', outsideClickListener);
+    document.removeEventListener('keydown', escapeListener);
+  };
+
+  document.addEventListener('click', outsideClickListener);
+  document.addEventListener('keydown', escapeListener);
+  (window as any).watchingEscape = true;
+
+  return {
+    clear: () => removeListeners(),
+  };
+};

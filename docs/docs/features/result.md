@@ -1,6 +1,6 @@
 # Result Page
 
-The output of a LiveCodes project is a single HTML page. This includes the (compiled) code from editors (markup + style + script) and [external resources](./external-css-js.md) (CSS + JS), in addition to customizations specified in [custom settings](../advanced/custom-settings.md).
+The output of a LiveCodes project is a single HTML page. This includes the (compiled) code from editors (markup + style + script) and [external resources](./external-resources.md) (CSS + JS), in addition to customizations specified in [custom settings](../advanced/custom-settings.md).
 
 This page is loaded in a [sandboxed iframe](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) with a unique origin to enforce [security](./security.md). The page code is sent to the iframe in the browser (no code is sent to the server).
 

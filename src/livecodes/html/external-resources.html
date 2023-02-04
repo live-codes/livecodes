@@ -2,18 +2,66 @@
   <div class="modal-title">External Resources</div>
   <div id="resources-screen-container" class="modal-screen-container">
     <div class="modal-screen">
-      <label for="external-stylesheets">External Stylesheets</label>
-      <textarea
-        id="external-stylesheets"
-        placeholder="https://"
-        data-resource="stylesheets"
-      ></textarea>
-      <label for="external-scripts">External Scripts</label>
-      <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
+      <label for="resources-search-input"
+        >Search Packages <span class="nowrap label-description">(powered by jsDelivr)</span></label
+      >
+      <input
+        type="text"
+        id="resources-search-input"
+        placeholder="e.g. jquery, lodash@4, bootstrap@5.2.3, ..."
+      />
+      <div id="resources-result-container"><ul id="resources-search-results"></ul></div>
+
+      <div id="resources-textarea-container">
+        <div class="description center">
+          Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.
+        </div>
+
+        <label for="external-stylesheets">External Stylesheets</label>
+        <textarea
+          id="external-stylesheets"
+          placeholder="https://"
+          data-resource="stylesheets"
+        ></textarea>
+        <label for="external-scripts">External Scripts</label>
+        <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
+      </div>
+
+      <label>Fonts <span class="nowrap label-description">(powered by Google Fonts)</span></label>
+      <div id="fonts-container">
+        <select>
+          <option value="">Loading...</option>
+        </select>
+        <button class="btn">Add</button>
+      </div>
+
+      <label>CSS Presets</label>
+      <div class="input-container">
+        <span>
+          <input type="radio" id="resources-css-preset-none" name="css-preset" value="" checked />
+          <label class="radio-label" for="resources-css-preset-none">None</label>
+        </span>
+        <span>
+          <input
+            type="radio"
+            id="resources-css-preset-normalize-css"
+            name="css-preset"
+            value="normalize.css"
+          />
+          <label class="radio-label" for="resources-css-preset-normalize-css">Normalize.css</label>
+        </span>
+        <span>
+          <input
+            type="radio"
+            id="resources-css-preset-reset-css"
+            name="css-preset"
+            value="reset-css"
+          />
+          <label class="radio-label" for="resources-css-preset-reset-css">Reset CSS</label>
+        </span>
+      </div>
+
       <button id="resources-load-btn" class="wide-button">Load</button>
-    </div>
-    <div class="description">
-      Add URLs to CSS and/or JS files to be added to the page. Put each URL in a separate line.
     </div>
   </div>
 </div>
