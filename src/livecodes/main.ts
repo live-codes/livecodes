@@ -5,6 +5,7 @@ import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
 import type { API, Config, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
+import { esModuleShimsUrl } from './vendors';
 
 export type { API, Config };
 
@@ -68,6 +69,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
+          .replace(/{{esModuleShimsUrl}}/g, esModuleShimsUrl)
           .replace(
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
