@@ -59,6 +59,10 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     document.head.appendChild(style);
 
     const loadApp = () => {
+      const supportsImportMaps = HTMLScriptElement.supports
+        ? HTMLScriptElement.supports('importmap')
+        : false;
+
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
@@ -70,6 +74,17 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
           .replace(/{{esModuleShimsUrl}}/g, esModuleShimsUrl)
+          .replace(
+            /{{codemirrorModule}}/g,
+            supportsImportMaps
+              ? ''
+              : `
+          <script type="module">
+            import * as mod from '${baseUrl}{{hash:codemirror.js}}';
+            window['${baseUrl}{{hash:codemirror.js}}'] = mod;
+          </script>
+          `,
+          )
           .replace(
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
