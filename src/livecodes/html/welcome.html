@@ -1,0 +1,64 @@
+<div id="welcome-container" class="modal-container">
+  <div class="modal-title">Welcome</div>
+  <div id="welcome-screen-container" class="modal-screen-container">
+    <div class="modal-screen">
+      <div class="modal-section">
+        <h3>Start</h3>
+        <ul>
+          <li><a href="#" id="welcome-link-new">New...</a></li>
+          <li><a href="#" id="welcome-link-open">Open...</a></li>
+          <li><a href="#" id="welcome-link-import">Import...</a></li>
+          <li><a href="#" id="welcome-link-load-default">Load default template</a></li>
+          <li>
+            No default template (<a href="/docs/features/default-template-language" target="_blank"
+              >info</a
+            >)
+          </li>
+        </ul>
+      </div>
+
+      <div class="modal-section" id="welcome-recent">
+        <h3>Recent</h3>
+        <ul>
+          <li class="overflow-ellipsis">
+            Project 1 Project 1 Project 1 Project 1 Project 1 Project 1 Project 1
+          </li>
+          <li>Project 2</li>
+          <li>Project 3</li>
+          <li>Project 4</li>
+          <li>Project 5</li>
+          <li><a href="#" id="welcome-link-recent-open">More...</a></li>
+        </ul>
+      </div>
+
+      <div class="modal-section" id="welcome-recover">
+        <h3>Recover</h3>
+        <div class="description">
+          Your last project had unsaved changes!<br />
+          Title: <strong>Project 6</strong><br />
+          Last modified: 2/14/2023, 6:24:03 PM
+        </div>
+        <ul>
+          <li>Recover</li>
+          <li>Save</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>About LiveCodes</h3>
+        <ul>
+          <li><a href="/docs/" target="_blank">Home</a></li>
+          <li><a href="/docs/getting-started" target="_blank">Getting Started</a></li>
+          <li><a href="/docs/features" target="_blank">Features</a></li>
+          <li><a href="/docs/configuration" target="_blank">Configuration</a></li>
+          <li><a href="/docs/sdk" target="_blank">SDK</a></li>
+          <li><a href="/docs/overview" target="_blank">More...</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="show-welcome">
+    <input type="checkbox" value="show-welcome-checkbox" id="show-welcome-checkbox" checked />
+    <label for="show-welcome-checkbox">Show on startup</label>
+  </div>
+</div>

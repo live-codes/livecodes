@@ -2282,6 +2282,85 @@ i.arrow {
     }
   }
 
+  #welcome-container {
+    overflow: unset;
+
+    .modal-screen-container {
+      height: calc(95% - 140px);
+      overflow: scroll;
+    }
+
+    .modal-screen {
+      align-items: start;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-height: 550px;
+    }
+
+    .modal-section {
+      box-sizing: border-box;
+      margin-bottom: 1em;
+      padding-left: 1.5em;
+      text-align: start;
+      width: 48%;
+
+      &#welcome-recent {
+        min-height: 250px;
+      }
+
+      h3 {
+        margin: 0.5em 0;
+      }
+
+      li {
+        list-style: none;
+        margin-bottom: 0.2em;
+      }
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .modal-screen {
+        max-height: unset;
+      }
+
+      .modal-section {
+        width: unset;
+
+        &#welcome-recent {
+          min-height: unset;
+        }
+
+        &#welcome-recover {
+          order: -1;
+        }
+      }
+    }
+
+    #show-welcome {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      label {
+        width: unset;
+      }
+    }
+  }
+
+  .overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .error {
     color: rgb(255, 0, 0);
     font-weight: normal;

@@ -139,6 +139,8 @@ export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#b
 
 export const getBroadcastLink = () => document.querySelector<HTMLAnchorElement>('#broadcast-link');
 
+export const getWelcomeLink = () => document.querySelector<HTMLAnchorElement>('#welcome-link');
+
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 
@@ -165,6 +167,9 @@ export const getEmmetToggle = () =>
 
 export const getThemeToggle = () =>
   document.querySelector('#settings-menu input#theme') as HTMLInputElement;
+
+export const getShowWelcomeToggle = () =>
+  document.querySelector('#settings-menu input#welcome') as HTMLInputElement;
 
 export const getRecoverToggle = () =>
   document.querySelector('#settings-menu input#recover-unsaved') as HTMLInputElement;
@@ -397,3 +402,18 @@ export const getQrCodeContainer = () => document.querySelector('#qrcode-containe
 
 export const getEditorSettingsFormatLink = (editorSettingsContainer: HTMLElement) =>
   editorSettingsContainer.querySelector('#editor-settings-format-link') as HTMLAnchorElement;
+
+export const getWelcomeLinkNew = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-new') as HTMLAnchorElement;
+
+export const getWelcomeLinkOpen = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-open') as HTMLAnchorElement;
+
+export const getWelcomeLinkImport = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-import') as HTMLAnchorElement;
+
+export const getWelcomeLinkRecentOpen = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-recent-open') as HTMLAnchorElement;
+
+export const getModalShowWelcomeCheckbox = () =>
+  document.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;

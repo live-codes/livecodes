@@ -71,6 +71,7 @@ import {
   savePromptScreen,
   recoverPromptScreen,
   resultPopupHTML,
+  welcomeScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -1175,15 +1176,9 @@ const checkRecoverStatus = () => {
     ).toLocaleString();
     const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
 
-    const setRecoverConfig = (recoverUnsaved: boolean) => {
-      setUserConfig({ recoverUnsaved });
-      loadSettings(getConfig());
-    };
-
     eventsManager.addEventListener(UI.getModalRecoverButton(), 'click', async () => {
       await loadConfig(unsavedProject);
       await setSavedStatus();
-      setRecoverConfig(!disableRecoverCheckbox.checked);
       modal.close();
       resolve('recover');
     });
@@ -1191,17 +1186,19 @@ const checkRecoverStatus = () => {
       if (stores.projects) {
         await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
-        setRecoverConfig(!disableRecoverCheckbox.checked);
       }
       modal.close();
       setProjectRecover(true);
       resolve('save and continue');
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
-      setRecoverConfig(!disableRecoverCheckbox.checked);
       modal.close();
       setProjectRecover(true);
       resolve('cancel recover');
+    });
+    eventsManager.addEventListener(disableRecoverCheckbox, 'change', () => {
+      setUserConfig({ recoverUnsaved: !disableRecoverCheckbox.checked });
+      loadSettings(getConfig());
     });
   });
 };
@@ -1445,6 +1442,9 @@ const loadSettings = (config: Config) => {
 
   const recoverToggle = UI.getRecoverToggle();
   recoverToggle.checked = config.recoverUnsaved;
+
+  const showWelcomeToggle = UI.getShowWelcomeToggle();
+  showWelcomeToggle.checked = config.welcome;
 
   const spacingToggle = UI.getSpacingToggle();
   spacingToggle.checked = config.showSpacing;
@@ -1988,6 +1988,11 @@ const handleSettings = () => {
       }
       if (configKey === 'emmet') {
         await configureEmmet(getConfig());
+      }
+      if (configKey === 'welcome') {
+        setUserConfig({
+          welcome: toggle.checked,
+        });
       }
       if (configKey === 'recoverUnsaved') {
         setUserConfig({
@@ -2607,6 +2612,42 @@ const handleBroadcast = () => {
 
   eventsManager.addEventListener(UI.getBroadcastLink(), 'click', createBroadcastUI, false);
   registerScreen('broadcast', createBroadcastUI);
+};
+
+const handleWelcome = () => {
+  if (isEmbed) return;
+
+  const createWelcomeUI = async () => {
+    modal.show(loadingMessage());
+
+    const div = document.createElement('div');
+    div.innerHTML = welcomeScreen;
+    const welcomeContainer = div.firstChild as HTMLElement;
+    modal.show(welcomeContainer);
+
+    const showWelcomeCheckbox = UI.getModalShowWelcomeCheckbox();
+    showWelcomeCheckbox.checked = getConfig().welcome;
+
+    eventsManager.addEventListener(UI.getWelcomeLinkNew(welcomeContainer), 'click', () => {
+      showScreen('new');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkOpen(welcomeContainer), 'click', () => {
+      showScreen('open');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkImport(welcomeContainer), 'click', () => {
+      showScreen('import');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkRecentOpen(welcomeContainer), 'click', () => {
+      showScreen('open');
+    });
+    eventsManager.addEventListener(showWelcomeCheckbox, 'change', () => {
+      setUserConfig({ welcome: showWelcomeCheckbox.checked });
+      loadSettings(getConfig());
+    });
+  };
+
+  eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI, false);
+  registerScreen('welcome', createWelcomeUI);
 };
 
 const handleProjectInfo = () => {
@@ -3277,6 +3318,7 @@ const extraHandlers = async () => {
   handleExternalResources();
   handleBackup();
   handleBroadcast();
+  handleWelcome();
   handleResultPopup();
   handleBroadcastStatus();
   handleUnload();
@@ -3464,7 +3506,7 @@ const importExternalContent = async (options: {
 const loadDefaults = async () => {
   if (
     isEmbed ||
-    params['no-defaults'] !== false ||
+    params['no-defaults'] ||
     params.languages ||
     params.template ||
     params.config ||
@@ -3475,8 +3517,14 @@ const loadDefaults = async () => {
   ) {
     return;
   }
+
   for (const param of Object.keys(params)) {
     if (getLanguageByAlias(param)) return;
+  }
+
+  if (getConfig().welcome) {
+    await showScreen('welcome');
+    return;
   }
 
   const defaultTemplateId = getAppData()?.defaultTemplate;
