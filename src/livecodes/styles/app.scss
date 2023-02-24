@@ -2315,6 +2315,9 @@ i.arrow {
 
       &#welcome-recover {
         display: none;
+        max-height: 12em;
+        overflow: hidden;
+        transition: max-height 0.7s ease-out;
 
         li {
           margin: 10px;

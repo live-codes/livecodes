@@ -1178,8 +1178,8 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
   }
   const projectName = unsavedProject.title;
   return new Promise((resolve) => {
+    const welcomeRecover = UI.getModalWelcomeRecover();
     if (isWelcomeScreen) {
-      const welcomeRecover = UI.getModalWelcomeRecover();
       welcomeRecover.style.display = 'unset';
     } else {
       const div = document.createElement('div');
@@ -1205,14 +1205,18 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
         await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
       }
-      if (!isWelcomeScreen) {
+      if (isWelcomeScreen) {
+        welcomeRecover.style.maxHeight = '0';
+      } else {
         modal.close();
       }
       setProjectRecover(true);
       resolve('save and continue');
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
-      if (!isWelcomeScreen) {
+      if (isWelcomeScreen) {
+        welcomeRecover.style.maxHeight = '0';
+      } else {
         modal.close();
       }
       setProjectRecover(true);
@@ -2709,7 +2713,7 @@ const handleWelcome = () => {
       link.href = '#';
 
       item.appendChild(link);
-      list.prepend(item);
+      list?.prepend(item);
 
       eventsManager.addEventListener(link, 'click', () =>
         checkSavedStatus().then((confirmed) => {
