@@ -6,8 +6,8 @@ test.describe('Screens', () => {
     await page.goto(getTestUrl({ screen: 'login' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
-    await app.waitForLoadState();
-    await app.waitForSelector('#modal >> text=Login with GitHub');
+    await app?.waitForLoadState();
+    await app?.waitForSelector('#modal >> text=Login with GitHub');
     expect(true).toBe(true);
   });
 
@@ -15,8 +15,8 @@ test.describe('Screens', () => {
     await page.goto(getTestUrl({ screen: 'new' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
-    await app.waitForLoadState();
-    await app.waitForSelector('#modal >> text=New Project');
+    await app?.waitForLoadState();
+    await app?.waitForSelector('#modal >> text=New Project');
     expect(true).toBe(true);
   });
 
@@ -24,8 +24,8 @@ test.describe('Screens', () => {
     await page.goto(getTestUrl({ screen: 'open' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
-    await app.waitForLoadState();
-    await app.waitForSelector('#modal >> text=Saved Projects');
+    await app?.waitForLoadState();
+    await app?.waitForSelector('#modal >> text=Saved Projects');
     expect(true).toBe(true);
   });
 
@@ -33,8 +33,8 @@ test.describe('Screens', () => {
     await page.goto(getTestUrl({ screen: 'import' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
-    await app.waitForLoadState();
-    await app.waitForSelector('#modal >> text=Import');
+    await app?.waitForLoadState();
+    await app?.waitForSelector('#modal >> text=Import');
     expect(true).toBe(true);
   });
 
@@ -42,8 +42,8 @@ test.describe('Screens', () => {
     await page.goto(getTestUrl({ screen: 'deploy' }));
     await page.waitForSelector('iframe[name="app"]');
     const app = page.frame('app');
-    await app.waitForLoadState();
-    await app.waitForSelector('#modal >> text=Login with GitHub');
+    await app?.waitForLoadState();
+    await app?.waitForSelector('#modal >> text=Login with GitHub');
     expect(true).toBe(true);
   });
 });

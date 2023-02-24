@@ -1,14 +1,4 @@
 import { Frame, Page } from '@playwright/test';
-import { UrlQueryParams } from '../src/livecodes/models';
-
-export const getTestUrl = (config: UrlQueryParams = { autoupdate: false, 'no-defaults': true }) => {
-  const query = Object.keys(config).reduce(
-    (q, key, index) => q + (index > 0 ? '&' : '') + key + '=' + config[key],
-    '',
-  );
-  const url = process.env.TEST_URL || 'http://localhost:8080';
-  return url + (query ? '?' + query : '');
-};
 
 export const getLoadedApp = async (page: Page) => {
   await page.waitForSelector('iframe[name="app"]');
