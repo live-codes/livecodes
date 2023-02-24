@@ -75,6 +75,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   theme: Theme;
   recoverUnsaved: boolean;
   showSpacing: boolean;
+  welcome: boolean;
 }
 
 export interface EditorConfig {
@@ -689,6 +690,7 @@ export interface Screen {
     | 'sync'
     | 'backup'
     | 'broadcast'
+    | 'welcome'
     | 'custom-settings'
     | 'editor-settings'
     | 'test-editor';

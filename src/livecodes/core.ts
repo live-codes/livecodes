@@ -71,6 +71,7 @@ import {
   savePromptScreen,
   recoverPromptScreen,
   resultPopupHTML,
+  welcomeScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -1082,6 +1083,13 @@ const loadUserConfig = (updateUI = true) => {
   showSyncStatus(true);
 };
 
+const loadTemplate = async (templateId: string) => {
+  const templateConfig = (await stores.templates?.getItem(templateId))?.config;
+  if (templateConfig) {
+    await loadConfig(templateConfig);
+  }
+};
+
 const dispatchChangeEvent = () => {
   const changeEvent = new Event(customEvents.change);
   document.dispatchEvent(changeEvent);
@@ -1132,16 +1140,20 @@ const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
       resolve(true);
     });
     eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
-      modal.close();
+      if (!doNotCloseModal) {
+        modal.close();
+      }
       resolve(false);
     });
   });
 };
 
-const checkSavedAndExecute = (fn: () => void) => () =>
+const checkSavedAndExecute = (fn: () => void, cancelFn?: () => void) => () =>
   checkSavedStatus(true).then((confirmed) => {
     if (confirmed) {
       setTimeout(fn);
+    } else if (typeof cancelFn === 'function') {
+      setTimeout(cancelFn);
     }
   });
 
@@ -1155,7 +1167,7 @@ const setProjectRecover = (reset = false) => {
   });
 };
 
-const checkRecoverStatus = () => {
+const checkRecoverStatus = (isWelcomeScreen = false) => {
   if (!getConfig().recoverUnsaved || isEmbed) {
     return Promise.resolve('recover disabled');
   }
@@ -1166,24 +1178,25 @@ const checkRecoverStatus = () => {
   }
   const projectName = unsavedProject.title;
   return new Promise((resolve) => {
-    const div = document.createElement('div');
-    div.innerHTML = recoverPromptScreen;
-    modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
-    UI.getModalUnsavedName().innerHTML = projectName;
-    UI.getModalUnsavedLastModified().innerHTML = new Date(
+    const welcomeRecover = UI.getModalWelcomeRecover();
+    if (isWelcomeScreen) {
+      welcomeRecover.style.display = 'unset';
+    } else {
+      const div = document.createElement('div');
+      div.innerHTML = recoverPromptScreen;
+      modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
+    }
+
+    UI.getModalUnsavedName().textContent = projectName;
+    UI.getModalUnsavedName().title = projectName;
+    UI.getModalUnsavedLastModified().textContent = new Date(
       unsavedItem.lastModified,
     ).toLocaleString();
     const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
 
-    const setRecoverConfig = (recoverUnsaved: boolean) => {
-      setUserConfig({ recoverUnsaved });
-      loadSettings(getConfig());
-    };
-
     eventsManager.addEventListener(UI.getModalRecoverButton(), 'click', async () => {
       await loadConfig(unsavedProject);
       await setSavedStatus();
-      setRecoverConfig(!disableRecoverCheckbox.checked);
       modal.close();
       resolve('recover');
     });
@@ -1191,17 +1204,27 @@ const checkRecoverStatus = () => {
       if (stores.projects) {
         await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
-        setRecoverConfig(!disableRecoverCheckbox.checked);
       }
-      modal.close();
+      if (isWelcomeScreen) {
+        welcomeRecover.style.maxHeight = '0';
+      } else {
+        modal.close();
+      }
       setProjectRecover(true);
       resolve('save and continue');
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
-      setRecoverConfig(!disableRecoverCheckbox.checked);
-      modal.close();
+      if (isWelcomeScreen) {
+        welcomeRecover.style.maxHeight = '0';
+      } else {
+        modal.close();
+      }
       setProjectRecover(true);
       resolve('cancel recover');
+    });
+    eventsManager.addEventListener(disableRecoverCheckbox, 'change', () => {
+      setUserConfig({ recoverUnsaved: !disableRecoverCheckbox.checked });
+      loadSettings(getConfig());
     });
   });
 };
@@ -1445,6 +1468,9 @@ const loadSettings = (config: Config) => {
 
   const recoverToggle = UI.getRecoverToggle();
   recoverToggle.checked = config.recoverUnsaved;
+
+  const showWelcomeToggle = UI.getShowWelcomeToggle();
+  showWelcomeToggle.checked = config.welcome;
 
   const spacingToggle = UI.getSpacingToggle();
   spacingToggle.checked = config.showSpacing;
@@ -1989,6 +2015,11 @@ const handleSettings = () => {
       if (configKey === 'emmet') {
         await configureEmmet(getConfig());
       }
+      if (configKey === 'welcome') {
+        setUserConfig({
+          welcome: toggle.checked,
+        });
+      }
       if (configKey === 'recoverUnsaved') {
         setUserConfig({
           recoverUnsaved: toggle.checked,
@@ -2026,7 +2057,6 @@ const handleLogout = () => {
 const handleNew = () => {
   const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
   const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
-  const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
     const defaultTemplate = getAppData()?.defaultTemplate;
@@ -2089,13 +2119,9 @@ const handleNew = () => {
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
-            if (
-              stores.templates &&
-              (await stores.templates.getList()).length === 0 &&
-              noDataMessage
-            ) {
+            if (stores.templates && (await stores.templates.getList()).length === 0) {
               list.remove();
-              userTemplatesScreen.appendChild(noDataMessage);
+              userTemplatesScreen.innerHTML = noUserTemplates;
             }
           }, 500);
         },
@@ -2607,6 +2633,101 @@ const handleBroadcast = () => {
 
   eventsManager.addEventListener(UI.getBroadcastLink(), 'click', createBroadcastUI, false);
   registerScreen('broadcast', createBroadcastUI);
+};
+
+const handleWelcome = () => {
+  if (isEmbed) return;
+
+  const createWelcomeUI = async () => {
+    modal.show(loadingMessage());
+
+    const div = document.createElement('div');
+    div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
+    const welcomeContainer = div.firstChild as HTMLElement;
+    modal.show(welcomeContainer);
+
+    const showWelcomeCheckbox = UI.getModalShowWelcomeCheckbox(welcomeContainer);
+    showWelcomeCheckbox.checked = getConfig().welcome;
+
+    eventsManager.addEventListener(UI.getWelcomeLinkNew(welcomeContainer), 'click', () => {
+      showScreen('new');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkOpen(welcomeContainer), 'click', () => {
+      showScreen('open');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkImport(welcomeContainer), 'click', () => {
+      showScreen('import');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkRecentOpen(welcomeContainer), 'click', () => {
+      showScreen('open');
+    });
+    eventsManager.addEventListener(showWelcomeCheckbox, 'change', () => {
+      setUserConfig({ welcome: showWelcomeCheckbox.checked });
+      loadSettings(getConfig());
+    });
+
+    const defaultTemplateId = getAppData()?.defaultTemplate;
+    if (!defaultTemplateId) {
+      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
+    } else {
+      const loadTempateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
+      eventsManager.addEventListener(
+        loadTempateLink,
+        'click',
+        async (event) => {
+          event.preventDefault();
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadTemplate(defaultTemplateId);
+          modal.close();
+        },
+        false,
+      );
+      loadTempateLink.style.display = 'unset';
+    }
+    UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
+
+    if (!initialized) {
+      checkRecoverStatus(/* isWelcomeScreen= */ true);
+    }
+
+    const loadRecentProject = async (pId: string) => {
+      modal.show(loadingMessage(), { size: 'small' });
+      const savedProject = (await stores.projects?.getItem(pId))?.config;
+      if (savedProject) {
+        await loadConfig(savedProject);
+        projectId = pId;
+      }
+      modal.close();
+    };
+
+    const recentProjects = (await stores.projects?.getList())?.slice(0, 5).reverse();
+    if (!recentProjects || recentProjects.length === 0) return;
+    const list = UI.getModalWelcomeRecentList(welcomeContainer);
+    recentProjects.forEach((p) => {
+      const item = document.createElement('li');
+      item.classList.add('overflow-ellipsis');
+
+      const link = document.createElement('a');
+      link.textContent = p.title;
+      link.title = p.description.trim() || p.title;
+      link.href = '#';
+
+      item.appendChild(link);
+      list?.prepend(item);
+
+      eventsManager.addEventListener(link, 'click', () =>
+        checkSavedStatus().then((confirmed) => {
+          if (confirmed) {
+            loadRecentProject(p.id);
+          }
+        }),
+      );
+    });
+    UI.getModalWelcomeRecent(welcomeContainer).style.visibility = 'visible';
+  };
+
+  eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);
+  registerScreen('welcome', createWelcomeUI);
 };
 
 const handleProjectInfo = () => {
@@ -3277,6 +3398,7 @@ const extraHandlers = async () => {
   handleExternalResources();
   handleBackup();
   handleBroadcast();
+  handleWelcome();
   handleResultPopup();
   handleBroadcastStatus();
   handleUnload();
@@ -3464,7 +3586,7 @@ const importExternalContent = async (options: {
 const loadDefaults = async () => {
   if (
     isEmbed ||
-    params['no-defaults'] !== false ||
+    params['no-defaults'] ||
     params.languages ||
     params.template ||
     params.config ||
@@ -3475,23 +3597,20 @@ const loadDefaults = async () => {
   ) {
     return;
   }
+
   for (const param of Object.keys(params)) {
     if (getLanguageByAlias(param)) return;
+  }
+
+  if (getConfig().welcome || params.screen === 'welcome') {
+    showScreen('welcome');
+    return;
   }
 
   const defaultTemplateId = getAppData()?.defaultTemplate;
   if (defaultTemplateId) {
     notifications.info('Loading default template');
-
-    const getDefaultTemplate = () => {
-      if (!stores.templates) return;
-      return stores.templates?.getItem(defaultTemplateId);
-    };
-    const defaultTemplate = (await getDefaultTemplate())?.config;
-
-    if (defaultTemplate) {
-      await loadConfig(defaultTemplate);
-    }
+    await loadTemplate(defaultTemplateId);
     return;
   }
 

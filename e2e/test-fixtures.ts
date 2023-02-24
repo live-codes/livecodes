@@ -1,19 +1,19 @@
 // my-test.ts
 import { test as base } from '@playwright/test';
-import { Config } from '../src/livecodes/models';
-import { UrlQueryOptions } from './helpers';
+import { Config, UrlQueryParams } from '../src/livecodes/models';
 
 export const test = base.extend<{
   editor: Config['editor'];
-  getTestUrl: (config?: UrlQueryOptions) => string;
+  getTestUrl: (config?: UrlQueryParams) => string;
 }>({
   editor: 'monaco',
   getTestUrl: async ({ editor }, use) => {
-    await use((config?: UrlQueryOptions) => {
+    await use((config?: UrlQueryParams) => {
       const options = {
         editor,
         autoupdate: false,
         enableRestore: false,
+        'no-defaults': true,
         ...config,
       };
       const query = Object.keys(options).reduce(

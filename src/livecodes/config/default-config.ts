@@ -12,6 +12,7 @@ export const defaultConfig: Config = {
   theme: 'dark',
   recoverUnsaved: true,
   showSpacing: false,
+  welcome: true,
   readonly: false,
   allowLangChange: true,
   activeEditor: undefined,

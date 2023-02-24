@@ -38,6 +38,7 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig => ({
   delay: config.delay,
   formatOnsave: config.formatOnsave,
   recoverUnsaved: config.recoverUnsaved,
+  welcome: config.welcome,
   showSpacing: config.showSpacing,
   theme: config.theme,
   ...getEditorConfig(config),

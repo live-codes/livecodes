@@ -72,6 +72,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
     ...(is(config.recoverUnsaved, 'boolean') ? { recoverUnsaved: config.recoverUnsaved } : {}),
+    ...(is(config.welcome, 'boolean') ? { welcome: config.welcome } : {}),
     ...(is(config.showSpacing, 'boolean') ? { showSpacing: config.showSpacing } : {}),
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
