@@ -2321,7 +2321,16 @@ i.arrow {
       }
 
       &#welcome-recent {
+        visibility: hidden;
         min-height: 250px;
+      }
+
+      .default-template-li {
+        visibility: hidden;
+
+        .default-template {
+          display: none;
+        }
       }
 
       h3 {

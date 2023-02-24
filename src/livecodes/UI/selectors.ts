@@ -412,11 +412,26 @@ export const getWelcomeLinkOpen = (welcomeContainer: HTMLElement) =>
 export const getWelcomeLinkImport = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#welcome-link-import') as HTMLAnchorElement;
 
+export const getWelcomeLinkDefaultTemplateLi = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('.default-template-li') as HTMLAnchorElement;
+
+export const getWelcomeLinkNoDefaultTemplate = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#no-default-template') as HTMLAnchorElement;
+
+export const getWelcomeLinkLoadDefault = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-load-default') as HTMLAnchorElement;
+
 export const getWelcomeLinkRecentOpen = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#welcome-link-recent-open') as HTMLAnchorElement;
 
-export const getModalShowWelcomeCheckbox = () =>
-  document.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;
+export const getModalShowWelcomeCheckbox = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;
 
-export const getModalWelcomeRecover = () =>
-  document.querySelector('#modal #welcome-recover') as HTMLInputElement;
+export const getModalWelcomeRecover = (welcomeContainer = document) =>
+  welcomeContainer.querySelector('#modal #welcome-recover') as HTMLElement;
+
+export const getModalWelcomeRecent = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #welcome-recent') as HTMLElement;
+
+export const getModalWelcomeRecentList = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #welcome-recent-list') as HTMLElement;

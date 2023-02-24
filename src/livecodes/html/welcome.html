@@ -8,25 +8,25 @@
           <li><a href="#" id="welcome-link-new">New...</a></li>
           <li><a href="#" id="welcome-link-open">Open...</a></li>
           <li><a href="#" id="welcome-link-import">Import...</a></li>
-          <li><a href="#" id="welcome-link-load-default">Load default template</a></li>
-          <li>
-            No default template (<a href="/docs/features/default-template-language" target="_blank"
-              >info</a
-            >)
+          <li class="default-template-li">
+            <span id="no-default-template" class="default-template">No default template</span>
+            <a href="#" id="welcome-link-load-default" class="default-template"
+              >Load default template</a
+            >
+            <a
+              href="/docs/features/default-template-language"
+              target="_blank"
+              class="help-link"
+              title="Click for info..."
+              ><img src="{{baseUrl}}assets/icons/info.svg"
+            /></a>
           </li>
         </ul>
       </div>
 
       <div class="modal-section" id="welcome-recent">
         <h3>Recent</h3>
-        <ul>
-          <li class="overflow-ellipsis">
-            Project 1 Project 1 Project 1 Project 1 Project 1 Project 1 Project 1
-          </li>
-          <li>Project 2</li>
-          <li>Project 3</li>
-          <li>Project 4</li>
-          <li>Project 5</li>
+        <ul id="welcome-recent-list">
           <li><a href="#" id="welcome-link-recent-open">More...</a></li>
         </ul>
       </div>

@@ -51,7 +51,7 @@ export const noUserTemplates = `
   <div>You have no saved templates.</div>
   <div class="description">
     You can save a project as a template from
-    <wbr />(settings&nbsp;menu&nbsp;>&nbsp;Save&nbsp;as&nbsp;> Template).
+    <wbr />(App&nbsp;menu&nbsp;>&nbsp;Save&nbsp;as&nbsp;> Template).
   </div>
 </div>
 `;
