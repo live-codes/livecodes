@@ -1173,6 +1173,11 @@ li.editor-title {
 
       a {
         flex-grow: 1;
+
+        &:hover {
+          color: var(--link-color);
+          text-decoration: underline;
+        }
       }
     }
 
