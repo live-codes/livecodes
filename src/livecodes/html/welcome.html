@@ -5,10 +5,20 @@
       <div class="modal-section">
         <h3>Start</h3>
         <ul>
-          <li><a href="#" id="welcome-link-new">New...</a></li>
-          <li><a href="#" id="welcome-link-open">Open...</a></li>
-          <li><a href="#" id="welcome-link-import">Import...</a></li>
+          <li>
+            <img src="{{baseUrl}}assets/icons/new.svg" />
+            <a href="#" id="welcome-link-new"> New...</a>
+          </li>
+          <li>
+            <img src="{{baseUrl}}assets/icons/open.svg" />
+            <a href="#" id="welcome-link-open"> Open...</a>
+          </li>
+          <li>
+            <img src="{{baseUrl}}assets/icons/import.svg" />
+            <a href="#" id="welcome-link-import"> Import...</a>
+          </li>
           <li class="default-template-li">
+            <img src="{{baseUrl}}assets/icons/template.svg" />
             <span id="no-default-template" class="default-template">No default template</span>
             <a href="#" id="welcome-link-load-default" class="default-template"
               >Load default template</a
@@ -27,7 +37,7 @@
       <div class="modal-section" id="welcome-recent">
         <h3>Recent</h3>
         <ul id="welcome-recent-list">
-          <li><a href="#" id="welcome-link-recent-open">More...</a></li>
+          <li><a href="#" id="welcome-link-recent-open" class="more">More...</a></li>
         </ul>
       </div>
 
@@ -40,9 +50,15 @@
           </li>
           <li class="smaller">Last modified: <span id="unsaved-project-last-modified"></span></li>
         </ul>
-        <div id="welcome-recover-actions">
-          <a href="#" id="prompt-recover-btn" title="Recover project to editor">Recover</a>
-          <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">Save</a>
+        <div class="welcome-recover-actions">
+          <div>
+            <img src="{{baseUrl}}assets/icons/recover.svg" />
+            <a href="#" id="prompt-recover-btn" title="Recover project to editor">Recover</a>
+          </div>
+          <div>
+            <img src="{{baseUrl}}assets/icons/save.svg" />
+            <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">Save</a>
+          </div>
         </div>
       </div>
 
@@ -54,7 +70,7 @@
           <li><a href="/docs/features" target="_blank">Features</a></li>
           <li><a href="/docs/configuration" target="_blank">Configuration</a></li>
           <li><a href="/docs/sdk" target="_blank">SDK</a></li>
-          <li><a href="/docs/overview" target="_blank">More...</a></li>
+          <li><a href="/docs/overview" target="_blank" class="more">More...</a></li>
         </ul>
       </div>
     </div>

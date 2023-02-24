@@ -2315,14 +2315,21 @@ i.arrow {
           margin: 10px;
         }
 
-        a {
-          margin: 0 10px;
+        .welcome-recover-actions {
+          display: flex;
+          gap: 2em;
+        }
+
+        .welcome-recover-actions > * {
+          align-items: center;
+          display: flex;
+          gap: 0.5em;
         }
       }
 
       &#welcome-recent {
-        visibility: hidden;
         min-height: 250px;
+        visibility: hidden;
       }
 
       .default-template-li {
@@ -2333,11 +2340,19 @@ i.arrow {
         }
       }
 
+      .more {
+        font-size: smaller;
+        margin-top: 0.3em;
+      }
+
       h3 {
         margin: 0.5em 0;
       }
 
       li {
+        align-items: center;
+        display: flex;
+        gap: 0.5em;
         list-style: none;
         margin-bottom: 0.2em;
       }
@@ -2348,6 +2363,16 @@ i.arrow {
         &:hover {
           text-decoration: underline;
         }
+      }
+
+      img {
+        filter: opacity(0.7);
+        height: 1.2em;
+      }
+
+      .help-link img {
+        height: 0.8em;
+        margin-left: -0.5em;
       }
     }
 
