@@ -160,6 +160,10 @@ body {
   width: 100%;
 }
 
+.smaller {
+  font-size: smaller;
+}
+
 .noselect {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -2303,6 +2307,18 @@ i.arrow {
       padding-left: 1.5em;
       text-align: start;
       width: 48%;
+
+      &#welcome-recover {
+        display: none;
+
+        li {
+          margin: 10px;
+        }
+
+        a {
+          margin: 0 10px;
+        }
+      }
 
       &#welcome-recent {
         min-height: 250px;

@@ -33,15 +33,17 @@
 
       <div class="modal-section" id="welcome-recover">
         <h3>Recover</h3>
-        <div class="description">
-          Your last project had unsaved changes!<br />
-          Title: <strong>Project 6</strong><br />
-          Last modified: 2/14/2023, 6:24:03 PM
-        </div>
+        <div class="smaller">Your last project had unsaved changes:</div>
         <ul>
-          <li>Recover</li>
-          <li>Save</li>
+          <li class="overflow-ellipsis">
+            <span id="unsaved-project-name" class="overflow-ellipsis"></span>
+          </li>
+          <li class="smaller">Last modified: <span id="unsaved-project-last-modified"></span></li>
         </ul>
+        <div id="welcome-recover-actions">
+          <a href="#" id="prompt-recover-btn" title="Recover project to editor">Recover</a>
+          <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">Save</a>
+        </div>
       </div>
 
       <div class="modal-section">

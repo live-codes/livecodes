@@ -417,3 +417,6 @@ export const getWelcomeLinkRecentOpen = (welcomeContainer: HTMLElement) =>
 
 export const getModalShowWelcomeCheckbox = () =>
   document.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;
+
+export const getModalWelcomeRecover = () =>
+  document.querySelector('#modal #welcome-recover') as HTMLInputElement;

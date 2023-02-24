@@ -1156,7 +1156,7 @@ const setProjectRecover = (reset = false) => {
   });
 };
 
-const checkRecoverStatus = () => {
+const checkRecoverStatus = (isWelcomeScreen = false) => {
   if (!getConfig().recoverUnsaved || isEmbed) {
     return Promise.resolve('recover disabled');
   }
@@ -1167,11 +1167,18 @@ const checkRecoverStatus = () => {
   }
   const projectName = unsavedProject.title;
   return new Promise((resolve) => {
-    const div = document.createElement('div');
-    div.innerHTML = recoverPromptScreen;
-    modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
-    UI.getModalUnsavedName().innerHTML = projectName;
-    UI.getModalUnsavedLastModified().innerHTML = new Date(
+    if (isWelcomeScreen) {
+      const welcomeRecover = UI.getModalWelcomeRecover();
+      welcomeRecover.style.display = 'unset';
+    } else {
+      const div = document.createElement('div');
+      div.innerHTML = recoverPromptScreen;
+      modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
+    }
+
+    UI.getModalUnsavedName().textContent = projectName;
+    UI.getModalUnsavedName().title = projectName;
+    UI.getModalUnsavedLastModified().textContent = new Date(
       unsavedItem.lastModified,
     ).toLocaleString();
     const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
@@ -1187,12 +1194,16 @@ const checkRecoverStatus = () => {
         await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
       }
-      modal.close();
+      if (!isWelcomeScreen) {
+        modal.close();
+      }
       setProjectRecover(true);
       resolve('save and continue');
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
-      modal.close();
+      if (!isWelcomeScreen) {
+        modal.close();
+      }
       setProjectRecover(true);
       resolve('cancel recover');
     });
@@ -2644,6 +2655,10 @@ const handleWelcome = () => {
       setUserConfig({ welcome: showWelcomeCheckbox.checked });
       loadSettings(getConfig());
     });
+
+    if (!initialized) {
+      await checkRecoverStatus(/* isWelcomeScreen= */ true);
+    }
   };
 
   eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI, false);
@@ -3522,8 +3537,8 @@ const loadDefaults = async () => {
     if (getLanguageByAlias(param)) return;
   }
 
-  if (getConfig().welcome) {
-    await showScreen('welcome');
+  if (getConfig().welcome || params.screen === 'welcome') {
+    showScreen('welcome');
     return;
   }
 
