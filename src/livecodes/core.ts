@@ -1140,16 +1140,20 @@ const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
       resolve(true);
     });
     eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
-      modal.close();
+      if (!doNotCloseModal) {
+        modal.close();
+      }
       resolve(false);
     });
   });
 };
 
-const checkSavedAndExecute = (fn: () => void) => () =>
+const checkSavedAndExecute = (fn: () => void, cancelFn?: () => void) => () =>
   checkSavedStatus(true).then((confirmed) => {
     if (confirmed) {
       setTimeout(fn);
+    } else if (typeof cancelFn === 'function') {
+      setTimeout(cancelFn);
     }
   });
 
@@ -2682,6 +2686,16 @@ const handleWelcome = () => {
       checkRecoverStatus(/* isWelcomeScreen= */ true);
     }
 
+    const loadRecentProject = async (pId: string) => {
+      modal.show(loadingMessage(), { size: 'small' });
+      const savedProject = (await stores.projects?.getItem(pId))?.config;
+      if (savedProject) {
+        await loadConfig(savedProject);
+        projectId = pId;
+      }
+      modal.close();
+    };
+
     const recentProjects = (await stores.projects?.getList())?.slice(0, 5).reverse();
     if (!recentProjects || recentProjects.length === 0) return;
     const list = UI.getModalWelcomeRecentList(welcomeContainer);
@@ -2697,27 +2711,18 @@ const handleWelcome = () => {
       item.appendChild(link);
       list.prepend(item);
 
-      eventsManager.addEventListener(
-        link,
-        'click',
-        async (event) => {
-          event.preventDefault();
-          modal.show(loadingMessage(), { size: 'small' });
-          const itemId = p.id;
-          const savedProject = (await stores.projects?.getItem(itemId))?.config;
-          if (savedProject) {
-            await loadConfig(savedProject);
-            projectId = itemId;
+      eventsManager.addEventListener(link, 'click', () =>
+        checkSavedStatus().then((confirmed) => {
+          if (confirmed) {
+            loadRecentProject(p.id);
           }
-          modal.close();
-        },
-        false,
+        }),
       );
     });
     UI.getModalWelcomeRecent(welcomeContainer).style.visibility = 'visible';
   };
 
-  eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI, false);
+  eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);
   registerScreen('welcome', createWelcomeUI);
 };
 
