@@ -15,13 +15,7 @@ import {
   getLanguageSpecs,
   getLanguageExtension,
 } from './languages';
-import {
-  createSimpleStorage,
-  createStorage,
-  fakeStorage,
-  Stores,
-  createProjectStorage,
-} from './storage';
+import { fakeStorage, createStores, initializeStores, type Stores } from './storage';
 import type {
   API,
   Cache,
@@ -131,17 +125,7 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 
-const stores: Stores = {
-  projects: undefined,
-  templates: undefined,
-  assets: undefined,
-  snippets: undefined,
-  recover: undefined,
-  userConfig: undefined,
-  userData: undefined,
-  appData: undefined,
-  sync: undefined,
-};
+const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 const notifications = createNotifications();
 const modal = createModal();
@@ -1359,13 +1343,14 @@ const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => 
     (k) => !['recover', 'sync'].includes(k),
   );
   const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+  syncModule.init(baseUrl);
 
   for (const storeKey of storeKeys) {
     if (action === 'clear') {
-      await syncModule.exportToLocalSync({ user, stores, storeKey });
+      await syncModule.exportToLocalSync({ user, storeKey });
       stores[storeKey]?.clear();
     } else {
-      await syncModule.restoreFromLocalSync({ user, stores, storeKey });
+      await syncModule.restoreFromLocalSync({ user, storeKey });
     }
   }
 
@@ -2492,7 +2477,6 @@ const handleSync = () => {
       notifications,
       eventsManager,
       user,
-      stores,
       deps: {
         getSyncData: async () => (await getUserData())?.sync || null,
         setSyncData: async (syncData: UserData['data']['sync']) => {
@@ -2508,10 +2492,10 @@ const handleSync = () => {
 };
 
 const handleAutosync = async () => {
-  // TODO: fix performance issue
-  if (true) return;
   if (isEmbed) return;
 
+  const minute = 1000 * 60;
+  const syncFrequency = 10 * minute;
   let syncInterval: number;
   const sync = async () => {
     if (isDestroyed) {
@@ -2521,16 +2505,18 @@ const handleAutosync = async () => {
 
     const syncData = (await getUserData())?.sync;
     if (!syncData?.autosync) return;
+    if (Date.now() - syncData.lastSync < syncFrequency) return;
     const user = await authService?.getUser();
     const repo = syncData.repo;
     if (!user || !repo) return;
 
     const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+    syncModule.init(baseUrl);
+
     const syncResult = await syncModule.sync({
       user,
       repo,
       newRepo: false,
-      stores,
     });
     if (syncResult) {
       setUserData({
@@ -2542,11 +2528,10 @@ const handleAutosync = async () => {
     }
   };
 
-  const minute = 1000 * 60;
   const triggerSync = () => {
     setTimeout(() => {
       sync();
-      syncInterval = window.setInterval(sync, 5 * minute);
+      syncInterval = window.setInterval(sync, syncFrequency);
     }, minute);
   };
 
@@ -3404,19 +3389,6 @@ const extraHandlers = async () => {
   handleUnload();
 };
 
-const initializeStores = async () => {
-  if (isEmbed) return;
-  stores.projects = await createProjectStorage('__livecodes_data__', isEmbed);
-  stores.templates = await createProjectStorage('__livecodes_templates__', isEmbed);
-  stores.assets = await createStorage('__livecodes_assets__', isEmbed);
-  stores.snippets = await createStorage('__livecodes_snippets__', isEmbed);
-  stores.recover = createSimpleStorage('__livecodes_project_recover__', isEmbed);
-  stores.userConfig = createSimpleStorage('__livecodes_user_config__', isEmbed);
-  stores.userData = await createStorage('__livecodes_user_data__', isEmbed);
-  stores.appData = createSimpleStorage('__livecodes_app_data__', isEmbed);
-  stores.sync = await createStorage('__livecodes_sync_data__', isEmbed);
-};
-
 const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
   document.body.classList.add('embed');
   if (config.mode === 'result') {
@@ -3602,7 +3574,7 @@ const loadDefaults = async () => {
     if (getLanguageByAlias(param)) return;
   }
 
-  if (getConfig().welcome || params.screen === 'welcome') {
+  if ((getConfig().welcome && !params.screen) || params.screen === 'welcome') {
     showScreen('welcome');
     return;
   }
@@ -3672,7 +3644,7 @@ const initializeApp = async (
   isLite = options?.isLite ?? false;
   isEmbed = isLite || (options?.isEmbed ?? false);
 
-  await initializeStores();
+  await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
   setConfig(
     buildConfig({

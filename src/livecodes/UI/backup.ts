@@ -58,7 +58,12 @@ export const createBackupUI = ({
   const backupBtn = getBackupBtn(backupContainer);
   const fileInput = getImportFileInput(backupContainer);
 
-  const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
+  const syncModule: Promise<typeof import('../sync/sync')> = import(
+    baseUrl + '{{hash:sync.js}}'
+  ).then((mod) => {
+    mod.init(baseUrl);
+    return mod;
+  });
 
   interface File {
     filename: string;
@@ -105,7 +110,7 @@ export const createBackupUI = ({
         .filter((storeKey) => Boolean(stores[storeKey]))
         .map(async (storeKey) => ({
           filename: storeKey + '.b64',
-          content: await loadedSyncModule.exportStoreAsBase64Update({ storage: stores[storeKey]! }),
+          content: (await loadedSyncModule.exportStoreAsBase64Update({ storeKey })) || '',
         })),
     );
     await createZip(files);
@@ -153,13 +158,13 @@ export const createBackupUI = ({
     const mergeCurrent = formData.get('restore-mode') === 'merge';
 
     for (const file of files) {
-      const key = file.filename.slice(0, -4);
-      const storage = (stores as any)[key];
+      const storeKey = file.filename.slice(0, -4) as keyof Stores;
+      const storage = (stores as any)[storeKey];
       if (storage) {
         const update = base64ToUint8Array(file.content);
         await loadedSyncModule.restoreFromUpdate({
           update,
-          storage,
+          storeKey,
           mergeCurrent,
         });
       }

@@ -3,7 +3,6 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { User, UserData } from '../models';
-import type { Stores } from '../storage';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
@@ -101,7 +100,6 @@ export const createSyncUI = async ({
   notifications,
   eventsManager,
   user,
-  stores,
   deps,
 }: {
   baseUrl: string;
@@ -109,7 +107,6 @@ export const createSyncUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   user: User;
-  stores: Stores;
   deps: {
     getSyncData: () => Promise<UserData['data']['sync'] | null>;
     setSyncData: (syncData: UserData['data']['sync']) => Promise<void>;
@@ -128,7 +125,12 @@ export const createSyncUI = async ({
   updateSyncStatus({ inProgress: isSyncInProgress(), lastSync: syncData?.lastSync, syncContainer });
 
   // start loading the module
-  const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
+  const syncModule: Promise<typeof import('../sync/sync')> = import(
+    baseUrl + '{{hash:sync.js}}'
+  ).then((mod) => {
+    mod.init(baseUrl);
+    return mod;
+  });
 
   const sync = (user: User, repo: string, newRepo: boolean) => {
     notifications.info('Sync started...');
@@ -140,7 +142,6 @@ export const createSyncUI = async ({
           user,
           repo,
           newRepo,
-          stores,
         });
         if (!syncResult) {
           notifications.error('Sync failed!');

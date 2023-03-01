@@ -257,6 +257,7 @@ const workerOptions = {
   entryPoints: [
     'src/livecodes/compiler/compile.worker.ts',
     'src/livecodes/formatter/format.worker.ts',
+    'src/livecodes/sync/sync.worker.ts',
   ],
   write: false,
 };

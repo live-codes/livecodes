@@ -9,7 +9,7 @@ import type {
   UserData,
 } from '../models';
 // eslint-disable-next-line import/no-internal-modules
-import type { StoredSyncData } from '../sync/sync';
+import type { StoredSyncData } from '../sync/sync.worker';
 
 export interface Storage<T> extends Subscribable<T[]> {
   getList: () => Promise<string[]>;

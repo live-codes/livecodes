@@ -137,8 +137,17 @@ export const downloadFile = (filename: string, extension: string, content: strin
 
 export const loadScript = (url: string, name?: string) =>
   new Promise((resolve, reject) => {
-    if (name && (window as any)[name]) {
-      return resolve((window as any)[name]);
+    if (name && (globalThis as any)[name]) {
+      return resolve((globalThis as any)[name]);
+    }
+
+    // if running in web worker
+    if (typeof (globalThis as any).importScripts === 'function') {
+      (globalThis as any).importScripts(url);
+      if (name && (globalThis as any)[name]) {
+        return resolve((globalThis as any)[name]);
+      }
+      return resolve(globalThis);
     }
 
     const script = document.createElement('script');
