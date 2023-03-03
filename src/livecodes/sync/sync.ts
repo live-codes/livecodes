@@ -1,5 +1,7 @@
 /* eslint-disable import/no-internal-modules */
-import { getRandomString } from '../utils/utils';
+import { createStores, initializeSimpleStores, type Stores } from '../storage';
+import { callWorker } from '../utils/utils';
+import type { WorkerMessageEvent } from '../models';
 import type { SyncMessageEvent } from './models';
 import type {
   workerSync,
@@ -9,58 +11,68 @@ import type {
   workerRestoreFromLocalSync,
 } from './sync.worker';
 
+type SyncMethod = SyncMessageEvent['data']['method'];
+
 let worker: Worker;
 
 export const init = (baseUrl: string) => {
   worker = worker || new Worker(baseUrl + '{{hash:sync.worker.js}}');
+  let stores: Stores;
+
+  worker.addEventListener('message', async (event: WorkerMessageEvent<'getValue' | 'setValue'>) => {
+    const message = event.data;
+    const method = message.method;
+    const args = (message.args as { storeKey: keyof Stores; value?: any }) || {};
+    if (method !== 'getValue' && method !== 'setValue') return;
+
+    if (!stores) {
+      stores = createStores();
+      await initializeSimpleStores(stores, false);
+    }
+
+    let data;
+    const { storeKey, value } = args;
+    const storage = stores[storeKey];
+    if (!storage || !storeKey) return;
+
+    if (method === 'getValue' && 'getValue' in storage) {
+      data = storage.getValue();
+    }
+
+    if (method === 'setValue' && 'setValue' in storage && value != null) {
+      storage.setValue(value);
+    }
+
+    worker.postMessage({ ...message, data });
+  });
 };
 
-const callWorker = async (message: { method: SyncMessageEvent['data']['method']; args: any }) =>
-  new Promise((resolve) => {
-    const messageId = getRandomString();
-
-    const handler = (event: SyncMessageEvent) => {
-      const received = event.data;
-
-      if (received.method === message.method && received.messageId === messageId) {
-        worker.removeEventListener('message', handler);
-        resolve(received.data);
-      }
-    };
-    worker.addEventListener('message', handler);
-
-    worker.postMessage({
-      ...message,
-      messageId,
-    });
+export const sync: workerSync = async (...args) =>
+  callWorker<SyncMethod, Awaited<ReturnType<workerSync>>>(worker, {
+    method: 'sync',
+    args,
   });
 
-export const sync: workerSync = async (...args) =>
-  callWorker({
-    method: 'sync',
-    args,
-  }) as any;
-
 export const exportToLocalSync: workerExportToLocalSync = async (...args) =>
-  callWorker({
-    method: 'sync',
+  callWorker<SyncMethod, Awaited<ReturnType<workerExportToLocalSync>>>(worker, {
+    method: 'exportToLocalSync',
     args,
-  }) as any;
+  });
 
 export const exportStoreAsBase64Update: workerExportStoreAsBase64Update = async (...args) =>
-  callWorker({
-    method: 'sync',
+  callWorker<SyncMethod, Awaited<ReturnType<workerExportStoreAsBase64Update>>>(worker, {
+    method: 'exportStoreAsBase64Update',
     args,
-  }) as any;
+  });
 
 export const restoreFromUpdate: workerRestoreFromUpdate = async (...args) =>
-  callWorker({
-    method: 'sync',
+  callWorker<SyncMethod, Awaited<ReturnType<workerRestoreFromUpdate>>>(worker, {
+    method: 'restoreFromUpdate',
     args,
-  }) as any;
+  });
 
 export const restoreFromLocalSync: workerRestoreFromLocalSync = async (...args) =>
-  callWorker({
-    method: 'sync',
+  callWorker<SyncMethod, Awaited<ReturnType<workerRestoreFromLocalSync>>>(worker, {
+    method: 'restoreFromLocalSync',
     args,
-  }) as any;
+  });

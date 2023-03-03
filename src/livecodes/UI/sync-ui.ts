@@ -67,6 +67,7 @@ export const updateSyncStatus = ({
   const syncLink = getSyncLink();
   const syncStatus = getSyncStatus(syncContainer);
   const startSyncBtns = getStartSyncBtns(syncContainer);
+  const syncIndicator = '<span class="smaller"> ⏳</span>';
 
   const lastSyncMessage = lastSync ? `Last sync: ${new Date(lastSync).toLocaleString()}` : '';
   if (syncStatus) {
@@ -77,18 +78,20 @@ export const updateSyncStatus = ({
     if (syncLink) {
       syncLink.classList.add('hint--bottom');
       syncLink.dataset.hint = syncInProgressMessage;
+      syncLink.innerHTML += syncIndicator;
     }
     startSyncBtns?.forEach((btn) => {
-      btn.innerHTML = syncInProgressMessage;
+      btn.innerText = syncInProgressMessage;
       btn.disabled = true;
     });
   } else {
     if (syncLink) {
       syncLink.classList.toggle('hint--bottom', Boolean(lastSyncMessage));
       syncLink.dataset.hint = lastSyncMessage;
+      syncLink.innerHTML = syncLink.innerHTML.replace(syncIndicator, '');
     }
     startSyncBtns?.forEach((btn) => {
-      btn.innerHTML = 'Sync';
+      btn.innerText = 'Sync';
       btn.disabled = false;
     });
   }

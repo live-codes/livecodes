@@ -1,16 +1,13 @@
-export interface SyncMessageEvent extends MessageEvent {
-  data: {
-    messageId: string;
-    method:
-      | 'sync'
-      | 'exportToLocalSync'
-      | 'exportStoreAsBase64Update'
-      | 'restoreFromUpdate'
-      | 'restoreFromLocalSync';
-    args?: any;
-    data?: unknown;
-  };
-}
+import { WorkerMessageEvent } from '../models';
+
+export type SyncMethod =
+  | 'sync'
+  | 'exportToLocalSync'
+  | 'exportStoreAsBase64Update'
+  | 'restoreFromUpdate'
+  | 'restoreFromLocalSync';
+
+export type SyncMessageEvent = WorkerMessageEvent<SyncMethod>;
 
 export interface StoredSyncData {
   lastModified: number;

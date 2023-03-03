@@ -1,9 +1,14 @@
 /* eslint-disable import/no-internal-modules */
 import type { User } from '../models';
 import type { Storage, SimpleStorage, ProjectStorage, Stores } from '../storage';
-import { createStores, initializeStores } from '../storage/stores';
-import { commitFile, getContent, GitHubFile } from '../services/github';
-import { base64ToUint8Array, typedArraysAreEqual, Uint8ArrayToBase64 } from '../utils/utils';
+import { createStores, getStoreKey, initializeStores } from '../storage/stores';
+import { commitFile, getContent, type GitHubFile } from '../services/github';
+import {
+  base64ToUint8Array,
+  callWorker,
+  typedArraysAreEqual,
+  Uint8ArrayToBase64,
+} from '../utils/utils';
 import { Y, DeepDiff, applyChange, toJSON } from './diff';
 import type { StoredSyncData, SyncMessageEvent } from './models';
 
@@ -26,7 +31,11 @@ const getStorageData = async <T>(
   if (!storage) return [];
   if ('getValue' in storage) {
     // SimpleStorage
-    const value = storage.getValue();
+    const storeKey = getStoreKey(storage, stores);
+    const value = await callWorker(worker, {
+      method: 'getValue',
+      args: { storeKey },
+    });
     return value != null ? [value] : [];
   }
   // Storage
@@ -40,7 +49,11 @@ const setStorageData = async <T>(
   if (!storage) return;
   if ('setValue' in storage) {
     // SimpleStorage
-    storage.setValue(data[0]);
+    const storeKey = getStoreKey(storage, stores);
+    await callWorker(worker, {
+      method: 'setValue',
+      args: { storeKey, value: data[0] },
+    });
     return;
   }
   // Storage
