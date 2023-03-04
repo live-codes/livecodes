@@ -20,10 +20,9 @@ interface GitHubContent {
   sha: string;
   type: 'file' | 'dir';
 }
+type StorageTypes<T> = SimpleStorage<T> | Storage<T> | ProjectStorage | undefined;
 
-const getStorageData = async <T>(
-  storage: SimpleStorage<T> | Storage<T> | ProjectStorage | undefined,
-) => {
+const getStorageData = async <T>(storage: StorageTypes<T>) => {
   if (!storage) return [];
   if ('getValue' in storage) {
     // SimpleStorage
@@ -38,10 +37,7 @@ const getStorageData = async <T>(
   return storage.getAllData();
 };
 
-const setStorageData = async <T>(
-  storage: SimpleStorage<T> | Storage<T> | ProjectStorage | undefined,
-  data: T[],
-) => {
+const setStorageData = async <T>(storage: StorageTypes<T>, data: T[]) => {
   if (!storage) return;
   if ('setValue' in storage) {
     // SimpleStorage
@@ -86,7 +82,7 @@ const syncStore = async ({
   const filename = `${storeKey}.b64.zip`;
   const path = `${repoDir}/${filename}`;
 
-  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  const storage: StorageTypes<any> = stores[storeKey];
   if (!storage) return true;
 
   const isSimpleStorage = 'getValue' in storage;
@@ -295,7 +291,7 @@ const sync = async ({
 
 const exportToLocalSync = async ({ user, storeKey }: { user: User; storeKey: keyof Stores }) => {
   const syncKey = `${user.username}_${storeKey}`;
-  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  const storage: StorageTypes<any> = stores[storeKey];
   if (!storage) return;
 
   const { data: localUpdate, lastSyncSha = '' } = (await stores.sync?.getItem(syncKey)) || {};
@@ -324,7 +320,7 @@ const exportToLocalSync = async ({ user, storeKey }: { user: User; storeKey: key
 };
 
 const exportStoreAsBase64Update = async ({ storeKey }: { storeKey: keyof Stores }) => {
-  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  const storage: StorageTypes<any> = stores[storeKey];
   if (!storage) return;
 
   const currentData = await getStorageData(storage);
@@ -345,7 +341,7 @@ const restoreFromUpdate = async ({
   storeKey: keyof Stores;
   mergeCurrent?: boolean;
 }) => {
-  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  const storage: StorageTypes<any> = stores[storeKey];
   if (!storage) return;
 
   const isSimpleStorage = 'getValue' in storage;
@@ -380,7 +376,7 @@ const restoreFromLocalSync = async ({
   mergeCurrent?: boolean;
 }) => {
   const syncKey = `${user.username}_${storeKey}`;
-  const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
+  const storage: StorageTypes<any> = stores[storeKey];
   if (!storage) return;
 
   const update = (await stores.sync?.getItem(syncKey))?.data;
