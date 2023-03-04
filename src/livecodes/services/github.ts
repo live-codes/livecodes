@@ -136,7 +136,8 @@ export const getContent = async ({
       throw new Error('Error getting file');
     }
 
-    if (path.endsWith('.b64')) {
+    if (path.endsWith('.b64.zip')) {
+      // sync data
       result.content = await rawRes.arrayBuffer();
       result.encoding = 'arrayBuffer';
     } else {

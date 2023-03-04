@@ -2495,7 +2495,7 @@ const handleAutosync = async () => {
   if (isEmbed) return;
 
   const minute = 1000 * 60;
-  const syncFrequency = 10 * minute;
+  const syncFrequency = 30 * minute;
   let syncInterval: number;
   const sync = async () => {
     if (isDestroyed) {
