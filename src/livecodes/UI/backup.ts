@@ -4,7 +4,7 @@ import type { createNotifications } from '../notifications';
 import type { createEventsManager } from '../events';
 import type { Stores } from '../storage';
 import { backupScreen } from '../html';
-import { base64ToUint8Array, downloadFile, getDate } from '../utils/utils';
+import { base64ToUint8Array, downloadFile, getDate, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import {
   getBackupBtn,
@@ -58,7 +58,12 @@ export const createBackupUI = ({
   const backupBtn = getBackupBtn(backupContainer);
   const fileInput = getImportFileInput(backupContainer);
 
-  const syncModule: Promise<typeof import('../sync/sync')> = import(baseUrl + '{{hash:sync.js}}');
+  const syncModule: Promise<typeof import('../sync/sync')> = import(
+    baseUrl + '{{hash:sync.js}}'
+  ).then((mod) => {
+    mod.init(baseUrl);
+    return mod;
+  });
 
   interface File {
     filename: string;
@@ -66,16 +71,19 @@ export const createBackupUI = ({
   }
 
   const createZip = async (files: File[]) => {
-    if (!(window as any).JSZip) {
-      (window as any).JSZip = (await import(jsZipUrl)).default;
-    }
-
-    const zip = new (window as any).JSZip();
+    const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
+    const zip = new JSZip();
 
     files.forEach(({ filename, content }) => {
       zip.file(filename, content);
     });
-    const output = await zip.generateAsync({ type: 'base64' });
+    const output = await zip.generateAsync({
+      type: 'base64',
+      compression: 'DEFLATE',
+      compressionOptions: {
+        level: 6,
+      },
+    });
 
     const filename = 'livecodes_backup_' + getDate();
     const extension = 'zip';
@@ -105,7 +113,7 @@ export const createBackupUI = ({
         .filter((storeKey) => Boolean(stores[storeKey]))
         .map(async (storeKey) => ({
           filename: storeKey + '.b64',
-          content: await loadedSyncModule.exportStoreAsBase64Update({ storage: stores[storeKey]! }),
+          content: (await loadedSyncModule.exportStoreAsBase64Update({ storeKey })) || '',
         })),
     );
     await createZip(files);
@@ -133,11 +141,9 @@ export const createBackupUI = ({
     });
 
   const extractZip = async (blob: Blob): Promise<File[]> => {
-    if (!(window as any).JSZip) {
-      (window as any).JSZip = (await import(jsZipUrl)).default;
-    }
+    const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
 
-    const zip = await (window as any).JSZip.loadAsync(blob);
+    const zip = await JSZip.loadAsync(blob);
     const files: any[] = zip.file(/\.b64$/);
     return Promise.all(
       files.map(async (file) => ({
@@ -153,13 +159,13 @@ export const createBackupUI = ({
     const mergeCurrent = formData.get('restore-mode') === 'merge';
 
     for (const file of files) {
-      const key = file.filename.slice(0, -4);
-      const storage = (stores as any)[key];
+      const storeKey = file.filename.slice(0, -4) as keyof Stores;
+      const storage = (stores as any)[storeKey];
       if (storage) {
         const update = base64ToUint8Array(file.content);
         await loadedSyncModule.restoreFromUpdate({
           update,
-          storage,
+          storeKey,
           mergeCurrent,
         });
       }

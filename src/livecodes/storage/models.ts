@@ -8,8 +8,7 @@ import type {
   UserConfig,
   UserData,
 } from '../models';
-// eslint-disable-next-line import/no-internal-modules
-import type { StoredSyncData } from '../sync/sync';
+import type { StoredSyncData } from '../sync';
 
 export interface Storage<T> extends Subscribable<T[]> {
   getList: () => Promise<string[]>;
@@ -68,3 +67,15 @@ export interface Stores {
 }
 
 export type StorageData = { [key in keyof Stores]: any | undefined };
+
+export type StoreName =
+  | '__livecodes_data__'
+  | '__livecodes_templates__'
+  | '__livecodes_assets__'
+  | '__livecodes_snippets__'
+  | '__livecodes_project_recover__'
+  | '__livecodes_user_config__'
+  | '__livecodes_user_data__'
+  | '__livecodes_app_data__'
+  | '__livecodes_sync_data__'
+  | '__livecodes_key__';

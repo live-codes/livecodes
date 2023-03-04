@@ -900,3 +900,12 @@ export interface CDNService {
   getPkgFiles: (pkgName: string) => Promise<{ default?: string; files: string[] } | APIError>;
   getPkgDefaultFiles: (pkgName: string) => Promise<{ js?: string; css?: string } | APIError>;
 }
+
+export interface WorkerMessageEvent<T, K = unknown> extends MessageEvent {
+  data: {
+    messageId: string;
+    method: T;
+    args?: any;
+    data?: K;
+  };
+}

@@ -1,9 +1,9 @@
-import { ContentConfig } from '../models';
-import { ProjectStorage, SavedProject, StorageItem } from './models';
+import type { ContentConfig } from '../models';
+import type { ProjectStorage, SavedProject, StorageItem, StoreName } from './models';
 import { createStorage, generateId } from './storage';
 
 export const createProjectStorage = async (
-  name: string,
+  name: StoreName,
   isEmbed: boolean,
 ): Promise<ProjectStorage> => {
   const storage = await createStorage<StorageItem>(name, isEmbed);

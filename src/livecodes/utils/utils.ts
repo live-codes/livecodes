@@ -1,4 +1,4 @@
-import { Config, Language, Processor } from '../models';
+import { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
   let timeout: any;
@@ -137,8 +137,17 @@ export const downloadFile = (filename: string, extension: string, content: strin
 
 export const loadScript = (url: string, name?: string) =>
   new Promise((resolve, reject) => {
-    if (name && (window as any)[name]) {
-      return resolve((window as any)[name]);
+    if (name && (globalThis as any)[name]) {
+      return resolve((globalThis as any)[name]);
+    }
+
+    // if running in web worker
+    if (typeof (globalThis as any).importScripts === 'function') {
+      (globalThis as any).importScripts(url);
+      if (name && (globalThis as any)[name]) {
+        return resolve((globalThis as any)[name]);
+      }
+      return resolve(globalThis);
     }
 
     const script = document.createElement('script');
@@ -334,3 +343,26 @@ export const hideOnClickOutside = (element: HTMLElement) => {
     clear: () => removeListeners(),
   };
 };
+
+export const callWorker = async <T = string, K = unknown>(
+  worker: Worker,
+  message: { method: T; args?: any },
+) =>
+  new Promise<K>((resolve) => {
+    const messageId = getRandomString();
+
+    const handler = (event: WorkerMessageEvent<T, K>) => {
+      const received = event.data;
+
+      if (received.method === message.method && received.messageId === messageId) {
+        worker.removeEventListener('message', handler);
+        resolve(received.data as K);
+      }
+    };
+    worker.addEventListener('message', handler);
+
+    worker.postMessage({
+      ...message,
+      messageId,
+    });
+  });
