@@ -77,4 +77,5 @@ export type StoreName =
   | '__livecodes_user_config__'
   | '__livecodes_user_data__'
   | '__livecodes_app_data__'
-  | '__livecodes_sync_data__';
+  | '__livecodes_sync_data__'
+  | '__livecodes_key__';
