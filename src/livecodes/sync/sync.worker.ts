@@ -3,12 +3,8 @@ import type { User } from '../models';
 import type { Storage, SimpleStorage, ProjectStorage, Stores } from '../storage';
 import { createStores, getStoreKey, initializeStores } from '../storage/stores';
 import { commitFile, getContent, type GitHubFile } from '../services/github';
-import {
-  base64ToUint8Array,
-  callWorker,
-  typedArraysAreEqual,
-  Uint8ArrayToBase64,
-} from '../utils/utils';
+import { callWorker, loadScript, typedArraysAreEqual, Uint8ArrayToBase64 } from '../utils/utils';
+import { jsZipUrl } from '../vendors';
 import { Y, DeepDiff, applyChange, toJSON } from './diff';
 import type { StoredSyncData, SyncMessageEvent } from './models';
 
@@ -87,7 +83,7 @@ const syncStore = async ({
 }) => {
   const syncKey = `${user.username}_${storeKey}`;
   const lastSyncSha = (await stores.sync?.getItem(syncKey))?.lastSyncSha;
-  const filename = `${storeKey}.b64`;
+  const filename = `${storeKey}.b64.zip`;
   const path = `${repoDir}/${filename}`;
 
   const storage: SimpleStorage<any> | Storage<any> | ProjectStorage | undefined = stores[storeKey];
@@ -115,11 +111,8 @@ const syncStore = async ({
           });
 
     if (remoteFile?.content) {
-      const content =
-        remoteFile.encoding === 'arrayBuffer'
-          ? Uint8ArrayToBase64(new Uint8Array(remoteFile.content))
-          : remoteFile.content;
-      remoteUpdate = base64ToUint8Array(content);
+      const encoding = remoteFile.encoding === 'arrayBuffer' ? 'binary' : 'base64';
+      remoteUpdate = await extractZip(remoteFile.content, encoding);
     }
 
     const localUpdate = (await stores.sync?.getItem(syncKey))?.data;
@@ -180,7 +173,9 @@ const syncStore = async ({
     if (shouldPushUpdate) {
       const file: GitHubFile = {
         path,
-        content: Uint8ArrayToBase64(newSyncUpdate),
+        content: await createZip([
+          { filename: filename.replace('.zip', ''), content: newSyncUpdate },
+        ]),
       };
 
       const result = await commitFile({
@@ -392,6 +387,36 @@ const restoreFromLocalSync = async ({
   if (!update) return;
 
   return restoreFromUpdate({ update, storeKey, mergeCurrent });
+};
+
+interface File {
+  filename: string;
+  content: Uint8Array;
+}
+
+const createZip = async (files: File[]): Promise<string> => {
+  const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
+  const zip = new JSZip();
+
+  files.forEach(({ filename, content }) => {
+    zip.file(filename, content);
+  });
+  return zip.generateAsync({
+    type: 'base64',
+    compression: 'DEFLATE',
+    compressionOptions: {
+      level: 6,
+    },
+  });
+};
+
+const extractZip = async (content: string, encoding: 'base64' | 'binary') => {
+  const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
+  const zip = await JSZip.loadAsync(content, { base64: encoding === 'base64' });
+  const files: any[] = zip.file(/.*\.b64/);
+  if (files.length > 0) {
+    return files[0].async('uint8array');
+  }
 };
 
 worker.addEventListener('message', async (event: SyncMessageEvent) => {

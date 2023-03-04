@@ -4,7 +4,7 @@ import type { createNotifications } from '../notifications';
 import type { createEventsManager } from '../events';
 import type { Stores } from '../storage';
 import { backupScreen } from '../html';
-import { base64ToUint8Array, downloadFile, getDate } from '../utils/utils';
+import { base64ToUint8Array, downloadFile, getDate, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import {
   getBackupBtn,
@@ -71,16 +71,19 @@ export const createBackupUI = ({
   }
 
   const createZip = async (files: File[]) => {
-    if (!(window as any).JSZip) {
-      (window as any).JSZip = (await import(jsZipUrl)).default;
-    }
-
-    const zip = new (window as any).JSZip();
+    const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
+    const zip = new JSZip();
 
     files.forEach(({ filename, content }) => {
       zip.file(filename, content);
     });
-    const output = await zip.generateAsync({ type: 'base64' });
+    const output = await zip.generateAsync({
+      type: 'base64',
+      compression: 'DEFLATE',
+      compressionOptions: {
+        level: 6,
+      },
+    });
 
     const filename = 'livecodes_backup_' + getDate();
     const extension = 'zip';
@@ -138,11 +141,9 @@ export const createBackupUI = ({
     });
 
   const extractZip = async (blob: Blob): Promise<File[]> => {
-    if (!(window as any).JSZip) {
-      (window as any).JSZip = (await import(jsZipUrl)).default;
-    }
+    const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
 
-    const zip = await (window as any).JSZip.loadAsync(blob);
+    const zip = await JSZip.loadAsync(blob);
     const files: any[] = zip.file(/\.b64$/);
     return Promise.all(
       files.map(async (file) => ({

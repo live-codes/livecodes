@@ -1,14 +1,14 @@
-import { ContentConfig } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
+import type { ContentConfig } from '../models';
 import { populateConfig, SourceFile } from './utils';
 
 export const importFromZip = async (blob: Blob) =>
   new Promise<Partial<ContentConfig>>(async (resolve, reject) => {
-    if (!(window as any).JSZip) {
-      (window as any).JSZip = (await import(jsZipUrl)).default;
-    }
+    const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
 
-    (window as any).JSZip.loadAsync(blob)
+    JSZip.loadAsync(blob)
       .then(async (zip: any) => {
         const projectJson: any[] = zip.file(/livecodes\.json/);
         if (projectJson.length > 0) {
