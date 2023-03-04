@@ -1178,6 +1178,10 @@ li.editor-title {
           color: var(--link-color);
           text-decoration: underline;
         }
+
+        #sync-indicator.hidden {
+          display: none;
+        }
       }
     }
 

@@ -133,6 +133,8 @@ export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#d
 
 export const getSyncLink = () => document.querySelector<HTMLAnchorElement>('#sync-link');
 
+export const getSyncIndicator = () => document.querySelector<HTMLAnchorElement>('#sync-indicator');
+
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');
 
 export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#backup-link');

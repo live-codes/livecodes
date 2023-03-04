@@ -14,6 +14,7 @@ import {
   getNewRepoForm,
   getNewRepoNameInput,
   getStartSyncBtns,
+  getSyncIndicator,
   getSyncLink,
   getSyncStatus,
 } from './selectors';
@@ -65,9 +66,9 @@ export const updateSyncStatus = ({
   syncContainer?: HTMLElement;
 }) => {
   const syncLink = getSyncLink();
+  const syncIndicator = getSyncIndicator();
   const syncStatus = getSyncStatus(syncContainer);
   const startSyncBtns = getStartSyncBtns(syncContainer);
-  const syncIndicator = '<span class="smaller"> ⏳</span>';
 
   const lastSyncMessage = lastSync ? `Last sync: ${new Date(lastSync).toLocaleString()}` : '';
   if (syncStatus) {
@@ -78,7 +79,7 @@ export const updateSyncStatus = ({
     if (syncLink) {
       syncLink.classList.add('hint--bottom');
       syncLink.dataset.hint = syncInProgressMessage;
-      syncLink.innerHTML += syncIndicator;
+      syncIndicator?.classList.remove('hidden');
     }
     startSyncBtns?.forEach((btn) => {
       btn.innerText = syncInProgressMessage;
@@ -88,7 +89,7 @@ export const updateSyncStatus = ({
     if (syncLink) {
       syncLink.classList.toggle('hint--bottom', Boolean(lastSyncMessage));
       syncLink.dataset.hint = lastSyncMessage;
-      syncLink.innerHTML = syncLink.innerHTML.replace(syncIndicator, '');
+      syncIndicator?.classList.add('hidden');
     }
     startSyncBtns?.forEach((btn) => {
       btn.innerText = 'Sync';
