@@ -261,6 +261,9 @@ export const getLinkToSavedProjects = (importContainer: HTMLElement) =>
 export const getImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#file-input') as HTMLInputElement;
 
+export const getImportFileInputLabel = (importContainer: HTMLElement) =>
+  importContainer.querySelector('.file-input-label') as HTMLInputElement;
+
 export const getBulkImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-file-input') as HTMLInputElement;
 
