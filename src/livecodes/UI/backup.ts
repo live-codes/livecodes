@@ -10,7 +10,9 @@ import {
   getBackupBtn,
   getBackupCheckedInputs,
   getBackupForm,
+  getBackupLink,
   getImportFileInput,
+  getImportFileInputLabel,
 } from './selectors';
 
 const createBackupContainer = (eventsManager: ReturnType<typeof createEventsManager>) => {
@@ -36,6 +38,42 @@ const createBackupContainer = (eventsManager: ReturnType<typeof createEventsMana
   return backupContainer;
 };
 
+const inProgressMessage = 'In progress...';
+export const isInProgress = () => getBackupLink()?.dataset.hint === inProgressMessage;
+
+export const updateProgressStatus = ({
+  inProgress,
+  backupContainer,
+}: {
+  inProgress?: boolean;
+  backupContainer: HTMLElement;
+}) => {
+  const backupLink = getBackupLink();
+  const backupBtn = getBackupBtn(backupContainer);
+  const fileInput = getImportFileInput(backupContainer);
+  const fileInputLabel = getImportFileInputLabel(backupContainer);
+
+  if (inProgress ?? isInProgress()) {
+    if (backupLink) {
+      backupLink.classList.add('hint--bottom');
+      backupLink.dataset.hint = inProgressMessage;
+    }
+    backupBtn.innerText = inProgressMessage;
+    backupBtn.disabled = true;
+    fileInputLabel.innerText = inProgressMessage;
+    fileInput.disabled = true;
+  } else {
+    if (backupLink) {
+      backupLink.classList.remove('hint--bottom');
+      backupLink.dataset.hint = '';
+    }
+    backupBtn.innerText = 'Backup';
+    backupBtn.disabled = false;
+    fileInputLabel.innerText = 'Restore from file';
+    fileInput.disabled = false;
+  }
+};
+
 export const createBackupUI = ({
   baseUrl,
   modal,
@@ -55,8 +93,9 @@ export const createBackupUI = ({
 }) => {
   const backupContainer = createBackupContainer(eventsManager);
   const backupForm = getBackupForm(backupContainer);
-  const backupBtn = getBackupBtn(backupContainer);
   const fileInput = getImportFileInput(backupContainer);
+
+  updateProgressStatus({ backupContainer });
 
   const syncModule: Promise<typeof import('../sync/sync')> = import(
     baseUrl + '{{hash:sync.js}}'
@@ -179,19 +218,21 @@ export const createBackupUI = ({
 
   eventsManager.addEventListener(backupForm, 'submit', async (e) => {
     e.preventDefault();
-    backupBtn.disabled = true;
+    updateProgressStatus({ inProgress: true, backupContainer });
     await backup();
-    backupBtn.disabled = false;
+    updateProgressStatus({ inProgress: false, backupContainer });
   });
 
-  eventsManager.addEventListener(fileInput, 'change', () => {
-    Promise.resolve(fileInput)
+  eventsManager.addEventListener(fileInput, 'change', async () => {
+    updateProgressStatus({ inProgress: true, backupContainer });
+    await Promise.resolve(fileInput)
       .then(loadFile)
       .then(extractZip)
       .then(restore)
       .catch((message) => {
         notifications.error(message);
       });
+    updateProgressStatus({ inProgress: false, backupContainer });
   });
 
   modal.show(backupContainer, { isAsync: true });
