@@ -429,6 +429,9 @@ export const getWelcomeLinkLoadDefault = (welcomeContainer: HTMLElement) =>
 export const getWelcomeLinkRecentOpen = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#welcome-link-recent-open') as HTMLAnchorElement;
 
+export const getWelcomeLinkTemplates = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-templates') as HTMLAnchorElement;
+
 export const getModalShowWelcomeCheckbox = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;
 
@@ -440,3 +443,6 @@ export const getModalWelcomeRecent = (welcomeContainer: HTMLElement) =>
 
 export const getModalWelcomeRecentList = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-recent-list') as HTMLElement;
+
+export const getModalWelcomeTemplateList = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #welcome-template-list') as HTMLElement;

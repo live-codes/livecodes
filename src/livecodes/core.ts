@@ -1475,15 +1475,24 @@ const showLanguageInfo = (languageInfo: HTMLElement) => {
   modal.show(languageInfo, { size: 'small' });
 };
 
-const loadStarterTemplate = async (templateName: string) => {
+const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
   const templates = await getTemplates();
-  const template = templates.filter((template) => template.name === templateName)?.[0];
-  if (template) {
-    checkSavedAndExecute(() => {
+  const { title, thumbnail, ...templateConfig } = templates.filter(
+    (template) => template.name === templateName,
+  )?.[0];
+  if (templateConfig) {
+    setAppData({
+      recentTemplates: [
+        { name: templateName, title },
+        ...(getAppData()?.recentTemplates || []),
+      ].slice(0, 5),
+    });
+    (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
+      projectId = '';
       loadConfig(
         {
           ...defaultConfig,
-          ...template,
+          ...templateConfig,
         },
         '?template=' + templateName,
       );
@@ -2156,16 +2165,7 @@ const handleNew = () => {
               'click',
               (event) => {
                 event.preventDefault();
-                const { title, thumbnail, ...templateConfig } = template;
-                projectId = '';
-                loadConfig(
-                  {
-                    ...defaultConfig,
-                    ...templateConfig,
-                  },
-                  location.origin + location.pathname + '?template=' + template.name,
-                );
-                modal.close();
+                loadStarterTemplate(template.name);
               },
               false,
             );
@@ -2646,6 +2646,9 @@ const handleWelcome = () => {
     eventsManager.addEventListener(UI.getWelcomeLinkRecentOpen(welcomeContainer), 'click', () => {
       showScreen('open');
     });
+    eventsManager.addEventListener(UI.getWelcomeLinkTemplates(welcomeContainer), 'click', () => {
+      showScreen('new');
+    });
     eventsManager.addEventListener(showWelcomeCheckbox, 'change', () => {
       setUserConfig({ welcome: showWelcomeCheckbox.checked });
       loadSettings(getConfig());
@@ -2670,6 +2673,56 @@ const handleWelcome = () => {
       loadTempateLink.style.display = 'unset';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
+
+    const defaultTemplates: Array<{ name: Template['name']; title: string }> = [
+      {
+        name: 'blank',
+        title: 'Blank Project',
+      },
+      {
+        name: 'javascript',
+        title: 'JavaScript Starter',
+      },
+      {
+        name: 'typescript',
+        title: 'TypeScript Starter',
+      },
+      {
+        name: 'react',
+        title: 'React Starter',
+      },
+      {
+        name: 'vue',
+        title: 'Vue 3 Starter',
+      },
+    ];
+    const savedRecentTemplates = getAppData()?.recentTemplates || [];
+    const recentTemplates = [
+      ...savedRecentTemplates,
+      ...defaultTemplates.filter((t) => !savedRecentTemplates.map((r) => r.name).includes(t.name)),
+    ]
+      .slice(0, 5)
+      .reverse();
+
+    const templateList = UI.getModalWelcomeTemplateList(welcomeContainer);
+    recentTemplates.forEach((t) => {
+      const item = document.createElement('li');
+
+      const link = document.createElement('a');
+      link.textContent = t.title;
+      link.href = '#';
+
+      item.appendChild(link);
+      templateList?.prepend(item);
+
+      eventsManager.addEventListener(link, 'click', () =>
+        checkSavedStatus().then((confirmed) => {
+          if (confirmed) {
+            loadStarterTemplate(t.name);
+          }
+        }),
+      );
+    });
 
     if (!initialized) {
       checkRecoverStatus(/* isWelcomeScreen= */ true);

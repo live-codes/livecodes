@@ -1,5 +1,5 @@
 import { createEventsManager } from '../events';
-import { EditorId, Config, Language, Processor, LanguageSpecs } from '../models';
+import { EditorId, Config, Language, Processor, LanguageSpecs, Template } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 import { languageIsEnabled, processorIsEnabled } from './utils';
@@ -9,7 +9,7 @@ export const createLanguageMenus = (
   baseUrl: string,
   eventsManager: ReturnType<typeof createEventsManager>,
   showLanguageInfo: (languageInfo: HTMLElement) => void,
-  loadStarterTemplate: (templateName: string) => void,
+  loadStarterTemplate: (templateName: Template['name']) => void,
   importCode: (options: { url: string }) => Promise<boolean>,
 ) => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
@@ -115,7 +115,7 @@ export const createLanguageMenus = (
             languageInfo.innerHTML = await getLanguageInfo(language.name, baseUrl);
             showLanguageInfo(languageInfo);
             const templateLink: HTMLElement | null = languageInfo.querySelector('a[data-template]');
-            const templateName = templateLink?.dataset.template;
+            const templateName = templateLink?.dataset.template as Template['name'];
             if (templateLink && templateName) {
               eventsManager.addEventListener(
                 templateLink,

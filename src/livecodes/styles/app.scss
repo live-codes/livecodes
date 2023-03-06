@@ -2307,7 +2307,7 @@ i.arrow {
       align-items: start;
       flex-direction: column;
       flex-wrap: wrap;
-      max-height: 550px;
+      max-height: 45em;
     }
 
     .modal-section {
@@ -2340,7 +2340,7 @@ i.arrow {
       }
 
       &#welcome-recent {
-        min-height: 250px;
+        min-height: 13em;
         visibility: hidden;
       }
 
