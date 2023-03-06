@@ -2149,29 +2149,33 @@ const handleNew = () => {
     });
   };
 
+  let starterTemplatesCache: Template[];
   const createTemplatesUI = async () => {
     const starterTemplatesList = UI.getStarterTemplatesList(templatesContainer);
     const loadingText = starterTemplatesList?.firstElementChild;
-    getTemplates()
-      .then((starterTemplates) => {
-        loadingText?.remove();
-        starterTemplates.forEach((template) => {
-          const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
-          eventsManager.addEventListener(
-            link,
-            'click',
-            (event) => {
-              event.preventDefault();
-              loadStarterTemplate(template.name);
-            },
-            false,
-          );
+    if (!starterTemplatesCache) {
+      getTemplates()
+        .then((starterTemplates) => {
+          starterTemplatesCache = starterTemplates;
+          loadingText?.remove();
+          starterTemplates.forEach((template) => {
+            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+            eventsManager.addEventListener(
+              link,
+              'click',
+              (event) => {
+                event.preventDefault();
+                loadStarterTemplate(template.name);
+              },
+              false,
+            );
+          });
+        })
+        .catch(() => {
+          loadingText?.remove();
+          notifications.error('Failed loading starter templates');
         });
-      })
-      .catch(() => {
-        loadingText?.remove();
-        notifications.error('Failed loading starter templates');
-      });
+    }
 
     setTimeout(() => UI.getStarterTemplatesTab(templatesContainer)?.click());
     modal.show(templatesContainer, { isAsync: true });
