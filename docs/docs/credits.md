@@ -68,6 +68,7 @@ Many of LiveCodes features/ideas were inspired by:
 - [JS Bin](https://jsbin.com/)
 - [CodeSandbox](https://codesandbox.io/)
 - [Replit](https://replit.com/)
+- [VS Code](https://code.visualstudio.com/)
 - [Monacode](https://github.com/lukejacksonn/monacode/)
 
 Thank you!

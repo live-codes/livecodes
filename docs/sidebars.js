@@ -22,7 +22,6 @@ const sidebars = {
             id: 'features/index',
           },
           items: [
-            'features/overview',
             'features/projects',
             'features/templates',
             'features/css-processors',
@@ -98,7 +97,7 @@ const sidebars = {
             type: 'doc',
             id: 'advanced/custom-settings',
           },
-          items: ['advanced/custom-settings', 'advanced/services', 'advanced/data-collection'],
+          items: ['advanced/custom-settings', 'advanced/services'],
         },
         'credits',
         'license',
