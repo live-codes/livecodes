@@ -2,7 +2,7 @@
 
 ## Overview
 
-The LiveCodes app allows rapid prototyping and experimenting with a wide variety of [technologies](../languages/) (including 60+ languages, frameworks and processors) without having to manually setup a development environment for each. The [result](./result.md) is displayed as a regular web page. The rapid feedback of previewing the result page without waiting for build steps significantly boosts productivity.
+_LiveCodes_ is an open-source, client-side, code playground that runs in the browser. It enables quick prototyping and experimenting with a wide variety of [technologies](../languages/) (including 60+ languages, frameworks and processors) without having to manually setup a development environment for each. The [result](./result.md) is displayed as a regular web page. The rapid feedback of previewing the result page without waiting for build steps significantly boosts productivity.
 
 ![LiveCodes screenshot](../../static/img/screenshots/react-template.png)
 
@@ -54,7 +54,7 @@ You can [broadcast](./broadcast.md) source code or result in real-time to others
 
 Do you work on multiple devices? No Problem! You may [sync](./sync.md), [backup and restore](./backup-restore.md) your data any time on any device.
 
-## Client-side only!
+## Client-side!
 
 LiveCodes runs in the browser, where all the processing/transpilation occurs, with no server rounds required. So, after the initial load, it becomes pretty fast. It can be hosted on any static file server or CDN. No `npm install`s. Just the browser!
 

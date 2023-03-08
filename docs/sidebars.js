@@ -43,6 +43,7 @@ const sidebars = {
             'features/import',
             'features/export',
             'features/share',
+            'features/welcome',
             'features/recover',
             'features/github-integration',
             'features/display-modes',
