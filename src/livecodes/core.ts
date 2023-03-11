@@ -2276,6 +2276,28 @@ const handleExport = () => {
     exportModule = exportModule || (await import(baseUrl + '{{hash:export.js}}'));
   };
 
+  const exportTo = (target: 'codepen' | 'jsfiddle' | 'jsbin') => async () => {
+    updateConfig();
+    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+      await getResultPage({});
+    }
+    const cache = getCachedCode();
+    const compiled = {
+      markup: cache.markup.compiled,
+      style: cache.style.compiled,
+      script: cache.script.compiled,
+    };
+    await loadModule();
+    exportModule.exportConfig(getConfig(), baseUrl, target, {
+      baseUrl,
+      compiled,
+      deps: {
+        getLanguageExtension,
+        getLanguageCompiler,
+      },
+    });
+  };
+
   eventsManager.addEventListener(
     UI.getExportJSONLink(),
     'click',
@@ -2320,59 +2342,11 @@ const handleExport = () => {
     false,
   );
 
-  eventsManager.addEventListener(
-    UI.getExportCodepenLink(),
-    'click',
-    async () => {
-      updateConfig();
-      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-        await getResultPage({});
-      }
-      const cache = getCachedCode();
-      const compiled = {
-        markup: cache.markup.compiled,
-        style: cache.style.compiled,
-        script: cache.script.compiled,
-      };
-      await loadModule();
-      exportModule.exportConfig(getConfig(), baseUrl, 'codepen', {
-        baseUrl,
-        compiled,
-        deps: {
-          getLanguageExtension,
-          getLanguageCompiler,
-        },
-      });
-    },
-    false,
-  );
+  eventsManager.addEventListener(UI.getExportCodepenLink(), 'click', exportTo('codepen'), false);
 
-  eventsManager.addEventListener(
-    UI.getExportJsfiddleLink(),
-    'click',
-    async () => {
-      updateConfig();
-      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-        await getResultPage({});
-      }
-      const cache = getCachedCode();
-      const compiled = {
-        markup: cache.markup.compiled,
-        style: cache.style.compiled,
-        script: cache.script.compiled,
-      };
-      await loadModule();
-      exportModule.exportConfig(getConfig(), baseUrl, 'jsfiddle', {
-        baseUrl,
-        compiled,
-        deps: {
-          getLanguageExtension,
-          getLanguageCompiler,
-        },
-      });
-    },
-    false,
-  );
+  eventsManager.addEventListener(UI.getExportJsfiddleLink(), 'click', exportTo('jsfiddle'), false);
+
+  eventsManager.addEventListener(UI.getExportJsbinLink(), 'click', exportTo('jsbin'), false);
 
   eventsManager.addEventListener(
     UI.getExportGithubGistLink(),

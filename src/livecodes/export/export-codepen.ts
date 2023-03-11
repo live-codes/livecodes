@@ -43,7 +43,7 @@ export const exportCodepen = (
 
   dataInput.value = JSON.stringify({
     title: config.title,
-    desciption: config.description,
+    description: config.description,
     tags: config.tags,
     html: getEditorContent('markup'),
     html_pre_processor: supportedLanguages.markup.includes(config.markup.language)

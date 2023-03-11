@@ -101,6 +101,9 @@ export const getExportCodepenLink = () =>
 export const getExportJsfiddleLink = () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-jsfiddle');
 
+export const getExportJsbinLink = () =>
+  document.querySelector<HTMLAnchorElement>('#export-menu #export-jsbin');
+
 export const getLoginLink = () => document.querySelector<HTMLAnchorElement>('#login-link');
 
 export const getLogoutLink = () => document.querySelector<HTMLAnchorElement>('#logout-link');
