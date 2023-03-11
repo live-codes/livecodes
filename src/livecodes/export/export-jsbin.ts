@@ -37,17 +37,17 @@ export const exportJsbin = (
   const getEditorCompilerScripts = (editorId: EditorId) =>
     getCompilerScripts({ baseUrl, editorId, config, compiled, supportedLanguages, ...deps });
 
-  const markupLang = supportedLanguages.markup.includes(config.markup.language)
-    ? config.markup.language
-    : 'html';
+  // const markupLang = supportedLanguages.markup.includes(config.markup.language)
+  //   ? config.markup.language
+  //   : 'html';
 
-  const styleLang = supportedLanguages.style.includes(config.style.language)
-    ? config.style.language
-    : 'css';
+  // const styleLang = supportedLanguages.style.includes(config.style.language)
+  //   ? config.style.language
+  //   : 'css';
 
-  const scriptLang = supportedLanguages.script.includes(config.script.language)
-    ? config.script.language
-    : 'javascript';
+  // const scriptLang = supportedLanguages.script.includes(config.script.language)
+  //   ? config.script.language
+  //   : 'javascript';
 
   const addResources = (styles: string[], scripts: string[]) => {
     if (styles.length === 0 && scripts.length === 0) return '';
@@ -69,14 +69,14 @@ export const exportJsbin = (
   ]);
 
   const data = {
-    [markupLang]: getEditorContent('markup') + resources,
-    [styleLang]: getEditorContent('style'),
-    [scriptLang]: getEditorContent('script'),
+    html: getEditorContent('markup') + resources,
+    css: getEditorContent('style'),
+    js: getEditorContent('script'),
   };
   Object.keys(data).forEach((key: string) => {
     const input = document.createElement('input') as HTMLInputElement;
     input.name = key;
-    input.value = data[key];
+    input.value = (data as any)[key];
     form.appendChild(input);
   });
 
