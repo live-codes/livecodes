@@ -2761,7 +2761,11 @@ const handleWelcome = () => {
         }),
       );
     });
-    UI.getModalWelcomeRecent(welcomeContainer).style.visibility = 'visible';
+
+    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
+    if (welcomeRecent) {
+      welcomeRecent.style.visibility = 'visible';
+    }
   };
 
   eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);
