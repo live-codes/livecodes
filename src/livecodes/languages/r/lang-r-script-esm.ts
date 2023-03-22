@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 // import { juliaWasmBaseUrl } from '../../vendors';
 
-const webRBaseUrl = 'http://127.0.0.1:3000/webr/';
+const webRBaseUrl = 'https://webr.r-wasm.org/latest/';
+// const webRBaseUrl = 'http://127.0.0.1:3000/webr/';
 
 const importPattern = /((?:(?:library)|(?:require))\s*?\(\s*?((?:".*?")|(?:'.*?')|(?:.*?))\s*?\))/g;
 const removeComments = (src: string) => src.replace(/#.*$/gm, '');
@@ -151,6 +152,14 @@ livecodes.r.run =
 
 const initialization = (async () => {
   parent.postMessage({ type: 'loading', payload: true }, '*');
+  const getChannelType = () => {
+    try {
+      new SharedArrayBuffer(1);
+      return 1;
+    } catch {
+      return 2;
+    }
+  };
   const init = async () => {
     if (livecodes.r.ready) {
       await livecodes.r.webR.init();
@@ -159,9 +168,8 @@ const initialization = (async () => {
     console.log('Loading WebR...');
     const { WebR } = await import(webRBaseUrl + 'webr.mjs');
     livecodes.r.webR = new WebR({
-      WEBR_URL: webRBaseUrl,
-      SW_URL: webRBaseUrl,
-      channelType: 1,
+      baseUrl: webRBaseUrl,
+      channelType: getChannelType(),
     });
     await livecodes.r.webR.init();
     livecodes.r.webRCodeShelter = await new livecodes.r.webR.Shelter();
