@@ -1,6 +1,6 @@
 import { createImportMap, getImports, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
-import { Cache, EditorId, Config } from '../models';
+import type { Cache, EditorId, Config } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
