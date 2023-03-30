@@ -93,3 +93,5 @@ vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-load
 wasm-refmt:[MIT License](https://github.com/xtuc/webassemblyjs/blob/45f733aa96476d74c8ac57598e13406a48a6fdc8/LICENSE)
 
 Whirl: [MIT License](https://github.com/jh3y/whirl/tree/8de79b76a13200ccbd8b0b75b4f79978ef1ee890)
+
+WebR: [Multiple Licenses](https://github.com/r-wasm/webr/blob/e47ab9854c9306c410f302579c6662ea5d82fe41/LICENSE.md)
