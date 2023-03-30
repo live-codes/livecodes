@@ -136,6 +136,9 @@ export const createResultPage = async ({
       if (compiler.deferScripts) {
         depScript.defer = true;
       }
+      if (depScriptUrl.endsWith('-esm.js')) {
+        depScript.type = 'module';
+      }
       dom.head.appendChild(depScript);
     });
     if (compiler.inlineScript) {
