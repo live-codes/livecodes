@@ -136,7 +136,7 @@ export const createResultPage = async ({
       if (compiler.deferScripts) {
         depScript.defer = true;
       }
-      if (depScriptUrl.endsWith('-esm.js')) {
+      if (depScriptUrl.includes('-script-esm.')) {
         depScript.type = 'module';
       }
       dom.head.appendChild(depScript);
