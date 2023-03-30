@@ -26,17 +26,38 @@ export const rStarter: Template = {
   script: {
     language: 'r',
     content: `
-library(dplyr)
-library(ggplot2)
+head(iris)
 
-head(diamonds)
+PW <- iris$Petal.Width
+PL <- iris$Petal.Length
+species <- iris$Species
+speciesID <- as.numeric(iris$Species)
 
-diamonds %>%
-  filter(depth > 60) %>%
-  group_by(cut) %>%
-  summarize(mean_price = mean(price)) %>%
-  ggplot(aes(x = cut, y = mean_price, fill = cut)) +
-      geom_bar(stat = "identity")
+fit <- lm(PW ~ PL)
+summary(fit)
+
+plot(PL, PW,
+     pch = speciesID,
+     col = speciesID,
+     xlab = "Petal length (cm)",
+     ylab = "Petal width (cm)",
+     main = "Petal width vs. length")
+legend("topleft", levels(species), pch = 1:3, col = 1:3)
+
+
+# This will take some time to load the packages
+
+# library(dplyr)
+# library(ggplot2)
+
+# head(diamonds)
+
+# diamonds %>%
+#   filter(depth > 60) %>%
+#   group_by(cut) %>%
+#   summarize(mean_price = mean(price)) %>%
+#   ggplot(aes(x = cut, y = mean_price, fill = cut)) +
+#       geom_bar(stat = "identity")
 `.trimStart(),
   },
   stylesheets: [],
