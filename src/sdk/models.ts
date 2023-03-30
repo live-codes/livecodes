@@ -492,6 +492,7 @@ export type TemplateName =
   | 'ocaml'
   | 'python'
   | 'pyodide'
+  | 'r'
   | 'ruby'
   | 'go'
   | 'php'
