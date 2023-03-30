@@ -13,6 +13,8 @@ export const rStarter: Template = {
 <script>
   livecodes.r.config = {
     container: '#output',
+    canvasHeight: 309,
+    canvasWidth: 500,
   };
 </script>
 `.trimStart(),

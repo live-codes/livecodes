@@ -1,16 +1,13 @@
 /* eslint-disable no-console */
-// import { juliaWasmBaseUrl } from '../../vendors';
-
-const webRBaseUrl = 'https://webr.r-wasm.org/latest/';
-// const webRBaseUrl = 'http://127.0.0.1:3000/webr/';
+import { webRBaseUrl } from '../../vendors';
 
 const importPattern = /((?:(?:library)|(?:require))\s*?\(\s*?((?:".*?")|(?:'.*?')|(?:.*?))\s*?\))/g;
 const removeComments = (src: string) => src.replace(/#.*$/gm, '');
 
 const getImports = (code: string) =>
-  [...[...removeComments(code).matchAll(new RegExp(importPattern))]].map((arr) =>
-    arr[2].replace(/"/g, '').replace(/'/g, ''),
-  );
+  [...[...removeComments(code).matchAll(new RegExp(importPattern))]]
+    .map((arr) => arr[2].replace(/"/g, '').replace(/'/g, '').split(',')[0].trim())
+    .filter(Boolean);
 
 interface RunOptions {
   code?: string;
@@ -21,20 +18,14 @@ interface RunOptions {
 }
 
 const defaultConfig = {
-  canvasHeight: 311.472,
-  canvasWidth: 504,
+  canvasHeight: 309,
+  canvasWidth: 500,
 };
 
 livecodes.r.packages = [];
 livecodes.r.run =
   livecodes.r.run ||
-  (async ({
-    code,
-    container,
-    canvasHeight = defaultConfig.canvasHeight,
-    canvasWidth = defaultConfig.canvasWidth,
-    env,
-  }: RunOptions = {}) => {
+  (async ({ code, container, canvasHeight, canvasWidth, env }: RunOptions = {}) => {
     livecodes.r.output = '';
 
     if (container !== null && livecodes.r.config?.container !== null) {
@@ -74,7 +65,7 @@ livecodes.r.run =
     if (code.trim()) {
       await initialization;
 
-      // based on https://www.tidyverse.org/blog/2023/03/webr-0-1-0/
+      // based on https://github.com/georgestagg/webr-vue-example-editor/blob/main/src/components/WebREditor.vue
       const { webR, webRCodeShelter } = livecodes.r;
 
       let canvas: HTMLCanvasElement | null = null;
@@ -85,7 +76,7 @@ livecodes.r.run =
         withAutoprint: true,
         captureStreams: true,
         captureConditions: false,
-        env: env || webR.objs.emptyEnv,
+        env: env || livecodes.r.config?.env || webR.objs.emptyEnv,
       });
 
       try {
@@ -112,8 +103,8 @@ livecodes.r.run =
             if (msg.type === 'canvasExec') {
               if (!canvas || msg.data.startsWith('clearRect(0')) {
                 canvas = document.createElement('canvas');
-                canvas.setAttribute('width', String(2 * canvasWidth));
-                canvas.setAttribute('height', String(2 * canvasHeight));
+                canvas.setAttribute('width', String(2 * canvasWidth!));
+                canvas.setAttribute('height', String(2 * canvasHeight!));
                 canvas.style.width = `${canvasWidth}px`;
                 canvas.style.display = 'block';
                 canvas.style.margin = 'auto';
