@@ -1477,9 +1477,8 @@ const showLanguageInfo = (languageInfo: HTMLElement) => {
 
 const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
   const templates = await getTemplates();
-  const { title, thumbnail, ...templateConfig } = templates.filter(
-    (template) => template.name === templateName,
-  )?.[0];
+  const { title, thumbnail, ...templateConfig } =
+    templates.filter((template) => template.name === templateName)?.[0] || {};
   if (templateConfig) {
     setAppData({
       recentTemplates: [
