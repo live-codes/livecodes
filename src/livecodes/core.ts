@@ -1483,7 +1483,7 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
     setAppData({
       recentTemplates: [
         { name: templateName, title },
-        ...(getAppData()?.recentTemplates || []),
+        ...(getAppData()?.recentTemplates?.filter((t) => t.name !== templateName) || []),
       ].slice(0, 5),
     });
     (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
