@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.13/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.6.0/dist/';
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
 

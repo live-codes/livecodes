@@ -33,13 +33,12 @@ export const jestReactStarter: Template = {
     language: 'jsx',
     content: `
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 export const increment = (count) => (count ?? 0) + 1;
 
 export default function App(props) {
   const [count, setCount] = useState(0);
-
   return (
     <div className="container">
       <h1>Hello, {props.name}!</h1>
@@ -50,7 +49,9 @@ export default function App(props) {
     </div>
   );
 }
-ReactDOM.render(<App name="Jest with React" />, document.querySelector("#app"));
+
+const root = createRoot(document.querySelector("#app"));
+root.render(<App name="Jest with React" />);
 `.trimStart(),
   },
   stylesheets: [],
@@ -62,25 +63,21 @@ ReactDOM.render(<App name="Jest with React" />, document.querySelector("#app"));
     language: 'tsx',
     content: `
 import React from "react";
-import { unmountComponentAtNode } from "react-dom";
 import { render, fireEvent, waitFor, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { assert } from "chai";
 import App, { increment } from "./script";
 
-const container = document.querySelector('#app');
-const renderComponent = async () => {
-  await waitFor(async () => {
-    return render(<App name="Jest with React" />, container);
+const renderComponent = () => {
+  cleanup();
+  return waitFor(() => {
+    return render(<App name="Jest with React" />, {
+      container: document.querySelector('#app')
+    });
   });
 }
 
 beforeEach(renderComponent);
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  cleanup();
-});
 
 afterAll(renderComponent);
 
@@ -106,9 +103,9 @@ describe("Page", () => {
   });
 
   test("Should increment counter on button click", async () => {
-    fireEvent.click(screen.getByText("Click me"));
-    fireEvent.click(screen.getByText("Click me"));
-    fireEvent.click(screen.getByText("Click me"));
+    await fireEvent.click(screen.getByText("Click me"));
+    await fireEvent.click(screen.getByText("Click me"));
+    await fireEvent.click(screen.getByText("Click me"));
     expect(screen.getByText("You clicked", { exact: false })).toHaveTextContent(
       "You clicked 3 times."
     );

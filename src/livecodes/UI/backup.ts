@@ -169,10 +169,10 @@ export const createBackupUI = ({
         return;
       }
 
-      // Max 20 MB allowed
-      const maxSizeAllowed = 20 * 1024 * 1024;
+      // Max 100 MB allowed
+      const maxSizeAllowed = 100 * 1024 * 1024;
       if (file.size > maxSizeAllowed) {
-        reject('Error: Exceeded size 20MB');
+        reject('Error: Exceeded size 100 MB');
         return;
       }
 

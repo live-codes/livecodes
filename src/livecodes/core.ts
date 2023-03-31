@@ -3387,6 +3387,7 @@ const handleUnload = () => {
 const loadToolsPane = async () => {
   toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
   await toolsPane.load();
+  handleTests();
   handleResultZoom();
   getResultElement().classList.remove('full');
 };
@@ -3404,7 +3405,6 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
-  handleTests();
   if (isEmbed) {
     handleExternalResources();
     handleFullscreen();
