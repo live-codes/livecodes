@@ -81,6 +81,6 @@ A demo page that shows the usage of the SDK can be [found here](https://live-cod
 
 Or edit the SDK playground in LiveCodes. How meta! :)
 
-<LiveCodes import="id/vdijqqmswzn" view="result" height='80vh' showCode={false} />
+<LiveCodes import="id/d2s3v4fkb4p" view="result" height='80vh' showCode={false} />
 
 P.S. You may want to use the "Full Screen" button!
