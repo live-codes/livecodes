@@ -1477,14 +1477,13 @@ const showLanguageInfo = (languageInfo: HTMLElement) => {
 
 const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
   const templates = await getTemplates();
-  const { title, thumbnail, ...templateConfig } = templates.filter(
-    (template) => template.name === templateName,
-  )?.[0];
+  const { title, thumbnail, ...templateConfig } =
+    templates.filter((template) => template.name === templateName)?.[0] || {};
   if (templateConfig) {
     setAppData({
       recentTemplates: [
         { name: templateName, title },
-        ...(getAppData()?.recentTemplates || []),
+        ...(getAppData()?.recentTemplates?.filter((t) => t.name !== templateName) || []),
       ].slice(0, 5),
     });
     (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
@@ -2761,7 +2760,11 @@ const handleWelcome = () => {
         }),
       );
     });
-    UI.getModalWelcomeRecent(welcomeContainer).style.visibility = 'visible';
+
+    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
+    if (welcomeRecent) {
+      welcomeRecent.style.visibility = 'visible';
+    }
   };
 
   eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);

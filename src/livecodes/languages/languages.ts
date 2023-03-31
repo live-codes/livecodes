@@ -56,6 +56,7 @@ import { diagrams } from './diagrams';
 import { imba } from './imba';
 import { mustache } from './mustache';
 import { artTemplate } from './art-template';
+import { r } from './r';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -104,6 +105,7 @@ export const languages: LanguageSpecs[] = [
   ocaml,
   python,
   pyodide,
+  r,
   ruby,
   go,
   php,

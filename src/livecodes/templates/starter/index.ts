@@ -50,6 +50,7 @@ import { imbaStarter } from './imba-starter';
 import { jestStarter } from './jest-starter';
 import { jestReactStarter } from './jest-react-starter';
 import { javascriptStarter } from './javascript-starter';
+import { rStarter } from './r-starter';
 
 export const starterTemplates = [
   blank,
@@ -84,6 +85,7 @@ export const starterTemplates = [
   ocamlStarter,
   pythonStarter,
   pyodideStarter,
+  rStarter,
   rubyStarter,
   goStarter,
   phpStarter,
