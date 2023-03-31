@@ -39,10 +39,13 @@ summary(fit)
 plot(PL, PW,
      pch = speciesID,
      col = speciesID,
-     main = "Petal Width vs Length"
+     main = "Petal Width vs Length",
      xlab = "Petal Length",
      ylab = "Petal Width")
-legend("topleft", levels(species), pch = 1:3, col = 1:3)
+legend("topleft",
+       levels(species),
+       pch = 1:3,
+       col = 1:3)
 
 
 # This will take some time to load the packages
