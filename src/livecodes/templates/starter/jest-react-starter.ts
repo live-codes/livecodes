@@ -41,10 +41,10 @@ export default function App(props) {
   const [count, setCount] = useState(0);
   return (
     <div className="container">
-      <h1>{'Hello'}, {props.name}!</h1>
-      <img className="logo" src="https://dev.livecodes.io/livecodes/assets/templates/jest.svg" />
+      <h1>Hello, {props.name}!</h1>
+      <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jest.svg" />
       <p>You clicked {count} times.</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={() => setCount(increment(count))}>Click me</button>
       <p className="info">Run tests in the "Tests" panel below.</p>
     </div>
   );
