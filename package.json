@@ -1,6 +1,6 @@
 {
   "name": "@livecodes/livecodes",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Code playground that runs in the browser",
   "author": "Hatem Hosny",
   "license": "MIT",
