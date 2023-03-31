@@ -129,21 +129,26 @@ export const upgradeConfig = (oldConfig: genericConfig) => {
   const currentVersion = defaultConfig.version;
 
   if (isEarlier({ version: currentVersion, comparedTo: oldVersion })) {
-    throw new Error(
+    // eslint-disable-next-line no-console
+    console.warn(
       `Unsupported config version '${oldVersion}'. Current LiveCodes version is '${currentVersion}'`,
     );
+    return oldConfig;
   }
   if (oldVersion === currentVersion) return oldConfig;
 
-  return upgradeSteps
-    .sort((a, b) => (isEarlier({ version: a.to, comparedTo: b.to }) ? -1 : 1))
-    .reduce(
-      (config, step) =>
-        isEarlier({ version: config.version, comparedTo: step.to })
-          ? step.upgrade(config, step.to)
-          : config,
-      oldConfig,
-    );
+  return {
+    ...upgradeSteps
+      .sort((a, b) => (isEarlier({ version: a.to, comparedTo: b.to }) ? -1 : 1))
+      .reduce(
+        (config, step) =>
+          isEarlier({ version: config.version, comparedTo: step.to })
+            ? step.upgrade(config, step.to)
+            : config,
+        oldConfig,
+      ),
+    version: currentVersion,
+  };
 };
 
 const isValidVersion = (version: any) => {
