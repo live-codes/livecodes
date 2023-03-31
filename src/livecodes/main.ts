@@ -1,22 +1,39 @@
+/* eslint-disable import/no-internal-modules */
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
-import type { API, Config, ContentConfig } from './models';
+import { customEvents } from './events/custom-events';
+import type { API, Config, EmbedOptions } from './models';
+import { isInIframe } from './utils/utils';
+import { esModuleShimsUrl } from './vendors';
 
 export type { API, Config };
 
-export const livecodes = async (
-  container: string,
-  baseUrl: string,
-  config: Partial<Config> = {},
-): Promise<API> =>
+export const params = new URLSearchParams(location.search);
+export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
+export const isEmbed =
+  isLite || (params.get('embed') != null && params.get('embed') !== 'false') || isInIframe();
+export const loadingParam = params.get('loading');
+export const clickToLoad = isEmbed && loadingParam !== 'eager';
+export const loading: EmbedOptions['loading'] = !isEmbed
+  ? 'eager'
+  : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
+  ? loadingParam
+  : 'lazy';
+
+export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
       throw new Error(`Cannot find element with the selector: "${container}"`);
     }
-    const isEmbed = location.search.includes('embed') && !location.search.includes('embed=false');
-    const clickToLoad = isEmbed && !location.search.includes('click-to-load=false');
+    const baseUrl =
+      (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
+    const scriptFile = isLite
+      ? '{{hash:lite.js}}'
+      : isEmbed
+      ? '{{hash:embed.js}}'
+      : '{{hash:app.js}}';
     const anyOrigin = '*';
 
     const style = document.createElement('style');
@@ -41,41 +58,51 @@ export const livecodes = async (
     `;
     document.head.appendChild(style);
 
-    const run = () => {
+    const loadApp = () => {
+      const supportsImportMaps = HTMLScriptElement.supports
+        ? HTMLScriptElement.supports('importmap')
+        : false;
+
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
 
       containerElement.appendChild(iframe);
       iframe.contentWindow?.document.open();
       iframe.contentWindow?.document.write(
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
-          .replace(/{{script}}/g, isEmbed ? 'embed.js' : 'app.js'),
+          .replace(/{{script}}/g, scriptFile)
+          .replace(/{{esModuleShimsUrl}}/g, esModuleShimsUrl)
+          .replace(
+            /{{codemirrorModule}}/g,
+            supportsImportMaps
+              ? ''
+              : `
+          <script type="module">
+            import * as mod from '${baseUrl}{{hash:codemirror.js}}';
+            window['${baseUrl}{{hash:codemirror.js}}'] = mod;
+          </script>
+          `,
+          )
+          .replace(
+            /{{codemirrorCoreUrl}}/g,
+            `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
+          ),
       );
       iframe.contentWindow?.document.close();
 
       if (isEmbed) {
-        window.addEventListener('livecodes-ready', () => {
-          parent.postMessage({ type: 'livecodes-ready' }, anyOrigin);
+        window.addEventListener(customEvents.appLoaded, () => {
+          parent.postMessage({ type: customEvents.appLoaded }, anyOrigin);
         });
 
-        window.addEventListener('livecodes-app-loaded', () => {
-          parent.postMessage({ type: 'livecodes-app-loaded' }, anyOrigin);
+        window.addEventListener(customEvents.ready, () => {
+          parent.postMessage({ type: customEvents.ready }, anyOrigin);
         });
 
-        window.addEventListener('livecodes-change', (e: CustomEventInit<ContentConfig>) => {
-          parent.postMessage(
-            {
-              type: 'livecodes-change',
-              detail: e.detail,
-            },
-            anyOrigin,
-          );
+        window.addEventListener(customEvents.change, () => {
+          parent.postMessage({ type: customEvents.change }, anyOrigin);
         });
       }
 
@@ -85,46 +112,56 @@ export const livecodes = async (
           const api: API = await app(config, baseUrl);
           iframe.style.display = 'block';
           window.dispatchEvent(
-            new CustomEvent('livecodes-app-loaded', {
+            new CustomEvent(customEvents.appLoaded, {
               detail: api,
             }),
           );
 
-          if (isEmbed) {
-            addEventListener(
-              'message',
-              async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+          addEventListener(
+            'message',
+            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+              if (isEmbed) {
                 if (e.source !== parent) return;
-
                 const { method, args } = e.data || {};
                 if (!method) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
-
+                let payload;
+                try {
+                  payload = await (api[method] as any)(...methodArguments);
+                } catch (error: any) {
+                  payload = { error: error.message || error };
+                }
                 parent.postMessage(
                   {
-                    type: 'api-response',
+                    type: customEvents.apiResponse,
                     method,
-                    payload: await (api[method] as any)(...methodArguments),
+                    payload,
                   },
                   anyOrigin,
                 );
-              },
-            );
-          }
+              } else {
+                if (e.source !== iframe.contentWindow) return;
+                if (e.data?.args === 'home') {
+                  location.href = '/';
+                }
+              }
+            },
+          );
 
           resolve(api);
         }
       });
     };
+
     if (clickToLoad) {
-      window.addEventListener('run', run, false);
+      window.addEventListener(customEvents.load, loadApp, { once: true });
 
       const preloadLink = document.createElement('link');
-      preloadLink.href = baseUrl + 'embed.js';
+      preloadLink.href = baseUrl + scriptFile;
       preloadLink.rel = 'preload';
       preloadLink.as = 'script';
       document.head.appendChild(preloadLink);
     } else {
-      run();
+      loadApp();
     }
   });

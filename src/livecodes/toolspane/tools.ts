@@ -1,35 +1,64 @@
 import Split from 'split.js';
-import { createEventsManager } from '../events';
-import { Editors, Config, ToolList, ToolsPaneStatus } from '../models';
-import { getResultElement } from '../UI';
+import {
+  Editors,
+  Config,
+  ToolList,
+  ToolsPaneStatus,
+  EventsManager,
+  ToolsPane,
+  Tool,
+} from '../models';
+import { getResultElement, getToolspaneBar } from '../UI';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
-
-const toolList: ToolList = [
-  {
-    name: 'console',
-    factory: createConsole,
-  },
-  {
-    name: 'compiled',
-    factory: createCompiledCodeViewer,
-  },
-];
+import { createTestViewer } from './test-viewer';
 
 export const createToolsPane = (
   config: Config,
   baseUrl: string,
   editors: Editors,
-  eventsManager: ReturnType<typeof createEventsManager>,
+  eventsManager: EventsManager,
   isEmbed: boolean,
-) => {
-  const tools = toolList.map((tool) =>
-    tool.factory(config, baseUrl, editors, eventsManager, isEmbed),
-  );
-
+  runTests: () => Promise<void>,
+): ToolsPane => {
   let toolsSplit: Split.Instance;
   let status: ToolsPaneStatus;
   let activeToolId = 0;
+
+  const fullList: ToolList = [
+    {
+      name: 'console',
+      factory: createConsole,
+    },
+    {
+      name: 'compiled',
+      factory: createCompiledCodeViewer,
+    },
+    {
+      name: 'tests',
+      factory: createTestViewer,
+    },
+  ];
+
+  const isEnabled = (tool: ToolList[number]) =>
+    config.tools.enabled === 'all' || config.tools.enabled.includes(tool.name);
+
+  const toolList: ToolList = fullList.filter(isEnabled);
+
+  const populateTools = (
+    config: Config,
+    baseUrl: string,
+    editors: Editors,
+    eventsManager: EventsManager,
+    isEmbed: boolean,
+    runTests: () => Promise<void>,
+  ) =>
+    toolList.map((tool) =>
+      tool.factory(config, baseUrl, editors, eventsManager, isEmbed, runTests),
+    );
+
+  const allTools = populateTools(config, baseUrl, editors, eventsManager, isEmbed, runTests);
+  const tools = [...allTools];
 
   const result = getResultElement();
   const gutterSize = 30;
@@ -97,16 +126,20 @@ export const createToolsPane = (
     if (toolsSplit.getSizes()[0] > 90) {
       consoleButtons.style.visibility = 'hidden';
     } else {
-      consoleButtons.style.visibility = 'visible';
-      tools[activeToolId].onActivate();
+      if (consoleButtons.style.visibility === 'hidden') {
+        consoleButtons.style.visibility = 'visible';
+        tools[activeToolId]?.onActivate();
+      }
     }
   };
 
   const open = (toolId: number, maximize = false) => {
     if (maximize) {
       toolsSplit.collapse(0);
+      status = 'full';
     } else {
       toolsSplit.setSizes(sizes.open);
+      status = 'open';
     }
     sizeChanged();
     setActiveTool(toolId);
@@ -114,6 +147,7 @@ export const createToolsPane = (
 
   const close = () => {
     toolsSplit.collapse(1);
+    status = 'closed';
     sizeChanged();
     tools.forEach((tool) => tool.onDeactivate());
   };
@@ -154,7 +188,7 @@ export const createToolsPane = (
     tools.forEach((tool, index) => {
       const toolTitle = document.createElement('div');
       toolTitle.dataset.id = String(index);
-      toolTitle.classList.add('tools-pane-title');
+      toolTitle.classList.add('tools-pane-title', tool.name);
       toolTitle.innerHTML = tool.title;
       toolsPaneTitles.appendChild(toolTitle);
 
@@ -284,21 +318,16 @@ export const createToolsPane = (
 
   const load = async () => {
     const initialLoad = status === undefined;
-    toolList.forEach((tool, index) => {
-      if (status) return;
-      if (config[tool.name]) {
-        status = config[tool.name];
-        activeToolId = index;
-      }
-    });
-    status = status || 'closed';
+    activeToolId = getToolId(config.tools.active);
+    status = config.tools.status || 'closed';
 
     if (initialLoad) {
       toolsSplit = createToolsSplit();
       toolsSplit.setSizes(sizes[status]);
       sizeChanged();
       if (status === 'none') {
-        setHidden(true);
+        // setHidden(true);
+        getToolspaneBar().style.pointerEvents = 'none';
       }
       tools.forEach(async (tool) => {
         await tool.load();
@@ -307,14 +336,66 @@ export const createToolsPane = (
     setActiveTool(activeToolId);
   };
 
-  return {
+  const getToolId = (name: Tool['name'] | '') => {
+    const id = tools.findIndex((t) => t?.name === name);
+    return id > -1 ? id : 0;
+  };
+
+  const disableTool = (name: Tool['name']) => {
+    const id = tools.findIndex((t) => t?.name === name);
+    if (id === -1) return;
+    delete tools[id];
+    if (activeToolId === id) {
+      setActiveTool(tools.findIndex((t) => t));
+    }
+    if (name in api) {
+      delete api[name];
+    }
+    const domTitle = document.querySelector<HTMLElement>('#tools-pane-titles .' + name);
+    if (domTitle) {
+      domTitle.classList.remove('active');
+      domTitle.style.display = 'none';
+    }
+    if (tools.filter((t) => t).length === 0) {
+      resize('none');
+    }
+  };
+
+  const enableTool = (name: Tool['name']) => {
+    // wrong title
+    const id = allTools.findIndex((t) => t.name === name);
+    if (id === -1) return;
+    // already enabled
+    if (tools.find((t) => t?.name === name)) return;
+
+    if (tools.filter((t) => t).length === 0) {
+      resize('closed');
+      setActiveTool(id);
+    }
+
+    api[name] = allTools[id] as any;
+    tools[id] = allTools[id];
+
+    const toolTitle = document.querySelector<HTMLElement>('.tools-pane-title.' + name);
+    if (toolTitle) {
+      toolTitle.style.display = 'flex';
+    }
+  };
+
+  const api: ToolsPane = {
     load,
     open: () => resize('open'),
     close: () => resize('closed'),
     maximize: () => resize('full'),
     hide: () => resize('none'),
     getStatus: () => status,
-    // console, compiled
+    getActiveTool: () => tools[activeToolId]?.name,
+    setActiveTool: (title: Tool['name']) => setActiveTool(getToolId(title)),
+    disableTool,
+    enableTool,
+    // console, compiled, tests
     ...toolList.reduce((acc, tool, index) => ({ ...acc, [tool.name]: tools[index] }), {}),
   };
+
+  return api;
 };

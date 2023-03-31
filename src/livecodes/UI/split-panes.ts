@@ -1,4 +1,5 @@
 import Split from 'split.js';
+import { customEvents } from '../events';
 
 export const createSplitPanes = () => {
   const gutterSize = 10;
@@ -7,7 +8,7 @@ export const createSplitPanes = () => {
     minSize: [0, 0],
     gutterSize,
     elementStyle: (_dimension, size, gutterSize) => {
-      window.dispatchEvent(new Event('editor-resize'));
+      window.dispatchEvent(new Event(customEvents.resizeEditor));
       return {
         'flex-basis': `calc(${size}% - ${gutterSize}px)`,
       };

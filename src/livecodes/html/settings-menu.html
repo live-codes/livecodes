@@ -55,28 +55,13 @@
     <a href="#" id="share-link">Share …</a>
   </li>
   <li>
+    <a href="#" id="embed-link">Embed …</a>
+  </li>
+  <li>
     <a href="#" id="deploy-link">Deploy …</a>
   </li>
   <li>
-    <i class="arrow left"></i>
-    <a href="#" id="css-preset-link">CSS Preset</a>
-    <ul class="dropdown-menu submenu" id="css-preset-menu">
-      <li>
-        <a href="#" data-preset="">None</a>
-      </li>
-      <li>
-        <a href="#" data-preset="normalize.css">Normalize.css</a>
-      </li>
-      <li>
-        <a href="#" data-preset="reset-css">CSS reset</a>
-      </li>
-      <li>
-        <a href="#" data-preset="github-markdown-css">github-markdown-css</a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <a href="#" id="external-resources-link">External CSS/JS …</a>
+    <a href="#" id="external-resources-link">External Resources …</a>
   </li>
   <li>
     <a href="#" id="custom-settings-link">Custom Settings …</a>
@@ -85,7 +70,7 @@
     <a href="#" id="info-link">Project Info …</a>
   </li>
   <li>
-    <a href="#" id="assets-link">Assets …</a>
+    <a href="#" id="broadcast-link">Broadcast …</a>
   </li>
   <li>
     <label class="switch">
@@ -106,19 +91,26 @@
     </label>
   </li>
   <li>
-    <label class="switch">
-      <span>Format on-save</span>
+    <label class="range-slider-label hint--bottom" data-hint="Delay before auto-update">
+      <span>Delay: <span id="delay-value">1.5</span>s</span>
       <div>
-        <input id="formatOnsave" type="checkbox" data-config="formatOnsave" />
-        <span class="slider round"></span>
+        <input
+          type="range"
+          id="delay-range"
+          min="0"
+          max="3000"
+          step="250"
+          value="1500"
+          class="range-slider"
+        />
       </div>
     </label>
   </li>
   <li>
     <label class="switch">
-      <span>Enable Emmet</span>
+      <span>Format on-save</span>
       <div>
-        <input id="emmet" type="checkbox" data-config="emmet" />
+        <input id="formatOnsave" type="checkbox" data-config="formatOnsave" />
         <span class="slider round"></span>
       </div>
     </label>
@@ -134,14 +126,14 @@
   </li>
   <li>
     <label class="switch">
-      <span>Enable Restore</span>
+      <span>Recover Unsaved</span>
       <div>
-        <input id="enable-restore" type="checkbox" data-config="enableRestore" />
+        <input id="recover-unsaved" type="checkbox" data-config="recoverUnsaved" />
         <span class="slider round"></span>
       </div>
     </label>
   </li>
-  <li class="hint--bottom-left" data-hint="Press Alt/Options and move your cursor over result page">
+  <li class="hint--bottom-left" data-hint="Press Alt/Option and move your cursor over result page">
     <label class="switch">
       <span>Show Spacing</span>
       <div>
@@ -150,10 +142,39 @@
       </div>
     </label>
   </li>
-  <li>
-    <a href="./web/docs/" target="_blank" rel="noopener">Documentations</a>
+  <li class="link-and-switch">
+    <a href="#" id="sync-link"
+      >Sync (beta) … <span id="sync-indicator" class="smaller hidden"> ⏳</span></a
+    >
+    <label class="switch">
+      <div>
+        <input id="autosync" type="checkbox" data-config="autosync" />
+        <span class="slider round"></span>
+      </div>
+    </label>
+  </li>
+  <li class="link-and-switch">
+    <a href="#" id="welcome-link">Welcome …</a>
+    <label class="switch hint--bottom-left" data-hint="Show Welcome screen on startup">
+      <div>
+        <input id="welcome" type="checkbox" data-config="welcome" />
+        <span class="slider round"></span>
+      </div>
+    </label>
   </li>
   <li>
-    <a href="./web/" target="_blank" rel="noopener">About</a>
+    <a href="#" id="editor-settings-link">Editor Settings …</a>
+  </li>
+  <li>
+    <a href="#" id="assets-link">Assets …</a>
+  </li>
+  <li>
+    <a href="#" id="snippets-link">Code Snippets …</a>
+  </li>
+  <li>
+    <a href="#" id="backup-link">Backup / Restore …</a>
+  </li>
+  <li>
+    <a href="./docs/" target="_blank" rel="noopener">About</a>
   </li>
 </ul>

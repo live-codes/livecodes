@@ -54,14 +54,14 @@ describe('validateConfig', () => {
       modules: [],
       imports: {},
       types: {},
+      zoom: '0.5',
     };
 
     const correctConfig: any = {
       autosave: false,
+      delay: 500,
       emmet: true,
       mode: 'full',
-      console: '',
-      compiled: '',
       allowLangChange: true,
       activeEditor: 'markup',
       markup: {
@@ -85,6 +85,7 @@ describe('validateConfig', () => {
       cssPreset: '',
       imports: {},
       types: {},
+      zoom: 0.5,
     };
     const invalidConfig = {
       all: 'properties',

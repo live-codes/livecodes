@@ -1,5 +1,5 @@
 import {
-  getEnabledProcessors,
+  getActivatedProcessors,
   getLanguageEditorId,
   getCustomSettings,
   languages,
@@ -7,9 +7,9 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import { Language, Config, Compilers, EditorId, CompilerFunction, CompileOptions } from '../models';
+import type { Language, Config, Compilers, CompilerFunction, CompileOptions } from '../models';
 import { sandboxService } from '../services';
-import { getAbsoluteUrl, isRelativeUrl, stringify } from '../utils';
+import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
@@ -46,7 +46,8 @@ export const createCompiler = async ({
       const configMessage: CompilerMessage = {
         type: 'init',
         payload: config,
-        baseUrl: isRelativeUrl(baseUrl) ? getAbsoluteUrl(baseUrl) : baseUrl,
+        baseUrl,
+        scriptUrl: baseUrl + '{{hash:compiler-utils.js}}',
       };
       compilerSandbox.postMessage(configMessage, compilerOrigin);
     });
@@ -160,7 +161,7 @@ export const createCompiler = async ({
       language = 'typescript';
     }
 
-    const enabledProcessors = getEnabledProcessors(language, config);
+    const enabledProcessors = getActivatedProcessors(language, config);
     const languageSettings = stringify(getCustomSettings(language, config));
 
     if (
@@ -178,7 +179,13 @@ export const createCompiler = async ({
 
     const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
-      throw new Error('Failed to load compiler for: ' + language);
+      return new Promise((res) => {
+        if (language !== 'html' && language !== 'css' && language !== 'javascript') {
+          // eslint-disable-next-line no-console
+          console.error('Failed to load compiler for: ' + language);
+        }
+        res('');
+      });
     }
 
     const compiled = (await compiler(content, { config, language, baseUrl, options })) || '';
@@ -195,25 +202,37 @@ export const createCompiler = async ({
   };
 
   const postProcess: CompilerFunction = async (content, { config, language, baseUrl, options }) => {
+    let postcssRequired = false;
+    const editorId = getLanguageEditorId(language) || 'markup';
+    if (editorId === 'style' && hasStyleImports(content)) {
+      postcssRequired = true;
+    }
+
     for (const processor of processors) {
       if (
         (processorIsEnabled(processor.name, config) &&
           processorIsActivated(processor.name, config) &&
-          processor.editors?.includes(getLanguageEditorId(language || '') as EditorId)) ||
-        (getLanguageEditorId(language) === 'style' &&
-          processor.name === 'postcss' &&
-          hasStyleImports(content))
+          processor.editor === editorId) ||
+        (editorId === 'style' && processor.name === 'postcss')
       ) {
-        if (compilers[processor.name] && !compilers[processor.name].fn) {
-          await load([processor.name], config);
+        if (processor.isPostcssPlugin) {
+          postcssRequired = true;
+        } else {
+          if (processor.name === 'postcss' && !postcssRequired) continue;
+          if (compilers[processor.name] && !compilers[processor.name].fn) {
+            await load([processor.name], config);
+          }
+          const process = compilers[processor.name].fn || ((code: string) => code);
+          if (typeof process !== 'function') {
+            // eslint-disable-next-line no-console
+            console.error('Failed to load processor: ' + processor.name);
+            return content;
+          }
+          content = await process(content, { config, language, baseUrl, options });
         }
-        const process = compilers[processor.name].fn || ((code: string) => code);
-        if (typeof process !== 'function') {
-          throw new Error('Failed to load processor: ' + processor.name);
-        }
-        content = await process(content, { config, language, baseUrl, options });
       }
     }
+
     return content;
   };
 

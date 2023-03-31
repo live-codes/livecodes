@@ -1,32 +1,53 @@
-import { createImportMap, hasImports, isModuleScript } from '../compiler';
+import { createImportMap, getImports, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
-import { Cache, EditorId, Config } from '../models';
+import type { Cache, EditorId, Config } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl, spacingJsUrl } from '../vendors';
+import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
 
-export const createResultPage = (
-  code: Cache,
-  config: Config,
-  forExport: boolean,
-  template: string,
-  baseUrl: string,
-  singleFile: boolean,
-) => {
+export const createResultPage = async ({
+  code,
+  config,
+  forExport,
+  template,
+  baseUrl,
+  singleFile,
+  runTests,
+}: {
+  code: Cache;
+  config: Config;
+  forExport: boolean;
+  template: string;
+  baseUrl: string;
+  singleFile: boolean;
+  runTests: boolean;
+}): Promise<string> => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
   const dom = domParser.parseFromString(template, 'text/html');
-
-  // title
-  dom.title = config.title;
 
   // if export => clean, else => add utils
   if (forExport) {
     dom.querySelector('script')?.remove();
   } else {
     const utilsScript = dom.createElement('script');
-    utilsScript.src = absoluteBaseUrl + 'result-utils.js';
+    utilsScript.src = absoluteBaseUrl + '{{hash:result-utils.js}}';
     dom.head.appendChild(utilsScript);
+  }
+
+  // title
+  dom.title = config.title;
+
+  // html classes
+  if (config.customSettings.htmlClasses) {
+    dom.documentElement.classList.add(...config.customSettings.htmlClasses.split(' '));
+  }
+
+  // head content
+  if (config.customSettings.head) {
+    dom.head.innerHTML += config.customSettings.head;
   }
 
   // CSS Preset
@@ -63,13 +84,8 @@ export const createResultPage = (
     dom.head.appendChild(EditorStylesheet);
   }
 
-  if (config.cssPreset === 'github-markdown-css') {
-    dom.body.classList.add('markdown-body');
-  }
-
-  // editor markup (MDX is added to the script not page markup)
-  const markup = code.markup.language !== 'mdx' ? code.markup.compiled : '';
-  const mdx = code.markup.language === 'mdx' ? code.markup.compiled : '';
+  // editor markup
+  const markup = code.markup.compiled;
   dom.body.innerHTML += markup;
 
   // cleanup custom configurations and scripts
@@ -87,10 +103,18 @@ export const createResultPage = (
       compiled: code[editorId].compiled,
     }),
   );
+
+  const compiledTests = runTests ? code.tests?.compiled || '' : '';
+
+  const importFromScript =
+    getImports(markup).includes('./script') ||
+    (runTests && !forExport && getImports(compiledTests).includes('./script'));
+
   let compilerImports = {};
-  runtimeDependencies.forEach(({ language, compiled }) => {
+
+  for (const { language, compiled } of runtimeDependencies) {
     const compiler = getLanguageCompiler(language);
-    if (!compiler) return;
+    if (!compiler) continue;
 
     const compilerStyles =
       typeof compiler.styles === 'function'
@@ -112,9 +136,17 @@ export const createResultPage = (
       if (compiler.deferScripts) {
         depScript.defer = true;
       }
+      if (depScriptUrl.includes('-script-esm.')) {
+        depScript.type = 'module';
+      }
       dom.head.appendChild(depScript);
     });
     if (compiler.inlineScript) {
+      if (typeof compiler.inlineScript === 'function') {
+        compiler.inlineScript = await compiler.inlineScript({
+          baseUrl,
+        });
+      }
       const inlineScript = document.createElement('script');
       inlineScript.innerHTML = compiler.inlineScript;
       dom.head.appendChild(inlineScript);
@@ -125,7 +157,7 @@ export const createResultPage = (
         ...objectMap(compiler.imports, (url) => getAbsoluteUrl(url, baseUrl)),
       };
     }
-  });
+  }
 
   // import maps
   const userImports =
@@ -138,10 +170,18 @@ export const createResultPage = (
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
+          ...(runTests && !forExport && hasImports(compiledTests)
+            ? createImportMap(compiledTests, config)
+            : {}),
+          ...(importFromScript
+            ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
+            : {}),
         };
+
   const importMaps = {
     ...userImports,
     ...compilerImports,
+    ...(runTests ? testImports : {}),
     ...config.customSettings.imports,
   };
   if (Object.keys(importMaps).length > 0) {
@@ -163,27 +203,29 @@ export const createResultPage = (
     dom.head.appendChild(externalScript);
   });
 
-  // editor script
-  const script = code.script.compiled;
-  const scriptElement = dom.createElement('script');
-  if (singleFile) {
-    scriptElement.innerHTML = escapeScript(mdx ? script + '\n' + mdx : script);
-  } else {
-    scriptElement.src = './script.js';
-  }
-  dom.body.appendChild(scriptElement);
-
-  // script type
-  const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
-  if (scriptType) {
-    scriptElement.type = scriptType;
-  } else if (config.customSettings.scriptType != null) {
-    // do not add type if scriptType === ''
-    if (config.customSettings.scriptType) {
-      scriptElement.type = config.customSettings.scriptType;
+  if (!importFromScript) {
+    // editor script
+    const script = code.script.compiled;
+    const scriptElement = dom.createElement('script');
+    if (singleFile) {
+      scriptElement.innerHTML = escapeScript(script);
+    } else {
+      scriptElement.src = './script.js';
     }
-  } else if (isModuleScript(script) || mdx) {
-    scriptElement.type = 'module';
+    dom.body.appendChild(scriptElement);
+
+    // script type
+    const scriptType = getLanguageCompiler(code.script.language)?.scriptType;
+    if (scriptType) {
+      scriptElement.type = scriptType;
+    } else if (config.customSettings.scriptType != null) {
+      // do not add type if scriptType === ''
+      if (config.customSettings.scriptType) {
+        scriptElement.type = config.customSettings.scriptType;
+      }
+    } else if (isModuleScript(script)) {
+      scriptElement.type = 'module';
+    }
   }
 
   // spacing
@@ -191,6 +233,39 @@ export const createResultPage = (
     const spacingScript = dom.createElement('script');
     spacingScript.src = spacingJsUrl;
     dom.body.appendChild(spacingScript);
+  }
+
+  // tests
+  if (runTests && !forExport) {
+    const jestScript = dom.createElement('script');
+    jestScript.src = jestLiteUrl;
+    dom.body.appendChild(jestScript);
+
+    const testScript = dom.createElement('script');
+    testScript.type = 'module';
+    testScript.innerHTML = `
+const {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  describe: { only: fdescribe, skip: xdescribe },
+  it,
+  test,
+  test: { only: fit, skip: xtest, skip: xit },
+  expect,
+  jest } = window.jestLite.core;
+
+${escapeScript(compiledTests)}
+
+window.jestLite.core.run().then(results => {
+  parent.postMessage({type: 'testResults', payload: {results}}, '*');
+}).catch((error) => {
+  parent.postMessage({type: 'testResults', payload: {error: error.message || String(error)}}, '*');
+});
+    `;
+    dom.body.appendChild(testScript);
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;

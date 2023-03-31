@@ -24,6 +24,13 @@ const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
         headless: true,
       },
     },
+    {
+      name: 'codejar',
+      use: {
+        editor: 'codejar',
+        headless: true,
+      },
+    },
   ],
 };
 export default config;

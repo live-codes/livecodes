@@ -2,10 +2,10 @@ import { Language, Config } from '../models';
 import { createFormatter } from './formatter';
 import { Formatter } from './models';
 
-export const getFormatter = (config: Config, baseUrl: string): Formatter => {
-  const { editor, readonly, mode } = config;
+export const getFormatter = (config: Config, baseUrl: string, isLite: boolean): Formatter => {
+  const { readonly, mode } = config;
 
-  if (readonly || editor === 'prism' || mode === 'codeblock' || mode === 'result') {
+  if (readonly || mode === 'codeblock' || mode === 'result' || isLite) {
     return createFakeFormatter();
   } else {
     return createFormatter(baseUrl);
@@ -23,5 +23,6 @@ function createFakeFormatter(): Formatter {
       Promise.resolve((value: string, cursorOffset: number) =>
         Promise.resolve({ formatted: value, cursorOffset }),
       ),
+    destroy: () => undefined,
   };
 }

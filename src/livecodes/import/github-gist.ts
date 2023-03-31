@@ -1,4 +1,4 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+import { getLanguageByAlias } from '../languages';
 import { getValidUrl, hostPatterns, populateConfig } from './utils';
 
 export const isGithubGist = (url: string, pattern = new RegExp(hostPatterns.githubGist)) =>
@@ -33,7 +33,6 @@ export const importFromGithubGist = async (url: string, params: { [key: string]:
       filename: file.filename,
       language: file.language,
       content: file.content,
-      editorId: getLanguageEditorId(file.language),
     }));
 
     return { ...populateConfig(files, params), title: gistTitle };

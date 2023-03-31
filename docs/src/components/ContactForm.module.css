@@ -1,0 +1,96 @@
+.form-container {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  margin: 1.5rem;
+  padding: 1.5rem;
+}
+
+.form-container > div {
+  margin-bottom: 1.5rem;
+}
+
+.form-container label,
+.sent {
+  color: #111827;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  margin: 1em;
+}
+
+.form-container input {
+  background-color: #f9fafb;
+  border: solid 1px #d1d5db;
+  border-radius: 5px;
+  color: #374151;
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: auto;
+  padding: 0.625rem;
+  width: calc(100% - 2em);
+}
+
+.form-container textarea {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #374151;
+  display: block;
+  font-size: 0.875rem;
+  height: 8rem;
+  line-height: 1.25rem;
+  margin: auto;
+  padding: 0.625rem;
+  resize: vertical;
+  width: calc(100% - 2em);
+}
+
+.form-container button[type='submit'] {
+  background-color: var(--ifm-color-primary);
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  margin: 2em auto;
+  max-width: 500px;
+  padding-bottom: 0.625rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.625rem;
+  text-align: center;
+  width: calc(100% - 2em);
+
+  @media (min-width: 640px) {
+    width: auto;
+  }
+}
+
+.form-container button[type='submit']:hover {
+  background-color: var(--ifm-color-primary-darker);
+}
+
+.form-container button[type='submit']:disabled {
+  background-color: var(--ifm-color-primary-lightest) !important;
+  cursor: default !important;
+}
+
+.info {
+  font-size: 0.9em;
+  margin-left: 1em;
+}
+
+.error {
+  color: var(--ifm-color-danger);
+  text-align: center;
+}

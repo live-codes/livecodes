@@ -1,7 +1,10 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.5.2/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.6.0/dist/';
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
+
+export const artTemplateUrl =
+  'https://cdn.jsdelivr.net/npm/art-template@4.13.2/lib/template-web.js';
 
 export const asciidocUrl =
   'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.5/dist/browser/asciidoctor.min.js';
@@ -30,6 +33,10 @@ export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.2021120
 
 export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.4/';
 
+export const chaiUrl = 'https://cdn.jsdelivr.net/npm/chai@4.3.6/+esm';
+
+export const chaiTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/chai@4.2.22/index.d.ts';
+
 export const cjs2esUrl = 'https://cdn.jsdelivr.net/npm/cjs2es@1.1.1/dist/cjs2es.browser.min.js';
 
 export const clioBaseUrl =
@@ -42,9 +49,16 @@ export const cppWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/cpp-wasm@
 
 export const csstreeUrl = 'https://cdn.jsdelivr.net/npm/css-tree@1.1.3/dist/csstree.min.js';
 
+export const cytoscapeSvgUrl =
+  'https://cdn.jsdelivr.net/npm/cytoscape-svg@0.4.0/cytoscape-svg.min.js';
+
+export const cytoscapeUrl = 'https://cdn.jsdelivr.net/npm/cytoscape@3.22.0/dist/cytoscape.min.js';
+
 export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 
 export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
+
+export const elkjsBaseUrl = 'https://cdn.jsdelivr.net/npm/elkjs@0.7.1/lib/';
 
 export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.0/dist/emmet-monaco.min.js';
@@ -55,6 +69,83 @@ export const esModuleShimsUrl =
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
 
+export const fontAnonymousProUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/anonymous-pro@4.5.9/index.min.css';
+
+export const fontCascadiaCodeUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@4.2.1/index.min.css';
+
+export const fontCodeNewRomanUrl = 'https://fonts.cdnfonts.com/css/code-new-roman-2';
+
+export const fontComicMonoUrl = 'https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/index.min.css';
+
+export const fontCourierPrimeUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/courier-prime@4.5.9/index.min.css';
+
+export const fontDECTerminalModernUrl = 'https://fonts.cdnfonts.com/css/dec-terminal-modern';
+
+export const fontDejaVuMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/dejavu-mono@4.5.4/index.min.css';
+
+export const fontFantasqueUrl =
+  'https://cdn.jsdelivr.net/npm/@typopro/web-fantasque-sans-mono@3.7.5/TypoPRO-FantasqueSansMono.css';
+
+export const fontFiraCodeUrl = 'https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css';
+
+export const fontFixedsysUrl = 'https://fonts.cdnfonts.com/css/fixedsys-62';
+
+export const fontHackUrl = 'https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css';
+
+export const fontHermitUrl = 'https://cdn.jsdelivr.net/npm/typeface-hermit@0.0.44/index.min.css';
+
+export const fontIBMPlexMonoUrl =
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap';
+
+export const fontInconsolataUrl =
+  'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap';
+
+export const fontIosevkaUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/iosevka@4.5.4/index.min.css';
+
+export const fontJetbrainsMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/index.min.css';
+
+export const fontMenloUrl = 'https://fonts.cdnfonts.com/css/menlo';
+
+export const fontMonofurUrl = 'https://fonts.cdnfonts.com/css/monofur';
+
+export const fontMonoidUrl =
+  'https://cdn.jsdelivr.net/npm/@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css';
+
+export const fontNotoUrl = 'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap';
+
+export const fontNovaMonoUrl = 'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap';
+
+export const fontOpenDyslexicUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@4.5.4/index.min.css';
+
+export const fontProFontWindowsUrl = 'https://fonts.cdnfonts.com/css/profontwindows';
+
+export const fontRobotoMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/roboto-mono@4.5.8/index.min.css';
+
+export const fontSFMonoUrl = 'https://fonts.cdnfonts.com/css/sf-mono';
+
+export const fontSourceCodeProUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/source-code-pro@4.5.12/index.min.css';
+
+export const fontSpaceMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/space-mono@4.5.10/index.min.css';
+
+export const fontSudoVarUrl = 'https://fonts.cdnfonts.com/css/sudo-var';
+
+export const fontUbuntuMonoUrl =
+  'https://cdn.jsdelivr.net/npm/@fontsource/ubuntu-mono@4.5.11/index.min.css';
+
+export const fontVictorMonoUrl = 'https://cdn.jsdelivr.net/npm/victormono@1.5.4/dist/index.min.css';
+
+export const fscreenUrl = 'https://cdn.jsdelivr.net/npm/fscreen@1.2.0/dist/fscreen.esm.js';
+
 export const githubMarkdownCss =
   'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css';
 
@@ -64,16 +155,22 @@ export const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/gr
 
 export const handlebarsBaseUrl = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/';
 
+export const highlightjsUrl =
+  'https://cdn.skypack.dev/pin/highlight.js@v11.5.1-ByzFRPBe5lvvwKChRHdq/mode=imports,min/optimized/highlightjs.js';
+
 export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.css';
 
 export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/dist/index.min.js';
 
 export const imbaBaseUrl = 'https://cdn.jsdelivr.net/npm/imba@2.0.0-alpha.201/dist/';
 
+export const jestLiteUrl = 'https://cdn.jsdelivr.net/npm/jest-lite@1.0.0-alpha.4/dist/core.js';
+
+export const jestTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/jest@27.4.1/index.d.ts';
+
 export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
 
-export const jsZipUrl =
-  'https://cdn.skypack.dev/-/jszip@v3.7.1-quihaZrSeNyrwABoIb7Z/dist=es2020,mode=imports,min/optimized/jszip.js';
+export const jsZipUrl = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
 
 export const juliaWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/julia-wasm@1.0.4';
 
@@ -95,7 +192,11 @@ export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js
 
 export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
 
-export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js';
+export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
+
+export const monacoEmacsUrl = 'https://unpkg.com/monaco-emacs@0.3.0/dist/monaco-emacs.js';
+
+export const monacoVimUrl = 'https://unpkg.com/monaco-vim@0.3.5/dist/monaco-vim.js';
 
 export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
 
@@ -115,7 +216,7 @@ export const pintoraUrl =
 
 export const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.9.0/dist/plotly.min.js';
 
-export const postcssImportUrl =
+export const postcssImportUrlUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';
 
 export const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.5.1/';
@@ -123,7 +224,11 @@ export const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.5.1/';
 export const prettierPhpUrl =
   'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.18.0/standalone.js';
 
+export const prismBaseUrl = 'https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/';
+
 export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
+
+export const qrcodeUrl = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
 
 export const quillEditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/quill@2.0.0-dev.4/dist';
 
@@ -186,3 +291,5 @@ export const vueSfcLoaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loa
 export const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.26/index.js';
 
 export const waveDromBaseUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/';
+
+export const webRBaseUrl = 'https://cdn.jsdelivr.net/npm/@r-wasm/webr@0.1.1/dist/';

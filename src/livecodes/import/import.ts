@@ -1,5 +1,7 @@
 import { Config, User } from '../models';
 import { importCompressedCode, isCompressedCode } from './code';
+import { importFromCodepen, isCodepen } from './codepen';
+import { importFromDom, isDom } from './dom';
 import { importFromGithub, isGithubUrl } from './github';
 import { importFromGithubDir, isGithubDir } from './github-dir';
 import { importFromGithubGist, isGithubGist } from './github-gist';
@@ -22,6 +24,9 @@ export const importCode = async (
   if (isProjectId(url)) {
     return importProject(url);
   }
+  if (isDom(url)) {
+    return importFromDom(url, params, config);
+  }
   if (isGithubGist(url)) {
     return importFromGithubGist(url, params);
   }
@@ -39,6 +44,9 @@ export const importCode = async (
   }
   if (isGitlabUrl(url)) {
     return importFromGitlab(url);
+  }
+  if (isCodepen(url)) {
+    return importFromCodepen(url);
   }
   if (isJsbin(url)) {
     return importFromJsbin(url);

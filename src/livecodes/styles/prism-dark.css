@@ -1,7 +1,7 @@
 /* from https://github.com/PrismJS/prism-themes/blob/master/themes/prism-vsc-dark-plus.css */
 pre[class*='language-'],
 code[class*='language-'] {
-  background-color: #1e1e1e;
+  caret-color: #d4d4d4;
   color: #d4d4d4;
   direction: ltr;
   font-family: Menlo, Monaco, Consolas, 'Andale Mono', 'Ubuntu Mono', 'Courier New', monospace;
@@ -20,7 +20,7 @@ pre[class*='language-']::selection,
 code[class*='language-']::selection,
 pre[class*='language-'] *::selection,
 code[class*='language-'] *::selection {
-  background: #75a7ca;
+  background: #264f78;
   text-shadow: none;
 }
 

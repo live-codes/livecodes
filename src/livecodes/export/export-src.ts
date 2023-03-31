@@ -1,16 +1,27 @@
-import { EditorId, Config } from '../models';
+import type { EditorId, Config } from '../models';
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+// eslint-disable-next-line import/no-internal-modules
+import { downloadFile, loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
-import { downloadFile } from '../utils';
 import { getFilesFromConfig } from './utils';
 
-export const exportSrc = async (config: Config, { JSZip, html }: any, _baseUrl?: string) => {
-  if (!JSZip) {
-    JSZip = (await import(jsZipUrl)).default;
-  }
-
+export const exportSrc = async (
+  config: Config,
+  {
+    html,
+    deps,
+  }: {
+    html: string;
+    deps: {
+      getLanguageExtension: typeof getLanguageExtensionFn;
+    };
+  },
+  _baseUrl?: string,
+) => {
+  const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
   const zip = new JSZip();
 
-  const files = getFilesFromConfig(config);
+  const files = getFilesFromConfig(config, deps);
   (Object.keys(files) as EditorId[]).forEach((filename) => {
     zip.file(filename, files[filename]?.content);
   });

@@ -9,6 +9,7 @@ export const mdxStarter: Template = {
     language: 'mdx',
     content: `
 import Paper from '@material-ui/core/Paper';
+import { Hello, Counter } from './script';
 
 <Paper>
   <Hello title="MDX" />
@@ -35,7 +36,7 @@ img {
   script: {
     language: 'jsx',
     content: `
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 
 export const Hello = (props) => <h1>Hello, {props.title || "World"}!</h1>;
@@ -57,9 +58,5 @@ export function Counter(props) {
 }
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
+  customSettings: { defaultCDN: 'skypack' },
 };

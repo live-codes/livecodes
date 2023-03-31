@@ -3,6 +3,7 @@ import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
 const templates = [
+  'JavaScript',
   'TypeScript',
   'React',
   'Angular',
@@ -32,7 +33,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Blank');
     await waitForEditorFocus(app);
@@ -49,7 +50,7 @@ test.describe('Starter Templates from UI', () => {
 
       const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-      await app.click('[title=Settings]');
+      await app.click('[aria-label="Menu"]');
       await app.click('text=New');
       await app.click(`text=${template} Starter`);
       await waitForEditorFocus(app);
@@ -73,7 +74,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=React Native Starter');
     await waitForEditorFocus(app);
@@ -96,7 +97,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Vue 2 Starter');
     await waitForEditorFocus(app);
@@ -119,9 +120,9 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
-    await app.click('text=Vue 3 SFC Starter');
+    await app.click('text=Vue 3 Starter');
     await waitForEditorFocus(app);
 
     await waitForResultUpdate();
@@ -142,7 +143,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Riot.js Starter');
     await waitForEditorFocus(app);
@@ -165,7 +166,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Malina.js Starter');
     await waitForEditorFocus(app);
@@ -188,7 +189,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Imba Starter');
     await waitForEditorFocus(app);
@@ -209,13 +210,15 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
-  test('Go Starter', async ({ page, getTestUrl }) => {
+  test('Go Starter', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+
     test.slow();
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Go Starter');
     await waitForEditorFocus(app);
@@ -239,7 +242,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=C++ Starter');
     await waitForEditorFocus(app);
@@ -264,7 +267,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=ReScript Starter');
     await waitForEditorFocus(app);
@@ -282,12 +285,62 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times');
   });
 
+  test('Reason Starter', async ({ page, getTestUrl }) => {
+    test.fixme();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=Reason Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, ReasonReact!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('OCaml Starter', async ({ page, getTestUrl }) => {
+    test.fixme();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=OCaml Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, OCaml!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
   test('Common Lisp Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Common Lisp Starter');
     await waitForEditorFocus(app);
@@ -310,7 +363,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=AssemblyScript Starter');
     await waitForEditorFocus(app);
@@ -333,7 +386,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=WebAssembly Text Starter');
     await waitForEditorFocus(app);
@@ -356,7 +409,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Bootstrap Starter');
     await waitForEditorFocus(app);
@@ -372,7 +425,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Tailwind CSS Starter');
     await waitForEditorFocus(app);
@@ -383,28 +436,12 @@ test.describe('Starter Templates from UI', () => {
     expect(titleText).toContain('A template based on Tailwind CSS playground');
   });
 
-  test('D3 Starter', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl());
-
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-    await app.click('[title=Settings]');
-    await app.click('text=New');
-    await app.click('text=D3 Starter');
-    await waitForEditorFocus(app);
-
-    await waitForResultUpdate();
-
-    const bars = await getResult().$$('svg rect');
-    expect(bars.length).toBe(4);
-  });
-
   test('Markdown Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Markdown Starter');
     await waitForEditorFocus(app);
@@ -420,7 +457,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=SQL Starter');
     await waitForEditorFocus(app);
@@ -436,7 +473,7 @@ test.describe('Starter Templates from UI', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Prolog Starter');
     await waitForEditorFocus(app);
@@ -450,12 +487,14 @@ test.describe('Starter Templates from UI', () => {
     expect(resultText).toBe('X = ali ;\n');
   });
 
-  test('Blockly Starter', async ({ page, getTestUrl }) => {
+  test('Blockly Starter', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('[title=Settings]');
+    await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click(`text=Blockly Starter`);
     await waitForEditorFocus(app);
@@ -623,7 +662,9 @@ test.describe('Starter Templates from URL', () => {
     expect(counterText).not.toBe('You clicked 0 times.');
   });
 
-  test('Go Starter (in URL)', async ({ page, getTestUrl }) => {
+  test('Go Starter (in URL)', async ({ page, getTestUrl, editor }) => {
+    test.skip(editor === 'codejar', 'please fix');
+
     test.slow();
     await page.goto(getTestUrl({ template: 'go' }));
 
@@ -743,6 +784,48 @@ test.describe('Starter Templates from URL', () => {
     expect(counterText).toBe('You clicked 3 times');
   });
 
+  test('Reason Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.fixme();
+
+    await page.goto(getTestUrl({ template: 'rescript' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, ReasonReact!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
+  test('OCaml Starter (in URL)', async ({ page, getTestUrl }) => {
+    test.fixme();
+
+    await page.goto(getTestUrl({ template: 'rescript' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, OCaml!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times');
+  });
+
   test('Bootstrap Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'bootstrap' }));
 
@@ -765,18 +848,6 @@ test.describe('Starter Templates from URL', () => {
 
     const titleText = await getResult().innerText('p');
     expect(titleText).toContain('A template based on Tailwind CSS playground');
-  });
-
-  test('D3 Starter (in URL)', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl({ template: 'd3' }));
-
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-    await waitForEditorFocus(app);
-    await waitForResultUpdate();
-
-    const bars = await getResult().$$('svg rect');
-    expect(bars.length).toBe(4);
   });
 
   test('Markdown Starter (in URL)', async ({ page, getTestUrl }) => {

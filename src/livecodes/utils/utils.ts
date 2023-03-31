@@ -1,11 +1,11 @@
-import LZString from 'lz-string';
+import { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
-export const debounce = (fn: (...x: any[]) => any, delay: number) => {
+export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
   let timeout: any;
 
   return (...args: unknown[]) => {
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(null, args), delay);
+    timeout = setTimeout(() => fn.apply(null, args), typeof delay === 'function' ? delay() : delay);
   };
 };
 
@@ -25,6 +25,12 @@ export const encodeHTML = (html: string) =>
 
 export const escapeScript = (code: string) => code.replace(/<\/script>/g, '<\\/script>');
 
+export const escapeCode = (code: string, slash = true) =>
+  code
+    .replace(/\\/g, slash ? '\\\\' : '\\')
+    .replace(/`/g, '\\`')
+    .replace(/<\/script>/g, '<\\/script>');
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const pipe = (...fns: Function[]) =>
   fns.reduce(
@@ -35,23 +41,6 @@ export const pipe = (...fns: Function[]) =>
 
 // replace non-alphanumeric with underscore
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
-
-export const compress = LZString.compressToEncodedURIComponent;
-export const decompress = (compressed: string, isJSON = true) => {
-  const decoded = LZString.decompressFromEncodedURIComponent(compressed);
-  if (decoded) {
-    if (!isJSON) return decoded;
-    try {
-      if (JSON.parse(decoded)) {
-        return decoded;
-      }
-    } catch {
-      //
-    }
-  }
-  // for backward compatibility
-  return LZString.decompressFromBase64(compressed);
-};
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
 // added safari (on mac & ios): monaco editor is broken on safari
@@ -148,8 +137,17 @@ export const downloadFile = (filename: string, extension: string, content: strin
 
 export const loadScript = (url: string, name?: string) =>
   new Promise((resolve, reject) => {
-    if (name && (window as any)[name]) {
-      return resolve((window as any)[name]);
+    if (name && (globalThis as any)[name]) {
+      return resolve((globalThis as any)[name]);
+    }
+
+    // if running in web worker
+    if (typeof (globalThis as any).importScripts === 'function') {
+      (globalThis as any).importScripts(url);
+      if (name && (globalThis as any)[name]) {
+        return resolve((globalThis as any)[name]);
+      }
+      return resolve(globalThis);
     }
 
     const script = document.createElement('script');
@@ -214,6 +212,37 @@ export const blobToBase64 = (file: Blob): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
+export const Uint8ArrayToBase64 = (u8: Uint8Array) => {
+  const CHUNK_SZ = 0x8000;
+  const c = [];
+  for (let i = 0; i < u8.length; i += CHUNK_SZ) {
+    c.push(String.fromCharCode.apply(null, (u8 as any).subarray(i, i + CHUNK_SZ)));
+  }
+  return btoa(c.join(''));
+};
+
+export const base64ToUint8Array = (str: string) =>
+  new Uint8Array(
+    atob(str)
+      .split('')
+      .map((c) => c.charCodeAt(0)),
+  );
+
+export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
+  if (a === b) {
+    return true;
+  }
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  for (let i = 0; i < a.byteLength; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export const getWorkerDataURL = (url: string) => {
   const content = `importScripts("${url}");`;
   return 'data:text/javascript;base64,' + btoa(content);
@@ -229,3 +258,111 @@ export const removeStrings = (src: string) =>
     .replace(/`[^`]*`/gm, '``');
 
 export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));
+
+export const getLanguageCustomSettings = (language: Language | Processor, config: Config) => ({
+  ...(config.customSettings as any)[language],
+});
+
+export const getValidUrl = (url?: string) => {
+  if (!url) return null;
+  let validUrl = null;
+  if (url.startsWith('http') || url.startsWith('data:')) {
+    try {
+      validUrl = new URL(url).href;
+    } catch {
+      try {
+        validUrl = new URL(decodeURIComponent(url)).href;
+      } catch {
+        //
+      }
+    }
+  }
+  return validUrl;
+};
+
+export const runOrContinue =
+  <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) =>
+  async (x: T): Promise<T> => {
+    try {
+      const result = await fn(x);
+      return result;
+    } catch (error) {
+      if (typeof catchFn === 'function') {
+        catchFn(error);
+      }
+      return x;
+    }
+  };
+
+export const getFileExtension = (file: string) => file.split('.')[file.split('.').length - 1];
+
+export const isInIframe = () => {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+};
+
+export const indentCode = (code: string, spaces: number, skipFirstLine = true) =>
+  (skipFirstLine ? '' : ' '.repeat(spaces)) + code.split('\n').join('\n' + ' '.repeat(spaces));
+
+export const hideOnClickOutside = (element: HTMLElement) => {
+  const hideElement = () => {
+    element.style.display = 'none';
+    removeListeners();
+    (window as any).watchingEscape = false;
+  };
+
+  const outsideClickListener = (event: MouseEvent) => {
+    if (!element.contains(event.target as Node) && isVisible(element)) {
+      hideElement();
+    }
+  };
+
+  const escapeListener = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      hideElement();
+      event.preventDefault();
+    }
+  };
+
+  const isVisible = (elem: HTMLElement) =>
+    !!elem && !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+
+  const removeListeners = () => {
+    document.removeEventListener('click', outsideClickListener);
+    document.removeEventListener('keydown', escapeListener);
+  };
+
+  document.addEventListener('click', outsideClickListener);
+  document.addEventListener('keydown', escapeListener);
+  (window as any).watchingEscape = true;
+
+  return {
+    clear: () => removeListeners(),
+  };
+};
+
+export const callWorker = async <T = string, K = unknown>(
+  worker: Worker,
+  message: { method: T; args?: any },
+) =>
+  new Promise<K>((resolve) => {
+    const messageId = getRandomString();
+
+    const handler = (event: WorkerMessageEvent<T, K>) => {
+      const received = event.data;
+
+      if (received.method === message.method && received.messageId === messageId) {
+        worker.removeEventListener('message', handler);
+        resolve(received.data as K);
+      }
+    };
+    worker.addEventListener('message', handler);
+
+    worker.postMessage({
+      ...message,
+      messageId,
+    });
+  });

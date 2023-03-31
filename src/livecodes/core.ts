@@ -1,32 +1,25 @@
-import { basicLanguages, createEditor, selectedEditor, createCustomEditors } from './editor';
+/* eslint-disable import/no-internal-modules */
+import { createEditor, createCustomEditors, getFontFamily } from './editor';
 import {
   languages,
   getLanguageEditorId,
   getLanguageCompiler,
   languageIsEnabled,
-  pluginSpecs,
-  PluginName,
+  processors,
   processorIsEnabled,
   getLanguageByAlias,
   mapLanguage,
   createLanguageMenus,
+  createProcessorItem,
   getLanguageTitle,
   getLanguageSpecs,
+  getLanguageExtension,
 } from './languages';
-import {
-  createSimpleStorage,
-  createStorage,
-  StorageItem,
-  RestoreItem,
-  ProjectStorage,
-  SimpleStorage,
-  fakeStorage,
-} from './storage';
-import {
+import { fakeStorage, createStores, initializeStores, type Stores } from './storage';
+import type {
   API,
   Cache,
   CodeEditor,
-  CssPresetId,
   EditorId,
   EditorLanguages,
   EditorOptions,
@@ -46,7 +39,21 @@ import {
   CustomEditors,
   BlocklyContent,
   CustomSettings,
+  Types,
+  TestResult,
+  ToolsPane,
+  UserData,
+  AppData,
+  Processor,
+  APICommands,
 } from './models';
+import type { GitHubFile } from './services/github';
+import type {
+  BroadcastData,
+  BroadcastInfo,
+  BroadcastResponseData,
+  BroadcastResponseError,
+} from './UI/broadcast';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -54,11 +61,13 @@ import {
   settingsMenuHTML,
   resultTemplate,
   customSettingsScreen,
-  resourcesScreen,
+  testEditorScreen,
   savePromptScreen,
-  restorePromptScreen,
+  recoverPromptScreen,
+  resultPopupHTML,
+  welcomeScreen,
 } from './html';
-import { exportConfig } from './export';
+import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
 import {
@@ -66,58 +75,73 @@ import {
   defaultConfig,
   getConfig,
   getContentConfig,
+  getEditorConfig,
+  getFormatterConfig,
   getParams,
   getUserConfig,
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { importCode, isGithub } from './import';
+import { isGithub } from './import/github';
 import {
-  compress,
   copyToClipboard,
   debounce,
-  fetchWithHandler,
+  getValidUrl,
   loadStylesheet,
   stringify,
   stringToValidJson,
 } from './utils';
+import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
-import * as UI from './UI';
+import * as UI from './UI/selectors';
 import { createAuthService, sandboxService, shareService } from './services';
-import { deploy, deployedConfirmation, deployFile, getUserPublicRepos, GitHubFile } from './deploy';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
-  autoCompleteUrl,
+  chaiTypesUrl,
+  fscreenUrl,
   hintCssUrl,
+  jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaObjViewerStylesUrl,
   snackbarUrl,
 } from './vendors';
-import { configureEmbed } from './embeds';
 import { createToolsPane } from './toolspane';
-import { createOpenItem } from './UI';
+import {
+  createOpenItem,
+  createProjectInfoUI,
+  createSplitPanes,
+  createStarterTemplateLink,
+  displayLoggedIn,
+  displayLoggedOut,
+  getResultElement,
+  loadingMessage,
+  noUserTemplates,
+  createLoginContainer,
+  createTemplatesContainer,
+  getFullscreenButton,
+} from './UI';
+import { customEvents } from './events/custom-events';
+import { populateConfig } from './import/utils';
 
+const stores: Stores = createStores();
 const eventsManager = createEventsManager();
-let projectStorage: ProjectStorage | undefined;
-let templateStorage: ProjectStorage | undefined;
-let assetsStorage: ProjectStorage | undefined;
-let userConfigStorage: SimpleStorage<UserConfig> | undefined;
-let restoreStorage: SimpleStorage<RestoreItem> | undefined;
-const typeLoader = createTypeLoader();
 const notifications = createNotifications();
 const modal = createModal();
-const split = UI.createSplitPanes();
+let split: ReturnType<typeof createSplitPanes> | null = createSplitPanes();
+const typeLoader = createTypeLoader();
 const screens: Screen[] = [];
+const params = getParams(); // query string params
 
 let baseUrl: string;
 let isEmbed: boolean;
+let isLite: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
 let customEditors: CustomEditors;
-let toolsPane: any;
+let toolsPane: ToolsPane | undefined;
 let authService: ReturnType<typeof createAuthService> | undefined;
 let editorLanguages: EditorLanguages | undefined;
 let resultLanguages: Language[] = [];
@@ -126,13 +150,22 @@ let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
-let editorBuild: EditorOptions['editorBuild'] = 'basic';
+let watchTests = false;
+let initialized = false;
+let isDestroyed = false;
+const broadcastInfo: BroadcastInfo = {
+  isBroadcasting: false,
+  channel: '',
+  channelUrl: '',
+  channelToken: '',
+  broadcastSource: false,
+};
+let resultPopup: Window | null = null;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
 const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
-const isBasicLanguage = (lang: Language) => basicLanguages.includes(lang);
 
 const loadStyles = () =>
   Promise.all(
@@ -153,9 +186,13 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       iframe = document.createElement('iframe');
       iframe.name = 'result';
       iframe.id = 'result-frame';
-      iframe.setAttribute('allow', 'camera; geolocation; microphone');
-      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
+      );
       iframe.setAttribute('allowtransparency', 'true');
+      iframe.setAttribute('allowpaymentrequest', 'true');
+      iframe.setAttribute('allowfullscreen', 'true');
       iframe.setAttribute(
         'sandbox',
         'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
@@ -222,15 +259,6 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     }
 
     resultLanguages = getEditorLanguages();
-
-    parent.dispatchEvent(
-      new CustomEvent('livecodes-change', {
-        detail: {
-          config: getContentConfig(getConfig()),
-          code: JSON.parse(JSON.stringify(getCachedCode())),
-        },
-      }),
-    );
   });
 
 const loadModuleTypes = async (editors: Editors, config: Config) => {
@@ -250,89 +278,105 @@ const loadModuleTypes = async (editors: Editors, config: Config) => {
   }
 };
 
+const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
+  const menuItems = document.querySelectorAll<HTMLElement>(
+    `.dropdown-menu-${editorId} .language-item a`,
+  );
+  menuItems.forEach((item) => {
+    if (item.dataset.lang === language) {
+      item.parentElement?.classList.add('active');
+    } else {
+      item.parentElement?.classList.remove('active');
+    }
+  });
+};
+
 const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`);
-  if (!editorTitle) return;
-  editorTitle.innerHTML =
-    languages.find((language) => language.name === getLanguageByAlias(title))?.title || '';
+  const language = getLanguageByAlias(title);
+  if (!editorTitle || !language) return;
+  editorTitle.innerHTML = languages.find((lang) => lang.name === language)?.title || '';
+  highlightSelectedLanguage(editorId, language);
 };
 
 const createCopyButtons = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
+  const copyImgHtml = `<span><img src="${baseUrl}assets/images/copy.svg" alt="copy"></span>`;
   editorIds.forEach((editorId) => {
-    const copyButton = document.createElement('button');
-    copyButton.innerHTML = 'copy';
-    copyButton.classList.add('copy-button');
+    const copyButton = document.createElement('div');
+    copyButton.innerHTML = copyImgHtml;
+    copyButton.classList.add('copy-button', 'tool-buttons');
+    copyButton.title = 'Copy';
     document.getElementById(editorId)?.appendChild(copyButton);
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
-        copyButton.innerHTML = 'copied';
+        copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
+        copyButton.classList.add('hint--left', 'visible');
+        copyButton.dataset.hint = 'Copied!';
+        copyButton.title = '';
         setTimeout(() => {
-          copyButton.innerHTML = 'copy';
+          copyButton.innerHTML = copyImgHtml;
+          copyButton.classList.remove('hint--left', 'visible');
+          copyButton.dataset.hint = '';
+          copyButton.title = 'Copy';
         }, 2000);
       }
     });
   });
 };
 
-const shouldUpdateEditorBuild = (langs?: Language[]) => {
-  const editor = selectedEditor(getConfig());
-  if (editor === 'monaco') return false;
-  if (editorBuild === 'full') return false;
-  if (
-    langs?.some((lang) => !isBasicLanguage(lang)) ||
-    (editor === 'codemirror' && getConfig().emmet)
-  ) {
-    editorBuild = 'full';
-    return true;
-  }
-  return false;
-};
-
 const createEditors = async (config: Config) => {
   if (editors) {
     Object.values(editors).forEach((editor: CodeEditor) => editor.destroy());
+    resetEditorModeStatus();
   }
 
   const baseOptions = {
     baseUrl,
     mode: config.mode,
     readonly: config.readonly,
-    editor: config.editor,
-    editorType: 'code' as EditorOptions['editorType'],
     theme: config.theme,
+    ...getEditorConfig(config),
     isEmbed,
+    mapLanguage,
+    getLanguageExtension,
+    getFormatterConfig: () => getFormatterConfig(getConfig()),
+    getFontFamily,
   };
   const markupOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getMarkupElement(),
+    editorId: 'markup',
     language: languageIsEnabled(config.markup.language, config)
       ? config.markup.language
-      : config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') || 'html',
+      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'markup') as Language) ||
+        'html',
     value: languageIsEnabled(config.markup.language, config) ? config.markup.content || '' : '',
   };
   const styleOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getStyleElement(),
+    editorId: 'style',
     language: languageIsEnabled(config.style.language, config)
       ? config.style.language
-      : config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') || 'css',
+      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'style') as Language) ||
+        'css',
     value: languageIsEnabled(config.style.language, config) ? config.style.content || '' : '',
   };
   const scriptOptions: EditorOptions = {
     ...baseOptions,
     container: UI.getScriptElement(),
+    editorId: 'script',
     language: languageIsEnabled(config.script.language, config)
       ? config.script.language
-      : config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') || 'javascript',
+      : (config.languages?.find((lang) => getLanguageEditorId(lang) === 'script') as Language) ||
+        'javascript',
     value: languageIsEnabled(config.script.language, config) ? config.script.content || '' : '',
   };
 
-  shouldUpdateEditorBuild([markupOptions.language, styleOptions.language, scriptOptions.language]);
-
-  const markupEditor = await createEditor({ ...markupOptions, editorBuild });
-  const styleEditor = await createEditor({ ...styleOptions, editorBuild });
-  const scriptEditor = await createEditor({ ...scriptOptions, editorBuild });
+  const markupEditor = await createEditor(markupOptions);
+  const styleEditor = await createEditor(styleOptions);
+  const scriptEditor = await createEditor(scriptOptions);
 
   setEditorTitle('markup', markupOptions.language);
   setEditorTitle('style', styleOptions.language);
@@ -364,7 +408,8 @@ const createEditors = async (config: Config) => {
 
 const reloadEditors = async (config: Config) => {
   await createEditors(config);
-  await toolsPane?.compiled.reloadEditor();
+  await toolsPane?.console?.reloadEditor(config);
+  await toolsPane?.compiled?.reloadEditor(config);
   updateCompiledCode();
   handleChangeContent();
 };
@@ -418,6 +463,7 @@ const showMode = (config: Config) => {
     outputElement.style.flexBasis = '100%';
     editorsElement.style.display = 'none';
     split?.destroy(true);
+    split = null;
   }
   if (!showResult) {
     editorsElement.style.flexBasis = '100%';
@@ -425,6 +471,7 @@ const showMode = (config: Config) => {
     resultElement.style.display = 'none';
     codeRunButton.style.display = 'none';
     split?.destroy(true);
+    split = null;
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
@@ -434,11 +481,14 @@ const showMode = (config: Config) => {
     editorTools.style.display = 'none';
   }
   if (config.mode === 'result') {
-    if (!['full', 'open'].includes(toolsPane.getStatus())) {
+    if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
-  window.dispatchEvent(new Event('editor-resize'));
+  if (config.mode === 'full' && !split) {
+    split = createSplitPanes();
+  }
+  window.dispatchEvent(new Event(customEvents.resizeEditor));
 };
 
 const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
@@ -458,7 +508,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
-  if (!isEmbed) {
+  if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
   if (!isUpdate) {
@@ -468,7 +518,42 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
     });
   }
   updateCompiledCode();
-  split.show('code');
+  if (initialized || params.view !== 'result') {
+    split?.show('code');
+  }
+  showEditorModeStatus(editorId);
+};
+
+const showEditorModeStatus = (editorId: EditorId) => {
+  const editorStatusNodes = document.querySelectorAll<HTMLElement>(
+    '#editor-status > span[data-status]',
+  );
+  editorStatusNodes.forEach((node) => {
+    if (node.dataset.status === editorId) {
+      // node.style.display = 'block';
+      node.style.position = 'unset';
+      node.style.width = 'unset';
+      node.style.overflow = 'unset';
+    } else {
+      // node.style.display = 'none';
+      node.style.position = 'absolute';
+      node.style.width = '0';
+      node.style.overflow = 'hidden';
+    }
+  });
+};
+
+const resetEditorModeStatus = () => {
+  const editorModeNode = UI.getEditorModeNode();
+  if (editorModeNode) {
+    editorModeNode.textContent = '';
+  }
+  const editorStatusNodes = document.querySelectorAll<HTMLElement>(
+    '#editor-status > span[data-status]',
+  );
+  editorStatusNodes.forEach((node) => {
+    node.innerHTML = '';
+  });
 };
 
 const addConsoleInputCodeCompletion = () => {
@@ -489,12 +574,7 @@ const addConsoleInputCodeCompletion = () => {
 };
 
 const configureEditorTools = (language: Language) => {
-  if (
-    getConfig().readonly ||
-    getActiveEditor().prism ||
-    language === 'blockly' ||
-    language === 'richtext'
-  ) {
+  if (getConfig().readonly || language === 'blockly' || language === 'richtext') {
     UI.getEditorToolbar().classList.add('hidden');
     return false;
   }
@@ -543,9 +623,6 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   if (getLanguageSpecs(language)?.largeDownload) {
     notifications.info(`Loading ${getLanguageTitle(language)}. This may take a while!`);
   }
-  if (shouldUpdateEditorBuild([language])) {
-    await reloadEditors(getConfig());
-  }
   const editor = editors[editorId];
   editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
   if (editorLanguages) {
@@ -554,11 +631,11 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   setEditorTitle(editorId, language);
   showEditor(editorId, isUpdate);
   phpHelper({ editor: editors.script });
-  if (!isEmbed) {
+  if (!isEmbed && !isUpdate) {
     setTimeout(() => editor.focus());
   }
   await compiler.load([language], getConfig());
-  editor.registerFormatter(await formatter.getFormatFn(language));
+  formatter.getFormatFn(language).then((fn) => editor.registerFormatter(fn));
   if (!isUpdate) {
     setConfig({
       ...getConfig(),
@@ -567,15 +644,16 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
     await run();
   }
   await setSavedStatus();
+  dispatchChangeEvent();
   addConsoleInputCodeCompletion();
   loadModuleTypes(editors, getConfig());
   await applyLanguageConfigs(language);
 };
 
-// Ctrl/Cmd + Enter triggers run
+// Shift + Enter triggers run
 const registerRun = (editorId: EditorId, editors: Editors) => {
   const editor = editors[editorId];
-  editor.addKeyBinding('run', editor.keyCodes.CtrlEnter, async () => {
+  editor.addKeyBinding('run', editor.keyCodes.ShiftEnter, async () => {
     await run();
   });
 };
@@ -606,7 +684,7 @@ const updateCompiledCode = () => {
       if (editorId === 'script' && getConfig().script.language === 'php') {
         compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
       }
-      toolsPane.compiled.update(
+      toolsPane?.compiled?.update(
         compiledLanguages[editorId].language,
         compiledCode,
         compiledLanguages[editorId].label,
@@ -620,6 +698,7 @@ const getResultPage = async ({
   forExport = false,
   template = resultTemplate,
   singleFile = true,
+  runTests = false,
 }) => {
   updateConfig();
   const config = getConfig();
@@ -628,16 +707,24 @@ const getResultPage = async ({
   const markupContent = config.markup.content || '';
   const styleContent = config.style.content || '';
   const scriptContent = config.script.content || '';
+  const testsContent = config.tests?.content || '';
   const markupLanguage = config.markup.language;
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
+  const testsLanguage = config.tests?.language || 'typescript';
 
   const forceCompileStyles =
-    (config.processors.postcss.tailwindcss || config.processors.postcss.windicss) &&
-    (markupContent !== getCache().markup.content || scriptContent !== getCache().script.content);
+    config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
+    (markupContent !== getCache().markup.content ||
+      scriptContent !== getCache().script.content); /* e.g. jsx */
+
+  const testsNotChanged =
+    config.tests?.language === getCache().tests?.language &&
+    config.tests?.content === getCache().tests?.content &&
+    getCache().tests?.compiled;
 
   const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config, {});
-  const [compiledStyle, compiledScript] = await Promise.all([
+  const [compiledStyle, compiledScript, compiledTests] = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: compiledMarkup,
       forceCompile: forceCompileStyles,
@@ -654,6 +741,11 @@ const getResultPage = async ({
             })) as BlocklyContent)
           : {},
     }),
+    runTests
+      ? testsNotChanged
+        ? Promise.resolve(getCache().tests?.compiled || '')
+        : compiler.compile(testsContent, testsLanguage, config, {})
+      : Promise.resolve(getCache().tests?.compiled || ''),
   ]);
 
   const compiledCode: Cache = {
@@ -671,9 +763,22 @@ const getResultPage = async ({
       compiled:
         config.customSettings.convertCommonjs === false ? compiledScript : cjs2esm(compiledScript),
     },
+    tests: {
+      language: testsLanguage,
+      ...contentConfig.tests,
+      compiled: compiledTests,
+    },
   };
 
-  const result = createResultPage(compiledCode, config, forExport, template, baseUrl, singleFile);
+  const result = await createResultPage({
+    code: compiledCode,
+    config,
+    forExport,
+    template,
+    baseUrl,
+    singleFile,
+    runTests,
+  });
 
   const styleOnlyUpdate = sourceEditor === 'style';
   setCache({
@@ -682,6 +787,15 @@ const getResultPage = async ({
     result,
     styleOnlyUpdate,
   });
+
+  if (singleFile) {
+    if (broadcastInfo.isBroadcasting) {
+      broadcast();
+    }
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup?.postMessage({ result }, location.origin);
+    }
+  }
 
   return result;
 };
@@ -702,7 +816,7 @@ const flushResult = () => {
 
   setLoading(true);
 
-  iframe.contentWindow.postMessage({ flush: true }, sandboxService.getOrigin());
+  iframe.contentWindow.postMessage({ flush: true }, '*');
 
   const compiledLanguages = {
     markup: getLanguageCompiler(getConfig().markup.language)?.compiledCodeLanguage || 'html',
@@ -728,7 +842,17 @@ const flushResult = () => {
     compiledLanguages.script,
     loadingComments[compiledLanguages.script] || 'javascript',
   );
+  setCache({
+    ...getCache(),
+    tests: {
+      language: 'javascript',
+      content: '',
+      compiled: '',
+    },
+  });
+
   updateCompiledCode();
+  toolsPane?.tests?.clearTests();
 };
 
 const setProjectTitle = (setDefault = false) => {
@@ -739,12 +863,15 @@ const setProjectTitle = (setDefault = false) => {
     projectTitle.textContent = defaultTitle;
   }
   const title = projectTitle.textContent || defaultTitle;
+  if (title === getConfig().title) return;
+
   setConfig({ ...getConfig(), title });
   if (getConfig().autosave) {
     save(!projectId, false);
   }
   setWindowTitle();
   setSavedStatus();
+  dispatchChangeEvent();
 };
 
 const setWindowTitle = () => {
@@ -759,25 +886,28 @@ const setWindowTitle = () => {
 };
 
 const setExternalResourcesMark = () => {
-  const mark = UI.getExternalResourcesMark();
   const btn = UI.getExternalResourcesBtn();
-  if (getConfig().scripts.length > 0 || getConfig().stylesheets.length > 0) {
-    mark.classList.add('active');
+  const config = getConfig();
+  if (config.scripts.length > 0 || config.stylesheets.length > 0 || config.cssPreset) {
+    btn.classList.add('active');
     btn.style.display = 'unset';
   } else {
-    mark.classList.remove('active');
+    btn.classList.remove('active');
     if (isEmbed) {
       btn.style.display = 'none';
     }
   }
 };
 
-const run = async (editorId?: EditorId) => {
+const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
-  const result = await getResultPage({ sourceEditor: editorId });
+  const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
+  toolsPane?.console?.clear();
   updateCompiledCode();
 };
+
+const runTests = () => run(undefined, true);
 
 const updateUrl = (url: string, push = false) => {
   if (push && !isEmbed) {
@@ -808,9 +938,9 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   if (!projectId) {
-    projectId = (await projectStorage?.addItem(getConfig())) || '';
+    projectId = (await stores.projects?.addItem(getConfig())) || '';
   } else {
-    await projectStorage?.updateItem(projectId, getConfig());
+    await stores.projects?.updateItem(projectId, getConfig());
   }
   await setSavedStatus();
 
@@ -867,7 +997,11 @@ const updateConfig = () => {
   });
 };
 
-const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush = true) => {
+const loadConfig = async (
+  newConfig: Partial<Config | ContentConfig>,
+  url?: string,
+  flush = true,
+) => {
   changingContent = true;
 
   const content = getContentConfig({
@@ -878,7 +1012,10 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush
     ...getConfig(),
     ...content,
   });
-  setProjectRestore();
+  await importExternalContent({
+    config: getConfig(),
+  });
+  setProjectRecover();
 
   if (flush) {
     flushResult();
@@ -898,7 +1035,7 @@ const loadConfig = async (newConfig: Config | ContentConfig, url?: string, flush
   changingContent = false;
 };
 
-const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
+const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
   const userConfig = getUserConfig({
     ...getConfig(),
     ...(newConfig == null ? getUserConfig(defaultConfig) : newConfig),
@@ -908,25 +1045,45 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null) => {
     ...getConfig(),
     ...userConfig,
   });
-  userConfigStorage?.setValue(userConfig);
+  if (save) {
+    stores.userConfig?.setValue({
+      ...stores.userConfig.getValue(),
+      ...newConfig,
+    } as UserConfig);
+  }
 };
 
-const loadUserConfig = () => {
-  const userConfig = userConfigStorage?.getValue();
-  if (!userConfig) {
-    setUserConfig(getUserConfig(getConfig()));
-    return;
+const loadUserConfig = (updateUI = true) => {
+  const userConfig = stores.userConfig?.getValue();
+  setConfig(
+    buildConfig({
+      ...getConfig(),
+      ...userConfig,
+    }),
+  );
+  if (!updateUI) return;
+  loadSettings(getConfig());
+  setTheme(getConfig().theme);
+  showSyncStatus(true);
+};
+
+const loadTemplate = async (templateId: string) => {
+  const templateConfig = (await stores.templates?.getItem(templateId))?.config;
+  if (templateConfig) {
+    await loadConfig(templateConfig);
   }
-  setConfig({
-    ...getConfig(),
-    ...userConfig,
-  });
+};
+
+const dispatchChangeEvent = () => {
+  const changeEvent = new Event(customEvents.change);
+  document.dispatchEvent(changeEvent);
+  parent.dispatchEvent(changeEvent);
 };
 
 const setSavedStatus = async () => {
   if (isEmbed) return;
   updateConfig();
-  const savedConfig = projectId && (await projectStorage?.getItem(projectId || ''))?.config;
+  const savedConfig = projectId && (await stores.projects?.getItem(projectId || ''))?.config;
   isSaved =
     changingContent ||
     !!(
@@ -938,16 +1095,16 @@ const setSavedStatus = async () => {
   const projectTitle = UI.getProjectTitleElement();
   if (!isSaved) {
     projectTitle.classList.add('unsaved');
-    setProjectRestore();
+    setProjectRecover();
   } else {
     projectTitle.classList.remove('unsaved');
-    setProjectRestore(true);
+    setProjectRecover(true);
   }
 };
 
-const checkSavedStatus = (doNotCloseModal = false) => {
+const checkSavedStatus = (doNotCloseModal = false): Promise<boolean> => {
   if (isSaved || isEmbed) {
-    return Promise.resolve('is saved');
+    return Promise.resolve(true);
   }
   return new Promise((resolve) => {
     const div = document.createElement('div');
@@ -958,93 +1115,108 @@ const checkSavedStatus = (doNotCloseModal = false) => {
       if (!doNotCloseModal) {
         modal.close();
       }
-      resolve('save');
+      resolve(true);
     });
     eventsManager.addEventListener(UI.getModalDoNotSaveButton(), 'click', () => {
       if (!doNotCloseModal) {
         modal.close();
       }
-      resolve('do not save');
+      resolve(true);
     });
     eventsManager.addEventListener(UI.getModalCancelButton(), 'click', () => {
-      modal.close();
-      resolve('cancel');
+      if (!doNotCloseModal) {
+        modal.close();
+      }
+      resolve(false);
     });
   });
 };
 
-const checkSavedAndExecute = (fn: () => void) => async () => {
-  checkSavedStatus(true).then(() => setTimeout(fn));
-};
+const checkSavedAndExecute = (fn: () => void, cancelFn?: () => void) => () =>
+  checkSavedStatus(true).then((confirmed) => {
+    if (confirmed) {
+      setTimeout(fn);
+    } else if (typeof cancelFn === 'function') {
+      setTimeout(cancelFn);
+    }
+  });
 
-const setProjectRestore = (reset = false) => {
+const setProjectRecover = (reset = false) => {
   if (isEmbed) return;
-  restoreStorage?.clear();
-  if (reset || !getConfig().enableRestore) return;
-  restoreStorage?.setValue({
+  stores.recover?.clear();
+  if (reset || !getConfig().recoverUnsaved) return;
+  stores.recover?.setValue({
     config: getContentConfig(getConfig()),
     lastModified: Date.now(),
   });
 };
 
-const checkRestoreStatus = () => {
-  if (!getConfig().enableRestore || isEmbed) {
-    return Promise.resolve('restore disabled');
+const checkRecoverStatus = (isWelcomeScreen = false) => {
+  if (!getConfig().recoverUnsaved || isEmbed) {
+    return Promise.resolve('recover disabled');
   }
-  const unsavedItem = restoreStorage?.getValue();
+  const unsavedItem = stores.recover?.getValue();
   const unsavedProject = unsavedItem?.config;
   if (!unsavedItem || !unsavedProject) {
     return Promise.resolve('no unsaved project');
   }
   const projectName = unsavedProject.title;
   return new Promise((resolve) => {
-    const div = document.createElement('div');
-    div.innerHTML = restorePromptScreen;
-    modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
-    UI.getModalUnsavedName().innerHTML = projectName;
-    UI.getModalUnsavedLastModified().innerHTML = new Date(
+    const welcomeRecover = UI.getModalWelcomeRecover();
+    if (isWelcomeScreen) {
+      welcomeRecover.style.display = 'unset';
+    } else {
+      const div = document.createElement('div');
+      div.innerHTML = recoverPromptScreen;
+      modal.show(div.firstChild as HTMLElement, { size: 'small', isAsync: true });
+    }
+
+    UI.getModalUnsavedName().textContent = projectName;
+    UI.getModalUnsavedName().title = projectName;
+    UI.getModalUnsavedLastModified().textContent = new Date(
       unsavedItem.lastModified,
     ).toLocaleString();
-    const disableRestoreCheckbox = UI.getModalDisableRestoreCheckbox();
+    const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
 
-    const setRestoreConfig = (enableRestore: boolean) => {
-      setUserConfig({ enableRestore });
-      loadSettings(getConfig());
-    };
-
-    eventsManager.addEventListener(UI.getModalRestoreButton(), 'click', async () => {
+    eventsManager.addEventListener(UI.getModalRecoverButton(), 'click', async () => {
       await loadConfig(unsavedProject);
       await setSavedStatus();
-      setRestoreConfig(!disableRestoreCheckbox.checked);
       modal.close();
-      resolve('restore');
+      resolve('recover');
     });
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
-      if (projectStorage) {
-        await projectStorage.addItem(unsavedProject);
+      if (stores.projects) {
+        await stores.projects.addItem(unsavedProject);
         notifications.success(`Project "${projectName}" saved to device.`);
-        setRestoreConfig(!disableRestoreCheckbox.checked);
       }
-      modal.close();
-      setProjectRestore(true);
+      if (isWelcomeScreen) {
+        welcomeRecover.style.maxHeight = '0';
+      } else {
+        modal.close();
+      }
+      setProjectRecover(true);
       resolve('save and continue');
     });
-    eventsManager.addEventListener(UI.getModalCancelRestoreButton(), 'click', () => {
-      setRestoreConfig(!disableRestoreCheckbox.checked);
-      modal.close();
-      setProjectRestore(true);
-      resolve('cancel restore');
+    eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
+      if (isWelcomeScreen) {
+        welcomeRecover.style.maxHeight = '0';
+      } else {
+        modal.close();
+      }
+      setProjectRecover(true);
+      resolve('cancel recover');
+    });
+    eventsManager.addEventListener(disableRecoverCheckbox, 'change', () => {
+      setUserConfig({ recoverUnsaved: !disableRecoverCheckbox.checked });
+      loadSettings(getConfig());
     });
   });
 };
 
 const configureEmmet = async (config: Config) => {
-  if (shouldUpdateEditorBuild()) {
-    await reloadEditors(getConfig());
-  }
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
-    editor.configureEmmet?.(config.emmet);
+    editor.changeSettings(getEditorConfig(config));
   });
 };
 
@@ -1062,7 +1234,7 @@ const initializeAuth = async () => {
   authService = createAuthService(isEmbed);
   const user = await authService.getUser();
   if (user) {
-    UI.displayLoggedIn(user);
+    displayLoggedIn(user);
   }
 };
 
@@ -1078,12 +1250,14 @@ const login = async () =>
             if (!user) {
               reject('Login error!');
             } else {
+              manageStoredUserData(user, 'restore');
+
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
                 ? 'Logged in as: ' + displayName
                 : 'Logged in successfully';
               notifications.success(loginSuccessMessage);
-              UI.displayLoggedIn(user);
+              displayLoggedIn(user);
               resolve(user);
             }
           })
@@ -1094,7 +1268,7 @@ const login = async () =>
       modal.close();
     };
 
-    const loginContainer = UI.createLoginContainer(eventsManager, loginHandler);
+    const loginContainer = createLoginContainer(eventsManager, loginHandler);
     modal.show(loginContainer, { size: 'small' });
   }).catch(() => {
     notifications.error('Login error!');
@@ -1103,17 +1277,26 @@ const login = async () =>
 const logout = () => {
   if (!authService) return;
   authService
-    .signOut()
-    .then(() => {
-      notifications.success('Logged out successfully');
-      UI.displayLoggedOut();
+    ?.getUser()
+    .then(async (user) => {
+      if (!user) return;
+      await manageStoredUserData(user, 'clear');
     })
-    .catch(() => {
-      notifications.error('Logout error!');
-    });
+    .then(() =>
+      authService
+        ?.signOut()
+        .then(() => {
+          notifications.success('Logged out successfully');
+          displayLoggedOut();
+        })
+        .catch(() => {
+          notifications.error('Logout error!');
+        }),
+    );
 };
 
 const getUser = async (fn?: () => void) => {
+  await initializeAuth();
   let user = await authService?.getUser();
   if (!user) {
     user = await login();
@@ -1122,6 +1305,76 @@ const getUser = async (fn?: () => void) => {
     }
   }
   return user;
+};
+
+const getUserData = async (): Promise<UserData['data'] | null> => {
+  const user = await authService?.getUser();
+  if (!user || !stores.userData) return null;
+  const id = user.username || user.uid;
+  return (await stores.userData.getItem(id))?.data || null;
+};
+
+const setUserData = async (data: UserData['data']) => {
+  const user = await authService?.getUser();
+  if (!user || !stores.userData) return null;
+  const id = user.username || user.uid;
+  const oldData = (await stores.userData.getItem(id))?.data;
+  const key = await stores.userData?.updateItem(id, {
+    id,
+    data: {
+      ...oldData,
+      ...data,
+    },
+  });
+  return key;
+};
+
+const getAppData = () => stores.appData?.getValue() || null;
+
+const setAppData = (data: AppData) => {
+  stores.appData?.setValue({
+    ...stores.appData.getValue(),
+    ...data,
+  });
+};
+
+const manageStoredUserData = async (user: User, action: 'clear' | 'restore') => {
+  const storeKeys = (Object.keys(stores) as Array<keyof Stores>).filter(
+    (k) => !['recover', 'sync'].includes(k),
+  );
+  const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+  syncModule.init(baseUrl);
+
+  for (const storeKey of storeKeys) {
+    if (action === 'clear') {
+      await syncModule.exportToLocalSync({ user, storeKey });
+      stores[storeKey]?.clear();
+    } else {
+      await syncModule.restoreFromLocalSync({ user, storeKey });
+    }
+  }
+
+  if (action === 'clear') {
+    setUserConfig(defaultConfig);
+    broadcastInfo.isBroadcasting = false;
+    broadcastInfo.channel = '';
+    broadcastInfo.channelUrl = '';
+    broadcastInfo.channelToken = '';
+    broadcastInfo.broadcastSource = false;
+  }
+
+  loadUserConfig();
+};
+
+const showSyncStatus = async (force = false) => {
+  if (isEmbed) return;
+  const lastSync = (await getUserData())?.sync?.lastSync;
+  if (lastSync || force) {
+    const syncUIModule: typeof import('./UI/sync-ui') = await import(
+      baseUrl + '{{hash:sync-ui.js}}'
+    );
+    syncUIModule.updateSyncStatus({ lastSync });
+  }
 };
 
 const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
@@ -1151,8 +1404,8 @@ const loadSelectedScreen = () => {
 
 const getAllEditors = (): CodeEditor[] => [
   ...Object.values(editors),
-  ...[toolsPane?.console.getEditor()],
-  ...[toolsPane?.compiled.getEditor()],
+  ...[toolsPane?.console?.getEditor?.()],
+  ...[toolsPane?.compiled?.getEditor?.()],
 ];
 
 const setTheme = (theme: Theme) => {
@@ -1169,9 +1422,9 @@ const setTheme = (theme: Theme) => {
 const loadSettings = (config: Config) => {
   const processorToggles = UI.getProcessorToggles();
   processorToggles.forEach((toggle) => {
-    const plugin = toggle.dataset.plugin as PluginName;
-    if (!plugin) return;
-    toggle.checked = config.processors.postcss[plugin] || false;
+    const processor = toggle.dataset.processor as Processor;
+    if (!processor) return;
+    toggle.checked = config.processors.includes(processor);
   });
 
   if (isEmbed) return;
@@ -1179,20 +1432,30 @@ const loadSettings = (config: Config) => {
   const autoupdateToggle = UI.getAutoupdateToggle();
   autoupdateToggle.checked = config.autoupdate;
 
+  const delayValue = UI.getDelayValue();
+  const delayRange = UI.getDelayRange();
+  delayRange.value = String(config.delay);
+  delayValue.textContent = String(config.delay / 1000);
+
   const autosaveToggle = UI.getAutosaveToggle();
   autosaveToggle.checked = config.autosave;
+
+  const autosyncToggle = UI.getAutosyncToggle();
+  getUserData().then((userData) => {
+    autosyncToggle.checked = userData?.sync?.autosync || false;
+  });
 
   const formatOnsaveToggle = UI.getFormatOnsaveToggle();
   formatOnsaveToggle.checked = config.formatOnsave;
 
-  const emmetToggle = UI.getEmmetToggle();
-  emmetToggle.checked = config.emmet;
-
   const themeToggle = UI.getThemeToggle();
   themeToggle.checked = config.theme === 'dark';
 
-  const restoreToggle = UI.getRestoreToggle();
-  restoreToggle.checked = config.enableRestore;
+  const recoverToggle = UI.getRecoverToggle();
+  recoverToggle.checked = config.recoverUnsaved;
+
+  const showWelcomeToggle = UI.getShowWelcomeToggle();
+  showWelcomeToggle.checked = config.welcome;
 
   const spacingToggle = UI.getSpacingToggle();
   spacingToggle.checked = config.showSpacing;
@@ -1212,15 +1475,23 @@ const showLanguageInfo = (languageInfo: HTMLElement) => {
   modal.show(languageInfo, { size: 'small' });
 };
 
-const loadStarterTemplate = async (templateName: string) => {
+const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
   const templates = await getTemplates();
-  const template = templates.filter((template) => template.name === templateName)?.[0];
-  if (template) {
-    checkSavedAndExecute(() => {
+  const { title, thumbnail, ...templateConfig } =
+    templates.filter((template) => template.name === templateName)?.[0] || {};
+  if (templateConfig) {
+    setAppData({
+      recentTemplates: [
+        { name: templateName, title },
+        ...(getAppData()?.recentTemplates?.filter((t) => t.name !== templateName) || []),
+      ].slice(0, 5),
+    });
+    (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
+      projectId = '';
       loadConfig(
         {
           ...defaultConfig,
-          ...template,
+          ...templateConfig,
         },
         '?template=' + templateName,
       );
@@ -1232,18 +1503,131 @@ const loadStarterTemplate = async (templateName: string) => {
   }
 };
 
-const showVersion = () => {
-  if (getConfig().showVersion) {
-    // variables added in scripts/build.js
-    const version = process.env.VERSION || '';
-    const commitSHA = process.env.GIT_COMMIT || '';
-    const repoUrl = process.env.REPO_URL || '';
+const getPlaygroundState = (): Config & Code => {
+  const config = getConfig();
+  const cachedCode = getCachedCode();
+  return {
+    ...config,
+    ...cachedCode,
+    markup: {
+      ...config.markup,
+      ...cachedCode.markup,
+      position: editors.markup.getPosition(),
+    },
+    style: {
+      ...config.style,
+      ...cachedCode.style,
+      position: editors.style.getPosition(),
+    },
+    script: {
+      ...config.script,
+      ...cachedCode.script,
+      position: editors.script.getPosition(),
+    },
+    tools: {
+      enabled: config.tools.enabled,
+      active: toolsPane?.getActiveTool() ?? '',
+      status: toolsPane?.getStatus() ?? '',
+    },
+  };
+};
 
-    // eslint-disable-next-line no-console
-    console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
-    // eslint-disable-next-line no-console
-    console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+const zoom = (level: Config['zoom'] = 1) => {
+  const iframe = UI.getResultIFrameElement();
+  const zoomBtnValue = UI.getZoomButtonValue();
+  if (!iframe || !zoomBtnValue) return;
+
+  iframe.classList.remove('zoom25');
+  iframe.classList.remove('zoom50');
+
+  if (level === 0.5) {
+    iframe.classList.add('zoom50');
   }
+
+  if (level === 0.25) {
+    iframe.classList.add('zoom25');
+  }
+
+  zoomBtnValue.textContent = String(level);
+};
+
+const broadcast = async ({
+  serverUrl,
+  channel,
+  channelToken,
+  broadcastSource,
+}: Partial<BroadcastData> = {}): Promise<
+  BroadcastResponseData | BroadcastResponseError | undefined
+> => {
+  if (isEmbed) return;
+  const broadcastData = getAppData()?.broadcast;
+  if (!serverUrl) {
+    serverUrl = broadcastData?.serverUrl;
+  }
+  if (!serverUrl) return;
+  if (broadcastSource == null) {
+    broadcastSource = broadcastInfo.broadcastSource;
+  }
+  if (channel == null) {
+    channel = broadcastInfo.channel;
+  }
+  if (channelToken == null) {
+    channelToken = broadcastInfo.channelToken;
+  }
+  const userToken = broadcastData?.userToken;
+  const { result, ...data } = getPlaygroundState();
+  try {
+    const res = await fetch(serverUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        result,
+        ...(broadcastSource ? { data } : {}),
+        ...(channel ? { channel } : {}),
+        ...(channelToken ? { channelToken } : {}),
+        ...(userToken ? { userToken } : {}),
+      }),
+    });
+    if (!res.ok) return;
+    return res.json();
+  } catch {
+    return;
+  }
+};
+
+const setBroadcastStatus = (info: BroadcastInfo) => {
+  broadcastInfo.isBroadcasting = info.isBroadcasting;
+  broadcastInfo.channel = info.channel;
+  broadcastInfo.channelUrl = info.channelUrl;
+  broadcastInfo.channelToken = info.channelToken;
+  broadcastInfo.broadcastSource = info.broadcastSource;
+
+  const broadcastStatusBtn = UI.getBroadcastStatusBtn();
+  if (!broadcastStatusBtn) return;
+  if (info.isBroadcasting) {
+    broadcastStatusBtn.firstElementChild?.classList.add('active');
+    broadcastStatusBtn.dataset.hint = 'Broadcasting...';
+  } else {
+    broadcastStatusBtn.firstElementChild?.classList.remove('active');
+    broadcastStatusBtn.dataset.hint = 'Broadcast';
+  }
+};
+
+const showVersion = () => {
+  // variables added in scripts/build.js
+  const version = process.env.VERSION || '';
+  const commitSHA = process.env.GIT_COMMIT || '';
+  const repoUrl = process.env.REPO_URL || '';
+
+  // eslint-disable-next-line no-console
+  console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
+  // eslint-disable-next-line no-console
+  console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+
+  return {
+    version,
+    commitSHA,
+  };
 };
 
 const resizeEditors = () => {
@@ -1286,11 +1670,13 @@ const handleTitleEdit = () => {
 const handleResize = () => {
   resizeEditors();
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
-  eventsManager.addEventListener(window, 'editor-resize', resizeEditors, false);
+  eventsManager.addEventListener(window, customEvents.resizeEditor, resizeEditors, false);
 };
 
 const handleIframeResize = () => {
   const gutter = UI.getGutterElement();
+  if (!gutter) return;
+
   const sizeLabel = document.createElement('div');
   sizeLabel.id = 'size-label';
   gutter.appendChild(sizeLabel);
@@ -1330,14 +1716,15 @@ const handleSelectEditor = () => {
       'click',
       () => {
         showEditor(title.dataset.editor as EditorId);
-        setProjectRestore();
+        setAppData({ language: getEditorLanguage(title.dataset.editor as EditorId) });
+        setProjectRecover();
       },
       false,
     );
   });
 };
 
-const handlechangeLanguage = () => {
+const handleChangeLanguage = () => {
   if (getConfig().allowLangChange) {
     UI.getLanguageMenuLinks().forEach((menuItem) => {
       eventsManager.addEventListener(
@@ -1345,6 +1732,7 @@ const handlechangeLanguage = () => {
         'mousedown', // fire this event before unhover
         async () => {
           await changeLanguage(menuItem.dataset.lang as Language);
+          setAppData({ language: menuItem.dataset.lang as Language });
         },
         false,
       );
@@ -1361,8 +1749,9 @@ const handleChangeContent = () => {
     updateConfig();
     addConsoleInputCodeCompletion();
 
-    if (getConfig().autoupdate && !loading) {
-      await run(editorId);
+    const shouldRunTests = Boolean(watchTests && getConfig().tests?.content);
+    if ((getConfig().autoupdate || shouldRunTests) && !loading) {
+      await run(editorId, shouldRunTests);
     }
 
     if (getConfig().markup.content !== getCache().markup.content) {
@@ -1385,12 +1774,17 @@ const handleChangeContent = () => {
       await save();
     }
 
+    dispatchChangeEvent();
     loadModuleTypes(editors, getConfig());
   };
+
   const debouncecontentChanged = (editorId: EditorId) =>
-    debounce(async () => {
-      await contentChanged(editorId, changingContent);
-    }, getConfig().delay ?? defaultConfig.delay);
+    debounce(
+      async () => {
+        await contentChanged(editorId, changingContent);
+      },
+      () => getConfig().delay ?? defaultConfig.delay,
+    );
 
   (Object.keys(editors) as EditorId[]).forEach((editorId) => {
     editors[editorId].onContentChanged(debouncecontentChanged(editorId));
@@ -1403,33 +1797,53 @@ const handleHotKeys = () => {
   const hotKeys = async (e: KeyboardEvent) => {
     if (!e) return;
 
-    // Cmd + p opens the command palette
+    // Ctrl + p opens the command palette
     const activeEditor = getActiveEditor();
-    if (ctrl(e) && e.keyCode === 80 && activeEditor.monaco) {
+    if (ctrl(e) && e.key.toLowerCase() === 'p' && activeEditor.monaco) {
       e.preventDefault();
       activeEditor.monaco.trigger('anyString', 'editor.action.quickCommand');
       return;
     }
 
-    // Cmd + d prevents browser bookmark dialog
-    if (ctrl(e) && e.keyCode === 68) {
+    // Ctrl + d prevents browser bookmark dialog
+    if (ctrl(e) && e.key.toLowerCase() === 'd') {
       e.preventDefault();
       return;
     }
 
     if (isEmbed) return;
 
-    // Cmd + Shift + S forks the project (save as...)
-    if (ctrl(e) && e.shiftKey && e.keyCode === 83) {
+    // Ctrl + Shift + S forks the project (save as...)
+    if (ctrl(e) && e.shiftKey && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await fork();
       return;
     }
 
-    // Cmd + S saves the project
-    if (ctrl(e) && e.keyCode === 83) {
+    // Ctrl + S saves the project
+    if (ctrl(e) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       await save(true);
+      return;
+    }
+
+    // Ctrl + Alt + T runs tests
+    if (ctrl(e) && e.altKey && e.key.toLowerCase() === 't') {
+      e.preventDefault();
+      split?.show('output');
+      toolsPane?.setActiveTool('tests');
+      if (toolsPane?.getStatus() === 'closed') {
+        toolsPane?.open();
+      }
+      await runTests();
+      return;
+    }
+
+    // Ctrl + Enter triggers run
+    if (e.shiftKey && e.key === 'Enter') {
+      e.preventDefault();
+      split?.show('output');
+      await run();
       return;
     }
   };
@@ -1437,9 +1851,18 @@ const handleHotKeys = () => {
   eventsManager.addEventListener(window, 'keydown', hotKeys as any, true);
 };
 
+const handleLogoLink = () => {
+  if (isEmbed || getConfig().mode === 'result') return;
+  const logoLink = UI.getLogoLink();
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    parent.postMessage({ args: 'home' }, location.origin);
+  });
+};
+
 const handleRunButton = () => {
   const handleRun = async () => {
-    split.show('output');
+    split?.show('output');
     await run();
   };
   eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
@@ -1447,7 +1870,7 @@ const handleRunButton = () => {
 };
 
 const handleResultButton = () => {
-  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split.show('output', true));
+  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('output', true));
 };
 
 const handleEditorTools = () => {
@@ -1476,48 +1899,53 @@ const handleEditorTools = () => {
   eventsManager.addEventListener(UI.getFormatButton(), 'click', async () => {
     await format(false);
   });
+
+  eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
+    showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
+  });
 };
 
 const handleProcessors = () => {
   const styleMenu = UI.getstyleMenu();
-  const pluginList = pluginSpecs
-    .filter((plugin) => !plugin.hidden)
-    .map((plugin) => ({ name: plugin.name, title: plugin.title }));
-  if (!styleMenu || pluginList.length === 0 || !processorIsEnabled('postcss', getConfig())) {
+  const processorList = processors
+    .filter((p) => processorIsEnabled(p.name, getConfig()))
+    .filter((p) => !p.hidden)
+    .map((p) => ({ name: p.name, title: p.title }));
+
+  if (!styleMenu || processorList.length === 0) {
     return;
   }
 
-  pluginList.forEach((plugin) => {
-    const pluginItem = UI.createPluginItem(plugin);
-    styleMenu.append(pluginItem);
+  processorList.forEach((processor) => {
+    const processorItem = createProcessorItem(processor);
+    styleMenu.append(processorItem);
     eventsManager.addEventListener(
-      pluginItem,
+      processorItem,
       'mousedown',
       async (event) => {
         event.preventDefault();
         event.stopPropagation();
-        const toggle = pluginItem.querySelector<HTMLInputElement>('input');
+        const toggle = processorItem.querySelector<HTMLInputElement>('input');
         if (!toggle) return;
         toggle.checked = !toggle.checked;
 
-        const pluginName = toggle.dataset.plugin;
-        if (!pluginName || !(pluginName in getConfig().processors.postcss)) return;
+        const processorName = toggle.dataset.processor as Processor;
+        if (!processorName || !processorList.find((p) => p.name === processorName)) return;
+
         setConfig({
           ...getConfig(),
-          processors: {
-            ...getConfig().processors,
-            postcss: {
-              ...getConfig().processors.postcss,
-              [pluginName]: toggle.checked,
-            },
-          },
+          processors: [
+            ...(toggle.checked
+              ? [...getConfig().processors, processorName]
+              : getConfig().processors.filter((p) => p !== processorName)),
+          ],
         });
         await run();
       },
       false,
     );
 
-    eventsManager.addEventListener(pluginItem, 'click', async (event) => {
+    eventsManager.addEventListener(processorItem, 'click', async (event) => {
       event.preventDefault();
       event.stopPropagation();
     });
@@ -1555,6 +1983,20 @@ const handleSettings = () => {
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
         setTheme(getConfig().theme);
+      } else if (configKey === 'autosync') {
+        const syncData = (await getUserData())?.sync;
+        if (syncData?.repo) {
+          await setUserData({
+            sync: {
+              ...syncData,
+              autosync: toggle.checked,
+            },
+          });
+        }
+        if (toggle.checked && !syncData?.repo) {
+          toggle.checked = false;
+          await showScreen('sync');
+        }
       } else {
         setConfig({ ...getConfig(), [configKey]: toggle.checked });
       }
@@ -1566,11 +2008,16 @@ const handleSettings = () => {
       if (configKey === 'emmet') {
         await configureEmmet(getConfig());
       }
-      if (configKey === 'enableRestore') {
+      if (configKey === 'welcome') {
         setUserConfig({
-          enableRestore: toggle.checked,
+          welcome: toggle.checked,
         });
-        setProjectRestore();
+      }
+      if (configKey === 'recoverUnsaved') {
+        setUserConfig({
+          recoverUnsaved: toggle.checked,
+        });
+        setProjectRecover();
       }
       if (configKey === 'showSpacing') {
         setUserConfig({
@@ -1581,25 +2028,13 @@ const handleSettings = () => {
     });
   });
 
-  const cssPresets = UI.getCssPresetLinks();
-  cssPresets.forEach((link) => {
-    eventsManager.addEventListener(
-      link,
-      'click',
-      async (event: Event) => {
-        event.preventDefault();
-        setConfig({
-          ...getConfig(),
-          cssPreset: link.dataset.preset as CssPresetId,
-        });
-        cssPresets.forEach((preset) => {
-          preset.classList.remove('active');
-        });
-        link.classList.add('active');
-        await run();
-      },
-      false,
-    );
+  const delayRange = UI.getDelayRange();
+  eventsManager.addEventListener(delayRange, 'input', () => {
+    const delayValue = UI.getDelayValue();
+    const value = Number(delayRange.value);
+    delayValue.textContent = String(value / 1000);
+    setConfig({ ...getConfig(), delay: value });
+    setUserConfig(getUserConfig(getConfig()));
   });
 };
 
@@ -1613,15 +2048,17 @@ const handleLogout = () => {
 };
 
 const handleNew = () => {
-  const templatesContainer = UI.createTemplatesContainer(eventsManager, () => loadUserTemplates());
+  const templatesContainer = createTemplatesContainer(eventsManager, () => loadUserTemplates());
   const userTemplatesScreen = UI.getUserTemplatesScreen(templatesContainer);
-  const noDataMessage = templatesContainer.querySelector('.no-data');
 
   const loadUserTemplates = async () => {
-    const userTemplates = (await templateStorage?.getList()) || [];
+    const defaultTemplate = getAppData()?.defaultTemplate;
+    const userTemplates = ((await stores.templates?.getList()) || []).sort((a, b) =>
+      a.id === defaultTemplate ? -1 : b.id === defaultTemplate ? 1 : 0,
+    );
 
     if (userTemplates.length === 0) {
-      userTemplatesScreen.innerHTML = UI.noUserTemplates;
+      userTemplatesScreen.innerHTML = noUserTemplates;
       return;
     }
     userTemplatesScreen.innerHTML = '';
@@ -1631,7 +2068,7 @@ const handleNew = () => {
     userTemplatesScreen.appendChild(list);
 
     userTemplates.forEach((item) => {
-      const { link, deleteButton } = createOpenItem(
+      const { link, deleteButton, setAsDefaultLink, removeDefaultLink } = createOpenItem(
         item,
         list,
         getLanguageTitle,
@@ -1639,13 +2076,17 @@ const handleNew = () => {
         true,
       );
 
+      if (defaultTemplate === item.id) {
+        link.parentElement?.classList.add('selected');
+      }
+
       eventsManager.addEventListener(
         link,
         'click',
         async (event) => {
           event.preventDefault();
           const itemId = (link as HTMLElement).dataset.id || '';
-          const template = (await templateStorage?.getItem(itemId))?.config;
+          const template = (await stores.templates?.getItem(itemId))?.config;
           if (template) {
             await loadConfig({
               ...template,
@@ -1662,21 +2103,45 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          if (!templateStorage) return;
-          await templateStorage.deleteItem(item.id);
+          if (!stores.templates) return;
+          if (getAppData()?.defaultTemplate === item.id) {
+            setAppData({ defaultTemplate: null });
+          }
+          await stores.templates.deleteItem(item.id);
           const li = deleteButton.parentElement as HTMLElement;
           li.classList.add('hidden');
           setTimeout(async () => {
             li.style.display = 'none';
-            if (
-              templateStorage &&
-              (await templateStorage.getList()).length === 0 &&
-              noDataMessage
-            ) {
+            if (stores.templates && (await stores.templates.getList()).length === 0) {
               list.remove();
-              userTemplatesScreen.appendChild(noDataMessage);
+              userTemplatesScreen.innerHTML = noUserTemplates;
             }
           }, 500);
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        setAsDefaultLink,
+        'click',
+        (ev) => {
+          ev.stopPropagation();
+          setAppData({ defaultTemplate: item.id });
+          [...list.children].forEach((li) => {
+            li.classList.remove('selected');
+          });
+          link.parentElement?.classList.add('selected');
+        },
+        false,
+      );
+
+      eventsManager.addEventListener(
+        removeDefaultLink,
+        'click',
+        (ev) => {
+          ev.stopPropagation();
+          setAppData({ defaultTemplate: null });
+          link.parentElement?.classList.remove('selected');
         },
         false,
       );
@@ -1693,22 +2158,13 @@ const handleNew = () => {
           starterTemplatesCache = starterTemplates;
           loadingText?.remove();
           starterTemplates.forEach((template) => {
-            const link = UI.createStarterTemplateLink(template, starterTemplatesList, baseUrl);
+            const link = createStarterTemplateLink(template, starterTemplatesList, baseUrl);
             eventsManager.addEventListener(
               link,
               'click',
               (event) => {
                 event.preventDefault();
-                const { title, thumbnail, ...templateConfig } = template;
-                projectId = '';
-                loadConfig(
-                  {
-                    ...defaultConfig,
-                    ...templateConfig,
-                  },
-                  location.origin + location.pathname + '?template=' + template.name,
-                );
-                modal.close();
+                loadStarterTemplate(template.name);
               },
               false,
             );
@@ -1751,8 +2207,8 @@ const handleFork = () => {
 const handleSaveAsTemplate = () => {
   eventsManager.addEventListener(UI.getSaveAsTemplateLink(), 'click', async (event) => {
     (event as Event).preventDefault();
-    if (templateStorage) {
-      await templateStorage.addItem(getConfig());
+    if (stores.templates) {
+      await stores.templates.addItem(getConfig());
       notifications.success('Saved as a new template');
     }
   });
@@ -1760,9 +2216,8 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(UI.loadingMessage());
-
-    const openModule: typeof import('./UI/open') = await import(baseUrl + 'open.js');
+    modal.show(loadingMessage());
+    const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
       getContentConfig,
@@ -1770,7 +2225,7 @@ const handleOpen = () => {
       loadConfig,
       modal,
       notifications,
-      projectStorage: projectStorage || fakeStorage,
+      projectStorage: stores.projects || fakeStorage,
       setProjectId: (id: string) => (projectId = id),
       showScreen,
       languages,
@@ -1789,153 +2244,20 @@ const handleOpen = () => {
 };
 
 const handleImport = () => {
-  const createImportUI = () => {
-    const importContainer = UI.createImportContainer(eventsManager);
-
-    const importForm = UI.getUrlImportForm(importContainer);
-    const importButton = UI.getUrlImportButton(importContainer);
-    eventsManager.addEventListener(importForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = importButton.innerHTML;
-      importButton.innerHTML = 'Loading...';
-      importButton.disabled = true;
-      const importInput = UI.getUrlImportInput(importContainer);
-      const url = importInput.value;
-      const imported = await importCode(url, {}, defaultConfig, await authService?.getUser());
-      if (imported && Object.keys(imported).length > 0) {
-        await loadConfig(
-          {
-            ...defaultConfig,
-            ...imported,
-          },
-          location.origin + location.pathname + '?x=' + encodeURIComponent(url),
-        );
-        modal.close();
-      } else {
-        importButton.innerHTML = buttonText;
-        importButton.disabled = false;
-        notifications.error('failed to load URL');
-        importInput.focus();
-      }
+  const createImportUI = async () => {
+    modal.show(loadingMessage());
+    const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
+    importModule.createImportUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      getUser: authService?.getUser,
+      loadConfig,
+      populateConfig,
+      projectStorage: stores.projects,
+      showScreen,
     });
-
-    const importJsonUrlForm = UI.getImportJsonUrlForm(importContainer);
-    const importJsonUrlButton = UI.getImportJsonUrlButton(importContainer);
-    eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = importJsonUrlButton.innerHTML;
-      importJsonUrlButton.innerHTML = 'Loading...';
-      importJsonUrlButton.disabled = true;
-      const importInput = UI.getImportJsonUrlInput(importContainer);
-      const url = importInput.value;
-      fetchWithHandler(url)
-        .then((res) => res.json())
-        .then((fileConfig) =>
-          loadConfig(fileConfig, location.origin + location.pathname + '?config=' + url),
-        )
-        .then(() => modal.close())
-        .catch(() => {
-          importJsonUrlButton.innerHTML = buttonText;
-          importJsonUrlButton.disabled = false;
-          notifications.error('Error: failed to load URL');
-          importInput.focus();
-        });
-    });
-
-    const bulkImportJsonUrlForm = UI.getBulkImportJsonUrlForm(importContainer);
-    const bulkimportJsonUrlButton = UI.getBulkImportJsonUrlButton(importContainer);
-    eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
-      e.preventDefault();
-      const buttonText = bulkimportJsonUrlButton.innerHTML;
-      bulkimportJsonUrlButton.innerHTML = 'Loading...';
-      bulkimportJsonUrlButton.disabled = true;
-      const importInput = UI.getBulkImportJsonUrlInput(importContainer);
-      const url = importInput.value;
-      fetchWithHandler(url)
-        .then((res) => res.json())
-        .then(insertItems)
-        .catch(() => {
-          bulkimportJsonUrlButton.innerHTML = buttonText;
-          bulkimportJsonUrlButton.disabled = false;
-          notifications.error('Error: failed to load URL');
-          importInput.focus();
-        });
-    });
-
-    const loadFile = <T>(input: HTMLInputElement) =>
-      new Promise<T>((resolve, reject) => {
-        if (input.files?.length === 0) return;
-
-        const file = (input.files as FileList)[0];
-
-        const allowedTypes = ['application/json', 'text/plain'];
-        if (allowedTypes.indexOf(file.type) === -1) {
-          reject('Error: Incorrect file type');
-          return;
-        }
-
-        // Max 2 MB allowed
-        const maxSizeAllowed = 2 * 1024 * 1024;
-        if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 2MB');
-          return;
-        }
-
-        const reader = new FileReader();
-        eventsManager.addEventListener(reader, 'load', async (event: any) => {
-          const text = (event.target?.result as string) || '';
-          try {
-            resolve(JSON.parse(text));
-          } catch (error) {
-            reject('Invalid configuration file');
-          }
-        });
-
-        eventsManager.addEventListener(reader, 'error', () => {
-          reject('Error: Failed to read file');
-        });
-
-        reader.readAsText(file);
-      });
-
-    const insertItems = async (items: StorageItem[]) => {
-      const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
-      if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
-        await projectStorage.bulkInsert(items.map(getItemConfig));
-        notifications.success('Import Successful!');
-        showScreen('open');
-        return;
-      }
-      return Promise.reject('Error: Invalid file');
-    };
-
-    const fileInput = UI.getImportFileInput(importContainer);
-    eventsManager.addEventListener(fileInput, 'change', () => {
-      loadFile<Config>(fileInput)
-        .then(loadConfig)
-        .then(modal.close)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const bulkFileInput = UI.getBulkImportFileInput(importContainer);
-    eventsManager.addEventListener(bulkFileInput, 'change', () => {
-      loadFile<StorageItem[]>(bulkFileInput)
-        .then(insertItems)
-        .catch((message) => {
-          notifications.error(message);
-        });
-    });
-
-    const linkToSavedProjects = UI.getLinkToSavedProjects(importContainer);
-    eventsManager.addEventListener(linkToSavedProjects, 'click', (e) => {
-      e.preventDefault();
-      showScreen('open');
-    });
-
-    modal.show(importContainer, { isAsync: true });
-    UI.getUrlImportInput(importContainer).focus();
   };
 
   eventsManager.addEventListener(
@@ -1948,13 +2270,18 @@ const handleImport = () => {
 };
 
 const handleExport = () => {
+  let exportModule: typeof import('./export/export');
+  const loadModule = async () => {
+    exportModule = exportModule || (await import(baseUrl + '{{hash:export.js}}'));
+  };
+
   eventsManager.addEventListener(
     UI.getExportJSONLink(),
     'click',
     (event: Event) => {
       event.preventDefault();
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'json');
+      exportJSON(getConfig());
     },
     false,
   );
@@ -1965,12 +2292,17 @@ const handleExport = () => {
     async (event: Event) => {
       event.preventDefault();
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'html', await getResultPage({ forExport: true }));
+      await loadModule();
+      exportModule.exportConfig(
+        getConfig(),
+        baseUrl,
+        'html',
+        await getResultPage({ forExport: true }),
+      );
     },
     false,
   );
 
-  let JSZip: any;
   eventsManager.addEventListener(
     UI.getExportSourceLink(),
     'click',
@@ -1978,7 +2310,11 @@ const handleExport = () => {
       event.preventDefault();
       updateConfig();
       const html = await getResultPage({ forExport: true });
-      exportConfig(getConfig(), baseUrl, 'src', { JSZip, html });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'src', {
+        html,
+        deps: { getLanguageExtension },
+      });
     },
     false,
   );
@@ -1986,9 +2322,26 @@ const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportCodepenLink(),
     'click',
-    () => {
+    async () => {
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'codepen');
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
+      }
+      const cache = getCachedCode();
+      const compiled = {
+        markup: cache.markup.compiled,
+        style: cache.style.compiled,
+        script: cache.script.compiled,
+      };
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'codepen', {
+        baseUrl,
+        compiled,
+        deps: {
+          getLanguageExtension,
+          getLanguageCompiler,
+        },
+      });
     },
     false,
   );
@@ -1996,9 +2349,26 @@ const handleExport = () => {
   eventsManager.addEventListener(
     UI.getExportJsfiddleLink(),
     'click',
-    () => {
+    async () => {
       updateConfig();
-      exportConfig(getConfig(), baseUrl, 'jsfiddle');
+      if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+        await getResultPage({});
+      }
+      const cache = getCachedCode();
+      const compiled = {
+        markup: cache.markup.compiled,
+        style: cache.style.compiled,
+        script: cache.script.compiled,
+      };
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'jsfiddle', {
+        baseUrl,
+        compiled,
+        deps: {
+          getLanguageExtension,
+          getLanguageCompiler,
+        },
+      });
     },
     false,
   );
@@ -2008,13 +2378,14 @@ const handleExport = () => {
     'click',
     async () => {
       updateConfig();
-      let user = await authService?.getUser();
-      if (!user) {
-        user = await login();
-      }
+      const user = await getUser();
       if (!user) return;
       notifications.info('Creating a public GitHub gist...');
-      exportConfig(getConfig(), baseUrl, 'githubGist', { user });
+      await loadModule();
+      exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', {
+        user,
+        deps: { getLanguageExtension },
+      });
     },
     false,
   );
@@ -2022,7 +2393,9 @@ const handleExport = () => {
 
 const handleShare = () => {
   const createShareUI = async () => {
-    const shareContainer = await UI.createShareContainer(share, baseUrl, eventsManager);
+    modal.show(loadingMessage(), { size: 'small' });
+    const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
+    const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
   };
   eventsManager.addEventListener(
@@ -2044,152 +2417,358 @@ const handleDeploy = () => {
       notifications.error('Authentication error!');
       return;
     }
+    modal.show(loadingMessage());
 
-    const deployContainer = UI.createDeployContainer(eventsManager);
-
-    const newRepoForm = UI.getNewRepoForm(deployContainer);
-    const newRepoButton = UI.getNewRepoButton(deployContainer);
-    const newRepoNameInput = UI.getNewRepoNameInput(deployContainer);
-    const newRepoNameError = UI.getNewRepoNameError(deployContainer);
-    const newRepoMessageInput = UI.getNewRepoMessageInput(deployContainer);
-    const newRepoCommitSource = UI.getNewRepoCommitSource(deployContainer);
-    const existingRepoForm = UI.getExistingRepoForm(deployContainer);
-    const existingRepoButton = UI.getExistingRepoButton(deployContainer);
-    const existingRepoNameInput = UI.getExistingRepoNameInput(deployContainer);
-    const existingRepoMessageInput = UI.getExistingRepoMessageInput(deployContainer);
-    const existingRepoCommitSource = UI.getExistingRepoCommitSource(deployContainer);
-
-    const publish = async (
-      user: User,
-      repo: string,
-      message: string,
-      commitSource: boolean,
-      newRepo: boolean,
-    ) => {
-      const forExport = true;
-      const singleFile = false;
-      newRepoNameError.innerHTML = '';
-
-      const resultHtml = await getResultPage({
-        forExport,
-        template: resultTemplate,
-        singleFile,
-      });
-      const cache = getCache();
-      const deployResult = await deploy({
-        user,
-        repo,
-        config: getContentConfig(getConfig()),
-        content: {
-          resultPage: resultHtml,
-          style: cache.style.compiled || '',
-          script: cache.script.compiled || '',
-        },
-        message,
-        commitSource,
-        singleFile,
-        newRepo,
-      }).catch((error) => {
-        if (error.message === 'Repo name already exists') {
-          newRepoNameError.innerHTML = error.message;
-        }
-      });
-
-      if (newRepoNameError.innerHTML !== '') {
-        return false;
-      } else if (deployResult) {
-        const confirmationContianer = deployedConfirmation(deployResult, commitSource);
-        modal.show(confirmationContianer, { size: 'small', closeButton: true });
-        return true;
-      } else {
-        modal.close();
-        notifications.error('Deployment failed!');
-        return true;
-      }
+    const getProjectDeployRepo = async () => {
+      if (!projectId) return;
+      return (await getUserData())?.deploys?.[projectId];
     };
 
-    eventsManager.addEventListener(newRepoForm, 'submit', async (e) => {
-      e.preventDefault();
-      if (!user) return;
-
-      const name = newRepoNameInput.value;
-      const message = newRepoMessageInput.value;
-      const commitSource = newRepoCommitSource.checked;
-      const newRepo = true;
-      if (!name) {
-        notifications.error('Repo name is required');
-        return;
-      }
-
-      newRepoButton.innerHTML = 'Deploying...';
-      newRepoButton.disabled = true;
-
-      const result = await publish(user, name, message, commitSource, newRepo);
-      if (!result) {
-        newRepoButton.innerHTML = 'Deploy';
-        newRepoButton.disabled = false;
-      }
-    });
-
-    eventsManager.addEventListener(existingRepoForm, 'submit', async (e) => {
-      e.preventDefault();
-      if (!user) return;
-
-      const name = existingRepoNameInput.value;
-      const message = existingRepoMessageInput.value;
-      const commitSource = existingRepoCommitSource.checked;
-      const newRepo = false;
-      if (!name) {
-        notifications.error('Repo name is required');
-        return;
-      }
-
-      existingRepoButton.innerHTML = 'Deploying...';
-      existingRepoButton.disabled = true;
-
-      await publish(user, name, message, commitSource, newRepo);
-    });
-
-    let autoComplete: any;
-    import(autoCompleteUrl).then(async () => {
-      autoComplete = (globalThis as any).autoComplete;
-
-      if (!user) return;
-      const publicRepos = await getUserPublicRepos(user);
-
-      eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
-        existingRepoNameInput.focus();
-      });
-
-      const inputSelector = '#' + existingRepoNameInput.id;
-      if (!document.querySelector(inputSelector)) return;
-      const autoCompleteJS = new autoComplete({
-        selector: inputSelector,
-        placeHolder: 'Search your public repos...',
-        data: {
-          src: publicRepos,
-        },
-        resultItem: {
-          highlight: {
-            render: true,
-          },
+    const setProjectDeployRepo = async (repo: string) => {
+      if (!projectId) return;
+      await setUserData({
+        deploys: {
+          ...(await getUserData())?.deploys,
+          [projectId]: repo,
         },
       });
+    };
 
-      eventsManager.addEventListener(autoCompleteJS.input, 'selection', function (event: any) {
-        const feedback = event.detail;
-        autoCompleteJS.input.blur();
-        const selection = feedback.selection.value;
-        autoCompleteJS.input.value = selection;
-      });
+    const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
+    deployModule.createDeployUI({
+      modal,
+      notifications,
+      eventsManager,
+      user,
+      deployRepo: await getProjectDeployRepo(),
+      deps: {
+        getResultPage,
+        getCache,
+        getConfig,
+        getContentConfig,
+        getLanguageExtension,
+        setProjectDeployRepo,
+      },
     });
-
-    modal.show(deployContainer);
-    newRepoNameInput.focus();
   };
 
   eventsManager.addEventListener(UI.getDeployLink(), 'click', createDeployUI, false);
   registerScreen('deploy', createDeployUI);
+};
+
+const handleSync = () => {
+  if (isEmbed) return;
+
+  const createSyncUI = async () => {
+    const user = await getUser();
+    if (!user) {
+      notifications.error('Authentication error!');
+      return;
+    }
+    modal.show(loadingMessage());
+
+    const syncUIModule: typeof import('./UI/sync-ui') = await import(
+      baseUrl + '{{hash:sync-ui.js}}'
+    );
+    syncUIModule.createSyncUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      user,
+      deps: {
+        getSyncData: async () => (await getUserData())?.sync || null,
+        setSyncData: async (syncData: UserData['data']['sync']) => {
+          await setUserData({ sync: syncData });
+          loadSettings(getConfig());
+        },
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getSyncLink(), 'click', createSyncUI, false);
+  registerScreen('sync', createSyncUI);
+};
+
+const handleAutosync = async () => {
+  if (isEmbed) return;
+
+  const minute = 1000 * 60;
+  const syncFrequency = 30 * minute;
+  let syncInterval: number;
+  const sync = async () => {
+    if (isDestroyed) {
+      clearInterval(syncInterval);
+      return;
+    }
+
+    const syncData = (await getUserData())?.sync;
+    if (!syncData?.autosync) return;
+    if (Date.now() - syncData.lastSync < syncFrequency) return;
+    const user = await authService?.getUser();
+    const repo = syncData.repo;
+    if (!user || !repo) return;
+
+    const syncModule: typeof import('./sync/sync') = await import(baseUrl + '{{hash:sync.js}}');
+    syncModule.init(baseUrl);
+
+    const syncResult = await syncModule.sync({
+      user,
+      repo,
+      newRepo: false,
+    });
+    if (syncResult) {
+      setUserData({
+        sync: {
+          ...syncData,
+          lastSync: Date.now(),
+        },
+      });
+    }
+  };
+
+  const triggerSync = () => {
+    setTimeout(() => {
+      sync();
+      syncInterval = window.setInterval(sync, syncFrequency);
+    }, minute);
+  };
+
+  triggerSync();
+};
+
+const handlePersistantStorage = async () => {
+  if (isEmbed) return;
+
+  let alreadyRequested = false;
+
+  const unsubscribe = () => {
+    projectSubscription?.unsubscribe();
+    templateSubscription?.unsubscribe();
+    assetSubscription?.unsubscribe();
+  };
+
+  const requestPersistance = () => {
+    if (alreadyRequested) return unsubscribe();
+    setTimeout(async () => {
+      alreadyRequested = true;
+      if (navigator.storage && navigator.storage.persist) {
+        await navigator.storage.persist();
+      }
+    }, 2000);
+  };
+
+  const projectSubscription = stores.projects?.subscribe(requestPersistance);
+  const templateSubscription = stores.templates?.subscribe(requestPersistance);
+  const assetSubscription = stores.assets?.subscribe(requestPersistance);
+};
+
+const handleBackup = () => {
+  const createBackupUI = async () => {
+    modal.show(loadingMessage());
+    const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
+    backupModule.createBackupUI({
+      baseUrl,
+      modal,
+      notifications,
+      eventsManager,
+      stores,
+      deps: {
+        loadUserConfig,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getBackupLink(), 'click', createBackupUI, false);
+  registerScreen('backup', createBackupUI);
+};
+
+const handleBroadcast = () => {
+  if (isEmbed) return;
+
+  const createBroadcastUI = async () => {
+    modal.show(loadingMessage());
+
+    const syncUIModule: typeof import('./UI/broadcast') = await import(
+      baseUrl + '{{hash:broadcast.js}}'
+    );
+    syncUIModule.createBroadcastUI({
+      modal,
+      notifications,
+      eventsManager,
+      deps: {
+        getBroadcastData: () => ({
+          ...broadcastInfo,
+          serverUrl: getAppData()?.broadcast?.serverUrl || '',
+        }),
+        setBroadcastData: (broadcastData) => {
+          setBroadcastStatus(broadcastData);
+          setAppData({
+            broadcast: {
+              ...getAppData()?.broadcast,
+              serverUrl: broadcastData.serverUrl,
+            },
+          });
+        },
+        broadcast,
+      },
+    });
+  };
+
+  eventsManager.addEventListener(UI.getBroadcastLink(), 'click', createBroadcastUI, false);
+  registerScreen('broadcast', createBroadcastUI);
+};
+
+const handleWelcome = () => {
+  if (isEmbed) return;
+
+  const createWelcomeUI = async () => {
+    modal.show(loadingMessage());
+
+    const div = document.createElement('div');
+    div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
+    const welcomeContainer = div.firstChild as HTMLElement;
+    modal.show(welcomeContainer);
+
+    const showWelcomeCheckbox = UI.getModalShowWelcomeCheckbox(welcomeContainer);
+    showWelcomeCheckbox.checked = getConfig().welcome;
+
+    eventsManager.addEventListener(UI.getWelcomeLinkNew(welcomeContainer), 'click', () => {
+      showScreen('new');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkOpen(welcomeContainer), 'click', () => {
+      showScreen('open');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkImport(welcomeContainer), 'click', () => {
+      showScreen('import');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkRecentOpen(welcomeContainer), 'click', () => {
+      showScreen('open');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkTemplates(welcomeContainer), 'click', () => {
+      showScreen('new');
+    });
+    eventsManager.addEventListener(showWelcomeCheckbox, 'change', () => {
+      setUserConfig({ welcome: showWelcomeCheckbox.checked });
+      loadSettings(getConfig());
+    });
+
+    const defaultTemplateId = getAppData()?.defaultTemplate;
+    if (!defaultTemplateId) {
+      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
+    } else {
+      const loadTempateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
+      eventsManager.addEventListener(
+        loadTempateLink,
+        'click',
+        async (event) => {
+          event.preventDefault();
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadTemplate(defaultTemplateId);
+          modal.close();
+        },
+        false,
+      );
+      loadTempateLink.style.display = 'unset';
+    }
+    UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
+
+    const defaultTemplates: Array<{ name: Template['name']; title: string }> = [
+      {
+        name: 'blank',
+        title: 'Blank Project',
+      },
+      {
+        name: 'javascript',
+        title: 'JavaScript Starter',
+      },
+      {
+        name: 'typescript',
+        title: 'TypeScript Starter',
+      },
+      {
+        name: 'react',
+        title: 'React Starter',
+      },
+      {
+        name: 'vue',
+        title: 'Vue 3 Starter',
+      },
+    ];
+    const savedRecentTemplates = getAppData()?.recentTemplates || [];
+    const recentTemplates = [
+      ...savedRecentTemplates,
+      ...defaultTemplates.filter((t) => !savedRecentTemplates.map((r) => r.name).includes(t.name)),
+    ]
+      .slice(0, 5)
+      .reverse();
+
+    const templateList = UI.getModalWelcomeTemplateList(welcomeContainer);
+    recentTemplates.forEach((t) => {
+      const item = document.createElement('li');
+
+      const link = document.createElement('a');
+      link.textContent = t.title;
+      link.href = '#';
+
+      item.appendChild(link);
+      templateList?.prepend(item);
+
+      eventsManager.addEventListener(link, 'click', () =>
+        checkSavedStatus().then((confirmed) => {
+          if (confirmed) {
+            loadStarterTemplate(t.name);
+          }
+        }),
+      );
+    });
+
+    if (!initialized) {
+      checkRecoverStatus(/* isWelcomeScreen= */ true);
+    }
+
+    const loadRecentProject = async (pId: string) => {
+      modal.show(loadingMessage(), { size: 'small' });
+      const savedProject = (await stores.projects?.getItem(pId))?.config;
+      if (savedProject) {
+        await loadConfig(savedProject);
+        projectId = pId;
+      }
+      modal.close();
+    };
+
+    const recentProjects = (await stores.projects?.getList())?.slice(0, 5).reverse();
+    if (!recentProjects || recentProjects.length === 0) return;
+    const list = UI.getModalWelcomeRecentList(welcomeContainer);
+    recentProjects.forEach((p) => {
+      const item = document.createElement('li');
+      item.classList.add('overflow-ellipsis');
+
+      const link = document.createElement('a');
+      link.textContent = p.title;
+      link.title = p.description.trim() || p.title;
+      link.href = '#';
+
+      item.appendChild(link);
+      list?.prepend(item);
+
+      eventsManager.addEventListener(link, 'click', () =>
+        checkSavedStatus().then((confirmed) => {
+          if (confirmed) {
+            loadRecentProject(p.id);
+          }
+        }),
+      );
+    });
+
+    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
+    if (welcomeRecent) {
+      welcomeRecent.style.visibility = 'visible';
+    }
+  };
+
+  eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);
+  registerScreen('welcome', createWelcomeUI);
 };
 
 const handleProjectInfo = () => {
@@ -2202,24 +2781,108 @@ const handleProjectInfo = () => {
     });
     save(!projectId, true);
   };
-  const createProjectInfoUI = () =>
-    UI.createProjectInfoUI(
-      getConfig(),
-      projectStorage || fakeStorage,
+  const createProjectInfo = () =>
+    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, eventsManager, onSave);
+
+  eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
+  registerScreen('info', createProjectInfo);
+};
+
+const handleEmbed = () => {
+  const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const config = getConfig();
+
+  const createEditorFn = async (container: HTMLElement) =>
+    createEditor({
+      baseUrl,
+      container,
+      editorId: 'embed',
+      getLanguageExtension,
+      isEmbed,
+      language: 'html',
+      mapLanguage,
+      readonly: true,
+      theme: config.theme,
+      value: '',
+      ...getEditorConfig(config),
+      editor: 'codejar',
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+    });
+  const createEmbedUI = async () => {
+    modal.show(loadingMessage());
+
+    const embedModule: typeof import('./UI/embed-ui') = await import(
+      baseUrl + '{{hash:embed-ui.js}}'
+    );
+    await embedModule.createEmbedUI({
+      baseUrl,
+      config: getContentConfig(getConfig()),
+      editorLanguages: {
+        markup: getLanguageTitle(getConfig().markup.language),
+        style: getLanguageTitle(getConfig().style.language),
+        script: getLanguageTitle(getConfig().script.language),
+      },
+      modal,
+      notifications,
+      eventsManager,
+      createEditorFn,
+      getUrlFn,
+    });
+  };
+
+  eventsManager.addEventListener(UI.getEmbedLink(), 'click', createEmbedUI, false);
+  registerScreen('embed', createEmbedUI);
+};
+
+const handleEditorSettings = () => {
+  const changeSettings = (newConfig: Partial<UserConfig> | null) => {
+    if (!newConfig) return;
+    const shouldReload = newConfig.editor !== getConfig().editor;
+    setUserConfig(newConfig);
+    if (shouldReload) {
+      reloadEditors(getConfig());
+    } else {
+      getAllEditors().forEach((editor) => editor.changeSettings(newConfig as UserConfig));
+    }
+    showEditorModeStatus(getConfig().activeEditor || 'markup');
+  };
+  const createEditorSettingsUI = async ({
+    scrollToSelector = '',
+  }: { scrollToSelector?: string } = {}) => {
+    modal.show(loadingMessage());
+
+    const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
+      baseUrl + '{{hash:editor-settings.js}}'
+    );
+    await editorSettingsModule.createEditorSettingsUI({
+      baseUrl,
       modal,
       eventsManager,
-      onSave,
-    );
+      scrollToSelector,
+      deps: {
+        getUserConfig: () => getUserConfig(getConfig()),
+        createEditor,
+        getFormatFn: () => formatter.getFormatFn('jsx'),
+        changeSettings,
+      },
+    });
+  };
 
-  eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfoUI, false);
-  registerScreen('info', createProjectInfoUI);
+  eventsManager.addEventListener(
+    UI.getEditorSettingsLink(),
+    'click',
+    () => createEditorSettingsUI(),
+    false,
+  );
+  registerScreen('editor-settings', createEditorSettingsUI);
 };
 
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(UI.loadingMessage());
-    assetsModule = assetsModule || (await import(baseUrl + 'assets.js'));
+    modal.show(loadingMessage());
+    assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
   const createList = async () => {
@@ -2228,7 +2891,7 @@ const handleAssets = () => {
       eventsManager,
       modal,
       notifications,
-      assetsStorage: assetsStorage || fakeStorage,
+      assetsStorage: stores.assets || fakeStorage,
       showScreen,
       baseUrl,
     });
@@ -2236,12 +2899,23 @@ const handleAssets = () => {
 
   const createAddAsset = async (activeTab: number) => {
     await loadModule();
-    const deployAsset = async (user: User, file: GitHubFile) => deployFile({ user, file });
+
+    const deployModule: typeof import('./UI/deploy') = await import(baseUrl + '{{hash:deploy.js}}');
+    const deployAsset = async (user: User, file: GitHubFile) =>
+      deployModule.deployFile({
+        file,
+        user,
+        repo: 'livecodes-assets',
+        branch: 'gh-pages',
+        message: 'add ' + file.path,
+        description: 'LiveCodes assets',
+        readmeContent: '#LiveCodes assets',
+      });
     modal.show(
       assetsModule.createAddAssetContainer({
         eventsManager,
         notifications,
-        assetsStorage: assetsStorage || fakeStorage,
+        assetsStorage: stores.assets || fakeStorage,
         showScreen,
         deployAsset,
         getUser,
@@ -2261,39 +2935,94 @@ const handleAssets = () => {
   });
 };
 
-const handleExternalResources = () => {
-  const createExrenalResourcesUI = () => {
-    const div = document.createElement('div');
-    div.innerHTML = resourcesScreen;
-    const resourcesContainer = div.firstChild as HTMLElement;
-    modal.show(resourcesContainer);
+const handleSnippets = () => {
+  let snippetsModule: typeof import('./UI/snippets');
+  const loadModule = async () => {
+    modal.show(loadingMessage());
+    snippetsModule = snippetsModule || (await import(baseUrl + '{{hash:snippets.js}}'));
+  };
 
-    const externalResources = UI.getExternalResourcesTextareas();
-    externalResources.forEach((textarea) => {
-      const resourceContent = getConfig()[textarea.dataset.resource as 'stylesheets' | 'scripts'];
-      textarea.value = resourceContent.length !== 0 ? resourceContent.join('\n') + '\n' : '';
+  const createEditorFn = async (options: Partial<EditorOptions>) =>
+    createEditor({
+      baseUrl,
+      container: null,
+      editorId: 'snippet',
+      getLanguageExtension,
+      isEmbed,
+      language: 'html',
+      value: '',
+      theme: getConfig().theme,
+      readonly: getConfig().readonly,
+      mapLanguage,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+      ...getEditorConfig(getConfig()),
+      ...options,
     });
 
-    externalResources[0]?.focus();
+  const createList = async () => {
+    await loadModule();
+    await snippetsModule.createSnippetsList({
+      eventsManager,
+      modal,
+      notifications,
+      snippetsStorage: stores.snippets || fakeStorage,
+      deps: { createEditorFn, showScreen },
+    });
+  };
 
-    eventsManager.addEventListener(UI.getLoadResourcesButton(), 'click', async () => {
-      externalResources.forEach((textarea) => {
-        const resource = textarea.dataset.resource as 'stylesheets' | 'scripts';
-        setConfig({
-          ...getConfig(),
-          [resource]:
-            textarea.value
-              ?.split('\n')
-              .map((x) => x.trim())
-              .filter((x) => x !== '') || [],
-        });
-      });
+  const createAddSnippet = async (snippetId?: string) => {
+    await loadModule();
+    const snippetContainer = await snippetsModule.createAddSnippetContainer({
+      snippetId,
+      eventsManager,
+      notifications,
+      snippetsStorage: stores.snippets || fakeStorage,
+      showScreen,
+      deps: {
+        createEditorFn,
+        getAppData,
+        setAppData,
+      },
+    });
+
+    modal.show(snippetContainer, {
+      isAsync: true,
+    });
+  };
+
+  eventsManager.addEventListener(UI.getSnippetsLink(), 'click', createList, false);
+  registerScreen('snippets', createList);
+  registerScreen('add-snippet', (snippetId?: string) => {
+    setTimeout(() => createAddSnippet(snippetId));
+  });
+};
+
+const handleExternalResources = () => {
+  const createExrenalResourcesUI = async () => {
+    const loadResources = async () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
       await run();
+    };
+
+    modal.show(loadingMessage());
+    const resourcesModule: typeof import('./UI/resources') = await import(
+      baseUrl + '{{hash:resources.js}}'
+    );
+    resourcesModule.createExternalResourcesUI({
+      baseUrl,
+      modal,
+      eventsManager,
+      deps: {
+        getConfig,
+        setConfig,
+        loadResources,
+      },
     });
   };
+
   eventsManager.addEventListener(
     UI.getExternalResourcesLink(),
     'click',
@@ -2306,7 +3035,7 @@ const handleExternalResources = () => {
     createExrenalResourcesUI,
     false,
   );
-  registerScreen('external', createExrenalResourcesUI);
+  registerScreen('resources', createExrenalResourcesUI);
 };
 
 const handleCustomSettings = () => {
@@ -2323,21 +3052,24 @@ const handleCustomSettings = () => {
       },
     });
 
-    const options = {
+    const options: EditorOptions = {
       baseUrl,
       mode: config.mode,
       readonly: config.readonly,
-      editor: config.editor,
-      editorType: 'code' as EditorOptions['editorType'],
-      editorBuild,
+      editorId: 'customSettings',
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
-      value: stringify(getConfig().customSettings, true),
+      value: stringify(config.customSettings, true),
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     customSettingsEditor = await createEditor(options);
-    customSettingsEditor.focus();
+    customSettingsEditor?.focus();
 
     eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
       let customSettings: CustomSettings = {};
@@ -2366,6 +3098,7 @@ const handleCustomSettings = () => {
       customSettingsEditor?.destroy();
       modal.close();
       await run();
+      dispatchChangeEvent();
     });
   };
   eventsManager.addEventListener(
@@ -2375,6 +3108,139 @@ const handleCustomSettings = () => {
     false,
   );
   registerScreen('custom-settings', createCustomSettingsUI);
+};
+
+const handleTests = () => {
+  eventsManager.addEventListener(window, 'message', (ev: any) => {
+    if (ev.origin !== sandboxService.getOrigin()) return;
+    if (ev.data.type !== 'testResults') return;
+    toolsPane?.tests?.showResults(ev.data.payload);
+    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: string }>(
+      customEvents.testResults,
+      {
+        detail: JSON.parse(JSON.stringify(ev.data.payload)),
+      },
+    );
+    document.dispatchEvent(resultEvent);
+  });
+
+  eventsManager.addEventListener(
+    UI.getRunTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      runTests();
+    },
+    false,
+  );
+
+  eventsManager.addEventListener(
+    UI.getWatchTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      watchTests = !watchTests;
+      if (watchTests) {
+        UI.getWatchTestsButton()?.classList.remove('disabled');
+        runTests();
+      } else {
+        UI.getWatchTestsButton()?.classList.add('disabled');
+      }
+    },
+    false,
+  );
+};
+
+const handleTestEditor = () => {
+  const createTestEditorUI = async () => {
+    const config = getConfig();
+    // eslint-disable-next-line prefer-const
+    let testEditor: CodeEditor | undefined;
+    const div = document.createElement('div');
+    div.innerHTML = testEditorScreen;
+    const testEditorContainer = div.firstChild as HTMLElement;
+    modal.show(testEditorContainer, {
+      onClose: () => {
+        testEditor?.destroy();
+
+        // fix monaco mixing up model of script with test editors
+        if (editors.script.monaco) {
+          formatter
+            .getFormatFn(getConfig().script.language)
+            .then((fn) => editors.script.registerFormatter(fn));
+        }
+      },
+    });
+
+    const testLanguage: Language = config.tests?.language || 'tsx';
+    const editorLanguage: Language = 'jsx';
+    const options: EditorOptions = {
+      baseUrl,
+      mode: config.mode,
+      readonly: config.readonly,
+      editorId: 'tests',
+      container: UI.getTestEditor(),
+      language: editorLanguage,
+      value: config.tests?.content || '',
+      theme: config.theme,
+      isEmbed,
+      mapLanguage,
+      getLanguageExtension,
+      getFormatterConfig: () => getFormatterConfig(getConfig()),
+      getFontFamily,
+      ...getEditorConfig(config),
+    };
+    testEditor = await createEditor(options);
+    formatter.getFormatFn(editorLanguage).then((fn) => testEditor?.registerFormatter(fn));
+    testEditor?.focus();
+
+    if (typeof testEditor?.addTypes === 'function') {
+      const testTypes: Types = {
+        jest: {
+          url: jestTypesUrl,
+          autoload: true,
+        },
+        chai: {
+          url: chaiTypesUrl,
+          autoload: true,
+        },
+      };
+      typeLoader.load('', testTypes, true).then((libs) => {
+        libs.forEach((lib) => testEditor?.addTypes?.(lib));
+      });
+    }
+
+    eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {
+      const editorContent = testEditor?.getValue() || '';
+      if (editorContent !== getConfig().tests?.content) {
+        compiler.clearCache();
+        setConfig({
+          ...getConfig(),
+          tests: {
+            language: testLanguage,
+            content: editorContent,
+          },
+        });
+        await setSavedStatus();
+      }
+      modal.close();
+      toolsPane?.tests?.resetTests();
+      await runTests();
+      dispatchChangeEvent();
+    });
+  };
+
+  eventsManager.addEventListener(
+    UI.getEditTestsButton(),
+    'click',
+    (ev: Event) => {
+      ev.preventDefault();
+      createTestEditorUI();
+    },
+    false,
+  );
+
+  registerScreen('test-editor', createTestEditorUI);
 };
 
 const handleResultLoading = () => {
@@ -2398,23 +3264,114 @@ const handleResultLoading = () => {
 
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
-  popupBtn.classList.add('tool-buttons', 'hint--top-left');
+  popupBtn.classList.add('tool-buttons', 'hint--top');
   popupBtn.dataset.hint = 'Show result in new window';
+  popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/new-window.svg';
   popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  let url: string | undefined;
   const openWindow = async () => {
+    if (resultPopup && !resultPopup.closed) {
+      resultPopup.focus();
+      return;
+    }
     popupBtn.classList.add('loading');
-    const html = await getResultPage({ forExport: true, singleFile: true });
-    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const result = await getResultPage({ forExport: true, singleFile: true });
+    url = url || URL.createObjectURL(new Blob([resultPopupHTML], { type: 'text/html' }));
     // add a notice to URL that it is a temporary URL to prevent users from sharing it.
     // revoking the URL after opening the window prevents viewing the page source.
     const notice = '#---TEMPORARY-URL---';
-    window.open(url + notice, 'result-popup', `width=800,height=400,noopener,noreferrer`);
+    resultPopup = window.open(url + notice, 'livecodes-result', `width=800,height=400`);
+    eventsManager.addEventListener(
+      resultPopup,
+      'load',
+      () => {
+        resultPopup?.postMessage({ result }, location.origin);
+      },
+      { once: true },
+    );
     popupBtn.classList.remove('loading');
   };
   eventsManager.addEventListener(popupBtn, 'click', openWindow);
   eventsManager.addEventListener(popupBtn, 'touchstart', openWindow);
   UI.getToolspaneTitles()?.appendChild(popupBtn);
+};
+
+const handleResultZoom = () => {
+  const zoomBtn = document.createElement('div');
+  zoomBtn.id = 'zoom-button';
+  zoomBtn.classList.add('tool-buttons', 'hint--top');
+  zoomBtn.dataset.hint = 'Zoom';
+  zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+  zoomBtn.innerHTML = `
+  <span class="text">
+    <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
+    &times;
+  </span>`;
+
+  const toggleZoom = () => {
+    const config = getConfig();
+    const currentZoom = config.zoom;
+    const newZoom = currentZoom === 1 ? 0.5 : currentZoom === 0.5 ? 0.25 : 1;
+    setConfig({
+      ...config,
+      zoom: newZoom,
+    });
+    zoom(newZoom);
+  };
+
+  eventsManager.addEventListener(zoomBtn, 'click', toggleZoom);
+  eventsManager.addEventListener(zoomBtn, 'touchstart', toggleZoom);
+  UI.getToolspaneTitles()?.appendChild(zoomBtn);
+};
+
+const handleBroadcastStatus = () => {
+  const broadcastStatusBtn = document.createElement('div');
+  broadcastStatusBtn.id = 'broadcast-status-btn';
+  broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
+  broadcastStatusBtn.dataset.hint = 'Broadcast';
+  broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
+  const imgUrl = baseUrl + 'assets/images/broadcast.svg';
+  broadcastStatusBtn.innerHTML = `
+  <span id="broadcast-status">
+    <img src="${imgUrl}" />
+    <span class="mark"></span>
+  </span>`;
+  const showBroadcast = () => {
+    showScreen('broadcast');
+  };
+  eventsManager.addEventListener(broadcastStatusBtn, 'click', showBroadcast);
+  eventsManager.addEventListener(broadcastStatusBtn, 'touchstart', showBroadcast);
+  UI.getToolspaneTitles()?.appendChild(broadcastStatusBtn);
+};
+
+const handleFullscreen = async () => {
+  if (!isEmbed) return;
+  const fullscreenButton = getFullscreenButton();
+  const buttonImg = fullscreenButton.querySelector('img')!;
+  const fscreen = (await import(fscreenUrl)).default;
+  if (!fscreen.fullscreenEnabled) {
+    fullscreenButton.style.visibility = 'hidden';
+    return;
+  }
+
+  eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
+    if (!fscreen.fullscreenElement) {
+      buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
+      fullscreenButton.dataset.hint = 'Full Screen';
+      return;
+    }
+    buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
+    fullscreenButton.dataset.hint = 'Exit Full Screen';
+  });
+
+  eventsManager.addEventListener(fullscreenButton, 'click', async () => {
+    if (fscreen.fullscreenElement) {
+      await fscreen.exitFullscreen();
+      return;
+    }
+    await fscreen.requestFullscreen(document.body);
+  });
 };
 
 const handleUnload = () => {
@@ -2427,11 +3384,20 @@ const handleUnload = () => {
   };
 };
 
+const loadToolsPane = async () => {
+  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
+  await toolsPane.load();
+  handleTests();
+  handleResultZoom();
+  getResultElement().classList.remove('full');
+};
+
 const basicHandlers = () => {
+  handleLogoLink();
   handleResize();
   handleIframeResize();
   handleSelectEditor();
-  handlechangeLanguage();
+  handleChangeLanguage();
   handleChangeContent();
   handleHotKeys();
   handleRunButton();
@@ -2439,22 +3405,19 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
-  handleExternalResources();
+  if (isEmbed) {
+    handleExternalResources();
+    handleFullscreen();
+  }
 };
 
 const extraHandlers = async () => {
-  projectStorage = await createStorage('__livecodes_data__', isEmbed);
-  templateStorage = await createStorage('__livecodes_templates__', isEmbed);
-  assetsStorage = await createStorage('__livecodes_assets__', isEmbed);
-  userConfigStorage = createSimpleStorage<UserConfig>('__livecodes_user_config__', isEmbed);
-  restoreStorage = createSimpleStorage<RestoreItem>('__livecodes_project_restore__', isEmbed);
-
   handleTitleEdit();
-  handleResultPopup();
   handleSettingsMenu();
   handleSettings();
   handleProjectInfo();
   handleCustomSettings();
+  handleTestEditor();
   handleLogin();
   handleLogout();
   handleNew();
@@ -2463,11 +3426,89 @@ const extraHandlers = async () => {
   handleSaveAsTemplate();
   handleOpen();
   handleShare();
+  handleEmbed();
   handleImport();
   handleExport();
   handleDeploy();
   handleAssets();
+  handleSnippets();
+  handleEditorSettings();
+  handleSync();
+  handleAutosync();
+  handlePersistantStorage();
+  handleExternalResources();
+  handleBackup();
+  handleBroadcast();
+  handleWelcome();
+  handleResultPopup();
+  handleBroadcastStatus();
   handleUnload();
+};
+
+const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+  document.body.classList.add('embed');
+  if (config.mode === 'result') {
+    document.body.classList.add('result');
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock') {
+    document.body.classList.add('no-result');
+  }
+
+  const logoLink = UI.getLogoLink();
+  logoLink.classList.add('hint--bottom-left');
+  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
+  logoLink.title = '';
+
+  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    window.open((await share(false, true, false)).url, '_blank');
+  });
+};
+
+const configureLite = () => {
+  setConfig({
+    ...getConfig(),
+    editor: 'codejar',
+    emmet: false,
+    tools: {
+      enabled: [],
+      active: '',
+      status: 'none',
+    },
+  });
+  UI.getFormatButton().style.display = 'none';
+};
+
+const configureModes = ({
+  config,
+  isEmbed,
+  isLite,
+}: {
+  config: Config;
+  isEmbed: boolean;
+  isLite: boolean;
+}) => {
+  if (config.mode === 'full') {
+    if (params.view === 'editor') {
+      split?.show('code', true);
+    }
+    if (params.view === 'result') {
+      split?.show('output', true);
+    }
+  }
+  if (config.mode === 'codeblock') {
+    setConfig({ ...config, readonly: true });
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+    split?.destroy();
+    split = null;
+  }
+  if (isLite) {
+    configureLite();
+  }
+  if (isEmbed || config.mode === 'result') {
+    configureEmbed(config, eventsManager);
+  }
 };
 
 const importExternalContent = async (options: {
@@ -2500,7 +3541,7 @@ const importExternalContent = async (options: {
 
   if (url) {
     let validUrl = url;
-    if (url.startsWith('http')) {
+    if (url.startsWith('http') || url.startsWith('data')) {
       try {
         validUrl = new URL(url).href;
       } catch {
@@ -2513,7 +3554,9 @@ const importExternalContent = async (options: {
       await initializeAuth();
       user = await authService?.getUser();
     }
-    urlConfig = await importCode(validUrl, getParams(), getConfig(), user);
+
+    const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
+    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user);
   }
 
   if (hasContentUrls(config)) {
@@ -2540,9 +3583,10 @@ const importExternalContent = async (options: {
     };
   }
 
-  if (configUrl) {
+  const validConfigUrl = getValidUrl(configUrl);
+  if (validConfigUrl) {
     configUrlConfig = upgradeAndValidate(
-      await fetch(configUrl)
+      await fetch(validConfigUrl)
         .then((res) => res.json())
         .catch(() => ({})),
     );
@@ -2552,13 +3596,13 @@ const importExternalContent = async (options: {
   }
 
   await loadConfig(
-    {
+    buildConfig({
       ...config,
       ...templateConfig,
       ...urlConfig,
       ...contentUrlConfig,
       ...configUrlConfig,
-    },
+    }),
     parent.location.href,
     false,
   );
@@ -2567,14 +3611,57 @@ const importExternalContent = async (options: {
   return true;
 };
 
+const loadDefaults = async () => {
+  if (
+    isEmbed ||
+    params['no-defaults'] ||
+    params.languages ||
+    params.template ||
+    params.config ||
+    params.active ||
+    params.activeEditor ||
+    getLanguageByAlias(params.lang) ||
+    getLanguageByAlias(params.language)
+  ) {
+    return;
+  }
+
+  for (const param of Object.keys(params)) {
+    if (getLanguageByAlias(param)) return;
+  }
+
+  if ((getConfig().welcome && !params.screen) || params.screen === 'welcome') {
+    showScreen('welcome');
+    return;
+  }
+
+  const defaultTemplateId = getAppData()?.defaultTemplate;
+  if (defaultTemplateId) {
+    notifications.info('Loading default template');
+    await loadTemplate(defaultTemplateId);
+    return;
+  }
+
+  const lastUsedLanguage = getAppData()?.language;
+  if (lastUsedLanguage) {
+    changingContent = true;
+    await changeLanguage(lastUsedLanguage);
+    changingContent = false;
+  }
+  setProjectRecover(/* reset = */ true);
+};
+
 const bootstrap = async (reload = false) => {
   if (reload) {
     await updateEditors(editors, getConfig());
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
+  zoom(getConfig().zoom);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
+  // TODO: Fix
+  toolsPane?.console?.clear();
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
@@ -2582,9 +3669,21 @@ const bootstrap = async (reload = false) => {
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
-    setTimeout(run);
+    setTimeout(() => {
+      if (
+        toolsPane?.getActiveTool() === 'tests' &&
+        ['open', 'full'].includes(toolsPane?.getStatus())
+      ) {
+        run(undefined, true);
+      } else {
+        run();
+      }
+    });
   });
   formatter.load(getEditorLanguages());
+  if (isEmbed && !getConfig().tests?.content?.trim()) {
+    toolsPane?.disableTool('tests');
+  }
 };
 
 const initializeApp = async (
@@ -2592,20 +3691,28 @@ const initializeApp = async (
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
+    isLite?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
-  isEmbed = options?.isEmbed ?? false;
+  isLite = options?.isLite ?? false;
+  isEmbed = isLite || (options?.isEmbed ?? false);
 
-  setConfig(buildConfig(appConfig, baseUrl));
+  await initializeStores(stores, isEmbed);
+  loadUserConfig(/* updateUI = */ false);
+  setConfig(
+    buildConfig({
+      ...getConfig(),
+      ...appConfig,
+    }),
+  );
+
+  configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  formatter = getFormatter(getConfig(), baseUrl);
+  formatter = getFormatter(getConfig(), baseUrl, isLite);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
-  if (isEmbed || getConfig().mode === 'result') {
-    configureEmbed(getConfig(), () => share(false, true, false), eventsManager);
-  }
   createLanguageMenus(
     getConfig(),
     baseUrl,
@@ -2614,23 +3721,19 @@ const initializeApp = async (
     loadStarterTemplate,
     importExternalContent,
   );
-  shouldUpdateEditorBuild();
   await createEditors(getConfig());
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed);
-  await toolsPane.load();
   basicHandlers();
   await initializeFn?.();
-  loadUserConfig();
+  loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
   showMode(getConfig());
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
-    initializeAuth();
-    checkRestoreStatus();
+    initializeAuth().then(() => showSyncStatus());
+    checkRecoverStatus();
   }
-  const params = getParams(); // query string params
   importExternalContent({
     config: getConfig(),
     configUrl: params.config,
@@ -2639,38 +3742,161 @@ const initializeApp = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();
+      await loadDefaults();
     }
     if (isEmbed) {
-      parent.dispatchEvent(new Event('livecodes-ready'));
+      parent.dispatchEvent(new Event(customEvents.ready));
     }
+    initialized = true;
   });
   configureEmmet(getConfig());
-  showVersion();
 };
 
-const createApi = (): API => ({
-  run: async () => {
-    await run();
-  },
-  format: async (allEditors?: boolean) => format(allEditors),
-  getShareUrl: async (shortUrl = false) => (await share(shortUrl, true, false)).url,
-  getConfig: async (contentOnly = false): Promise<Config> => {
+const createApi = (): API => {
+  const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
+
+  const apiGetConfig = async (contentOnly = false): Promise<Config> => {
     updateConfig();
     const config = contentOnly ? getContentConfig(getConfig()) : getConfig();
     return JSON.parse(JSON.stringify(config));
-  },
-  setConfig: async (newConfig: Config): Promise<Config> => {
-    const newAppConfig = buildConfig(newConfig, baseUrl);
+  };
+
+  const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
+    const newAppConfig = {
+      ...getConfig(),
+      ...buildConfig(newConfig),
+    };
+
+    // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
+    if (newAppConfig.mode !== getConfig().mode) {
+      showMode(newAppConfig);
+    }
+
+    setConfig(newAppConfig);
     await loadConfig(newAppConfig);
     return newAppConfig;
-  },
-  getCode: async (): Promise<Code> => {
+  };
+
+  const apiGetCode = async (): Promise<Code> => {
     updateConfig();
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
       await getResultPage({});
     }
     return JSON.parse(JSON.stringify(getCachedCode()));
-  },
-});
+  };
 
-export { createApi, initializeApp, extraHandlers };
+  const apiShow: API['show'] = async (
+    panel,
+    { full = false, line, column, zoom: zoomLevel } = {},
+  ) => {
+    if (panel === 'result') {
+      split?.show('output', full);
+      toolsPane?.close();
+      if (zoomLevel) {
+        zoom(zoomLevel);
+      }
+    } else if (panel === 'console' || panel === 'compiled' || panel === 'tests') {
+      split?.show('output');
+      toolsPane?.setActiveTool(panel);
+      if (full) {
+        toolsPane?.maximize();
+      } else {
+        toolsPane?.open();
+      }
+    } else if (Object.keys(editors).includes(panel)) {
+      showEditor(panel);
+      split?.show('code', full);
+      if (typeof line === 'number' && line > 0) {
+        const col = typeof column === 'number' && column > -1 ? column : 0;
+        getActiveEditor().setPosition({ lineNumber: line, column: col });
+        getActiveEditor().focus();
+      }
+    } else {
+      throw new Error('Invalid panel id');
+    }
+  };
+
+  const apiRunTests: API['runTests'] = () =>
+    new Promise((resolve) => {
+      eventsManager.addEventListener(
+        document,
+        customEvents.testResults,
+        ((ev: CustomEventInit<{ results: TestResult[] }>) => {
+          resolve({ results: ev.detail?.results || [] });
+        }) as any,
+        { once: true },
+      );
+      runTests();
+    });
+
+  const apiOnChange: API['onChange'] = (fn) => {
+    const handler = async function () {
+      fn({
+        code: await apiGetCode(),
+        config: await apiGetConfig(),
+      });
+    };
+    eventsManager.addEventListener(document, customEvents.change, handler);
+    return {
+      remove: () => {
+        eventsManager.removeEventListener(document, customEvents.change, handler);
+      },
+    };
+  };
+
+  const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
+    if (command === 'setBroadcastToken') {
+      if (isEmbed) return { error: 'Command unavailable for embeds' };
+      const broadcastData = getAppData()?.broadcast;
+      if (!broadcastData) return { error: 'Command unavailable' };
+      const token = args[0];
+      if (typeof token !== 'string') return { error: 'Invalid token!' };
+      setAppData({
+        broadcast: {
+          ...broadcastData,
+          userToken: token,
+        },
+      });
+      return { output: 'Broadcast user token set successfully' };
+    }
+    if (command === 'showVersion') {
+      const output = showVersion();
+      return { output };
+    }
+    return { error: 'Invalid command!' };
+  };
+
+  const apiDestroy = async () => {
+    getAllEditors().forEach((editor) => editor?.destroy());
+    eventsManager.removeEventListeners();
+    Object.values(stores).forEach((store) => store?.unsubscribeAll?.());
+    parent.dispatchEvent(new Event(customEvents.destroy));
+    formatter?.destroy();
+    document.body.innerHTML = '';
+    document.head.innerHTML = '';
+    isDestroyed = true;
+  };
+
+  const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
+  const reject = () => Promise.reject(alreadyDestroyedMessage);
+  const throwError = () => {
+    throw new Error(alreadyDestroyedMessage);
+  };
+  const call = <T>(fn: () => Promise<T>) => (!isDestroyed ? fn() : reject());
+  const callSync = <T>(fn: () => T) => (!isDestroyed ? fn() : throwError());
+  return {
+    run: () => call(() => run()),
+    format: (allEditors) => call(() => format(allEditors)),
+    getShareUrl: (shortUrl) => call(() => apiGetShareUrl(shortUrl)),
+    getConfig: (contentOnly) => call(() => apiGetConfig(contentOnly)),
+    setConfig: (config) => call(() => apiSetConfig(config)),
+    getCode: () => call(() => apiGetCode()),
+    show: (pane, options) => call(() => apiShow(pane, options)),
+    runTests: () => call(() => apiRunTests()),
+    onChange: (fn) => callSync(() => apiOnChange(fn)),
+    exec: (command, ...args) => call(() => apiExec(command, ...args)),
+    destroy: () => call(() => apiDestroy()),
+  };
+};
+
+export { createApi, initializeApp, loadToolsPane, extraHandlers };

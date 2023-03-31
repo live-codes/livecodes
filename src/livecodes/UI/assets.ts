@@ -2,11 +2,13 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { Asset, FileType, Screen, User } from '../models';
 import type { createNotifications } from '../notifications';
-import { generateId, ProjectStorage } from '../storage';
+// eslint-disable-next-line import/no-internal-modules
+import type { GitHubFile } from '../services/github';
+import { generateId, Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils';
 import { flexSearchUrl } from '../vendors';
-import { DeployResult, GitHubFile } from '../deploy';
+import { DeployResult } from '../deploy';
 import {
   getAddAssetButton,
   getAssetDataUrlFileInput,
@@ -259,6 +261,7 @@ const organizeAssets = async (
   loadScript(flexSearchUrl, 'FlexSearch').then(async (FlexSearch: any) => {
     const index = new FlexSearch.Document({
       index: ['filename', 'type'],
+      tokenize: 'full',
       worker: true,
     });
 
@@ -304,7 +307,7 @@ export const createAssetsList = async ({
   modal,
   baseUrl,
 }: {
-  assetsStorage: ProjectStorage;
+  assetsStorage: Storage<Asset>;
   eventsManager: ReturnType<typeof createEventsManager>;
   showScreen: (screen: Screen['screen']) => void;
   notifications: ReturnType<typeof createNotifications>;
@@ -319,7 +322,7 @@ export const createAssetsList = async ({
   const assetsContainer = listContainer.querySelector('#assets-container') as HTMLElement;
   const list = document.createElement('ul') as HTMLElement;
   list.classList.add('open-list');
-  let savedAssets = await assetsStorage.getAllData<Asset>();
+  let savedAssets = await assetsStorage.getAllData();
   let visibleAssets = savedAssets;
 
   const addAssetButton = getAddAssetButton(listContainer);
@@ -343,7 +346,7 @@ export const createAssetsList = async ({
           await assetsStorage.deleteItem(p.id);
         }
         visibleAssets = [];
-        savedAssets = await assetsStorage.getAllData<Asset>();
+        savedAssets = await assetsStorage.getAllData();
         await showList(visibleAssets);
       });
     },
@@ -396,7 +399,7 @@ export const createAssetsList = async ({
 
   await showList(savedAssets);
 
-  const getAssets = () => assetsStorage.getAllData<Asset>();
+  const getAssets = () => assetsStorage.getAllData();
   modal.show(listContainer, { isAsync: true });
   organizeAssets(getAssets, showList, eventsManager);
 };
@@ -411,7 +414,7 @@ export const createAddAssetContainer = ({
   baseUrl,
   activeTab,
 }: {
-  assetsStorage: ProjectStorage;
+  assetsStorage: Storage<Asset>;
   eventsManager: ReturnType<typeof createEventsManager>;
   showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
   notifications: ReturnType<typeof createNotifications>;
@@ -515,7 +518,7 @@ export const createAddAssetContainer = ({
     });
 
   const processAsset = async (asset: Asset, outputElement: HTMLElement, deploy = false) => {
-    await assetsStorage.updateGenericItem(asset.id, asset);
+    await assetsStorage.updateItem(asset.id, asset);
 
     const AddedFile = document.createElement('p');
     const fileLabel = document.createElement('span');

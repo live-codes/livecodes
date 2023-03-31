@@ -1,5 +1,5 @@
 import { getLanguageEditorId } from '../languages';
-import { Config } from '../models';
+import { Config, Processor } from '../models';
 import { defaultConfig } from './default-config';
 
 interface genericConfig extends Config {
@@ -8,6 +8,56 @@ interface genericConfig extends Config {
 
 const upgradeSteps = [
   {
+    to: '0.6.0',
+    upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
+      const config: genericConfig = clone(oldConfig);
+      if (config.processors && 'postcss' in config.processors) {
+        config.processors = Object.keys((config.processors as any).postcss).filter(
+          (p) => (config.processors as any).postcss[p],
+        ) as Processor[];
+      }
+      return {
+        ...config,
+        version,
+      };
+    },
+  },
+  {
+    to: '0.5.0',
+    upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
+      const config: genericConfig = clone(oldConfig);
+      if ('editor' in config && config.editor === ('prism' as any)) {
+        config.editor = 'codejar';
+      }
+      if ('compiled' in config) {
+        config.tools = config.tools || clone(defaultConfig.tools);
+        config.tools.active = 'compiled';
+        config.tools.status = config.compiled;
+        delete config.compiled;
+      }
+      if ('console' in config) {
+        config.tools = config.tools || clone(defaultConfig.tools);
+        config.tools.active = 'console';
+        config.tools.status = config.console;
+        delete config.console;
+      }
+      if (config.script?.language === 'graph') {
+        config.script.language = 'diagrams';
+      }
+      if (config.languages?.includes('graph')) {
+        config.languages = config.languages.map((l) => (l === 'graph' ? 'diagrams' : l));
+      }
+      if ('enableRestore' in config) {
+        config.recoverUnsaved = config.enableRestore;
+        delete config.enableRestore;
+      }
+      return {
+        ...config,
+        version,
+      };
+    },
+  },
+  {
     to: '0.4.0',
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
       let config: genericConfig = clone(oldConfig);
@@ -15,7 +65,8 @@ const upgradeSteps = [
       config = renameProperty(config, 'allow_lang_change', 'allowLangChange');
       if ('autoprefixer' in config) {
         config.processors = clone(defaultConfig.processors);
-        config.processors.postcss.autoprefixer = config.autoprefixer;
+        (config.processors as any).postcss = (config.processors as any).postcss || {};
+        (config.processors as any).postcss.autoprefixer = config.autoprefixer;
         delete config.autoprefixer;
       }
       if ('baseUrl' in config) {
@@ -25,7 +76,7 @@ const upgradeSteps = [
         config.cssPreset = '';
       }
       if ('editor' in config && typeof config.editor !== 'string') {
-        config.editor = '';
+        config.editor = undefined;
       }
       if ('language' in config) {
         config.activeEditor = getLanguageEditorId(config.language);
@@ -71,26 +122,33 @@ const upgradeSteps = [
       };
     },
   },
-].sort((a, b) => (isEarlier({ version: a.to, comparedTo: b.to }) ? -1 : 1));
+];
 
 export const upgradeConfig = (oldConfig: genericConfig) => {
   const oldVersion = isValidVersion(oldConfig.version) ? oldConfig.version : '0.0.0';
   const currentVersion = defaultConfig.version;
 
   if (isEarlier({ version: currentVersion, comparedTo: oldVersion })) {
-    throw new Error(
+    // eslint-disable-next-line no-console
+    console.warn(
       `Unsupported config version '${oldVersion}'. Current LiveCodes version is '${currentVersion}'`,
     );
+    return oldConfig;
   }
   if (oldVersion === currentVersion) return oldConfig;
 
-  return upgradeSteps.reduce(
-    (config, step) =>
-      isEarlier({ version: config.version, comparedTo: step.to })
-        ? step.upgrade(config, step.to)
-        : config,
-    oldConfig,
-  );
+  return {
+    ...upgradeSteps
+      .sort((a, b) => (isEarlier({ version: a.to, comparedTo: b.to }) ? -1 : 1))
+      .reduce(
+        (config, step) =>
+          isEarlier({ version: config.version, comparedTo: step.to })
+            ? step.upgrade(config, step.to)
+            : config,
+        oldConfig,
+      ),
+    version: currentVersion,
+  };
 };
 
 const isValidVersion = (version: any) => {

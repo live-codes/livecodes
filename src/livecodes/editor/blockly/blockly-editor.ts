@@ -20,7 +20,7 @@ export const createBlocklyEditor = ({
     blocklyElement.innerHTML = `<span class="loading-custom-editor">Loading blockly editor...</span>`;
     editorContainer.appendChild(blocklyElement);
 
-    blockly = await import(baseUrl + 'blockly.js');
+    blockly = await import(baseUrl + '{{hash:blockly.js}}');
   };
 
   return {

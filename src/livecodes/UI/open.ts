@@ -2,7 +2,7 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { Config, ContentConfig, Language, LanguageSpecs, Screen } from '../models';
 import type { createNotifications } from '../notifications';
-import type { ProjectStorage, SavedProject } from '../storage';
+import type { SavedProject, ProjectStorage } from '../storage';
 import { openScreen } from '../html';
 import { getDate, isMobile, downloadFile, loadScript, loadStylesheet } from '../utils';
 import { flexSearchUrl, tagifyBaseUrl } from '../vendors';
@@ -44,7 +44,7 @@ export const createOpenItem = (
   }
 
   const userTags: HTMLElement[] = [];
-  item.tags = item.tags.filter(Boolean);
+  item.tags = [...new Set(item.tags)].filter(Boolean);
   if (!isMobile() && item.tags.length > 0) {
     item.tags.forEach((tag) => {
       const tagEl = document.createElement('span');
@@ -77,13 +77,34 @@ export const createOpenItem = (
   userTags.forEach((tag) => tags.append(tag));
   link.appendChild(tags);
 
+  const setAsDefault = document.createElement('div');
+  setAsDefault.classList.add('template-default');
+
+  const setAsDefaultLink = document.createElement('span');
+  setAsDefaultLink.innerText = 'Set as default';
+  setAsDefaultLink.classList.add('template-default-link');
+  setAsDefault.appendChild(setAsDefaultLink);
+
+  const defaultTemplateLabel = document.createElement('span');
+  defaultTemplateLabel.classList.add('default-template-label');
+  defaultTemplateLabel.innerText = 'Default template ';
+  setAsDefault.appendChild(defaultTemplateLabel);
+
+  const removeDefaultLink = document.createElement('span');
+  removeDefaultLink.innerText = '(unset)';
+  removeDefaultLink.classList.add('template-remove-default-link');
+  defaultTemplateLabel.appendChild(removeDefaultLink);
+
+  if (isTemplate) {
+    link.appendChild(setAsDefault);
+  }
   li.appendChild(link);
 
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-button');
   li.appendChild(deleteButton);
 
-  return { link, deleteButton };
+  return { link, deleteButton, setAsDefaultLink, removeDefaultLink };
 };
 
 const createItemLoader = (item: SavedProject) => {
@@ -329,6 +350,7 @@ const organizeProjects = (
   loadScript(flexSearchUrl, 'FlexSearch').then(async (FlexSearch: any) => {
     const index = new FlexSearch.Document({
       index: ['title', 'description', 'tags', 'languages'],
+      tokenize: 'full',
       worker: true,
     });
 
@@ -427,8 +449,10 @@ export const createSavedProjectsList = async ({
         .filter((item) => visibleProjects.find((p) => p.id === item.id))
         .map((item) => ({
           ...item,
-          pen: getContentConfig(item.config),
-        }));
+          config: getContentConfig(item.config),
+        }))
+        .sort((a, b) => a.lastModified - b.lastModified);
+
       const filename = 'livecodes_export_' + getDate();
       const content = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
       downloadFile(filename, 'json', content);

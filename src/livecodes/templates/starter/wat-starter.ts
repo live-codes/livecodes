@@ -12,7 +12,7 @@ export const watStarter: Template = {
   <h1>Hello, <span id="title">World</span>!</h1>
   <img
     class="logo"
-    src="http://127.0.0.1:8080/livecodes/assets/templates/webassembly.svg"
+    src="{{ __livecodes_baseUrl__ }}assets/templates/webassembly.svg"
   />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>

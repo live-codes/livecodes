@@ -2,7 +2,7 @@ import { FormatFn, Language } from '../models';
 import { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 
 export const createFormatter = (baseUrl: string): Formatter => {
-  const worker = new Worker(baseUrl + 'format.worker.js');
+  const worker = new Worker(baseUrl + '{{hash:format.worker.js}}');
   const configMessage: FormatterMessage = { type: 'init', baseUrl };
   worker.postMessage(configMessage);
 
@@ -34,7 +34,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
     });
 
   const getFormatFn = async (language: Language) => {
-    const formatFn: FormatFn = (value: string, cursorOffset: number) =>
+    const formatFn: FormatFn = (value: string, cursorOffset: number, formatterConfig = {}) =>
       new Promise((resolve, reject) => {
         const handler = (event: FormatterMessageEvent) => {
           const message = event.data;
@@ -69,6 +69,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
             language,
             value,
             cursorOffset,
+            formatterConfig,
           },
         };
         worker.postMessage(formatMessage);
@@ -77,8 +78,13 @@ export const createFormatter = (baseUrl: string): Formatter => {
     return formatFn;
   };
 
+  const destroy = () => {
+    worker.terminate();
+  };
+
   return {
     load,
     getFormatFn,
+    destroy,
   };
 };

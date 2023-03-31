@@ -26,11 +26,10 @@ export const reactStarter: Template = {
     language: 'jsx',
     content: `
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 function App(props) {
   const [count, setCount] = useState(0);
-
   return (
     <div className="container">
       <h1>Hello, {props.name}!</h1>
@@ -40,7 +39,9 @@ function App(props) {
     </div>
   );
 }
-ReactDOM.render(<App name="React" />, document.querySelector("#app"));
+
+const root = createRoot(document.querySelector("#app"));
+root.render(<App name="React" />);
 `.trimStart(),
   },
   stylesheets: [],

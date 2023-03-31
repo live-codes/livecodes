@@ -1,0 +1,57 @@
+<div id="sync-container" class="modal-container">
+  <div class="modal-title">Sync to GitHub Repo</div>
+  <div id="sync-status" class="modal-status"></div>
+  <ul id="sync-tabs" class="modal-tabs">
+    <li data-target="new-repo" class="active">Create New Repo</li>
+    <li data-target="existing-repo">Existing Repo</li>
+  </ul>
+  <div id="sync-screens" class="modal-screen-container">
+    <div id="new-repo" class="tab-content active">
+      <div class="modal-screen">
+        <form id="new-repo-form">
+          <div>
+            <label for="new-repo-name"
+              >Repo Name <span id="new-repo-name-error" class="error"></span
+            ></label>
+            <input type="text" id="new-repo-name" placeholder="Required" />
+          </div>
+          <div class="padded">
+            <input type="checkbox" id="new-repo-autosync" checked />
+            <label for="new-repo-autosync">Auto sync</label>
+          </div>
+          <button id="new-repo-btn" class="wide-button start-sync-btn" type="submit">Sync</button>
+        </form>
+        <div class="description">
+          A new <strong>private</strong> repo will be created. Your LiveCodes local data will be
+          synchronized with <span class="code">main</span> branch.
+        </div>
+      </div>
+    </div>
+    <div id="existing-repo" class="tab-content">
+      <div class="modal-screen">
+        <form id="existing-repo-form">
+          <div>
+            <label for="existing-repo-name">Repo Name</label>
+            <input
+              type="text"
+              id="existing-repo-name"
+              autocomplete="off"
+              placeholder="Loading..."
+            />
+          </div>
+          <div class="padded">
+            <input type="checkbox" id="existing-repo-autosync" checked />
+            <label for="existing-repo-autosync">Auto sync</label>
+          </div>
+          <button id="existing-repo-btn" class="wide-button start-sync-btn" type="submit">
+            sync
+          </button>
+        </form>
+        <div class="description">
+          Your LiveCodes local data will be synchronized with
+          <span class="code">main</span> branch.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,12 @@
 import LunaConsole from 'luna-console';
-import { createEditor } from '../editor';
+import { createEditor, getFontFamily } from '../editor';
 import { createEventsManager } from '../events';
-import { Editors, Config, Tool, CodeEditor, EditorOptions } from '../models';
+import { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
+import { getToolspaneButtons, getToolspaneElement } from '../UI';
+import { getLanguageExtension, mapLanguage } from '../languages';
+import { getEditorConfig } from '../config';
 
 export const createConsole = (
   config: Config,
@@ -11,7 +14,8 @@ export const createConsole = (
   _editors: Editors,
   eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
-): Tool => {
+  _runTests: () => Promise<void>,
+): Console => {
   let consoleEmulator: InstanceType<typeof LunaConsole>;
   let editor: CodeEditor;
 
@@ -101,8 +105,8 @@ export const createConsole = (
     return consoleEmulator;
   };
 
-  const createConsoleInput = async () => {
-    if (editor) return editor;
+  const createConsoleInput = async (force = false) => {
+    if (editor && !force) return editor;
 
     const container = document.querySelector('#console-input') as HTMLElement;
     if (!container) throw new Error('Console input container not found');
@@ -113,10 +117,15 @@ export const createConsole = (
       language: 'javascript',
       value: '',
       readonly: false,
-      editor: config.editor,
-      editorType: 'console',
+      mode: config.mode,
+      editorId: 'console',
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
+      getFormatterConfig: () => ({}),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     const consoleEditor = await createEditor(editorOptions);
 
@@ -158,6 +167,8 @@ export const createConsole = (
       container.style.height = height + 'px';
     });
 
+    if (editor) return consoleEditor;
+
     // workaround to remove 'luna-console-' added to variable names called by console input
     const observer = new MutationObserver(() => {
       const newLogs = consoleElement.querySelectorAll(
@@ -187,12 +198,7 @@ export const createConsole = (
 
   const createConsoleElements = () => {
     if (consoleElement) return;
-
-    const toolsPaneSelector = '#output #tools-pane';
-    const toolsPaneElement = document.querySelector(toolsPaneSelector);
-    if (!toolsPaneElement) {
-      throw new Error('Cannot find element with selector: ' + toolsPaneSelector);
-    }
+    const toolsPaneElement = getToolspaneElement();
 
     const container = document.createElement('div');
     container.id = 'console-container';
@@ -206,7 +212,7 @@ export const createConsole = (
     consoleInput.id = 'console-input';
     container.appendChild(consoleInput);
 
-    const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
+    const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       const btnContainer = document.createElement('span');
       btnContainer.classList.add('hint--top-left');
@@ -239,19 +245,25 @@ export const createConsole = (
   const load = async () => {
     createConsoleElements();
     consoleEmulator = createConsoleEmulator();
-    if (
-      config.readonly ||
-      config.editor === 'prism' ||
-      config.mode === 'codeblock' ||
-      config.mode === 'editor'
-    ) {
+    if (config.readonly || config.mode === 'codeblock' || config.mode === 'editor') {
       return;
     } else {
       editor = await createConsoleInput();
     }
   };
 
+  const reloadEditor = async (newConfig: Config) => {
+    config = newConfig;
+    if (!editor) {
+      await load();
+      return;
+    }
+    editor?.destroy();
+    editor = await createConsoleInput(true);
+  };
+
   return {
+    name: 'console',
     title: 'Console',
     load,
     onActivate: () => {
@@ -269,6 +281,7 @@ export const createConsole = (
       }
     },
     getEditor: () => editor,
+    reloadEditor,
     log: (...args: any[]) => consoleEmulator?.log(...args),
     info: (...args: any[]) => consoleEmulator?.info(...args),
     table: (...args: any[]) => consoleEmulator?.table(...args),
@@ -277,5 +290,5 @@ export const createConsole = (
     clear: () => consoleEmulator?.clear(),
     // filterLog: (filter: string) => consoleEmulator?.filterLog(filter),
     evaluate: (code: string) => consoleEmulator?.evaluate(code),
-  } as Tool;
+  };
 };

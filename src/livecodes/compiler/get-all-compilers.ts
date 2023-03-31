@@ -1,16 +1,23 @@
 import { languageIsEnabled, processors } from '../languages';
-import { Language, LanguageSpecs, Config, Compiler, Compilers, Processors } from '../models';
+import type {
+  Language,
+  LanguageSpecs,
+  Config,
+  Compiler,
+  Compilers,
+  ProcessorSpecs,
+} from '../models';
 import { isRelativeUrl } from '../utils';
 
 export const getAllCompilers = (
-  languages: Array<LanguageSpecs | Processors>,
+  languages: Array<LanguageSpecs | ProcessorSpecs>,
   config: Config,
   baseUrl: string,
 ) =>
   languages
     .filter(
       (language) =>
-        processors.includes(language as Processors) ||
+        processors.includes(language as ProcessorSpecs) ||
         languageIsEnabled((language as LanguageSpecs).name, config),
     )
     .reduce((compilers, language) => {

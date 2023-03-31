@@ -1,8 +1,9 @@
-import { FormatFn, Language } from '../models';
+import { FormatFn, FormatterConfig, Language } from '../models';
 
 export interface Formatter {
   load: (languages: Language[]) => Promise<string>;
   getFormatFn: (language: Language) => Promise<FormatFn>;
+  destroy: () => void;
 }
 
 export interface FormatterMessageEvent extends MessageEvent {
@@ -42,6 +43,7 @@ export interface FormatMessage {
     language: Language;
     value: string;
     cursorOffset: number;
+    formatterConfig: Partial<FormatterConfig>;
   };
 }
 

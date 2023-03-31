@@ -63,9 +63,7 @@ const apiService = {
       const res = await fetch(apiUrl, {
         method: 'POST',
         mode: 'cors',
-        body: `content=${encodeURIComponent(JSON.stringify(config))}&title=${encodeURIComponent(
-          config.title || '',
-        )}`,
+        body: JSON.stringify(config),
       });
       if (!res.ok) return '';
       return res.text();

@@ -1,9 +1,10 @@
-import { ContentConfig, Config, UserConfig } from '../models';
+import { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig } from '../models';
 import { cloneObject } from '../utils';
+import { defaultConfig } from './default-config';
 import { upgradeConfig } from './upgrade-config';
 import { validateConfig } from './validate-config';
 
-let appConfig: Config;
+let appConfig = defaultConfig;
 export const getConfig = (): Config => cloneObject(appConfig);
 
 export const setConfig = (newConfig: Config) => {
@@ -27,20 +28,43 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
     customSettings: config.customSettings,
     imports: config.imports,
     types: config.types,
+    tests: config.tests,
     version: config.version,
   });
 
-export const getUserConfig = (config: Config | UserConfig): UserConfig =>
-  cloneObject({
-    autoupdate: config.autoupdate,
-    autosave: config.autosave,
-    delay: config.delay,
-    formatOnsave: config.formatOnsave,
-    emmet: config.emmet,
-    theme: config.theme,
-    enableRestore: config.enableRestore,
-    showSpacing: config.showSpacing,
-  });
+export const getUserConfig = (config: Config | UserConfig): UserConfig => ({
+  autoupdate: config.autoupdate,
+  autosave: config.autosave,
+  delay: config.delay,
+  formatOnsave: config.formatOnsave,
+  recoverUnsaved: config.recoverUnsaved,
+  welcome: config.welcome,
+  showSpacing: config.showSpacing,
+  theme: config.theme,
+  ...getEditorConfig(config),
+  ...getFormatterConfig(config),
+});
+
+export const getEditorConfig = (config: Config | UserConfig): EditorConfig => ({
+  editor: config.editor ?? ((config as Config).readonly === true ? 'codejar' : undefined),
+  fontFamily: config.fontFamily,
+  fontSize: config.fontSize,
+  useTabs: config.useTabs,
+  tabSize: config.tabSize,
+  lineNumbers: config.lineNumbers,
+  wordWrap: config.wordWrap,
+  closeBrackets: config.closeBrackets,
+  emmet: config.emmet,
+  editorMode: config.editorMode,
+});
+
+export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig => ({
+  useTabs: config.useTabs,
+  tabSize: config.tabSize,
+  semicolons: config.semicolons,
+  singleQuote: config.singleQuote,
+  trailingComma: config.trailingComma,
+});
 
 export const upgradeAndValidate = (config: Partial<Config>) =>
   validateConfig(upgradeConfig(config as any));

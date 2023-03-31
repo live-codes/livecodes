@@ -20,7 +20,7 @@ export const createQuillEditor = ({
     editorElement.innerHTML = `<span class="loading-custom-editor">Loading rich text editor...</span>`;
     editorContainer.appendChild(editorElement);
 
-    quillEditor = await import(baseUrl + 'quill.js');
+    quillEditor = await import(baseUrl + '{{hash:quill.js}}');
   };
 
   return {

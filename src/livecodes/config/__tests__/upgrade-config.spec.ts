@@ -1,7 +1,7 @@
 import { upgradeConfig } from '../upgrade-config';
 
 describe('upgradeConfig', () => {
-  test('upgrade from 0.2.0', () => {
+  test('upgrade', () => {
     const oldConfig: any = {
       baseUrl: '/livecodes/',
       title: 'Untitled Project',
@@ -9,9 +9,8 @@ describe('upgradeConfig', () => {
       autosave: false,
       delay: 500,
       emmet: true,
-      autoprefixer: true,
       mode: 'full',
-      console: '',
+      console: 'open',
       compiled: '',
       editor: {
         fontSize: 14,
@@ -51,6 +50,14 @@ describe('upgradeConfig', () => {
       stylesheets: [],
       scripts: [],
       cssPreset: '',
+      processors: {
+        postcss: {
+          autoprefixer: true,
+          postcssPresetEnv: false,
+          tailwindcss: false,
+          windicss: false,
+        },
+      },
       modules: [
         {
           name: 'mylib',
@@ -67,9 +74,6 @@ describe('upgradeConfig', () => {
       delay: 500,
       emmet: true,
       mode: 'full',
-      console: '',
-      compiled: '',
-      editor: '',
       allowLangChange: true,
       activeEditor: 'markup',
       markup: {
@@ -99,13 +103,11 @@ describe('upgradeConfig', () => {
       types: {
         mylib: 'https://mycdn.com/mylib-typesUrl',
       },
-      processors: {
-        postcss: {
-          autoprefixer: true,
-          postcssPresetEnv: false,
-          tailwindcss: false,
-          windicss: false,
-        },
+      processors: ['autoprefixer'],
+      tools: {
+        active: 'console',
+        enabled: 'all',
+        status: 'open',
       },
       version: process.env.VERSION,
     };

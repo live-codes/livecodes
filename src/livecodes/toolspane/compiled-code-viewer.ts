@@ -1,7 +1,16 @@
-import { createEditor } from '../editor';
+import { getEditorConfig } from '../config';
+import { createEditor, getFontFamily } from '../editor';
 import { createEventsManager } from '../events';
-import { languages } from '../languages';
-import { Editors, Config, Tool, CodeEditor, EditorOptions, Language } from '../models';
+import { getLanguageExtension, languages, mapLanguage } from '../languages';
+import type {
+  Editors,
+  Config,
+  CodeEditor,
+  EditorOptions,
+  Language,
+  CompiledCodeViewer,
+} from '../models';
+import { getToolspaneButtons, getToolspaneElement } from '../UI';
 
 export const createCompiledCodeViewer = (
   config: Config,
@@ -9,19 +18,15 @@ export const createCompiledCodeViewer = (
   _editors: Editors,
   _eventsManager: ReturnType<typeof createEventsManager>,
   isEmbed: boolean,
-): Tool => {
+  _runTests: () => Promise<void>,
+): CompiledCodeViewer => {
   let compiledCodeElement: HTMLElement;
   let editor: CodeEditor;
   let languageLabel: HTMLElement;
 
   const createElements = () => {
     if (compiledCodeElement) return;
-
-    const toolsPaneSelector = '#output #tools-pane';
-    const toolsPaneElement = document.querySelector(toolsPaneSelector);
-    if (!toolsPaneElement) {
-      throw new Error('Cannot find element with selector: ' + toolsPaneSelector);
-    }
+    const toolsPaneElement = getToolspaneElement();
 
     const container = document.createElement('div');
     container.id = 'compiled-code-container';
@@ -31,7 +36,7 @@ export const createCompiledCodeViewer = (
     compiledCodeElement.id = 'compiled-code';
     container.appendChild(compiledCodeElement);
 
-    const toolsPaneButtons = document.querySelector('#tools-pane-buttons');
+    const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       languageLabel = document.createElement('div');
       languageLabel.id = 'compiled-code-language-label';
@@ -49,10 +54,15 @@ export const createCompiledCodeViewer = (
       language: 'javascript',
       value: '',
       readonly: true,
-      editor: config.editor,
-      editorType: 'compiled',
+      mode: config.mode,
+      editorId: 'compiled',
       theme: config.theme,
       isEmbed,
+      mapLanguage,
+      getLanguageExtension,
+      getFormatterConfig: () => ({}),
+      getFontFamily,
+      ...getEditorConfig(config),
     };
     return createEditor(editorOptions);
   };
@@ -87,7 +97,8 @@ export const createCompiledCodeViewer = (
     editor = await createCompiledEditor();
   };
 
-  const reloadEditor = async () => {
+  const reloadEditor = async (newConfig: Config) => {
+    config = newConfig;
     if (!compiledCodeElement) {
       await load();
       return;
@@ -97,6 +108,7 @@ export const createCompiledCodeViewer = (
   };
 
   return {
+    name: 'compiled',
     title: 'Compiled',
     load,
     onActivate: () => {
@@ -112,5 +124,5 @@ export const createCompiledCodeViewer = (
     getEditor: () => editor,
     update,
     reloadEditor,
-  } as Tool;
+  };
 };

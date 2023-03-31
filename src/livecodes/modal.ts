@@ -3,6 +3,7 @@ interface ModalOptions {
   closeButton?: boolean;
   isAsync?: boolean;
   onClose?: () => void;
+  scrollToSelector?: string;
 }
 
 export const createModal = () => {
@@ -19,6 +20,7 @@ export const createModal = () => {
       closeButton = false,
       isAsync = false,
       onClose = () => undefined,
+      scrollToSelector = '',
     }: ModalOptions = {},
   ) => {
     modal.innerHTML = '';
@@ -26,16 +28,32 @@ export const createModal = () => {
     modal.appendChild(container);
     onCloseFn = onClose;
 
+    if (scrollToSelector) {
+      setTimeout(() => {
+        const target = container.querySelector<HTMLElement>(scrollToSelector);
+        container.style.scrollBehavior = 'smooth';
+        if (target) {
+          target.scrollIntoView();
+        }
+      }, 500);
+    }
+
     if (closeButton) {
       const closeContainer = document.createElement('div');
       closeContainer.className = 'close-container';
       const closeBtn = document.createElement('button');
-      closeBtn.className = 'button';
+      closeBtn.classList.add('button');
       closeBtn.innerHTML = 'Close';
       closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
       modal.appendChild(closeContainer);
     }
+
+    const cornerCloseBtn = document.createElement('div');
+    cornerCloseBtn.classList.add('close-button');
+    cornerCloseBtn.title = 'Esc';
+    cornerCloseBtn.onclick = close;
+    modal.appendChild(cornerCloseBtn);
 
     overlay.style.display = 'flex';
     modalContainer.style.display = 'flex';
@@ -45,7 +63,9 @@ export const createModal = () => {
     isOpening = true;
     // remove previous event listener if it was not cleared
     document.removeEventListener('click', onClickOutside);
+    document.removeEventListener('keydown', escapeListener);
     document.addEventListener('click', onClickOutside, false);
+    document.addEventListener('keydown', escapeListener, false);
     if (isAsync) {
       container.click();
     }
@@ -56,6 +76,7 @@ export const createModal = () => {
       onCloseFn();
     }
     document.removeEventListener('click', onClickOutside);
+    document.removeEventListener('keydown', escapeListener);
 
     modal.innerHTML = '';
     modal.className = '';
@@ -80,6 +101,13 @@ export const createModal = () => {
     }
     isOpening = false;
   }
+
+  const escapeListener = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && !(window as any).watchingEscape) {
+      close();
+      event.preventDefault();
+    }
+  };
 
   return {
     show,

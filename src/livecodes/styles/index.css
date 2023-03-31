@@ -11,6 +11,7 @@ html {
 
 body,
 #livecodes {
+  background-color: #fff;
   height: 100%;
   overflow: hidden;
 }

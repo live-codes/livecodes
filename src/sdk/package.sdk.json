@@ -1,0 +1,29 @@
+{
+  "name": "livecodes",
+  "version": "0.0.1",
+  "description": "Code playground that runs in the browser",
+  "author": "Hatem Hosny",
+  "license": "MIT",
+  "keywords": ["playground", "code", "client", "sdk", "react", "vue", "svelte", "solid", "python"],
+  "private": false,
+  "repository": {
+    "url": "https://github.com/live-codes/livecodes"
+  },
+  "main": "./livecodes.cjs",
+  "module": "./livecodes.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./livecodes.js",
+      "require": "./livecodes.cjs",
+      "default": "./livecodes.js"
+    },
+    "./react": {
+      "import": "./react.js"
+    },
+    "./vue": {
+      "import": "./vue.js"
+    },
+    "./package.json": "./package.json"
+  }
+}

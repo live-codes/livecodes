@@ -11,16 +11,34 @@
     </style>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="{{baseUrl}}styles/app.css" id="app-styles" />
+    <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
+    <script src="{{esModuleShimsUrl}}" async></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@codemirror/autocomplete": "{{codemirrorCoreUrl}}",
+          "@codemirror/commands": "{{codemirrorCoreUrl}}",
+          "@codemirror/language": "{{codemirrorCoreUrl}}",
+          "@codemirror/lint": "{{codemirrorCoreUrl}}",
+          "@codemirror/search": "{{codemirrorCoreUrl}}",
+          "@codemirror/state": "{{codemirrorCoreUrl}}",
+          "@codemirror/theme-one-dark": "{{codemirrorCoreUrl}}",
+          "@codemirror/view": "{{codemirrorCoreUrl}}",
+          "@codemirror/lang-html": "{{codemirrorCoreUrl}}",
+          "@codemirror/lang-css": "{{codemirrorCoreUrl}}",
+          "@codemirror/lang-javascript": "{{codemirrorCoreUrl}}",
+          "@lezer/common": "{{codemirrorCoreUrl}}",
+          "@lezer/highlight": "{{codemirrorCoreUrl}}",
+          "@lezer/lr": "{{codemirrorCoreUrl}}"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="container">
       <div id="toolbar">
         <div id="logo">
-          <a
-            href="https://livecodes.io/"
-            target="_top"
-            title="LiveCodes: Code playground that runs in the browser!"
+          <a href="/" title="LiveCodes: Code playground that runs in the browser!"
             ><img
               alt="LiveCodes Logo"
               src="{{baseUrl}}assets/images/livecodes-logo.svg"
@@ -34,8 +52,8 @@
           <a
             href="javascript:void(0)"
             id="run-button"
-            class="button"
-            title="Run (Ctrl/Cmd + Enter)"
+            class="button hint--bottom"
+            data-hint="Run (Shift + Enter)"
             tabindex="9"
           >
             <img
@@ -49,8 +67,8 @@
           <a
             href="javascript:void(0)"
             id="result-button"
-            class="button"
-            title="Toggle Result"
+            class="button hint--bottom"
+            data-hint="Toggle Result"
             tabindex="10"
           >
             <img
@@ -63,16 +81,31 @@
           </a>
           <a
             href="javascript:void(0)"
-            id="settings-button"
-            class="button"
-            title="Settings"
-            tabindex="10"
+            id="fullscreen-button"
+            class="button hint--bottom"
+            data-hint="Full Screen"
+            tabindex="11"
           >
             <img
-              width="20"
-              height="20"
-              alt="Settings"
-              src="{{baseUrl}}assets/images/gear.png"
+              width="28"
+              height="28"
+              alt="Fullscreen"
+              src="{{baseUrl}}assets/images/expand.svg"
+              loading="lazy"
+            />
+          </a>
+          <a
+            href="javascript:void(0)"
+            id="settings-button"
+            class="button"
+            aria-label="Menu"
+            tabindex="12"
+          >
+            <img
+              width="30"
+              height="30"
+              alt="Menu"
+              src="{{baseUrl}}assets/images/menu.svg"
               loading="lazy"
             />
           </a>
@@ -102,12 +135,18 @@
             <span id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)">
               <img src="{{baseUrl}}assets/images/format.svg" alt="format" />
             </span>
-            <span id="external-resources-btn" class="hint--top-left" data-hint="External CSS/JS">
-              <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="External CSS/JS" />
-              <span id="external-resources-mark"></span>
+            <span id="editor-status">
+              <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
+              <span data-status="markup"></span>
+              <span data-status="style"></span>
+              <span data-status="script"></span>
+            </span>
+            <span id="external-resources-btn" class="hint--top-left" data-hint="External Resources">
+              <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="External Resources" />
+              <span id="external-resources-mark" class="mark"></span>
             </span>
           </div>
-          <button id="code-run-button" class="hint--top-left" data-hint="Run (Ctrl/Cmd + Enter)">
+          <button id="code-run-button" class="hint--top-left" data-hint="Run (Shift + Enter)">
             <img
               width="20"
               height="20"
@@ -118,7 +157,7 @@
           </button>
         </div>
         <div id="output">
-          <div id="result"></div>
+          <div id="result" class="full"></div>
           <div id="tools-pane"></div>
         </div>
       </div>
@@ -128,6 +167,7 @@
       <div id="modal"></div>
     </div>
     <script src="https://polyfill.io/v3/polyfill.min.js" crossorigin="anonymous"></script>
+    {{codemirrorModule}}
     <script type="module">
       import { app } from '{{baseUrl}}{{script}}';
       window.app = app;

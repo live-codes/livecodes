@@ -1,9 +1,21 @@
+import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
 import { Config, User } from '../models';
 import { Files, getDescriptionFile, getFilesFromConfig } from './utils';
 
-export const exportGithubGist = async (config: Config, { user }: { user: User }) => {
+export const exportGithubGist = async (
+  config: Config,
+  {
+    user,
+    deps,
+  }: {
+    user: User;
+    deps: {
+      getLanguageExtension: typeof getLanguageExtensionFn;
+    };
+  },
+) => {
   if (!user) return;
-  const files = getFiles(config, user);
+  const files = getFiles(config, user, deps);
   const response = await saveGist(config, user, files);
   const gistInfo = await response.json();
 
@@ -14,9 +26,15 @@ export const exportGithubGist = async (config: Config, { user }: { user: User })
   }
 };
 
-const getFiles = (config: Config, user?: User) => {
+const getFiles = (
+  config: Config,
+  user: User | undefined,
+  deps: {
+    getLanguageExtension: typeof getLanguageExtensionFn;
+  },
+) => {
   const descriptionFile = getDescriptionFile(config, user);
-  const contentFiles = getFilesFromConfig(config);
+  const contentFiles = getFilesFromConfig(config, deps);
 
   return {
     ...descriptionFile,

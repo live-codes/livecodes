@@ -1,210 +1,332 @@
-import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
-import { Compartment, Extension } from '@codemirror/state';
-import { defaultHighlightStyle } from '@codemirror/highlight';
-import { undo, redo } from '@codemirror/history';
+/* eslint-disable import/no-internal-modules */
+
+// these imports are marked as external and are mapped to ./codemirror-core
+// (see html/app.html and scripts/build.js)
+// to allow lazy loaded modules to import the same modules
+import { Compartment, Extension, EditorState } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
-import { KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
-import { indentWithTab } from '@codemirror/commands';
-import { LanguageSupport } from '@codemirror/language';
-import { StreamLanguage, StreamParser } from '@codemirror/stream-parser';
+import { EditorView, KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
+import { indentWithTab, undo, redo } from '@codemirror/commands';
+import {
+  defaultHighlightStyle,
+  syntaxHighlighting,
+  indentUnit,
+  LanguageSupport,
+  HighlightStyle,
+} from '@codemirror/language';
+import { tags } from '@lezer/highlight';
 
-import { mapLanguage } from '../../languages';
-import { FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
-import { emmetExt } from './emmet-codemirror';
+// these are imported normally
+import type {
+  FormatFn,
+  Language,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+  EditorPosition,
+  EditorConfig,
+} from '../../models';
+import { getEditorModeNode } from '../../UI/selectors';
+import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
+import { editorLanguages } from './editor-languages';
+import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 
-export const legacy = (parser: StreamParser<unknown>) =>
-  new LanguageSupport(StreamLanguage.define(parser));
+export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
+  const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
+  let editorSettings: EditorConfig = { ...options };
+  if (!container) throw new Error('editor container not found');
 
-export const createEditorCreator =
-  (languages: Partial<{ [key in Language]: () => LanguageSupport }>) =>
-  async (options: EditorOptions): Promise<CodeEditor> => {
-    const { container, readonly, isEmbed } = options;
-    if (!container) throw new Error('editor container not found');
-    const getLanguageExtension = (language: Language): (() => LanguageSupport) =>
-      languages[language] || (languages.html as () => LanguageSupport);
+  const getLanguageSupport = async (language: Language): Promise<LanguageSupport> =>
+    editorLanguages[language]?.() || (editorLanguages.html?.() as Promise<LanguageSupport>);
 
-    let language = options.language;
-    let mappedLanguage = mapLanguage(language);
-    let theme = options.theme;
-    const keyBindings: KeyBinding[] = [];
-    let emmetEnabled = true;
+  const mapLanguage = (lang: Language) => {
+    if (['vue', 'vue3', 'vue2'].includes(lang)) return 'vue';
+    return options.mapLanguage?.(lang) || lang;
+  };
 
-    type Listener = (update: ViewUpdate) => void;
-    const listeners: Listener[] = [];
-    const notifyListeners = (update: ViewUpdate) => {
-      if (update.docChanged) {
-        listeners.forEach((fn) => fn(update));
-      }
+  let language = options.language;
+  let mappedLanguage = mapLanguage(language);
+  let mappedLanguageSupport = await getLanguageSupport(mappedLanguage);
+  let theme = options.theme;
+  const keyBindings: KeyBinding[] = [];
+
+  type Listener = (update: ViewUpdate) => void;
+  const listeners: Listener[] = [];
+  const notifyListeners = (update: ViewUpdate) => {
+    if (update.docChanged) {
+      listeners.forEach((fn) => fn(update));
+    }
+  };
+
+  let vim: (() => Extension) | undefined;
+  let emacs: (() => Extension) | undefined;
+  let emmet: Extension | undefined;
+
+  const loadExtensions = async (opt: EditorConfig) => {
+    const modules = {
+      vim: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-vim.js`,
+      emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
+      emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
     };
+    vim = opt.editorMode === 'vim' ? (await import(modules.vim)).vim : undefined;
+    emacs = opt.editorMode === 'emacs' ? (await import(modules.emacs)).emacs : undefined;
+    emmet = opt.emmet ? (await import(modules.emmet)).emmet : undefined;
+  };
 
-    const languageExtension = new Compartment();
-    const keyBindingsExtension = new Compartment();
-    const themeExtension = new Compartment();
-    const emmetExtension = new Compartment();
-    const readOnlyExtension = EditorView.editable.of(false);
-    const fullHeight = EditorView.theme({
-      '&': { height: '100%', fontSize: isEmbed ? '12px' : '14px' },
-      '.cm-scroller': { overflow: 'auto' },
-    });
+  await loadExtensions(options);
+  const languageExtension = new Compartment();
+  const keyBindingsExtension = new Compartment();
+  const themeExtension = new Compartment();
+  const readOnlyExtension = EditorView.editable.of(false);
+  const editorSettingsExtension = new Compartment();
+  const lineNumbersExtension = new Compartment();
+  const closeBracketsExtension = new Compartment();
+  const italicComments = HighlightStyle.define([{ tag: tags.comment, fontStyle: 'italic' }]);
 
-    const themes = {
-      dark: oneDark,
-      light: [defaultHighlightStyle],
-    };
+  const configureSettingsExtension = (settings: Partial<EditorConfig>) => {
+    const fontSize = (settings.fontSize ?? editorSettings.fontSize) || (isEmbed ? 12 : 14);
+    const fontFamily = getFontFamily(settings.fontFamily ?? editorSettings.fontFamily);
+    const tabSize = settings.tabSize ?? editorSettings.tabSize;
+    const useTabs = settings.useTabs ?? editorSettings.useTabs;
+    const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
+    const enableEmmet = settings.emmet ?? editorSettings.emmet;
+    const editorMode = settings.editorMode ?? editorSettings.editorMode;
 
-    const getExtensions = () => {
-      const defaultOptions: Extension[] = [
-        languageExtension.of(getLanguageExtension(mappedLanguage)()),
-        EditorView.updateListener.of(notifyListeners),
-        themeExtension.of(themes[theme]),
-        fullHeight,
-        readonly ? readOnlyExtension : [],
-        !emmetEnabled ? [] : emmetExtension.of(emmetExt),
-        keyBindingsExtension.of(keymap.of(keyBindings)),
-        basicSetup,
-        keymap.of([indentWithTab]),
-      ];
-
-      const codeblockOptions = [readOnlyExtension, ...defaultOptions];
-
-      const compiledCodeOptions = [readOnlyExtension, ...defaultOptions];
-
-      const consoleOptions = [...defaultOptions];
-
-      return options.editorType === 'console'
-        ? consoleOptions
-        : options.editorType === 'compiled'
-        ? compiledCodeOptions
-        : options.mode === 'codeblock'
-        ? codeblockOptions
-        : defaultOptions;
-    };
-
-    const view = new EditorView({
-      state: EditorState.create({
-        extensions: getExtensions(),
-        doc: options.value,
+    return [
+      EditorState.tabSize.of(tabSize),
+      indentUnit.of(useTabs ? '\t' : ' '.repeat(tabSize)),
+      ...(wordWrap ? [EditorView.lineWrapping] : []),
+      ...(editorMode === 'vim' && vim ? [vim()] : editorMode === 'emacs' && emacs ? [emacs()] : []),
+      ...(enableEmmet && emmet ? [emmet] : []),
+      EditorView.theme({
+        '&': {
+          height: '100%',
+          fontSize: fontSize + 'px',
+        },
+        '.cm-scroller': {
+          overflow: 'auto',
+          fontFamily,
+        },
       }),
-      parent: container,
-    });
+    ];
+  };
+  const themes = {
+    dark: oneDark,
+    light: [syntaxHighlighting(defaultHighlightStyle)],
+  };
 
-    const getValue = () => view.state.doc.toString();
-    const setValue = (value = '', newState = true) => {
-      if (newState) {
-        view.setState(EditorState.create({ doc: value, extensions: getExtensions() }));
-      } else {
-        view.dispatch({
-          changes: {
-            from: 0,
-            to: view.state.doc.length,
-            insert: value,
-          },
-        });
-      }
+  const getExtensions = () => {
+    const defaultOptions: Extension[] = [
+      languageExtension.of(mappedLanguageSupport),
+      EditorView.updateListener.of(notifyListeners),
+      themeExtension.of(themes[theme]),
+      syntaxHighlighting(italicComments),
+      editorSettingsExtension.of(configureSettingsExtension({})),
+      keyBindingsExtension.of(keymap.of(keyBindings)),
+      lineNumbersExtension.of(editorSettings.lineNumbers ? lineNumbers() : []),
+      closeBracketsExtension.of(editorSettings.closeBrackets ? closeBrackets() : []),
+      basicSetup,
+      readonly ? readOnlyExtension : [],
+      keymap.of([indentWithTab]),
+      keymap.of(vscodeKeymap),
+      indentationMarkers(),
+      colorPicker,
+    ];
+
+    const codeblockOptions = [readOnlyExtension, ...defaultOptions];
+
+    const compiledCodeOptions = [readOnlyExtension, ...defaultOptions];
+
+    const consoleOptions = [...defaultOptions];
+
+    return editorId === 'console'
+      ? consoleOptions
+      : editorId === 'compiled'
+      ? compiledCodeOptions
+      : options.mode === 'codeblock'
+      ? codeblockOptions
+      : defaultOptions;
+  };
+
+  const showEditorMode = async (mode: EditorConfig['editorMode']) => {
+    const editorModeNode = getEditorModeNode();
+    const setEditorModeText = (str: string) => {
+      if (!editorModeNode) return;
+      editorModeNode.textContent = str;
     };
-    const focus = () => view.focus();
-    const getLanguage = () => language;
-    const setLanguage = (lang: Language, value?: string) => {
-      language = lang;
-      mappedLanguage = mapLanguage(language);
+    if (!mode) {
+      setEditorModeText('');
+    }
+    if (mode === 'vim') {
+      setEditorModeText('Vim');
+    }
+    if (mode === 'emacs') {
+      setEditorModeText('Emacs');
+    }
+  };
+
+  const view = new EditorView({
+    state: EditorState.create({
+      extensions: getExtensions(),
+      doc: options.value,
+    }),
+    parent: container,
+  });
+  showEditorMode(options.editorMode);
+
+  const getEditorId = () => editorId;
+  const getValue = () => view.state.doc.toString();
+  const setValue = (value = '', newState = true) => {
+    if (newState) {
+      view.setState(EditorState.create({ doc: value, extensions: getExtensions() }));
+    } else {
       view.dispatch({
-        effects: languageExtension.reconfigure(getLanguageExtension(mappedLanguage)()),
-      });
-      if (value != null) {
-        setValue(value);
-      }
-    };
-
-    const onContentChanged = (fn: Listener) => {
-      listeners.push(fn);
-    };
-
-    const keyCodes = {
-      CtrlEnter: 'Ctrl-Enter',
-      Enter: 'Enter',
-      UpArrow: 'ArrowUp',
-      DownArrow: 'ArrowDown',
-      ShiftAltF: 'Shift-Alt-f',
-    };
-
-    const addKeyBinding = (_label: string, keyCode: any, callback: () => void) => {
-      keyBindings.push({
-        key: keyCode,
-        run() {
-          callback();
-          return true;
+        changes: {
+          from: 0,
+          to: view.state.doc.length,
+          insert: value,
         },
       });
-      view.dispatch({
-        effects: keyBindingsExtension.reconfigure(keymap.of(keyBindings)),
-      });
-    };
-
-    let formatter: FormatFn | undefined;
-    const registerFormatter = (formatFn: FormatFn | undefined) => {
-      if (!formatFn) return;
-      formatter = formatFn;
-      addKeyBinding('format', keyCodes.ShiftAltF, async () => {
-        await format();
-        focus();
-      });
-    };
-
-    const format = async () => {
-      if (!formatter) return;
-      const offset = view.state.selection.main.to;
-      const oldValue = getValue();
-      const newValue = await formatter(oldValue, offset);
-      setValue(newValue.formatted, false);
-      const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
-      view.dispatch({ selection: { anchor: newOffset } });
-    };
-
-    const setTheme = (newTheme: Theme) => {
-      theme = newTheme;
-      view.dispatch({
-        effects: themeExtension.reconfigure(themes[theme]),
-      });
-    };
-
-    const configureEmmet = (enabled: boolean) => {
-      emmetEnabled = enabled;
-      view.dispatch({
-        effects: emmetExtension.reconfigure(!enabled ? [] : emmetExt),
-      });
-    };
-
-    const editorUndo = () => {
-      undo({ state: view.state, dispatch: view.dispatch });
-    };
-
-    const editorRedo = () => {
-      redo({ state: view.state, dispatch: view.dispatch });
-    };
-    addKeyBinding('redo', 'Mod-Shift-z', editorRedo);
-
-    const destroy = () => {
-      listeners.length = 0;
-      view.destroy();
-    };
-
-    return {
-      getValue,
-      setValue,
-      getLanguage,
-      setLanguage,
-      focus,
-      configureEmmet,
-      onContentChanged,
-      keyCodes,
-      addKeyBinding,
-      registerFormatter,
-      format,
-      isReadonly: readonly,
-      setTheme,
-      undo: editorUndo,
-      redo: editorRedo,
-      destroy,
-      codemirror: view,
-    };
+    }
   };
+  const focus = () => view.focus();
+  const getLanguage = () => language;
+  const setLanguage = (lang: Language, value?: string) => {
+    language = lang;
+    mappedLanguage = mapLanguage(language);
+    getLanguageSupport(mappedLanguage).then((langSupport) => {
+      mappedLanguageSupport = langSupport;
+      view.dispatch({
+        effects: languageExtension.reconfigure(mappedLanguageSupport),
+      });
+    });
+    if (value != null) {
+      setValue(value);
+    }
+  };
+
+  const onContentChanged = (fn: Listener) => {
+    listeners.push(fn);
+  };
+
+  const keyCodes = {
+    CtrlEnter: 'Ctrl-Enter',
+    ShiftEnter: 'Shift-Enter',
+    Enter: 'Enter',
+    UpArrow: 'ArrowUp',
+    DownArrow: 'ArrowDown',
+    ShiftAltF: 'Shift-Alt-f',
+  };
+
+  const addKeyBinding = (_label: string, keyCode: any, callback: () => void) => {
+    keyBindings.push({
+      key: keyCode,
+      run() {
+        callback();
+        return true;
+      },
+    });
+    view.dispatch({
+      effects: keyBindingsExtension.reconfigure(keymap.of(keyBindings)),
+    });
+  };
+
+  let formatter: FormatFn | undefined;
+  const registerFormatter = (formatFn: FormatFn | undefined) => {
+    if (!formatFn) return;
+    formatter = formatFn;
+    addKeyBinding('format', keyCodes.ShiftAltF, async () => {
+      await format();
+      focus();
+    });
+  };
+
+  const format = async () => {
+    if (!formatter) return;
+    const offset = view.state.selection.main.to;
+    const oldValue = getValue();
+    const newValue = await formatter(oldValue, offset, getFormatterConfig());
+    setValue(newValue.formatted, false);
+    const newOffset = newValue.cursorOffset >= 0 ? newValue.cursorOffset : 0;
+    view.dispatch({ selection: { anchor: newOffset } });
+  };
+
+  const setTheme = (newTheme: Theme) => {
+    theme = newTheme;
+    view.dispatch({
+      effects: themeExtension.reconfigure(themes[theme]),
+    });
+  };
+
+  const changeSettings = (settings: EditorConfig) => {
+    editorSettings = { ...settings };
+    loadExtensions(editorSettings).then(() => {
+      view.dispatch({
+        effects: [
+          editorSettingsExtension.reconfigure(configureSettingsExtension(editorSettings)),
+          lineNumbersExtension.reconfigure(editorSettings.lineNumbers ? lineNumbers() : []),
+          closeBracketsExtension.reconfigure(editorSettings.closeBrackets ? closeBrackets() : []),
+        ],
+      });
+      showEditorMode(editorSettings.editorMode);
+    });
+  };
+
+  const editorUndo = () => {
+    undo({ state: view.state, dispatch: view.dispatch });
+  };
+
+  const editorRedo = () => {
+    redo({ state: view.state, dispatch: view.dispatch });
+  };
+  addKeyBinding('redo', 'Mod-Shift-z', editorRedo);
+
+  const getPosition = (): EditorPosition => {
+    const position = view.state.selection.asSingle().ranges[0].from;
+    const lineInfo = view.state.doc.lineAt(position);
+    const lineNumber = lineInfo.number;
+    const column = position - lineInfo.from + 1;
+    return { lineNumber, column };
+  };
+
+  const setPosition = ({ lineNumber, column = 0 }: EditorPosition) => {
+    const line = view.state.doc.lines > lineNumber ? lineNumber : view.state.doc.lines;
+    const lineInfo = view.state.doc.line(line);
+    const columnNumber = lineInfo.length > column ? column : lineInfo.length;
+    const position = lineInfo.from + columnNumber;
+    view.dispatch({
+      selection: { anchor: position },
+      effects: [EditorView.scrollIntoView(position, { x: 'center', y: 'center' })],
+    });
+  };
+
+  const destroy = () => {
+    listeners.length = 0;
+    keyBindings.length = 0;
+    view.destroy();
+    container.innerHTML = '';
+  };
+
+  return {
+    getValue,
+    setValue,
+    getLanguage,
+    setLanguage,
+    getEditorId,
+    focus,
+    getPosition,
+    setPosition,
+    onContentChanged,
+    keyCodes,
+    addKeyBinding,
+    changeSettings,
+    registerFormatter,
+    format,
+    isReadonly: readonly,
+    setTheme,
+    undo: editorUndo,
+    redo: editorRedo,
+    destroy,
+    codemirror: view,
+  };
+};

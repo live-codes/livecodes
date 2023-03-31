@@ -1,11 +1,11 @@
 import { languages, getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { EditorId, Language, Config } from '../models';
 
-export interface sourceFile {
+export interface SourceFile {
   filename: string;
-  language: Language;
   content: string;
-  editorId: EditorId;
+  language?: Language;
+  editorId?: EditorId;
 }
 
 export interface FileData {
@@ -22,10 +22,10 @@ export const getValidUrl = (url: string) => {
     return;
   }
 };
-export const populateConfig = (
-  files: Array<Partial<sourceFile>>,
-  params: { [key: string]: string },
-) => {
+
+export const populateConfig = (files: SourceFile[], params: { [key: string]: string }) => {
+  if (files.length === 0) return {};
+
   // select files based on language in query params (e.g. ?html=index.html&js=script.js)
   const languagesInParams = Object.keys(params).some(getLanguageByAlias);
   if (languagesInParams) {
@@ -50,13 +50,68 @@ export const populateConfig = (
 
   // select languages from files
   const code = files
-    .sort(
-      (a, b) =>
+    .map((file) => {
+      const extension = file.filename.split('.')[file.filename.split('.').length - 1];
+      const language: Language = file.language || getLanguageByAlias(extension) || 'html';
+      const editorId = file.editorId || getLanguageEditorId(language) || 'markup';
+      return {
+        ...file,
+        language,
+        editorId,
+      };
+    })
+    .sort((a, b) => {
+      if (
+        // put default files first
+        a.editorId === b.editorId &&
+        ((a.editorId === 'markup' && a.filename.toLowerCase().startsWith('index.')) ||
+          (a.editorId === 'style' && a.filename.toLowerCase().startsWith('style.')) ||
+          (a.editorId === 'script' && a.filename.toLowerCase().startsWith('script.')))
+      ) {
+        return -1;
+      }
+      if (
+        // put default files first
+        a.editorId === b.editorId &&
+        ((b.editorId === 'markup' && b.filename.toLowerCase().startsWith('index.')) ||
+          (b.editorId === 'style' && b.filename.toLowerCase().startsWith('style.')) ||
+          (b.editorId === 'script' && b.filename.toLowerCase().startsWith('script.')))
+      ) {
+        return 1;
+      }
+      if (
+        // put readme last
+        a.editorId === b.editorId &&
+        a.editorId === 'markup'
+      ) {
+        if (a.filename.toLowerCase().startsWith('readme')) return 1;
+        if (b.filename.toLowerCase().startsWith('readme')) return -1;
+      }
+      if (a.language === b.language) {
+        // if same language, sort by filename
+        return a.filename.localeCompare(b.filename);
+      }
+      return (
+        // then sort by language
         languages.findIndex((language) => language.name === a.language) -
-        languages.findIndex((language) => language.name === b.language),
-    )
+        languages.findIndex((language) => language.name === b.language)
+      );
+    })
     .reduce((output: Partial<Config>, file) => {
-      if (!file?.editorId || output[file.editorId]) return output;
+      // tests
+      if (file.filename.toLowerCase().match(new RegExp('.(test|spec)\\.[jt]sx?'))) {
+        if (output.tests?.content) return output;
+        return {
+          ...output,
+          tests: {
+            language: file.language,
+            content: file.content,
+          },
+        };
+      }
+
+      // code
+      if (!file.editorId || output[file.editorId]) return output;
       return {
         ...output,
         [file.editorId]: {
@@ -71,11 +126,23 @@ export const populateConfig = (
   const stylesFile = files.find((file) => file.filename === 'styles');
   if (stylesFile?.content) {
     try {
+      const urls: string[] = [];
       const domparser = new DOMParser();
       const doc = domparser.parseFromString(stylesFile.content, 'text/html');
-      doc.querySelectorAll('link').forEach((stylesheet) => {
+      doc.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach((stylesheet) => {
+        urls.push(stylesheet.href);
+      });
+      if (urls.length === 0) {
+        stylesFile.content
+          .trim()
+          .split('\n')
+          .forEach((line) => {
+            urls.push(line);
+          });
+      }
+      urls.forEach((url) => {
         try {
-          stylesheets.push(new URL(stylesheet.href).href);
+          stylesheets.push(new URL(url).href);
         } catch (error) {
           // not url
         }
@@ -89,11 +156,23 @@ export const populateConfig = (
   const scriptsFile = files.find((file) => file.filename === 'scripts');
   if (scriptsFile?.content) {
     try {
+      const urls: string[] = [];
       const domparser = new DOMParser();
       const doc = domparser.parseFromString(scriptsFile.content, 'text/html');
       doc.querySelectorAll('script').forEach((script) => {
+        urls.push(script.src);
+      });
+      if (urls.length === 0) {
+        scriptsFile.content
+          .trim()
+          .split('\n')
+          .forEach((line) => {
+            urls.push(line);
+          });
+      }
+      urls.forEach((url) => {
         try {
-          scripts.push(new URL(script.src).href);
+          scripts.push(new URL(url).href);
         } catch (error) {
           // not url
         }
@@ -112,6 +191,7 @@ export const populateConfig = (
 export const hostPatterns = {
   github: /^(?:(?:http|https):\/\/)?github.com\/(?:.*)/g,
   githubGist: /^(?:(?:http|https):\/\/)?gist.github.com(?:\/\S*)?\/(\w+)/g,
-  gitlab: /^(?:(?:(?:http|https):\/\/)?)?gitlab.com\/(?:.*)/g,
+  gitlab: /^(?:(?:http|https):\/\/)?gitlab.com\/(?:.*)/g,
+  codepen: /^(?:(?:http|https):\/\/)?codepen.io\/(\w+)\/pen\/(\w+)/g,
   jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d)?)(?:.*)/g,
 };

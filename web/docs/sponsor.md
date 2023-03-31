@@ -1,5 +1,0 @@
----
-title: Sponsor
----
-
-# Sponsor LiveCodes

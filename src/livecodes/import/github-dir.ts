@@ -1,6 +1,6 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language, User } from '../models';
-import { getGithubHeaders } from './github-headers';
+import type { User } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { getGithubHeaders } from '../services/github';
 import { hostPatterns, populateConfig } from './utils';
 
 export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.github)) => {
@@ -60,9 +60,6 @@ export const importFromGithubDir = async (
     const files = await Promise.all(
       Object.values(dirFiles).map(async (file: any) => {
         const filename = file.path.split('/')[file.path.split('/').length - 1];
-        const extension = filename.split('.')[filename.split('.').length - 1];
-        const language = getLanguageByAlias(extension);
-        const editorId = getLanguageEditorId(language as Language);
         const content = atob(
           await fetch(file.url, {
             ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
@@ -73,9 +70,7 @@ export const importFromGithubDir = async (
 
         return {
           filename,
-          language,
           content,
-          editorId,
         };
       }),
     );

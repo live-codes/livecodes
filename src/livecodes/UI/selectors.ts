@@ -21,16 +21,29 @@ export const getUndoButton = () => document.querySelector('#editor-tools #undo-b
 export const getRedoButton = () => document.querySelector('#editor-tools #redo-btn') as HTMLElement;
 export const getFormatButton = () =>
   document.querySelector('#editor-tools #format-btn') as HTMLElement;
+export const getEditorModeNode = () => document.querySelector<HTMLElement>('#editor-mode');
+export const getEditorStatus = () =>
+  document.querySelector('#editor-tools #editor-status') as HTMLElement;
 export const getExternalResourcesBtn = () =>
   document.querySelector('#editor-tools #external-resources-btn') as HTMLElement;
 export const getExternalResourcesMark = () =>
   document.querySelector('#editor-tools #external-resources-mark') as HTMLElement;
 export const getResultButton = () => document.querySelector('#result-button') as HTMLElement;
+export const getFullscreenButton = () =>
+  document.querySelector('#fullscreen-button') as HTMLElement;
 export const getEditorTitles = () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
 export const getEditorDivs = () => document.querySelectorAll<HTMLElement>('#editors > .editor');
+export const getToolspaneElement = () =>
+  document.querySelector('#output #tools-pane') as HTMLElement;
+export const getToolspaneBar = () =>
+  document.querySelector('#output #tools-pane-bar') as HTMLElement;
+export const getToolspaneButtons = () =>
+  document.querySelector('#tools-pane-buttons') as HTMLElement;
 export const getToolspaneTitles = () => document.querySelector<HTMLElement>('#tools-pane-titles');
 export const getToolspaneLoader = () => document.querySelector<HTMLElement>('#tools-pane-loading');
+export const getZoomButtonValue = () =>
+  document.querySelector<HTMLElement>('#zoom-button #zoom-value');
 export const getModalSaveButton = () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;
 export const getModalDoNotSaveButton = () =>
@@ -38,18 +51,18 @@ export const getModalDoNotSaveButton = () =>
 export const getModalCancelButton = () =>
   document.querySelector('#modal #prompt-cancel-btn') as HTMLElement;
 
-export const getModalRestoreButton = () =>
-  document.querySelector('#modal #prompt-restore-btn') as HTMLElement;
+export const getModalRecoverButton = () =>
+  document.querySelector('#modal #prompt-recover-btn') as HTMLElement;
 export const getModalSavePreviousButton = () =>
   document.querySelector('#modal #prompt-save-previous-btn') as HTMLElement;
-export const getModalCancelRestoreButton = () =>
-  document.querySelector('#modal #prompt-cancel-restore-btn') as HTMLElement;
+export const getModalCancelRecoverButton = () =>
+  document.querySelector('#modal #prompt-cancel-recover-btn') as HTMLElement;
 export const getModalUnsavedName = () =>
   document.querySelector('#modal #unsaved-project-name') as HTMLElement;
 export const getModalUnsavedLastModified = () =>
   document.querySelector('#modal #unsaved-project-last-modified') as HTMLElement;
-export const getModalDisableRestoreCheckbox = () =>
-  document.querySelector('#modal #disable-restore-checkbox') as HTMLInputElement;
+export const getModalDisableRecoverCheckbox = () =>
+  document.querySelector('#modal #disable-recover-checkbox') as HTMLInputElement;
 
 export const getLanguageMenuLinks = () =>
   document.querySelectorAll<HTMLElement>('#select-editor .language-item a');
@@ -111,15 +124,39 @@ export const getCustomSettingsLink = () =>
 
 export const getShareLink = () => document.querySelector<HTMLAnchorElement>('#share-link');
 
+export const getEmbedLink = () => document.querySelector<HTMLAnchorElement>('#embed-link');
+
+export const getEditorSettingsLink = () =>
+  document.querySelector<HTMLAnchorElement>('#editor-settings-link');
+
 export const getDeployLink = () => document.querySelector<HTMLAnchorElement>('#deploy-link');
 
+export const getSyncLink = () => document.querySelector<HTMLAnchorElement>('#sync-link');
+
+export const getSyncIndicator = () => document.querySelector<HTMLAnchorElement>('#sync-indicator');
+
 export const getImportLink = () => document.querySelector<HTMLAnchorElement>('#import-link');
+
+export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#backup-link');
+
+export const getBroadcastLink = () => document.querySelector<HTMLAnchorElement>('#broadcast-link');
+
+export const getWelcomeLink = () => document.querySelector<HTMLAnchorElement>('#welcome-link');
 
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 
+export const getDelayValue = () =>
+  document.querySelector('#settings-menu #delay-value') as HTMLElement;
+
+export const getDelayRange = () =>
+  document.querySelector('#settings-menu input#delay-range') as HTMLInputElement;
+
 export const getAutosaveToggle = () =>
   document.querySelector('#settings-menu input#autosave') as HTMLInputElement;
+
+export const getAutosyncToggle = () =>
+  document.querySelector('#settings-menu input#autosync') as HTMLInputElement;
 
 export const getFormatOnsaveToggle = () =>
   document.querySelector('#settings-menu input#formatOnsave') as HTMLInputElement;
@@ -133,8 +170,11 @@ export const getEmmetToggle = () =>
 export const getThemeToggle = () =>
   document.querySelector('#settings-menu input#theme') as HTMLInputElement;
 
-export const getRestoreToggle = () =>
-  document.querySelector('#settings-menu input#enable-restore') as HTMLInputElement;
+export const getShowWelcomeToggle = () =>
+  document.querySelector('#settings-menu input#welcome') as HTMLInputElement;
+
+export const getRecoverToggle = () =>
+  document.querySelector('#settings-menu input#recover-unsaved') as HTMLInputElement;
 
 export const getSpacingToggle = () =>
   document.querySelector('#settings-menu input#show-spacing') as HTMLInputElement;
@@ -147,6 +187,9 @@ export const getProjectInfoLink = () =>
 
 export const getAssetsLink = () =>
   document.querySelector('#settings-menu #assets-link') as HTMLInputElement;
+
+export const getSnippetsLink = () =>
+  document.querySelector('#settings-menu #snippets-link') as HTMLInputElement;
 
 export const getInfoTitleInput = () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
@@ -163,6 +206,9 @@ export const getSaveInfoButton = () =>
 export const getExternalResourcesTextareas = () =>
   document.querySelectorAll<HTMLTextAreaElement>('#resources-container textarea');
 
+export const getExternalResourcesCssPresetInputs = () =>
+  document.querySelectorAll<HTMLInputElement>('#resources-container input[type="radio"]');
+
 export const getLoadResourcesButton = () =>
   document.querySelector<HTMLElement>('#resources-container #resources-load-btn');
 
@@ -172,12 +218,29 @@ export const getCustomSettingsEditor = () =>
 export const getLoadCustomSettingsButton = () =>
   document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-load-btn');
 
+export const getTestEditor = () =>
+  document.querySelector<HTMLElement>('#test-editor-container #test-editor');
+
+export const getLoadTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-editor-container #test-load-btn');
+
+export const getEditTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-container #edit-tests-btn');
+
+export const getRunTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-container #run-tests-btn');
+
+export const getWatchTestsButton = () =>
+  document.querySelector<HTMLElement>('#test-container #watch-tests-btn');
+
 export const getUrlImportForm = (importContainer: HTMLElement) =>
   importContainer.querySelector<HTMLFormElement>('#url-import-form');
 export const getUrlImportButton = (importContainer: HTMLElement) =>
   importContainer.querySelector('#url-import-btn') as HTMLButtonElement;
 export const getUrlImportInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#code-url') as HTMLInputElement;
+export const getCodeImportInput = (importContainer: HTMLElement) =>
+  importContainer.querySelector('#local-code-input') as HTMLInputElement;
 
 export const getImportJsonUrlForm = (importContainer: HTMLElement) =>
   importContainer.querySelector('#json-url-import-form') as HTMLInputElement;
@@ -198,6 +261,9 @@ export const getLinkToSavedProjects = (importContainer: HTMLElement) =>
 export const getImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#file-input') as HTMLInputElement;
 
+export const getImportFileInputLabel = (importContainer: HTMLElement) =>
+  importContainer.querySelector('.file-input-label') as HTMLInputElement;
+
 export const getBulkImportFileInput = (importContainer: HTMLElement) =>
   importContainer.querySelector('#bulk-file-input') as HTMLInputElement;
 
@@ -213,6 +279,8 @@ export const getNewRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
 export const getNewRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-source') as HTMLInputElement;
+export const getNewRepoAutoSync = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#new-repo-autosync') as HTMLInputElement;
 
 export const getExistingRepoForm = (deployContainer: HTMLElement) =>
   deployContainer.querySelector<HTMLFormElement>('#existing-repo-form');
@@ -224,6 +292,8 @@ export const getExistingRepoMessageInput = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-message') as HTMLInputElement;
 export const getExistingRepoCommitSource = (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#existing-repo-source') as HTMLInputElement;
+export const getExistingRepoAutoSync = (deployContainer: HTMLElement) =>
+  deployContainer.querySelector('#existing-repo-autosync') as HTMLInputElement;
 
 export const getStarterTemplatesTab = (templatesContainer: HTMLElement) =>
   templatesContainer.querySelector<HTMLElement>(
@@ -269,3 +339,110 @@ export const getAssetGHPagesFileInputButton = (listContainer: HTMLElement) =>
 
 export const getAssetGHPagesOutput = (listContainer: HTMLElement) =>
   listContainer.querySelector('#gh-pages-output') as HTMLElement;
+
+export const getSyncStatus = (syncContainer: HTMLElement | undefined) =>
+  (syncContainer || document).querySelector<HTMLElement>('#sync-status');
+
+export const getStartSyncBtns = (syncContainer: HTMLElement | undefined) =>
+  (syncContainer || document).querySelectorAll<HTMLButtonElement>('.start-sync-btn');
+
+export const getBackupForm = (backupContainer: HTMLElement) =>
+  backupContainer.querySelector('#backup-form') as HTMLFormElement;
+
+export const getBackupBtn = (backupContainer: HTMLElement) =>
+  backupContainer.querySelector('#backup-btn') as HTMLButtonElement;
+
+export const getBackupCheckedInputs = (backupContainer: HTMLElement) =>
+  backupContainer.querySelectorAll<HTMLInputElement>('#backup input[type="checkbox"]:checked');
+
+export const getAddSnippetButton = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#snippets-add-snippet-button') as HTMLElement;
+
+export const getSnippetsDeleteAllButton = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#snippets-delete-all-button') as HTMLElement;
+
+export const getSnippetLanguageSelect = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#language-select') as HTMLSelectElement;
+
+export const getAddSnippetEditor = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-editor') as HTMLElement;
+
+export const getSnippetTitleInput = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-title-input') as HTMLInputElement;
+
+export const getSnippetDescriptionArea = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-description-textarea') as HTMLTextAreaElement;
+
+export const getSaveSnippetBtn = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#add-snippet-save-btn') as HTMLButtonElement;
+
+export const getSnippetsBtn = (snippetsContainer: HTMLElement) =>
+  snippetsContainer.querySelector('#snippets-button') as HTMLButtonElement;
+
+export const getBroadcastStatusLabel = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-status') as HTMLElement;
+
+export const getBroadcastForm = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-form') as HTMLFormElement;
+
+export const getBroadcastServerUrlInput = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-server-url') as HTMLInputElement;
+
+export const getBroadcastSourceCheckbox = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-source') as HTMLInputElement;
+
+export const getBroadcastBtn = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-btn') as HTMLButtonElement;
+
+export const getBroadcastChannelUrlSection = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-channel-url-section') as HTMLElement;
+
+export const getBroadcastChannelUrl = (broadcastContainer: HTMLElement) =>
+  broadcastContainer.querySelector('#broadcast-channel-url') as HTMLAnchorElement;
+
+export const getBroadcastStatusBtn = () =>
+  document.querySelector('#broadcast-status-btn') as HTMLElement | null;
+
+export const getQrCodeContainer = () => document.querySelector('#qrcode-container') as HTMLElement;
+
+export const getEditorSettingsFormatLink = (editorSettingsContainer: HTMLElement) =>
+  editorSettingsContainer.querySelector('#editor-settings-format-link') as HTMLAnchorElement;
+
+export const getWelcomeLinkNew = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-new') as HTMLAnchorElement;
+
+export const getWelcomeLinkOpen = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-open') as HTMLAnchorElement;
+
+export const getWelcomeLinkImport = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-import') as HTMLAnchorElement;
+
+export const getWelcomeLinkDefaultTemplateLi = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('.default-template-li') as HTMLAnchorElement;
+
+export const getWelcomeLinkNoDefaultTemplate = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#no-default-template') as HTMLAnchorElement;
+
+export const getWelcomeLinkLoadDefault = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-load-default') as HTMLAnchorElement;
+
+export const getWelcomeLinkRecentOpen = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-recent-open') as HTMLAnchorElement;
+
+export const getWelcomeLinkTemplates = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-link-templates') as HTMLAnchorElement;
+
+export const getModalShowWelcomeCheckbox = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;
+
+export const getModalWelcomeRecover = (welcomeContainer = document) =>
+  welcomeContainer.querySelector('#modal #welcome-recover') as HTMLElement;
+
+export const getModalWelcomeRecent = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #welcome-recent') as HTMLElement;
+
+export const getModalWelcomeRecentList = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #welcome-recent-list') as HTMLElement;
+
+export const getModalWelcomeTemplateList = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#modal #welcome-template-list') as HTMLElement;

@@ -1,29 +1,70 @@
+/* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
-import type * as Monaco from 'monaco-editor'; // only for typescript types
+import * as Monaco from 'monaco-editor'; // only for typescript types
 
-import { EditorLibrary, FormatFn, Language, CodeEditor, EditorOptions, Theme } from '../../models';
-import { getLanguageExtension, mapLanguage } from '../../languages';
-import { getRandomString, loadScript } from '../../utils';
-import { emmetMonacoUrl, vendorsBaseUrl } from '../../vendors';
-import { getImports } from '../../compiler';
-import { modulesService } from '../../services';
+import type {
+  EditorLibrary,
+  FormatFn,
+  Language,
+  CodeEditor,
+  EditorOptions,
+  Theme,
+  EditorPosition,
+  EditorConfig,
+  PkgInfo,
+  APIError,
+} from '../../models';
+import { getRandomString, loadScript } from '../../utils/utils';
+import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
+import { getImports } from '../../compiler/import-map';
+import { getEditorModeNode } from '../../UI/selectors';
+import { pkgInfoService } from '../../services/pkgInfo';
 
-let loaded = false;
+type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
+
+let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
-
-const monacoMapLanguage = (language: Language): Language =>
-  language === 'livescript'
-    ? 'coffeescript'
-    : ['rescript', 'reason', 'ocaml'].includes(language)
-    ? 'csharp'
-    : mapLanguage(language);
+let monaco: typeof Monaco;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, baseUrl, readonly, theme, isEmbed, ...baseOptions } = options;
+  const {
+    container,
+    baseUrl,
+    readonly,
+    theme,
+    isEmbed,
+    getLanguageExtension,
+    mapLanguage,
+    getFormatterConfig,
+    getFontFamily,
+  } = options;
   if (!container) throw new Error('editor container not found');
 
-  const monacoPath = baseUrl + 'vendor/monaco-editor';
-  let monaco: typeof Monaco;
+  let editorMode: any | undefined;
+
+  const convertOptions = (opt: EditorConfig): Options => ({
+    fontFamily: getFontFamily(opt.fontFamily),
+    fontSize: opt.fontSize || (isEmbed ? 12 : 14),
+    insertSpaces: !opt.useTabs,
+    detectIndentation: false,
+    tabSize: opt.tabSize,
+    lineNumbers: opt.lineNumbers ? 'on' : 'off',
+    wordWrap: opt.wordWrap ? 'on' : 'off',
+    autoClosingBrackets: opt.closeBrackets ? 'always' : 'never',
+    autoClosingQuotes: opt.closeBrackets ? 'always' : 'never',
+    autoClosingDelete: opt.closeBrackets ? 'always' : 'never',
+  });
+
+  const baseOptions = convertOptions(options);
+
+  const monacoMapLanguage = (language: Language): Language =>
+    language === 'livescript'
+      ? 'coffeescript'
+      : ['rescript', 'reason', 'ocaml'].includes(language)
+      ? 'csharp'
+      : mapLanguage(language);
+
+  const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   try {
     (window as any).monaco =
       (window as any).monaco || (await import(`${monacoPath}/monaco-editor.js`)).monaco;
@@ -32,20 +73,26 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     throw new Error('Failed to load monaco editor');
   }
 
-  type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
+  monaco.editor.defineTheme('custom-vs-light', {
+    base: 'vs',
+    inherit: true,
+    rules: [{ token: 'comment', fontStyle: 'italic' }],
+    colors: {},
+  });
+  monaco.editor.defineTheme('custom-vs-dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [{ token: 'comment', fontStyle: 'italic' }],
+    colors: {},
+  });
 
   const defaultOptions: Options = {
-    fontSize: isEmbed ? 12 : 14,
-    theme: 'vs-' + theme,
+    theme: 'custom-vs-' + theme,
+    fontLigatures: true,
     formatOnType: false,
-    tabSize: 2,
     lineNumbersMinChars: 3,
-    minimap: {
-      enabled: false,
-    },
-    scrollbar: {
-      useShadows: false,
-    },
+    minimap: { enabled: false },
+    scrollbar: { useShadows: false },
     mouseWheelZoom: true,
     automaticLayout: true,
     readOnly: readonly,
@@ -53,8 +100,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const codeblockOptions: Options = {
     ...defaultOptions,
-    readOnly: true,
-    // lineNumbers: 'off',
     scrollBeyondLastLine: false,
     contextmenu: false,
   };
@@ -62,12 +107,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const compiledCodeOptions: Options = {
     ...defaultOptions,
     scrollBeyondLastLine: false,
-    readOnly: true,
   };
 
   const consoleOptions: Options = {
     ...defaultOptions,
-    lineNumbers: 'off',
     glyphMargin: true,
     folding: false,
     lineDecorationsWidth: 0,
@@ -79,11 +122,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     contextmenu: false,
   };
 
+  const embedOptions: Options = {
+    ...consoleOptions,
+  };
+
+  const editorId = options.editorId;
   const editorOptions =
-    options.editorType === 'console'
+    editorId === 'console'
       ? consoleOptions
-      : options.editorType === 'compiled'
+      : editorId === 'compiled'
       ? compiledCodeOptions
+      : editorId === 'embed'
+      ? embedOptions
       : options.mode === 'codeblock'
       ? codeblockOptions
       : defaultOptions;
@@ -148,6 +198,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
+  let modelUri = '';
   const setModel = (
     editor: Monaco.editor.IStandaloneCodeEditor,
     value: string,
@@ -155,11 +206,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   ) => {
     const random = getRandomString();
     const ext = getLanguageExtension(language);
+    modelUri = `file:///${editorId}.${random}.${ext}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
       value || '',
       monacoMapLanguage(language),
-      monaco.Uri.parse(`file:///main.${random}.${ext}`),
+      monaco.Uri.parse(modelUri),
     );
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
@@ -170,9 +222,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let language = options.language;
 
   const editor = monaco.editor.create(container, {
-    ...editorOptions,
     ...baseOptions,
-    language,
+    ...editorOptions,
+    language: monacoMapLanguage(language),
   });
   setModel(editor, options.value, language);
 
@@ -188,10 +240,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   }
 
   const customLanguages: Partial<Record<Language, string>> = {
-    astro: vendorsBaseUrl + 'monaco-editor/languages/astro.js',
-    clio: vendorsBaseUrl + 'monaco-editor/languages/clio.js',
-    imba: vendorsBaseUrl + 'monaco-editor/languages/imba.js',
-    wat: vendorsBaseUrl + 'monaco-editor/languages/wat.js',
+    astro: baseUrl + '{{hash:monaco-lang-astro.js}}',
+    clio: baseUrl + '{{hash:monaco-lang-clio.js}}',
+    imba: baseUrl + '{{hash:monaco-lang-imba.js}}',
+    // sql: baseUrl + '{{hash:monaco-lang-sql.js}}', // TODO: add autocomplete
+    wat: baseUrl + '{{hash:monaco-lang-wat.js}}',
   };
 
   interface CustomLanguageDefinition {
@@ -212,6 +265,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  const getEditorId = () => editorId;
   const getValue = () => editor.getValue();
   const setValue = (value = '') => {
     editor.getModel()?.setValue(value);
@@ -284,9 +338,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const keyCodes = {
     // eslint-disable-next-line
     CtrlEnter: monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+    // eslint-disable-next-line
+    ShiftEnter: monaco.KeyMod.Shift | monaco.KeyCode.Enter,
     Enter: monaco.KeyCode.Enter,
     UpArrow: monaco.KeyCode.UpArrow,
     DownArrow: monaco.KeyCode.DownArrow,
+    // eslint-disable-next-line
+    ShiftAltF: monaco.KeyMod.Shift | monaco.KeyMod.Alt | monaco.KeyCode.KeyF,
   };
 
   const addKeyBinding = (label: string, keybinding: any, callback: () => void) => {
@@ -299,6 +357,63 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  const configureEditorMode = async (mode: EditorConfig['editorMode']) => {
+    const editorModeNode = getEditorModeNode();
+    const statusNode = document.querySelector<HTMLElement>(
+      `#editor-status [data-status="${options.editorId}"]`,
+    );
+    const setEditorModeText = (str: string) => {
+      if (!editorModeNode) return;
+      editorModeNode.textContent = str;
+    };
+    const setStatusText = (str: string) => {
+      if (!statusNode) return;
+      statusNode.textContent = str;
+    };
+
+    if (!mode) {
+      editorMode?.dispose();
+      editorMode = undefined;
+      setStatusText('');
+      setEditorModeText('');
+      return;
+    }
+
+    if (mode === 'vim') {
+      if (editorMode?.mode === 'vim') return;
+      if (editorMode?.mode === 'emacs') {
+        editorMode.dispose();
+        setStatusText('');
+      }
+      const MonacoVim: any = await loadScript(monacoVimUrl, 'MonacoVim');
+      const stNode = statusNode?.innerHTML !== '' ? undefined : statusNode; // avoid duplication
+      editorMode = MonacoVim.initVimMode(editor, stNode);
+      editorMode.mode = 'vim';
+      setEditorModeText('Vim');
+    }
+
+    if (mode === 'emacs') {
+      if (editorMode?.mode === 'emacs') return;
+      if (editorMode?.mode === 'vim') {
+        editorMode.dispose();
+        setStatusText('');
+      }
+      const MonacoEmacs: any = await loadScript(monacoEmacsUrl, 'MonacoEmacs');
+      editorMode = new MonacoEmacs.EmacsExtension(editor);
+      setStatusText('');
+      editorMode.onDidMarkChange(function (ev: Event) {
+        setStatusText(ev ? 'Mark Set!' : 'Mark Unset');
+      });
+      editorMode.onDidChangeKey(function (str: string) {
+        setStatusText(str);
+      });
+      editorMode.start();
+      editorMode.mode = 'emacs';
+      setEditorModeText('Emacs');
+    }
+  };
+  configureEditorMode(options.editorMode);
+
   const registerFormatter = (formatFn: FormatFn | undefined) => {
     const editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
@@ -306,7 +421,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
         const val = editor.getValue();
-        const prettyVal = await formatFn(val, 0);
+        const prettyVal = await formatFn(val, 0, getFormatterConfig());
         return [
           {
             range: editorModel.getFullModelRange(),
@@ -351,7 +466,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const setTheme = (theme: Theme) => {
-    monaco.editor.setTheme('vs-' + theme);
+    monaco.editor.setTheme('custom-vs-' + theme);
+  };
+
+  const changeSettings = (settings: EditorConfig) => {
+    const newOptions = {
+      ...convertOptions(settings),
+      ...editorOptions,
+    };
+    configureEmmet(settings.emmet);
+    configureEditorMode(settings.editorMode);
+    editor.updateOptions(newOptions);
   };
 
   const undo = () => {
@@ -362,10 +487,31 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     (editor.getModel() as any)?.redo?.();
   };
 
+  const getPosition = (): EditorPosition => {
+    const position = editor.getPosition();
+    return {
+      lineNumber: position?.lineNumber ?? 0,
+      column: position?.column ?? 0,
+    };
+  };
+
+  const setPosition = (position: EditorPosition) => {
+    const newPosition = {
+      lineNumber: position.lineNumber,
+      column: position.column ?? 0,
+    };
+    editor.setPosition(newPosition);
+    setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);
+  };
+
   const destroy = () => {
     configureEmmet(false);
+    editorMode?.dispose();
     listeners.length = 0;
+    clearTypes(true);
     editor.getModel()?.dispose();
+    editor.dispose();
+    container.innerHTML = '';
   };
 
   // workaround for uncaught canceled promise rejection onMouseLeave
@@ -379,7 +525,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const registerShowPackageInfo = () => {
     // from https://github.com/snowpackjs/astro-repl/blob/main/src/editor/modules/monaco.ts
 
-    const FetchCache = new Map();
+    const pkgCache = new Map<string, PkgInfo>();
 
     const npmPackageHoverProvider: Monaco.languages.HoverProvider = {
       provideHover(model, position) {
@@ -399,7 +545,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh|bundle\.run)\:/, '');
         }
         // remove version
-        pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);
+        // pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);
 
         // remove sub-directories
         const parts = pkg.split('/');
@@ -407,43 +553,28 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         pkg = parts.slice(0, end).join('/');
 
         return (async () => {
-          const url = modulesService.getModuleInfoUrl(pkg);
-          let response: Response;
-          let result: any;
+          let pkgInfo: PkgInfo | APIError | undefined;
 
-          try {
-            if (!FetchCache.has(url)) {
-              response = await fetch(url);
-              result = await response.json();
-              FetchCache.set(url, result);
-            } else {
-              result = FetchCache.get(url);
-            }
-          } catch {
-            return;
+          if (!pkgCache.has(pkg)) {
+            pkgInfo = await pkgInfoService.getPkgInfo(pkg);
+            if ('error' in pkgInfo) return;
+            pkgCache.set(pkg, pkgInfo);
+          } else {
+            pkgInfo = pkgCache.get(pkg);
           }
+          if (!pkgInfo || 'error' in pkgInfo) return;
 
-          if (result?.results.length <= 0) return;
-
-          const { name, description, version, date, publisher, links } =
-            result?.results?.[0]?.package ?? {};
-          const author = publisher?.username;
-          const pubDate = new Date(date).toLocaleDateString(undefined, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          });
+          const { name, version = '', description = '', repo = '' } = pkgInfo;
 
           return {
             contents: [
               {
-                value: `## [${name}](${
-                  links?.npm
-                }) v${version}\n${description}\n\n\nPublished on ${pubDate} ${
-                  author ? `by [@${author}](https://www.npmjs.com/~${author})` : ''
-                }\n\n${
-                  links?.repository ? `[GitHub](${links?.repository})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name})  |  [Unpkg](https://unpkg.com/browse/${name}/)  | [Openbase](https://openbase.com/js/${name})`,
+                value: `## [${name}](https://www.npmjs.com/package/${name}/v/${version}) (v${version})\n${description}\n\n\n${
+                  repo ? `[GitHub](${repo})  |` : ''
+                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name}?version=${version})  |  [Unpkg](https://unpkg.com/browse/${name}@${version}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
+                  '/livecodes/',
+                  '',
+                )}/docs/features/npm-modules)`,
               },
             ],
           };
@@ -455,20 +586,23 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.registerHoverProvider('html', npmPackageHoverProvider);
   };
 
-  if (!loaded) {
+  if (!monacoGloballyLoaded) {
     registerShowPackageInfo();
   }
 
-  loaded = true;
+  monacoGloballyLoaded = true;
   return {
     getValue,
     setValue,
     getLanguage,
     setLanguage,
+    getEditorId,
     focus,
+    getPosition,
+    setPosition,
     layout,
     addTypes,
-    configureEmmet,
+    changeSettings,
     onContentChanged,
     keyCodes,
     addKeyBinding,
