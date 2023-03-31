@@ -105,10 +105,10 @@ export const createImportUI = ({
       const sourceFiles: SourceFile[] = [];
 
       for (const file of files) {
-        // Max 2 MB allowed
-        const maxSizeAllowed = 2 * 1024 * 1024;
+        // Max 100 MB allowed
+        const maxSizeAllowed = 100 * 1024 * 1024;
         if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 2MB');
+          reject('Error: Exceeded size 100 MB');
           return;
         }
 
@@ -207,10 +207,10 @@ export const createImportUI = ({
         return;
       }
 
-      // Max 2 MB allowed
-      const maxSizeAllowed = 2 * 1024 * 1024;
+      // Max 100 MB allowed
+      const maxSizeAllowed = 100 * 1024 * 1024;
       if (file.size > maxSizeAllowed) {
-        reject('Error: Exceeded size 2MB');
+        reject('Error: Exceeded size 100 MB');
         return;
       }
 
