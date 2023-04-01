@@ -235,7 +235,7 @@ export const createEmbedUI = async ({
       ...(importId ? { import: importId } : {}),
       ...(data.lite ? { lite: data.lite } : {}),
       ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
-      ...(data.loading === 'click' && !data.preview ? { preview: false } : {}),
+      ...(data.loading === 'click' && !data.preview ? { params: { preview: false } } : {}),
       ...(data.view && data.view !== 'split' ? { view: data.view } : {}),
     };
   };
@@ -373,7 +373,7 @@ export default function App() {
         encodeHTML(config.script.content || ''),
       )}</pre>
 </div>
-<script defer src="${appUrl + 'sdk/livecodes.js'}" data-prefill></script>
+<script defer src="${appUrl + 'sdk/livecodes.umd.js'}" data-prefill></script>
 `.trimStart();
     },
   };
