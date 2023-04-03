@@ -17,6 +17,7 @@ const templates = [
   'Knockout',
   'CoffeeScript',
   'LiveScript',
+  'Civet',
   'Clio',
   'Python',
   'Ruby',
