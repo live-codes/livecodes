@@ -113,8 +113,8 @@ export const cjs2esm = (code: string) => {
   const imports = requires
     .map((id, i) =>
       [
-        `import __requires_${i}_default from '${id}';`,
         `import * as __requires_${i} from '${id}';`,
+        `const __requires_${i}_default = __requires_${i}.default;`,
       ].join('\n'),
     )
     .join('\n');
