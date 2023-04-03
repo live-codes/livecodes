@@ -1,4 +1,4 @@
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { escapeCode, getLanguageCustomSettings } from '../../utils';
 import { runtimeUrl } from './lang-nunjucks';
 

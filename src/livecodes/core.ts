@@ -712,6 +712,7 @@ const getResultPage = async ({
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
   const testsLanguage = config.tests?.language || 'typescript';
+  const scriptType = getLanguageCompiler(scriptLanguage)?.scriptType;
 
   const forceCompileStyles =
     config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
@@ -761,7 +762,9 @@ const getResultPage = async ({
     script: {
       ...contentConfig.script,
       compiled:
-        config.customSettings.convertCommonjs === false ? compiledScript : cjs2esm(compiledScript),
+        config.customSettings.convertCommonjs === false || (scriptType && scriptType !== 'module')
+          ? compiledScript
+          : cjs2esm(compiledScript),
     },
     tests: {
       language: testsLanguage,

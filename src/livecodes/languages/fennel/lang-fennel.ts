@@ -9,10 +9,15 @@ export const fennel: LanguageSpecs = {
     factory: parenFormatter,
   },
   compiler: {
-    factory: () => async (code) => code,
-    scripts: ({ baseUrl }) => [luaUrl, baseUrl + '{{hash:lang-fennel-script.js}}'],
-    liveReload: true,
-    scriptType: 'text/fennel',
+    url: luaUrl,
+    factory: (_config, baseUrl) => {
+      (self as any).importScripts(baseUrl + '{{hash:lang-fennel-compiler.js}}');
+      return (self as any).createFennelCompiler();
+    },
+
+    // scripts: ({ baseUrl }) => [luaUrl, baseUrl + '{{hash:lang-fennel-script.js}}'],
+    scripts: [luaUrl],
+    scriptType: 'application/lua',
     compiledCodeLanguage: 'lua',
   },
   extensions: ['fnl'],
