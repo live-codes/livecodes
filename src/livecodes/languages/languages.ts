@@ -58,6 +58,7 @@ import { mustache } from './mustache';
 import { artTemplate } from './art-template';
 import { r } from './r';
 import { civet } from './civet';
+import { fennel } from './fennel';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -115,6 +116,7 @@ export const languages: LanguageSpecs[] = [
   clang,
   perl,
   lua,
+  fennel,
   julia,
   scheme,
   commonlisp,
