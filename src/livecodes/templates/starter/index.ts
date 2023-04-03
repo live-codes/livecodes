@@ -52,6 +52,7 @@ import { jestReactStarter } from './jest-react-starter';
 import { javascriptStarter } from './javascript-starter';
 import { rStarter } from './r-starter';
 import { civetStarter } from './civet-starter';
+import { fennelStarter } from './fennel-starter';
 
 export const starterTemplates = [
   blank,
@@ -95,6 +96,7 @@ export const starterTemplates = [
   clangStarter,
   perlStarter,
   luaStarter,
+  fennelStarter,
   juliaStarter,
   schemeStarter,
   commonlispStarter,

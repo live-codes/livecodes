@@ -233,6 +233,8 @@ export type Language =
   | 'pl'
   | 'pm'
   | 'lua'
+  | 'fennel'
+  | 'fnl'
   | 'julia'
   | 'jl'
   | 'scheme'
@@ -442,6 +444,7 @@ export interface Compiler {
     | 'text/prolog'
     | 'application/json'
     | 'application/lua'
+    | 'text/fennel'
     | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
@@ -502,6 +505,7 @@ export type TemplateName =
   | 'clang'
   | 'perl'
   | 'lua'
+  | 'fennel'
   | 'julia'
   | 'scheme'
   | 'commonlisp'

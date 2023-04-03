@@ -24,6 +24,7 @@ const templates = [
   'PHP',
   'Perl',
   'Lua',
+  'Fennel',
   'Scheme',
   'Tcl',
 ];

@@ -73,6 +73,7 @@ export default function Sliders() {
       { name: 'clang', title: 'C++ (Clang)' },
       { name: 'perl', title: 'Perl' },
       { name: 'lua', title: 'Lua' },
+      { name: 'fennel', title: 'Fennel' },
       { name: 'julia', title: 'Julia' },
       { name: 'scheme', title: 'Scheme' },
       { name: 'commonlisp', title: 'Lisp' },
