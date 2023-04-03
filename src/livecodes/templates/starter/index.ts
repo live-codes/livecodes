@@ -51,6 +51,7 @@ import { jestStarter } from './jest-starter';
 import { jestReactStarter } from './jest-react-starter';
 import { javascriptStarter } from './javascript-starter';
 import { rStarter } from './r-starter';
+import { civetStarter } from './civet-starter';
 
 export const starterTemplates = [
   blank,
@@ -78,6 +79,7 @@ export const starterTemplates = [
   tailwindcssStarter,
   coffeescriptStarter,
   livescriptStarter,
+  civetStarter,
   clioStarter,
   imbaStarter,
   rescriptStarter,

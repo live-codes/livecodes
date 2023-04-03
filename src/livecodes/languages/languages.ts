@@ -57,6 +57,7 @@ import { imba } from './imba';
 import { mustache } from './mustache';
 import { artTemplate } from './art-template';
 import { r } from './r';
+import { civet } from './civet';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -98,6 +99,7 @@ export const languages: LanguageSpecs[] = [
   malina,
   coffeescript,
   livescript,
+  civet,
   clio,
   imba,
   rescript,
