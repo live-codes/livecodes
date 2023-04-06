@@ -642,6 +642,26 @@ const title = "World";
     expect(resultText).toContain('font: 14px Arial, sans-serif;');
   });
 
+  test('Stylis', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click('text=Stylis');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      '[namespace] {\n  div {\n    display: flex;\n\n    @media screen {\n      color: blue;\n    }\n  }\n\n  div {\n    transform: translateZ(0);\n\n    h1, h2 {\n      color: red;\n    }\n  }\n}',
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('style');
+
+    expect(resultText).toContain(
+      '[namespace] div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}@media screen{[namespace] div{color:blue;}}[namespace] div{-webkit-transform:translateZ(0);-moz-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0);}[namespace] div h1,[namespace] div h2{color:red;}',
+    );
+  });
+
   test('PostCSS/postcssImportUrl', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

@@ -84,6 +84,8 @@ Stencil: [MIT License](https://github.com/ionic-team/stencil/blob/8d580b12b96cc5
 
 Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/LICENSE)
 
+Stylis: [MIT License](https://github.com/thysultan/stylis/blob/bc0b1b03f5562eb8b38601e4e05461631a91c400/LICENSE)
+
 Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de2243088a9a826e6899e20465c/LICENSE)
 
 SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
