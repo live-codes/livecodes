@@ -14,8 +14,6 @@ export const fennel: LanguageSpecs = {
       (self as any).importScripts(baseUrl + '{{hash:lang-fennel-compiler.js}}');
       return (self as any).createFennelCompiler();
     },
-
-    // scripts: ({ baseUrl }) => [luaUrl, baseUrl + '{{hash:lang-fennel-script.js}}'],
     scripts: [luaUrl],
     scriptType: 'application/lua',
     compiledCodeLanguage: 'lua',

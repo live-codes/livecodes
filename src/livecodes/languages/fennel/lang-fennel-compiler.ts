@@ -17,8 +17,7 @@ unpack = table.unpack
 local fennel = require("fennel")
 local compiler = fennel.compileString
 local ok, result = pcall(compiler, %input%)
-local error = not ok
-return {result, error}
+return {result, ok}
 `;
 
   interface LuaTableJs {
@@ -31,15 +30,15 @@ return {result, error}
       const out: LuaTableJs = (self as any).fengari.load(
         fnl.replace('%input%', JSON.stringify(code)),
       )();
-      const content = out.get(1) || '';
-      const isError = out.get(2) || null;
+      const result = out.get(1) || '';
+      const ok = out.get(2) || null;
 
-      if (isError) {
+      if (!ok) {
         // eslint-disable-next-line no-console
         console.error('Fennel compile error');
         return '';
       }
-      return content;
+      return result;
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);

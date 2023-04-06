@@ -59,6 +59,7 @@ import { artTemplate } from './art-template';
 import { r } from './r';
 import { civet } from './civet';
 import { fennel } from './fennel';
+import { teal } from './teal';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -116,6 +117,7 @@ export const languages: LanguageSpecs[] = [
   clang,
   perl,
   lua,
+  teal,
   fennel,
   julia,
   scheme,
