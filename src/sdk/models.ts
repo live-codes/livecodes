@@ -167,6 +167,7 @@ export type Language =
   | 'less'
   | 'stylus'
   | 'styl'
+  | 'stylis'
   | 'postcss'
   | 'javascript'
   | 'js'

@@ -60,6 +60,7 @@ import { r } from './r';
 import { civet } from './civet';
 import { fennel } from './fennel';
 import { teal } from './teal';
+import { stylis } from './stylis';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -84,6 +85,7 @@ export const languages: LanguageSpecs[] = [
   sass,
   less,
   stylus,
+  stylis,
   javascript,
   babel,
   typescript,
