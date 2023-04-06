@@ -243,6 +243,7 @@ const iifeBuild = () =>
       'languages/vue/lang-vue-compiler.ts',
       'languages/wat/lang-wat-compiler.ts',
       'languages/wat/lang-wat-script.ts',
+      'languages/teal/lang-teal-compiler.ts',
       'languages/fennel/lang-fennel-compiler.ts',
       'languages/windicss/processor-windicss-compiler.ts',
       'languages/unocss/processor-unocss-compiler.ts',

@@ -90,6 +90,8 @@ SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7
 
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
 
+Teal: [MIT License](https://github.com/teal-language/tl/blob/e907fbe56a70d44b65095e16ae2d1eae61c12066/LICENSE)
+
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
 
 vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-loader/blob/84b05a091fe5a283c7ed909c06cc31c0153ed103/LICENSE)
