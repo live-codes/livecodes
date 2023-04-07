@@ -357,6 +357,7 @@ export type Processor =
 export type ParserName =
   | 'babel'
   | 'babel-ts'
+  | 'babel-flow'
   | 'glimmer'
   | 'html'
   | 'markdown'
