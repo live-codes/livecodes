@@ -190,6 +190,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         reactNamespace: 'h',
       });
     }
+    if (language === 'flow') {
+      // just silence errors for now
+      // TODO: fix this
+      // https://github.com/facebook/flow/tree/main/website/src/try-flow
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+      });
+    } else if (['typescript'].includes(mapLanguage(language))) {
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: false,
+      });
+    }
   };
 
   type Listener = () => void;

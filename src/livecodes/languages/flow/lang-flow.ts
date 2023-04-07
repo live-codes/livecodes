@@ -24,5 +24,5 @@ export const flow: LanguageSpecs = {
   },
   extensions: ['flow'],
   editor: 'script',
-  editorLanguage: 'javascript',
+  editorLanguage: 'typescript',
 };

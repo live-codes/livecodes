@@ -764,6 +764,26 @@ function isFish(pet) {
     );
   });
 
+  test('Flow', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Flow');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      'function foo(x: ?number): string {if (x) { return x; } return "default string"; }',
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('body > script');
+
+    expect(resultText).toContain(
+      'function foo(x         )         {if (x) { return x; } return "default string"; }',
+    );
+  });
+
   test('JSX', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

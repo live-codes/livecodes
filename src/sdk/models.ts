@@ -175,6 +175,7 @@ export type Language =
   | 'babel'
   | 'es'
   | 'typescript'
+  | 'flow'
   | 'ts'
   | 'jsx'
   | 'tsx'
