@@ -61,6 +61,7 @@ import { civet } from './civet';
 import { fennel } from './fennel';
 import { teal } from './teal';
 import { stylis } from './stylis';
+import { flow } from './flow';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -89,6 +90,7 @@ export const languages: LanguageSpecs[] = [
   javascript,
   babel,
   typescript,
+  flow,
   jsx,
   tsx,
   reactNative,
