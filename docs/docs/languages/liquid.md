@@ -1,3 +1,3 @@
-# HTML
+# Liquid
 
 TODO...

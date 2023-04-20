@@ -70,12 +70,12 @@ const config = {
             position: 'left',
             label: 'SDK',
           },
+          { href: 'https://blog.livecodes.io', target: '_self', label: 'Blog', position: 'left' },
           {
             href: 'pathname:///../stories',
             position: 'left',
             label: 'Storybook',
           },
-          // { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'pathname:///../',
             label: 'App',
@@ -131,18 +131,19 @@ const config = {
                 label: 'Starter Templates',
                 href: 'https://livecodes.io/?screen=new',
               },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/live-codes/livecodes',
+              },
             ],
           },
           {
             title: 'More',
             items: [
-              // {
-              //   label: 'Blog',
-              //   to: '/blog',
-              // },
               {
-                label: 'GitHub',
-                href: 'https://github.com/live-codes/livecodes',
+                label: 'Blog',
+                href: 'https://blog.livecodes.io',
+                target: '_self',
               },
               {
                 label: 'Credits',

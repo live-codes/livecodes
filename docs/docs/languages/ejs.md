@@ -1,3 +1,3 @@
-# HTML
+# EJS
 
 TODO...
