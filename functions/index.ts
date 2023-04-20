@@ -51,14 +51,6 @@ export const onRequest: PgFunction = async function (context) {
     const linkHeader = `<https://api.livecodes.io/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes oEmbed"`;
     response.headers.append('Link', linkHeader);
 
-    // cache-control
-    if (isVersioned(url)) {
-      response.headers.set(
-        'cache-control',
-        'public, max-age=31536000, s-maxage=31536000, immutable',
-      );
-    }
-
     context.data = {
       ...data,
       ok: response.ok,
@@ -80,19 +72,6 @@ export const onRequest: PgFunction = async function (context) {
     context.waitUntil(logToAPI(context));
     return originalResponse;
   }
-};
-
-const isVersioned = (url) => {
-  const pathname = new URL(url).pathname;
-  if (!pathname.startsWith('/livecodes/')) return false;
-  if (pathname.startsWith('/livecodes/assets/')) return false;
-  if (pathname.startsWith('/livecodes/vendor/')) return true;
-
-  const filename = pathname.split('/').pop() || '';
-  const hash = filename.split('.')[1] || '';
-  if (hash.length !== 32) return false;
-
-  return true;
 };
 
 const logToAPI = (context: Context) => {
