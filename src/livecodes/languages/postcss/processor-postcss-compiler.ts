@@ -52,7 +52,15 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
     if (pluginNames.includes('tokencss')) {
       code = '@inject "tokencss:base";\n' + code;
     }
-    return (await (self as any).postcss.postcss(plugins).process(prepareCode(code), postCssOptions))
-      .css;
+
+    const result = (
+      await (self as any).postcss.postcss(plugins).process(prepareCode(code), postCssOptions)
+    ).css;
+
+    const comments = !options.comments
+      ? ''
+      : '\n' + options.comments.map((comment) => `\n/* ${comment} */`);
+
+    return result + comments;
   };
 };

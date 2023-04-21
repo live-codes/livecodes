@@ -400,6 +400,7 @@ export interface CompileOptions {
   html?: string;
   blockly?: BlocklyContent;
   forceCompile?: boolean;
+  comments?: string[];
 }
 
 export type CompilerFunction = (

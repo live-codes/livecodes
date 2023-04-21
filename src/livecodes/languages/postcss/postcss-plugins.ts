@@ -148,3 +148,22 @@ export const tokencss: ProcessorSpecs = {
   },
   editor: 'style',
 };
+
+export const cssModules: ProcessorSpecs = {
+  name: 'cssmodules',
+  title: 'CSS Modules',
+  isPostcssPlugin: true,
+  compiler: {
+    url: vendorsBaseUrl + 'postcss-modules/postcss-modules.js',
+    factory: (config, _baseUrl, options) => {
+      options.comments = options.comments || [];
+      return (self as any).postcssModules.postcssModules({
+        ...getLanguageCustomSettings('cssmodules', config),
+        getJSON(_cssFileName: string, json: string, _outputFileName: string) {
+          options.comments?.push(JSON.stringify(json));
+        },
+      });
+    },
+  },
+  editor: 'style',
+};

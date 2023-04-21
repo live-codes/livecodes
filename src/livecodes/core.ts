@@ -1618,17 +1618,20 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
 
 const showVersion = () => {
   // variables added in scripts/build.js
-  const version = process.env.VERSION || '';
+  const appVersion = process.env.VERSION || '';
+  const sdkVersion = process.env.SDK_VERSION || '';
   const commitSHA = process.env.GIT_COMMIT || '';
   const repoUrl = process.env.REPO_URL || '';
 
   // eslint-disable-next-line no-console
-  console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
+  console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
+  // eslint-disable-next-line no-console
+  console.log(`SDK Version: ${sdkVersion} (${repoUrl}/releases/tag/sdk-v${sdkVersion})`);
   // eslint-disable-next-line no-console
   console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
 
   return {
-    version,
+    version: appVersion,
     commitSHA,
   };
 };
