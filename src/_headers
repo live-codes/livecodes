@@ -6,6 +6,8 @@
 
 /livecodes/:file.map
   ! cache-control
+  cache-control: public, max-age=14400, must-revalidate
 
 /livecodes/assets/*
   ! cache-control
+  cache-control: public, max-age=14400, must-revalidate
