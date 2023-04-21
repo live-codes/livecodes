@@ -46,6 +46,7 @@ import type {
   AppData,
   Processor,
   APICommands,
+  CompileInfo,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -92,7 +93,7 @@ import {
   stringToValidJson,
 } from './utils';
 import { compress } from './utils/compression';
-import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
+import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
@@ -724,8 +725,13 @@ const getResultPage = async ({
     config.tests?.content === getCache().tests?.content &&
     getCache().tests?.compiled;
 
-  const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config, {});
-  const [compiledStyle, compiledScript, compiledTests] = await Promise.all([
+  const { code: compiledMarkup, info: markupCompileInfo } = await compiler.compile(
+    markupContent,
+    markupLanguage,
+    config,
+    {},
+  );
+  const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: compiledMarkup,
       forceCompile: forceCompileStyles,
@@ -746,8 +752,21 @@ const getResultPage = async ({
       ? testsNotChanged
         ? Promise.resolve(getCache().tests?.compiled || '')
         : compiler.compile(testsContent, testsLanguage, config, {})
-      : Promise.resolve(getCache().tests?.compiled || ''),
+      : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
+
+  let compileInfo: CompileInfo = {
+    ...markupCompileInfo,
+  };
+
+  const [compiledStyle, compiledScript, compiledTests] = compileResults.map((result) => {
+    const { code, info } = getCompileResult(result);
+    compileInfo = {
+      ...compileInfo,
+      ...info,
+    };
+    return code;
+  });
 
   const compiledCode: Cache = {
     ...contentConfig,
@@ -781,6 +800,7 @@ const getResultPage = async ({
     baseUrl,
     singleFile,
     runTests,
+    compileInfo,
   });
 
   const styleOnlyUpdate = sourceEditor === 'style';

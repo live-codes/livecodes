@@ -1,5 +1,11 @@
 import { hasStyleImports, replaceStyleImports } from '../../compiler';
-import { CompileOptions, CompilerFunction, Config, Processor, ProcessorSpecs } from '../../models';
+import type {
+  CompileOptions,
+  CompilerFunction,
+  Config,
+  Processor,
+  ProcessorSpecs,
+} from '../../models';
 import { escapeCode, getAbsoluteUrl } from '../../utils';
 import { processors } from '../processors';
 import { processorIsEnabled } from '../utils';
@@ -45,8 +51,8 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
 
   const prepareCode = (code: string) => escapeCode(replaceStyleImports(code));
 
-  return async function process(code, { config, baseUrl, options }): Promise<string> {
-    if (!config || !baseUrl) return code;
+  return async function process(code, { config, baseUrl, options }) {
+    if (!config || !baseUrl) return { code, info: {} };
     const plugins = getPlugins(code, config, baseUrl, options);
     const pluginNames = getEnabledPluginNames(code, config);
     if (pluginNames.includes('tokencss')) {
@@ -57,10 +63,6 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
       await (self as any).postcss.postcss(plugins).process(prepareCode(code), postCssOptions)
     ).css;
 
-    const comments = !options.comments
-      ? ''
-      : '\n' + options.comments.map((comment) => `\n/* ${comment} */`);
-
-    return result + comments;
+    return { code: result, info: options.compileInfo || {} };
   };
 };

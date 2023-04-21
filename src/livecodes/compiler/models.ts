@@ -1,4 +1,4 @@
-import { Language, Config, Processor, CompileOptions } from '../models';
+import { Language, Config, Processor, CompileOptions, CompileResult } from '../models';
 
 export interface Compiler {
   load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
@@ -7,7 +7,7 @@ export interface Compiler {
     language: Language,
     config: Config,
     options: CompileOptions,
-  ) => Promise<string>;
+  ) => Promise<CompileResult>;
   clearCache: () => void;
 }
 

@@ -155,15 +155,16 @@ export const cssModules: ProcessorSpecs = {
   isPostcssPlugin: true,
   compiler: {
     url: vendorsBaseUrl + 'postcss-modules/postcss-modules.js',
-    factory: (config, _baseUrl, options) => {
-      options.comments = options.comments || [];
-      return (self as any).postcssModules.postcssModules({
+    factory: (config, _baseUrl, options) =>
+      (self as any).postcssModules.postcssModules({
         ...getLanguageCustomSettings('cssmodules', config),
-        getJSON(_cssFileName: string, json: string, _outputFileName: string) {
-          options.comments?.push(JSON.stringify(json));
+        getJSON(_cssFileName: string, json: Record<string, string>, _outputFileName: string) {
+          options.compileInfo = {
+            ...options.compileInfo,
+            cssModules: json,
+          };
         },
-      });
-    },
+      }),
   },
   editor: 'style',
 };

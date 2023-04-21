@@ -1,6 +1,6 @@
 import { createImportMap, getImports, hasImports, isModuleScript } from '../compiler';
 import { cssPresets, getLanguageCompiler } from '../languages';
-import type { Cache, EditorId, Config } from '../models';
+import type { Cache, EditorId, Config, CompileInfo } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
@@ -14,6 +14,7 @@ export const createResultPage = async ({
   baseUrl,
   singleFile,
   runTests,
+  compileInfo,
 }: {
   code: Cache;
   config: Config;
@@ -22,7 +23,9 @@ export const createResultPage = async ({
   baseUrl: string;
   singleFile: boolean;
   runTests: boolean;
+  compileInfo: CompileInfo;
 }): Promise<string> => {
+  console.log(compileInfo);
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();

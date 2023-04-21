@@ -7,13 +7,22 @@ import {
   processorIsEnabled,
   processors,
 } from '../languages';
-import type { Language, Config, Compilers, CompilerFunction, CompileOptions } from '../models';
+import type {
+  Language,
+  Config,
+  Compilers,
+  CompilerFunction,
+  CompileOptions,
+  CompileResult,
+  CompileInfo,
+} from '../models';
 import { sandboxService } from '../services';
 import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
 import { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
+import { getCompileResult } from './utils';
 
 export const createCompiler = async ({
   config,
@@ -146,6 +155,7 @@ export const createCompiler = async ({
     [key in Language]?: {
       content: string;
       compiled: string;
+      info: string;
       processors: string;
       languageSettings: string;
     };
@@ -156,7 +166,7 @@ export const createCompiler = async ({
     language: Language,
     config: Config,
     options: CompileOptions,
-  ): Promise<string> => {
+  ): Promise<CompileResult> => {
     if (['jsx', 'tsx'].includes(language)) {
       language = 'typescript';
     }
@@ -171,7 +181,10 @@ export const createCompiler = async ({
       cache[language]?.languageSettings === languageSettings &&
       cache[language]?.compiled
     ) {
-      return cache[language]?.compiled || '';
+      return {
+        code: cache[language]?.compiled || '',
+        info: JSON.parse(cache[language]?.info || '{}'),
+      } as CompileResult;
     }
     if (compilers[language] && !compilers[language].fn) {
       await load([language], config);
@@ -179,32 +192,43 @@ export const createCompiler = async ({
 
     const compiler = compilers[language]?.fn;
     if (typeof compiler !== 'function') {
-      return new Promise((res) => {
+      return new Promise<CompileResult>((res) => {
         if (language !== 'html' && language !== 'css' && language !== 'javascript') {
           // eslint-disable-next-line no-console
           console.error('Failed to load compiler for: ' + language);
         }
-        res('');
+        res({ code: '', info: {} });
       });
     }
 
-    const compiled = (await compiler(content, { config, language, baseUrl, options })) || '';
-    const processed = (await postProcess(compiled, { config, language, baseUrl, options })) || '';
+    const compiled =
+      getCompileResult(await compiler(content, { config, language, baseUrl, options })) || '';
+    const processed =
+      getCompileResult(await postProcess(compiled.code, { config, language, baseUrl, options })) ||
+      '';
+    const info: CompileInfo = {
+      ...compiled.info,
+      ...processed.info,
+    };
 
     cache[language] = {
       content,
-      compiled: processed,
+      compiled: processed.code,
+      info: JSON.stringify(info),
       processors: enabledProcessors,
       languageSettings: stringify(getCustomSettings(language, config)),
     };
 
-    return Promise.resolve(processed);
+    return { code: processed.code, info };
   };
 
   const postProcess: CompilerFunction = async (content, { config, language, baseUrl, options }) => {
+    let code = content;
+    let info: CompileInfo = {};
     let postcssRequired = false;
+
     const editorId = getLanguageEditorId(language) || 'markup';
-    if (editorId === 'style' && hasStyleImports(content)) {
+    if (editorId === 'style' && hasStyleImports(code)) {
       postcssRequired = true;
     }
 
@@ -222,18 +246,24 @@ export const createCompiler = async ({
           if (compilers[processor.name] && !compilers[processor.name].fn) {
             await load([processor.name], config);
           }
-          const process = compilers[processor.name].fn || ((code: string) => code);
+          const process = compilers[processor.name].fn || (async (code: string) => code);
           if (typeof process !== 'function') {
             // eslint-disable-next-line no-console
             console.error('Failed to load processor: ' + processor.name);
-            return content;
+            return { code, info };
           }
-          content = await process(content, { config, language, baseUrl, options });
+          const processResult = await process(code, { config, language, baseUrl, options });
+          const result = getCompileResult(processResult);
+          code = result.code;
+          info = {
+            ...info,
+            ...result.info,
+          };
         }
       }
     }
 
-    return content;
+    return { code, info };
   };
 
   const clearCache = () => {
