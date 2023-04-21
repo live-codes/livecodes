@@ -60,6 +60,10 @@ const prepareDir = async () => {
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
 
   await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/_headers'),
+    path.resolve(outDir + '/_headers'),
+  );
+  await fs.promises.copyFile(
     path.resolve(__dirname + '/../src/favicon.ico'),
     path.resolve(outDir + '/favicon.ico'),
   );
