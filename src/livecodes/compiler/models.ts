@@ -86,7 +86,7 @@ export interface CompiledMessage {
   payload: {
     content: string;
     language: LanguageOrProcessor;
-    compiled: string;
+    compiled: string | CompileResult;
     config: Config;
     options: any;
   };

@@ -63,7 +63,7 @@ export const createCompiler = async ({
 
   const createLanguageCompiler =
     (language: LanguageOrProcessor): CompilerFunction =>
-    (content, { config, options }): Promise<string> =>
+    (content, { config, options }): Promise<string | CompileResult> =>
       new Promise((resolve, reject) => {
         const handler = (event: CompilerMessageEvent) => {
           const message = event.data;
