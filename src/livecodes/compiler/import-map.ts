@@ -1,6 +1,6 @@
-import type { Config } from '../models';
+import type { CompileInfo, Config } from '../models';
 import { modulesService } from '../services';
-import { removeComments, removeCommentsAndStrings } from '../utils';
+import { escapeCode, removeComments, removeCommentsAndStrings, toCamelCase } from '../utils';
 
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
@@ -135,4 +135,44 @@ export const cjs2esm = (code: string) => {
     code,
     `export default module.exports;`,
   ].join('\n\n');
+};
+
+export const createCSSModulesImportMap = (
+  compiledScript: string,
+  compiledStyle: string,
+  cssTokens: CompileInfo['cssModules'] = {},
+) => {
+  const scriptImports = getImports(compiledScript);
+  const filenames = ['./style.css', './styles.css', './style.module.css', './styles.module.css'];
+
+  return filenames
+    .map((filename) => {
+      if (!scriptImports.includes(filename)) {
+        return {};
+      }
+
+      if (!filename.endsWith('.module.css')) {
+        return {
+          [filename]:
+            'data:text/javascript;base64,' +
+            btoa(`export default \`${escapeCode(compiledStyle)}\`;`),
+        };
+      }
+
+      Object.keys(cssTokens).forEach((key) => {
+        const camelKey = toCamelCase(key);
+        if (key !== camelKey) {
+          cssTokens[camelKey] = cssTokens[key];
+        }
+      });
+      const cssModule =
+        `export default ${escapeCode(JSON.stringify(cssTokens))};\n` +
+        Object.keys(cssTokens)
+          .filter((key) => key === toCamelCase(key))
+          .map((key) => `export const ${escapeCode(key)} = "${escapeCode(cssTokens[key])}";`)
+          .join('\n');
+
+      return { [filename]: 'data:text/javascript;base64,' + btoa(cssModule) };
+    })
+    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 };

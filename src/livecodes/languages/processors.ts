@@ -1,4 +1,4 @@
-import { ProcessorSpecs } from '../models';
+import type { ProcessorSpecs } from '../models';
 import { lightningcss } from './lightningcss';
 import {
   postcss,
@@ -20,13 +20,13 @@ export const processors: ProcessorSpecs[] = [
     windicss,
     unocss,
     tokencss,
-    cssModules,
     purgecss,
     postcssImportUrl,
     autoprefixer,
     postcssPresetEnv,
     lightningcss,
     cssnano,
+    cssModules,
   ],
   // keep postcss as last processor
   postcss,
