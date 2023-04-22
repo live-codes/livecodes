@@ -959,11 +959,11 @@ const save = async (notify = false, setTitle = true) => {
   if (editors && getConfig().formatOnsave) {
     await format(true);
   }
-
+  const projectConfig = buildConfig(getConfig());
   if (!projectId) {
-    projectId = (await stores.projects?.addItem(getConfig())) || '';
+    projectId = (await stores.projects?.addItem(projectConfig)) || '';
   } else {
-    await stores.projects?.updateItem(projectId, getConfig());
+    await stores.projects?.updateItem(projectId, projectConfig);
   }
   await setSavedStatus();
 

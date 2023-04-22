@@ -1,11 +1,12 @@
+/* eslint-disable import/no-internal-modules */
 import { createEventsManager } from '../events';
 import { infoScreen } from '../html';
 import { createModal } from '../modal';
-import { Config } from '../models';
-import { ProjectStorage } from '../storage';
 import * as UI from '../UI';
-import { loadScript, loadStylesheet } from '../utils';
+import { loadScript, loadStylesheet, removeDuplicates } from '../utils/utils';
 import { tagifyBaseUrl } from '../vendors';
+import type { Config } from '../models';
+import type { ProjectStorage } from '../storage';
 
 export const getTags = (value: string): string[] => {
   try {
@@ -36,7 +37,7 @@ export const createProjectInfoUI = async (
   descriptionTextarea.value = config.description;
 
   const tagsInput = UI.getInfoTagsInput();
-  tagsInput.value = config.tags.join(', ');
+  tagsInput.value = removeDuplicates(config.tags).join(', ');
 
   eventsManager.addEventListener(UI.getSaveInfoButton(), 'click', async () => {
     UI.getProjectTitleElement().textContent = titleInput.value;
