@@ -366,3 +366,12 @@ export const callWorker = async <T = string, K = unknown>(
       messageId,
     });
   });
+
+export const toCamelCase = (str: string) =>
+  str
+    .replace(/[-_\.]+/g, ' ')
+    .trim()
+    .replace(/^([A-Z])|[\s]+(\w)/g, function (_match, p1, p2) {
+      if (p2) return p2.toUpperCase();
+      return p1.toLowerCase();
+    });

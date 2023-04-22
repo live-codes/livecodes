@@ -3,7 +3,14 @@ import { cssPresets, getLanguageCompiler } from '../languages';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
-import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
+import {
+  escapeCode,
+  escapeScript,
+  getAbsoluteUrl,
+  isRelativeUrl,
+  objectMap,
+  toCamelCase,
+} from '../utils';
 import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
@@ -25,7 +32,6 @@ export const createResultPage = async ({
   runTests: boolean;
   compileInfo: CompileInfo;
 }): Promise<string> => {
-  console.log(compileInfo);
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
   const domParser = new DOMParser();
@@ -179,6 +185,7 @@ export const createResultPage = async ({
           ...(importFromScript
             ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
             : {}),
+          ...getStyleImports({ code, cssTokens: compileInfo.cssModules }),
         };
 
   const importMaps = {
@@ -272,4 +279,48 @@ window.jestLite.core.run().then(results => {
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+};
+
+const getStyleImports = ({
+  code,
+  cssTokens,
+}: {
+  code: Cache;
+  cssTokens: CompileInfo['cssModules'];
+}) => {
+  const scriptImports = getImports(code.script.compiled);
+  const filenames = ['./style.css', './styles.css', './style.module.css', './styles.module.css'];
+
+  return filenames
+    .map((filename) => {
+      if (!scriptImports.includes(filename)) {
+        return {};
+      }
+
+      if (!cssTokens) {
+        if (filename.endsWith('.module.css')) return {};
+
+        return {
+          [filename]:
+            'data:text/javascript;base64,' +
+            btoa(`export default \`${escapeCode(code.style.compiled)}\`;`),
+        };
+      }
+
+      Object.keys(cssTokens).forEach((key) => {
+        const camelKey = toCamelCase(key);
+        if (key !== camelKey) {
+          cssTokens[camelKey] = cssTokens[key];
+        }
+      });
+      const cssModule =
+        `export default ${escapeCode(JSON.stringify(cssTokens))};\n` +
+        Object.keys(cssTokens)
+          .filter((key) => key === toCamelCase(key))
+          .map((key) => `export const ${escapeCode(key)} = "${escapeCode(cssTokens[key])}";`)
+          .join('\n');
+
+      return { [filename]: 'data:text/javascript;base64,' + btoa(cssModule) };
+    })
+    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 };

@@ -803,7 +803,7 @@ const getResultPage = async ({
     compileInfo,
   });
 
-  const styleOnlyUpdate = sourceEditor === 'style';
+  const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
   setCache({
     ...getCache(),
     ...compiledCode,
