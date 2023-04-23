@@ -252,7 +252,7 @@ document.querySelector('h1').innerHTML = Object.keys(classes).length;
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
-      `import classes from './style.module.css';
+      `import classes from './style.module.scss';
 document.querySelector('h1').innerHTML = classes.myTitle;
 document.querySelector('h1').className = classes['my-title'];
 `,

@@ -1,4 +1,4 @@
-import type { CompileInfo, Config } from '../models';
+import type { CompileInfo, Config, Language } from '../models';
 import { modulesService } from '../services';
 import { escapeCode, removeComments, removeCommentsAndStrings, toCamelCase } from '../utils';
 
@@ -141,9 +141,16 @@ export const createCSSModulesImportMap = (
   compiledScript: string,
   compiledStyle: string,
   cssTokens: CompileInfo['cssModules'] = {},
+  extension: Language = 'css',
 ) => {
   const scriptImports = getImports(compiledScript);
-  const filenames = ['./style.css', './styles.css', './style.module.css', './styles.module.css'];
+  const extensions = extension === 'css' ? [extension] : ['css', extension];
+  const filenames = [
+    ...extensions.map((ext) => './style.' + ext),
+    ...extensions.map((ext) => './styles.' + ext),
+    ...extensions.map((ext) => './style.module.' + ext),
+    ...extensions.map((ext) => './styles.module.' + ext),
+  ];
 
   return filenames
     .map((filename) => {
@@ -151,7 +158,7 @@ export const createCSSModulesImportMap = (
         return {};
       }
 
-      if (!filename.endsWith('.module.css')) {
+      if (!filename.includes('.module.')) {
         return {
           [filename]:
             'data:text/javascript;base64,' +

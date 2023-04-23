@@ -5,7 +5,7 @@ import {
   hasImports,
   isModuleScript,
 } from '../compiler';
-import { cssPresets, getLanguageCompiler } from '../languages';
+import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
@@ -167,6 +167,8 @@ export const createResultPage = async ({
     }
   }
 
+  const styleExtension = getLanguageExtension(code.style.language);
+
   // import maps
   const userImports =
     config.customSettings.mapImports === false
@@ -188,11 +190,13 @@ export const createResultPage = async ({
             code.script.compiled,
             code.style.compiled,
             compileInfo.cssModules,
+            styleExtension,
           ),
           ...createCSSModulesImportMap(
             code.markup.compiled,
             code.style.compiled,
             compileInfo.cssModules,
+            styleExtension,
           ),
         };
 
