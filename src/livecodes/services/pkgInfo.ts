@@ -1,4 +1,4 @@
-import { APIError, CDNService, PkgInfo } from '../models';
+import type { APIError, CDNService, PkgInfo } from '../models';
 
 // see: https://github.com/jsdelivr/www.jsdelivr.com/blob/master/src/public/js/utils/search.js
 // info: https://github.com/jsdelivr/data.jsdelivr.com/issues/6

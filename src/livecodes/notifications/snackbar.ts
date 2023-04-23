@@ -1,4 +1,4 @@
-import { Action } from '@snackbar/core';
+import type { Action } from '@snackbar/core';
 
 const actionStyle = {
   minWidth: '2em',

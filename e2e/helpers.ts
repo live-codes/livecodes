@@ -1,4 +1,4 @@
-import { Frame, Page } from '@playwright/test';
+import type { Frame, Page } from '@playwright/test';
 
 export const getLoadedApp = async (page: Page) => {
   await page.waitForSelector('iframe[name="app"]');

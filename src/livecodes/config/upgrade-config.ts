@@ -1,5 +1,5 @@
 import { getLanguageEditorId } from '../languages';
-import { Config, Processor } from '../models';
+import type { Config, Processor } from '../models';
 import { defaultConfig } from './default-config';
 
 interface genericConfig extends Config {

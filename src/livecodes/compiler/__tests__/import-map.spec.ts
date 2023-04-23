@@ -1,4 +1,4 @@
-import { Config } from '../../models';
+import type { Config } from '../../models';
 import {
   createImportMap,
   hasStyleImports,

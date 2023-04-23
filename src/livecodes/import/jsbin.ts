@@ -1,5 +1,5 @@
 import { getLanguageByAlias } from '../languages';
-import { Config } from '../models';
+import type { Config } from '../models';
 import { corsService } from '../services';
 import { hostPatterns } from './utils';
 

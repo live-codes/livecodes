@@ -1,7 +1,7 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language, Config } from '../models';
+import type { Language, Config } from '../models';
 import { pipe } from '../utils';
-import { FileData, getValidUrl, hostPatterns } from './utils';
+import { getValidUrl, hostPatterns, type FileData } from './utils';
 
 export const isGitlabUrl = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
   if (!pattern.test(url)) return;

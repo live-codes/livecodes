@@ -1,4 +1,4 @@
-import { Types } from '../models';
+import type { Types } from '../models';
 import { allowedOrigin } from './allowed-origin';
 
 export const typesService = {

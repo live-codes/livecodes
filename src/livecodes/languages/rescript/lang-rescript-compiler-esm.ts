@@ -1,4 +1,4 @@
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { getAbsoluteUrl, loadScript } from '../../utils';
 import {
   requireUrl,

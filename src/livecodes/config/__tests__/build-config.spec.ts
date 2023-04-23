@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Config } from '../../models';
+import type { Config } from '../../models';
 import { getParams, loadParamConfig } from '../build-config';
 import { defaultConfig } from '../default-config';
 

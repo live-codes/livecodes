@@ -1,4 +1,4 @@
-import { Template } from '../../models';
+import type { Template } from '../../models';
 
 export const stencilStarter: Template = {
   name: 'stencil',

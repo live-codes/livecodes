@@ -1,4 +1,4 @@
-import { Config } from '../models';
+import type { Config } from '../models';
 import { exportCodepen } from './export-codepen';
 import { exportGithubGist } from './export-github-gist';
 import { exportHTML } from './export-html';

@@ -1,6 +1,6 @@
 // my-test.ts
 import { test as base } from '@playwright/test';
-import { Config, UrlQueryParams } from '../src/livecodes/models';
+import type { Config, UrlQueryParams } from '../src/livecodes/models';
 
 export const test = base.extend<{
   editor: Config['editor'];

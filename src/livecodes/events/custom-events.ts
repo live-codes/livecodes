@@ -1,4 +1,4 @@
-import { CustomEvents } from '../models';
+import type { CustomEvents } from '../models';
 
 export const customEvents: CustomEvents = {
   load: 'livecodes-load',

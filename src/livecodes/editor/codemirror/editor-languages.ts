@@ -1,4 +1,4 @@
-import { LanguageSupport, StreamLanguage, StreamParser } from '@codemirror/language';
+import { LanguageSupport, StreamLanguage, type StreamParser } from '@codemirror/language';
 
 import type { Language } from '../../models';
 

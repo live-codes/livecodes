@@ -1,5 +1,5 @@
 import { defaultConfig, getContentConfig } from '../config';
-import { Cache, Code, EditorId, Language } from '../models';
+import type { Cache, Code, EditorId, Language } from '../models';
 
 const defaultContentConfig = getContentConfig(defaultConfig);
 const initialCache: Cache = {

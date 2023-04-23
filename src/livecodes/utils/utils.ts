@@ -1,4 +1,4 @@
-import { Config, Language, Processor, WorkerMessageEvent } from '../models';
+import type { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
   let timeout: any;

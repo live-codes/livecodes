@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Language, Config, User } from '../models';
+import type { Language, Config, User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { getGithubHeaders } from '../services/github';
 import { isGithubDir } from './github-dir';

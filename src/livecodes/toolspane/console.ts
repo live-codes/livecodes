@@ -1,7 +1,7 @@
 import LunaConsole from 'luna-console';
 import { createEditor, getFontFamily } from '../editor';
-import { createEventsManager } from '../events';
-import { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
+import type { createEventsManager } from '../events';
+import type { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement } from '../UI';

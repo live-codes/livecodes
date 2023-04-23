@@ -1,4 +1,4 @@
-import { createSnackbar, Action } from '@snackbar/core';
+import { createSnackbar, type Action } from '@snackbar/core';
 import {
   infoTheme,
   successTheme,

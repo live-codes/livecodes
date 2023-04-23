@@ -1,6 +1,6 @@
-import { Language, Config, EventsManager } from '../models';
+import type { Language, Config, EventsManager } from '../models';
 import { createCompiler } from './create-compiler';
-import { Compiler, LanguageOrProcessor } from './models';
+import type { Compiler, LanguageOrProcessor } from './models';
 import { getCompileResult } from './utils';
 
 export const getCompiler = (options: {

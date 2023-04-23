@@ -6,13 +6,8 @@ export * from '@codemirror/search';
 export * from '@codemirror/state';
 export * from '@codemirror/view';
 
-export {
-  TagSpec,
-  html,
-  htmlCompletionSource,
-  htmlCompletionSourceWith,
-  htmlLanguage,
-} from '@codemirror/lang-html';
+export type { TagSpec } from '@codemirror/lang-html';
+export { html, htmlCompletionSource, htmlCompletionSourceWith, htmlLanguage } from '@codemirror/lang-html';
 export * from '@codemirror/lang-css';
 export * from '@codemirror/lang-javascript';
 export * from '@codemirror/lang-json';

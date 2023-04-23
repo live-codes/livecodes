@@ -1,4 +1,4 @@
-import { Config } from '../../models';
+import type { Config } from '../../models';
 import { validateConfig } from '../validate-config';
 
 describe('validateConfig', () => {
