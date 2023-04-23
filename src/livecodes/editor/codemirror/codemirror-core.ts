@@ -7,7 +7,12 @@ export * from '@codemirror/state';
 export * from '@codemirror/view';
 
 export type { TagSpec } from '@codemirror/lang-html';
-export { html, htmlCompletionSource, htmlCompletionSourceWith, htmlLanguage } from '@codemirror/lang-html';
+export {
+  html,
+  htmlCompletionSource,
+  htmlCompletionSourceWith,
+  htmlLanguage,
+} from '@codemirror/lang-html';
 export * from '@codemirror/lang-css';
 export * from '@codemirror/lang-javascript';
 export * from '@codemirror/lang-json';

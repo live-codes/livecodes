@@ -21,7 +21,12 @@ import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
-import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent, Compiler } from './models';
+import type {
+  LanguageOrProcessor,
+  CompilerMessage,
+  CompilerMessageEvent,
+  Compiler,
+} from './models';
 import { getCompileResult } from './utils';
 
 export const createCompiler = async ({
