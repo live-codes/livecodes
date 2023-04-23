@@ -7,7 +7,7 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.eslint.json'],
   },
-  plugins: ['@typescript-eslint', 'jsdoc'],
+  plugins: ['@typescript-eslint', 'jsdoc', 'no-only-tests'],
   extends: [
     'plugin:import/errors',
     'plugin:import/warnings',
@@ -155,6 +155,7 @@ module.exports = {
     'no-multiple-empty-lines': 'off',
     'no-new-func': 'error',
     'no-new-wrappers': 'error',
+    'no-only-tests/no-only-tests': 'error',
     'no-redeclare': 'error',
     'no-restricted-imports': ['error', { patterns: ['**/_modules'] }],
     'no-return-await': 'error',
