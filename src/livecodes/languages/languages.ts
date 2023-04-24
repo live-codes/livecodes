@@ -62,6 +62,7 @@ import { fennel } from './fennel';
 import { teal } from './teal';
 import { stylis } from './stylis';
 import { flow } from './flow';
+import { mjml } from './mjml';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -79,6 +80,7 @@ export const languages: LanguageSpecs[] = [
   dot,
   twig,
   artTemplate,
+  mjml,
   diagrams,
   richtext,
   css,

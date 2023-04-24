@@ -194,6 +194,8 @@ export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.
 
 export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
 
+export const mjmlUrl = 'https://cdn.jsdelivr.net/npm/mjml-browser@4.14.1/lib/index.min.js';
+
 export const monacoEmacsUrl = 'https://unpkg.com/monaco-emacs@0.3.0/dist/monaco-emacs.js';
 
 export const monacoVimUrl = 'https://unpkg.com/monaco-vim@0.3.5/dist/monaco-vim.js';
