@@ -58,6 +58,8 @@ PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e
 
 PostCSS Preset Env: [CC0-1.0 License](https://github.com/csstools/postcss-preset-env/blob/d7652b1e6196e8f55bf3f0aac4ac090fec7ed54e/LICENSE.md)
 
+postcss-modules: [MIT License](https://github.com/madyankin/postcss-modules/blob/325f0b33f1b746eae7aa827504a5efd0949022ef/LICENSE)
+
 prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41d048799bdd063e0592c1413d238ad95ceda1d9/LICENSE)
 
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)

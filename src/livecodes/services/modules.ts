@@ -1,4 +1,4 @@
-import { CDN } from '../models';
+import type { CDN } from '../models';
 
 export const modulesService = {
   getModuleUrl: (

@@ -3,16 +3,16 @@
 // these imports are marked as external and are mapped to ./codemirror-core
 // (see html/app.html and scripts/build.js)
 // to allow lazy loaded modules to import the same modules
-import { Compartment, Extension, EditorState } from '@codemirror/state';
+import { Compartment, EditorState, type Extension } from '@codemirror/state';
 import { oneDark } from '@codemirror/theme-one-dark';
-import { EditorView, KeyBinding, keymap, ViewUpdate } from '@codemirror/view';
+import { EditorView, keymap, type KeyBinding, type ViewUpdate } from '@codemirror/view';
 import { indentWithTab, undo, redo } from '@codemirror/commands';
 import {
   defaultHighlightStyle,
   syntaxHighlighting,
   indentUnit,
-  LanguageSupport,
   HighlightStyle,
+  type LanguageSupport,
 } from '@codemirror/language';
 import { tags } from '@lezer/highlight';
 

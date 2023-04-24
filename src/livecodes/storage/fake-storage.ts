@@ -1,4 +1,4 @@
-import { SimpleStorage, Storage } from './models';
+import type { SimpleStorage, Storage } from './models';
 
 export const fakeStorage: Omit<Storage<any>, 'getList'> & { getList: () => Promise<[]> } = {
   getList: async () => [],

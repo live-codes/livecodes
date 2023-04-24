@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { GithubScope, User } from '../models';
+import type { GithubScope, User } from '../models';
 import { decrypt, encrypt } from '../storage';
 import { getImportInstance } from '../utils';
 

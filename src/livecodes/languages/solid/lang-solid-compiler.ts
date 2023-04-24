@@ -1,4 +1,4 @@
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createSolidCompiler = (): CompilerFunction => {

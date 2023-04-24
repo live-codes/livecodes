@@ -1,4 +1,4 @@
-import { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig } from '../models';
+import type { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig } from '../models';
 import { cloneObject } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeConfig } from './upgrade-config';

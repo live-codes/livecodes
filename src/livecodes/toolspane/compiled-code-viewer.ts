@@ -1,6 +1,6 @@
 import { getEditorConfig } from '../config';
 import { createEditor, getFontFamily } from '../editor';
-import { createEventsManager } from '../events';
+import type { createEventsManager } from '../events';
 import { getLanguageExtension, languages, mapLanguage } from '../languages';
 import type {
   Editors,

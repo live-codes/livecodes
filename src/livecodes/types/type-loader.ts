@@ -1,5 +1,5 @@
 import { getImports } from '../compiler';
-import { EditorLibrary, Types } from '../models';
+import type { EditorLibrary, Types } from '../models';
 import { typesService } from '../services';
 import { objectFilter } from '../utils';
 

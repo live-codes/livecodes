@@ -1,4 +1,4 @@
-import { Config } from '../models';
+import type { Config } from '../models';
 import { allowedOrigin } from './allowed-origin';
 
 const dpasteGetUrl = 'https://dpaste.com/';

@@ -2,7 +2,7 @@
 import { loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import type { ContentConfig } from '../models';
-import { populateConfig, SourceFile } from './utils';
+import { populateConfig, type SourceFile } from './utils';
 
 export const importFromZip = async (blob: Blob) =>
   new Promise<Partial<ContentConfig>>(async (resolve, reject) => {

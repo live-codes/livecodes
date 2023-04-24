@@ -1,4 +1,4 @@
-import { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../../models';
+import type { CompilerFunction, LanguageFormatter, LanguageSpecs } from '../../models';
 
 declare const importScripts: (...args: string[]) => void;
 

@@ -1,4 +1,4 @@
-import { CustomEditor, EventsManager } from '../../models';
+import type { CustomEditor, EventsManager } from '../../models';
 import { registerEditorCommands } from '../custom-editor-commands';
 
 export const createBlocklyEditor = ({

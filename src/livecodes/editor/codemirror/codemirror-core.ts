@@ -6,8 +6,8 @@ export * from '@codemirror/search';
 export * from '@codemirror/state';
 export * from '@codemirror/view';
 
+export type { TagSpec } from '@codemirror/lang-html';
 export {
-  TagSpec,
   html,
   htmlCompletionSource,
   htmlCompletionSourceWith,

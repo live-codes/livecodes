@@ -39,6 +39,7 @@ export default function Sliders() {
       { name: 'unocss', title: 'UnoCSS', processor: true },
       { name: 'tokencss', title: 'Token CSS', processor: true },
       { name: 'lightningcss', title: 'Lightning CSS', processor: true },
+      { name: 'cssmodules', title: 'CSS Modules', processor: true },
     ],
     script: [
       { name: 'javascript', title: 'JS' },

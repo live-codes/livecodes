@@ -1,6 +1,6 @@
 import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
-import { Config, User } from '../models';
-import { Files, getDescriptionFile, getFilesFromConfig } from './utils';
+import type { Config, User } from '../models';
+import { getDescriptionFile, getFilesFromConfig, type Files } from './utils';
 
 export const exportGithubGist = async (
   config: Config,

@@ -1,5 +1,5 @@
 import { languages, getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { EditorId, Language, Config } from '../models';
+import type { EditorId, Language, Config } from '../models';
 
 export interface SourceFile {
   filename: string;

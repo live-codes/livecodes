@@ -1,6 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { createPlayground, EmbedOptions } from '../../src/sdk';
-// eslint-disable-next-line import/no-internal-modules
+import { createPlayground, type EmbedOptions } from '../../src/sdk';
 import { createStory } from './create-story';
 
 export type LiveCodesArgs = EmbedOptions & { attrs?: any };

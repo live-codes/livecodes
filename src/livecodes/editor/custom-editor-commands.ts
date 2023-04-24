@@ -1,4 +1,4 @@
-import { EventsManager } from '../models';
+import type { EventsManager } from '../models';
 
 const handler = (event: MessageEvent) => {
   if (event.data.type === 'customEditorCommand') {

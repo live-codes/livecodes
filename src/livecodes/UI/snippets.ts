@@ -3,7 +3,7 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { Snippet, CodeEditor, EditorOptions, Screen, Language, AppData } from '../models';
 import type { createNotifications } from '../notifications';
-import { generateId, Storage } from '../storage';
+import { generateId, type Storage } from '../storage';
 import { addSnippetScreen, snippetsScreen } from '../html';
 import { getLanguageTitle, languages } from '../languages';
 import { copyToClipboard, isMobile, loadScript } from '../utils';

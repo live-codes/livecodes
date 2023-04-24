@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages';
-import { EditorId, Language, Config } from '../models';
+import type { EditorId, Language, Config } from '../models';
 import { decodeHTML } from '../utils';
 
 export const isDom = (url: string) => url.startsWith('dom/');

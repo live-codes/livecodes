@@ -1,4 +1,4 @@
-import { Config } from '../models';
+import type { Config } from '../models';
 
 export const defaultConfig: Config = {
   title: 'Untitled Project',

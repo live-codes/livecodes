@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { PlaywrightTestConfig } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@playwright/test';
 // eslint-disable-next-line import/no-internal-modules
-import { Config } from './src/livecodes/models';
+import type { Config } from './src/livecodes/models';
 
 const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
   globalSetup: require.resolve('./e2e/global-setup'),

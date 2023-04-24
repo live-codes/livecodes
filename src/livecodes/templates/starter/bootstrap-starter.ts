@@ -1,4 +1,4 @@
-import { Template } from '../../models';
+import type { Template } from '../../models';
 
 export const bootstrapStarter: Template = {
   name: 'bootstrap',

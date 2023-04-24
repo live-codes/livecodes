@@ -1,4 +1,4 @@
-import { WorkerMessageEvent } from '../models';
+import type { WorkerMessageEvent } from '../models';
 
 export type SyncMethod =
   | 'sync'

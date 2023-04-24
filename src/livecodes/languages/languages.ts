@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../models';
+import type { LanguageSpecs } from '../models';
 import { asciidoc } from './asciidoc';
 import { babel } from './babel';
 import { css } from './css';

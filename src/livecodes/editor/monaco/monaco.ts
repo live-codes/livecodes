@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
-import * as Monaco from 'monaco-editor'; // only for typescript types
+import type * as Monaco from 'monaco-editor'; // only for typescript types
 
 import type {
   EditorLibrary,

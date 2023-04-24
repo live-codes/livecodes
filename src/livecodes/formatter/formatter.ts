@@ -1,5 +1,5 @@
-import { FormatFn, Language } from '../models';
-import { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
+import type { FormatFn, Language } from '../models';
+import type { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 
 export const createFormatter = (baseUrl: string): Formatter => {
   const worker = new Worker(baseUrl + '{{hash:format.worker.js}}');

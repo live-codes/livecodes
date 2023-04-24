@@ -1,4 +1,4 @@
-import { CssPreset } from '../models';
+import type { CssPreset } from '../models';
 import { normalizeCssUrl, resetCssUrl } from '../vendors';
 
 export const cssPresets: CssPreset[] = [

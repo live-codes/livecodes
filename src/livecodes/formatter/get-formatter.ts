@@ -1,6 +1,6 @@
-import { Language, Config } from '../models';
+import type { Language, Config } from '../models';
 import { createFormatter } from './formatter';
-import { Formatter } from './models';
+import type { Formatter } from './models';
 
 export const getFormatter = (config: Config, baseUrl: string, isLite: boolean): Formatter => {
   const { readonly, mode } = config;

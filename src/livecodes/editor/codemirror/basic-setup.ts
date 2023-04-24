@@ -11,7 +11,7 @@ import {
   lineNumbers,
   highlightActiveLineGutter,
 } from '@codemirror/view';
-import { Extension, EditorState } from '@codemirror/state';
+import { EditorState, type Extension } from '@codemirror/state';
 import {
   defaultHighlightStyle,
   syntaxHighlighting,

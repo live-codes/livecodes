@@ -1,6 +1,12 @@
-import { createImportMap, getImports, hasImports, isModuleScript } from '../compiler';
-import { cssPresets, getLanguageCompiler } from '../languages';
-import type { Cache, EditorId, Config } from '../models';
+import {
+  createImportMap,
+  createCSSModulesImportMap,
+  getImports,
+  hasImports,
+  isModuleScript,
+} from '../compiler';
+import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
+import type { Cache, EditorId, Config, CompileInfo } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
@@ -14,6 +20,7 @@ export const createResultPage = async ({
   baseUrl,
   singleFile,
   runTests,
+  compileInfo,
 }: {
   code: Cache;
   config: Config;
@@ -22,6 +29,7 @@ export const createResultPage = async ({
   baseUrl: string;
   singleFile: boolean;
   runTests: boolean;
+  compileInfo: CompileInfo;
 }): Promise<string> => {
   const absoluteBaseUrl = getAbsoluteUrl(baseUrl);
 
@@ -159,6 +167,8 @@ export const createResultPage = async ({
     }
   }
 
+  const styleExtension = getLanguageExtension(code.style.language);
+
   // import maps
   const userImports =
     config.customSettings.mapImports === false
@@ -176,6 +186,18 @@ export const createResultPage = async ({
           ...(importFromScript
             ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
             : {}),
+          ...createCSSModulesImportMap(
+            code.script.compiled,
+            code.style.compiled,
+            compileInfo.cssModules,
+            styleExtension,
+          ),
+          ...createCSSModulesImportMap(
+            code.markup.compiled,
+            code.style.compiled,
+            compileInfo.cssModules,
+            styleExtension,
+          ),
         };
 
   const importMaps = {

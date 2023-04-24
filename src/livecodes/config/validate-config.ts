@@ -1,4 +1,5 @@
-import { Editor, Config, ToolsPaneStatus, EditorId, Tool } from '../models';
+import type { Editor, Config, ToolsPaneStatus, EditorId, Tool } from '../models';
+import { removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
 
 export const validateConfig = (config: Partial<Config>): Partial<Config> => {
@@ -64,7 +65,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   return {
     ...(is(config.title, 'string') ? { title: config.title } : {}),
     ...(is(config.description, 'string') ? { description: config.description } : {}),
-    ...(is(config.tags, 'array', 'string') ? { tags: config.tags } : {}),
+    ...(is(config.tags, 'array', 'string') ? { tags: removeDuplicates(config.tags) } : {}),
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),
     ...(is(config.delay, 'number') ? { delay: Number(config.delay) } : {}),
@@ -77,7 +78,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.readonly, 'boolean') ? { readonly: config.readonly } : {}),
     ...(is(config.allowLangChange, 'boolean') ? { allowLangChange: config.allowLangChange } : {}),
     ...(includes(editorIds, config.activeEditor) ? { activeEditor: config.activeEditor } : {}),
-    ...(is(config.languages, 'array', 'string') ? { languages: config.languages } : {}),
+    ...(is(config.languages, 'array', 'string')
+      ? { languages: removeDuplicates(config.languages) }
+      : {}),
     ...(isEditor(config.markup) ? { markup: validateEditorProps(config.markup as Editor) } : {}),
     ...(isEditor(config.style) ? { style: validateEditorProps(config.style as Editor) } : {}),
     ...(isEditor(config.script) ? { script: validateEditorProps(config.script as Editor) } : {}),
@@ -90,10 +93,14 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(includes(zoomLevels, Number(config.zoom))
       ? { zoom: Number(config.zoom) as Config['zoom'] }
       : {}),
-    ...(is(config.stylesheets, 'array', 'string') ? { stylesheets: config.stylesheets } : {}),
-    ...(is(config.scripts, 'array', 'string') ? { scripts: config.scripts } : {}),
+    ...(is(config.stylesheets, 'array', 'string')
+      ? { stylesheets: removeDuplicates(config.stylesheets) }
+      : {}),
+    ...(is(config.scripts, 'array', 'string') ? { scripts: removeDuplicates(config.scripts) } : {}),
     ...(is(config.cssPreset, 'string') ? { cssPreset: config.cssPreset } : {}),
-    ...(is(config.processors, 'array', 'string') ? { processors: config.processors } : {}),
+    ...(is(config.processors, 'array', 'string')
+      ? { processors: removeDuplicates(config.processors) }
+      : {}),
     ...(is(config.customSettings, 'object') ? { customSettings: config.customSettings } : {}),
     ...(includes(editors, config.editor) ? { editor: config.editor } : {}),
     ...(is(config.fontFamily, 'string') ? { fontFamily: config.fontFamily } : {}),

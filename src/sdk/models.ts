@@ -352,6 +352,7 @@ export type Processor =
   | 'lightningcss'
   | 'autoprefixer'
   | 'postcssPresetEnv'
+  | 'cssmodules'
   | 'purgecss'
   | 'cssnano';
 
@@ -400,6 +401,17 @@ export interface CompileOptions {
   html?: string;
   blockly?: BlocklyContent;
   forceCompile?: boolean;
+  compileInfo?: CompileInfo;
+}
+
+export interface CompileInfo {
+  cssModules?: Record<string, string>;
+  modifiedHTML?: string;
+}
+
+export interface CompileResult {
+  code: string;
+  info: CompileInfo;
 }
 
 export type CompilerFunction = (
@@ -417,7 +429,7 @@ export type CompilerFunction = (
     options: CompileOptions;
     worker?: Worker;
   },
-) => Promise<string>;
+) => Promise<string | CompileResult>;
 
 export interface Compiler {
   dependencies?: Language[];
