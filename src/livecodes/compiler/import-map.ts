@@ -166,12 +166,6 @@ export const createCSSModulesImportMap = (
         };
       }
 
-      Object.keys(cssTokens).forEach((key) => {
-        const camelKey = toCamelCase(key);
-        if (key !== camelKey) {
-          cssTokens[camelKey] = cssTokens[key];
-        }
-      });
       const cssModule =
         `export default ${escapeCode(JSON.stringify(cssTokens))};\n` +
         Object.keys(cssTokens)

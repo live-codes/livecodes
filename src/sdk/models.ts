@@ -406,6 +406,7 @@ export interface CompileOptions {
 
 export interface CompileInfo {
   cssModules?: Record<string, string>;
+  modifiedHTML?: string;
 }
 
 export interface CompileResult {

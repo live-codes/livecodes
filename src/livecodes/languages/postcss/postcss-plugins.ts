@@ -153,18 +153,32 @@ export const cssModules: ProcessorSpecs = {
   name: 'cssmodules',
   title: 'CSS Modules',
   isPostcssPlugin: true,
+  needsHTML: true,
   compiler: {
     url: vendorsBaseUrl + 'postcss-modules/postcss-modules.js',
-    factory: (config, _baseUrl, options) =>
-      (self as any).postcssModules.postcssModules({
-        ...getLanguageCustomSettings('cssmodules', config),
+    factory: (config, _baseUrl, options) => {
+      const customSettings = getLanguageCustomSettings('cssmodules', config);
+      return (self as any).postcssModules.postcssModules({
+        localsConvention: 'camelCase',
+        ...customSettings,
         getJSON(_cssFileName: string, json: Record<string, string>, _outputFileName: string) {
+          const addClasses = customSettings.addClassesToHTML !== false;
+          const removeClasses = customSettings.removeOriginalClasses === true;
+          if (addClasses) {
+            options.html = (self as any).postcssModules.addClassesToHtml(
+              options.html,
+              json,
+              removeClasses,
+            );
+          }
           options.compileInfo = {
             ...options.compileInfo,
             cssModules: json,
+            ...(addClasses ? { modifiedHTML: options.html } : {}),
           };
         },
-      }),
+      });
+    },
   },
   editor: 'style',
 };

@@ -725,12 +725,9 @@ const getResultPage = async ({
     config.tests?.content === getCache().tests?.content &&
     getCache().tests?.compiled;
 
-  const { code: compiledMarkup, info: markupCompileInfo } = await compiler.compile(
-    markupContent,
-    markupLanguage,
-    config,
-    {},
-  );
+  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
+  let compiledMarkup = markupCompileResult.code;
+
   const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: compiledMarkup,
@@ -756,7 +753,7 @@ const getResultPage = async ({
   ]);
 
   let compileInfo: CompileInfo = {
-    ...markupCompileInfo,
+    ...markupCompileResult.info,
   };
 
   const [compiledStyle, compiledScript, compiledTests] = compileResults.map((result) => {
@@ -767,6 +764,10 @@ const getResultPage = async ({
     };
     return code;
   });
+
+  if (compileInfo.modifiedHTML) {
+    compiledMarkup = compileInfo.modifiedHTML;
+  }
 
   const compiledCode: Cache = {
     ...contentConfig,
