@@ -25,7 +25,7 @@ const FeatureList1: FeatureItem[] = [
       <>
         Supports{' '}
         <Link to="./languages">
-          <strong>60+ languages/frameworks</strong>
+          <strong>80+ languages/frameworks</strong>
         </Link>
         . Code Format, NPM Modules, Intellisense, TypeScript Support, Emmet, Console, Compiled code
         viewer, Tests, Starter Templates, Save, Import, Export, Share, Deploy, Assets, Snippets,

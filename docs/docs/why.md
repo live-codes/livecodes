@@ -8,16 +8,17 @@ There are great products like [CodePen](https://codepen.io/), [JSFiddle](https:/
 
 ### Language Support
 
-Currently, there are 60+ languages/frameworks supported. These include:
+Currently, there are 80+ languages/frameworks supported. These include:
 
 - Syntax used by web libraries/frameworks (e.g. JSX, TSX, Vue SFC, Svelte SFC, MDX, Astro).
 - Languages that transpile to JavaScript (e.g. TypeScript, CoffeeScript, LiveScript, ReScript).
-- Languages/utilities that generate CSS (e.g. SCSS, Less, Stylus, PostCSS, Tailwind CSS).
-- Traditional programming languages (e.g. Python, Ruby, Go, PHP, C++, Lua, Scheme, Perl).
+- Languages/utilities that generate CSS (e.g. SCSS, Less, Stylus, Tailwind CSS, UnoCSS).
+- CSS processors (e.g. PostCSS, Autoprefixer, Lightning CSS, CSS Modules, cssnano)
+- Traditional programming languages (e.g. Python, Ruby, Go, PHP, C++, R, Lua, Scheme, Perl).
 - Data manipulation/logic languages (e.g. SQL, Prolog).
 - Authoring/templating languages (e.g Markdown, AsciiDoc, Pug, Handlebars, Haml).
 - Low-code/visual editors (e.g. blockly, rich text editor).
-- Modeling languages/graph-as-code (e.g. Gnuplot, Graphviz, Mermaid, Vega, Plotly).
+- Modeling languages/diagram-as-code (e.g. Gnuplot, Graphviz, Mermaid, Vega, Plotly).
 - Languages that target WebAssembly (e.g. AssemblyScript, WebAssembly Text Format)
 - ... and others.
 
