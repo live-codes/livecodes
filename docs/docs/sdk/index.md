@@ -1,3 +1,7 @@
+---
+sidebar_class_name: exclude_from_sidebar
+---
+
 # LiveCodes SDK
 
 import LiveCodes from '../../src/components/LiveCodes.tsx'

@@ -576,6 +576,34 @@ const title = "World";
     expect(resultText).toContain('Welcome to art-template');
   });
 
+  test('MJML', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=MJML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text color="blue">
+          Hello MJML!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('table');
+
+    expect(resultText).toContain('Hello MJML!');
+  });
+
   test('SCSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

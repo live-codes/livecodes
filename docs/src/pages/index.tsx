@@ -32,7 +32,7 @@ function HomepageHeader() {
         </div>
         <div className={styles.description}>
           An open-source client-side playground for React, Vue, Angular, Svelte, Typescript, Python,
-          Go, Ruby and 60+ languages/frameworks.
+          Go, Ruby and 80+ languages/frameworks.
         </div>
       </div>
     </header>

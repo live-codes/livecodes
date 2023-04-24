@@ -25,11 +25,12 @@ const config = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/live-codes/livecodes/tree/develop/docs/',
+          async sidebarItemsGenerator({ defaultSidebarItemsGenerator, ...args }) {
+            const sidebarItems = await defaultSidebarItemsGenerator(args);
+            return excludeSidebarItems(sidebarItems);
+          },
         },
         blog: false,
-        // blog: {
-        //   routeBasePath: '/blog',
-        // },
         theme: {
           customCss: [
             require.resolve('./src/css/custom.css'),
@@ -204,5 +205,15 @@ const config = {
     ],
   ],
 };
+
+const excludeSidebarItems = (items) =>
+  items
+    .map((item) => {
+      if (item.type === 'category') {
+        return { ...item, items: excludeSidebarItems(item.items) };
+      }
+      return item;
+    })
+    .filter((item) => item.className !== 'exclude_from_sidebar');
 
 module.exports = config;

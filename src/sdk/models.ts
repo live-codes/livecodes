@@ -153,6 +153,7 @@ export type Language =
   | 'twig'
   | 'art-template'
   | 'art'
+  | 'mjml'
   | 'diagrams'
   | 'diagram'
   | 'graph'
