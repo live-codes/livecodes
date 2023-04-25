@@ -68,6 +68,7 @@
     "@codemirror/lang-markdown": "6.0.1",
     "@codemirror/lang-php": "6.0.0",
     "@codemirror/lang-python": "6.0.2",
+    "@codemirror/lang-sass": "6.0.1",
     "@codemirror/lang-sql": "6.3.0",
     "@codemirror/lang-vue": "0.1.0",
     "@codemirror/lang-wast": "6.0.0",
