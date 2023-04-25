@@ -1,9 +1,7 @@
 /* eslint-disable import/no-internal-modules */
-import type { EmbedOptions } from '../temp/imports';
-import { createPlayground } from '../temp/livecodes';
+import { createPlayground, type EmbedOptions } from '../../src/sdk';
 import { createStory } from './create-story';
 
-export { defaultConfig, languages, starterTemplates } from '../temp/livecodes';
 export type LiveCodesArgs = EmbedOptions & { attrs?: any };
 
 const createLiveCodes = ({ attrs = {}, ...options }: LiveCodesArgs) => {

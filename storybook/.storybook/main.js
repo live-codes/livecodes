@@ -6,12 +6,6 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/addon-storysource',
   ],
-  framework: {
-    name: '@storybook/html-webpack5',
-    options: {},
-  },
+  framework: '@storybook/html',
   staticDirs: ['../public'],
-  docs: {
-    autodocs: true,
-  },
 };
