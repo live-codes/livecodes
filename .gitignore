@@ -6,3 +6,6 @@ dist
 **/*.log
 .env
 docs/docs/api
+/test-results/
+/playwright-report/
+/playwright/.cache/
