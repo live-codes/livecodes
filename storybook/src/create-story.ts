@@ -3,10 +3,7 @@
 import type { ArgTypes, Story } from '@storybook/html';
 import { flatten, unflatten } from 'flat';
 
-import { defaultConfig } from '../../src/livecodes/config/default-config';
-import { starterTemplates } from '../../src/livecodes/templates/starter';
-import { languages } from '../../src/livecodes/languages';
-import type { LiveCodesArgs } from './LiveCodes';
+import { defaultConfig, starterTemplates, languages, type LiveCodesArgs } from './LiveCodes';
 
 const delimiter = '__';
 
