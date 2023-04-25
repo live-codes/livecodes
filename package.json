@@ -43,7 +43,7 @@
     "lint:stylelint": "stylelint \"src/livecodes/styles/*\"",
     "lint:stylelint-docs": "stylelint \"docs/**/*.{css,scss}\"",
     "e2e": "playwright test",
-    "ci:e2e": "playwright install && playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL",
+    "ci:e2e": "playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL",
     "cov": "run-s \"test:unit -- --coverage\"",
     "cov:send": "run-s cov && codecov",
     "release": "standard-version",
