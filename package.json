@@ -20,7 +20,7 @@
     "build:ts": "tsc --emitDeclarationOnly --outFile build/livecodes/types.d.ts",
     "build:ts-sdk": "tsc --emitDeclarationOnly -p tsconfig.sdk.json && node ./scripts/dts-bundle.js",
     "build:ts-docs": "cd docs && npm run typecheck",
-    "build:ts-storybook": "cd docs && npm run typecheck",
+    "build:ts-storybook": "cd storybook && npm run typecheck",
     "build:docs": "cd docs && npm run build",
     "build:storybook": "cd storybook && npm run build",
     "copy:assets": "recursive-delete build/livecodes/assets && mkdirp build/livecodes/assets && recursive-copy src/livecodes/assets build/livecodes/assets",
