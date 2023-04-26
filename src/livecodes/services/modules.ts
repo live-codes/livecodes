@@ -16,6 +16,8 @@ export const modulesService = {
       return null;
     };
 
+    moduleName = moduleName.replace(/#nobundle/g, '');
+
     const moduleUrl = getCdnUrl(moduleName) || getCdnUrl(defaultCDN + ':' + moduleName);
     if (moduleUrl) {
       return moduleUrl;
@@ -52,6 +54,8 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(unpkg:)(.+)/i, 'https://unpkg.com/$2'],
 
   [/^(bundlejs:)(.+)/i, 'https://deno.bundlejs.com/?file&q=$2'],
+
+  [/^(bundle:)(.+)/i, 'https://deno.bundlejs.com/?file&q=$2'],
 
   [/^(deno:)(.+)/i, 'https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts'],
 
