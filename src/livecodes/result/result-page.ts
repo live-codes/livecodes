@@ -204,6 +204,7 @@ export const createResultPage = async ({
     ...userImports,
     ...compilerImports,
     ...(runTests ? testImports : {}),
+    ...config.imports,
     ...config.customSettings.imports,
   };
   if (Object.keys(importMaps).length > 0) {
