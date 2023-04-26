@@ -31,6 +31,10 @@ export const modulesService = {
 const TEMPLATES: Array<[RegExp, string]> = [
   [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
 
+  [/^(npm:)(.+)/i, 'https://jspm.dev/$2'],
+
+  [/^(node:)(.+)/i, 'https://jspm.dev/$2'],
+
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
@@ -46,6 +50,12 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(bundle.run:)(.+)/i, 'https://bundle.run/$2'],
 
   [/^(unpkg:)(.+)/i, 'https://unpkg.com/$2'],
+
+  [/^(bundlejs:)(.+)/i, 'https://deno.bundlejs.com/?file&q=$2'],
+
+  [/^(deno:)(.+)/i, 'https://deno.bundlejs.com/?file&q=https://deno.land/x/$2/mod.ts'],
+
+  [/^(https:\/\/deno\.land\/.+)/i, 'https://deno.bundlejs.com/?file&q=$1'],
 
   [
     /^(github:)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,

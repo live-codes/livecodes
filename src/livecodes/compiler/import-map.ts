@@ -13,6 +13,8 @@ export const getImports = (code: string) =>
     ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
   ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
+const needsBundler = (mod: string) => mod.startsWith('https://deno.land/') || mod.endsWith('.ts');
+
 const isBare = (mod: string) =>
   !mod.startsWith('https://') &&
   !mod.startsWith('http://') &&
@@ -24,7 +26,7 @@ const isBare = (mod: string) =>
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (!isBare(libName)) {
+      if (!needsBundler(libName) && !isBare(libName)) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
