@@ -13,6 +13,17 @@ export const getImports = (code: string) =>
     ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
   ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
+const needsBundler = (mod: string) =>
+  !mod.endsWith('#nobundle') &&
+  (mod.startsWith('https://deno.land/') ||
+    mod.startsWith('https://github.com/') ||
+    mod.startsWith('https://raw.githubusercontent.com/') ||
+    mod.startsWith('https://gitlab.com/') ||
+    mod.startsWith('https://bitbucket.org') ||
+    mod.endsWith('.ts') ||
+    mod.endsWith('.jsx') ||
+    mod.endsWith('.tsx'));
+
 const isBare = (mod: string) =>
   !mod.startsWith('https://') &&
   !mod.startsWith('http://') &&
@@ -24,7 +35,7 @@ const isBare = (mod: string) =>
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (!isBare(libName)) {
+      if (!needsBundler(libName) && !isBare(libName)) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
