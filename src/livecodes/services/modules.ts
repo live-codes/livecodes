@@ -58,22 +58,19 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(https:\/\/deno\.land\/.+)/i, 'https://deno.bundlejs.com/?file&q=$1'],
 
   [
-    /^(github:)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,
-    'https://raw.githack.com/$2/$3/$4',
+    /^(github:|https:\/\/github\.com\/)(.[^\/]+?)\/(.[^\/]+?)\/(?!releases\/)(?:(?:blob|raw)\/)?(.+?\/.+)/i,
+    'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/$2/$3@$4',
   ],
-  [
-    /^(github:)([^\/]+\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,
-    'https://raw.githack.com/$2/$3',
-  ],
+
   [/^(gist\.github:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i, 'https://gist.githack.com/$2'],
 
   [
-    /^(gitlab:)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,
-    'https://gl.githack.com/$2/raw/$3',
+    /^(gitlab:|https:\/\/gitlab\.com\/)([^\/]+.*\/[^\/]+)\/(?:raw|blob)\/(.+?)(?:\?.*)?$/i,
+    'https://deno.bundlejs.com/?file&q=https://gl.githack.com/$2/raw/$3',
   ],
   [
-    /^(bitbucket:)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,
-    'https://bb.githack.com/$2/raw/$3',
+    /^(bitbucket:|https:\/\/bitbucket\.org\/)([^\/]+\/[^\/]+)\/(?:raw|src)\/(.+?)(?:\?.*)?$/i,
+    'https://deno.bundlejs.com/?file&q=https://bb.githack.com/$2/raw/$3',
   ],
 
   // snippet file URL from web interface, with revision
@@ -98,7 +95,7 @@ const TEMPLATES: Array<[RegExp, string]> = [
 
   [/^(rawgit:)(.+?\/[0-9a-f]+\/raw\/(?:[0-9a-f]+\/)?.+)$/i, 'https://gist.githack.com/$2'],
   [
-    /^(rawgit:)([^\/]+\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,
-    'https://raw.githack.com/$2/$3',
+    /^(rawgit:|https:\/\/raw\.githubusercontent\.com)(\/[^\/]+\/[^\/]+|[0-9A-Za-z-]+\/[0-9a-f]+\/raw)\/(.+)/i,
+    'https://deno.bundlejs.com/?file&q=https://raw.githack.com/$2/$3',
   ],
 ];

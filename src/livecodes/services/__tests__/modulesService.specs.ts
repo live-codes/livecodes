@@ -50,16 +50,16 @@ describe('modulesService', () => {
       'https://deno.bundlejs.com/?file&q=https://deno.land/x/uuid/mod.ts',
     );
 
-    expect(url('github:everthis/leetcode-js/blob/master/1-two-sum.js')).toEqual(
-      'https://raw.githack.com/everthis/leetcode-js/master/1-two-sum.js',
+    expect(url('https://github.com/uuidjs/uuid/blob/main/src/v4.js')).toEqual(
+      'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/uuidjs/uuid@main/src/v4.js',
     );
 
-    expect(url('github:everthis/leetcode-js/master/1-two-sum.js')).toEqual(
-      'https://raw.githack.com/everthis/leetcode-js/master/1-two-sum.js',
+    expect(url('github:everthis/leetcode-js/blob/master/1-two-sum.js')).toEqual(
+      'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/everthis/leetcode-js@master/1-two-sum.js',
     );
 
     expect(url('github:uuidjs/uuid/blob/main/src/v4.js')).toEqual(
-      'https://raw.githack.com/uuidjs/uuid/main/src/v4.js',
+      'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/uuidjs/uuid@main/src/v4.js',
     );
 
     expect(
@@ -71,7 +71,11 @@ describe('modulesService', () => {
     );
 
     expect(url('gitlab:gitterHQ/webapp/-/blob/develop/server/web.js')).toEqual(
-      'https://gl.githack.com/gitterHQ/webapp/-/raw/develop/server/web.js',
+      'https://deno.bundlejs.com/?file&q=https://gl.githack.com/gitterHQ/webapp/-/raw/develop/server/web.js',
+    );
+
+    expect(url('https://gitlab.com/gitterHQ/webapp/-/blob/develop/server/web.js')).toEqual(
+      'https://deno.bundlejs.com/?file&q=https://gl.githack.com/gitterHQ/webapp/-/raw/develop/server/web.js',
     );
   });
 });

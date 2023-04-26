@@ -13,7 +13,13 @@ export const getImports = (code: string) =>
     ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
   ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
-const needsBundler = (mod: string) => mod.startsWith('https://deno.land/') || mod.endsWith('.ts');
+const needsBundler = (mod: string) =>
+  mod.startsWith('https://deno.land/') ||
+  mod.startsWith('https://github.com/') ||
+  mod.startsWith('https://raw.githubusercontent.com/') ||
+  mod.startsWith('https://gitlab.com/') ||
+  mod.startsWith('https://bitbucket.org') ||
+  mod.endsWith('.ts');
 
 const isBare = (mod: string) =>
   !mod.startsWith('https://') &&

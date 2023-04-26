@@ -118,7 +118,7 @@ NPM packages can be searched and added as script tags from the [External Resourc
 
 ## Deno Modules
 
-Modules imported from [deno.land/x](https://deno.land/x) (or any other URL ending in `.ts`) are automatically transpiled (ts -> js) and bundled by [bundlejs](https://bundlejs.com/) (using [esbuild](https://esbuild.github.io/)). The project does not have to be using TypeScript.
+Modules imported from [deno.land/x](https://deno.land/x) (or any other URL ending in `.ts`) are automatically transpiled (ts -> js) and bundled by [bundlejs](https://bundlejs.com/) (using [esbuild](https://esbuild.github.io/)), including their relative imports. The project on LiveCodes that imports these modules does not have to be using TypeScript.
 
 Example:
 
@@ -126,4 +126,14 @@ Example:
 import { uuid } from 'https://deno.land/x/uuid/mod.ts';
 
 document.body.innerHTML = uuid();
+```
+
+## GitHub/GitLab
+
+Modules can also be similarly imported from GitHub or Gitlab. Also these imports are transpiled and bundled.
+
+```js
+import { flatten } from 'https://github.com/remeda/remeda/blob/master/src/flatten.ts';
+
+console.log(flatten([[1, 2], [3], [4, 5]])); // => [1, 2, 3, 4, 5]
 ```
