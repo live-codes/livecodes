@@ -46,8 +46,10 @@ export default function Sliders() {
     ],
     script: [
       { name: 'javascript', title: 'JS' },
-      { name: 'babel', title: 'Babel' },
       { name: 'typescript', title: 'Typescript' },
+      { name: 'flow', title: 'Flow' },
+      { name: 'babel', title: 'Babel' },
+      { name: 'sucrase', title: 'Sucrase' },
       { name: 'jsx', title: 'JSX' },
       { name: 'tsx', title: 'TSX' },
       { name: 'react-native', title: 'React Native' },

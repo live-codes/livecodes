@@ -21,7 +21,7 @@ describe('languages', () => {
   });
 
   test('mapLanguage', () => {
-    expect(mapLanguage('babel')).toBe('javascript');
+    expect(mapLanguage('babel')).toBe('typescript');
     expect(mapLanguage('jsx')).toBe('javascript');
     expect(mapLanguage('solid')).toBe('javascript');
     expect(mapLanguage('tsx')).toBe('typescript');

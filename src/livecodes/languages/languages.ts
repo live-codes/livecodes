@@ -63,6 +63,7 @@ import { teal } from './teal';
 import { stylis } from './stylis';
 import { flow } from './flow';
 import { mjml } from './mjml';
+import { sucrase } from './sucrase';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -90,9 +91,10 @@ export const languages: LanguageSpecs[] = [
   stylus,
   stylis,
   javascript,
-  babel,
   typescript,
   flow,
+  babel,
+  sucrase,
   jsx,
   tsx,
   reactNative,

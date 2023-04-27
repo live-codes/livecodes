@@ -763,6 +763,24 @@ const title = "World";
     );
   });
 
+  test('Sucrase', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Sucrase');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(`const Greet = (name: string) => <>Hello {name}!</>;`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('body > script');
+
+    expect(resultText).toContain(
+      `const Greet = (name) => React.createElement(React.Fragment, null, "Hello " , name, "!");`,
+    );
+  });
+
   test('TypeScript', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

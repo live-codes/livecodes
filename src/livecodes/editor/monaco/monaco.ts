@@ -174,7 +174,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
-    if (language === 'tsx' || language === 'jsx') {
+    if (
+      language === 'tsx' ||
+      language === 'jsx' ||
+      language === 'sucrase' ||
+      language === 'babel' ||
+      language === 'flow'
+    ) {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...compilerOptions,
         jsx: monaco.languages.typescript.JsxEmit.React,
@@ -218,7 +224,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   ) => {
     const random = getRandomString();
     const ext = getLanguageExtension(language);
-    modelUri = `file:///${editorId}.${random}.${ext}`;
+    const extension =
+      monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
+        ? ext + '.tsx'
+        : ext;
+    modelUri = `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
       value || '',
