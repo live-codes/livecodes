@@ -1,27 +1,26 @@
 import type { LanguageSpecs } from '../../models';
-import { babelUrl } from '../../vendors';
+import { vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 import { parserPlugins } from '../prettier';
 
-export const babel: LanguageSpecs = {
-  name: 'babel',
-  title: 'Babel',
+export const sucrase: LanguageSpecs = {
+  name: 'sucrase',
+  title: 'Sucrase',
   parser: {
     name: 'babel',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: {
-    url: babelUrl,
+    url: vendorsBaseUrl + 'sucrase/sucrase.js',
     factory:
       () =>
       async (code, { config }) =>
-        (window as any).Babel.transform(code, {
-          filename: 'script.tsx',
-          presets: [['env', { modules: false }], 'typescript', 'react'],
-          ...getLanguageCustomSettings('babel', config),
+        (window as any).sucrase.transform(code, {
+          transforms: ['jsx', 'typescript'],
+          ...getLanguageCustomSettings('sucrase', config),
         }).code,
   },
-  extensions: ['es', 'babel'],
+  extensions: ['sucrase'],
   editor: 'script',
   editorLanguage: 'typescript',
 };

@@ -175,6 +175,7 @@ export type Language =
   | 'json'
   | 'babel'
   | 'es'
+  | 'sucrase'
   | 'typescript'
   | 'flow'
   | 'ts'

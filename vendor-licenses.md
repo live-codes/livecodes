@@ -92,6 +92,8 @@ Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f
 
 Stylis: [MIT License](https://github.com/thysultan/stylis/blob/bc0b1b03f5562eb8b38601e4e05461631a91c400/LICENSE)
 
+Sucrase: [MIT License](https://github.com/alangpierce/sucrase/blob/7284b3733aa114b3f4f5371e36ff5a4704ec860e/LICENSE)
+
 Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de2243088a9a826e6899e20465c/LICENSE)
 
 SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
