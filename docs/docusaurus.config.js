@@ -177,6 +177,18 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      algolia: {
+        appId: 'H9Z2PKYS80',
+        apiKey: 'a97b58cd17c1aa51274222d1db75d839',
+        indexName: 'livecodes',
+        contextualSearch: true,
+        replaceSearchResultPathname: {
+          from: '/docs/',
+          to: '/',
+        },
+        searchParameters: {},
+        searchPagePath: 'search',
+      },
     }),
   scripts: [
     {
