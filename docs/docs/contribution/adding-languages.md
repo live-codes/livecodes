@@ -1,6 +1,6 @@
 # Adding Languages
 
-## Criteria for a new language to be added:
+## Criteria for a new language
 
 - Has a syntax that needs to be compiled/transpiled to work in browsers (e.g. not a JS library).
 - A compiler/runtime that runs [client-side](../why.md#client-side) in the browser (not on a remote server).
@@ -12,7 +12,7 @@
 
 If you still have doubts if the language qualifies, [let's discuss it](https://github.com/live-codes/livecodes/discussions).
 
-## Checklist for adding a new language:
+## Checklist when adding
 
 - [ ] Add [language specs](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/languages) and include that in the list of [languages](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/languages/languages.ts) or [processors](https://github.com/live-codes/livecodes/blob/develop/src/livecodes/languages/processors.ts).
 - [ ] The compiler +/- formatter should be lazy-loaded.
