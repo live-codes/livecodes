@@ -1,6 +1,6 @@
 # Sucrase
 
-[Sucrase](https://sucrase.io/) is a super-fast alternative to Babel for when you can target modern JS runtimes.
+[Sucrase](https://sucrase.io/) is a super-fast alternative to [Babel](./babel.md) for when you can target modern JS runtimes.
 
 ## Language Info
 
