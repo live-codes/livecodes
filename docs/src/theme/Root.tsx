@@ -1,23 +1,20 @@
-import React, { createContext, useEffect, useState } from 'react';
-
-const defaultContent = 'Default content';
-
-const getNewContent = () => {
-  const rnd = Math.floor(Math.random() * 100);
-  return 'New content ' + rnd;
-};
-
-export const CustomContentContext = createContext({
-  content: defaultContent,
-  updateContent: (): void => undefined,
-});
+import React, { useEffect, useState } from 'react';
+import {
+  CustomContentContext,
+  defaultDocContent,
+  defaultTocContent,
+  getNewDocContent,
+  getNewTocContent,
+} from '../custom-content';
 
 export default function Root({ children }) {
-  const [content, setContent] = useState(defaultContent);
+  const [docContent, setDocContent] = useState(defaultDocContent);
+  const [tocContent, setTocContent] = useState(defaultTocContent);
 
   const updateContent = (forceUpdate = false) => {
-    if (content === defaultContent && !forceUpdate) return content;
-    setContent(getNewContent());
+    if (docContent === defaultDocContent && !forceUpdate) return;
+    setDocContent(getNewDocContent());
+    setTocContent(getNewTocContent());
   };
 
   useEffect(() => {
@@ -30,7 +27,7 @@ export default function Root({ children }) {
   }, []);
 
   return (
-    <CustomContentContext.Provider value={{ content, updateContent }}>
+    <CustomContentContext.Provider value={{ docContent, tocContent, updateContent }}>
       {children}
     </CustomContentContext.Provider>
   );

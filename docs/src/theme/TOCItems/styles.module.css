@@ -1,0 +1,9 @@
+.content {
+  align-items: center;
+  border: 1px solid grey;
+  border-radius: 5px;
+  color: grey;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+}

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import Heading from '@theme-original/Heading';
-import { CustomContentContext } from '../Root';
-import styles from './index.module.css';
+import { CustomContentContext } from '../../custom-content';
+import styles from './styles.module.css';
 
 /**
  * wraps the theme Heading component
@@ -12,7 +12,7 @@ import styles from './index.module.css';
  * available options: top, none
  */
 export default function HeadingWrapper(props) {
-  const { content, updateContent } = useContext(CustomContentContext);
+  const { docContent, updateContent } = useContext(CustomContentContext);
   const [id, customContentOption] = props.id?.split('-custom-content-') || [''];
 
   useEffect(() => {
@@ -25,11 +25,11 @@ export default function HeadingWrapper(props) {
     return (
       <>
         <Heading {...{ ...props, id }} />
-        {content && (
+        {docContent && (
           <div
-            className={`custom-content custom-content-post-header ${styles.content} ${styles[customContentOption]}`}
+            className={`custom-content custom-content-header ${styles.content} ${styles[customContentOption]}`}
           >
-            {content}
+            {docContent}
           </div>
         )}
       </>
