@@ -192,6 +192,9 @@ const config = {
     }),
   scripts: [
     {
+      src: '/docs/js/ea-placeholder.js',
+    },
+    {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/standalone.min.js',
       async: true,
     },
@@ -201,6 +204,10 @@ const config = {
     },
     {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-html.js',
+      async: true,
+    },
+    {
+      src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
       async: true,
     },
   ],

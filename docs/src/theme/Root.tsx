@@ -18,12 +18,8 @@ export default function Root({ children }) {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      updateContent(true);
-      return () => {
-        clearTimeout(timer);
-      };
-    }, 3000);
+    document.querySelector('#ea-placeholder')?.remove();
+    updateContent(true);
   }, []);
 
   return (

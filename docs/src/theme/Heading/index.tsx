@@ -4,6 +4,8 @@ import Heading from '@theme-original/Heading';
 import { CustomContentContext } from '../../custom-content';
 import styles from './styles.module.css';
 
+declare const ethicalads: any;
+
 /**
  * wraps the theme Heading component
  * allows adding custom content below Heading (h1)
@@ -18,6 +20,7 @@ export default function HeadingWrapper(props) {
   useEffect(() => {
     if (props.as === 'h1') {
       updateContent();
+      ethicalads.load();
     }
   }, []);
 
@@ -28,9 +31,8 @@ export default function HeadingWrapper(props) {
         {docContent && (
           <div
             className={`custom-content custom-content-header ${styles.content} ${styles[customContentOption]}`}
-          >
-            {docContent}
-          </div>
+            dangerouslySetInnerHTML={{ __html: docContent }}
+          ></div>
         )}
       </>
     );

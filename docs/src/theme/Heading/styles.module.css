@@ -1,8 +1,5 @@
 .content {
   align-items: center;
-  border: 1px solid grey;
-  border-radius: 5px;
-  color: grey;
   display: flex;
   float: right;
   height: 200px;

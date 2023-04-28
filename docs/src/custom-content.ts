@@ -1,9 +1,12 @@
 import { createContext } from 'react';
 
-export const defaultDocContent = '';
+const eaContainer =
+  '<div data-ea-publisher="livecodesio" data-ea-type="image" class="horizontal" data-ea-manual="true"></div>';
+
+export const defaultDocContent = eaContainer;
 export const defaultTocContent = '';
 
-export const getNewDocContent = () => '';
+export const getNewDocContent = () => eaContainer;
 
 export const getNewTocContent = () => '';
 

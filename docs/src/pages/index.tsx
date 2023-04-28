@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 // eslint-disable-next-line import/no-unresolved
 import Layout from '@theme/Layout';
@@ -34,6 +34,12 @@ function HomepageHeader() {
           An open-source client-side playground for React, Vue, Angular, Svelte, Typescript, Python,
           Go, Ruby and 80+ languages/frameworks.
         </div>
+        <div
+          className={`flat ${styles.eaHomepage}`}
+          data-ea-publisher="livecodesio"
+          data-ea-type="text"
+          data-ea-manual="true"
+        ></div>
       </div>
     </header>
   );
@@ -41,6 +47,10 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+  useEffect(() => {
+    (window as any).ethicalads.load();
+  }, []);
+
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
       <HomepageHeader />
