@@ -11,7 +11,10 @@ export default function TOCItemsWrapper(props) {
     <>
       <TOCItems {...props} />
       {tocContent && (
-        <div className={`custom-content custom-content-toc ${styles.content}`}>{tocContent}</div>
+        <div
+          className={`custom-content custom-content-toc ${styles.content}`}
+          dangerouslySetInnerHTML={{ __html: tocContent }}
+        ></div>
       )}
     </>
   );
