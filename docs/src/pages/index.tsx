@@ -34,12 +34,14 @@ function HomepageHeader() {
           An open-source client-side playground for React, Vue, Angular, Svelte, Typescript, Python,
           Go, Ruby and 80+ languages/frameworks.
         </div>
-        <div
-          className={`flat ${styles.eaHomepage}`}
-          data-ea-publisher="livecodesio"
-          data-ea-type="text"
-          data-ea-manual="true"
-        ></div>
+        <div className={styles.eaHomepage}>
+          <div
+            className={`flat`}
+            data-ea-publisher="livecodesio"
+            data-ea-type="text"
+            data-ea-manual="true"
+          ></div>
+        </div>
       </div>
     </header>
   );
@@ -48,7 +50,7 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   useEffect(() => {
-    (window as any).ethicalads.load();
+    (window as any).loadAds();
   }, []);
 
   return (

@@ -6,8 +6,14 @@
 }
 
 .eaHomepage {
-  margin: 2.5em auto 0 !important;
-  min-height: 80px !important;
+  margin: 2.5em auto 0;
+  min-height: 90px;
+}
+
+@media (max-width: 997px) {
+  .eaHomepage {
+    min-height: 110px !important;
+  }
 }
 
 .buttons {

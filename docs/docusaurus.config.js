@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'LiveCodes',
-  tagline: 'Code playground that runs in the browser!',
+  tagline: 'Code Playground That Just Works!',
   url: 'https://livecodes.io/',
   baseUrl: '/docs/',
   onBrokenLinks: 'throw',
@@ -209,6 +209,7 @@ const config = {
     {
       src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
       async: true,
+      defer: true,
     },
   ],
   plugins: [

@@ -4,7 +4,7 @@ import Heading from '@theme-original/Heading';
 import { CustomContentContext } from '../../custom-content';
 import styles from './styles.module.css';
 
-declare const ethicalads: any;
+declare const loadAds: () => void;
 
 /**
  * wraps the theme Heading component
@@ -20,7 +20,7 @@ export default function HeadingWrapper(props) {
   useEffect(() => {
     if (props.as === 'h1') {
       updateContent();
-      ethicalads.load();
+      loadAds();
     }
   }, []);
 

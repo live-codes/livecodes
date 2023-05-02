@@ -5,6 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const eaPlaceholder = document.createElement('div');
   eaPlaceholder.id = 'ea-placeholder';
   eaPlaceholder.innerHTML =
-    '<div data-ea-publisher="livecodesio" data-ea-type="text" style="display:none;" data-ea-manual="true"></div>';
+    '<div data-ea-publisher="livecodesio" style="display:none;" data-ea-manual="true"></div>';
   document.body.appendChild(eaPlaceholder);
 });
+
+window.loadAds = function () {
+  if (typeof ethicalads.load === 'function') {
+    ethicalads.load();
+  } else {
+    addEventListener('load', () => {
+      ethicalads?.load();
+    });
+  }
+};
