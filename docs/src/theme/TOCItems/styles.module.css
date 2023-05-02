@@ -6,10 +6,10 @@
 }
 
 :global .sponsors {
-  width: 100%;
-  padding: 1em;
   align-self: start;
+  padding: 1em;
   text-align: left;
+  width: 100%;
 }
 
 :global .sponsors .sponsors-title {
@@ -18,19 +18,19 @@
 
 :global .sponsors ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 :global .sponsors a {
-  display: flex;
   align-items: center;
-  color: #3c3c3c54;
-  justify-content: center;
-  height: 60px;
   background-color: #f9f9f9;
-  margin: 0.5em 0;
-  text-decoration: none;
   border: 1px solid #3c3c3c75;
   border-radius: 2px;
+  color: #3c3c3c54;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  margin: 0.5em 0;
+  text-decoration: none;
 }
