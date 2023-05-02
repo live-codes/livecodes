@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 window.loadAds = function () {
-  if (typeof ethicalads.load === 'function') {
-    ethicalads.load();
+  if (window.ethicalads) {
+    window.ethicalads.load();
   } else {
     addEventListener('load', () => {
-      ethicalads?.load();
+      window.ethicalads?.load();
     });
   }
 };
