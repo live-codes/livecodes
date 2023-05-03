@@ -64,6 +64,7 @@ import { stylis } from './stylis';
 import { flow } from './flow';
 import { mjml } from './mjml';
 import { sucrase } from './sucrase';
+import { eta } from './eta';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -76,6 +77,7 @@ export const languages: LanguageSpecs[] = [
   mustache,
   handlebars,
   ejs,
+  eta,
   nunjucks,
   liquid,
   dot,

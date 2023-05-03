@@ -21,6 +21,7 @@ export default function Sliders() {
       { name: 'mustache', title: 'Mustache' },
       { name: 'handlebars', title: 'Handlebars' },
       { name: 'ejs', title: 'EJS' },
+      { name: 'eta', title: 'Eta' },
       { name: 'nunjucks', title: 'Nunjucks' },
       { name: 'liquid', title: 'Liquid' },
       { name: 'dot', title: 'doT' },

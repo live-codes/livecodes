@@ -145,6 +145,7 @@ export type Language =
   | 'handlebars'
   | 'hbs'
   | 'ejs'
+  | 'eta'
   | 'nunjucks'
   | 'njk'
   | 'liquid'

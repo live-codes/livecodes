@@ -223,6 +223,7 @@ const iifeBuild = () =>
       'languages/cpp-clang/lang-cpp-clang-script.ts',
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
+      'languages/eta/lang-eta-compiler.ts',
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
       'languages/imba/lang-imba-compiler.ts',
