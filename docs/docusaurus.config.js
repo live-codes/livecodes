@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'LiveCodes',
-  tagline: 'Code playground that runs in the browser!',
+  tagline: 'Code Playground That Just Works!',
   url: 'https://livecodes.io/',
   baseUrl: '/docs/',
   onBrokenLinks: 'throw',
@@ -177,6 +177,18 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      algolia: {
+        appId: 'H9Z2PKYS80',
+        apiKey: 'a97b58cd17c1aa51274222d1db75d839',
+        indexName: 'livecodes',
+        contextualSearch: true,
+        replaceSearchResultPathname: {
+          from: '/docs/',
+          to: '/',
+        },
+        searchParameters: {},
+        searchPagePath: 'search',
+      },
     }),
   scripts: [
     {
@@ -190,6 +202,24 @@ const config = {
     {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-html.js',
       async: true,
+    },
+    {
+      src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
+      async: true,
+      defer: true,
+    },
+  ],
+  headTags: [
+    {
+      // this adds a placeholder element to avoid "no ad placements found" error
+      // when react is loaded, this element is removed and ad is loaded manually
+      tagName: 'script',
+      attributes: {
+        type: 'ea-placeholder',
+        id: 'ea-placeholder',
+        'data-ea-publisher': 'livecodesio',
+        'data-ea-manual': 'true',
+      },
     },
   ],
   plugins: [

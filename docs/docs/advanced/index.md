@@ -2,7 +2,7 @@
 sidebar_class_name: exclude_from_sidebar
 ---
 
-# Advanced Topics
+# Advanced Topics {#advanced-topics-custom-content-top}
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';
