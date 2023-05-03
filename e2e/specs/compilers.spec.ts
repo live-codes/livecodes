@@ -360,6 +360,60 @@ const title = "World";
     expect(resultText).toContain('Welcome to EJS');
   });
 
+  test('Eta', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Eta"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=Eta');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to <%= it.name %></h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Eta');
+  });
+
+  test('Eta dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Eta' };`);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=Eta');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to <%= it.name %></h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Eta');
+  });
+
   test('Liquid', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
