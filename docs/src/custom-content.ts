@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unresolved
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { createContext } from 'react';
 
 const adsContainer =
@@ -21,3 +23,15 @@ export const CustomContentContext = createContext({
   tocContent: defaultTocContent,
   updateContent: (): void => undefined,
 });
+
+export const loadAds = () => {
+  if (!ExecutionEnvironment.canUseDOM) return;
+
+  if ((window as any).ethicalads) {
+    (window as any).ethicalads.load();
+  } else {
+    addEventListener('load', () => {
+      (window as any).ethicalads?.load();
+    });
+  }
+};

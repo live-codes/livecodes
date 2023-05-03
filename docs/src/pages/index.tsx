@@ -1,13 +1,12 @@
+/* eslint-disable import/no-unresolved */
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
-// eslint-disable-next-line import/no-unresolved
 import Layout from '@theme/Layout';
-// eslint-disable-next-line import/no-unresolved
 import Link from '@docusaurus/Link';
-// eslint-disable-next-line import/no-unresolved
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // eslint-disable-next-line import/no-internal-modules
 import HomepageFeatures from '../components/HomepageFeatures';
+import { loadAds } from '../custom-content';
 import { appUrl } from '../utils';
 import styles from './index.module.css';
 
@@ -50,7 +49,7 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   useEffect(() => {
-    (window as any).loadAds();
+    loadAds();
   }, []);
 
   return (

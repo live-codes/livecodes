@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import Heading from '@theme-original/Heading';
-import { CustomContentContext } from '../../custom-content';
+import { CustomContentContext, loadAds } from '../../custom-content';
 import styles from './styles.module.css';
-
-declare const loadAds: () => void;
 
 /**
  * wraps the theme Heading component

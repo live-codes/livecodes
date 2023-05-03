@@ -192,9 +192,6 @@ const config = {
     }),
   scripts: [
     {
-      src: '/docs/js/ea.js',
-    },
-    {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/standalone.min.js',
       async: true,
     },
@@ -210,6 +207,19 @@ const config = {
       src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
       async: true,
       defer: true,
+    },
+  ],
+  headTags: [
+    {
+      // this adds a placeholder element to avoid "no ad placements found" error
+      // when react is loaded, this element is removed and ad is loaded manually
+      tagName: 'script',
+      attributes: {
+        type: 'ea-placeholder',
+        id: 'ea-placeholder',
+        'data-ea-publisher': 'livecodesio',
+        'data-ea-manual': 'true',
+      },
     },
   ],
   plugins: [
