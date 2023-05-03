@@ -6,6 +6,7 @@ import {
   defaultDocContent,
   defaultTocContent,
   getNewDocContent,
+  getSponsorsData,
 } from '../custom-content';
 
 export default function Root({ children }) {
@@ -23,7 +24,7 @@ export default function Root({ children }) {
     }
     updateContent(true);
 
-    fetchSponsorsData().then((content) => {
+    getSponsorsData().then((content) => {
       if (content) {
         setTocContent(content);
       }
@@ -36,16 +37,3 @@ export default function Root({ children }) {
     </CustomContentContext.Provider>
   );
 }
-
-const fetchSponsorsData = async (): Promise<string | undefined> => {
-  const url = 'https://blog.livecodes.io/data/sponsors.json';
-
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return;
-    const json = await res.json();
-    return json.content;
-  } catch {
-    return;
-  }
-};
