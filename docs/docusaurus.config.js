@@ -192,7 +192,7 @@ const config = {
     }),
   scripts: [
     {
-      src: '/docs/js/ea-placeholder.js',
+      src: '/docs/js/ea.js',
     },
     {
       src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/standalone.min.js',

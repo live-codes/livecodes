@@ -4,17 +4,15 @@ import {
   defaultDocContent,
   defaultTocContent,
   getNewDocContent,
-  getNewTocContent,
 } from '../custom-content';
 
 export default function Root({ children }) {
   const [docContent, setDocContent] = useState(defaultDocContent);
-  const [tocContent, setTocContent] = useState(defaultTocContent);
+  const [tocContent] = useState(defaultTocContent);
 
   const updateContent = (forceUpdate = false) => {
     if (docContent === defaultDocContent && !forceUpdate) return;
     setDocContent(getNewDocContent());
-    setTocContent(getNewTocContent());
   };
 
   useEffect(() => {

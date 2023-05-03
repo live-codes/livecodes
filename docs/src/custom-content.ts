@@ -16,8 +16,6 @@ export const defaultTocContent = sponsors;
 
 export const getNewDocContent = () => adsContainer;
 
-export const getNewTocContent = () => sponsors;
-
 export const CustomContentContext = createContext({
   docContent: defaultDocContent,
   tocContent: defaultTocContent,
