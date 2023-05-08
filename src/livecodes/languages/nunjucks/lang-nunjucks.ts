@@ -19,7 +19,7 @@ export const nunjucks: LanguageSpecs = {
       return (self as any).createNunjucksCompiler();
     },
   },
-  extensions: ['njk'],
+  extensions: ['njk', 'nunjucks'],
   editor: 'markup',
   editorLanguage: 'html',
 };
