@@ -117,15 +117,23 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Haml"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Haml');
     await waitForEditorFocus(app);
-    await page.keyboard.type('.content Hello, World!');
+    await page.keyboard.type('.content Hello, #{name}!');
 
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('.content');
 
-    expect(resultText).toContain('Hello, World!');
+    expect(resultText).toContain('Hello, Haml!');
   });
 
   test('AsciiDoc', async ({ page, getTestUrl }) => {

@@ -1,6 +1,6 @@
 # Pug
 
-[Pug](https://pugjs.org/) is a high-performance template engine heavily influenced by [Haml](./haml.md) and implemented with JavaScript for Node.js and browsers. It was formerly known as "Jade".
+[Pug](https://pugjs.org/) is a high-performance template engine heavily influenced by [Haml](https://haml.info/) and implemented with JavaScript for Node.js and browsers. It was formerly known as "Jade".
 
 ## Usage
 
