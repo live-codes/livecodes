@@ -24,6 +24,10 @@ emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b
 
 ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blob/986733009f4c9374decd4c0348740134ff499157/LICENSE)
 
+EJS: [Apache License 2.0](https://github.com/mde/ejs/blob/f47d7aedd51a983e4f73045f962b1209096b5800/LICENSE)
+
+Eta: [MIT License](https://github.com/eta-dev/eta/blob/b25689e67cd07937a4595bca8ba39fe52cd76948/LICENSE)
+
 Fennel: [MIT License](https://git.sr.ht/~technomancy/fennel/tree/e70ebb133b9d472246502dee8be119360ec568ca/item/LICENSE)
 
 flow-remove-types: [MIT License](https://github.com/facebook/flow/blob/3ebee9f08106eb8aefbf98111fee696d333b8456/packages/flow-remove-types/LICENSE)

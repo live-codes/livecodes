@@ -30,7 +30,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 **Example:**
 
-```json
+```json title="Custom Settings"
 {
   "name": {}
 }

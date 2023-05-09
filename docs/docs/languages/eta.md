@@ -1,6 +1,6 @@
-# Haml
+# Eta
 
-[Haml](https://haml.info/) compiler for client side javascript view templates using [clientside-haml-js](https://github.com/uglyog/clientside-haml-js).
+[Eta](https://eta.js.org/) is an embedded JS template engine for Node, Deno, and the browser. Lighweight, fast, and pluggable. Written in TypeScript.
 
 ## Usage
 
@@ -58,11 +58,11 @@ window.livecodes.templateData = { name: 'LiveCodes' };
 
 ### Name
 
-`haml`
+`eta`
 
 ### Extension
 
-`.haml`
+`.eta`
 
 ### Editor
 
@@ -70,21 +70,31 @@ window.livecodes.templateData = { name: 'LiveCodes' };
 
 ## Compiler
 
-[clientside-haml-js](https://github.com/uglyog/clientside-haml-js).
+The official [Eta compiler](https://www.npmjs.com/package/eta).
 
 ### Version
 
-`clientside-haml-js`: v5.4
+`eta`: v2.0.1
 
 ## Code Formatting
 
-Not supported.
+Using [Prettier](https://prettier.io/).
 
 ## Custom Settings
 
-[Custom settings](../advanced/custom-settings.md) added to the property `haml` are passed as a JSON object to the [`haml.compileHaml`](https://github.com/uglyog/clientside-haml-js#client-side-haml-api) method during compile. Please check the [documentation](https://github.com/uglyog/clientside-haml-js#client-side-haml-api) for full reference.
+[Custom settings](../advanced/custom-settings.md) added to the property `eta` are passed as a JSON object to the [`Eta.render`](https://eta.js.org/docs/api/rendering) method during compile. Please check the [documentation](https://eta.js.org/docs/api/configuration) for full reference.
 
 Please note that custom settings should be valid JSON (i.e. functions are not allowed).
+
+**Example:**
+
+```json title="Custom Settings"
+{
+  "eta": {
+    "varName": "data"
+  }
+}
+```
 
 ## Example Usage
 
@@ -92,7 +102,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 ### Pre-rendered
 
-export const config = {markup: {language: 'haml', content: '%p Hello, #{name}!'}, customSettings: {"template": {"data": {"name": "LiveCodes"}}}};
+export const config = {markup: {language: 'eta', content: 'Hello <%= it.name %>!'}, customSettings: {"template": {"data": {"name": "LiveCodes"}}}};
 
 export const params = {compiled: 'open'};
 
@@ -100,11 +110,11 @@ export const params = {compiled: 'open'};
 
 ### Dynamic
 
-export const config2 = {markup: {language: 'haml', content: '%p Hello, #{name}!'}, script: {language: 'javascript', content: 'window.livecodes.templateData = { name: "LiveCodes" };'}, customSettings: {"template": {"prerender": false}}, activeEditor: 'script'};
+export const config2 = {markup: {language: 'eta', content: 'Hello <%= it.name %>!'}, script: {language: 'javascript', content: 'window.livecodes.templateData = { name: "LiveCodes" };'}, customSettings: {"template": {"prerender": false}}, activeEditor: 'script'};
 
 <LiveCodes config={config2}></LiveCodes>
 
 ## Links
 
-- [Haml](https://haml.info/)
-- [clientside-haml-js](https://github.com/uglyog/clientside-haml-js)
+- [Official website](https://eta.js.org/)
+- [Documentation](https://eta.js.org/docs/learn)

@@ -1,12 +1,13 @@
 import type { CompilerFunction } from '../../models';
-import { escapeCode } from '../../utils';
+import { escapeCode, getLanguageCustomSettings } from '../../utils';
 import { liquidJsUrl } from '../../vendors';
 
 (self as any).createLiquidCompiler =
   (): CompilerFunction =>
   async (code, { config }) => {
     if (config.customSettings.template?.prerender !== false) {
-      const liquid = new (self as any).liquidjs.Liquid();
+      const options = getLanguageCustomSettings('liquid', config);
+      const liquid = new (self as any).liquidjs.Liquid(options);
       const html = await liquid.parseAndRender(
         escapeCode(code),
         config.customSettings.template?.data || {},
