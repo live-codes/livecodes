@@ -1,0 +1,38 @@
+name: Release-app
+
+on:
+  push:
+    tags:
+      - 'test*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
+      - name: Get version
+        id: vars
+        run: echo ::set-output name=version::$(echo ${{github.ref_name}})
+
+      - name: Create a release branch
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git checkout -b releases/${{steps.vars.outputs.version}}
+          git push -u origin releases/${{steps.vars.outputs.version}}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
