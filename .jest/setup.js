@@ -1,1 +1,1 @@
-process.env.VERSION = require('../package.json').version;
+process.env.VERSION = require('../package.json')['app-version'];
