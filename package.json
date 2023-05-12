@@ -1,7 +1,7 @@
 {
   "name": "@livecodes/app",
   "version": "0.0.0",
-  "app-version": "1",
+  "app-version": "22",
   "description": "Code playground that runs in the browser",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -55,7 +55,6 @@
     "install:docs": "cd docs && npm ci",
     "install:storybook": "cd storybook && npm ci",
     "prepush:skip-e2e": "run-s fix build test:lint test:unit",
-    "styles": "sass src/livecodes/styles:build/livecodes --no-source-map=true && postcss build/livecodes/*.css --replace --no-map --use autoprefixer",
     "prepush": "run-s fix build test"
   },
   "dependencies": {
@@ -110,6 +109,7 @@
   "devDependencies": {
     "@bitjson/typedoc": "0.15.0-0",
     "@cloudflare/workers-types": "3.4.0",
+    "@inquirer/prompts": "1.0.3",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
     "@playwright/test": "1.32.3",
     "@types/jest": "25.2.3",
@@ -127,6 +127,7 @@
     "brotli-size": "4.0.0",
     "bundlewatch": "0.3.3",
     "codecov": "3.8.3",
+    "conventional-changelog": "3.1.25",
     "cz-conventional-changelog": "3.3.0",
     "dts-bundle": "0.7.3",
     "esbuild": "0.17.18",

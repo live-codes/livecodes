@@ -8,6 +8,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -36,3 +37,7 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Compress build directory
+        run: tar -czf livecodes-${{steps.vars.outputs.version}}.tar.gz build && \
+          zip -r livecodes-${{steps.vars.outputs.version}}.zip build
