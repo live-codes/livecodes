@@ -125,6 +125,7 @@ import {
 } from './UI';
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
+import { permanentUrlService } from './services/permanent-url';
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
@@ -986,8 +987,10 @@ const share = async (
   contentOnly = true,
   urlUpdate = true,
   includeResult = false,
+  permanentUrl = false,
 ): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
+
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
@@ -995,12 +998,19 @@ const share = async (
         result: includeResult ? getCache().result : undefined,
       }))
     : '?x=code/' + compress(JSON.stringify(content));
-  const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+
+  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+
+  const url = permanentUrl ? permanentUrlService.getUrl() : currentUrl;
+
   const shareURL = url + contentParam;
+
   if (urlUpdate) {
-    updateUrl(shareURL, true);
+    updateUrl(currentUrl + contentParam, true);
   }
+
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
+
   return {
     title: projectTitle + 'LiveCodes',
     url: shareURL,
@@ -2816,7 +2826,16 @@ const handleProjectInfo = () => {
 };
 
 const handleEmbed = () => {
-  const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const getUrlFn = async (permanentUrl = false) =>
+    (
+      await share(
+        /* shortUrl= */ true,
+        /* contentOnly= */ true,
+        /* urlUpdate= */ false,
+        /* includeResult= */ true,
+        permanentUrl,
+      )
+    ).url;
   const config = getConfig();
 
   const createEditorFn = async (container: HTMLElement) =>

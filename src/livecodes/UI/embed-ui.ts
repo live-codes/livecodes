@@ -24,7 +24,7 @@ export const createEmbedUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
-  getUrlFn: () => Promise<string>;
+  getUrlFn: (permanentUrl?: boolean) => Promise<string>;
 }) => {
   const title = config.title;
   const activeEditor = config.activeEditor || 'markup';
@@ -52,6 +52,7 @@ export const createEmbedUI = async ({
       | 'mode'
       | 'view'
       | 'activeEditor'
+      | 'permanentUrl'
       | 'tools';
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
@@ -132,6 +133,12 @@ export const createEmbedUI = async ({
       help: '/docs/features/tools-pane',
     },
     {
+      title: 'Permanent URL',
+      name: 'permanentUrl',
+      options: [{ value: 'true', checked: true }],
+      help: '/docs/features/permanent-url',
+    },
+    {
       title: 'Embed Type',
       name: 'type',
       options: [
@@ -200,9 +207,9 @@ export const createEmbedUI = async ({
   };
 
   const editor = await createEditorFn(codeArea);
-  const url = await getUrlFn();
-  const urlObj = new URL(url);
-  const appUrl = urlObj.origin + urlObj.pathname;
+  let url = await getUrlFn(true);
+  let urlObj = new URL(url);
+  let appUrl = urlObj.origin + urlObj.pathname;
 
   const previewIframe: HTMLIFrameElement = document.createElement('iframe');
   previewIframe.id = 'embed-preview-iframe';
@@ -391,6 +398,10 @@ export default function App() {
       }),
       {} as FormData,
     );
+
+    url = await getUrlFn(Boolean(formData.permanentUrl));
+    urlObj = new URL(url);
+    appUrl = urlObj.origin + urlObj.pathname;
 
     const previewInput = document.querySelector<HTMLInputElement>('input[name="embed-preview"]')!;
     if (formData.loading !== 'click') {
