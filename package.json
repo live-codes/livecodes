@@ -1,7 +1,7 @@
 {
   "name": "@livecodes/app",
   "version": "0.0.0",
-  "app-version": "22",
+  "app-version": "2",
   "description": "Code playground that runs in the browser",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -47,15 +47,14 @@
     "ci:e2e": "playwright install && playwright test --shard=$CI_SHARD_INDEX/$CI_SHARD_TOTAL",
     "cov": "run-s \"test:unit -- --coverage\"",
     "cov:send": "run-s cov && codecov",
-    "release": "standard-version",
-    "prepare-release": "run-s reset build test cov release",
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "recursive-delete build",
     "postinstall": "patch-package && run-p install:*",
     "install:docs": "cd docs && npm ci",
     "install:storybook": "cd storybook && npm ci",
     "prepush:skip-e2e": "run-s fix build test:lint test:unit",
-    "prepush": "run-s fix build test"
+    "prepush": "run-s fix build test",
+    "prepare-release": "node ./scripts/prepare-release.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "6.3.0",
@@ -128,7 +127,6 @@
     "bundlewatch": "0.3.3",
     "codecov": "3.8.3",
     "conventional-changelog": "3.1.25",
-    "cz-conventional-changelog": "3.3.0",
     "dts-bundle": "0.7.3",
     "esbuild": "0.17.18",
     "esbuild-plugin-replace": "1.2.0",
@@ -150,7 +148,6 @@
     "prettier": "2.8.8",
     "recursive-fs": "2.1.0",
     "sass": "1.49.7",
-    "standard-version": "9.3.2",
     "stylelint": "14.5.0",
     "stylelint-config-sass-guidelines": "9.0.1",
     "ts-jest": "29.1.0",
@@ -158,11 +155,6 @@
     "typedoc-plugin-missing-exports": "2.0.0",
     "typescript": "5.0.4",
     "vite": "4.3.1"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   },
   "prettier": {
     "semi": true,
