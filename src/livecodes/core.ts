@@ -2432,7 +2432,15 @@ const handleShare = () => {
   const createShareUI = async () => {
     modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
-    const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
+    const shareFn = (shortUrl = false, permanentUrl = false): Promise<ShareData> =>
+      share(
+        shortUrl,
+        /* contentOnly= */ true,
+        /* urlUpdate= */ false,
+        /* includeResult= */ true,
+        permanentUrl,
+      );
+    const shareContainer = await importModule.createShareContainer(shareFn, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
   };
   eventsManager.addEventListener(

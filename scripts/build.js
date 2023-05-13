@@ -76,7 +76,7 @@ const prepareDir = async () => {
 try {
   appVersion = require('../package.json')['app-version'];
   sdkVersion = require('../src/sdk/package.sdk.json').version;
-  gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
+  gitCommit = childProcess.execSync('git rev-parse --short=7 HEAD').toString().replace(/\n/g, '');
   repoUrl = require('../package.json').repository.url;
   if (repoUrl.endsWith('/')) {
     repoUrl = repoUrl.slice(0, -1);
