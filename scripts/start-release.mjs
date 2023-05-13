@@ -160,7 +160,7 @@ const cancelRelease = () => {
   }
 
   execSync(`git checkout -b ${branchName}`);
-  execSync(`git commit -am "release: ${fullVersion}"`);
+  execSync(`git add -A && git commit -m "release: ${fullVersion}"`);
   execSync(`git push -u origin ${branchName}`);
 })();
 
