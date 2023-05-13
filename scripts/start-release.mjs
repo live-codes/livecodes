@@ -138,6 +138,8 @@ const cancelRelease = () => {
     branchName = 'releases/v' + appVersion;
   }
 
+  const fullVersion = branchName?.replace('releases/', '');
+
   const changelog = fs.readFileSync(new URL(changelogPath, import.meta.url), 'utf8');
   const changelogSeparator = '\n---';
   const [changelogHeader, ...prevLogs] = changelog.split(changelogSeparator);
@@ -147,7 +149,7 @@ const cancelRelease = () => {
       preset: 'angular',
     }),
   ).then((str) => {
-    return '\n\n#' + str.replace('[0.0.0]', `[${version}]`).replace('v0.0.0', `v${version}`);
+    return '\n\n#' + str.replace('[0.0.0]', `[${fullVersion}]`).replace('v0.0.0', `${fullVersion}`);
   });
 
   const newChangelog = [changelogHeader, releaseChangelog, ...prevLogs].join(changelogSeparator);
@@ -158,7 +160,7 @@ const cancelRelease = () => {
   }
 
   execSync(`git checkout -b ${branchName}`);
-  execSync(`git commit -am "release: ${branchName?.replace('releases/', '')}"`);
+  execSync(`git commit -am "release: ${fullVersion}"`);
   execSync(`git push -u origin ${branchName}`);
 })();
 
