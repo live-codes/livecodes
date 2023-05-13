@@ -159,7 +159,7 @@ const isValidVersion = (version: any) => {
   return true;
 };
 
-const isEarlier = ({ version, comparedTo }: { version: string; comparedTo: string }) => {
+export const isEarlier = ({ version, comparedTo }: { version: string; comparedTo: string }) => {
   if (!version) return true;
   const versionNumbers = version.split('.').map((n) => Number(n));
   const comparedToNumbers = comparedTo.split('.').map((n) => Number(n));

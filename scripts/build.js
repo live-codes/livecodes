@@ -15,7 +15,7 @@ const devMode = args.includes('--dev');
 const outDir = path.resolve(__dirname + '/../build');
 const monacoVersion = `v${pkg.dependencies['monaco-editor']}`;
 const codemirrorVersion = `v${pkg.dependencies['codemirror']}`;
-let version, gitCommit, repoUrl;
+let appVersion, sdkVersion, gitCommit, repoUrl;
 
 /** @param {string} dir */
 function mkdir(dir) {
@@ -74,7 +74,8 @@ const prepareDir = async () => {
 };
 
 try {
-  version = require('../package.json').version;
+  appVersion = require('../package.json')['app-version'];
+  sdkVersion = require('../src/sdk/package.sdk.json').version;
   gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
   repoUrl = require('../package.json').repository.url;
   if (repoUrl.endsWith('/')) {
@@ -94,7 +95,8 @@ const baseOptions = {
   sourcemap: true,
   sourcesContent: true,
   define: {
-    'process.env.VERSION': `"${version || ''}"`,
+    'process.env.VERSION': `"${appVersion || ''}"`,
+    'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.CI': `${process.env.CI || false}`,
