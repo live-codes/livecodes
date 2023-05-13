@@ -61,13 +61,18 @@ jobs:
           token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
 
       - name: Create pull request to main
-        uses: peter-evans/create-pull-request@v5
-        with:
-          title: release ${{steps.vars.outputs.version}}
-          branch: develop
-          base: main
-          commit-message: release ${{steps.vars.outputs.version}}
-          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://${{steps.vars.outputs.version}}.livecodes.io" --base main --head develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
+      - name: Create permanent URL
+        if: startsWith(github.head_ref, 'releases/v') && !endsWith(github.head_ref, '-draft')
+        run: node ./scripts/create-permanent-url.js
+        env:
+          APP_VERSION: ${{steps.vars.outputs.version}}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ZONE: ${{ secrets.CF_ZONE }}
+          CF_TOKEN: ${{ secrets.CF_TOKEN }}
 
       - name: Publish SDK to NPM
         if: startsWith(github.head_ref, 'releases/sdk-v') && !endsWith(github.head_ref, '-draft')

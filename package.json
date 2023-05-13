@@ -54,7 +54,7 @@
     "install:storybook": "cd storybook && npm ci",
     "prepush:skip-e2e": "run-s fix build test:lint test:unit",
     "prepush": "run-s fix build test",
-    "prepare-release": "node ./scripts/prepare-release.mjs"
+    "start-release": "node ./scripts/start-release.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "6.3.0",
