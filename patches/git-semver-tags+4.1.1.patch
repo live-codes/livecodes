@@ -1,0 +1,13 @@
+diff --git a/node_modules/git-semver-tags/index.js b/node_modules/git-semver-tags/index.js
+index 984f090..a9c818b 100644
+--- a/node_modules/git-semver-tags/index.js
++++ b/node_modules/git-semver-tags/index.js
+@@ -59,6 +59,8 @@ module.exports = function gitSemverTags (opts, callback) {
+           }
+         } else if (semverValid(tag)) {
+           tags.push(tag)
++        } else if (tag.startsWith('v') || tag.startsWith('sdk-v')) {
++          tags.push(tag)
+         }
+       }
+     })
