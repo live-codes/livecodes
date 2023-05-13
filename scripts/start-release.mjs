@@ -114,7 +114,6 @@ const cancelRelease = () => {
   }
 
   let version;
-  let branchName;
   if (releaseTarget === 'sdk' || releaseTarget === 'both') {
     const sdkBump = await getSDKBump();
     const sdkVersion = sdkBump === 'specify' ? await getSDKVersion() : bumpSDKVersion(sdkBump);
@@ -123,8 +122,7 @@ const cancelRelease = () => {
       cancelRelease();
     }
     fs.writeFileSync(new URL(sdkPkgPath, import.meta.url), stringify(sdkPkg), 'utf8');
-    version = sdkVersion;
-    branchName = 'releases/sdk-v' + sdkVersion;
+    version = 'sdk-v' + sdkVersion;
   }
 
   if (releaseTarget === 'app' || releaseTarget === 'both') {
@@ -134,11 +132,10 @@ const cancelRelease = () => {
       cancelRelease();
     }
     fs.writeFileSync(new URL(appPkgPath, import.meta.url), stringify(appPkg), 'utf8');
-    version = appVersion;
-    branchName = 'releases/v' + appVersion;
+    version = 'v' + appVersion;
   }
 
-  const fullVersion = branchName?.replace('releases/', '');
+  const branchName = 'releases/' + version;
 
   const changelog = fs.readFileSync(new URL(changelogPath, import.meta.url), 'utf8');
   const changelogSeparator = '\n---';
@@ -149,7 +146,7 @@ const cancelRelease = () => {
       preset: 'angular',
     }),
   ).then((str) => {
-    return '\n\n#' + str.replace('[0.0.0]', `[${fullVersion}]`).replace('v0.0.0', `${fullVersion}`);
+    return '\n\n#' + str.replace('[0.0.0]', `[${version}]`).replace('v0.0.0', `${version}`);
   });
 
   const newChangelog = [changelogHeader, releaseChangelog, ...prevLogs].join(changelogSeparator);
@@ -160,7 +157,7 @@ const cancelRelease = () => {
   }
 
   execSync(`git checkout -b ${branchName}`);
-  execSync(`git add -A && git commit -m "release: ${fullVersion}"`);
+  execSync(`git add -A && git commit -m "release: ${version}"`);
   execSync(`git push -u origin ${branchName}`);
 })();
 
