@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../models';
+import type { LanguageSpecs } from '../models';
 import { asciidoc } from './asciidoc';
 import { babel } from './babel';
 import { css } from './css';
@@ -57,6 +57,14 @@ import { imba } from './imba';
 import { mustache } from './mustache';
 import { artTemplate } from './art-template';
 import { r } from './r';
+import { civet } from './civet';
+import { fennel } from './fennel';
+import { teal } from './teal';
+import { stylis } from './stylis';
+import { flow } from './flow';
+import { mjml } from './mjml';
+import { sucrase } from './sucrase';
+import { eta } from './eta';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -69,11 +77,13 @@ export const languages: LanguageSpecs[] = [
   mustache,
   handlebars,
   ejs,
+  eta,
   nunjucks,
   liquid,
   dot,
   twig,
   artTemplate,
+  mjml,
   diagrams,
   richtext,
   css,
@@ -81,9 +91,12 @@ export const languages: LanguageSpecs[] = [
   sass,
   less,
   stylus,
+  stylis,
   javascript,
-  babel,
   typescript,
+  flow,
+  babel,
+  sucrase,
   jsx,
   tsx,
   reactNative,
@@ -98,6 +111,7 @@ export const languages: LanguageSpecs[] = [
   malina,
   coffeescript,
   livescript,
+  civet,
   clio,
   imba,
   rescript,
@@ -113,6 +127,8 @@ export const languages: LanguageSpecs[] = [
   clang,
   perl,
   lua,
+  teal,
+  fennel,
   julia,
   scheme,
   commonlisp,

@@ -1,4 +1,4 @@
-import { Config, EditorId, Language } from '../models';
+import type { Config, EditorId, Language } from '../models';
 import type {
   getLanguageCompiler as getLanguageCompilerFn,
   getLanguageExtension as getLanguageExtensionFn,

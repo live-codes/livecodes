@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from 'react';
+import React, { useState, type FormEventHandler } from 'react';
 import styles from './ContactForm.module.css';
 
 export default function ContactForm() {

@@ -46,6 +46,7 @@ import type {
   AppData,
   Processor,
   APICommands,
+  CompileInfo,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -92,7 +93,7 @@ import {
   stringToValidJson,
 } from './utils';
 import { compress } from './utils/compression';
-import { getCompiler, getAllCompilers, cjs2esm } from './compiler';
+import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
@@ -712,6 +713,7 @@ const getResultPage = async ({
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
   const testsLanguage = config.tests?.language || 'typescript';
+  const scriptType = getLanguageCompiler(scriptLanguage)?.scriptType;
 
   const forceCompileStyles =
     config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
@@ -723,8 +725,10 @@ const getResultPage = async ({
     config.tests?.content === getCache().tests?.content &&
     getCache().tests?.compiled;
 
-  const compiledMarkup = await compiler.compile(markupContent, markupLanguage, config, {});
-  const [compiledStyle, compiledScript, compiledTests] = await Promise.all([
+  const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
+  let compiledMarkup = markupCompileResult.code;
+
+  const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
       html: compiledMarkup,
       forceCompile: forceCompileStyles,
@@ -745,8 +749,25 @@ const getResultPage = async ({
       ? testsNotChanged
         ? Promise.resolve(getCache().tests?.compiled || '')
         : compiler.compile(testsContent, testsLanguage, config, {})
-      : Promise.resolve(getCache().tests?.compiled || ''),
+      : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
+
+  let compileInfo: CompileInfo = {
+    ...markupCompileResult.info,
+  };
+
+  const [compiledStyle, compiledScript, compiledTests] = compileResults.map((result) => {
+    const { code, info } = getCompileResult(result);
+    compileInfo = {
+      ...compileInfo,
+      ...info,
+    };
+    return code;
+  });
+
+  if (compileInfo.modifiedHTML) {
+    compiledMarkup = compileInfo.modifiedHTML;
+  }
 
   const compiledCode: Cache = {
     ...contentConfig,
@@ -761,7 +782,9 @@ const getResultPage = async ({
     script: {
       ...contentConfig.script,
       compiled:
-        config.customSettings.convertCommonjs === false ? compiledScript : cjs2esm(compiledScript),
+        config.customSettings.convertCommonjs === false || (scriptType && scriptType !== 'module')
+          ? compiledScript
+          : cjs2esm(compiledScript),
     },
     tests: {
       language: testsLanguage,
@@ -778,9 +801,10 @@ const getResultPage = async ({
     baseUrl,
     singleFile,
     runTests,
+    compileInfo,
   });
 
-  const styleOnlyUpdate = sourceEditor === 'style';
+  const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
   setCache({
     ...getCache(),
     ...compiledCode,
@@ -936,11 +960,11 @@ const save = async (notify = false, setTitle = true) => {
   if (editors && getConfig().formatOnsave) {
     await format(true);
   }
-
+  const projectConfig = buildConfig(getConfig());
   if (!projectId) {
-    projectId = (await stores.projects?.addItem(getConfig())) || '';
+    projectId = (await stores.projects?.addItem(projectConfig)) || '';
   } else {
-    await stores.projects?.updateItem(projectId, getConfig());
+    await stores.projects?.updateItem(projectId, projectConfig);
   }
   await setSavedStatus();
 
@@ -1615,17 +1639,20 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
 
 const showVersion = () => {
   // variables added in scripts/build.js
-  const version = process.env.VERSION || '';
+  const appVersion = process.env.VERSION || '';
+  const sdkVersion = process.env.SDK_VERSION || '';
   const commitSHA = process.env.GIT_COMMIT || '';
   const repoUrl = process.env.REPO_URL || '';
 
   // eslint-disable-next-line no-console
-  console.log(`Version: ${version} (${repoUrl}/releases/tag/v${version})`);
+  console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
+  // eslint-disable-next-line no-console
+  console.log(`SDK Version: ${sdkVersion} (${repoUrl}/releases/tag/sdk-v${sdkVersion})`);
   // eslint-disable-next-line no-console
   console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
 
   return {
-    version,
+    version: appVersion,
     commitSHA,
   };
 };

@@ -1,9 +1,8 @@
 ---
-sidebar_position: 0
-sidebar_label: Overview
+sidebar_class_name: exclude_from_sidebar
 ---
 
-# Language Overview
+# Language Overview {#language-overview-custom-content-top}
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

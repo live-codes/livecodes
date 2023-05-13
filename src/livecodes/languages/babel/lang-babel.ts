@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../../models';
+import type { LanguageSpecs } from '../../models';
 import { babelUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 import { parserPlugins } from '../prettier';
@@ -23,5 +23,5 @@ export const babel: LanguageSpecs = {
   },
   extensions: ['es', 'babel'],
   editor: 'script',
-  editorLanguage: 'javascript',
+  editorLanguage: 'typescript',
 };

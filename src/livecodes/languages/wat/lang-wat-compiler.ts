@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { getLanguageCustomSettings } from '../../utils';
 
 const features = {

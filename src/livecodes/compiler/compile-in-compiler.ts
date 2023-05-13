@@ -1,4 +1,4 @@
-import { Config, Language, CompileOptions } from '../models';
+import type { Config, Language, CompileOptions } from '../models';
 
 export const compileInCompiler = async (
   content: string,

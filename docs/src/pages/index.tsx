@@ -1,13 +1,12 @@
-import React from 'react';
+/* eslint-disable import/no-unresolved */
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
-// eslint-disable-next-line import/no-unresolved
 import Layout from '@theme/Layout';
-// eslint-disable-next-line import/no-unresolved
 import Link from '@docusaurus/Link';
-// eslint-disable-next-line import/no-unresolved
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // eslint-disable-next-line import/no-internal-modules
 import HomepageFeatures from '../components/HomepageFeatures';
+import { loadAds } from '../custom-content';
 import { appUrl } from '../utils';
 import styles from './index.module.css';
 
@@ -32,7 +31,15 @@ function HomepageHeader() {
         </div>
         <div className={styles.description}>
           An open-source client-side playground for React, Vue, Angular, Svelte, Typescript, Python,
-          Go, Ruby and 60+ languages/frameworks.
+          Go, Ruby and 80+ languages/frameworks.
+        </div>
+        <div className={styles.eaHomepage}>
+          <div
+            className={`flat`}
+            data-ea-publisher="livecodesio"
+            data-ea-type="text"
+            data-ea-manual="true"
+          ></div>
         </div>
       </div>
     </header>
@@ -41,6 +48,10 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
+  useEffect(() => {
+    loadAds();
+  }, []);
+
   return (
     <Layout title={siteConfig.title} description={siteConfig.tagline}>
       <HomepageHeader />

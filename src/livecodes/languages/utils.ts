@@ -1,4 +1,4 @@
-import { Compiler, Language, CustomSettings, Config, Processor } from '../models';
+import type { Compiler, Language, CustomSettings, Config, Processor } from '../models';
 import { getLanguageCustomSettings } from '../utils';
 import { highlightjsUrl } from '../vendors';
 import { languages } from './languages';

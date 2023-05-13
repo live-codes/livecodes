@@ -1,6 +1,7 @@
-import { Language, Config, EventsManager } from '../models';
+import type { Language, Config, EventsManager } from '../models';
 import { createCompiler } from './create-compiler';
-import { Compiler, LanguageOrProcessor } from './models';
+import type { Compiler, LanguageOrProcessor } from './models';
+import { getCompileResult } from './utils';
 
 export const getCompiler = (options: {
   config: Config;
@@ -18,7 +19,8 @@ export const getCompiler = (options: {
 async function createFakeCompiler(): Promise<Compiler> {
   return {
     load: (_languages: LanguageOrProcessor[], _config: Config) => Promise.resolve(['do nothing']),
-    compile: (content: string, _language: Language, _config: Config) => Promise.resolve(content),
+    compile: (content: string, _language: Language, _config: Config) =>
+      Promise.resolve(getCompileResult(content)),
     clearCache: () => undefined,
   };
 }

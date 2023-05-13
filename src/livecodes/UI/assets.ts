@@ -4,11 +4,11 @@ import type { Asset, FileType, Screen, User } from '../models';
 import type { createNotifications } from '../notifications';
 // eslint-disable-next-line import/no-internal-modules
 import type { GitHubFile } from '../services/github';
-import { generateId, Storage } from '../storage';
+import { generateId, type Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils';
 import { flexSearchUrl } from '../vendors';
-import { DeployResult } from '../deploy';
+import type { DeployResult } from '../deploy';
 import {
   getAddAssetButton,
   getAssetDataUrlFileInput,

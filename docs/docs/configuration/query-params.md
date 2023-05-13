@@ -5,6 +5,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 A flexible and convient way to configure the app is to use URL query parameters.
 It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.md) and [embed options](../sdk/js-ts.md#embed-options).
 
+<div style={{clear: 'both'}}></div>
 Example:
 
 ```

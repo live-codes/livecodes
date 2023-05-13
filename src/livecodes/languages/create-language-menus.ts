@@ -1,5 +1,5 @@
-import { createEventsManager } from '../events';
-import { EditorId, Config, Language, Processor, LanguageSpecs, Template } from '../models';
+import type { createEventsManager } from '../events';
+import type { EditorId, Config, Language, Processor, LanguageSpecs, Template } from '../models';
 import { languages } from './languages';
 import { processors } from './processors';
 import { languageIsEnabled, processorIsEnabled } from './utils';

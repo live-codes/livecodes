@@ -1,5 +1,5 @@
 import { getLanguageByAlias } from '../languages';
-import { Config, Template } from '../models';
+import type { Config, Template } from '../models';
 import { getAbsoluteUrl, objectMap } from '../utils';
 
 const mapBaseUrl = (content: any, baseUrl: string) => {

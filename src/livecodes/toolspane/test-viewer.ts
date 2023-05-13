@@ -1,4 +1,4 @@
-import { Config, Editors, EventsManager, TestResult, TestViewer } from '../models';
+import type { Config, Editors, EventsManager, TestResult, TestViewer } from '../models';
 import { getToolspaneElement } from '../UI';
 // eslint-disable-next-line import/no-internal-modules
 import * as icons from '../UI/icons';

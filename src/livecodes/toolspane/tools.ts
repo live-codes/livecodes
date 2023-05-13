@@ -1,5 +1,5 @@
 import Split from 'split.js';
-import {
+import type {
   Editors,
   Config,
   ToolList,

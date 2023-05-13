@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types: [closed]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged && startsWith(github.head_ref, 'releases/')
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
+      - name: Get version
+        id: vars
+        run: echo ::set-output name=version::$(echo ${{github.head_ref}} | sed 's/^releases\///')
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Release notes
+        run: node ./scripts/release-notes.js
+
+      - name: Create tag
+        run: git tag ${{steps.vars.outputs.version}} && git push origin --tags
+
+      - name: Compress build directory (tar)
+        run: tar -czf livecodes-${{steps.vars.outputs.version}}.tar.gz build
+
+      - name: Compress build directory (zip)
+        uses: vimtor/action-zip@v1
+        with:
+          files: build/
+          dest: livecodes-${{steps.vars.outputs.version}}.zip
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{steps.vars.outputs.version}}
+          tag_name: ${{steps.vars.outputs.version}}
+          body_path: CHANGELOG.tmp.md
+          draft: endsWith(github.head_ref, '-draft')
+          prerelease: endsWith(github.head_ref, '-prerelease')
+          files: |
+            livecodes-${{steps.vars.outputs.version}}.tar.gz
+            livecodes-${{steps.vars.outputs.version}}.zip
+          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
+      - name: Create pull request to main
+        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://${{steps.vars.outputs.version}}.livecodes.io" --base main --head develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
+      - name: Create permanent URL
+        if: startsWith(github.head_ref, 'releases/v') && !endsWith(github.head_ref, '-draft')
+        run: node ./scripts/create-permanent-url.js
+        env:
+          APP_VERSION: ${{steps.vars.outputs.version}}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ZONE: ${{ secrets.CF_ZONE }}
+          CF_TOKEN: ${{ secrets.CF_TOKEN }}
+
+      - name: Publish SDK to NPM
+        if: startsWith(github.head_ref, 'releases/sdk-v') && !endsWith(github.head_ref, '-draft')
+        run: npm publish --access=public
+        working-directory: ./build/sdk
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -14,7 +14,7 @@ export const Introduction = livecodesStory({
 
                       A client-side code playground that runs in the browser.
 
-                      Supports 60+ languages/frameworks!
+                      Supports 80+ languages/frameworks!
 
                       [App](https://livecodes.io)
                       [About](https://livecodes.io/docs)

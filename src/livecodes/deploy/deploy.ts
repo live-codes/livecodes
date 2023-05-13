@@ -4,7 +4,7 @@ import type { getLanguageExtension as getLanguageExtensionFn } from '../language
 import { getDescriptionFile, getFilesFromConfig } from '../export/utils';
 import { generateId } from '../storage/storage';
 import { safeName } from '../utils/utils';
-import { commitFile, commitFiles, GitHubFile } from '../services/github';
+import { commitFile, commitFiles, type GitHubFile } from '../services/github';
 import { defaultConfig } from '../config/default-config';
 
 const prepareFiles = ({

@@ -1,4 +1,4 @@
-import { CompilerFunction } from '../../models';
+import type { CompilerFunction } from '../../models';
 import { escapeCode, getLanguageCustomSettings } from '../../utils';
 
 (self as any).createPugCompiler =
@@ -7,8 +7,8 @@ import { escapeCode, getLanguageCustomSettings } from '../../utils';
     const options = getLanguageCustomSettings('pug', config);
     const data = config.customSettings.template?.data || {};
 
-    const fn = (window as any).pug.compile(code, options);
     if (config.customSettings.template?.prerender !== false) {
+      const fn = (window as any).pug.compile(code, options);
       return fn(data);
     }
 

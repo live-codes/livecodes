@@ -1,4 +1,4 @@
-import { CustomEditors, EventsManager } from '../models';
+import type { CustomEditors, EventsManager } from '../models';
 import { createBlocklyEditor } from './blockly';
 import { createQuillEditor } from './quill';
 

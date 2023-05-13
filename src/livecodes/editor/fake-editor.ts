@@ -1,5 +1,5 @@
 import { getLanguageEditorId } from '../languages';
-import { CodeEditor, EditorOptions } from '../models';
+import type { CodeEditor, EditorOptions } from '../models';
 
 export const createFakeEditor = (options: EditorOptions): CodeEditor => {
   let value = options.value;

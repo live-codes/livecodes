@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Test 1
@@ -26,13 +26,13 @@ jobs:
         env:
           CI: true
           CI_SHARD_INDEX: 1
-          CI_SHARD_TOTAL: 4
+          CI_SHARD_TOTAL: 6
 
   test2:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Test 2
@@ -51,13 +51,13 @@ jobs:
         env:
           CI: true
           CI_SHARD_INDEX: 2
-          CI_SHARD_TOTAL: 4
+          CI_SHARD_TOTAL: 6
 
   test3:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Test 3
@@ -76,13 +76,13 @@ jobs:
         env:
           CI: true
           CI_SHARD_INDEX: 3
-          CI_SHARD_TOTAL: 4
+          CI_SHARD_TOTAL: 6
 
   test4:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [18.x]
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
@@ -93,7 +93,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Test 4
@@ -101,4 +101,54 @@ jobs:
         env:
           CI: true
           CI_SHARD_INDEX: 4
-          CI_SHARD_TOTAL: 4
+          CI_SHARD_TOTAL: 6
+
+  test5:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Test 5
+        run: npm run ci:e2e
+        env:
+          CI: true
+          CI_SHARD_INDEX: 5
+          CI_SHARD_TOTAL: 6
+
+  test6:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    env:
+      NODE_OPTIONS: '--max_old_space_size=4096'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Test 6
+        run: npm run ci:e2e
+        env:
+          CI: true
+          CI_SHARD_INDEX: 6
+          CI_SHARD_TOTAL: 6

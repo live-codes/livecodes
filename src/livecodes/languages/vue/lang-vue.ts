@@ -1,4 +1,4 @@
-import { LanguageSpecs } from '../../models';
+import type { LanguageSpecs } from '../../models';
 import { vueSfcLoaderCdnBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 

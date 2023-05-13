@@ -1,5 +1,5 @@
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { Config } from '../models';
+import type { Config } from '../models';
 import { corsService } from '../services';
 import { importFromDom } from './dom';
 import { importFromZip } from './zip';

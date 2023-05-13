@@ -1,4 +1,4 @@
-import { Config, User } from '../models';
+import type { Config, User } from '../models';
 import { importCompressedCode, isCompressedCode } from './code';
 import { importFromCodepen, isCodepen } from './codepen';
 import { importFromDom, isDom } from './dom';

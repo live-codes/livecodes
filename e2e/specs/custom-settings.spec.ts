@@ -317,6 +317,33 @@ body
     expect(await getResult().innerText('body script')).toContain('var x = function () {');
   });
 
+  test('flow', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"flow": {"pretty": true}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Flow');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      'function foo(x: ?number): string {if (x) { return x; } return "default string"; }',
+    );
+
+    await waitForResultUpdate();
+
+    expect(await getResult().innerText('body script')).toContain(
+      'function foo(x) {if (x) { return x; } return "default string"; }',
+    );
+  });
+
   test('svelte', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'svelte' }));
 

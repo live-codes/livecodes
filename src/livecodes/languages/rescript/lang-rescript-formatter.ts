@@ -1,4 +1,4 @@
-import { LanguageFormatter } from '../../models';
+import type { LanguageFormatter } from '../../models';
 import { getAbsoluteUrl } from '../../utils';
 import { rescriptCompilerUrl } from '../../vendors';
 

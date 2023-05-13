@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-internal-modules
 import { defaultConfig } from '../config/default-config';
-import { FormatFn, FormatterConfig, Language, Parser } from '../models';
+import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
 import { languages, prettierUrl } from '../languages';
 import { getAbsoluteUrl } from '../utils';
-import { FormatterMessage, FormatterMessageEvent } from './models';
+import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
 (self as any).window = self;

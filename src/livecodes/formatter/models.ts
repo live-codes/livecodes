@@ -1,4 +1,4 @@
-import { FormatFn, FormatterConfig, Language } from '../models';
+import type { FormatFn, FormatterConfig, Language } from '../models';
 
 export interface Formatter {
   load: (languages: Language[]) => Promise<string>;

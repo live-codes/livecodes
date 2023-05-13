@@ -117,15 +117,23 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Haml"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Haml');
     await waitForEditorFocus(app);
-    await page.keyboard.type('.content Hello, World!');
+    await page.keyboard.type('.content Hello, #{name}!');
 
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('.content');
 
-    expect(resultText).toContain('Hello, World!');
+    expect(resultText).toContain('Hello, Haml!');
   });
 
   test('AsciiDoc', async ({ page, getTestUrl }) => {
@@ -360,6 +368,60 @@ const title = "World";
     expect(resultText).toContain('Welcome to EJS');
   });
 
+  test('Eta', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Eta"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=Eta');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to <%= it.name %></h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Eta');
+  });
+
+  test('Eta dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Eta' };`);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=Eta');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to <%= it.name %></h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Eta');
+  });
+
   test('Liquid', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -576,6 +638,34 @@ const title = "World";
     expect(resultText).toContain('Welcome to art-template');
   });
 
+  test('MJML', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=MJML');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text color="blue">
+          Hello MJML!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('table');
+
+    expect(resultText).toContain('Hello MJML!');
+  });
+
   test('SCSS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -640,6 +730,26 @@ const title = "World";
     const resultText = await getResult().innerHTML('style');
 
     expect(resultText).toContain('font: 14px Arial, sans-serif;');
+  });
+
+  test('Stylis', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click('text=Stylis');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      '[namespace] {\n  div {\n    display: flex;\n\n    @media screen {\n      color: blue;\n    }\n  }\n\n  div {\n    transform: translateZ(0);\n\n    h1, h2 {\n      color: red;\n    }\n  }\n}',
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('style');
+
+    expect(resultText).toContain(
+      '[namespace] div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}@media screen{[namespace] div{color:blue;}}[namespace] div{-webkit-transform:translateZ(0);-moz-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0);}[namespace] div h1,[namespace] div h2{color:red;}',
+    );
   });
 
   test('PostCSS/postcssImportUrl', async ({ page, getTestUrl }) => {
@@ -715,6 +825,24 @@ const title = "World";
     );
   });
 
+  test('Sucrase', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Sucrase');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(`const Greet = (name: string) => <>Hello {name}!</>;`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('body > script');
+
+    expect(resultText).toContain(
+      `const Greet = (name) => React.createElement(React.Fragment, null, "Hello " , name, "!");`,
+    );
+  });
+
   test('TypeScript', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -741,6 +869,26 @@ function isFish(pet: Fish | Bird): pet is Fish {
 function isFish(pet) {
     return pet.swim !== undefined;
 }`,
+    );
+  });
+
+  test('Flow', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Flow');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      'function foo(x: ?number): string {if (x) { return x; } return "default string"; }',
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('body > script');
+
+    expect(resultText).toContain(
+      'function foo(x         )         {if (x) { return x; } return "default string"; }',
     );
   });
 

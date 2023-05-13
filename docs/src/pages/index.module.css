@@ -1,13 +1,18 @@
 .heroBanner {
   overflow: hidden;
-  padding: 4rem 0;
+  padding: 2rem 0 0;
   position: relative;
   text-align: center;
 }
 
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
+.eaHomepage {
+  margin: 2.5em auto 0;
+  min-height: 90px;
+}
+
+@media (max-width: 997px) {
+  .eaHomepage {
+    min-height: 110px !important;
   }
 }
 

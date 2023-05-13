@@ -145,6 +145,7 @@ export type Language =
   | 'handlebars'
   | 'hbs'
   | 'ejs'
+  | 'eta'
   | 'nunjucks'
   | 'njk'
   | 'liquid'
@@ -153,6 +154,7 @@ export type Language =
   | 'twig'
   | 'art-template'
   | 'art'
+  | 'mjml'
   | 'diagrams'
   | 'diagram'
   | 'graph'
@@ -167,13 +169,16 @@ export type Language =
   | 'less'
   | 'stylus'
   | 'styl'
+  | 'stylis'
   | 'postcss'
   | 'javascript'
   | 'js'
   | 'json'
   | 'babel'
   | 'es'
+  | 'sucrase'
   | 'typescript'
+  | 'flow'
   | 'ts'
   | 'jsx'
   | 'tsx'
@@ -199,6 +204,7 @@ export type Language =
   | 'coffee'
   | 'livescript'
   | 'ls'
+  | 'civet'
   | 'clio'
   | 'imba'
   | 'assemblyscript'
@@ -232,6 +238,10 @@ export type Language =
   | 'pl'
   | 'pm'
   | 'lua'
+  | 'teal'
+  | 'tl'
+  | 'fennel'
+  | 'fnl'
   | 'julia'
   | 'jl'
   | 'scheme'
@@ -345,12 +355,14 @@ export type Processor =
   | 'lightningcss'
   | 'autoprefixer'
   | 'postcssPresetEnv'
+  | 'cssmodules'
   | 'purgecss'
   | 'cssnano';
 
 export type ParserName =
   | 'babel'
   | 'babel-ts'
+  | 'babel-flow'
   | 'glimmer'
   | 'html'
   | 'markdown'
@@ -392,6 +404,17 @@ export interface CompileOptions {
   html?: string;
   blockly?: BlocklyContent;
   forceCompile?: boolean;
+  compileInfo?: CompileInfo;
+}
+
+export interface CompileInfo {
+  cssModules?: Record<string, string>;
+  modifiedHTML?: string;
+}
+
+export interface CompileResult {
+  code: string;
+  info: CompileInfo;
 }
 
 export type CompilerFunction = (
@@ -409,7 +432,7 @@ export type CompilerFunction = (
     options: CompileOptions;
     worker?: Worker;
   },
-) => Promise<string>;
+) => Promise<string | CompileResult>;
 
 export interface Compiler {
   dependencies?: Language[];
@@ -441,6 +464,7 @@ export interface Compiler {
     | 'text/prolog'
     | 'application/json'
     | 'application/lua'
+    | 'text/fennel'
     | 'application/wasm-uint8';
   liveReload?: boolean;
   aliasTo?: Language;
@@ -485,6 +509,7 @@ export type TemplateName =
   | 'tailwindcss'
   | 'coffeescript'
   | 'livescript'
+  | 'civet'
   | 'clio'
   | 'imba'
   | 'rescript'
@@ -500,6 +525,8 @@ export type TemplateName =
   | 'clang'
   | 'perl'
   | 'lua'
+  | 'teal'
+  | 'fennel'
   | 'julia'
   | 'scheme'
   | 'commonlisp'

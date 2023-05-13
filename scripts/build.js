@@ -15,7 +15,7 @@ const devMode = args.includes('--dev');
 const outDir = path.resolve(__dirname + '/../build');
 const monacoVersion = `v${pkg.dependencies['monaco-editor']}`;
 const codemirrorVersion = `v${pkg.dependencies['codemirror']}`;
-let version, gitCommit, repoUrl;
+let appVersion, sdkVersion, gitCommit, repoUrl;
 
 /** @param {string} dir */
 function mkdir(dir) {
@@ -60,6 +60,10 @@ const prepareDir = async () => {
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
 
   await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/_headers'),
+    path.resolve(outDir + '/_headers'),
+  );
+  await fs.promises.copyFile(
     path.resolve(__dirname + '/../src/favicon.ico'),
     path.resolve(outDir + '/favicon.ico'),
   );
@@ -70,7 +74,8 @@ const prepareDir = async () => {
 };
 
 try {
-  version = require('../package.json').version;
+  appVersion = require('../package.json')['app-version'];
+  sdkVersion = require('../src/sdk/package.sdk.json').version;
   gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
   repoUrl = require('../package.json').repository.url;
   if (repoUrl.endsWith('/')) {
@@ -90,7 +95,8 @@ const baseOptions = {
   sourcemap: true,
   sourcesContent: true,
   define: {
-    'process.env.VERSION': `"${version || ''}"`,
+    'process.env.VERSION': `"${appVersion || ''}"`,
+    'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.CI': `${process.env.CI || false}`,
@@ -219,6 +225,7 @@ const iifeBuild = () =>
       'languages/cpp-clang/lang-cpp-clang-script.ts',
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
+      'languages/eta/lang-eta-compiler.ts',
       'languages/haml/lang-haml-compiler.ts',
       'languages/handlebars/lang-handlebars-compiler.ts',
       'languages/imba/lang-imba-compiler.ts',
@@ -243,6 +250,8 @@ const iifeBuild = () =>
       'languages/vue/lang-vue-compiler.ts',
       'languages/wat/lang-wat-compiler.ts',
       'languages/wat/lang-wat-script.ts',
+      'languages/teal/lang-teal-compiler.ts',
+      'languages/fennel/lang-fennel-compiler.ts',
       'languages/windicss/processor-windicss-compiler.ts',
       'languages/unocss/processor-unocss-compiler.ts',
       'languages/lightningcss/processor-lightningcss-compiler.ts',
@@ -288,6 +297,13 @@ const htmlBuild = () =>
       minify: devMode ? false : true,
       outDir,
       sourcemap: true,
+      rollupOptions: {
+        output: {
+          entryFileNames: `assets/[name].[hash].js`,
+          chunkFileNames: `assets/[name].[hash].js`,
+          assetFileNames: `assets/[name].[hash].[ext]`,
+        },
+      },
     },
   });
 

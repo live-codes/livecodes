@@ -25,6 +25,11 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
+<a href="https://bundlejs.com/" target="_blank" title="bundlejs">
+  <img alt="bundlejs" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/bundlejs.jpg">
+</img></a>
+</p>
+<p>
 <a href="https://github.com/" target="_blank" title="GitHub">
   <img alt="GitHub" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/github.png">
 </img></a>
@@ -71,4 +76,4 @@ Many of LiveCodes features/ideas were inspired by:
 - [VS Code](https://code.visualstudio.com/)
 - [Monacode](https://github.com/lukejacksonn/monacode/)
 
-Thank you!
+Thank you 🙏

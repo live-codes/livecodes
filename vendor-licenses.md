@@ -12,6 +12,8 @@ Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9
 
 Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582f1f3fdcdac0fa0d2f/LICENSE)
 
+Civet: [MIT License](https://github.com/DanielXMoore/Civet/blob/3178fe35def1de20d6f5ec929f6f6225e80d8ac0/LICENSE)
+
 clientside-haml-js: [MIT License](https://github.com/uglyog/clientside-haml-js/blob/d814d16f46e1629c149c18d7692ba16f249f436b/LICENSE)
 
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
@@ -21,6 +23,14 @@ CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f64
 emmet-monaco-es: [MIT License](https://github.com/troy351/emmet-monaco-es/blob/b578210738fb591c65fb34530d28c0d0341fbb7d/LICENSE)
 
 ES Module Shims: [MIT License](https://github.com/guybedford/es-module-shims/blob/986733009f4c9374decd4c0348740134ff499157/LICENSE)
+
+EJS: [Apache License 2.0](https://github.com/mde/ejs/blob/f47d7aedd51a983e4f73045f962b1209096b5800/LICENSE)
+
+Eta: [MIT License](https://github.com/eta-dev/eta/blob/b25689e67cd07937a4595bca8ba39fe52cd76948/LICENSE)
+
+Fennel: [MIT License](https://git.sr.ht/~technomancy/fennel/tree/e70ebb133b9d472246502dee8be119360ec568ca/item/LICENSE)
+
+flow-remove-types: [MIT License](https://github.com/facebook/flow/blob/3ebee9f08106eb8aefbf98111fee696d333b8456/packages/flow-remove-types/LICENSE)
 
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)
 
@@ -40,6 +50,8 @@ MDX: [MIT License](https://github.com/mdx-js/mdx/blob/02509286b5a39d6df233225545
 
 Minimal-Blog (Tailwind CSS template): [MIT License](https://github.com/tailwindtoolbox/Minimal-Blog/blob/18566f734ada7949f73abf0a7fc69f688f8db27e/LICENSE)
 
+MJML: [MIT License](https://github.com/mjmlio/mjml/blob/988819de3375867c09585d28f555166b97415200/LICENSE.md)
+
 Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f849d3f2653d1097652a7d9e1d01d242cc225da8/LICENSE.md)
 
 normalize.css: [MIT License](https://github.com/necolas/normalize.css/blob/fc091cce1534909334c1911709a39c22d406977b/LICENSE.md)
@@ -51,6 +63,8 @@ Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac
 PostCSS: [MIT License](https://github.com/postcss/postcss/blob/af8311a9c4c940c3e159f81bb205786677687e15/LICENSE)
 
 PostCSS Preset Env: [CC0-1.0 License](https://github.com/csstools/postcss-preset-env/blob/d7652b1e6196e8f55bf3f0aac4ac090fec7ed54e/LICENSE.md)
+
+postcss-modules: [MIT License](https://github.com/madyankin/postcss-modules/blob/325f0b33f1b746eae7aa827504a5efd0949022ef/LICENSE)
 
 prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41d048799bdd063e0592c1413d238ad95ceda1d9/LICENSE)
 
@@ -80,11 +94,17 @@ Stencil: [MIT License](https://github.com/ionic-team/stencil/blob/8d580b12b96cc5
 
 Stylus: [MIT License](https://github.com/stylus/stylus/blob/59bc665db295981d4e3f702e7275c5589a3c6d15/LICENSE)
 
+Stylis: [MIT License](https://github.com/thysultan/stylis/blob/bc0b1b03f5562eb8b38601e4e05461631a91c400/LICENSE)
+
+Sucrase: [MIT License](https://github.com/alangpierce/sucrase/blob/7284b3733aa114b3f4f5371e36ff5a4704ec860e/LICENSE)
+
 Svelte: [MIT License](https://github.com/sveltejs/svelte/blob/dafbdc286eef3de2243088a9a826e6899e20465c/LICENSE)
 
 SVG Logos: [CC0-1.0 License](https://github.com/gilbarbara/logos/blob/e0babf54f7ac9127942111bf177f549b709a60be/LICENSE.txt)
 
 Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6acb051f67e72a8061ad306a7fa385c36d955fb9/LICENSE)
+
+Teal: [MIT License](https://github.com/teal-language/tl/blob/e907fbe56a70d44b65095e16ae2d1eae61c12066/LICENSE)
 
 TypeScript: [Apache License 2.0](https://github.com/microsoft/TypeScript/blob/8523ca4fa392b5b3d7ff28058503a12ef8569c7f/LICENSE.txt)
 

@@ -1,5 +1,5 @@
-import { Config } from '../../models';
-import { populateConfig, SourceFile } from '../utils';
+import type { Config } from '../../models';
+import { populateConfig, type SourceFile } from '../utils';
 
 describe('populate Config object for imported files', () => {
   test('no files should return empty object', () => {

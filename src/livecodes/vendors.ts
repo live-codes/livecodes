@@ -1,5 +1,5 @@
 export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.6.0/dist/';
+  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.6.5/dist/';
 
 export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
 
@@ -65,6 +65,8 @@ export const emmetMonacoUrl =
 
 export const esModuleShimsUrl =
   'https://cdn.jsdelivr.net/npm/es-module-shims@1.4.4/dist/es-module-shims.min.js';
+
+export const etaUrl = 'https://cdn.jsdelivr.net/npm/eta@2.0.1/dist/eta.umd.min.js';
 
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
@@ -194,6 +196,8 @@ export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.
 
 export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
 
+export const mjmlUrl = 'https://cdn.jsdelivr.net/npm/mjml-browser@4.14.1/lib/index.min.js';
+
 export const monacoEmacsUrl = 'https://unpkg.com/monaco-emacs@0.3.0/dist/monaco-emacs.js';
 
 export const monacoVimUrl = 'https://unpkg.com/monaco-vim@0.3.5/dist/monaco-vim.js';
@@ -265,6 +269,8 @@ export const sqljsBaseUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/';
 
 export const stencilUrl =
   'https://cdn.jsdelivr.net/npm/@stencil/core@2.13.0/compiler/stencil.min.js';
+
+export const stylisUrl = 'https://cdn.jsdelivr.net/npm/stylis@4.1.3/dist/umd/stylis.min.js';
 
 export const svgbobWasmCdnUrl =
   'https://cdn.jsdelivr.net/npm/svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm';

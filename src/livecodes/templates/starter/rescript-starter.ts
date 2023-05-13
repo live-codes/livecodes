@@ -1,4 +1,4 @@
-import { Template } from '../../models';
+import type { Template } from '../../models';
 
 export const rescriptStarter: Template = {
   name: 'rescript',

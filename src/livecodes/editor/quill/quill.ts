@@ -1,4 +1,4 @@
-import { CustomEditorOptions, Theme } from '../../models';
+import type { CustomEditorOptions, Theme } from '../../models';
 import { sandboxService } from '../../services';
 import {
   quillBetterTableBaseUrl,

@@ -1,4 +1,4 @@
-import { Config, Language, Processor, WorkerMessageEvent } from '../models';
+import type { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
   let timeout: any;
@@ -366,3 +366,14 @@ export const callWorker = async <T = string, K = unknown>(
       messageId,
     });
   });
+
+export const toCamelCase = (str: string) =>
+  str
+    .replace(/[-_.]+/g, ' ')
+    .trim()
+    .replace(/^([A-Z])|\s+(\w)/g, function (_match, p1, p2) {
+      if (p2) return p2.toUpperCase();
+      return p1.toLowerCase();
+    });
+
+export const removeDuplicates = (arr: any[] | undefined) => Array.from(new Set(arr));

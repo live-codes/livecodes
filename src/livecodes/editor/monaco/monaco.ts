@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
-import * as Monaco from 'monaco-editor'; // only for typescript types
+import type * as Monaco from 'monaco-editor'; // only for typescript types
 
 import type {
   EditorLibrary,
@@ -174,7 +174,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
-    if (language === 'tsx' || language === 'jsx') {
+    if (
+      language === 'tsx' ||
+      language === 'jsx' ||
+      language === 'sucrase' ||
+      language === 'babel' ||
+      language === 'flow'
+    ) {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...compilerOptions,
         jsx: monaco.languages.typescript.JsxEmit.React,
@@ -188,6 +194,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         jsx: monaco.languages.typescript.JsxEmit.Preserve,
         jsxFactory: undefined,
         reactNamespace: 'h',
+      });
+    }
+    if (language === 'flow') {
+      // just silence errors for now
+      // TODO: fix this
+      // https://github.com/facebook/flow/tree/main/website/src/try-flow
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: true,
+      });
+    } else if (['typescript'].includes(mapLanguage(language))) {
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: false,
       });
     }
   };
@@ -206,7 +224,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   ) => {
     const random = getRandomString();
     const ext = getLanguageExtension(language);
-    modelUri = `file:///${editorId}.${random}.${ext}`;
+    const extension =
+      monacoMapLanguage(language) === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
+        ? ext + '.tsx'
+        : ext;
+    modelUri = `file:///${editorId}.${random}.${extension}`;
     const oldModel = editor.getModel();
     const model = monaco.editor.createModel(
       value || '',

@@ -1,6 +1,6 @@
-import { createEventsManager } from '../events';
+import type { createEventsManager } from '../events';
 import { loginScreen } from '../html';
-import { GithubScope, User } from '../models';
+import type { GithubScope, User } from '../models';
 import { getLoginLink, getLogoutLink } from './selectors';
 
 export const createLoginContainer = (

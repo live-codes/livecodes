@@ -1,4 +1,4 @@
-import { CompilerFunction, LanguageSpecs } from '../../models';
+import type { CompilerFunction, LanguageSpecs } from '../../models';
 import { parserPlugins } from '../prettier';
 
 export const runOutsideWorker: CompilerFunction = async (code: string, { baseUrl, config }) => {

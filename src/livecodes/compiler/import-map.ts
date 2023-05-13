@@ -1,6 +1,6 @@
-import type { Config } from '../models';
+import type { CompileInfo, Config, Language } from '../models';
 import { modulesService } from '../services';
-import { removeComments, removeCommentsAndStrings } from '../utils';
+import { escapeCode, removeComments, removeCommentsAndStrings, toCamelCase } from '../utils';
 
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
@@ -13,6 +13,17 @@ export const getImports = (code: string) =>
     ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
   ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
+const needsBundler = (mod: string) =>
+  !mod.endsWith('#nobundle') &&
+  (mod.startsWith('https://deno.land/') ||
+    mod.startsWith('https://github.com/') ||
+    mod.startsWith('https://raw.githubusercontent.com/') ||
+    mod.startsWith('https://gitlab.com/') ||
+    mod.startsWith('https://bitbucket.org') ||
+    mod.endsWith('.ts') ||
+    mod.endsWith('.jsx') ||
+    mod.endsWith('.tsx'));
+
 const isBare = (mod: string) =>
   !mod.startsWith('https://') &&
   !mod.startsWith('http://') &&
@@ -24,7 +35,7 @@ const isBare = (mod: string) =>
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (!isBare(libName)) {
+      if (!needsBundler(libName) && !isBare(libName)) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
@@ -113,8 +124,8 @@ export const cjs2esm = (code: string) => {
   const imports = requires
     .map((id, i) =>
       [
-        `import __requires_${i}_default from '${id}';`,
         `import * as __requires_${i} from '${id}';`,
+        `const __requires_${i}_default = __requires_${i}.default;`,
       ].join('\n'),
     )
     .join('\n');
@@ -135,4 +146,45 @@ export const cjs2esm = (code: string) => {
     code,
     `export default module.exports;`,
   ].join('\n\n');
+};
+
+export const createCSSModulesImportMap = (
+  compiledScript: string,
+  compiledStyle: string,
+  cssTokens: CompileInfo['cssModules'] = {},
+  extension: Language = 'css',
+) => {
+  const scriptImports = getImports(compiledScript);
+  const extensions = extension === 'css' ? [extension] : ['css', extension];
+  const filenames = [
+    ...extensions.map((ext) => './style.' + ext),
+    ...extensions.map((ext) => './styles.' + ext),
+    ...extensions.map((ext) => './style.module.' + ext),
+    ...extensions.map((ext) => './styles.module.' + ext),
+  ];
+
+  return filenames
+    .map((filename) => {
+      if (!scriptImports.includes(filename)) {
+        return {};
+      }
+
+      if (!filename.includes('.module.')) {
+        return {
+          [filename]:
+            'data:text/javascript;base64,' +
+            btoa(`export default \`${escapeCode(compiledStyle)}\`;`),
+        };
+      }
+
+      const cssModule =
+        `export default ${escapeCode(JSON.stringify(cssTokens))};\n` +
+        Object.keys(cssTokens)
+          .filter((key) => key === toCamelCase(key))
+          .map((key) => `export const ${escapeCode(key)} = "${escapeCode(cssTokens[key])}";`)
+          .join('\n');
+
+      return { [filename]: 'data:text/javascript;base64,' + btoa(cssModule) };
+    })
+    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 };

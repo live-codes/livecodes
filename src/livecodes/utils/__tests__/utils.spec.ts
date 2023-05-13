@@ -1,4 +1,4 @@
-import { debounce, decodeHTML, encodeHTML, safeName } from '..';
+import { debounce, decodeHTML, encodeHTML, safeName, toCamelCase } from '..';
 import { compress, decompress } from '../compression';
 import { defaultConfig } from '../../config';
 
@@ -55,5 +55,16 @@ describe('utils', () => {
     const decompressed = decompress(compressed, false);
     expect(decompressed).toBe(str);
     expect(compressed.length).toBeLessThan(str.length);
+  });
+
+  test('toCamelCase', () => {
+    expect(toCamelCase('MyClass name')).toBe('myClassName');
+    expect(toCamelCase('My className')).toBe('myClassName');
+    expect(toCamelCase('my class name')).toBe('myClassName');
+    expect(toCamelCase('My Class Name')).toBe('myClassName');
+    expect(toCamelCase('--my-class--name--')).toBe('myClassName');
+    expect(toCamelCase('__my_class__name__')).toBe('myClassName');
+    expect(toCamelCase('..my.class..name..')).toBe('myClassName');
+    expect(toCamelCase('myClassName')).toBe('myClassName');
   });
 });

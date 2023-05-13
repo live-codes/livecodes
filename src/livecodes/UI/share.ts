@@ -1,6 +1,6 @@
-import { createEventsManager } from '../events';
+import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
-import { ShareData } from '../models';
+import type { ShareData } from '../models';
 import { allowedOrigin } from '../services';
 import { copyToClipboard, getAbsoluteUrl, loadScript } from '../utils';
 import { qrcodeUrl } from '../vendors';
