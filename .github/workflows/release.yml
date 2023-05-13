@@ -38,9 +38,14 @@ jobs:
       - name: Create tag
         run: git tag ${{steps.vars.outputs.version}} && git push origin --tags
 
-      - name: Compress build directory
-        run: tar -czf livecodes-${{steps.vars.outputs.version}}.tar.gz build && \
-          zip -r livecodes-${{steps.vars.outputs.version}}.zip build
+      - name: Compress build directory (tar)
+        run: tar -czf livecodes-${{steps.vars.outputs.version}}.tar.gz build
+
+      - name: Compress build directory (zip)
+        uses: vimtor/action-zip@v1
+        with:
+          files: build/
+          dest: livecodes-${{steps.vars.outputs.version}}.zip
 
       - name: Create release
         uses: softprops/action-gh-release@v1
