@@ -158,7 +158,7 @@ const cancelRelease = () => {
   }
 
   execSync(`git checkout -b ${branchName}`);
-  execSync(`git commit -am "prepare release: ${branchName?.replace('releases/', '')}"`);
+  execSync(`git commit -am "release: ${branchName?.replace('releases/', '')}"`);
   execSync(`git push -u origin ${branchName}`);
 })();
 
