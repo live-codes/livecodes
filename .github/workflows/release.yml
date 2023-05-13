@@ -13,7 +13,8 @@ jobs:
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
 
@@ -53,8 +54,6 @@ jobs:
           name: ${{steps.vars.outputs.version}}
           tag_name: ${{steps.vars.outputs.version}}
           body_path: CHANGELOG.tmp.md
-          draft: endsWith(github.head_ref, '-draft')
-          prerelease: endsWith(github.head_ref, '-prerelease')
           files: |
             livecodes-${{steps.vars.outputs.version}}.tar.gz
             livecodes-${{steps.vars.outputs.version}}.zip
@@ -66,7 +65,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
 
       - name: Create permanent URL
-        if: startsWith(github.head_ref, 'releases/v') && !endsWith(github.head_ref, '-draft')
+        if: startsWith(github.head_ref, 'releases/v')
         run: node ./scripts/create-permanent-url.js
         env:
           APP_VERSION: ${{steps.vars.outputs.version}}
@@ -75,7 +74,7 @@ jobs:
           CF_TOKEN: ${{ secrets.CF_TOKEN }}
 
       - name: Publish SDK to NPM
-        if: startsWith(github.head_ref, 'releases/sdk-v') && !endsWith(github.head_ref, '-draft')
+        if: startsWith(github.head_ref, 'releases/sdk-v')
         run: npm publish --access=public
         working-directory: ./build/sdk
         env:
