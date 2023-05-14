@@ -30,8 +30,12 @@ function HomepageHeader() {
           </Link>
         </div>
         <div className={styles.description}>
-          An open-source client-side playground for React, Vue, Angular, Svelte, Typescript, Python,
-          Go, Ruby and 80+ languages/frameworks.
+          An open-source <strong>client-side</strong> playground for React, Vue, Svelte, Solid,
+          Typescript, Python, Go, Ruby, PHP and{' '}
+          <Link to="./languages">
+            <strong>80+ languages/frameworks</strong>
+          </Link>
+          .
         </div>
         <div className={styles.eaHomepage}>
           <div

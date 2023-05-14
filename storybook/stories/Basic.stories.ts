@@ -12,9 +12,11 @@ export const Introduction = livecodesStory({
       language: 'markdown',
       content: dedent`# Welcome to LiveCodes
 
-                      A client-side code playground that runs in the browser.
+                      ## Code Playground That Just Works!
 
-                      Supports 80+ languages/frameworks!
+                      An open-source **client-side** code playground that runs in the browser.
+
+                      Supports [**80+ languages/frameworks**](https://livecodes.io/docs/languages)!
 
                       [App](https://livecodes.io)
                       [About](https://livecodes.io/docs)
@@ -31,6 +33,10 @@ export const Introduction = livecodesStory({
                       }
 
                       a {
+                        color: #0080ff;
+                      }
+
+                      a.button {
                         background-color: #f5f4f4;
                         border: 1px solid grey;
                         border-radius: 3px;
@@ -43,7 +49,7 @@ export const Introduction = livecodesStory({
                         width: 5em;
                       }
 
-                      a:hover {
+                      a.button:hover {
                         background-color: #666;
                         color: #fff;
                       }
@@ -53,6 +59,9 @@ export const Introduction = livecodesStory({
       language: 'javascript',
       content: dedent`document.querySelectorAll('a').forEach((link) => {
                         link.target = '_blank';
+                        if (link.childNodes[0].tagName !== 'STRONG') {
+                          link.classList.add('button');
+                        }
                       });
                       console.log('Hello from JS!');
                       `,
