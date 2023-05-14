@@ -361,7 +361,7 @@ Execute custom commands, including:
 await livecodes.exec('setBroadcastToken', 'my-token');
 ```
 
-- `"showVersion"`: Logs current LiveCodes version and commitSHA in the browser console.
+- `"showVersion"`: Logs the current LiveCodes app version, SDK version and commitSHA in the browser console.
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)

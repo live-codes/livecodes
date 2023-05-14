@@ -1657,12 +1657,15 @@ const showVersion = () => {
   // eslint-disable-next-line no-console
   console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
   // eslint-disable-next-line no-console
-  console.log(`SDK Version: ${sdkVersion} (${repoUrl}/releases/tag/sdk-v${sdkVersion})`);
+  console.log(
+    `SDK Version: ${sdkVersion} (https://www.npmjs.com/package/livecodes/v/${sdkVersion})`,
+  );
   // eslint-disable-next-line no-console
   console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
 
   return {
-    version: appVersion,
+    appVersion,
+    sdkVersion,
     commitSHA,
   };
 };
