@@ -52,6 +52,7 @@ const sidebars = {
             'features/themes',
             'features/embeds',
             'features/lite',
+            'features/permanent-url',
             'features/code-prefill',
             'features/deploy',
             'features/sync',

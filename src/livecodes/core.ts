@@ -1001,7 +1001,7 @@ const share = async (
 
   const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
 
-  const url = permanentUrl ? permanentUrlService.getUrl() : currentUrl;
+  const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
 
   const shareURL = url + contentParam;
 

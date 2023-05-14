@@ -6,6 +6,7 @@ import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
 import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
+import { permanentUrlService } from '../services/permanent-url';
 
 export const createEmbedUI = async ({
   baseUrl,
@@ -207,8 +208,10 @@ export const createEmbedUI = async ({
   };
 
   const editor = await createEditorFn(codeArea);
-  let url = await getUrlFn(true);
-  let urlObj = new URL(url);
+  const livecodesUrl = 'https://livecodes.io';
+  const sdkUrl = permanentUrlService.getSDKUrl('umd');
+  let shareUrl = await getUrlFn(true);
+  let urlObj = new URL(shareUrl);
   let appUrl = urlObj.origin + urlObj.pathname;
 
   const previewIframe: HTMLIFrameElement = document.createElement('iframe');
@@ -221,7 +224,7 @@ export const createEmbedUI = async ({
   const getContainerHtml = (id: string) =>
     `
 <div id="${id}">
-  <span>Open the project <a href="${url}" target="_blank">${title}</a> in <a href="${appUrl}" target="_blank">LiveCodes</a></span>
+  <span>Open the project <a href="${shareUrl}" target="_blank">${title}</a> in <a href="${livecodesUrl}" target="_blank">LiveCodes</a>.</span>
 </div>
 `.trimStart();
 
@@ -248,7 +251,7 @@ export const createEmbedUI = async ({
   };
 
   const getIframeUrl = (data: FormData) => {
-    const iframeUrl = new URL(url);
+    const iframeUrl = new URL(shareUrl);
     iframeUrl.searchParams.set(data.lite ? 'lite' : 'embed', 'true');
 
     if (data.loading && data.loading !== 'lazy') {
@@ -285,10 +288,9 @@ export const createEmbedUI = async ({
       const options = getOptions(data);
       const formatted = JSON.stringify(options, null, 2);
       const indented = indentCode(formatted, 2);
-      // TODO use jsDelivr url
       return `
 ${containerHtml}
-<script src="${appUrl + 'sdk/livecodes.umd.js'}"></script>
+<script src="${sdkUrl}"></script>
 <script>
   const options = ${indented};
   livecodes.createPlayground("#${containerId}", options);
@@ -344,8 +346,8 @@ export default function App() {
       nonEmbeddedUrl.searchParams.delete('lite');
       const projectUrl = decodeURIComponent(nonEmbeddedUrl.href);
       return `
-<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:5px; margin: 1em 0;" src="${iframeUrl}">
-  See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${appUrl}" target="_blank">LiveCodes</a>
+<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:5px;" src="${iframeUrl}">
+  See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${livecodesUrl}" target="_blank">LiveCodes</a>.
 </iframe>
 `.trimStart();
     },
@@ -369,7 +371,7 @@ export default function App() {
       }
       const optionsAttr = escapeCode(JSON.stringify(options).replace(/'/g, '&#39;'));
       return `
-<div class="livecodes" style="height: 300px; border: 1px solid black; border-radius: 5px;" data-options='${optionsAttr}'>
+<div class="livecodes" style="height: 300px;" data-options='${optionsAttr}'>
 <pre data-lang="${config.markup.language}">${escapeCode(
         encodeHTML(config.markup.content || ''),
       )}</pre>
@@ -380,7 +382,7 @@ export default function App() {
         encodeHTML(config.script.content || ''),
       )}</pre>
 </div>
-<script defer src="${appUrl + 'sdk/livecodes.umd.js'}" data-prefill></script>
+<script defer src="${sdkUrl}" data-prefill></script>
 `.trimStart();
     },
   };
@@ -399,8 +401,8 @@ export default function App() {
       {} as FormData,
     );
 
-    url = await getUrlFn(Boolean(formData.permanentUrl));
-    urlObj = new URL(url);
+    shareUrl = await getUrlFn(Boolean(formData.permanentUrl));
+    urlObj = new URL(shareUrl);
     appUrl = urlObj.origin + urlObj.pathname;
 
     const previewInput = document.querySelector<HTMLInputElement>('input[name="embed-preview"]')!;
