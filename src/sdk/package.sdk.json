@@ -1,7 +1,7 @@
 {
   "name": "livecodes",
   "version": "0.0.2",
-  "description": "Code playground that runs in the browser",
+  "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
   "keywords": ["playground", "code", "client", "sdk", "react", "vue", "svelte", "solid", "python"],
