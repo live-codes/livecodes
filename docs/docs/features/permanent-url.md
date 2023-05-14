@@ -2,7 +2,21 @@
 
 Any specific version of LiveCodes app can be accessed through the permanent unique URL:
 
-{version}.livecodes.io (e.g. https://v4.livecodes.io)
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import CodeBlock from '@theme/CodeBlock';
+import {AppVersion} from '../../src/components/Versions.tsx';
+
+export const AppVersionLink = () => {
+const { siteConfig } = useDocusaurusContext();
+return (
+<a href={`https://v${siteConfig.customFields.appVersion}.livecodes.io`} target="\_blank">
+https://v{siteConfig.customFields.appVersion}.livecodes.io
+</a>
+);
+};
+
+`{version}.livecodes.io`  
+(e.g. <AppVersionLink />)
 
 This allows playgrounds to use a pinned version of the LiveCodes app and its dependencies and avoid any breaking changes that may occur in later versions.
 
@@ -11,14 +25,18 @@ It is also available when [sharing](./share.md) projects from the share screen.
 
 The [SDK](../sdk/) embed option [`appUrl`](../sdk/js-ts#appurl) allows specifying the URL for the app to be used.
 
-```js
-import { createPlayground } from 'livecodes';
-
+export const Code = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock language="js">
+{`import { createPlayground } from 'livecodes';\n
 createPlayground('#container', {
-  appUrl: 'https://v4.livecodes.io',
-  // other embed options
-});
-```
+${'  '}appUrl: 'https://v${siteConfig.customFields.appVersion}.livecodes.io',
+${'  '}// other embed options
+});`}
+</CodeBlock>);
+}
+
+<Code />
 
 :::caution
 

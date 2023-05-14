@@ -5,6 +5,9 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const appPkg = require('../package.json');
+const sdkPkg = require('../src/sdk/package.sdk.json');
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'LiveCodes',
@@ -16,6 +19,10 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'LiveCodes',
   projectName: 'LiveCodes',
+  customFields: {
+    appVersion: appPkg.appVersion,
+    sdkVersion: sdkPkg.version,
+  },
   presets: [
     [
       'classic',

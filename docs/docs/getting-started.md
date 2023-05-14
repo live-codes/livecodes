@@ -23,32 +23,49 @@ then you can use it like that:
 ```js title="index.js"
 import { createPlayground } from 'livecodes';
 
-createPlayground('#container', { template: 'react' });
+createPlayground('#container', {
+  template: 'react',
+  // other embed options
+});
 ```
 
 2. or you may load from CDN
 
 ESM:
 
-```html title="index.html"
-<div id="container"></div>
-<script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import CodeBlock from '@theme/CodeBlock';
 
-  createPlayground('#container', { template: 'react' });
-</script>
-```
+export const ESMCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script type="module">
+${'  '}import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${'  '}createPlayground('#container', {
+${'    '}template: 'react',
+${'    '}// other embed options
+${'  '}});
+</script>`}
+</CodeBlock>);
+}
+
+<ESMCode />
 
 UMD:
 
-```html title="index.html"
-<div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js"></script>
-<script>
-  // the UMD version provides the global object `livecodes`
-  livecodes.createPlayground('#container', { template: 'react' });
+export const UMDCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
+${' '}livecodes.createPlayground('#container', {\n${' '.repeat(4)}template: 'react',
+${'    '}// other embed options
+${' '}});
 </script>
-```
+`}
+</CodeBlock>);
+}
+
+<UMDCode />
 
 Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
 
@@ -87,6 +104,7 @@ import { createPlayground } from 'livecodes';
 const options = {
   appUrl: 'https://playground.myserver.com/',
   template: 'react',
+  // other embed options
 };
 createPlayground('#container', options);
 ```

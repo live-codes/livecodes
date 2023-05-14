@@ -124,8 +124,8 @@ const cancelRelease = async () => {
   }
 
   if (releaseTarget === 'app') {
-    const appVersion = String(Number(appPkg['app-version']) + 1);
-    appPkg['app-version'] = appVersion;
+    const appVersion = String(Number(appPkg.appVersion) + 1);
+    appPkg.appVersion = appVersion;
     if (!(await confirm({ message: `Creating App version: ${appVersion}\nProceed?` }))) {
       await cancelRelease();
     }
