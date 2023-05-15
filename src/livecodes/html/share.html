@@ -1,19 +1,27 @@
 <div id="share-screen" class="modal-container">
   <div class="modal-title">Share</div>
   <div class="modal-content">
-    <div id="share-click-to-copy" class="description light"></div>
+    <div id="share-top-text" class="description light">
+      <span id="share-permanent-url"
+        ><input id="share-permanent-url-checkbox" type="checkbox" /><label
+          for="share-permanent-url-checkbox"
+          >Permanent URL</label
+        ></span
+      >
+      <span id="share-click-to-copy"></span>
+    </div>
     <input type="text" id="share-url-input" readonly />
     <div id="share-expiry" class="share-expiry description light">
       <div class="share-short-url-expiry"><span>&nbsp;</span><a href="#">Get encoded URL</a></div>
-      <div class="share-permanent-url-expiry">
+      <div class="share-encoded-url-expiry">
         <span class="{{warnClass}}">{{urlLength}} characters</span><a href="#">Get short URL</a>
       </div>
     </div>
     <div id="share-expiry-self-hosted" class="share-expiry description light">
       <div class="share-short-url-expiry">
-        <span class="danger">Expires in 1 year</span><a href="#">Get permanent URL</a>
+        <span class="danger">Expires in 1 year</span><a href="#">Get encoded URL</a>
       </div>
-      <div class="share-permanent-url-expiry">
+      <div class="share-encoded-url-expiry">
         <span class="{{warnClass}}">{{urlLength}} characters</span><a href="#">Get short URL</a>
       </div>
     </div>

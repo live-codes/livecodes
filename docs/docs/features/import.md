@@ -69,9 +69,9 @@ If the source URL does not match one of the supported origins (GitHub, GitLab an
 
 The HTML editor is prefilled with: `This is identified as <strong>HTML</strong> code`
 
-:::
+Please note that the code should be html-encoded to avoid interference with the HTML of the page.
 
-Notice that the code should be html-encoded to avoid interference with the HTML of the page.
+:::
 
 Example:
 

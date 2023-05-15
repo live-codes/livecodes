@@ -125,6 +125,7 @@ import {
 } from './UI';
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
+import { permanentUrlService } from './services/permanent-url';
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
@@ -986,8 +987,10 @@ const share = async (
   contentOnly = true,
   urlUpdate = true,
   includeResult = false,
+  permanentUrl = false,
 ): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
+
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
@@ -995,12 +998,19 @@ const share = async (
         result: includeResult ? getCache().result : undefined,
       }))
     : '?x=code/' + compress(JSON.stringify(content));
-  const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+
+  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+
+  const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
+
   const shareURL = url + contentParam;
+
   if (urlUpdate) {
-    updateUrl(shareURL, true);
+    updateUrl(currentUrl + contentParam, true);
   }
+
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
+
   return {
     title: projectTitle + 'LiveCodes',
     url: shareURL,
@@ -1647,12 +1657,15 @@ const showVersion = () => {
   // eslint-disable-next-line no-console
   console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
   // eslint-disable-next-line no-console
-  console.log(`SDK Version: ${sdkVersion} (${repoUrl}/releases/tag/sdk-v${sdkVersion})`);
+  console.log(
+    `SDK Version: ${sdkVersion} (https://www.npmjs.com/package/livecodes/v/${sdkVersion})`,
+  );
   // eslint-disable-next-line no-console
   console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
 
   return {
-    version: appVersion,
+    appVersion,
+    sdkVersion,
     commitSHA,
   };
 };
@@ -2422,7 +2435,15 @@ const handleShare = () => {
   const createShareUI = async () => {
     modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
-    const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
+    const shareFn = (shortUrl = false, permanentUrl = false): Promise<ShareData> =>
+      share(
+        shortUrl,
+        /* contentOnly= */ true,
+        /* urlUpdate= */ false,
+        /* includeResult= */ true,
+        permanentUrl,
+      );
+    const shareContainer = await importModule.createShareContainer(shareFn, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
   };
   eventsManager.addEventListener(
@@ -2816,7 +2837,16 @@ const handleProjectInfo = () => {
 };
 
 const handleEmbed = () => {
-  const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const getUrlFn = async (permanentUrl = false) =>
+    (
+      await share(
+        /* shortUrl= */ true,
+        /* contentOnly= */ true,
+        /* urlUpdate= */ false,
+        /* includeResult= */ true,
+        permanentUrl,
+      )
+    ).url;
   const config = getConfig();
 
   const createEditorFn = async (container: HTMLElement) =>

@@ -34,7 +34,9 @@ then it can be used like that:
 ```js title="index.js"
 import { createPlayground } from 'livecodes';
 
-createPlayground('#container', { template: 'react' });
+createPlayground('#container', {
+  // embed options
+});
 ```
 
 ### CDN
@@ -43,25 +45,38 @@ Alternatively, it can just be loaded from a CDN.
 
 ESM:
 
-```html title="index.html"
-<div id="container"></div>
-<script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import CodeBlock from '@theme/CodeBlock';
 
-  createPlayground('#container', { template: 'react' });
-</script>
-```
+export const ESMCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script type="module">
+${'  '}import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${' '.repeat(2)}createPlayground('#container', {
+${' '.repeat(4)}// embed options  
+${' '.repeat(2)}});
+</script>`}
+</CodeBlock>);
+}
+
+<ESMCode />
 
 UMD:
 
-```html title="index.html"
-<div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js"></script>
-<script>
-  // the UMD version provides the global object `livecodes`
-  livecodes.createPlayground('#container', { template: 'react' });
+export const UMDCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
+${' '.repeat(2)}livecodes.createPlayground('#container', {
+${' '.repeat(4)}// embed options  
+${' '.repeat(2)}});
 </script>
-```
+`}
+</CodeBlock>);
+}
+
+<UMDCode />
 
 :::info
 

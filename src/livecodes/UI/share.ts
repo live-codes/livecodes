@@ -16,7 +16,7 @@ interface Service {
 const encode = encodeURIComponent;
 
 export const createShareContainer = async (
-  shareFn: (shortUrl: boolean) => Promise<ShareData>,
+  shareFn: (shortUrl: boolean, permanentUrl: boolean) => Promise<ShareData>,
   baseUrl: string,
   eventsManager: ReturnType<typeof createEventsManager>,
 ) => {
@@ -189,7 +189,7 @@ export const createShareContainer = async (
   const selfHosted = !allowedOrigin();
   const div = document.createElement('div');
 
-  const shareData = await shareFn(false);
+  let shareData = await shareFn(false, false);
   let shareDataShort: ShareData;
   let qrcodeImg: string;
 
@@ -205,11 +205,14 @@ export const createShareContainer = async (
     (shareContainer.querySelector('#share-expiry-self-hosted') as HTMLElement).outerHTML = '';
   }
   const items = shareContainer.querySelector<HTMLElement>('#share-links');
+  const permanentUrlCheckbox = shareContainer.querySelector(
+    '#share-permanent-url-checkbox',
+  ) as HTMLInputElement;
   const clickToCopy = shareContainer.querySelector('#share-click-to-copy') as HTMLElement;
   const input = shareContainer.querySelector<HTMLInputElement>('#share-url-input');
   const shareExpiry = shareContainer.querySelector<HTMLElement>('.share-expiry');
-  const shortUrlLink = shareExpiry?.querySelector('.share-permanent-url-expiry a') as HTMLElement;
-  const permanentUrlLink = shareExpiry?.querySelector('.share-short-url-expiry a') as HTMLElement;
+  const shortUrlLink = shareExpiry?.querySelector('.share-encoded-url-expiry a') as HTMLElement;
+  const encodedUrlLink = shareExpiry?.querySelector('.share-short-url-expiry a') as HTMLElement;
 
   const setMessage = (message: string) => {
     if (!clickToCopy) return;
@@ -223,7 +226,7 @@ export const createShareContainer = async (
     event?.preventDefault();
     setMessage('Generating URL …');
     try {
-      shareDataShort = shareDataShort || (await shareFn(true));
+      shareDataShort = shareDataShort || (await shareFn(true, permanentUrlCheckbox.checked));
       populateItems(shareDataShort, services, items);
       shareExpiry?.classList.add('short-url');
     } catch {
@@ -233,7 +236,7 @@ export const createShareContainer = async (
 
   eventsManager.addEventListener(shortUrlLink, 'click', generateShortUrl);
 
-  eventsManager.addEventListener(permanentUrlLink, 'click', (event: Event) => {
+  eventsManager.addEventListener(encodedUrlLink, 'click', (event: Event) => {
     event.preventDefault();
     populateItems(shareData, services, items);
     shareExpiry?.classList.remove('short-url');
@@ -242,7 +245,21 @@ export const createShareContainer = async (
     items!.style.visibility = 'visible';
   });
 
+  eventsManager.addEventListener(permanentUrlCheckbox, 'change', async () => {
+    shareData = await shareFn(false, permanentUrlCheckbox.checked);
+    if (shareDataShort) {
+      shareDataShort = await shareFn(true, permanentUrlCheckbox.checked);
+    }
+    const data = shareExpiry?.classList.contains('short-url') ? shareDataShort : shareData;
+    populateItems(data, services, items);
+  });
+
   eventsManager.addEventListener(input, 'click', function () {
+    copyUrl(input?.value);
+    input?.select();
+  });
+
+  eventsManager.addEventListener(clickToCopy, 'click', function () {
     copyUrl(input?.value);
     input?.select();
   });

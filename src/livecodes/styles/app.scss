@@ -1996,9 +1996,32 @@ i.arrow {
       margin-top: -2.5em !important;
     }
 
+    #share-top-text {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 0;
+      margin-top: 1.3em;
+      width: 98%;
+    }
+
+    #share-permanent-url {
+      input[type='checkbox'] {
+        margin-right: 5px;
+        transform: scale(0.8);
+      }
+
+      label {
+        display: inline;
+        font-size: unset;
+        font-weight: unset;
+        margin: unset;
+        text-align: unset;
+        width: unset;
+      }
+    }
+
     #share-click-to-copy {
-      text-align: right;
-      width: 95%;
+      cursor: pointer;
     }
 
     #share-url-input {
@@ -2021,7 +2044,7 @@ i.arrow {
     }
 
     .short-url {
-      .share-permanent-url-expiry {
+      .share-encoded-url-expiry {
         display: none !important;
       }
 

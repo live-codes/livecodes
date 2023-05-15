@@ -67,7 +67,7 @@ Type: [`string`](../api/interfaces/EmbedOptions.md#appurl)
 
 Default: `"https://livecodes.io/"`
 
-Allows the library to load the playground from a custom URL (e.g. [hosted app](../getting-started.md#hosted-app)).
+Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../getting-started.md#self-hosting), [permanent URL](../features/permanent-url.md)).
 
 ### `config`
 
@@ -361,7 +361,7 @@ Execute custom commands, including:
 await livecodes.exec('setBroadcastToken', 'my-token');
 ```
 
-- `"showVersion"`: Logs current LiveCodes version and commitSHA in the browser console.
+- `"showVersion"`: Logs the current LiveCodes app version, SDK version and commitSHA in the browser console.
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)
