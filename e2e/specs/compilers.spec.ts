@@ -1397,6 +1397,8 @@ $$.document.querySelector('#title').innerHTML = title`);
   });
 
   test('Go', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);

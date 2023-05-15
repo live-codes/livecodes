@@ -213,9 +213,8 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('Go Starter', async ({ page, getTestUrl, editor }) => {
-    test.skip(editor === 'codejar', 'please fix');
-
     test.slow();
+
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -665,9 +664,8 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Go Starter (in URL)', async ({ page, getTestUrl, editor }) => {
-    test.skip(editor === 'codejar', 'please fix');
-
     test.slow();
+
     await page.goto(getTestUrl({ template: 'go' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
