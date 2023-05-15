@@ -12,7 +12,7 @@ import { Hello, Counter } from './script';
 
 <Hello title="MDX" />
 
-![MDX Logo](http://127.0.0.1:8080/livecodes/assets/templates/mdx.svg)
+![MDX Logo]({{ __livecodes_baseUrl__ }}assets/templates/mdx.svg)
 
 <Counter />
 `.trimStart(),
