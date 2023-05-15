@@ -8,16 +8,13 @@ export const mdxStarter: Template = {
   markup: {
     language: 'mdx',
     content: `
-import Paper from '@material-ui/core/Paper';
 import { Hello, Counter } from './script';
 
-<Paper>
-  <Hello title="MDX" />
-</Paper>
+<Hello title="MDX" />
 
-![MDX Logo]({{ __livecodes_baseUrl__ }}assets/templates/mdx.svg)
+![MDX Logo](http://127.0.0.1:8080/livecodes/assets/templates/mdx.svg)
 
-<Counter variant="outlined" color="primary" />
+<Counter />
 `.trimStart(),
   },
   style: {
@@ -37,7 +34,6 @@ img {
     language: 'jsx',
     content: `
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
 
 export const Hello = (props) => <h1>Hello, {props.title || "World"}!</h1>;
 
@@ -46,17 +42,12 @@ export function Counter(props) {
   return (
     <div>
       <p>You clicked {count} times.</p>
-      <Button
-        variant={props.variant}
-        color={props.color}
-        onClick={() => setCount(count + 1)}
-      >
+      <button onClick={() => setCount(count + 1)}>
         Click me
-      </Button>
+      </button>
     </div>
   );
 }
 `.trimStart(),
   },
-  customSettings: { defaultCDN: 'skypack' },
 };
