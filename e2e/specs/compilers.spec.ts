@@ -1397,8 +1397,6 @@ $$.document.querySelector('#title').innerHTML = title`);
   });
 
   test('Go', async ({ page, getTestUrl, editor }) => {
-    test.skip(editor === 'codejar', 'please fix');
-
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -1417,7 +1415,7 @@ func main() {
 	js.Global().Get("document").Call("querySelector", "#title").Set("innerHTML", "Golang")
 }`);
 
-    await waitForResultUpdate();
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
     const resultText = await getResult().innerText('h1');
 
     expect(resultText).toContain(`Hello, Golang`);

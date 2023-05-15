@@ -225,7 +225,7 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Go Starter');
     await waitForEditorFocus(app);
 
-    await waitForResultUpdate();
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
 
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
@@ -673,7 +673,7 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await waitForResultUpdate();
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
 
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
