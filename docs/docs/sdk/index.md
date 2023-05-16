@@ -96,7 +96,7 @@ The SDK is currently provided in the following variations:
 
 ## SDK Playground!
 
-A demo page that shows the usage of the SDK can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
+A demo page that shows the usage of the SDK can be [found here](https://live-codes.github.io/livecodes-examples/sdk-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/sdk-demo.html)).
 
 Or edit the SDK playground in LiveCodes. How meta! :)
 

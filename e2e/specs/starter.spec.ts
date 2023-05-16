@@ -213,9 +213,8 @@ test.describe('Starter Templates from UI', () => {
   });
 
   test('Go Starter', async ({ page, getTestUrl, editor }) => {
-    test.skip(editor === 'codejar', 'please fix');
-
     test.slow();
+
     await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
@@ -225,7 +224,7 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Go Starter');
     await waitForEditorFocus(app);
 
-    await waitForResultUpdate();
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
 
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
@@ -665,15 +664,14 @@ test.describe('Starter Templates from URL', () => {
   });
 
   test('Go Starter (in URL)', async ({ page, getTestUrl, editor }) => {
-    test.skip(editor === 'codejar', 'please fix');
-
     test.slow();
+
     await page.goto(getTestUrl({ template: 'go' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
-    await waitForResultUpdate();
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
 
     await getResult().click('text=Click me');
     await getResult().click('text=Click me');
