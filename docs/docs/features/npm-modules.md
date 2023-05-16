@@ -171,6 +171,18 @@ import { createRoot } from 'react-dom/client'; // React from jspm.dev
 
 :::
 
+### Change Default CDN
+
+Default CDN can be changed on project-level using the [custom settings](../advanced/custom-settings.md) property `defaultCDN` which accepts a string representing one of the CDN aliases listed above.
+
+Example: This assigns [Skypack](https://www.skypack.dev/) as the default CDN for all imports of the project
+
+```json
+{
+  "defaultCDN": "skypack"
+}
+```
+
 ### Package Version
 
 Most CDN providers allow specifying package version using the format: <br />
