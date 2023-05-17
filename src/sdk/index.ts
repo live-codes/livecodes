@@ -54,14 +54,18 @@ export const createPlayground = async (
   }
 
   if (typeof config === 'string') {
-    url.searchParams.set('config', config);
-  } else if (typeof config === 'object' && Object.keys(config).length > 0) {
     try {
-      const encoded = btoa(JSON.stringify(config));
-      url.searchParams.set('config', 'data:application/json;base64,' + encoded);
+      new URL(config);
+      url.searchParams.set('config', config);
     } catch {
-      throw new Error('Invalid configuration object.');
+      throw new Error(`"config" is not a valid URL or configuration object.`);
     }
+  } else if (typeof config === 'object') {
+    if (Object.keys(config).length > 0) {
+      url.searchParams.set('config', 'sdk');
+    }
+  } else {
+    throw new Error(`"config" is not a valid URL or configuration object.`);
   }
 
   if (template) {
@@ -122,26 +126,38 @@ export const createPlayground = async (
       frame.style.margin = '0';
       frame.style.border = '0';
       frame.style.borderRadius = containerElement.style.borderRadius;
-      frame.src = url.href;
-      frame.onload = () => {
-        addEventListener(
-          'message',
-          function readyHandler(
-            e: MessageEventInit<{
-              type: CustomEvents['ready'];
-              method: keyof API;
-              payload?: any;
-            }>,
+      addEventListener(
+        'message',
+        function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
+          if (
+            e.source !== frame.contentWindow ||
+            e.origin !== origin ||
+            e.data?.type !== 'livecodes-get-config'
           ) {
-            if (e.source !== frame.contentWindow || e.origin !== origin) return;
-            if (e.data?.type === 'livecodes-ready') {
-              removeEventListener('message', readyHandler);
-              livecodesReady = true;
-            }
-          },
-        );
+            return;
+          }
+          removeEventListener('message', configHandler);
+          frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
+        },
+      );
+      addEventListener(
+        'message',
+        function readyHandler(e: MessageEventInit<{ type: CustomEvents['ready'] }>) {
+          if (
+            e.source !== frame.contentWindow ||
+            e.origin !== origin ||
+            e.data?.type !== 'livecodes-ready'
+          ) {
+            return;
+          }
+          removeEventListener('message', readyHandler);
+          livecodesReady = true;
+        },
+      );
+      frame.onload = () => {
         resolve(frame);
       };
+      frame.src = url.href;
       containerElement.innerHTML = '';
       containerElement.appendChild(frame);
     });

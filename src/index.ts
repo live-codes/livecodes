@@ -1,4 +1,5 @@
 /* eslint-disable import/no-internal-modules */
+import type { Config, CustomEvents } from './livecodes/models';
 import { shareService } from './livecodes/services/share';
 import { livecodes, params, isEmbed, loadingParam, clickToLoad, loading } from './livecodes/main';
 import { customEvents } from './livecodes/events/custom-events';
@@ -118,17 +119,18 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-const decodeConfig = (configParam: string | null) => {
-  const dataUrlPrefix = 'data:application/json;base64,';
-  if (configParam && configParam.startsWith(dataUrlPrefix)) {
-    try {
-      const value = configParam.replace(dataUrlPrefix, '');
-      return JSON.parse(atob(value));
-    } catch (err) {
-      //
-    }
-  }
-  return {};
-};
-
-livecodes('#livecodes', decodeConfig(params.get('config')));
+if (isEmbed && params.get('config') === 'sdk') {
+  addEventListener(
+    'message',
+    function configHandler(
+      e: MessageEventInit<{ type: CustomEvents['config']; payload: Partial<Config> }>,
+    ) {
+      if (e.source !== parent || e.data?.type !== customEvents.config) return;
+      removeEventListener('message', configHandler);
+      livecodes('#livecodes', e.data.payload);
+    },
+  );
+  parent.postMessage({ type: customEvents.getConfig }, '*');
+} else {
+  livecodes('#livecodes');
+}
