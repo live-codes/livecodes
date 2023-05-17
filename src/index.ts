@@ -119,11 +119,11 @@ window.addEventListener(customEvents.destroy, () => {
 });
 
 const decodeConfig = (configParam: string | null) => {
-  const dataUrlPrefix = 'data%3Aapplication%2Fjson%3Bbase64%2C';
+  const dataUrlPrefix = 'data:application/json;base64,';
   if (configParam && configParam.startsWith(dataUrlPrefix)) {
     try {
-      const decoded = decodeURIComponent(configParam.replace(dataUrlPrefix, ''));
-      return JSON.parse(atob(decoded));
+      const value = configParam.replace(dataUrlPrefix, '');
+      return JSON.parse(atob(value));
     } catch (err) {
       //
     }

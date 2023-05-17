@@ -426,11 +426,7 @@ describe('loadParamConfig', () => {
     const output: Partial<Config> = loadParamConfig(defaultConfig, {
       mode: 'full',
     });
-    expect(output.tools).toEqual({
-      enabled: 'all',
-      active: '',
-      status: 'closed',
-    });
+    expect(output.tools).toEqual(undefined);
   });
 
   test('?mode=result&console=closed', () => {

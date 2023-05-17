@@ -25,7 +25,7 @@ export const buildConfig = (appConfig: Partial<Config>) => {
   // get query string params
   const params = getParams();
 
-  const paramsConfig = upgradeAndValidate(loadParamConfig(config, params));
+  const { version, ...paramsConfig } = upgradeAndValidate(loadParamConfig(config, params));
 
   config = {
     ...config,
@@ -207,14 +207,23 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   // ?compiled=open&console=open
   // ?console=none&compiled=open
   // ?tools=tests,console|open
-  const isToolsDisabled = params.tools === 'none' || (params.tools as any) === false;
+  const allTools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
+  const toolsNotSpecified =
+    !params.tools && allTools.map((t) => params[t]).filter(Boolean).length === 0;
+  const isToolsDisabled =
+    params.tools === 'none' ||
+    (params.tools as any) === false ||
+    params.mode === 'editor' ||
+    params.mode === 'codeblock' ||
+    (params.mode === 'result' && toolsNotSpecified);
   if (isToolsDisabled) {
     paramsConfig.tools = { enabled: [], active: '', status: 'none' };
+  } else if (toolsNotSpecified) {
+    // do not add
   } else {
     paramsConfig.tools = cloneObject(defaultConfig.tools);
     let status: ToolsPaneStatus | undefined;
 
-    const allTools: Array<Tool['name']> = ['console', 'compiled', 'tests'];
     const [paramToolsList, paramToolsStatus] = params.tools?.split('|') || ['', ''];
     const paramTools = paramToolsList
       .split(',')
