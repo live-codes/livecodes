@@ -3759,12 +3759,7 @@ const initializeApp = async (
 
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
-  setConfig(
-    buildConfig({
-      ...getConfig(),
-      ...appConfig,
-    }),
-  );
+  setConfig(buildConfig(appConfig));
 
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });

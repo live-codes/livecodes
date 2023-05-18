@@ -20,6 +20,9 @@ export const buildConfig = (appConfig: Partial<Config>) => {
   let config: Config = {
     ...defaultConfig,
     ...userConfig,
+    ...(userConfig.mode === 'result' && userConfig.tools == null
+      ? { tools: { enabled: [], active: '', status: 'none' } }
+      : {}),
   };
 
   // get query string params
