@@ -69,9 +69,7 @@ if (isEmbed) {
   }
 }
 
-let loadTriggered = false;
 function load() {
-  if (loadTriggered) return;
   clickToLoadEl.classList.remove('visible');
   document.querySelector('.preview')?.classList.add('hidden');
   setTimeout(() => {
@@ -85,7 +83,6 @@ function load() {
     }, 300);
   }, 500);
   window.dispatchEvent(new Event(customEvents.load));
-  loadTriggered = true;
 }
 
 function resize() {
