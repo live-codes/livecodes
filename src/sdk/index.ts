@@ -80,9 +80,9 @@ export const createPlayground = async (
   url.searchParams.set('loading', loading);
   url.searchParams.set('view', view);
 
-  let livecodesReady = false;
   let destroyed = false;
   const alreadyDestroyedMessage = 'Cannot call API methods after calling `destroy()`.';
+
   const createIframe = () =>
     new Promise<HTMLIFrameElement>((resolve) => {
       if (!containerElement) return;
@@ -140,20 +140,6 @@ export const createPlayground = async (
           frame.contentWindow?.postMessage({ type: 'livecodes-config', payload: config }, origin);
         },
       );
-      addEventListener(
-        'message',
-        function readyHandler(e: MessageEventInit<{ type: CustomEvents['ready'] }>) {
-          if (
-            e.source !== frame.contentWindow ||
-            e.origin !== origin ||
-            e.data?.type !== 'livecodes-ready'
-          ) {
-            return;
-          }
-          removeEventListener('message', readyHandler);
-          livecodesReady = true;
-        },
-      );
       frame.onload = () => {
         resolve(frame);
       };
@@ -164,20 +150,32 @@ export const createPlayground = async (
 
   const iframe = await createIframe();
 
-  const delay = (duration = 100) =>
-    new Promise((resolve) => {
-      setTimeout(resolve, duration);
-    });
+  const livecodesReady: Promise<void> & { settled?: boolean } = new Promise((resolve) => {
+    addEventListener(
+      'message',
+      function readyHandler(e: MessageEventInit<{ type: CustomEvents['ready'] }>) {
+        if (
+          e.source !== iframe.contentWindow ||
+          e.origin !== origin ||
+          e.data?.type !== 'livecodes-ready'
+        ) {
+          return;
+        }
+        removeEventListener('message', readyHandler);
+        resolve();
+        livecodesReady.settled = true;
+      },
+    );
+  });
 
-  const loadLivecodes = (): Promise<void> =>
+  const loadLivecodes = () =>
     destroyed
       ? Promise.reject(alreadyDestroyedMessage)
-      : new Promise(async (resolve) => {
+      : new Promise<void>(async (resolve) => {
+          if (livecodesReady.settled) resolve();
           const message: { type: CustomEvents['load'] } = { type: 'livecodes-load' };
           iframe.contentWindow?.postMessage(message, origin);
-          while (!livecodesReady) {
-            await delay();
-          }
+          await livecodesReady;
           resolve();
         });
 
@@ -186,9 +184,7 @@ export const createPlayground = async (
       if (destroyed) {
         return reject(alreadyDestroyedMessage);
       }
-      if (!livecodesReady) {
-        await loadLivecodes();
-      }
+      await loadLivecodes();
       addEventListener(
         'message',
         function handler(
@@ -292,7 +288,7 @@ export const createPlayground = async (
     onChange: (fn) => onChange(fn),
     exec: (command, ...args) => callAPI('exec', [command, ...args]),
     destroy: () => {
-      if (!livecodesReady) {
+      if (!livecodesReady.settled) {
         if (destroyed) {
           return Promise.reject(alreadyDestroyedMessage);
         }
