@@ -18,7 +18,7 @@ You can get the code to embed any project open in the standalone app using the [
 
 ### SDK
 
-LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) and communication with playgrounds.
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy [embedding](./features/embeds.md) and communication with playgrounds.
 
 1. Install from npm.
 

@@ -12,7 +12,7 @@ Any project can be exported to:
 - **Source (ZIP):** a zip file containing the project configuration file as JSON, in addition to the source code in separate files. This can be useful for opening the code in an external IDE.
 - **Result (HTML):** [result page](./result.md) as a single html file. Can be used for the purpose of demo or deploy.
 - **GitHub gist** (_requires login with [GitHub account](./github-integration.md)_): creates a **public** GitHub gist on the user's GitHub account containing the source code as separate files.
-- **CodePen:** creates a [CodePen](https://codepen.io/) prefilled with the project code. If the used [languages/frameworks](./../languages/index.md) are not supported in CodePen (e.g. Astro, Svelte, Python, ...etc), the compiled code is exported so that it continues to work there. [Bare module imports](./npm-modules.md) are converted to esm imports, for example:
+- **CodePen:** creates a [CodePen](https://codepen.io/) prefilled with the project code. If the used [languages/frameworks](./../languages/index.md) are not supported in CodePen (e.g. Astro, Svelte, Python, ...etc), the compiled code is exported so that it continues to work there. [Bare module imports](./module-resolution.md) are converted to esm imports, for example:
   ```js
   import React from 'react';
   ```

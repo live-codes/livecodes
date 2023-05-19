@@ -165,7 +165,7 @@ Type: [`[key: string]: string`](../api/interfaces/Config.md#imports)
 
 Default: `{}`
 
-Allows specifying custom [import maps](https://github.com/WICG/import-maps) for [module imports](../features/npm-modules.md).
+Allows specifying custom [import maps](https://github.com/WICG/import-maps) for [module imports](../features/module-resolution.md).
 
 For example, adding this JavaScript code:
 

@@ -4,4 +4,6 @@ LiveCodes is released under the permissive [MIT License](https://github.com/live
 
 Third party packages used in LiveCodes and their licenses are [listed here](https://github.com/live-codes/livecodes/blob/develop/vendor-licenses.md).
 
-Please consider [sponsoring LiveCodes](./sponsor.md) if you find it useful, to support its maintenance and continued development.
+The source code is available on [GitHub](https://github.com/live-codes/livecodes).
+
+Please consider [sponsoring LiveCodes](./sponsor.md) to support its maintenance and continued development.
