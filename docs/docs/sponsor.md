@@ -20,7 +20,7 @@ Payments can be done via:
 
 - [GitHub Sponsors](https://github.com/sponsors/hatemhosny/)
 - [PayPal](https://paypal.me/hatemhosni)
-- [Ko-fi](ko-fi.com/hatemhosny)
+- [Ko-fi](https://ko-fi.com/hatemhosny)
 
 Both monthly-recurring sponsorships and one-time donations are accepted. Recurring sponsorships are entitled to logo placements as specified in [Sponsorship Benefits](#sponsorship-benefits).
 
