@@ -27,12 +27,12 @@
 }
 
 .steps {
+  background-color: rgb(250, 250, 250);
   border: 1px solid grey;
   border-radius: 3px;
-  background-color: rgb(250, 250, 250);
+  margin-bottom: 2em;
   padding: 0.5em;
   padding-left: 2em;
-  margin-bottom: 2em;
 }
 
 .featureSvg {

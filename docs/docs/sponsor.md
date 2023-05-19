@@ -70,9 +70,13 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Backers (< USD$100/mo):
+#### Backers (USD$50/mo):
 
 - Name listed in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
+
+#### Friends (USD$5/mo):
+
+- Thank you. Your support is really appreciated.
 
 If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">reach out to us</a>. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!
