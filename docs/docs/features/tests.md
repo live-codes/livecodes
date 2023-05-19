@@ -5,7 +5,6 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 ## Overview
 
 Automated tests can be added for projects. The tests are run in the context of the result web page.
-The "Tests" panel is located in the "[Tools pane](./tools-pane.md)" below the result page.
 
 The automated tests are run by the <a href="https://jestjs.io/" target="_blank">Jest testing framework</a>, which runs totally in the browser (using <a href="https://github.com/kvendrik/jest-lite" target="_blank">jest-lite</a>). In addition, other [testing libraries](#supported-testing-libraries) are also supported.
 
@@ -34,6 +33,10 @@ Demo: (template=jest-react)
 
 <LiveCodes template="jest-react" params={{tests: 'open'}}></LiveCodes>
 
+## Tests Panel
+
+The "Tests" panel is located in the "[Tools pane](./tools-pane.md)" below the result page.
+
 In the tests panel, you can find:
 
 - "Run" button: To run tests (keyboard shortcut: Ctrl/Cmd + Alt + t).
@@ -41,6 +44,16 @@ In the tests panel, you can find:
 - "Reset" button: Resets test results.
 - "Edit" button: Opens a code editor to edit tests (not in embeds).
 - Test results.
+
+:::info Note
+
+Please note that the tests panel are hidden by default in [embedded playgrounds](./embeds.md) unless the [project has tests](../configuration/configuration-object.md#tests). In such case, the panel is added to the [tools pane](./tools-pane.md). However, the test editor is not shown.
+
+The [SDK](../sdk/) can control the visibility of the different tools in the tools pane (see [`tools`](../configuration/configuration-object.md#tools) property of the [configuration object](../configuration/configuration-object.md)).
+
+The tests panel and the test editor are always shown in the [full standalone app](../getting-started.md#hosted-app).
+
+:::
 
 ## Supported Languages
 
@@ -141,7 +154,7 @@ import { assert } from 'chai';
 
 ## Examples
 
-Usage examples are provided in the starter templates (<a href="/?template=jest" target="_blank">Jest Starter</a> and <a href="/?template=jest-react" target="_blank">Jest/React Starter</a>).
+Usage examples are provided in the starter templates (<a href="pathname:///../?template=jest" target="_blank">Jest Starter</a> and <a href="pathname:///../?template=jest-react" target="_blank">Jest/React Starter</a>).
 
 :::caution
 
