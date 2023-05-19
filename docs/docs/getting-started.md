@@ -2,15 +2,23 @@
 
 There are multiple options:
 
-### Hosted App
+## Standalone App
 
-The easiest way to get started with LiveCodes is to use the hosted app (https://livecodes.io).
+The easiest way to get started with LiveCodes is to just use the app (https://livecodes.io).
 
-The app is packed with [features](./features/index.md) and offers various ways to [import code](./features/import.md).
+It is packed with [features](./features/index.md) and offers various ways to [import code](./features/import.md).
+
+## Embedded Playgrounds
+
+LiveCodes playgrounds can be easily embedded into any web page. This can be achieved using:
+
+### App Embed Screen
+
+You can get the code to embed any project open in the standalone app using the [embed screen](./features/embeds.md). The UI allows setting embed options and shows a preview of the embedded playground.
 
 ### SDK
 
-LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) and communication with playgrouds.
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) and communication with playgrounds.
 
 1. Install from npm.
 
@@ -69,7 +77,7 @@ ${' '}});
 
 Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
 
-### Self-Hosting
+## Self-Hosting
 
 LiveCodes can be hosted on any static file server or CDN.
 

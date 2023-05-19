@@ -14,6 +14,8 @@ export const getImports = (code: string) =>
   ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
 const needsBundler = (mod: string) =>
+  !mod.startsWith('https://deno.bundlejs.com/') &&
+  !mod.startsWith('https://edge.bundlejs.com/') &&
   !mod.endsWith('#nobundle') &&
   (mod.startsWith('https://deno.land/') ||
     mod.startsWith('https://github.com/') ||

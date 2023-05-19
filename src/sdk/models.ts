@@ -900,6 +900,8 @@ export type UrlQueryParams = Partial<
 >;
 
 export interface CustomEvents {
+  getConfig: 'livecodes-get-config';
+  config: 'livecodes-config';
   load: 'livecodes-load';
   appLoaded: 'livecodes-app-loaded';
   ready: 'livecodes-ready';

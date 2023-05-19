@@ -58,7 +58,7 @@ Of course, the app can be still used as a REPL with the output seen in the integ
 
 ### Powerful SDK
 
-The LiveCodes app ([hosted](./getting-started.md#hosted-app) or [self-hosted](./getting-started.md#self-hosting)) can be [embedded](./features/embeds.md) in any web page. The provided [library](./getting-started.md#npm-package) provides a powerful [SDK](./sdk/index.md) that allows the embedding page to interact with the playground (e.g. run, get/set source code, format, get result page or compiled code, get share URL, listen to changes, run tests, get test results, change layout, etc.). This enables other apps to be built on top of LiveCodes.
+The LiveCodes app ([standalone](./getting-started.md#standalone-app) or [self-hosted](./getting-started.md#self-hosting)) can be [embedded](./features/embeds.md) in any web page. The provided [library](./getting-started.md#npm-package) provides a powerful [SDK](./sdk/index.md) that allows the embedding page to interact with the playground (e.g. run, get/set source code, format, get result page or compiled code, get share URL, listen to changes, run tests, get test results, change layout, etc.). This enables other apps to be built on top of LiveCodes.
 
 Your imagination is the limit!
 

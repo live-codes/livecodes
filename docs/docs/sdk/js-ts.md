@@ -12,7 +12,7 @@ Please refer to the [SDK installation](./index.md#installation) section.
 
 :::info
 
-In the full [standalone app](../getting-started.md#hosted-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
+In the full [standalone app](../getting-started.md#standalone-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
 
 :::
 

@@ -1,4 +1,5 @@
 /* eslint-disable import/no-internal-modules */
+import type { Config, CustomEvents } from './livecodes/models';
 import { shareService } from './livecodes/services/share';
 import { livecodes, params, isEmbed, loadingParam, clickToLoad, loading } from './livecodes/main';
 import { customEvents } from './livecodes/events/custom-events';
@@ -68,9 +69,7 @@ if (isEmbed) {
   }
 }
 
-let loadTriggered = false;
 function load() {
-  if (loadTriggered) return;
   clickToLoadEl.classList.remove('visible');
   document.querySelector('.preview')?.classList.add('hidden');
   setTimeout(() => {
@@ -84,7 +83,6 @@ function load() {
     }, 300);
   }, 500);
   window.dispatchEvent(new Event(customEvents.load));
-  loadTriggered = true;
 }
 
 function resize() {
@@ -118,17 +116,18 @@ window.addEventListener(customEvents.destroy, () => {
   document.head.innerHTML = '';
 });
 
-const decodeConfig = (configParam: string | null) => {
-  const dataUrlPrefix = 'data%3Aapplication%2Fjson%3Bbase64%2C';
-  if (configParam && configParam.startsWith(dataUrlPrefix)) {
-    try {
-      const decoded = decodeURIComponent(configParam.replace(dataUrlPrefix, ''));
-      return JSON.parse(atob(decoded));
-    } catch (err) {
-      //
-    }
-  }
-  return {};
-};
-
-livecodes('#livecodes', decodeConfig(params.get('config')));
+if (isEmbed && params.get('config') === 'sdk') {
+  addEventListener(
+    'message',
+    function configHandler(
+      e: MessageEventInit<{ type: CustomEvents['config']; payload: Partial<Config> }>,
+    ) {
+      if (e.source !== parent || e.data?.type !== customEvents.config) return;
+      removeEventListener('message', configHandler);
+      livecodes('#livecodes', e.data.payload);
+    },
+  );
+  parent.postMessage({ type: customEvents.getConfig }, '*');
+} else {
+  livecodes('#livecodes');
+}
