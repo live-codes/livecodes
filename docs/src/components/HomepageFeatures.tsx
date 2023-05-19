@@ -129,8 +129,8 @@ const FeatureList3: FeatureItem[] = [
     description: (
       <>
         Projects are private by default. The code you write in LiveCodes never leaves your computer,
-        unless you choose to share, export or sync it. No cookies are used. User data is stored in
-        the browser. <Link to="./features/security">Security</Link> is taken seriously.
+        unless you choose to share, export or sync it. User data is stored in the browser.{' '}
+        <Link to="./features/security">Security</Link> is taken seriously.
       </>
     ),
   },
