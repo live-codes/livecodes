@@ -49,6 +49,9 @@ describe('Import map', () => {
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
     import {keymap} from 'mylib'
@@ -58,6 +61,9 @@ describe('Import map', () => {
     import { EditorState, EditorView, basicSetup } from 'https://jspm.dev/@codemirror/basic-setup';
     import fp from "https://unpkg.com/lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
     import {keymap} from 'https://someurl/path/module'
@@ -66,6 +72,7 @@ describe('Import map', () => {
     const processedCode = replaceImports(code, config);
     expect(processedCode).toEqual(expectedCode);
   });
+
   test('create import map - defaultCDN', () => {
     const config = {
       imports: {
@@ -110,6 +117,9 @@ describe('Import map', () => {
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
     import {keymap} from 'mylib'
@@ -119,6 +129,9 @@ describe('Import map', () => {
     import { EditorState, EditorView, basicSetup } from 'https://cdn.skypack.dev/@codemirror/basic-setup';
     import fp from "https://unpkg.com/lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
     import {keymap} from 'https://someurl/path/module'
