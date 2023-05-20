@@ -1,4 +1,4 @@
-import { hasStyleImports, replaceStyleImports } from '../../compiler';
+import { replaceStyleImports } from '../../compiler';
 import type {
   CompileOptions,
   CompilerFunction,
@@ -30,18 +30,15 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
     }
   };
 
-  const getEnabledPluginNames = (code: string, config: Config) => {
+  const getEnabledPluginNames = (config: Config) => {
     const configPlugins = config.processors.filter((p) => getSpecs(p)?.isPostcssPlugin);
     const isEnabled = (pluginName: Processor) =>
-      (processorIsEnabled(pluginName, config) && configPlugins.includes(pluginName)) ||
-      (pluginName === 'postcssImportUrl' &&
-        hasStyleImports(code) &&
-        config.customSettings.postcssImportUrl !== false);
+      processorIsEnabled(pluginName, config) && configPlugins.includes(pluginName);
     return processors.map((plugin) => plugin.name).filter(isEnabled);
   };
 
-  const getPlugins = (code: string, config: Config, baseUrl: string, options: CompileOptions) => {
-    const pluginNames = getEnabledPluginNames(code, config);
+  const getPlugins = (config: Config, baseUrl: string, options: CompileOptions) => {
+    const pluginNames = getEnabledPluginNames(config);
     pluginNames.forEach((pluginName) => loadPlugin(pluginName, baseUrl));
     return processors
       .filter((specs) => pluginNames.includes(specs.name))
@@ -53,8 +50,8 @@ const getSpecs = (pluginName: Processor) => processors.find((specs) => specs.nam
 
   return async function process(code, { config, baseUrl, options }) {
     if (!config || !baseUrl) return { code, info: {} };
-    const plugins = getPlugins(code, config, baseUrl, options);
-    const pluginNames = getEnabledPluginNames(code, config);
+    const plugins = getPlugins(config, baseUrl, options);
+    const pluginNames = getEnabledPluginNames(config);
     if (pluginNames.includes('tokencss')) {
       code = '@inject "tokencss:base";\n' + code;
     }

@@ -53,7 +53,6 @@ export const postcssImportUrl: ProcessorSpecs = {
       }),
   },
   editor: 'style',
-  hidden: true,
 };
 
 export const postcssPresetEnv: ProcessorSpecs = {
