@@ -53,3 +53,10 @@ Example:
 ## Auto-Prefill from page DOM
 
 TODO...
+
+## Related
+
+- [Import](./import.md)
+- [Templates](./templates.md)
+- [Configuration](../configuration/)
+- [SDK](../sdk/)

@@ -53,3 +53,9 @@ console.log(lodash.VERSION); // -> 4.17.21
 ```
 
 :::
+
+## Related
+
+- [Embeds](./embeds.md)
+- [Share](./share.md)
+- [SDK](../sdk/)

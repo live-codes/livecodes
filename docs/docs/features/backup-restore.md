@@ -27,3 +27,8 @@ When restoring a backup, there are 2 options for managing the current data:
 1. The current data can be deleted and replaced by the backup data. It cannot then be retrieved, so you may want to back it up first.
 
 2. The backup data can be merged with the current data with best effort to preserve both.
+
+## Related
+
+- [Sync](./sync.md)
+- [Export](./export.md)
