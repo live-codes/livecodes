@@ -171,7 +171,7 @@ The extension of the style editor language can also be used, in addition to `.cs
 
 ### Type
 
-[Processor](../features/css-processors.md)
+[Processor](../features/css.md#css-processors)
 
 ### Editor
 

@@ -25,7 +25,6 @@ const sidebars = {
             'features/projects',
             'features/templates',
             'features/css',
-            'features/css-processors',
             'features/result',
             'features/external-resources',
             'features/tools-pane',

@@ -149,7 +149,7 @@ Type: [`Processor[]`](../api/modules#processor)
 
 Default: `[]`
 
-List of enabled [CSS processors](../features/css-processors.md).
+List of enabled [CSS processors](../features/css.md#css-processors).
 
 ### `customSettings`
 
