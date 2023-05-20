@@ -33,3 +33,13 @@ However, [**self-hosted apps**](../getting-started.md#self-hosting) use the free
 QR code can be generated for the share URL. This can then be scanned by any QR code scanner (e.g. mobile/tablet camera) to load the project on other devices without having to send the link. Please note that generating QR code also requires generating a short URL (code is sent to the share service - see above).
 
 ![LiveCodes Share - QR code](../../static/img/screenshots/share-qrcode.jpg)
+
+## Related
+
+- [Export](./export.md)
+- [Import](./import.md)
+- [Deploy](./deploy.md)
+- [Broadcast](./broadcast.md)
+- [Backup / Restore](./backup-restore.md)
+- [Sync](./sync.md)
+- [Permanent URL](./permanent-url.md)

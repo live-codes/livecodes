@@ -38,9 +38,9 @@ test.describe('Import from UI', () => {
       const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
       await app.click('[aria-label="Menu"]');
-      await app.click('text=Import');
-      await app.fill('text=URL', url);
-      await app.click('button:has-text("Import"):visible');
+      await app.click('text="Import …"');
+      await app.fill('#code-url', url);
+      await app.click('button:has-text("Import from URL"):visible');
 
       await waitForResultUpdate();
       const titleText = await getResult().innerText('h1');
@@ -55,9 +55,9 @@ test.describe('Import from UI', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Menu"]');
-    await app.click('text=Import');
-    await app.fill('text=URL', githubRepo);
-    await app.click('button:has-text("Import"):visible');
+    await app.click('text="Import …"');
+    await app.fill('#code-url', githubRepo);
+    await app.click('button:has-text("Import from URL"):visible');
 
     await waitForResultUpdate();
     const titleText = await getResult().innerText('h1');
@@ -71,9 +71,9 @@ test.describe('Import from UI', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Menu"]');
-    await app.click('text=Import');
-    await app.fill('text=URL', githubFile);
-    await app.click('button:has-text("Import"):visible');
+    await app.click('text="Import …"');
+    await app.fill('#code-url', githubFile);
+    await app.click('button:has-text("Import from URL"):visible');
 
     await waitForResultUpdate();
     const titleText = await getResult().innerText('h1');
@@ -86,9 +86,9 @@ test.describe('Import from UI', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Menu"]');
-    await app.click('text=Import');
-    await app.fill('text=URL', gitlabRepo);
-    await app.click('button:has-text("Import"):visible');
+    await app.click('text="Import …"');
+    await app.fill('#code-url', gitlabRepo);
+    await app.click('button:has-text("Import from URL"):visible');
 
     await waitForResultUpdate();
     const titleText = await getResult().innerText('h1');
@@ -101,9 +101,9 @@ test.describe('Import from UI', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Menu"]');
-    await app.click('text=Import');
-    await app.fill('text=URL', gitlabFile);
-    await app.click('button:has-text("Import"):visible');
+    await app.click('text="Import …"');
+    await app.fill('#code-url', gitlabFile);
+    await app.click('button:has-text("Import from URL"):visible');
 
     await waitForResultUpdate();
     const titleText = await getResult().innerText('h1');
@@ -116,9 +116,9 @@ test.describe('Import from UI', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Menu"]');
-    await app.click('text=Import');
-    await app.fill('text=URL', rawCode);
-    await app.click('button:has-text("Import"):visible');
+    await app.click('text="Import …"');
+    await app.fill('#code-url', rawCode);
+    await app.click('button:has-text("Import from URL"):visible');
 
     await waitForResultUpdate();
     const titleText = await getResult().innerText('h1');
@@ -131,7 +131,7 @@ test.describe('Import from UI', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click('[aria-label="Menu"]');
-    await app.click('text=Import');
+    await app.click('text="Import …"');
     await app.click('text=Import Project JSON');
     await app.fill('#json-url', jsonURL);
     await app.click('button:has-text("Import project from URL"):visible');

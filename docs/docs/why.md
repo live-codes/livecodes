@@ -1,8 +1,6 @@
 # Why Another Playground?
 
-## Introduction
-
-There are great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/), [CodeSandbox](https://codesandbox.io/), [Replit](https://replit.com/) and many others, which LiveCodes does not aim to replace or compete with. On the contrary, it aims to integrate with as many of these services as their APIs allow (e.g. import and export).
+There are great products like [CodePen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [JS Bin](https://jsbin.com/), [CodeSandbox](https://codesandbox.io/), [Replit](https://replit.com/) and many others, which LiveCodes does not aim to replace or compete with. On the contrary, it aims to [integrate](./features/integrations.md) with as many of these services as their APIs allow.
 
 ## What makes LiveCodes different?
 
@@ -24,7 +22,7 @@ Currently, there are 80+ languages/frameworks supported. These include:
 
 For a full list check the [Languages](./languages/index.md) section.
 
-This provides a wide variety of options. Generally, if you are a developer (or want to be one), there is a big chance you will find something interesting to do with LiveCodes.
+Generally, if you are a developer (or want to be one), there is a big chance you will find something interesting to do with LiveCodes.
 
 ### Client-Side!
 
@@ -44,7 +42,7 @@ LiveCodes does NOT aim to be a social coding platform. It will stay as a backend
 
 ### Build-Free Development Environment
 
-LiveCodes provides many of the tools you may already be using. These include Monaco editor (that powers [VS Code](https://code.visualstudio.com/)), [Prettier](https://prettier.io/), [Emmet](https://emmet.io/), [Babel](https://babeljs.io/), [TypeScript](https://www.typescriptlang.org/), [SCSS](https://sass-lang.com/), [Less](https://lesscss.org/), [PostCSS](https://postcss.org/), [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/), among others. [NPM modules](./features/npm-modules.md) can be imported as usual. All that runs seamlessly in the browser without any explicit build step. It feels like a very light-weight version of your own local development environment with the keyboard shortcuts, intellisense and code navigation features.
+LiveCodes provides many of the tools you may already be using. These include Monaco editor (that powers [VS Code](https://code.visualstudio.com/)), [Prettier](https://prettier.io/), [Emmet](https://emmet.io/), [Babel](https://babeljs.io/), [TypeScript](https://www.typescriptlang.org/), [SCSS](https://sass-lang.com/), [Less](https://lesscss.org/), [PostCSS](https://postcss.org/), [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/), among others. [NPM modules](./features/module-resolution.md) can be imported as usual. All that runs seamlessly in the browser without any explicit build step. It feels like a very light-weight version of your own local development environment with the keyboard shortcuts, intellisense and code navigation features.
 
 It just works™ without having to `npm install` anything. Not even on the server (because there is no server!).
 

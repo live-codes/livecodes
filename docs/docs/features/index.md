@@ -10,6 +10,8 @@ _LiveCodes_ is an open-source, client-side, code playground that runs in the bro
 
 ![LiveCodes screenshot](../../static/img/screenshots/react-template.png)
 
+In this page, a quick overview of the important features are presented. A more detailed description of each feature is described in the following sections.
+
 ## Powerful Editor
 
 The default code editor is the powerful editor that powers [VS Code](https://code.visualstudio.com/), featuring code-completion, go-to-definition, multi-cursor support and other powerful features you got used to. The editor is very [customizable](./editor-settings.md). It supports [keyboard shortcuts](./keyboard-shortcuts.md), [code formatting](./code-format.md), [Emmet abbreviations](./editor-settings#emmet) and even [Vim and Emacs bindings](./editor-settings.md#editor-modes).
@@ -20,7 +22,7 @@ The responsive layout allows working on devices with different screen sizes. On 
 
 ## External code/libraries
 
-[External scripts/stylesheets](./external-resources.md) can be added to the web page. There is a UI screen that helps you search for and add NPM libraries and google fonts. Moreover, [NPM modules can be imported](./npm-modules.md) without having to do any `npm install`s.
+[External scripts/stylesheets](./external-resources.md) can be added to the web page. There is a UI screen that helps you search for and add NPM libraries and google fonts. Moreover, [NPM modules can be imported](./module-resolution.md) without having to do any `npm install`s.
 
 ## Import and Code Pre-fill
 
@@ -82,3 +84,5 @@ Projects are private by default. The code you write in LiveCodes never leaves yo
 LiveCodes is free, with no limits for use and no ads.
 No account is even required (unless [GitHub integration](./github-integration.md) is needed).
 Do you want to [self-host](../getting-started.md#self-hosting) it for commercial use? No problem! It is [MIT-licensed](../license.md) 🎉. Please consider [sponsoring LiveCodes](../sponsor.md) ❤.
+
+This was a quick overview of the important features of LiveCodes. A more detailed description of each feature is described in the following sections.

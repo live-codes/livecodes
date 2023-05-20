@@ -41,8 +41,8 @@ ${'  '}// other embed options
 :::caution
 
 Please note that this only applies for the LiveCodes app and its dependencies.  
-[NPM imports](./npm-modules.md) that do not specify versions use the latest version.
-[Package versions](./npm-modules.md#package-version) can be specified in the import.
+[NPM imports](./module-resolution.md) that do not specify versions use the latest version.
+[Package versions](./module-resolution.md#package-version) can be specified in the import.
 
 Example:
 
@@ -53,3 +53,9 @@ console.log(lodash.VERSION); // -> 4.17.21
 ```
 
 :::
+
+## Related
+
+- [Embeds](./embeds.md)
+- [Share](./share.md)
+- [SDK](../sdk/)

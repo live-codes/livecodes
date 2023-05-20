@@ -6,16 +6,77 @@ title: Sponsor
 
 Thank you for considering becoming a sponsor of LiveCodes!
 
-LiveCodes is an open source application that allows users to collaborate on code in real time. It is MIT-licensed, which means that it is freely available for anyone to use, modify, and distribute.
+LiveCodes is an open source application that allows users to collaborate on code in real time. It is MIT-licensed, which means that it is freely available for anyone to use (including commercial use), modify, and distribute.
 
-As a sponsor of LiveCodes, you will be supporting the ongoing development and maintenance of the project, as well as helping to ensure that it remains a valuable resource for the developer community. In return, you will receive recognition as a sponsor on our website and social media channels, as well as the opportunity to engage with our community of users and contributors.
+As a sponsor of LiveCodes, you will be supporting the ongoing development and maintenance of the project, as well as helping to ensure that it remains a valuable resource for the developer community. In return, you will receive recognition as a sponsor on the documentation website, GitHub repo and social media channels, as well as the opportunity to engage with our community of users and contributors.
 
 There are several ways to support LiveCodes as a sponsor:
 
-Financial contributions: LiveCodes relies on the support of sponsors like you to fund its ongoing development and maintenance. Your financial contribution will help to ensure that the project remains sustainable in the long term.
+### Financial Contributions
 
-In-kind contributions: Do you have a service or product that could be useful to the LiveCodes community? We welcome in-kind contributions that can help to support the project and its users.
+LiveCodes relies on the support of sponsors like you to fund its ongoing development and maintenance. Your financial contribution will help to ensure that the project remains sustainable in the long term.
 
-Marketing and promotional support: Help us to spread the word about LiveCodes by sharing our content on your social media channels or by providing us with promotional opportunities.
+Payments can be done via:
 
-If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to reach out to us. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!
+- [GitHub Sponsors](https://github.com/sponsors/hatemhosny/)
+- [PayPal](https://paypal.me/hatemhosni)
+- [Ko-fi](https://ko-fi.com/hatemhosny)
+
+Both monthly-recurring sponsorships and one-time donations are accepted. Recurring sponsorships are entitled to logo placements as specified in [Sponsorship Benefits](#sponsorship-benefits).
+
+If you have questions, please reach out to sponsor@livecodes.io.
+
+### In-kind Contributions
+
+Do you have a service or product that could be useful to the LiveCodes community? We welcome in-kind contributions that can help to support the project and its users.
+
+In-kind contributors are recognized (logo and name) in the [credits](./credits.md) page and in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+
+### Marketing and Promotion
+
+Help us to spread the word about LiveCodes by sharing our content on your social media channels, writing blog posts about LiveCodes or by providing us with promotional opportunities.
+
+### Sponsorship Benefits
+
+#### Special Sponsors (> USD$1,000/mo):
+
+<a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">Let's discuss</a>.
+
+#### Platinum Sponsors (USD$1,000/mo):
+
+- Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Prominent logo placement in sidebar of all content pages.
+- Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Priority in feature requests.
+
+#### Gold Sponsors (USD$500/mo):
+
+- Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Logo placement in sidebar of all content pages.
+- Large logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Priority in feature requests.
+
+#### Silver Sponsors (USD$250/mo):
+
+- Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Logo placement in sidebar of all content pages.
+- Medium logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Priority in feature requests.
+
+#### Bronze Sponsors (USD$100/mo):
+
+- Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Logo placement in sidebar of all content pages.
+- Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Priority in feature requests.
+
+#### Backers (USD$50/mo):
+
+- Name listed in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Priority in feature requests.
+
+#### Friends (USD$5/mo):
+
+- Thank you. Your support is really appreciated.
+
+If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">reach out to us</a>. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!

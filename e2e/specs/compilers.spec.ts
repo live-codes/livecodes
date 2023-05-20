@@ -757,6 +757,8 @@ const title = "World";
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click('text=Import Url');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`@import "github-markdown-css";`);

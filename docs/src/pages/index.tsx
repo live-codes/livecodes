@@ -39,7 +39,7 @@ function HomepageHeader() {
         </div>
         <div className={styles.eaHomepage}>
           <div
-            className={`flat`}
+            className="flat"
             data-ea-publisher="livecodesio"
             data-ea-type="text"
             data-ea-manual="true"
