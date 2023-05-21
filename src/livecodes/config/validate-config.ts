@@ -1,3 +1,4 @@
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Editor, Config, ToolsPaneStatus, EditorId, Tool } from '../models';
 import { removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
@@ -32,9 +33,15 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const zoomLevels: Array<Config['zoom']> = [1, 0.5, 0.25];
 
-  const isEditor = (x: any) => is(x, 'object') && is(x.language, 'string');
-  const validateEditorProps = (x: Editor): Editor => ({
-    language: x.language,
+  const isEditor = (x: any) =>
+    is(x, 'object') &&
+    (is(x.language, 'string') || is(x.content, 'string') || is(x.contentUrl, 'string'));
+
+  const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
+    language:
+      getLanguageEditorId(x.language) === editorId
+        ? getLanguageByAlias(x.language) || defaultConfig[editorId].language
+        : defaultConfig[editorId].language,
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
@@ -84,9 +91,15 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.languages, 'array', 'string')
       ? { languages: removeDuplicates(config.languages) }
       : {}),
-    ...(isEditor(config.markup) ? { markup: validateEditorProps(config.markup as Editor) } : {}),
-    ...(isEditor(config.style) ? { style: validateEditorProps(config.style as Editor) } : {}),
-    ...(isEditor(config.script) ? { script: validateEditorProps(config.script as Editor) } : {}),
+    ...(isEditor(config.markup)
+      ? { markup: validateEditorProps(config.markup as Editor, 'markup') }
+      : {}),
+    ...(isEditor(config.style)
+      ? { style: validateEditorProps(config.style as Editor, 'style') }
+      : {}),
+    ...(isEditor(config.script)
+      ? { script: validateEditorProps(config.script as Editor, 'script') }
+      : {}),
     ...(is(config.tools, 'object')
       ? { tools: validateToolsProps(config.tools as Config['tools']) }
       : {}),

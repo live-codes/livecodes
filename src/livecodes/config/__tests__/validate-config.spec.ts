@@ -87,12 +87,77 @@ describe('validateConfig', () => {
       types: {},
       zoom: 0.5,
     };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('invalidConfig', () => {
     const invalidConfig = {
       all: 'properties',
       here: 'are',
       invalid: '!',
     } as Partial<Config>;
-    expect(validateConfig(testConfig)).toEqual(correctConfig);
     expect(validateConfig(invalidConfig)).toEqual({});
+  });
+
+  test('editor: content - missing language', () => {
+    const testConfig = {
+      markup: { content: 'hi' },
+    } as Partial<Config>;
+
+    const correctConfig = {
+      markup: { language: 'html', content: 'hi' },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('editor: contentUrl - missing language', () => {
+    const testConfig = {
+      style: { contentUrl: 'https://some-url.com' },
+    } as Partial<Config>;
+
+    const correctConfig = {
+      style: { language: 'css', contentUrl: 'https://some-url.com' },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('editor: wrong language', () => {
+    const testConfig = {
+      markup: { language: 'javascript' },
+    } as Partial<Config>;
+
+    const correctConfig = {
+      markup: { language: 'html' },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('editor: language alias', () => {
+    const testConfig = {
+      script: { language: 'js' },
+    } as Partial<Config>;
+
+    const correctConfig = {
+      script: { language: 'javascript' },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('editor: invalid - string', () => {
+    const testConfig = {
+      script: 'hi',
+    } as any;
+
+    const correctConfig = {};
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('editor: invalid - obj', () => {
+    const testConfig = {
+      script: { invalid: 'hi' },
+    } as any;
+
+    const correctConfig = {};
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
   });
 });
