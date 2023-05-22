@@ -38,6 +38,8 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 ### Sponsorship Benefits
 
+<small>(inspired by <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener noreferrer">Vue.js</a>)</small>
+
 #### Special Sponsors (> USD$1,000/mo):
 
 <a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">Let's discuss</a>.
@@ -46,6 +48,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
+- Prominent logo placement at the top of [this page](#).
 - Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
@@ -53,6 +56,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 - Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
+- Large logo placement in [this page](#livecodes-sponsors).
 - Large logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
@@ -60,13 +64,14 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 - Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
+- Medium logo placement in [this page](#livecodes-sponsors).
 - Medium logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
 #### Bronze Sponsors (USD$100/mo):
 
 - Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
-- Logo placement in sidebar of all content pages.
+- Small logo placement in [this page](#livecodes-sponsors).
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
@@ -78,5 +83,9 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 #### Friends (USD$5/mo):
 
 - Thank you. Your support is really appreciated.
+
+## LiveCodes Sponsors
+
+<div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid #3c3c3c75", borderRadius: "3px", backgroundColor: "#f9f9f9", margin: "0.5em", marginBottom: "1.5em", color: "#3c3c3c54"}}>You logo here</div>
 
 If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">reach out to us</a>. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!

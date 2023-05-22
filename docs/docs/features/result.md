@@ -68,7 +68,7 @@ From the [tools pane](./tools-pane.md), the result page can be viewed in a separ
 
 Please note that the URL of the result page shown in the new window is a [temporary URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL#parameters), for local preview. Sharing this URL will not work.
 
-If you need to share a project, use the [Share screen](./share). While, if you need to share the result page use the [broadcast](./broadcast.md) feature.
+If you need to share a project, use the [Share screen](./share). While, if you need to share the result page use the `result` [display mode](./display-modes.md) or the [broadcast](./broadcast.md) feature.
 
 :::
 

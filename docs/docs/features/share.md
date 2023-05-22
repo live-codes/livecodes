@@ -20,7 +20,7 @@ Generating short URL for sharing requires sending the project configuration (**i
 
 :::
 
-:::note
+:::info Note
 
 The app hosted on [`https://livecodes.io`](https://livecodes.io) uses a server specifically provided for LiveCodes share service. We will make every effort to keep that online and available for free use, so long as it is not abused. Please help keep it available by [sponsoring the project](../sponsor.md).
 
