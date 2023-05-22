@@ -1,5 +1,7 @@
 # Getting Started
 
+import LiveCodes from '../src/components/LiveCodes.tsx';
+
 There are multiple options:
 
 ## Standalone App
@@ -14,15 +16,18 @@ LiveCodes playgrounds can be easily embedded into any web page. This can be achi
 
 ### App Embed Screen
 
-You can get the code to embed any project open in the standalone app using the [embed screen](./features/embeds.md). The UI allows setting embed options and shows a preview of the embedded playground.
+The [standalone app](#standalone-app) allows you to embed any project from the [embed screen](./features/embeds.md). The UI allows setting embed options and shows a preview of the embedded playground.  
+Copy the generated code snippet (at the bottom of the screen) and add it to the web page that you want to embed the playground in.
 
 ### SDK
 
 LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy [embedding](./features/embeds.md) and communication with playgrounds.
 
-1. Install from npm.
+#### Option 1: Using a bundler
 
-```sh
+Install from npm.
+
+```shell
 npm i livecodes
 ```
 
@@ -37,7 +42,7 @@ createPlayground('#container', {
 });
 ```
 
-2. or you may load from CDN
+#### Option 2: Load from CDN
 
 ESM:
 
@@ -75,6 +80,55 @@ ${' '}});
 
 <UMDCode />
 
+#### Add your own content
+
+You may use any of the methods to [prefill the playground](./features/code-prefill.md) with your own code.
+
+Example:
+
+```js title="index.js"
+import { createPlayground } from 'livecodes';
+
+const config = {
+  markup: {
+    language: 'markdown',
+    content: '# Hello LiveCodes!',
+  },
+  style: {
+    language: 'css',
+    content: 'body { color: blue; }',
+  },
+  script: {
+    language: 'javascript',
+    content: 'console.log("hello from JavaScript!");',
+  },
+  activeEditor: 'script',
+};
+
+createPlayground('#container', { config, params: { console: 'open' } });
+```
+
+export const config = {
+markup: {
+language: 'markdown',
+content: '# Hello LiveCodes!',
+},
+style: {
+language: 'css',
+content: 'body { color: blue; }',
+},
+script: {
+language: 'javascript',
+content: 'console.log("hello from JavaScript!");',
+},
+activeEditor: 'script',
+};
+
+Live demo:  
+(this is an interactive playground - try editing the code!)
+
+<LiveCodes config={config} params={{ console: 'open' }}></LiveCodes>
+
 Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
 
 ## Self-Hosting
@@ -86,7 +140,7 @@ The built app can be obtained by one of the following ways:
 - Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
 - Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to publish to [GitHub Pages](https://pages.github.com/):
 
-  ```sh
+  ```shell
   git clone https://github.com/{your-username}/livecodes
   cd livecodes
   npm install

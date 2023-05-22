@@ -1653,6 +1653,8 @@ const showVersion = () => {
   const sdkVersion = process.env.SDK_VERSION || '';
   const commitSHA = process.env.GIT_COMMIT || '';
   const repoUrl = process.env.REPO_URL || '';
+  const appUrl = permanentUrlService.getAppUrl();
+  const sdkUrl = permanentUrlService.getSDKUrl();
 
   // eslint-disable-next-line no-console
   console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
@@ -1662,11 +1664,17 @@ const showVersion = () => {
   );
   // eslint-disable-next-line no-console
   console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+  // eslint-disable-next-line no-console
+  console.log(`App Permanent URL: ${appUrl}`);
+  // eslint-disable-next-line no-console
+  console.log(`SDK Permanent URL: ${sdkUrl}`);
 
   return {
     appVersion,
     sdkVersion,
     commitSHA,
+    appUrl,
+    sdkUrl,
   };
 };
 

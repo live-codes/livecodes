@@ -197,3 +197,44 @@ import v3 from 'lodash@3';
 console.log(latest.VERSION); // -> 4.17.21
 console.log(v3.VERSION); // -> 3.10.1
 ```
+
+## Custom Module Resolution
+
+Module resolution described in this page mainly depends on [import maps](https://github.com/WICG/import-maps). The generated import map is added to the [result page](./result.md).
+
+You may wish to override or customize module resolution behavior (e.g. change URL, CDN, specify version, import custom unpublished library, ...etc. ), however you cannot add another import map script because [currently multiple import maps are not yet supported](https://github.com/WICG/import-maps#multiple-import-map-support).
+
+LiveCodes allows you to add your custom import map by one of the following methods:
+
+#### Custom Settings
+
+In the standalone app, via the [custom settings](../advanced/custom-settings.md) property `imports`.
+
+Example:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "my-lib": "https://my-server.com/path/to/library.js"
+  }
+}
+```
+
+#### SDK
+
+For embedded playgrounds, use the [SDK](../sdk/index.md) embed option [`config.imports`](../configuration/configuration-object.md#imports).
+
+Example:
+
+```js title="index.js"
+import { createPlayground } from 'livecodes';
+
+const config = {
+  imports: {
+    'my-lib': 'https://my-server.com/path/to/library.js',
+  },
+  // other configurations ...
+};
+
+createPlayground('#container', { config });
+```

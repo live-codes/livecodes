@@ -54,7 +54,8 @@ export const createEmbedUI = async ({
       | 'view'
       | 'activeEditor'
       | 'permanentUrl'
-      | 'tools';
+      | 'tools'
+      | 'activeTool';
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
   }
@@ -107,7 +108,7 @@ export const createEmbedUI = async ({
       title: 'Default View',
       name: 'view',
       options: [
-        { label: 'Editor + Result', value: 'split', checked: true },
+        { label: 'Split', value: 'split', checked: true },
         { label: 'Editor', value: 'editor' },
         { label: 'Result', value: 'result' },
       ],
@@ -131,6 +132,16 @@ export const createEmbedUI = async ({
         { label: 'Full', value: 'full' },
         { label: 'None', value: 'none' },
       ],
+      help: '/docs/features/tools-pane',
+    },
+    {
+      title: 'Active Tool',
+      name: 'activeTool',
+      options: [
+        { label: 'Console', value: 'console', checked: true },
+        { label: 'Compiled', value: 'compiled' },
+        { label: 'Tests', value: 'tests' },
+      ].filter((option) => (option.value === 'tests' && !config.tests?.content ? false : true)),
       help: '/docs/features/tools-pane',
     },
     {
@@ -232,7 +243,15 @@ export const createEmbedUI = async ({
     const config = {
       ...(data.mode !== defaultConfig.mode ? { mode: data.mode } : {}),
       ...(data.theme !== defaultConfig.theme ? { theme: data.theme } : {}),
-      ...(data.tools !== 'closed' ? { tools: { status: data.tools } } : {}),
+      ...(data.tools !== 'closed' || data.activeTool !== 'console'
+        ? {
+            tools: {
+              enabled: data.tools === 'none' ? [] : 'all',
+              status: data.tools,
+              active: data.activeTool,
+            },
+          }
+        : {}),
       ...(data.readonly ? { readonly: data.readonly } : {}),
       ...(data.mode !== 'result' && data.activeEditor !== activeEditor
         ? { activeEditor: data.activeEditor }
@@ -272,8 +291,11 @@ export const createEmbedUI = async ({
     if (data.theme && data.theme !== defaultConfig.theme) {
       iframeUrl.searchParams.set('theme', String(data.theme));
     }
-    if (data.tools && data.tools !== 'closed') {
-      iframeUrl.searchParams.set('tools', String(data.tools));
+    if (data.tools && (data.tools !== 'closed' || data.activeTool !== 'console')) {
+      iframeUrl.searchParams.set(
+        data.tools === 'none' ? 'tools' : String(data.activeTool),
+        String(data.tools),
+      );
     }
     if (data.readonly !== undefined) {
       iframeUrl.searchParams.set('readonly', String(data.readonly));
@@ -390,6 +412,7 @@ export default function App() {
   const previousSelections: FormData = {
     view: 'split',
     tools: 'closed',
+    activeTool: 'console',
   };
 
   const generateCode = async () => {
@@ -435,6 +458,9 @@ export default function App() {
     }
 
     const toolsInputs = document.querySelectorAll<HTMLInputElement>('input[name="embed-tools"]');
+    const activeToolInputs = document.querySelectorAll<HTMLInputElement>(
+      'input[name="embed-activeTool"]',
+    );
     if (formData.lite) {
       previousSelections.tools = formData.tools || previousSelections.tools;
       delete formData.tools;
@@ -450,6 +476,25 @@ export default function App() {
         input.disabled = false;
         if (input.checked) {
           formData.tools = input.value;
+        }
+      });
+    }
+
+    if (formData.lite || formData.tools === 'none') {
+      previousSelections.activeTool = formData.activeTool || previousSelections.activeTool;
+      delete formData.activeTool;
+      activeToolInputs.forEach((input) => {
+        input.checked = false;
+        input.disabled = true;
+      });
+    } else {
+      activeToolInputs.forEach((input) => {
+        if (input.value === (formData.activeTool || previousSelections.activeTool)) {
+          input.checked = true;
+        }
+        input.disabled = false;
+        if (input.checked) {
+          formData.activeTool = input.value;
         }
       });
     }
