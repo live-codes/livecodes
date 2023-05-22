@@ -160,4 +160,188 @@ describe('validateConfig', () => {
     const correctConfig = {};
     expect(validateConfig(testConfig)).toEqual(correctConfig);
   });
+
+  test('tools: invalid - obj', () => {
+    const testConfig = {
+      tools: { invalid: 'hi' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: empty', () => {
+    const testConfig = {
+      tools: {},
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: enabled all', () => {
+    const testConfig = {
+      tools: { enabled: 'all' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: enabled invalid', () => {
+    const testConfig = {
+      tools: { enabled: 'invalid' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: enabled console', () => {
+    const testConfig = {
+      tools: { enabled: ['console'] },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: ['console'],
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: enabled invalid array', () => {
+    const testConfig = {
+      tools: { enabled: ['myconsole'] },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: [],
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: enabled invalid item', () => {
+    const testConfig = {
+      tools: { enabled: ['console', 'compiled22'] },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: ['console'],
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: status none', () => {
+    const testConfig = {
+      tools: { status: 'none' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: [],
+        status: 'none',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: active invalid', () => {
+    const testConfig = {
+      tools: { active: 'invalid' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: active not enabled', () => {
+    const testConfig = {
+      tools: {
+        enabled: ['console'],
+        status: '',
+        active: 'compiled',
+      },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: ['console'],
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: status valid', () => {
+    const testConfig = {
+      tools: { status: 'open' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: 'open',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
+
+  test('tools: status invalid', () => {
+    const testConfig = {
+      tools: { status: 'invalid' },
+    } as any;
+
+    const correctConfig = {
+      tools: {
+        enabled: 'all',
+        status: '',
+        active: '',
+      },
+    };
+    expect(validateConfig(testConfig)).toEqual(correctConfig);
+  });
 });

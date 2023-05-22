@@ -56,14 +56,18 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const validateToolsProps = (x: Partial<Config['tools']>): Config['tools'] => ({
     ...defaultConfig.tools,
-    ...(x && (x.enabled === 'all' || x.enabled?.every((t) => includes(tools, t)))
-      ? { enabled: x.enabled }
-      : { enabled: defaultConfig.tools.enabled }),
+    ...(x && Array.isArray(x.enabled)
+      ? { enabled: x.enabled.filter((t) => tools.includes(t)) }
+      : {
+          ...(x && x.enabled == null && x.status === 'none'
+            ? { enabled: [] }
+            : { enabled: defaultConfig.tools.enabled }),
+        }),
     ...(x &&
     x.active != null &&
     includes(tools, x.active) &&
-    (x.enabled === 'all' ||
-      !x.enabled ||
+    (typeof x.enabled === 'string' ||
+      x.enabled == null ||
       (Array.isArray(x.enabled) && includes(x.enabled, x.active)))
       ? { active: x.active }
       : { active: defaultConfig.tools.active }),
