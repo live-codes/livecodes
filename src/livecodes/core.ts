@@ -972,7 +972,20 @@ const save = async (notify = false, setTitle = true) => {
   if (notify) {
     notifications.success('Project locally saved to device!');
   }
+
   await share(false);
+
+  let recentProjects = [
+    { id: projectId, title: projectConfig.title, description: projectConfig.description },
+    ...(getAppData()?.recentProjects || []),
+  ];
+  if (recentProjects.length < 5) {
+    recentProjects =
+      (await stores.projects?.getList())
+        ?.slice(0, 5)
+        .map((p) => ({ id: p.id, title: p.title, description: p.description })) || [];
+  }
+  setAppData({ recentProjects });
 };
 
 const fork = async () => {
@@ -2709,6 +2722,52 @@ const handleWelcome = () => {
       loadSettings(getConfig());
     });
 
+    if (!initialized) {
+      checkRecoverStatus(/* isWelcomeScreen= */ true);
+    }
+
+    const loadRecentProject = async (pId: string) => {
+      modal.show(loadingMessage(), { size: 'small' });
+      const savedProject = (await stores.projects?.getItem(pId))?.config;
+      if (savedProject) {
+        await loadConfig(savedProject);
+        projectId = pId;
+      }
+      modal.close();
+    };
+
+    let recentProjects = getAppData()?.recentProjects?.slice(0, 5).reverse() || [];
+    if (recentProjects.length < 5) {
+      const savedProjects =
+        (await stores.projects?.getList())
+          ?.slice(0, 5 - recentProjects.length)
+          .reverse()
+          .map((p) => ({ id: p.id, title: p.title, description: p.description })) || [];
+      recentProjects = [...savedProjects, ...recentProjects];
+    }
+    if (!recentProjects || recentProjects.length === 0) return;
+    const list = UI.getModalWelcomeRecentList(welcomeContainer);
+    recentProjects.forEach((p) => {
+      const item = document.createElement('li');
+      item.classList.add('overflow-ellipsis');
+
+      const link = document.createElement('a');
+      link.textContent = p.title;
+      link.title = p.description.trim() || p.title;
+      link.href = '#';
+
+      item.appendChild(link);
+      list?.prepend(item);
+
+      eventsManager.addEventListener(link, 'click', () =>
+        checkSavedStatus().then((confirmed) => {
+          if (confirmed) {
+            loadRecentProject(p.id);
+          }
+        }),
+      );
+    });
+
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
       UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
@@ -2774,44 +2833,6 @@ const handleWelcome = () => {
         checkSavedStatus().then((confirmed) => {
           if (confirmed) {
             loadStarterTemplate(t.name);
-          }
-        }),
-      );
-    });
-
-    if (!initialized) {
-      checkRecoverStatus(/* isWelcomeScreen= */ true);
-    }
-
-    const loadRecentProject = async (pId: string) => {
-      modal.show(loadingMessage(), { size: 'small' });
-      const savedProject = (await stores.projects?.getItem(pId))?.config;
-      if (savedProject) {
-        await loadConfig(savedProject);
-        projectId = pId;
-      }
-      modal.close();
-    };
-
-    const recentProjects = (await stores.projects?.getList())?.slice(0, 5).reverse();
-    if (!recentProjects || recentProjects.length === 0) return;
-    const list = UI.getModalWelcomeRecentList(welcomeContainer);
-    recentProjects.forEach((p) => {
-      const item = document.createElement('li');
-      item.classList.add('overflow-ellipsis');
-
-      const link = document.createElement('a');
-      link.textContent = p.title;
-      link.title = p.description.trim() || p.title;
-      link.href = '#';
-
-      item.appendChild(link);
-      list?.prepend(item);
-
-      eventsManager.addEventListener(link, 'click', () =>
-        checkSavedStatus().then((confirmed) => {
-          if (confirmed) {
-            loadRecentProject(p.id);
           }
         }),
       );
