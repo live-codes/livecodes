@@ -2740,41 +2740,54 @@ const handleWelcome = () => {
     if (recentProjects.length < 5) {
       const savedProjects =
         (await stores.projects?.getList())
-          ?.slice(0, 5 - recentProjects.length)
+          ?.filter((p) => !recentProjects.map((r) => r.id).includes(p.id))
+          .slice(0, 5 - recentProjects.length)
           .reverse()
           .map((p) => ({ id: p.id, title: p.title, description: p.description })) || [];
       recentProjects = [...savedProjects, ...recentProjects];
     }
-    if (!recentProjects || recentProjects.length === 0) return;
-    const list = UI.getModalWelcomeRecentList(welcomeContainer);
-    recentProjects.forEach((p) => {
-      const item = document.createElement('li');
-      item.classList.add('overflow-ellipsis');
 
-      const link = document.createElement('a');
-      link.textContent = p.title;
-      link.title = p.description.trim() || p.title;
-      link.href = '#';
+    const welcomeModalScreen = UI.getModalWelcomeScreen(welcomeContainer);
+    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
 
-      item.appendChild(link);
-      list?.prepend(item);
+    if (recentProjects.length === 0 && welcomeModalScreen && welcomeRecent) {
+      welcomeRecent.style.display = 'none';
+      welcomeModalScreen.style.maxHeight = '30em';
+    } else {
+      const list = UI.getModalWelcomeRecentList(welcomeContainer);
+      recentProjects.forEach((p) => {
+        const item = document.createElement('li');
+        item.classList.add('overflow-ellipsis');
 
-      eventsManager.addEventListener(link, 'click', () =>
-        checkSavedStatus().then((confirmed) => {
-          if (confirmed) {
-            loadRecentProject(p.id);
-          }
-        }),
-      );
-    });
+        const link = document.createElement('a');
+        link.textContent = p.title;
+        link.title = p.description.trim() || p.title;
+        link.href = '#';
+
+        item.appendChild(link);
+        list?.prepend(item);
+
+        eventsManager.addEventListener(link, 'click', () =>
+          checkSavedStatus().then((confirmed) => {
+            if (confirmed) {
+              loadRecentProject(p.id);
+            }
+          }),
+        );
+      });
+
+      if (welcomeRecent) {
+        welcomeRecent.style.visibility = 'visible';
+      }
+    }
 
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
       UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
     } else {
-      const loadTempateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
+      const loadTemplateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
       eventsManager.addEventListener(
-        loadTempateLink,
+        loadTemplateLink,
         'click',
         async (event) => {
           event.preventDefault();
@@ -2784,7 +2797,7 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTempateLink.style.display = 'unset';
+      loadTemplateLink.style.display = 'unset';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 
@@ -2837,11 +2850,6 @@ const handleWelcome = () => {
         }),
       );
     });
-
-    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
-    if (welcomeRecent) {
-      welcomeRecent.style.visibility = 'visible';
-    }
   };
 
   eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);

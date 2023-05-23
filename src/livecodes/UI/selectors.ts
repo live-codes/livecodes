@@ -438,6 +438,9 @@ export const getModalShowWelcomeCheckbox = (welcomeContainer: HTMLElement) =>
 export const getModalWelcomeRecover = (welcomeContainer = document) =>
   welcomeContainer.querySelector('#modal #welcome-recover') as HTMLElement;
 
+export const getModalWelcomeScreen = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-screen-container .modal-screen') as HTMLElement;
+
 export const getModalWelcomeRecent = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-recent') as HTMLElement;
 
