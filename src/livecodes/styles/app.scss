@@ -2330,7 +2330,11 @@ i.arrow {
       align-items: start;
       flex-direction: column;
       flex-wrap: wrap;
-      max-height: 45em;
+      max-height: 40em;
+
+      &.no-recent {
+        max-height: 30em;
+      }
     }
 
     .modal-section {
@@ -2352,19 +2356,14 @@ i.arrow {
 
         .welcome-recover-actions {
           display: flex;
-          gap: 2em;
         }
 
         .welcome-recover-actions > * {
           align-items: center;
           display: flex;
-          gap: 0.5em;
+          flex-grow: 1;
+          gap: 0.2em;
         }
-      }
-
-      &#welcome-recent {
-        min-height: 13em;
-        visibility: hidden;
       }
 
       .default-template-li {
@@ -2414,14 +2413,14 @@ i.arrow {
     @media only screen and (max-width: 768px) {
       .modal-screen {
         max-height: unset;
+
+        &.no-recent {
+          max-height: unset;
+        }
       }
 
       .modal-section {
         width: unset;
-
-        &#welcome-recent {
-          min-height: unset;
-        }
 
         &#welcome-recover {
           order: -1;

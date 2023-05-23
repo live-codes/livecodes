@@ -2747,7 +2747,7 @@ const handleWelcome = () => {
 
     if (recentProjects.length === 0 && welcomeModalScreen && welcomeRecent) {
       welcomeRecent.style.display = 'none';
-      welcomeModalScreen.style.maxHeight = '30em';
+      welcomeModalScreen.classList.add('no-recent');
     } else {
       const list = UI.getModalWelcomeRecentList(welcomeContainer);
       recentProjects.forEach((p) => {
@@ -2770,10 +2770,6 @@ const handleWelcome = () => {
           }),
         );
       });
-
-      if (welcomeRecent) {
-        welcomeRecent.style.visibility = 'visible';
-      }
     }
 
     const defaultTemplateId = getAppData()?.defaultTemplate;
