@@ -15,7 +15,13 @@ import {
   getLanguageSpecs,
   getLanguageExtension,
 } from './languages';
-import { fakeStorage, createStores, initializeStores, type Stores } from './storage';
+import {
+  fakeStorage,
+  createStores,
+  initializeStores,
+  type Stores,
+  type StorageItem,
+} from './storage';
 import type {
   API,
   Cache,
@@ -974,18 +980,6 @@ const save = async (notify = false, setTitle = true) => {
   }
 
   await share(false);
-
-  let recentProjects = [
-    { id: projectId, title: projectConfig.title, description: projectConfig.description },
-    ...(getAppData()?.recentProjects || []),
-  ];
-  if (recentProjects.length < 5) {
-    recentProjects =
-      (await stores.projects?.getList())
-        ?.slice(0, 5)
-        .map((p) => ({ id: p.id, title: p.title, description: p.description })) || [];
-  }
-  setAppData({ recentProjects });
 };
 
 const fork = async () => {
@@ -2627,9 +2621,19 @@ const handlePersistantStorage = async () => {
     }, 2000);
   };
 
+  const updateRecentProjects = (allProjects: StorageItem[]) => {
+    const recentProjects =
+      allProjects
+        ?.slice(0, 5)
+        .map((p) => ({ id: p.id, title: p.config.title, description: p.config.description })) || [];
+    setAppData({ recentProjects });
+  };
+
   const projectSubscription = stores.projects?.subscribe(requestPersistance);
   const templateSubscription = stores.templates?.subscribe(requestPersistance);
   const assetSubscription = stores.assets?.subscribe(requestPersistance);
+
+  stores.projects?.subscribe(updateRecentProjects);
 };
 
 const handleBackup = () => {
@@ -2736,16 +2740,7 @@ const handleWelcome = () => {
       modal.close();
     };
 
-    let recentProjects = getAppData()?.recentProjects?.slice(0, 5).reverse() || [];
-    if (recentProjects.length < 5) {
-      const savedProjects =
-        (await stores.projects?.getList())
-          ?.filter((p) => !recentProjects.map((r) => r.id).includes(p.id))
-          .slice(0, 5 - recentProjects.length)
-          .reverse()
-          .map((p) => ({ id: p.id, title: p.title, description: p.description })) || [];
-      recentProjects = [...savedProjects, ...recentProjects];
-    }
+    const recentProjects = getAppData()?.recentProjects?.slice(0, 5).reverse() || [];
 
     const welcomeModalScreen = UI.getModalWelcomeScreen(welcomeContainer);
     const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
