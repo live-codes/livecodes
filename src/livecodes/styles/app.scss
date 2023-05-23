@@ -1024,7 +1024,8 @@ li.editor-title {
   }
 }
 
-.menu-scroller-markup {
+.menu-scroller-markup,
+.menu-scroller-style {
   max-width: 50vw;
   right: calc(-100% - 6px);
   width: calc(200% + 18px);
@@ -1036,7 +1037,8 @@ li.editor-title {
   width: calc(400% + 18px);
 }
 
-.dropdown-menu-markup {
+.dropdown-menu-markup,
+.dropdown-menu-style {
   column-count: 2;
   column-rule: 1px solid var(--menu-split-color);
 }
@@ -1046,13 +1048,18 @@ li.editor-title {
   column-rule: 1px solid var(--menu-split-color);
 }
 
+.column-break {
+  break-before: column;
+}
+
 @media only screen and (max-width: 1080px) {
   .menu-scroller {
     max-width: 80vw;
     width: 150%;
   }
 
-  .menu-scroller-markup {
+  .menu-scroller-markup,
+  .menu-scroller-style {
     right: calc(-150% - 6px);
     width: 300%;
   }
@@ -1069,7 +1076,8 @@ li.editor-title {
     width: 120%;
   }
 
-  .menu-scroller-markup {
+  .menu-scroller-markup,
+  .menu-scroller-style {
     right: calc(-100% - 6px);
     width: 200%;
   }
@@ -1081,7 +1089,8 @@ li.editor-title {
 }
 
 @media only screen and (max-width: 480px) {
-  .menu-scroller-markup {
+  .menu-scroller-markup,
+  .menu-scroller-style {
     right: calc(-130% - 6px);
     width: 300%;
   }

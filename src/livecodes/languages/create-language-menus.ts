@@ -99,6 +99,9 @@ export const createLanguageMenus = (
       if (!('extensions' in language)) {
         languageLink.classList.add('subtitle');
       }
+      if (language.name === ('style-processors' as any)) {
+        languageItem.classList.add('column-break');
+      }
       languageItem.appendChild(languageLink);
 
       if (language.info !== false) {
