@@ -116,6 +116,7 @@ export interface UserData {
 export interface AppData {
   defaultTemplate?: string | null;
   recentTemplates?: Array<{ name: Template['name']; title: string }>;
+  recentProjects?: Array<{ id: string; title: string; description: string }>;
   language?: Language;
   snippets?: {
     language: Language;

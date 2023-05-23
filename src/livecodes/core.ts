@@ -15,7 +15,13 @@ import {
   getLanguageSpecs,
   getLanguageExtension,
 } from './languages';
-import { fakeStorage, createStores, initializeStores, type Stores } from './storage';
+import {
+  fakeStorage,
+  createStores,
+  initializeStores,
+  type Stores,
+  type StorageItem,
+} from './storage';
 import type {
   API,
   Cache,
@@ -972,6 +978,7 @@ const save = async (notify = false, setTitle = true) => {
   if (notify) {
     notifications.success('Project locally saved to device!');
   }
+
   await share(false);
 };
 
@@ -2614,9 +2621,19 @@ const handlePersistantStorage = async () => {
     }, 2000);
   };
 
+  const updateRecentProjects = (allProjects: StorageItem[]) => {
+    const recentProjects =
+      allProjects
+        ?.slice(0, 5)
+        .map((p) => ({ id: p.id, title: p.config.title, description: p.config.description })) || [];
+    setAppData({ recentProjects });
+  };
+
   const projectSubscription = stores.projects?.subscribe(requestPersistance);
   const templateSubscription = stores.templates?.subscribe(requestPersistance);
   const assetSubscription = stores.assets?.subscribe(requestPersistance);
+
+  stores.projects?.subscribe(updateRecentProjects);
 };
 
 const handleBackup = () => {
@@ -2709,13 +2726,59 @@ const handleWelcome = () => {
       loadSettings(getConfig());
     });
 
+    if (!initialized) {
+      checkRecoverStatus(/* isWelcomeScreen= */ true);
+    }
+
+    const loadRecentProject = async (pId: string) => {
+      modal.show(loadingMessage(), { size: 'small' });
+      const savedProject = (await stores.projects?.getItem(pId))?.config;
+      if (savedProject) {
+        await loadConfig(savedProject);
+        projectId = pId;
+      }
+      modal.close();
+    };
+
+    const recentProjects = getAppData()?.recentProjects?.slice(0, 5).reverse() || [];
+
+    const welcomeModalScreen = UI.getModalWelcomeScreen(welcomeContainer);
+    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
+
+    if (recentProjects.length === 0 && welcomeModalScreen && welcomeRecent) {
+      welcomeRecent.style.display = 'none';
+      welcomeModalScreen.classList.add('no-recent');
+    } else {
+      const list = UI.getModalWelcomeRecentList(welcomeContainer);
+      recentProjects.forEach((p) => {
+        const item = document.createElement('li');
+        item.classList.add('overflow-ellipsis');
+
+        const link = document.createElement('a');
+        link.textContent = p.title;
+        link.title = p.description.trim() || p.title;
+        link.href = '#';
+
+        item.appendChild(link);
+        list?.prepend(item);
+
+        eventsManager.addEventListener(link, 'click', () =>
+          checkSavedStatus().then((confirmed) => {
+            if (confirmed) {
+              loadRecentProject(p.id);
+            }
+          }),
+        );
+      });
+    }
+
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
       UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
     } else {
-      const loadTempateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
+      const loadTemplateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
       eventsManager.addEventListener(
-        loadTempateLink,
+        loadTemplateLink,
         'click',
         async (event) => {
           event.preventDefault();
@@ -2725,7 +2788,7 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTempateLink.style.display = 'unset';
+      loadTemplateLink.style.display = 'unset';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 
@@ -2778,49 +2841,6 @@ const handleWelcome = () => {
         }),
       );
     });
-
-    if (!initialized) {
-      checkRecoverStatus(/* isWelcomeScreen= */ true);
-    }
-
-    const loadRecentProject = async (pId: string) => {
-      modal.show(loadingMessage(), { size: 'small' });
-      const savedProject = (await stores.projects?.getItem(pId))?.config;
-      if (savedProject) {
-        await loadConfig(savedProject);
-        projectId = pId;
-      }
-      modal.close();
-    };
-
-    const recentProjects = (await stores.projects?.getList())?.slice(0, 5).reverse();
-    if (!recentProjects || recentProjects.length === 0) return;
-    const list = UI.getModalWelcomeRecentList(welcomeContainer);
-    recentProjects.forEach((p) => {
-      const item = document.createElement('li');
-      item.classList.add('overflow-ellipsis');
-
-      const link = document.createElement('a');
-      link.textContent = p.title;
-      link.title = p.description.trim() || p.title;
-      link.href = '#';
-
-      item.appendChild(link);
-      list?.prepend(item);
-
-      eventsManager.addEventListener(link, 'click', () =>
-        checkSavedStatus().then((confirmed) => {
-          if (confirmed) {
-            loadRecentProject(p.id);
-          }
-        }),
-      );
-    });
-
-    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
-    if (welcomeRecent) {
-      welcomeRecent.style.visibility = 'visible';
-    }
   };
 
   eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);
