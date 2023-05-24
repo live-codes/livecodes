@@ -2472,6 +2472,7 @@ i.arrow {
       width: 48%;
 
       &#about-info {
+        line-height: 1.5em;
         margin: auto;
         padding: 1em;
         width: 100%;
@@ -2509,8 +2510,8 @@ i.arrow {
       }
 
       .modal-section {
-        padding-left: 1em;
-        width: 80%;
+        padding-left: 0.5em;
+        width: 100%;
       }
     }
   }
