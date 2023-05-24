@@ -2448,6 +2448,73 @@ i.arrow {
     }
   }
 
+  #about-container {
+    overflow: unset;
+
+    .modal-screen-container {
+      height: calc(95% - 140px);
+      overflow: scroll;
+    }
+
+    .modal-screen {
+      align-items: start;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: start;
+      margin-top: 1em;
+    }
+
+    .modal-section {
+      box-sizing: border-box;
+      margin-bottom: 1em;
+      padding-left: 1.5em;
+      text-align: start;
+      width: 48%;
+
+      &#about-info {
+        margin: auto;
+        padding: 1em;
+        width: 100%;
+      }
+
+      .more {
+        font-size: smaller;
+        margin-top: 0.3em;
+      }
+
+      h3 {
+        margin: 0.5em 0;
+      }
+
+      li {
+        align-items: center;
+        display: flex;
+        gap: 0.5em;
+        list-style: none;
+        margin-bottom: 0.2em;
+      }
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .modal-screen {
+        max-height: unset;
+      }
+
+      .modal-section {
+        padding-left: 1em;
+        width: 80%;
+      }
+    }
+  }
+
   .overflow-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;

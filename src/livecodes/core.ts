@@ -73,6 +73,7 @@ import {
   recoverPromptScreen,
   resultPopupHTML,
   welcomeScreen,
+  aboutScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -1654,7 +1655,7 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   }
 };
 
-const showVersion = () => {
+const getVersion = (log = true) => {
   // variables added in scripts/build.js
   const appVersion = process.env.VERSION || '';
   const sdkVersion = process.env.SDK_VERSION || '';
@@ -1663,18 +1664,20 @@ const showVersion = () => {
   const appUrl = permanentUrlService.getAppUrl();
   const sdkUrl = permanentUrlService.getSDKUrl();
 
-  // eslint-disable-next-line no-console
-  console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
-  // eslint-disable-next-line no-console
-  console.log(
-    `SDK Version: ${sdkVersion} (https://www.npmjs.com/package/livecodes/v/${sdkVersion})`,
-  );
-  // eslint-disable-next-line no-console
-  console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
-  // eslint-disable-next-line no-console
-  console.log(`App Permanent URL: ${appUrl}`);
-  // eslint-disable-next-line no-console
-  console.log(`SDK Permanent URL: ${sdkUrl}`);
+  if (log) {
+    // eslint-disable-next-line no-console
+    console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
+    // eslint-disable-next-line no-console
+    console.log(
+      `SDK Version: ${sdkVersion} (https://www.npmjs.com/package/livecodes/v/${sdkVersion})`,
+    );
+    // eslint-disable-next-line no-console
+    console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+    // eslint-disable-next-line no-console
+    console.log(`App Permanent URL: ${appUrl}`);
+    // eslint-disable-next-line no-console
+    console.log(`SDK Permanent URL: ${sdkUrl}`);
+  }
 
   return {
     appVersion,
@@ -2847,6 +2850,29 @@ const handleWelcome = () => {
   registerScreen('welcome', createWelcomeUI);
 };
 
+const handleAbout = () => {
+  if (isEmbed) return;
+
+  const createAboutUI = async () => {
+    const versions = getVersion();
+    const repoUrl = process.env.REPO_URL;
+    const div = document.createElement('div');
+    div.innerHTML = aboutScreen
+      .replace(/{{APP_VERSION}}/g, versions.appVersion)
+      .replace(/{{SDK_VERSION}}/g, versions.sdkVersion)
+      .replace(/{{COMMIT_SHA}}/g, versions.commitSHA)
+      .replace(/{{COMMIT_URL}}/g, `${repoUrl}/commit/${versions.commitSHA}`)
+      .replace(/{{APP_URL}}/g, versions.appUrl)
+      .replace(/{{SDK_URL}}/g, versions.sdkUrl)
+      .replace(/{{REPO_URL}}/g, repoUrl);
+    const aboutContainer = div.firstChild as HTMLElement;
+    modal.show(aboutContainer);
+  };
+
+  eventsManager.addEventListener(UI.getAboutLink(), 'click', createAboutUI);
+  registerScreen('about', createAboutUI);
+};
+
 const handleProjectInfo = () => {
   const onSave = (title: string, description: string, tags: string[]) => {
     setConfig({
@@ -3525,6 +3551,7 @@ const extraHandlers = async () => {
   handleBackup();
   handleBroadcast();
   handleWelcome();
+  handleAbout();
   handleResultPopup();
   handleBroadcastStatus();
   handleUnload();
@@ -3940,7 +3967,7 @@ const createApi = (): API => {
       return { output: 'Broadcast user token set successfully' };
     }
     if (command === 'showVersion') {
-      const output = showVersion();
+      const output = getVersion();
       return { output };
     }
     return { error: 'Invalid command!' };
