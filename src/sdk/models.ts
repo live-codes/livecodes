@@ -725,6 +725,7 @@ export interface Screen {
     | 'backup'
     | 'broadcast'
     | 'welcome'
+    | 'about'
     | 'custom-settings'
     | 'editor-settings'
     | 'test-editor';

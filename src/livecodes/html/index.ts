@@ -24,6 +24,8 @@ import broadcastScreen from './broadcast.html';
 // @ts-ignore
 import welcomeScreen from './welcome.html';
 // @ts-ignore
+import aboutScreen from './about.html';
+// @ts-ignore
 import infoScreen from './project-info.html';
 // @ts-ignore
 import resourcesScreen from './external-resources.html';
@@ -67,6 +69,7 @@ export {
   backupScreen,
   broadcastScreen,
   welcomeScreen,
+  aboutScreen,
   infoScreen,
   resourcesScreen,
   loginScreen,

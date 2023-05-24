@@ -143,6 +143,8 @@ export const getBroadcastLink = () => document.querySelector<HTMLAnchorElement>(
 
 export const getWelcomeLink = () => document.querySelector<HTMLAnchorElement>('#welcome-link');
 
+export const getAboutLink = () => document.querySelector<HTMLAnchorElement>('#about-link');
+
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
 
