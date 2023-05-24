@@ -299,9 +299,10 @@ const htmlBuild = () =>
       sourcemap: true,
       rollupOptions: {
         output: {
-          entryFileNames: `assets/[name].[hash].js`,
-          chunkFileNames: `assets/[name].[hash].js`,
-          assetFileNames: `assets/[name].[hash].[ext]`,
+          // custom hash is added below
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`,
         },
       },
     },
@@ -319,7 +320,17 @@ prepareDir().then(() => {
     if (!devMode) {
       buildVendors();
     }
-    await applyHash(devMode);
+    await applyHash({
+      devMode,
+      buildDir: 'build/livecodes/',
+      patchDirs: ['build/', 'build/assets/', 'build/livecodes/'],
+      getTaggedName: (filename) => `{{hash:${filename}}}`,
+    });
+    await applyHash({
+      devMode,
+      buildDir: 'build/assets/',
+      patchDirs: ['build/'],
+    });
     await injectCss();
     console.log('built to: ' + baseOptions.outdir + '/');
   });

@@ -1,9 +1,15 @@
 const fs = require('fs');
 const md5File = require('md5-file');
 
-const applyHash = async (devMode = false) => {
-  const buildDir = './build/livecodes/';
-  const filetypes = ['js', 'css', 'html'];
+const applyHash = async (
+  /** @type {{devMode:boolean; buildDir: string; patchDirs: string[]; getTaggedName?: (filename: string) => string}} */ {
+    devMode,
+    buildDir,
+    patchDirs,
+    getTaggedName,
+  },
+) => {
+  const filetypes = ['js', 'css', 'html', 'svg', 'ico', 'png'];
 
   const getFileNames = async (dir = buildDir) =>
     (await fs.promises.readdir(dir))
@@ -31,7 +37,8 @@ const applyHash = async (devMode = false) => {
     const data = await fs.promises.readFile(filePath, 'utf8');
     var result = data;
     for (const key of Object.keys(replacements)) {
-      result = result.split(`{{hash:${key}}}`).join(replacements[key]);
+      const filename = typeof getTaggedName === 'function' ? getTaggedName(key) : key;
+      result = result.split(filename).join(replacements[key]);
     }
     if (result === data) return;
     await fs.promises.writeFile(filePath, result, 'utf8');
@@ -64,7 +71,7 @@ const applyHash = async (devMode = false) => {
     ),
   );
 
-  const dirsToPatch = ['build/', 'build/assets/', buildDir];
+  const dirsToPatch = patchDirs;
   for (const dir of dirsToPatch) {
     const files = await getFileNames(dir);
     await Promise.all(files.map((file) => patch(dir + file, hashMap)));
