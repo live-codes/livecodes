@@ -49,7 +49,7 @@ ${'  '}});
 
 ## Get Permanent URL
 
-You can get the permanent URL for the app from the code generated in the [embed screen](./embeds.md#app-embed-screen).  
+You can get the permanent URL for the app from the [About screen](pathname:///../?screen=about) (App menu → About). By default, the code generated in the [Embed screen](./embeds.md#app-embed-screen) uses permanent URL.  
 Alternatively, open the browser console of the standalone app (e.g. https://livecodes.io), and run this:
 
 export const GetPermanentUrl = () => {

@@ -170,7 +170,7 @@ const config = {
                 to: '/docs/contact',
               },
               {
-                label: 'About',
+                label: 'About us',
                 to: '/docs/about',
               },
             ],
