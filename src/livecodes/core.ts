@@ -1429,7 +1429,9 @@ const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
 };
 
 const showScreen = async (screen: Screen['screen'], options?: any) => {
-  await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show(options);
+  const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+  if (!foundScreen) return;
+  await foundScreen.show(options);
   const modalElement = document.querySelector('#modal') as HTMLElement;
   (modalElement.firstElementChild as HTMLElement)?.click();
 };
@@ -1438,7 +1440,8 @@ const loadSelectedScreen = () => {
   const params = Object.fromEntries(
     new URLSearchParams(parent.location.search) as unknown as Iterable<any>,
   );
-  const screen = params.screen;
+  // ?new or ?screen=<screen_name>
+  const screen = params.new === '' ? 'new' : params.screen;
   if (screen) {
     showScreen(screen);
   }

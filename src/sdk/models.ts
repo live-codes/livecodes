@@ -879,7 +879,9 @@ export type UrlQueryParams = Partial<
       Config,
       'activeEditor' | 'languages' | 'tags' | 'processors' | 'stylesheets' | 'scripts' | 'tools'
     > &
-    Screen & { [key in Language]: string } & { [key in languageSelector]: string } & {
+    Pick<Screen, 'screen'> & { new: '' } & { [key in Language]: string } & {
+      [key in languageSelector]: string;
+    } & {
       config: string;
       embed: boolean;
       preview: boolean;
