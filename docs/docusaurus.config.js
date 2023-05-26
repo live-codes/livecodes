@@ -133,11 +133,11 @@ const config = {
             items: [
               {
                 label: 'App',
-                href: 'https://livecodes.io',
+                href: 'pathname:///../',
               },
               {
                 label: 'Starter Templates',
-                href: 'https://livecodes.io/?screen=new',
+                href: 'pathname:///../?new',
               },
               {
                 label: 'GitHub',

@@ -199,7 +199,7 @@ createPlayground("#container", { template: "react" });
 const ESMCode = () => {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <CodeBlock language="html">
+    <CodeBlock language="html" showLineNumbers={true}>
       {`
 <div id="container"></div>\n<script type="module">
 import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';

@@ -59,6 +59,7 @@ const sidebars = {
             'features/backup-restore',
             'features/github-integration',
             'features/integrations',
+            'features/user-management',
             'features/security',
           ],
         },
