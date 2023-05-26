@@ -7,12 +7,10 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // eslint-disable-next-line import/no-internal-modules
 import HomepageFeatures from '../components/HomepageFeatures';
 import { loadAds } from '../custom-content';
-import { appUrl } from '../utils';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
-  const openLivecodes = () => window.open(appUrl as string, '_blank');
   return (
     <header
       className={clsx('hero', styles.heroBanner)}
@@ -24,9 +22,9 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className={styles.tryButton + ' button button--secondary button--lg'}
-            onClick={openLivecodes}
+            href="pathname:///../"
           >
-            Try LiveCodes Now ⚡
+            Start Coding ⚡
           </Link>
         </div>
         <div className={styles.description}>
