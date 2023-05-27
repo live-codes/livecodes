@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
   }, []);
 
   return (
-    <Layout title={siteConfig.title} description={siteConfig.tagline}>
+    <Layout description={siteConfig.tagline}>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
