@@ -6,7 +6,7 @@ However, some features do require [login](./user-management.md) with a GitHub ac
 
 :::caution cookies
 
-User authentication is handled using [Firebase Authentication](https://firebase.google.com/products/auth) which **may use cookies**. By logging-in, you agree that cookies may be stored on your device.
+User authentication is handled using [Firebase Authentication](https://firebase.google.com/products/auth) which **may use cookies**. By logging in, you agree that cookies may be stored on your device.
 
 :::
 

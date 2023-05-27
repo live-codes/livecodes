@@ -2,6 +2,8 @@
 title: Sponsor
 ---
 
+import MailLink from '../src/components/MailLink.tsx';
+
 # Sponsor LiveCodes
 
 Thank you for considering becoming a sponsor of LiveCodes!
@@ -24,7 +26,7 @@ Payments can be done via:
 
 Both monthly-recurring sponsorships and one-time donations are accepted. Recurring sponsorships are entitled to logo placements as specified in [Sponsorship Benefits](#sponsorship-benefits).
 
-If you have questions, please reach out to sponsor@livecodes.io.
+If you have questions, please reach out to sponsor&#64;livecodes&#46;io.
 
 ### In-kind Contributions
 
@@ -42,7 +44,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Special Sponsors (> USD$1,000/mo):
 
-<a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">Let's discuss</a>.
+<MailLink email="sponsor&#64;livecodes&#46;io" text="Let's discuss" />.
 
 #### Platinum Sponsors (USD$1,000/mo):
 
@@ -88,4 +90,4 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 <div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid #3c3c3c75", borderRadius: "3px", backgroundColor: "#f9f9f9", margin: "0.5em", marginBottom: "1.5em", color: "#3c3c3c54"}}>You logo here</div>
 
-If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <a href="mailto:sponsor@livecodes.io" target="_blank" rel="noopener noreferrer">reach out to us</a>. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!
+If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <MailLink email="sponsor&#64;livecodes&#46;io" text="reach out to us" />. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!
