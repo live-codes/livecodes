@@ -20,7 +20,7 @@ const loadPreview = async (id: string) => {
   document.body.appendChild(previewFrame);
 };
 
-if (loadingParam === 'click' && params.get('preview') !== 'false') {
+if (loadingParam === 'click' && ['true', '', '1'].includes(params.get('preview') as string)) {
   const id = params.get('x');
   if (id?.startsWith('id/')) {
     loadPreview(id.replace('id/', ''));
