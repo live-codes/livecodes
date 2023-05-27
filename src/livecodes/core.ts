@@ -650,7 +650,9 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
       ...getConfig(),
       activeEditor: editorId,
     });
-    await run();
+    if (getConfig().autoupdate) {
+      await run();
+    }
   }
   await setSavedStatus();
   dispatchChangeEvent();
@@ -1900,7 +1902,7 @@ const handleHotKeys = () => {
       return;
     }
 
-    // Ctrl + Enter triggers run
+    // Shift + Enter triggers run
     if (e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
       split?.show('output');
@@ -2001,7 +2003,9 @@ const handleProcessors = () => {
               : getConfig().processors.filter((p) => p !== processorName)),
           ],
         });
-        await run();
+        if (getConfig().autoupdate) {
+          await run();
+        }
       },
       false,
     );
@@ -2084,7 +2088,9 @@ const handleSettings = () => {
         setUserConfig({
           showSpacing: toggle.checked,
         });
-        await run();
+        if (getConfig().autoupdate) {
+          await run();
+        }
       }
     });
   });
@@ -3118,7 +3124,9 @@ const handleExternalResources = () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
-      await run();
+      if (getConfig().autoupdate) {
+        await run();
+      }
     };
 
     modal.show(loadingMessage());
@@ -3211,7 +3219,9 @@ const handleCustomSettings = () => {
       }
       customSettingsEditor?.destroy();
       modal.close();
-      await run();
+      if (getConfig().autoupdate) {
+        await run();
+      }
       dispatchChangeEvent();
     });
   };
@@ -3784,6 +3794,10 @@ const bootstrap = async (reload = false) => {
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
+    if (!getConfig().autoupdate) {
+      setLoading(false);
+      return;
+    }
     setTimeout(() => {
       if (
         toolsPane?.getActiveTool() === 'tests' &&

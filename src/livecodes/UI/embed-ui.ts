@@ -80,7 +80,8 @@ export const createEmbedUI = async ({
     {
       title: 'Show Result Preview',
       name: 'preview',
-      options: [{ value: 'true' }],
+      options: [{ value: 'true', checked: false }],
+      help: '/docs/features/embeds#result-page-preview',
     },
     {
       title: 'Lite Mode',
@@ -264,7 +265,7 @@ export const createEmbedUI = async ({
       ...(importId ? { import: importId } : {}),
       ...(data.lite ? { lite: data.lite } : {}),
       ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
-      ...(data.loading === 'click' && !data.preview ? { params: { preview: false } } : {}),
+      ...(data.loading === 'click' && data.preview ? { params: { preview: true } } : {}),
       ...(data.view && data.view !== 'split' ? { view: data.view } : {}),
     };
   };
@@ -276,8 +277,8 @@ export const createEmbedUI = async ({
     if (data.loading && data.loading !== 'lazy') {
       iframeUrl.searchParams.set('loading', String(data.loading));
     }
-    if (data.loading === 'click' && !data.preview) {
-      iframeUrl.searchParams.set('preview', 'false');
+    if (data.loading === 'click' && data.preview) {
+      iframeUrl.searchParams.set('preview', 'true');
     }
     if (data.view && data.view !== 'split') {
       iframeUrl.searchParams.set('view', String(data.view));
@@ -410,6 +411,7 @@ export default function App() {
   };
 
   const previousSelections: FormData = {
+    preview: false,
     view: 'split',
     tools: 'closed',
     activeTool: 'console',
