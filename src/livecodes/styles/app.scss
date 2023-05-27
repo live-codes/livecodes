@@ -2082,6 +2082,14 @@ i.arrow {
     input[type='checkbox'] {
       margin-top: 0.7em;
     }
+
+    .modal-screen-container {
+      margin-bottom: 0.2em;
+    }
+
+    .description p {
+      margin-bottom: 0.5em;
+    }
   }
 
   #deploy-container {
@@ -2485,6 +2493,10 @@ i.arrow {
 
       h3 {
         margin: 0.5em 0;
+      }
+
+      p {
+        margin-bottom: 1em;
       }
 
       li {

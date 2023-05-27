@@ -27,12 +27,22 @@
 }
 
 .steps {
-  background-color: rgb(250, 250, 250);
+  background-color: var(--ifm-pre-background);
   border: 1px solid grey;
   border-radius: 3px;
   margin-bottom: 2em;
   padding: 0.5em;
   padding-left: 2em;
+}
+
+.border {
+  border: 1px solid grey;
+  border-radius: 3px;
+  padding: 0;
+}
+
+.border > * {
+  margin: 0 !important;
 }
 
 .featureSvg {

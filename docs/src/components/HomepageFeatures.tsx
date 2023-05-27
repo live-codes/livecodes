@@ -2,10 +2,11 @@
 import Link from '@docusaurus/Link';
 // eslint-disable-next-line import/no-unresolved
 import CodeBlock from '@theme/CodeBlock';
+// eslint-disable-next-line import/no-unresolved
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 import React from 'react';
 import clsx from 'clsx';
-import { appUrl } from '../utils';
 import styles from './HomepageFeatures.module.css';
 import LiveCodes from './LiveCodes';
 import Sliders from './LanguageSliders';
@@ -139,9 +140,9 @@ const FeatureList3: FeatureItem[] = [
     image: './img/docs.svg',
     description: (
       <>
-        Comprehensive <Link to="./overview">documentations</Link> (including{' '}
-        <Link to="./api/modules">TypeScript types</Link>) for <Link to="./features">features</Link>,{' '}
-        <Link to="./configuration">configuration</Link> and <Link to="./sdk">SDK</Link>.
+        Comprehensive <Link to="./overview">documentations</Link> for{' '}
+        <Link to="./features">features</Link>, <Link to="./configuration">configuration</Link> and{' '}
+        <Link to="./sdk">SDK</Link> (including <Link to="./api/modules">TypeScript types</Link>).
         Documentations are rich with code samples, live demos and screenshots. A gallery of usage
         examples is provided as a <Link to="pathname:///../stories">storybook.</Link>
       </>
@@ -195,6 +196,27 @@ import { createPlayground } from "livecodes";
 createPlayground("#container", { template: "react" });
 `.trimStart();
 
+const ESMCode = () => {
+  const { siteConfig } = useDocusaurusContext();
+  return (
+    <CodeBlock language="html" showLineNumbers={true}>
+      {`
+<div id="container"></div>\n<script type="module">
+import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';
+
+createPlayground('#container', {
+  params: {
+    markdown: '# Hello LiveCodes!',
+    css: 'h1 {color: dodgerblue;}',
+    js: 'console.log("Hello, from JS!");',
+    console: 'open',
+  },
+});
+</script>`.trimStart()}
+    </CodeBlock>
+  );
+};
+
 export default function HomepageFeatures(): JSX.Element {
   return (
     <>
@@ -240,16 +262,13 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
           <div className={`row ${styles.center} ${styles.buttons}`}>
             <Link
-              className="button button--primary button--outline button--lg"
-              to="./examples/display-modes/"
-            >
-              Examples 🎨
-            </Link>
-            <Link
               className=" button button--info button--outline button--lg"
               to="./getting-started"
             >
               Get Started ✈️
+            </Link>
+            <Link className="button button--primary button--outline button--lg" to="./overview">
+              Documentations 📖
             </Link>
           </div>
         </div>
@@ -260,42 +279,40 @@ export default function HomepageFeatures(): JSX.Element {
             <h2 className={styles.padding}>Code Playground That Just Works!</h2>
             <div className={'row ' + styles.center}>
               <div className={clsx('col col--6', styles.left)}>
-                <p>
-                  <ul>
-                    <li>No servers to configure (or pay for!)</li>
-                    <li>No databases to maintain (or pay for!)</li>
-                    <li>No installs</li>
-                    <li>No configuration files</li>
-                    <li>No build steps</li>
-                    <li>
-                      No subscription fees (free and <Link to="./license/">open-source</Link>)
-                    </li>
-                    <li>No account required *</li>
-                    <li>No limits for usage (unlimited private projects)</li>
-                    <li>
-                      <Link to="./languages/">80+ languages/frameworks/processors</Link>
-                    </li>
-                    <li>
-                      Large set of <Link to="./features/">features</Link> and integrations
-                    </li>
-                    <li>
-                      <Link to="./features/import">Import</Link> code from a wide variety of sources
-                    </li>
-                    <li>
-                      Use modules from <Link to="./features/module-resolution">npm</Link>,{' '}
-                      <Link to="./features/module-resolution#deno-modules">deno.land/x</Link>,{' '}
-                      <Link to="./features/module-resolution#githubgitlabbitbucket">GitHub</Link>,
-                      and others
-                    </li>
-                    <li>
-                      Easily <Link to="./features/embeds">embed</Link> it in your web pages
-                    </li>
-                    <li>It runs in the browser (client-side)</li>
-                  </ul>
-                </p>
+                <ul>
+                  <li>No servers to configure (or pay for!)</li>
+                  <li>No databases to maintain (or pay for!)</li>
+                  <li>No installs</li>
+                  <li>No configuration files</li>
+                  <li>No build steps</li>
+                  <li>
+                    No subscription fees (free and <Link to="./license/">open-source</Link>)
+                  </li>
+                  <li>No account required *</li>
+                  <li>No limits for usage (unlimited private projects)</li>
+                  <li>
+                    <Link to="./languages/">80+ languages/frameworks/processors</Link>
+                  </li>
+                  <li>
+                    Large set of <Link to="./features/">features</Link> and integrations
+                  </li>
+                  <li>
+                    <Link to="./features/import">Import</Link> code from a wide variety of sources
+                  </li>
+                  <li>
+                    Use modules from <Link to="./features/module-resolution">npm</Link>,{' '}
+                    <Link to="./features/module-resolution#deno-modules">deno.land/x</Link>,{' '}
+                    <Link to="./features/module-resolution#githubgitlabbitbucket">GitHub</Link>, and
+                    others
+                  </li>
+                  <li>
+                    Easily <Link to="./features/embeds">embed</Link> it in your web pages
+                  </li>
+                  <li>It runs in the browser (client-side)</li>
+                </ul>
               </div>
               <div className={clsx('col col--6', styles.left)}>
-                <p>
+                <div>
                   <p>
                     <strong>Steps:</strong>
                   </p>
@@ -308,13 +325,22 @@ export default function HomepageFeatures(): JSX.Element {
                     </li>
                   </ol>
                   ... that's it!
-                </p>
-                <p>
-                  <div>
-                    Ok, you want to <Link to="./getting-started#self-hosting">self-host</Link> it?
-                  </div>
+                </div>
+                <hr />
+                <div>
                   <p>
-                    <strong>Steps:</strong>
+                    Do you want to <Link to="./features/embeds">embed</Link> it in a web page?
+                  </p>
+                  <p>Add this code to your page:</p>
+                  <div className={styles.border}>
+                    <ESMCode />
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <p>
+                    Ok, do you want to <Link to="./getting-started#self-hosting">self-host</Link>{' '}
+                    it?
                   </p>
                   <ol className={styles.steps}>
                     <li>
@@ -350,7 +376,7 @@ export default function HomepageFeatures(): JSX.Element {
                     </li>
                   </ol>
                   ... and it just works!
-                </p>
+                </div>
               </div>
             </div>
             <p className={styles.finePrint}>
@@ -418,7 +444,7 @@ export default function HomepageFeatures(): JSX.Element {
               </Link>
               <Link
                 className=" button button--info button--outline button--lg"
-                to={appUrl + '?screen=new'}
+                href="pathname:///../?new"
                 target="_blank"
               >
                 New Project ✨
