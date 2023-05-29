@@ -90,11 +90,11 @@ This can be enabled by one of these ways:
 
 Demo:
 
-<LiveCodes import="id/cjfrdmauqz7" loading="click" params={{preview: true}} view="result"></LiveCodes>
+<LiveCodes import="id/rqdbzuhjpg5" loading="click" params={{preview: true}} view="result"></LiveCodes>
 
 :::info note
 
-This only works when importing a project (e.g. "id/cjfrdmauqz7") that has the result HTML (this is done automatically by the Embed Screen). For example, it does not work with starter templates.
+This only works when importing a project (e.g. "id/rqdbzuhjpg5") that has the result HTML (this is done automatically by the Embed Screen). For example, it does not work with starter templates.
 
 Any scripts in the result page also runs (before the playground loads). This may not be desirable (e.g. if the script runs `alert`s or sounds).
 
