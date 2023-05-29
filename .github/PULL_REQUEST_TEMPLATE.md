@@ -16,11 +16,11 @@
 
 ## What type of PR is this? (check all applicable)
 
-- [ ] 🍕 Feature
+- [ ] ✨ Feature
 - [ ] 🐛 Bug Fix
 - [ ] 📝 Documentation Update
 - [ ] 🎨 Style
-- [ ] 🧑‍💻 Code Refactor
+- [ ] ♻️ Code Refactor
 - [ ] 🔥 Performance Improvements
 - [ ] ✅ Test
 - [ ] 🤖 Build
