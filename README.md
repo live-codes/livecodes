@@ -16,7 +16,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 [What makes LiveCodes different?](https://livecodes.io/docs/why)
 
-<a href="./docs/static/img/screenshots/livecodes-languages.jpg" target="_blank"><img src="./docs/static/img/screenshots/livecodes-languages.jpg" width="600" /></a>
+<a href="https://livecodes.io/docs/img/screenshots/livecodes-languages.jpg" target="_blank"><img src="https://livecodes.io/docs/img/screenshots/livecodes-languages.jpg" width="600" /></a>
 
 ## Code Playground That Just Works!
 
@@ -118,11 +118,11 @@ The documentations include demos, code samples, screenshots, [Storybook](https:/
 
 Contributions are welcome and highly appreciated.
 
-Please refer to the [contribution guide](./CONTRIBUTING.md)
+Please refer to the [contribution guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md)
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/live-codes/livecodes/blob/HEAD/LICENSE)
 
 ## Sponsor
 
