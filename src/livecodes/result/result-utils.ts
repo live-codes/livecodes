@@ -1,9 +1,10 @@
-import { handleEval, handleResize, proxyConsole } from './utils';
+import { handleEval, handleResize, handleScrollPosition, proxyConsole } from './utils';
 
 (window as any).livecodes = (window as any).livecodes || {};
 proxyConsole();
 handleEval();
 handleResize();
+handleScrollPosition();
 
 window.addEventListener('message', function (event) {
   if (event.data.styles) {
@@ -13,6 +14,7 @@ window.addEventListener('message', function (event) {
   }
   if (event.data.flush) {
     document.body.innerHTML = '';
+    document.head.innerHTML = '';
   } else {
     parent.postMessage({ type: 'loading', payload: false }, '*');
   }

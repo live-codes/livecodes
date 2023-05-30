@@ -155,3 +155,25 @@ export const handleResize = () => {
     );
   });
 };
+
+export const handleScrollPosition = () => {
+  window.addEventListener('scroll', () => {
+    parent.postMessage(
+      {
+        type: 'scroll',
+        position: {
+          x: window.scrollX,
+          y: window.scrollY,
+        },
+      },
+      '*',
+    );
+  });
+  const prefix = '#livecodes-scroll-position:';
+  if (location.hash.startsWith(prefix)) {
+    const [x, y] = location.hash.replace(prefix, '').split(',').map(Number);
+    window.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo({ top: y, left: x });
+    });
+  }
+};
