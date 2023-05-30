@@ -35,6 +35,11 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
+<a href="https://kapa.ai/" target="_blank" title="Kapa.ai">
+  <img alt="Kapa.ai" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/kapa-ai.jpg">
+</img></a>
+</p>
+<p>
 <a href="https://www.sonarsource.com/products/sonarcloud/" target="_blank" title="SonarCloud">
   <img alt="SonarCloud" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/sonarcloud.svg">
 </img></a>
@@ -47,11 +52,6 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
   <img alt="BundleWatch" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/bundlewatch.svg">
-</img></a>
-</p>
-<p>
-<a href="https://kapa.ai/" target="_blank" title="Kapa.ai">
-  <img alt="Kapa.ai" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/kapa-ai.jpg">
 </img></a>
 </p>
 <p>
