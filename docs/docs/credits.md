@@ -50,6 +50,11 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
+<a href="https://kapa.ai/" target="_blank" title="Kapa.ai">
+  <img alt="Kapa.ai" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/kapa-ai.jpg">
+</img></a>
+</p>
+<p>
 <a href="https://dpaste.com/" target="_blank" title="dpaste">
   <img alt="dpaste" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/dpaste.png">
 </img></a>

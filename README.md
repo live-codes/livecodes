@@ -1,4 +1,4 @@
-# LiveCodes <!-- omit in toc -->
+# LiveCodes
 
 Code Playground That Just Works!
 
