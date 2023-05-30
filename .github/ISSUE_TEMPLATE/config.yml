@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: ❓ Ask a question
+    url: https://livecodes.io/docs/contact/
+    about: Ask questions about open source onboarding
