@@ -1192,6 +1192,10 @@ const checkSavedAndExecute = (fn: () => void, cancelFn?: () => void) => () =>
       setTimeout(fn);
     } else if (typeof cancelFn === 'function') {
       setTimeout(cancelFn);
+    } else {
+      setTimeout(() => {
+        modal.close();
+      });
     }
   });
 
@@ -1543,7 +1547,8 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
         ...(getAppData()?.recentTemplates?.filter((t) => t.name !== templateName) || []),
       ].slice(0, 5),
     });
-    (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
+    const doNotCheckAndExecute = (fn: () => void) => async () => fn();
+    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(() => {
       projectId = '';
       loadConfig(
         {
@@ -2254,7 +2259,7 @@ const handleNew = () => {
               'click',
               (event) => {
                 event.preventDefault();
-                loadStarterTemplate(template.name);
+                loadStarterTemplate(template.name, /* checkSaved= */ false);
               },
               false,
             );
