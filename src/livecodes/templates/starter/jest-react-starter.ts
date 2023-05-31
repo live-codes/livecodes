@@ -42,7 +42,7 @@ export default function App(props) {
   return (
     <div className="container">
       <h1>Hello, {props.name}!</h1>
-      <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jest.svg" />
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/jest.svg" />
       <p>You clicked {count} times.</p>
       <button onClick={() => setCount(increment(count))}>Click me</button>
       <p className="info">Run tests in the "Tests" panel below.</p>

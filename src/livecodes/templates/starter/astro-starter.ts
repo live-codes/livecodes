@@ -44,7 +44,7 @@ const builtAtFormatted = format(builtAt, 'MMMM dd, yyyy -- H:mm:ss.SSS');
 <body>
   <div class="container">
     <h1>Hello, {title}!</h1>
-    <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/astro.svg" />
+    <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/astro.svg" />
     <p>You clicked <span id="counter">0</span> times.</p>
     <button id="counter-button">Click me</button>
     <p class="note">

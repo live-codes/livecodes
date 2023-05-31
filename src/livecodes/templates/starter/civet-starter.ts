@@ -10,7 +10,7 @@ export const civetStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/civet.png" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/civet.png" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

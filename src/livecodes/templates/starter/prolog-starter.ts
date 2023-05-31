@@ -10,7 +10,7 @@ export const prologStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tau-prolog.svg" title="Tau Prolog" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tau-prolog.svg" title="Tau Prolog" />
 	<form id="query-form" onsubmit="runQuery(); return false;">
 		<input type="text" id="query" value="father(X, jack)." placeholder="Enter a query" />
 		<input type="submit" value="Run query" id="button" />

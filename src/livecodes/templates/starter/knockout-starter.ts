@@ -10,7 +10,7 @@ export const knockoutStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span data-bind="text: title">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/knockout.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/knockout.svg" />
   <p>You clicked <span data-bind="text: numberOfClicks">0</span> times.</p>
   <button data-bind="click: registerClick">Click me</button>
 </div>

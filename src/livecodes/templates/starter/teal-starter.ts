@@ -10,7 +10,7 @@ export const tealStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/teal.png" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/teal.png" />
   <p id="counter">You clicked 0 times.</p>
   <button id="counter-button">Click me</button>
 </div>

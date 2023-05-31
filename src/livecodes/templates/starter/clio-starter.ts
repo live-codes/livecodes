@@ -10,7 +10,7 @@ export const clioStarter: Template = {
     content: `
 <div class="container">
   <h1 id="title">Hello, World!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/clio.png" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/clio.png" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
 </div>
