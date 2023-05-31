@@ -142,6 +142,7 @@ let split: ReturnType<typeof createSplitPanes> | null = createSplitPanes();
 const typeLoader = createTypeLoader();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
+const iframeScrollPosition = { x: 0, y: 0 };
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -263,7 +264,12 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       const query = `?markup=${markup.language}&style=${style.language}&script=${
         script.language
       }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}`;
-      iframe.src = service.getResultUrl() + query;
+      const scrollPosition =
+        params.scrollPosition === false ||
+        (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
+          ? ''
+          : `#livecodes-scroll-position:${iframeScrollPosition.x},${iframeScrollPosition.y}`;
+      iframe.src = service.getResultUrl() + query + scrollPosition;
       container.appendChild(iframe);
     }
 
@@ -1073,6 +1079,10 @@ const loadConfig = async (
   // reset url params
   updateUrl(url || location.origin + location.pathname, true);
 
+  // reset iframe scroll position
+  iframeScrollPosition.x = 0;
+  iframeScrollPosition.y = 0;
+
   // load config
   await bootstrap(true);
 
@@ -1182,6 +1192,10 @@ const checkSavedAndExecute = (fn: () => void, cancelFn?: () => void) => () =>
       setTimeout(fn);
     } else if (typeof cancelFn === 'function') {
       setTimeout(cancelFn);
+    } else {
+      setTimeout(() => {
+        modal.close();
+      });
     }
   });
 
@@ -1533,7 +1547,8 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
         ...(getAppData()?.recentTemplates?.filter((t) => t.name !== templateName) || []),
       ].slice(0, 5),
     });
-    (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
+    const doNotCheckAndExecute = (fn: () => void) => async () => fn();
+    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(() => {
       projectId = '';
       loadConfig(
         {
@@ -1769,6 +1784,19 @@ const handleIframeResize = () => {
     sizeLabel.style.display = 'block';
     sizeLabel.classList.add('visible');
     hideLabel();
+  });
+};
+
+const handleIframeScroll = () => {
+  eventsManager.addEventListener(window, 'message', (event: any) => {
+    const iframe = UI.getResultIFrameElement();
+    if (!iframe || event.source !== iframe.contentWindow || event.data.type !== 'scroll') {
+      return;
+    }
+
+    const position = event.data.position;
+    iframeScrollPosition.x = Number(position.x) || 0;
+    iframeScrollPosition.y = Number(position.y) || 0;
   });
 };
 
@@ -2231,7 +2259,7 @@ const handleNew = () => {
               'click',
               (event) => {
                 event.preventDefault();
-                loadStarterTemplate(template.name);
+                loadStarterTemplate(template.name, /* checkSaved= */ false);
               },
               false,
             );
@@ -3520,6 +3548,7 @@ const basicHandlers = () => {
   handleLogoLink();
   handleResize();
   handleIframeResize();
+  handleIframeScroll();
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();

@@ -897,6 +897,7 @@ export type UrlQueryParams = Partial<
       active: EditorId | 0 | 1 | 2;
       tags: string | string[];
       'no-defaults': boolean;
+      scrollPosition: boolean;
       tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
       [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
