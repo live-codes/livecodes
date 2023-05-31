@@ -3690,7 +3690,12 @@ const importExternalContent = async (options: {
   let configUrlConfig: Partial<Config> = {};
 
   if (template) {
-    templateConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
+    const templateObj = await getTemplate(template, config, baseUrl);
+    if (templateObj) {
+      templateConfig = upgradeAndValidate(templateObj);
+    } else {
+      notifications.error('Could not load template: ' + template);
+    }
   }
 
   if (url) {
@@ -3711,6 +3716,10 @@ const importExternalContent = async (options: {
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user);
+
+    if (Object.keys(urlConfig).length === 0) {
+      notifications.error('Invalid import URL');
+    }
   }
 
   if (hasContentUrls(config)) {
@@ -3718,7 +3727,7 @@ const importExternalContent = async (options: {
     const editorsContent = await Promise.all(
       editorIds.map((editorId) => {
         const contentUrl = config[editorId].contentUrl;
-        if (contentUrl && !config[editorId].content) {
+        if (contentUrl && getValidUrl(contentUrl) && !config[editorId].content) {
           return fetch(contentUrl)
             .then((res) => res.text())
             .then((content) => ({
