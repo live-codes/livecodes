@@ -40,10 +40,7 @@ module App = {
 
     <div className="container">
       <h1> {React.string(title)} </h1>
-      <img
-        className="logo"
-        src="{{ __livecodes_baseUrl__ }}assets/templates/reason.svg"
-      />
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/reason.svg" />
       <p> {React.string("You clicked " ++ times)} </p>
       <button onClick={_ => setCount(_ => count + 1)}>
         {React.string("Click me")}

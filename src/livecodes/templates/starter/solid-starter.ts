@@ -39,7 +39,7 @@ function App(props: Props) {
   return (
     <div className="container">
       <h1>Hello, {props.title}!</h1>
-      <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
       <p>You clicked {count} times.</p>
       <button onClick={increment}>Click me</button>
     </div>

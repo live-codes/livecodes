@@ -27,7 +27,7 @@ export const riotStarter: Template = {
 <counter>
   <div class="container">
     <h1>Hello, { props.title }!</h1>
-    <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/riot.svg" />
+    <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/riot.svg" />
     <p>You clicked { state.count } times.</p>
     <button onclick="{ increment }">Click me</button>
     <div class="footer">

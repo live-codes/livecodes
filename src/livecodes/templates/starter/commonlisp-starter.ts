@@ -10,7 +10,7 @@ export const commonlispStarter: Template = {
     content: `
 <div class="container">
   <h1 id="title">Hello, World!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/commonlisp.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/commonlisp.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

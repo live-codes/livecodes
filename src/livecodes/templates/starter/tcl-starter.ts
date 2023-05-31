@@ -10,7 +10,7 @@ export const tclStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tcl.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/tcl.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button" disabled>Loading...</button>
 </div>

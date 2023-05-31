@@ -48,10 +48,7 @@ module App = {
 
     <div className="container">
       <h1> {title->React.string} </h1>
-      <img
-        className="logo"
-        src="{{ __livecodes_baseUrl__ }}assets/templates/rescript.png"
-      />
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/rescript.png" />
       <p> {React.string("You clicked " ++ times)} </p>
       <button onClick> {React.string("Click me")} </button>
     </div>

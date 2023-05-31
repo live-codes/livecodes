@@ -34,7 +34,7 @@ function App(props) {
   return (
     <div class="container">
       <h1>Hello, {props.name}!</h1>
-      <img className="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/preact.svg" />
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/preact.svg" />
       <p>You clicked {count} times.</p>
       <button onClick={() => count.value++}>Click me</button>
     </div>
