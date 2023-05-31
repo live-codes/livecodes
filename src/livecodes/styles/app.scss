@@ -447,6 +447,7 @@ a {
   top: 0;
 
   > div {
+    display: none;
     flex-grow: 1;
     min-height: 30px;
     position: relative;
