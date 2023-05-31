@@ -53,25 +53,31 @@ Some thoughts to help you contribute to this project
    $ npm run docs
    ```
 
-8. Run linters, formatters & unit tests
+8. Start storybook and watch for changes: http://localhost:6006
+
+   ```shell
+   $ npm run storybook
+   ```
+
+9. Run linters, formatters & unit tests
 
    ```shell
    $ npm run test
    ```
 
-9. Run e2e tests
+10. Run e2e tests
 
-   ```shell
-   $ npm run e2e
-   ```
+```shell
+$ npm run e2e
+```
 
-10. Deploy to GitHub Pages (make sure you have built the app first)
+11. Deploy to GitHub Pages (make sure you have built the app first)
 
     ```shell
     $ npm run gh-pages
     ```
 
-11. Start a release ([more details](./docs/docs/contribution/release.md))
+12. Start a release ([more details](./docs/docs/contribution/release.md))
 
     ```shell
     $ npm run start-release
