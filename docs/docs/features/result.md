@@ -87,3 +87,13 @@ The spacing between elements on the result page can be measured by adding [Spaci
 `Show Spacing` is only available when viewing the result page in the app. It is not added to the result page for example when [exported](./export.md) or [deployed](./deploy.md).
 
 :::
+
+## Scroll Position
+
+By default, the result page scroll position is maintained after reloads.
+
+To disable this behavior, set the [query param](../configuration/query-params.md) `scrollPosition` to `false`.
+
+Example:
+
+    https://livecodes.io?scrollPosition=false

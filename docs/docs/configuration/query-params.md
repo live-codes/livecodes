@@ -135,6 +135,10 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     The [tests panel](../features/tests.md) status.
 
+  - `scrollPosition`: `boolean` (Default: `true`).
+
+    If `false`, the [result page](../features/result.md) [scroll position](../features/result.md#scroll-position) will not be maintained after reload.
+
   - Any [`Language`](../api/modules/internal#language) can used as a query parameter, and the value will be used as its code.
 
     Example:
