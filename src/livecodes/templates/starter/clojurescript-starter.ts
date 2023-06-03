@@ -43,7 +43,7 @@ export const clojurescriptStarter: Template = {
             [:img
               {:className "logo"
               :alt "logo"
-              :src "http://127.0.0.1:8080/livecodes/assets/templates/cljs.svg"}]
+              :src "{{ __livecodes_baseUrl__ }}assets/templates/cljs.svg"}]
             [:p "You clicked" counter "times."]
             [:button
               {:onClick (fn []
