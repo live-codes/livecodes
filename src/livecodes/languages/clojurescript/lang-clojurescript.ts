@@ -5,8 +5,8 @@ import { parenFormatter } from '../commonlisp';
 
 export const clojurescript: LanguageSpecs = {
   name: 'clojurescript',
-  title: 'CLJS',
-  longTitle: 'ClojureScript',
+  title: 'CLJS (cherry)',
+  longTitle: 'ClojureScript (cherry)',
   formatter: {
     factory: parenFormatter,
   },
