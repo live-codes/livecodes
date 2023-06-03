@@ -86,6 +86,7 @@ export default function Sliders() {
       { name: 'julia', title: 'Julia' },
       { name: 'scheme', title: 'Scheme' },
       { name: 'commonlisp', title: 'Lisp' },
+      { name: 'clojurescript', title: 'CLJS' },
       { name: 'tcl', title: 'Tcl' },
       { name: 'assemblyscript', title: 'AssemblyScript' },
       { name: 'wat', title: 'WAT' },

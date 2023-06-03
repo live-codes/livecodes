@@ -28,6 +28,8 @@ brython: [BSD-3-Clause license](https://github.com/brython-dev/brython/blob/c579
 
 chai: [MIT License](https://github.com/chaijs/chai/blob/1a8247f30dbe0f54268a9748ae673caec75d6bfe/LICENSE)
 
+Cherry: [EPL-1.0 License](https://github.com/squint-cljs/cherry/blob/60adcf6e3a8fb940a80c6a193599da0272fe3058/epl-v10.html)
+
 Civet: [MIT License](https://github.com/DanielXMoore/Civet/blob/3178fe35def1de20d6f5ec929f6f6225e80d8ac0/LICENSE)
 
 cjs2es: [MIT License](https://github.com/AlexxNB/cjs2es/blob/239396ddfaf8404b649f7c066f261256524cac41/LICENSE)
@@ -170,7 +172,7 @@ PrismJS: [MIT License](https://github.com/PrismJS/prism/blob/f84c49c5eae1aecbbb8
 
 Pug: [MIT License](https://github.com/pugjs/pug/blob/bb0731f75813aa30d8e077808b5465a67ef284ef/packages/pug/LICENSE)
 
-Pyodide: [MPL-2.0 license](https://github.com/pyodide/pyodide/blob/01e1fd6e38ecf036ce7394b4e5640bef393fa404/LICENSE)
+Pyodide: [MPL-2.0 License](https://github.com/pyodide/pyodide/blob/01e1fd6e38ecf036ce7394b4e5640bef393fa404/LICENSE)
 
 QR Code Generator: [MIT License](https://github.com/kazuhikoarase/qrcode-generator/blob/b95b52e887f832ebff0a9ec93c08f2e83d95ec92/LICENSE)
 
