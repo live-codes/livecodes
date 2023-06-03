@@ -523,6 +523,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
+  activeEditor.style.visibility = 'visible';
   if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
