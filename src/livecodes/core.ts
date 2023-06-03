@@ -523,6 +523,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
+  activeEditor.style.visibility = 'visible';
   if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
@@ -1108,6 +1109,7 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
 };
 
 const loadUserConfig = (updateUI = true) => {
+  if (isEmbed) return;
   const userConfig = stores.userConfig?.getValue();
   setConfig(
     buildConfig({
@@ -3869,8 +3871,7 @@ const initializeApp = async (
 
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
-  setConfig(buildConfig(appConfig));
-
+  setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);

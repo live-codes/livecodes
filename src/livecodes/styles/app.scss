@@ -2,11 +2,11 @@
   --link-color: rgb(1, 100, 180);
   --toolbar-text-color: rgb(237, 237, 237);
   --toolbar-text-active-color: rgb(237, 237, 237);
-  --toolbar-background-color: rgb(0, 27, 37);
+  --toolbar-background-color: rgb(14, 24, 27);
   --toolbar-background-active-color: rgb(68, 72, 87);
   --editor-title-text-color: rgb(143, 154, 174);
   --editor-title-text-active-color: rgb(237, 237, 237);
-  --background-color: rgb(0, 27, 37);
+  --background-color: rgb(14, 24, 27);
   --foreground-color: rgb(90, 96, 116);
   --split-bar-color: rgb(68, 72, 87);
   --split-handle-color: rgb(237, 237, 237);
@@ -16,7 +16,7 @@
   --button-active-hover-color: rgb(119, 124, 141);
   --language-menu-button-color: rgb(90, 96, 116);
   --language-menu-button-hover-color: rgb(119, 124, 141);
-  --language-menu-button-active-color: rgb(0, 27, 37);
+  --language-menu-button-active-color: rgb(43, 43, 43);
   --language-menu-button-active-hover-color: rgb(119, 124, 141);
   --scrollbar-color: rgb(192, 192, 192);
   --scrollbar-hover-color: rgb(167, 167, 167);
@@ -446,8 +446,11 @@ a {
   position: relative;
   top: 0;
 
+  .editor {
+    visibility: hidden;
+  }
+
   > div {
-    display: none;
     flex-grow: 1;
     min-height: 30px;
     position: relative;
