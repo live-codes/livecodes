@@ -1,6 +1,6 @@
-import { compileInCompiler } from '../../compiler';
 import type { LanguageSpecs } from '../../models';
-import { cherryCljsBaseUrl, cherryCljsCompilerUrl } from '../../vendors';
+import { compileInCompiler } from '../../compiler';
+import { cherryCljsBaseUrl } from '../../vendors';
 import { parenFormatter } from '../commonlisp';
 
 export const clojurescript: LanguageSpecs = {
@@ -11,7 +11,7 @@ export const clojurescript: LanguageSpecs = {
     factory: parenFormatter,
   },
   compiler: {
-    url: cherryCljsCompilerUrl,
+    url: cherryCljsBaseUrl + 'lib/cherry.umd.js',
     factory:
       () =>
       async (code, { config, options }) => {
