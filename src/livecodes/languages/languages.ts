@@ -65,6 +65,7 @@ import { flow } from './flow';
 import { mjml } from './mjml';
 import { sucrase } from './sucrase';
 import { eta } from './eta';
+import { clojurescript } from './clojurescript';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -132,6 +133,7 @@ export const languages: LanguageSpecs[] = [
   julia,
   scheme,
   commonlisp,
+  clojurescript,
   tcl,
   assemblyscript,
   wat,

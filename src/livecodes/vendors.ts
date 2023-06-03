@@ -37,6 +37,11 @@ export const chaiUrl = 'https://cdn.jsdelivr.net/npm/chai@4.3.6/+esm';
 
 export const chaiTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/chai@4.2.22/index.d.ts';
 
+export const cherryCljsBaseUrl = 'https://cdn.jsdelivr.net/npm/cherry-cljs@0.0.3/';
+
+export const cherryCljsCompilerUrl =
+  'https://cdn.jsdelivr.net/npm/@live-codes/cherry-cljs-compiler@0.0.3/cherry.umd.js';
+
 export const cjs2esUrl = 'https://cdn.jsdelivr.net/npm/cjs2es@1.1.1/dist/cjs2es.browser.min.js';
 
 export const clioBaseUrl =

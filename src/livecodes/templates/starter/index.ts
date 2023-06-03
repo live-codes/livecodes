@@ -54,6 +54,7 @@ import { rStarter } from './r-starter';
 import { civetStarter } from './civet-starter';
 import { fennelStarter } from './fennel-starter';
 import { tealStarter } from './teal-starter';
+import { clojurescriptStarter } from './clojurescript-starter';
 
 export const starterTemplates = [
   blank,
@@ -102,6 +103,7 @@ export const starterTemplates = [
   juliaStarter,
   schemeStarter,
   commonlispStarter,
+  clojurescriptStarter,
   tclStarter,
   markdownStarter,
   assemblyscriptStarter,

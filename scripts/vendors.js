@@ -106,6 +106,7 @@ const buildVendors = () => {
       'languages/codemirror-lang-r.ts',
       'languages/codemirror-lang-julia.ts',
       'languages/codemirror-lang-scheme.ts',
+      'languages/codemirror-lang-clojure.ts',
       'languages/codemirror-lang-tcl.ts',
       'languages/codemirror-lang-less.ts',
       'languages/codemirror-lang-stylus.ts',

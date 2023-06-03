@@ -26,6 +26,7 @@ const templates = [
   'Lua',
   'Fennel',
   'Scheme',
+  'ClojureScript',
   'Tcl',
 ];
 
