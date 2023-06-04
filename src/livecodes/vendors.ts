@@ -27,7 +27,7 @@ export const autoCompleteUrl =
 export const babelUrl = 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.4/babel.min.js';
 
 export const biwaschemeUrl =
-  'https://cdn.jsdelivr.net/npm/biwascheme@0.7.4/release/biwascheme-min.js';
+  'https://cdn.jsdelivr.net/npm/biwascheme@0.8.0/release/biwascheme-min.js';
 
 export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.20211209.2/';
 
