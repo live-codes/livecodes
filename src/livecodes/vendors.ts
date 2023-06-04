@@ -286,7 +286,7 @@ export const tauPrologBaseUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/m
 
 export const twigUrl = 'https://cdn.jsdelivr.net/npm/twig@1.15.4/twig.min.js';
 
-export const typescriptUrl = 'https://cdn.jsdelivr.net/npm/typescript@4.5.5/lib/typescript.min.js';
+export const typescriptUrl = 'https://cdn.jsdelivr.net/npm/typescript@5.1.3/lib/typescript.min.js';
 
 export const uniterUrl = 'https://cdn.jsdelivr.net/npm/uniter@2.17.0/dist/uniter.js';
 
