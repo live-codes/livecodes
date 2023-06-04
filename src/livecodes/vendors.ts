@@ -257,7 +257,7 @@ export const rescriptStdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std
 
 export const resetCssUrl = 'https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css';
 
-export const riotBaseUrl = 'https://cdn.jsdelivr.net/npm/riot@6.1.2/';
+export const riotBaseUrl = 'https://cdn.jsdelivr.net/npm/riot@7.1.0/';
 
 export const snackbarUrl =
   'https://cdn.jsdelivr.net/npm/@snackbar/core@1.7.0/dist/snackbar.min.css';
