@@ -31,7 +31,7 @@ export const biwaschemeUrl =
 
 export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.20211209.2/';
 
-export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.4/';
+export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.11.2/';
 
 export const chaiUrl = 'https://cdn.jsdelivr.net/npm/chai@4.3.6/+esm';
 
