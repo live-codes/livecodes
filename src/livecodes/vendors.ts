@@ -45,7 +45,7 @@ export const clioBaseUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/clio-browser-compiler@0.0.3/public/build/';
 
 export const coffeeScriptUrl =
-  'https://cdn.jsdelivr.net/npm/coffeescript@2.6.1/lib/coffeescript-browser-compiler-legacy/coffeescript.js';
+  'https://cdn.jsdelivr.net/npm/coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js';
 
 export const cppWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/cpp-wasm@1.0.2';
 
