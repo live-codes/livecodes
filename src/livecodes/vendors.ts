@@ -305,7 +305,7 @@ export const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/buil
 
 export const vueSfcLoaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/';
 
-export const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.26/index.js';
+export const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.32/index.js';
 
 export const waveDromBaseUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/';
 
