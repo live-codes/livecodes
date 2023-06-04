@@ -94,4 +94,9 @@ platformBrowserDynamic()
   types: {
     'zone.js/dist/zone': '',
   },
+  customSettings: {
+    typescript: {
+      experimentalDecorators: true,
+    },
+  },
 };
