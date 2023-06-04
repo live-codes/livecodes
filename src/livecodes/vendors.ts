@@ -272,9 +272,9 @@ export const snackbarUrl =
 export const spacingJsUrl = 'https://cdn.jsdelivr.net/npm/spacingjs@1.0.7/dist/bundle.min.js';
 
 export const sqlFormatterUrl =
-  'https://cdn.jsdelivr.net/npm/sql-formatter@4.0.2/dist/sql-formatter.min.js';
+  'https://cdn.jsdelivr.net/npm/sql-formatter@12.2.1/dist/sql-formatter.min.js';
 
-export const sqljsBaseUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/';
+export const sqljsBaseUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/';
 
 export const stencilUrl =
   'https://cdn.jsdelivr.net/npm/@stencil/core@3.2.2/compiler/stencil.min.js';
