@@ -212,7 +212,7 @@ export const normalizeCssUrl = 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1
 
 export const nunjucksBaseUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.3/browser/';
 
-export const opalBaseUrl = 'https://cdn.opalrb.com/opal/1.4.1/';
+export const opalBaseUrl = 'https://cdn.opalrb.com/opal/1.7.3/';
 
 export const parinferUrl =
   'https://cdn.jsdelivr.net/npm/@chrisoakman/parinfer@3.13.1/parinfer.min.js';
