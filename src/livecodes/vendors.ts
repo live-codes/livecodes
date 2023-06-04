@@ -232,7 +232,7 @@ export const prettierPhpUrl =
 
 export const prismBaseUrl = 'https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/';
 
-export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
+export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.23.2/full/';
 
 export const qrcodeUrl = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
 
