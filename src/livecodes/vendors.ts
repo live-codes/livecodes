@@ -249,11 +249,17 @@ export const quillBetterTableBaseUrl =
 
 export const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
 
-export const rescriptCompilerUrl = 'https://cdn.rescript-lang.org/v9.1.2/compiler.js';
+export const reasonCompilerUrl = 'https://cdn.rescript-lang.org/v9.1.2/compiler.js';
 
-export const rescriptReactUrl = 'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js';
+export const reasonReactUrl = 'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js';
 
-export const rescriptStdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
+export const reasonStdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
+
+export const rescriptCompilerUrl = 'https://cdn.rescript-lang.org/v10.1.2/compiler.js';
+
+export const rescriptReactUrl = 'https://cdn.rescript-lang.org/v10.1.2/%40rescript/react/cmij.js';
+
+export const rescriptStdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@10.1.2/lib/es6/';
 
 export const resetCssUrl = 'https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css';
 
