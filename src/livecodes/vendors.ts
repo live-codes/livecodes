@@ -1,7 +1,7 @@
 export const vendorsBaseUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.6.6/dist/';
 
-export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
+export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.7.1/dist/acorn.min.js';
 
 export const artTemplateUrl =
   'https://cdn.jsdelivr.net/npm/art-template@4.13.2/lib/template-web.js';
@@ -192,7 +192,7 @@ export const lunaObjViewerStylesUrl =
 export const lunaConsoleStylesUrl =
   'https://cdn.jsdelivr.net/npm/luna-console@0.2.1/luna-console.css';
 
-export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js';
+export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.64/malina.js';
 
 export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
 
