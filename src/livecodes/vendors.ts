@@ -290,6 +290,8 @@ export const tailwindcssUrl =
 
 export const tauPrologBaseUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/modules/';
 
+export const tealUrl = `https://cdn.jsdelivr.net/gh/teal-language/tl@0.15.2/tl.lua`;
+
 export const twigUrl = 'https://cdn.jsdelivr.net/npm/twig@1.15.4/twig.min.js';
 
 export const typescriptUrl = 'https://cdn.jsdelivr.net/npm/typescript@5.1.3/lib/typescript.min.js';
