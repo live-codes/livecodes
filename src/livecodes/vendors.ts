@@ -172,7 +172,8 @@ export const jestLiteUrl = 'https://cdn.jsdelivr.net/npm/jest-lite@1.0.0-alpha.4
 
 export const jestTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/jest@27.4.1/index.d.ts';
 
-export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
+export const jsclUrl =
+  'https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github.io@efd3aec/jscl.min.js';
 
 export const jsZipUrl = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
 

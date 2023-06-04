@@ -90,6 +90,8 @@ Imba: [MIT License](https://github.com/imba/imba/blob/4c92d45d0f691bd8aba0ab7055
 
 jest-lite: [MIT License](https://github.com/kvendrik/jest-lite/blob/e598be34afd5fae73f8bc6ba2311b2d9480a38d2/package.json#L25)
 
+JSCL: [MIT License](https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github.io@efd3aec/jscl.js)
+
 JSCPP: [MIT License](https://github.com/felixhao28/JSCPP/blob/befbd6b48666007151c259c5dd291ab028ad4c04/LICENSE)
 
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
