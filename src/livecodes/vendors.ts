@@ -289,7 +289,7 @@ export const tagifyBaseUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.9.6/
 export const tailwindcssUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.3.2/dist/tailwindcss.umd.min.js';
 
-export const tauPrologBaseUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/modules/';
+export const tauPrologBaseUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/';
 
 export const tealUrl = `https://cdn.jsdelivr.net/gh/teal-language/tl@0.15.2/tl.lua`;
 
