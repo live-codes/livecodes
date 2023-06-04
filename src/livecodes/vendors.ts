@@ -24,7 +24,7 @@ export const astroWasmURL = 'https://cdn.jsdelivr.net/npm/@astrojs/compiler@0.9.
 export const autoCompleteUrl =
   'https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js';
 
-export const babelUrl = 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.17.2/babel.min.js';
+export const babelUrl = 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.4/babel.min.js';
 
 export const biwaschemeUrl =
   'https://cdn.jsdelivr.net/npm/biwascheme@0.7.4/release/biwascheme-min.js';
