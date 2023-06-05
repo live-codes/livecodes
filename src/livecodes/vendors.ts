@@ -29,7 +29,7 @@ export const babelUrl = 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.4/b
 export const biwaschemeUrl =
   'https://cdn.jsdelivr.net/npm/biwascheme@0.8.0/release/biwascheme-min.js';
 
-export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.20211209.2/';
+export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@9.3.3/';
 
 export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.11.2/';
 

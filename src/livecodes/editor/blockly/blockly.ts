@@ -89,9 +89,9 @@ export const showBlockly = async ({
 
   const getBlocklyHTML = () =>
     blocklyHTML
-      .replace(/https:\/\/cdn.jsdelivr.net\/npm\/blockly\//g, blocklyCdnBaseUrl)
+      .replace(/{{CDN_URL}}/g, blocklyCdnBaseUrl)
       .replace('{{theme}}', config.theme)
-      .replace('// {{ custom config }}', getCustomSettingsString(config))
+      .replace('// {{custom_config}}', getCustomSettingsString(config))
       .replace(
         '<!-- startBlocks placeholder -->',
         `<div id="startBlocksContainer" style="display:none;">${editors.script.getValue()}</div>
