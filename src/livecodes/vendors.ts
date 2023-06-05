@@ -215,8 +215,7 @@ export const nunjucksBaseUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.4/brow
 
 export const opalBaseUrl = 'https://cdn.opalrb.com/opal/1.7.3/';
 
-export const parinferUrl =
-  'https://cdn.jsdelivr.net/npm/@chrisoakman/parinfer@3.13.1/parinfer.min.js';
+export const parinferUrl = 'https://cdn.jsdelivr.net/npm/parinfer@3.13.1/parinfer.min.js';
 
 export const pintoraUrl =
   'https://cdn.jsdelivr.net/npm/@pintora/standalone@0.1.0/lib/pintora-standalone.umd.min.js';

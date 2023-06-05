@@ -138,7 +138,7 @@ Nunjucks: [BSD-2-Clause License](https://github.com/necolas/normalize.css/blob/f
 
 Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf7db03b099b5129/LICENSE)
 
-Parinfer.js: [MIT License](https://github.com/oakmac/parinfer/blob/cddc36ac3e7f9ecd328b977efe91c38ccfd0d94d/LICENSE.md)
+Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac3e7f9ecd328b977efe91c38ccfd0d94d/LICENSE.md)
 
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 
