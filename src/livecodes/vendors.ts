@@ -7,7 +7,7 @@ export const artTemplateUrl =
   'https://cdn.jsdelivr.net/npm/art-template@4.13.2/lib/template-web.js';
 
 export const asciidocUrl =
-  'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.5/dist/browser/asciidoctor.min.js';
+  'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.6/dist/browser/asciidoctor.min.js';
 
 export const assemblyscriptSdkUrl =
   'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.22/dist/sdk.js';
