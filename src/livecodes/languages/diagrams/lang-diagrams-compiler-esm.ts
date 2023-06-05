@@ -178,18 +178,18 @@ const compileGnuplot = async (code: string) => {
 const compileMermaid = async (code: string) => {
   let mermaid: any;
   const load = async () => {
-    mermaid = await loadScript(mermaidCdnUrl, 'mermaid');
-    mermaid.mermaidAPI.initialize({
+    mermaid = (await import(mermaidCdnUrl)).default;
+    mermaid.initialize({
       startOnLoad: false,
     });
   };
   let count = 0;
   const counter = () => count++;
-  const render = (src: string) => {
+  const render = async (src: string) => {
     const placeholder = document.createElement('div');
     placeholder.id = 'livecodes-mermaid-chart-' + counter();
     document.body.appendChild(placeholder);
-    const svg = mermaid.mermaidAPI.render(placeholder.id, src.trim());
+    const { svg } = await mermaid.render(placeholder.id, src.trim());
     placeholder.remove();
     return svg;
   };
