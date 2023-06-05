@@ -195,7 +195,7 @@ export const lunaConsoleStylesUrl =
 
 export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.64/malina.js';
 
-export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
+export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@5.0.4/marked.min.js';
 
 export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
 
