@@ -207,7 +207,7 @@ export const monacoVimUrl = 'https://unpkg.com/monaco-vim@0.3.5/dist/monaco-vim.
 
 export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
 
-export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
+export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.6.1/dist/nomnoml.min.js';
 
 export const normalizeCssUrl = 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css';
 
