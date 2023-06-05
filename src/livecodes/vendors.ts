@@ -68,7 +68,7 @@ export const emmetMonacoUrl =
 export const esModuleShimsUrl =
   'https://cdn.jsdelivr.net/npm/es-module-shims@1.4.4/dist/es-module-shims.min.js';
 
-export const etaUrl = 'https://cdn.jsdelivr.net/npm/eta@2.0.1/dist/eta.umd.min.js';
+export const etaUrl = 'https://cdn.jsdelivr.net/npm/eta@2.2.0/dist/eta.umd.min.js';
 
 export const flexSearchUrl =
   'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
