@@ -211,7 +211,7 @@ export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/no
 
 export const normalizeCssUrl = 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css';
 
-export const nunjucksBaseUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.3/browser/';
+export const nunjucksBaseUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.4/browser/';
 
 export const opalBaseUrl = 'https://cdn.opalrb.com/opal/1.7.3/';
 
