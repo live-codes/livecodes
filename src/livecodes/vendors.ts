@@ -306,6 +306,6 @@ export const vueSfcLoaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loa
 
 export const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.32/index.js';
 
-export const waveDromBaseUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/';
+export const waveDromBaseUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@3.2.0/';
 
 export const webRBaseUrl = 'https://cdn.jsdelivr.net/npm/@r-wasm/webr@0.1.1/dist/';
