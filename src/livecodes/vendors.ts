@@ -298,7 +298,7 @@ export const typescriptUrl = 'https://cdn.jsdelivr.net/npm/typescript@5.1.3/lib/
 
 export const uniterUrl = 'https://cdn.jsdelivr.net/npm/uniter@2.18.0/dist/uniter.js';
 
-export const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
+export const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.25.0/build/vega.min.js';
 
 export const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
 
