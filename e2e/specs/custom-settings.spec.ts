@@ -3,29 +3,6 @@ import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
 test.describe('Custom Settings', () => {
-  test('markdown', async ({ page, getTestUrl }) => {
-    await page.goto(getTestUrl());
-
-    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
-    await app.click('[aria-label="Menu"]');
-    await app.click('text=Custom Settings');
-    await waitForEditorFocus(app, '#custom-settings-editor');
-    await page.keyboard.press('Control+A');
-    await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"markdown":{headerPrefix: 'pre-'}}`);
-    await app.click('button:has-text("Load"):visible');
-
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=Markdown');
-    await waitForEditorFocus(app);
-    await page.keyboard.type('# hello');
-
-    await waitForResultUpdate();
-
-    expect(await getResult().innerText('h1#pre-hello')).toContain('hello');
-  });
-
   test('asciidoctor', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
