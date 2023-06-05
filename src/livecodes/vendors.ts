@@ -164,7 +164,7 @@ export const highlightjsUrl =
 
 export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.css';
 
-export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/dist/index.min.js';
+export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@2.13.0/dist/index.min.js';
 
 export const imbaBaseUrl = 'https://cdn.jsdelivr.net/npm/imba@2.0.0-alpha.229/dist/';
 

@@ -197,13 +197,14 @@ const compileMermaid = async (code: string) => {
 };
 
 const compileGraphviz = async (code: string) => {
-  let hpccWasm: any;
+  let graphviz: any;
   const load = async () => {
-    hpccWasm = await loadScript(hpccJsCdnUrl, '@hpcc-js/wasm');
+    const hpccWasm = await import(hpccJsCdnUrl);
+    graphviz = await hpccWasm.Graphviz.load();
   };
   const render = (src: string, script: HTMLScriptElement) => {
     const layout = script.dataset.layout || 'dot';
-    return hpccWasm.graphviz.layout(src, 'svg', layout);
+    return graphviz.layout(src, 'svg', layout);
   };
   return compile(code, 'graphviz', load, render);
 };
