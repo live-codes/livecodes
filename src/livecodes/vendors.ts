@@ -300,7 +300,7 @@ export const uniterUrl = 'https://cdn.jsdelivr.net/npm/uniter@2.18.0/dist/uniter
 
 export const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.25.0/build/vega.min.js';
 
-export const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
+export const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.9.3/build/vega-lite.min.js';
 
 export const vueSfcLoaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/';
 
