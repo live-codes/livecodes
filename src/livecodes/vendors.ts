@@ -60,7 +60,7 @@ export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
 
 export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js';
 
-export const elkjsBaseUrl = 'https://cdn.jsdelivr.net/npm/elkjs@0.7.1/lib/';
+export const elkjsBaseUrl = 'https://cdn.jsdelivr.net/npm/elkjs@0.8.2/lib/';
 
 export const emmetMonacoUrl =
   'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.0/dist/emmet-monaco.min.js';
