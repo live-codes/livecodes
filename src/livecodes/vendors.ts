@@ -220,7 +220,7 @@ export const parinferUrl = 'https://cdn.jsdelivr.net/npm/parinfer@3.13.1/parinfe
 export const pintoraUrl =
   'https://cdn.jsdelivr.net/npm/@pintora/standalone@0.6.2/lib/pintora-standalone.umd.min.js';
 
-export const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.9.0/dist/plotly.min.js';
+export const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.23.2/dist/plotly.min.js';
 
 export const postcssImportUrlUrl =
   'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';
