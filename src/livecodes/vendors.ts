@@ -278,7 +278,7 @@ export const sqljsBaseUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/';
 export const stencilUrl =
   'https://cdn.jsdelivr.net/npm/@stencil/core@3.2.2/compiler/stencil.min.js';
 
-export const stylisUrl = 'https://cdn.jsdelivr.net/npm/stylis@4.1.3/dist/umd/stylis.min.js';
+export const stylisUrl = 'https://cdn.jsdelivr.net/npm/stylis@4.2.0/dist/umd/stylis.min.js';
 
 export const svgbobWasmCdnUrl =
   'https://cdn.jsdelivr.net/npm/svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm';
