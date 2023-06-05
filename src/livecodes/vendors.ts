@@ -180,7 +180,7 @@ export const jsZipUrl = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.mi
 export const juliaWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/julia-wasm@1.0.4';
 
 export const liquidJsUrl =
-  'https://cdn.jsdelivr.net/npm/liquidjs@9.34.0/dist/liquid.browser.min.js';
+  'https://cdn.jsdelivr.net/npm/liquidjs@10.8.2/dist/liquid.browser.min.js';
 
 export const localforageUrl =
   'https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js';
