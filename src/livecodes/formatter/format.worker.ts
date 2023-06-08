@@ -33,7 +33,7 @@ const load = (languages: Language[]) => {
     });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.warn('Failed to load prettier');
+    console.warn('Failed to load formatter');
   }
 };
 
@@ -63,7 +63,7 @@ function loadParser(language: Language): Parser | undefined {
         return true;
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn('Failed to load prettier parser for language: ' + language);
+        console.warn('Failed to load formatter for: ' + language);
         return false;
       }
     })
