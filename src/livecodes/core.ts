@@ -104,7 +104,7 @@ import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compi
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
-import { createAuthService, modulesService, sandboxService, shareService } from './services';
+import { createAuthService, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   chaiTypesUrl,
