@@ -2,7 +2,6 @@
 import { defaultConfig } from '../config/default-config';
 import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
 import { languages, prettierUrl } from '../languages';
-import { getAbsoluteUrl } from '../utils';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -16,7 +15,7 @@ const plugins: { [key: string]: any } = {};
 const formatters: { [key: string]: FormatFn } = {};
 
 const loadPrettier = () => {
-  importScripts(getAbsoluteUrl(prettierUrl, baseUrl));
+  importScripts(prettierUrl);
 };
 
 const getParser = (language: Language) => languages.find((lang) => lang.name === language)?.parser;
@@ -54,11 +53,10 @@ function loadParser(language: Language): Parser | undefined {
   }
   parser.plugins = parser.pluginUrls
     .map((pluginUrl) => {
-      const url = getAbsoluteUrl(pluginUrl, baseUrl);
-      if (plugins[url]) return true;
+      if (plugins[pluginUrl]) return true;
       try {
-        importScripts(url);
-        plugins[url] = true;
+        importScripts(pluginUrl);
+        plugins[pluginUrl] = true;
         if (!prettierPlugins.pug && (self as any).pluginPug) {
           prettierPlugins.pug = (self as any).pluginPug;
         }

@@ -4,7 +4,7 @@ import { cppWasmBaseUrl } from '../../vendors';
 const workerSrc = `
 var window = self;
 const url = '${cppWasmBaseUrl}';
-importScripts(url + '/shared.min.js');
+importScripts(url + '/shared.js');
 
 window.CPP_READY.then(() => postMessage({ loaded: true }));
 

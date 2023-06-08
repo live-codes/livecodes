@@ -774,7 +774,8 @@ export type CDN =
   | 'esm.sh'
   | 'esbuild'
   | 'bundle.run'
-  | 'unpkg';
+  | 'unpkg'
+  | 'statically';
 
 export type EditorCache = Editor & {
   compiled: string;

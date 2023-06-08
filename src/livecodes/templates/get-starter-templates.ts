@@ -1,10 +1,15 @@
 import { getLanguageByAlias } from '../languages';
 import type { Config, Template } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { modulesService } from '../services/modules';
 import { getAbsoluteUrl, objectMap } from '../utils';
 
 const mapBaseUrl = (content: any, baseUrl: string) => {
   const replaceUrl = (url: any) =>
-    url.replace(/{{ __livecodes_baseUrl__ }}/g, getAbsoluteUrl(baseUrl));
+    url
+      .replace(/{{ __livecodes_baseUrl__ }}/g, getAbsoluteUrl(baseUrl))
+      .replace(/{{ __CDN_URL__ }}/g, modulesService.getUrl('~').replace('~', ''));
+
   if (typeof content === 'string') {
     return replaceUrl(content);
   } else {
@@ -67,6 +72,8 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
       },
       imports: objectMap(template.imports || {}, (url) => mapBaseUrl(url || '', baseUrl)),
       types: objectMap(template.types || {}, (url) => mapBaseUrl(url || '', baseUrl)),
+      stylesheets: template.stylesheets?.map((url) => mapBaseUrl(url || '', baseUrl)),
+      scripts: template.scripts?.map((url) => mapBaseUrl(url || '', baseUrl)),
     }));
 
 export const getTemplate = async (name: string, config: Config, baseUrl: string) =>

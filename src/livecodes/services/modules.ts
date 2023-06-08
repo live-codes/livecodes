@@ -1,24 +1,17 @@
 import type { CDN } from '../models';
 
+const moduleCDN: CDN = 'jspm';
+const npmCDN: CDN = 'unpkg';
+const ghCDN: CDN = 'jsdelivr.gh';
+
 export const modulesService = {
   getModuleUrl: (
     moduleName: string,
     { isModule = true, defaultCDN = 'jspm' }: { isModule?: boolean; defaultCDN?: CDN } = {},
   ) => {
-    const getCdnUrl = (modName: string) => {
-      const post = isModule && modName.startsWith('unpkg:') ? '?module' : '';
-      for (const i of TEMPLATES) {
-        const [pattern, template] = i;
-        if (pattern.test(modName)) {
-          return modName.replace(pattern, template) + post;
-        }
-      }
-      return null;
-    };
-
     moduleName = moduleName.replace(/#nobundle/g, '');
 
-    const moduleUrl = getCdnUrl(moduleName) || getCdnUrl(defaultCDN + ':' + moduleName);
+    const moduleUrl = getCdnUrl(moduleName, isModule, defaultCDN);
     if (moduleUrl) {
       return moduleUrl;
     }
@@ -27,6 +20,25 @@ export const modulesService = {
       ? 'https://jspm.dev/' + moduleName
       : 'https://cdn.jsdelivr.net/npm/' + moduleName;
   },
+
+  getUrl: (path: string) => (path.startsWith('http') ? path : getCdnUrl(path, false) || path),
+};
+
+const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
+  const post = isModule && modName.startsWith('unpkg:') ? '?module' : '';
+  if (modName.startsWith('gh:')) {
+    modName = modName.replace('gh', ghCDN);
+  } else if (!modName.includes(':')) {
+    const prefix = defaultCDN || (isModule ? moduleCDN : npmCDN);
+    modName = prefix + ':' + modName;
+  }
+  for (const i of TEMPLATES) {
+    const [pattern, template] = i;
+    if (pattern.test(modName)) {
+      return modName.replace(pattern, template) + post;
+    }
+  }
+  return null;
 };
 
 // based on https://github.com/neoascetic/rawgithack/blob/master/web/rawgithack.js
@@ -42,6 +54,8 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
 
   [/^(jsdelivr.gh:)(.+)/i, 'https://cdn.jsdelivr.net/gh/$2'],
+
+  [/^(statically:)(.+)/i, 'https://cdn.statically.io/gh/$2'],
 
   [/^(esm.run:)(.+)/i, 'https://esm.run/$2'],
 
