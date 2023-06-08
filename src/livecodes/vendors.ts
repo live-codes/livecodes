@@ -321,7 +321,7 @@ export const tealUrl = /* @__PURE__ */ getUrl(
   'gh:teal-language/tl@d2fc36b5ff9a52d7265e63eb74cce70fd1cdbcb2/tl.lua',
 );
 
-export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.js');
+export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 
 export const typescriptUrl = /* @__PURE__ */ getUrl('typescript@5.1.3/lib/typescript.js');
 
