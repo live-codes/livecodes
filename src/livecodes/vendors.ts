@@ -5,7 +5,7 @@ const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.6.6/dist/');
 
-export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.7.1/dist/acorn.js');
+export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
 export const artTemplateUrl = /* @__PURE__ */ getUrl('art-template@4.13.2/lib/template-web.js');
 
@@ -19,7 +19,7 @@ export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
   '@assemblyscript/loader@0.19.22/umd/index.js',
 );
 
-export const astringUrl = /* @__PURE__ */ getUrl('astring@1.7.5/dist/astring.js');
+export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.1/dist/astring.min.js');
 
 export const astroBaseUrl = /* @__PURE__ */ getUrl('@hatemhosny/astro-internal@0.0.4/');
 
@@ -209,7 +209,8 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
 
 export const lunaConsoleStylesUrl = /* @__PURE__ */ getUrl('luna-console@0.2.1/luna-console.css');
 
-export const malinaUrl = /* @__PURE__ */ getUrl('malinajs@0.6.64/malina.js');
+export const malinaVersion = '0.6.64';
+export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
 
 export const markedUrl = /* @__PURE__ */ getUrl('marked@5.0.4/marked.min.js');
 
