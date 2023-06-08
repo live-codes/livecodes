@@ -39,7 +39,7 @@ import { getLanguageCustomSettings } from '../../utils';
         });
     };
 
-    const result = await sass.compileStringAsync(code, {
+    const result = sass.compileString(code, {
       ...customSettings,
       syntax,
       importers: [
