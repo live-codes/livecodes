@@ -3,7 +3,7 @@ import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
 
-export const vendorsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.0/dist/');
+export const vendorsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.1/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -313,7 +313,7 @@ export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svg
 export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.9.6/dist/');
 
 export const tailwindcssUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/tailwindcss-browser-plugin@0.3.2/dist/tailwindcss.umd.js',
+  '@mhsdesign/jit-browser-tailwindcss@0.3.0/dist/cdn.min.js',
 );
 
 export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules/');

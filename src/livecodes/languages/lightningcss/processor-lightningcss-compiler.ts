@@ -1,5 +1,6 @@
 import type { CompilerFunction } from '../../models';
-import { getLanguageCustomSettings } from '../../utils';
+// eslint-disable-next-line import/no-internal-modules
+import { getLanguageCustomSettings } from '../../utils/utils';
 import { vendorsBaseUrl } from '../../vendors';
 
 (self as any).createLightningcssCompiler = (): CompilerFunction => {
