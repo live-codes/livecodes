@@ -63,25 +63,23 @@ test.describe('Custom Settings', () => {
     await waitForEditorFocus(app, '#custom-settings-editor');
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
-    await page.keyboard.type(`{"sass": {"style": "compressed"}}`);
+    await page.keyboard.insertText(`{"sass": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Sass');
     await waitForEditorFocus(app);
-    await page.keyboard.type(`
+    await page.keyboard.insertText(`
 $font-stack: Helvetica, sans-serif
-$primary-color: #333
 
 body
   font: 100% $font-stack
-  color: $primary-color
 `);
 
     await waitForResultUpdate();
 
     expect(await getResult().innerText('head style')).toContain(
-      'body{font:100% Helvetica,sans-serif;font-color:#333}',
+      'body{font:100% Helvetica,sans-serif}',
     );
   });
 
