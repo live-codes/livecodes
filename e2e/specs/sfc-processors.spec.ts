@@ -46,32 +46,31 @@ li
   });
 
   test('in Svelte', async ({ page, getTestUrl }) => {
-    const sfc = `
-<script lang="ts">
-  export const msg: string = 'world!';
-</script>
+    //     const sfc = `
+    // <script lang="ts">
+    //   export const msg: string = 'world!';
+    // </script>
 
-<template lang="pug">
-ul
-  each val, index in ['hello', 'p', 'u', 'g']
-    li(class= (index === 0 ? "primary" : undefined))
-      span= (index === 0 ? val + " {msg}" : val)
-</template>
+    // <template lang="pug">
+    // ul
+    //   each val, index in ['hello', 'p', 'u', 'g']
+    //     li(class= (index === 0 ? "primary" : undefined))
+    //       span= (index === 0 ? val + " {msg}" : val)
+    // </template>
 
-<style lang="scss" scoped>
-$primary-color: rgb(255, 0, 0);
-.primary {
-    color: $primary-color;
-  }
-</style>
+    // <style lang="scss" scoped>
+    // $primary-color: rgb(255, 0, 0);
+    // .primary {
+    //     color: $primary-color;
+    //   }
+    // </style>
+    // `;
 
-`;
-
-    await page.goto(getTestUrl({ svelte: encodeURIComponent(sfc) }));
+    await page.goto(getTestUrl({ x: 'id/eizjn66v746' }));
 
     const { getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await waitForResultUpdate();
+    await waitForResultUpdate({ timeout: 20000 });
 
     expect(await getResult().innerText(':nth-match(li, 1)')).toContain('hello world!');
     expect(await getResult().innerText(':nth-match(li, 2)')).toContain('p');

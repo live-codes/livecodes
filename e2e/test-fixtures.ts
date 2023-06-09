@@ -6,7 +6,7 @@ export const test = base.extend<{
   editor: Config['editor'];
   getTestUrl: (config?: UrlQueryParams) => string;
 }>({
-  editor: 'monaco',
+  editor: ['monaco', { option: true }],
   getTestUrl: async ({ editor }, use) => {
     await use((config?: UrlQueryParams) => {
       const options = {
