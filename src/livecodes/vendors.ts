@@ -3,7 +3,8 @@ import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
 
-export const vendorsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.1/dist/');
+export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.2/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
