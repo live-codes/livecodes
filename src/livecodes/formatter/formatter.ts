@@ -1,8 +1,10 @@
 import type { FormatFn, Language } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { getCdnParam } from '../services/modules';
 import type { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 
 export const createFormatter = (baseUrl: string): Formatter => {
-  const worker = new Worker(baseUrl + '{{hash:format.worker.js}}');
+  const worker = new Worker(baseUrl + '{{hash:format.worker.js}}' + '?cdn=' + getCdnParam());
   const configMessage: FormatterMessage = { type: 'init', baseUrl };
   worker.postMessage(configMessage);
 

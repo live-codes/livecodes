@@ -5,7 +5,8 @@ import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
 import type { API, Config, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
-import { esModuleShimsUrl } from './vendors';
+import { esModuleShimsPath } from './vendors';
+import { modulesService } from './services/modules';
 
 export type { API, Config };
 
@@ -58,6 +59,24 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
+    const cdn = await new Promise((resolve) => {
+      const [cdn1, cdn2, cdn3] = modulesService.cdnList.npm;
+      const getUrl = modulesService.getUrl;
+      fetch(getUrl(esModuleShimsPath, cdn1 as any), { method: 'HEAD' })
+        .then((res) => {
+          if (!res.ok) throw new Error(cdn1 + ' failed');
+          resolve(cdn1);
+        })
+        .catch(() => {
+          fetch(getUrl(esModuleShimsPath, cdn2 as any), { method: 'HEAD' })
+            .then((res) => {
+              if (!res.ok) throw new Error(cdn2 + ' failed');
+              resolve(cdn2);
+            })
+            .catch(() => resolve(cdn3));
+        });
+    });
+
     const loadApp = () => {
       const supportsImportMaps = HTMLScriptElement.supports
         ? HTMLScriptElement.supports('importmap')
@@ -73,7 +92,8 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
-          .replace(/{{esModuleShimsUrl}}/g, esModuleShimsUrl)
+          .replace(/{{cdn}}/g, cdn)
+          .replace(/{{esModuleShimsUrl}}/g, modulesService.getUrl(esModuleShimsPath, cdn as any))
           .replace(
             /{{codemirrorModule}}/g,
             supportsImportMaps
