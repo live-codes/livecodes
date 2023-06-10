@@ -8,7 +8,7 @@ art-template: [MIT License](https://github.com/aui/art-template/blob/71333a3a6df
 
 Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob/9d57b34084966f35d5c542ae4feed4941bf57903/LICENSE)
 
-AssemblyScript: [Apache-2.0 License](https://github.com/AssemblyScript/assemblyscript/blob/a0c27fadd027a32542420160deff04dc31e10f59/LICENSE)
+AssemblyScript: [Apache License 2.0](https://github.com/AssemblyScript/assemblyscript/blob/a0c27fadd027a32542420160deff04dc31e10f59/LICENSE)
 
 Astring: [MIT License](https://github.com/davidbonnet/astring/blob/8ac784be966a20eda44de32f79db1a6e44832659/LICENSE)
 

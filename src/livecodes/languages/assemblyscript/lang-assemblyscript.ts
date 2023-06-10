@@ -2,6 +2,8 @@ import type { LanguageSpecs } from '../../models';
 import { assemblyscriptLoaderUrl, vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
+const assemblyscriptUrl = vendorsBaseUrl + 'assemblyscript/assemblyscript.js';
+
 export const assemblyscript: LanguageSpecs = {
   name: 'assemblyscript',
   title: 'AS',
@@ -11,6 +13,7 @@ export const assemblyscript: LanguageSpecs = {
     pluginUrls: [parserPlugins.babel],
   },
   compiler: {
+    url: assemblyscriptUrl,
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-assemblyscript-compiler.js}}');
       return (self as any).createAssemblyscriptCompiler();

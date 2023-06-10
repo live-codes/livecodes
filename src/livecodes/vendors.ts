@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.3/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.4/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -14,10 +14,8 @@ export const asciidocUrl = /* @__PURE__ */ getUrl(
   '@asciidoctor/core@2.2.6/dist/browser/asciidoctor.js',
 );
 
-export const assemblyscriptSdkUrl = /* @__PURE__ */ getUrl('assemblyscript@0.19.22/dist/sdk.js');
-
 export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
-  '@assemblyscript/loader@0.19.22/umd/index.js',
+  '@assemblyscript/loader@0.27.5/umd/index.js',
 );
 
 export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.1/dist/astring.min.js');
