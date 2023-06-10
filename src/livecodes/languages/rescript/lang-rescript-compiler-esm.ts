@@ -25,37 +25,48 @@ const replaceImports = (code: string, stdLibUrl: string) =>
     return statement;
   });
 
-const loadCompiler = (language: Language) =>
-  new Promise<void>(async (resolve) => {
-    if (!(window as any).require) {
-      await loadScript(requireUrl, 'require');
-    }
-
+const loadCompiler = async (language: Language) => {
+  if (!(window as any).require) {
+    await loadScript(requireUrl, 'require');
+    (window as any).require.config({
+      waitSeconds: 30,
+    });
+  }
+  return new Promise<void>((resolve, reject) => {
     if (language === 'reason') {
-      (window as any).require([reasonCompilerUrl, reasonReactUrl], () => {
-        // avoid global variable naming conflict ,
-        // when loading 2 different versions of the rescript compiler.
-        // reason syntax is no longer supported after version 9
-        (window as any).reason_compiler = (window as any).rescript_compiler;
-        (window as any).rescript_compiler = undefined;
-        (window as any).loadedReasonCompiler = (window as any).reason_compiler.make();
-        const compiler = (window as any).loadedReasonCompiler;
-        compiler.setModuleSystem('es6');
-        compiler.setFilename('index.bs.js');
-        resolve();
-      });
+      (window as any).require(
+        [reasonCompilerUrl, reasonReactUrl],
+        () => {
+          // avoid global variable naming conflict ,
+          // when loading 2 different versions of the rescript compiler.
+          // reason syntax is no longer supported after version 9
+          (window as any).reason_compiler = (window as any).rescript_compiler;
+          (window as any).rescript_compiler = undefined;
+          (window as any).loadedReasonCompiler = (window as any).reason_compiler.make();
+          const compiler = (window as any).loadedReasonCompiler;
+          compiler.setModuleSystem('es6');
+          compiler.setFilename('index.bs.js');
+          resolve();
+        },
+        reject,
+      );
     } else {
-      (window as any).require([rescriptCompilerUrl, rescriptReactUrl], () => {
-        (window as any).rescript_ocaml_compiler = (window as any).rescript_compiler;
-        (window as any).rescript_compiler = undefined;
-        (window as any).loadedRescriptCompiler = (window as any).rescript_ocaml_compiler.make();
-        const compiler = (window as any).loadedRescriptCompiler;
-        compiler.setModuleSystem('es6');
-        compiler.setFilename('index.bs.js');
-        resolve();
-      });
+      (window as any).require(
+        [rescriptCompilerUrl, rescriptReactUrl],
+        () => {
+          (window as any).rescript_ocaml_compiler = (window as any).rescript_compiler;
+          (window as any).rescript_compiler = undefined;
+          (window as any).loadedRescriptCompiler = (window as any).rescript_ocaml_compiler.make();
+          const compiler = (window as any).loadedRescriptCompiler;
+          compiler.setModuleSystem('es6');
+          compiler.setFilename('index.bs.js');
+          resolve();
+        },
+        reject,
+      );
     }
   });
+};
 
 export const rescriptCompiler: CompilerFunction = async (code: string, { baseUrl, language }) => {
   if (!code) return '';
@@ -63,9 +74,17 @@ export const rescriptCompiler: CompilerFunction = async (code: string, { baseUrl
   const loadedCompiler = language === 'reason' ? 'loadedReasonCompiler' : 'loadedRescriptCompiler';
   const stdLibUrl = language === 'reason' ? reasonStdLibBaseUrl : rescriptStdLibBaseUrl;
 
-  if (!(window as any)[loadedCompiler]) {
-    await loadCompiler(language as Language);
+  let retries = 3;
+  while (!(window as any)[loadedCompiler] && retries > 0) {
+    try {
+      await loadCompiler(language as Language);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(`Failed to load ${language} compiler. Retrying...`);
+      retries--;
+    }
   }
+
   const compiler = (window as any)[loadedCompiler];
   const output = compiler[language].compile(code);
   try {
