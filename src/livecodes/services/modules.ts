@@ -2,9 +2,9 @@ import type { CDN } from '../models';
 
 declare const globalThis: { appCDN: CDN };
 
-const moduleCDN: CDN = 'jspm';
-const npmCDN: CDN = 'unpkg';
-const ghCDN: CDN = 'jsdelivr.gh';
+const moduleCDNs: CDN[] = ['jspm', 'skypack'];
+const npmCDNs: CDN[] = ['unpkg', 'jsdelivr'];
+const ghCDNs: CDN[] = ['jsdelivr.gh', 'statically'];
 
 export const modulesService = {
   getModuleUrl: (
@@ -26,25 +26,41 @@ export const modulesService = {
   getUrl: (path: string, cdn?: CDN) =>
     path.startsWith('http') ? path : getCdnUrl(path, false, cdn || getAppCDN()) || path,
 
-  cdnList: { npm: ['unpkg', 'jsdelivr', 'statically'], module: ['jspm', 'skypack'] },
+  cdnLists: { npm: npmCDNs, module: moduleCDNs, gh: ghCDNs },
+
+  checkCDNs: async (testModule: string, preferredCDN?: CDN) => {
+    const cdns: CDN[] = [preferredCDN, ...modulesService.cdnLists.npm].filter(Boolean) as CDN[];
+    for (const cdn of cdns) {
+      try {
+        const res = await fetch(modulesService.getUrl(testModule, cdn), {
+          method: 'HEAD',
+        });
+        if (res.ok) return cdn;
+      } catch {
+        // continue;
+      }
+    }
+    // fall back to first
+    return modulesService.cdnLists.npm[0];
+  },
 };
 
 export const getAppCDN = (): CDN => {
   if (globalThis.appCDN) return globalThis.appCDN;
   try {
     const url = new URL(location.href);
-    return (url.searchParams.get('appCDN') as CDN) || modulesService.cdnList.npm[0];
+    return (url.searchParams.get('appCDN') as CDN) || modulesService.cdnLists.npm[0];
   } catch {
-    return modulesService.cdnList.npm[0] as CDN;
+    return modulesService.cdnLists.npm[0] as CDN;
   }
 };
 
 const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
   const post = isModule && modName.startsWith('unpkg:') ? '?module' : '';
   if (modName.startsWith('gh:')) {
-    modName = modName.replace('gh', ghCDN);
+    modName = modName.replace('gh', ghCDNs[0]);
   } else if (!modName.includes(':')) {
-    const prefix = defaultCDN || (isModule ? moduleCDN : npmCDN);
+    const prefix = defaultCDN || (isModule ? moduleCDNs[0] : npmCDNs[0]);
     modName = prefix + ':' + modName;
   }
   for (const i of TEMPLATES) {

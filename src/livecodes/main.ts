@@ -59,23 +59,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
-    const appCDN = await new Promise((resolve) => {
-      const [cdn1, cdn2, cdn3] = modulesService.cdnList.npm;
-      const getUrl = modulesService.getUrl;
-      fetch(getUrl(esModuleShimsPath, cdn1 as any), { method: 'HEAD' })
-        .then((res) => {
-          if (!res.ok) throw new Error(cdn1 + ' failed');
-          resolve(cdn1);
-        })
-        .catch(() => {
-          fetch(getUrl(esModuleShimsPath, cdn2 as any), { method: 'HEAD' })
-            .then((res) => {
-              if (!res.ok) throw new Error(cdn2 + ' failed');
-              resolve(cdn2);
-            })
-            .catch(() => resolve(cdn3));
-        });
-    });
+    const appCDN = await modulesService.checkCDNs(esModuleShimsPath, params.get('appCDN') as CDN);
 
     const loadApp = () => {
       const supportsImportMaps = HTMLScriptElement.supports
