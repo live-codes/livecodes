@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
-import type { API, Config, EmbedOptions } from './models';
+import type { API, CDN, Config, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
 import { esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
@@ -59,7 +59,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
-    const cdn = await new Promise((resolve) => {
+    const appCDN = await new Promise((resolve) => {
       const [cdn1, cdn2, cdn3] = modulesService.cdnList.npm;
       const getUrl = modulesService.getUrl;
       fetch(getUrl(esModuleShimsPath, cdn1 as any), { method: 'HEAD' })
@@ -92,8 +92,8 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
-          .replace(/{{cdn}}/g, cdn)
-          .replace(/{{esModuleShimsUrl}}/g, modulesService.getUrl(esModuleShimsPath, cdn as any))
+          .replace(/{{appCDN}}/g, appCDN)
+          .replace(/{{esModuleShimsUrl}}/g, modulesService.getUrl(esModuleShimsPath, appCDN as CDN))
           .replace(
             /{{codemirrorModule}}/g,
             supportsImportMaps

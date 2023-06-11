@@ -7,7 +7,7 @@ import {
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
-import { getCdnParam, modulesService } from '../services';
+import { getAppCDN, modulesService } from '../services';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
@@ -210,7 +210,7 @@ export const createResultPage = async ({
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
-    esModuleShims.src = modulesService.getUrl(esModuleShimsPath, getCdnParam());
+    esModuleShims.src = modulesService.getUrl(esModuleShimsPath, getAppCDN());
     esModuleShims.async = true;
     dom.head.appendChild(esModuleShims);
 

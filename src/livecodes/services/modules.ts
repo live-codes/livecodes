@@ -1,6 +1,6 @@
 import type { CDN } from '../models';
 
-declare const globalThis: { cdn: CDN };
+declare const globalThis: { appCDN: CDN };
 
 const moduleCDN: CDN = 'jspm';
 const npmCDN: CDN = 'unpkg';
@@ -24,16 +24,16 @@ export const modulesService = {
   },
 
   getUrl: (path: string, cdn?: CDN) =>
-    path.startsWith('http') ? path : getCdnUrl(path, false, cdn || getCdnParam()) || path,
+    path.startsWith('http') ? path : getCdnUrl(path, false, cdn || getAppCDN()) || path,
 
   cdnList: { npm: ['unpkg', 'jsdelivr', 'statically'], module: ['jspm', 'skypack'] },
 };
 
-export const getCdnParam = (): CDN => {
-  if (globalThis.cdn) return globalThis.cdn;
+export const getAppCDN = (): CDN => {
+  if (globalThis.appCDN) return globalThis.appCDN;
   try {
     const url = new URL(location.href);
-    return (url.searchParams.get('cdn') as CDN) || modulesService.cdnList.npm[0];
+    return (url.searchParams.get('appCDN') as CDN) || modulesService.cdnList.npm[0];
   } catch {
     return modulesService.cdnList.npm[0] as CDN;
   }

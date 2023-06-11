@@ -16,7 +16,7 @@ import type {
   CompileResult,
   CompileInfo,
 } from '../models';
-import { getCdnParam, sandboxService } from '../services';
+import { getAppCDN, sandboxService } from '../services';
 import { stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
@@ -49,7 +49,7 @@ export const createCompiler = async ({
     new Promise(async (resolve) => {
       compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
       const compilerUrl = sandboxService.getCompilerUrl();
-      compilerSandbox = await createCompilerSandbox(compilerUrl + '?cdn=' + getCdnParam());
+      compilerSandbox = await createCompilerSandbox(compilerUrl + '?appCDN=' + getAppCDN());
 
       eventsManager.addEventListener(window, 'message', async (event: CompilerMessageEvent) => {
         if (event.origin === compilerOrigin && event.data.type === 'init-success') {
