@@ -783,9 +783,7 @@ const title = "World";
     await waitForResultUpdate();
     const resultText = await getResult().innerHTML('style');
 
-    expect(resultText).toContain(
-      '.example { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }',
-    );
+    expect(resultText).toContain('-webkit-user-select: none;');
   });
 
   test('PostCSS/Preset Env', async ({ page, getTestUrl }) => {

@@ -17,7 +17,7 @@
         height: 100%;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/blockly/blockly.min.js"></script>
+    <script src="{{CDN_URL}}blockly.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/custom-dialog.js"></script> -->
   </head>
   <body>
@@ -424,9 +424,9 @@
           renderer: 'zelos',
           theme: themes['{{theme}}'],
 
-          // {{ custom config }}
+          // {{custom_config}}
 
-          media: 'https://cdn.jsdelivr.net/npm/blockly/media/',
+          media: '{{CDN_URL}}media/',
           toolbox: document.getElementById('toolbox'),
         });
 
@@ -444,7 +444,7 @@
         function loadWorkspace(xml) {
           if (xml) {
             workspace.clear();
-            var dom = Blockly.Xml.textToDom(xml);
+            var dom = Blockly.utils.xml.textToDom(xml);
             Blockly.Xml.domToWorkspace(dom, workspace);
           }
         }

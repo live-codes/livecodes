@@ -3,9 +3,10 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
-import type { API, Config, EmbedOptions } from './models';
+import type { API, CDN, Config, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
-import { esModuleShimsUrl } from './vendors';
+import { esModuleShimsPath } from './vendors';
+import { modulesService } from './services/modules';
 
 export type { API, Config };
 
@@ -58,6 +59,8 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
+    const appCDN = await modulesService.checkCDNs(esModuleShimsPath, params.get('appCDN') as CDN);
+
     const loadApp = () => {
       const supportsImportMaps = HTMLScriptElement.supports
         ? HTMLScriptElement.supports('importmap')
@@ -73,7 +76,8 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
-          .replace(/{{esModuleShimsUrl}}/g, esModuleShimsUrl)
+          .replace(/{{appCDN}}/g, appCDN)
+          .replace(/{{esModuleShimsUrl}}/g, modulesService.getUrl(esModuleShimsPath, appCDN as CDN))
           .replace(
             /{{codemirrorModule}}/g,
             supportsImportMaps

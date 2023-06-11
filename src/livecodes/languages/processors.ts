@@ -4,13 +4,13 @@ import {
   postcss,
   autoprefixer,
   postcssPresetEnv,
-  tailwindcss,
   postcssImportUrl,
   tokencss,
   purgecss,
   cssnano,
   cssModules,
 } from './postcss';
+import { tailwindcss } from './tailwindcss';
 import { unocss } from './unocss';
 import { windicss } from './windicss';
 

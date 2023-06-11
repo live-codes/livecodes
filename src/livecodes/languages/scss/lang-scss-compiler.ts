@@ -1,4 +1,6 @@
 import type { CompilerFunction } from '../../models';
+// eslint-disable-next-line import/no-internal-modules
+import { modulesService } from '../../services/modules';
 import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createScssCompiler = (): CompilerFunction => {
@@ -8,7 +10,7 @@ import { getLanguageCustomSettings } from '../../utils';
     const customSettings = getLanguageCustomSettings(language, config);
     let baseUrl: string | null = null;
 
-    const moduleServiceUrl = 'https://cdn.jsdelivr.net/npm/';
+    const moduleServiceUrl = modulesService.getUrl('~').replace('~', '');
 
     const fetchStyles = (url: string) => {
       const moduleUrl =
@@ -37,7 +39,7 @@ import { getLanguageCustomSettings } from '../../utils';
         });
     };
 
-    const result = await sass.compileStringAsync(code, {
+    const result = sass.compileString(code, {
       ...customSettings,
       syntax,
       importers: [

@@ -1,303 +1,342 @@
-export const vendorsBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/browser-compilers@0.6.6/dist/';
+// eslint-disable-next-line import/no-internal-modules
+import { modulesService } from './services/modules';
 
-export const acornUrl = 'https://cdn.jsdelivr.net/npm/acorn@8.6.0/dist/acorn.min.js';
+const { getUrl, getModuleUrl } = modulesService;
 
-export const artTemplateUrl =
-  'https://cdn.jsdelivr.net/npm/art-template@4.13.2/lib/template-web.js';
+export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.4/dist/');
 
-export const asciidocUrl =
-  'https://cdn.jsdelivr.net/npm/@asciidoctor/core@2.2.5/dist/browser/asciidoctor.min.js';
+export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
-export const assemblyscriptSdkUrl =
-  'https://cdn.jsdelivr.net/npm/assemblyscript@0.19.22/dist/sdk.js';
+export const artTemplateUrl = /* @__PURE__ */ getUrl('art-template@4.13.2/lib/template-web.js');
 
-export const assemblyscriptLoaderUrl =
-  'https://cdn.jsdelivr.net/npm/@assemblyscript/loader@0.19.22/umd/index.js';
+export const asciidocUrl = /* @__PURE__ */ getUrl(
+  '@asciidoctor/core@2.2.6/dist/browser/asciidoctor.js',
+);
 
-export const astringUrl = 'https://cdn.jsdelivr.net/npm/astring@1.7.5/dist/astring.min.js';
+export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
+  '@assemblyscript/loader@0.27.5/umd/index.js',
+);
 
-export const astroBaseUrl = 'https://cdn.jsdelivr.net/npm/@hatemhosny/astro-internal@0.0.4/';
+export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.1/dist/astring.min.js');
 
-export const astroWasmURL = 'https://cdn.jsdelivr.net/npm/@astrojs/compiler@0.9.2/astro.wasm';
+export const astroBaseUrl = /* @__PURE__ */ getUrl('@hatemhosny/astro-internal@0.0.4/');
 
-export const autoCompleteUrl =
-  'https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js';
+export const astroWasmURL = /* @__PURE__ */ getUrl('@astrojs/compiler@0.9.2/astro.wasm');
 
-export const babelUrl = 'https://cdn.jsdelivr.net/npm/@babel/standalone@7.17.2/babel.min.js';
+export const autoCompleteUrl = /* @__PURE__ */ getUrl(
+  '@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.js',
+);
 
-export const biwaschemeUrl =
-  'https://cdn.jsdelivr.net/npm/biwascheme@0.7.4/release/biwascheme-min.js';
+export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.22.4/babel.js');
 
-export const blocklyCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/blockly@7.20211209.2/';
+export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
-export const brythonBaseUrl = 'https://cdn.jsdelivr.net/npm/brython@3.10.4/';
+export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@9.3.3/');
 
-export const chaiUrl = 'https://cdn.jsdelivr.net/npm/chai@4.3.6/+esm';
+export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.2/');
 
-export const chaiTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/chai@4.2.22/index.d.ts';
+export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@4.3.6');
 
-export const cherryCljsBaseUrl = 'https://cdn.jsdelivr.net/npm/cherry-cljs@0.0.4/';
+export const chaiTypesUrl = /* @__PURE__ */ getUrl('@types/chai@4.2.22/index.d.ts');
 
-export const cjs2esUrl = 'https://cdn.jsdelivr.net/npm/cjs2es@1.1.1/dist/cjs2es.browser.min.js';
+export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.0.4/');
 
-export const clioBaseUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/clio-browser-compiler@0.0.3/public/build/';
+export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
-export const coffeeScriptUrl =
-  'https://cdn.jsdelivr.net/npm/coffeescript@2.6.1/lib/coffeescript-browser-compiler-legacy/coffeescript.js';
+export const clioBaseUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/clio-browser-compiler@0.0.3/public/build/',
+);
 
-export const cppWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/cpp-wasm@1.0.2';
+export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
+  'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
+);
 
-export const csstreeUrl = 'https://cdn.jsdelivr.net/npm/css-tree@1.1.3/dist/csstree.min.js';
+export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2');
 
-export const cytoscapeSvgUrl =
-  'https://cdn.jsdelivr.net/npm/cytoscape-svg@0.4.0/cytoscape-svg.min.js';
+export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@1.1.3/dist/csstree.js');
 
-export const cytoscapeUrl = 'https://cdn.jsdelivr.net/npm/cytoscape@3.22.0/dist/cytoscape.min.js';
+export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
 
-export const dotUrl = 'https://cdn.jsdelivr.net/npm/dot@1.1.3/doT.min.js';
+export const cytoscapeUrl = /* @__PURE__ */ getUrl('cytoscape@3.25.0/dist/cytoscape.min.js');
 
-export const ejsUrl = 'https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js';
+export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
-export const elkjsBaseUrl = 'https://cdn.jsdelivr.net/npm/elkjs@0.7.1/lib/';
+export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.9/ejs.js');
 
-export const emmetMonacoUrl =
-  'https://cdn.jsdelivr.net/npm/emmet-monaco-es@5.0.0/dist/emmet-monaco.min.js';
+export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
-export const esModuleShimsUrl =
-  'https://cdn.jsdelivr.net/npm/es-module-shims@1.4.4/dist/es-module-shims.min.js';
+export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.0.0/dist/emmet-monaco.js');
 
-export const etaUrl = 'https://cdn.jsdelivr.net/npm/eta@2.0.1/dist/eta.umd.min.js';
+export const esModuleShimsPath = 'es-module-shims@1.4.4/dist/es-module-shims.js';
 
-export const flexSearchUrl =
-  'https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.min.js';
+export const etaUrl = /* @__PURE__ */ getUrl('eta@2.2.0/dist/eta.umd.js');
 
-export const fontAnonymousProUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/anonymous-pro@4.5.9/index.min.css';
+export const flexSearchUrl = /* @__PURE__ */ getUrl('flexsearch@0.7.21/dist/flexsearch.bundle.js');
 
-export const fontCascadiaCodeUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code@4.2.1/index.min.css';
+export const fontAnonymousProUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/anonymous-pro@4.5.9/index.css',
+);
 
-export const fontCodeNewRomanUrl = 'https://fonts.cdnfonts.com/css/code-new-roman-2';
+export const fontCascadiaCodeUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/cascadia-code@4.2.1/index.css',
+);
 
-export const fontComicMonoUrl = 'https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/index.min.css';
+export const fontCodeNewRomanUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/code-new-roman-2',
+);
 
-export const fontCourierPrimeUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/courier-prime@4.5.9/index.min.css';
+export const fontComicMonoUrl = /* @__PURE__ */ getUrl('comic-mono@0.0.1/index.css');
 
-export const fontDECTerminalModernUrl = 'https://fonts.cdnfonts.com/css/dec-terminal-modern';
+export const fontCourierPrimeUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/courier-prime@4.5.9/index.css',
+);
 
-export const fontDejaVuMonoUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/dejavu-mono@4.5.4/index.min.css';
+export const fontDECTerminalModernUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/dec-terminal-modern',
+);
 
-export const fontFantasqueUrl =
-  'https://cdn.jsdelivr.net/npm/@typopro/web-fantasque-sans-mono@3.7.5/TypoPRO-FantasqueSansMono.css';
+export const fontDejaVuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/dejavu-mono@4.5.4/index.css');
 
-export const fontFiraCodeUrl = 'https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css';
+export const fontFantasqueUrl = /* @__PURE__ */ getUrl(
+  '@typopro/web-fantasque-sans-mono@3.7.5/TypoPRO-FantasqueSansMono.css',
+);
 
-export const fontFixedsysUrl = 'https://fonts.cdnfonts.com/css/fixedsys-62';
+export const fontFiraCodeUrl = /* @__PURE__ */ getUrl('firacode@6.2.0/distr/fira_code.css');
 
-export const fontHackUrl = 'https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css';
+export const fontFixedsysUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/fixedsys-62');
 
-export const fontHermitUrl = 'https://cdn.jsdelivr.net/npm/typeface-hermit@0.0.44/index.min.css';
+export const fontHackUrl = /* @__PURE__ */ getUrl('hack-font@3.3.0/build/web/hack.css');
 
-export const fontIBMPlexMonoUrl =
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap';
+export const fontHermitUrl = /* @__PURE__ */ getUrl('typeface-hermit@0.0.44/index.css');
 
-export const fontInconsolataUrl =
-  'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap';
+export const fontIBMPlexMonoUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap',
+);
 
-export const fontIosevkaUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/iosevka@4.5.4/index.min.css';
+export const fontInconsolataUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap',
+);
 
-export const fontJetbrainsMonoUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.11/index.min.css';
+export const fontIosevkaUrl = /* @__PURE__ */ getUrl('@fontsource/iosevka@4.5.4/index.css');
 
-export const fontMenloUrl = 'https://fonts.cdnfonts.com/css/menlo';
+export const fontJetbrainsMonoUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/jetbrains-mono@4.5.11/index.css',
+);
 
-export const fontMonofurUrl = 'https://fonts.cdnfonts.com/css/monofur';
+export const fontMenloUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/menlo');
 
-export const fontMonoidUrl =
-  'https://cdn.jsdelivr.net/npm/@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css';
+export const fontMonofurUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/monofur');
 
-export const fontNotoUrl = 'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap';
+export const fontMonoidUrl = /* @__PURE__ */ getUrl('@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css');
 
-export const fontNovaMonoUrl = 'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap';
+export const fontNotoUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap',
+);
 
-export const fontOpenDyslexicUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@4.5.4/index.min.css';
+export const fontNovaMonoUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap',
+);
 
-export const fontProFontWindowsUrl = 'https://fonts.cdnfonts.com/css/profontwindows';
+export const fontOpenDyslexicUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/opendyslexic@4.5.4/index.css',
+);
 
-export const fontRobotoMonoUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/roboto-mono@4.5.8/index.min.css';
+export const fontProFontWindowsUrl = /* @__PURE__ */ getUrl(
+  'https://fonts.cdnfonts.com/css/profontwindows',
+);
 
-export const fontSFMonoUrl = 'https://fonts.cdnfonts.com/css/sf-mono';
+export const fontRobotoMonoUrl = /* @__PURE__ */ getUrl('@fontsource/roboto-mono@4.5.8/index.css');
 
-export const fontSourceCodeProUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/source-code-pro@4.5.12/index.min.css';
+export const fontSFMonoUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/sf-mono');
 
-export const fontSpaceMonoUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/space-mono@4.5.10/index.min.css';
+export const fontSourceCodeProUrl = /* @__PURE__ */ getUrl(
+  '@fontsource/source-code-pro@4.5.12/index.css',
+);
 
-export const fontSudoVarUrl = 'https://fonts.cdnfonts.com/css/sudo-var';
+export const fontSpaceMonoUrl = /* @__PURE__ */ getUrl('@fontsource/space-mono@4.5.10/index.css');
 
-export const fontUbuntuMonoUrl =
-  'https://cdn.jsdelivr.net/npm/@fontsource/ubuntu-mono@4.5.11/index.min.css';
+export const fontSudoVarUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/sudo-var');
 
-export const fontVictorMonoUrl = 'https://cdn.jsdelivr.net/npm/victormono@1.5.4/dist/index.min.css';
+export const fontUbuntuMonoUrl = /* @__PURE__ */ getUrl('@fontsource/ubuntu-mono@4.5.11/index.css');
 
-export const fscreenUrl = 'https://cdn.jsdelivr.net/npm/fscreen@1.2.0/dist/fscreen.esm.js';
+export const fontVictorMonoUrl = /* @__PURE__ */ getUrl('victormono@1.5.4/dist/index.css');
 
-export const githubMarkdownCss =
-  'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css';
+export const fscreenUrl = /* @__PURE__ */ getUrl('fscreen@1.2.0/dist/fscreen.esm.js');
 
-export const go2jsBaseUrl = 'https://cdn.jsdelivr.net/npm/@live-codes/go2js@0.3.0/build';
+export const githubMarkdownCss = /* @__PURE__ */ getUrl(
+  'github-markdown-css@5.1.0/github-markdown.css',
+);
 
-export const graphreCdnUrl = 'https://cdn.jsdelivr.net/npm/graphre@0.1.3/dist/graphre.js';
+export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.4.0/build/');
 
-export const handlebarsBaseUrl = 'https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/';
+export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
-export const highlightjsUrl =
-  'https://cdn.skypack.dev/pin/highlight.js@v11.5.1-ByzFRPBe5lvvwKChRHdq/mode=imports,min/optimized/highlightjs.js';
+export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.7/dist/');
 
-export const hintCssUrl = 'https://cdn.jsdelivr.net/npm/hint.css@2.7.0/hint.min.css';
+export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
 
-export const hpccJsCdnUrl = 'https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@1.12.9/dist/index.min.js';
+export const hintCssUrl = /* @__PURE__ */ getUrl('hint.css@2.7.0/hint.css');
 
-export const imbaBaseUrl = 'https://cdn.jsdelivr.net/npm/imba@2.0.0-alpha.201/dist/';
+export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
-export const jestLiteUrl = 'https://cdn.jsdelivr.net/npm/jest-lite@1.0.0-alpha.4/dist/core.js';
+export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
 
-export const jestTypesUrl = 'https://cdn.jsdelivr.net/npm/@types/jest@27.4.1/index.d.ts';
+export const jestLiteUrl = /* @__PURE__ */ getUrl('jest-lite@1.0.0-alpha.4/dist/core.js');
 
-export const jsclUrl = 'https://cdn.jsdelivr.net/npm/jscl@0.8.2/jscl.min.js';
+export const jestTypesUrl = /* @__PURE__ */ getUrl('@types/jest@27.4.1/index.d.ts');
 
-export const jsZipUrl = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
+export const jsclUrl = /* @__PURE__ */ getUrl(
+  'gh:jscl-project/jscl-project.github.io@efd3aecdba496d132ed650b7b5be976fd0ca278f/jscl.js',
+);
 
-export const juliaWasmBaseUrl = 'https://cdn.jsdelivr.net/npm/@chriskoch/julia-wasm@1.0.4';
+export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
-export const liquidJsUrl =
-  'https://cdn.jsdelivr.net/npm/liquidjs@9.34.0/dist/liquid.browser.min.js';
+export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
-export const localforageUrl =
-  'https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js';
+export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.8.2/dist/liquid.browser.min.js');
 
-export const luaUrl = 'https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.min.js';
+export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.js');
 
-export const lunaObjViewerStylesUrl =
-  'https://cdn.jsdelivr.net/npm/luna-object-viewer@0.2.0/luna-object-viewer.css';
+export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
-export const lunaConsoleStylesUrl =
-  'https://cdn.jsdelivr.net/npm/luna-console@0.2.1/luna-console.css';
+export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
+  'luna-object-viewer@0.2.0/luna-object-viewer.css',
+);
 
-export const malinaUrl = 'https://cdn.jsdelivr.net/npm/malinajs@0.6.52/malina.js';
+export const lunaConsoleStylesUrl = /* @__PURE__ */ getUrl('luna-console@0.2.1/luna-console.css');
 
-export const markedUrl = 'https://cdn.jsdelivr.net/npm/marked@4.0.12/marked.min.js';
+export const malinaVersion = '0.6.64';
+export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
 
-export const mermaidCdnUrl = 'https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js';
+export const markedUrl = /* @__PURE__ */ getUrl('marked@5.0.4/marked.min.js');
 
-export const mjmlUrl = 'https://cdn.jsdelivr.net/npm/mjml-browser@4.14.1/lib/index.min.js';
+export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
-export const monacoEmacsUrl = 'https://unpkg.com/monaco-emacs@0.3.0/dist/monaco-emacs.js';
+export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js');
 
-export const monacoVimUrl = 'https://unpkg.com/monaco-vim@0.3.5/dist/monaco-vim.js';
+export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
-export const mustacheUrl = 'https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js';
+export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.0/dist/monaco-vim.js');
 
-export const nomnomlCdnUrl = 'https://cdn.jsdelivr.net/npm/nomnoml@1.4.0/dist/nomnoml.min.js';
+export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 
-export const normalizeCssUrl = 'https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css';
+export const nomnomlCdnUrl = /* @__PURE__ */ getUrl('nomnoml@1.6.1/dist/nomnoml.js');
 
-export const nunjucksBaseUrl = 'https://cdn.jsdelivr.net/npm/nunjucks@3.2.3/browser/';
+export const normalizeCssUrl = /* @__PURE__ */ getUrl('normalize.css@8.0.1/normalize.css');
 
-export const opalBaseUrl = 'https://cdn.opalrb.com/opal/1.4.1/';
+export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/');
 
-export const parinferUrl =
-  'https://cdn.jsdelivr.net/npm/@chrisoakman/parinfer@3.13.1/parinfer.min.js';
+export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.7.3/');
 
-export const pintoraUrl =
-  'https://cdn.jsdelivr.net/npm/@pintora/standalone@0.1.0/lib/pintora-standalone.umd.min.js';
+export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
 
-export const plotlyCdnUrl = 'https://cdn.jsdelivr.net/npm/plotly.js@2.9.0/dist/plotly.min.js';
+export const pintoraUrl = /* @__PURE__ */ getUrl(
+  '@pintora/standalone@0.6.2/lib/pintora-standalone.umd.js',
+);
 
-export const postcssImportUrlUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js';
+export const plotlyCdnUrl = /* @__PURE__ */ getUrl('plotly.js@2.23.2/dist/plotly.js');
 
-export const prettierBaseUrl = 'https://cdn.jsdelivr.net/npm/prettier@2.5.1/';
+export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js',
+);
 
-export const prettierPhpUrl =
-  'https://cdn.jsdelivr.net/npm/@prettier/plugin-php@0.18.0/standalone.js';
+export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@2.5.1/');
 
-export const prismBaseUrl = 'https://cdn.jsdelivr.net/npm/prismjs@1.26.0/components/';
+export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.18.0/standalone.js');
 
-export const pyodideBaseUrl = 'https://cdn.jsdelivr.net/pyodide/v0.18.1/full/';
+export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.26.0/components/');
 
-export const qrcodeUrl = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js';
+export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
+  'https://cdn.jsdelivr.net/pyodide/v0.23.2/full/',
+);
 
-export const quillEditorCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/quill@2.0.0-dev.4/dist';
+export const qrcodeUrl = /* @__PURE__ */ getUrl('qrcode-generator@1.4.4/qrcode.js');
 
-export const quillHtmlEditUrl =
-  'https://cdn.jsdelivr.net/npm/quill-html-edit-button@2.2.7/dist/quill.htmlEditButton.min.js';
+export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.0-dev.4/dist/');
 
-export const quillBlotFormaterUrl =
-  'https://cdn.jsdelivr.net/npm/quill-blot-formatter@1.0.5/dist/quill-blot-formatter.min.js';
+export const quillHtmlEditUrl = /* @__PURE__ */ getUrl(
+  'quill-html-edit-button@2.2.7/dist/quill.htmlEditButton.min.js',
+);
 
-export const quillBetterTableBaseUrl =
-  'https://cdn.jsdelivr.net/npm/quill-better-table@1.2.10/dist';
+export const quillBlotFormaterUrl = /* @__PURE__ */ getUrl(
+  'quill-blot-formatter@1.0.5/dist/quill-blot-formatter.min.js',
+);
 
-export const requireUrl = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
+export const quillBetterTableBaseUrl = /* @__PURE__ */ getUrl('quill-better-table@1.2.10/dist/');
 
-export const rescriptCompilerUrl = 'https://cdn.rescript-lang.org/v9.1.2/compiler.js';
+export const requireUrl = /* @__PURE__ */ getUrl('requirejs@2.3.6/require.js');
 
-export const rescriptReactUrl = 'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js';
+export const reasonCompilerUrl = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v9.1.2/compiler.js',
+);
 
-export const rescriptStdLibBaseUrl = 'https://cdn.jsdelivr.net/npm/@rescript/std@9.1.3/lib/es6/';
+export const reasonReactUrl = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v9.1.2/%40rescript/react/cmij.js',
+);
 
-export const resetCssUrl = 'https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css';
+export const reasonStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@9.1.3/lib/es6/');
 
-export const riotBaseUrl = 'https://cdn.jsdelivr.net/npm/riot@6.1.2/';
+export const rescriptCompilerUrl = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v10.1.2/compiler.js',
+);
 
-export const snackbarUrl =
-  'https://cdn.jsdelivr.net/npm/@snackbar/core@1.7.0/dist/snackbar.min.css';
+export const rescriptReactUrl = /* @__PURE__ */ getUrl(
+  'https://cdn.rescript-lang.org/v10.1.2/%40rescript/react/cmij.js',
+);
 
-export const spacingJsUrl = 'https://cdn.jsdelivr.net/npm/spacingjs@1.0.7/dist/bundle.min.js';
+export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@10.1.2/lib/es6/');
 
-export const sqlFormatterUrl =
-  'https://cdn.jsdelivr.net/npm/sql-formatter@4.0.2/dist/sql-formatter.min.js';
+export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
-export const sqljsBaseUrl = 'https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/';
+export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@7.1.0/');
 
-export const stencilUrl =
-  'https://cdn.jsdelivr.net/npm/@stencil/core@2.13.0/compiler/stencil.min.js';
+export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
-export const stylisUrl = 'https://cdn.jsdelivr.net/npm/stylis@4.1.3/dist/umd/stylis.min.js';
+export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');
 
-export const svgbobWasmCdnUrl =
-  'https://cdn.jsdelivr.net/npm/svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm';
+export const sqlFormatterUrl = /* @__PURE__ */ getUrl(
+  'sql-formatter@12.2.1/dist/sql-formatter.min.js',
+);
 
-export const tagifyBaseUrl = 'https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.9.6/dist/';
+export const sqljsBaseUrl = /* @__PURE__ */ getUrl('sql.js@1.8.0/dist/');
 
-export const tailwindcssUrl =
-  'https://cdn.jsdelivr.net/npm/@live-codes/tailwindcss-browser-plugin@0.3.2/dist/tailwindcss.umd.min.js';
+export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/stencil.js');
 
-export const tauPrologBaseUrl = 'https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/modules/';
+export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.2.0/dist/umd/stylis.js');
 
-export const twigUrl = 'https://cdn.jsdelivr.net/npm/twig@1.15.4/twig.min.js';
+export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 
-export const typescriptUrl = 'https://cdn.jsdelivr.net/npm/typescript@4.5.5/lib/typescript.min.js';
+export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.9.6/dist/');
 
-export const uniterUrl = 'https://cdn.jsdelivr.net/npm/uniter@2.17.0/dist/uniter.js';
+export const tailwindcssUrl = /* @__PURE__ */ getUrl(
+  '@mhsdesign/jit-browser-tailwindcss@0.3.0/dist/cdn.min.js',
+);
 
-export const vegaCdnUrl = 'https://cdn.jsdelivr.net/npm/vega@5.21.0/build/vega.min.js';
+export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules/');
 
-export const vegaLiteCdnUrl = 'https://cdn.jsdelivr.net/npm/vega-lite@5.2.0/build/vega-lite.min.js';
+export const tealUrl = /* @__PURE__ */ getUrl(
+  'gh:teal-language/tl@d2fc36b5ff9a52d7265e63eb74cce70fd1cdbcb2/tl.lua',
+);
 
-export const vueSfcLoaderCdnBaseUrl = 'https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.8.4/dist/';
+export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 
-export const wabtjsUrl = 'https://cdn.jsdelivr.net/npm/wabt@1.0.26/index.js';
+export const typescriptUrl = /* @__PURE__ */ getUrl('typescript@5.1.3/lib/typescript.js');
 
-export const waveDromBaseUrl = 'https://cdn.jsdelivr.net/npm/wavedrom@2.9.0/';
+export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
-export const webRBaseUrl = 'https://cdn.jsdelivr.net/npm/@r-wasm/webr@0.1.1/dist/';
+export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');
+
+export const vegaLiteCdnUrl = /* @__PURE__ */ getUrl('vega-lite@5.9.3/build/vega-lite.js');
+
+export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3');
+
+export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2');
+
+export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.8.4/dist/');
+
+export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
+
+export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
+
+export const webRBaseUrl = /* @__PURE__ */ getUrl('@r-wasm/webr@0.1.1/dist/');

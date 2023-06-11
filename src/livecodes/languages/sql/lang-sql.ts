@@ -18,7 +18,7 @@ export const sql: LanguageSpecs = {
     },
   },
   compiler: {
-    url: sqljsBaseUrl + 'sql-wasm.min.js',
+    url: sqljsBaseUrl + 'sql-wasm.js',
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-sql-compiler.js}}');
       return (self as any).createSqlCompiler();

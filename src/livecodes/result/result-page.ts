@@ -7,10 +7,11 @@ import {
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
+import { getAppCDN, modulesService } from '../services';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
+import { esModuleShimsPath, jestLiteUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
   code,
@@ -209,7 +210,7 @@ export const createResultPage = async ({
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
-    esModuleShims.src = esModuleShimsUrl;
+    esModuleShims.src = modulesService.getUrl(esModuleShimsPath, getAppCDN());
     esModuleShims.async = true;
     dom.head.appendChild(esModuleShims);
 

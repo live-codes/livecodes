@@ -486,7 +486,7 @@ test.describe('Starter Templates from UI', () => {
     expect(titleText).toBe('Hello, Prolog!');
 
     const resultText = await getResult().innerText('#result');
-    expect(resultText).toBe('X = ali ;\n');
+    expect(resultText).toBe('X = ali\n');
   });
 
   test('Blockly Starter', async ({ page, getTestUrl, editor }) => {
@@ -887,7 +887,7 @@ test.describe('Starter Templates from URL', () => {
     expect(titleText).toBe('Hello, Prolog!');
 
     const resultText = await getResult().innerText('#result');
-    expect(resultText).toBe('X = ali ;\n');
+    expect(resultText).toBe('X = ali\n');
   });
 
   test('Blockly Starter (in URL)', async ({ page, getTestUrl }) => {

@@ -18,7 +18,7 @@ export const tailwindcssStarter: Template = {
         </div>
         <div class="divide-y divide-gray-200">
           <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-            <p>A template based on <a href="https://play.tailwindcss.com/" class="text-cyan-600 hover:text-cyan-700" target="_blank">Tailwind CSS playground</a>. Here you can do things like:</p>
+            <p class="prose md:prose-xl">A template based on <a href="https://play.tailwindcss.com/" class="text-cyan-600 hover:text-cyan-700" target="_blank">Tailwind CSS playground</a>. Here you can do things like:</p>
             <ul class="list-disc space-y-2">
               <li class="flex items-start">
                 <span class="h-6 flex items-center sm:h-7">
@@ -28,7 +28,7 @@ export const tailwindcssStarter: Template = {
                 </span>
                 <p class="ml-2">
                   Customizing configuration in
-                  <code class="text-sm font-bold text-gray-900">custom settings</code>
+                  <code class="text-sm font-bold text-gray-900">menu → Custom Settings</code>
                 </p>
               </li>
               <li class="flex items-start">
@@ -48,7 +48,7 @@ export const tailwindcssStarter: Template = {
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                   </svg>
                 </span>
-                <p class="ml-2">Viewing generated CSS code</p>
+                <p class="ml-2">Viewing generated CSS code (in <code class="text-sm font-bold text-gray-900">Compiled</code> pane below)</p>
               </li>
             </ul>
             <p>Perfect for learning how the framework works, prototyping a new idea, or creating a demo to share online.</p>
@@ -90,6 +90,12 @@ export const tailwindcssStarter: Template = {
   types: {},
   customSettings: {
     tailwindcss: {
+      plugins: [
+        '@tailwindcss/forms',
+        '@tailwindcss/typography',
+        '@tailwindcss/aspect-ratio',
+        '@tailwindcss/line-clamp',
+      ],
       theme: {
         extend: {
           colors: {

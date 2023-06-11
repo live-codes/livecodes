@@ -1,6 +1,6 @@
 import { prettierBaseUrl, prettierPhpUrl, vendorsBaseUrl } from '../vendors';
 
-export const prettierUrl = prettierBaseUrl + 'standalone.min.js';
+export const prettierUrl = prettierBaseUrl + 'standalone.js';
 export const parserPlugins = {
   babel: prettierBaseUrl + 'parser-babel.js',
   glimmer: prettierBaseUrl + 'parser-glimmer.js',

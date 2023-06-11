@@ -28,16 +28,16 @@ export const showQuillEditor = async ({
   }
 
   const quillEditorScripts = `
-  <script src="${quillEditorCdnBaseUrl}/quill.min.js"></script>
+  <script src="${quillEditorCdnBaseUrl}quill.min.js"></script>
   <script src="${quillHtmlEditUrl}"></script>
   <script src="${quillBlotFormaterUrl}"></script>
-  <script src="${quillBetterTableBaseUrl}/quill-better-table.min.js"></script>
+  <script src="${quillBetterTableBaseUrl}quill-better-table.min.js"></script>
   <script src="${baseUrl}{{hash:custom-editor-utils.js}}"></script>
     `;
   const quillEditorStyles = `
   <link rel="stylesheet" href="${baseUrl}{{hash:quill.css}}" />
-  <link rel="stylesheet" href="${quillEditorCdnBaseUrl}/quill.snow.css" />
-  <link rel="stylesheet" href="${quillBetterTableBaseUrl}/quill-better-table.css" />
+  <link rel="stylesheet" href="${quillEditorCdnBaseUrl}quill.snow.css" />
+  <link rel="stylesheet" href="${quillBetterTableBaseUrl}quill-better-table.css" />
   `;
   const getQuillEditorHTML = () =>
     quillEditorHTML

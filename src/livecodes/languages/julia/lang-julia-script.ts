@@ -46,7 +46,7 @@ self.Module = {
   ],
 };
 
-importScripts(url + '/julia.min.js');
+importScripts(url + '/julia.js');
 
 let runCode = (code, input) => {
   let output = '';

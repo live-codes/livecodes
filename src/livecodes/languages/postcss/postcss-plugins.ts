@@ -1,5 +1,5 @@
 import type { ProcessorSpecs } from '../../models';
-import { postcssImportUrlUrl, tailwindcssUrl, vendorsBaseUrl } from '../../vendors';
+import { postcssImportUrlUrl, vendorsBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 
 export const autoprefixer: ProcessorSpecs = {
@@ -80,28 +80,6 @@ export const purgecss: ProcessorSpecs = {
     factory: (config, _baseUrl, options) =>
       (self as any).purgecss.purgecss({
         ...getLanguageCustomSettings('purgecss', config),
-        content: [
-          {
-            raw: `<template>${options.html}\n<script>${config.script.content}</script></template>`,
-            extension: 'html',
-          },
-        ],
-      }),
-  },
-  editor: 'style',
-};
-
-export const tailwindcss: ProcessorSpecs = {
-  name: 'tailwindcss',
-  title: 'Tailwind CSS',
-  isPostcssPlugin: true,
-  needsHTML: true,
-  compiler: {
-    url: tailwindcssUrl,
-    factory: (config, _baseUrl, options) =>
-      (self as any).tailwindcss.tailwindcss({
-        ...(self as any).tailwindcss.defaultConfig,
-        ...getLanguageCustomSettings('tailwindcss', config),
         content: [
           {
             raw: `<template>${options.html}\n<script>${config.script.content}</script></template>`,

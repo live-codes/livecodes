@@ -8,7 +8,7 @@ art-template: [MIT License](https://github.com/aui/art-template/blob/71333a3a6df
 
 Asciidoctor.js: [MIT License](https://github.com/asciidoctor/asciidoctor.js/blob/9d57b34084966f35d5c542ae4feed4941bf57903/LICENSE)
 
-AssemblyScript: [Apache-2.0 License](https://github.com/AssemblyScript/assemblyscript/blob/a0c27fadd027a32542420160deff04dc31e10f59/LICENSE)
+AssemblyScript: [Apache License 2.0](https://github.com/AssemblyScript/assemblyscript/blob/a0c27fadd027a32542420160deff04dc31e10f59/LICENSE)
 
 Astring: [MIT License](https://github.com/davidbonnet/astring/blob/8ac784be966a20eda44de32f79db1a6e44832659/LICENSE)
 
@@ -90,6 +90,8 @@ Imba: [MIT License](https://github.com/imba/imba/blob/4c92d45d0f691bd8aba0ab7055
 
 jest-lite: [MIT License](https://github.com/kvendrik/jest-lite/blob/e598be34afd5fae73f8bc6ba2311b2d9480a38d2/package.json#L25)
 
+JSCL: [MIT License](https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github.io@efd3aec/jscl.js)
+
 JSCPP: [MIT License](https://github.com/felixhao28/JSCPP/blob/befbd6b48666007151c259c5dd291ab028ad4c04/LICENSE)
 
 JSZip: [MIT License](https://github.com/Stuk/jszip/blob/3db5fdc85586ef6c26d15b503c45ce8e42905d77/LICENSE.markdown)
@@ -116,6 +118,8 @@ Marked: [MIT License](https://github.com/markedjs/marked/blob/57d41b88801566eb06
 
 Mermaid: [MIT License](https://github.com/mermaid-js/mermaid/blob/1b40f552b20df4ab99a986dd58c9d254b3bfd7bc/LICENSE)
 
+mhsdesign/jit-browser-tailwindcss: [MIT License](https://github.com/mhsdesign/jit-browser-tailwindcss/blob/60fccdfbbd4e7c816a97e4627d070dd8ec19d415/package.json#L30)
+
 MDX: [MIT License](https://github.com/mdx-js/mdx/blob/7fd1d9a4272754951e70dbaecff07a0ae402e13e/license)
 
 MJML: [MIT License](https://github.com/mjmlio/mjml/blob/988819de3375867c09585d28f555166b97415200/LICENSE.md)
@@ -136,7 +140,7 @@ Nunjucks: [BSD-2-Clause License](https://github.com/necolas/normalize.css/blob/f
 
 Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf7db03b099b5129/LICENSE)
 
-Parinfer.js: [MIT License](https://github.com/oakmac/parinfer/blob/cddc36ac3e7f9ecd328b977efe91c38ccfd0d94d/LICENSE.md)
+Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac3e7f9ecd328b977efe91c38ccfd0d94d/LICENSE.md)
 
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 

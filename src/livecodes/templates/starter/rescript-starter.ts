@@ -56,7 +56,10 @@ module App = {
 }
 
 switch ReactDOM.querySelector("#app") {
-| Some(app) => ReactDOM.render(<App name="ReScript React" />, app)
+| Some(rootElement) => {
+    let root = ReactDOM.Client.createRoot(rootElement)
+    ReactDOM.Client.Root.render(root, <App name="ReScript React" />)
+  }
 | None => () // do nothing
 }
 
