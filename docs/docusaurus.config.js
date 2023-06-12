@@ -199,15 +199,15 @@ const config = {
     }),
   scripts: [
     {
-      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/standalone.min.js',
+      src: 'https://unpkg.com/prettier@2.4.1/standalone.js',
       async: true,
     },
     {
-      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-babel.js',
+      src: 'https://unpkg.com/prettier@2.4.1/parser-babel.js',
       async: true,
     },
     {
-      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-html.js',
+      src: 'https://unpkg.com/prettier@2.4.1/parser-html.js',
       async: true,
     },
     {

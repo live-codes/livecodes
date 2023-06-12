@@ -145,6 +145,11 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
+<a href="https://unpkg.com/" target="_blank" title="unpkg">
+  <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
+</img></a><br /><br />
+</p>
+<p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
   <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
 </img></a><br /><br />
@@ -191,7 +196,7 @@ Packages used by LiveCodes and their licenses are [listed here](https://github.c
 
 ## License
 
-[MIT](https://github.com/live-codes/livecodes/blob/HEAD/LICENSE)
+[MIT](https://github.com/live-codes/livecodes/blob/HEAD/LICENSE) License © [Hatem Hosny](https://github.com/hatemhosny)
 
 ## Sponsor
 
