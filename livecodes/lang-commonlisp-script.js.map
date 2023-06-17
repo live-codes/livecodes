@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/livecodes/languages/commonlisp/lang-commonlisp-script.ts"],
+  "sourcesContent": ["window.addEventListener('load', function () {\n  const script = document.querySelector('script[type=\"text/commonlisp\"]');\n  const source = script?.innerHTML;\n  if (source?.trim()) {\n    (window as any).jscl.evaluateString('(progn ' + source + ')');\n  }\n});\n"],
+  "mappings": "mBAAA,OAAO,iBAAiB,OAAQ,UAAY,CAE1C,IAAMA,EADS,SAAS,cAAc,gCAAgC,GAC/C,UACnBA,GAAQ,KAAK,GACd,OAAe,KAAK,eAAe,UAAYA,EAAS,GAAG,CAEhE,CAAC",
+  "names": ["source"]
+}

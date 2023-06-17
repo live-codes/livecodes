@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/livecodes/languages/prolog/lang-prolog-script.ts"],
+  "sourcesContent": ["declare const livecodes: any;\ndeclare const pl: any;\n\nlivecodes.prolog = {\n  createSession: async (options: { limit?: number } = {}) => {\n    await livecodes.prolog.loaded;\n    const limit = options.limit ?? 1000;\n    let code = '';\n    const scripts = document.querySelectorAll('script[type=\"text/prolog\"]');\n    scripts.forEach((script) => (code += script.innerHTML + '\\n'));\n    const session = pl.create(limit);\n    await session.promiseConsult(code);\n    return session;\n  },\n  loaded: new Promise((resolve) => {\n    window.addEventListener('load', resolve);\n  }),\n};\n"],
+  "mappings": "mBAGA,UAAU,OAAS,CACjB,cAAe,MAAOA,EAA8B,CAAC,IAAM,CACzD,MAAM,UAAU,OAAO,OACvB,IAAMC,EAAQD,EAAQ,OAAS,IAC3BE,EAAO,GACK,SAAS,iBAAiB,4BAA4B,EAC9D,QAASC,GAAYD,GAAQC,EAAO,UAAY;AAAA,CAAK,EAC7D,IAAMC,EAAU,GAAG,OAAOH,CAAK,EAC/B,aAAMG,EAAQ,eAAeF,CAAI,EAC1BE,CACT,EACA,OAAQ,IAAI,QAASC,GAAY,CAC/B,OAAO,iBAAiB,OAAQA,CAAO,CACzC,CAAC,CACH",
+  "names": ["options", "limit", "code", "script", "session", "resolve"]
+}
