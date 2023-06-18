@@ -64,34 +64,34 @@ const replaceValues = (str: string) =>
     .replace(/{{REPO_URL}}/g, process.env.REPO_URL || '')
     .replace(/{{DOCS_BASE_URL}}/g, process.env.DOCS_BASE_URL || '');
 
-const resultTemplate = replaceValues(resultTemplateRaw);
-const appHTML = replaceValues(appHTMLRaw);
-const settingsMenuHTML = replaceValues(settingsMenuHTMLRaw);
-const languageInfo = replaceValues(languageInfoRaw);
-const customSettingsScreen = replaceValues(customSettingsScreenRaw);
-const testEditorScreen = replaceValues(testEditorScreenRaw);
-const importScreen = replaceValues(importScreenRaw);
-const deployScreen = replaceValues(deployScreenRaw);
-const syncScreen = replaceValues(syncScreenRaw);
-const backupScreen = replaceValues(backupScreenRaw);
-const broadcastScreen = replaceValues(broadcastScreenRaw);
-const welcomeScreen = replaceValues(welcomeScreenRaw);
-const aboutScreen = replaceValues(aboutScreenRaw);
-const infoScreen = replaceValues(infoScreenRaw);
-const resourcesScreen = replaceValues(resourcesScreenRaw);
-const loginScreen = replaceValues(loginScreenRaw);
-const savePromptScreen = replaceValues(savePromptScreenRaw);
-const recoverPromptScreen = replaceValues(recoverPromptScreenRaw);
-const templatesScreen = replaceValues(templatesScreenRaw);
-const openScreen = replaceValues(openScreenRaw);
-const assetsScreen = replaceValues(assetsScreenRaw);
-const addAssetScreen = replaceValues(addAssetScreenRaw);
-const snippetsScreen = replaceValues(snippetsScreenRaw);
-const addSnippetScreen = replaceValues(addSnippetScreenRaw);
-const shareScreen = replaceValues(shareScreenRaw);
-const embedScreen = replaceValues(embedScreenRaw);
-const editorSettingsScreen = replaceValues(editorSettingsScreenRaw);
-const resultPopupHTML = replaceValues(resultPopupHTMLRaw);
+const resultTemplate = /* @__PURE__ */ replaceValues(resultTemplateRaw);
+const appHTML = /* @__PURE__ */ replaceValues(appHTMLRaw);
+const settingsMenuHTML = /* @__PURE__ */ replaceValues(settingsMenuHTMLRaw);
+const languageInfo = /* @__PURE__ */ replaceValues(languageInfoRaw);
+const customSettingsScreen = /* @__PURE__ */ replaceValues(customSettingsScreenRaw);
+const testEditorScreen = /* @__PURE__ */ replaceValues(testEditorScreenRaw);
+const importScreen = /* @__PURE__ */ replaceValues(importScreenRaw);
+const deployScreen = /* @__PURE__ */ replaceValues(deployScreenRaw);
+const syncScreen = /* @__PURE__ */ replaceValues(syncScreenRaw);
+const backupScreen = /* @__PURE__ */ replaceValues(backupScreenRaw);
+const broadcastScreen = /* @__PURE__ */ replaceValues(broadcastScreenRaw);
+const welcomeScreen = /* @__PURE__ */ replaceValues(welcomeScreenRaw);
+const aboutScreen = /* @__PURE__ */ replaceValues(aboutScreenRaw);
+const infoScreen = /* @__PURE__ */ replaceValues(infoScreenRaw);
+const resourcesScreen = /* @__PURE__ */ replaceValues(resourcesScreenRaw);
+const loginScreen = /* @__PURE__ */ replaceValues(loginScreenRaw);
+const savePromptScreen = /* @__PURE__ */ replaceValues(savePromptScreenRaw);
+const recoverPromptScreen = /* @__PURE__ */ replaceValues(recoverPromptScreenRaw);
+const templatesScreen = /* @__PURE__ */ replaceValues(templatesScreenRaw);
+const openScreen = /* @__PURE__ */ replaceValues(openScreenRaw);
+const assetsScreen = /* @__PURE__ */ replaceValues(assetsScreenRaw);
+const addAssetScreen = /* @__PURE__ */ replaceValues(addAssetScreenRaw);
+const snippetsScreen = /* @__PURE__ */ replaceValues(snippetsScreenRaw);
+const addSnippetScreen = /* @__PURE__ */ replaceValues(addSnippetScreenRaw);
+const shareScreen = /* @__PURE__ */ replaceValues(shareScreenRaw);
+const embedScreen = /* @__PURE__ */ replaceValues(embedScreenRaw);
+const editorSettingsScreen = /* @__PURE__ */ replaceValues(editorSettingsScreenRaw);
+const resultPopupHTML = /* @__PURE__ */ replaceValues(resultPopupHTMLRaw);
 
 export {
   resultTemplate,
