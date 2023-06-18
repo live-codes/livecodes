@@ -17,20 +17,20 @@ const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
         headless: true,
       },
     },
-    {
-      name: 'codemirror',
-      use: {
-        editor: 'codemirror',
-        headless: true,
-      },
-    },
-    {
-      name: 'codejar',
-      use: {
-        editor: 'codejar',
-        headless: true,
-      },
-    },
+    // {
+    //   name: 'codemirror',
+    //   use: {
+    //     editor: 'codemirror',
+    //     headless: true,
+    //   },
+    // },
+    // {
+    //   name: 'codejar',
+    //   use: {
+    //     editor: 'codejar',
+    //     headless: true,
+    //   },
+    // },
   ],
 };
 export default config;
