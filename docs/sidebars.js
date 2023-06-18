@@ -61,6 +61,7 @@ const sidebars = {
             'features/integrations',
             'features/user-management',
             'features/security',
+            'features/self-hosting',
           ],
         },
         {

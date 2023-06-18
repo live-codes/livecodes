@@ -12,7 +12,7 @@ It is packed with [features](./features/index.md) and offers various ways to [im
 
 ## Embedded Playgrounds
 
-LiveCodes playgrounds can be easily embedded into any web page. This can be achieved using:
+LiveCodes playgrounds can be easily [embedded](./features/embeds.md) into any web page. This can be achieved using:
 
 ### App Embed Screen
 
@@ -21,7 +21,7 @@ Copy the generated code snippet (at the bottom of the screen) and add it to the 
 
 ### SDK
 
-LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy [embedding](./features/embeds.md) and communication with playgrounds.
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy embedding and communication with playgrounds.
 
 #### Option 1: Using a bundler
 
@@ -129,41 +129,12 @@ Live demo:
 
 <LiveCodes config={config} params={{ console: 'open' }}></LiveCodes>
 
-Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
+Please refer to the section on [Embedded Playgrounds](./features/embeds.md) for more details.
 
 ## Self-Hosting
 
 LiveCodes can be hosted on any static file server or CDN.
 
-The built app can be obtained by one of the following ways:
+The easiest way is to download the app from [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
 
-- Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to deploy to [GitHub Pages](https://pages.github.com/):
-
-  ```shell
-  git clone https://github.com/{your-username}/livecodes
-  cd livecodes
-  npm install
-  npm run deploy     # build and deploy to github pages
-
-  # for development
-  npm run serve         # locally serve to http://localhost:8080
-  npm start             # start local development with code watch, rebuild and live-reload
-  ```
-
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Vercel](https://vercel.com/docs/concepts/git), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration)). When prompted, the build command is `npm run build` and the build output directory is `build`.
-
-You may wish to edit one or more of the used [services](./advanced/services.md) to use your own.
-
-The [SDK](./sdk/index.md) can still be used with the self-hosted app by providing the [`appUrl`](./sdk/js-ts.md#appurl) [embed option](./sdk/js-ts.md#embed-options).
-
-```js title="index.js"
-import { createPlayground } from 'livecodes';
-
-const options = {
-  appUrl: 'https://playground.myserver.com/',
-  template: 'react',
-  // other embed options
-};
-createPlayground('#container', options);
-```
+Please check the section on [self-hosting] for other methods of self-hosting, including the built-in setup to deploy to GitHub pages and how to use the SDK with the self-hosted app.

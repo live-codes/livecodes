@@ -83,6 +83,6 @@ Projects are private by default. The code you write in LiveCodes never leaves yo
 
 LiveCodes is free, with no limits for use and no ads.
 No account is even required (unless [GitHub integration](./github-integration.md) is needed).
-Do you want to [self-host](../getting-started.md#self-hosting) it for commercial use? No problem! It is [MIT-licensed](../license.md) 🎉. Please consider [sponsoring LiveCodes](../sponsor.md) ❤.
+Do you want to [self-host](./self-hosting.md) it for commercial use? No problem! It is [MIT-licensed](../license.md) 🎉. Please consider [sponsoring LiveCodes](../sponsor.md) ❤.
 
 This was a quick overview of the important features of LiveCodes. A more detailed description of each feature is described in the following sections.

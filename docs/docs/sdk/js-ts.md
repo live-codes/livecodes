@@ -67,7 +67,7 @@ Type: [`string`](../api/interfaces/EmbedOptions.md#appurl)
 
 Default: `"https://livecodes.io/"`
 
-Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../getting-started.md#self-hosting), [permanent URL](../features/permanent-url.md)).
+Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../features/self-hosting.md), [permanent URL](../features/permanent-url.md)).
 
 ### `config`
 
