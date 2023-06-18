@@ -13,7 +13,7 @@ const config = {
   title: 'LiveCodes',
   tagline: 'Code Playground That Just Works!',
   url: 'https://livecodes.io/',
-  baseUrl: '/docs/',
+  baseUrl: process.env.DOCS_BASE_URL || '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -22,6 +22,7 @@ const config = {
   customFields: {
     appVersion: appPkg.appVersion,
     sdkVersion: sdkPkg.version,
+    docsBaseUrl: process.env.DOCS_BASE_URL,
   },
   presets: [
     [
@@ -108,23 +109,23 @@ const config = {
               },
               {
                 label: 'Why Another Playground?',
-                to: '/docs/why',
+                to: '/why',
               },
               {
                 label: 'Getting Started',
-                to: '/docs/getting-started',
+                to: '/getting-started',
               },
               {
                 label: 'Features',
-                to: '/docs/features',
+                to: '/features',
               },
               {
                 label: 'Languages',
-                to: '/docs/languages',
+                to: '/languages',
               },
               {
                 label: 'SDK',
-                to: '/docs/sdk',
+                to: '/sdk',
               },
             ],
           },
@@ -143,6 +144,9 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/live-codes/livecodes',
               },
+              {
+                html: '<a href="https://status.livecodes.io" target="_blank" rel="noopener noreferrer" class="footer__link-item status-link">Status<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a>',
+              },
             ],
           },
           {
@@ -155,23 +159,23 @@ const config = {
               },
               {
                 label: 'Credits',
-                to: '/docs/credits',
+                to: '/credits',
               },
               {
                 label: 'License',
-                to: '/docs/license',
+                to: '/license',
               },
               {
                 label: 'Sponsor',
-                to: '/docs/sponsor',
+                to: '/sponsor',
               },
               {
                 label: 'Contact',
-                to: '/docs/contact',
+                to: '/contact',
               },
               {
                 label: 'About us',
-                to: '/docs/about',
+                to: '/about',
               },
             ],
           },

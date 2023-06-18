@@ -17,3 +17,17 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 [target='_self'] svg {
   display: none;
 }
+
+.status-link::before {
+  background-color: #20bf6b;
+  border-radius: 50%;
+  content: '';
+  display: inline-block;
+  height: 10px;
+  margin-right: 0.3rem;
+  width: 10px;
+}
+
+.status-link svg {
+  margin-left: 0.3rem;
+}

@@ -56,7 +56,7 @@ export const createEditorSettingsUI = async ({
         { label: 'CodeMirror', value: 'codemirror' },
         { label: 'CodeJar', value: 'codejar' },
       ],
-      help: '/docs/features/editors',
+      help: `${process.env.DOCS_BASE_URL}features/editor-settings#code-editor`,
     },
     {
       title: 'Font Family',
@@ -134,7 +134,7 @@ export const createEditorSettingsUI = async ({
         { label: 'Vim', value: 'vim' },
         { label: 'Emacs', value: 'emacs' },
       ],
-      help: '/docs/features/editors',
+      help: `${process.env.DOCS_BASE_URL}features/editor-settings#editor-modes`,
     },
     {
       title: 'Format: Use Semicolons',
@@ -321,9 +321,9 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 function App(props) {
-  const [count, setCount] = useState('zero');
+  const [count, setCount] = useState(0);
   // increment on click!
-  const onClick = () => setCount(count === 'zero' ? 1 : count + 1);
+  const onClick = () => setCount(count + 1);
   return (
     <div className="container">
       <h1>Hello, {props.name}!</h1>
@@ -332,7 +332,7 @@ function App(props) {
         className="logo"
         src="https://livecodes.io/livecodes/assets/templates/react.svg"
       />
-      <p>You clicked {count} times.</p>
+      <p>You clicked {count === 0 ? 'zero' : count} times.</p>
       <button onClick={onClick}>Click me</button>
     </div>
   );

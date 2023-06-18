@@ -81,13 +81,13 @@ export const createEmbedUI = async ({
       title: 'Show Result Preview',
       name: 'preview',
       options: [{ value: 'true', checked: false }],
-      help: '/docs/features/embeds#result-page-preview',
+      help: `${process.env.DOCS_BASE_URL}features/embeds#result-page-preview`,
     },
     {
       title: 'Lite Mode',
       name: 'lite',
       options: [{ value: 'true', checked: false }],
-      help: '/docs/features/lite',
+      help: `${process.env.DOCS_BASE_URL}features/lite`,
     },
     {
       title: 'Read only',
@@ -103,7 +103,7 @@ export const createEmbedUI = async ({
         { label: 'Code Block', value: 'codeblock' },
         { label: 'Result', value: 'result' },
       ],
-      help: '/docs/features/display-modes',
+      help: `${process.env.DOCS_BASE_URL}features/display-modes`,
     },
     {
       title: 'Default View',
@@ -113,7 +113,7 @@ export const createEmbedUI = async ({
         { label: 'Editor', value: 'editor' },
         { label: 'Result', value: 'result' },
       ],
-      help: '/docs/features/default-view',
+      help: `${process.env.DOCS_BASE_URL}features/default-view`,
     },
     {
       title: 'Active Editor',
@@ -133,7 +133,7 @@ export const createEmbedUI = async ({
         { label: 'Full', value: 'full' },
         { label: 'None', value: 'none' },
       ],
-      help: '/docs/features/tools-pane',
+      help: `${process.env.DOCS_BASE_URL}features/tools-pane`,
     },
     {
       title: 'Active Tool',
@@ -143,13 +143,13 @@ export const createEmbedUI = async ({
         { label: 'Compiled', value: 'compiled' },
         { label: 'Tests', value: 'tests' },
       ].filter((option) => (option.value === 'tests' && !config.tests?.content ? false : true)),
-      help: '/docs/features/tools-pane',
+      help: `${process.env.DOCS_BASE_URL}features/tools-pane`,
     },
     {
       title: 'Permanent URL',
       name: 'permanentUrl',
       options: [{ value: 'true', checked: true }],
-      help: '/docs/features/permanent-url',
+      help: `${process.env.DOCS_BASE_URL}features/permanent-url`,
     },
     {
       title: 'Embed Type',

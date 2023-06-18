@@ -1,60 +1,97 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
-import resultTemplate from './sandbox/v6/result.html';
+import resultTemplateRaw from './sandbox/v6/result.html';
 // @ts-ignore
-import appHTML from './app.html';
+import appHTMLRaw from './app.html';
 // @ts-ignore
-import settingsMenuHTML from './settings-menu.html';
+import settingsMenuHTMLRaw from './settings-menu.html';
 // @ts-ignore
-import languageInfo from './language-info.html';
+import languageInfoRaw from './language-info.html';
 // @ts-ignore
-import customSettingsScreen from './custom-settings.html';
+import customSettingsScreenRaw from './custom-settings.html';
 // @ts-ignore
-import testEditorScreen from './test-editor.html';
+import testEditorScreenRaw from './test-editor.html';
 // @ts-ignore
-import importScreen from './import.html';
+import importScreenRaw from './import.html';
 // @ts-ignore
-import deployScreen from './deploy.html';
+import deployScreenRaw from './deploy.html';
 // @ts-ignore
-import syncScreen from './sync.html';
+import syncScreenRaw from './sync.html';
 // @ts-ignore
-import backupScreen from './backup.html';
+import backupScreenRaw from './backup.html';
 // @ts-ignore
-import broadcastScreen from './broadcast.html';
+import broadcastScreenRaw from './broadcast.html';
 // @ts-ignore
-import welcomeScreen from './welcome.html';
+import welcomeScreenRaw from './welcome.html';
 // @ts-ignore
-import aboutScreen from './about.html';
+import aboutScreenRaw from './about.html';
 // @ts-ignore
-import infoScreen from './project-info.html';
+import infoScreenRaw from './project-info.html';
 // @ts-ignore
-import resourcesScreen from './external-resources.html';
+import resourcesScreenRaw from './external-resources.html';
 // @ts-ignore
-import loginScreen from './login.html';
+import loginScreenRaw from './login.html';
 // @ts-ignore
-import savePromptScreen from './save-prompt.html';
+import savePromptScreenRaw from './save-prompt.html';
 // @ts-ignore
-import recoverPromptScreen from './recover-prompt.html';
+import recoverPromptScreenRaw from './recover-prompt.html';
 // @ts-ignore
-import templatesScreen from './templates.html';
+import templatesScreenRaw from './templates.html';
 // @ts-ignore
-import openScreen from './open.html';
+import openScreenRaw from './open.html';
 // @ts-ignore
-import assetsScreen from './assets.html';
+import assetsScreenRaw from './assets.html';
 // @ts-ignore
-import addAssetScreen from './add-asset.html';
+import addAssetScreenRaw from './add-asset.html';
 // @ts-ignore
-import snippetsScreen from './snippets.html';
+import snippetsScreenRaw from './snippets.html';
 // @ts-ignore
-import addSnippetScreen from './add-snippet.html';
+import addSnippetScreenRaw from './add-snippet.html';
 // @ts-ignore
-import shareScreen from './share.html';
+import shareScreenRaw from './share.html';
 // @ts-ignore
-import embedScreen from './embed.html';
+import embedScreenRaw from './embed.html';
 // @ts-ignore
-import editorSettingsScreen from './editor-settings.html';
+import editorSettingsScreenRaw from './editor-settings.html';
 // @ts-ignore
-import resultPopupHTML from './result-popup.html';
+import resultPopupHTMLRaw from './result-popup.html';
+
+const replaceValues = (str: string) =>
+  str
+    .replace(/{{APP_VERSION}}/g, process.env.VERSION || '')
+    .replace(/{{SDK_VERSION}}/g, process.env.SDK_VERSION || '')
+    .replace(/{{COMMIT_SHA}}/g, process.env.GIT_COMMIT || '')
+    .replace(/{{REPO_URL}}/g, process.env.REPO_URL || '')
+    .replace(/{{DOCS_BASE_URL}}/g, process.env.DOCS_BASE_URL || '');
+
+const resultTemplate = replaceValues(resultTemplateRaw);
+const appHTML = replaceValues(appHTMLRaw);
+const settingsMenuHTML = replaceValues(settingsMenuHTMLRaw);
+const languageInfo = replaceValues(languageInfoRaw);
+const customSettingsScreen = replaceValues(customSettingsScreenRaw);
+const testEditorScreen = replaceValues(testEditorScreenRaw);
+const importScreen = replaceValues(importScreenRaw);
+const deployScreen = replaceValues(deployScreenRaw);
+const syncScreen = replaceValues(syncScreenRaw);
+const backupScreen = replaceValues(backupScreenRaw);
+const broadcastScreen = replaceValues(broadcastScreenRaw);
+const welcomeScreen = replaceValues(welcomeScreenRaw);
+const aboutScreen = replaceValues(aboutScreenRaw);
+const infoScreen = replaceValues(infoScreenRaw);
+const resourcesScreen = replaceValues(resourcesScreenRaw);
+const loginScreen = replaceValues(loginScreenRaw);
+const savePromptScreen = replaceValues(savePromptScreenRaw);
+const recoverPromptScreen = replaceValues(recoverPromptScreenRaw);
+const templatesScreen = replaceValues(templatesScreenRaw);
+const openScreen = replaceValues(openScreenRaw);
+const assetsScreen = replaceValues(assetsScreenRaw);
+const addAssetScreen = replaceValues(addAssetScreenRaw);
+const snippetsScreen = replaceValues(snippetsScreenRaw);
+const addSnippetScreen = replaceValues(addSnippetScreenRaw);
+const shareScreen = replaceValues(shareScreenRaw);
+const embedScreen = replaceValues(embedScreenRaw);
+const editorSettingsScreen = replaceValues(editorSettingsScreenRaw);
+const resultPopupHTML = replaceValues(resultPopupHTMLRaw);
 
 export {
   resultTemplate,

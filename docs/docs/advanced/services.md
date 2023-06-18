@@ -16,4 +16,4 @@ The app then needs to be re-built using the command:
 npm run build
 ```
 
-The built app is in `build` directory. This can be hosted on any static file server. It needs to be served from the root of the domain/subdomain.
+The built app is in `build` directory. This can be hosted on any static file server.
