@@ -1,3 +1,5 @@
+import { modulesService } from './modules';
+
 type SDKFile = 'esm' | 'umd' | 'react' | 'vue' | 'types';
 
 const sdkFiles: Record<SDKFile, string> = {
@@ -11,5 +13,5 @@ const sdkFiles: Record<SDKFile, string> = {
 export const permanentUrlService = {
   getAppUrl: () => `https://v${process.env.VERSION}.livecodes.io/`,
   getSDKUrl: (file: SDKFile = 'esm') =>
-    `https://cdn.jsdelivr.net/npm/livecodes@${process.env.SDK_VERSION}/${sdkFiles[file]}`,
+    modulesService.getUrl(`livecodes@${process.env.SDK_VERSION}/${sdkFiles[file]}`),
 };

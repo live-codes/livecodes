@@ -769,6 +769,7 @@ export type CDN =
   | 'jspm'
   | 'skypack'
   | 'jsdelivr'
+  | 'fastly.jsdelivr'
   | 'jsdelivr.gh'
   | 'esm.run'
   | 'esm.sh'

@@ -3,7 +3,7 @@ import type { CDN } from '../models';
 declare const globalThis: { appCDN: CDN };
 
 const moduleCDNs: CDN[] = ['jspm', 'skypack'];
-const npmCDNs: CDN[] = ['unpkg', 'jsdelivr'];
+const npmCDNs: CDN[] = ['jsdelivr', 'unpkg', 'fastly.jsdelivr'];
 const ghCDNs: CDN[] = ['jsdelivr.gh', 'statically'];
 
 export const modulesService = {
@@ -83,6 +83,8 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
+
+  [/^(fastly.jsdelivr:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2'],
 
   [/^(jsdelivr.gh:)(.+)/i, 'https://cdn.jsdelivr.net/gh/$2'],
 

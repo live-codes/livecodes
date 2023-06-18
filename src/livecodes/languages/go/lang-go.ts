@@ -32,7 +32,8 @@ export const go: LanguageSpecs = {
           resolve('');
           return;
         }
-        (globalThis as any).go2jsCompile(code, go2jsBaseUrl, (err: string, jsCode: string) => {
+        const url = go2jsBaseUrl.endsWith('/') ? go2jsBaseUrl.slice(0, -1) : go2jsBaseUrl;
+        (globalThis as any).go2jsCompile(code, url, (err: string, jsCode: string) => {
           if (err) {
             // eslint-disable-next-line no-console
             console.error(err);

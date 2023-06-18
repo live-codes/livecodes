@@ -25,6 +25,11 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
+<a href="https://unpkg.com/" target="_blank" title="unpkg">
+  <img alt="unpkg" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/unpkg.png">
+</img></a>
+</p>
+<p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
   <img alt="bundlejs" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/bundlejs.jpg">
 </img></a>
