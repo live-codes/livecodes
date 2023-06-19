@@ -29,7 +29,7 @@ The built app can be obtained by **one of the following** ways:
 
 By default, when building the app, it is expected to be hosted on the root of the domain/subdomain (e.g. `https://my-website.com` or `https://playground.my-website.com`). The documentation is also hosted in the `/docs/` directory (e.g. `https://my-website.com/docs`).
 
-If you wish to host the app in a subdirectory (e.g. <span style={{wrap: 'no-wrap'}}>`https://my-username.github.io/playground/`</span>), the base URL of the documentation directory needs to be supplied by the environment variable `DOCS_BASE_URL` during build.
+If you wish to host the app in a subdirectory (e.g. `https://my-username.github.io/playground/`), the base URL of the documentation directory needs to be supplied by the environment variable `DOCS_BASE_URL` during build.
 
 Example:
 
@@ -45,7 +45,15 @@ npx cross-env DOCS_BASE_URL=null npm run build:app
 
 ## Services
 
+Some of the [services](../advanced/services.md) used by the app are not supported on [self-hosted](../features/self-hosting.md) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.md) service uses [dpaste](https://dpaste.com/) instead of LiveCodes share service) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
+
 You may wish to edit one or more of the used [services](../advanced/services.md) to use your own.
+
+## Example
+
+This is an example of a self-hosted deployment, that was deployed to [GitHub Pages](https://pages.github.com/) using the [built-in setup](#guide):
+
+https://live-codes.github.io/livecodes/
 
 ## SDK Usage
 
@@ -55,7 +63,7 @@ The [SDK](../sdk/index.md) can still be used with the self-hosted app by providi
 import { createPlayground } from 'livecodes';
 
 const options = {
-  appUrl: 'https://playground.myserver.com/',
+  appUrl: 'https://playground.my-website.com',
   template: 'react',
   // other embed options
 };
