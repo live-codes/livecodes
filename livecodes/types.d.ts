@@ -436,7 +436,7 @@ declare module "sdk/models" {
         head: string;
         htmlClasses: string;
     }>;
-    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
+    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
     export type EditorCache = Editor & {
         compiled: string;
         modified?: string;
