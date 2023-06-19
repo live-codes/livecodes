@@ -146,7 +146,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
               } else {
                 if (e.source !== iframe.contentWindow) return;
                 if (e.data?.args === 'home') {
-                  location.href = '/';
+                  location.href = location.origin + location.pathname;
                 }
               }
             },
