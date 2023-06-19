@@ -85,6 +85,11 @@ try {
   console.log(error);
 }
 
+const docsBaseUrl =
+  process.env.DOCS_BASE_URL === 'null'
+    ? 'https://livecodes.io/docs/'
+    : process.env.DOCS_BASE_URL || (devMode ? 'http://localhost:3000/docs/' : '/docs/');
+
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
   bundle: true,
@@ -99,6 +104,7 @@ const baseOptions = {
     'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
+    'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
     'process.env.CI': `${process.env.CI || false}`,
     'process.env.monacoVersion': `"${monacoVersion}"`,
     'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
@@ -291,6 +297,7 @@ const stylesBuild = () => buildStyles(devMode);
 const htmlBuild = () =>
   vite.build({
     root: path.resolve('src'),
+    base: './',
     define: {
       'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
     },

@@ -159,8 +159,8 @@ const FeatureList4: FeatureItem[] = [
         LiveCodes is <strong>free</strong>, with <strong>no&nbsp;limits</strong> for use,{' '}
         <strong>no&nbsp;ads</strong> and no&nbsp;account required*.
         <br></br>
-        Do you want to <Link to="./getting-started#self-hosting">self-host</Link> it for commercial
-        use? No problem! It is{' '}
+        Do you want to <Link to="./features/self-hosting">self-host</Link> it for commercial use? No
+        problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
           <Link to="./license">
             <strong>MIT-licensed</strong>
@@ -339,8 +339,7 @@ export default function HomepageFeatures(): JSX.Element {
                 <hr />
                 <div>
                   <p>
-                    Ok, do you want to <Link to="./getting-started#self-hosting">self-host</Link>{' '}
-                    it?
+                    Ok, do you want to <Link to="./features/self-hosting">self-host</Link> it?
                   </p>
                   <ol className={styles.steps}>
                     <li>

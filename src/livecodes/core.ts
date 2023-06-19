@@ -2894,16 +2894,12 @@ const handleAbout = () => {
 
   const createAboutUI = async () => {
     const versions = getVersion();
-    const repoUrl = process.env.REPO_URL;
+    const repoUrl = process.env.REPO_URL || '';
     const div = document.createElement('div');
     div.innerHTML = aboutScreen
-      .replace(/{{APP_VERSION}}/g, versions.appVersion)
-      .replace(/{{SDK_VERSION}}/g, versions.sdkVersion)
-      .replace(/{{COMMIT_SHA}}/g, versions.commitSHA)
       .replace(/{{COMMIT_URL}}/g, `${repoUrl}/commit/${versions.commitSHA}`)
       .replace(/{{APP_URL}}/g, versions.appUrl)
-      .replace(/{{SDK_URL}}/g, versions.sdkUrl)
-      .replace(/{{REPO_URL}}/g, repoUrl);
+      .replace(/{{SDK_URL}}/g, versions.sdkUrl);
     const aboutContainer = div.firstChild as HTMLElement;
     modal.show(aboutContainer);
   };

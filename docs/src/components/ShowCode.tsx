@@ -38,7 +38,7 @@ export default function ShowCode(props: {
     <BrowserOnly>
       {() => {
         const format = (code: string, language = 'js') =>
-          (window as any).prettier.format(code, {
+          (window as any).prettier?.format(code, {
             parser: language === 'html' ? 'html' : 'babel',
             plugins: (window as any).prettierPlugins,
           });

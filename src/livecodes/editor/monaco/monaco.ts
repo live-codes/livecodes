@@ -593,10 +593,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
               {
                 value: `## [${name}](https://www.npmjs.com/package/${name}/v/${version}) (v${version})\n${description}\n\n\n${
                   repo ? `[GitHub](${repo})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name}?version=${version})  |  [Unpkg](https://unpkg.com/browse/${name}@${version}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${baseUrl.replace(
-                  '/livecodes/',
-                  '',
-                )}/docs/features/npm-modules)`,
+                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name}?version=${version})  |  [Unpkg](https://unpkg.com/browse/${name}@${version}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${
+                  new URL(process.env.DOCS_BASE_URL as string, location.href).href
+                }features/module-resolution)`,
               },
             ],
           };

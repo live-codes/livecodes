@@ -195,7 +195,7 @@ export const createShareContainer = async (
 
   const urlLength = shareData.url.length;
   div.innerHTML = shareScreen
-    .replace(/{{urlLength}}/g, urlLength)
+    .replace(/{{urlLength}}/g, String(urlLength))
     .replace(/{{warnClass}}/g, urlLength > 2048 ? 'danger' : 'warn');
 
   const shareContainer = div.firstChild as HTMLElement;
