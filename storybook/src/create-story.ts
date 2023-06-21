@@ -315,7 +315,7 @@ export const createStory =
     const code = `
 <div id="container"${attrsToStr()}></div>
 <script type="module">
-import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+import { createPlayground } from 'https://unpkg.com/livecodes';
 const options = ${JSON.stringify(options, null, 2)};
 createPlayground('#container', options);
 </script>

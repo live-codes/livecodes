@@ -50,7 +50,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 1. Go to [livecodes.io](https://livecodes.io)
 
-... that's it!
+... and enjoy [all the features](#feature-summary)!
 
 #### Embedded Playground
 
@@ -59,7 +59,7 @@ Add this code to your page:
 ```html
 <div id="container"></div>
 <script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+  import { createPlayground } from 'https://unpkg.com/livecodes';
 
   createPlayground('#container', {
     params: {
@@ -71,6 +71,8 @@ Add this code to your page:
   });
 </script>
 ```
+
+<small>Check documentations for <a href="https://livecodes.io/docs/features/embeds" target="_blank" rel="noopener">Embedded Playgrounds.</small>
 
 #### Self-hosted
 
