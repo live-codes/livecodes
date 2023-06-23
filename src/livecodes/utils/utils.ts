@@ -43,7 +43,6 @@ export const pipe = (...fns: Function[]) =>
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-// added safari (on mac & ios): monaco editor is broken on safari
 export const isMobile = () => {
   let mobile = false;
   const userAgent = navigator.userAgent.toLowerCase();
@@ -60,9 +59,7 @@ export const isMobile = () => {
     }
   })(userAgent || navigator.vendor || (window as any).opera);
 
-  const safari = userAgent.indexOf('safari') > -1 && userAgent.indexOf('chrome') === -1; // chrome says it is safari!
-
-  return mobile || safari;
+  return mobile;
 };
 
 export const isRelativeUrl = (url?: string) =>
