@@ -60,7 +60,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-support@livecodes.io.
+<a href="mailto:&#115;&#117;&#x70;&#x70;&#x6f;&#114;&#116;&#x40;&#108;&#x69;&#118;&#101;&#x63;&#111;&#x64;&#101;&#x73;&#46;&#105;&#111;">&#115;&#117;&#x70;&#x70;&#x6f;&#114;&#116;&#x40;&#108;&#x69;&#118;&#101;&#x63;&#111;&#x64;&#101;&#x73;&#46;&#105;&#111;</a>.
 All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the
