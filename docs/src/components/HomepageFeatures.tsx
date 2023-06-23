@@ -324,7 +324,7 @@ export default function HomepageFeatures(): JSX.Element {
                       </a>
                     </li>
                   </ol>
-                  ... that's it!
+                  ... and enjoy all the <Link to="./features/">features</Link>!
                 </div>
                 <hr />
                 <div>

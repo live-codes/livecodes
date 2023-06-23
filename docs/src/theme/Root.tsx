@@ -8,6 +8,7 @@ import {
   getNewDocContent,
   getSponsorsData,
 } from '../custom-content';
+import { allowedOrigin } from '../utils';
 
 export default function Root({ children }) {
   const [docContent, setDocContent] = useState(defaultDocContent);
@@ -21,6 +22,9 @@ export default function Root({ children }) {
   useEffect(() => {
     if (ExecutionEnvironment.canUseDOM) {
       document.querySelector('#ea-placeholder')?.remove();
+      if (!allowedOrigin()) {
+        document.body.dataset.originNotAllowed = 'true';
+      }
     }
     updateContent(true);
 

@@ -50,7 +50,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 1. Go to [livecodes.io](https://livecodes.io)
 
-... and enjoy [all the features](#feature-summary)!
+... and enjoy all the [features](https://livecodes.io/docs/features/)!
 
 #### Embedded Playground
 
@@ -72,12 +72,14 @@ Add this code to your page:
 </script>
 ```
 
-<small>Check documentations for <a href="https://livecodes.io/docs/features/embeds" target="_blank" rel="noopener">Embedded Playgrounds.</small>
+<small>Check documentations for <a href="https://livecodes.io/docs/features/embeds" target="_blank" rel="noopener">Embedded Playgrounds</a>.</small>
 
 #### Self-hosted
 
 1. Download a [release](https://github.com/live-codes/livecodes/releases)
 2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://vercel.com/" target="_blank" rel="noopener">2</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">3</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">4</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">5</a></sup>
+
+   <small>Check the guide for <a href="https://livecodes.io/docs/features/self-hosting" target="_blank" rel="noopener">self-hosting</a> (including the built-in setup to deploy to GitHub Pages).</small>
 
 ... and it just works!
 
