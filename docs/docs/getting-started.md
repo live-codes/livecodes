@@ -53,7 +53,7 @@ export const ESMCode = () => {
 const { siteConfig } = useDocusaurusContext();
 return (<CodeBlock title="index.html" language="html">
 {`<div id="container"></div>\n<script type="module">
-${'  '}import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${'  '}import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';\n
 ${'  '}createPlayground('#container', {
 ${'    '}template: 'react',
 ${'    '}// other embed options
@@ -69,7 +69,7 @@ UMD:
 export const UMDCode = () => {
 const { siteConfig } = useDocusaurusContext();
 return (<CodeBlock title="index.html" language="html">
-{`<div id="container"></div>\n<script src="https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
+{`<div id="container"></div>\n<script src="https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
 ${' '}livecodes.createPlayground('#container', {\n${' '.repeat(4)}template: 'react',
 ${'    '}// other embed options
 ${' '}});
