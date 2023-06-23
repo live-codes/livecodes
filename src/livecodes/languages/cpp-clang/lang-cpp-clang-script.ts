@@ -81,7 +81,13 @@ window.addEventListener('load', async () => {
   const init = () => {
     if (livecodes.cpp.worker) return;
     console.log('Loading Clang compiler...');
-    livecodes.cpp.worker = new Worker('data:text/javascript;base64,' + btoa(workerSrc));
+    try {
+      livecodes.cpp.worker = new Worker('data:text/javascript;base64,' + btoa(workerSrc));
+    } catch (e) {
+      livecodes.cpp.worker = new Worker(
+        URL.createObjectURL(new Blob([workerSrc], { type: 'application/javascript' })),
+      );
+    }
   };
   init();
   await livecodes.cpp.run(livecodes.cpp.input);

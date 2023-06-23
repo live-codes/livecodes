@@ -10,7 +10,14 @@ proxyConsole();
   const workerUrl = baseUrl + '{{hash:compile.worker.js}}';
   const origin = new URL(baseUrl).origin;
   const content = `self.appCDN='${getAppCDN()}';importScripts("${workerUrl}");`;
-  const worker = new Worker('data:text/javascript;base64,' + btoa(content));
+  let worker: Worker;
+  try {
+    worker = new Worker('data:text/javascript;base64,' + btoa(content));
+  } catch {
+    worker = new Worker(
+      URL.createObjectURL(new Blob([content], { type: 'application/javascript' })),
+    );
+  }
 
   await new Promise<void>((resolve) => {
     const script = document.createElement('script');

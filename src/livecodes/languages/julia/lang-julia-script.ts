@@ -135,7 +135,13 @@ window.addEventListener('load', async () => {
   const init = () => {
     if (livecodes.julia.worker) return;
     console.log('Loading Julia compiler...');
-    livecodes.julia.worker = new Worker('data:text/javascript;base64,' + btoa(workerSrc));
+    try {
+      livecodes.julia.worker = new Worker('data:text/javascript;base64,' + btoa(workerSrc));
+    } catch (e) {
+      livecodes.julia.worker = new Worker(
+        URL.createObjectURL(new Blob([workerSrc], { type: 'application/javascript' })),
+      );
+    }
   };
   init();
   await livecodes.julia.run(livecodes.julia.input);
