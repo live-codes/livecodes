@@ -65,8 +65,8 @@ export default function TemplateList() {
     <ul className={styles.list}>
       {templates.map((t, i) => (
         <li key={i}>
-          <a href={appUrl + '?template=' + t.name} target="_blank">
-            <img src={appUrl + 'livecodes/assets/templates/' + t.thumbnail} />
+          <a href={appUrl + '/?template=' + t.name} target="_blank">
+            <img src={appUrl + '/livecodes/assets/templates/' + t.thumbnail} />
             <div>{t.title}</div>
           </a>
         </li>
