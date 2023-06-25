@@ -14,7 +14,7 @@ The backup can include one or more of the following:
 - [User Templates](./templates.md)
 - [Code Snippets](./snippets.md)
 - [Assets](./assets.md)
-- User Settings
+- [User Settings](./user-settings.md)
 
 A zip file containing the (base64-encoded binary) backup data is downloaded. This file can be restored later on the same or different device.
 

@@ -52,7 +52,7 @@ Alternatively, languages and files can be specified using [query params](../conf
 
 Example:
 
-https://livecodes.io/?x=id/6ys2b8txf33
+https://livecodes.io/?x=id/bi9qszw86w3
 
 ## Import Code from DOM
 
@@ -121,3 +121,5 @@ Currently, CodePen API does not allow directly importing code from Pens (except 
 
 - [Code prefill](./code-prefill.md)
 - [Export](./export.md)
+- [External resources](./external-resources.md)
+- [Module resolution](./module-resolution.md)

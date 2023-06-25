@@ -1,0 +1,21 @@
+.list {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.list li {
+  margin: 20px;
+  width: 120px;
+}
+
+.list img {
+  height: 120px;
+  width: 120px;
+}
