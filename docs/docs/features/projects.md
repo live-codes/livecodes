@@ -33,3 +33,15 @@ These are either:
 For the full list of supported languages, check the [Languages section](../languages/).
 
 ## Organizing Projects
+
+## Related
+
+- [Result Page](./result.md)
+- [Templates](./templates.md)
+- [Code Snippets](./snippets.md)
+- [Assets](./assets.md)
+- [External Resources](./external-resources.md)
+- [Import](./import.md)
+- [Export](./export.md)
+- [Backup/Restore](./backup-restore.md)
+- [Sync](./sync.md)

@@ -31,3 +31,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .status-link svg {
   margin-left: 0.3rem;
 }
+
+body[data-origin-not-allowed='true'] #kapa-widget-container {
+  display: none !important;
+}

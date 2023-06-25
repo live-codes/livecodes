@@ -26,7 +26,7 @@ Payments can be done via:
 
 Both monthly-recurring sponsorships and one-time donations are accepted. Recurring sponsorships are entitled to logo placements as specified in [Sponsorship Benefits](#sponsorship-benefits).
 
-If you have questions, please reach out to sponsor&#64;livecodes&#46;io.
+If you have questions, please reach out to <MailLink email="sponsor&#64;livecodes&#46;io" text="sponsor&#64;livecodes&#46;io" />.
 
 ### In-kind Contributions
 

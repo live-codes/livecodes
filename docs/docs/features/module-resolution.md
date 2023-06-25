@@ -238,3 +238,10 @@ const config = {
 
 createPlayground('#container', { config });
 ```
+
+## Related
+
+- [Import](./import.md)
+- [External Resources](./external-resources.md)
+- [Projects](./projects.md)
+- [Intellisense](./intellisense.md)
