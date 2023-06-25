@@ -18,7 +18,7 @@ let app = document.querySelector("#app") || document.body;
 new Component({ target: app });
 `;
     const { js } = (window as any).svelte.compile(processedCode, {
-      css: true,
+      css: 'injected',
       ...customSettings,
     });
     return js.code + init;
