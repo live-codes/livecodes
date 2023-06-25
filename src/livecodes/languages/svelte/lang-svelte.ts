@@ -15,6 +15,11 @@ export const svelte: LanguageSpecs = {
       (self as any).importScripts(baseUrl + '{{hash:lang-svelte-compiler.js}}');
       return (self as any).createSvelteCompiler();
     },
+    imports: {
+      'svelte/internal': 'https://unpkg.com/svelte@4.0.0/src/runtime/internal/index.js',
+      'svelte/internal/disclose-version':
+        'https://unpkg.com/svelte@4.0.0/src/runtime/internal/disclose-version/index.js',
+    },
   },
   extensions: ['svelte'],
   editor: 'script',

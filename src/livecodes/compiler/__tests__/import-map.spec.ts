@@ -23,7 +23,8 @@ describe('Import map', () => {
     import { html } from 'http://localhost/@codemirror/lang-html';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib';
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     console.log('hi');
     `;
 
@@ -54,7 +55,8 @@ describe('Import map', () => {
     import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib'
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     `;
 
     const expectedCode = `
@@ -66,7 +68,8 @@ describe('Import map', () => {
     import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'https://someurl/path/module'
+    import { keymap } from 'https://someurl/path/module';
+    import { internal } from 'https://someurl/path/module/internal';
     `;
 
     const processedCode = replaceImports(code, config);
@@ -90,7 +93,8 @@ describe('Import map', () => {
     import { html } from 'http://localhost/@codemirror/lang-html';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib';
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     console.log('hi');
     `;
 
@@ -122,7 +126,8 @@ describe('Import map', () => {
     import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib'
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     `;
 
     const expectedCode = `
@@ -134,7 +139,8 @@ describe('Import map', () => {
     import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'https://someurl/path/module'
+    import { keymap } from 'https://someurl/path/module';
+    import { internal } from 'https://someurl/path/module/internal';
     `;
 
     const processedCode = replaceImports(code, config);
