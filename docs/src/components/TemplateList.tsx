@@ -7,7 +7,7 @@ const templates = [
   { name: 'javascript', title: 'JavaScript Starter', thumbnail: 'javascript.svg' },
   { name: 'typescript', title: 'TypeScript Starter', thumbnail: 'typescript.svg' },
   { name: 'react', title: 'React Starter', thumbnail: 'react.svg' },
-  { name: 'react', title: 'React Native Starter', thumbnail: 'react.svg' },
+  { name: 'react-native', title: 'React Native Starter', thumbnail: 'react.svg' },
   { name: 'vue2', title: 'Vue 2 Starter', thumbnail: 'vue.svg' },
   { name: 'vue', title: 'Vue 3 Starter', thumbnail: 'vue.svg' },
   { name: 'angular', title: 'Angular Starter', thumbnail: 'angular.svg' },
@@ -23,7 +23,7 @@ const templates = [
   { name: 'backbone', title: 'Backbone Starter', thumbnail: 'backbone.svg' },
   { name: 'knockout', title: 'Knockout Starter', thumbnail: 'knockout.svg' },
   { name: 'jest', title: 'Jest Starter', thumbnail: 'jest.svg' },
-  { name: 'jest', title: 'Jest/React Starter', thumbnail: 'jest.svg' },
+  { name: 'jest-react', title: 'Jest/React Starter', thumbnail: 'jest.svg' },
   { name: 'bootstrap', title: 'Bootstrap Starter', thumbnail: 'bootstrap.svg' },
   { name: 'tailwindcss', title: 'Tailwind CSS Starter', thumbnail: 'tailwindcss.svg' },
   { name: 'coffeescript', title: 'CoffeeScript Starter', thumbnail: 'coffeescript.svg' },
@@ -63,8 +63,8 @@ const templates = [
 export default function TemplateList() {
   return (
     <ul className={styles.list}>
-      {templates.map((t, i) => (
-        <li key={i}>
+      {templates.map((t) => (
+        <li key={t.name}>
           <a href={appUrl + '/?template=' + t.name} target="_blank">
             <img src={appUrl + '/livecodes/assets/templates/' + t.thumbnail} />
             <div>{t.title}</div>
