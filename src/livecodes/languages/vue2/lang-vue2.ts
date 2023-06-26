@@ -14,7 +14,7 @@ export const vue2: LanguageSpecs = {
   },
   compiler: {
     factory: (_config, baseUrl) => {
-      (self as any).importScripts(baseUrl + '{{hash:lang-vue-compiler.js}}');
+      (self as any).importScripts(baseUrl + '{{hash:lang-vue2-compiler.js}}');
       return (self as any).createVue2Compiler();
     },
     scripts: [vue2CdnUrl, loaderCdnUrl],

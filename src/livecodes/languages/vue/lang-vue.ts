@@ -1,8 +1,8 @@
 import type { LanguageSpecs } from '../../models';
-import { vue3CdnUrl, vueSfcLoaderCdnBaseUrl } from '../../vendors';
+import { vendorsBaseUrl, vueRuntimeUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
-const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue3-sfc-loader.js';
+const compilerUrl = vendorsBaseUrl + 'vue-compiler-sfc/vue-compiler-sfc.js';
 
 export const vue: LanguageSpecs = {
   name: 'vue',
@@ -13,13 +13,13 @@ export const vue: LanguageSpecs = {
     pluginUrls: [parserPlugins.html],
   },
   compiler: {
+    url: compilerUrl,
     factory: (_config, baseUrl) => {
       (self as any).importScripts(baseUrl + '{{hash:lang-vue-compiler.js}}');
       return (self as any).createVueCompiler();
     },
-    scripts: [vue3CdnUrl, loaderCdnUrl],
     imports: {
-      vue: vue3CdnUrl + '/dist/vue.runtime.esm-browser.prod.js',
+      vue: vueRuntimeUrl,
     },
   },
   extensions: ['vue', 'vue3'],
