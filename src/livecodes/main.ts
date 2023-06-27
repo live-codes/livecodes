@@ -22,7 +22,7 @@ export const loading: EmbedOptions['loading'] = !isEmbed
   ? loadingParam
   : 'lazy';
 
-export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
+export const livecodes = (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
@@ -59,9 +59,9 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
-    const appCDN = await modulesService.checkCDNs(esModuleShimsPath, params.get('appCDN') as CDN);
+    const loadApp = async () => {
+      const appCDN = await modulesService.checkCDNs(esModuleShimsPath, params.get('appCDN') as CDN);
 
-    const loadApp = () => {
       const supportsImportMaps = HTMLScriptElement.supports
         ? HTMLScriptElement.supports('importmap')
         : false;
