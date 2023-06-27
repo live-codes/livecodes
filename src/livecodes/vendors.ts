@@ -337,6 +337,8 @@ export const vueRuntimeUrl = /* @__PURE__ */ getUrl(
   'vue@3.3.4/dist/vue.runtime.esm-browser.prod.js',
 );
 
+export const vueSDKUrl = /* @__PURE__ */ getUrl(`livecodes@${process.env.SDK_VERSION}/vue.js`);
+
 export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.8.4/dist/');
 
 export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');

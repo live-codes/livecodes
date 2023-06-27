@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl, vueRuntimeUrl } from '../../vendors';
+import { vendorsBaseUrl, vueRuntimeUrl, vueSDKUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 const compilerUrl = vendorsBaseUrl + 'vue-compiler-sfc/vue-compiler-sfc.js';
@@ -20,6 +20,7 @@ export const vue: LanguageSpecs = {
     },
     imports: {
       vue: vueRuntimeUrl,
+      'livecodes/vue': vueSDKUrl,
     },
   },
   extensions: ['vue', 'vue3'],
