@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const vueSfcStarter: Template = {
   name: 'vue',
-  title: 'Vue 3 Starter',
+  title: 'Vue 3 SFC Starter',
   thumbnail: 'assets/templates/vue.svg',
   activeEditor: 'script',
   markup: {
