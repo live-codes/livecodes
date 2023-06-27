@@ -158,7 +158,13 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     };
 
     if (clickToLoad) {
-      window.addEventListener(customEvents.load, loadApp, { once: true });
+      window.addEventListener(
+        customEvents.load,
+        () => {
+          loadApp();
+        },
+        { once: true },
+      );
 
       const preloadLink = document.createElement('link');
       preloadLink.href = baseUrl + scriptFile;
