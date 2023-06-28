@@ -178,8 +178,33 @@ import type { CompilerFunction } from '../../models';
     return hashHex.slice(0, 8);
   }
 
+  const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
+
   return async (code, { config }) => {
-    const content = await compileAllBlocks(code, config);
+    // add JSX support
+    config.customSettings.typescript = { ...config.customSettings.typescript, jsxFactory: 'h' };
+    const modifiedCode = code.replace(
+      scriptPattern,
+      (match, attrs: string, scriptContent: string) => {
+        if (!scriptContent.includes('<')) {
+          return match;
+        }
+        if (!attrs.includes('lang')) {
+          attrs += ' lang="jsx"';
+        }
+        if (
+          attrs.toLowerCase().includes('ts') ||
+          attrs.toLowerCase().includes('typescript') ||
+          attrs.toLowerCase().includes('jsx') ||
+          attrs.toLowerCase().includes('tsx')
+        ) {
+          scriptContent = 'import { h } from "vue";\n' + scriptContent;
+        }
+        return `<script ${attrs}>${scriptContent}</script>`;
+      },
+    );
+
+    const content = await compileAllBlocks(modifiedCode, config);
     const result = await compileSFC(content);
 
     if (result) {
