@@ -66,9 +66,16 @@ export const hasAwait = (code: string) =>
 export const isModuleScript = (code: string) =>
   hasImports(code) || hasExports(code) || hasAwait(code);
 
-export const replaceImports = (code: string, config: Config) => {
-  const importMap = createImportMap(code, config);
+export const replaceImports = (
+  code: string,
+  config: Config,
+  importMap?: Record<string, string>,
+) => {
+  importMap = importMap || createImportMap(code, config);
   return code.replace(new RegExp(importsPattern), (statement) => {
+    if (!importMap) {
+      return statement;
+    }
     const libName = statement
       .replace(new RegExp(importsPattern), '$2')
       .replace(/"/g, '')

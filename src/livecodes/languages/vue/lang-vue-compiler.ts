@@ -1,6 +1,8 @@
-// eslint-disable-next-line import/no-internal-modules
+/* eslint-disable import/no-internal-modules */
 import { compileAllBlocks } from '../../compiler/compile-blocks';
-import type { CompilerFunction } from '../../models';
+import { getImports, replaceImports } from '../../compiler/import-map';
+import type { CompilerFunction, Config } from '../../models';
+import { modulesService } from '../../services';
 
 // based on:
 // https://github.com/vuejs/repl/blob/main/src/transform.ts
@@ -10,7 +12,8 @@ import type { CompilerFunction } from '../../models';
   const MAIN_FILE = 'App.vue';
   const COMP_IDENTIFIER = '__sfc__';
   let errors: string | any[] = [];
-  let id: string;
+  let css = '';
+  const ids: Record<string, string> = {};
 
   interface Compiled {
     css: string;
@@ -20,13 +23,20 @@ import type { CompilerFunction } from '../../models';
 
   const SFCCompiler = (self as any).VueCompilerSFC.VueCompilerSFC;
 
-  async function compileSFC(code: string): Promise<Compiled | void> {
-    errors = [];
+  async function compileSFC(code: string, filename = MAIN_FILE): Promise<Compiled | void> {
+    if (filename === MAIN_FILE) {
+      errors = [];
+      css = '';
+    }
     if (!code.trim()) return;
 
-    const filename = MAIN_FILE;
+    code = await replaceSFCImports(code, filename);
+
     const compiled: Compiled = { css: '', js: '', ssr: '' };
-    id = id ?? (await hashId(filename));
+    if (!ids[filename]) {
+      ids[filename] = await hashId(filename);
+    }
+    const id = ids[filename];
 
     const { errors: err, descriptor } = SFCCompiler.parse(code, {
       filename,
@@ -64,18 +74,21 @@ import type { CompilerFunction } from '../../models';
       appendSharedCode(`\n${COMP_IDENTIFIER}.__scopeId = ${JSON.stringify(`data-v-${id}`)}`);
     }
 
+    const createAppCode =
+      filename === MAIN_FILE
+        ? `\nimport { createApp } from 'vue';` +
+          `\nconst root = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));` +
+          `\ncreateApp(${COMP_IDENTIFIER}).mount(root);\n`
+        : '\n';
+
     if (clientCode) {
       appendSharedCode(
         `\n${COMP_IDENTIFIER}.__file = ${JSON.stringify(filename)}` +
-          `\nimport { createApp } from 'vue';` +
-          `\nconst root = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));` +
-          `\ncreateApp(${COMP_IDENTIFIER}).mount(root);\n`,
+          `\nexport default ${COMP_IDENTIFIER};` +
+          createAppCode,
       );
       compiled.js = clientCode.trimStart();
     }
-
-    // styles
-    let css = '';
 
     for (const style of descriptor.styles) {
       if (style.module) {
@@ -170,6 +183,28 @@ import type { CompilerFunction } from '../../models';
     );
   }
 
+  async function replaceSFCImports(code: string, filename: string) {
+    const vueImports = getImports(code).filter((mod) => mod.toLowerCase().endsWith('.vue'));
+    const importMap: Record<string, string> = {};
+    await Promise.all(
+      vueImports.map(async (mod) => {
+        const url =
+          mod.startsWith('https://') || mod.startsWith('http://')
+            ? mod
+            : mod.startsWith('.')
+            ? new URL(mod, filename).href
+            : modulesService.getUrl(mod);
+        const res = await fetch(url);
+        const content = await res.text();
+        const compiled = await compileSFC(content, url);
+        if (!compiled) return;
+        const dataUrl = 'data:text/javascript;base64,' + btoa(compiled.js);
+        importMap[mod] = dataUrl;
+      }),
+    );
+    return replaceImports(code, {} as Config, importMap);
+  }
+
   async function hashId(filename: string) {
     const msgUint8 = new TextEncoder().encode(filename); // encode as (utf-8) Uint8Array
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
@@ -178,11 +213,10 @@ import type { CompilerFunction } from '../../models';
     return hashHex.slice(0, 8);
   }
 
-  const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
-
   return async (code, { config }) => {
     // add JSX support
     config.customSettings.typescript = { ...config.customSettings.typescript, jsxFactory: 'h' };
+    const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
     const modifiedCode = code.replace(
       scriptPattern,
       (match, attrs: string, scriptContent: string) => {
@@ -213,10 +247,12 @@ import type { CompilerFunction } from '../../models';
       const injectCSS = !css.trim()
         ? ''
         : `
-const styles = document.createElement('style');
-styles.innerHTML = ${JSON.stringify(css)};
-document.head.appendChild(styles);
-`;
+const style = Object.assign(document.createElement('style'), { textContent: ${JSON.stringify(
+            css,
+          )} });
+const ref = document.head.getElementsByTagName('style')[0] || null;
+document.head.insertBefore(style, ref);
+    `;
 
       return js + injectCSS;
     }
