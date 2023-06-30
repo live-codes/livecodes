@@ -91,6 +91,15 @@ export const replaceImports = (
   });
 };
 
+export const removeImports = (code: string, mods: string[]) =>
+  code.replace(new RegExp(importsPattern), (statement) => {
+    const libName = statement
+      .replace(new RegExp(importsPattern), '$2')
+      .replace(/"/g, '')
+      .replace(/'/g, '');
+    return mods.includes(libName) ? '' : statement;
+  });
+
 export const styleimportsPattern =
   /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
 
