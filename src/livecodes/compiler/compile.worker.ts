@@ -23,11 +23,17 @@ const loadLanguageCompiler = (
     compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
   }
   const languageCompiler = compilers[language];
+
+  if (!languageCompiler) {
+    throw new Error('No compiler found for: ' + language);
+  }
+
   if (languageCompiler.dependencies && languageCompiler.dependencies.length > 0) {
     languageCompiler.dependencies.forEach((dependency) => {
       loadLanguageCompiler(dependency, config, baseUrl);
     });
   }
+
   if (typeof languageCompiler.fn !== 'function') {
     if (languageCompiler.aliasTo && typeof compilers[languageCompiler.aliasTo]?.fn === 'function') {
       languageCompiler.fn = compilers[languageCompiler.aliasTo].fn;

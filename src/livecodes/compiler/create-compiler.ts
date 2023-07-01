@@ -48,11 +48,15 @@ export const createCompiler = async ({
   const initialize = async () =>
     new Promise(async (resolve) => {
       compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
-      const compilerUrl = sandboxService.getCompilerUrl();
-      compilerSandbox = await createCompilerSandbox(compilerUrl + '?appCDN=' + getAppCDN());
+      const compilerUrl = sandboxService.getCompilerUrl() + '?appCDN=' + getAppCDN();
+      compilerSandbox = await createCompilerSandbox(compilerUrl);
 
       eventsManager.addEventListener(window, 'message', async (event: CompilerMessageEvent) => {
-        if (event.origin === compilerOrigin && event.data.type === 'init-success') {
+        if (
+          event.origin === compilerOrigin &&
+          event.source === compilerSandbox &&
+          event.data.type === 'init-success'
+        ) {
           resolve('done');
         }
       });
@@ -75,6 +79,7 @@ export const createCompiler = async ({
 
           if (
             event.origin === compilerOrigin &&
+            event.source === compilerSandbox &&
             message.from === 'compiler' &&
             (message.type === 'compiled' || message.type === 'compile-failed') &&
             message.payload.language === language &&
@@ -114,6 +119,7 @@ export const createCompiler = async ({
                 async (event: CompilerMessageEvent) => {
                   if (
                     event.origin === compilerOrigin &&
+                    event.source === compilerSandbox &&
                     event.data.from === 'compiler' &&
                     event.data.type === 'loaded' &&
                     event.data.payload === language
@@ -122,6 +128,7 @@ export const createCompiler = async ({
                     resolve('done');
                   } else if (
                     event.origin === compilerOrigin &&
+                    event.source === compilerSandbox &&
                     event.data.from === 'compiler' &&
                     event.data.type === 'load-failed' &&
                     event.data.payload === language
@@ -191,6 +198,7 @@ export const createCompiler = async ({
         info: JSON.parse(cache[language]?.info || '{}'),
       } as CompileResult;
     }
+
     if (compilers[language] && !compilers[language].fn) {
       await load([language], config);
     }
