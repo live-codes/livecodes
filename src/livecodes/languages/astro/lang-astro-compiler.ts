@@ -16,7 +16,7 @@ const compileFrontmatter = async (code: string, config: Config) => {
   const pattern = /^---((?:.|\n|\r)*)---((?:.|\n|\r)*)/;
   const frontmatter = code.trim().match(new RegExp(pattern))?.[1];
   if (!frontmatter) return code;
-  const compiled = await compileInCompiler(frontmatter, 'typescript', config);
+  const compiled = (await compileInCompiler(frontmatter, 'typescript', config)).code;
   return code.trim().replace(new RegExp(pattern), `---\n${compiled}\n---\n$2`);
 };
 

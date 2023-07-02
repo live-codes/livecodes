@@ -17,7 +17,7 @@ export const clojurescript: LanguageSpecs = {
       async (code, { config, options }) => {
         const compiled = (self as any).CherryCljs.compileString(code);
         return code.includes('#jsx')
-          ? compileInCompiler(compiled, 'jsx', config, options)
+          ? (await compileInCompiler(compiled, 'jsx', config, options)).code
           : compiled;
       },
     imports: {

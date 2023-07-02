@@ -22,7 +22,8 @@ export const compileBlocks = async (
     if (!language || !content) {
       blocks.push(element);
     } else {
-      const compiled = await compileInCompiler(content, getLanguageByAlias(language), config);
+      const compiled = (await compileInCompiler(content, getLanguageByAlias(language), config))
+        .code;
       blocks.push(
         element.replace(
           new RegExp(pattern, 'g'),
