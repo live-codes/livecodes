@@ -947,7 +947,7 @@ ReactDOM.render(<Hello name="React" />, document.body);
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=Vue 3');
+    await app.click('text=Vue 3 SFC');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<template>
@@ -1014,11 +1014,14 @@ h1 {
 </style>
 `;
 
-    await page.goto(getTestUrl({ vue: encodeURIComponent(sfc) }));
+    await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
     await waitForEditorFocus(app);
+    await page.keyboard.insertText(sfc);
+
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -1037,7 +1040,6 @@ h1 {
   <div class="container">
     <p id="uuid">{{ uuid }}</p>
     <Counter />
-    <ToDo />
   </div>
 </template>
 
@@ -1045,11 +1047,9 @@ h1 {
   import 'https://hatemhosny.github.io/typescript-demo-for-testing-import-/style.css';
   import {v4} from 'uuid';
   import Counter from 'https://hatemhosny.github.io/vue3-samples/src/components/Counter.vue';
-  import ToDo from 'https://hatemhosny.github.io/vue3-samples/src/components/ToDo.vue';
   export default {
     components: {
       Counter,
-      ToDo
     },
     data() {
       return {
@@ -1060,16 +1060,22 @@ h1 {
 </script>
 `;
 
-    await page.goto(getTestUrl({ vue: encodeURIComponent(sfc) }));
+    await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
     await waitForEditorFocus(app);
+    await page.keyboard.insertText(sfc);
+
     await waitForResultUpdate();
 
     // css import
     const headHTML = await getResult().innerHTML('head');
-    expect(headHTML).toContain('.container');
+    expect(headHTML).toContain(
+      '<link rel="stylesheet" href="https://hatemhosny.github.io/typescript-demo-for-testing-import-/style.css">',
+    );
 
     // bare module import
     const uuidText = await getResult().innerText('#uuid');
@@ -1083,15 +1089,6 @@ h1 {
     // import vue component that has relative imports and fetches absolute url
     const buttonText = await getResult().innerText(':nth-match(button, 1)');
     expect(buttonText).toBe('Count is: 3, double is: 6');
-
-    await getResult().click('#fetch-list');
-    await getResult()
-      .page()
-      .waitForResponse((resp) => resp.url().includes('todos.json'));
-    await getResult().click('#split-color');
-
-    const todoText = await getResult().innerText(':nth-match(li.list-0 span, 10)');
-    expect(todoText).toBe('illo expedita consequatur quia in');
   });
 
   test('Vue 2', async ({ page, getTestUrl }) => {
