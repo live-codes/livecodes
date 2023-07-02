@@ -125,7 +125,7 @@ test.describe('Starter Templates from UI', () => {
 
     await app.click('[aria-label="Menu"]');
     await app.click('text=New');
-    await app.click('text=Vue 3 Starter');
+    await app.click('text=Vue 3 SFC Starter');
     await waitForEditorFocus(app);
 
     await waitForResultUpdate();
