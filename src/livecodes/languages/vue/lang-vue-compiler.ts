@@ -231,38 +231,39 @@ import type { CompilerFunction, Config } from '../../models';
 
   return async (code, { config }) => {
     let content = code;
+    const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
+    const stylePattern = /<style([\s\S]*?)>([\s\S]*?)<\/style>/g;
 
     // JSX
-    const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
-    content = content.replace(scriptPattern, (match, attrs: string, scriptContent: string) => {
-      if (!scriptContent.includes('<')) {
-        return match;
-      }
-      if (!attrs.toLowerCase().includes(' lang')) {
-        // allow jsx by default
-        attrs += ' lang="jsx"';
-      }
-      if (
-        attrs.toLowerCase().includes('"ts"') ||
-        attrs.toLowerCase().includes('"typescript"') ||
-        attrs.toLowerCase().includes('"jsx"') ||
-        attrs.toLowerCase().includes('"tsx"') ||
-        attrs.toLowerCase().includes("'ts'") ||
-        attrs.toLowerCase().includes("'typescript'") ||
-        attrs.toLowerCase().includes("'jsx'") ||
-        attrs.toLowerCase().includes("'tsx'")
-      ) {
-        scriptContent = 'import { h } from "vue";\n' + scriptContent;
-      }
-      return `<script ${attrs}>${scriptContent}</script>`;
-    });
+    const prepareFn = async (code: string) =>
+      code.replace(scriptPattern, (match, attrs: string, scriptContent: string) => {
+        if (!scriptContent.includes('<')) {
+          return match;
+        }
+        if (!attrs.toLowerCase().includes(' lang')) {
+          // allow jsx by default
+          attrs += ' lang="jsx"';
+        }
+        if (
+          attrs.toLowerCase().includes('"ts"') ||
+          attrs.toLowerCase().includes('"typescript"') ||
+          attrs.toLowerCase().includes('"jsx"') ||
+          attrs.toLowerCase().includes('"tsx"') ||
+          attrs.toLowerCase().includes("'ts'") ||
+          attrs.toLowerCase().includes("'typescript'") ||
+          attrs.toLowerCase().includes("'jsx'") ||
+          attrs.toLowerCase().includes("'tsx'")
+        ) {
+          scriptContent = 'import { h } from "vue";\n' + scriptContent;
+        }
+        return `<script ${attrs}>${scriptContent}</script>`;
+      });
     config.customSettings.typescript = { ...config.customSettings.typescript, jsxFactory: 'h' };
 
-    content = await compileAllBlocks(content, config);
+    content = await compileAllBlocks(content, config, { prepareFn });
 
     // CSS Modules
     let cssModules: Record<string, string> | undefined;
-    const stylePattern = /<style([\s\S]*?)>([\s\S]*?)<\/style>/g;
     content = await replaceAsync(
       content,
       stylePattern,
