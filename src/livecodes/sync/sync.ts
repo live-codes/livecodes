@@ -1,5 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 import { createStores, initializeSimpleStores, type Stores } from '../storage';
+import { getAppCDN } from '../services/modules';
 import { callWorker } from '../utils/utils';
 import type { WorkerMessageEvent } from '../models';
 import type { SyncMessageEvent } from './models';
@@ -16,7 +17,7 @@ type SyncMethod = SyncMessageEvent['data']['method'];
 let worker: Worker;
 
 export const init = (baseUrl: string) => {
-  worker = worker || new Worker(baseUrl + '{{hash:sync.worker.js}}');
+  worker = worker || new Worker(baseUrl + '{{hash:sync.worker.js}}' + '?appCDN=' + getAppCDN());
   let stores: Stores;
 
   worker.addEventListener('message', async (event: WorkerMessageEvent<'getValue' | 'setValue'>) => {
