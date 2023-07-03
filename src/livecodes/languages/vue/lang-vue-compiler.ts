@@ -107,7 +107,7 @@ import type { CompilerFunction, Config } from '../../models';
       filename === MAIN_FILE
         ? `\nimport { createApp } from 'vue';` +
           `\ncreateApp(${COMP_IDENTIFIER})` +
-          `\n  .mount(document.querySelector("#app") || document.body.appendChild(document.createElement('div')));\n`
+          `\n  .mount(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')));\n`
         : '\n';
 
     if (cssModules) {

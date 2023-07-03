@@ -63,7 +63,7 @@ const getLoaderOptions = (defaultCDN?: CDN) => `const options = {
   (): CompilerFunction =>
   async (code, { config }) =>
     `(() => {
-let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
+let app = document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
 let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
@@ -80,7 +80,7 @@ App.config.devtools = true;
   (): CompilerFunction =>
   async (code, { config }) =>
     `(() => {
-let app = document.querySelector("#app") || document.body.appendChild(document.createElement('div'));
+let app = document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div'));
 
 /* <!-- */
 let content = \`${escapeCode(await compileAllBlocks(code, config))}\`;
