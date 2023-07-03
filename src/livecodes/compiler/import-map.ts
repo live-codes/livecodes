@@ -34,10 +34,17 @@ const isBare = (mod: string) =>
   !mod.startsWith('data:') &&
   !mod.startsWith('blob:');
 
+const isStylesheet = (mod: string) =>
+  mod.endsWith('.css') ||
+  mod.endsWith('.scss') ||
+  mod.endsWith('.sass') ||
+  mod.endsWith('.less') ||
+  mod.endsWith('.styl');
+
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (!needsBundler(libName) && !isBare(libName)) {
+      if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
@@ -112,10 +119,7 @@ export const replaceStyleImports = (code: string) =>
       .replace(/'/g, '')
       .replace(/url\(/g, '')
       .replace(/\)/g, '');
-    const modified =
-      '@import "' +
-      modulesService.getModuleUrl(url, { isModule: false, defaultCDN: 'jsdelivr' }) +
-      '";';
+    const modified = '@import "' + modulesService.getUrl(url) + '";';
     const mediaQuery = media?.trim();
     return !isBare(url)
       ? statement

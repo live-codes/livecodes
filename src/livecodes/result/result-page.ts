@@ -82,7 +82,7 @@ export const createResultPage = async ({
 
   // stylesheets imported in script editor
   const stylesheetImports = getImports(code.script.compiled).filter(
-    (mod) => mod.endsWith('.css') && (mod.startsWith('http://') || mod.startsWith('https://')),
+    (mod) => mod.endsWith('.css') && !mod.startsWith('.'),
   );
   stylesheetImports.forEach((mod) => {
     const url = modulesService.getUrl(mod);
