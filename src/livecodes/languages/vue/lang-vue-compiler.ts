@@ -258,7 +258,11 @@ import type { CompilerFunction, Config } from '../../models';
         }
         return `<script ${attrs}>${scriptContent}</script>`;
       });
-    config.customSettings.typescript = { ...config.customSettings.typescript, jsxFactory: 'h' };
+
+    config.customSettings.typescript = {
+      ...config.customSettings.typescript,
+      jsxFactory: 'h',
+    };
 
     content = await compileAllBlocks(content, config, { prepareFn });
 

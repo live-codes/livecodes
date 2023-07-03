@@ -5,7 +5,6 @@ import CodeBlock from '@theme/CodeBlock';
 /* eslint-disable import/no-internal-modules */
 import type { EmbedOptions } from '../../../src/sdk';
 import { appUrl } from '../utils';
-import styles from './LiveCodes.module.css';
 
 export default function RunInLiveCodes(props: {
   params: EmbedOptions['params'];
