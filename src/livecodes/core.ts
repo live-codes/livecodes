@@ -104,7 +104,7 @@ import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compi
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
-import { createAuthService, sandboxService, shareService } from './services';
+import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   chaiTypesUrl,
@@ -263,7 +263,7 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       const { markup, style, script } = getConfig();
       const query = `?markup=${markup.language}&style=${style.language}&script=${
         script.language
-      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}`;
+      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
       const scrollPosition =
         params.scrollPosition === false ||
         (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
