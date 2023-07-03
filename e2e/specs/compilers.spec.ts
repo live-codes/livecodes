@@ -1143,6 +1143,43 @@ h1 {
     expect(await getResult().$eval('p', (e) => getComputedStyle(e).color)).toBe('rgb(0, 128, 0)');
   });
 
+  test('Vue 3 + Tailwind CSS', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `<template>
+  <div class="flex items-center justify-center h-40">
+    <h1 class="text-red-600">Tailwind in Vue SFC</h1>
+  </div>
+</template>
+`,
+    );
+
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click('text=Tailwind CSS');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`,
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain(`Tailwind in Vue SFC`);
+    expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe(
+      'rgb(220, 38, 38)',
+    );
+  });
+
   test('Vue 2', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
