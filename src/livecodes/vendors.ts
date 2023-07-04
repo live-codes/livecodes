@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.5/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.6/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -332,6 +332,12 @@ export const vegaLiteCdnUrl = /* @__PURE__ */ getUrl('vega-lite@5.9.3/build/vega
 export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3');
 
 export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2');
+
+export const vueRuntimeUrl = /* @__PURE__ */ getUrl(
+  'vue@3.3.4/dist/vue.runtime.esm-browser.prod.js',
+);
+
+export const vueSDKUrl = /* @__PURE__ */ getUrl(`livecodes@${process.env.SDK_VERSION}/vue.js`);
 
 export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.8.4/dist/');
 

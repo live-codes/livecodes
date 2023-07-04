@@ -32,7 +32,7 @@ import { createRoot } from "react-dom/client";
 ${escapeCode(jsx, false)}
 createRoot(document.querySelector('#__livecodes_mdx_root__')).render(<MDXContent />,);
 `;
-    const js = await compileInCompiler(result, 'jsx', config, {}, worker);
+    const js = (await compileInCompiler(result, 'jsx', config, {}, worker)).code;
     resolve(`<div id="__livecodes_mdx_root__"></div><script type="module">${js}</script>`);
   });
 

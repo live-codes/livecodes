@@ -374,3 +374,15 @@ export const toCamelCase = (str: string) =>
     });
 
 export const removeDuplicates = (arr: any[] | undefined) => Array.from(new Set(arr));
+
+export const replaceAsync = async (
+  str: string,
+  regexp: RegExp,
+  asyncFn: (...args: any) => Promise<string>,
+) => {
+  const replacements = await Promise.all(
+    Array.from(str.matchAll(regexp), (match) => asyncFn(...match)),
+  );
+  let i = 0;
+  return str.replace(regexp, () => replacements[i++]);
+};

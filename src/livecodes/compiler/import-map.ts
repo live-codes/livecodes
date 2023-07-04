@@ -34,10 +34,17 @@ const isBare = (mod: string) =>
   !mod.startsWith('data:') &&
   !mod.startsWith('blob:');
 
+const isStylesheet = (mod: string) =>
+  mod.endsWith('.css') ||
+  mod.endsWith('.scss') ||
+  mod.endsWith('.sass') ||
+  mod.endsWith('.less') ||
+  mod.endsWith('.styl');
+
 export const createImportMap = (code: string, config: Config) =>
   getImports(code)
     .map((libName) => {
-      if (!needsBundler(libName) && !isBare(libName)) {
+      if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
         return {};
       } else {
         const key = Object.keys(config.imports).find(
@@ -66,9 +73,16 @@ export const hasAwait = (code: string) =>
 export const isModuleScript = (code: string) =>
   hasImports(code) || hasExports(code) || hasAwait(code);
 
-export const replaceImports = (code: string, config: Config) => {
-  const importMap = createImportMap(code, config);
+export const replaceImports = (
+  code: string,
+  config: Config,
+  importMap?: Record<string, string>,
+) => {
+  importMap = importMap || createImportMap(code, config);
   return code.replace(new RegExp(importsPattern), (statement) => {
+    if (!importMap) {
+      return statement;
+    }
     const libName = statement
       .replace(new RegExp(importsPattern), '$2')
       .replace(/"/g, '')
@@ -84,6 +98,15 @@ export const replaceImports = (code: string, config: Config) => {
   });
 };
 
+export const removeImports = (code: string, mods: string[]) =>
+  code.replace(new RegExp(importsPattern), (statement) => {
+    const libName = statement
+      .replace(new RegExp(importsPattern), '$2')
+      .replace(/"/g, '')
+      .replace(/'/g, '');
+    return mods.includes(libName) ? '' : statement;
+  });
+
 export const styleimportsPattern =
   /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
 
@@ -96,10 +119,7 @@ export const replaceStyleImports = (code: string) =>
       .replace(/'/g, '')
       .replace(/url\(/g, '')
       .replace(/\)/g, '');
-    const modified =
-      '@import "' +
-      modulesService.getModuleUrl(url, { isModule: false, defaultCDN: 'jsdelivr' }) +
-      '";';
+    const modified = '@import "' + modulesService.getUrl(url) + '";';
     const mediaQuery = media?.trim();
     return !isBare(url)
       ? statement

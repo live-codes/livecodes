@@ -1,6 +1,6 @@
 import type { Template } from '../../models';
 
-export const vueStarter: Template = {
+export const vue2Starter: Template = {
   name: 'vue2',
   title: 'Vue 2 Starter',
   thumbnail: 'assets/templates/vue.svg',

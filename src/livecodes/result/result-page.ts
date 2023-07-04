@@ -4,6 +4,7 @@ import {
   getImports,
   hasImports,
   isModuleScript,
+  removeImports,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
@@ -78,6 +79,19 @@ export const createResultPage = async ({
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
   });
+
+  // stylesheets imported in script editor
+  const stylesheetImports = getImports(code.script.compiled).filter(
+    (mod) => mod.endsWith('.css') && !mod.startsWith('.'),
+  );
+  stylesheetImports.forEach((mod) => {
+    const url = modulesService.getUrl(mod);
+    const stylesheet = dom.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = url;
+    dom.head.appendChild(stylesheet);
+  });
+  code.script.compiled = removeImports(code.script.compiled, stylesheetImports);
 
   // editor styles
   if (singleFile) {

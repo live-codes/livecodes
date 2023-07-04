@@ -14,8 +14,7 @@ import { getLanguageCustomSettings } from '../../utils';
       customElement === true
         ? ''
         : `\n
-let app = document.querySelector("#app") || document.body;
-new Component({ target: app });
+new Component({ target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });
 `;
     const { js } = (window as any).svelte.compile(processedCode, {
       css: 'injected',

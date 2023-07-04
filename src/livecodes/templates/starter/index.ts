@@ -35,7 +35,7 @@ import { svelteStarter } from './svelte-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
-import { vueStarter } from './vue-starter';
+import { vue2Starter } from './vue2-starter';
 import { watStarter } from './wat-starter';
 import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
@@ -62,8 +62,8 @@ export const starterTemplates = [
   typescriptStarter,
   reactStarter,
   reactNativeStarter,
-  vueStarter,
   vueSfcStarter,
+  vue2Starter,
   angularStarter,
   preactStarter,
   svelteStarter,

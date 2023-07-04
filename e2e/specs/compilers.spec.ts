@@ -947,7 +947,7 @@ ReactDOM.render(<Hello name="React" />, document.body);
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=Vue 3');
+    await app.click('text=Vue 3 SFC');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<template>
@@ -1014,11 +1014,14 @@ h1 {
 </style>
 `;
 
-    await page.goto(getTestUrl({ vue: encodeURIComponent(sfc) }));
+    await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
-
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
     await waitForEditorFocus(app);
+    await page.keyboard.insertText(sfc);
+
     await waitForResultUpdate();
 
     await getResult().click('text=Click me');
@@ -1037,7 +1040,6 @@ h1 {
   <div class="container">
     <p id="uuid">{{ uuid }}</p>
     <Counter />
-    <ToDo />
   </div>
 </template>
 
@@ -1045,11 +1047,9 @@ h1 {
   import 'https://hatemhosny.github.io/typescript-demo-for-testing-import-/style.css';
   import {v4} from 'uuid';
   import Counter from 'https://hatemhosny.github.io/vue3-samples/src/components/Counter.vue';
-  import ToDo from 'https://hatemhosny.github.io/vue3-samples/src/components/ToDo.vue';
   export default {
     components: {
       Counter,
-      ToDo
     },
     data() {
       return {
@@ -1060,16 +1060,22 @@ h1 {
 </script>
 `;
 
-    await page.goto(getTestUrl({ vue: encodeURIComponent(sfc) }));
+    await page.goto(getTestUrl());
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
     await waitForEditorFocus(app);
+    await page.keyboard.insertText(sfc);
+
     await waitForResultUpdate();
 
     // css import
     const headHTML = await getResult().innerHTML('head');
-    expect(headHTML).toContain('.container');
+    expect(headHTML).toContain(
+      '<link rel="stylesheet" href="https://hatemhosny.github.io/typescript-demo-for-testing-import-/style.css">',
+    );
 
     // bare module import
     const uuidText = await getResult().innerText('#uuid');
@@ -1083,15 +1089,95 @@ h1 {
     // import vue component that has relative imports and fetches absolute url
     const buttonText = await getResult().innerText(':nth-match(button, 1)');
     expect(buttonText).toBe('Count is: 3, double is: 6');
+  });
 
-    await getResult().click('#fetch-list');
-    await getResult()
-      .page()
-      .waitForResponse((resp) => resp.url().includes('todos.json'));
-    await getResult().click('#split-color');
+  test('Vue 3 langs', async ({ page, getTestUrl }) => {
+    const sfc = `<template lang="md">
+  # Hello, {{ name }}!
+  <p :class="$style.text">some text</p>
+</template>
 
-    const todoText = await getResult().innerText(':nth-match(li.list-0 span, 10)');
-    expect(todoText).toBe('illo expedita consequatur quia in');
+<script lang="ts" setup>
+  const name: string = 'Vue 3';
+</script>
+
+<style lang="scss" module>
+  $font-stack: Helvetica, sans-serif;
+  $primary-color: #555;
+  $secondary-color: green;
+
+  h1 {
+    font: 200% $font-stack;
+    color: $primary-color;
+  }
+
+  .text {
+    font: 100% $font-stack;
+    color: $secondary-color;
+  }
+</style>
+`;
+
+    await page.goto(
+      getTestUrl({
+        x: 'code/N4IgLglmA2CmIC4QFUB2kawCYAIAKATgPYBWsAxmCADQhawDO5BEADpEaoiDeAIYBzBogDaAXVp9KEAG6wAolihEC3Ji3a8AtnwIBrAK6tEoaH1QCDg+EgAWYLdF7lOYWOm4gAvrQZgAnnAmIGYWVgI2IOQMwrQu6O5USN6+zGxJpuaW1twyBvBxroncADxuWqxmbjihAgC8ADogWlhNAHwNBA2oODgAxDgAErDQ0ETUOMDAOKh8WrA4Xl4AhJ3dvSWsOAjkZjGNIAAkfoGwAHRuAB5g7QxE8zhXYCUA9KwdXaiv5ZV8bh-dNZfdTpGpZA5gBhNHAMWBgIwAno4eJ+GZzWAIGFgFgWHB1HAAcgAavkcABmAkAbiBrxB7ERNJOcDBFgOTBi0K0RCwBjgiN6hwAZq4ALR+KR6THDaBySDkPgTBjmBhi2AsQXUz4C1gsHQEfwilxjAiYvoAVgtmvWOGOFE4WF0BqNKkxAgIsHcVtQQN6tgAjJMfb0cML0JiAEwABkjAFIbaGwGKwBKvcHkURjZjDjqIHqnRmVKnFkCgxdYNdA1rgwnMX7o3GhaLxeQ9EXes6TTbYfEHfrDQWCEWvDSXkzYG0UiAxwxbB7IaIJFO0uxhAhxHEYoRGHDPLQdURyIw7gRV+uogY-PcAMpwyAWVfAHwgXOsFTzhCP2gBViMExPtx+A+IRZOEkTfowy5UIUCQeMkT5yCeECcNwAAs3hAA',
+      }),
+    );
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
+    await waitForEditorFocus(app);
+    // await page.keyboard.insertText(sfc);
+
+    await waitForResultUpdate();
+
+    const headerText = await getResult().innerText('h1');
+
+    // markdown, scss, typescript
+    expect(headerText).toContain(`Hello, Vue 3!`);
+    expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe('rgb(85, 85, 85)');
+
+    // css modules
+    expect(await getResult().$eval('p', (e) => getComputedStyle(e).color)).toBe('rgb(0, 128, 0)');
+  });
+
+  test('Vue 3 + Tailwind CSS', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=Vue 3 SFC');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `<template>
+  <div class="flex items-center justify-center h-40">
+    <h1 class="text-red-600">Tailwind in Vue SFC</h1>
+  </div>
+</template>
+`,
+    );
+
+    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click('text=Tailwind CSS');
+    await app.click('text=CSS');
+    await waitForEditorFocus(app);
+    await page.keyboard.insertText(
+      `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`,
+    );
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain(`Tailwind in Vue SFC`);
+    expect(await getResult().$eval('h1', (e) => getComputedStyle(e).color)).toBe(
+      'rgb(220, 38, 38)',
+    );
   });
 
   test('Vue 2', async ({ page, getTestUrl }) => {

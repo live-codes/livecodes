@@ -254,6 +254,7 @@ const iifeBuild = () =>
       'languages/tcl/lang-tcl-script.ts',
       'languages/twig/lang-twig-compiler.ts',
       'languages/vue/lang-vue-compiler.ts',
+      'languages/vue2/lang-vue2-compiler.ts',
       'languages/wat/lang-wat-compiler.ts',
       'languages/wat/lang-wat-script.ts',
       'languages/teal/lang-teal-compiler.ts',

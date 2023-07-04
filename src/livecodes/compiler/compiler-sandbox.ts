@@ -8,7 +8,7 @@ export const createCompilerSandbox = (sandboxUrl: string): Promise<Window> =>
     const iframe = document.createElement('iframe');
     iframe.name = 'compiler';
     iframe.id = frameId;
-    // display: 'none' causes problems with mermaid.js renedering
+    // display: 'none' causes problems with mermaid.js rendering
     iframe.style.width = '0';
     iframe.style.height = '0';
     iframe.style.visibility = 'hidden';
