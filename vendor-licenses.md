@@ -250,6 +250,8 @@ Vega: [BSD 3-Clause License](https://github.com/vega/vega/blob/b45cf431cd6c0d0c0
 
 Vega-Lite: [BSD 3-Clause License](https://github.com/vega/vega-lite/blob/172c4286d60b468e033f8232b24fe6547ca3302c/LICENSE)
 
+@vue/compiler-sfc: [MIT License](https://github.com/vuejs/core/blob/507f3e7a16c98398a661c150ce89d36b1441f6cc/packages/compiler-sfc/LICENSE)
+
 vue3-sfc-loader: [MIT License](https://github.com/FranckFreiburger/vue3-sfc-loader/blob/84b05a091fe5a283c7ed909c06cc31c0153ed103/LICENSE)
 
 wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182b4ee7d59f72c41a6dba97ed90fde9b79c8eb8/LICENSE)
