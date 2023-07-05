@@ -35,6 +35,12 @@ export const cssModulesDemo = { vue: `<template>\n  <p :class="$style.red">This 
 
 <RunInLiveCodes params={cssModulesDemo} code={cssModulesDemo.vue} language="html" formatCode={false}></RunInLiveCodes>
 
+### CSS Utilities
+
+[CSS Utilities](../features/css.md#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.md), [UnoCSS](./unocss.md), [WindiCSS](./windicss.md)) are available for use in Vue SFCs. Make sure that the required utility is enabled (Style menu or `processors` property of [configuration object](../configuration/configuration-object.md#processors)) and required [directives](https://tailwindcss.com/docs/functions-and-directives#tailwind) are added to the style editor.
+
+See [example below](#importing-vue-sfcs).
+
 ### Pre-Processors
 
 > Blocks can declare pre-processor languages using the `lang` attribute.
@@ -83,6 +89,33 @@ export const importsDemo = { vue: `<script setup>\n   import { ref } from 'vue';
 <RunInLiveCodes params={importsDemo} code={importsDemo.vue} language="html" formatCode={false}></RunInLiveCodes>
 
 Module imports can be customized using import maps as described in [module resolution](../features/module-resolution.md#custom-module-resolution) documentations.
+
+### Importing Vue SFCs
+
+Other Vue SFCs can be imported. The import URL has to be an absolute URL ending with `.vue` extension. Any bare or relative imports in the imported files are resolved and compiled recursively.
+
+This is an example of importing a Vue SFC, which in turn imports other Vue SFCs (the imported components use Tailwind CSS, which is enabled in this project as a CSS preprocessor):
+
+<RunInLiveCodes params={{x:"id/2af5rqradrs"}} style={{display:'inline'}}></RunInLiveCodes> - <a href="https://github.com/hatemhosny/simple-vue-counter" target="_blank" rel="noopener noreferrer">view source on GitHub</a><br /><br />
+
+<LiveCodes import="id/2af5rqradrs"></LiveCodes>
+
+Please note that extensionless imports are not supported. However, you may customize the import URL using import maps as described in [module resolution](../features/module-resolution.md#custom-module-resolution) section.
+
+This is an example of importing a Vue SFC, which in turn imports other Vue SFCs and extensionless imports, that are customized using importmap:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useTodoList": "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useTodoList.js",
+    "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useMousePosition": "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useMousePosition.js"
+  }
+}
+```
+
+<RunInLiveCodes params={{x:"id/d72xp4wbinp"}} style={{display:'inline'}}></RunInLiveCodes> - <a href="https://github.com/hatemhosny/vue3-samples" target="_blank" rel="noopener noreferrer">view source on GitHub</a><br /><br />
+
+<LiveCodes import="id/d72xp4wbinp"></LiveCodes>
 
 ### Root Element
 

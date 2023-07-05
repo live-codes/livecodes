@@ -1,10 +1,12 @@
 /* eslint-disable import/no-internal-modules */
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
-import { getImports, replaceImports } from '../../compiler/import-map';
+import { findImportMapKey, getImports, replaceImports } from '../../compiler/import-map';
 import { modulesService } from '../../services/modules';
-import { getRandomString, replaceAsync } from '../../utils/utils';
+import { getRandomString, getValidUrl, replaceAsync } from '../../utils/utils';
 import type { CompilerFunction, Config } from '../../models';
+import { processors } from '../processors';
+import { getLanguageByAlias } from '../utils';
 
 // based on:
 // https://github.com/vuejs/repl/blob/main/src/transform.ts
@@ -16,6 +18,7 @@ import type { CompilerFunction, Config } from '../../models';
   let errors: string | any[] = [];
   let css = '';
   const ids: Record<string, string> = {};
+  let fileContents: string = '';
 
   interface Compiled {
     css: string;
@@ -27,18 +30,20 @@ import type { CompilerFunction, Config } from '../../models';
 
   async function compileSFC(
     code: string,
-    {
-      filename = MAIN_FILE,
-      cssModules,
-    }: { filename?: string; cssModules?: Record<string, string> },
+    { filename = MAIN_FILE, config }: { filename?: string; config: Config },
   ): Promise<Compiled | void> {
     if (filename === MAIN_FILE) {
       errors = [];
       css = '';
+      fileContents = '';
     }
     if (!code.trim()) return;
 
-    code = await replaceSFCImports(code, filename);
+    code = await replaceSFCImports(code, { filename, config });
+    const compiledBlocks = await compileBlocks(code, { config });
+    const cssModules = compiledBlocks.cssModules;
+    code = compiledBlocks.content;
+
     const compiled: Compiled = { css: '', js: '', ssr: '' };
     if (!ids[filename]) {
       ids[filename] = await hashId(filename);
@@ -189,23 +194,56 @@ import type { CompilerFunction, Config } from '../../models';
     );
   }
 
-  async function replaceSFCImports(code: string, filename: string) {
-    const vueImports = getImports(code).filter((mod) => mod.toLowerCase().endsWith('.vue'));
+  async function replaceSFCImports(
+    code: string,
+    { filename, config }: { filename: string; config: Config },
+  ) {
+    const isVueSfc = (mod: string) => mod.toLowerCase().endsWith('.vue');
+    const isExtensionless = (mod: string) =>
+      mod.startsWith('.') && !mod.split('/')[mod.split('/').length - 1].includes('.');
+    const vueImports = getImports(code).filter(
+      (mod) => isVueSfc(mod) || isExtensionless(mod) || mod.startsWith('.'),
+    );
+    const projectImportMap = {
+      ...config.imports,
+      ...config.customSettings.imports,
+    };
     const importMap: Record<string, string> = {};
     await Promise.all(
       vueImports.map(async (mod) => {
+        // convert extensionless, relative URL to absolute URL and find in import map
+        const urlInMap =
+          isExtensionless(mod) &&
+          getValidUrl(filename) != null &&
+          projectImportMap[findImportMapKey(new URL(mod, filename).href, projectImportMap) || 0];
+
         const url =
-          mod.startsWith('https://') || mod.startsWith('http://')
+          projectImportMap[findImportMapKey(mod, projectImportMap) || 0] ||
+          urlInMap ||
+          (mod.startsWith('https://') || mod.startsWith('http://')
             ? mod
-            : mod.startsWith('.')
+            : mod.startsWith('.') && getValidUrl(filename) != null
             ? new URL(mod, filename).href
-            : modulesService.getUrl(mod);
+            : modulesService.getUrl(mod));
+
         const res = await fetch(url);
         const content = await res.text();
-        const compiled = await compileSFC(content, { filename: url });
+        const compiled = isVueSfc(mod)
+          ? (await compileSFC(content, { filename: url, config }))?.js
+          : await replaceSFCImports(
+              (
+                await compileInCompiler(
+                  content,
+                  getLanguageByAlias(url.split('/').pop()?.split('.').pop()) || 'javascript',
+                  config,
+                )
+              ).code,
+              { filename: url, config },
+            );
         if (!compiled) return;
-        const dataUrl = 'data:text/javascript;base64,' + btoa(compiled.js);
+        const dataUrl = 'data:text/javascript;base64,' + btoa(compiled);
         importMap[mod] = dataUrl;
+        fileContents += `\n${url}\n\n${content}\n`;
       }),
     );
     return replaceImports(code, {} as Config, importMap);
@@ -229,7 +267,7 @@ import type { CompilerFunction, Config } from '../../models';
     }
   }
 
-  return async (code, { config }) => {
+  async function compileBlocks(code: string, { config }: { config: Config }) {
     let content = code;
     const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
     const stylePattern = /<style([\s\S]*?)>([\s\S]*?)<\/style>/g;
@@ -288,8 +326,11 @@ import type { CompilerFunction, Config } from '../../models';
         return `<style ${attrs.replace(' module', '')}>${cssModulesCompileResult.code}</style>`;
       },
     );
+    return { content, cssModules };
+  }
 
-    const result = await compileSFC(content, { cssModules });
+  return async (code, { config }) => {
+    const result = await compileSFC(code, { config });
 
     if (result) {
       const { css, js } = result;
@@ -303,7 +344,13 @@ document.head.insertBefore(
 );
 `;
 
-      return js + injectCSS;
+      const importedContentSrc =
+        fileContents &&
+        config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML))
+          ? `\n\n/*\n${fileContents.replace(/\*\//g, '* /')}*/`
+          : '';
+
+      return js + injectCSS + importedContentSrc;
     }
 
     if (errors.length) {

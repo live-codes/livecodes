@@ -41,17 +41,22 @@ const isStylesheet = (mod: string) =>
   mod.endsWith('.less') ||
   mod.endsWith('.styl');
 
-export const createImportMap = (code: string, config: Config) =>
+export const findImportMapKey = (mod: string, importmap: Record<string, string>) =>
+  Object.keys(importmap).find((key) => key === mod || mod.startsWith(key + '/'));
+
+export const createImportMap = (code: string, config: Config, fallbackToCdn = true) =>
   getImports(code)
     .map((libName) => {
       if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
         return {};
       } else {
-        const key = Object.keys(config.imports).find(
-          (mod) => mod === libName || libName.startsWith(mod + '/'),
-        );
+        const imports = { ...config.imports, ...config.customSettings.imports };
+        const key = findImportMapKey(libName, imports);
         if (key) {
-          return { [key]: config.imports[key] };
+          return { [key]: imports[key] };
+        }
+        if (!fallbackToCdn) {
+          return {};
         }
         return {
           [libName]: modulesService.getModuleUrl(libName, {
@@ -88,9 +93,7 @@ export const replaceImports = (
       .replace(/"/g, '')
       .replace(/'/g, '');
 
-    const key = Object.keys(importMap).find(
-      (mod) => mod === libName || libName.startsWith(mod + '/'),
-    );
+    const key = findImportMapKey(libName, importMap);
     if (!key) {
       return statement;
     }

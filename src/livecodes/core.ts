@@ -733,9 +733,12 @@ const getResultPage = async ({
   const scriptType = getLanguageCompiler(scriptLanguage)?.scriptType;
 
   const forceCompileStyles =
-    config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
-    (markupContent !== getCache().markup.content ||
-      scriptContent !== getCache().script.content); /* e.g. jsx */
+    [...config.processors, ...getCache().processors].find((name) =>
+      processors.find((p) => name === p.name && p.needsHTML),
+    ) &&
+    (config.processors.join(',') !== getCache().processors.join(',') ||
+      markupContent !== getCache().markup.content ||
+      scriptContent !== getCache().script.content); /* e.g. jsx/sfc */
 
   const testsNotChanged =
     config.tests?.language === getCache().tests?.language &&
@@ -745,22 +748,25 @@ const getResultPage = async ({
   const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
   let compiledMarkup = markupCompileResult.code;
 
+  const scriptCompileResult = await compiler.compile(scriptContent, scriptLanguage, config, {
+    forceCompile: forceCompileStyles,
+    blockly:
+      scriptLanguage === 'blockly'
+        ? ((await customEditors.blockly?.getContent({
+            baseUrl,
+            editors,
+            config: getConfig(),
+            html: compiledMarkup,
+            eventsManager,
+          })) as BlocklyContent)
+        : {},
+  });
+  const compiledScript = scriptCompileResult.code;
+
   const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
-      html: compiledMarkup,
+      html: `${compiledMarkup}<script>${compiledScript}</script>`,
       forceCompile: forceCompileStyles,
-    }),
-    compiler.compile(scriptContent, scriptLanguage, config, {
-      blockly:
-        scriptLanguage === 'blockly'
-          ? ((await customEditors.blockly?.getContent({
-              baseUrl,
-              editors,
-              config: getConfig(),
-              html: compiledMarkup,
-              eventsManager,
-            })) as BlocklyContent)
-          : {},
     }),
     runTests
       ? testsNotChanged
@@ -771,9 +777,10 @@ const getResultPage = async ({
 
   let compileInfo: CompileInfo = {
     ...markupCompileResult.info,
+    ...scriptCompileResult.info,
   };
 
-  const [compiledStyle, compiledScript, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = compileResults.map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,

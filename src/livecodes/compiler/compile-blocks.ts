@@ -10,6 +10,29 @@ interface CompileBlocksOptions {
   prepareFn?: (code: string, config: Config) => Promise<string>;
 }
 
+/**
+ * This is a workaround to prevent typescript removing default imports (components)
+ * that are not used in the typescript code but are used in the template
+ * by exporting them
+ * e.g.
+ * <script setup>
+ * import Counter from './App.vue';
+ * </script>
+ * <template><Counter /></template>
+ */
+const exportDefaultImports = (code: string) => {
+  const defaultImportPattern =
+    /(?:import\s+?(?:(?:(\w*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
+
+  const tokens = [];
+  for (const arr of [...code.matchAll(new RegExp(defaultImportPattern, 'g'))]) {
+    const [_match, token] = arr;
+    tokens.push(token);
+  }
+  if (tokens.length === 0) return '';
+  return `\nexport { ${tokens.join(', ')} };`;
+};
+
 export const fetchBlocksSource = async (
   code: string,
   blockElement: 'template' | 'style' | 'script',
@@ -57,18 +80,29 @@ export const compileBlocks = async (
     const [element, opentagPre, language, opentagPost, content, closetag] = arr;
     if (!language || !content) {
       blocks.push(element);
-    } else {
-      const compiled = (await compileInCompiler(content, getLanguageByAlias(language), config))
-        .code;
-      blocks.push(
-        element.replace(
-          new RegExp(pattern, 'g'),
-          blockElement === 'template' && options.removeEnclosingTemplate
-            ? compiled
-            : opentagPre + opentagPost + compiled + closetag,
-        ),
-      );
+      continue;
     }
+    const lang = getLanguageByAlias(language);
+    if (!lang) {
+      blocks.push(element);
+      continue;
+    }
+    let exports = '';
+    if (['typescript', 'babel', 'sucrase', 'jsx', 'tsx'].includes(lang)) {
+      exports = exportDefaultImports(content);
+    }
+    let compiled = (await compileInCompiler(content + exports, lang, config)).code;
+    if (exports) {
+      compiled = compiled.replace(exports, '');
+    }
+    blocks.push(
+      element.replace(
+        new RegExp(pattern, 'g'),
+        blockElement === 'template' && options.removeEnclosingTemplate
+          ? compiled
+          : opentagPre + opentagPost + compiled + closetag,
+      ),
+    );
   }
   return fullCode.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
 };
