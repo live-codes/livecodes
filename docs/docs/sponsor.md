@@ -40,26 +40,21 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 ### Sponsorship Benefits
 
-<small>(inspired by <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener noreferrer">Vue.js</a>)</small>
+#### Friends (USD$5/mo):
 
-#### Special Sponsors (> USD$1,000/mo):
+- Thank you :)  
+  Your support is really appreciated.
 
-<MailLink email="sponsor&#64;livecodes&#46;io" text="Let's discuss" />.
+#### Backers (USD$50/mo):
 
-#### Platinum Sponsors (USD$1,000/mo):
-
-- Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
-- Prominent logo placement in sidebar of all content pages.
-- Prominent logo placement at the top of [this page](#).
-- Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Name listed in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Gold Sponsors (USD$500/mo):
+#### Bronze Sponsors (USD$100/mo):
 
-- Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
-- Logo placement in sidebar of all content pages.
-- Large logo placement in [this page](#livecodes-sponsors).
-- Large logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Small logo placement in [this page](#livecodes-sponsors).
+- Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
 #### Silver Sponsors (USD$250/mo):
@@ -70,21 +65,34 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Medium logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Bronze Sponsors (USD$100/mo):
+#### Gold Sponsors (USD$500/mo):
 
-- Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
-- Small logo placement in [this page](#livecodes-sponsors).
-- Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Logo placement in sidebar of all content pages.
+- Large logo placement in [this page](#livecodes-sponsors).
+- Large logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Backers (USD$50/mo):
+#### Platinum Sponsors (USD$1,000/mo):
 
-- Name listed in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Prominent logo placement in sidebar of all content pages.
+- Prominent logo placement at the top of [this page](#).
+- Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Friends (USD$5/mo):
+#### Partners (USD$2,000/mo):
 
-- Thank you. Your support is really appreciated.
+- **_Custom build_** of the playground with your **_logo, brand_** and [customized services](./advanced/services.md). The custom build is maintained and receives new updates.
+- Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Prominent logo placement in sidebar of all content pages.
+- Prominent logo placement at the top of [this page](#).
+- Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
+- Priority in feature requests.
+
+#### Special Sponsors (> USD$2,000/mo):
+
+<MailLink email="sponsor&#64;livecodes&#46;io" text="Let's discuss" />.
 
 ## LiveCodes Sponsors
 
