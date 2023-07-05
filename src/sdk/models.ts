@@ -771,6 +771,7 @@ export type CDN =
   | 'jsdelivr'
   | 'fastly.jsdelivr'
   | 'jsdelivr.gh'
+  | 'fastly.jsdelivr.gh'
   | 'esm.run'
   | 'esm.sh'
   | 'esbuild'

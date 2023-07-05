@@ -41,13 +41,13 @@ export const cssModulesDemo = { vue: `<template>\n  <p :class="$style.red">This 
 
 See [example below](#importing-vue-sfcs).
 
-### Pre-Processors
+### Languages and Pre-Processors
 
 > Blocks can declare pre-processor languages using the `lang` attribute.
 >
 > — [docs](https://vuejs.org/api/sfc-spec.html#pre-processors)
 
-Most of the [languages supported in LiveCodes](./index.md) can be used. The value of `lang` attribute can be the language name (specified in its documentation page) or any of its aliases (extensions).
+Many of the [languages supported in LiveCodes](./index.md) can be used. The value of `lang` attribute can be the language name (specified in its documentation page) or any of its aliases (extensions).
 
 export const processorsDemo = { vue: `<template lang="pug">\nh1 {{ msg }}\n</template>\n\n<script lang="ts" setup>\n  const msg: string = 'Hello!'\n</script>\n\n<style lang="scss">\n  $primary-color: #666;\n  body {\n    color: $primary-color;\n  }\n</style>\n` }
 

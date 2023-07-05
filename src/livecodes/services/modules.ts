@@ -3,8 +3,8 @@ import type { CDN } from '../models';
 declare const globalThis: { appCDN: CDN };
 
 const moduleCDNs: CDN[] = ['jspm', 'skypack'];
-const npmCDNs: CDN[] = ['jsdelivr', 'unpkg', 'fastly.jsdelivr'];
-const ghCDNs: CDN[] = ['jsdelivr.gh', 'statically'];
+const npmCDNs: CDN[] = ['unpkg', 'jsdelivr', 'fastly.jsdelivr'];
+const ghCDNs: CDN[] = ['fastly.jsdelivr.gh', 'jsdelivr.gh', 'statically'];
 
 export const modulesService = {
   getModuleUrl: (
@@ -87,6 +87,8 @@ const TEMPLATES: Array<[RegExp, string]> = [
   [/^(fastly.jsdelivr:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2'],
 
   [/^(jsdelivr.gh:)(.+)/i, 'https://cdn.jsdelivr.net/gh/$2'],
+
+  [/^(fastly.jsdelivr.gh:)(.+)/i, 'https://fastly.jsdelivr.net/gh/$2'],
 
   [/^(statically:)(.+)/i, 'https://cdn.statically.io/gh/$2'],
 

@@ -141,8 +141,8 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
-  <img alt="jsDelivr" width="200" src="https://dev.livecodes.io/docs/img/credits/jsdelivr.svg">
+<a href="https://unpkg.com/" target="_blank" title="unpkg">
+  <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
 </img></a><br /><br />
 </p>
 <p>
@@ -156,18 +156,18 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://unpkg.com/" target="_blank" title="unpkg">
-  <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
-</img></a><br /><br />
-</p>
-<p>
-<a href="https://bundlejs.com/" target="_blank" title="bundlejs">
-  <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
+<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
+  <img alt="jsDelivr" width="200" src="https://dev.livecodes.io/docs/img/credits/jsdelivr.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://github.com/" target="_blank" title="GitHub">
   <img alt="GitHub" width="200" src="https://dev.livecodes.io/docs/img/credits/github.png">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://bundlejs.com/" target="_blank" title="bundlejs">
+  <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
 </img></a><br /><br />
 </p>
 <p>
