@@ -50,7 +50,7 @@ export const createImportMap = (code: string, config: Config, fallbackToCdn = tr
       if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
         return {};
       } else {
-        const imports = { ...config.imports, ...config.customSettings.imports };
+        const imports = { ...config.imports, ...config.customSettings?.imports };
         const key = findImportMapKey(libName, imports);
         if (key) {
           return { [key]: imports[key] };
