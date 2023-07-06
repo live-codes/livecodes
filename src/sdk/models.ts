@@ -418,6 +418,7 @@ export interface CompileInfo {
   cssModules?: Record<string, string>;
   modifiedHTML?: string;
   importedContent?: string;
+  imports?: Record<string, string>;
 }
 
 export interface CompileResult {

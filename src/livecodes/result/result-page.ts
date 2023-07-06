@@ -213,6 +213,7 @@ export const createResultPage = async ({
             compileInfo.cssModules,
             styleExtension,
           ),
+          ...compileInfo.imports,
         };
 
   const importMaps = {

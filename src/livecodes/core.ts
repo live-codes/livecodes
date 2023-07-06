@@ -769,6 +769,10 @@ const getResultPage = async ({
     importedContent:
       (markupCompileResult.info.importedContent || '') +
       (scriptCompileResult.info.importedContent || ''),
+    imports: {
+      ...scriptCompileResult.info.imports,
+      ...markupCompileResult.info.imports,
+    },
   };
 
   const compileResults = await Promise.all([

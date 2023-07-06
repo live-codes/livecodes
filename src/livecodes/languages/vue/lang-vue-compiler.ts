@@ -1,10 +1,9 @@
 /* eslint-disable import/no-internal-modules */
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
-import { replaceSFCImports } from '../../compiler/import-map';
+import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getRandomString, replaceAsync } from '../../utils/utils';
 import type { CompilerFunction, Config } from '../../models';
-import { processors } from '../processors';
 import { getLanguageByAlias } from '../utils';
 
 // based on:
@@ -17,7 +16,7 @@ import { getLanguageByAlias } from '../utils';
   let errors: string | any[] = [];
   let css = '';
   const ids: Record<string, string> = {};
-  let importedContent: string = '';
+  let importedContent = '';
 
   interface Compiled {
     css: string;
@@ -27,7 +26,7 @@ import { getLanguageByAlias } from '../utils';
 
   const SFCCompiler = (self as any).VueCompilerSFC.VueCompilerSFC;
 
-  async function compileSFC(
+  async function compileVueSFC(
     code: string,
     { filename = MAIN_FILE, config }: { filename?: string; config: Config },
   ): Promise<Compiled | void> {
@@ -45,7 +44,7 @@ import { getLanguageByAlias } from '../utils';
       getLanguageByAlias,
       compileSFC: async (code, { filename, config }) => {
         importedContent += `\n${filename}\n\n${code}\n`;
-        return (await compileSFC(code, { filename, config }))?.js || '';
+        return (await compileVueSFC(code, { filename, config }))?.js || '';
       },
     });
 
@@ -284,7 +283,7 @@ import { getLanguageByAlias } from '../utils';
   }
 
   return async (code, { config }) => {
-    const result = await compileSFC(code, { config });
+    const result = await compileVueSFC(code, { config });
 
     if (result) {
       const { css, js } = result;
@@ -298,7 +297,10 @@ document.head.insertBefore(
 );
 `;
 
-      return { code: js + injectCSS, info: { importedContent } };
+      return {
+        code: js + injectCSS,
+        info: { importedContent, imports: createImportMap(importedContent, config) },
+      };
     }
 
     if (errors.length) {
