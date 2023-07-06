@@ -17,7 +17,7 @@ import { getLanguageByAlias } from '../utils';
   let errors: string | any[] = [];
   let css = '';
   const ids: Record<string, string> = {};
-  let fileContents: string = '';
+  let importedContent: string = '';
 
   interface Compiled {
     css: string;
@@ -34,7 +34,7 @@ import { getLanguageByAlias } from '../utils';
     if (filename === MAIN_FILE) {
       errors = [];
       css = '';
-      fileContents = '';
+      importedContent = '';
     }
     if (!code.trim()) return;
 
@@ -44,7 +44,7 @@ import { getLanguageByAlias } from '../utils';
       sfcExtension: '.vue',
       getLanguageByAlias,
       compileSFC: async (code, { filename, config }) => {
-        fileContents += `\n${filename}\n\n${code}\n`;
+        importedContent += `\n${filename}\n\n${code}\n`;
         return (await compileSFC(code, { filename, config }))?.js || '';
       },
     });
@@ -298,13 +298,7 @@ document.head.insertBefore(
 );
 `;
 
-      const importedContentSrc =
-        fileContents &&
-        config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML))
-          ? `\n\n/*\n${fileContents.replace(/\*\//g, '* /')}*/`
-          : '';
-
-      return js + injectCSS + importedContentSrc;
+      return { code: js + injectCSS, info: { importedContent } };
     }
 
     if (errors.length) {

@@ -763,9 +763,17 @@ const getResultPage = async ({
   });
   const compiledScript = scriptCompileResult.code;
 
+  let compileInfo: CompileInfo = {
+    ...markupCompileResult.info,
+    ...scriptCompileResult.info,
+    importedContent:
+      (markupCompileResult.info.importedContent || '') +
+      (scriptCompileResult.info.importedContent || ''),
+  };
+
   const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
-      html: `${compiledMarkup}<script>${compiledScript}</script>`,
+      html: `${compiledMarkup}<script>${compiledScript}</script><script>${compileInfo.importedContent}</script>`,
       forceCompile: forceCompileStyles,
     }),
     runTests
@@ -774,11 +782,6 @@ const getResultPage = async ({
         : compiler.compile(testsContent, testsLanguage, config, {})
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
-
-  let compileInfo: CompileInfo = {
-    ...markupCompileResult.info,
-    ...scriptCompileResult.info,
-  };
 
   const [compiledStyle, compiledTests] = compileResults.map((result) => {
     const { code, info } = getCompileResult(result);

@@ -417,6 +417,7 @@ export interface CompileOptions {
 export interface CompileInfo {
   cssModules?: Record<string, string>;
   modifiedHTML?: string;
+  importedContent?: string;
 }
 
 export interface CompileResult {
