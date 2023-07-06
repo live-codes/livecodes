@@ -1,6 +1,15 @@
+/* eslint-disable import/no-internal-modules */
 import type { CompileInfo, Config, Language } from '../models';
-import { modulesService } from '../services';
-import { escapeCode, removeComments, removeCommentsAndStrings, toCamelCase } from '../utils';
+import { modulesService } from '../services/modules';
+import {
+  escapeCode,
+  getFileExtension,
+  getValidUrl,
+  removeComments,
+  removeCommentsAndStrings,
+  toCamelCase,
+} from '../utils/utils';
+import { compileInCompiler } from './compile-in-compiler';
 
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
@@ -99,6 +108,72 @@ export const replaceImports = (
     }
     return statement.replace(key, importMap[key]);
   });
+};
+
+export const replaceSFCImports = async (
+  code: string,
+  {
+    filename,
+    config,
+    sfcExtension,
+    getLanguageByAlias,
+    compileSFC,
+  }: {
+    config: Config;
+    filename: string;
+    sfcExtension: string;
+    getLanguageByAlias: (alias: string) => Language | undefined;
+    compileSFC: (code: string, options: { filename: string; config: Config }) => Promise<string>;
+  },
+) => {
+  const isSfc = (mod: string) => mod.toLowerCase().endsWith(sfcExtension);
+  const isExtensionless = (mod: string) =>
+    mod.startsWith('.') && !mod.split('/')[mod.split('/').length - 1].includes('.');
+  const sfcImports = getImports(code).filter(
+    (mod) => isSfc(mod) || isExtensionless(mod) || mod.startsWith('.'),
+  );
+  const projectImportMap = {
+    ...config.imports,
+    ...config.customSettings.imports,
+  };
+  const importMap: Record<string, string> = {};
+  await Promise.all(
+    sfcImports.map(async (mod) => {
+      // convert extensionless, relative URL to absolute URL and find in import map
+      const urlInMap =
+        isExtensionless(mod) &&
+        getValidUrl(filename) != null &&
+        projectImportMap[findImportMapKey(new URL(mod, filename).href, projectImportMap) || 0];
+
+      const url =
+        projectImportMap[findImportMapKey(mod, projectImportMap) || 0] ||
+        urlInMap ||
+        (mod.startsWith('https://') || mod.startsWith('http://')
+          ? mod
+          : mod.startsWith('.') && getValidUrl(filename) != null
+          ? new URL(mod, filename).href
+          : modulesService.getUrl(mod));
+
+      const res = await fetch(url);
+      const content = await res.text();
+      const compiled = isSfc(mod)
+        ? await compileSFC(content, { filename: url, config })
+        : await replaceSFCImports(
+            (
+              await compileInCompiler(
+                content,
+                getLanguageByAlias(getFileExtension(url)) || 'javascript',
+                config,
+              )
+            ).code,
+            { filename: url, config, sfcExtension, getLanguageByAlias, compileSFC },
+          );
+      if (!compiled) return;
+      const dataUrl = 'data:text/javascript;base64,' + btoa(compiled);
+      importMap[mod] = dataUrl;
+    }),
+  );
+  return replaceImports(code, {} as Config, importMap);
 };
 
 export const removeImports = (code: string, mods: string[]) =>

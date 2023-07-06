@@ -1,9 +1,8 @@
 /* eslint-disable import/no-internal-modules */
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
-import { findImportMapKey, getImports, replaceImports } from '../../compiler/import-map';
-import { modulesService } from '../../services/modules';
-import { getFileExtension, getRandomString, getValidUrl, replaceAsync } from '../../utils/utils';
+import { replaceSFCImports } from '../../compiler/import-map';
+import { getRandomString, replaceAsync } from '../../utils/utils';
 import type { CompilerFunction, Config } from '../../models';
 import { processors } from '../processors';
 import { getLanguageByAlias } from '../utils';
@@ -39,7 +38,17 @@ import { getLanguageByAlias } from '../utils';
     }
     if (!code.trim()) return;
 
-    code = await replaceSFCImports(code, { filename, config });
+    code = await replaceSFCImports(code, {
+      filename,
+      config,
+      sfcExtension: '.vue',
+      getLanguageByAlias,
+      compileSFC: async (code, { filename, config }) => {
+        fileContents += `\n${filename}\n\n${code}\n`;
+        return (await compileSFC(code, { filename, config }))?.js || '';
+      },
+    });
+
     const compiledBlocks = await compileBlocks(code, { config });
     const cssModules = compiledBlocks.cssModules;
     code = compiledBlocks.content;
@@ -192,61 +201,6 @@ import { getLanguageByAlias } from '../utils';
         `$1 ${fnName}`,
       )}` + `\n${COMP_IDENTIFIER}.${fnName} = ${fnName};`
     );
-  }
-
-  async function replaceSFCImports(
-    code: string,
-    { filename, config }: { filename: string; config: Config },
-  ) {
-    const isVueSfc = (mod: string) => mod.toLowerCase().endsWith('.vue');
-    const isExtensionless = (mod: string) =>
-      mod.startsWith('.') && !mod.split('/')[mod.split('/').length - 1].includes('.');
-    const vueImports = getImports(code).filter(
-      (mod) => isVueSfc(mod) || isExtensionless(mod) || mod.startsWith('.'),
-    );
-    const projectImportMap = {
-      ...config.imports,
-      ...config.customSettings.imports,
-    };
-    const importMap: Record<string, string> = {};
-    await Promise.all(
-      vueImports.map(async (mod) => {
-        // convert extensionless, relative URL to absolute URL and find in import map
-        const urlInMap =
-          isExtensionless(mod) &&
-          getValidUrl(filename) != null &&
-          projectImportMap[findImportMapKey(new URL(mod, filename).href, projectImportMap) || 0];
-
-        const url =
-          projectImportMap[findImportMapKey(mod, projectImportMap) || 0] ||
-          urlInMap ||
-          (mod.startsWith('https://') || mod.startsWith('http://')
-            ? mod
-            : mod.startsWith('.') && getValidUrl(filename) != null
-            ? new URL(mod, filename).href
-            : modulesService.getUrl(mod));
-
-        const res = await fetch(url);
-        const content = await res.text();
-        const compiled = isVueSfc(mod)
-          ? (await compileSFC(content, { filename: url, config }))?.js
-          : await replaceSFCImports(
-              (
-                await compileInCompiler(
-                  content,
-                  getLanguageByAlias(getFileExtension(url)) || 'javascript',
-                  config,
-                )
-              ).code,
-              { filename: url, config },
-            );
-        if (!compiled) return;
-        const dataUrl = 'data:text/javascript;base64,' + btoa(compiled);
-        importMap[mod] = dataUrl;
-        fileContents += `\n${url}\n\n${content}\n`;
-      }),
-    );
-    return replaceImports(code, {} as Config, importMap);
   }
 
   async function hashId(filename: string) {
