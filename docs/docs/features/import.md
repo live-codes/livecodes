@@ -93,23 +93,11 @@ Of course, [embedded playgrounds](./embeds.md) can be prefilled with code from t
 If the response text could not be parsed as DOM or no elements matched the CSS selectors, it is assumed to be raw code and the response text is loaded to editor. If the URL ends with an extension it is used to identify the language, otherwise it is assumed to be `html`.
 
 Alternatively, the language of raw code can be specified using [query params](../configuration/query-params.md):  
-?x={url}&raw={language}
+`?x={url}&raw={language}`
 
 ## "Edit in LiveCodes" Bookmarklet
 
-Instead of manually copy/pasting URLs to import, the bookmarklet can be very convenient. It opens LiveCodes in a new window and imports the current webpage URL.
-
-drag this link to the browser bookmarks bar:
-
-<a href="javascript:(()=>{window.open('https://livecodes.io/?x='+location.href,'_blank');})();">Edit in LiveCodes</a><br /><br />
-
-or manually create a new bookmark in your browser and add this code as its URL:
-
-```js
-javascript: (() => {
-  window.open('https://livecodes.io/?x=' + location.href, '_blank');
-})();
-```
+Instead of manually copy/pasting URLs to import, adding [**"Edit in LiveCodes"** bookmarklet](../bookmarklet.md) to the browser bookmarks bar can be a more convenient way. It opens LiveCodes in a new window and imports the current webpage URL.
 
 ## Import from CodePen
 
