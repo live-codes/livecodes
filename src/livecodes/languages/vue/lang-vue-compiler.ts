@@ -3,7 +3,7 @@ import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
 import { findImportMapKey, getImports, replaceImports } from '../../compiler/import-map';
 import { modulesService } from '../../services/modules';
-import { getRandomString, getValidUrl, replaceAsync } from '../../utils/utils';
+import { getFileExtension, getRandomString, getValidUrl, replaceAsync } from '../../utils/utils';
 import type { CompilerFunction, Config } from '../../models';
 import { processors } from '../processors';
 import { getLanguageByAlias } from '../utils';
@@ -234,7 +234,7 @@ import { getLanguageByAlias } from '../utils';
               (
                 await compileInCompiler(
                   content,
-                  getLanguageByAlias(url.split('/').pop()?.split('.').pop()) || 'javascript',
+                  getLanguageByAlias(getFileExtension(url)) || 'javascript',
                   config,
                 )
               ).code,

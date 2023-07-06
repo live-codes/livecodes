@@ -2,6 +2,7 @@
 import type { Config } from '../models';
 import { getLanguageByAlias } from '../languages';
 import { modulesService } from '../services/modules';
+import { getFileExtension } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 
 interface CompileBlocksOptions {
@@ -51,7 +52,11 @@ export const fetchBlocksSource = async (
         const res = await fetch(url);
         if (!res.ok) throw new Error('failed to fetch: ' + url);
         const content = await res.text();
-        blocks.push(`${opentagPre + opentagPost}>${content}</${blockElement}>`);
+        const langAttr =
+          opentagPre.includes('lang') || opentagPost.includes('lang')
+            ? ''
+            : ` lang="${getFileExtension(url)}"`;
+        blocks.push(`${opentagPre + langAttr + opentagPost}>${content}</${blockElement}>`);
       } catch {
         blocks.push(element);
       }
