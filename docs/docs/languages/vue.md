@@ -78,6 +78,8 @@ The value of `src` attribute can be either:
 
 Relative paths (e.g. `./my-styles.css`) cannot be used (because there is no file system in LiveCodes).
 
+The imported sources can use any of the supported languages/pre-processors (identified by the file extension or can be specified by `lang` attribute).
+
 ### Module Imports
 
 Modules can be imported as described in the section about [module resolution](../features/module-resolution.md), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head`.
