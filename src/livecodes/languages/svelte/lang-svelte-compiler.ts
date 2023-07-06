@@ -6,12 +6,18 @@ import { getLanguageCustomSettings, getLanguageByAlias } from '../utils';
 import { getCompileResult } from '../../compiler';
 
 (self as any).createSvelteCompiler = (): CompilerFunction => {
+  const MAIN_FILE = 'App.svelte';
   let importedContent = '';
+  let imports: Record<string, string> = {};
 
   const compileSvelteSFC = async (
     code: string,
     { config, filename }: { config: Config; filename: string },
   ) => {
+    if (filename === MAIN_FILE) {
+      importedContent = '';
+      imports = {};
+    }
     if (!code) return getCompileResult('');
 
     const fullCode = await replaceSFCImports(code, {
@@ -32,18 +38,24 @@ import { getCompileResult } from '../../compiler';
     });
     const customSettings = getLanguageCustomSettings('svelte', config);
     const init =
-      filename === 'App.svelte'
-        ? ''
-        : `\nnew Component({ target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });`;
+      filename === MAIN_FILE
+        ? `\nnew Component({ target: document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')) });`
+        : '';
+
     const { js } = (window as any).svelte.compile(processedCode, {
       css: 'injected',
       ...customSettings,
     });
+
+    if (filename === MAIN_FILE) {
+      imports = createImportMap(importedContent, config);
+    }
+
     return {
       code: js.code + init,
-      info: { importedContent, imports: createImportMap(importedContent, config) },
+      info: { importedContent, imports },
     };
   };
 
-  return (code, { config }) => compileSvelteSFC(code, { config, filename: 'App.svelte' });
+  return (code, { config }) => compileSvelteSFC(code, { config, filename: MAIN_FILE });
 };
