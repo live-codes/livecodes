@@ -137,7 +137,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       : options.mode === 'codeblock'
       ? codeblockOptions
       : defaultOptions;
-  let editorOptions: Options = cloneObject(initOptions);
+  let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
   if (!document.head.querySelector('#__livecodes__monaco-styles')) {
     const stylesheet = document.createElement('link');
@@ -245,7 +245,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let language = options.language;
 
   const editor = monaco.editor.create(container, {
-    ...baseOptions,
     ...editorOptions,
     language: monacoMapLanguage(language),
   });
