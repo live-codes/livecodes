@@ -44,11 +44,12 @@ const isBare = (mod: string) =>
   !mod.startsWith('blob:');
 
 const isStylesheet = (mod: string) =>
-  mod.endsWith('.css') ||
-  mod.endsWith('.scss') ||
-  mod.endsWith('.sass') ||
-  mod.endsWith('.less') ||
-  mod.endsWith('.styl');
+  (mod.endsWith('.css') ||
+    mod.endsWith('.scss') ||
+    mod.endsWith('.sass') ||
+    mod.endsWith('.less') ||
+    mod.endsWith('.styl')) &&
+  !mod.startsWith('./style');
 
 export const findImportMapKey = (mod: string, importmap: Record<string, string>) =>
   Object.keys(importmap).find((key) => key === mod || mod.startsWith(key + '/'));
