@@ -29,8 +29,9 @@ import { getCompileResult } from '../../compiler';
         code: string,
         { config, filename }: { config: Config; filename: string },
       ) => {
-        importedContent += `\n${filename}\n\n${code}\n`;
-        return (await compileSvelteSFC(code, { config, filename })).code;
+        const compiled = (await compileSvelteSFC(code, { config, filename })).code;
+        importedContent += `\n${filename}\n\n${compiled}\n`;
+        return compiled;
       },
     });
     const processedCode = await compileAllBlocks(fullCode, config, {

@@ -43,8 +43,9 @@ import { getLanguageByAlias } from '../utils';
       sfcExtension: '.vue',
       getLanguageByAlias,
       compileSFC: async (code, { filename, config }) => {
-        importedContent += `\n${filename}\n\n${code}\n`;
-        return (await compileVueSFC(code, { filename, config }))?.js || '';
+        const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
+        importedContent += `\n${filename}\n\n${compiled}\n`;
+        return compiled;
       },
     });
 
