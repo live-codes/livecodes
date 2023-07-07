@@ -14,6 +14,7 @@ export const test = base.extend<{
         autoupdate: false,
         enableRestore: false,
         'no-defaults': true,
+        closeBrackets: false,
         ...config,
       };
       const query = Object.keys(options).reduce(
