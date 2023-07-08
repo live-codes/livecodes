@@ -52,7 +52,7 @@ export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
 
-export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2');
+export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
 export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@1.1.3/dist/csstree.js');
 

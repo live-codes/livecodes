@@ -8,6 +8,7 @@ import {
   removeComments,
   removeCommentsAndStrings,
   toCamelCase,
+  toDataUrl,
 } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 
@@ -170,7 +171,7 @@ export const replaceSFCImports = async (
             { filename: url, config, sfcExtension, getLanguageByAlias, compileSFC },
           );
       if (!compiled) return;
-      const dataUrl = 'data:text/javascript;base64,' + btoa(compiled);
+      const dataUrl = toDataUrl(compiled);
       importMap[mod] = dataUrl;
     }),
   );
@@ -272,9 +273,7 @@ export const createCSSModulesImportMap = (
 
       if (!filename.includes('.module.')) {
         return {
-          [filename]:
-            'data:text/javascript;base64,' +
-            btoa(`export default \`${escapeCode(compiledStyle)}\`;`),
+          [filename]: toDataUrl(`export default \`${escapeCode(compiledStyle)}\`;`),
         };
       }
 
@@ -285,7 +284,7 @@ export const createCSSModulesImportMap = (
           .map((key) => `export const ${escapeCode(key)} = "${escapeCode(cssTokens[key])}";`)
           .join('\n');
 
-      return { [filename]: 'data:text/javascript;base64,' + btoa(cssModule) };
+      return { [filename]: toDataUrl(cssModule) };
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 };

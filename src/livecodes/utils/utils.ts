@@ -1,3 +1,4 @@
+import { encode } from 'js-base64';
 import type { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
@@ -240,9 +241,17 @@ export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
   return true;
 };
 
-export const getWorkerDataURL = (url: string) => {
-  const content = `importScripts("${url}");`;
-  return 'data:text/javascript;base64,' + btoa(content);
+export const toDataUrl = (content: string, type = 'text/javascript') =>
+  `data:${type};charset=UTF-8;base64,` + encode(content);
+
+export const getWorkerDataURL = (url: string) => toDataUrl(`importScripts("${url}");`);
+
+export const createWorkerFromContent = (content: string) => {
+  try {
+    return new Worker(toDataUrl(content));
+  } catch (e) {
+    return new Worker(URL.createObjectURL(new Blob([content], { type: 'application/javascript' })));
+  }
 };
 
 export const removeComments = (src: string) =>

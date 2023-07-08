@@ -11,7 +11,7 @@ import type { Cache, EditorId, Config, CompileInfo } from '../models';
 import { getAppCDN, modulesService } from '../services';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
-import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
+import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap, toDataUrl } from '../utils';
 import { esModuleShimsPath, jestLiteUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
@@ -198,9 +198,7 @@ export const createResultPage = async ({
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),
-          ...(importFromScript
-            ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
-            : {}),
+          ...(importFromScript ? { './script': toDataUrl(code.script.compiled) } : {}),
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,

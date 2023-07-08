@@ -1,3 +1,4 @@
+import { decode } from 'js-base64';
 import type { User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { getGithubHeaders } from '../services/github';
@@ -60,7 +61,7 @@ export const importFromGithubDir = async (
     const files = await Promise.all(
       Object.values(dirFiles).map(async (file: any) => {
         const filename = file.path.split('/')[file.path.split('/').length - 1];
-        const content = atob(
+        const content = decode(
           await fetch(file.url, {
             ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
           })

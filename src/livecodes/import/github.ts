@@ -1,6 +1,7 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
+/* eslint-disable import/no-internal-modules */
+import { decode } from 'js-base64';
 import type { Language, Config, User } from '../models';
-// eslint-disable-next-line import/no-internal-modules
+import { getLanguageByAlias, getLanguageEditorId } from '../languages/utils';
 import { getGithubHeaders } from '../services/github';
 import { isGithubDir } from './github-dir';
 import { hostPatterns } from './utils';
@@ -70,7 +71,7 @@ const getContent = async (
       ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
     })
       .then((res) => res.json())
-      .then((data) => atob(data.content));
+      .then((data) => decode(data.content));
     const content =
       startLine > 0
         ? fileContent
