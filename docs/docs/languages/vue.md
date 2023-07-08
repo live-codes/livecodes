@@ -35,13 +35,19 @@ export const cssModulesDemo = { vue: `<template>\n  <p :class="$style.red">This 
 
 <RunInLiveCodes params={cssModulesDemo} code={cssModulesDemo.vue} language="html" formatCode={false}></RunInLiveCodes>
 
-### Pre-Processors
+### CSS Utilities
+
+[CSS Utilities](../features/css.md#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.md), [UnoCSS](./unocss.md), [WindiCSS](./windicss.md)) are available for use in Vue SFCs. Make sure that the required utility is enabled (Style menu or `processors` property of [configuration object](../configuration/configuration-object.md#processors)) and required [directives](https://tailwindcss.com/docs/functions-and-directives#tailwind) are added to the style editor.
+
+See [example below](#importing-vue-sfcs).
+
+### Languages and Pre-Processors
 
 > Blocks can declare pre-processor languages using the `lang` attribute.
 >
 > — [docs](https://vuejs.org/api/sfc-spec.html#pre-processors)
 
-Most of the [languages supported in LiveCodes](./index.md) can be used. The value of `lang` attribute can be the language name (specified in its documentation page) or any of its aliases (extensions).
+Many of the [languages supported in LiveCodes](./index.md) can be used. The value of `lang` attribute can be the language name (specified in its documentation page) or any of its aliases (extensions).
 
 export const processorsDemo = { vue: `<template lang="pug">\nh1 {{ msg }}\n</template>\n\n<script lang="ts" setup>\n  const msg: string = 'Hello!'\n</script>\n\n<style lang="scss">\n  $primary-color: #666;\n  body {\n    color: $primary-color;\n  }\n</style>\n` }
 
@@ -72,6 +78,8 @@ The value of `src` attribute can be either:
 
 Relative paths (e.g. `./my-styles.css`) cannot be used (because there is no file system in LiveCodes).
 
+The imported sources can use any of the supported languages/pre-processors (identified by the file extension or can be specified by `lang` attribute).
+
 ### Module Imports
 
 Modules can be imported as described in the section about [module resolution](../features/module-resolution.md), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head`.
@@ -83,6 +91,33 @@ export const importsDemo = { vue: `<script setup>\n   import { ref } from 'vue';
 <RunInLiveCodes params={importsDemo} code={importsDemo.vue} language="html" formatCode={false}></RunInLiveCodes>
 
 Module imports can be customized using import maps as described in [module resolution](../features/module-resolution.md#custom-module-resolution) documentations.
+
+### Importing Vue SFCs
+
+Other Vue SFCs can be imported. The import URL has to be an absolute URL ending with `.vue` extension. Any bare or relative imports in the imported files are resolved and compiled recursively.
+
+This is an example of importing a Vue SFC, which in turn imports other Vue SFCs (the imported components use Tailwind CSS, which is enabled in this project as a CSS preprocessor):
+
+<RunInLiveCodes params={{x:"id/2af5rqradrs"}} style={{display:'inline'}}></RunInLiveCodes> - <a href="https://github.com/hatemhosny/simple-vue-counter" target="_blank" rel="noopener noreferrer">view source on GitHub</a><br /><br />
+
+<LiveCodes import="id/2af5rqradrs"></LiveCodes>
+
+Please note that extensionless imports are not supported. However, you may customize the import URL using import maps as described in [module resolution](../features/module-resolution.md#custom-module-resolution) section.
+
+This is an example of importing a Vue SFC, which in turn imports other Vue SFCs and extensionless imports, that are customized using importmap:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useTodoList": "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useTodoList.js",
+    "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useMousePosition": "https://raw.githubusercontent.com/hatemhosny/vue3-samples/master/src/composable/useMousePosition.js"
+  }
+}
+```
+
+<RunInLiveCodes params={{x:"id/d72xp4wbinp"}} style={{display:'inline'}}></RunInLiveCodes> - <a href="https://github.com/hatemhosny/vue3-samples" target="_blank" rel="noopener noreferrer">view source on GitHub</a><br /><br />
+
+<LiveCodes import="id/d72xp4wbinp"></LiveCodes>
 
 ### Root Element
 

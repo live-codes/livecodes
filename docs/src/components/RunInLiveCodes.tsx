@@ -12,8 +12,18 @@ export default function RunInLiveCodes(props: {
   language?: string;
   formatCode?: boolean;
   linkText?: string;
+  style?: Record<string, string>;
+  className?: string;
 }): JSX.Element {
-  const { params, code, language = 'js', formatCode = true, linkText = 'Run in LiveCodes' } = props;
+  const {
+    params,
+    code,
+    language = 'js',
+    formatCode = true,
+    linkText = 'Run in LiveCodes',
+    style = {},
+    className = '',
+  } = props;
   const url = new URL(appUrl);
   if (typeof params === 'object') {
     (Object.keys(params) as string[]).forEach((param) => {
@@ -21,7 +31,7 @@ export default function RunInLiveCodes(props: {
     });
   }
   return (
-    <div style={{ marginBottom: '30px' }}>
+    <div style={{ marginBottom: '30px', ...style }} className={className}>
       {code && (
         <BrowserOnly>
           {() => {

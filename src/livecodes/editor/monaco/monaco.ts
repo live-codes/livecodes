@@ -14,7 +14,7 @@ import type {
   PkgInfo,
   APIError,
 } from '../../models';
-import { getRandomString, loadScript } from '../../utils/utils';
+import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
@@ -127,7 +127,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const editorId = options.editorId;
-  const editorOptions =
+  const initOptions =
     editorId === 'console'
       ? consoleOptions
       : editorId === 'compiled'
@@ -137,6 +137,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       : options.mode === 'codeblock'
       ? codeblockOptions
       : defaultOptions;
+  let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
   if (!document.head.querySelector('#__livecodes__monaco-styles')) {
     const stylesheet = document.createElement('link');
@@ -244,7 +245,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let language = options.language;
 
   const editor = monaco.editor.create(container, {
-    ...baseOptions,
     ...editorOptions,
     language: monacoMapLanguage(language),
   });
@@ -492,13 +492,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const changeSettings = (settings: EditorConfig) => {
-    const newOptions = {
+    editorOptions = {
       ...convertOptions(settings),
-      ...editorOptions,
+      ...initOptions,
     };
     configureEmmet(settings.emmet);
     configureEditorMode(settings.editorMode);
-    editor.updateOptions(newOptions);
+    editor.updateOptions(editorOptions);
   };
 
   const undo = () => {
@@ -543,6 +543,106 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       event.preventDefault();
     }
   });
+
+  const addCloseTag = (event: Monaco.IKeyboardEvent) => {
+    // select enabled languages
+    const addCloseLanguages = ['html', 'markdown', 'javascript', 'typescript']; // enable js & ts for jsx & tsx
+
+    const model = editor.getModel();
+    if (
+      !model ||
+      !addCloseLanguages.includes(monacoMapLanguage(language)) ||
+      editorOptions.autoClosingBrackets === 'never'
+    ) {
+      return;
+    }
+
+    const isSelfClosing = (tag: string) =>
+      [
+        'area',
+        'base',
+        'br',
+        'col',
+        'command',
+        'embed',
+        'hr',
+        'img',
+        'input',
+        'keygen',
+        'link',
+        'meta',
+        'param',
+        'source',
+        'track',
+        'wbr',
+        'circle',
+        'ellipse',
+        'line',
+        'path',
+        'polygon',
+        'polyline',
+        'rect',
+        'stop',
+        'use',
+      ].includes(tag);
+
+    // when the user enters '>'
+    if (event.browserEvent.key === '>') {
+      const currentSelections = editor.getSelections() || [];
+
+      const edits: Monaco.editor.IIdentifiedSingleEditOperation[] = [];
+      const newSelections: Monaco.Selection[] = [];
+      // potentially insert the ending tag at each of the selections
+      for (const selection of currentSelections) {
+        // shift the selection over by one to account for the new character
+        newSelections.push(
+          new monaco.Selection(
+            selection.selectionStartLineNumber,
+            selection.selectionStartColumn + 1,
+            selection.endLineNumber,
+            selection.endColumn + 1,
+          ),
+        );
+        // grab the content before the cursor
+        const contentBeforeChange = model.getValueInRange({
+          startLineNumber: 1,
+          startColumn: 1,
+          endLineNumber: selection.endLineNumber,
+          endColumn: selection.endColumn,
+        });
+
+        // if ends with a HTML tag we are currently closing
+        const match = contentBeforeChange.match(/.*<([\w-]+)(?:\s[^><]*?)*?$/);
+        if (!match) {
+          continue;
+        }
+
+        const [fullMatch, tag] = match;
+
+        // skip self-closing tags like <br> or <img>
+        if (isSelfClosing(tag) || fullMatch.trim().endsWith('/')) {
+          continue;
+        }
+
+        // add in the closing tag
+        edits.push({
+          range: {
+            startLineNumber: selection.endLineNumber,
+            startColumn: selection.endColumn + 1, // add 1 to offset for the inserting '>' character
+            endLineNumber: selection.endLineNumber,
+            endColumn: selection.endColumn + 1,
+          },
+          text: `</${tag}>`,
+        });
+      }
+
+      // wait for next tick to avoid it being an invalid operation
+      setTimeout(() => {
+        editor.executeEdits(model.getValue(), edits, newSelections);
+      }, 0);
+    }
+  };
+  editor.onKeyDown(addCloseTag);
 
   const registerShowPackageInfo = () => {
     // from https://github.com/snowpackjs/astro-repl/blob/main/src/editor/modules/monaco.ts

@@ -124,9 +124,7 @@ document.querySelector('h1').className = classes.myTitle;
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
-      `import classes from './style.css';
-document.querySelector('h1').innerHTML = classes;
-`,
+      `import classes from './style.css'; document.querySelector('h1').innerHTML = classes;`,
     );
 
     await waitForResultUpdate();

@@ -150,7 +150,7 @@ describe('Import map', () => {
   test('replace style imports', () => {
     const code = `
 @import "github-markdown-css";
-@import "unpkg:github-markdown-css";
+@import "jsdelivr:github-markdown-css";
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @import "github-markdown-css" print;
 @import "github-markdown-css" screen and (orientation:landscape);
@@ -160,14 +160,14 @@ body {
 }    `;
 
     const expectedCode = `
-@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @import "https://unpkg.com/github-markdown-css";
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
-@media print {
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@media print {
+@import "https://unpkg.com/github-markdown-css";
 }
 @media screen and (orientation:landscape) {
-@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@import "https://unpkg.com/github-markdown-css";
 }
 
 body {

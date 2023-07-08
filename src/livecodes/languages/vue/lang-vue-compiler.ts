@@ -1,10 +1,10 @@
 /* eslint-disable import/no-internal-modules */
 import { compileInCompiler } from '../../compiler/compile-in-compiler';
 import { compileAllBlocks } from '../../compiler/compile-blocks';
-import { getImports, replaceImports } from '../../compiler/import-map';
-import { modulesService } from '../../services/modules';
+import { createImportMap, replaceSFCImports } from '../../compiler/import-map';
 import { getRandomString, replaceAsync } from '../../utils/utils';
 import type { CompilerFunction, Config } from '../../models';
+import { getLanguageByAlias } from '../utils';
 
 // based on:
 // https://github.com/vuejs/repl/blob/main/src/transform.ts
@@ -16,6 +16,7 @@ import type { CompilerFunction, Config } from '../../models';
   let errors: string | any[] = [];
   let css = '';
   const ids: Record<string, string> = {};
+  let importedContent = '';
 
   interface Compiled {
     css: string;
@@ -25,20 +26,33 @@ import type { CompilerFunction, Config } from '../../models';
 
   const SFCCompiler = (self as any).VueCompilerSFC.VueCompilerSFC;
 
-  async function compileSFC(
+  async function compileVueSFC(
     code: string,
-    {
-      filename = MAIN_FILE,
-      cssModules,
-    }: { filename?: string; cssModules?: Record<string, string> },
+    { filename = MAIN_FILE, config }: { filename?: string; config: Config },
   ): Promise<Compiled | void> {
     if (filename === MAIN_FILE) {
       errors = [];
       css = '';
+      importedContent = '';
     }
     if (!code.trim()) return;
 
-    code = await replaceSFCImports(code, filename);
+    code = await replaceSFCImports(code, {
+      filename,
+      config,
+      sfcExtension: '.vue',
+      getLanguageByAlias,
+      compileSFC: async (code, { filename, config }) => {
+        const compiled = (await compileVueSFC(code, { filename, config }))?.js || '';
+        importedContent += `\n${filename}\n\n${compiled}\n`;
+        return compiled;
+      },
+    });
+
+    const compiledBlocks = await compileBlocks(code, { config });
+    const cssModules = compiledBlocks.cssModules;
+    code = compiledBlocks.content;
+
     const compiled: Compiled = { css: '', js: '', ssr: '' };
     if (!ids[filename]) {
       ids[filename] = await hashId(filename);
@@ -189,28 +203,6 @@ import type { CompilerFunction, Config } from '../../models';
     );
   }
 
-  async function replaceSFCImports(code: string, filename: string) {
-    const vueImports = getImports(code).filter((mod) => mod.toLowerCase().endsWith('.vue'));
-    const importMap: Record<string, string> = {};
-    await Promise.all(
-      vueImports.map(async (mod) => {
-        const url =
-          mod.startsWith('https://') || mod.startsWith('http://')
-            ? mod
-            : mod.startsWith('.')
-            ? new URL(mod, filename).href
-            : modulesService.getUrl(mod);
-        const res = await fetch(url);
-        const content = await res.text();
-        const compiled = await compileSFC(content, { filename: url });
-        if (!compiled) return;
-        const dataUrl = 'data:text/javascript;base64,' + btoa(compiled.js);
-        importMap[mod] = dataUrl;
-      }),
-    );
-    return replaceImports(code, {} as Config, importMap);
-  }
-
   async function hashId(filename: string) {
     try {
       const msgUint8 = new TextEncoder().encode(filename); // encode as (utf-8) Uint8Array
@@ -229,7 +221,7 @@ import type { CompilerFunction, Config } from '../../models';
     }
   }
 
-  return async (code, { config }) => {
+  async function compileBlocks(code: string, { config }: { config: Config }) {
     let content = code;
     const scriptPattern = /<script([\s\S]*?)>([\s\S]*?)<\/script>/g;
     const stylePattern = /<style([\s\S]*?)>([\s\S]*?)<\/style>/g;
@@ -288,8 +280,11 @@ import type { CompilerFunction, Config } from '../../models';
         return `<style ${attrs.replace(' module', '')}>${cssModulesCompileResult.code}</style>`;
       },
     );
+    return { content, cssModules };
+  }
 
-    const result = await compileSFC(content, { cssModules });
+  return async (code, { config }) => {
+    const result = await compileVueSFC(code, { config });
 
     if (result) {
       const { css, js } = result;
@@ -303,7 +298,10 @@ document.head.insertBefore(
 );
 `;
 
-      return js + injectCSS;
+      return {
+        code: js + injectCSS,
+        info: { importedContent, imports: createImportMap(importedContent, config) },
+      };
     }
 
     if (errors.length) {

@@ -22,9 +22,6 @@ export const commonlisp: LanguageSpecs = {
     scripts: ({ baseUrl }) => [jsclUrl, baseUrl + '{{hash:lang-commonlisp-script.js}}'],
     scriptType: 'text/commonlisp',
     compiledCodeLanguage: 'commonlisp',
-    inlineScript: `
-
-    `,
   },
   extensions: ['lisp', 'common-lisp'],
   editor: 'script',

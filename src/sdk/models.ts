@@ -417,6 +417,8 @@ export interface CompileOptions {
 export interface CompileInfo {
   cssModules?: Record<string, string>;
   modifiedHTML?: string;
+  importedContent?: string;
+  imports?: Record<string, string>;
 }
 
 export interface CompileResult {
@@ -771,6 +773,7 @@ export type CDN =
   | 'jsdelivr'
   | 'fastly.jsdelivr'
   | 'jsdelivr.gh'
+  | 'fastly.jsdelivr.gh'
   | 'esm.run'
   | 'esm.sh'
   | 'esbuild'

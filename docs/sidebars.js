@@ -105,6 +105,7 @@ const sidebars = {
           },
           items: ['advanced/custom-settings', 'advanced/services'],
         },
+        'bookmarklet',
         'contribution',
         'credits',
         'license',

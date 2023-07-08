@@ -2,6 +2,7 @@
 import type { Config } from '../models';
 import { getLanguageByAlias } from '../languages';
 import { modulesService } from '../services/modules';
+import { getFileExtension } from '../utils/utils';
 import { compileInCompiler } from './compile-in-compiler';
 
 interface CompileBlocksOptions {
@@ -9,6 +10,29 @@ interface CompileBlocksOptions {
   languageAttribute?: 'lang' | 'type';
   prepareFn?: (code: string, config: Config) => Promise<string>;
 }
+
+/**
+ * This is a workaround to prevent typescript removing default imports (components)
+ * that are not used in the typescript code but are used in the template
+ * by exporting them
+ * e.g.
+ * <script setup>
+ * import Counter from './App.vue';
+ * </script>
+ * <template><Counter /></template>
+ */
+const exportDefaultImports = (code: string) => {
+  const defaultImportPattern =
+    /(?:import\s+?(?:(?:(\w*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
+
+  const tokens = [];
+  for (const arr of [...code.matchAll(new RegExp(defaultImportPattern, 'g'))]) {
+    const [_match, token] = arr;
+    tokens.push(token);
+  }
+  if (tokens.length === 0) return '';
+  return `\nexport { ${tokens.join(', ')} };`;
+};
 
 export const fetchBlocksSource = async (
   code: string,
@@ -28,7 +52,11 @@ export const fetchBlocksSource = async (
         const res = await fetch(url);
         if (!res.ok) throw new Error('failed to fetch: ' + url);
         const content = await res.text();
-        blocks.push(`${opentagPre + opentagPost}>${content}</${blockElement}>`);
+        const langAttr =
+          opentagPre.includes('lang') || opentagPost.includes('lang')
+            ? ''
+            : ` lang="${getFileExtension(url)}"`;
+        blocks.push(`${opentagPre + langAttr + opentagPost}>${content}</${blockElement}>`);
       } catch {
         blocks.push(element);
       }
@@ -57,18 +85,29 @@ export const compileBlocks = async (
     const [element, opentagPre, language, opentagPost, content, closetag] = arr;
     if (!language || !content) {
       blocks.push(element);
-    } else {
-      const compiled = (await compileInCompiler(content, getLanguageByAlias(language), config))
-        .code;
-      blocks.push(
-        element.replace(
-          new RegExp(pattern, 'g'),
-          blockElement === 'template' && options.removeEnclosingTemplate
-            ? compiled
-            : opentagPre + opentagPost + compiled + closetag,
-        ),
-      );
+      continue;
     }
+    const lang = getLanguageByAlias(language);
+    if (!lang) {
+      blocks.push(element);
+      continue;
+    }
+    let exports = '';
+    if (['typescript', 'babel', 'sucrase', 'jsx', 'tsx'].includes(lang)) {
+      exports = exportDefaultImports(content);
+    }
+    let compiled = (await compileInCompiler(content + exports, lang, config)).code;
+    if (exports) {
+      compiled = compiled.replace(exports, '');
+    }
+    blocks.push(
+      element.replace(
+        new RegExp(pattern, 'g'),
+        blockElement === 'template' && options.removeEnclosingTemplate
+          ? compiled
+          : opentagPre + opentagPost + compiled + closetag,
+      ),
+    );
   }
   return fullCode.replace(new RegExp(pattern, 'g'), () => blocks.pop() || '');
 };
