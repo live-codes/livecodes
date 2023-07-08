@@ -98,6 +98,7 @@ import {
   loadStylesheet,
   stringify,
   stringToValidJson,
+  toDataUrl,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -2005,6 +2006,17 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getFormatButton(), 'click', async () => {
     await format(false);
+  });
+
+  eventsManager.addEventListener(UI.getCopyAsUrlButton(), 'click', () => {
+    const currentEditor = getActiveEditor();
+    const mimeType = 'text/' + currentEditor.getLanguage();
+    const dataUrl = toDataUrl(currentEditor.getValue(), mimeType);
+    if (copyToClipboard(dataUrl)) {
+      notifications.success('Code copied as data URL');
+    } else {
+      notifications.error('Failed to copy code');
+    }
   });
 
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {

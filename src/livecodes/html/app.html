@@ -9,8 +9,8 @@
         overflow: hidden;
       }
     </style>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
     <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
     <script src="{{esModuleShimsUrl}}" async></script>
     <script type="importmap">
@@ -134,6 +134,9 @@
             </span>
             <span id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)">
               <img src="{{baseUrl}}assets/images/format.svg" alt="format" />
+            </span>
+            <span id="copy-as-url-btn" class="hint--top-right" data-hint="Copy Code as URL">
+              <img src="{{baseUrl}}assets/images/copy-as-url.svg" alt="copy" />
             </span>
             <span id="editor-status">
               <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
