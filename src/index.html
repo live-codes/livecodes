@@ -27,7 +27,7 @@
       sizes="16x16"
       href="livecodes/assets/images/favicon-16x16.png"
     />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="manifest" href="livecodes/assets/site.webmanifest" />
     <link rel="mask-icon" href="livecodes/assets/images/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="apple-mobile-web-app-title" content="livecodes" />
@@ -35,53 +35,16 @@
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="msapplication-config" content="livecodes/assets/browserconfig.xml" />
     <meta name="theme-color" content="#ffffff" />
-    <!-- main.css -->
+    <!-- index.css -->
   </head>
   <body>
     <div id="livecodes"></div>
-    <div id="animating-logo">
-      <div id="cube" class="cube">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div id="loading">
+      <img src="livecodes/assets/images/livecodes-logo.svg" alt="LiveCodes logo" />
+      <div id="loading-text">
+        Loading LiveCodes<span id="dot1">.</span><span id="dot2">.</span><span id="dot3">.</span>
       </div>
-      <div id="loading-text">Loading LiveCodes...</div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="135" viewBox="0 0 492 332">
-        <defs>
-          <filter id="A">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
-            <feOffset dx="3" dy="3" result="B" />
-            <feFlood flood-color="#000" flood-opacity=".5" />
-            <feComposite in2="B" operator="in" result="C" />
-            <feMerge>
-              <feMergeNode in="C" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        <g filter="url(#A)" fill="#c1c1c1" transform="translate(24.8872 19.3872)">
-          <path
-            d="M10.3093 176.4491C4.1271 169.6895 0 156.1906 0 144.3637c0-11.8192 3.0933-22.789 10.8241-28.6977h-.5143L131.9564 0v78.5208c-13.402 12.6623-31.4424 27.019-76.8017 66.701l.5143.834c24.226 17.7366 52.0608 44.7485 76.2869 68.3875v79.3637z"
-          />
-          <g transform="translate(308.0441 .001)">
-            <path
-              d="M121.6469 117.3511c6.1774 6.76 10.309 20.2657 10.309 32.0859s-3.0934 22.7882-10.8284 28.6976h.5196L0 293.801v-78.5212c13.4027-12.6552 31.4425-27.0115 76.8021-66.694l-.5143-.834C52.0659 130.0152 24.2272 103.0031.0005 79.3647V0z"
-            />
-          </g>
-        </g>
-      </svg>
     </div>
-    <div id="click-to-load">
-      <img
-        src="./livecodes/assets/images/livecodes-logo.svg"
-        title="Click to Load"
-        alt="LiveCodes logo"
-      />
-      <div id="click-to-load-text">Click to load LiveCodes</div>
-    </div>
-    <script src="./index.ts" type="module"></script>
+    <script src="livecodes/{{hash:index.js}}"></script>
   </body>
 </html>
