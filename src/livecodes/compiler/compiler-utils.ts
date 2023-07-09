@@ -1,6 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import { proxyConsole } from '../result/utils';
 import { getAppCDN } from '../services/modules';
+import { createWorkerFromContent } from '../utils/utils';
 import type { InitMessage } from './models';
 
 proxyConsole();
@@ -9,15 +10,8 @@ proxyConsole();
   const baseUrl = message.baseUrl;
   const workerUrl = baseUrl + '{{hash:compile.worker.js}}';
   const origin = new URL(baseUrl).origin;
-  const content = `self.appCDN='${getAppCDN()}';importScripts("${workerUrl}");`;
-  let worker: Worker;
-  try {
-    worker = new Worker('data:text/javascript;base64,' + btoa(content));
-  } catch {
-    worker = new Worker(
-      URL.createObjectURL(new Blob([content], { type: 'application/javascript' })),
-    );
-  }
+  const content = `self.appCDN='${getAppCDN()}';importScripts('${workerUrl}');`;
+  const worker = createWorkerFromContent(content);
 
   await new Promise<void>((resolve) => {
     const script = document.createElement('script');

@@ -17,6 +17,8 @@ export const getRunButton = () => document.querySelector('#run-button') as HTMLE
 export const getCodeRunButton = () => document.querySelector('#code-run-button') as HTMLElement;
 export const getEditorToolbar = () => document.querySelector('#editor-tools') as HTMLElement;
 export const getCopyButton = () => document.querySelector('#editor-tools #copy-btn') as HTMLElement;
+export const getCopyAsUrlButton = () =>
+  document.querySelector('#editor-tools #copy-as-url-btn') as HTMLElement;
 export const getUndoButton = () => document.querySelector('#editor-tools #undo-btn') as HTMLElement;
 export const getRedoButton = () => document.querySelector('#editor-tools #redo-btn') as HTMLElement;
 export const getFormatButton = () =>

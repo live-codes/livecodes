@@ -97,6 +97,7 @@
     "deep-diff": "1.0.2",
     "eslint-plugin-no-only-tests": "3.1.0",
     "firebase": "9.6.6",
+    "js-base64": "3.7.5",
     "luna-console": "0.2.1",
     "luna-object-viewer": "0.2.0",
     "lz-string": "1.4.4",

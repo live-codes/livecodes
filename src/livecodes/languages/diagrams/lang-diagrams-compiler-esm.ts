@@ -1,4 +1,6 @@
+/* eslint-disable import/no-internal-modules */
 /* eslint-disable no-console */
+import { decode } from 'js-base64';
 import type { Config, CompilerFunction } from '../../models';
 import {
   blobToBase64,
@@ -8,7 +10,8 @@ import {
   getLanguageCustomSettings,
   removeComments,
   runOrContinue,
-} from '../../utils';
+  toDataUrl,
+} from '../../utils/utils';
 import {
   cytoscapeSvgUrl,
   cytoscapeUrl,
@@ -30,7 +33,7 @@ let useShadowDom = false;
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
-    el.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+    el.src = toDataUrl(svg, 'image/svg+xml');
   } else {
     el.innerHTML = svg;
   }
@@ -167,7 +170,7 @@ const compileGnuplot = async (code: string) => {
     if (el.tagName.toLowerCase() === 'img') {
       el.src = imgUrl;
     } else {
-      el.innerHTML = atob(imgUrl.replace('data:image/svg+xml;base64,', ''));
+      el.innerHTML = decode(imgUrl.split(',')[1]);
     }
   }
   const result = temp.innerHTML;
