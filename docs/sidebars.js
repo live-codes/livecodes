@@ -53,6 +53,7 @@ const sidebars = {
             'features/read-only',
             'features/permanent-url',
             'features/code-prefill',
+            'features/data-urls',
             'features/deploy',
             'features/sync',
             'features/broadcast',

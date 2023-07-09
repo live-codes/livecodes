@@ -10,7 +10,7 @@ The `Assets` screen can be accessed from app menu → Assets
 
 Assets are either:
 
-- Encoded as [data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+- Encoded as [data URLs](./data-urls.md).
 - Uploaded to a [GitHub Pages](https://pages.github.com/). This requires login with a [GitHub account](./github-integration.md) (allowing access to repos). A **public** repo called `livecodes-assets` is created if not present. The assets are pushed to `gh-pages` branch. They can then be accessed by URLs like:
 
   https://{user}.github.io/livecodes-assets/assets/...
