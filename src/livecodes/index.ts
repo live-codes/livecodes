@@ -29,7 +29,7 @@ if (isEmbed) {
     if (loading === 'lazy' && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries, observer) => {
-          entries.forEach(async (entry) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               load();
               observer.unobserve(document.body);
