@@ -47,7 +47,6 @@ export const createEmbedUI = async ({
       | 'type'
       | 'theme'
       | 'loading'
-      | 'preview'
       | 'lite'
       | 'readonly'
       | 'mode'
@@ -76,12 +75,6 @@ export const createEmbedUI = async ({
         { label: 'On-click', value: 'click' },
         { label: 'Eager', value: 'eager' },
       ],
-    },
-    {
-      title: 'Show Result Preview',
-      name: 'preview',
-      options: [{ value: 'true', checked: false }],
-      help: `${process.env.DOCS_BASE_URL}features/embeds#result-page-preview`,
     },
     {
       title: 'Lite Mode',
@@ -265,7 +258,6 @@ export const createEmbedUI = async ({
       ...(importId ? { import: importId } : {}),
       ...(data.lite ? { lite: data.lite } : {}),
       ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
-      ...(data.loading === 'click' && data.preview ? { params: { preview: true } } : {}),
       ...(data.view && data.view !== 'split' ? { view: data.view } : {}),
     };
   };
@@ -276,9 +268,6 @@ export const createEmbedUI = async ({
 
     if (data.loading && data.loading !== 'lazy') {
       iframeUrl.searchParams.set('loading', String(data.loading));
-    }
-    if (data.loading === 'click' && data.preview) {
-      iframeUrl.searchParams.set('preview', 'true');
     }
     if (data.view && data.view !== 'split') {
       iframeUrl.searchParams.set('view', String(data.view));
@@ -411,7 +400,6 @@ export default function App() {
   };
 
   const previousSelections: FormData = {
-    preview: false,
     view: 'split',
     tools: 'closed',
     activeTool: 'console',
@@ -429,15 +417,6 @@ export default function App() {
     shareUrl = await getUrlFn(Boolean(formData.permanentUrl));
     urlObj = new URL(shareUrl);
     appUrl = urlObj.origin + urlObj.pathname;
-
-    const previewInput = document.querySelector<HTMLInputElement>('input[name="embed-preview"]')!;
-    if (formData.loading !== 'click') {
-      previewInput.checked = false;
-      previewInput.disabled = true;
-      formData.preview = false;
-    } else {
-      previewInput.disabled = false;
-    }
 
     const viewInputs = document.querySelectorAll<HTMLInputElement>('input[name="embed-view"]');
     if (formData.mode !== 'full') {

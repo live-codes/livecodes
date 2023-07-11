@@ -2,7 +2,6 @@ const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
-const vite = require('vite');
 
 const pkg = require('../package.json');
 const { applyHash } = require('./hash');
@@ -70,6 +69,10 @@ const prepareDir = async () => {
   await fs.promises.copyFile(
     path.resolve(__dirname + '/../src/404.html'),
     path.resolve(outDir + '/404.html'),
+  );
+  await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/index.html'),
+    path.resolve(outDir + '/index.html'),
   );
 };
 
@@ -217,6 +220,7 @@ const iifeBuild = () =>
     ...baseOptions,
     format: 'iife',
     entryPoints: [
+      'index.ts',
       'compiler/compile.page.ts',
       'compiler/compiler-utils.ts',
       'editor/custom-editor-utils.ts',
@@ -295,52 +299,20 @@ const workersBuild = () =>
 
 const stylesBuild = () => buildStyles(devMode);
 
-const htmlBuild = () =>
-  vite.build({
-    root: path.resolve('src'),
-    base: './',
-    define: {
-      'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
-    },
-    build: {
-      minify: devMode ? false : true,
-      outDir,
-      sourcemap: true,
-      rollupOptions: {
-        output: {
-          // custom hash is added below
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
-        },
-      },
-    },
-  });
-
 prepareDir().then(() => {
-  Promise.all([
-    esmBuild(),
-    iifeBuild(),
-    workersBuild(),
-    stylesBuild(),
-    htmlBuild(),
-    sdkBuild(),
-  ]).then(async () => {
-    if (!devMode) {
-      buildVendors();
-    }
-    await applyHash({
-      devMode,
-      buildDir: 'build/livecodes/',
-      patchDirs: ['build/', 'build/assets/', 'build/livecodes/'],
-      getTaggedName: (filename) => `{{hash:${filename}}}`,
-    });
-    await applyHash({
-      devMode,
-      buildDir: 'build/assets/',
-      patchDirs: ['build/'],
-    });
-    await injectCss();
-    console.log('built to: ' + baseOptions.outdir + '/');
-  });
+  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), sdkBuild()]).then(
+    async () => {
+      if (!devMode) {
+        buildVendors();
+      }
+      await applyHash({
+        devMode,
+        buildDir: 'build/livecodes/',
+        patchDirs: ['build/', 'build/livecodes/'],
+        getTaggedName: (filename) => `{{hash:${filename}}}`,
+      });
+      await injectCss();
+      console.log('built to: ' + baseOptions.outdir + '/');
+    },
+  );
 });

@@ -2958,7 +2958,7 @@ const handleEmbed = () => {
         /* shortUrl= */ true,
         /* contentOnly= */ true,
         /* urlUpdate= */ false,
-        /* includeResult= */ true,
+        /* includeResult= */ false,
         permanentUrl,
       )
     ).url;

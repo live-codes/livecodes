@@ -13,7 +13,7 @@ const injectCss = async () => {
   var html = fs.readFileSync(path.resolve(htmlFile), 'utf8');
   var css = fs.readFileSync(path.resolve(outDir + cssFile), 'utf8');
 
-  var result = html.replace('<!-- main.css -->', `<style>\n${css}</style>`);
+  var result = html.replace('<!-- index.css -->', `<style>\n${css}</style>`);
   fs.writeFileSync(path.resolve(htmlFile), result, 'utf8');
 };
 
