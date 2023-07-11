@@ -40,10 +40,9 @@ body,
 }
 
 #loading-text {
-  animation: color-change 3s infinite;
+  animation: pulsate 3s infinite;
   font-family: monospace;
   font-size: 1.3em;
-  margin-left: 1.5em;
   margin-top: 15px;
 }
 
@@ -65,126 +64,19 @@ body,
   background-color: rgb(235, 235, 235);
   border: 1px solid rgba(48, 48, 48, 0.5);
   border-radius: 2px;
-  margin-left: 0;
   padding: 5px;
 }
 
-#dot1 {
-  animation: dot1 3s infinite;
-}
-
-#dot2 {
-  animation: dot2 3s infinite;
-}
-
-#dot3 {
-  animation: dot3 3s infinite;
-}
-
-@keyframes color-change {
+@keyframes pulsate {
   0% {
-    color: #b8b8b8;
-  }
-
-  15% {
-    color: #999;
-  }
-
-  35% {
-    color: #555;
+    opacity: 0.2;
   }
 
   50% {
-    color: #000;
-  }
-
-  65% {
-    color: #555;
-  }
-
-  85% {
-    color: #999;
-  }
-
-  100% {
-    color: #b8b8b8;
-  }
-}
-
-@keyframes dot1 {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  40% {
-    opacity: 1;
-  }
-
-  60% {
-    opacity: 0;
-  }
-
-  80% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes dot2 {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 1;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  80% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes dot3 {
-  0% {
-    opacity: 0;
-  }
-
-  20% {
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 0;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  80% {
     opacity: 1;
   }
 
   100% {
-    opacity: 0;
+    opacity: 0.2;
   }
 }
