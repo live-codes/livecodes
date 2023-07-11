@@ -79,27 +79,6 @@ Some of the features of the full standalone app are not available or shown by de
 - [Importing](./import.md) from external sources can be achieved by the [SDK](../sdk/index.md) ([`EmbedOptions.import`](../sdk/js-ts.md#import)), not from the UI.
 - Getting a [share](./share.md) URL can be achieved by the [SDK](../sdk/index.md) ([`getShareUrl`](../sdk/js-ts.md#getshareurl) method), not from the UI.
 
-## Result Page Preview
-
-The Embed screen saves a snapshot of the [result page](./result.md) HTML. When the [`EmbedOptions.loading`](../sdk/js-ts.md#loading) is set to `"click"`, this HTML can be loaded behind a semi-transparent "Click-to-load" screen. This serves as a preview for the result.
-
-This can be enabled by one of these ways:
-
-- Embed screen: select the option "Show Result Preview"
-- SDK: set [`EmbedOptions.params.preview`](../sdk/js-ts.md#params) to `true`.
-
-Demo:
-
-<LiveCodes import="id/rqdbzuhjpg5" loading="click" params={{preview: true}} view="result"></LiveCodes>
-
-:::info note
-
-This only works when importing a project (e.g. "id/rqdbzuhjpg5") that has the result HTML (this is done automatically by the Embed Screen). For example, it does not work with starter templates.
-
-Any scripts in the result page also runs (before the playground loads). This may not be desirable (e.g. if the script runs `alert`s or sounds).
-
-:::
-
 ## Security
 
 - All user code, [result page](./result.md) and compilers run in [sandboxed iframes](https://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/) with a unique origin.
