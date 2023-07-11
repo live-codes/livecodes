@@ -612,7 +612,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         });
 
         // if ends with a HTML tag we are currently closing
-        const match = contentBeforeChange.match(/.*<([\w-]+)(?:\s[^><]*?)*?$/);
+        const match = contentBeforeChange.match(/<([\w-]+)(?![^>]*\/>)[^>]*$/);
         if (!match) {
           continue;
         }
