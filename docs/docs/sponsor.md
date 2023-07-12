@@ -81,7 +81,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Partners (USD$2,000/mo):
+#### Diamond Sponsors (USD$2,000/mo):
 
 - **_Custom build_** of the playground with your **_logo, brand_** and [customized services](./advanced/services.md). The custom build is maintained and receives new updates.
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
