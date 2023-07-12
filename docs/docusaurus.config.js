@@ -162,7 +162,7 @@ const config = {
                 to: '/license',
               },
               {
-                label: 'Sponsor',
+                label: 'Sponsor 💚',
                 to: '/sponsor',
               },
               {
@@ -190,6 +190,10 @@ const config = {
               {
                 label: 'Twitter',
                 href: 'https://twitter.com/livecodes_io',
+              },
+              {
+                label: 'Dev',
+                href: 'https://dev.to/livecodes_io',
               },
               {
                 label: 'npm',
