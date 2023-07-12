@@ -241,9 +241,9 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
   '@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js',
 );
 
-export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@2.5.1/');
+export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.0.0/');
 
-export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.18.0/standalone.js');
+export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.19.6/standalone.js');
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.26.0/components/');
 

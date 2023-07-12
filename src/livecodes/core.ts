@@ -538,6 +538,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   if (initialized || params.view !== 'result') {
     split?.show('code');
   }
+  configureEditorTools(getActiveEditor().getLanguage());
   showEditorModeStatus(editorId);
 };
 

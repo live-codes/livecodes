@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-internal-modules
 import { defaultConfig } from '../config/default-config';
 import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
-import { languages, prettierUrl } from '../languages';
+import { languages, parserPlugins, prettierUrl } from '../languages';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -18,7 +18,17 @@ const loadPrettier = () => {
   importScripts(prettierUrl);
 };
 
-const getParser = (language: Language) => languages.find((lang) => lang.name === language)?.parser;
+const getParser = (language: Language): Parser | undefined => {
+  const parser = languages.find((lang) => lang.name === language)?.parser;
+  if (!parser) return undefined;
+  if (parser.pluginUrls.find((url) => url.includes('babel'))) {
+    return {
+      ...parser,
+      pluginUrls: Array.from(new Set([...parser.pluginUrls, parserPlugins.estree])),
+    };
+  }
+  return parser;
+};
 const getFormatter = (language: Language) =>
   languages.find((lang) => lang.name === language)?.formatter;
 
@@ -105,12 +115,12 @@ const format = async (
       trailingComma: formatterConfig.trailingComma === false ? 'none' : 'all',
     };
     return (
-      (self as any).prettier.formatWithCursor(value, {
+      (await (self as any).prettier.formatWithCursor(value, {
         parser: parser?.name,
         plugins: prettierPlugins,
         cursorOffset,
         ...options,
-      }) || unFormatted
+      })) || unFormatted
     );
   }
   if (getFormatter(language) != null) {
