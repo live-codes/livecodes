@@ -35,9 +35,9 @@ export const cssModulesDemo = { vue: `<template>\n  <p :class="$style.red">This 
 
 <RunInLiveCodes params={cssModulesDemo} code={cssModulesDemo.vue} language="html" formatCode={false}></RunInLiveCodes>
 
-### CSS Utilities
+### CSS Frameworks
 
-[CSS Utilities](../features/css.md#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.md), [UnoCSS](./unocss.md), [WindiCSS](./windicss.md)) are available for use in Vue SFCs. Make sure that the required utility is enabled (Style menu or `processors` property of [configuration object](../configuration/configuration-object.md#processors)) and required [directives](https://tailwindcss.com/docs/functions-and-directives#tailwind) are added to the style editor.
+[CSS Frameworks](../features/css.md#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.md), [UnoCSS](./unocss.md), [WindiCSS](./windicss.md)) are available for use in Vue SFCs. Make sure that the required utility is enabled (Style menu or `processors` property of [configuration object](../configuration/configuration-object.md#processors)) and required [directives](https://tailwindcss.com/docs/functions-and-directives#tailwind) are added to the style editor.
 
 See [example below](#importing-vue-sfcs).
 
