@@ -27,7 +27,7 @@ const getHashedFileNames = async (srcFiles) => {
     const matches = [...data.matchAll(new RegExp(pattern))];
     hashedNames.push(...matches.map((m) => m[1]));
   }
-  return hashedNames;
+  return [...new Set(hashedNames)].sort();
 };
 
 (async () => {
