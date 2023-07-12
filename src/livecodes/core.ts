@@ -1255,6 +1255,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
 
     eventsManager.addEventListener(UI.getModalRecoverButton(), 'click', async () => {
+      modal.show(loadingMessage(), { size: 'small' });
       await loadConfig(unsavedProject);
       await setSavedStatus();
       modal.close();
