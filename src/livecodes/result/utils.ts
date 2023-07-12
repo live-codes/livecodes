@@ -89,7 +89,11 @@ function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
           content: arg.constructor.name + ': ' + arg.message,
         };
     }
-    return { type: 'other', content: arg };
+    try {
+      return { type: 'other', content: structuredClone(arg) };
+    } catch {
+      return { type: 'other', content: String(arg) };
+    }
   });
 }
 
