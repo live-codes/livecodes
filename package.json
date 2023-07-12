@@ -41,6 +41,7 @@
     "test:lint": "run-s lint:*",
     "test:unit": "jest src",
     "test:bundlewatch": "bundlewatch --config .bundlewatch.config.js",
+    "test:broken-links": "node ./scripts/test-filenames.js",
     "lint:prettier": "prettier src --ignore-path .eslintignore --list-different",
     "lint:eslint": "eslint --ext js,jsx,ts,tsx . ",
     "lint:stylelint": "stylelint \"src/livecodes/styles/*\"",
