@@ -2,6 +2,8 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
+The [result page](./result.md) can be styled with CSS using various methods, including:
+
 ## Style Editor
 
 Code added to [style editor](./projects.md#style-editor) is [compiled](#languages) and [processed](#css-processors), then added as CSS to the [result page](./result.md) `head` element.
@@ -40,7 +42,7 @@ This code:
 becomes:
 
 ```css
-@import 'https://cdn.jsdelivr.net/npm/github-markdown-css';
+@import 'https://unpkg.com/github-markdown-css';
 ```
 
 demo:
@@ -48,19 +50,6 @@ demo:
 <LiveCodes template="markdown" params={{activeEditor:'style', compiled:'open'}}></LiveCodes>
 
 The content can be inlined in the compiled CSS by enabling the processor [postcss-import-url](../languages/postcssImportUrl.md).
-
-The previous example then becomes:
-
-```css
-/**
- * Minified by jsDelivr using clean-css v5.3.1.
- * Original file: /npm/github-markdown-css@5.2.0/github-markdown.css
- *
- * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
- */
-@media (prefers-color-scheme:dark){.markdown-body{color-scheme:dark;--color-prettylights-syntax-comment:#8b949e;--color-prettylights-syntax-constant:#79c0ff;--color-prettylights-syntax-entity:#d2a8ff;
-/* ... the rest of content */
-```
 
 ### Compiled CSS
 
@@ -83,6 +72,36 @@ External stylesheets can be added to embedded playgrounds using the [configurati
 ## CSS Presets
 
 CSS presets like [Normalize.css](https://necolas.github.io/normalize.css/) and [Reset CSS](https://meyerweb.com/eric/tools/css/reset/) can be selected in [external resources](./external-resources.md#css-presets) screen.
+
+## Stylesheets Imported in Script Editor
+
+### External Stylesheets
+
+CSS stylesheets imported in the script editor are added to the [result page](./result.md) `head` element. _The URL has to end with **`.css` extension**_.
+
+Currently, compiling imported stylesheets (e.g. SCSS) is not supported.
+
+Similar to [imports in style editor](#style-imports), bare imports are converted to full URLs from CDN.
+
+For example, adding this in the script editor (JavaScript):
+
+```js
+import 'github-markdown-css/github-markdown.css';
+```
+
+adds this to the page `head`:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/github-markdown-css/github-markdown.css" />
+```
+
+### `./style.css`
+
+Importing the URL that does not include (`./style.css` or `./styles.css`) gets the style editor compiled/processed CSS **string** as the module's default export.
+
+## CSS Modules
+
+## CSS Frameworks (e.g. Tailwind CSS)
 
 ## Styles in Markup & Script
 

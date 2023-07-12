@@ -12,7 +12,7 @@ LiveCodes provides support for a wide range of languages, which include (but not
 
 - Syntax used by web libraries/frameworks (e.g. JSX, TSX, Vue SFC, Svelte SFC, MDX, Astro).
 - Languages that transpile to JavaScript (e.g. TypeScript, CoffeeScript, LiveScript, ReScript).
-- Languages/utilities that generate CSS (e.g. SCSS, Less, Stylus, Tailwind CSS, UnoCSS).
+- Languages/frameworks that generate CSS (e.g. SCSS, Less, Stylus, Tailwind CSS, UnoCSS).
 - CSS processors (e.g. PostCSS, Autoprefixer, Lightning CSS, CSS Modules, cssnano)
 - Traditional programming languages (e.g. Python, Ruby, Go, PHP, C++, R, Lua, Scheme, Perl).
 - Data manipulation/logic languages (e.g. SQL, Prolog).
