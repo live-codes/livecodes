@@ -100,7 +100,7 @@ const baseOptions = {
   outdir: 'build/livecodes',
   format: 'esm',
   target: 'es2020',
-  sourcemap: true,
+  sourcemap: false,
   sourcesContent: true,
   define: {
     'process.env.VERSION': `"${appVersion || ''}"`,
@@ -305,12 +305,7 @@ prepareDir().then(() => {
       if (!devMode) {
         buildVendors();
       }
-      await applyHash({
-        devMode,
-        buildDir: 'build/livecodes/',
-        patchDirs: ['build/', 'build/livecodes/'],
-        getTaggedName: (filename) => `{{hash:${filename}}}`,
-      });
+      await applyHash({ devMode });
       await injectCss();
       console.log('built to: ' + baseOptions.outdir + '/');
     },

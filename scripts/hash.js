@@ -1,20 +1,42 @@
 const fs = require('fs');
-const md5File = require('md5-file');
+const crypto = require('crypto');
 
 const applyHash = async (
-  /** @type {{devMode:boolean; buildDir: string; patchDirs: string[]; getTaggedName?: (filename: string) => string}} */ {
-    devMode,
-    buildDir,
-    patchDirs,
-    getTaggedName,
-  },
+  /** @type {{devMode?:boolean; buildDir?: string; entryPoint?: string; patchFiles?: string[]; hashPattern?: RegExp}} */ {
+    devMode = false,
+    buildDir = 'build/livecodes/',
+    entryPoint = 'index.js',
+    patchFiles = ['build/index.html'],
+    hashPattern = /{{hash:([\w\.-]+)}}/g,
+  } = {},
 ) => {
   const filetypes = ['js', 'css', 'html', 'svg', 'ico', 'png'];
 
-  const getFileNames = async (dir = buildDir) =>
+  const getFileNames = async (dir) =>
     (await fs.promises.readdir(dir))
       .filter((name) => !fs.statSync(dir + name).isDirectory())
       .filter((name) => filetypes.some((t) => name.endsWith('.' + t)));
+
+  const getAllFiles = async (srcDirs) => {
+    const srcFiles = [];
+    for (const dir of srcDirs) {
+      (await getFileNames(dir)).forEach((file) => {
+        srcFiles.push(dir + file);
+      });
+    }
+    return srcFiles;
+  };
+
+  const devPatch = async () => {
+    const buildDirFiles = await getAllFiles([buildDir]);
+    for (const file of [...patchFiles, ...buildDirFiles]) {
+      const data = await fs.promises.readFile(file, 'utf8');
+      const result = data.replace(new RegExp(hashPattern), (_match, name) => name);
+      await fs.promises.writeFile(file, result, 'utf8');
+    }
+  };
+
+  if (devMode) return devPatch();
 
   const addHash = (/** @type {string} */ file, /** @type {string} */ hash) => {
     const ext = filetypes.find((t) => file.endsWith('.' + t));
@@ -30,51 +52,52 @@ const applyHash = async (
     return fileParts.filter((x, id) => x.length !== 32 || id === 0).join('.');
   };
 
-  const patch = async (
-    /** @type {string} */ filePath,
-    /** @type {Record<string, string>} */ replacements = {},
-  ) => {
-    const data = await fs.promises.readFile(filePath, 'utf8');
-    var result = data;
-    for (const key of Object.keys(replacements)) {
-      const filename = typeof getTaggedName === 'function' ? getTaggedName(key) : key;
-      result = result.split(filename).join(replacements[key]);
-    }
-    if (result === data) return;
-    await fs.promises.writeFile(filePath, result, 'utf8');
-  };
+  const md5 = (data) => crypto.createHash('md5').update(data).digest('hex');
 
   /** @type {Record<string, string>} */
   const hashMap = {};
 
-  await Promise.all(
-    (
-      await getFileNames()
-    ).map(async (file) => {
-      if (!filetypes.some((ext) => file.endsWith(`.${ext}`))) return;
-      if (devMode) {
-        hashMap[file] = file;
-        return;
-      }
-      const hash = await md5File(buildDir + file);
-      const newFile = addHash(file, hash);
-      hashMap[file] = newFile;
-    }),
-  );
+  const patch = async (/** @type {string} */ fileName) => {
+    if (hashMap[fileName]) return;
+    hashMap[fileName] = 'waiting';
+    const data = await fs.promises.readFile(buildDir + fileName, 'utf8').catch((e) => {
+      if (devMode) return '';
+      throw e;
+    });
+    const matches = data.matchAll(new RegExp(hashPattern));
+    for (const match of matches) {
+      const matchName = match[1];
+      if (!matchName || hashMap[matchName]) continue;
+      await patch(matchName);
+    }
+    const result = data.replace(new RegExp(hashPattern), (_match, name) => hashMap[name]);
 
-  await Promise.all(
-    Object.keys(hashMap).map(
-      (x) =>
-        fs.promises
-          .rename(buildDir + x, buildDir + hashMap[x])
-          .catch(() => fs.promises.rename(buildDir + x, buildDir + hashMap[x])), // retry
-    ),
-  );
+    if (devMode) {
+      hashMap[fileName] = fileName;
+      await fs.promises.writeFile(buildDir + fileName, result, 'utf8');
+      return;
+    }
 
-  const dirsToPatch = patchDirs;
-  for (const dir of dirsToPatch) {
-    const files = await getFileNames(dir);
-    await Promise.all(files.map((file) => patch(dir + file, hashMap)));
+    const hash = md5(result);
+    const hashedName = addHash(fileName, hash);
+    hashMap[fileName] = hashedName;
+    await fs.promises.writeFile(buildDir + hashedName, result, 'utf8');
+  };
+
+  await patch(entryPoint);
+
+  for (const file of Object.keys(hashMap)) {
+    if (hashMap[file] !== file) {
+      await fs.promises.unlink(buildDir + file).catch((e) => {
+        if (!devMode) throw e;
+      });
+    }
+  }
+
+  for (const file of patchFiles) {
+    const data = await fs.promises.readFile(file, 'utf8');
+    const result = data.replace(new RegExp(hashPattern), (_match, name) => hashMap[name]);
+    await fs.promises.writeFile(file, result, 'utf8');
   }
 };
 

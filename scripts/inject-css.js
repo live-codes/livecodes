@@ -15,6 +15,7 @@ const injectCss = async () => {
 
   var result = html.replace('<!-- index.css -->', `<style>\n${css}</style>`);
   fs.writeFileSync(path.resolve(htmlFile), result, 'utf8');
+  fs.unlinkSync(path.resolve(outDir + cssFile));
 };
 
 module.exports = { injectCss };

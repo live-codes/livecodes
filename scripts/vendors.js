@@ -65,7 +65,7 @@ const buildVendors = () => {
       'monaco-lang-astro.ts',
       'monaco-lang-clio.ts',
       'monaco-lang-imba.ts',
-      'monaco-lang-sql.ts',
+      // 'monaco-lang-sql.ts',
       'monaco-lang-wat.ts',
     ].map((entry) => srcDir + 'languages/' + entry),
     format: 'esm',
