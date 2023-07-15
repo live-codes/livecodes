@@ -28,21 +28,26 @@ In embedded playgrounds, processors are enabled via the [`processors`](../config
 
 ### Style Imports
 
-[Bare modules](./module-resolution.md#bare-module-imports) used with `@import` rules are supposed to be npm modules. These are converted to [full URLs from CDN](./module-resolution.md#cdn-providers).  
-Please note that such packages need to specify a stylesheet as the main module.
+[Bare modules](./module-resolution.md#bare-module-imports) used with `@import` rules are supposed to be npm modules. These are converted to [full URLs from CDN](./module-resolution.md#cdn-providers).
 
 #### Example
 
 This code:
 
 ```css
-@import 'github-markdown-css';
+@import 'github-markdown-css/github-markdown.css';
 ```
 
 becomes:
 
 ```css
-@import 'https://unpkg.com/github-markdown-css';
+@import 'https://unpkg.com/github-markdown-css/github-markdown.css';
+```
+
+Packages that specify a stylesheet as the main module can be imported like that:
+
+```css
+@import 'github-markdown-css';
 ```
 
 demo:
@@ -59,9 +64,9 @@ The compiled code can be inspected in the [compiled code viewer](./compiled-code
 
 ### Auto-update
 
-When [`autoupdate`](../configuration/configuration-object.md#autoupdate) is enabled (default), in contrast to [markup editor](./projects.md#markup-editor) and [script editor](./projects.md#script-editor), changes in style editor code does NOT trigger a full reload of the [result page](./result.md). The updated style code is sent to the page and applied without a reload.
+When [`autoupdate`](../configuration/configuration-object.md#autoupdate) is enabled (default), in contrast to [markup editor](./projects.md#markup-editor) and [script editor](./projects.md#script-editor), changes in style editor code does NOT trigger a full reload of the [result page](./result.md). The updated CSS code is sent to the page and applied without a reload.
 
-The page can be force-reloaded by clicking the run button or using the keyboard shortcut <kbd>Shift + Enter</kbd>.
+The page can be force-reloaded by clicking the run button or using the keyboard shortcut: <kbd>Shift</kbd>&nbsp;+&nbsp;<kbd>Enter</kbd>.
 
 ## External Resources
 
@@ -79,14 +84,10 @@ CSS presets like [Normalize.css](https://necolas.github.io/normalize.css/) and [
 
 CSS stylesheets imported in the script editor are added to the [result page](./result.md) `head` element. _The URL has to end with **`.css` extension**_.
 
-Currently, compiling imported stylesheets (e.g. SCSS) is not supported.
-
-Similar to [imports in style editor](#style-imports), bare imports are converted to full URLs from CDN.
-
 For example, adding this in the script editor (JavaScript):
 
 ```js
-import 'github-markdown-css/github-markdown.css';
+import 'https://unpkg.com/github-markdown-css/github-markdown.css';
 ```
 
 adds this to the page `head`:
@@ -95,17 +96,45 @@ adds this to the page `head`:
 <link rel="stylesheet" href="https://unpkg.com/github-markdown-css/github-markdown.css" />
 ```
 
+Currently, compiling imported stylesheets (e.g. SCSS) is not supported.
+
+Similar to [imports in style editor](#style-imports), bare imports are converted to full URLs from CDN.
+
+For example:
+
+```js
+import 'github-markdown-css/github-markdown.css';
+```
+
+becomes:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/github-markdown-css/github-markdown.css" />
+```
+
 ### `./style.css`
 
-Importing the URL that does not include (`./style.css` or `./styles.css`) gets the style editor compiled/processed CSS **string** as the module's default export.
+Importing the URLs (`./style.css` or `./styles.css`) gets the style editor compiled/processed CSS **string** as the module's default export.
+
+Example:
+
+```js
+import styles from './style.css';
+
+console.log(styles); // => compiled CSS as string
+```
 
 ## CSS Modules
 
-## CSS Frameworks (e.g. Tailwind CSS)
+CSS modules are supported and are [documented separately](../languages/cssmodules.md).
+
+## CSS Frameworks
+
+Multiple CSS frameworks are supported including [Tailwind CSS](../languages/tailwindcss.md), [UnoCSS](../languages/unocss.md) and [WindiCSS](../languages/windicss.md).
 
 ## Styles in Markup & Script
 
-Of course, styles and stylesheets can still be added as usual in markup and script (via HTML elements and/or DOM).
+Of course, styles and stylesheets can still be added as usual in markup and script editors (via HTML elements and/or DOM).
 
 ## Related
 
