@@ -1,60 +1,61 @@
+/* eslint-disable import/no-unresolved */
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
-import resultTemplateRaw from './sandbox/v6/result.html';
+import resultTemplateRaw from './sandbox/v6/result.html?raw';
 // @ts-ignore
-import appHTMLRaw from './app.html';
+import appHTMLRaw from './app.html?raw';
 // @ts-ignore
-import settingsMenuHTMLRaw from './settings-menu.html';
+import settingsMenuHTMLRaw from './settings-menu.html?raw';
 // @ts-ignore
-import languageInfoRaw from './language-info.html';
+import languageInfoRaw from './language-info.html?raw';
 // @ts-ignore
-import customSettingsScreenRaw from './custom-settings.html';
+import customSettingsScreenRaw from './custom-settings.html?raw';
 // @ts-ignore
-import testEditorScreenRaw from './test-editor.html';
+import testEditorScreenRaw from './test-editor.html?raw';
 // @ts-ignore
-import importScreenRaw from './import.html';
+import importScreenRaw from './import.html?raw';
 // @ts-ignore
-import deployScreenRaw from './deploy.html';
+import deployScreenRaw from './deploy.html?raw';
 // @ts-ignore
-import syncScreenRaw from './sync.html';
+import syncScreenRaw from './sync.html?raw';
 // @ts-ignore
-import backupScreenRaw from './backup.html';
+import backupScreenRaw from './backup.html?raw';
 // @ts-ignore
-import broadcastScreenRaw from './broadcast.html';
+import broadcastScreenRaw from './broadcast.html?raw';
 // @ts-ignore
-import welcomeScreenRaw from './welcome.html';
+import welcomeScreenRaw from './welcome.html?raw';
 // @ts-ignore
-import aboutScreenRaw from './about.html';
+import aboutScreenRaw from './about.html?raw';
 // @ts-ignore
-import infoScreenRaw from './project-info.html';
+import infoScreenRaw from './project-info.html?raw';
 // @ts-ignore
-import resourcesScreenRaw from './external-resources.html';
+import resourcesScreenRaw from './external-resources.html?raw';
 // @ts-ignore
-import loginScreenRaw from './login.html';
+import loginScreenRaw from './login.html?raw';
 // @ts-ignore
-import savePromptScreenRaw from './save-prompt.html';
+import savePromptScreenRaw from './save-prompt.html?raw';
 // @ts-ignore
-import recoverPromptScreenRaw from './recover-prompt.html';
+import recoverPromptScreenRaw from './recover-prompt.html?raw';
 // @ts-ignore
-import templatesScreenRaw from './templates.html';
+import templatesScreenRaw from './templates.html?raw';
 // @ts-ignore
-import openScreenRaw from './open.html';
+import openScreenRaw from './open.html?raw';
 // @ts-ignore
-import assetsScreenRaw from './assets.html';
+import assetsScreenRaw from './assets.html?raw';
 // @ts-ignore
-import addAssetScreenRaw from './add-asset.html';
+import addAssetScreenRaw from './add-asset.html?raw';
 // @ts-ignore
-import snippetsScreenRaw from './snippets.html';
+import snippetsScreenRaw from './snippets.html?raw';
 // @ts-ignore
-import addSnippetScreenRaw from './add-snippet.html';
+import addSnippetScreenRaw from './add-snippet.html?raw';
 // @ts-ignore
-import shareScreenRaw from './share.html';
+import shareScreenRaw from './share.html?raw';
 // @ts-ignore
-import embedScreenRaw from './embed.html';
+import embedScreenRaw from './embed.html?raw';
 // @ts-ignore
-import editorSettingsScreenRaw from './editor-settings.html';
+import editorSettingsScreenRaw from './editor-settings.html?raw';
 // @ts-ignore
-import resultPopupHTMLRaw from './result-popup.html';
+import resultPopupHTMLRaw from './result-popup.html?raw';
 
 const replaceValues = (str: string) =>
   str
