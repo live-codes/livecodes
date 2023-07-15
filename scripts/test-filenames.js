@@ -1,8 +1,19 @@
 const fs = require('fs');
+const crypto = require('crypto');
 
 const srcDirs = ['build/', 'build/livecodes/'];
 const outputDir = 'build/livecodes/';
 const filetypes = ['js', 'css', 'html', 'svg', 'ico', 'png'];
+const hashPattern = /{{hash:([\w\.-]+)}}/g;
+const hashedPattern = /["'\/]([\w-\.]+\.[\w\d]{32}\.[\w]{2,3})["']/g;
+const brokenLinks = [];
+
+const ignoreHash = (filename) => {
+  if (!filename.includes(outputDir)) return true;
+  return false;
+};
+
+const md5 = (data) => crypto.createHash('md5').update(data).digest('hex');
 
 const getFileNames = async (dir) =>
   (await fs.promises.readdir(dir))
@@ -20,12 +31,18 @@ const getAllFiles = async (srcDirs) => {
 };
 
 const getHashedFileNames = async (srcFiles) => {
-  const pattern = /["'\/]([\w-\.]+\.[\w\d]{32}\.[\w]{2,3})["']/g;
   const hashedNames = [];
   for (const file of srcFiles) {
     const data = await fs.promises.readFile(file, 'utf8');
-    const matches = [...data.matchAll(new RegExp(pattern))];
-    hashedNames.push(...matches.map((m) => m[1]));
+    const hashedMatches = [...data.matchAll(new RegExp(hashedPattern))];
+    hashedNames.push(...hashedMatches.map((m) => m[1]));
+
+    const unHashedMatches = [...data.matchAll(new RegExp(hashPattern))];
+    brokenLinks.push(...unHashedMatches.map((m) => m[0]));
+
+    if (!ignoreHash(file) && !file.includes(md5(data))) {
+      brokenLinks.push(file);
+    }
   }
   return [...new Set(hashedNames)].sort();
 };
@@ -36,7 +53,6 @@ const getHashedFileNames = async (srcFiles) => {
 
   const outFiles = await getFileNames(outputDir);
 
-  const brokenLinks = [];
   for (const name of hashedNames) {
     if (!outFiles.includes(name)) {
       brokenLinks.push(name);
