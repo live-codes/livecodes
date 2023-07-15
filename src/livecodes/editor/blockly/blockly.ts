@@ -3,7 +3,8 @@ import type { BlocklyContent, CustomEditorOptions, Theme, Config } from '../../m
 import { sandboxService } from '../../services';
 import { blocklyCdnBaseUrl } from '../../vendors';
 // @ts-ignore
-import blocklyHTML from './blockly.html';
+// eslint-disable-next-line import/no-unresolved
+import blocklyHTML from './blockly.html?raw';
 
 let blocklyLoaded = false;
 let cache: {

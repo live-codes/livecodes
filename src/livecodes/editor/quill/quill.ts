@@ -7,7 +7,8 @@ import {
   quillHtmlEditUrl,
 } from '../../vendors';
 // @ts-ignore
-import quillEditorHTML from './quill.html';
+// eslint-disable-next-line import/no-unresolved
+import quillEditorHTML from './quill.html?raw';
 
 let quillEditorLoaded = false;
 let quillEditorContent = '';

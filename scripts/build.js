@@ -1,4 +1,5 @@
 const esbuild = require('esbuild');
+const minifyHTML = require('esbuild-plugin-minify-html').default;
 const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
@@ -115,6 +116,19 @@ const baseOptions = {
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
   external: ['@codemirror/*', '@lezer/*'],
+  plugins: [
+    ...(devMode
+      ? []
+      : [
+          minifyHTML({
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            minifyJS: true,
+            minifyCSS: true,
+            processScripts: ['importmap'],
+          }),
+        ]),
+  ],
 };
 
 const sdkBuild = () => {
