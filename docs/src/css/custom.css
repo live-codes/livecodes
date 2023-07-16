@@ -18,18 +18,18 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   display: none;
 }
 
-.status-link::before {
+.status-link > span::after {
   background-color: #20bf6b;
   border-radius: 50%;
   content: '';
   display: inline-block;
   height: 10px;
-  margin-right: 0.3rem;
+  margin-left: 0.3rem;
   width: 10px;
 }
 
 .status-link svg {
-  margin-left: 0.3rem;
+  margin-left: 0.4rem;
 }
 
 body[data-origin-not-allowed='true'] #kapa-widget-container {
