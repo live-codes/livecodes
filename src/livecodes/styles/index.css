@@ -44,6 +44,14 @@ body,
   font-family: monospace;
   font-size: 1.3em;
   margin-top: 15px;
+  position: relative;
+  text-align: center;
+}
+
+#loading-text svg {
+  height: 1em;
+  left: -1.5em;
+  position: absolute;
 }
 
 .embed #loading > * {
