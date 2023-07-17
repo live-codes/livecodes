@@ -10,7 +10,7 @@ The SoftWare Development Kit (SDK) provides an easy, yet powerful, interface to 
 
 The SDK is provided as a light-weight, zero-dependencies [npm package](#npm-package), that is also available from [CDNs](#cdn). It can be used to create playgrounds with a wide variety of [configurations](../configuration/configuration-object.md) and [embed options](js-ts.md#embed-options). In addition, [SDK methods](js-ts.md#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
 
-The [JavaScript SDK](js-ts.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](react.md) and [Vue](vue.md)). [TypeScript support](js-ts.md#typescript-types) provides type-safety and a great developer experience.
+The [JavaScript SDK](js-ts.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](react.md) and [Vue](vue.md)). The SDK can be used in [Svelte](svelte.md) directly without wrappers. [TypeScript support](js-ts.md#typescript-types) provides type-safety and a great developer experience.
 
 ## SDK Demo
 
@@ -22,7 +22,7 @@ This is an example of an editable embedded playground using the SDK.
 
 ### NPM Package
 
-This is a single npm package that contains the different SDKs (JavaScript/TypeScript, React and Vue).
+This is a single npm package for the SDK which supports JavaScript/TypeScript, React, Vue and Svelte.
 Install the library from npm:
 
 ```sh
@@ -93,6 +93,8 @@ The SDK is currently provided in the following variations:
 - [React](./react.md)
 
 - [Vue](./vue.md)
+
+- [Svelte](./svelte.md)
 
 ## SDK Playground!
 

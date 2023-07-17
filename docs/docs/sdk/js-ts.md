@@ -4,7 +4,7 @@ title: JS/TS SDK
 
 # JavaScript/<wbr />TypeScript SDK
 
-This is the core SDK on which others ([React](react.md) & [Vue](vue.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
+This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
 
 ## Installation
 

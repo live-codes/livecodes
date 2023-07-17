@@ -120,7 +120,8 @@ const FeatureList3: FeatureItem[] = [
         <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
         playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
         them. The SDK is available as a <Link to="./sdk/js-ts">JS/TS</Link> library, as well as{' '}
-        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> Components.
+        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> components, in
+        addition to <Link to="./sdk/svelte">Svelte</Link>.
       </>
     ),
   },
