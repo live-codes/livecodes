@@ -33,6 +33,7 @@ createPlayground('#container', options);
 
   const reactCode = `
 import LiveCodes from 'livecodes/react';
+
 export default function App() {
   const options = ${JSON.stringify(options, null, 2)};
   return (<LiveCodes {...options}></LiveCodes>);
@@ -43,6 +44,7 @@ export default function App() {
   const vueCode = `
 <script setup>
 import LiveCodes from "livecodes/vue";
+
 const options = ${JSON.stringify(options, null, 2)};
 </script>
 <template>
@@ -50,6 +52,22 @@ const options = ${JSON.stringify(options, null, 2)};
 </template>
 
 `;
+
+  const svelteCode = `
+<script>
+import { onMount } from 'svelte';
+import { createPlayground } from 'livecodes';
+
+const options = ${JSON.stringify(options, null, 2)};
+let container;
+onMount(() => {
+  createPlayground(container, options);
+});
+</script>
+
+<div bind:this="{container}"></div>
+
+`.trimStart();
 
   return (
     <>
@@ -63,7 +81,13 @@ const options = ${JSON.stringify(options, null, 2)};
         {...props}
       ></LiveCodesReact>
       {props.showCode !== false && (
-        <ShowCode js={jsCode} ts={tsCode} react={reactCode} vue={vueCode}></ShowCode>
+        <ShowCode
+          js={jsCode}
+          ts={tsCode}
+          react={reactCode}
+          vue={vueCode}
+          svelte={svelteCode}
+        ></ShowCode>
       )}
     </>
   );

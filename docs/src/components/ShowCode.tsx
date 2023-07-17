@@ -14,6 +14,7 @@ export default function ShowCode(props: {
   ts: string;
   react: string;
   vue: string;
+  svelte: string;
 }): JSX.Element {
   const codeBlockTitleHeight = '3.7rem';
   const [codeCollapsed, setCodeCollapsed] = useState(true);
@@ -76,6 +77,9 @@ export default function ShowCode(props: {
                   </TabItem>
                   <TabItem value="vue" label="Vue" attributes={{ onMouseDown: resize }}>
                     <CodeBlock language="html">{format(props.vue, 'html')}</CodeBlock>
+                  </TabItem>
+                  <TabItem value="svelte" label="Svelte" attributes={{ onMouseDown: resize }}>
+                    <CodeBlock language="html">{format(props.svelte, 'html')}</CodeBlock>
                   </TabItem>
                 </Tabs>
               </div>

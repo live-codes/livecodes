@@ -37,7 +37,7 @@ This is an example of using the LiveCodes JS SDK in a Svelte component:
 
 <RunInLiveCodes params={{x:"id/e9v4agd4nbd"}}></RunInLiveCodes>
 
-All the [embed options](./js-ts.md#embed-options), [SDK methods](./js-ts.md#sdk-methods), [styles](./js-ts.md#styles) and [TypeScript types](./js-ts.md#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.md).
+[Embed options](./js-ts.md#embed-options), [SDK methods](./js-ts.md#sdk-methods) and [TypeScript types](./js-ts.md#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.md).
 
 ## Demo
 
