@@ -46,3 +46,11 @@ svelte: `\x3Cscript>\n  import { onMount } from 'svelte';\n  import { createPlay
 ## Demo
 
 <LiveCodes params={svelteSDKDemo} height="80vh" />
+
+## Related
+
+- [SDK Installation](./index.md#installation)
+- [JS/TS SDK](./js-ts.md)
+- [React SDK](./react.md)
+- [Vue SDK](./vue.md)
+- [Embedded Playgrounds](../features/embeds.md)

@@ -143,7 +143,7 @@ In addition, the following props are also available:
 ## Demo
 
 export const reactSDKDemo = {
-jsx: `import React from "react";\nimport { createRoot } from "react-dom/client";\nimport LiveCodes from 'livecodes/react';\n\nconst params = {\n  html: '<h1>Hello World!</h1>',\n  css: 'h1 {color: blue;}',\n  js: 'console.log("Hello, Svelte!")',\n  console: 'open',\n};\n\nconst root = createRoot(document.querySelector("#app"));\nroot.render(<LiveCodes params={params} />);\n`,
+jsx: `import React from "react";\nimport { createRoot } from "react-dom/client";\nimport LiveCodes from "livecodes/react";\n\nconst App = () => {\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, Svelte!")',\n    console: "open",\n  };\n\n  return <LiveCodes params={params} />;\n};\n\nconst root = createRoot(document.querySelector("#app"));\nroot.render(<App />);\n`,
 html: `<div id="app">Loading...</div>`,
 }
 
@@ -155,3 +155,4 @@ html: `<div id="app">Loading...</div>`,
 - [JS/TS SDK](./js-ts.md)
 - [Vue SDK](./vue.md)
 - [Using SDK in Svelte](./svelte.md)
+- [Embedded Playgrounds](../features/embeds.md)

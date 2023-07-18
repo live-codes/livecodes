@@ -4,6 +4,8 @@ title: JS/TS SDK
 
 # JavaScript/<wbr />TypeScript SDK
 
+import LiveCodes from '../../src/components/LiveCodes.tsx'
+
 This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
 
 ## Installation
@@ -413,3 +415,19 @@ Example:
   createPlayground('#container');
 </script>
 ```
+
+## Demo
+
+export const sdkDemo = {
+js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, Svelte!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
+html: '<div id="container"></div>',
+}
+
+<LiveCodes params={sdkDemo} height="80vh" />
+
+## Related
+
+- [React SDK](./react.md)
+- [Vue SDK](./vue.md)
+- [Using SDK in Svelte](./svelte.md)
+- [Embedded Playgrounds](../features/embeds.md)

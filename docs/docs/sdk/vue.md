@@ -163,3 +163,4 @@ vue: `<script setup>\n  import LiveCodes from 'livecodes/vue';\n  \n  const para
 - [JS/TS SDK](./js-ts.md)
 - [React SDK](./react.md)
 - [Using SDK in Svelte](./svelte.md)
+- [Embedded Playgrounds](../features/embeds.md)
