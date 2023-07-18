@@ -1,5 +1,7 @@
 # React SDK
 
+import LiveCodes from '../../src/components/LiveCodes.tsx'
+
 The react SDK is a thin wrapper around the [JavaScript SDK](js-ts.md) to provide an easy to use react component, yet retaining the full power, by having access to the [SDK methods](js-ts.md#sdk-methods).
 
 It has a very simple [implementation](https://github.com/live-codes/livecodes/blob/develop/src/sdk/react.tsx) which you can easily modify in case you need.
@@ -13,6 +15,7 @@ Please refer to the [SDK installation](./index.md#installation) section.
 The react component is provided as the default export from `livecodes/react`.
 
 ```jsx title="JSX"
+import React from 'react';
 import LiveCodes from 'livecodes/react';
 
 export const Playground = () => <LiveCodes />;
@@ -23,6 +26,7 @@ export const Playground = () => <LiveCodes />;
 Prop types are exported as `Props` from `livecodes/react`.
 
 ```tsx title="TSX"
+import React from 'react';
 import LiveCodes, { type Props } from 'livecodes/react';
 
 const options: Props = {
@@ -40,6 +44,7 @@ All [embed options](js-ts.md#embed-options) are available as props with the corr
 Example:
 
 ```jsx title="JSX"
+import React from 'react';
 import LiveCodes from 'livecodes/react';
 
 const config = {
@@ -62,6 +67,7 @@ In addition, the following props are also available:
   Example:
 
   ```jsx title="JSX"
+  import React from 'react';
   import LiveCodes from 'livecodes/react';
 
   export const Playground = () => <LiveCodes className="centered" />;
@@ -76,6 +82,7 @@ In addition, the following props are also available:
   Example:
 
   ```jsx title="JSX"
+  import React from 'react';
   import LiveCodes from 'livecodes/react';
 
   export const Playground = () => <LiveCodes height="500px" />;
@@ -90,6 +97,7 @@ In addition, the following props are also available:
   Example:
 
   ```tsx title="JSX"
+  import React from 'react';
   import LiveCodes from 'livecodes/react';
 
   const style = {
@@ -108,6 +116,7 @@ In addition, the following props are also available:
   Example:
 
   ```tsx title="TSX"
+  import React from 'react';
   import LiveCodes from 'livecodes/react';
   import type { Playground } from 'livecodes';
 
@@ -130,3 +139,19 @@ In addition, the following props are also available:
     );
   };
   ```
+
+## Demo
+
+export const reactSDKDemo = {
+jsx: `import React from "react";\nimport { createRoot } from "react-dom/client";\nimport LiveCodes from 'livecodes/react';\n\nconst params = {\n  html: '<h1>Hello World!</h1>',\n  css: 'h1 {color: blue;}',\n  js: 'console.log("Hello, Svelte!")',\n  console: 'open',\n};\n\nconst root = createRoot(document.querySelector("#app"));\nroot.render(<LiveCodes params={params} />);\n`,
+html: `<div id="app">Loading...</div>`,
+}
+
+<LiveCodes params={reactSDKDemo} height="80vh" />
+
+## Related
+
+- [SDK Installation](./index.md#installation)
+- [JS/TS SDK](./js-ts.md)
+- [Vue SDK](./vue.md)
+- [Using SDK in Svelte](./svelte.md)

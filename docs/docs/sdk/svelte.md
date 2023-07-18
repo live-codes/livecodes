@@ -35,10 +35,14 @@ This is an example of using the LiveCodes JS SDK in a Svelte component:
 <div bind:this="{container}"></div>
 ```
 
-<RunInLiveCodes params={{x:"id/e9v4agd4nbd"}}></RunInLiveCodes>
+export const svelteSDKDemo = {
+svelte: `\x3Cscript>\n  import { onMount } from 'svelte';\n  import { createPlayground } from 'livecodes';\n\n  let container;\n\n  const params = { \n    html: '<h1>Hello World!</h1>',\n    css: 'h1 {color: blue;}',\n    js: 'console.log("Hello, Svelte!")',\n    console: 'open',\n  }\n\n  onMount(() => {\n    createPlayground(container, { params });\n  });\n\x3C/script>\n\n<div bind:this="{container}"></div>\n`,
+};
+
+<RunInLiveCodes params={svelteSDKDemo}></RunInLiveCodes>
 
 [Embed options](./js-ts.md#embed-options), [SDK methods](./js-ts.md#sdk-methods) and [TypeScript types](./js-ts.md#typescript-types) are available as described in the [JS/TS SDK documentations](./js-ts.md).
 
 ## Demo
 
-<LiveCodes import="id/e9v4agd4nbd" height="80vh" />
+<LiveCodes params={svelteSDKDemo} height="80vh" />

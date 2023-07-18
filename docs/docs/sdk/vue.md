@@ -1,5 +1,7 @@
 # Vue SDK
 
+import LiveCodes from '../../src/components/LiveCodes.tsx'
+
 The vue SDK is a thin wrapper around the [JavaScript SDK](js-ts.md) to provide an easy to use vue component, yet retaining the full power, by having access to the [SDK methods](js-ts.md#sdk-methods).
 
 It has a very simple [implementation](https://github.com/live-codes/livecodes/blob/develop/src/sdk/vue.ts) which you can easily modify in case you need.
@@ -146,3 +148,18 @@ Example:
   <LiveCodes :style="style" />
 </template>
 ```
+
+## Demo
+
+export const vueSDKDemo = {
+vue: `<script setup>\n  import LiveCodes from 'livecodes/vue';\n  \n  const params = {\n    html: '<h1>Hello World!</h1>',\n    css: 'h1 {color: blue;}',\n    js: 'console.log("Hello, Svelte!")',\n    console: 'open',\n  };\n</script>\n\n<template>\n  <LiveCodes :params="params" />\n</template>\n`,
+}
+
+<LiveCodes params={vueSDKDemo} height="80vh" />
+
+## Related
+
+- [SDK Installation](./index.md#installation)
+- [JS/TS SDK](./js-ts.md)
+- [React SDK](./react.md)
+- [Using SDK in Svelte](./svelte.md)
