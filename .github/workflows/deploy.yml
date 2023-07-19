@@ -26,4 +26,8 @@ jobs:
         run: npm ci
 
       - name: Deploy
-        run: npm run deploy
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@${{github.repositoryUrl}}
+          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
