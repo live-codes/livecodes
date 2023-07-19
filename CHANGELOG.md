@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v7](https://github.com/live-codes/livecodes/compare/v6...v7) (2023-07-19)
+
+- **CI**: fix deploy to gh-pages
+
+---
+
 ## [v6](https://github.com/live-codes/livecodes/compare/sdk-v0.0.3...0.0.0) (2023-07-19)
 
 - **CI**: fix deploy to gh-pages
