@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v6](https://github.com/live-codes/livecodes/compare/sdk-v0.0.3...0.0.0) (2023-07-19)
+
+- **CI**: fix deploy to gh-pages
+
+---
+
 ## [sdk-v0.0.3](https://github.com/live-codes/livecodes/compare/v5...sdk-v0.0.3) (2023-07-19)
 
 - **SDK:** fix race condition when loading from sdk ([bdc25f6](https://github.com/live-codes/livecodes/commit/bdc25f6ad7d85f015b3e6ccef35dcfa4ec0cf31d))
