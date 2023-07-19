@@ -152,6 +152,7 @@ export const createEmbedUI = async ({
         { label: 'Script (npm)', value: 'npm' },
         { label: 'React', value: 'react' },
         { label: 'Vue', value: 'vue' },
+        { label: 'Svelte', value: 'svelte' },
         { label: 'Iframe', value: 'iframe' },
         { label: 'HTML', value: 'html' },
       ],
@@ -349,6 +350,25 @@ export default function App() {
 <template>
   <LiveCodes v-bind="options" />
 </template>
+`.trimStart();
+    },
+    svelte(data: FormData) {
+      const options = getOptions(data);
+      const formatted = JSON.stringify(options, null, 2);
+      const indented = indentCode(formatted, 2);
+      return `
+<script>
+  import { onMount } from 'svelte';
+  import { createPlayground } from 'livecodes';
+
+  const options = ${indented};
+  let container;
+  onMount(() => {
+    createPlayground(container, options);
+  });
+</script>
+
+<div bind:this="{container}"></div>
 `.trimStart();
     },
     iframe: (data: FormData) => {

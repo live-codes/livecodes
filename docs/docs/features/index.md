@@ -69,7 +69,7 @@ LiveCodes runs in the browser, where all the processing/transpilation occurs, wi
 LiveCodes makes it easy to [get started](../getting-started). It is highly [configurable](../configuration). Lots of features can be
 configured by URL [query params](../configuration/query-params). The [SDK](../sdk/) facilitates [embedding](./embeds.md)
 playgrounds and allows easy [communication](../sdk/js-ts#sdk-methods) with
-them. The SDK is available as a [JS/TS](../sdk/js-ts.md) library, as well as [React](../sdk/react.md) and [Vue](../sdk/vue.md) Components.
+them. The SDK is available for use in [JS/TS](../sdk/js-ts.md), [React](../sdk/react.md) [Vue](../sdk/vue.md) and [Svelte](../sdk/svelte.md).
 
 ## Comprehensive Documentations
 

@@ -305,6 +305,10 @@ export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/s
 
 export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.2.0/dist/umd/stylis.js');
 
+export const svelteRuntimeBaseUrl = /* @__PURE__ */ getUrl(
+  'https://unpkg.com/svelte@4.0.0/src/runtime/internal/',
+);
+
 export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 
 export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.9.6/dist/');

@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { vendorsBaseUrl } from '../../vendors';
+import { svelteRuntimeBaseUrl, vendorsBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const svelte: LanguageSpecs = {
@@ -16,9 +16,9 @@ export const svelte: LanguageSpecs = {
       return (self as any).createSvelteCompiler();
     },
     imports: {
-      'svelte/internal': 'https://unpkg.com/svelte@4.0.0/src/runtime/internal/index.js',
-      'svelte/internal/disclose-version':
-        'https://unpkg.com/svelte@4.0.0/src/runtime/internal/disclose-version/index.js',
+      svelte: svelteRuntimeBaseUrl + 'index.js',
+      'svelte/internal': svelteRuntimeBaseUrl + 'index.js',
+      'svelte/internal/disclose-version': svelteRuntimeBaseUrl + 'disclose-version/index.js',
     },
   },
   extensions: ['svelte'],

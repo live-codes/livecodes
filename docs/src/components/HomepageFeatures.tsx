@@ -120,7 +120,8 @@ const FeatureList3: FeatureItem[] = [
         <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
         playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
         them. The SDK is available as a <Link to="./sdk/js-ts">JS/TS</Link> library, as well as{' '}
-        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> Components.
+        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> components, in
+        addition to <Link to="./sdk/svelte">Svelte</Link>.
       </>
     ),
   },
@@ -129,9 +130,10 @@ const FeatureList3: FeatureItem[] = [
     image: './img/data-privacy.svg',
     description: (
       <>
-        Projects are private by default. The code you write in LiveCodes never leaves your computer,
-        unless you choose to share, export or sync it. User data is stored in the browser.{' '}
-        <Link to="./features/security">Security</Link> is taken seriously.
+        Projects are private by default. The code you write in LiveCodes never leaves your device,
+        unless you choose to share, export or sync it. User data is stored in the browser. User code
+        runs in a sandboxed environment. <Link to="./features/security">Security</Link> is taken
+        seriously.
       </>
     ),
   },
@@ -144,7 +146,8 @@ const FeatureList3: FeatureItem[] = [
         <Link to="./features">features</Link>, <Link to="./configuration">configuration</Link> and{' '}
         <Link to="./sdk">SDK</Link> (including <Link to="./api/modules">TypeScript types</Link>).
         Documentations are rich with code samples, live demos and screenshots. A gallery of usage
-        examples is provided as a <Link to="pathname:///../stories">storybook.</Link>
+        examples is provided as a <Link to="pathname:///../stories">storybook</Link>. You can even
+        just ask our <strong>AI chatbot</strong>.
       </>
     ),
   },
