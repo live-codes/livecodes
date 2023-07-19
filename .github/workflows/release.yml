@@ -75,7 +75,9 @@ jobs:
 
       - name: Publish SDK to NPM
         if: startsWith(github.head_ref, 'releases/sdk-v')
-        run: npm publish --access=public
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          npm publish --access=public
         working-directory: ./build/sdk
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}

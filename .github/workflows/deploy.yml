@@ -26,4 +26,4 @@ jobs:
         run: npm ci
 
       - name: Deploy
-        run: npm run self-host
+        run: npm run deploy
