@@ -98,7 +98,7 @@ const stringify = (obj) => JSON.stringify(obj, null, 2) + '\n';
 
 const cancelRelease = async () => {
   if (await confirm({ message: 'Cancelling release. Do you want to discard all changes?' })) {
-    execSync(`git reset -hard && git clean -fxd`);
+    execSync(`git reset --hard && git clean -fxd`);
   }
   console.log('Release cancelled!');
   process.exit(1);
