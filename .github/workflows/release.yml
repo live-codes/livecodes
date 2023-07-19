@@ -59,11 +59,6 @@ jobs:
             livecodes-${{steps.vars.outputs.version}}.zip
           token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
 
-      - name: Create pull request to main
-        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://${{steps.vars.outputs.version}}.livecodes.io" --base main --head develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
-
       - name: Create permanent URL
         if: startsWith(github.head_ref, 'releases/v')
         run: node ./scripts/create-permanent-url.js
@@ -81,3 +76,15 @@ jobs:
         working-directory: ./build/sdk
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Create pull request to main (App)
+        if: startsWith(github.head_ref, 'releases/v')
+        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://${{steps.vars.outputs.version}}.livecodes.io" --base main --head develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
+      - name: Create pull request to main (SDK)
+        if: startsWith(github.head_ref, 'releases/sdk-v')
+        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "https://www.npmjs.com/package/livecodes" --base main --head develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
