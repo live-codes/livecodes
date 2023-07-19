@@ -12,6 +12,6 @@ jobs:
         run: echo ::set-output name=version::$(echo ${{github.ref_name}} | sed 's/^releases\///')
 
       - name: Create pull request to develop
-        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --base develop --head ${{github.ref_name}}
+        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --body "release ${{steps.vars.outputs.version}}" --base develop --head ${{github.ref_name}}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
