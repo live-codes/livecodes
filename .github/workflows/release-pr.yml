@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.ref, 'refs/heads/releases/')
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+
       - name: Get version
         id: vars
         run: echo ::set-output name=version::$(echo ${{github.ref_name}} | sed 's/^releases\///')

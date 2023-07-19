@@ -30,8 +30,6 @@ All notable changes to this project will be documented in this file. See [standa
 - **import:** show error for invalid template/import URL ([691afcf](https://github.com/live-codes/livecodes/commit/691afcfc93d36605950d7167bcad4ed46f29af7f))
 - in `result` mode, hide toolspane by default ([e38128c](https://github.com/live-codes/livecodes/commit/e38128cb2322422282576bb1095074922d018ee0))
 - **result:** improve console ([70106d7](https://github.com/live-codes/livecodes/commit/70106d7ee90281fe09064c1b44ca6136125f32cc))
-- **SDK:** fix race condition when loading from sdk ([bdc25f6](https://github.com/live-codes/livecodes/commit/bdc25f6ad7d85f015b3e6ccef35dcfa4ec0cf31d))
-- **SDK:** fix sending config object from SDK ([457696f](https://github.com/live-codes/livecodes/commit/457696f92d99dbc1d2da13046ccda0c8aa0157f0))
 - **UI:** do not double check saved status on new -> starter template ([8675b48](https://github.com/live-codes/livecodes/commit/8675b489510e996473c56f8be310864987f9f88f))
 - **UI:** hide editors till they become active ([4d52cc7](https://github.com/live-codes/livecodes/commit/4d52cc7f6b3a65c1575cfa9cd5e07e331a09e713))
 - use appCDN in result page scripts ([3d3923e](https://github.com/live-codes/livecodes/commit/3d3923e231af57878ec3a5736987dcb5f45f3466))
