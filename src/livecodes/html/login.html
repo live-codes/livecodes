@@ -1,29 +1,50 @@
 <div id="login-screen" class="modal-container">
   <div class="modal-title">Login with GitHub</div>
-  <div class="modal-content">
-    <p>Allow access to:</p>
-    <div>
-      <input
-        type="checkbox"
-        value="public_repo"
-        id="public_repo"
-        name="public_repo"
-        checked="checked"
-      />
-      <label for="public_repo">Repos</label>
-      <div class="indent">
-        <input type="checkbox" value="repo" id="repo" name="repo" checked="checked" /><label
-          for="repo"
-          >Private Repos</label
+  <div class="modal-screen-container">
+    <div class="modal-content">
+      <p>Allow access to:</p>
+      <div>
+        <input
+          type="checkbox"
+          value="public_repo"
+          id="public_repo"
+          name="public_repo"
+          checked="checked"
+        />
+        <label for="public_repo">Repos</label>
+        <div class="indent">
+          <input type="checkbox" value="repo" id="repo" name="repo" checked="checked" /><label
+            for="repo"
+            >Private Repos</label
+          >
+        </div>
+        <input type="checkbox" value="gist" id="gist" name="gist" checked="checked" /><label
+          for="gist"
+          >Gists</label
         >
       </div>
-      <input type="checkbox" value="gist" id="gist" name="gist" checked="checked" /><label
-        for="gist"
-        >Gists</label
+      <div class="buttons">
+        <button id="login-btn" class="button">Login</button>
+      </div>
+    </div>
+  </div>
+  <div class="description">
+    <p>By logging in, you agree that <strong>cookies</strong> may be stored on your device.</p>
+    <p>
+      <a
+        href="{{DOCS_BASE_URL}}features/github-integration#features-that-require-github-account"
+        target="_blank"
+        rel="noopener"
+        >Why are these permissions required?</a
       >
-    </div>
-    <div class="buttons">
-      <button id="login-btn" class="button">Login</button>
-    </div>
+    </p>
+    <p>
+      <a
+        href="{{DOCS_BASE_URL}}features/github-integration#setting-permissions"
+        target="_blank"
+        rel="noopener"
+        >How to change/revoke permissions?</a
+      >
+    </p>
   </div>
 </div>

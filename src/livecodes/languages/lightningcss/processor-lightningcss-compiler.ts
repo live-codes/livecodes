@@ -1,10 +1,11 @@
 import type { CompilerFunction } from '../../models';
-import { getLanguageCustomSettings } from '../../utils';
+// eslint-disable-next-line import/no-internal-modules
+import { getLanguageCustomSettings } from '../../utils/utils';
 import { vendorsBaseUrl } from '../../vendors';
 
 (self as any).createLightningcssCompiler = (): CompilerFunction => {
   const { init, transform } = (self as any).lightningcss;
-  const initialized = init(new URL(vendorsBaseUrl + 'lightningcss/lightningcss_node_bg.wasm'));
+  const initialized = init(new URL(vendorsBaseUrl + 'lightningcss/lightningcss_node.wasm'));
 
   return async (css, { config }) => {
     const customSettings = getLanguageCustomSettings('lightningcss', config);

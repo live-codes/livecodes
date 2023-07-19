@@ -23,7 +23,8 @@ describe('Import map', () => {
     import { html } from 'http://localhost/@codemirror/lang-html';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib';
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     console.log('hi');
     `;
 
@@ -49,23 +50,32 @@ describe('Import map', () => {
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib'
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     `;
 
     const expectedCode = `
     import { EditorState, EditorView, basicSetup } from 'https://jspm.dev/@codemirror/basic-setup';
     import fp from "https://unpkg.com/lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'https://someurl/path/module'
+    import { keymap } from 'https://someurl/path/module';
+    import { internal } from 'https://someurl/path/module/internal';
     `;
 
     const processedCode = replaceImports(code, config);
     expect(processedCode).toEqual(expectedCode);
   });
+
   test('create import map - defaultCDN', () => {
     const config = {
       imports: {
@@ -83,7 +93,8 @@ describe('Import map', () => {
     import { html } from 'http://localhost/@codemirror/lang-html';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib';
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     console.log('hi');
     `;
 
@@ -110,18 +121,26 @@ describe('Import map', () => {
     import { EditorState, EditorView, basicSetup } from '@codemirror/basic-setup';
     import fp from "lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'mylib'
+    import { keymap } from 'mylib';
+    import { internal } from 'mylib/internal';
     `;
 
     const expectedCode = `
     import { EditorState, EditorView, basicSetup } from 'https://cdn.skypack.dev/@codemirror/basic-setup';
     import fp from "https://unpkg.com/lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
+    import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';
+    import { concat } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/concat.ts#nobundle';
+    import { drop } from 'https://deno.bundlejs.com/?file&q=https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/drop.ts';
     import { tagExtension } from './state';
     import { oneDark } from '../theme-one-dark';
-    import {keymap} from 'https://someurl/path/module'
+    import { keymap } from 'https://someurl/path/module';
+    import { internal } from 'https://someurl/path/module/internal';
     `;
 
     const processedCode = replaceImports(code, config);
@@ -131,7 +150,7 @@ describe('Import map', () => {
   test('replace style imports', () => {
     const code = `
 @import "github-markdown-css";
-@import "unpkg:github-markdown-css";
+@import "jsdelivr:github-markdown-css";
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @import "github-markdown-css" print;
 @import "github-markdown-css" screen and (orientation:landscape);
@@ -141,14 +160,14 @@ body {
 }    `;
 
     const expectedCode = `
-@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @import "https://unpkg.com/github-markdown-css";
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
-@media print {
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@media print {
+@import "https://unpkg.com/github-markdown-css";
 }
 @media screen and (orientation:landscape) {
-@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
+@import "https://unpkg.com/github-markdown-css";
 }
 
 body {

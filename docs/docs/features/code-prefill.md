@@ -49,3 +49,14 @@ Example:
 <a href="https://livecodes.io/?md=**Hello World!**" target="_blank">https://livecodes.io/?md=**Hello World!**</a><br /><br />
 
 <LiveCodes params={{md: '**Hello World!**'}}></LiveCodes>
+
+## Auto-Prefill from page DOM
+
+TODO...
+
+## Related
+
+- [Import](./import.md)
+- [Templates](./templates.md)
+- [Configuration](../configuration/)
+- [SDK](../sdk/)

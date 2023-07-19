@@ -89,7 +89,11 @@ function consoleArgs(args: any[]): Array<{ type: string; content: any }> {
           content: arg.constructor.name + ': ' + arg.message,
         };
     }
-    return { type: 'other', content: arg };
+    try {
+      return { type: 'other', content: structuredClone(arg) };
+    } catch {
+      return { type: 'other', content: String(arg) };
+    }
   });
 }
 
@@ -154,4 +158,26 @@ export const handleResize = () => {
       '*',
     );
   });
+};
+
+export const handleScrollPosition = () => {
+  window.addEventListener('scroll', () => {
+    parent.postMessage(
+      {
+        type: 'scroll',
+        position: {
+          x: window.scrollX,
+          y: window.scrollY,
+        },
+      },
+      '*',
+    );
+  });
+  const prefix = '#livecodes-scroll-position:';
+  if (location.hash.startsWith(prefix)) {
+    const [x, y] = location.hash.replace(prefix, '').split(',').map(Number);
+    window.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo({ top: y, left: x });
+    });
+  }
 };

@@ -7,12 +7,10 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 // eslint-disable-next-line import/no-internal-modules
 import HomepageFeatures from '../components/HomepageFeatures';
 import { loadAds } from '../custom-content';
-import { appUrl } from '../utils';
 import styles from './index.module.css';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
-  const openLivecodes = () => window.open(appUrl as string, '_blank');
   return (
     <header
       className={clsx('hero', styles.heroBanner)}
@@ -24,18 +22,22 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className={styles.tryButton + ' button button--secondary button--lg'}
-            onClick={openLivecodes}
+            href="pathname:///../"
           >
-            Try LiveCodes Now ⚡
+            Start Coding ⚡
           </Link>
         </div>
         <div className={styles.description}>
-          An open-source client-side playground for React, Vue, Angular, Svelte, Typescript, Python,
-          Go, Ruby and 80+ languages/frameworks.
+          An open-source <strong>client-side</strong> playground for React, Vue, Svelte, Solid,
+          Typescript, Python, Go, Ruby, PHP and{' '}
+          <Link to="./languages">
+            <strong>80+ languages/frameworks</strong>
+          </Link>
+          .
         </div>
         <div className={styles.eaHomepage}>
           <div
-            className={`flat`}
+            className="flat"
             data-ea-publisher="livecodesio"
             data-ea-type="text"
             data-ea-manual="true"
@@ -53,7 +55,7 @@ export default function Home(): JSX.Element {
   }, []);
 
   return (
-    <Layout title={siteConfig.title} description={siteConfig.tagline}>
+    <Layout description={siteConfig.tagline}>
       <HomepageHeader />
       <main>
         <HomepageFeatures />

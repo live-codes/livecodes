@@ -2,11 +2,11 @@
   --link-color: rgb(1, 100, 180);
   --toolbar-text-color: rgb(237, 237, 237);
   --toolbar-text-active-color: rgb(237, 237, 237);
-  --toolbar-background-color: rgb(0, 27, 37);
+  --toolbar-background-color: rgb(14, 24, 27);
   --toolbar-background-active-color: rgb(68, 72, 87);
   --editor-title-text-color: rgb(143, 154, 174);
   --editor-title-text-active-color: rgb(237, 237, 237);
-  --background-color: rgb(0, 27, 37);
+  --background-color: rgb(14, 24, 27);
   --foreground-color: rgb(90, 96, 116);
   --split-bar-color: rgb(68, 72, 87);
   --split-handle-color: rgb(237, 237, 237);
@@ -16,7 +16,7 @@
   --button-active-hover-color: rgb(119, 124, 141);
   --language-menu-button-color: rgb(90, 96, 116);
   --language-menu-button-hover-color: rgb(119, 124, 141);
-  --language-menu-button-active-color: rgb(0, 27, 37);
+  --language-menu-button-active-color: rgb(43, 43, 43);
   --language-menu-button-active-hover-color: rgb(119, 124, 141);
   --scrollbar-color: rgb(192, 192, 192);
   --scrollbar-hover-color: rgb(167, 167, 167);
@@ -446,6 +446,10 @@ a {
   position: relative;
   top: 0;
 
+  .editor {
+    visibility: hidden;
+  }
+
   > div {
     flex-grow: 1;
     min-height: 30px;
@@ -555,6 +559,7 @@ a {
       background-color: transparent;
       display: flex;
       flex-grow: 1;
+      white-space: nowrap;
 
       > span {
         margin: auto 4px;
@@ -564,6 +569,13 @@ a {
     #external-resources-btn {
       right: 1em;
     }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #copy-as-url-btn,
+  #editor-status {
+    display: none;
   }
 }
 
@@ -1024,7 +1036,8 @@ li.editor-title {
   }
 }
 
-.menu-scroller-markup {
+.menu-scroller-markup,
+.menu-scroller-style {
   max-width: 50vw;
   right: calc(-100% - 6px);
   width: calc(200% + 18px);
@@ -1036,7 +1049,8 @@ li.editor-title {
   width: calc(400% + 18px);
 }
 
-.dropdown-menu-markup {
+.dropdown-menu-markup,
+.dropdown-menu-style {
   column-count: 2;
   column-rule: 1px solid var(--menu-split-color);
 }
@@ -1046,13 +1060,18 @@ li.editor-title {
   column-rule: 1px solid var(--menu-split-color);
 }
 
+.column-break {
+  break-before: column;
+}
+
 @media only screen and (max-width: 1080px) {
   .menu-scroller {
     max-width: 80vw;
     width: 150%;
   }
 
-  .menu-scroller-markup {
+  .menu-scroller-markup,
+  .menu-scroller-style {
     right: calc(-150% - 6px);
     width: 300%;
   }
@@ -1069,7 +1088,8 @@ li.editor-title {
     width: 120%;
   }
 
-  .menu-scroller-markup {
+  .menu-scroller-markup,
+  .menu-scroller-style {
     right: calc(-100% - 6px);
     width: 200%;
   }
@@ -1081,7 +1101,8 @@ li.editor-title {
 }
 
 @media only screen and (max-width: 480px) {
-  .menu-scroller-markup {
+  .menu-scroller-markup,
+  .menu-scroller-style {
     right: calc(-130% - 6px);
     width: 300%;
   }
@@ -1996,9 +2017,32 @@ i.arrow {
       margin-top: -2.5em !important;
     }
 
+    #share-top-text {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 0;
+      margin-top: 1.3em;
+      width: 98%;
+    }
+
+    #share-permanent-url {
+      input[type='checkbox'] {
+        margin-right: 5px;
+        transform: scale(0.8);
+      }
+
+      label {
+        display: inline;
+        font-size: unset;
+        font-weight: unset;
+        margin: unset;
+        text-align: unset;
+        width: unset;
+      }
+    }
+
     #share-click-to-copy {
-      text-align: right;
-      width: 95%;
+      cursor: pointer;
     }
 
     #share-url-input {
@@ -2021,7 +2065,7 @@ i.arrow {
     }
 
     .short-url {
-      .share-permanent-url-expiry {
+      .share-encoded-url-expiry {
         display: none !important;
       }
 
@@ -2049,6 +2093,14 @@ i.arrow {
   #login-screen {
     input[type='checkbox'] {
       margin-top: 0.7em;
+    }
+
+    .modal-screen-container {
+      margin-bottom: 0.2em;
+    }
+
+    .description p {
+      margin-bottom: 0.5em;
     }
   }
 
@@ -2307,7 +2359,11 @@ i.arrow {
       align-items: start;
       flex-direction: column;
       flex-wrap: wrap;
-      max-height: 45em;
+      max-height: 40em;
+
+      &.no-recent {
+        max-height: 30em;
+      }
     }
 
     .modal-section {
@@ -2329,19 +2385,14 @@ i.arrow {
 
         .welcome-recover-actions {
           display: flex;
-          gap: 2em;
         }
 
         .welcome-recover-actions > * {
           align-items: center;
           display: flex;
-          gap: 0.5em;
+          flex-grow: 1;
+          gap: 0.2em;
         }
-      }
-
-      &#welcome-recent {
-        min-height: 13em;
-        visibility: hidden;
       }
 
       .default-template-li {
@@ -2391,14 +2442,14 @@ i.arrow {
     @media only screen and (max-width: 768px) {
       .modal-screen {
         max-height: unset;
+
+        &.no-recent {
+          max-height: unset;
+        }
       }
 
       .modal-section {
         width: unset;
-
-        &#welcome-recent {
-          min-height: unset;
-        }
 
         &#welcome-recover {
           order: -1;
@@ -2413,6 +2464,78 @@ i.arrow {
 
       label {
         width: unset;
+      }
+    }
+  }
+
+  #about-container {
+    overflow: unset;
+
+    .modal-screen-container {
+      height: calc(95% - 140px);
+      overflow: scroll;
+    }
+
+    .modal-screen {
+      align-items: start;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: start;
+      margin-top: 1em;
+    }
+
+    .modal-section {
+      box-sizing: border-box;
+      margin-bottom: 1em;
+      padding-left: 1.5em;
+      text-align: start;
+      width: 48%;
+
+      &#about-info {
+        line-height: 1.5em;
+        margin: auto;
+        padding: 1em;
+        width: 100%;
+      }
+
+      .more {
+        font-size: smaller;
+        margin-top: 0.3em;
+      }
+
+      h3 {
+        margin: 0.5em 0;
+      }
+
+      p {
+        margin-bottom: 1em;
+      }
+
+      li {
+        align-items: center;
+        display: flex;
+        gap: 0.5em;
+        list-style: none;
+        margin-bottom: 0.2em;
+      }
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .modal-screen {
+        max-height: unset;
+      }
+
+      .modal-section {
+        padding-left: 0.5em;
+        width: 100%;
       }
     }
   }

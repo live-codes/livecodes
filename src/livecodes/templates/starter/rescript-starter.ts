@@ -48,10 +48,7 @@ module App = {
 
     <div className="container">
       <h1> {title->React.string} </h1>
-      <img
-        className="logo"
-        src="{{ __livecodes_baseUrl__ }}assets/templates/rescript.png"
-      />
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/rescript.png" />
       <p> {React.string("You clicked " ++ times)} </p>
       <button onClick> {React.string("Click me")} </button>
     </div>
@@ -59,7 +56,10 @@ module App = {
 }
 
 switch ReactDOM.querySelector("#app") {
-| Some(app) => ReactDOM.render(<App name="ReScript React" />, app)
+| Some(rootElement) => {
+    let root = ReactDOM.Client.createRoot(rootElement)
+    ReactDOM.Client.Root.render(root, <App name="ReScript React" />)
+  }
 | None => () // do nothing
 }
 

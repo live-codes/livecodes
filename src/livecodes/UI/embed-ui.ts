@@ -6,6 +6,7 @@ import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
 import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
+import { permanentUrlService } from '../services/permanent-url';
 
 export const createEmbedUI = async ({
   baseUrl,
@@ -24,7 +25,7 @@ export const createEmbedUI = async ({
   notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
-  getUrlFn: () => Promise<string>;
+  getUrlFn: (permanentUrl?: boolean) => Promise<string>;
 }) => {
   const title = config.title;
   const activeEditor = config.activeEditor || 'markup';
@@ -46,13 +47,14 @@ export const createEmbedUI = async ({
       | 'type'
       | 'theme'
       | 'loading'
-      | 'preview'
       | 'lite'
       | 'readonly'
       | 'mode'
       | 'view'
       | 'activeEditor'
-      | 'tools';
+      | 'permanentUrl'
+      | 'tools'
+      | 'activeTool';
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
   }
@@ -75,15 +77,10 @@ export const createEmbedUI = async ({
       ],
     },
     {
-      title: 'Show Result Preview',
-      name: 'preview',
-      options: [{ value: 'true' }],
-    },
-    {
       title: 'Lite Mode',
       name: 'lite',
       options: [{ value: 'true', checked: false }],
-      help: '/docs/features/lite',
+      help: `${process.env.DOCS_BASE_URL}features/lite`,
     },
     {
       title: 'Read only',
@@ -99,17 +96,17 @@ export const createEmbedUI = async ({
         { label: 'Code Block', value: 'codeblock' },
         { label: 'Result', value: 'result' },
       ],
-      help: '/docs/features/display-modes',
+      help: `${process.env.DOCS_BASE_URL}features/display-modes`,
     },
     {
       title: 'Default View',
       name: 'view',
       options: [
-        { label: 'Editor + Result', value: 'split', checked: true },
+        { label: 'Split', value: 'split', checked: true },
         { label: 'Editor', value: 'editor' },
         { label: 'Result', value: 'result' },
       ],
-      help: '/docs/features/default-view',
+      help: `${process.env.DOCS_BASE_URL}features/default-view`,
     },
     {
       title: 'Active Editor',
@@ -129,7 +126,23 @@ export const createEmbedUI = async ({
         { label: 'Full', value: 'full' },
         { label: 'None', value: 'none' },
       ],
-      help: '/docs/features/tools-pane',
+      help: `${process.env.DOCS_BASE_URL}features/tools-pane`,
+    },
+    {
+      title: 'Active Tool',
+      name: 'activeTool',
+      options: [
+        { label: 'Console', value: 'console', checked: true },
+        { label: 'Compiled', value: 'compiled' },
+        { label: 'Tests', value: 'tests' },
+      ].filter((option) => (option.value === 'tests' && !config.tests?.content ? false : true)),
+      help: `${process.env.DOCS_BASE_URL}features/tools-pane`,
+    },
+    {
+      title: 'Permanent URL',
+      name: 'permanentUrl',
+      options: [{ value: 'true', checked: true }],
+      help: `${process.env.DOCS_BASE_URL}features/permanent-url`,
     },
     {
       title: 'Embed Type',
@@ -139,6 +152,7 @@ export const createEmbedUI = async ({
         { label: 'Script (npm)', value: 'npm' },
         { label: 'React', value: 'react' },
         { label: 'Vue', value: 'vue' },
+        { label: 'Svelte', value: 'svelte' },
         { label: 'Iframe', value: 'iframe' },
         { label: 'HTML', value: 'html' },
       ],
@@ -200,9 +214,11 @@ export const createEmbedUI = async ({
   };
 
   const editor = await createEditorFn(codeArea);
-  const url = await getUrlFn();
-  const urlObj = new URL(url);
-  const appUrl = urlObj.origin + urlObj.pathname;
+  const livecodesUrl = 'https://livecodes.io';
+  const sdkUrl = permanentUrlService.getSDKUrl('umd');
+  let shareUrl = await getUrlFn(true);
+  let urlObj = new URL(shareUrl);
+  let appUrl = urlObj.origin + urlObj.pathname;
 
   const previewIframe: HTMLIFrameElement = document.createElement('iframe');
   previewIframe.id = 'embed-preview-iframe';
@@ -214,7 +230,7 @@ export const createEmbedUI = async ({
   const getContainerHtml = (id: string) =>
     `
 <div id="${id}">
-  <span>Open the project <a href="${url}" target="_blank">${title}</a> in <a href="${appUrl}" target="_blank">LiveCodes</a></span>
+  <span>Open the project <a href="${shareUrl}" target="_blank">${title}</a> in <a href="${livecodesUrl}" target="_blank">LiveCodes</a>.</span>
 </div>
 `.trimStart();
 
@@ -222,7 +238,15 @@ export const createEmbedUI = async ({
     const config = {
       ...(data.mode !== defaultConfig.mode ? { mode: data.mode } : {}),
       ...(data.theme !== defaultConfig.theme ? { theme: data.theme } : {}),
-      ...(data.tools !== 'closed' ? { tools: { status: data.tools } } : {}),
+      ...(data.tools !== 'closed' || data.activeTool !== 'console'
+        ? {
+            tools: {
+              enabled: data.tools === 'none' ? [] : 'all',
+              status: data.tools,
+              active: data.activeTool,
+            },
+          }
+        : {}),
       ...(data.readonly ? { readonly: data.readonly } : {}),
       ...(data.mode !== 'result' && data.activeEditor !== activeEditor
         ? { activeEditor: data.activeEditor }
@@ -235,20 +259,16 @@ export const createEmbedUI = async ({
       ...(importId ? { import: importId } : {}),
       ...(data.lite ? { lite: data.lite } : {}),
       ...(data.loading !== 'lazy' ? { loading: data.loading } : {}),
-      ...(data.loading === 'click' && !data.preview ? { params: { preview: false } } : {}),
       ...(data.view && data.view !== 'split' ? { view: data.view } : {}),
     };
   };
 
   const getIframeUrl = (data: FormData) => {
-    const iframeUrl = new URL(url);
+    const iframeUrl = new URL(shareUrl);
     iframeUrl.searchParams.set(data.lite ? 'lite' : 'embed', 'true');
 
     if (data.loading && data.loading !== 'lazy') {
       iframeUrl.searchParams.set('loading', String(data.loading));
-    }
-    if (data.loading === 'click' && !data.preview) {
-      iframeUrl.searchParams.set('preview', 'false');
     }
     if (data.view && data.view !== 'split') {
       iframeUrl.searchParams.set('view', String(data.view));
@@ -262,8 +282,11 @@ export const createEmbedUI = async ({
     if (data.theme && data.theme !== defaultConfig.theme) {
       iframeUrl.searchParams.set('theme', String(data.theme));
     }
-    if (data.tools && data.tools !== 'closed') {
-      iframeUrl.searchParams.set('tools', String(data.tools));
+    if (data.tools && (data.tools !== 'closed' || data.activeTool !== 'console')) {
+      iframeUrl.searchParams.set(
+        data.tools === 'none' ? 'tools' : String(data.activeTool),
+        String(data.tools),
+      );
     }
     if (data.readonly !== undefined) {
       iframeUrl.searchParams.set('readonly', String(data.readonly));
@@ -278,10 +301,9 @@ export const createEmbedUI = async ({
       const options = getOptions(data);
       const formatted = JSON.stringify(options, null, 2);
       const indented = indentCode(formatted, 2);
-      // TODO use jsDelivr url
       return `
 ${containerHtml}
-<script src="${appUrl + 'sdk/livecodes.umd.js'}"></script>
+<script src="${sdkUrl}"></script>
 <script>
   const options = ${indented};
   livecodes.createPlayground("#${containerId}", options);
@@ -330,6 +352,25 @@ export default function App() {
 </template>
 `.trimStart();
     },
+    svelte(data: FormData) {
+      const options = getOptions(data);
+      const formatted = JSON.stringify(options, null, 2);
+      const indented = indentCode(formatted, 2);
+      return `
+<script>
+  import { onMount } from 'svelte';
+  import { createPlayground } from 'livecodes';
+
+  const options = ${indented};
+  let container;
+  onMount(() => {
+    createPlayground(container, options);
+  });
+</script>
+
+<div bind:this="{container}"></div>
+`.trimStart();
+    },
     iframe: (data: FormData) => {
       const iframeUrl = getIframeUrl(data);
       const nonEmbeddedUrl = new URL(iframeUrl);
@@ -337,8 +378,8 @@ export default function App() {
       nonEmbeddedUrl.searchParams.delete('lite');
       const projectUrl = decodeURIComponent(nonEmbeddedUrl.href);
       return `
-<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:5px; margin: 1em 0;" src="${iframeUrl}">
-  See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${appUrl}" target="_blank">LiveCodes</a>
+<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:5px;" src="${iframeUrl}">
+  See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${livecodesUrl}" target="_blank">LiveCodes</a>.
 </iframe>
 `.trimStart();
     },
@@ -362,7 +403,7 @@ export default function App() {
       }
       const optionsAttr = escapeCode(JSON.stringify(options).replace(/'/g, '&#39;'));
       return `
-<div class="livecodes" style="height: 300px; border: 1px solid black; border-radius: 5px;" data-options='${optionsAttr}'>
+<div class="livecodes" style="height: 300px;" data-options='${optionsAttr}'>
 <pre data-lang="${config.markup.language}">${escapeCode(
         encodeHTML(config.markup.content || ''),
       )}</pre>
@@ -373,7 +414,7 @@ export default function App() {
         encodeHTML(config.script.content || ''),
       )}</pre>
 </div>
-<script defer src="${appUrl + 'sdk/livecodes.umd.js'}" data-prefill></script>
+<script defer src="${sdkUrl}" data-prefill></script>
 `.trimStart();
     },
   };
@@ -381,6 +422,7 @@ export default function App() {
   const previousSelections: FormData = {
     view: 'split',
     tools: 'closed',
+    activeTool: 'console',
   };
 
   const generateCode = async () => {
@@ -392,14 +434,9 @@ export default function App() {
       {} as FormData,
     );
 
-    const previewInput = document.querySelector<HTMLInputElement>('input[name="embed-preview"]')!;
-    if (formData.loading !== 'click') {
-      previewInput.checked = false;
-      previewInput.disabled = true;
-      formData.preview = false;
-    } else {
-      previewInput.disabled = false;
-    }
+    shareUrl = await getUrlFn(Boolean(formData.permanentUrl));
+    urlObj = new URL(shareUrl);
+    appUrl = urlObj.origin + urlObj.pathname;
 
     const viewInputs = document.querySelectorAll<HTMLInputElement>('input[name="embed-view"]');
     if (formData.mode !== 'full') {
@@ -422,6 +459,9 @@ export default function App() {
     }
 
     const toolsInputs = document.querySelectorAll<HTMLInputElement>('input[name="embed-tools"]');
+    const activeToolInputs = document.querySelectorAll<HTMLInputElement>(
+      'input[name="embed-activeTool"]',
+    );
     if (formData.lite) {
       previousSelections.tools = formData.tools || previousSelections.tools;
       delete formData.tools;
@@ -437,6 +477,25 @@ export default function App() {
         input.disabled = false;
         if (input.checked) {
           formData.tools = input.value;
+        }
+      });
+    }
+
+    if (formData.lite || formData.tools === 'none') {
+      previousSelections.activeTool = formData.activeTool || previousSelections.activeTool;
+      delete formData.activeTool;
+      activeToolInputs.forEach((input) => {
+        input.checked = false;
+        input.disabled = true;
+      });
+    } else {
+      activeToolInputs.forEach((input) => {
+        if (input.value === (formData.activeTool || previousSelections.activeTool)) {
+          input.checked = true;
+        }
+        input.disabled = false;
+        if (input.checked) {
+          formData.activeTool = input.value;
         }
       });
     }

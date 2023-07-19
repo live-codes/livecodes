@@ -1,9 +1,8 @@
 import type { LanguageSpecs } from '../../models';
-import { vueSfcLoaderCdnBaseUrl } from '../../vendors';
+import { vue2CdnUrl, vueSfcLoaderCdnBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 const loaderCdnUrl = vueSfcLoaderCdnBaseUrl + 'vue2-sfc-loader.js';
-const vueCdnUrl = 'https://cdn.jsdelivr.net/npm/vue@2';
 
 export const vue2: LanguageSpecs = {
   name: 'vue2',
@@ -15,12 +14,12 @@ export const vue2: LanguageSpecs = {
   },
   compiler: {
     factory: (_config, baseUrl) => {
-      (self as any).importScripts(baseUrl + '{{hash:lang-vue-compiler.js}}');
+      (self as any).importScripts(baseUrl + '{{hash:lang-vue2-compiler.js}}');
       return (self as any).createVue2Compiler();
     },
-    scripts: [vueCdnUrl, loaderCdnUrl],
+    scripts: [vue2CdnUrl, loaderCdnUrl],
     imports: {
-      vue: vueCdnUrl + '/dist/vue.runtime.esm-browser.prod.js',
+      vue: vue2CdnUrl + '/dist/vue.runtime.esm-browser.prod.js',
     },
   },
   extensions: ['vue2'],

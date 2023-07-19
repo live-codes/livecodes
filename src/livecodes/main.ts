@@ -3,9 +3,10 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
-import type { API, Config, EmbedOptions } from './models';
+import type { API, CDN, Config, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
-import { esModuleShimsUrl } from './vendors';
+import { esModuleShimsPath } from './vendors';
+import { modulesService } from './services/modules';
 
 export type { API, Config };
 
@@ -21,7 +22,7 @@ export const loading: EmbedOptions['loading'] = !isEmbed
   ? loadingParam
   : 'lazy';
 
-export const livecodes = async (container: string, config: Partial<Config> = {}): Promise<API> =>
+export const livecodes = (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
     const containerElement = document.querySelector(container);
     if (!containerElement) {
@@ -58,7 +59,9 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     `;
     document.head.appendChild(style);
 
-    const loadApp = () => {
+    const loadApp = async () => {
+      const appCDN = await modulesService.checkCDNs(esModuleShimsPath, params.get('appCDN') as CDN);
+
       const supportsImportMaps = HTMLScriptElement.supports
         ? HTMLScriptElement.supports('importmap')
         : false;
@@ -73,7 +76,8 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
         appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
-          .replace(/{{esModuleShimsUrl}}/g, esModuleShimsUrl)
+          .replace(/{{appCDN}}/g, appCDN)
+          .replace(/{{esModuleShimsUrl}}/g, modulesService.getUrl(esModuleShimsPath, appCDN as CDN))
           .replace(
             /{{codemirrorModule}}/g,
             supportsImportMaps
@@ -142,7 +146,7 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
               } else {
                 if (e.source !== iframe.contentWindow) return;
                 if (e.data?.args === 'home') {
-                  location.href = '/';
+                  location.href = location.origin + location.pathname;
                 }
               }
             },
@@ -154,7 +158,13 @@ export const livecodes = async (container: string, config: Partial<Config> = {})
     };
 
     if (clickToLoad) {
-      window.addEventListener(customEvents.load, loadApp, { once: true });
+      window.addEventListener(
+        customEvents.load,
+        () => {
+          loadApp();
+        },
+        { once: true },
+      );
 
       const preloadLink = document.createElement('link');
       preloadLink.href = baseUrl + scriptFile;

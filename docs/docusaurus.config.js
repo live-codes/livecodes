@@ -5,17 +5,25 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const appPkg = require('../package.json');
+const sdkPkg = require('../src/sdk/package.sdk.json');
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'LiveCodes',
   tagline: 'Code Playground That Just Works!',
   url: 'https://livecodes.io/',
-  baseUrl: '/docs/',
+  baseUrl: process.env.DOCS_BASE_URL || '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'LiveCodes',
   projectName: 'LiveCodes',
+  customFields: {
+    appVersion: appPkg.appVersion,
+    sdkVersion: sdkPkg.version,
+    docsBaseUrl: process.env.DOCS_BASE_URL,
+  },
   presets: [
     [
       'classic',
@@ -101,23 +109,23 @@ const config = {
               },
               {
                 label: 'Why Another Playground?',
-                to: '/docs/why',
+                to: '/why',
               },
               {
                 label: 'Getting Started',
-                to: '/docs/getting-started',
+                to: '/getting-started',
               },
               {
                 label: 'Features',
-                to: '/docs/features',
+                to: '/features',
               },
               {
                 label: 'Languages',
-                to: '/docs/languages',
+                to: '/languages',
               },
               {
                 label: 'SDK',
-                to: '/docs/sdk',
+                to: '/sdk',
               },
             ],
           },
@@ -126,15 +134,44 @@ const config = {
             items: [
               {
                 label: 'App',
-                href: 'https://livecodes.io',
+                href: 'pathname:///../',
               },
               {
                 label: 'Starter Templates',
-                href: 'https://livecodes.io/?screen=new',
+                href: 'pathname:///../?new',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/live-codes/livecodes',
+                label: 'Import...',
+                href: 'pathname:///../?screen=import',
+              },
+              {
+                label: 'Bookmarklet',
+                to: '/bookmarklet',
+              },
+            ],
+          },
+          {
+            title: 'Info',
+            items: [
+              {
+                label: 'Credits',
+                to: '/credits',
+              },
+              {
+                label: 'License',
+                to: '/license',
+              },
+              {
+                label: 'Sponsor 💚',
+                to: '/sponsor',
+              },
+              {
+                label: 'Contact',
+                to: '/contact',
+              },
+              {
+                label: 'About us',
+                to: '/about',
               },
             ],
           },
@@ -147,24 +184,23 @@ const config = {
                 target: '_self',
               },
               {
-                label: 'Credits',
-                to: '/docs/credits',
+                label: 'GitHub',
+                href: 'https://github.com/live-codes/livecodes',
               },
               {
-                label: 'License',
-                to: '/docs/license',
+                label: 'Twitter',
+                href: 'https://twitter.com/livecodes_io',
               },
               {
-                label: 'Sponsor',
-                to: '/docs/sponsor',
+                label: 'Dev',
+                href: 'https://dev.to/livecodes_io',
               },
               {
-                label: 'Contact',
-                to: '/docs/contact',
+                label: 'npm',
+                href: 'https://www.npmjs.com/package/livecodes',
               },
               {
-                label: 'About',
-                to: '/docs/about',
+                html: '<a href="https://status.livecodes.io" target="_blank" rel="noopener noreferrer" class="footer__link-item status-link"><span>Status</span><svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a>',
               },
             ],
           },
@@ -192,21 +228,29 @@ const config = {
     }),
   scripts: [
     {
-      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/standalone.min.js',
+      src: 'https://unpkg.com/prettier@2.4.1/standalone.js',
       async: true,
     },
     {
-      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-babel.js',
+      src: 'https://unpkg.com/prettier@2.4.1/parser-babel.js',
       async: true,
     },
     {
-      src: 'https://cdn.jsdelivr.net/npm/prettier@2.4.1/parser-html.js',
+      src: 'https://unpkg.com/prettier@2.4.1/parser-html.js',
       async: true,
     },
     {
       src: 'https://media.ethicalads.io/media/client/ethicalads.min.js',
       async: true,
       defer: true,
+    },
+    {
+      src: 'https://widget.kapa.ai/kapa-widget.bundle.js',
+      'data-website-id': 'c5e9cf39-ef75-4290-becc-151b380252a3',
+      'data-project-name': 'LiveCodes',
+      'data-project-color': '#44494F',
+      'data-project-logo': 'https://avatars.githubusercontent.com/u/90906587?s=280&v=4',
+      async: true,
     },
   ],
   headTags: [

@@ -1,7 +1,5 @@
 import type { CompilerFunction } from '../../models';
-
-const commit = 'e907fbe56a70d44b65095e16ae2d1eae61c12066';
-const VUE_APP_TL_PACKAGE_PATH_URL = `https://cdn.jsdelivr.net/gh/teal-language/tl@${commit}/tl.lua`;
+import { tealUrl } from '../../vendors';
 
 interface LuaTableJs {
   get: (index: number) => any;
@@ -11,7 +9,7 @@ interface LuaTableJs {
 (self as any).createTealCompiler = (): CompilerFunction => {
   // based on https://github.com/teal-language/teal-playground/blob/master/src/components/Playground.vue
   const tl = `
-package.path = "${VUE_APP_TL_PACKAGE_PATH_URL}"
+package.path = "${tealUrl}"
 os = {
   getenv = function (var)
     if var == 'TL_PATH' then

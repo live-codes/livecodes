@@ -1,4 +1,6 @@
+/* eslint-disable import/no-internal-modules */
 /* eslint-disable no-console */
+import { decode } from 'js-base64';
 import type { Config, CompilerFunction } from '../../models';
 import {
   blobToBase64,
@@ -8,7 +10,8 @@ import {
   getLanguageCustomSettings,
   removeComments,
   runOrContinue,
-} from '../../utils';
+  toDataUrl,
+} from '../../utils/utils';
 import {
   cytoscapeSvgUrl,
   cytoscapeUrl,
@@ -30,7 +33,7 @@ let useShadowDom = false;
 
 const displaySVG = (el: any, svg: string) => {
   if (el.tagName.toLowerCase() === 'img') {
-    el.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+    el.src = toDataUrl(svg, 'image/svg+xml');
   } else {
     el.innerHTML = svg;
   }
@@ -167,7 +170,7 @@ const compileGnuplot = async (code: string) => {
     if (el.tagName.toLowerCase() === 'img') {
       el.src = imgUrl;
     } else {
-      el.innerHTML = atob(imgUrl.replace('data:image/svg+xml;base64,', ''));
+      el.innerHTML = decode(imgUrl.split(',')[1]);
     }
   }
   const result = temp.innerHTML;
@@ -178,18 +181,18 @@ const compileGnuplot = async (code: string) => {
 const compileMermaid = async (code: string) => {
   let mermaid: any;
   const load = async () => {
-    mermaid = await loadScript(mermaidCdnUrl, 'mermaid');
-    mermaid.mermaidAPI.initialize({
+    mermaid = (await import(mermaidCdnUrl)).default;
+    mermaid.initialize({
       startOnLoad: false,
     });
   };
   let count = 0;
   const counter = () => count++;
-  const render = (src: string) => {
+  const render = async (src: string) => {
     const placeholder = document.createElement('div');
     placeholder.id = 'livecodes-mermaid-chart-' + counter();
     document.body.appendChild(placeholder);
-    const svg = mermaid.mermaidAPI.render(placeholder.id, src.trim());
+    const { svg } = await mermaid.render(placeholder.id, src.trim());
     placeholder.remove();
     return svg;
   };
@@ -197,13 +200,14 @@ const compileMermaid = async (code: string) => {
 };
 
 const compileGraphviz = async (code: string) => {
-  let hpccWasm: any;
+  let graphviz: any;
   const load = async () => {
-    hpccWasm = await loadScript(hpccJsCdnUrl, '@hpcc-js/wasm');
+    const hpccWasm = await import(hpccJsCdnUrl);
+    graphviz = await hpccWasm.Graphviz.load();
   };
   const render = (src: string, script: HTMLScriptElement) => {
     const layout = script.dataset.layout || 'dot';
-    return hpccWasm.graphviz.layout(src, 'svg', layout);
+    return graphviz.layout(src, 'svg', layout);
   };
   return compile(code, 'graphviz', load, render);
 };

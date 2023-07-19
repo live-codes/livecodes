@@ -1,0 +1,17 @@
+name: Release PR
+
+# on creating a release branch (releases/**) create a PR to develop
+on: create
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'refs/heads/releases/')
+    steps:
+      - name: Get version
+        id: vars
+        run: echo ::set-output name=version::$(echo ${{github.ref_name}} | sed 's/^releases\///')
+
+      - name: Create pull request to develop
+        run: gh pr create --title "release ${{steps.vars.outputs.version}}" --base develop --head ${{github.ref_name}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}

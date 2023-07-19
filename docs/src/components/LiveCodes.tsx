@@ -11,14 +11,17 @@ export default function LiveCodes(
     style?: Record<string, string>;
     className?: string;
     showCode?: boolean;
+    height?: string;
   },
 ): JSX.Element {
-  const { className, style, showCode, ...options } = props;
+  const { className, style, showCode, height, ...options } = props;
+
+  const stringify = (obj: EmbedOptions) => JSON.stringify(obj, null, 2);
 
   const jsCode = `
 import { createPlayground } from 'livecodes';
 
-const options = ${JSON.stringify(options, null, 2)};
+const options = ${stringify(options)};
 createPlayground('#container', options);
 
 `.trimStart();
@@ -26,15 +29,16 @@ createPlayground('#container', options);
   const tsCode = `
 import { createPlayground, type EmbedOptions } from 'livecodes';
 
-const options: EmbedOptions = ${JSON.stringify(options, null, 2)};
+const options: EmbedOptions = ${stringify(options)};
 createPlayground('#container', options);
 
 `.trimStart();
 
   const reactCode = `
 import LiveCodes from 'livecodes/react';
+
 export default function App() {
-  const options = ${JSON.stringify(options, null, 2)};
+  const options = ${stringify(options)};
   return (<LiveCodes {...options}></LiveCodes>);
 }
 
@@ -43,7 +47,8 @@ export default function App() {
   const vueCode = `
 <script setup>
 import LiveCodes from "livecodes/vue";
-const options = ${JSON.stringify(options, null, 2)};
+
+const options = ${stringify(options)};
 </script>
 <template>
   <LiveCodes v-bind="options" />
@@ -51,19 +56,41 @@ const options = ${JSON.stringify(options, null, 2)};
 
 `;
 
+  const svelteCode = `
+<script>
+import { onMount } from 'svelte';
+import { createPlayground } from 'livecodes';
+
+const options = ${stringify(options)};
+let container;
+onMount(() => {
+  createPlayground(container, options);
+});
+</script>
+
+<div bind:this="{container}"></div>
+
+`.trimStart();
+
   return (
     <>
       <LiveCodesReact
         className={`${styles.container} ${props.className}`}
         style={{
-          height: '50vh',
+          height: height || '50vh',
           ...props.style,
         }}
         appUrl={appUrl}
         {...props}
       ></LiveCodesReact>
       {props.showCode !== false && (
-        <ShowCode js={jsCode} ts={tsCode} react={reactCode} vue={vueCode}></ShowCode>
+        <ShowCode
+          js={jsCode}
+          ts={tsCode}
+          react={reactCode}
+          vue={vueCode}
+          svelte={svelteCode}
+        ></ShowCode>
       )}
     </>
   );

@@ -3,7 +3,7 @@ import type { CompilerFunction } from '../../models';
 (self as any).createImbaCompiler = (): CompilerFunction => async (code) => {
   if (!code) return '';
   try {
-    const compiled = (self as any).imbac.default.compile(code, {
+    const compiled = (self as any).imbac.compile(code, {
       platform: 'web',
       format: 'esm',
       sourcePath: 'app.imba',

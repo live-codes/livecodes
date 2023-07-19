@@ -116,6 +116,7 @@ export interface UserData {
 export interface AppData {
   defaultTemplate?: string | null;
   recentTemplates?: Array<{ name: Template['name']; title: string }>;
+  recentProjects?: Array<{ id: string; title: string; description: string }>;
   language?: Language;
   snippets?: {
     language: Language;
@@ -249,6 +250,12 @@ export type Language =
   | 'commonlisp'
   | 'common-lisp'
   | 'lisp'
+  | 'clojurescript'
+  | 'clojure'
+  | 'cljs'
+  | 'clj'
+  | 'cljc'
+  | 'edn'
   | 'rescript'
   | 'res'
   | 'resi'
@@ -410,6 +417,8 @@ export interface CompileOptions {
 export interface CompileInfo {
   cssModules?: Record<string, string>;
   modifiedHTML?: string;
+  importedContent?: string;
+  imports?: Record<string, string>;
 }
 
 export interface CompileResult {
@@ -530,6 +539,7 @@ export type TemplateName =
   | 'julia'
   | 'scheme'
   | 'commonlisp'
+  | 'clojurescript'
   | 'tcl'
   | 'markdown'
   | 'assemblyscript'
@@ -724,6 +734,7 @@ export interface Screen {
     | 'backup'
     | 'broadcast'
     | 'welcome'
+    | 'about'
     | 'custom-settings'
     | 'editor-settings'
     | 'test-editor';
@@ -760,12 +771,15 @@ export type CDN =
   | 'jspm'
   | 'skypack'
   | 'jsdelivr'
+  | 'fastly.jsdelivr'
   | 'jsdelivr.gh'
+  | 'fastly.jsdelivr.gh'
   | 'esm.run'
   | 'esm.sh'
   | 'esbuild'
   | 'bundle.run'
-  | 'unpkg';
+  | 'unpkg'
+  | 'statically';
 
 export type EditorCache = Editor & {
   compiled: string;
@@ -877,7 +891,9 @@ export type UrlQueryParams = Partial<
       Config,
       'activeEditor' | 'languages' | 'tags' | 'processors' | 'stylesheets' | 'scripts' | 'tools'
     > &
-    Screen & { [key in Language]: string } & { [key in languageSelector]: string } & {
+    Pick<Screen, 'screen'> & { new: '' } & { [key in Language]: string } & {
+      [key in languageSelector]: string;
+    } & {
       config: string;
       embed: boolean;
       preview: boolean;
@@ -893,6 +909,7 @@ export type UrlQueryParams = Partial<
       active: EditorId | 0 | 1 | 2;
       tags: string | string[];
       'no-defaults': boolean;
+      scrollPosition: boolean;
       tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
       [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
@@ -900,6 +917,8 @@ export type UrlQueryParams = Partial<
 >;
 
 export interface CustomEvents {
+  getConfig: 'livecodes-get-config';
+  config: 'livecodes-config';
   load: 'livecodes-load';
   appLoaded: 'livecodes-app-loaded';
   ready: 'livecodes-ready';

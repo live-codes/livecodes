@@ -28,7 +28,7 @@ tag app-counter
 
 	<self>
 		<h1> "Hello, {name}!"
-		<img[h:100px] src="{{ __livecodes_baseUrl__ }}assets/templates/imba.svg">
+		<img[h:100px] alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/imba.svg">
 		<p> "You clicked {count} times."
 		<button.btn @click=count++> "Click me"
 

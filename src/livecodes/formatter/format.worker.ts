@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/no-internal-modules
 import { defaultConfig } from '../config/default-config';
 import type { FormatFn, FormatterConfig, Language, Parser } from '../models';
-import { languages, prettierUrl } from '../languages';
-import { getAbsoluteUrl } from '../utils';
+import { languages, parserPlugins, prettierUrl } from '../languages';
 import type { FormatterMessage, FormatterMessageEvent } from './models';
 
 const worker: Worker = self as any;
@@ -16,10 +15,20 @@ const plugins: { [key: string]: any } = {};
 const formatters: { [key: string]: FormatFn } = {};
 
 const loadPrettier = () => {
-  importScripts(getAbsoluteUrl(prettierUrl, baseUrl));
+  importScripts(prettierUrl);
 };
 
-const getParser = (language: Language) => languages.find((lang) => lang.name === language)?.parser;
+const getParser = (language: Language): Parser | undefined => {
+  const parser = languages.find((lang) => lang.name === language)?.parser;
+  if (!parser) return undefined;
+  if (parser.pluginUrls.find((url) => url.includes('babel'))) {
+    return {
+      ...parser,
+      pluginUrls: Array.from(new Set([...parser.pluginUrls, parserPlugins.estree])),
+    };
+  }
+  return parser;
+};
 const getFormatter = (language: Language) =>
   languages.find((lang) => lang.name === language)?.formatter;
 
@@ -34,7 +43,7 @@ const load = (languages: Language[]) => {
     });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.warn('Failed to load prettier');
+    console.warn('Failed to load formatter');
   }
 };
 
@@ -54,18 +63,17 @@ function loadParser(language: Language): Parser | undefined {
   }
   parser.plugins = parser.pluginUrls
     .map((pluginUrl) => {
-      const url = getAbsoluteUrl(pluginUrl, baseUrl);
-      if (plugins[url]) return true;
+      if (plugins[pluginUrl]) return true;
       try {
-        importScripts(url);
-        plugins[url] = true;
+        importScripts(pluginUrl);
+        plugins[pluginUrl] = true;
         if (!prettierPlugins.pug && (self as any).pluginPug) {
           prettierPlugins.pug = (self as any).pluginPug;
         }
         return true;
       } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn('Failed to load prettier parser for language: ' + language);
+        console.warn('Failed to load formatter for: ' + language);
         return false;
       }
     })
@@ -107,12 +115,12 @@ const format = async (
       trailingComma: formatterConfig.trailingComma === false ? 'none' : 'all',
     };
     return (
-      (self as any).prettier.formatWithCursor(value, {
+      (await (self as any).prettier.formatWithCursor(value, {
         parser: parser?.name,
         plugins: prettierPlugins,
         cursorOffset,
         ...options,
-      }) || unFormatted
+      })) || unFormatted
     );
   }
   if (getFormatter(language) != null) {

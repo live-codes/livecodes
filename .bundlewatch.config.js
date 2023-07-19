@@ -5,10 +5,6 @@ module.exports = {
       maxSize: '3kB',
     },
     {
-      path: './build/assets/*.js',
-      maxSize: '10kB',
-    },
-    {
       path: './build/livecodes/!(*lang-)*.js',
       maxSize: '30kB',
     },

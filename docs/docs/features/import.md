@@ -52,7 +52,7 @@ Alternatively, languages and files can be specified using [query params](../conf
 
 Example:
 
-https://livecodes.io/?x=id/6ys2b8txf33
+https://livecodes.io/?x=id/bi9qszw86w3
 
 ## Import Code from DOM
 
@@ -69,9 +69,9 @@ If the source URL does not match one of the supported origins (GitHub, GitLab an
 
 The HTML editor is prefilled with: `This is identified as <strong>HTML</strong> code`
 
-:::
+Please note that the code should be html-encoded to avoid interference with the HTML of the page.
 
-Notice that the code should be html-encoded to avoid interference with the HTML of the page.
+:::
 
 Example:
 
@@ -93,26 +93,21 @@ Of course, [embedded playgrounds](./embeds.md) can be prefilled with code from t
 If the response text could not be parsed as DOM or no elements matched the CSS selectors, it is assumed to be raw code and the response text is loaded to editor. If the URL ends with an extension it is used to identify the language, otherwise it is assumed to be `html`.
 
 Alternatively, the language of raw code can be specified using [query params](../configuration/query-params.md):  
-?x={url}&raw={language}
+`?x={url}&raw={language}`
 
 ## "Edit in LiveCodes" Bookmarklet
 
-Instead of manually copy/pasting URLs to import, the bookmarklet can be very convenient. It opens LiveCodes in a new window and imports the current webpage URL.
-
-drag this link to the browser bookmarks bar:
-
-<a href="javascript:(()=>{window.open('https://livecodes.io/?x='+location.href,'_blank');})();">Edit in LiveCodes</a><br /><br />
-
-or manually create a new bookmark in your browser and add this code as its URL:
-
-```js
-javascript: (() => {
-  window.open('https://livecodes.io/?x=' + location.href, '_blank');
-})();
-```
+Instead of manually copy/pasting URLs to import, adding [**"Edit in LiveCodes"** bookmarklet](../bookmarklet.md) to the browser bookmarks bar can be a more convenient way. It opens LiveCodes in a new window and imports the current webpage URL.
 
 ## Import from CodePen
 
 Currently, CodePen API does not allow directly importing code from Pens (except for Pens of Pro users, which can be imported!). However, you can export any saved Pen as a [zip file](https://blog.codepen.io/documentation/exporting-pens/#export-zip-1) or [Github gist](https://blog.codepen.io/documentation/exporting-pens/#save-as-github-gist-2) and then import it to LiveCodes. The format that Codepen exports is well understood by LiveCodes. Most Pens can be imported with no or minimal changes.
 
 **Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-resources.md).
+
+## Related
+
+- [Code prefill](./code-prefill.md)
+- [Export](./export.md)
+- [External resources](./external-resources.md)
+- [Module resolution](./module-resolution.md)

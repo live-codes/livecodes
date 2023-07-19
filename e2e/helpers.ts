@@ -11,15 +11,18 @@ export const getLoadedApp = async (page: Page) => {
       result = getResultFrame(app);
       return result;
     },
-    waitForResultUpdate: async () => {
-      result = await getUpdatedResultFrame(app);
+    waitForResultUpdate: async (options: { delay?: number; timeout?: number } = {}) => {
+      result = await getUpdatedResultFrame(app, options);
     },
   };
 };
 
 const getResultFrame = (app: Frame) => app.page().frame('result')!;
 
-const getUpdatedResultFrame = async (app: Frame) => {
+const getUpdatedResultFrame = async (
+  app: Frame,
+  { delay = 1000, timeout = 20000 }: { delay?: number; timeout?: number },
+) => {
   const loaded = new Promise<void>(async (resolve) => {
     await app.waitForFunction(
       `document.querySelector('#tools-pane-loading').style.display !== 'none'`,
@@ -27,12 +30,12 @@ const getUpdatedResultFrame = async (app: Frame) => {
     await app.waitForFunction(
       `document.querySelector('#tools-pane-loading').style.display === 'none'`,
     );
-    await app.waitForTimeout(1000);
+    await app.waitForTimeout(delay);
     resolve();
   });
   await Promise.race([
     Promise.all([loaded, app.click(runButtonSelector)]),
-    app.waitForTimeout(20000),
+    app.waitForTimeout(timeout),
   ]);
   return getResultFrame(app);
 };

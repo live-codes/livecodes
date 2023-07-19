@@ -6,38 +6,42 @@
         <h3>Start</h3>
         <ul>
           <li>
-            <img src="{{baseUrl}}assets/icons/new.svg" alt="new" />
+            <img src="{{baseUrl}}assets/icons/new.svg" alt="new" width="19.19" height="19.19" />
             <a href="#" id="welcome-link-new"> New...</a>
           </li>
           <li>
-            <img src="{{baseUrl}}assets/icons/open.svg" alt="open" />
+            <img src="{{baseUrl}}assets/icons/open.svg" alt="open" width="19.19" height="19.19" />
             <a href="#" id="welcome-link-open"> Open...</a>
           </li>
           <li>
-            <img src="{{baseUrl}}assets/icons/import.svg" alt="import" />
+            <img
+              src="{{baseUrl}}assets/icons/import.svg"
+              alt="import"
+              width="19.19"
+              height="19.19"
+            />
             <a href="#" id="welcome-link-import"> Import...</a>
           </li>
           <li class="default-template-li">
-            <img src="{{baseUrl}}assets/icons/template.svg" alt="template" />
+            <img
+              src="{{baseUrl}}assets/icons/template.svg"
+              alt="template"
+              width="19.19"
+              height="19.19"
+            />
             <span id="no-default-template" class="default-template">No default template</span>
             <a href="#" id="welcome-link-load-default" class="default-template"
               >Load default template</a
             >
             <a
-              href="/docs/features/default-template-language"
+              href="{{DOCS_BASE_URL}}features/default-template-language"
               target="_blank"
               class="help-link"
               title="Click for info..."
+              rel="noopener"
               ><img src="{{baseUrl}}assets/icons/info.svg" alt="info"
             /></a>
           </li>
-        </ul>
-      </div>
-
-      <div class="modal-section" id="welcome-templates">
-        <h3>Starter Templates</h3>
-        <ul id="welcome-template-list">
-          <li><a href="#" id="welcome-link-templates" class="more">More...</a></li>
         </ul>
       </div>
 
@@ -45,6 +49,13 @@
         <h3>Recent</h3>
         <ul id="welcome-recent-list">
           <li><a href="#" id="welcome-link-recent-open" class="more">More...</a></li>
+        </ul>
+      </div>
+
+      <div class="modal-section" id="welcome-templates">
+        <h3>Starter Templates</h3>
+        <ul id="welcome-template-list">
+          <li><a href="#" id="welcome-link-templates" class="more">More...</a></li>
         </ul>
       </div>
 
@@ -76,13 +87,29 @@
       <div class="modal-section">
         <h3>About LiveCodes</h3>
         <ul>
-          <li><a href="/docs/" target="_blank">Home</a></li>
-          <li><a href="/docs/getting-started" target="_blank">Getting Started</a></li>
-          <li><a href="/docs/features" target="_blank">Features</a></li>
-          <li><a href="/docs/configuration" target="_blank">Configuration</a></li>
-          <li><a href="/docs/sdk" target="_blank">SDK</a></li>
-          <li><a href="https://blog.livecodes.io" target="_blank">Blog</a></li>
-          <li><a href="/docs/overview" target="_blank" class="more">More...</a></li>
+          <li><a href="{{DOCS_BASE_URL}}" target="_blank" rel="noopener">Home</a></li>
+          <li>
+            <a href="{{DOCS_BASE_URL}}getting-started" target="_blank" rel="noopener"
+              >Getting Started</a
+            >
+          </li>
+          <li><a href="{{DOCS_BASE_URL}}features" target="_blank" rel="noopener">Features</a></li>
+          <li>
+            <a href="{{DOCS_BASE_URL}}configuration" target="_blank" rel="noopener"
+              >Configuration</a
+            >
+          </li>
+          <li><a href="{{DOCS_BASE_URL}}sdk" target="_blank" rel="noopener">SDK</a></li>
+          <li><a href="https://blog.livecodes.io" target="_blank" rel="noopener">Blog</a></li>
+          <li>
+            <a href="{{DOCS_BASE_URL}}sponsor" target="_blank" rel="noopener">Sponsor LiveCodes</a>
+          </li>
+          <li><a href="{{REPO_URL}}" target="_blank" rel="noopener">GitHub</a></li>
+          <li>
+            <a href="{{DOCS_BASE_URL}}overview" target="_blank" rel="noopener" class="more"
+              >More...</a
+            >
+          </li>
         </ul>
       </div>
     </div>

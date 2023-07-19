@@ -1,6 +1,7 @@
+/* eslint-disable import/no-internal-modules */
 import type { LanguageSpecs } from '../../models';
 import { brythonBaseUrl } from '../../vendors';
-import { escapeCode, getLanguageCustomSettings } from '../../utils';
+import { getLanguageCustomSettings, toDataUrl } from '../../utils/utils';
 
 const brythonUrl = brythonBaseUrl + 'brython.min.js';
 const stdlibUrl = brythonBaseUrl + 'brython_stdlib.js';
@@ -15,15 +16,11 @@ export const python: LanguageSpecs = {
       const importsPattern = /^(?:from[ ]+(\S+)[ ]+)?import[ ]+(\S+)(?:[ ]+as[ ]+\S+)?[ ]*$/gm;
       const stdlib = autoloadStdlib !== false && compiled.match(importsPattern) ? [stdlibUrl] : [];
       const loader = `window.addEventListener("load", () => {brython(${JSON.stringify(options)})})`;
-      const loaderUrl = 'data:text/plain;base64,' + btoa(loader);
-      const compiledCode = `window.addEventListener("load", () => {
-        const content = __BRYTHON__.python_to_js(\`${escapeCode(compiled)}\`);
-        parent.postMessage({type: "compiled", payload: {language: "python", content}}, "*");
-      });`;
-      const compiledCodeUrl = 'data:text/plain;base64,' + btoa(compiledCode);
-      return [brythonUrl, ...stdlib, loaderUrl, compiledCodeUrl];
+      const loaderUrl = toDataUrl(loader);
+      return [brythonUrl, ...stdlib, loaderUrl];
     },
     scriptType: 'text/python',
+    compiledCodeLanguage: 'python',
   },
   extensions: ['py'],
   editor: 'script',

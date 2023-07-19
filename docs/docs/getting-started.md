@@ -1,20 +1,33 @@
 # Getting Started
 
+import LiveCodes from '../src/components/LiveCodes.tsx';
+
 There are multiple options:
 
-### Hosted App
+## Standalone App
 
-The easiest way to get started with LiveCodes is to use the hosted app (https://livecodes.io).
+The easiest way to get started with LiveCodes is to just use the app (https://livecodes.io).
 
-The app is packed with [features](./features/index.md) and offers various ways to [import code](./features/import.md).
+It is packed with [features](./features/index.md) and offers various ways to [import code](./features/import.md).
+
+## Embedded Playgrounds
+
+LiveCodes playgrounds can be easily [embedded](./features/embeds.md) into any web page. This can be achieved using:
+
+### App Embed Screen
+
+The [standalone app](#standalone-app) allows you to embed any project from the [embed screen](./features/embeds.md). The UI allows setting embed options and shows a preview of the embedded playground.  
+Copy the generated code snippet (at the bottom of the screen) and add it to the web page that you want to embed the playground in.
 
 ### SDK
 
-LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as npm package to allow easy [embedding](./features/embeds.md) and communication with playgrouds.
+LiveCodes [<abbr title="Software Development Kit">SDK</abbr>](./sdk/index.md) is available as [npm package](https://www.npmjs.com/package/livecodes) to allow easy embedding and communication with playgrounds.
 
-1. Install from npm.
+#### Option 1: Using a bundler
 
-```sh
+Install from npm.
+
+```shell
 npm i livecodes
 ```
 
@@ -23,70 +36,105 @@ then you can use it like that:
 ```js title="index.js"
 import { createPlayground } from 'livecodes';
 
-createPlayground('#container', { template: 'react' });
+createPlayground('#container', {
+  template: 'react',
+  // other embed options
+});
 ```
 
-2. or you may load from CDN
+#### Option 2: Load from CDN
 
 ESM:
 
-```html title="index.html"
-<div id="container"></div>
-<script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import CodeBlock from '@theme/CodeBlock';
 
-  createPlayground('#container', { template: 'react' });
-</script>
-```
+export const ESMCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script type="module">
+${'  '}import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${'  '}createPlayground('#container', {
+${'    '}template: 'react',
+${'    '}// other embed options
+${'  '}});
+</script>`}
+</CodeBlock>);
+}
+
+<ESMCode />
 
 UMD:
 
-```html title="index.html"
-<div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js"></script>
-<script>
-  // the UMD version provides the global object `livecodes`
-  livecodes.createPlayground('#container', { template: 'react' });
+export const UMDCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script src="https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
+${' '}livecodes.createPlayground('#container', {\n${' '.repeat(4)}template: 'react',
+${'    '}// other embed options
+${' '}});
 </script>
-```
+`}
+</CodeBlock>);
+}
 
-Please refer to [SDK documentation](./sdk/js-ts.md) for detailed usage.
+<UMDCode />
 
-### Self-Hosting
+#### Add your own content
 
-LiveCodes can be hosted on any static file server or CDN.
+You may use any of the methods to [prefill the playground](./features/code-prefill.md) with your own code.
 
-The built app can be obtained by one of the following ways:
-
-- Download the app from the [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and clone it. You may wish to use the included setup to publish to [GitHub Pages](https://pages.github.com/):
-
-  ```sh
-  git clone https://github.com/{your-username}/livecodes
-  cd livecodes
-  npm install
-  npm run build         # build the app to 'build' directory
-  npm run gh-pages      # optionally, publish to github pages
-
-  # for development
-  npm run serve         # locally serve to http://localhost:8080
-  npm start             # start local development with code watch, rebuild and live-reload
-  ```
-
-- Fork the [GitHub repo](https://github.com/live-codes/livecodes) and use one of the hosting services that integrate with GitHub to allow automatic deploys on code push (e.g. [Cloudflare Pages](https://developers.cloudflare.com/pages/get-started), [Vercel](https://vercel.com/docs/concepts/git), [Netlify](https://docs.netlify.com/configure-builds/overview/), [Firebase](https://firebase.google.com/docs/hosting/github-integration)). When prompted, the build command is `npm run build` and the build output directory is `build`.
-
-The app needs to be served from the root of the domain/subdomain.
-
-You may wish to edit one or more of the used [services](./advanced/services.md) to use your own.
-
-The [SDK](./sdk/index.md) can still be used with the self-hosted app by providing the [`appUrl`](./sdk/js-ts.md#appurl) [embed option](./sdk/js-ts.md#embed-options).
+Example:
 
 ```js title="index.js"
 import { createPlayground } from 'livecodes';
 
-const options = {
-  appUrl: 'https://playground.myserver.com/',
-  template: 'react',
+const config = {
+  markup: {
+    language: 'markdown',
+    content: '# Hello LiveCodes!',
+  },
+  style: {
+    language: 'css',
+    content: 'body { color: blue; }',
+  },
+  script: {
+    language: 'javascript',
+    content: 'console.log("hello from JavaScript!");',
+  },
+  activeEditor: 'script',
 };
-createPlayground('#container', options);
+
+createPlayground('#container', { config, params: { console: 'open' } });
 ```
+
+export const config = {
+markup: {
+language: 'markdown',
+content: '# Hello LiveCodes!',
+},
+style: {
+language: 'css',
+content: 'body { color: blue; }',
+},
+script: {
+language: 'javascript',
+content: 'console.log("hello from JavaScript!");',
+},
+activeEditor: 'script',
+};
+
+Live demo:  
+(this is an interactive playground - try editing the code!)
+
+<LiveCodes config={config} params={{ console: 'open' }}></LiveCodes>
+
+Please refer to the section on [Embedded Playgrounds](./features/embeds.md) for more details.
+
+## Self-Hosting
+
+LiveCodes can be hosted on any static file server or CDN.
+
+The easiest way is to download the app from [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
+
+Please check the section on [self-hosting] for other methods of self-hosting, including the built-in setup to deploy to GitHub pages and how to use the SDK with the self-hosted app.

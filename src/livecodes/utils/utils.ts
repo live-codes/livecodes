@@ -1,3 +1,4 @@
+import { encode } from 'js-base64';
 import type { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
 export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
@@ -43,7 +44,6 @@ export const pipe = (...fns: Function[]) =>
 export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-// added safari (on mac & ios): monaco editor is broken on safari
 export const isMobile = () => {
   let mobile = false;
   const userAgent = navigator.userAgent.toLowerCase();
@@ -60,9 +60,7 @@ export const isMobile = () => {
     }
   })(userAgent || navigator.vendor || (window as any).opera);
 
-  const safari = userAgent.indexOf('safari') > -1 && userAgent.indexOf('chrome') === -1; // chrome says it is safari!
-
-  return mobile || safari;
+  return mobile;
 };
 
 export const isRelativeUrl = (url?: string) =>
@@ -243,9 +241,17 @@ export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
   return true;
 };
 
-export const getWorkerDataURL = (url: string) => {
-  const content = `importScripts("${url}");`;
-  return 'data:text/javascript;base64,' + btoa(content);
+export const toDataUrl = (content: string, type = 'text/javascript') =>
+  `data:${type};charset=UTF-8;base64,` + encode(content);
+
+export const getWorkerDataURL = (url: string) => toDataUrl(`importScripts("${url}");`);
+
+export const createWorkerFromContent = (content: string) => {
+  try {
+    return new Worker(toDataUrl(content));
+  } catch (e) {
+    return new Worker(URL.createObjectURL(new Blob([content], { type: 'application/javascript' })));
+  }
 };
 
 export const removeComments = (src: string) =>
@@ -377,3 +383,15 @@ export const toCamelCase = (str: string) =>
     });
 
 export const removeDuplicates = (arr: any[] | undefined) => Array.from(new Set(arr));
+
+export const replaceAsync = async (
+  str: string,
+  regexp: RegExp,
+  asyncFn: (...args: any) => Promise<string>,
+) => {
+  const replacements = await Promise.all(
+    Array.from(str.matchAll(regexp), (match) => asyncFn(...match)),
+  );
+  let i = 0;
+  return str.replace(regexp, () => replacements[i++]);
+};

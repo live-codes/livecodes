@@ -15,7 +15,13 @@ import {
   getLanguageSpecs,
   getLanguageExtension,
 } from './languages';
-import { fakeStorage, createStores, initializeStores, type Stores } from './storage';
+import {
+  fakeStorage,
+  createStores,
+  initializeStores,
+  type Stores,
+  type StorageItem,
+} from './storage';
 import type {
   API,
   Cache,
@@ -67,6 +73,7 @@ import {
   recoverPromptScreen,
   resultPopupHTML,
   welcomeScreen,
+  aboutScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
 import { createEventsManager } from './events';
@@ -91,13 +98,14 @@ import {
   loadStylesheet,
   stringify,
   stringToValidJson,
+  toDataUrl,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
 import { createTypeLoader } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
-import { createAuthService, sandboxService, shareService } from './services';
+import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   chaiTypesUrl,
@@ -125,6 +133,7 @@ import {
 } from './UI';
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
+import { permanentUrlService } from './services/permanent-url';
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
@@ -134,6 +143,7 @@ let split: ReturnType<typeof createSplitPanes> | null = createSplitPanes();
 const typeLoader = createTypeLoader();
 const screens: Screen[] = [];
 const params = getParams(); // query string params
+const iframeScrollPosition = { x: 0, y: 0 };
 
 let baseUrl: string;
 let isEmbed: boolean;
@@ -254,8 +264,13 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       const { markup, style, script } = getConfig();
       const query = `?markup=${markup.language}&style=${style.language}&script=${
         script.language
-      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}`;
-      iframe.src = service.getResultUrl() + query;
+      }&isEmbed=${isEmbed}&isLoggedIn=${Boolean(authService?.isLoggedIn())}&appCDN=${getAppCDN()}`;
+      const scrollPosition =
+        params.scrollPosition === false ||
+        (iframeScrollPosition.x === 0 && iframeScrollPosition.y === 0)
+          ? ''
+          : `#livecodes-scroll-position:${iframeScrollPosition.x},${iframeScrollPosition.y}`;
+      iframe.src = service.getResultUrl() + query + scrollPosition;
       container.appendChild(iframe);
     }
 
@@ -509,6 +524,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   editorDivs.forEach((editor) => (editor.style.display = 'none'));
   const activeEditor = document.getElementById(editorId) as HTMLElement;
   activeEditor.style.display = 'block';
+  activeEditor.style.visibility = 'visible';
   if (!isEmbed && !isUpdate) {
     editors[editorId]?.focus();
   }
@@ -522,6 +538,7 @@ const showEditor = (editorId: EditorId = 'markup', isUpdate = false) => {
   if (initialized || params.view !== 'result') {
     split?.show('code');
   }
+  configureEditorTools(getActiveEditor().getLanguage());
   showEditorModeStatus(editorId);
 };
 
@@ -642,7 +659,9 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
       ...getConfig(),
       activeEditor: editorId,
     });
-    await run();
+    if (getConfig().autoupdate) {
+      await run();
+    }
   }
   await setSavedStatus();
   dispatchChangeEvent();
@@ -716,9 +735,12 @@ const getResultPage = async ({
   const scriptType = getLanguageCompiler(scriptLanguage)?.scriptType;
 
   const forceCompileStyles =
-    config.processors.find((name) => processors.find((p) => name === p.name && p.needsHTML)) &&
-    (markupContent !== getCache().markup.content ||
-      scriptContent !== getCache().script.content); /* e.g. jsx */
+    [...config.processors, ...getCache().processors].find((name) =>
+      processors.find((p) => name === p.name && p.needsHTML),
+    ) &&
+    (config.processors.join(',') !== getCache().processors.join(',') ||
+      markupContent !== getCache().markup.content ||
+      scriptContent !== getCache().script.content); /* e.g. jsx/sfc */
 
   const testsNotChanged =
     config.tests?.language === getCache().tests?.language &&
@@ -728,22 +750,37 @@ const getResultPage = async ({
   const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
   let compiledMarkup = markupCompileResult.code;
 
+  const scriptCompileResult = await compiler.compile(scriptContent, scriptLanguage, config, {
+    forceCompile: forceCompileStyles,
+    blockly:
+      scriptLanguage === 'blockly'
+        ? ((await customEditors.blockly?.getContent({
+            baseUrl,
+            editors,
+            config: getConfig(),
+            html: compiledMarkup,
+            eventsManager,
+          })) as BlocklyContent)
+        : {},
+  });
+  const compiledScript = scriptCompileResult.code;
+
+  let compileInfo: CompileInfo = {
+    ...markupCompileResult.info,
+    ...scriptCompileResult.info,
+    importedContent:
+      (markupCompileResult.info.importedContent || '') +
+      (scriptCompileResult.info.importedContent || ''),
+    imports: {
+      ...scriptCompileResult.info.imports,
+      ...markupCompileResult.info.imports,
+    },
+  };
+
   const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
-      html: compiledMarkup,
+      html: `${compiledMarkup}<script>${compiledScript}</script><script>${compileInfo.importedContent}</script>`,
       forceCompile: forceCompileStyles,
-    }),
-    compiler.compile(scriptContent, scriptLanguage, config, {
-      blockly:
-        scriptLanguage === 'blockly'
-          ? ((await customEditors.blockly?.getContent({
-              baseUrl,
-              editors,
-              config: getConfig(),
-              html: compiledMarkup,
-              eventsManager,
-            })) as BlocklyContent)
-          : {},
     }),
     runTests
       ? testsNotChanged
@@ -752,11 +789,7 @@ const getResultPage = async ({
       : Promise.resolve(getCompileResult(getCache().tests?.compiled || '')),
   ]);
 
-  let compileInfo: CompileInfo = {
-    ...markupCompileResult.info,
-  };
-
-  const [compiledStyle, compiledScript, compiledTests] = compileResults.map((result) => {
+  const [compiledStyle, compiledTests] = compileResults.map((result) => {
     const { code, info } = getCompileResult(result);
     compileInfo = {
       ...compileInfo,
@@ -971,6 +1004,7 @@ const save = async (notify = false, setTitle = true) => {
   if (notify) {
     notifications.success('Project locally saved to device!');
   }
+
   await share(false);
 };
 
@@ -986,8 +1020,10 @@ const share = async (
   contentOnly = true,
   urlUpdate = true,
   includeResult = false,
+  permanentUrl = false,
 ): Promise<ShareData> => {
   const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
+
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
@@ -995,12 +1031,19 @@ const share = async (
         result: includeResult ? getCache().result : undefined,
       }))
     : '?x=code/' + compress(JSON.stringify(content));
-  const url = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+
+  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+
+  const url = permanentUrl ? permanentUrlService.getAppUrl() : currentUrl;
+
   const shareURL = url + contentParam;
+
   if (urlUpdate) {
-    updateUrl(shareURL, true);
+    updateUrl(currentUrl + contentParam, true);
   }
+
   const projectTitle = content.title !== defaultConfig.title ? content.title + ' - ' : '';
+
   return {
     title: projectTitle + 'LiveCodes',
     url: shareURL,
@@ -1053,6 +1096,10 @@ const loadConfig = async (
   // reset url params
   updateUrl(url || location.origin + location.pathname, true);
 
+  // reset iframe scroll position
+  iframeScrollPosition.x = 0;
+  iframeScrollPosition.y = 0;
+
   // load config
   await bootstrap(true);
 
@@ -1078,6 +1125,7 @@ const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
 };
 
 const loadUserConfig = (updateUI = true) => {
+  if (isEmbed) return;
   const userConfig = stores.userConfig?.getValue();
   setConfig(
     buildConfig({
@@ -1162,6 +1210,10 @@ const checkSavedAndExecute = (fn: () => void, cancelFn?: () => void) => () =>
       setTimeout(fn);
     } else if (typeof cancelFn === 'function') {
       setTimeout(cancelFn);
+    } else {
+      setTimeout(() => {
+        modal.close();
+      });
     }
   });
 
@@ -1203,6 +1255,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     const disableRecoverCheckbox = UI.getModalDisableRecoverCheckbox();
 
     eventsManager.addEventListener(UI.getModalRecoverButton(), 'click', async () => {
+      modal.show(loadingMessage(), { size: 'small' });
       await loadConfig(unsavedProject);
       await setSavedStatus();
       modal.close();
@@ -1411,7 +1464,9 @@ const registerScreen = (screen: Screen['screen'], fn: Screen['show']) => {
 };
 
 const showScreen = async (screen: Screen['screen'], options?: any) => {
-  await screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase())?.show(options);
+  const foundScreen = screens.find((s) => s.screen.toLowerCase() === screen.toLowerCase());
+  if (!foundScreen) return;
+  await foundScreen.show(options);
   const modalElement = document.querySelector('#modal') as HTMLElement;
   (modalElement.firstElementChild as HTMLElement)?.click();
 };
@@ -1420,7 +1475,8 @@ const loadSelectedScreen = () => {
   const params = Object.fromEntries(
     new URLSearchParams(parent.location.search) as unknown as Iterable<any>,
   );
-  const screen = params.screen;
+  // ?new or ?screen=<screen_name>
+  const screen = params.new === '' ? 'new' : params.screen;
   if (screen) {
     showScreen(screen);
   }
@@ -1510,7 +1566,8 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
         ...(getAppData()?.recentTemplates?.filter((t) => t.name !== templateName) || []),
       ].slice(0, 5),
     });
-    (checkSaved ? checkSavedAndExecute : () => Promise.resolve)(() => {
+    const doNotCheckAndExecute = (fn: () => void) => async () => fn();
+    (checkSaved ? checkSavedAndExecute : doNotCheckAndExecute)(() => {
       projectId = '';
       loadConfig(
         {
@@ -1637,23 +1694,36 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   }
 };
 
-const showVersion = () => {
+const getVersion = (log = true) => {
   // variables added in scripts/build.js
   const appVersion = process.env.VERSION || '';
   const sdkVersion = process.env.SDK_VERSION || '';
   const commitSHA = process.env.GIT_COMMIT || '';
   const repoUrl = process.env.REPO_URL || '';
+  const appUrl = permanentUrlService.getAppUrl();
+  const sdkUrl = permanentUrlService.getSDKUrl();
 
-  // eslint-disable-next-line no-console
-  console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
-  // eslint-disable-next-line no-console
-  console.log(`SDK Version: ${sdkVersion} (${repoUrl}/releases/tag/sdk-v${sdkVersion})`);
-  // eslint-disable-next-line no-console
-  console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+  if (log) {
+    // eslint-disable-next-line no-console
+    console.log(`App Version: ${appVersion} (${repoUrl}/releases/tag/v${appVersion})`);
+    // eslint-disable-next-line no-console
+    console.log(
+      `SDK Version: ${sdkVersion} (https://www.npmjs.com/package/livecodes/v/${sdkVersion})`,
+    );
+    // eslint-disable-next-line no-console
+    console.log(`Git commit: ${commitSHA} (${repoUrl}/commit/${commitSHA})`);
+    // eslint-disable-next-line no-console
+    console.log(`App Permanent URL: ${appUrl}`);
+    // eslint-disable-next-line no-console
+    console.log(`SDK Permanent URL: ${sdkUrl}`);
+  }
 
   return {
-    version: appVersion,
+    appVersion,
+    sdkVersion,
     commitSHA,
+    appUrl,
+    sdkUrl,
   };
 };
 
@@ -1733,6 +1803,19 @@ const handleIframeResize = () => {
     sizeLabel.style.display = 'block';
     sizeLabel.classList.add('visible');
     hideLabel();
+  });
+};
+
+const handleIframeScroll = () => {
+  eventsManager.addEventListener(window, 'message', (event: any) => {
+    const iframe = UI.getResultIFrameElement();
+    if (!iframe || event.source !== iframe.contentWindow || event.data.type !== 'scroll') {
+      return;
+    }
+
+    const position = event.data.position;
+    iframeScrollPosition.x = Number(position.x) || 0;
+    iframeScrollPosition.y = Number(position.y) || 0;
   });
 };
 
@@ -1866,7 +1949,7 @@ const handleHotKeys = () => {
       return;
     }
 
-    // Ctrl + Enter triggers run
+    // Shift + Enter triggers run
     if (e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
       split?.show('output');
@@ -1927,6 +2010,17 @@ const handleEditorTools = () => {
     await format(false);
   });
 
+  eventsManager.addEventListener(UI.getCopyAsUrlButton(), 'click', () => {
+    const currentEditor = getActiveEditor();
+    const mimeType = 'text/' + currentEditor.getLanguage();
+    const dataUrl = toDataUrl(currentEditor.getValue(), mimeType);
+    if (copyToClipboard(dataUrl)) {
+      notifications.success('Code copied as data URL');
+    } else {
+      notifications.error('Failed to copy code');
+    }
+  });
+
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
     showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
   });
@@ -1967,7 +2061,9 @@ const handleProcessors = () => {
               : getConfig().processors.filter((p) => p !== processorName)),
           ],
         });
-        await run();
+        if (getConfig().autoupdate) {
+          await run();
+        }
       },
       false,
     );
@@ -2050,7 +2146,9 @@ const handleSettings = () => {
         setUserConfig({
           showSpacing: toggle.checked,
         });
-        await run();
+        if (getConfig().autoupdate) {
+          await run();
+        }
       }
     });
   });
@@ -2191,7 +2289,7 @@ const handleNew = () => {
               'click',
               (event) => {
                 event.preventDefault();
-                loadStarterTemplate(template.name);
+                loadStarterTemplate(template.name, /* checkSaved= */ false);
               },
               false,
             );
@@ -2422,7 +2520,15 @@ const handleShare = () => {
   const createShareUI = async () => {
     modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/share') = await import(baseUrl + '{{hash:share.js}}');
-    const shareContainer = await importModule.createShareContainer(share, baseUrl, eventsManager);
+    const shareFn = (shortUrl = false, permanentUrl = false): Promise<ShareData> =>
+      share(
+        shortUrl,
+        /* contentOnly= */ true,
+        /* urlUpdate= */ false,
+        /* includeResult= */ true,
+        permanentUrl,
+      );
+    const shareContainer = await importModule.createShareContainer(shareFn, baseUrl, eventsManager);
     modal.show(shareContainer, { size: 'small' });
   };
   eventsManager.addEventListener(
@@ -2585,9 +2691,19 @@ const handlePersistantStorage = async () => {
     }, 2000);
   };
 
+  const updateRecentProjects = (allProjects: StorageItem[]) => {
+    const recentProjects =
+      allProjects
+        ?.slice(0, 5)
+        .map((p) => ({ id: p.id, title: p.config.title, description: p.config.description })) || [];
+    setAppData({ recentProjects });
+  };
+
   const projectSubscription = stores.projects?.subscribe(requestPersistance);
   const templateSubscription = stores.templates?.subscribe(requestPersistance);
   const assetSubscription = stores.assets?.subscribe(requestPersistance);
+
+  stores.projects?.subscribe(updateRecentProjects);
 };
 
 const handleBackup = () => {
@@ -2680,13 +2796,59 @@ const handleWelcome = () => {
       loadSettings(getConfig());
     });
 
+    if (!initialized) {
+      checkRecoverStatus(/* isWelcomeScreen= */ true);
+    }
+
+    const loadRecentProject = async (pId: string) => {
+      modal.show(loadingMessage(), { size: 'small' });
+      const savedProject = (await stores.projects?.getItem(pId))?.config;
+      if (savedProject) {
+        await loadConfig(savedProject);
+        projectId = pId;
+      }
+      modal.close();
+    };
+
+    const recentProjects = getAppData()?.recentProjects?.slice(0, 5).reverse() || [];
+
+    const welcomeModalScreen = UI.getModalWelcomeScreen(welcomeContainer);
+    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
+
+    if (recentProjects.length === 0 && welcomeModalScreen && welcomeRecent) {
+      welcomeRecent.style.display = 'none';
+      welcomeModalScreen.classList.add('no-recent');
+    } else {
+      const list = UI.getModalWelcomeRecentList(welcomeContainer);
+      recentProjects.forEach((p) => {
+        const item = document.createElement('li');
+        item.classList.add('overflow-ellipsis');
+
+        const link = document.createElement('a');
+        link.textContent = p.title;
+        link.title = p.description.trim() || p.title;
+        link.href = '#';
+
+        item.appendChild(link);
+        list?.prepend(item);
+
+        eventsManager.addEventListener(link, 'click', () =>
+          checkSavedStatus().then((confirmed) => {
+            if (confirmed) {
+              loadRecentProject(p.id);
+            }
+          }),
+        );
+      });
+    }
+
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
       UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
     } else {
-      const loadTempateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
+      const loadTemplateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
       eventsManager.addEventListener(
-        loadTempateLink,
+        loadTemplateLink,
         'click',
         async (event) => {
           event.preventDefault();
@@ -2696,7 +2858,7 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTempateLink.style.display = 'unset';
+      loadTemplateLink.style.display = 'unset';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 
@@ -2749,53 +2911,29 @@ const handleWelcome = () => {
         }),
       );
     });
-
-    if (!initialized) {
-      checkRecoverStatus(/* isWelcomeScreen= */ true);
-    }
-
-    const loadRecentProject = async (pId: string) => {
-      modal.show(loadingMessage(), { size: 'small' });
-      const savedProject = (await stores.projects?.getItem(pId))?.config;
-      if (savedProject) {
-        await loadConfig(savedProject);
-        projectId = pId;
-      }
-      modal.close();
-    };
-
-    const recentProjects = (await stores.projects?.getList())?.slice(0, 5).reverse();
-    if (!recentProjects || recentProjects.length === 0) return;
-    const list = UI.getModalWelcomeRecentList(welcomeContainer);
-    recentProjects.forEach((p) => {
-      const item = document.createElement('li');
-      item.classList.add('overflow-ellipsis');
-
-      const link = document.createElement('a');
-      link.textContent = p.title;
-      link.title = p.description.trim() || p.title;
-      link.href = '#';
-
-      item.appendChild(link);
-      list?.prepend(item);
-
-      eventsManager.addEventListener(link, 'click', () =>
-        checkSavedStatus().then((confirmed) => {
-          if (confirmed) {
-            loadRecentProject(p.id);
-          }
-        }),
-      );
-    });
-
-    const welcomeRecent = UI.getModalWelcomeRecent(welcomeContainer);
-    if (welcomeRecent) {
-      welcomeRecent.style.visibility = 'visible';
-    }
   };
 
   eventsManager.addEventListener(UI.getWelcomeLink(), 'click', createWelcomeUI);
   registerScreen('welcome', createWelcomeUI);
+};
+
+const handleAbout = () => {
+  if (isEmbed) return;
+
+  const createAboutUI = async () => {
+    const versions = getVersion();
+    const repoUrl = process.env.REPO_URL || '';
+    const div = document.createElement('div');
+    div.innerHTML = aboutScreen
+      .replace(/{{COMMIT_URL}}/g, `${repoUrl}/commit/${versions.commitSHA}`)
+      .replace(/{{APP_URL}}/g, versions.appUrl)
+      .replace(/{{SDK_URL}}/g, versions.sdkUrl);
+    const aboutContainer = div.firstChild as HTMLElement;
+    modal.show(aboutContainer);
+  };
+
+  eventsManager.addEventListener(UI.getAboutLink(), 'click', createAboutUI);
+  registerScreen('about', createAboutUI);
 };
 
 const handleProjectInfo = () => {
@@ -2816,7 +2954,16 @@ const handleProjectInfo = () => {
 };
 
 const handleEmbed = () => {
-  const getUrlFn = async () => (await share(true, true, false, true)).url;
+  const getUrlFn = async (permanentUrl = false) =>
+    (
+      await share(
+        /* shortUrl= */ true,
+        /* contentOnly= */ true,
+        /* urlUpdate= */ false,
+        /* includeResult= */ false,
+        permanentUrl,
+      )
+    ).url;
   const config = getConfig();
 
   const createEditorFn = async (container: HTMLElement) =>
@@ -3031,7 +3178,9 @@ const handleExternalResources = () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
-      await run();
+      if (getConfig().autoupdate) {
+        await run();
+      }
     };
 
     modal.show(loadingMessage());
@@ -3124,7 +3273,9 @@ const handleCustomSettings = () => {
       }
       customSettingsEditor?.destroy();
       modal.close();
-      await run();
+      if (getConfig().autoupdate) {
+        await run();
+      }
       dispatchChangeEvent();
     });
   };
@@ -3423,6 +3574,7 @@ const basicHandlers = () => {
   handleLogoLink();
   handleResize();
   handleIframeResize();
+  handleIframeScroll();
   handleSelectEditor();
   handleChangeLanguage();
   handleChangeContent();
@@ -3467,6 +3619,7 @@ const extraHandlers = async () => {
   handleBackup();
   handleBroadcast();
   handleWelcome();
+  handleAbout();
   handleResultPopup();
   handleBroadcastStatus();
   handleUnload();
@@ -3563,7 +3716,12 @@ const importExternalContent = async (options: {
   let configUrlConfig: Partial<Config> = {};
 
   if (template) {
-    templateConfig = upgradeAndValidate(await getTemplate(template, config, baseUrl));
+    const templateObj = await getTemplate(template, config, baseUrl);
+    if (templateObj) {
+      templateConfig = upgradeAndValidate(templateObj);
+    } else {
+      notifications.error('Could not load template: ' + template);
+    }
   }
 
   if (url) {
@@ -3584,6 +3742,10 @@ const importExternalContent = async (options: {
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user);
+
+    if (Object.keys(urlConfig).length === 0) {
+      notifications.error('Invalid import URL');
+    }
   }
 
   if (hasContentUrls(config)) {
@@ -3591,7 +3753,7 @@ const importExternalContent = async (options: {
     const editorsContent = await Promise.all(
       editorIds.map((editorId) => {
         const contentUrl = config[editorId].contentUrl;
-        if (contentUrl && !config[editorId].content) {
+        if (contentUrl && getValidUrl(contentUrl) && !config[editorId].content) {
           return fetch(contentUrl)
             .then((res) => res.text())
             .then((content) => ({
@@ -3696,6 +3858,10 @@ const bootstrap = async (reload = false) => {
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
+    if (!getConfig().autoupdate) {
+      setLoading(false);
+      return;
+    }
     setTimeout(() => {
       if (
         toolsPane?.getActiveTool() === 'tests' &&
@@ -3729,13 +3895,7 @@ const initializeApp = async (
 
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
-  setConfig(
-    buildConfig({
-      ...getConfig(),
-      ...appConfig,
-    }),
-  );
-
+  setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isLite);
@@ -3887,7 +4047,7 @@ const createApi = (): API => {
       return { output: 'Broadcast user token set successfully' };
     }
     if (command === 'showVersion') {
-      const output = showVersion();
+      const output = getVersion();
       return { output };
     }
     return { error: 'Invalid command!' };

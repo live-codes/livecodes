@@ -28,12 +28,12 @@ export const runOutsideWorker: CompilerFunction = async (code: string, { config,
 
     const jsx = removeComponentDeclaration(compiled);
     const result = `import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 ${escapeCode(jsx, false)}
-ReactDOM.render(<MDXContent />, document.body);
+createRoot(document.querySelector('#__livecodes_mdx_root__')).render(<MDXContent />,);
 `;
-    const js = await compileInCompiler(result, 'jsx', config, {}, worker);
-    resolve(`<script type="module">${js}</script>`);
+    const js = (await compileInCompiler(result, 'jsx', config, {}, worker)).code;
+    resolve(`<div id="__livecodes_mdx_root__"></div><script type="module">${js}</script>`);
   });
 
 export const mdx: LanguageSpecs = {
@@ -47,9 +47,6 @@ export const mdx: LanguageSpecs = {
     factory: () => async (code) => code,
     runOutsideWorker,
     compiledCodeLanguage: 'javascript',
-    imports: {
-      'react/jsx-runtime': 'https://esm.sh/react/jsx-runtime',
-    },
   },
   extensions: ['mdx'],
   editor: 'markup',

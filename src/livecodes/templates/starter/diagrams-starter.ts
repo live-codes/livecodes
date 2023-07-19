@@ -18,6 +18,11 @@ export const diagramsStarter: Template = {
   align-items: center;
 }
 
+.container div {
+  width: 100%;
+  text-align: center;
+}
+
 .container img {
   width: 80%;
   max-width: 600px;

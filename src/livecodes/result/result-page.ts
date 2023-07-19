@@ -4,13 +4,15 @@ import {
   getImports,
   hasImports,
   isModuleScript,
+  removeImports,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
+import { getAppCDN, modulesService } from '../services';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
-import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap } from '../utils';
-import { esModuleShimsUrl, jestLiteUrl, spacingJsUrl } from '../vendors';
+import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap, toDataUrl } from '../utils';
+import { esModuleShimsPath, jestLiteUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
   code,
@@ -77,6 +79,19 @@ export const createResultPage = async ({
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
   });
+
+  // stylesheets imported in script editor
+  const stylesheetImports = getImports(code.script.compiled).filter(
+    (mod) => mod.endsWith('.css') && !mod.startsWith('.'),
+  );
+  stylesheetImports.forEach((mod) => {
+    const url = modulesService.getUrl(mod);
+    const stylesheet = dom.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = url;
+    dom.head.appendChild(stylesheet);
+  });
+  code.script.compiled = removeImports(code.script.compiled, stylesheetImports);
 
   // editor styles
   if (singleFile) {
@@ -183,9 +198,7 @@ export const createResultPage = async ({
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),
-          ...(importFromScript
-            ? { './script': 'data:text/javascript;base64,' + btoa(code.script.compiled) }
-            : {}),
+          ...(importFromScript ? { './script': toDataUrl(code.script.compiled) } : {}),
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,
@@ -198,6 +211,7 @@ export const createResultPage = async ({
             compileInfo.cssModules,
             styleExtension,
           ),
+          ...compileInfo.imports,
         };
 
   const importMaps = {
@@ -209,7 +223,7 @@ export const createResultPage = async ({
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
-    esModuleShims.src = esModuleShimsUrl;
+    esModuleShims.src = modulesService.getUrl(esModuleShimsPath, getAppCDN());
     esModuleShims.async = true;
     dom.head.appendChild(esModuleShims);
 

@@ -14,7 +14,8 @@ import { scss, sass } from './scss';
 import { svelte } from './svelte';
 import { stylus } from './stylus';
 import { typescript } from './typescript';
-import { vue, vue2 } from './vue';
+import { vue } from './vue';
+import { vue2 } from './vue2';
 import { stencil } from './stencil';
 import { coffeescript } from './coffeescript';
 import { livescript } from './livescript';
@@ -65,6 +66,7 @@ import { flow } from './flow';
 import { mjml } from './mjml';
 import { sucrase } from './sucrase';
 import { eta } from './eta';
+import { clojurescript } from './clojurescript';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -132,6 +134,7 @@ export const languages: LanguageSpecs[] = [
   julia,
   scheme,
   commonlisp,
+  clojurescript,
   tcl,
   assemblyscript,
   wat,

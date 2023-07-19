@@ -9,18 +9,18 @@ export const blocklyStarter: Template = {
     language: 'html',
     content: `
 <xml
-  data-src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/dom-blocks.xml"
+  data-src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.1.0/src/dom-blocks.xml"
   data-type="blockly/xml"
   style="display: none"
 ></xml>
 <script
-  src="https://cdn.jsdelivr.net/npm/@live-codes/blockly-utils@0.1.0/src/dom-blocks.js"
+  src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.1.0/src/dom-blocks.js"
   type="blockly/script"
 ></script>
 
 <div class="container">
   <h1>Hello, <span id="title">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/blockly.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/blockly.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

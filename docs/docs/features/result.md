@@ -68,7 +68,7 @@ From the [tools pane](./tools-pane.md), the result page can be viewed in a separ
 
 Please note that the URL of the result page shown in the new window is a [temporary URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL#parameters), for local preview. Sharing this URL will not work.
 
-If you need to share a project, use the [Share screen](./share). While, if you need to share the result page use the [broadcast](./broadcast.md) feature.
+If you need to share a project, use the [Share screen](./share). While, if you need to share the result page use the `result` [display mode](./display-modes.md) or the [broadcast](./broadcast.md) feature.
 
 :::
 
@@ -87,3 +87,13 @@ The spacing between elements on the result page can be measured by adding [Spaci
 `Show Spacing` is only available when viewing the result page in the app. It is not added to the result page for example when [exported](./export.md) or [deployed](./deploy.md).
 
 :::
+
+## Scroll Position
+
+By default, the result page scroll position is maintained after reloads.
+
+To disable this behavior, set the [query param](../configuration/query-params.md) `scrollPosition` to `false`.
+
+Example:
+
+    https://livecodes.io?scrollPosition=false

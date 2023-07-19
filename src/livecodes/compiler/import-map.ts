@@ -1,6 +1,16 @@
+/* eslint-disable import/no-internal-modules */
 import type { CompileInfo, Config, Language } from '../models';
-import { modulesService } from '../services';
-import { escapeCode, removeComments, removeCommentsAndStrings, toCamelCase } from '../utils';
+import { modulesService } from '../services/modules';
+import {
+  escapeCode,
+  getFileExtension,
+  getValidUrl,
+  removeComments,
+  removeCommentsAndStrings,
+  toCamelCase,
+  toDataUrl,
+} from '../utils/utils';
+import { compileInCompiler } from './compile-in-compiler';
 
 export const importsPattern =
   /(import\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:".*?")|(?:'.*?'))([\s]*?(?:;|$|))/g;
@@ -14,6 +24,8 @@ export const getImports = (code: string) =>
   ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
 
 const needsBundler = (mod: string) =>
+  !mod.startsWith('https://deno.bundlejs.com/') &&
+  !mod.startsWith('https://edge.bundlejs.com/') &&
   !mod.endsWith('#nobundle') &&
   (mod.startsWith('https://deno.land/') ||
     mod.startsWith('https://github.com/') ||
@@ -32,17 +44,30 @@ const isBare = (mod: string) =>
   !mod.startsWith('data:') &&
   !mod.startsWith('blob:');
 
-export const createImportMap = (code: string, config: Config) =>
+const isStylesheet = (mod: string) =>
+  (mod.endsWith('.css') ||
+    mod.endsWith('.scss') ||
+    mod.endsWith('.sass') ||
+    mod.endsWith('.less') ||
+    mod.endsWith('.styl')) &&
+  !mod.startsWith('./style');
+
+export const findImportMapKey = (mod: string, importmap: Record<string, string>) =>
+  Object.keys(importmap).find((key) => key === mod || mod.startsWith(key + '/'));
+
+export const createImportMap = (code: string, config: Config, fallbackToCdn = true) =>
   getImports(code)
     .map((libName) => {
-      if (!needsBundler(libName) && !isBare(libName)) {
+      if ((!needsBundler(libName) && !isBare(libName)) || isStylesheet(libName)) {
         return {};
       } else {
-        const key = Object.keys(config.imports).find(
-          (mod) => mod === libName || libName.startsWith(mod + '/'),
-        );
+        const imports = { ...config.imports, ...config.customSettings?.imports };
+        const key = findImportMapKey(libName, imports);
         if (key) {
-          return { [key]: config.imports[key] };
+          return { [key]: imports[key] };
+        }
+        if (!fallbackToCdn) {
+          return {};
         }
         return {
           [libName]: modulesService.getModuleUrl(libName, {
@@ -64,23 +89,103 @@ export const hasAwait = (code: string) =>
 export const isModuleScript = (code: string) =>
   hasImports(code) || hasExports(code) || hasAwait(code);
 
-export const replaceImports = (code: string, config: Config) => {
-  const importMap = createImportMap(code, config);
+export const replaceImports = (
+  code: string,
+  config: Config,
+  importMap?: Record<string, string>,
+) => {
+  importMap = importMap || createImportMap(code, config);
   return code.replace(new RegExp(importsPattern), (statement) => {
+    if (!importMap) {
+      return statement;
+    }
     const libName = statement
       .replace(new RegExp(importsPattern), '$2')
       .replace(/"/g, '')
       .replace(/'/g, '');
 
-    const key = Object.keys(importMap).find(
-      (mod) => mod === libName || libName.startsWith(mod + '/'),
-    );
+    const key = findImportMapKey(libName, importMap);
     if (!key) {
       return statement;
     }
     return statement.replace(key, importMap[key]);
   });
 };
+
+export const replaceSFCImports = async (
+  code: string,
+  {
+    filename,
+    config,
+    sfcExtension,
+    getLanguageByAlias,
+    compileSFC,
+  }: {
+    config: Config;
+    filename: string;
+    sfcExtension: string;
+    getLanguageByAlias: (alias: string) => Language | undefined;
+    compileSFC: (code: string, options: { filename: string; config: Config }) => Promise<string>;
+  },
+) => {
+  const isSfc = (mod: string) => mod.toLowerCase().endsWith(sfcExtension);
+  const isExtensionless = (mod: string) =>
+    mod.startsWith('.') && !mod.split('/')[mod.split('/').length - 1].includes('.');
+  const sfcImports = getImports(code).filter(
+    (mod) => isSfc(mod) || isExtensionless(mod) || mod.startsWith('.'),
+  );
+  const projectImportMap = {
+    ...config.imports,
+    ...config.customSettings.imports,
+  };
+  const importMap: Record<string, string> = {};
+  await Promise.all(
+    sfcImports.map(async (mod) => {
+      // convert extensionless, relative URL to absolute URL and find in import map
+      const urlInMap =
+        isExtensionless(mod) &&
+        getValidUrl(filename) != null &&
+        projectImportMap[findImportMapKey(new URL(mod, filename).href, projectImportMap) || 0];
+
+      const url =
+        projectImportMap[findImportMapKey(mod, projectImportMap) || 0] ||
+        urlInMap ||
+        (mod.startsWith('https://') || mod.startsWith('http://')
+          ? mod
+          : mod.startsWith('.') && getValidUrl(filename) != null
+          ? new URL(mod, filename).href
+          : modulesService.getUrl(mod));
+
+      const res = await fetch(url);
+      const content = await res.text();
+      const compiled = isSfc(mod)
+        ? await compileSFC(content, { filename: url, config })
+        : await replaceSFCImports(
+            (
+              await compileInCompiler(
+                content,
+                getLanguageByAlias(getFileExtension(url)) || 'javascript',
+                config,
+              )
+            ).code,
+            { filename: url, config, sfcExtension, getLanguageByAlias, compileSFC },
+          );
+      if (!compiled) return;
+      const dataUrl = toDataUrl(compiled);
+      importMap[mod] = dataUrl;
+    }),
+  );
+  return replaceImports(code, {} as Config, importMap);
+};
+
+export const removeImports = (code: string, mods: string[]) =>
+  code.replace(new RegExp(importsPattern), (statement) => {
+    const libName = statement
+      .replace(new RegExp(importsPattern), '$2')
+      .replace(/"/g, '')
+      .replace(/'/g, '');
+    return mods.includes(libName) ? '' : statement;
+  });
 
 export const styleimportsPattern =
   /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
@@ -94,10 +199,7 @@ export const replaceStyleImports = (code: string) =>
       .replace(/'/g, '')
       .replace(/url\(/g, '')
       .replace(/\)/g, '');
-    const modified =
-      '@import "' +
-      modulesService.getModuleUrl(url, { isModule: false, defaultCDN: 'jsdelivr' }) +
-      '";';
+    const modified = '@import "' + modulesService.getUrl(url) + '";';
     const mediaQuery = media?.trim();
     return !isBare(url)
       ? statement
@@ -171,9 +273,7 @@ export const createCSSModulesImportMap = (
 
       if (!filename.includes('.module.')) {
         return {
-          [filename]:
-            'data:text/javascript;base64,' +
-            btoa(`export default \`${escapeCode(compiledStyle)}\`;`),
+          [filename]: toDataUrl(`export default \`${escapeCode(compiledStyle)}\`;`),
         };
       }
 
@@ -184,7 +284,7 @@ export const createCSSModulesImportMap = (
           .map((key) => `export const ${escapeCode(key)} = "${escapeCode(cssTokens[key])}";`)
           .join('\n');
 
-      return { [filename]: 'data:text/javascript;base64,' + btoa(cssModule) };
+      return { [filename]: toDataUrl(cssModule) };
     })
     .reduce((acc, curr) => ({ ...acc, ...curr }), {});
 };

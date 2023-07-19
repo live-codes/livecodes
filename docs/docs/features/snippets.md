@@ -15,3 +15,8 @@ After adding snippets they can be sorted (by date modified or title), filtered (
 ![Code Snippets](../../static/img/screenshots/snippets.jpg)
 
 Clicking on a snippet causes the code to be copied to clipboard. This can then be pasted in projects.
+
+## Related
+
+- [Projects](./projects.md)
+- [Assets](./assets.md)

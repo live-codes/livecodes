@@ -7,13 +7,7 @@
   --ifm-color-primary-lighter: rgb(102, 212, 189);
   --ifm-color-primary-lightest: rgb(146, 224, 208);
   --ifm-code-font-size: 95%;
-}
-
-.docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.1);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme='dark'] .docusaurus-highlight-code-line {
@@ -22,4 +16,22 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 [target='_self'] svg {
   display: none;
+}
+
+.status-link > span::after {
+  background-color: #20bf6b;
+  border-radius: 50%;
+  content: '';
+  display: inline-block;
+  height: 10px;
+  margin-left: 0.3rem;
+  width: 10px;
+}
+
+.status-link svg {
+  margin-left: 0.4rem;
+}
+
+body[data-origin-not-allowed='true'] #kapa-widget-container {
+  display: none !important;
 }

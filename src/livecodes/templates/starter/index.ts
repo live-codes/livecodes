@@ -35,7 +35,7 @@ import { svelteStarter } from './svelte-starter';
 import { tailwindcssStarter } from './tailwindcss-starter';
 import { typescriptStarter } from './typescript-starter';
 import { vueSfcStarter } from './vue-sfc-starter';
-import { vueStarter } from './vue-starter';
+import { vue2Starter } from './vue2-starter';
 import { watStarter } from './wat-starter';
 import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
@@ -54,6 +54,7 @@ import { rStarter } from './r-starter';
 import { civetStarter } from './civet-starter';
 import { fennelStarter } from './fennel-starter';
 import { tealStarter } from './teal-starter';
+import { clojurescriptStarter } from './clojurescript-starter';
 
 export const starterTemplates = [
   blank,
@@ -61,8 +62,8 @@ export const starterTemplates = [
   typescriptStarter,
   reactStarter,
   reactNativeStarter,
-  vueStarter,
   vueSfcStarter,
+  vue2Starter,
   angularStarter,
   preactStarter,
   svelteStarter,
@@ -102,6 +103,7 @@ export const starterTemplates = [
   juliaStarter,
   schemeStarter,
   commonlispStarter,
+  clojurescriptStarter,
   tclStarter,
   markdownStarter,
   assemblyscriptStarter,

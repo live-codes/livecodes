@@ -1,4 +1,6 @@
 import type { Config, User } from '../models';
+// eslint-disable-next-line import/no-internal-modules
+import { getValidUrl } from '../utils/utils';
 import { importCompressedCode, isCompressedCode } from './code';
 import { importFromCodepen, isCodepen } from './codepen';
 import { importFromDom, isDom } from './dom';
@@ -51,7 +53,7 @@ export const importCode = async (
   if (isJsbin(url)) {
     return importFromJsbin(url);
   }
-  if (url) {
+  if (getValidUrl(url)) {
     return importFromUrl(url, params, config);
   }
   return Promise.resolve({});

@@ -40,3 +40,8 @@ Fonts can be added from [Google fonts](https://fonts.google.com/).
 ## CSS Presets
 
 CSS presets currently include [Normalize.css](https://necolas.github.io/normalize.css/) and [Reset CSS](https://meyerweb.com/eric/tools/css/reset/).
+
+## Related
+
+- [Module resolution](./module-resolution.md)
+- [Assets](./assets.md)

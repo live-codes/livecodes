@@ -53,6 +53,17 @@ export const importFromUrl = async (
 
   if (Object.keys(importedFromDom).length > 0) {
     return importedFromDom;
+  } else if (url.startsWith('data:')) {
+    const pattern = /data:(?:text|application)\/([^;,]*?);(?:\S)+/g;
+    const language = [...url.matchAll(new RegExp(pattern))][0]?.[1] || 'html';
+    const editorId = getLanguageEditorId(language) || 'markup';
+    return {
+      [editorId]: {
+        language,
+        content: fetchedContent || '',
+      },
+      activeEditor: editorId,
+    };
   } else {
     // if no code was extracted, assume it is raw code
     // if there is a file extension use it else assume it is html

@@ -1,0 +1,110 @@
+name: 🐛 Bug report
+description: Create a bug report to help us improve LiveCodes
+title: 'Bug: '
+labels: [👀 needs triage, 🐛 bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: Describe how to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Affected services
+      description: Select the platforms where the issue can be reproduced.
+      options:
+        - 'LiveCodes App'
+        - 'LiveCodes Embedded Playgrounds'
+        - 'LiveCodes SDK'
+        - 'LiveCodes Services'
+        - 'LiveCodes Documentations'
+        - 'Repo build/deploy'
+        - 'Other'
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Platforms
+      description: Select the platforms where the issue can be reproduced.
+      options:
+        - 'Desktop'
+        - 'Mobile'
+        - 'Tablet'
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Browsers
+      description: Select the browsers where the issue can be reproduced.
+      options:
+        - 'Chrome'
+        - 'Firefox'
+        - 'Safari'
+        - 'Edge'
+        - 'Opera'
+        - 'Other (add additional context)'
+  - type: dropdown
+    attributes:
+      multiple: true
+      label: Environment
+      description: Select the environment where the issue can be reproduced.
+      options:
+        - 'Production'
+        - 'Development'
+        - 'Self-Hosted'
+        - 'Local'
+  - type: textarea
+    id: share
+    attributes:
+      label: Share URL(s)
+      description: Share URL(s) (App menu → Share) where the issue can be reproduced.
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Project configuration (App menu → Export → Export Project (JSON)) or embed options.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem or helpful links here.
+  - type: dropdown
+    attributes:
+      multiple: false
+      label: Is it already fixed?
+      description: Is it fixed on latest development build (http://dev.livecodes.io)?
+      options:
+        - 'No'
+        - 'Yes'
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/live-codes/livecodes/blob/HEAD/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contributing Docs
+      description: If you plan on contributing code please read - [Contribution Guide](https://github.com/live-codes/livecodes/blob/HEAD/CONTRIBUTING.md)
+      options:
+        - label: I agree to follow this project's Contribution Docs
+          required: false

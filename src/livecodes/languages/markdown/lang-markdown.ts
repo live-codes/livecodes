@@ -16,6 +16,8 @@ export const markdown: LanguageSpecs = {
       () =>
       async (code, { config }) =>
         (window as any).marked.parse(code, {
+          headerIds: false,
+          mangle: false,
           ...getLanguageCustomSettings('markdown', config),
         }),
   },

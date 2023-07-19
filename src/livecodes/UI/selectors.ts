@@ -17,6 +17,8 @@ export const getRunButton = () => document.querySelector('#run-button') as HTMLE
 export const getCodeRunButton = () => document.querySelector('#code-run-button') as HTMLElement;
 export const getEditorToolbar = () => document.querySelector('#editor-tools') as HTMLElement;
 export const getCopyButton = () => document.querySelector('#editor-tools #copy-btn') as HTMLElement;
+export const getCopyAsUrlButton = () =>
+  document.querySelector('#editor-tools #copy-as-url-btn') as HTMLElement;
 export const getUndoButton = () => document.querySelector('#editor-tools #undo-btn') as HTMLElement;
 export const getRedoButton = () => document.querySelector('#editor-tools #redo-btn') as HTMLElement;
 export const getFormatButton = () =>
@@ -142,6 +144,8 @@ export const getBackupLink = () => document.querySelector<HTMLAnchorElement>('#b
 export const getBroadcastLink = () => document.querySelector<HTMLAnchorElement>('#broadcast-link');
 
 export const getWelcomeLink = () => document.querySelector<HTMLAnchorElement>('#welcome-link');
+
+export const getAboutLink = () => document.querySelector<HTMLAnchorElement>('#about-link');
 
 export const getAutoupdateToggle = () =>
   document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
@@ -437,6 +441,9 @@ export const getModalShowWelcomeCheckbox = (welcomeContainer: HTMLElement) =>
 
 export const getModalWelcomeRecover = (welcomeContainer = document) =>
   welcomeContainer.querySelector('#modal #welcome-recover') as HTMLElement;
+
+export const getModalWelcomeScreen = (welcomeContainer: HTMLElement) =>
+  welcomeContainer.querySelector('#welcome-screen-container .modal-screen') as HTMLElement;
 
 export const getModalWelcomeRecent = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-recent') as HTMLElement;

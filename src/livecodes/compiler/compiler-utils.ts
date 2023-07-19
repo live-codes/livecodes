@@ -1,5 +1,7 @@
-// eslint-disable-next-line import/no-internal-modules
+/* eslint-disable import/no-internal-modules */
 import { proxyConsole } from '../result/utils';
+import { getAppCDN } from '../services/modules';
+import { createWorkerFromContent } from '../utils/utils';
 import type { InitMessage } from './models';
 
 proxyConsole();
@@ -8,8 +10,8 @@ proxyConsole();
   const baseUrl = message.baseUrl;
   const workerUrl = baseUrl + '{{hash:compile.worker.js}}';
   const origin = new URL(baseUrl).origin;
-  const content = `importScripts("${workerUrl}");`;
-  const worker = new Worker('data:text/javascript;base64,' + btoa(content));
+  const content = `self.appCDN='${getAppCDN()}';importScripts('${workerUrl}');`;
+  const worker = createWorkerFromContent(content);
 
   await new Promise<void>((resolve) => {
     const script = document.createElement('script');

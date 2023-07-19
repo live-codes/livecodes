@@ -10,7 +10,7 @@ The SoftWare Development Kit (SDK) provides an easy, yet powerful, interface to 
 
 The SDK is provided as a light-weight, zero-dependencies [npm package](#npm-package), that is also available from [CDNs](#cdn). It can be used to create playgrounds with a wide variety of [configurations](../configuration/configuration-object.md) and [embed options](js-ts.md#embed-options). In addition, [SDK methods](js-ts.md#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
 
-The [JavaScript SDK](js-ts.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](react.md) and [Vue](vue.md)). [TypeScript support](js-ts.md#typescript-types) provides type-safety and a great developer experience.
+The [JavaScript SDK](js-ts.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](react.md) and [Vue](vue.md)). The SDK can be used in [Svelte](svelte.md) directly without wrappers. [TypeScript support](js-ts.md#typescript-types) provides type-safety and a great developer experience.
 
 ## SDK Demo
 
@@ -22,7 +22,7 @@ This is an example of an editable embedded playground using the SDK.
 
 ### NPM Package
 
-This is a single npm package that contains the different SDKs (JavaScript/TypeScript, React and Vue).
+This is a single npm package for the SDK which supports JavaScript/TypeScript, React, Vue and Svelte.
 Install the library from npm:
 
 ```sh
@@ -34,7 +34,9 @@ then it can be used like that:
 ```js title="index.js"
 import { createPlayground } from 'livecodes';
 
-createPlayground('#container', { template: 'react' });
+createPlayground('#container', {
+  // embed options
+});
 ```
 
 ### CDN
@@ -43,29 +45,42 @@ Alternatively, it can just be loaded from a CDN.
 
 ESM:
 
-```html title="index.html"
-<div id="container"></div>
-<script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import CodeBlock from '@theme/CodeBlock';
 
-  createPlayground('#container', { template: 'react' });
-</script>
-```
+export const ESMCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script type="module">
+${'  '}import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${' '.repeat(2)}createPlayground('#container', {
+${' '.repeat(4)}// embed options  
+${' '.repeat(2)}});
+</script>`}
+</CodeBlock>);
+}
+
+<ESMCode />
 
 UMD:
 
-```html title="index.html"
-<div id="container"></div>
-<script src="https://cdn.jsdelivr.net/npm/livecodes/livecodes.umd.js"></script>
-<script>
-  // the UMD version provides the global object `livecodes`
-  livecodes.createPlayground('#container', { template: 'react' });
+export const UMDCode = () => {
+const { siteConfig } = useDocusaurusContext();
+return (<CodeBlock title="index.html" language="html">
+{`<div id="container"></div>\n<script src="https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.umd.js"></script>\n<script>\n  // the UMD version provides the global object \`livecodes\`
+${' '.repeat(2)}livecodes.createPlayground('#container', {
+${' '.repeat(4)}// embed options  
+${' '.repeat(2)}});
 </script>
-```
+`}
+</CodeBlock>);
+}
+
+<UMDCode />
 
 :::info
 
-In the full [standalone app](../getting-started.md#hosted-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
+In the full [standalone app](../getting-started.md#standalone-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
 
 :::
 
@@ -73,15 +88,17 @@ In the full [standalone app](../getting-started.md#hosted-app), the JavaScript S
 
 The SDK is currently provided in the following variations:
 
-### [JavaScript/TypeScript](./js-ts.md)
+- [JavaScript/TypeScript](./js-ts.md)
 
-### [React](./react.md)
+- [React](./react.md)
 
-### [Vue](./vue.md)
+- [Vue](./vue.md)
+
+- [Svelte](./svelte.md)
 
 ## SDK Playground!
 
-A demo page that shows the usage of the SDK can be [found here](https://live-codes.github.io/livecodes-examples/api-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/api-demo.html)).
+A demo page that shows the usage of the SDK can be [found here](https://live-codes.github.io/livecodes-examples/sdk-demo.html) ([source](https://github.com/live-codes/livecodes-examples/blob/gh-pages/sdk-demo.html)).
 
 Or edit the SDK playground in LiveCodes. How meta! :)
 

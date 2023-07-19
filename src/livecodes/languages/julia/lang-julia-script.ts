@@ -1,4 +1,6 @@
+/* eslint-disable import/no-internal-modules */
 /* eslint-disable no-console */
+import { createWorkerFromContent } from '../../utils/utils';
 import { juliaWasmBaseUrl } from '../../vendors';
 
 const workerSrc = `
@@ -46,7 +48,7 @@ self.Module = {
   ],
 };
 
-importScripts(url + '/julia.min.js');
+importScripts(url + '/julia.js');
 
 let runCode = (code, input) => {
   let output = '';
@@ -135,7 +137,7 @@ window.addEventListener('load', async () => {
   const init = () => {
     if (livecodes.julia.worker) return;
     console.log('Loading Julia compiler...');
-    livecodes.julia.worker = new Worker('data:text/javascript;base64,' + btoa(workerSrc));
+    livecodes.julia.worker = createWorkerFromContent(workerSrc);
   };
   init();
   await livecodes.julia.run(livecodes.julia.input);

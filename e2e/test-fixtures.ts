@@ -6,7 +6,7 @@ export const test = base.extend<{
   editor: Config['editor'];
   getTestUrl: (config?: UrlQueryParams) => string;
 }>({
-  editor: 'monaco',
+  editor: ['monaco', { option: true }],
   getTestUrl: async ({ editor }, use) => {
     await use((config?: UrlQueryParams) => {
       const options = {
@@ -14,6 +14,7 @@ export const test = base.extend<{
         autoupdate: false,
         enableRestore: false,
         'no-defaults': true,
+        closeBrackets: false,
         ...config,
       };
       const query = Object.keys(options).reduce(

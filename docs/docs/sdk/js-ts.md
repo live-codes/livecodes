@@ -4,7 +4,9 @@ title: JS/TS SDK
 
 # JavaScript/<wbr />TypeScript SDK
 
-This is the core SDK on which others ([React](react.md) & [Vue](vue.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
+import LiveCodes from '../../src/components/LiveCodes.tsx'
+
+This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
 
 ## Installation
 
@@ -12,7 +14,7 @@ Please refer to the [SDK installation](./index.md#installation) section.
 
 :::info
 
-In the full [standalone app](../getting-started.md#hosted-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
+In the full [standalone app](../getting-started.md#standalone-app), the JavaScript SDK is accessible via the global variable `livecodes`, which can be interacted with in the browser console.
 
 :::
 
@@ -67,7 +69,7 @@ Type: [`string`](../api/interfaces/EmbedOptions.md#appurl)
 
 Default: `"https://livecodes.io/"`
 
-Allows the library to load the playground from a custom URL (e.g. [hosted app](../getting-started.md#hosted-app)).
+Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../features/self-hosting.md), [permanent URL](../features/permanent-url.md)).
 
 ### `config`
 
@@ -361,7 +363,7 @@ Execute custom commands, including:
 await livecodes.exec('setBroadcastToken', 'my-token');
 ```
 
-- `"showVersion"`: Logs current LiveCodes version and commitSHA in the browser console.
+- `"showVersion"`: Logs the current LiveCodes app version, SDK version, git commit SHA, [permanent app URL](../features/permanent-url.md) and SDK URL in the browser console.
 
 ```js
 // in browser console of full app (e.g. https://livecodes.io)
@@ -413,3 +415,19 @@ Example:
   createPlayground('#container');
 </script>
 ```
+
+## Demo
+
+export const sdkDemo = {
+js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, Svelte!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
+html: '<div id="container"></div>',
+}
+
+<LiveCodes params={sdkDemo} height="80vh" />
+
+## Related
+
+- [React SDK](./react.md)
+- [Vue SDK](./vue.md)
+- [Using SDK in Svelte](./svelte.md)
+- [Embedded Playgrounds](../features/embeds.md)

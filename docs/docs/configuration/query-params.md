@@ -2,7 +2,7 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-A flexible and convient way to configure the app is to use URL query parameters.
+A flexible and convenient way to configure the app is to use URL query parameters.
 It allows configuration of a wide range of options, including those of the [configuration object](./configuration-object.md) and [embed options](../sdk/js-ts.md#embed-options).
 
 <div style={{clear: 'both'}}></div>
@@ -134,6 +134,10 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   - `tests`: `"open" | "full" | "closed" | "none"`
 
     The [tests panel](../features/tests.md) status.
+
+  - `scrollPosition`: `boolean` (Default: `true`).
+
+    If `false`, the [result page](../features/result.md) [scroll position](../features/result.md#scroll-position) will not be maintained after reload.
 
   - Any [`Language`](../api/modules/internal#language) can used as a query parameter, and the value will be used as its code.
 

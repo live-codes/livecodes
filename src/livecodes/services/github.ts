@@ -1,3 +1,4 @@
+import { encode } from 'js-base64';
 import type { User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { safeName } from '../utils/utils';
@@ -86,7 +87,7 @@ const createFile = async ({
     headers: getGithubHeaders(user),
     body: JSON.stringify({
       message: message || 'deploy',
-      content: encoded ? file.content : btoa(file.content),
+      content: encoded ? file.content : encode(file.content),
       branch,
       ...(sha ? { sha } : {}),
     }),
@@ -141,7 +142,7 @@ export const getContent = async ({
       result.content = await rawRes.arrayBuffer();
       result.encoding = 'arrayBuffer';
     } else {
-      result.content = btoa(await rawRes.text());
+      result.content = encode(await rawRes.text());
       result.encoding = 'base64';
     }
   }

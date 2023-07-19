@@ -24,7 +24,7 @@ import { getLanguageCustomSettings } from '../../utils';
         ...getLanguageCustomSettings('malina', config),
       });
 
-      const init = `\nComponent(document.querySelector("#app") || document.body);\n`;
+      const init = `\nComponent(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')));\n`;
       if (result.result) {
         return result.result + init;
       }

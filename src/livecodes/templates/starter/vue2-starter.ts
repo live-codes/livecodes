@@ -1,6 +1,6 @@
 import type { Template } from '../../models';
 
-export const vueStarter: Template = {
+export const vue2Starter: Template = {
   name: 'vue2',
   title: 'Vue 2 Starter',
   thumbnail: 'assets/templates/vue.svg',
@@ -10,7 +10,7 @@ export const vueStarter: Template = {
     content: `
 <div id="app">
   <h1>Hello, Vue!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
   <p>You clicked {{ counter }} times.</p>
   <button @click="increment()">Click me</button>
 </div>
@@ -46,7 +46,7 @@ new Vue({
 `.trimStart(),
   },
   stylesheets: [],
-  scripts: ['https://cdn.jsdelivr.net/npm/vue@2'],
+  scripts: ['{{ __CDN_URL__ }}vue@2'],
   cssPreset: '',
   imports: {},
   types: {},

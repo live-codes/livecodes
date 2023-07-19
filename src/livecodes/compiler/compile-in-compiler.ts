@@ -1,4 +1,5 @@
-import type { Config, Language, CompileOptions } from '../models';
+import type { Config, Language, CompileOptions, CompileResult } from '../models';
+import { getCompileResult } from './utils';
 
 export const compileInCompiler = async (
   content: string,
@@ -6,10 +7,10 @@ export const compileInCompiler = async (
   config: Config,
   options: CompileOptions = {},
   worker: Worker = self as unknown as Worker,
-): Promise<string> =>
+): Promise<CompileResult> =>
   new Promise((resolve) => {
     if (!content || !language || !config) {
-      return resolve(content || '');
+      return resolve(getCompileResult(''));
     }
     const handler = async function (ev: MessageEvent) {
       const message = ev.data.payload;
@@ -19,7 +20,7 @@ export const compileInCompiler = async (
         message?.language === language
       ) {
         worker.removeEventListener('message', handler);
-        resolve(message.compiled);
+        resolve(getCompileResult(message.compiled));
       }
     };
     worker.addEventListener('message', handler);

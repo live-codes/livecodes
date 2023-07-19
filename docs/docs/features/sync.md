@@ -17,3 +17,8 @@ If `Auto sync` is selected, the sync will be attempted every 5 minutes. Remote f
 `Auto sync` can be turned off and on by the switch on the app menu.
 
 The sync can be manually triggered at any time from the Sync UI. Information regarding the last sync time and repo are displayed on the UI screen.
+
+## Related
+
+- [Backup / restore](./backup-restore.md)
+- [Export](./export.md)

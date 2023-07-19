@@ -2,10 +2,11 @@
 import Link from '@docusaurus/Link';
 // eslint-disable-next-line import/no-unresolved
 import CodeBlock from '@theme/CodeBlock';
+// eslint-disable-next-line import/no-unresolved
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 import React from 'react';
 import clsx from 'clsx';
-import { appUrl } from '../utils';
 import styles from './HomepageFeatures.module.css';
 import LiveCodes from './LiveCodes';
 import Sliders from './LanguageSliders';
@@ -79,7 +80,7 @@ const FeatureList2: FeatureItem[] = [
     ),
   },
   {
-    title: 'Embeds',
+    title: 'Embedded Playgrounds',
     image: './img/add-frame.svg',
     description: (
       <>
@@ -119,7 +120,8 @@ const FeatureList3: FeatureItem[] = [
         <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
         playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
         them. The SDK is available as a <Link to="./sdk/js-ts">JS/TS</Link> library, as well as{' '}
-        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> Components.
+        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> components, in
+        addition to <Link to="./sdk/svelte">Svelte</Link>.
       </>
     ),
   },
@@ -128,9 +130,10 @@ const FeatureList3: FeatureItem[] = [
     image: './img/data-privacy.svg',
     description: (
       <>
-        Projects are private by default. The code you write in LiveCodes never leaves your computer,
-        unless you choose to share, export or sync it. No cookies are used. User data is stored in
-        the browser. <Link to="./features/security">Security</Link> is taken seriously.
+        Projects are private by default. The code you write in LiveCodes never leaves your device,
+        unless you choose to share, export or sync it. User data is stored in the browser. User code
+        runs in a sandboxed environment. <Link to="./features/security">Security</Link> is taken
+        seriously.
       </>
     ),
   },
@@ -139,11 +142,12 @@ const FeatureList3: FeatureItem[] = [
     image: './img/docs.svg',
     description: (
       <>
-        Comprehensive <Link to="./overview">documentations</Link> (including{' '}
-        <Link to="./api/modules">TypeScript types</Link>) for <Link to="./features">features</Link>,{' '}
-        <Link to="./configuration">configuration</Link> and <Link to="./sdk">SDK</Link>.
+        Comprehensive <Link to="./overview">documentations</Link> for{' '}
+        <Link to="./features">features</Link>, <Link to="./configuration">configuration</Link> and{' '}
+        <Link to="./sdk">SDK</Link> (including <Link to="./api/modules">TypeScript types</Link>).
         Documentations are rich with code samples, live demos and screenshots. A gallery of usage
-        examples is provided as a <Link to="pathname:///../stories">storybook.</Link>
+        examples is provided as a <Link to="pathname:///../stories">storybook</Link>. You can even
+        just ask our <strong>AI chatbot</strong>.
       </>
     ),
   },
@@ -158,8 +162,8 @@ const FeatureList4: FeatureItem[] = [
         LiveCodes is <strong>free</strong>, with <strong>no&nbsp;limits</strong> for use,{' '}
         <strong>no&nbsp;ads</strong> and no&nbsp;account required*.
         <br></br>
-        Do you want to <Link to="./getting-started#self-hosting">self-host</Link> it for commercial
-        use? No problem! It is{' '}
+        Do you want to <Link to="./features/self-hosting">self-host</Link> it for commercial use? No
+        problem! It is{' '}
         <span style={{ whiteSpace: 'nowrap' }}>
           <Link to="./license">
             <strong>MIT-licensed</strong>
@@ -194,6 +198,27 @@ import { createPlayground } from "livecodes";
 
 createPlayground("#container", { template: "react" });
 `.trimStart();
+
+const ESMCode = () => {
+  const { siteConfig } = useDocusaurusContext();
+  return (
+    <CodeBlock language="html" showLineNumbers={true}>
+      {`
+<div id="container"></div>\n<script type="module">
+import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';
+
+createPlayground('#container', {
+  params: {
+    markdown: '# Hello LiveCodes!',
+    css: 'h1 {color: dodgerblue;}',
+    js: 'console.log("Hello, from JS!");',
+    console: 'open',
+  },
+});
+</script>`.trimStart()}
+    </CodeBlock>
+  );
+};
 
 export default function HomepageFeatures(): JSX.Element {
   return (
@@ -240,21 +265,130 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
           <div className={`row ${styles.center} ${styles.buttons}`}>
             <Link
-              className="button button--primary button--outline button--lg"
-              to="./examples/display-modes/"
-            >
-              Examples 🎨
-            </Link>
-            <Link
               className=" button button--info button--outline button--lg"
               to="./getting-started"
             >
               Get Started ✈️
             </Link>
+            <Link className="button button--primary button--outline button--lg" to="./overview">
+              Documentations 📖
+            </Link>
           </div>
         </div>
       </section>
       <section className={styles.rowDark}>
+        <div className="container padding-vert--lg">
+          <div className="text--center padding-horiz--md">
+            <h2 className={styles.padding}>Code Playground That Just Works!</h2>
+            <div className={'row ' + styles.center}>
+              <div className={clsx('col col--6', styles.left)}>
+                <ul>
+                  <li>No servers to configure (or pay for!)</li>
+                  <li>No databases to maintain (or pay for!)</li>
+                  <li>No installs</li>
+                  <li>No configuration files</li>
+                  <li>No build steps</li>
+                  <li>
+                    No subscription fees (free and <Link to="./license/">open-source</Link>)
+                  </li>
+                  <li>No account required *</li>
+                  <li>No limits for usage (unlimited private projects)</li>
+                  <li>
+                    <Link to="./languages/">80+ languages/frameworks/processors</Link>
+                  </li>
+                  <li>
+                    Large set of <Link to="./features/">features</Link> and integrations
+                  </li>
+                  <li>
+                    <Link to="./features/import">Import</Link> code from a wide variety of sources
+                  </li>
+                  <li>
+                    Use modules from <Link to="./features/module-resolution">npm</Link>,{' '}
+                    <Link to="./features/module-resolution#deno-modules">deno.land/x</Link>,{' '}
+                    <Link to="./features/module-resolution#githubgitlabbitbucket">GitHub</Link>, and
+                    others
+                  </li>
+                  <li>
+                    Easily <Link to="./features/embeds">embed</Link> it in your web pages
+                  </li>
+                  <li>It runs in the browser (client-side)</li>
+                </ul>
+              </div>
+              <div className={clsx('col col--6', styles.left)}>
+                <div>
+                  <p>
+                    <strong>Steps:</strong>
+                  </p>
+                  <ol className={styles.steps}>
+                    <li>
+                      Go to{' '}
+                      <a href="https://livecodes.io/" target="_blank">
+                        livecodes.io
+                      </a>
+                    </li>
+                  </ol>
+                  ... and enjoy all the <Link to="./features/">features</Link>!
+                </div>
+                <hr />
+                <div>
+                  <p>
+                    Do you want to <Link to="./features/embeds">embed</Link> it in a web page?
+                  </p>
+                  <p>Add this code to your page:</p>
+                  <div className={styles.border}>
+                    <ESMCode />
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <p>
+                    Ok, do you want to <Link to="./features/self-hosting">self-host</Link> it?
+                  </p>
+                  <ol className={styles.steps}>
+                    <li>
+                      Download a{' '}
+                      <a href="https://github.com/live-codes/livecodes/releases" target="_blank">
+                        release
+                      </a>
+                    </li>
+                    <li>
+                      Put it on a static file server (for free!)
+                      <sup>
+                        {' '}
+                        <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">
+                          1
+                        </a>
+                        ,{' '}
+                        <a href="https://vercel.com/" target="_blank" rel="noopener">
+                          2
+                        </a>
+                        ,{' '}
+                        <a href="https://www.netlify.com/" target="_blank" rel="noopener">
+                          3
+                        </a>
+                        ,{' '}
+                        <a href="https://firebase.google.com/" target="_blank" rel="noopener">
+                          4
+                        </a>
+                        ,{' '}
+                        <a href="https://pages.github.com/" target="_blank" rel="noopener">
+                          5
+                        </a>
+                      </sup>
+                    </li>
+                  </ol>
+                  ... and it just works!
+                </div>
+              </div>
+            </div>
+            <p className={styles.finePrint}>
+              * GitHub account is required only for features that use{' '}
+              <Link to="./features/github-integration">GitHub Integration</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className={styles.rowLight}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList1.map((props, idx) => (
@@ -263,7 +397,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowLight}>
+      <section className={styles.rowDark}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList2.map((props, idx) => (
@@ -272,7 +406,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowDark}>
+      <section className={styles.rowLight}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList3.map((props, idx) => (
@@ -281,7 +415,7 @@ export default function HomepageFeatures(): JSX.Element {
           </div>
         </div>
       </section>
-      <section className={styles.rowLight}>
+      <section className={styles.rowDark}>
         <div className="container padding-vert--lg">
           <div className={'row ' + styles.center}>
             {FeatureList4.map((props, idx) => (
@@ -312,7 +446,7 @@ export default function HomepageFeatures(): JSX.Element {
               </Link>
               <Link
                 className=" button button--info button--outline button--lg"
-                to={appUrl + '?screen=new'}
+                href="pathname:///../?new"
                 target="_blank"
               >
                 New Project ✨

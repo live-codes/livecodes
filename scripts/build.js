@@ -1,8 +1,8 @@
 const esbuild = require('esbuild');
+const minifyHTML = require('esbuild-plugin-minify-html').default;
 const fs = require('fs');
 const path = require('path');
 const childProcess = require('child_process');
-const vite = require('vite');
 
 const pkg = require('../package.json');
 const { applyHash } = require('./hash');
@@ -71,12 +71,16 @@ const prepareDir = async () => {
     path.resolve(__dirname + '/../src/404.html'),
     path.resolve(outDir + '/404.html'),
   );
+  await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/index.html'),
+    path.resolve(outDir + '/index.html'),
+  );
 };
 
 try {
-  appVersion = require('../package.json')['app-version'];
+  appVersion = require('../package.json').appVersion;
   sdkVersion = require('../src/sdk/package.sdk.json').version;
-  gitCommit = childProcess.execSync('git rev-parse --short=8 HEAD').toString().replace(/\n/g, '');
+  gitCommit = childProcess.execSync('git rev-parse --short=7 HEAD').toString().replace(/\n/g, '');
   repoUrl = require('../package.json').repository.url;
   if (repoUrl.endsWith('/')) {
     repoUrl = repoUrl.slice(0, -1);
@@ -85,6 +89,11 @@ try {
   console.log(error);
 }
 
+const docsBaseUrl =
+  process.env.DOCS_BASE_URL === 'null'
+    ? 'https://livecodes.io/docs/'
+    : process.env.DOCS_BASE_URL || (devMode ? 'http://localhost:3000/docs/' : '/docs/');
+
 /** @type {Partial<esbuild.BuildOptions>} */
 const baseOptions = {
   bundle: true,
@@ -92,13 +101,14 @@ const baseOptions = {
   outdir: 'build/livecodes',
   format: 'esm',
   target: 'es2020',
-  sourcemap: true,
+  sourcemap: false,
   sourcesContent: true,
   define: {
     'process.env.VERSION': `"${appVersion || ''}"`,
     'process.env.SDK_VERSION': `"${sdkVersion || ''}"`,
     'process.env.GIT_COMMIT': `"${gitCommit || ''}"`,
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
+    'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
     'process.env.CI': `${process.env.CI || false}`,
     'process.env.monacoVersion': `"${monacoVersion}"`,
     'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
@@ -106,6 +116,19 @@ const baseOptions = {
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
   external: ['@codemirror/*', '@lezer/*'],
+  plugins: [
+    ...(devMode
+      ? []
+      : [
+          minifyHTML({
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            minifyJS: true,
+            minifyCSS: true,
+            processScripts: ['importmap'],
+          }),
+        ]),
+  ],
 };
 
 const sdkBuild = () => {
@@ -211,6 +234,7 @@ const iifeBuild = () =>
     ...baseOptions,
     format: 'iife',
     entryPoints: [
+      'index.ts',
       'compiler/compile.page.ts',
       'compiler/compiler-utils.ts',
       'editor/custom-editor-utils.ts',
@@ -248,10 +272,12 @@ const iifeBuild = () =>
       'languages/tcl/lang-tcl-script.ts',
       'languages/twig/lang-twig-compiler.ts',
       'languages/vue/lang-vue-compiler.ts',
+      'languages/vue2/lang-vue2-compiler.ts',
       'languages/wat/lang-wat-compiler.ts',
       'languages/wat/lang-wat-script.ts',
       'languages/teal/lang-teal-compiler.ts',
       'languages/fennel/lang-fennel-compiler.ts',
+      'languages/tailwindcss/processor-tailwindcss-compiler.ts',
       'languages/windicss/processor-windicss-compiler.ts',
       'languages/unocss/processor-unocss-compiler.ts',
       'languages/lightningcss/processor-lightningcss-compiler.ts',
@@ -287,40 +313,15 @@ const workersBuild = () =>
 
 const stylesBuild = () => buildStyles(devMode);
 
-const htmlBuild = () =>
-  vite.build({
-    root: path.resolve('src'),
-    define: {
-      'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
-    },
-    build: {
-      minify: devMode ? false : true,
-      outDir,
-      sourcemap: true,
-      rollupOptions: {
-        output: {
-          entryFileNames: `assets/[name].[hash].js`,
-          chunkFileNames: `assets/[name].[hash].js`,
-          assetFileNames: `assets/[name].[hash].[ext]`,
-        },
-      },
-    },
-  });
-
 prepareDir().then(() => {
-  Promise.all([
-    esmBuild(),
-    iifeBuild(),
-    workersBuild(),
-    stylesBuild(),
-    htmlBuild(),
-    sdkBuild(),
-  ]).then(async () => {
-    if (!devMode) {
-      buildVendors();
-    }
-    await applyHash(devMode);
-    await injectCss();
-    console.log('built to: ' + baseOptions.outdir + '/');
-  });
+  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), sdkBuild()]).then(
+    async () => {
+      if (!devMode) {
+        buildVendors();
+      }
+      await applyHash({ devMode });
+      await injectCss();
+      console.log('built to: ' + baseOptions.outdir + '/');
+    },
+  );
 });

@@ -65,10 +65,6 @@ const getReleaseTarget = () =>
         value: 'sdk',
       },
       {
-        name: 'Both',
-        value: 'both',
-      },
-      {
         name: 'Cancel',
         value: 'cancel',
       },
@@ -100,8 +96,10 @@ const getSDKBump = () =>
 
 const stringify = (obj) => JSON.stringify(obj, null, 2) + '\n';
 
-const cancelRelease = () => {
-  execSync(`git reset -hard && git clean -fxd`);
+const cancelRelease = async () => {
+  if (await confirm({ message: 'Cancelling release. Do you want to discard all changes?' })) {
+    execSync(`git reset -hard && git clean -fxd`);
+  }
   console.log('Release cancelled!');
   process.exit(1);
 };
@@ -110,26 +108,26 @@ const cancelRelease = () => {
   const releaseTarget = await getReleaseTarget();
 
   if (releaseTarget === 'cancel') {
-    cancelRelease();
+    await cancelRelease();
   }
 
   let version;
-  if (releaseTarget === 'sdk' || releaseTarget === 'both') {
+  if (releaseTarget === 'sdk') {
     const sdkBump = await getSDKBump();
     const sdkVersion = sdkBump === 'specify' ? await getSDKVersion() : bumpSDKVersion(sdkBump);
     sdkPkg.version = sdkVersion;
     if (!(await confirm({ message: `Creating SDK version: ${sdkVersion}\nProceed?` }))) {
-      cancelRelease();
+      await cancelRelease();
     }
     fs.writeFileSync(new URL(sdkPkgPath, import.meta.url), stringify(sdkPkg), 'utf8');
     version = 'sdk-v' + sdkVersion;
   }
 
-  if (releaseTarget === 'app' || releaseTarget === 'both') {
-    const appVersion = String(Number(appPkg['app-version']) + 1);
-    appPkg['app-version'] = appVersion;
+  if (releaseTarget === 'app') {
+    const appVersion = String(Number(appPkg.appVersion) + 1);
+    appPkg.appVersion = appVersion;
     if (!(await confirm({ message: `Creating App version: ${appVersion}\nProceed?` }))) {
-      cancelRelease();
+      await cancelRelease();
     }
     fs.writeFileSync(new URL(appPkgPath, import.meta.url), stringify(appPkg), 'utf8');
     version = 'v' + appVersion;
@@ -153,7 +151,7 @@ const cancelRelease = () => {
   fs.writeFileSync(new URL(changelogPath, import.meta.url), newChangelog, 'utf8');
 
   if (!(await confirm({ message: `Change log added to ./CHANGELOG.md\nProceed?` }))) {
-    cancelRelease();
+    await cancelRelease();
   }
 
   execSync(`git checkout -b ${branchName}`);

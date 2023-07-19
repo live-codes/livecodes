@@ -10,7 +10,7 @@ export const cppStarter: Template = {
     content: `
 <div class="container">
   <h1>Hello, <span id="name">World</span>!</h1>
-  <img class="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
+  <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/cpp.svg" />
   <p>You clicked <span id="counter">0</span> times.</p>
   <button id="counter-button">Click me</button>
 </div>

@@ -86,7 +86,6 @@ export const Scripts = livecodesStory({
   },
 });
 
-// TODO: fix this
 export const ToolsNone = livecodesStory({
   config: {
     tools: {
@@ -101,61 +100,39 @@ export const ToolsOpen = livecodesStory({
   config: {
     tools: {
       enabled: 'all',
+      active: '',
+      status: 'open',
+    },
+  },
+});
+
+export const ConsoleOpen = livecodesStory({
+  config: {
+    tools: {
+      enabled: 'all',
       active: 'console',
       status: 'open',
     },
   },
 });
 
-export const Console = livecodesStory({
-  params: {
-    console: '',
-  },
-});
-
-export const ConsoleTrue = livecodesStory({
-  params: {
-    console: 'true',
-  },
-});
-
-export const ConsoleOpen = livecodesStory({
-  params: {
-    console: 'open',
-  },
-});
-
 export const CompiledFull = livecodesStory({
-  params: {
-    compiled: 'full',
+  config: {
+    tools: {
+      enabled: 'all',
+      active: 'compiled',
+      status: 'full',
+    },
   },
 });
 
-export const CompiledOpenConsoleOpen = livecodesStory({
-  params: {
-    compiled: 'open',
-    console: 'open',
-  },
-});
-
-export const CompiledOpenConsoleNone = livecodesStory({
-  params: {
-    compiled: 'open',
-    console: 'none',
-  },
-});
-
-export const ConsoleNone = livecodesStory({
-  params: {
-    console: 'none',
-  },
-});
-
-export const ToolsConsoleCompiled = livecodesStory({
-  params: {
-    tools: 'open',
-    console: 'none',
-    compiled: 'none',
+export const ConsoleEnabled = livecodesStory({
+  config: {
+    tools: {
+      enabled: ['console'],
+      active: '',
+      status: 'open',
+    },
   },
 });
 
@@ -170,7 +147,7 @@ export const Tests = livecodesStory({
   },
 });
 
-export const TestsConsoleCompiled = livecodesStory({
+export const TestsEnabled = livecodesStory({
   template: 'jest',
   config: {
     tools: {
