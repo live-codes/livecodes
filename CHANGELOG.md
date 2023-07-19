@@ -4,6 +4,80 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v5](https://github.com/live-codes/livecodes/compare/v4...v5) (2023-07-19)
+
+
+### Bug Fixes
+
+* add `encodeURIComponent` to bookmarklet ([1171d30](https://github.com/live-codes/livecodes/commit/1171d30f58d024bc681b915e393b431a52fb74ee))
+* **app:** fix a race condition ([a2da49b](https://github.com/live-codes/livecodes/commit/a2da49b919c08f5d0f35d20e55f63465f719dada))
+* **app:** show formatter (enabled/disabled) in editor toolbar on changing editors ([0438deb](https://github.com/live-codes/livecodes/commit/0438deb35c45d859a9249a178f4f519937f53df2))
+* **compilers:** map `svelte` import to `svelte/internal` ([bdb0d21](https://github.com/live-codes/livecodes/commit/bdb0d21a5818bd9be221a850f36f408764dd5e20))
+* **compilers:** upgrade react in mdx ([5644a38](https://github.com/live-codes/livecodes/commit/5644a382a06e84c55a6663f8955f2f89299a2df4))
+* **config:** fix loading user config ([b3983df](https://github.com/live-codes/livecodes/commit/b3983df79c8c89ce4727dece85029a0362546f52))
+* **config:** validate config tools ([0698f9f](https://github.com/live-codes/livecodes/commit/0698f9f80636390b0142a2ce5c957f6c7d6c76ea))
+* do not autorun result page if `config.autoupdate` is false ([3e1e405](https://github.com/live-codes/livecodes/commit/3e1e4054b44f34f3129f35eebae9dede118a34ed))
+* do not treat safari as mobile ([f08ae93](https://github.com/live-codes/livecodes/commit/f08ae9317e5c51478e9389df7f165747b50ac3cb))
+* do not use CDN for already bundled imports ([e5f3b50](https://github.com/live-codes/livecodes/commit/e5f3b50ecb62163554e967aebd9a5d0c55b024dd))
+* **editor:** edit monaco `addCloseTag` regex to improve performance ([dd03a69](https://github.com/live-codes/livecodes/commit/dd03a696352b67871041758f380f7703f2f66775))
+* fallback to blob url if data url is not supported as worker ([ea7ac04](https://github.com/live-codes/livecodes/commit/ea7ac0421d2a6467e2f8153e7e6e5ebc1c850631))
+* **import:** show error for invalid template/import URL ([691afcf](https://github.com/live-codes/livecodes/commit/691afcfc93d36605950d7167bcad4ed46f29af7f))
+* in `result` mode, hide toolspane by default ([e38128c](https://github.com/live-codes/livecodes/commit/e38128cb2322422282576bb1095074922d018ee0))
+* **result:** improve console ([70106d7](https://github.com/live-codes/livecodes/commit/70106d7ee90281fe09064c1b44ca6136125f32cc))
+* **SDK:** fix race condition when loading from sdk ([bdc25f6](https://github.com/live-codes/livecodes/commit/bdc25f6ad7d85f015b3e6ccef35dcfa4ec0cf31d))
+* **SDK:** fix sending config object from SDK ([457696f](https://github.com/live-codes/livecodes/commit/457696f92d99dbc1d2da13046ccda0c8aa0157f0))
+* **UI:** do not double check saved status on new -> starter template ([8675b48](https://github.com/live-codes/livecodes/commit/8675b489510e996473c56f8be310864987f9f88f))
+* **UI:** hide editors till they become active ([4d52cc7](https://github.com/live-codes/livecodes/commit/4d52cc7f6b3a65c1575cfa9cd5e07e331a09e713))
+* use appCDN in result page scripts ([3d3923e](https://github.com/live-codes/livecodes/commit/3d3923e231af57878ec3a5736987dcb5f45f3466))
+* use appCDN in sync worker ([9d20e4f](https://github.com/live-codes/livecodes/commit/9d20e4f062b70be4c9a9e632a7e66100b2add694))
+* wait for slow e2e tests ([cb44e43](https://github.com/live-codes/livecodes/commit/cb44e4311112041f053860745ec63e99c9c1294c))
+* **welcome:** improve welcome screen layout ([6b50c13](https://github.com/live-codes/livecodes/commit/6b50c1368ba0a1ab9f454e0c7c26dcdb62783e6f))
+
+
+### Features
+
+* **about:** add about screen ([a2f89b4](https://github.com/live-codes/livecodes/commit/a2f89b466764eea94427093268475a724c83dd65))
+* allow `src` import in SFCs ([08189c0](https://github.com/live-codes/livecodes/commit/08189c00f2634eca9b112a82fd946c378a989898))
+* allow deploying the app +/- docs to gh-pages ([0a33c8b](https://github.com/live-codes/livecodes/commit/0a33c8b3585b67eadee8f0e561306fc08e5e94e2))
+* allow stylesheet import from CDNs ([1e51790](https://github.com/live-codes/livecodes/commit/1e517905825da505694835900f8dd2227f872f7e))
+* allow using param `?new` as `?screen=new` ([d75f97b](https://github.com/live-codes/livecodes/commit/d75f97b9584f7b29521d94433e419069712dc5ce))
+* **app:** copy code as data URL ([3ea5b04](https://github.com/live-codes/livecodes/commit/3ea5b0423870703bcc3cf79b84ce91ed69907ca5))
+* **app:** if CDN is unreachable, fall back to next CDN ([6e72eb4](https://github.com/live-codes/livecodes/commit/6e72eb49fcb59fc23c13fe97af62053a49bcaaf4))
+* **app:** loading spinner ([9a5385c](https://github.com/live-codes/livecodes/commit/9a5385c202fa8ebefa0230f8077d1003043807c4))
+* **app:** show loading screen during recover ([6f710e3](https://github.com/live-codes/livecodes/commit/6f710e3d05d91893c4f27d7e80c16ba4b5304767))
+* **compilers:** add `lang` attribute for sfc src imports ([63e4dc6](https://github.com/live-codes/livecodes/commit/63e4dc6b6ac435a97f793cc9304a0cecba8126bd))
+* **compilers:** add ClojureScript support ([2a4d723](https://github.com/live-codes/livecodes/commit/2a4d723c5d4b859b9e53f23021fec8bbb9585a85))
+* **compilers:** add jsx support in vue sfc ([2c76b47](https://github.com/live-codes/livecodes/commit/2c76b47906f2ddd831f634b489aa28d988f59bc7))
+* **compilers:** allow generating import maps during compile ([1bba4d2](https://github.com/live-codes/livecodes/commit/1bba4d208dd4719de0eba2cf68131f1944497d85))
+* **compilers:** allow importing remote vue sfc ([406c6c6](https://github.com/live-codes/livecodes/commit/406c6c60af9af0991822b9cdcc570bcfbc63aff9))
+* **compilers:** allow recursive imports in vue sfc ([b438e0b](https://github.com/live-codes/livecodes/commit/b438e0b60150deebb9b362e36fbbe3b57ca9f450))
+* **compilers:** allow svelte SFC to import and compile other SFCs ([9d5ca48](https://github.com/live-codes/livecodes/commit/9d5ca48ec70c32ec02dd340957f2c820f41df931))
+* **compilers:** do not inline remote style imports by default ([3e38335](https://github.com/live-codes/livecodes/commit/3e38335bdd82c8d307ec9f734358ea72e570e203))
+* **compilers:** retry loading rescript compiler if failed ([1e8562f](https://github.com/live-codes/livecodes/commit/1e8562f700ce76a728df9b0ca13b070205cd86d1))
+* **compilers:** support css modules in vue sfc ([6169f34](https://github.com/live-codes/livecodes/commit/6169f34a4ae319911e5a133dbda4ad4dcd046a11))
+* **compilers:** use official vue SFC compiler for vue 3 ([c82ef76](https://github.com/live-codes/livecodes/commit/c82ef769e1db1701a978b306c0fafeaff0be044b))
+* **config:** use default language if invalid ([c2c4b22](https://github.com/live-codes/livecodes/commit/c2c4b228b776a8b36a692637deb38b66f6b80d03))
+* **editor:** auto add close tag in monaco ([1cb0db7](https://github.com/live-codes/livecodes/commit/1cb0db790fc88102eef2e6db24a2223bc20f21d8))
+* **embed:** allow selecting active tool in embed screen ([c66b476](https://github.com/live-codes/livecodes/commit/c66b4769b59e9347964c16823b01b2057dc98206))
+* **embed:** embed as Svelte ([707f48d](https://github.com/live-codes/livecodes/commit/707f48d0ee5c5c0e319ee0038396159a37b46677))
+* **embed:** use permanent url by default for embeds ([c091ef9](https://github.com/live-codes/livecodes/commit/c091ef9307e7693436b592f464fbed1eca404e48))
+* **export-share:** allow using permanent url in share ([906bcc5](https://github.com/live-codes/livecodes/commit/906bcc5cef7d213351671683c0873f920982e09d))
+* **formatter:** upgrade @prettier/plugin-php to v0.19.6 ([13b5d8b](https://github.com/live-codes/livecodes/commit/13b5d8bc8992b66ede144ca999de2f36616a4ced))
+* **formatter:** upgrade prettier to v3.0.0 ([b06d8bd](https://github.com/live-codes/livecodes/commit/b06d8bd6ba85450b563af6dd1f5ee20722ac4f46))
+* **import:** import data url ([ab84f2f](https://github.com/live-codes/livecodes/commit/ab84f2fd11988d615ed5a1650abb60409b8874fe))
+* **result:** allow importing stylesheets in script editor ([9bc077f](https://github.com/live-codes/livecodes/commit/9bc077f06351c8f800ff415b9dc0275390898b93))
+* **result:** maintain result page scroll position on update ([0cea826](https://github.com/live-codes/livecodes/commit/0cea8265cc929cd90c2bde9d62a692e4eb01e26b)), closes [#297](https://github.com/live-codes/livecodes/issues/297)
+* **services:** allow switching default CDN ([f5203cc](https://github.com/live-codes/livecodes/commit/f5203cc4701b57d6f1cf8d3a5b454a647db26754))
+* **services:** provide permanent SDK url ([fa0d76a](https://github.com/live-codes/livecodes/commit/fa0d76a3266b3755363b63735c3d3b2f004fea62))
+* **UI:** 2-column style menu ([13d5702](https://github.com/live-codes/livecodes/commit/13d57024de26a6d498d66d34aa0b22e992529ad5))
+* **UI:** add cookie notice to login screen ([5c23a43](https://github.com/live-codes/livecodes/commit/5c23a4319071e6f679c0b5d49ea0883dcb4a724f))
+* **welcome:** show recent projects above templates ([2c7b991](https://github.com/live-codes/livecodes/commit/2c7b991b61903addf5c4d89fd77d50265fbc134d))
+
+
+
+
+---
+
 ## [4](https://github.com/live-codes/livecodes/compare/v3...v4) (2023-05-13)
 
 
