@@ -245,6 +245,8 @@ declare module 'livecodes/models' {
     export interface CompileInfo {
         cssModules?: Record<string, string>;
         modifiedHTML?: string;
+        importedContent?: string;
+        imports?: Record<string, string>;
     }
     export interface CompileResult {
         code: string;
@@ -451,7 +453,7 @@ declare module 'livecodes/models' {
         head: string;
         htmlClasses: string;
     }>;
-    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
+    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'fastly.jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
     export type EditorCache = Editor & {
         compiled: string;
         modified?: string;

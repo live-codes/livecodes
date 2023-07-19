@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/livecodes/editor/custom-editor-utils.ts"],
-  "sourcesContent": ["document.addEventListener('keydown', function (e) {\n  const ctrl = (e: KeyboardEvent) => (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey);\n\n  // Cmd + Shift + S forks the project (save as...)\n  if (ctrl(e) && e.shiftKey && e.keyCode === 83) {\n    e.preventDefault();\n    parent.postMessage({ type: 'customEditorCommand', payload: 'fork' }, '*');\n    return;\n  }\n\n  // Cmd + S saves the project\n  if (ctrl(e) && e.keyCode === 83) {\n    // save\n    e.preventDefault();\n    parent.postMessage({ type: 'customEditorCommand', payload: 'save' }, '*');\n    return;\n  }\n});\n"],
-  "mappings": "mBAAA,SAAS,iBAAiB,UAAW,SAAUA,EAAG,CAChD,IAAMC,EAAQD,GAAsB,UAAU,SAAS,MAAM,KAAK,EAAIA,EAAE,QAAUA,EAAE,QAGpF,GAAIC,EAAKD,CAAC,GAAKA,EAAE,UAAYA,EAAE,UAAY,GAAI,CAC7CA,EAAE,eAAe,EACjB,OAAO,YAAY,CAAE,KAAM,sBAAuB,QAAS,MAAO,EAAG,GAAG,EACxE,OAIF,GAAIC,EAAKD,CAAC,GAAKA,EAAE,UAAY,GAAI,CAE/BA,EAAE,eAAe,EACjB,OAAO,YAAY,CAAE,KAAM,sBAAuB,QAAS,MAAO,EAAG,GAAG,EACxE,OAEJ,CAAC",
-  "names": ["e", "ctrl"]
-}

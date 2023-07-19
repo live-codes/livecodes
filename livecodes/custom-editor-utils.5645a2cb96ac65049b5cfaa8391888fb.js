@@ -1,2 +1,0 @@
-"use strict";(()=>{document.addEventListener("keydown",function(t){let e=a=>navigator.platform.match("Mac")?a.metaKey:a.ctrlKey;if(e(t)&&t.shiftKey&&t.keyCode===83){t.preventDefault(),parent.postMessage({type:"customEditorCommand",payload:"fork"},"*");return}if(e(t)&&t.keyCode===83){t.preventDefault(),parent.postMessage({type:"customEditorCommand",payload:"save"},"*");return}});})();
-//# sourceMappingURL=custom-editor-utils.js.map

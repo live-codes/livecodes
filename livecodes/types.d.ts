@@ -230,6 +230,8 @@ declare module "sdk/models" {
     export interface CompileInfo {
         cssModules?: Record<string, string>;
         modifiedHTML?: string;
+        importedContent?: string;
+        imports?: Record<string, string>;
     }
     export interface CompileResult {
         code: string;
@@ -436,7 +438,7 @@ declare module "sdk/models" {
         head: string;
         htmlClasses: string;
     }>;
-    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
+    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'fastly.jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
     export type EditorCache = Editor & {
         compiled: string;
         modified?: string;
@@ -583,78 +585,31 @@ declare module "sdk/models" {
 declare module "livecodes/models" {
     export * from "sdk/models";
 }
-declare module "livecodes/services/allowed-origin" {
-    export const allowedOrigin: (origin?: string) => boolean;
-    export const whitelistTarget: (url: string) => boolean;
-}
-declare module "livecodes/services/share" {
-    import type { Config } from "livecodes/models";
-    type ConfigWithResult = Partial<Config & {
-        result: string;
-    }>;
-    interface ShareService {
-        getProject: (id: string) => Promise<ConfigWithResult>;
-        shareProject: (config: ConfigWithResult) => Promise<string>;
-    }
-    export const shareService: ShareService;
+declare module "livecodes/events/events" {
+    export const createEventsManager: () => {
+        addEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent | CustomEvent) => void, options?: any) => void;
+        removeEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void) => void;
+        removeEventListeners: () => void;
+    };
 }
 declare module "livecodes/events/custom-events" {
     import type { CustomEvents } from "livecodes/models";
     export const customEvents: CustomEvents;
 }
-declare module "livecodes/utils/utils" {
-    import type { Config, Language, Processor } from "livecodes/models";
-    export const debounce: (fn: (...x: any[]) => any, delay: number | (() => number)) => (...args: unknown[]) => void;
-    export const decodeHTML: (html: string) => string;
-    export const encodeHTML: (html: string) => string;
-    export const escapeScript: (code: string) => string;
-    export const escapeCode: (code: string, slash?: boolean) => string;
-    export const pipe: (...fns: Function[]) => Function;
-    export const safeName: (name: string, symbol?: string) => string;
-    export const isMobile: () => boolean;
-    export const isRelativeUrl: (url?: string) => boolean;
-    export const getAbsoluteUrl: (url: string, baseUrl?: string) => string;
-    export const cloneObject: <T>(x: Record<string, any>) => T;
-    export const objectMap: (obj: Record<string, any>, fn: (value: any, key: string, index: number) => any) => {
-        [k: string]: any;
+declare module "livecodes/events/pub" {
+    export const createPub: <T>() => {
+        subscribe: (fn: (data: T) => void) => {
+            unsubscribe: () => void;
+        };
+        notify: (data: T) => void;
+        hasSubscribers: () => boolean;
+        unsubscribeAll: () => void;
     };
-    export const objectFilter: (obj: Record<string, any>, predicate: (value: any, key: string, index: number) => any) => {
-        [k: string]: any;
-    };
-    export const copyToClipboard: (text: string) => boolean;
-    export const stringToValidJson: (str: string) => string;
-    export const stringify: (obj: any, pretty?: boolean) => string;
-    export const getRandomString: () => string;
-    export const downloadFile: (filename: string, extension: string, content: string) => void;
-    export const loadScript: (url: string, name?: string) => Promise<unknown>;
-    export const loadStylesheet: (url: string, id?: string, insertBefore?: string) => void;
-    export const typedArrayToBuffer: (array: Uint8Array) => ArrayBuffer;
-    export const getDate: () => string;
-    export const handleFetchError: (res: Response) => Response | Promise<never>;
-    export const fetchWithHandler: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
-    export const blobToBase64: (file: Blob) => Promise<string>;
-    export const Uint8ArrayToBase64: (u8: Uint8Array) => string;
-    export const base64ToUint8Array: (str: string) => Uint8Array;
-    export const typedArraysAreEqual: (a: Uint8Array, b: Uint8Array) => boolean;
-    export const getWorkerDataURL: (url: string) => string;
-    export const removeComments: (src: string) => string;
-    export const removeStrings: (src: string) => string;
-    export const removeCommentsAndStrings: (src: string) => string;
-    export const getLanguageCustomSettings: (language: Language | Processor, config: Config) => any;
-    export const getValidUrl: (url?: string) => string | null;
-    export const runOrContinue: <T>(fn: (x: T) => Promise<T>, catchFn?: ((err: unknown) => void) | undefined) => (x: T) => Promise<T>;
-    export const getFileExtension: (file: string) => string;
-    export const isInIframe: () => boolean;
-    export const indentCode: (code: string, spaces: number, skipFirstLine?: boolean) => string;
-    export const hideOnClickOutside: (element: HTMLElement) => {
-        clear: () => void;
-    };
-    export const callWorker: <T = string, K = unknown>(worker: Worker, message: {
-        method: T;
-        args?: any;
-    }) => Promise<K>;
-    export const toCamelCase: (str: string) => string;
-    export const removeDuplicates: (arr: any[] | undefined) => any[];
+}
+declare module "livecodes/events/index" {
+    export * from "livecodes/events/events";
+    export * from "livecodes/events/custom-events";
+    export * from "livecodes/events/pub";
 }
 declare module "livecodes/services/modules" {
     import type { CDN } from "livecodes/models";
@@ -793,6 +748,7 @@ declare module "livecodes/vendors" {
     export const sqljsBaseUrl: string;
     export const stencilUrl: string;
     export const stylisUrl: string;
+    export const svelteRuntimeBaseUrl: string;
     export const svgbobWasmCdnUrl: string;
     export const tagifyBaseUrl: string;
     export const tailwindcssUrl: string;
@@ -805,44 +761,69 @@ declare module "livecodes/vendors" {
     export const vegaLiteCdnUrl: string;
     export const vue3CdnUrl: string;
     export const vue2CdnUrl: string;
+    export const vueRuntimeUrl: string;
+    export const vueSDKUrl: string;
     export const vueSfcLoaderCdnBaseUrl: string;
     export const wabtjsUrl: string;
     export const waveDromBaseUrl: string;
     export const webRBaseUrl: string;
 }
-declare module "livecodes/main" {
-    import type { API, Config, EmbedOptions } from "livecodes/models";
-    export type { API, Config };
-    export const params: URLSearchParams;
-    export const isLite: boolean;
-    export const isEmbed: boolean;
-    export const loadingParam: string | null;
-    export const clickToLoad: boolean;
-    export const loading: EmbedOptions['loading'];
-    export const livecodes: (container: string, config?: Partial<Config>) => Promise<API>;
-}
-declare module "index" { }
-declare module "livecodes/events/events" {
-    export const createEventsManager: () => {
-        addEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent | CustomEvent) => void, options?: any) => void;
-        removeEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void) => void;
-        removeEventListeners: () => void;
+declare module "livecodes/utils/utils" {
+    import type { Config, Language, Processor } from "livecodes/models";
+    export const debounce: (fn: (...x: any[]) => any, delay: number | (() => number)) => (...args: unknown[]) => void;
+    export const decodeHTML: (html: string) => string;
+    export const encodeHTML: (html: string) => string;
+    export const escapeScript: (code: string) => string;
+    export const escapeCode: (code: string, slash?: boolean) => string;
+    export const pipe: (...fns: Function[]) => Function;
+    export const safeName: (name: string, symbol?: string) => string;
+    export const isMobile: () => boolean;
+    export const isRelativeUrl: (url?: string) => boolean;
+    export const getAbsoluteUrl: (url: string, baseUrl?: string) => string;
+    export const cloneObject: <T>(x: Record<string, any>) => T;
+    export const objectMap: (obj: Record<string, any>, fn: (value: any, key: string, index: number) => any) => {
+        [k: string]: any;
     };
-}
-declare module "livecodes/events/pub" {
-    export const createPub: <T>() => {
-        subscribe: (fn: (data: T) => void) => {
-            unsubscribe: () => void;
-        };
-        notify: (data: T) => void;
-        hasSubscribers: () => boolean;
-        unsubscribeAll: () => void;
+    export const objectFilter: (obj: Record<string, any>, predicate: (value: any, key: string, index: number) => any) => {
+        [k: string]: any;
     };
-}
-declare module "livecodes/events/index" {
-    export * from "livecodes/events/events";
-    export * from "livecodes/events/custom-events";
-    export * from "livecodes/events/pub";
+    export const copyToClipboard: (text: string) => boolean;
+    export const stringToValidJson: (str: string) => string;
+    export const stringify: (obj: any, pretty?: boolean) => string;
+    export const getRandomString: () => string;
+    export const downloadFile: (filename: string, extension: string, content: string) => void;
+    export const loadScript: (url: string, name?: string) => Promise<unknown>;
+    export const loadStylesheet: (url: string, id?: string, insertBefore?: string) => void;
+    export const typedArrayToBuffer: (array: Uint8Array) => ArrayBuffer;
+    export const getDate: () => string;
+    export const handleFetchError: (res: Response) => Response | Promise<never>;
+    export const fetchWithHandler: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+    export const blobToBase64: (file: Blob) => Promise<string>;
+    export const Uint8ArrayToBase64: (u8: Uint8Array) => string;
+    export const base64ToUint8Array: (str: string) => Uint8Array;
+    export const typedArraysAreEqual: (a: Uint8Array, b: Uint8Array) => boolean;
+    export const toDataUrl: (content: string, type?: string) => string;
+    export const getWorkerDataURL: (url: string) => string;
+    export const createWorkerFromContent: (content: string) => Worker;
+    export const removeComments: (src: string) => string;
+    export const removeStrings: (src: string) => string;
+    export const removeCommentsAndStrings: (src: string) => string;
+    export const getLanguageCustomSettings: (language: Language | Processor, config: Config) => any;
+    export const getValidUrl: (url?: string) => string | null;
+    export const runOrContinue: <T>(fn: (x: T) => Promise<T>, catchFn?: ((err: unknown) => void) | undefined) => (x: T) => Promise<T>;
+    export const getFileExtension: (file: string) => string;
+    export const isInIframe: () => boolean;
+    export const indentCode: (code: string, spaces: number, skipFirstLine?: boolean) => string;
+    export const hideOnClickOutside: (element: HTMLElement) => {
+        clear: () => void;
+    };
+    export const callWorker: <T = string, K = unknown>(worker: Worker, message: {
+        method: T;
+        args?: any;
+    }) => Promise<K>;
+    export const toCamelCase: (str: string) => string;
+    export const removeDuplicates: (arr: any[] | undefined) => any[];
+    export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
 }
 declare module "livecodes/utils/get-import-instance" {
     export function getImportInstance(url: string): any;
@@ -934,6 +915,7 @@ declare module "livecodes/languages/prettier" {
     export const prettierUrl: string;
     export const parserPlugins: {
         babel: string;
+        estree: string;
         glimmer: string;
         html: string;
         markdown: string;
@@ -1003,9 +985,13 @@ declare module "livecodes/languages/markdown/lang-markdown" {
 declare module "livecodes/languages/markdown/index" {
     export * from "livecodes/languages/markdown/lang-markdown";
 }
+declare module "livecodes/compiler/utils" {
+    import type { CompileResult, CompilerFunction } from "livecodes/models";
+    export const getCompileResult: (result: Awaited<ReturnType<CompilerFunction>>) => CompileResult;
+}
 declare module "livecodes/compiler/compile-in-compiler" {
-    import type { Config, Language, CompileOptions } from "livecodes/models";
-    export const compileInCompiler: (content: string, language: Language | undefined, config: Config, options?: CompileOptions, worker?: Worker) => Promise<string>;
+    import type { Config, Language, CompileOptions, CompileResult } from "livecodes/models";
+    export const compileInCompiler: (content: string, language: Language | undefined, config: Config, options?: CompileOptions, worker?: Worker) => Promise<CompileResult>;
 }
 declare module "livecodes/languages/mdx/lang-mdx" {
     import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
@@ -1065,13 +1051,15 @@ declare module "livecodes/languages/vue/lang-vue" {
     import type { LanguageSpecs } from "livecodes/models";
     export const vue: LanguageSpecs;
 }
-declare module "livecodes/languages/vue/lang-vue2" {
+declare module "livecodes/languages/vue/index" {
+    export * from "livecodes/languages/vue/lang-vue";
+}
+declare module "livecodes/languages/vue2/lang-vue2" {
     import type { LanguageSpecs } from "livecodes/models";
     export const vue2: LanguageSpecs;
 }
-declare module "livecodes/languages/vue/index" {
-    export * from "livecodes/languages/vue/lang-vue";
-    export * from "livecodes/languages/vue/lang-vue2";
+declare module "livecodes/languages/vue2/index" {
+    export * from "livecodes/languages/vue2/lang-vue2";
 }
 declare module "livecodes/languages/stencil/lang-stencil" {
     import type { LanguageSpecs } from "livecodes/models";
@@ -1452,13 +1440,19 @@ declare module "livecodes/compiler/compile-blocks" {
     interface CompileBlocksOptions {
         removeEnclosingTemplate?: boolean;
         languageAttribute?: 'lang' | 'type';
+        prepareFn?: (code: string, config: Config) => Promise<string>;
     }
+    export const fetchBlocksSource: (code: string, blockElement: 'template' | 'style' | 'script') => Promise<string>;
     export const compileBlocks: (code: string, blockElement: 'template' | 'style' | 'script', config: Config, options?: CompileBlocksOptions) => Promise<string>;
     export const compileAllBlocks: (code: string, config: Config, options?: CompileBlocksOptions) => Promise<string>;
 }
 declare module "livecodes/compiler/get-all-compilers" {
     import type { LanguageSpecs, Config, Compilers, ProcessorSpecs } from "livecodes/models";
     export const getAllCompilers: (languages: Array<LanguageSpecs | ProcessorSpecs>, config: Config, baseUrl: string) => Compilers;
+}
+declare module "livecodes/services/allowed-origin" {
+    export const allowedOrigin: (origin?: string) => boolean;
+    export const whitelistTarget: (url: string) => boolean;
 }
 declare module "livecodes/sync/diff" {
     import * as Y from 'yjs';
@@ -1703,6 +1697,17 @@ declare module "livecodes/services/sandbox" {
         getOrigin: () => string;
     };
 }
+declare module "livecodes/services/share" {
+    import type { Config } from "livecodes/models";
+    type ConfigWithResult = Partial<Config & {
+        result: string;
+    }>;
+    interface ShareService {
+        getProject: (id: string) => Promise<ConfigWithResult>;
+        shareProject: (config: ConfigWithResult) => Promise<string>;
+    }
+    export const shareService: ShareService;
+}
 declare module "livecodes/services/types" {
     import type { Types } from "livecodes/models";
     export const typesService: {
@@ -1727,14 +1732,26 @@ declare module "livecodes/compiler/import-map" {
     export const importsPattern: RegExp;
     export const dynamicImportsPattern: RegExp;
     export const getImports: (code: string) => string[];
-    export const createImportMap: (code: string, config: Config) => {
+    export const findImportMapKey: (mod: string, importmap: Record<string, string>) => string | undefined;
+    export const createImportMap: (code: string, config: Config, fallbackToCdn?: boolean) => {
         [x: string]: string;
     };
     export const hasImports: (code: string) => boolean;
     export const hasExports: (code: string) => boolean;
     export const hasAwait: (code: string) => boolean;
     export const isModuleScript: (code: string) => boolean;
-    export const replaceImports: (code: string, config: Config) => string;
+    export const replaceImports: (code: string, config: Config, importMap?: Record<string, string>) => string;
+    export const replaceSFCImports: (code: string, { filename, config, sfcExtension, getLanguageByAlias, compileSFC, }: {
+        config: Config;
+        filename: string;
+        sfcExtension: string;
+        getLanguageByAlias: (alias: string) => Language | undefined;
+        compileSFC: (code: string, options: {
+            filename: string;
+            config: Config;
+        }) => Promise<string>;
+    }) => Promise<string>;
+    export const removeImports: (code: string, mods: string[]) => string;
     export const styleimportsPattern: RegExp;
     export const hasStyleImports: (code: string) => boolean;
     export const replaceStyleImports: (code: string) => string;
@@ -1819,10 +1836,6 @@ declare module "livecodes/compiler/models" {
             error: string;
         };
     }
-}
-declare module "livecodes/compiler/utils" {
-    import type { CompileResult, CompilerFunction } from "livecodes/models";
-    export const getCompileResult: (result: Awaited<ReturnType<CompilerFunction>>) => CompileResult;
 }
 declare module "livecodes/compiler/create-compiler" {
     import type { Config } from "livecodes/models";
@@ -2512,6 +2525,7 @@ declare module "livecodes/UI/selectors" {
     export const getCodeRunButton: () => HTMLElement;
     export const getEditorToolbar: () => HTMLElement;
     export const getCopyButton: () => HTMLElement;
+    export const getCopyAsUrlButton: () => HTMLElement;
     export const getUndoButton: () => HTMLElement;
     export const getRedoButton: () => HTMLElement;
     export const getFormatButton: () => HTMLElement;
@@ -2980,13 +2994,13 @@ declare module "livecodes/UI/editor-settings" {
     }) => Promise<void>;
 }
 declare module "livecodes/UI/assets" {
+    import type { DeployResult } from "livecodes/deploy/index";
     import type { createEventsManager } from "livecodes/events/index";
     import type { createModal } from "livecodes/modal";
     import type { Asset, Screen, User } from "livecodes/models";
     import type { createNotifications } from "livecodes/notifications/index";
     import type { GitHubFile } from "livecodes/services/github";
     import { type Storage } from "livecodes/storage/index";
-    import type { DeployResult } from "livecodes/deploy/index";
     export const createAssetsList: ({ assetsStorage, eventsManager, showScreen, notifications, modal, baseUrl, }: {
         assetsStorage: Storage<Asset>;
         eventsManager: ReturnType<typeof createEventsManager>;
@@ -3084,6 +3098,18 @@ declare module "livecodes/embed" {
     import type { API, Config } from "livecodes/models";
     export const app: (config: Partial<Config>, baseUrl: string) => Promise<API>;
 }
+declare module "livecodes/main" {
+    import type { API, Config, EmbedOptions } from "livecodes/models";
+    export type { API, Config };
+    export const params: URLSearchParams;
+    export const isLite: boolean;
+    export const isEmbed: boolean;
+    export const loadingParam: string | null;
+    export const clickToLoad: boolean;
+    export const loading: EmbedOptions['loading'];
+    export const livecodes: (container: string, config?: Partial<Config>) => Promise<API>;
+}
+declare module "livecodes/index" { }
 declare module "livecodes/lite" {
     import type { API, Config } from "livecodes/models";
     export const app: (config: Partial<Config>, baseUrl: string) => Promise<API>;
@@ -4641,6 +4667,7 @@ declare module "livecodes/languages/teal/lang-teal-compiler" { }
 declare module "livecodes/languages/twig/lang-twig-compiler" { }
 declare module "livecodes/languages/unocss/processor-unocss-compiler" { }
 declare module "livecodes/languages/vue/lang-vue-compiler" { }
+declare module "livecodes/languages/vue2/lang-vue2-compiler" { }
 declare module "livecodes/languages/wat/lang-wat-compiler" { }
 declare module "livecodes/languages/wat/lang-wat-script" { }
 declare module "livecodes/languages/windicss/processor-windicss-compiler" { }
@@ -4838,9 +4865,9 @@ declare module "livecodes/templates/starter/vue-sfc-starter" {
     import type { Template } from "livecodes/models";
     export const vueSfcStarter: Template;
 }
-declare module "livecodes/templates/starter/vue-starter" {
+declare module "livecodes/templates/starter/vue2-starter" {
     import type { Template } from "livecodes/models";
-    export const vueStarter: Template;
+    export const vue2Starter: Template;
 }
 declare module "livecodes/templates/starter/wat-starter" {
     import type { Template } from "livecodes/models";

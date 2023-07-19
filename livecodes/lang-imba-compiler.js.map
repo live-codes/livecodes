@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/livecodes/languages/imba/lang-imba-compiler.ts"],
-  "sourcesContent": ["import type { CompilerFunction } from '../../models';\r\n\r\n(self as any).createImbaCompiler = (): CompilerFunction => async (code) => {\r\n  if (!code) return '';\r\n  try {\r\n    const compiled = (self as any).imbac.compile(code, {\r\n      platform: 'web',\r\n      format: 'esm',\r\n      sourcePath: 'app.imba',\r\n    });\r\n    return compiled.js || '';\r\n  } catch (err) {\r\n    // eslint-disable-next-line no-console\r\n    console.warn(err);\r\n    return '';\r\n  }\r\n};\r\n"],
-  "mappings": "mBAEC,KAAa,mBAAqB,IAAwB,MAAOA,GAAS,CACzE,GAAI,CAACA,EAAM,MAAO,GAClB,GAAI,CAMF,OALkB,KAAa,MAAM,QAAQA,EAAM,CACjD,SAAU,MACV,OAAQ,MACR,WAAY,UACd,CAAC,EACe,IAAM,EACxB,OAASC,EAAP,CAEA,eAAQ,KAAKA,CAAG,EACT,EACT,CACF",
-  "names": ["code", "err"]
-}

@@ -8,7 +8,14 @@ Code Playground That Just Works!
 
 A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-side** code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and [80+ languages/frameworks](https://livecodes.io/docs/languages/).
 
+[![LiveCodes: uptime status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/upptime/master/api/live-codes/uptime.json)](https://status.livecodes.io)
+[![LiveCodes: app version](https://img.shields.io/github/v/release/live-codes/livecodes?label=app)](https://livecodes.io)
+[![LiveCodes: npm version](https://img.shields.io/npm/v/livecodes)](https://www.npmjs.com/package/livecodes)
+[![LiveCodes: npm downloads](https://img.shields.io/npm/dw/livecodes)](https://www.npmjs.com/package/livecodes)
+[![LiveCodes: languages](https://img.shields.io/badge/languages-84-blue)](https://livecodes.io/docs/languages/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
+[![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
+[![LiveCodes: GitHub repo](https://img.shields.io/github/stars/live-codes/livecodes?style=social)](https://github.com/live-codes/livecodes)
 
 [Try it now on livecodes.io](https://livecodes.io)
 
@@ -43,7 +50,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 1. Go to [livecodes.io](https://livecodes.io)
 
-... that's it!
+... and enjoy all the [features](https://livecodes.io/docs/features/)!
 
 #### Embedded Playground
 
@@ -52,7 +59,7 @@ Add this code to your page:
 ```html
 <div id="container"></div>
 <script type="module">
-  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
+  import { createPlayground } from 'https://unpkg.com/livecodes';
 
   createPlayground('#container', {
     params: {
@@ -65,10 +72,14 @@ Add this code to your page:
 </script>
 ```
 
+<sup>Check documentations for <a href="https://livecodes.io/docs/features/embeds" target="_blank" rel="noopener">Embedded Playgrounds</a>.</sup>
+
 #### Self-hosted
 
 1. Download a [release](https://github.com/live-codes/livecodes/releases)
 2. Put it on a static file server (for free!) <sup><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">1</a>, <a href="https://vercel.com/" target="_blank" rel="noopener">2</a>, <a href="https://www.netlify.com/" target="_blank" rel="noopener">3</a>, <a href="https://firebase.google.com/" target="_blank" rel="noopener">4</a>, <a href="https://pages.github.com/" target="_blank" rel="noopener">5</a></sup>
+
+   <sup>Check the guide for <a href="https://livecodes.io/docs/features/self-hosting" target="_blank" rel="noopener">self-hosting</a> (including the built-in setup to deploy to GitHub Pages).</sup>
 
 ... and it just works!
 
@@ -130,8 +141,8 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
-  <img alt="jsDelivr" width="200" src="https://dev.livecodes.io/docs/img/credits/jsdelivr.svg">
+<a href="https://unpkg.com/" target="_blank" title="unpkg">
+  <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
 </img></a><br /><br />
 </p>
 <p>
@@ -145,18 +156,18 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://unpkg.com/" target="_blank" title="unpkg">
-  <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
-</img></a><br /><br />
-</p>
-<p>
-<a href="https://bundlejs.com/" target="_blank" title="bundlejs">
-  <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
+<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
+  <img alt="jsDelivr" width="200" src="https://dev.livecodes.io/docs/img/credits/jsdelivr.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://github.com/" target="_blank" title="GitHub">
   <img alt="GitHub" width="200" src="https://dev.livecodes.io/docs/img/credits/github.png">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://bundlejs.com/" target="_blank" title="bundlejs">
+  <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
 </img></a><br /><br />
 </p>
 <p>
