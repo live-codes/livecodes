@@ -52,6 +52,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Bronze Sponsors (USD$100/mo):
 
+- Access to a hosted (always-on) [broadcast](./features/broadcast.md) API endpoint.
 - Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Small logo placement in [this page](#livecodes-sponsors).
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
@@ -59,6 +60,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Silver Sponsors (USD$250/mo):
 
+- Access to a hosted (always-on) [broadcast](./features/broadcast.md) API endpoint.
 - Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Medium logo placement in [this page](#livecodes-sponsors).
@@ -67,6 +69,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Gold Sponsors (USD$500/mo):
 
+- Access to a hosted (always-on) [broadcast](./features/broadcast.md) API endpoint.
 - Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Large logo placement in [this page](#livecodes-sponsors).
@@ -75,6 +78,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Platinum Sponsors (USD$1,000/mo):
 
+- Access to a hosted (always-on) [broadcast](./features/broadcast.md) API endpoint.
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
@@ -85,6 +89,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 - **_Custom build_** of the playground with your **_logo, brand_** and [customized services](./advanced/services.md). The custom build is maintained and receives new updates.
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
+- Access to a hosted (always-on) [broadcast](./features/broadcast.md) API endpoint.
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
 - Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
