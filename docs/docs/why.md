@@ -68,7 +68,7 @@ Please consider [sponsoring LiveCodes](./sponsor.md) if you find it useful, to s
 
 :::caution Under Development
 
-Please note that LiveCodes is still in active development and may not yet be ready for production use. API may change, and performance improvements may still be required. However please take the time to try it. Your feedback and contribution are highly appreciated.
+Please note that LiveCodes is still in active development and may not yet be ready for production use. API may change, and performance improvements may still be required. However please take the time to try it. Use [permanent URL](./features/permanent-url.md) and pinned [library version](./sdk/) to avoid breaking changes. Your feedback and contribution are highly appreciated.
 
 :::
 

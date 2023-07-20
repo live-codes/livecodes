@@ -8,8 +8,16 @@ The Import screen can be accessed from the app menu → Import.
 
 ![LiveCodes Import](../../static/img/screenshots/import.jpg)
 
-Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to query string key: `x`, for example:
+Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to [query param](../configuration/query-params.md) key: `x`.
 
+For [embedded playgrounds](./embeds.md), use the [SDK](../sdk/index.md) property [`EmbedOptions.import`](../sdk/js-ts.md#import).
+
+## Examples
+
+GitHub Directory: [link](https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards)  
+https://livecodes.io/?x=https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards
+
+GitHub Gist: [link](https://gist.github.com/f01deb828a42f363502fbae7964d48e9)  
 https://livecodes.io/?x=https://gist.github.com/f01deb828a42f363502fbae7964d48e9
 
 ## Sources
