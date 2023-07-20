@@ -14,12 +14,12 @@ The built app can be obtained by **one of the following** ways:
   cd livecodes
   npm install
   npm build          # build the app to "build" directory
+  npm run serve      # locally serve to http://localhost:8080
 
   # deploy
   npm run deploy     # build and deploy to github pages
 
   # for development
-  npm run serve      # locally serve to http://localhost:8080
   npm start          # start local development with code watch, rebuild and live-reload
   ```
 

@@ -137,4 +137,4 @@ LiveCodes can be hosted on any static file server or CDN.
 
 The easiest way is to download the app from [releases](https://github.com/live-codes/livecodes/releases), extract the folder and add it to your website.
 
-Please check the section on [self-hosting] for other methods of self-hosting, including the built-in setup to deploy to GitHub pages and how to use the SDK with the self-hosted app.
+Please check the section on [self-hosting](./features/self-hosting.md) for other methods of self-hosting, including the built-in setup to deploy to GitHub pages and how to use the SDK with the self-hosted app.

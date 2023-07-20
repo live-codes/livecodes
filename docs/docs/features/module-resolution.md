@@ -239,6 +239,8 @@ const config = {
 createPlayground('#container', { config });
 ```
 
+Please note that you may also provide [custom type definitions](./intellisense.md#custom-types) for your custom modules for editor intellisense and better development experience.
+
 ## Related
 
 - [Import](./import.md)
