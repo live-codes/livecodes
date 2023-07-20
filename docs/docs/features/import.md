@@ -105,9 +105,16 @@ Currently, CodePen API does not allow directly importing code from Pens (except 
 
 **Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-resources.md).
 
+## Import Exported LiveCodes Projects
+
+A [single project exported as JSON](./export.md#exporting-a-single-project) can be imported in the same or a different device from the import screen under the tab "Import Project JSON". The JSON file can be supplied as a local file upload or from a URL.
+
+Similarly, [multiple projects exported in bulk](./export.md#exporting-multiple-projects) can be imported from the tab "Bulk Import".
+
 ## Related
 
 - [Code prefill](./code-prefill.md)
 - [Export](./export.md)
 - [External resources](./external-resources.md)
 - [Module resolution](./module-resolution.md)
+- [Projects](./projects.md)
