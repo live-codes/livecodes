@@ -56,6 +56,9 @@ const prepareDir = async () => {
   mkdir(outDir);
   mkdir(outDir + '/livecodes/');
   mkdir(outDir + '/sdk/');
+  if (devMode) {
+    mkdir(outDir + '/tmp/');
+  }
   const fileNames = await getFileNames(outDir + '/livecodes/');
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
 
@@ -321,6 +324,13 @@ prepareDir().then(() => {
       }
       await applyHash({ devMode });
       await injectCss();
+      if (devMode) {
+        fs.writeFileSync(
+          path.resolve('build/tmp/trigger-reload.txt'),
+          new Date().toISOString(),
+          'utf8',
+        );
+      }
       console.log('built to: ' + baseOptions.outdir + '/');
     },
   );

@@ -14,7 +14,7 @@
     "start": "run-p watch serve",
     "docs": "cd docs && npm run start",
     "storybook": "cd storybook && npm run storybook",
-    "serve": "live-server build --cors --quiet --wait=2000",
+    "serve": "live-server build --watch=build/tmp/ --cors --quiet",
     "watch": "nodemon --watch src -e \"*\" ./scripts/build.js --dev",
     "build": "run-s build:*",
     "build:app": "run-s clean copy:* && node ./scripts/build.js",
