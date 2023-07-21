@@ -8,17 +8,35 @@ The Import screen can be accessed from the app menu → Import.
 
 ![LiveCodes Import](../../static/img/screenshots/import.jpg)
 
-Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to [query param](../configuration/query-params.md) key: `x`.
+Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to [query param](../configuration/query-params.md) key: `x`. This is easier using the [bookmarklet](../bookmarklet.md).
 
 For [embedded playgrounds](./embeds.md), use the [SDK](../sdk/index.md) property [`EmbedOptions.import`](../sdk/js-ts.md#import).
 
 ## Examples
 
-GitHub Directory: [link](https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards)  
-https://livecodes.io/?x=https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards
+- GitHub File:
 
-GitHub Gist: [link](https://gist.github.com/f01deb828a42f363502fbae7964d48e9)  
-https://livecodes.io/?x=https://gist.github.com/f01deb828a42f363502fbae7964d48e9
+  URL: https://github.com/lodash/lodash/blob/master/isObject.js
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://github.com/lodash/lodash/blob/master/isObject.js)
+
+- GitHub Directory:
+
+  URL: https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards)
+
+- GitHub Gist:
+
+  URL: https://gist.github.com/f01deb828a42f363502fbae7964d48e9
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://gist.github.com/f01deb828a42f363502fbae7964d48e9)
+
+- JS Bin:
+
+  URL: https://jsbin.com/iwovaj/73/embed?html,js,output
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://jsbin.com/iwovaj/73/embed?html,js,output)
 
 ## Sources
 

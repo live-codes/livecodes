@@ -34,7 +34,7 @@ If you wish to host the app in a subdirectory (e.g. `https://my-username.github.
 Example:
 
 ```shell
-npx cross-env DOCS_BASE_URL=\"/playground/docs/\" npm run build
+npx cross-env DOCS_BASE_URL="/playground/docs/" npm run build
 ```
 
 If you do not want to build documentations and direct all links to documentations to https://livecodes.io/docs/, use the following command:
@@ -45,9 +45,15 @@ npx cross-env DOCS_BASE_URL=null npm run build:app
 
 ## Services
 
-Some of the [services](../advanced/services.md) used by the app are not supported on [self-hosted](../features/self-hosting.md) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.md) service uses [dpaste](https://dpaste.com/) instead of LiveCodes share service) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
+Some of the [services](../advanced/services.md) used by the app are not supported on [self-hosted](../features/self-hosting.md) deploys and are either replaced by other compatible services (e.g. the [share](../features/share.md) service uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help)) or require you to provide an alternative service (e.g. [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication).
 
 You may wish to edit one or more of the used [services](../advanced/services.md) to use your own.
+
+:::info
+
+LiveCodes [sponsors](../sponsor.md) (Bronze sponsors and above) get access to managed custom services.
+
+:::
 
 ## Example
 

@@ -20,6 +20,14 @@ These are examples for automatically loading React types with autocomplete and h
 
 ![LiveCodes Intellisense](../../static/img/screenshots/intellisense2.jpg)
 
+:::info
+
+Automatically loading type definitions for npm modules uses a service provided for [https://livecodes.io](https://livecodes.io) and is not available for [self-hosted](./self-hosting.md) apps. You may want to use a [custom service](../advanced/services.md) instead.
+
+LiveCodes [sponsors](../sponsor.md) (Bronze sponsors and above) get access to managed custom services.
+
+:::
+
 ## Custom Types
 
 If no type definitions are found, or if you want to provide your own (e.g. for a module that is not hosted on npm), custom type definition files can be used.
