@@ -8,9 +8,35 @@ The Import screen can be accessed from the app menu → Import.
 
 ![LiveCodes Import](../../static/img/screenshots/import.jpg)
 
-Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to query string key: `x`, for example:
+Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to [query param](../configuration/query-params.md) key: `x`. This is easier using the [bookmarklet](../bookmarklet.md).
 
-https://livecodes.io/?x=https://gist.github.com/f01deb828a42f363502fbae7964d48e9
+For [embedded playgrounds](./embeds.md), use the [SDK](../sdk/index.md) property [`EmbedOptions.import`](../sdk/js-ts.md#import).
+
+## Examples
+
+- GitHub File:
+
+  URL: https://github.com/lodash/lodash/blob/master/isObject.js
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://github.com/lodash/lodash/blob/master/isObject.js)
+
+- GitHub Directory:
+
+  URL: https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://github.com/bradtraversy/50projects50days/tree/master/expanding-cards)
+
+- GitHub Gist:
+
+  URL: https://gist.github.com/f01deb828a42f363502fbae7964d48e9
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://gist.github.com/f01deb828a42f363502fbae7964d48e9)
+
+- JS Bin:
+
+  URL: https://jsbin.com/iwovaj/73/embed?html,js,output
+
+  [Open in LiveCodes](https://livecodes.io/?x=https://jsbin.com/iwovaj/73/embed?html,js,output)
 
 ## Sources
 
@@ -105,9 +131,16 @@ Currently, CodePen API does not allow directly importing code from Pens (except 
 
 **Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-resources.md).
 
+## Import Exported LiveCodes Projects
+
+A [single project exported as JSON](./export.md#exporting-a-single-project) can be imported in the same or a different device from the import screen under the tab "Import Project JSON". The JSON file can be supplied as a local file upload or from a URL.
+
+Similarly, [multiple projects exported in bulk](./export.md#exporting-multiple-projects) can be imported from the tab "Bulk Import".
+
 ## Related
 
 - [Code prefill](./code-prefill.md)
 - [Export](./export.md)
 - [External resources](./external-resources.md)
 - [Module resolution](./module-resolution.md)
+- [Projects](./projects.md)

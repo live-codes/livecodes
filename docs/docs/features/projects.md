@@ -34,6 +34,20 @@ For the full list of supported languages, check the [Languages section](../langu
 
 ## Organizing Projects
 
+Projects can be saved to the local device browser storage from app menu → Save / app menu → Save as → Fork (New Project) or using the keyboard shortcut <kbd>Ctrl</kbd> + <kbd>S</kbd>.
+
+The list of saved projects can be accessed from app menu → Open.
+
+![LiveCodes Projects](../../static/img/screenshots/saved-projects.png).
+
+Saved projects can be sorted by title or date (asc/desc). They can also be filtered by language and/or tags. You may, as well, search for a project by title or description.
+
+Project title, description and tags can be edited from app menu → Project Info.
+
+Projects can be [imported](./import.md), [exported](./export.md), [synchronized](./sync.md), [backed up and restored](./backup-restore.md).
+
+[Assets](./assets.md) and [code snippets](./snippets.md) are stored in the browser storage and can be used across projects.
+
 ## Related
 
 - [Result Page](./result.md)
@@ -45,3 +59,5 @@ For the full list of supported languages, check the [Languages section](../langu
 - [Export](./export.md)
 - [Backup/Restore](./backup-restore.md)
 - [Sync](./sync.md)
+- [Share](./share.md)
+- [Broadcast](./broadcast.md)

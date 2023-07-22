@@ -3235,7 +3235,7 @@ const handleCustomSettings = () => {
       editorId: 'customSettings',
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
-      value: stringify(config.customSettings, true),
+      value: stringify({ imports: {}, ...config.customSettings }, true),
       theme: config.theme,
       isEmbed,
       mapLanguage,

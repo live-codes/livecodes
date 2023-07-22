@@ -12,7 +12,7 @@ When creating an embeded playground, the following [embed options](../sdk/js-ts.
 
 [EmbedOptions.config](../sdk/js-ts.md#config)
 
-loads a [configuration object](../configuration/configuration-object.md) (or a URL to JSON file represention the configuration object)
+loads a [configuration object](../configuration/configuration-object.md) (or a URL to JSON file representing the configuration object)
 
 <LiveCodes config={{markup: {language: 'html', content: '<h1>Hello World!</h1>'}, style: {language: 'css', content: 'h1 { color: blue; }'}}}></LiveCodes>
 
@@ -24,9 +24,9 @@ allows [importing](./import.md) from many sources.
 
 Examples:
 
-Import GitHub gist:
+Import GitHub directory:
 
-<LiveCodes import="https://gist.github.com/f01deb828a42f363502fbae7964d48e9"></LiveCodes>
+<LiveCodes import="https://github.com/bradtraversy/50projects50days/tree/master/progress-steps"></LiveCodes>
 
 Import shared project:
 
