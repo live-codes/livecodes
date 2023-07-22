@@ -4,17 +4,7 @@
   "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
-  "keywords": [
-    "playground",
-    "code",
-    "client",
-    "sdk",
-    "react",
-    "vue",
-    "svelte",
-    "solid",
-    "python"
-  ],
+  "keywords": ["playground", "code", "client", "sdk", "react", "vue", "svelte", "solid", "python"],
   "private": false,
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
@@ -22,7 +12,7 @@
   "main": "./livecodes.js",
   "module": "./livecodes.js",
   "browser": "./livecodes.js",
-  "types": "./index.d.ts",
+  "types": "./livecodes.d.ts",
   "exports": {
     ".": {
       "import": "./livecodes.js",
