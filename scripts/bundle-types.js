@@ -8,13 +8,14 @@ const outPath = outDir + outFile;
 
 // delete if exists
 try {
-  fs.unlinkSync(path.resolve(outDir + outFile));
+  fs.unlinkSync(path.resolve(outPath));
 } catch {}
 
 const options = {
   name: 'livecodes',
   main: outDir + '**/*.d.ts',
   out: outFile,
+  removeSource: true,
 };
 
 dts.bundle(options);
@@ -22,9 +23,10 @@ dts.bundle(options);
 // patch
 const content = fs.readFileSync(path.resolve(outPath), 'utf8');
 const patched = content
-  .replace(/export \* from 'livecodes\//g, "// export * from 'livecodes/")
+  .replace(/export \* from 'livecodes\/.*;/g, '')
   .replace(/livecodes\/index/g, 'livecodes')
   .replace(/@vue\/runtime-core/g, 'vue')
-  .replace(/\.\.\/\.\.\/vue/g, 'vue');
+  .replace(/\/\/\s.*/g, '')
+  .replace(/[\r\n]{2,}/g, '\n');
 
 fs.writeFileSync(path.resolve(outPath), patched, 'utf8');

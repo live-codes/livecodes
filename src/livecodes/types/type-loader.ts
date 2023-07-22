@@ -11,11 +11,16 @@ export const createTypeLoader = () => {
     const name = Object.keys(type)[0];
     const value = Object.values(type)[0];
     const url = typeof value === 'string' ? value : value.url;
-    const declareAsModule = typeof value === 'string' || value.declareAsModule === true;
+
     if (url) {
       try {
         const res = await fetch(url);
+        if (!res.ok) throw new Error('Failed fetching: ' + url);
         const dts = await res.text();
+        const declareAsModule =
+          !dts.includes('declare module') ||
+          (typeof value !== 'string' && value.declareAsModule === true);
+
         content = declareAsModule ? `declare module '${name}' {${dts}}` : dts;
       } catch {
         content = `declare module '${name}': any`;
