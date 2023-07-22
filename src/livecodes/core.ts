@@ -102,7 +102,7 @@ import {
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
-import { createTypeLoader } from './types';
+import { createTypeLoader, getDefaultTypes } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
@@ -282,7 +282,9 @@ const loadModuleTypes = async (editors: Editors, config: Config, force = false) 
   const scriptLanguage = config.script.language;
   if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
     const configTypes = {
-      ...getLanguageCompiler(scriptLanguage)?.types,
+      ...getLanguageCompiler(config.markup.language)?.types,
+      ...getLanguageCompiler(config.script.language)?.types,
+      ...getDefaultTypes(),
       ...config.types,
       ...config.customSettings.types,
     };
