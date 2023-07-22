@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v8](https://github.com/live-codes/livecodes/compare/sdk-v0.1.0...0.0.0) (2023-07-22)
+
+### Bug Fixes
+
+- **import:** fix jsbin import regex ([78970e6](https://github.com/live-codes/livecodes/commit/78970e61ed5e56739cb368b6d12e5e5fc841553a))
+-
+
+### Features
+
+- **app:** add `imports` property to custom settings editor if not added ([bf71760](https://github.com/live-codes/livecodes/commit/bf71760e9bcff64dda388303b697563641a70f4f))
+
+---
+
 ## [sdk-v0.1.0](https://github.com/live-codes/livecodes/compare/v7...sdk-v0.1.0) (2023-07-22)
 
 - **SDK:** fix SDK types ([d11fd8f](https://github.com/live-codes/livecodes/commit/d11fd8f171e81d1c072f7d964a5dd05db114bfe4))
