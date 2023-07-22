@@ -102,7 +102,7 @@ import {
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
-import { createTypeLoader } from './types';
+import { createTypeLoader, getDefaultTypes } from './types';
 import { createResultPage } from './result';
 import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
@@ -277,20 +277,23 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     resultLanguages = getEditorLanguages();
   });
 
-const loadModuleTypes = async (editors: Editors, config: Config) => {
+const loadModuleTypes = async (editors: Editors, config: Config, force = false) => {
+  if (typeof editors?.script?.addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
-  if (
-    editors.script &&
-    ['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) &&
-    typeof editors.script.addTypes === 'function'
-  ) {
+  if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
     const configTypes = {
-      ...getLanguageCompiler(scriptLanguage)?.types,
+      ...getLanguageCompiler(config.markup.language)?.types,
+      ...getLanguageCompiler(config.script.language)?.types,
+      ...getDefaultTypes(),
       ...config.types,
       ...config.customSettings.types,
     };
-    const libs = await typeLoader.load(getConfig().script.content || '', configTypes);
-    libs.forEach((lib) => editors.script.addTypes?.(lib));
+    const libs = await typeLoader.load(
+      getConfig().script.content + '\n' + getConfig().markup.content,
+      configTypes,
+      force,
+    );
+    libs.forEach((lib) => editors.script.addTypes?.(lib, force));
   }
 };
 
@@ -2228,20 +2231,23 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          if (!stores.templates) return;
-          if (getAppData()?.defaultTemplate === item.id) {
-            setAppData({ defaultTemplate: null });
-          }
-          await stores.templates.deleteItem(item.id);
-          const li = deleteButton.parentElement as HTMLElement;
-          li.classList.add('hidden');
-          setTimeout(async () => {
-            li.style.display = 'none';
-            if (stores.templates && (await stores.templates.getList()).length === 0) {
-              list.remove();
-              userTemplatesScreen.innerHTML = noUserTemplates;
+          notifications.confirm(`Delete template "${item.title}"?`, async () => {
+            if (!stores.templates) return;
+
+            if (getAppData()?.defaultTemplate === item.id) {
+              setAppData({ defaultTemplate: null });
             }
-          }, 500);
+            await stores.templates.deleteItem(item.id);
+            const li = deleteButton.parentElement as HTMLElement;
+            li.classList.add('hidden');
+            setTimeout(async () => {
+              li.style.display = 'none';
+              if (stores.templates && (await stores.templates.getList()).length === 0) {
+                list.remove();
+                userTemplatesScreen.innerHTML = noUserTemplates;
+              }
+            }, 500);
+          });
         },
         false,
       );
@@ -3260,7 +3266,7 @@ const handleCustomSettings = () => {
           return;
         }
       }
-      if (customSettings !== getConfig().customSettings) {
+      if (JSON.stringify(customSettings) !== JSON.stringify(getConfig().customSettings)) {
         compiler.clearCache();
         setConfig({
           ...getConfig(),
@@ -3268,7 +3274,7 @@ const handleCustomSettings = () => {
         });
         await setSavedStatus();
         if (customSettings.types) {
-          loadModuleTypes(editors, getConfig());
+          loadModuleTypes(editors, getConfig(), /* force */ true);
         }
       }
       customSettingsEditor?.destroy();

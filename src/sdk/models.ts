@@ -624,7 +624,7 @@ export interface CodeEditor {
   getPosition: () => EditorPosition;
   setPosition: (position: EditorPosition) => void;
   layout?: () => void;
-  addTypes?: (lib: EditorLibrary) => any;
+  addTypes?: (lib: EditorLibrary, force?: boolean) => any;
   onContentChanged: (callback: () => void) => void;
   addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
   keyCodes: {
