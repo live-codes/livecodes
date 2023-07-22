@@ -698,7 +698,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
               {
                 value: `## [${name}](https://www.npmjs.com/package/${name})\n${description}\n\n\n${
                   repo ? `[GitHub](${repo}) |` : ''
-                } [Skypack](https://skypack.dev/view/${name}) | [jsDelivr](https://www.jsdelivr.com/package/npm/${name}) | [Unpkg](https://unpkg.com/browse/${name}/) | [snyk](https://snyk.io/advisor/npm-package/${name}) | [bundlephobia](https://bundlephobia.com/package/${name})\n\nDocs: [Importing modules](${
+                } [Skypack](https://skypack.dev/view/${name}) | [jsDelivr](https://www.jsdelivr.com/package/npm/${name}) | [Unpkg](https://unpkg.com/browse/${name}/) | [Snyk](https://snyk.io/advisor/npm-package/${name}) | [Bundlephobia](https://bundlephobia.com/package/${name})\n\nDocs: [Importing modules](${
                   new URL(process.env.DOCS_BASE_URL as string, location.href).href
                 }features/module-resolution)`,
               },
