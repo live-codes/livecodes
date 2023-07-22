@@ -23,6 +23,8 @@ dts.bundle(options);
 const content = fs.readFileSync(path.resolve(outPath), 'utf8');
 const patched = content
   .replace(/export \* from 'livecodes\//g, "// export * from 'livecodes/")
-  .replace(/declare module 'livecodes\/'/g, "declare module 'livecodes'");
+  .replace(/declare module 'livecodes\/'/g, "declare module 'livecodes'")
+  .replace(/@vue\/runtime-core/g, 'vue')
+  .replace(/\.\.\/\.\.\/vue/g, 'vue');
 
 fs.writeFileSync(path.resolve(outPath), patched, 'utf8');
