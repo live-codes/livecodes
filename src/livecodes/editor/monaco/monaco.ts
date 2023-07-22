@@ -321,7 +321,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     loadMonacoLanguage(lang);
   };
 
-  const addTypes = (type: EditorLibrary) => {
+  const addTypes = (type: EditorLibrary, force = false) => {
     const loadedType = types.find((t) => t.filename === type.filename);
     if (loadedType) {
       if (isEditorType(type)) {
@@ -331,7 +331,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           type.filename,
         );
       }
-      return;
+      if (!force) {
+        return;
+      }
+      loadedType.libJs?.dispose();
+      loadedType.libTs?.dispose();
     }
     types.push({
       filename: type.filename,

@@ -277,20 +277,21 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     resultLanguages = getEditorLanguages();
   });
 
-const loadModuleTypes = async (editors: Editors, config: Config) => {
+const loadModuleTypes = async (editors: Editors, config: Config, force = false) => {
+  if (typeof editors?.script?.addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
-  if (
-    editors.script &&
-    ['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) &&
-    typeof editors.script.addTypes === 'function'
-  ) {
+  if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
     const configTypes = {
       ...getLanguageCompiler(scriptLanguage)?.types,
       ...config.types,
       ...config.customSettings.types,
     };
-    const libs = await typeLoader.load(getConfig().script.content || '', configTypes);
-    libs.forEach((lib) => editors.script.addTypes?.(lib));
+    const libs = await typeLoader.load(
+      getConfig().script.content + '\n' + getConfig().markup.content,
+      configTypes,
+      force,
+    );
+    libs.forEach((lib) => editors.script.addTypes?.(lib, force));
   }
 };
 
@@ -3260,7 +3261,7 @@ const handleCustomSettings = () => {
           return;
         }
       }
-      if (customSettings !== getConfig().customSettings) {
+      if (JSON.stringify(customSettings) !== JSON.stringify(getConfig().customSettings)) {
         compiler.clearCache();
         setConfig({
           ...getConfig(),
@@ -3268,7 +3269,7 @@ const handleCustomSettings = () => {
         });
         await setSavedStatus();
         if (customSettings.types) {
-          loadModuleTypes(editors, getConfig());
+          loadModuleTypes(editors, getConfig(), /* force */ true);
         }
       }
       customSettingsEditor?.destroy();
