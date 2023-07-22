@@ -2231,20 +2231,23 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          if (!stores.templates) return;
-          if (getAppData()?.defaultTemplate === item.id) {
-            setAppData({ defaultTemplate: null });
-          }
-          await stores.templates.deleteItem(item.id);
-          const li = deleteButton.parentElement as HTMLElement;
-          li.classList.add('hidden');
-          setTimeout(async () => {
-            li.style.display = 'none';
-            if (stores.templates && (await stores.templates.getList()).length === 0) {
-              list.remove();
-              userTemplatesScreen.innerHTML = noUserTemplates;
+          notifications.confirm(`Delete template "${item.title}"?`, async () => {
+            if (!stores.templates) return;
+
+            if (getAppData()?.defaultTemplate === item.id) {
+              setAppData({ defaultTemplate: null });
             }
-          }, 500);
+            await stores.templates.deleteItem(item.id);
+            const li = deleteButton.parentElement as HTMLElement;
+            li.classList.add('hidden');
+            setTimeout(async () => {
+              li.style.display = 'none';
+              if (stores.templates && (await stores.templates.getList()).length === 0) {
+                list.remove();
+                userTemplatesScreen.innerHTML = noUserTemplates;
+              }
+            }, 500);
+          });
         },
         false,
       );
