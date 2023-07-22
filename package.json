@@ -19,7 +19,7 @@
     "build": "run-s build:*",
     "build:app": "run-s clean copy:* && node ./scripts/build.js",
     "build:ts": "tsc --emitDeclarationOnly --outFile build/livecodes/types.d.ts",
-    "build:ts-sdk": "tsc --emitDeclarationOnly -p tsconfig.sdk.json && node ./scripts/dts-bundle.js",
+    "build:ts-sdk": "tsc --emitDeclarationOnly -p tsconfig.sdk.json && node ./scripts/bundle-types.js",
     "build:ts-docs": "cd docs && npm run typecheck",
     "build:ts-storybook": "cd storybook && npm run typecheck",
     "build:docs": "cd docs && npm run build",

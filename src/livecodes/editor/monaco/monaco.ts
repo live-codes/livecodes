@@ -96,6 +96,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     mouseWheelZoom: true,
     automaticLayout: true,
     readOnly: readonly,
+    fixedOverflowWidgets: true,
   };
 
   const codeblockOptions: Options = {
@@ -320,7 +321,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     loadMonacoLanguage(lang);
   };
 
-  const addTypes = (type: EditorLibrary) => {
+  const addTypes = (type: EditorLibrary, force = false) => {
     const loadedType = types.find((t) => t.filename === type.filename);
     if (loadedType) {
       if (isEditorType(type)) {
@@ -330,7 +331,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           type.filename,
         );
       }
-      return;
+      if (!force) {
+        return;
+      }
+      loadedType.libJs?.dispose();
+      loadedType.libTs?.dispose();
     }
     types.push({
       filename: type.filename,
@@ -686,14 +691,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           }
           if (!pkgInfo || 'error' in pkgInfo) return;
 
-          const { name, version = '', description = '', repo = '' } = pkgInfo;
+          const { name, description = '', repo = '' } = pkgInfo;
 
           return {
             contents: [
               {
-                value: `## [${name}](https://www.npmjs.com/package/${name}/v/${version}) (v${version})\n${description}\n\n\n${
-                  repo ? `[GitHub](${repo})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name}?version=${version})  |  [Unpkg](https://unpkg.com/browse/${name}@${version}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${
+                value: `## [${name}](https://www.npmjs.com/package/${name})\n${description}\n\n\n${
+                  repo ? `[GitHub](${repo}) |` : ''
+                } [Skypack](https://skypack.dev/view/${name}) | [jsDelivr](https://www.jsdelivr.com/package/npm/${name}) | [Unpkg](https://unpkg.com/browse/${name}/) | [Snyk](https://snyk.io/advisor/npm-package/${name}) | [Bundlephobia](https://bundlephobia.com/package/${name})\n\nDocs: [Importing modules](${
                   new URL(process.env.DOCS_BASE_URL as string, location.href).href
                 }features/module-resolution)`,
               },

@@ -42,9 +42,12 @@ const bumpSDKVersion = (sdkBump) => {
   let [major, minor, patch] = sdkPkg.version.split('.');
   if (sdkBump === 'major') {
     major = String(Number(major) + 1);
+    minor = '0';
+    patch = '0';
   }
   if (sdkBump === 'minor') {
     minor = String(Number(minor) + 1);
+    patch = '0';
   }
   if (sdkBump === 'patch') {
     patch = String(Number(patch) + 1);

@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.1.1](https://github.com/live-codes/livecodes/compare/v8...sdk-v0.1.1) (2023-07-22)
+
+### Bug Fixes
+
+- **editor:** fix monaco menus overflow ([58a7f6a](https://github.com/live-codes/livecodes/commit/58a7f6accd5526dca21387f15a19d6c130d02f3c))
+- **editor:** fix updating editor types ([f0576ff](https://github.com/live-codes/livecodes/commit/f0576ffd1abbdf4914094f01beba13c8c004c0e9))
+- **SDK:** improve SDK types bundle ([75b919b](https://github.com/live-codes/livecodes/commit/75b919b1627b62ce2c36056e4e38d5362e9fd903))
+
+### Features
+
+- **app:** confirm before deleting user templates ([8176622](https://github.com/live-codes/livecodes/commit/817662295893cf5fc1bac766f6e10fe3cad68b85))
+- **editor:** allow setting default types across all languages ([f60ea1a](https://github.com/live-codes/livecodes/commit/f60ea1adb413c0cc2d46703cfe2dec8b19812e23))
+- **editor:** edit pkg info hover ([b728b97](https://github.com/live-codes/livecodes/commit/b728b9748d5c6e26d59199bc8d53919a21f97c91))
+
+---
+
 ## [v8](https://github.com/live-codes/livecodes/compare/sdk-v0.1.0...0.0.0) (2023-07-22)
 
 ### Bug Fixes
