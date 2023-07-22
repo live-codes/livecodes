@@ -345,7 +345,7 @@ declare module "sdk/models" {
         getPosition: () => EditorPosition;
         setPosition: (position: EditorPosition) => void;
         layout?: () => void;
-        addTypes?: (lib: EditorLibrary) => any;
+        addTypes?: (lib: EditorLibrary, force?: boolean) => any;
         onContentChanged: (callback: () => void) => void;
         addKeyBinding: (label: string, keybinding: any, callback: () => void) => void;
         keyCodes: {
@@ -2789,8 +2789,13 @@ declare module "livecodes/types/type-loader" {
         load: (code: string, configTypes: Types, forceLoad?: boolean) => Promise<EditorLibrary[]>;
     };
 }
+declare module "livecodes/types/default-types" {
+    import type { Types } from "livecodes/models";
+    export const getDefaultTypes: () => Types;
+}
 declare module "livecodes/types/index" {
     export * from "livecodes/types/type-loader";
+    export * from "livecodes/types/default-types";
 }
 declare module "livecodes/_modules" {
     export * as cache from "livecodes/cache/index";
