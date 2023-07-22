@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.1.0](https://github.com/live-codes/livecodes/compare/v7...sdk-v0.1.0) (2023-07-22)
+
+- **SDK:** fix SDK types ([d11fd8f](https://github.com/live-codes/livecodes/commit/d11fd8f171e81d1c072f7d964a5dd05db114bfe4))
+- **SDK:** fix Vue SDK types ([ddf1e51](https://github.com/live-codes/livecodes/commit/ddf1e512028612c8a9717053c8d63e3f8a1c687b))
+
+---
+
 ## [v7](https://github.com/live-codes/livecodes/compare/v6...v7) (2023-07-19)
 
 - **CI**: fix deploy to gh-pages
