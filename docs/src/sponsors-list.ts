@@ -15,6 +15,7 @@ export const createSponsorsList = (sponsors: Sponsor[]) => `
   </ul>
 </div>
 `;
+
 const createSponsorItem = (sponsor: Sponsor) => `
 <li>
   <a href="${sponsor.url}" target="_blank" rel="noopener" ${

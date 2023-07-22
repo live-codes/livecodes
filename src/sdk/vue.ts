@@ -1,25 +1,24 @@
+/* eslint-disable no-duplicate-imports */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable import/no-extraneous-dependencies */
 
 // '@vue/runtime-core' is used for generating type definitions,
 // and is replaced by external dependency 'vue' during build
-import {
-  h,
-  onMounted,
-  onUnmounted,
-  ref,
-  type DefineComponent,
-  type AllowedComponentProps,
-  type ComponentCustomProps,
-  type ComponentOptionsMixin,
-  type ExtractPropTypes,
-  type RendererElement,
-  type RendererNode,
-  type VNode,
-  type VNodeProps,
+import type {
+  DefineComponent,
+  AllowedComponentProps,
+  ComponentCustomProps,
+  ComponentOptionsMixin,
+  ExtractPropTypes,
+  RendererElement,
+  RendererNode,
+  VNode,
+  VNodeProps,
 } from '@vue/runtime-core';
+import { h, onMounted, onUnmounted, ref } from '@vue/runtime-core';
 
-import { createPlayground, type Playground, type EmbedOptions } from '.';
+import type { Playground, EmbedOptions } from './models';
+import { createPlayground } from './index';
 
 export interface Props extends EmbedOptions {
   height?: string;

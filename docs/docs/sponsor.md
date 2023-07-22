@@ -42,7 +42,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Friends (USD$5/mo):
 
-- Thank you :)  
+- Thank you 💚  
   Your support is really appreciated.
 
 #### Backers (USD$50/mo):
@@ -52,6 +52,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Bronze Sponsors (USD$100/mo):
 
+- Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Small logo placement in [this page](#livecodes-sponsors).
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
@@ -59,6 +60,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Silver Sponsors (USD$250/mo):
 
+- Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Medium logo placement in [this page](#livecodes-sponsors).
@@ -67,6 +69,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Gold Sponsors (USD$500/mo):
 
+- Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Logo placement in sidebar of all content pages.
 - Large logo placement in [this page](#livecodes-sponsors).
@@ -75,6 +78,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Platinum Sponsors (USD$1,000/mo):
 
+- Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
@@ -83,7 +87,8 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Diamond Sponsors (USD$2,000/mo):
 
-- **_Custom build_** of the playground with your **_logo, brand_** and [customized services](./advanced/services.md). The custom build is maintained and receives new updates.
+- **Custom build** of the playground with your **logo, brand**. The custom build is maintained and receives new updates.
+- Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
 - Prominent logo placement at the top of [this page](#).
@@ -92,10 +97,12 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 #### Special Sponsors (> USD$2,000/mo):
 
-<MailLink email="sponsor&#64;livecodes&#46;io" text="Let's discuss" />.
+&nbsp;&nbsp;&nbsp;&nbsp;<MailLink email="sponsor&#64;livecodes&#46;io" text="Let's discuss" />.
+
+<p>&nbsp;</p>
+
+If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <MailLink email="sponsor&#64;livecodes&#46;io" text="reach out to us" />. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!
 
 ## LiveCodes Sponsors
 
 <div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid #3c3c3c75", borderRadius: "3px", backgroundColor: "#f9f9f9", margin: "0.5em", marginBottom: "1.5em", color: "#3c3c3c54"}}>You logo here</div>
-
-If you are interested in becoming a sponsor of LiveCodes, please don't hesitate to <MailLink email="sponsor&#64;livecodes&#46;io" text="reach out to us" />. We would love to discuss the various sponsorship options available and find a way for you to get involved. Thank you for your support!

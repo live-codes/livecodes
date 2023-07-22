@@ -47,7 +47,7 @@ You can use one of these links to self-host it:
 
 :::tip Hosted API
 
-[LiveCodes sponsors](../sponsor.md) get access to a hosted (always-on) API, which they can use without having to manage their own server.
+[LiveCodes sponsors](../sponsor.md) (bronze sponsors and above) get access to a hosted (always-on) API, which they can use without having to manage their own server.
 
 :::
 

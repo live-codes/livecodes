@@ -1,6 +1,6 @@
 {
   "name": "livecodes",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -22,7 +22,7 @@
   "main": "./livecodes.js",
   "module": "./livecodes.js",
   "browser": "./livecodes.js",
-  "types": "./index.d.ts",
+  "types": "./livecodes.d.ts",
   "exports": {
     ".": {
       "import": "./livecodes.js",

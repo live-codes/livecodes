@@ -193,5 +193,5 @@ export const hostPatterns = {
   githubGist: /^(?:(?:http|https):\/\/)?gist.github.com(?:\/\S*)?\/(\w+)/g,
   gitlab: /^(?:(?:http|https):\/\/)?gitlab.com\/(?:.*)/g,
   codepen: /^(?:(?:http|https):\/\/)?codepen.io\/(\w+)\/pen\/(\w+)/g,
-  jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d)?)(?:.*)/g,
+  jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d+)?)(?:.*)/g,
 };
