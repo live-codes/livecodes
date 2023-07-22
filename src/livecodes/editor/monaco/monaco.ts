@@ -96,6 +96,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     mouseWheelZoom: true,
     automaticLayout: true,
     readOnly: readonly,
+    fixedOverflowWidgets: true,
   };
 
   const codeblockOptions: Options = {
