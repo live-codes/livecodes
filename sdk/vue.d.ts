@@ -1,5 +1,5 @@
-import { type DefineComponent, type AllowedComponentProps, type ComponentCustomProps, type ComponentOptionsMixin, type ExtractPropTypes, type RendererElement, type RendererNode, type VNode, type VNodeProps } from '@vue/runtime-core';
-import { type Playground, type EmbedOptions } from '.';
+import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
+import type { Playground, EmbedOptions } from './models';
 export interface Props extends EmbedOptions {
     height?: string;
 }

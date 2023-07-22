@@ -4921,8 +4921,8 @@ declare module "sdk/index" {
     export const createPlayground: (container: string | HTMLElement, options?: EmbedOptions) => Promise<Playground>;
 }
 declare module "sdk/vue" {
-    import { type DefineComponent, type AllowedComponentProps, type ComponentCustomProps, type ComponentOptionsMixin, type ExtractPropTypes, type RendererElement, type RendererNode, type VNode, type VNodeProps } from '@vue/runtime-core';
-    import { type Playground, type EmbedOptions } from "sdk/index";
+    import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
+    import type { Playground, EmbedOptions } from "sdk/models";
     export interface Props extends EmbedOptions {
         height?: string;
     }
