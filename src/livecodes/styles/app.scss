@@ -2589,6 +2589,15 @@ i.arrow {
     }
   }
 
+  button:active,
+  .file-input-label:active {
+    transform: scale(0.99) translateY(1px);
+
+    &.disabled {
+      transform: none;
+    }
+  }
+
   .description {
     display: inline-block;
     font-size: 0.8em;
