@@ -687,14 +687,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           }
           if (!pkgInfo || 'error' in pkgInfo) return;
 
-          const { name, version = '', description = '', repo = '' } = pkgInfo;
+          const { name, description = '', repo = '' } = pkgInfo;
 
           return {
             contents: [
               {
-                value: `## [${name}](https://www.npmjs.com/package/${name}/v/${version}) (v${version})\n${description}\n\n\n${
-                  repo ? `[GitHub](${repo})  |` : ''
-                }  [Skypack](https://skypack.dev/view/${name})  |  [jsDelivr](https://www.jsdelivr.com/package/npm/${name}?version=${version})  |  [Unpkg](https://unpkg.com/browse/${name}@${version}/)  | [Openbase](https://openbase.com/js/${name})\n\nDocs: [Importing modules](${
+                value: `## [${name}](https://www.npmjs.com/package/${name})\n${description}\n\n\n${
+                  repo ? `[GitHub](${repo}) |` : ''
+                } [Skypack](https://skypack.dev/view/${name}) | [jsDelivr](https://www.jsdelivr.com/package/npm/${name}) | [Unpkg](https://unpkg.com/browse/${name}/) | [snyk](https://snyk.io/advisor/npm-package/${name}) | [bundlephobia](https://bundlephobia.com/package/${name})\n\nDocs: [Importing modules](${
                   new URL(process.env.DOCS_BASE_URL as string, location.href).href
                 }features/module-resolution)`,
               },
