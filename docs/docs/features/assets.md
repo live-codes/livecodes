@@ -17,4 +17,4 @@ Assets are either:
 
 When an asset item is clicked, the URL is copied to clipboard. The URL can then be used in projects.
 
-![Assets](/img/screenshots/assets.jpg)
+![Assets](/img/screenshots/assets.png)
