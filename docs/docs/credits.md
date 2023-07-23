@@ -86,4 +86,4 @@ Many of LiveCodes features/ideas were inspired by:
 - [VS Code](https://code.visualstudio.com/)
 - [Monacode](https://github.com/lukejacksonn/monacode/)
 
-Thank you 🙏
+Thank you ❤️

@@ -4,7 +4,7 @@
 
 Project export can be accessed from app menu → Export.
 
-![LiveCodes Export](../../static/img/screenshots/export.jpg)
+![LiveCodes Export](../../static/img/screenshots/export.png)
 
 Any project can be exported to:
 
