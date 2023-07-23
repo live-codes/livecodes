@@ -1249,16 +1249,6 @@ li.editor-title {
   position: absolute !important;
   right: 98%;
   top: 0;
-  transform: translate3d(0, 0, 0);
-
-  &#export-menu {
-    top: -4em;
-  }
-
-  &#css-preset-menu {
-    bottom: 0;
-    top: unset;
-  }
 }
 
 #open-link:hover + #open-list,
