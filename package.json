@@ -101,7 +101,7 @@
     "luna-console": "0.2.1",
     "luna-object-viewer": "0.2.0",
     "lz-string": "1.4.4",
-    "monaco-editor": "0.32.1",
+    "monaco-editor": "0.40.0",
     "patch-package": "6.4.7",
     "prismjs": "1.29.0",
     "split.js": "1.6.5",
