@@ -459,7 +459,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
-  const format = () => editor.getAction('editor.action.formatDocument').run();
+  const format = async () => editor.getAction('editor.action.formatDocument')?.run();
 
   const configureEmmet = (enabled: boolean) => {
     if (!enabled && !(window as any).emmetMonaco) return;
