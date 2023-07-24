@@ -113,6 +113,8 @@ import {
   hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
+  lunaDataGridStylesUrl,
+  lunaDomViewerStylesUrl,
   lunaObjViewerStylesUrl,
   snackbarUrl,
 } from './vendors';
@@ -180,9 +182,18 @@ const setActiveEditor = async (config: Config) => showEditor(config.activeEditor
 
 const loadStyles = () =>
   Promise.all(
-    [snackbarUrl, hintCssUrl, lunaObjViewerStylesUrl, lunaConsoleStylesUrl].map((url) =>
-      loadStylesheet(url, undefined, '#app-styles'),
-    ),
+    [
+      snackbarUrl,
+      hintCssUrl,
+      ...(isLite
+        ? []
+        : [
+            lunaObjViewerStylesUrl,
+            lunaDataGridStylesUrl,
+            lunaDomViewerStylesUrl,
+            lunaConsoleStylesUrl,
+          ]),
+    ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
   );
 
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>

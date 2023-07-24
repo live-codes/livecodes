@@ -176,7 +176,7 @@ export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.7/dist/'
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
 
-export const hintCssUrl = /* @__PURE__ */ getUrl('hint.css@2.7.0/hint.css');
+export const hintCssUrl = /* @__PURE__ */ getUrl('hint.css@2.7.0/hint.min.css');
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
@@ -200,11 +200,19 @@ export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/lo
 
 export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
-export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
-  'luna-object-viewer@0.2.0/luna-object-viewer.css',
+export const lunaConsoleStylesUrl = /* @__PURE__ */ getUrl('luna-console@1.3.3/luna-console.css');
+
+export const lunaDataGridStylesUrl = /* @__PURE__ */ getUrl(
+  'luna-data-grid@0.5.1/luna-data-grid.css',
 );
 
-export const lunaConsoleStylesUrl = /* @__PURE__ */ getUrl('luna-console@0.2.1/luna-console.css');
+export const lunaDomViewerStylesUrl = /* @__PURE__ */ getUrl(
+  'luna-dom-viewer@1.2.4/luna-dom-viewer.css',
+);
+
+export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
+  'luna-object-viewer@0.2.4/luna-object-viewer.css',
+);
 
 export const malinaVersion = '0.6.64';
 export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
