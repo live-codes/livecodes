@@ -974,7 +974,7 @@ const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
   const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
-  toolsPane?.console?.clear();
+  toolsPane?.console?.clear(/* silent= */ true);
   updateCompiledCode();
 };
 
@@ -3867,7 +3867,7 @@ const bootstrap = async (reload = false) => {
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
   // TODO: Fix
-  toolsPane?.console?.clear();
+  toolsPane?.console?.clear(/* silent= */ true);
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }
