@@ -1,5 +1,5 @@
 diff --git a/node_modules/codejar/codejar.d.ts b/node_modules/codejar/codejar.d.ts
-index 1494667..30dcfd8 100644
+index 1a0701e..192cfbf 100644
 --- a/node_modules/codejar/codejar.d.ts
 +++ b/node_modules/codejar/codejar.d.ts
 @@ -23,6 +23,7 @@ export declare function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement,
@@ -11,10 +11,10 @@ index 1494667..30dcfd8 100644
  };
  export {};
 diff --git a/node_modules/codejar/codejar.js b/node_modules/codejar/codejar.js
-index 8260b3f..edd2dd0 100644
+index a8e6a80..be9193e 100644
 --- a/node_modules/codejar/codejar.js
 +++ b/node_modules/codejar/codejar.js
-@@ -440,6 +440,7 @@ export function CodeJar(editor, highlight, opt = {}) {
+@@ -457,6 +457,7 @@ export function CodeJar(editor, highlight, opt = {}) {
          save,
          restore,
          recordHistory,
@@ -23,10 +23,10 @@ index 8260b3f..edd2dd0 100644
              for (let [type, fn] of listeners) {
                  editor.removeEventListener(type, fn);
 diff --git a/node_modules/codejar/codejar.ts b/node_modules/codejar/codejar.ts
-index c07d091..fc272ae 100644
+index 0fb91f0..82b351f 100644
 --- a/node_modules/codejar/codejar.ts
 +++ b/node_modules/codejar/codejar.ts
-@@ -507,6 +507,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement, pos?: P
+@@ -526,6 +526,7 @@ export function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement, pos?: P
      save,
      restore,
      recordHistory,
