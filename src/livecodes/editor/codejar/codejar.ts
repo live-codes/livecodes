@@ -300,7 +300,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const undo = () => {
     codejar?.handleUndoRedo(
       new KeyboardEvent('keydown', {
-        code: 'KeyZ',
+        key: 'Z',
         [ctrl]: true,
       }),
     );
@@ -309,7 +309,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const redo = () => {
     codejar?.handleUndoRedo(
       new KeyboardEvent('keydown', {
-        code: 'KeyZ',
+        key: 'Z',
         [ctrl]: true,
         shiftKey: true,
       }),
