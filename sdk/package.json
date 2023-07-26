@@ -1,6 +1,6 @@
 {
   "name": "livecodes",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -19,6 +19,7 @@
   "repository": {
     "url": "https://github.com/live-codes/livecodes"
   },
+  "type": "module",
   "main": "./livecodes.js",
   "module": "./livecodes.js",
   "browser": "./livecodes.js",

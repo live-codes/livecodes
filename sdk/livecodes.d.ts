@@ -308,7 +308,7 @@ declare module 'livecodes/models' {
         table: (...args: any[]) => void;
         warn: (...args: any[]) => void;
         error: (...args: any[]) => void;
-        clear: () => void;
+        clear: (silent?: boolean) => void;
         evaluate: (code: string) => void;
         reloadEditor: (config: Config) => Promise<void>;
     }
@@ -599,7 +599,7 @@ declare module 'livecodes/react' {
     export default function LiveCodes(props: Props): JSX.Element;
 }
 declare module 'livecodes/vue' {
-    import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from 'vue';
+    import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
     import type { Playground, EmbedOptions } from 'livecodes/models';
     export interface Props extends EmbedOptions {
         height?: string;

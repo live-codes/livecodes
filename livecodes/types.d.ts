@@ -302,7 +302,7 @@ declare module "sdk/models" {
         table: (...args: any[]) => void;
         warn: (...args: any[]) => void;
         error: (...args: any[]) => void;
-        clear: () => void;
+        clear: (silent?: boolean) => void;
         evaluate: (code: string) => void;
         reloadEditor: (config: Config) => Promise<void>;
     }
@@ -706,8 +706,10 @@ declare module "livecodes/vendors" {
     export const liquidJsUrl: string;
     export const localforageUrl: string;
     export const luaUrl: string;
-    export const lunaObjViewerStylesUrl: string;
     export const lunaConsoleStylesUrl: string;
+    export const lunaDataGridStylesUrl: string;
+    export const lunaDomViewerStylesUrl: string;
+    export const lunaObjViewerStylesUrl: string;
     export const malinaVersion = "0.6.64";
     export const malinaUrl: string;
     export const markedUrl: string;
