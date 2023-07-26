@@ -363,8 +363,10 @@ export default function App() {
 
   const options = ${indented};
   let container;
+  let playground;
   onMount(() => {
-    createPlayground(container, options);
+    createPlayground(container, options).then((p) => (playground = p));
+    return () => playground?.destroy();
   });
 </script>
 
