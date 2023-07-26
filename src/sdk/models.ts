@@ -579,7 +579,7 @@ export interface Console extends Tool {
   table: (...args: any[]) => void;
   warn: (...args: any[]) => void;
   error: (...args: any[]) => void;
-  clear: () => void;
+  clear: (silent?: boolean) => void;
   // filterLog: (filter: string) => void;
   evaluate: (code: string) => void;
   reloadEditor: (config: Config) => Promise<void>;

@@ -113,6 +113,8 @@ import {
   hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
+  lunaDataGridStylesUrl,
+  lunaDomViewerStylesUrl,
   lunaObjViewerStylesUrl,
   snackbarUrl,
 } from './vendors';
@@ -180,9 +182,18 @@ const setActiveEditor = async (config: Config) => showEditor(config.activeEditor
 
 const loadStyles = () =>
   Promise.all(
-    [snackbarUrl, hintCssUrl, lunaObjViewerStylesUrl, lunaConsoleStylesUrl].map((url) =>
-      loadStylesheet(url, undefined, '#app-styles'),
-    ),
+    [
+      snackbarUrl,
+      hintCssUrl,
+      ...(isLite
+        ? []
+        : [
+            lunaObjViewerStylesUrl,
+            lunaDataGridStylesUrl,
+            lunaDomViewerStylesUrl,
+            lunaConsoleStylesUrl,
+          ]),
+    ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
   );
 
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
@@ -963,7 +974,7 @@ const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
   const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
-  toolsPane?.console?.clear();
+  toolsPane?.console?.clear(/* silent= */ true);
   updateCompiledCode();
 };
 
@@ -3856,7 +3867,7 @@ const bootstrap = async (reload = false) => {
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
   // TODO: Fix
-  toolsPane?.console?.clear();
+  toolsPane?.console?.clear(/* silent= */ true);
   if (!isEmbed) {
     setTimeout(() => getActiveEditor().focus());
   }

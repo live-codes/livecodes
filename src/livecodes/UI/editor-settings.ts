@@ -318,7 +318,7 @@ export const createEditorSettingsUI = async ({
 
 const editorContent = `
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 
 function App(props) {
   const [count, setCount] = useState(0);
@@ -338,5 +338,6 @@ function App(props) {
   );
 }
 
-ReactDOM.render(<App name="React" />, document.querySelector('#app'));
+const root = createRoot(document.querySelector("#app"));
+root.render(<App name="React" />);
 `.trimStart();

@@ -98,7 +98,12 @@ export const createConsole = (
         'groupEnd',
       ];
       if (api.includes(message.method)) {
-        (consoleEmulator as any)[message.method](...convertTypes(message.args));
+        if (message.method === 'clear') {
+          // prevent passing args (silent) to `clear` method
+          consoleEmulator.clear();
+        } else {
+          (consoleEmulator as any)[message.method](...convertTypes(message.args));
+        }
       }
     });
 
@@ -282,13 +287,13 @@ export const createConsole = (
     },
     getEditor: () => editor,
     reloadEditor,
-    log: (...args: any[]) => consoleEmulator?.log(...args),
-    info: (...args: any[]) => consoleEmulator?.info(...args),
-    table: (...args: any[]) => consoleEmulator?.table(...args),
-    warn: (...args: any[]) => consoleEmulator?.warn(...args),
-    error: (...args: any[]) => consoleEmulator?.error(...args),
-    clear: () => consoleEmulator?.clear(),
-    // filterLog: (filter: string) => consoleEmulator?.filterLog(filter),
-    evaluate: (code: string) => consoleEmulator?.evaluate(code),
+    log: (...args) => consoleEmulator?.log(...args),
+    info: (...args) => consoleEmulator?.info(...args),
+    table: (...args) => consoleEmulator?.table(...args),
+    warn: (...args) => consoleEmulator?.warn(...args),
+    error: (...args) => consoleEmulator?.error(...args),
+    clear: (silent) => consoleEmulator?.clear(silent),
+    // filterLog: (filter) => consoleEmulator?.filterLog(filter),
+    evaluate: (code) => consoleEmulator?.evaluate(code),
   };
 };
