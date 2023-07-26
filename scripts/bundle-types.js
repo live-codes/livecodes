@@ -25,7 +25,6 @@ const content = fs.readFileSync(path.resolve(outPath), 'utf8');
 const patched = content
   .replace(/export \* from 'livecodes\/.*;/g, '')
   .replace(/livecodes\/index/g, 'livecodes')
-  .replace(/@vue\/runtime-core/g, 'vue')
   .replace(/\/\/\s.*/g, '')
   .replace(/[\r\n]{2,}/g, '\n');
 
