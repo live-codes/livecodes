@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.1.2](https://github.com/live-codes/livecodes/compare/v9...sdk-v0.1.2) (2023-07-26)
+
+### Bug Fixes
+
+- **app:** update editor settings code sample to use react 18 ([fbae92a](https://github.com/live-codes/livecodes/commit/fbae92a22732f0fc851aac12042dea2e64f2483e))
+- **console:** clear console silently on result page reload ([6137125](https://github.com/live-codes/livecodes/commit/61371257e1eccdcca17907b540d80c2654688867))
+- **embed:** edit svelte embed snippet to clean up ([1da2b38](https://github.com/live-codes/livecodes/commit/1da2b38124a2dc11c96f55ac6e11aeb7e2f4a92a))
+- **SDK:** add `type: "module"` to SDK ([2444cc5](https://github.com/live-codes/livecodes/commit/2444cc5edd46655ffb5a55c798d60489bc537d65))
+- **SDK:** fix vue sdk types ([79068a3](https://github.com/live-codes/livecodes/commit/79068a39e30d018db845a7e603e78c86300e156a))
+
+### Features
+
+- **console:** upgrade luna console ([2a764d4](https://github.com/live-codes/livecodes/commit/2a764d4a9a85def8e385748830871c15f36aee6e))
+- **editor:** upgrade codejar to v3.7.0 ([7d256eb](https://github.com/live-codes/livecodes/commit/7d256eb7cac423efe5a362da972d39c0a4f17258))
+- **editor:** upgrade monaco editor to v0.40.0 ([d33aa5c](https://github.com/live-codes/livecodes/commit/d33aa5cc9e80d08cafbc28c25fa42ceaa1eb8b01))
+
+---
+
 ## [v9](https://github.com/live-codes/livecodes/compare/sdk-v0.1.1...0.0.0) (2023-07-22)
 
 ### Bug Fixes
