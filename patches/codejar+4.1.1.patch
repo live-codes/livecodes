@@ -1,0 +1,24 @@
+diff --git a/node_modules/codejar/dist/codejar.d.ts b/node_modules/codejar/dist/codejar.d.ts
+index f577430..6986bfc 100644
+--- a/node_modules/codejar/dist/codejar.d.ts
++++ b/node_modules/codejar/dist/codejar.d.ts
+@@ -26,6 +26,7 @@ export declare function CodeJar(editor: HTMLElement, highlight: (e: HTMLElement,
+     save: () => Position;
+     restore: (pos: Position) => void;
+     recordHistory: () => void;
++    handleUndoRedo: (event: KeyboardEvent) => void;
+     destroy(): void;
+ };
+ export {};
+diff --git a/node_modules/codejar/dist/codejar.js b/node_modules/codejar/dist/codejar.js
+index 8dc0a8a..891aa81 100644
+--- a/node_modules/codejar/dist/codejar.js
++++ b/node_modules/codejar/dist/codejar.js
+@@ -481,6 +481,7 @@ export function CodeJar(editor, highlight, opt = {}) {
+         save,
+         restore,
+         recordHistory,
++        handleUndoRedo,
+         destroy() {
+             for (let [type, fn] of listeners) {
+                 editor.removeEventListener(type, fn);
