@@ -112,7 +112,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   type Listener = () => void;
   const listeners: Listener[] = [];
-  codejar?.onUpdate(() => {
+
+  const handleUpdate = () => {
     currentPosition = getPosition();
     if (getValue() === value) return;
     listeners.forEach((fn) => fn());
@@ -121,10 +122,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       setValue();
     }
     value = getValue();
-  });
+  };
+  codejar?.onUpdate(handleUpdate);
+  codejar?.onPaste(handleUpdate);
 
   const getEditorId = () => editorId;
-  const getValue = () => (codejar ? codejar?.toString() : value);
+  const getValue = () => (codejar ? codejar.toString() : value);
   const setValue = (newValue = '\n') => {
     value = newValue;
     if (codejar) {
@@ -317,7 +320,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const getPosition = (): EditorPosition => {
-    const position = codejar?.save().start ?? 0;
+    let position: number;
+    try {
+      position = codejar?.save().start ?? 0;
+    } catch (e) {
+      position = 0;
+    }
     const allLines = getValue().split('\n');
     let length = 0;
     let lineNumber = 1;
