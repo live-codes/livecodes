@@ -77,7 +77,7 @@ Rich documentations with screenshots, code samples and live demos are available.
 
 ## Focused on Privacy
 
-Projects are private by default. The code you write in LiveCodes never leaves your computer, unless you choose to [share](./share.md), [export](./export.md), [broadcast](./broadcast.md) or [sync](./sync.md) it. No cookies are used. User data is stored in the browser.
+Projects are private by default. The code you write in LiveCodes never leaves your computer, unless you choose to [share](./share.md), [export](./export.md), [broadcast](./broadcast.md) or [sync](./sync.md) it. User data is stored in the browser.
 
 ## Free and Open-Source
 
