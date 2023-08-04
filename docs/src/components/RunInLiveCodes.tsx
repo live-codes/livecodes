@@ -61,6 +61,7 @@ export default function RunInLiveCodes(props: {
           aria-hidden="true"
           viewBox="0 0 24 24"
           className="iconExternalLink_node_modules-@docusaurus-theme-classic-lib-theme-Icon-ExternalLink-styles-module"
+          style={{ marginLeft: '4px' }}
         >
           <path
             fill="currentColor"

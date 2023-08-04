@@ -8,7 +8,7 @@ sidebar_class_name: exclude_from_sidebar
 
 _LiveCodes_ is an open-source, client-side, code playground that runs in the browser. It enables quick prototyping and experimenting with a wide variety of [technologies](../languages/) (including 80+ languages, frameworks and processors) without having to manually setup a development environment for each. The [result](./result.md) is displayed as a regular web page. The rapid feedback of previewing the result page without waiting for build steps significantly boosts productivity.
 
-![LiveCodes screenshot](../../static/img/screenshots/react-template.png)
+![LiveCodes screenshot](../../static/img/screenshots/features.jpg)
 
 In this page, a quick overview of the important features are presented. A more detailed description of each feature is described in the following sections.
 
@@ -18,11 +18,11 @@ The default code editor is the powerful editor that powers [VS Code](https://cod
 
 ## Mobile-friendly
 
-The responsive layout allows working on devices with different screen sizes. On mobile, a lighter-weight touch-friendly code editor (Code Mirror 6) is used, so that you can experiment your ideas on the go.
+The responsive layout allows working on devices with different screen sizes. On mobile, a lighter-weight touch-friendly code editor (CodeMirror 6) is used, so that you can experiment your ideas on the go.
 
-## External code/libraries
+## External Code/Libraries
 
-[External scripts/stylesheets](./external-resources.md) can be added to the web page. There is a UI screen that helps you search for and add NPM libraries and google fonts. Moreover, [NPM modules can be imported](./module-resolution.md) without having to do any `npm install`s.
+[External scripts/stylesheets](./external-resources.md) can be added to the web page. There is a UI screen that helps you search for and add NPM libraries and google fonts. Moreover, [NPM modules can be imported](./module-resolution.md) without the need for any `npm install`s.
 
 ## Import and Code Pre-fill
 
@@ -30,7 +30,7 @@ Code can be [imported](./import.md) from a variety of sources including GitHub g
 
 ## Share/Export
 
-Projects can be easily [shared](./share.md) as URLs or QR codes. In addition, you may export any project as HTML, JSON or zip file containing source code files. You may also export to other services like GitHub gists, CodePen or JSFiddle.
+Projects can be easily [shared](./share.md) as URLs or QR codes. In addition, you may [export](./export.md) any project as HTML, JSON or zip file containing source code files. You may also export to other services like GitHub gists, CodePen or JSFiddle.
 
 ## Embed
 
@@ -43,6 +43,8 @@ Projects can be [deployed](./deploy.md) to public URLs that can be shared with o
 ## Starter Templates
 
 A large number of [starter templates](./templates.md) are available. They can be used to get you started with most of the supported technologies.
+
+![Starter templates](../../static/img/screenshots/templates1.png)
 
 ## Assets
 
@@ -66,10 +68,7 @@ LiveCodes runs in the browser, where all the processing/transpilation occurs, wi
 
 ## Developer-friendly
 
-LiveCodes makes it easy to [get started](../getting-started). It is highly [configurable](../configuration). Lots of features can be
-configured by URL [query params](../configuration/query-params). The [SDK](../sdk/) facilitates [embedding](./embeds.md)
-playgrounds and allows easy [communication](../sdk/js-ts#sdk-methods) with
-them. The SDK is available for use in [JS/TS](../sdk/js-ts.md), [React](../sdk/react.md) [Vue](../sdk/vue.md) and [Svelte](../sdk/svelte.md).
+LiveCodes makes it easy to [get started](../getting-started). It is highly [configurable](../configuration). Lots of features can be configured by URL [query params](../configuration/query-params). The [SDK](../sdk/) facilitates [embedding](./embeds.md) playgrounds and allows easy [communication](../sdk/js-ts#sdk-methods) with them. The SDK is available for use in [JS/TS](../sdk/js-ts.md), [React](../sdk/react.md) [Vue](../sdk/vue.md) and [Svelte](../sdk/svelte.md).
 
 ## Comprehensive Documentations
 

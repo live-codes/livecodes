@@ -8,18 +8,18 @@ There are great products like [CodePen](https://codepen.io/), [JSFiddle](https:/
 
 Currently, there are 80+ languages/frameworks supported. These include:
 
-- Web languages (HTML, CSS & JavaScript)
-- Syntax used by web libraries/frameworks (e.g. JSX, TSX, Vue SFC, Svelte SFC, MDX, Astro).
+- Web languages (HTML, CSS & JavaScript).
+- Web frameworks/libraries (e.g. React JSX/TSX, Vue SFC, Svelte SFC, Solid, MDX, Astro).
 - Languages that transpile to JavaScript (e.g. TypeScript, CoffeeScript, LiveScript, ReScript).
 - Languages/frameworks that generate CSS (e.g. SCSS, Less, Stylus, Tailwind CSS, UnoCSS).
-- CSS processors (e.g. PostCSS, Autoprefixer, Lightning CSS, CSS Modules, cssnano)
+- CSS processors (e.g. PostCSS, Autoprefixer, Lightning CSS, CSS Modules, cssnano).
 - Traditional programming languages (e.g. Python, Ruby, Go, PHP, C++, R, Lua, Scheme, Perl).
 - Data manipulation/logic languages (e.g. SQL, Prolog).
 - Authoring/templating languages (e.g Markdown, AsciiDoc, Pug, Handlebars, Haml).
 - Low-code/visual editors (e.g. blockly, rich text editor).
 - Modeling languages/diagram-as-code (e.g. Gnuplot, Graphviz, Mermaid, Vega, Plotly).
-- Languages that target WebAssembly (e.g. AssemblyScript, WebAssembly Text Format)
-- ... and others.
+- Languages that target WebAssembly (e.g. AssemblyScript, WebAssembly Text Format).
+- ... and many more.
 
 For a full list check the [Languages](./languages/index.md) section.
 
@@ -27,7 +27,7 @@ Generally, if you are a developer (or want to be one), there is a big chance you
 
 ### Client-Side!
 
-All processing and code transformations run in the browser on the client-side. After the initial load, using the app becomes significantly faster without having to wait for server rounds. Lazy-loading is heavily used, so that only parts of the app required for the selected languages/features are downloaded.
+All processing and code transformations run in the browser on the client-side. After the initial load, the app gets significantly faster without having to wait for server rounds. Lazy-loading is heavily used. Only parts of the app required for the selected languages/features are downloaded.
 
 The code you write in LiveCodes does not leave your computer. All projects are private unless you choose to share/export/deploy them.
 
@@ -35,7 +35,7 @@ Being a client-side app allows it to be hosted on any static file server or CDN,
 
 ### Developer Tool
 
-LiveCodes aims to be a feature-rich, easy to use playground that can be used for prototyping and education. The other main goal (in fact, that was the motive for its development), is to allow library developers to use it for documentation of their libraries and showcase their products. This can be achieved by [embedding playgrounds](./features/embeds.md) in blogs, tutorials, documentation and educational websites. In addition, private (unpublished) modules can be imported with editor auto-completion and [intellisense](./features/intellisense.md).
+LiveCodes aims to be a feature-rich, easy to use playground that can be used for prototyping and education. The other main goal (in fact, that was the motive for its development), is to allow library developers to use it for documentation of their libraries and showcase their products. This can be achieved by [embedding playgrounds](./features/embeds.md) in blogs, tutorials, documentation and educational websites. In addition, private (unpublished) modules can be imported with editor auto-completion and [IntelliSense](./features/intellisense.md).
 
 That can be done using the official app ([livecodes.io](https://livecodes.io)), or as a [self-hosted](./features/self-hosting.md) option. Again, being a client-side-only app, LiveCodes becomes more convenient for not needing special server requirements, while features like export and deploy are provided by APIs of external services.
 
@@ -43,7 +43,7 @@ LiveCodes does NOT aim to be a social coding platform. It will stay as a backend
 
 ### Build-Free Development Environment
 
-LiveCodes provides many of the tools you may already be using. These include Monaco editor (that powers [VS Code](https://code.visualstudio.com/)), [Prettier](https://prettier.io/), [Emmet](https://emmet.io/), [Babel](https://babeljs.io/), [TypeScript](https://www.typescriptlang.org/), [SCSS](https://sass-lang.com/), [Less](https://lesscss.org/), [PostCSS](https://postcss.org/), [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/), among others. [NPM modules](./features/module-resolution.md) can be imported as usual. All that run seamlessly in the browser without any explicit build step. It feels like a very light-weight version of your own local development environment with the keyboard shortcuts, intellisense and code navigation features.
+LiveCodes provides many of the tools you may already be using. These include Monaco editor (that powers [VS Code](https://code.visualstudio.com/)), [Prettier](https://prettier.io/), [Emmet](https://emmet.io/), [Babel](https://babeljs.io/), [TypeScript](https://www.typescriptlang.org/), [SCSS](https://sass-lang.com/), [Less](https://lesscss.org/), [PostCSS](https://postcss.org/), [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/), among others. [NPM modules](./features/module-resolution.md) can be imported as usual. All these tools run seamlessly in the browser without any explicit build step. It feels like a very light-weight version of your own local development environment with the keyboard shortcuts, IntelliSense and code navigation features.
 
 It just works™ without having to `npm install` anything. Not even on the server (because there is no server!).
 
@@ -69,7 +69,7 @@ Please consider [sponsoring LiveCodes](./sponsor.md) if you find it useful, to s
 
 :::caution Under Development
 
-Please note that LiveCodes is still in active development and may not yet be ready for production use. API may change, and performance improvements may still be required. However please take the time to try it. Use [permanent URL](./features/permanent-url.md) and pinned [library version](./sdk/) to avoid breaking changes. Your feedback and contribution are highly appreciated.
+LiveCodes is currently in **public beta**. It is in active development. However, please take the time to try it. Use [permanent URL](./features/permanent-url.md) and pinned [library version](./sdk/) to avoid breaking changes. Your feedback and contribution are highly appreciated.
 
 :::
 
