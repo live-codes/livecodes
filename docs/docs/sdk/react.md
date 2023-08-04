@@ -116,15 +116,15 @@ In addition, the following props are also available:
   Example:
 
   ```tsx title="TSX"
-  import React from 'react';
+  import React, { useState } from 'react';
   import LiveCodes from 'livecodes/react';
   import type { Playground } from 'livecodes';
 
   export const App = () => {
-    let playground: Playground | undefined;
+    const [playground, setPlayground] = useState<Playground>();
 
     const onReady = (sdk: Playground) => {
-      playground = sdk;
+      setPlayground(sdk);
     };
 
     const run = async () => {

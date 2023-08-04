@@ -1,7 +1,7 @@
 {
   "name": "livecodes",
   "version": "0.0.0",
-  "appVersion": "9",
+  "appVersion": "10",
   "description": "Code Playground That Just Works!",
   "author": "Hatem Hosny",
   "license": "MIT",
@@ -92,7 +92,7 @@
     "@replit/codemirror-vscode-keymap": "6.0.2",
     "@snackbar/core": "1.7.0",
     "@types/deep-diff": "1.0.1",
-    "codejar": "3.7.0",
+    "codejar": "4.1.1",
     "codemirror": "6.0.1",
     "deep-diff": "1.0.2",
     "eslint-plugin-no-only-tests": "3.1.0",
@@ -104,7 +104,7 @@
     "luna-object-viewer": "0.2.4",
     "lz-string": "1.4.4",
     "monaco-editor": "0.40.0",
-    "patch-package": "6.4.7",
+    "patch-package": "7.0.2",
     "prismjs": "1.29.0",
     "split.js": "1.6.5",
     "yjs": "13.5.40"

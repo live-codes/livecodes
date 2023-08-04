@@ -517,15 +517,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getPosition = (): EditorPosition => {
     const position = editor.getPosition();
     return {
-      lineNumber: position?.lineNumber ?? 0,
-      column: position?.column ?? 0,
+      lineNumber: position?.lineNumber ?? 1,
+      column: position?.column ?? 1,
     };
   };
 
   const setPosition = (position: EditorPosition) => {
     const newPosition = {
       lineNumber: position.lineNumber,
-      column: position.column ?? 0,
+      column: position.column ?? 1,
     };
     editor.setPosition(newPosition);
     setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);

@@ -54,7 +54,7 @@ let runCode = (code, input) => {
   let output = '';
   if (code) {
     if (input) {
-      code = 'livescodesInput = ' + input + '\\n' + code;
+      code = 'livecodesInput = ' + input + '\\n' + code;
     }
     let ptr = self.Module._malloc(code.length + 1);
     self.Module.stringToUTF8(code, ptr, code.length + 1);
