@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v10](https://github.com/live-codes/livecodes/compare/sdk-v0.1.2...0.0.0) (2023-08-04)
+
+### Bug Fixes
+
+- `split.show` full on small screen ([2ce9067](https://github.com/live-codes/livecodes/commit/2ce906725159670b45a4d421e9abb73e9297f574))
+- **compilers:** fix typo in julia public api ([06986df](https://github.com/live-codes/livecodes/commit/06986df4700219e3f28ef56fc7feeef17c1fd1e3))
+- **editor:** fix editor position, let columns start at 1 ([47d0f90](https://github.com/live-codes/livecodes/commit/47d0f90a8ba76d82d7a89212d8c7d607dc4b6556))
+
+### Features
+
+- **editor:** upgrade codejar to v4.1.1 ([6d5327f](https://github.com/live-codes/livecodes/commit/6d5327f1e06a85ea6bf5220a2211172dd86197ab))
+
+---
+
 ## [sdk-v0.1.2](https://github.com/live-codes/livecodes/compare/v9...sdk-v0.1.2) (2023-07-26)
 
 ### Bug Fixes
