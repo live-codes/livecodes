@@ -10,6 +10,8 @@ export default function RunInLiveCodes(props: {
   params: EmbedOptions['params'];
   code?: string;
   language?: string;
+  codeTitle?: string;
+  showLineNumbers?: boolean;
   formatCode?: boolean;
   linkText?: string;
   style?: Record<string, string>;
@@ -19,6 +21,8 @@ export default function RunInLiveCodes(props: {
     params,
     code,
     language = 'js',
+    codeTitle = '',
+    showLineNumbers = false,
     formatCode = true,
     linkText = 'Run in LiveCodes',
     style = {},
@@ -42,7 +46,7 @@ export default function RunInLiveCodes(props: {
               });
 
             return (
-              <CodeBlock language={language}>
+              <CodeBlock language={language} title={codeTitle} showLineNumbers={showLineNumbers}>
                 {formatCode ? format(code, language) : code}
               </CodeBlock>
             );
