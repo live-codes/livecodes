@@ -6,9 +6,11 @@ import MailLink from '../src/components/MailLink.tsx';
 
 # Sponsor LiveCodes
 
-Thank you for considering becoming a sponsor of LiveCodes!
+Thank you for considering becoming a sponsor of LiveCodes! 💚
 
-LiveCodes is an open source application that allows users to collaborate on code in real time. It is MIT-licensed, which means that it is freely available for anyone to use (including commercial use), modify, and distribute.
+LiveCodes is a feature-rich, open source code playground with a wide range of language support. With LiveCodes, learning, prototyping, experimenting, documenting, teaching, and sharing code is easier and more enjoyable than ever.
+
+LiveCodes is free, with no limits for use, no ads and no account required. The MIT license allows anyone to use (including commercial use), modify, and distribute.
 
 As a sponsor of LiveCodes, you will be supporting the ongoing development and maintenance of the project, as well as helping to ensure that it remains a valuable resource for the developer community. In return, you will receive recognition as a sponsor on the documentation website, GitHub repo and social media channels, as well as the opportunity to engage with our community of users and contributors.
 
@@ -20,7 +22,7 @@ LiveCodes relies on the support of sponsors like you to fund its ongoing develop
 
 Payments can be done via:
 
-- [GitHub Sponsors](https://github.com/sponsors/hatemhosny/)
+- [GitHub Sponsors](https://github.com/sponsors/live-codes/)
 - [PayPal](https://paypal.me/hatemhosni)
 - [Ko-fi](https://ko-fi.com/hatemhosny)
 
@@ -40,17 +42,18 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 
 ### Sponsorship Benefits
 
-#### Friends (USD$5/mo):
+#### ☕️ Backers (USD$5/mo):
 
+- Name listed in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Thank you 💚  
   Your support is really appreciated.
 
-#### Backers (USD$50/mo):
+#### 🍹 Generous Backers (USD$25/mo):
 
 - Name listed in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Bronze Sponsors (USD$100/mo):
+#### 🥉 Bronze Sponsors (USD$100/mo):
 
 - Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Small logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
@@ -58,7 +61,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Small logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Silver Sponsors (USD$250/mo):
+#### 🥈 Silver Sponsors (USD$250/mo):
 
 - Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Medium logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
@@ -67,7 +70,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Medium logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Gold Sponsors (USD$500/mo):
+#### 🥇 Gold Sponsors (USD$500/mo):
 
 - Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Large logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
@@ -76,7 +79,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Large logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Platinum Sponsors (USD$1,000/mo):
+#### 🏆 Platinum Sponsors (USD$1,000/mo):
 
 - Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
@@ -85,9 +88,9 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Diamond Sponsors (USD$2,000/mo):
+#### 💎 Diamond Sponsors (USD$2,000/mo):
 
-- **Custom build** of the playground with your **logo, brand**. The custom build is maintained and receives new updates.
+- **Custom build** of the playground with your **logo and brand**. The custom build is maintained and receives new updates.
 - Access to a hosted (always-on) [broadcast API](./features/broadcast.md) and [custom services](./advanced/services.md).
 - Prominent logo placement on the front page of [https://livecodes.io/docs](https://livecodes.io/docs).
 - Prominent logo placement in sidebar of all content pages.
@@ -95,7 +98,7 @@ Help us to spread the word about LiveCodes by sharing our content on your social
 - Prominent logo placement in the README of [live-codes/livecodes](https://github.com/live-codes/livecodes).
 - Priority in feature requests.
 
-#### Special Sponsors (> USD$2,000/mo):
+#### 🌟 Special Sponsors (> USD$2,000/mo):
 
 &nbsp;&nbsp;&nbsp;&nbsp;<MailLink email="sponsor&#64;livecodes&#46;io" text="Let's discuss" />.
 
@@ -105,4 +108,4 @@ If you are interested in becoming a sponsor of LiveCodes, please don't hesitate 
 
 ## LiveCodes Sponsors
 
-<div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid #3c3c3c75", borderRadius: "3px", backgroundColor: "#f9f9f9", margin: "0.5em", marginBottom: "1.5em", color: "#3c3c3c54"}}>You logo here</div>
+<div style={{display: "flex", alignItems: "center", justifyContent: "center", height:" 60px", width: "300px", border: "1px solid #3c3c3c75", borderRadius: "3px", backgroundColor: "#f9f9f9", margin: "0.5em", marginBottom: "1.5em", color: "#3c3c3c54"}}>Your logo here</div>

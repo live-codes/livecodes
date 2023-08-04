@@ -45,10 +45,10 @@ export const createSplitPanes = () => {
     }
   };
 
-  const show = (pane: 'code' | 'output', full = false) => {
+  const show = (pane: 'code' | 'output', full?: boolean) => {
     const smallScreen = window.innerWidth < 800;
-    const codeOpen = smallScreen || full ? [100, 0] : [50, 50];
-    const outputOpen = smallScreen || full ? [0, 100] : [50, 50];
+    const codeOpen = full || (smallScreen && full !== false) ? [100, 0] : [50, 50];
+    const outputOpen = full || (smallScreen && full !== false) ? [0, 100] : [50, 50];
     if (pane === 'code' && (split.getSizes()[0] < 10 || full)) {
       split.setSizes(codeOpen);
     } else if (pane === 'output' && (split.getSizes()[1] < 10 || full)) {

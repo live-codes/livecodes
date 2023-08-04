@@ -92,7 +92,7 @@ function formatOutput(args...)
     join(map(x -> string(x), args), "\\n")
 end
 
-formatOutput(getTitle(), increment(livescodesInput))
+formatOutput(getTitle(), increment(livecodesInput))
 `.trimStart(),
   },
   stylesheets: [],

@@ -1,4 +1,4 @@
-# Intellisense
+# IntelliSense
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
