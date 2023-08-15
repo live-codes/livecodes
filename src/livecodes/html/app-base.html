@@ -7,7 +7,11 @@
     <title>LiveCodes</title>
     <script>
       window.addEventListener('message', function (event) {
-        if (event.data.content) {
+        if (
+          event.origin === window.location.origin &&
+          event.source === parent &&
+          event.data.content
+        ) {
           document.write(event.data.content);
           document.close();
         }
