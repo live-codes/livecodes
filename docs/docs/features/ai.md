@@ -28,6 +28,8 @@ Python:
 2. Login to Codeium.
 3. Enjoy the magic!
 
+Currently, only [Monaco editor](./editor-settings.md#code-editor) on desktop Chrome browser is supported. Wider editor and browser support is planned.
+
 :::caution Note
 
 Please note that codeium extension sends your code to their servers for code completion. However, your code is not used for training their model. Check codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
