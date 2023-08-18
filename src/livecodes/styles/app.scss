@@ -1514,9 +1514,8 @@ i.arrow {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  max-height: 80vh;
   opacity: 1;
-  padding: 10px;
   position: relative;
   width: 80vw;
 
@@ -1803,15 +1802,14 @@ i.arrow {
   }
 
   .modal-title {
-    color: rgb(47, 79, 79);
+    color: #27272a;
     font-size: 1.4em;
     font-weight: 700;
-    height: 40px;
-    margin: 20px;
-  }
-
-  &.small .modal-title {
-    margin: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    border-bottom: solid 1px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
   }
 
   #prompt-screen {
@@ -1918,13 +1916,7 @@ i.arrow {
   }
 
   .modal-screen-container {
-    background-color: rgb(245, 245, 245);
-    border: 1px solid rgb(169, 169, 169);
-    border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
-    margin-bottom: 1em;
     min-height: calc(80% - 100px);
-    padding: 0.7em;
   }
 
   .tab-content {
@@ -1940,11 +1932,10 @@ i.arrow {
   .modal-screen {
     align-items: center;
     display: flex;
+    gap: 20px;
     flex-direction: column;
     flex-grow: 0.8;
     justify-content: space-around;
-    text-align: center;
-    width: 100%;
   }
 
   label {
@@ -2341,10 +2332,7 @@ i.arrow {
   }
 
   #welcome-container {
-    overflow: unset;
-
     .modal-screen-container {
-      height: calc(95% - 140px);
       overflow: scroll;
     }
 
@@ -2353,6 +2341,7 @@ i.arrow {
       flex-direction: column;
       flex-wrap: wrap;
       max-height: 40em;
+      padding: 0 30px;
 
       &.no-recent {
         max-height: 30em;
@@ -2362,7 +2351,6 @@ i.arrow {
     .modal-section {
       box-sizing: border-box;
       margin-bottom: 1em;
-      padding-left: 1.5em;
       text-align: start;
       width: 48%;
 
@@ -2454,6 +2442,7 @@ i.arrow {
       align-items: center;
       display: flex;
       justify-content: center;
+      margin-bottom: 20px;
 
       label {
         width: unset;
@@ -2462,10 +2451,7 @@ i.arrow {
   }
 
   #about-container {
-    overflow: unset;
-
     .modal-screen-container {
-      height: calc(95% - 140px);
       overflow: scroll;
     }
 
@@ -2480,14 +2466,13 @@ i.arrow {
     .modal-section {
       box-sizing: border-box;
       margin-bottom: 1em;
-      padding-left: 1.5em;
       text-align: start;
+      padding: 0px 30px 30px;
       width: 48%;
 
       &#about-info {
         line-height: 1.5em;
         margin: auto;
-        padding: 1em;
         width: 100%;
       }
 
@@ -2524,11 +2509,6 @@ i.arrow {
     @media only screen and (max-width: 768px) {
       .modal-screen {
         max-height: unset;
-      }
-
-      .modal-section {
-        padding-left: 0.5em;
-        width: 100%;
       }
     }
   }
@@ -2702,9 +2682,7 @@ i.arrow {
   }
 
   .modal-content {
-    max-width: 100%;
-    min-width: calc(100% - 40px);
-    padding: 10px;
+    padding: 30px;
     text-align: left;
   }
 
@@ -2938,8 +2916,9 @@ i.arrow {
   height: 100%;
   margin: 0 auto;
   overflow: auto;
-  padding: 0 5%;
-  width: 90%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .modal-tabs {
