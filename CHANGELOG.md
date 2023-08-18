@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v11](https://github.com/live-codes/livecodes/compare/v10...v11) (2023-08-18)
+
+### Features
+
+- **editor:** support codeium AI code assistant ([2949ccd](https://github.com/live-codes/livecodes/commit/2949ccd4edbfb997cbb75ed34587382c87434ab1))
+
+---
+
 ## [v10](https://github.com/live-codes/livecodes/compare/sdk-v0.1.2...0.0.0) (2023-08-04)
 
 ### Bug Fixes

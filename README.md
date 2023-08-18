@@ -102,6 +102,7 @@ Add this code to your page:
 - [Dev Tools](https://livecodes.io/docs/features/tools-pane) ([console](https://livecodes.io/docs/features/console), [compiled code viewer](https://livecodes.io/docs/features/compiled-code), [test runner](https://livecodes.io/docs/features/tests))
 - [Code formatting](https://livecodes.io/docs/features/code-format)
 - [Intellisense](https://livecodes.io/docs/features/intellisense)
+- [AI Code Assistant 🪄](https://livecodes.io/docs/features/ai)
 - [Lite mode](https://livecodes.io/docs/features/lite)
 - [Read-only mode](https://livecodes.io/docs/features/read-only)
 - [Broadcast](https://livecodes.io/docs/features/broadcast)

@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { createWorkerFromContent } from '../../utils/utils';
 import { cppWasmBaseUrl } from '../../vendors';
-console.log(cppWasmBaseUrl);
+
 const getWorkerSrc = async (baseUrl: string) => {
   try {
     const sharedScriptUrl = baseUrl + 'shared.js';

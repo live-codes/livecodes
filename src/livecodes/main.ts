@@ -69,11 +69,11 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
-
-      containerElement.appendChild(iframe);
-      iframe.contentWindow?.document.open();
-      iframe.contentWindow?.document.write(
-        appHTML
+      iframe.src = baseUrl + '{{hash:app.html}}';
+      let contentLoaded = false;
+      iframe.onload = () => {
+        if (contentLoaded) return;
+        const appContent = appHTML
           .replace(/{{baseUrl}}/g, baseUrl)
           .replace(/{{script}}/g, scriptFile)
           .replace(/{{appCDN}}/g, appCDN)
@@ -83,18 +83,20 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             supportsImportMaps
               ? ''
               : `
-          <script type="module">
-            import * as mod from '${baseUrl}{{hash:codemirror.js}}';
-            window['${baseUrl}{{hash:codemirror.js}}'] = mod;
-          </script>
-          `,
+    <script type="module">
+      import * as mod from '${baseUrl}{{hash:codemirror.js}}';
+      window['${baseUrl}{{hash:codemirror.js}}'] = mod;
+    </script>
+    `,
           )
           .replace(
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
-          ),
-      );
-      iframe.contentWindow?.document.close();
+          );
+        iframe.contentWindow?.postMessage({ content: appContent }, location.origin);
+        contentLoaded = true;
+      };
+      containerElement.appendChild(iframe);
 
       if (isEmbed) {
         window.addEventListener(customEvents.appLoaded, () => {
