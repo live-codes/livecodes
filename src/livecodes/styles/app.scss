@@ -911,7 +911,7 @@ a {
   > ul {
     align-items: stretch;
     display: flex;
-    height: 40px;
+    height: 42px;
     justify-content: space-between;
     margin: 0;
     margin-top: 2px;
@@ -931,7 +931,7 @@ li.editor-title {
   list-style: none;
   position: relative;
   width: 32%;
-  height: 42px;
+  height: 100%;
 
   &.half-width {
     width: 48%;
