@@ -1,37 +1,38 @@
 :root {
-  --link-color: rgb(1, 100, 180);
+  --link-color: rgb(14, 165, 233);
   --toolbar-text-color: rgb(237, 237, 237);
   --toolbar-text-active-color: rgb(237, 237, 237);
-  --toolbar-background-color: rgb(14, 24, 27);
-  --toolbar-background-active-color: rgb(68, 72, 87);
-  --editor-title-text-color: rgb(143, 154, 174);
-  --editor-title-text-active-color: rgb(237, 237, 237);
-  --background-color: rgb(14, 24, 27);
-  --foreground-color: rgb(90, 96, 116);
-  --split-bar-color: rgb(68, 72, 87);
+  --toolbar-background-color: rgb(39, 39, 42);
+  --toolbar-background-hover-color: rgb(63, 63, 70);
+  --toolbar-background-active-color: rgb(82, 82, 91);
+  --editor-title-text-color: rgb(212, 212, 216);
+  --editor-title-text-active-color: rgb(244, 244, 245);
+  --background-color: rgb(24, 24, 27);
+  --foreground-color: rgb(161, 161, 170);
+  --split-bar-color: rgb(82, 82, 91);
   --split-handle-color: rgb(237, 237, 237);
-  --button-color: rgb(90, 96, 116);
-  --button-hover-color: rgb(119, 124, 141);
-  --button-active-color: rgb(90, 96, 116);
+  --button-color: rgb(82, 82, 91);
+  --button-hover-color: rgb(113, 113, 122);
+  --button-active-color: rgb(161, 161, 170);
   --button-active-hover-color: rgb(119, 124, 141);
-  --language-menu-button-color: rgb(90, 96, 116);
-  --language-menu-button-hover-color: rgb(119, 124, 141);
-  --language-menu-button-active-color: rgb(43, 43, 43);
-  --language-menu-button-active-hover-color: rgb(119, 124, 141);
+  --language-menu-button-color: rgb(113, 113, 122);
+  --language-menu-button-hover-color: rgb(161, 161, 170);
+  --language-menu-button-active-color: rgb(161, 161, 170);
+  --language-menu-button-active-hover-color: rgb(161, 161, 170);
   --scrollbar-color: rgb(192, 192, 192);
   --scrollbar-hover-color: rgb(167, 167, 167);
   --scrollbar-active-color: rgb(175, 175, 175);
-  --toolspane-bar-text-color: rgb(237, 237, 237);
-  --toolspane-buttons-text-color: rgb(237, 237, 237);
-  --toolspane-button-color: rgb(90, 96, 116);
+  --toolspane-bar-text-color: rgb(244, 244, 245);
+  --toolspane-buttons-text-color: rgb(244, 244, 245);
+  --toolspane-button-color: rgb(82, 82, 91);
   --toolspane-accent-color: rgb(64, 169, 243);
-  --toolspane-non-accent-color: rgb(90, 96, 116);
+  --toolspane-non-accent-color: rgb(161, 161, 170);
   --console-background-color: rgb(237, 237, 237);
   --tests-background-color: rgb(237, 237, 237);
   --test-results-background-color: rgb(225, 225, 225, 0.7);
   --test-results-border-color: rgb(128, 128, 128);
-  --test-pass-color: rgb(0, 128, 0);
-  --test-fail-color: rgb(255, 0, 0);
+  --test-pass-color: rgb(5, 150, 105);
+  --test-fail-color: rgb(220, 38, 38);
   --size-label-color: rgba(225, 225, 225, 0.7);
   --menu-background-color: rgb(255, 255, 255);
   --menu-border-color: rgb(204, 204, 204);
@@ -40,8 +41,8 @@
   --menu-hover-color: rgb(231, 232, 241);
   --menu-text-color: rgb(34, 34, 34);
   --submenu-arrow-color: rgb(128, 128, 128);
-  --switch-off-color: rgb(204, 204, 204);
-  --switch-on-color: rgb(33, 150, 243);
+  --switch-off-color: rgb(212, 212, 216);
+  --switch-on-color: rgb(2, 132, 199);
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
@@ -56,6 +57,7 @@
   --toolbar-text-color: rgb(68, 72, 87);
   --toolbar-text-active-color: rgb(237, 237, 237);
   --toolbar-background-color: rgb(206, 205, 205);
+  --toolbar-background-hover-color: rgb(226, 226, 226);
   --toolbar-background-active-color: rgb(248, 248, 248);
   --editor-title-text-color: rgb(130, 130, 130);
   --editor-title-text-active-color: rgb(68, 72, 87);
@@ -64,7 +66,7 @@
   --split-bar-color: rgb(116, 116, 116);
   --split-handle-color: rgb(237, 237, 237);
   --button-color: rgb(116, 116, 116);
-  --button-hover-color: rgb(170, 170, 170);
+  --button-hover-color: rgb(116, 116, 116);
   --button-active-color: rgb(190, 190, 190);
   --button-active-hover-color: rgb(190, 190, 190);
   --language-menu-button-color: rgb(116, 116, 116);
@@ -217,10 +219,11 @@ a {
 
 #toolbar {
   background: var(--background-color);
-  border-bottom: 3px solid var(--split-bar-color);
   color: var(--toolbar-text-color);
   display: flex;
-  height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
   position: relative;
   width: 100%;
 
@@ -233,6 +236,7 @@ a {
     overflow: hidden;
     position: relative;
     width: 30%;
+    flex: 1 0;
 
     &.unsaved {
       &::after {
@@ -252,12 +256,9 @@ a {
 
   #buttons {
     display: flex;
-    height: 100%;
-    justify-content: space-evenly;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 20%;
+    justify-content: flex-end;
+    gap: 20%;
+    padding-right: 5px;
   }
 }
 
@@ -320,8 +321,6 @@ a {
   display: flex;
   height: 35px;
   justify-content: center;
-  margin: auto;
-  margin-top: 3px;
   outline: none;
   width: 50px;
 }
@@ -486,7 +485,7 @@ a {
 }
 
 .tool-buttons {
-  background-color: var(--split-bar-color);
+  background-color: var(--toolbar-background-color);
   height: 30px;
   max-height: 30px;
   padding: 0;
@@ -658,7 +657,7 @@ a {
 .tools-pane-title {
   align-items: center;
   background-color: var(--toolspane-button-color);
-  border-bottom: 3px solid var(--toolspane-non-accent-color);
+  border-bottom: 2px solid var(--toolspane-non-accent-color);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -666,7 +665,7 @@ a {
   padding: 0 10px;
 
   &.active {
-    border-bottom: 3px solid var(--toolspane-accent-color);
+    border-bottom: 2px solid var(--toolspane-accent-color);
   }
 }
 
@@ -849,7 +848,7 @@ a {
 
 .gutter {
   align-items: center;
-  background-color: var(--split-bar-color);
+  background-color: var(--toolbar-background-color);
   display: flex !important;
   justify-content: center;
   position: relative;
@@ -915,7 +914,7 @@ a {
     height: 40px;
     justify-content: space-between;
     margin: 0;
-    margin-top: 3px;
+    margin-top: 2px;
     width: 100%;
   }
 }
@@ -923,7 +922,6 @@ a {
 li.editor-title {
   align-items: center;
   background-color: var(--toolbar-background-color);
-  border: 2px solid var(--split-bar-color);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: var(--editor-title-text-color);
@@ -933,9 +931,14 @@ li.editor-title {
   list-style: none;
   position: relative;
   width: 32%;
+  height: 42px;
 
   &.half-width {
     width: 48%;
+  }
+
+  &:hover {
+    background-color: var(--toolbar-background-hover-color);
   }
 
   &.active {
