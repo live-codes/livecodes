@@ -33,6 +33,7 @@ const sidebars = {
             'features/tests',
             'features/module-resolution',
             'features/intellisense',
+            'features/ai',
             'features/code-format',
             'features/keyboard-shortcuts',
             'features/user-settings',

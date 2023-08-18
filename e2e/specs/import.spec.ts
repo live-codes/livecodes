@@ -12,7 +12,7 @@ const sources = {
   'GitLab snippet': 'https://gitlab.com/-/snippets/2199319',
   'GitLab dir':
     'https://gitlab.com/hatemhosny/typescript-demo-for-testing-import-/-/tree/gh-pages/src',
-  JsBin: 'https://jsbin.com/mikunebofa/edit?html,css,js,output',
+  JsBin: 'https://jsbin.com/jikojak/edit?html,css,js,output',
 };
 
 const githubRepo = 'https://github.com/hatemhosny/typescript-demo-for-testing-import-';

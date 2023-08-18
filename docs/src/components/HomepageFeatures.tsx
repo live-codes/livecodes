@@ -73,9 +73,12 @@ const FeatureList2: FeatureItem[] = [
     image: './img/star.svg',
     description: (
       <>
-        Use the standalone app for quick prototyping, testing new ideas or learning a new
-        framework/language. The app remembers your settings. Organize your projects and assets.
-        Share code with friends. Deploy projects to public URLs.
+        Use the <Link to="./getting-started#standalone-app">standalone app</Link> for quick
+        prototyping, testing new ideas or learning a new framework/language. The app remembers your{' '}
+        <Link to="./features/user-settings">settings</Link>. Organize your{' '}
+        <Link to="./features/projects">projects</Link> and{' '}
+        <Link to="./features/assets">assets</Link>. <Link to="./features/share">Share</Link> code
+        with friends. <Link to="./features/deploy">Deploy</Link> projects to public URLs.
       </>
     ),
   },
@@ -126,14 +129,16 @@ const FeatureList3: FeatureItem[] = [
     ),
   },
   {
-    title: 'Focused on Privacy',
-    image: './img/data-privacy.svg',
+    title: 'AI Code Assistant',
+    image: './img/magic-wand.svg',
     description: (
       <>
-        Projects are private by default. The code you write in LiveCodes never leaves your device,
-        unless you choose to share, export or sync it. User data is stored in the browser. User code
-        runs in a sandboxed environment. <Link to="./features/security">Security</Link> is taken
-        seriously.
+        Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
+        the <strong>free</strong> Copilot alternative. It understands the context of your code and
+        comments to generate suggestions. It has a wide range of language support, and it works
+        everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
+        <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
+        <Link to="./features/self-hosting">self-hosted</Link> apps).
       </>
     ),
   },
@@ -154,6 +159,18 @@ const FeatureList3: FeatureItem[] = [
 ];
 
 const FeatureList4: FeatureItem[] = [
+  {
+    title: 'Focused on Privacy',
+    image: './img/data-privacy.svg',
+    description: (
+      <>
+        Projects are private by default. The code you write in LiveCodes never leaves your device,
+        unless you choose to share, export or sync it. User data is stored in the browser. User code
+        runs in a sandboxed environment. <Link to="./features/security">Security</Link> is taken
+        seriously.
+      </>
+    ),
+  },
   {
     title: 'Free and Open-Source',
     image: './img/oss.svg',

@@ -78,6 +78,10 @@ const prepareDir = async () => {
     path.resolve(__dirname + '/../src/index.html'),
     path.resolve(outDir + '/index.html'),
   );
+  await fs.promises.copyFile(
+    path.resolve(__dirname + '/../src/livecodes/html/app-base.html'),
+    path.resolve(outDir + '/livecodes/app.html'),
+  );
 };
 
 try {
