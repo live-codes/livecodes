@@ -1940,7 +1940,8 @@ i.arrow {
     display: flex;
     gap: 20px;
     flex-direction: column;
-    flex-grow: 0.8;
+    padding: 0 30px;
+    flex-grow: 1;
     justify-content: space-around;
   }
 
