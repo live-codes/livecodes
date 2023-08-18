@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="codeium:type" content="monaco" />
+    <title>LiveCodes</title>
+    <script>
+      window.addEventListener('message', function (event) {
+        if (
+          event.origin === window.location.origin &&
+          event.source === parent &&
+          event.data.content
+        ) {
+          document.write(event.data.content);
+          document.close();
+        }
+      });
+    </script>
+  </head>
+  <body></body>
+</html>
