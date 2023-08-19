@@ -415,7 +415,7 @@ export const getEditorSettingsFormatLink = (editorSettingsContainer: HTMLElement
 export const getWelcomeLinkNew = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#welcome-link-new') as HTMLAnchorElement;
 
-  export const getWelcomeLinkNewHero = (welcomeContainer: HTMLElement) =>
+export const getWelcomeLinkNewHero = (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#welcome-link-new-hero') as HTMLAnchorElement;
 
 export const getWelcomeLinkOpen = (welcomeContainer: HTMLElement) =>
