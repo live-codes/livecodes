@@ -69,7 +69,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
-      iframe.src = baseUrl + '{{hash:app.html}}';
+      iframe.src = './app.html';
       let contentLoaded = false;
       iframe.onload = () => {
         if (contentLoaded) return;
