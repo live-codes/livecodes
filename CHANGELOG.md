@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v12](https://github.com/live-codes/livecodes/compare/v11...v12) (2023-08-20)
+
+### Bug Fixes
+
+- **app:** fix app url ([ab0d55d](https://github.com/live-codes/livecodes/commit/ab0d55d03b22a9615b85b95ead41f8efc3d396f3))
+- **docs:** fix docs links ([2114e1b](https://github.com/live-codes/livecodes/commit/2114e1b9efeff03f8d58cf096ef06512cde226b5))
+
+---
+
 ## [v11](https://github.com/live-codes/livecodes/compare/v10...v11) (2023-08-18)
 
 ### Features
