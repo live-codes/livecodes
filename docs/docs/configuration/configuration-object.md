@@ -55,7 +55,7 @@ These are properties that define the content of the current [project](../feature
 
 ### `title`
 
-Type: [`string`](../api/interfaces/Config#title)
+Type: [`string`](../api/interfaces/Config.md#title)
 
 Default: `"Untitled Project"`
 
@@ -63,7 +63,7 @@ Project title. This is used as [result page](../features/result.md) title.
 
 ### `description`
 
-Type: [`string`](../api/interfaces/Config#description)
+Type: [`string`](../api/interfaces/Config.md#description)
 
 Default: `""`
 
@@ -71,7 +71,7 @@ Project description. Used in [project](../features/projects.md) search. This can
 
 ### `tags`
 
-Type: [`string[]`](../api/interfaces/Config#tags)
+Type: [`string[]`](../api/interfaces/Config.md#tags)
 
 Default: `[]`
 
@@ -79,7 +79,7 @@ Project tags. Used in [project](../features/projects.md) filter and search. This
 
 ### `activeEditor`
 
-Type: [`"markup" | "style" | "script" | undefined`](../api/interfaces/Config#activeeditor)
+Type: [`"markup" | "style" | "script" | undefined`](../api/interfaces/Config.md#activeeditor)
 
 Default: Last used editor for user, otherwise "markup"
 
@@ -87,7 +87,7 @@ Selects the active editor to show.
 
 ### `languages`
 
-Type: [`Language[] | undefined`](../api/interfaces/Config#languages)
+Type: [`Language[] | undefined`](../api/interfaces/Config.md#languages)
 
 Default: all supported languages in full app and only current editor languages in [embeds](../features/embeds.md).
 
@@ -97,31 +97,31 @@ List of enabled languages. Languages that are not already loaded in the editors 
 
 ### `markup`
 
-Type: [`Editor`](../api/interfaces/internal.Editor)
+Type: [`Editor`](../api/interfaces/internal.Editor.md)
 
 Default: `{ language: 'html', content: '' }`
 
-Configures the [language](../api/modules/internal#language) and content of the markup editor.
+Configures the [language](../api/modules/internal.md#language) and content of the markup editor.
 
 ### `style`
 
-Type: [`Editor`](../api/interfaces/internal.Editor)
+Type: [`Editor`](../api/interfaces/internal.Editor.md)
 
 Default: `{ language: 'css', content: '' }`
 
-Configures the [language](../api/modules/internal#language) and content of the style editor.
+Configures the [language](../api/modules/internal.md#language) and content of the style editor.
 
 ### `script`
 
-Type: [`Editor`](../api/interfaces/internal.Editor)
+Type: [`Editor`](../api/interfaces/internal.Editor.md)
 
 Default: `{ language: 'javascript', content: '' }`
 
-Configures the [language](../api/modules/internal#language) and content of the script editor.
+Configures the [language](../api/modules/internal.md#language) and content of the script editor.
 
 ### `stylesheets`
 
-Type: [`string[]`](../api/interfaces/Config#stylesheets)
+Type: [`string[]`](../api/interfaces/Config.md#stylesheets)
 
 Default: `[]`
 
@@ -129,7 +129,7 @@ List of URLs for [external stylesheets](../features/external-resources.md) to ad
 
 ### `scripts`
 
-Type: [`string[]`](../api/interfaces/Config#scripts)
+Type: [`string[]`](../api/interfaces/Config.md#scripts)
 
 Default: `[]`
 
@@ -220,7 +220,7 @@ When bare module imports are encountered, LiveCodes adds an import map to the re
 
 ### `types`
 
-Type: [`[key: string]: string | { autoload?: boolean ; declareAsModule?: boolean ; url: string }`](../api/interfaces/internal.Types)
+Type: [`[key: string]: string | { autoload?: boolean ; declareAsModule?: boolean ; url: string }`](../api/interfaces/internal.Types.md)
 
 Default: `{}`
 
@@ -270,7 +270,7 @@ Example:
 
 ### `tests`
 
-Type: `undefined` | `Partial`<[`Editor`](../api/interfaces/internal.Editor)>
+Type: `undefined` | `Partial`<[`Editor`](../api/interfaces/internal.Editor.md)>
 
 Default: `{ language: 'typescript', content: '' }`
 
@@ -278,7 +278,7 @@ Configures the [language](../features/tests.md#supported-languages) and content 
 
 ### `version`
 
-Type: `Readonly` [`string`](../api/interfaces/Config#description)
+Type: `Readonly` [`string`](../api/interfaces/Config.md#description)
 
 Default: Current LiveCodes Version.
 
@@ -297,7 +297,7 @@ These are properties that define how the app behaves.
 
 ### `readonly`
 
-Type: [`boolean`](../api/interfaces/Config#readonly)
+Type: [`boolean`](../api/interfaces/Config.md#readonly)
 
 Default: `false`
 
@@ -307,7 +307,7 @@ By default, when `readonly` is set to `true`, the light-weight code editor [Code
 
 ### `allowLangChange`
 
-Type: [`boolean`](../api/interfaces/Config#allowlangchange)
+Type: [`boolean`](../api/interfaces/Config.md#allowlangchange)
 
 Default: `true`
 
@@ -315,7 +315,7 @@ If `false`, the UI will not show the menu that allows changing editor language.
 
 ### `mode`
 
-Type: [`"full" | "result" | "editor" | "codeblock"`](../api/interfaces/Config#mode)
+Type: [`"full" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
 
 Default: `"full"`
 
@@ -323,7 +323,7 @@ Sets [display mode](../features/display-modes.md)
 
 ### `tools`
 
-Type: [`{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; active: 'console' | 'compiled' | 'tests' | ''; status: 'closed' | 'open' | 'full' | 'none' | ''; }`](../api/interfaces/Config#tools)
+Type: [`{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; active: 'console' | 'compiled' | 'tests' | ''; status: 'closed' | 'open' | 'full' | 'none' | ''; }`](../api/interfaces/Config.md#tools)
 
 Default: `{ enabled: 'all', active: '', status: '' }`
 
@@ -345,7 +345,7 @@ Example:
 
 ### `zoom`
 
-Type: [`1 | 0.5 | 0.25`](../api/interfaces/Config#zoom)
+Type: [`1 | 0.5 | 0.25`](../api/interfaces/Config.md#zoom)
 
 Default: `1`
 
@@ -357,7 +357,7 @@ These are properties that define the [user settings](./../features/user-settings
 
 ### `autoupdate`
 
-Type: [`boolean`](../api/interfaces/Config#autoupdate)
+Type: [`boolean`](../api/interfaces/Config.md#autoupdate)
 
 Default: `true`
 
@@ -365,7 +365,7 @@ If `true`, the result page is automatically updated on code change, after time [
 
 ### `autosave`
 
-Type: [`boolean`](../api/interfaces/Config#autosave)
+Type: [`boolean`](../api/interfaces/Config.md#autosave)
 
 Default: `false`
 
@@ -373,7 +373,7 @@ If `true`, the project is automatically saved on code change, after time [delay]
 
 ### `delay`
 
-Type: [`number`](../api/interfaces/Config#delay)
+Type: [`number`](../api/interfaces/Config.md#delay)
 
 Default: `1500`
 
@@ -381,7 +381,7 @@ Time delay (in milliseconds) follwing code change, after which the result page i
 
 ### `formatOnsave`
 
-Type: [`boolean`](../api/interfaces/Config#formatonsave)
+Type: [`boolean`](../api/interfaces/Config.md#formatonsave)
 
 Default: `false`
 
@@ -389,7 +389,7 @@ If `true`, the code is automatically [formatted](../features/code-format.md) on 
 
 ### `theme`
 
-Type: [`"light" | "dark"`](../api/interfaces/Config#theme)
+Type: [`"light" | "dark"`](../api/interfaces/Config.md#theme)
 
 Default: `"dark"`
 
@@ -397,7 +397,7 @@ Sets the app [theme](../features/themes.md).
 
 ### `recoverUnsaved`
 
-Type: [`boolean`](../api/interfaces/Config#recoverunsaved)
+Type: [`boolean`](../api/interfaces/Config.md#recoverunsaved)
 
 Default: `true`
 
@@ -405,7 +405,7 @@ Enables [recovering last unsaved project](../features/recover.md) when the app i
 
 ### `showSpacing`
 
-Type: [`boolean`](../api/interfaces/Config#showspacing)
+Type: [`boolean`](../api/interfaces/Config.md#showspacing)
 
 Default: `false`
 
@@ -413,7 +413,7 @@ Enables [showing element spacing](../features/result.md#show-spacings) in the re
 
 ### `editor`
 
-Type: [`"monaco" | "codemirror" | "codejar" | undefined`](../api/interfaces/Config#editor)
+Type: [`"monaco" | "codemirror" | "codejar" | undefined`](../api/interfaces/Config.md#editor)
 
 Default: `undefined`
 
@@ -423,7 +423,7 @@ If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is us
 
 ### `fontFamily`
 
-Type: [`string | undefined`](../api/interfaces/Config#fontfamily)
+Type: [`string | undefined`](../api/interfaces/Config.md#fontfamily)
 
 Default: `undefined`
 
@@ -431,7 +431,7 @@ Sets the [code editor](../features/editor-settings.md) font family.
 
 ### `fontSize`
 
-Type: [`number | undefined`](../api/interfaces/Config#fontfamily)
+Type: [`number | undefined`](../api/interfaces/Config.md#fontfamily)
 
 Default: `undefined`
 
@@ -441,7 +441,7 @@ If `undefined` (the default), the font size is set to 14 for the full app and 12
 
 ### `useTabs`
 
-Type: [`boolean`](../api/interfaces/Config#usetabs)
+Type: [`boolean`](../api/interfaces/Config.md#usetabs)
 
 Default: `false`
 
@@ -449,7 +449,7 @@ If `true`, lines are indented with tabs instead of spaces. Also used in [code fo
 
 ### `tabSize`
 
-Type: [`number`](../api/interfaces/Config#tabsize)
+Type: [`number`](../api/interfaces/Config.md#tabsize)
 
 Default: `2`
 
@@ -457,7 +457,7 @@ The number of spaces per indentation-level. Also used in [code formatting](../fe
 
 ### `lineNumbers`
 
-Type: [`boolean`](../api/interfaces/Config#linenumbers)
+Type: [`boolean`](../api/interfaces/Config.md#linenumbers)
 
 Default: `true`
 
@@ -465,7 +465,7 @@ Show line numbers in [code editor](../features/editor-settings.md).
 
 ### `wordWrap`
 
-Type: [`boolean`](../api/interfaces/Config#wordwrap)
+Type: [`boolean`](../api/interfaces/Config.md#wordwrap)
 
 Default: `false`
 
@@ -473,7 +473,7 @@ Enables word-wrap for long lines.
 
 ### `closeBrackets`
 
-Type: [`boolean`](../api/interfaces/Config#closebrackets)
+Type: [`boolean`](../api/interfaces/Config.md#closebrackets)
 
 Default: `true`
 
@@ -481,7 +481,7 @@ Use auto-complete to close brackets and quotes.
 
 ### `emmet`
 
-Type: [`boolean`](../api/interfaces/Config#emmet)
+Type: [`boolean`](../api/interfaces/Config.md#emmet)
 
 Default: `true`
 
@@ -489,7 +489,7 @@ Enables [emmet](../features/editor-settings.md#emmet).
 
 ### `editorMode`
 
-Type: [`"vim" | "emacs" | undefined`](../api/interfaces/Config#editormode)
+Type: [`"vim" | "emacs" | undefined`](../api/interfaces/Config.md#editormode)
 
 Default: `undefined`
 
@@ -497,7 +497,7 @@ Sets [editor mode](../features/editor-settings.md#editor-modes).
 
 ### `semicolons`
 
-Type: [`boolean`](../api/interfaces/Config#semicolons)
+Type: [`boolean`](../api/interfaces/Config.md#semicolons)
 
 Default: `true`
 
@@ -505,7 +505,7 @@ Configures Prettier [code formatter](../features/code-format.md) to use [semi-co
 
 ### `singleQuote`
 
-Type: [`boolean`](../api/interfaces/Config#singlequote)
+Type: [`boolean`](../api/interfaces/Config.md#singlequote)
 
 Default: `false`
 
@@ -513,7 +513,7 @@ Configures Prettier [code formatter](../features/code-format.md) to use [single 
 
 ### `trailingComma`
 
-Type: [`boolean`](../api/interfaces/Config#trailingcomma)
+Type: [`boolean`](../api/interfaces/Config.md#trailingcomma)
 
 Default: `true`
 

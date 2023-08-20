@@ -42,7 +42,7 @@ Example:
 
 In this mode, in addition to values supplied in custom settings (see above), expressions can have values that are evaluated during the [result page](../features/result.md) runtime.
 
-This can be achieved in JavaScript (or any [language](../languages/) that compiles to it) by assigning `window.livecodes.templateData` to an object with the data.
+This can be achieved in JavaScript (or any [language](../languages/index.md) that compiles to it) by assigning `window.livecodes.templateData` to an object with the data.
 
 Please note that template rendering occurs on [page load](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event), so the assignment must occur before that.
 

@@ -1,10 +1,10 @@
 # Code Format
 
-Code formatting is supported for most [languages](../languages/).
+Code formatting is supported for most [languages](../languages/index.md).
 
 ## Code Formatters
 
-The code formatter used for each language is specified in the [language documentation](../languages/) page.
+The code formatter used for each language is specified in the [language documentation](../languages/index.md) page.
 
 For example:
 
@@ -49,4 +49,4 @@ Code format can be configured using the [configuration object](../configuration/
 
 ## SDK Method: `format`
 
-The code format can be programmatically triggered by the [SDK](../sdk/) method [`format`](../sdk/js-ts.md#format).
+The code format can be programmatically triggered by the [SDK](../sdk/index.md) method [`format`](../sdk/js-ts.md#format).

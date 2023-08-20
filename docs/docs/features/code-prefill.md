@@ -58,5 +58,5 @@ TODO...
 
 - [Import](./import.md)
 - [Templates](./templates.md)
-- [Configuration](../configuration/)
-- [SDK](../sdk/)
+- [Configuration](../configuration/index.md)
+- [SDK](../sdk/index.md)

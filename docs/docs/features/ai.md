@@ -4,7 +4,7 @@ LiveCodes supports AI-powered code completion, totally for **free**, using [Code
 
 The large generative machine learning model is capable of understanding the context of your code and comments in order to generate suggestions on what you might want to type next.
 
-It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started#standalone-app), [embedded playgrounds](./embeds) and [self-hosted](./self-hosting) apps).
+It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started.md#standalone-app), [embedded playgrounds](./embeds.md) and [self-hosted](./self-hosting.md) apps).
 
 ## Examples:
 

@@ -103,15 +103,15 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     Alias to [`import`](../sdk/js-ts.md#import) (a URL to [import](../features/import.md)).
 
-  - `raw`: [`Language`](../api/modules/internal#language).
+  - `raw`: [`Language`](../api/modules/internal.md#language).
 
     When used with `import` or `x`, imports the URL as code of the provided language.
 
-  - `language`: [`Language`](../api/modules/internal#language).
+  - `language`: [`Language`](../api/modules/internal.md#language).
 
     The language to load by default in the editor.
 
-  - `lang`: [`Language`](../api/modules/internal#language).
+  - `lang`: [`Language`](../api/modules/internal.md#language).
 
     Alias to `language`.
 
@@ -139,7 +139,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     If `false`, the [result page](../features/result.md) [scroll position](../features/result.md#scroll-position) will not be maintained after reload.
 
-  - Any [`Language`](../api/modules/internal#language) can used as a query parameter, and the value will be used as its code.
+  - Any [`Language`](../api/modules/internal.md#language) can used as a query parameter, and the value will be used as its code.
 
     Example:
 

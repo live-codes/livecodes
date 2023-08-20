@@ -49,7 +49,7 @@ In the tests panel, you can find:
 
 Please note that the tests panel are hidden by default in [embedded playgrounds](./embeds.md) unless the [project has tests](../configuration/configuration-object.md#tests). In such case, the panel is added to the [tools pane](./tools-pane.md). However, the test editor is not shown.
 
-The [SDK](../sdk/) can control the visibility of the different tools in the tools pane (see [`tools`](../configuration/configuration-object.md#tools) property of the [configuration object](../configuration/configuration-object.md)).
+The [SDK](../sdk/index.md) can control the visibility of the different tools in the tools pane (see [`tools`](../configuration/configuration-object.md#tools) property of the [configuration object](../configuration/configuration-object.md)).
 
 The tests panel and the test editor are always shown in the [full standalone app](../getting-started.md#standalone-app).
 
