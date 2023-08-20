@@ -12,13 +12,13 @@ A new project (from template) can be started from:
 
 ## Starter Templates
 
-A Large number of starter templates are available. They act as starting points and example usage for the [languages](../languages/) available in LiveCodes.
+A Large number of starter templates are available. They act as starting points and example usage for the [languages](../languages/index.md) available in LiveCodes.
 
 A direct link for a starter template has the following format:
 
 `?template={template_name}` (e.g. https://livecodes.io/?template=react)
 
-The list of template names are documented [here](../api/modules/internal#templatename).
+The list of template names are documented [here](../api/modules/internal.md#templatename).
 
 ### Template List
 
@@ -46,4 +46,4 @@ User templates are scoped to the currently [logged-in user](./user-management.md
 - [User management](./user-management.md)
 - [Backup/Restore](./backup-restore.md)
 - [Sync](./sync.md)
-- [Languages](../languages/)
+- [Languages](../languages/index.md)

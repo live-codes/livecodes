@@ -69,7 +69,7 @@ Please consider [sponsoring LiveCodes](./sponsor.md) if you find it useful, to s
 
 :::caution Under Development
 
-LiveCodes is currently in **public beta**. It is in active development. However, please take the time to try it. Use [permanent URL](./features/permanent-url.md) and pinned [library version](./sdk/) to avoid breaking changes. Your feedback and contribution are highly appreciated.
+LiveCodes is currently in **public beta**. It is in active development. However, please take the time to try it. Use [permanent URL](./features/permanent-url.md) and pinned [library version](./sdk/index.md) to avoid breaking changes. Your feedback and contribution are highly appreciated.
 
 :::
 

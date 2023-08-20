@@ -6,7 +6,7 @@ sidebar_class_name: exclude_from_sidebar
 
 ## Overview
 
-_LiveCodes_ is an open-source, client-side, code playground that runs in the browser. It enables quick prototyping and experimenting with a wide variety of [technologies](../languages/) (including 80+ languages, frameworks and processors) without having to manually setup a development environment for each. The [result](./result.md) is displayed as a regular web page. The rapid feedback of previewing the result page without waiting for build steps significantly boosts productivity.
+_LiveCodes_ is an open-source, client-side, code playground that runs in the browser. It enables quick prototyping and experimenting with a wide variety of [technologies](../languages/index.md) (including 80+ languages, frameworks and processors) without having to manually setup a development environment for each. The [result](./result.md) is displayed as a regular web page. The rapid feedback of previewing the result page without waiting for build steps significantly boosts productivity.
 
 ![LiveCodes screenshot](../../static/img/screenshots/features.jpg)
 
@@ -14,7 +14,7 @@ In this page, a quick overview of the important features are presented. A more d
 
 ## Powerful Editor
 
-The default code editor is the powerful editor that powers [VS Code](https://code.visualstudio.com/), featuring code-completion, go-to-definition, multi-cursor support and other powerful features you got used to. The editor is very [customizable](./editor-settings.md). It supports [keyboard shortcuts](./keyboard-shortcuts.md), [code formatting](./code-format.md), [Emmet abbreviations](./editor-settings#emmet) and even [Vim and Emacs bindings](./editor-settings.md#editor-modes).
+The default code editor is the powerful editor that powers [VS Code](https://code.visualstudio.com/), featuring code-completion, go-to-definition, multi-cursor support and other powerful features you got used to. The editor is very [customizable](./editor-settings.md). It supports [keyboard shortcuts](./keyboard-shortcuts.md), [code formatting](./code-format.md), [Emmet abbreviations](./editor-settings.md#emmet) and even [Vim and Emacs bindings](./editor-settings.md#editor-modes).
 
 ## AI Code Assistant
 
@@ -38,7 +38,7 @@ Projects can be easily [shared](./share.md) as URLs or QR codes. In addition, yo
 
 ## Embed
 
-Projects can be [embedded](./embeds.md) in any web page. The embed screen allows you to customize the embed options and preview the resulting playground. An easy-to-use, yet powerful, [SDK](../sdk/), that allows [communication](../sdk/js-ts.md#sdk-methods) between the embedding page and the playground.
+Projects can be [embedded](./embeds.md) in any web page. The embed screen allows you to customize the embed options and preview the resulting playground. An easy-to-use, yet powerful, [SDK](../sdk/index.md), that allows [communication](../sdk/js-ts.md#sdk-methods) between the embedding page and the playground.
 
 ## Deploy
 
@@ -72,11 +72,11 @@ LiveCodes runs in the browser, where all the processing/transpilation occurs, wi
 
 ## Developer-friendly
 
-LiveCodes makes it easy to [get started](../getting-started). It is highly [configurable](../configuration). Lots of features can be configured by URL [query params](../configuration/query-params). The [SDK](../sdk/) facilitates [embedding](./embeds.md) playgrounds and allows easy [communication](../sdk/js-ts#sdk-methods) with them. The SDK is available for use in [JS/TS](../sdk/js-ts.md), [React](../sdk/react.md) [Vue](../sdk/vue.md) and [Svelte](../sdk/svelte.md).
+LiveCodes makes it easy to [get started](../getting-started.md). It is highly [configurable](../configuration/index.md). Lots of features can be configured by URL [query params](../configuration/query-params.md). The [SDK](../sdk/index.md) facilitates [embedding](./embeds.md) playgrounds and allows easy [communication](../sdk/js-ts.md#sdk-methods) with them. The SDK is available for use in [JS/TS](../sdk/js-ts.md), [React](../sdk/react.md) [Vue](../sdk/vue.md) and [Svelte](../sdk/svelte.md).
 
 ## Comprehensive Documentations
 
-Rich documentations with screenshots, code samples and live demos are available. They cover the app [features](../features/), [configuration](../configuration/), [supported languages](../languages/) and [SDK](../sdk/) (including [TypeScript Types](../api/modules)). A gallery of usage examples is provided as a [storybook](pathname:///../stories).
+Rich documentations with screenshots, code samples and live demos are available. They cover the app [features](../features/index.md), [configuration](../configuration/index.md), [supported languages](../languages/index.md) and [SDK](../sdk/index.md) (including [TypeScript Types](../api/modules.md)). A gallery of usage examples is provided as a [storybook](pathname:///../stories).
 
 ## Focused on Privacy
 

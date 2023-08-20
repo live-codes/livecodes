@@ -1,6 +1,6 @@
 # Default Template/Language
 
-When the app is loaded, by default, the last used [language](../languages/) is selected.
+When the app is loaded, by default, the last used [language](../languages/index.md) is selected.
 
 The app can also be configured to load a default [user template](./templates.md#user-templates).
 

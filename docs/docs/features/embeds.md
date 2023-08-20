@@ -10,7 +10,7 @@ Demo:
 
 <LiveCodes template="javascript"></LiveCodes>
 
-The embedding web page can communicate with the playground using a powerful [SDK](../sdk/) (e.g. edit/format code, watch for code changes, get the compiled code or result page HTML, run tests, change layout, ...etc).
+The embedding web page can communicate with the playground using a powerful [SDK](../sdk/index.md) (e.g. edit/format code, watch for code changes, get the compiled code or result page HTML, run tests, change layout, ...etc).
 
 ## Create Embedded Playground
 
