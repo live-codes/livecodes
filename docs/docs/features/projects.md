@@ -30,7 +30,7 @@ These are either:
 - Languages that are interpreted by a JavaScript runtime (e.g. PHP - interpreted by [Uniter runtime](https://github.com/asmblah/uniter), Scheme - interpreted by [BiwaScheme](https://www.biwascheme.org))
 - Languages running in WASM (e.g. Python - [Pyodide](https://pyodide.org/), AssemblyScript).
 
-For the full list of supported languages, check the [Languages section](../languages/).
+For the full list of supported languages, check the [Languages section](../languages/index.md).
 
 ## Organizing Projects
 
