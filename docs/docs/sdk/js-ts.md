@@ -23,7 +23,7 @@ In the full [standalone app](../getting-started.md#standalone-app), the JavaScri
 TypeScript types are [documented here](../api/modules.md) and can be imported from the library.
 
 ```ts
-import { createPlayground, EmbedOptions, Playground } from 'livecodes';
+import type { EmbedOptions, Playground } from 'livecodes';
 ```
 
 ## `createPlayground`
@@ -32,13 +32,14 @@ Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playgro
 
 The library exports the function `createPlayground` which takes 2 arguments:
 
-- `container` (required): HTMLElement or a string representing a CSS selector.
+- `container` (required): `HTMLElement` or a string representing a CSS selector.  
+  If not found, an error is thrown.
 - `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
-The `createPlayground` function return a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
+The `createPlayground` function returns a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
 
 ```ts
-import { createPlayground, EmbedOptions } from 'livecodes';
+import { createPlayground, type EmbedOptions } from 'livecodes';
 
 const options: EmbedOptions = {
   // appUrl: ...
@@ -52,16 +53,27 @@ const options: EmbedOptions = {
 };
 
 createPlayground('#container', options).then((playground) => {
-  // `playground` object exposes the SDK methods
+  // the `playground` object exposes the SDK methods
   // e.g. playground.run()
 });
 ```
+
+:::caution Throws
+
+The `createPlayground` function throws an error in any of the following conditions:
+
+- The first parameter ([`container`](#createplayground)) is not an element or not found (by CSS selector).
+- The embed option [`appUrl`](#appurl) is supplied and is not a valid URL.
+- The embed option [`config`](#config) is supplied and is not an object or a valid URL.
+- Any of the [SDK methods](#sdk-methods) was called after calling the [`destroy`](#destroy) method.
+
+:::
 
 ## Embed Options
 
 Type: [`EmbedOptions`](../api/interfaces/EmbedOptions.md)
 
-The secong argument of the `createPlayground` function is an optional object with the following optional properties:
+The second argument of the `createPlayground` function is an optional object with the following optional properties:
 
 ### `appUrl`
 
@@ -71,6 +83,8 @@ Default: `"https://livecodes.io/"`
 
 Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../features/self-hosting.md), [permanent URL](../features/permanent-url.md)).
 
+If supplied with an invalid URL, an error is thrown.
+
 ### `config`
 
 Type: [`string | Partial<Config>`](../api/interfaces/EmbedOptions.md#config)
@@ -79,11 +93,13 @@ Default: `{}`
 
 A [configuration object](../configuration/configuration-object.md) or a URL to a JSON file representing a configuration object to load.
 
+If supplied and is not an object or a valid URL, an error is thrown.
+
 ### `import`
 
 Type: [`string`](../api/interfaces/EmbedOptions.md#import)
 
-A URL to [import](../features/import.md).
+A resource to [import](../features/import.md) (from any of the supported [sources](../features/import.md#sources)).
 
 ### `lite`
 
@@ -374,7 +390,7 @@ await livecodes.exec('showVersion');
 
 Type: [`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
 
-Destoys the playground instance, and removes event listeners. Further call to any SDK methods throws an error.
+Destroys the playground instance, and removes event listeners. Further call to any SDK methods throws an error.
 
 ```js
 import { createPlayground } from 'livecodes';
