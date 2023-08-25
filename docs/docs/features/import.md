@@ -67,7 +67,7 @@ For sources that provide multiple files (e.g. GitHub/GitLab directories, GitHub 
 Markup files starting with `index.`, style files starting with `style.` and script files starting with `script.` are given higher priority. While Markup files starting with `readme.` are given lower priority.
 
 Alternatively, languages and files can be specified using [query params](../configuration/query-params.md):  
-?x={url}&{language1}={file1}&{language2}={file2}&{language3}={file3}
+`?x={url}&{language1}={file1}&{language2}={file2}&{language3}={file3}`
 
 ## Import Shared Projects
 
@@ -104,7 +104,7 @@ Example:
 https://livecodes.io/?x=https://live-codes.github.io/livecodes-examples/prefill-from-code-blocks.html
 
 Alternatively, custom CSS selectors can be specified using [query params](../configuration/query-params.md):  
-?x={url}&{language}-selector={selector}.
+`?x={url}&{language}-selector={selector}`
 
 The following example loads the content of the first element that matches the CSS selector `h3` as `html`:
 
