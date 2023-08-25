@@ -39,7 +39,7 @@ The library exports the function `createPlayground` which takes 2 arguments:
 The `createPlayground` function returns a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
 
 ```ts
-import { createPlayground, EmbedOptions } from 'livecodes';
+import { createPlayground, type EmbedOptions } from 'livecodes';
 
 const options: EmbedOptions = {
   // appUrl: ...
