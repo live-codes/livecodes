@@ -3983,9 +3983,7 @@ const createApi = (): API => {
 
   const apiGetCode = async (): Promise<Code> => {
     updateConfig();
-    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-      await getResultPage({});
-    }
+    await getResultPage({ forExport: true });
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
