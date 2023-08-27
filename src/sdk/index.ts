@@ -29,7 +29,7 @@ export const createPlayground = async (
     params = {},
     config = {},
     import: importFrom,
-    lite = false,
+    lite,
     loading = 'lazy',
     template,
     view = 'split',
@@ -94,7 +94,8 @@ export const createPlayground = async (
     url.searchParams.set('x', importFrom);
   }
 
-  url.searchParams.set(lite ? 'lite' : 'embed', 'true');
+  url.searchParams.set('lite', String(lite ?? headless));
+  url.searchParams.set('embed', 'true');
   url.searchParams.set('loading', loading);
   url.searchParams.set('view', view);
 

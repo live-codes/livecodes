@@ -669,6 +669,7 @@ export interface EditorOptions extends EditorConfig {
     | 'add-snippet';
   theme: Theme;
   isEmbed: boolean;
+  isHeadless: boolean;
   getLanguageExtension: (alias: string) => Language | undefined;
   mapLanguage: (language: Language) => Language;
   getFormatterConfig: () => Partial<FormatterConfig>;

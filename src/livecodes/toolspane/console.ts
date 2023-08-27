@@ -126,6 +126,7 @@ export const createConsole = (
       editorId: 'console',
       theme: config.theme,
       isEmbed,
+      isHeadless: false,
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => ({}),

@@ -1,7 +1,3 @@
-import { createApi, initializeApp } from './core';
-import type { API, Config } from './models';
+import { initHeadless } from './core';
 
-export const app = async (config: Partial<Config>, baseUrl: string): Promise<API> => {
-  await initializeApp({ config, baseUrl, isEmbed: true, isHeadless: true });
-  return createApi();
-};
+export const app = initHeadless;

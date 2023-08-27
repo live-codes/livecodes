@@ -98,7 +98,9 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
           .replace(
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
-          );
+          )
+          .replace(/src=".*\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str));
+
         iframe.contentWindow?.postMessage({ content: appContent }, location.origin);
         contentLoaded = true;
       };

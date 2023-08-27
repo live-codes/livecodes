@@ -182,20 +182,22 @@ const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 
 const loadStyles = () =>
-  Promise.all(
-    [
-      snackbarUrl,
-      hintCssUrl,
-      ...(isLite
-        ? []
-        : [
-            lunaObjViewerStylesUrl,
-            lunaDataGridStylesUrl,
-            lunaDomViewerStylesUrl,
-            lunaConsoleStylesUrl,
-          ]),
-    ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
-  );
+  isHeadless
+    ? Promise.resolve()
+    : Promise.all(
+        [
+          snackbarUrl,
+          hintCssUrl,
+          ...(isLite
+            ? []
+            : [
+                lunaObjViewerStylesUrl,
+                lunaDataGridStylesUrl,
+                lunaDomViewerStylesUrl,
+                lunaConsoleStylesUrl,
+              ]),
+        ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
+      );
 
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
@@ -373,6 +375,7 @@ const createEditors = async (config: Config) => {
     theme: config.theme,
     ...getEditorConfig(config),
     isEmbed,
+    isHeadless,
     mapLanguage,
     getLanguageExtension,
     getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -2997,6 +3000,7 @@ const handleEmbed = () => {
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
+      isHeadless,
       language: 'html',
       mapLanguage,
       readonly: true,
@@ -3147,6 +3151,7 @@ const handleSnippets = () => {
       editorId: 'snippet',
       getLanguageExtension,
       isEmbed,
+      isHeadless,
       language: 'html',
       value: '',
       theme: getConfig().theme,
@@ -3262,6 +3267,7 @@ const handleCustomSettings = () => {
       value: stringify({ imports: {}, ...config.customSettings }, true),
       theme: config.theme,
       isEmbed,
+      isHeadless,
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -3386,6 +3392,7 @@ const handleTestEditor = () => {
       value: config.tests?.content || '',
       theme: config.theme,
       isEmbed,
+      isHeadless,
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -3903,7 +3910,7 @@ const bootstrap = async (reload = false) => {
   }
 };
 
-const initializeApp = async (
+const initializePlayground = async (
   options?: {
     config?: Partial<Config>;
     baseUrl?: string;
@@ -3916,7 +3923,7 @@ const initializeApp = async (
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
-  isLite = options?.isLite ?? false;
+  isLite = options?.isLite ?? params.lite ?? isHeadless;
   isEmbed = isHeadless || isLite || (options?.isEmbed ?? false);
 
   await initializeStores(stores, isEmbed);
@@ -3962,6 +3969,33 @@ const initializeApp = async (
     initialized = true;
   });
   configureEmmet(getConfig());
+};
+
+const initApp = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl }, async () => {
+    basicHandlers();
+    await loadToolsPane();
+    await extraHandlers();
+  });
+  return createApi();
+};
+
+const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
+    basicHandlers();
+    await loadToolsPane();
+  });
+  return createApi();
+};
+const initLite = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, async () => {
+    basicHandlers();
+  });
+  return createApi();
+};
+const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true });
+  return createApi();
 };
 
 const createApi = (): API => {
@@ -4109,4 +4143,4 @@ const createApi = (): API => {
   };
 };
 
-export { createApi, initializeApp, loadToolsPane, basicHandlers, extraHandlers };
+export { initApp, initEmbed, initLite, initHeadless };
