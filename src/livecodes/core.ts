@@ -150,6 +150,7 @@ const iframeScrollPosition = { x: 0, y: 0 };
 let baseUrl: string;
 let isEmbed: boolean;
 let isLite: boolean;
+let isHeadless: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
 let formatter: ReturnType<typeof getFormatter>;
 let editors: Editors;
@@ -208,17 +209,21 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       iframe = document.createElement('iframe');
       iframe.name = 'result';
       iframe.id = 'result-frame';
-      iframe.setAttribute(
-        'allow',
-        'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
-      );
-      iframe.setAttribute('allowtransparency', 'true');
-      iframe.setAttribute('allowpaymentrequest', 'true');
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
+      if (isHeadless) {
+        iframe.setAttribute('sandbox', 'allow-same-origin allow-forms allow-scripts');
+      } else {
+        iframe.setAttribute(
+          'allow',
+          'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
+        );
+        iframe.setAttribute('allowtransparency', 'true');
+        iframe.setAttribute('allowpaymentrequest', 'true');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute(
+          'sandbox',
+          'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+        );
+      }
     }
 
     if (['codeblock', 'editor'].includes(getConfig().mode)) {
@@ -1306,6 +1311,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
 };
 
 const configureEmmet = async (config: Config) => {
+  if (isLite) return;
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
     editor.changeSettings(getEditorConfig(config));
@@ -3910,6 +3916,7 @@ const initializeApp = async (
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isLite = options?.isLite ?? false;
   isEmbed = isLite || (options?.isEmbed ?? false);
+  isHeadless = params.view === 'headless';
 
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
@@ -3927,7 +3934,6 @@ const initializeApp = async (
     importExternalContent,
   );
   await createEditors(getConfig());
-  basicHandlers();
   await initializeFn?.();
   loadUserConfig(/* updateUI = */ true);
   loadStyles();
@@ -4102,4 +4108,4 @@ const createApi = (): API => {
   };
 };
 
-export { createApi, initializeApp, loadToolsPane, extraHandlers };
+export { createApi, initializeApp, loadToolsPane, basicHandlers, extraHandlers };

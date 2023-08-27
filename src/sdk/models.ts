@@ -30,7 +30,7 @@ export interface EmbedOptions {
   lite?: boolean;
   loading?: 'lazy' | 'click' | 'eager';
   template?: TemplateName;
-  view?: 'split' | 'editor' | 'result';
+  view?: 'split' | 'editor' | 'result' | 'headless';
 }
 
 export interface Config extends ContentConfig, AppConfig, UserConfig {}

@@ -25,17 +25,24 @@ export const createPlayground = async (
     view = 'split',
   } = options;
 
+  const headless = view === 'headless';
   let containerElement: HTMLElement | null;
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
   } else {
     containerElement = container;
   }
-  if (!container) {
+  if (!container && !headless) {
     throw new Error('Container element is required.');
   }
   if (!containerElement) {
-    throw new Error(`Cannot find element: "${container}"`);
+    if (headless) {
+      containerElement = document.createElement('div');
+      hideElement(containerElement);
+      document.body.appendChild(containerElement);
+    } else {
+      throw new Error(`Cannot find element: "${container}"`);
+    }
   }
 
   let url: URL;
@@ -88,11 +95,11 @@ export const createPlayground = async (
       if (!containerElement) return;
 
       const height = containerElement.dataset.height || containerElement.style.height;
-      if (height) {
+      if (height && !headless) {
         const cssHeight = isNaN(Number(height)) ? height : height + 'px';
         containerElement.style.height = cssHeight;
       }
-      if (containerElement.dataset.defaultStyles !== 'false') {
+      if (containerElement.dataset.defaultStyles !== 'false' && !headless) {
         containerElement.style.backgroundColor ||= '#fff';
         containerElement.style.border ||= '1px solid black';
         containerElement.style.borderRadius ||= '5px';
@@ -120,12 +127,16 @@ export const createPlayground = async (
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
-      frame.style.height = '100%';
-      frame.style.minHeight = '200px';
-      frame.style.width = '100%';
-      frame.style.margin = '0';
-      frame.style.border = '0';
-      frame.style.borderRadius = containerElement.style.borderRadius;
+      if (headless) {
+        hideElement(frame);
+      } else {
+        frame.style.height = '100%';
+        frame.style.minHeight = '200px';
+        frame.style.width = '100%';
+        frame.style.margin = '0';
+        frame.style.border = '0';
+        frame.style.borderRadius = containerElement.style.borderRadius;
+      }
       addEventListener(
         'message',
         function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
@@ -144,7 +155,9 @@ export const createPlayground = async (
         resolve(frame);
       };
       frame.src = url.href;
-      containerElement.innerHTML = '';
+      if (!headless) {
+        containerElement.innerHTML = '';
+      }
       containerElement.appendChild(frame);
     });
 
@@ -273,6 +286,16 @@ export const createPlayground = async (
       { rootMargin: '150px' },
     );
     observer.observe(containerElement);
+  }
+
+  function hideElement(el: HTMLElement) {
+    el.style.width = '0';
+    el.style.height = '0';
+    el.style.overflow = 'hidden';
+    el.style.position = 'absolute';
+    el.style.top = '0';
+    el.style.visibility = 'hidden';
+    el.style.opacity = '0';
   }
 
   return {

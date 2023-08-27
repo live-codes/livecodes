@@ -11,6 +11,7 @@ import { modulesService } from './services/modules';
 export type { API, Config };
 
 export const params = new URLSearchParams(location.search);
+export const isHeadless = params.get('view') !== 'headless';
 export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
 export const isEmbed =
   isLite || (params.get('embed') != null && params.get('embed') !== 'false') || isInIframe();
@@ -30,7 +31,9 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     }
     const baseUrl =
       (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
-    const scriptFile = isLite
+    const scriptFile = isHeadless
+      ? '{{hash:headless.js}}'
+      : isLite
       ? '{{hash:lite.js}}'
       : isEmbed
       ? '{{hash:embed.js}}'
