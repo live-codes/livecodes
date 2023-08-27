@@ -1108,7 +1108,8 @@ const loadConfig = async (
   setWindowTitle();
 
   // reset url params
-  updateUrl(url || location.origin + location.pathname, true);
+  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+  updateUrl(url ?? currentUrl, true);
 
   // reset iframe scroll position
   iframeScrollPosition.x = 0;
@@ -3983,9 +3984,7 @@ const createApi = (): API => {
 
   const apiGetCode = async (): Promise<Code> => {
     updateConfig();
-    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-      await getResultPage({});
-    }
+    await getResultPage({ forExport: true });
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
