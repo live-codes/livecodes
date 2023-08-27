@@ -14,6 +14,16 @@ export const createPlayground = async (
   container: string | HTMLElement,
   options: EmbedOptions = {},
 ): Promise<Playground> => {
+  // allow headless to skip providing container
+  if (
+    typeof container === 'object' &&
+    !(container instanceof HTMLElement) &&
+    (container as any).view === 'headless'
+  ) {
+    options = container;
+    container = null as any;
+  }
+
   const {
     appUrl = 'https://livecodes.io/',
     params = {},
@@ -27,6 +37,7 @@ export const createPlayground = async (
 
   const headless = view === 'headless';
   let containerElement: HTMLElement | null;
+
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
   } else {
@@ -289,9 +300,6 @@ export const createPlayground = async (
   }
 
   function hideElement(el: HTMLElement) {
-    el.style.width = '0';
-    el.style.height = '0';
-    el.style.overflow = 'hidden';
     el.style.position = 'absolute';
     el.style.top = '0';
     el.style.visibility = 'hidden';

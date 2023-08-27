@@ -11,10 +11,13 @@ import { modulesService } from './services/modules';
 export type { API, Config };
 
 export const params = new URLSearchParams(location.search);
-export const isHeadless = params.get('view') !== 'headless';
+export const isHeadless = params.get('view') === 'headless';
 export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
 export const isEmbed =
-  isLite || (params.get('embed') != null && params.get('embed') !== 'false') || isInIframe();
+  isHeadless ||
+  isLite ||
+  (params.get('embed') != null && params.get('embed') !== 'false') ||
+  isInIframe();
 export const loadingParam = params.get('loading');
 export const clickToLoad = isEmbed && loadingParam !== 'eager';
 export const loading: EmbedOptions['loading'] = !isEmbed

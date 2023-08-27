@@ -3909,14 +3909,15 @@ const initializeApp = async (
     baseUrl?: string;
     isEmbed?: boolean;
     isLite?: boolean;
+    isHeadless?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
+  isHeadless = options?.isHeadless ?? false;
   isLite = options?.isLite ?? false;
-  isEmbed = isLite || (options?.isEmbed ?? false);
-  isHeadless = params.view === 'headless';
+  isEmbed = isHeadless || isLite || (options?.isEmbed ?? false);
 
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
