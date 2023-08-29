@@ -109,6 +109,8 @@ Default: `false`
 
 If `true`, the playground is loaded in [lite mode](../features/lite.md).
 
+When [headless](../features/headless.md), the playground is loaded in [lite mode](../features/lite.md) by default unless the `lite` option is set to `false`.
+
 ### `loading`
 
 Type: [`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions.md#loading)
@@ -154,11 +156,13 @@ A [starter template](../features/templates.md) to load.
 
 ### `view`
 
-Type: [`"editor" | "result" | "split"`](../api/interfaces/EmbedOptions.md#view)
+Type: [`"editor" | "result" | "split" | "headless"`](../api/interfaces/EmbedOptions.md#view)
 
 Default: `"split"`
 
 The [default view](../features/default-view.md) for the playground.
+
+When set to `"headless"`, the playground is loaded in [headless mode](../features/headless.md).
 
 ## SDK Methods
 

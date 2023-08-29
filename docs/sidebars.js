@@ -63,6 +63,7 @@ const sidebars = {
             'features/integrations',
             'features/user-management',
             'features/security',
+            'features/headless',
             'features/self-hosting',
           ],
         },
