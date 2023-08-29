@@ -61,6 +61,7 @@ import type {
   BroadcastResponseData,
   BroadcastResponseError,
 } from './UI/broadcast';
+import type { Formatter } from './formatter/models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -152,7 +153,7 @@ let isEmbed: boolean;
 let isLite: boolean;
 let isHeadless: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
-let formatter: ReturnType<typeof getFormatter>;
+let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
 let toolsPane: ToolsPane | undefined;
@@ -432,10 +433,10 @@ const createEditors = async (config: Config) => {
     script: scriptEditor,
   };
 
-  (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
+  (Object.keys(editors) as EditorId[]).forEach((editorId) => {
     const language = editorLanguages?.[editorId] || 'html';
     applyLanguageConfigs(language);
-    editors[editorId].registerFormatter(await formatter.getFormatFn(language));
+    formatter.getFormatFn(language).then((fn) => editors[editorId].registerFormatter(fn));
     registerRun(editorId, editors);
   });
 
@@ -3904,7 +3905,21 @@ const bootstrap = async (reload = false) => {
       }
     });
   });
-  formatter.load(getEditorLanguages());
+  if (!isEmbed) {
+    // @ts-ignore
+    if (window.requestIdleCallback) {
+      requestIdleCallback(
+        () => {
+          formatter.load(getEditorLanguages());
+        },
+        { timeout: 15_000 },
+      );
+    } else {
+      setTimeout(() => {
+        formatter.load(getEditorLanguages());
+      }, 10_000);
+    }
+  }
   if (isEmbed && !getConfig().tests?.content?.trim()) {
     toolsPane?.disableTool('tests');
   }
@@ -3931,7 +3946,7 @@ const initializePlayground = async (
   setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  formatter = getFormatter(getConfig(), baseUrl, isLite);
+  formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   createLanguageMenus(
     getConfig(),
@@ -3969,33 +3984,6 @@ const initializePlayground = async (
     initialized = true;
   });
   configureEmmet(getConfig());
-};
-
-const initApp = async (config: Partial<Config>, baseUrl: string) => {
-  await initializePlayground({ config, baseUrl }, async () => {
-    basicHandlers();
-    await loadToolsPane();
-    await extraHandlers();
-  });
-  return createApi();
-};
-
-const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
-  await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
-    basicHandlers();
-    await loadToolsPane();
-  });
-  return createApi();
-};
-const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, async () => {
-    basicHandlers();
-  });
-  return createApi();
-};
-const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
-  await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true });
-  return createApi();
 };
 
 const createApi = (): API => {
@@ -4141,6 +4129,33 @@ const createApi = (): API => {
     exec: (command, ...args) => call(() => apiExec(command, ...args)),
     destroy: () => call(() => apiDestroy()),
   };
+};
+
+const initApp = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl }, async () => {
+    basicHandlers();
+    await loadToolsPane();
+    await extraHandlers();
+  });
+  return createApi();
+};
+
+const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
+    basicHandlers();
+    await loadToolsPane();
+  });
+  return createApi();
+};
+const initLite = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, async () => {
+    basicHandlers();
+  });
+  return createApi();
+};
+const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true });
+  return createApi();
 };
 
 export { initApp, initEmbed, initLite, initHeadless };
