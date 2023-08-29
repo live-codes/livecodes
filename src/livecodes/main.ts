@@ -133,11 +133,11 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
 
           addEventListener(
             'message',
-            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+            async (e: MessageEventInit<{ method: keyof API; id: string; args: any }>) => {
               if (isEmbed) {
                 if (e.source !== parent) return;
-                const { method, args } = e.data || {};
-                if (!method) return;
+                const { method, id, args } = e.data || {};
+                if (!method || !id) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
                 let payload;
                 try {
@@ -149,6 +149,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                   {
                     type: customEvents.apiResponse,
                     method,
+                    id,
                     payload,
                   },
                   anyOrigin,

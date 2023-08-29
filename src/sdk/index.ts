@@ -96,7 +96,7 @@ export const createPlayground = async (
 
   url.searchParams.set('lite', String(lite ?? headless));
   url.searchParams.set('embed', 'true');
-  url.searchParams.set('loading', loading);
+  url.searchParams.set('loading', headless ? 'eager' : loading);
   url.searchParams.set('view', view);
 
   let destroyed = false;
@@ -210,19 +210,23 @@ export const createPlayground = async (
         return reject(alreadyDestroyedMessage);
       }
       await loadLivecodes();
+      const id = getRandomString();
+
       addEventListener(
         'message',
         function handler(
           e: MessageEventInit<{
             type: CustomEvents['apiResponse'];
             method: keyof API;
+            id: string;
             payload?: any;
           }>,
         ) {
           if (
             e.source !== iframe.contentWindow ||
             e.origin !== origin ||
-            e.data?.type !== 'livecodes-api-response'
+            e.data?.type !== 'livecodes-api-response' ||
+            e.data?.id !== id
           ) {
             return;
           }
@@ -238,7 +242,7 @@ export const createPlayground = async (
           }
         },
       );
-      iframe.contentWindow?.postMessage({ method, args }, origin);
+      iframe.contentWindow?.postMessage({ method, id, args }, origin);
     });
 
   let watchers: ChangeHandler[] = [];
@@ -306,6 +310,8 @@ export const createPlayground = async (
     el.style.visibility = 'hidden';
     el.style.opacity = '0';
   }
+
+  const getRandomString = () => (String(Math.random()) + Date.now().toFixed()).replace('0.', '');
 
   return {
     load: () => loadLivecodes(),
