@@ -89,12 +89,12 @@ export const createPlayground = async (
   if (template) {
     url.searchParams.set('template', template);
   }
-
   if (importFrom) {
     url.searchParams.set('x', importFrom);
   }
-
-  url.searchParams.set('lite', String(lite ?? headless));
+  if (lite) {
+    url.searchParams.set('lite', 'true');
+  }
   url.searchParams.set('embed', 'true');
   url.searchParams.set('loading', headless ? 'eager' : loading);
   url.searchParams.set('view', view);

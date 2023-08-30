@@ -3938,7 +3938,7 @@ const initializePlayground = async (
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
-  isLite = options?.isLite ?? params.lite ?? isHeadless;
+  isLite = options?.isLite ?? params.lite ?? false;
   isEmbed = isHeadless || isLite || (options?.isEmbed ?? false);
 
   await initializeStores(stores, isEmbed);

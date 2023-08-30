@@ -109,8 +109,6 @@ Default: `false`
 
 If `true`, the playground is loaded in [lite mode](../features/lite.md).
 
-When [headless](../features/headless.md), the playground is loaded in [lite mode](../features/lite.md) by default unless the `lite` option is set to `false`.
-
 ### `loading`
 
 Type: [`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions.md#loading)
