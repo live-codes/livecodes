@@ -99,7 +99,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
           )
-          .replace(/src=".*\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str));
+          .replace(/src=".*?\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str));
 
         iframe.contentWindow?.postMessage({ content: appContent }, location.origin);
         contentLoaded = true;
@@ -148,7 +148,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             async (e: MessageEventInit<{ method: keyof API; id: string; args: any }>) => {
               if (isEmbed) {
                 if (e.source !== parent) return;
-                const { method, id, args } = e.data || {};
+                const { method, id, args } = e.data ?? {};
                 if (!method || !id) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
                 let payload;

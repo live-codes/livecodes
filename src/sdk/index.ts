@@ -300,7 +300,7 @@ export async function createPlayground(
         payload?: any;
       }>,
     ) => {
-      const sdkEvent = mapEvent(e.data?.type || '');
+      const sdkEvent = mapEvent(e.data?.type ?? '');
       if (e.source !== iframe.contentWindow || e.origin !== origin || !sdkEvent) return;
 
       if (sdkEvent === 'code') {

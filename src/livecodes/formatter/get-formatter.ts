@@ -30,7 +30,6 @@ const createLazyFormatter = (baseUrl: string) => {
     destroy: () => {
       lazyFormatter.load = fakeFormatter.load;
       lazyFormatter.getFormatFn = fakeFormatter.getFormatFn;
-      return;
     },
   };
 
