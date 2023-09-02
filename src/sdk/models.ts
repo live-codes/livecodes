@@ -20,7 +20,9 @@ export interface API {
   exec: (command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>;
   destroy: () => Promise<void>;
 }
-
+/**
+ * @deprecated Use the type {@link SDKCodeHandler} instead.
+ */
 export type ChangeHandler = SDKCodeHandler;
 export type SDKReadyHandler = (data: { config: Config }) => void;
 export type SDKCodeHandler = (data: { code: Code; config: Config }) => void;
