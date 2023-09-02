@@ -1,7 +1,10 @@
 import { encode } from 'js-base64';
 import type { Config, Language, Processor, WorkerMessageEvent } from '../models';
 
-export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number)) => {
+export const debounce = /* @__PURE__ */ (
+  fn: (...x: any[]) => any,
+  delay: number | (() => number),
+) => {
   let timeout: any;
 
   return (...args: unknown[]) => {
@@ -10,13 +13,13 @@ export const debounce = (fn: (...x: any[]) => any, delay: number | (() => number
   };
 };
 
-export const decodeHTML = (html: string) => {
+export const decodeHTML = /* @__PURE__ */ (html: string) => {
   const txt = document.createElement('textarea');
   txt.innerHTML = html;
   return txt.value;
 };
 
-export const encodeHTML = (html: string) =>
+export const encodeHTML = /* @__PURE__ */ (html: string) =>
   html
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -24,16 +27,17 @@ export const encodeHTML = (html: string) =>
     .replace(/'/g, '&#39;')
     .replace(/"/g, '&#34;');
 
-export const escapeScript = (code: string) => code.replace(/<\/script>/g, '<\\/script>');
+export const escapeScript = /* @__PURE__ */ (code: string) =>
+  code.replace(/<\/script>/g, '<\\/script>');
 
-export const escapeCode = (code: string, slash = true) =>
+export const escapeCode = /* @__PURE__ */ (code: string, slash = true) =>
   code
     .replace(/\\/g, slash ? '\\\\' : '\\')
     .replace(/`/g, '\\`')
     .replace(/<\/script>/g, '<\\/script>');
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const pipe = (...fns: Function[]) =>
+export const pipe = /* @__PURE__ */ (...fns: Function[]) =>
   fns.reduce(
     (f, g) =>
       (...args: any) =>
@@ -41,10 +45,11 @@ export const pipe = (...fns: Function[]) =>
   );
 
 // replace non-alphanumeric with underscore
-export const safeName = (name: string, symbol = '_') => name.replace(/[\W]+/g, symbol);
+export const safeName = /* @__PURE__ */ (name: string, symbol = '_') =>
+  name.replace(/[\W]+/g, symbol);
 
 // from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-export const isMobile = () => {
+export const isMobile = /* @__PURE__ */ () => {
   let mobile = false;
   const userAgent = navigator.userAgent.toLowerCase();
   (function (a) {
@@ -63,25 +68,26 @@ export const isMobile = () => {
   return mobile;
 };
 
-export const isRelativeUrl = (url?: string) =>
+export const isRelativeUrl = /* @__PURE__ */ (url?: string) =>
   !url?.startsWith('http') && !url?.startsWith('data:');
 
 export const getAbsoluteUrl = (url: string, baseUrl = document.baseURI) =>
   isRelativeUrl(url) ? new URL(url, baseUrl).href : url;
 
-export const cloneObject = <T>(x: Record<string, any>): T => JSON.parse(JSON.stringify(x));
+export const cloneObject = /* @__PURE__ */ <T>(x: Record<string, any>): T =>
+  JSON.parse(JSON.stringify(x));
 
-export const objectMap = (
+export const objectMap = /* @__PURE__ */ (
   obj: Record<string, any>,
   fn: (value: any, key: string, index: number) => any,
 ) => Object.fromEntries(Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)]));
 
-export const objectFilter = (
+export const objectFilter = /* @__PURE__ */ (
   obj: Record<string, any>,
   predicate: (value: any, key: string, index: number) => any,
 ) => Object.fromEntries(Object.entries(obj).filter(([k, v], i) => predicate(v, k, i)));
 
-export const copyToClipboard = (text: string) => {
+export const copyToClipboard = /* @__PURE__ */ (text: string) => {
   if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
     const textarea = document.createElement('textarea');
     textarea.textContent = text;
@@ -101,7 +107,7 @@ export const copyToClipboard = (text: string) => {
   return false;
 };
 
-export const stringToValidJson = (str: string) =>
+export const stringToValidJson = /* @__PURE__ */ (str: string) =>
   str
     .replace(/'[^'"]*'(?=(?:[^"]*"[^"]*")*[^"]*$)/g, function replaceSingleQuotes(matchedStr) {
       return '"' + matchedStr.substring(1, matchedStr.length - 1) + '"';
@@ -114,7 +120,7 @@ export const stringToValidJson = (str: string) =>
     )
     .replace(/,\s*([\]}])/g, '$1'); // remove trailing comma
 
-export const stringify = (obj: any, pretty = false) => {
+export const stringify = /* @__PURE__ */ (obj: any, pretty = false) => {
   try {
     return JSON.stringify(obj, undefined, pretty ? 2 : undefined);
   } catch {
@@ -122,7 +128,8 @@ export const stringify = (obj: any, pretty = false) => {
   }
 };
 
-export const getRandomString = () => String(Math.random()) + '-' + Date.now().toFixed();
+export const getRandomString = /* @__PURE__ */ () =>
+  String(Math.random()) + '-' + Date.now().toFixed();
 
 export const downloadFile = (filename: string, extension: string, content: string) => {
   const a = document.createElement('a');
@@ -133,7 +140,7 @@ export const downloadFile = (filename: string, extension: string, content: strin
   a.remove();
 };
 
-export const loadScript = (url: string, name?: string) =>
+export const loadScript = /* @__PURE__ */ (url: string, name?: string) =>
   new Promise((resolve, reject) => {
     if (name && (globalThis as any)[name]) {
       return resolve((globalThis as any)[name]);
@@ -188,21 +195,22 @@ export const loadStylesheet = (url: string, id?: string, insertBefore?: string) 
   );
 };
 
-export const typedArrayToBuffer = (array: Uint8Array): ArrayBuffer =>
+export const typedArrayToBuffer = /* @__PURE__ */ (array: Uint8Array): ArrayBuffer =>
   array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset);
 
-export const getDate = () => {
+export const getDate = /* @__PURE__ */ () => {
   let date = new Date();
   const offset = date.getTimezoneOffset();
   date = new Date(date.getTime() - offset * 60 * 1000);
   return date.toISOString().split('T')[0];
 };
 
-export const handleFetchError = (res: Response) => (res.ok ? res : Promise.reject());
+export const handleFetchError = /* @__PURE__ */ (res: Response) =>
+  res.ok ? res : Promise.reject();
 export const fetchWithHandler = (input: RequestInfo, init?: RequestInit) =>
   fetch(input, init).then(handleFetchError);
 
-export const blobToBase64 = (file: Blob): Promise<string> =>
+export const blobToBase64 = /* @__PURE__ */ (file: Blob): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -210,7 +218,7 @@ export const blobToBase64 = (file: Blob): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-export const Uint8ArrayToBase64 = (u8: Uint8Array) => {
+export const Uint8ArrayToBase64 = /* @__PURE__ */ (u8: Uint8Array) => {
   const CHUNK_SZ = 0x8000;
   const c = [];
   for (let i = 0; i < u8.length; i += CHUNK_SZ) {
@@ -219,14 +227,14 @@ export const Uint8ArrayToBase64 = (u8: Uint8Array) => {
   return btoa(c.join(''));
 };
 
-export const base64ToUint8Array = (str: string) =>
+export const base64ToUint8Array = /* @__PURE__ */ (str: string) =>
   new Uint8Array(
     atob(str)
       .split('')
       .map((c) => c.charCodeAt(0)),
   );
 
-export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
+export const typedArraysAreEqual = /* @__PURE__ */ (a: Uint8Array, b: Uint8Array) => {
   if (a === b) {
     return true;
   }
@@ -241,7 +249,7 @@ export const typedArraysAreEqual = (a: Uint8Array, b: Uint8Array) => {
   return true;
 };
 
-export const toDataUrl = (content: string, type = 'text/javascript') =>
+export const toDataUrl = /* @__PURE__ */ (content: string, type = 'text/javascript') =>
   `data:${type};charset=UTF-8;base64,` + encode(content);
 
 export const getWorkerDataURL = (url: string) => toDataUrl(`importScripts("${url}");`);
@@ -254,10 +262,10 @@ export const createWorkerFromContent = (content: string) => {
   }
 };
 
-export const removeComments = (src: string) =>
+export const removeComments = /* @__PURE__ */ (src: string) =>
   src.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1');
 
-export const removeStrings = (src: string) =>
+export const removeStrings = /* @__PURE__ */ (src: string) =>
   src
     .replace(/'[^\n']*'/gm, "''")
     .replace(/"[^\n"]*"/gm, '""')
@@ -265,11 +273,14 @@ export const removeStrings = (src: string) =>
 
 export const removeCommentsAndStrings = (src: string) => removeStrings(removeComments(src));
 
-export const getLanguageCustomSettings = (language: Language | Processor, config: Config) => ({
+export const getLanguageCustomSettings = /* @__PURE__ */ (
+  language: Language | Processor,
+  config: Config,
+) => ({
   ...(config.customSettings as any)[language],
 });
 
-export const getValidUrl = (url?: string) => {
+export const getValidUrl = /* @__PURE__ */ (url?: string) => {
   if (!url) return null;
   let validUrl = null;
   if (url.startsWith('http') || url.startsWith('data:')) {
@@ -287,22 +298,25 @@ export const getValidUrl = (url?: string) => {
 };
 
 export const runOrContinue =
-  <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) =>
-  async (x: T): Promise<T> => {
-    try {
-      const result = await fn(x);
-      return result;
-    } catch (error) {
-      if (typeof catchFn === 'function') {
-        catchFn(error);
+  /* @__PURE__ */
+
+    <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) =>
+    async (x: T): Promise<T> => {
+      try {
+        const result = await fn(x);
+        return result;
+      } catch (error) {
+        if (typeof catchFn === 'function') {
+          catchFn(error);
+        }
+        return x;
       }
-      return x;
-    }
-  };
+    };
 
-export const getFileExtension = (file: string) => file.split('.')[file.split('.').length - 1];
+export const getFileExtension = /* @__PURE__ */ (file: string) =>
+  file.split('.')[file.split('.').length - 1];
 
-export const isInIframe = () => {
+export const isInIframe = /* @__PURE__ */ () => {
   try {
     return window.self !== window.top;
   } catch {
@@ -310,10 +324,10 @@ export const isInIframe = () => {
   }
 };
 
-export const indentCode = (code: string, spaces: number, skipFirstLine = true) =>
+export const indentCode = /* @__PURE__ */ (code: string, spaces: number, skipFirstLine = true) =>
   (skipFirstLine ? '' : ' '.repeat(spaces)) + code.split('\n').join('\n' + ' '.repeat(spaces));
 
-export const hideOnClickOutside = (element: HTMLElement) => {
+export const hideOnClickOutside = /* @__PURE__ */ (element: HTMLElement) => {
   const hideElement = () => {
     element.style.display = 'none';
     removeListeners();
@@ -373,7 +387,7 @@ export const callWorker = async <T = string, K = unknown>(
     });
   });
 
-export const toCamelCase = (str: string) =>
+export const toCamelCase = /* @__PURE__ */ (str: string) =>
   str
     .replace(/[-_.]+/g, ' ')
     .trim()
@@ -382,9 +396,10 @@ export const toCamelCase = (str: string) =>
       return p1.toLowerCase();
     });
 
-export const removeDuplicates = (arr: any[] | undefined) => Array.from(new Set(arr));
+export const removeDuplicates = /* @__PURE__ */ (arr: any[] | undefined) =>
+  Array.from(new Set(arr));
 
-export const replaceAsync = async (
+export const replaceAsync = /* @__PURE__ */ async (
   str: string,
   regexp: RegExp,
   asyncFn: (...args: any) => Promise<string>,
