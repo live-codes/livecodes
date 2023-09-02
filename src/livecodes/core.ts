@@ -140,10 +140,10 @@ import { permanentUrlService } from './services/permanent-url';
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
-const notifications = createNotifications();
-const modal = createModal();
-let split: ReturnType<typeof createSplitPanes> | null = createSplitPanes();
-const typeLoader = createTypeLoader();
+let notifications: ReturnType<typeof createNotifications>;
+let modal: ReturnType<typeof createModal>;
+let split: ReturnType<typeof createSplitPanes> | null = null;
+let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 const iframeScrollPosition = { x: 0, y: 0 };
@@ -464,6 +464,19 @@ const updateEditors = async (editors: Editors, config: Config) => {
 };
 
 const showMode = (config: Config) => {
+  if (config.mode === 'full') {
+    if (params.view === 'editor') {
+      split?.show('code', true);
+    }
+    if (params.view === 'result') {
+      split?.show('output', true);
+    }
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+    split?.destroy();
+    split = null;
+  }
+
   const modes = {
     full: '111',
     editor: '110',
@@ -490,9 +503,11 @@ const showMode = (config: Config) => {
   editorsElement.style.display = 'flex';
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
-  gutterElement.style.display = 'block';
   runButton.style.visibility = 'visible';
   codeRunButton.style.visibility = 'visible';
+  if (gutterElement) {
+    gutterElement.style.display = 'block';
+  }
 
   if (!showToolbar) {
     toolbarElement.style.display = 'none';
@@ -3622,6 +3637,11 @@ const loadToolsPane = async () => {
 };
 
 const basicHandlers = () => {
+  notifications = createNotifications();
+  modal = createModal();
+  split = createSplitPanes();
+  typeLoader = createTypeLoader();
+
   handleLogoLink();
   handleResize();
   handleIframeResize();
@@ -3641,6 +3661,8 @@ const basicHandlers = () => {
     handleExternalResources();
     handleFullscreen();
   }
+
+  showMode(getConfig());
 };
 
 const extraHandlers = async () => {
@@ -3721,20 +3743,8 @@ const configureModes = ({
   isEmbed: boolean;
   isLite: boolean;
 }) => {
-  if (config.mode === 'full') {
-    if (params.view === 'editor') {
-      split?.show('code', true);
-    }
-    if (params.view === 'result') {
-      split?.show('output', true);
-    }
-  }
   if (config.mode === 'codeblock') {
     setConfig({ ...config, readonly: true });
-  }
-  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
-    split?.destroy();
-    split = null;
   }
   if (isLite) {
     configureLite();
@@ -3982,7 +3992,6 @@ const initializePlayground = async (
   loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
-  showMode(getConfig());
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
@@ -4007,7 +4016,7 @@ const initializePlayground = async (
   configureEmmet(getConfig());
 };
 
-const createApi = (): API => {
+const createApi = (deps: { showMode: (config: Config) => void }): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
   const apiGetConfig = async (contentOnly = false): Promise<Config> => {
@@ -4024,7 +4033,7 @@ const createApi = (): API => {
 
     // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
     if (newAppConfig.mode !== getConfig().mode) {
-      showMode(newAppConfig);
+      deps.showMode(newAppConfig);
     }
 
     setConfig(newAppConfig);
@@ -4144,7 +4153,7 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
     await loadToolsPane();
     await extraHandlers();
   });
-  return createApi();
+  return createApi({ showMode });
 };
 
 const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
@@ -4152,20 +4161,29 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
     basicHandlers();
     await loadToolsPane();
   });
-  return createApi();
+  return createApi({ showMode });
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
-  return createApi();
+  return createApi({ showMode });
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
+    notifications = {
+      info: () => undefined,
+      success: () => undefined,
+      warning: () => undefined,
+      error: () => undefined,
+      confirm: () => undefined,
+    };
+    modal = { show: () => undefined, close: () => undefined };
+    typeLoader = { load: async () => [] };
     handleConsole();
     handleTestResults();
   });
-  return createApi();
+  return createApi({ showMode: () => undefined });
 };
 
 export { initApp, initEmbed, initLite, initHeadless };

@@ -136,7 +136,9 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
         const app = (iframe.contentWindow as any)?.app;
         if (typeof app === 'function') {
           const api: API = await app(config, baseUrl);
-          iframe.style.display = 'block';
+          if (!isHeadless) {
+            iframe.style.display = 'block';
+          }
           window.dispatchEvent(
             new CustomEvent(customEvents.appLoaded, {
               detail: api,
