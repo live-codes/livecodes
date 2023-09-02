@@ -10,12 +10,43 @@ export interface API {
     options?: { full?: boolean; line?: number; column?: number; zoom?: Config['zoom'] },
   ) => Promise<void>;
   runTests: () => Promise<{ results: TestResult[] }>;
+  /**
+   * Runs a callback function when code changes.
+   *
+   * @deprecated Use the {@link watch} method instead.
+   */
   onChange: (fn: ChangeHandler) => { remove: () => void };
+  watch: WatchFn;
   exec: (command: APICommands, ...args: any[]) => Promise<{ output: any } | { error: string }>;
   destroy: () => Promise<void>;
 }
 
-export type ChangeHandler = ({ code, config }: { code: Code; config: Config }) => void;
+export type ChangeHandler = SDKCodeHandler;
+export type SDKReadyHandler = (data: { config: Config }) => void;
+export type SDKCodeHandler = (data: { code: Code; config: Config }) => void;
+export type SDKConsoleHandler = (data: { method: string; args: any[] }) => void;
+export type SDKTestsHandler = (data: { results: TestResult[]; error?: string }) => void;
+export type SDKGenericHandler = () => void;
+
+export type WatchFns =
+  | ((event: 'load', fn: SDKGenericHandler) => { remove: SDKGenericHandler })
+  | ((event: 'ready', fn: SDKReadyHandler) => { remove: SDKGenericHandler })
+  | ((event: 'code', fn: SDKCodeHandler) => { remove: SDKGenericHandler })
+  | ((event: 'console', fn: SDKConsoleHandler) => { remove: SDKGenericHandler })
+  | ((event: 'tests', fn: SDKTestsHandler) => { remove: SDKGenericHandler })
+  | ((event: 'destroy', fn: SDKGenericHandler) => { remove: SDKGenericHandler });
+
+export type SDKEvent = Parameters<WatchFns>[0];
+export type SDKEventHandler = Parameters<WatchFns>[1];
+
+export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I,
+) => void
+  ? I
+  : never;
+
+export type WatchFn = UnionToIntersection<WatchFns>;
+
 export type APICommands = 'setBroadcastToken' | 'showVersion';
 
 export interface Playground extends API {
@@ -925,6 +956,7 @@ export interface CustomEvents {
   ready: 'livecodes-ready';
   change: 'livecodes-change';
   testResults: 'livecodes-test-results';
+  console: 'livecodes-console';
   destroy: 'livecodes-destroy';
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';

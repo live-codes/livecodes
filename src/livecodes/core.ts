@@ -3319,7 +3319,23 @@ const handleCustomSettings = () => {
   registerScreen('custom-settings', createCustomSettingsUI);
 };
 
-const handleTests = () => {
+const handleConsole = () => {
+  eventsManager.addEventListener(window, 'message', (event: any) => {
+    if (event.origin !== sandboxService.getOrigin() || event.data.type !== 'console') {
+      return;
+    }
+    const message = event.data;
+    const args: any[] =
+      message.method === 'clear' ? [] : message.args?.map?.((arg: any) => arg.content ?? '') ?? [];
+    const consoleEvent = new CustomEvent<{ method: string; args: any[] }>(customEvents.console, {
+      detail: { method: message.method, args },
+    });
+    document.dispatchEvent(consoleEvent);
+    parent.dispatchEvent(consoleEvent);
+  });
+};
+
+const handleTestResults = () => {
   eventsManager.addEventListener(window, 'message', (ev: any) => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
@@ -3331,8 +3347,11 @@ const handleTests = () => {
       },
     );
     document.dispatchEvent(resultEvent);
+    parent.dispatchEvent(resultEvent);
   });
+};
 
+const handleTests = () => {
   eventsManager.addEventListener(
     UI.getRunTestsButton(),
     'click',
@@ -3616,6 +3635,8 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
+  handleTestResults();
+  handleConsole();
   if (isEmbed) {
     handleExternalResources();
     handleFullscreen();
@@ -4061,21 +4082,6 @@ const createApi = (): API => {
       runTests();
     });
 
-  const apiOnChange: API['onChange'] = (fn) => {
-    const handler = async function () {
-      fn({
-        code: await apiGetCode(),
-        config: await apiGetConfig(),
-      });
-    };
-    eventsManager.addEventListener(document, customEvents.change, handler);
-    return {
-      remove: () => {
-        eventsManager.removeEventListener(document, customEvents.change, handler);
-      },
-    };
-  };
-
   const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
     if (command === 'setBroadcastToken') {
       if (isEmbed) return { error: 'Command unavailable for embeds' };
@@ -4125,7 +4131,8 @@ const createApi = (): API => {
     getCode: () => call(() => apiGetCode()),
     show: (pane, options) => call(() => apiShow(pane, options)),
     runTests: () => call(() => apiRunTests()),
-    onChange: (fn) => callSync(() => apiOnChange(fn)),
+    onChange: () => callSync(() => ({ remove: () => undefined })),
+    watch: () => callSync(() => ({ remove: () => undefined })),
     exec: (command, ...args) => call(() => apiExec(command, ...args)),
     destroy: () => call(() => apiDestroy()),
   };
@@ -4148,13 +4155,16 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, async () => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
   return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
-  await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true });
+  await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
+    handleConsole();
+    handleTestResults();
+  });
   return createApi();
 };
 

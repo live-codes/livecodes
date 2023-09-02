@@ -8,6 +8,7 @@ export const customEvents: CustomEvents = {
   ready: 'livecodes-ready',
   change: 'livecodes-change',
   testResults: 'livecodes-test-results',
+  console: 'livecodes-console',
   destroy: 'livecodes-destroy',
   resizeEditor: 'livecodes-resize-editor',
   apiResponse: 'livecodes-api-response',

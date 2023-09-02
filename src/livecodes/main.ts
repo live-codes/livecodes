@@ -118,6 +118,18 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
         window.addEventListener(customEvents.change, () => {
           parent.postMessage({ type: customEvents.change }, anyOrigin);
         });
+
+        window.addEventListener(customEvents.testResults, (e: CustomEventInit) => {
+          parent.postMessage({ type: customEvents.testResults, payload: e.detail }, anyOrigin);
+        });
+
+        window.addEventListener(customEvents.console, (e: CustomEventInit) => {
+          parent.postMessage({ type: customEvents.console, payload: e.detail }, anyOrigin);
+        });
+
+        window.addEventListener(customEvents.destroy, () => {
+          parent.postMessage({ type: customEvents.destroy }, anyOrigin);
+        });
       }
 
       iframe.addEventListener('load', async () => {

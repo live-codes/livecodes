@@ -1,19 +1,38 @@
+/* eslint-disable no-redeclare */
 import type {
   API,
   Code,
   Config,
-  ChangeHandler,
   EmbedOptions,
   Playground,
   UrlQueryParams,
   CustomEvents,
+  SDKEvent,
+  SDKEventHandler,
+  SDKCodeHandler,
+  SDKGenericHandler,
 } from './models';
 
 export type { Code, Config, EmbedOptions, Playground };
-export const createPlayground = async (
+
+/**
+ * Creates a LiveCodes playground.
+ *
+ * @param {string | HTMLElement} container - The container where the playground will be rendered.
+ * @param {EmbedOptions} options - The embed options for the playground (optional).
+ * @return {Promise<Playground>} - A promise that resolves to the created playground.
+ */
+export async function createPlayground(
   container: string | HTMLElement,
+  options?: EmbedOptions,
+): Promise<Playground>;
+export async function createPlayground(
+  options: EmbedOptions & { view: 'headless' },
+): Promise<Playground>;
+export async function createPlayground(
+  container: string | HTMLElement | (EmbedOptions & { view: 'headless' }),
   options: EmbedOptions = {},
-): Promise<Playground> => {
+): Promise<Playground> {
   // allow headless to skip providing container
   if (
     typeof container === 'object' &&
@@ -36,15 +55,14 @@ export const createPlayground = async (
   } = options;
 
   const headless = view === 'headless';
-  let containerElement: HTMLElement | null;
+  let containerElement: HTMLElement | null = null;
 
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
-  } else {
+  } else if (container instanceof HTMLElement) {
     containerElement = container;
-  }
-  if (!container && !headless) {
-    throw new Error('Container element is required.');
+  } else if (!(headless && typeof container === 'object')) {
+    throw new Error('A valid container element is required.');
   }
   if (!containerElement) {
     if (headless) {
@@ -245,44 +263,69 @@ export const createPlayground = async (
       iframe.contentWindow?.postMessage({ method, id, args }, origin);
     });
 
-  let watchers: ChangeHandler[] = [];
-  const onChange = (fn: ChangeHandler) => {
+  const watchers: Partial<Record<SDKEvent, SDKEventHandler[]>> = {};
+  const sdkEvents: SDKEvent[] = ['load', 'ready', 'code', 'console', 'tests', 'destroy'];
+  const watch = (event: SDKEvent, fn: SDKEventHandler) => {
     if (destroyed) {
       throw new Error(alreadyDestroyedMessage);
     }
-    watchers.push(fn);
+    if (!sdkEvents.includes(event)) return { remove: () => undefined };
+
+    if (!watchers[event]) {
+      watchers[event] = [];
+    }
+    watchers[event]?.push(fn);
     return {
       remove: () => {
-        watchers = watchers.filter((w) => w !== fn);
+        watchers[event] = watchers[event]?.filter((w) => w !== fn);
       },
     };
   };
+
+  const mapEvent = (event: string): SDKEvent | undefined =>
+    ({
+      'livecodes-app-loaded': 'load',
+      'livecodes-ready': 'ready',
+      'livecodes-change': 'code',
+      'livecodes-console': 'console',
+      'livecodes-test-results': 'tests',
+      'livecodes-destroy': 'destroy',
+    }[event] as SDKEvent | undefined);
 
   addEventListener(
     'message',
     async (
       e: MessageEventInit<{
-        type: CustomEvents['change'];
+        type: CustomEvents[keyof CustomEvents];
+        payload?: any;
       }>,
     ) => {
-      if (
-        e.source !== iframe.contentWindow ||
-        e.origin !== origin ||
-        e.data?.type !== 'livecodes-change'
-      ) {
-        return;
-      }
-      const code = await callAPI<Code>('getCode');
-      const config = await callAPI<Config>('getConfig');
+      const sdkEvent = mapEvent(e.data?.type || '');
+      if (e.source !== iframe.contentWindow || e.origin !== origin || !sdkEvent) return;
 
-      watchers.forEach((fn) => {
-        fn({ code, config });
-      });
+      if (sdkEvent === 'code') {
+        const config = await callAPI<Config>('getConfig');
+        const code = await callAPI<Code>('getCode');
+        (watchers[sdkEvent] as SDKCodeHandler[])?.forEach((fn) => {
+          fn({ code, config });
+        });
+      } else if (sdkEvent === 'tests' || sdkEvent === 'console') {
+        const data = e.data?.payload ?? {};
+        watchers[sdkEvent]?.forEach((fn) => {
+          fn(data);
+        });
+      } else {
+        (watchers[sdkEvent] as SDKGenericHandler[])?.forEach((fn) => {
+          fn();
+        });
+      }
     },
   );
 
   const destroy = () => {
-    watchers.length = 0;
+    Object.values(watchers).forEach((watcher) => {
+      watcher.length = 0;
+    });
     if (containerElement) {
       containerElement.innerHTML = '';
     }
@@ -323,7 +366,8 @@ export const createPlayground = async (
     getCode: () => callAPI('getCode'),
     show: (pane, options) => callAPI('show', [pane, options]),
     runTests: () => callAPI('runTests'),
-    onChange: (fn) => onChange(fn),
+    onChange: (fn) => watch('code', fn),
+    watch,
     exec: (command, ...args) => callAPI('exec', [command, ...args]),
     destroy: () => {
       if (!livecodesReady.settled) {
@@ -336,7 +380,7 @@ export const createPlayground = async (
       return callAPI('destroy').then(destroy);
     },
   };
-};
+}
 
 if (
   globalThis.document && // to escape SSG in docusaurus
