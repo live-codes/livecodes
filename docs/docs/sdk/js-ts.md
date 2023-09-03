@@ -160,7 +160,7 @@ Default: `"split"`
 
 The [default view](../features/default-view.md) for the playground.
 
-When set to `"headless"`, the playground is loaded in [headless mode](../features/headless.md).
+When set to `"headless"`, the playground is loaded in [headless mode](./headless.md).
 
 ## SDK Methods
 
@@ -437,7 +437,7 @@ Example:
 ## Demo
 
 export const sdkDemo = {
-js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, Svelte!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
+js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, LiveCodes!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
 html: '<div id="container"></div>',
 }
 

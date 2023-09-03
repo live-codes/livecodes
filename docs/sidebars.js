@@ -63,7 +63,6 @@ const sidebars = {
             'features/integrations',
             'features/user-management',
             'features/security',
-            'features/headless',
             'features/self-hosting',
           ],
         },
@@ -83,7 +82,7 @@ const sidebars = {
             type: 'doc',
             id: 'sdk/index',
           },
-          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte'],
+          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte', 'sdk/headless'],
         },
         {
           type: 'category',

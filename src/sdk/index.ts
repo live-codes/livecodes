@@ -185,9 +185,6 @@ export async function createPlayground(
         resolve(frame);
       };
       frame.src = url.href;
-      if (!headless) {
-        containerElement.innerHTML = '';
-      }
       containerElement.appendChild(frame);
     });
 
@@ -326,9 +323,7 @@ export async function createPlayground(
     Object.values(watchers).forEach((watcher) => {
       watcher.length = 0;
     });
-    if (containerElement) {
-      containerElement.innerHTML = '';
-    }
+    iframe?.remove?.();
     destroyed = true;
   };
 

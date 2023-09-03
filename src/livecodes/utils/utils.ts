@@ -249,7 +249,7 @@ export const typedArraysAreEqual = /* @__PURE__ */ (a: Uint8Array, b: Uint8Array
   return true;
 };
 
-export const toDataUrl = /* @__PURE__ */ (content: string, type = 'text/javascript') =>
+export const toDataUrl = (content: string, type = 'text/javascript') =>
   `data:${type};charset=UTF-8;base64,` + encode(content);
 
 export const getWorkerDataURL = (url: string) => toDataUrl(`importScripts("${url}");`);
