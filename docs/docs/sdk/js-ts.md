@@ -60,9 +60,9 @@ createPlayground('#container', options).then((playground) => {
 
 :::caution Throws
 
-The `createPlayground` function throws an error in any of the following conditions:
+The `createPlayground` function throws an error (promise is rejected) in any of the following conditions:
 
-- The first parameter ([`container`](#createplayground)) is not an element or not found (by CSS selector).
+- The first parameter ([`container`](#createplayground)) is not an element or not found (by CSS selector), except in [headless mode](./headless.md).
 - The embed option [`appUrl`](#appurl) is supplied and is not a valid URL.
 - The embed option [`config`](#config) is supplied and is not an object or a valid URL.
 - Any of the [SDK methods](#sdk-methods) was called after calling the [`destroy`](#destroy) method.
@@ -342,7 +342,114 @@ createPlayground('#container').then(async (playground) => {
 });
 ```
 
+### `watch`
+
+Type: [docs](../api/interfaces/Playground.md#watch)
+
+```ts
+((event: 'load', fn: () => void) => { remove: () => void }) &
+((event: 'ready', fn: (data: { config: Config }) => void) => { remove: () => void }) &
+((event: 'code', fn: (data: { code: Code; config: Config }) => void) => { remove: () => void }) &
+((event: 'console', fn: (data: { method: string; args: any[] }) => void) => { remove: () => void }) &
+((event: 'tests', fn: (data: { results: TestResult[]; error?: string }) => void) => { remove: () => void }) &
+((event: 'destroy', fn: () => void) => { remove: () => void });
+```
+
+Allows to watch for various playground events. It takes 2 arguments: event name and a callback function that will be called on every event.
+
+In some events, the callback function will be called with an object that supplies relevant data to the callback function (e.g. code, console output, test results).
+
+The `watch` method returns an object with a single method `remove`, which when called will remove the callback from watching further events.
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container').then((playground) => {
+  const codeWatcher = playground.watch('code', ({ code, config }) => {
+    // this will run on every code change
+    console.log('code:', code);
+    console.log('config:', config);
+  });
+
+  const consoleWatcher = playground.watch('console', ({ method, args }) => {
+    // this will run on every console output
+    console[method](...args);
+  });
+
+  const testsWatcher = playground.watch('tests', ({ results }) => {
+    // this will run when tests run
+    results.forEach((testResult) => {
+      console.log('status:', testResult.status); // "pass" or "fail"
+      console.log(testResult.errors); // array of errors as strings
+    });
+  });
+
+  // then later
+  codeWatcher.remove();
+  consoleWatcher.remove();
+  testsWatcher.remove();
+  // events are no longer watched
+});
+```
+
+These are the events that can be watched and the description of their callback functions:
+
+- `"load"`: Called when the playground first loads.
+
+  ```ts
+  (
+    event: "load",
+    fn: () => void
+  ) => { remove: () => void }
+  ```
+
+- `"ready"`: Called when a project is loaded (including when [imported](../features/import.md)) and the playground is ready to run.
+
+  ```ts
+  (
+    event: "ready",
+    fn: (data: { config: Config }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"code"`: Called when the playground code is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)).
+
+  ```ts
+  (
+    event: "code",
+    fn: (data: { code: Code; config: Config }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"console"`: Called when the playground console gets new outputs. The callback method is passed an object with 2 properties: `"method"` (e.g. `"log"`, `"error"`, etc.) and `"args"` (the arguments passed to the method, as an array).
+
+  ```ts
+  (
+    event: "console",
+    fn: (data: { method: string; args: any[] }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"tests"`: Called when tests run and test results are available (see [`runTests`](./js-ts.md#runtests)).
+
+  ```ts
+  (
+    event: "tests",
+    fn: (data: { results: TestResult[]; error?: string }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"destroy"`: Called when the playground is destroyed.
+  ```ts
+  (
+    event: "destroy",
+    fn: () => void
+  ) => { remove: () => void }
+  ```
+
 ### `onChange`
+
+**Deprecated**: Use [`watch`](#watch) method instead.
 
 Type: [`(fn: ChangeHandler) => { remove: () => void }`](../api/interfaces/Playground.md#onchange)
 
