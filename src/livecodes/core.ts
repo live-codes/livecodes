@@ -1255,7 +1255,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
   return new Promise((resolve) => {
     const welcomeRecover = UI.getModalWelcomeRecover();
     if (isWelcomeScreen) {
-      welcomeRecover.style.display = 'unset';
+      welcomeRecover.style.display = 'block';
     } else {
       const div = document.createElement('div');
       div.innerHTML = recoverPromptScreen;
@@ -2795,6 +2795,9 @@ const handleWelcome = () => {
     showWelcomeCheckbox.checked = getConfig().welcome;
 
     eventsManager.addEventListener(UI.getWelcomeLinkNew(welcomeContainer), 'click', () => {
+      showScreen('new');
+    });
+    eventsManager.addEventListener(UI.getWelcomeLinkNewHero(welcomeContainer), 'click', () => {
       showScreen('new');
     });
     eventsManager.addEventListener(UI.getWelcomeLinkOpen(welcomeContainer), 'click', () => {

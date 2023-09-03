@@ -1,37 +1,41 @@
 :root {
-  --link-color: rgb(1, 100, 180);
+  --text-dark: rgb(39, 39, 42);
+  --text-default: rgb(75, 85, 99);
+  --text-light: rgb(161, 161, 170);
+  --link-color: rgb(14, 165, 233);
   --toolbar-text-color: rgb(237, 237, 237);
   --toolbar-text-active-color: rgb(237, 237, 237);
-  --toolbar-background-color: rgb(14, 24, 27);
-  --toolbar-background-active-color: rgb(68, 72, 87);
-  --editor-title-text-color: rgb(143, 154, 174);
-  --editor-title-text-active-color: rgb(237, 237, 237);
-  --background-color: rgb(14, 24, 27);
-  --foreground-color: rgb(90, 96, 116);
-  --split-bar-color: rgb(68, 72, 87);
+  --toolbar-background-color: rgb(39, 39, 42);
+  --toolbar-background-hover-color: rgb(63, 63, 70);
+  --toolbar-background-active-color: rgb(82, 82, 91);
+  --editor-title-text-color: rgb(212, 212, 216);
+  --editor-title-text-active-color: rgb(244, 244, 245);
+  --background-color: rgb(24, 24, 27);
+  --foreground-color: rgb(161, 161, 170);
+  --split-bar-color: rgb(82, 82, 91);
   --split-handle-color: rgb(237, 237, 237);
-  --button-color: rgb(90, 96, 116);
-  --button-hover-color: rgb(119, 124, 141);
-  --button-active-color: rgb(90, 96, 116);
+  --button-color: rgb(82, 82, 91);
+  --button-hover-color: rgb(113, 113, 122);
+  --button-active-color: rgb(161, 161, 170);
   --button-active-hover-color: rgb(119, 124, 141);
-  --language-menu-button-color: rgb(90, 96, 116);
-  --language-menu-button-hover-color: rgb(119, 124, 141);
-  --language-menu-button-active-color: rgb(43, 43, 43);
-  --language-menu-button-active-hover-color: rgb(119, 124, 141);
+  --language-menu-button-color: rgb(113, 113, 122);
+  --language-menu-button-hover-color: rgb(161, 161, 170);
+  --language-menu-button-active-color: rgb(161, 161, 170);
+  --language-menu-button-active-hover-color: rgb(161, 161, 170);
   --scrollbar-color: rgb(192, 192, 192);
   --scrollbar-hover-color: rgb(167, 167, 167);
   --scrollbar-active-color: rgb(175, 175, 175);
-  --toolspane-bar-text-color: rgb(237, 237, 237);
-  --toolspane-buttons-text-color: rgb(237, 237, 237);
-  --toolspane-button-color: rgb(90, 96, 116);
+  --toolspane-bar-text-color: rgb(244, 244, 245);
+  --toolspane-buttons-text-color: rgb(244, 244, 245);
+  --toolspane-button-color: rgb(82, 82, 91);
   --toolspane-accent-color: rgb(64, 169, 243);
-  --toolspane-non-accent-color: rgb(90, 96, 116);
+  --toolspane-non-accent-color: rgb(161, 161, 170);
   --console-background-color: rgb(237, 237, 237);
   --tests-background-color: rgb(237, 237, 237);
   --test-results-background-color: rgb(225, 225, 225, 0.7);
   --test-results-border-color: rgb(128, 128, 128);
-  --test-pass-color: rgb(0, 128, 0);
-  --test-fail-color: rgb(255, 0, 0);
+  --test-pass-color: rgb(5, 150, 105);
+  --test-fail-color: rgb(220, 38, 38);
   --size-label-color: rgba(225, 225, 225, 0.7);
   --menu-background-color: rgb(255, 255, 255);
   --menu-border-color: rgb(204, 204, 204);
@@ -40,8 +44,8 @@
   --menu-hover-color: rgb(231, 232, 241);
   --menu-text-color: rgb(34, 34, 34);
   --submenu-arrow-color: rgb(128, 128, 128);
-  --switch-off-color: rgb(204, 204, 204);
-  --switch-on-color: rgb(33, 150, 243);
+  --switch-off-color: rgb(212, 212, 216);
+  --switch-on-color: rgb(2, 132, 199);
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
@@ -52,10 +56,14 @@
 }
 
 :root.light {
+  --text-dark: rgb(39, 39, 42);
+  --text-default: rgb(75, 85, 99);
+  --text-light: rgb(161, 161, 170);
   --link-color: rgb(1, 100, 180);
   --toolbar-text-color: rgb(68, 72, 87);
   --toolbar-text-active-color: rgb(237, 237, 237);
   --toolbar-background-color: rgb(206, 205, 205);
+  --toolbar-background-hover-color: rgb(226, 226, 226);
   --toolbar-background-active-color: rgb(248, 248, 248);
   --editor-title-text-color: rgb(130, 130, 130);
   --editor-title-text-active-color: rgb(68, 72, 87);
@@ -64,7 +72,7 @@
   --split-bar-color: rgb(116, 116, 116);
   --split-handle-color: rgb(237, 237, 237);
   --button-color: rgb(116, 116, 116);
-  --button-hover-color: rgb(170, 170, 170);
+  --button-hover-color: rgb(116, 116, 116);
   --button-active-color: rgb(190, 190, 190);
   --button-active-hover-color: rgb(190, 190, 190);
   --language-menu-button-color: rgb(116, 116, 116);
@@ -145,7 +153,8 @@
 html,
 body {
   display: flex;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 1em;
   height: 100%;
   justify-content: center;
@@ -216,17 +225,19 @@ a {
 }
 
 #toolbar {
+  align-items: center;
   background: var(--background-color);
-  border-bottom: 3px solid var(--split-bar-color);
   color: var(--toolbar-text-color);
   display: flex;
-  height: 40px;
+  height: 44px;
+  justify-content: space-between;
   position: relative;
   width: 100%;
 
   #project-title {
     align-items: center;
     display: flex;
+    flex: 1 0;
     height: 100%;
     justify-content: center;
     margin-left: 10px;
@@ -252,12 +263,9 @@ a {
 
   #buttons {
     display: flex;
-    height: 100%;
-    justify-content: space-evenly;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 20%;
+    gap: 20%;
+    justify-content: flex-end;
+    padding-right: 5px;
   }
 }
 
@@ -320,8 +328,6 @@ a {
   display: flex;
   height: 35px;
   justify-content: center;
-  margin: auto;
-  margin-top: 3px;
   outline: none;
   width: 50px;
 }
@@ -486,7 +492,7 @@ a {
 }
 
 .tool-buttons {
-  background-color: var(--split-bar-color);
+  background-color: var(--toolbar-background-color);
   height: 30px;
   max-height: 30px;
   padding: 0;
@@ -658,7 +664,7 @@ a {
 .tools-pane-title {
   align-items: center;
   background-color: var(--toolspane-button-color);
-  border-bottom: 3px solid var(--toolspane-non-accent-color);
+  border-bottom: 2px solid var(--toolspane-non-accent-color);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -666,7 +672,7 @@ a {
   padding: 0 10px;
 
   &.active {
-    border-bottom: 3px solid var(--toolspane-accent-color);
+    border-bottom: 2px solid var(--toolspane-accent-color);
   }
 }
 
@@ -849,7 +855,7 @@ a {
 
 .gutter {
   align-items: center;
-  background-color: var(--split-bar-color);
+  background-color: var(--toolbar-background-color);
   display: flex !important;
   justify-content: center;
   position: relative;
@@ -912,10 +918,10 @@ a {
   > ul {
     align-items: stretch;
     display: flex;
-    height: 40px;
+    height: 42px;
     justify-content: space-between;
     margin: 0;
-    margin-top: 3px;
+    margin-top: 2px;
     width: 100%;
   }
 }
@@ -923,12 +929,12 @@ a {
 li.editor-title {
   align-items: center;
   background-color: var(--toolbar-background-color);
-  border: 2px solid var(--split-bar-color);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: var(--editor-title-text-color);
   cursor: pointer;
   display: flex;
+  height: 100%;
   justify-content: center;
   list-style: none;
   position: relative;
@@ -936,6 +942,10 @@ li.editor-title {
 
   &.half-width {
     width: 48%;
+  }
+
+  &:hover {
+    background-color: var(--toolbar-background-hover-color);
   }
 
   &.active {
@@ -1508,12 +1518,12 @@ i.arrow {
 
 #modal {
   background-color: var(--modal-background-color);
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  max-height: 80vh;
+  max-width: 1200px;
   opacity: 1;
-  padding: 10px;
   position: relative;
   width: 80vw;
 
@@ -1800,15 +1810,14 @@ i.arrow {
   }
 
   .modal-title {
-    color: rgb(47, 79, 79);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    color: #27272a;
     font-size: 1.4em;
     font-weight: 700;
-    height: 40px;
-    margin: 20px;
-  }
-
-  &.small .modal-title {
-    margin: 10px;
+    margin-bottom: 20px;
+    padding: 20px 30px;
+    width: 100%;
   }
 
   #prompt-screen {
@@ -1915,13 +1924,7 @@ i.arrow {
   }
 
   .modal-screen-container {
-    background-color: rgb(245, 245, 245);
-    border: 1px solid rgb(169, 169, 169);
-    border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
-    margin-bottom: 1em;
     min-height: calc(80% - 100px);
-    padding: 0.7em;
   }
 
   .tab-content {
@@ -1938,10 +1941,10 @@ i.arrow {
     align-items: center;
     display: flex;
     flex-direction: column;
-    flex-grow: 0.8;
+    flex-grow: 1;
+    gap: 20px;
     justify-content: space-around;
-    text-align: center;
-    width: 100%;
+    padding: 0 30px;
   }
 
   label {
@@ -2065,6 +2068,7 @@ i.arrow {
     }
 
     #share-links-container {
+      margin-top: 20px;
       position: relative;
     }
 
@@ -2338,131 +2342,157 @@ i.arrow {
   }
 
   #welcome-container {
-    overflow: unset;
+    #welcome-screen-container {
+      display: flex;
 
-    .modal-screen-container {
-      height: calc(95% - 140px);
-      overflow: scroll;
-    }
-
-    .modal-screen {
-      align-items: start;
-      flex-direction: column;
-      flex-wrap: wrap;
-      max-height: 40em;
-
-      &.no-recent {
-        max-height: 30em;
+      @media (max-width: 1140px) {
+        flex-direction: column;
       }
     }
 
-    .modal-section {
-      box-sizing: border-box;
-      margin-bottom: 1em;
-      padding-left: 1.5em;
-      text-align: start;
-      width: 48%;
+    a {
+      text-decoration: none;
+    }
 
-      &#welcome-recover {
-        display: none;
-        max-height: 12em;
-        overflow: hidden;
-        transition: max-height 0.7s ease-out;
+    .welcome-hero {
+      background: var(--background-color);
+      border-radius: 8px 0 0 8px;
+      padding: 30px 30px 80px;
+      position: relative;
+      width: 38.2%;
+
+      @media (max-width: 1140px) {
+        border-radius: 8px 8px 0 0;
+        padding: 30px 30px 90px;
+        width: unset;
+      }
+
+      .logo {
+        margin-bottom: 30px;
+        width: 100px;
+      }
+
+      h1 {
+        color: rgb(255, 255, 255);
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 1.1rem;
+        line-height: 1.4;
+        margin-top: 20px;
+      }
+
+      #welcome-link-new-hero {
+        align-items: center;
+        background: var(--test-pass-color);
+        border-radius: 5px;
+        color: rgba(255, 255, 255, 0.9);
+        display: flex;
+        gap: 0.8em;
+        justify-content: center;
+        margin-top: 30px;
+        padding: 15px 25px;
+        transition: 150ms;
+        width: fit-content;
+        will-change: transform;
+
+        img {
+          filter: invert(1);
+          height: 1.2em;
+          width: 1.2em;
+        }
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      #show-welcome {
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        bottom: 0;
+        color: var(--text-light);
+        display: flex;
+        left: 0;
+        padding: 10px 30px;
+        position: absolute;
+        width: calc(100% - 60px);
+      }
+    }
+
+    .welcome-nav {
+      display: flex;
+      flex: 1 0;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 30px;
+
+      .welcome-nav-column {
+        flex: 1 0;
+        min-width: 200px;
+        width: 100%;
+      }
+
+      ul {
+        list-style: none;
 
         li {
-          margin: 10px;
+          margin-bottom: 6px;
         }
-
-        .welcome-recover-actions {
-          display: flex;
-        }
-
-        .welcome-recover-actions > * {
-          align-items: center;
-          display: flex;
-          flex-grow: 1;
-          gap: 0.2em;
-        }
-      }
-
-      .default-template-li {
-        visibility: hidden;
-
-        .default-template {
-          display: none;
-        }
-      }
-
-      .more {
-        font-size: smaller;
-        margin-top: 0.3em;
       }
 
       h3 {
-        margin: 0.5em 0;
+
+        margin-bottom: 10px;
+
+        &:not(:first-child) {
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .default-template-li {
+      visibility: hidden;
+
+      .default-template {
+        display: none;
+      }
+    }
+
+    #welcome-recover {
+      background: #fef3c7;
+      border-radius: 5px;
+      color: #422006;
+      display: none;
+      margin-top: 20px;
+      overflow: hidden;
+      padding: 12px 12px 14px;
+      transition: max-height 0.7s ease-out;
+
+      .welcome-recover-actions {
+        display: flex;
       }
 
-      li {
+      .welcome-recover-actions > * {
         align-items: center;
         display: flex;
-        gap: 0.5em;
-        list-style: none;
-        margin-bottom: 0.2em;
+        flex-grow: 1;
+        gap: 0.2em;
       }
 
-      a {
-        text-decoration: none;
+      ul {
+        margin: 10px 0;
 
-        &:hover {
-          text-decoration: underline;
+        li {
+          margin: 0;
         }
-      }
-
-      img {
-        filter: opacity(0.7);
-        height: 1.2em;
-      }
-
-      .help-link img {
-        height: 0.8em;
-        margin-left: -0.5em;
-      }
-    }
-
-    @media only screen and (max-width: 768px) {
-      .modal-screen {
-        max-height: unset;
-
-        &.no-recent {
-          max-height: unset;
-        }
-      }
-
-      .modal-section {
-        width: unset;
-
-        &#welcome-recover {
-          order: -1;
-        }
-      }
-    }
-
-    #show-welcome {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-
-      label {
-        width: unset;
       }
     }
   }
 
   #about-container {
-    overflow: unset;
-
     .modal-screen-container {
-      height: calc(95% - 140px);
       overflow: scroll;
     }
 
@@ -2477,14 +2507,13 @@ i.arrow {
     .modal-section {
       box-sizing: border-box;
       margin-bottom: 1em;
-      padding-left: 1.5em;
+      padding: 0 30px 30px;
       text-align: start;
       width: 48%;
 
       &#about-info {
         line-height: 1.5em;
         margin: auto;
-        padding: 1em;
         width: 100%;
       }
 
@@ -2521,11 +2550,6 @@ i.arrow {
     @media only screen and (max-width: 768px) {
       .modal-screen {
         max-height: unset;
-      }
-
-      .modal-section {
-        padding-left: 0.5em;
-        width: 100%;
       }
     }
   }
@@ -2625,26 +2649,60 @@ i.arrow {
   }
 
   ul.thumbnails {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    box-sizing: border-box;
+    display: grid;
+    gap: 15px 15px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     list-style: none;
-    margin: 0;
-    padding: 0;
+    margin: 0 0 30px;
     width: 100%;
 
+    @media (max-width: 1400px) {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 400px) {
+      grid-template-columns: 1fr;
+    }
+
     li {
-      margin: 20px;
+      background: #fff;
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      font-weight: 500;
+      position: relative;
+      text-align: center;
+      transition: 200ms;
+      will-change: transform;
+
+      &:hover {
+        border: solid 1px var(--link-color);
+        transform: scale(1.05);
+      }
     }
 
     a {
-      color: unset;
+      box-sizing: border-box;
+      color: var(--text-dark);
+      display: block;
+      padding: 20px;
+      text-align: center;
       text-decoration: none;
+      width: 100%;
     }
 
     img {
-      height: 120px;
-      width: 120px;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      margin-bottom: 1em;
+      max-width: 100px;
+      width: 80%;
     }
   }
 
@@ -2699,9 +2757,7 @@ i.arrow {
   }
 
   .modal-content {
-    max-width: 100%;
-    min-width: calc(100% - 40px);
-    padding: 10px;
+    padding: 30px;
     text-align: left;
   }
 
@@ -2932,16 +2988,17 @@ i.arrow {
 
 .modal-container {
   display: inline-block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   margin: 0 auto;
   overflow: auto;
-  padding: 0 5%;
-  width: 90%;
+  width: 100%;
 }
 
 .modal-tabs {
   display: flex;
-  margin: 0 20px;
+  margin: 0 30px 20px;
   padding: 0;
 
   li {
