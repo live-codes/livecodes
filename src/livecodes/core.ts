@@ -3972,6 +3972,7 @@ const initializePlayground = async (
   isLite = options?.isLite ?? params.lite ?? false;
   isEmbed = isHeadless || isLite || (options?.isEmbed ?? false);
 
+  window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
   setConfig(buildConfig({ ...getConfig(), ...appConfig }));
