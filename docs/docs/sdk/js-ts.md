@@ -403,7 +403,7 @@ These are the events that can be watched and the description of their callback f
   ) => { remove: () => void }
   ```
 
-- `"ready"`: Called when a project is loaded (including when [imported](../features/import.md)) and the playground is ready to run.
+- `"ready"`: Called when a new project is loaded (including when [imported](../features/import.md)) and the playground is ready to run.
 
   ```ts
   (

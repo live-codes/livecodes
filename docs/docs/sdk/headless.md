@@ -4,7 +4,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 The LiveCodes [SDK](../sdk/index.md) can be used to create playgrounds in headless mode. In this mode, no visible output is displayed in the embedding web page. However, all [SDK methods](../sdk/js-ts.md#sdk-methods) are accessible (e.g. for [updating code](./js-ts.md#setconfig), [getting compiled code](./js-ts.md#getcode), console output, [result HTML](./js-ts.md#getcode), [shareable URLs](./js-ts.md#getshareurl), [formatting code](./js-ts.md#format), [running tests](./js-ts.md#runtests), etc).
 
-This provides the power of leveraging the wide range of features and language support offered by LiveCodes, while retaining full control over what gets displayed.
+This provides the power of leveraging the wide range of features and language support offered by LiveCodes, while retaining full control over the UI.
 
 ## Usage
 
