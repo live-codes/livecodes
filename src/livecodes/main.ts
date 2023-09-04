@@ -115,8 +115,8 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
           parent.postMessage({ type: customEvents.ready }, anyOrigin);
         });
 
-        window.addEventListener(customEvents.change, () => {
-          parent.postMessage({ type: customEvents.change }, anyOrigin);
+        window.addEventListener(customEvents.change, (e: CustomEventInit) => {
+          parent.postMessage({ type: customEvents.change, payload: e.detail }, anyOrigin);
         });
 
         window.addEventListener(customEvents.testResults, (e: CustomEventInit) => {

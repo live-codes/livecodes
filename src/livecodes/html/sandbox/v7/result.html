@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LiveCodes</title>
-    <script>
+    <script id="message-script" data-env="development">
       window.addEventListener('message', function (event) {
-        if (event.data.result) {
-          document.write(event.data.result);
+        var html = event.data.result || event.data.html;
+        if (html) {
+          document.write(html);
           document.close();
         }
       });

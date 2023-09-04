@@ -44,6 +44,7 @@ export const createResultPage = async ({
   } else {
     const utilsScript = dom.createElement('script');
     utilsScript.src = absoluteBaseUrl + '{{hash:result-utils.js}}';
+    utilsScript.dataset.env = 'development';
     dom.head.appendChild(utilsScript);
   }
 
@@ -269,6 +270,7 @@ export const createResultPage = async ({
   if (config.showSpacing && !forExport) {
     const spacingScript = dom.createElement('script');
     spacingScript.src = spacingJsUrl;
+    spacingScript.dataset.env = 'development';
     dom.body.appendChild(spacingScript);
   }
 
@@ -276,10 +278,12 @@ export const createResultPage = async ({
   if (runTests && !forExport) {
     const jestScript = dom.createElement('script');
     jestScript.src = jestLiteUrl;
+    jestScript.dataset.env = 'development';
     dom.body.appendChild(jestScript);
 
     const testScript = dom.createElement('script');
     testScript.type = 'module';
+    testScript.dataset.env = 'development';
     testScript.innerHTML = `
 const {
   afterAll,
@@ -306,4 +310,13 @@ window.jestLite.core.run().then(results => {
   }
 
   return '<!DOCTYPE html>\n' + dom.documentElement.outerHTML;
+};
+
+export const cleanResultFromDev = (result: string) => {
+  const resultDOM = new DOMParser().parseFromString(result, 'text/html');
+  const elements = resultDOM.querySelectorAll('[data-env="development"]');
+  elements.forEach((el) => {
+    el.remove();
+  });
+  return resultDOM.documentElement.outerHTML;
 };

@@ -9,8 +9,6 @@ import type {
   CustomEvents,
   SDKEvent,
   SDKEventHandler,
-  SDKCodeHandler,
-  SDKGenericHandler,
 } from './models';
 
 export type { Code, Config, EmbedOptions, Playground };
@@ -298,24 +296,18 @@ export async function createPlayground(
       }>,
     ) => {
       const sdkEvent = mapEvent(e.data?.type ?? '');
-      if (e.source !== iframe.contentWindow || e.origin !== origin || !sdkEvent) return;
-
-      if (sdkEvent === 'code') {
-        const config = await callAPI<Config>('getConfig');
-        const code = await callAPI<Code>('getCode');
-        (watchers[sdkEvent] as SDKCodeHandler[])?.forEach((fn) => {
-          fn({ code, config });
-        });
-      } else if (sdkEvent === 'tests' || sdkEvent === 'console') {
-        const data = e.data?.payload ?? {};
-        watchers[sdkEvent]?.forEach((fn) => {
-          fn(data);
-        });
-      } else {
-        (watchers[sdkEvent] as SDKGenericHandler[])?.forEach((fn) => {
-          fn();
-        });
+      if (
+        e.source !== iframe.contentWindow ||
+        e.origin !== origin ||
+        !sdkEvent ||
+        !watchers[sdkEvent]
+      ) {
+        return;
       }
+      const data = e.data?.payload;
+      watchers[sdkEvent]?.forEach((fn) => {
+        fn(data);
+      });
     },
   );
 

@@ -104,7 +104,7 @@ import {
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
 import { createTypeLoader, getDefaultTypes } from './types';
-import { createResultPage } from './result';
+import { cleanResultFromDev, createResultPage } from './result';
 import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
@@ -876,14 +876,15 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
-  setCache({
-    ...getCache(),
-    ...compiledCode,
-    result,
-    styleOnlyUpdate,
-  });
 
   if (singleFile) {
+    setCache({
+      ...getCache(),
+      ...compiledCode,
+      result: cleanResultFromDev(result),
+      styleOnlyUpdate,
+    });
+
     if (broadcastInfo.isBroadcasting) {
       broadcast();
     }
@@ -1185,11 +1186,19 @@ const loadTemplate = async (templateId: string) => {
   }
 };
 
-const dispatchChangeEvent = () => {
-  const changeEvent = new Event(customEvents.change);
+const dispatchChangeEvent = debounce(async () => {
+  if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+    await getResultPage({ forExport: true });
+  }
+  const changeEvent = new CustomEvent<{ code: Code; config: Config }>(customEvents.change, {
+    detail: {
+      code: getCachedCode(),
+      config: getConfig(),
+    },
+  });
   document.dispatchEvent(changeEvent);
   parent.dispatchEvent(changeEvent);
-};
+}, 50);
 
 const setSavedStatus = async () => {
   if (isEmbed) return;
@@ -3954,6 +3963,12 @@ const bootstrap = async (reload = false) => {
   if (isEmbed && !getConfig().tests?.content?.trim()) {
     toolsPane?.disableTool('tests');
   }
+
+  if (!reload) {
+    await loadDefaults();
+  }
+
+  parent.dispatchEvent(new Event(customEvents.ready));
 };
 
 const initializePlayground = async (
@@ -4007,10 +4022,6 @@ const initializePlayground = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();
-      await loadDefaults();
-    }
-    if (isEmbed) {
-      parent.dispatchEvent(new Event(customEvents.ready));
     }
     initialized = true;
   });
@@ -4044,7 +4055,9 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
 
   const apiGetCode = async (): Promise<Code> => {
     updateConfig();
-    await getResultPage({ forExport: true });
+    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+      await getResultPage({ forExport: true });
+    }
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
 
