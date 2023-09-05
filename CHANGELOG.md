@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.2.0](https://github.com/live-codes/livecodes/compare/v12...sdk-v0.2.0) (2023-09-05)
+
+This release introduces [headless mode](https://livecodes.io/docs/sdk/headless). It also added support to [watch](https://livecodes.io/docs/sdk/js-ts) for console output and test results.
+
+### Bug Fixes
+
+- **SDK:** fix race condition when calling SDK methods ([85ee589](https://github.com/live-codes/livecodes/commit/85ee589f1d475f17ffbb5021f98e2cf0725e1667))
+
+### Features
+
+- **SDK:** add support for headless playgrounds ([b312b88](https://github.com/live-codes/livecodes/commit/b312b881b85e24ff69f125d0a0cc8922f8352fea))
+- **SDK:** allow SDK to watch for console output and test results ([69f3f04](https://github.com/live-codes/livecodes/commit/69f3f045dbc589a0ecebe17c8e2785c640f2da6b))
+
+### Performance Improvements
+
+- **SDK:** do not load visual features when headless ([dab8ae9](https://github.com/live-codes/livecodes/commit/dab8ae9cd7e6893ccb571540938f4be23285fad4))
+- **SDK:** send data in custom SDK events only if being watched ([5810916](https://github.com/live-codes/livecodes/commit/58109167ce595cc9b87b68c7322fa30e99b290f9))
+
+---
+
 ## [v12](https://github.com/live-codes/livecodes/compare/v11...v12) (2023-08-20)
 
 ### Bug Fixes
