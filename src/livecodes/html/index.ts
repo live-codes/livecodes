@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
-import resultTemplateRaw from './sandbox/v7/result.html?raw';
+import resultTemplateRaw from './sandbox/v7/index.html?raw';
 // @ts-ignore
 import appHTMLRaw from './app.html?raw';
 // @ts-ignore
