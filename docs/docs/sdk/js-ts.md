@@ -30,10 +30,10 @@ import type { EmbedOptions, Playground } from 'livecodes';
 
 Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/modules.md#createplayground)
 
-The library exports the function `createPlayground` which takes 2 arguments:
+The library exports the function `createPlayground` which has 2 parameters:
 
 - `container` (required): `HTMLElement` or a string representing a CSS selector.  
-  If not found, an error is thrown.
+  If not found, an error is thrown (except in [headless mode](./headless.md), in which this parameter is optional and can be omitted).
 - `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
 The `createPlayground` function returns a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
