@@ -22,6 +22,7 @@ import {
   type Stores,
   type StorageItem,
 } from './storage';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type {
   API,
   Cache,
@@ -53,6 +54,7 @@ import type {
   Processor,
   APICommands,
   CompileInfo,
+  SDKEvent,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -61,6 +63,7 @@ import type {
   BroadcastResponseData,
   BroadcastResponseError,
 } from './UI/broadcast';
+import type { Formatter } from './formatter/models';
 import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
@@ -76,7 +79,7 @@ import {
   aboutScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
-import { createEventsManager } from './events';
+import { createEventsManager, createPub } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
@@ -103,7 +106,7 @@ import {
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
 import { createTypeLoader, getDefaultTypes } from './types';
-import { createResultPage } from './result';
+import { cleanResultFromDev, createResultPage } from './result';
 import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
@@ -139,10 +142,10 @@ import { permanentUrlService } from './services/permanent-url';
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
-const notifications = createNotifications();
-const modal = createModal();
-let split: ReturnType<typeof createSplitPanes> | null = createSplitPanes();
-const typeLoader = createTypeLoader();
+let notifications: ReturnType<typeof createNotifications>;
+let modal: ReturnType<typeof createModal>;
+let split: ReturnType<typeof createSplitPanes> | null = null;
+let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
 const params = getParams(); // query string params
 const iframeScrollPosition = { x: 0, y: 0 };
@@ -150,8 +153,9 @@ const iframeScrollPosition = { x: 0, y: 0 };
 let baseUrl: string;
 let isEmbed: boolean;
 let isLite: boolean;
+let isHeadless: boolean;
 let compiler: Await<ReturnType<typeof getCompiler>>;
-let formatter: ReturnType<typeof getFormatter>;
+let formatter: Formatter;
 let editors: Editors;
 let customEditors: CustomEditors;
 let toolsPane: ToolsPane | undefined;
@@ -174,6 +178,14 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
+const sdkWatchers = {
+  load: createPub<void>(),
+  ready: createPub<void>(),
+  code: createPub<{ code: Code; config: Config }>(),
+  tests: createPub<{ results: TestResult[]; error?: string }>(),
+  console: createPub<{ method: string; args: any[] }>(),
+  destroy: createPub<void>(),
+} as const satisfies Record<SDKEvent, ReturnType<typeof createPub<any>>>;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -181,20 +193,22 @@ const getActiveEditor = () => editors[getConfig().activeEditor || 'markup'];
 const setActiveEditor = async (config: Config) => showEditor(config.activeEditor);
 
 const loadStyles = () =>
-  Promise.all(
-    [
-      snackbarUrl,
-      hintCssUrl,
-      ...(isLite
-        ? []
-        : [
-            lunaObjViewerStylesUrl,
-            lunaDataGridStylesUrl,
-            lunaDomViewerStylesUrl,
-            lunaConsoleStylesUrl,
-          ]),
-    ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
-  );
+  isHeadless
+    ? Promise.resolve()
+    : Promise.all(
+        [
+          snackbarUrl,
+          hintCssUrl,
+          ...(isLite
+            ? []
+            : [
+                lunaObjViewerStylesUrl,
+                lunaDataGridStylesUrl,
+                lunaDomViewerStylesUrl,
+                lunaConsoleStylesUrl,
+              ]),
+        ].map((url) => loadStylesheet(url, undefined, '#app-styles')),
+      );
 
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
@@ -208,17 +222,21 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
       iframe = document.createElement('iframe');
       iframe.name = 'result';
       iframe.id = 'result-frame';
-      iframe.setAttribute(
-        'allow',
-        'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
-      );
-      iframe.setAttribute('allowtransparency', 'true');
-      iframe.setAttribute('allowpaymentrequest', 'true');
-      iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute(
-        'sandbox',
-        'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
-      );
+      if (isHeadless) {
+        iframe.setAttribute('sandbox', 'allow-same-origin allow-forms allow-scripts');
+      } else {
+        iframe.setAttribute(
+          'allow',
+          'accelerometer; camera; encrypted-media; display-capture; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; web-share',
+        );
+        iframe.setAttribute('allowtransparency', 'true');
+        iframe.setAttribute('allowpaymentrequest', 'true');
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.setAttribute(
+          'sandbox',
+          'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+        );
+      }
     }
 
     if (['codeblock', 'editor'].includes(getConfig().mode)) {
@@ -368,6 +386,7 @@ const createEditors = async (config: Config) => {
     theme: config.theme,
     ...getEditorConfig(config),
     isEmbed,
+    isHeadless,
     mapLanguage,
     getLanguageExtension,
     getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -424,10 +443,10 @@ const createEditors = async (config: Config) => {
     script: scriptEditor,
   };
 
-  (Object.keys(editors) as EditorId[]).forEach(async (editorId) => {
+  (Object.keys(editors) as EditorId[]).forEach((editorId) => {
     const language = editorLanguages?.[editorId] || 'html';
     applyLanguageConfigs(language);
-    editors[editorId].registerFormatter(await formatter.getFormatFn(language));
+    formatter.getFormatFn(language).then((fn) => editors[editorId].registerFormatter(fn));
     registerRun(editorId, editors);
   });
 
@@ -455,6 +474,19 @@ const updateEditors = async (editors: Editors, config: Config) => {
 };
 
 const showMode = (config: Config) => {
+  if (config.mode === 'full') {
+    if (params.view === 'editor') {
+      split?.show('code', true);
+    }
+    if (params.view === 'result') {
+      split?.show('output', true);
+    }
+  }
+  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+    split?.destroy();
+    split = null;
+  }
+
   const modes = {
     full: '111',
     editor: '110',
@@ -481,9 +513,11 @@ const showMode = (config: Config) => {
   editorsElement.style.display = 'flex';
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
-  gutterElement.style.display = 'block';
   runButton.style.visibility = 'visible';
   codeRunButton.style.visibility = 'visible';
+  if (gutterElement) {
+    gutterElement.style.display = 'block';
+  }
 
   if (!showToolbar) {
     toolbarElement.style.display = 'none';
@@ -852,14 +886,15 @@ const getResultPage = async ({
   });
 
   const styleOnlyUpdate = sourceEditor === 'style' && !compileInfo.cssModules;
-  setCache({
-    ...getCache(),
-    ...compiledCode,
-    result,
-    styleOnlyUpdate,
-  });
 
   if (singleFile) {
+    setCache({
+      ...getCache(),
+      ...compiledCode,
+      result: cleanResultFromDev(result),
+      styleOnlyUpdate,
+    });
+
     if (broadcastInfo.isBroadcasting) {
       broadcast();
     }
@@ -1108,7 +1143,8 @@ const loadConfig = async (
   setWindowTitle();
 
   // reset url params
-  updateUrl(url || location.origin + location.pathname, true);
+  const currentUrl = (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/';
+  updateUrl(url ?? currentUrl, true);
 
   // reset iframe scroll position
   iframeScrollPosition.x = 0;
@@ -1160,11 +1196,24 @@ const loadTemplate = async (templateId: string) => {
   }
 };
 
-const dispatchChangeEvent = () => {
-  const changeEvent = new Event(customEvents.change);
+const dispatchChangeEvent = debounce(async () => {
+  let changeEvent: CustomEvent<{ code: Code; config: Config } | void>;
+  if (sdkWatchers.code.hasSubscribers()) {
+    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+      await getResultPage({ forExport: true });
+    }
+    changeEvent = new CustomEvent(customEvents.change, {
+      detail: {
+        code: getCachedCode(),
+        config: getConfig(),
+      },
+    });
+  } else {
+    changeEvent = new CustomEvent(customEvents.change, { detail: undefined });
+  }
   document.dispatchEvent(changeEvent);
   parent.dispatchEvent(changeEvent);
-};
+}, 50);
 
 const setSavedStatus = async () => {
   if (isEmbed) return;
@@ -1305,6 +1354,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
 };
 
 const configureEmmet = async (config: Config) => {
+  if (isLite) return;
   [editors.markup, editors.style].forEach((editor, editorIndex) => {
     if (editor.monaco && editorIndex > 0) return; // emmet configuration for monaco is global
     editor.changeSettings(getEditorConfig(config));
@@ -2990,6 +3040,7 @@ const handleEmbed = () => {
       editorId: 'embed',
       getLanguageExtension,
       isEmbed,
+      isHeadless,
       language: 'html',
       mapLanguage,
       readonly: true,
@@ -3140,6 +3191,7 @@ const handleSnippets = () => {
       editorId: 'snippet',
       getLanguageExtension,
       isEmbed,
+      isHeadless,
       language: 'html',
       value: '',
       theme: getConfig().theme,
@@ -3255,6 +3307,7 @@ const handleCustomSettings = () => {
       value: stringify({ imports: {}, ...config.customSettings }, true),
       theme: config.theme,
       isEmbed,
+      isHeadless,
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -3305,20 +3358,52 @@ const handleCustomSettings = () => {
   registerScreen('custom-settings', createCustomSettingsUI);
 };
 
-const handleTests = () => {
+const handleConsole = () => {
+  eventsManager.addEventListener(window, 'message', (event: any) => {
+    if (event.origin !== sandboxService.getOrigin() || event.data.type !== 'console') {
+      return;
+    }
+
+    let consoleEvent: CustomEvent<{ method: string; args: any[] } | void>;
+    if (sdkWatchers.console.hasSubscribers()) {
+      const message = event.data;
+      const args: any[] =
+        message.method === 'clear'
+          ? []
+          : message.args?.map?.((arg: any) => arg.content ?? '') ?? [];
+      consoleEvent = new CustomEvent(customEvents.console, {
+        detail: { method: message.method, args },
+      });
+    } else {
+      consoleEvent = new CustomEvent(customEvents.console);
+    }
+
+    document.dispatchEvent(consoleEvent);
+    parent.dispatchEvent(consoleEvent);
+  });
+};
+
+const handleTestResults = () => {
   eventsManager.addEventListener(window, 'message', (ev: any) => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
-    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: string }>(
-      customEvents.testResults,
-      {
-        detail: JSON.parse(JSON.stringify(ev.data.payload)),
-      },
-    );
-    document.dispatchEvent(resultEvent);
-  });
 
+    let testResultsEvent: CustomEvent<{ results: TestResult[]; error?: string } | void>;
+    if (sdkWatchers.tests.hasSubscribers()) {
+      testResultsEvent = new CustomEvent(customEvents.testResults, {
+        detail: JSON.parse(JSON.stringify(ev.data.payload)),
+      });
+    } else {
+      testResultsEvent = new CustomEvent(customEvents.testResults);
+    }
+
+    document.dispatchEvent(testResultsEvent);
+    parent.dispatchEvent(testResultsEvent);
+  });
+};
+
+const handleTests = () => {
   eventsManager.addEventListener(
     UI.getRunTestsButton(),
     'click',
@@ -3379,6 +3464,7 @@ const handleTestEditor = () => {
       value: config.tests?.content || '',
       theme: config.theme,
       isEmbed,
+      isHeadless,
       mapLanguage,
       getLanguageExtension,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -3588,6 +3674,11 @@ const loadToolsPane = async () => {
 };
 
 const basicHandlers = () => {
+  notifications = createNotifications();
+  modal = createModal();
+  split = createSplitPanes();
+  typeLoader = createTypeLoader();
+
   handleLogoLink();
   handleResize();
   handleIframeResize();
@@ -3601,10 +3692,14 @@ const basicHandlers = () => {
   handleEditorTools();
   handleProcessors();
   handleResultLoading();
+  handleTestResults();
+  handleConsole();
   if (isEmbed) {
     handleExternalResources();
     handleFullscreen();
   }
+
+  showMode(getConfig());
 };
 
 const extraHandlers = async () => {
@@ -3685,20 +3780,8 @@ const configureModes = ({
   isEmbed: boolean;
   isLite: boolean;
 }) => {
-  if (config.mode === 'full') {
-    if (params.view === 'editor') {
-      split?.show('code', true);
-    }
-    if (params.view === 'result') {
-      split?.show('output', true);
-    }
-  }
   if (config.mode === 'codeblock') {
     setConfig({ ...config, readonly: true });
-  }
-  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
-    split?.destroy();
-    split = null;
   }
   if (isLite) {
     configureLite();
@@ -3890,32 +3973,55 @@ const bootstrap = async (reload = false) => {
       }
     });
   });
-  formatter.load(getEditorLanguages());
+  if (!isEmbed) {
+    // @ts-ignore
+    if (window.requestIdleCallback) {
+      requestIdleCallback(
+        () => {
+          formatter.load(getEditorLanguages());
+        },
+        { timeout: 15_000 },
+      );
+    } else {
+      setTimeout(() => {
+        formatter.load(getEditorLanguages());
+      }, 10_000);
+    }
+  }
   if (isEmbed && !getConfig().tests?.content?.trim()) {
     toolsPane?.disableTool('tests');
   }
+
+  if (!reload) {
+    await loadDefaults();
+  }
+
+  parent.dispatchEvent(new Event(customEvents.ready));
 };
 
-const initializeApp = async (
+const initializePlayground = async (
   options?: {
     config?: Partial<Config>;
     baseUrl?: string;
     isEmbed?: boolean;
     isLite?: boolean;
+    isHeadless?: boolean;
   },
   initializeFn?: () => void | Promise<void>,
 ) => {
   const appConfig = options?.config ?? {};
   baseUrl = options?.baseUrl ?? '/livecodes/';
-  isLite = options?.isLite ?? false;
-  isEmbed = isLite || (options?.isEmbed ?? false);
+  isHeadless = options?.isHeadless ?? false;
+  isLite = options?.isLite ?? params.lite ?? false;
+  isEmbed = isHeadless || isLite || (options?.isEmbed ?? false);
 
+  window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);
   loadUserConfig(/* updateUI = */ false);
   setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
-  formatter = getFormatter(getConfig(), baseUrl, isLite);
+  formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   createLanguageMenus(
     getConfig(),
@@ -3926,12 +4032,10 @@ const initializeApp = async (
     importExternalContent,
   );
   await createEditors(getConfig());
-  basicHandlers();
   await initializeFn?.();
   loadUserConfig(/* updateUI = */ true);
   loadStyles();
   await createIframe(UI.getResultElement());
-  showMode(getConfig());
   loadSelectedScreen();
   setTheme(getConfig().theme);
   if (!isEmbed) {
@@ -3946,17 +4050,13 @@ const initializeApp = async (
   }).then(async (contentImported) => {
     if (!contentImported) {
       await bootstrap();
-      await loadDefaults();
-    }
-    if (isEmbed) {
-      parent.dispatchEvent(new Event(customEvents.ready));
     }
     initialized = true;
   });
   configureEmmet(getConfig());
 };
 
-const createApi = (): API => {
+const createApi = (deps: { showMode: (config: Config) => void }): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
   const apiGetConfig = async (contentOnly = false): Promise<Config> => {
@@ -3973,7 +4073,7 @@ const createApi = (): API => {
 
     // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
     if (newAppConfig.mode !== getConfig().mode) {
-      showMode(newAppConfig);
+      deps.showMode(newAppConfig);
     }
 
     setConfig(newAppConfig);
@@ -3984,7 +4084,7 @@ const createApi = (): API => {
   const apiGetCode = async (): Promise<Code> => {
     updateConfig();
     if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-      await getResultPage({});
+      await getResultPage({ forExport: true });
     }
     return JSON.parse(JSON.stringify(getCachedCode()));
   };
@@ -4033,19 +4133,15 @@ const createApi = (): API => {
       runTests();
     });
 
-  const apiOnChange: API['onChange'] = (fn) => {
-    const handler = async function () {
-      fn({
-        code: await apiGetCode(),
-        config: await apiGetConfig(),
-      });
-    };
-    eventsManager.addEventListener(document, customEvents.change, handler);
-    return {
-      remove: () => {
-        eventsManager.removeEventListener(document, customEvents.change, handler);
-      },
-    };
+  const apiWatch: API['watch'] = (sdkEvent: SDKEvent, fn: any) => {
+    if (!(sdkEvent in sdkWatchers)) return { remove: () => undefined };
+    if (fn === 'unsubscribe') {
+      sdkWatchers[sdkEvent].unsubscribeAll();
+      return { remove: () => undefined };
+    }
+    const callback = typeof fn === 'function' ? fn : () => undefined;
+    const sub = sdkWatchers[sdkEvent].subscribe(callback);
+    return { remove: sub.unsubscribe };
   };
 
   const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
@@ -4074,6 +4170,7 @@ const createApi = (): API => {
     getAllEditors().forEach((editor) => editor?.destroy());
     eventsManager.removeEventListeners();
     Object.values(stores).forEach((store) => store?.unsubscribeAll?.());
+    Object.values(sdkWatchers).forEach((watcher) => watcher?.unsubscribeAll?.());
     parent.dispatchEvent(new Event(customEvents.destroy));
     formatter?.destroy();
     document.body.innerHTML = '';
@@ -4097,10 +4194,50 @@ const createApi = (): API => {
     getCode: () => call(() => apiGetCode()),
     show: (pane, options) => call(() => apiShow(pane, options)),
     runTests: () => call(() => apiRunTests()),
-    onChange: (fn) => callSync(() => apiOnChange(fn)),
+    onChange: (fn) => callSync(() => apiWatch('code', fn)),
+    watch: (sdkEvent, fn) => callSync(() => apiWatch(sdkEvent as any, fn as any)),
     exec: (command, ...args) => call(() => apiExec(command, ...args)),
     destroy: () => call(() => apiDestroy()),
   };
 };
 
-export { createApi, initializeApp, loadToolsPane, extraHandlers };
+const initApp = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl }, async () => {
+    basicHandlers();
+    await loadToolsPane();
+    await extraHandlers();
+  });
+  return createApi({ showMode });
+};
+
+const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
+    basicHandlers();
+    await loadToolsPane();
+  });
+  return createApi({ showMode });
+};
+const initLite = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
+    basicHandlers();
+  });
+  return createApi({ showMode });
+};
+const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+  await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
+    notifications = {
+      info: () => undefined,
+      success: () => undefined,
+      warning: () => undefined,
+      error: () => undefined,
+      confirm: () => undefined,
+    };
+    modal = { show: () => undefined, close: () => undefined };
+    typeLoader = { load: async () => [] };
+    handleConsole();
+    handleTestResults();
+  });
+  return createApi({ showMode: () => undefined });
+};
+
+export { initApp, initEmbed, initLite, initHeadless };

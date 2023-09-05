@@ -26,10 +26,14 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
   return codeEditor;
 };
 
-const selectEditor = (options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId'>>) => {
-  const { editor, mode, editorId } = options;
+const selectEditor = (
+  options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId' | 'isHeadless'>>,
+) => {
+  const { editor, mode, editorId, isHeadless } = options;
   return (
-    (mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
+    (isHeadless
+      ? 'fake'
+      : mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
       ? 'fake'
       : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
       ? editor

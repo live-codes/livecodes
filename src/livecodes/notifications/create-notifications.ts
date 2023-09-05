@@ -12,33 +12,37 @@ import {
 export const createNotifications = () => {
   const timeout = 2000;
 
-  const info = (message: string, dismissable = true) =>
+  const info = (message: string, dismissable = true) => {
     createSnackbar(message, {
       theme: infoTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
     });
+  };
 
-  const success = (message: string, dismissable = true) =>
+  const success = (message: string, dismissable = true) => {
     createSnackbar('✓ ' + message, {
       theme: successTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
     });
+  };
 
-  const warning = (message: string, dismissable = true) =>
+  const warning = (message: string, dismissable = true) => {
     createSnackbar(message, {
       theme: warningTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
     });
+  };
 
-  const error = (message: string, dismissable = true) =>
+  const error = (message: string, dismissable = true) => {
     createSnackbar('✖ ' + message, {
       theme: dangerTheme,
       actions: dismissable ? [closeButton] : [],
       timeout,
     });
+  };
 
   const confirm = (message: string, confirmCallback: () => void, cancelCallback?: () => void) => {
     const confirmAction: Action = {
@@ -55,7 +59,7 @@ export const createNotifications = () => {
         snackbar.destroy();
       },
     };
-    return createSnackbar(message, {
+    createSnackbar(message, {
       theme: lightTheme,
       actions: [confirmAction, cancelAction],
     });

@@ -23,22 +23,23 @@ In the full [standalone app](../getting-started.md#standalone-app), the JavaScri
 TypeScript types are [documented here](../api/modules.md) and can be imported from the library.
 
 ```ts
-import { createPlayground, EmbedOptions, Playground } from 'livecodes';
+import type { EmbedOptions, Playground } from 'livecodes';
 ```
 
 ## `createPlayground`
 
 Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playground>`](../api/modules.md#createplayground)
 
-The library exports the function `createPlayground` which takes 2 arguments:
+The library exports the function `createPlayground` which has 2 parameters:
 
-- `container` (required): HTMLElement or a string representing a CSS selector.
+- `container` (required): `HTMLElement` or a string representing a CSS selector.  
+  If not found, an error is thrown (except in [headless mode](./headless.md), in which this parameter is optional and can be omitted).
 - `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
-The `createPlayground` function return a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
+The `createPlayground` function returns a promise which resolves to an object that exposes the SDK methods ([Playground](../api/interfaces/Playground.md)).
 
 ```ts
-import { createPlayground, EmbedOptions } from 'livecodes';
+import { createPlayground, type EmbedOptions } from 'livecodes';
 
 const options: EmbedOptions = {
   // appUrl: ...
@@ -52,16 +53,27 @@ const options: EmbedOptions = {
 };
 
 createPlayground('#container', options).then((playground) => {
-  // `playground` object exposes the SDK methods
+  // the `playground` object exposes the SDK methods
   // e.g. playground.run()
 });
 ```
+
+:::caution Throws
+
+The `createPlayground` function throws an error (promise is rejected) in any of the following conditions:
+
+- The first parameter ([`container`](#createplayground)) is not an element or not found (by CSS selector), except in [headless mode](./headless.md).
+- The embed option [`appUrl`](#appurl) is supplied and is not a valid URL.
+- The embed option [`config`](#config) is supplied and is not an object or a valid URL.
+- Any of the [SDK methods](#sdk-methods) was called after calling the [`destroy`](#destroy) method.
+
+:::
 
 ## Embed Options
 
 Type: [`EmbedOptions`](../api/interfaces/EmbedOptions.md)
 
-The secong argument of the `createPlayground` function is an optional object with the following optional properties:
+The second argument of the `createPlayground` function is an optional object with the following optional properties:
 
 ### `appUrl`
 
@@ -71,6 +83,8 @@ Default: `"https://livecodes.io/"`
 
 Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../features/self-hosting.md), [permanent URL](../features/permanent-url.md)).
 
+If supplied with an invalid URL, an error is thrown.
+
 ### `config`
 
 Type: [`string | Partial<Config>`](../api/interfaces/EmbedOptions.md#config)
@@ -79,11 +93,13 @@ Default: `{}`
 
 A [configuration object](../configuration/configuration-object.md) or a URL to a JSON file representing a configuration object to load.
 
+If supplied and is not an object or a valid URL, an error is thrown.
+
 ### `import`
 
 Type: [`string`](../api/interfaces/EmbedOptions.md#import)
 
-A URL to [import](../features/import.md).
+A resource to [import](../features/import.md) (from any of the supported [sources](../features/import.md#sources)).
 
 ### `lite`
 
@@ -138,11 +154,13 @@ A [starter template](../features/templates.md) to load.
 
 ### `view`
 
-Type: [`"editor" | "result" | "split"`](../api/interfaces/EmbedOptions.md#view)
+Type: [`"editor" | "result" | "split" | "headless"`](../api/interfaces/EmbedOptions.md#view)
 
 Default: `"split"`
 
 The [default view](../features/default-view.md) for the playground.
+
+When set to `"headless"`, the playground is loaded in [headless mode](./headless.md).
 
 ## SDK Methods
 
@@ -324,7 +342,114 @@ createPlayground('#container').then(async (playground) => {
 });
 ```
 
+### `watch`
+
+Type: [docs](../api/interfaces/Playground.md#watch)
+
+```ts
+((event: 'load', fn: () => void) => { remove: () => void }) &
+((event: 'ready', fn: (data: { config: Config }) => void) => { remove: () => void }) &
+((event: 'code', fn: (data: { code: Code; config: Config }) => void) => { remove: () => void }) &
+((event: 'console', fn: (data: { method: string; args: any[] }) => void) => { remove: () => void }) &
+((event: 'tests', fn: (data: { results: TestResult[]; error?: string }) => void) => { remove: () => void }) &
+((event: 'destroy', fn: () => void) => { remove: () => void });
+```
+
+Allows to watch for various playground events. It takes 2 arguments: event name and a callback function that will be called on every event.
+
+In some events, the callback function will be called with an object that supplies relevant data to the callback function (e.g. code, console output, test results).
+
+The `watch` method returns an object with a single method `remove`, which when called will remove the callback from watching further events.
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container').then((playground) => {
+  const codeWatcher = playground.watch('code', ({ code, config }) => {
+    // this will run on every code change
+    console.log('code:', code);
+    console.log('config:', config);
+  });
+
+  const consoleWatcher = playground.watch('console', ({ method, args }) => {
+    // this will run on every console output
+    console[method](...args);
+  });
+
+  const testsWatcher = playground.watch('tests', ({ results }) => {
+    // this will run when tests run
+    results.forEach((testResult) => {
+      console.log('status:', testResult.status); // "pass" or "fail"
+      console.log(testResult.errors); // array of errors as strings
+    });
+  });
+
+  // then later
+  codeWatcher.remove();
+  consoleWatcher.remove();
+  testsWatcher.remove();
+  // events are no longer watched
+});
+```
+
+These are the events that can be watched and the description of their callback functions:
+
+- `"load"`: Called when the playground first loads.
+
+  ```ts
+  (
+    event: "load",
+    fn: () => void
+  ) => { remove: () => void }
+  ```
+
+- `"ready"`: Called when a new project is loaded (including when [imported](../features/import.md)) and the playground is ready to run.
+
+  ```ts
+  (
+    event: "ready",
+    fn: (data: { config: Config }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"code"`: Called when the playground code is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)).
+
+  ```ts
+  (
+    event: "code",
+    fn: (data: { code: Code; config: Config }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"console"`: Called when the playground console gets new outputs. The callback method is passed an object with 2 properties: `"method"` (e.g. `"log"`, `"error"`, etc.) and `"args"` (the arguments passed to the method, as an array).
+
+  ```ts
+  (
+    event: "console",
+    fn: (data: { method: string; args: any[] }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"tests"`: Called when tests run and test results are available (see [`runTests`](./js-ts.md#runtests)).
+
+  ```ts
+  (
+    event: "tests",
+    fn: (data: { results: TestResult[]; error?: string }) => void
+  ) => { remove: () => void }
+  ```
+
+- `"destroy"`: Called when the playground is destroyed.
+  ```ts
+  (
+    event: "destroy",
+    fn: () => void
+  ) => { remove: () => void }
+  ```
+
 ### `onChange`
+
+**Deprecated**: Use [`watch`](#watch) method instead.
 
 Type: [`(fn: ChangeHandler) => { remove: () => void }`](../api/interfaces/Playground.md#onchange)
 
@@ -374,7 +499,7 @@ await livecodes.exec('showVersion');
 
 Type: [`() => Promise<void>`](../api/interfaces/Playground.md#destroy)
 
-Destoys the playground instance, and removes event listeners. Further call to any SDK methods throws an error.
+Destroys the playground instance, and removes event listeners. Further call to any SDK methods throws an error.
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -419,7 +544,7 @@ Example:
 ## Demo
 
 export const sdkDemo = {
-js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, Svelte!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
+js: `import { createPlayground } from "livecodes";\n\nconst params = {\n  html: "<h1>Hello World!</h1>",\n  css: "h1 {color: blue;}",\n  js: 'console.log("Hello, LiveCodes!")',\n  console: "open",\n};\n\ncreatePlayground('#container', { params });\n`,
 html: '<div id="container"></div>',
 }
 

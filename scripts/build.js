@@ -62,10 +62,13 @@ const prepareDir = async () => {
   const fileNames = await getFileNames(outDir + '/livecodes/');
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
 
-  await fs.promises.copyFile(
-    path.resolve(__dirname + '/../src/_headers'),
-    path.resolve(outDir + '/_headers'),
-  );
+  if (process.env.CF_PAGES) {
+    // add headers in Cloudflare
+    await fs.promises.copyFile(
+      path.resolve(__dirname + '/../src/_headers'),
+      path.resolve(outDir + '/_headers'),
+    );
+  }
   await fs.promises.copyFile(
     path.resolve(__dirname + '/../src/favicon.ico'),
     path.resolve(outDir + '/favicon.ico'),
@@ -205,6 +208,7 @@ const esmBuild = () =>
       'app.ts',
       'embed.ts',
       'lite.ts',
+      'headless.ts',
       'templates/starter/index.ts',
       'editor/monaco/monaco.ts',
       'editor/codemirror/codemirror.ts',
