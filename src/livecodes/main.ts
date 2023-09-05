@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
-import type { API, CDN, Config, EmbedOptions } from './models';
+import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
 import { esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
@@ -107,29 +107,20 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
       containerElement.appendChild(iframe);
 
       if (isEmbed) {
-        window.addEventListener(customEvents.appLoaded, () => {
-          parent.postMessage({ type: customEvents.appLoaded }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.ready, () => {
-          parent.postMessage({ type: customEvents.ready }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.change, (e: CustomEventInit) => {
-          parent.postMessage({ type: customEvents.change, payload: e.detail }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.testResults, (e: CustomEventInit) => {
-          parent.postMessage({ type: customEvents.testResults, payload: e.detail }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.console, (e: CustomEventInit) => {
-          parent.postMessage({ type: customEvents.console, payload: e.detail }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.destroy, () => {
-          parent.postMessage({ type: customEvents.destroy }, anyOrigin);
-        });
+        const registerSDKEvent = (sdkEvent: CustomEvents[keyof CustomEvents], hasData = false) => {
+          window.addEventListener(sdkEvent, (e: CustomEventInit) => {
+            parent.postMessage(
+              { type: sdkEvent, ...(hasData ? { payload: e.detail } : {}) },
+              anyOrigin,
+            );
+          });
+        };
+        registerSDKEvent(customEvents.appLoaded);
+        registerSDKEvent(customEvents.ready);
+        registerSDKEvent(customEvents.change, true);
+        registerSDKEvent(customEvents.testResults, true);
+        registerSDKEvent(customEvents.console, true);
+        registerSDKEvent(customEvents.destroy);
       }
 
       iframe.addEventListener('load', async () => {
@@ -153,11 +144,18 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                 const { method, id, args } = e.data ?? {};
                 if (!method || !id) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
-                let payload;
+                let payload: any;
                 try {
                   payload = await (api[method] as any)(...methodArguments);
                 } catch (error: any) {
                   payload = { error: error.message || error };
+                }
+                if (typeof payload === 'object') {
+                  Object.keys(payload).forEach((key) => {
+                    if (typeof payload[key] === 'function') {
+                      delete payload[key];
+                    }
+                  });
                 }
                 parent.postMessage(
                   {

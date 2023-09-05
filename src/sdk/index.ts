@@ -266,6 +266,9 @@ export async function createPlayground(
     }
     if (!sdkEvents.includes(event)) return { remove: () => undefined };
 
+    // notify the app that there is a watcher to send data
+    callAPI('watch', [event]);
+
     if (!watchers[event]) {
       watchers[event] = [];
     }
@@ -273,6 +276,9 @@ export async function createPlayground(
     return {
       remove: () => {
         watchers[event] = watchers[event]?.filter((w) => w !== fn);
+        if (watchers[event]?.length === 0) {
+          callAPI('watch', [event, 'unsubscribe']);
+        }
       },
     };
   };

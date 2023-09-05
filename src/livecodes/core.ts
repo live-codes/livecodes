@@ -22,6 +22,7 @@ import {
   type Stores,
   type StorageItem,
 } from './storage';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type {
   API,
   Cache,
@@ -53,6 +54,7 @@ import type {
   Processor,
   APICommands,
   CompileInfo,
+  SDKEvent,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -77,7 +79,7 @@ import {
   aboutScreen,
 } from './html';
 import { exportJSON } from './export/export-json';
-import { createEventsManager } from './events';
+import { createEventsManager, createPub } from './events';
 import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
@@ -176,6 +178,14 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
+const sdkWatchers = {
+  load: createPub<void>(),
+  ready: createPub<void>(),
+  code: createPub<{ code: Code; config: Config }>(),
+  tests: createPub<{ results: TestResult[]; error?: string }>(),
+  console: createPub<{ method: string; args: any[] }>(),
+  destroy: createPub<void>(),
+} as const satisfies Record<SDKEvent, ReturnType<typeof createPub<any>>>;
 
 const getEditorLanguage = (editorId: EditorId = 'markup') => editorLanguages?.[editorId];
 const getEditorLanguages = () => Object.values(editorLanguages || {});
@@ -1187,15 +1197,20 @@ const loadTemplate = async (templateId: string) => {
 };
 
 const dispatchChangeEvent = debounce(async () => {
-  if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
-    await getResultPage({ forExport: true });
+  let changeEvent: CustomEvent<{ code: Code; config: Config } | void>;
+  if (sdkWatchers.code.hasSubscribers()) {
+    if (!cacheIsValid(getCache(), getContentConfig(getConfig()))) {
+      await getResultPage({ forExport: true });
+    }
+    changeEvent = new CustomEvent(customEvents.change, {
+      detail: {
+        code: getCachedCode(),
+        config: getConfig(),
+      },
+    });
+  } else {
+    changeEvent = new CustomEvent(customEvents.change, { detail: undefined });
   }
-  const changeEvent = new CustomEvent<{ code: Code; config: Config }>(customEvents.change, {
-    detail: {
-      code: getCachedCode(),
-      config: getConfig(),
-    },
-  });
   document.dispatchEvent(changeEvent);
   parent.dispatchEvent(changeEvent);
 }, 50);
@@ -3348,12 +3363,21 @@ const handleConsole = () => {
     if (event.origin !== sandboxService.getOrigin() || event.data.type !== 'console') {
       return;
     }
-    const message = event.data;
-    const args: any[] =
-      message.method === 'clear' ? [] : message.args?.map?.((arg: any) => arg.content ?? '') ?? [];
-    const consoleEvent = new CustomEvent<{ method: string; args: any[] }>(customEvents.console, {
-      detail: { method: message.method, args },
-    });
+
+    let consoleEvent: CustomEvent<{ method: string; args: any[] } | void>;
+    if (sdkWatchers.console.hasSubscribers()) {
+      const message = event.data;
+      const args: any[] =
+        message.method === 'clear'
+          ? []
+          : message.args?.map?.((arg: any) => arg.content ?? '') ?? [];
+      consoleEvent = new CustomEvent(customEvents.console, {
+        detail: { method: message.method, args },
+      });
+    } else {
+      consoleEvent = new CustomEvent(customEvents.console);
+    }
+
     document.dispatchEvent(consoleEvent);
     parent.dispatchEvent(consoleEvent);
   });
@@ -3364,14 +3388,18 @@ const handleTestResults = () => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
     toolsPane?.tests?.showResults(ev.data.payload);
-    const resultEvent = new CustomEvent<{ results: TestResult[]; error?: string }>(
-      customEvents.testResults,
-      {
+
+    let testResultsEvent: CustomEvent<{ results: TestResult[]; error?: string } | void>;
+    if (sdkWatchers.tests.hasSubscribers()) {
+      testResultsEvent = new CustomEvent(customEvents.testResults, {
         detail: JSON.parse(JSON.stringify(ev.data.payload)),
-      },
-    );
-    document.dispatchEvent(resultEvent);
-    parent.dispatchEvent(resultEvent);
+      });
+    } else {
+      testResultsEvent = new CustomEvent(customEvents.testResults);
+    }
+
+    document.dispatchEvent(testResultsEvent);
+    parent.dispatchEvent(testResultsEvent);
   });
 };
 
@@ -4105,6 +4133,17 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
       runTests();
     });
 
+  const apiWatch: API['watch'] = (sdkEvent: SDKEvent, fn: any) => {
+    if (!(sdkEvent in sdkWatchers)) return { remove: () => undefined };
+    if (fn === 'unsubscribe') {
+      sdkWatchers[sdkEvent].unsubscribeAll();
+      return { remove: () => undefined };
+    }
+    const callback = typeof fn === 'function' ? fn : () => undefined;
+    const sub = sdkWatchers[sdkEvent].subscribe(callback);
+    return { remove: sub.unsubscribe };
+  };
+
   const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
     if (command === 'setBroadcastToken') {
       if (isEmbed) return { error: 'Command unavailable for embeds' };
@@ -4131,6 +4170,7 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
     getAllEditors().forEach((editor) => editor?.destroy());
     eventsManager.removeEventListeners();
     Object.values(stores).forEach((store) => store?.unsubscribeAll?.());
+    Object.values(sdkWatchers).forEach((watcher) => watcher?.unsubscribeAll?.());
     parent.dispatchEvent(new Event(customEvents.destroy));
     formatter?.destroy();
     document.body.innerHTML = '';
@@ -4154,8 +4194,8 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
     getCode: () => call(() => apiGetCode()),
     show: (pane, options) => call(() => apiShow(pane, options)),
     runTests: () => call(() => apiRunTests()),
-    onChange: () => callSync(() => ({ remove: () => undefined })),
-    watch: () => callSync(() => ({ remove: () => undefined })),
+    onChange: (fn) => callSync(() => apiWatch('code', fn)),
+    watch: (sdkEvent, fn) => callSync(() => apiWatch(sdkEvent as any, fn as any)),
     exec: (command, ...args) => call(() => apiExec(command, ...args)),
     destroy: () => call(() => apiDestroy()),
   };
