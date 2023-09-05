@@ -4,9 +4,41 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v13](https://github.com/live-codes/livecodes/compare/sdk-v0.2.0...0.0.0) (2023-09-05)
+
+This release adds support for [headless mode](https://livecodes.io/docs/sdk/headless). It also adds support to [watch](https://livecodes.io/docs/sdk/js-ts) for console output and test results.
+
+AI code completion can be disallowed in embedded playgrounds using the query parameter `disableAI`.
+
+Formatter is lazy loaded in embedded playgrounds only when used.
+
+In addition, various bug fixes and performance improvements were made.
+
+### Bug Fixes
+
+- **app:** fix URL from "/app" to "/" ([09571c7](https://github.com/live-codes/livecodes/commit/09571c734067688af9f8fd360986c480e41b1956))
+- fix url update on `loadConfig` e.g. recover ([3400bd7](https://github.com/live-codes/livecodes/commit/3400bd7fb694613fd1de21dac70589a143c67fe9))
+- prevent using dev result for SDK code export ([6f4300e](https://github.com/live-codes/livecodes/commit/6f4300eacdf210e07807cfd51ec8e9c9d76985a9)), closes [#423](https://github.com/live-codes/livecodes/issues/423)
+
+### Features
+
+- **app:** allow disabling AI code completion ([c4c50f6](https://github.com/live-codes/livecodes/commit/c4c50f6aa43cca08986743a69591217093c8363c))
+- **services:** use sandbox service v7 ([26cda26](https://github.com/live-codes/livecodes/commit/26cda26635ff03816a83d04e30b15288cdcbc510))
+
+### Performance Improvements
+
+- **formatter:** lazy load formatter ([7e73849](https://github.com/live-codes/livecodes/commit/7e738494c62b5dbd79e1484484e15d4634080522))
+- mark pure utils & selector functions for tree shaking ([3fa8c91](https://github.com/live-codes/livecodes/commit/3fa8c912a8e4b4bc4175b0504e31b1326f4dfdf0))
+
+---
+
 ## [sdk-v0.2.0](https://github.com/live-codes/livecodes/compare/v12...sdk-v0.2.0) (2023-09-05)
 
-This release introduces [headless mode](https://livecodes.io/docs/sdk/headless). It also added support to [watch](https://livecodes.io/docs/sdk/js-ts) for console output and test results.
+This release introduces [headless mode](https://livecodes.io/docs/sdk/headless). It also added support to [watch](https://livecodes.io/docs/sdk/js-ts) for various events including: playground load, console output and test results.
+
+### DEPRECATION
+
+- The SDK method `onChange` is deprecated in favor of the more generic `watch` method which, in addition to code changes, also supports watching for test results and console outputs.
 
 ### Bug Fixes
 
