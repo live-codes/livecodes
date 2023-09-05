@@ -2,7 +2,10 @@
 declare module 'livecodes' {
     import type { Code, Config, EmbedOptions, Playground } from 'livecodes/models';
     export type { Code, Config, EmbedOptions, Playground };
-    export const createPlayground: (container: string | HTMLElement, options?: EmbedOptions) => Promise<Playground>;
+    export function createPlayground(container: string | HTMLElement, options?: EmbedOptions): Promise<Playground>;
+    export function createPlayground(options: EmbedOptions & {
+        view: 'headless';
+    }): Promise<Playground>;
 }
 declare module 'livecodes/models' {
     export interface API {
@@ -24,6 +27,7 @@ declare module 'livecodes/models' {
         onChange: (fn: ChangeHandler) => {
             remove: () => void;
         };
+        watch: WatchFn;
         exec: (command: APICommands, ...args: any[]) => Promise<{
             output: any;
         } | {
@@ -31,10 +35,40 @@ declare module 'livecodes/models' {
         }>;
         destroy: () => Promise<void>;
     }
-    export type ChangeHandler = ({ code, config }: {
+    export type ChangeHandler = SDKCodeHandler;
+    export type SDKReadyHandler = (data: {
+        config: Config;
+    }) => void;
+    export type SDKCodeHandler = (data: {
         code: Code;
         config: Config;
     }) => void;
+    export type SDKConsoleHandler = (data: {
+        method: string;
+        args: any[];
+    }) => void;
+    export type SDKTestsHandler = (data: {
+        results: TestResult[];
+        error?: string;
+    }) => void;
+    export type SDKGenericHandler = () => void;
+    export type WatchFns = ((event: 'load', fn: SDKGenericHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'ready', fn: SDKReadyHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'code', fn: SDKCodeHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'console', fn: SDKConsoleHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'tests', fn: SDKTestsHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'destroy', fn: SDKGenericHandler) => {
+        remove: SDKGenericHandler;
+    });
+    export type SDKEvent = Parameters<WatchFns>[0];
+    export type SDKEventHandler = Parameters<WatchFns>[1];
+    export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+    export type WatchFn = UnionToIntersection<WatchFns>;
     export type APICommands = 'setBroadcastToken' | 'showVersion';
     export interface Playground extends API {
         load: () => Promise<void>;
@@ -47,7 +81,7 @@ declare module 'livecodes/models' {
         lite?: boolean;
         loading?: 'lazy' | 'click' | 'eager';
         template?: TemplateName;
-        view?: 'split' | 'editor' | 'result';
+        view?: 'split' | 'editor' | 'result' | 'headless';
     }
     export interface Config extends ContentConfig, AppConfig, UserConfig {
     }
@@ -386,6 +420,7 @@ declare module 'livecodes/models' {
         editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'editorSettings' | 'tests' | 'embed' | 'snippet' | 'add-snippet';
         theme: Theme;
         isEmbed: boolean;
+        isHeadless: boolean;
         getLanguageExtension: (alias: string) => Language | undefined;
         mapLanguage: (language: Language) => Language;
         getFormatterConfig: () => Partial<FormatterConfig>;
@@ -536,6 +571,7 @@ declare module 'livecodes/models' {
         tags: string | string[];
         'no-defaults': boolean;
         scrollPosition: boolean;
+        disableAI: boolean;
         tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
         [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
@@ -548,6 +584,7 @@ declare module 'livecodes/models' {
         ready: 'livecodes-ready';
         change: 'livecodes-change';
         testResults: 'livecodes-test-results';
+        console: 'livecodes-console';
         destroy: 'livecodes-destroy';
         resizeEditor: 'livecodes-resize-editor';
         apiResponse: 'livecodes-api-response';

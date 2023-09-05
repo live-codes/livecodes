@@ -6,6 +6,11 @@
     <meta name="codeium:type" content="monaco" />
     <title>LiveCodes</title>
     <script>
+      const params = new URLSearchParams(location.search);
+      const disableAI = params.get('disableAI') != null && params.get('disableAI') !== 'false';
+      if (disableAI) {
+        document.querySelector('meta[name="codeium:type"]')?.setAttribute('content', 'none');
+      }
       window.addEventListener('message', function (event) {
         if (
           event.origin === window.location.origin &&

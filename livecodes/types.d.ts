@@ -18,6 +18,7 @@ declare module "sdk/models" {
         onChange: (fn: ChangeHandler) => {
             remove: () => void;
         };
+        watch: WatchFn;
         exec: (command: APICommands, ...args: any[]) => Promise<{
             output: any;
         } | {
@@ -25,10 +26,40 @@ declare module "sdk/models" {
         }>;
         destroy: () => Promise<void>;
     }
-    export type ChangeHandler = ({ code, config }: {
+    export type ChangeHandler = SDKCodeHandler;
+    export type SDKReadyHandler = (data: {
+        config: Config;
+    }) => void;
+    export type SDKCodeHandler = (data: {
         code: Code;
         config: Config;
     }) => void;
+    export type SDKConsoleHandler = (data: {
+        method: string;
+        args: any[];
+    }) => void;
+    export type SDKTestsHandler = (data: {
+        results: TestResult[];
+        error?: string;
+    }) => void;
+    export type SDKGenericHandler = () => void;
+    export type WatchFns = ((event: 'load', fn: SDKGenericHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'ready', fn: SDKReadyHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'code', fn: SDKCodeHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'console', fn: SDKConsoleHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'tests', fn: SDKTestsHandler) => {
+        remove: SDKGenericHandler;
+    }) | ((event: 'destroy', fn: SDKGenericHandler) => {
+        remove: SDKGenericHandler;
+    });
+    export type SDKEvent = Parameters<WatchFns>[0];
+    export type SDKEventHandler = Parameters<WatchFns>[1];
+    export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+    export type WatchFn = UnionToIntersection<WatchFns>;
     export type APICommands = 'setBroadcastToken' | 'showVersion';
     export interface Playground extends API {
         load: () => Promise<void>;
@@ -41,7 +72,7 @@ declare module "sdk/models" {
         lite?: boolean;
         loading?: 'lazy' | 'click' | 'eager';
         template?: TemplateName;
-        view?: 'split' | 'editor' | 'result';
+        view?: 'split' | 'editor' | 'result' | 'headless';
     }
     export interface Config extends ContentConfig, AppConfig, UserConfig {
     }
@@ -380,6 +411,7 @@ declare module "sdk/models" {
         editorId: EditorId | 'compiled' | 'console' | 'customSettings' | 'editorSettings' | 'tests' | 'embed' | 'snippet' | 'add-snippet';
         theme: Theme;
         isEmbed: boolean;
+        isHeadless: boolean;
         getLanguageExtension: (alias: string) => Language | undefined;
         mapLanguage: (language: Language) => Language;
         getFormatterConfig: () => Partial<FormatterConfig>;
@@ -530,6 +562,7 @@ declare module "sdk/models" {
         tags: string | string[];
         'no-defaults': boolean;
         scrollPosition: boolean;
+        disableAI: boolean;
         tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
         [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
@@ -542,6 +575,7 @@ declare module "sdk/models" {
         ready: 'livecodes-ready';
         change: 'livecodes-change';
         testResults: 'livecodes-test-results';
+        console: 'livecodes-console';
         destroy: 'livecodes-destroy';
         resizeEditor: 'livecodes-resize-editor';
         apiResponse: 'livecodes-api-response';
@@ -2245,7 +2279,7 @@ declare module "livecodes/formatter/formatter" {
 declare module "livecodes/formatter/get-formatter" {
     import type { Config } from "livecodes/models";
     import type { Formatter } from "livecodes/formatter/models";
-    export const getFormatter: (config: Config, baseUrl: string, isLite: boolean) => Formatter;
+    export const getFormatter: (config: Config, baseUrl: string, lazy: boolean) => Formatter;
 }
 declare module "livecodes/formatter/index" {
     export * from "livecodes/formatter/get-formatter";
@@ -2449,11 +2483,11 @@ declare module "livecodes/notifications/snackbar" {
 }
 declare module "livecodes/notifications/create-notifications" {
     export const createNotifications: () => {
-        info: (message: string, dismissable?: boolean) => import("@snackbar/core").Snackbar;
-        success: (message: string, dismissable?: boolean) => import("@snackbar/core").Snackbar;
-        warning: (message: string, dismissable?: boolean) => import("@snackbar/core").Snackbar;
-        error: (message: string, dismissable?: boolean) => import("@snackbar/core").Snackbar;
-        confirm: (message: string, confirmCallback: () => void, cancelCallback?: () => void) => import("@snackbar/core").Snackbar;
+        info: (message: string, dismissable?: boolean) => void;
+        success: (message: string, dismissable?: boolean) => void;
+        warning: (message: string, dismissable?: boolean) => void;
+        error: (message: string, dismissable?: boolean) => void;
+        confirm: (message: string, confirmCallback: () => void, cancelCallback?: () => void) => void;
     };
 }
 declare module "livecodes/notifications/index" {
@@ -2479,6 +2513,7 @@ declare module "livecodes/result/result-page" {
         runTests: boolean;
         compileInfo: CompileInfo;
     }) => Promise<string>;
+    export const cleanResultFromDev: (result: string) => string;
 }
 declare module "livecodes/result/utils" {
     export const typeOf: (obj: any) => string;
@@ -3083,43 +3118,37 @@ declare module "livecodes/UI/resources" {
 }
 declare module "livecodes/core" {
     import type { API, Config } from "livecodes/models";
-    let baseUrl: string;
-    let isEmbed: boolean;
-    let isLite: boolean;
-    const loadToolsPane: () => Promise<void>;
-    const extraHandlers: () => Promise<void>;
-    const initializeApp: (options?: {
-        config?: Partial<Config>;
-        baseUrl?: string;
-        isEmbed?: boolean;
-        isLite?: boolean;
-    }, initializeFn?: () => void | Promise<void>) => Promise<void>;
-    const createApi: () => API;
-    export { createApi, initializeApp, loadToolsPane, extraHandlers };
+    const initApp: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    const initEmbed: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    const initLite: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    const initHeadless: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    export { initApp, initEmbed, initLite, initHeadless };
 }
 declare module "livecodes/app" {
-    import type { API, Config } from "livecodes/models";
-    export const app: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    export const app: (config: Partial<import("sdk").Config>, baseUrl: string) => Promise<import("sdk/models").API>;
 }
 declare module "livecodes/embed" {
-    import type { API, Config } from "livecodes/models";
-    export const app: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    export const app: (config: Partial<import("sdk").Config>, baseUrl: string) => Promise<import("sdk/models").API>;
+}
+declare module "livecodes/headless" {
+    export const app: (config: Partial<import("sdk").Config>, baseUrl: string) => Promise<import("sdk/models").API>;
 }
 declare module "livecodes/main" {
     import type { API, Config, EmbedOptions } from "livecodes/models";
     export type { API, Config };
     export const params: URLSearchParams;
+    export const isHeadless: boolean;
     export const isLite: boolean;
     export const isEmbed: boolean;
     export const loadingParam: string | null;
     export const clickToLoad: boolean;
     export const loading: EmbedOptions['loading'];
+    export const disableAI: boolean;
     export const livecodes: (container: string, config?: Partial<Config>) => Promise<API>;
 }
 declare module "livecodes/index" { }
 declare module "livecodes/lite" {
-    import type { API, Config } from "livecodes/models";
-    export const app: (config: Partial<Config>, baseUrl: string) => Promise<API>;
+    export const app: (config: Partial<import("sdk").Config>, baseUrl: string) => Promise<import("sdk/models").API>;
 }
 declare module "livecodes/cache/__tests__/cache.spec" { }
 declare module "livecodes/compiler/compile.page" { }
@@ -4925,7 +4954,10 @@ declare module "livecodes/utils/__tests__/utils.spec" { }
 declare module "sdk/index" {
     import type { Code, Config, EmbedOptions, Playground } from "sdk/models";
     export type { Code, Config, EmbedOptions, Playground };
-    export const createPlayground: (container: string | HTMLElement, options?: EmbedOptions) => Promise<Playground>;
+    export function createPlayground(container: string | HTMLElement, options?: EmbedOptions): Promise<Playground>;
+    export function createPlayground(options: EmbedOptions & {
+        view: 'headless';
+    }): Promise<Playground>;
 }
 declare module "sdk/vue" {
     import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
