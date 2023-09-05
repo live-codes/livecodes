@@ -82,7 +82,7 @@ const sidebars = {
             type: 'doc',
             id: 'sdk/index',
           },
-          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte'],
+          items: ['sdk/js-ts', 'sdk/react', 'sdk/vue', 'sdk/svelte', 'sdk/headless'],
         },
         {
           type: 'category',

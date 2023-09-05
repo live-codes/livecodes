@@ -3,7 +3,7 @@
 // eslint-disable-next-line import/no-unresolved
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
-import type { API, CDN, Config, EmbedOptions } from './models';
+import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
 import { esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
@@ -11,9 +11,13 @@ import { modulesService } from './services/modules';
 export type { API, Config };
 
 export const params = new URLSearchParams(location.search);
+export const isHeadless = params.get('view') === 'headless';
 export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
 export const isEmbed =
-  isLite || (params.get('embed') != null && params.get('embed') !== 'false') || isInIframe();
+  isHeadless ||
+  isLite ||
+  (params.get('embed') != null && params.get('embed') !== 'false') ||
+  isInIframe();
 export const loadingParam = params.get('loading');
 export const clickToLoad = isEmbed && loadingParam !== 'eager';
 export const loading: EmbedOptions['loading'] = !isEmbed
@@ -30,7 +34,9 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     }
     const baseUrl =
       (location.origin + location.pathname).split('/').slice(0, -1).join('/') + '/livecodes/';
-    const scriptFile = isLite
+    const scriptFile = isHeadless
+      ? '{{hash:headless.js}}'
+      : isLite
       ? '{{hash:lite.js}}'
       : isEmbed
       ? '{{hash:embed.js}}'
@@ -92,31 +98,38 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
           .replace(
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
-          );
+          )
+          .replace(/src="[^"]*?\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str));
+
         iframe.contentWindow?.postMessage({ content: appContent }, location.origin);
         contentLoaded = true;
       };
       containerElement.appendChild(iframe);
 
       if (isEmbed) {
-        window.addEventListener(customEvents.appLoaded, () => {
-          parent.postMessage({ type: customEvents.appLoaded }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.ready, () => {
-          parent.postMessage({ type: customEvents.ready }, anyOrigin);
-        });
-
-        window.addEventListener(customEvents.change, () => {
-          parent.postMessage({ type: customEvents.change }, anyOrigin);
-        });
+        const registerSDKEvent = (sdkEvent: CustomEvents[keyof CustomEvents], hasData = false) => {
+          window.addEventListener(sdkEvent, (e: CustomEventInit) => {
+            parent.postMessage(
+              { type: sdkEvent, ...(hasData ? { payload: e.detail } : {}) },
+              anyOrigin,
+            );
+          });
+        };
+        registerSDKEvent(customEvents.appLoaded);
+        registerSDKEvent(customEvents.ready);
+        registerSDKEvent(customEvents.change, true);
+        registerSDKEvent(customEvents.testResults, true);
+        registerSDKEvent(customEvents.console, true);
+        registerSDKEvent(customEvents.destroy);
       }
 
       iframe.addEventListener('load', async () => {
         const app = (iframe.contentWindow as any)?.app;
         if (typeof app === 'function') {
           const api: API = await app(config, baseUrl);
-          iframe.style.display = 'block';
+          if (!isHeadless) {
+            iframe.style.display = 'block';
+          }
           window.dispatchEvent(
             new CustomEvent(customEvents.appLoaded, {
               detail: api,
@@ -125,22 +138,30 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
 
           addEventListener(
             'message',
-            async (e: MessageEventInit<{ method: keyof API; args: any }>) => {
+            async (e: MessageEventInit<{ method: keyof API; id: string; args: any }>) => {
               if (isEmbed) {
                 if (e.source !== parent) return;
-                const { method, args } = e.data || {};
-                if (!method) return;
+                const { method, id, args } = e.data ?? {};
+                if (!method || !id) return;
                 const methodArguments = Array.isArray(args) ? args : [args];
-                let payload;
+                let payload: any;
                 try {
                   payload = await (api[method] as any)(...methodArguments);
                 } catch (error: any) {
                   payload = { error: error.message || error };
                 }
+                if (typeof payload === 'object') {
+                  Object.keys(payload).forEach((key) => {
+                    if (typeof payload[key] === 'function') {
+                      delete payload[key];
+                    }
+                  });
+                }
                 parent.postMessage(
                   {
                     type: customEvents.apiResponse,
                     method,
+                    id,
                     payload,
                   },
                   anyOrigin,

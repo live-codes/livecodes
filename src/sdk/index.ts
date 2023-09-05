@@ -1,41 +1,75 @@
+/* eslint-disable no-redeclare */
 import type {
   API,
   Code,
   Config,
-  ChangeHandler,
   EmbedOptions,
   Playground,
   UrlQueryParams,
   CustomEvents,
+  SDKEvent,
+  SDKEventHandler,
 } from './models';
 
 export type { Code, Config, EmbedOptions, Playground };
-export const createPlayground = async (
+
+/**
+ * Creates a LiveCodes playground.
+ *
+ * @param {string | HTMLElement} container - The container where the playground will be rendered.
+ * @param {EmbedOptions} options - The embed options for the playground (optional).
+ * @return {Promise<Playground>} - A promise that resolves to the created playground.
+ */
+export async function createPlayground(
   container: string | HTMLElement,
+  options?: EmbedOptions,
+): Promise<Playground>;
+export async function createPlayground(
+  options: EmbedOptions & { view: 'headless' },
+): Promise<Playground>;
+export async function createPlayground(
+  container: string | HTMLElement | (EmbedOptions & { view: 'headless' }),
   options: EmbedOptions = {},
-): Promise<Playground> => {
+): Promise<Playground> {
+  // allow headless to skip providing container
+  if (
+    typeof container === 'object' &&
+    !(container instanceof HTMLElement) &&
+    (container as any).view === 'headless'
+  ) {
+    options = container;
+    container = null as any;
+  }
+
   const {
     appUrl = 'https://livecodes.io/',
     params = {},
     config = {},
     import: importFrom,
-    lite = false,
+    lite,
     loading = 'lazy',
     template,
     view = 'split',
   } = options;
 
-  let containerElement: HTMLElement | null;
+  const headless = view === 'headless';
+  let containerElement: HTMLElement | null = null;
+
   if (typeof container === 'string') {
     containerElement = document.querySelector(container);
-  } else {
+  } else if (container instanceof HTMLElement) {
     containerElement = container;
-  }
-  if (!container) {
-    throw new Error('Container element is required.');
+  } else if (!(headless && typeof container === 'object')) {
+    throw new Error('A valid container element is required.');
   }
   if (!containerElement) {
-    throw new Error(`Cannot find element: "${container}"`);
+    if (headless) {
+      containerElement = document.createElement('div');
+      hideElement(containerElement);
+      document.body.appendChild(containerElement);
+    } else {
+      throw new Error(`Cannot find element: "${container}"`);
+    }
   }
 
   let url: URL;
@@ -71,13 +105,14 @@ export const createPlayground = async (
   if (template) {
     url.searchParams.set('template', template);
   }
-
   if (importFrom) {
     url.searchParams.set('x', importFrom);
   }
-
-  url.searchParams.set(lite ? 'lite' : 'embed', 'true');
-  url.searchParams.set('loading', loading);
+  if (lite) {
+    url.searchParams.set('lite', 'true');
+  }
+  url.searchParams.set('embed', 'true');
+  url.searchParams.set('loading', headless ? 'eager' : loading);
   url.searchParams.set('view', view);
 
   let destroyed = false;
@@ -88,11 +123,11 @@ export const createPlayground = async (
       if (!containerElement) return;
 
       const height = containerElement.dataset.height || containerElement.style.height;
-      if (height) {
+      if (height && !headless) {
         const cssHeight = isNaN(Number(height)) ? height : height + 'px';
         containerElement.style.height = cssHeight;
       }
-      if (containerElement.dataset.defaultStyles !== 'false') {
+      if (containerElement.dataset.defaultStyles !== 'false' && !headless) {
         containerElement.style.backgroundColor ||= '#fff';
         containerElement.style.border ||= '1px solid black';
         containerElement.style.borderRadius ||= '5px';
@@ -120,12 +155,16 @@ export const createPlayground = async (
       const iframeLoading = loading === 'eager' ? 'eager' : 'lazy';
       frame.setAttribute('loading', iframeLoading);
       frame.classList.add('livecodes');
-      frame.style.height = '100%';
-      frame.style.minHeight = '200px';
-      frame.style.width = '100%';
-      frame.style.margin = '0';
-      frame.style.border = '0';
-      frame.style.borderRadius = containerElement.style.borderRadius;
+      if (headless) {
+        hideElement(frame);
+      } else {
+        frame.style.height = '100%';
+        frame.style.minHeight = '200px';
+        frame.style.width = '100%';
+        frame.style.margin = '0';
+        frame.style.border = '0';
+        frame.style.borderRadius = containerElement.style.borderRadius;
+      }
       addEventListener(
         'message',
         function configHandler(e: MessageEventInit<{ type: CustomEvents['getConfig'] }>) {
@@ -144,7 +183,6 @@ export const createPlayground = async (
         resolve(frame);
       };
       frame.src = url.href;
-      containerElement.innerHTML = '';
       containerElement.appendChild(frame);
     });
 
@@ -185,19 +223,23 @@ export const createPlayground = async (
         return reject(alreadyDestroyedMessage);
       }
       await loadLivecodes();
+      const id = getRandomString();
+
       addEventListener(
         'message',
         function handler(
           e: MessageEventInit<{
             type: CustomEvents['apiResponse'];
             method: keyof API;
+            id: string;
             payload?: any;
           }>,
         ) {
           if (
             e.source !== iframe.contentWindow ||
             e.origin !== origin ||
-            e.data?.type !== 'livecodes-api-response'
+            e.data?.type !== 'livecodes-api-response' ||
+            e.data?.id !== id
           ) {
             return;
           }
@@ -213,50 +255,73 @@ export const createPlayground = async (
           }
         },
       );
-      iframe.contentWindow?.postMessage({ method, args }, origin);
+      iframe.contentWindow?.postMessage({ method, id, args }, origin);
     });
 
-  let watchers: ChangeHandler[] = [];
-  const onChange = (fn: ChangeHandler) => {
+  const watchers: Partial<Record<SDKEvent, SDKEventHandler[]>> = {};
+  const sdkEvents: SDKEvent[] = ['load', 'ready', 'code', 'console', 'tests', 'destroy'];
+  const watch = (event: SDKEvent, fn: SDKEventHandler) => {
     if (destroyed) {
       throw new Error(alreadyDestroyedMessage);
     }
-    watchers.push(fn);
+    if (!sdkEvents.includes(event)) return { remove: () => undefined };
+
+    // notify the app that there is a watcher to send data
+    callAPI('watch', [event]);
+
+    if (!watchers[event]) {
+      watchers[event] = [];
+    }
+    watchers[event]?.push(fn);
     return {
       remove: () => {
-        watchers = watchers.filter((w) => w !== fn);
+        watchers[event] = watchers[event]?.filter((w) => w !== fn);
+        if (watchers[event]?.length === 0) {
+          callAPI('watch', [event, 'unsubscribe']);
+        }
       },
     };
   };
+
+  const mapEvent = (event: string): SDKEvent | undefined =>
+    ({
+      'livecodes-app-loaded': 'load',
+      'livecodes-ready': 'ready',
+      'livecodes-change': 'code',
+      'livecodes-console': 'console',
+      'livecodes-test-results': 'tests',
+      'livecodes-destroy': 'destroy',
+    }[event] as SDKEvent | undefined);
 
   addEventListener(
     'message',
     async (
       e: MessageEventInit<{
-        type: CustomEvents['change'];
+        type: CustomEvents[keyof CustomEvents];
+        payload?: any;
       }>,
     ) => {
+      const sdkEvent = mapEvent(e.data?.type ?? '');
       if (
         e.source !== iframe.contentWindow ||
         e.origin !== origin ||
-        e.data?.type !== 'livecodes-change'
+        !sdkEvent ||
+        !watchers[sdkEvent]
       ) {
         return;
       }
-      const code = await callAPI<Code>('getCode');
-      const config = await callAPI<Config>('getConfig');
-
-      watchers.forEach((fn) => {
-        fn({ code, config });
+      const data = e.data?.payload;
+      watchers[sdkEvent]?.forEach((fn) => {
+        fn(data);
       });
     },
   );
 
   const destroy = () => {
-    watchers.length = 0;
-    if (containerElement) {
-      containerElement.innerHTML = '';
-    }
+    Object.values(watchers).forEach((watcher) => {
+      watcher.length = 0;
+    });
+    iframe?.remove?.();
     destroyed = true;
   };
 
@@ -275,6 +340,15 @@ export const createPlayground = async (
     observer.observe(containerElement);
   }
 
+  function hideElement(el: HTMLElement) {
+    el.style.position = 'absolute';
+    el.style.top = '0';
+    el.style.visibility = 'hidden';
+    el.style.opacity = '0';
+  }
+
+  const getRandomString = () => (String(Math.random()) + Date.now().toFixed()).replace('0.', '');
+
   return {
     load: () => loadLivecodes(),
     run: () => callAPI('run'),
@@ -285,7 +359,8 @@ export const createPlayground = async (
     getCode: () => callAPI('getCode'),
     show: (pane, options) => callAPI('show', [pane, options]),
     runTests: () => callAPI('runTests'),
-    onChange: (fn) => onChange(fn),
+    onChange: (fn) => watch('code', fn),
+    watch,
     exec: (command, ...args) => callAPI('exec', [command, ...args]),
     destroy: () => {
       if (!livecodesReady.settled) {
@@ -298,7 +373,7 @@ export const createPlayground = async (
       return callAPI('destroy').then(destroy);
     },
   };
-};
+}
 
 if (
   globalThis.document && // to escape SSG in docusaurus

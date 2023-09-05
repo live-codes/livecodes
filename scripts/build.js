@@ -63,7 +63,7 @@ const prepareDir = async () => {
   await Promise.all(fileNames.map(async (f) => fs.promises.unlink(outDir + '/livecodes/' + f)));
 
   if (process.env.CF_PAGES) {
-    // add headers in Cloudflare 
+    // add headers in Cloudflare
     await fs.promises.copyFile(
       path.resolve(__dirname + '/../src/_headers'),
       path.resolve(outDir + '/_headers'),
@@ -208,6 +208,7 @@ const esmBuild = () =>
       'app.ts',
       'embed.ts',
       'lite.ts',
+      'headless.ts',
       'templates/starter/index.ts',
       'editor/monaco/monaco.ts',
       'editor/codemirror/codemirror.ts',

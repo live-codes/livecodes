@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LiveCodes Compiler Sandbox</title>
-    <script>
+    <script id="message-script" data-env="development">
       window.addEventListener('message', function (event) {
         if (event.data.type === 'init' && event.data.scriptUrl) {
           var script = document.createElement('script');

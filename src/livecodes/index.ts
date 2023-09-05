@@ -78,17 +78,21 @@ window.addEventListener(customEvents.appLoaded, (e: CustomEventInit) => {
   (window as any).livecodes = e.detail;
 });
 
-window.addEventListener(customEvents.ready, () => {
-  // project loaded
-});
+// window.addEventListener(customEvents.ready, () => {
+//   // project loaded
+// });
 
-window.addEventListener(customEvents.change, () => {
-  // content change
-});
+// window.addEventListener(customEvents.change, () => {
+//   // content changed
+// });
 
-window.addEventListener(customEvents.testResults, (_e: CustomEventInit) => {
-  // const testResults = e.detail;
-});
+// window.addEventListener(customEvents.testResults, (e: CustomEventInit) => {
+//   const testResults = e.detail;
+// });
+
+// window.addEventListener(customEvents.console, (e: CustomEventInit) => {
+//   const { method, args } = e.detail;
+// });
 
 window.addEventListener(customEvents.destroy, () => {
   window.removeEventListener('resize', resize);

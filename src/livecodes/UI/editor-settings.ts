@@ -159,6 +159,7 @@ export const createEditorSettingsUI = async ({
     editorId: 'editorSettings',
     getLanguageExtension: () => 'jsx',
     isEmbed: false,
+    isHeadless: false,
     language: 'jsx',
     mapLanguage: () => 'typescript',
     readonly: false,

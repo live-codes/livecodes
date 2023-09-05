@@ -6,7 +6,7 @@ sidebar_class_name: exclude_from_sidebar
 
 import LiveCodes from '../../src/components/LiveCodes.tsx'
 
-The SoftWare Development Kit (SDK) provides an easy, yet powerful, interface to embed and communicate with LiveCodes playgrounds.
+The Software Development Kit (SDK) provides an easy, yet powerful, interface to embed and communicate with LiveCodes playgrounds.
 
 The SDK is provided as a light-weight, zero-dependencies [npm package](#npm-package), that is also available from [CDNs](#cdn). It can be used to create playgrounds with a wide variety of [configurations](../configuration/configuration-object.md) and [embed options](js-ts.md#embed-options). In addition, [SDK methods](js-ts.md#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
 
@@ -95,6 +95,10 @@ The SDK is currently provided in the following variations:
 - [Vue](./vue.md)
 
 - [Svelte](./svelte.md)
+
+## Headless Mode
+
+The SDK also has a [headless mode](./headless.md). In this mode, no visible output is displayed in the embedding web page. However, all [SDK methods](../sdk/js-ts.md#sdk-methods) are accessible. This provides the power of leveraging the wide range of features and language support offered by LiveCodes, while retaining full control over the UI.
 
 ## SDK Playground!
 

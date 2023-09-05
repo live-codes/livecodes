@@ -4,12 +4,19 @@ import { getAppCDN } from '../services/modules';
 import type { Formatter, FormatterMessage, FormatterMessageEvent } from './models';
 
 export const createFormatter = (baseUrl: string): Formatter => {
-  const worker = new Worker(baseUrl + '{{hash:format.worker.js}}' + '?appCDN=' + getAppCDN());
-  const configMessage: FormatterMessage = { type: 'init', baseUrl };
-  worker.postMessage(configMessage);
+  let worker: Worker | undefined;
+
+  const initWorker = () => {
+    if (worker) return;
+    worker = new Worker(baseUrl + '{{hash:format.worker.js}}' + '?appCDN=' + getAppCDN());
+    const configMessage: FormatterMessage = { type: 'init', baseUrl };
+    worker.postMessage(configMessage);
+  };
 
   const load = async (languages: Language[]): Promise<string> =>
     new Promise((resolve, reject) => {
+      initWorker();
+
       const handler = (event: FormatterMessageEvent) => {
         const message = event.data;
 
@@ -17,7 +24,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
           (message.type === 'loaded' || message.type === 'load-failed') &&
           message.payload === languages
         ) {
-          worker.removeEventListener('message', handler);
+          worker?.removeEventListener('message', handler);
 
           if (message.type === 'loaded') {
             resolve('loaded formatter for: ' + languages.join(', '));
@@ -26,18 +33,20 @@ export const createFormatter = (baseUrl: string): Formatter => {
           }
         }
       };
-      worker.addEventListener('message', handler);
+      worker?.addEventListener('message', handler);
 
       const loadMessage: FormatterMessage = {
         type: 'load',
         payload: languages,
       };
-      worker.postMessage(loadMessage);
+      worker?.postMessage(loadMessage);
     });
 
   const getFormatFn = async (language: Language) => {
     const formatFn: FormatFn = (value: string, cursorOffset: number, formatterConfig = {}) =>
       new Promise((resolve, reject) => {
+        initWorker();
+
         const handler = (event: FormatterMessageEvent) => {
           const message = event.data;
 
@@ -47,7 +56,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
             message.payload.value === value &&
             message.payload.cursorOffset === cursorOffset
           ) {
-            worker.removeEventListener('message', handler);
+            worker?.removeEventListener('message', handler);
 
             if (message.type === 'formatted') {
               resolve({
@@ -63,7 +72,7 @@ export const createFormatter = (baseUrl: string): Formatter => {
             }
           }
         };
-        worker.addEventListener('message', handler);
+        worker?.addEventListener('message', handler);
 
         const formatMessage: FormatterMessage = {
           type: 'format',
@@ -74,14 +83,14 @@ export const createFormatter = (baseUrl: string): Formatter => {
             formatterConfig,
           },
         };
-        worker.postMessage(formatMessage);
+        worker?.postMessage(formatMessage);
       });
 
     return formatFn;
   };
 
   const destroy = () => {
-    worker.terminate();
+    worker?.terminate();
   };
 
   return {
