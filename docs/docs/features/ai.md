@@ -35,3 +35,23 @@ Currently, only [Monaco editor](./editor-settings.md#code-editor) on desktop Chr
 Please note that codeium extension sends your code to their servers for code completion. However, your code is not used for training their model. Check codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
 
 :::
+
+## Disabling AI Code Assistant
+
+Obviously, if you want to disable the AI code completion on your device, just disable the browser extension.
+
+However, if you want to prevent users from using AI code completion in playgrounds that you embed in your webpages (e.g. for code challenges or exercises), you may achieve that by adding the [query parameter](../configuration/query-params.md) `disableAI` (e.g. https://livecodes.io/?disableAI).
+
+Example:
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', {
+  params: {
+    html: '<h1>Hello LiveCodes!</h1>',
+    // highlight-next-line
+    disableAI: true,
+  },
+});
+```
