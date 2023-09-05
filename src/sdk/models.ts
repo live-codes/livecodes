@@ -944,6 +944,7 @@ export type UrlQueryParams = Partial<
       tags: string | string[];
       'no-defaults': boolean;
       scrollPosition: boolean;
+      disableAI: boolean;
       tools: 'open' | 'full' | 'closed' | 'console' | 'compiled' | 'tests' | 'none' | ToolsStatus;
     } & {
       [key in Tool['name']]: 'open' | 'full' | 'closed' | 'none' | '' | 'true';
