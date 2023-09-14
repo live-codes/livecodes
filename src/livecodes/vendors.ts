@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.7.6/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.8.0/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -33,6 +33,10 @@ export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.22.4/babel.j
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
 export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@9.3.3/');
+
+export const browserJestUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/browser-jest@0.0.2/dist/browser-jest.umd.js',
+);
 
 export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.2/');
 
@@ -181,8 +185,6 @@ export const hintCssUrl = /* @__PURE__ */ getUrl('hint.css@2.7.0/hint.min.css');
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 
 export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
-
-export const jestLiteUrl = /* @__PURE__ */ getUrl('jest-lite@1.0.0-alpha.4/dist/core.js');
 
 export const jestTypesUrl = /* @__PURE__ */ getUrl('@types/jest@27.4.1/index.d.ts');
 

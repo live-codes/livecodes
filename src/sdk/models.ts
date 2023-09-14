@@ -903,7 +903,7 @@ export interface EventsManager {
 export interface TestResult {
   duration: number;
   errors: string[];
-  status: 'pass' | 'fail';
+  status: 'pass' | 'fail' | 'skip';
   testPath: string[];
 }
 

@@ -3387,12 +3387,24 @@ const handleTestResults = () => {
   eventsManager.addEventListener(window, 'message', (ev: any) => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
-    toolsPane?.tests?.showResults(ev.data.payload);
+
+    let results = ev.data.payload?.results;
+    const error = ev.data.payload?.error;
+    if (Array.isArray(results)) {
+      results = results.map((result) => {
+        if (result.status === 'done') {
+          result.status = result.errors?.length === 0 ? 'pass' : 'fail';
+        }
+        return result;
+      });
+    }
+
+    toolsPane?.tests?.showResults({ results, error });
 
     let testResultsEvent: CustomEvent<{ results: TestResult[]; error?: string } | void>;
     if (sdkWatchers.tests.hasSubscribers()) {
       testResultsEvent = new CustomEvent(customEvents.testResults, {
-        detail: JSON.parse(JSON.stringify(ev.data.payload)),
+        detail: JSON.parse(JSON.stringify({ results, error })),
       });
     } else {
       testResultsEvent = new CustomEvent(customEvents.testResults);
