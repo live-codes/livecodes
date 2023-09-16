@@ -3710,7 +3710,6 @@ const loadToolsPane = async () => {
   handleTests();
   handleResultZoom();
   getResultElement().classList.remove('full');
-  configureToolsPane(getConfig().tools, getConfig().mode);
 };
 
 const configureToolsPane = (
@@ -3720,6 +3719,9 @@ const configureToolsPane = (
   if (mode === 'result' && (!tools || tools.status === '' || tools.status === 'none')) {
     toolsPane?.hide();
     return;
+  }
+  if (tools?.active) {
+    toolsPane?.setActiveTool(tools.active);
   }
   if (!tools) {
     toolsPane?.close();
@@ -3739,9 +3741,6 @@ const configureToolsPane = (
     toolsPane?.close();
   }
   // TODO: handle tools.enabled
-  if (tools.active) {
-    toolsPane?.setActiveTool(tools.active);
-  }
 };
 
 const basicHandlers = () => {
@@ -3769,9 +3768,6 @@ const basicHandlers = () => {
     handleExternalResources();
     handleFullscreen();
   }
-
-  window.deps.showMode(getConfig().mode);
-  configureToolsPane(getConfig().tools, getConfig().mode);
 };
 
 const extraHandlers = async () => {
