@@ -35,7 +35,7 @@ export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/bi
 export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@9.3.3/');
 
 export const browserJestUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/browser-jest@0.0.2/dist/browser-jest.umd.js',
+  '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
 
 export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.2/');
