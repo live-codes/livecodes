@@ -82,6 +82,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.tags, 'array', 'string') ? { tags: removeDuplicates(config.tags) } : {}),
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),
+    ...(is(config.autotest, 'boolean') ? { autotest: config.autotest } : {}),
     ...(is(config.delay, 'number') ? { delay: Number(config.delay) } : {}),
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),

@@ -167,7 +167,6 @@ let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
-let watchTests = false;
 let initialized = false;
 let isDestroyed = false;
 const broadcastInfo: BroadcastInfo = {
@@ -1921,35 +1920,36 @@ const handleChangeLanguage = () => {
 const handleChangeContent = () => {
   const contentChanged = async (editorId: EditorId, loading: boolean) => {
     updateConfig();
+    const config = getConfig();
     addConsoleInputCodeCompletion();
 
-    const shouldRunTests = Boolean(watchTests && getConfig().tests?.content);
-    if ((getConfig().autoupdate || shouldRunTests) && !loading) {
+    const shouldRunTests = Boolean(config.autotest && config.tests?.content);
+    if ((config.autoupdate || shouldRunTests) && !loading) {
       await run(editorId, shouldRunTests);
     }
 
-    if (getConfig().markup.content !== getCache().markup.content) {
+    if (config.markup.content !== getCache().markup.content) {
       await getResultPage({ sourceEditor: editorId });
     }
 
     for (const key of Object.keys(customEditors)) {
-      if (getConfig()[editorId].language === key) {
+      if (config[editorId].language === key) {
         await customEditors[key]?.show(true, {
           baseUrl,
           editors,
-          config: getConfig(),
-          html: getCache().markup.compiled || getConfig().markup.content || '',
+          config,
+          html: getCache().markup.compiled || config.markup.content || '',
           eventsManager,
         });
       }
     }
 
-    if (getConfig().autosave) {
+    if (config.autosave) {
       await save();
     }
 
     dispatchChangeEvent();
-    loadModuleTypes(editors, getConfig());
+    loadModuleTypes(editors, config);
   };
 
   const debouncecontentChanged = (editorId: EditorId) =>
@@ -3416,6 +3416,10 @@ const handleTestResults = () => {
 };
 
 const handleTests = () => {
+  if (getConfig().autotest) {
+    UI.getWatchTestsButton()?.classList.remove('disabled');
+  }
+
   eventsManager.addEventListener(
     UI.getRunTestsButton(),
     'click',
@@ -3431,8 +3435,8 @@ const handleTests = () => {
     'click',
     (ev: Event) => {
       ev.preventDefault();
-      watchTests = !watchTests;
-      if (watchTests) {
+      setUserConfig({ autotest: !getConfig().autotest });
+      if (getConfig().autotest) {
         UI.getWatchTestsButton()?.classList.remove('disabled');
         runTests();
       } else {

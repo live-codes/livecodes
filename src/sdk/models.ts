@@ -103,6 +103,7 @@ export interface AppConfig {
 export interface UserConfig extends EditorConfig, FormatterConfig {
   autoupdate: boolean;
   autosave: boolean;
+  autotest: boolean;
   delay: number;
   formatOnsave: boolean;
   theme: Theme;
