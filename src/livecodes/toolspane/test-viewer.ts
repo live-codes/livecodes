@@ -1,6 +1,7 @@
+/* eslint-disable import/no-internal-modules */
 import type { Config, Editors, EventsManager, TestResult, TestViewer } from '../models';
+import { sandboxService } from '../services/sandbox';
 import { getToolspaneElement } from '../UI';
-// eslint-disable-next-line import/no-internal-modules
 import * as icons from '../UI/icons';
 
 export const createTestViewer = (
@@ -101,6 +102,7 @@ export const createTestViewer = (
       item.classList.add('test-result', result.status);
       result.errors
         .map((err) => err.split('at Object.<anonymous>')[0]?.trim())
+        .map((err) => err.split(`at ${sandboxService.getResultUrl()}`)[0]?.trim())
         .map((err) =>
           err.startsWith('AssertionError: ') ? err.replace('AssertionError: ', '') : err,
         )

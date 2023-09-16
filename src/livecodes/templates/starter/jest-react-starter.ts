@@ -5,6 +5,7 @@ export const jestReactStarter: Template = {
   title: 'Jest/React Starter',
   thumbnail: 'assets/templates/jest.svg',
   activeEditor: 'script',
+  autotest: true,
   markup: {
     language: 'html',
     content: `

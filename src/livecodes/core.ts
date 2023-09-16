@@ -1134,13 +1134,15 @@ const loadConfig = async (
     ...defaultConfig,
     ...validConfig,
   });
-  setConfig({
+  const config = {
     ...getConfig(),
+    ...(validConfig.autotest != null ? { autotest: validConfig.autotest } : {}),
+    ...(validConfig.mode != null ? { mode: validConfig.mode } : {}),
+    ...(validConfig.tools != null ? { tools: validConfig.tools } : {}),
     ...content,
-  });
-  await importExternalContent({
-    config: getConfig(),
-  });
+  };
+  setConfig(config);
+  await importExternalContent({ config });
   setProjectRecover();
 
   if (flush) {
@@ -1163,11 +1165,17 @@ const loadConfig = async (
   // load config
   await bootstrap(true);
 
-  // layout
-  window.deps.showMode(validConfig.mode);
-  configureToolsPane(validConfig.tools, validConfig.mode);
+  updateUI(config);
 
   changingContent = false;
+};
+
+const updateUI = (config: Config) => {
+  window.deps.showMode(config.mode);
+  configureToolsPane(config.tools, config.mode);
+  if (config.autotest) {
+    UI.getWatchTestsButton()?.classList.remove('disabled');
+  }
 };
 
 const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {

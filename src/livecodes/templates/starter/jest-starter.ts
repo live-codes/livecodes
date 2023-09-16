@@ -4,6 +4,7 @@ export const jestStarter: Template = {
   name: 'jest',
   title: 'Jest Starter',
   thumbnail: 'assets/templates/jest.svg',
+  autotest: true,
   activeEditor: 'script',
   markup: {
     language: 'html',

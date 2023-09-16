@@ -525,6 +525,7 @@ export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'scrip
     name: TemplateName;
     thumbnail: string;
     tools?: Config['tools'];
+    autotest?: Config['autotest'];
   };
 
 export type TemplateName =
