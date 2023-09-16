@@ -35,6 +35,7 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
 export const getUserConfig = (config: Config | UserConfig): UserConfig => ({
   autoupdate: config.autoupdate,
   autosave: config.autosave,
+  autotest: config.autotest,
   delay: config.delay,
   formatOnsave: config.formatOnsave,
   recoverUnsaved: config.recoverUnsaved,

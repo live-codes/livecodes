@@ -5,6 +5,7 @@ export const jestReactStarter: Template = {
   title: 'Jest/React Starter',
   thumbnail: 'assets/templates/jest.svg',
   activeEditor: 'script',
+  autotest: true,
   markup: {
     language: 'html',
     content: `
@@ -54,11 +55,6 @@ const root = createRoot(document.querySelector("#app"));
 root.render(<App name="Jest with React" />);
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
   tests: {
     language: 'tsx',
     content: `
@@ -112,5 +108,10 @@ describe("Page", () => {
   });
 });
 `.trimStart(),
+  },
+  tools: {
+    enabled: 'all',
+    active: 'tests',
+    status: 'open',
   },
 };

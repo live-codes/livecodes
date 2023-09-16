@@ -6,6 +6,7 @@ export const defaultConfig: Config = {
   tags: [],
   autoupdate: true,
   autosave: false,
+  autotest: false,
   delay: 1500,
   formatOnsave: false,
   mode: 'full',

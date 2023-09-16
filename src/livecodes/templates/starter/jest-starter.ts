@@ -4,6 +4,7 @@ export const jestStarter: Template = {
   name: 'jest',
   title: 'Jest Starter',
   thumbnail: 'assets/templates/jest.svg',
+  autotest: true,
   activeEditor: 'script',
   markup: {
     language: 'html',
@@ -67,11 +68,6 @@ button.addEventListener(
 );
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
   tests: {
     language: 'tsx',
     content: `
@@ -115,5 +111,10 @@ describe("Page", () => {
   });
 });
 `.trimStart(),
+  },
+  tools: {
+    enabled: 'all',
+    active: 'tests',
+    status: 'open',
   },
 };

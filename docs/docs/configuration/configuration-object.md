@@ -371,6 +371,14 @@ Default: `false`
 
 If `true`, the project is automatically saved on code change, after time [delay](#delay).
 
+### `autotest`
+
+Type: [`boolean`](../api/interfaces/Config.md#autotest)
+
+Default: `false`
+
+If `true`, the project is watched for code changes which trigger tests to auto-run.
+
 ### `delay`
 
 Type: [`number`](../api/interfaces/Config.md#delay)
