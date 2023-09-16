@@ -140,6 +140,13 @@ import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
 
+// declare global dependencies
+declare const window: Window & {
+  deps: {
+    showMode: typeof showMode;
+  };
+};
+
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
@@ -1156,8 +1163,9 @@ const loadConfig = async (
   // load config
   await bootstrap(true);
 
-  showMode(validConfig.mode);
-  configureToolsPane(validConfig.tools);
+  // layout
+  window.deps.showMode(validConfig.mode);
+  configureToolsPane(validConfig.tools, validConfig.mode);
 
   changingContent = false;
 };
@@ -3694,9 +3702,17 @@ const loadToolsPane = async () => {
   handleTests();
   handleResultZoom();
   getResultElement().classList.remove('full');
+  configureToolsPane(getConfig().tools, getConfig().mode);
 };
 
-const configureToolsPane = (tools?: Config['tools']) => {
+const configureToolsPane = (
+  tools: Config['tools'] | undefined,
+  mode: Config['mode'] | undefined,
+) => {
+  if (mode === 'result' && (!tools || tools.status === '' || tools.status === 'none')) {
+    toolsPane?.hide();
+    return;
+  }
   if (!tools) {
     toolsPane?.close();
     return;
@@ -3746,7 +3762,8 @@ const basicHandlers = () => {
     handleFullscreen();
   }
 
-  showMode(getConfig().mode);
+  window.deps.showMode(getConfig().mode);
+  configureToolsPane(getConfig().tools, getConfig().mode);
 };
 
 const extraHandlers = async () => {
@@ -4105,7 +4122,7 @@ const initializePlayground = async (
   configureEmmet(getConfig());
 };
 
-const createApi = (deps: { showMode: (mode: Config['mode']) => void }): API => {
+const createApi = (): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
   const apiGetConfig = async (contentOnly = false): Promise<Config> => {
@@ -4122,7 +4139,7 @@ const createApi = (deps: { showMode: (mode: Config['mode']) => void }): API => {
 
     // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
     if (newAppConfig.mode !== getConfig().mode) {
-      deps.showMode(newAppConfig.mode);
+      window.deps.showMode(newAppConfig.mode);
     }
 
     setConfig(newAppConfig);
@@ -4251,28 +4268,32 @@ const createApi = (deps: { showMode: (mode: Config['mode']) => void }): API => {
 };
 
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
     await loadToolsPane();
     await extraHandlers();
   });
-  return createApi({ showMode });
+  return createApi();
 };
 
 const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
     await loadToolsPane();
   });
-  return createApi({ showMode });
+  return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode };
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
-  return createApi({ showMode });
+  return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode: () => undefined };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {
       info: () => undefined,
@@ -4286,7 +4307,7 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
     handleConsole();
     handleTestResults();
   });
-  return createApi({ showMode: () => undefined });
+  return createApi();
 };
 
 export { initApp, initEmbed, initLite, initHeadless };
