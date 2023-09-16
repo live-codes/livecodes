@@ -472,8 +472,12 @@ const updateEditors = async (editors: Editors, config: Config) => {
   }
 };
 
-const showMode = (config: Config) => {
-  if (config.mode === 'full') {
+const showMode = (mode?: Config['mode']) => {
+  if (!mode) {
+    mode = 'full';
+  }
+
+  if (mode === 'full') {
     if (params.view === 'editor') {
       split?.show('code', true);
     }
@@ -481,7 +485,7 @@ const showMode = (config: Config) => {
       split?.show('output', true);
     }
   }
-  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+  if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
     split?.destroy();
     split = null;
   }
@@ -492,7 +496,7 @@ const showMode = (config: Config) => {
     codeblock: '010',
     result: '001',
   };
-  const modeConfig = modes[config.mode] || '111';
+  const modeConfig = modes[mode] || '111';
 
   const toolbarElement = UI.getToolbarElement();
   const editorContainerElement = UI.getEditorContainerElement();
@@ -536,19 +540,19 @@ const showMode = (config: Config) => {
     split?.destroy(true);
     split = null;
   }
-  if (config.mode === 'editor' || config.mode === 'codeblock') {
+  if (mode === 'editor' || mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
     codeRunButton.style.visibility = 'hidden';
   }
-  if (config.mode === 'codeblock') {
+  if (mode === 'codeblock') {
     editorTools.style.display = 'none';
   }
-  if (config.mode === 'result') {
+  if (mode === 'result') {
     if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
-  if (config.mode === 'full' && !split) {
+  if (mode === 'full' && !split) {
     split = createSplitPanes();
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
@@ -1118,10 +1122,10 @@ const loadConfig = async (
   flush = true,
 ) => {
   changingContent = true;
-
+  const validConfig = upgradeAndValidate(newConfig);
   const content = getContentConfig({
     ...defaultConfig,
-    ...upgradeAndValidate(newConfig),
+    ...validConfig,
   });
   setConfig({
     ...getConfig(),
@@ -1151,6 +1155,9 @@ const loadConfig = async (
 
   // load config
   await bootstrap(true);
+
+  showMode(validConfig.mode);
+  configureToolsPane(validConfig.tools);
 
   changingContent = false;
 };
@@ -3689,6 +3696,30 @@ const loadToolsPane = async () => {
   getResultElement().classList.remove('full');
 };
 
+const configureToolsPane = (tools?: Config['tools']) => {
+  if (!tools) {
+    toolsPane?.close();
+    return;
+  }
+  if (tools.status === 'none') {
+    toolsPane?.hide();
+    return;
+  }
+  if (tools.status === 'full') {
+    toolsPane?.maximize();
+  }
+  if (tools.status === 'open') {
+    toolsPane?.open();
+  }
+  if (tools.status === 'closed' || tools.status === '') {
+    toolsPane?.close();
+  }
+  // TODO: handle tools.enabled
+  if (tools.active) {
+    toolsPane?.setActiveTool(tools.active);
+  }
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal();
@@ -3715,7 +3746,7 @@ const basicHandlers = () => {
     handleFullscreen();
   }
 
-  showMode(getConfig());
+  showMode(getConfig().mode);
 };
 
 const extraHandlers = async () => {
@@ -4006,6 +4037,8 @@ const bootstrap = async (reload = false) => {
   }
   if (isEmbed && !getConfig().tests?.content?.trim()) {
     toolsPane?.disableTool('tests');
+  } else {
+    toolsPane?.enableTool('tests');
   }
 
   if (!reload) {
@@ -4072,7 +4105,7 @@ const initializePlayground = async (
   configureEmmet(getConfig());
 };
 
-const createApi = (deps: { showMode: (config: Config) => void }): API => {
+const createApi = (deps: { showMode: (mode: Config['mode']) => void }): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
   const apiGetConfig = async (contentOnly = false): Promise<Config> => {
@@ -4089,7 +4122,7 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
 
     // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
     if (newAppConfig.mode !== getConfig().mode) {
-      deps.showMode(newAppConfig);
+      deps.showMode(newAppConfig.mode);
     }
 
     setConfig(newAppConfig);

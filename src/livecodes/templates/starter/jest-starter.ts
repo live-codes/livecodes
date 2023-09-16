@@ -67,11 +67,6 @@ button.addEventListener(
 );
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
   tests: {
     language: 'tsx',
     content: `
@@ -115,5 +110,10 @@ describe("Page", () => {
   });
 });
 `.trimStart(),
+  },
+  tools: {
+    enabled: 'all',
+    active: 'tests',
+    status: 'open',
   },
 };

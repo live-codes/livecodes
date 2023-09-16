@@ -524,6 +524,7 @@ export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'scrip
   Partial<ContentConfig> & {
     name: TemplateName;
     thumbnail: string;
+    tools?: Config['tools'];
   };
 
 export type TemplateName =
