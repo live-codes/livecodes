@@ -62,6 +62,9 @@ export const createTestViewer = (
       if (item.classList.contains('fail')) {
         item.classList.remove('fail');
       }
+      if (item.classList.contains('skip')) {
+        item.classList.remove('skip');
+      }
     });
     const testSummary = testResultsElement.querySelector<HTMLElement>('.test-summary');
     if (testSummary) {
@@ -112,6 +115,7 @@ export const createTestViewer = (
 
     const passed = results.filter((r) => r.status === 'pass').length;
     const failed = results.filter((r) => r.status === 'fail').length;
+    const skipped = results.filter((r) => r.status === 'skip').length;
     const total = results.length;
     const duration = results.reduce((totalDuration, r) => totalDuration + r.duration, 0) / 1000;
     const summary = document.createElement('div');
@@ -119,6 +123,7 @@ export const createTestViewer = (
     summary.innerHTML = `
     Tests: ${failed !== 0 ? '<span class="fail">' + failed + ' failed</span>,' : ''}
            ${passed !== 0 ? '<span class="pass">' + passed + ' passed</span>,' : ''}
+           ${skipped !== 0 ? '<span class="skip">' + skipped + ' skipped</span>,' : ''}
            ${total} total <br />
     Time: ${duration}s
 `;
