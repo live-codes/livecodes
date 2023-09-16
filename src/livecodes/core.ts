@@ -2164,8 +2164,8 @@ const handleSettings = () => {
   const toggles = UI.getSettingToggles();
   toggles.forEach((toggle) => {
     eventsManager.addEventListener(toggle, 'change', async () => {
-      const configKey = toggle.dataset.config;
-      if (!configKey || !(configKey in getConfig())) return;
+      const configKey = toggle.dataset.config as keyof Config | 'autosync';
+      if (!configKey || (!(configKey in getConfig()) && configKey !== 'autosync')) return;
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
