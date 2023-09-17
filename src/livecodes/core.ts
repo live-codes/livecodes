@@ -140,6 +140,13 @@ import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
 
+// declare global dependencies
+declare const window: Window & {
+  deps: {
+    showMode: typeof showMode;
+  };
+};
+
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
@@ -167,7 +174,6 @@ let isSaved = true;
 let changingContent = false;
 let consoleInputCodeCompletion: any;
 let starterTemplates: Template[];
-let watchTests = false;
 let initialized = false;
 let isDestroyed = false;
 const broadcastInfo: BroadcastInfo = {
@@ -473,8 +479,12 @@ const updateEditors = async (editors: Editors, config: Config) => {
   }
 };
 
-const showMode = (config: Config) => {
-  if (config.mode === 'full') {
+const showMode = (mode?: Config['mode']) => {
+  if (!mode) {
+    mode = 'full';
+  }
+
+  if (mode === 'full') {
     if (params.view === 'editor') {
       split?.show('code', true);
     }
@@ -482,7 +492,7 @@ const showMode = (config: Config) => {
       split?.show('output', true);
     }
   }
-  if (config.mode === 'editor' || config.mode === 'codeblock' || config.mode === 'result') {
+  if (mode === 'editor' || mode === 'codeblock' || mode === 'result') {
     split?.destroy();
     split = null;
   }
@@ -493,7 +503,7 @@ const showMode = (config: Config) => {
     codeblock: '010',
     result: '001',
   };
-  const modeConfig = modes[config.mode] || '111';
+  const modeConfig = modes[mode] || '111';
 
   const toolbarElement = UI.getToolbarElement();
   const editorContainerElement = UI.getEditorContainerElement();
@@ -537,19 +547,19 @@ const showMode = (config: Config) => {
     split?.destroy(true);
     split = null;
   }
-  if (config.mode === 'editor' || config.mode === 'codeblock') {
+  if (mode === 'editor' || mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
     codeRunButton.style.visibility = 'hidden';
   }
-  if (config.mode === 'codeblock') {
+  if (mode === 'codeblock') {
     editorTools.style.display = 'none';
   }
-  if (config.mode === 'result') {
+  if (mode === 'result') {
     if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
-  if (config.mode === 'full' && !split) {
+  if (mode === 'full' && !split) {
     split = createSplitPanes();
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
@@ -1119,18 +1129,20 @@ const loadConfig = async (
   flush = true,
 ) => {
   changingContent = true;
-
+  const validConfig = upgradeAndValidate(newConfig);
   const content = getContentConfig({
     ...defaultConfig,
-    ...upgradeAndValidate(newConfig),
+    ...validConfig,
   });
-  setConfig({
+  const config = {
     ...getConfig(),
+    ...(validConfig.autotest != null ? { autotest: validConfig.autotest } : {}),
+    ...(validConfig.mode != null ? { mode: validConfig.mode } : {}),
+    ...(validConfig.tools != null ? { tools: validConfig.tools } : {}),
     ...content,
-  });
-  await importExternalContent({
-    config: getConfig(),
-  });
+  };
+  setConfig(config);
+  await importExternalContent({ config });
   setProjectRecover();
 
   if (flush) {
@@ -1153,7 +1165,17 @@ const loadConfig = async (
   // load config
   await bootstrap(true);
 
+  updateUI(config);
+
   changingContent = false;
+};
+
+const updateUI = (config: Config) => {
+  window.deps.showMode(config.mode);
+  configureToolsPane(config.tools, config.mode);
+  if (config.autotest) {
+    UI.getWatchTestsButton()?.classList.remove('disabled');
+  }
 };
 
 const setUserConfig = (newConfig: Partial<UserConfig> | null, save = true) => {
@@ -1921,35 +1943,36 @@ const handleChangeLanguage = () => {
 const handleChangeContent = () => {
   const contentChanged = async (editorId: EditorId, loading: boolean) => {
     updateConfig();
+    const config = getConfig();
     addConsoleInputCodeCompletion();
 
-    const shouldRunTests = Boolean(watchTests && getConfig().tests?.content);
-    if ((getConfig().autoupdate || shouldRunTests) && !loading) {
+    const shouldRunTests = Boolean(config.autotest && config.tests?.content);
+    if ((config.autoupdate || shouldRunTests) && !loading) {
       await run(editorId, shouldRunTests);
     }
 
-    if (getConfig().markup.content !== getCache().markup.content) {
+    if (config.markup.content !== getCache().markup.content) {
       await getResultPage({ sourceEditor: editorId });
     }
 
     for (const key of Object.keys(customEditors)) {
-      if (getConfig()[editorId].language === key) {
+      if (config[editorId].language === key) {
         await customEditors[key]?.show(true, {
           baseUrl,
           editors,
-          config: getConfig(),
-          html: getCache().markup.compiled || getConfig().markup.content || '',
+          config,
+          html: getCache().markup.compiled || config.markup.content || '',
           eventsManager,
         });
       }
     }
 
-    if (getConfig().autosave) {
+    if (config.autosave) {
       await save();
     }
 
     dispatchChangeEvent();
-    loadModuleTypes(editors, getConfig());
+    loadModuleTypes(editors, config);
   };
 
   const debouncecontentChanged = (editorId: EditorId) =>
@@ -2164,8 +2187,8 @@ const handleSettings = () => {
   const toggles = UI.getSettingToggles();
   toggles.forEach((toggle) => {
     eventsManager.addEventListener(toggle, 'change', async () => {
-      const configKey = toggle.dataset.config;
-      if (!configKey || !(configKey in getConfig())) return;
+      const configKey = toggle.dataset.config as keyof Config | 'autosync';
+      if (!configKey || (!(configKey in getConfig()) && configKey !== 'autosync')) return;
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
@@ -3387,12 +3410,24 @@ const handleTestResults = () => {
   eventsManager.addEventListener(window, 'message', (ev: any) => {
     if (ev.origin !== sandboxService.getOrigin()) return;
     if (ev.data.type !== 'testResults') return;
-    toolsPane?.tests?.showResults(ev.data.payload);
+
+    let results = ev.data.payload?.results;
+    const error = ev.data.payload?.error;
+    if (Array.isArray(results)) {
+      results = results.map((result) => {
+        if (result.status === 'done') {
+          result.status = result.errors?.length === 0 ? 'pass' : 'fail';
+        }
+        return result;
+      });
+    }
+
+    toolsPane?.tests?.showResults({ results, error });
 
     let testResultsEvent: CustomEvent<{ results: TestResult[]; error?: string } | void>;
     if (sdkWatchers.tests.hasSubscribers()) {
       testResultsEvent = new CustomEvent(customEvents.testResults, {
-        detail: JSON.parse(JSON.stringify(ev.data.payload)),
+        detail: JSON.parse(JSON.stringify({ results, error })),
       });
     } else {
       testResultsEvent = new CustomEvent(customEvents.testResults);
@@ -3404,6 +3439,10 @@ const handleTestResults = () => {
 };
 
 const handleTests = () => {
+  if (getConfig().autotest) {
+    UI.getWatchTestsButton()?.classList.remove('disabled');
+  }
+
   eventsManager.addEventListener(
     UI.getRunTestsButton(),
     'click',
@@ -3419,8 +3458,8 @@ const handleTests = () => {
     'click',
     (ev: Event) => {
       ev.preventDefault();
-      watchTests = !watchTests;
-      if (watchTests) {
+      setUserConfig({ autotest: !getConfig().autotest });
+      if (getConfig().autotest) {
         UI.getWatchTestsButton()?.classList.remove('disabled');
         runTests();
       } else {
@@ -3673,6 +3712,37 @@ const loadToolsPane = async () => {
   getResultElement().classList.remove('full');
 };
 
+const configureToolsPane = (
+  tools: Config['tools'] | undefined,
+  mode: Config['mode'] | undefined,
+) => {
+  if (mode === 'result' && (!tools || tools.status === '' || tools.status === 'none')) {
+    toolsPane?.hide();
+    return;
+  }
+  if (tools?.active) {
+    toolsPane?.setActiveTool(tools.active);
+  }
+  if (!tools) {
+    toolsPane?.close();
+    return;
+  }
+  if (tools.status === 'none') {
+    toolsPane?.hide();
+    return;
+  }
+  if (tools.status === 'full') {
+    toolsPane?.maximize();
+  }
+  if (tools.status === 'open') {
+    toolsPane?.open();
+  }
+  if (tools.status === 'closed' || tools.status === '') {
+    toolsPane?.close();
+  }
+  // TODO: handle tools.enabled
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal();
@@ -3698,8 +3768,6 @@ const basicHandlers = () => {
     handleExternalResources();
     handleFullscreen();
   }
-
-  showMode(getConfig());
 };
 
 const extraHandlers = async () => {
@@ -3990,6 +4058,8 @@ const bootstrap = async (reload = false) => {
   }
   if (isEmbed && !getConfig().tests?.content?.trim()) {
     toolsPane?.disableTool('tests');
+  } else {
+    toolsPane?.enableTool('tests');
   }
 
   if (!reload) {
@@ -4056,7 +4126,7 @@ const initializePlayground = async (
   configureEmmet(getConfig());
 };
 
-const createApi = (deps: { showMode: (config: Config) => void }): API => {
+const createApi = (): API => {
   const apiGetShareUrl = async (shortUrl = false) => (await share(shortUrl, true, false)).url;
 
   const apiGetConfig = async (contentOnly = false): Promise<Config> => {
@@ -4073,7 +4143,7 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
 
     // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
     if (newAppConfig.mode !== getConfig().mode) {
-      deps.showMode(newAppConfig);
+      window.deps.showMode(newAppConfig.mode);
     }
 
     setConfig(newAppConfig);
@@ -4202,28 +4272,32 @@ const createApi = (deps: { showMode: (config: Config) => void }): API => {
 };
 
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
     await loadToolsPane();
     await extraHandlers();
   });
-  return createApi({ showMode });
+  return createApi();
 };
 
 const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
     await loadToolsPane();
   });
-  return createApi({ showMode });
+  return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode };
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
-  return createApi({ showMode });
+  return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
+  window.deps = { showMode: () => undefined };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {
       info: () => undefined,
@@ -4237,7 +4311,7 @@ const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
     handleConsole();
     handleTestResults();
   });
-  return createApi({ showMode: () => undefined });
+  return createApi();
 };
 
 export { initApp, initEmbed, initLite, initHeadless };

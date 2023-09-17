@@ -12,7 +12,7 @@ import { getAppCDN, modulesService } from '../services';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap, toDataUrl } from '../utils';
-import { esModuleShimsPath, jestLiteUrl, spacingJsUrl } from '../vendors';
+import { esModuleShimsPath, browserJestUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
   code,
@@ -277,7 +277,7 @@ export const createResultPage = async ({
   // tests
   if (runTests && !forExport) {
     const jestScript = dom.createElement('script');
-    jestScript.src = jestLiteUrl;
+    jestScript.src = browserJestUrl;
     jestScript.dataset.env = 'development';
     dom.body.appendChild(jestScript);
 
@@ -285,23 +285,11 @@ export const createResultPage = async ({
     testScript.type = 'module';
     testScript.dataset.env = 'development';
     testScript.innerHTML = `
-const {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  describe: { only: fdescribe, skip: xdescribe },
-  it,
-  test,
-  test: { only: fit, skip: xtest, skip: xit },
-  expect,
-  jest } = window.jestLite.core;
-
+const {afterAll, afterEach, beforeAll, beforeEach, describe, fdescribe, xdescribe, it, test, fit, xtest, xit, expect, jest} = window.browserJest;
 ${escapeScript(compiledTests)}
 
-window.jestLite.core.run().then(results => {
-  parent.postMessage({type: 'testResults', payload: {results}}, '*');
+window.browserJest.run().then(results => {
+  parent.postMessage({type: 'testResults', payload: {results: results.testResults }}, '*');
 }).catch((error) => {
   parent.postMessage({type: 'testResults', payload: {error: error.message || String(error)}}, '*');
 });

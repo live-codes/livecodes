@@ -103,6 +103,7 @@ export interface AppConfig {
 export interface UserConfig extends EditorConfig, FormatterConfig {
   autoupdate: boolean;
   autosave: boolean;
+  autotest: boolean;
   delay: number;
   formatOnsave: boolean;
   theme: Theme;
@@ -523,6 +524,8 @@ export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'scrip
   Partial<ContentConfig> & {
     name: TemplateName;
     thumbnail: string;
+    tools?: Config['tools'];
+    autotest?: Config['autotest'];
   };
 
 export type TemplateName =
@@ -903,7 +906,7 @@ export interface EventsManager {
 export interface TestResult {
   duration: number;
   errors: string[];
-  status: 'pass' | 'fail';
+  status: 'pass' | 'fail' | 'skip';
   testPath: string[];
 }
 

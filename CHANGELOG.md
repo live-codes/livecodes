@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v14](https://github.com/live-codes/livecodes/compare/v13...v14) (2023-09-16)
+
+This release improves running tests:
+
+- Jest has been upgraded to latest version (v29.7). This includes support for newer Jest API features (e.g. `test.each`).
+- Added `autotest` config option to allow auto-running tests on code changes.
+- Show skipped tests, and mark the test result status as `skip`.
+
+In addition, UI improvements and bug fixes have been added.
+
+### Bug Fixes
+
+- **sync:** fix `autosync` toggle not being saved in user data ([a52413e](https://github.com/live-codes/livecodes/commit/a52413ee3983f169396b461bc93c34549fcd1b07))
+- **tools:** fix showing toolspane in result mode ([4ecfe83](https://github.com/live-codes/livecodes/commit/4ecfe83a17f600baba8961f2ec0c23dd6709bfe9))
+- **tools:** show skipped tests ([5623c8e](https://github.com/live-codes/livecodes/commit/5623c8e1d3dff905070ab9ad96a77469284ff593))
+
+### Features
+
+- **config:** add `autotest` to `UserConfig` ([6fa16f2](https://github.com/live-codes/livecodes/commit/6fa16f2504e0f767d120d15d54f85e73d1fab2f8))
+- **config:** update UI on loading new config ([0f63688](https://github.com/live-codes/livecodes/commit/0f636889953b2c8c0961b855592cdbac0983c2ad))
+- **tests:** use browserJest ([d01989f](https://github.com/live-codes/livecodes/commit/d01989fc544e1249cc44be99f525917077e40909))
+- **tools:** run `configureToolsPane` in `loadConfig` ([ef3aecb](https://github.com/live-codes/livecodes/commit/ef3aecba8bb0092024f406e59cc938697f03cee2))
+
+---
+
 ## [v13](https://github.com/live-codes/livecodes/compare/sdk-v0.2.0...0.0.0) (2023-09-05)
 
 This release adds support for [headless mode](https://livecodes.io/docs/sdk/headless). It also adds support to [watch](https://livecodes.io/docs/sdk/js-ts) for console output and test results.

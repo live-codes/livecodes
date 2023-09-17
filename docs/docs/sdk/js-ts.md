@@ -379,7 +379,7 @@ createPlayground('#container').then((playground) => {
   const testsWatcher = playground.watch('tests', ({ results }) => {
     // this will run when tests run
     results.forEach((testResult) => {
-      console.log('status:', testResult.status); // "pass" or "fail"
+      console.log('status:', testResult.status); // "pass", "fail" or "skip"
       console.log(testResult.errors); // array of errors as strings
     });
   });

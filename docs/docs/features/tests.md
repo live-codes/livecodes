@@ -105,8 +105,8 @@ describe('test global', () => {
 
 ## Supported Jest features
 
-- Jest globals: `expect`, `test`, `it`, `describe`, `beforeAll`, `afterAll`, `beforeEach`, `afterEach`
-- Jest function mocks: `jest.fn`, `jest.spyOn`, `jest.clearAllMocks`, `jest.resetAllMocks`
+- [Jest globals](https://jestjs.io/docs/api): `expect`, `test`, `xtest`, `it`, `fit`, `xit`, `describe`, `fdescribe`, `xdescribe`, `beforeAll`, `afterAll`, `beforeEach`, `afterEach`
+- Jest function mocks: `jest.fn`, `jest.mocked`, `jest.replaceProperty`, `jest.spyOn`
 
 These can be directly used in the test editor, without the need for any imports.
 Autocomplete is available in Monaco editor for Jest API.
