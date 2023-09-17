@@ -120,6 +120,7 @@ declare module 'livecodes/models' {
     export interface UserConfig extends EditorConfig, FormatterConfig {
         autoupdate: boolean;
         autosave: boolean;
+        autotest: boolean;
         delay: number;
         formatOnsave: boolean;
         theme: Theme;
@@ -320,6 +321,8 @@ declare module 'livecodes/models' {
     export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> & Partial<ContentConfig> & {
         name: TemplateName;
         thumbnail: string;
+        tools?: Config['tools'];
+        autotest?: Config['autotest'];
     };
     export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'stencil' | 'solid' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'r' | 'ruby' | 'go' | 'php' | 'cpp' | 'clang' | 'perl' | 'lua' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
@@ -536,7 +539,7 @@ declare module 'livecodes/models' {
     export interface TestResult {
         duration: number;
         errors: string[];
-        status: 'pass' | 'fail';
+        status: 'pass' | 'fail' | 'skip';
         testPath: string[];
     }
     export interface Subscribable<T> {

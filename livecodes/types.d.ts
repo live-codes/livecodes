@@ -111,6 +111,7 @@ declare module "sdk/models" {
     export interface UserConfig extends EditorConfig, FormatterConfig {
         autoupdate: boolean;
         autosave: boolean;
+        autotest: boolean;
         delay: number;
         formatOnsave: boolean;
         theme: Theme;
@@ -311,6 +312,8 @@ declare module "sdk/models" {
     export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> & Partial<ContentConfig> & {
         name: TemplateName;
         thumbnail: string;
+        tools?: Config['tools'];
+        autotest?: Config['autotest'];
     };
     export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'stencil' | 'solid' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'r' | 'ruby' | 'go' | 'php' | 'cpp' | 'clang' | 'perl' | 'lua' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
@@ -527,7 +530,7 @@ declare module "sdk/models" {
     export interface TestResult {
         duration: number;
         errors: string[];
-        status: 'pass' | 'fail';
+        status: 'pass' | 'fail' | 'skip';
         testPath: string[];
     }
     export interface Subscribable<T> {
@@ -675,6 +678,7 @@ declare module "livecodes/vendors" {
     export const babelUrl: string;
     export const biwaschemeUrl: string;
     export const blocklyCdnBaseUrl: string;
+    export const browserJestUrl: string;
     export const brythonBaseUrl: string;
     export const chaiUrl: string;
     export const chaiTypesUrl: string;
@@ -732,7 +736,6 @@ declare module "livecodes/vendors" {
     export const hintCssUrl: string;
     export const hpccJsCdnUrl: string;
     export const imbaBaseUrl: string;
-    export const jestLiteUrl: string;
     export const jestTypesUrl: string;
     export const jsclUrl: string;
     export const jsZipUrl: string;
