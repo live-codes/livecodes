@@ -14,6 +14,16 @@ window.addEventListener('load', async () => {
   const scripts = document.querySelectorAll('script[type="text/python"]');
   scripts.forEach((script) => (code += script.innerHTML + '\n'));
 
+  async function main() {
+    if (livecodes.pyodideLoading === false) return;
+    livecodes.pyodide = await loadPyodide({
+      indexURL: pyodideBaseUrl,
+    });
+    await livecodes.pyodide.loadPackage('micropip');
+    livecodes.micropip = livecodes.pyodide.pyimport('micropip');
+    livecodes.pyodideLoading = false;
+  }
+
   async function cleanUp() {
     if (!livecodes.pyodideState) return;
     try {
@@ -28,28 +38,33 @@ window.addEventListener('load', async () => {
       await main();
     }
   }
-  async function main() {
-    if (livecodes.pyodideLoading === false) return;
-    livecodes.pyodide = await loadPyodide({
-      indexURL: pyodideBaseUrl,
-    });
-    livecodes.pyodideLoading = false;
+
+  async function loadPackagesInCode(code: string) {
+    const packages = [...livecodes.pyodide.pyodide_py.code.find_imports(code)];
+    const newPackages = packages.filter((p) => !(p in livecodes.pyodide.loadedPackages));
+    for (const p of newPackages) {
+      try {
+        await livecodes.micropip.install(p);
+      } catch (err) {
+        //
+      }
+    }
   }
-  const pyodideReady = main();
+
   async function evaluatePython(code: string) {
     await pyodideReady;
     await cleanUp();
+    await loadPackagesInCode(code);
     try {
       livecodes.pyodideState = livecodes.pyodide.pyodide_py._state.save_state();
-      await livecodes.pyodide.loadPackagesFromImports(code);
       await livecodes.pyodide.runPythonAsync(code);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err);
     }
   }
+
+  const pyodideReady = main();
   await evaluatePython(code);
   parent.postMessage({ type: 'loading', payload: false }, '*');
-
-  // clean up
 });
