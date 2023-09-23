@@ -968,6 +968,7 @@ const flushResult = () => {
   });
 
   updateCompiledCode();
+  toolsPane?.console?.clear(/* silent= */ true);
   toolsPane?.tests?.clearTests();
 };
 
@@ -1017,9 +1018,9 @@ const setExternalResourcesMark = () => {
 
 const run = async (editorId?: EditorId, runTests = false) => {
   setLoading(true);
+  toolsPane?.console?.clear(/* silent= */ true);
   const result = await getResultPage({ sourceEditor: editorId, runTests });
   await createIframe(UI.getResultElement(), result);
-  toolsPane?.console?.clear(/* silent= */ true);
   updateCompiledCode();
 };
 

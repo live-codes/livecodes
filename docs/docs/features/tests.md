@@ -6,7 +6,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 Automated tests can be added for projects. The tests are run in the context of the result web page.
 
-The automated tests are run by the <a href="https://jestjs.io/" target="_blank">Jest testing framework</a>, which runs totally in the browser (using <a href="https://github.com/kvendrik/jest-lite" target="_blank">jest-lite</a>). In addition, other [testing libraries](#supported-testing-libraries) are also supported.
+The automated tests are run by the <a href="https://jestjs.io/" target="_blank">Jest testing framework</a>, which runs totally in the browser. In addition, other [testing libraries](#supported-testing-libraries) are also supported.
 
 Screenshots:
 
