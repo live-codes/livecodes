@@ -359,4 +359,4 @@ export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
-export const webRBaseUrl = /* @__PURE__ */ getUrl('@r-wasm/webr@0.1.1/dist/');
+export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.2.1/dist/');

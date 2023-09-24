@@ -26,6 +26,8 @@ livecodes.r.packages = [];
 livecodes.r.run =
   livecodes.r.run ||
   (async ({ code, container, canvasHeight, canvasWidth, env }: RunOptions = {}) => {
+    parent.postMessage({ type: 'loading', payload: true }, '*');
+
     livecodes.r.output = '';
 
     if (container !== null && livecodes.r.config?.container !== null) {
@@ -59,24 +61,21 @@ livecodes.r.run =
       livecodes.r.packages = [...new Set([...livecodes.r.packages, ...imports])];
     }
 
-    parent.postMessage({ type: 'loading', payload: true }, '*');
-
     let result: { output: Array<{ type: 'stdout' | 'stderr'; data: string[] }> } | undefined;
     if (code.trim()) {
       await initialization;
-
-      // based on https://github.com/georgestagg/webr-vue-example-editor/blob/main/src/components/WebREditor.vue
       const { webR, webRCodeShelter } = livecodes.r;
 
       let canvas: HTMLCanvasElement | null = null;
       const canvasList: HTMLCanvasElement[] = [];
       await webR.init();
-      await webR.evalRVoid(`canvas(width=${canvasWidth}, height=${canvasHeight})`);
+      await webR.evalRVoid('options(device=webr::canvas)');
+      await webR.evalRVoid(`webr::canvas(width=${canvasWidth}, height=${canvasHeight})`);
       result = await webRCodeShelter.captureR(code, {
         withAutoprint: true,
         captureStreams: true,
         captureConditions: false,
-        env: env || livecodes.r.config?.env || webR.objs.emptyEnv,
+        env: env || livecodes.r.config?.env || {},
       });
 
       try {
@@ -99,19 +98,19 @@ livecodes.r.run =
         const msgs = await webR.flush();
 
         if (container && typeof container !== 'string') {
-          msgs.forEach((msg: { type: string; data: string }) => {
-            if (msg.type === 'canvasExec') {
-              if (!canvas || msg.data.startsWith('clearRect(0')) {
-                canvas = document.createElement('canvas');
-                canvas.setAttribute('width', String(2 * canvasWidth!));
-                canvas.setAttribute('height', String(2 * canvasHeight!));
-                canvas.style.width = `${canvasWidth}px`;
-                canvas.style.display = 'block';
-                canvas.style.margin = 'auto';
-                canvasList.push(canvas);
-              }
-              // eslint-disable-next-line no-new-func
-              Function(`this.getContext('2d').${msg.data}`).bind(canvas)();
+          msgs.forEach((msg: { type: 'canvas'; data: { event: string; image: ImageBitmap } }) => {
+            if (msg.type === 'canvas' && msg.data.event === 'canvasNewPage') {
+              canvas = document.createElement('canvas');
+              canvas.setAttribute('width', String(2 * canvasWidth!));
+              canvas.setAttribute('height', String(2 * canvasHeight!));
+              canvas.style.width = `${canvasWidth}px`;
+              canvas.style.display = 'block';
+              canvas.style.margin = 'auto';
+              canvasList.push(canvas);
+            }
+            if (msg.type === 'canvas' && msg.data.event === 'canvasImage' && canvas) {
+              const ctx = canvas.getContext('2d');
+              ctx?.drawImage(msg.data.image, 0, 0);
             }
           });
 
@@ -143,30 +142,37 @@ livecodes.r.run =
 
 const initialization = (async () => {
   parent.postMessage({ type: 'loading', payload: true }, '*');
-  const getChannelType = () => {
-    try {
-      new SharedArrayBuffer(1);
-      return 1;
-    } catch {
-      return 2;
+
+  const getChannelType = (ChannelType: {
+    Automatic: 0;
+    SharedArrayBuffer: 1;
+    ServiceWorker: 2;
+    PostMessage: 3;
+  }) => {
+    if (typeof SharedArrayBuffer !== 'undefined') {
+      return ChannelType.SharedArrayBuffer;
+    } else {
+      return ChannelType.PostMessage;
     }
   };
+
   const init = async () => {
     if (livecodes.r.ready) {
       await livecodes.r.webR.init();
       return;
     }
     console.log('Loading WebR...');
-    const { WebR } = await import(webRBaseUrl + 'webr.mjs');
+    const { WebR, ChannelType } = await import(webRBaseUrl + 'webr.mjs');
     livecodes.r.webR = new WebR({
       baseUrl: webRBaseUrl,
-      channelType: getChannelType(),
+      channelType: getChannelType(ChannelType),
     });
     await livecodes.r.webR.init();
     livecodes.r.webRCodeShelter = await new livecodes.r.webR.Shelter();
     livecodes.r.ready = true;
     console.log('WebR loaded.');
   };
+
   await init();
   parent.postMessage({ type: 'loading', payload: false }, '*');
 })();
