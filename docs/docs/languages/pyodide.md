@@ -64,7 +64,7 @@ Check the [starter template](#starter-template) for an example.
 
 ### Version
 
-v0.24.0
+Pyodide v0.24.0, running Python v3.11.3
 
 ## Code Formatting
 
