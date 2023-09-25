@@ -9,6 +9,14 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 >
 > https://pyodide.org
 
+:::info Note
+
+Pyodide is a port of [CPython](https://github.com/python/cpython) to WebAssembly/Emscripten. This matches the behavior of the official Python interpreter and allows importing many Python packages. However, the full Python interpreter compiled to WebAssembly needs to be downloaded in the result page.
+
+If you do not need to import external packages, you may want to use the lighter-weight [Python interpreter written in JavaScript](./python.md).
+
+:::
+
 ## Usage
 
 Using Pyodide allows running Python code in the browser. There is no server required to run the code and no need to install Python or explicitly install packages. Packages imported in code are automatically loaded using [micropip](https://micropip.pyodide.org).
@@ -96,3 +104,4 @@ https://livecodes.io/?template=pyodide
 - [Python](https://www.python.org/)
 - [Pyodide](https://pyodide.org)
 - [micropip](https://micropip.pyodide.org)
+- [Brython in LiveCodes](./python.md)
