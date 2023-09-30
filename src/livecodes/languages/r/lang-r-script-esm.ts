@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-import { webRBaseUrl } from "../../vendors";
+import { webRBaseUrl } from '../../vendors';
 
 const importPattern =
   /((?:(?:library)|(?:require))\s*?\(\s*?((?:".*?")|(?:'.*?')|(?:.*?))\s*?\))/g;
-const removeComments = (src: string) => src.replace(/#.*$/gm, "");
+const removeComments = (src: string) => src.replace(/#.*$/gm, '');
 
 const getImports = (code: string) =>
   [...[...removeComments(code).matchAll(new RegExp(importPattern))]]
     .map((arr) =>
-      arr[2].replace(/"/g, "").replace(/'/g, "").split(",")[0].trim(),
+      arr[2].replace(/"/g, '').replace(/'/g, '').split(',')[0].trim(),
     )
     .filter(Boolean);
 
@@ -26,7 +26,7 @@ const defaultConfig = {
   canvasHeight: 309,
   canvasWidth: 500,
   canvasPointSize: 12,
-  canvasBackground: "transparent",
+  canvasBackground: 'transparent',
 };
 
 livecodes.r.packages = [];
@@ -41,15 +41,15 @@ livecodes.r.run =
     canvasBackground,
     env,
   }: RunOptions = {}) => {
-    parent.postMessage({ type: "loading", payload: true }, "*");
+    parent.postMessage({ type: 'loading', payload: true }, '*');
 
-    livecodes.r.output = "";
+    livecodes.r.output = '';
     livecodes.r.plots = [];
 
     if (container !== null && livecodes.r.config?.container !== null) {
-      if (typeof container === "string") {
+      if (typeof container === 'string') {
         container = document.querySelector(container);
-      } else if (typeof livecodes.r.config?.container === "string") {
+      } else if (typeof livecodes.r.config?.container === 'string') {
         container = document.querySelector(livecodes.r.config.container);
       }
       container = container || livecodes.r.config?.container || document.body;
@@ -73,9 +73,9 @@ livecodes.r.run =
       defaultConfig.canvasBackground;
 
     if (code == null) {
-      code = "";
+      code = '';
       const scripts = document.querySelectorAll('script[type="text/r"]');
-      scripts.forEach((script) => (code += script.innerHTML + "\n"));
+      scripts.forEach((script) => (code += script.innerHTML + '\n'));
     }
 
     const imports = getImports(code).filter(
@@ -83,10 +83,10 @@ livecodes.r.run =
     );
     if (imports.length > 0) {
       await initialization;
-      console.log("Installing packages: " + imports.join(", "));
+      console.log('Installing packages: ' + imports.join(', '));
       const pkgCode = imports
         .map((pkg) => `webr::install("${pkg}")\n`)
-        .join("");
+        .join('');
       await livecodes.r.run({ code: pkgCode, container: null });
       livecodes.r.packages = [
         ...new Set([...livecodes.r.packages, ...imports]),
@@ -94,7 +94,7 @@ livecodes.r.run =
     }
 
     let result:
-      | { output: Array<{ type: "stdout" | "stderr"; data: string[] }> }
+      | { output: Array<{ type: 'stdout' | 'stderr'; data: string[] }> }
       | undefined;
     if (code.trim()) {
       await initialization;
@@ -103,7 +103,7 @@ livecodes.r.run =
       let canvas: HTMLCanvasElement | null = null;
       const canvasList: HTMLCanvasElement[] = [];
       await webR.init();
-      await webR.evalRVoid("options(device=webr::canvas)");
+      await webR.evalRVoid('options(device=webr::canvas)');
       await webR.evalRVoid(
         `webr::canvas(width=${canvasWidth}, height=${canvasHeight}), pointsize=${canvasPointSize}, bg=${canvasBackground}`,
       );
@@ -115,17 +115,17 @@ livecodes.r.run =
       });
 
       try {
-        await webR.evalRVoid("dev.off()");
+        await webR.evalRVoid('dev.off()');
 
-        const getOutput = (type: "stdout" | "stderr" | "all") =>
+        const getOutput = (type: 'stdout' | 'stderr' | 'all') =>
           result?.output
-            .filter((evt) => type === "all" || evt.type === type)
+            .filter((evt) => type === 'all' || evt.type === type)
             .map((evt) => evt.data)
-            .join("\n") || "";
+            .join('\n') || '';
 
-        const output = getOutput("all");
-        const stdout = getOutput("stdout");
-        const stderr = getOutput("stderr");
+        const output = getOutput('all');
+        const stdout = getOutput('stdout');
+        const stderr = getOutput('stderr');
         if (stderr.trim()) {
           console.log(stderr);
         }
@@ -134,43 +134,43 @@ livecodes.r.run =
 
         msgs.forEach(
           (msg: {
-            type: "canvas";
+            type: 'canvas';
             data: { event: string; image: ImageBitmap };
           }) => {
-            if (msg.type === "canvas" && msg.data.event === "canvasNewPage") {
-              canvas = document.createElement("canvas");
-              canvas.setAttribute("width", String(2 * canvasWidth!));
-              canvas.setAttribute("height", String(2 * canvasHeight!));
+            if (msg.type === 'canvas' && msg.data.event === 'canvasNewPage') {
+              canvas = document.createElement('canvas');
+              canvas.setAttribute('width', String(2 * canvasWidth!));
+              canvas.setAttribute('height', String(2 * canvasHeight!));
               canvas.style.width = `${canvasWidth}px`;
-              canvas.style.display = "block";
-              canvas.style.margin = "auto";
+              canvas.style.display = 'block';
+              canvas.style.margin = 'auto';
               canvasList.push(canvas);
             }
             if (
-              msg.type === "canvas" &&
-              msg.data.event === "canvasImage" &&
+              msg.type === 'canvas' &&
+              msg.data.event === 'canvasImage' &&
               canvas
             ) {
-              const ctx = canvas.getContext("2d");
+              const ctx = canvas.getContext('2d');
               ctx?.drawImage(msg.data.image, 0, 0);
             }
           },
         );
 
-        if (container && typeof container !== "string") {
-          container.innerHTML = "";
-          const pre = document.createElement("pre");
+        if (container && typeof container !== 'string') {
+          container.innerHTML = '';
+          const pre = document.createElement('pre');
           if (/\S/.test(stdout)) {
-            const code = document.createElement("code");
+            const code = document.createElement('code');
             code.innerText = stdout;
             pre.appendChild(code);
           } else {
-            pre.style.visibility = "hidden";
+            pre.style.visibility = 'hidden';
           }
           container.appendChild(pre);
 
           for (const canvas of canvasList) {
-            const div = document.createElement("div");
+            const div = document.createElement('div');
             div.appendChild(canvas);
             container.appendChild(div);
           }
@@ -183,12 +183,12 @@ livecodes.r.run =
       }
     }
 
-    parent.postMessage({ type: "loading", payload: false }, "*");
+    parent.postMessage({ type: 'loading', payload: false }, '*');
     return result;
   });
 
 const initialization = (async () => {
-  parent.postMessage({ type: "loading", payload: true }, "*");
+  parent.postMessage({ type: 'loading', payload: true }, '*');
 
   const getChannelType = (ChannelType: {
     Automatic: 0;
@@ -196,7 +196,7 @@ const initialization = (async () => {
     ServiceWorker: 2;
     PostMessage: 3;
   }) => {
-    if (typeof SharedArrayBuffer !== "undefined") {
+    if (typeof SharedArrayBuffer !== 'undefined') {
       return ChannelType.SharedArrayBuffer;
     } else {
       return ChannelType.PostMessage;
@@ -208,8 +208,8 @@ const initialization = (async () => {
       await livecodes.r.webR.init();
       return;
     }
-    console.log("Loading WebR...");
-    const { WebR, ChannelType } = await import(webRBaseUrl + "webr.mjs");
+    console.log('Loading WebR...');
+    const { WebR, ChannelType } = await import(webRBaseUrl + 'webr.mjs');
     livecodes.r.webR = new WebR({
       baseUrl: webRBaseUrl,
       channelType: getChannelType(ChannelType),
@@ -217,11 +217,11 @@ const initialization = (async () => {
     await livecodes.r.webR.init();
     livecodes.r.webRCodeShelter = await new livecodes.r.webR.Shelter();
     livecodes.r.ready = true;
-    console.log("WebR loaded.");
+    console.log('WebR loaded.');
   };
 
   await init();
-  parent.postMessage({ type: "loading", payload: false }, "*");
+  parent.postMessage({ type: 'loading', payload: false }, '*');
 })();
 
 livecodes.r.loaded = initialization;
