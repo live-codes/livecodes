@@ -1,15 +1,12 @@
 /* eslint-disable no-console */
 import { webRBaseUrl } from '../../vendors';
 
-const importPattern =
-  /((?:(?:library)|(?:require))\s*?\(\s*?((?:".*?")|(?:'.*?')|(?:.*?))\s*?\))/g;
+const importPattern = /((?:(?:library)|(?:require))\s*?\(\s*?((?:".*?")|(?:'.*?')|(?:.*?))\s*?\))/g;
 const removeComments = (src: string) => src.replace(/#.*$/gm, '');
 
 const getImports = (code: string) =>
   [...[...removeComments(code).matchAll(new RegExp(importPattern))]]
-    .map((arr) =>
-      arr[2].replace(/"/g, '').replace(/'/g, '').split(',')[0].trim(),
-    )
+    .map((arr) => arr[2].replace(/"/g, '').replace(/'/g, '').split(',')[0].trim())
     .filter(Boolean);
 
 interface RunOptions {
@@ -60,9 +57,7 @@ livecodes.r.run =
       Number(livecodes.r.config?.canvasHeight) ||
       defaultConfig.canvasHeight;
     canvasWidth =
-      Number(canvasWidth) ||
-      Number(livecodes.r.config?.canvasWidth) ||
-      defaultConfig.canvasWidth;
+      Number(canvasWidth) || Number(livecodes.r.config?.canvasWidth) || defaultConfig.canvasWidth;
     canvasPointSize =
       Number(canvasPointSize) ||
       Number(livecodes.r.config?.canvasPointSize) ||
@@ -78,24 +73,16 @@ livecodes.r.run =
       scripts.forEach((script) => (code += script.innerHTML + '\n'));
     }
 
-    const imports = getImports(code).filter(
-      (pkg) => !livecodes.r.packages.includes(pkg),
-    );
+    const imports = getImports(code).filter((pkg) => !livecodes.r.packages.includes(pkg));
     if (imports.length > 0) {
       await initialization;
       console.log('Installing packages: ' + imports.join(', '));
-      const pkgCode = imports
-        .map((pkg) => `webr::install("${pkg}")\n`)
-        .join('');
+      const pkgCode = imports.map((pkg) => `webr::install("${pkg}")\n`).join('');
       await livecodes.r.run({ code: pkgCode, container: null });
-      livecodes.r.packages = [
-        ...new Set([...livecodes.r.packages, ...imports]),
-      ];
+      livecodes.r.packages = [...new Set([...livecodes.r.packages, ...imports])];
     }
 
-    let result:
-      | { output: Array<{ type: 'stdout' | 'stderr'; data: string[] }> }
-      | undefined;
+    let result: { output: Array<{ type: 'stdout' | 'stderr'; data: string[] }> } | undefined;
     if (code.trim()) {
       await initialization;
       const { webR, webRCodeShelter } = livecodes.r;
@@ -132,30 +119,21 @@ livecodes.r.run =
 
         const msgs = await webR.flush();
 
-        msgs.forEach(
-          (msg: {
-            type: 'canvas';
-            data: { event: string; image: ImageBitmap };
-          }) => {
-            if (msg.type === 'canvas' && msg.data.event === 'canvasNewPage') {
-              canvas = document.createElement('canvas');
-              canvas.setAttribute('width', String(2 * canvasWidth!));
-              canvas.setAttribute('height', String(2 * canvasHeight!));
-              canvas.style.width = `${canvasWidth}px`;
-              canvas.style.display = 'block';
-              canvas.style.margin = 'auto';
-              canvasList.push(canvas);
-            }
-            if (
-              msg.type === 'canvas' &&
-              msg.data.event === 'canvasImage' &&
-              canvas
-            ) {
-              const ctx = canvas.getContext('2d');
-              ctx?.drawImage(msg.data.image, 0, 0);
-            }
-          },
-        );
+        msgs.forEach((msg: { type: 'canvas'; data: { event: string; image: ImageBitmap } }) => {
+          if (msg.type === 'canvas' && msg.data.event === 'canvasNewPage') {
+            canvas = document.createElement('canvas');
+            canvas.setAttribute('width', String(2 * canvasWidth!));
+            canvas.setAttribute('height', String(2 * canvasHeight!));
+            canvas.style.width = `${canvasWidth}px`;
+            canvas.style.display = 'block';
+            canvas.style.margin = 'auto';
+            canvasList.push(canvas);
+          }
+          if (msg.type === 'canvas' && msg.data.event === 'canvasImage' && canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(msg.data.image, 0, 0);
+          }
+        });
 
         if (container && typeof container !== 'string') {
           container.innerHTML = '';
