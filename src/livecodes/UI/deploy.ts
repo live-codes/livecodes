@@ -8,6 +8,7 @@ import { autoCompleteUrl } from '../vendors';
 import { deploy, deployFile, deployedConfirmation } from '../deploy';
 // eslint-disable-next-line import/no-internal-modules
 import { getUserRepos } from '../services/github';
+import { generateQrCode } from './qrcode';
 import {
   getExistingRepoButton,
   getExistingRepoCommitSource,
@@ -142,7 +143,12 @@ export const createDeployUI = async ({
     } else if (deployResult) {
       await deps.setProjectDeployRepo(repo);
       const confirmationContianer = deployedConfirmation(deployResult, commitSource);
-      modal.show(confirmationContianer, { size: 'small', closeButton: true });
+      modal.show(confirmationContianer, { size: 'small' });
+      await generateQrCode({
+        container: confirmationContianer.querySelector('#deploy-qrcode') as HTMLElement,
+        url: deployResult.url,
+        title: repo,
+      });
       return true;
     } else {
       modal.close();

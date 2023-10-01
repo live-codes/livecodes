@@ -2071,17 +2071,17 @@ i.arrow {
     #share-links-container {
       position: relative;
     }
+  }
 
-    #qrcode-container {
-      align-items: center;
-      display: none;
-      height: 200px;
-      justify-content: center;
-      padding-top: 2em;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
+  .qrcode-container {
+    align-items: center;
+    display: none;
+    height: 200px;
+    justify-content: center;
+    padding-top: 2em;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 
   #login-screen {
@@ -2101,6 +2101,11 @@ i.arrow {
   #deploy-container {
     input[type='checkbox'] {
       margin-right: 0.7em;
+    }
+
+    .qrcode-container {
+      display: flex;
+      position: relative;
     }
   }
 

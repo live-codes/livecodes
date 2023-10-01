@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v15](https://github.com/live-codes/livecodes/compare/v14...v15) (2023-10-01)
+
+This release improves R and Python(Pyodide) language support:
+
+- upgrade versions
+- significant performance improvements
+- add docs
+
+In addition:
+
+- on deploy QR code is generated for the deploy URL
+- QR code generated for share has LiveCodes logo
+- various bug fixes
+
+### Bug Fixes
+
+- **export-share:** fix share screen on generating qrcode for short url ([7cbede4](https://github.com/live-codes/livecodes/commit/7cbede4de0d6a7f3efb1a9639db332581c281f66))
+- **result:** avoid duplicate handlers in live reload ([bef4906](https://github.com/live-codes/livecodes/commit/bef49066931666cac9ec991c4d414f42ebfd74d5))
+- **tests:** fix sending test results to SDK ([08d9bc0](https://github.com/live-codes/livecodes/commit/08d9bc0e9ba3f71f239a646177f5c4c3c85e7232))
+
+### Features
+
+- **compilers:** clean up pyodide state between reloads ([07fafe4](https://github.com/live-codes/livecodes/commit/07fafe4db275b63774afab3f245943c54f8a016e))
+- **compilers:** expose R output and plots as `livecodes.r.output` and `livecodes.r.plots` ([707aa54](https://github.com/live-codes/livecodes/commit/707aa545810d30be7e639c971d6cfc681a9edef7))
+- **compilers:** upgrade Pyodide to v0.24.0 ([ed1246d](https://github.com/live-codes/livecodes/commit/ed1246de6e7bd41cb885e97f1d141fc99cb2bee8)), closes [/pyodide.org/en/stable/project/changelog.html#version-0-24-0](https://github.com//pyodide.org/en/stable/project/changelog.html/issues/version-0-24-0)
+- **compilers:** upgrade webr to v0.2.1 ([2f3b590](https://github.com/live-codes/livecodes/commit/2f3b590de629532bb24f80544a2ac7960bd1713d))
+- **compilers:** use micropip in Pyodide ([2a96b0d](https://github.com/live-codes/livecodes/commit/2a96b0dbe6018a688d392dd580f8db9340705c95))
+- **deploy:** generate QR code for deploy ([7391204](https://github.com/live-codes/livecodes/commit/7391204e8bc80a4d01d4292fe6a5ca9c4c2931cf))
+- **export-share:** add logo to QR code and allow image download ([4fa21d9](https://github.com/live-codes/livecodes/commit/4fa21d94cd992210a3fbb80603937599f22a748b))
+
+---
+
 ## [v14](https://github.com/live-codes/livecodes/compare/v13...v14) (2023-09-16)
 
 This release improves running tests:

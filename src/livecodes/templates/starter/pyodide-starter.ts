@@ -53,14 +53,9 @@ def showPlot(figure, selector):
   iconStyles.rel = 'stylesheet'
   iconStyles.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
   document.head.appendChild(iconStyles)
-
-  def create_root_element(self):
-    el = document.querySelector(selector)
-    el.innerHTML = ''
-    return el
-
-  figure.canvas.create_root_element = type(figure.canvas.create_root_element)(
-    create_root_element, figure.canvas.__class__)
+  el = document.querySelector(selector)
+  el.innerHTML = ''
+  document.pyodideMplTarget = el
   figure.canvas.show()
 
 

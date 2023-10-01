@@ -38,7 +38,7 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
 
-export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.2/');
+export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.3/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@4.3.6');
 
@@ -258,10 +258,10 @@ export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.19.
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.26.0/components/');
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/pyodide/v0.23.2/full/',
+  'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
 );
 
-export const qrcodeUrl = /* @__PURE__ */ getUrl('qrcode-generator@1.4.4/qrcode.js');
+export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.5.0/dist/easy.qrcode.min.js');
 
 export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.0-dev.4/dist/');
 
@@ -359,4 +359,4 @@ export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
-export const webRBaseUrl = /* @__PURE__ */ getUrl('@r-wasm/webr@0.1.1/dist/');
+export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.2.1/dist/');

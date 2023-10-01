@@ -8,13 +8,16 @@ export const r: LanguageSpecs = {
     scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-r-script-esm.js}}'],
     inlineScript: `
     livecodes.r = livecodes.r || {config: {}};
-    addEventListener('load', async () => {
-      await livecodes.r.loaded;
-      if (livecodes.r.config?.autoEvaluate !== false) {
-        await livecodes.r.run();
-      }
-      // reset config before next load
-      livecodes.r.config = {};
+    // reset config before next load
+    livecodes.r.config = {};
+    livecodes.r.evaluated = new Promise((resolve) => {
+      addEventListener('load', async () => {
+        await livecodes.r.loaded;
+        if (livecodes.r.config?.autoEvaluate !== false) {
+          await livecodes.r.run();
+          resolve();
+        }
+      });
     });
     `,
     liveReload: true,

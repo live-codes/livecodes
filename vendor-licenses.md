@@ -50,6 +50,8 @@ dot: [MIT License](https://github.com/olado/doT/blob/031d3bb7520eed6b93886df2b65
 
 dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a8708877a86a08c7e3bee92160ac1f/LICENSE)
 
+EasyQRCodeJS: [MIT License](https://github.com/ushelp/EasyQRCodeJS/blob/573373b110d706132a41cc8abb5b297016b80094/LICENSE)
+
 EJS: [Apache License 2.0](https://github.com/mde/ejs/blob/f47d7aedd51a983e4f73045f962b1209096b5800/LICENSE)
 
 elkjs-svg: [MIT License](https://github.com/EmilStenstrom/elkjs-svg/blob/4a8709b2407d23218904f523552c565a37764e40/LICENSE)
@@ -87,8 +89,6 @@ Hint.css: [MIT License](https://github.com/chinchang/hint.css/blob/e4b0f0afc79fe
 hpcc-js/wasm: [Apache-2.0 license](https://github.com/hpcc-systems/hpcc-js-wasm/blob/58b1d7cc1ac1d7c6e42afd3ae70085425177d6e2/LICENSE)
 
 Imba: [MIT License](https://github.com/imba/imba/blob/4c92d45d0f691bd8aba0ab7055952105e8a8bfab/LICENSE)
-
-jest-lite: [MIT License](https://github.com/kvendrik/jest-lite/blob/e598be34afd5fae73f8bc6ba2311b2d9480a38d2/package.json#L25)
 
 JSCL: [MIT License](https://cdn.jsdelivr.net/gh/jscl-project/jscl-project.github.io@efd3aec/jscl.js)
 
@@ -177,8 +177,6 @@ PrismJS: [MIT License](https://github.com/PrismJS/prism/blob/f84c49c5eae1aecbbb8
 Pug: [MIT License](https://github.com/pugjs/pug/blob/bb0731f75813aa30d8e077808b5465a67ef284ef/packages/pug/LICENSE)
 
 Pyodide: [MPL-2.0 License](https://github.com/pyodide/pyodide/blob/01e1fd6e38ecf036ce7394b4e5640bef393fa404/LICENSE)
-
-QR Code Generator: [MIT License](https://github.com/kazuhikoarase/qrcode-generator/blob/b95b52e887f832ebff0a9ec93c08f2e83d95ec92/LICENSE)
 
 Quill: [BSD-3-Clause License](https://github.com/quilljs/quill/blob/b3d1532e2fd2dfb913e41f886ed9c4afca1e631a/LICENSE)
 
