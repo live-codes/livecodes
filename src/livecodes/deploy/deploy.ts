@@ -189,6 +189,7 @@ export const deployedConfirmation = (deployResult: DeployResult, sourcePublished
         Your project has been deployed successfully to GitHub Pages, and will shortly be available on: <br />
         <a href="${url}" target="_blank">${url}</a>
       </p>
+      <div id="deploy-qrcode" class="qrcode-container">Generating...</div>
       ${linkToSource}
     </div>
   `;

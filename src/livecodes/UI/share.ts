@@ -3,8 +3,8 @@ import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import type { ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';
-import { copyToClipboard, getAbsoluteUrl, loadScript, safeName } from '../utils/utils';
-import { qrcodeUrl } from '../vendors';
+import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
+import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
 
 interface Service {
@@ -32,7 +32,7 @@ export const createShareContainer = async (
     }, 5000);
   };
 
-  const generateQrCode = async () => {
+  const showQrCode = async () => {
     const qrcodeContainer = getQrCodeContainer();
     items!.style.visibility = 'hidden';
     qrcodeContainer.style.display = 'flex';
@@ -47,24 +47,12 @@ export const createShareContainer = async (
       await generateShortUrl();
     }
     if (!shareDataShort) return;
-    const QRCode: any = await loadScript(qrcodeUrl, 'QRCode');
-    qrcodeContainer.style.visibility = 'hidden';
-    const qr = new QRCode(qrcodeContainer, {
-      text: shareDataShort.url,
+
+    await generateQrCode({
+      container: qrcodeContainer,
+      url: shareDataShort.url,
+      title: shareDataShort.title,
       logo: baseUrl + 'assets/images/livecodes-logo.svg',
-      width: 200,
-      height: 200,
-      drawer: 'canvas',
-      onRenderingEnd: (_options: any, dataUrl: string) => {
-        qrcodeContainer.innerHTML = '';
-        const qrcodeImg = document.createElement('img');
-        qrcodeImg.src = dataUrl;
-        qrcodeImg.style.cursor = 'pointer';
-        qrcodeImg.title = 'Click to download';
-        qrcodeImg.onclick = () => qr.download(safeName(shareDataShort.title, '-'));
-        qrcodeContainer.appendChild(qrcodeImg);
-        qrcodeContainer.style.visibility = 'visible';
-      },
     });
   };
 
@@ -192,7 +180,7 @@ export const createShareContainer = async (
     {
       name: 'QR code',
       icon: 'qr-code.svg',
-      onClick: generateQrCode,
+      onClick: showQrCode,
     },
     {
       name: 'Share via …',
