@@ -42,7 +42,9 @@ export const createShareContainer = async (
       }
       return;
     }
-    await generateShortUrl();
+    if (!shareDataShort) {
+      await generateShortUrl();
+    }
     const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
     const typeNumber = 0;
     const errorCorrectionLevel = 'L';
