@@ -52,20 +52,18 @@ livecodes.r.run =
       container = container || livecodes.r.config?.container || document.body;
     }
 
-    canvasHeight =
-      Number(canvasHeight) ||
-      Number(livecodes.r.config?.canvasHeight) ||
-      defaultConfig.canvasHeight;
-    canvasWidth =
-      Number(canvasWidth) || Number(livecodes.r.config?.canvasWidth) || defaultConfig.canvasWidth;
-    canvasPointSize =
-      Number(canvasPointSize) ||
-      Number(livecodes.r.config?.canvasPointSize) ||
-      defaultConfig.canvasPointSize;
-    canvasBackground =
-      String(canvasBackground) ||
-      String(livecodes.r.config?.canvasBackground) ||
-      defaultConfig.canvasBackground;
+    canvasHeight = Number(
+      canvasHeight || livecodes.r.config?.canvasHeight || defaultConfig.canvasHeight,
+    );
+    canvasWidth = Number(
+      canvasWidth || livecodes.r.config?.canvasWidth || defaultConfig.canvasWidth,
+    );
+    canvasPointSize = Number(
+      canvasPointSize || livecodes.r.config?.canvasPointSize || defaultConfig.canvasPointSize,
+    );
+    canvasBackground = String(
+      canvasBackground || livecodes.r.config?.canvasBackground || defaultConfig.canvasBackground,
+    );
 
     if (code == null) {
       code = '';
@@ -92,7 +90,7 @@ livecodes.r.run =
       await webR.init();
       await webR.evalRVoid('options(device=webr::canvas)');
       await webR.evalRVoid(
-        `webr::canvas(width=${canvasWidth}, height=${canvasHeight}), pointsize=${canvasPointSize}, bg=${canvasBackground}`,
+        `webr::canvas(width=${canvasWidth}, height=${canvasHeight}, pointsize=${canvasPointSize}, bg="${canvasBackground}")`,
       );
       result = await webRCodeShelter.captureR(code, {
         withAutoprint: true,
