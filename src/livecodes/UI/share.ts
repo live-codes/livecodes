@@ -1,8 +1,9 @@
+/* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import type { ShareData } from '../models';
-import { allowedOrigin } from '../services';
-import { copyToClipboard, getAbsoluteUrl, loadScript } from '../utils';
+import { allowedOrigin } from '../services/allowed-origin';
+import { copyToClipboard, getAbsoluteUrl, loadScript, safeName } from '../utils/utils';
 import { qrcodeUrl } from '../vendors';
 import { getQrCodeContainer } from './selectors';
 
@@ -45,14 +46,26 @@ export const createShareContainer = async (
     if (!shareDataShort) {
       await generateShortUrl();
     }
-    const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
-    const typeNumber = 0;
-    const errorCorrectionLevel = 'L';
-    const qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(shareDataShort.url);
-    qr.make();
-    qrcodeImg = qr.createImgTag(6, 10);
-    qrcodeContainer.innerHTML = qrcodeImg;
+    if (!shareDataShort) return;
+    const QRCode: any = await loadScript(qrcodeUrl, 'QRCode');
+    qrcodeContainer.style.visibility = 'hidden';
+    const qr = new QRCode(qrcodeContainer, {
+      text: shareDataShort.url,
+      logo: baseUrl + 'assets/images/livecodes-logo.svg',
+      width: 200,
+      height: 200,
+      drawer: 'canvas',
+      onRenderingEnd: (_options: any, dataUrl: string) => {
+        qrcodeContainer.innerHTML = '';
+        const qrcodeImg = document.createElement('img');
+        qrcodeImg.src = dataUrl;
+        qrcodeImg.style.cursor = 'pointer';
+        qrcodeImg.title = 'Click to download';
+        qrcodeImg.onclick = () => qr.download(safeName(shareDataShort.title, '-'));
+        qrcodeContainer.appendChild(qrcodeImg);
+        qrcodeContainer.style.visibility = 'visible';
+      },
+    });
   };
 
   const populateItems = (shareData: ShareData, services: Service[], items: HTMLElement | null) => {
