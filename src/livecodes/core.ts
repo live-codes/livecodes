@@ -3424,6 +3424,7 @@ const handleTestResults = () => {
     }
 
     toolsPane?.tests?.showResults({ results, error });
+    sdkWatchers.tests.notify({ results, error });
 
     let testResultsEvent: CustomEvent<{ results: TestResult[]; error?: string } | void>;
     if (sdkWatchers.tests.hasSubscribers()) {
@@ -4193,14 +4194,10 @@ const createApi = (): API => {
 
   const apiRunTests: API['runTests'] = () =>
     new Promise((resolve) => {
-      eventsManager.addEventListener(
-        document,
-        customEvents.testResults,
-        ((ev: CustomEventInit<{ results: TestResult[] }>) => {
-          resolve({ results: ev.detail?.results || [] });
-        }) as any,
-        { once: true },
-      );
+      const watcher = sdkWatchers.tests.subscribe((testResults) => {
+        resolve(testResults);
+        watcher.unsubscribe();
+      });
       runTests();
     });
 

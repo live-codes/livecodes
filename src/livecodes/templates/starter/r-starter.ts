@@ -11,11 +11,13 @@ export const rStarter: Template = {
 <div id="output">Loading...</div>
 
 <script>
-  livecodes.r.config = {
-    container: '#output',
-    canvasHeight: 309,
-    canvasWidth: 500,
-  };
+  // livecodes.r.config = {
+  //   container: '#output',
+  //   canvasHeight: 309,
+  //   canvasWidth: 500,
+  //   canvasPointSize: 12,
+  //   canvasBackground: 'transparent',
+  // };
 </script>
 `.trimStart(),
   },

@@ -38,7 +38,7 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
 
-export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.2/');
+export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.3/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@4.3.6');
 
@@ -359,4 +359,4 @@ export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
-export const webRBaseUrl = /* @__PURE__ */ getUrl('@r-wasm/webr@0.1.1/dist/');
+export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.2.1/dist/');
