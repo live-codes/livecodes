@@ -2946,6 +2946,14 @@ declare module "livecodes/UI/import" {
         showScreen: (screen: Screen['screen'], options?: any) => Promise<void>;
     }) => void;
 }
+declare module "livecodes/UI/qrcode" {
+    export const generateQrCode: ({ container, url, title, logo, }: {
+        container: HTMLElement;
+        url: string;
+        title?: string | undefined;
+        logo?: string | undefined;
+    }) => Promise<void>;
+}
 declare module "livecodes/UI/share" {
     import type { createEventsManager } from "livecodes/events/index";
     import type { ShareData } from "livecodes/models";
