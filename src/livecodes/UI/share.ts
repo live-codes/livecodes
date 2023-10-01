@@ -1,9 +1,10 @@
+/* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import type { ShareData } from '../models';
-import { allowedOrigin } from '../services';
-import { copyToClipboard, getAbsoluteUrl, loadScript } from '../utils';
-import { qrcodeUrl } from '../vendors';
+import { allowedOrigin } from '../services/allowed-origin';
+import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
+import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
 
 interface Service {
@@ -31,7 +32,7 @@ export const createShareContainer = async (
     }, 5000);
   };
 
-  const generateQrCode = async () => {
+  const showQrCode = async () => {
     const qrcodeContainer = getQrCodeContainer();
     items!.style.visibility = 'hidden';
     qrcodeContainer.style.display = 'flex';
@@ -42,15 +43,17 @@ export const createShareContainer = async (
       }
       return;
     }
-    await generateShortUrl();
-    const qrcode: any = await loadScript(qrcodeUrl, 'qrcode');
-    const typeNumber = 0;
-    const errorCorrectionLevel = 'L';
-    const qr = qrcode(typeNumber, errorCorrectionLevel);
-    qr.addData(shareDataShort.url);
-    qr.make();
-    qrcodeImg = qr.createImgTag(6, 10);
-    qrcodeContainer.innerHTML = qrcodeImg;
+    if (!shareDataShort) {
+      await generateShortUrl();
+    }
+    if (!shareDataShort) return;
+
+    await generateQrCode({
+      container: qrcodeContainer,
+      url: shareDataShort.url,
+      title: shareDataShort.title,
+      logo: baseUrl + 'assets/images/livecodes-logo.svg',
+    });
   };
 
   const populateItems = (shareData: ShareData, services: Service[], items: HTMLElement | null) => {
@@ -177,7 +180,7 @@ export const createShareContainer = async (
     {
       name: 'QR code',
       icon: 'qr-code.svg',
-      onClick: generateQrCode,
+      onClick: showQrCode,
     },
     {
       name: 'Share via …',
