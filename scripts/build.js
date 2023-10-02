@@ -235,6 +235,7 @@ const esmBuild = () =>
       'languages/diagrams/lang-diagrams-compiler-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',
+      'languages/ruby-wasm/lang-ruby-wasm-script-esm.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),

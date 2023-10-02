@@ -67,6 +67,7 @@ import { mjml } from './mjml';
 import { sucrase } from './sucrase';
 import { eta } from './eta';
 import { clojurescript } from './clojurescript';
+import { rubyWasm } from './ruby-wasm';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -123,6 +124,7 @@ export const languages: LanguageSpecs[] = [
   pyodide,
   r,
   ruby,
+  rubyWasm,
   go,
   php,
   cpp,

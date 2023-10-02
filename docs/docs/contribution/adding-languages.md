@@ -27,3 +27,4 @@ If you still have doubts if the language qualifies, [let's discuss it](https://g
 - [ ] Add language [documentation](https://github.com/live-codes/livecodes/tree/develop/docs/docs/languages).
 - [ ] Add language to documentation website [slider](https://github.com/live-codes/livecodes/blob/develop/docs/src/components/LanguageSliders.tsx).
 - [ ] Add compiler/formatter [license(s)](https://github.com/live-codes/livecodes/blob/develop/vendor-licenses.md).
+- [ ] Update language count badge in [README](https://github.com/live-codes/livecodes/blob/develop/README.md).

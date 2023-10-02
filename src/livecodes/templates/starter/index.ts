@@ -55,6 +55,7 @@ import { civetStarter } from './civet-starter';
 import { fennelStarter } from './fennel-starter';
 import { tealStarter } from './teal-starter';
 import { clojurescriptStarter } from './clojurescript-starter';
+import { rubyWasmStarter } from './ruby-wasm-starter';
 
 export const starterTemplates = [
   blank,
@@ -92,6 +93,7 @@ export const starterTemplates = [
   pyodideStarter,
   rStarter,
   rubyStarter,
+  rubyWasmStarter,
   goStarter,
   phpStarter,
   cppStarter,

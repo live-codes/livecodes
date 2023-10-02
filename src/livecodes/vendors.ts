@@ -301,6 +301,12 @@ export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
 export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@7.1.0/');
 
+export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('ruby-3_2-wasm-wasi@2.1.0/dist/');
+
+export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
+  '@ruby/wasm-wasi@2.1.0/dist/browser.umd.js',
+);
+
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
 export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');

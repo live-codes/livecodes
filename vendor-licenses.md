@@ -196,6 +196,8 @@ reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2
 
 Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320ee7f18c36b7ae74/LICENSE.txt)
 
+ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
+
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
 SnackBar: [MIT License](https://github.com/egoist/snackbar/blob/4bc2fb7afd32d53a39661418fa5189dbb6e4aa86/LICENSE)
