@@ -213,6 +213,31 @@ test.describe('Starter Templates from UI', () => {
     expect(counterText).toBe('You clicked 3 times.');
   });
 
+  test('ruby-wasm Starter', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=Ruby (wasm) Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Ruby!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
+  });
+
   test('Go Starter', async ({ page, getTestUrl, editor }) => {
     test.slow();
 
@@ -662,6 +687,27 @@ test.describe('Starter Templates from URL', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).not.toBe('You clicked 0 times.');
+  });
+
+  test('ruby-wasm Starter (in URL)', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'ruby-wasm' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
+
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+    await getResult().click('text=Click me');
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, Ruby!');
+
+    const counterText = await getResult().innerText('text=You clicked');
+    expect(counterText).toBe('You clicked 3 times.');
   });
 
   test('Go Starter (in URL)', async ({ page, getTestUrl, editor }) => {
