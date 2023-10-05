@@ -225,6 +225,7 @@ test.describe('Starter Templates from UI', () => {
     await app.click('text=Ruby (wasm) Starter');
     await waitForEditorFocus(app);
 
+    await app.waitForTimeout(10_000);
     await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
 
     await getResult().click('text=Click me');
@@ -697,6 +698,7 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
+    await app.waitForTimeout(10_000);
     await waitForResultUpdate({ delay: 4000, timeout: 60_000 });
 
     await getResult().click('text=Click me');
