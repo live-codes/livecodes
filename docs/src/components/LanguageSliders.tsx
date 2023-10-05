@@ -75,6 +75,7 @@ export default function Sliders() {
       { name: 'pyodide', title: 'Pyodide' },
       { name: 'r', title: 'R' },
       { name: 'ruby', title: 'Ruby' },
+      { name: 'ruby-wasm', title: 'Ruby (Wasm)' },
       { name: 'go', title: 'Go' },
       { name: 'php', title: 'PHP' },
       { name: 'cpp', title: 'C++' },
