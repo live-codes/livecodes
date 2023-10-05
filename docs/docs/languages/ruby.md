@@ -12,7 +12,7 @@ LiveCodes runs Ruby in the browser using [Opal](https://opalrb.com/).
 
 :::info Note
 
-LiveCodes also supports running Ruby using [ruby.wasm](./ruby-wasm.md) which is a collection of WebAssembly ports of the official [CRuby](https://github.com/ruby/ruby).
+LiveCodes also supports running Ruby using [ruby.wasm](https://github.com/ruby/ruby.wasm) which is a collection of WebAssembly ports of the official [CRuby](https://github.com/ruby/ruby). Read documentation [here](./ruby-wasm.md)
 
 :::
 

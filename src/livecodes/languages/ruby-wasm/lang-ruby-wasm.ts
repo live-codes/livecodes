@@ -18,7 +18,7 @@ export const rubyWasm: LanguageSpecs = {
     scriptType: 'text/ruby-wasm',
     compiledCodeLanguage: 'ruby',
   },
-  extensions: ['wasm.rb'],
+  extensions: ['wasm.rb', 'rubywasm'],
   editor: 'script',
   editorLanguage: 'ruby',
   largeDownload: true,
