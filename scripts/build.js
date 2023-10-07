@@ -235,7 +235,6 @@ const esmBuild = () =>
       'languages/diagrams/lang-diagrams-compiler-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',
-      'languages/ruby-wasm/lang-ruby-wasm-script-esm.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),
@@ -276,6 +275,7 @@ const iifeBuild = () =>
       'languages/pug/lang-pug-compiler.ts',
       'languages/python-pyodide/lang-python-pyodide-script.ts',
       'languages/riot/lang-riot-compiler.ts',
+      'languages/ruby-wasm/lang-ruby-wasm-script.ts',
       'languages/scss/lang-scss-compiler.ts',
       'languages/solid/lang-solid-compiler.ts',
       'languages/sql/lang-sql-compiler.ts',

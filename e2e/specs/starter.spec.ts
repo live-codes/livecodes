@@ -223,8 +223,9 @@ test.describe('Starter Templates from UI', () => {
     await app.click('[aria-label="Menu"]');
     await app.click('text=New');
     await app.click('text=Ruby (wasm) Starter');
-    await waitForEditorFocus(app);
 
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
     await app.waitForTimeout(20_000);
 
     await getResult().click('text=Click me');
@@ -697,6 +698,7 @@ test.describe('Starter Templates from URL', () => {
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await waitForEditorFocus(app);
+    await waitForResultUpdate();
     await app.waitForTimeout(20_000);
 
     await getResult().click('text=Click me');

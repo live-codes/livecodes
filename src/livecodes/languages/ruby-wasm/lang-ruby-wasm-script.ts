@@ -3,6 +3,8 @@ import { rubyWasmBaseUrl } from '../../vendors';
 
 parent.postMessage({ type: 'loading', payload: true }, '*');
 
+livecodes.rubyWasm = livecodes.rubyWasm || { stdlibLoaded: false };
+
 livecodes.rubyWasm.run =
   livecodes.rubyWasm.run ||
   (async () => {
@@ -43,5 +45,7 @@ livecodes.rubyWasm.run =
     vm.eval(code);
     parent.postMessage({ type: 'loading', payload: false }, '*');
   });
+
+addEventListener('load', () => livecodes.rubyWasm.run?.());
 
 parent.postMessage({ type: 'loading', payload: false }, '*');
