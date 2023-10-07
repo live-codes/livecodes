@@ -1,17 +1,20 @@
 import type { LanguageSpecs } from '../../models';
 
-export const clang: LanguageSpecs = {
-  name: 'clang',
-  title: 'Clang',
-  longTitle: 'C/C++ (Clang)',
+export const cppWasm: LanguageSpecs = {
+  name: 'cpp-wasm',
+  title: 'C++ (Wasm)',
+  longTitle: 'C/C++ (Wasm)',
   compiler: {
     factory: () => async (code) => code,
-    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-cpp-clang-script.js}}'],
+    scripts: ({ baseUrl }) => [baseUrl + '{{hash:lang-cpp-wasm-script.js}}'],
     scriptType: 'text/cpp',
     compiledCodeLanguage: 'cpp',
     liveReload: true,
   },
   extensions: [
+    'wasm.cpp',
+    'cppwasm',
+    'cwasm',
     'clang.cpp',
     'clang',
     'cpp',

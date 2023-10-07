@@ -140,9 +140,13 @@ export const params = {r: `head(iris)\n\nPW <- iris$Petal.Width\nPL <- iris$Peta
 
 `r`
 
+### Extension
+
+`.r`
+
 ### Aliases
 
-`rlang`, `rstats`
+`rlang`, `rstats`, `r-wasm`
 
 ### Editor
 

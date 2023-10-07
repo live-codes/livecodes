@@ -1,8 +1,9 @@
 import type { Template } from '../../models';
 
-export const pyodideStarter: Template = {
-  name: 'pyodide',
-  title: 'Python (pyodide) Starter',
+export const pythonWasmStarter: Template = {
+  name: 'python-wasm',
+  aliases: ['pyodide'],
+  title: 'Python (Wasm) Starter',
   thumbnail: 'assets/templates/python.svg',
   activeEditor: 'script',
   markup: {
@@ -20,7 +21,7 @@ export const pyodideStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'pyodide',
+    language: 'python-wasm',
     content: `
 from js import document, XMLHttpRequest
 import pandas as pd
@@ -77,9 +78,4 @@ name = 'Python'
 title.innerHTML = f"Hello, {name}!"
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
 };

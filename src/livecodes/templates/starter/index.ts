@@ -17,7 +17,7 @@ import { mdxStarter } from './mdx-starter';
 import { perlStarter } from './perl-starter';
 import { phpStarter } from './php-starter';
 import { preactStarter } from './preact-starter';
-import { pyodideStarter } from './pyodide-starter';
+import { pythonWasmStarter } from './python-wasm-starter';
 import { pythonStarter } from './python-starter';
 import { reactNativeStarter } from './react-native-starter';
 import { reactStarter } from './react-starter';
@@ -41,7 +41,7 @@ import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
 import { juliaStarter } from './julia-starter';
-import { clangStarter } from './clang-starter';
+import { cppWasmStarter } from './cpp-wasm-starter';
 import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
@@ -55,6 +55,7 @@ import { civetStarter } from './civet-starter';
 import { fennelStarter } from './fennel-starter';
 import { tealStarter } from './teal-starter';
 import { clojurescriptStarter } from './clojurescript-starter';
+import { rubyWasmStarter } from './ruby-wasm-starter';
 
 export const starterTemplates = [
   blank,
@@ -89,13 +90,14 @@ export const starterTemplates = [
   reasonStarter,
   ocamlStarter,
   pythonStarter,
-  pyodideStarter,
+  pythonWasmStarter,
   rStarter,
   rubyStarter,
+  rubyWasmStarter,
   goStarter,
   phpStarter,
   cppStarter,
-  clangStarter,
+  cppWasmStarter,
   perlStarter,
   luaStarter,
   tealStarter,
