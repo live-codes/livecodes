@@ -41,7 +41,7 @@ import { malinaStarter } from './malina-starter';
 import { commonlispStarter } from './commonlisp-starter';
 import { cppStarter } from './cpp-starter';
 import { juliaStarter } from './julia-starter';
-import { clangStarter } from './clang-starter';
+import { cppWasmStarter } from './cpp-wasm-starter';
 import { tclStarter } from './tcl-starter';
 import { prologStarter } from './prolog-starter';
 import { clioStarter } from './clio-starter';
@@ -97,7 +97,7 @@ export const starterTemplates = [
   goStarter,
   phpStarter,
   cppStarter,
-  clangStarter,
+  cppWasmStarter,
   perlStarter,
   luaStarter,
   tealStarter,

@@ -257,7 +257,7 @@ const iifeBuild = () =>
       'languages/clio/lang-clio-compiler.ts',
       'languages/commonlisp/lang-commonlisp-script.ts',
       'languages/cpp/lang-cpp-script.ts',
-      'languages/cpp-clang/lang-cpp-clang-script.ts',
+      'languages/cpp-wasm/lang-cpp-wasm-script.ts',
       'languages/dot/lang-dot-compiler.ts',
       'languages/ejs/lang-ejs-compiler.ts',
       'languages/eta/lang-eta-compiler.ts',

@@ -48,7 +48,7 @@ import { malina } from './malina';
 import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
 import { julia } from './julia';
-import { clang } from './cpp-clang';
+import { cppWasm } from './cpp-wasm';
 import { tcl } from './tcl';
 import { prolog } from './prolog';
 import { clio } from './clio';
@@ -128,7 +128,7 @@ export const languages: LanguageSpecs[] = [
   go,
   php,
   cpp,
-  clang,
+  cppWasm,
   perl,
   lua,
   teal,
