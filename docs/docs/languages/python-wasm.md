@@ -60,7 +60,7 @@ Check the [starter template](#starter-template) for an example.
 
 ### Extensions
 
-`.py3`
+`.py3`, `.wasm.py`
 
 ### Aliases
 

@@ -281,6 +281,17 @@ const config = {
         internalModule: '_internal',
       },
     ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/languages/pyodide',
+            to: '/languages/python-wasm',
+          },
+        ],
+      },
+    ],
   ],
 };
 

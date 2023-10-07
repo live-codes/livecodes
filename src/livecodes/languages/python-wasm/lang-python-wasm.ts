@@ -11,7 +11,7 @@ export const pythonWasm: LanguageSpecs = {
     scriptType: 'text/python',
     compiledCodeLanguage: 'python',
   },
-  extensions: ['py3', 'pyodide', 'py-wasm', 'pythonwasm', 'pywasm'],
+  extensions: ['py3', 'wasm.py', 'pyodide', 'py-wasm', 'pythonwasm', 'pywasm'],
   editor: 'script',
   editorLanguage: 'python',
   largeDownload: true,

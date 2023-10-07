@@ -252,6 +252,7 @@ export type Language =
   | 'pythonwasm'
   | 'pywasm'
   | 'py3'
+  | 'wasm.py'
   | 'r'
   | 'rlang'
   | 'rstats'
