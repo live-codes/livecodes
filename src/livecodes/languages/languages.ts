@@ -27,7 +27,7 @@ import { perl } from './perl';
 import { lua } from './lua';
 import { scheme } from './scheme';
 import { solid, solidTsx } from './solid';
-import { pyodide } from './python-pyodide';
+import { pythonWasm } from './python-wasm';
 import { liquid } from './liquid';
 import { ejs } from './ejs';
 import { handlebars } from './handlebars';
@@ -121,7 +121,7 @@ export const languages: LanguageSpecs[] = [
   reason,
   ocaml,
   python,
-  pyodide,
+  pythonWasm,
   r,
   ruby,
   rubyWasm,

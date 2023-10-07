@@ -273,7 +273,7 @@ const iifeBuild = () =>
       'languages/perl/lang-perl-script.ts',
       'languages/prolog/lang-prolog-script.ts',
       'languages/pug/lang-pug-compiler.ts',
-      'languages/python-pyodide/lang-python-pyodide-script.ts',
+      'languages/python-wasm/lang-python-wasm-script.ts',
       'languages/riot/lang-riot-compiler.ts',
       'languages/ruby-wasm/lang-ruby-wasm-script.ts',
       'languages/scss/lang-scss-compiler.ts',

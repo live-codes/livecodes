@@ -247,10 +247,15 @@ export type Language =
   | 'python'
   | 'py'
   | 'pyodide'
+  | 'python-wasm'
+  | 'py-wasm'
+  | 'pythonwasm'
+  | 'pywasm'
   | 'py3'
   | 'r'
   | 'rlang'
   | 'rstats'
+  | 'r-wasm'
   | 'ruby'
   | 'rb'
   | 'ruby-wasm'
@@ -527,6 +532,7 @@ export interface Compilers {
 export type Template = Pick<ContentConfig, 'title' | 'markup' | 'style' | 'script'> &
   Partial<ContentConfig> & {
     name: TemplateName;
+    aliases?: TemplateName[];
     thumbnail: string;
     tools?: Config['tools'];
     autotest?: Config['autotest'];
@@ -566,6 +572,7 @@ export type TemplateName =
   | 'ocaml'
   | 'python'
   | 'pyodide'
+  | 'python-wasm'
   | 'r'
   | 'ruby'
   | 'ruby-wasm'

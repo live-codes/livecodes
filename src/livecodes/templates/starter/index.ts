@@ -17,7 +17,7 @@ import { mdxStarter } from './mdx-starter';
 import { perlStarter } from './perl-starter';
 import { phpStarter } from './php-starter';
 import { preactStarter } from './preact-starter';
-import { pyodideStarter } from './pyodide-starter';
+import { pythonWasmStarter } from './python-wasm-starter';
 import { pythonStarter } from './python-starter';
 import { reactNativeStarter } from './react-native-starter';
 import { reactStarter } from './react-starter';
@@ -90,7 +90,7 @@ export const starterTemplates = [
   reasonStarter,
   ocamlStarter,
   pythonStarter,
-  pyodideStarter,
+  pythonWasmStarter,
   rStarter,
   rubyStarter,
   rubyWasmStarter,
