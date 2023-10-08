@@ -68,6 +68,7 @@ import { sucrase } from './sucrase';
 import { eta } from './eta';
 import { clojurescript } from './clojurescript';
 import { rubyWasm } from './ruby-wasm';
+import { luaWasm } from './lua-wasm';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -131,6 +132,7 @@ export const languages: LanguageSpecs[] = [
   cppWasm,
   perl,
   lua,
+  luaWasm,
   teal,
   fennel,
   julia,
