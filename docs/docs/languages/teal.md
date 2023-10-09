@@ -2,7 +2,7 @@
 
 Teal is a typed dialect of [Lua](https://www.lua.org/).
 
-Teal is compiled to Lua, which then runs in the browser using [Fengari](https://fengari.io/). See documentation for Lua language support in LiveCodes [here](./lua.md).
+Teal code is compiled to Lua, which then runs in the browser using [Fengari](https://fengari.io/). See documentation for Lua language support in LiveCodes [here](./lua.md).
 
 ## Usage
 
