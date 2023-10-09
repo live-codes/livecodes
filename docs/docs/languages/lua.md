@@ -10,7 +10,7 @@ LiveCodes runs Lua in the browser using [Fengari](https://fengari.io/).
 
 :::info Note
 
-LiveCodes also supports running Lua using [wasmoon](https://github.com/ceifa/wasmoon) which is a real lua 5.4 VM with JS bindings made with WebAssembly. Read documentation [here](./lua-wasm.md)
+LiveCodes also supports running Lua using [Wasmoon](https://github.com/ceifa/wasmoon) which is a real Lua 5.4 VM with JS bindings made with WebAssembly. Read documentation [here](./lua-wasm.md)
 
 :::
 
