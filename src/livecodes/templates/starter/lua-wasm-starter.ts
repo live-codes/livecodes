@@ -1,8 +1,8 @@
 import type { Template } from '../../models';
 
-export const luaStarter: Template = {
-  name: 'lua',
-  title: 'Lua Starter',
+export const luaWasmStarter: Template = {
+  name: 'lua-wasm',
+  title: 'Lua (Wasm) Starter',
   thumbnail: 'assets/templates/lua.svg',
   activeEditor: 'script',
   markup: {
@@ -30,12 +30,9 @@ export const luaStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'lua',
+    language: 'lua-wasm',
     content: `
-js = require "js"
-window = js.global
 document = window.document
-
 document:getElementById("title").innerHTML = "Lua"
 
 Counter = {count = 0}

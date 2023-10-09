@@ -56,6 +56,7 @@ import { fennelStarter } from './fennel-starter';
 import { tealStarter } from './teal-starter';
 import { clojurescriptStarter } from './clojurescript-starter';
 import { rubyWasmStarter } from './ruby-wasm-starter';
+import { luaWasmStarter } from './lua-wasm-starter';
 
 export const starterTemplates = [
   blank,
@@ -100,6 +101,7 @@ export const starterTemplates = [
   cppWasmStarter,
   perlStarter,
   luaStarter,
+  luaWasmStarter,
   tealStarter,
   fennelStarter,
   juliaStarter,

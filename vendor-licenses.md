@@ -260,6 +260,8 @@ wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a99
 
 wasm-refmt: [MIT License](https://github.com/xtuc/webassemblyjs/blob/45f733aa96476d74c8ac57598e13406a48a6fdc8/LICENSE)
 
+wasmoon: [MIT License](https://github.com/ceifa/wasmoon/blob/6785315ea1146f00aeb6bdb125bf92df0243d7b4/LICENSE)
+
 WaveDrom: [MIT License](https://github.com/wavedrom/wavedrom/blob/3ef2f7c2d0f57902d901fc283dd13d96a1f6badd/LICENSE)
 
 WebR: [License](https://github.com/r-wasm/webr/blob/e47ab9854c9306c410f302579c6662ea5d82fe41/LICENSE.md)

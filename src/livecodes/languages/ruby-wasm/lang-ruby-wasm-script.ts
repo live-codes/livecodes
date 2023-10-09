@@ -26,20 +26,12 @@ livecodes.rubyWasm.run =
       console.log('ruby.wasm loaded.');
     };
 
-    const getImports = (code: string) =>
-      Array.from(
-        new Set(
-          [...code.matchAll(new RegExp(/require\s+"(\S+)"/gm))]
-            .map((arr) => arr[1])
-            .map((mod) => mod.split('/')[0]),
-        ),
-      );
+    const hasImports = (str: string) => new RegExp(/require\s+(?:"|')(\S+)(?:"|')/gm).test(str);
 
     let code = '';
     const scripts = document.querySelectorAll('script[type="text/ruby-wasm"]');
     scripts.forEach((script) => (code += script.innerHTML + '\n'));
-    const hasImports = getImports(code).length > 0;
-    await init(hasImports);
+    await init(hasImports(code));
     const { DefaultRubyVM } = (window as any)['ruby-wasm-wasi'];
     const { vm } = await DefaultRubyVM(livecodes.rubyWasm.module);
     vm.eval(code);

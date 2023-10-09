@@ -363,6 +363,8 @@ export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.
 
 export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
 
+export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.15.0/dist/index.js');
+
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
 export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.2.1/dist/');
