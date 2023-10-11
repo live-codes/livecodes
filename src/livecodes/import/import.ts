@@ -1,24 +1,28 @@
 import type { Config, User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { getValidUrl } from '../utils/utils';
-import { importCompressedCode, isCompressedCode } from './code';
-import { importFromCodepen, isCodepen } from './codepen';
-import { importFromDom, isDom } from './dom';
-import { importFromGithub, isGithubUrl } from './github';
-import { importFromGithubDir, isGithubDir } from './github-dir';
-import { importFromGithubGist, isGithubGist } from './github-gist';
-import { importFromGitlab, isGitlabUrl } from './gitlab';
-import { importFromGitlabDir, isGitlabDir } from './gitlab-dir';
-import { importFromGitlabSnippet, isGitlabSnippet } from './gitlab-snippet';
-import { importFromJsbin, isJsbin } from './jsbin';
-import { importProject, isProjectId } from './project-id';
-import { importFromUrl } from './url';
+import { importCompressedCode } from './code';
+import { importProject } from './project-id';
+import {
+  isCompressedCode,
+  isCodepen,
+  isDom,
+  isGithubUrl,
+  isGithubDir,
+  isGithubGist,
+  isGitlabUrl,
+  isGitlabDir,
+  isGitlabSnippet,
+  isJsbin,
+  isProjectId,
+} from './check-src';
 
 export const importCode = async (
   url: string,
   params: { [key: string]: any },
   config: Config,
   user: User | null | void,
+  baseUrl: string,
 ): Promise<Partial<Config>> => {
   if (isCompressedCode(url)) {
     return importCompressedCode(url);
@@ -26,6 +30,21 @@ export const importCode = async (
   if (isProjectId(url)) {
     return importProject(url);
   }
+
+  const importSrc: typeof import('./import-src') = await import(baseUrl + '{{hash:import-src.js}}');
+  const {
+    importFromCodepen,
+    importFromDom,
+    importFromGithub,
+    importFromGithubDir,
+    importFromGithubGist,
+    importFromGitlab,
+    importFromGitlabDir,
+    importFromGitlabSnippet,
+    importFromJsbin,
+    importFromUrl,
+  } = importSrc;
+
   if (isDom(url)) {
     return importFromDom(url, params, config);
   }

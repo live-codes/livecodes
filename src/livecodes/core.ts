@@ -93,7 +93,7 @@ import {
   setConfig,
   upgradeAndValidate,
 } from './config';
-import { isGithub } from './import/github';
+import { isGithub } from './import/check-src';
 import {
   copyToClipboard,
   debounce,
@@ -3911,7 +3911,7 @@ const importExternalContent = async (options: {
     }
 
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
-    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user);
+    urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
 
     if (Object.keys(urlConfig).length === 0) {
       notifications.error('Invalid import URL');

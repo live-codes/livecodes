@@ -1,9 +1,6 @@
 import { detectLanguage, getLanguageByAlias } from '../languages';
 import type { Config, EditorId, Language } from '../models';
-import { hostPatterns } from './utils';
-
-export const isCodepen = (url: string, pattern = new RegExp(hostPatterns.codepen)) =>
-  pattern.test(url);
+import { hostPatterns } from './check-src';
 
 const languages: { [key in EditorId]: Language[] } = {
   markup: ['html', 'markdown', 'haml'],

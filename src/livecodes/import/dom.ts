@@ -2,8 +2,6 @@ import { getLanguageByAlias, getLanguageEditorId, languages } from '../languages
 import type { EditorId, Language, Config } from '../models';
 import { decodeHTML } from '../utils';
 
-export const isDom = (url: string) => url.startsWith('dom/');
-
 type Selectors = {
   [key in EditorId]: {
     language: Language;

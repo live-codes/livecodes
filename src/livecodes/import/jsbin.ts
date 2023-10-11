@@ -1,9 +1,7 @@
 import { getLanguageByAlias } from '../languages';
 import type { Config } from '../models';
 import { corsService } from '../services';
-import { hostPatterns } from './utils';
-
-export const isJsbin = (url: string, pattern = new RegExp(hostPatterns.jsbin)) => pattern.test(url);
+import { hostPatterns } from './check-src';
 
 export const importFromJsbin = async (url: string): Promise<Partial<Config>> => {
   const binId = new RegExp(hostPatterns.jsbin).exec(url)?.[1];

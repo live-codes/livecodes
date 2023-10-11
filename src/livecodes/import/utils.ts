@@ -15,14 +15,6 @@ export interface FileData {
   endLine: number;
 }
 
-export const getValidUrl = (url: string) => {
-  try {
-    return url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
-  } catch (error) {
-    return;
-  }
-};
-
 export const populateConfig = (files: SourceFile[], params: { [key: string]: string }) => {
   if (files.length === 0) return {};
 
@@ -186,12 +178,4 @@ export const populateConfig = (files: SourceFile[], params: { [key: string]: str
     stylesheets,
     scripts,
   };
-};
-
-export const hostPatterns = {
-  github: /^(?:(?:http|https):\/\/)?github.com\/(?:.*)/g,
-  githubGist: /^(?:(?:http|https):\/\/)?gist.github.com(?:\/\S*)?\/(\w+)/g,
-  gitlab: /^(?:(?:http|https):\/\/)?gitlab.com\/(?:.*)/g,
-  codepen: /^(?:(?:http|https):\/\/)?codepen.io\/(\w+)\/pen\/(\w+)/g,
-  jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d+)?)(?:.*)/g,
 };

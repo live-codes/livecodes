@@ -2,9 +2,9 @@
 import { loadScript } from '../utils/utils';
 import { jsZipUrl } from '../vendors';
 import type { ContentConfig } from '../models';
-import { populateConfig, type SourceFile } from './utils';
+import type { populateConfig as populateConfigFn, SourceFile } from './utils';
 
-export const importFromZip = async (blob: Blob) =>
+export const importFromZip = async (blob: Blob, populateConfig: typeof populateConfigFn) =>
   new Promise<Partial<ContentConfig>>(async (resolve, reject) => {
     const JSZip: any = await loadScript(jsZipUrl, 'JSZip');
 
