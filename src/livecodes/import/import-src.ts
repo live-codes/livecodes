@@ -8,4 +8,5 @@ export { importFromGitlabDir } from './gitlab-dir';
 export { importFromGitlabSnippet } from './gitlab-snippet';
 export { importFromJsbin } from './jsbin';
 export { importTypescriptPlayground } from './typescript-playground';
+export { importVuePlayground } from './vue-playground';
 export { importFromUrl } from './url';

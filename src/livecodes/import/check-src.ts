@@ -13,6 +13,7 @@ export const hostPatterns = {
   codepen: /^(?:(?:http|https):\/\/)?codepen\.io\/(\w+)\/pen\/(\w+)/g,
   jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin\.com\/((\w)+(\/\d+)?)(?:.*)/g,
   typescriptPlayground: /^(?:(?:http|https):\/\/)?(?:www\.)?typescriptlang\.org\/play(?:.*)/g,
+  vuePlayground: /^(?:(?:http|https):\/\/)?play\.vuejs\.org(?:.*)/g,
 };
 
 export const isCompressedCode = (url: string) => url.startsWith('code/');
@@ -91,3 +92,6 @@ export const isTypescriptPlayground = (
   url: string,
   pattern = new RegExp(hostPatterns.typescriptPlayground),
 ) => pattern.test(url);
+
+export const isVuePlayground = (url: string, pattern = new RegExp(hostPatterns.vuePlayground)) =>
+  pattern.test(url);

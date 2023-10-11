@@ -76,6 +76,8 @@ export const esModuleShimsPath = 'es-module-shims@1.4.4/dist/es-module-shims.js'
 
 export const etaUrl = /* @__PURE__ */ getUrl('eta@2.2.0/dist/eta.umd.js');
 
+export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
+
 export const flexSearchUrl = /* @__PURE__ */ getUrl('flexsearch@0.7.21/dist/flexsearch.bundle.js');
 
 export const fontAnonymousProUrl = /* @__PURE__ */ getUrl(
