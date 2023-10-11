@@ -3,21 +3,6 @@ import { decode } from 'js-base64';
 import type { Language, Config, User } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages/utils';
 import { getGithubHeaders } from '../services/github';
-import { isGithubDir } from './github-dir';
-import { hostPatterns } from './utils';
-
-export const isGithubUrl = (url: string, pattern = new RegExp(hostPatterns.github)) => {
-  if (!pattern.test(url)) return;
-  try {
-    const urlObj = getValidUrl(url);
-    const pathSplit = urlObj.pathname.split('/');
-    return pathSplit[3] === 'blob';
-  } catch (error) {
-    return;
-  }
-};
-
-export const isGithub = (url: string) => isGithubDir(url) || isGithubUrl(url);
 
 const getValidUrl = (url: string) =>
   url.startsWith('https://') ? new URL(url) : new URL('https://' + url);

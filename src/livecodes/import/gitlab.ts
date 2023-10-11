@@ -1,19 +1,8 @@
-import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import type { Language, Config } from '../models';
+import { getLanguageByAlias, getLanguageEditorId } from '../languages';
 import { pipe } from '../utils';
-import { getValidUrl, hostPatterns, type FileData } from './utils';
-
-export const isGitlabUrl = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
-  if (!pattern.test(url)) return;
-  try {
-    const urlObj = getValidUrl(url);
-    if (!urlObj) return;
-    const pathSplit = urlObj.pathname.split('/');
-    return pathSplit[4] === 'blob';
-  } catch (error) {
-    return;
-  }
-};
+import type { FileData } from './utils';
+import { getValidUrl } from './check-src';
 
 // based on https://github.com/yusanshi/embed-like-gist
 const getfileData = async (urlObj: URL): Promise<FileData> => {

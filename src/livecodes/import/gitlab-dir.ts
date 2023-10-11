@@ -1,16 +1,5 @@
-import { getValidUrl, hostPatterns, populateConfig } from './utils';
-
-export const isGitlabDir = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
-  if (!pattern.test(url)) return;
-  try {
-    const urlObj = getValidUrl(url);
-    if (!urlObj) return;
-    const pathSplit = urlObj.pathname.split('/');
-    return pathSplit[4] === 'tree' || pathSplit.length === 3;
-  } catch (error) {
-    return;
-  }
-};
+import { getValidUrl } from './check-src';
+import { populateConfig } from './utils';
 
 export const importFromGitlabDir = async (url: string, params: { [key: string]: string }) => {
   try {

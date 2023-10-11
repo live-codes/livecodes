@@ -215,6 +215,7 @@ const esmBuild = () =>
       'editor/codejar/codejar.ts',
       'editor/blockly/blockly.ts',
       'editor/quill/quill.ts',
+      'import/import-src.ts',
       'services/firebase.ts',
       'services/google-fonts.ts',
       'languages/language-info.ts',

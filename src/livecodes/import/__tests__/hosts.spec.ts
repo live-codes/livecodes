@@ -1,10 +1,12 @@
-import { isGithubUrl } from '../github';
-import { isGithubDir } from '../github-dir';
-import { isGithubGist } from '../github-gist';
-import { isGitlabUrl } from '../gitlab';
-import { isGitlabDir } from '../gitlab-dir';
-import { isGitlabSnippet } from '../gitlab-snippet';
-import { isJsbin } from '../jsbin';
+import {
+  isGithubUrl,
+  isGithubDir,
+  isGithubGist,
+  isGitlabUrl,
+  isGitlabDir,
+  isGitlabSnippet,
+  isJsbin,
+} from '../check-src';
 
 describe('match hosts', () => {
   test('isGithubUrl', () => {
