@@ -15,6 +15,7 @@ import {
   isGitlabSnippet,
   isJsbin,
   isProjectId,
+  isTypescriptPlayground,
 } from './check-src';
 
 export const importCode = async (
@@ -42,6 +43,7 @@ export const importCode = async (
     importFromGitlabDir,
     importFromGitlabSnippet,
     importFromJsbin,
+    importTypescriptPlayground,
     importFromUrl,
   } = importSrc;
 
@@ -71,6 +73,9 @@ export const importCode = async (
   }
   if (isJsbin(url)) {
     return importFromJsbin(url);
+  }
+  if (isTypescriptPlayground(url)) {
+    return importTypescriptPlayground(url);
   }
   if (getValidUrl(url)) {
     return importFromUrl(url, params, config);

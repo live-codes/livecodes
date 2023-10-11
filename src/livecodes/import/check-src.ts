@@ -7,11 +7,12 @@ export const getValidUrl = /* @__PURE__ */ (url: string) => {
 };
 
 export const hostPatterns = {
-  github: /^(?:(?:http|https):\/\/)?github.com\/(?:.*)/g,
-  githubGist: /^(?:(?:http|https):\/\/)?gist.github.com(?:\/\S*)?\/(\w+)/g,
-  gitlab: /^(?:(?:http|https):\/\/)?gitlab.com\/(?:.*)/g,
-  codepen: /^(?:(?:http|https):\/\/)?codepen.io\/(\w+)\/pen\/(\w+)/g,
-  jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin.com\/((\w)+(\/\d+)?)(?:.*)/g,
+  github: /^(?:(?:http|https):\/\/)?github\.com\/(?:.*)/g,
+  githubGist: /^(?:(?:http|https):\/\/)?gist\.github\.com(?:\/\S*)?\/(\w+)/g,
+  gitlab: /^(?:(?:http|https):\/\/)?gitlab\.com\/(?:.*)/g,
+  codepen: /^(?:(?:http|https):\/\/)?codepen\.io\/(\w+)\/pen\/(\w+)/g,
+  jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin\.com\/((\w)+(\/\d+)?)(?:.*)/g,
+  typescriptPlayground: /^(?:(?:http|https):\/\/)?(?:www\.)?typescriptlang\.org\/play(?:.*)/g,
 };
 
 export const isCompressedCode = (url: string) => url.startsWith('code/');
@@ -85,3 +86,8 @@ export const isGitlabSnippet = (url: string, pattern = new RegExp(hostPatterns.g
 export const isJsbin = (url: string, pattern = new RegExp(hostPatterns.jsbin)) => pattern.test(url);
 
 export const isProjectId = (url: string) => url.startsWith('id/');
+
+export const isTypescriptPlayground = (
+  url: string,
+  pattern = new RegExp(hostPatterns.typescriptPlayground),
+) => pattern.test(url);

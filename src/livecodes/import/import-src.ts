@@ -7,4 +7,5 @@ export { importFromGitlab } from './gitlab';
 export { importFromGitlabDir } from './gitlab-dir';
 export { importFromGitlabSnippet } from './gitlab-snippet';
 export { importFromJsbin } from './jsbin';
+export { importTypescriptPlayground } from './typescript-playground';
 export { importFromUrl } from './url';
