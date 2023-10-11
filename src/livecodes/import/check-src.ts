@@ -14,6 +14,7 @@ export const hostPatterns = {
   jsbin: /^(?:(?:(?:http|https):\/\/)?(?:\w+.)?)?jsbin\.com\/((\w)+(\/\d+)?)(?:.*)/g,
   typescriptPlayground: /^(?:(?:http|https):\/\/)?(?:www\.)?typescriptlang\.org\/play(?:.*)/g,
   vuePlayground: /^(?:(?:http|https):\/\/)?play\.vuejs\.org(?:.*)/g,
+  sveltePlayground: /^(?:(?:http|https):\/\/)?svelte\.dev\/repl\/(?:.*)/g,
 };
 
 export const isCompressedCode = (url: string) => url.startsWith('code/');
@@ -95,3 +96,8 @@ export const isTypescriptPlayground = (
 
 export const isVuePlayground = (url: string, pattern = new RegExp(hostPatterns.vuePlayground)) =>
   pattern.test(url);
+
+export const isSveltePlayground = (
+  url: string,
+  pattern = new RegExp(hostPatterns.sveltePlayground),
+) => pattern.test(url);
