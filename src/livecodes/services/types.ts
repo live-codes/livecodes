@@ -1,26 +1,21 @@
 import type { Types } from '../models';
-import { allowedOrigin } from './allowed-origin';
 
 export const typesService = {
   getTypeUrls: async (types: string[]) => {
-    let fetchedTypes: Types = {};
-    if (types.length > 0 && allowedOrigin()) {
-      try {
-        const api = 'https://api.livecodes.io/types';
-        const res = await fetch(api, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ types }),
-        });
-        fetchedTypes = await res.json();
-      } catch {
-        //
-      }
-    }
+    const fetchedTypes: Types = {};
+    await Promise.all(
+      types.map(async (type) => {
+        try {
+          const res = await fetch('https://esm.sh/' + type);
+          if (!res.ok) return;
+          const typesUrl = res.headers.get('X-Typescript-Types');
+          if (!typesUrl) return;
+          fetchedTypes[type] = typesUrl;
+        } catch {
+          // ignore
+        }
+      }),
+    );
     return fetchedTypes;
   },
 };
