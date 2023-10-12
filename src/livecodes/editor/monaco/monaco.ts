@@ -657,7 +657,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const npmPackageHoverProvider: Monaco.languages.HoverProvider = {
       provideHover(model, position) {
         const content = model.getLineContent(position.lineNumber);
-        let pkg = getImports(content)[0];
+        let pkg = getImports(content, /* removeSpecifier= */ true)[0];
         if (!pkg) return;
 
         if (
@@ -668,8 +668,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           pkg.startsWith('blob:')
         ) {
           return;
-        } else if (/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh|bundle\.run)\:/.test(pkg)) {
-          pkg = pkg.replace(/^(skypack|unpkg|jsdelivr|esm|esm\.run|esm\.sh|bundle\.run)\:/, '');
         }
         // remove version
         // pkg = pkg.replace(/(^@?([^@])+)(.*)/g, `$1`);

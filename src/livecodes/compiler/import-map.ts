@@ -17,13 +17,20 @@ export const importsPattern =
 
 export const dynamicImportsPattern = /(import\s*?\(\s*?((?:".*?")|(?:'.*?'))\s*?\))/g;
 
-export const getImports = (code: string) =>
+export const getImports = (code: string, removeSpecifier = false) =>
   [
     ...[...removeComments(code).matchAll(new RegExp(importsPattern))],
     ...[...removeComments(code).matchAll(new RegExp(dynamicImportsPattern))],
-  ].map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''));
+  ]
+    .map((arr) => arr[2].replace(/"/g, '').replace(/'/g, ''))
+    .map((mod) => {
+      if (!removeSpecifier || !isBare(mod) || !mod.includes(':')) {
+        return mod;
+      }
+      return mod.split(':')[1];
+    });
 
-const needsBundler = (mod: string) =>
+const needsBundler = /* @__PURE__ */ (mod: string) =>
   !mod.startsWith('https://deno.bundlejs.com/') &&
   !mod.startsWith('https://edge.bundlejs.com/') &&
   !mod.endsWith('#nobundle') &&
@@ -36,7 +43,7 @@ const needsBundler = (mod: string) =>
     mod.endsWith('.jsx') ||
     mod.endsWith('.tsx'));
 
-const isBare = (mod: string) =>
+export const isBare = /* @__PURE__ */ (mod: string) =>
   !mod.startsWith('https://') &&
   !mod.startsWith('http://') &&
   !mod.startsWith('.') &&
@@ -44,7 +51,7 @@ const isBare = (mod: string) =>
   !mod.startsWith('data:') &&
   !mod.startsWith('blob:');
 
-const isStylesheet = (mod: string) =>
+const isStylesheet = /* @__PURE__ */ (mod: string) =>
   (mod.endsWith('.css') ||
     mod.endsWith('.scss') ||
     mod.endsWith('.sass') ||
@@ -52,7 +59,7 @@ const isStylesheet = (mod: string) =>
     mod.endsWith('.styl')) &&
   !mod.startsWith('./style');
 
-export const findImportMapKey = (mod: string, importmap: Record<string, string>) =>
+export const findImportMapKey = /* @__PURE__ */ (mod: string, importmap: Record<string, string>) =>
   Object.keys(importmap).find((key) => key === mod || mod.startsWith(key + '/'));
 
 export const createImportMap = (code: string, config: Config, fallbackToCdn = true) =>
