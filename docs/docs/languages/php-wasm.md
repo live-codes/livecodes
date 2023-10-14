@@ -1,6 +1,5 @@
 # PHP (Wasm)
 
-import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 PHP in Browser, powered by WebAssembly (using [php-wasm](https://github.com/seanmorris/php-wasm)).
@@ -66,7 +65,7 @@ Check the [starter template](#example-usage) for another example.
 
 ### Version
 
-`php-wasm` v0.0.7, running Python v8.2.4
+`php-wasm` v0.0.7, running PHP v8.2.4
 
 ## Code Formatting
 
