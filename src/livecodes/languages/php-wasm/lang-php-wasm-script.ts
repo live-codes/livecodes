@@ -1,28 +1,38 @@
+// based on https://github.com/seanmorris/php-wasm/blob/master/source/PhpWeb.js
+
 declare const phpWasm: any;
 
-addEventListener('load', () => {
-  let code = '';
-  const scripts = document.querySelectorAll('script[type="text/php-wasm"]');
-  scripts.forEach((script) => {
-    let src = script.innerHTML.trim();
-    if (src.startsWith('<?php')) {
-      src = src.replace('<?php', '/* <?php */');
-    }
-    code += src + '\n';
-  });
-  code = '<?php\n' + code;
+const runPhpScript = (element: HTMLElement) => {
+  const inlineCode = element?.innerText?.trim();
+  if (!inlineCode) return;
+
+  const output = document.createElement('div');
+  element.parentNode?.insertBefore(output, element.nextSibling);
+  let buffer = '';
 
   const php = new phpWasm.PHP();
 
-  php.addEventListener('output', (event: CustomEvent) => {
-    const output = event.detail.join?.(' ');
-    if (output?.trim()) {
-      // eslint-disable-next-line no-console
-      console.log(output);
-    }
-  });
+  php.addEventListener('output', (event: CustomEvent) => (buffer += event.detail));
 
   php.addEventListener('ready', () => {
-    php.run(code);
+    php.run(inlineCode).then(() => {
+      output.innerHTML = buffer;
+    });
   });
+
+  php.addEventListener('error', (event: CustomEvent) => {
+    event.detail.forEach((error: string) => {
+      error = error.trim();
+      // eslint-disable-next-line no-console
+      if (error) console.log(error);
+    });
+  });
+};
+
+addEventListener('load', () => {
+  const phpSelector = 'script[type="text/php-wasm"]';
+  const phpNodes = document.querySelectorAll<HTMLElement>(phpSelector);
+  for (const phpNode of phpNodes) {
+    runPhpScript(phpNode);
+  }
 });
