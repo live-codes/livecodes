@@ -69,6 +69,7 @@ import { eta } from './eta';
 import { clojurescript } from './clojurescript';
 import { rubyWasm } from './ruby-wasm';
 import { luaWasm } from './lua-wasm';
+import { phpWasm } from './php-wasm';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -128,6 +129,7 @@ export const languages: LanguageSpecs[] = [
   rubyWasm,
   go,
   php,
+  phpWasm,
   cpp,
   cppWasm,
   perl,

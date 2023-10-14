@@ -222,7 +222,7 @@ test.describe('Starter Templates from UI', () => {
 
     await app.click('[aria-label="Menu"]');
     await app.click('text=New');
-    await app.click('text=Ruby (wasm) Starter');
+    await app.click('text=Ruby (Wasm) Starter');
 
     await waitForEditorFocus(app);
     await waitForResultUpdate();
@@ -248,7 +248,7 @@ test.describe('Starter Templates from UI', () => {
 
     await app.click('[aria-label="Menu"]');
     await app.click('text=New');
-    await app.click('text=Lua (wasm) Starter');
+    await app.click('text=Lua (Wasm) Starter');
 
     await waitForEditorFocus(app);
     await waitForResultUpdate();
@@ -263,6 +263,25 @@ test.describe('Starter Templates from UI', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('php-wasm Starter', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=PHP (Wasm) Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3_000);
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, PHP!');
   });
 
   test('Go Starter', async ({ page, getTestUrl, editor }) => {
@@ -758,6 +777,21 @@ test.describe('Starter Templates from URL', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('php-wasm Starter (in URL)', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'php-wasm' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(3_000);
+
+    const titleText = await getResult().innerText('h1');
+    expect(titleText).toBe('Hello, PHP!');
   });
 
   test('Go Starter (in URL)', async ({ page, getTestUrl, editor }) => {

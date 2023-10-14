@@ -47,9 +47,4 @@ $document
   });
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
 };

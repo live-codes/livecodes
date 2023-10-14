@@ -144,6 +144,8 @@ Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac
 
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 
+php-wasm: [Apache License 2.0](https://github.com/seanmorris/php-wasm/blob/094f4e00fa99b1271af077b6de7d0d38d475ecae/LICENSE)
+
 Pintora: [MIT License](https://github.com/hikerpig/pintora/blob/29551843ae079662af8a225a0c4c9cd2f7791e0a/LICENSE.txt)
 
 Plotly.js: [MIT License](https://github.com/plotly/plotly.js/blob/d31839eacaea1fc4f0ffad50b027edbc09e03b33/LICENSE)

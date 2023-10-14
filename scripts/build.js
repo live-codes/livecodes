@@ -272,6 +272,7 @@ const iifeBuild = () =>
       'languages/mustache/lang-mustache-compiler.ts',
       'languages/nunjucks/lang-nunjucks-compiler.ts',
       'languages/perl/lang-perl-script.ts',
+      'languages/php-wasm/lang-php-wasm-script.ts',
       'languages/prolog/lang-prolog-script.ts',
       'languages/pug/lang-pug-compiler.ts',
       'languages/python-wasm/lang-python-wasm-script.ts',
