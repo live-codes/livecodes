@@ -1,6 +1,13 @@
 // based on https://github.com/seanmorris/php-wasm/blob/master/source/PhpWeb.js
 
 declare const phpWasm: any;
+const php = new phpWasm.PHP();
+
+php.addEventListener('ready', () => {
+  // set to browser timezone (by default it is set to 'UTC')
+  const timeZone = window.Intl?.DateTimeFormat?.().resolvedOptions().timeZone || 'UTC';
+  php.run(`<?php date_default_timezone_set('${timeZone}');`);
+});
 
 const runPhpScript = (element: HTMLElement) => {
   const inlineCode = element?.innerText?.trim();
@@ -9,8 +16,6 @@ const runPhpScript = (element: HTMLElement) => {
   const output = document.createElement('div');
   element.parentNode?.insertBefore(output, element.nextSibling);
   let buffer = '';
-
-  const php = new phpWasm.PHP();
 
   php.addEventListener('output', (event: CustomEvent) => (buffer += event.detail));
 
