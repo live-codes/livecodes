@@ -667,13 +667,14 @@ const configureEditorTools = (language: Language) => {
 
 const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
   const addToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
-  if (code) {
+  if (code?.trim()) {
     return addToken(code);
   }
-  if (editor?.getLanguage() === 'php') {
+  if (editor?.getLanguage().startsWith('php')) {
     editor.setValue(addToken(editor.getValue()));
+    editor.setPosition({ lineNumber: 2, column: 0 });
   }
-  return;
+  return '<?php\n';
 };
 
 const applyLanguageConfigs = async (language: Language) => {
@@ -759,8 +760,8 @@ const updateCompiledCode = () => {
     Object.keys(cache).forEach((editorId) => {
       if (editorId !== getConfig().activeEditor) return;
       let compiledCode = cache[editorId].modified || cache[editorId].compiled || '';
-      if (editorId === 'script' && getConfig().script.language === 'php') {
-        compiledCode = phpHelper({ code: compiledCode }) || '<?php\n';
+      if (editorId === 'script' && getConfig().script.language.startsWith('php')) {
+        compiledCode = phpHelper({ code: compiledCode });
       }
       toolsPane?.compiled?.update(
         compiledLanguages[editorId].language,

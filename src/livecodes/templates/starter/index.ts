@@ -57,6 +57,7 @@ import { tealStarter } from './teal-starter';
 import { clojurescriptStarter } from './clojurescript-starter';
 import { rubyWasmStarter } from './ruby-wasm-starter';
 import { luaWasmStarter } from './lua-wasm-starter';
+import { phpWasmStarter } from './php-wasm-starter';
 
 export const starterTemplates = [
   blank,
@@ -97,6 +98,7 @@ export const starterTemplates = [
   rubyWasmStarter,
   goStarter,
   phpStarter,
+  phpWasmStarter,
   cppStarter,
   cppWasmStarter,
   perlStarter,
