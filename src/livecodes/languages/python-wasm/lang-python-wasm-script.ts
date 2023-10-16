@@ -15,13 +15,24 @@ window.addEventListener('load', async () => {
   scripts.forEach((script) => (code += script.innerHTML + '\n'));
 
   async function main() {
+    // already loaded
     if (livecodes.pyodideLoading === false) return;
-    livecodes.pyodide = await loadPyodide({
-      indexURL: pyodideBaseUrl,
+    // still loading
+    if (livecodes.pyodideLoading) {
+      await livecodes.pyodideLoading;
+      return;
+    }
+    // start loading
+    livecodes.pyodideLoading = new Promise<void>(async (resolve) => {
+      livecodes.pyodide = await loadPyodide({
+        indexURL: pyodideBaseUrl,
+      });
+      await livecodes.pyodide.loadPackage('micropip');
+      livecodes.micropip = livecodes.pyodide.pyimport('micropip');
+      livecodes.pyodideLoading = false;
+      resolve();
     });
-    await livecodes.pyodide.loadPackage('micropip');
-    livecodes.micropip = livecodes.pyodide.pyimport('micropip');
-    livecodes.pyodideLoading = false;
+    await livecodes.pyodideLoading;
   }
 
   async function cleanUp() {
@@ -34,12 +45,13 @@ window.addEventListener('load', async () => {
       livecodes.pyodide.pyodide_py._state.restore_state(livecodes.pyodideState);
     } catch (err) {
       // if restoring state fails, reload pyodide
-      livecodes.pyodideLoading = true;
+      livecodes.pyodideLoading = undefined;
       await main();
     }
   }
 
   async function prepareEnv() {
+    await pyodideReady;
     const patchInput = `
 from js import prompt
 def input(p):
