@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.2.1](https://github.com/live-codes/livecodes/compare/v15...sdk-v0.2.1) (2023-10-16)
+
+This release mainly updates TypeScript type definitions.
+
+### Bug Fixes
+
+- **types:** fix types and pkg info for modules with CDN specifier ([7cdd9b2](https://github.com/live-codes/livecodes/commit/7cdd9b25b0c5180090a199f7156d3c2e487b775b))
+
+### Features
+
+- **SDK:** add `flex-grow` to playground container and export type `Language` ([3de6805](https://github.com/live-codes/livecodes/commit/3de6805d3852a41b223df4a05a0784e27da03a67))
+- **compilers:** add language `lua-wasm` using wasmoon ([832c8e6](https://github.com/live-codes/livecodes/commit/832c8e6ce61799766a93441f6decd809f793f16f))
+- **compilers:** add support for php-wasm ([7cf8780](https://github.com/live-codes/livecodes/commit/7cf878010a1346c51f5149c995db4d68ccf532a2))
+- **compilers:** add support for ruby-wasm ([0842d01](https://github.com/live-codes/livecodes/commit/0842d0150754f3aa87fc73172063d65180b710b7))
+- **import:** allow importing typescript playground projects ([ced7678](https://github.com/live-codes/livecodes/commit/ced7678dfbd3417dd286920b0f540f114d91cce8))
+- **import:** import from svelte playground ([a8d35e2](https://github.com/live-codes/livecodes/commit/a8d35e20727a554f9e392134ef30f0959ffa7a77))
+- **import:** import from vue playground ([9406630](https://github.com/live-codes/livecodes/commit/94066306638c397781f50c0075f33e17447309a4))
+
+---
+
 ## [v15](https://github.com/live-codes/livecodes/compare/v14...v15) (2023-10-01)
 
 This release improves R and Python(Pyodide) language support:
