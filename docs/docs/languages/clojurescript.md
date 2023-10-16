@@ -6,6 +6,12 @@ ClojureScript is a compiler for [Clojure](https://clojure.org/) that targets
 JavaScript. <br />In LiveCodes, it runs in the browser using
 [Cherry](https://github.com/squint-cljs/cherry).
 
+:::info Note
+
+Lisp language family supported in LiveCodes includes [Common Lisp](./commonlisp.md), [Scheme](./scheme.md), [ClojureScript](./clojurescript.md) and [Fennel](./fennel.md).
+
+:::
+
 ## Language Info
 
 ### Name
@@ -32,7 +38,7 @@ If `JSX` is used (using `#jsx` reader tag - [example](https://github.com/squint-
 
 ## Code Formatting
 
-using [Parinfer.js](https://github.com/oakmac/parinfer/)
+Using [Parinfer](https://shaunlebron.github.io/parinfer/).
 
 ## Example Usage
 

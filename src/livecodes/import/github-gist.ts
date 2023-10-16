@@ -1,8 +1,6 @@
 import { getLanguageByAlias } from '../languages';
-import { getValidUrl, hostPatterns, populateConfig } from './utils';
-
-export const isGithubGist = (url: string, pattern = new RegExp(hostPatterns.githubGist)) =>
-  pattern.test(url);
+import { getValidUrl } from './check-src';
+import { populateConfig } from './utils';
 
 export const importFromGithubGist = async (url: string, params: { [key: string]: string }) => {
   try {

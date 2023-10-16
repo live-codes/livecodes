@@ -1,8 +1,9 @@
 import type { Template } from '../../models';
 
-export const clangStarter: Template = {
-  name: 'clang',
-  title: 'C++ (Clang) Starter',
+export const cppWasmStarter: Template = {
+  name: 'cpp-wasm',
+  aliases: ['clang'],
+  title: 'C++ (Wasm) Starter',
   thumbnail: 'assets/templates/cpp.svg',
   activeEditor: 'script',
   markup: {
@@ -70,7 +71,7 @@ export const clangStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'clang',
+    language: 'cpp-wasm',
     content: `
 #include <iostream>
 using namespace std;
@@ -88,9 +89,4 @@ int main() {
 }
 `.trimStart(),
   },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {},
 };

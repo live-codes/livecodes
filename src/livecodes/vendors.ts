@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.8.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.9.0/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -75,6 +75,8 @@ export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.0.0/dist
 export const esModuleShimsPath = 'es-module-shims@1.4.4/dist/es-module-shims.js';
 
 export const etaUrl = /* @__PURE__ */ getUrl('eta@2.2.0/dist/eta.umd.js');
+
+export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
 
 export const flexSearchUrl = /* @__PURE__ */ getUrl('flexsearch@0.7.21/dist/flexsearch.bundle.js');
 
@@ -301,6 +303,12 @@ export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
 export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@7.1.0/');
 
+export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('ruby-3_2-wasm-wasi@2.1.0/dist/');
+
+export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
+  '@ruby/wasm-wasi@2.1.0/dist/browser.umd.js',
+);
+
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
 
 export const spacingJsUrl = /* @__PURE__ */ getUrl('spacingjs@1.0.7/dist/bundle.js');
@@ -356,6 +364,8 @@ export const vueSDKUrl = /* @__PURE__ */ getUrl(`livecodes@${process.env.SDK_VER
 export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.8.4/dist/');
 
 export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
+
+export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.15.0/dist/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 

@@ -1,12 +1,5 @@
-import { getValidUrl, hostPatterns, populateConfig } from './utils';
-
-export const isGitlabSnippet = (url: string, pattern = new RegExp(hostPatterns.gitlab)) => {
-  if (!pattern.test(url)) return;
-  const urlObj = getValidUrl(url);
-  if (!urlObj) return;
-  const pathSplit = urlObj.pathname.split('/');
-  return pathSplit[pathSplit.length - 2] === 'snippets';
-};
+import { getValidUrl } from './check-src';
+import { populateConfig } from './utils';
 
 export const importFromGitlabSnippet = async (url: string, params: { [key: string]: string }) => {
   try {

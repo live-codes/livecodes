@@ -8,7 +8,7 @@ import type {
   Processor,
 } from '../models';
 import { getLanguageByAlias, getLanguageEditorId } from '../languages';
-import { cloneObject, decodeHTML } from '../utils';
+import { cloneObject, decodeHTML, removeDuplicates } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeAndValidate } from '.';
 
@@ -68,6 +68,13 @@ const fixLanguageNames = (config: Config): Config => ({
             defaultConfig.tests?.language ||
             'typescript',
         },
+      }
+    : {}),
+  ...(config.languages
+    ? {
+        languages: removeDuplicates(
+          config.languages.map((lang) => getLanguageByAlias(lang)).filter(Boolean) as Language[],
+        ),
       }
     : {}),
 });

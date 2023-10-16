@@ -24,7 +24,7 @@ export const r: LanguageSpecs = {
     scriptType: 'text/r',
     compiledCodeLanguage: 'r',
   },
-  extensions: ['r', 'rlang', 'rstats'],
+  extensions: ['r', 'rlang', 'rstats', 'r-wasm'],
   editor: 'script',
   largeDownload: true,
 };

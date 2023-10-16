@@ -2,20 +2,7 @@ import { decode } from 'js-base64';
 import type { User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { getGithubHeaders } from '../services/github';
-import { hostPatterns, populateConfig } from './utils';
-
-export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.github)) => {
-  if (!pattern.test(url)) return;
-  try {
-    const urlObj = getValidUrl(url);
-    const pathSplit = urlObj.pathname.split('/');
-    return pathSplit[3] === 'tree' || pathSplit.length === 3;
-  } catch (error) {
-    return;
-  }
-};
-const getValidUrl = (url: string) =>
-  url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
+import { populateConfig } from './utils';
 
 export const importFromGithubDir = async (
   url: string,

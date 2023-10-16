@@ -144,6 +144,8 @@ Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac
 
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 
+php-wasm: [Apache License 2.0](https://github.com/seanmorris/php-wasm/blob/094f4e00fa99b1271af077b6de7d0d38d475ecae/LICENSE)
+
 Pintora: [MIT License](https://github.com/hikerpig/pintora/blob/29551843ae079662af8a225a0c4c9cd2f7791e0a/LICENSE.txt)
 
 Plotly.js: [MIT License](https://github.com/plotly/plotly.js/blob/d31839eacaea1fc4f0ffad50b027edbc09e03b33/LICENSE)
@@ -195,6 +197,8 @@ ReScript/React: [MIT License](https://github.com/rescript-lang/rescript-react/bl
 reset.css: [The Unlicense](https://github.com/shannonmoeller/reset-css/blob/d4b2236cb260016e8f57d532a602b4e58acf6f03/license)
 
 Riot: [MIT License](https://github.com/riot/riot/blob/2b08ebf8c7fa3f338d24b7320ee7f18c36b7ae74/LICENSE.txt)
+
+ruby.wasm: [MIT License](https://github.com/ruby/ruby.wasm/blob/097b7ca8d2ed2a98eea4dcf2da8089bb8ff06e07/LICENSE)
 
 Sass.js: [MIT License](https://github.com/medialize/sass.js/blob/71d9bed2cad10969efda9905aa1bddacc480f372/LICENSE)
 
@@ -257,6 +261,8 @@ wabt.js: [Apache-2.0 license](https://github.com/AssemblyScript/wabt.js/blob/182
 wacl: [BSD 3-Clause License](https://github.com/ecky-l/wacl/blob/9daacabb0102a9986f33263261350edfeebdd83b/LICENSE)
 
 wasm-refmt: [MIT License](https://github.com/xtuc/webassemblyjs/blob/45f733aa96476d74c8ac57598e13406a48a6fdc8/LICENSE)
+
+wasmoon: [MIT License](https://github.com/ceifa/wasmoon/blob/6785315ea1146f00aeb6bdb125bf92df0243d7b4/LICENSE)
 
 WaveDrom: [MIT License](https://github.com/wavedrom/wavedrom/blob/3ef2f7c2d0f57902d901fc283dd13d96a1f6badd/LICENSE)
 

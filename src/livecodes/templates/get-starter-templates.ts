@@ -1,5 +1,5 @@
 import { getLanguageByAlias } from '../languages';
-import type { Config, Template } from '../models';
+import type { Config, Template, TemplateName } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { modulesService } from '../services/modules';
 import { getAbsoluteUrl, objectMap } from '../utils';
@@ -78,5 +78,7 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
 
 export const getTemplate = async (name: string, config: Config, baseUrl: string) =>
   (await getStarterTemplates(config, baseUrl)).filter(
-    (template) => template.name.toLowerCase() === name.toLowerCase(),
+    (template) =>
+      template.name.toLowerCase() === name.toLowerCase() ||
+      template.aliases?.map((a) => a.toLowerCase()).includes(name.toLowerCase() as TemplateName),
   )[0];

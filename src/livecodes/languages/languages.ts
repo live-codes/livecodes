@@ -27,7 +27,7 @@ import { perl } from './perl';
 import { lua } from './lua';
 import { scheme } from './scheme';
 import { solid, solidTsx } from './solid';
-import { pyodide } from './python-pyodide';
+import { pythonWasm } from './python-wasm';
 import { liquid } from './liquid';
 import { ejs } from './ejs';
 import { handlebars } from './handlebars';
@@ -48,7 +48,7 @@ import { malina } from './malina';
 import { commonlisp } from './commonlisp';
 import { cpp } from './cpp';
 import { julia } from './julia';
-import { clang } from './cpp-clang';
+import { cppWasm } from './cpp-wasm';
 import { tcl } from './tcl';
 import { prolog } from './prolog';
 import { clio } from './clio';
@@ -67,6 +67,9 @@ import { mjml } from './mjml';
 import { sucrase } from './sucrase';
 import { eta } from './eta';
 import { clojurescript } from './clojurescript';
+import { rubyWasm } from './ruby-wasm';
+import { luaWasm } from './lua-wasm';
+import { phpWasm } from './php-wasm';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -120,15 +123,18 @@ export const languages: LanguageSpecs[] = [
   reason,
   ocaml,
   python,
-  pyodide,
+  pythonWasm,
   r,
   ruby,
+  rubyWasm,
   go,
   php,
+  phpWasm,
   cpp,
-  clang,
+  cppWasm,
   perl,
   lua,
+  luaWasm,
   teal,
   fennel,
   julia,

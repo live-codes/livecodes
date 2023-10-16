@@ -9,7 +9,7 @@ LiveCodes can run Python in the browser using [Brython](https://brython.info/), 
 
 Brython is a light-weight Python interpreter written in JavaScript. However, It does not allow loading external packages from PyPI.
 
-If you need to import external packages including scientific Python packages like numpy, pandas, scipy, matplotlib, and scikit-learn, you may want to use [Pyodide](./pyodide.md) the [CPython](https://github.com/python/cpython) port to WebAssembly.
+If you need to import external packages including scientific Python packages like numpy, pandas, scipy, matplotlib, and scikit-learn, you may want to use [Python (Wasm)](./python-wasm.md), which uses Pyodide the [CPython](https://github.com/python/cpython) port to WebAssembly.
 
 :::
 
@@ -67,4 +67,4 @@ https://livecodes.io/?template=python
 
 - [Python](https://www.python.org/)
 - [Brython](https://brython.info/)
-- [Pyodide in LiveCodes](./pyodide.md)
+- [Python (Wasm)](./python-wasm.md) in LiveCodes

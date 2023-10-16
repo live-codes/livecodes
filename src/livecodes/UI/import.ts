@@ -51,6 +51,7 @@ const createImportContainer = (eventsManager: ReturnType<typeof createEventsMana
 };
 
 export const createImportUI = ({
+  baseUrl,
   modal,
   notifications,
   eventsManager,
@@ -81,7 +82,7 @@ export const createImportUI = ({
     const importInput = getUrlImportInput(importContainer);
     const url = importInput.value;
 
-    const imported = await importCode(url, {}, defaultConfig, await getUser?.());
+    const imported = await importCode(url, {}, defaultConfig, await getUser?.(), baseUrl);
     if (imported && Object.keys(imported).length > 0) {
       await loadConfig(
         {
@@ -133,7 +134,7 @@ export const createImportUI = ({
       }
     });
 
-  const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0]);
+  const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0], populateConfig);
 
   const codeImportInput = getCodeImportInput(importContainer);
   eventsManager.addEventListener(codeImportInput, 'change', () => {

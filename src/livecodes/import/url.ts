@@ -3,6 +3,7 @@ import type { Config } from '../models';
 import { corsService } from '../services';
 import { importFromDom } from './dom';
 import { importFromZip } from './zip';
+import { populateConfig } from './utils';
 
 const getRawCode = (content: string, lang: string): Partial<Config> => {
   const language = getLanguageByAlias(lang) || 'html';
@@ -40,7 +41,7 @@ export const importFromUrl = async (
     url.startsWith('data:application/octet-stream')
   ) {
     const zip = await res.blob();
-    return importFromZip(zip);
+    return importFromZip(zip, populateConfig);
   }
 
   const fetchedContent = await res.text();
