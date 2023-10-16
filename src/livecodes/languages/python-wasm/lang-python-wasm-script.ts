@@ -39,6 +39,16 @@ window.addEventListener('load', async () => {
     }
   }
 
+  async function prepareEnv() {
+    const patchInput = `
+from js import prompt
+def input(p):
+    return prompt(p)
+__builtins__.input = input
+`.trim();
+    await livecodes.pyodide.runPythonAsync(patchInput);
+  }
+
   async function loadPackagesInCode(code: string) {
     const packages = [...livecodes.pyodide.pyodide_py.code.find_imports(code)];
     const newPackages = packages.filter((p) => !(p in livecodes.pyodide.loadedPackages));
@@ -54,6 +64,7 @@ window.addEventListener('load', async () => {
   async function evaluatePython(code: string) {
     await pyodideReady;
     await cleanUp();
+    await prepareEnv();
     await loadPackagesInCode(code);
     try {
       livecodes.pyodideState = livecodes.pyodide.pyodide_py._state.save_state();
