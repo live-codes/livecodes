@@ -4,6 +4,7 @@ import type {
   Code,
   Config,
   EmbedOptions,
+  Language,
   Playground,
   UrlQueryParams,
   CustomEvents,
@@ -11,7 +12,7 @@ import type {
   SDKEventHandler,
 } from './models';
 
-export type { Code, Config, EmbedOptions, Playground };
+export type { Code, Config, EmbedOptions, Language, Playground };
 
 /**
  * Creates a LiveCodes playground.
@@ -136,6 +137,7 @@ export async function createPlayground(
         containerElement.style.width ||= '100%';
         containerElement.style.height ||= containerElement.style.height || '300px';
         containerElement.style.minHeight = '200px';
+        containerElement.style.flexGrow = '1';
         containerElement.style.overflow ||= 'hidden';
         containerElement.style.resize ||= 'vertical';
       }
