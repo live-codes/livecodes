@@ -1167,16 +1167,37 @@ const loadConfig = async (
   // load config
   await bootstrap(true);
 
-  updateUI(config);
+  await applyConfig(config);
 
   changingContent = false;
 };
 
-const updateUI = (config: Config) => {
-  window.deps.showMode(config.mode);
-  configureToolsPane(config.tools, config.mode);
-  if (config.autotest) {
+const applyConfig = async (newConfig: Partial<Config>) => {
+  if (!isEmbed) {
+    loadSettings(getConfig());
+  }
+  if (newConfig.mode) {
+    window.deps.showMode(newConfig.mode);
+  }
+  if (newConfig.tools) {
+    configureToolsPane(newConfig.tools, newConfig.mode);
+  }
+  if (newConfig.zoom) {
+    zoom(newConfig.zoom);
+  }
+  if (newConfig.theme) {
+    setTheme(newConfig.theme);
+  }
+  if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
+  }
+  const editorConfig = {
+    ...getEditorConfig(newConfig as Config),
+    ...getFormatterConfig(newConfig as Config),
+  };
+  const hasEditorConfig = Object.values(editorConfig).some((value) => value != null);
+  if (hasEditorConfig) {
+    await reloadEditors({ ...getConfig(), ...newConfig });
   }
 };
 
@@ -4139,18 +4160,17 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig = {
+    const newAppConfig: Config = {
       ...getConfig(),
       ...buildConfig(newConfig),
     };
-
-    // TODO: apply changes in App AppConfig, UserConfig & EditorConfig
-    if (newAppConfig.mode !== getConfig().mode) {
-      window.deps.showMode(newAppConfig.mode);
-    }
-
     setConfig(newAppConfig);
-    await loadConfig(newAppConfig);
+    await applyConfig(newConfig);
+    const content = getContentConfig(newConfig as Config);
+    const hasContent = Object.values(content).some((value) => value != null);
+    if (hasContent) {
+      await loadConfig(newAppConfig);
+    }
     return newAppConfig;
   };
 
