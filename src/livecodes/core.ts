@@ -1166,7 +1166,6 @@ const loadConfig = async (
 
   // load config
   await bootstrap(true);
-
   await applyConfig(config);
 
   changingContent = false;
@@ -3740,29 +3739,30 @@ const configureToolsPane = (
   tools: Config['tools'] | undefined,
   mode: Config['mode'] | undefined,
 ) => {
+  if (!toolsPane) return;
   if (mode === 'result' && (!tools || tools.status === '' || tools.status === 'none')) {
-    toolsPane?.hide();
+    toolsPane.hide();
     return;
   }
   if (tools?.active) {
-    toolsPane?.setActiveTool(tools.active);
+    toolsPane.setActiveTool(tools.active);
   }
   if (!tools) {
-    toolsPane?.close();
+    toolsPane.close();
     return;
   }
   if (tools.status === 'none') {
-    toolsPane?.hide();
+    toolsPane.hide();
     return;
   }
   if (tools.status === 'full') {
-    toolsPane?.maximize();
+    toolsPane.maximize();
   }
   if (tools.status === 'open') {
-    toolsPane?.open();
+    toolsPane.open();
   }
   if (tools.status === 'closed' || tools.status === '') {
-    toolsPane?.close();
+    toolsPane.close();
   }
   // TODO: handle tools.enabled
 };
