@@ -29,6 +29,7 @@ body {
   script: {
     language: 'php-wasm',
     content: `
+<?php
 $title = 'PHP';
 vrzno_eval('document.getElementById("title").innerText = "' . $title . '"');
 

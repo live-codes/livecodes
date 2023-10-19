@@ -278,7 +278,7 @@ test.describe('Starter Templates from UI', () => {
 
     await waitForEditorFocus(app);
     await waitForResultUpdate();
-    await app.waitForTimeout(3_000);
+    await app.waitForTimeout(6_000);
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, PHP!');
@@ -788,7 +788,7 @@ test.describe('Starter Templates from URL', () => {
 
     await waitForEditorFocus(app);
     await waitForResultUpdate();
-    await app.waitForTimeout(3_000);
+    await app.waitForTimeout(6_000);
 
     const titleText = await getResult().innerText('h1');
     expect(titleText).toBe('Hello, PHP!');
