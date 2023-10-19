@@ -34,7 +34,7 @@ livecodes.rubyWasm.run =
     await init(hasImports(code));
     const { DefaultRubyVM } = (window as any)['ruby-wasm-wasi'];
     const { vm } = await DefaultRubyVM(livecodes.rubyWasm.module);
-    const patch = code.includes('$0') ? '$0 = __FILE__\\n' : '';
+    const patch = code.includes('$0') ? '$0 = __FILE__\n' : '';
     vm.eval(patch + code);
     parent.postMessage({ type: 'loading', payload: false }, '*');
   });
