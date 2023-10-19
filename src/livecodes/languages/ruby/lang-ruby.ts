@@ -30,7 +30,7 @@ export const ruby: LanguageSpecs = {
           'ruby',
           config,
         );
-        const patch = code.includes('$0') ? '$0 = __FILE__\\n' : '';
+        const patch = code.includes('$0') ? '$0 = __FILE__\n' : '';
         return (self as any).Opal.compile(patch + code, options);
       };
     },
