@@ -99,25 +99,63 @@ List of enabled languages. Languages that are not already loaded in the editors 
 
 Type: [`Editor`](../api/interfaces/internal.Editor.md)
 
-Default: `{ language: 'html', content: '' }`
+Default: `{ language: "html", content: "" }`
 
-Configures the [language](../api/modules/internal.md#language) and content of the markup editor.
+An object that configures the language and content of the markup editor. This can include the following properties:
+
+- `language`:  
+  Type: [Language](../api/modules/internal.md#language)  
+  Default: `"html"` in markup editor, `"css"` in style editor and `"javascript"` in script editor.  
+  This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
+  (e.g. `"markdown"`, `"md"`)
+
+- `content`:
+  Type: [`string | undefined`](../api/interfaces/internal.Editor#content)  
+  Default: `""`
+
+- `contentUrl`:
+  Type: [`string | undefined`](../api/interfaces/internal.Editor#contenturl)  
+  Default: `undefined`  
+  A URL to load `content` from. It has to be a valid URL that is CORS-enabled.  
+  The URL is only fetched if `content` property had no value.
+
+- `hiddenContent`:
+  Type: [`string | undefined`](../api/interfaces/internal.Editor#hiddencontent)  
+  Default: `undefined`  
+  Hidden content that gets evaluated without being visible in the code editor.
+  This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
+
+- `hiddenContentUrl`:
+  Type: [`string | undefined`](../api/interfaces/internal.Editor#hiddencontenturl)  
+  Default: `undefined`  
+  A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.  
+  The URL is only fetched if `hiddenContent` property had no value.
+
+- `selector`:
+  Type: [`string | undefined`](../api/interfaces/internal.Editor#selector)  
+  Default: `undefined`  
+  A CSS selector to load `content` from [DOM import](../features/import.md#import-code-from-dom).
+
+- `position`:
+  Type: [`{lineNumber: number, column?: number} | undefined`](../api/interfaces/internal.Editor#position)  
+  Default: `undefined`  
+  The initial position of the cursor in the code editor.
 
 ### `style`
 
 Type: [`Editor`](../api/interfaces/internal.Editor.md)
 
-Default: `{ language: 'css', content: '' }`
+Default: `{ language: "css", content: "" }`
 
-Configures the [language](../api/modules/internal.md#language) and content of the style editor.
+An object that configures the language and content of the style editor. See [markup](#markup) for more details.
 
 ### `script`
 
 Type: [`Editor`](../api/interfaces/internal.Editor.md)
 
-Default: `{ language: 'javascript', content: '' }`
+Default: `{ language: "javascript", content: "" }`
 
-Configures the [language](../api/modules/internal.md#language) and content of the script editor.
+An object that configures the language and content of the script editor. See [markup](#markup) for more details.
 
 ### `stylesheets`
 

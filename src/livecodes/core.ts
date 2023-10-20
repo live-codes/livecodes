@@ -790,14 +790,14 @@ const getResultPage = async ({
 
   const getContent = (editor: Partial<Editor> | undefined) => {
     if (!editor?.hiddenContent) {
-      return editor?.content || '';
+      return editor?.content ?? '';
     }
     const editorContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.content || '')
-      : editor.content || '';
+      ? removePhpToken(editor.content ?? '')
+      : editor.content ?? '';
     const hiddenContent = editor.language?.startsWith('php')
-      ? removePhpToken(editor.hiddenContent || '')
-      : editor.hiddenContent || '';
+      ? removePhpToken(editor.hiddenContent ?? '')
+      : editor.hiddenContent ?? '';
     const token = editor.language?.startsWith('php') ? '<?php\n' : '';
     const placeholder = '{{__livecodes_editor_content__}}';
     if (hiddenContent.includes(placeholder)) {
