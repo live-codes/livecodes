@@ -55,6 +55,7 @@ import type {
   APICommands,
   CompileInfo,
   SDKEvent,
+  Editor,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -665,13 +666,17 @@ const configureEditorTools = (language: Language) => {
   return true;
 };
 
+const addPhpToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
+
+const removePhpToken = (code: string) =>
+  code.trim().startsWith('<?php') ? code.replace('<?php', '') : code;
+
 const phpHelper = ({ editor, code }: { editor?: CodeEditor; code?: string }) => {
-  const addToken = (code: string) => (code.trim().startsWith('<?php') ? code : '<?php\n' + code);
   if (code?.trim()) {
-    return addToken(code);
+    return addPhpToken(code);
   }
   if (editor?.getLanguage().startsWith('php')) {
-    editor.setValue(addToken(editor.getValue()));
+    editor.setValue(addPhpToken(editor.getValue()));
     editor.setPosition({ lineNumber: 2, column: 0 });
   }
   return '<?php\n';
@@ -783,10 +788,28 @@ const getResultPage = async ({
   const config = getConfig();
   const contentConfig = getContentConfig(config);
 
-  const markupContent = config.markup.content || '';
-  const styleContent = config.style.content || '';
-  const scriptContent = config.script.content || '';
-  const testsContent = config.tests?.content || '';
+  const getContent = (editor: Partial<Editor> | undefined) => {
+    if (!editor?.hiddenContent) {
+      return editor?.content || '';
+    }
+    const editorContent = editor.language?.startsWith('php')
+      ? removePhpToken(editor.content || '')
+      : editor.content || '';
+    const hiddenContent = editor.language?.startsWith('php')
+      ? removePhpToken(editor.hiddenContent || '')
+      : editor.hiddenContent || '';
+    const token = editor.language?.startsWith('php') ? '<?php\n' : '';
+    const placeholder = '{{__livecodes_editor_content__}}';
+    if (hiddenContent.includes(placeholder)) {
+      return token + hiddenContent.replace(placeholder, editorContent);
+    }
+    return `${token}${hiddenContent}\n${editorContent}`;
+  };
+
+  const markupContent = getContent(config.markup);
+  const styleContent = getContent(config.style);
+  const scriptContent = getContent(config.script);
+  const testsContent = getContent(config.tests);
   const markupLanguage = config.markup.language;
   const styleLanguage = config.style.language;
   const scriptLanguage = config.script.language;
@@ -798,8 +821,8 @@ const getResultPage = async ({
       processors.find((p) => name === p.name && p.needsHTML),
     ) &&
     (config.processors.join(',') !== getCache().processors.join(',') ||
-      markupContent !== getCache().markup.content ||
-      scriptContent !== getCache().script.content); /* e.g. jsx/sfc */
+      markupContent !== getContent(getCache().markup) ||
+      scriptContent !== getContent(getCache().script)); /* e.g. jsx/sfc */
 
   const testsNotChanged =
     config.tests?.language === getCache().tests?.language &&
@@ -3892,8 +3915,11 @@ const importExternalContent = async (options: {
   const { config = defaultConfig, configUrl, template, url } = options;
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
   const hasContentUrls = (conf: Partial<Config>) =>
-    editorIds.filter((editorId) => conf[editorId]?.contentUrl && !conf[editorId]?.content).length >
-    0;
+    editorIds.filter(
+      (editorId) =>
+        (conf[editorId]?.contentUrl && !conf[editorId]?.content) ||
+        (conf[editorId]?.hiddenContentUrl && !conf[editorId]?.hiddenContent),
+    ).length > 0;
 
   if (!configUrl && !template && !url && !hasContentUrls(config)) return false;
 
@@ -3943,18 +3969,22 @@ const importExternalContent = async (options: {
   if (hasContentUrls(config)) {
     // load content from config contentUrl
     const editorsContent = await Promise.all(
-      editorIds.map((editorId) => {
+      editorIds.map(async (editorId) => {
         const contentUrl = config[editorId].contentUrl;
-        if (contentUrl && getValidUrl(contentUrl) && !config[editorId].content) {
-          return fetch(contentUrl)
-            .then((res) => res.text())
-            .then((content) => ({
-              ...config[editorId],
-              content,
-            }));
-        } else {
-          return Promise.resolve(config[editorId]);
-        }
+        const hiddenContentUrl = config[editorId].hiddenContentUrl;
+        const [content, hiddenContent] = await Promise.all([
+          contentUrl && getValidUrl(contentUrl) && !config[editorId].content
+            ? fetch(contentUrl).then((res) => res.text())
+            : Promise.resolve(''),
+          hiddenContentUrl && getValidUrl(hiddenContentUrl) && !config[editorId].hiddenContent
+            ? fetch(hiddenContentUrl).then((res) => res.text())
+            : Promise.resolve(''),
+        ]);
+        return {
+          ...config[editorId],
+          ...(content ? { content } : {}),
+          ...(hiddenContent ? { hiddenContent } : {}),
+        };
       }),
     );
     contentUrlConfig = {

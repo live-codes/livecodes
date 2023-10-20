@@ -339,6 +339,8 @@ export interface Editor {
   language: Language;
   content?: string;
   contentUrl?: string;
+  hiddenContent?: string;
+  hiddenContentUrl?: string;
   selector?: string;
   position?: EditorPosition;
 }
