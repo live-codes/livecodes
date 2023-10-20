@@ -35,7 +35,11 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const isEditor = (x: any) =>
     is(x, 'object') &&
-    (is(x.language, 'string') || is(x.content, 'string') || is(x.contentUrl, 'string'));
+    (is(x.language, 'string') ||
+      is(x.content, 'string') ||
+      is(x.contentUrl, 'string') ||
+      is(x.hiddenContent, 'string') ||
+      is(x.hiddenContentUrl, 'string'));
 
   const validateEditorProps = (x: Editor, editorId: EditorId): Editor => ({
     language:
@@ -44,14 +48,20 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
         : defaultConfig[editorId].language,
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+    ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
+    ...(is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(is(x.selector, 'string') ? { selector: x.selector } : {}),
+    ...(is(x.position, 'object') ? { position: x.position } : {}),
   });
 
   const validateTestsProps = (x: Partial<Config['tests']>): Partial<Config['tests']> => ({
     ...(x && is(x.language, 'string') ? { language: x.language } : {}),
     ...(x && is(x.content, 'string') ? { content: x.content } : {}),
     ...(x && is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
+    ...(x && is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),
+    ...(x && is(x.hiddenContentUrl, 'string') ? { hiddenContentUrl: x.hiddenContentUrl } : {}),
     ...(x && is(x.selector, 'string') ? { selector: x.selector } : {}),
+    ...(x && is(x.position, 'object') ? { position: x.position } : {}),
   });
 
   const validateToolsProps = (x: Partial<Config['tools']>): Config['tools'] => ({
