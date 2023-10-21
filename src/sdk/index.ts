@@ -402,8 +402,10 @@ if (
           //
         }
       }
+      const dom = encodeURIComponent(codeblock.outerHTML);
+      codeblock.innerHTML = '';
       createPlayground(codeblock, {
-        import: 'dom/' + encodeURIComponent(codeblock.outerHTML),
+        import: 'dom/' + dom,
         ...options,
         ...(config ? { config } : {}),
       });
