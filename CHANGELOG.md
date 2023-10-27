@@ -12,7 +12,8 @@ This release:
 - Allows [importing projects](https://livecodes.io/docs/features/import) from official TypeScript, Vue and Svelte playgrounds.
 - Allows adding [hidden content](https://livecodes.io/docs/configuration/configuration-object#markup) to editors (code that is evaluated but not shown in the editors).
 - Patches `python-wasm` (Pyodide) `input` to use browser `prompt`.
-- updates light theme.
+- Updates the light theme.
+- Fixes a bug where the SDK method `setConfig` did not update [app settings](https://livecodes.io/docs/configuration/configuration-object#app-settings) and [user settings](https://livecodes.io/docs/configuration/configuration-object#user-settings).
 
 In addition to various additions to documentations, and bug fixes.
 
