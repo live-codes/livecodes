@@ -176,6 +176,8 @@ declare module "sdk/models" {
         language: Language;
         content?: string;
         contentUrl?: string;
+        hiddenContent?: string;
+        hiddenContentUrl?: string;
         selector?: string;
         position?: EditorPosition;
     }
