@@ -4,7 +4,42 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
-## [sdk-v0.3.0](https://github.com/live-codes/livecodes/compare/sdk-v0.2.1...0.0.0) (2023-10-27)
+## [v16](https://github.com/live-codes/livecodes/compare/v15...v16) (2023-10-27)
+
+This release:
+
+- Adds language support for WebAssembly versions of [Ruby](https://livecodes.io/docs/languages/ruby-wasm/), [Lua](https://livecodes.io/docs/languages/lua-wasm/) and [PHP](https://livecodes.io/docs/languages/php-wasm/).
+- Allows [importing projects](https://livecodes.io/docs/features/import) from official TypeScript, Vue and Svelte playgrounds.
+- Allows adding [hidden content](https://livecodes.io/docs/configuration/configuration-object#markup) to editors (code that is evaluated but not shown in the editors).
+- Patches `python-wasm` (Pyodide) `input` to use browser `prompt`.
+- updates light theme.
+
+In addition to various additions to documentations, and bug fixes.
+
+### Bug Fixes
+
+- **compilers:** do not reload pyodide if still loading ([c86d8ee](https://github.com/live-codes/livecodes/commit/c86d8eeada05031787058f0f97dc986d8e88a4c9))
+- **SDK:** fix sdk prefill ([948f69e](https://github.com/live-codes/livecodes/commit/948f69e66d810dab0ae0a2dc7196f14ea897bf9e))
+- **UI:** fix (copy-as-url) button colors ([9c813b2](https://github.com/live-codes/livecodes/commit/9c813b2e70b9eda9fd42f5179dce735c236f8dc5))
+- **types:** fix types and pkg info for modules with CDN specifier ([7cdd9b2](https://github.com/live-codes/livecodes/commit/7cdd9b25b0c5180090a199f7156d3c2e487b775b))
+
+### Features
+
+- **compilers:** patch pyodide input ([4cff525](https://github.com/live-codes/livecodes/commit/4cff525d7450401a0b4500e2158d4dfa79f7f5e5))
+- **Config:** allow adding hidden content ([8b1f347](https://github.com/live-codes/livecodes/commit/8b1f347ec4425b3ef75c7d5e7f9f1c4ac60380bc))
+- **SDK:** apply config (app & editor configs) from SDK `setConfig` ([309ffb7](https://github.com/live-codes/livecodes/commit/309ffb794bac945e0eee7e6d85c3c419720c3839))
+- **UI:** modify light theme ([eb62af7](https://github.com/live-codes/livecodes/commit/eb62af7cf1afb09b3e520c37697827aed697b857))
+- **SDK:** add `flex-grow` to playground container and export type `Language` ([3de6805](https://github.com/live-codes/livecodes/commit/3de6805d3852a41b223df4a05a0784e27da03a67))
+- **compilers:** add language `lua-wasm` using wasmoon ([832c8e6](https://github.com/live-codes/livecodes/commit/832c8e6ce61799766a93441f6decd809f793f16f))
+- **compilers:** add support for php-wasm ([7cf8780](https://github.com/live-codes/livecodes/commit/7cf878010a1346c51f5149c995db4d68ccf532a2))
+- **compilers:** add support for ruby-wasm ([0842d01](https://github.com/live-codes/livecodes/commit/0842d0150754f3aa87fc73172063d65180b710b7))
+- **import:** allow importing typescript playground projects ([ced7678](https://github.com/live-codes/livecodes/commit/ced7678dfbd3417dd286920b0f540f114d91cce8))
+- **import:** import from svelte playground ([a8d35e2](https://github.com/live-codes/livecodes/commit/a8d35e20727a554f9e392134ef30f0959ffa7a77))
+- **import:** import from vue playground ([9406630](https://github.com/live-codes/livecodes/commit/94066306638c397781f50c0075f33e17447309a4))
+
+---
+
+## [sdk-v0.3.0](https://github.com/live-codes/livecodes/compare/sdk-v0.2.1...sdk-v0.3.0) (2023-10-27)
 
 ### Bug Fixes
 
