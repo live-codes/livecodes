@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.3.0](https://github.com/live-codes/livecodes/compare/sdk-v0.2.1...0.0.0) (2023-10-27)
+
+### Bug Fixes
+
+- **compilers:** do not reload pyodide if still loading ([c86d8ee](https://github.com/live-codes/livecodes/commit/c86d8eeada05031787058f0f97dc986d8e88a4c9))
+- **SDK:** fix sdk prefill ([948f69e](https://github.com/live-codes/livecodes/commit/948f69e66d810dab0ae0a2dc7196f14ea897bf9e))
+- **UI:** fix (copy-as-url) button colors ([9c813b2](https://github.com/live-codes/livecodes/commit/9c813b2e70b9eda9fd42f5179dce735c236f8dc5))
+
+### Features
+
+- **compilers:** patch pyodide input ([4cff525](https://github.com/live-codes/livecodes/commit/4cff525d7450401a0b4500e2158d4dfa79f7f5e5))
+- **Config:** allow adding hidden content ([8b1f347](https://github.com/live-codes/livecodes/commit/8b1f347ec4425b3ef75c7d5e7f9f1c4ac60380bc))
+- **SDK:** apply config (app & editor configs) from SDK `setConfig` ([309ffb7](https://github.com/live-codes/livecodes/commit/309ffb794bac945e0eee7e6d85c3c419720c3839))
+- **UI:** modify light theme ([eb62af7](https://github.com/live-codes/livecodes/commit/eb62af7cf1afb09b3e520c37697827aed697b857))
+
+---
+
 ## [sdk-v0.2.1](https://github.com/live-codes/livecodes/compare/v15...sdk-v0.2.1) (2023-10-16)
 
 This release mainly updates TypeScript type definitions.
