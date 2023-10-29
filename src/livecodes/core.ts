@@ -1040,10 +1040,12 @@ const setExternalResourcesMark = () => {
   }
 };
 
-const run = async (editorId?: EditorId, runTests = false) => {
+const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
   toolsPane?.console?.clear(/* silent= */ true);
-  const result = await getResultPage({ sourceEditor: editorId, runTests });
+  const config = getConfig();
+  const shouldRunTests = runTests ?? (config.autotest && Boolean(config.tests?.content?.trim()));
+  const result = await getResultPage({ sourceEditor: editorId, runTests: shouldRunTests });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
 };
@@ -1991,9 +1993,8 @@ const handleChangeContent = () => {
     const config = getConfig();
     addConsoleInputCodeCompletion();
 
-    const shouldRunTests = Boolean(config.autotest && config.tests?.content);
-    if ((config.autoupdate || shouldRunTests) && !loading) {
-      await run(editorId, shouldRunTests);
+    if (config.autoupdate && !loading) {
+      await run(editorId);
     }
 
     if (config.markup.content !== getCache().markup.content) {
