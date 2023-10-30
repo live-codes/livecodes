@@ -4191,10 +4191,7 @@ const createApi = (): API => {
   };
 
   const apiSetConfig = async (newConfig: Partial<Config>): Promise<Config> => {
-    const newAppConfig: Config = {
-      ...getConfig(),
-      ...buildConfig(newConfig),
-    };
+    const newAppConfig = buildConfig({ ...getConfig(), ...newConfig });
     setConfig(newAppConfig);
     await applyConfig(newConfig);
     const content = getContentConfig(newConfig as Config);

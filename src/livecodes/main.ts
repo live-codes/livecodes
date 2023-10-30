@@ -115,6 +115,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
       if (isEmbed) {
         const registerSDKEvent = (sdkEvent: CustomEvents[keyof CustomEvents], hasData = false) => {
           window.addEventListener(sdkEvent, (e: CustomEventInit) => {
+            if (hasData && e.detail == null) return;
             parent.postMessage(
               { type: sdkEvent, ...(hasData ? { payload: e.detail } : {}) },
               anyOrigin,
