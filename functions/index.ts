@@ -67,7 +67,6 @@ export const onRequest: PgFunction = async function (context) {
     const response = new Response(modifiedBody, originalResponse);
     const linkHeader = `<${url.origin}/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes"`;
     response.headers.append('Link', linkHeader);
-    response.headers.append('Project-title', title || '');
 
     context.data = {
       ...data,
