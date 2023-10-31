@@ -48,15 +48,15 @@ export const onRequest: PgFunction = async function (context) {
     const { title, description } = await getProjectInfo(url);
     const modifiedBody = (await originalResponse.text())
       .replace(
-        `href="/oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,
+        `href="oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,
         `href="${url.origin}/oembed?url=${oembedUrl}&format=json"`,
       )
       .replace(
-        `content="LiveCodes"`,
+        /content="LiveCodes"/g,
         `content="${!title || title === 'Untitled Project' ? 'LiveCodes' : title}"`,
       )
       .replace(
-        `content="Code Playground That Just Works!"`,
+        /content="Code Playground That Just Works!"/g,
         `content="${
           !title && !description
             ? 'Code Playground That Just Works!'
@@ -67,6 +67,7 @@ export const onRequest: PgFunction = async function (context) {
     const response = new Response(modifiedBody, originalResponse);
     const linkHeader = `<${url.origin}/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes"`;
     response.headers.append('Link', linkHeader);
+    response.headers.append('Project-title', title || '');
 
     context.data = {
       ...data,
