@@ -74,7 +74,7 @@ export const onRequest: PgFunction = async function (context) {
   }
 };
 
-const logToAPI = (context: Context) => {
+export const logToAPI = (context: Context) => {
   const { data, env } = context;
   return fetch('https://api2.livecodes.io/log', {
     method: 'POST',

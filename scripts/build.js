@@ -326,6 +326,13 @@ const workersBuild = () =>
     }
   });
 
+const functionsBuild = () =>
+  esbuild.build({
+    ...baseOptions,
+    outdir: 'functions/build',
+    entryPoints: ['src/livecodes/utils/compression.ts'],
+  });
+
 const stylesBuild = () => buildStyles(devMode);
 
 prepareDir().then(() => {
@@ -333,6 +340,7 @@ prepareDir().then(() => {
     async () => {
       if (!devMode) {
         buildVendors();
+        functionsBuild();
       }
       await applyHash({ devMode });
       await injectCss();
