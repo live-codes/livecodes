@@ -44,7 +44,7 @@ export const onRequest: PgFunction = async function (context) {
     const url = new URL(request.url);
     const oembedUrl = encodeURIComponent(url.href);
     const modifiedBody = (await originalResponse.text()).replace(
-      `href="${url.origin}/oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,
+      `href="/oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,
       `href="${url.origin}/oembed?url=${oembedUrl}&format=json"`,
     );
     const response = new Response(modifiedBody, originalResponse);
