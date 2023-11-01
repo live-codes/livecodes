@@ -40,7 +40,7 @@ export const onRequest: PgFunction = async function (context) {
     version: '1.0',
     provider_name: 'LiveCodes',
     provider_url: 'https://livecodes.io',
-    title: title ? title + ' - LiveCodes' : 'LiveCodes',
+    title: !title || title === 'Untitled Project' ? 'LiveCodes' : title + ' - LiveCodes',
     height: maxHeight && maxHeight < 300 ? String(maxHeight) : '300',
     width: maxWidth && maxWidth < 800 ? String(maxWidth) : '800',
     thumbnail_width: String(thumbnailWidth),
