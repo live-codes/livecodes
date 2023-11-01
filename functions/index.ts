@@ -64,7 +64,9 @@ export const onRequest: PgFunction = async function (context) {
             ? 'Code Playground That Just Works!'
             : description || 'A project on LiveCodes.'
         }"`,
-      );
+      )
+      .replace(/content="https:\/\/livecodes.io\/"/g, `content="${request.url}"`)
+      .replace(/content="https:\/\/livecodes.io\/livecodes/g, `content="${url.origin}/livecodes`);
 
     const response = new Response(modifiedBody, originalResponse);
     const linkHeader = `<${url.origin}/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes"`;
