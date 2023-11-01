@@ -28,6 +28,12 @@ export const onRequest: PgFunction = async function (context) {
   }
 
   const { title } = await getProjectInfo(url);
+  const maxWidth = Number(url.searchParams.get('maxwidth'));
+  const maxHeight = Number(url.searchParams.get('maxheight'));
+  const thumbnailWidth = maxWidth && maxWidth < 1200 ? maxWidth : 1200;
+  const propHeight = maxWidth ? maxWidth * (630 / 1200) : 630;
+  const thumbnailHeight = maxHeight && maxHeight < propHeight ? maxHeight : propHeight;
+
   const body = {
     success: true,
     type: 'rich',
@@ -35,15 +41,19 @@ export const onRequest: PgFunction = async function (context) {
     provider_name: 'LiveCodes',
     provider_url: 'https://livecodes.io',
     title: title ? title + ' - LiveCodes' : 'LiveCodes',
-    height: '300',
-    width: '800',
-    thumbnail_width: '150',
-    thumbnail_height: '99',
-    thumbnail_url: url.origin + '/livecodes/assets/images/livecodes-logo-small.png',
-    html:
-      '<iframe src="' +
-      url.href +
-      '" scrolling="no" height="300" style="border: 1px solid black; border-radius: 5px; width: 100%;"></iframe>',
+    height: maxHeight && maxHeight < 300 ? String(maxHeight) : '300',
+    width: maxWidth && maxWidth < 800 ? String(maxWidth) : '800',
+    thumbnail_width: String(thumbnailWidth),
+    thumbnail_height: String(thumbnailHeight),
+    thumbnail_url: url.origin + '/livecodes/assets/images/livecodes-text-logo.png',
+    html: `<iframe
+        src="${url.href}"
+        scrolling="no"
+        height="300"
+        style="border: 1px solid black; border-radius: 5px; width: 100%;${
+          maxWidth ? ' max-width: ' + maxWidth + 'px;' : ''
+        }${maxHeight ? ' max-height: ' + maxHeight + 'px;' : ''}"
+      ></iframe>`,
   };
 
   return new Response(JSON.stringify(body), {
