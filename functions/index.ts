@@ -52,8 +52,10 @@ export const onRequest: PgFunction = async function (context) {
         `href="${url.origin}/oembed?url=${oembedUrl}&format=json"`,
       )
       .replace(
-        /content="LiveCodes"/g,
-        `content="${!title || title === 'Untitled Project' ? 'LiveCodes' : title}"`,
+        /title" content="LiveCodes"/g,
+        `title" content="${
+          !title || title === 'Untitled Project' ? 'LiveCodes' : title + ' - LiveCodes'
+        }"`,
       )
       .replace(
         /content="Code Playground That Just Works!"/g,
