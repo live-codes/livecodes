@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v17](https://github.com/live-codes/livecodes/compare/v16...v17) (2023-11-01)
+
+
+### Bug Fixes
+
+* **App:** fix autoupdate (if autotest is true) ([621c956](https://github.com/live-codes/livecodes/commit/621c9560dbca77c9fcb09cb03c3f5808465e0166))
+* **Config:** fix setting config from SDK ([fb433f8](https://github.com/live-codes/livecodes/commit/fb433f89f0731f24d830b64f5d41a83ba4cadd5a))
+
+
+### Features
+
+* **functions:** oembed ([c2fe68d](https://github.com/live-codes/livecodes/commit/c2fe68d4b2b83bf36d0c57d02d36fdb87dc8eeca))
+* **functions:** set meta tags ([561cbc7](https://github.com/live-codes/livecodes/commit/561cbc78c96c8c421a14bca66ffbbb03086e33f3))
+
+
+
+
+---
+
 ## [v16](https://github.com/live-codes/livecodes/compare/v15...v16) (2023-10-27)
 
 This release:

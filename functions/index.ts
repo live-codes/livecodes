@@ -1,5 +1,7 @@
 /// <reference path="../node_modules/@cloudflare/workers-types/index.d.ts" />
 
+import { getProjectInfo } from './utils';
+
 type Env = Record<'API_TOKEN', string>;
 type Data = Record<string, unknown>;
 type PgFunction = PagesFunction<Env, 'id', Data>;
@@ -40,15 +42,34 @@ export const onRequest: PgFunction = async function (context) {
   };
 
   try {
-    // oEmbed
+    // oEmbed & meta tags
     const url = new URL(request.url);
     const oembedUrl = encodeURIComponent(url.href);
-    const modifiedBody = (await originalResponse.text()).replace(
-      'href="https://api.livecodes.io/oembed?url=https%3A%2F%2Flivecodes.io&format=json"',
-      `href="https://api.livecodes.io/oembed?url=${oembedUrl}&format=json"`,
-    );
+    const { title, description } = await getProjectInfo(url);
+    const modifiedBody = (await originalResponse.text())
+      .replace(
+        `href="oembed?url=https%3A%2F%2Flivecodes.io&format=json"`,
+        `href="${url.origin}/oembed?url=${oembedUrl}&format=json"`,
+      )
+      .replace(
+        /title" content="LiveCodes"/g,
+        `title" content="${
+          !title || title === 'Untitled Project' ? 'LiveCodes' : title + ' - LiveCodes'
+        }"`,
+      )
+      .replace(
+        /content="Code Playground That Just Works!"/g,
+        `content="${
+          !title && !description
+            ? 'Code Playground That Just Works!'
+            : description || 'A project on LiveCodes.'
+        }"`,
+      )
+      .replace(/content="https:\/\/livecodes.io\/"/g, `content="${request.url}"`)
+      .replace(/content="https:\/\/livecodes.io\/livecodes/g, `content="${url.origin}/livecodes`);
+
     const response = new Response(modifiedBody, originalResponse);
-    const linkHeader = `<https://api.livecodes.io/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes oEmbed"`;
+    const linkHeader = `<${url.origin}/oembed?url=${oembedUrl}&format=json>; rel="alternate"; type="application/json+oembed"; title="LiveCodes"`;
     response.headers.append('Link', linkHeader);
 
     context.data = {
@@ -74,7 +95,7 @@ export const onRequest: PgFunction = async function (context) {
   }
 };
 
-const logToAPI = (context: Context) => {
+export const logToAPI = (context: Context) => {
   const { data, env } = context;
   return fetch('https://api2.livecodes.io/log', {
     method: 'POST',
