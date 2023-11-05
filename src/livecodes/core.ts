@@ -85,6 +85,7 @@ import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
   defaultConfig,
+  getAppConfig,
   getConfig,
   getContentConfig,
   getEditorConfig,
@@ -1108,8 +1109,8 @@ const share = async (
   includeResult = false,
   permanentUrl = false,
 ): Promise<ShareData> => {
-  const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
-
+  const config = getConfig();
+  const content = contentOnly ? { ...getContentConfig(config), ...getAppConfig(config) } : config;
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
@@ -3752,7 +3753,21 @@ const handleUnload = () => {
 };
 
 const loadToolsPane = async () => {
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
+  const updateConfigTools = debounce((tools: Config['tools']) => {
+    setConfig({
+      ...getConfig(),
+      tools,
+    });
+  }, 100);
+  toolsPane = createToolsPane(
+    getConfig(),
+    baseUrl,
+    editors,
+    eventsManager,
+    isEmbed,
+    runTests,
+    updateConfigTools,
+  );
   await toolsPane.load();
   handleTests();
   handleResultZoom();

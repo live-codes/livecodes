@@ -1,4 +1,11 @@
-import type { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig } from '../models';
+import type {
+  ContentConfig,
+  Config,
+  UserConfig,
+  EditorConfig,
+  FormatterConfig,
+  AppConfig,
+} from '../models';
 import { cloneObject } from '../utils';
 import { defaultConfig } from './default-config';
 import { upgradeConfig } from './upgrade-config';
@@ -30,6 +37,15 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
     types: config.types,
     tests: config.tests,
     version: config.version,
+  });
+
+export const getAppConfig = (config: Config | AppConfig): AppConfig =>
+  cloneObject({
+    readonly: config.readonly,
+    allowLangChange: config.allowLangChange,
+    mode: config.mode,
+    tools: config.tools,
+    zoom: config.zoom,
   });
 
 export const getUserConfig = (config: Config | UserConfig): UserConfig => ({
