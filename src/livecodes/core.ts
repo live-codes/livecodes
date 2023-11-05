@@ -3753,12 +3753,12 @@ const handleUnload = () => {
 };
 
 const loadToolsPane = async () => {
-  const updateConfigTools = (tools: Config['tools']) => {
+  const updateConfigTools = debounce((tools: Config['tools']) => {
     setConfig({
       ...getConfig(),
       tools,
     });
-  };
+  }, 100);
   toolsPane = createToolsPane(
     getConfig(),
     baseUrl,
