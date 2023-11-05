@@ -20,6 +20,7 @@ export const createToolsPane = (
   eventsManager: EventsManager,
   isEmbed: boolean,
   runTests: () => Promise<void>,
+  setTools: (tools: Config['tools']) => void,
 ): ToolsPane => {
   let toolsSplit: Split.Instance;
   let status: ToolsPaneStatus;
@@ -91,6 +92,14 @@ export const createToolsPane = (
     }
   };
 
+  const updateConfig = () => {
+    setTools({
+      enabled: tools.length === allTools.length ? 'all' : tools.map((tool) => tool.name),
+      active: tools[activeToolId].name,
+      status,
+    });
+  };
+
   const setActiveTool = (toolId: number) => {
     activeToolId = toolId;
 
@@ -117,6 +126,7 @@ export const createToolsPane = (
         tool.onDeactivate();
       }
     });
+    updateConfig();
   };
 
   const sizeChanged = () => {
@@ -131,6 +141,15 @@ export const createToolsPane = (
         tools[activeToolId]?.onActivate();
       }
     }
+    status =
+      status === 'none'
+        ? 'none'
+        : toolsSplit.getSizes()[0] > 90
+        ? 'closed'
+        : toolsSplit.getSizes()[0] < 10
+        ? 'full'
+        : 'open';
+    updateConfig();
   };
 
   const open = (toolId: number, maximize = false) => {
@@ -256,6 +275,7 @@ export const createToolsPane = (
           result.style.height = `calc(100% - ${gutterSize}px)`;
           toolsPane.style.height = '0';
         }
+        sizeChanged();
       },
       false,
     );
@@ -359,6 +379,7 @@ export const createToolsPane = (
     if (tools.filter((t) => t).length === 0) {
       resize('none');
     }
+    updateConfig();
   };
 
   const enableTool = (name: Tool['name']) => {
@@ -380,6 +401,7 @@ export const createToolsPane = (
     if (toolTitle) {
       toolTitle.style.display = 'flex';
     }
+    updateConfig();
   };
 
   const api: ToolsPane = {
