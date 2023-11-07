@@ -58,6 +58,7 @@ import { clojurescriptStarter } from './clojurescript-starter';
 import { rubyWasmStarter } from './ruby-wasm-starter';
 import { luaWasmStarter } from './lua-wasm-starter';
 import { phpWasmStarter } from './php-wasm-starter';
+import { litStarter } from './lit-starter';
 
 export const starterTemplates = [
   blank,
@@ -70,8 +71,9 @@ export const starterTemplates = [
   angularStarter,
   preactStarter,
   svelteStarter,
-  stencilStarter,
   solidStarter,
+  litStarter,
+  stencilStarter,
   mdxStarter,
   astroStarter,
   riotStarter,
