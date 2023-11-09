@@ -3074,17 +3074,40 @@ const handleAbout = () => {
 };
 
 const handleProjectInfo = () => {
-  const onSave = (title: string, description: string, tags: string[]) => {
+  const onUpdate = async (
+    title: string,
+    description: string,
+    head: string,
+    htmlAttrs: string,
+    tags: string[],
+  ) => {
+    let attrs = '';
+    try {
+      attrs = JSON.parse(stringToValidJson(htmlAttrs));
+    } catch {
+      attrs = htmlAttrs;
+    }
     setConfig({
       ...getConfig(),
       title,
       description,
+      head,
+      htmlAttrs: attrs,
       tags,
     });
-    save(!projectId, true);
+    if (getConfig().autoupdate) {
+      await run();
+    }
+    dispatchChangeEvent();
   };
   const createProjectInfo = () =>
-    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, eventsManager, onSave);
+    createProjectInfoUI(
+      getConfig(),
+      stores.projects || fakeStorage,
+      modal,
+      eventsManager,
+      onUpdate,
+    );
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
   registerScreen('info', createProjectInfo);

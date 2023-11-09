@@ -22,7 +22,13 @@ export const createProjectInfoUI = async (
   storage: ProjectStorage,
   modal: ReturnType<typeof createModal>,
   eventsManager: ReturnType<typeof createEventsManager>,
-  onSave: (title: string, description: string, tags: string[]) => void,
+  onUpdate: (
+    title: string,
+    description: string,
+    head: string,
+    htmlAttrs: string,
+    tags: string[],
+  ) => void,
 ) => {
   const div = document.createElement('div');
   div.innerHTML = infoScreen;
@@ -36,12 +42,27 @@ export const createProjectInfoUI = async (
   const descriptionTextarea = UI.getInfoDescription();
   descriptionTextarea.value = config.description;
 
+  const headTextarea = UI.getInfoHead();
+  headTextarea.value = config.head;
+
+  const htmlAttrsTextarea = UI.getInfoHtmlAttrs();
+  htmlAttrsTextarea.value =
+    typeof config.htmlAttrs === 'string'
+      ? config.htmlAttrs
+      : JSON.stringify(config.htmlAttrs, null, 2);
+
   const tagsInput = UI.getInfoTagsInput();
   tagsInput.value = removeDuplicates(config.tags).join(', ');
 
-  eventsManager.addEventListener(UI.getSaveInfoButton(), 'click', async () => {
+  eventsManager.addEventListener(UI.getUpdateInfoButton(), 'click', async () => {
     UI.getProjectTitleElement().textContent = titleInput.value;
-    onSave(titleInput.value, descriptionTextarea.value, getTags(tagsInput.value));
+    onUpdate(
+      titleInput.value,
+      descriptionTextarea.value,
+      headTextarea.value,
+      htmlAttrsTextarea.value,
+      getTags(tagsInput.value),
+    );
     modal.close();
   });
 

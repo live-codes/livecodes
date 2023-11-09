@@ -22,6 +22,8 @@ export const getContentConfig = (config: Config | ContentConfig): ContentConfig 
   cloneObject({
     title: config.title,
     description: config.description,
+    head: config.head,
+    htmlAttrs: config.htmlAttrs,
     tags: config.tags,
     activeEditor: config.activeEditor,
     languages: config.languages,
