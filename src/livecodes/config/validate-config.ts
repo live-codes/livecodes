@@ -89,6 +89,10 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   return {
     ...(is(config.title, 'string') ? { title: config.title } : {}),
     ...(is(config.description, 'string') ? { description: config.description } : {}),
+    ...(is(config.head, 'string') ? { head: config.head } : {}),
+    ...(is(config.htmlAttrs, 'string') || is(config.htmlAttrs, 'object')
+      ? { htmlAttrs: config.htmlAttrs }
+      : {}),
     ...(is(config.tags, 'array', 'string') ? { tags: removeDuplicates(config.tags) } : {}),
     ...(is(config.autoupdate, 'boolean') ? { autoupdate: config.autoupdate } : {}),
     ...(is(config.autosave, 'boolean') ? { autosave: config.autosave } : {}),

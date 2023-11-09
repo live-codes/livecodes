@@ -8,6 +8,33 @@ interface genericConfig extends Config {
 
 const upgradeSteps = [
   {
+    to: '18',
+    upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
+      const config: genericConfig = clone(oldConfig);
+      const head = (config.customSettings as any)?.head;
+      if (typeof head === 'string') {
+        config.head = head;
+        delete (config.customSettings as any)?.head;
+      }
+      const htmlClasses = (config.customSettings as any)?.htmlClasses;
+      if (typeof htmlClasses === 'string') {
+        if (typeof config.htmlAttrs === 'string') {
+          config.htmlAttrs = `class="${htmlClasses}" ${config.htmlAttrs}`;
+        } else {
+          config.htmlAttrs = {
+            ...config.htmlAttrs,
+            class: htmlClasses,
+          };
+        }
+        delete (config.customSettings as any)?.htmlClasses;
+      }
+      return {
+        ...config,
+        version,
+      };
+    },
+  },
+  {
     to: '0.6.0',
     upgrade: (oldConfig: genericConfig, version: string): genericConfig => {
       const config: genericConfig = clone(oldConfig);
