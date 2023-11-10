@@ -11,46 +11,54 @@ This is the pseudo-code for the structure of the result page (inspired by [CodeP
 <!-- prettier-ignore -->
 ```html
 <!DOCTYPE html>
-<html lang="en" class="{ customSettings.htmlClasses }">
+<html { Config.htmlAttrs }*>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{ Title }</title>
+    <title>{ Config.title }*</title>
+    <meta name="title" content="{ Config.title }*" />
+    <meta name="description" content="{ Config.description }*" />
 
-    { customSettings.head }
+    { Config.head }*
 
-    { CSS preset }
+    { CSS preset }**
 
-    { External CSS }
+    { External CSS }**
 
     { Editor CSS }
 
-    { Language(s) run-time CSS }*
+    { Language(s) run-time CSS }***
 
-    { Language(s) run-time JS }*
+    { Language(s) run-time JS }***
 
-    { Import map }
+    { Import map }****
 
   </head>
   <body>
 
     { Editor HTML }
     
-    { External JS }
+    { External JS }**
 
     { Editor JS }
 
-    { Spacing script (if enabled) }**
+    { Spacing script (if enabled) }*****
 
-    { Test scripts (if enabled) }
+    { Test scripts (if enabled) }******
 
   </body>
 </html>
 ```
 
-\* Although most languages are compiled and then the compiled code is used, some languages require run-time scripts or styles to run in the result page.
+\* See [Configuration Object](../configuration/configuration-object.md).
 
-\*\* See [Show Sapcings](#show-spacings).
+\*\* See [External Resources](./external-resources.md).
+
+\*\*\* Although most languages are compiled and then the compiled code is used, some languages require run-time scripts or styles to run in the result page.
+
+\*\*\*\* See [Module Resolution](./module-resolution.md).
+
+\*\*\*\*\* See [Show Sapcings](#show-spacings).
+
+\*\*\*\*\*\* See [Tests](./tests.md).
 
 ## Result page zoom
 
