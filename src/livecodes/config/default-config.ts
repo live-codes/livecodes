@@ -3,6 +3,8 @@ import type { Config } from '../models';
 export const defaultConfig: Config = {
   title: 'Untitled Project',
   description: '',
+  head: `<meta charset="UTF-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />`,
+  htmlAttrs: 'lang="en" class=""',
   tags: [],
   autoupdate: true,
   autosave: false,

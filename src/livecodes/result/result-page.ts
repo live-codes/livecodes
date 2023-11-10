@@ -11,7 +11,14 @@ import type { Cache, EditorId, Config, CompileInfo } from '../models';
 import { getAppCDN, modulesService } from '../services';
 // eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
-import { escapeScript, getAbsoluteUrl, isRelativeUrl, objectMap, toDataUrl } from '../utils';
+import {
+  addAttrs,
+  escapeScript,
+  getAbsoluteUrl,
+  isRelativeUrl,
+  objectMap,
+  toDataUrl,
+} from '../utils';
 import { esModuleShimsPath, browserJestUrl, spacingJsUrl } from '../vendors';
 
 export const createResultPage = async ({
@@ -48,17 +55,32 @@ export const createResultPage = async ({
     dom.head.appendChild(utilsScript);
   }
 
-  // title
-  dom.title = config.title;
+  const addMetaTag = (name: string, content: string) => {
+    const meta = dom.createElement('meta');
+    meta.name = name;
+    meta.content = content;
+    dom.head.appendChild(meta);
+  };
 
-  // html classes
-  if (config.customSettings.htmlClasses) {
-    dom.documentElement.classList.add(...config.customSettings.htmlClasses.split(' '));
+  // title
+  if (config.title) {
+    dom.title = config.title;
+    addMetaTag('title', config.title);
+  }
+
+  // description
+  if (config.description) {
+    addMetaTag('description', config.description);
+  }
+
+  // html element attributes
+  if (config.htmlAttrs) {
+    addAttrs(dom.documentElement, config.htmlAttrs);
   }
 
   // head content
-  if (config.customSettings.head) {
-    dom.head.innerHTML += config.customSettings.head;
+  if (config.head) {
+    dom.head.innerHTML += config.head;
   }
 
   // CSS Preset

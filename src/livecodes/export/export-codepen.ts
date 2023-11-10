@@ -68,8 +68,8 @@ export const exportCodepen = (
       : config.script.language === 'tsx'
       ? 'typescript'
       : 'none',
-    html_classes: config.customSettings.htmlClasses || '',
-    head: config.customSettings.head || '',
+    html_classes: typeof config.htmlAttrs === 'object' ? config.htmlAttrs.class || '' : '',
+    head: config.head || '',
     css_external: config.stylesheets.join(';'),
     js_external: [
       ...config.scripts,

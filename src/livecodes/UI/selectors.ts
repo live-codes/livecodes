@@ -235,14 +235,20 @@ export const getSnippetsLink = /* @__PURE__ */ () =>
 export const getInfoTitleInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;
 
+export const getInfoHead = /* @__PURE__ */ () =>
+  document.querySelector('#info-container #head-textarea') as HTMLTextAreaElement;
+
+export const getInfoHtmlAttrs = /* @__PURE__ */ () =>
+  document.querySelector('#info-container #html-attrs-textarea') as HTMLTextAreaElement;
+
 export const getInfoDescription = /* @__PURE__ */ () =>
   document.querySelector('#info-container #description-textarea') as HTMLTextAreaElement;
 
 export const getInfoTagsInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#tags-input') as HTMLInputElement;
 
-export const getSaveInfoButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#info-container #info-save-btn');
+export const getUpdateInfoButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#info-container #info-update-btn');
 
 export const getExternalResourcesTextareas = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLTextAreaElement>('#resources-container textarea');

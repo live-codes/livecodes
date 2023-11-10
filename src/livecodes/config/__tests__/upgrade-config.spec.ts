@@ -65,6 +65,10 @@ describe('upgradeConfig', () => {
           typesUrl: 'https://mycdn.com/mylib-typesUrl',
         },
       ],
+      customSettings: {
+        head: '<meta charset="UTF-8" />',
+        htmlClasses: 'my-class1 my-class2',
+      },
     };
 
     const newConfig: any = {
@@ -109,6 +113,11 @@ describe('upgradeConfig', () => {
         enabled: 'all',
         status: 'open',
       },
+      head: '<meta charset="UTF-8" />',
+      htmlAttrs: {
+        class: 'my-class1 my-class2',
+      },
+      customSettings: {},
       version: process.env.VERSION,
     };
     expect(upgradeConfig(oldConfig)).toEqual(newConfig);
