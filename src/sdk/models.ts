@@ -71,6 +71,8 @@ export interface Config extends ContentConfig, AppConfig, UserConfig {}
 export interface ContentConfig {
   title: string;
   description: string;
+  head: string;
+  htmlAttrs: Record<string, string> | string;
   tags: string[];
   activeEditor: EditorId | undefined;
   languages: Array<Language | Processor> | undefined;
@@ -563,8 +565,9 @@ export type TemplateName =
   | 'angular'
   | 'preact'
   | 'svelte'
-  | 'stencil'
   | 'solid'
+  | 'lit'
+  | 'stencil'
   | 'mdx'
   | 'astro'
   | 'riot'
@@ -828,8 +831,6 @@ export type CustomSettings = Partial<
     convertCommonjs: boolean;
     defaultCDN: CDN;
     types: Types;
-    head: string;
-    htmlClasses: string;
   }
 >;
 

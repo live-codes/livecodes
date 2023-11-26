@@ -85,6 +85,7 @@ import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
   defaultConfig,
+  getAppConfig,
   getConfig,
   getContentConfig,
   getEditorConfig,
@@ -1108,8 +1109,8 @@ const share = async (
   includeResult = false,
   permanentUrl = false,
 ): Promise<ShareData> => {
-  const content = contentOnly ? getContentConfig(getConfig()) : getConfig();
-
+  const config = getConfig();
+  const content = contentOnly ? { ...getContentConfig(config), ...getAppConfig(config) } : config;
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
@@ -3073,17 +3074,40 @@ const handleAbout = () => {
 };
 
 const handleProjectInfo = () => {
-  const onSave = (title: string, description: string, tags: string[]) => {
+  const onUpdate = async (
+    title: string,
+    description: string,
+    head: string,
+    htmlAttrs: string,
+    tags: string[],
+  ) => {
+    let attrs = '';
+    try {
+      attrs = JSON.parse(stringToValidJson(htmlAttrs));
+    } catch {
+      attrs = htmlAttrs;
+    }
     setConfig({
       ...getConfig(),
       title,
       description,
+      head,
+      htmlAttrs: attrs,
       tags,
     });
-    save(!projectId, true);
+    if (getConfig().autoupdate) {
+      await run();
+    }
+    dispatchChangeEvent();
   };
   const createProjectInfo = () =>
-    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, eventsManager, onSave);
+    createProjectInfoUI(
+      getConfig(),
+      stores.projects || fakeStorage,
+      modal,
+      eventsManager,
+      onUpdate,
+    );
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
   registerScreen('info', createProjectInfo);
@@ -3752,7 +3776,21 @@ const handleUnload = () => {
 };
 
 const loadToolsPane = async () => {
-  toolsPane = createToolsPane(getConfig(), baseUrl, editors, eventsManager, isEmbed, runTests);
+  const updateConfigTools = debounce((tools: Config['tools']) => {
+    setConfig({
+      ...getConfig(),
+      tools,
+    });
+  }, 100);
+  toolsPane = createToolsPane(
+    getConfig(),
+    baseUrl,
+    editors,
+    eventsManager,
+    isEmbed,
+    runTests,
+    updateConfigTools,
+  );
   await toolsPane.load();
   handleTests();
   handleResultZoom();

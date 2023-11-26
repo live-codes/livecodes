@@ -411,3 +411,16 @@ export const replaceAsync = /* @__PURE__ */ async (
   let i = 0;
   return str.replace(regexp, () => replacements[i++]);
 };
+
+export const addAttrs = (el: HTMLElement, attributes: Record<string, string> | string) => {
+  if (typeof attributes === 'object') {
+    Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
+    return;
+  }
+  const attrs = attributes.match(/[^\s="']+\s*=\s*(('[^']*')|("[^"]*"))/g) || [];
+  for (const attr of attrs) {
+    const [key, ...rest] = attr.split('=');
+    const value = rest.join('=');
+    el.setAttribute(key, value.slice(1, -1));
+  }
+};

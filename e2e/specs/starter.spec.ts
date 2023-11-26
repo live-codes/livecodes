@@ -9,6 +9,7 @@ const templates = [
   'Angular',
   'Preact',
   'Svelte',
+  'Lit',
   'Stencil',
   'MDX',
   'Astro',

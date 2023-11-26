@@ -29,7 +29,7 @@ export const showQuillEditor = async ({
   }
 
   const quillEditorScripts = `
-  <script src="${quillEditorCdnBaseUrl}quill.min.js"></script>
+  <script src="${quillEditorCdnBaseUrl}quill.js"></script>
   <script src="${quillHtmlEditUrl}"></script>
   <script src="${quillBlotFormaterUrl}"></script>
   <script src="${quillBetterTableBaseUrl}quill-better-table.min.js"></script>
