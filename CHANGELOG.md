@@ -4,22 +4,40 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
-## [v17](https://github.com/live-codes/livecodes/compare/v16...v17) (2023-11-01)
+## [v18](https://github.com/live-codes/livecodes/compare/v17...v18) (2023-11-26)
 
+This release allows adding content to result page `head` (e.g. meta tags), and to set `html` element attributes using [`Config.head`](https://livecodes.io/docs/configuration/configuration-object#head) and [`Config.htmlAttrs`](https://livecodes.io/docs/configuration/configuration-object#htmlattrs).
+
+Now shared projects preserve app config (e.g. open console).
+
+Added [Lit starter template](https://livecodes.io/?template=lit).
+
+Fixed rich text editor (broken CDN URL).
 
 ### Bug Fixes
 
-* **App:** fix autoupdate (if autotest is true) ([621c956](https://github.com/live-codes/livecodes/commit/621c9560dbca77c9fcb09cb03c3f5808465e0166))
-* **Config:** fix setting config from SDK ([fb433f8](https://github.com/live-codes/livecodes/commit/fb433f89f0731f24d830b64f5d41a83ba4cadd5a))
-
+- **compilers:** fix quill CDN url ([98381cc](https://github.com/live-codes/livecodes/commit/98381cc1bd5b339fb1c2a8c58e16cbca7bc9f217))
 
 ### Features
 
-* **functions:** oembed ([c2fe68d](https://github.com/live-codes/livecodes/commit/c2fe68d4b2b83bf36d0c57d02d36fdb87dc8eeca))
-* **functions:** set meta tags ([561cbc7](https://github.com/live-codes/livecodes/commit/561cbc78c96c8c421a14bca66ffbbb03086e33f3))
+- **Config:** add `Config.head` and `Config.htmlAttrs` ([360f2fe](https://github.com/live-codes/livecodes/commit/360f2fe46151d58159b7567df0bb29b31033084e))
+- **Share:** include AppConfig in shared projects ([9026101](https://github.com/live-codes/livecodes/commit/9026101c5059f3cc56c6a29d71a89e7ab4ecce53))
+- **Templates:** add Lit starter template ([bc23a89](https://github.com/live-codes/livecodes/commit/bc23a899fb0fcf828ecf4d626686c98dde4fb8e6))
+- **UI:** edit `head` and `htmlAttrs` from UI in Project Info screen ([394d464](https://github.com/live-codes/livecodes/commit/394d4641aeff709de3e235bca19d0a0adc699c70))
 
+---
 
+## [v17](https://github.com/live-codes/livecodes/compare/v16...v17) (2023-11-01)
 
+### Bug Fixes
+
+- **App:** fix autoupdate (if autotest is true) ([621c956](https://github.com/live-codes/livecodes/commit/621c9560dbca77c9fcb09cb03c3f5808465e0166))
+- **Config:** fix setting config from SDK ([fb433f8](https://github.com/live-codes/livecodes/commit/fb433f89f0731f24d830b64f5d41a83ba4cadd5a))
+
+### Features
+
+- **functions:** oembed ([c2fe68d](https://github.com/live-codes/livecodes/commit/c2fe68d4b2b83bf36d0c57d02d36fdb87dc8eeca))
+- **functions:** set meta tags ([561cbc7](https://github.com/live-codes/livecodes/commit/561cbc78c96c8c421a14bca66ffbbb03086e33f3))
 
 ---
 
