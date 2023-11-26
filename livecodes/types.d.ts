@@ -79,6 +79,8 @@ declare module "sdk/models" {
     export interface ContentConfig {
         title: string;
         description: string;
+        head: string;
+        htmlAttrs: Record<string, string> | string;
         tags: string[];
         activeEditor: EditorId | undefined;
         languages: Array<Language | Processor> | undefined;
@@ -318,7 +320,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'stencil' | 'solid' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: 'Console' | 'Compiled' | 'Tests';
@@ -473,8 +475,6 @@ declare module "sdk/models" {
         convertCommonjs: boolean;
         defaultCDN: CDN;
         types: Types;
-        head: string;
-        htmlClasses: string;
     }>;
     export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'fastly.jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
     export type EditorCache = Editor & {
@@ -870,6 +870,7 @@ declare module "livecodes/utils/utils" {
     export const toCamelCase: (str: string) => string;
     export const removeDuplicates: (arr: any[] | undefined) => any[];
     export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
+    export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
 }
 declare module "livecodes/utils/get-import-instance" {
     export function getImportInstance(url: string): any;
@@ -1992,10 +1993,11 @@ declare module "livecodes/config/validate-config" {
     export const validateConfig: (config: Partial<Config>) => Partial<Config>;
 }
 declare module "livecodes/config/config" {
-    import type { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig } from "livecodes/models";
+    import type { ContentConfig, Config, UserConfig, EditorConfig, FormatterConfig, AppConfig } from "livecodes/models";
     export const getConfig: () => Config;
     export const setConfig: (newConfig: Config) => void;
     export const getContentConfig: (config: Config | ContentConfig) => ContentConfig;
+    export const getAppConfig: (config: Config | AppConfig) => AppConfig;
     export const getUserConfig: (config: Config | UserConfig) => UserConfig;
     export const getEditorConfig: (config: Config | UserConfig) => EditorConfig;
     export const getFormatterConfig: (config: Config | UserConfig) => FormatterConfig;
@@ -2608,7 +2610,7 @@ declare module "livecodes/UI/info" {
     import type { Config } from "livecodes/models";
     import type { ProjectStorage } from "livecodes/storage/index";
     export const getTags: (value: string) => string[];
-    export const createProjectInfoUI: (config: Config, storage: ProjectStorage, modal: ReturnType<typeof createModal>, eventsManager: ReturnType<typeof createEventsManager>, onSave: (title: string, description: string, tags: string[]) => void) => Promise<void>;
+    export const createProjectInfoUI: (config: Config, storage: ProjectStorage, modal: ReturnType<typeof createModal>, eventsManager: ReturnType<typeof createEventsManager>, onUpdate: (title: string, description: string, head: string, htmlAttrs: string, tags: string[]) => void) => Promise<void>;
 }
 declare module "livecodes/UI/loading" {
     export const loadingMessage: (message?: string) => HTMLDivElement;
@@ -2707,9 +2709,11 @@ declare module "livecodes/UI/selectors" {
     export const getAssetsLink: () => HTMLInputElement;
     export const getSnippetsLink: () => HTMLInputElement;
     export const getInfoTitleInput: () => HTMLInputElement;
+    export const getInfoHead: () => HTMLTextAreaElement;
+    export const getInfoHtmlAttrs: () => HTMLTextAreaElement;
     export const getInfoDescription: () => HTMLTextAreaElement;
     export const getInfoTagsInput: () => HTMLInputElement;
-    export const getSaveInfoButton: () => HTMLElement | null;
+    export const getUpdateInfoButton: () => HTMLElement | null;
     export const getExternalResourcesTextareas: () => NodeListOf<HTMLTextAreaElement>;
     export const getExternalResourcesCssPresetInputs: () => NodeListOf<HTMLInputElement>;
     export const getLoadResourcesButton: () => HTMLElement | null;
@@ -2880,7 +2884,7 @@ declare module "livecodes/toolspane/test-viewer" {
 }
 declare module "livecodes/toolspane/tools" {
     import type { Editors, Config, EventsManager, ToolsPane } from "livecodes/models";
-    export const createToolsPane: (config: Config, baseUrl: string, editors: Editors, eventsManager: EventsManager, isEmbed: boolean, runTests: () => Promise<void>) => ToolsPane;
+    export const createToolsPane: (config: Config, baseUrl: string, editors: Editors, eventsManager: EventsManager, isEmbed: boolean, runTests: () => Promise<void>, setTools: (tools: Config['tools']) => void) => ToolsPane;
 }
 declare module "livecodes/toolspane/index" {
     export * from "livecodes/toolspane/compiled-code-viewer";
@@ -5037,6 +5041,10 @@ declare module "livecodes/templates/starter/lua-wasm-starter" {
 declare module "livecodes/templates/starter/php-wasm-starter" {
     import type { Template } from "livecodes/models";
     export const phpWasmStarter: Template;
+}
+declare module "livecodes/templates/starter/lit-starter" {
+    import type { Template } from "livecodes/models";
+    export const litStarter: Template;
 }
 declare module "livecodes/templates/starter/index" {
     export const starterTemplates: import("sdk/models").Template[];
