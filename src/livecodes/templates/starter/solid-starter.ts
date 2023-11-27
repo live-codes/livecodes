@@ -40,7 +40,7 @@ function App(props: Props) {
     <div className="container">
       <h1>Hello, {props.title}!</h1>
       <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
-      <p>You clicked {count} times.</p>
+      <p>You clicked {count()} times.</p>
       <button onClick={increment}>Click me</button>
     </div>
   );
