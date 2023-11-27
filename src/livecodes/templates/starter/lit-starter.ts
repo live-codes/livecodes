@@ -43,17 +43,17 @@ export class SignalExample extends SignalWatcher(LitElement) {
   }
 
   static styles = css\`
-  :host {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  :host, button {
-    font: 1em sans-serif;
-  }
-  .logo {
-    width: 150px;
-  }
+    :host {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    :host, button {
+      font: 1em sans-serif;
+    }
+    .logo {
+      width: 150px;
+    }
   \`;
 }
 `.trimStart(),
