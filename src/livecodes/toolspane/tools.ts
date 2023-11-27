@@ -95,7 +95,7 @@ export const createToolsPane = (
   const updateConfig = () => {
     setTools({
       enabled: tools.length === allTools.length ? 'all' : tools.map((tool) => tool.name),
-      active: tools[activeToolId].name,
+      active: tools[activeToolId]?.name,
       status,
     });
   };

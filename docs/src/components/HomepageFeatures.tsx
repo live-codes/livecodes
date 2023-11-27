@@ -152,8 +152,7 @@ const FeatureList3: FeatureItem[] = [
         <Link to="./features">features</Link>, <Link to="./configuration">configuration</Link> and{' '}
         <Link to="./sdk">SDK</Link> (including <Link to="./api/modules">TypeScript types</Link>).
         Documentations are rich with code samples, live demos and screenshots. A gallery of usage
-        examples is provided as a <Link to="pathname:///../stories">storybook</Link>. You can even
-        just ask our <strong>AI chatbot</strong>.
+        examples is provided as a <Link to="pathname:///../stories">storybook</Link>.
       </>
     ),
   },

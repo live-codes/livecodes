@@ -2,7 +2,7 @@ import type { CDN } from '../models';
 
 declare const globalThis: { appCDN: CDN };
 
-const moduleCDNs: CDN[] = ['jspm', 'skypack'];
+const moduleCDNs: CDN[] = ['jspm', 'esm.sh', 'skypack'];
 const npmCDNs: CDN[] = ['unpkg', 'jsdelivr', 'fastly.jsdelivr'];
 const ghCDNs: CDN[] = ['fastly.jsdelivr.gh', 'jsdelivr.gh', 'statically'];
 

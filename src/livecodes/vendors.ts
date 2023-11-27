@@ -38,11 +38,11 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
 
-export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.11.3/');
+export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.1/');
 
-export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@4.3.6');
+export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.0.0-alpha.2');
 
-export const chaiTypesUrl = /* @__PURE__ */ getUrl('@types/chai@4.2.22/index.d.ts');
+export const chaiTypesUrl = /* @__PURE__ */ getUrl('@types/chai@4.3.11/index.d.ts');
 
 export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.0.4/');
 
