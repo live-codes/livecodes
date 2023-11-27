@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v19](https://github.com/live-codes/livecodes/compare/v18...v19) (2023-11-27)
+
+
+### Bug Fixes
+
+* **Templates:** fix solid template ([32732a0](https://github.com/live-codes/livecodes/commit/32732a0bc32a0660561d4d104379785877e755aa))
+
+
+### Features
+
+* **compilers:** upgrade Brython to v3.12.1 running Python v3.12 ([933f606](https://github.com/live-codes/livecodes/commit/933f606d960d9cea9b41534e944e6c2417902b77))
+* **Types:** load types for imports from CDN URLs ([8d25463](https://github.com/live-codes/livecodes/commit/8d2546393591c49e1b698e707e731b2977ad8085))
+
+
+
+
+---
+
 ## [v18](https://github.com/live-codes/livecodes/compare/v17...v18) (2023-11-26)
 
 This release allows adding content to result page `head` (e.g. meta tags), and to set `html` element attributes using [`Config.head`](https://livecodes.io/docs/configuration/configuration-object#head) and [`Config.htmlAttrs`](https://livecodes.io/docs/configuration/configuration-object#htmlattrs).

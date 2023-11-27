@@ -248,14 +248,6 @@ const config = {
       async: true,
       defer: true,
     },
-    {
-      src: 'https://widget.kapa.ai/kapa-widget.bundle.js',
-      'data-website-id': 'c5e9cf39-ef75-4290-becc-151b380252a3',
-      'data-project-name': 'LiveCodes',
-      'data-project-color': '#44494F',
-      'data-project-logo': 'https://avatars.githubusercontent.com/u/90906587?s=280&v=4',
-      async: true,
-    },
   ],
   headTags: [
     {

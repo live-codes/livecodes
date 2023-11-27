@@ -145,7 +145,7 @@ import '@testing-library/jest-dom';
 
 ### Chai
 
-Jest assertions can be used in the tests. However, if you prefer to Chai, it can be easily used.
+Jest assertions can be used in the tests. However, if you prefer Chai, it can be easily used.
 Autocomplete is also available in Monaco editor for Chai API.
 
 ```js

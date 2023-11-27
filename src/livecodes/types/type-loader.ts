@@ -1,7 +1,7 @@
 import { getImports } from '../compiler';
 import type { EditorLibrary, Types } from '../models';
 import { typesService } from '../services';
-import { objectFilter } from '../utils';
+import { objectFilter, safeName } from '../utils';
 
 export const createTypeLoader = () => {
   let loadedTypes: Types = {};
@@ -28,7 +28,7 @@ export const createTypeLoader = () => {
     }
     loadedTypes = { ...loadedTypes, ...type };
     return {
-      filename: `file:///node_modules/${name}/index.d.ts`,
+      filename: `file:///node_modules/${safeName(name)}/index.d.ts`,
       content,
     };
   };

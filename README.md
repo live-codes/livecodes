@@ -152,8 +152,8 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://www.skypack.dev/" target="_blank" title="Skypack">
-  <img alt="Skypack" width="200" src="https://dev.livecodes.io/docs/img/credits/skypack.svg">
+<a href="https://esm.sh/" target="_blank" title="esm.sh">
+  <img alt="esm.sh" width="200" src="https://dev.livecodes.io/docs/img/credits/esm.sh.png">
 </img></a><br /><br />
 </p>
 <p>
@@ -169,11 +169,6 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
   <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
-</img></a><br /><br />
-</p>
-<p>
-<a href="https://kapa.ai/" target="_blank" title="Kapa.ai">
-  <img alt="Kapa.ai" width="200" src="https://dev.livecodes.io/docs/img/credits/kapa-ai.jpg">
 </img></a><br /><br />
 </p>
 <p>

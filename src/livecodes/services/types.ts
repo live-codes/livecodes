@@ -7,9 +7,9 @@ export const typesService = {
     const fetchedTypes: Types = {};
     await Promise.all(
       types.map(async (type) => {
-        if (!isBare(type)) return;
+        const mod = removeSpecifier(removeCDNPrefix(type));
+        if (!isBare(mod)) return;
         try {
-          const mod = type.includes(':') ? type.split(':')[1] : type;
           const res = await fetch('https://esm.sh/' + mod);
           if (!res.ok) return;
           const typesUrl = res.headers.get('X-Typescript-Types');
@@ -23,3 +23,29 @@ export const typesService = {
     return fetchedTypes;
   },
 };
+
+const removeCDNPrefix = (url: string) => {
+  if (!url.startsWith('https://')) return url;
+
+  const prefixes = [
+    'https://jspm.dev/',
+    'https://cdn.skypack.dev/',
+    'https://cdn.jsdelivr.net/npm/',
+    'https://fastly.jsdelivr.net/npm/',
+    'https://esm.run/',
+    'https://esm.sh/',
+    'https://esbuild.vercel.app/',
+    'https://bundle.run/',
+    'https://unpkg.com/',
+    'https://deno.bundlejs.com/?file&q=',
+  ];
+
+  for (const prefix of prefixes) {
+    if (url.startsWith(prefix)) {
+      return url.replace(prefix, '');
+    }
+  }
+  return url;
+};
+
+const removeSpecifier = (type: string) => (type.includes(':') ? type.split(':')[1] : type);

@@ -20,7 +20,7 @@ import { Component, Input, NgModule, enableProdMode } from '@angular/core@12.2.1
 import { CommonModule } from '@angular/common@12.2.13';
 import { BrowserModule } from '@angular/platform-browser@12.2.13';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic@12.2.13';
-import 'zone.js/dist/zone';
+import 'zone.js@0.12.0/dist/zone';
 
 // app.component.ts
 @Component({
@@ -86,13 +86,6 @@ platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err: Error) => console.error(err));
 `.trimStart(),
-  },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  imports: {},
-  types: {
-    'zone.js/dist/zone': '',
   },
   customSettings: {
     typescript: {
