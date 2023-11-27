@@ -49,7 +49,7 @@ Check the [starter template](#starter-template) for an example.
 
 ### Version
 
-Brython v3.11.3, running Python v3.11
+Brython v3.12.1, running Python v3.12
 
 ## Code Formatting
 
