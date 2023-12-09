@@ -52,6 +52,36 @@ export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
 );
 
+export const cm6ThemeBasicLightUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-basic-light@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeBasicDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-basic-dark@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeGruvboxLightUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-gruvbox-light@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeGruvboxDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-gruvbox-dark@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeMaterialDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-material-dark@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeNordUrl = /* @__PURE__ */ getUrl('cm6-theme-nord@0.2.0/dist/index.js');
+
+export const cm6ThemeSolarizedLightUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-solarized-light@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-solarized-dark@0.2.0/dist/index.js',
+);
+
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
@@ -344,6 +374,8 @@ export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules
 export const tealUrl = /* @__PURE__ */ getUrl(
   'gh:teal-language/tl@d2fc36b5ff9a52d7265e63eb74cce70fd1cdbcb2/tl.lua',
 );
+
+export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 

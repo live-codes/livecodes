@@ -804,7 +804,32 @@ export type MonacoTheme =
   | 'krtheme'
   | 'monoindustrial';
 
-export type CodemirrorTheme = 'cm-theme-1' | 'cm-theme-2' | 'cm-theme-3' | 'cm-theme-4';
+export type CodemirrorTheme =
+  | 'cm-light'
+  | 'one-dark'
+  | 'amy'
+  | 'ayu-light'
+  | 'barf'
+  | 'basic-light'
+  | 'basic-dark'
+  | 'bespin'
+  | 'birds-of-paradise'
+  | 'boys-and-girls'
+  | 'clouds'
+  | 'cobalt'
+  | 'cool-glow'
+  | 'dracula'
+  | 'espresso'
+  | 'gruvbox-light'
+  | 'gruvbox-dark'
+  | 'material-dark'
+  | 'noctis-lilac'
+  | 'nord'
+  | 'rose-pine-dawn'
+  | 'smoothy'
+  | 'solarized-light'
+  | 'solarized-dark'
+  | 'tomorrow';
 
 export type CodejarTheme =
   | 'prism-light'

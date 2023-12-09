@@ -25,11 +25,15 @@ import type {
   Theme,
   EditorPosition,
   EditorConfig,
+  Config,
+  CodemirrorTheme,
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
+import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
 import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
+import { codemirrorThemes } from './codemirror-themes';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
@@ -44,10 +48,23 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return options.mapLanguage?.(lang) || lang;
   };
 
+  const themes: Partial<Record<CodemirrorTheme, Extension>> = {
+    'one-dark': oneDark,
+    'cm-light': [
+      syntaxHighlighting(defaultHighlightStyle),
+      EditorView.theme({
+        '&': { backgroundColor: '#ffffff' },
+      }),
+    ],
+  };
+
+  const getActiveTheme = () =>
+    themes[theme] || (options.theme === 'light' ? themes['cm-light'] : themes['one-dark']) || [];
+
   let language = options.language;
   let mappedLanguage = mapLanguage(language);
   let mappedLanguageSupport = await getLanguageSupport(mappedLanguage);
-  let theme = options.theme;
+  let theme: CodemirrorTheme = await loadTheme(options.theme, options.editorTheme);
   const keyBindings: KeyBinding[] = [];
 
   type Listener = (update: ViewUpdate) => void;
@@ -110,16 +127,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }),
     ];
   };
-  const themes = {
-    dark: oneDark,
-    light: [syntaxHighlighting(defaultHighlightStyle)],
-  };
 
   const getExtensions = () => {
     const defaultOptions: Extension[] = [
       languageExtension.of(mappedLanguageSupport),
       EditorView.updateListener.of(notifyListeners),
-      themeExtension.of(themes[theme]),
+      themeExtension.of(getActiveTheme()),
       syntaxHighlighting(italicComments),
       editorSettingsExtension.of(configureSettingsExtension({})),
       keyBindingsExtension.of(keymap.of(keyBindings)),
@@ -251,10 +264,31 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     view.dispatch({ selection: { anchor: newOffset } });
   };
 
-  const setTheme = (newTheme: Theme) => {
-    theme = newTheme;
-    view.dispatch({
-      effects: themeExtension.reconfigure(themes[theme]),
+  async function loadTheme(appTheme: Theme, editorTheme: Config['editorTheme']) {
+    const selectedTheme = getEditorTheme({
+      editor: 'codemirror',
+      editorTheme,
+      theme: appTheme,
+      editorThemes: codemirrorThemes.map((t) => t.name),
+    });
+    const newTheme = (
+      selectedTheme ? selectedTheme : appTheme === 'light' ? 'cm-light' : 'one-dark'
+    ) as CodemirrorTheme;
+
+    const themeData = codemirrorThemes.find((t) => t.name === newTheme);
+    if (!themes[newTheme] && themeData?.url) {
+      const themeExt = (await import(themeData.url))[themeData.exportName || 'default'];
+      themes[newTheme] = themeExt;
+    }
+    return newTheme;
+  }
+
+  const setTheme = (appTheme: Theme, editorTheme: Config['editorTheme']) => {
+    loadTheme(appTheme, editorTheme).then((newTheme) => {
+      theme = newTheme;
+      view.dispatch({
+        effects: themeExtension.reconfigure(getActiveTheme()),
+      });
     });
   };
 
