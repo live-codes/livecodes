@@ -94,6 +94,10 @@ export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytos
 
 export const cytoscapeUrl = /* @__PURE__ */ getUrl('cytoscape@3.25.0/dist/cytoscape.min.js');
 
+export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
+  '@ddietr/codemirror-themes@1.4.2/dist/theme/',
+);
+
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
 export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.9/ejs.js');

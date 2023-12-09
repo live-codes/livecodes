@@ -8,6 +8,7 @@ import {
   cm6ThemeNordUrl,
   cm6ThemeSolarizedDarkUrl,
   cm6ThemeSolarizedLightUrl,
+  ddietrCmThemesBaseUrl,
   thememirrorBaseUrl,
 } from '../../vendors';
 
@@ -24,6 +25,12 @@ export const codemirrorThemes: Array<{
     title: 'Amy',
     url: thememirrorBaseUrl + 'amy.js',
     exportName: 'amy',
+  },
+  {
+    name: 'aura',
+    title: 'Aura',
+    url: ddietrCmThemesBaseUrl + 'aura.js',
+    exportName: 'aura',
   },
   {
     name: 'ayu-light',
@@ -98,10 +105,16 @@ export const codemirrorThemes: Array<{
     exportName: 'espresso',
   },
   {
-    name: 'gruvbox-light',
-    title: 'Gruvbox Light',
-    url: cm6ThemeGruvboxLightUrl,
-    exportName: 'gruvboxLight',
+    name: 'github-dark',
+    title: 'GitHub Dark',
+    url: ddietrCmThemesBaseUrl + 'github-dark.js',
+    exportName: 'githubDark',
+  },
+  {
+    name: 'github-light',
+    title: 'GitHub Light',
+    url: ddietrCmThemesBaseUrl + 'github-light.js',
+    exportName: 'githubLight',
   },
   {
     name: 'gruvbox-dark',
@@ -110,10 +123,22 @@ export const codemirrorThemes: Array<{
     exportName: 'gruvboxDark',
   },
   {
+    name: 'gruvbox-light',
+    title: 'Gruvbox Light',
+    url: cm6ThemeGruvboxLightUrl,
+    exportName: 'gruvboxLight',
+  },
+  {
     name: 'material-dark',
     title: 'Material Dark',
     url: cm6ThemeMaterialDarkUrl,
     exportName: 'materialDark',
+  },
+  {
+    name: 'material-light',
+    title: 'Material Light',
+    url: ddietrCmThemesBaseUrl + 'material-light.js',
+    exportName: 'materialLight',
   },
   {
     name: 'noctis-lilac',
@@ -140,16 +165,34 @@ export const codemirrorThemes: Array<{
     exportName: 'smoothy',
   },
   {
+    name: 'solarized-dark',
+    title: 'Solarized Dark',
+    url: cm6ThemeSolarizedDarkUrl,
+    exportName: 'solarizedDark',
+  },
+  {
     name: 'solarized-light',
     title: 'Solarized Light',
     url: cm6ThemeSolarizedLightUrl,
     exportName: 'solarizedLight',
   },
   {
-    name: 'solarized-dark',
-    title: 'Solarized Dark',
-    url: cm6ThemeSolarizedDarkUrl,
-    exportName: 'solarizedDark',
+    name: 'tokyo-night',
+    title: 'Tokyo Night',
+    url: ddietrCmThemesBaseUrl + 'tokyo-night.js',
+    exportName: 'tokyoNight',
+  },
+  {
+    name: 'tokyo-night-day',
+    title: 'Tokyo Night Day',
+    url: ddietrCmThemesBaseUrl + 'tokyo-night-day.js',
+    exportName: 'tokyoNightDay',
+  },
+  {
+    name: 'tokyo-night-storm',
+    title: 'Tokyo Night Storm',
+    url: ddietrCmThemesBaseUrl + 'tokyo-night-storm.js',
+    exportName: 'tokyoNightStorm',
   },
   {
     name: 'tomorrow',

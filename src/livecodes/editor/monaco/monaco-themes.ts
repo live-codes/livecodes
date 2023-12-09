@@ -209,7 +209,7 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Sunburst.json',
   },
   {
-    name: 'textmate--mac-classic-',
+    name: 'textmate-mac-classic',
     title: 'Textmate (Mac Classic)',
     url: monacoThemesBaseUrl + 'Textmate (Mac Classic).json',
   },
