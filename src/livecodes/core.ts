@@ -1210,8 +1210,11 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (newConfig.theme) {
-    setTheme(newConfig.theme);
+  if (newConfig.theme || newConfig.editorTheme) {
+    setTheme(
+      newConfig.theme || getConfig().theme,
+      newConfig.editorTheme || getConfig().editorTheme,
+    );
   }
   if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
@@ -1255,7 +1258,7 @@ const loadUserConfig = (updateUI = true) => {
   );
   if (!updateUI) return;
   loadSettings(getConfig());
-  setTheme(getConfig().theme);
+  setTheme(getConfig().theme, getConfig().editorTheme);
   showSyncStatus(true);
 };
 
@@ -1622,13 +1625,13 @@ const getAllEditors = (): CodeEditor[] => [
   ...[toolsPane?.compiled?.getEditor?.()],
 ];
 
-const setTheme = (theme: Theme) => {
+const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
   getAllEditors().forEach((editor) => {
-    editor?.setTheme(theme);
+    editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
 };
@@ -2239,7 +2242,7 @@ const handleSettings = () => {
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
-        setTheme(getConfig().theme);
+        setTheme(getConfig().theme, getConfig().editorTheme);
       } else if (configKey === 'autosync') {
         const syncData = (await getUserData())?.sync;
         if (syncData?.repo) {
@@ -4200,7 +4203,7 @@ const initializePlayground = async (
   loadStyles();
   await createIframe(UI.getResultElement());
   loadSelectedScreen();
-  setTheme(getConfig().theme);
+  setTheme(getConfig().theme, getConfig().editorTheme);
   if (!isEmbed) {
     initializeAuth().then(() => showSyncStatus());
     checkRecoverStatus();

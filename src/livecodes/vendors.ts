@@ -229,6 +229,8 @@ export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js'
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
+export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
+
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.0/dist/monaco-vim.js');
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');

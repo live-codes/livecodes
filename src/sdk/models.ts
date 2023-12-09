@@ -116,6 +116,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
 
 export interface EditorConfig {
   editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+  editorTheme: EditorTheme[] | string | undefined;
   fontFamily: string | undefined;
   fontSize: number | undefined;
   useTabs: boolean;
@@ -707,7 +708,7 @@ export interface CodeEditor {
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;
   isReadonly: boolean;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: Theme, editorTheme: Config['editorTheme']) => void;
   undo: () => void;
   redo: () => void;
   destroy: () => void;
@@ -743,6 +744,83 @@ export interface EditorOptions extends EditorConfig {
   getFormatterConfig: () => Partial<FormatterConfig>;
   getFontFamily: (font: string | undefined) => string;
 }
+
+export type MonacoTheme =
+  | 'vs'
+  | 'vs-dark'
+  | 'hc-light'
+  | 'hc-black'
+  | 'active4d'
+  | 'all-hallows-eve'
+  | 'amy'
+  | 'birds-of-paradise'
+  | 'blackboard'
+  | 'brilliance-black'
+  | 'brilliance-dull'
+  | 'chrome-devtools'
+  | 'clouds-midnight'
+  | 'clouds'
+  | 'cobalt'
+  | 'cobalt2'
+  | 'dawn'
+  | 'dracula'
+  | 'dreamweaver'
+  | 'eiffel'
+  | 'espresso-libre'
+  | 'github-dark'
+  | 'github-light'
+  | 'github'
+  | 'idle'
+  | 'katzenmilch'
+  | 'kuroir-theme'
+  | 'lazy'
+  | 'magicwb--amiga-'
+  | 'merbivore-soft'
+  | 'merbivore'
+  | 'monokai-bright'
+  | 'monokai'
+  | 'night-owl'
+  | 'nord'
+  | 'oceanic-next'
+  | 'pastels-on-dark'
+  | 'slush-and-poppies'
+  | 'solarized-dark'
+  | 'solarized-light'
+  | 'spacecadet'
+  | 'sunburst'
+  | 'textmate--mac-classic-'
+  | 'tomorrow-night-blue'
+  | 'tomorrow-night-bright'
+  | 'tomorrow-night-eighties'
+  | 'tomorrow-night'
+  | 'tomorrow'
+  | 'twilight'
+  | 'upstream-sunburst'
+  | 'vibrant-ink'
+  | 'xcode-default'
+  | 'zenburnesque'
+  | 'iplastic'
+  | 'idlefingers'
+  | 'krtheme'
+  | 'monoindustrial';
+
+export type CodemirrorTheme = 'cm-theme-1' | 'cm-theme-2' | 'cm-theme-3' | 'cm-theme-4';
+
+export type CodejarTheme = 'cj-theme-1' | 'cj-theme-2' | 'cj-theme-3' | 'cj-theme-4';
+
+export type EditorTheme =
+  | MonacoTheme
+  | CodemirrorTheme
+  | CodejarTheme
+  | `${MonacoTheme}@${Theme}`
+  | `${CodemirrorTheme}@${Theme}`
+  | `${CodejarTheme}@${Theme}`
+  | `monaco:${MonacoTheme}`
+  | `codemirror:${CodemirrorTheme}`
+  | `codejar:${CodejarTheme}`
+  | `monaco:${MonacoTheme}@${Theme}`
+  | `codemirror:${CodemirrorTheme}@${Theme}`
+  | `codejar:${CodejarTheme}@${Theme}`;
 
 export interface CustomEditor {
   language: Language;
