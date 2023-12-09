@@ -806,7 +806,46 @@ export type MonacoTheme =
 
 export type CodemirrorTheme = 'cm-theme-1' | 'cm-theme-2' | 'cm-theme-3' | 'cm-theme-4';
 
-export type CodejarTheme = 'cj-theme-1' | 'cj-theme-2' | 'cj-theme-3' | 'cj-theme-4';
+export type CodejarTheme =
+  | 'prism-light'
+  | 'prism-dark'
+  | 'a11y-dark'
+  | 'atom-dark'
+  | 'base16-ateliersulphurpool-light'
+  | 'cb'
+  | 'coldark-cold'
+  | 'coldark-dark'
+  | 'coy-without-shadows'
+  | 'darcula'
+  | 'dracula'
+  | 'duotone-dark'
+  | 'duotone-earth'
+  | 'duotone-forest'
+  | 'duotone-light'
+  | 'duotone-sea'
+  | 'duotone-space'
+  | 'ghcolors'
+  | 'gruvbox-dark'
+  | 'gruvbox-light'
+  | 'holi-theme'
+  | 'hopscotch'
+  | 'laserwave'
+  | 'lucario'
+  | 'material-dark'
+  | 'material-light'
+  | 'material-oceanic'
+  | 'night-owl'
+  | 'nord'
+  | 'one-dark'
+  | 'one-light'
+  | 'pojoaque'
+  | 'shades-of-purple'
+  | 'solarized-dark-atom'
+  | 'synthwave84'
+  | 'vs'
+  | 'vsc-dark-plus'
+  | 'xonokai'
+  | 'z-touchs';
 
 export type EditorTheme =
   | MonacoTheme

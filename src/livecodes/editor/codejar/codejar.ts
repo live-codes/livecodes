@@ -19,9 +19,13 @@ import type {
   Theme,
   EditorPosition,
   EditorConfig,
+  Config,
+  CodejarTheme,
 } from '../../models';
 import { debounce, encodeHTML } from '../../utils/utils';
 import { prismBaseUrl } from '../../vendors';
+import { getEditorTheme } from '../themes';
+import { prismThemes } from './prism-themes';
 
 declare const Prism: any;
 Prism.manual = true;
@@ -257,11 +261,24 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     codejar?.restore({ start: newOffset, end: newOffset });
   };
 
-  const setTheme = (theme: Theme) => {
+  const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+    const selectedTheme = getEditorTheme({
+      editor: 'codejar',
+      editorTheme,
+      theme,
+      editorThemes: prismThemes.map((t) => t.name),
+    });
+    const newTheme = (!selectedTheme ? 'prism-' + theme : selectedTheme) as CodejarTheme;
+    const themeData = prismThemes.find((t) => t.name === newTheme);
+
     const id = 'prism-styles';
     const styles = document.head.querySelector<HTMLLinkElement>('#' + id);
-    const fileName = theme === 'light' ? '{{hash:prism-light.css}}' : '{{hash:prism-dark.css}}';
-    const stylesUrl = baseUrl + fileName;
+    const stylesUrl = themeData?.url
+      ? themeData.url
+      : newTheme === 'prism-light'
+      ? baseUrl + '{{hash:prism-light.css}}'
+      : baseUrl + '{{hash:prism-dark.css}}';
+
     if (styles && styles.href === stylesUrl) return;
 
     styles?.remove();
@@ -271,7 +288,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     stylesheet.id = id;
     document.head.appendChild(stylesheet);
   };
-  setTheme(options.theme);
+  setTheme(options.theme, options.editorTheme);
 
   const convertOptions = (opt: EditorConfig) => ({
     fontFamily: getFontFamily(opt.fontFamily),

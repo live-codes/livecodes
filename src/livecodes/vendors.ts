@@ -261,6 +261,8 @@ export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.19.
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.26.0/components/');
 
+export const prismThemesBaseUrl = /* @__PURE__ */ getUrl('prism-themes@1.9.0/themes/');
+
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
   'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
 );
