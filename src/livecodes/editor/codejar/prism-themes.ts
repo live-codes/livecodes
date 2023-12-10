@@ -2,8 +2,6 @@ import type { CodejarTheme } from '../../models';
 import { prismThemesBaseUrl } from '../../vendors';
 
 export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: string }> = [
-  { name: 'prism-light', title: 'Prism Light' },
-  { name: 'prism-dark', title: 'Prism Dark' },
   { name: 'a11y-dark', title: 'a11y-dark', url: prismThemesBaseUrl + 'prism-a11y-dark.css' },
   { name: 'atom-dark', title: 'atom-dark', url: prismThemesBaseUrl + 'prism-atom-dark.css' },
   {
@@ -90,6 +88,8 @@ export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: strin
   { name: 'one-dark', title: 'one-dark', url: prismThemesBaseUrl + 'prism-one-dark.css' },
   { name: 'one-light', title: 'one-light', url: prismThemesBaseUrl + 'prism-one-light.css' },
   { name: 'pojoaque', title: 'pojoaque', url: prismThemesBaseUrl + 'prism-pojoaque.css' },
+  { name: 'prism-light', title: 'Prism Light' },
+  { name: 'prism-dark', title: 'Prism Dark' },
   {
     name: 'shades-of-purple',
     title: 'shades-of-purple',

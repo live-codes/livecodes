@@ -3,22 +3,6 @@ import { monacoThemesBaseUrl } from '../../vendors';
 
 export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: string }> = [
   {
-    name: 'vs',
-    title: 'VS',
-  },
-  {
-    name: 'vs-dark',
-    title: 'VS Dark',
-  },
-  {
-    name: 'hc-light',
-    title: 'High Contrast (Light)',
-  },
-  {
-    name: 'hc-black',
-    title: 'High Contrast (Black)',
-  },
-  {
     name: 'active4d',
     title: 'Active4D',
     url: monacoThemesBaseUrl + 'Active4D.json',
@@ -104,6 +88,11 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Espresso Libre.json',
   },
   {
+    name: 'github',
+    title: 'GitHub',
+    url: monacoThemesBaseUrl + 'GitHub.json',
+  },
+  {
     name: 'github-dark',
     title: 'GitHub Dark',
     url: monacoThemesBaseUrl + 'GitHub Dark.json',
@@ -114,9 +103,12 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'GitHub Light.json',
   },
   {
-    name: 'github',
-    title: 'GitHub',
-    url: monacoThemesBaseUrl + 'GitHub.json',
+    name: 'hc-black',
+    title: 'High Contrast (Black)',
+  },
+  {
+    name: 'hc-light',
+    title: 'High Contrast (Light)',
   },
   {
     name: 'idle',
@@ -124,13 +116,28 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'IDLE.json',
   },
   {
+    name: 'idlefingers',
+    title: 'idleFingers',
+    url: monacoThemesBaseUrl + 'idleFingers.json',
+  },
+  {
+    name: 'iplastic',
+    title: 'iPlastic',
+    url: monacoThemesBaseUrl + 'iPlastic.json',
+  },
+  {
     name: 'katzenmilch',
     title: 'Katzenmilch',
     url: monacoThemesBaseUrl + 'Katzenmilch.json',
   },
   {
-    name: 'kuroir-theme',
-    title: 'Kuroir Theme',
+    name: 'krtheme',
+    title: 'krTheme',
+    url: monacoThemesBaseUrl + 'krTheme.json',
+  },
+  {
+    name: 'kuroir',
+    title: 'Kuroir',
     url: monacoThemesBaseUrl + 'Kuroir Theme.json',
   },
   {
@@ -139,7 +146,7 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'LAZY.json',
   },
   {
-    name: 'magicwb--amiga-',
+    name: 'magicwb-amiga',
     title: 'MagicWB (Amiga)',
     url: monacoThemesBaseUrl + 'MagicWB (Amiga).json',
   },
@@ -154,14 +161,19 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Merbivore.json',
   },
   {
-    name: 'monokai-bright',
-    title: 'Monokai Bright',
-    url: monacoThemesBaseUrl + 'Monokai Bright.json',
+    name: 'monoindustrial',
+    title: 'monoindustrial',
+    url: monacoThemesBaseUrl + 'monoindustrial.json',
   },
   {
     name: 'monokai',
     title: 'Monokai',
     url: monacoThemesBaseUrl + 'Monokai.json',
+  },
+  {
+    name: 'monokai-bright',
+    title: 'Monokai Bright',
+    url: monacoThemesBaseUrl + 'Monokai Bright.json',
   },
   {
     name: 'night-owl',
@@ -214,6 +226,16 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Textmate (Mac Classic).json',
   },
   {
+    name: 'tomorrow',
+    title: 'Tomorrow',
+    url: monacoThemesBaseUrl + 'Tomorrow.json',
+  },
+  {
+    name: 'tomorrow-night',
+    title: 'Tomorrow-Night',
+    url: monacoThemesBaseUrl + 'Tomorrow-Night.json',
+  },
+  {
     name: 'tomorrow-night-blue',
     title: 'Tomorrow-Night-Blue',
     url: monacoThemesBaseUrl + 'Tomorrow-Night-Blue.json',
@@ -227,16 +249,6 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     name: 'tomorrow-night-eighties',
     title: 'Tomorrow-Night-Eighties',
     url: monacoThemesBaseUrl + 'Tomorrow-Night-Eighties.json',
-  },
-  {
-    name: 'tomorrow-night',
-    title: 'Tomorrow-Night',
-    url: monacoThemesBaseUrl + 'Tomorrow-Night.json',
-  },
-  {
-    name: 'tomorrow',
-    title: 'Tomorrow',
-    url: monacoThemesBaseUrl + 'Tomorrow.json',
   },
   {
     name: 'twilight',
@@ -254,6 +266,14 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Vibrant Ink.json',
   },
   {
+    name: 'vs',
+    title: 'VS',
+  },
+  {
+    name: 'vs-dark',
+    title: 'VS Dark',
+  },
+  {
     name: 'xcode-default',
     title: 'Xcode_default',
     url: monacoThemesBaseUrl + 'Xcode_default.json',
@@ -262,25 +282,5 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     name: 'zenburnesque',
     title: 'Zenburnesque',
     url: monacoThemesBaseUrl + 'Zenburnesque.json',
-  },
-  {
-    name: 'iplastic',
-    title: 'iPlastic',
-    url: monacoThemesBaseUrl + 'iPlastic.json',
-  },
-  {
-    name: 'idlefingers',
-    title: 'idleFingers',
-    url: monacoThemesBaseUrl + 'idleFingers.json',
-  },
-  {
-    name: 'krtheme',
-    title: 'krTheme',
-    url: monacoThemesBaseUrl + 'krTheme.json',
-  },
-  {
-    name: 'monoindustrial',
-    title: 'monoindustrial',
-    url: monacoThemesBaseUrl + 'monoindustrial.json',
   },
 ];
