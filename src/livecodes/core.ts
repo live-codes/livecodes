@@ -2161,6 +2161,14 @@ const handleEditorTools = () => {
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
     showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
   });
+
+  eventsManager.addEventListener(UI.getExternalResourcesBtn(), 'click', () => {
+    showScreen('resources');
+  });
+
+  eventsManager.addEventListener(UI.getEditorSettingsBtn(), 'click', () => {
+    showScreen('editor-settings');
+  });
 };
 
 const handleProcessors = () => {
@@ -3366,12 +3374,6 @@ const handleExternalResources = () => {
 
   eventsManager.addEventListener(
     UI.getExternalResourcesLink(),
-    'click',
-    createExrenalResourcesUI,
-    false,
-  );
-  eventsManager.addEventListener(
-    UI.getExternalResourcesBtn(),
     'click',
     createExrenalResourcesUI,
     false,

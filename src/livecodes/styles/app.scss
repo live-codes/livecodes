@@ -389,6 +389,10 @@ a {
     display: none;
   }
 
+  #editor-settings-btn {
+    display: none;
+  }
+
   @media only screen and (max-width: 1080px) {
     #buttons {
       width: 30% !important;
@@ -564,10 +568,6 @@ a {
       > span {
         margin: auto 4px;
       }
-    }
-
-    #external-resources-btn {
-      right: 1em;
     }
   }
 }
