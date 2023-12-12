@@ -59,13 +59,13 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig => ({
   recoverUnsaved: config.recoverUnsaved,
   welcome: config.welcome,
   showSpacing: config.showSpacing,
-  theme: config.theme,
   ...getEditorConfig(config),
   ...getFormatterConfig(config),
 });
 
 export const getEditorConfig = (config: Config | UserConfig): EditorConfig => ({
   editor: config.editor ?? ((config as Config).readonly === true ? 'codejar' : undefined),
+  theme: config.theme,
   editorTheme: config.editorTheme,
   fontFamily: config.fontFamily,
   fontSize: config.fontSize,

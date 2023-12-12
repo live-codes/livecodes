@@ -1,5 +1,5 @@
 import type { CodejarTheme } from '../../models';
-import { prismThemesBaseUrl } from '../../vendors';
+import { prismThemesBaseUrl, prismThemesLaserWaveUrl } from '../../vendors';
 
 export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: string }> = [
   { name: 'a11y-dark', title: 'a11y-dark', url: prismThemesBaseUrl + 'prism-a11y-dark.css' },
@@ -66,7 +66,7 @@ export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: strin
   },
   { name: 'holi-theme', title: 'holi-theme', url: prismThemesBaseUrl + 'prism-holi-theme.css' },
   { name: 'hopscotch', title: 'hopscotch', url: prismThemesBaseUrl + 'prism-hopscotch.css' },
-  { name: 'laserwave', title: 'laserwave', url: prismThemesBaseUrl + 'prism-laserwave.css' },
+  { name: 'laserwave', title: 'laserwave', url: prismThemesLaserWaveUrl },
   { name: 'lucario', title: 'lucario', url: prismThemesBaseUrl + 'prism-lucario.css' },
   {
     name: 'material-dark',

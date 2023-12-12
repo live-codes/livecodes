@@ -302,6 +302,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
           closeBracketsExtension.reconfigure(editorSettings.closeBrackets ? closeBrackets() : []),
         ],
       });
+      setTheme(editorSettings.theme, editorSettings.editorTheme);
       showEditorMode(editorSettings.editorMode);
     });
   };

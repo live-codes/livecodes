@@ -306,12 +306,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tab: editorOptions.tab,
       addClosing: editorOptions.addClosing,
     });
-    [preElement, codeElement].forEach((el) => {
-      el.style.setProperty('font-family', editorOptions.fontFamily, 'important');
-      el.style.setProperty('font-size', editorOptions.fontSize + 'px', 'important');
-      el.style.setProperty('tab-size', editorOptions.tabSize, 'important');
-      el.style.setProperty('white-space', editorOptions.wordWrap, 'important');
-    });
+
+    document.querySelector('#codejar-styles')?.remove();
+    const styleEl = document.createElement('style');
+    styleEl.id = 'codejar-styles';
+    styleEl.innerHTML = `
+      .prism * {
+        font-family: ${editorOptions.fontFamily} !important;
+        font-size: ${editorOptions.fontSize} !important;
+        line-height: 1.5 !important;
+        tab-size: ${editorOptions.tabSize} !important;
+        white-space: ${editorOptions.wordWrap} !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
+
     preElement.classList.toggle('line-numbers', editorOptions.lineNumbers);
     highlight();
   };

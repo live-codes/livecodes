@@ -297,6 +297,10 @@ export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.26.0/components/')
 
 export const prismThemesBaseUrl = /* @__PURE__ */ getUrl('prism-themes@1.9.0/themes/');
 
+export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
+  'gh:PrismJS/prism-themes@447479fc7b2be2051fe27e561aceed7cc87a589f/themes/prism-laserwave.css',
+);
+
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
   'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
 );

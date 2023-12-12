@@ -1,12 +1,16 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { EditorOptions, FormatFn, UserConfig } from '../models';
+import type { Config, EditorOptions, FormatFn, UserConfig } from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
 import { defaultConfig } from '../config/default-config';
 import { fonts, getFontFamily } from '../editor/fonts';
+import { getEditorTheme } from '../editor/themes';
+import { monacoThemes } from '../editor/monaco/monaco-themes';
+import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
+import { prismThemes } from '../editor/codejar/prism-themes';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -41,8 +45,8 @@ export const createEditorSettingsUI = async ({
   if (!previewContainer || !form) return;
 
   interface FormField {
-    title: string;
-    name: keyof UserConfig;
+    title?: string;
+    name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
   }
@@ -57,6 +61,54 @@ export const createEditorSettingsUI = async ({
         { label: 'CodeJar', value: 'codejar' },
       ],
       help: `${process.env.DOCS_BASE_URL}features/editor-settings#code-editor`,
+    },
+    {
+      title: 'Dark Mode',
+      name: 'theme',
+      options: [{ value: 'true' }],
+    },
+    {
+      title: 'Editor Theme',
+      name: 'editorTheme-monaco-dark',
+      options: [
+        { label: 'Default', value: '' },
+        ...monacoThemes.map((t) => ({ label: t.title, value: `monaco:${t.name}@dark` })),
+      ],
+    },
+    {
+      name: 'editorTheme-monaco-light',
+      options: [
+        { label: 'Default', value: '' },
+        ...monacoThemes.map((t) => ({ label: t.title, value: `monaco:${t.name}@light` })),
+      ],
+    },
+    {
+      name: 'editorTheme-codemirror-dark',
+      options: [
+        { label: 'Default', value: '' },
+        ...codemirrorThemes.map((t) => ({ label: t.title, value: `codemirror:${t.name}@dark` })),
+      ],
+    },
+    {
+      name: 'editorTheme-codemirror-light',
+      options: [
+        { label: 'Default', value: '' },
+        ...codemirrorThemes.map((t) => ({ label: t.title, value: `codemirror:${t.name}@light` })),
+      ],
+    },
+    {
+      name: 'editorTheme-codejar-dark',
+      options: [
+        { label: 'Default', value: '' },
+        ...prismThemes.map((t) => ({ label: t.title, value: `codejar:${t.name}@dark` })),
+      ],
+    },
+    {
+      name: 'editorTheme-codejar-light',
+      options: [
+        { label: 'Default', value: '' },
+        ...prismThemes.map((t) => ({ label: t.title, value: `codejar:${t.name}@light` })),
+      ],
     },
     {
       title: 'Font Family',
@@ -163,7 +215,6 @@ export const createEditorSettingsUI = async ({
     language: 'jsx',
     mapLanguage: () => 'typescript',
     readonly: false,
-    theme: userConfig.theme,
     value: editorContent,
     ...getEditorConfig(userConfig),
     ...getFormatterConfig(userConfig),
@@ -176,8 +227,8 @@ export const createEditorSettingsUI = async ({
     const ed = await deps.createEditor(options);
     deps.getFormatFn().then((fn) => {
       setTimeout(() => {
-        editor.registerFormatter(fn);
-        editor.format();
+        ed.registerFormatter(fn);
+        ed.format();
       }, 500);
     });
 
@@ -188,14 +239,26 @@ export const createEditorSettingsUI = async ({
     return ed;
   };
 
+  const allThemes: Array<`editorTheme-${Config['editor']}-${Config['theme']}`> = [
+    'editorTheme-monaco-dark',
+    'editorTheme-monaco-light',
+    'editorTheme-codemirror-dark',
+    'editorTheme-codemirror-light',
+    'editorTheme-codejar-dark',
+    'editorTheme-codejar-light',
+  ];
+
   formFields.forEach((field) => {
-    const title = document.createElement('label');
-    title.innerHTML = field.title.replace(
-      '*',
-      `<a href="#codejar-info" class="hint--top" data-hint="Not available in CodeJar" style="text-decoration: none;">*</a>`,
-    );
-    title.dataset.name = field.name;
-    form.appendChild(title);
+    let title: HTMLElement | undefined;
+    if (field.title) {
+      title = document.createElement('label');
+      title.innerHTML = field.title.replace(
+        '*',
+        `<a href="#codejar-info" class="hint--top" data-hint="Not available in CodeJar" style="text-decoration: none;">*</a>`,
+      );
+      title.dataset.name = field.name;
+      form.appendChild(title);
+    }
 
     if (field.help) {
       const helpLink: HTMLAnchorElement = document.createElement('a');
@@ -203,7 +266,7 @@ export const createEditorSettingsUI = async ({
       helpLink.target = '_blank';
       helpLink.classList.add('help-link');
       helpLink.title = 'Click for info...';
-      title.appendChild(helpLink);
+      title?.appendChild(helpLink);
 
       const helpIcon: HTMLImageElement = document.createElement('img');
       helpIcon.src = baseUrl + 'assets/icons/info.svg';
@@ -223,11 +286,35 @@ export const createEditorSettingsUI = async ({
       const select = document.createElement('select');
       select.name = name;
       fieldContainer.appendChild(select);
+
+      let selectedThemeValue: string = '';
+      if (field.name.startsWith('editorTheme-')) {
+        const [_, thisEditor, thisTheme] = field.name.split('-');
+
+        const selectedTheme = getEditorTheme({
+          editor: thisEditor as Config['editor'],
+          theme: thisTheme as Config['theme'],
+          editorTheme: editorOptions.editorTheme,
+          editorThemes:
+            thisEditor === 'monaco'
+              ? monacoThemes.map((t) => t.name)
+              : thisEditor === 'codemirror'
+              ? codemirrorThemes.map((t) => t.name)
+              : prismThemes.map((t) => t.name),
+        });
+        if (selectedTheme) {
+          selectedThemeValue = `${thisEditor}:${selectedTheme}@${thisTheme}`;
+        }
+      }
       field.options.forEach((option) => {
         const optionEl = document.createElement('option');
         optionEl.text = option.label || '';
         optionEl.value = option.value;
-        optionEl.selected = optionValue === option.value || option.checked === true;
+        if (field.name.startsWith('editorTheme-')) {
+          optionEl.selected = selectedThemeValue === option.value;
+        } else {
+          optionEl.selected = optionValue === option.value || option.checked === true;
+        }
         select.appendChild(optionEl);
       });
       return;
@@ -245,7 +332,8 @@ export const createEditorSettingsUI = async ({
       input.name = name;
       input.id = id;
       input.value = option.value;
-      input.checked = optionValue === option.value;
+      input.checked =
+        field.name === 'theme' ? optionValue === 'dark' : optionValue === option.value;
       optionContainer.appendChild(input);
 
       if (isCheckBox) {
@@ -293,6 +381,17 @@ export const createEditorSettingsUI = async ({
       if (!(key in formData)) {
         (formData as any)[key] = false;
       }
+      if (key === 'theme') {
+        formData.theme = (formData.theme as any) === true ? 'dark' : 'light';
+      }
+    });
+
+    formData.editorTheme = allThemes
+      .map((name) => (formData as any)[name])
+      .filter(Boolean)
+      .join(', ');
+    allThemes.forEach((name) => {
+      delete (formData as any)[name];
     });
 
     if (formData.editor === codeEditor) {
@@ -311,6 +410,32 @@ export const createEditorSettingsUI = async ({
       deps.changeSettings(formData);
       codeEditor = formData.editor;
     }
+
+    const prefix = 'editor-settings-editorTheme-';
+    const editorThemes: Record<
+      `${Exclude<Config['editor'], undefined>}-${Config['theme']}`,
+      HTMLElement | null
+    > = {
+      'monaco-dark': form.querySelector(`[name="${prefix}monaco-dark"]`),
+      'monaco-light': form.querySelector(`[name="${prefix}monaco-light"]`),
+      'codemirror-dark': form.querySelector(`[name="${prefix}codemirror-dark"]`),
+      'codemirror-light': form.querySelector(`[name="${prefix}codemirror-light"]`),
+      'codejar-dark': form.querySelector(`[name="${prefix}codejar-dark"]`),
+      'codejar-light': form.querySelector(`[name="${prefix}codejar-light"]`),
+    };
+    const currentEditor = editor.monaco ? 'monaco' : editor.codemirror ? 'codemirror' : 'codejar';
+    const currentTheme = formData.theme;
+    const keys = Object.keys(editorThemes);
+    keys.forEach((key) => {
+      if (!key) return;
+      const editorTheme = (editorThemes as any)[key];
+      if (!editorTheme) return;
+      if (key === `${currentEditor}-${currentTheme}`) {
+        editorTheme.parentElement!.hidden = false;
+      } else {
+        editorTheme.parentElement!.hidden = true;
+      }
+    });
   };
 
   eventsManager.addEventListener(form, 'change', () => updateOptions());

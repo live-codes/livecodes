@@ -108,7 +108,6 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   autotest: boolean;
   delay: number;
   formatOnsave: boolean;
-  theme: Theme;
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;
@@ -116,6 +115,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
 
 export interface EditorConfig {
   editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+  theme: Theme;
   editorTheme: EditorTheme[] | string | undefined;
   fontFamily: string | undefined;
   fontSize: number | undefined;
