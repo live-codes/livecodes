@@ -1040,6 +1040,21 @@ const setExternalResourcesMark = () => {
   }
 };
 
+const setCustomSettingsMark = () => {
+  const btn = UI.getCustomSettingsBtn();
+  if (isEmbed) {
+    btn.hidden = true;
+    return;
+  }
+  const config = getConfig();
+  const customSettings = JSON.stringify(config.customSettings);
+  if (!customSettings || customSettings === '{}' || customSettings === '{"imports":{}}') {
+    btn.classList.remove('active');
+  } else {
+    btn.classList.add('active');
+  }
+};
+
 const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
   toolsPane?.console?.clear(/* silent= */ true);
@@ -2165,6 +2180,14 @@ const handleEditorTools = () => {
     showScreen('resources');
   });
 
+  eventsManager.addEventListener(UI.getProjectInfoBtn(), 'click', () => {
+    showScreen('info');
+  });
+
+  eventsManager.addEventListener(UI.getCustomSettingsBtn(), 'click', () => {
+    showScreen('custom-settings');
+  });
+
   eventsManager.addEventListener(UI.getEditorSettingsBtn(), 'click', () => {
     showScreen('editor-settings');
   });
@@ -2817,7 +2840,7 @@ const handleAutosync = async () => {
   triggerSync();
 };
 
-const handlePersistantStorage = async () => {
+const handlePersistentStorage = async () => {
   if (isEmbed) return;
 
   let alreadyRequested = false;
@@ -3432,6 +3455,7 @@ const handleCustomSettings = () => {
           ...getConfig(),
           customSettings,
         });
+        setCustomSettingsMark();
         await setSavedStatus();
         if (customSettings.types) {
           loadModuleTypes(editors, getConfig(), /* force */ true);
@@ -3451,7 +3475,7 @@ const handleCustomSettings = () => {
     createCustomSettingsUI,
     false,
   );
-  registerScreen('custom-settings', createCustomSettingsUI);
+  registerScreen('custom-settings', async () => setTimeout(createCustomSettingsUI));
 };
 
 const handleConsole = () => {
@@ -3882,7 +3906,7 @@ const extraHandlers = async () => {
   handleEditorSettings();
   handleSync();
   handleAutosync();
-  handlePersistantStorage();
+  handlePersistentStorage();
   handleExternalResources();
   handleBackup();
   handleBroadcast();
@@ -4118,6 +4142,7 @@ const bootstrap = async (reload = false) => {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
+  setCustomSettingsMark();
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {

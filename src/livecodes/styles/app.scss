@@ -297,6 +297,12 @@ a {
   #editors #code-run-button {
     display: flex !important;
   }
+
+  #project-info-btn,
+  #broadcast-status-btn,
+  #custom-settings-btn {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -389,7 +395,9 @@ a {
     display: none;
   }
 
-  #editor-settings-btn {
+  #editor-settings-btn,
+  #project-info-btn,
+  #custom-settings-btn {
     display: none;
   }
 
