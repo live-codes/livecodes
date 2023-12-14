@@ -18,8 +18,6 @@ export const codemirrorThemes: Array<{
   url?: string;
   exportName?: string;
 }> = [
-  { name: 'cm-light', title: 'Codemirror Light' },
-  { name: 'one-dark', title: 'One Dark' },
   {
     name: 'amy',
     title: 'Amy',
@@ -86,6 +84,7 @@ export const codemirrorThemes: Array<{
     url: thememirrorBaseUrl + 'cobalt.js',
     exportName: 'cobalt',
   },
+  { name: 'cm-light', title: 'Codemirror Light' },
   {
     name: 'cool-glow',
     title: 'Cool Glow',
@@ -152,6 +151,7 @@ export const codemirrorThemes: Array<{
     url: cm6ThemeNordUrl,
     exportName: 'nord',
   },
+  { name: 'one-dark', title: 'One Dark' },
   {
     name: 'rose-pine-dawn',
     title: 'Rosé Pine Dawn',

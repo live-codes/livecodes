@@ -112,12 +112,12 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
   },
   {
     name: 'idle',
-    title: 'IDLE',
+    title: 'Idle',
     url: monacoThemesBaseUrl + 'IDLE.json',
   },
   {
     name: 'idlefingers',
-    title: 'idleFingers',
+    title: 'Idle Fingers',
     url: monacoThemesBaseUrl + 'idleFingers.json',
   },
   {
@@ -137,12 +137,12 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
   },
   {
     name: 'kuroir',
-    title: 'Kuroir',
+    title: 'Kuroir Theme',
     url: monacoThemesBaseUrl + 'Kuroir Theme.json',
   },
   {
     name: 'lazy',
-    title: 'LAZY',
+    title: 'Lazy',
     url: monacoThemesBaseUrl + 'LAZY.json',
   },
   {
@@ -202,12 +202,12 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
   },
   {
     name: 'solarized-dark',
-    title: 'Solarized-dark',
+    title: 'Solarized Dark',
     url: monacoThemesBaseUrl + 'Solarized-dark.json',
   },
   {
     name: 'solarized-light',
-    title: 'Solarized-light',
+    title: 'Solarized Light',
     url: monacoThemesBaseUrl + 'Solarized-light.json',
   },
   {
@@ -232,22 +232,22 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
   },
   {
     name: 'tomorrow-night',
-    title: 'Tomorrow-Night',
+    title: 'Tomorrow Night',
     url: monacoThemesBaseUrl + 'Tomorrow-Night.json',
   },
   {
     name: 'tomorrow-night-blue',
-    title: 'Tomorrow-Night-Blue',
+    title: 'Tomorrow Night Blue',
     url: monacoThemesBaseUrl + 'Tomorrow-Night-Blue.json',
   },
   {
     name: 'tomorrow-night-bright',
-    title: 'Tomorrow-Night-Bright',
+    title: 'Tomorrow Night Bright',
     url: monacoThemesBaseUrl + 'Tomorrow-Night-Bright.json',
   },
   {
     name: 'tomorrow-night-eighties',
-    title: 'Tomorrow-Night-Eighties',
+    title: 'Tomorrow Night Eighties',
     url: monacoThemesBaseUrl + 'Tomorrow-Night-Eighties.json',
   },
   {
@@ -275,7 +275,7 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
   },
   {
     name: 'xcode-default',
-    title: 'Xcode_default',
+    title: 'Xcode Default',
     url: monacoThemesBaseUrl + 'Xcode_default.json',
   },
   {

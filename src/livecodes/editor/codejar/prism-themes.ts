@@ -5,7 +5,15 @@ import {
   prismThemesLaserWaveUrl,
 } from '../../vendors';
 
-export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: string }> = [
+const changeLineNumberColor = (color: string) =>
+  `.line-numbers-rows > span::before { color: ${color} !important; }`;
+
+export const prismThemes: Array<{
+  name: CodejarTheme;
+  title: string;
+  url: string;
+  overrideCSS?: string;
+}> = [
   { name: 'a11y-dark', title: 'A11y Dark', url: prismThemesBaseUrl + 'prism-a11y-dark.css' },
   { name: 'atom-dark', title: 'Atom Dark', url: prismThemesBaseUrl + 'prism-atom-dark.css' },
   {
@@ -53,7 +61,11 @@ export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: strin
     title: 'Duotone Light',
     url: prismThemesBaseUrl + 'prism-duotone-light.css',
   },
-  { name: 'duotone-sea', title: 'Duotone Sea', url: prismThemesBaseUrl + 'prism-duotone-sea.css' },
+  {
+    name: 'duotone-sea',
+    title: 'Duotone Sea',
+    url: prismThemesBaseUrl + 'prism-duotone-sea.css',
+  },
   {
     name: 'duotone-space',
     title: 'Duotone Space',
@@ -96,8 +108,6 @@ export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: strin
   { name: 'one-dark', title: 'One Dark', url: prismThemesBaseUrl + 'prism-one-dark.css' },
   { name: 'one-light', title: 'One Light', url: prismThemesBaseUrl + 'prism-one-light.css' },
   { name: 'pojoaque', title: 'Pojoaque', url: prismThemesBaseUrl + 'prism-pojoaque.css' },
-  { name: 'prism-light', title: 'Prism Light' },
-  { name: 'prism-dark', title: 'Prism Dark' },
   {
     name: 'shades-of-purple',
     title: 'Shades of Purple',
@@ -122,6 +132,11 @@ export const prismThemes: Array<{ name: CodejarTheme; title: string; url?: strin
     title: 'VSC Dark Plus',
     url: prismThemesBaseUrl + 'prism-vsc-dark-plus.css',
   },
-  { name: 'xonokai', title: 'Xonokai', url: prismThemesBaseUrl + 'prism-xonokai.css' },
-  { name: 'z-touchs', title: 'Z Touchs', url: prismThemesBaseUrl + 'prism-z-touch.css' },
+  {
+    name: 'xonokai',
+    title: 'Xonokai',
+    url: prismThemesBaseUrl + 'prism-xonokai.css',
+    overrideCSS: changeLineNumberColor('#6f705e'),
+  },
+  { name: 'z-touchs', title: 'Z-Touchs', url: prismThemesBaseUrl + 'prism-z-touch.css' },
 ];

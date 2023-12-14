@@ -805,8 +805,6 @@ export type MonacoTheme =
   | 'zenburnesque';
 
 export type CodemirrorTheme =
-  | 'cm-light'
-  | 'one-dark'
   | 'amy'
   | 'aura'
   | 'ayu-light'
@@ -817,6 +815,7 @@ export type CodemirrorTheme =
   | 'birds-of-paradise'
   | 'boys-and-girls'
   | 'clouds'
+  | 'cm-light'
   | 'cobalt'
   | 'cool-glow'
   | 'dracula'
@@ -829,6 +828,7 @@ export type CodemirrorTheme =
   | 'material-light'
   | 'noctis-lilac'
   | 'nord'
+  | 'one-dark'
   | 'rose-pine-dawn'
   | 'smoothy'
   | 'solarized-light'
@@ -839,8 +839,6 @@ export type CodemirrorTheme =
   | 'tomorrow';
 
 export type CodejarTheme =
-  | 'prism-light'
-  | 'prism-dark'
   | 'a11y-dark'
   | 'atom-dark'
   | 'base16-ateliersulphurpool-light'

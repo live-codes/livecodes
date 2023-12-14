@@ -57,9 +57,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       }),
     ],
   };
-
-  const getActiveTheme = () =>
-    themes[theme] || (options.theme === 'light' ? themes['cm-light'] : themes['one-dark']) || [];
+  const defaultThemes: Record<Theme, CodemirrorTheme> = { dark: 'one-dark', light: 'cm-light' };
+  const getActiveTheme = () => themes[theme] || themes[defaultThemes[options.theme]] || [];
 
   let language = options.language;
   let mappedLanguage = mapLanguage(language);
@@ -271,9 +270,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       theme: appTheme,
       editorThemes: codemirrorThemes.map((t) => t.name),
     });
-    const newTheme = (
-      selectedTheme ? selectedTheme : appTheme === 'light' ? 'cm-light' : 'one-dark'
-    ) as CodemirrorTheme;
+    const newTheme = (selectedTheme ? selectedTheme : defaultThemes[appTheme]) as CodemirrorTheme;
 
     const themeData = codemirrorThemes.find((t) => t.name === newTheme);
     if (!themes[newTheme] && themeData?.url) {

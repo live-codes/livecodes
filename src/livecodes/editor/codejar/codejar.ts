@@ -33,16 +33,8 @@ Prism.manual = true;
 Prism.plugins.autoloader.languages_path = prismBaseUrl;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const {
-    baseUrl,
-    container,
-    mode,
-    editorId,
-    readonly,
-    isEmbed,
-    getFormatterConfig,
-    getFontFamily,
-  } = options;
+  const { container, mode, editorId, readonly, isEmbed, getFormatterConfig, getFontFamily } =
+    options;
   if (!container) throw new Error('editor container not found');
 
   let { value, language } = options;
@@ -262,24 +254,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+    const defaultThemes: Record<Theme, CodejarTheme> = { dark: 'vsc-dark-plus', light: 'vs' };
     const selectedTheme = getEditorTheme({
       editor: 'codejar',
       editorTheme,
       theme,
       editorThemes: prismThemes.map((t) => t.name),
     });
-    const newTheme = (!selectedTheme ? 'prism-' + theme : selectedTheme) as CodejarTheme;
+    const newTheme = (!selectedTheme ? defaultThemes[theme] : selectedTheme) as CodejarTheme;
     const themeData = prismThemes.find((t) => t.name === newTheme);
 
     const id = 'prism-styles';
     const styles = document.head.querySelector<HTMLLinkElement>('#' + id);
-    const stylesUrl = themeData?.url
-      ? themeData.url
-      : newTheme === 'prism-light'
-      ? baseUrl + '{{hash:prism-light.css}}'
-      : baseUrl + '{{hash:prism-dark.css}}';
+    const stylesUrl = themeData?.url;
 
-    if (styles && styles.href === stylesUrl) return;
+    if (!stylesUrl || styles?.href === stylesUrl) return;
 
     styles?.remove();
     const stylesheet = document.createElement('link');
@@ -287,6 +276,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     stylesheet.href = stylesUrl;
     stylesheet.id = id;
     document.head.appendChild(stylesheet);
+
+    const id2 = 'prism-styles-override';
+    document.getElementById(id2)?.remove();
+    if (themeData?.overrideCSS) {
+      const styleEl = document.createElement('style');
+      styleEl.id = id2;
+      styleEl.innerHTML = themeData.overrideCSS;
+      document.head.appendChild(styleEl);
+    }
   };
   setTheme(options.theme, options.editorTheme);
 
@@ -307,9 +305,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       addClosing: editorOptions.addClosing,
     });
 
-    document.querySelector('#codejar-styles')?.remove();
+    const id = 'codejar-styles';
+    document.getElementById(id)?.remove();
     const styleEl = document.createElement('style');
-    styleEl.id = 'codejar-styles';
+    styleEl.id = id;
     styleEl.innerHTML = `
       .prism * {
         font-family: ${editorOptions.fontFamily} !important;
