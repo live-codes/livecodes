@@ -38,7 +38,11 @@ clientside-haml-js: [MIT License](https://github.com/uglyog/clientside-haml-js/b
 
 Clio: [Apache-2.0 license](https://github.com/clio-lang/clio/blob/75c7c09e962ef15506ff9bc7cf856aad727436c5/LICENSE)
 
+cm6-themes: [MIT License](https://github.com/craftzdog/cm6-themes/blob/289d9e0ca6b500f4cdf68464f4f21dd8e2dd8963/LICENSE)
+
 CodeMirror: [MIT License](https://github.com/codemirror/codemirror.next/blob/e4dc2fe661dadb3e6debab8417e7100023e3df26/LICENSE-MIT)
+
+Codemirror 6 Themes: [MIT License](https://github.com/dennis84/codemirror-themes/blob/9a0c1b7c81bd63671073572711a586ae97f328d6/LICENSE)
 
 CoffeeScript: [MIT License](https://github.com/jashkenas/coffeescript/tree/07f644c39223e016aceedd2cd71b5941579b5659)
 
@@ -128,6 +132,8 @@ Monaco-editor: [MIT License](https://github.com/microsoft/monaco-editor/blob/f84
 
 monaco-emacs: [MIT License](https://github.com/brijeshb42/monaco-emacs/blob/5f5485e8ba8c985cd826e6a5b9c4cf5f7ee33343/LICENSE)
 
+monaco-themes: [MIT License](https://github.com/brijeshb42/monaco-themes/blob/2bf2a1f3a3a1e43e0b91c4a67376dd4051b5055d/LICENSE)
+
 monaco-vim: [MIT License](https://github.com/brijeshb42/monaco-vim/blob/42cca39fa9b79cd1d47981a3309a86f96b10b4ce/LICENSE)
 
 mustache.js: [MIT License](https://github.com/janl/mustache.js/blob/972fd2b27a036888acfcb60d6119317744fac7ee/LICENSE)
@@ -173,6 +179,8 @@ prelude<span>.ls</span>: [MIT License](https://github.com/gkz/prelude-ls/blob/41
 Prettier: [MIT License](https://github.com/prettier/prettier/blob/2c1b8f6fab1f9c63ab5d937908d090d8e75e8072/LICENSE)
 
 Prettier Pug Plugin: [MIT License](https://github.com/prettier/plugin-pug/blob/27ab92b27a062bb187fc33f82b2fad436ec31c25/LICENSE)
+
+Prism themes: [MIT License](https://github.com/PrismJS/prism-themes/blob/447479fc7b2be2051fe27e561aceed7cc87a589f/LICENSE)
 
 PrismJS: [MIT License](https://github.com/PrismJS/prism/blob/f84c49c5eae1aecbbb8bc9249c48136c341b556f/LICENSE)
 
@@ -237,6 +245,8 @@ Tailwind CSS: [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/6ac
 Tau Prolog: [BSD 3-Clause License](https://github.com/tau-prolog/tau-prolog/blob/5bd606a255910d8e34ff1d721e80969af294b64c/LICENSE)
 
 Teal: [MIT License](https://github.com/teal-language/tl/blob/e907fbe56a70d44b65095e16ae2d1eae61c12066/LICENSE)
+
+ThemeMirror: [MIT License](https://github.com/vadimdemedes/thememirror/blob/94a6475a9113ec03d880fcb817aadcc5a16e82e4/package.json#L5)
 
 turbopascal: [BSD 2-Clause License](https://github.com/MikeRalphson/turbopascal/blob/cfcc5ee6d93f32664bb6127aa751c68841ca5c1d/LICENSE)
 
