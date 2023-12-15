@@ -470,27 +470,39 @@ Default: `undefined`
 
 Sets the editor [themes](../features/themes.md).
 
-:::note
+:::info Note
 You can preview and set editor themes in the [editor settings screen](pathname:///../?screen=editor-settings).
 :::
 
-Three code editors are supported in LiveCodes: Monaco (the default on desktop), CodeMirror (the default on mobile) and CodeJar (the default in [Lite mode](../features/lite.md)). Each editor has its own set of themes, represented by the types: [`MonacoTheme`](../api/modules/internal/#monacotheme), [`CodemirrorTheme`](../api/modules/internal/#codemirrortheme) and [`CodejarTheme`](../api/modules/internal/#codejartheme). The `editorTheme` property can be used to set the editor theme for each editor and on light/dark mode.
+Three [code editors](#editor) are supported in LiveCodes: **Monaco** (the default on desktop), **CodeMirror** (the default on mobile) and **CodeJar** (the default in [codeblocks](../features/display-modes.md#codeblock), in [lite mode](../features/lite.md) and in [readonly](#readonly) playgrounds). Each editor has its own set of themes, represented by the types: [`MonacoTheme`](../api/modules/internal/#monacotheme), [`CodemirrorTheme`](../api/modules/internal/#codemirrortheme) and [`CodejarTheme`](../api/modules/internal/#codejartheme).
 
-The `editorTheme` property can be set to an array of [`EditorTheme`](../api/modules/internal#editortheme) items or a `string` of comma-separated `EditorTheme`s. The order matters. The first valid item in the array or string for the current editor (`monaco`, `codemirror` or `codejar`) and app theme (`light` or `dark`) will be used.
+The `editorTheme` property can be used to set the editor theme for each editor and on light/dark modes. It can be set to an array of [`EditorTheme`](../api/modules/internal#editortheme) items or a string of comma-separated items.
 
-Each `EditorTheme` item can be a theme name ([`MonacoTheme`](../api/modules/internal/#monacotheme) / [`CodemirrorTheme`](../api/modules/internal/#codemirrortheme) / [`CodejarTheme`](../api/modules/internal/#codejartheme]) (e.g. `"monokai"`)). The theme name can be preceded with the editor name separated by a colon to specify the editor (e.g. `"monaco:monokai"`). It can also be followed by the app theme separated by "@" (e.g. `"monokai@dark"`).
+Each item can be composed of:
 
-Multiple `EditorTheme` items can be supplied (as array items or in the comma-separated string) to specify the theme for each editor and in dark and light modes.
+` editor:` `theme-name` `@app-theme`
 
-If no items match the current editor and app theme, the default theme for the editor and app theme will be used.
+Where:
+
+- `editor` is the name of the editor (`"monaco" | "codemirror" | "codejar"`). [Optional]
+- `theme-name` is the name of the theme (e.g. `"monokai"`). [Required]  
+  Valid theme names can be found here:
+  - Monaco: [`MonacoTheme`](../api/modules/internal/#monacotheme)
+  - CodeMirror: [`CodemirrorTheme`](../api/modules/internal/#codemirrortheme)
+  - CodeJar: [`CodejarTheme`](../api/modules/internal/#codejartheme]).
+- `app-theme` is the name of the app theme (`"dark" | "light"`). [Optional]
 
 Examples:
 
 - `"vs"`
-- `"twilight@dark, one-dark@dark"`
+- `"monaco:twilight, codemirror:one-dark"`
 - `["vs@light"]`
 - `["vs@light", "vs-dark@dark"]`
 - `["monaco:vs@light", "codemirror:github-light@light", "dracula@dark"]`
+
+Each `EditorTheme` item requires a theme name. The theme name can optionally be preceded with the editor name separated by a colon to specify the editor (e.g. `"monaco:monokai"`). It can also optionally be followed by the app theme separated by "@" (e.g. `"monokai@dark"`).
+
+Multiple `EditorTheme` items can be supplied (as array items or in the comma-separated string) to specify the theme for each editor and in dark and light modes. The order matters. The first valid item in the array or string for the current editor (`monaco`, `codemirror` or `codejar`) and app theme (`light` or `dark`) will be used. If no items match the current editor and app theme, the default theme for the editor and app theme will be used.
 
 ### `recoverUnsaved`
 
