@@ -46,6 +46,12 @@ export const getExternalResourcesBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #external-resources-btn') as HTMLElement;
 export const getExternalResourcesMark = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #external-resources-mark') as HTMLElement;
+export const getProjectInfoBtn = /* @__PURE__ */ () =>
+  document.querySelector('#editor-tools #project-info-btn') as HTMLElement;
+export const getCustomSettingsBtn = /* @__PURE__ */ () =>
+  document.querySelector('#editor-tools #custom-settings-btn') as HTMLElement;
+export const getEditorSettingsBtn = /* @__PURE__ */ () =>
+  document.querySelector('#editor-tools #editor-settings-btn') as HTMLElement;
 export const getResultButton = /* @__PURE__ */ () =>
   document.querySelector('#result-button') as HTMLElement;
 export const getFullscreenButton = /* @__PURE__ */ () =>

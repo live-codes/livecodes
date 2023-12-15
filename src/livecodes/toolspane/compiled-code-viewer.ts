@@ -56,7 +56,6 @@ export const createCompiledCodeViewer = (
       readonly: true,
       mode: config.mode,
       editorId: 'compiled',
-      theme: config.theme,
       isEmbed,
       isHeadless: false,
       mapLanguage,

@@ -108,7 +108,6 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   autotest: boolean;
   delay: number;
   formatOnsave: boolean;
-  theme: Theme;
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;
@@ -116,6 +115,8 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
 
 export interface EditorConfig {
   editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+  theme: Theme;
+  editorTheme: EditorTheme[] | string | undefined;
   fontFamily: string | undefined;
   fontSize: number | undefined;
   useTabs: boolean;
@@ -707,7 +708,7 @@ export interface CodeEditor {
   registerFormatter: (formatFn: FormatFn | undefined) => void;
   format: () => Promise<void>;
   isReadonly: boolean;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: Theme, editorTheme: Config['editorTheme']) => void;
   undo: () => void;
   redo: () => void;
   destroy: () => void;
@@ -743,6 +744,159 @@ export interface EditorOptions extends EditorConfig {
   getFormatterConfig: () => Partial<FormatterConfig>;
   getFontFamily: (font: string | undefined) => string;
 }
+
+export type MonacoTheme =
+  | 'active4d'
+  | 'all-hallows-eve'
+  | 'amy'
+  | 'birds-of-paradise'
+  | 'blackboard'
+  | 'brilliance-black'
+  | 'brilliance-dull'
+  | 'chrome-devtools'
+  | 'clouds-midnight'
+  | 'clouds'
+  | 'cobalt'
+  | 'cobalt2'
+  | 'dawn'
+  | 'dracula'
+  | 'dreamweaver'
+  | 'eiffel'
+  | 'espresso-libre'
+  | 'github'
+  | 'github-dark'
+  | 'github-light'
+  | 'hc-black'
+  | 'hc-light'
+  | 'idle'
+  | 'idlefingers'
+  | 'iplastic'
+  | 'katzenmilch'
+  | 'krtheme'
+  | 'kuroir'
+  | 'lazy'
+  | 'magicwb-amiga'
+  | 'merbivore-soft'
+  | 'merbivore'
+  | 'monokai'
+  | 'monokai-bright'
+  | 'monoindustrial'
+  | 'night-owl'
+  | 'nord'
+  | 'oceanic-next'
+  | 'pastels-on-dark'
+  | 'slush-and-poppies'
+  | 'solarized-dark'
+  | 'solarized-light'
+  | 'spacecadet'
+  | 'sunburst'
+  | 'textmate-mac-classic'
+  | 'tomorrow'
+  | 'tomorrow-night'
+  | 'tomorrow-night-blue'
+  | 'tomorrow-night-bright'
+  | 'tomorrow-night-eighties'
+  | 'twilight'
+  | 'upstream-sunburst'
+  | 'vibrant-ink'
+  | 'vs'
+  | 'vs-dark'
+  | 'xcode-default'
+  | 'zenburnesque';
+
+export type CodemirrorTheme =
+  | 'amy'
+  | 'aura'
+  | 'ayu-light'
+  | 'barf'
+  | 'basic-light'
+  | 'basic-dark'
+  | 'bespin'
+  | 'birds-of-paradise'
+  | 'boys-and-girls'
+  | 'clouds'
+  | 'cm-light'
+  | 'cobalt'
+  | 'cool-glow'
+  | 'dracula'
+  | 'espresso'
+  | 'github-dark'
+  | 'github-light'
+  | 'gruvbox-dark'
+  | 'gruvbox-light'
+  | 'material-dark'
+  | 'material-light'
+  | 'noctis-lilac'
+  | 'nord'
+  | 'one-dark'
+  | 'rose-pine-dawn'
+  | 'smoothy'
+  | 'solarized-light'
+  | 'solarized-dark'
+  | 'tokyo-night'
+  | 'tokyo-night-day'
+  | 'tokyo-night-storm'
+  | 'tomorrow';
+
+export type CodejarTheme =
+  | 'a11y-dark'
+  | 'atom-dark'
+  | 'base16-ateliersulphurpool-light'
+  | 'cb'
+  | 'coldark-cold'
+  | 'coldark-dark'
+  | 'coy'
+  | 'coy-without-shadows'
+  | 'darcula'
+  | 'dark'
+  | 'dracula'
+  | 'duotone-dark'
+  | 'duotone-earth'
+  | 'duotone-forest'
+  | 'duotone-light'
+  | 'duotone-sea'
+  | 'duotone-space'
+  | 'funky'
+  | 'ghcolors'
+  | 'gruvbox-dark'
+  | 'gruvbox-light'
+  | 'holi-theme'
+  | 'hopscotch'
+  | 'laserwave'
+  | 'lucario'
+  | 'material-dark'
+  | 'material-light'
+  | 'material-oceanic'
+  | 'night-owl'
+  | 'nord'
+  | 'okaidia'
+  | 'one-dark'
+  | 'one-light'
+  | 'pojoaque'
+  | 'shades-of-purple'
+  | 'solarized-dark-atom'
+  | 'solarized-light'
+  | 'synthwave84'
+  | 'tomorrow'
+  | 'twilight'
+  | 'vs'
+  | 'vsc-dark-plus'
+  | 'xonokai'
+  | 'z-touchs';
+
+export type EditorTheme =
+  | MonacoTheme
+  | CodemirrorTheme
+  | CodejarTheme
+  | `${MonacoTheme}@${Theme}`
+  | `${CodemirrorTheme}@${Theme}`
+  | `${CodejarTheme}@${Theme}`
+  | `monaco:${MonacoTheme}`
+  | `codemirror:${CodemirrorTheme}`
+  | `codejar:${CodejarTheme}`
+  | `monaco:${MonacoTheme}@${Theme}`
+  | `codemirror:${CodemirrorTheme}@${Theme}`
+  | `codejar:${CodejarTheme}@${Theme}`;
 
 export interface CustomEditor {
   language: Language;

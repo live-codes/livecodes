@@ -19,9 +19,13 @@ import type {
   Theme,
   EditorPosition,
   EditorConfig,
+  Config,
+  CodejarTheme,
 } from '../../models';
 import { debounce, encodeHTML } from '../../utils/utils';
 import { prismBaseUrl } from '../../vendors';
+import { getEditorTheme } from '../themes';
+import { prismThemes } from './prism-themes';
 
 declare const Prism: any;
 Prism.manual = true;
@@ -29,16 +33,8 @@ Prism.manual = true;
 Prism.plugins.autoloader.languages_path = prismBaseUrl;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const {
-    baseUrl,
-    container,
-    mode,
-    editorId,
-    readonly,
-    isEmbed,
-    getFormatterConfig,
-    getFontFamily,
-  } = options;
+  const { container, mode, editorId, readonly, isEmbed, getFormatterConfig, getFontFamily } =
+    options;
   if (!container) throw new Error('editor container not found');
 
   let { value, language } = options;
@@ -257,12 +253,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     codejar?.restore({ start: newOffset, end: newOffset });
   };
 
-  const setTheme = (theme: Theme) => {
+  const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+    const defaultThemes: Record<Theme, CodejarTheme> = { dark: 'vsc-dark-plus', light: 'vs' };
+    const selectedTheme = getEditorTheme({
+      editor: 'codejar',
+      editorTheme,
+      theme,
+      editorThemes: prismThemes.map((t) => t.name),
+    });
+    const newTheme = (!selectedTheme ? defaultThemes[theme] : selectedTheme) as CodejarTheme;
+    const themeData = prismThemes.find((t) => t.name === newTheme);
+
     const id = 'prism-styles';
     const styles = document.head.querySelector<HTMLLinkElement>('#' + id);
-    const fileName = theme === 'light' ? '{{hash:prism-light.css}}' : '{{hash:prism-dark.css}}';
-    const stylesUrl = baseUrl + fileName;
-    if (styles && styles.href === stylesUrl) return;
+    const stylesUrl = themeData?.url;
+
+    if (!stylesUrl || styles?.href === stylesUrl) return;
 
     styles?.remove();
     const stylesheet = document.createElement('link');
@@ -270,8 +276,17 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     stylesheet.href = stylesUrl;
     stylesheet.id = id;
     document.head.appendChild(stylesheet);
+
+    const id2 = 'prism-styles-override';
+    document.getElementById(id2)?.remove();
+    if (themeData?.overrideCSS) {
+      const styleEl = document.createElement('style');
+      styleEl.id = id2;
+      styleEl.innerHTML = themeData.overrideCSS;
+      document.head.appendChild(styleEl);
+    }
   };
-  setTheme(options.theme);
+  setTheme(options.theme, options.editorTheme);
 
   const convertOptions = (opt: EditorConfig) => ({
     fontFamily: getFontFamily(opt.fontFamily),
@@ -289,12 +304,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       tab: editorOptions.tab,
       addClosing: editorOptions.addClosing,
     });
-    [preElement, codeElement].forEach((el) => {
-      el.style.setProperty('font-family', editorOptions.fontFamily, 'important');
-      el.style.setProperty('font-size', editorOptions.fontSize + 'px', 'important');
-      el.style.setProperty('tab-size', editorOptions.tabSize, 'important');
-      el.style.setProperty('white-space', editorOptions.wordWrap, 'important');
-    });
+
+    const id = 'codejar-styles';
+    document.getElementById(id)?.remove();
+    const styleEl = document.createElement('style');
+    styleEl.id = id;
+    styleEl.innerHTML = `
+      .prism * {
+        font-family: ${editorOptions.fontFamily} !important;
+        font-size: ${editorOptions.fontSize} !important;
+        line-height: 1.5 !important;
+        tab-size: ${editorOptions.tabSize} !important;
+        white-space: ${editorOptions.wordWrap} !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
+
     preElement.classList.toggle('line-numbers', editorOptions.lineNumbers);
     highlight();
   };

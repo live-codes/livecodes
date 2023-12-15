@@ -52,6 +52,36 @@ export const clioBaseUrl = /* @__PURE__ */ getUrl(
   '@live-codes/clio-browser-compiler@0.0.3/public/build/',
 );
 
+export const cm6ThemeBasicLightUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-basic-light@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeBasicDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-basic-dark@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeGruvboxLightUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-gruvbox-light@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeGruvboxDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-gruvbox-dark@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeMaterialDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-material-dark@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeNordUrl = /* @__PURE__ */ getUrl('cm6-theme-nord@0.2.0/dist/index.js');
+
+export const cm6ThemeSolarizedLightUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-solarized-light@0.2.0/dist/index.js',
+);
+
+export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
+  'cm6-theme-solarized-dark@0.2.0/dist/index.js',
+);
+
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
@@ -63,6 +93,10 @@ export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@1.1.3/dist/csstree.js
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
 
 export const cytoscapeUrl = /* @__PURE__ */ getUrl('cytoscape@3.25.0/dist/cytoscape.min.js');
+
+export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
+  '@ddietr/codemirror-themes@1.4.2/dist/theme/',
+);
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
@@ -229,6 +263,8 @@ export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js'
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
+export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
+
 export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.0/dist/monaco-vim.js');
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
@@ -257,7 +293,15 @@ export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.0.0/');
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.19.6/standalone.js');
 
-export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.26.0/components/');
+export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/');
+
+export const prismOfficialThemesBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/themes/');
+
+export const prismThemesBaseUrl = /* @__PURE__ */ getUrl('prism-themes@1.9.0/themes/');
+
+export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
+  'gh:PrismJS/prism-themes@447479fc7b2be2051fe27e561aceed7cc87a589f/themes/prism-laserwave.css',
+);
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
   'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
@@ -340,6 +384,8 @@ export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules
 export const tealUrl = /* @__PURE__ */ getUrl(
   'gh:teal-language/tl@d2fc36b5ff9a52d7265e63eb74cce70fd1cdbcb2/tl.lua',
 );
+
+export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 

@@ -391,7 +391,6 @@ const createEditors = async (config: Config) => {
     baseUrl,
     mode: config.mode,
     readonly: config.readonly,
-    theme: config.theme,
     ...getEditorConfig(config),
     isEmbed,
     isHeadless,
@@ -1041,6 +1040,21 @@ const setExternalResourcesMark = () => {
   }
 };
 
+const setCustomSettingsMark = () => {
+  const btn = UI.getCustomSettingsBtn();
+  if (isEmbed) {
+    btn.hidden = true;
+    return;
+  }
+  const config = getConfig();
+  const customSettings = JSON.stringify(config.customSettings);
+  if (!customSettings || customSettings === '{}' || customSettings === '{"imports":{}}') {
+    btn.classList.remove('active');
+  } else {
+    btn.classList.add('active');
+  }
+};
+
 const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
   toolsPane?.console?.clear(/* silent= */ true);
@@ -1210,8 +1224,11 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (newConfig.theme) {
-    setTheme(newConfig.theme);
+  if (newConfig.theme || newConfig.editorTheme) {
+    setTheme(
+      newConfig.theme || getConfig().theme,
+      newConfig.editorTheme || getConfig().editorTheme,
+    );
   }
   if (newConfig.autotest) {
     UI.getWatchTestsButton()?.classList.remove('disabled');
@@ -1255,7 +1272,7 @@ const loadUserConfig = (updateUI = true) => {
   );
   if (!updateUI) return;
   loadSettings(getConfig());
-  setTheme(getConfig().theme);
+  setTheme(getConfig().theme, getConfig().editorTheme);
   showSyncStatus(true);
 };
 
@@ -1622,13 +1639,13 @@ const getAllEditors = (): CodeEditor[] => [
   ...[toolsPane?.compiled?.getEditor?.()],
 ];
 
-const setTheme = (theme: Theme) => {
+const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const themes = ['light', 'dark'];
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
   getAllEditors().forEach((editor) => {
-    editor?.setTheme(theme);
+    editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
 };
@@ -2158,6 +2175,22 @@ const handleEditorTools = () => {
   eventsManager.addEventListener(UI.getEditorStatus(), 'click', () => {
     showScreen('editor-settings', { scrollToSelector: 'label[data-name="editorMode"]' });
   });
+
+  eventsManager.addEventListener(UI.getExternalResourcesBtn(), 'click', () => {
+    showScreen('resources');
+  });
+
+  eventsManager.addEventListener(UI.getProjectInfoBtn(), 'click', () => {
+    showScreen('info');
+  });
+
+  eventsManager.addEventListener(UI.getCustomSettingsBtn(), 'click', () => {
+    showScreen('custom-settings');
+  });
+
+  eventsManager.addEventListener(UI.getEditorSettingsBtn(), 'click', () => {
+    showScreen('editor-settings');
+  });
 };
 
 const handleProcessors = () => {
@@ -2239,7 +2272,7 @@ const handleSettings = () => {
 
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
-        setTheme(getConfig().theme);
+        setTheme(getConfig().theme, getConfig().editorTheme);
       } else if (configKey === 'autosync') {
         const syncData = (await getUserData())?.sync;
         if (syncData?.repo) {
@@ -2807,7 +2840,7 @@ const handleAutosync = async () => {
   triggerSync();
 };
 
-const handlePersistantStorage = async () => {
+const handlePersistentStorage = async () => {
   if (isEmbed) return;
 
   let alreadyRequested = false;
@@ -3137,7 +3170,6 @@ const handleEmbed = () => {
       language: 'html',
       mapLanguage,
       readonly: true,
-      theme: config.theme,
       value: '',
       ...getEditorConfig(config),
       editor: 'codejar',
@@ -3175,12 +3207,14 @@ const handleEditorSettings = () => {
     if (!newConfig) return;
     const shouldReload = newConfig.editor !== getConfig().editor;
     setUserConfig(newConfig);
+    const updatedConfig = getConfig();
+    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
     if (shouldReload) {
-      reloadEditors(getConfig());
+      reloadEditors(updatedConfig);
     } else {
-      getAllEditors().forEach((editor) => editor.changeSettings(newConfig as UserConfig));
+      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
     }
-    showEditorModeStatus(getConfig().activeEditor || 'markup');
+    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   };
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
@@ -3287,7 +3321,6 @@ const handleSnippets = () => {
       isHeadless,
       language: 'html',
       value: '',
-      theme: getConfig().theme,
       readonly: getConfig().readonly,
       mapLanguage,
       getFormatterConfig: () => getFormatterConfig(getConfig()),
@@ -3367,12 +3400,6 @@ const handleExternalResources = () => {
     createExrenalResourcesUI,
     false,
   );
-  eventsManager.addEventListener(
-    UI.getExternalResourcesBtn(),
-    'click',
-    createExrenalResourcesUI,
-    false,
-  );
   registerScreen('resources', createExrenalResourcesUI);
 };
 
@@ -3398,7 +3425,6 @@ const handleCustomSettings = () => {
       container: UI.getCustomSettingsEditor(),
       language: 'json' as Language,
       value: stringify({ imports: {}, ...config.customSettings }, true),
-      theme: config.theme,
       isEmbed,
       isHeadless,
       mapLanguage,
@@ -3429,6 +3455,7 @@ const handleCustomSettings = () => {
           ...getConfig(),
           customSettings,
         });
+        setCustomSettingsMark();
         await setSavedStatus();
         if (customSettings.types) {
           loadModuleTypes(editors, getConfig(), /* force */ true);
@@ -3448,7 +3475,7 @@ const handleCustomSettings = () => {
     createCustomSettingsUI,
     false,
   );
-  registerScreen('custom-settings', createCustomSettingsUI);
+  registerScreen('custom-settings', async () => setTimeout(createCustomSettingsUI));
 };
 
 const handleConsole = () => {
@@ -3572,7 +3599,6 @@ const handleTestEditor = () => {
       container: UI.getTestEditor(),
       language: editorLanguage,
       value: config.tests?.content || '',
-      theme: config.theme,
       isEmbed,
       isHeadless,
       mapLanguage,
@@ -3880,7 +3906,7 @@ const extraHandlers = async () => {
   handleEditorSettings();
   handleSync();
   handleAutosync();
-  handlePersistantStorage();
+  handlePersistentStorage();
   handleExternalResources();
   handleBackup();
   handleBroadcast();
@@ -4116,6 +4142,7 @@ const bootstrap = async (reload = false) => {
     setTimeout(() => getActiveEditor().focus());
   }
   setExternalResourcesMark();
+  setCustomSettingsMark();
   updateCompiledCode();
   loadModuleTypes(editors, getConfig());
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
@@ -4200,7 +4227,7 @@ const initializePlayground = async (
   loadStyles();
   await createIframe(UI.getResultElement());
   loadSelectedScreen();
-  setTheme(getConfig().theme);
+  setTheme(getConfig().theme, getConfig().editorTheme);
   if (!isEmbed) {
     initializeAuth().then(() => showSyncStatus());
     checkRecoverStatus();
