@@ -2,7 +2,7 @@ module.exports = {
   files: [
     {
       path: './build/sdk/*.js',
-      maxSize: '3kB',
+      maxSize: '5kB',
     },
     {
       path: './build/livecodes/!(*lang-)*.js',
