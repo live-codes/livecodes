@@ -378,7 +378,7 @@ export async function createPlayground(
   };
 }
 
-export const getPlaygroundUrl = (options: EmbedOptions = {}): string => {
+export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   const { appUrl, params, config, import: x, ...otherOptions } = options;
   const configParam =
     typeof config === 'string'
@@ -397,7 +397,7 @@ export const getPlaygroundUrl = (options: EmbedOptions = {}): string => {
     ),
   ).toString();
   return (appUrl || 'https://livecodes.io') + (allParams ? '?' + allParams : '');
-};
+}
 
 if (
   globalThis.document && // to escape SSG in docusaurus
