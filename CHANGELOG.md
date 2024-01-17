@@ -4,38 +4,36 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
-## [sdk-v0.4.0](https://github.com/live-codes/livecodes/compare/v19...sdk-v0.4.0) (2024-01-17)
-
+## [v20](https://github.com/live-codes/livecodes/compare/v19...v20) (2024-01-17)
 
 ### Features
 
-* **Editor:** support editor themes ([7eaafeb](https://github.com/live-codes/livecodes/commit/7eaafeb325164186e9c05af57ad255a554c6b909))
-* **SDK:** add `getPlaygroundUrl` function to SDK ([ef2105b](https://github.com/live-codes/livecodes/commit/ef2105bb773c09cf8e361a630e9b3e829256f44f))
-* **SDK:** update options on changing props in react sdk ([0544540](https://github.com/live-codes/livecodes/commit/054454025d6ac9a605afc502f23120f4ba3f72da))
-* **SDK:** update options on changing props in vue sdk ([04c8ae8](https://github.com/live-codes/livecodes/commit/04c8ae89e65c606c8715c53cc81cce7b4ebbcd17))
-* **UI:** add buttons for project info and custom settings in editor toolbar ([e92a4f6](https://github.com/live-codes/livecodes/commit/e92a4f6924152730cc1294dcaf3fad3ffd628385))
-* **UI:** add editor settings button to editor toolbar ([213cfc9](https://github.com/live-codes/livecodes/commit/213cfc955704a040b7bc4335e79380878804b328))
+- **Editor:** support editor themes ([7eaafeb](https://github.com/live-codes/livecodes/commit/7eaafeb325164186e9c05af57ad255a554c6b909))
+- **UI:** add buttons for project info and custom settings in editor toolbar ([e92a4f6](https://github.com/live-codes/livecodes/commit/e92a4f6924152730cc1294dcaf3fad3ffd628385))
+- **UI:** add editor settings button to editor toolbar ([213cfc9](https://github.com/live-codes/livecodes/commit/213cfc955704a040b7bc4335e79380878804b328))
 
+---
 
+## [sdk-v0.4.0](https://github.com/live-codes/livecodes/compare/sdk-v0.3.0...sdk-v0.4.0) (2024-01-17)
 
+### Features
+
+- **SDK:** add `getPlaygroundUrl` function to SDK ([ef2105b](https://github.com/live-codes/livecodes/commit/ef2105bb773c09cf8e361a630e9b3e829256f44f))
+- **SDK:** update options on changing props in react sdk ([0544540](https://github.com/live-codes/livecodes/commit/054454025d6ac9a605afc502f23120f4ba3f72da))
+- **SDK:** update options on changing props in vue sdk ([04c8ae8](https://github.com/live-codes/livecodes/commit/04c8ae89e65c606c8715c53cc81cce7b4ebbcd17))
 
 ---
 
 ## [v19](https://github.com/live-codes/livecodes/compare/v18...v19) (2023-11-27)
 
-
 ### Bug Fixes
 
-* **Templates:** fix solid template ([32732a0](https://github.com/live-codes/livecodes/commit/32732a0bc32a0660561d4d104379785877e755aa))
-
+- **Templates:** fix solid template ([32732a0](https://github.com/live-codes/livecodes/commit/32732a0bc32a0660561d4d104379785877e755aa))
 
 ### Features
 
-* **compilers:** upgrade Brython to v3.12.1 running Python v3.12 ([933f606](https://github.com/live-codes/livecodes/commit/933f606d960d9cea9b41534e944e6c2417902b77))
-* **Types:** load types for imports from CDN URLs ([8d25463](https://github.com/live-codes/livecodes/commit/8d2546393591c49e1b698e707e731b2977ad8085))
-
-
-
+- **compilers:** upgrade Brython to v3.12.1 running Python v3.12 ([933f606](https://github.com/live-codes/livecodes/commit/933f606d960d9cea9b41534e944e6c2417902b77))
+- **Types:** load types for imports from CDN URLs ([8d25463](https://github.com/live-codes/livecodes/commit/8d2546393591c49e1b698e707e731b2977ad8085))
 
 ---
 
