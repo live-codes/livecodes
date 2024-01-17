@@ -2584,6 +2584,7 @@ declare module "livecodes/notifications/index" {
 }
 declare module "livecodes/toolspane/test-imports" {
     export const testImports: {
+        react: string;
         '@testing-library/dom': string;
         '@testing-library/jest-dom': string;
         '@testing-library/react': string;
