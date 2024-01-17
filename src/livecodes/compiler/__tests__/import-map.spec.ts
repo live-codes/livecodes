@@ -29,10 +29,10 @@ describe('Import map', () => {
     `;
 
     const importMap = {
-      '@codemirror/basic-setup': 'https://jspm.dev/@codemirror/basic-setup',
+      '@codemirror/basic-setup': 'https://esm.sh/@codemirror/basic-setup',
       lodash: 'https://unpkg.com/lodash',
       mylib: 'https://someurl/path/module',
-      similar2: 'https://jspm.dev/similar2',
+      similar2: 'https://esm.sh/similar2',
     };
 
     const map = createImportMap(code, config);
@@ -60,7 +60,7 @@ describe('Import map', () => {
     `;
 
     const expectedCode = `
-    import { EditorState, EditorView, basicSetup } from 'https://jspm.dev/@codemirror/basic-setup';
+    import { EditorState, EditorView, basicSetup } from 'https://esm.sh/@codemirror/basic-setup';
     import fp from "https://unpkg.com/lodash/fp.js";
     import { html } from 'http://localhost/@codemirror/lang-html';
     import { flatten } from 'https://cdn.jsdelivr.net/gh/remeda/remeda@master/src/flatten.js';

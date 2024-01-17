@@ -4,17 +4,17 @@ describe('modulesService', () => {
   test('CDN urls', () => {
     const url = modulesService.getModuleUrl;
 
-    expect(url('uuid')).toEqual('https://jspm.dev/uuid');
+    expect(url('uuid')).toEqual('https://esm.sh/uuid');
 
-    expect(url('uuid@1.0.0')).toEqual('https://jspm.dev/uuid@1.0.0');
+    expect(url('uuid@1.0.0')).toEqual('https://esm.sh/uuid@1.0.0');
 
     expect(url('uuid@1.0.0/sub/directory/file.js')).toEqual(
-      'https://jspm.dev/uuid@1.0.0/sub/directory/file.js',
+      'https://esm.sh/uuid@1.0.0/sub/directory/file.js',
     );
 
     expect(url('jspm:uuid')).toEqual('https://jspm.dev/uuid');
 
-    expect(url('npm:uuid')).toEqual('https://jspm.dev/uuid');
+    expect(url('npm:uuid')).toEqual('https://esm.sh/uuid');
 
     expect(url('skypack:uuid')).toEqual('https://cdn.skypack.dev/uuid');
 

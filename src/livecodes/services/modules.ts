@@ -74,9 +74,9 @@ const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
 const TEMPLATES: Array<[RegExp, string]> = [
   [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
 
-  [/^(npm:)(.+)/i, 'https://jspm.dev/$2'],
+  [/^(npm:)(.+)/i, 'https://esm.sh/$2'],
 
-  [/^(node:)(.+)/i, 'https://jspm.dev/$2'],
+  [/^(node:)(.+)/i, 'https://esm.sh/$2'],
 
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
