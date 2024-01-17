@@ -47,6 +47,8 @@ render(<App name="Preact" />, document.body);
   stylesheets: [],
   scripts: [],
   cssPreset: '',
-  imports: {},
   types: {},
+  customSettings: {
+    defaultCDN: 'jspm',
+  },
 };
