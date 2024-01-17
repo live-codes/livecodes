@@ -116,13 +116,14 @@ declare module "sdk/models" {
         autotest: boolean;
         delay: number;
         formatOnsave: boolean;
-        theme: Theme;
         recoverUnsaved: boolean;
         showSpacing: boolean;
         welcome: boolean;
     }
     export interface EditorConfig {
         editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+        theme: Theme;
+        editorTheme: EditorTheme[] | string | undefined;
         fontFamily: string | undefined;
         fontSize: number | undefined;
         useTabs: boolean;
@@ -399,7 +400,7 @@ declare module "sdk/models" {
         registerFormatter: (formatFn: FormatFn | undefined) => void;
         format: () => Promise<void>;
         isReadonly: boolean;
-        setTheme: (theme: Theme) => void;
+        setTheme: (theme: Theme, editorTheme: Config['editorTheme']) => void;
         undo: () => void;
         redo: () => void;
         destroy: () => void;
@@ -425,6 +426,10 @@ declare module "sdk/models" {
         getFormatterConfig: () => Partial<FormatterConfig>;
         getFontFamily: (font: string | undefined) => string;
     }
+    export type MonacoTheme = 'active4d' | 'all-hallows-eve' | 'amy' | 'birds-of-paradise' | 'blackboard' | 'brilliance-black' | 'brilliance-dull' | 'chrome-devtools' | 'clouds-midnight' | 'clouds' | 'cobalt' | 'cobalt2' | 'dawn' | 'dracula' | 'dreamweaver' | 'eiffel' | 'espresso-libre' | 'github' | 'github-dark' | 'github-light' | 'hc-black' | 'hc-light' | 'idle' | 'idlefingers' | 'iplastic' | 'katzenmilch' | 'krtheme' | 'kuroir' | 'lazy' | 'magicwb-amiga' | 'merbivore-soft' | 'merbivore' | 'monokai' | 'monokai-bright' | 'monoindustrial' | 'night-owl' | 'nord' | 'oceanic-next' | 'pastels-on-dark' | 'slush-and-poppies' | 'solarized-dark' | 'solarized-light' | 'spacecadet' | 'sunburst' | 'textmate-mac-classic' | 'tomorrow' | 'tomorrow-night' | 'tomorrow-night-blue' | 'tomorrow-night-bright' | 'tomorrow-night-eighties' | 'twilight' | 'upstream-sunburst' | 'vibrant-ink' | 'vs' | 'vs-dark' | 'xcode-default' | 'zenburnesque';
+    export type CodemirrorTheme = 'amy' | 'aura' | 'ayu-light' | 'barf' | 'basic-light' | 'basic-dark' | 'bespin' | 'birds-of-paradise' | 'boys-and-girls' | 'clouds' | 'cm-light' | 'cobalt' | 'cool-glow' | 'dracula' | 'espresso' | 'github-dark' | 'github-light' | 'gruvbox-dark' | 'gruvbox-light' | 'material-dark' | 'material-light' | 'noctis-lilac' | 'nord' | 'one-dark' | 'rose-pine-dawn' | 'smoothy' | 'solarized-light' | 'solarized-dark' | 'tokyo-night' | 'tokyo-night-day' | 'tokyo-night-storm' | 'tomorrow';
+    export type CodejarTheme = 'a11y-dark' | 'atom-dark' | 'base16-ateliersulphurpool-light' | 'cb' | 'coldark-cold' | 'coldark-dark' | 'coy' | 'coy-without-shadows' | 'darcula' | 'dark' | 'dracula' | 'duotone-dark' | 'duotone-earth' | 'duotone-forest' | 'duotone-light' | 'duotone-sea' | 'duotone-space' | 'funky' | 'ghcolors' | 'gruvbox-dark' | 'gruvbox-light' | 'holi-theme' | 'hopscotch' | 'laserwave' | 'lucario' | 'material-dark' | 'material-light' | 'material-oceanic' | 'night-owl' | 'nord' | 'okaidia' | 'one-dark' | 'one-light' | 'pojoaque' | 'shades-of-purple' | 'solarized-dark-atom' | 'solarized-light' | 'synthwave84' | 'tomorrow' | 'twilight' | 'vs' | 'vsc-dark-plus' | 'xonokai' | 'z-touchs';
+    export type EditorTheme = MonacoTheme | CodemirrorTheme | CodejarTheme | `${MonacoTheme}@${Theme}` | `${CodemirrorTheme}@${Theme}` | `${CodejarTheme}@${Theme}` | `monaco:${MonacoTheme}` | `codemirror:${CodemirrorTheme}` | `codejar:${CodejarTheme}` | `monaco:${MonacoTheme}@${Theme}` | `codemirror:${CodemirrorTheme}@${Theme}` | `codejar:${CodejarTheme}@${Theme}`;
     export interface CustomEditor {
         language: Language;
         show: (show: boolean, options: CustomEditorOptions) => Promise<void>;
@@ -688,11 +693,20 @@ declare module "livecodes/vendors" {
     export const cherryCljsBaseUrl: string;
     export const cjs2esUrl: string;
     export const clioBaseUrl: string;
+    export const cm6ThemeBasicLightUrl: string;
+    export const cm6ThemeBasicDarkUrl: string;
+    export const cm6ThemeGruvboxLightUrl: string;
+    export const cm6ThemeGruvboxDarkUrl: string;
+    export const cm6ThemeMaterialDarkUrl: string;
+    export const cm6ThemeNordUrl: string;
+    export const cm6ThemeSolarizedLightUrl: string;
+    export const cm6ThemeSolarizedDarkUrl: string;
     export const coffeeScriptUrl: string;
     export const cppWasmBaseUrl: string;
     export const csstreeUrl: string;
     export const cytoscapeSvgUrl: string;
     export const cytoscapeUrl: string;
+    export const ddietrCmThemesBaseUrl: string;
     export const dotUrl: string;
     export const ejsUrl: string;
     export const elkjsBaseUrl: string;
@@ -757,6 +771,7 @@ declare module "livecodes/vendors" {
     export const mermaidCdnUrl: string;
     export const mjmlUrl: string;
     export const monacoEmacsUrl: string;
+    export const monacoThemesBaseUrl: string;
     export const monacoVimUrl: string;
     export const mustacheUrl: string;
     export const nomnomlCdnUrl: string;
@@ -770,6 +785,9 @@ declare module "livecodes/vendors" {
     export const prettierBaseUrl: string;
     export const prettierPhpUrl: string;
     export const prismBaseUrl: string;
+    export const prismOfficialThemesBaseUrl: string;
+    export const prismThemesBaseUrl: string;
+    export const prismThemesLaserWaveUrl: string;
     export const pyodideBaseUrl: string;
     export const qrcodeUrl: string;
     export const quillEditorCdnBaseUrl: string;
@@ -799,6 +817,7 @@ declare module "livecodes/vendors" {
     export const tailwindcssUrl: string;
     export const tauPrologBaseUrl: string;
     export const tealUrl: string;
+    export const thememirrorBaseUrl: string;
     export const twigUrl: string;
     export const typescriptUrl: string;
     export const uniterUrl: string;
@@ -2640,6 +2659,9 @@ declare module "livecodes/UI/selectors" {
     export const getEditorStatus: () => HTMLElement;
     export const getExternalResourcesBtn: () => HTMLElement;
     export const getExternalResourcesMark: () => HTMLElement;
+    export const getProjectInfoBtn: () => HTMLElement;
+    export const getCustomSettingsBtn: () => HTMLElement;
+    export const getEditorSettingsBtn: () => HTMLElement;
     export const getResultButton: () => HTMLElement;
     export const getFullscreenButton: () => HTMLElement;
     export const getEditorTitles: () => NodeListOf<HTMLElement>;
@@ -3096,6 +3118,38 @@ declare module "livecodes/UI/embed-ui" {
         createEditorFn: (container: HTMLElement) => Promise<CodeEditor>;
         getUrlFn: (permanentUrl?: boolean) => Promise<string>;
     }) => Promise<void>;
+}
+declare module "livecodes/editor/themes" {
+    import type { CodejarTheme, CodemirrorTheme, Config, MonacoTheme } from "livecodes/models";
+    export const getEditorTheme: ({ editor, editorTheme, theme, editorThemes, }: Pick<Config, "editor" | "theme" | "editorTheme"> & {
+        editorThemes: Array<MonacoTheme | CodemirrorTheme | CodejarTheme>;
+    }) => "idle" | "lazy" | "dark" | "active4d" | "all-hallows-eve" | "amy" | "birds-of-paradise" | "blackboard" | "brilliance-black" | "brilliance-dull" | "chrome-devtools" | "clouds-midnight" | "clouds" | "cobalt" | "cobalt2" | "dawn" | "dracula" | "dreamweaver" | "eiffel" | "espresso-libre" | "github" | "github-dark" | "github-light" | "hc-black" | "hc-light" | "idlefingers" | "iplastic" | "katzenmilch" | "krtheme" | "kuroir" | "magicwb-amiga" | "merbivore-soft" | "merbivore" | "monokai" | "monokai-bright" | "monoindustrial" | "night-owl" | "nord" | "oceanic-next" | "pastels-on-dark" | "slush-and-poppies" | "solarized-dark" | "solarized-light" | "spacecadet" | "sunburst" | "textmate-mac-classic" | "tomorrow" | "tomorrow-night" | "tomorrow-night-blue" | "tomorrow-night-bright" | "tomorrow-night-eighties" | "twilight" | "upstream-sunburst" | "vibrant-ink" | "vs" | "vs-dark" | "xcode-default" | "zenburnesque" | "aura" | "ayu-light" | "barf" | "basic-light" | "basic-dark" | "bespin" | "boys-and-girls" | "cm-light" | "cool-glow" | "espresso" | "gruvbox-dark" | "gruvbox-light" | "material-dark" | "material-light" | "noctis-lilac" | "one-dark" | "rose-pine-dawn" | "smoothy" | "tokyo-night" | "tokyo-night-day" | "tokyo-night-storm" | "a11y-dark" | "atom-dark" | "base16-ateliersulphurpool-light" | "cb" | "coldark-cold" | "coldark-dark" | "coy" | "coy-without-shadows" | "darcula" | "duotone-dark" | "duotone-earth" | "duotone-forest" | "duotone-light" | "duotone-sea" | "duotone-space" | "funky" | "ghcolors" | "holi-theme" | "hopscotch" | "laserwave" | "lucario" | "material-oceanic" | "okaidia" | "one-light" | "pojoaque" | "shades-of-purple" | "solarized-dark-atom" | "synthwave84" | "vsc-dark-plus" | "xonokai" | "z-touchs" | null;
+}
+declare module "livecodes/editor/monaco/monaco-themes" {
+    import type { MonacoTheme } from "livecodes/models";
+    export const monacoThemes: Array<{
+        name: MonacoTheme;
+        title: string;
+        url?: string;
+    }>;
+}
+declare module "livecodes/editor/codemirror/codemirror-themes" {
+    import type { CodemirrorTheme } from "livecodes/models";
+    export const codemirrorThemes: Array<{
+        name: CodemirrorTheme;
+        title: string;
+        url?: string;
+        exportName?: string;
+    }>;
+}
+declare module "livecodes/editor/codejar/prism-themes" {
+    import type { CodejarTheme } from "livecodes/models";
+    export const prismThemes: Array<{
+        name: CodejarTheme;
+        title: string;
+        url: string;
+        overrideCSS?: string;
+    }>;
 }
 declare module "livecodes/UI/editor-settings" {
     import type { createEventsManager } from "livecodes/events/index";
@@ -5059,6 +5113,7 @@ declare module "sdk/index" {
     export function createPlayground(options: EmbedOptions & {
         view: 'headless';
     }): Promise<Playground>;
+    export function getPlaygroundUrl(options?: EmbedOptions): string;
 }
 declare module "sdk/vue" {
     import type { DefineComponent, AllowedComponentProps, ComponentCustomProps, ComponentOptionsMixin, ExtractPropTypes, RendererElement, RendererNode, VNode, VNodeProps } from '@vue/runtime-core';
