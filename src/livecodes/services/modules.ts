@@ -2,14 +2,14 @@ import type { CDN } from '../models';
 
 declare const globalThis: { appCDN: CDN };
 
-const moduleCDNs: CDN[] = ['jspm', 'esm.sh', 'skypack'];
+const moduleCDNs: CDN[] = ['esm.sh', 'skypack', 'jspm'];
 const npmCDNs: CDN[] = ['unpkg', 'jsdelivr', 'fastly.jsdelivr'];
 const ghCDNs: CDN[] = ['fastly.jsdelivr.gh', 'jsdelivr.gh', 'statically'];
 
 export const modulesService = {
   getModuleUrl: (
     moduleName: string,
-    { isModule = true, defaultCDN = 'jspm' }: { isModule?: boolean; defaultCDN?: CDN } = {},
+    { isModule = true, defaultCDN = 'esm.sh' }: { isModule?: boolean; defaultCDN?: CDN } = {},
   ) => {
     moduleName = moduleName.replace(/#nobundle/g, '');
 
@@ -18,9 +18,7 @@ export const modulesService = {
       return moduleUrl;
     }
 
-    return isModule
-      ? 'https://jspm.dev/' + moduleName
-      : 'https://cdn.jsdelivr.net/npm/' + moduleName;
+    return isModule ? 'https://esm.sh/' + moduleName : 'https://cdn.jsdelivr.net/npm/' + moduleName;
   },
 
   getUrl: (path: string, cdn?: CDN) =>
@@ -76,9 +74,9 @@ const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
 const TEMPLATES: Array<[RegExp, string]> = [
   [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
 
-  [/^(npm:)(.+)/i, 'https://jspm.dev/$2'],
+  [/^(npm:)(.+)/i, 'https://esm.sh/$2'],
 
-  [/^(node:)(.+)/i, 'https://jspm.dev/$2'],
+  [/^(node:)(.+)/i, 'https://esm.sh/$2'],
 
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
