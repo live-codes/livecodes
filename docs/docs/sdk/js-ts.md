@@ -5,8 +5,9 @@ title: JS/TS SDK
 # JavaScript/<wbr />TypeScript SDK
 
 import LiveCodes from '../../src/components/LiveCodes.tsx'
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx'
 
-This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a lightweight library (less than 3kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds.
+This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a lightweight library (less than 5kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
 
 ## Installation
 
@@ -25,6 +26,8 @@ TypeScript types are [documented here](../api/modules.md) and can be imported fr
 ```ts
 import type { EmbedOptions, Playground } from 'livecodes';
 ```
+
+The following 2 functions are exported by the library:
 
 ## `createPlayground`
 
@@ -69,11 +72,41 @@ The `createPlayground` function throws an error (promise is rejected) in any of 
 
 :::
 
+## `getPlaygroundUrl`
+
+Type: [`(options?: EmbedOptions) => string`](../api/modules.md#getplaygroundurl)
+
+Gets the URL to playground (as a string) from the provided [embed options](#embed-options). This is useful for easily providing links to run code in playgrounds.
+
+Example:
+
+```html
+<pre><code class="language-markdown"># Hello World!</code></pre>
+<a href="#" id="playground-link" target="_blank">Open in playground</a>
+<script type="module">
+  // highlight-next-line
+  import { getPlaygroundUrl } from 'livecodes';
+  const config = {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World!',
+    },
+  };
+  // highlight-next-line
+  const url = getPlaygroundUrl({ config });
+  document.querySelector('#playground-link').href = url;
+</script>
+```
+
+export const getPlaygroundUrlDemo = {html: `<pre><code\nclass="language-markdown"># Hello World!</code></pre>\n<a href="#" id="playground-link" target="_blank">Open in playground</a>\n<script type="module">\n  import { getPlaygroundUrl } from 'livecodes';\n  const config = {\n    markup: {\n      language: 'markdown',\n      content: '# Hello World!',\n    },\n  };\n  const url = getPlaygroundUrl({ config });\n  document.querySelector('#playground-link').href = url;\n</script>`}
+
+<RunInLiveCodes params={getPlaygroundUrlDemo} />
+
 ## Embed Options
 
 Type: [`EmbedOptions`](../api/interfaces/EmbedOptions.md)
 
-The second argument of the `createPlayground` function is an optional object with the following optional properties:
+The [`createPlayground`](#createplayground) and [`getPlaygroundUrl`](#getplaygroundurl) functions accept an optional object with the following optional properties:
 
 ### `appUrl`
 
@@ -164,7 +197,7 @@ When set to `"headless"`, the playground is loaded in [headless mode](./headless
 
 ## SDK Methods
 
-Type: ([`Playground`](../api/interfaces/Playground.md))
+The [`createPlayground`](#createplayground) function returns a promise which resolves to an object ([`Playground`](../api/interfaces/Playground.md)) that exposes some useful SDK methods that can be used to interact with the playground. These methods include:
 
 ### `load`
 

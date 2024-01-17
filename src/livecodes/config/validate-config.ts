@@ -101,6 +101,9 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
+    ...(is(config.editorTheme, 'array', 'string') || is(config.editorTheme, 'string')
+      ? { editorTheme: config.editorTheme }
+      : {}),
     ...(is(config.recoverUnsaved, 'boolean') ? { recoverUnsaved: config.recoverUnsaved } : {}),
     ...(is(config.welcome, 'boolean') ? { welcome: config.welcome } : {}),
     ...(is(config.showSpacing, 'boolean') ? { showSpacing: config.showSpacing } : {}),

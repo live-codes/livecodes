@@ -297,6 +297,12 @@ a {
   #editors #code-run-button {
     display: flex !important;
   }
+
+  #project-info-btn,
+  #broadcast-status-btn,
+  #custom-settings-btn {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -386,6 +392,12 @@ a {
   }
 
   #settings-button {
+    display: none;
+  }
+
+  #editor-settings-btn,
+  #project-info-btn,
+  #custom-settings-btn {
     display: none;
   }
 
@@ -564,10 +576,6 @@ a {
       > span {
         margin: auto 4px;
       }
-    }
-
-    #external-resources-btn {
-      right: 1em;
     }
   }
 }
@@ -3136,6 +3144,43 @@ i.arrow {
   .token.comment {
     font-style: italic;
   }
+}
+
+/* line numbers */
+pre[class*='language-'].line-numbers {
+  counter-reset: linenumber;
+  padding-left: 3.8em;
+  position: relative;
+}
+
+pre[class*='language-'].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+  font-size: 100%;
+  left: -3.8em;
+  letter-spacing: -1px; /* works for line-numbers below 1000 lines */
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  /* border-right: 1px solid #999; */
+  user-select: none;
+  width: 3em;
+}
+
+.line-numbers-rows > span {
+  counter-increment: linenumber;
+  display: block;
+}
+
+.line-numbers-rows > span::before {
+  color: #999;
+  content: counter(linenumber);
+  display: block;
+  padding-right: 0.8em;
+  text-align: right;
 }
 
 .autoComplete_wrapper {

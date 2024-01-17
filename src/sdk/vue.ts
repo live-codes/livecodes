@@ -15,7 +15,7 @@ import type {
   VNode,
   VNodeProps,
 } from '@vue/runtime-core';
-import { h, onMounted, onUnmounted, ref } from '@vue/runtime-core';
+import { h, onMounted, onUnmounted, ref, watch } from '@vue/runtime-core';
 
 import type { Playground, EmbedOptions } from './models';
 import { createPlayground } from './index';
@@ -36,31 +36,69 @@ const props = {
   height: String,
 } satisfies { [key in keyof Required<Props>]: any };
 
+// remove functions added to objects by vue ref
+const clone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj));
+
 // @ts-ignore
 const LiveCodes: LiveCodesComponent = {
   props,
   emits: ['sdkReady'],
   setup(props, ctx) {
-    const { height, ...options } = props;
+    const { height: _height, ...options } = props;
     const containerRef = ref<HTMLElement>();
-    let playground: Playground | undefined;
+    const height = ref(_height || '');
+    const playground = ref<Playground | undefined>();
+    const { config, ...otherOptions } = options;
+    let configCache = JSON.stringify(config);
+    let otherOptionsCache = JSON.stringify(otherOptions);
 
     onMounted(() => {
       if (!containerRef.value) return;
-      createPlayground(containerRef.value, options as EmbedOptions).then((sdk) => {
-        playground = sdk;
+      createPlayground(containerRef.value, clone(options)).then((sdk) => {
+        playground.value = sdk;
         ctx.emit('sdkReady', sdk);
       });
     });
 
-    onUnmounted(() => {
-      playground?.destroy();
+    watch(props, async (newProps) => {
+      if (!containerRef.value || !playground.value) return;
+      const { height: _height, ...options } = newProps;
+
+      height.value = _height || '';
+
+      // eslint-disable-next-line prefer-const
+      let { config, ...otherOptions } = options;
+      if (typeof config === 'string') {
+        config = await fetch(config).then((res) => res.json());
+      }
+
+      if (JSON.stringify(otherOptions) !== otherOptionsCache) {
+        await playground.value?.destroy();
+        createPlayground(containerRef.value, clone(options)).then((sdk) => {
+          playground.value = sdk;
+          ctx.emit('sdkReady', sdk);
+        });
+      } else if (JSON.stringify(config) !== configCache) {
+        playground.value.setConfig((clone(config) as any) || {});
+      }
+
+      configCache = JSON.stringify(config);
+      otherOptionsCache = JSON.stringify(otherOptions);
     });
+
+    onUnmounted(() => {
+      playground.value?.destroy();
+    });
+
     return () =>
-      h('div', {
-        ref: containerRef,
-        'data-height': height,
-      });
+      h(
+        'div',
+        {
+          ref: containerRef,
+          'data-height': height,
+        },
+        ctx.slots.default?.() || '',
+      );
   },
 };
 

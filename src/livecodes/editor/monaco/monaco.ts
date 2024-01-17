@@ -13,18 +13,23 @@ import type {
   EditorConfig,
   PkgInfo,
   APIError,
+  MonacoTheme,
+  Config,
 } from '../../models';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
+import { getEditorTheme } from '../themes';
+import { monacoThemes } from './monaco-themes';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
 let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
+const loadedThemes = new Set<string>();
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -32,6 +37,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     baseUrl,
     readonly,
     theme,
+    editorTheme,
     isEmbed,
     getLanguageExtension,
     mapLanguage,
@@ -86,8 +92,44 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     colors: {},
   });
 
+  const loadTheme = async (theme: Theme, editorTheme: Config['editorTheme']) => {
+    const selectedTheme = getEditorTheme({
+      editor: 'monaco',
+      editorTheme,
+      theme,
+      editorThemes: monacoThemes.map((t) => t.name),
+    });
+    const newTheme = (
+      selectedTheme === 'vs'
+        ? 'custom-vs-light'
+        : selectedTheme === 'vs-dark'
+        ? 'custom-vs-dark'
+        : !selectedTheme
+        ? 'custom-vs-' + theme
+        : selectedTheme
+    ) as MonacoTheme;
+
+    if (loadedThemes.has(newTheme)) return newTheme;
+    const themeData = monacoThemes.find((t) => t.name === newTheme);
+    if (themeData?.url) {
+      await fetch(themeData.url)
+        .then((data) => data.json())
+        .then((data) => {
+          monaco.editor.defineTheme(newTheme, data);
+          loadedThemes.add(newTheme);
+        });
+    }
+    return newTheme;
+  };
+
+  const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
+    loadTheme(theme, editorTheme).then((newTheme) => {
+      monaco.editor.setTheme(newTheme);
+    });
+  };
+
   const defaultOptions: Options = {
-    theme: 'custom-vs-' + theme,
+    theme: await loadTheme(theme, editorTheme),
     fontLigatures: true,
     formatOnType: false,
     lineNumbersMinChars: 3,
@@ -214,7 +256,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   type Listener = () => void;
   const listeners: Listener[] = [];
-  const upateListeners = () => {
+  const updateListeners = () => {
     listeners.forEach((fn) => editor.getModel()?.onDidChangeContent(fn));
   };
 
@@ -239,7 +281,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     );
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
-    upateListeners();
+    updateListeners();
     configureEditor();
   };
 
@@ -490,10 +532,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         disposeEmmet.disabled = true;
       }
     });
-  };
-
-  const setTheme = (theme: Theme) => {
-    monaco.editor.setTheme('custom-vs-' + theme);
   };
 
   const changeSettings = (settings: EditorConfig) => {
