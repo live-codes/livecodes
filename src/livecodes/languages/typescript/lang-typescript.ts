@@ -2,6 +2,8 @@ import type { LanguageSpecs } from '../../models';
 import { typescriptUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 import { parserPlugins } from '../prettier';
+// eslint-disable-next-line import/no-internal-modules
+import { hasCustomJsxRuntime } from '../jsx/jsx-runtime';
 
 export const typescriptOptions = {
   target: 'es2015',
@@ -22,12 +24,16 @@ export const typescript: LanguageSpecs = {
     url: typescriptUrl,
     factory:
       () =>
-      async (code, { config, language }) =>
-        (window as any).ts.transpile(code, {
+      async (code, { config }) => {
+        if (['jsx', 'tsx'].includes(config.script.language) && !hasCustomJsxRuntime(code)) {
+          code = `import React from 'react';\n${code}`;
+        }
+        return (window as any).ts.transpile(code, {
           ...typescriptOptions,
           ...getLanguageCustomSettings('typescript', config),
-          ...getLanguageCustomSettings(language, config),
-        }),
+          ...getLanguageCustomSettings(config.script.language, config),
+        });
+      },
   },
   extensions: ['ts', 'typescript'],
   editor: 'script',

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import {
   createImportMap,
   createCSSModulesImportMap,
@@ -7,9 +8,9 @@ import {
   removeImports,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
+import { hasCustomJsxRuntime, hasDefaultExport, reactRuntime } from '../languages/jsx/jsx-runtime';
 import type { Cache, EditorId, Config, CompileInfo } from '../models';
 import { getAppCDN, modulesService } from '../services';
-// eslint-disable-next-line import/no-internal-modules
 import { testImports } from '../toolspane/test-imports';
 import {
   addAttrs,
@@ -156,6 +157,12 @@ export const createResultPage = async ({
     getImports(markup).includes('./script') ||
     (runTests && !forExport && getImports(compiledTests).includes('./script'));
 
+  const shouldInsertReactJsxRuntime =
+    ['jsx', 'tsx'].includes(code.script.language) &&
+    hasDefaultExport(code.script.compiled) &&
+    !hasCustomJsxRuntime(code.script.content || '') &&
+    !importFromScript;
+
   let compilerImports = {};
 
   for (const { language, compiled } of runtimeDependencies) {
@@ -218,10 +225,13 @@ export const createResultPage = async ({
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
+          ...(shouldInsertReactJsxRuntime ? createImportMap(reactRuntime, config) : {}),
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),
-          ...(importFromScript ? { './script': toDataUrl(code.script.compiled) } : {}),
+          ...(importFromScript || shouldInsertReactJsxRuntime
+            ? { './script': toDataUrl(code.script.compiled) }
+            : {}),
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,
@@ -263,7 +273,7 @@ export const createResultPage = async ({
     dom.head.appendChild(externalScript);
   });
 
-  if (!importFromScript) {
+  if (!importFromScript && !shouldInsertReactJsxRuntime) {
     // editor script
     const script = code.script.compiled;
     const scriptElement = dom.createElement('script');
@@ -286,6 +296,14 @@ export const createResultPage = async ({
     } else if (isModuleScript(script)) {
       scriptElement.type = 'module';
     }
+  }
+
+  // React JSX runtime
+  if (shouldInsertReactJsxRuntime) {
+    const jsxRuntimeScript = dom.createElement('script');
+    jsxRuntimeScript.type = 'module';
+    jsxRuntimeScript.innerHTML = reactRuntime;
+    dom.body.appendChild(jsxRuntimeScript);
   }
 
   // spacing
