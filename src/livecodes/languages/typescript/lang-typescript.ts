@@ -7,7 +7,7 @@ import { hasCustomJsxRuntime } from '../jsx/jsx-runtime';
 
 export const typescriptOptions = {
   target: 'es2015',
-  jsx: 'react-jsx',
+  jsx: 'react',
   allowUmdGlobalAccess: true,
   esModuleInterop: true,
 };
@@ -27,7 +27,9 @@ export const typescript: LanguageSpecs = {
       async (code, { config }) =>
         (window as any).ts.transpile(code, {
           ...typescriptOptions,
-          ...(hasCustomJsxRuntime(code) ? { jsx: 'react' } : {}),
+          ...(['jsx', 'tsx'].includes(config.script.language) && !hasCustomJsxRuntime(code)
+            ? { jsx: 'react-jsx' }
+            : {}),
           ...getLanguageCustomSettings('typescript', config),
           ...getLanguageCustomSettings(config.script.language, config),
         }),
