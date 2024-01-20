@@ -54,6 +54,8 @@ dot: [MIT License](https://github.com/olado/doT/blob/031d3bb7520eed6b93886df2b65
 
 dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a8708877a86a08c7e3bee92160ac1f/LICENSE)
 
+dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
+
 EasyQRCodeJS: [MIT License](https://github.com/ushelp/EasyQRCodeJS/blob/573373b110d706132a41cc8abb5b297016b80094/LICENSE)
 
 EJS: [Apache License 2.0](https://github.com/mde/ejs/blob/f47d7aedd51a983e4f73045f962b1209096b5800/LICENSE)
