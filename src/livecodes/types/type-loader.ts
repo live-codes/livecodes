@@ -1,9 +1,10 @@
-import { getImports } from '../compiler';
+/* eslint-disable import/no-internal-modules */
 import type { EditorLibrary, Types } from '../models';
-import { typesService } from '../services';
-import { objectFilter, safeName } from '../utils';
+import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
+import { typesService } from '../services/types';
+import { objectFilter, safeName } from '../utils/utils';
 
-export const createTypeLoader = () => {
+export const createTypeLoader = (baseUrl: string) => {
   let loadedTypes: Types = {};
 
   const getTypeContents = async (type: Types): Promise<EditorLibrary> => {
@@ -16,7 +17,15 @@ export const createTypeLoader = () => {
       try {
         const res = await fetch(url);
         if (!res.ok) throw new Error('Failed fetching: ' + url);
-        const dts = await res.text();
+        let dts = await res.text();
+
+        if (hasUrlImportsOrExports(dts)) {
+          const dtsBundleModule: typeof import('./bundle-types') = await import(
+            baseUrl + '{{hash:bundle-types.js}}'
+          );
+          dts = await dtsBundleModule.bundle({ name, main: url });
+        }
+
         const declareAsModule =
           !dts.includes('declare module') ||
           (typeof value !== 'string' && value.declareAsModule === true);

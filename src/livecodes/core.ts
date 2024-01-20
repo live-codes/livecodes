@@ -3859,7 +3859,7 @@ const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal();
   split = createSplitPanes();
-  typeLoader = createTypeLoader();
+  typeLoader = createTypeLoader(baseUrl);
 
   handleLogoLink();
   handleResize();

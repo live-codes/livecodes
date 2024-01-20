@@ -279,6 +279,8 @@ export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
 
+export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
+
 export const pintoraUrl = /* @__PURE__ */ getUrl(
   '@pintora/standalone@0.6.2/lib/pintora-standalone.umd.js',
 );

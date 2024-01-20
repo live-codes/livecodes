@@ -148,6 +148,8 @@ Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf
 
 Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac3e7f9ecd328b977efe91c38ccfd0d94d/LICENSE.md)
 
+path-browserify: [MIT License](https://github.com/browserify/path-browserify/blob/872fec31a8bac7b9b43be0e54ef3037e0202c5fb/LICENSE)
+
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 
 php-wasm: [Apache License 2.0](https://github.com/seanmorris/php-wasm/blob/094f4e00fa99b1271af077b6de7d0d38d475ecae/LICENSE)
