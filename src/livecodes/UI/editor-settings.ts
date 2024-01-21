@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { Config, EditorOptions, FormatFn, UserConfig } from '../models';
+import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
@@ -27,6 +27,7 @@ export const createEditorSettingsUI = async ({
   deps: {
     getUserConfig: () => UserConfig;
     createEditor: typeof createEditor;
+    loadTypes: (code: string) => Promise<EditorLibrary[]>;
     getFormatFn: () => Promise<FormatFn>;
     changeSettings: (newConfig: Partial<UserConfig>) => void;
   };
@@ -209,10 +210,10 @@ export const createEditorSettingsUI = async ({
     baseUrl,
     container: previewContainer,
     editorId: 'editorSettings',
-    getLanguageExtension: () => 'jsx',
+    getLanguageExtension: () => 'tsx',
     isEmbed: false,
     isHeadless: false,
-    language: 'jsx',
+    language: 'tsx',
     mapLanguage: () => 'typescript',
     readonly: false,
     value: editorContent,
@@ -225,6 +226,13 @@ export const createEditorSettingsUI = async ({
 
   const initializeEditor = async (options: EditorOptions) => {
     const ed = await deps.createEditor(options);
+    if (typeof ed.addTypes === 'function') {
+      deps.loadTypes(editorContent).then((types) => {
+        types.forEach((type) => {
+          ed?.addTypes?.(type);
+        });
+      });
+    }
     deps.getFormatFn().then((fn) => {
       setTimeout(() => {
         ed.registerFormatter(fn);
@@ -446,7 +454,7 @@ const editorContent = `
 import React, { useState } from 'react';
 import { createRoot } from "react-dom/client";
 
-function App(props) {
+function App(props: { name: string }) {
   const [count, setCount] = useState(0);
   // increment on click!
   const onClick = () => setCount(count + 1);

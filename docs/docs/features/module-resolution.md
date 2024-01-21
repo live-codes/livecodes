@@ -22,10 +22,10 @@ If you run it directly in the browser, you get this error:
 Uncaught TypeError: Failed to resolve module specifier "uuid". Relative references must start with either "/", "./", or "../".
 ```
 
-However, in LiveCodes, bare module imports are transformed to full URLs that are imported from CDN (by default: [jspm.dev](https://jspm.dev/)) which provides ESM versions of NPM packages.
+However, in LiveCodes, bare module imports are transformed to full URLs that are imported from CDN (by default: [esm.sh](https://esm.sh/)) which provides ESM versions of NPM packages.
 
 `import { v4 } from 'uuid';` <br /> becomes <br />
-`import { v4 } from 'https://jspm.dev/uuid';`
+`import { v4 } from 'https://esm.sh/uuid';`
 
 This is made possible by using [import maps](https://github.com/WICG/import-maps).
 
@@ -122,15 +122,13 @@ If you want to bundle (and transpile) any import URL, prefix it with `bundle:` (
 
 ## CDN Providers
 
-By default, npm modules are imported from [jspm.dev](https://jspm.dev/). You may choose another provider by using a CDN prefix. These are examples of importing the library `uuid`:
+By default, npm modules are imported from [esm.sh](https://esm.sh/). You may choose another provider by using a CDN prefix. These are examples of importing the library `uuid`:
 
-`uuid` → https://jspm.dev/uuid ([info](https://jspm.org))
-
-`jspm:uuid` → https://jspm.dev/uuid ([info](https://jspm.org))
-
-`skypack:uuid` → https://cdn.skypack.dev/uuid ([info](https://www.skypack.dev/))
+`uuid` → https://esm.sh/uuid ([info](https://esm.sh))
 
 `esm.sh:uuid` → https://esm.sh/uuid ([info](https://esm.sh/))
+
+`skypack:uuid` → https://cdn.skypack.dev/uuid ([info](https://www.skypack.dev/))
 
 `jsdelivr:uuid` → https://cdn.jsdelivr.net/npm/uuid ([info](https://www.jsdelivr.com/))
 
@@ -146,9 +144,11 @@ By default, npm modules are imported from [jspm.dev](https://jspm.dev/). You may
 
 `deno:uuid` → https://deno.bundlejs.com/?file&q=https://deno.land/x/uuid/mod.ts ([info](https://bundlejs.com/))
 
-`npm:uuid` → https://jspm.dev/uuid ([info](https://jspm.org))
+`npm:uuid` → https://esm.sh/uuid ([info](https://esm.sh))
 
-`node:uuid` → https://jspm.dev/uuid ([info](https://jspm.org))
+`node:uuid` → https://esm.sh/uuid ([info](https://esm.sh))
+
+`jspm:uuid` → https://jspm.dev/uuid ([info](https://jspm.org) - [DEPRECATED](https://jspm.org/jspm-dev-deprecation))
 
 Example:
 

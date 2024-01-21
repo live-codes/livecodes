@@ -113,7 +113,6 @@ import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
-  chaiTypesUrl,
   fscreenUrl,
   hintCssUrl,
   jestTypesUrl,
@@ -314,7 +313,12 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     resultLanguages = getEditorLanguages();
   });
 
-const loadModuleTypes = async (editors: Editors, config: Config, force = false) => {
+const loadModuleTypes = async (
+  editors: Editors,
+  config: Config,
+  loadAll = false,
+  force = false,
+) => {
   if (typeof editors?.script?.addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
   if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
@@ -328,6 +332,7 @@ const loadModuleTypes = async (editors: Editors, config: Config, force = false) 
     const libs = await typeLoader.load(
       getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
+      loadAll,
       force,
     );
     libs.forEach((lib) => editors.script.addTypes?.(lib, force));
@@ -730,7 +735,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   await setSavedStatus();
   dispatchChangeEvent();
   addConsoleInputCodeCompletion();
-  loadModuleTypes(editors, getConfig());
+  loadModuleTypes(editors, getConfig(), /* loadAll = */ true);
   await applyLanguageConfigs(language);
 };
 
@@ -3232,7 +3237,8 @@ const handleEditorSettings = () => {
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
-        getFormatFn: () => formatter.getFormatFn('jsx'),
+        loadTypes: async (code: string) => typeLoader.load(code, {}),
+        getFormatFn: () => formatter.getFormatFn('tsx'),
         changeSettings,
       },
     });
@@ -3458,7 +3464,7 @@ const handleCustomSettings = () => {
         setCustomSettingsMark();
         await setSavedStatus();
         if (customSettings.types) {
-          loadModuleTypes(editors, getConfig(), /* force */ true);
+          loadModuleTypes(editors, getConfig(), /* loadAll = */ true, /* force */ true);
         }
       }
       customSettingsEditor?.destroy();
@@ -3616,15 +3622,20 @@ const handleTestEditor = () => {
         jest: {
           url: jestTypesUrl,
           autoload: true,
-        },
-        chai: {
-          url: chaiTypesUrl,
-          autoload: true,
+          declareAsGlobal: true,
         },
       };
-      typeLoader.load('', testTypes, true).then((libs) => {
-        libs.forEach((lib) => testEditor?.addTypes?.(lib));
-      });
+      let forceLoadTypes = true;
+      const loadTestTypes = () => {
+        typeLoader.load(testEditor?.getValue() || '', testTypes, forceLoadTypes).then((libs) => {
+          libs.forEach((lib) => testEditor?.addTypes?.(lib));
+        });
+        forceLoadTypes = false;
+      };
+      testEditor.onContentChanged(
+        debounce(loadTestTypes, () => getConfig().delay ?? defaultConfig.delay),
+      );
+      loadTestTypes();
     }
 
     eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {
@@ -3859,7 +3870,7 @@ const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal();
   split = createSplitPanes();
-  typeLoader = createTypeLoader();
+  typeLoader = createTypeLoader(baseUrl);
 
   handleLogoLink();
   handleResize();
@@ -4144,7 +4155,7 @@ const bootstrap = async (reload = false) => {
   setExternalResourcesMark();
   setCustomSettingsMark();
   updateCompiledCode();
-  loadModuleTypes(editors, getConfig());
+  loadModuleTypes(editors, getConfig(), /* loadAll = */ true);
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
     if (!getConfig().autoupdate) {
       setLoading(false);

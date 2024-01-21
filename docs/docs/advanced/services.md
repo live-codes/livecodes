@@ -9,7 +9,6 @@ Some of the services are not supported on [self-hosted](../features/self-hosting
 Examples:
 
 - The [share](../features/share.md) service in [self-hosted](../features/self-hosting.md) apps uses [dpaste](https://dpaste.com/) for short URLs, which are [**deleted after 365 days**](https://dpaste.com/help).
-- Automatically finding and loading TypeScript types for npm modules (for [editor intellisense](../features/intellisense.md)) are not available for [self-hosted](../features/self-hosting.md) apps.
 - [Firebase configuration](https://github.com/live-codes/livecodes/tree/develop/src/livecodes/services/firebase.ts) for authentication.
 
 :::info

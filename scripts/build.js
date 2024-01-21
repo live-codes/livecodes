@@ -221,6 +221,7 @@ const esmBuild = () =>
       'languages/language-info.ts',
       'export/export.ts',
       'sync/sync.ts',
+      'types/bundle-types.ts',
       'UI/open.ts',
       'UI/resources.ts',
       'UI/assets.ts',
