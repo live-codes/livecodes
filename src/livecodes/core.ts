@@ -113,7 +113,6 @@ import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
-  chaiTypesUrl,
   fscreenUrl,
   hintCssUrl,
   jestTypesUrl,
@@ -3232,7 +3231,8 @@ const handleEditorSettings = () => {
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
-        getFormatFn: () => formatter.getFormatFn('jsx'),
+        loadTypes: async (code: string) => typeLoader.load(code, {}),
+        getFormatFn: () => formatter.getFormatFn('tsx'),
         changeSettings,
       },
     });
@@ -3616,15 +3616,20 @@ const handleTestEditor = () => {
         jest: {
           url: jestTypesUrl,
           autoload: true,
-        },
-        chai: {
-          url: chaiTypesUrl,
-          autoload: true,
+          declareAsGlobal: true,
         },
       };
-      typeLoader.load('', testTypes, true).then((libs) => {
-        libs.forEach((lib) => testEditor?.addTypes?.(lib));
-      });
+      let forceLoadTypes = true;
+      const loadTestTypes = () => {
+        typeLoader.load(testEditor?.getValue() || '', testTypes, forceLoadTypes).then((libs) => {
+          libs.forEach((lib) => testEditor?.addTypes?.(lib));
+        });
+        forceLoadTypes = false;
+      };
+      testEditor.onContentChanged(
+        debounce(loadTestTypes, () => getConfig().delay ?? defaultConfig.delay),
+      );
+      loadTestTypes();
     }
 
     eventsManager.addEventListener(UI.getLoadTestsButton(), 'click', async () => {

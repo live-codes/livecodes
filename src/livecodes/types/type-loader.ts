@@ -2,7 +2,7 @@
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
-import { objectFilter, safeName } from '../utils/utils';
+import { objectFilter, removeDuplicates, safeName } from '../utils/utils';
 
 export const createTypeLoader = (baseUrl: string) => {
   let loadedTypes: Types = {};
@@ -29,13 +29,24 @@ export const createTypeLoader = (baseUrl: string) => {
         const declareAsModule =
           !dts.includes('declare module') ||
           (typeof value !== 'string' && value.declareAsModule === true);
+        const declareAsGlobal = typeof value !== 'string' && value.declareAsGlobal === true;
 
-        content = declareAsModule ? `declare module '${name}' {${dts}}` : dts;
+        content = declareAsModule && !declareAsGlobal ? `declare module '${name}' {${dts}}` : dts;
       } catch {
         content = `declare module '${name}': any`;
       }
     }
-    loadedTypes = { ...loadedTypes, ...type };
+    // remove empty entries
+    const prevTypes = Object.keys(loadedTypes)
+      .filter((k) => loadedTypes[k] !== '')
+      .reduce(
+        (acc, k) => ({
+          ...acc,
+          [k]: loadedTypes[k],
+        }),
+        {},
+      );
+    loadedTypes = { ...prevTypes, ...type };
     return {
       filename: `file:///node_modules/${safeName(name)}/index.d.ts`,
       content,
@@ -43,7 +54,9 @@ export const createTypeLoader = (baseUrl: string) => {
   };
 
   const loadTypes = (types: Types) =>
-    Promise.all(Object.keys(types).map((t) => getTypeContents({ [t]: types[t] })));
+    Promise.all(
+      removeDuplicates(Object.keys(types)).map((t) => getTypeContents({ [t]: types[t] })),
+    );
 
   const load = async (code: string, configTypes: Types, forceLoad = false) => {
     const imports = getImports(code);
@@ -71,6 +84,13 @@ export const createTypeLoader = (baseUrl: string) => {
     }, {} as Types);
 
     const typesToGet = Object.keys(codeTypes).filter((key) => codeTypes[key] === '');
+
+    // mark as loaded to avoid re-fetching
+    loadedTypes = {
+      ...loadedTypes,
+      ...typesToGet.reduce((acc, cur) => ({ ...acc, [cur]: '' }), {}),
+    };
+
     const fetchedTypes = await typesService.getTypeUrls(typesToGet);
 
     const autoloadTypes: Types = objectFilter(

@@ -16,12 +16,6 @@ export const solid: LanguageSpecs = {
       (self as any).importScripts(baseUrl + '{{hash:lang-solid-compiler.js}}');
       return (self as any).createSolidCompiler();
     },
-    types: {
-      'solid-js': {
-        url: vendorsBaseUrl + 'types/solid-js.d.ts',
-        declareAsModule: false,
-      },
-    },
   },
   extensions: ['solid.jsx'],
   editor: 'script',
