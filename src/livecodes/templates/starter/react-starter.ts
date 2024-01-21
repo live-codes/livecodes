@@ -7,7 +7,7 @@ export const reactStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    content: '<div id="app">Loading...</div>\n',
+    content: '',
   },
   style: {
     language: 'css',
@@ -25,10 +25,9 @@ export const reactStarter: Template = {
   script: {
     language: 'jsx',
     content: `
-import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
+import { useState } from "react";
 
-function App(props) {
+function Counter(props) {
   const [count, setCount] = useState(0);
   return (
     <div className="container">
@@ -40,8 +39,9 @@ function App(props) {
   );
 }
 
-const root = createRoot(document.querySelector("#app"));
-root.render(<App name="React" />);
+export default function App() {
+  return <Counter name="React" />;
+}
 `.trimStart(),
   },
   stylesheets: [],
