@@ -2,17 +2,20 @@
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
-import { objectFilter, removeDuplicates, safeName } from '../utils/utils';
+import { objectFilter, safeName } from '../utils/utils';
 
 export const createTypeLoader = (baseUrl: string) => {
   let loadedTypes: Types = {};
+  const libs: EditorLibrary[] = [];
 
   const getTypeContents = async (type: Types): Promise<EditorLibrary> => {
     let content = '';
     const name = Object.keys(type)[0];
     const value = Object.values(type)[0];
     const url = typeof value === 'string' ? value : value.url;
-
+    if (loadedTypes[name]) {
+      return { filename: '', content: '' };
+    }
     if (url) {
       try {
         const res = await fetch(url);
@@ -46,19 +49,23 @@ export const createTypeLoader = (baseUrl: string) => {
         }),
         {},
       );
+    if (content.trim() === '') {
+      loadedTypes = prevTypes;
+      return { filename: '', content: '' };
+    }
     loadedTypes = { ...prevTypes, ...type };
-    return {
+    const lib = {
       filename: `file:///node_modules/${safeName(name)}/index.d.ts`,
       content,
     };
+    libs.push(lib);
+    return lib;
   };
 
   const loadTypes = (types: Types) =>
-    Promise.all(
-      removeDuplicates(Object.keys(types)).map((t) => getTypeContents({ [t]: types[t] })),
-    );
+    Promise.all(Object.keys(types).map((t) => getTypeContents({ [t]: types[t] })));
 
-  const load = async (code: string, configTypes: Types, forceLoad = false) => {
+  const load = async (code: string, configTypes: Types, loadAll = false, forceLoad = false) => {
     const imports = getImports(code);
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
@@ -101,7 +108,8 @@ export const createTypeLoader = (baseUrl: string) => {
         value.autoload === true,
     );
 
-    return loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
+    const newLibs = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
+    return loadAll ? libs : newLibs;
   };
 
   return {

@@ -313,7 +313,12 @@ const createIframe = (container: HTMLElement, result = '', service = sandboxServ
     resultLanguages = getEditorLanguages();
   });
 
-const loadModuleTypes = async (editors: Editors, config: Config, force = false) => {
+const loadModuleTypes = async (
+  editors: Editors,
+  config: Config,
+  loadAll = false,
+  force = false,
+) => {
   if (typeof editors?.script?.addTypes !== 'function') return;
   const scriptLanguage = config.script.language;
   if (['typescript', 'javascript'].includes(mapLanguage(scriptLanguage)) || force) {
@@ -327,6 +332,7 @@ const loadModuleTypes = async (editors: Editors, config: Config, force = false) 
     const libs = await typeLoader.load(
       getConfig().script.content + '\n' + getConfig().markup.content,
       configTypes,
+      loadAll,
       force,
     );
     libs.forEach((lib) => editors.script.addTypes?.(lib, force));
@@ -729,7 +735,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   await setSavedStatus();
   dispatchChangeEvent();
   addConsoleInputCodeCompletion();
-  loadModuleTypes(editors, getConfig());
+  loadModuleTypes(editors, getConfig(), /* loadAll = */ true);
   await applyLanguageConfigs(language);
 };
 
@@ -3458,7 +3464,7 @@ const handleCustomSettings = () => {
         setCustomSettingsMark();
         await setSavedStatus();
         if (customSettings.types) {
-          loadModuleTypes(editors, getConfig(), /* force */ true);
+          loadModuleTypes(editors, getConfig(), /* loadAll = */ true, /* force */ true);
         }
       }
       customSettingsEditor?.destroy();
@@ -4149,7 +4155,7 @@ const bootstrap = async (reload = false) => {
   setExternalResourcesMark();
   setCustomSettingsMark();
   updateCompiledCode();
-  loadModuleTypes(editors, getConfig());
+  loadModuleTypes(editors, getConfig(), /* loadAll = */ true);
   compiler.load(Object.values(editorLanguages || {}), getConfig()).then(() => {
     if (!getConfig().autoupdate) {
       setLoading(false);
