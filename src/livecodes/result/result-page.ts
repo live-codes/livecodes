@@ -9,7 +9,8 @@ import {
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { hasCustomJsxRuntime, hasDefaultExport, reactRuntime } from '../languages/jsx/jsx-runtime';
-import type { Cache, EditorId, Config, CompileInfo } from '../models';
+import { reactNativeRuntime } from '../languages/react-native/jsx-runtime';
+import type { Cache, EditorId, Config, CompileInfo, Language } from '../models';
 import { getAppCDN, modulesService } from '../services';
 import { testImports } from '../toolspane/test-imports';
 import {
@@ -157,8 +158,17 @@ export const createResultPage = async ({
     getImports(markup).includes('./script') ||
     (runTests && !forExport && getImports(compiledTests).includes('./script'));
 
-  const shouldInsertReactJsxRuntime =
-    ['jsx', 'tsx'].includes(code.script.language) &&
+  const jsxRuntimes: Partial<Record<Language, string>> = {
+    jsx: reactRuntime,
+    tsx: reactRuntime,
+    'react-native': reactNativeRuntime,
+    'react-native-tsx': reactNativeRuntime,
+    solid: '',
+    'solid.tsx': '',
+  };
+  const jsxRuntime = jsxRuntimes[code.script.language] || '';
+  const shouldInsertJsxRuntime =
+    Object.keys(jsxRuntimes).includes(code.script.language) &&
     hasDefaultExport(code.script.compiled) &&
     !hasCustomJsxRuntime(code.script.content || '') &&
     !importFromScript;
@@ -225,11 +235,11 @@ export const createResultPage = async ({
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
-          ...(shouldInsertReactJsxRuntime ? createImportMap(reactRuntime, config) : {}),
+          ...(shouldInsertJsxRuntime ? createImportMap(jsxRuntime, config) : {}),
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),
-          ...(importFromScript || shouldInsertReactJsxRuntime
+          ...(importFromScript || shouldInsertJsxRuntime
             ? { './script': toDataUrl(code.script.compiled) }
             : {}),
           ...createCSSModulesImportMap(
@@ -273,7 +283,7 @@ export const createResultPage = async ({
     dom.head.appendChild(externalScript);
   });
 
-  if (!importFromScript && !shouldInsertReactJsxRuntime) {
+  if (!importFromScript && !shouldInsertJsxRuntime) {
     // editor script
     const script = code.script.compiled;
     const scriptElement = dom.createElement('script');
@@ -299,10 +309,10 @@ export const createResultPage = async ({
   }
 
   // React JSX runtime
-  if (shouldInsertReactJsxRuntime) {
+  if (shouldInsertJsxRuntime) {
     const jsxRuntimeScript = dom.createElement('script');
     jsxRuntimeScript.type = 'module';
-    jsxRuntimeScript.innerHTML = reactRuntime;
+    jsxRuntimeScript.innerHTML = jsxRuntime;
     dom.body.appendChild(jsxRuntimeScript);
   }
 
