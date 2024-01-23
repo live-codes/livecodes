@@ -201,9 +201,6 @@ export const removeImports = (code: string, mods: string[]) =>
     return mods.includes(libName) ? '' : statement;
   });
 
-export const removeEditorStylesImport = (code: string) =>
-  code.replace(/import\s+["']\.\/style(s)?\.(css|less|sass|scss)["'];?/g, '');
-
 export const styleimportsPattern =
   /(?:@import\s+?)((?:".*?")|(?:'.*?')|(?:url\('.*?'\))|(?:url\(".*?"\)))(.*)?;/g;
 

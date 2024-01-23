@@ -7,8 +7,8 @@ import {
   isModuleScript,
   removeImports,
   // avoid default exports conflict
-  removeEditorStylesImport,
   hasDefaultExport,
+  replaceImports,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { hasCustomJsxRuntime } from '../languages/typescript';
@@ -23,6 +23,7 @@ import {
   escapeScript,
   getAbsoluteUrl,
   isRelativeUrl,
+  objectFilter,
   objectMap,
   toDataUrl,
 } from '../utils';
@@ -122,10 +123,6 @@ export const createResultPage = async ({
     dom.head.appendChild(stylesheet);
   });
   code.script.compiled = removeImports(code.script.compiled, stylesheetImports);
-  if (hasDefaultExport(code.script.compiled)) {
-    // avoid default exports conflict
-    code.script.compiled = removeEditorStylesImport(code.script.compiled);
-  }
 
   // editor styles
   if (singleFile) {
@@ -248,9 +245,6 @@ export const createResultPage = async ({
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),
-          ...(importFromScript || shouldInsertJsxRuntime
-            ? { './script': toDataUrl(code.script.compiled) }
-            : {}),
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,
@@ -266,8 +260,22 @@ export const createResultPage = async ({
           ...compileInfo.imports,
         };
 
+  const scriptImport =
+    importFromScript || shouldInsertJsxRuntime
+      ? {
+          './script': toDataUrl(
+            replaceImports(
+              code.script.compiled,
+              config,
+              objectFilter(userImports, (_value, key) => key.startsWith('./')),
+            ),
+          ),
+        }
+      : {};
+
   const importMaps = {
     ...userImports,
+    ...scriptImport,
     ...compilerImports,
     ...(runTests ? testImports : {}),
     ...config.imports,
