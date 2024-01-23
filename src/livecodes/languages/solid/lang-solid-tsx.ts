@@ -5,7 +5,7 @@ export const solidTsx: LanguageSpecs = {
   name: 'solid.tsx',
   title: 'Solid (TS)',
   parser: {
-    name: 'babel',
+    name: 'babel-ts',
     pluginUrls: [parserPlugins.babel, parserPlugins.html],
   },
   compiler: 'solid',

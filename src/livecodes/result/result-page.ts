@@ -10,6 +10,7 @@ import {
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { hasCustomJsxRuntime, hasDefaultExport, reactRuntime } from '../languages/jsx/jsx-runtime';
 import { reactNativeRuntime } from '../languages/react-native/jsx-runtime';
+import { solidRuntime } from '../languages/solid/jsx-runtime';
 import type { Cache, EditorId, Config, CompileInfo, Language } from '../models';
 import { getAppCDN, modulesService } from '../services';
 import { testImports } from '../toolspane/test-imports';
@@ -163,8 +164,8 @@ export const createResultPage = async ({
     tsx: reactRuntime,
     'react-native': reactNativeRuntime,
     'react-native-tsx': reactNativeRuntime,
-    solid: '',
-    'solid.tsx': '',
+    solid: solidRuntime,
+    'solid.tsx': solidRuntime,
   };
   const jsxRuntime = jsxRuntimes[code.script.language] || '';
   const shouldInsertJsxRuntime =
