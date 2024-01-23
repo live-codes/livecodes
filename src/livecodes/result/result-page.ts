@@ -6,6 +6,7 @@ import {
   hasImports,
   isModuleScript,
   removeImports,
+  removeSideEffectStyleImports,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
 import { hasCustomJsxRuntime, hasDefaultExport, reactRuntime } from '../languages/jsx/jsx-runtime';
@@ -118,6 +119,7 @@ export const createResultPage = async ({
     dom.head.appendChild(stylesheet);
   });
   code.script.compiled = removeImports(code.script.compiled, stylesheetImports);
+  code.script.compiled = removeSideEffectStyleImports(code.script.compiled);
 
   // editor styles
   if (singleFile) {
