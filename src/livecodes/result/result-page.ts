@@ -6,10 +6,12 @@ import {
   hasImports,
   isModuleScript,
   removeImports,
-  removeSideEffectStyleImports,
+  // avoid default exports conflict
+  removeEditorStylesImport,
+  hasDefaultExport,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
-import { hasCustomJsxRuntime, hasDefaultExport, reactRuntime } from '../languages/jsx/jsx-runtime';
+import { hasCustomJsxRuntime, reactRuntime } from '../languages/jsx/jsx-runtime';
 import { reactNativeRuntime } from '../languages/react-native/jsx-runtime';
 import { solidRuntime } from '../languages/solid/jsx-runtime';
 import type { Cache, EditorId, Config, CompileInfo, Language } from '../models';
@@ -119,7 +121,10 @@ export const createResultPage = async ({
     dom.head.appendChild(stylesheet);
   });
   code.script.compiled = removeImports(code.script.compiled, stylesheetImports);
-  code.script.compiled = removeSideEffectStyleImports(code.script.compiled);
+  if (hasDefaultExport(code.script.compiled)) {
+    // avoid default exports conflict
+    code.script.compiled = removeEditorStylesImport(code.script.compiled);
+  }
 
   // editor styles
   if (singleFile) {
