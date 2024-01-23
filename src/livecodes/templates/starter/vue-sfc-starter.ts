@@ -16,16 +16,22 @@ export const vueSfcStarter: Template = {
   script: {
     language: 'vue',
     content: `
-<script setup>
+<script setup lang="tsx">
   import { ref } from 'vue';
 
+  const name = 'Vue';
   const count = ref(0);
   const align = 'center';
+
+  // define inline component
+  function Greeting(props: {name: string}) {
+    return <h1>Hello, { props.name }!</h1>
+  }
 </script>
 
 <template>
   <div class="container">
-    <h1>Hello, Vue!</h1>
+    <Greeting :name="name" />
     <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/vue.svg" />
     <p>You clicked {{ count }} times.</p>
     <button @click="count++">Click me</button>

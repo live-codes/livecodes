@@ -27,20 +27,32 @@ export const reactStarter: Template = {
     content: `
 import { useState } from "react";
 
-function Counter(props) {
-  const [count, setCount] = useState(0);
+function Greeting(props) {
   return (
-    <div className="container">
+    <>
       <h1>Hello, {props.name}!</h1>
       <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/react.svg" />
+    </>
+  );
+}
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <>
       <p>You clicked {count} times.</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
+    </>
   );
 }
 
 export default function App() {
-  return <Counter name="React" />;
+  return (
+    <div className="container">
+      <Greeting name="React" />
+      <Counter />
+    </div>
+  );
 }
 `.trimStart(),
   },
