@@ -246,7 +246,7 @@ import { getLanguageByAlias } from '../utils';
           attrs.toLowerCase().includes("'jsx'") ||
           attrs.toLowerCase().includes("'tsx'")
         ) {
-          scriptContent = 'import { h } from "vue";\n' + scriptContent;
+          scriptContent = 'import { h, Fragment } from "vue";\n' + scriptContent;
         }
         return `<script ${attrs}>${scriptContent}</script>`;
       });
@@ -254,6 +254,7 @@ import { getLanguageByAlias } from '../utils';
     config.customSettings.typescript = {
       ...config.customSettings.typescript,
       jsxFactory: 'h',
+      jsxFragmentFactory: 'Fragment',
     };
 
     content = await compileAllBlocks(content, config, { prepareFn });
