@@ -9,5 +9,3 @@ import App from "./script";
   root.render(_jsx(App, {}));
 })();
 `;
-
-export const hasCustomJsxRuntime = (code: string) => new RegExp(/\/\*\*[\s\*]*@jsx\s/g).test(code);

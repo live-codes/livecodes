@@ -11,9 +11,10 @@ import {
   hasDefaultExport,
 } from '../compiler';
 import { cssPresets, getLanguageCompiler, getLanguageExtension } from '../languages';
-import { hasCustomJsxRuntime, reactRuntime } from '../languages/jsx/jsx-runtime';
-import { reactNativeRuntime } from '../languages/react-native/jsx-runtime';
-import { solidRuntime } from '../languages/solid/jsx-runtime';
+import { hasCustomJsxRuntime } from '../languages/typescript';
+import { reactRuntime } from '../languages/jsx/react-runtime';
+import { reactNativeRuntime } from '../languages/react-native/react-native-runtime';
+import { solidRuntime } from '../languages/solid/solid-runtime';
 import type { Cache, EditorId, Config, CompileInfo, Language } from '../models';
 import { getAppCDN, modulesService } from '../services';
 import { testImports } from '../toolspane/test-imports';
@@ -178,7 +179,7 @@ export const createResultPage = async ({
   const shouldInsertJsxRuntime =
     Object.keys(jsxRuntimes).includes(code.script.language) &&
     hasDefaultExport(code.script.compiled) &&
-    !hasCustomJsxRuntime(code.script.content || '') &&
+    !hasCustomJsxRuntime(code.script.content || '', config) &&
     !importFromScript;
 
   let compilerImports = {};
