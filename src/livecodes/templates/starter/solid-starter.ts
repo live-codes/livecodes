@@ -27,33 +27,21 @@ export const solidStarter: Template = {
     content: `
 import { createSignal } from "solid-js";
 
-function Greeting(props: { name: string }) {
-  return (
-    <>
-      <h1>Hello, {props.name}!</h1>
-      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
-    </>
-  );
-}
-
-function Counter() {
+function Counter(props: { name: string }) {
   const [count, setCount] = createSignal(0);
   const increment = () => setCount(count() + 1);
   return (
-    <>
+    <div className="container">
+      <h1>Hello, {props.name}!</h1>
+      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
       <p>You clicked {count()} times.</p>
       <button onClick={increment}>Click me</button>
-    </>
+    </div>
   );
 }
 
 export default function App() {
-  return (
-    <div className="container">
-      <Greeting name="Solid" />
-      <Counter />
-    </div>
-  );
+  return <Counter name="Solid" />;
 }
 `.trimStart(),
   },
