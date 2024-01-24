@@ -48,9 +48,11 @@ function Counter(props) {
   );
 }
 
-export default function App() {
+function App() {
   return <Counter name="Jest with React" />;
 }
+
+export default App;
 `.trimStart(),
   },
   tests: {

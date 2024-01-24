@@ -46,7 +46,7 @@ function Counter() {
   );
 }
 
-export default function App() {
+function App() {
   return (
     <div className="container">
       <Greeting name="React" />
@@ -54,6 +54,8 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
 `.trimStart(),
   },
   stylesheets: [],
