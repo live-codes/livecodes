@@ -175,6 +175,7 @@ export const createResultPage = async ({
   const jsxRuntime = jsxRuntimes[code.script.language] || '';
   const shouldInsertJsxRuntime =
     Object.keys(jsxRuntimes).includes(code.script.language) &&
+    !config.customSettings[code.script.language]?.disableAutoRender &&
     hasDefaultExport(code.script.compiled) &&
     !hasCustomJsxRuntime(code.script.content || '', config) &&
     !importFromScript;
