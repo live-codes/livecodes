@@ -866,7 +866,8 @@ const getResultPage = async ({
 
   const compileResults = await Promise.all([
     compiler.compile(styleContent, styleLanguage, config, {
-      html: `${compiledMarkup}<script>${compiledScript}</script><script>${compileInfo.importedContent}</script>`,
+      html: `${compiledMarkup}<script type="script-for-styles">${compiledScript}</script>
+        <script type="script-for-styles">${compileInfo.importedContent}</script>`,
       forceCompile: forceCompileStyles,
     }),
     runTests

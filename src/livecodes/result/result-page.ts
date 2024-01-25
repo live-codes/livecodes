@@ -142,6 +142,10 @@ export const createResultPage = async ({
   const markup = code.markup.compiled;
   dom.body.innerHTML += markup;
 
+  // cleanup extra scripts added to detect classes for CSS processors
+  const extra = dom.querySelectorAll('script[type="script-for-styles"]');
+  extra.forEach((el) => el.remove());
+
   // cleanup custom configurations and scripts
   if (code.script.language === 'blockly') {
     const extra = dom.querySelectorAll(
