@@ -5,8 +5,6 @@ import {
   getImports,
   hasImports,
   isModuleScript,
-  removeImports,
-  // avoid default exports conflict
   hasDefaultExport,
   replaceImports,
 } from '../compiler';
@@ -122,7 +120,6 @@ export const createResultPage = async ({
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
   });
-  code.script.compiled = removeImports(code.script.compiled, stylesheetImports);
 
   // editor styles
   if (singleFile) {
@@ -250,6 +247,13 @@ export const createResultPage = async ({
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),
+          ...stylesheetImports.reduce(
+            (acc, url) => ({
+              ...acc,
+              [url]: toDataUrl(''),
+            }),
+            {},
+          ),
           ...createCSSModulesImportMap(
             code.script.compiled,
             code.style.compiled,
