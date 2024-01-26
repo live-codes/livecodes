@@ -2140,6 +2140,10 @@ const handleResultButton = () => {
   eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('output', true));
 };
 
+const handleShareButton = () => {
+  eventsManager.addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
+};
+
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
 
@@ -3883,6 +3887,7 @@ const basicHandlers = () => {
   handleHotKeys();
   handleRunButton();
   handleResultButton();
+  handleShareButton();
   handleEditorTools();
   handleProcessors();
   handleResultLoading();

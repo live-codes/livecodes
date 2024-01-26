@@ -309,6 +309,10 @@ a {
   #toolbar {
     font-size: 0.8em;
 
+    #share-button {
+      display: none;
+    }
+
     #buttons > .button {
       margin: 3px;
       width: 35px;
@@ -391,10 +395,8 @@ a {
     display: flex !important;
   }
 
-  #settings-button {
-    display: none;
-  }
-
+  #share-button,
+  #settings-button,
   #editor-settings-btn,
   #project-info-btn,
   #custom-settings-btn {
