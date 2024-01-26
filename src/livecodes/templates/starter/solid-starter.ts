@@ -7,7 +7,7 @@ export const solidStarter: Template = {
   activeEditor: 'script',
   markup: {
     language: 'html',
-    content: '<div id="app"></div>\n',
+    content: '',
   },
   style: {
     language: 'css',
@@ -25,20 +25,14 @@ export const solidStarter: Template = {
   script: {
     language: 'solid.tsx',
     content: `
-import { render } from "solid-js/web";
 import { createSignal } from "solid-js";
 
-type Props = {
-  title: string;
-}
-
-function App(props: Props) {
+function Counter(props: { name: string }) {
   const [count, setCount] = createSignal(0);
   const increment = () => setCount(count() + 1);
-
   return (
     <div className="container">
-      <h1>Hello, {props.title}!</h1>
+      <h1>Hello, {props.name}!</h1>
       <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
       <p>You clicked {count()} times.</p>
       <button onClick={increment}>Click me</button>
@@ -46,7 +40,9 @@ function App(props: Props) {
   );
 }
 
-render(() => <App title="Solid" />, document.getElementById("app"));
+export default function App() {
+  return <Counter name="Solid" />;
+}
 `.trimStart(),
   },
   stylesheets: [],

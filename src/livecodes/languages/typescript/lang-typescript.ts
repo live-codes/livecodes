@@ -1,7 +1,19 @@
-import type { LanguageSpecs } from '../../models';
+import type { Config, LanguageSpecs } from '../../models';
 import { typescriptUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 import { parserPlugins } from '../prettier';
+
+export const hasCustomJsxRuntime = (code: string, config: Config) => {
+  const customTSConfig = {
+    ...getLanguageCustomSettings('typescript', config),
+    ...getLanguageCustomSettings(config.script.language, config),
+  };
+  return Boolean(
+    customTSConfig.jsx ||
+      customTSConfig.jsxFactory ||
+      new RegExp(/\/\*\*[\s\*]*@jsx\s/g).test(code),
+  );
+};
 
 export const typescriptOptions = {
   target: 'es2015',
@@ -22,11 +34,14 @@ export const typescript: LanguageSpecs = {
     url: typescriptUrl,
     factory:
       () =>
-      async (code, { config, language }) =>
+      async (code, { config }) =>
         (window as any).ts.transpile(code, {
           ...typescriptOptions,
+          ...(['jsx', 'tsx'].includes(config.script.language) && !hasCustomJsxRuntime(code, config)
+            ? { jsx: 'react-jsx' }
+            : {}),
           ...getLanguageCustomSettings('typescript', config),
-          ...getLanguageCustomSettings(language, config),
+          ...getLanguageCustomSettings(config.script.language, config),
         }),
   },
   extensions: ['ts', 'typescript'],

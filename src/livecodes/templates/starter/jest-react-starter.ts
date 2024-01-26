@@ -8,9 +8,7 @@ export const jestReactStarter: Template = {
   autotest: true,
   markup: {
     language: 'html',
-    content: `
-<div id="app">Loading...</div>
-`.trimStart(),
+    content: '',
   },
   style: {
     language: 'css',
@@ -33,12 +31,11 @@ export const jestReactStarter: Template = {
   script: {
     language: 'jsx',
     content: `
-import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
+import { useState } from "react";
 
 export const increment = (count) => (count ?? 0) + 1;
 
-export default function App(props) {
+function Counter(props) {
   const [count, setCount] = useState(0);
   return (
     <div className="container">
@@ -51,8 +48,9 @@ export default function App(props) {
   );
 }
 
-const root = createRoot(document.querySelector("#app"));
-root.render(<App name="Jest with React" />);
+export default function App() {
+  return <Counter name="Jest with React" />;
+}
 `.trimStart(),
   },
   tests: {

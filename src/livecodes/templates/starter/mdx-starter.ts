@@ -8,9 +8,9 @@ export const mdxStarter: Template = {
   markup: {
     language: 'mdx',
     content: `
-import { Hello, Counter } from './script';
+import { Greeting, Counter } from './script';
 
-<Hello title="MDX" />
+<Greeting name="MDX" />
 
 ![MDX Logo]({{ __livecodes_baseUrl__ }}assets/templates/mdx.svg)
 
@@ -33,11 +33,11 @@ img {
   script: {
     language: 'jsx',
     content: `
-import React, { useState } from "react";
+import { useState } from "react";
 
-export const Hello = (props) => <h1>Hello, {props.title || "World"}!</h1>;
+export const Greeting = (props) => <h1>Hello, {props.name || "World"}!</h1>;
 
-export function Counter(props) {
+export function Counter() {
   const [count, setCount] = useState(0);
   return (
     <div>

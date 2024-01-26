@@ -95,10 +95,6 @@ export async function bundle(options: Options): Promise<string> {
   assert(typeof prefix === 'string', 'option "prefix" must be a string');
   assert(separator.length > 0, 'option "separator" must have non-zero length');
 
-  // turn relative paths into absolute paths
-  const mainFile = main;
-  // const outFile = calcOutFilePath(out, baseDir);
-
   trace('### settings object passed ###');
   traceObject(options);
 
@@ -106,7 +102,7 @@ export async function bundle(options: Options): Promise<string> {
   trace('main:         %s', main);
   trace('name:         %s', exportName);
   trace('baseDir:      %s', baseDir);
-  trace('mainFile:     %s', mainFile);
+  trace('mainFile:     %s', main);
   trace('externals:    %s', externals ? 'yes' : 'no');
   trace('exclude:      %s', exclude);
   trace('comments:     %s', comments ? 'yes' : 'no');
@@ -133,9 +129,6 @@ export async function bundle(options: Options): Promise<string> {
   const inSourceTypings = (file: string) => file.startsWith(sourceRoot); // if file reference is a directory assume commonjs index.d.ts
 
   trace('source typings (will be included in output if actually used)');
-
-  // sourceTypings.forEach(file => trace(' - %s ', file));
-
   trace('excluded typings (will always be excluded from output)');
 
   const fileMap: { [name: string]: Result } = Object.create(null);
@@ -148,7 +141,7 @@ export async function bundle(options: Options): Promise<string> {
     // following all references and imports
     trace('\n### parse files ###');
 
-    const queue: string[] = [mainFile];
+    const queue: string[] = [main];
     const queueSeen: { [name: string]: boolean } = Object.create(null);
 
     while (queue.length > 0) {
@@ -436,7 +429,7 @@ export async function bundle(options: Options): Promise<string> {
   }
 
   function getExpName(file: string) {
-    if (file === mainFile) {
+    if (file === main) {
       return exportName;
     }
     return getExpNameRaw(file);
@@ -447,7 +440,7 @@ export async function bundle(options: Options): Promise<string> {
   }
 
   function getLibName(ref: string) {
-    return getExpNameRaw(mainFile) + separator + prefix + separator + ref;
+    return getExpNameRaw(main) + separator + prefix + separator + ref;
   }
 
   function cleanupName(name: string) {
@@ -489,6 +482,16 @@ export async function bundle(options: Options): Promise<string> {
       importLineRef: [],
       relativeRef: [],
     };
+    try {
+      const url = new URL(file);
+      const mainUrl = new URL(main);
+      if (url.origin !== mainUrl.origin && url.origin === window.location.origin) {
+        trace(' X - Invalid URL: %s', file);
+        throw new Error();
+      }
+    } catch {
+      return res;
+    }
     let response = await fetch(file);
     if (!response.ok) {
       // if file is a directory then lets assume commonjs convention of an index file in the given folder
