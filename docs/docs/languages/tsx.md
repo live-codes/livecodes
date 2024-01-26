@@ -1,8 +1,5 @@
 # TSX
 
-import LiveCodes from '../../src/components/LiveCodes.tsx';
-import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
-
 TSX is a syntax that allows using TypeScript in JSX.
 [JSX](https://react.dev/learn/writing-markup-with-jsx) is a syntax extension for JavaScript that allows writing HTML-like markup inside JavaScript.
 It has been popularized by [React](https://react.dev/), and then adopted by many other libraries/frameworks.
@@ -39,7 +36,7 @@ Using [Prettier](https://prettier.io/).
 ## Custom Settings
 
 [Custom settings](../advanced/custom-settings.md) added to the property `tsx` are passed to the TypeScript compiler as [compiler options](https://www.typescriptlang.org/tsconfig#compilerOptions) while compiling TSX.
-In addition, the option `disableAutoRender` can be set to `true` to disable [auto-rendering](#auto-rendering).
+In addition, the option `disableAutoRender` can be set to `true` to disable [auto-rendering](./jsx#auto-rendering).
 
 Please note that custom settings should be valid JSON (i.e. functions are not allowed).
 
@@ -54,6 +51,10 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
   }
 }
 ```
+
+## Starter Template
+
+https://livecodes.io/?template=react (uses JSX)
 
 ## Links
 
