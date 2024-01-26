@@ -37,7 +37,7 @@ export const cssModulesDemo = { vue: `<template>\n  <p :class="$style.red">This 
 
 ### CSS Frameworks
 
-[CSS Frameworks](../features/css.md#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.md), [UnoCSS](./unocss.md), [WindiCSS](./windicss.md)) are available for use in Vue SFCs. Make sure that the required utility is enabled (Style menu or `processors` property of [configuration object](../configuration/configuration-object.md#processors)) and required [directives](https://tailwindcss.com/docs/functions-and-directives#tailwind) are added to the style editor.
+[CSS Frameworks](../features/css.md#css-processors) supported in LiveCodes (e.g. [Tailwind CSS](./tailwindcss.md), [UnoCSS](./unocss.md), [WindiCSS](./windicss.md)) can detect class names added in Vue SFCs. Make sure that the required utility is enabled (from style editor menu or in `processors` property of [configuration object](../configuration/configuration-object.md#processors)) and that required [directives](https://tailwindcss.com/docs/functions-and-directives#tailwind) are added to the style editor.
 
 See [example below](#importing-vue-sfcs).
 
@@ -82,7 +82,7 @@ The imported sources can use any of the supported languages/pre-processors (iden
 
 ### Module Imports
 
-Modules can be imported as described in the section about [module resolution](../features/module-resolution.md), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head`.
+npm modules can be imported as described in the section about [module resolution](../features/module-resolution.md), including bare module imports and importing from different CDNs. Stylesheets imported in the `script` block are added as `<link rel="stylesheet">` tags in the page `head`.
 
 Example:
 
@@ -121,7 +121,7 @@ This is an example of importing a Vue SFC, which in turn imports other Vue SFCs 
 
 ### Root Element
 
-To [mount](https://vuejs.org/api/application.html#app-mount) the application instance to a specific DOM element use `livecodes-app` as the element ID. Otherwise, if that element is not found, a new `div` element is added to `document.body` and is used to mount the instance.
+To [mount](https://vuejs.org/api/application.html#app-mount) the application instance to a specific DOM element use `"livecodes-app"` as the element `id`. Otherwise, if that element is not found, a new `div` element is added to `document.body` and is used to mount the instance.
 
 ## Language Info
 
