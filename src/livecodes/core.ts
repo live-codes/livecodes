@@ -4150,6 +4150,7 @@ const bootstrap = async (reload = false) => {
   }
   phpHelper({ editor: editors.script });
   setLoading(true);
+  window.deps?.showMode?.(getConfig().mode);
   zoom(getConfig().zoom);
   await setActiveEditor(getConfig());
   loadSettings(getConfig());
