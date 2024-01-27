@@ -52,6 +52,8 @@ export const getCustomSettingsBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #custom-settings-btn') as HTMLElement;
 export const getEditorSettingsBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #editor-settings-btn') as HTMLElement;
+export const getShareButton = /* @__PURE__ */ () =>
+  document.querySelector('#share-button') as HTMLElement;
 export const getResultButton = /* @__PURE__ */ () =>
   document.querySelector('#result-button') as HTMLElement;
 export const getFullscreenButton = /* @__PURE__ */ () =>

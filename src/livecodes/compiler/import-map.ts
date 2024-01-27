@@ -90,6 +90,13 @@ export const hasImports = (code: string) => getImports(code).length > 0;
 export const hasExports = (code: string) =>
   new RegExp(/(^export\s)|([\s|;]export\s)/).test(removeCommentsAndStrings(code));
 
+export const hasDefaultExport = (code: string) => new RegExp(/export\s*default\s/).test(code);
+
+export const hasUrlImportsOrExports = (code: string) =>
+  new RegExp(
+    /((?:import|export)\s+?(?:(?:(?:[\w*\s{},\$]*)\s+from\s+?)|))((?:"(?:\.|http|\/).*?")|(?:'(?:\.|http|\/).*?'))([\s]*?(?:;|$|))/,
+  ).test(removeComments(code));
+
 export const hasAwait = (code: string) =>
   new RegExp(/(^await\s)|([\s|;]await\s)/).test(removeCommentsAndStrings(code));
 

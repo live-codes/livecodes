@@ -372,6 +372,7 @@ export interface Types {
     | {
         url: string;
         declareAsModule?: boolean;
+        declareAsGlobal?: boolean;
         autoload?: boolean;
       };
 }

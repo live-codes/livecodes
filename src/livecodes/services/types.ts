@@ -28,16 +28,16 @@ const removeCDNPrefix = (url: string) => {
   if (!url.startsWith('https://')) return url;
 
   const prefixes = [
-    'https://jspm.dev/',
+    'https://esm.sh/',
     'https://cdn.skypack.dev/',
     'https://cdn.jsdelivr.net/npm/',
     'https://fastly.jsdelivr.net/npm/',
     'https://esm.run/',
-    'https://esm.sh/',
     'https://esbuild.vercel.app/',
     'https://bundle.run/',
     'https://unpkg.com/',
     'https://deno.bundlejs.com/?file&q=',
+    'https://jspm.dev/',
   ];
 
   for (const prefix of prefixes) {

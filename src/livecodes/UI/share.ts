@@ -70,6 +70,7 @@ export const createShareContainer = async (
           <img
             src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
             alt="${service.name}"
+            ${service.name === 'X / Twitter' ? 'class="twitter"' : ''}
           />
         </span>
         ${service.name}
@@ -102,8 +103,8 @@ export const createShareContainer = async (
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
     },
     {
-      name: 'Twitter',
-      icon: 'twitter.svg',
+      name: 'X / Twitter',
+      icon: 'x.svg',
       createShareUrl: ({ url, title }) =>
         `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
     },

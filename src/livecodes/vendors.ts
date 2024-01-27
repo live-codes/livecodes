@@ -42,8 +42,6 @@ export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.1/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.0.0-alpha.2');
 
-export const chaiTypesUrl = /* @__PURE__ */ getUrl('@types/chai@4.3.11/index.d.ts');
-
 export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.0.4/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
@@ -278,6 +276,8 @@ export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/')
 export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.7.3/');
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
+
+export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
 
 export const pintoraUrl = /* @__PURE__ */ getUrl(
   '@pintora/standalone@0.6.2/lib/pintora-standalone.umd.js',

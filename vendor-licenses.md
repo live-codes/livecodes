@@ -54,6 +54,8 @@ dot: [MIT License](https://github.com/olado/doT/blob/031d3bb7520eed6b93886df2b65
 
 dart-sass: [MIT License](https://github.com/sass/dart-sass/blob/e3bf3eb3a3a8708877a86a08c7e3bee92160ac1f/LICENSE)
 
+dts-bundle: [MIT License](https://github.com/TypeStrong/dts-bundle/blob/2ca1591e890dc4276efc4bb0893367e6ff32a039/LICENSE-MIT)
+
 EasyQRCodeJS: [MIT License](https://github.com/ushelp/EasyQRCodeJS/blob/573373b110d706132a41cc8abb5b297016b80094/LICENSE)
 
 EJS: [Apache License 2.0](https://github.com/mde/ejs/blob/f47d7aedd51a983e4f73045f962b1209096b5800/LICENSE)
@@ -147,6 +149,8 @@ Nunjucks: [BSD-2-Clause License](https://github.com/necolas/normalize.css/blob/f
 Opal: [MIT License](https://github.com/opal/opal/blob/631503c8957d1c6df60d158daf7db03b099b5129/LICENSE)
 
 Parinfer.js: [MIT License](https://github.com/parinfer/parinfer.js/blob/cddc36ac3e7f9ecd328b977efe91c38ccfd0d94d/LICENSE.md)
+
+path-browserify: [MIT License](https://github.com/browserify/path-browserify/blob/872fec31a8bac7b9b43be0e54ef3037e0202c5fb/LICENSE)
 
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 

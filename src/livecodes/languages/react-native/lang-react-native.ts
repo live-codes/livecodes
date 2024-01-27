@@ -4,7 +4,7 @@ import { typescriptOptions } from '../typescript';
 import { getLanguageCustomSettings } from '../utils';
 import { parserPlugins } from '../prettier';
 
-export const reactNativeWebUrl = vendorsBaseUrl + 'react-native-web/react-native-web.js';
+const reactNativeWebUrl = vendorsBaseUrl + 'react-native-web/react-native-web.js';
 
 export const reactNative: LanguageSpecs = {
   name: 'react-native',
@@ -21,6 +21,7 @@ export const reactNative: LanguageSpecs = {
       async (code, { config, language }) =>
         (window as any).ts.transpile(code, {
           ...typescriptOptions,
+          ...{ jsx: 'react-jsx' },
           ...getLanguageCustomSettings('typescript', config),
           ...getLanguageCustomSettings(language, config),
         }),
