@@ -4,6 +4,46 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v21](https://github.com/live-codes/livecodes/compare/v20...v21) (2024-01-27)
+
+The major changes in this release include:
+
+- Auto-rendering of default export from JSX/TSX: This significantly reduces the boilerplate code required in JSX (to create and render react-dom root). This is mostly backward-compatible. Manual rendering still works. See [JSX docs](https://livecodes.io/docs/languages/jsx).
+- Use React new JSX transform
+- Apply same changes to react-native and solid
+- Change React, React-Native and Solid starter templates to use default export with auto-rendering
+- Allow the use of JSX fragments in Vue SFC
+- Improve fetching and bundling of types for editor intellisense. This should significantly improve code auto-completion and type info for imported modules, without the need for manual type-bundling or the use of custom types.
+- Add docs for: JSX, TSX, Solid, Solid(TS), React-Native, React-Native(TSX)
+
+In addition to various improvements and fixes (see below).
+
+### Bug Fixes
+
+- **App:** fix loading mode & view ([f982fe0](https://github.com/live-codes/livecodes/commit/f982fe0901798c723d1a62bb256692097bec78c1))
+- **App:** fix result mode toolspane visibility ([cd1861a](https://github.com/live-codes/livecodes/commit/cd1861ab695485ee621836b98b371c5cd4a92998))
+- **Result:** fix removing/ignoring stylesheet imports in scripts ([c77980a](https://github.com/live-codes/livecodes/commit/c77980a1079f09827c8cde44cbf38cf1c3199d58))
+- **Result:** remove extra scripts added to detect classes for CSS processors ([c63a32f](https://github.com/live-codes/livecodes/commit/c63a32ff69b0e4e52a49c18aedc444d8dc3c71d7))
+- **Types:** fix race condition in loading types ([a85ba31](https://github.com/live-codes/livecodes/commit/a85ba31b0c380c0d815533214615bab27b94cea4))
+
+### Features
+
+- **compilers:** allow using JSX fragments in Vue SFC ([32270d8](https://github.com/live-codes/livecodes/commit/32270d801683dd556412e8396de6e56f19702431))
+- **compilers:** render React component if it is the default export ([6daace7](https://github.com/live-codes/livecodes/commit/6daace7f4196e05b9704adfedadedae39cd69187))
+- **compilers:** render React component if it is the default export ([2ba144f](https://github.com/live-codes/livecodes/commit/2ba144f171ba4853636b306c48ef1a50dd97d414))
+- **compilers:** render react-native component if it is the default export ([7db03f6](https://github.com/live-codes/livecodes/commit/7db03f6e39a05beb56d51c8d1798564b0f52536f))
+- **compilers:** render Solid component if it is the default export ([4968f03](https://github.com/live-codes/livecodes/commit/4968f036b6062293d6580eab593f4a99cc83ea14))
+- **compilers:** set typescript option { jsx: 'react-jsx' } ([e46450d](https://github.com/live-codes/livecodes/commit/e46450dd39919415e48896d27dd27ab66a69a417))
+- **compilers:** set typescript option { jsx: 'react-jsx' } ([8793627](https://github.com/live-codes/livecodes/commit/87936277aae60e3d5d3d6ebb2f82d966eca5c709))
+- **Config:** allow disabling JSX auto-render from custom settings ([20d5b5b](https://github.com/live-codes/livecodes/commit/20d5b5b768a0c60c259afb21b62c42c762cdb4d6))
+- **Templates:** update react and jest-react starter templates to use the new jsx runtime ([2e5b9d1](https://github.com/live-codes/livecodes/commit/2e5b9d1d2e8af0c150426d57b249c8112477d5dc))
+- **Types:** bundle types in the browser ([f9a7951](https://github.com/live-codes/livecodes/commit/f9a7951ef7b908dbe4b994f0230d30b037e41502))
+- **UI:** add links to docs in language info ([0bf80a5](https://github.com/live-codes/livecodes/commit/0bf80a5d8576862ebac93c2c53471837ee1045f5))
+- **UI:** add share button to toolbar ([9a1cb6d](https://github.com/live-codes/livecodes/commit/9a1cb6ded6156645ed88168ae8bb41cf5d7d516f))
+- **UI:** use the new X/Twitter logo in share screen ([848db7e](https://github.com/live-codes/livecodes/commit/848db7e0db9d331f1fcb0445b5858098bb75cbe3))
+
+---
+
 ## [v20](https://github.com/live-codes/livecodes/compare/v19...v20) (2024-01-17)
 
 ### Features
