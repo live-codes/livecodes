@@ -213,6 +213,7 @@ declare module 'livecodes/models' {
         [key: string]: string | {
             url: string;
             declareAsModule?: boolean;
+            declareAsGlobal?: boolean;
             autoload?: boolean;
         };
     }

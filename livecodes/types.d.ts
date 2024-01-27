@@ -203,6 +203,7 @@ declare module "sdk/models" {
         [key: string]: string | {
             url: string;
             declareAsModule?: boolean;
+            declareAsGlobal?: boolean;
             autoload?: boolean;
         };
     }
@@ -689,7 +690,6 @@ declare module "livecodes/vendors" {
     export const browserJestUrl: string;
     export const brythonBaseUrl: string;
     export const chaiUrl: string;
-    export const chaiTypesUrl: string;
     export const cherryCljsBaseUrl: string;
     export const cjs2esUrl: string;
     export const clioBaseUrl: string;
@@ -779,6 +779,7 @@ declare module "livecodes/vendors" {
     export const nunjucksBaseUrl: string;
     export const opalBaseUrl: string;
     export const parinferUrl: string;
+    export const pathBrowserifyUrl: string;
     export const pintoraUrl: string;
     export const plotlyCdnUrl: string;
     export const postcssImportUrlUrl: string;
@@ -1101,7 +1102,8 @@ declare module "livecodes/languages/stylus/index" {
     export * from "livecodes/languages/stylus/lang-stylus";
 }
 declare module "livecodes/languages/typescript/lang-typescript" {
-    import type { LanguageSpecs } from "livecodes/models";
+    import type { Config, LanguageSpecs } from "livecodes/models";
+    export const hasCustomJsxRuntime: (code: string, config: Config) => boolean;
     export const typescriptOptions: {
         target: string;
         jsx: string;
@@ -1320,7 +1322,6 @@ declare module "livecodes/languages/sql/index" {
 }
 declare module "livecodes/languages/react-native/lang-react-native" {
     import type { LanguageSpecs } from "livecodes/models";
-    export const reactNativeWebUrl: string;
     export const reactNative: LanguageSpecs;
 }
 declare module "livecodes/languages/react-native/lang-react-native-tsx" {
@@ -1786,6 +1787,8 @@ declare module "livecodes/compiler/import-map" {
     };
     export const hasImports: (code: string) => boolean;
     export const hasExports: (code: string) => boolean;
+    export const hasDefaultExport: (code: string) => boolean;
+    export const hasUrlImportsOrExports: (code: string) => boolean;
     export const hasAwait: (code: string) => boolean;
     export const isModuleScript: (code: string) => boolean;
     export const replaceImports: (code: string, config: Config, importMap?: Record<string, string>) => string;
@@ -2582,6 +2585,15 @@ declare module "livecodes/notifications/create-notifications" {
 declare module "livecodes/notifications/index" {
     export * from "livecodes/notifications/create-notifications";
 }
+declare module "livecodes/languages/jsx/react-runtime" {
+    export const reactRuntime = "\nimport { jsx as _jsx } from \"react/jsx-runtime\";\nimport { createRoot } from \"react-dom/client\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = createRoot(document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\")));\n  root.render(_jsx(App, {}));\n})();\n";
+}
+declare module "livecodes/languages/react-native/react-native-runtime" {
+    export const reactNativeRuntime = "\nimport { AppRegistry } from \"react-native\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const rootTag = document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\"));\n  AppRegistry.registerComponent(\"App\", () => App);\n  AppRegistry.runApplication(\"App\", { rootTag });\n})();\n";
+}
+declare module "livecodes/languages/solid/solid-runtime" {
+    export const solidRuntime = "\nimport { render, createComponent } from \"solid-js/web\";\nimport App from \"./script\";\n(() => {\n  if (typeof App !== \"function\") return;\n  const root = document.querySelector(\"#livecodes-app\") || document.body.appendChild(document.createElement(\"div\"));\n  render(() => createComponent(App, {}), root);\n})();\n";
+}
 declare module "livecodes/toolspane/test-imports" {
     export const testImports: {
         react: string;
@@ -2663,6 +2675,7 @@ declare module "livecodes/UI/selectors" {
     export const getProjectInfoBtn: () => HTMLElement;
     export const getCustomSettingsBtn: () => HTMLElement;
     export const getEditorSettingsBtn: () => HTMLElement;
+    export const getShareButton: () => HTMLElement;
     export const getResultButton: () => HTMLElement;
     export const getFullscreenButton: () => HTMLElement;
     export const getEditorTitles: () => NodeListOf<HTMLElement>;
@@ -2915,10 +2928,57 @@ declare module "livecodes/toolspane/index" {
     export * from "livecodes/toolspane/test-viewer";
     export * from "livecodes/toolspane/tools";
 }
+declare module "livecodes/types/bundle-types" {
+    export interface Options {
+        main: string;
+        name: string;
+        baseDir?: string;
+        newline?: string;
+        indent?: string;
+        prefix?: string;
+        separator?: string;
+        externals?: boolean;
+        exclude?: ((file: string) => boolean) | RegExp;
+        verbose?: boolean;
+        referenceExternals?: boolean;
+        emitOnIncludedFileNotFound?: boolean;
+        emitOnNoIncludedFileNotFound?: boolean;
+        headerText?: string;
+    }
+    export interface ModLine {
+        original: string;
+        modified?: string;
+        skip?: boolean;
+    }
+    export interface Result {
+        file: string;
+        name: string;
+        indent: string;
+        exp: string;
+        refs: string[];
+        externalImports: string[];
+        relativeImports: string[];
+        exports: string[];
+        lines: ModLine[];
+        importLineRef: ModLine[];
+        relativeRef: ModLine[];
+        fileExists: boolean;
+    }
+    export interface BundleResult {
+        fileMap: {
+            [name: string]: Result;
+        };
+        includeFilesNotFound: string[];
+        noIncludeFilesNotFound: string[];
+        emitted?: boolean;
+        options: Options;
+    }
+    export function bundle(options: Options): Promise<string>;
+}
 declare module "livecodes/types/type-loader" {
     import type { EditorLibrary, Types } from "livecodes/models";
-    export const createTypeLoader: () => {
-        load: (code: string, configTypes: Types, forceLoad?: boolean) => Promise<EditorLibrary[]>;
+    export const createTypeLoader: (baseUrl: string) => {
+        load: (code: string, configTypes: Types, loadAll?: boolean, forceLoad?: boolean) => Promise<EditorLibrary[]>;
     };
 }
 declare module "livecodes/types/default-types" {
@@ -3155,7 +3215,7 @@ declare module "livecodes/editor/codejar/prism-themes" {
 declare module "livecodes/UI/editor-settings" {
     import type { createEventsManager } from "livecodes/events/index";
     import type { createModal } from "livecodes/modal";
-    import type { FormatFn, UserConfig } from "livecodes/models";
+    import type { EditorLibrary, FormatFn, UserConfig } from "livecodes/models";
     import type { createEditor } from "livecodes/editor/create-editor";
     export const createEditorSettingsUI: ({ baseUrl, modal, eventsManager, scrollToSelector, deps, }: {
         baseUrl: string;
@@ -3165,6 +3225,7 @@ declare module "livecodes/UI/editor-settings" {
         deps: {
             getUserConfig: () => UserConfig;
             createEditor: typeof createEditor;
+            loadTypes: (code: string) => Promise<EditorLibrary[]>;
             getFormatFn: () => Promise<FormatFn>;
             changeSettings: (newConfig: Partial<UserConfig>) => void;
         };
