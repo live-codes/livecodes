@@ -14,7 +14,9 @@ The major changes in this release include:
 - Change React, React-Native and Solid starter templates to use default export with auto-rendering
 - Allow the use of JSX fragments in Vue SFC
 - Improve fetching and bundling of types for editor intellisense. This should significantly improve code auto-completion and type info for imported modules, without the need for manual type-bundling or the use of custom types.
-- Add docs for: JSX, TSX, Solid, Solid(TS), React-Native, React-Native(TSX)
+- Add docs for: [JSX](https://livecodes.io/docs/languages/jsx), [TSX](https://livecodes.io/docs/languages/tsx), [Solid](https://livecodes.io/docs/languages/solid), [Solid(TS)](https://livecodes.io/docs/languages/solid.tsx), [React-Native](https://livecodes.io/docs/languages/react-native), [React-Native(TSX)](https://livecodes.io/docs/languages/react-native-tsx)
+
+Thank you @dai-shi for suggesting some of these changes.
 
 In addition to various improvements and fixes (see below).
 
