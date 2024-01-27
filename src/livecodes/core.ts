@@ -561,7 +561,7 @@ const showMode = (mode?: Config['mode']) => {
     editorTools.style.display = 'none';
   }
   if (mode === 'result') {
-    if (!['full', 'open', 'closed'].includes(toolsPane?.getStatus() || '')) {
+    if (!['full', 'open'].includes(toolsPane?.getStatus() || '')) {
       toolsPane?.hide();
     }
   }
