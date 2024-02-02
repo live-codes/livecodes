@@ -48,4 +48,7 @@ const removeCDNPrefix = (url: string) => {
   return url;
 };
 
-const removeSpecifier = (type: string) => (type.includes(':') ? type.split(':')[1] : type);
+const removeSpecifier = (type: string) =>
+  type.includes(':') && !type.startsWith('data:') && !type.startsWith('http')
+    ? type.split(':')[1]
+    : type;

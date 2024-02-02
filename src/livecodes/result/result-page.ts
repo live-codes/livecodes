@@ -111,7 +111,7 @@ export const createResultPage = async ({
 
   // stylesheets imported in script editor
   const stylesheetImports = getImports(code.script.compiled).filter(
-    (mod) => mod.endsWith('.css') && !mod.startsWith('.'),
+    (mod) => (mod.endsWith('.css') && !mod.startsWith('.')) || mod.startsWith('data:text/css'),
   );
   stylesheetImports.forEach((mod) => {
     const url = modulesService.getUrl(mod);
