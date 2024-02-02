@@ -108,6 +108,7 @@ const sidebars = {
           ],
         },
         'bookmarklet',
+        'gh-action',
         'contribution',
         'credits',
         'license',
