@@ -4,7 +4,7 @@
 import appHTML from './html/app.html?raw';
 import { customEvents } from './events/custom-events';
 import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
-import { isInIframe } from './utils/utils';
+// import { isInIframe } from './utils/utils';
 import { esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
 
@@ -14,10 +14,7 @@ export const params = new URLSearchParams(location.search);
 export const isHeadless = params.get('view') === 'headless';
 export const isLite = params.get('lite') != null && params.get('lite') !== 'false';
 export const isEmbed =
-  isHeadless ||
-  isLite ||
-  (params.get('embed') != null && params.get('embed') !== 'false') ||
-  isInIframe();
+  isHeadless || isLite || (params.get('embed') != null && params.get('embed') !== 'false');
 export const loadingParam = params.get('loading');
 export const clickToLoad = isEmbed && loadingParam !== 'eager';
 export const loading: EmbedOptions['loading'] = !isEmbed
