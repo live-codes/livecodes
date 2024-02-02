@@ -2,7 +2,7 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-The configuration option `mode` can be used to select different display modes.
+The [configuration](../configuration/configuration-object.md) option [`mode`](../configuration/configuration-object.md#mode), also available as [query param](../configuration/query-params.md), can be used to select different display modes.
 The following display modes are supported:
 
 ## `full`
@@ -51,7 +51,7 @@ Example: https://livecodes.io/?mode=result&template=react
 
 Demo:
 
-<LiveCodes config={{mode:'result'}} template="react"></LiveCodes>
+<LiveCodes params={{mode: 'result', template: 'react'}}></LiveCodes>
 
 The tools pane (e.g. console/compiled code viewer) is hidden by default in `result` mode. It can be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.md) documentation for details.
 
