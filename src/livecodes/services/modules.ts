@@ -22,7 +22,9 @@ export const modulesService = {
   },
 
   getUrl: (path: string, cdn?: CDN) =>
-    path.startsWith('http') ? path : getCdnUrl(path, false, cdn || getAppCDN()) || path,
+    path.startsWith('http') || path.startsWith('data:')
+      ? path
+      : getCdnUrl(path, false, cdn || getAppCDN()) || path,
 
   cdnLists: { npm: npmCDNs, module: moduleCDNs, gh: ghCDNs },
 
