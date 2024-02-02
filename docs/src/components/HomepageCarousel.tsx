@@ -100,8 +100,12 @@ const screenshots = [
     url: './img/screenshots/slider/editor-settings2.png',
   },
   {
-    label: '... and of course, a light theme :)',
+    label: 'Light theme',
     url: './img/screenshots/slider/light-theme.jpg',
+  },
+  {
+    label: 'Responsive layout',
+    url: './img/screenshots/slider/responsive.jpg',
   },
 ];
 

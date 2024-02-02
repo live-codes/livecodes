@@ -28,9 +28,9 @@ const FeatureList1: FeatureItem[] = [
         <Link to="./languages">
           <strong>80+ languages/frameworks</strong>
         </Link>
-        . Code Format, NPM Modules, Intellisense, TypeScript Support, Emmet, Console, Compiled code
-        viewer, Tests, Starter Templates, Save, Import, Export, Share, Deploy, Assets, Snippets,
-        Backup/Restore, Sync, Broadcast and a lot more{' '}
+        . TypeScript Support, npm Modules, Console, Compiled code viewer, Tests, Starter Templates,
+        Save, Import, Export, Share, Deploy, Assets, Snippets, Backup/Restore, Sync, Broadcast and a
+        lot more{' '}
         <Link to="./features">
           <strong>features</strong>
         </Link>
@@ -57,10 +57,9 @@ const FeatureList1: FeatureItem[] = [
     description: (
       <>
         Rich set of integrations. <Link to="./features/import">Import</Link> code from{' '}
-        <strong>GitHub</strong> files/repos/gists, <strong>Gitlab</strong> files/repos/snippets,{' '}
-        <strong>JsBin</strong> or <strong>web pages</strong>.{' '}
-        <Link to="./features/export">Export</Link> to GitHub gists, <strong>CodePen</strong> or{' '}
-        <strong>JsFiddle</strong>. <Link to="./features/deploy">Deploy</Link> to GitHub Pages.{' '}
+        <strong>GitHub</strong> files/repos/gists, Gitlab files/repos/snippets, JsBin or web pages.{' '}
+        <Link to="./features/export">Export</Link> to GitHub gists, CodePen or JsFiddle.{' '}
+        <Link to="./features/deploy">Deploy</Link> to GitHub Pages.{' '}
         <Link to="./features/sync">Sync</Link> to GitHub Repo.
       </>
     ),
@@ -68,6 +67,52 @@ const FeatureList1: FeatureItem[] = [
 ];
 
 const FeatureList2: FeatureItem[] = [
+  {
+    title: 'Powerful Editor',
+    image: './img/feather.svg',
+    description: (
+      <>
+        The code editor offers <strong>auto-complete</strong>, intellisense, code
+        <strong> format</strong>, multi-cursor editing, <strong>Emmet</strong> support,{' '}
+        <strong>Vim and Emacs</strong> modes, editor themes, customizable{' '}
+        <Link to="./features/editor-settings">editor settings</Link> and more. The powerful Monaco
+        editor (that powers <strong>VS&nbsp;Code</strong>) is used on desktop, and a touch-friendly
+        editor is used on mobile.
+      </>
+    ),
+  },
+
+  {
+    title: 'AI Code Assistant',
+    image: './img/magic-wand.svg',
+    description: (
+      <>
+        Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
+        the <strong>free</strong> Copilot alternative. It understands the context of your code and
+        comments to generate suggestions. It has a wide range of language support, and it works
+        everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
+        <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
+        <Link to="./features/self-hosting">self-hosted</Link> apps).
+      </>
+    ),
+  },
+  {
+    title: 'Mobile-Friendly',
+    image: './img/responsive.svg',
+    description: (
+      <>
+        LiveCodes offers a great <Link to="./features/mobile">mobile</Link> experience. The{' '}
+        <strong>responsive</strong> layout allows working on devices with different screen sizes.
+        The <strong>touch-friendly</strong> CodeMirror 6 editor is used on mobile. Don't wait to be
+        on your desk. Try your ideas on the go! And then <Link to="./features/share">share</Link> or{' '}
+        <Link to="./features/sync">sync</Link> your work across devices. You can even share using{' '}
+        <strong>QR code</strong>.
+      </>
+    ),
+  },
+];
+
+const FeatureList3: FeatureItem[] = [
   {
     title: 'Standalone App',
     image: './img/star.svg',
@@ -98,51 +143,25 @@ const FeatureList2: FeatureItem[] = [
     ),
   },
   {
-    title: 'Mobile-Friendly',
-    image: './img/responsive.svg',
+    title: 'Developer-Friendly',
+    image: './img/code.svg',
     description: (
       <>
-        The <strong>responsive</strong> layout allows working on devices with different screen
-        sizes. The powerful Monaco editor (that powers <strong>VS&nbsp;Code</strong>) is used on
-        desktop, and the <strong>touch-friendly</strong> CodeMirror 6 editor is used on mobile.
-        Don't wait to be on your desk. Try your ideas on the go!
+        It is easy to <Link to="./getting-started">get started</Link>. LiveCodes is highly{' '}
+        <Link to="./configuration/configuration-object">configurable</Link> (even by URL{' '}
+        <Link to="./configuration/query-params">query params</Link>). The{' '}
+        <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
+        playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
+        them. The SDK is available for <Link to="./sdk/js-ts">vanilla JS/TS</Link>,{' '}
+        <Link to="./sdk/react">React</Link>, <Link to="./sdk/vue">Vue</Link> and{' '}
+        <Link to="./sdk/svelte">Svelte</Link>. There is also a{' '}
+        <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
       </>
     ),
   },
 ];
 
-const FeatureList3: FeatureItem[] = [
-  {
-    title: 'Developer-Friendly',
-    image: './img/code.svg',
-    description: (
-      <>
-        LiveCodes makes it easy to <Link to="./getting-started">get started</Link>. It is highly{' '}
-        <Link to="./configuration/configuration-object">configurable</Link>. Lots of features can be
-        configured by URL <Link to="./configuration/query-params">query params</Link>. The{' '}
-        <Link to="./sdk/">SDK</Link> facilitates <Link to="./features/embeds">embedding</Link>{' '}
-        playgrounds and allows easy <Link to="./sdk/js-ts#sdk-methods">communication</Link> with
-        them. The SDK is available as a <Link to="./sdk/js-ts">JS/TS</Link> library, as well as{' '}
-        <Link to="./sdk/react">React</Link> and <Link to="./sdk/vue">Vue</Link> components, in
-        addition to <Link to="./sdk/svelte">Svelte</Link>. There is also a{' '}
-        <Link to="./sdk/headless">headless mode</Link> for full control over the UI.
-      </>
-    ),
-  },
-  {
-    title: 'AI Code Assistant',
-    image: './img/magic-wand.svg',
-    description: (
-      <>
-        Leverage the <Link to="./features/ai">power of AI</Link> to help you write/learn code, using
-        the <strong>free</strong> Copilot alternative. It understands the context of your code and
-        comments to generate suggestions. It has a wide range of language support, and it works
-        everywhere (in the <Link to="./getting-started#standalone-app">standalone app</Link>,{' '}
-        <Link to="./features/embeds">embedded playgrounds</Link> and{' '}
-        <Link to="./features/self-hosting">self-hosted</Link> apps).
-      </>
-    ),
-  },
+const FeatureList4: FeatureItem[] = [
   {
     title: 'Documentations',
     image: './img/docs.svg',
@@ -156,9 +175,6 @@ const FeatureList3: FeatureItem[] = [
       </>
     ),
   },
-];
-
-const FeatureList4: FeatureItem[] = [
   {
     title: 'Focused on Privacy',
     image: './img/data-privacy.svg',

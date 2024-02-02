@@ -49,6 +49,7 @@ const sidebars = {
             'features/display-modes',
             'features/default-view',
             'features/themes',
+            'features/mobile',
             'features/embeds',
             'features/lite',
             'features/read-only',
