@@ -321,6 +321,7 @@ export const customThemes: Array<{ name: MonacoTheme; theme: Monaco.editor.IStan
         inherit: false,
         rules: [],
         colors: {
+          'editor.foreground': '#24292e',
           'editorBracketHighlight.foreground1': '#24292e',
           'editorBracketHighlight.foreground2': '#24292e',
           'editorBracketHighlight.foreground3': '#24292e',

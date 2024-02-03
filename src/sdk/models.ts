@@ -872,6 +872,8 @@ export type CodejarTheme =
   | 'material-dark'
   | 'material-light'
   | 'material-oceanic'
+  | 'monochrome'
+  | 'monochrome-dark'
   | 'night-owl'
   | 'nord'
   | 'okaidia'
