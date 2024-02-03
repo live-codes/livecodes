@@ -1,5 +1,6 @@
 import {
   fontAnonymousProUrl,
+  fontAstigmataUrl,
   fontCascadiaCodeUrl,
   fontCodeNewRomanUrl,
   fontComicMonoUrl,
@@ -43,6 +44,11 @@ export const fonts: Font[] = [
     id: 'anonymous-pro',
     name: 'Anonymous Pro',
     url: fontAnonymousProUrl,
+  },
+  {
+    id: 'astigmata',
+    name: 'Astigmata',
+    url: fontAstigmataUrl,
   },
   {
     id: 'cascadia-code',

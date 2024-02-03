@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
-import type * as Monaco from 'monaco-editor'; // only for typescript types
+import type * as Monaco from 'monaco-editor';
 
 import type {
   EditorLibrary,
@@ -22,7 +22,7 @@ import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
-import { monacoThemes } from './monaco-themes';
+import { customThemes, monacoThemes } from './monaco-themes';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
@@ -79,18 +79,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     throw new Error('Failed to load monaco editor');
   }
 
-  monaco.editor.defineTheme('custom-vs-light', {
-    base: 'vs',
-    inherit: true,
-    rules: [{ token: 'comment', fontStyle: 'italic' }],
-    colors: {},
-  });
-  monaco.editor.defineTheme('custom-vs-dark', {
-    base: 'vs-dark',
-    inherit: true,
-    rules: [{ token: 'comment', fontStyle: 'italic' }],
-    colors: {},
-  });
+  customThemes.forEach((t) => monaco.editor.defineTheme(t.name, t.theme));
 
   const loadTheme = async (theme: Theme, editorTheme: Config['editorTheme']) => {
     const selectedTheme = getEditorTheme({
