@@ -759,6 +759,8 @@ export type MonacoTheme =
   | 'clouds'
   | 'cobalt'
   | 'cobalt2'
+  | 'custom-vs-light' // hidden
+  | 'custom-vs-dark' // hidden
   | 'dawn'
   | 'dracula'
   | 'dreamweaver'
@@ -779,6 +781,8 @@ export type MonacoTheme =
   | 'magicwb-amiga'
   | 'merbivore-soft'
   | 'merbivore'
+  | 'monochrome'
+  | 'monochrome-dark'
   | 'monokai'
   | 'monokai-bright'
   | 'monoindustrial'

@@ -1,3 +1,4 @@
+import type * as Monaco from 'monaco-editor';
 import type { MonacoTheme } from '../../models';
 import { monacoThemesBaseUrl } from '../../vendors';
 
@@ -161,6 +162,14 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Merbivore.json',
   },
   {
+    name: 'monochrome',
+    title: 'Monochrome',
+  },
+  {
+    name: 'monochrome-dark',
+    title: 'Monochrome Dark',
+  },
+  {
     name: 'monoindustrial',
     title: 'monoindustrial',
     url: monacoThemesBaseUrl + 'monoindustrial.json',
@@ -284,3 +293,57 @@ export const monacoThemes: Array<{ name: MonacoTheme; title: string; url?: strin
     url: monacoThemesBaseUrl + 'Zenburnesque.json',
   },
 ];
+
+export const customThemes: Array<{ name: MonacoTheme; theme: Monaco.editor.IStandaloneThemeData }> =
+  [
+    {
+      name: 'custom-vs-light',
+      theme: {
+        base: 'vs',
+        inherit: true,
+        rules: [{ token: 'comment', fontStyle: 'italic' }],
+        colors: {},
+      },
+    },
+    {
+      name: 'custom-vs-dark',
+      theme: {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [{ token: 'comment', fontStyle: 'italic' }],
+        colors: {},
+      },
+    },
+    {
+      name: 'monochrome',
+      theme: {
+        base: 'vs',
+        inherit: false,
+        rules: [],
+        colors: {
+          'editorBracketHighlight.foreground1': '#24292e',
+          'editorBracketHighlight.foreground2': '#24292e',
+          'editorBracketHighlight.foreground3': '#24292e',
+          'editorBracketHighlight.foreground4': '#24292e',
+          'editorBracketHighlight.unexpectedBracket.foreground': '#24292e',
+        },
+      },
+    },
+    {
+      name: 'monochrome-dark',
+      theme: {
+        base: 'vs-dark',
+        inherit: false,
+        rules: [],
+        colors: {
+          'editor.foreground': '#e2e2e3',
+          'editor.background': '#24292e',
+          'editorBracketHighlight.foreground1': '#e2e2e3',
+          'editorBracketHighlight.foreground2': '#e2e2e3',
+          'editorBracketHighlight.foreground3': '#e2e2e3',
+          'editorBracketHighlight.foreground4': '#e2e2e3',
+          'editorBracketHighlight.unexpectedBracket.foreground': '#e2e2e3',
+        },
+      },
+    },
+  ];
