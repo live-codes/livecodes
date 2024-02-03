@@ -210,11 +210,11 @@ export const createEditorSettingsUI = async ({
     baseUrl,
     container: previewContainer,
     editorId: 'editorSettings',
-    getLanguageExtension: () => 'tsx',
+    getLanguageExtension: () => 'jsx',
     isEmbed: false,
     isHeadless: false,
-    language: 'tsx',
-    mapLanguage: () => 'typescript',
+    language: 'jsx',
+    mapLanguage: () => 'javascript',
     readonly: false,
     value: editorContent,
     ...getEditorConfig(userConfig),
@@ -454,7 +454,7 @@ const editorContent = `
 import React, { useState } from 'react';
 import { createRoot } from "react-dom/client";
 
-function App(props: { name: string }) {
+function App(props) {
   const [count, setCount] = useState(0);
   // increment on click!
   const onClick = () => setCount(count + 1);
@@ -472,6 +472,6 @@ function App(props: { name: string }) {
   );
 }
 
-const root = createRoot(document.querySelector("#app"));
+const root = createRoot(document.querySelector("#root"));
 root.render(<App name="React" />);
 `.trimStart();
