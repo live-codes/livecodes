@@ -91,6 +91,11 @@ const config = {
             position: 'right',
           },
           {
+            href: 'https://twitter.com/livecodes_io',
+            label: '𝕏',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/live-codes/livecodes',
             label: 'GitHub',
             position: 'right',
@@ -192,7 +197,7 @@ const config = {
                 href: 'https://github.com/live-codes/livecodes',
               },
               {
-                label: 'Twitter',
+                label: '𝕏 / Twitter',
                 href: 'https://twitter.com/livecodes_io',
               },
               {

@@ -38,6 +38,7 @@
 .border {
   border: 1px solid grey;
   border-radius: 3px;
+  overflow: hidden;
   padding: 0;
 }
 

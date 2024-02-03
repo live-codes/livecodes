@@ -18,6 +18,19 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   display: none;
 }
 
+.caption {
+  color: var(--ifm-font-color-secondary);
+  margin: -1em 0 2em;
+  text-align: center;
+}
+
+.border {
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+}
+
 .status-link > span::after {
   background-color: #20bf6b;
   border-radius: 50%;
