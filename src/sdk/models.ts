@@ -831,6 +831,8 @@ export type CodemirrorTheme =
   | 'gruvbox-light'
   | 'material-dark'
   | 'material-light'
+  | 'monochrome'
+  | 'monochrome-dark'
   | 'noctis-lilac'
   | 'nord'
   | 'one-dark'

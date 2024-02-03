@@ -33,7 +33,7 @@ import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
 import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
-import { codemirrorThemes } from './codemirror-themes';
+import { codemirrorThemes, customThemes } from './codemirror-themes';
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
@@ -56,6 +56,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         '&': { backgroundColor: '#ffffff' },
       }),
     ],
+    ...customThemes,
   };
   const defaultThemes: Record<Theme, CodemirrorTheme> = { dark: 'one-dark', light: 'cm-light' };
   const getActiveTheme = () => themes[theme] || themes[defaultThemes[options.theme]] || [];
