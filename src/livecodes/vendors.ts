@@ -116,6 +116,10 @@ export const fontAnonymousProUrl = /* @__PURE__ */ getUrl(
   '@fontsource/anonymous-pro@4.5.9/index.css',
 );
 
+export const fontAstigmataUrl = /* @__PURE__ */ getUrl(
+  'gh:hatemhosny/astigmata-font@6d0ee00a07fb1932902f0b81a504d075d47bd52f/index.css',
+);
+
 export const fontCascadiaCodeUrl = /* @__PURE__ */ getUrl(
   '@fontsource/cascadia-code@4.2.1/index.css',
 );
