@@ -207,6 +207,7 @@ export const codemirrorThemes: Array<{
   },
 ];
 
+// from https://github.com/vadimdemedes/thememirror/blob/main/source/create-theme.ts
 const createTheme = ({
   variant,
   settings,
