@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v22](https://github.com/live-codes/livecodes/compare/v21...v22) (2024-02-03)
+
+Add more docs, including for the [Preview in LiveCodes](https://github.com/live-codes/preview-in-livecodes) GitHub action.
+
+### Bug Fixes
+
+- fix importing data url stylesheet ([d57a06c](https://github.com/live-codes/livecodes/commit/d57a06c15f042946b0156a624de8b1dda34bb554))
+
+---
+
 ## [v21](https://github.com/live-codes/livecodes/compare/v20...v21) (2024-01-27)
 
 The major changes in this release include:
