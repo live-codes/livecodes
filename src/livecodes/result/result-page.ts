@@ -127,7 +127,7 @@ export const createResultPage = async ({
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
 
-    if (configImports[mod]) {
+    if (Object.keys(configImports).includes(mod)) {
       // map stylesheets in import map to empty script to avoid loading css as js
       configImports[mod] = 'data:text/javascript;charset=UTF-8;base64,';
     }
