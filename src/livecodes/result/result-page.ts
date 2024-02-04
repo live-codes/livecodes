@@ -109,16 +109,28 @@ export const createResultPage = async ({
     dom.head.appendChild(stylesheet);
   });
 
+  const configImports = {
+    ...config.imports,
+    ...config.customSettings.imports,
+  };
+
   // stylesheets imported in script editor
   const stylesheetImports = getImports(code.script.compiled).filter(
-    (mod) => (mod.endsWith('.css') && !mod.startsWith('.')) || mod.startsWith('data:text/css'),
+    (mod) =>
+      mod.startsWith('data:text/css') ||
+      (mod.endsWith('.css') && (Object.keys(configImports).includes(mod) || !mod.startsWith('.'))),
   );
   stylesheetImports.forEach((mod) => {
-    const url = modulesService.getUrl(mod);
+    const url = configImports[mod] || modulesService.getUrl(mod);
     const stylesheet = dom.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = url;
     dom.head.appendChild(stylesheet);
+
+    if (configImports[mod]) {
+      // map stylesheets in import map to empty script to avoid loading css as js
+      configImports[mod] = 'data:text/javascript;charset=UTF-8;base64,';
+    }
   });
 
   // editor styles
@@ -287,8 +299,7 @@ export const createResultPage = async ({
     ...scriptImport,
     ...compilerImports,
     ...(runTests ? testImports : {}),
-    ...config.imports,
-    ...config.customSettings.imports,
+    ...configImports,
   };
   if (Object.keys(importMaps).length > 0) {
     const esModuleShims = dom.createElement('script');
