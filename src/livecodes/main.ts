@@ -25,6 +25,7 @@ export const loading: EmbedOptions['loading'] = !isEmbed
   : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
   ? loadingParam
   : 'lazy';
+export const disableAI = params.get('disableAI') != null && params.get('disableAI') !== 'false';
 
 export const livecodes = (container: string, config: Partial<Config> = {}): Promise<API> =>
   new Promise(async (resolve) => {
@@ -75,6 +76,8 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
       const iframe = document.createElement('iframe');
       iframe.name = 'app';
       iframe.style.display = 'none';
+      // const disableAIQuery = disableAI ? `?disableAI` : '';
+      // iframe.src = './app.html' + disableAIQuery;
       iframe.src = './app.html';
       let contentLoaded = false;
       iframe.onload = () => {
@@ -99,7 +102,12 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             /{{codemirrorCoreUrl}}/g,
             `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-core.js`,
           )
-          .replace(/src="[^"]*?\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str));
+          .replace(/src="[^"]*?\.svg"/g, (str: string) => (isHeadless ? 'src=""' : str))
+          .replace(
+            /{{codeiumMeta}}/g,
+            '',
+            // `<meta name="codeium:type" content="${disableAI ? 'none' : 'monaco'}" />`,
+          );
 
         iframe.contentWindow?.postMessage({ content: appContent }, location.origin);
         contentLoaded = true;
