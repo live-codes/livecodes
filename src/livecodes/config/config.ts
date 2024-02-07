@@ -75,7 +75,7 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig => ({
   wordWrap: config.wordWrap,
   closeBrackets: config.closeBrackets,
   emmet: config.emmet,
-  disableAI: config.disableAI,
+  enableAI: config.enableAI,
   editorMode: config.editorMode,
 });
 

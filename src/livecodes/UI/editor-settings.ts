@@ -47,11 +47,17 @@ export const createEditorSettingsUI = async ({
 
   interface FormField {
     title?: string;
-    name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}` | 'enableAI';
+    name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
   }
   const formFields: FormField[] = [
+    {
+      title: 'Enable AI Code Assistant',
+      name: 'enableAI',
+      options: [{ value: 'true' }],
+      help: `${process.env.DOCS_BASE_URL}features/ai`,
+    },
     {
       title: 'Editor',
       name: 'editor',
@@ -204,12 +210,6 @@ export const createEditorSettingsUI = async ({
       name: 'trailingComma',
       options: [{ value: 'true' }],
     },
-    {
-      title: 'Enable AI Code Assistant',
-      name: 'enableAI',
-      options: [{ value: 'true' }],
-      help: `${process.env.DOCS_BASE_URL}features/ai`,
-    },
   ];
 
   const editorOptions: EditorOptions = {
@@ -293,9 +293,7 @@ export const createEditorSettingsUI = async ({
 
     const name = `editor-settings-${field.name}`;
     const optionValue = String(
-      (editorOptions as any)[field.name === 'enableAI' ? 'disableAI' : field.name] ??
-        (defaultConfig as any)[field.name] ??
-        '',
+      (editorOptions as any)[field.name] ?? (defaultConfig as any)[field.name] ?? '',
     );
 
     if (field.options.length > 4) {
@@ -349,11 +347,7 @@ export const createEditorSettingsUI = async ({
       input.id = id;
       input.value = option.value;
       input.checked =
-        field.name === 'theme'
-          ? optionValue === 'dark'
-          : field.name === 'enableAI'
-          ? optionValue !== 'true'
-          : optionValue === option.value;
+        field.name === 'theme' ? optionValue === 'dark' : optionValue === option.value;
 
       optionContainer.appendChild(input);
 
@@ -404,10 +398,6 @@ export const createEditorSettingsUI = async ({
       }
       if (key === 'theme') {
         formData.theme = (formData.theme as any) === true ? 'dark' : 'light';
-      }
-      if (key === 'enableAI') {
-        formData.disableAI = !(formData as any).enableAI;
-        delete (formData as any).enableAI;
       }
     });
 

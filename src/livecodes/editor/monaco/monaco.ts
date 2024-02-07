@@ -532,7 +532,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEmmet(settings.emmet);
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
-    configureCodeium(!settings.disableAI);
+    configureCodeium(settings.enableAI);
   };
 
   const undo = () => {
