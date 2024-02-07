@@ -17,7 +17,7 @@ import type {
   Config,
 } from '../../models';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
-import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
+import { codeiumProviderUrl, emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
@@ -30,6 +30,7 @@ let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
+let codeiumProvider: { dispose: () => void } | undefined;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -531,6 +532,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEmmet(settings.emmet);
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
+    configureCodeium(!settings.disableAI);
   };
 
   const undo = () => {
@@ -558,8 +560,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);
   };
 
+  const configureCodeium = async (enabled: boolean) => {
+    if (!enabled) {
+      codeiumProvider?.dispose();
+      codeiumProvider = undefined;
+      return;
+    }
+    // already enabled
+    if (codeiumProvider) return;
+
+    const codeiumModule = await import(codeiumProviderUrl);
+    codeiumProvider = codeiumModule.registerCodeiumProvider(monaco);
+  };
+
   const destroy = () => {
     configureEmmet(false);
+    configureCodeium(false);
     editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);

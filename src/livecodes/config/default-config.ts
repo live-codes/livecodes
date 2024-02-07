@@ -62,6 +62,7 @@ export const defaultConfig: Config = {
   singleQuote: false,
   trailingComma: true,
   emmet: true,
+  disableAI: false,
   editorMode: undefined,
   version: process.env.VERSION as string,
 };
