@@ -14,7 +14,7 @@ The settings selected in the `Editor Settings` screen are saved locally to [user
 
 ### Enable AI Code Assistant
 
-Enables the [AI code assistant](./features/ai.md). (Free and no account required)
+Enables the [AI code assistant](./ai.md). (Free and no account required)
 
 ### Code Editor
 
