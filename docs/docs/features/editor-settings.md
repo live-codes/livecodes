@@ -12,6 +12,10 @@ A preview code editor is displayed to preview the settings in real time.
 
 The settings selected in the `Editor Settings` screen are saved locally to [user settings](./user-settings.md) and are used subsequently. These include:
 
+### Enable AI Code Assistant
+
+Enables the [AI code assistant](./features/ai.md). (Free and no account required)
+
 ### Code Editor
 
 The following code editors are supported:

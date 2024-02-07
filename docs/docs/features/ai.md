@@ -1,6 +1,6 @@
 # AI Code Assistant 🪄
 
-LiveCodes supports AI-powered code completion, totally for **free**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative.
+LiveCodes supports AI-powered code completion, totally for **free** and no account required, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative.
 
 The large generative machine learning model is capable of understanding the context of your code and comments in order to generate suggestions on what you might want to type next.
 
@@ -24,7 +24,7 @@ Python:
 
 ## Instructions
 
-The AI code assistant can be enabled from the editor settings screen (App menu → Editor Settings → Enable AI Code Assistant). Also can be enabled using the [`enableAI`](../configuration/configuration-object.md#enableai) property in the [configuration object](../configuration/configuration-object.md).
+The AI code assistant can be enabled from the [editor settings](./editor-settings.md) screen (App menu → Editor Settings → Enable AI Code Assistant). Also can be enabled using the [`enableAI`](../configuration/configuration-object.md#enableai) property in the [configuration object](../configuration/configuration-object.md).
 
 Example:
 
@@ -38,14 +38,6 @@ createPlayground('#container', {
   },
 });
 ```
-
-<!--
-## Instructions
-
-1. Install [Codeium chrome extension](https://codeium.com/chrome_tutorial).
-2. Login to Codeium.
-3. Enjoy the magic!
- -->
 
 Currently, only [Monaco editor](./editor-settings.md#code-editor) on desktop Chrome browser is supported. Wider editor and browser support is planned.
 
