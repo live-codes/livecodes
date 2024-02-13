@@ -581,7 +581,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   const destroy = () => {
-    configureEmmet(false);
     editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);
