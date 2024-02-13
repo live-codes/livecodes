@@ -560,22 +560,28 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);
   };
 
-  const configureCodeium = async (enabled: boolean) => {
+  const configureCodeium = (enabled: boolean) => {
     if (!enabled) {
       codeiumProvider?.dispose();
       codeiumProvider = undefined;
       return;
     }
-    // already enabled
-    if (codeiumProvider) return;
 
-    const codeiumModule = await import(codeiumProviderUrl);
-    codeiumProvider = codeiumModule.registerCodeiumProvider(monaco);
+    // already loaded or loading
+    if (codeiumProvider) {
+      return;
+    }
+
+    // avoid race condition between different editors
+    codeiumProvider = { dispose: () => 'loading...' };
+
+    import(codeiumProviderUrl).then((codeiumModule) => {
+      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco);
+    });
   };
 
   const destroy = () => {
     configureEmmet(false);
-    configureCodeium(false);
     editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);
