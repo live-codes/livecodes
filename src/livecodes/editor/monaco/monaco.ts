@@ -31,6 +31,8 @@ const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {
 let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
 let codeiumProvider: { dispose: () => void } | undefined;
+// track editors for providing context for AI
+let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -282,6 +284,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language: monacoMapLanguage(language),
   });
   setModel(editor, options.value, language);
+
+  const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
+  if (contentEditors.includes(editorId)) {
+    editors.push(editor);
+  }
 
   if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
   if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
@@ -576,11 +583,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     codeiumProvider = { dispose: () => 'loading...' };
 
     import(codeiumProviderUrl).then((codeiumModule) => {
-      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco);
+      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
+        getEditors: () => editors,
+      });
     });
   };
 
   const destroy = () => {
+    editors = editors.filter((e) => e !== editor);
     editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);

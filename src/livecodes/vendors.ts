@@ -81,7 +81,7 @@ export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
 );
 
 export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
-  '@live-codes/monaco-codeium-provider@0.1.2/dist/index.js',
+  '@live-codes/monaco-codeium-provider@0.2.1/dist/index.js',
 );
 
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
