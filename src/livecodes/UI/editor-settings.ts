@@ -50,6 +50,7 @@ export const createEditorSettingsUI = async ({
     name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
+    note?: string;
   }
   const formFields: FormField[] = [
     {
@@ -57,6 +58,7 @@ export const createEditorSettingsUI = async ({
       name: 'enableAI',
       options: [{ value: 'true' }],
       help: `${process.env.DOCS_BASE_URL}features/ai`,
+      note: `Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="${process.env.DOCS_BASE_URL}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>`,
     },
     {
       title: 'Editor',
@@ -361,6 +363,13 @@ export const createEditorSettingsUI = async ({
         optionContainer.appendChild(label);
       }
     });
+
+    if (field.note) {
+      const note = document.createElement('div');
+      note.classList.add('input-container', 'field-note');
+      note.innerHTML = field.note;
+      form.appendChild(note);
+    }
   });
 
   let editor = await initializeEditor(editorOptions);
