@@ -1,12 +1,16 @@
 # AI Code Assistant 🪄
 
-LiveCodes supports AI-powered code completion, totally for **free** with **no account required**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. This can be easily enabled from the UI (as easy as [flipping a switch](#ui)!)
+LiveCodes supports AI-powered code completion, totally for **free** with **no account or API token required**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. This can be easily enabled from the UI (as easy as [flipping a switch](#ui)!)
 
 The large generative machine learning model is capable of understanding the context of your code and comments (across the [3 code editors](./projects#markup-editor)) in order to generate suggestions on what you might want to type next.
 
 It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started.md#standalone-app), [embedded playgrounds](./embeds.md) and [self-hosted](./self-hosting.md) apps).
 
 Currently, only [Monaco editor](./editor-settings.md#code-editor) is supported. Wider editor support is planned.
+
+Powered by:
+
+<a href="https://codeium.com/"><img width="300px" src="/docs/img/credits/codeium.svg" alt="Codeium logo"/></a>.
 
 ## Examples:
 

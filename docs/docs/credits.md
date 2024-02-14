@@ -15,11 +15,6 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
-<a href="https://jspm.org/" target="_blank" title="JSPM">
-  <img alt="JSPM" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/jspm.png">
-</img></a>
-</p>
-<p>
 <a href="https://esm.sh/" target="_blank" title="esm.sh">
   <img alt="esm.sh" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/esm.sh.png">
 </img></a>
@@ -30,13 +25,23 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
-<a href="https://github.com/" target="_blank" title="GitHub">
-  <img alt="GitHub" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/github.png">
+<a href="https://codeium.com/" target="_blank" title="Codeium">
+  <img alt="Codeium" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/codeium.svg">
 </img></a>
 </p>
 <p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
   <img alt="bundlejs" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/bundlejs.jpg">
+</img></a>
+</p>
+<p>
+<a href="https://dpaste.com/" target="_blank" title="dpaste">
+  <img alt="dpaste" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/dpaste.png">
+</img></a>
+</p>
+<p>
+<a href="https://github.com/" target="_blank" title="GitHub">
+  <img alt="GitHub" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/github.png">
 </img></a>
 </p>
 <p>
@@ -52,11 +57,6 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
   <img alt="BundleWatch" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/bundlewatch.svg">
-</img></a>
-</p>
-<p>
-<a href="https://dpaste.com/" target="_blank" title="dpaste">
-  <img alt="dpaste" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/dpaste.png">
 </img></a>
 </p>
 <p>
