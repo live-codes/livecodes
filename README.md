@@ -5,7 +5,7 @@
 Code Playground That Just Works!
 
 <p align="center">
-<img width="300" src="./docs/static/img/livecodes-logo.svg"></img>
+<img width="300" src="https://dev.livecodes.io/docs/img/livecodes-logo.svg"></img>
 </p>
 
 A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-side** code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and [80+ languages/frameworks](https://livecodes.io/docs/languages/).
@@ -25,7 +25,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 [What makes LiveCodes different?](https://livecodes.io/docs/why)
 
-![LiveCodes list of languages screenshot](./docs/static/img/screenshots/livecodes-languages.jpg)
+![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-languages.jpg)
 
 ## Code Playground That Just Works!
 
@@ -140,62 +140,62 @@ LiveCodes uses services that are generously provided by:
 
 <p>
 <a href="https://pages.cloudflare.com/" target="_blank" title="Cloudflare Pages">
-  <img alt="Cloudflare Pages" width="200" src="./docs/static/img/credits/cloudflare-pages.svg">
+  <img alt="Cloudflare Pages" width="200" src="https://dev.livecodes.io/docs/img/credits/cloudflare-pages.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://unpkg.com/" target="_blank" title="unpkg">
-  <img alt="unpkg" width="200" src="./docs/static/img/credits/unpkg.png">
+  <img alt="unpkg" width="200" src="https://dev.livecodes.io/docs/img/credits/unpkg.png">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://esm.sh/" target="_blank" title="esm.sh">
-  <img alt="esm.sh" width="200" src="./docs/static/img/credits/esm.sh.png">
+  <img alt="esm.sh" width="200" src="https://dev.livecodes.io/docs/img/credits/esm.sh.png">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
-  <img alt="jsDelivr" width="200" src="./docs/static/img/credits/jsdelivr.svg">
+  <img alt="jsDelivr" width="200" src="https://dev.livecodes.io/docs/img/credits/jsdelivr.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://codeium.com/" target="_blank" title="Codeium">
-  <img alt="Codeium" width="200" src="./docs/static/img/credits/codeium.svg">
+  <img alt="Codeium" width="200" src="https://dev.livecodes.io/docs/img/credits/codeium.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
-  <img alt="bundlejs" width="200" src="./docs/static/img/credits/bundlejs.jpg">
+  <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://dpaste.com/" target="_blank" title="dpaste">
-  <img alt="dpaste" width="200" src="./docs/static/img/credits/dpaste.png">
+  <img alt="dpaste" width="200" src="https://dev.livecodes.io/docs/img/credits/dpaste.png">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://github.com/" target="_blank" title="GitHub">
-  <img alt="GitHub" width="200" src="./docs/static/img/credits/github.png">
+  <img alt="GitHub" width="200" src="https://dev.livecodes.io/docs/img/credits/github.png">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://www.sonarsource.com/products/sonarcloud/" target="_blank" title="SonarCloud">
-  <img alt="SonarCloud" width="200" src="./docs/static/img/credits/sonarcloud.svg">
+  <img alt="SonarCloud" width="200" src="https://dev.livecodes.io/docs/img/credits/sonarcloud.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://www.codacy.com/" target="_blank" title="Codacy">
-  <img alt="Codacy" width="200" src="./docs/static/img/credits/codacy.svg">
+  <img alt="Codacy" width="200" src="https://dev.livecodes.io/docs/img/credits/codacy.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
-  <img alt="BundleWatch" width="200" src="./docs/static/img/credits/bundlewatch.svg">
+  <img alt="BundleWatch" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlewatch.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://www.browserstack.com/" target="_blank" title="BrowserStack">
-  <img alt="BrowserStack" width="200" src="./docs/static/img/credits/browserstack.svg">
+  <img alt="BrowserStack" width="200" src="https://dev.livecodes.io/docs/img/credits/browserstack.svg">
 </img></a><br /><br />
 </p>
 
