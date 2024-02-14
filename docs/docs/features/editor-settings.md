@@ -4,13 +4,23 @@ LiveCodes allows a lot of flexibility for configuring which code editor to use a
 
 `Editor Settings` screen can be accessed from app menu → Editor Settings.
 
-![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings.jpg)
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings2.jpg)
+<RunInLiveCodes params={{screen: 'editor-settings'}} linkText="direct link" />
+
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.png)
+
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-2.png)
+
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-3.png)
 
 A preview code editor is displayed to preview the settings in real time.
 
 The settings selected in the `Editor Settings` screen are saved locally to [user settings](./user-settings.md) and are used subsequently. These include:
+
+### Enable AI Code Assistant
+
+Enables the [AI code assistant](./ai.md). (Free and no account required)
 
 ### Code Editor
 

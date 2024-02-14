@@ -80,6 +80,10 @@ export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
   'cm6-theme-solarized-dark@0.2.0/dist/index.js',
 );
 
+export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
+);
+
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );

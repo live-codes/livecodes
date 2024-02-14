@@ -8,6 +8,10 @@ In addition, assets are supported in [sync](./sync.md), [backup](./backup-restor
 
 The `Assets` screen can be accessed from app menu → Assets
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'assets'}} linkText="direct link" />
+
 Assets are either:
 
 - Encoded as [data URLs](./data-urls.md).

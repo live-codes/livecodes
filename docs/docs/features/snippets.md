@@ -6,6 +6,10 @@ Code snippets are saved locally on user's device. However, they are supported in
 
 Code snippets screen can be accessed from app menu → Code Snippets.
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'snippets'}} linkText="direct link" />
+
 Each snippet has a title, description, language and code.
 
 ![Code Snippets](../../static/img/screenshots/add-snippet.png)

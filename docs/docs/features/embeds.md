@@ -18,6 +18,10 @@ The embedding web page can communicate with the playground using a powerful [SDK
 
 In the [standalone app](../getting-started.md#standalone-app), the Embed Screen can be accessed from app menu → Embed.
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'embed'}} linkText="direct link" />
+
 It shows a preview of the embedded playground, allows customizations of [embed options](../sdk/js-ts.md#embed-options) and provides generated code that can be added to the web page that will embed the playground.
 
 ![LiveCodes embed](../../static/img/screenshots/embed1.png)

@@ -126,6 +126,7 @@ export interface EditorConfig {
   closeBrackets: boolean;
   emmet: boolean;
   editorMode: 'vim' | 'emacs' | undefined;
+  enableAI: boolean;
 }
 
 export interface FormatterConfig {
