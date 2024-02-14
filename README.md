@@ -5,7 +5,7 @@
 Code Playground That Just Works!
 
 <p align="center">
-<img width="300" src="https://dev.livecodes.io/docs/img/livecodes-logo.svg"></img>
+<img width="300" src="./docs/static/img/livecodes-logo.svg"></img>
 </p>
 
 A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-side** code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and [80+ languages/frameworks](https://livecodes.io/docs/languages/).
@@ -25,7 +25,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 [What makes LiveCodes different?](https://livecodes.io/docs/why)
 
-![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-languages.jpg)
+![LiveCodes list of languages screenshot](./docs/static/img/screenshots/livecodes-languages.jpg)
 
 ## Code Playground That Just Works!
 
