@@ -6,6 +6,10 @@ A GitHub account is required. The user must give access to [(Private Repos) whil
 
 The Sync screen can be accessed from the app menu → Sync.
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'sync'}} linkText="direct link" />
+
 ![LiveCodes Sync](../../static/img/screenshots/sync.png)
 
 Data can be synchronized to a new (**private**) or existing repo.

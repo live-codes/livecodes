@@ -4,6 +4,10 @@ The result page (of any number of projects) can be deployed and hosted at [GitHu
 
 The `Deploy` screen can be accessed from the app menu → Deploy.
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'deploy'}} linkText="direct link" />
+
 ![LiveCodes Deploy](../../static/img/screenshots/deploy.jpg)
 
 The result page (and optionally the source code) is pushed to `gh-pages` branch of a **public** GitHub repo (new or existing). The page, shortly, becomes available on `https://{user}.github.io/{repo}/`.

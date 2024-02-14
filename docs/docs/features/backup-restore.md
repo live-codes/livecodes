@@ -4,6 +4,10 @@ LiveCodes data can be backed-up, so that it can be later restored on the same or
 
 The Backup/Restore screen can be accessed from the app menu → Backup / Restore.
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'backup'}} linkText="direct link" />
+
 ## Backup
 
 ![LiveCode Backup](../../static/img/screenshots/backup.jpg)

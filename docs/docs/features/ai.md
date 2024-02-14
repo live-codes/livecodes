@@ -1,10 +1,12 @@
 # AI Code Assistant 🪄
 
-LiveCodes supports AI-powered code completion, totally for **free** and no account required, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative.
+LiveCodes supports AI-powered code completion, totally for **free** with **no account required**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. This can be easily enabled from the UI (as easy as [flipping a switch](#ui)!)
 
-The large generative machine learning model is capable of understanding the context of your code and comments in order to generate suggestions on what you might want to type next.
+The large generative machine learning model is capable of understanding the context of your code and comments (across the [3 code editors](./projects#markup-editor)) in order to generate suggestions on what you might want to type next.
 
 It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started.md#standalone-app), [embedded playgrounds](./embeds.md) and [self-hosted](./self-hosting.md) apps).
+
+Currently, only [Monaco editor](./editor-settings.md#code-editor) is supported. Wider editor support is planned.
 
 ## Examples:
 
@@ -24,7 +26,25 @@ Python:
 
 ## Instructions
 
-The AI code assistant can be enabled from the [editor settings](./editor-settings.md) screen (App menu → Editor Settings → Enable AI Code Assistant). Also can be enabled using the [`enableAI`](../configuration/configuration-object.md#enableai) property in the [configuration object](../configuration/configuration-object.md).
+The AI code assistant can be enabled from:
+
+### UI
+
+The [editor settings](./editor-settings.md) screen (App menu → Editor Settings → Enable AI Code Assistant).
+
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'editor-settings'}} linkText="direct link" />
+
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.png)
+
+**Note**
+
+When set from the UI, this configuration is saved locally to [user settings](./user-settings.md) and is remembered across sessions.
+
+### Configuration
+
+Alternatively, this can be enabled (_only for the current session_) using the [`enableAI`](../configuration/configuration-object.md#enableai) property in the [configuration object](../configuration/configuration-object.md). This can be used to enable the AI code assistant in [embedded playgrounds](./embeds.md).
 
 Example:
 
@@ -39,7 +59,7 @@ createPlayground('#container', {
 });
 ```
 
-Currently, only [Monaco editor](./editor-settings.md#code-editor) on desktop Chrome browser is supported. Wider editor and browser support is planned.
+Also this can be enabled using [query params](../configuration/query-params.md) (e.g. https://livecodes.io/?enableAI).
 
 :::caution Note
 
