@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v23](https://github.com/live-codes/livecodes/compare/v22...v23) (2024-02-15)
+
+This release allows using the AI code assistant without browser extension, with no account or API token required, totally for free, by just flipping a switch! (Powered by [codeium](https://codeium.com))
+
+The AI code assistant can be enabled from [editor settings](https://livecodes.io?screen=editor-settings).
+Also the new config property [`enableAI`](https://livecodes.io/docs/configuration/configuration-object#enableai) allows enabling it using the SDK.
+
+In addition, new monochrome (light and dark) editor themes and the font [Astigmata](https://medium.com/codex/astigmata-my-monospace-programming-font-b28ccfa9b025) have been added.
+
+### Bug Fixes
+
+- **UI:** fix theme switch status ([ce0fe2c](https://github.com/live-codes/livecodes/commit/ce0fe2c8a6c45571c8175f92760ac0069c3257e3))
+
+### Features
+
+- **App:** AI code assistant with no accounts or browser extensions ([39916cf](https://github.com/live-codes/livecodes/commit/39916cf4fcf65374bc8cf70536d64a69e7dec4c2))
+- **UI:** allow enabling/disabling AI from UI (editor settings screen) ([c422ded](https://github.com/live-codes/livecodes/commit/c422dedc05347040df68f3fc6edecaf144dc5a56))
+- **Editor:** add Astigmata font ([39cd99b](https://github.com/live-codes/livecodes/commit/39cd99b28bad8c35e4367df18551295e8bf1fc78))
+- **Editor:** add monochrome prism themes ([0a507d1](https://github.com/live-codes/livecodes/commit/0a507d1013b6c9f1c25bc831f7885c1abbd95ade))
+- **Editor:** add monochrome themes for codemirror ([3ad8b37](https://github.com/live-codes/livecodes/commit/3ad8b3719c2a62696c59af45881f0f5c2ff3ba8e))
+- **Editor:** add monochrome themes for monaco ([876294a](https://github.com/live-codes/livecodes/commit/876294ad6d9852fd52903474471b72eeed492545))
+- **Editor:** use AI context from content of multiple editors ([e2066c5](https://github.com/live-codes/livecodes/commit/e2066c51517b25e2312c2e4800e289e8b9a43678))
+- **Result:** load stylesheets in importmap ([b943274](https://github.com/live-codes/livecodes/commit/b943274ec0e0990d856d45d5c29886f7e76ef311))
+
+---
+
 ## [v22](https://github.com/live-codes/livecodes/compare/v21...v22) (2024-02-03)
 
 Add more docs, including for the [Preview in LiveCodes](https://github.com/live-codes/preview-in-livecodes) GitHub action.
