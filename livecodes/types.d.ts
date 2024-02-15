@@ -133,6 +133,7 @@ declare module "sdk/models" {
         closeBrackets: boolean;
         emmet: boolean;
         editorMode: 'vim' | 'emacs' | undefined;
+        enableAI: boolean;
     }
     export interface FormatterConfig {
         useTabs: boolean;
@@ -427,9 +428,9 @@ declare module "sdk/models" {
         getFormatterConfig: () => Partial<FormatterConfig>;
         getFontFamily: (font: string | undefined) => string;
     }
-    export type MonacoTheme = 'active4d' | 'all-hallows-eve' | 'amy' | 'birds-of-paradise' | 'blackboard' | 'brilliance-black' | 'brilliance-dull' | 'chrome-devtools' | 'clouds-midnight' | 'clouds' | 'cobalt' | 'cobalt2' | 'dawn' | 'dracula' | 'dreamweaver' | 'eiffel' | 'espresso-libre' | 'github' | 'github-dark' | 'github-light' | 'hc-black' | 'hc-light' | 'idle' | 'idlefingers' | 'iplastic' | 'katzenmilch' | 'krtheme' | 'kuroir' | 'lazy' | 'magicwb-amiga' | 'merbivore-soft' | 'merbivore' | 'monokai' | 'monokai-bright' | 'monoindustrial' | 'night-owl' | 'nord' | 'oceanic-next' | 'pastels-on-dark' | 'slush-and-poppies' | 'solarized-dark' | 'solarized-light' | 'spacecadet' | 'sunburst' | 'textmate-mac-classic' | 'tomorrow' | 'tomorrow-night' | 'tomorrow-night-blue' | 'tomorrow-night-bright' | 'tomorrow-night-eighties' | 'twilight' | 'upstream-sunburst' | 'vibrant-ink' | 'vs' | 'vs-dark' | 'xcode-default' | 'zenburnesque';
-    export type CodemirrorTheme = 'amy' | 'aura' | 'ayu-light' | 'barf' | 'basic-light' | 'basic-dark' | 'bespin' | 'birds-of-paradise' | 'boys-and-girls' | 'clouds' | 'cm-light' | 'cobalt' | 'cool-glow' | 'dracula' | 'espresso' | 'github-dark' | 'github-light' | 'gruvbox-dark' | 'gruvbox-light' | 'material-dark' | 'material-light' | 'noctis-lilac' | 'nord' | 'one-dark' | 'rose-pine-dawn' | 'smoothy' | 'solarized-light' | 'solarized-dark' | 'tokyo-night' | 'tokyo-night-day' | 'tokyo-night-storm' | 'tomorrow';
-    export type CodejarTheme = 'a11y-dark' | 'atom-dark' | 'base16-ateliersulphurpool-light' | 'cb' | 'coldark-cold' | 'coldark-dark' | 'coy' | 'coy-without-shadows' | 'darcula' | 'dark' | 'dracula' | 'duotone-dark' | 'duotone-earth' | 'duotone-forest' | 'duotone-light' | 'duotone-sea' | 'duotone-space' | 'funky' | 'ghcolors' | 'gruvbox-dark' | 'gruvbox-light' | 'holi-theme' | 'hopscotch' | 'laserwave' | 'lucario' | 'material-dark' | 'material-light' | 'material-oceanic' | 'night-owl' | 'nord' | 'okaidia' | 'one-dark' | 'one-light' | 'pojoaque' | 'shades-of-purple' | 'solarized-dark-atom' | 'solarized-light' | 'synthwave84' | 'tomorrow' | 'twilight' | 'vs' | 'vsc-dark-plus' | 'xonokai' | 'z-touchs';
+    export type MonacoTheme = 'active4d' | 'all-hallows-eve' | 'amy' | 'birds-of-paradise' | 'blackboard' | 'brilliance-black' | 'brilliance-dull' | 'chrome-devtools' | 'clouds-midnight' | 'clouds' | 'cobalt' | 'cobalt2' | 'custom-vs-light' | 'custom-vs-dark' | 'dawn' | 'dracula' | 'dreamweaver' | 'eiffel' | 'espresso-libre' | 'github' | 'github-dark' | 'github-light' | 'hc-black' | 'hc-light' | 'idle' | 'idlefingers' | 'iplastic' | 'katzenmilch' | 'krtheme' | 'kuroir' | 'lazy' | 'magicwb-amiga' | 'merbivore-soft' | 'merbivore' | 'monochrome' | 'monochrome-dark' | 'monokai' | 'monokai-bright' | 'monoindustrial' | 'night-owl' | 'nord' | 'oceanic-next' | 'pastels-on-dark' | 'slush-and-poppies' | 'solarized-dark' | 'solarized-light' | 'spacecadet' | 'sunburst' | 'textmate-mac-classic' | 'tomorrow' | 'tomorrow-night' | 'tomorrow-night-blue' | 'tomorrow-night-bright' | 'tomorrow-night-eighties' | 'twilight' | 'upstream-sunburst' | 'vibrant-ink' | 'vs' | 'vs-dark' | 'xcode-default' | 'zenburnesque';
+    export type CodemirrorTheme = 'amy' | 'aura' | 'ayu-light' | 'barf' | 'basic-light' | 'basic-dark' | 'bespin' | 'birds-of-paradise' | 'boys-and-girls' | 'clouds' | 'cm-light' | 'cobalt' | 'cool-glow' | 'dracula' | 'espresso' | 'github-dark' | 'github-light' | 'gruvbox-dark' | 'gruvbox-light' | 'material-dark' | 'material-light' | 'monochrome' | 'monochrome-dark' | 'noctis-lilac' | 'nord' | 'one-dark' | 'rose-pine-dawn' | 'smoothy' | 'solarized-light' | 'solarized-dark' | 'tokyo-night' | 'tokyo-night-day' | 'tokyo-night-storm' | 'tomorrow';
+    export type CodejarTheme = 'a11y-dark' | 'atom-dark' | 'base16-ateliersulphurpool-light' | 'cb' | 'coldark-cold' | 'coldark-dark' | 'coy' | 'coy-without-shadows' | 'darcula' | 'dark' | 'dracula' | 'duotone-dark' | 'duotone-earth' | 'duotone-forest' | 'duotone-light' | 'duotone-sea' | 'duotone-space' | 'funky' | 'ghcolors' | 'gruvbox-dark' | 'gruvbox-light' | 'holi-theme' | 'hopscotch' | 'laserwave' | 'lucario' | 'material-dark' | 'material-light' | 'material-oceanic' | 'monochrome' | 'monochrome-dark' | 'night-owl' | 'nord' | 'okaidia' | 'one-dark' | 'one-light' | 'pojoaque' | 'shades-of-purple' | 'solarized-dark-atom' | 'solarized-light' | 'synthwave84' | 'tomorrow' | 'twilight' | 'vs' | 'vsc-dark-plus' | 'xonokai' | 'z-touchs';
     export type EditorTheme = MonacoTheme | CodemirrorTheme | CodejarTheme | `${MonacoTheme}@${Theme}` | `${CodemirrorTheme}@${Theme}` | `${CodejarTheme}@${Theme}` | `monaco:${MonacoTheme}` | `codemirror:${CodemirrorTheme}` | `codejar:${CodejarTheme}` | `monaco:${MonacoTheme}@${Theme}` | `codemirror:${CodemirrorTheme}@${Theme}` | `codejar:${CodejarTheme}@${Theme}`;
     export interface CustomEditor {
         language: Language;
@@ -701,6 +702,7 @@ declare module "livecodes/vendors" {
     export const cm6ThemeNordUrl: string;
     export const cm6ThemeSolarizedLightUrl: string;
     export const cm6ThemeSolarizedDarkUrl: string;
+    export const codeiumProviderUrl: string;
     export const coffeeScriptUrl: string;
     export const cppWasmBaseUrl: string;
     export const csstreeUrl: string;
@@ -716,6 +718,7 @@ declare module "livecodes/vendors" {
     export const fflateUrl: string;
     export const flexSearchUrl: string;
     export const fontAnonymousProUrl: string;
+    export const fontAstigmataUrl: string;
     export const fontCascadiaCodeUrl: string;
     export const fontCodeNewRomanUrl: string;
     export const fontComicMonoUrl: string;
@@ -3184,14 +3187,19 @@ declare module "livecodes/editor/themes" {
     import type { CodejarTheme, CodemirrorTheme, Config, MonacoTheme } from "livecodes/models";
     export const getEditorTheme: ({ editor, editorTheme, theme, editorThemes, }: Pick<Config, "editor" | "theme" | "editorTheme"> & {
         editorThemes: Array<MonacoTheme | CodemirrorTheme | CodejarTheme>;
-    }) => "idle" | "lazy" | "dark" | "active4d" | "all-hallows-eve" | "amy" | "birds-of-paradise" | "blackboard" | "brilliance-black" | "brilliance-dull" | "chrome-devtools" | "clouds-midnight" | "clouds" | "cobalt" | "cobalt2" | "dawn" | "dracula" | "dreamweaver" | "eiffel" | "espresso-libre" | "github" | "github-dark" | "github-light" | "hc-black" | "hc-light" | "idlefingers" | "iplastic" | "katzenmilch" | "krtheme" | "kuroir" | "magicwb-amiga" | "merbivore-soft" | "merbivore" | "monokai" | "monokai-bright" | "monoindustrial" | "night-owl" | "nord" | "oceanic-next" | "pastels-on-dark" | "slush-and-poppies" | "solarized-dark" | "solarized-light" | "spacecadet" | "sunburst" | "textmate-mac-classic" | "tomorrow" | "tomorrow-night" | "tomorrow-night-blue" | "tomorrow-night-bright" | "tomorrow-night-eighties" | "twilight" | "upstream-sunburst" | "vibrant-ink" | "vs" | "vs-dark" | "xcode-default" | "zenburnesque" | "aura" | "ayu-light" | "barf" | "basic-light" | "basic-dark" | "bespin" | "boys-and-girls" | "cm-light" | "cool-glow" | "espresso" | "gruvbox-dark" | "gruvbox-light" | "material-dark" | "material-light" | "noctis-lilac" | "one-dark" | "rose-pine-dawn" | "smoothy" | "tokyo-night" | "tokyo-night-day" | "tokyo-night-storm" | "a11y-dark" | "atom-dark" | "base16-ateliersulphurpool-light" | "cb" | "coldark-cold" | "coldark-dark" | "coy" | "coy-without-shadows" | "darcula" | "duotone-dark" | "duotone-earth" | "duotone-forest" | "duotone-light" | "duotone-sea" | "duotone-space" | "funky" | "ghcolors" | "holi-theme" | "hopscotch" | "laserwave" | "lucario" | "material-oceanic" | "okaidia" | "one-light" | "pojoaque" | "shades-of-purple" | "solarized-dark-atom" | "synthwave84" | "vsc-dark-plus" | "xonokai" | "z-touchs" | null;
+    }) => "idle" | "lazy" | "dark" | "active4d" | "all-hallows-eve" | "amy" | "birds-of-paradise" | "blackboard" | "brilliance-black" | "brilliance-dull" | "chrome-devtools" | "clouds-midnight" | "clouds" | "cobalt" | "cobalt2" | "custom-vs-light" | "custom-vs-dark" | "dawn" | "dracula" | "dreamweaver" | "eiffel" | "espresso-libre" | "github" | "github-dark" | "github-light" | "hc-black" | "hc-light" | "idlefingers" | "iplastic" | "katzenmilch" | "krtheme" | "kuroir" | "magicwb-amiga" | "merbivore-soft" | "merbivore" | "monochrome" | "monochrome-dark" | "monokai" | "monokai-bright" | "monoindustrial" | "night-owl" | "nord" | "oceanic-next" | "pastels-on-dark" | "slush-and-poppies" | "solarized-dark" | "solarized-light" | "spacecadet" | "sunburst" | "textmate-mac-classic" | "tomorrow" | "tomorrow-night" | "tomorrow-night-blue" | "tomorrow-night-bright" | "tomorrow-night-eighties" | "twilight" | "upstream-sunburst" | "vibrant-ink" | "vs" | "vs-dark" | "xcode-default" | "zenburnesque" | "aura" | "ayu-light" | "barf" | "basic-light" | "basic-dark" | "bespin" | "boys-and-girls" | "cm-light" | "cool-glow" | "espresso" | "gruvbox-dark" | "gruvbox-light" | "material-dark" | "material-light" | "noctis-lilac" | "one-dark" | "rose-pine-dawn" | "smoothy" | "tokyo-night" | "tokyo-night-day" | "tokyo-night-storm" | "a11y-dark" | "atom-dark" | "base16-ateliersulphurpool-light" | "cb" | "coldark-cold" | "coldark-dark" | "coy" | "coy-without-shadows" | "darcula" | "duotone-dark" | "duotone-earth" | "duotone-forest" | "duotone-light" | "duotone-sea" | "duotone-space" | "funky" | "ghcolors" | "holi-theme" | "hopscotch" | "laserwave" | "lucario" | "material-oceanic" | "okaidia" | "one-light" | "pojoaque" | "shades-of-purple" | "solarized-dark-atom" | "synthwave84" | "vsc-dark-plus" | "xonokai" | "z-touchs" | null;
 }
 declare module "livecodes/editor/monaco/monaco-themes" {
+    import type * as Monaco from 'monaco-editor';
     import type { MonacoTheme } from "livecodes/models";
     export const monacoThemes: Array<{
         name: MonacoTheme;
         title: string;
         url?: string;
+    }>;
+    export const customThemes: Array<{
+        name: MonacoTheme;
+        theme: Monaco.editor.IStandaloneThemeData;
     }>;
 }
 declare module "livecodes/editor/codemirror/codemirror-themes" {
@@ -3202,6 +3210,10 @@ declare module "livecodes/editor/codemirror/codemirror-themes" {
         url?: string;
         exportName?: string;
     }>;
+    export const customThemes: {
+        monochrome: import("@codemirror/state").Extension[];
+        'monochrome-dark': import("@codemirror/state").Extension[];
+    };
 }
 declare module "livecodes/editor/codejar/prism-themes" {
     import type { CodejarTheme } from "livecodes/models";
