@@ -1,10 +1,16 @@
 # AI Code Assistant 🪄
 
-LiveCodes supports AI-powered code completion, totally for **free**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative.
+LiveCodes supports AI-powered code completion, totally for **free** with **no account or API token required**, using [Codeium](https://codeium.com/), the ultrafast Copilot alternative. This can be easily enabled from the UI (as easy as [flipping a switch](#ui)!)
 
-The large generative machine learning model is capable of understanding the context of your code and comments in order to generate suggestions on what you might want to type next.
+The large generative machine learning model is capable of understanding the context of your code and comments (across the [3 code editors](./projects#markup-editor)) in order to generate suggestions on what you might want to type next.
 
 It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started.md#standalone-app), [embedded playgrounds](./embeds.md) and [self-hosted](./self-hosting.md) apps).
+
+Currently, only [Monaco editor](./editor-settings.md#code-editor) is supported. Wider editor support is planned.
+
+Powered by:
+
+<a href="https://codeium.com/"><img width="300px" src="/docs/img/credits/codeium.svg" alt="Codeium logo"/></a>.
 
 ## Examples:
 
@@ -24,23 +30,25 @@ Python:
 
 ## Instructions
 
-1. Install [Codeium chrome extension](https://codeium.com/chrome_tutorial).
-2. Login to Codeium.
-3. Enjoy the magic!
+The AI code assistant can be enabled from:
 
-Currently, only [Monaco editor](./editor-settings.md#code-editor) on desktop Chrome browser is supported. Wider editor and browser support is planned.
+### UI
 
-:::caution Note
+The [editor settings](./editor-settings.md) screen (App menu → Editor Settings → Enable AI Code Assistant).
 
-Please note that codeium extension sends your code to their servers for code completion. However, your code is not used for training their model. Check codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
-:::
+<RunInLiveCodes params={{screen: 'editor-settings'}} linkText="direct link" />
 
-## Disabling AI Code Assistant
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.png)
 
-Obviously, if you want to disable the AI code completion on your device, just disable the browser extension.
+**Note**
 
-However, if you want to prevent users from using AI code completion in playgrounds that you embed in your webpages (e.g. for code challenges or exercises), you may achieve that by adding the [query parameter](../configuration/query-params.md) `disableAI` (e.g. https://livecodes.io/?disableAI).
+When set from the UI, this configuration is saved locally to [user settings](./user-settings.md) and is remembered across sessions.
+
+### Configuration
+
+Alternatively, this can be enabled (_only for the current session_) using the [`enableAI`](../configuration/configuration-object.md#enableai) property in the [configuration object](../configuration/configuration-object.md). This can be used to enable the AI code assistant in [embedded playgrounds](./embeds.md).
 
 Example:
 
@@ -48,10 +56,17 @@ Example:
 import { createPlayground } from 'livecodes';
 
 createPlayground('#container', {
-  params: {
-    html: '<h1>Hello LiveCodes!</h1>',
+  config: {
     // highlight-next-line
-    disableAI: true,
+    enableAI: true,
   },
 });
 ```
+
+Also this can be enabled using [query params](../configuration/query-params.md) (e.g. https://livecodes.io/?enableAI).
+
+:::caution Note
+
+Please note that when using Codeium AI assistant, your code is sent to their servers for code completion. However, your code is not used for training their model. Check Codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
+
+:::

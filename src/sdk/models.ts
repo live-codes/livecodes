@@ -126,6 +126,7 @@ export interface EditorConfig {
   closeBrackets: boolean;
   emmet: boolean;
   editorMode: 'vim' | 'emacs' | undefined;
+  enableAI: boolean;
 }
 
 export interface FormatterConfig {
@@ -759,6 +760,8 @@ export type MonacoTheme =
   | 'clouds'
   | 'cobalt'
   | 'cobalt2'
+  | 'custom-vs-light' // hidden
+  | 'custom-vs-dark' // hidden
   | 'dawn'
   | 'dracula'
   | 'dreamweaver'
@@ -779,6 +782,8 @@ export type MonacoTheme =
   | 'magicwb-amiga'
   | 'merbivore-soft'
   | 'merbivore'
+  | 'monochrome'
+  | 'monochrome-dark'
   | 'monokai'
   | 'monokai-bright'
   | 'monoindustrial'
@@ -827,6 +832,8 @@ export type CodemirrorTheme =
   | 'gruvbox-light'
   | 'material-dark'
   | 'material-light'
+  | 'monochrome'
+  | 'monochrome-dark'
   | 'noctis-lilac'
   | 'nord'
   | 'one-dark'
@@ -868,6 +875,8 @@ export type CodejarTheme =
   | 'material-dark'
   | 'material-light'
   | 'material-oceanic'
+  | 'monochrome'
+  | 'monochrome-dark'
   | 'night-owl'
   | 'nord'
   | 'okaidia'

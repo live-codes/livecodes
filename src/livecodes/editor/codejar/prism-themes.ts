@@ -102,6 +102,18 @@ export const prismThemes: Array<{
     title: 'Material Oceanic',
     url: prismThemesBaseUrl + 'prism-material-oceanic.css',
   },
+  {
+    name: 'monochrome',
+    title: 'Monochrome',
+    // code[class*="language-"],pre[class*="language-"]{color:#24292e;background-color:#fffffe;}
+    url: 'data:text/css;charset=UTF-8;base64,Y29kZVtjbGFzcyo9Imxhbmd1YWdlLSJdLHByZVtjbGFzcyo9Imxhbmd1YWdlLSJde2NvbG9yOiMyNDI5MmU7YmFja2dyb3VuZC1jb2xvcjojZmZmZmZlO30=',
+  },
+  {
+    name: 'monochrome-dark',
+    title: 'Monochrome Dark',
+    // code[class*="language-"],pre[class*="language-"]{color:#e2e2e3;background-color:#24292e;}
+    url: 'data:text/css;charset=UTF-8;base64,Y29kZVtjbGFzcyo9Imxhbmd1YWdlLSJdLHByZVtjbGFzcyo9Imxhbmd1YWdlLSJde2NvbG9yOiNlMmUyZTM7YmFja2dyb3VuZC1jb2xvcjojMjQyOTJlO30=',
+  },
   { name: 'night-owl', title: 'Night Owl', url: prismThemesBaseUrl + 'prism-night-owl.css' },
   { name: 'nord', title: 'Nord', url: prismThemesBaseUrl + 'prism-nord.css' },
   { name: 'okaidia', title: 'Okaidia', url: prismOfficialThemesBaseUrl + 'prism-okaidia.css' },

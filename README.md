@@ -149,11 +149,6 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://jspm.org/" target="_blank" title="JSPM">
-  <img alt="JSPM" width="200" src="https://dev.livecodes.io/docs/img/credits/jspm.png">
-</img></a><br /><br />
-</p>
-<p>
 <a href="https://esm.sh/" target="_blank" title="esm.sh">
   <img alt="esm.sh" width="200" src="https://dev.livecodes.io/docs/img/credits/esm.sh.png">
 </img></a><br /><br />
@@ -164,13 +159,23 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
-<a href="https://github.com/" target="_blank" title="GitHub">
-  <img alt="GitHub" width="200" src="https://dev.livecodes.io/docs/img/credits/github.png">
+<a href="https://codeium.com/" target="_blank" title="Codeium">
+  <img alt="Codeium" width="200" src="https://dev.livecodes.io/docs/img/credits/codeium.svg">
 </img></a><br /><br />
 </p>
 <p>
 <a href="https://bundlejs.com/" target="_blank" title="bundlejs">
   <img alt="bundlejs" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlejs.jpg">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://dpaste.com/" target="_blank" title="dpaste">
+  <img alt="dpaste" width="200" src="https://dev.livecodes.io/docs/img/credits/dpaste.png">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://github.com/" target="_blank" title="GitHub">
+  <img alt="GitHub" width="200" src="https://dev.livecodes.io/docs/img/credits/github.png">
 </img></a><br /><br />
 </p>
 <p>
@@ -186,11 +191,6 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://bundlewatch.io/" target="_blank" title="BundleWatch">
   <img alt="BundleWatch" width="200" src="https://dev.livecodes.io/docs/img/credits/bundlewatch.svg">
-</img></a><br /><br />
-</p>
-<p>
-<a href="https://dpaste.com/" target="_blank" title="dpaste">
-  <img alt="dpaste" width="200" src="https://dev.livecodes.io/docs/img/credits/dpaste.png">
 </img></a><br /><br />
 </p>
 <p>

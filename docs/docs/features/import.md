@@ -6,6 +6,10 @@ LiveCodes supports importing code from a wide variety of sources.
 
 The Import screen can be accessed from the app menu → Import.
 
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'import'}} linkText="direct link" />
+
 ![LiveCodes Import](../../static/img/screenshots/import.jpg)
 
 Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to [query param](../configuration/query-params.md) key: `x`. This is easier using the [bookmarklet](../bookmarklet.md).

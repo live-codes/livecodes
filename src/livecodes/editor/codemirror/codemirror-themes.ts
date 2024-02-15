@@ -1,3 +1,6 @@
+import { EditorView } from 'codemirror';
+import { HighlightStyle, syntaxHighlighting } from '@codemirror/language';
+
 import type { CodemirrorTheme } from '../../models';
 import {
   cm6ThemeBasicDarkUrl,
@@ -139,6 +142,8 @@ export const codemirrorThemes: Array<{
     url: ddietrCmThemesBaseUrl + 'material-light.js',
     exportName: 'materialLight',
   },
+  { name: 'monochrome', title: 'Monochrome' },
+  { name: 'monochrome-dark', title: 'Monochrome Dark' },
   {
     name: 'noctis-lilac',
     title: 'Noctis Lilac',
@@ -201,3 +206,79 @@ export const codemirrorThemes: Array<{
     exportName: 'tomorrow',
   },
 ];
+
+// from https://github.com/vadimdemedes/thememirror/blob/main/source/create-theme.ts
+const createTheme = ({
+  variant,
+  settings,
+  styles,
+}: {
+  variant: 'light' | 'dark';
+  settings: any;
+  styles: any[];
+}) => {
+  const theme = EditorView.theme(
+    {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      '&': {
+        backgroundColor: settings.background,
+        color: settings.foreground,
+      },
+      '.cm-content': {
+        caretColor: settings.caret,
+      },
+      '.cm-cursor, .cm-dropCursor': {
+        borderLeftColor: settings.caret,
+      },
+      '&.cm-focused .cm-selectionBackgroundm .cm-selectionBackground, .cm-selectionMatch, .cm-content ::selection':
+        {
+          backgroundColor: settings.selection,
+        },
+      '.cm-activeLine': {
+        backgroundColor: settings.lineHighlight,
+      },
+      '.cm-gutters': {
+        backgroundColor: settings.gutterBackground,
+        color: settings.gutterForeground,
+      },
+      '.cm-activeLineGutter': {
+        backgroundColor: settings.lineHighlight,
+      },
+    },
+    {
+      dark: variant === 'dark',
+    },
+  );
+  const highlightStyle = HighlightStyle.define(styles);
+  const extension = [theme, syntaxHighlighting(highlightStyle)];
+  return extension;
+};
+
+export const customThemes = {
+  monochrome: createTheme({
+    variant: 'light',
+    settings: {
+      background: '#fffffe',
+      foreground: '#24292e',
+      caret: '#24292e',
+      selection: '#c8c8fa',
+      gutterBackground: '#fffffe',
+      gutterForeground: '#24292e',
+      lineHighlight: '#f1faff',
+    },
+    styles: [],
+  }),
+  'monochrome-dark': createTheme({
+    variant: 'dark',
+    settings: {
+      background: '#24292e',
+      foreground: '#e2e2e3',
+      caret: '#e2e2e3',
+      selection: '#444d56',
+      gutterBackground: '#24292e',
+      gutterForeground: '#e2e2e3',
+      lineHighlight: '#444d56',
+    },
+    styles: [],
+  }),
+};

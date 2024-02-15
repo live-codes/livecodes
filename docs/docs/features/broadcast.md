@@ -10,7 +10,11 @@ Broadcast can only be performed from the full app, and not from embedded playgro
 
 :::
 
-The `Broadcast` screen can be accessed from the app menu → Broadcast, or from the Broadcast icon in the [tools pane](./tools-pane.md) (below the result page).
+The `Broadcast` screen can be accessed from the Broadcast icon in the [tools pane](./tools-pane.md) (below the result page), or from the app menu → Broadcast.
+
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+<RunInLiveCodes params={{screen: 'broadcast'}} linkText="direct link" />
 
 ![Broadcast UI](./../../static/img/screenshots/broadcast.jpg)
 

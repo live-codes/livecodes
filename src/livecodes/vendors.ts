@@ -80,6 +80,10 @@ export const cm6ThemeSolarizedDarkUrl = /* @__PURE__ */ getUrl(
   'cm6-theme-solarized-dark@0.2.0/dist/index.js',
 );
 
+export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
+  '@live-codes/monaco-codeium-provider@0.2.2/dist/index.js',
+);
+
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
@@ -114,6 +118,10 @@ export const flexSearchUrl = /* @__PURE__ */ getUrl('flexsearch@0.7.21/dist/flex
 
 export const fontAnonymousProUrl = /* @__PURE__ */ getUrl(
   '@fontsource/anonymous-pro@4.5.9/index.css',
+);
+
+export const fontAstigmataUrl = /* @__PURE__ */ getUrl(
+  'gh:hatemhosny/astigmata-font@6d0ee00a07fb1932902f0b81a504d075d47bd52f/index.css',
 );
 
 export const fontCascadiaCodeUrl = /* @__PURE__ */ getUrl(

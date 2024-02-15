@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 // eslint-disable-next-line import/no-unresolved
-import type * as Monaco from 'monaco-editor'; // only for typescript types
+import type * as Monaco from 'monaco-editor';
 
 import type {
   EditorLibrary,
@@ -17,12 +17,12 @@ import type {
   Config,
 } from '../../models';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
-import { emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
+import { codeiumProviderUrl, emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
-import { monacoThemes } from './monaco-themes';
+import { customThemes, monacoThemes } from './monaco-themes';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 
@@ -30,6 +30,9 @@ let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
 let monaco: typeof Monaco;
 const loadedThemes = new Set<string>();
+let codeiumProvider: { dispose: () => void } | undefined;
+// track editors for providing context for AI
+let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -79,18 +82,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     throw new Error('Failed to load monaco editor');
   }
 
-  monaco.editor.defineTheme('custom-vs-light', {
-    base: 'vs',
-    inherit: true,
-    rules: [{ token: 'comment', fontStyle: 'italic' }],
-    colors: {},
-  });
-  monaco.editor.defineTheme('custom-vs-dark', {
-    base: 'vs-dark',
-    inherit: true,
-    rules: [{ token: 'comment', fontStyle: 'italic' }],
-    colors: {},
-  });
+  customThemes.forEach((t) => monaco.editor.defineTheme(t.name, t.theme));
 
   const loadTheme = async (theme: Theme, editorTheme: Config['editorTheme']) => {
     const selectedTheme = getEditorTheme({
@@ -292,6 +284,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language: monacoMapLanguage(language),
   });
   setModel(editor, options.value, language);
+
+  const contentEditors: Array<EditorOptions['editorId']> = ['markup', 'style', 'script', 'tests'];
+  if (contentEditors.includes(editorId)) {
+    editors.push(editor);
+  }
 
   if (editorOptions.theme === 'vs-light') container.style.backgroundColor = '#fff';
   if (editorOptions.theme?.startsWith('http') || editorOptions.theme?.startsWith('./')) {
@@ -542,6 +539,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     configureEmmet(settings.emmet);
     configureEditorMode(settings.editorMode);
     editor.updateOptions(editorOptions);
+    configureCodeium(settings.enableAI);
   };
 
   const undo = () => {
@@ -569,8 +567,30 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     setTimeout(() => editor.revealPositionInCenter(newPosition, 0), 50);
   };
 
+  const configureCodeium = (enabled: boolean) => {
+    if (!enabled) {
+      codeiumProvider?.dispose();
+      codeiumProvider = undefined;
+      return;
+    }
+
+    // already loaded or loading
+    if (codeiumProvider) {
+      return;
+    }
+
+    // avoid race condition between different editors
+    codeiumProvider = { dispose: () => 'loading...' };
+
+    import(codeiumProviderUrl).then((codeiumModule) => {
+      codeiumProvider = codeiumModule.registerCodeiumProvider(monaco, {
+        getEditors: () => editors,
+      });
+    });
+  };
+
   const destroy = () => {
-    configureEmmet(false);
+    editors = editors.filter((e) => e !== editor);
     editorMode?.dispose();
     listeners.length = 0;
     clearTypes(true);
