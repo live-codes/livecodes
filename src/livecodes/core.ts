@@ -1650,7 +1650,10 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
-  UI.getThemeToggle().checked = theme === 'dark';
+  const themeToggle = UI.getThemeToggle();
+  if (themeToggle) {
+    themeToggle.checked = theme === 'dark';
+  }
   getAllEditors().forEach((editor) => {
     editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
