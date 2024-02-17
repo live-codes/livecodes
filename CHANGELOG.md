@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v24](https://github.com/live-codes/livecodes/compare/v23...v24) (2024-02-17)
+
+This is a hotfix for embeds failing to load.
+
+### Bug Fixes
+
+- **Embed:** fix setting on undefined (theme toggle in embeds) ([1b845da](https://github.com/live-codes/livecodes/commit/1b845da360f2de4ad78c97b032a9c0bf26ce1f5b))
+
+---
+
 ## [v23](https://github.com/live-codes/livecodes/compare/v22...v23) (2024-02-15)
 
 This release allows using the AI code assistant without browser extension, with no account or API token required, totally for free, by just flipping a switch! (Powered by [codeium](https://codeium.com))
