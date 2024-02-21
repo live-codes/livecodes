@@ -20,6 +20,8 @@ Autoprefixer: [MIT License](https://github.com/postcss/autoprefixer/blob/61f71e9
 
 Babel: [MIT License](https://github.com/babel/babel/blob/672a58660f0b15691c44582f1f3fdcdac0fa0d2f/LICENSE)
 
+BBob: [MIT License](https://github.com/JiLiZART/BBob/blob/17edb9e3e6572e72ab9cb042d86e2215c60afa86/LICENSE)
+
 BiwaScheme: [MIT License](https://github.com/biwascheme/biwascheme/blob/7a95e757af8b7278d19a87d6067bf1f91f59bc62/MIT-LICENSE.txt)
 
 Blockly: [Apache-2.0 License](https://github.com/google/blockly/blob/3ae4a618429c87fc002e512e5a2504af382325fd/LICENSE)

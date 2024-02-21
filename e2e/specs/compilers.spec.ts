@@ -638,6 +638,22 @@ const title = "World";
     expect(resultText).toContain('Welcome to art-template');
   });
 
+  test('BBCode', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=BBCode');
+    await waitForEditorFocus(app);
+    await app.page().keyboard.type('[quote]quoted text[/quote]');
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerText('blockquote');
+
+    expect(resultText).toBe('quoted text');
+  });
+
   test('MJML', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
