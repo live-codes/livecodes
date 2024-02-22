@@ -27,6 +27,7 @@ export default function Sliders() {
       { name: 'dot', title: 'doT' },
       { name: 'twig', title: 'Twig' },
       { name: 'art-template', title: 'art-template' },
+      { name: 'bbcode', title: 'BBCode' },
       { name: 'mjml', title: 'MJML' },
       { name: 'diagrams', title: 'Diagrams' },
       { name: 'richtext', title: 'Rich Text' },
