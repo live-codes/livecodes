@@ -39,13 +39,18 @@ body,
   height: 100px;
 }
 
-#loading-text {
+#loading-text,
+.noscript {
   animation: pulsate 3s infinite;
   font-family: monospace;
   font-size: 1.3em;
   margin-top: 15px;
   position: relative;
   text-align: center;
+}
+
+.noscript {
+  animation: none;
 }
 
 #loading-text svg {
