@@ -4,6 +4,42 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v25](https://github.com/live-codes/livecodes/compare/v24...v25) (2024-03-01)
+
+Most notable changes in this release:
+
+- Adds support for [JSR](https://jsr.io/), the new JavaScript package registry, using [esm.sh](https://esm.sh/). Use the prefix `jsr:` in imports.
+
+  Example:
+
+  ```js
+  import { yassify } from 'jsr:@kwhinnery/yassify';
+
+  console.log(yassify('Hello, World!'));
+  ```
+
+- Adds [BBCode](https://livecodes.io/docs/languages/bbcode) language support.
+
+- Changes polyfill CDN to https://cdnjs.cloudflare.com/polyfill/. See [#519](https://github.com/live-codes/livecodes/issues/519) (Thanks @gapmiss).
+
+- Adds a `noscript` block to notify users that JavaScript is required. (Thanks @saidbakr)
+
+- Adds a temporary workaround for CSS nesting in Monaco editor. See [#515](https://github.com/live-codes/livecodes/issues/515) (Thanks @gapmiss).
+
+### Bug Fixes
+
+- **Editor:** monaco editor css nesting workaround ([c932c29](https://github.com/live-codes/livecodes/commit/c932c291114034a58dc7e1480eaf2ff91bce224b))
+- **Templates:** fix preact template imports ([efbab86](https://github.com/live-codes/livecodes/commit/efbab86a4d0831b75ada4b6c6e03a57b2b7c2082))
+
+### Features
+
+- **App:** add noscript block ([e455240](https://github.com/live-codes/livecodes/commit/e455240720916623482acfdd0b27d326f4bef284))
+- **App:** change polyfill CDN ([1606b3f](https://github.com/live-codes/livecodes/commit/1606b3f45935196459f0a5ea80d0ac7e6da34cc5)), closes [#519](https://github.com/live-codes/livecodes/issues/519)
+- **compilers:** add support for BBCode ([2f15b95](https://github.com/live-codes/livecodes/commit/2f15b9541c21727ce136fbcd9b78020017fc4c00))
+- **Modules:** add support for jsr package registry ([e574ec3](https://github.com/live-codes/livecodes/commit/e574ec3b44ebbf2d694cda7e6852a9bc9ff31592))
+
+---
+
 ## [v24](https://github.com/live-codes/livecodes/compare/v23...v24) (2024-02-17)
 
 This is a hotfix for embeds failing to load.
