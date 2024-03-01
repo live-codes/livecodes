@@ -80,6 +80,8 @@ const TEMPLATES: Array<[RegExp, string]> = [
 
   [/^(node:)(.+)/i, 'https://esm.sh/$2'],
 
+  [/^(jsr:)(.+)/i, 'https://esm.sh/jsr/$2'],
+
   [/^(skypack:)(.+)/i, 'https://cdn.skypack.dev/$2'],
 
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
