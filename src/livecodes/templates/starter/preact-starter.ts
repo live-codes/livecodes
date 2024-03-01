@@ -27,7 +27,7 @@ export const preactStarter: Template = {
     content: `
 /** @jsx h */
 import { h, render } from 'preact';
-import { useSignal } from "@preact/signals";
+import { useSignal } from "@preact/signals?deps=preact";
 
 function App(props) {
   const count = useSignal(0);
@@ -43,12 +43,5 @@ function App(props) {
 
 render(<App name="Preact" />, document.body);
 `.trimStart(),
-  },
-  stylesheets: [],
-  scripts: [],
-  cssPreset: '',
-  types: {},
-  customSettings: {
-    defaultCDN: 'jspm',
   },
 };

@@ -193,6 +193,8 @@ export type Language =
   | 'twig'
   | 'art-template'
   | 'art'
+  | 'bbcode'
+  | 'bb'
   | 'mjml'
   | 'diagrams'
   | 'diagram'

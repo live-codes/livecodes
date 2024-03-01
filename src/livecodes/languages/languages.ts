@@ -70,6 +70,7 @@ import { clojurescript } from './clojurescript';
 import { rubyWasm } from './ruby-wasm';
 import { luaWasm } from './lua-wasm';
 import { phpWasm } from './php-wasm';
+import { bbcode } from './bbcode';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -88,6 +89,7 @@ export const languages: LanguageSpecs[] = [
   dot,
   twig,
   artTemplate,
+  bbcode,
   mjml,
   diagrams,
   richtext,
