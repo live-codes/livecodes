@@ -40,7 +40,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 - 80+ languages/frameworks/processors
 - Large set of features and integrations
 - Import code from a wide variety of sources
-- Use modules from npm, deno.land/x, GitHub, and others
+- Use modules from npm, deno.land/x, jsr, GitHub, and others
 - Easily embed it in your web pages
 - It runs in the browser (client-side)
 
@@ -91,7 +91,7 @@ Add this code to your page:
 - [Powerful Editor](https://livecodes.io/docs/features/editor-settings)
 - Mobile-friendly
 - [External resources/libraries](https://livecodes.io/docs/features/external-resources)
-- [Import modules](https://livecodes.io/docs/features/module-resolution) from npm, deno.land/x, GitHub and others
+- [Import modules](https://livecodes.io/docs/features/module-resolution) from npm, deno.land/x, jsr, GitHub and others
 - [Code Pre-fill](https://livecodes.io/docs/features/code-prefill)
 - [Import](https://livecodes.io/docs/features/import)/[Export](https://livecodes.io/docs/features/export) [projects](https://livecodes.io/docs/features/projects)
 - [Share](https://livecodes.io/docs/features/share)

@@ -94,6 +94,20 @@ document.body.innerHTML = uuid();
 
 [Open in LiveCodes](<https://livecodes.io/?js=import%20%7B%20uuid%20%7D%20from%20'https%3A%2F%2Fdeno.land%2Fx%2Fuuid%2Fmod.ts'%3B%0A%0Adocument.body.innerHTML%20%3D%20uuid()%3B>)
 
+## JSR Modules
+
+Modules can be imported from [jsr.io](https://jsr.io/) using the prefix `jsr:`. The project on LiveCodes that imports these modules does not need to be using TypeScript.
+
+Example:
+
+```js
+import { yassify } from 'jsr:@kwhinnery/yassify';
+
+document.body.innerHTML = yassify('Hello, World!');
+```
+
+[Open in LiveCodes](<https://livecodes.io/?js=import%20%7B%20yassify%20%7D%20from%20'jsr%3A%40kwhinnery%2Fyassify'%3B%0A%0Adocument.body.innerHTML%20%3D%20yassify('Hello%2C%20World!')%3B>)
+
 ## GitHub/GitLab/Bitbucket
 
 Modules can also be similarly imported from GitHub, Gitlab or Bitbucket. Also these imports are transpiled and bundled (see [Deno Modules](#deno-modules)).
@@ -147,6 +161,8 @@ By default, npm modules are imported from [esm.sh](https://esm.sh/). You may cho
 `npm:uuid` → https://esm.sh/uuid ([info](https://esm.sh))
 
 `node:uuid` → https://esm.sh/uuid ([info](https://esm.sh))
+
+`jsr:@std/uuid` → https://esm.sh/jsr/@std/uuid ([info](https://esm.sh))
 
 `jspm:uuid` → https://jspm.dev/uuid ([info](https://jspm.org) - [DEPRECATED](https://jspm.org/jspm-dev-deprecation))
 
