@@ -338,6 +338,7 @@ export default function HomepageFeatures(): JSX.Element {
                   <li>
                     Use modules from <Link to="./features/module-resolution">npm</Link>,{' '}
                     <Link to="./features/module-resolution#deno-modules">deno.land/x</Link>,{' '}
+                    <Link to="./features/module-resolution#jsr-modules">jsr</Link>,{' '}
                     <Link to="./features/module-resolution#githubgitlabbitbucket">GitHub</Link>, and
                     others
                   </li>
