@@ -459,6 +459,7 @@ a {
   top: 0;
 
   .editor {
+    font-variant-ligatures: discretionary-ligatures;
     visibility: hidden;
   }
 
@@ -2793,6 +2794,7 @@ i.arrow {
     background-color: var(--custom-editor-background-color);
     border: 1px solid gray;
     border-radius: 5px;
+    font-variant-ligatures: discretionary-ligatures;
     height: 400px;
     max-height: 40vh;
     overflow: hidden;

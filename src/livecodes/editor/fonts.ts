@@ -17,6 +17,7 @@ import {
   fontIosevkaUrl,
   fontJetbrainsMonoUrl,
   fontMenloUrl,
+  fontMonaspaceBaseUrl,
   fontMonofurUrl,
   fontMonoidUrl,
   fontNotoUrl,
@@ -131,6 +132,31 @@ export const fonts: Font[] = [
     id: 'menlo',
     name: 'Menlo',
     url: fontMenloUrl,
+  },
+  {
+    id: 'monaspace-argon',
+    name: 'Monaspace Argon',
+    url: fontMonaspaceBaseUrl + 'argon.css',
+  },
+  {
+    id: 'monaspace-krypton',
+    name: 'Monaspace Krypton',
+    url: fontMonaspaceBaseUrl + 'krypton.css',
+  },
+  {
+    id: 'monaspace-neon',
+    name: 'Monaspace Neon',
+    url: fontMonaspaceBaseUrl + 'neon.css',
+  },
+  {
+    id: 'monaspace-radon',
+    name: 'Monaspace Radon',
+    url: fontMonaspaceBaseUrl + 'radon.css',
+  },
+  {
+    id: 'monaspace-xenon',
+    name: 'Monaspace Xenon',
+    url: fontMonaspaceBaseUrl + 'xenon.css',
   },
   {
     id: 'monofur',
