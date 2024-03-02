@@ -140,6 +140,8 @@ monaco-themes: [MIT License](https://github.com/brijeshb42/monaco-themes/blob/2b
 
 monaco-vim: [MIT License](https://github.com/brijeshb42/monaco-vim/blob/42cca39fa9b79cd1d47981a3309a86f96b10b4ce/LICENSE)
 
+Monaspace font: [OFL-1.1 License](https://github.com/githubnext/monaspace/blob/380f29b3277ff46b8bd8577bdd7d1b60358e6c6c/LICENSE)
+
 mustache.js: [MIT License](https://github.com/janl/mustache.js/blob/972fd2b27a036888acfcb60d6119317744fac7ee/LICENSE)
 
 nomnoml: [MIT License](https://github.com/skanaar/nomnoml/blob/87776185c2c57047e8e0bfc549d1c7093844daee/LICENSE)

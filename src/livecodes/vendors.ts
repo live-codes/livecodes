@@ -172,6 +172,8 @@ export const fontJetbrainsMonoUrl = /* @__PURE__ */ getUrl(
 
 export const fontMenloUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/menlo');
 
+export const fontMonaspaceBaseUrl = /* @__PURE__ */ getUrl('monaspace-font@0.0.2/');
+
 export const fontMonofurUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/monofur');
 
 export const fontMonoidUrl = /* @__PURE__ */ getUrl('@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css');
