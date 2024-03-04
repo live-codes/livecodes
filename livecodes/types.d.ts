@@ -735,6 +735,7 @@ declare module "livecodes/vendors" {
     export const fontIosevkaUrl: string;
     export const fontJetbrainsMonoUrl: string;
     export const fontMenloUrl: string;
+    export const fontMonaspaceBaseUrl: string;
     export const fontMonofurUrl: string;
     export const fontMonoidUrl: string;
     export const fontNotoUrl: string;
