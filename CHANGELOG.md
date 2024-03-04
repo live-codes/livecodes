@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v26](https://github.com/live-codes/livecodes/compare/v25...v26) (2024-03-04)
+
+
+### Bug Fixes
+
+* **Editor:** revert css nesting workaround ([66bd226](https://github.com/live-codes/livecodes/commit/66bd226ee7559ed729d99198434d54836b40e316))
+* **Embed:** fix embed UI code snippets ([e01315e](https://github.com/live-codes/livecodes/commit/e01315e2837dd22e9171100c64b8d29973454d97))
+* **UI:** fix toolspane double-click ([3114e6c](https://github.com/live-codes/livecodes/commit/3114e6ca525a3c20d10dad773801f5adae41e148))
+
+
+### Features
+
+* **compilers:** upgrade markedjs ([7555c4a](https://github.com/live-codes/livecodes/commit/7555c4ac45ae2a38ef812c0b97da36e72c75189b))
+* **Editor:** add Monaspace font ([434ba96](https://github.com/live-codes/livecodes/commit/434ba9669bf1e8f7cc26abe7c2bb75dd8a833414))
+
+
+
+
+---
+
 ## [v25](https://github.com/live-codes/livecodes/compare/v24...v25) (2024-03-01)
 
 Most notable changes in this release:
