@@ -172,6 +172,8 @@ export const fontJetbrainsMonoUrl = /* @__PURE__ */ getUrl(
 
 export const fontMenloUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/menlo');
 
+export const fontMonaspaceBaseUrl = /* @__PURE__ */ getUrl('monaspace-font@0.0.2/');
+
 export const fontMonofurUrl = /* @__PURE__ */ getUrl('https://fonts.cdnfonts.com/css/monofur');
 
 export const fontMonoidUrl = /* @__PURE__ */ getUrl('@typopro/web-monoid@3.7.5/TypoPRO-Monoid.css');
@@ -261,7 +263,7 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
 export const malinaVersion = '0.6.64';
 export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
 
-export const markedUrl = /* @__PURE__ */ getUrl('marked@5.0.4/marked.min.js');
+export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
