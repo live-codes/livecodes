@@ -225,7 +225,7 @@ export const createToolsPane = (
               } else {
                 close();
               }
-            }, 200);
+            }, 300);
           }
         },
         false,
