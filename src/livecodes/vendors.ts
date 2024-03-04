@@ -263,7 +263,7 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
 export const malinaVersion = '0.6.64';
 export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
 
-export const markedUrl = /* @__PURE__ */ getUrl('marked@5.0.4/marked.min.js');
+export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
