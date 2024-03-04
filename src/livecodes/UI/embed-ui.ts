@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { CodeEditor, ContentConfig, EditorId } from '../models';
+import type { CodeEditor, ContentConfig, EditorId, Language } from '../models';
 import type { createNotifications } from '../notifications';
 import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
@@ -149,7 +149,7 @@ export const createEmbedUI = async ({
       name: 'type',
       options: [
         { label: 'Script (CDN)', value: 'cdn', checked: true },
-        { label: 'Script (npm)', value: 'npm' },
+        { label: 'JS (npm)', value: 'npm' },
         { label: 'React', value: 'react' },
         { label: 'Vue', value: 'vue' },
         { label: 'Svelte', value: 'svelte' },
@@ -227,13 +227,6 @@ export const createEmbedUI = async ({
 
   const getContainerId = () => 'livecodes-' + (Math.random() + 1).toString(36).substring(2);
 
-  const getContainerHtml = (id: string) =>
-    `
-<div id="${id}">
-  <span>Open the project <a href="${shareUrl}" target="_blank">${title}</a> in <a href="${livecodesUrl}" target="_blank">LiveCodes</a>.</span>
-</div>
-`.trimStart();
-
   const getOptions = (data: FormData) => {
     const config = {
       ...(data.mode !== defaultConfig.mode ? { mode: data.mode } : {}),
@@ -297,7 +290,7 @@ export const createEmbedUI = async ({
   const codeTemlates = {
     cdn: (data: FormData) => {
       const containerId = getContainerId();
-      const containerHtml = getContainerHtml(containerId);
+      const containerHtml = `<div id="${containerId}"></div>`;
       const options = getOptions(data);
       const formatted = JSON.stringify(options, null, 2);
       const indented = indentCode(formatted, 2);
@@ -311,18 +304,12 @@ ${containerHtml}
 `.trimStart();
     },
     npm(data: FormData) {
-      const containerId = getContainerId();
-      const containerHtml = getContainerHtml(containerId);
       const options = getOptions(data);
       const formatted = JSON.stringify(options, null, 2);
-      const indented = indentCode(formatted, 2);
       return `
-${containerHtml}
-<script type="module">
-  import { createPlayground } from "livecodes";
-  const options = ${indented};
-  createPlayground("#${containerId}", options);
-</script>
+import { createPlayground } from "livecodes";
+const options = ${formatted};
+createPlayground("#container", options);
 `.trimStart();
     },
     react(data: FormData) {
@@ -360,7 +347,6 @@ export default function App() {
 <script>
   import { onMount } from 'svelte';
   import { createPlayground } from 'livecodes';
-
   const options = ${indented};
   let container;
   let playground;
@@ -518,7 +504,11 @@ export default function App() {
     previewIframe.src = getIframeUrl(formData);
     const embedType = (formData as any).type;
     const code = (codeTemlates as any)[embedType]?.(formData);
-    const embedTypeLanguage = embedType === 'react' ? 'jsx' : 'html';
+    const embedTypeLanguages: Record<string, Language> = {
+      npm: 'javascript',
+      react: 'jsx',
+    };
+    const embedTypeLanguage = embedTypeLanguages[embedType] || 'html';
     if (editor.getLanguage() !== embedTypeLanguage) {
       editor.setLanguage(embedTypeLanguage, code);
     } else {
