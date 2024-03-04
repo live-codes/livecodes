@@ -71,8 +71,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ? 'coffeescript'
       : ['rescript', 'reason', 'ocaml'].includes(language)
       ? 'csharp'
-      : language === 'css' // till css nesting is supported (https://github.com/microsoft/monaco-editor/issues/4071)
-      ? 'scss'
       : mapLanguage(language);
 
   const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
