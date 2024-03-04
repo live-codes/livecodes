@@ -15,11 +15,7 @@ export const markdown: LanguageSpecs = {
     factory:
       () =>
       async (code, { config }) =>
-        (window as any).marked.parse(code, {
-          headerIds: false,
-          mangle: false,
-          ...getLanguageCustomSettings('markdown', config),
-        }),
+        (window as any).marked.parse(code, { ...getLanguageCustomSettings('markdown', config) }),
   },
   extensions: ['md', 'markdown', 'mdown', 'mkdn'],
   editor: 'markup',
