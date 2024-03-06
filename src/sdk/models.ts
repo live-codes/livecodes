@@ -509,7 +509,7 @@ export interface Compiler {
   dependencies?: Language[];
   url?: string;
   fn?: CompilerFunction;
-  factory: (config: Config, baseUrl: string) => CompilerFunction;
+  factory: (config: Config, baseUrl: string) => CompilerFunction | Promise<CompilerFunction>;
   runOutsideWorker?: CompilerFunction;
   editors?: EditorId[];
   styles?:
