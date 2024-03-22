@@ -55,8 +55,20 @@ const getContent = async (
     const fileContent = await fetch(apiUrl, {
       ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Cannot fetch: ' + apiUrl);
+        return res.json();
+      })
       .then((data) => decode(data.content));
+
+    if (fileData.filename === 'livecodes.json' && fileContent?.trim()) {
+      try {
+        return JSON.parse(fileContent);
+      } catch {
+        // invalid JSON
+      }
+    }
+
     const content =
       startLine > 0
         ? fileContent

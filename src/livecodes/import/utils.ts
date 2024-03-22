@@ -8,15 +8,20 @@ export interface SourceFile {
   editorId?: EditorId;
 }
 
-export interface FileData {
-  rawURL: string;
-  extension: Language;
-  startLine: number;
-  endLine: number;
-}
-
-export const populateConfig = (files: SourceFile[], params: { [key: string]: string }) => {
+export const populateConfig = (
+  files: SourceFile[],
+  params: { [key: string]: string },
+): Partial<Config> => {
   if (files.length === 0) return {};
+
+  const configFile = files.find((file) => file?.filename.toLowerCase() === 'livecodes.json');
+  if (configFile) {
+    try {
+      return JSON.parse(configFile.content);
+    } catch {
+      // invalid JSON
+    }
+  }
 
   // select files based on language in query params (e.g. ?html=index.html&js=script.js)
   const languagesInParams = Object.keys(params).some(getLanguageByAlias);
