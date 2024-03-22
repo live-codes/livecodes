@@ -43,7 +43,11 @@ export const isGithubDir = (url: string, pattern = new RegExp(hostPatterns.githu
   try {
     const urlObj = getValidUrl(url);
     if (!urlObj) return;
-    const pathSplit = urlObj.pathname.split('/');
+    let pathname = urlObj.pathname;
+    if (urlObj.pathname.endsWith('/')) {
+      pathname = urlObj.pathname.slice(0, -1);
+    }
+    const pathSplit = pathname.split('/');
     return pathSplit[3] === 'tree' || pathSplit.length === 3;
   } catch (error) {
     return;
@@ -70,7 +74,11 @@ export const isGitlabDir = (url: string, pattern = new RegExp(hostPatterns.gitla
   try {
     const urlObj = getValidUrl(url);
     if (!urlObj) return;
-    const pathSplit = urlObj.pathname.split('/');
+    let pathname = urlObj.pathname;
+    if (urlObj.pathname.endsWith('/')) {
+      pathname = urlObj.pathname.slice(0, -1);
+    }
+    const pathSplit = pathname.split('/');
     return pathSplit[4] === 'tree' || pathSplit.length === 3;
   } catch (error) {
     return;

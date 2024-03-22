@@ -9,6 +9,10 @@ export const importFromGithubDir = async (
   params: { [key: string]: string },
   loggedInUser: User | null | void,
 ) => {
+  if (url.endsWith('/')) {
+    url = url.slice(0, -1);
+  }
+
   try {
     const urlObj = url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
 
@@ -23,7 +27,10 @@ export const importFromGithubDir = async (
       branch = await fetch(`https://api.github.com/repos/${user}/${repository}`, {
         ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error('Cannot fetch: ' + url);
+          return res.json();
+        })
         .then((data) => data.default_branch);
     } else {
       branch = pathSplit[4];
@@ -34,7 +41,10 @@ export const importFromGithubDir = async (
     const tree = await fetch(apiURL, {
       ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Cannot fetch: ' + apiURL);
+        return res.json();
+      })
       .then((data) => data.tree);
 
     const dirFiles = tree.filter((node: any) =>
@@ -52,7 +62,10 @@ export const importFromGithubDir = async (
           await fetch(file.url, {
             ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
           })
-            .then((res) => res.json())
+            .then((res) => {
+              if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
+              return res.json();
+            })
             .then((data) => data.content),
         );
 

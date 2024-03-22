@@ -180,13 +180,22 @@ export const deployedConfirmation = (deployResult: DeployResult, sourcePublished
           Edit in LiveCodes
         </a>
       </p>
+      <p>
+        Check
+        <a
+          href="https://github.com/${username}/${repo}/actions"
+          target="_blank"
+        >
+          deployment status
+        </a>
+      </p>
     </div>
 `;
   const msg = `
     <div id="deploy-container" class="modal-container">
       <div class="modal-title">Deployed Successfully!</div>
       <p>
-        Your project has been deployed successfully to GitHub Pages, and will shortly be available on: <br />
+        Your project has been deployed successfully to GitHub Pages, and will shortly be available (~1&nbsp;min) on: <br />
         <a href="${url}" target="_blank">${url}</a>
       </p>
       <div id="deploy-qrcode" class="qrcode-container">Generating...</div>
