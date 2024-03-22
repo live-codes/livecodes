@@ -544,7 +544,7 @@ export const createAddAssetContainer = ({
 
     if (deploy) {
       const deployNotice = document.createElement('p');
-      deployNotice.textContent = 'The asset should be available on this URL soon.';
+      deployNotice.textContent = 'The asset should be available on this URL soon (~1 min).';
       deployNotice.classList.add('description', 'center');
       outputElement.appendChild(deployNotice);
     } else {
