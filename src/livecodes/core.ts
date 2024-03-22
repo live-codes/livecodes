@@ -914,6 +914,10 @@ const getResultPage = async ({
     },
   };
 
+  if (scriptType != null && scriptType !== 'module') {
+    singleFile = true;
+  }
+
   const result = await createResultPage({
     code: compiledCode,
     config,
@@ -2764,6 +2768,7 @@ const handleDeploy = () => {
         getConfig,
         getContentConfig,
         getLanguageExtension,
+        getLanguageCompiler,
         setProjectDeployRepo,
       },
     });

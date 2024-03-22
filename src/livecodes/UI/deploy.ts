@@ -2,7 +2,10 @@ import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
 import type { Config, ContentConfig, Cache, User } from '../models';
-import type { getLanguageExtension as getLanguageExtensionFn } from '../languages';
+import type {
+  getLanguageCompiler as getLanguageCompilerFn,
+  getLanguageExtension as getLanguageExtensionFn,
+} from '../languages';
 import { deployScreen, resultTemplate } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { deploy, deployFile, deployedConfirmation } from '../deploy';
@@ -84,6 +87,7 @@ export const createDeployUI = async ({
     getConfig: () => Config;
     getContentConfig: (config: Config | ContentConfig) => ContentConfig;
     getLanguageExtension: typeof getLanguageExtensionFn;
+    getLanguageCompiler: typeof getLanguageCompilerFn;
     setProjectDeployRepo: (repo: string) => Promise<void>;
   };
 }) => {
@@ -109,7 +113,8 @@ export const createDeployUI = async ({
     newRepo: boolean,
   ) => {
     const forExport = true;
-    const singleFile = false;
+    const scriptType = deps.getLanguageCompiler(deps.getConfig().script.language)?.scriptType;
+    const singleFile = scriptType != null && scriptType !== 'module';
     newRepoNameError.innerHTML = '';
 
     const resultHtml = await deps.getResultPage({
