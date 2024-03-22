@@ -1,0 +1,20 @@
+{
+  "conventionalCommits.scopes": [
+    "Compilers",
+    "SDK",
+    "Config",
+    "UI",
+    "App",
+    "functions",
+    "Share",
+    "Templates",
+    "Types",
+    "Editor",
+    "Code-to-Image",
+    "Result",
+    "Embed",
+    "Modules",
+    "Deploy",
+    "Import"
+  ]
+}
