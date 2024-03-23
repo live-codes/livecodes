@@ -2249,6 +2249,7 @@ const handleProcessors = () => {
         if (getConfig().autoupdate) {
           await run();
         }
+        dispatchChangeEvent();
       },
       false,
     );
@@ -3393,10 +3394,10 @@ const handleExternalResources = () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
-      dispatchChangeEvent();
       if (getConfig().autoupdate) {
         await run();
       }
+      dispatchChangeEvent();
     };
 
     modal.show(loadingMessage());
