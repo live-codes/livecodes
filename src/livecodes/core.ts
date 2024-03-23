@@ -3393,6 +3393,7 @@ const handleExternalResources = () => {
       setExternalResourcesMark();
       await setSavedStatus();
       modal.close();
+      dispatchChangeEvent();
       if (getConfig().autoupdate) {
         await run();
       }
