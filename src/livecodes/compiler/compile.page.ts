@@ -2,6 +2,7 @@
 import { runOutsideWorker as rescript } from '../languages/rescript';
 import { runOutsideWorker as mdx } from '../languages/mdx';
 import { runOutsideWorker as diagrams } from '../languages/diagrams';
+import { runOutsideWorker as pgsql } from '../languages/pgsql';
 
 (window as any).compilers = {
   rescript,
@@ -9,4 +10,5 @@ import { runOutsideWorker as diagrams } from '../languages/diagrams';
   ocaml: rescript,
   mdx,
   diagrams,
+  pgsql,
 };
