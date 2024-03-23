@@ -445,7 +445,16 @@ These are the events that can be watched and the description of their callback f
   ) => { remove: () => void }
   ```
 
-- `"code"`: Called when the playground code is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)).
+- `"code"`: Called when the playground "content" is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)). This include changes in:
+
+  - Code (in editors)
+  - Editor languages
+  - [CSS processors](../features/css.md#css-processors)
+  - [External resources](../features/external-resources.md)
+  - Project info (e.g. allows adding content in page head and attributes to `<html>` element)
+  - [Custom settings](../advanced/custom-settings.md) (e.g. allows changing [import maps](../features/module-resolution.md#custom-module-resolution))
+  - Project title
+  - [Test](../features/tests.md) code
 
   ```ts
   (
