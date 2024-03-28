@@ -1,6 +1,6 @@
 # PostgreSQL
 
-[PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system. LiveCodes runs PostgreSQL in the browser using [PGlite](https://github.com/electric-sql/pglite) (lightweight Postgres packaged as Wasm).
+[PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system. LiveCodes runs PostgreSQL in the browser using [PGlite](https://github.com/electric-sql/pglite) (lightweight Postgres packaged as [Wasm](https://webassembly.org/)).
 
 :::info Note
 

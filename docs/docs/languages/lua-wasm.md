@@ -4,7 +4,7 @@
 
 LiveCodes can run Lua in the browser using [Wasmoon](https://github.com/ceifa/wasmoon).
 
-> Wasmoon is a real Lua 5.4 VM with JS bindings made with WebAssembly.
+> Wasmoon is a real Lua 5.4 VM with JS bindings made with [WebAssembly](https://webassembly.org/).
 >
 > [github.com/ceifa/wasmoon](https://github.com/ceifa/wasmoon)
 

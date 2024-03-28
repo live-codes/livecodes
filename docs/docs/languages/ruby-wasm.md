@@ -4,7 +4,7 @@
 
 LiveCodes uses [ruby.wasm](https://github.com/ruby/ruby.wasm) to run Ruby in the browser.
 
-> ruby.wasm is a collection of WebAssembly ports of the [CRuby](https://github.com/ruby/ruby). It enables running Ruby application on browsers, WASI compatible WebAssembly runtimes, and Edge Computing platforms.
+> ruby.wasm is a collection of [WebAssembly](https://webassembly.org/) ports of the [CRuby](https://github.com/ruby/ruby). It enables running Ruby application on browsers, WASI compatible WebAssembly runtimes, and Edge Computing platforms.
 >
 > [ruby.github.io/ruby.wasm/](https://ruby.github.io/ruby.wasm/)
 
