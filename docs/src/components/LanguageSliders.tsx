@@ -95,6 +95,7 @@ export default function Sliders() {
       { name: 'assemblyscript', title: 'AssemblyScript' },
       { name: 'wat', title: 'WAT' },
       { name: 'sql', title: 'SQL' },
+      { name: 'postgresql', title: 'PostgreSQL' },
       { name: 'prolog', title: 'Prolog' },
       { name: 'blockly', title: 'Blockly' },
     ],
