@@ -1,9 +1,9 @@
 import type { Template } from '../../models';
 
-export const sqlStarter: Template = {
-  name: 'sql',
-  title: 'SQL Starter',
-  thumbnail: 'assets/templates/sqlite.svg',
+export const postgresqlStarter: Template = {
+  name: 'postgresql',
+  title: 'PostgreSQL Starter',
+  thumbnail: 'assets/templates/postgresql.svg',
   activeEditor: 'script',
   markup: {
     language: 'html',
@@ -83,7 +83,7 @@ export const sqlStarter: Template = {
 `.trimStart(),
   },
   script: {
-    language: 'sql',
+    language: 'postgresql',
     content: `
 -- based on https://stackoverflow.com/q/7745609
 

@@ -235,7 +235,7 @@ const esmBuild = () =>
       'UI/embed-ui.ts',
       'UI/editor-settings.ts',
       'languages/diagrams/lang-diagrams-compiler-esm.ts',
-      'languages/pgsql/lang-pgsql-compiler-esm.ts',
+      'languages/postgresql/lang-postgresql-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
     ]
