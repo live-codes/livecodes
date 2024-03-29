@@ -9,12 +9,17 @@ const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
   retries: process.env.CI ? 10 : 2,
   timeout: 60000,
   globalTimeout: 45 * 60 * 1000,
+  webServer: {
+    command: 'npm run serve',
+    url: 'http://127.0.0.1:8080',
+    reuseExistingServer: !process.env.CI,
+  },
   projects: [
     {
       name: 'monaco',
       use: {
         editor: 'monaco',
-        headless: true,
+        headless: false,
       },
     },
     // {
