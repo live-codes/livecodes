@@ -71,6 +71,7 @@ import { rubyWasm } from './ruby-wasm';
 import { luaWasm } from './lua-wasm';
 import { phpWasm } from './php-wasm';
 import { bbcode } from './bbcode';
+import { postgresql } from './postgresql';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -147,6 +148,7 @@ export const languages: LanguageSpecs[] = [
   assemblyscript,
   wat,
   sql,
+  postgresql,
   prolog,
   blockly,
 ];

@@ -542,6 +542,22 @@ test.describe('Starter Templates from UI', () => {
     expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
   });
 
+  test('PostgreSQL Starter', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=PostgreSQL Starter');
+    await waitForEditorFocus(app);
+
+    await waitForResultUpdate();
+
+    const resultText = await getResult().innerText('table');
+    expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
+  });
+
   test('Prolog Starter', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -996,6 +1012,18 @@ test.describe('Starter Templates from URL', () => {
 
   test('SQL Starter (in URL)', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl({ template: 'sql' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+
+    const resultText = await getResult().innerText('table');
+    expect(resultText).toContain('Whatever you do, do it well. – Walt Disney');
+  });
+
+  test('PostgreSQL Starter (in URL)', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl({ template: 'postgresql' }));
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 

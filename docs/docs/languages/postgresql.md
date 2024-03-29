@@ -1,10 +1,10 @@
-# SQL (SQLite)
+# PostgreSQL
 
-[SQLite](https://www.sqlite.org/) is a small, fast, self-contained, high-reliability, full-featured, SQL database engine. LiveCodes runs SQLite (compiled to [Wasm](https://webassembly.org/)) in the browser using [SQL.js](https://sql.js.org/).
+[PostgreSQL](https://www.postgresql.org/) is a powerful, open source object-relational database system. LiveCodes runs PostgreSQL in the browser using [PGlite](https://github.com/electric-sql/pglite) (lightweight Postgres packaged as [Wasm](https://webassembly.org/)).
 
 :::info Note
 
-Please note that LiveCodes also supports [PostgreSQL](./postgresql.md).
+Please note that LiveCodes also supports [SQL using SQLite](./sql.md).
 
 :::
 
@@ -83,25 +83,27 @@ The JavaScript object `livecodes.sql` is globally available in the [result page]
 
 :::info Note
 
-Helper methods for SQLite are identical to those for [PostgreSQL](./postgresql.md). So the same code can be used for both engines.
+Helper methods for PostgreSQL are identical to those for [SQL using SQLite](./sql.md). So the same code can be used for both engines.
 
 :::
+
+### Limitations
+
+Currently parameters are not supported.
 
 ### Example Usage
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-<LiveCodes template="sql"></LiveCodes>
+<LiveCodes template="postgresql"></LiveCodes>
 
 ### Custom Settings
 
-[Custom settings](../advanced/custom-settings.md) added to the property `sql` are used during running the SQL code. It is a JSON object with the following properties:
+[Custom settings](../advanced/custom-settings.md) added to the property `postgresql` are used during running the SQL code. It is a JSON object with the following properties:
 
-- `dbURL`: a URL to a SQLite database. It is downloaded and used to run the SQL code ([CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) must be enabled). Changes are NOT persisted to the remote database.
+- `dbName`: a database name that allows persisting data in the browser in IndexedDB (see [PGlite](https://github.com/electric-sql/pglite?tab=readme-ov-file#browser)).
 
 - `scriptURLs`: An array of URLs to SQL scripts that should be loaded before running the SQL code.
-
-- `params`: An object that can be used to pass parameters to the SQL code.
 
 Please note that custom settings should be valid JSON (i.e. functions are not allowed).
 
@@ -110,12 +112,8 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 ```json title="Custom Settings"
 {
   "postgresql": {
-    "dbURL": "https://myserver.com/sqlite.db",
-    "scriptURLs": ["https://myserver.com/sql.sql"],
-    "params": {
-      "param1": "value1",
-      "param2": "value2"
-    }
+    "dbName": "mydb",
+    "scriptURLs": ["https://myserver.com/sql.sql"]
   }
 }
 ```
@@ -124,11 +122,21 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ### Name
 
-`sql`
+`postgresql`
 
 ### Aliases/Extensions
 
-`sql`, `sqlite`, `sqlite3`
+`pg.sql`,
+`pgsql`,
+`pgsql.sql`,
+`pgsql`,
+`pg`,
+`pglite`,
+`pglite.sql`,
+`postgresql`,
+`postgres`,
+`postgre.sql`,
+`postgresql.sql`
 
 ### Editor
 
@@ -136,11 +144,11 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ## Compiler
 
-[SQL.js](https://sql.js.org/)
+[PGlite](https://github.com/electric-sql/pglite)
 
 ### Version
 
-`sql.js`: v1.8.0
+`@electric-sql/pglite`: v0.1.0
 
 ## Code Formatting
 
@@ -148,11 +156,11 @@ using [`sql-formatter`](https://github.com/sql-formatter-org/sql-formatter)
 
 ## Starter Template
 
-https://livecodes.io/?template=sql
+https://livecodes.io/?template=postgresql
 
 ## Links
 
-- [SQLite official website](https://www.sqlite.org/)
-- [SQLite syntax documentation](https://www.sqlite.org/lang.html)
-- [SQL.js official website](https://sql.js.org/)
-- [PostgreSQL in LiveCodes](./postgresql.md)
+- [PostgreSQL official website](https://www.postgresql.org/)
+- [PostgreSQL documentation](https://www.postgresql.org/docs/)
+- [PGlite GitHub repo](https://github.com/electric-sql/pglite)
+- [SQL in LiveCodes](./sql.md) (using SQLite)
