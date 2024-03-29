@@ -219,6 +219,9 @@ export const getEmmetToggle = /* @__PURE__ */ () =>
 export const getThemeToggle = /* @__PURE__ */ () =>
   document.querySelector('#settings-menu input#theme') as HTMLInputElement;
 
+export const getLayoutToggle = /* @__PURE__ */ () =>
+  document.querySelector('#settings-menu input#layout') as HTMLInputElement;
+
 export const getShowWelcomeToggle = /* @__PURE__ */ () =>
   document.querySelector('#settings-menu input#welcome') as HTMLInputElement;
 

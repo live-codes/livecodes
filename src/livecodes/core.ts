@@ -1664,6 +1664,25 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
 };
 
+const setLayout = (layout: Config['layout']) => {
+  const newLayout =
+    layout ??
+    (window.innerWidth < 768 && window.innerHeight > window.innerWidth ? 'vertical' : 'horizontal');
+  split?.setLayout(newLayout);
+  const layoutToggle = UI.getLayoutToggle();
+  if (layoutToggle) {
+    const layoutSwitch = layoutToggle.closest('.switch') as HTMLElement;
+    if (layout === undefined) {
+      layoutToggle.readOnly = layoutToggle.indeterminate = true;
+      layoutSwitch.dataset.hint = 'Responsive layout';
+    } else {
+      layoutToggle.checked = layout === 'vertical';
+      layoutToggle.readOnly = layoutToggle.indeterminate = false;
+      layoutSwitch.dataset.hint = layout === 'vertical' ? 'Vertical layout' : 'Horizontal layout';
+    }
+  }
+};
+
 const loadSettings = (config: Config) => {
   const processorToggles = UI.getProcessorToggles();
   processorToggles.forEach((toggle) => {
@@ -1695,6 +1714,9 @@ const loadSettings = (config: Config) => {
 
   const themeToggle = UI.getThemeToggle();
   themeToggle.checked = config.theme === 'dark';
+
+  const layoutToggle = UI.getLayoutToggle();
+  layoutToggle.checked = config.layout === 'vertical';
 
   const recoverToggle = UI.getRecoverToggle();
   recoverToggle.checked = config.recoverUnsaved;
@@ -1931,6 +1953,9 @@ const handleTitleEdit = () => {
 
 const handleResize = () => {
   resizeEditors();
+  setLayout(getConfig().layout);
+
+  eventsManager.addEventListener(window, 'resize', () => setLayout(getConfig().layout), false);
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
   eventsManager.addEventListener(window, customEvents.resizeEditor, resizeEditors, false);
 };
@@ -2292,6 +2317,13 @@ const handleSettings = () => {
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
         setTheme(getConfig().theme, getConfig().editorTheme);
+      } else if (configKey === 'layout') {
+        const newLayout = toggle.readOnly ? 'vertical' : !toggle.checked ? 'horizontal' : undefined;
+        setConfig({
+          ...getConfig(),
+          layout: newLayout,
+        });
+        setLayout(newLayout);
       } else if (configKey === 'autosync') {
         const syncData = (await getUserData())?.sync;
         if (syncData?.repo) {

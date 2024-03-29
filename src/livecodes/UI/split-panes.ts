@@ -1,35 +1,46 @@
 import Split from 'split.js';
 import { customEvents } from '../events';
 
-export const createSplitPanes = () => {
-  const gutterSize = 10;
+export const createSplitPanes = (layout: 'vertical' | 'horizontal' = 'horizontal') => {
   let destroyed = false;
-  const split = Split(['#editors', '#output'], {
-    minSize: [0, 0],
-    gutterSize,
-    elementStyle: (_dimension, size, gutterSize) => {
-      window.dispatchEvent(new Event(customEvents.resizeEditor));
-      return {
-        'flex-basis': `calc(${size}% - ${gutterSize}px)`,
-      };
-    },
-    gutterStyle: (_dimension, gutterSize) => ({
-      'flex-basis': `${gutterSize}px`,
-    }),
-    onDragStart() {
-      setAnimation(false);
-    },
-    onDragEnd() {
-      setAnimation(true);
-    },
-  });
+  let split: Split.Instance;
 
-  const gutter = document.querySelector('.gutter');
-  if (gutter) {
-    const handle = document.createElement('div');
-    handle.id = 'handle';
-    gutter.appendChild(handle);
-  }
+  const init = () => {
+    destroy(false, false);
+    setLayout(layout);
+    destroyed = false;
+    const gutterSize = layout === 'vertical' ? 8 : 10;
+    split = Split(['#editors', '#output'], {
+      direction: layout,
+      minSize: [0, 0],
+      gutterSize,
+      elementStyle: (_dimension, size, gutterSize) => {
+        window.dispatchEvent(new Event(customEvents.resizeEditor));
+        return {
+          'flex-basis': `calc(${size}% - ${gutterSize}px)`,
+        };
+      },
+      gutterStyle: (_dimension, gutterSize) => ({
+        'flex-basis': `${gutterSize}px`,
+      }),
+      onDragStart() {
+        setAnimation(false);
+      },
+      onDragEnd() {
+        setAnimation(true);
+      },
+    });
+
+    const gutter = document.querySelector('.gutter');
+    if (gutter) {
+      if (!gutter.querySelector('#handle')) {
+        const handle = document.createElement('div');
+        handle.id = 'handle';
+        gutter.appendChild(handle);
+      }
+    }
+    setAnimation(true);
+  };
 
   const setAnimation = (animate: boolean) => {
     const editorsElement: HTMLElement | null = document.querySelector('#editors');
@@ -46,7 +57,8 @@ export const createSplitPanes = () => {
   };
 
   const show = (pane: 'code' | 'output', full?: boolean) => {
-    const smallScreen = window.innerWidth < 800;
+    if (!split) init();
+    const smallScreen = layout === 'horizontal' && window.innerWidth < 800;
     const codeOpen = full || (smallScreen && full !== false) ? [100, 0] : [50, 50];
     const outputOpen = full || (smallScreen && full !== false) ? [0, 100] : [50, 50];
     if (pane === 'code' && (split.getSizes()[0] < 10 || full)) {
@@ -61,17 +73,29 @@ export const createSplitPanes = () => {
     }
   };
 
+  const getLayout = () => layout;
+
+  const setLayout = (newLayout: 'vertical' | 'horizontal') => {
+    document.documentElement.classList.toggle('layout-vertical', layout === 'vertical');
+    if (newLayout === layout) return;
+    layout = newLayout;
+    destroy();
+    init();
+  };
+
   const destroy = (preserveStyles?: boolean | undefined, preserveGutters?: boolean | undefined) => {
     if (!destroyed) {
-      split.destroy(preserveStyles, preserveGutters);
+      split?.destroy(preserveStyles, preserveGutters);
       destroyed = true;
     }
   };
 
-  setAnimation(true);
+  init();
 
   return {
     show,
+    getLayout,
+    setLayout,
     destroy,
   };
 };

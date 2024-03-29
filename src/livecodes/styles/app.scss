@@ -42,6 +42,7 @@
   --submenu-arrow-color: rgb(128, 128, 128);
   --switch-off-color: rgb(204, 204, 204);
   --switch-on-color: rgb(33, 150, 243);
+  --switch-indeterminate-color: rgb(136, 199, 250);
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
@@ -95,6 +96,7 @@
   --submenu-arrow-color: rgb(128, 128, 128);
   --switch-off-color: rgb(204, 204, 204);
   --switch-on-color: rgb(26, 132, 154);
+  --switch-indeterminate-color: rgb(122, 194, 209);
   --switch-background-color: rgb(255, 255, 255);
   --overlay-background-color: rgb(0, 0, 0);
   --modal-background-color: rgb(245, 245, 245);
@@ -447,6 +449,30 @@ a {
   display: flex;
   flex-direction: row;
   height: calc(100% - 40px);
+}
+
+.layout-vertical {
+  #editor-container {
+    flex-direction: column;
+  }
+
+  .gutter.gutter-vertical {
+    height: 4px;
+
+    #handle {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .layout-vertical .tool-buttons#editor-tools {
+    display: none;
+  }
+
+  #editors #code-run-button {
+    margin-bottom: 0;
+  }
 }
 
 #editors {
@@ -1184,7 +1210,7 @@ li.editor-title {
   flex-wrap: wrap;
   left: unset;
   margin-top: 0;
-  max-height: 31em;
+  max-height: 32em;
   max-width: 45vw;
   right: 0;
   top: 0;
@@ -1415,6 +1441,14 @@ i.arrow {
 
     &:checked + .slider::before {
       transform: translateX(16px);
+    }
+
+    &:indeterminate + .slider {
+      background-color: var(--switch-indeterminate-color);
+    }
+
+    &:indeterminate + .slider::before {
+      transform: translateX(8px);
     }
   }
 

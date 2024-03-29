@@ -108,6 +108,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   autotest: boolean;
   delay: number;
   formatOnsave: boolean;
+  layout: 'horizontal' | 'vertical' | undefined;
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;

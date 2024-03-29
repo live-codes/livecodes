@@ -462,6 +462,14 @@ Default: `false`
 
 If `true`, the code is automatically [formatted](../features/code-format.md) on saving the project.
 
+### `layout`
+
+Type: [`"horizontal" | "vertical" | undefined`](../api/interfaces/Config.md#layout)
+
+Default: `undefined`
+
+Sets the app layout to horizontal or vertical. If `undefined` (the default), the layout is responsive (on small screens the layout is vertical when the playground height is larger than its width).
+
 ### `theme`
 
 Type: [`"light" | "dark"`](../api/interfaces/Config.md#theme)
