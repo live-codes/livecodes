@@ -75,7 +75,10 @@ export const getAbsoluteUrl = (url: string, baseUrl = document.baseURI) =>
   isRelativeUrl(url) ? new URL(url, baseUrl).href : url;
 
 export const cloneObject = /* @__PURE__ */ <T>(x: Record<string, any>): T =>
-  structuredClone(x) as T;
+  (
+    globalThis.structuredClone ||
+    ((obj) => JSON.parse(JSON.stringify(obj, (_k, v) => (v === undefined ? null : v))))
+  )(x) as T;
 
 export const objectMap = /* @__PURE__ */ (
   obj: Record<string, any>,
