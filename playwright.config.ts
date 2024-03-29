@@ -19,7 +19,7 @@ const config: PlaywrightTestConfig<{ editor: Config['editor'] }> = {
       name: 'monaco',
       use: {
         editor: 'monaco',
-        headless: false,
+        headless: true,
       },
     },
     // {
