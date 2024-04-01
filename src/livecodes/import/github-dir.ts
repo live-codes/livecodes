@@ -51,13 +51,13 @@ export const importFromGithubDir = async (
       rootDir
         ? node.type === 'blob'
         : node.type === 'blob' &&
-          node.path.startsWith(dir) &&
+          node.path.startsWith(decodeURIComponent(dir)) &&
           node.path.split('/').length === dir.split('/').length + 1,
     );
 
     const files = await Promise.all(
       Object.values(dirFiles).map(async (file: any) => {
-        const filename = file.path.split('/')[file.path.split('/').length - 1];
+        const filename = decodeURIComponent(file.path.split('/')[file.path.split('/').length - 1]);
         const content = decode(
           await fetch(file.url, {
             ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
