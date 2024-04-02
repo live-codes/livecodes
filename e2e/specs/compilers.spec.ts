@@ -123,7 +123,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Haml"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Haml');
@@ -163,7 +163,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Mustache"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Mustache');
@@ -187,7 +187,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -217,7 +217,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Handlebars"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Handlebars');
@@ -241,7 +241,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -271,7 +271,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Nunjucks"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Nunjucks');
@@ -295,7 +295,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -325,7 +325,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "EJS"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=EJS');
@@ -349,7 +349,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -379,7 +379,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Eta"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Eta');
@@ -403,7 +403,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -433,7 +433,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name":"liquid"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Liquid');
@@ -457,7 +457,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -487,7 +487,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name":"doT"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=doT');
@@ -511,7 +511,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -541,7 +541,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "Twig"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=Twig');
@@ -565,7 +565,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
@@ -595,7 +595,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"data":{"name": "art-template"}}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=art-template');
@@ -619,7 +619,7 @@ const title = "World";
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"template":{"prerender": false}}`);
-    await app.click('button:has-text("Load"):visible');
+    await app.locator('.close-button').click();
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=JavaScript');
