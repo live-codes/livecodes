@@ -258,23 +258,14 @@ export const getInfoDescription = /* @__PURE__ */ () =>
 export const getInfoTagsInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#tags-input') as HTMLInputElement;
 
-export const getUpdateInfoButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#info-container #info-update-btn');
-
 export const getExternalResourcesTextareas = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLTextAreaElement>('#resources-container textarea');
 
 export const getExternalResourcesCssPresetInputs = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLInputElement>('#resources-container input[type="radio"]');
 
-export const getLoadResourcesButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#resources-container #resources-load-btn');
-
 export const getCustomSettingsEditor = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-editor');
-
-export const getLoadCustomSettingsButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-load-btn');
 
 export const getTestEditor = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#test-editor-container #test-editor');
