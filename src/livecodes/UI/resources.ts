@@ -5,11 +5,7 @@ import type { Config, CssPresetId, PkgInfo } from '../models';
 import { resourcesScreen } from '../html';
 import { pkgInfoService } from '../services/pkgInfo';
 import { debounce, hideOnClickOutside } from '../utils/utils';
-import {
-  getExternalResourcesCssPresetInputs,
-  getExternalResourcesTextareas,
-  getLoadResourcesButton,
-} from './selectors';
+import { getExternalResourcesCssPresetInputs, getExternalResourcesTextareas } from './selectors';
 
 interface PkgInfoWithDefaultFiles extends PkgInfo {
   files: {
@@ -38,7 +34,7 @@ export const createExternalResourcesUI = ({
   const div = document.createElement('div');
   div.innerHTML = resourcesScreen;
   const resourcesContainer = div.firstChild as HTMLElement;
-  modal.show(resourcesContainer);
+  modal.show(resourcesContainer, { onClose: () => updateResources() });
 
   const externalResources = getExternalResourcesTextareas();
   externalResources.forEach((textarea) => {
@@ -266,7 +262,7 @@ export const createExternalResourcesUI = ({
     });
   });
 
-  eventsManager.addEventListener(getLoadResourcesButton(), 'click', async () => {
+  const updateResources = async () => {
     externalResources.forEach((textarea) => {
       const resource = textarea.dataset.resource as ResourceType;
       deps.setConfig({
@@ -289,5 +285,5 @@ export const createExternalResourcesUI = ({
     });
 
     deps.loadResources();
-  });
+  };
 };

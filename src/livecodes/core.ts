@@ -3186,13 +3186,7 @@ const handleProjectInfo = () => {
     dispatchChangeEvent();
   };
   const createProjectInfo = () =>
-    createProjectInfoUI(
-      getConfig(),
-      stores.projects || fakeStorage,
-      modal,
-      eventsManager,
-      onUpdate,
-    );
+    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, onUpdate);
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
   registerScreen('info', createProjectInfo);
@@ -3425,7 +3419,6 @@ const handleExternalResources = () => {
     const loadResources = async () => {
       setExternalResourcesMark();
       await setSavedStatus();
-      modal.close();
       if (getConfig().autoupdate) {
         await run();
       }
@@ -3466,7 +3459,8 @@ const handleCustomSettings = () => {
     div.innerHTML = customSettingsScreen;
     const customSettingsContainer = div.firstChild as HTMLElement;
     modal.show(customSettingsContainer, {
-      onClose: () => {
+      onClose: async () => {
+        await loadCustomSettings();
         customSettingsEditor?.destroy();
       },
     });
@@ -3490,7 +3484,7 @@ const handleCustomSettings = () => {
     customSettingsEditor = await createEditor(options);
     customSettingsEditor?.focus();
 
-    eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
+    const loadCustomSettings = async () => {
       let customSettings: CustomSettings = {};
       const editorContent = customSettingsEditor?.getValue() || '{}';
       try {
@@ -3516,12 +3510,11 @@ const handleCustomSettings = () => {
         }
       }
       customSettingsEditor?.destroy();
-      modal.close();
       if (getConfig().autoupdate) {
         await run();
       }
       dispatchChangeEvent();
-    });
+    };
   };
   eventsManager.addEventListener(
     UI.getCustomSettingsLink(),

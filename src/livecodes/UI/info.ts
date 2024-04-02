@@ -1,5 +1,4 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
 import { infoScreen } from '../html';
 import type { createModal } from '../modal';
 import * as UI from '../UI';
@@ -21,7 +20,6 @@ export const createProjectInfoUI = async (
   config: Config,
   storage: ProjectStorage,
   modal: ReturnType<typeof createModal>,
-  eventsManager: ReturnType<typeof createEventsManager>,
   onUpdate: (
     title: string,
     description: string,
@@ -33,7 +31,7 @@ export const createProjectInfoUI = async (
   const div = document.createElement('div');
   div.innerHTML = infoScreen;
   const projectInfoContainer = div.firstChild as HTMLElement;
-  modal.show(projectInfoContainer);
+  modal.show(projectInfoContainer, { onClose: () => updateInfo() });
 
   const titleInput = UI.getInfoTitleInput();
   titleInput.value = config.title;
@@ -54,7 +52,7 @@ export const createProjectInfoUI = async (
   const tagsInput = UI.getInfoTagsInput();
   tagsInput.value = removeDuplicates(config.tags).join(', ');
 
-  eventsManager.addEventListener(UI.getUpdateInfoButton(), 'click', async () => {
+  const updateInfo = async () => {
     UI.getProjectTitleElement().textContent = titleInput.value;
     onUpdate(
       titleInput.value,
@@ -63,8 +61,7 @@ export const createProjectInfoUI = async (
       htmlAttrsTextarea.value,
       getTags(tagsInput.value),
     );
-    modal.close();
-  });
+  };
 
   loadStylesheet(tagifyBaseUrl + 'tagify.css', 'tagify-styles');
   await loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify');
