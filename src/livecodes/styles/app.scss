@@ -1166,12 +1166,16 @@ li.editor-title {
   &:active + .menu-scroller .dropdown-menu {
     animation: fadeIn 0.4s forwards;
     display: flex;
+
+    &#settings-menu {
+      display: block;
+    }
   }
 }
 
 #settings-menu:hover {
   animation: fadeIn 0.4s forwards;
-  display: flex;
+  display: block;
 }
 
 .dropdown-menu li,
@@ -1206,22 +1210,20 @@ li.editor-title {
 }
 
 #settings-menu {
-  flex-direction: column;
-  flex-wrap: wrap;
+  column-count: 2;
   left: unset;
   margin-top: 0;
-  max-height: 32em;
   max-width: 45vw;
   right: 0;
   top: 0;
   width: 500px;
 
   &:hover {
-    display: flex !important;
+    display: block !important;
   }
 
   > li {
-    width: 50%;
+    display: block;
   }
 
   li {
