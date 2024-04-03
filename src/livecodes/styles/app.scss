@@ -1137,6 +1137,17 @@ li.editor-title {
     right: 0;
     width: 400%;
   }
+
+  .dropdown-menu.submenu {
+    right: unset;
+    top: 2.2em;
+    left: 0;
+  }
+
+  .dropdown-menu#settings-menu {
+    font-size: 1.2em;
+    max-width: 100%;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -1357,15 +1368,7 @@ i.arrow {
   }
 
   i.arrow {
-    left: 1px;
-    top: calc(50% - 0.7em);
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  #settings-menu i.arrow {
     left: 0;
-    top: calc(50% - 0.9em);
   }
 }
 
