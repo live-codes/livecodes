@@ -1097,16 +1097,16 @@ export interface Snippet {
 }
 
 export interface EventsManager {
-  addEventListener: (
+  addEventListener: <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
-    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
+    fn: (event: T) => any,
     _options?: any,
   ) => void;
-  removeEventListener: (
+  removeEventListener: <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
-    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
+    fn: (event: T) => any,
   ) => void;
   removeEventListeners: () => void;
 }
