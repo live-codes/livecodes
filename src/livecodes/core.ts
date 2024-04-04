@@ -3745,20 +3745,23 @@ const handleResultPopup = () => {
       return;
     }
     popupBtn.classList.add('loading');
-    const result = await getResultPage({ forExport: true, singleFile: true });
     url = url || URL.createObjectURL(new Blob([resultPopupHTML], { type: 'text/html' }));
     // add a notice to URL that it is a temporary URL to prevent users from sharing it.
     // revoking the URL after opening the window prevents viewing the page source.
     const notice = '#---TEMPORARY-URL---';
     resultPopup = window.open(url + notice, 'livecodes-result', `width=800,height=400`);
-    eventsManager.addEventListener(
-      resultPopup,
-      'load',
-      () => {
-        resultPopup?.postMessage({ result }, location.origin);
-      },
-      { once: true },
-    );
+    eventsManager.addEventListener(window, 'message', async (ev: MessageEvent) => {
+      if (ev.source !== resultPopup) return;
+      if (ev.data.type === 'loaded') {
+        resultPopup?.postMessage({ url: sandboxService.getResultUrl() }, location.origin);
+      }
+      if (ev.data.type === 'ready') {
+        resultPopup?.postMessage(
+          { result: await getResultPage({ singleFile: true }) },
+          location.origin,
+        );
+      }
+    });
     popupBtn.classList.remove('loading');
   };
   eventsManager.addEventListener(popupBtn, 'click', openWindow);

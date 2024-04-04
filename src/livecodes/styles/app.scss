@@ -1971,8 +1971,9 @@ i.arrow {
     border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
-    margin-bottom: 1em;
-    min-height: calc(80% - 100px);
+    box-sizing: border-box;
+    margin-bottom: 2em;
+    min-height: calc(90% - 100px);
     padding: 1.5em 0.7em;
   }
 
@@ -2408,6 +2409,7 @@ i.arrow {
 
     .modal-screen-container {
       height: calc(95% - 140px);
+      margin-bottom: 1em;
       overflow: scroll;
     }
 
