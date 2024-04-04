@@ -19,19 +19,44 @@
     </style>
   </head>
   <body>
-    <iframe
-      id="result"
-      title="result"
-      sandbox="allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts"
-    ></iframe>
     <script>
-      const result = document.querySelector('#result');
-      addEventListener('message', (ev) => {
-        if (ev.origin != window.opener.origin) return;
-        if (ev.data.result) {
-          result.srcdoc = ev.data.result;
+      let url;
+      const createIframe = (html) => {
+        if (!url) return;
+        const prevIframe = document.querySelector('#result');
+        if (prevIframe) {
+          prevIframe.remove();
         }
+        const iframe = document.createElement('iframe');
+        iframe.id = 'result';
+        iframe.setAttribute(
+          'sandbox',
+          'allow-same-origin allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-presentation allow-scripts',
+        );
+        iframe.src = url;
+        iframe.addEventListener(
+          'load',
+          () => {
+            iframe.contentWindow.postMessage({ html }, '*');
+          },
+          { once: true },
+        );
+        document.body.appendChild(iframe);
+      };
+
+      addEventListener('message', (ev) => {
+        if (ev.source != window.opener) return;
+        if (ev.data.url) {
+          url = ev.data.url;
+          window.opener.postMessage({ type: 'ready' }, '*');
+          return;
+        }
+        const result = ev.data.result;
+        if (url == null || result == null) return;
+        createIframe(result);
       });
+
+      window.opener.postMessage({ type: 'loaded' }, '*');
     </script>
   </body>
 </html>
