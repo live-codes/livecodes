@@ -9,6 +9,7 @@ const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildVendors } = require('./vendors');
 const { buildStyles } = require('./styles');
+const { buildI18n } = require('./i18n');
 
 const args = process.argv.slice(2);
 const devMode = args.includes('--dev');
@@ -55,6 +56,7 @@ const getFileNames = async (dir) =>
 const prepareDir = async () => {
   mkdir(outDir);
   mkdir(outDir + '/livecodes/');
+  mkdir(outDir + '/livecodes/locales');
   mkdir(outDir + '/sdk/');
   if (devMode) {
     mkdir(outDir + '/tmp/');
@@ -338,7 +340,7 @@ const functionsBuild = () =>
 const stylesBuild = () => buildStyles(devMode);
 
 prepareDir().then(() => {
-  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), sdkBuild()]).then(
+  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), sdkBuild(), buildI18n()]).then(
     async () => {
       if (!devMode) {
         buildVendors();
