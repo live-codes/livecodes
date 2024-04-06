@@ -1,5 +1,4 @@
 /* eslint-disable import/no-internal-modules */
-import type { createEventsManager } from '../events';
 import { infoScreen } from '../html';
 import type { createModal } from '../modal';
 import * as UI from '../UI';
