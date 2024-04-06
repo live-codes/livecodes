@@ -140,6 +140,7 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
+import i18n from './i18n';
 
 // declare global dependencies
 declare const window: Window & {
@@ -2994,6 +2995,13 @@ const handleWelcome = () => {
     div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
     const welcomeContainer = div.firstChild as HTMLElement;
     modal.show(welcomeContainer);
+
+    welcomeContainer.querySelectorAll('.i18n').forEach((elem) => {
+      elem.textContent = i18n.t(elem.innerHTML);
+
+      // eslint-disable-next-line no-console
+      console.log('i18n', elem.textContent);
+    });
 
     const showWelcomeCheckbox = UI.getModalShowWelcomeCheckbox(welcomeContainer);
     showWelcomeCheckbox.checked = getConfig().welcome;
