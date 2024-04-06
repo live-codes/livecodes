@@ -110,7 +110,7 @@ demo
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{ "riot": { "template": "pug" } }`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await waitForResultUpdate();
 

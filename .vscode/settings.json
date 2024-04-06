@@ -15,6 +15,7 @@
     "Embed",
     "Modules",
     "Deploy",
-    "Import"
+    "Import",
+    "ToolsPane"
   ]
 }
