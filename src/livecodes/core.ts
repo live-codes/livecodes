@@ -3911,10 +3911,11 @@ const configureToolsPane = (
   // TODO: handle tools.enabled
 };
 
-const loadI18n = async (appLanguage?: string) => {
+const loadI18n = async (appLanguage: string | undefined) => {
   const userLang = appLanguage || navigator.language;
   if (isEmbed || !userLang || userLang.toLowerCase().startsWith('en')) return;
   const i18nModule: typeof import('./i18n/i18n') = await import(baseUrl + '{{hash:i18n.js}}');
+  i18nModule.init(userLang);
   return i18nModule.default;
 };
 
@@ -4278,7 +4279,7 @@ const initializePlayground = async (
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
-  i18n = await loadI18n();
+  i18n = await loadI18n(getConfig().appLanguage);
   createLanguageMenus(
     getConfig(),
     baseUrl,

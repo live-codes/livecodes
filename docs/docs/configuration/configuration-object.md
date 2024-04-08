@@ -520,6 +520,14 @@ Each `EditorTheme` item requires a theme name. The theme name can optionally be 
 
 Multiple `EditorTheme` items can be supplied (as array items or in the comma-separated string) to specify the theme for each editor and in dark and light modes. The order matters. The first valid item in the array or string for the current editor (`monaco`, `codemirror` or `codejar`) and app theme (`light` or `dark`) will be used. If no items match the current editor and app theme, the default theme for the editor and app theme will be used.
 
+### `appLanguage`
+
+Type: [`AppLanguage | undefined`](../api/interfaces/Config.md#applanguage)
+
+Default: `undefined`
+
+Spoken language code that sets the app UI language (e.g. `"ar"`, `"zh-CN"`). Used in translations for internationalization. If `undefined` (the default), the language is automatically detected based on the user's browser settings and falls back to English, if detection fails or the language is not supported.
+
 ### `recoverUnsaved`
 
 Type: [`boolean`](../api/interfaces/Config.md#recoverunsaved)
