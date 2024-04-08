@@ -240,6 +240,7 @@ const esmBuild = () =>
       'languages/postgresql/lang-postgresql-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
+      'i18n/i18n.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),
@@ -340,22 +341,27 @@ const functionsBuild = () =>
 const stylesBuild = () => buildStyles(devMode);
 
 prepareDir().then(() => {
-  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), sdkBuild(), buildI18n()]).then(
-    async () => {
-      if (!devMode) {
-        buildVendors();
-        functionsBuild();
-      }
-      await applyHash({ devMode });
-      await injectCss();
-      if (devMode) {
-        fs.writeFileSync(
-          path.resolve('build/tmp/trigger-reload.txt'),
-          new Date().toISOString(),
-          'utf8',
-        );
-      }
-      console.log('built to: ' + baseOptions.outdir + '/');
-    },
-  );
+  Promise.all([
+    esmBuild(),
+    iifeBuild(),
+    workersBuild(),
+    stylesBuild(),
+    sdkBuild(),
+    buildI18n(),
+  ]).then(async () => {
+    if (!devMode) {
+      buildVendors();
+      functionsBuild();
+    }
+    await applyHash({ devMode });
+    await injectCss();
+    if (devMode) {
+      fs.writeFileSync(
+        path.resolve('build/tmp/trigger-reload.txt'),
+        new Date().toISOString(),
+        'utf8',
+      );
+    }
+    console.log('built to: ' + baseOptions.outdir + '/');
+  });
 });

@@ -11,11 +11,11 @@ i18n
     fallbackLng: 'en',
     keySeparator: false,
     interpolation: {
-      escapeValue: true
+      escapeValue: true,
     },
     backend: {
-      loadPath: '/livecodes/locales/{{lng}}/{{ns}}.json'
-    }
+      loadPath: '/livecodes/locales/{{lng}}/{{ns}}.json',
+    },
   });
 
 export default i18n;
