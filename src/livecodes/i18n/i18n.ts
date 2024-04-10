@@ -10,7 +10,7 @@ export const init = (lng: string | undefined) => {
       debug: true,
       fallbackLng: 'en',
       interpolation: {
-        escapeValue: true,
+        escapeValue: false,
       },
       backend: {
         loadPath: '/livecodes/locales/{{lng}}/{{ns}}.json',
