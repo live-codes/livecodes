@@ -9,7 +9,6 @@ export const init = (lng: string | undefined) => {
       lng,
       debug: true,
       fallbackLng: 'en',
-      keySeparator: false,
       interpolation: {
         escapeValue: true,
       },
