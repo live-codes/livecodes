@@ -140,7 +140,6 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
-import i18n from './i18n';
 
 // declare global dependencies
 declare const window: Window & {
@@ -153,6 +152,7 @@ const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
 let modal: ReturnType<typeof createModal>;
+let i18n: typeof import('./i18n/i18n').default | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
@@ -2996,13 +2996,6 @@ const handleWelcome = () => {
     const welcomeContainer = div.firstChild as HTMLElement;
     modal.show(welcomeContainer);
 
-    welcomeContainer.querySelectorAll('.i18n').forEach((elem) => {
-      elem.textContent = i18n.t(elem.innerHTML);
-
-      // eslint-disable-next-line no-console
-      console.log('i18n', elem.textContent);
-    });
-
     const showWelcomeCheckbox = UI.getModalShowWelcomeCheckbox(welcomeContainer);
     showWelcomeCheckbox.checked = getConfig().welcome;
 
@@ -3918,9 +3911,17 @@ const configureToolsPane = (
   // TODO: handle tools.enabled
 };
 
+const loadI18n = async (appLanguage: string | undefined) => {
+  const userLang = appLanguage || navigator.language;
+  if (isEmbed || !userLang || userLang.toLowerCase().startsWith('en')) return;
+  const i18nModule: typeof import('./i18n/i18n') = await import(baseUrl + '{{hash:i18n.js}}');
+  i18nModule.init(userLang);
+  return i18nModule.default;
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal();
+  modal = createModal({ i18n });
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -4278,6 +4279,7 @@ const initializePlayground = async (
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
+  i18n = await loadI18n(getConfig().appLanguage);
   createLanguageMenus(
     getConfig(),
     baseUrl,

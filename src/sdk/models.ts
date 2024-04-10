@@ -112,6 +112,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;
+  appLanguage: AppLanguage | undefined;
 }
 
 export interface EditorConfig {
@@ -945,6 +946,8 @@ export interface BlocklyContent {
   xml?: string;
   js?: string;
 }
+
+export type AppLanguage = 'en' | 'ar' | 'zh-CN';
 
 export interface User {
   uid: string;
