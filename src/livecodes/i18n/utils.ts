@@ -6,7 +6,14 @@ export const translate = (
   container.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
     const key = el.dataset.i18n;
     if (!key) return;
-    const prop = el.dataset.i18nProp || 'textContent';
-    (el as any)[prop] = i18n.t(key) || (el as any)[prop];
+    const props = (el.dataset.i18nProp || 'textContent').split(' ');
+    props.forEach((prop) => {
+      if (prop.startsWith("data-")) {
+        prop = prop.slice(5);
+        el.dataset[prop] = i18n.t(`${key}.${prop}`, el.dataset[prop]!);
+      } else {
+        (el as any)[prop] = i18n.t(`${key}.${prop}`, (el as any)[prop]);
+      }
+    });
   });
 };
