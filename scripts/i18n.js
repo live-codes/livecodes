@@ -1,3 +1,4 @@
+const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
 
@@ -11,14 +12,17 @@ const buildI18n = async () => {
       .filter((name) => fs.statSync(dir + name).isDirectory());
     await Promise.all(
       locales.map(async (locale) => {
-        i18nFiles[locale] = await fs.promises.readdir(dir + locale);
+        const localeDir = path.join(dir, locale);
+        i18nFiles[locale] =
+          (await fs.promises.readdir(localeDir))
+          .filter((name) => !fs.statSync(path.resolve(localeDir, name)).isDirectory())
+          .filter((name) => name.endsWith('.ts'));
       })
     );
     return i18nFiles;
   };
 
   const files = await getFileNames(srcDir);
-  console.log(files);
 
   await Promise.all(
     Object.keys(files).map(async (locale) => {
@@ -26,8 +30,20 @@ const buildI18n = async () => {
       fs.mkdirSync(localeDir, { recursive: true });
       await Promise.all(
         files[locale].map(async (file) => {
-          const content = await fs.promises.readFile(path.join(srcDir, locale, file), 'utf-8');
-          await fs.promises.writeFile(path.join(localeDir, file), content);
+          const result = await esbuild.build({
+            entryPoints: [path.join(srcDir, locale, file)],
+            bundle: true,
+            format: 'cjs',
+            platform: 'node',
+            write: false,
+          });
+          const js = result.outputFiles[0].text;
+          const json = JSON.stringify(eval(js).default, null, 2);
+          fs.writeFile(path.join(localeDir, file.replace('.ts', '.json')), json, 'utf8', (err) => {
+            if (err) {
+              console.log(err);
+            }
+          });
         })
       );
     })
