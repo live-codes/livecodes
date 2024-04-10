@@ -1739,8 +1739,13 @@ const loadSettings = (config: Config) => {
   });
 };
 
-const showLanguageInfo = (languageInfo: HTMLElement) => {
-  modal.show(languageInfo, { size: 'small' });
+const showLanguageInfo = async (languageInfo: HTMLElement) => {
+  const showModal = () => modal.show(languageInfo, { size: 'small' });
+  if (i18n) {
+    i18n.loadNamespaces(['language-info'], showModal);
+  } else {
+    showModal();
+  }
 };
 
 const loadStarterTemplate = async (templateName: Template['name'], checkSaved = true) => {
