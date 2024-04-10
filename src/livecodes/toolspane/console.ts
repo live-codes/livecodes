@@ -4,7 +4,7 @@ import type { createEventsManager } from '../events';
 import type { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
-import { getToolspaneButtons, getToolspaneElement } from '../UI';
+import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
 import { getLanguageExtension, mapLanguage } from '../languages';
 import { getEditorConfig } from '../config';
 
@@ -104,6 +104,7 @@ export const createConsole = (
         } else {
           (consoleEmulator as any)[message.method](...convertTypes(message.args));
         }
+        updateMark();
       }
     });
 
@@ -146,6 +147,7 @@ export const createConsole = (
       commands.push(command);
       consoleEditor.setValue('', false);
       commandsIndex = -1;
+      updateMark();
     });
 
     consoleEditor.addKeyBinding('prev', consoleEditor.keyCodes.UpArrow, () => {
@@ -231,6 +233,7 @@ export const createConsole = (
         'click',
         () => {
           consoleEmulator.clear();
+          updateMark();
         },
         false,
       );
@@ -239,6 +242,7 @@ export const createConsole = (
         'touchstart',
         () => {
           consoleEmulator.clear();
+          updateMark();
         },
         false,
       );
@@ -267,6 +271,28 @@ export const createConsole = (
     editor = await createConsoleInput(true);
   };
 
+  const updateMark = () => {
+    const toolsPaneTitle = getToolspaneTitles()?.querySelector('.console');
+    if (!toolsPaneTitle) return;
+    if (!toolsPaneTitle.querySelector('#console-mark')) {
+      const mark = document.createElement('span');
+      mark.id = 'console-mark';
+      mark.classList.add('mark');
+      toolsPaneTitle.appendChild(mark);
+    }
+    setTimeout(() => {
+      const logCount = [
+        ...document.querySelectorAll<HTMLElement>('.luna-console-log-content'),
+      ].filter((log) => log.innerText !== 'Console was cleared').length;
+      toolsPaneTitle.classList.toggle('has-mark', logCount > 0);
+    }, 50);
+  };
+
+  const exec = (fn: () => void) => {
+    fn();
+    updateMark();
+  };
+
   return {
     name: 'console',
     title: 'Console',
@@ -287,13 +313,13 @@ export const createConsole = (
     },
     getEditor: () => editor,
     reloadEditor,
-    log: (...args) => consoleEmulator?.log(...args),
-    info: (...args) => consoleEmulator?.info(...args),
-    table: (...args) => consoleEmulator?.table(...args),
-    warn: (...args) => consoleEmulator?.warn(...args),
-    error: (...args) => consoleEmulator?.error(...args),
-    clear: (silent) => consoleEmulator?.clear(silent),
-    // filterLog: (filter) => consoleEmulator?.filterLog(filter),
-    evaluate: (code) => consoleEmulator?.evaluate(code),
+    log: (...args) => exec(() => consoleEmulator?.log(...args)),
+    info: (...args) => exec(() => consoleEmulator?.info(...args)),
+    table: (...args) => exec(() => consoleEmulator?.table(...args)),
+    warn: (...args) => exec(() => consoleEmulator?.warn(...args)),
+    error: (...args) => exec(() => consoleEmulator?.error(...args)),
+    clear: (silent) => exec(() => consoleEmulator?.clear(silent)),
+    // filterLog: (filter) => exec(() => consoleEmulator?.filterLog(filter)),
+    evaluate: (code) => exec(() => consoleEmulator?.evaluate(code)),
   };
 };

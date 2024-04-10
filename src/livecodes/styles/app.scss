@@ -574,15 +574,6 @@ a {
       img {
         filter: invert(1);
       }
-
-      .mark {
-        border: 4px solid var(--editor-tools-mark-color);
-        border-radius: 4px;
-        bottom: 5px;
-        display: inline-block;
-        position: absolute;
-        right: 5px;
-      }
     }
   }
 
@@ -605,6 +596,16 @@ a {
       }
     }
   }
+}
+
+.tool-buttons .active .mark,
+.tools-pane-title.has-mark .mark {
+  border: 4px solid var(--editor-tools-mark-color);
+  border-radius: 4px;
+  bottom: 3px;
+  display: inline-block;
+  position: absolute;
+  right: 3px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -699,6 +700,7 @@ a {
   justify-content: center;
   margin-right: 2px;
   padding: 0 10px;
+  position: relative;
 
   &.active {
     border-bottom: 3px solid var(--toolspane-accent-color);

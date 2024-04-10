@@ -16,6 +16,7 @@
     "Modules",
     "Deploy",
     "Import",
-    "i18n"
+    "i18n",
+    "ToolsPane"
   ]
 }

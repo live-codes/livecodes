@@ -14,7 +14,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"asciidoc": { standalone: true }}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
     await app.click('text=AsciiDoc');
@@ -37,7 +37,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"scss": {"style": "compressed"}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=SCSS');
@@ -64,7 +64,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.insertText(`{"sass": {"style": "compressed"}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Sass');
@@ -94,7 +94,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"less": {"math": "always"}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Less');
@@ -117,7 +117,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"postcssImportUrl": false}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -140,7 +140,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"autoprefixer": {"add": false}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=autoprefixer');
@@ -164,7 +164,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"postcssPresetEnv": {"stage": 3}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 2)');
     await app.click('text=Preset Env');
@@ -190,7 +190,7 @@ body
     await page.keyboard.type(
       `{"tailwindcss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
     );
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click('text=HTML');
     await waitForEditorFocus(app);
@@ -225,7 +225,7 @@ body
     await page.keyboard.type(
       `{"windicss": {"theme": {"extend": {"colors": {"dark-blue-800": "#0A214C"}}}}}`,
     );
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click('text=HTML');
     await waitForEditorFocus(app);
@@ -257,7 +257,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"babel": {"sourceMaps": "inline"}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Babel');
@@ -280,7 +280,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"typescript": {"target": "es5"}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=TypeScript');
@@ -303,7 +303,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"flow": {"pretty": true}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=Flow');
@@ -330,7 +330,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"svelte": {"css": false}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await waitForResultUpdate();
 
@@ -350,7 +350,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"stencil": {"sourceMap": true}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await waitForResultUpdate();
 
@@ -368,7 +368,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"coffeescript": {"bare": false}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=CoffeeScript');
@@ -391,7 +391,7 @@ body
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(`{"livescript": {"bare": false}}`);
-    await app.locator('.close-button').click();
+    await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
     await app.click('text=LiveScript');

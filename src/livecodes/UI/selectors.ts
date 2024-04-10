@@ -267,6 +267,9 @@ export const getExternalResourcesCssPresetInputs = /* @__PURE__ */ () =>
 export const getCustomSettingsEditor = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-editor');
 
+export const getLoadCustomSettingsButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-load-btn');
+
 export const getTestEditor = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#test-editor-container #test-editor');
 

@@ -3460,8 +3460,7 @@ const handleCustomSettings = () => {
     div.innerHTML = customSettingsScreen;
     const customSettingsContainer = div.firstChild as HTMLElement;
     modal.show(customSettingsContainer, {
-      onClose: async () => {
-        await loadCustomSettings();
+      onClose: () => {
         customSettingsEditor?.destroy();
       },
     });
@@ -3485,7 +3484,7 @@ const handleCustomSettings = () => {
     customSettingsEditor = await createEditor(options);
     customSettingsEditor?.focus();
 
-    const loadCustomSettings = async () => {
+    eventsManager.addEventListener(UI.getLoadCustomSettingsButton(), 'click', async () => {
       let customSettings: CustomSettings = {};
       const editorContent = customSettingsEditor?.getValue() || '{}';
       try {
@@ -3511,11 +3510,12 @@ const handleCustomSettings = () => {
         }
       }
       customSettingsEditor?.destroy();
+      modal.close();
       if (getConfig().autoupdate) {
         await run();
       }
       dispatchChangeEvent();
-    };
+    });
   };
   eventsManager.addEventListener(
     UI.getCustomSettingsLink(),
