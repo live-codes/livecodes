@@ -1,9 +1,12 @@
-import type { I18nTranslation } from "../template";
+import { type I18nTranslationTemplate } from '../models';
 
-const languageInfo: I18nTranslation = {
-    artTemplateDesc: {
-        textContent: "High performance JavaScript templating engine."
-    }
-};
+// This is used as a template for other translations.
+// Other translations should be typed like this:
+// const languageInfo: I18nTranslation = { /* translation here */ };
+const languageInfo = {
+  artTemplateDesc: {
+    textContent: 'High performance JavaScript templating engine.',
+  },
+} as const satisfies I18nTranslationTemplate;
 
 export default languageInfo;

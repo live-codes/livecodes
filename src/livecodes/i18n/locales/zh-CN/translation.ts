@@ -1,9 +1,7 @@
-import type { I18nTranslation } from "../template";
+import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
-    welcome: {
-        textContent: "欢迎"
-    }
+  welcome: '欢迎',
 };
 
 export default translation;
