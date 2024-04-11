@@ -3920,7 +3920,7 @@ const loadI18n = async (appLanguage: string | undefined) => {
   const userLang = appLanguage || navigator.language;
   if (isEmbed || !userLang || userLang.toLowerCase().startsWith('en')) return;
   const i18nModule: typeof import('./i18n/i18n') = await import(baseUrl + '{{hash:i18n.js}}');
-  i18nModule.init(userLang);
+  i18nModule.init(userLang, baseUrl);
   return i18nModule.default;
 };
 
