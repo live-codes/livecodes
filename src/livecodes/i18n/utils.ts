@@ -8,11 +8,13 @@ export const translate = (
     if (!key) return;
     const props = (el.dataset.i18nProp || 'textContent').split(' ');
     props.forEach((prop) => {
-      if (prop.startsWith("data-")) {
+      const isObject = typeof i18n.t(key, { returnObjects: true }) === 'object';
+      const lookupKey = isObject ? `${key}.${prop}` : key;
+      if (prop.startsWith('data-')) {
         prop = prop.slice(5);
-        el.dataset[prop] = i18n.t(`${key}.${prop}`, el.dataset[prop]!);
+        el.dataset[prop] = i18n.t(lookupKey, el.dataset[prop]!);
       } else {
-        (el as any)[prop] = i18n.t(`${key}.${prop}`, (el as any)[prop]);
+        (el as any)[prop] = i18n.t(lookupKey, (el as any)[prop]);
       }
     });
   });
