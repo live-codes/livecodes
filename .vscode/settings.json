@@ -18,5 +18,6 @@
     "Import",
     "i18n",
     "ToolsPane"
-  ]
+  ],
+  "html.customData": ["./.vscode/html.html-data.json"]
 }
