@@ -1682,6 +1682,9 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
 };
 
 const setLayout = (layout: Config['layout']) => {
+  if (layout === 'responsive') {
+    layout = undefined;
+  }
   const newLayout =
     layout ??
     (window.innerWidth < 768 && window.innerHeight > window.innerWidth ? 'vertical' : 'horizontal');
