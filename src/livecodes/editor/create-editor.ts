@@ -26,17 +26,19 @@ const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: Ed
   return codeEditor;
 };
 
-const selectEditor = (
-  options: Partial<Pick<EditorOptions, 'editor' | 'mode' | 'editorId' | 'isHeadless'>>,
-) => {
-  const { editor, mode, editorId, isHeadless } = options;
+const selectEditor = (options: EditorOptions & { activeEditor?: Config['activeEditor'] }) => {
+  const { editor, mode, editorId, activeEditor, isHeadless } = options;
   return (
     (isHeadless
       ? 'fake'
       : mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
       ? 'fake'
+      : mode === 'simple' && editorId !== activeEditor
+      ? 'fake'
       : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
       ? editor
+      : mode === 'simple' && editorId === activeEditor
+      ? 'codemirror'
       : mode === 'codeblock'
       ? 'codejar'
       : isMobile()
@@ -82,7 +84,9 @@ const loadFont = (fontName: string) => {
   loadStylesheet(font.url, 'font-' + font.id);
 };
 
-export const createEditor = async (options: EditorOptions) => {
+export const createEditor = async (
+  options: EditorOptions & { activeEditor?: Config['activeEditor'] },
+) => {
   if (!options) throw new Error();
 
   const editorOptions = getEditorOptions(options);

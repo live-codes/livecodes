@@ -416,6 +416,56 @@ a {
   }
 }
 
+.simple-mode {
+  .editor-title:not(.active),
+  #toolbar #result-button,
+  #toolbar #fullscreen-button,
+  #editors #editor-tools,
+  #console-input,
+  #result-popup-btn,
+  #broadcast-status-btn {
+    display: none !important;
+  }
+
+  #toolbar {
+    margin-bottom: -8px;
+    transform: scale(0.8);
+    transform-origin: left top;
+    width: 125%;
+
+    #select-editor {
+      width: calc(80% - 70px);
+
+      .editor-title.active {
+        background-color: unset;
+        border: 0;
+      }
+    }
+
+    #run-button {
+      display: flex !important;
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  #editor-container {
+    height: calc(100% - 30px) !important;
+  }
+
+  #editors #code-run-button {
+    display: none !important;
+  }
+
+  #tools-pane-bar {
+    font-size: 0.7em;
+  }
+
+  .tools-pane-title.has-mark .mark {
+    display: none !important;
+  }
+}
+
 .result {
   #toolbar {
     background-color: rgb(0, 0, 0, 0.05);
@@ -454,6 +504,11 @@ a {
 .layout-vertical {
   #editor-container {
     flex-direction: column;
+
+    .gutter #size-label {
+      left: 5px !important;
+      top: 15px !important;
+    }
   }
 
   .gutter.gutter-vertical {

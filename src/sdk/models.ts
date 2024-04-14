@@ -93,7 +93,7 @@ export interface ContentConfig {
 export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
-  mode: 'full' | 'editor' | 'codeblock' | 'result';
+  mode: 'full' | 'simple' | 'editor' | 'codeblock' | 'result';
   tools: {
     enabled: Array<Tool['name']> | 'all';
     active: Tool['name'] | '';

@@ -24,7 +24,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
 
   const includes = (arr: any[], x: any) => x != null && arr.includes(x);
 
-  const modes: Array<Config['mode']> = ['full', 'editor', 'codeblock', 'result'];
+  const modes: Array<Config['mode']> = ['full', 'simple', 'editor', 'codeblock', 'result'];
   const themes: Array<Config['theme']> = ['light', 'dark'];
   const layout: Array<Config['layout']> = ['horizontal', 'vertical'];
   const editorModes: Array<Config['editorMode']> = ['vim', 'emacs'];
