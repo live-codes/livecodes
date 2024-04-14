@@ -2170,7 +2170,7 @@ const handleRunButton = () => {
 };
 
 const handleResultButton = () => {
-  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('output', true));
+  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('toggle', true));
 };
 
 const handleShareButton = () => {
