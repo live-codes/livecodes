@@ -6,7 +6,7 @@ import { abstractifyHTML } from './utils';
 export const init = (lng: string | undefined, baseUrl: string) => {
   i18n.use(backend).init({
     lng,
-    debug: true,  // Remove this line in production
+    debug: true, // Remove this line in production
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
@@ -23,7 +23,10 @@ export const init = (lng: string | undefined, baseUrl: string) => {
         const { html, elements } = abstractifyHTML(fallbackValue);
 
         // eslint-disable-next-line no-console
-        console.info(`Translation template for key: ${key}\n\nHTML:\n${html}\n\nElements:\n`, elements);
+        console.info(
+          `Translation template for key: ${key}\n\nHTML:\n${html}\n\nElements:\n`,
+          elements,
+        );
       }
     },
     missingKeyNoValueFallbackToKey: true,

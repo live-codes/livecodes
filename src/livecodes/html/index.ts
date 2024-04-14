@@ -62,8 +62,10 @@ import editorSettingsScreenRaw from './editor-settings.html?raw';
 import resultPopupHTMLRaw from './result-popup.html?raw';
 
 const replaceValues = (str: string) =>
-  Object.entries(predefinedValues)
-    .reduce((str, [key, value]) => str.replace(new RegExp(`{{${key}}}`, 'g'), value), str);
+  Object.entries(predefinedValues).reduce(
+    (str, [key, value]) => str.replace(new RegExp(`{{${key}}}`, 'g'), value),
+    str,
+  );
 
 const resultTemplate = /* @__PURE__ */ replaceValues(resultTemplateRaw);
 const appHTML = /* @__PURE__ */ replaceValues(appHTMLRaw);

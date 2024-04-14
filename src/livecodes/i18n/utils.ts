@@ -14,46 +14,49 @@ export const abstractifyHTML = (html: string) => {
   let counter = 0;
 
   const replaceElement = (node: HTMLElement) => {
-    if (node.nodeType === Node.ELEMENT_NODE) {
-      node.childNodes.forEach((child) => {
-        replaceElement(child as HTMLElement);
-      });
+    if (node.nodeType !== Node.ELEMENT_NODE) return;
 
-      const name = node.tagName.toLowerCase();
-      if (name !== 'body') {
-        const attributes =
-          (node.attributes.length > 0) ?
-            Array.from(node.attributes).reduce((acc, attr) => {
-              acc[attr.name] = attr.value;
-              return acc;
-            }, {} as Record<string, string>) : undefined;
-        elements.push({ name, attributes });
+    node.childNodes.forEach((child) => {
+      replaceElement(child as HTMLElement);
+    });
 
-        // Create a new element with the counter as the tag name
-        const newElement = doc.createElement(`tag-${counter}`);
-        // Copy the children from the original node to the new element
-        while (node.firstChild) {
-          newElement.appendChild(node.firstChild);
-        }
-        // Replace the original node with the new element
-        if (node.parentNode) {
-          node.parentNode.replaceChild(newElement, node);
-        }
-        counter++;
-      }
+    const name = node.tagName.toLowerCase();
+    if (name === 'body') return;
+
+    const attributes =
+      node.attributes.length === 0
+        ? undefined
+        : Array.from(node.attributes).reduce((acc, attr) => {
+            acc[attr.name] = attr.value;
+            return acc;
+          }, {} as Record<string, string>);
+
+    elements.push({ name, attributes });
+
+    const newElement = doc.createElement(`tag-${counter}`);
+    while (node.firstChild) {
+      newElement.appendChild(node.firstChild);
     }
+
+    // node.parentNode is always defined because we're traversing from the body
+    node.parentNode!.replaceChild(newElement, node);
+
+    counter++;
   };
 
   replaceElement(doc.body);
   return {
     html: doc.body.innerHTML.replace(/tag-/g, '').replace(/\s+/g, ' ').trim(),
-    elements
+    elements,
   };
-}
+};
 
 const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(html.replace(/<(\/?)([0-9]+)([^>]*)>/g, '<$1tag-$2 $3>'), 'text/html');
+  const doc = parser.parseFromString(
+    html.replace(/<(\/?)([0-9]+)([^>]*)>/g, '<$1tag-$2 $3>'),
+    'text/html',
+  );
 
   elements.forEach((element, index) => {
     const oldElement = doc.body.querySelector(`tag-${index}`)!;
@@ -82,7 +85,7 @@ const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   });
 
   return doc.body.innerHTML;
-}
+};
 
 export const translate = (
   container: HTMLElement,
@@ -97,7 +100,7 @@ export const translate = (
     const translateProp = (prop: string, lookupKey: string) => {
       const interpolation = {
         PROP: prop,
-        ...predefinedValues
+        ...predefinedValues,
       };
       if (prop.startsWith('data-')) {
         prop = prop.slice(5);
