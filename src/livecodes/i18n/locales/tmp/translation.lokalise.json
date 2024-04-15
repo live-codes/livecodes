@@ -1,0 +1,130 @@
+{
+  "livecodesAboutPara1": {
+    "translation": "<1><0>LiveCodes</0></1> is an <2>open-source</2>, <3>feature-rich</3>, <4>client-side</4> code playground. Currently, <6>80+ languages/<5></5>frameworks</6> are supported. It can be used as a standalone app or can be <7>embedded</7> in any web page. There are many ways to <8>prefill playgrounds</8> with code.",
+    "notes": "### <0> ###\n<em  />\n\n### <1> ###\n<strong  />\n\n### <2> ###\n<a href=\"{{REPO_URL}}\" target=\"_blank\" rel=\"noopener\" />\n\n### <3> ###\n<a href=\"{{DOCS_BASE_URL}}features/\" target=\"_blank\" rel=\"noopener\" />\n\n### <4> ###\n<a href=\"{{DOCS_BASE_URL}}why#client-side\" target=\"_blank\" rel=\"noopener\" />\n\n### <5> ###\n<wbr  />\n\n### <6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/\" target=\"_blank\" rel=\"noopener\" />\n\n### <7> ###\n<a href=\"{{DOCS_BASE_URL}}features/embeds\" target=\"_blank\" rel=\"noopener\" />\n\n### <8> ###\n<a href=\"{{DOCS_BASE_URL}}features/code-prefill\" target=\"_blank\" rel=\"noopener\" />\n\n"
+  },
+  "livecodesAboutPara2": {
+    "translation": "A wide range of <0>configuration options</0> makes it very flexible. A powerful <1>SDK</1> (for <2>JS/TS</2>, <3>React</3>, <4>Vue</4> and <5>Svelte</5>) facilitates <6>embedding</6> and <7>communicating</7> with playgrounds. <8>Comprehensive documentations</8> are available with code samples, live demos and screenshots.",
+    "notes": "### <0> ###\n<a href=\"{{DOCS_BASE_URL}}configuration/\" target=\"_blank\" rel=\"noopener\" />\n\n### <1> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/\" target=\"_blank\" rel=\"noopener\" />\n\n### <2> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/js-ts\" target=\"_blank\" rel=\"noopener\" />\n\n### <3> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/react\" target=\"_blank\" rel=\"noopener\" />\n\n### <4> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/vue\" target=\"_blank\" rel=\"noopener\" />\n\n### <5> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/svelte\" target=\"_blank\" rel=\"noopener\" />\n\n### <6> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/js-ts#embed-options\" target=\"_blank\" rel=\"noopener\" />\n\n### <7> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/js-ts#sdk-methods\" target=\"_blank\" rel=\"noopener\" />\n\n### <8> ###\n<a href=\"{{DOCS_BASE_URL}}\" target=\"_blank\" rel=\"noopener\" />\n\n"
+  },
+  "appVersion": {
+    "translation": "App version: {{APP_VERSION}}",
+    "notes": ""
+  },
+  "welcome.heading": {
+    "translation": "Welcome",
+    "notes": ""
+  },
+  "welcome.start.heading": {
+    "translation": "Start",
+    "notes": ""
+  },
+  "welcome.start.new": {
+    "translation": "New...",
+    "notes": ""
+  },
+  "welcome.start.open": {
+    "translation": "Open...",
+    "notes": ""
+  },
+  "welcome.start.import": {
+    "translation": "Import...",
+    "notes": ""
+  },
+  "welcome.start.noDefaultTemplate": {
+    "translation": "No default template",
+    "notes": ""
+  },
+  "welcome.start.loadDefaultTemplate": {
+    "translation": "Load default template",
+    "notes": ""
+  },
+  "generic.clickForInfo": {
+    "translation": "Click for info...",
+    "notes": ""
+  },
+  "welcome.recent.heading": {
+    "translation": "Recent",
+    "notes": ""
+  },
+  "generic.more": {
+    "translation": "More...",
+    "notes": ""
+  },
+  "welcome.templates.heading": {
+    "translation": "Starter Templates",
+    "notes": ""
+  },
+  "welcome.recover.heading": {
+    "translation": "Recover",
+    "notes": ""
+  },
+  "welcome.recover.unsavedChanges": {
+    "translation": "Your last project had unsaved changes:",
+    "notes": ""
+  },
+  "welcome.recover.unsavedProjectName": {
+    "translation": "",
+    "notes": ""
+  },
+  "welcome.recover.lastModified": {
+    "translation": "Last modified:",
+    "notes": ""
+  },
+  "welcome.recover.recover": {
+    "translation": "Recover",
+    "notes": ""
+  },
+  "welcome.recover.save": {
+    "translation": "Save",
+    "notes": ""
+  },
+  "welcome.recover.cancel": {
+    "translation": "Cancel",
+    "notes": ""
+  },
+  "welcome.about.heading": {
+    "translation": "About LiveCodes",
+    "notes": ""
+  },
+  "welcome.about.documentation": {
+    "translation": "Documentations",
+    "notes": ""
+  },
+  "welcome.about.gettingStarted": {
+    "translation": "Getting Started",
+    "notes": ""
+  },
+  "welcome.about.features": {
+    "translation": "Features",
+    "notes": ""
+  },
+  "welcome.about.configuration": {
+    "translation": "Configuration",
+    "notes": ""
+  },
+  "welcome.about.sdk": {
+    "translation": "SDK",
+    "notes": ""
+  },
+  "welcome.about.blog": {
+    "translation": "Blog",
+    "notes": ""
+  },
+  "welcome.about.sponsor": {
+    "translation": "Sponsor LiveCodes",
+    "notes": ""
+  },
+  "welcome.about.twitter": {
+    "translation": "𝕏 / Twitter",
+    "notes": ""
+  },
+  "welcome.about.github": {
+    "translation": "GitHub",
+    "notes": ""
+  },
+  "welcome.showOnStartup": {
+    "translation": "Show on startup",
+    "notes": ""
+  }
+}
