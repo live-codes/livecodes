@@ -85,7 +85,6 @@ import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
   defaultConfig,
-  getAppConfig,
   getConfig,
   getContentConfig,
   getEditorConfig,
