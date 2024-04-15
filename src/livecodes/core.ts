@@ -1152,7 +1152,14 @@ const share = async (
 ): Promise<ShareData> => {
   const config = getConfig();
   const content = contentOnly
-    ? { ...getContentConfig(config), ...getAppConfig(config), mode: 'full' as Config['mode'] }
+    ? {
+        ...getContentConfig(config),
+        tools: {
+          ...config.tools,
+          enabled: defaultConfig.tools.enabled,
+          status: config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
+        },
+      }
     : config;
   const contentParam = shortUrl
     ? '?x=id/' +
