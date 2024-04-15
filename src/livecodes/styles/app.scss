@@ -396,7 +396,7 @@ a {
 #editor-container {
   display: flex;
   flex-direction: row;
-  height: calc(100% - 40px);
+  height: calc(100% - 43px);
 }
 
 .layout-vertical {
@@ -419,12 +419,14 @@ a {
 }
 
 @media only screen and (max-width: 480px) {
-  .layout-vertical .tool-buttons#editor-tools {
-    display: none;
-  }
+  .layout-vertical {
+    .tool-buttons#editor-tools {
+      display: none;
+    }
 
-  #editors #code-run-button {
-    margin-bottom: 0;
+    #editors #code-run-button {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -3194,7 +3196,12 @@ i.arrow {
   }
 
   #focus-btn {
+    opacity: 0.5;
     visibility: visible !important;
+  }
+
+  #focus-btn:hover {
+    opacity: 1;
   }
 
   #editor-tools {
