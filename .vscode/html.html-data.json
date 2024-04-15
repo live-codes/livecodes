@@ -9,6 +9,10 @@
       "name": "data-i18n-prop",
       "description": "Attributes of the element that should be translated, separated by space.",
       "valueSet": "i18nProps"
+    },
+    {
+      "name": "data-hint",
+      "description": "The tooltip of the element."
     }
   ],
   "valueSets": [
