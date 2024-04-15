@@ -57,7 +57,8 @@
     "prepush:skip-e2e": "run-s fix build test:lint test:unit",
     "prepush": "run-s fix build test",
     "start-release": "node ./scripts/start-release.mjs",
-    "vscode-intellisense": "node ./scripts/vscode-intellisense.js"
+    "vscode-intellisense": "node ./scripts/vscode-intellisense.js",
+    "i18n-export": "node ./scripts/i18n-export.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "6.3.0",
