@@ -13,6 +13,10 @@ const customDataSchema = {
       "description": "Attributes of the element that should be translated, separated by space.",
       "valueSet": "i18nProps"
     },
+    {
+      "name": "data-hint",
+      "description": "The tooltip of the element.",
+    }
   ],
   valueSets: []
 }
@@ -28,7 +32,7 @@ const generateHTMLIntellisense = async () => {
         } else {
           const i18nProps = 
             data
-            .match(/type I18nAttributes = RequireAtLeastOne<{([\s\S]*?)}/)[1]
+            .match(/I18nAttributes.+?{([\s\S]*?)}/)[1]
             .split('\n')
             .map((line) => line.trim().replace(/['|;?]/g, '').split(':')[0])
             .filter((line) => line !== '');
