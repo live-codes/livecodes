@@ -104,9 +104,9 @@ export const translate = (
       };
       if (prop.startsWith('data-')) {
         prop = prop.slice(5);
-        el.dataset[prop] = i18n.t(lookupKey, el.dataset[prop]!, interpolation);
+        el.dataset[prop] = i18n.t(lookupKey, el.dataset[prop]!, interpolation) as string;
       } else {
-        const translation = i18n.t(lookupKey, (el as any)[prop], interpolation);
+        const translation = i18n.t(lookupKey, (el as any)[prop], interpolation) as string;
         if (prop === 'innerHTML' && el.innerHTML !== translation) {
           const { elements } = abstractifyHTML(el.innerHTML);
           el.innerHTML = unabstractifyHTML(translation, elements);
