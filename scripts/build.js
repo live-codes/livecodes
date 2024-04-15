@@ -56,7 +56,6 @@ const getFileNames = async (dir) =>
 const prepareDir = async () => {
   mkdir(outDir);
   mkdir(outDir + '/livecodes/');
-  mkdir(outDir + '/livecodes/locales');
   mkdir(outDir + '/sdk/');
   if (devMode) {
     mkdir(outDir + '/tmp/');
