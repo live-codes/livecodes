@@ -4223,7 +4223,10 @@ const loadDefaults = async () => {
     if (getLanguageByAlias(param)) return;
   }
 
-  if ((getConfig().welcome && !params.screen) || params.screen === 'welcome') {
+  if (
+    (getConfig().welcome && !params.screen && getConfig().mode === 'full') ||
+    params.screen === 'welcome'
+  ) {
     showScreen('welcome');
     return;
   }
