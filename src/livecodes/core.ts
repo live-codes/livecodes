@@ -518,6 +518,7 @@ const showMode = (mode?: Config['mode']) => {
   // toolbar-editor-result
   const modes = {
     full: '111',
+    focus: '111',
     simple: '111',
     editor: '110',
     codeblock: '010',
@@ -580,6 +581,7 @@ const showMode = (mode?: Config['mode']) => {
     }
   }
   document.body.classList.toggle('simple-mode', mode === 'simple');
+  document.body.classList.toggle('focus-mode', mode === 'focus');
   if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
@@ -2200,6 +2202,20 @@ const handleShareButton = () => {
 
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
+
+  eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
+    const config = getConfig();
+    const currentMode = config.mode;
+    const newMode = currentMode === 'full' ? 'focus' : 'full';
+    setConfig({
+      ...config,
+      mode: newMode,
+    });
+    if (newMode === 'focus') {
+      toolsPane?.setActiveTool('console');
+    }
+    showMode(newMode);
+  });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
     if (copyToClipboard(getActiveEditor().getValue())) {
