@@ -65,7 +65,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(x && is(x.position, 'object') ? { position: x.position } : {}),
   });
 
-  const validateToolsProps = (x: Partial<Config['tools']>): Config['tools'] => ({
+  const validateToolsProps = (x: Config['tools']): Config['tools'] => ({
     ...defaultConfig.tools,
     ...(x && Array.isArray(x.enabled)
       ? { enabled: x.enabled.filter((t) => tools.includes(t)) }

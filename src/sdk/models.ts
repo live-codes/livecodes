@@ -94,11 +94,11 @@ export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
   mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
-  tools: {
+  tools: Partial<{
     enabled: Array<Tool['name']> | 'all';
     active: Tool['name'] | '';
     status: ToolsPaneStatus;
-  };
+  }>;
   zoom: 1 | 0.5 | 0.25;
 }
 
