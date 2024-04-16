@@ -1413,7 +1413,8 @@ const setProjectRecover = (reset = false) => {
 };
 
 const checkRecoverStatus = (isWelcomeScreen = false) => {
-  if (!getConfig().recoverUnsaved || isEmbed) {
+  const config = getConfig();
+  if (!config.recoverUnsaved || isEmbed || config.mode !== 'full' || config.readonly) {
     return Promise.resolve('recover disabled');
   }
   const unsavedItem = stores.recover?.getValue();

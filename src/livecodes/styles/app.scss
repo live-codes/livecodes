@@ -3083,6 +3083,8 @@ i.arrow {
   }
 }
 
+/* modes */
+
 .embed {
   #toolbar {
     height: 37px;
@@ -3159,6 +3161,7 @@ i.arrow {
       .editor-title.active {
         background-color: unset;
         border: 0;
+        cursor: auto;
       }
     }
 
