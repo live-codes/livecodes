@@ -3208,6 +3208,22 @@ i.arrow {
     bottom: 0;
     position: absolute;
   }
+
+  @media only screen and (max-width: 768px) {
+    #toolbar {
+      #run-button {
+        display: flex !important;
+      }
+
+      #settings-button {
+        display: none !important;
+      }
+    }
+
+    #editors #code-run-button {
+      display: none !important;
+    }
+  }
 }
 
 /* Code Mirror */
