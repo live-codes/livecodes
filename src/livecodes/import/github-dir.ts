@@ -3,6 +3,7 @@ import type { User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { getGithubHeaders } from '../services/github';
 import { populateConfig } from './utils';
+import { addBaseTag } from './github';
 
 export const importFromGithubDir = async (
   url: string,
@@ -72,11 +73,28 @@ export const importFromGithubDir = async (
         return {
           filename,
           content,
+          path: file.path,
         };
       }),
     );
 
-    return populateConfig(files, params);
+    const config = populateConfig(files, params);
+
+    return addBaseTag(
+      config,
+      files
+        .filter((f) =>
+          [config.markup?.content, config.style?.content, config.script?.content].includes(
+            f.content,
+          ),
+        )
+        .map((f) => ({
+          user,
+          repo: repository,
+          ref: branch,
+          path: f.path,
+        })),
+    );
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Cannot fetch directory: ' + url);
