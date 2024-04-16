@@ -374,7 +374,7 @@ If `false`, the UI will not show the menu that allows changing editor language.
 
 ### `mode`
 
-Type: [`"full" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
+Type: [`"full" | "focus" | "simple" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
 
 Default: `"full"`
 
@@ -464,11 +464,11 @@ If `true`, the code is automatically [formatted](../features/code-format.md) on 
 
 ### `layout`
 
-Type: [`"horizontal" | "vertical" | undefined`](../api/interfaces/Config.md#layout)
+Type: [`"horizontal"| "vertical" | "responsive"  | undefined`](../api/interfaces/Config.md#layout)
 
-Default: `undefined`
+Default: `"responsive"`
 
-Sets the app layout to horizontal or vertical. If `undefined` (the default), the layout is responsive (on small screens the layout is vertical when the playground height is larger than its width).
+Sets the app layout to horizontal or vertical. If set to `"responsive"` (the default) or `undefined`, the layout is vertical in small screens when the playground height is larger than its width, otherwise horizontal.
 
 ### `theme`
 

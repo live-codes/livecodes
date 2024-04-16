@@ -93,7 +93,7 @@ export interface ContentConfig {
 export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
-  mode: 'full' | 'editor' | 'codeblock' | 'result';
+  mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
   tools: {
     enabled: Array<Tool['name']> | 'all';
     active: Tool['name'] | '';
@@ -108,7 +108,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   autotest: boolean;
   delay: number;
   formatOnsave: boolean;
-  layout: 'horizontal' | 'vertical' | undefined;
+  layout: 'responsive' | 'horizontal' | 'vertical' | undefined;
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;

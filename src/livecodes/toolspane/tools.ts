@@ -178,10 +178,16 @@ export const createToolsPane = (
 
     toolsSplit = Split(['#result', '#tools-pane'], {
       sizes: sizes.closed,
+      minSize: [0, 0],
       gutterSize,
       direction: 'vertical',
       elementStyle: (_dimension, size, gutterSize) => ({
-        height: `calc(${size}% - ${gutterSize}px)`,
+        height:
+          size < 15
+            ? '0'
+            : size > 85
+            ? `calc(100% - ${gutterSize * 2}px)`
+            : `calc(${size}% - ${gutterSize}px)`,
       }),
       gutterStyle: (_dimension, gutterSize) => ({
         height: `${gutterSize}px`,
