@@ -4,23 +4,29 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
-## [v26](https://github.com/live-codes/livecodes/compare/v25...v26) (2024-03-04)
+## [sdk-v0.5.0](https://github.com/live-codes/livecodes/compare/sdk-v0.4.0...sdk-v0.5.0) (2024-04-16)
 
+- **Config:** make `Config.tools` fields optional ([42342a7](https://github.com/live-codes/livecodes/commit/42342a752100c5df49970c3857c3eaf9bd981bf9))
+- **Modes:** add focus mode ([3608df4](https://github.com/live-codes/livecodes/commit/3608df4185650b51707223729de090457c7230ff))
+- **Modes:** add simple mode ([6690806](https://github.com/live-codes/livecodes/commit/66908062cca37453da9f2f76c5ec6f7f036170d4))
+- **SDK:** allow the SDK `watch` method to watch for changes to external resources ([a2aabf7](https://github.com/live-codes/livecodes/commit/a2aabf7c33ae97dda0c5f65033d54821ae45ff74))
+- **SDK:** allow the SDK `watch` method to watch for changes to processors ([f23c848](https://github.com/live-codes/livecodes/commit/f23c8486c496c160278c928612c5f85d7f7e7878))
+- **UI:** allow changing layout horizontal/vertical ([df3796f](https://github.com/live-codes/livecodes/commit/df3796f8acd29632cde50ac85bba72703156e3f0))
+
+---
+
+## [v26](https://github.com/live-codes/livecodes/compare/v25...v26) (2024-03-04)
 
 ### Bug Fixes
 
-* **Editor:** revert css nesting workaround ([66bd226](https://github.com/live-codes/livecodes/commit/66bd226ee7559ed729d99198434d54836b40e316))
-* **Embed:** fix embed UI code snippets ([e01315e](https://github.com/live-codes/livecodes/commit/e01315e2837dd22e9171100c64b8d29973454d97))
-* **UI:** fix toolspane double-click ([3114e6c](https://github.com/live-codes/livecodes/commit/3114e6ca525a3c20d10dad773801f5adae41e148))
-
+- **Editor:** revert css nesting workaround ([66bd226](https://github.com/live-codes/livecodes/commit/66bd226ee7559ed729d99198434d54836b40e316))
+- **Embed:** fix embed UI code snippets ([e01315e](https://github.com/live-codes/livecodes/commit/e01315e2837dd22e9171100c64b8d29973454d97))
+- **UI:** fix toolspane double-click ([3114e6c](https://github.com/live-codes/livecodes/commit/3114e6ca525a3c20d10dad773801f5adae41e148))
 
 ### Features
 
-* **compilers:** upgrade markedjs ([7555c4a](https://github.com/live-codes/livecodes/commit/7555c4ac45ae2a38ef812c0b97da36e72c75189b))
-* **Editor:** add Monaspace font ([434ba96](https://github.com/live-codes/livecodes/commit/434ba9669bf1e8f7cc26abe7c2bb75dd8a833414))
-
-
-
+- **compilers:** upgrade markedjs ([7555c4a](https://github.com/live-codes/livecodes/commit/7555c4ac45ae2a38ef812c0b97da36e72c75189b))
+- **Editor:** add Monaspace font ([434ba96](https://github.com/live-codes/livecodes/commit/434ba9669bf1e8f7cc26abe7c2bb75dd8a833414))
 
 ---
 
