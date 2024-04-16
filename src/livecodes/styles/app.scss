@@ -3125,6 +3125,10 @@ i.arrow {
     display: none;
   }
 
+  #editor-container {
+    height: calc(100% - 40px);
+  }
+
   @media only screen and (max-width: 1080px) {
     #buttons {
       width: 30% !important;
@@ -3196,6 +3200,13 @@ i.arrow {
   .tools-pane-title:not(.console),
   .tool-buttons {
     visibility: hidden !important;
+  }
+
+  #toolbar {
+    #result-button,
+    #fullscreen-button {
+      display: none !important;
+    }
   }
 
   #focus-btn {

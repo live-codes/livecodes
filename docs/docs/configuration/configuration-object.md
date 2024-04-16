@@ -374,7 +374,7 @@ If `false`, the UI will not show the menu that allows changing editor language.
 
 ### `mode`
 
-Type: [`"full" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
+Type: [`"full" | "focus" | "simple" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
 
 Default: `"full"`
 

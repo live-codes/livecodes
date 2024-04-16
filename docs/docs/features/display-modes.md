@@ -11,9 +11,54 @@ This is the default mode with toolbars, editor and result panes.
 
 Example: https://livecodes.io/?template=react
 
-Demo:
+Screenshot: (App in full mode)
+
+![full-mode](../../static/img/screenshots/focus-mode.png)
+
+Demo: (Embedded playground in full mode)
 
 <LiveCodes template="react"></LiveCodes>
+
+## `focus`
+
+This hides most of UI buttons and menus and keeps only the essential elements: editors, editor titles, result page, console, and run and share buttons. It can be toggled during runtime from the full mode through the UI from a button in the lower left corner. Also the query param `?mode=focus`.
+
+Example: https://livecodes.io/?template=react&mode=focus
+
+Screenshot: (focus mode)
+
+![focus-mode](../../static/img/screenshots/focus-mode.png)
+
+## `simple`
+
+This mode is mainly useful for embedded playgrounds.  
+It shows only 1 editor with the output (result page +/- console). The content of other editors can be set using [SDK](../sdk/index.md) [config](../configuration/configuration-object.md) even though the editors are not shown.  
+By default, `codemirror` editor is used, however, this can be changed by the [`editor`](../configuration/configuration-object.md#editor) option.  
+By default, the layout is `responsive` but can also be overridden by the [`layout`](../configuration/configuration-object.md#layout) option to `vertical` or `horizontal`.
+
+Demo: JS with console
+
+<LiveCodes params={{mode:'simple', js: 'console.log("hello world")', layout: 'vertical', console: 'full'}}></LiveCodes>
+
+Demo: JSX & Result page (Monaco editor, add CSS)
+
+export const simpleConfig = {
+mode: "simple",
+layout: "vertical",
+activeEditor: "script",
+editor: "monaco",
+tools: { status: "none" },
+script: {
+language: "jsx",
+content: `import { atom, useAtom } from 'jotai';\n\nconst countAtom = atom(0);\n\nconst Counter = () => {\n  const [count, setCount] = useAtom(countAtom);\n  const inc = () => setCount((c) => c + 1);\n  return (\n    <>\n      {count} <button onClick={inc}>+1</button>\n    </>\n  );\n};\n\nconst App = () => (\n  <div className="App">\n    <h1>Hello Jotai</h1>\n    <h2>Enjoy coding!</h2>\n    <Counter />\n  </div>\n);\n\nexport default App;\n`,
+},
+style: {
+language: "css",
+content: '.App {\n font-family: sans-serif;\n text-align: center;\n}\n'.trimStart(),
+},
+}
+
+<LiveCodes config={simpleConfig} height="400px"></LiveCodes>
 
 ## `editor`
 
@@ -55,11 +100,11 @@ Demo:
 
 The tools pane (e.g. console/compiled code viewer) is hidden by default in `result` mode. It can be shown if set to `open` or `full`. Refer to [Tools pane](./tools-pane.md) documentation for details.
 
-Example: https://livecodes.io/?mode=result&tools=console|full
+Example: https://livecodes.io/?mode=result&tools=console|full&&js=console.log("Hello%20World!")
 
 Demo:
 
-<LiveCodes params={{mode: 'result', tools: 'console|full'}}></LiveCodes>
+<LiveCodes params={{mode: 'result', tools: 'console|full', js: 'console.log("Hello World!")'}}></LiveCodes>
 
 ## Display Mode vs Default View
 
