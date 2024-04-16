@@ -112,12 +112,12 @@ declare module 'livecodes/models' {
     export interface AppConfig {
         readonly: boolean;
         allowLangChange: boolean;
-        mode: 'full' | 'editor' | 'codeblock' | 'result';
-        tools: {
+        mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+        tools: Partial<{
             enabled: Array<Tool['name']> | 'all';
             active: Tool['name'] | '';
             status: ToolsPaneStatus;
-        };
+        }>;
         zoom: 1 | 0.5 | 0.25;
     }
     export interface UserConfig extends EditorConfig, FormatterConfig {
@@ -126,6 +126,7 @@ declare module 'livecodes/models' {
         autotest: boolean;
         delay: number;
         formatOnsave: boolean;
+        layout: 'responsive' | 'horizontal' | 'vertical' | undefined;
         recoverUnsaved: boolean;
         showSpacing: boolean;
         welcome: boolean;
@@ -185,7 +186,7 @@ declare module 'livecodes/models' {
             userToken?: string;
         };
     }
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         language: Language;
         content?: string;
@@ -297,7 +298,7 @@ declare module 'livecodes/models' {
         dependencies?: Language[];
         url?: string;
         fn?: CompilerFunction;
-        factory: (config: Config, baseUrl: string) => CompilerFunction;
+        factory: (config: Config, baseUrl: string) => CompilerFunction | Promise<CompilerFunction>;
         runOutsideWorker?: CompilerFunction;
         editors?: EditorId[];
         styles?: string[] | ((options: {
@@ -333,7 +334,7 @@ declare module 'livecodes/models' {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: 'Console' | 'Compiled' | 'Tests';
@@ -543,8 +544,8 @@ declare module 'livecodes/models' {
         lastModified: number;
     }
     export interface EventsManager {
-        addEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void, _options?: any) => void;
-        removeEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void) => void;
+        addEventListener: <T extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T) => any, _options?: any) => void;
+        removeEventListener: <T extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T) => any) => void;
         removeEventListeners: () => void;
     }
     export interface TestResult {

@@ -102,12 +102,12 @@ declare module "sdk/models" {
     export interface AppConfig {
         readonly: boolean;
         allowLangChange: boolean;
-        mode: 'full' | 'editor' | 'codeblock' | 'result';
-        tools: {
+        mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+        tools: Partial<{
             enabled: Array<Tool['name']> | 'all';
             active: Tool['name'] | '';
             status: ToolsPaneStatus;
-        };
+        }>;
         zoom: 1 | 0.5 | 0.25;
     }
     export interface UserConfig extends EditorConfig, FormatterConfig {
@@ -116,6 +116,7 @@ declare module "sdk/models" {
         autotest: boolean;
         delay: number;
         formatOnsave: boolean;
+        layout: 'responsive' | 'horizontal' | 'vertical' | undefined;
         recoverUnsaved: boolean;
         showSpacing: boolean;
         welcome: boolean;
@@ -175,7 +176,7 @@ declare module "sdk/models" {
             userToken?: string;
         };
     }
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         language: Language;
         content?: string;
@@ -287,7 +288,7 @@ declare module "sdk/models" {
         dependencies?: Language[];
         url?: string;
         fn?: CompilerFunction;
-        factory: (config: Config, baseUrl: string) => CompilerFunction;
+        factory: (config: Config, baseUrl: string) => CompilerFunction | Promise<CompilerFunction>;
         runOutsideWorker?: CompilerFunction;
         editors?: EditorId[];
         styles?: string[] | ((options: {
@@ -323,7 +324,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: 'Console' | 'Compiled' | 'Tests';
@@ -533,8 +534,8 @@ declare module "sdk/models" {
         lastModified: number;
     }
     export interface EventsManager {
-        addEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void, _options?: any) => void;
-        removeEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void) => void;
+        addEventListener: <T extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T) => any, _options?: any) => void;
+        removeEventListener: <T extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T) => any) => void;
         removeEventListeners: () => void;
     }
     export interface TestResult {
@@ -634,8 +635,8 @@ declare module "livecodes/models" {
 }
 declare module "livecodes/events/events" {
     export const createEventsManager: () => {
-        addEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent | CustomEvent) => void, options?: any) => void;
-        removeEventListener: (element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void) => void;
+        addEventListener: <T extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T) => any, options?: any) => void;
+        removeEventListener: <T_1 extends Event>(element: HTMLElement | Document | Window | FileReader | null, eventType: string, fn: (event: T_1) => void) => void;
         removeEventListeners: () => void;
     };
 }
@@ -784,6 +785,7 @@ declare module "livecodes/vendors" {
     export const opalBaseUrl: string;
     export const parinferUrl: string;
     export const pathBrowserifyUrl: string;
+    export const pgliteUrl: string;
     export const pintoraUrl: string;
     export const plotlyCdnUrl: string;
     export const postcssImportUrlUrl: string;
@@ -1972,6 +1974,14 @@ declare module "livecodes/languages/bbcode/lang-bbcode" {
 declare module "livecodes/languages/bbcode/index" {
     export * from "livecodes/languages/bbcode/lang-bbcode";
 }
+declare module "livecodes/languages/postgresql/lang-postgresql" {
+    import type { CompilerFunction, LanguageSpecs } from "livecodes/models";
+    export const runOutsideWorker: CompilerFunction;
+    export const postgresql: LanguageSpecs;
+}
+declare module "livecodes/languages/postgresql/index" {
+    export * from "livecodes/languages/postgresql/lang-postgresql";
+}
 declare module "livecodes/languages/languages" {
     import type { LanguageSpecs } from "livecodes/models";
     export const languages: LanguageSpecs[];
@@ -2161,8 +2171,10 @@ declare module "livecodes/editor/fonts" {
     export const getFontFamily: (font: string | undefined) => string;
 }
 declare module "livecodes/editor/create-editor" {
-    import type { CodeEditor, EditorOptions } from "livecodes/models";
-    export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
+    import type { CodeEditor, Config, EditorOptions } from "livecodes/models";
+    export const createEditor: (options: EditorOptions & {
+        activeEditor?: Config['activeEditor'];
+    }) => Promise<CodeEditor>;
 }
 declare module "livecodes/editor/custom-editor-commands" {
     import type { EventsManager } from "livecodes/models";
@@ -2441,6 +2453,12 @@ declare module "livecodes/import/dom" {
 declare module "livecodes/import/github" {
     import type { Config, User } from "livecodes/models";
     export const importFromGithub: (url: string, loggedInUser: User | null | void) => Promise<Partial<Config>>;
+    export const addBaseTag: (config: Partial<Config>, files: Array<{
+        user: string;
+        repo: string;
+        ref: string;
+        path: string;
+    }>) => Partial<Config>;
 }
 declare module "livecodes/import/utils" {
     import type { EditorId, Language, Config } from "livecodes/models";
@@ -2449,12 +2467,6 @@ declare module "livecodes/import/utils" {
         content: string;
         language?: Language;
         editorId?: EditorId;
-    }
-    export interface FileData {
-        rawURL: string;
-        extension: Language;
-        startLine: number;
-        endLine: number;
     }
     export const populateConfig: (files: SourceFile[], params: {
         [key: string]: string;
@@ -2472,7 +2484,14 @@ declare module "livecodes/import/github-gist" {
     }) => Promise<{}>;
 }
 declare module "livecodes/import/gitlab" {
-    import type { Config } from "livecodes/models";
+    import type { Language, Config } from "livecodes/models";
+    export interface FileData {
+        rawURL: string;
+        filename: string;
+        extension: Language;
+        startLine: number;
+        endLine: number;
+    }
     export const importFromGitlab: (url: string) => Promise<Partial<Config>>;
 }
 declare module "livecodes/import/gitlab-dir" {
@@ -2648,12 +2667,11 @@ declare module "livecodes/templates/index" {
     export * from "livecodes/templates/get-starter-templates";
 }
 declare module "livecodes/UI/info" {
-    import type { createEventsManager } from "livecodes/events/index";
     import type { createModal } from "livecodes/modal";
     import type { Config } from "livecodes/models";
     import type { ProjectStorage } from "livecodes/storage/index";
     export const getTags: (value: string) => string[];
-    export const createProjectInfoUI: (config: Config, storage: ProjectStorage, modal: ReturnType<typeof createModal>, eventsManager: ReturnType<typeof createEventsManager>, onUpdate: (title: string, description: string, head: string, htmlAttrs: string, tags: string[]) => void) => Promise<void>;
+    export const createProjectInfoUI: (config: Config, storage: ProjectStorage, modal: ReturnType<typeof createModal>, onUpdate: (title: string, description: string, head: string, htmlAttrs: string, tags: string[]) => void) => Promise<void>;
 }
 declare module "livecodes/UI/loading" {
     export const loadingMessage: (message?: string) => HTMLDivElement;
@@ -2674,6 +2692,7 @@ declare module "livecodes/UI/selectors" {
     export const getRunButton: () => HTMLElement;
     export const getCodeRunButton: () => HTMLElement;
     export const getEditorToolbar: () => HTMLElement;
+    export const getFocusButton: () => HTMLElement;
     export const getCopyButton: () => HTMLElement;
     export const getCopyAsUrlButton: () => HTMLElement;
     export const getUndoButton: () => HTMLElement;
@@ -2748,6 +2767,7 @@ declare module "livecodes/UI/selectors" {
     export const getProcessorToggles: () => NodeListOf<HTMLInputElement>;
     export const getEmmetToggle: () => HTMLInputElement;
     export const getThemeToggle: () => HTMLInputElement;
+    export const getLayoutToggle: () => HTMLInputElement;
     export const getShowWelcomeToggle: () => HTMLInputElement;
     export const getRecoverToggle: () => HTMLInputElement;
     export const getSpacingToggle: () => HTMLInputElement;
@@ -2760,10 +2780,8 @@ declare module "livecodes/UI/selectors" {
     export const getInfoHtmlAttrs: () => HTMLTextAreaElement;
     export const getInfoDescription: () => HTMLTextAreaElement;
     export const getInfoTagsInput: () => HTMLInputElement;
-    export const getUpdateInfoButton: () => HTMLElement | null;
     export const getExternalResourcesTextareas: () => NodeListOf<HTMLTextAreaElement>;
     export const getExternalResourcesCssPresetInputs: () => NodeListOf<HTMLInputElement>;
-    export const getLoadResourcesButton: () => HTMLElement | null;
     export const getCustomSettingsEditor: () => HTMLElement | null;
     export const getLoadCustomSettingsButton: () => HTMLElement | null;
     export const getTestEditor: () => HTMLElement | null;
@@ -2886,8 +2904,10 @@ declare module "livecodes/UI/open" {
     }) => Promise<void>;
 }
 declare module "livecodes/UI/split-panes" {
-    export const createSplitPanes: () => {
-        show: (pane: 'code' | 'output', full?: boolean) => void;
+    export const createSplitPanes: (layout?: 'vertical' | 'horizontal') => {
+        show: (pane: 'code' | 'output' | 'toggle', full?: boolean) => void;
+        getLayout: () => "horizontal" | "vertical";
+        setLayout: (newLayout: 'vertical' | 'horizontal') => void;
         destroy: (preserveStyles?: boolean | undefined, preserveGutters?: boolean | undefined) => void;
     };
 }
@@ -3127,7 +3147,7 @@ declare module "livecodes/UI/deploy" {
     import type { createModal } from "livecodes/modal";
     import type { createNotifications } from "livecodes/notifications/index";
     import type { Config, ContentConfig, Cache, User } from "livecodes/models";
-    import type { getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
+    import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
     import { deployFile } from "livecodes/deploy/index";
     export { deployFile };
     export const createDeployUI: ({ modal, notifications, eventsManager, user, deployRepo, deps, }: {
@@ -3146,6 +3166,7 @@ declare module "livecodes/UI/deploy" {
             getConfig: () => Config;
             getContentConfig: (config: Config | ContentConfig) => ContentConfig;
             getLanguageExtension: typeof getLanguageExtensionFn;
+            getLanguageCompiler: typeof getLanguageCompilerFn;
             setProjectDeployRepo: (repo: string) => Promise<void>;
         };
     }) => Promise<void>;
@@ -4901,6 +4922,16 @@ declare const phpWasm: any;
 declare const php: any;
 declare const runPhpScript: (element: HTMLElement) => void;
 declare module "livecodes/languages/postcss/processor-postcss-compiler" { }
+declare module "livecodes/languages/postgresql/lang-postgresql-compiler-esm" {
+    import type { CompilerFunction } from "livecodes/models";
+    global {
+        interface Window {
+            PGlite: any;
+            pgsqldb: any;
+        }
+    }
+    export const pgSqlCompiler: CompilerFunction;
+}
 declare const livecodes: any;
 declare const pl: any;
 declare module "livecodes/languages/pug/lang-pug-compiler" { }
@@ -5181,6 +5212,10 @@ declare module "livecodes/templates/starter/php-wasm-starter" {
 declare module "livecodes/templates/starter/lit-starter" {
     import type { Template } from "livecodes/models";
     export const litStarter: Template;
+}
+declare module "livecodes/templates/starter/postgresql-starter" {
+    import type { Template } from "livecodes/models";
+    export const postgresqlStarter: Template;
 }
 declare module "livecodes/templates/starter/index" {
     export const starterTemplates: import("sdk/models").Template[];
