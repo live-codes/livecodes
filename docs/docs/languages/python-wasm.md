@@ -3,7 +3,7 @@
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-[Pyodide](https://pyodide.org) is a [Python](https://www.python.org/) distribution for the browser and Node.js based on WebAssembly.
+[Pyodide](https://pyodide.org) is a [Python](https://www.python.org/) distribution for the browser and Node.js based on [WebAssembly](https://webassembly.org/).
 
 > Pyodide makes it possible to install and run Python packages in the browser with [micropip](https://micropip.pyodide.org). Any pure Python package with a wheel available on PyPI is supported. Many packages with C extensions have also been ported for use with Pyodide. These include many general-purpose packages such as regex, pyyaml, lxml and scientific Python packages including numpy, pandas, scipy, matplotlib, and scikit-learn.
 >

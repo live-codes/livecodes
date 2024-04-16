@@ -10,7 +10,7 @@ let baseUrl: string | undefined;
 const worker: Worker = self as any;
 (self as any).window = self;
 
-const loadLanguageCompiler = (
+const loadLanguageCompiler = async (
   language: LanguageOrProcessor,
   config: Config,
   baseUrl: string | undefined,
@@ -29,9 +29,9 @@ const loadLanguageCompiler = (
   }
 
   if (languageCompiler.dependencies && languageCompiler.dependencies.length > 0) {
-    languageCompiler.dependencies.forEach((dependency) => {
-      loadLanguageCompiler(dependency, config, baseUrl);
-    });
+    for (const dependency of languageCompiler.dependencies) {
+      await loadLanguageCompiler(dependency, config, baseUrl);
+    }
   }
 
   if (typeof languageCompiler.fn !== 'function') {
@@ -39,12 +39,12 @@ const loadLanguageCompiler = (
       languageCompiler.fn = compilers[languageCompiler.aliasTo].fn;
     } else {
       let tries = 3;
-      const load = () => {
+      const load = async () => {
         try {
           if (languageCompiler.url) {
             importScripts(languageCompiler.url);
           }
-          languageCompiler.fn = languageCompiler.factory(config, baseUrl);
+          languageCompiler.fn = await languageCompiler.factory(config, baseUrl);
           if (languageCompiler.aliasTo) {
             compilers[languageCompiler.aliasTo].fn = languageCompiler.fn;
           }
@@ -62,7 +62,7 @@ const loadLanguageCompiler = (
         }
       };
 
-      load();
+      await load();
     }
   }
 
@@ -109,7 +109,7 @@ worker.addEventListener(
 
     if (message.type === 'load' || message.type === 'compileInCompiler') {
       const { language, config } = message.payload;
-      loadLanguageCompiler(language, config, baseUrl);
+      await loadLanguageCompiler(language, config, baseUrl);
     }
 
     if (message.type === 'compile' || message.type === 'compileInCompiler') {

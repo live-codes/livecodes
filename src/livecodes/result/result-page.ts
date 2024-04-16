@@ -54,6 +54,9 @@ export const createResultPage = async ({
   // if export => clean, else => add utils
   if (forExport) {
     dom.querySelector('script')?.remove();
+    const utilsScript = dom.createElement('script');
+    utilsScript.innerHTML = 'window.livecodes = window.livecodes || {};';
+    dom.head.appendChild(utilsScript);
   } else {
     const utilsScript = dom.createElement('script');
     utilsScript.src = absoluteBaseUrl + '{{hash:result-utils.js}}';

@@ -28,6 +28,8 @@ export const getCodeRunButton = /* @__PURE__ */ () =>
   document.querySelector('#code-run-button') as HTMLElement;
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
+export const getFocusButton = /* @__PURE__ */ () =>
+  document.querySelector('#editor-tools #focus-btn') as HTMLElement;
 export const getCopyButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #copy-btn') as HTMLElement;
 export const getCopyAsUrlButton = /* @__PURE__ */ () =>
@@ -219,6 +221,9 @@ export const getEmmetToggle = /* @__PURE__ */ () =>
 export const getThemeToggle = /* @__PURE__ */ () =>
   document.querySelector('#settings-menu input#theme') as HTMLInputElement;
 
+export const getLayoutToggle = /* @__PURE__ */ () =>
+  document.querySelector('#settings-menu input#layout') as HTMLInputElement;
+
 export const getShowWelcomeToggle = /* @__PURE__ */ () =>
   document.querySelector('#settings-menu input#welcome') as HTMLInputElement;
 
@@ -255,17 +260,11 @@ export const getInfoDescription = /* @__PURE__ */ () =>
 export const getInfoTagsInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#tags-input') as HTMLInputElement;
 
-export const getUpdateInfoButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#info-container #info-update-btn');
-
 export const getExternalResourcesTextareas = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLTextAreaElement>('#resources-container textarea');
 
 export const getExternalResourcesCssPresetInputs = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLInputElement>('#resources-container input[type="radio"]');
-
-export const getLoadResourcesButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#resources-container #resources-load-btn');
 
 export const getCustomSettingsEditor = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#custom-settings-container #custom-settings-editor');

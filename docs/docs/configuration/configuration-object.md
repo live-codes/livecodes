@@ -374,7 +374,7 @@ If `false`, the UI will not show the menu that allows changing editor language.
 
 ### `mode`
 
-Type: [`"full" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
+Type: [`"full" | "focus" | "simple" | "result" | "editor" | "codeblock"`](../api/interfaces/Config.md#mode)
 
 Default: `"full"`
 
@@ -382,7 +382,7 @@ Sets [display mode](../features/display-modes.md)
 
 ### `tools`
 
-Type: [`{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; active: 'console' | 'compiled' | 'tests' | ''; status: 'closed' | 'open' | 'full' | 'none' | ''; }`](../api/interfaces/Config.md#tools)
+Type: [`Partial<{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; active: 'console' | 'compiled' | 'tests' | ''; status: 'closed' | 'open' | 'full' | 'none' | ''; }>`](../api/interfaces/Config.md#tools)
 
 Default: `{ enabled: 'all', active: '', status: '' }`
 
@@ -461,6 +461,14 @@ Type: [`boolean`](../api/interfaces/Config.md#formatonsave)
 Default: `false`
 
 If `true`, the code is automatically [formatted](../features/code-format.md) on saving the project.
+
+### `layout`
+
+Type: [`"horizontal"| "vertical" | "responsive"  | undefined`](../api/interfaces/Config.md#layout)
+
+Default: `"responsive"`
+
+Sets the app layout to horizontal or vertical. If set to `"responsive"` (the default) or `undefined`, the layout is vertical in small screens when the playground height is larger than its width, otherwise horizontal.
 
 ### `theme`
 

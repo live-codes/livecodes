@@ -50,42 +50,46 @@ export const getAppConfig = (config: Config | AppConfig): AppConfig =>
     zoom: config.zoom,
   });
 
-export const getUserConfig = (config: Config | UserConfig): UserConfig => ({
-  autoupdate: config.autoupdate,
-  autosave: config.autosave,
-  autotest: config.autotest,
-  delay: config.delay,
-  formatOnsave: config.formatOnsave,
-  recoverUnsaved: config.recoverUnsaved,
-  welcome: config.welcome,
-  showSpacing: config.showSpacing,
-  ...getEditorConfig(config),
-  ...getFormatterConfig(config),
-});
+export const getUserConfig = (config: Config | UserConfig): UserConfig =>
+  cloneObject({
+    autoupdate: config.autoupdate,
+    autosave: config.autosave,
+    autotest: config.autotest,
+    delay: config.delay,
+    formatOnsave: config.formatOnsave,
+    layout: config.layout,
+    recoverUnsaved: config.recoverUnsaved,
+    welcome: config.welcome,
+    showSpacing: config.showSpacing,
+    ...getEditorConfig(config),
+    ...getFormatterConfig(config),
+  });
 
-export const getEditorConfig = (config: Config | UserConfig): EditorConfig => ({
-  editor: config.editor ?? ((config as Config).readonly === true ? 'codejar' : undefined),
-  theme: config.theme,
-  editorTheme: config.editorTheme,
-  fontFamily: config.fontFamily,
-  fontSize: config.fontSize,
-  useTabs: config.useTabs,
-  tabSize: config.tabSize,
-  lineNumbers: config.lineNumbers,
-  wordWrap: config.wordWrap,
-  closeBrackets: config.closeBrackets,
-  emmet: config.emmet,
-  enableAI: config.enableAI,
-  editorMode: config.editorMode,
-});
+export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
+  cloneObject({
+    editor: config.editor ?? ((config as Config).readonly === true ? 'codejar' : undefined),
+    theme: config.theme,
+    editorTheme: config.editorTheme,
+    fontFamily: config.fontFamily,
+    fontSize: config.fontSize,
+    useTabs: config.useTabs,
+    tabSize: config.tabSize,
+    lineNumbers: config.lineNumbers,
+    wordWrap: config.wordWrap,
+    closeBrackets: config.closeBrackets,
+    emmet: config.emmet,
+    enableAI: config.enableAI,
+    editorMode: config.editorMode,
+  });
 
-export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig => ({
-  useTabs: config.useTabs,
-  tabSize: config.tabSize,
-  semicolons: config.semicolons,
-  singleQuote: config.singleQuote,
-  trailingComma: config.trailingComma,
-});
+export const getFormatterConfig = (config: Config | UserConfig): FormatterConfig =>
+  cloneObject({
+    useTabs: config.useTabs,
+    tabSize: config.tabSize,
+    semicolons: config.semicolons,
+    singleQuote: config.singleQuote,
+    trailingComma: config.trailingComma,
+  });
 
 export const upgradeAndValidate = (config: Partial<Config>) =>
   validateConfig(upgradeConfig(config as any));

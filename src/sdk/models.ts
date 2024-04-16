@@ -93,12 +93,12 @@ export interface ContentConfig {
 export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
-  mode: 'full' | 'editor' | 'codeblock' | 'result';
-  tools: {
+  mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+  tools: Partial<{
     enabled: Array<Tool['name']> | 'all';
     active: Tool['name'] | '';
     status: ToolsPaneStatus;
-  };
+  }>;
   zoom: 1 | 0.5 | 0.25;
 }
 
@@ -108,6 +108,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   autotest: boolean;
   delay: number;
   formatOnsave: boolean;
+  layout: 'responsive' | 'horizontal' | 'vertical' | undefined;
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;
@@ -334,6 +335,16 @@ export type Language =
   | 'sql'
   | 'sqlite'
   | 'sqlite3'
+  | 'pg.sql'
+  | 'pgsql.sql'
+  | 'pgsql'
+  | 'pg'
+  | 'pglite'
+  | 'pglite.sql'
+  | 'postgresql'
+  | 'postgres'
+  | 'postgre.sql'
+  | 'postgresql.sql'
   | 'prolog.pl'
   | 'prolog'
   | 'blockly'
@@ -509,7 +520,7 @@ export interface Compiler {
   dependencies?: Language[];
   url?: string;
   fn?: CompilerFunction;
-  factory: (config: Config, baseUrl: string) => CompilerFunction;
+  factory: (config: Config, baseUrl: string) => CompilerFunction | Promise<CompilerFunction>;
   runOutsideWorker?: CompilerFunction;
   editors?: EditorId[];
   styles?:
@@ -618,6 +629,7 @@ export type TemplateName =
   | 'assemblyscript'
   | 'wat'
   | 'sql'
+  | 'postgresql'
   | 'prolog'
   | 'blockly'
   | 'diagrams';
@@ -1085,16 +1097,16 @@ export interface Snippet {
 }
 
 export interface EventsManager {
-  addEventListener: (
+  addEventListener: <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
-    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
+    fn: (event: T) => any,
     _options?: any,
   ) => void;
-  removeEventListener: (
+  removeEventListener: <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
-    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
+    fn: (event: T) => any,
   ) => void;
   removeEventListeners: () => void;
 }

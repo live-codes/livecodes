@@ -4,7 +4,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 PHP in Browser, powered by WebAssembly (using [php-wasm](https://github.com/seanmorris/php-wasm)).
 
-`php-wasm` runs PHP in the browser using WebAssembly. This matches the behavior of the official PHP interpreter and allows using PHP's standard library. However, it requires relatively large download and has limited capabilities for client-side DOM manipulation.
+`php-wasm` runs PHP in the browser using [WebAssembly](https://webassembly.org/). This matches the behavior of the official PHP interpreter and allows using PHP's standard library. However, it requires relatively large download and has limited capabilities for client-side DOM manipulation.
 
 :::info Note
 

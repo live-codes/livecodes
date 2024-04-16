@@ -59,6 +59,7 @@ import { rubyWasmStarter } from './ruby-wasm-starter';
 import { luaWasmStarter } from './lua-wasm-starter';
 import { phpWasmStarter } from './php-wasm-starter';
 import { litStarter } from './lit-starter';
+import { postgresqlStarter } from './postgresql-starter';
 
 export const starterTemplates = [
   blank,
@@ -117,6 +118,7 @@ export const starterTemplates = [
   assemblyscriptStarter,
   watStarter,
   sqlStarter,
+  postgresqlStarter,
   prologStarter,
   blocklyStarter,
   diagramsStarter,

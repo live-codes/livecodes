@@ -3,12 +3,17 @@ import type { User } from '../models';
 // eslint-disable-next-line import/no-internal-modules
 import { getGithubHeaders } from '../services/github';
 import { populateConfig } from './utils';
+import { addBaseTag } from './github';
 
 export const importFromGithubDir = async (
   url: string,
   params: { [key: string]: string },
   loggedInUser: User | null | void,
 ) => {
+  if (url.endsWith('/')) {
+    url = url.slice(0, -1);
+  }
+
   try {
     const urlObj = url.startsWith('https://') ? new URL(url) : new URL('https://' + url);
 
@@ -23,7 +28,10 @@ export const importFromGithubDir = async (
       branch = await fetch(`https://api.github.com/repos/${user}/${repository}`, {
         ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error('Cannot fetch: ' + url);
+          return res.json();
+        })
         .then((data) => data.default_branch);
     } else {
       branch = pathSplit[4];
@@ -34,36 +42,59 @@ export const importFromGithubDir = async (
     const tree = await fetch(apiURL, {
       ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Cannot fetch: ' + apiURL);
+        return res.json();
+      })
       .then((data) => data.tree);
 
     const dirFiles = tree.filter((node: any) =>
       rootDir
         ? node.type === 'blob'
         : node.type === 'blob' &&
-          node.path.startsWith(dir) &&
+          node.path.startsWith(decodeURIComponent(dir)) &&
           node.path.split('/').length === dir.split('/').length + 1,
     );
 
     const files = await Promise.all(
       Object.values(dirFiles).map(async (file: any) => {
-        const filename = file.path.split('/')[file.path.split('/').length - 1];
+        const filename = decodeURIComponent(file.path.split('/')[file.path.split('/').length - 1]);
         const content = decode(
           await fetch(file.url, {
             ...(loggedInUser ? { headers: getGithubHeaders(loggedInUser) } : {}),
           })
-            .then((res) => res.json())
+            .then((res) => {
+              if (!res.ok) throw new Error('Cannot fetch: ' + file.url);
+              return res.json();
+            })
             .then((data) => data.content),
         );
 
         return {
           filename,
           content,
+          path: file.path,
         };
       }),
     );
 
-    return populateConfig(files, params);
+    const config = populateConfig(files, params);
+
+    return addBaseTag(
+      config,
+      files
+        .filter((f) =>
+          [config.markup?.content, config.style?.content, config.script?.content].includes(
+            f.content,
+          ),
+        )
+        .map((f) => ({
+          user,
+          repo: repository,
+          ref: branch,
+          path: f.path,
+        })),
+    );
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Cannot fetch directory: ' + url);

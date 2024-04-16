@@ -261,7 +261,11 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
       }
 
       if (!status && ['open', 'full', 'closed'].includes(params[tool]!)) {
-        if (paramsConfig.tools.enabled !== 'all' && !paramsConfig.tools.enabled.includes(tool)) {
+        if (
+          paramsConfig.tools.enabled &&
+          paramsConfig.tools.enabled !== 'all' &&
+          !paramsConfig.tools.enabled.includes(tool)
+        ) {
           paramsConfig.tools.enabled.push(tool);
         }
         paramsConfig.tools.active = tool;
@@ -273,9 +277,9 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
         if (paramsConfig.tools.enabled === 'all') {
           paramsConfig.tools.enabled = [...allTools];
         }
-        paramsConfig.tools.enabled = paramsConfig.tools.enabled.filter((t) => t !== tool);
+        paramsConfig.tools.enabled = paramsConfig.tools.enabled?.filter((t) => t !== tool) || [];
         if (paramsConfig.tools.active === tool) {
-          paramsConfig.tools.active = paramsConfig.tools.enabled[0];
+          paramsConfig.tools.active = paramsConfig.tools.enabled?.[0] || '';
         }
       }
     });

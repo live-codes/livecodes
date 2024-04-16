@@ -2,31 +2,31 @@ export const createEventsManager = () => {
   const events: Array<{
     element: HTMLElement | Document | Window | FileReader;
     eventType: string;
-    fn: (event: Event | KeyboardEvent) => void;
+    fn: (event: Event) => void;
   }> = [];
 
-  const addEventListener = (
+  const addEventListener = <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
-    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent | CustomEvent) => void,
+    fn: (event: T) => any,
     options?: any,
   ) => {
     if (!element) return;
-    element.addEventListener(eventType, fn, options || false);
+    element.addEventListener(eventType, fn as any, options || false);
     events.push({
       element,
       eventType,
-      fn,
+      fn: fn as any,
     });
   };
 
-  const removeEventListener = (
+  const removeEventListener = <T extends Event>(
     element: HTMLElement | Document | Window | FileReader | null,
     eventType: string,
-    fn: (event: Event | KeyboardEvent | MouseEvent | MessageEvent) => void,
+    fn: (event: T) => void,
   ) => {
     if (!element) return;
-    element.removeEventListener(eventType, fn);
+    element.removeEventListener(eventType, fn as any);
     const event = events.find(
       (ev) => ev.element === element && ev.eventType === eventType && ev.fn === fn,
     );

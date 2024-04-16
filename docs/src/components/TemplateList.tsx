@@ -59,6 +59,7 @@ const templates = [
   { name: 'assemblyscript', title: 'AssemblyScript Starter', thumbnail: 'assemblyscript.svg' },
   { name: 'wat', title: 'WebAssembly Text Starter', thumbnail: 'webassembly.svg' },
   { name: 'sql', title: 'SQL Starter', thumbnail: 'sqlite.svg' },
+  { name: 'postgresql', title: 'PostgreSQL Starter', thumbnail: 'postgresql.svg' },
   { name: 'prolog', title: 'Prolog Starter', thumbnail: 'tau-prolog.svg' },
   { name: 'blockly', title: 'Blockly Starter', thumbnail: 'blockly.svg' },
   { name: 'diagrams', title: 'Diagrams Starter', thumbnail: 'diagrams.svg' },

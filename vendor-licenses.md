@@ -158,6 +158,8 @@ path-browserify: [MIT License](https://github.com/browserify/path-browserify/blo
 
 Perlito5: [Artistic License 2.0](https://github.com/fglock/Perlito/blob/f217cdac3771de31e009d4e099bac7013a619987/LICENSE.md)
 
+PGlite: [Apache License 2.0](https://github.com/electric-sql/pglite/blob/4da200e634f417fca2a8c17a3b0bae70cc2fe5af/LICENSE)
+
 php-wasm: [Apache License 2.0](https://github.com/seanmorris/php-wasm/blob/094f4e00fa99b1271af077b6de7d0d38d475ecae/LICENSE)
 
 Pintora: [MIT License](https://github.com/hikerpig/pintora/blob/29551843ae079662af8a225a0c4c9cd2f7791e0a/LICENSE.txt)

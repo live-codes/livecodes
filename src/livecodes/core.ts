@@ -85,7 +85,6 @@ import { getStarterTemplates, getTemplate } from './templates';
 import {
   buildConfig,
   defaultConfig,
-  getAppConfig,
   getConfig,
   getContentConfig,
   getEditorConfig,
@@ -392,11 +391,23 @@ const createEditors = async (config: Config) => {
     resetEditorModeStatus();
   }
 
+  const findActiveEditor = () =>
+    config.activeEditor ||
+    (config.languages?.length && getLanguageEditorId(config.languages[0])) ||
+    (config.markup.content
+      ? 'markup'
+      : config.style.content
+      ? 'style'
+      : config.script.content
+      ? 'script'
+      : 'markup');
+
   const baseOptions = {
     baseUrl,
     mode: config.mode,
     readonly: config.readonly,
     ...getEditorConfig(config),
+    activeEditor: findActiveEditor(),
     isEmbed,
     isHeadless,
     mapLanguage,
@@ -503,8 +514,11 @@ const showMode = (mode?: Config['mode']) => {
     split = null;
   }
 
+  // toolbar-editor-result
   const modes = {
     full: '111',
+    focus: '111',
+    simple: '111',
     editor: '110',
     codeblock: '010',
     result: '001',
@@ -565,7 +579,9 @@ const showMode = (mode?: Config['mode']) => {
       toolsPane?.hide();
     }
   }
-  if (mode === 'full' && !split) {
+  document.body.classList.toggle('simple-mode', mode === 'simple');
+  document.body.classList.toggle('focus-mode', mode === 'focus');
+  if ((mode === 'full' || mode === 'simple') && !split) {
     split = createSplitPanes();
   }
   window.dispatchEvent(new Event(customEvents.resizeEditor));
@@ -914,6 +930,10 @@ const getResultPage = async ({
     },
   };
 
+  if (scriptType != null && scriptType !== 'module') {
+    singleFile = true;
+  }
+
   const result = await createResultPage({
     code: compiledCode,
     config,
@@ -1130,7 +1150,16 @@ const share = async (
   permanentUrl = false,
 ): Promise<ShareData> => {
   const config = getConfig();
-  const content = contentOnly ? { ...getContentConfig(config), ...getAppConfig(config) } : config;
+  const content = contentOnly
+    ? {
+        ...getContentConfig(config),
+        tools: {
+          ...config.tools,
+          enabled: defaultConfig.tools.enabled,
+          status: config.tools.status === 'none' ? defaultConfig.tools.status : config.tools.status,
+        },
+      }
+    : config;
   const contentParam = shortUrl
     ? '?x=id/' +
       (await shareService.shareProject({
@@ -1384,7 +1413,8 @@ const setProjectRecover = (reset = false) => {
 };
 
 const checkRecoverStatus = (isWelcomeScreen = false) => {
-  if (!getConfig().recoverUnsaved || isEmbed) {
+  const config = getConfig();
+  if (!config.recoverUnsaved || isEmbed || config.mode !== 'full' || config.readonly) {
     return Promise.resolve('recover disabled');
   }
   const unsavedItem = stores.recover?.getValue();
@@ -1660,6 +1690,29 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   });
 };
 
+const setLayout = (layout: Config['layout']) => {
+  if (layout === 'responsive') {
+    layout = undefined;
+  }
+  const newLayout =
+    layout ??
+    (window.innerWidth < 768 && window.innerHeight > window.innerWidth ? 'vertical' : 'horizontal');
+  split?.setLayout(newLayout);
+  const layoutToggle = UI.getLayoutToggle();
+  if (layoutToggle) {
+    const layoutSwitch = layoutToggle.closest('.switch') as HTMLElement;
+    if (layout === undefined) {
+      layoutToggle.readOnly = layoutToggle.indeterminate = true;
+      layoutSwitch.dataset.hint = 'Responsive layout';
+    } else {
+      layoutToggle.checked = layout === 'vertical';
+      layoutToggle.readOnly = layoutToggle.indeterminate = false;
+      layoutSwitch.dataset.hint = layout === 'vertical' ? 'Vertical layout' : 'Horizontal layout';
+    }
+  }
+  handleIframeResize();
+};
+
 const loadSettings = (config: Config) => {
   const processorToggles = UI.getProcessorToggles();
   processorToggles.forEach((toggle) => {
@@ -1691,6 +1744,9 @@ const loadSettings = (config: Config) => {
 
   const themeToggle = UI.getThemeToggle();
   themeToggle.checked = config.theme === 'dark';
+
+  const layoutToggle = UI.getLayoutToggle();
+  layoutToggle.checked = config.layout === 'vertical';
 
   const recoverToggle = UI.getRecoverToggle();
   recoverToggle.checked = config.recoverUnsaved;
@@ -1927,6 +1983,9 @@ const handleTitleEdit = () => {
 
 const handleResize = () => {
   resizeEditors();
+  setLayout(getConfig().layout);
+
+  eventsManager.addEventListener(window, 'resize', () => setLayout(getConfig().layout), false);
   eventsManager.addEventListener(window, 'resize', resizeEditors, false);
   eventsManager.addEventListener(window, customEvents.resizeEditor, resizeEditors, false);
 };
@@ -2141,7 +2200,7 @@ const handleRunButton = () => {
 };
 
 const handleResultButton = () => {
-  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('output', true));
+  eventsManager.addEventListener(UI.getResultButton(), 'click', () => split?.show('toggle', true));
 };
 
 const handleShareButton = () => {
@@ -2150,6 +2209,20 @@ const handleShareButton = () => {
 
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
+
+  eventsManager.addEventListener(UI.getFocusButton(), 'click', () => {
+    const config = getConfig();
+    const currentMode = config.mode;
+    const newMode = currentMode === 'full' ? 'focus' : 'full';
+    setConfig({
+      ...config,
+      mode: newMode,
+    });
+    if (newMode === 'focus') {
+      toolsPane?.setActiveTool('console');
+    }
+    showMode(newMode);
+  });
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
     if (copyToClipboard(getActiveEditor().getValue())) {
@@ -2245,6 +2318,7 @@ const handleProcessors = () => {
         if (getConfig().autoupdate) {
           await run();
         }
+        dispatchChangeEvent();
       },
       false,
     );
@@ -2287,6 +2361,13 @@ const handleSettings = () => {
       if (configKey === 'theme') {
         setConfig({ ...getConfig(), theme: toggle.checked ? 'dark' : 'light' });
         setTheme(getConfig().theme, getConfig().editorTheme);
+      } else if (configKey === 'layout') {
+        const newLayout = toggle.readOnly ? 'vertical' : !toggle.checked ? 'horizontal' : undefined;
+        setConfig({
+          ...getConfig(),
+          layout: newLayout,
+        });
+        setLayout(newLayout);
       } else if (configKey === 'autosync') {
         const syncData = (await getUserData())?.sync;
         if (syncData?.repo) {
@@ -2764,6 +2845,7 @@ const handleDeploy = () => {
         getConfig,
         getContentConfig,
         getLanguageExtension,
+        getLanguageCompiler,
         setProjectDeployRepo,
       },
     });
@@ -3148,13 +3230,7 @@ const handleProjectInfo = () => {
     dispatchChangeEvent();
   };
   const createProjectInfo = () =>
-    createProjectInfoUI(
-      getConfig(),
-      stores.projects || fakeStorage,
-      modal,
-      eventsManager,
-      onUpdate,
-    );
+    createProjectInfoUI(getConfig(), stores.projects || fakeStorage, modal, onUpdate);
 
   eventsManager.addEventListener(UI.getProjectInfoLink(), 'click', createProjectInfo, false);
   registerScreen('info', createProjectInfo);
@@ -3387,10 +3463,10 @@ const handleExternalResources = () => {
     const loadResources = async () => {
       setExternalResourcesMark();
       await setSavedStatus();
-      modal.close();
       if (getConfig().autoupdate) {
         await run();
       }
+      dispatchChangeEvent();
     };
 
     modal.show(loadingMessage());
@@ -3701,6 +3777,7 @@ const handleResultLoading = () => {
 
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
+  popupBtn.id = 'result-popup-btn';
   popupBtn.classList.add('tool-buttons', 'hint--top');
   popupBtn.dataset.hint = 'Show result in new window';
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
@@ -3713,20 +3790,23 @@ const handleResultPopup = () => {
       return;
     }
     popupBtn.classList.add('loading');
-    const result = await getResultPage({ forExport: true, singleFile: true });
     url = url || URL.createObjectURL(new Blob([resultPopupHTML], { type: 'text/html' }));
     // add a notice to URL that it is a temporary URL to prevent users from sharing it.
     // revoking the URL after opening the window prevents viewing the page source.
     const notice = '#---TEMPORARY-URL---';
     resultPopup = window.open(url + notice, 'livecodes-result', `width=800,height=400`);
-    eventsManager.addEventListener(
-      resultPopup,
-      'load',
-      () => {
-        resultPopup?.postMessage({ result }, location.origin);
-      },
-      { once: true },
-    );
+    eventsManager.addEventListener(window, 'message', async (ev: MessageEvent) => {
+      if (ev.source !== resultPopup) return;
+      if (ev.data.type === 'loaded') {
+        resultPopup?.postMessage({ url: sandboxService.getResultUrl() }, location.origin);
+      }
+      if (ev.data.type === 'ready') {
+        resultPopup?.postMessage(
+          { result: await getResultPage({ singleFile: true }) },
+          location.origin,
+        );
+      }
+    });
     popupBtn.classList.remove('loading');
   };
   eventsManager.addEventListener(popupBtn, 'click', openWindow);
@@ -3954,7 +4034,10 @@ const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createE
 
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
-    window.open((await share(false, true, false)).url, '_blank');
+    window.open(
+      (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
+      '_blank',
+    );
   });
 };
 
@@ -3970,6 +4053,17 @@ const configureLite = () => {
     },
   });
   UI.getFormatButton().style.display = 'none';
+};
+
+const configureSimpleMode = (config: Config) => {
+  setConfig({
+    ...config,
+    tools: {
+      enabled: ['console'],
+      active: 'console',
+      status: config.tools?.status || 'closed',
+    },
+  });
 };
 
 const configureModes = ({
@@ -3989,6 +4083,9 @@ const configureModes = ({
   }
   if (isEmbed || config.mode === 'result') {
     configureEmbed(config, eventsManager);
+  }
+  if (config.mode === 'simple') {
+    configureSimpleMode(config);
   }
 };
 
@@ -4127,7 +4224,10 @@ const loadDefaults = async () => {
     if (getLanguageByAlias(param)) return;
   }
 
-  if ((getConfig().welcome && !params.screen) || params.screen === 'welcome') {
+  if (
+    (getConfig().welcome && !params.screen && getConfig().mode === 'full') ||
+    params.screen === 'welcome'
+  ) {
     showScreen('welcome');
     return;
   }
@@ -4225,7 +4325,12 @@ const initializePlayground = async (
   baseUrl = options?.baseUrl ?? '/livecodes/';
   isHeadless = options?.isHeadless ?? false;
   isLite = options?.isLite ?? params.lite ?? false;
-  isEmbed = isHeadless || isLite || (options?.isEmbed ?? false);
+  isEmbed =
+    isHeadless ||
+    isLite ||
+    (options?.isEmbed ?? false) ||
+    appConfig.mode === 'simple' ||
+    params.mode === 'simple';
 
   window.history.replaceState(null, '', './'); // fix URL from "/app" to "/"
   await initializeStores(stores, isEmbed);

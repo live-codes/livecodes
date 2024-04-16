@@ -42,7 +42,7 @@ export const createToolsPane = (
   ];
 
   const isEnabled = (tool: ToolList[number]) =>
-    config.tools.enabled === 'all' || config.tools.enabled.includes(tool.name);
+    config.tools.enabled === 'all' || config.tools.enabled?.includes(tool.name) === true;
 
   const toolList: ToolList = fullList.filter(isEnabled);
 
@@ -178,10 +178,16 @@ export const createToolsPane = (
 
     toolsSplit = Split(['#result', '#tools-pane'], {
       sizes: sizes.closed,
+      minSize: [0, 0],
       gutterSize,
       direction: 'vertical',
       elementStyle: (_dimension, size, gutterSize) => ({
-        height: `calc(${size}% - ${gutterSize}px)`,
+        height:
+          size < 15
+            ? '0'
+            : size > 85
+            ? `calc(100% - ${gutterSize * 2}px)`
+            : `calc(${size}% - ${gutterSize}px)`,
       }),
       gutterStyle: (_dimension, gutterSize) => ({
         height: `${gutterSize}px`,
@@ -338,7 +344,7 @@ export const createToolsPane = (
 
   const load = async () => {
     const initialLoad = status === undefined;
-    activeToolId = getToolId(config.tools.active);
+    activeToolId = getToolId(config.tools.active || '');
     status = config.tools.status || 'closed';
 
     if (initialLoad) {

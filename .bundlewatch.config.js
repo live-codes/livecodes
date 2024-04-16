@@ -18,7 +18,7 @@ module.exports = {
     // },
     {
       path: './build/livecodes/*.css',
-      maxSize: '10kB',
+      maxSize: '15kB',
     },
   ],
   defaultCompression: 'brotli',
