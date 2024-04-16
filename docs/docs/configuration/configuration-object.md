@@ -382,7 +382,7 @@ Sets [display mode](../features/display-modes.md)
 
 ### `tools`
 
-Type: [`{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; active: 'console' | 'compiled' | 'tests' | ''; status: 'closed' | 'open' | 'full' | 'none' | ''; }`](../api/interfaces/Config.md#tools)
+Type: [`Partial<{ enabled: Array<'console' | 'compiled' | 'tests'> | 'all'; active: 'console' | 'compiled' | 'tests' | ''; status: 'closed' | 'open' | 'full' | 'none' | ''; }>`](../api/interfaces/Config.md#tools)
 
 Default: `{ enabled: 'all', active: '', status: '' }`
 

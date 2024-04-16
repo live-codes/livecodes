@@ -42,7 +42,7 @@ export const createToolsPane = (
   ];
 
   const isEnabled = (tool: ToolList[number]) =>
-    config.tools.enabled === 'all' || config.tools.enabled.includes(tool.name);
+    config.tools.enabled === 'all' || config.tools.enabled?.includes(tool.name) === true;
 
   const toolList: ToolList = fullList.filter(isEnabled);
 
@@ -344,7 +344,7 @@ export const createToolsPane = (
 
   const load = async () => {
     const initialLoad = status === undefined;
-    activeToolId = getToolId(config.tools.active);
+    activeToolId = getToolId(config.tools.active || '');
     status = config.tools.status || 'closed';
 
     if (initialLoad) {
