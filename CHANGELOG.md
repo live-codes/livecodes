@@ -4,6 +4,49 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v27](https://github.com/live-codes/livecodes/compare/v26...v27) (2024-04-17)
+
+Highlights for this release:
+
+- Add support for PostgreSQL using [`pglite`](https://github.com/electric-sql/pglite) ([starter template](https://livecodes.io/?template=postgresql) - [docs](https://livecodes.io/docs/languages/postgresql))
+- Add [focus](https://livecodes.io/docs/features/display-modes#focus) and [simple](https://livecodes.io/docs/features/display-modes#simple) modes for a cleaner and less complex layout for the app and embedded playgrounds.
+- Add vertical layout.  
+  Now the default layout is responsive (in small view ports, the layout is vertical if the playground height is larger than its width). This can be changed from the UI (App menu) or with the [`layout`](https://livecodes.io/docs/configuration/configuration-object#layout) config option.
+- Allow loading assets when importing a file or directory from GitHub.  
+  examples:
+  - https://livecodes.io/?x=https://github.com/atherosai/ui/tree/main/accordion-01
+  - https://livecodes.io/?x=https://github.com/atherosai/ui/blob/main/accordion-01/index.html
+
+In addition to many other improvements and bug fixes:
+
+### Bug Fixes
+
+- **App:** fix `?view=result` when loading external content ([1314202](https://github.com/live-codes/livecodes/commit/131420216f28158215a5a9f4bd3390c78de2083e))
+- **App:** fix popup window failing to use importmap ([52b0e48](https://github.com/live-codes/livecodes/commit/52b0e4848cbf1dc55e144060252712f578c01d81))
+- **compilers:** change python-wasm default extension to `wasm.py` ([db7f5c4](https://github.com/live-codes/livecodes/commit/db7f5c40f9eadd04dbe2e6eb2042a9efe6909f91))
+- **Deploy:** fix deploy for runtime languages with code in custom script block (use single file) ([6caf303](https://github.com/live-codes/livecodes/commit/6caf303f6b994222edd2dcf5fe7f2c0648a775f5))
+- **Import:** fix import deployed projects ([1877959](https://github.com/live-codes/livecodes/commit/1877959fa6a923edbf65c0af8ec1e9612f6949f0))
+- **Import:** fix importing for github dir name with spaces ([620898b](https://github.com/live-codes/livecodes/commit/620898ba3a88eeb660081579007531e1a8cedbce))
+- **UI:** improve settings menu layout ([fd5f243](https://github.com/live-codes/livecodes/commit/fd5f2439fcd23507720cba79070e200df0db14e6))
+
+### Features
+
+- **Compilers:** add support for PostgreSQL ([1a49363](https://github.com/live-codes/livecodes/commit/1a49363f7afc632c5e92e47b789dff08bbf6beca))
+- **compilers:** allow compiler factory to be async ([d76b351](https://github.com/live-codes/livecodes/commit/d76b351fbda65aee7f3793cd0b3cd108cdc0861d))
+- **Config:** make `Config.tools` fields optional ([42342a7](https://github.com/live-codes/livecodes/commit/42342a752100c5df49970c3857c3eaf9bd981bf9))
+- **Deploy:** add link to deploy status ([8c49c58](https://github.com/live-codes/livecodes/commit/8c49c586008d6096d6f6533b722bb4a6122c500a))
+- **Import:** load linked assets when importing from GitHub ([bf0660d](https://github.com/live-codes/livecodes/commit/bf0660da8d7df9ad74c706e0366abdc63528138a))
+- **Modes:** add focus mode ([3608df4](https://github.com/live-codes/livecodes/commit/3608df4185650b51707223729de090457c7230ff))
+- **Modes:** add simple mode ([6690806](https://github.com/live-codes/livecodes/commit/66908062cca37453da9f2f76c5ec6f7f036170d4))
+- **SDK:** allow the SDK `watch` method to watch for changes to external resources ([a2aabf7](https://github.com/live-codes/livecodes/commit/a2aabf7c33ae97dda0c5f65033d54821ae45ff74))
+- **SDK:** allow the SDK `watch` method to watch for changes to processors ([f23c848](https://github.com/live-codes/livecodes/commit/f23c8486c496c160278c928612c5f85d7f7e7878))
+- **ToolsPane:** show indicator for console output ([eaa33de](https://github.com/live-codes/livecodes/commit/eaa33defb34bebfce0214b831509ff6ba9c480fe))
+- **UI:** allow changing layout horizontal/vertical ([df3796f](https://github.com/live-codes/livecodes/commit/df3796f8acd29632cde50ac85bba72703156e3f0))
+- **UI:** make app menu responsive ([46b7580](https://github.com/live-codes/livecodes/commit/46b7580ba23c96511a43a04cb79b7005c33cb89a))
+- **UI:** remove load buttons from screens. ([94ee5d6](https://github.com/live-codes/livecodes/commit/94ee5d6ef9fbae20f59e226e8d1758006f4f406b))
+
+---
+
 ## [sdk-v0.5.0](https://github.com/live-codes/livecodes/compare/sdk-v0.4.0...sdk-v0.5.0) (2024-04-16)
 
 - **Config:** make `Config.tools` fields optional ([42342a7](https://github.com/live-codes/livecodes/commit/42342a752100c5df49970c3857c3eaf9bd981bf9))
