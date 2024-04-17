@@ -152,10 +152,10 @@ export const addBaseTag = (
 
   return {
     ...config,
+    head: `${baseTag}\n${config.head || ''}`,
     markup: {
       ...config.markup,
       content,
-      hiddenContent: baseTag,
     },
   };
 };
