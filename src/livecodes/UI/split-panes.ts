@@ -56,7 +56,7 @@ export const createSplitPanes = (layout: 'vertical' | 'horizontal' = 'horizontal
     }
   };
 
-  const show = (pane: 'code' | 'output', full?: boolean) => {
+  const show = (pane: 'code' | 'output' | 'toggle', full?: boolean) => {
     if (!split) init();
     const smallScreen = layout === 'horizontal' && window.innerWidth < 800;
     const codeOpen = full || (smallScreen && full !== false) ? [100, 0] : [50, 50];
@@ -64,6 +64,8 @@ export const createSplitPanes = (layout: 'vertical' | 'horizontal' = 'horizontal
     if (pane === 'code' && (split.getSizes()[0] < 10 || full)) {
       split.setSizes(codeOpen);
     } else if (pane === 'output' && (split.getSizes()[1] < 10 || full)) {
+      split.setSizes(outputOpen);
+    } else if (pane === 'toggle' && (split.getSizes()[1] < 10 || full)) {
       if (split.getSizes()[0] < 10) {
         // toggle result
         split.setSizes(codeOpen);

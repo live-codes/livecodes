@@ -17,7 +17,8 @@
     "Deploy",
     "Import",
     "i18n",
-    "ToolsPane"
+    "ToolsPane",
+    "Modes"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

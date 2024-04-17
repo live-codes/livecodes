@@ -93,12 +93,12 @@ export interface ContentConfig {
 export interface AppConfig {
   readonly: boolean;
   allowLangChange: boolean;
-  mode: 'full' | 'editor' | 'codeblock' | 'result';
-  tools: {
+  mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+  tools: Partial<{
     enabled: Array<Tool['name']> | 'all';
     active: Tool['name'] | '';
     status: ToolsPaneStatus;
-  };
+  }>;
   zoom: 1 | 0.5 | 0.25;
 }
 
@@ -108,7 +108,7 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
   autotest: boolean;
   delay: number;
   formatOnsave: boolean;
-  layout: 'horizontal' | 'vertical' | undefined;
+  layout: 'responsive' | 'horizontal' | 'vertical' | undefined;
   recoverUnsaved: boolean;
   showSpacing: boolean;
   welcome: boolean;

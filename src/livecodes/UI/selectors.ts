@@ -28,6 +28,8 @@ export const getCodeRunButton = /* @__PURE__ */ () =>
   document.querySelector('#code-run-button') as HTMLElement;
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
+export const getFocusButton = /* @__PURE__ */ () =>
+  document.querySelector('#editor-tools #focus-btn') as HTMLElement;
 export const getCopyButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #copy-btn') as HTMLElement;
 export const getCopyAsUrlButton = /* @__PURE__ */ () =>
