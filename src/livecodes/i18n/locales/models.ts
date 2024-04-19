@@ -8,11 +8,11 @@ type RequireAtLeastOne<T> = {
 }[keyof T];
 
 // Ensure two objects are isomorphic while making all non-object properties string
-type UnAsConst<T> = {
+type UnAsConst<T> = RequireAtLeastOne<{
   readonly [K in keyof T]: T[K] extends I18nAttributes | I18nTranslationTemplate
     ? RequireAtLeastOne<UnAsConst<T[K]>>
     : string;
-};
+}>;
 
 type I18nAttributes = RequireAtLeastOne<{
   textContent?: string;
