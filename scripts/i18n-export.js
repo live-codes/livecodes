@@ -15,16 +15,15 @@ const generateTranslation = async () => {
     // Use JSON.stringify to format the JSON object
     // However we need to convert it to a valid TypeScript object
     // so we need to remove the quotes from the keys and use single quotes in string
-    const type = namespace === 'translation' ? 'I18nTranslationTemplate' : 'I18nTranslationTemplate';
     const name = namespace === 'translation' ? 'translation' : 'languageInfo';
     const definition = JSON.stringify(trans[namespace], null, 2)
       .replace(/"([^"]+)":/g, '$1:')
       // .replace(/"(.*)\/\* COMMENTS \*\/(.*)"(,?)/g, "'$1'$3 // $2")
       .replace(/"/g, "'");
     const translationContent =
-      `import { type ${type} } from '../models';\n\nconst ${name} = ` +
+      `import { type I18nTranslationTemplate } from '../models';\n\nconst ${name} = ` +
       definition +
-      ` as const satisfies ${type};\n\nexport default ${name};`;
+      ` as const satisfies I18nTranslationTemplate;\n\nexport default ${name};`;
     fs.writeFileSync(path.resolve(outDir, namespace + '.ts'), translationContent);
 
     // Save structured JSON for lokalise
