@@ -17,7 +17,7 @@ to acknowledge your contributions.
 
 Please report security vulnerabilities by email at:
 
-    <a href="mailto:&#x73;&#101;&#99;&#x75;&#114;&#105;&#116;&#121;&#64;&#x6c;&#x69;&#x76;&#101;&#x63;&#111;&#x64;&#x65;&#x73;&#46;&#105;&#x6f;">&#x73;&#101;&#99;&#x75;&#114;&#105;&#116;&#121;&#64;&#x6c;&#x69;&#x76;&#101;&#x63;&#111;&#x64;&#x65;&#x73;&#46;&#105;&#x6f;</a>
+    <a href="mailto:security@livecodes.io">security@livecodes.io</a>
 
 - Type of issue (e.g. cross-site scripting, authentication or authorization flaws etc.)
 - Version(s) of the App/SDK affected.
