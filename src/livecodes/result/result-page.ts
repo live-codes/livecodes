@@ -176,8 +176,10 @@ export const createResultPage = async ({
 
   const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
+  const scriptCompiler = getLanguageCompiler(code.script.language);
   const importFromScript =
     getImports(markup).includes('./script') ||
+    scriptCompiler?.loadAsExternalModule ||
     (runTests && !forExport && getImports(compiledTests).includes('./script'));
 
   const jsxRuntimes: Partial<Record<Language, string>> = {
@@ -322,6 +324,18 @@ export const createResultPage = async ({
     externalScript.src = url;
     dom.head.appendChild(externalScript);
   });
+
+  if (scriptCompiler?.inlineModule) {
+    if (typeof scriptCompiler.inlineModule === 'function') {
+      scriptCompiler.inlineModule = await scriptCompiler.inlineModule({
+        baseUrl,
+      });
+    }
+    const inlineModule = document.createElement('script');
+    inlineModule.innerHTML = scriptCompiler.inlineModule;
+    inlineModule.type = 'module';
+    dom.head.appendChild(inlineModule);
+  }
 
   if (!importFromScript && !shouldInsertJsxRuntime) {
     // editor script
