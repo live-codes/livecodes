@@ -299,6 +299,18 @@ export const createResultPage = async ({
         }
       : {};
 
+  // allow config imports to override auto-generated user imports
+  // e.g. 'pkg/path/' should override 'pkg/path/mod.mjs'
+  Object.keys(userImports)
+    .filter((userKey) =>
+      Object.keys(configImports).find(
+        (configKey) => configKey.endsWith('/') && userKey.startsWith(configKey),
+      ),
+    )
+    .forEach((userKey) => {
+      delete userImports[userKey as keyof typeof userImports];
+    });
+
   const importMaps = {
     ...userImports,
     ...scriptImport,
