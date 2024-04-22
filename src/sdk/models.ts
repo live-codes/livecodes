@@ -627,6 +627,7 @@ export type TemplateName =
   | 'scheme'
   | 'commonlisp'
   | 'clojurescript'
+  | 'gleam'
   | 'tcl'
   | 'markdown'
   | 'assemblyscript'

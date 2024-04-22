@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import type { CompilerFunction } from '../../models';
+import { gleamBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../utils';
 
 (self as any).createGleamCompiler = (): CompilerFunction => {
-  const gleamBaseUrl = 'https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@main/';
   const compilerUrl = gleamBaseUrl + 'compiler/v1.1.0/gleam_wasm.js';
   const srcBaseUrl = gleamBaseUrl + 'build/packages/';
   const compiledBaseUrl = gleamBaseUrl + 'build/dev/javascript/';
