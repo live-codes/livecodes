@@ -1,8 +1,10 @@
 /* eslint-disable max-classes-per-file */
 import type { CompilerFunction } from '../../models';
+import { getLanguageCustomSettings } from '../utils';
 
 (self as any).createGleamCompiler = (): CompilerFunction => {
-  const gleamBaseUrl = 'http://127.0.0.1:8081/';
+  const gleamBaseUrl = 'https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@main/';
+  const compilerUrl = gleamBaseUrl + 'compiler/v1.1.0/gleam_wasm.js';
   const srcBaseUrl = gleamBaseUrl + 'build/packages/';
   const compiledBaseUrl = gleamBaseUrl + 'build/dev/javascript/';
 
@@ -48,18 +50,13 @@ import type { CompilerFunction } from '../../models';
     'gleam/javascript/promise': {
       srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript/promise.gleam',
     },
-    'hatem/mod/hello': {
-      src: `
-      @external(javascript, "./hatem/mod/hello.mjs", "hi")
-      pub fn hi(str: String) -> String
-      `,
-      compiledUrl:
-        'data:text/javascript;charset=UTF-8;base64,ZXhwb3J0IGNvbnN0IGhpID0gKHN0cikgPT4gJ2hpICcgKyBzdHI=',
+    'gleam/json': {
+      srcUrl: srcBaseUrl + 'gleam_json/src/gleam/json.gleam',
     },
   };
 
   async function initGleamCompiler() {
-    const wasm = await import(gleamBaseUrl + 'wasm-compiler/gleam_wasm.js');
+    const wasm = await import(compilerUrl);
     await wasm.default();
     wasm.initialise_panic_hook(false);
     if (!compiler) {
@@ -165,11 +162,35 @@ import type { CompilerFunction } from '../../models';
         }),
     );
   };
+
+  const updateModules = async (newModules: Modules) => {
+    for (const mod of Object.keys(newModules)) {
+      const newModule = newModules[mod];
+      const oldModule = { ...modules[mod] };
+      modules[mod] = modules[mod] || {};
+      if (newModule.src) {
+        modules[mod].src = newModule.src;
+      }
+      if (newModule.srcUrl && newModule.srcUrl !== oldModule?.srcUrl) {
+        modules[mod].srcUrl = newModule.srcUrl;
+        modules[mod].src = undefined;
+      }
+      if (newModule.compiledUrl) {
+        modules[mod].compiledUrl = newModule.compiledUrl;
+      }
+    }
+    await loadModules(modules);
+  };
+
   const compilerLoaded = Promise.all([initGleamCompiler(), loadModules(modules)]);
 
-  const compile = async (code: string) => {
+  const compile: CompilerFunction = async (code, { config }) => {
     if (!code) return '';
+
     await compilerLoaded;
+    const configModules: Modules = getLanguageCustomSettings('gleam', config)?.modules || {};
+    await updateModules(configModules);
+
     const project = compiler.newProject();
 
     for (const mod of Object.keys(modules)) {
@@ -182,6 +203,9 @@ import type { CompilerFunction } from '../../models';
       project.compilePackage('javascript');
       const js = project.readCompiledJavaScript('main');
       return js.replace(/from\s+"\.\/(.+)"/g, (_: string, mod: string) => {
+        if (mod === 'gleam.mjs') {
+          return `from "${compiledBaseUrl}prelude.mjs"`;
+        }
         if (mod.startsWith('gleam/')) {
           const dir = mod.startsWith('gleam/javascript') ? 'gleam_javascript/' : 'gleam_stdlib/';
           return `from "${compiledBaseUrl + dir + mod}"`;
@@ -190,7 +214,7 @@ import type { CompilerFunction } from '../../models';
         if (modules[modName]?.compiledUrl) {
           return `from "${modules[modName].compiledUrl}"`;
         }
-        return `from "${modName}"`;
+        return `from "${mod}"`;
       });
     } catch (error) {
       // eslint-disable-next-line no-console
