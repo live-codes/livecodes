@@ -46,15 +46,17 @@ import gleam/result
 import plinth/browser/document
 import plinth/browser/element
 import plinth/browser/event
-import my_pkg/greet
 
 pub fn main() {
   say_hello()
   counter()
 }
 
+@external(javascript, "my_pkg/greet.js", "hello")
+pub fn hello(str: String) -> String
+
 fn say_hello() {
-  let greeting = greet.hello("Gleam")
+  let greeting = hello("Gleam")
   let assert Ok(title) = document.query_selector("#title")
   element.set_inner_html(title, greeting)
   io.println(greeting)
@@ -83,15 +85,11 @@ fn increment() {
 `.trimStart(),
   },
   customSettings: {
-    // imports: {
-    //   'plinth/': gleamBaseUrl + 'build/dev/javascript/plinth/plinth/',
-    // },
+    imports: {
+      'my_pkg/greet.js': gleamBaseUrl + 'demo/greet.js',
+    },
     gleam: {
       modules: {
-        'my_pkg/greet': {
-          src: '@external(javascript, "./my_pkg/greet.mjs", "hello")\npub fn hello(str: String) -> String',
-          compiledUrl: gleamBaseUrl + 'demo/greet.js',
-        },
         'plinth/browser/audio': {
           srcUrl: plinthSrcBaseUrl + 'browser/audio.gleam',
           compiledUrl: plinthCompiledBaseUrl + 'browser/audio.mjs',

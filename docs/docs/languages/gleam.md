@@ -1,0 +1,151 @@
+# Gleam
+
+import LiveCodes from '../../src/components/LiveCodes.tsx';
+import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
+
+[Gleam](https://gleam.run) is a friendly language for building type-safe systems that scale!
+
+Gleam is a statically-typed functional programming language. It compiles to Erlang or JavaScript.
+
+## Usage
+
+LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version of the [official Gleam compiler](https://github.com/gleam-lang/gleam). The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.md) in the [Tools Pane](../features/tools-pane.md) (below the result page).
+
+Console output is shown in the [integrated console](../features/console.md).
+
+### Standard Library
+
+[Gleam's standard library](https://hexdocs.pm/gleam_stdlib/), [gleam/javascript](https://hexdocs.pm/gleam_javascript/) and [gleam/json](https://hexdocs.pm/gleam_json/) packages are available for use and can be imported as usual.
+
+Demo:
+
+export const stdlibConfig = {
+activeEditor: 'script',
+script: {
+language: 'gleam',
+content: `import gleam/io\nimport gleam/string\n\npub fn main() {\n  "hello world!"\n  |> string.uppercase\n  |> io.println\n}`
+},
+tools: { status: 'open'},
+}
+
+<LiveCodes config={stdlibConfig}></LiveCodes>
+
+### Custom Modules
+
+Custom modules can be used in Gleam code. These modules have to be precompiled by the Gleam compiler. URLs to the compiled code and either the source code or URLs to the source code should be made available.
+
+This is an example for a repo with precompiled Gleam modules:  
+https://github.com/live-codes/gleam-precompiled
+
+Please refer to [Gleam CLI docs](https://gleam.run/writing-gleam/command-line-reference/) for details about adding and building packages.
+
+Note that the built code was committed to the repo by clearing out `.gitignore` file.
+
+The built code can then by accessed from a CDN that mirrors GitHub, like this:  
+`https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@main/...`
+
+Built modules can then be declared in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings), under the `gleam` property, by adding a `modules` property.
+
+The `modules` property is an object that has the module name as the key. The value is an object with the following properties:
+
+- `srcUrl`: the URL to the source code of the module
+- `src`: optionally use this instead of `srcUrl` to specify the source code of the module
+- `compiledUrl`: the URL to the compiled code of the module
+
+Example:
+
+```json title="Custom Settings"
+{
+  "gleam": {
+    "modules": {
+      "plinth/browser/document": {
+        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/build/packages/plinth/src/plinth/browser/document.gleam",
+        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
+      }
+    }
+  }
+}
+```
+
+See the [demo below](#example-usage) ([open in LiveCodes](https://livecodes.io/?template=gleam)).
+
+### Externals
+
+[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is mapped in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings) to the full URL of the script that contains the code.
+
+**Example:**
+
+The following script is hosted on this URL:  
+https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js
+
+```js
+export const hello = (str) => `Hello, ${str}!`;
+```
+
+Use this in custom settings:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js"
+  }
+}
+```
+
+`"my_pkg/greet.js"` can then be used in the `@external` attribute.
+
+Demo:
+
+export const externalsConfig = {
+activeEditor: 'script',
+script: {
+language: 'gleam',
+content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\npub fn hello(str: String) -> String\n\npub fn main() {\n io.println(hello("world"))\n}'
+},
+tools: { status: 'open'},
+customSettings: {
+"imports": {
+"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js"
+}
+}
+}
+
+<LiveCodes config={externalsConfig}></LiveCodes>
+
+### Example Usage
+
+This is the Gleam starter template demonstrating the use of standard library, custom modules and external functions.
+
+<LiveCodes template="gleam" height="80vh"></LiveCodes>
+
+## Language Info
+
+### Name
+
+`gleam`
+
+### Extension
+
+`.gleam`
+
+### Editor
+
+`script`
+
+## Compiler
+
+The wasm version of the [official Gleam compiler](https://github.com/gleam-lang/gleam).
+
+### Version
+
+`v1.1.0`
+
+## Starter Template
+
+https://livecodes.io/?template=gleam
+
+## Links
+
+- [Gleam](https://gleam.run)
+- [Gleam documentation](https://gleam.run/documentation/)
+- [Gleam language tour](https://tour.gleam.run/)

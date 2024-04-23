@@ -54,6 +54,7 @@ const templates = [
   { name: 'scheme', title: 'Scheme Starter', thumbnail: 'scheme.svg' },
   { name: 'commonlisp', title: 'Common Lisp Starter', thumbnail: 'commonlisp.svg' },
   { name: 'clojurescript', title: 'ClojureScript Starter', thumbnail: 'cljs.svg' },
+  { name: 'gleam', title: 'Gleam Starter', thumbnail: 'gleam.svg' },
   { name: 'tcl', title: 'Tcl Starter', thumbnail: 'tcl.svg' },
   { name: 'markdown', title: 'Markdown Starter', thumbnail: 'markdown.svg' },
   { name: 'assemblyscript', title: 'AssemblyScript Starter', thumbnail: 'assemblyscript.svg' },
