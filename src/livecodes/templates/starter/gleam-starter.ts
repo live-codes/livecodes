@@ -37,29 +37,25 @@ export const gleamStarter: Template = {
   script: {
     language: 'gleam',
     content: `
-// Gleam stdlib is available
 import gleam/int
 import gleam/io
 import gleam/result
-// see docs for using custom modules:
-// https://livecodes.io/docs/languages/gleam
 import plinth/browser/document
 import plinth/browser/element
 import plinth/browser/event
+// see docs for using custom modules:
+// https://livecodes.io/docs/languages/gleam
 
 pub fn main() {
   say_hello()
   counter()
 }
 
-@external(javascript, "my_pkg/greet.js", "hello")
-pub fn hello(str: String) -> String
-
 fn say_hello() {
   let greeting = hello("Gleam")
   let assert Ok(title) = document.query_selector("#title")
   element.set_inner_html(title, greeting)
-  io.println(greeting)
+  io.println(cowsay(greeting))
 }
 
 fn counter() {
@@ -82,6 +78,14 @@ fn increment() {
   |> result.map(element.set_inner_html(el, _))
   Nil
 }
+
+// custom module
+@external(javascript, "my_pkg/greet.js", "hello")
+pub fn hello(str: String) -> String
+
+// npm module
+@external(javascript, "npm:cowsay2", "say")
+pub fn cowsay(str: String) -> String
 `.trimStart(),
   },
   customSettings: {

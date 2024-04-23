@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 // based on https://github.com/gleam-lang/language-tour/blob/main/static/compiler.js
 
 /* eslint-disable max-classes-per-file */
@@ -186,6 +187,21 @@ import { getLanguageCustomSettings } from '../utils';
 
   const compilerLoaded = Promise.all([initGleamCompiler(), loadModules(modules)]);
 
+
+  // workaround for the compiler not allowing `@` in external URLs
+  // e.g.: @external(javascript, "npm:uuid@9.0.1", "v4")
+  const externalPattern = /(@external\s{0,20}\(\s{0,20}javascript\s{0,20},\s{0,20}".{0,200}?)(@)(.{0,200}?"\s{0,20},\s{0,20}".{0,200}?"\))/g;
+  const placeholder = '______at______';
+  const removeAt = (str: string) => {
+    if (!str.includes('@')) return str;
+    const pattern = new RegExp(externalPattern);
+    return str.replace(pattern, `$1${placeholder}$3`);
+  }
+  const restoreAt = (str: string) => {
+    if (!str.includes(placeholder)) return str;
+    return str.split(placeholder).join('@');
+  }
+
   const compile: CompilerFunction = async (code, { config }) => {
     if (!code) return '';
 
@@ -201,10 +217,10 @@ import { getLanguageCustomSettings } from '../utils';
       }
     }
     try {
-      project.writeModule('main', code);
+      project.writeModule('main', removeAt(code));
       project.compilePackage('javascript');
       const js = project.readCompiledJavaScript('main');
-      return js.replace(/from\s+"\.\/(.+)"/g, (_: string, mod: string) => {
+      return restoreAt(js).replace(/from\s+"\.\/(.+)"/g, (_: string, mod: string) => {
         if (mod === 'gleam.mjs') {
           return `from "${compiledBaseUrl}prelude.mjs"`;
         }
