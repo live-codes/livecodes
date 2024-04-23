@@ -5,7 +5,7 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 [Gleam](https://gleam.run) is a friendly language for building type-safe systems that scale!
 
-Gleam is a statically-typed functional programming language. It compiles to Erlang or JavaScript.
+Gleam is a statically-typed functional programming language, which compiles to Erlang or JavaScript.
 
 ## Usage
 
