@@ -157,6 +157,7 @@
     "stylelint": "14.5.0",
     "stylelint-config-sass-guidelines": "9.0.1",
     "ts-jest": "29.1.0",
+    "tslib": "2.6.2",
     "typedoc": "0.24.6",
     "typedoc-plugin-missing-exports": "2.0.0",
     "typescript": "5.0.4"

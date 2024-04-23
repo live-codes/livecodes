@@ -72,6 +72,7 @@ import { luaWasm } from './lua-wasm';
 import { phpWasm } from './php-wasm';
 import { bbcode } from './bbcode';
 import { postgresql } from './postgresql';
+import { gleam } from './gleam';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -144,6 +145,7 @@ export const languages: LanguageSpecs[] = [
   scheme,
   commonlisp,
   clojurescript,
+  gleam,
   tcl,
   assemblyscript,
   wat,

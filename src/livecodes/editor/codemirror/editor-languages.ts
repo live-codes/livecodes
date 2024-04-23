@@ -31,6 +31,8 @@ const moduleUrls = {
   tcl: getPath('codemirror-lang-tcl.js'),
   less: getPath('codemirror-lang-less.js'),
   stylus: getPath('codemirror-lang-stylus.js'),
+  rust: getPath('codemirror-lang-rust.js'),
+  swift: getPath('codemirror-lang-swift.js'),
 };
 
 export const editorLanguages: Partial<{ [key in Language]: () => Promise<LanguageSupport> }> = {
@@ -63,4 +65,7 @@ export const editorLanguages: Partial<{ [key in Language]: () => Promise<Languag
   tcl: async () => legacy((await import(moduleUrls.tcl)).tcl),
   less: async () => legacy((await import(moduleUrls.less)).less),
   stylus: async () => legacy((await import(moduleUrls.stylus)).stylus),
+  // @ts-ignore
+  rust: async () => legacy((await import(moduleUrls.rust)).rust),
+  swift: async () => legacy((await import(moduleUrls.swift)).swift),
 };
