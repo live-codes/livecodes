@@ -82,8 +82,8 @@ interface ResultItem {
                 typeof selector === 'string'
                   ? document.querySelector(selector)
                   : selector instanceof Element || selector instanceof HTMLDocument
-                  ? selector
-                  : document.body;
+                    ? selector
+                    : document.body;
               container!.append(tableElement);
               resolve();
             });

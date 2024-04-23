@@ -70,8 +70,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     language === 'livescript'
       ? 'coffeescript'
       : ['rescript', 'reason', 'ocaml'].includes(language)
-      ? 'csharp'
-      : mapLanguage(language);
+        ? 'csharp'
+        : mapLanguage(language);
 
   const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   try {
@@ -95,10 +95,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       selectedTheme === 'vs'
         ? 'custom-vs-light'
         : selectedTheme === 'vs-dark'
-        ? 'custom-vs-dark'
-        : !selectedTheme
-        ? 'custom-vs-' + theme
-        : selectedTheme
+          ? 'custom-vs-dark'
+          : !selectedTheme
+            ? 'custom-vs-' + theme
+            : selectedTheme
     ) as MonacoTheme;
 
     if (loadedThemes.has(newTheme)) return newTheme;
@@ -166,12 +166,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editorId === 'console'
       ? consoleOptions
       : editorId === 'compiled'
-      ? compiledCodeOptions
-      : editorId === 'embed'
-      ? embedOptions
-      : options.mode === 'codeblock'
-      ? codeblockOptions
-      : defaultOptions;
+        ? compiledCodeOptions
+        : editorId === 'embed'
+          ? embedOptions
+          : options.mode === 'codeblock'
+            ? codeblockOptions
+            : defaultOptions;
   let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
   if (!document.head.querySelector('#__livecodes__monaco-styles')) {

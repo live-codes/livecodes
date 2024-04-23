@@ -80,8 +80,8 @@ export const getDescriptionFile = (
   const userInfo = !user
     ? ''
     : !user.username
-    ? 'by ' + user.displayName
-    : 'by [' + user.displayName + '](' + githubUrl + user.username + ')';
+      ? 'by ' + user.displayName
+      : 'by [' + user.displayName + '](' + githubUrl + user.username + ')';
   const projectInfo = url ? `[project](https://livecodes.io/?x=${url})` : 'project';
 
   return {
@@ -145,11 +145,11 @@ export const getContent = ({
       config.script.language === 'php'
         ? config.script.content?.replace(/<\?php/g, '') || ''
         : config.script.language === 'python'
-        ? config.script.content
-        : replaceImports(
-            (isScriptSupported ? config.script.content : compiled.script) || '',
-            config,
-          ),
+          ? config.script.content
+          : replaceImports(
+              (isScriptSupported ? config.script.content : compiled.script) || '',
+              config,
+            ),
   };
 
   const scriptType = getLanguageCompiler?.(config.script.language)?.scriptType;

@@ -212,8 +212,8 @@ import { getLanguageCustomSettings } from '../utils';
           const dir = mod.startsWith('gleam/javascript')
             ? 'gleam_javascript/'
             : mod.startsWith('gleam/json')
-            ? 'gleam_json/'
-            : 'gleam_stdlib/';
+              ? 'gleam_json/'
+              : 'gleam_stdlib/';
           return `from "${compiledBaseUrl + dir + mod}"`;
         }
         const modName = mod.replace('.mjs', '');
