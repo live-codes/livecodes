@@ -209,7 +209,11 @@ import { getLanguageCustomSettings } from '../utils';
           return `from "${compiledBaseUrl}prelude.mjs"`;
         }
         if (mod.startsWith('gleam/')) {
-          const dir = mod.startsWith('gleam/javascript') ? 'gleam_javascript/' : 'gleam_stdlib/';
+          const dir = mod.startsWith('gleam/javascript')
+            ? 'gleam_javascript/'
+            : mod.startsWith('gleam/json')
+            ? 'gleam_json/'
+            : 'gleam_stdlib/';
           return `from "${compiledBaseUrl + dir + mod}"`;
         }
         const modName = mod.replace('.mjs', '');
