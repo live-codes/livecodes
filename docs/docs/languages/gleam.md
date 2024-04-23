@@ -9,9 +9,9 @@ Gleam is a statically-typed functional programming language, which compiles to E
 
 ## Usage
 
-LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version of the [official Gleam compiler](https://github.com/gleam-lang/gleam). The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.md) in the [Tools Pane](../features/tools-pane.md) (below the result page).
+LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version of the [official Gleam compiler](https://github.com/gleam-lang/gleam). The compiled JavaScript code is then executed in the context of the [result page](../features/result.md).
 
-Console output is shown in the [integrated console](../features/console.md).
+The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.md) in the [Tools Pane](../features/tools-pane.md) (below the result page). Console output is shown in the [integrated console](../features/console.md).
 
 ### Standard Library
 
@@ -104,7 +104,7 @@ Example:
 The following script is hosted on this URL:  
 https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js
 
-```js
+```js title="greet.js"
 export const hello = (str) => `Hello, ${str}!`;
 ```
 
@@ -120,13 +120,26 @@ Use this in custom settings:
 
 `"my_pkg/greet.js"` can then be used in the `@external` attribute.
 
+```js title="Gleam"
+import gleam/io
+
+// highlight-next-line
+@external(javascript, "my_pkg/greet.js", "hello")
+// highlight-next-line
+pub fn hello(str: String) -> String
+
+pub fn main() {
+ io.println(hello("from JavaScript"))
+}
+```
+
 Demo:
 
 export const externalsConfig = {
 activeEditor: 'script',
 script: {
 language: 'gleam',
-content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\npub fn hello(str: String) -> String\n\npub fn main() {\n io.println(hello("world"))\n}'
+content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\npub fn hello(str: String) -> String\n\npub fn main() {\n io.println(hello("from JavaScript"))\n}'
 },
 tools: { status: 'open'},
 customSettings: {
@@ -137,6 +150,74 @@ customSettings: {
 }
 
 <LiveCodes config={externalsConfig}></LiveCodes>
+
+:::tip
+
+[Data URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs) can be used to avoid having to host the external code online. LiveCodes enables [creating data URLs](../features/data-urls.md) easily.
+
+Example:  
+The import map in the previous example can be rewritten like this:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "my_pkg/greet.js": "data:text/javascript;charset=UTF-8;base64,ZXhwb3J0IGNvbnN0IGhlbGxvID0gKHN0cikgPT4gYEhlbGxvLCAke3N0cn0hYDs="
+  }
+}
+```
+
+:::
+
+### NPM Modules
+
+[NPM modules](https://www.npmjs.com/) can be imported as external functions as described above.
+
+Example:
+
+Let's assume you want to import the [`uuid`](https://www.npmjs.com/package/uuid) NPM module and use it in Gleam code.
+
+Multiple [CDNs](../features/module-resolution.md#cdn-providers) allow importing NPM modules directly without having to install them. In this example we will use [esm.sh](https://esm.sh/).
+
+Define the import map in custom settings (App menu → Custom Settings) like this:
+
+```json title="Custom Settings"
+{
+  "imports": {
+    "npm/uuid": "https://esm.sh/uuid"
+  }
+}
+```
+
+The `"npm/uuid"` alias can then be used in the `@external` attribute:
+
+```js
+import gleam/io
+
+@external(javascript, "npm/uuid", "v4")
+pub fn uuid() -> String
+
+pub fn main() {
+ io.println(uuid())
+}
+```
+
+Demo:
+
+export const npmConfig = {
+activeEditor: 'script',
+script: {
+language: 'gleam',
+content: 'import gleam/io\n\n@external(javascript, "npm/uuid", "v4")\npub fn uuid() -> String\n\npub fn main() {\n io.println(uuid())\n}'
+},
+tools: { status: 'open'},
+customSettings: {
+"imports": {
+"npm/uuid": "https://esm.sh/uuid"
+}
+}
+}
+
+<LiveCodes config={npmConfig}></LiveCodes>
 
 ### Example Usage
 
