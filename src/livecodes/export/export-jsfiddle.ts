@@ -49,10 +49,10 @@ export const exportJsfiddle = (
       config.script.language === 'typescript'
         ? '4'
         : config.script.language === 'jsx'
-        ? '3'
-        : config.script.language === 'coffeescript'
-        ? '5'
-        : '0',
+          ? '3'
+          : config.script.language === 'coffeescript'
+            ? '5'
+            : '0',
     resources: [
       ...config.stylesheets,
       ...config.scripts,

@@ -315,8 +315,8 @@ export const createEditorSettingsUI = async ({
             thisEditor === 'monaco'
               ? monacoThemes.map((t) => t.name)
               : thisEditor === 'codemirror'
-              ? codemirrorThemes.map((t) => t.name)
-              : prismThemes.map((t) => t.name),
+                ? codemirrorThemes.map((t) => t.name)
+                : prismThemes.map((t) => t.name),
         });
         if (selectedTheme) {
           selectedThemeValue = `${thisEditor}:${selectedTheme}@${thisTheme}`;
@@ -382,12 +382,12 @@ export const createEditorSettingsUI = async ({
           value === 'true'
             ? true
             : value === 'false'
-            ? false
-            : value === ''
-            ? undefined
-            : !isNaN(Number(value))
-            ? Number(value)
-            : value,
+              ? false
+              : value === ''
+                ? undefined
+                : !isNaN(Number(value))
+                  ? Number(value)
+                  : value,
       }),
       {} as EditorOptions,
     );

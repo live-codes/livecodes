@@ -155,10 +155,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return editorId === 'console'
       ? consoleOptions
       : editorId === 'compiled'
-      ? compiledCodeOptions
-      : options.mode === 'codeblock'
-      ? codeblockOptions
-      : defaultOptions;
+        ? compiledCodeOptions
+        : options.mode === 'codeblock'
+          ? codeblockOptions
+          : defaultOptions;
   };
 
   const showEditorMode = async (mode: EditorConfig['editorMode']) => {

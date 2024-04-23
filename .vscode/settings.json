@@ -18,6 +18,7 @@
     "Import",
     "ToolsPane",
     "Modes",
-    "Import-maps"
+    "Import-maps",
+    "Formatter"
   ]
 }

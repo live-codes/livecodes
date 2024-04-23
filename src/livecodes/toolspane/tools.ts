@@ -145,10 +145,10 @@ export const createToolsPane = (
       status === 'none'
         ? 'none'
         : toolsSplit.getSizes()[0] > 90
-        ? 'closed'
-        : toolsSplit.getSizes()[0] < 10
-        ? 'full'
-        : 'open';
+          ? 'closed'
+          : toolsSplit.getSizes()[0] < 10
+            ? 'full'
+            : 'open';
     updateConfig();
   };
 
@@ -186,8 +186,8 @@ export const createToolsPane = (
           size < 15
             ? '0'
             : size > 85
-            ? `calc(100% - ${gutterSize * 2}px)`
-            : `calc(${size}% - ${gutterSize}px)`,
+              ? `calc(100% - ${gutterSize * 2}px)`
+              : `calc(${size}% - ${gutterSize}px)`,
       }),
       gutterStyle: (_dimension, gutterSize) => ({
         height: `${gutterSize}px`,

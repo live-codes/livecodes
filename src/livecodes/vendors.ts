@@ -303,7 +303,7 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
   '@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js',
 );
 
-export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.0.0/');
+export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.2.5/');
 
 export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.19.6/standalone.js');
 
@@ -403,7 +403,7 @@ export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl('typescript@5.1.3/lib/typescript.js');
+export const typescriptUrl = /* @__PURE__ */ getUrl('typescript@5.4.5/lib/typescript.js');
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

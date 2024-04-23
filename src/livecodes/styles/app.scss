@@ -3031,8 +3031,11 @@ i.arrow {
 .loading #show-result::before {
   animation: spin 1s infinite linear;
   border-radius: 2.5px;
-  box-shadow: 6.25px 0 0 0 rgba(255, 255, 255, 0.2), 5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
-    1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6), -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
+  box-shadow:
+    6.25px 0 0 0 rgba(255, 255, 255, 0.2),
+    5px 3.5px 0 0 rgba(255, 255, 255, 0.4),
+    1.75px 5.75px 0 0 rgba(255, 255, 255, 0.6),
+    -1.75px 5.75px 0 0 rgba(255, 255, 255, 0.8),
     -5px 3.5px 0 0 rgb(255, 255, 255);
   content: '';
   display: block;
@@ -3442,7 +3445,10 @@ pre[class*='language-'].line-numbers > code {
     margin: 0;
     outline: none;
     position: relative;
-    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    transition:
+      background 0.3s,
+      border-color 0.3s,
+      box-shadow 0.2s;
     vertical-align: top;
 
     &::after {
@@ -3451,7 +3457,9 @@ pre[class*='language-'].line-numbers > code {
       left: 0;
       position: absolute;
       top: 0;
-      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+      transition:
+        transform var(--d-t, 0.3s) var(--d-t-e, ease),
+        opacity var(--d-o, 0.2s);
     }
 
     &:checked {
