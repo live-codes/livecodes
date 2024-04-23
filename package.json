@@ -158,8 +158,8 @@
     "stylelint-config-sass-guidelines": "9.0.1",
     "ts-jest": "29.1.0",
     "tslib": "2.6.2",
-    "typedoc": "0.24.6",
-    "typedoc-plugin-missing-exports": "2.0.0",
+    "typedoc": "0.25.13",
+    "typedoc-plugin-missing-exports": "2.2.0",
     "typescript": "5.4.5"
   },
   "prettier": {
