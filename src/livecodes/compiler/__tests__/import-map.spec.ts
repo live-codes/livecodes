@@ -160,14 +160,14 @@ body {
 }    `;
 
     const expectedCode = `
-@import "https://unpkg.com/github-markdown-css";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 @media print {
-@import "https://unpkg.com/github-markdown-css";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 }
 @media screen and (orientation:landscape) {
-@import "https://unpkg.com/github-markdown-css";
+@import "https://cdn.jsdelivr.net/npm/github-markdown-css";
 }
 
 body {

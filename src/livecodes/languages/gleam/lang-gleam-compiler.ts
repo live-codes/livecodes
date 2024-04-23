@@ -1,3 +1,5 @@
+// based on https://github.com/gleam-lang/language-tour/blob/main/static/compiler.js
+
 /* eslint-disable max-classes-per-file */
 import type { CompilerFunction } from '../../models';
 import { gleamBaseUrl } from '../../vendors';

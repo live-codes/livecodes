@@ -32,7 +32,7 @@ tools: { status: 'open'},
 
 ### Custom Modules
 
-Custom modules can be used in Gleam code. These modules have to be precompiled by the Gleam compiler. URLs to the compiled code and either the source code or URLs to the source code should be made available.
+Custom modules can be used in Gleam code. These modules have to be precompiled (to JavaScript) by the Gleam compiler. URLs to the compiled JavaScript code and either the Gleam source code or URLs to the Gleam source code are needed to be able to import custom modules.
 
 This is an example for a repo with precompiled Gleam modules:  
 https://github.com/live-codes/gleam-precompiled
@@ -41,16 +41,16 @@ Please refer to [Gleam CLI docs](https://gleam.run/writing-gleam/command-line-re
 
 Note that the built code was committed to the repo by clearing out `.gitignore` file.
 
-The built code can then by accessed from a CDN that mirrors GitHub, like this:  
+The built code can then by accessed from a [CDN that mirrors GitHub](https://www.jsdelivr.com/?docs=gh), like this:  
 `https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@main/...`
 
 Built modules can then be declared in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings), under the `gleam` property, by adding a `modules` property.
 
 The `modules` property is an object that has the module name as the key. The value is an object with the following properties:
 
-- `srcUrl`: the URL to the source code of the module
-- `src`: optionally use this instead of `srcUrl` to specify the source code of the module
-- `compiledUrl`: the URL to the compiled code of the module
+- `srcUrl`: the URL to the Gleam source code of the module.
+- `src`: optionally use this instead of `srcUrl` to specify the Gleam source code of the module.
+- `compiledUrl`: the URL to the compiled JavaScript code of the module.
 
 Example:
 
@@ -69,9 +69,35 @@ Example:
 
 See the [demo below](#example-usage) ([open in LiveCodes](https://livecodes.io/?template=gleam)).
 
+If `compiledUrl` property is not specified, the JavaScript module is imported from this URL pattern: `{module_name}.mjs` (example: `plinth/browser/document.mjs`).  
+This can then be [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings) to the full URL of the compiled JavaScript code.
+
+Example:
+
+```json title="Custom Settings"
+{
+  "gleam": {
+    "modules": {
+      "some_pkg/some_module": {
+        "srcUrl": "https://example.com/packages/some_pkg/some_module.gleam"
+      },
+      "another_pkg/another_module": {
+        "srcUrl": "https://example.com/packages/another_pkg/another_module.gleam"
+      }
+    }
+  },
+  "imports": {
+    // map a specific module
+    "some_pkg/some_module.mjs": "https://example.com/compiled/some_pkg/some_module.mjs",
+    // or map a whole directory
+    "another_pkg/": "https://example.com/compiled/another_pkg/"
+  }
+}
+```
+
 ### Externals
 
-[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is mapped in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings) to the full URL of the script that contains the code.
+[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings) to the full URL of the script that contains the code.
 
 **Example:**
 
