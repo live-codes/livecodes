@@ -3271,9 +3271,9 @@ i.arrow {
 // CodeMirror Codeium
 .cm-ghostText,
 .cm-ghostText * {
-  opacity: 0.6;
-  filter: grayscale(20%);
   cursor: pointer;
+  filter: grayscale(20%);
+  opacity: 0.6;
 }
 
 .cm-ghostText:hover {
