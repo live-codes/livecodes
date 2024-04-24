@@ -89,6 +89,7 @@ const buildVendors = () => {
       'codemirror-vim.ts',
       'codemirror-emacs.ts',
       'codemirror-emmet.ts',
+      'codemirror-codeium.ts',
       'languages/codemirror-lang-json.ts',
       'languages/codemirror-lang-markdown.ts',
       'languages/codemirror-lang-python.ts',

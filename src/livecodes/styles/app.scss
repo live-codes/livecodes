@@ -3268,6 +3268,18 @@ i.arrow {
   }
 }
 
+// CodeMirror Codeium
+.cm-ghostText,
+.cm-ghostText * {
+  opacity: 0.6;
+  filter: grayscale(20%);
+  cursor: pointer;
+}
+
+.cm-ghostText:hover {
+  background: #eee;
+}
+
 /* Prism JS */
 
 .prism {
