@@ -6,8 +6,6 @@ The large generative machine learning model is capable of understanding the cont
 
 It has a wide range of language support, and it works everywhere (in the [standalone app](../getting-started.md#standalone-app), [embedded playgrounds](./embeds.md) and [self-hosted](./self-hosting.md) apps).
 
-Currently, only [Monaco editor](./editor-settings.md#code-editor) is supported. Wider editor support is planned.
-
 Powered by:
 
 <a href="https://codeium.com/"><img width="300px" src="/docs/img/credits/codeium.svg" alt="Codeium logo"/></a>.
@@ -65,8 +63,14 @@ createPlayground('#container', {
 
 Also this can be enabled using [query params](../configuration/query-params.md) (e.g. https://livecodes.io/?enableAI).
 
+## Usage
+
+On typing, the code completion suggestions will be shown in dimmed color. Press <kbd>Tab</kbd> to accept, or <kbd>Esc</kbd> to cancel.
+
+On mobile, tap on the suggestion to accept it, or continue typing to reject.
+
 :::caution Note
 
-Please note that when using Codeium AI assistant, your code is sent to their servers for code completion. However, your code is not used for training their model. Check Codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
+Please note that when using Codeium AI assistant, your code is sent to Codeium servers for code completion. However, your code is not used for training their model. Check Codeium [FAQ](https://codeium.com/faq#Will-Codeium-regurgitate-private-code%3F) and [privacy policy](https://codeium.com/privacy-policy) for more details.
 
 :::
