@@ -176,7 +176,7 @@ declare module "sdk/models" {
             userToken?: string;
         };
     }
-    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
+    export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
         language: Language;
         content?: string;
@@ -305,6 +305,10 @@ declare module "sdk/models" {
         inlineScript?: string | ((options: {
             baseUrl: string;
         }) => Promise<string>);
+        inlineModule?: string | ((options: {
+            baseUrl: string;
+        }) => Promise<string>);
+        loadAsExternalModule?: boolean;
         scriptType?: 'module' | 'text/liquid' | 'text/python' | 'text/r' | 'text/ruby-wasm' | 'text/x-uniter-php' | 'text/php-wasm' | 'text/cpp' | 'text/perl' | 'text/julia' | 'text/biwascheme' | 'text/commonlisp' | 'text/tcl' | 'text/prolog' | 'application/json' | 'application/lua' | 'text/fennel' | 'application/wasm-uint8';
         liveReload?: boolean;
         aliasTo?: Language;
@@ -324,7 +328,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: 'Console' | 'Compiled' | 'Tests';
@@ -663,8 +667,8 @@ declare module "livecodes/services/modules" {
     import type { CDN } from "livecodes/models";
     export const modulesService: {
         getModuleUrl: (moduleName: string, { isModule, defaultCDN }?: {
-            isModule?: boolean | undefined;
-            defaultCDN?: CDN | undefined;
+            isModule?: boolean;
+            defaultCDN?: CDN;
         }) => string;
         getUrl: (path: string, cdn?: CDN) => string;
         cdnLists: {
@@ -752,6 +756,7 @@ declare module "livecodes/vendors" {
     export const fontVictorMonoUrl: string;
     export const fscreenUrl: string;
     export const githubMarkdownCss: string;
+    export const gleamBaseUrl: string;
     export const go2jsBaseUrl: string;
     export const graphreCdnUrl: string;
     export const handlebarsBaseUrl: string;
@@ -882,7 +887,7 @@ declare module "livecodes/utils/utils" {
     export const removeCommentsAndStrings: (src: string) => string;
     export const getLanguageCustomSettings: (language: Language | Processor, config: Config) => any;
     export const getValidUrl: (url?: string) => string | null;
-    export const runOrContinue: <T>(fn: (x: T) => Promise<T>, catchFn?: ((err: unknown) => void) | undefined) => (x: T) => Promise<T>;
+    export const runOrContinue: <T>(fn: (x: T) => Promise<T>, catchFn?: (err: unknown) => void) => (x: T) => Promise<T>;
     export const getFileExtension: (file: string) => string;
     export const isInIframe: () => boolean;
     export const indentCode: (code: string, spaces: number, skipFirstLine?: boolean) => string;
@@ -898,13 +903,6 @@ declare module "livecodes/utils/utils" {
     export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
     export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
 }
-declare module "livecodes/utils/get-import-instance" {
-    export function getImportInstance(url: string): any;
-}
-declare module "livecodes/utils/index" {
-    export * from "livecodes/utils/utils";
-    export * from "livecodes/utils/get-import-instance";
-}
 declare module "livecodes/languages/lightningcss/processor-lightningcss" {
     import type { ProcessorSpecs } from "livecodes/models";
     export const lightningcss: ProcessorSpecs;
@@ -915,6 +913,13 @@ declare module "livecodes/languages/lightningcss/index" {
 declare module "livecodes/languages/postcss/processor-postcss" {
     import type { ProcessorSpecs } from "livecodes/models";
     export const postcss: ProcessorSpecs;
+}
+declare module "livecodes/utils/get-import-instance" {
+    export function getImportInstance(url: string): any;
+}
+declare module "livecodes/utils/index" {
+    export * from "livecodes/utils/utils";
+    export * from "livecodes/utils/get-import-instance";
 }
 declare module "livecodes/languages/postcss/postcss-plugins" {
     import type { ProcessorSpecs } from "livecodes/models";
@@ -957,7 +962,7 @@ declare module "livecodes/languages/processors" {
 }
 declare module "livecodes/languages/utils" {
     import type { Compiler, Language, CustomSettings, Config, Processor } from "livecodes/models";
-    import { getLanguageCustomSettings } from "livecodes/utils/index";
+    import { getLanguageCustomSettings } from "livecodes/utils/utils";
     export const getLanguageByAlias: (alias?: string) => Language | undefined;
     export const getLanguageTitle: (language: Language) => string;
     export const getLanguageEditorId: (alias?: string) => import("sdk/models").EditorId | undefined;
@@ -1581,7 +1586,7 @@ declare module "livecodes/services/github" {
     export const getContent: ({ user, repo, branch, path, }: {
         user: User;
         repo: string;
-        branch?: string | undefined;
+        branch?: string;
         path: string;
     }) => Promise<any>;
     export const commitFiles: ({ files, user, repo, branch, message, newRepo, privateRepo, description, readmeContent, clearPrevious, }: {
@@ -1590,11 +1595,11 @@ declare module "livecodes/services/github" {
         repo: string;
         branch: string;
         message: string;
-        newRepo?: boolean | undefined;
-        privateRepo?: boolean | undefined;
-        description?: string | undefined;
-        readmeContent?: string | undefined;
-        clearPrevious?: boolean | undefined;
+        newRepo?: boolean;
+        privateRepo?: boolean;
+        description?: string;
+        readmeContent?: string;
+        clearPrevious?: boolean;
     }) => Promise<{
         tree: string;
         commit: string;
@@ -1605,10 +1610,10 @@ declare module "livecodes/services/github" {
         repo: string;
         branch: string;
         message: string;
-        newRepo?: boolean | undefined;
-        privateRepo?: boolean | undefined;
-        description?: string | undefined;
-        readmeContent?: string | undefined;
+        newRepo?: boolean;
+        privateRepo?: boolean;
+        description?: string;
+        readmeContent?: string;
     }) => Promise<{
         tree: any;
         commit: any;
@@ -1621,7 +1626,7 @@ declare module "livecodes/sync/sync.worker" {
     const sync: ({ user, repo, branch, newRepo, }: {
         user: User;
         repo: string;
-        branch?: string | undefined;
+        branch?: string;
         newRepo: boolean;
     }) => Promise<boolean>;
     const exportToLocalSync: ({ user, storeKey }: {
@@ -1634,12 +1639,12 @@ declare module "livecodes/sync/sync.worker" {
     const restoreFromUpdate: ({ update, storeKey, mergeCurrent, }: {
         update: Uint8Array;
         storeKey: keyof Stores;
-        mergeCurrent?: boolean | undefined;
+        mergeCurrent?: boolean;
     }) => Promise<void>;
     const restoreFromLocalSync: ({ user, storeKey, mergeCurrent, }: {
         user: User;
         storeKey: keyof Stores;
-        mergeCurrent?: boolean | undefined;
+        mergeCurrent?: boolean;
     }) => Promise<void>;
     export type workerSync = typeof sync;
     export type workerExportToLocalSync = typeof exportToLocalSync;
@@ -1982,6 +1987,13 @@ declare module "livecodes/languages/postgresql/lang-postgresql" {
 declare module "livecodes/languages/postgresql/index" {
     export * from "livecodes/languages/postgresql/lang-postgresql";
 }
+declare module "livecodes/languages/gleam/lang-gleam" {
+    import type { LanguageSpecs } from "livecodes/models";
+    export const gleam: LanguageSpecs;
+}
+declare module "livecodes/languages/gleam/index" {
+    export * from "livecodes/languages/gleam/lang-gleam";
+}
 declare module "livecodes/languages/languages" {
     import type { LanguageSpecs } from "livecodes/models";
     export const languages: LanguageSpecs[];
@@ -2148,8 +2160,8 @@ declare module "livecodes/deploy/deploy" {
         repo: string;
         branch: string;
         message: string;
-        description?: string | undefined;
-        readmeContent?: string | undefined;
+        description?: string;
+        readmeContent?: string;
     }) => Promise<DeployResult | null>;
     export const deployedConfirmation: (deployResult: DeployResult, sourcePublished: boolean) => HTMLDivElement;
 }
@@ -2200,7 +2212,7 @@ declare module "livecodes/editor/quill/quill" {
     import type { CustomEditorOptions, Theme } from "livecodes/models";
     export const showQuillEditor: ({ baseUrl, config, editors, eventsManager, }: CustomEditorOptions) => Promise<void>;
     export const getQuillEditorContent: ({ baseUrl, editors, config, html, eventsManager, }: CustomEditorOptions) => Promise<{
-        html?: string | undefined;
+        html?: string;
     }>;
     export const setQuillEditorTheme: (theme: Theme) => void;
 }
@@ -3092,9 +3104,9 @@ declare module "livecodes/UI/sync-ui" {
     import type { User, UserData } from "livecodes/models";
     export const isSyncInProgress: () => boolean;
     export const updateSyncStatus: ({ inProgress, lastSync, syncContainer, }: {
-        inProgress?: boolean | undefined;
-        lastSync?: number | undefined;
-        syncContainer?: HTMLElement | undefined;
+        inProgress?: boolean;
+        lastSync?: number;
+        syncContainer?: HTMLElement;
     }) => void;
     export const createSyncUI: ({ baseUrl, modal, notifications, eventsManager, user, deps, }: {
         baseUrl: string;
@@ -3133,8 +3145,8 @@ declare module "livecodes/UI/qrcode" {
     export const generateQrCode: ({ container, url, title, logo, }: {
         container: HTMLElement;
         url: string;
-        title?: string | undefined;
-        logo?: string | undefined;
+        title?: string;
+        logo?: string;
     }) => Promise<void>;
 }
 declare module "livecodes/UI/share" {
@@ -3178,7 +3190,7 @@ declare module "livecodes/UI/backup" {
     import type { Stores } from "livecodes/storage/index";
     export const isInProgress: () => boolean;
     export const updateProgressStatus: ({ inProgress, backupContainer, }: {
-        inProgress?: boolean | undefined;
+        inProgress?: boolean;
         backupContainer: HTMLElement;
     }) => void;
     export const createBackupUI: ({ baseUrl, modal, notifications, eventsManager, stores, deps, }: {
@@ -3214,7 +3226,7 @@ declare module "livecodes/UI/embed-ui" {
 }
 declare module "livecodes/editor/themes" {
     import type { CodejarTheme, CodemirrorTheme, Config, MonacoTheme } from "livecodes/models";
-    export const getEditorTheme: ({ editor, editorTheme, theme, editorThemes, }: Pick<Config, "editor" | "theme" | "editorTheme"> & {
+    export const getEditorTheme: ({ editor, editorTheme, theme, editorThemes, }: Pick<Config, 'editorTheme' | 'editor' | 'theme'> & {
         editorThemes: Array<MonacoTheme | CodemirrorTheme | CodejarTheme>;
     }) => "idle" | "lazy" | "dark" | "active4d" | "all-hallows-eve" | "amy" | "birds-of-paradise" | "blackboard" | "brilliance-black" | "brilliance-dull" | "chrome-devtools" | "clouds-midnight" | "clouds" | "cobalt" | "cobalt2" | "custom-vs-light" | "custom-vs-dark" | "dawn" | "dracula" | "dreamweaver" | "eiffel" | "espresso-libre" | "github" | "github-dark" | "github-light" | "hc-black" | "hc-light" | "idlefingers" | "iplastic" | "katzenmilch" | "krtheme" | "kuroir" | "magicwb-amiga" | "merbivore-soft" | "merbivore" | "monochrome" | "monochrome-dark" | "monokai" | "monokai-bright" | "monoindustrial" | "night-owl" | "nord" | "oceanic-next" | "pastels-on-dark" | "slush-and-poppies" | "solarized-dark" | "solarized-light" | "spacecadet" | "sunburst" | "textmate-mac-classic" | "tomorrow" | "tomorrow-night" | "tomorrow-night-blue" | "tomorrow-night-bright" | "tomorrow-night-eighties" | "twilight" | "upstream-sunburst" | "vibrant-ink" | "vs" | "vs-dark" | "xcode-default" | "zenburnesque" | "aura" | "ayu-light" | "barf" | "basic-light" | "basic-dark" | "bespin" | "boys-and-girls" | "cm-light" | "cool-glow" | "espresso" | "gruvbox-dark" | "gruvbox-light" | "material-dark" | "material-light" | "noctis-lilac" | "one-dark" | "rose-pine-dawn" | "smoothy" | "tokyo-night" | "tokyo-night-day" | "tokyo-night-storm" | "a11y-dark" | "atom-dark" | "base16-ateliersulphurpool-light" | "cb" | "coldark-cold" | "coldark-dark" | "coy" | "coy-without-shadows" | "darcula" | "duotone-dark" | "duotone-earth" | "duotone-forest" | "duotone-light" | "duotone-sea" | "duotone-space" | "funky" | "ghcolors" | "holi-theme" | "hopscotch" | "laserwave" | "lucario" | "material-oceanic" | "okaidia" | "one-light" | "pojoaque" | "shades-of-purple" | "solarized-dark-atom" | "synthwave84" | "vsc-dark-plus" | "xonokai" | "z-touchs" | null;
 }
@@ -3316,7 +3328,7 @@ declare module "livecodes/UI/snippets" {
         };
     }) => Promise<void>;
     export const createAddSnippetContainer: ({ snippetId, snippetsStorage, eventsManager, showScreen, notifications, deps, }: {
-        snippetId?: string | undefined;
+        snippetId?: string;
         snippetsStorage: Storage<Snippet>;
         eventsManager: ReturnType<typeof createEventsManager>;
         showScreen: (screen: Screen['screen'], activeTab?: number) => Promise<void>;
@@ -3419,6 +3431,29 @@ declare module "livecodes/editor/codemirror/basic-setup" {
     export { EditorView } from '@codemirror/view';
     export { lineNumbers, closeBrackets };
 }
+declare module "livecodes/editor/codemirror/editor-languages" {
+    import { LanguageSupport } from '@codemirror/language';
+    import type { Language } from "livecodes/models";
+    export const editorLanguages: Partial<{
+        [key in Language]: () => Promise<LanguageSupport>;
+    }>;
+}
+declare module "livecodes/editor/codemirror/extras" {
+    export { indentationMarkers } from '@replit/codemirror-indentation-markers';
+    export { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
+    export { colorPicker } from '@replit/codemirror-css-color-picker';
+}
+declare module "livecodes/editor/codemirror/codemirror" {
+    import type { CodeEditor, EditorOptions } from "livecodes/models";
+    export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
+        editorId: EditorOptions['editorId'];
+    };
+    export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
+}
+declare module "livecodes/editor/codemirror/codemirror-codeium" {
+    import type { CodeiumEditor } from "livecodes/editor/codemirror/codemirror";
+    export const codeium: (editors: CodeiumEditor[], mapLanguage: (lang: string) => string) => import("@codemirror/state").Extension[];
+}
 declare module "livecodes/editor/codemirror/codemirror-core" {
     export * from '@codemirror/autocomplete';
     export * from '@codemirror/commands';
@@ -3445,22 +3480,6 @@ declare module "livecodes/editor/codemirror/codemirror-emmet" {
 }
 declare module "livecodes/editor/codemirror/codemirror-vim" {
     export { vim } from '@replit/codemirror-vim';
-}
-declare module "livecodes/editor/codemirror/editor-languages" {
-    import { LanguageSupport } from '@codemirror/language';
-    import type { Language } from "livecodes/models";
-    export const editorLanguages: Partial<{
-        [key in Language]: () => Promise<LanguageSupport>;
-    }>;
-}
-declare module "livecodes/editor/codemirror/extras" {
-    export { indentationMarkers } from '@replit/codemirror-indentation-markers';
-    export { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
-    export { colorPicker } from '@replit/codemirror-css-color-picker';
-}
-declare module "livecodes/editor/codemirror/codemirror" {
-    import type { CodeEditor, EditorOptions } from "livecodes/models";
-    export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
 }
 declare module "livecodes/editor/codemirror/languages/codemirror-lang-clojure" {
     export { clojure } from '@codemirror/legacy-modes/mode/clojure';
@@ -3507,6 +3526,9 @@ declare module "livecodes/editor/codemirror/languages/codemirror-lang-r" {
 declare module "livecodes/editor/codemirror/languages/codemirror-lang-ruby" {
     export { ruby } from '@codemirror/legacy-modes/mode/ruby';
 }
+declare module "livecodes/editor/codemirror/languages/codemirror-lang-rust" {
+    export { rust } from '@codemirror/legacy-modes/mode/rust';
+}
 declare module "livecodes/editor/codemirror/languages/codemirror-lang-scheme" {
     export { scheme } from '@codemirror/legacy-modes/mode/scheme';
 }
@@ -3518,6 +3540,9 @@ declare module "livecodes/editor/codemirror/languages/codemirror-lang-sql" {
 }
 declare module "livecodes/editor/codemirror/languages/codemirror-lang-stylus" {
     export { stylus } from '@codemirror/legacy-modes/mode/stylus';
+}
+declare module "livecodes/editor/codemirror/languages/codemirror-lang-swift" {
+    export { swift } from '@codemirror/legacy-modes/mode/swift';
 }
 declare module "livecodes/editor/codemirror/languages/codemirror-lang-tcl" {
     export { tcl } from '@codemirror/legacy-modes/mode/tcl';
@@ -4907,6 +4932,7 @@ declare module "livecodes/languages/dot/lang-dot-compiler" { }
 declare module "livecodes/languages/ejs/lang-ejs-compiler" { }
 declare module "livecodes/languages/eta/lang-eta-compiler" { }
 declare module "livecodes/languages/fennel/lang-fennel-compiler" { }
+declare module "livecodes/languages/gleam/lang-gleam-compiler" { }
 declare module "livecodes/languages/haml/lang-haml-compiler" { }
 declare module "livecodes/languages/handlebars/lang-handlebars-compiler" { }
 declare module "livecodes/languages/imba/lang-imba-compiler" { }
@@ -5040,6 +5066,10 @@ declare module "livecodes/templates/starter/diagrams-starter" {
 declare module "livecodes/templates/starter/fennel-starter" {
     import type { Template } from "livecodes/models";
     export const fennelStarter: Template;
+}
+declare module "livecodes/templates/starter/gleam-starter" {
+    import type { Template } from "livecodes/models";
+    export const gleamStarter: Template;
 }
 declare module "livecodes/templates/starter/go-starter" {
     import type { Template } from "livecodes/models";
