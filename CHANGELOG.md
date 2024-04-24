@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v28](https://github.com/live-codes/livecodes/compare/v27...v28) (2024-04-24)
+
+### Highlights for this release:
+
+- Add support for [Gleam language](https://github.com/gleam-lang/gleam): [starter template](https://livecodes.io?template=gleam) - [docs](https://livecodes.io/docs/languages/gleam)
+- Enable AI code completion on mobile editor (codemirror) - (experimental)
+- Upgrade monaco editor to v0.48.0, TypeScript compiler to v5.4.5, and prettier formatter to v3.2.5
+
+### Bug Fixes
+
+- **Types:** fix type bundler for subpaths ([f4d88e1](https://github.com/live-codes/livecodes/commit/f4d88e121a09e4c7e968749ebdf1b59ea35cefea))
+
+### Features
+
+- **App:** upgrade monaco editor to v0.48.0 ([88253f9](https://github.com/live-codes/livecodes/commit/88253f924498877634b1347555c1ba68aca971e0))
+- **Compilers:** add support for gleam language ([a1bb21e](https://github.com/live-codes/livecodes/commit/a1bb21ee05793b5b02490383d54872493e9ab0f1))
+- **Compilers:** allow gleam code to use npm modules without import maps ([52a269a](https://github.com/live-codes/livecodes/commit/52a269a904f49fd79649b5b003899d46230232ea))
+- **Compilers:** allow loading custom gleam modules ([cf13102](https://github.com/live-codes/livecodes/commit/cf13102b0d739241c87aa02a3f9966c0afc75035))
+- **Compilers:** dynamically load gleam stdlib ([9352da4](https://github.com/live-codes/livecodes/commit/9352da43a2c11e69182a6bd75e5cd03059bde889))
+- **Compilers:** make official gleam packages available by default ([5aed5ea](https://github.com/live-codes/livecodes/commit/5aed5ea9aaca7554ce69010e061c927e628340f4))
+- **Compilers:** upgrade TypeScript to v5.4.5 ([0d020ef](https://github.com/live-codes/livecodes/commit/0d020ef847aa1687e2eede0aaaae5d8d56c3ccc9))
+- **Editor:** enable AI code completion for codemirror ([ac2c6f3](https://github.com/live-codes/livecodes/commit/ac2c6f37b21026309bf5aa181550e79280ccd30e))
+- **Formatter:** upgrade prettier to v3.2.5 ([bf0ee4f](https://github.com/live-codes/livecodes/commit/bf0ee4ff7b78ea43e007a711325aa023a54c95a8))
+- **Import-maps:** allow config imports to override auto-generated user imports ([e87018f](https://github.com/live-codes/livecodes/commit/e87018f91c260f74b6b1f1d44b2bd621df10e6bd))
+- **Templates:** add gleam starter template ([cc57e38](https://github.com/live-codes/livecodes/commit/cc57e3861570a768a049b28724f389ddc253843d))
+
+---
+
 ## [v27](https://github.com/live-codes/livecodes/compare/v26...v27) (2024-04-17)
 
 Highlights for this release:
