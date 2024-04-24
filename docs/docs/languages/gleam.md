@@ -65,8 +65,8 @@ Example:
   "gleam": {
     "modules": {
       "plinth/browser/document": {
-        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/build/packages/plinth/src/plinth/browser/document.gleam",
-        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
+        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/build/packages/plinth/src/plinth/browser/document.gleam",
+        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
       }
     }
   }
@@ -108,7 +108,7 @@ Example:
 **Example:**
 
 The following script is hosted on this URL:  
-https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js
+https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js
 
 ```js title="greet.js"
 export const hello = (str) => `Hello, ${str}!`;
@@ -119,7 +119,7 @@ Use this in custom settings:
 ```json title="Custom Settings"
 {
   "imports": {
-    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js"
+    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js"
   }
 }
 ```
@@ -150,7 +150,7 @@ content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\n
 tools: { status: 'open'},
 customSettings: {
 "imports": {
-"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js"
+"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js"
 }
 }
 }
