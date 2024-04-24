@@ -15,7 +15,13 @@ The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../f
 
 ### Standard Library
 
-[Gleam's standard library](https://hexdocs.pm/gleam_stdlib/), [gleam/javascript](https://hexdocs.pm/gleam_javascript/) and [gleam/json](https://hexdocs.pm/gleam_json/) packages are available for use and can be imported as usual.
+[Gleam's standard library](https://hexdocs.pm/gleam_stdlib/) in addition to the following packages are available for use and can be imported as usual with no additional configuration:
+
+- [gleam/crypto](https://hexdocs.pm/gleam_crypto/)
+- [gleam/fetch](https://hexdocs.pm/gleam_fetch/)
+- [gleam/http](https://hexdocs.pm/gleam_http/)
+- [gleam/javascript](https://hexdocs.pm/gleam_javascript/)
+- [gleam/json](https://hexdocs.pm/gleam_json/)
 
 Demo:
 

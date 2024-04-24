@@ -216,7 +216,7 @@ export const githubMarkdownCss = /* @__PURE__ */ getUrl(
   'github-markdown-css@5.1.0/github-markdown.css',
 );
 
-export const gleamBaseUrl = /* @__PURE__ */ getUrl('gh:live-codes/gleam-precompiled@v0.1.0/');
+export const gleamBaseUrl = /* @__PURE__ */ getUrl('gh:live-codes/gleam-precompiled@v0.2.0/');
 
 export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.4.0/build/');
 
