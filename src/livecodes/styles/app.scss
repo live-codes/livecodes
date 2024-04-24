@@ -3319,7 +3319,9 @@ i.arrow {
   }
 
   &.codejar pre {
+    box-sizing: border-box;
     cursor: text;
+    padding-top: 0 !important;
   }
 
   &.codejar code {
