@@ -294,7 +294,7 @@ export async function createPlayground(
       'livecodes-console': 'console',
       'livecodes-test-results': 'tests',
       'livecodes-destroy': 'destroy',
-    }[event] as SDKEvent | undefined);
+    })[event] as SDKEvent | undefined;
 
   addEventListener(
     'message',
@@ -384,8 +384,8 @@ export function getPlaygroundUrl(options: EmbedOptions = {}): string {
     typeof config === 'string'
       ? { config }
       : typeof config === 'object'
-      ? { x: 'code/' + compressToEncodedURIComponent(JSON.stringify(config)) }
-      : {};
+        ? { x: 'code/' + compressToEncodedURIComponent(JSON.stringify(config)) }
+        : {};
   const allParams = new URLSearchParams(
     JSON.parse(
       JSON.stringify({

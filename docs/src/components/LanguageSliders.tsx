@@ -91,6 +91,7 @@ export default function Sliders() {
       { name: 'scheme', title: 'Scheme' },
       { name: 'commonlisp', title: 'Lisp' },
       { name: 'clojurescript', title: 'CLJS' },
+      { name: 'gleam', title: 'Gleam' },
       { name: 'tcl', title: 'Tcl' },
       { name: 'assemblyscript', title: 'AssemblyScript' },
       { name: 'wat', title: 'WAT' },

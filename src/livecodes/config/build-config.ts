@@ -162,12 +162,12 @@ export const loadParamConfig = (config: Config, params: UrlQueryParams): Partial
   paramsConfig.activeEditor = editorIds.includes(paramsActiveEditor) // ?activeEditor=style
     ? paramsActiveEditor
     : paramsActiveEditor in editorIds // ?activeEditor=1
-    ? editorIds[paramsActiveEditor]
-    : editorIds.includes(paramsActive) // ?active=style
-    ? paramsActive
-    : paramsActive in editorIds // ?active=1
-    ? editorIds[paramsActive]
-    : paramsConfig.activeEditor;
+      ? editorIds[paramsActiveEditor]
+      : editorIds.includes(paramsActive) // ?active=style
+        ? paramsActive
+        : paramsActive in editorIds // ?active=1
+          ? editorIds[paramsActive]
+          : paramsConfig.activeEditor;
 
   // ?languages=html,md,css,ts
   if (typeof params.languages === 'string') {

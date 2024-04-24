@@ -17,6 +17,8 @@
     "Deploy",
     "Import",
     "ToolsPane",
-    "Modes"
+    "Modes",
+    "Import-maps",
+    "Formatter"
   ]
 }

@@ -23,8 +23,8 @@ export const clickToLoad = isEmbed && loadingParam !== 'eager';
 export const loading: EmbedOptions['loading'] = !isEmbed
   ? 'eager'
   : loadingParam === 'lazy' || loadingParam === 'click' || loadingParam === 'eager'
-  ? loadingParam
-  : 'lazy';
+    ? loadingParam
+    : 'lazy';
 
 // for backwards compatibility with using extension
 export const disableAI =
@@ -42,10 +42,10 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
     const scriptFile = isHeadless
       ? '{{hash:headless.js}}'
       : isLite
-      ? '{{hash:lite.js}}'
-      : isEmbed
-      ? '{{hash:embed.js}}'
-      : '{{hash:app.js}}';
+        ? '{{hash:lite.js}}'
+        : isEmbed
+          ? '{{hash:embed.js}}'
+          : '{{hash:app.js}}';
     const anyOrigin = '*';
 
     const style = document.createElement('style');

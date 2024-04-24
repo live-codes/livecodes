@@ -154,16 +154,16 @@ const organizeAssets = async (
         sortBy === 'date' && sortByDirection === 'asc'
           ? a.lastModified - b.lastModified
           : sortBy === 'date' && sortByDirection === 'desc'
-          ? b.lastModified - a.lastModified
-          : sortBy === 'filename' && sortByDirection === 'asc' && a.filename < b.filename
-          ? -1
-          : sortBy === 'filename' && sortByDirection === 'asc' && a.filename > b.filename
-          ? 1
-          : sortBy === 'filename' && sortByDirection === 'desc' && a.filename < b.filename
-          ? 1
-          : sortBy === 'filename' && sortByDirection === 'desc' && a.filename > b.filename
-          ? -1
-          : 0,
+            ? b.lastModified - a.lastModified
+            : sortBy === 'filename' && sortByDirection === 'asc' && a.filename < b.filename
+              ? -1
+              : sortBy === 'filename' && sortByDirection === 'asc' && a.filename > b.filename
+                ? 1
+                : sortBy === 'filename' && sortByDirection === 'desc' && a.filename < b.filename
+                  ? 1
+                  : sortBy === 'filename' && sortByDirection === 'desc' && a.filename > b.filename
+                    ? -1
+                    : 0,
       );
 
   const reloadAssets = async () => {

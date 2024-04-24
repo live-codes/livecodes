@@ -171,16 +171,16 @@ const organizeSnippets = async (
         sortBy === 'date' && sortByDirection === 'asc'
           ? a.lastModified - b.lastModified
           : sortBy === 'date' && sortByDirection === 'desc'
-          ? b.lastModified - a.lastModified
-          : sortBy === 'title' && sortByDirection === 'asc' && a.title < b.title
-          ? -1
-          : sortBy === 'title' && sortByDirection === 'asc' && a.title > b.title
-          ? 1
-          : sortBy === 'title' && sortByDirection === 'desc' && a.title < b.title
-          ? 1
-          : sortBy === 'title' && sortByDirection === 'desc' && a.title > b.title
-          ? -1
-          : 0,
+            ? b.lastModified - a.lastModified
+            : sortBy === 'title' && sortByDirection === 'asc' && a.title < b.title
+              ? -1
+              : sortBy === 'title' && sortByDirection === 'asc' && a.title > b.title
+                ? 1
+                : sortBy === 'title' && sortByDirection === 'desc' && a.title < b.title
+                  ? 1
+                  : sortBy === 'title' && sortByDirection === 'desc' && a.title > b.title
+                    ? -1
+                    : 0,
       );
 
   const registerLanguageFilters = () => {
@@ -505,8 +505,8 @@ export const createAddSnippetContainer = async ({
       a.title.toLowerCase() < b.title.toLowerCase()
         ? -1
         : a.title.toLowerCase() < b.title.toLowerCase()
-        ? 1
-        : 0,
+          ? 1
+          : 0,
     )
     .forEach((lang) => {
       const option: HTMLOptionElement = document.createElement('option');

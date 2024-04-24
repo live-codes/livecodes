@@ -60,6 +60,7 @@ import { luaWasmStarter } from './lua-wasm-starter';
 import { phpWasmStarter } from './php-wasm-starter';
 import { litStarter } from './lit-starter';
 import { postgresqlStarter } from './postgresql-starter';
+import { gleamStarter } from './gleam-starter';
 
 export const starterTemplates = [
   blank,
@@ -113,6 +114,7 @@ export const starterTemplates = [
   schemeStarter,
   commonlispStarter,
   clojurescriptStarter,
+  gleamStarter,
   tclStarter,
   markdownStarter,
   assemblyscriptStarter,

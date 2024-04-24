@@ -89,6 +89,7 @@ const buildVendors = () => {
       'codemirror-vim.ts',
       'codemirror-emacs.ts',
       'codemirror-emmet.ts',
+      'codemirror-codeium.ts',
       'languages/codemirror-lang-json.ts',
       'languages/codemirror-lang-markdown.ts',
       'languages/codemirror-lang-python.ts',
@@ -111,6 +112,8 @@ const buildVendors = () => {
       'languages/codemirror-lang-less.ts',
       'languages/codemirror-lang-stylus.ts',
       'languages/codemirror-lang-vue.ts',
+      'languages/codemirror-lang-rust.ts',
+      'languages/codemirror-lang-swift.ts',
     ]
       .map((x) => 'src/livecodes/editor/codemirror/' + x)
       .reduce(arrToObj, {}),

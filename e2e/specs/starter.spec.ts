@@ -28,6 +28,7 @@ const templates = [
   'Fennel',
   'Scheme',
   'ClojureScript',
+  'Gleam',
   'Tcl',
 ];
 

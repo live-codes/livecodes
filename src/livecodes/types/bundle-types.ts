@@ -121,8 +121,16 @@ export async function bundle(options: Options): Promise<string> {
     isExclude = () => false;
   }
 
-  const [urlPart1, urlPart2] = main.split(exportName, 2);
-  const sourceRoot = urlPart1 + exportName + urlPart2.split('/')[0] + '/';
+  const getPkgName = (exportedName: string) => {
+    if (!exportedName.includes('/')) return exportedName;
+    if (!exportedName.startsWith('@')) return exportedName.split('/')[0];
+    const [scope, name, ..._path] = exportedName.split('/');
+    return `${scope}/${name}`;
+  };
+
+  const pkgName = getPkgName(exportName);
+  const [urlPart1, urlPart2] = main.split(pkgName, 2);
+  const sourceRoot = urlPart1 + pkgName + urlPart2?.split('/')[0] + '/';
 
   trace('\n### find typings ###');
 
@@ -436,7 +444,7 @@ export async function bundle(options: Options): Promise<string> {
   }
 
   function getExpNameRaw(file: string) {
-    return prefix + exportName + separator + cleanupName(getModName(file));
+    return prefix + pkgName + separator + cleanupName(getModName(file));
   }
 
   function getLibName(ref: string) {

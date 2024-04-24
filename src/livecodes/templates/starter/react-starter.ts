@@ -25,7 +25,7 @@ export const reactStarter: Template = {
   script: {
     language: 'jsx',
     content: `
-import { useState } from "react"
+import { useState } from "react";
 
 function Counter(props) {
   const [count, setCount] = useState(0);

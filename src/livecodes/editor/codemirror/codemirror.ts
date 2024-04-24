@@ -35,6 +35,11 @@ import { editorLanguages } from './editor-languages';
 import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
 
+export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
+  editorId: EditorOptions['editorId'];
+};
+const editors: CodeiumEditor[] = [];
+
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
   let editorSettings: EditorConfig = { ...options };
@@ -78,16 +83,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   let vim: (() => Extension) | undefined;
   let emacs: (() => Extension) | undefined;
   let emmet: Extension | undefined;
+  let codeium:
+    | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
+    | undefined;
 
   const loadExtensions = async (opt: EditorConfig) => {
     const modules = {
       vim: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-vim.js`,
       emacs: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emacs.js`,
       emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
+      codeium: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-codeium.js`,
     };
     vim = opt.editorMode === 'vim' ? (await import(modules.vim)).vim : undefined;
     emacs = opt.editorMode === 'emacs' ? (await import(modules.emacs)).emacs : undefined;
     emmet = opt.emmet ? (await import(modules.emmet)).emmet : undefined;
+    codeium = opt.enableAI ? (await import(modules.codeium)).codeium : undefined;
   };
 
   await loadExtensions(options);
@@ -107,6 +117,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const useTabs = settings.useTabs ?? editorSettings.useTabs;
     const wordWrap = settings.wordWrap ?? editorSettings.wordWrap;
     const enableEmmet = settings.emmet ?? editorSettings.emmet;
+    const enableAI = settings.enableAI ?? editorSettings.enableAI;
     const editorMode = settings.editorMode ?? editorSettings.editorMode;
 
     return [
@@ -115,6 +126,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       ...(wordWrap ? [EditorView.lineWrapping] : []),
       ...(editorMode === 'vim' && vim ? [vim()] : editorMode === 'emacs' && emacs ? [emacs()] : []),
       ...(enableEmmet && emmet ? [emmet] : []),
+      ...(enableAI && codeium ? [codeium(editors, mapLanguage)] : []),
       EditorView.theme({
         '&': {
           height: '100%',
@@ -155,10 +167,10 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     return editorId === 'console'
       ? consoleOptions
       : editorId === 'compiled'
-      ? compiledCodeOptions
-      : options.mode === 'codeblock'
-      ? codeblockOptions
-      : defaultOptions;
+        ? compiledCodeOptions
+        : options.mode === 'codeblock'
+          ? codeblockOptions
+          : defaultOptions;
   };
 
   const showEditorMode = async (mode: EditorConfig['editorMode']) => {
@@ -217,6 +229,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       setValue(value);
     }
   };
+  const codeiumEditor: CodeiumEditor = { editorId, getLanguage, getValue };
+  editors.push(codeiumEditor);
 
   const onContentChanged = (fn: Listener) => {
     listeners.push(fn);
@@ -339,6 +353,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     keyBindings.length = 0;
     view.destroy();
     container.innerHTML = '';
+    editors.splice(editors.indexOf(codeiumEditor), 1);
   };
 
   return {
