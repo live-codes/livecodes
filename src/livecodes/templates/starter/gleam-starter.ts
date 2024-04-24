@@ -37,29 +37,25 @@ export const gleamStarter: Template = {
   script: {
     language: 'gleam',
     content: `
-// Gleam stdlib is available
 import gleam/int
 import gleam/io
 import gleam/result
-// see docs for using custom modules:
-// https://livecodes.io/docs/languages/gleam
 import plinth/browser/document
 import plinth/browser/element
 import plinth/browser/event
+// see docs for using custom modules:
+// https://livecodes.io/docs/languages/gleam
 
 pub fn main() {
   say_hello()
   counter()
 }
 
-@external(javascript, "my_pkg/greet.js", "hello")
-pub fn hello(str: String) -> String
-
 fn say_hello() {
   let greeting = hello("Gleam")
   let assert Ok(title) = document.query_selector("#title")
   element.set_inner_html(title, greeting)
-  io.println(greeting)
+  io.println(cowsay(greeting))
 }
 
 fn counter() {
@@ -82,6 +78,14 @@ fn increment() {
   |> result.map(element.set_inner_html(el, _))
   Nil
 }
+
+// custom module
+@external(javascript, "my_pkg/greet.js", "hello")
+pub fn hello(str: String) -> String
+
+// npm module
+@external(javascript, "npm:cowsay2", "say")
+pub fn cowsay(str: String) -> String
 `.trimStart(),
   },
   customSettings: {
@@ -90,18 +94,6 @@ fn increment() {
     },
     gleam: {
       modules: {
-        'plinth/browser/audio': {
-          srcUrl: plinthSrcBaseUrl + 'browser/audio.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/audio.mjs',
-        },
-        'plinth/browser/blob': {
-          srcUrl: plinthSrcBaseUrl + 'browser/blob.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/blob.mjs',
-        },
-        'plinth/browser/clipboard': {
-          srcUrl: plinthSrcBaseUrl + 'browser/clipboard.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/clipboard.mjs',
-        },
         'plinth/browser/document': {
           srcUrl: plinthSrcBaseUrl + 'browser/document.gleam',
           compiledUrl: plinthCompiledBaseUrl + 'browser/document.mjs',
@@ -113,66 +105,6 @@ fn increment() {
         'plinth/browser/event': {
           srcUrl: plinthSrcBaseUrl + 'browser/event.gleam',
           compiledUrl: plinthCompiledBaseUrl + 'browser/event.mjs',
-        },
-        'plinth/browser/file': {
-          srcUrl: plinthSrcBaseUrl + 'browser/file.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/file.mjs',
-        },
-        'plinth/browser/file_system': {
-          srcUrl: plinthSrcBaseUrl + 'browser/file_system.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/file_system.mjs',
-        },
-        'plinth/browser/range': {
-          srcUrl: plinthSrcBaseUrl + 'browser/range.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/range.mjs',
-        },
-        'plinth/browser/selection': {
-          srcUrl: plinthSrcBaseUrl + 'browser/selection.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/selection.mjs',
-        },
-        'plinth/browser/serial': {
-          srcUrl: plinthSrcBaseUrl + 'browser/serial.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/serial.mjs',
-        },
-        'plinth/browser/shadow': {
-          srcUrl: plinthSrcBaseUrl + 'browser/shadow.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/shadow.mjs',
-        },
-        'plinth/browser/window': {
-          srcUrl: plinthSrcBaseUrl + 'browser/window.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/window.mjs',
-        },
-        'plinth/browser/worker': {
-          srcUrl: plinthSrcBaseUrl + 'browser/worker.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'browser/worker.mjs',
-        },
-        'plinth/javascript/big_int': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/big_int.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/big_int.mjs',
-        },
-        'plinth/javascript/compression_stream': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/compression_stream.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/compression_stream.mjs',
-        },
-        'plinth/javascript/console': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/console.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/console.mjs',
-        },
-        'plinth/javascript/date': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/date.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/date.mjs',
-        },
-        'plinth/javascript/decompression_stream': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/decompression_stream.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/decompression_stream.mjs',
-        },
-        'plinth/javascript/global': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/global.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/global.mjs',
-        },
-        'plinth/javascript/storage': {
-          srcUrl: plinthSrcBaseUrl + 'javascript/storage.gleam',
-          compiledUrl: plinthCompiledBaseUrl + 'javascript/storage.mjs',
         },
       },
     },

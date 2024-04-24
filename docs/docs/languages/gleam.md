@@ -15,7 +15,13 @@ The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../f
 
 ### Standard Library
 
-[Gleam's standard library](https://hexdocs.pm/gleam_stdlib/), [gleam/javascript](https://hexdocs.pm/gleam_javascript/) and [gleam/json](https://hexdocs.pm/gleam_json/) packages are available for use and can be imported as usual.
+[Gleam's standard library](https://hexdocs.pm/gleam_stdlib/) in addition to the following packages are available for use and can be imported as usual with no additional configuration:
+
+- [gleam/crypto](https://hexdocs.pm/gleam_crypto/)
+- [gleam/fetch](https://hexdocs.pm/gleam_fetch/)
+- [gleam/http](https://hexdocs.pm/gleam_http/)
+- [gleam/javascript](https://hexdocs.pm/gleam_javascript/)
+- [gleam/json](https://hexdocs.pm/gleam_json/)
 
 Demo:
 
@@ -59,8 +65,8 @@ Example:
   "gleam": {
     "modules": {
       "plinth/browser/document": {
-        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/build/packages/plinth/src/plinth/browser/document.gleam",
-        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
+        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/build/packages/plinth/src/plinth/browser/document.gleam",
+        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
       }
     }
   }
@@ -102,7 +108,7 @@ Example:
 **Example:**
 
 The following script is hosted on this URL:  
-https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js
+https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js
 
 ```js title="greet.js"
 export const hello = (str) => `Hello, ${str}!`;
@@ -113,7 +119,7 @@ Use this in custom settings:
 ```json title="Custom Settings"
 {
   "imports": {
-    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js"
+    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js"
   }
 }
 ```
@@ -144,7 +150,7 @@ content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\n
 tools: { status: 'open'},
 customSettings: {
 "imports": {
-"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.1.0/demo/greet.js"
+"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js"
 }
 }
 }
@@ -170,34 +176,26 @@ The import map in the previous example can be rewritten like this:
 
 ### NPM Modules
 
-[NPM modules](https://www.npmjs.com/) can be imported as external functions as described above.
+Modules published to [npm](https://www.npmjs.com/), [deno.land/x](https://deno.land/x) and [jsr.io](https://jsr.io/) can be imported as external functions. There is no need to specify import maps. The package/module name is prefixed with a modifier to specify the source (e.g. `npm:uuid` to import the [`uuid`](https://www.npmjs.com/package/uuid) npm module).
+
+See list of supported CDNs and the respective modifiers in the section about [module resolution](../features/module-resolution.md#cdn-providers).
 
 Example:
-
-Let's assume you want to import the [`uuid`](https://www.npmjs.com/package/uuid) NPM module and use it in Gleam code.
-
-Multiple [CDNs](../features/module-resolution.md#cdn-providers) allow importing NPM modules directly without having to install them. In this example we will use [esm.sh](https://esm.sh/).
-
-Define the import map in custom settings (App menu → Custom Settings) like this:
-
-```json title="Custom Settings"
-{
-  "imports": {
-    "npm/uuid": "https://esm.sh/uuid"
-  }
-}
-```
-
-The `"npm/uuid"` alias can then be used in the `@external` attribute:
 
 ```js
 import gleam/io
 
-@external(javascript, "npm/uuid", "v4")
+// npm module (https://www.npmjs.com/package/uuid)
+@external(javascript, "npm:uuid", "v4")
 pub fn uuid() -> String
+
+// jsr module (https://jsr.io/@kwhinnery/yassify)
+@external(javascript, "jsr:@kwhinnery/yassify", "yassify")
+pub fn yassify(str: String) -> String
 
 pub fn main() {
  io.println(uuid())
+ io.println(yassify("Hello, World!"))
 }
 ```
 
@@ -207,21 +205,16 @@ export const npmConfig = {
 activeEditor: 'script',
 script: {
 language: 'gleam',
-content: 'import gleam/io\n\n@external(javascript, "npm/uuid", "v4")\npub fn uuid() -> String\n\npub fn main() {\n io.println(uuid())\n}'
+content: 'import gleam/io\n\n// npm module (https://www.npmjs.com/package/uuid)\n@external(javascript, "npm:uuid", "v4")\npub fn uuid() -> String\n\n// jsr module (https://jsr.io/@kwhinnery/yassify)\n@external(javascript, "jsr:@kwhinnery/yassify", "yassify")\npub fn yassify(str: String) -> String\n\npub fn main() {\n io.println(uuid())\n io.println(yassify("Hello, World!"))\n}\n'
 },
 tools: { status: 'open'},
-customSettings: {
-"imports": {
-"npm/uuid": "https://esm.sh/uuid"
-}
-}
 }
 
 <LiveCodes config={npmConfig}></LiveCodes>
 
 ### Example Usage
 
-This is the Gleam starter template demonstrating the use of standard library, custom modules and external functions.
+This is the Gleam starter template demonstrating the use of standard library, custom modules, external functions and npm modules.
 
 <LiveCodes template="gleam" height="80vh"></LiveCodes>
 

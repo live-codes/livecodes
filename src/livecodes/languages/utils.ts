@@ -1,5 +1,6 @@
+/* eslint-disable import/no-internal-modules */
 import type { Compiler, Language, CustomSettings, Config, Processor } from '../models';
-import { getLanguageCustomSettings } from '../utils';
+import { getLanguageCustomSettings } from '../utils/utils';
 import { highlightjsUrl } from '../vendors';
 import { languages } from './languages';
 import { processors } from './processors';

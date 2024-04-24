@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 // based on https://github.com/gleam-lang/language-tour/blob/main/static/compiler.js
 
 /* eslint-disable max-classes-per-file */
@@ -21,6 +22,7 @@ import { getLanguageCustomSettings } from '../utils';
   }
 
   const modules: Modules = {
+    // gleam_stdlib
     'gleam/bit_array': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/bit_array.gleam' },
     'gleam/bool': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/bool.gleam' },
     'gleam/bytes_builder': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/bytes_builder.gleam' },
@@ -42,6 +44,7 @@ import { getLanguageCustomSettings } from '../utils';
     'gleam/string': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/string.gleam' },
     'gleam/string_builder': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/string_builder.gleam' },
     'gleam/uri': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/uri.gleam' },
+    // extras
     'gleam/javascript': { srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript.gleam' },
     'gleam/javascript/array': {
       srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript/array.gleam',
@@ -52,9 +55,14 @@ import { getLanguageCustomSettings } from '../utils';
     'gleam/javascript/promise': {
       srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript/promise.gleam',
     },
-    'gleam/json': {
-      srcUrl: srcBaseUrl + 'gleam_json/src/gleam/json.gleam',
-    },
+    'gleam/json': { srcUrl: srcBaseUrl + 'gleam_json/src/gleam/json.gleam' },
+    'gleam/crypto': { srcUrl: srcBaseUrl + 'gleam_crypto/src/gleam/crypto.gleam' },
+    'gleam/fetch': { srcUrl: srcBaseUrl + 'gleam_fetch/src/gleam/fetch.gleam' },
+    'gleam/http': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http.gleam' },
+    'gleam/http/cookie': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/cookie.gleam' },
+    'gleam/http/request': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/request.gleam' },
+    'gleam/http/response': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/response.gleam' },
+    'gleam/http/service': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/service.gleam' },
   };
 
   async function initGleamCompiler() {
@@ -186,6 +194,21 @@ import { getLanguageCustomSettings } from '../utils';
 
   const compilerLoaded = Promise.all([initGleamCompiler(), loadModules(modules)]);
 
+  // workaround for the compiler not allowing `@` in external URLs
+  // e.g.: @external(javascript, "npm:uuid@9.0.1", "v4")
+  const externalPattern =
+    /(@external\s{0,20}\(\s{0,20}javascript\s{0,20},\s{0,20}".{0,200}?)(@)(.{0,200}?"\s{0,20},\s{0,20}".{0,200}?"\))/g;
+  const placeholder = '______at______';
+  const removeAt = (str: string) => {
+    if (!str.includes('@')) return str;
+    const pattern = new RegExp(externalPattern);
+    return str.replace(pattern, `$1${placeholder}$3`);
+  };
+  const restoreAt = (str: string) => {
+    if (!str.includes(placeholder)) return str;
+    return str.split(placeholder).join('@');
+  };
+
   const compile: CompilerFunction = async (code, { config }) => {
     if (!code) return '';
 
@@ -201,22 +224,20 @@ import { getLanguageCustomSettings } from '../utils';
       }
     }
     try {
-      project.writeModule('main', code);
+      project.writeModule('main', removeAt(code));
       project.compilePackage('javascript');
       const js = project.readCompiledJavaScript('main');
-      return js.replace(/from\s+"\.\/(.+)"/g, (_: string, mod: string) => {
-        if (mod === 'gleam.mjs') {
+      return restoreAt(js).replace(/from\s+"\.\/(.+)"/g, (_: string, mod: string) => {
+        if (mod === 'gleam.mjs' || mod === 'prelude.mjs') {
           return `from "${compiledBaseUrl}prelude.mjs"`;
         }
+        const modName = mod.replace('.mjs', '');
         if (mod.startsWith('gleam/')) {
-          const dir = mod.startsWith('gleam/javascript')
-            ? 'gleam_javascript/'
-            : mod.startsWith('gleam/json')
-              ? 'gleam_json/'
-              : 'gleam_stdlib/';
+          const [_root, path] = modName.split('/');
+          const extras = ['javascript', 'json', 'crypto', 'fetch', 'http'];
+          const dir = extras.includes(path) ? `gleam_${path}/` : 'gleam_stdlib/';
           return `from "${compiledBaseUrl + dir + mod}"`;
         }
-        const modName = mod.replace('.mjs', '');
         if (modules[modName]?.compiledUrl) {
           return `from "${modules[modName].compiledUrl}"`;
         }
