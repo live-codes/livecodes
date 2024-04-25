@@ -1181,6 +1181,7 @@ export interface CustomEvents {
   destroy: 'livecodes-destroy';
   resizeEditor: 'livecodes-resize-editor';
   apiResponse: 'livecodes-api-response';
+  i18n: 'livecodes-i18n';
 }
 
 export interface PkgInfo {

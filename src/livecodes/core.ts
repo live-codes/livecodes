@@ -139,6 +139,7 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
+import { translate } from './i18n/utils';
 
 // declare global dependencies
 declare const window: Window & {
@@ -3969,12 +3970,21 @@ const loadI18n = async (appLanguage: string | undefined) => {
   return i18nModule.default;
 };
 
+const handleI18n = () => {
+  if (!i18n) return;
+  document.body.addEventListener(customEvents.i18n, (e) => {
+    const elem = e.target as HTMLElement;
+    translate(elem, i18n);
+  });
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal({ i18n });
+  modal = createModal();
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
+  handleI18n();
   handleLogoLink();
   handleResize();
   handleIframeResize();

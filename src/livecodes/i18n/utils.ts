@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-internal-modules
 import { predefinedValues } from '../utils/utils';
+import { customEvents } from '../events';
 
 interface TagElement {
   name: string;
@@ -126,4 +127,8 @@ export const translate = (
       });
     }
   });
+};
+
+export const dispatchTranslationEvent = (elem: HTMLElement) => {
+  elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
 };
