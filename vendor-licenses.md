@@ -82,6 +82,8 @@ Fscreen: [MIT License](https://github.com/rafgraph/fscreen/blob/04244204efff7242
 
 github-markdown-css: [MIT License](https://github.com/sindresorhus/github-markdown-css/blob/888d5a03223a2c14a8d3eb40e90a22f62469a46b/license)
 
+Gleam: [Apache License 2.0](https://github.com/gleam-lang/gleam/blob/55a4e5881923e5679dde57cf950de389d6e04be4/LICENCE)
+
 gnuplot-JS: [MIT License](https://github.com/chhu/gnuplot-JS/blob/62a3c8488ad00c97807ba48ae75738ca3af607fe/LICENSE)
 
 GopherJS: [BSD-2-Clause license](https://github.com/gopherjs/gopherjs/blob/df0fbb1be49872e28d6cf1415d3f8ffc8bd76c90/LICENSE)

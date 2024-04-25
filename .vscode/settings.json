@@ -18,7 +18,9 @@
     "Import",
     "i18n",
     "ToolsPane",
-    "Modes"
+    "Modes",
+    "Import-maps",
+    "Formatter"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

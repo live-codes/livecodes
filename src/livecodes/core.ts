@@ -398,10 +398,10 @@ const createEditors = async (config: Config) => {
     (config.markup.content
       ? 'markup'
       : config.style.content
-      ? 'style'
-      : config.script.content
-      ? 'script'
-      : 'markup');
+        ? 'style'
+        : config.script.content
+          ? 'script'
+          : 'markup');
 
   const baseOptions = {
     baseUrl,
@@ -1047,8 +1047,8 @@ const setWindowTitle = () => {
   const hostLabel = location.hostname.startsWith('dev.livecodes.io')
     ? '(dev) '
     : location.hostname.startsWith('127.0.0.1') || location.hostname.startsWith('localhost')
-    ? '(local) '
-    : '';
+      ? '(local) '
+      : '';
   parent.document.title =
     hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };

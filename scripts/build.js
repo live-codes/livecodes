@@ -296,6 +296,7 @@ const iifeBuild = () =>
       'languages/wat/lang-wat-script.ts',
       'languages/teal/lang-teal-compiler.ts',
       'languages/fennel/lang-fennel-compiler.ts',
+      'languages/gleam/lang-gleam-compiler.ts',
       'languages/tailwindcss/processor-tailwindcss-compiler.ts',
       'languages/windicss/processor-windicss-compiler.ts',
       'languages/unocss/processor-unocss-compiler.ts',

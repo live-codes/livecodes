@@ -15,9 +15,7 @@ improving the security of our open source software. We appreciate
 your efforts and responsible disclosure and will make every effort
 to acknowledge your contributions.
 
-Please report security vulnerabilities by email at:
-
-    <a href="mailto:&#x73;&#101;&#99;&#x75;&#114;&#105;&#116;&#121;&#64;&#x6c;&#x69;&#x76;&#101;&#x63;&#111;&#x64;&#x65;&#x73;&#46;&#105;&#x6f;">&#x73;&#101;&#99;&#x75;&#114;&#105;&#116;&#121;&#64;&#x6c;&#x69;&#x76;&#101;&#x63;&#111;&#x64;&#x65;&#x73;&#46;&#105;&#x6f;</a>
+Please report security vulnerabilities by email at: security@livecodes.io
 
 - Type of issue (e.g. cross-site scripting, authentication or authorization flaws etc.)
 - Version(s) of the App/SDK affected.

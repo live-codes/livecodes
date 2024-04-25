@@ -24,7 +24,7 @@
     "@types/flat": "5.0.2",
     "babel-loader": "8.3.0",
     "cross-env": "7.0.3",
-    "typescript": "5.0.4"
+    "typescript": "5.4.5"
   },
   "dependencies": {
     "dedent": "0.7.0",

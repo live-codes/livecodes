@@ -167,8 +167,8 @@ export const replaceSFCImports = async (
         (mod.startsWith('https://') || mod.startsWith('http://')
           ? mod
           : mod.startsWith('.') && getValidUrl(filename) != null
-          ? new URL(mod, filename).href
-          : modulesService.getUrl(mod));
+            ? new URL(mod, filename).href
+            : modulesService.getUrl(mod));
 
       const res = await fetch(url);
       const content = await res.text();
@@ -218,8 +218,8 @@ export const replaceStyleImports = (code: string) =>
     return !isBare(url)
       ? statement
       : mediaQuery
-      ? `@media ${mediaQuery} {\n${modified}\n}`
-      : modified;
+        ? `@media ${mediaQuery} {\n${modified}\n}`
+        : modified;
   });
 
 // based on https://github.com/sveltejs/svelte-repl/blob/master/src/workers/bundler/plugins/commonjs.js

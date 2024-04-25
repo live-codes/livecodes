@@ -155,8 +155,8 @@ const organizeProjects = (
       a.title.toLowerCase() < b.title.toLowerCase()
         ? -1
         : a.title.toLowerCase() > b.title.toLowerCase()
-        ? 1
-        : 0,
+          ? 1
+          : 0,
     )
     .forEach((lang) => {
       const option = document.createElement('option');
@@ -178,16 +178,16 @@ const organizeProjects = (
         sortBy === 'lastModified' && sortByDirection === 'asc'
           ? a.lastModified - b.lastModified
           : sortBy === 'lastModified' && sortByDirection === 'desc'
-          ? b.lastModified - a.lastModified
-          : sortBy === 'title' && sortByDirection === 'asc' && a.title < b.title
-          ? -1
-          : sortBy === 'title' && sortByDirection === 'asc' && a.title > b.title
-          ? 1
-          : sortBy === 'title' && sortByDirection === 'desc' && a.title < b.title
-          ? 1
-          : sortBy === 'title' && sortByDirection === 'desc' && a.title > b.title
-          ? -1
-          : 0,
+            ? b.lastModified - a.lastModified
+            : sortBy === 'title' && sortByDirection === 'asc' && a.title < b.title
+              ? -1
+              : sortBy === 'title' && sortByDirection === 'asc' && a.title > b.title
+                ? 1
+                : sortBy === 'title' && sortByDirection === 'desc' && a.title < b.title
+                  ? 1
+                  : sortBy === 'title' && sortByDirection === 'desc' && a.title > b.title
+                    ? -1
+                    : 0,
       );
 
   const registerLanguageFilters = () => {

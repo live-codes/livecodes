@@ -57,17 +57,17 @@ export const exportCodepen = (
       config.cssPreset === 'normalize.css'
         ? 'normalize'
         : config.cssPreset === 'reset-css'
-        ? 'reset'
-        : 'neither',
+          ? 'reset'
+          : 'neither',
     css_prefix: config.processors.includes('autoprefixer') ? 'autoprefixer' : 'neither',
     js: getEditorContent('script'),
     js_pre_processor: supportedLanguages.script.includes(config.script.language)
       ? config.script.language
       : config.script.language === 'jsx'
-      ? 'babel'
-      : config.script.language === 'tsx'
-      ? 'typescript'
-      : 'none',
+        ? 'babel'
+        : config.script.language === 'tsx'
+          ? 'typescript'
+          : 'none',
     html_classes: typeof config.htmlAttrs === 'object' ? config.htmlAttrs.class || '' : '',
     head: config.head || '',
     css_external: config.stylesheets.join(';'),

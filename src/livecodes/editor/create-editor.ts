@@ -7,8 +7,8 @@ const getEditorFileName = (editorName: Exclude<Config['editor'], ''>) =>
   editorName === 'codemirror'
     ? `{{hash:codemirror.js}}`
     : editorName === 'codejar'
-    ? '{{hash:codejar.js}}'
-    : '{{hash:monaco.js}}';
+      ? '{{hash:codejar.js}}'
+      : '{{hash:monaco.js}}';
 
 const loadEditor = async (editorName: Exclude<Config['editor'], ''>, options: EditorOptions) => {
   const { baseUrl } = options;
@@ -32,18 +32,18 @@ const selectEditor = (options: EditorOptions & { activeEditor?: Config['activeEd
     (isHeadless
       ? 'fake'
       : mode === 'result' && editorId !== 'console' && editorId !== 'compiled'
-      ? 'fake'
-      : mode === 'simple' && editorId !== activeEditor
-      ? 'fake'
-      : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
-      ? editor
-      : mode === 'simple' && editorId === activeEditor
-      ? 'codemirror'
-      : mode === 'codeblock'
-      ? 'codejar'
-      : isMobile()
-      ? 'codemirror'
-      : 'monaco') || 'monaco'
+        ? 'fake'
+        : mode === 'simple' && editorId !== activeEditor
+          ? 'fake'
+          : ['codemirror', 'monaco', 'codejar'].includes(editor || '')
+            ? editor
+            : mode === 'simple' && editorId === activeEditor
+              ? 'codemirror'
+              : mode === 'codeblock'
+                ? 'codejar'
+                : isMobile()
+                  ? 'codemirror'
+                  : 'monaco') || 'monaco'
   );
 };
 
@@ -69,12 +69,12 @@ const getEditorOptions = (options: EditorOptions): EditorOptions => {
   return editorId === 'console'
     ? consoleOptions
     : editorId === 'compiled'
-    ? compiledCodeOptions
-    : editorId === 'embed'
-    ? embedOptions
-    : options.mode === 'codeblock'
-    ? codeblockOptions
-    : options;
+      ? compiledCodeOptions
+      : editorId === 'embed'
+        ? embedOptions
+        : options.mode === 'codeblock'
+          ? codeblockOptions
+          : options;
 };
 
 const loadFont = (fontName: string) => {

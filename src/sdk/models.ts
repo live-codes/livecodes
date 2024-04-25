@@ -317,6 +317,7 @@ export type Language =
   | 'clj'
   | 'cljc'
   | 'edn'
+  | 'gleam'
   | 'rescript'
   | 'res'
   | 'resi'
@@ -532,6 +533,8 @@ export interface Compiler {
     | ((options: { compiled: string; baseUrl: string; config: Config }) => string[]);
   deferScripts?: boolean;
   inlineScript?: string | ((options: { baseUrl: string }) => Promise<string>);
+  inlineModule?: string | ((options: { baseUrl: string }) => Promise<string>);
+  loadAsExternalModule?: boolean;
   scriptType?:
     | 'module'
     | 'text/liquid'
@@ -625,6 +628,7 @@ export type TemplateName =
   | 'scheme'
   | 'commonlisp'
   | 'clojurescript'
+  | 'gleam'
   | 'tcl'
   | 'markdown'
   | 'assemblyscript'

@@ -176,8 +176,10 @@ export const createResultPage = async ({
 
   const compiledTests = runTests ? code.tests?.compiled || '' : '';
 
+  const scriptCompiler = getLanguageCompiler(code.script.language);
   const importFromScript =
     getImports(markup).includes('./script') ||
+    scriptCompiler?.loadAsExternalModule ||
     (runTests && !forExport && getImports(compiledTests).includes('./script'));
 
   const jsxRuntimes: Partial<Record<Language, string>> = {
@@ -297,6 +299,18 @@ export const createResultPage = async ({
         }
       : {};
 
+  // allow config imports to override auto-generated user imports
+  // e.g. 'pkg/path/' should override 'pkg/path/mod.mjs'
+  Object.keys(userImports)
+    .filter((userKey) =>
+      Object.keys(configImports).find(
+        (configKey) => configKey.endsWith('/') && userKey.startsWith(configKey),
+      ),
+    )
+    .forEach((userKey) => {
+      delete userImports[userKey as keyof typeof userImports];
+    });
+
   const importMaps = {
     ...userImports,
     ...scriptImport,
@@ -322,6 +336,18 @@ export const createResultPage = async ({
     externalScript.src = url;
     dom.head.appendChild(externalScript);
   });
+
+  if (scriptCompiler?.inlineModule) {
+    if (typeof scriptCompiler.inlineModule === 'function') {
+      scriptCompiler.inlineModule = await scriptCompiler.inlineModule({
+        baseUrl,
+      });
+    }
+    const inlineModule = document.createElement('script');
+    inlineModule.innerHTML = scriptCompiler.inlineModule;
+    inlineModule.type = 'module';
+    dom.head.appendChild(inlineModule);
+  }
 
   if (!importFromScript && !shouldInsertJsxRuntime) {
     // editor script

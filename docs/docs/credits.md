@@ -10,8 +10,8 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
-<a href="https://unpkg.com/" target="_blank" title="unpkg">
-  <img alt="unpkg" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/unpkg.png">
+<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
+  <img alt="jsDelivr" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/jsdelivr.svg">
 </img></a>
 </p>
 <p>
@@ -20,8 +20,8 @@ LiveCodes uses services that are generously provided by:
 </img></a>
 </p>
 <p>
-<a href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr">
-  <img alt="jsDelivr" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/jsdelivr.svg">
+<a href="https://unpkg.com/" target="_blank" title="unpkg">
+  <img alt="unpkg" width="200" style={{margin: "0.5em"}} src="/docs/img/credits/unpkg.png">
 </img></a>
 </p>
 <p>
