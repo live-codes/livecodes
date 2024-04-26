@@ -3972,7 +3972,7 @@ const loadI18n = async (appLanguage: string | undefined) => {
 
 const handleI18n = () => {
   if (!i18n) return;
-  document.body.addEventListener(customEvents.i18n, (e) => {
+  eventsManager.addEventListener(document.body, customEvents.i18n, (e) => {
     const elem = e.target as HTMLElement;
     translate(elem, i18n);
   });
@@ -3984,7 +3984,6 @@ const basicHandlers = () => {
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
-  handleI18n();
   handleLogoLink();
   handleResize();
   handleIframeResize();
@@ -4008,6 +4007,7 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
+  handleI18n();
   handleTitleEdit();
   handleSettingsMenu();
   handleSettings();

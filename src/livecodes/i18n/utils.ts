@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-internal-modules
 import { predefinedValues } from '../utils/utils';
-import { customEvents } from '../events';
+
+// eslint-disable-next-line import/no-internal-modules
+import { customEvents } from '../events/custom-events';
 
 interface TagElement {
   name: string;
