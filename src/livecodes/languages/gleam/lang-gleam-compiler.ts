@@ -5,65 +5,13 @@
 import type { CompilerFunction } from '../../models';
 import { gleamBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../utils';
+import { type Modules, modules } from './gleam-modules';
 
 (self as any).createGleamCompiler = (): CompilerFunction => {
   const compilerUrl = gleamBaseUrl + 'compiler/v1.1.0/gleam_wasm.js';
-  const srcBaseUrl = gleamBaseUrl + 'build/packages/';
   const compiledBaseUrl = gleamBaseUrl + 'build/dev/javascript/';
 
   let compiler: any;
-
-  interface Modules {
-    [key: string]: {
-      srcUrl?: string;
-      src?: string;
-      compiledUrl?: string;
-    };
-  }
-
-  const modules: Modules = {
-    // gleam_stdlib
-    'gleam/bit_array': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/bit_array.gleam' },
-    'gleam/bool': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/bool.gleam' },
-    'gleam/bytes_builder': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/bytes_builder.gleam' },
-    'gleam/dict': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/dict.gleam' },
-    'gleam/dynamic': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/dynamic.gleam' },
-    'gleam/float': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/float.gleam' },
-    'gleam/function': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/function.gleam' },
-    'gleam/int': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/int.gleam' },
-    'gleam/io': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/io.gleam' },
-    'gleam/iterator': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/iterator.gleam' },
-    'gleam/list': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/list.gleam' },
-    'gleam/option': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/option.gleam' },
-    'gleam/order': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/order.gleam' },
-    'gleam/pair': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/pair.gleam' },
-    'gleam/queue': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/queue.gleam' },
-    'gleam/regex': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/regex.gleam' },
-    'gleam/result': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/result.gleam' },
-    'gleam/set': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/set.gleam' },
-    'gleam/string': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/string.gleam' },
-    'gleam/string_builder': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/string_builder.gleam' },
-    'gleam/uri': { srcUrl: srcBaseUrl + 'gleam_stdlib/src/gleam/uri.gleam' },
-    // extras
-    'gleam/javascript': { srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript.gleam' },
-    'gleam/javascript/array': {
-      srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript/array.gleam',
-    },
-    'gleam/javascript/map': {
-      srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript/map.gleam',
-    },
-    'gleam/javascript/promise': {
-      srcUrl: srcBaseUrl + 'gleam_javascript/src/gleam/javascript/promise.gleam',
-    },
-    'gleam/json': { srcUrl: srcBaseUrl + 'gleam_json/src/gleam/json.gleam' },
-    'gleam/crypto': { srcUrl: srcBaseUrl + 'gleam_crypto/src/gleam/crypto.gleam' },
-    'gleam/fetch': { srcUrl: srcBaseUrl + 'gleam_fetch/src/gleam/fetch.gleam' },
-    'gleam/http': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http.gleam' },
-    'gleam/http/cookie': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/cookie.gleam' },
-    'gleam/http/request': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/request.gleam' },
-    'gleam/http/response': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/response.gleam' },
-    'gleam/http/service': { srcUrl: srcBaseUrl + 'gleam_http/src/gleam/http/service.gleam' },
-  };
 
   async function initGleamCompiler() {
     const wasm = await import(compilerUrl);
