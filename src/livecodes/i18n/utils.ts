@@ -29,10 +29,13 @@ export const abstractifyHTML = (html: string) => {
     const attributes =
       node.attributes.length === 0
         ? undefined
-        : Array.from(node.attributes).reduce((acc, attr) => {
-            acc[attr.name] = attr.value;
-            return acc;
-          }, {} as Record<string, string>);
+        : Array.from(node.attributes).reduce(
+            (acc, attr) => {
+              acc[attr.name] = attr.value;
+              return acc;
+            },
+            {} as Record<string, string>,
+          );
 
     elements.push({ name, attributes });
 
@@ -129,6 +132,23 @@ export const translate = (
       });
     }
   });
+};
+
+type StringProps<T> = {
+  [K in keyof T]: T[K] extends string | null ? K : never;
+}[keyof T];
+
+type AdditionalDataAttributes = 'data-hint';
+
+export const markElementForTranslation = <T extends HTMLElement>(
+  elem: T,
+  key: string,
+  props?: Array<StringProps<T> | AdditionalDataAttributes>,
+) => {
+  elem.dataset.i18n = key;
+  if (props) {
+    elem.dataset.i18nProp = props.join(' ');
+  }
 };
 
 export const dispatchTranslationEvent = (elem: HTMLElement) => {
