@@ -4,8 +4,10 @@ import { type I18nTranslationTemplate } from '../models';
 // Other translations should be typed like this:
 // const languageInfo: I18nLangInfoTranslation = { /* translation here */ };
 const languageInfo = {
-  artTemplateDesc: {
-    textContent: 'High performance JavaScript templating engine.',
+  language: {
+    artTemplate: {
+      desc: 'High performance JavaScript templating engine.',
+    },
   },
 } as const satisfies I18nTranslationTemplate;
 
