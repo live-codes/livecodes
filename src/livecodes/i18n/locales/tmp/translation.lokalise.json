@@ -166,5 +166,9 @@
   "welcome.showOnStartup": {
     "translation": "Show on startup",
     "notes": ""
+  },
+  "loading.defaultMessage": {
+    "translation": "Loading...",
+    "notes": ""
   }
 }

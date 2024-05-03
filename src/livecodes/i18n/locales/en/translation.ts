@@ -76,6 +76,9 @@ const translation = {
     },
     showOnStartup: 'Show on startup',
   },
+  loading: {
+    defaultMessage: 'Loading...',
+  },
 } as const satisfies I18nTranslationTemplate;
 
 export default translation;
