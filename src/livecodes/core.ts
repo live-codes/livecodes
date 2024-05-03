@@ -139,14 +139,24 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
-import { translate } from './i18n/utils';
+import type { I18nInterpolationType, I18nKeyType } from './i18n/utils';
+
+// eslint-disable-next-line no-duplicate-imports
+import { translate, translateString } from './i18n/utils';
 
 // declare global dependencies
-declare const window: Window & {
-  deps: {
-    showMode: typeof showMode;
-  };
-};
+declare global {
+  interface Window {
+    deps: {
+      showMode: typeof showMode;
+      translateString: (
+        key: I18nKeyType,
+        value: string,
+        interpolation?: I18nInterpolationType,
+      ) => string;
+    };
+  }
+}
 
 const stores: Stores = createStores();
 const eventsManager = createEventsManager();
@@ -3978,6 +3988,18 @@ const handleI18n = () => {
   });
 };
 
+const translateStringMock = (
+  _key: I18nKeyType,
+  value: string,
+  interpolation?: I18nInterpolationType,
+) => {
+  if (!interpolation) return value;
+  for (const [k, v] of Object.entries(interpolation)) {
+    value = value.replaceAll(`{{${k}}}`, v as string);
+  }
+  return value;
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal();
@@ -4536,7 +4558,11 @@ const createApi = (): API => {
 };
 
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode };
+  window.deps = {
+    showMode,
+    translateString: (key: I18nKeyType, value: string, interpolation?: I18nInterpolationType) =>
+      translateString(i18n, key, value, interpolation),
+  };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
     await loadToolsPane();
@@ -4546,7 +4572,10 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
 };
 
 const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode };
+  window.deps = {
+    showMode,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl, isEmbed: true }, async () => {
     basicHandlers();
     await loadToolsPane();
@@ -4554,14 +4583,20 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
   return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode };
+  window.deps = {
+    showMode,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
   return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
-  window.deps = { showMode: () => undefined };
+  window.deps = {
+    showMode: () => undefined,
+    translateString: translateStringMock,
+  };
   await initializePlayground({ config, baseUrl, isEmbed: true, isHeadless: true }, () => {
     notifications = {
       info: () => undefined,

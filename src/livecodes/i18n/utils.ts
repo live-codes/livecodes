@@ -1,3 +1,5 @@
+import type { ParseKeys, CustomTypeOptions } from 'i18next';
+
 // eslint-disable-next-line import/no-internal-modules
 import { predefinedValues } from '../utils/utils';
 
@@ -140,21 +142,23 @@ export const translate = (
   });
 };
 
-type StringProps<T> = {
-  [K in keyof T]: T[K] extends string | null ? K : never;
-}[keyof T];
+export type I18nKeyType = ParseKeys<keyof CustomTypeOptions['resources']>;
+export interface I18nInterpolationType {
+  [key: string]: string | number;
+}
 
-type AdditionalDataAttributes = 'data-hint';
-
-export const markElementForTranslation = <T extends HTMLElement>(
-  elem: T,
-  key: string,
-  props?: Array<StringProps<T> | AdditionalDataAttributes>,
+export const translateString = (
+  i18n: typeof import('./i18n').default | undefined,
+  key: I18nKeyType,
+  value: string,
+  interpolation?: I18nInterpolationType,
 ) => {
-  elem.dataset.i18n = key;
-  if (props) {
-    elem.dataset.i18nProp = props.join(' ');
-  }
+  if (!i18n) return value;
+  return i18n.t(key, {
+    ...interpolation,
+    ...predefinedValues,
+    defaultValue: value,
+  }) as string;
 };
 
 export const dispatchTranslationEvent = (elem: HTMLElement) => {
