@@ -244,7 +244,7 @@ export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.
 
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.8.2/dist/liquid.browser.min.js');
 
-export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.js');
+export const localforageUrl = /* @__PURE__ */ getModuleUrl('localforage@1.10.0');
 
 export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
@@ -270,6 +270,8 @@ export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js');
+
+export const monacoBaseUrl = /* @__PURE__ */ 'https://typescript.azureedge.net/cdn/5.4.5/';
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -387,7 +389,7 @@ export const svelteRuntimeBaseUrl = /* @__PURE__ */ getUrl(
 
 export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svgbob_wasm_bg.wasm');
 
-export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.9.6/dist/');
+export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.25.1/dist/');
 
 export const tailwindcssUrl = /* @__PURE__ */ getUrl(
   '@mhsdesign/jit-browser-tailwindcss@0.3.0/dist/cdn.min.js',

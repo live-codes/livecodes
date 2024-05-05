@@ -64,8 +64,8 @@ export const createProjectInfoUI = async (
   };
 
   loadStylesheet(tagifyBaseUrl + 'tagify.css', 'tagify-styles');
-  await loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify');
-  const Tagify = (window as any).Tagify;
+
+  const Tagify = (await import(tagifyBaseUrl + 'tagify.esm.js')).default;
   if (Tagify) {
     new Tagify(tagsInput, {
       whitelist: Array.from(

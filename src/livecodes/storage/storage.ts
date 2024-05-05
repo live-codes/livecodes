@@ -1,4 +1,3 @@
-import { loadScript } from '../utils';
 import { localforageUrl } from '../vendors';
 import { createPub } from '../events';
 import type { Storage, StoreName } from './models';
@@ -14,7 +13,7 @@ export const generateId = () =>
 
 const loadLocalforage = async (store: string) => {
   if (!localforage) {
-    localforage = (await loadScript(localforageUrl, 'localforage')) as LocalForage;
+    localforage = (await import(localforageUrl)).default as LocalForage;
     localforage.config({
       name: dbName,
     });
