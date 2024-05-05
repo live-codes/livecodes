@@ -55,7 +55,7 @@ export const createTypeLoader = (baseUrl: string) => {
     }
     loadedTypes = { ...prevTypes, ...type };
     const lib = {
-      filename: `file:///node_modules/${safeName(name)}/index.d.ts`,
+      filename: `node_modules/${safeName(name)}/index.d.ts`,
       content,
     };
     libs.push(lib);

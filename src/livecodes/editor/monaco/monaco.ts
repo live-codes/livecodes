@@ -63,11 +63,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const loadMonaco = () =>
     new Promise<typeof Monaco>((resolve) => {
       const script = document.createElement('script');
-      script.src = monacoBaseUrl + 'monaco/dev/vs/loader.js';
+      script.src = monacoBaseUrl + '/loader.js';
       script.addEventListener('load', () => {
         const re = globalThis.require;
         re.config({
-          paths: { vs: monacoBaseUrl + 'monaco/dev/vs' },
+          paths: { vs: monacoBaseUrl },
         });
         re(['vs/editor/editor.main'], function (monaco: typeof Monaco) {
           resolve(monaco);
@@ -200,14 +200,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
             : defaultOptions;
   let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
-  if (!document.head.querySelector('#__livecodes__monaco-styles')) {
-    const stylesheet = document.createElement('link');
-    stylesheet.setAttribute('rel', 'stylesheet');
-    stylesheet.setAttribute('href', `${monacoPath}/monaco-editor.css`);
-    stylesheet.id = '__livecodes__monaco-styles';
-    document.head.appendChild(stylesheet);
-  }
-
   const addTypes = (type: EditorLibrary, force = false) => {
     const loadedType = types.find((t) => t.filename === type.filename);
     if (loadedType) {
@@ -242,7 +234,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
     const uri = monaco.Uri.file(type.filename);
     if (monaco.editor.getModel(uri) === null) {
-      monaco.editor.createModel(type.content, 'javascript', uri);
+      try {
+        monaco.editor.createModel(type.content, 'javascript', uri);
+      } catch (e) {
+        //
+      }
     }
   };
 
@@ -388,8 +384,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     libTs: { dispose: () => void };
   }> = [];
 
-  const isEditorType = (type: { filename: string }) =>
-    !type.filename.startsWith('file:///node_modules/');
+  const isEditorType = (type: { filename: string }) => !type.filename.startsWith('node_modules/');
 
   const clearTypes = (allTypes = true) => {
     types
