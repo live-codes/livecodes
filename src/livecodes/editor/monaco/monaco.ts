@@ -29,6 +29,7 @@ import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
 import { customThemes, monacoThemes } from './monaco-themes';
+import { configureTSFeatures, getDefaultCompilerOptions } from './monaco-sandbox';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 declare const globalThis: {
@@ -100,7 +101,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         ? 'csharp'
         : mapLanguage(language);
 
-  const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   try {
     (window as any).monaco = (window as any).monaco || (await loadMonaco());
     monaco = (window as any).monaco;
@@ -146,6 +146,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  // https://github.com/microsoft/TypeScript-Website/blob/eaa8205658445d4df6c0ca04e42fab1019f71df0/packages/sandbox/src/index.ts#L59-L62
+  // Basically android and monaco is pretty bad, this makes it less bad
+  // See https://github.com/microsoft/pxt/pull/7099 for this, and the long
+  // read is in https://github.com/microsoft/monaco-editor/issues/563
+  const isAndroid = navigator && /android/i.test(navigator.userAgent);
+
   const defaultOptions: Options = {
     theme: await loadTheme(theme, editorTheme),
     fontLigatures: true,
@@ -157,6 +163,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     automaticLayout: true,
     readOnly: readonly,
     fixedOverflowWidgets: true,
+    lightbulb: {
+      enabled: 'on' as Monaco.editor.ShowLightbulbIconMode.On,
+    },
+    quickSuggestions: {
+      other: !isAndroid,
+      comments: !isAndroid,
+      strings: !isAndroid,
+    },
+    acceptSuggestionOnCommitCharacter: !isAndroid,
+    acceptSuggestionOnEnter: !isAndroid ? 'on' : 'off',
+    accessibilitySupport: !isAndroid ? 'on' : 'off',
+    inlayHints: {
+      enabled: 'on',
+    },
   };
 
   const codeblockOptions: Options = {
@@ -244,6 +264,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
 
   const configureEditor = () => {
     const compilerOptions: Monaco.languages.typescript.CompilerOptions = {
+      ...getDefaultCompilerOptions(language, monaco),
       jsx: monaco.languages.typescript.JsxEmit.Preserve,
       allowNonTsExtensions: true,
       allowJs: false,
@@ -255,13 +276,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
 
-    if (
-      language === 'tsx' ||
-      language === 'jsx' ||
-      language === 'sucrase' ||
-      language === 'babel' ||
-      language === 'flow'
-    ) {
+    const javascripty = ['javascript', 'jsx', 'flow'];
+    const hasJsx = ['tsx', 'jsx', 'sucrase', 'babel', 'flow'];
+    const potentiallyTypescript = ['typescript', 'tsx', 'sucrase', 'babel', 'stencil'];
+
+    if (hasJsx.includes(language)) {
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...compilerOptions,
         jsx: monaco.languages.typescript.JsxEmit.React,
@@ -287,6 +306,14 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     } else if (['typescript'].includes(mapLanguage(language))) {
       monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSemanticValidation: false,
+      });
+    }
+    if ([...javascripty, ...potentiallyTypescript].includes(language)) {
+      configureTSFeatures({
+        isJSLang: javascripty.includes(language),
+        editor,
+        monaco,
+        compilerOptions,
       });
     }
   };
