@@ -120,6 +120,7 @@ const baseOptions = {
     'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
     'process.env.CI': `${process.env.CI || false}`,
     'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
+    define: 'undefined', // prevent using AMD (e.g. in lz-string)
   },
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
