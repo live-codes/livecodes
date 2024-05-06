@@ -77,7 +77,7 @@ export const createImportUI = ({
   eventsManager.addEventListener(importForm, 'submit', async (e) => {
     e.preventDefault();
     const buttonText = importButton.innerHTML;
-    importButton.innerHTML = 'Loading...';
+    importButton.innerHTML = window.deps.translateString('generic.loading', 'Loading...');
     importButton.disabled = true;
     const importInput = getUrlImportInput(importContainer);
     const url = importInput.value;
@@ -95,7 +95,9 @@ export const createImportUI = ({
     } else {
       importButton.innerHTML = buttonText;
       importButton.disabled = false;
-      notifications.error('failed to load URL');
+      notifications.error(
+        window.deps.translateString('import.error.failedToLoadURL', 'Error: failed to load URL'),
+      );
       importInput.focus();
     }
   });
@@ -109,7 +111,15 @@ export const createImportUI = ({
         // Max 100 MB allowed
         const maxSizeAllowed = 100 * 1024 * 1024;
         if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 100 MB');
+          reject(
+            window.deps.translateString(
+              'generic.error.exceededSize',
+              'Error: Exceeded size {{size}} MB',
+              {
+                size: 100,
+              },
+            ),
+          );
           return;
         }
 
@@ -127,7 +137,12 @@ export const createImportUI = ({
         });
 
         eventsManager.addEventListener(reader, 'error', () => {
-          reject('Error: Failed to read file');
+          reject(
+            window.deps.translateString(
+              'generic.error.failedToReadFile',
+              'Error: Failed to read file',
+            ),
+          );
         });
 
         reader.readAsText(file);
@@ -158,7 +173,7 @@ export const createImportUI = ({
   eventsManager.addEventListener(importJsonUrlForm, 'submit', async (e) => {
     e.preventDefault();
     const buttonText = importJsonUrlButton.innerHTML;
-    importJsonUrlButton.innerHTML = 'Loading...';
+    importJsonUrlButton.innerHTML = window.deps.translateString('generic.loading', 'Loading...');
     importJsonUrlButton.disabled = true;
     const importInput = getImportJsonUrlInput(importContainer);
     const url = importInput.value;
@@ -171,7 +186,9 @@ export const createImportUI = ({
       .catch(() => {
         importJsonUrlButton.innerHTML = buttonText;
         importJsonUrlButton.disabled = false;
-        notifications.error('Error: failed to load URL');
+        notifications.error(
+          window.deps.translateString('import.error.failedToLoadURL', 'Error: failed to load URL'),
+        );
         importInput.focus();
       });
   });
@@ -181,7 +198,10 @@ export const createImportUI = ({
   eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
     e.preventDefault();
     const buttonText = bulkimportJsonUrlButton.innerHTML;
-    bulkimportJsonUrlButton.innerHTML = 'Loading...';
+    bulkimportJsonUrlButton.innerHTML = window.deps.translateString(
+      'generic.loading',
+      'Loading...',
+    );
     bulkimportJsonUrlButton.disabled = true;
     const importInput = getBulkImportJsonUrlInput(importContainer);
     const url = importInput.value;
@@ -191,7 +211,9 @@ export const createImportUI = ({
       .catch(() => {
         bulkimportJsonUrlButton.innerHTML = buttonText;
         bulkimportJsonUrlButton.disabled = false;
-        notifications.error('Error: failed to load URL');
+        notifications.error(
+          window.deps.translateString('import.error.failedToLoadURL', 'Error: failed to load URL'),
+        );
         importInput.focus();
       });
   });
@@ -211,7 +233,15 @@ export const createImportUI = ({
       // Max 100 MB allowed
       const maxSizeAllowed = 100 * 1024 * 1024;
       if (file.size > maxSizeAllowed) {
-        reject('Error: Exceeded size 100 MB');
+        reject(
+          window.deps.translateString(
+            'generic.error.exceededSize',
+            'Error: Exceeded size {{size}} MB',
+            {
+              size: 100,
+            },
+          ),
+        );
         return;
       }
 
@@ -221,12 +251,22 @@ export const createImportUI = ({
         try {
           resolve(JSON.parse(text));
         } catch (error) {
-          reject('Invalid configuration file');
+          reject(
+            window.deps.translateString(
+              'import.error.invalidConfigFile',
+              'Invalid configuration file',
+            ),
+          );
         }
       });
 
       eventsManager.addEventListener(reader, 'error', () => {
-        reject('Error: Failed to read file');
+        reject(
+          window.deps.translateString(
+            'generic.error.failedToReadFile',
+            'Error: Failed to read file',
+          ),
+        );
       });
 
       reader.readAsText(file);
@@ -236,11 +276,13 @@ export const createImportUI = ({
     const getItemConfig = (item: StorageItem) => item.config || (item as any).pen; // for backward compatibility
     if (Array.isArray(items) && items.every(getItemConfig) && projectStorage) {
       await projectStorage.bulkInsert(items.map(getItemConfig));
-      notifications.success('Import Successful!');
+      notifications.success(window.deps.translateString('import.success', 'Import Successful!'));
       showScreen('open');
       return;
     }
-    return Promise.reject('Error: Invalid file');
+    return Promise.reject(
+      window.deps.translateString('import.error.invalidFile', 'Error: Invalid file'),
+    );
   };
 
   const fileInput = getImportFileInput(importContainer);

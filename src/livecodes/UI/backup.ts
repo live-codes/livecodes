@@ -38,7 +38,7 @@ const createBackupContainer = (eventsManager: ReturnType<typeof createEventsMana
   return backupContainer;
 };
 
-const inProgressMessage = 'In progress...';
+const inProgressMessage = window.deps.translateString('backup.inProgress', 'In progress...');
 export const isInProgress = () => getBackupLink()?.dataset.hint === inProgressMessage;
 
 export const updateProgressStatus = ({
@@ -67,9 +67,12 @@ export const updateProgressStatus = ({
       backupLink.classList.remove('hint--bottom');
       backupLink.dataset.hint = '';
     }
-    backupBtn.innerText = 'Backup';
+    backupBtn.innerText = window.deps.translateString('backup.backupBtn', 'Backup');
     backupBtn.disabled = false;
-    fileInputLabel.innerText = 'Restore from file';
+    fileInputLabel.innerText = window.deps.translateString(
+      'backup.fileInputLabel',
+      'Restore from file',
+    );
     fileInput.disabled = false;
   }
 };
@@ -136,7 +139,12 @@ export const createBackupUI = ({
       .filter(Boolean) as Array<keyof Stores>;
 
     if (storeKeys.length === 0) {
-      notifications.warning('Please select at least one store to backup');
+      notifications.warning(
+        window.deps.translateString(
+          'backup.error.atLeastOneStore',
+          'Please select at least one store to backup',
+        ),
+      );
       return;
     }
 
@@ -165,14 +173,27 @@ export const createBackupUI = ({
       const file = (input.files as FileList)[0];
 
       if (!file.name.endsWith('.zip')) {
-        reject('Error: Incorrect file type');
+        reject(
+          window.deps.translateString(
+            'backup.error.incorrectFileType',
+            'Error: Incorrect file type',
+          ),
+        );
         return;
       }
 
       // Max 100 MB allowed
       const maxSizeAllowed = 100 * 1024 * 1024;
       if (file.size > maxSizeAllowed) {
-        reject('Error: Exceeded size 100 MB');
+        reject(
+          window.deps.translateString(
+            'generic.error.exceededSize',
+            'Error: Exceeded size {{size}} MB',
+            {
+              size: 100,
+            },
+          ),
+        );
         return;
       }
 
@@ -213,7 +234,9 @@ export const createBackupUI = ({
     if (hasUserConfig) {
       deps.loadUserConfig();
     }
-    notifications.success('Restored Successfully!');
+    notifications.success(
+      window.deps.translateString('backup.restore.success', 'Restored Successfully!'),
+    );
   };
 
   eventsManager.addEventListener(backupForm, 'submit', async (e) => {

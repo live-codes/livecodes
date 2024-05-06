@@ -231,7 +231,9 @@ const loadStyles = () =>
 const createIframe = (container: HTMLElement, result = '', service = sandboxService) =>
   new Promise((resolve, reject) => {
     if (!container) {
-      reject('Result container not found');
+      reject(
+        window.deps.translateString('core.error.noResultContainer', 'Result container not found'),
+      );
       return;
     }
 
@@ -378,19 +380,19 @@ const createCopyButtons = () => {
     const copyButton = document.createElement('div');
     copyButton.innerHTML = copyImgHtml;
     copyButton.classList.add('copy-button', 'tool-buttons');
-    copyButton.title = 'Copy';
+    copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
     document.getElementById(editorId)?.appendChild(copyButton);
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
         copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
         copyButton.classList.add('hint--left', 'visible');
-        copyButton.dataset.hint = 'Copied!';
+        copyButton.dataset.hint = window.deps.translateString('core.copy.hint', 'Copied!');
         copyButton.title = '';
         setTimeout(() => {
           copyButton.innerHTML = copyImgHtml;
           copyButton.classList.remove('hint--left', 'visible');
           copyButton.dataset.hint = '';
-          copyButton.title = 'Copy';
+          copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
         }, 2000);
       }
     });
@@ -736,7 +738,15 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   const editorId = getLanguageEditorId(language);
   if (!editorId || !language || !languageIsEnabled(language, getConfig())) return;
   if (getLanguageSpecs(language)?.largeDownload) {
-    notifications.info(`Loading ${getLanguageTitle(language)}. This may take a while!`);
+    notifications.info(
+      window.deps.translateString(
+        'core.changeLanguage',
+        'Loading {{lang}}. This may take a while!',
+        {
+          lang: getLanguageTitle(language),
+        },
+      ),
+    );
   }
   const editor = editors[editorId];
   editor.setLanguage(language, value ?? (getConfig()[editorId].content || ''));
@@ -1060,6 +1070,8 @@ const setWindowTitle = () => {
     : location.hostname.startsWith('127.0.0.1') || location.hostname.startsWith('localhost')
       ? '(local) '
       : '';
+
+  // TODO: i18n this?
   parent.document.title =
     hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };
@@ -1141,7 +1153,9 @@ const save = async (notify = false, setTitle = true) => {
   await setSavedStatus();
 
   if (notify) {
-    notifications.success('Project locally saved to device!');
+    notifications.success(
+      window.deps.translateString('core.save.success', 'Project locally saved to device!'),
+    );
   }
 
   await share(false);
@@ -1151,7 +1165,9 @@ const fork = async () => {
   projectId = '';
   loadConfig({ ...getConfig(), title: getConfig().title + ' (fork)' });
   await save();
-  notifications.success('Forked as a new project');
+  notifications.success(
+    window.deps.translateString('core.fork.success', 'Forked as a new project'),
+  );
 };
 
 const share = async (
@@ -1462,7 +1478,15 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     eventsManager.addEventListener(UI.getModalSavePreviousButton(), 'click', async () => {
       if (stores.projects) {
         await stores.projects.addItem(unsavedProject);
-        notifications.success(`Project "${projectName}" saved to device.`);
+        notifications.success(
+          window.deps.translateString(
+            'core.save.successWithName',
+            'Project "{{name}}" saved to device.',
+            {
+              name: projectName,
+            },
+          ),
+        );
       }
       if (isWelcomeScreen) {
         welcomeRecover.style.maxHeight = '0';
@@ -1518,27 +1542,33 @@ const login = async () =>
   new Promise<User | void>((resolve, reject) => {
     const loginHandler = (scopes: GithubScope[]) => {
       if (!authService) {
-        reject('Login error!');
+        reject(window.deps.translateString('core.error.login', 'Login error!'));
       } else {
         authService
           .signIn(scopes)
           .then((user) => {
             if (!user) {
-              reject('Login error!');
+              reject(window.deps.translateString('core.error.login', 'Login error!'));
             } else {
               manageStoredUserData(user, 'restore');
 
               const displayName = user.displayName || user.username;
               const loginSuccessMessage = displayName
-                ? 'Logged in as: ' + displayName
-                : 'Logged in successfully';
+                ? window.deps.translateString(
+                    'core.login.successWithName',
+                    'Logged in as: {{name}}',
+                    {
+                      name: displayName,
+                    },
+                  )
+                : window.deps.translateString('core.login.success', 'Logged in successfully');
               notifications.success(loginSuccessMessage);
               displayLoggedIn(user);
               resolve(user);
             }
           })
           .catch(() => {
-            notifications.error('Login error!');
+            notifications.error(window.deps.translateString('core.error.login', 'Login error!'));
           });
       }
       modal.close();
@@ -1547,7 +1577,7 @@ const login = async () =>
     const loginContainer = createLoginContainer(eventsManager, loginHandler);
     modal.show(loginContainer, { size: 'small' });
   }).catch(() => {
-    notifications.error('Login error!');
+    notifications.error(window.deps.translateString('core.error.login', 'Login error!'));
   });
 
 const logout = () => {
@@ -1562,11 +1592,13 @@ const logout = () => {
       authService
         ?.signOut()
         .then(() => {
-          notifications.success('Logged out successfully');
+          notifications.success(
+            window.deps.translateString('core.logout.success', 'Logged out successfully'),
+          );
           displayLoggedOut();
         })
         .catch(() => {
-          notifications.error('Logout error!');
+          notifications.error(window.deps.translateString('core.error.logout', 'Logout error!'));
         }),
     );
 };
@@ -1715,11 +1747,17 @@ const setLayout = (layout: Config['layout']) => {
     const layoutSwitch = layoutToggle.closest('.switch') as HTMLElement;
     if (layout === undefined) {
       layoutToggle.readOnly = layoutToggle.indeterminate = true;
-      layoutSwitch.dataset.hint = 'Responsive layout';
+      layoutSwitch.dataset.hint = window.deps.translateString(
+        'core.layout.responsive',
+        'Responsive layout',
+      );
     } else {
       layoutToggle.checked = layout === 'vertical';
       layoutToggle.readOnly = layoutToggle.indeterminate = false;
-      layoutSwitch.dataset.hint = layout === 'vertical' ? 'Vertical layout' : 'Horizontal layout';
+      layoutSwitch.dataset.hint =
+        layout === 'vertical'
+          ? window.deps.translateString('core.layout.vertical', 'Vertical layout')
+          : window.deps.translateString('core.layout.horizontal', 'Horizontal layout');
     }
   }
   handleIframeResize();
@@ -1814,7 +1852,9 @@ const loadStarterTemplate = async (templateName: Template['name'], checkSaved = 
       modal.close();
     });
   } else {
-    notifications.error('Failed loading template');
+    notifications.error(
+      window.deps.translateString('core.error.failedToLoadTemplate', 'Failed loading template'),
+    );
   }
 };
 
@@ -1921,10 +1961,16 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   if (!broadcastStatusBtn) return;
   if (info.isBroadcasting) {
     broadcastStatusBtn.firstElementChild?.classList.add('active');
-    broadcastStatusBtn.dataset.hint = 'Broadcasting...';
+    broadcastStatusBtn.dataset.hint = window.deps.translateString(
+      'broadcast.broadcasting',
+      'Broadcasting...',
+    );
   } else {
     broadcastStatusBtn.firstElementChild?.classList.remove('active');
-    broadcastStatusBtn.dataset.hint = 'Broadcast';
+    broadcastStatusBtn.dataset.hint = window.deps.translateString(
+      'core.broadcast.heading',
+      'Broadcast',
+    );
   }
 };
 
@@ -2243,9 +2289,13 @@ const handleEditorTools = () => {
 
   eventsManager.addEventListener(UI.getCopyButton(), 'click', () => {
     if (copyToClipboard(getActiveEditor().getValue())) {
-      notifications.success('Code copied to clipboard');
+      notifications.success(
+        window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
+      );
     } else {
-      notifications.error('Failed to copy code');
+      notifications.error(
+        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+      );
     }
   });
 
@@ -2270,9 +2320,13 @@ const handleEditorTools = () => {
     const mimeType = 'text/' + currentEditor.getLanguage();
     const dataUrl = toDataUrl(currentEditor.getValue(), mimeType);
     if (copyToClipboard(dataUrl)) {
-      notifications.success('Code copied as data URL');
+      notifications.success(
+        window.deps.translateString('core.copy.copiedAsDataURL', 'Code copied as data URL'),
+      );
     } else {
-      notifications.error('Failed to copy code');
+      notifications.error(
+        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+      );
     }
   });
 
@@ -2507,23 +2561,28 @@ const handleNew = () => {
         deleteButton,
         'click',
         async () => {
-          notifications.confirm(`Delete template "${item.title}"?`, async () => {
-            if (!stores.templates) return;
+          notifications.confirm(
+            window.deps.translateString('core.template.delete', 'Delete template "{{item}}"?', {
+              item: item.title,
+            }),
+            async () => {
+              if (!stores.templates) return;
 
-            if (getAppData()?.defaultTemplate === item.id) {
-              setAppData({ defaultTemplate: null });
-            }
-            await stores.templates.deleteItem(item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(async () => {
-              li.style.display = 'none';
-              if (stores.templates && (await stores.templates.getList()).length === 0) {
-                list.remove();
-                userTemplatesScreen.innerHTML = noUserTemplates;
+              if (getAppData()?.defaultTemplate === item.id) {
+                setAppData({ defaultTemplate: null });
               }
-            }, 500);
-          });
+              await stores.templates.deleteItem(item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(async () => {
+                li.style.display = 'none';
+                if (stores.templates && (await stores.templates.getList()).length === 0) {
+                  list.remove();
+                  userTemplatesScreen.innerHTML = noUserTemplates;
+                }
+              }, 500);
+            },
+          );
         },
         false,
       );
@@ -2579,7 +2638,12 @@ const handleNew = () => {
         })
         .catch(() => {
           loadingText?.remove();
-          notifications.error('Failed loading starter templates');
+          notifications.error(
+            window.deps.translateString(
+              'core.error.failedToLoadTemplates',
+              'Failed loading starter templates',
+            ),
+          );
         });
     }
 
@@ -2616,7 +2680,9 @@ const handleSaveAsTemplate = () => {
     (event as Event).preventDefault();
     if (stores.templates) {
       await stores.templates.addItem(getConfig());
-      notifications.success('Saved as a new template');
+      notifications.success(
+        window.deps.translateString('core.template.saved', 'Saved as a new template'),
+      );
     }
   });
 };
@@ -2787,7 +2853,9 @@ const handleExport = () => {
       updateConfig();
       const user = await getUser();
       if (!user) return;
-      notifications.info('Creating a public GitHub gist...');
+      notifications.info(
+        window.deps.translateString('core.export.gist', 'Creating a public GitHub gist...'),
+      );
       await loadModule();
       exportModule.exportConfig(getConfig(), baseUrl, 'githubGist', {
         user,
@@ -2829,7 +2897,9 @@ const handleDeploy = () => {
   const createDeployUI = async () => {
     const user = await getUser();
     if (!user) {
-      notifications.error('Authentication error!');
+      notifications.error(
+        window.deps.translateString('generic.error.authentication', 'Authentication error!'),
+      );
       return;
     }
     modal.show(loadingMessage());
@@ -2878,7 +2948,9 @@ const handleSync = () => {
   const createSyncUI = async () => {
     const user = await getUser();
     if (!user) {
-      notifications.error('Authentication error!');
+      notifications.error(
+        window.deps.translateString('generic.error.authentication', 'Authentication error!'),
+      );
       return;
     }
     modal.show(loadingMessage());
@@ -3148,23 +3220,23 @@ const handleWelcome = () => {
     const defaultTemplates: Array<{ name: Template['name']; title: string }> = [
       {
         name: 'blank',
-        title: 'Blank Project',
+        title: window.deps.translateString('core.template.blank', 'Blank Project'),
       },
       {
         name: 'javascript',
-        title: 'JavaScript Starter',
+        title: window.deps.translateString('core.template.javascript', 'JavaScript Starter'),
       },
       {
         name: 'typescript',
-        title: 'TypeScript Starter',
+        title: window.deps.translateString('core.template.typescript', 'TypeScript Starter'),
       },
       {
         name: 'react',
-        title: 'React Starter',
+        title: window.deps.translateString('core.template.react', 'React Starter'),
       },
       {
         name: 'vue',
-        title: 'Vue 3 Starter',
+        title: window.deps.translateString('core.template.vue', 'Vue 3 Starter'),
       },
     ];
     const savedRecentTemplates = getAppData()?.recentTemplates || [];
@@ -3553,7 +3625,12 @@ const handleCustomSettings = () => {
         try {
           customSettings = JSON.parse(stringToValidJson(editorContent));
         } catch {
-          notifications.error('Failed parsing settings as JSON');
+          notifications.error(
+            window.deps.translateString(
+              'core.error.failedToParseSettings',
+              'Failed parsing settings as JSON',
+            ),
+          );
           return;
         }
       }
@@ -3796,7 +3873,10 @@ const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
   popupBtn.id = 'result-popup-btn';
   popupBtn.classList.add('tool-buttons', 'hint--top');
-  popupBtn.dataset.hint = 'Show result in new window';
+  popupBtn.dataset.hint = window.deps.translateString(
+    'core.result.hint',
+    'Show result in new window',
+  );
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/new-window.svg';
   popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
@@ -3835,7 +3915,7 @@ const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
   zoomBtn.classList.add('tool-buttons', 'hint--top');
-  zoomBtn.dataset.hint = 'Zoom';
+  zoomBtn.dataset.hint = window.deps.translateString('core.zoom.hint', 'Zoom');
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
   <span class="text">
@@ -3863,7 +3943,10 @@ const handleBroadcastStatus = () => {
   const broadcastStatusBtn = document.createElement('div');
   broadcastStatusBtn.id = 'broadcast-status-btn';
   broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
-  broadcastStatusBtn.dataset.hint = 'Broadcast';
+  broadcastStatusBtn.dataset.hint = window.deps.translateString(
+    'core.broadcast.heading',
+    'Broadcast',
+  );
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const imgUrl = baseUrl + 'assets/images/broadcast.svg';
   broadcastStatusBtn.innerHTML = `
@@ -3892,11 +3975,17 @@ const handleFullscreen = async () => {
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
-      fullscreenButton.dataset.hint = 'Full Screen';
+      fullscreenButton.dataset.hint = window.deps.translateString(
+        'core.fullScreen.enter',
+        'Full Screen',
+      );
       return;
     }
     buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
-    fullscreenButton.dataset.hint = 'Exit Full Screen';
+    fullscreenButton.dataset.hint = window.deps.translateString(
+      'core.fullScreen.exit',
+      'Exit Full Screen',
+    );
   });
 
   eventsManager.addEventListener(fullscreenButton, 'click', async () => {
@@ -3911,7 +4000,10 @@ const handleFullscreen = async () => {
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
-      return 'Changes you made may not be saved.';
+      return window.deps.translateString(
+        'core.unload.notSaved',
+        'Changes you made may not be saved.',
+      );
     } else {
       return;
     }
@@ -4157,7 +4249,10 @@ const importExternalContent = async (options: {
 
   const loadingMessage = document.createElement('div');
   loadingMessage.classList.add('modal-message');
-  loadingMessage.innerHTML = 'Loading Project...';
+  loadingMessage.innerHTML = window.deps.translateString(
+    'core.import.loading',
+    'Loading Project...',
+  );
   modal.show(loadingMessage, { size: 'small', isAsync: true });
 
   let templateConfig: Partial<Config> = {};
@@ -4170,7 +4265,15 @@ const importExternalContent = async (options: {
     if (templateObj) {
       templateConfig = upgradeAndValidate(templateObj);
     } else {
-      notifications.error('Could not load template: ' + template);
+      notifications.error(
+        window.deps.translateString(
+          'core.error.couldNotLoadTemplate',
+          'Could not load template: {{template}}',
+          {
+            template,
+          },
+        ),
+      );
     }
   }
 
@@ -4194,7 +4297,9 @@ const importExternalContent = async (options: {
     urlConfig = await importModule.importCode(validUrl, getParams(), getConfig(), user, baseUrl);
 
     if (Object.keys(urlConfig).length === 0) {
-      notifications.error('Invalid import URL');
+      notifications.error(
+        window.deps.translateString('core.error.invalidImport', 'Invalid import URL'),
+      );
     }
   }
 
@@ -4283,7 +4388,9 @@ const loadDefaults = async () => {
 
   const defaultTemplateId = getAppData()?.defaultTemplate;
   if (defaultTemplateId) {
-    notifications.info('Loading default template');
+    notifications.info(
+      window.deps.translateString('core.loadDefaults.template', 'Loading default template'),
+    );
     await loadTemplate(defaultTemplateId);
     return;
   }
@@ -4479,7 +4586,7 @@ const createApi = (): API => {
         getActiveEditor().focus();
       }
     } else {
-      throw new Error('Invalid panel id');
+      throw new Error(window.deps.translateString('core.error.invalidPanelId', 'Invalid panel id'));
     }
   };
 
@@ -4505,24 +4612,42 @@ const createApi = (): API => {
 
   const apiExec: API['exec'] = async (command: APICommands, ...args: any[]) => {
     if (command === 'setBroadcastToken') {
-      if (isEmbed) return { error: 'Command unavailable for embeds' };
+      if (isEmbed) {
+        return {
+          error: window.deps.translateString(
+            'core.error.unavailableForEmbeds',
+            'Command unavailable for embeds',
+          ),
+        };
+      }
       const broadcastData = getAppData()?.broadcast;
-      if (!broadcastData) return { error: 'Command unavailable' };
+      if (!broadcastData) {
+        return {
+          error: window.deps.translateString('core.error.unavailable', 'Command unavailable'),
+        };
+      }
       const token = args[0];
-      if (typeof token !== 'string') return { error: 'Invalid token!' };
+      if (typeof token !== 'string') {
+        return { error: window.deps.translateString('core.error.invalidToken', 'Invalid token!') };
+      }
       setAppData({
         broadcast: {
           ...broadcastData,
           userToken: token,
         },
       });
-      return { output: 'Broadcast user token set successfully' };
+      return {
+        output: window.deps.translateString(
+          'core.broadcast.successSetToken',
+          'Broadcast user token set successfully',
+        ),
+      };
     }
     if (command === 'showVersion') {
       const output = getVersion();
       return { output };
     }
-    return { error: 'Invalid command!' };
+    return { error: window.deps.translateString('core.error.invalidCommand', 'Invalid command!') };
   };
 
   const apiDestroy = async () => {

@@ -36,7 +36,7 @@ export const createOpenItem = (
       if (isTemplate) {
         langEl.classList.add('template-tag');
       } else {
-        langEl.title = 'filter by language';
+        langEl.title = window.deps.translateString('open.filter.language', 'filter by language');
       }
       langEl.textContent = getLanguageTitle(lang);
       langs.push(langEl);
@@ -53,7 +53,7 @@ export const createOpenItem = (
       if (isTemplate) {
         tagEl.classList.add('template-tag');
       } else {
-        tagEl.title = 'filter by tag';
+        tagEl.title = window.deps.translateString('open.filter.tag', 'filter by tag');
       }
       tagEl.textContent = tag;
       userTags.push(tagEl);
@@ -67,7 +67,13 @@ export const createOpenItem = (
 
   const lastModifiedText = document.createElement('div');
   lastModifiedText.classList.add('light');
-  lastModifiedText.textContent = 'Last modified: ' + lastModified;
+  lastModifiedText.textContent = window.deps.translateString(
+    'open.lastModified',
+    'Last modified: {{modified}}',
+    {
+      modified: lastModified,
+    },
+  );
   link.appendChild(lastModifiedText);
 
   const tags = document.createElement('div');
@@ -81,17 +87,20 @@ export const createOpenItem = (
   setAsDefault.classList.add('template-default');
 
   const setAsDefaultLink = document.createElement('span');
-  setAsDefaultLink.innerText = 'Set as default';
+  setAsDefaultLink.innerText = window.deps.translateString('open.setAsDefault', 'Set as default');
   setAsDefaultLink.classList.add('template-default-link');
   setAsDefault.appendChild(setAsDefaultLink);
 
   const defaultTemplateLabel = document.createElement('span');
   defaultTemplateLabel.classList.add('default-template-label');
-  defaultTemplateLabel.innerText = 'Default template ';
+  defaultTemplateLabel.innerText = window.deps.translateString(
+    'open.defaultTemplate',
+    'Default template ',
+  );
   setAsDefault.appendChild(defaultTemplateLabel);
 
   const removeDefaultLink = document.createElement('span');
-  removeDefaultLink.innerText = '(unset)';
+  removeDefaultLink.innerText = window.deps.translateString('open.removeDefault', '(unset)');
   removeDefaultLink.classList.add('template-remove-default-link');
   defaultTemplateLabel.appendChild(removeDefaultLink);
 
@@ -110,7 +119,7 @@ export const createOpenItem = (
 const createItemLoader = (item: SavedProject) => {
   const loading = document.createElement('div');
   loading.innerHTML = `
-    <div class="modal-message">Loading...</div>
+    <div class="modal-message">${window.deps.translateString('generic.loading', 'Loading...')}</div>
     <div class="modal-message">${item.title}</div>
     `;
   return loading;
@@ -464,17 +473,22 @@ export const createSavedProjectsList = async ({
     deleteAllButton,
     'click',
     async () => {
-      notifications.confirm(`Delete ${visibleProjects.length} projects?`, async () => {
-        for (const p of visibleProjects) {
-          await projectStorage.deleteItem(p.id);
-          if (getProjectId() === p.id) {
-            setProjectId('');
+      notifications.confirm(
+        window.deps.translateString('open.delete.all', 'Delete {{projects}} projects?', {
+          projects: visibleProjects.length,
+        }),
+        async () => {
+          for (const p of visibleProjects) {
+            await projectStorage.deleteItem(p.id);
+            if (getProjectId() === p.id) {
+              setProjectId('');
+            }
           }
-        }
-        visibleProjects = [];
-        savedProjects = await projectStorage.getList();
-        await showList(visibleProjects);
-      });
+          visibleProjects = [];
+          savedProjects = await projectStorage.getList();
+          await showList(visibleProjects);
+        },
+      );
     },
     false,
   );
@@ -517,18 +531,23 @@ export const createSavedProjectsList = async ({
         deleteButton,
         'click',
         () => {
-          notifications.confirm(`Delete project: ${item.title}?`, async () => {
-            if (item.id === getProjectId()) {
-              setProjectId('');
-            }
-            await projectStorage.deleteItem(item.id);
-            visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(() => {
-              showList(visibleProjects);
-            }, 500);
-          });
+          notifications.confirm(
+            window.deps.translateString('open.delete.one', 'Delete project: {{project}}?', {
+              project: item.title,
+            }),
+            async () => {
+              if (item.id === getProjectId()) {
+                setProjectId('');
+              }
+              await projectStorage.deleteItem(item.id);
+              visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(() => {
+                showList(visibleProjects);
+              }, 500);
+            },
+          );
         },
         false,
       );
