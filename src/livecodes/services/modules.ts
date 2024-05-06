@@ -2,9 +2,34 @@ import type { CDN } from '../models';
 
 declare const globalThis: { appCDN: CDN };
 
-const moduleCDNs: CDN[] = ['esm.sh', 'skypack', 'jspm'];
-const npmCDNs: CDN[] = ['jsdelivr', 'fastly.jsdelivr', 'unpkg'];
-const ghCDNs: CDN[] = ['jsdelivr.gh', 'fastly.jsdelivr.gh', 'statically'];
+const moduleCDNs: CDN[] = [
+  'esm.sh',
+  'skypack',
+  'esm.run',
+  'jsdelivr.esm',
+  'fastly.jsdelivr.esm',
+  'gcore.jsdelivr.esm',
+  'testingcf.jsdelivr.esm',
+  'jsdelivr.b-cdn.esm',
+  'jspm',
+];
+const npmCDNs: CDN[] = [
+  'jsdelivr',
+  'fastly.jsdelivr',
+  'unpkg',
+  'gcore.jsdelivr',
+  'testingcf.jsdelivr',
+  'jsdelivr.b-cdn',
+  'npmcdn',
+];
+const ghCDNs: CDN[] = [
+  'jsdelivr.gh',
+  'fastly.jsdelivr.gh',
+  'statically',
+  'gcore.jsdelivr.gh',
+  'testingcf.jsdelivr.gh',
+  'jsdelivr.b-cdn.gh',
+];
 
 export const modulesService = {
   getModuleUrl: (
@@ -74,7 +99,7 @@ const getCdnUrl = (modName: string, isModule: boolean, defaultCDN?: CDN) => {
 
 // based on https://github.com/neoascetic/rawgithack/blob/master/web/rawgithack.js
 const TEMPLATES: Array<[RegExp, string]> = [
-  [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
+  [/^(esm\.sh:)(.+)/i, 'https://esm.sh/$2'],
 
   [/^(npm:)(.+)/i, 'https://esm.sh/$2'],
 
@@ -86,23 +111,47 @@ const TEMPLATES: Array<[RegExp, string]> = [
 
   [/^(jsdelivr:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2'],
 
-  [/^(fastly.jsdelivr:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2'],
+  [/^(fastly\.jsdelivr:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2'],
 
-  [/^(jsdelivr.gh:)(.+)/i, 'https://cdn.jsdelivr.net/gh/$2'],
+  [/^(gcore\.jsdelivr:)(.+)/i, 'https://gcore.jsdelivr.net/npm/$2'],
 
-  [/^(fastly.jsdelivr.gh:)(.+)/i, 'https://fastly.jsdelivr.net/gh/$2'],
+  [/^(testingcf\.jsdelivr:)(.+)/i, 'https://testingcf.jsdelivr.net/npm/$2'],
+
+  [/^(jsdelivr\.b-cdn:)(.+)/i, 'https://jsdelivr.b-cdn.net/npm/$2'],
+
+  [/^(jsdelivr\.gh:)(.+)/i, 'https://cdn.jsdelivr.net/gh/$2'],
+
+  [/^(fastly\.jsdelivr\.gh:)(.+)/i, 'https://fastly.jsdelivr.net/gh/$2'],
+
+  [/^(gcore\.jsdelivr\.gh:)(.+)/i, 'https://gcore.jsdelivr.net/gh/$2'],
+
+  [/^(testingcf\.jsdelivr\.gh:)(.+)/i, 'https://testingcf.jsdelivr.net/gh/$2'],
+
+  [/^(jsdelivr\.b-cdn\.gh:)(.+)/i, 'https://jsdelivr.b-cdn.net/gh/$2'],
 
   [/^(statically:)(.+)/i, 'https://cdn.statically.io/gh/$2'],
 
-  [/^(esm.run:)(.+)/i, 'https://esm.run/$2'],
+  [/^(esm\.run:)(.+)/i, 'https://esm.run/$2'],
 
-  [/^(esm.sh:)(.+)/i, 'https://esm.sh/$2'],
+  [/^(jsdelivr\.esm:)(.+)/i, 'https://cdn.jsdelivr.net/npm/$2/+esm'],
+
+  [/^(fastly\.jsdelivr\.esm:)(.+)/i, 'https://fastly.jsdelivr.net/npm/$2/+esm'],
+
+  [/^(gcore\.jsdelivr\.esm:)(.+)/i, 'https://gcore.jsdelivr.net/npm/$2/+esm'],
+
+  [/^(testingcf\.jsdelivr\.esm:)(.+)/i, 'https://testingcf.jsdelivr.net/npm/$2/+esm'],
+
+  [/^(jsdelivr\.b-cdn\.esm:)(.+)/i, 'https://jsdelivr.b-cdn.net/npm/$2/+esm'],
+
+  [/^(jspm:)(.+)/i, 'https://jspm.dev/$2'],
 
   [/^(esbuild:)(.+)/i, 'https://esbuild.vercel.app/$2'],
 
-  [/^(bundle.run:)(.+)/i, 'https://bundle.run/$2'],
+  [/^(bundle\.run:)(.+)/i, 'https://bundle.run/$2'],
 
   [/^(unpkg:)(.+)/i, 'https://unpkg.com/$2'],
+
+  [/^(npmcdn:)(.+)/i, 'https://npmcdn.com/$2'],
 
   [/^(bundlejs:)(.+)/i, 'https://deno.bundlejs.com/?file&q=$2'],
 
