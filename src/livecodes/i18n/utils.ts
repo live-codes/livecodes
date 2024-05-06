@@ -1,4 +1,4 @@
-import type { ParseKeys, CustomTypeOptions } from 'i18next';
+import type { CustomTypeOptions } from 'i18next';
 
 // eslint-disable-next-line import/no-internal-modules
 import { predefinedValues } from '../utils/utils';
@@ -142,23 +142,86 @@ export const translate = (
   });
 };
 
-export type I18nKeyType = ParseKeys<keyof CustomTypeOptions['resources']>;
-export interface I18nInterpolationType {
-  [key: string]: string | number;
+type GetNamespaceBase<
+  Base extends CustomTypeOptions['resources'],
+  Key extends string,
+> = Key extends `${infer Namespace}:${infer _Rest}`
+  ? Namespace extends keyof Base
+    ? Base[Namespace]
+    : never
+  : Base[CustomTypeOptions['defaultNS']];
+
+type GetTranslation<Base, Key extends string> = Key extends `${infer Start}.${infer Rest}`
+  ? Start extends keyof Base
+    ? Rest extends string
+      ? GetTranslation<Base[Start], Rest>
+      : never
+    : never
+  : Key extends keyof Base
+    ? Base[Key]
+    : never;
+
+type InferKeys<Base, isNs extends boolean = false, KeyStr extends string = ''> = {
+  [K in keyof Base]: Base[K] extends object
+    ? KeyStr extends '' // Whether it is of first level (namespace)
+      ? InferKeys<Base[K], true, `${K & string}`>
+      : KeyStr extends CustomTypeOptions['defaultNS'] // Default namespace and colon can be omited
+        ?
+            | InferKeys<Base[K], false, `${KeyStr}${isNs extends true ? ':' : '.'}${K & string}`>
+            | InferKeys<Base[K], false, `${K & string}`>
+        : InferKeys<Base[K], false, `${KeyStr}${isNs extends true ? ':' : '.'}${K & string}`>
+    : `${KeyStr}${KeyStr extends '' ? '' : '.'}${K & string}`;
+}[keyof Base];
+
+type ExtractInterpolations<Value> =
+  Value extends `${infer _First}{{${infer Interpolation}}}${infer Rest}`
+    ? Interpolation | ExtractInterpolations<Rest>
+    : never;
+
+interface I18nOptions {
+  isHTML?: boolean;
 }
 
-export const translateString = (
+declare const emptyObjectSymbol: unique symbol;
+export interface EmptyObject {
+  [emptyObjectSymbol]?: never;
+}
+
+export type I18nOptionalInterpolation<T> =
+  I18nInterpolationType<T> extends EmptyObject
+    ? [I18nOptions?]
+    : [I18nInterpolationType<T> & I18nOptions];
+
+export type I18nKeyType = InferKeys<CustomTypeOptions['resources'], true>;
+export type I18nValueType<K extends I18nKeyType> = GetTranslation<
+  GetNamespaceBase<CustomTypeOptions['resources'], K>,
+  K
+>;
+export type I18nInterpolationType<Value> = {
+  [K in ExtractInterpolations<Value>]?: string | number;
+};
+
+export const translateString = <Key extends I18nKeyType>(
   i18n: typeof import('./i18n').default | undefined,
-  key: I18nKeyType,
-  value: string,
-  interpolation?: I18nInterpolationType,
+  key: Key,
+  value: I18nValueType<Key>,
+  ...args: I18nOptionalInterpolation<I18nValueType<Key>>
 ) => {
-  if (!i18n) return value;
-  return i18n.t(key, {
+  if (!i18n) return value as string;
+
+  const interpolation = args[0];
+  const translation = i18n.t(key, {
     ...interpolation,
     ...predefinedValues,
-    defaultValue: value,
+    defaultValue: value as string,
   }) as string;
+
+  if (!interpolation || !interpolation.isHTML) {
+    return translation;
+  } else {
+    const { elements } = abstractifyHTML(value as string);
+    return unabstractifyHTML(translation, elements);
+  }
 };
 
 export const dispatchTranslationEvent = (elem: HTMLElement) => {

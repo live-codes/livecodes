@@ -139,7 +139,7 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
-import type { I18nInterpolationType, I18nKeyType } from './i18n/utils';
+import type { I18nKeyType, I18nValueType, I18nOptionalInterpolation } from './i18n/utils';
 
 // eslint-disable-next-line no-duplicate-imports
 import { translate, translateString } from './i18n/utils';
@@ -149,10 +149,10 @@ declare global {
   interface Window {
     deps: {
       showMode: typeof showMode;
-      translateString: (
-        key: I18nKeyType,
-        value: string,
-        interpolation?: I18nInterpolationType,
+      translateString: <Key extends I18nKeyType>(
+        key: Key,
+        value: I18nValueType<Key>,
+        ...args: I18nOptionalInterpolation<I18nValueType<Key>>
       ) => string;
     };
   }
@@ -3988,16 +3988,19 @@ const handleI18n = () => {
   });
 };
 
-const translateStringMock = (
-  _key: I18nKeyType,
-  value: string,
-  interpolation?: I18nInterpolationType,
+const translateStringMock = <Key extends I18nKeyType>(
+  _key: Key,
+  value: I18nValueType<Key>,
+  ...args: I18nOptionalInterpolation<I18nValueType<Key>>
 ) => {
-  if (!interpolation) return value;
+  const interpolation = args[0];
+
+  if (!interpolation) return value as string;
+  let result: string = value as string;
   for (const [k, v] of Object.entries(interpolation)) {
-    value = value.replaceAll(`{{${k}}}`, v as string);
+    result = result.replaceAll(`{{${k}}}`, v as string);
   }
-  return value;
+  return result;
 };
 
 const basicHandlers = () => {
@@ -4560,8 +4563,11 @@ const createApi = (): API => {
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
-    translateString: (key: I18nKeyType, value: string, interpolation?: I18nInterpolationType) =>
-      translateString(i18n, key, value, interpolation),
+    translateString: <Key extends I18nKeyType>(
+      key: Key,
+      value: I18nValueType<Key>,
+      ...args: I18nOptionalInterpolation<I18nValueType<Key>> // @ts-ignore
+    ) => translateString(i18n, key, value, args[0]),
   };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
