@@ -226,7 +226,11 @@ const processTS = async (files) => {
               if (
                 !path.node.arguments[2] ||
                 path.node.arguments[2].properties.every(
-                  (prop) => !prop.key || prop.key.name !== 'isHTML',
+                  (prop) =>
+                    !prop.key ||
+                    !prop.value ||
+                    prop.key.name !== 'isHTML' ||
+                    (prop.key.name === 'isHTML' && prop.value.value !== true),
                 )
               ) {
                 addTranslation(
