@@ -167,8 +167,832 @@
     "translation": "Show on startup",
     "notes": ""
   },
-  "loading.defaultMessage": {
+  "core.error.noResultContainer": {
+    "translation": "Result container not found",
+    "notes": ""
+  },
+  "core.copy.title": {
+    "translation": "Copy",
+    "notes": ""
+  },
+  "core.copy.hint": {
+    "translation": "Copied!",
+    "notes": ""
+  },
+  "core.changeLanguage": {
+    "translation": "Loading {{lang}}. This may take a while!",
+    "notes": ""
+  },
+  "core.save.success": {
+    "translation": "Project locally saved to device!",
+    "notes": ""
+  },
+  "core.fork.success": {
+    "translation": "Forked as a new project",
+    "notes": ""
+  },
+  "core.save.successWithName": {
+    "translation": "Project \"{{name}}\" saved to device.",
+    "notes": ""
+  },
+  "core.error.login": {
+    "translation": "Login error!",
+    "notes": ""
+  },
+  "core.login.successWithName": {
+    "translation": "Logged in as: {{name}}",
+    "notes": ""
+  },
+  "core.login.success": {
+    "translation": "Logged in successfully",
+    "notes": ""
+  },
+  "core.logout.success": {
+    "translation": "Logged out successfully",
+    "notes": ""
+  },
+  "core.error.logout": {
+    "translation": "Logout error!",
+    "notes": ""
+  },
+  "core.layout.responsive": {
+    "translation": "Responsive layout",
+    "notes": ""
+  },
+  "core.layout.vertical": {
+    "translation": "Vertical layout",
+    "notes": ""
+  },
+  "core.layout.horizontal": {
+    "translation": "Horizontal layout",
+    "notes": ""
+  },
+  "core.error.failedToLoadTemplate": {
+    "translation": "Failed loading template",
+    "notes": ""
+  },
+  "broadcast.broadcasting": {
+    "translation": "Broadcasting...",
+    "notes": ""
+  },
+  "core.broadcast.heading": {
+    "translation": "Broadcast",
+    "notes": ""
+  },
+  "core.copy.copied": {
+    "translation": "Code copied to clipboard",
+    "notes": ""
+  },
+  "core.error.failedToCopyCode": {
+    "translation": "Failed to copy code",
+    "notes": ""
+  },
+  "core.copy.copiedAsDataURL": {
+    "translation": "Code copied as data URL",
+    "notes": ""
+  },
+  "core.template.delete": {
+    "translation": "Delete template \"{{item}}\"?",
+    "notes": ""
+  },
+  "core.error.failedToLoadTemplates": {
+    "translation": "Failed loading starter templates",
+    "notes": ""
+  },
+  "core.template.saved": {
+    "translation": "Saved as a new template",
+    "notes": ""
+  },
+  "core.export.gist": {
+    "translation": "Creating a public GitHub gist...",
+    "notes": ""
+  },
+  "generic.error.authentication": {
+    "translation": "Authentication error!",
+    "notes": ""
+  },
+  "core.template.blank": {
+    "translation": "Blank Project",
+    "notes": ""
+  },
+  "core.template.javascript": {
+    "translation": "JavaScript Starter",
+    "notes": ""
+  },
+  "core.template.typescript": {
+    "translation": "TypeScript Starter",
+    "notes": ""
+  },
+  "core.template.react": {
+    "translation": "React Starter",
+    "notes": ""
+  },
+  "core.template.vue": {
+    "translation": "Vue 3 Starter",
+    "notes": ""
+  },
+  "core.error.failedToParseSettings": {
+    "translation": "Failed parsing settings as JSON",
+    "notes": ""
+  },
+  "core.result.hint": {
+    "translation": "Show result in new window",
+    "notes": ""
+  },
+  "core.zoom.hint": {
+    "translation": "Zoom",
+    "notes": ""
+  },
+  "core.fullScreen.enter": {
+    "translation": "Full Screen",
+    "notes": ""
+  },
+  "core.fullScreen.exit": {
+    "translation": "Exit Full Screen",
+    "notes": ""
+  },
+  "core.unload.notSaved": {
+    "translation": "Changes you made may not be saved.",
+    "notes": ""
+  },
+  "core.import.loading": {
+    "translation": "Loading Project...",
+    "notes": ""
+  },
+  "core.error.couldNotLoadTemplate": {
+    "translation": "Could not load template: {{template}}",
+    "notes": ""
+  },
+  "core.error.invalidImport": {
+    "translation": "Invalid import URL",
+    "notes": ""
+  },
+  "core.loadDefaults.template": {
+    "translation": "Loading default template",
+    "notes": ""
+  },
+  "core.error.invalidPanelId": {
+    "translation": "Invalid panel id",
+    "notes": ""
+  },
+  "core.error.unavailableForEmbeds": {
+    "translation": "Command unavailable for embeds",
+    "notes": ""
+  },
+  "core.error.unavailable": {
+    "translation": "Command unavailable",
+    "notes": ""
+  },
+  "core.error.invalidToken": {
+    "translation": "Invalid token!",
+    "notes": ""
+  },
+  "core.broadcast.successSetToken": {
+    "translation": "Broadcast user token set successfully",
+    "notes": ""
+  },
+  "core.error.invalidCommand": {
+    "translation": "Invalid command!",
+    "notes": ""
+  },
+  "assets.url.success": {
+    "translation": "URL is copied to clipboard.",
+    "notes": ""
+  },
+  "assets.url.fail": {
+    "translation": "Failed to copy URL.",
+    "notes": ""
+  },
+  "assets.link.type": {
+    "translation": "Type: {{type}}",
+    "notes": ""
+  },
+  "assets.link.url": {
+    "translation": "URL: {{url}}",
+    "notes": ""
+  },
+  "assets.generic.clickToCopyURL": {
+    "translation": "Click to copy URL",
+    "notes": ""
+  },
+  "generic.error.exceededSize": {
+    "translation": "Error: Exceeded size {{size}} MB",
+    "notes": ""
+  },
+  "assets.loadFile.error.unauthenticated": {
+    "translation": "Error: Unauthenticated user",
+    "notes": ""
+  },
+  "assets.loadFile.uploading": {
+    "translation": "Uploading...",
+    "notes": ""
+  },
+  "assets.loadFile.upload": {
+    "translation": "Upload file",
+    "notes": ""
+  },
+  "assets.loadFile.error.failedToUpload": {
+    "translation": "Error: Failed to upload file",
+    "notes": ""
+  },
+  "generic.error.failedToReadFile": {
+    "translation": "Error: Failed to read file",
+    "notes": ""
+  },
+  "assets.processAsset.addFile": {
+    "translation": "Added file: ",
+    "notes": ""
+  },
+  "assets.processAsset.urlLabel": {
+    "translation": "URL: ",
+    "notes": ""
+  },
+  "assets.processAsset.deployNotice": {
+    "translation": "The asset should be available on this URL soon (~1 min).",
+    "notes": ""
+  },
+  "assets.processAsset.success": {
+    "translation": "File added to assets!",
+    "notes": ""
+  },
+  "backup.inProgress": {
+    "translation": "In progress...",
+    "notes": ""
+  },
+  "backup.backupBtn": {
+    "translation": "Backup",
+    "notes": ""
+  },
+  "backup.fileInputLabel": {
+    "translation": "Restore from file",
+    "notes": ""
+  },
+  "backup.error.atLeastOneStore": {
+    "translation": "Please select at least one store to backup",
+    "notes": ""
+  },
+  "backup.error.incorrectFileType": {
+    "translation": "Error: Incorrect file type",
+    "notes": ""
+  },
+  "backup.restore.success": {
+    "translation": "Restored Successfully!",
+    "notes": ""
+  },
+  "broadcast.broadcastBtn.stop": {
+    "translation": "Stop broadcast",
+    "notes": ""
+  },
+  "broadcast.broadcastBtn.start": {
+    "translation": "Broadcast",
+    "notes": ""
+  },
+  "broadcast.error.serverURLRequired": {
+    "translation": "Server URL is required!",
+    "notes": ""
+  },
+  "broadcast.connecting": {
+    "translation": "Connecting...",
+    "notes": ""
+  },
+  "broadcast.error.generic": {
+    "translation": "Broadcast failed!",
+    "notes": ""
+  },
+  "deploy.error.generic": {
+    "translation": "Deployment failed!",
+    "notes": ""
+  },
+  "deploy.error.repoNameRequired": {
+    "translation": "Repo name is required",
+    "notes": ""
+  },
+  "deploy.deploying": {
+    "translation": "Deploying...",
+    "notes": ""
+  },
+  "deploy.deploy": {
+    "translation": "Deploy",
+    "notes": ""
+  },
+  "deploy.searchRepo": {
+    "translation": "Search your public repos...",
+    "notes": ""
+  },
+  "editorSettings.default": {
+    "translation": "Default",
+    "notes": ""
+  },
+  "editorSettings.enableAI.heading": {
+    "translation": "Enable AI Code Assistant",
+    "notes": ""
+  },
+  "editorSettings.enableAI.note": {
+    "translation": "Powered by <tag-1><tag-0></tag-0></tag-1>",
+    "notes": "### <tag-0> ###\n<img src=\"{{DOCS_BASE_URL}}img/credits/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n"
+  },
+  "editorSettings.editor.heading": {
+    "translation": "Editor",
+    "notes": ""
+  },
+  "editorSettings.editor.monaco": {
+    "translation": "Monaco",
+    "notes": ""
+  },
+  "editorSettings.editor.codemirror": {
+    "translation": "CodeMirror",
+    "notes": ""
+  },
+  "editorSettings.editor.codejar": {
+    "translation": "CodeJar",
+    "notes": ""
+  },
+  "editorSettings.theme": {
+    "translation": "Dark Mode",
+    "notes": ""
+  },
+  "editorSettings.editorTheme": {
+    "translation": "Editor Theme",
+    "notes": ""
+  },
+  "editorSettings.fontFamily": {
+    "translation": "Font Family",
+    "notes": ""
+  },
+  "editorSettings.fontSize": {
+    "translation": "Font Size",
+    "notes": ""
+  },
+  "editorSettings.useTabs.heading": {
+    "translation": "Indentation",
+    "notes": ""
+  },
+  "editorSettings.useTabs.spaces": {
+    "translation": "Spaces",
+    "notes": ""
+  },
+  "editorSettings.useTabs.tabs": {
+    "translation": "Tabs",
+    "notes": ""
+  },
+  "editorSettings.tabSize": {
+    "translation": "Tab Size",
+    "notes": ""
+  },
+  "editorSettings.lineNumbers": {
+    "translation": "Show line numbers",
+    "notes": ""
+  },
+  "editorSettings.wordWrap": {
+    "translation": "Word-wrap",
+    "notes": ""
+  },
+  "editorSettings.closeBrackets": {
+    "translation": "Auto-close brackets and quotes",
+    "notes": ""
+  },
+  "editorSettings.emmet": {
+    "translation": "Enable Emmet *",
+    "notes": ""
+  },
+  "editorSettings.editorMode.heading": {
+    "translation": "Editor Mode *",
+    "notes": ""
+  },
+  "editorSettings.editorMode.vim": {
+    "translation": "Vim",
+    "notes": ""
+  },
+  "editorSettings.editorMode.emacs": {
+    "translation": "Emacs",
+    "notes": ""
+  },
+  "editorSettings.semicolons": {
+    "translation": "Format: Use Semicolons",
+    "notes": ""
+  },
+  "editorSettings.singleQuote": {
+    "translation": "Format: Use Single Quotes",
+    "notes": ""
+  },
+  "editorSettings.trailingComma": {
+    "translation": "Format: Use Trailing Commas",
+    "notes": ""
+  },
+  "editorSettings.notAvailableInCodeJar": {
+    "translation": "Not available in CodeJar",
+    "notes": ""
+  },
+  "embedUI.theme.heading": {
+    "translation": "Theme",
+    "notes": ""
+  },
+  "embedUI.theme.dark": {
+    "translation": "Dark",
+    "notes": ""
+  },
+  "embedUI.theme.light": {
+    "translation": "Light",
+    "notes": ""
+  },
+  "embedUI.loading.heading": {
+    "translation": "Loading",
+    "notes": ""
+  },
+  "embedUI.loading.lazy": {
+    "translation": "Lazy",
+    "notes": ""
+  },
+  "embedUI.loading.click": {
+    "translation": "On-click",
+    "notes": ""
+  },
+  "embedUI.loading.eager": {
+    "translation": "Eager",
+    "notes": ""
+  },
+  "embedUI.lite": {
+    "translation": "Lite Mode",
+    "notes": ""
+  },
+  "embedUI.readonly": {
+    "translation": "Read only",
+    "notes": ""
+  },
+  "embedUI.mode.heading": {
+    "translation": "Display Mode",
+    "notes": ""
+  },
+  "embedUI.mode.full": {
+    "translation": "Full",
+    "notes": ""
+  },
+  "embedUI.mode.editor": {
+    "translation": "Editor",
+    "notes": ""
+  },
+  "embedUI.mode.codeblock": {
+    "translation": "Code Block",
+    "notes": ""
+  },
+  "embedUI.mode.result": {
+    "translation": "Result",
+    "notes": ""
+  },
+  "embedUI.view.heading": {
+    "translation": "Default View",
+    "notes": ""
+  },
+  "embedUI.view.split": {
+    "translation": "Split",
+    "notes": ""
+  },
+  "embedUI.view.editor": {
+    "translation": "Editor",
+    "notes": ""
+  },
+  "embedUI.view.result": {
+    "translation": "Result",
+    "notes": ""
+  },
+  "embedUI.activeEditor.heading": {
+    "translation": "Active Editor",
+    "notes": ""
+  },
+  "embedUI.activeEditor.markup": {
+    "translation": "{{markup}}",
+    "notes": ""
+  },
+  "embedUI.activeEditor.style": {
+    "translation": "{{style}}",
+    "notes": ""
+  },
+  "embedUI.activeEditor.script": {
+    "translation": "{{script}}",
+    "notes": ""
+  },
+  "embedUI.tools.heading": {
+    "translation": "Tools",
+    "notes": ""
+  },
+  "embedUI.tools.closed": {
+    "translation": "Closed",
+    "notes": ""
+  },
+  "embedUI.tools.open": {
+    "translation": "Open",
+    "notes": ""
+  },
+  "embedUI.tools.full": {
+    "translation": "Full",
+    "notes": ""
+  },
+  "embedUI.tools.none": {
+    "translation": "None",
+    "notes": ""
+  },
+  "embedUI.activeTool.heading": {
+    "translation": "Active Tool",
+    "notes": ""
+  },
+  "embedUI.activeTool.console": {
+    "translation": "Console",
+    "notes": ""
+  },
+  "embedUI.activeTool.compiled": {
+    "translation": "Compiled",
+    "notes": ""
+  },
+  "embedUI.activeTool.tests": {
+    "translation": "Tests",
+    "notes": ""
+  },
+  "embedUI.permanentUrl": {
+    "translation": "Permanent URL",
+    "notes": ""
+  },
+  "embedUI.embedType.heading": {
+    "translation": "Embed Type",
+    "notes": ""
+  },
+  "embedUI.embedType.cdn": {
+    "translation": "Script (CDN)",
+    "notes": ""
+  },
+  "embedUI.embedType.npm": {
+    "translation": "JS (npm)",
+    "notes": ""
+  },
+  "embedUI.embedType.react": {
+    "translation": "React",
+    "notes": ""
+  },
+  "embedUI.embedType.vue": {
+    "translation": "Vue",
+    "notes": ""
+  },
+  "embedUI.embedType.svelte": {
+    "translation": "Svelte",
+    "notes": ""
+  },
+  "embedUI.embedType.iframe": {
+    "translation": "Iframe",
+    "notes": ""
+  },
+  "embedUI.embedType.html": {
+    "translation": "HTML",
+    "notes": ""
+  },
+  "generic.loading": {
     "translation": "Loading...",
     "notes": ""
+  },
+  "import.error.failedToLoadURL": {
+    "translation": "Error: failed to load URL",
+    "notes": ""
+  },
+  "import.error.invalidConfigFile": {
+    "translation": "Invalid configuration file",
+    "notes": ""
+  },
+  "import.success": {
+    "translation": "Import Successful!",
+    "notes": ""
+  },
+  "import.error.invalidFile": {
+    "translation": "Error: Invalid file",
+    "notes": ""
+  },
+  "login.logout": {
+    "translation": "Log out",
+    "notes": ""
+  },
+  "login.loginAs": {
+    "translation": "Logged in as {{name}}",
+    "notes": ""
+  },
+  "open.filter.language": {
+    "translation": "filter by language",
+    "notes": ""
+  },
+  "open.filter.tag": {
+    "translation": "filter by tag",
+    "notes": ""
+  },
+  "open.lastModified": {
+    "translation": "Last modified: {{modified}}",
+    "notes": ""
+  },
+  "open.setAsDefault": {
+    "translation": "Set as default",
+    "notes": ""
+  },
+  "open.defaultTemplate": {
+    "translation": "Default template ",
+    "notes": ""
+  },
+  "open.removeDefault": {
+    "translation": "(unset)",
+    "notes": ""
+  },
+  "open.delete.all": {
+    "translation": "Delete {{projects}} projects?",
+    "notes": ""
+  },
+  "open.delete.one": {
+    "translation": "Delete project: {{project}}?",
+    "notes": ""
+  },
+  "qrcode.clickToDownload": {
+    "translation": "Click to download",
+    "notes": ""
+  },
+  "resources.browseOnJsDelivr": {
+    "translation": "Browse package files on jsDelivr",
+    "notes": ""
+  },
+  "resources.error.failedToLoadResults": {
+    "translation": "Failed to load results!",
+    "notes": ""
+  },
+  "resources.error.noResultsFound": {
+    "translation": "No results found for: ",
+    "notes": ""
+  },
+  "resources.font.select": {
+    "translation": "Select font ...",
+    "notes": ""
+  },
+  "resources.font.add": {
+    "translation": "Add",
+    "notes": ""
+  },
+  "share.error.failedToCopy": {
+    "translation": "Copy to clipboard failed!",
+    "notes": ""
+  },
+  "share.copy.copied": {
+    "translation": "URL copied to clipboard",
+    "notes": ""
+  },
+  "share.copy.clickToCopy": {
+    "translation": "Click to copy",
+    "notes": ""
+  },
+  "share.services.twitter": {
+    "translation": "𝕏 / Twitter",
+    "notes": ""
+  },
+  "share.services.share": {
+    "translation": "Share via …",
+    "notes": ""
+  },
+  "share.services.facebook": {
+    "translation": "Facebook",
+    "notes": ""
+  },
+  "share.services.hackerNews": {
+    "translation": "Hacker News",
+    "notes": ""
+  },
+  "share.services.reddit": {
+    "translation": "Reddit",
+    "notes": ""
+  },
+  "share.services.linkedIn": {
+    "translation": "LinkedIn",
+    "notes": ""
+  },
+  "share.services.devTo": {
+    "translation": "Dev.to",
+    "notes": ""
+  },
+  "share.services.tumblr": {
+    "translation": "Tumblr",
+    "notes": ""
+  },
+  "share.services.pinterest": {
+    "translation": "Pinterest",
+    "notes": ""
+  },
+  "share.services.whatsApp": {
+    "translation": "WhatsApp",
+    "notes": ""
+  },
+  "share.services.telegram": {
+    "translation": "Telegram",
+    "notes": ""
+  },
+  "share.services.pocket": {
+    "translation": "Pocket",
+    "notes": ""
+  },
+  "share.services.email": {
+    "translation": "Email",
+    "notes": ""
+  },
+  "share.services.copyUrl": {
+    "translation": "Copy URL",
+    "notes": ""
+  },
+  "share.services.qrCode": {
+    "translation": "QR code",
+    "notes": ""
+  },
+  "share.generateURL": {
+    "translation": "Generating URL …",
+    "notes": ""
+  },
+  "share.error.failedToGenerateURL": {
+    "translation": "Failed to generate short URL!",
+    "notes": ""
+  },
+  "snippets.text": {
+    "translation": "Plain Text",
+    "notes": ""
+  },
+  "snippets.copy.copied": {
+    "translation": "Snippet is copied to clipboard.",
+    "notes": ""
+  },
+  "snippets.error.failedToCopy": {
+    "translation": "Failed to copy URL.",
+    "notes": ""
+  },
+  "snippets.copy.clickToCopySnippet": {
+    "translation": "Click to copy snippet",
+    "notes": ""
+  },
+  "snippetes.lastModified": {
+    "translation": "Last modified: {{modified}}",
+    "notes": ""
+  },
+  "snippets.filter.language": {
+    "translation": "filter by language",
+    "notes": ""
+  },
+  "snippets.action.copy": {
+    "translation": "Copy",
+    "notes": ""
+  },
+  "snippets.action.edit": {
+    "translation": "Edit",
+    "notes": ""
+  },
+  "snippets.action.delete": {
+    "translation": "Delete",
+    "notes": ""
+  },
+  "snippets.delete.all": {
+    "translation": "Delete {{snippets}} snippets?",
+    "notes": ""
+  },
+  "snippets.delete.one": {
+    "translation": "Delete snippet: {{snippet}}}?",
+    "notes": ""
+  },
+  "snippets.error.noTitle": {
+    "translation": "Please add snippet title.",
+    "notes": ""
+  },
+  "snippets.save.success": {
+    "translation": "Snippet locally saved to device!",
+    "notes": ""
+  },
+  "syncUI.syncInProgress": {
+    "translation": "Sync in progress...",
+    "notes": ""
+  },
+  "syncUI.sync": {
+    "translation": "Sync",
+    "notes": ""
+  },
+  "syncUI.syncStarted": {
+    "translation": "Sync started...",
+    "notes": ""
+  },
+  "syncUI.error.generic": {
+    "translation": "Sync failed!",
+    "notes": ""
+  },
+  "syncUI.success": {
+    "translation": "Sync complete!",
+    "notes": ""
+  },
+  "syncUI.error.repoNameRequired": {
+    "translation": "Repo name is required",
+    "notes": ""
+  },
+  "syncUI.searchRepos": {
+    "translation": "Search your repos...",
+    "notes": ""
+  },
+  "templates.noUserTemplates.heading": {
+    "translation": "You have no saved templates.",
+    "notes": ""
+  },
+  "templates.noUserTemplates.desc": {
+    "translation": "You can save a project as a template from <tag-0></tag-0>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).",
+    "notes": "### <tag-0> ###\n<wbr  />\n\n"
   }
 }
