@@ -26,10 +26,20 @@ const structuredJSON = {
 
 const writeTranslation = async (namespace) => {
   const name = namespace === 'translation' ? 'translation' : 'languageInfo';
-  const code =
-    `import { type I18nTranslationTemplate } from '../models';\n\nconst ${name} = ` +
-    JSON.stringify(trans[namespace], null, 2) +
-    ` as const satisfies I18nTranslationTemplate;\n\nexport default ${name};`;
+  const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
+  const code = `import { type I18nTranslationTemplate } from '../models';
+
+    // This is used as a template for other translations.
+    // Other translations should be typed like this:
+    // const ${name}: ${type} = { /* translation here */ };
+
+    // Since we allow nested objects, it is important to distinguish I18nTranslationTemplate from I18nAttributes.
+    // In view of this, properties declared in I18nAttributes (and those attributes might be used in future) shall not be used as a nested key.
+    
+    const ${name} = ${JSON.stringify(trans[namespace], null, 2)} as const satisfies I18nTranslationTemplate;
+    
+    export default ${name};
+  `;
 
   const translationContent = await prettier.format(code, {
     parser: 'typescript',
@@ -82,69 +92,72 @@ const addTranslation = (nsKey, value, desc, props) => {
   }
 };
 
-const processHTML = async (files) => {
-  // From src/livecodes/i18n/utils.ts
-  const abstractifyHTML = (html) => {
-    const doc = new jsdom.JSDOM(html).window.document;
-    const elements = [];
+// From src/livecodes/i18n/utils.ts
+const abstractifyHTML = (html) => {
+  const doc = new jsdom.JSDOM(html).window.document;
+  const elements = [];
 
-    let counter = 0;
+  let counter = 0;
 
-    const replaceElement = (node) => {
-      if (node.nodeType !== doc.ELEMENT_NODE) return;
+  const replaceElement = (node) => {
+    if (node.nodeType !== doc.ELEMENT_NODE) return;
 
-      node.childNodes.forEach((child) => {
-        replaceElement(child);
-      });
+    node.childNodes.forEach((child) => {
+      replaceElement(child);
+    });
 
-      const name = node.tagName.toLowerCase();
-      if (name === 'body') return;
+    const name = node.tagName.toLowerCase();
+    if (name === 'body') return;
 
-      const attributes =
-        node.attributes.length === 0
-          ? undefined
-          : Array.from(node.attributes).reduce((acc, attr) => {
-              acc[attr.name] = attr.value;
-              return acc;
-            }, {});
+    const attributes =
+      node.attributes.length === 0
+        ? undefined
+        : Array.from(node.attributes).reduce((acc, attr) => {
+            acc[attr.name] = attr.value;
+            return acc;
+          }, {});
 
-      elements.push({ name, attributes });
+    elements.push({ name, attributes });
 
-      const newElement = doc.createElement(`tag-${counter}`);
-      while (node.firstChild) {
-        newElement.appendChild(node.firstChild);
-      }
+    const newElement = doc.createElement(`tag-${counter}`);
+    while (node.firstChild) {
+      newElement.appendChild(node.firstChild);
+    }
 
-      // node.parentNode is always defined because we're traversing from the body
-      node.parentNode.replaceChild(newElement, node);
+    // node.parentNode is always defined because we're traversing from the body
+    node.parentNode.replaceChild(newElement, node);
 
-      counter++;
-    };
-
-    replaceElement(doc.body);
-    return {
-      html: doc.body.innerHTML.replace(/tag-/g, '').replace(/\s+/g, ' ').trim(),
-      elements: elements,
-    };
+    counter++;
   };
 
+  replaceElement(doc.body);
+  return {
+    html: doc.body.innerHTML.replace(/tag-/g, '').replace(/\s+/g, ' ').trim(),
+    elements: elements,
+  };
+};
+
+const generateElementsNote = (elements) =>
+  elements
+    .map(
+      (el, index) =>
+        `### <${index}> ###\n<${el.name} ${
+          el.attributes
+            ? Object.keys(el.attributes)
+                .map((attr) => `${attr}="${el.attributes[attr]}"`)
+                .join(' ')
+            : ''
+        } />\n\n`,
+    )
+    .join('');
+
+const processHTML = async (files) => {
   const getValueAndContext = (element, prop) => {
     if (prop === 'innerHTML') {
       const { html, elements } = abstractifyHTML(element.innerHTML);
       return {
         value: html,
-        desc: elements
-          .map(
-            (el, index) =>
-              `### <${index}> ###\n<${el.name} ${
-                el.attributes
-                  ? Object.keys(el.attributes)
-                      .map((attr) => `${attr}="${el.attributes[attr]}"`)
-                      .join(' ')
-                  : ''
-              } />\n\n`,
-          )
-          .join(''),
+        desc: generateElementsNote(elements),
       };
     }
     return {
@@ -210,12 +223,27 @@ const processTS = async (files) => {
               path.node.arguments[0].type === 'StringLiteral' &&
               path.node.arguments[1].type === 'StringLiteral'
             ) {
-              addTranslation(
-                path.node.arguments[0].value,
-                path.node.arguments[1].value,
-                '',
-                undefined,
-              );
+              if (
+                !path.node.arguments[2] ||
+                path.node.arguments[2].properties.every(
+                  (prop) => !prop.key || prop.key.name !== 'isHTML',
+                )
+              ) {
+                addTranslation(
+                  path.node.arguments[0].value,
+                  path.node.arguments[1].value,
+                  '',
+                  undefined,
+                );
+              } else {
+                const { html, elements } = abstractifyHTML(path.node.arguments[1].value);
+                addTranslation(
+                  path.node.arguments[0].value,
+                  html,
+                  generateElementsNote(elements),
+                  undefined,
+                );
+              }
             }
           },
         });
