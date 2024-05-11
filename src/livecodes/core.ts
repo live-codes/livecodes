@@ -334,7 +334,7 @@ const loadModuleTypes = async (
       loadAll,
       force,
     );
-    libs.forEach((lib) => editors.script.addTypes?.(lib));
+    libs.forEach((lib) => editors.script.addTypes?.(lib, force));
   }
 };
 

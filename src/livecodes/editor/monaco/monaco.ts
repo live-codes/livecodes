@@ -269,13 +269,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
   };
 
-  const addTypes = (type: EditorLibrary) => {
-    const code = type.content;
-    const path = 'file://' + type.filename;
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path);
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path);
-  };
-
   const configureEditor = () => {
     const JSLangs = ['javascript', 'jsx', 'flow', 'solid', 'react-native'];
     const hasJsx = [
@@ -321,7 +314,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       editor,
       monaco,
       compilerOptions,
-      addTypes,
     });
   };
 
@@ -417,6 +409,23 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     libJs: { dispose: () => void };
     libTs: { dispose: () => void };
   }> = [];
+
+  const addTypes = (type: EditorLibrary, force?: boolean) => {
+    const code = type.content;
+    const path = 'file://' + type.filename;
+    const loadedType = types.find((t) => t.filename === type.filename);
+    if (loadedType) {
+      if (!force) return;
+      loadedType.libJs?.dispose();
+      loadedType.libTs?.dispose();
+      types = types.filter((t) => t.filename !== type.filename);
+    }
+    types.push({
+      filename: type.filename,
+      libJs: monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path),
+      libTs: monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path),
+    });
+  };
 
   const isEditorType = (type: { filename: string }) => !type.filename.startsWith('/node_modules/');
 

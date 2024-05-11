@@ -4,27 +4,22 @@
 import type * as Monaco from 'monaco-editor';
 import type TS from 'typescript';
 
-import type { EditorLibrary } from '../../models';
 import { loadScript } from '../../utils/utils';
-import { typescriptAtaUrl, typescriptUrl } from '../../vendors';
+import { typescriptUrl } from '../../vendors';
 import { extractTwoSlashCompilerOptions, twoslashCompletions } from './twoslashSupport';
 
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
-
-let ata: any;
 
 export const configureTSFeatures = async ({
   isJSLang,
   editor,
   monaco,
   compilerOptions,
-  addTypes,
 }: {
   isJSLang: boolean;
   editor: Monaco.editor.IStandaloneCodeEditor;
   monaco: typeof Monaco;
   compilerOptions: CompilerOptions;
-  addTypes: (type: EditorLibrary, force?: boolean) => void;
 }) => {
   const ts = (await loadScript(typescriptUrl, 'ts')) as typeof TS;
   const language = isJSLang ? 'javascript' : 'typescript';
@@ -72,43 +67,11 @@ export const configureTSFeatures = async ({
 
   const getTwoSlashCompilerOptions = extractTwoSlashCompilerOptions(ts);
 
-  const ataModule = await import(typescriptAtaUrl);
-  const { setupTypeAcquisition } = ataModule;
-  ata =
-    ata ||
-    setupTypeAcquisition({
-      projectName: 'TypeScript Playground',
-      typescript: ts,
-      logger: {
-        log: () => undefined,
-        error: () => undefined,
-        groupCollapsed: () => undefined,
-        groupEnd: () => undefined,
-      },
-      delegate: {
-        receivedFile: (code: string, path: string) => {
-          // addLibraryToRuntime(code, path);
-          addTypes({ content: code, filename: path });
-          // console.log({ content: code, filename: path });
-        },
-        progress: (_downloaded: number, _total: number) => {
-          // console.log({ _downloaded, _total })
-        },
-        started: () => {
-          // console.log("ATA start")
-        },
-        finished: (_files: Map<string, string>) => {
-          // console.log("ATA done")
-        },
-      },
-    });
-
   const textUpdated = () => {
     const code = editor.getModel()?.getValue();
     if (!code) return;
     const configOpts = getTwoSlashCompilerOptions(code);
     updateCompilerSettings(configOpts);
-    ata(code);
   };
 
   textUpdated();

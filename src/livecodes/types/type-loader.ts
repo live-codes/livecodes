@@ -1,11 +1,15 @@
 /* eslint-disable import/no-internal-modules */
+import type TS from 'typescript';
+
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
 import { loadScript, objectFilter, safeName } from '../utils/utils';
-import { typescriptUrl } from '../vendors';
+import { typescriptAtaUrl, typescriptUrl } from '../vendors';
 
 export const createTypeLoader = (baseUrl: string) => {
+  let ts: typeof TS;
+  let ata: any;
   let loadedTypes: Types = {};
   const libs: EditorLibrary[] = [];
 
@@ -23,12 +27,12 @@ export const createTypeLoader = (baseUrl: string) => {
         if (!res.ok) throw new Error('Failed fetching: ' + url);
         let dts = await res.text();
 
-        // if (hasUrlImportsOrExports(dts)) {
-        //   const dtsBundleModule: typeof import('./bundle-types') = await import(
-        //     baseUrl + '{{hash:bundle-types.js}}'
-        //   );
-        //   dts = await dtsBundleModule.bundle({ name, main: url });
-        // }
+        if (hasUrlImportsOrExports(dts)) {
+          const dtsBundleModule: typeof import('./bundle-types') = await import(
+            baseUrl + '{{hash:bundle-types.js}}'
+          );
+          dts = await dtsBundleModule.bundle({ name, main: url });
+        }
 
         const declareAsModule =
           !dts.includes('declare module') ||
@@ -63,11 +67,58 @@ export const createTypeLoader = (baseUrl: string) => {
     return lib;
   };
 
-  const loadTypes = (types: Types) =>
-    Promise.all(Object.keys(types).map((t) => getTypeContents({ [t]: types[t] })));
+  const getTypesFromAta = async (code: string) =>
+    new Promise<EditorLibrary[]>(async (resolve) => {
+      if (!code?.trim()) {
+        resolve([]);
+        return;
+      }
+      ts = ts || ((await loadScript(typescriptUrl, 'ts')) as typeof TS);
+      const ataModule = await import(typescriptAtaUrl);
+      const { setupTypeAcquisition } = ataModule;
+      const ataTypes: EditorLibrary[] = [];
+      ata =
+        ata ||
+        setupTypeAcquisition({
+          projectName: 'Playground',
+          typescript: ts,
+          logger: {
+            log: () => undefined,
+            error: () => undefined,
+            groupCollapsed: () => undefined,
+            groupEnd: () => undefined,
+          },
+          delegate: {
+            receivedFile: (code: string, path: string) => {
+              ataTypes.push({ content: code, filename: path });
+            },
+            progress: (_downloaded: number, _total: number) => {
+              // console.log({ _downloaded, _total })
+            },
+            started: () => {
+              // console.log("ATA start")
+            },
+            finished: (_files: Map<string, string>) => {
+              libs.push(...ataTypes);
+              resolve(ataTypes);
+            },
+          },
+        });
+      ata(code);
+    });
+
+  const loadTypes = async (types: Types) => {
+    const typesWithUrls = objectFilter(types, (value) => value !== '');
+    const typesWithoutUrls = objectFilter(types, (value) => value === '');
+    return [
+      ...(await Promise.all(
+        Object.keys(typesWithUrls).map((t) => getTypeContents({ [t]: typesWithUrls[t] })),
+      )),
+      ...(await getTypesFromAta(typesService.getTypesAsImports(Object.keys(typesWithoutUrls)))),
+    ];
+  };
 
   const load = async (code: string, configTypes: Types, loadAll = false, forceLoad = false) => {
-    return [];
     const imports = getImports(code);
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
@@ -100,7 +151,7 @@ export const createTypeLoader = (baseUrl: string) => {
       ...typesToGet.reduce((acc, cur) => ({ ...acc, [cur]: '' }), {}),
     };
 
-    const fetchedTypes = await typesService.getTypeUrls(typesToGet);
+    const fetchedTypes = typesToGet.reduce((acc, cur) => ({ ...acc, [cur]: '' }), {});
 
     const autoloadTypes: Types = objectFilter(
       configTypes,
@@ -111,48 +162,9 @@ export const createTypeLoader = (baseUrl: string) => {
     );
 
     const newLibs = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
+
     return loadAll ? libs : newLibs;
   };
-
-  // let ata: any;
-  // const load = async (code: string, configTypes: Types, loadAll = false, forceLoad = false) =>
-  //   new Promise<EditorLibrary[]>(async (resolve) => {
-  //     const ts = await loadScript(typescriptUrl, 'ts');
-  //     const libs: EditorLibrary[] = [];
-  //     const ataModule = await import('https://unpkg.com/@typescript/ata@0.9.4/dist/index.js');
-  //     const { setupTypeAcquisition } = ataModule;
-  //     const noop = () => undefined;
-  //     ata =
-  //       ata ||
-  //       setupTypeAcquisition({
-  //         projectName: 'TypeScript Playground',
-  //         typescript: ts,
-  //         logger: {
-  //           log: noop,
-  //           error: noop,
-  //           groupCollapsed: noop,
-  //           groupEnd: noop,
-  //         },
-  //         delegate: {
-  //           receivedFile: (code: string, path: string) => {
-  //             console.log({ content: code, filename: path });
-  //             // addTypes({ content: code, filename: path });
-  //             libs.push({ filename: path, content: code });
-  //           },
-  //           progress: (_downloaded: number, _total: number) => {
-  //             // console.log({ _downloaded, _total })
-  //           },
-  //           started: () => {
-  //             // console.log("ATA start")
-  //           },
-  //           finished: (_files: Map<string, string>) => {
-  //             // console.log("ATA done")
-  //             resolve(libs);
-  //           },
-  //         },
-  //       });
-  //     ata(code);
-  //   });
 
   return {
     load,
