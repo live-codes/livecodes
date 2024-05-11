@@ -13,6 +13,8 @@ LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version
 
 The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.md) in the [Tools Pane](../features/tools-pane.md) (below the result page). Console output is shown in the [integrated console](../features/console.md).
 
+Please note that the compiler messages (e.g. errors and warnings) are shown in the browser console (not the integrated console).
+
 ### Standard Library
 
 [Gleam's standard library](https://hexdocs.pm/gleam_stdlib/) in addition to the following packages are available for use and can be imported as usual with no additional configuration:
