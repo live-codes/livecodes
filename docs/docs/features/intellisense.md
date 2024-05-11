@@ -137,6 +137,7 @@ The JavaScript output (Greeter.js) and the data definition file (Greeter.d.ts) s
 Then, they can be used like that:
 
 export const customModules = {
+editor: 'monaco',
 activeEditor: 'script',
 script: {
 language: 'typescript',
