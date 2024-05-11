@@ -2,7 +2,7 @@
 import { infoScreen } from '../html';
 import type { createModal } from '../modal';
 import * as UI from '../UI';
-import { loadScript, loadStylesheet, removeDuplicates } from '../utils/utils';
+import { loadStylesheet, removeDuplicates } from '../utils/utils';
 import { tagifyBaseUrl } from '../vendors';
 import type { Config } from '../models';
 import type { ProjectStorage } from '../storage';
