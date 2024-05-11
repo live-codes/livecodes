@@ -10,7 +10,7 @@ import { extractTwoSlashCompilerOptions, twoslashCompletions } from './twoslashS
 
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
 
-export const configureTSFeatures = async ({
+export const registerTwoSlash = async ({
   isJSLang,
   editor,
   monaco,
@@ -30,13 +30,6 @@ export const configureTSFeatures = async ({
   const defaults = isJSLang
     ? monaco.languages.typescript.javascriptDefaults
     : monaco.languages.typescript.typescriptDefaults;
-
-  defaults.setDiagnosticsOptions({
-    ...defaults.getDiagnosticsOptions(),
-    noSemanticValidation: false,
-    // This is when tslib is not found
-    diagnosticCodesToIgnore: [2354],
-  });
 
   const model = editor.getModel();
 

@@ -29,7 +29,7 @@ import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
 import { customThemes, monacoThemes } from './monaco-themes';
-import { configureTSFeatures } from './monaco-sandbox';
+import { registerTwoSlash } from './register-twoslash';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
 declare const globalThis: {
@@ -269,7 +269,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
   };
 
-  const configureEditor = () => {
+  const configureTypeScriptFeatures = () => {
     const JSLangs = ['javascript', 'jsx', 'flow', 'solid', 'react-native'];
     const hasJsx = [
       'jsx',
@@ -309,12 +309,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(disgnosticsOptions);
     monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(disgnosticsOptions);
 
-    configureTSFeatures({
-      isJSLang,
-      editor,
-      monaco,
-      compilerOptions,
-    });
+    registerTwoSlash({ isJSLang, editor, monaco, compilerOptions });
   };
 
   type Listener = () => void;
@@ -345,7 +340,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
     updateListeners();
-    configureEditor();
+    configureTypeScriptFeatures();
   };
 
   let language = options.language;
@@ -410,24 +405,34 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     libTs: { dispose: () => void };
   }> = [];
 
+  const isEditorType = (type: { filename: string }) => !type.filename.startsWith('/node_modules/');
+
   const addTypes = (type: EditorLibrary, force?: boolean) => {
     const code = type.content;
     const path = 'file://' + type.filename;
     const loadedType = types.find((t) => t.filename === type.filename);
     if (loadedType) {
+      if (isEditorType(type)) {
+        loadedType.libJs.dispose();
+        loadedType.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path);
+      }
       if (!force) return;
       loadedType.libJs?.dispose();
       loadedType.libTs?.dispose();
-      types = types.filter((t) => t.filename !== type.filename);
     }
     types.push({
       filename: type.filename,
-      libJs: monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path),
-      libTs: monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path),
+      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path),
+      libTs: isEditorType(type)
+        ? {
+            // avoid duplicate declarations for typescript
+            dispose: () => {
+              // do nothing
+            },
+          }
+        : monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path),
     });
   };
-
-  const isEditorType = (type: { filename: string }) => !type.filename.startsWith('/node_modules/');
 
   const clearTypes = (allTypes = true) => {
     types
