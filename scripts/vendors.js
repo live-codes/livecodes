@@ -28,35 +28,9 @@ const buildVendors = () => {
     sourcemap: true,
     sourcesContent: true,
     outdir: outputDir,
-    format: 'iife',
+    format: 'esm',
     define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
   };
-
-  // Monaco editor
-  esbuild.buildSync({
-    ...baseOptions,
-    outdir: monacoOutDir,
-    entryPoints: [srcDir + 'monaco-editor.ts'],
-    loader: { '.ttf': 'file' },
-    format: 'esm',
-  });
-
-  // Monaco editor workers
-  const entryFiles = [
-    'node_modules/monaco-editor/esm/vs/language/json/json.worker.js',
-    'node_modules/monaco-editor/esm/vs/language/css/css.worker.js',
-    'node_modules/monaco-editor/esm/vs/language/html/html.worker.js',
-    'node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js',
-    'node_modules/monaco-editor/esm/vs/editor/editor.worker.js',
-  ];
-
-  entryFiles.forEach((entry) => {
-    esbuild.buildSync({
-      ...baseOptions,
-      outdir: monacoOutDir,
-      entryPoints: [entry],
-    });
-  });
 
   // Monaco languages
   esbuild.buildSync({
@@ -68,21 +42,18 @@ const buildVendors = () => {
       // 'monaco-lang-sql.ts',
       'monaco-lang-wat.ts',
     ].map((entry) => srcDir + 'languages/' + entry),
-    format: 'esm',
     outdir: outputDir,
   });
 
   // Codemirror
   esbuild.buildSync({
     ...baseOptions,
-    format: 'esm',
     outdir: codemirrorOutDir,
     entryPoints: ['src/livecodes/editor/codemirror/codemirror-core.ts'],
   });
 
   esbuild.buildSync({
     ...baseOptions,
-    format: 'esm',
     outdir: codemirrorOutDir,
     ignoreAnnotations: true, // required for codemirror-emacs
     entryPoints: [

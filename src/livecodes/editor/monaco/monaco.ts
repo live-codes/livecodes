@@ -17,14 +17,26 @@ import type {
   Config,
 } from '../../models';
 import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
-import { codeiumProviderUrl, emmetMonacoUrl, monacoEmacsUrl, monacoVimUrl } from '../../vendors';
+import {
+  codeiumProviderUrl,
+  emmetMonacoUrl,
+  monacoBaseUrl,
+  monacoEmacsUrl,
+  monacoVimUrl,
+} from '../../vendors';
 import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
 import { customThemes, monacoThemes } from './monaco-themes';
+import { registerTwoSlash } from './register-twoslash';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
+declare const globalThis: {
+  monaco: typeof Monaco;
+  ts: typeof import('typescript');
+  require: any;
+};
 
 let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
@@ -48,6 +60,22 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     getFontFamily,
   } = options;
   if (!container) throw new Error('editor container not found');
+
+  const loadMonaco = () =>
+    new Promise<typeof Monaco>((resolve) => {
+      const script = document.createElement('script');
+      script.src = monacoBaseUrl + '/loader.js';
+      script.addEventListener('load', () => {
+        const re = globalThis.require;
+        re.config({
+          paths: { vs: monacoBaseUrl },
+        });
+        re(['vs/editor/editor.main'], function (monaco: typeof Monaco) {
+          resolve(monaco);
+        });
+      });
+      document.body.appendChild(script);
+    });
 
   let editorMode: any | undefined;
 
@@ -73,10 +101,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         ? 'csharp'
         : mapLanguage(language);
 
-  const monacoPath = baseUrl + 'vendor/monaco-editor/' + process.env.monacoVersion;
   try {
-    (window as any).monaco =
-      (window as any).monaco || (await import(`${monacoPath}/monaco-editor.js`)).monaco;
+    (window as any).monaco = (window as any).monaco || (await loadMonaco());
     monaco = (window as any).monaco;
   } catch {
     throw new Error('Failed to load monaco editor');
@@ -120,6 +146,12 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  // https://github.com/microsoft/TypeScript-Website/blob/eaa8205658445d4df6c0ca04e42fab1019f71df0/packages/sandbox/src/index.ts#L59-L62
+  // Basically android and monaco is pretty bad, this makes it less bad
+  // See https://github.com/microsoft/pxt/pull/7099 for this, and the long
+  // read is in https://github.com/microsoft/monaco-editor/issues/563
+  const isAndroid = navigator && /android/i.test(navigator.userAgent);
+
   const defaultOptions: Options = {
     theme: await loadTheme(theme, editorTheme),
     fontLigatures: true,
@@ -131,6 +163,20 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     automaticLayout: true,
     readOnly: readonly,
     fixedOverflowWidgets: true,
+    lightbulb: {
+      enabled: 'on' as Monaco.editor.ShowLightbulbIconMode.On,
+    },
+    quickSuggestions: {
+      other: !isAndroid,
+      comments: !isAndroid,
+      strings: !isAndroid,
+    },
+    acceptSuggestionOnCommitCharacter: !isAndroid,
+    acceptSuggestionOnEnter: !isAndroid ? 'on' : 'off',
+    accessibilitySupport: !isAndroid ? 'on' : 'off',
+    inlayHints: {
+      enabled: 'on',
+    },
   };
 
   const codeblockOptions: Options = {
@@ -174,76 +220,96 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
             : defaultOptions;
   let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
-  if (!document.head.querySelector('#__livecodes__monaco-styles')) {
-    const stylesheet = document.createElement('link');
-    stylesheet.setAttribute('rel', 'stylesheet');
-    stylesheet.setAttribute('href', `${monacoPath}/monaco-editor.css`);
-    stylesheet.id = '__livecodes__monaco-styles';
-    document.head.appendChild(stylesheet);
-  }
+  type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
 
-  (window as any).MonacoEnvironment = {
-    getWorkerUrl(_moduleId: string, label: string) {
-      if (label === 'json') return `${monacoPath}/json.worker.js`;
-      if (label === 'css') return `${monacoPath}/css.worker.js`;
-      if (label === 'scss') return `${monacoPath}/css.worker.js`;
-      if (label === 'sass') return `${monacoPath}/css.worker.js`;
-      if (label === 'less') return `${monacoPath}/css.worker.js`;
-      if (label === 'html') return `${monacoPath}/html.worker.js`;
-      if (label === 'typescript' || label === 'javascript') {
-        return `${monacoPath}/ts.worker.js`;
-      }
-      return `${monacoPath}/editor.worker.js`;
-    },
+  const getCompilerOptions = ({
+    isJSLang,
+    isJsx,
+    nonReactJsx,
+    monaco,
+  }: {
+    isJSLang: boolean;
+    isJsx: boolean;
+    nonReactJsx: boolean;
+    monaco: typeof Monaco;
+  }): CompilerOptions => {
+    const settings: CompilerOptions = {
+      checkJs: isJSLang,
+      allowJs: isJSLang,
+      allowNonTsExtensions: true,
+      experimentalDecorators: true,
+      emitDecoratorMetadata: true,
+      allowSyntheticDefaultImports: true,
+      allowUmdGlobalAccess: true,
+      esModuleInterop: true,
+      target: monaco.languages.typescript.ScriptTarget.ES2020,
+      module: monaco.languages.typescript.ModuleKind.ESNext,
+      moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+      lib: ['esnext', 'dom'],
+    };
+
+    const jsxSettings: CompilerOptions = {
+      jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
+      jsxFactory: 'React.createElement',
+      reactNamespace: 'React',
+      jsxFragmentFactory: 'React.Fragment',
+    };
+
+    const nonReactJsxSettings: CompilerOptions = {
+      jsx: monaco.languages.typescript.JsxEmit.Preserve,
+      jsxFactory: 'h',
+      reactNamespace: 'h',
+      jsxFragmentFactory: 'Fragment',
+    };
+
+    return {
+      ...settings,
+      ...(isJsx ? jsxSettings : {}),
+      ...(nonReactJsx ? nonReactJsxSettings : {}),
+    };
   };
 
-  const configureEditor = () => {
-    const compilerOptions: Monaco.languages.typescript.CompilerOptions = {
-      jsx: monaco.languages.typescript.JsxEmit.Preserve,
-      allowNonTsExtensions: true,
-      allowJs: false,
-      target: monaco.languages.typescript.ScriptTarget.Latest,
-      experimentalDecorators: true,
-      allowSyntheticDefaultImports: true,
-      lib: ['esnext', 'dom'],
-      module: monaco.languages.typescript.ModuleKind.ESNext,
-    };
-    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
+  const configureTypeScriptFeatures = () => {
+    const JSLangs = ['javascript', 'jsx', 'flow', 'solid', 'react-native'];
+    const hasJsx = [
+      'jsx',
+      'tsx',
+      'sucrase',
+      'babel',
+      'flow',
+      'solid',
+      'solid.tsx',
+      'react-native',
+      'react-native-tsx',
+    ];
+    const isJSLang = JSLangs.includes(language);
+    const isJsx = hasJsx.includes(language);
+    const nonReactJsx = language === 'stencil';
 
     if (
-      language === 'tsx' ||
-      language === 'jsx' ||
-      language === 'sucrase' ||
-      language === 'babel' ||
-      language === 'flow'
+      !['script', 'tests', 'editorSettings'].includes(editorId) ||
+      !['javascript', 'typescript'].includes(monacoMapLanguage(language))
     ) {
-      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-        ...compilerOptions,
-        jsx: monaco.languages.typescript.JsxEmit.React,
-        jsxFactory: 'React.createElement',
-        reactNamespace: 'React',
-      });
+      return;
     }
-    if (language === 'stencil') {
-      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-        ...compilerOptions,
-        jsx: monaco.languages.typescript.JsxEmit.Preserve,
-        jsxFactory: undefined,
-        reactNamespace: 'h',
-      });
-    }
-    if (language === 'flow') {
-      // just silence errors for now
+
+    const compilerOptions = getCompilerOptions({ isJSLang, isJsx, nonReactJsx, monaco });
+
+    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
+    monaco.languages.typescript.javascriptDefaults.setCompilerOptions(compilerOptions);
+
+    const disgnosticsOptions: Monaco.languages.typescript.DiagnosticsOptions = {
+      // just silence errors for "flow" for now
       // TODO: fix this
       // https://github.com/facebook/flow/tree/main/website/src/try-flow
-      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-        noSemanticValidation: true,
-      });
-    } else if (['typescript'].includes(mapLanguage(language))) {
-      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-        noSemanticValidation: false,
-      });
-    }
+      noSemanticValidation: language === 'flow',
+      // This is when tslib is not found
+      diagnosticCodesToIgnore: [2354],
+    };
+    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(disgnosticsOptions);
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(disgnosticsOptions);
+
+    registerTwoSlash({ isJSLang, editor, monaco, compilerOptions });
   };
 
   type Listener = () => void;
@@ -274,7 +340,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor.setModel(model);
     setTimeout(() => oldModel?.dispose(), 1000); // avoid race https://github.com/microsoft/monaco-editor/issues/1715
     updateListeners();
-    configureEditor();
+    configureTypeScriptFeatures();
   };
 
   let language = options.language;
@@ -333,14 +399,40 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor.getModel()?.setValue(value);
   };
 
-  const types: Array<{
+  let types: Array<{
     filename: string;
     libJs: { dispose: () => void };
     libTs: { dispose: () => void };
   }> = [];
 
-  const isEditorType = (type: { filename: string }) =>
-    !type.filename.startsWith('file:///node_modules/');
+  const isEditorType = (type: { filename: string }) => !type.filename.startsWith('/node_modules/');
+
+  const addTypes = (type: EditorLibrary, force?: boolean) => {
+    const code = type.content;
+    const path = 'file://' + type.filename;
+    const loadedType = types.find((t) => t.filename === type.filename);
+    if (loadedType) {
+      if (isEditorType(type)) {
+        loadedType.libJs.dispose();
+        loadedType.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path);
+      }
+      if (!force) return;
+      loadedType.libJs?.dispose();
+      loadedType.libTs?.dispose();
+    }
+    types.push({
+      filename: type.filename,
+      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path),
+      libTs: isEditorType(type)
+        ? {
+            // avoid duplicate declarations for typescript
+            dispose: () => {
+              // do nothing
+            },
+          }
+        : monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path),
+    });
+  };
 
   const clearTypes = (allTypes = true) => {
     types
@@ -349,7 +441,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         type.libJs.dispose();
         type.libTs.dispose();
       });
-    types.length = 0;
+    types = types.filter((type) => (allTypes ? false : !isEditorType(type)));
   };
 
   const getLanguage = () => language;
@@ -358,39 +450,6 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     clearTypes(false);
     setModel(editor, value ?? editor.getValue(), language);
     loadMonacoLanguage(lang);
-  };
-
-  const addTypes = (type: EditorLibrary, force = false) => {
-    const loadedType = types.find((t) => t.filename === type.filename);
-    if (loadedType) {
-      if (isEditorType(type)) {
-        loadedType.libJs.dispose();
-        loadedType.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          type.content,
-          type.filename,
-        );
-      }
-      if (!force) {
-        return;
-      }
-      loadedType.libJs?.dispose();
-      loadedType.libTs?.dispose();
-    }
-    types.push({
-      filename: type.filename,
-      libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        type.content,
-        type.filename,
-      ),
-      libTs: isEditorType(type)
-        ? {
-            // avoid duplicate declarations for typescript
-            dispose: () => {
-              // do nothing
-            },
-          }
-        : monaco.languages.typescript.typescriptDefaults.addExtraLib(type.content, type.filename),
-    });
   };
 
   const focus = () => editor.focus();
