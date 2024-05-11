@@ -93,7 +93,7 @@ export function parsePrimitive(value: string, type: string): any {
   // console.log(`Unknown primitive type ${type} with - ${value}`)
 }
 
-function getOptionValueFromMap(name: string, key: string, optMap: Map<string, string>) {
+function getOptionValueFromMap(_name: string, key: string, optMap: Map<string, string>) {
   const result = optMap.get(key.toLowerCase());
   // if (result === undefined) {
   //   const keys = Array.from(optMap.keys() as any)
@@ -109,7 +109,7 @@ function getOptionValueFromMap(name: string, key: string, optMap: Map<string, st
 
 // Function to generate autocompletion results
 export const twoslashCompletions =
-  (ts: TS, monaco: typeof import('monaco-editor')) =>
+  (ts: TS, _monaco: typeof import('monaco-editor')) =>
   (
     model: import('monaco-editor').editor.ITextModel,
     position: import('monaco-editor').Position,

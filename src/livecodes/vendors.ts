@@ -410,6 +410,8 @@ export const typescriptUrl = /* @__PURE__ */ getUrl(
   `typescript@${typescriptVersion}/lib/typescript.js`,
 );
 
+export const typescriptAtaUrl = /* @__PURE__ */ getUrl('@typescript/ata@0.9.4/dist/index.js');
+
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
 export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');

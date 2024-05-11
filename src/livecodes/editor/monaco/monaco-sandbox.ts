@@ -4,73 +4,27 @@
 import type * as Monaco from 'monaco-editor';
 import type TS from 'typescript';
 
-import type { EditorLibrary, Language } from '../../models';
+import type { EditorLibrary } from '../../models';
 import { loadScript } from '../../utils/utils';
-import { typescriptUrl } from '../../vendors';
+import { typescriptAtaUrl, typescriptUrl } from '../../vendors';
 import { extractTwoSlashCompilerOptions, twoslashCompletions } from './twoslashSupport';
 
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
 
-export function getDefaultCompilerOptions(language: Language, monaco: typeof Monaco) {
-  const useJavaScript = language !== 'javascript' && language !== 'jsx';
-  const settings: CompilerOptions = {
-    strict: true,
-
-    noImplicitAny: true,
-    strictNullChecks: !useJavaScript,
-    strictFunctionTypes: true,
-    strictPropertyInitialization: true,
-    strictBindCallApply: true,
-    noImplicitThis: true,
-    noImplicitReturns: true,
-    noUncheckedIndexedAccess: false,
-
-    useDefineForClassFields: false,
-
-    alwaysStrict: true,
-    allowUnreachableCode: false,
-    allowUnusedLabels: false,
-
-    downlevelIteration: false,
-    noEmitHelpers: false,
-    noLib: false,
-    noStrictGenericChecks: false,
-    noUnusedLocals: false,
-    noUnusedParameters: false,
-
-    esModuleInterop: true,
-    preserveConstEnums: false,
-    removeComments: false,
-    skipLibCheck: false,
-
-    checkJs: useJavaScript,
-    allowJs: useJavaScript,
-    declaration: true,
-
-    importHelpers: false,
-
-    experimentalDecorators: true,
-    emitDecoratorMetadata: true,
-    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-
-    target: monaco.languages.typescript.ScriptTarget.ES2017,
-    jsx: monaco.languages.typescript.JsxEmit.React,
-    module: monaco.languages.typescript.ModuleKind.ESNext,
-  };
-
-  return settings;
-}
+let ata: any;
 
 export const configureTSFeatures = async ({
   isJSLang,
   editor,
   monaco,
   compilerOptions,
+  addTypes,
 }: {
   isJSLang: boolean;
   editor: Monaco.editor.IStandaloneCodeEditor;
   monaco: typeof Monaco;
   compilerOptions: CompilerOptions;
+  addTypes: (type: EditorLibrary, force?: boolean) => void;
 }) => {
   const ts = (await loadScript(typescriptUrl, 'ts')) as typeof TS;
   const language = isJSLang ? 'javascript' : 'typescript';
@@ -82,7 +36,14 @@ export const configureTSFeatures = async ({
     ? monaco.languages.typescript.javascriptDefaults
     : monaco.languages.typescript.typescriptDefaults;
 
-  const model = editor.getModel()!;
+  defaults.setDiagnosticsOptions({
+    ...defaults.getDiagnosticsOptions(),
+    noSemanticValidation: false,
+    // This is when tslib is not found
+    diagnosticCodesToIgnore: [2354],
+  });
+
+  const model = editor.getModel();
 
   // Auto-complete twoslash comments
   const langs = ['javascript', 'typescript'];
@@ -111,20 +72,62 @@ export const configureTSFeatures = async ({
 
   const getTwoSlashCompilerOptions = extractTwoSlashCompilerOptions(ts);
 
-  const textUpdated = () => {
-    const code = editor.getModel()!.getValue();
-
-    const configOpts = getTwoSlashCompilerOptions(code);
-    updateCompilerSettings(configOpts);
+  const addLibraryToRuntime = (code: string, _path: string) => {
+    const path = 'file://' + _path;
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path);
+    monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path);
+    const uri = monaco.Uri.file(path);
+    if (monaco.editor.getModel(uri) === null) {
+      monaco.editor.createModel(code, 'text', uri);
+    }
   };
 
-  const getWorkerProcess = async () => {
-    const worker = await getWorker();
-    // @ts-ignore
-    return worker(model.uri);
+  const ataModule = await import(typescriptAtaUrl);
+  const { setupTypeAcquisition } = ataModule;
+  ata =
+    ata ||
+    setupTypeAcquisition({
+      projectName: 'TypeScript Playground',
+      typescript: ts,
+      logger: {
+        log: () => undefined,
+        error: () => undefined,
+        groupCollapsed: () => undefined,
+        groupEnd: () => undefined,
+      },
+      delegate: {
+        receivedFile: (code: string, path: string) => {
+          addLibraryToRuntime(code, path);
+          // addTypes({ content: code, filename: path });
+          // console.log({ content: code, filename: path });
+        },
+        progress: (_downloaded: number, _total: number) => {
+          // console.log({ _downloaded, _total })
+        },
+        started: () => {
+          // console.log("ATA start")
+        },
+        finished: (_files: Map<string, string>) => {
+          // console.log("ATA done")
+        },
+      },
+    });
+
+  const textUpdated = () => {
+    const code = editor.getModel()?.getValue();
+    if (!code) return;
+    const configOpts = getTwoSlashCompilerOptions(code);
+    updateCompilerSettings(configOpts);
+    ata(code);
   };
 
   textUpdated();
+
+  const getWorkerProcess = async () => {
+    if (!model) return;
+    const worker = await getWorker();
+    return worker(model.uri);
+  };
 
   const createTwoslashInlayProvider = () => {
     const provider: Monaco.languages.InlayHintsProvider = {
@@ -135,7 +138,7 @@ export const configureTSFeatures = async ({
         const results: Monaco.languages.InlayHint[] = [];
         const worker = await getWorkerProcess();
 
-        if (model.isDisposed()) {
+        if (!worker || model.isDisposed()) {
           return {
             hints: [],
             dispose: () => undefined,
@@ -144,17 +147,17 @@ export const configureTSFeatures = async ({
 
         /* eslint-disable-next-line */
         while ((match = queryRegex.exec(text)) !== null) {
-          const end = match.index + match[0].length - 1;
-          const endPos = model.getPositionAt(end);
-          const inspectionPos = new monaco.Position(endPos.lineNumber - 1, endPos.column);
-          const inspectionOff = model.getOffsetAt(inspectionPos);
-
-          if (cancel.isCancellationRequested) {
+          if (cancel.isCancellationRequested || model.isDisposed()) {
             return {
               hints: [],
               dispose: () => undefined,
             };
           }
+
+          const end = match.index + match[0].length - 1;
+          const endPos = model.getPositionAt(end);
+          const inspectionPos = new monaco.Position(endPos.lineNumber - 1, endPos.column);
+          const inspectionOff = model.getOffsetAt(inspectionPos);
 
           const hint = await worker.getQuickInfoAtPosition(
             'file://' + model.uri.path,
@@ -190,8 +193,8 @@ export const configureTSFeatures = async ({
 
   (window as any).isInlayHintRegistered = (window as any).isInlayHintRegistered || new Set();
   if (!(window as any).isInlayHintRegistered.has(language)) {
-    // enable twoslash queries in monaco
     monaco.languages.registerInlayHintsProvider(language, createTwoslashInlayProvider());
     (window as any).isInlayHintRegistered.add(language);
+    editor.getModel()?.onDidChangeContent(textUpdated);
   }
 };

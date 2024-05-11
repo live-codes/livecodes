@@ -2,7 +2,8 @@
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
-import { objectFilter, safeName } from '../utils/utils';
+import { loadScript, objectFilter, safeName } from '../utils/utils';
+import { typescriptUrl } from '../vendors';
 
 export const createTypeLoader = (baseUrl: string) => {
   let loadedTypes: Types = {};
@@ -22,12 +23,12 @@ export const createTypeLoader = (baseUrl: string) => {
         if (!res.ok) throw new Error('Failed fetching: ' + url);
         let dts = await res.text();
 
-        if (hasUrlImportsOrExports(dts)) {
-          const dtsBundleModule: typeof import('./bundle-types') = await import(
-            baseUrl + '{{hash:bundle-types.js}}'
-          );
-          dts = await dtsBundleModule.bundle({ name, main: url });
-        }
+        // if (hasUrlImportsOrExports(dts)) {
+        //   const dtsBundleModule: typeof import('./bundle-types') = await import(
+        //     baseUrl + '{{hash:bundle-types.js}}'
+        //   );
+        //   dts = await dtsBundleModule.bundle({ name, main: url });
+        // }
 
         const declareAsModule =
           !dts.includes('declare module') ||
@@ -66,6 +67,7 @@ export const createTypeLoader = (baseUrl: string) => {
     Promise.all(Object.keys(types).map((t) => getTypeContents({ [t]: types[t] })));
 
   const load = async (code: string, configTypes: Types, loadAll = false, forceLoad = false) => {
+    return [];
     const imports = getImports(code);
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
@@ -111,6 +113,46 @@ export const createTypeLoader = (baseUrl: string) => {
     const newLibs = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
     return loadAll ? libs : newLibs;
   };
+
+  // let ata: any;
+  // const load = async (code: string, configTypes: Types, loadAll = false, forceLoad = false) =>
+  //   new Promise<EditorLibrary[]>(async (resolve) => {
+  //     const ts = await loadScript(typescriptUrl, 'ts');
+  //     const libs: EditorLibrary[] = [];
+  //     const ataModule = await import('https://unpkg.com/@typescript/ata@0.9.4/dist/index.js');
+  //     const { setupTypeAcquisition } = ataModule;
+  //     const noop = () => undefined;
+  //     ata =
+  //       ata ||
+  //       setupTypeAcquisition({
+  //         projectName: 'TypeScript Playground',
+  //         typescript: ts,
+  //         logger: {
+  //           log: noop,
+  //           error: noop,
+  //           groupCollapsed: noop,
+  //           groupEnd: noop,
+  //         },
+  //         delegate: {
+  //           receivedFile: (code: string, path: string) => {
+  //             console.log({ content: code, filename: path });
+  //             // addTypes({ content: code, filename: path });
+  //             libs.push({ filename: path, content: code });
+  //           },
+  //           progress: (_downloaded: number, _total: number) => {
+  //             // console.log({ _downloaded, _total })
+  //           },
+  //           started: () => {
+  //             // console.log("ATA start")
+  //           },
+  //           finished: (_files: Map<string, string>) => {
+  //             // console.log("ATA done")
+  //             resolve(libs);
+  //           },
+  //         },
+  //       });
+  //     ata(code);
+  //   });
 
   return {
     load,
