@@ -72,16 +72,6 @@ export const configureTSFeatures = async ({
 
   const getTwoSlashCompilerOptions = extractTwoSlashCompilerOptions(ts);
 
-  const addLibraryToRuntime = (code: string, _path: string) => {
-    const path = 'file://' + _path;
-    monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path);
-    monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path);
-    const uri = monaco.Uri.file(path);
-    if (monaco.editor.getModel(uri) === null) {
-      monaco.editor.createModel(code, 'text', uri);
-    }
-  };
-
   const ataModule = await import(typescriptAtaUrl);
   const { setupTypeAcquisition } = ataModule;
   ata =
@@ -97,8 +87,8 @@ export const configureTSFeatures = async ({
       },
       delegate: {
         receivedFile: (code: string, path: string) => {
-          addLibraryToRuntime(code, path);
-          // addTypes({ content: code, filename: path });
+          // addLibraryToRuntime(code, path);
+          addTypes({ content: code, filename: path });
           // console.log({ content: code, filename: path });
         },
         progress: (_downloaded: number, _total: number) => {

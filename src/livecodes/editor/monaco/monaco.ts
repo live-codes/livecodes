@@ -269,57 +269,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     };
   };
 
-  const addTypes = (type: EditorLibrary, force = false) => {
-    // cachedTypes[type.filename] = type.content;
-
-    // const loadedType = types.find((t) => t.filename === type.filename);
-    // if (loadedType) {
-    //   if (isEditorType(type)) {
-    //     loadedType.libJs.dispose();
-    //     loadedType.libJs = monaco.languages.typescript.javascriptDefaults.addExtraLib(
-    //       type.content,
-    //       type.filename,
-    //     );
-    //   }
-    //   if (!force) {
-    //     return;
-    //   }
-    //   loadedType.libJs?.dispose();
-    //   loadedType.libTs?.dispose();
-    // }
-    // const newType = {
-    //   filename: type.filename,
-    //   libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(
-    //     type.content,
-    //     type.filename,
-    //   ),
-    //   libTs: isEditorType(type)
-    //     ? {
-    //         // avoid duplicate declarations for typescript
-    //         dispose: () => {
-    //           // do nothing
-    //         },
-    //       }
-    //     : monaco.languages.typescript.typescriptDefaults.addExtraLib(type.content, type.filename),
-    // };
-    // if (!loadedType) {
-    //   types.push(newType);
-    // }
-
-    addModel(type.filename, type.content);
-  };
-
-  const addModel = (filename: string, content: string) => {
-    //   monaco.languages.typescript.typescriptDefaults.addExtraLib(content, filename);
-    //   const uri = monaco.Uri.file(filename);
-    //   const model = monaco.editor.getModel(uri);
-    //   const modelLang = monacoMapLanguage(language) === 'typescript' ? 'typescript' : 'javascript';
-    //   console.log(modelLang);
-    //   if (model === null || model.isDisposed()) {
-    //     monaco.editor.createModel(content, 'typescript', uri);
-    //   } else {
-    //     // monaco.editor.setModelLanguage(model, modelLang);
-    //   }
+  const addTypes = (type: EditorLibrary) => {
+    const code = type.content;
+    const path = 'file://' + type.filename;
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(code, path);
+    monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path);
   };
 
   const configureEditor = () => {
@@ -458,13 +412,13 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     editor.getModel()?.setValue(value);
   };
 
-  const types: Array<{
+  let types: Array<{
     filename: string;
     libJs: { dispose: () => void };
     libTs: { dispose: () => void };
   }> = [];
 
-  const isEditorType = (type: { filename: string }) => !type.filename.startsWith('node_modules/');
+  const isEditorType = (type: { filename: string }) => !type.filename.startsWith('/node_modules/');
 
   const clearTypes = (allTypes = true) => {
     types
@@ -473,7 +427,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         type.libJs.dispose();
         type.libTs.dispose();
       });
-    types.length = 0;
+    types = types.filter((type) => (allTypes ? false : !isEditorType(type)));
   };
 
   const getLanguage = () => language;
