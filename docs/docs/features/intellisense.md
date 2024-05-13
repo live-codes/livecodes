@@ -20,6 +20,16 @@ These are examples for automatically loading React types with autocomplete and h
 
 ![LiveCodes Intellisense](../../static/img/screenshots/intellisense2.jpg)
 
+## TypeScript TwoSlash
+
+The code editor supports [TypeScript TwoSlash](https://github.com/microsoft/TypeScript-Website/tree/v2/packages/ts-twoslasher). This can be very useful for debugging, sharing and teaching TypeScript.
+
+This is supported in [JavaScript](../languages/javascript.md), [TypeScript](../languages/typescript.md), [JSX](../languages/jsx.md) and [TSX](../languages/tsx.md). This also includes [Babel](../languages/babel.md), [Sucrase](../languages/sucrase.md), [Solid](../languages/solid.md), [React Native](../languages/react-native.md), etc.
+
+![TypeScript TwoSlash](../../static/img/screenshots/twoslash.png)
+
+![TwoSlash in JSX](../../static/img/screenshots/twoslash-jsx.png)
+
 ## Custom Types
 
 If no type definitions are found, or if you want to provide your own (e.g. for a module that is not hosted on npm), custom type definition files can be used.
@@ -127,6 +137,7 @@ The JavaScript output (Greeter.js) and the data definition file (Greeter.d.ts) s
 Then, they can be used like that:
 
 export const customModules = {
+editor: 'monaco',
 activeEditor: 'script',
 script: {
 language: 'typescript',

@@ -338,7 +338,8 @@ const organizeProjects = (
   registerLanguageFilters();
 
   loadStylesheet(tagifyBaseUrl + 'tagify.css', 'tagify-styles');
-  loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify').then(async (Tagify: any) => {
+  import(tagifyBaseUrl + 'tagify.esm.js').then(async (tagifyMod: any) => {
+    const Tagify = tagifyMod.default;
     if (Tagify) {
       tagify = new Tagify(filterTagsInput, {
         whitelist: Array.from(new Set((await getProjects()).map((item) => item.tags).flat())).sort(

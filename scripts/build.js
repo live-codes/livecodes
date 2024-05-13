@@ -14,7 +14,6 @@ const { buildI18n } = require('./i18n');
 const args = process.argv.slice(2);
 const devMode = args.includes('--dev');
 const outDir = path.resolve(__dirname + '/../build');
-const monacoVersion = `v${pkg.dependencies['monaco-editor']}`;
 const codemirrorVersion = `v${pkg.dependencies['codemirror']}`;
 let appVersion, sdkVersion, gitCommit, repoUrl;
 
@@ -121,8 +120,8 @@ const baseOptions = {
     'process.env.REPO_URL': `"${repoUrl || ''}"`,
     'process.env.DOCS_BASE_URL': `"${docsBaseUrl}"`,
     'process.env.CI': `${process.env.CI || false}`,
-    'process.env.monacoVersion': `"${monacoVersion}"`,
     'process.env.codemirrorVersion': `"${codemirrorVersion}"`,
+    define: 'undefined', // prevent using AMD (e.g. in lz-string)
   },
   loader: { '.html': 'text', '.ttf': 'file' },
   logLevel: 'error',
