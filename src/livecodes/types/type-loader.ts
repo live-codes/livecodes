@@ -35,8 +35,10 @@ export const createTypeLoader = (baseUrl: string) => {
         }
 
         const declareAsModule =
-          !dts.includes('declare module') ||
-          (typeof value !== 'string' && value.declareAsModule === true);
+          typeof value !== 'string' && value.declareAsModule === false
+            ? false
+            : !dts.includes('declare module') ||
+              (typeof value !== 'string' && value.declareAsModule === true);
         const declareAsGlobal = typeof value !== 'string' && value.declareAsGlobal === true;
 
         content = declareAsModule && !declareAsGlobal ? `declare module '${name}' {${dts}}` : dts;

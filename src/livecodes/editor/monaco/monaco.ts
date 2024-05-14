@@ -400,6 +400,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   };
 
   let types: Array<{
+    editorId: EditorOptions['editorId'];
     filename: string;
     libJs: { dispose: () => void };
     libTs: { dispose: () => void };
@@ -421,6 +422,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       loadedType.libTs?.dispose();
     }
     types.push({
+      editorId,
       filename: type.filename,
       libJs: monaco.languages.typescript.javascriptDefaults.addExtraLib(code, path),
       libTs: isEditorType(type)
@@ -434,14 +436,48 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
   };
 
+  let scriptModel: Monaco.editor.ITextModel | undefined;
+  const createScriptModel = () => {
+    if (editorId !== 'tests') return;
+    let scriptLanguage = 'javascript';
+    const scriptEditor = editors.find((editor) => {
+      const editorLang = editor.getModel()?.getLanguageId();
+      scriptLanguage = editorLang || 'javascript';
+      return ['javascript', 'typescript'].includes(editorLang!);
+    });
+    if (!scriptEditor) return;
+    const ext = getLanguageExtension(scriptLanguage);
+    const createModel = () => {
+      scriptModel = monaco.editor.createModel(
+        scriptEditor.getValue(),
+        scriptLanguage,
+        monaco.Uri.parse('script.' + ext),
+      );
+    };
+    if (scriptModel) {
+      scriptModel.dispose();
+      setTimeout(() => {
+        createModel();
+      }, 300);
+    } else {
+      createModel();
+    }
+  };
+  createScriptModel();
+
   const clearTypes = (allTypes = true) => {
+    scriptModel?.dispose();
+    if (editorId === 'tests') return;
     types
+      .filter((type) => type.editorId === editorId)
       .filter((type) => (allTypes ? true : isEditorType(type)))
       .forEach((type) => {
         type.libJs.dispose();
         type.libTs.dispose();
       });
-    types = types.filter((type) => (allTypes ? false : !isEditorType(type)));
+    types = types
+      .filter((type) => type.editorId !== editorId)
+      .filter((type) => (allTypes ? false : !isEditorType(type)));
   };
 
   const getLanguage = () => language;
