@@ -33,6 +33,7 @@ export const getImports = (code: string, removeSpecifier = false) =>
 const needsBundler = /* @__PURE__ */ (mod: string) =>
   !mod.startsWith('https://deno.bundlejs.com/') &&
   !mod.startsWith('https://edge.bundlejs.com/') &&
+  !mod.startsWith('https://esm.sh/') &&
   !mod.endsWith('#nobundle') &&
   (mod.startsWith('https://deno.land/') ||
     mod.startsWith('https://github.com/') ||
