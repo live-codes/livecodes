@@ -140,8 +140,8 @@
     "notes": ""
   },
   "welcome.recover.lastModified": {
-    "translation": "Last modified:",
-    "notes": ""
+    "translation": "Last modified: <tag-0></tag-0>",
+    "notes": "### <tag-0> ###\n<span id=\"unsaved-project-last-modified\" />\n\n"
   },
   "welcome.recover.recover": {
     "translation": "Recover",

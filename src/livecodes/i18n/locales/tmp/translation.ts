@@ -71,7 +71,7 @@ const translation = {
       heading: 'Recover',
       unsavedChanges: 'Your last project had unsaved changes:',
       unsavedProjectName: '',
-      lastModified: 'Last modified:',
+      lastModified: 'Last modified: <0></0>',
       recover: 'Recover',
       save: 'Save',
       cancel: 'Cancel',
