@@ -46,13 +46,13 @@ export const createStarterTemplateLink = (
   return link;
 };
 
-export const noUserTemplates = `
+export const noUserTemplates = () => `
 <div class="modal-message no-data">
   <div>${window.deps.translateString('templates.noUserTemplates.heading', 'You have no saved templates.')}</div>
   <div class="description">
     ${window.deps.translateString(
       'templates.noUserTemplates.desc',
-      'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;>&nbsp;Save&nbsp;as&nbsp;> Template).',
+      'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
       {
         isHTML: true,
       },

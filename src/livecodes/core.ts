@@ -2519,7 +2519,7 @@ const handleNew = () => {
     );
 
     if (userTemplates.length === 0) {
-      userTemplatesScreen.innerHTML = noUserTemplates;
+      userTemplatesScreen.innerHTML = noUserTemplates();
       return;
     }
     userTemplatesScreen.innerHTML = '';
@@ -2581,7 +2581,7 @@ const handleNew = () => {
                 li.style.display = 'none';
                 if (stores.templates && (await stores.templates.getList()).length === 0) {
                   list.remove();
-                  userTemplatesScreen.innerHTML = noUserTemplates;
+                  userTemplatesScreen.innerHTML = noUserTemplates();
                 }
               }, 500);
             },
