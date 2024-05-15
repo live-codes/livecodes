@@ -3629,6 +3629,7 @@ const handleTestResults = () => {
 
     document.dispatchEvent(testResultsEvent);
     parent.dispatchEvent(testResultsEvent);
+    setLoading(false);
   });
 };
 
