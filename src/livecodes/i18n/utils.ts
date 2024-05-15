@@ -151,14 +151,25 @@ type GetNamespaceBase<
     : never
   : Base[CustomTypeOptions['defaultNS']];
 
-type GetTranslation<Base, Key extends string> = Key extends `${infer Start}.${infer Rest}`
+interface TranslationType {
+  [key: string]: string | TranslationType;
+}
+
+type GetTranslation<
+  Base extends TranslationType,
+  Key extends string,
+> = Key extends `${infer Start}.${infer Rest}`
   ? Start extends keyof Base
     ? Rest extends string
-      ? GetTranslation<Base[Start], Rest>
+      ? Base[Start] extends TranslationType
+        ? GetTranslation<Base[Start], Rest>
+        : never
       : never
     : never
   : Key extends keyof Base
-    ? Base[Key]
+    ? Base[Key] extends string
+      ? Base[Key]
+      : never
     : never;
 
 type InferKeys<Base, isNs extends boolean = false, KeyStr extends string = ''> = {
@@ -187,25 +198,72 @@ export interface EmptyObject {
   [emptyObjectSymbol]?: never;
 }
 
+type Stack<T> = T[];
+type GetStackType<S extends Stack<any>> = S[number];
+
+type Push<S extends Stack<any>, V> = [V, ...S];
+type Pop<S extends Stack<any>> = S extends [
+  GetStackType<S>,
+  ...infer Rest extends Array<GetStackType<S>>,
+]
+  ? Rest
+  : never;
+type Top<S extends Stack<any>> = S extends [
+  infer Top extends GetStackType<S>,
+  ...Array<GetStackType<S>>,
+]
+  ? Top
+  : never;
+
+type Increment<N extends number, T extends any[] = []> = T['length'] extends N
+  ? [...T, any]['length']
+  : Increment<N, [...T, any]>;
+
+type AbstractifyHTML<
+  T extends string,
+  Index extends number = 0,
+  I extends Stack<number> = [],
+  S extends Stack<string> = [],
+> = T extends `${infer Pre}<${infer Tag}>${infer Post}`
+  ? Tag extends `/${Top<S>}` // End tag
+    ? `${Pre}</${Top<I>}>${AbstractifyHTML<Post, Index, Pop<I>, Pop<S>>}` // Back to previous tag
+    : Tag extends `${infer _} /` // Self-closing tag
+      ? `${Pre}<${Index}></${Index}>${AbstractifyHTML<Post, Increment<Index>, I, S>}`
+      : `${Pre}<${Index}>${AbstractifyHTML<
+          Post,
+          Increment<Index>,
+          Push<I, Index>,
+          Push<S, Tag extends `${infer RealTag} ${infer _Rest}` ? RealTag : Tag> // Get the real tag name
+        >}`
+  : T; // No more tags
+
 export type I18nOptionalInterpolation<T> =
   I18nInterpolationType<T> extends EmptyObject
     ? [I18nOptions?]
     : [I18nInterpolationType<T> & I18nOptions];
 
 export type I18nKeyType = InferKeys<CustomTypeOptions['resources'], true>;
-export type I18nValueType<K extends I18nKeyType> = GetTranslation<
-  GetNamespaceBase<CustomTypeOptions['resources'], K>,
-  K
->;
+
 export type I18nInterpolationType<Value> = {
   [K in ExtractInterpolations<Value>]?: string | number;
 };
 
-export const translateString = <Key extends I18nKeyType>(
+type I18nRawValueType<K extends I18nKeyType> = GetTranslation<
+  GetNamespaceBase<CustomTypeOptions['resources'], K>,
+  K
+>;
+export type I18nValueType<Key extends I18nKeyType, Value extends string> =
+  Value extends I18nRawValueType<Key>
+    ? Value
+    : AbstractifyHTML<Value> extends I18nRawValueType<Key>
+      ? Value
+      : never;
+
+export const translateString = <Key extends I18nKeyType, Value extends string>(
   i18n: typeof import('./i18n').default | undefined,
   key: Key,
-  value: I18nValueType<Key>,
-  ...args: I18nOptionalInterpolation<I18nValueType<Key>>
+  value: I18nValueType<Key, Value>,
+  ...args: I18nOptionalInterpolation<Value>
 ) => {
   if (!i18n) return value as string;
 

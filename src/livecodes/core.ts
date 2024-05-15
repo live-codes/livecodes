@@ -152,10 +152,10 @@ declare global {
   interface Window {
     deps: {
       showMode: typeof showMode;
-      translateString: <Key extends I18nKeyType>(
+      translateString: <Key extends I18nKeyType, Value extends string>(
         key: Key,
-        value: I18nValueType<Key>,
-        ...args: I18nOptionalInterpolation<I18nValueType<Key>>
+        value: I18nValueType<Key, Value>,
+        ...args: I18nOptionalInterpolation<I18nValueType<Key, Value>>
       ) => string;
     };
   }
@@ -4083,10 +4083,10 @@ const handleI18n = () => {
   });
 };
 
-const translateStringMock = <Key extends I18nKeyType>(
+const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   _key: Key,
-  value: I18nValueType<Key>,
-  ...args: I18nOptionalInterpolation<I18nValueType<Key>>
+  value: I18nValueType<Key, Value>,
+  ...args: I18nOptionalInterpolation<I18nValueType<Key, Value>>
 ) => {
   const interpolation = args[0];
 
@@ -4691,10 +4691,10 @@ const createApi = (): API => {
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
-    translateString: <Key extends I18nKeyType>(
+    translateString: <Key extends I18nKeyType, Value extends string>(
       key: Key,
-      value: I18nValueType<Key>,
-      ...args: I18nOptionalInterpolation<I18nValueType<Key>> // @ts-ignore
+      value: I18nValueType<Key, Value>,
+      ...args: I18nOptionalInterpolation<I18nValueType<Key, Value>> // @ts-ignore
     ) => translateString(i18n, key, value, args[0]),
   };
   await initializePlayground({ config, baseUrl }, async () => {
