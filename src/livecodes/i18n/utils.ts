@@ -6,12 +6,28 @@ import { predefinedValues } from '../utils/utils';
 // eslint-disable-next-line import/no-internal-modules
 import { customEvents } from '../events/custom-events';
 
+import type {
+  Increment,
+  Stack,
+  Push,
+  Pop,
+  Top,
+  EmptyObject,
+  SelfNestedObject,
+  // eslint-disable-next-line import/no-internal-modules
+} from './types/utils';
+
 interface TagElement {
   name: string;
   attributes?: Record<string, string>;
 }
 
 // Only used in ./i18n.ts, could remove `export` once it's no longer used
+/**
+ * Abstractify HTML string. Convert all tags to a format like `<0>`, `<1>`, etc.
+ * @param html The HTML string to abstractify.
+ * @returns The abstractified HTML string, with a list of objects of their tag names and attributes.
+ */
 export const abstractifyHTML = (html: string) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
@@ -59,6 +75,13 @@ export const abstractifyHTML = (html: string) => {
   };
 };
 
+/**
+ * Reverse the abstractified HTML string back to the original HTML string.
+ *
+ * @param html The abstractified HTML string.
+ * @param elements The list of objects of their tag names and attributes.
+ * @returns The original HTML string.
+ */
 const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(
@@ -95,6 +118,12 @@ const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   return doc.body.innerHTML;
 };
 
+/**
+ * HTMLElement-level i18n helper function.
+ *
+ * @param container The container element to search for i18n elements.
+ * @param i18n I18n instance.
+ */
 export const translate = (
   container: HTMLElement,
   i18n: typeof import('./i18n').default | undefined,
@@ -142,6 +171,12 @@ export const translate = (
   });
 };
 
+/**
+ * Get the base object of the given namespace.
+ *
+ * @param Base The overall i18next resources object.
+ * @param Key The key to get the base object.
+ */
 type GetNamespaceBase<
   Base extends CustomTypeOptions['resources'],
   Key extends string,
@@ -151,17 +186,19 @@ type GetNamespaceBase<
     : never
   : Base[CustomTypeOptions['defaultNS']];
 
-interface TranslationType {
-  [key: string]: string | TranslationType;
-}
-
+/**
+ * Recursively get the translation of the given key.
+ *
+ * @param Base The base object of the namespace. Use `GetNamespaceBase` to get it.
+ * @param Key The key to get the translation.
+ */
 type GetTranslation<
-  Base extends TranslationType,
+  Base extends SelfNestedObject<string>,
   Key extends string,
 > = Key extends `${infer Start}.${infer Rest}`
   ? Start extends keyof Base
     ? Rest extends string
-      ? Base[Start] extends TranslationType
+      ? Base[Start] extends SelfNestedObject<string>
         ? GetTranslation<Base[Start], Rest>
         : never
       : never
@@ -172,6 +209,15 @@ type GetTranslation<
       : never
     : never;
 
+/**
+ * Infer all flattened keys of the given object.
+ *
+ * The first level keys are considered as namespaces and will be separated by colon, while the rest
+ * will be separated by dot.
+ *
+ * @param Base The object to infer keys from.
+ * @param isNs Whether it is a namespace.
+ */
 type InferKeys<Base, isNs extends boolean = false, KeyStr extends string = ''> = {
   [K in keyof Base]: Base[K] extends object
     ? KeyStr extends '' // Whether it is of first level (namespace)
@@ -184,41 +230,28 @@ type InferKeys<Base, isNs extends boolean = false, KeyStr extends string = ''> =
     : `${KeyStr}${KeyStr extends '' ? '' : '.'}${K & string}`;
 }[keyof Base];
 
-type ExtractInterpolations<Value> =
+/**
+ * Extract all interpolations from the given string.
+ *
+ * @param Value The string to extract interpolations from.
+ */
+type ExtractInterpolations<Value extends string> =
   Value extends `${infer _First}{{${infer Interpolation}}}${infer Rest}`
     ? Interpolation | ExtractInterpolations<Rest>
     : never;
 
+/**
+ * Other options that could be passed to `translateString` in addition to interpolations.
+ */
 interface I18nOptions {
   isHTML?: boolean;
 }
 
-declare const emptyObjectSymbol: unique symbol;
-export interface EmptyObject {
-  [emptyObjectSymbol]?: never;
-}
-
-type Stack<T> = T[];
-type GetStackType<S extends Stack<any>> = S[number];
-
-type Push<S extends Stack<any>, V> = [V, ...S];
-type Pop<S extends Stack<any>> = S extends [
-  GetStackType<S>,
-  ...infer Rest extends Array<GetStackType<S>>,
-]
-  ? Rest
-  : never;
-type Top<S extends Stack<any>> = S extends [
-  infer Top extends GetStackType<S>,
-  ...Array<GetStackType<S>>,
-]
-  ? Top
-  : never;
-
-type Increment<N extends number, T extends any[] = []> = T['length'] extends N
-  ? [...T, any]['length']
-  : Increment<N, [...T, any]>;
-
+/**
+ * Type system's version of `abstractifyHTML`.
+ *
+ * @param T The HTML string to abstractify.
+ */
 type AbstractifyHTML<
   T extends string,
   Index extends number = 0,
@@ -237,21 +270,36 @@ type AbstractifyHTML<
         >}`
   : T; // No more tags
 
-export type I18nOptionalInterpolation<T> =
-  I18nInterpolationType<T> extends EmptyObject
-    ? [I18nOptions?]
-    : [I18nInterpolationType<T> & I18nOptions];
-
-export type I18nKeyType = InferKeys<CustomTypeOptions['resources'], true>;
-
-export type I18nInterpolationType<Value> = {
+type I18nRawInterpolationType<Value extends string> = {
   [K in ExtractInterpolations<Value>]?: string | number;
 };
 
-type I18nRawValueType<K extends I18nKeyType> = GetTranslation<
-  GetNamespaceBase<CustomTypeOptions['resources'], K>,
-  K
+/**
+ * Type for the interpolation object passed to `translateString`.
+ *
+ * @param T The value that contains interpolations.
+ */
+export type I18nInterpolationType<T extends string> =
+  I18nRawInterpolationType<T> extends EmptyObject
+    ? [I18nOptions?]
+    : [I18nRawInterpolationType<T> & I18nOptions];
+
+/**
+ * Type for the key passed to `translateString`.
+ */
+export type I18nKeyType = InferKeys<CustomTypeOptions['resources'], true>;
+
+type I18nRawValueType<Key extends I18nKeyType> = GetTranslation<
+  GetNamespaceBase<CustomTypeOptions['resources'], Key>,
+  Key
 >;
+
+/**
+ * Type for the default value passed to `translateString`.
+ *
+ * @param Key The key of the translation.
+ * @param Value The default value to translate. Should be inferred.
+ */
 export type I18nValueType<Key extends I18nKeyType, Value extends string> =
   Value extends I18nRawValueType<Key>
     ? Value
@@ -259,11 +307,19 @@ export type I18nValueType<Key extends I18nKeyType, Value extends string> =
       ? Value
       : never;
 
+/**
+ * String-level i18n helper function.
+ * @param i18n I18n instance.
+ * @param key The key of the translation.
+ * @param value The default value to translate.
+ * @param args The interpolation object.
+ * @returns The translated string.
+ */
 export const translateString = <Key extends I18nKeyType, Value extends string>(
   i18n: typeof import('./i18n').default | undefined,
   key: Key,
   value: I18nValueType<Key, Value>,
-  ...args: I18nOptionalInterpolation<Value>
+  ...args: I18nInterpolationType<Value>
 ) => {
   if (!i18n) return value as string;
 
@@ -282,6 +338,10 @@ export const translateString = <Key extends I18nKeyType, Value extends string>(
   }
 };
 
+/**
+ * Dispatch a translation event to the given element.
+ * @param elem The element to dispatch the event to.
+ */
 export const dispatchTranslationEvent = (elem: HTMLElement) => {
   elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
 };

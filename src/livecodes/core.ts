@@ -144,7 +144,7 @@ import {
   translateString,
   type I18nKeyType,
   type I18nValueType,
-  type I18nOptionalInterpolation,
+  type I18nInterpolationType,
 } from './i18n/utils';
 
 // declare global dependencies
@@ -152,10 +152,17 @@ declare global {
   interface Window {
     deps: {
       showMode: typeof showMode;
+      /**
+       * String-level i18n helper function.
+       * @param key The key of the translation.
+       * @param value The default value to translate.
+       * @param args The interpolation object.
+       * @returns The translated string.
+       */
       translateString: <Key extends I18nKeyType, Value extends string>(
         key: Key,
         value: I18nValueType<Key, Value>,
-        ...args: I18nOptionalInterpolation<I18nValueType<Key, Value>>
+        ...args: I18nInterpolationType<I18nValueType<Key, Value>>
       ) => string;
     };
   }
@@ -4086,7 +4093,7 @@ const handleI18n = () => {
 const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   _key: Key,
   value: I18nValueType<Key, Value>,
-  ...args: I18nOptionalInterpolation<I18nValueType<Key, Value>>
+  ...args: I18nInterpolationType<I18nValueType<Key, Value>>
 ) => {
   const interpolation = args[0];
 
@@ -4694,7 +4701,7 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
     translateString: <Key extends I18nKeyType, Value extends string>(
       key: Key,
       value: I18nValueType<Key, Value>,
-      ...args: I18nOptionalInterpolation<I18nValueType<Key, Value>> // @ts-ignore
+      ...args: I18nInterpolationType<I18nValueType<Key, Value>> // @ts-ignore
     ) => translateString(i18n, key, value, args[0]),
   };
   await initializePlayground({ config, baseUrl }, async () => {
