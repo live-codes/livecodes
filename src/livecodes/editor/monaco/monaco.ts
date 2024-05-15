@@ -234,7 +234,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco: typeof Monaco;
   }): CompilerOptions => {
     const settings: CompilerOptions = {
-      checkJs: isJSLang,
+      checkJs: !isJSLang,
       allowJs: isJSLang,
       allowNonTsExtensions: true,
       experimentalDecorators: true,
@@ -446,7 +446,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       return ['javascript', 'typescript'].includes(editorLang!);
     });
     if (!scriptEditor) return;
-    const ext = getLanguageExtension(scriptLanguage);
+    const ext = scriptLanguage === 'typescript' ? 'tsx' : 'jsx';
     const createModel = () => {
       scriptModel = monaco.editor.createModel(
         scriptEditor.getValue(),
