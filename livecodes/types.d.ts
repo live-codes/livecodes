@@ -488,7 +488,7 @@ declare module "sdk/models" {
         defaultCDN: CDN;
         types: Types;
     }>;
-    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'jsdelivr.gh' | 'fastly.jsdelivr.gh' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'statically';
+    export type CDN = 'jspm' | 'skypack' | 'jsdelivr' | 'fastly.jsdelivr' | 'gcore.jsdelivr' | 'testingcf.jsdelivr' | 'jsdelivr.b-cdn' | 'jsdelivr.gh' | 'fastly.jsdelivr.gh' | 'gcore.jsdelivr.gh' | 'testingcf.jsdelivr.gh' | 'jsdelivr.b-cdn.gh' | 'jsdelivr.esm' | 'fastly.jsdelivr.esm' | 'gcore.jsdelivr.esm' | 'testingcf.jsdelivr.esm' | 'jsdelivr.b-cdn.esm' | 'esm.run' | 'esm.sh' | 'esbuild' | 'bundle.run' | 'unpkg' | 'npmcdn' | 'statically';
     export type EditorCache = Editor & {
         compiled: string;
         modified?: string;
@@ -681,6 +681,7 @@ declare module "livecodes/services/modules" {
     export const getAppCDN: () => CDN;
 }
 declare module "livecodes/vendors" {
+    export const typescriptVersion = "5.4.5";
     export const vendorsBaseUrl: string;
     export const acornUrl: string;
     export const artTemplateUrl: string;
@@ -780,6 +781,7 @@ declare module "livecodes/vendors" {
     export const markedUrl: string;
     export const mermaidCdnUrl: string;
     export const mjmlUrl: string;
+    export const monacoBaseUrl = "https://typescript.azureedge.net/cdn/5.4.5/monaco/min/vs";
     export const monacoEmacsUrl: string;
     export const monacoThemesBaseUrl: string;
     export const monacoVimUrl: string;
@@ -832,6 +834,7 @@ declare module "livecodes/vendors" {
     export const thememirrorBaseUrl: string;
     export const twigUrl: string;
     export const typescriptUrl: string;
+    export const typescriptAtaUrl: string;
     export const uniterUrl: string;
     export const vegaCdnUrl: string;
     export const vegaLiteCdnUrl: string;
@@ -1822,10 +1825,15 @@ declare module "livecodes/compiler/import-map" {
         [x: string]: string;
     };
 }
+declare module "livecodes/services/utils" {
+    export const removeCDNPrefix: (url: string) => string;
+    export const removeSpecifier: (type: string) => string;
+}
 declare module "livecodes/services/types" {
     import type { Types } from "livecodes/models";
     export const typesService: {
         getTypeUrls: (types: string[]) => Promise<Types>;
+        getTypesAsImports: (types: string[]) => string;
     };
 }
 declare module "livecodes/services/index" {
@@ -3021,7 +3029,7 @@ declare module "livecodes/types/bundle-types" {
 declare module "livecodes/types/type-loader" {
     import type { EditorLibrary, Types } from "livecodes/models";
     export const createTypeLoader: (baseUrl: string) => {
-        load: (code: string, configTypes: Types, loadAll?: boolean, forceLoad?: boolean) => Promise<EditorLibrary[]>;
+        load: (code: string, configTypes: Types, loadAll?: boolean, forceLoad?: boolean, callback?: (type: EditorLibrary) => void) => Promise<EditorLibrary[]>;
     };
 }
 declare module "livecodes/types/default-types" {
@@ -3553,8 +3561,21 @@ declare module "livecodes/editor/codemirror/languages/codemirror-lang-vue" {
 declare module "livecodes/editor/codemirror/languages/codemirror-lang-wast" {
     export { wast } from '@codemirror/lang-wast';
 }
-declare module "livecodes/editor/monaco/monaco-editor" {
-    export * as monaco from 'monaco-editor';
+declare module "livecodes/editor/monaco/twoslashSupport" {
+    type TS = typeof import('typescript');
+    export const extractTwoSlashCompilerOptions: (ts: TS) => (code: string) => any;
+    export function parsePrimitive(value: string, type: string): any;
+    export const twoslashCompletions: (ts: TS, _monaco: typeof import('monaco-editor')) => (model: import('monaco-editor').editor.ITextModel, position: import('monaco-editor').Position, _token: any) => import('monaco-editor').languages.CompletionList;
+}
+declare module "livecodes/editor/monaco/register-twoslash" {
+    import type * as Monaco from 'monaco-editor';
+    type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+    export const registerTwoSlash: ({ isJSLang, editor, monaco, compilerOptions, }: {
+        isJSLang: boolean;
+        editor: Monaco.editor.IStandaloneCodeEditor;
+        monaco: typeof Monaco;
+        compilerOptions: CompilerOptions;
+    }) => Promise<void>;
 }
 declare module "livecodes/editor/monaco/monaco" {
     import type { CodeEditor, EditorOptions } from "livecodes/models";
@@ -4932,6 +4953,16 @@ declare module "livecodes/languages/dot/lang-dot-compiler" { }
 declare module "livecodes/languages/ejs/lang-ejs-compiler" { }
 declare module "livecodes/languages/eta/lang-eta-compiler" { }
 declare module "livecodes/languages/fennel/lang-fennel-compiler" { }
+declare module "livecodes/languages/gleam/gleam-modules" {
+    export interface Modules {
+        [key: string]: {
+            srcUrl?: string;
+            src?: string;
+            compiledUrl?: string;
+        };
+    }
+    export const modules: Modules;
+}
 declare module "livecodes/languages/gleam/lang-gleam-compiler" { }
 declare module "livecodes/languages/haml/lang-haml-compiler" { }
 declare module "livecodes/languages/handlebars/lang-handlebars-compiler" { }
