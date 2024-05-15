@@ -1,4 +1,5 @@
 import type { APIError, CDNService, PkgInfo } from '../models';
+import { removeCDNPrefix, removeSpecifier } from './utils';
 
 // see: https://github.com/jsdelivr/www.jsdelivr.com/blob/master/src/public/js/utils/search.js
 // info: https://github.com/jsdelivr/data.jsdelivr.com/issues/6
@@ -123,7 +124,7 @@ const addPkgVersion = async (pkgName: string): Promise<string | APIError> => {
 };
 
 const getPkgInfo = async (pkgName: string): Promise<PkgInfo | APIError> => {
-  const [name, version] = splitNameVersion(pkgName);
+  const [name, version] = splitNameVersion(removeSpecifier(removeCDNPrefix(pkgName)));
 
   let exactVersion: string | undefined;
   if (version) {

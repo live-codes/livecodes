@@ -56,7 +56,6 @@ export default function App() {
   tests: {
     language: 'tsx',
     content: `
-import React from "react";
 import { render, fireEvent, waitFor, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { assert } from "chai";
@@ -65,7 +64,7 @@ import App, { increment } from "./script";
 const renderComponent = () => {
   cleanup();
   return waitFor(() => {
-    return render(<App name="Jest with React" />, {
+    return render(<App />, {
       container: document.querySelector('#app')
     });
   });

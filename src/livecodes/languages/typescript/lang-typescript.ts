@@ -16,7 +16,7 @@ export const hasCustomJsxRuntime = (code: string, config: Config) => {
 };
 
 export const typescriptOptions = {
-  target: 'es2015',
+  target: 'es2020',
   jsx: 'react',
   allowUmdGlobalAccess: true,
   esModuleInterop: true,

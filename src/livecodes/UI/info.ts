@@ -2,7 +2,7 @@
 import { infoScreen } from '../html';
 import type { createModal } from '../modal';
 import * as UI from '../UI';
-import { loadScript, loadStylesheet, removeDuplicates } from '../utils/utils';
+import { loadStylesheet, removeDuplicates } from '../utils/utils';
 import { tagifyBaseUrl } from '../vendors';
 import type { Config } from '../models';
 import type { ProjectStorage } from '../storage';
@@ -64,8 +64,8 @@ export const createProjectInfoUI = async (
   };
 
   loadStylesheet(tagifyBaseUrl + 'tagify.css', 'tagify-styles');
-  await loadScript(tagifyBaseUrl + 'tagify.min.js', 'Tagify');
-  const Tagify = (window as any).Tagify;
+
+  const Tagify = (await import(tagifyBaseUrl + 'tagify.esm.js')).default;
   if (Tagify) {
     new Tagify(tagsInput, {
       whitelist: Array.from(

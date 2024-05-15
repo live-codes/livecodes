@@ -13,15 +13,19 @@ LiveCodes compiles Gleam code to JavaScript using the WebAssembly (wasm) version
 
 The compiled JavaScript code can be inspected in the [Compiled Code Viewer](../features/compiled-code.md) in the [Tools Pane](../features/tools-pane.md) (below the result page). Console output is shown in the [integrated console](../features/console.md).
 
+Please note that the compiler messages (e.g. errors and warnings) are shown in the browser console (not the integrated console).
+
 ### Standard Library
 
 [Gleam's standard library](https://hexdocs.pm/gleam_stdlib/) in addition to the following packages are available for use and can be imported as usual with no additional configuration:
 
 - [gleam/crypto](https://hexdocs.pm/gleam_crypto/)
+- [gleam/erlang](https://hexdocs.pm/gleam_erlang/)
 - [gleam/fetch](https://hexdocs.pm/gleam_fetch/)
 - [gleam/http](https://hexdocs.pm/gleam_http/)
 - [gleam/javascript](https://hexdocs.pm/gleam_javascript/)
 - [gleam/json](https://hexdocs.pm/gleam_json/)
+- [gleam/otp](https://hexdocs.pm/gleam_otp/)
 
 Demo:
 
@@ -65,8 +69,8 @@ Example:
   "gleam": {
     "modules": {
       "plinth/browser/document": {
-        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/build/packages/plinth/src/plinth/browser/document.gleam",
-        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
+        "srcUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/build/packages/plinth/src/plinth/browser/document.gleam",
+        "compiledUrl": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/build/dev/javascript/plinth/plinth/browser/document.mjs"
       }
     }
   }
@@ -108,7 +112,7 @@ Example:
 **Example:**
 
 The following script is hosted on this URL:  
-https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js
+https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/demo/greet.js
 
 ```js title="greet.js"
 export const hello = (str) => `Hello, ${str}!`;
@@ -119,7 +123,7 @@ Use this in custom settings:
 ```json title="Custom Settings"
 {
   "imports": {
-    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js"
+    "my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/demo/greet.js"
   }
 }
 ```
@@ -150,7 +154,7 @@ content: 'import gleam/io\n\n@external(javascript, "my_pkg/greet.js", "hello")\n
 tools: { status: 'open'},
 customSettings: {
 "imports": {
-"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.2.0/demo/greet.js"
+"my_pkg/greet.js": "https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@v0.3.0/demo/greet.js"
 }
 }
 }
