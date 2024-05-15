@@ -846,9 +846,14 @@ const getResultPage = async ({
       scriptContent !== getContent(getCache().script)); /* e.g. jsx/sfc */
 
   const testsNotChanged =
-    config.tests?.language === getCache().tests?.language &&
-    config.tests?.content === getCache().tests?.content &&
-    getCache().tests?.compiled;
+    (!config.tests?.content && !getCache().tests?.content) ||
+    (config.tests?.language === getCache().tests?.language &&
+      config.tests?.content === getCache().tests?.content &&
+      getCache().tests?.compiled);
+
+  if (testsNotChanged && !config.tests?.content) {
+    toolsPane?.tests?.showResults({ results: [] });
+  }
 
   const markupCompileResult = await compiler.compile(markupContent, markupLanguage, config, {});
   let compiledMarkup = markupCompileResult.code;
@@ -1085,13 +1090,13 @@ const run = async (editorId?: EditorId, runTests?: boolean) => {
   setLoading(true);
   toolsPane?.console?.clear(/* silent= */ true);
   const config = getConfig();
-  const shouldRunTests = runTests ?? (config.autotest && Boolean(config.tests?.content?.trim()));
+  const shouldRunTests = (runTests ?? config.autotest) && Boolean(config.tests?.content?.trim());
   const result = await getResultPage({ sourceEditor: editorId, runTests: shouldRunTests });
   await createIframe(UI.getResultElement(), result);
   updateCompiledCode();
 };
 
-const runTests = () => run(undefined, true);
+const runTests = () => run(/* editorId= */ undefined, /* runTests= */ true);
 
 const updateUrl = (url: string, push = false) => {
   if (push && !isEmbed) {
