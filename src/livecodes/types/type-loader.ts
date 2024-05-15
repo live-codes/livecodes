@@ -13,7 +13,18 @@ export const createTypeLoader = (baseUrl: string) => {
   let loadedTypes: Types = {};
   const libs: EditorLibrary[] = [];
 
-  const getTypeContents = async (type: Types): Promise<EditorLibrary> => {
+  /**
+   * Retrieves the contents of a type from a provided URL.
+   * If other types are imported, they are fetched and bundled.
+   *
+   * @param {Types} type - The type to retrieve the content for.
+   * @param {((type: EditorLibrary) => void) | undefined} callback - An optional callback function to handle the retrieved content.
+   * @return {Promise<EditorLibrary>} A promise that resolves with the EditorLibrary object containing the content of the type.
+   */
+  const getTypeContents = async (
+    type: Types,
+    callback: ((type: EditorLibrary) => void) | undefined,
+  ): Promise<EditorLibrary> => {
     let content = '';
     const name = Object.keys(type)[0];
     const value = Object.values(type)[0];
@@ -35,8 +46,10 @@ export const createTypeLoader = (baseUrl: string) => {
         }
 
         const declareAsModule =
-          !dts.includes('declare module') ||
-          (typeof value !== 'string' && value.declareAsModule === true);
+          typeof value !== 'string' && value.declareAsModule === false
+            ? false
+            : !dts.includes('declare module') ||
+              (typeof value !== 'string' && value.declareAsModule === true);
         const declareAsGlobal = typeof value !== 'string' && value.declareAsGlobal === true;
 
         content = declareAsModule && !declareAsGlobal ? `declare module '${name}' {${dts}}` : dts;
@@ -63,16 +76,36 @@ export const createTypeLoader = (baseUrl: string) => {
       filename: `/node_modules/${safeName(name)}/index.d.ts`,
       content,
     };
+    if (typeof callback === 'function') {
+      callback(lib);
+    }
     libs.push(lib);
     return lib;
   };
 
-  const getTypesFromAta = async (code: string) =>
-    new Promise<EditorLibrary[]>(async (resolve) => {
+  // see https://twitter.com/hatem_hosny_/status/1790644616175235323
+  let callbackFn: ((type: EditorLibrary) => void) | undefined;
+  let resolveFn: ((value: EditorLibrary[]) => void) | undefined;
+
+  /**
+   * Retrieves types from TypeScript Automatic Type Acquisition (ATA) module,
+   * which fetches types from jsDelivr.
+   *
+   * @param {string} code - The code to retrieve types from.
+   * @param {((type: EditorLibrary) => void) | undefined} callback - An optional callback function to handle the retrieved types.
+   * @return {Promise<EditorLibrary[]>} A promise that resolves with an array of EditorLibrary objects.
+   */
+  const getTypesFromAta = async (
+    code: string,
+    callback: ((type: EditorLibrary) => void) | undefined,
+  ) => {
+    callbackFn = callback;
+    return new Promise<EditorLibrary[]>(async (resolve) => {
       if (!code?.trim()) {
         resolve([]);
         return;
       }
+      resolveFn = resolve;
       ts = ts || ((await loadScript(typescriptUrl, 'ts')) as typeof TS);
       const ataModule = await import(typescriptAtaUrl);
       const { setupTypeAcquisition } = ataModule;
@@ -91,34 +124,48 @@ export const createTypeLoader = (baseUrl: string) => {
           delegate: {
             receivedFile: (code: string, path: string) => {
               ataTypes.push({ content: code, filename: path });
+              if (typeof callbackFn === 'function') {
+                callbackFn({ content: code, filename: path });
+              }
             },
             progress: (_downloaded: number, _total: number) => {
               // console.log({ _downloaded, _total })
             },
             started: () => {
-              // console.log("ATA start")
+              // console.log('ATA start');
             },
             finished: (_files: Map<string, string>) => {
-              libs.push(...ataTypes);
-              resolve(ataTypes);
+              if (typeof resolveFn === 'function') {
+                libs.push(...ataTypes);
+                resolveFn(ataTypes);
+              }
             },
           },
         });
       ata(code);
     });
-
-  const loadTypes = async (types: Types) => {
+  };
+  const loadTypes = async (types: Types, callback: ((type: EditorLibrary) => void) | undefined) => {
     const typesWithUrls = objectFilter(types, (value) => value !== '');
     const typesWithoutUrls = objectFilter(types, (value) => value === '');
     return [
       ...(await Promise.all(
-        Object.keys(typesWithUrls).map((t) => getTypeContents({ [t]: typesWithUrls[t] })),
+        Object.keys(typesWithUrls).map((t) => getTypeContents({ [t]: typesWithUrls[t] }, callback)),
       )),
-      ...(await getTypesFromAta(typesService.getTypesAsImports(Object.keys(typesWithoutUrls)))),
+      ...(await getTypesFromAta(
+        typesService.getTypesAsImports(Object.keys(typesWithoutUrls)),
+        callback,
+      )),
     ];
   };
 
-  const load = async (code: string, configTypes: Types, loadAll = false, forceLoad = false) => {
+  const load = async (
+    code: string,
+    configTypes: Types,
+    loadAll = false,
+    forceLoad = false,
+    callback?: (type: EditorLibrary) => void,
+  ) => {
     const imports = getImports(code);
 
     const codeTypes: Types = imports.reduce((accTypes, lib) => {
@@ -152,6 +199,7 @@ export const createTypeLoader = (baseUrl: string) => {
     };
 
     const fetchedTypes = typesToGet.reduce((acc, cur) => ({ ...acc, [cur]: '' }), {});
+    // const fetchedTypes = await typesService.getTypeUrls(typesToGet);
 
     const autoloadTypes: Types = objectFilter(
       configTypes,
@@ -161,7 +209,7 @@ export const createTypeLoader = (baseUrl: string) => {
         value.autoload === true,
     );
 
-    const newLibs = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes });
+    const newLibs = await loadTypes({ ...codeTypes, ...fetchedTypes, ...autoloadTypes }, callback);
 
     return loadAll ? libs : newLibs;
   };
