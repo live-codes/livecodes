@@ -139,10 +139,13 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
-import type { I18nKeyType, I18nValueType, I18nOptionalInterpolation } from './i18n/utils';
-
-// eslint-disable-next-line no-duplicate-imports
-import { translate, translateString } from './i18n/utils';
+import {
+  translate,
+  translateString,
+  type I18nKeyType,
+  type I18nValueType,
+  type I18nOptionalInterpolation,
+} from './i18n/utils';
 
 // declare global dependencies
 declare global {
