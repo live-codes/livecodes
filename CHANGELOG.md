@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v29](https://github.com/live-codes/livecodes/compare/v28...v29) (2024-05-15)
+
+### Highlights for this release:
+
+- Add [TypeScript twoslash](https://github.com/microsoft/TypeScript-Website/tree/v2/packages/ts-twoslasher) support in monaco editor. This works in JS, TS, JSX and TSX. See [docs](https://livecodes.io/docs/features/intellisense/#typescript-twoslash).
+- Change the way TypeScript types are loaded using Automatic Type Acquisition (ATA) to overcome some edge cases.
+- Use same typescript version for editor and compiler (currently v5.4.5).
+
+in addition to other improvements and fixes listed below.
+
+### Bug Fixes
+
+- **Compilers:** add rest of official gleam modules ([903e32b](https://github.com/live-codes/livecodes/commit/903e32b3d9e3a7869ff8101462d20fc582a0d3ba))
+- prevent using AMD when building (e.g. lz-string) ([f4f7154](https://github.com/live-codes/livecodes/commit/f4f71542cdb0e606ec323a01c344bcaaa9c52186))
+- **ToolsPane:** fix show test results in projects with no tests ([0f1b25b](https://github.com/live-codes/livecodes/commit/0f1b25b42b588c74d32c92f567e0ec5e0040e67d))
+- **ToolsPane:** fix unnecessarily changing language of compiled code editor ([4b0f023](https://github.com/live-codes/livecodes/commit/4b0f023180668aa2a055d3588822f68d3348cfc2))
+- **ToolsPane:** hide loading spinner when tests complete ([db1c7fc](https://github.com/live-codes/livecodes/commit/db1c7fc444213b354f9cb12bc1a4baedca9eea7b))
+- **Types:** fix type loader ([cfbdec4](https://github.com/live-codes/livecodes/commit/cfbdec408dc9ccc625a10e12ba598c8b57d33884))
+- **Types:** fix types in test editor ([874f2ee](https://github.com/live-codes/livecodes/commit/874f2ee80c87242169878bd2a5d7a140aec7b33d))
+
+### Features
+
+- **Editor:** add twoslash support in monaco editor ([b024c84](https://github.com/live-codes/livecodes/commit/b024c841fdeec6484f30ad1d8f3bff689baf1584))
+- **Editor:** use same typescript version for editor and compiler ([9d65622](https://github.com/live-codes/livecodes/commit/9d65622f97bdb24774d151060626b41091c459f3))
+- **Modules:** add more CDNs ([616bae7](https://github.com/live-codes/livecodes/commit/616bae7f225e4b398ca7ebba3cdd0a5a135bf8cb))
+- **Types:** enable Automatic Type Acquisition (ATA) for Monaco editor ([1f2ab60](https://github.com/live-codes/livecodes/commit/1f2ab60bb3c440f8772bda86d655dd05634dad46))
+
+---
+
 ## [v28](https://github.com/live-codes/livecodes/compare/v27...v28) (2024-04-24)
 
 ### Highlights for this release:
