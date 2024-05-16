@@ -178,7 +178,18 @@ export const populateConfig = (
       // not DOM
     }
   }
+
+  const markupContent = code.markup?.content?.trim();
+  const markupLines = markupContent?.split('\n').length || 0;
+  const scriptContent = code.script?.content?.trim();
+  const scriptLines = scriptContent?.split('\n').length || 0;
+  const activeEditor =
+    scriptContent && (!markupContent || scriptLines > markupLines || scriptLines > 10)
+      ? 'script'
+      : undefined;
+
   return {
+    ...(activeEditor ? { activeEditor } : {}),
     ...code,
     stylesheets,
     scripts,
