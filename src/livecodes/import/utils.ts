@@ -23,30 +23,44 @@ export const populateConfig = (
     }
   }
 
-  // select files based on language in query params (e.g. ?html=index.html&js=script.js)
-  const languagesInParams = Object.keys(params).some(getLanguageByAlias);
-  if (languagesInParams) {
-    return Object.keys(params).reduce((output: Partial<Config>, param: string) => {
-      const language = getLanguageByAlias(param);
-      if (!language) return output;
-      const file = files.find((file) => file?.filename === params[param]);
-      if (!file) return output;
+  // select files in query params (e.g. ?files=index.html,script.js)
+  const filesInParams = params.files;
+  if (filesInParams) {
+    return filesInParams
+      .split(',')
+      .map((filename) => filename.trim())
+      .reduce((output: Partial<Config>, filename: string) => {
+        const extension = filename.split('.')[filename.split('.').length - 1];
+        const language = getLanguageByAlias(extension);
+        if (!language) return output;
+        const file = files.find((file) => file.filename === filename);
+        if (!file) return output;
 
-      const editorId = getLanguageEditorId(language);
-      if (!editorId || output[editorId]) return output;
+        const editorId = getLanguageEditorId(language);
+        if (!editorId || output[editorId]) return output;
 
-      return {
-        ...output,
-        [editorId]: {
-          language,
-          content: file.content,
-        },
-      };
-    }, {} as Partial<Config>);
+        return {
+          ...output,
+          activeEditor: output.activeEditor || editorId, // set first as active editor
+          [editorId]: {
+            language,
+            content: file.content,
+          },
+        };
+      }, {} as Partial<Config>);
   }
 
   // select languages from files
   const code = files
+    .map((file) => ({
+      ...file,
+      filename: file.filename.toLowerCase(),
+    }))
+    .filter(
+      (file) =>
+        // do not import json files
+        !file.filename.endsWith('.json'),
+    )
     .map((file) => {
       const extension = file.filename.split('.')[file.filename.split('.').length - 1];
       const language: Language = file.language || getLanguageByAlias(extension) || 'html';
@@ -58,31 +72,41 @@ export const populateConfig = (
       };
     })
     .sort((a, b) => {
-      if (
-        // put default files first
-        a.editorId === b.editorId &&
-        ((a.editorId === 'markup' && a.filename.toLowerCase().startsWith('index.')) ||
-          (a.editorId === 'style' && a.filename.toLowerCase().startsWith('style.')) ||
-          (a.editorId === 'script' && a.filename.toLowerCase().startsWith('script.')))
-      ) {
-        return -1;
+      // put default files first
+      if (a.editorId === b.editorId && a.editorId === 'markup') {
+        // index.html -> default.html
+        if (a.filename.startsWith('index.')) return -1;
+        if (b.filename.startsWith('index.')) return 1;
+
+        if (a.filename.startsWith('default.')) return -1;
+        if (b.filename.startsWith('default.')) return 1;
       }
-      if (
-        // put default files first
-        a.editorId === b.editorId &&
-        ((b.editorId === 'markup' && b.filename.toLowerCase().startsWith('index.')) ||
-          (b.editorId === 'style' && b.filename.toLowerCase().startsWith('style.')) ||
-          (b.editorId === 'script' && b.filename.toLowerCase().startsWith('script.')))
-      ) {
-        return 1;
+      if (a.editorId === b.editorId && a.editorId === 'style') {
+        // style.css -> styles.css
+        if (a.filename.startsWith('style.')) return -1;
+        if (b.filename.startsWith('style.')) return 1;
+
+        if (a.filename.startsWith('styles.')) return -1;
+        if (b.filename.startsWith('styles.')) return 1;
       }
-      if (
-        // put readme last
-        a.editorId === b.editorId &&
-        a.editorId === 'markup'
-      ) {
-        if (a.filename.toLowerCase().startsWith('readme')) return 1;
-        if (b.filename.toLowerCase().startsWith('readme')) return -1;
+      if (a.editorId === b.editorId && a.editorId === 'script') {
+        // script.js -> app.js -> main.js -> index.js
+        if (a.filename.startsWith('script.')) return -1;
+        if (b.filename.startsWith('script.')) return 1;
+
+        if (a.filename.startsWith('app.')) return -1;
+        if (b.filename.startsWith('app.')) return 1;
+
+        if (a.filename.startsWith('main.')) return -1;
+        if (b.filename.startsWith('main.')) return 1;
+
+        if (a.filename.startsWith('index.')) return -1;
+        if (b.filename.startsWith('index.')) return 1;
+      }
+      // put readme last
+      if (a.editorId === b.editorId && a.editorId === 'markup') {
+        if (a.filename.startsWith('readme')) return 1;
+        if (b.filename.startsWith('readme')) return -1;
       }
       if (a.language === b.language) {
         // if same language, sort by filename
@@ -96,7 +120,7 @@ export const populateConfig = (
     })
     .reduce((output: Partial<Config>, file) => {
       // tests
-      if (file.filename.toLowerCase().match(new RegExp('.(test|spec)\\.[jt]sx?'))) {
+      if (file.filename.match(new RegExp('.(test|spec)\\.[jt]sx?'))) {
         if (output.tests?.content) return output;
         return {
           ...output,

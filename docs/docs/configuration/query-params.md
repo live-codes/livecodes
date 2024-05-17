@@ -103,6 +103,10 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
 
     Alias to [`import`](../sdk/js-ts.md#import) (a URL to [import](../features/import.md)).
 
+  - `files`: `string`.
+
+    A comma-separated [list of files to import](../features/import.md#file-selection).
+
   - `raw`: [`Language`](../api/modules/internal.md#language).
 
     When used with `import` or `x`, imports the URL as code of the provided language.
