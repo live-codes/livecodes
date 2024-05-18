@@ -343,13 +343,14 @@ describe('populate Config object for imported files', () => {
       },
     ];
     const result: Partial<Config> = {
+      activeEditor: 'markup',
       markup: {
         language: 'markdown',
         content: '# b',
       },
     };
 
-    expect(populateConfig(files, { md: 'b.md' })).toEqual(result);
+    expect(populateConfig(files, { files: 'b.md' })).toEqual(result);
   });
 
   test('select files in params', () => {
@@ -384,6 +385,7 @@ describe('populate Config object for imported files', () => {
       },
     ];
     const result: Partial<Config> = {
+      activeEditor: 'markup',
       markup: {
         language: 'markdown',
         content: '# b',
@@ -398,7 +400,7 @@ describe('populate Config object for imported files', () => {
       },
     };
 
-    expect(populateConfig(files, { md: 'b.md', css: 'st.css', js: 'sc.js' })).toEqual(result);
+    expect(populateConfig(files, { files: 'b.md,st.css,sc.js' })).toEqual(result);
   });
 
   test('should populate stylesheets and scripts as elements', () => {
@@ -600,6 +602,34 @@ describe('populate Config object for imported files', () => {
         language: 'typescript',
         content: '// tests',
       },
+    };
+
+    expect(populateConfig(files, {})).toEqual(result);
+  });
+
+  test('set activeEditor', () => {
+    const files: SourceFile[] = [
+      {
+        filename: 'style.css',
+        content: 'body{}',
+      },
+      {
+        filename: 'Greeter.jsx',
+        content: 'export default () => <h1>Hi There</h1>',
+      },
+    ];
+    const result: Partial<Config> = {
+      activeEditor: 'script',
+      style: {
+        language: 'css',
+        content: 'body{}',
+      },
+      script: {
+        language: 'jsx',
+        content: 'export default () => <h1>Hi There</h1>',
+      },
+      scripts: [],
+      stylesheets: [],
     };
 
     expect(populateConfig(files, {})).toEqual(result);
