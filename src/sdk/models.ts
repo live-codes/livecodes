@@ -1162,6 +1162,7 @@ export type UrlQueryParams = Partial<
       embed: boolean;
       preview: boolean;
       x: string;
+      files: string; // comma-separated files (e.g. import from GitHub dir)
       raw: Language;
       language: Language;
       lang: Language;
