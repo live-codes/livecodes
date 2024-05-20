@@ -30,6 +30,9 @@
         },
         {
           "name": "data-hint"
+        },
+        {
+          "name": "placeholder"
         }
       ]
     }

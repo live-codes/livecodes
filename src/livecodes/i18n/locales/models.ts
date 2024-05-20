@@ -3,11 +3,17 @@ import type { RequireAtLeastOne, UnAsConst } from '../types/utils';
 import type Translation from './en/translation';
 import type LangInfoTranslation from './en/language-info';
 
+/**
+ * Add new translatable attributes here.
+ *
+ * To add new custom data attributes for HTML intellisense, see `script/vscode-intellisense.js`.
+ */
 type I18nAttributes = RequireAtLeastOne<{
   textContent?: string;
   innerHTML?: string;
   title?: string;
   'data-hint'?: string;
+  placeholder?: string;
 }>;
 
 /**
