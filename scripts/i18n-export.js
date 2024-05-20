@@ -24,6 +24,21 @@ const structuredJSON = {
   'language-info': {},
 };
 
+const sortedJSONify = (obj, space = 2) =>
+  JSON.stringify(
+    obj,
+    (key, value) =>
+      value instanceof Object && !(value instanceof Array)
+        ? Object.keys(value)
+            .sort()
+            .reduce((sorted, key) => {
+              sorted[key] = value[key];
+              return sorted;
+            }, {})
+        : value,
+    space,
+  );
+
 const writeTranslation = async (namespace) => {
   const name = namespace === 'translation' ? 'translation' : 'languageInfo';
   const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
@@ -36,7 +51,7 @@ const writeTranslation = async (namespace) => {
     // Since we allow nested objects, it is important to distinguish I18nTranslationTemplate from I18nAttributes.
     // In view of this, properties declared in I18nAttributes (and those attributes might be used in future) shall not be used as a nested key.
     
-    const ${name} = ${JSON.stringify(trans[namespace], null, 2)} as const satisfies I18nTranslationTemplate;
+    const ${name} = ${sortedJSONify(trans[namespace])} as const satisfies I18nTranslationTemplate;
     
     export default ${name};
   `;
@@ -52,7 +67,7 @@ const writeTranslation = async (namespace) => {
     // Save structured JSON for lokalise
     fs.promises.writeFile(
       path.resolve(outDir, namespace + '.lokalise.json'),
-      JSON.stringify(structuredJSON[namespace], null, 2).replace(/<(\/?)([0-9]+)>/g, '<$1tag-$2>'),
+      sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)([0-9]+)>/g, '<$1tag-$2>'),
     ),
   ]);
 
@@ -170,7 +185,7 @@ const processHTML = async (files) => {
   await Promise.all(
     files.map(async (file) => {
       try {
-        console.log(`Processing ${file}...`);
+        // console.log(`Processing ${file}...`);
 
         const data = await fs.promises.readFile(file, 'utf8');
         const html = new jsdom.JSDOM(data).window.document;
@@ -205,7 +220,7 @@ const processTS = async (files) => {
   await Promise.all(
     files.map(async (file) => {
       try {
-        console.log(`Processing ${file}...`);
+        // console.log(`Processing ${file}...`);
 
         const data = await fs.promises.readFile(file, 'utf8');
         const ast = parser.parse(data, {
