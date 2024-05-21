@@ -60,105 +60,105 @@ export const createEmbedUI = async ({
   }
   const formFields: FormField[] = [
     {
-      title: window.deps.translateString('embedUI.theme.heading', 'Theme'),
+      title: window.deps.translateString('embed.theme.heading', 'Theme'),
       name: 'theme',
       options: [
         {
-          label: window.deps.translateString('embedUI.theme.dark', 'Dark'),
+          label: window.deps.translateString('embed.theme.dark', 'Dark'),
           value: 'dark',
           checked: true,
         },
-        { label: window.deps.translateString('embedUI.theme.light', 'Light'), value: 'light' },
+        { label: window.deps.translateString('embed.theme.light', 'Light'), value: 'light' },
       ],
     },
     {
-      title: window.deps.translateString('embedUI.loading.heading', 'Loading'),
+      title: window.deps.translateString('embed.loading.heading', 'Loading'),
       name: 'loading',
       options: [
         {
-          label: window.deps.translateString('embedUI.loading.lazy', 'Lazy'),
+          label: window.deps.translateString('embed.loading.lazy', 'Lazy'),
           value: 'lazy',
           checked: true,
         },
-        { label: window.deps.translateString('embedUI.loading.click', 'On-click'), value: 'click' },
-        { label: window.deps.translateString('embedUI.loading.eager', 'Eager'), value: 'eager' },
+        { label: window.deps.translateString('embed.loading.click', 'On-click'), value: 'click' },
+        { label: window.deps.translateString('embed.loading.eager', 'Eager'), value: 'eager' },
       ],
     },
     {
-      title: window.deps.translateString('embedUI.lite', 'Lite Mode'),
+      title: window.deps.translateString('embed.lite', 'Lite Mode'),
       name: 'lite',
       options: [{ value: 'true', checked: false }],
       help: `${process.env.DOCS_BASE_URL}features/lite`,
     },
     {
-      title: window.deps.translateString('embedUI.readonly', 'Read only'),
+      title: window.deps.translateString('embed.readonly', 'Read only'),
       name: 'readonly',
       options: [{ value: 'true', checked: false }],
     },
     {
-      title: window.deps.translateString('embedUI.mode.heading', 'Display Mode'),
+      title: window.deps.translateString('embed.mode.heading', 'Display Mode'),
       name: 'mode',
       options: [
         {
-          label: window.deps.translateString('embedUI.mode.full', 'Full'),
+          label: window.deps.translateString('embed.mode.full', 'Full'),
           value: 'full',
           checked: true,
         },
         {
-          label: window.deps.translateString('embedUI.mode.editor', 'Editor'),
+          label: window.deps.translateString('embed.mode.editor', 'Editor'),
           value: 'editor',
         },
         {
-          label: window.deps.translateString('embedUI.mode.codeblock', 'Code Block'),
+          label: window.deps.translateString('embed.mode.codeblock', 'Code Block'),
           value: 'codeblock',
         },
         {
-          label: window.deps.translateString('embedUI.mode.result', 'Result'),
+          label: window.deps.translateString('embed.mode.result', 'Result'),
           value: 'result',
         },
       ],
       help: `${process.env.DOCS_BASE_URL}features/display-modes`,
     },
     {
-      title: window.deps.translateString('embedUI.view.heading', 'Default View'),
+      title: window.deps.translateString('embed.view.heading', 'Default View'),
       name: 'view',
       options: [
         {
-          label: window.deps.translateString('embedUI.view.split', 'Split'),
+          label: window.deps.translateString('embed.view.split', 'Split'),
           value: 'split',
           checked: true,
         },
         {
-          label: window.deps.translateString('embedUI.view.editor', 'Editor'),
+          label: window.deps.translateString('embed.view.editor', 'Editor'),
           value: 'editor',
         },
         {
-          label: window.deps.translateString('embedUI.view.result', 'Result'),
+          label: window.deps.translateString('embed.view.result', 'Result'),
           value: 'result',
         },
       ],
       help: `${process.env.DOCS_BASE_URL}features/default-view`,
     },
     {
-      title: window.deps.translateString('embedUI.activeEditor.heading', 'Active Editor'),
+      title: window.deps.translateString('embed.activeEditor.heading', 'Active Editor'),
       name: 'activeEditor',
       options: [
         {
-          label: window.deps.translateString('embedUI.activeEditor.markup', '{{markup}}', {
+          label: window.deps.translateString('embed.activeEditor.markup', '{{markup}}', {
             markup: editorLanguages.markup,
           }),
           value: 'markup',
           checked: activeEditor === 'markup',
         },
         {
-          label: window.deps.translateString('embedUI.activeEditor.style', '{{style}}', {
+          label: window.deps.translateString('embed.activeEditor.style', '{{style}}', {
             style: editorLanguages.style,
           }),
           value: 'style',
           checked: activeEditor === 'style',
         },
         {
-          label: window.deps.translateString('embedUI.activeEditor.script', '{{script}}', {
+          label: window.deps.translateString('embed.activeEditor.script', '{{script}}', {
             script: editorLanguages.script,
           }),
           value: 'script',
@@ -167,64 +167,64 @@ export const createEmbedUI = async ({
       ],
     },
     {
-      title: window.deps.translateString('embedUI.tools.heading', 'Tools'),
+      title: window.deps.translateString('embed.tools.heading', 'Tools'),
       name: 'tools',
       options: [
         {
-          label: window.deps.translateString('embedUI.tools.closed', 'Closed'),
+          label: window.deps.translateString('embed.tools.closed', 'Closed'),
           value: 'closed',
           checked: true,
         },
-        { label: window.deps.translateString('embedUI.tools.open', 'Open'), value: 'open' },
-        { label: window.deps.translateString('embedUI.tools.full', 'Full'), value: 'full' },
-        { label: window.deps.translateString('embedUI.tools.none', 'None'), value: 'none' },
+        { label: window.deps.translateString('embed.tools.open', 'Open'), value: 'open' },
+        { label: window.deps.translateString('embed.tools.full', 'Full'), value: 'full' },
+        { label: window.deps.translateString('embed.tools.none', 'None'), value: 'none' },
       ],
       help: `${process.env.DOCS_BASE_URL}features/tools-pane`,
     },
     {
-      title: window.deps.translateString('embedUI.activeTool.heading', 'Active Tool'),
+      title: window.deps.translateString('embed.activeTool.heading', 'Active Tool'),
       name: 'activeTool',
       options: [
         {
-          label: window.deps.translateString('embedUI.activeTool.console', 'Console'),
+          label: window.deps.translateString('embed.activeTool.console', 'Console'),
           value: 'console',
           checked: true,
         },
         {
-          label: window.deps.translateString('embedUI.activeTool.compiled', 'Compiled'),
+          label: window.deps.translateString('embed.activeTool.compiled', 'Compiled'),
           value: 'compiled',
         },
-        { label: window.deps.translateString('embedUI.activeTool.tests', 'Tests'), value: 'tests' },
+        { label: window.deps.translateString('embed.activeTool.tests', 'Tests'), value: 'tests' },
       ].filter((option) => (option.value === 'tests' && !config.tests?.content ? false : true)),
       help: `${process.env.DOCS_BASE_URL}features/tools-pane`,
     },
     {
-      title: window.deps.translateString('embedUI.permanentUrl', 'Permanent URL'),
+      title: window.deps.translateString('embed.permanentUrl', 'Permanent URL'),
       name: 'permanentUrl',
       options: [{ value: 'true', checked: true }],
       help: `${process.env.DOCS_BASE_URL}features/permanent-url`,
     },
     {
-      title: window.deps.translateString('embedUI.embedType.heading', 'Embed Type'),
+      title: window.deps.translateString('embed.embedType.heading', 'Embed Type'),
       name: 'type',
       options: [
         {
-          label: window.deps.translateString('embedUI.embedType.cdn', 'Script (CDN)'),
+          label: window.deps.translateString('embed.embedType.cdn', 'Script (CDN)'),
           value: 'cdn',
           checked: true,
         },
-        { label: window.deps.translateString('embedUI.embedType.npm', 'JS (npm)'), value: 'npm' },
-        { label: window.deps.translateString('embedUI.embedType.react', 'React'), value: 'react' },
-        { label: window.deps.translateString('embedUI.embedType.vue', 'Vue'), value: 'vue' },
+        { label: window.deps.translateString('embed.embedType.npm', 'JS (npm)'), value: 'npm' },
+        { label: window.deps.translateString('embed.embedType.react', 'React'), value: 'react' },
+        { label: window.deps.translateString('embed.embedType.vue', 'Vue'), value: 'vue' },
         {
-          label: window.deps.translateString('embedUI.embedType.svelte', 'Svelte'),
+          label: window.deps.translateString('embed.embedType.svelte', 'Svelte'),
           value: 'svelte',
         },
         {
-          label: window.deps.translateString('embedUI.embedType.iframe', 'Iframe'),
+          label: window.deps.translateString('embed.embedType.iframe', 'Iframe'),
           value: 'iframe',
         },
-        { label: window.deps.translateString('embedUI.embedType.html', 'HTML'), value: 'html' },
+        { label: window.deps.translateString('embed.embedType.html', 'HTML'), value: 'html' },
       ],
     },
   ];

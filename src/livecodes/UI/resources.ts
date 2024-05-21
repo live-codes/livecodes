@@ -242,7 +242,7 @@ export const createExternalResourcesUI = ({
     baseUrl + '{{hash:google-fonts.js}}'
   );
   fontsModule.then((mod) => {
-    fontsSelect.innerHTML = `<option value="">${window.deps.translateString('resources.font.select', 'Select font ...')}</option>`;
+    fontsSelect.innerHTML = `<option value="">${window.deps.translateString('resources.fonts.select', 'Select font ...')}</option>`;
     const fonts = mod.googleFonts.getFonts();
     fonts.forEach((font) => {
       const option = document.createElement('option');
@@ -256,7 +256,7 @@ export const createExternalResourcesUI = ({
       fontsSelect.value = '';
       addFontsBtn.innerText = '✔';
       setTimeout(() => {
-        addFontsBtn.innerText = window.deps.translateString('resources.font.add', 'Add');
+        addFontsBtn.innerText = window.deps.translateString('resources.fonts.add', 'Add');
       }, 1000);
     });
   });

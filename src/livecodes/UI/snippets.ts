@@ -76,7 +76,7 @@ const createSnippetItem = (
     const lastModifiedText = document.createElement('div');
     lastModifiedText.classList.add('light');
     lastModifiedText.textContent = window.deps.translateString(
-      'snippetes.lastModified',
+      'snippets.lastModified',
       'Last modified: {{modified}}',
       {
         modified: lastModified,

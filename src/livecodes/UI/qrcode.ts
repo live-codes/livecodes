@@ -26,7 +26,10 @@ export const generateQrCode = async ({
       const qrcodeImg = document.createElement('img');
       qrcodeImg.src = dataUrl;
       qrcodeImg.style.cursor = 'pointer';
-      qrcodeImg.title = window.deps.translateString('qrcode.clickToDownload', 'Click to download');
+      qrcodeImg.title = window.deps.translateString(
+        'share.qrcode.clickToDownload',
+        'Click to download',
+      );
       qrcodeImg.onclick = () => qr.download(safeName(title || 'LiveCodes', '-'));
       container.appendChild(qrcodeImg);
       container.style.visibility = 'visible';

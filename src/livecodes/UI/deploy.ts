@@ -180,12 +180,15 @@ export const createDeployUI = async ({
       return;
     }
 
-    newRepoButton.innerHTML = window.deps.translateString('deploy.deploying', 'Deploying...');
+    newRepoButton.innerHTML = window.deps.translateString(
+      'deploy.generic.deploying',
+      'Deploying...',
+    );
     newRepoButton.disabled = true;
 
     const result = await publish(user, name, message, commitSource, newRepo);
     if (!result) {
-      newRepoButton.innerHTML = window.deps.translateString('deploy.deploy', 'Deploy');
+      newRepoButton.innerHTML = window.deps.translateString('deploy.generic.deployBtn', 'Deploy');
       newRepoButton.disabled = false;
     }
   });
@@ -203,7 +206,10 @@ export const createDeployUI = async ({
       return;
     }
 
-    existingRepoButton.innerHTML = window.deps.translateString('deploy.deploying', 'Deploying...');
+    existingRepoButton.innerHTML = window.deps.translateString(
+      'deploy.generic.deploying',
+      'Deploying...',
+    );
     existingRepoButton.disabled = true;
 
     await publish(user, name, message, commitSource, newRepo);

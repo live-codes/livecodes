@@ -54,7 +54,7 @@ const createSyncContainer = (
 };
 
 const syncInProgressMessage = window.deps.translateString(
-  'syncUI.syncInProgress',
+  'sync.syncInProgress',
   'Sync in progress...',
 );
 export const isSyncInProgress = () => getSyncLink()?.dataset.hint === syncInProgressMessage;
@@ -95,7 +95,7 @@ export const updateSyncStatus = ({
       syncIndicator?.classList.add('hidden');
     }
     startSyncBtns?.forEach((btn) => {
-      btn.innerText = window.deps.translateString('syncUI.sync', 'Sync');
+      btn.innerText = window.deps.translateString('sync.syncBtn', 'Sync');
       btn.disabled = false;
     });
   }
@@ -140,7 +140,7 @@ export const createSyncUI = async ({
   });
 
   const sync = (user: User, repo: string, newRepo: boolean) => {
-    notifications.info(window.deps.translateString('syncUI.syncStarted', 'Sync started...'));
+    notifications.info(window.deps.translateString('sync.syncStarted', 'Sync started...'));
     modal.close();
 
     return syncModule
@@ -151,13 +151,13 @@ export const createSyncUI = async ({
           newRepo,
         });
         if (!syncResult) {
-          notifications.error(window.deps.translateString('syncUI.error.generic', 'Sync failed!'));
+          notifications.error(window.deps.translateString('sync.error.generic', 'Sync failed!'));
           return;
         }
-        notifications.success(window.deps.translateString('syncUI.success', 'Sync complete!'));
+        notifications.success(window.deps.translateString('sync.success', 'Sync complete!'));
       })
       .catch(() => {
-        notifications.error(window.deps.translateString('syncUI.error.generic', 'Sync failed!'));
+        notifications.error(window.deps.translateString('sync.error.generic', 'Sync failed!'));
       });
   };
 
@@ -171,7 +171,7 @@ export const createSyncUI = async ({
     const newRepo = true;
     if (!repo) {
       notifications.error(
-        window.deps.translateString('syncUI.error.repoNameRequired', 'Repo name is required'),
+        window.deps.translateString('sync.error.repoNameRequired', 'Repo name is required'),
       );
       return;
     }
@@ -195,7 +195,7 @@ export const createSyncUI = async ({
     const newRepo = false;
     if (!repo) {
       notifications.error(
-        window.deps.translateString('syncUI.error.repoNameRequired', 'Repo name is required'),
+        window.deps.translateString('sync.error.repoNameRequired', 'Repo name is required'),
       );
       return;
     }
@@ -224,7 +224,7 @@ export const createSyncUI = async ({
     if (!document.querySelector(inputSelector)) return;
     const autoCompleteJS = new autoComplete({
       selector: inputSelector,
-      placeHolder: window.deps.translateString('syncUI.searchRepos', 'Search your repos...'),
+      placeHolder: window.deps.translateString('sync.searchRepos', 'Search your repos...'),
       data: {
         src: repos,
       },
