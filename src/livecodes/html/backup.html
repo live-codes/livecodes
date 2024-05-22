@@ -19,7 +19,9 @@
           <div id="backup-stores">
             <div class="backup-store">
               <input type="checkbox" id="backup-projects-checkbox" data-store="projects" checked />
-              <label for="backup-projects-checkbox" data-i18n="backup.backup.projects">Projects</label>
+              <label for="backup-projects-checkbox" data-i18n="backup.backup.projects"
+                >Projects</label
+              >
             </div>
             <div class="backup-store">
               <input
@@ -28,11 +30,15 @@
                 data-store="templates"
                 checked
               />
-              <label for="backup-templates-checkbox" data-i18n="backup.backup.templates">User Templates</label>
+              <label for="backup-templates-checkbox" data-i18n="backup.backup.templates"
+                >User Templates</label
+              >
             </div>
             <div class="backup-store">
               <input type="checkbox" id="backup-snippets-checkbox" data-store="snippets" checked />
-              <label for="backup-snippets-checkbox" data-i18n="backup.backup.snippets">Code Snippets</label>
+              <label for="backup-snippets-checkbox" data-i18n="backup.backup.snippets"
+                >Code Snippets</label
+              >
             </div>
             <div class="backup-store">
               <input type="checkbox" id="backup-assets-checkbox" data-store="assets" checked />
@@ -49,7 +55,14 @@
               <label for="backup-user-settings-checkbox">User Settings</label>
             </div>
           </div>
-          <button id="backup-btn" class="wide-button" type="submit" data-i18n="backup.backup.button">Backup</button>
+          <button
+            id="backup-btn"
+            class="wide-button"
+            type="submit"
+            data-i18n="backup.backup.button"
+          >
+            Backup
+          </button>
         </form>
       </div>
     </div>
@@ -74,15 +87,27 @@
                 value="replace"
                 checked
               />
-              <label class="radio-label" for="restore-mode-replace" data-i18n="backup.restore.mode.replace">Replace current content</label>
+              <label
+                class="radio-label"
+                for="restore-mode-replace"
+                data-i18n="backup.restore.mode.replace"
+                >Replace current content</label
+              >
             </span>
             <span>
               <input type="radio" name="restore-mode" id="restore-mode-merge" value="merge" />
-              <label class="radio-label" for="restore-mode-merge" data-i18n="backup.restore.mode.merge">Merge with current content</label>
+              <label
+                class="radio-label"
+                for="restore-mode-merge"
+                data-i18n="backup.restore.mode.merge"
+                >Merge with current content</label
+              >
             </span>
           </div>
 
-          <label for="file-input" class="file-input-label" data-i18n="backup.restore.fromFile">Restore from file</label>
+          <label for="file-input" class="file-input-label" data-i18n="backup.restore.fromFile"
+            >Restore from file</label
+          >
           <input
             type="file"
             id="file-input"

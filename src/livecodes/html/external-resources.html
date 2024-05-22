@@ -2,7 +2,10 @@
   <div class="modal-title" data-i18n="resources.heading">External Resources</div>
   <div id="resources-screen-container" class="modal-screen-container">
     <div class="modal-screen">
-      <label for="resources-search-input" data-i18n="resources.search.heading" data-i18n-prop="innerHTML"
+      <label
+        for="resources-search-input"
+        data-i18n="resources.search.heading"
+        data-i18n-prop="innerHTML"
         >Search Packages <span class="nowrap label-description">(powered by jsDelivr)</span></label
       >
       <input
@@ -19,7 +22,9 @@
           Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.
         </div>
 
-        <label for="external-stylesheets" data-i18n="resources.stylesheets">External Stylesheets</label>
+        <label for="external-stylesheets" data-i18n="resources.stylesheets"
+          >External Stylesheets</label
+        >
         <textarea
           id="external-stylesheets"
           placeholder="https://"
@@ -29,7 +34,9 @@
         <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
       </div>
 
-      <label data-i18n="resources.fonts.heading" data-i18n-prop="innerHTML">Fonts <span class="nowrap label-description">(powered by Google Fonts)</span></label>
+      <label data-i18n="resources.fonts.heading" data-i18n-prop="innerHTML"
+        >Fonts <span class="nowrap label-description">(powered by Google Fonts)</span></label
+      >
       <div id="fonts-container">
         <select>
           <option value="" data-i18n="generic.Loading">Loading...</option>
@@ -41,7 +48,12 @@
       <div class="input-container">
         <span>
           <input type="radio" id="resources-css-preset-none" name="css-preset" value="" checked />
-          <label class="radio-label" for="resources-css-preset-none" data-i18n="resources.cssPresets.none">None</label>
+          <label
+            class="radio-label"
+            for="resources-css-preset-none"
+            data-i18n="resources.cssPresets.none"
+            >None</label
+          >
         </span>
         <span>
           <input
@@ -50,7 +62,12 @@
             name="css-preset"
             value="normalize.css"
           />
-          <label class="radio-label" for="resources-css-preset-normalize-css" data-i18n="resources.cssPresets.normalizeCss">Normalize.css</label>
+          <label
+            class="radio-label"
+            for="resources-css-preset-normalize-css"
+            data-i18n="resources.cssPresets.normalizeCss"
+            >Normalize.css</label
+          >
         </span>
         <span>
           <input
@@ -59,7 +76,12 @@
             name="css-preset"
             value="reset-css"
           />
-          <label class="radio-label" for="resources-css-preset-reset-css" data-i18n="resources.cssPresets.resetCss">Reset CSS</label>
+          <label
+            class="radio-label"
+            for="resources-css-preset-reset-css"
+            data-i18n="resources.cssPresets.resetCss"
+            >Reset CSS</label
+          >
         </span>
       </div>
     </div>

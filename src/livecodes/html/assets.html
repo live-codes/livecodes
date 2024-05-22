@@ -1,22 +1,31 @@
 <div id="assets-list-container" class="list-container">
   <div class="modal-title" data-i18n="assets.heading">Assets</div>
   <div class="buttons">
-    <button id="assets-add-asset-button" class="button" data-i18n="assets.add.heading">Add Asset</button>
-    <button id="assets-delete-all-button" class="button danger" data-i18n="assets.deleteAll">Delete All</button>
+    <button id="assets-add-asset-button" class="button" data-i18n="assets.add.heading">
+      Add Asset
+    </button>
+    <button id="assets-delete-all-button" class="button danger" data-i18n="assets.deleteAll">
+      Delete All
+    </button>
   </div>
   <div class="modal-message" id="assets-container" class="items-container">
     <span id="assets-sort-by-label" data-i18n="assets.sort.heading">Sort By:</span>
-    <a href="#" id="assets-sort-by-last-modified" class="active" data-i18n="assets.sort.date">Date</a>&nbsp;/&nbsp;<a
-      href="#"
-      id="assets-sort-by-title"
-      data-i18n="assets.sort.fileName"
+    <a href="#" id="assets-sort-by-last-modified" class="active" data-i18n="assets.sort.date"
+      >Date</a
+    >&nbsp;/&nbsp;<a href="#" id="assets-sort-by-title" data-i18n="assets.sort.fileName"
       >File Name</a
     >&nbsp;(<a href="#" id="assets-sorted-asc" style="display: none">▲</a
     ><a href="#" id="assets-sorted-desc">▼</a>)
     <select name="type-filter" id="assets-type-filter">
       <option value="" data-i18n="assets.types.all">All types</option>
     </select>
-    <input id="search-assets" type="text" placeholder="Search" data-i18n="assets.search" data-i18n-prop="placeholder" />
+    <input
+      id="search-assets"
+      type="text"
+      placeholder="Search"
+      data-i18n="assets.search"
+      data-i18n-prop="placeholder"
+    />
     <a
       href="#"
       id="assets-reset-filters"

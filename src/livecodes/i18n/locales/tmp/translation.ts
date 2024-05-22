@@ -545,16 +545,14 @@ const translation = {
       placeholder: 'e.g. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'External Stylesheets',
-    urlDesc:
-      "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.",
+    urlDesc: "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.",
   },
   savePrompt: {
     heading: 'Unsaved changes',
     prompt: {
       cancel: 'Cancel',
       discard: 'Do not save',
-      heading:
-        'The changes you made may not be saved. <0></0> Do you want to save now?',
+      heading: 'The changes you made may not be saved. <0></0> Do you want to save now?',
       save: 'Save',
     },
   },

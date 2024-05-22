@@ -12,17 +12,40 @@
             <label for="new-repo-name" data-i18n="deploy.create.repoName" data-i18n-prop="innerHTML"
               >Repo Name <span id="new-repo-name-error" class="error"></span
             ></label>
-            <input type="text" id="new-repo-name" placeholder="Required" data-i18n="generic.required" data-i18n-prop="placeholder" />
+            <input
+              type="text"
+              id="new-repo-name"
+              placeholder="Required"
+              data-i18n="generic.required"
+              data-i18n-prop="placeholder"
+            />
           </div>
           <div>
-            <label for="new-repo-message" data-i18n="deploy.generic.commitMessage">Commit Message</label>
-            <input type="text" id="new-repo-message" placeholder="Optional" data-i18n="generic.optional" data-i18n-prop="placeholder" />
+            <label for="new-repo-message" data-i18n="deploy.generic.commitMessage"
+              >Commit Message</label
+            >
+            <input
+              type="text"
+              id="new-repo-message"
+              placeholder="Optional"
+              data-i18n="generic.optional"
+              data-i18n-prop="placeholder"
+            />
           </div>
           <div class="padded">
             <input type="checkbox" id="new-repo-source" />
-            <label for="new-repo-source" data-i18n="deploy.generic.commitSourceCodePublic" >Commit source code (public)</label>
+            <label for="new-repo-source" data-i18n="deploy.generic.commitSourceCodePublic"
+              >Commit source code (public)</label
+            >
           </div>
-          <button id="new-repo-btn" class="wide-button" type="submit" data-i18n="deploy.generic.deployBtn">Deploy</button>
+          <button
+            id="new-repo-btn"
+            class="wide-button"
+            type="submit"
+            data-i18n="deploy.generic.deployBtn"
+          >
+            Deploy
+          </button>
         </form>
         <div class="description" data-i18n="deploy.create.desc" data-i18n-prop="innerHTML">
           A new <strong>public</strong> repo will be created. The result page will be pushed to
@@ -45,14 +68,31 @@
             />
           </div>
           <div>
-            <label for="existing-repo-message" data-i18n="deploy.generic.commitMessage">Commit Message</label>
-            <input type="text" id="existing-repo-message" placeholder="Optional" data-i18n="generic.optional" data-i18n-prop="placeholder" />
+            <label for="existing-repo-message" data-i18n="deploy.generic.commitMessage"
+              >Commit Message</label
+            >
+            <input
+              type="text"
+              id="existing-repo-message"
+              placeholder="Optional"
+              data-i18n="generic.optional"
+              data-i18n-prop="placeholder"
+            />
           </div>
           <div class="padded">
             <input type="checkbox" id="existing-repo-source" />
-            <label for="existing-repo-source" data-i18n="deploy.generic.commitSourceCodePublic">Commit source code (public)</label>
+            <label for="existing-repo-source" data-i18n="deploy.generic.commitSourceCodePublic"
+              >Commit source code (public)</label
+            >
           </div>
-          <button id="existing-repo-btn" class="wide-button" type="submit" data-i18n="deploy.generic.deployBtn">Deploy</button>
+          <button
+            id="existing-repo-btn"
+            class="wide-button"
+            type="submit"
+            data-i18n="deploy.generic.deployBtn"
+          >
+            Deploy
+          </button>
         </form>
         <div class="description" data-i18n="deploy.existing.desc" data-i18n-prop="innerHTML">
           A new commit will be added to <span class="code">gh-pages</span> branch.

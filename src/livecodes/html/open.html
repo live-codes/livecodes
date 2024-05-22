@@ -3,23 +3,46 @@
   <div class="buttons">
     <button id="bulk-import-button" class="button" data-i18n="open.import">Import</button>
     <button id="export-all-button" class="button" data-i18n="open.exportAll">Export All</button>
-    <button id="delete-all-button" class="button danger" data-i18n="open.deleteAll">Delete All</button>
+    <button id="delete-all-button" class="button danger" data-i18n="open.deleteAll">
+      Delete All
+    </button>
   </div>
   <div class="modal-message" id="projects-container" class="items-container">
     <span id="sort-by-label" data-i18n="open.sort.heading">Sort By:</span>
-    <a href="#" id="sort-by-last-modified" class="active" data-i18n="open.sort.lastModified">Last&nbsp;Modified</a>&nbsp;/&nbsp;<a
+    <a href="#" id="sort-by-last-modified" class="active" data-i18n="open.sort.lastModified"
+      >Last&nbsp;Modified</a
+    >&nbsp;/&nbsp;<a href="#" id="sort-by-title" data-i18n="open.sort.title">Title</a>&nbsp;(<a
       href="#"
-      id="sort-by-title"
-      data-i18n="open.sort.title"
-      >Title</a
-    >&nbsp;(<a href="#" id="sorted-asc" style="display: none">▲</a
+      id="sorted-asc"
+      style="display: none"
+      >▲</a
     ><a href="#" id="sorted-desc">▼</a>)
     <select name="language-filter" id="language-filter">
       <option value="" data-i18n="open.placeholder.allLanguages">All languages</option>
     </select>
-    <input id="filter-tags" type="text" placeholder="Filter by tags" data-i18n="open.placeholder.filterByTags" data-i18n-prop="placeholder" />
-    <input id="search-projects" type="text" placeholder="Search" data-i18n="open.placeholder.search" data-i18n-prop="placeholder" />
-    <a href="#" id="reset-filters" class="hint--bottom" data-hint="Reset" data-i18n="open.reset" data-i18n-prop="data-hint" style="width: auto">
+    <input
+      id="filter-tags"
+      type="text"
+      placeholder="Filter by tags"
+      data-i18n="open.placeholder.filterByTags"
+      data-i18n-prop="placeholder"
+    />
+    <input
+      id="search-projects"
+      type="text"
+      placeholder="Search"
+      data-i18n="open.placeholder.search"
+      data-i18n-prop="placeholder"
+    />
+    <a
+      href="#"
+      id="reset-filters"
+      class="hint--bottom"
+      data-hint="Reset"
+      data-i18n="open.reset"
+      data-i18n-prop="data-hint"
+      style="width: auto"
+    >
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

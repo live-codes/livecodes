@@ -13,13 +13,26 @@
             <label for="new-repo-name" data-i18n="sync.create.repoName"
               >Repo Name <span id="new-repo-name-error" class="error"></span
             ></label>
-            <input type="text" id="new-repo-name" placeholder="Required" data-i18n="generic.required" data-i18n-prop="placeholder" />
+            <input
+              type="text"
+              id="new-repo-name"
+              placeholder="Required"
+              data-i18n="generic.required"
+              data-i18n-prop="placeholder"
+            />
           </div>
           <div class="padded">
             <input type="checkbox" id="new-repo-autosync" checked />
             <label for="new-repo-autosync" data-i18n="sync.autoSync">Auto sync</label>
           </div>
-          <button id="new-repo-btn" class="wide-button start-sync-btn" type="submit" data-i18n="sync.syncBtn">Sync</button>
+          <button
+            id="new-repo-btn"
+            class="wide-button start-sync-btn"
+            type="submit"
+            data-i18n="sync.syncBtn"
+          >
+            Sync
+          </button>
         </form>
         <div class="description" data-i18n="sync.create.desc" data-i18n-prop="innerHTML">
           A new <strong>private</strong> repo will be created. Your LiveCodes local data will be
@@ -45,7 +58,12 @@
             <input type="checkbox" id="existing-repo-autosync" checked />
             <label for="existing-repo-autosync" data-i18n="sync.autoSync">Auto sync</label>
           </div>
-          <button id="existing-repo-btn" class="wide-button start-sync-btn" type="submit" data-i18n="sync.syncBtn">
+          <button
+            id="existing-repo-btn"
+            class="wide-button start-sync-btn"
+            type="submit"
+            data-i18n="sync.syncBtn"
+          >
             Sync
           </button>
         </form>

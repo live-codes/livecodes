@@ -69,8 +69,7 @@ const languageInfo = {
     name: 'Common Lisp',
   },
   cpp: {
-    desc1:
-      'C++ support using JSCPP (a simple C++ interpreter written in JavaScript).',
+    desc1: 'C++ support using JSCPP (a simple C++ interpreter written in JavaScript).',
     desc2:
       'It is not a complete implementation of C++. Please refer to <0>JSCPP documentation</0> for details.',
     link: '<1> <0>Standard C++ Foundation</0> </1> <3> <2>JSCPP</2> </3> <5> <4>Learn X in Y minutes, where X=C++</4> </5> <7> <6>Load starter template</6> </7>',
@@ -115,8 +114,7 @@ const languageInfo = {
     name: 'Flow',
   },
   gleam: {
-    desc1:
-      'Gleam is a friendly language for building type-safe systems that scale!',
+    desc1: 'Gleam is a friendly language for building type-safe systems that scale!',
     desc2:
       'Gleam is a statically-typed functional programming language, which compiles to Erlang or\n    JavaScript.',
     link: '<1><0>Gleam website</0></1> <3> <2>Gleam documentation</2> </3> <5> <4>Gleam language tour</4> </5> <7> <6>Load starter template</6> </7>',
@@ -254,8 +252,7 @@ const languageInfo = {
     name: 'Python',
   },
   pythonWasm: {
-    desc1:
-      'Python with the scientific stack, compiled to WebAssembly using Pyodide.',
+    desc1: 'Python with the scientific stack, compiled to WebAssembly using Pyodide.',
     desc2:
       'Pyodide allows using Python scientific stack including NumPy, Pandas, Matplotlib, SciPy,\n    scikit-learn and many more. In addition it’s possible to install pure Python wheels from PyPi.',
     link: '<1> <0>Python official website</0> </1> <3> <2>Python documentation</2> </3> <5><4>Pyodide documentation</4></5> <7> <6>Learn X in Y minutes, where X=Python</6> </7> <9> <8>LiveCodes Documentations</8> </9> <11> <10>Load starter template</10> </11>',
@@ -403,8 +400,7 @@ const languageInfo = {
     name: 'Vue2 Single File Components',
   },
   wat: {
-    desc1:
-      'Low-level textual representation of the WebAssembly (wasm) binary format.',
+    desc1: 'Low-level textual representation of the WebAssembly (wasm) binary format.',
     desc2: 'It is converted to wasm using wabt.js.',
     link: '<1><0>WebAssembly.org</0></1> <3> <2>WebAssembly Text Specs</2> </3> <5> <4>WebAssembly on MDN</4> </5> <7> <6>Understanding WebAssembly text format</6> </7> <9> <8>wabt.js documentation</8> </9> <11> <10>Learn X in Y minutes, where X=WebAssembly</10> </11> <13><12>Load starter template</12></13>',
     name: 'WebAssembly Text Format',

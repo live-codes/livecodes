@@ -1,22 +1,30 @@
 <div id="snippets-list-container" class="list-container">
   <div class="modal-title" data-i18n="snippets.heading">Code Snippets</div>
   <div class="buttons">
-    <button id="snippets-add-snippet-button" class="button" data-i18n="snippets.add.heading">Add Snippet</button>
-    <button id="snippets-delete-all-button" class="button danger" data-i18n="snippets.deleteAll">Delete All</button>
+    <button id="snippets-add-snippet-button" class="button" data-i18n="snippets.add.heading">
+      Add Snippet
+    </button>
+    <button id="snippets-delete-all-button" class="button danger" data-i18n="snippets.deleteAll">
+      Delete All
+    </button>
   </div>
   <div class="modal-message" id="snippets-container" class="items-container">
     <span id="snippets-sort-by-label" data-i18n="snippets.sort.heading">Sort By:</span>
-    <a href="#" id="snippets-sort-by-last-modified" class="active" data-i18n="snippets.sort.date">Date</a>&nbsp;/&nbsp;<a
-      href="#"
-      id="snippets-sort-by-title"
-      data-i18n="snippets.sort.title"
-      >Title</a
+    <a href="#" id="snippets-sort-by-last-modified" class="active" data-i18n="snippets.sort.date"
+      >Date</a
+    >&nbsp;/&nbsp;<a href="#" id="snippets-sort-by-title" data-i18n="snippets.sort.title">Title</a
     >&nbsp;(<a href="#" id="snippets-sorted-asc" style="display: none">▲</a
     ><a href="#" id="snippets-sorted-desc">▼</a>)
     <select name="lang-filter" id="snippets-lang-filter">
       <option value="" data-i18n="snippets.placeholder.allLanguages">All languages</option>
     </select>
-    <input id="search-snippets" type="text" placeholder="Search" data-i18n="snippets.placeholder.search" data-i18n-prop="placeholder" />
+    <input
+      id="search-snippets"
+      type="text"
+      placeholder="Search"
+      data-i18n="snippets.placeholder.search"
+      data-i18n-prop="placeholder"
+    />
     <a
       href="#"
       id="snippets-reset-filters"
