@@ -396,7 +396,7 @@ const translation = {
     },
     heading: 'Import',
     json: {
-      desc: 'Import a single project JSON to editor. A project can be exported from\n          app menu → Export → Export Project (JSON).',
+      desc: 'Import a single project JSON to editor. A project can be exported from app&nbsp;menu&nbsp;→ Export&nbsp;→ Export&nbsp;Project&nbsp;(JSON).',
       fromFile: 'Import project from local file',
       fromURL: 'Import project from URL',
       heading: 'Import Project JSON',

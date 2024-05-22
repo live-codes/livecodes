@@ -977,7 +977,7 @@
   },
   "import.json.desc": {
     "notes": "",
-    "translation": "Import a single project JSON to editor. A project can be exported from\n          app menu → Export → Export Project (JSON)."
+    "translation": "Import a single project JSON to editor. A project can be exported from app&nbsp;menu&nbsp;→ Export&nbsp;→ Export&nbsp;Project&nbsp;(JSON)."
   },
   "import.json.fromFile": {
     "notes": "",
