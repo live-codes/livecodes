@@ -186,19 +186,8 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                   location.href = location.origin + location.pathname;
                 } else if (e.data?.args === 'i18n') {
                   // flatten i18n object `splash` and save to localStorage
-                  const i18nSplashData = e.data.payload as I18nTranslationTemplate;
-                  const flatten = (
-                    obj: I18nTranslationTemplate,
-                    prefix = '',
-                  ): { [k: string]: string } =>
-                    Object.keys(obj).reduce((acc, key) => {
-                      const value = obj[key];
-                      if (typeof value === 'object') {
-                        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
-                      }
-                      return { ...acc, [`${prefix}${key}`]: value };
-                    }, {});
-                  for (const [key, value] of Object.entries(flatten(i18nSplashData))) {
+                  const i18nSplashData = e.data.payload as { [k: string]: string };
+                  for (const [key, value] of Object.entries(i18nSplashData)) {
                     localStorage.setItem(`i18n_splash.${key}`, value);
                   }
                 }

@@ -4547,10 +4547,18 @@ const initializePlayground = async (
 
   // For main page i18n using localStorage
   if (!isEmbed && i18n) {
+    const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
+      Object.keys(obj).reduce((acc, key) => {
+        const value = obj[key];
+        if (typeof value === 'object') {
+          return { ...acc, ...flatten(value, `${prefix}${key}.`) };
+        }
+        return { ...acc, [`${prefix}${key}`]: value };
+      }, {});
     parent.postMessage(
       {
         args: 'i18n',
-        payload: i18n.t('splash', { returnObjects: true }),
+        payload: flatten(i18n.t('splash', { returnObjects: true })),
       },
       location.origin,
     );
