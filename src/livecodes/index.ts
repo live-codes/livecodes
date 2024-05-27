@@ -42,6 +42,13 @@ if (isEmbed) {
       observer.observe(document.body);
     }
   }
+} else {
+  // Splash i18n
+  const i18nItem = (item: I18nKeyType) => `i18n_${item}`;
+  const i18nLoadingText = localStorage.getItem(i18nItem('splash.loading'));
+  if (i18nLoadingText) {
+    loadingText.innerText = i18nLoadingText;
+  }
 }
 
 function load() {
@@ -115,13 +122,4 @@ if (isEmbed && params.get('config') === 'sdk') {
   parent.postMessage({ type: customEvents.getConfig }, '*');
 } else {
   livecodes('#livecodes').then(loaded);
-}
-
-// I18n for main page
-if (!isEmbed) {
-  const i18nItem = (item: I18nKeyType) => `i18n_${item}`;
-  const i18nLoadingText = localStorage.getItem(i18nItem('splash.loading'));
-  if (i18nLoadingText) {
-    loadingText.innerText = i18nLoadingText;
-  }
 }
