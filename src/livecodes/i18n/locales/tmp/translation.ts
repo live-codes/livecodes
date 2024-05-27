@@ -644,6 +644,9 @@ const translation = {
     },
     text: 'Plain Text',
   },
+  splash: {
+    loading: 'Loading LiveCodes…',
+  },
   sync: {
     autoSync: 'Auto sync',
     create: {
