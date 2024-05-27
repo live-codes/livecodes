@@ -7,7 +7,6 @@ import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
 import { esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
-import type { I18nTranslationTemplate } from './i18n/locales/models';
 
 export type { API, Config };
 

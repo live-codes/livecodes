@@ -146,6 +146,7 @@ import {
   type I18nValueType,
   type I18nInterpolationType,
 } from './i18n/utils';
+import type { I18nTranslationTemplate } from './i18n/locales/models';
 
 // declare global dependencies
 declare global {
@@ -4096,6 +4097,15 @@ const handleI18n = () => {
   });
 };
 
+const flattenI18nObject = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
+  Object.keys(obj).reduce((acc, key) => {
+    const value = obj[key];
+    if (typeof value === 'object') {
+      return { ...acc, ...flattenI18nObject(value, `${prefix}${key}.`) };
+    }
+    return { ...acc, [`${prefix}${key}`]: value };
+  }, {});
+
 const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   _key: Key,
   value: I18nValueType<Key, Value>,
@@ -4547,18 +4557,10 @@ const initializePlayground = async (
 
   // For main page i18n using localStorage
   if (!isEmbed && i18n) {
-    const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
-      Object.keys(obj).reduce((acc, key) => {
-        const value = obj[key];
-        if (typeof value === 'object') {
-          return { ...acc, ...flatten(value, `${prefix}${key}.`) };
-        }
-        return { ...acc, [`${prefix}${key}`]: value };
-      }, {});
     parent.postMessage(
       {
         args: 'i18n',
-        payload: flatten(i18n.t('splash', { returnObjects: true })),
+        payload: flattenI18nObject(i18n.t('splash', { returnObjects: true })),
       },
       location.origin,
     );
