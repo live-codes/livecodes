@@ -4544,6 +4544,17 @@ const initializePlayground = async (
     initialized = true;
   });
   configureEmmet(getConfig());
+
+  // For main page i18n using localStorage
+  if (!isEmbed && i18n) {
+    parent.postMessage(
+      {
+        args: 'i18n',
+        payload: i18n.t('splash', { returnObjects: true }),
+      },
+      location.origin,
+    );
+  }
 };
 
 const createApi = (): API => {

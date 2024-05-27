@@ -7,6 +7,7 @@ import type { API, CDN, Config, CustomEvents, EmbedOptions } from './models';
 import { isInIframe } from './utils/utils';
 import { esModuleShimsPath } from './vendors';
 import { modulesService } from './services/modules';
+import type { I18nTranslationTemplate } from './i18n/locales/models';
 
 export type { API, Config };
 
@@ -149,7 +150,9 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
 
           addEventListener(
             'message',
-            async (e: MessageEventInit<{ method: keyof API; id: string; args: any }>) => {
+            async (
+              e: MessageEventInit<{ method: keyof API; id: string; args: any; payload?: any }>,
+            ) => {
               if (isEmbed) {
                 if (e.source !== parent) return;
                 const { method, id, args } = e.data ?? {};
@@ -181,6 +184,23 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                 if (e.source !== iframe.contentWindow) return;
                 if (e.data?.args === 'home') {
                   location.href = location.origin + location.pathname;
+                } else if (e.data?.args === 'i18n') {
+                  // flatten i18n object `splash` and save to localStorage
+                  const i18nSplashData = e.data.payload as I18nTranslationTemplate;
+                  const flatten = (
+                    obj: I18nTranslationTemplate,
+                    prefix = '',
+                  ): { [k: string]: string } =>
+                    Object.keys(obj).reduce((acc, key) => {
+                      const value = obj[key];
+                      if (typeof value === 'object') {
+                        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
+                      }
+                      return { ...acc, [`${prefix}${key}`]: value };
+                    }, {});
+                  for (const [key, value] of Object.entries(flatten(i18nSplashData))) {
+                    localStorage.setItem(`i18n_splash.${key}`, value);
+                  }
                 }
               }
             },
