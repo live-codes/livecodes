@@ -4097,14 +4097,26 @@ const handleI18n = () => {
   });
 };
 
-const flattenI18nObject = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
-  Object.keys(obj).reduce((acc, key) => {
-    const value = obj[key];
-    if (typeof value === 'object') {
-      return { ...acc, ...flattenI18nObject(value, `${prefix}${key}.`) };
-    }
-    return { ...acc, [`${prefix}${key}`]: value };
-  }, {});
+const sendTranslationToMainPage = () => {
+  const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
+    Object.keys(obj).reduce((acc, key) => {
+      const value = obj[key];
+      if (typeof value === 'object') {
+        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
+      }
+      return { ...acc, [`${prefix}${key}`]: value };
+    }, {});
+
+  if (!isEmbed && i18n) {
+    parent.postMessage(
+      {
+        args: 'i18n',
+        payload: flatten(i18n.t('splash', { returnObjects: true })),
+      },
+      location.origin,
+    );
+  }
+};
 
 const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   _key: Key,
@@ -4555,16 +4567,7 @@ const initializePlayground = async (
   });
   configureEmmet(getConfig());
 
-  // For main page i18n using localStorage
-  if (!isEmbed && i18n) {
-    parent.postMessage(
-      {
-        args: 'i18n',
-        payload: flattenI18nObject(i18n.t('splash', { returnObjects: true })),
-      },
-      location.origin,
-    );
-  }
+  sendTranslationToMainPage();
 };
 
 const createApi = (): API => {
