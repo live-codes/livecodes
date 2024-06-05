@@ -284,7 +284,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     ];
     const isJSLang = JSLangs.includes(language);
     const isJsx = hasJsx.includes(language);
-    const nonReactJsx = language === 'stencil';
+    const nonReactJsx = ['solid', 'solid.tsx', 'stencil'].includes(language);
 
     if (
       !['script', 'tests', 'editorSettings'].includes(editorId) ||
