@@ -26,7 +26,7 @@ export const astroBaseUrl = /* @__PURE__ */ getUrl('@hatemhosny/astro-internal@0
 export const astroWasmURL = /* @__PURE__ */ getUrl('@astrojs/compiler@0.9.2/astro.wasm');
 
 export const autoCompleteUrl = /* @__PURE__ */ getUrl(
-  '@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.js',
+  '@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js',
 );
 
 export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.22.4/babel.js');
