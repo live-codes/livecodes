@@ -45,9 +45,9 @@ class Counter {
   }
 }
 
-const title = document.querySelector<HTMLElement>("#title");
-const count = document.querySelector<HTMLElement>("#counter");
-const button = document.querySelector<HTMLElement>("#counter-button");
+const title = document.querySelector<HTMLElement>("#title")!;
+const count = document.querySelector<HTMLElement>("#counter")!;
+const button = document.querySelector<HTMLElement>("#counter-button")!;
 
 title.innerText = "TypeScript";
 const counter = new Counter();

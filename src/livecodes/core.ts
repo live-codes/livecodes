@@ -1117,12 +1117,12 @@ const format = async (allEditors = true) => {
   updateConfig();
 };
 
-const save = async (notify = false, setTitle = true) => {
+const save = async (notify = false, setTitle = true, isAutoSave = false) => {
   if (setTitle) {
     setProjectTitle(true);
   }
 
-  if (editors && getConfig().formatOnsave) {
+  if (editors && getConfig().formatOnsave && !isAutoSave) {
     await format(true);
   }
   const projectConfig = buildConfig(getConfig());
@@ -2106,7 +2106,7 @@ const handleChangeContent = () => {
     }
 
     if (config.autosave) {
-      await save();
+      await save(/* notify = */ false, /* setTitle = */ true, /* isAutoSave = */ true);
     }
 
     dispatchChangeEvent();

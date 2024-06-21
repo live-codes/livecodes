@@ -6,6 +6,7 @@ import type { User, UserData } from '../models';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
+import { bypassAMD, loadScript } from '../utils/utils';
 import {
   getExistingRepoAutoSync,
   getExistingRepoForm,
@@ -202,11 +203,12 @@ export const createSyncUI = async ({
     updateSyncStatus({ inProgress: false, lastSync });
   });
 
-  let autoComplete: any;
-  import(autoCompleteUrl).then(async () => {
-    autoComplete = (globalThis as any).autoComplete;
+  modal.show(syncContainer, { isAsync: true });
+  newRepoNameInput.focus();
 
-    if (!user) return;
+  if (!user) return;
+
+  bypassAMD(() => loadScript(autoCompleteUrl, 'autoComplete')).then(async (autoComplete: any) => {
     const repos = await getUserRepos(user, 'all');
 
     eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
@@ -235,7 +237,4 @@ export const createSyncUI = async ({
       autoCompleteJS.input.value = selection;
     });
   });
-
-  modal.show(syncContainer, { isAsync: true });
-  newRepoNameInput.focus();
 };

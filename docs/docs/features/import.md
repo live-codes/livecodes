@@ -2,7 +2,9 @@
 
 ## Overview
 
-LiveCodes supports importing code from a wide variety of sources.
+LiveCodes supports importing code from a wide variety of [sources](#sources). This can be achieved using one of the following methods:
+
+### UI
 
 The Import screen can be accessed from the app menu → Import.
 
@@ -12,7 +14,19 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 ![LiveCodes Import](../../static/img/screenshots/import.jpg)
 
-Alternatively, a URL of any of the sources can be imported on-load by adding it as a value to [query param](../configuration/query-params.md) key: `x`. This is easier using the [bookmarklet](../bookmarklet.md).
+### Query Param
+
+A URL of any of the [sources](#sources) can be imported by adding it as a value to [query param](../configuration/query-params.md) key: `x`.
+
+Example:
+
+https://livecodes.io/?x=https://gist.github.com/f01deb828a42f363502fbae7964d48e9
+
+### Bookmarklet
+
+Instead of manually copy/pasting URLs to import, adding [**"Edit in LiveCodes"** bookmarklet](../bookmarklet.md) to the browser bookmarks bar can be a more convenient way. It opens LiveCodes in a new window and imports the current webpage URL.
+
+### SDK
 
 For [embedded playgrounds](./embeds.md), use the [SDK](../sdk/index.md) property [`EmbedOptions.import`](../sdk/js-ts.md#import).
 
@@ -75,10 +89,26 @@ For sources that provide multiple files (e.g. GitHub/GitLab directories, GitHub 
 - index.html, style.css, script.js
 - default.pug, app.scss, main.ts
 
-Markup files starting with `index.`, style files starting with `style.` and script files starting with `script.` are given higher priority. While Markup files starting with `readme.` are given lower priority.
+The following file names are given higher priority:
 
-Alternatively, languages and files can be specified using [query params](../configuration/query-params.md):  
-`?x={url}&{language1}={file1}&{language2}={file2}&{language3}={file3}`
+- Markup files starting with `index.` or `default.`
+- Style files starting with `style.` or `styles.`
+- Script files starting with `script.`, `app.`, `main.` or `index.`
+
+While Markup files starting with `readme.` are given lower priority.
+
+Alternatively, files can be specified using the `files` [query param](../configuration/query-params.md). It takes a **comma-separated list** of filenames. The first 3 found files are loaded. If 1 or 2 files are specified, only these will be loaded. The first matching file is shown by default in the active editor.
+
+The query params should have the following format:  
+`?x={url}&files={file1},{file2},{file3}`
+
+Example:  
+`?x={url}&files=Counter.tsx,counter.scss,counter.html`
+
+The active editor can be specified using the [`activeEditor`](../configuration/configuration-object.md#activeeditor) (or its alias `active`) [query param](../configuration/query-params.md). It takes the name of the editor (`markup`, `style` or `script`) or its ID (`0`, `1` or `2`) to be shown by default.
+
+Example:  
+`?x={url}&activeEditor=style` or `?x={url}&active=1`
 
 ## Import Shared Projects
 
@@ -132,13 +162,9 @@ If the response text could not be parsed as DOM or no elements matched the CSS s
 Alternatively, the language of raw code can be specified using [query params](../configuration/query-params.md):  
 `?x={url}&raw={language}`
 
-## "Edit in LiveCodes" Bookmarklet
-
-Instead of manually copy/pasting URLs to import, adding [**"Edit in LiveCodes"** bookmarklet](../bookmarklet.md) to the browser bookmarks bar can be a more convenient way. It opens LiveCodes in a new window and imports the current webpage URL.
-
 ## Import from CodePen
 
-Currently, CodePen API does not allow directly importing code from Pens (except for Pens of Pro users, which can be imported!). However, you can export any saved Pen as a [zip file](https://blog.codepen.io/documentation/exporting-pens/#export-zip-1) or [Github gist](https://blog.codepen.io/documentation/exporting-pens/#save-as-github-gist-2) and then import it to LiveCodes. The format that Codepen exports is well understood by LiveCodes. Most Pens can be imported with no or minimal changes.
+Currently, CodePen API does not allow directly importing code from Pens. However, you can export any saved Pen as a [zip file](https://blog.codepen.io/documentation/exporting-pens/#export-zip-1) or [Github gist](https://blog.codepen.io/documentation/exporting-pens/#save-as-github-gist-2) and then import it to LiveCodes. The format that Codepen exports is well understood by LiveCodes. Most Pens can be imported with no or minimal changes.
 
 **Note:** External resources (styles/scripts) are not exported with source code in zip file export of CodePen. However, export to GitHub gist does export these. So if a Pen with external resources exported as zip file is not imported properly, try exporting to GitHub gist or manually add the [external resources](./external-resources.md).
 
