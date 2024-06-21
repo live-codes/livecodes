@@ -234,8 +234,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco: typeof Monaco;
   }): CompilerOptions => {
     const settings: CompilerOptions = {
-      checkJs: !isJSLang,
       allowJs: isJSLang,
+      checkJs: !isJSLang,
+      strictNullChecks: !isJSLang,
       allowNonTsExtensions: true,
       experimentalDecorators: true,
       emitDecoratorMetadata: true,
