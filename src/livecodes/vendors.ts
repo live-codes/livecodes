@@ -2,7 +2,7 @@
 import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
-export const typescriptVersion = '5.4.5';
+export const typescriptVersion = '5.5.2';
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
   /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.10.0/dist/');
