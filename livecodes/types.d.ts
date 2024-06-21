@@ -568,6 +568,7 @@ declare module "sdk/models" {
         embed: boolean;
         preview: boolean;
         x: string;
+        files: string;
         raw: Language;
         language: Language;
         lang: Language;
@@ -681,7 +682,7 @@ declare module "livecodes/services/modules" {
     export const getAppCDN: () => CDN;
 }
 declare module "livecodes/vendors" {
-    export const typescriptVersion = "5.4.5";
+    export const typescriptVersion = "5.5.2";
     export const vendorsBaseUrl: string;
     export const acornUrl: string;
     export const artTemplateUrl: string;
@@ -781,7 +782,7 @@ declare module "livecodes/vendors" {
     export const markedUrl: string;
     export const mermaidCdnUrl: string;
     export const mjmlUrl: string;
-    export const monacoBaseUrl = "https://typescript.azureedge.net/cdn/5.4.5/monaco/min/vs";
+    export const monacoBaseUrl = "https://typescript.azureedge.net/cdn/5.5.2/monaco/min/vs";
     export const monacoEmacsUrl: string;
     export const monacoThemesBaseUrl: string;
     export const monacoVimUrl: string;
@@ -905,6 +906,7 @@ declare module "livecodes/utils/utils" {
     export const removeDuplicates: (arr: any[] | undefined) => any[];
     export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
     export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
+    export const bypassAMD: <T = any>(fn: () => Promise<T>) => Promise<T>;
 }
 declare module "livecodes/languages/lightningcss/processor-lightningcss" {
     import type { ProcessorSpecs } from "livecodes/models";
@@ -3168,7 +3170,7 @@ declare module "livecodes/UI/deploy" {
     import type { createNotifications } from "livecodes/notifications/index";
     import type { Config, ContentConfig, Cache, User } from "livecodes/models";
     import type { getLanguageCompiler as getLanguageCompilerFn, getLanguageExtension as getLanguageExtensionFn } from "livecodes/languages/index";
-    import { deployFile } from "livecodes/deploy/index";
+    import { deployFile } from "livecodes/deploy/deploy";
     export { deployFile };
     export const createDeployUI: ({ modal, notifications, eventsManager, user, deployRepo, deps, }: {
         modal: ReturnType<typeof createModal>;

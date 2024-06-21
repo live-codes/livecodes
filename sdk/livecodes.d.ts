@@ -578,6 +578,7 @@ declare module 'livecodes/models' {
         embed: boolean;
         preview: boolean;
         x: string;
+        files: string;
         raw: Language;
         language: Language;
         lang: Language;
