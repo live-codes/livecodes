@@ -429,6 +429,20 @@ export const addAttrs = (el: HTMLElement, attributes: Record<string, string> | s
   }
 };
 
+/**
+ * Bypasses the AMD module definition system by temporarily disabling it while executing the given function.
+ *
+ * @param fn - The function to execute.
+ * @return The result of executing the function.
+ */
+export const bypassAMD = /* @__PURE__ */ async <T = any>(fn: () => Promise<T>): Promise<T> => {
+  const define = (globalThis as any).define;
+  (globalThis as any).define = undefined;
+  const result = await fn();
+  (globalThis as any).define = define;
+  return result;
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

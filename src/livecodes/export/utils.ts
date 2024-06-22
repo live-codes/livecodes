@@ -77,11 +77,12 @@ export const getDescriptionFile = (
   gist = true,
 ) => {
   const githubUrl = gist ? 'https://gist.github.com/' : 'https://github.com/';
-  const userInfo = !user
+  const displayName = user?.displayName || user?.username;
+  const userInfo = !displayName
     ? ''
     : !user.username
-      ? 'by ' + user.displayName
-      : 'by [' + user.displayName + '](' + githubUrl + user.username + ')';
+      ? 'by ' + displayName
+      : 'by [' + displayName + '](' + githubUrl + user.username + ')';
   const projectInfo = url ? `[project](https://livecodes.io/?x=${url})` : 'project';
 
   return {

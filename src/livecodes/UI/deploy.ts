@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
@@ -8,9 +9,9 @@ import type {
 } from '../languages';
 import { deployScreen, resultTemplate } from '../html';
 import { autoCompleteUrl } from '../vendors';
-import { deploy, deployFile, deployedConfirmation } from '../deploy';
-// eslint-disable-next-line import/no-internal-modules
+import { deploy, deployFile, deployedConfirmation } from '../deploy/deploy';
 import { getUserRepos } from '../services/github';
+import { bypassAMD, loadScript } from '../utils/utils';
 import { generateQrCode } from './qrcode';
 import {
   getExistingRepoButton,
@@ -215,11 +216,12 @@ export const createDeployUI = async ({
     await publish(user, name, message, commitSource, newRepo);
   });
 
-  let autoComplete: any;
-  import(autoCompleteUrl).then(async () => {
-    autoComplete = (globalThis as any).autoComplete;
+  modal.show(deployContainer, { isAsync: true });
+  newRepoNameInput.focus();
 
-    if (!user) return;
+  if (!user) return;
+
+  bypassAMD(() => loadScript(autoCompleteUrl, 'autoComplete')).then(async (autoComplete: any) => {
     const publicRepos = await getUserRepos(user);
 
     eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
@@ -250,7 +252,4 @@ export const createDeployUI = async ({
       autoCompleteJS.input.value = selection;
     });
   });
-
-  modal.show(deployContainer, { isAsync: true });
-  newRepoNameInput.focus();
 };

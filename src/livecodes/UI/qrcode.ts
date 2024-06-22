@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import { loadScript, safeName } from '../utils/utils';
+import { bypassAMD, loadScript, safeName } from '../utils/utils';
 import { qrcodeUrl } from '../vendors';
 
 export const generateQrCode = async ({
@@ -13,7 +13,7 @@ export const generateQrCode = async ({
   title?: string;
   logo?: string;
 }) => {
-  const QRCode: any = await loadScript(qrcodeUrl, 'QRCode');
+  const QRCode: any = await bypassAMD(() => loadScript(qrcodeUrl, 'QRCode'));
   container.style.visibility = 'hidden';
   const qr = new QRCode(container, {
     text: url,

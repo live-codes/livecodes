@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v30](https://github.com/live-codes/livecodes/compare/v29...v30) (2024-06-21)
+
+### Highlights for this release:
+
+- Upgrade [typescript compiler to v5.5](https://devblogs.microsoft.com/typescript/announcing-typescript-5-5/).
+- Improvements in imports.
+- Bug fixes.
+
+Thanks to @sharno for bug reports and suggestions.
+
+### Bug Fixes
+
+- **App:** do not format when auto-saving ([10a3f44](https://github.com/live-codes/livecodes/commit/10a3f44ca0587fa85df4cfcc68c7f065d85b7465))
+- **App:** fix loading AMD modules (for autocomplete & qrcode) ([da0f9a5](https://github.com/live-codes/livecodes/commit/da0f9a57e52aadcf3da12a0b02191531a84ef60b))
+- **Deploy:** fix deploy user info ([0e67a61](https://github.com/live-codes/livecodes/commit/0e67a615315e3f198d0ad58c28d3869bf8e90f68))
+- **Editor:** fix solid jsx/tsx in monaco ([0040f31](https://github.com/live-codes/livecodes/commit/0040f31795afa47c3a37ec09558cc7572e38e6d9))
+
+### Features
+
+- **Compilers:** upgrade typescript compiler to v5.5.2 ([14fbf52](https://github.com/live-codes/livecodes/commit/14fbf52e04ce8efc9e0ec6e58a90ac56b5dee5b4))
+- **Import:** set activeEditor when importing ([7f6fcd0](https://github.com/live-codes/livecodes/commit/7f6fcd0739f775d6410163568ec4abfb72510884))
+- **Import:** use `files` query param for file selection when importing ([b787e03](https://github.com/live-codes/livecodes/commit/b787e039d0c996f6d20c2c1fc6219f35c8ddcb3b))
+
+---
+
 ## [v29](https://github.com/live-codes/livecodes/compare/v28...v29) (2024-05-15)
 
 ### Highlights for this release:

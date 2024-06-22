@@ -2,7 +2,7 @@
 import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
-export const typescriptVersion = '5.4.5';
+export const typescriptVersion = '5.5.2';
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
   /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.10.0/dist/');
@@ -26,7 +26,7 @@ export const astroBaseUrl = /* @__PURE__ */ getUrl('@hatemhosny/astro-internal@0
 export const astroWasmURL = /* @__PURE__ */ getUrl('@astrojs/compiler@0.9.2/astro.wasm');
 
 export const autoCompleteUrl = /* @__PURE__ */ getUrl(
-  '@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.js',
+  '@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js',
 );
 
 export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.22.4/babel.js');
@@ -245,7 +245,7 @@ export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.
 
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.8.2/dist/liquid.browser.min.js');
 
-export const localforageUrl = /* @__PURE__ */ getModuleUrl('localforage@1.10.0');
+export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.min.js');
 
 export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
