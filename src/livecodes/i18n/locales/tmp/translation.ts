@@ -92,7 +92,7 @@ const translation = {
       desc: 'Backup LiveCodes data, so that it can be later restored on this or other devices. <0></0> Please visit the <1>documentations</1> for details.',
       heading: 'Backup',
       projects: 'Projects',
-      settings: '',
+      settings: 'User Settings',
       snippets: 'Code Snippets',
       templates: 'User Templates',
     },
