@@ -6,6 +6,7 @@ const babel = require('@babel/core');
 const parser = require('@babel/parser');
 
 const outDir = path.resolve('src/livecodes/i18n/locales/tmp');
+const enOutDir = path.resolve('src/livecodes/i18n/locales/en');
 const srcBaseDir = path.resolve('src/livecodes');
 
 const prettierConfig = {
@@ -39,7 +40,7 @@ const sortedJSONify = (obj, space = 2) =>
     space,
   );
 
-const writeTranslation = async (namespace) => {
+const writeTranslation = async (namespace, overwriteMode) => {
   const name = namespace === 'translation' ? 'translation' : 'languageInfo';
   const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
   const code = `import { type I18nTranslationTemplate } from '../models';
@@ -72,6 +73,14 @@ const writeTranslation = async (namespace) => {
   ]);
 
   console.log(`Generated namespace ${namespace} in ${outDir}.`);
+
+  if (overwriteMode) {
+    await fs.promises.copyFile(
+      path.resolve(outDir, namespace + '.ts'),
+      path.resolve(enOutDir, namespace + '.ts'),
+    );
+    console.log(`Copied to ${enOutDir}.`);
+  }
 };
 
 const addTranslation = (nsKey, value, desc, props) => {
@@ -278,12 +287,14 @@ const processTS = async (files) => {
 };
 
 /**
- * Generate .ts and .lokalise.json files from HTML files.
+ * Generate .ts and .lokalise.json files from .html and .ts files.
  *
  * If no files are provided, it will process all relevant files in the base directory.
  */
 const generateTranslation = async () => {
-  const files = process.argv.slice(2);
+  const files = process.argv.slice(2).filter((file) => !file.startsWith('-'));
+  const overwriteMode = process.argv.includes('--overwrite');
+
   const HTMLFiles = [],
     TSFiles = [];
 
@@ -307,9 +318,9 @@ const generateTranslation = async () => {
   await processHTML(HTMLFiles);
   await processTS(TSFiles);
 
-  writeTranslation('translation');
+  writeTranslation('translation', overwriteMode);
   if (Object.keys(trans['language-info']).length > 0) {
-    writeTranslation('language-info');
+    writeTranslation('language-info', overwriteMode);
   }
 };
 
