@@ -22,13 +22,12 @@ interface TagElement {
   attributes?: Record<string, string>;
 }
 
-// Only used in ./i18n.ts, could remove `export` once it's no longer used
 /**
  * Abstractify HTML string. Convert all tags to a format like `<0>`, `<1>`, etc.
  * @param html The HTML string to abstractify.
  * @returns The abstractified HTML string, with a list of objects of their tag names and attributes.
  */
-export const abstractifyHTML = (html: string) => {
+const abstractifyHTML = (html: string) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
   const elements: TagElement[] = [];
