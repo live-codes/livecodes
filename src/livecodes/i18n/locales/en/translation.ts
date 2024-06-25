@@ -18,9 +18,9 @@ const translation = {
     },
     livecodes: {
       para1:
-        '<1><0>LiveCodes</0></1> is an <2>open-source</2>, <3>feature-rich</3>, <4>client-side</4> code playground. Currently, <6>80+ languages/<5></5>frameworks</6> are supported. It can be used as a standalone app or can be <7>embedded</7> in any web page. There are many ways to <8>prefill playgrounds</8> with code.',
+        '<1><2>LiveCodes</2></1> is an <3>open-source</3>, <4>feature-rich</4>, <5>client-side</5> code playground. Currently, <6>80+ languages/<7></7>frameworks</6> are supported. It can be used as a standalone app or can be <8>embedded</8> in any web page. There are many ways to <9>prefill playgrounds</9> with code. ',
       para2:
-        'A wide range of <0>configuration options</0> makes it very flexible. A powerful <1>SDK</1> (for <2>JS/TS</2>, <3>React</3>, <4>Vue</4> and <5>Svelte</5>) facilitates <6>embedding</6> and <7>communicating</7> with playgrounds. <8>Comprehensive documentations</8> are available with code samples, live demos and screenshots.',
+        'A wide range of <1>configuration options</1> makes it very flexible. A powerful <2>SDK</2> (for <3>JS/TS</3>, <4>React</4>, <5>Vue</5> and <6>Svelte</6>) facilitates <7>embedding</7> and <8>communicating</8> with playgrounds. <9>Comprehensive documentations</9> are available with code samples, live demos and screenshots. ',
     },
     version: {
       app: 'App version: {{APP_VERSION}}',
@@ -34,12 +34,12 @@ const translation = {
   assets: {
     add: {
       dataURL: {
-        desc: 'Add asset as a base64-encoded <0>data url</0>.',
+        desc: 'Add asset as a base64-encoded <1>data url</1>. ',
         heading: 'Data URL',
         label: 'Add file',
       },
       githubPages: {
-        desc: 'Deploy asset to GitHub Pages. The file is pushed to <0>gh-pages</0> branch of the repo <1>livecodes-assets</1> on your GitHub account. If the repo does not already exist, a public repo will be created.',
+        desc: 'Deploy asset to GitHub Pages. The file is pushed to <1>gh-pages</1> branch of the repo <2>livecodes-assets</2> on your GitHub account. If the repo does not already exist, a public repo will be created. ',
         heading: 'GitHub Pages',
         label: 'Upload file',
       },
@@ -89,7 +89,7 @@ const translation = {
     backup: {
       assets: 'Assets',
       button: 'Backup',
-      desc: 'Backup LiveCodes data, so that it can be later restored on this or other devices. <0></0> Please visit the <1>documentations</1> for details.',
+      desc: 'Backup LiveCodes data, so that it can be later restored on this or other devices. <1></1> Please visit the <2>documentations</2> for details. ',
       heading: 'Backup',
       projects: 'Projects',
       settings: 'User Settings',
@@ -105,7 +105,7 @@ const translation = {
     heading: 'Backup / Restore',
     inProgress: 'In progress...',
     restore: {
-      desc: 'Restore previously backed-up LiveCodes data. <0></0> If you choose to replace current content, you may want to back it up first. <1></1> Please visit the <2>documentations</2> for details.',
+      desc: 'Restore previously backed-up LiveCodes data. <1></1> If you choose to replace current content, you may want to back it up first. <2></2> Please visit the <3>documentations</3> for details. ',
       fromFile: 'Restore from file',
       heading: 'Restore',
       mode: {
@@ -123,7 +123,7 @@ const translation = {
     broadcasting: 'Broadcasting...',
     channelURL: 'Channel URL',
     connecting: 'Connecting...',
-    desc: 'Broadcast the result page to other browsers/devices in real time. Please visit the <0>documentations</0> for details.',
+    desc: 'Broadcast the result page to other browsers/devices in real time. Please visit the <1>documentations</1> for details. ',
     error: {
       generic: 'Broadcast failed!',
       serverURLRequired: 'Server URL is required!',
@@ -220,16 +220,16 @@ const translation = {
   },
   deploy: {
     create: {
-      desc: 'A new <0>public</0> repo will be created. The result page will be pushed to <1>gh-pages</1> branch.',
+      desc: 'A new <1>public</1> repo will be created. The result page will be pushed to <2>gh-pages</2> branch. ',
       heading: 'Create New Repo',
-      repoName: 'Repo Name <0></0>',
+      repoName: 'Repo Name <1></1>',
     },
     error: {
       generic: 'Deployment failed!',
       repoNameRequired: 'Repo name is required',
     },
     existing: {
-      desc: 'A new commit will be added to <0>gh-pages</0> branch.',
+      desc: 'A new commit will be added to <1>gh-pages</1> branch. ',
       heading: 'Existing Repo',
       repoName: 'Repo Name',
     },
@@ -246,7 +246,7 @@ const translation = {
     closeBrackets: 'Auto-close brackets and quotes',
     codeJarDesc: '* The marked features are not available in CodeJar.',
     default: 'Default',
-    desc: 'Please check the <0>documentations</0> for details.',
+    desc: 'Please check the <1>documentations</1> for details. ',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -262,7 +262,7 @@ const translation = {
     emmet: 'Enable Emmet *',
     enableAI: {
       heading: 'Enable AI Code Assistant',
-      note: 'Powered by <1><0></0></1>',
+      note: 'Powered by <1><2></2></1>',
     },
     fontFamily: 'Font Family',
     fontSize: 'Font Size',
@@ -300,7 +300,7 @@ const translation = {
       copy: 'Copy Code',
       heading: 'Code',
     },
-    desc: 'Please check the <0>documentations</0> for advanced configurations.',
+    desc: 'Please check the <1>documentations</1> for advanced configurations. ',
     embedType: {
       cdn: 'Script (CDN)',
       heading: 'Embed Type',
@@ -374,13 +374,13 @@ const translation = {
   },
   import: {
     bulk: {
-      desc: 'Bulk import multiple projects to your saved projects. Projects can be exported from the <0>Saved Projects</0> screen.',
+      desc: 'Bulk import multiple projects to your saved projects. Projects can be exported from the <1>Saved Projects</1> screen. ',
       fromFile: 'Bulk import from local file',
       fromURL: 'Bulk import from URL',
       heading: 'Bulk Import',
     },
     code: {
-      desc: 'Supported Sources: <12> <0>GitHub gist</0> <1>GitHub file</1> <2>Directory in a GitHub repo</2> <3>Gitlab snippet</3> <4>Gitlab file</4> <5>Directory in a Gitlab repo</5> <6>JS Bin</6> <7>Raw code</7> <8>Code in web page DOM</8> <9>Code in zip file</9> <11>Official playgrounds<10></10>(TypeScript, Vue and Svelte)</11> </12> Please visit the <13>documentations</13> for details.',
+      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript, Vue and Svelte)</12> </1> Please visit the <14>documentations</14> for details. ',
       fromFile: 'Import local files',
       fromURL: 'Import from URL',
       heading: 'Import Code',
@@ -396,7 +396,7 @@ const translation = {
     },
     heading: 'Import',
     json: {
-      desc: 'Import a single project JSON to editor. A project can be exported from app&nbsp;menu&nbsp;→ Export&nbsp;→ Export&nbsp;Project&nbsp;(JSON).',
+      desc: 'Import a single project JSON to editor. A project can be exported from app&nbsp;menu&nbsp;→ Export&nbsp;→ Export&nbsp;Project&nbsp;(JSON). ',
       fromFile: 'Import project from local file',
       fromURL: 'Import project from URL',
       heading: 'Import Project JSON',
@@ -405,7 +405,7 @@ const translation = {
   },
   login: {
     accessAllowed: 'Allow access to:',
-    desc: '<1>By logging in, you agree that <0>cookies</0> may be stored on your device.</1> <3> <2>Why are these permissions required?</2> </3> <5> <4>How to change/revoke permissions?</4> </5>',
+    desc: '<1>By logging in, you agree that <2>cookies</2> may be stored on your device.</1> <3> <4>Why are these permissions required?</4> </3> <5> <6>How to change/revoke permissions?</6> </5> ',
     gist: 'Gists',
     heading: 'Login with GitHub',
     loginAs: 'Logged in as {{name}}',
@@ -423,7 +423,7 @@ const translation = {
     broadcast: 'Broadcast …',
     customSettings: 'Custom Settings …',
     delay: {
-      heading: 'Delay: <0>1.5</0>s',
+      heading: 'Delay: <1>1.5</1>s',
       hint: 'Delay before auto-update',
     },
     deploy: 'Deploy …',
@@ -460,7 +460,7 @@ const translation = {
       hint: 'Press Alt/Option and move your cursor over result page',
     },
     snippets: 'Code Snippets …',
-    sync: 'Sync (beta) … <0> ⏳</0>',
+    sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Dark Theme',
     welcome: {
       heading: 'Welcome …',
@@ -483,7 +483,7 @@ const translation = {
     import: 'Import',
     lastModified: 'Last modified: {{modified}}',
     noData: {
-      desc: 'You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/Cmd&nbsp;+&nbsp;S).',
+      desc: 'You can save a project from (settings&nbsp;menu&nbsp;&gt;&nbsp;Save) or by the keyboard shortcut (Ctrl/Cmd&nbsp;+&nbsp;S). ',
       heading: 'You have no saved projects.',
     },
     noMatch: 'No projects match these filters.',
@@ -512,11 +512,11 @@ const translation = {
   recoverPrompt: {
     desc: 'Your last project has unsaved changes!',
     heading: 'Recover unsaved project?',
-    meta: 'Title: <0></0> <1></1> Last modified: <2></2>',
+    meta: 'Title: <1></1> <2></2> Last modified: <3></3> ',
     notShowAgain: 'Do not show this again.',
     prompt: {
       discard: 'Discard unsaved project',
-      heading: '<0></0>Do you want to recover it now?',
+      heading: '<1></1>Do you want to recover it now? ',
       recover: 'Recover project to editor',
       save: 'Save to device and continue',
     },
@@ -535,24 +535,26 @@ const translation = {
     },
     fonts: {
       add: 'Add',
-      heading: 'Fonts <0>(powered by Google Fonts)</0>',
+      heading: 'Fonts <1>(powered by Google Fonts)</1>',
       select: 'Select font ...',
     },
     heading: 'External Resources',
     scripts: 'External Scripts',
     search: {
-      heading: 'Search Packages <0>(powered by jsDelivr)</0>',
+      heading: 'Search Packages <1>(powered by jsDelivr)</1>',
       placeholder: 'e.g. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'External Stylesheets',
-    urlDesc: "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.",
+    urlDesc:
+      "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.",
   },
   savePrompt: {
     heading: 'Unsaved changes',
     prompt: {
       cancel: 'Cancel',
       discard: 'Do not save',
-      heading: 'The changes you made may not be saved. <0></0> Do you want to save now?',
+      heading:
+        'The changes you made may not be saved. <1></1> Do you want to save now? ',
       save: 'Save',
     },
   },
@@ -650,7 +652,7 @@ const translation = {
   sync: {
     autoSync: 'Auto sync',
     create: {
-      desc: 'A new <0>private</0> repo will be created. Your LiveCodes local data will be synchronized with <1>main</1> branch.',
+      desc: 'A new <1>private</1> repo will be created. Your LiveCodes local data will be synchronized with <2>main</2> branch. ',
       heading: 'Create New Repo',
       repoName: 'Repo Name',
     },
@@ -659,7 +661,7 @@ const translation = {
       repoNameRequired: 'Repo name is required',
     },
     existing: {
-      desc: 'Your LiveCodes local data will be synchronized with <0>main</0> branch.',
+      desc: 'Your LiveCodes local data will be synchronized with <1>main</1> branch. ',
       heading: 'Existing Repo',
       repoName: 'Repo Name',
     },
@@ -673,7 +675,7 @@ const translation = {
   templates: {
     heading: 'New Project',
     noUserTemplates: {
-      desc: 'You can save a project as a template from <0></0>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
+      desc: 'You can save a project as a template from <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',
       heading: 'You have no saved templates.',
     },
     starter: {
@@ -702,7 +704,7 @@ const translation = {
     recover: {
       cancel: 'Cancel',
       heading: 'Recover',
-      lastModified: 'Last modified: <0></0>',
+      lastModified: 'Last modified: <1></1> ',
       recover: 'Recover',
       save: 'Save',
       unsavedChanges: 'Your last project had unsaved changes:',
