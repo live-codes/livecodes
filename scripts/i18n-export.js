@@ -31,11 +31,11 @@ const sortedJSONify = (obj, space = 2) =>
     (key, value) =>
       value instanceof Object && !(value instanceof Array)
         ? Object.keys(value)
-            .sort()
-            .reduce((sorted, key) => {
-              sorted[key] = value[key];
-              return sorted;
-            }, {})
+          .sort()
+          .reduce((sorted, key) => {
+            sorted[key] = value[key];
+            return sorted;
+          }, {})
         : value,
     space,
   );
@@ -137,9 +137,9 @@ const abstractifyHTML = (html) => {
       node.attributes.length === 0
         ? undefined
         : Array.from(node.attributes).reduce((acc, attr) => {
-            acc[attr.name] = attr.value;
-            return acc;
-          }, {});
+          acc[attr.name] = attr.value;
+          return acc;
+        }, {});
 
     elements.push({ name, attributes });
 
@@ -165,12 +165,11 @@ const generateElementsNote = (elements) =>
   elements
     .map(
       (el, index) =>
-        `### <${index}> ###\n<${el.name} ${
-          el.attributes
-            ? Object.keys(el.attributes)
-                .map((attr) => `${attr}="${el.attributes[attr]}"`)
-                .join(' ')
-            : ''
+        `### <${index}> ###\n<${el.name} ${el.attributes
+          ? Object.keys(el.attributes)
+            .map((attr) => `${attr}="${el.attributes[attr]}"`)
+            .join(' ')
+          : ''
         } />\n\n`,
     )
     .join('');
@@ -210,14 +209,14 @@ const processHTML = async (files) => {
             props.length == 1
               ? getValueAndContext(element, props[0])
               : props.reduce(
-                  (acc, prop) => {
-                    const vd = getValueAndContext(element, prop);
-                    acc.value[prop] = vd.value;
-                    acc.desc[prop] = vd.desc;
-                    return acc;
-                  },
-                  { value: {}, desc: {} },
-                );
+                (acc, prop) => {
+                  const vd = getValueAndContext(element, prop);
+                  acc.value[prop] = vd.value;
+                  acc.desc[prop] = vd.desc;
+                  return acc;
+                },
+                { value: {}, desc: {} },
+              );
 
           addTranslation(key, value, desc, props);
         });
