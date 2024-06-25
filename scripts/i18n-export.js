@@ -16,15 +16,27 @@ const prettierConfig = {
   singleQuote: true,
 };
 
+/**
+ * Saved translations.
+ */
 const trans = {
   translation: {},
   'language-info': {},
 };
+
+/**
+ * Structured JSON for Lokalise.
+ */
 const structuredJSON = {
   translation: {},
   'language-info': {},
 };
 
+/**
+ * `JSON.stringify` with keys sorted.
+ * @param {object} obj
+ * @param {number} space
+ */
 const sortedJSONify = (obj, space = 2) =>
   JSON.stringify(
     obj,
@@ -40,6 +52,11 @@ const sortedJSONify = (obj, space = 2) =>
     space,
   );
 
+/**
+ * Write translation to .ts and .lokalise.json files.
+ * @param {'translation' | 'languageInfo'} namespace 
+ * @param {boolean} overwriteMode 
+ */
 const writeTranslation = async (namespace, overwriteMode) => {
   const name = namespace === 'translation' ? 'translation' : 'languageInfo';
   const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
@@ -83,6 +100,13 @@ const writeTranslation = async (namespace, overwriteMode) => {
   }
 };
 
+/**
+ * Add a translation entry to `trans` and `structuredJSON`.
+ * @param {string} nsKey Key with namespace.
+ * @param {string} value 
+ * @param {string} desc Description for Lokalise.
+ * @param {string[]} props Props that needs to be translated.
+ */
 const addTranslation = (nsKey, value, desc, props) => {
   nsKey = nsKey.split(':');
   const key = nsKey.pop();
@@ -188,6 +212,11 @@ const abstractifyHTML = (html) => {
   };
 };
 
+/**
+ * Generate note for Lokalise from elements.
+ * @param {object[]} elements List of elements.
+ * @returns {string} Note for Lokalise.
+ */
 const generateElementsNote = (elements) =>
   elements
     .map(
@@ -225,7 +254,7 @@ const processHTML = async (files) => {
       try {
         // console.log(`Processing ${file}...`);
 
-        const data = await fs.promises.readFile(file, 'utf8');
+        const data = (await fs.promises.readFile(file, 'utf8')).replace(/\s+/g, ' ').trim();
         const html = new jsdom.JSDOM(data).window.document;
 
         html.querySelectorAll('[data-i18n]').forEach((element) => {
