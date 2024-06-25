@@ -12,6 +12,8 @@ const uploadParams = {
 };
 
 const pushToLokalise = () => {
+  const branchName = process.argv[2];
+
   fs.readdir(outDir, async (err, files) => {
     if (err) {
       console.error(err);
@@ -36,7 +38,7 @@ const pushToLokalise = () => {
     const processes = (
       await Promise.all(
         data.map((file) =>
-          api.files().upload(projectID, {
+          api.files().upload(`${projectID}:${branchName}`, {
             ...file,
             ...uploadParams,
           }),
@@ -49,7 +51,7 @@ const pushToLokalise = () => {
     while (true) {
       const statuses = await Promise.all(
         processes.map((process_id) =>
-          api.queuedProcesses().get(process_id, { project_id: projectID }),
+          api.queuedProcesses().get(process_id, { project_id: `${projectID}:${branchName}` }),
         ),
       );
       const finished = statuses.every((status) => status.status === 'finished');
