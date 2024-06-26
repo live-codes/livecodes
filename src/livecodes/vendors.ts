@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.10.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.11.0/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -407,8 +407,6 @@ export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 export const typescriptUrl = /* @__PURE__ */ getUrl(
   `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
 );
-
-export const typescriptAtaUrl = /* @__PURE__ */ getUrl('@typescript/ata@0.9.4/dist/index.js');
 
 export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.0/dist/vfs.esm.js');
 

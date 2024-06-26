@@ -1,15 +1,17 @@
 import type TS from 'typescript';
-import { languages, processors } from '../languages';
 import type { Compilers, Config, CompileOptions, EditorLibrary } from '../models';
-import { typescriptAtaUrl } from '../vendors';
-import { getAllCompilers } from './get-all-compilers';
+import { languages, processors } from '../languages';
+import { vendorsBaseUrl } from '../vendors';
 import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
+import { getAllCompilers } from './get-all-compilers';
 declare const importScripts: (...args: string[]) => void;
+
+const typescriptAtaUrl = vendorsBaseUrl + 'typescript-ata/typescript-ata.js';
 
 let compilers: Compilers;
 let baseUrl: string | undefined;
 
-const worker: Worker & { ts?: typeof TS } = self as any;
+const worker: Worker & { ts?: typeof TS; typescriptATA?: any } = self as any;
 (self as any).window = self;
 
 const loadLanguageCompiler = async (
@@ -110,8 +112,10 @@ const getTypesFromAta = async (code: string) =>
       return;
     }
     resolveFn = resolve;
-    const ataModule = await import(typescriptAtaUrl);
-    const { setupTypeAcquisition } = ataModule;
+    if (!worker.typescriptATA) {
+      importScripts(typescriptAtaUrl);
+    }
+    const setupTypeAcquisition = worker.typescriptATA.setupTypeAcquisition;
     const ataTypes: EditorLibrary[] = [];
     ata =
       ata ||
