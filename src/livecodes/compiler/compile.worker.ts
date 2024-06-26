@@ -1,5 +1,7 @@
+import type TS from 'typescript';
 import { languages, processors } from '../languages';
-import type { Compilers, Config, CompileOptions } from '../models';
+import type { Compilers, Config, CompileOptions, EditorLibrary } from '../models';
+import { typescriptAtaUrl } from '../vendors';
 import { getAllCompilers } from './get-all-compilers';
 import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 declare const importScripts: (...args: string[]) => void;
@@ -7,7 +9,7 @@ declare const importScripts: (...args: string[]) => void;
 let compilers: Compilers;
 let baseUrl: string | undefined;
 
-const worker: Worker = self as any;
+const worker: Worker & { ts?: typeof TS } = self as any;
 (self as any).window = self;
 
 const loadLanguageCompiler = async (
@@ -92,6 +94,56 @@ const compile = async (
   return value || '';
 };
 
+const loadTypeScript = async () => {
+  if (worker.ts) return;
+  await loadLanguageCompiler('typescript', {} as Config, baseUrl);
+};
+
+// see https://twitter.com/hatem_hosny_/status/1790644616175235323
+let resolveFn: ((value: EditorLibrary[]) => void) | undefined;
+let ata: any;
+
+const getTypesFromAta = async (code: string) =>
+  new Promise<EditorLibrary[]>(async (resolve) => {
+    if (!code?.trim()) {
+      resolve([]);
+      return;
+    }
+    resolveFn = resolve;
+    const ataModule = await import(typescriptAtaUrl);
+    const { setupTypeAcquisition } = ataModule;
+    const ataTypes: EditorLibrary[] = [];
+    ata =
+      ata ||
+      setupTypeAcquisition({
+        projectName: 'Playground',
+        typescript: worker.ts,
+        logger: {
+          log: () => undefined,
+          error: () => undefined,
+          groupCollapsed: () => undefined,
+          groupEnd: () => undefined,
+        },
+        delegate: {
+          receivedFile: (code: string, path: string) => {
+            ataTypes.push({ content: code, filename: path });
+          },
+          progress: (_downloaded: number, _total: number) => {
+            // console.log({ _downloaded, _total })
+          },
+          started: () => {
+            // console.log('ATA start');
+          },
+          finished: (_files: Map<string, string>) => {
+            if (typeof resolveFn === 'function') {
+              resolveFn(ataTypes);
+            }
+          },
+        },
+      });
+    ata(code);
+  });
+
 worker.addEventListener(
   'message',
   async (event: CompilerMessageEvent) => {
@@ -129,6 +181,24 @@ worker.addEventListener(
           payload: { language, content, error: error.message },
         };
         worker.postMessage(compileFailedMessage);
+      }
+    }
+
+    if (message.type === 'ts-features') {
+      await loadTypeScript();
+      const { feature, data } = message.payload;
+      if (feature === 'getOptionDeclarations') {
+        worker.postMessage({
+          type: 'ts-features',
+          // @ts-ignore - ts.optionDeclarations is private
+          payload: { data: worker.ts?.optionDeclarations },
+        });
+      }
+      if (feature === 'ata') {
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { data: await getTypesFromAta(data) },
+        });
       }
     }
   },

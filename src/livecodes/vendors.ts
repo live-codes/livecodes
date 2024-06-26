@@ -2,7 +2,6 @@
 import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
-export const typescriptVersion = '5.5.2';
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
   /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.10.0/dist/');
@@ -263,8 +262,7 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
   'luna-object-viewer@0.2.4/luna-object-viewer.css',
 );
 
-export const malinaVersion = '0.6.64';
-export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
+export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.6.64/`);
 
 export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
 
@@ -272,7 +270,7 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${typescriptVersion}/monaco/min/vs`;
+export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${process.env.TYPESCRIPT_VERSION}/monaco/min/vs`;
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -407,7 +405,7 @@ export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 
 export const typescriptUrl = /* @__PURE__ */ getUrl(
-  `typescript@${typescriptVersion}/lib/typescript.js`,
+  `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
 );
 
 export const typescriptAtaUrl = /* @__PURE__ */ getUrl('@typescript/ata@0.9.4/dist/index.js');

@@ -283,11 +283,36 @@ export const createCompiler = async ({
     (Object.keys(cache) as Array<keyof typeof cache>).forEach((key) => delete cache[key]);
   };
 
+  const typescriptFeatures = ({ feature, payload }: { feature: string; payload: any }) =>
+    new Promise((resolve, reject) => {
+      const handler = (event: CompilerMessageEvent) => {
+        const message = event.data;
+        if (
+          event.origin !== compilerOrigin ||
+          event.source !== compilerSandbox ||
+          message.from !== 'compiler' ||
+          message.type !== 'ts-features'
+        ) {
+          return;
+        }
+        window.removeEventListener('message', handler);
+        resolve(message.payload.data);
+      };
+      window.addEventListener('message', handler);
+
+      const compileMessage: CompilerMessage = {
+        type: 'ts-features',
+        payload: { feature, data: payload },
+      };
+      compilerSandbox.postMessage(compileMessage, compilerOrigin);
+    });
+
   await initialize();
 
   return {
     load,
     compile,
     clearCache,
+    typescriptFeatures,
   };
 };

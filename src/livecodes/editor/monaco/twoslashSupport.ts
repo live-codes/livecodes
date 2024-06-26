@@ -13,7 +13,7 @@ type CompilerOptions = import('typescript').CompilerOptions;
  */
 
 export const extractTwoSlashCompilerOptions = (
-  optionDeclarations: any[] /* ts.optionDeclarations */,
+  optionDeclarations: any[] | undefined /* ts.optionDeclarations */,
 ) => {
   const optMap = new Map<string, any>();
 
@@ -109,7 +109,7 @@ function getOptionValueFromMap(_name: string, key: string, optMap: Map<string, s
 
 // Function to generate autocompletion results
 export const twoslashCompletions =
-  (optionDeclarations: any[] /* ts.optionDeclarations */) =>
+  (optionDeclarations: any[] | undefined /* ts.optionDeclarations */) =>
   (
     model: import('monaco-editor').editor.ITextModel,
     position: import('monaco-editor').Position,
@@ -166,7 +166,7 @@ export const twoslashCompletions =
       'noErrorValidation',
       'filename',
     ];
-    const optsNames = optionDeclarations.map((o) => o.name);
+    const optsNames = (optionDeclarations || []).map((o) => o.name);
     knowns.concat(optsNames).forEach((name) => {
       if (name.startsWith(word.slice(1))) {
         // somehow adding the range seems to not give autocomplete results?

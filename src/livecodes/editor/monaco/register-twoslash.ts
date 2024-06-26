@@ -2,13 +2,10 @@
 
 /* eslint-disable import/no-internal-modules */
 import type * as Monaco from 'monaco-editor';
-import type TS from 'typescript';
-
-import { loadScript } from '../../utils/utils';
-import { typescriptUrl } from '../../vendors';
 import { extractTwoSlashCompilerOptions, twoslashCompletions } from './twoslashSupport';
 
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+let optionDeclarations: any[] | undefined;
 
 export const registerTwoSlash = async ({
   isJSLang,
@@ -21,10 +18,6 @@ export const registerTwoSlash = async ({
   monaco: typeof Monaco;
   compilerOptions: CompilerOptions;
 }) => {
-  const ts = (await loadScript(typescriptUrl, 'ts')) as typeof TS;
-  // @ts-ignore - ts.optionDeclarations is private
-  const optionDeclarations = ts.optionDeclarations;
-
   const language = isJSLang ? 'javascript' : 'typescript';
   const getWorker = isJSLang
     ? monaco.languages.typescript.getJavaScriptWorker
@@ -35,6 +28,10 @@ export const registerTwoSlash = async ({
     : monaco.languages.typescript.typescriptDefaults;
 
   const model = editor.getModel();
+
+  optionDeclarations =
+    optionDeclarations ||
+    (await (window as any).compiler.typescriptFeatures({ feature: 'getOptionDeclarations' }));
 
   // Auto-complete twoslash comments
   if (!(window as any).isTwoslashCompletionsRegistered) {
