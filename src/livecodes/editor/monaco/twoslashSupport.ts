@@ -5,7 +5,6 @@ const booleanConfigRegexp = /^\/\/\s?@(\w+)$/;
 // https://regex101.com/r/8B2Wwh/1
 const valuedConfigRegexp = /^\/\/\s?@(\w+):\s?(.+)$/;
 
-type TS = typeof import('typescript');
 type CompilerOptions = import('typescript').CompilerOptions;
 
 /**
@@ -13,14 +12,15 @@ type CompilerOptions = import('typescript').CompilerOptions;
  * from the source code
  */
 
-export const extractTwoSlashCompilerOptions = (ts: TS) => {
+export const extractTwoSlashCompilerOptions = (
+  optionDeclarations: any[] /* ts.optionDeclarations */,
+) => {
   const optMap = new Map<string, any>();
 
-  if (!('optionDeclarations' in ts)) {
+  if (!optionDeclarations) {
     // console.error("Could not get compiler options from ts.optionDeclarations - skipping twoslash support.")
   } else {
-    // @ts-ignore - optionDeclarations is not public API
-    for (const opt of ts.optionDeclarations) {
+    for (const opt of optionDeclarations) {
       optMap.set(opt.name.toLowerCase(), opt);
     }
   }
@@ -109,7 +109,7 @@ function getOptionValueFromMap(_name: string, key: string, optMap: Map<string, s
 
 // Function to generate autocompletion results
 export const twoslashCompletions =
-  (ts: TS, _monaco: typeof import('monaco-editor')) =>
+  (optionDeclarations: any[] /* ts.optionDeclarations */) =>
   (
     model: import('monaco-editor').editor.ITextModel,
     position: import('monaco-editor').Position,
@@ -166,8 +166,7 @@ export const twoslashCompletions =
       'noErrorValidation',
       'filename',
     ];
-    // @ts-ignore - ts.optionDeclarations is private
-    const optsNames = ts.optionDeclarations.map((o) => o.name);
+    const optsNames = optionDeclarations.map((o) => o.name);
     knowns.concat(optsNames).forEach((name) => {
       if (name.startsWith(word.slice(1))) {
         // somehow adding the range seems to not give autocomplete results?
