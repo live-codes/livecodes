@@ -29,6 +29,7 @@ import type {
   CodemirrorTheme,
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
+import { typescriptUrl, typescriptVfsUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
@@ -80,6 +81,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
+  let codemirrorTS: Extension | undefined;
   let vim: (() => Extension) | undefined;
   let emacs: (() => Extension) | undefined;
   let emmet: Extension | undefined;
@@ -99,9 +101,19 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     emmet = opt.emmet ? (await import(modules.emmet)).emmet : undefined;
     codeium = opt.enableAI ? (await import(modules.codeium)).codeium : undefined;
   };
-
   await loadExtensions(options);
+
+  const loadTS = async () => {
+    if (mappedLanguage !== 'typescript') return;
+    const codemirrorTsUrl = `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.js`;
+    codemirrorTS = await (
+      await import(codemirrorTsUrl)
+    ).codemirrorTS(typescriptUrl, typescriptVfsUrl);
+  };
+  await loadTS();
+
   const languageExtension = new Compartment();
+  const tsExtension = new Compartment();
   const keyBindingsExtension = new Compartment();
   const themeExtension = new Compartment();
   const readOnlyExtension = EditorView.editable.of(false);
@@ -143,6 +155,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getExtensions = () => {
     const defaultOptions: Extension[] = [
       languageExtension.of(mappedLanguageSupport),
+      tsExtension.of(mappedLanguage === 'typescript' && codemirrorTS ? codemirrorTS : []),
       EditorView.updateListener.of(notifyListeners),
       themeExtension.of(getActiveTheme()),
       syntaxHighlighting(italicComments),
@@ -219,10 +232,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     mappedLanguage = mapLanguage(language);
-    getLanguageSupport(mappedLanguage).then((langSupport) => {
+    Promise.all([getLanguageSupport(mappedLanguage), loadTS()]).then(([langSupport]) => {
       mappedLanguageSupport = langSupport;
       view.dispatch({
-        effects: languageExtension.reconfigure(mappedLanguageSupport),
+        effects: [
+          languageExtension.reconfigure(mappedLanguageSupport),
+          tsExtension.reconfigure(
+            mappedLanguage === 'typescript' && codemirrorTS ? codemirrorTS : [],
+          ),
+        ],
       });
     });
     if (value != null) {

@@ -145,6 +145,7 @@ export const createTypeLoader = (baseUrl: string) => {
       ata(code);
     });
   };
+
   const loadTypes = async (types: Types, callback: ((type: EditorLibrary) => void) | undefined) => {
     const typesWithUrls = objectFilter(types, (value) => value !== '');
     const typesWithoutUrls = objectFilter(types, (value) => value === '');

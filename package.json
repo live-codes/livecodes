@@ -93,6 +93,7 @@
     "@snackbar/core": "1.7.0",
     "@types/deep-diff": "1.0.1",
     "@valtown/codemirror-codeium": "0.2.3",
+    "@valtown/codemirror-ts": "2.1.1",
     "codejar": "4.1.1",
     "codemirror": "6.0.1",
     "deep-diff": "1.0.2",

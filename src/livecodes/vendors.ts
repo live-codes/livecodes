@@ -412,6 +412,8 @@ export const typescriptUrl = /* @__PURE__ */ getUrl(
 
 export const typescriptAtaUrl = /* @__PURE__ */ getUrl('@typescript/ata@0.9.4/dist/index.js');
 
+export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.0/dist/vfs.esm.js');
+
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
 export const vegaCdnUrl = /* @__PURE__ */ getUrl('vega@5.25.0/build/vega.js');

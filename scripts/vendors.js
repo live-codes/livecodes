@@ -57,6 +57,7 @@ const buildVendors = () => {
     outdir: codemirrorOutDir,
     ignoreAnnotations: true, // required for codemirror-emacs
     entryPoints: [
+      'codemirror-ts.ts',
       'codemirror-vim.ts',
       'codemirror-emacs.ts',
       'codemirror-emmet.ts',
