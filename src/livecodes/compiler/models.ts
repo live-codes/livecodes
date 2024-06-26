@@ -13,7 +13,7 @@ export interface Compiler {
 }
 
 export type LanguageOrProcessor = Language | Processor;
-export type TypescriptFeatures = 'getOptionDeclarations' | 'ata';
+export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS';
 export interface CompilerMessageEvent extends MessageEvent {
   data: CompilerMessage;
 }

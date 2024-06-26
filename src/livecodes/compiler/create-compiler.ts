@@ -26,6 +26,7 @@ import type {
   CompilerMessage,
   CompilerMessageEvent,
   Compiler,
+  TypescriptFeatures,
 } from './models';
 import { getCompileResult } from './utils';
 
@@ -283,8 +284,14 @@ export const createCompiler = async ({
     (Object.keys(cache) as Array<keyof typeof cache>).forEach((key) => delete cache[key]);
   };
 
-  const typescriptFeatures = ({ feature, payload }: { feature: string; payload: any }) =>
-    new Promise((resolve, reject) => {
+  const typescriptFeatures = ({
+    feature,
+    payload,
+  }: {
+    feature: TypescriptFeatures;
+    payload: any;
+  }) =>
+    new Promise((resolve) => {
       const handler = (event: CompilerMessageEvent) => {
         const message = event.data;
         if (

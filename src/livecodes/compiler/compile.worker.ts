@@ -1,17 +1,26 @@
 import type TS from 'typescript';
 import type { Compilers, Config, CompileOptions, EditorLibrary } from '../models';
 import { languages, processors } from '../languages';
-import { vendorsBaseUrl } from '../vendors';
+import { comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
+// eslint-disable-next-line import/no-internal-modules
+import { doOnce } from '../utils/utils';
 import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 import { getAllCompilers } from './get-all-compilers';
 declare const importScripts: (...args: string[]) => void;
 
 const typescriptAtaUrl = vendorsBaseUrl + 'typescript-ata/typescript-ata.js';
+const typescriptVfsUrl = vendorsBaseUrl + 'typescript-vfs/typescript-vfs.js';
 
 let compilers: Compilers;
 let baseUrl: string | undefined;
 
-const worker: Worker & { ts?: typeof TS; typescriptATA?: any } = self as any;
+const worker: Worker & {
+  ts?: typeof TS;
+  typescriptATA?: any;
+  typescriptVFS?: any;
+  Comlink?: any;
+  CodemirrorTsWorker?: any;
+} = self as any;
 (self as any).window = self;
 
 const loadLanguageCompiler = async (
@@ -111,12 +120,17 @@ const getTypesFromAta = async (code: string) =>
       resolve([]);
       return;
     }
-    resolveFn = resolve;
+
+    // load dependencies
+    await loadTypeScript();
     if (!worker.typescriptATA) {
       importScripts(typescriptAtaUrl);
     }
     const setupTypeAcquisition = worker.typescriptATA.setupTypeAcquisition;
+
+    // setup
     const ataTypes: EditorLibrary[] = [];
+    resolveFn = resolve;
     ata =
       ata ||
       setupTypeAcquisition({
@@ -145,6 +159,8 @@ const getTypesFromAta = async (code: string) =>
           },
         },
       });
+
+    // run ATA
     ata(code);
   });
 
@@ -156,7 +172,6 @@ worker.addEventListener(
       const config = message.payload;
       baseUrl = message.baseUrl;
       compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
-
       const initSuccessMessage: CompilerMessage = {
         type: 'init-success',
       };
@@ -204,7 +219,39 @@ worker.addEventListener(
           payload: { data: await getTypesFromAta(data) },
         });
       }
+      if (feature === 'initCodeMirrorTS') {
+        await initCodemirrorTS();
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { data: 'done' },
+        });
+      }
     }
   },
   false,
 );
+
+const initCodemirrorTS = doOnce(async () => {
+  await loadTypeScript();
+  importScripts(comlinkBaseUrl + 'umd/comlink.js');
+  importScripts(typescriptVfsUrl);
+  importScripts(
+    `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.worker.js`,
+  );
+  const { createWorker } = worker.CodemirrorTsWorker;
+  const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
+    worker.typescriptVFS;
+  worker.Comlink.expose(
+    createWorker(async function () {
+      const fsMap = await createDefaultMapFromCDN(
+        { target: worker.ts?.ScriptTarget.ES2022 },
+        worker.ts?.version,
+        false,
+        worker.ts,
+      );
+      const system = createSystem(fsMap);
+      const compilerOpts = {};
+      return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
+    }),
+  );
+});

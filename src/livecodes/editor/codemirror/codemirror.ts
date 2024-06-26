@@ -29,12 +29,13 @@ import type {
   CodemirrorTheme,
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
-import { typescriptUrl, typescriptVfsUrl } from '../../vendors';
+import { comlinkBaseUrl, typescriptUrl, typescriptVfsUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
 import { colorPicker, indentationMarkers, vscodeKeymap } from './extras';
 import { codemirrorThemes, customThemes } from './codemirror-themes';
+import { autocompletion } from './codemirror-core';
 
 export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
   editorId: EditorOptions['editorId'];
@@ -42,7 +43,8 @@ export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
 const editors: CodeiumEditor[] = [];
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } = options;
+  const { baseUrl, container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } =
+    options;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
@@ -89,6 +91,35 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
     | undefined;
 
+  const loadTS = async () => {
+    if (mappedLanguage !== 'typescript' || codemirrorTS) return;
+    const codemirrorTsUrl = `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.js`;
+    const [tsMod, Comlink, _] = await Promise.all([
+      import(codemirrorTsUrl),
+      import(comlinkBaseUrl + 'esm/comlink.min.js'),
+      (window as any).compiler.typescriptFeatures({ feature: 'initCodeMirrorTS' }),
+    ]);
+    const { tsFacetWorker, tsSyncWorker, tsLinterWorker, tsAutocompleteWorker, tsHoverWorker } =
+      tsMod;
+
+    const iframe = document.querySelector<HTMLIFrameElement>('#compiler-frame');
+    if (!iframe?.contentWindow) return;
+    const worker: any = Comlink.wrap(Comlink.windowEndpoint(iframe.contentWindow));
+    await worker.initialize();
+    const path = 'index.ts';
+    codemirrorTS = [
+      tsFacetWorker.of({ worker, path }),
+      tsSyncWorker(),
+      tsLinterWorker(),
+      autocompletion({
+        override: [tsAutocompleteWorker()],
+      }),
+      tsHoverWorker(),
+    ];
+    setLanguage(language);
+  };
+  loadTS();
+
   const loadExtensions = async (opt: EditorConfig) => {
     const modules = {
       vim: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-vim.js`,
@@ -96,21 +127,18 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       emmet: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-emmet.js`,
       codeium: `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-codeium.js`,
     };
-    vim = opt.editorMode === 'vim' ? (await import(modules.vim)).vim : undefined;
-    emacs = opt.editorMode === 'emacs' ? (await import(modules.emacs)).emacs : undefined;
-    emmet = opt.emmet ? (await import(modules.emmet)).emmet : undefined;
-    codeium = opt.enableAI ? (await import(modules.codeium)).codeium : undefined;
+    const [vimMod, emacsMod, emmetMod, codeiumMod] = await Promise.all([
+      opt.editorMode === 'vim' ? import(modules.vim) : Promise.resolve({}),
+      opt.editorMode === 'emacs' ? import(modules.emacs) : Promise.resolve({}),
+      opt.emmet ? import(modules.emmet) : Promise.resolve({}),
+      opt.enableAI ? import(modules.codeium) : Promise.resolve({}),
+    ]);
+    vim = vimMod.vim;
+    emacs = emacsMod.emacs;
+    emmet = emmetMod.emmet;
+    codeium = codeiumMod.codeium;
   };
   await loadExtensions(options);
-
-  const loadTS = async () => {
-    if (mappedLanguage !== 'typescript') return;
-    const codemirrorTsUrl = `./vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.js`;
-    codemirrorTS = await (
-      await import(codemirrorTsUrl)
-    ).codemirrorTS(typescriptUrl, typescriptVfsUrl);
-  };
-  await loadTS();
 
   const languageExtension = new Compartment();
   const tsExtension = new Compartment();

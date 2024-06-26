@@ -50,6 +50,8 @@ proxyConsole();
   });
 
   window.addEventListener('message', async function (event) {
+    // do not let comlink release codemirror-ts worker prematurely
+    if (event.data.type === 'RELEASE') return;
     worker.postMessage(event.data);
   });
 
