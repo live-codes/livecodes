@@ -54,13 +54,13 @@ const sortedJSONify = (obj, space = 2) =>
 
 /**
  * Write translation to .ts and .lokalise.json files.
- * @param {'translation' | 'languageInfo'} namespace 
- * @param {boolean} overwriteMode 
+ * @param {'translation' | 'languageInfo'} namespace
+ * @param {boolean} overwriteMode
  */
 const writeTranslation = async (namespace, overwriteMode) => {
   const name = namespace === 'translation' ? 'translation' : 'languageInfo';
   const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
-  const code = `import { type I18nTranslationTemplate } from '../models';
+  const code = `import type { I18nTranslationTemplate } from '../models';
 
     // This is used as a template for other translations.
     // Other translations should be typed like this:
@@ -103,7 +103,7 @@ const writeTranslation = async (namespace, overwriteMode) => {
 /**
  * Add a translation entry to `trans` and `structuredJSON`.
  * @param {string} nsKey Key with namespace.
- * @param {string} value 
+ * @param {string} value
  * @param {string} desc Description for Lokalise.
  * @param {string[]} props Props that needs to be translated.
  */
@@ -142,9 +142,9 @@ const addTranslation = (nsKey, value, desc, props) => {
 
 /**
  * Abstractify HTML string. Convert all tags to a format like `<0>`, `<1>`, etc.
- * 
+ *
  * Should be kept same as the one in `src/livecodes/i18n/utils.ts`.
- * 
+ *
  * @param {string} html The HTML string to abstractify.
  * @returns The abstractified HTML string, with a list of objects of their tag names and attributes.
  */

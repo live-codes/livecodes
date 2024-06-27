@@ -1,4 +1,4 @@
-import { type I18nTranslationTemplate } from '../models';
+import type { I18nTranslationTemplate } from '../models';
 
 // This is used as a template for other translations.
 // Other translations should be typed like this:
