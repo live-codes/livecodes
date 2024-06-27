@@ -246,7 +246,7 @@ export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.
 
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.8.2/dist/liquid.browser.min.js');
 
-export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.min.js');
+export const localforageUrl = /* @__PURE__ */ getModuleUrl('localforage@1.10.0');
 
 export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
