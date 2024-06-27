@@ -39,7 +39,6 @@ const importFromLokalise = async () => {
 
   // Make a tmp directory to store the downloaded files
   const tmpDir = path.resolve('tmp');
-  fs.mkdirSync(tmpDir, { recursive: true });
 
   const response = await api.files().download(`${projectID}:${branchName}`, {
     format: 'json',
