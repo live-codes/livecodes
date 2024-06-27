@@ -13,7 +13,7 @@ export interface Compiler {
 }
 
 export type LanguageOrProcessor = Language | Processor;
-export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS';
+export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'addTypes';
 export interface CompilerMessageEvent extends MessageEvent {
   data: CompilerMessage;
 }
@@ -107,6 +107,7 @@ export interface CompileFailedMessage {
 export interface TypeScriptMessage {
   type: 'ts-features';
   payload: {
+    id: string;
     feature: TypescriptFeatures;
     data: any;
   };

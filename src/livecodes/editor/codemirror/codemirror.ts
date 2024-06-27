@@ -27,9 +27,11 @@ import type {
   EditorConfig,
   Config,
   CodemirrorTheme,
+  EditorLibrary,
 } from '../../models';
 import { getEditorModeNode } from '../../UI/selectors';
-import { comlinkBaseUrl, typescriptUrl, typescriptVfsUrl } from '../../vendors';
+import { getRandomString } from '../../utils/utils';
+import { comlinkBaseUrl } from '../../vendors';
 import { getEditorTheme } from '../themes';
 import { basicSetup, lineNumbers, closeBrackets } from './basic-setup';
 import { editorLanguages } from './editor-languages';
@@ -41,10 +43,19 @@ export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
   editorId: EditorOptions['editorId'];
 };
 const editors: CodeiumEditor[] = [];
+let tsWorker: any;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const { baseUrl, container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } =
-    options;
+  const {
+    baseUrl,
+    container,
+    readonly,
+    isEmbed,
+    editorId,
+    getLanguageExtension,
+    getFormatterConfig,
+    getFontFamily,
+  } = options;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
@@ -83,7 +94,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
   };
 
-  let codemirrorTS: Extension | undefined;
+  let codemirrorTS: Extension[] | undefined;
   let vim: (() => Extension) | undefined;
   let emacs: (() => Extension) | undefined;
   let emmet: Extension | undefined;
@@ -91,8 +102,24 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     | ((editors: CodeiumEditor[], mapLanguage: (lang: Language) => Language) => Extension)
     | undefined;
 
-  const loadTS = async () => {
-    if (mappedLanguage !== 'typescript' || codemirrorTS) return;
+  const configureTSExtension = (extensionList: readonly Extension[]) => {
+    if (mappedLanguage === 'typescript') {
+      return extensionList;
+    }
+    if (mappedLanguage === 'javascript') {
+      // do not use linter
+      return extensionList.slice(0, -1);
+    }
+    return [];
+  };
+
+  const loadTS = async (reset = false) => {
+    // TODO: fix race condition
+    if (editorId !== 'script') return;
+    if (reset) {
+      codemirrorTS = undefined;
+    }
+    if (!['typescript', 'javascript'].includes(mappedLanguage) || codemirrorTS) return;
     const codemirrorTsUrl = `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.js`;
     const [tsMod, Comlink, _] = await Promise.all([
       import(codemirrorTsUrl),
@@ -102,23 +129,39 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const { tsFacetWorker, tsSyncWorker, tsLinterWorker, tsAutocompleteWorker, tsHoverWorker } =
       tsMod;
 
-    const iframe = document.querySelector<HTMLIFrameElement>('#compiler-frame');
-    if (!iframe?.contentWindow) return;
-    const worker: any = Comlink.wrap(Comlink.windowEndpoint(iframe.contentWindow));
-    await worker.initialize();
-    const path = 'index.ts';
-    codemirrorTS = [
-      tsFacetWorker.of({ worker, path }),
+    if (!tsWorker) {
+      const iframe = document.querySelector<HTMLIFrameElement>('#compiler-frame');
+      if (!iframe?.contentWindow) return;
+      const worker: any = Comlink.wrap(Comlink.windowEndpoint(iframe.contentWindow));
+      await worker.initialize();
+      tsWorker = worker;
+    }
+
+    const random = getRandomString();
+    const ext = getLanguageExtension(language);
+    const extension = 'tsx';
+    // mappedLanguage === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
+    //   ? ext + '.tsx'
+    //   : ext;
+    const path = `/${editorId}.${random}.${extension}`;
+
+    codemirrorTS = codemirrorTS || [
+      tsFacetWorker.of({ worker: tsWorker, path }),
       tsSyncWorker(),
-      tsLinterWorker(),
-      autocompletion({
-        override: [tsAutocompleteWorker()],
-      }),
+      autocompletion({ override: [tsAutocompleteWorker()] }),
       tsHoverWorker(),
+      tsLinterWorker(),
     ];
-    setLanguage(language);
+    view.dispatch({ effects: [tsExtension.reconfigure(configureTSExtension(codemirrorTS))] });
   };
-  loadTS();
+
+  const addTypes = (lib: EditorLibrary, force?: boolean) => {
+    loadTS().then(() =>
+      (window as any).compiler
+        .typescriptFeatures({ feature: 'initCodeMirrorTS' })
+        .then((window as any).compiler.typescriptFeatures({ feature: 'addTypes', payload: lib })),
+    );
+  };
 
   const loadExtensions = async (opt: EditorConfig) => {
     const modules = {
@@ -183,7 +226,11 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const getExtensions = () => {
     const defaultOptions: Extension[] = [
       languageExtension.of(mappedLanguageSupport),
-      tsExtension.of(mappedLanguage === 'typescript' && codemirrorTS ? codemirrorTS : []),
+      tsExtension.of(
+        ['typescript', 'javascript'].includes(mappedLanguage) && codemirrorTS
+          ? configureTSExtension(codemirrorTS)
+          : [],
+      ),
       EditorView.updateListener.of(notifyListeners),
       themeExtension.of(getActiveTheme()),
       syntaxHighlighting(italicComments),
@@ -260,23 +307,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   const setLanguage = (lang: Language, value?: string) => {
     language = lang;
     mappedLanguage = mapLanguage(language);
-    Promise.all([getLanguageSupport(mappedLanguage), loadTS()]).then(([langSupport]) => {
+    getLanguageSupport(mappedLanguage).then((langSupport) => {
       mappedLanguageSupport = langSupport;
       view.dispatch({
-        effects: [
-          languageExtension.reconfigure(mappedLanguageSupport),
-          tsExtension.reconfigure(
-            mappedLanguage === 'typescript' && codemirrorTS ? codemirrorTS : [],
-          ),
-        ],
+        effects: [languageExtension.reconfigure(mappedLanguageSupport)],
       });
     });
+    loadTS(true);
     if (value != null) {
       setValue(value);
     }
   };
+
   const codeiumEditor: CodeiumEditor = { editorId, getLanguage, getValue };
   editors.push(codeiumEditor);
+  loadTS();
 
   const onContentChanged = (fn: Listener) => {
     listeners.push(fn);
@@ -411,6 +456,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     focus,
     getPosition,
     setPosition,
+    addTypes,
     onContentChanged,
     keyCodes,
     addKeyBinding,

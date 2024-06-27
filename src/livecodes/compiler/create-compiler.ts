@@ -17,7 +17,7 @@ import type {
   CompileInfo,
 } from '../models';
 import { getAppCDN, sandboxService } from '../services';
-import { stringify } from '../utils';
+import { getRandomString, stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
@@ -292,13 +292,15 @@ export const createCompiler = async ({
     payload: any;
   }) =>
     new Promise((resolve) => {
+      const id = getRandomString();
       const handler = (event: CompilerMessageEvent) => {
         const message = event.data;
         if (
           event.origin !== compilerOrigin ||
           event.source !== compilerSandbox ||
           message.from !== 'compiler' ||
-          message.type !== 'ts-features'
+          message.type !== 'ts-features' ||
+          message.payload.id !== id
         ) {
           return;
         }
@@ -309,7 +311,7 @@ export const createCompiler = async ({
 
       const compileMessage: CompilerMessage = {
         type: 'ts-features',
-        payload: { feature, data: payload },
+        payload: { id, feature, data: payload },
       };
       compilerSandbox.postMessage(compileMessage, compilerOrigin);
     });

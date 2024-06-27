@@ -1,9 +1,10 @@
+/* eslint-disable import/no-internal-modules */
 import type TS from 'typescript';
 import type { Compilers, Config, CompileOptions, EditorLibrary } from '../models';
 import { languages, processors } from '../languages';
 import { comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
-// eslint-disable-next-line import/no-internal-modules
-import { doOnce } from '../utils/utils';
+import { doOnce, objectFilter } from '../utils/utils';
+import { getCompilerOptions } from '../editor/ts-compiler-options';
 import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
 import { getAllCompilers } from './get-all-compilers';
 declare const importScripts: (...args: string[]) => void;
@@ -13,6 +14,7 @@ const typescriptVfsUrl = vendorsBaseUrl + 'typescript-vfs/typescript-vfs.js';
 
 let compilers: Compilers;
 let baseUrl: string | undefined;
+let tsvfsMap: Map<string, string> | undefined;
 
 const worker: Worker & {
   ts?: typeof TS;
@@ -205,26 +207,37 @@ worker.addEventListener(
 
     if (message.type === 'ts-features') {
       await loadTypeScript();
-      const { feature, data } = message.payload;
+      const { feature, data, id } = message.payload;
       if (feature === 'getOptionDeclarations') {
+        // @ts-ignore - ts.optionDeclarations is private
+        const optionDeclarations = worker.ts?.optionDeclarations.map((x) =>
+          objectFilter(x, (value: any) => {
+            if (typeof value === 'function') return false;
+            return true;
+          }),
+        );
         worker.postMessage({
           type: 'ts-features',
-          // @ts-ignore - ts.optionDeclarations is private
-          payload: { data: worker.ts?.optionDeclarations },
+          payload: { id, data: optionDeclarations },
         });
       }
       if (feature === 'ata') {
         worker.postMessage({
           type: 'ts-features',
-          payload: { data: await getTypesFromAta(data) },
+          payload: { id, data: await getTypesFromAta(data) },
         });
       }
       if (feature === 'initCodeMirrorTS') {
         await initCodemirrorTS();
         worker.postMessage({
           type: 'ts-features',
-          payload: { data: 'done' },
+          payload: { id, data: 'done' },
         });
+      }
+      if (feature === 'addTypes') {
+        await initCodemirrorTS();
+        if (!tsvfsMap) return;
+        tsvfsMap.set(data.filename, data.content);
       }
     }
   },
@@ -241,17 +254,14 @@ const initCodemirrorTS = doOnce(async () => {
   const { createWorker } = worker.CodemirrorTsWorker;
   const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
     worker.typescriptVFS;
-  worker.Comlink.expose(
-    createWorker(async function () {
-      const fsMap = await createDefaultMapFromCDN(
-        { target: worker.ts?.ScriptTarget.ES2022 },
-        worker.ts?.version,
-        false,
-        worker.ts,
-      );
-      const system = createSystem(fsMap);
-      const compilerOpts = {};
-      return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
-    }),
+  tsvfsMap = await createDefaultMapFromCDN(
+    { target: worker.ts?.ScriptTarget.ES2022 },
+    worker.ts?.version,
+    false,
+    worker.ts,
   );
+  const system = createSystem(tsvfsMap);
+  const compilerOpts = getCompilerOptions('tsx');
+  const env = createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
+  worker.Comlink.expose(createWorker(() => env));
 });
