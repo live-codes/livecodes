@@ -359,7 +359,7 @@ const generateTranslation = async () => {
 
   HTMLFiles.push(
     ...files
-      .filter((file) => file.endsWith('.html') && file.startsWith('html\\'))
+      .filter((file) => file.endsWith('.html') && file.startsWith(`html${path.sep}`))
       .map((file) => path.resolve(srcBaseDir, file)),
   );
   TSFiles.push(
