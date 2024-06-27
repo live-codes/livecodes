@@ -27,7 +27,7 @@ const generateTranslationObject = (source) => {
       }
       currentObject = currentObject[k];
     });
-    currentObject[lastKey] = translations[key];
+    currentObject[lastKey] = translations[key].replace("tag-", "");
   }
   return translationObject;
 };
