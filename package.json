@@ -58,7 +58,9 @@
     "prepush": "run-s fix build test",
     "start-release": "node ./scripts/start-release.mjs",
     "vscode-intellisense": "node ./scripts/vscode-intellisense.js",
-    "i18n-export": "node ./scripts/i18n-export.js"
+    "i18n-export": "node ./scripts/i18n-export.js",
+    "i18n-update-push": "node ./scripts/i18n-upload.mjs",
+    "i18n-update-pull": "node ./scripts/i18n-import.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "6.3.0",

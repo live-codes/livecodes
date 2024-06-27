@@ -379,7 +379,7 @@ const generateTranslation = async () => {
   }
 };
 
-module.exports = { generateTranslation };
+module.exports = { generateTranslation, sortedJSONify, prettierConfig };
 
 if (require.main === module) {
   generateTranslation();
