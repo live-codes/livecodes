@@ -34,6 +34,13 @@ const pushToLokalise = () => {
       `Following files will be uploaded to Lokalise:\n${data.map((file) => file.filename).join('\n')}`,
     );
 
+    // If branch doesn't exist, create it
+    const branch = await api.branches().list({ project_id: projectID });
+    if (!branch.items.some((b) => b.name === branchName)) {
+      console.log(`Branch ${branchName} doesn't exist. Creating...`);
+      await api.branches().create({ name: branchName }, { project_id: projectID });
+    }
+
     // Upload files to Lokalise and store their process IDs
     const processes = (
       await Promise.all(
