@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 import type TS from 'typescript';
-import type { Compilers, Config, CompileOptions, EditorLibrary } from '../models';
+import type { Compilers, Config, CompileOptions, EditorLibrary, Language } from '../models';
 import { languages, processors } from '../languages';
 import { comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
 import { doOnce, objectFilter } from '../utils/utils';
@@ -15,6 +15,7 @@ const typescriptVfsUrl = vendorsBaseUrl + 'typescript-vfs/typescript-vfs.js';
 let compilers: Compilers;
 let baseUrl: string | undefined;
 let tsvfsMap: Map<string, string> | undefined;
+let codemirrorWorker: { [key: string]: any; language: Language } = { language: 'tsx' };
 
 const worker: Worker & {
   ts?: typeof TS;
@@ -228,7 +229,23 @@ worker.addEventListener(
         });
       }
       if (feature === 'initCodeMirrorTS') {
-        await initCodemirrorTS();
+        if (
+          data &&
+          codemirrorWorker.language !== data &&
+          typeof codemirrorWorker.changeLanguage === 'function'
+        ) {
+          await codemirrorWorker.changeLanguage(data);
+        } else {
+          codemirrorWorker.language = data;
+          await initCodemirrorTS();
+        }
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { id, data: 'done' },
+        });
+      }
+      if (feature === 'changeCodeMirrorLanguage') {
+        await codemirrorWorker.changeLanguage(data);
         worker.postMessage({
           type: 'ts-features',
           payload: { id, data: 'done' },
@@ -261,7 +278,18 @@ const initCodemirrorTS = doOnce(async () => {
     worker.ts,
   );
   const system = createSystem(tsvfsMap);
-  const compilerOpts = getCompilerOptions('tsx');
-  const env = createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
-  worker.Comlink.expose(createWorker(() => env));
+  const createTypeScriptEnvironment = (lang: Language) => {
+    const compilerOpts = getCompilerOptions(lang);
+    return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
+  };
+  const language = codemirrorWorker.language || 'tsx';
+  let env = createTypeScriptEnvironment(language);
+  codemirrorWorker = createWorker(() => env);
+  codemirrorWorker.language = language;
+  codemirrorWorker.changeLanguage = async (lang: Language) => {
+    env = createTypeScriptEnvironment(lang);
+    codemirrorWorker.language = lang;
+    await codemirrorWorker.initialize();
+  };
+  worker.Comlink.expose(codemirrorWorker);
 });

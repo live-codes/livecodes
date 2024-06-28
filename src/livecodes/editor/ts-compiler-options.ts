@@ -45,7 +45,9 @@ export const getCompilerOptions = (language: Language): CompilerOptions => {
   const nonReactJsxSettings: CompilerOptions = {
     jsx: 1, // monaco.languages.typescript.JsxEmit.Preserve,
     jsxFactory: 'h',
-    reactNamespace: 'h',
+    ...(['solid', 'solid.tsx'].includes(language)
+      ? { jsxImportSource: 'solid-js', jsxFactory: 'JSX' }
+      : {}),
     jsxFragmentFactory: 'Fragment',
   };
 
