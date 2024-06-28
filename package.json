@@ -16,7 +16,7 @@
     "storybook": "cd storybook && npm run storybook",
     "serve": "live-server build --watch=build/tmp/ --cors --quiet",
     "watch": "nodemon --watch src -e \"*\" ./scripts/build.js --dev",
-    "build": "run-s build:*",
+    "build": "npm run i18n-exclude pre && run-s build:* && npm run i18n-exclude post",
     "build:app": "run-s clean copy:* && node ./scripts/build.js",
     "build:ts": "tsc --emitDeclarationOnly --outFile build/livecodes/types.d.ts",
     "build:ts-sdk": "tsc --emitDeclarationOnly -p tsconfig.sdk.json && node ./scripts/bundle-types.js",
@@ -54,13 +54,14 @@
     "postinstall": "patch-package && run-p install:*",
     "install:docs": "cd docs && npm ci",
     "install:storybook": "cd storybook && npm ci",
-    "prepush:skip-e2e": "run-s fix build test:lint test:unit",
-    "prepush": "run-s fix build test",
+    "prepush:skip-e2e": "run-s i18n-export fix build test:lint test:unit",
+    "prepush": "run-s i18n-export fix build test",
     "start-release": "node ./scripts/start-release.mjs",
     "vscode-intellisense": "node ./scripts/vscode-intellisense.js",
     "i18n-export": "node ./scripts/i18n-export.js",
     "i18n-update-push": "node ./scripts/i18n-upload.mjs",
-    "i18n-update-pull": "node ./scripts/i18n-import.mjs"
+    "i18n-update-pull": "node ./scripts/i18n-import.mjs",
+    "i18n-exclude": "node ./scripts/i18n-exclude.js"
   },
   "dependencies": {
     "@codemirror/autocomplete": "6.3.0",

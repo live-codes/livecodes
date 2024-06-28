@@ -14,7 +14,7 @@ jobs:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
 
@@ -23,7 +23,7 @@ jobs:
         run: echo ::set-output name=version::$(echo ${{github.head_ref}} | sed 's/^releases\///')
 
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
 
@@ -32,6 +32,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          BUILD_INCLUDE_LOCALES: true
 
       - name: Release notes
         run: node ./scripts/release-notes.js

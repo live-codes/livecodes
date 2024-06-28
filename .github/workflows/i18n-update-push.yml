@@ -74,17 +74,22 @@ jobs:
       run: git checkout -b $NEW_BRANCH
 
     - name: Export source texts
-      run: npm run i18n-export -- --overwrite
+      run: npm run i18n-export
+
+    - name: Linting and fixing
+      run: npm run fix
 
     - name: Commit changes
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git commit -m "i18n: update source texts"
 
-        # Save last commit sha
-        echo "LAST_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        # Only commit if there are changes
+        git diff-index --quiet HEAD || git commit -m "i18n: update source texts"
+
+        # Save SHA of the latest commit to English locale
+        echo "LAST_COMMIT_SHA=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
 
     - name: Push changes
       run: git push origin $NEW_BRANCH

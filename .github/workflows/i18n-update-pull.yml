@@ -78,15 +78,20 @@ jobs:
       env:
         LOKALISE_TEMP: lokalise_tmp
 
+    - name: Linting and fixing
+      run: npm run fix
+
     - name: Commit changes
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
-        git commit -m "i18n: pull translation from Lokalise"
+        
+        # Only commit if there are changes
+        git diff-index --quiet HEAD || git commit -m "i18n: pull translation from Lokalise"
 
-        # Save last commit sha
-        echo "LAST_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        # Save SHA of the latest commit to locale
+        echo "LAST_COMMIT_SHA=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales)" >> $GITHUB_ENV
 
     - name: Push changes
       run: git push origin $NEW_BRANCH
@@ -98,14 +103,32 @@ jobs:
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
             const prTitle = `i18n: ${{ github.event.issue.title }}`;
-            const prBody = `## i18n Actions: \`.i18n-update-pull\`
+            const prBody = `## What type of PR is this? (check all applicable)
+
+            - [ ] ✨ Feature
+            - [ ] 🐛 Bug Fix
+            - [ ] 📝 Documentation Update
+            - [ ] 🎨 Style
+            - [ ] ♻️ Code Refactor
+            - [ ] 🔥 Performance Improvements
+            - [ ] ✅ Test
+            - [ ] 🤖 Build
+            - [ ] 🔁 CI
+            - [ ] 📦 Chore (Release)
+            - [ ] ⏩ Revert
+            - [x] 🌐 Internationalization / Translation
+            
+            ## Description
+            ### i18n Actions: \`.i18n-update-pull\`
             Localization pulled from Lokalise.
 
             | Name | Description |
             | --- | --- |
             | **i18n Branch** | [\`${process.env.NEW_BRANCH}\`](${branchURL}) |
             | **Last Commit SHA** | ${process.env.LAST_COMMIT_SHA} |
-            | **Source PR** | #${{ github.event.issue.number }} |
+            
+            ## Related Tickets & Documents
+            - **Source PR**: #${{ github.event.issue.number }}
             `;
 
             const prInfo = await github.rest.pulls.create({

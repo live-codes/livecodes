@@ -20,10 +20,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
-      - name: Export source texts
-        run: npm run i18n-export -- --overwrite
       - name: Build
         run: npm run build
+        env:
+          BUILD_INCLUDE_LOCALES: ${{ startsWith(github.head_ref, 'i18n/') }}
       - name: Test ${{ matrix.test }}
         run: npm run ci:e2e
         env:
