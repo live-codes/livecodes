@@ -164,7 +164,7 @@
     "tslib": "2.6.2",
     "typedoc": "0.25.13",
     "typedoc-plugin-missing-exports": "2.2.0",
-    "typescript": "5.5.2"
+    "typescript": "5.4.5"
   },
   "prettier": {
     "semi": true,
