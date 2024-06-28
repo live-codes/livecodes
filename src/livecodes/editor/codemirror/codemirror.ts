@@ -46,16 +46,8 @@ const editors: CodeiumEditor[] = [];
 let tsWorker: any;
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
-  const {
-    baseUrl,
-    container,
-    readonly,
-    isEmbed,
-    editorId,
-    getLanguageExtension,
-    getFormatterConfig,
-    getFontFamily,
-  } = options;
+  const { baseUrl, container, readonly, isEmbed, editorId, getFormatterConfig, getFontFamily } =
+    options;
   let editorSettings: EditorConfig = { ...options };
   if (!container) throw new Error('editor container not found');
 
@@ -138,7 +130,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
 
     const random = getRandomString();
-    const ext = getLanguageExtension(language);
+    // const ext = getLanguageExtension(language);
     const extension = 'tsx';
     // mappedLanguage === 'typescript' && !ext?.endsWith('ts') && !ext?.endsWith('tsx')
     //   ? ext + '.tsx'
@@ -155,7 +147,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     view.dispatch({ effects: [tsExtension.reconfigure(configureTSExtension(codemirrorTS))] });
   };
 
-  const addTypes = (lib: EditorLibrary, force?: boolean) => {
+  const addTypes = (lib: EditorLibrary) => {
     loadTS().then(() =>
       (window as any).compiler
         .typescriptFeatures({ feature: 'initCodeMirrorTS' })
