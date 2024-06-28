@@ -5,7 +5,7 @@ const prettier = require('prettier');
 const babel = require('@babel/core');
 const parser = require('@babel/parser');
 
-const outDir = path.resolve('src/livecodes/i18n/locales/tmp');
+const tmpOutDir = path.resolve('src/livecodes/i18n/locales/tmp');
 const enOutDir = path.resolve('src/livecodes/i18n/locales/en');
 const srcBaseDir = path.resolve('src/livecodes');
 
@@ -55,9 +55,9 @@ const sortedJSONify = (obj, space = 2) =>
 /**
  * Write translation to .ts and .lokalise.json files.
  * @param {'translation' | 'languageInfo'} namespace
- * @param {boolean} overwriteMode
+ * @param {boolean} tmpMode
  */
-const writeTranslation = async (namespace, overwriteMode) => {
+const writeTranslation = async (namespace, tmpMode) => {
   const name = namespace === 'translation' ? 'translation' : 'languageInfo';
   const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
   const code = `import type { I18nTranslationTemplate } from '../models';
@@ -79,25 +79,23 @@ const writeTranslation = async (namespace, overwriteMode) => {
     ...prettierConfig,
   });
 
+  const outDir = tmpMode ? tmpOutDir : enOutDir;
+
+  if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir, { recursive: true });
+  }
+
   await Promise.all([
-    fs.promises.writeFile(path.resolve(outDir, namespace + '.ts'), translationContent),
+    fs.promises.writeFile(path.join(outDir, namespace + '.ts'), translationContent),
 
     // Save structured JSON for lokalise
     fs.promises.writeFile(
-      path.resolve(outDir, namespace + '.lokalise.json'),
+      path.join(outDir, namespace + '.lokalise.json'),
       sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)([0-9]+)>/g, '<$1tag-$2>'),
     ),
   ]);
 
   console.log(`Generated namespace ${namespace} in ${outDir}.`);
-
-  if (overwriteMode) {
-    await fs.promises.copyFile(
-      path.resolve(outDir, namespace + '.ts'),
-      path.resolve(enOutDir, namespace + '.ts'),
-    );
-    console.log(`Copied to ${enOutDir}.`);
-  }
 };
 
 /**
@@ -348,7 +346,7 @@ const processTS = async (files) => {
  */
 const generateTranslation = async () => {
   const files = process.argv.slice(2).filter((file) => !file.startsWith('-'));
-  const overwriteMode = process.argv.includes('--overwrite');
+  const tmpMode = process.argv.includes('--save-temp');
 
   const HTMLFiles = [],
     TSFiles = [];
@@ -366,16 +364,12 @@ const generateTranslation = async () => {
     ...files.filter((file) => file.endsWith('.ts')).map((file) => path.resolve(srcBaseDir, file)),
   );
 
-  if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir);
-  }
-
   await processHTML(HTMLFiles);
   await processTS(TSFiles);
 
-  writeTranslation('translation', overwriteMode);
+  writeTranslation('translation', tmpMode);
   if (Object.keys(trans['language-info']).length > 0) {
-    writeTranslation('language-info', overwriteMode);
+    writeTranslation('language-info', tmpMode);
   }
 };
 
