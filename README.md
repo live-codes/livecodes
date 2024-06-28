@@ -198,6 +198,11 @@ LiveCodes uses services that are generously provided by:
   <img alt="BrowserStack" width="200" src="https://dev.livecodes.io/docs/img/credits/browserstack.svg">
 </img></a><br /><br />
 </p>
+<p>
+<a href="https://lokalise.com/" target="_blank" title="Lokalise">
+  <img alt="Lokalise" width="200" src="https://dev.livecodes.io/docs/img/credits/lokalise.png">
+</img></a><br /><br />
+</p>
 
 ## Third Party Packages
 
