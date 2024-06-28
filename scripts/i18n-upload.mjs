@@ -1,8 +1,9 @@
 import { LokaliseApi } from '@lokalise/node-api';
 import fs from 'fs';
 import path from 'path';
+import { exit } from 'process';
 
-const outDir = path.resolve('src/livecodes/i18n/locales/tmp');
+const outDir = path.resolve('src/livecodes/i18n/locales/en');
 const api = new LokaliseApi({ apiKey: process.env.LOKALISE_API_TOKEN });
 const projectID = process.env.LOKALISE_PROJECT_ID;
 
@@ -14,10 +15,20 @@ const uploadParams = {
 const pushToLokalise = () => {
   const branchName = process.argv[2];
 
+  if (!branchName) {
+    console.error('Branch name is required');
+    exit(1);
+  }
+
+  if (!fs.existsSync(outDir)) {
+    console.error(`Directory ${outDir} doesn't exist, please run i18n-export first`);
+    exit(1);
+  }
+
   fs.readdir(outDir, async (err, files) => {
     if (err) {
       console.error(err);
-      return;
+      exit(1);
     }
 
     const data = files

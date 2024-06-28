@@ -73,7 +73,10 @@ jobs:
       run: npm ci
 
     - name: Import from Lokalise
-      run: mkdir -p tmp && touch tmp/locales.zip && npm run i18n-update-pull -- $PR_BRANCH && rm -rf tmp
+      run: |
+        mkdir -p $LOKALISE_TEMP && touch $LOKALISE_TEMP/locales.zip && npm run i18n-update-pull -- $PR_BRANCH && rm -rf $LOKALISE_TEMP
+      env:
+        LOKALISE_TEMP: lokalise_tmp
 
     - name: Commit changes
       run: |

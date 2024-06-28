@@ -4,6 +4,7 @@ import fs from 'fs';
 import { execSync } from 'child_process';
 import { sortedJSONify, prettierConfig } from './i18n-export.js';
 import prettier from 'prettier';
+import { exit } from 'process';
 
 const outDir = path.resolve('src/livecodes/i18n/locales');
 const api = new LokaliseApi({ apiKey: process.env.LOKALISE_API_TOKEN });
@@ -35,10 +36,15 @@ const generateTranslationObject = (source) => {
 const importFromLokalise = async () => {
   const branchName = process.argv[2];
 
+  if (!branchName) {
+    console.error('Branch name is required');
+    exit(1);
+  }
+
   console.log('Fetching translations from Lokalise...');
 
   // Make a tmp directory to store the downloaded files
-  const tmpDir = path.resolve('tmp');
+  const tmpDir = path.resolve(process.env.LOKALISE_TEMP);
 
   const response = await api.files().download(`${projectID}:${branchName}`, {
     format: 'json',
@@ -57,7 +63,7 @@ const importFromLokalise = async () => {
   fs.readdir(tmpDir, (err, languages) => {
     if (err) {
       console.error(err);
-      return;
+      exit(1);
     }
 
     console.log(
@@ -73,7 +79,7 @@ const importFromLokalise = async () => {
       fs.readdir(languagePath, (err, files) => {
         if (err) {
           console.error(err);
-          return;
+          exit(1);
         }
 
         language = language.replace('_', '-');
