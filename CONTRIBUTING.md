@@ -67,9 +67,9 @@ Some thoughts to help you contribute to this project
 
 10. Run e2e tests
 
-```shell
-$ npm run e2e
-```
+    ```shell
+    $ npm run e2e
+    ```
 
 11. Deploy to GitHub Pages (make sure you have built the app first)
 
@@ -118,6 +118,7 @@ Also, all questions are [welcomed](https://github.com/live-codes/livecodes/discu
 
 - [Adding Languages](./docs/docs/contribution/adding-languages.md)
 - [Release](./docs/docs/contribution/release.md)
+- [i18n](./docs/docs/contribution/i18n.md)
 
 ## Funding
 
