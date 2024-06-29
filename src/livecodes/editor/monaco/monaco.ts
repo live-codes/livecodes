@@ -28,6 +28,7 @@ import { getImports } from '../../compiler/import-map';
 import { getEditorModeNode } from '../../UI/selectors';
 import { pkgInfoService } from '../../services/pkgInfo';
 import { getEditorTheme } from '../themes';
+import { getCompilerOptions } from '../ts-compiler-options';
 import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
@@ -220,73 +221,9 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
             : defaultOptions;
   let editorOptions: Options = cloneObject({ ...baseOptions, ...initOptions });
 
-  type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
-
-  const getCompilerOptions = ({
-    isJSLang,
-    isJsx,
-    nonReactJsx,
-    monaco,
-  }: {
-    isJSLang: boolean;
-    isJsx: boolean;
-    nonReactJsx: boolean;
-    monaco: typeof Monaco;
-  }): CompilerOptions => {
-    const settings: CompilerOptions = {
-      allowJs: isJSLang,
-      checkJs: !isJSLang,
-      strictNullChecks: !isJSLang,
-      allowNonTsExtensions: true,
-      experimentalDecorators: true,
-      emitDecoratorMetadata: true,
-      allowSyntheticDefaultImports: true,
-      allowUmdGlobalAccess: true,
-      esModuleInterop: true,
-      target: monaco.languages.typescript.ScriptTarget.ES2020,
-      module: monaco.languages.typescript.ModuleKind.ESNext,
-      moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-      lib: ['esnext', 'dom'],
-    };
-
-    const jsxSettings: CompilerOptions = {
-      jsx: monaco.languages.typescript.JsxEmit.ReactJSX,
-      jsxFactory: 'React.createElement',
-      reactNamespace: 'React',
-      jsxFragmentFactory: 'React.Fragment',
-    };
-
-    const nonReactJsxSettings: CompilerOptions = {
-      jsx: monaco.languages.typescript.JsxEmit.Preserve,
-      jsxFactory: 'h',
-      reactNamespace: 'h',
-      jsxFragmentFactory: 'Fragment',
-    };
-
-    return {
-      ...settings,
-      ...(isJsx ? jsxSettings : {}),
-      ...(nonReactJsx ? nonReactJsxSettings : {}),
-    };
-  };
-
   const configureTypeScriptFeatures = () => {
     const JSLangs = ['javascript', 'jsx', 'flow', 'solid', 'react-native'];
-    const hasJsx = [
-      'jsx',
-      'tsx',
-      'sucrase',
-      'babel',
-      'flow',
-      'solid',
-      'solid.tsx',
-      'react-native',
-      'react-native-tsx',
-    ];
     const isJSLang = JSLangs.includes(language);
-    const isJsx = hasJsx.includes(language);
-    const nonReactJsx = ['solid', 'solid.tsx', 'stencil'].includes(language);
-
     if (
       !['script', 'tests', 'editorSettings'].includes(editorId) ||
       !['javascript', 'typescript'].includes(monacoMapLanguage(language))
@@ -294,7 +231,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       return;
     }
 
-    const compilerOptions = getCompilerOptions({ isJSLang, isJsx, nonReactJsx, monaco });
+    const compilerOptions = getCompilerOptions(language);
 
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions(compilerOptions);

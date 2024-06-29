@@ -31,9 +31,9 @@ function Counter(props: { name: string }) {
   const [count, setCount] = createSignal(0);
   const increment = () => setCount(count() + 1);
   return (
-    <div className="container">
+    <div class="container">
       <h1>Hello, {props.name}!</h1>
-      <img className="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
+      <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/solid.svg" />
       <p>You clicked {count()} times.</p>
       <button onClick={increment}>Click me</button>
     </div>

@@ -1,12 +1,12 @@
 import type { CompilerFunction } from '../../models';
 import { compileAllBlocks } from '../../compiler';
-import { acornUrl, astringUrl, cjs2esUrl, csstreeUrl, malinaUrl } from '../../vendors';
+import { acornUrl, astringUrl, cjs2esUrl, csstreeUrl, malinaBaseUrl } from '../../vendors';
 import { getLanguageCustomSettings } from '../../utils';
 
 (self as any).createMalinaCompiler = (): CompilerFunction => {
   (self as any).importScripts(acornUrl, astringUrl, csstreeUrl, cjs2esUrl);
   (self as any)['css-tree'] = (self as any).csstree; // yes, this is required!!
-  (self as any).importScripts(malinaUrl);
+  (self as any).importScripts(malinaBaseUrl + 'malina.js');
 
   return async (code, { config }) => {
     const processedCode = await compileAllBlocks(code, config, {

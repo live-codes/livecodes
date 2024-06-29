@@ -1,15 +1,10 @@
 /* eslint-disable import/no-internal-modules */
-import type TS from 'typescript';
-
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
-import { loadScript, objectFilter, safeName } from '../utils/utils';
-import { typescriptAtaUrl, typescriptUrl } from '../vendors';
+import { objectFilter } from '../utils/utils';
 
 export const createTypeLoader = (baseUrl: string) => {
-  let ts: typeof TS;
-  let ata: any;
   let loadedTypes: Types = {};
   const libs: EditorLibrary[] = [];
 
@@ -73,7 +68,7 @@ export const createTypeLoader = (baseUrl: string) => {
     }
     loadedTypes = { ...prevTypes, ...type };
     const lib = {
-      filename: `/node_modules/${safeName(name)}/index.d.ts`,
+      filename: `/node_modules/${name}/index.d.ts`,
       content,
     };
     if (typeof callback === 'function') {
@@ -83,13 +78,10 @@ export const createTypeLoader = (baseUrl: string) => {
     return lib;
   };
 
-  // see https://twitter.com/hatem_hosny_/status/1790644616175235323
-  let callbackFn: ((type: EditorLibrary) => void) | undefined;
-  let resolveFn: ((value: EditorLibrary[]) => void) | undefined;
-
   /**
    * Retrieves types from TypeScript Automatic Type Acquisition (ATA) module,
    * which fetches types from jsDelivr.
+   * The ATA module runs in the compiler worker to re-use the TypeScript compiler.
    *
    * @param {string} code - The code to retrieve types from.
    * @param {((type: EditorLibrary) => void) | undefined} callback - An optional callback function to handle the retrieved types.
@@ -98,53 +90,23 @@ export const createTypeLoader = (baseUrl: string) => {
   const getTypesFromAta = async (
     code: string,
     callback: ((type: EditorLibrary) => void) | undefined,
-  ) => {
-    callbackFn = callback;
-    return new Promise<EditorLibrary[]>(async (resolve) => {
-      if (!code?.trim()) {
-        resolve([]);
-        return;
-      }
-      resolveFn = resolve;
-      ts = ts || ((await loadScript(typescriptUrl, 'ts')) as typeof TS);
-      const ataModule = await import(typescriptAtaUrl);
-      const { setupTypeAcquisition } = ataModule;
-      const ataTypes: EditorLibrary[] = [];
-      ata =
-        ata ||
-        setupTypeAcquisition({
-          projectName: 'Playground',
-          typescript: ts,
-          logger: {
-            log: () => undefined,
-            error: () => undefined,
-            groupCollapsed: () => undefined,
-            groupEnd: () => undefined,
-          },
-          delegate: {
-            receivedFile: (code: string, path: string) => {
-              ataTypes.push({ content: code, filename: path });
-              if (typeof callbackFn === 'function') {
-                callbackFn({ content: code, filename: path });
-              }
-            },
-            progress: (_downloaded: number, _total: number) => {
-              // console.log({ _downloaded, _total })
-            },
-            started: () => {
-              // console.log('ATA start');
-            },
-            finished: (_files: Map<string, string>) => {
-              if (typeof resolveFn === 'function') {
-                libs.push(...ataTypes);
-                resolveFn(ataTypes);
-              }
-            },
-          },
-        });
-      ata(code);
+  ): Promise<EditorLibrary[]> => {
+    if (!code?.trim()) {
+      return [];
+    }
+    const types: EditorLibrary[] = await (window as any).compiler.typescriptFeatures({
+      feature: 'ata',
+      payload: code,
     });
+    libs.push(...types);
+    if (typeof callback === 'function') {
+      types.forEach((type) => {
+        callback(type);
+      });
+    }
+    return types;
   };
+
   const loadTypes = async (types: Types, callback: ((type: EditorLibrary) => void) | undefined) => {
     const typesWithUrls = objectFilter(types, (value) => value !== '');
     const typesWithoutUrls = objectFilter(types, (value) => value === '');

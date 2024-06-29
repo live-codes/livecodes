@@ -2,10 +2,9 @@
 import { modulesService } from './services/modules';
 
 const { getUrl, getModuleUrl } = modulesService;
-export const typescriptVersion = '5.5.2';
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.10.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.11.0/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 
@@ -88,6 +87,8 @@ export const codeiumProviderUrl = /* @__PURE__ */ getUrl(
 export const coffeeScriptUrl = /* @__PURE__ */ getUrl(
   'coffeescript@2.7.0/lib/coffeescript-browser-compiler-legacy/coffeescript.js',
 );
+
+export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
@@ -245,7 +246,7 @@ export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.
 
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.8.2/dist/liquid.browser.min.js');
 
-export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.min.js');
+export const localforageUrl = /* @__PURE__ */ getModuleUrl('localforage@1.10.0');
 
 export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
@@ -263,8 +264,7 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
   'luna-object-viewer@0.2.4/luna-object-viewer.css',
 );
 
-export const malinaVersion = '0.6.64';
-export const malinaUrl = /* @__PURE__ */ getUrl(`malinajs@${malinaVersion}/malina.js`);
+export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.6.64/`);
 
 export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
 
@@ -272,7 +272,7 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${typescriptVersion}/monaco/min/vs`;
+export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${process.env.TYPESCRIPT_VERSION}/monaco/min/vs`;
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -407,10 +407,10 @@ export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
 
 export const typescriptUrl = /* @__PURE__ */ getUrl(
-  `typescript@${typescriptVersion}/lib/typescript.js`,
+  `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
 );
 
-export const typescriptAtaUrl = /* @__PURE__ */ getUrl('@typescript/ata@0.9.4/dist/index.js');
+export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.0/dist/vfs.esm.js');
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 

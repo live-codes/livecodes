@@ -17,7 +17,7 @@ import type {
   CompileInfo,
 } from '../models';
 import { getAppCDN, sandboxService } from '../services';
-import { stringify } from '../utils';
+import { getRandomString, stringify } from '../utils';
 import { createCompilerSandbox } from './compiler-sandbox';
 import { getAllCompilers } from './get-all-compilers';
 import { hasStyleImports } from './import-map';
@@ -26,6 +26,7 @@ import type {
   CompilerMessage,
   CompilerMessageEvent,
   Compiler,
+  TypescriptFeatures,
 } from './models';
 import { getCompileResult } from './utils';
 
@@ -283,11 +284,44 @@ export const createCompiler = async ({
     (Object.keys(cache) as Array<keyof typeof cache>).forEach((key) => delete cache[key]);
   };
 
+  const typescriptFeatures = ({
+    feature,
+    payload,
+  }: {
+    feature: TypescriptFeatures;
+    payload: any;
+  }) =>
+    new Promise((resolve) => {
+      const id = getRandomString();
+      const handler = (event: CompilerMessageEvent) => {
+        const message = event.data;
+        if (
+          event.origin !== compilerOrigin ||
+          event.source !== compilerSandbox ||
+          message.from !== 'compiler' ||
+          message.type !== 'ts-features' ||
+          message.payload.id !== id
+        ) {
+          return;
+        }
+        window.removeEventListener('message', handler);
+        resolve(message.payload.data);
+      };
+      window.addEventListener('message', handler);
+
+      const compileMessage: CompilerMessage = {
+        type: 'ts-features',
+        payload: { id, feature, data: payload },
+      };
+      compilerSandbox.postMessage(compileMessage, compilerOrigin);
+    });
+
   await initialize();
 
   return {
     load,
     compile,
     clearCache,
+    typescriptFeatures,
   };
 };

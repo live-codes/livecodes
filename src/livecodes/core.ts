@@ -4532,6 +4532,7 @@ const initializePlayground = async (
   setConfig(buildConfig({ ...getConfig(), ...appConfig }));
   configureModes({ config: getConfig(), isEmbed, isLite });
   compiler = await getCompiler({ config: getConfig(), baseUrl, eventsManager });
+  (window as any).compiler = compiler;
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
   i18n = await loadI18n(getConfig().appLanguage);
