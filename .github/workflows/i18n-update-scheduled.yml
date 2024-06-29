@@ -91,8 +91,18 @@ jobs:
     - name: Push changes
       run: git push origin $BRANCH
 
+    - name: Check if has differences between BRANCH and default branch
+      id: check-diff
+      run: |
+        DIFF=$(git diff --name-only $BRANCH ${{ github.event.repository.default_branch }})
+        if [[ -z $DIFF ]]; then
+          echo "No differences between $BRANCH and ${{ github.event.repository.default_branch }}."
+          echo "SKIP=true" >> $GITHUB_ENV
+        fi
+
     - name: Create a new i18n PR if not exists
       uses: actions/github-script@v7
+      if: steps.check-diff.outputs.SKIP != 'true'
       with:
         script: |
             const prInfo = await github.rest.pulls.list({
@@ -110,7 +120,7 @@ jobs:
 
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.BRANCH}`;
-            const prTitle = `i18n: daily update from ${process.env.BRANCH}`;
+            const prTitle = `i18n: scheduled update from ${process.env.BRANCH}`;
             const prBody = `## What type of PR is this? (check all applicable)
 
             - [ ] ✨ Feature
@@ -127,8 +137,8 @@ jobs:
             - [x] 🌐 Internationalization / Translation
             
             ## Description
-            ### i18n Actions: \`.i18n-update-daily\`
-            Daily update of source texts and translations.
+            ### i18n Actions: \`.i18n-update-scheduled\`
+            Scheduled update of source texts and translations.
 
             | Name | Description |
             | --- | --- |
@@ -136,7 +146,7 @@ jobs:
             | **Last Commit SHA (Pull)** | ${process.env.LAST_COMMIT_SHA_PULL} |
             `;
 
-            const prInfo = await github.rest.pulls.create({
+            github.rest.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: prTitle,
