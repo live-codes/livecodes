@@ -2,7 +2,7 @@
 import type { EditorLibrary, Types } from '../models';
 import { getImports, hasUrlImportsOrExports } from '../compiler/import-map';
 import { typesService } from '../services/types';
-import { objectFilter, safeName } from '../utils/utils';
+import { objectFilter } from '../utils/utils';
 
 export const createTypeLoader = (baseUrl: string) => {
   let loadedTypes: Types = {};
@@ -68,7 +68,7 @@ export const createTypeLoader = (baseUrl: string) => {
     }
     loadedTypes = { ...prevTypes, ...type };
     const lib = {
-      filename: `/node_modules/${safeName(name)}/index.d.ts`,
+      filename: `/node_modules/${name}/index.d.ts`,
       content,
     };
     if (typeof callback === 'function') {
