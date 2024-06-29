@@ -1,5 +1,5 @@
 import type { LanguageSpecs } from '../../models';
-import { malinaVersion } from '../../vendors';
+import { malinaBaseUrl } from '../../vendors';
 import { parserPlugins } from '../prettier';
 
 export const malina: LanguageSpecs = {
@@ -15,7 +15,7 @@ export const malina: LanguageSpecs = {
       return (self as any).createMalinaCompiler();
     },
     imports: {
-      'malinajs/runtime.js': `https://jspm.dev/malinajs@${malinaVersion}/runtime.js`,
+      'malinajs/runtime.js': `${malinaBaseUrl}runtime.js`,
     },
   },
   extensions: ['xht'],

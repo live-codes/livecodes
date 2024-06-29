@@ -2,13 +2,10 @@
 
 /* eslint-disable import/no-internal-modules */
 import type * as Monaco from 'monaco-editor';
-import type TS from 'typescript';
-
-import { loadScript } from '../../utils/utils';
-import { typescriptUrl } from '../../vendors';
 import { extractTwoSlashCompilerOptions, twoslashCompletions } from './twoslashSupport';
 
 type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+let optionDeclarations: any[] | undefined;
 
 export const registerTwoSlash = async ({
   isJSLang,
@@ -21,7 +18,6 @@ export const registerTwoSlash = async ({
   monaco: typeof Monaco;
   compilerOptions: CompilerOptions;
 }) => {
-  const ts = (await loadScript(typescriptUrl, 'ts')) as typeof TS;
   const language = isJSLang ? 'javascript' : 'typescript';
   const getWorker = isJSLang
     ? monaco.languages.typescript.getJavaScriptWorker
@@ -33,14 +29,21 @@ export const registerTwoSlash = async ({
 
   const model = editor.getModel();
 
+  optionDeclarations =
+    optionDeclarations ||
+    (await (window as any).compiler.typescriptFeatures({ feature: 'getOptionDeclarations' }));
+
   // Auto-complete twoslash comments
-  const langs = ['javascript', 'typescript'];
-  langs.forEach((l) =>
-    monaco.languages.registerCompletionItemProvider(l, {
-      triggerCharacters: ['@', '/', '-'],
-      provideCompletionItems: twoslashCompletions(ts, monaco),
-    }),
-  );
+  if (!(window as any).isTwoslashCompletionsRegistered) {
+    const langs = ['javascript', 'typescript'];
+    langs.forEach((l) => {
+      monaco.languages.registerCompletionItemProvider(l, {
+        triggerCharacters: ['@', '/', '-'],
+        provideCompletionItems: twoslashCompletions(optionDeclarations),
+      });
+    });
+    (window as any).isTwoslashCompletionsRegistered = true;
+  }
 
   const updateCompilerSettings = (opts: CompilerOptions) => {
     const newKeys = Object.keys(opts);
@@ -58,7 +61,7 @@ export const registerTwoSlash = async ({
     defaults.setCompilerOptions(compilerOptions);
   };
 
-  const getTwoSlashCompilerOptions = extractTwoSlashCompilerOptions(ts);
+  const getTwoSlashCompilerOptions = extractTwoSlashCompilerOptions(optionDeclarations);
 
   const textUpdated = () => {
     const code = editor.getModel()?.getValue();
@@ -137,10 +140,10 @@ export const registerTwoSlash = async ({
     return provider;
   };
 
-  (window as any).isInlayHintRegistered = (window as any).isInlayHintRegistered || new Set();
-  if (!(window as any).isInlayHintRegistered.has(language)) {
+  (window as any).inlayHintRegistered = (window as any).inlayHintRegistered || new Set();
+  if (!(window as any).inlayHintRegistered.has(language)) {
     monaco.languages.registerInlayHintsProvider(language, createTwoslashInlayProvider());
-    (window as any).isInlayHintRegistered.add(language);
+    (window as any).inlayHintRegistered.add(language);
     editor.getModel()?.onDidChangeContent(textUpdated);
   }
 };

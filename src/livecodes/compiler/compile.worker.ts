@@ -1,13 +1,29 @@
+/* eslint-disable import/no-internal-modules */
+import type TS from 'typescript';
+import type { Compilers, Config, CompileOptions, EditorLibrary, Language } from '../models';
 import { languages, processors } from '../languages';
-import type { Compilers, Config, CompileOptions } from '../models';
-import { getAllCompilers } from './get-all-compilers';
+import { comlinkBaseUrl, vendorsBaseUrl } from '../vendors';
+import { doOnce, objectFilter } from '../utils/utils';
+import { getCompilerOptions } from '../editor/ts-compiler-options';
 import type { LanguageOrProcessor, CompilerMessage, CompilerMessageEvent } from './models';
+import { getAllCompilers } from './get-all-compilers';
 declare const importScripts: (...args: string[]) => void;
+
+const typescriptAtaUrl = vendorsBaseUrl + 'typescript-ata/typescript-ata.js';
+const typescriptVfsUrl = vendorsBaseUrl + 'typescript-vfs/typescript-vfs.js';
 
 let compilers: Compilers;
 let baseUrl: string | undefined;
+let tsvfsMap: Map<string, string> | undefined;
+let codemirrorWorker: { [key: string]: any; language: Language } = { language: 'tsx' };
 
-const worker: Worker = self as any;
+const worker: Worker & {
+  ts?: typeof TS;
+  typescriptATA?: any;
+  typescriptVFS?: any;
+  Comlink?: any;
+  CodemirrorTsWorker?: any;
+} = self as any;
 (self as any).window = self;
 
 const loadLanguageCompiler = async (
@@ -92,6 +108,65 @@ const compile = async (
   return value || '';
 };
 
+const loadTypeScript = async () => {
+  if (worker.ts) return;
+  await loadLanguageCompiler('typescript', {} as Config, baseUrl);
+};
+
+// see https://twitter.com/hatem_hosny_/status/1790644616175235323
+let resolveFn: ((value: EditorLibrary[]) => void) | undefined;
+let ata: any;
+
+const getTypesFromAta = async (code: string) =>
+  new Promise<EditorLibrary[]>(async (resolve) => {
+    if (!code?.trim()) {
+      resolve([]);
+      return;
+    }
+
+    // load dependencies
+    await loadTypeScript();
+    if (!worker.typescriptATA) {
+      importScripts(typescriptAtaUrl);
+    }
+    const setupTypeAcquisition = worker.typescriptATA.setupTypeAcquisition;
+
+    // setup
+    const ataTypes: EditorLibrary[] = [];
+    resolveFn = resolve;
+    ata =
+      ata ||
+      setupTypeAcquisition({
+        projectName: 'Playground',
+        typescript: worker.ts,
+        logger: {
+          log: () => undefined,
+          error: () => undefined,
+          groupCollapsed: () => undefined,
+          groupEnd: () => undefined,
+        },
+        delegate: {
+          receivedFile: (code: string, path: string) => {
+            ataTypes.push({ content: code, filename: path });
+          },
+          progress: (_downloaded: number, _total: number) => {
+            // console.log({ _downloaded, _total })
+          },
+          started: () => {
+            // console.log('ATA start');
+          },
+          finished: (_files: Map<string, string>) => {
+            if (typeof resolveFn === 'function') {
+              resolveFn(ataTypes);
+            }
+          },
+        },
+      });
+
+    // run ATA
+    ata(code);
+  });
+
 worker.addEventListener(
   'message',
   async (event: CompilerMessageEvent) => {
@@ -100,7 +175,6 @@ worker.addEventListener(
       const config = message.payload;
       baseUrl = message.baseUrl;
       compilers = getAllCompilers([...languages, ...processors], config, baseUrl);
-
       const initSuccessMessage: CompilerMessage = {
         type: 'init-success',
       };
@@ -131,6 +205,91 @@ worker.addEventListener(
         worker.postMessage(compileFailedMessage);
       }
     }
+
+    if (message.type === 'ts-features') {
+      await loadTypeScript();
+      const { feature, data, id } = message.payload;
+      if (feature === 'getOptionDeclarations') {
+        // @ts-ignore - ts.optionDeclarations is private
+        const optionDeclarations = worker.ts?.optionDeclarations.map((x) =>
+          objectFilter(x, (value: any) => {
+            if (typeof value === 'function') return false;
+            return true;
+          }),
+        );
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { id, data: optionDeclarations },
+        });
+      }
+      if (feature === 'ata') {
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { id, data: await getTypesFromAta(data) },
+        });
+      }
+      if (feature === 'initCodeMirrorTS') {
+        if (
+          data &&
+          codemirrorWorker.language !== data &&
+          typeof codemirrorWorker.changeLanguage === 'function'
+        ) {
+          await codemirrorWorker.changeLanguage(data);
+        } else {
+          codemirrorWorker.language = data;
+          await initCodemirrorTS();
+        }
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { id, data: 'done' },
+        });
+      }
+      if (feature === 'changeCodeMirrorLanguage') {
+        await codemirrorWorker.changeLanguage(data);
+        worker.postMessage({
+          type: 'ts-features',
+          payload: { id, data: 'done' },
+        });
+      }
+      if (feature === 'addTypes') {
+        await initCodemirrorTS();
+        if (!tsvfsMap) return;
+        tsvfsMap.set(data.filename, data.content);
+      }
+    }
   },
   false,
 );
+
+const initCodemirrorTS = doOnce(async () => {
+  await loadTypeScript();
+  importScripts(comlinkBaseUrl + 'umd/comlink.js');
+  importScripts(typescriptVfsUrl);
+  importScripts(
+    `${baseUrl}vendor/codemirror/${process.env.codemirrorVersion}/codemirror-ts.worker.js`,
+  );
+  const { createWorker } = worker.CodemirrorTsWorker;
+  const { createDefaultMapFromCDN, createSystem, createVirtualTypeScriptEnvironment } =
+    worker.typescriptVFS;
+  tsvfsMap = await createDefaultMapFromCDN(
+    { target: worker.ts?.ScriptTarget.ES2022 },
+    worker.ts?.version,
+    false,
+    worker.ts,
+  );
+  const system = createSystem(tsvfsMap);
+  const createTypeScriptEnvironment = (lang: Language) => {
+    const compilerOpts = getCompilerOptions(lang);
+    return createVirtualTypeScriptEnvironment(system, [], worker.ts, compilerOpts);
+  };
+  const language = codemirrorWorker.language || 'tsx';
+  let env = createTypeScriptEnvironment(language);
+  codemirrorWorker = createWorker(() => env);
+  codemirrorWorker.language = language;
+  codemirrorWorker.changeLanguage = async (lang: Language) => {
+    env = createTypeScriptEnvironment(lang);
+    codemirrorWorker.language = lang;
+    await codemirrorWorker.initialize();
+  };
+  worker.Comlink.expose(codemirrorWorker);
+});

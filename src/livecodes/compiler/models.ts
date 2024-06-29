@@ -9,10 +9,16 @@ export interface Compiler {
     options: CompileOptions,
   ) => Promise<CompileResult>;
   clearCache: () => void;
+  typescriptFeatures: (options: { feature: TypescriptFeatures; payload: any }) => Promise<unknown>;
 }
 
 export type LanguageOrProcessor = Language | Processor;
-
+export type TypescriptFeatures =
+  | 'getOptionDeclarations'
+  | 'ata'
+  | 'initCodeMirrorTS'
+  | 'changeCodeMirrorLanguage'
+  | 'addTypes';
 export interface CompilerMessageEvent extends MessageEvent {
   data: CompilerMessage;
 }
@@ -29,6 +35,7 @@ export type CompilerMessage = {
   | CompileInCompilerMessage
   | CompiledMessage
   | CompileFailedMessage
+  | TypeScriptMessage
 );
 
 export interface InitMessage {
@@ -99,5 +106,14 @@ export interface CompileFailedMessage {
     content: string;
     language: LanguageOrProcessor;
     error: string;
+  };
+}
+
+export interface TypeScriptMessage {
+  type: 'ts-features';
+  payload: {
+    id: string;
+    feature: TypescriptFeatures;
+    data: any;
   };
 }
