@@ -442,3 +442,15 @@ export const bypassAMD = /* @__PURE__ */ async <T = any>(fn: () => Promise<T>): 
   (globalThis as any).define = define;
   return result;
 };
+
+// see https://twitter.com/hatem_hosny_/status/1793035717502697966
+/**
+ * Returns an async function that ensures the given asynchronous function is executed only once and awaits the previous executions.
+ *
+ * @param {() => Promise<void>} fn - The asynchronous function to be executed once.
+ * @return {() => Promise<void>} An async function that, when called multiple times, executes the given function if it hasn't been executed before or awaits the previous execution.
+ */
+export const doOnce = (fn: () => Promise<void>) => {
+  let dependency: Promise<void> | undefined;
+  return () => (dependency ??= fn());
+};

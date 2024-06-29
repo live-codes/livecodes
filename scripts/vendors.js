@@ -1,10 +1,12 @@
 const esbuild = require('esbuild');
+const { getEnvVars } = require('./utils');
 const pkg = require('../package.json');
+
+const typescriptVersion = '5.5.2';
 
 const buildVendors = () => {
   const srcDir = 'src/livecodes/editor/monaco/';
   const outputDir = 'build/livecodes/';
-  const monacoOutDir = outputDir + `vendor/monaco-editor/v${pkg.dependencies['monaco-editor']}/`;
   const codemirrorOutDir = outputDir + `vendor/codemirror/v${pkg.dependencies['codemirror']}/`;
 
   /**
@@ -29,7 +31,12 @@ const buildVendors = () => {
     sourcesContent: true,
     outdir: outputDir,
     format: 'esm',
-    define: { global: 'window', 'process.env.NODE_ENV': '"production"' },
+    define: {
+      global: 'window',
+      'process.env.NODE_ENV': '"production"',
+      'process.env.TYPESCRIPT_VERSION': `"${typescriptVersion}"`,
+      ...getEnvVars(false),
+    },
   };
 
   // Monaco languages
@@ -52,11 +59,21 @@ const buildVendors = () => {
     entryPoints: ['src/livecodes/editor/codemirror/codemirror-core.ts'],
   });
 
+  // Codemirror-ts worker
+  esbuild.buildSync({
+    ...baseOptions,
+    entryPoints: ['src/livecodes/editor/codemirror/codemirror-ts.worker.ts'],
+    outdir: codemirrorOutDir,
+    format: 'iife',
+    globalName: 'CodemirrorTsWorker',
+  });
+
   esbuild.buildSync({
     ...baseOptions,
     outdir: codemirrorOutDir,
     ignoreAnnotations: true, // required for codemirror-emacs
     entryPoints: [
+      'codemirror-ts.ts',
       'codemirror-vim.ts',
       'codemirror-emacs.ts',
       'codemirror-emmet.ts',
@@ -107,7 +124,7 @@ const buildVendors = () => {
   });
 };
 
-module.exports = { buildVendors };
+module.exports = { buildVendors, typescriptVersion };
 
 if (require.main === module) {
   buildVendors();
