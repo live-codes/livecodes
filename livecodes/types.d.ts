@@ -682,7 +682,6 @@ declare module "livecodes/services/modules" {
     export const getAppCDN: () => CDN;
 }
 declare module "livecodes/vendors" {
-    export const typescriptVersion = "5.5.2";
     export const vendorsBaseUrl: string;
     export const acornUrl: string;
     export const artTemplateUrl: string;
@@ -711,6 +710,7 @@ declare module "livecodes/vendors" {
     export const cm6ThemeSolarizedDarkUrl: string;
     export const codeiumProviderUrl: string;
     export const coffeeScriptUrl: string;
+    export const comlinkBaseUrl: string;
     export const cppWasmBaseUrl: string;
     export const csstreeUrl: string;
     export const cytoscapeSvgUrl: string;
@@ -777,12 +777,11 @@ declare module "livecodes/vendors" {
     export const lunaDataGridStylesUrl: string;
     export const lunaDomViewerStylesUrl: string;
     export const lunaObjViewerStylesUrl: string;
-    export const malinaVersion = "0.6.64";
-    export const malinaUrl: string;
+    export const malinaBaseUrl: string;
     export const markedUrl: string;
     export const mermaidCdnUrl: string;
     export const mjmlUrl: string;
-    export const monacoBaseUrl = "https://typescript.azureedge.net/cdn/5.5.2/monaco/min/vs";
+    export const monacoBaseUrl: string;
     export const monacoEmacsUrl: string;
     export const monacoThemesBaseUrl: string;
     export const monacoVimUrl: string;
@@ -835,7 +834,7 @@ declare module "livecodes/vendors" {
     export const thememirrorBaseUrl: string;
     export const twigUrl: string;
     export const typescriptUrl: string;
-    export const typescriptAtaUrl: string;
+    export const typescriptVfsUrl: string;
     export const uniterUrl: string;
     export const vegaCdnUrl: string;
     export const vegaLiteCdnUrl: string;
@@ -907,6 +906,7 @@ declare module "livecodes/utils/utils" {
     export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
     export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
     export const bypassAMD: <T = any>(fn: () => Promise<T>) => Promise<T>;
+    export const doOnce: (fn: () => Promise<void>) => () => Promise<void>;
 }
 declare module "livecodes/languages/lightningcss/processor-lightningcss" {
     import type { ProcessorSpecs } from "livecodes/models";
@@ -1857,14 +1857,19 @@ declare module "livecodes/compiler/models" {
         load: (languages: LanguageOrProcessor[], config: Config) => Promise<unknown[]>;
         compile: (content: string, language: Language, config: Config, options: CompileOptions) => Promise<CompileResult>;
         clearCache: () => void;
+        typescriptFeatures: (options: {
+            feature: TypescriptFeatures;
+            payload: any;
+        }) => Promise<unknown>;
     }
     export type LanguageOrProcessor = Language | Processor;
+    export type TypescriptFeatures = 'getOptionDeclarations' | 'ata' | 'initCodeMirrorTS' | 'changeCodeMirrorLanguage' | 'addTypes';
     export interface CompilerMessageEvent extends MessageEvent {
         data: CompilerMessage;
     }
     export type CompilerMessage = {
         from?: 'compiler';
-    } & (InitMessage | InitSuccessMessage | LoadMessage | LoadedMessage | LoadFailedMessage | CompileMessage | CompileInCompilerMessage | CompiledMessage | CompileFailedMessage);
+    } & (InitMessage | InitSuccessMessage | LoadMessage | LoadedMessage | LoadFailedMessage | CompileMessage | CompileInCompilerMessage | CompiledMessage | CompileFailedMessage | TypeScriptMessage);
     export interface InitMessage {
         type: 'init';
         payload: Config;
@@ -1925,6 +1930,14 @@ declare module "livecodes/compiler/models" {
             content: string;
             language: LanguageOrProcessor;
             error: string;
+        };
+    }
+    export interface TypeScriptMessage {
+        type: 'ts-features';
+        payload: {
+            id: string;
+            feature: TypescriptFeatures;
+            data: any;
         };
     }
 }
@@ -3411,6 +3424,12 @@ declare module "livecodes/lite" {
 }
 declare module "livecodes/cache/__tests__/cache.spec" { }
 declare module "livecodes/compiler/compile.page" { }
+declare module "livecodes/editor/ts-compiler-options" {
+    import type * as Monaco from 'monaco-editor';
+    import type { Language } from "livecodes/models";
+    type CompilerOptions = Monaco.languages.typescript.CompilerOptions;
+    export const getCompilerOptions: (language: Language) => CompilerOptions;
+}
 declare module "livecodes/compiler/compile.worker" { }
 declare module "livecodes/compiler/compiler-utils" { }
 declare module "livecodes/compiler/__tests__/import-map.spec" { }
@@ -3453,17 +3472,6 @@ declare module "livecodes/editor/codemirror/extras" {
     export { vscodeKeymap } from '@replit/codemirror-vscode-keymap';
     export { colorPicker } from '@replit/codemirror-css-color-picker';
 }
-declare module "livecodes/editor/codemirror/codemirror" {
-    import type { CodeEditor, EditorOptions } from "livecodes/models";
-    export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
-        editorId: EditorOptions['editorId'];
-    };
-    export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
-}
-declare module "livecodes/editor/codemirror/codemirror-codeium" {
-    import type { CodeiumEditor } from "livecodes/editor/codemirror/codemirror";
-    export const codeium: (editors: CodeiumEditor[], mapLanguage: (lang: string) => string) => import("@codemirror/state").Extension[];
-}
 declare module "livecodes/editor/codemirror/codemirror-core" {
     export * from '@codemirror/autocomplete';
     export * from '@codemirror/commands';
@@ -3482,11 +3490,28 @@ declare module "livecodes/editor/codemirror/codemirror-core" {
     export * from '@lezer/highlight';
     export * from '@lezer/lr';
 }
+declare module "livecodes/editor/codemirror/codemirror" {
+    import type { CodeEditor, EditorOptions } from "livecodes/models";
+    export type CodeiumEditor = Pick<CodeEditor, 'getLanguage' | 'getValue'> & {
+        editorId: EditorOptions['editorId'];
+    };
+    export const createEditor: (options: EditorOptions) => Promise<CodeEditor>;
+}
+declare module "livecodes/editor/codemirror/codemirror-codeium" {
+    import type { CodeiumEditor } from "livecodes/editor/codemirror/codemirror";
+    export const codeium: (editors: CodeiumEditor[], mapLanguage: (lang: string) => string) => import("@codemirror/state").Extension[];
+}
 declare module "livecodes/editor/codemirror/codemirror-emacs" {
     export { emacs } from '@replit/codemirror-emacs';
 }
 declare module "livecodes/editor/codemirror/codemirror-emmet" {
     export const emmet: import("@codemirror/state").Extension[];
+}
+declare module "livecodes/editor/codemirror/codemirror-ts" {
+    export { tsFacetWorker, tsSyncWorker, tsLinterWorker, tsAutocompleteWorker, tsHoverWorker, } from '@valtown/codemirror-ts';
+}
+declare module "livecodes/editor/codemirror/codemirror-ts.worker" {
+    export { createWorker } from '@valtown/codemirror-ts/worker';
 }
 declare module "livecodes/editor/codemirror/codemirror-vim" {
     export { vim } from '@replit/codemirror-vim';
@@ -3564,10 +3589,9 @@ declare module "livecodes/editor/codemirror/languages/codemirror-lang-wast" {
     export { wast } from '@codemirror/lang-wast';
 }
 declare module "livecodes/editor/monaco/twoslashSupport" {
-    type TS = typeof import('typescript');
-    export const extractTwoSlashCompilerOptions: (ts: TS) => (code: string) => any;
+    export const extractTwoSlashCompilerOptions: (optionDeclarations: any[] | undefined) => (code: string) => any;
     export function parsePrimitive(value: string, type: string): any;
-    export const twoslashCompletions: (ts: TS, _monaco: typeof import('monaco-editor')) => (model: import('monaco-editor').editor.ITextModel, position: import('monaco-editor').Position, _token: any) => import('monaco-editor').languages.CompletionList;
+    export const twoslashCompletions: (optionDeclarations: any[] | undefined) => (model: import('monaco-editor').editor.ITextModel, position: import('monaco-editor').Position, _token: any) => import('monaco-editor').languages.CompletionList;
 }
 declare module "livecodes/editor/monaco/register-twoslash" {
     import type * as Monaco from 'monaco-editor';
