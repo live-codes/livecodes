@@ -16,6 +16,7 @@ env:
   LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
   BRANCH: i18n/develop
   LOKALISE_BRANCH: master
+  NODE_VERSION: 18.x
 
 jobs:
   update:
@@ -39,7 +40,18 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: '18.x'
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Cache Node modules
+      id: cache-npm
+      uses: actions/cache@v4
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
 
     - name: Install dependencies
       run: npm ci
