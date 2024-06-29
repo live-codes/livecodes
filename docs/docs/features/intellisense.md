@@ -2,7 +2,7 @@
 
 import LiveCodes from '../../src/components/LiveCodes.tsx';
 
-The [Monaco code editor](./editor-settings.md#code-editor) provides a rich experience with [intellisense](https://code.visualstudio.com/docs/editor/intellisense) and autocompletion. Many of the features required for this are based on TypeScript types that are either inferred by the editor or supplied as data definition files.
+The [code editor](./editor-settings.md#code-editor) provides a rich experience with [intellisense](https://code.visualstudio.com/docs/editor/intellisense) and autocompletion. Many of the features required for this are based on TypeScript types that are either inferred by the editor or supplied as data definition files.
 
 This not only works when the editor language is TypeScript, but also works with others like JavaScript and JSX.
 
