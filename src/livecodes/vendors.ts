@@ -38,7 +38,7 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
 
-export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.1/');
+export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.3/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.0.0-alpha.2');
 
