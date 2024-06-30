@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v31](https://github.com/live-codes/livecodes/compare/v30...v31) (2024-06-29)
+
+### Highlights for this release:
+
+- CodeMirror TypeScript editor support:
+
+  This release adds TypeScript editor support for CodeMirror (the default editor on mobile).
+  This includes auto-complete, type info on hover and linting (showing type errors).
+  This also includes [automatically loading types](https://livecodes.io/docs/features/intellisense) for imported npm modules and the support of [custom (user-defined) types](https://livecodes.io/docs/features/intellisense#custom-types).
+
+  All of these features (except showing type errors) are also available in JS & JSX.
+
+- The [AI code assistant](https://livecodes.io/docs/features/ai) now works on CodeMirror editor.
+
+### Bug Fixes
+
+- **App:** fix race condition for AMD `define` between monaco editor and localforage ([847d567](https://github.com/live-codes/livecodes/commit/847d567278720ac58ce538bb83018d5343d8df96))
+- **Editor:** fix multiple registers for twoslash completions ([2f0147e](https://github.com/live-codes/livecodes/commit/2f0147e82e4eea1dffb96c4c670a367acd175edc))
+- **Types:** fix loading custom types ([33458af](https://github.com/live-codes/livecodes/commit/33458affcfd26252bf8c81105c69a4dce4b7ee34))
+
+### Features
+
+- **Editor:** support adding types on codemirror ([7ef6551](https://github.com/live-codes/livecodes/commit/7ef6551f489472e8be45168a7aa3b52002b7d19f))
+
+---
+
 ## [v30](https://github.com/live-codes/livecodes/compare/v29...v30) (2024-06-21)
 
 ### Highlights for this release:
