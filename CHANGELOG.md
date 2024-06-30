@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v32](https://github.com/live-codes/livecodes/compare/v31...v32) (2024-06-30)
+
+### Highlights for this release:
+
+- Brython upgraded to v3.12.3 and fixed a bug that caused Python code to run twice.
+
+### Bug Fixes
+
+- **Compilers:** upgrade brython to v3.12.3 and fix bug of running code twice ([28c2922](https://github.com/live-codes/livecodes/commit/28c2922de0c438bc941ffe73121c204c516d77f3))
+
+---
+
 ## [v31](https://github.com/live-codes/livecodes/compare/v30...v31) (2024-06-29)
 
 ### Highlights for this release:
