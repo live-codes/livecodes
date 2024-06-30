@@ -142,6 +142,7 @@ import { permanentUrlService } from './services/permanent-url';
 import {
   translate,
   translateString,
+  dispatchTranslationEvent,
   type I18nKeyType,
   type I18nValueType,
   type I18nInterpolationType,
@@ -2422,6 +2423,8 @@ const handleSettingsMenu = () => {
   const settingsButton = UI.getSettingsButton();
   if (!menuContainer || !settingsButton) return;
   menuContainer.innerHTML = settingsMenuHTML;
+
+  dispatchTranslationEvent(menuContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
