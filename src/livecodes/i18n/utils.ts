@@ -104,12 +104,12 @@ const abstractifyHTML = (html: string) => {
 const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(
-    html.replace(/<(\/?)([0-9]+)([^>]*)>/g, '<$1tag-$2 $3>'),
+    html.replace(/<(\/?)([0-9]+)([^>]*)>/g, '<$1tag-$2$3>'),
     'text/html',
   );
 
   elements.forEach((element, index) => {
-    const oldElement = doc.body.querySelector(`tag-${index}`)!;
+    const oldElement = doc.body.querySelector(`tag-${index + 1}`)!;
     const newElement = doc.createElement(element.name);
 
     // Copy previously saved attributes to newElement
