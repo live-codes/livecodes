@@ -4098,6 +4098,7 @@ const handleI18n = () => {
     const elem = e.target as HTMLElement;
     translate(elem, i18n);
   });
+  dispatchTranslationEvent(document.body);
 };
 
 const sendTranslationToMainPage = () => {
