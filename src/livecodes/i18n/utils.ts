@@ -153,21 +153,25 @@ export const translate = (
     const key = el.dataset.i18n;
     if (!key) return;
 
+    const interpolation = JSON.parse(el.dataset.i18nInterpolation || '{}');
+    const fullInterpolation = {
+      PROP: '',
+      ...predefinedValues,
+      ...interpolation,
+    };
+
     const translateProp = (prop: string, lookupKey: string) => {
-      const interpolation = {
-        PROP: prop,
-        ...predefinedValues,
-      };
+      fullInterpolation.PROP = prop;
       if (prop.startsWith('data-')) {
         prop = prop.slice(5);
         el.dataset[prop] = i18n.t(lookupKey, {
           defaultValue: el.dataset[prop]!,
-          ...interpolation,
+          ...fullInterpolation,
         }) as string;
       } else {
         const translation = i18n.t(lookupKey, {
           defaultValue: (el as any)[prop],
-          ...interpolation,
+          ...fullInterpolation,
         }) as string;
         if (prop === 'innerHTML' && el.innerHTML !== translation) {
           const { elements } = abstractifyHTML(el.innerHTML);
