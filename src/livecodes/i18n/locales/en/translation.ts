@@ -31,6 +31,57 @@ const translation = {
       sdkPermanentUrl: 'SDK Permanent URL',
     },
   },
+  app: {
+    copy: {
+      hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
+    },
+    copyAsUrl: {
+      hint: 'Copy code as data URL',
+    },
+    customSettings: {
+      hint: 'Custom Settings',
+    },
+    editorMode: {
+      hint: 'Editor Mode',
+    },
+    editorSettings: {
+      hint: 'Editor Settings',
+    },
+    externalResources: {
+      hint: 'External Resources',
+    },
+    focus: {
+      hint: 'Toggle Focus mode',
+    },
+    format: {
+      hint: 'Format (Alt + Shift + F)',
+    },
+    fullscreen: {
+      hint: 'Full Screen',
+    },
+    logo: {
+      title: 'LiveCodes: Code playground that runs in the browser!',
+    },
+    projectInfo: {
+      hint: 'Project Info',
+    },
+    redo: {
+      hint: 'Redo (Ctrl/Cmd + Shift + Z)',
+    },
+    result: {
+      hint: 'Toggle Result',
+    },
+    run: {
+      hint: 'Run (Shift + Enter)',
+    },
+    share: {
+      hint: 'Share',
+    },
+    undo: {
+      hint: 'Undo (Ctrl/Cmd + Z)',
+    },
+    untitledProject: 'Untitled Project',
+  },
   assets: {
     add: {
       dataURL: {

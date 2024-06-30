@@ -51,6 +51,74 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.copy.hint": {
+    "notes": "",
+    "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+  },
+  "app.copyAsUrl.hint": {
+    "notes": "",
+    "translation": "Copy code as data URL"
+  },
+  "app.customSettings.hint": {
+    "notes": "",
+    "translation": "Custom Settings"
+  },
+  "app.editorMode.hint": {
+    "notes": "",
+    "translation": "Editor Mode"
+  },
+  "app.editorSettings.hint": {
+    "notes": "",
+    "translation": "Editor Settings"
+  },
+  "app.externalResources.hint": {
+    "notes": "",
+    "translation": "External Resources"
+  },
+  "app.focus.hint": {
+    "notes": "",
+    "translation": "Toggle Focus mode"
+  },
+  "app.format.hint": {
+    "notes": "",
+    "translation": "Format (Alt + Shift + F)"
+  },
+  "app.fullscreen.hint": {
+    "notes": "",
+    "translation": "Full Screen"
+  },
+  "app.logo.title": {
+    "notes": "",
+    "translation": "LiveCodes: Code playground that runs in the browser!"
+  },
+  "app.projectInfo.hint": {
+    "notes": "",
+    "translation": "Project Info"
+  },
+  "app.redo.hint": {
+    "notes": "",
+    "translation": "Redo (Ctrl/Cmd + Shift + Z)"
+  },
+  "app.result.hint": {
+    "notes": "",
+    "translation": "Toggle Result"
+  },
+  "app.run.hint": {
+    "notes": "",
+    "translation": "Run (Shift + Enter)"
+  },
+  "app.share.hint": {
+    "notes": "",
+    "translation": "Share"
+  },
+  "app.undo.hint": {
+    "notes": "",
+    "translation": "Undo (Ctrl/Cmd + Z)"
+  },
+  "app.untitledProject": {
+    "notes": "",
+    "translation": "Untitled Project"
+  },
   "assets.add.dataURL.desc": {
     "notes": "### <tag-0> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Add asset as a base64-encoded <tag-1>data url</tag-1>. "
