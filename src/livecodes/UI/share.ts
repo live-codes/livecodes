@@ -223,6 +223,11 @@ export const createShareContainer = async (
   const shortUrlLink = shareExpiry?.querySelector('.share-encoded-url-expiry a') as HTMLElement;
   const encodedUrlLink = shareExpiry?.querySelector('.share-short-url-expiry a') as HTMLElement;
 
+  const charactersSpan = shareExpiry?.querySelector(
+    '.share-encoded-url-expiry span',
+  ) as HTMLElement;
+  charactersSpan.dataset.i18nInterpolation = JSON.stringify({ urlLength });
+
   const setMessage = (message: string) => {
     if (!clickToCopy) return;
     clearTimeout(messageTimeout);
