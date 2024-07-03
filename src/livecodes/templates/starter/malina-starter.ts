@@ -39,7 +39,7 @@ export const malinaStarter: Template = {
   <h1>Hello, {title}!</h1>
   <img class="logo" alt="logo" src="{{ __livecodes_baseUrl__ }}assets/templates/malina.svg" />
   <p>You clicked {counter} times.</p>
-  <button on:click="{increment}">Click me</button>
+  <button @click={increment}>Click me</button>
 </div>
 `.trimStart(),
   },

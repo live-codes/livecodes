@@ -6,7 +6,7 @@ const { getUrl, getModuleUrl } = modulesService;
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
   /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.11.0/dist/');
 
-export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
+export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
 export const artTemplateUrl = /* @__PURE__ */ getUrl('art-template@4.13.2/lib/template-web.js');
 
@@ -18,7 +18,7 @@ export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
   '@assemblyscript/loader@0.27.28/umd/index.js',
 );
 
-export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.1/dist/astring.min.js');
+export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.6/dist/astring.min.js');
 
 export const astroBaseUrl = /* @__PURE__ */ getUrl('@hatemhosny/astro-internal@0.0.4/');
 
@@ -92,7 +92,7 @@ export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
-export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@1.1.3/dist/csstree.js');
+export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
 
@@ -264,7 +264,7 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
   'luna-object-viewer@0.2.4/luna-object-viewer.css',
 );
 
-export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.6.64/`);
+export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.7.19/`);
 
 export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
 

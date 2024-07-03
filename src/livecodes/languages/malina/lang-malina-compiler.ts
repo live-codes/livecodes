@@ -24,9 +24,10 @@ import { getLanguageCustomSettings } from '../../utils';
         ...getLanguageCustomSettings('malina', config),
       });
 
-      const init = `\nComponent(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')));\n`;
+      const $import = `import { mount as $mount } from 'malinajs/runtime.js';`;
+      const $mount = `$mount(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')), Component);\n`;
       if (result.result) {
-        return result.result + init;
+        return $import + result.result + $mount;
       }
       return '';
     } catch (e) {
