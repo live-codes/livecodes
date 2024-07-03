@@ -74,7 +74,7 @@ The official [handlebars compiler](https://www.npmjs.com/package/handlebars).
 
 ### Version
 
-`handlebars`: v4.7.7
+`handlebars`: v4.7.8
 
 ## Code Formatting
 
