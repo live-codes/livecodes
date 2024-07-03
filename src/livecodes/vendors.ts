@@ -15,7 +15,7 @@ export const asciidocUrl = /* @__PURE__ */ getUrl(
 );
 
 export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
-  '@assemblyscript/loader@0.27.5/umd/index.js',
+  '@assemblyscript/loader@0.27.28/umd/index.js',
 );
 
 export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.1/dist/astring.min.js');
