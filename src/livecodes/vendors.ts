@@ -270,7 +270,7 @@ export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.1/marked.min.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
-export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js');
+export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
 export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${process.env.TYPESCRIPT_VERSION}/monaco/min/vs`;
 
