@@ -11,7 +11,7 @@ export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
 export const artTemplateUrl = /* @__PURE__ */ getUrl('art-template@4.13.2/lib/template-web.js');
 
 export const asciidocUrl = /* @__PURE__ */ getUrl(
-  '@asciidoctor/core@2.2.6/dist/browser/asciidoctor.js',
+  '@asciidoctor/core@2.2.8/dist/browser/asciidoctor.js',
 );
 
 export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
