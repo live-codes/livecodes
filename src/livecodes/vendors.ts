@@ -104,7 +104,7 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
-export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.9/ejs.js');
+export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
