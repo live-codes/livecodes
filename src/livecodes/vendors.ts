@@ -42,7 +42,7 @@ export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.4/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.0.0-alpha.2');
 
-export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.0.4/');
+export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.18/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
@@ -379,6 +379,8 @@ export const sqlFormatterUrl = /* @__PURE__ */ getUrl(
 );
 
 export const sqljsBaseUrl = /* @__PURE__ */ getUrl('sql.js@1.8.0/dist/');
+
+export const squintCljsBaseUrl = /* @__PURE__ */ getUrl('squint-cljs@0.4.81/');
 
 export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/stencil.js');
 
