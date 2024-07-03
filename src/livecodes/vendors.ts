@@ -110,9 +110,9 @@ export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
 export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.4.0/dist/emmet-monaco.js');
 
-export const esModuleShimsPath = 'es-module-shims@1.4.4/dist/es-module-shims.js';
+export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js';
 
-export const etaUrl = /* @__PURE__ */ getUrl('eta@2.2.0/dist/eta.umd.js');
+export const etaUrl = /* @__PURE__ */ getUrl('eta@3.4.0/dist/eta.umd.js');
 
 export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
 

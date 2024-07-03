@@ -74,7 +74,7 @@ The official [Eta compiler](https://www.npmjs.com/package/eta).
 
 ### Version
 
-`eta`: v2.0.1
+`eta`: v3.4.0
 
 ## Code Formatting
 
