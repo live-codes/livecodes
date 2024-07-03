@@ -224,7 +224,7 @@ export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.4.0/buil
 
 export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
-export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.7/dist/');
+export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
 
