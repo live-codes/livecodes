@@ -74,6 +74,10 @@ const pushToLokalise = () => {
 
     // Wait until all files are processed using poll
     console.log('Waiting for files to be processed...');
+    const timeout = 60000;
+    const delay = 2500;
+    const startTime = Date.now();
+
     while (true) {
       const statuses = await Promise.all(
         processes.map((process_id) =>
@@ -86,7 +90,12 @@ const pushToLokalise = () => {
         break;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 2500));
+      if (Date.now() - startTime > timeout) {
+        console.error('Timeout exceeded. Aborting...');
+        exit(1);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   });
 };
