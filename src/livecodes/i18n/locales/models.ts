@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { RequireAtLeastOne, UnAsConst } from '../types/utils';
+import type { RequireAtLeastOne, UnAsConst } from '../utils';
 import type Translation from './en/translation';
 import type LangInfoTranslation from './en/language-info';
 
