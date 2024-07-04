@@ -34,6 +34,14 @@ const generateTranslationObject = (source) => {
 };
 
 const importFromLokalise = async () => {
+  const ciMode = process.env.CI === 'true';
+  const forceLocalMode = process.argv.slice(2).includes('--force');
+
+  if (!ciMode && !forceLocalMode) {
+    console.error('This script is intended to be run in CI mode or with --force flag.');
+    exit(1);
+  }
+
   const branchName = process.argv[2];
 
   if (!branchName) {
