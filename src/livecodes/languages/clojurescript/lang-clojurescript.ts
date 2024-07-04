@@ -11,13 +11,10 @@ export const clojurescript: LanguageSpecs = {
     factory: parenFormatter,
   },
   compiler: {
-    // url: cherryCljsBaseUrl + 'lib/cherry.umd.js',
+    url: cherryCljsBaseUrl + 'lib/cherry.umd.js',
     factory:
       () =>
       async (code, { config, options }) => {
-        // use esm version till fixing the umd build
-        // https://github.com/squint-cljs/cherry/issues/135
-        (self as any).CherryCljs = await import(cherryCljsBaseUrl + 'lib/compiler.js');
         const compiled = (self as any).CherryCljs.compileString(code);
         return code.includes('#jsx')
           ? (await compileInCompiler(compiled, 'jsx', config, options)).code
