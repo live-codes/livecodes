@@ -124,4 +124,6 @@ const importFromLokalise = async () => {
   });
 };
 
-importFromLokalise();
+if (require.main === module) {
+  importFromLokalise();
+}
