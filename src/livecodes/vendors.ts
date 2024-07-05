@@ -395,7 +395,7 @@ export const tailwindcssUrl = /* @__PURE__ */ getUrl(
 export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules/');
 
 export const tealUrl = /* @__PURE__ */ getUrl(
-  'gh:teal-language/tl@d2fc36b5ff9a52d7265e63eb74cce70fd1cdbcb2/tl.lua',
+  'gh:teal-language/tl@8479c933ef68034a0ea21a564c886374663f80f2/tl.lua',
 );
 
 export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
