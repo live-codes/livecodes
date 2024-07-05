@@ -324,7 +324,7 @@ export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
   'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
 );
 
-export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.5.0/dist/easy.qrcode.min.js');
+export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
 
 export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.0-dev.4/dist/');
 
