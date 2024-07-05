@@ -400,7 +400,7 @@ export const tealUrl = /* @__PURE__ */ getUrl(
 
 export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
 
-export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
+export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
 export const typescriptUrl = /* @__PURE__ */ getUrl(
   `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
