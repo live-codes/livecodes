@@ -15,12 +15,12 @@ export const pgSqlCompiler: CompilerFunction = async (code, { config }) => {
   window.PGlite = window.PGlite || (await import(pgliteUrl)).PGlite;
 
   const options = getLanguageCustomSettings('pgsql', config);
-  const { dbName, scriptURLs } = options;
+  const { dbName, scriptURLs, ...pgliteOptions } = options;
 
   if (dbName) {
-    window.pgsqldb = new window.PGlite(`idb://${safeName(dbName)}`);
+    window.pgsqldb = new window.PGlite(`idb://${safeName(dbName)}`, pgliteOptions);
   } else {
-    window.pgsqldb = new window.PGlite();
+    window.pgsqldb = new window.PGlite(`memory://livecodes`, pgliteOptions);
   }
 
   if (Array.isArray(scriptURLs)) {
@@ -48,8 +48,7 @@ export const pgSqlCompiler: CompilerFunction = async (code, { config }) => {
   } catch (error: any) {
     return `${JSON.stringify({ error: error.message }, null, 2)}`;
   } finally {
-    // TODO: this throws an error
-    // window.pgsqldb.close();
+    window.pgsqldb.close();
   }
 };
 
@@ -60,4 +59,6 @@ const transformData = (
     affectedRows?: number;
   }>,
 ): Array<{ columns: string[]; values: unknown[][] }> =>
-  data.map((item) => ({ columns: item.fields.map((field) => field.name), values: item.rows }));
+  data
+    .filter((item) => item.fields.length > 0)
+    .map((item) => ({ columns: item.fields.map((field) => field.name), values: item.rows }));
