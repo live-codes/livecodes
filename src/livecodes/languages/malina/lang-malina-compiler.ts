@@ -25,7 +25,7 @@ import { getLanguageCustomSettings } from '../../utils';
       });
 
       const $import = `import { mount as $mount } from 'malinajs/runtime.js';`;
-      const $mount = `$mount(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')), Component);\n`;
+      const $mount = `\n$mount(document.querySelector("#livecodes-app") || document.body.appendChild(document.createElement('div')), Component);\n`;
       if (result.result) {
         return $import + result.result + $mount;
       }
