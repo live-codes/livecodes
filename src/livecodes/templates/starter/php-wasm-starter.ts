@@ -30,23 +30,23 @@ body {
     language: 'php-wasm',
     content: `
 <?php
-$title = 'PHP';
+$title = "PHP";
 vrzno_eval('document.getElementById("title").innerText = "' . $title . '"');
 
-$time = date('H');
+$time = date("H");
 if ($time < 12) {
-  $greeting = 'Good morning!';
+  $greeting = "Good morning!";
 } elseif ($time < 17) {
-  $greeting = 'Good afternoon!';
+  $greeting = "Good afternoon!";
 } elseif ($time < 20) {
-  $greeting = 'Good evening!';
+  $greeting = "Good evening!";
 } else {
-  $greeting = 'Good night!';
+  $greeting = "Good night!";
 }
 
-$date = date('l jS \\of F, Y');
+$date = date("l jS \\of F, Y");
 
-echo $greeting . '<br>Today is:<br>' . $date;
+echo $greeting . "<br>Today is:<br>" . $date;
 `.trimStart(),
   },
 };
