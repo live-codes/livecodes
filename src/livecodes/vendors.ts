@@ -389,7 +389,7 @@ export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svg
 export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.25.1/dist/');
 
 export const tailwindcssUrl = /* @__PURE__ */ getUrl(
-  '@mhsdesign/jit-browser-tailwindcss@0.3.0/dist/cdn.min.js',
+  '@mhsdesign/jit-browser-tailwindcss@0.4.1/dist/cdn.min.js',
 );
 
 export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules/');
