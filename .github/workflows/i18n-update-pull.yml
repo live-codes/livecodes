@@ -69,17 +69,19 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
 
-    - name: Cache Node modules
-      id: cache-npm
-      uses: actions/cache@v4
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+    # - name: Cache Node modules
+    #   id: cache-npm
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ~/.npm
+    #     key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
+    #       ${{ runner.os }}-build-
+    #       ${{ runner.os }}-
 
     - name: Install dependencies
       run: npm ci
