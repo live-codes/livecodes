@@ -294,7 +294,7 @@ export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js')
 
 export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
 
-export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.0/dist/index.js');
+export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.5/dist/index.js');
 
 export const pintoraUrl = /* @__PURE__ */ getUrl(
   '@pintora/standalone@0.6.2/lib/pintora-standalone.umd.js',
