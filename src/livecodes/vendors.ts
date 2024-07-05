@@ -326,10 +326,10 @@ export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
 
-export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.0-dev.4/dist/');
+export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.2/dist/');
 
 export const quillHtmlEditUrl = /* @__PURE__ */ getUrl(
-  'quill-html-edit-button@2.2.7/dist/quill.htmlEditButton.min.js',
+  'quill-html-edit-button@2.2.14/dist/quill.htmlEditButton.min.js',
 );
 
 export const quillBlotFormaterUrl = /* @__PURE__ */ getUrl(
