@@ -378,7 +378,7 @@ export const squintCljsBaseUrl = /* @__PURE__ */ getUrl('squint-cljs@0.4.81/');
 
 export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/stencil.js');
 
-export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.2.0/dist/umd/stylis.js');
+export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
 
 export const svelteRuntimeBaseUrl = /* @__PURE__ */ getUrl(
   'https://unpkg.com/svelte@4.0.0/src/runtime/internal/',
