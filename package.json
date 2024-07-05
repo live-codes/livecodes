@@ -38,6 +38,7 @@
     "fix:stylelint": "stylelint --fix \"src/livecodes/styles/*\"",
     "fix:stylelint-docs": "stylelint --fix \"docs/**/*.{css,scss}\"",
     "test": "run-s test:*",
+    "test:i18n-export": "node ./scripts/test-i18n-export.js",
     "test:lint": "run-s lint:*",
     "test:unit": "jest src",
     "test:bundlewatch": "bundlewatch --config .bundlewatch.config.js",
