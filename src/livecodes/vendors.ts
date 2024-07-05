@@ -432,4 +432,4 @@ export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.16.0/dist/index.js')
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
-export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.2.1/dist/');
+export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.4.0/dist/');
