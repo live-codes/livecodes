@@ -350,15 +350,9 @@ export const reasonReactUrl = /* @__PURE__ */ getUrl(
 
 export const reasonStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@9.1.3/lib/es6/');
 
-export const rescriptCompilerUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.rescript-lang.org/v10.1.2/compiler.js',
-);
+export const rescriptCdnBaseUrl = /* @__PURE__ */ getUrl('https://cdn.rescript-lang.org/v11.1.2/');
 
-export const rescriptReactUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.rescript-lang.org/v10.1.2/%40rescript/react/cmij.js',
-);
-
-export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@10.1.2/lib/es6/');
+export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.2/lib/es6/');
 
 export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 

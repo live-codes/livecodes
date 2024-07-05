@@ -26,7 +26,9 @@ export const rescriptStarter: Template = {
     language: 'rescript',
     content: `
 // import npm modules
-@module("leftpad") external leftpad: int => int => string = "default"
+@module("canvas-confetti") external confetti: () => unit = "default"
+
+confetti()
 
 module App = {
   @react.component
@@ -35,15 +37,16 @@ module App = {
 
     let (count, setCount) = React.useState(_ => 0)
     let onClick = _evt => {
+      if (mod(count + 1, 5) == 0) {
+        confetti()
+      }
       setCount(_prev => _prev + 1)
     }
 
     let times = switch count {
     | 1 => "once"
     | 2 => "twice"
-    | (n) if n < 6 =>
-        Belt.Int.toString(n) ++ " times"
-    | n => leftpad(n, 3) ++ " times"
+    | n => String.make(n) ++ " times"
     }
 
     <div className="container">
@@ -63,7 +66,7 @@ switch ReactDOM.querySelector("#app") {
 | None => () // do nothing
 }
 
-Js.log("Hello, ReScript!")
+Console.log("Hello, ReScript!")
 `.trimStart(),
   },
   stylesheets: [],
