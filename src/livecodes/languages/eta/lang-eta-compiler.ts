@@ -18,8 +18,9 @@ import { etaUrl } from '../../vendors';
 <script src="${etaUrl}"></script>
 <script>
 window.addEventListener("load", () => {
+const eta = new window.eta.Eta(${escapeCode(JSON.stringify(options))})
 const content = eta.renderString(\`${escapeCode(code)}\`, {
-  ...${escapeCode(JSON.stringify(data || {}))},
+  ...${escapeCode(JSON.stringify(data))},
   ...window.livecodes?.templateData,
 });
 document.body.innerHTML += content
