@@ -140,7 +140,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ### Version
 
-`sql.js`: v1.8.0
+`sql.js`: v1.10.3
 
 ## Code Formatting
 

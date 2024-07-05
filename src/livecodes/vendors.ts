@@ -372,7 +372,7 @@ export const sqlFormatterUrl = /* @__PURE__ */ getUrl(
   'sql-formatter@12.2.1/dist/sql-formatter.min.js',
 );
 
-export const sqljsBaseUrl = /* @__PURE__ */ getUrl('sql.js@1.8.0/dist/');
+export const sqljsBaseUrl = /* @__PURE__ */ getUrl('sql.js@1.10.3/dist/');
 
 export const squintCljsBaseUrl = /* @__PURE__ */ getUrl('squint-cljs@0.4.81/');
 
