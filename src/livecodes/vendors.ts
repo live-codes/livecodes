@@ -406,7 +406,7 @@ export const typescriptUrl = /* @__PURE__ */ getUrl(
   `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
 );
 
-export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.0/dist/vfs.esm.js');
+export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
@@ -419,7 +419,7 @@ export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3');
 export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2');
 
 export const vueRuntimeUrl = /* @__PURE__ */ getUrl(
-  'vue@3.3.4/dist/vue.runtime.esm-browser.prod.js',
+  'vue@3.4.31/dist/vue.runtime.esm-browser.prod.js',
 );
 
 export const vueSDKUrl = /* @__PURE__ */ getUrl(`livecodes@${process.env.SDK_VERSION}/vue.js`);
