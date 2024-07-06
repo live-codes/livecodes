@@ -220,7 +220,7 @@ export const githubMarkdownCss = /* @__PURE__ */ getUrl(
 
 export const gleamBaseUrl = /* @__PURE__ */ getUrl('gh:live-codes/gleam-precompiled@v0.4.0/');
 
-export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.4.0/build/');
+export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.5.0/build/');
 
 export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
