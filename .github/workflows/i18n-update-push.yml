@@ -87,9 +87,6 @@ jobs:
     - name: Create new branch
       run: git checkout -b $NEW_BRANCH
 
-    - name: Export source texts
-      run: npm run i18n-export
-
     - name: Linting and fixing
       run: npm run fix
 
