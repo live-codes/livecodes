@@ -158,7 +158,7 @@ export const params = {r: `head(iris)\n\nPW <- iris$Petal.Width\nPL <- iris$Peta
 
 ### Version
 
-WebR v0.2.1, running R v4.3.0
+WebR v0.4.0, running R v4.4.1
 
 ## Code Formatting
 

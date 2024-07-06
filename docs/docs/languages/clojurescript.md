@@ -34,7 +34,7 @@ If `JSX` is used (using `#jsx` reader tag - [example](https://github.com/squint-
 
 ### Version
 
-`cherry-cljs`: v0.0.3
+`cherry-cljs`: v0.2.18
 
 ## Code Formatting
 

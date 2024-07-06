@@ -44,7 +44,7 @@ export const clojurescriptStarter: Template = {
               {:className "logo"
               :alt "logo"
               :src "{{ __livecodes_baseUrl__ }}assets/templates/cljs.svg"}]
-            [:p "You clicked" counter "times."]
+            [:p "You clicked " counter " times."]
             [:button
               {:onClick (fn []
                           (if (= (mod counter 3) 0) (confetti))

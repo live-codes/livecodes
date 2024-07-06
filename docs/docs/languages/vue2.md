@@ -43,7 +43,7 @@ Vue 2 SFC support includes Scoped CSS, pre-processors, JSX and `src` imports.
 
 ### Version
 
-`vue3-sfc-loader`: v0.8.4, which is compatible with Vue v2.6.14
+`vue3-sfc-loader`: v0.9.5, which is compatible with Vue v2.6.14
 
 ## Code Formatting
 

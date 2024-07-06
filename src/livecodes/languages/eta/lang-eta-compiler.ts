@@ -7,9 +7,10 @@ import { etaUrl } from '../../vendors';
   async (code, { config }) => {
     const options = getLanguageCustomSettings('eta', config);
     const data = config.customSettings.template?.data || {};
+    const eta = new (self as any).eta.Eta(options);
 
     if (config.customSettings.template?.prerender !== false) {
-      return (self as any).eta.render(code, data, options);
+      return eta.renderString(code, data);
     }
 
     return `<!-- ... compiling ... -->
@@ -17,10 +18,11 @@ import { etaUrl } from '../../vendors';
 <script src="${etaUrl}"></script>
 <script>
 window.addEventListener("load", () => {
-const content = eta.render(\`${escapeCode(code)}\`, {
-  ...${escapeCode(JSON.stringify(data || {}))},
+const eta = new window.eta.Eta(${escapeCode(JSON.stringify(options))})
+const content = eta.renderString(\`${escapeCode(code)}\`, {
+  ...${escapeCode(JSON.stringify(data))},
   ...window.livecodes?.templateData,
-}, ${escapeCode(JSON.stringify(options))});
+});
 document.body.innerHTML += content
 parent.postMessage({type: 'compiled', payload: {language: 'eta', content}}, '*');
 });

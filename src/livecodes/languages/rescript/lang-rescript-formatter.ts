@@ -1,12 +1,12 @@
 import type { LanguageFormatter } from '../../models';
 import { getAbsoluteUrl } from '../../utils';
-import { rescriptCompilerUrl } from '../../vendors';
+import { rescriptCdnBaseUrl } from '../../vendors';
 
 declare const importScripts: any;
 
 const createRescriptFormatter: LanguageFormatter['factory'] = (baseUrl, language) => {
   if (!(self as any).rescript_compiler) {
-    importScripts(getAbsoluteUrl(rescriptCompilerUrl, baseUrl));
+    importScripts(getAbsoluteUrl(rescriptCdnBaseUrl + 'compiler.js', baseUrl));
   }
   const compiler = (self as any).rescript_compiler.make();
   compiler.setModuleSystem('es6');

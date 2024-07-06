@@ -1,6 +1,6 @@
 import type { LanguageSpecs } from '../../models';
 import { compileInCompiler } from '../../compiler';
-import { cherryCljsBaseUrl } from '../../vendors';
+import { cherryCljsBaseUrl, squintCljsBaseUrl } from '../../vendors';
 import { parenFormatter } from '../commonlisp';
 
 export const clojurescript: LanguageSpecs = {
@@ -23,6 +23,14 @@ export const clojurescript: LanguageSpecs = {
     imports: {
       'cherry-cljs': cherryCljsBaseUrl + 'index.js',
       'cherry-cljs/cljs.core.js': cherryCljsBaseUrl + 'cljs.core.js',
+      'cherry-cljs/lib/clojure.string.js': 'lib/clojure.string.js',
+      'cherry-cljs/lib/clojure.set.js': 'lib/clojure.set.js',
+      'cherry-cljs/lib/clojure.walk.js': 'lib/clojure.walk.js',
+      'squint-cljs': squintCljsBaseUrl + 'index.js',
+      'squint-cljs/core.js': squintCljsBaseUrl + 'core.js',
+      'squint-cljs/string.js': squintCljsBaseUrl + 'string.js',
+      'squint-cljs/src/squint/string.js': squintCljsBaseUrl + 'src/squint/string.js',
+      'squint-cljs/src/squint/set.js': squintCljsBaseUrl + 'src/squint/set.js',
     },
   },
   extensions: ['cljs', 'clj', 'cljc', 'edn', 'clojure'],

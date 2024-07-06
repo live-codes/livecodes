@@ -4,21 +4,21 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.11.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.14.0/dist/');
 
-export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.8.2/dist/acorn.js');
+export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
 export const artTemplateUrl = /* @__PURE__ */ getUrl('art-template@4.13.2/lib/template-web.js');
 
 export const asciidocUrl = /* @__PURE__ */ getUrl(
-  '@asciidoctor/core@2.2.6/dist/browser/asciidoctor.js',
+  '@asciidoctor/core@2.2.8/dist/browser/asciidoctor.js',
 );
 
 export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
-  '@assemblyscript/loader@0.27.5/umd/index.js',
+  '@assemblyscript/loader@0.27.28/umd/index.js',
 );
 
-export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.1/dist/astring.min.js');
+export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.6/dist/astring.min.js');
 
 export const astroBaseUrl = /* @__PURE__ */ getUrl('@hatemhosny/astro-internal@0.0.4/');
 
@@ -28,7 +28,7 @@ export const autoCompleteUrl = /* @__PURE__ */ getUrl(
   '@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js',
 );
 
-export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.22.4/babel.js');
+export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.24.7/babel.js');
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
@@ -38,11 +38,11 @@ export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
 );
 
-export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.3/');
+export const brythonBaseUrl = /* @__PURE__ */ getUrl('brython@3.12.4/');
 
 export const chaiUrl = /* @__PURE__ */ getModuleUrl('chai@5.0.0-alpha.2');
 
-export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.0.4/');
+export const cherryCljsBaseUrl = /* @__PURE__ */ getUrl('cherry-cljs@0.2.19/');
 
 export const cjs2esUrl = /* @__PURE__ */ getUrl('cjs2es@1.1.1/dist/cjs2es.browser.js');
 
@@ -92,7 +92,7 @@ export const comlinkBaseUrl = /* @__PURE__ */ getUrl('comlink@4.4.1/dist/');
 
 export const cppWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/cpp-wasm@1.0.2/');
 
-export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@1.1.3/dist/csstree.js');
+export const csstreeUrl = /* @__PURE__ */ getUrl('css-tree@2.3.1/dist/csstree.js');
 
 export const cytoscapeSvgUrl = /* @__PURE__ */ getUrl('cytoscape-svg@0.4.0/cytoscape-svg.js');
 
@@ -104,15 +104,15 @@ export const ddietrCmThemesBaseUrl = /* @__PURE__ */ getUrl(
 
 export const dotUrl = /* @__PURE__ */ getUrl('dot@1.1.3/doT.js');
 
-export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.9/ejs.js');
+export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
-export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.0.0/dist/emmet-monaco.js');
+export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.4.0/dist/emmet-monaco.js');
 
-export const esModuleShimsPath = 'es-module-shims@1.4.4/dist/es-module-shims.js';
+export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js';
 
-export const etaUrl = /* @__PURE__ */ getUrl('eta@2.2.0/dist/eta.umd.js');
+export const etaUrl = /* @__PURE__ */ getUrl('eta@3.4.0/dist/eta.umd.js');
 
 export const fflateUrl = /* @__PURE__ */ getUrl('fflate@0.8.1/esm/browser.js');
 
@@ -224,7 +224,7 @@ export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.4.0/buil
 
 export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
-export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.7/dist/');
+export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
 
@@ -237,14 +237,14 @@ export const imbaBaseUrl = /* @__PURE__ */ getUrl('imba@2.0.0-alpha.229/dist/');
 export const jestTypesUrl = /* @__PURE__ */ getUrl('@types/jest@27.4.1/index.d.ts');
 
 export const jsclUrl = /* @__PURE__ */ getUrl(
-  'gh:jscl-project/jscl-project.github.io@efd3aecdba496d132ed650b7b5be976fd0ca278f/jscl.js',
+  'gh:jscl-project/jscl-project.github.io@058adc599f0d012718ef3ad28e704a92c4dd741e/jscl.js',
 );
 
 export const jsZipUrl = /* @__PURE__ */ getUrl('jszip@3.10.1/dist/jszip.js');
 
 export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.0.4');
 
-export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.8.2/dist/liquid.browser.min.js');
+export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.14.0/dist/liquid.browser.min.js');
 
 export const localforageUrl = /* @__PURE__ */ getModuleUrl('localforage@1.10.0');
 
@@ -264,13 +264,13 @@ export const lunaObjViewerStylesUrl = /* @__PURE__ */ getUrl(
   'luna-object-viewer@0.2.4/luna-object-viewer.css',
 );
 
-export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.6.64/`);
+export const malinaBaseUrl = /* @__PURE__ */ getUrl(`malinajs@0.7.19/`);
 
-export const markedUrl = /* @__PURE__ */ getUrl('marked@12.0.0/marked.min.js');
+export const markedUrl = /* @__PURE__ */ getUrl('marked@13.0.2/marked.min.js');
 
 export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid.esm.mjs');
 
-export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.14.1/lib/index.js');
+export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
 export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${process.env.TYPESCRIPT_VERSION}/monaco/min/vs`;
 
@@ -278,7 +278,7 @@ export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/mo
 
 export const monacoThemesBaseUrl = /* @__PURE__ */ getUrl('monaco-themes@0.4.4/themes/');
 
-export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.0/dist/monaco-vim.js');
+export const monacoVimUrl = /* @__PURE__ */ getUrl('monaco-vim@0.4.1/dist/monaco-vim.js');
 
 export const mustacheUrl = /* @__PURE__ */ getUrl('mustache@4.2.0/mustache.js');
 
@@ -288,13 +288,13 @@ export const normalizeCssUrl = /* @__PURE__ */ getUrl('normalize.css@8.0.1/norma
 
 export const nunjucksBaseUrl = /* @__PURE__ */ getUrl('nunjucks@3.2.4/browser/');
 
-export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.7.3/');
+export const opalBaseUrl = /* @__PURE__ */ getUrl('https://cdn.opalrb.com/opal/1.8.2/');
 
 export const parinferUrl = /* @__PURE__ */ getUrl('parinfer@3.13.1/parinfer.js');
 
 export const pathBrowserifyUrl = /* @__PURE__ */ getModuleUrl('path-browserify@1.0.1');
 
-export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.0/dist/index.js');
+export const pgliteUrl = /* @__PURE__ */ getUrl('@electric-sql/pglite@0.1.5/dist/index.js');
 
 export const pintoraUrl = /* @__PURE__ */ getUrl(
   '@pintora/standalone@0.6.2/lib/pintora-standalone.umd.js',
@@ -306,9 +306,9 @@ export const postcssImportUrlUrl = /* @__PURE__ */ getUrl(
   '@live-codes/postcss-import-url@0.1.2/dist/postcss-import-url.js',
 );
 
-export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.2.5/');
+export const prettierBaseUrl = /* @__PURE__ */ getUrl('prettier@3.3.2/');
 
-export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.19.6/standalone.js');
+export const prettierPhpUrl = /* @__PURE__ */ getUrl('@prettier/plugin-php@0.22.2/standalone.js');
 
 export const prismBaseUrl = /* @__PURE__ */ getUrl('prismjs@1.29.0/components/');
 
@@ -324,12 +324,12 @@ export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
   'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
 );
 
-export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.5.0/dist/easy.qrcode.min.js');
+export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
 
-export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.0-dev.4/dist/');
+export const quillEditorCdnBaseUrl = /* @__PURE__ */ getUrl('quill@2.0.2/dist/');
 
 export const quillHtmlEditUrl = /* @__PURE__ */ getUrl(
-  'quill-html-edit-button@2.2.7/dist/quill.htmlEditButton.min.js',
+  'quill-html-edit-button@2.2.14/dist/quill.htmlEditButton.min.js',
 );
 
 export const quillBlotFormaterUrl = /* @__PURE__ */ getUrl(
@@ -350,24 +350,18 @@ export const reasonReactUrl = /* @__PURE__ */ getUrl(
 
 export const reasonStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@9.1.3/lib/es6/');
 
-export const rescriptCompilerUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.rescript-lang.org/v10.1.2/compiler.js',
-);
+export const rescriptCdnBaseUrl = /* @__PURE__ */ getUrl('https://cdn.rescript-lang.org/v11.1.2/');
 
-export const rescriptReactUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.rescript-lang.org/v10.1.2/%40rescript/react/cmij.js',
-);
-
-export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@10.1.2/lib/es6/');
+export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.2/lib/es6/');
 
 export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
-export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@7.1.0/');
+export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.0/');
 
-export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('ruby-3_2-wasm-wasi@2.1.0/dist/');
+export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
 
 export const rubyWasmScriptUrl = /* @__PURE__ */ getUrl(
-  '@ruby/wasm-wasi@2.1.0/dist/browser.umd.js',
+  '@ruby/wasm-wasi@2.6.2/dist/browser.umd.js',
 );
 
 export const snackbarUrl = /* @__PURE__ */ getUrl('@snackbar/core@1.7.0/dist/snackbar.css');
@@ -378,11 +372,13 @@ export const sqlFormatterUrl = /* @__PURE__ */ getUrl(
   'sql-formatter@12.2.1/dist/sql-formatter.min.js',
 );
 
-export const sqljsBaseUrl = /* @__PURE__ */ getUrl('sql.js@1.8.0/dist/');
+export const sqljsBaseUrl = /* @__PURE__ */ getUrl('sql.js@1.10.3/dist/');
+
+export const squintCljsBaseUrl = /* @__PURE__ */ getUrl('squint-cljs@0.4.81/');
 
 export const stencilUrl = /* @__PURE__ */ getUrl('@stencil/core@3.2.2/compiler/stencil.js');
 
-export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.2.0/dist/umd/stylis.js');
+export const stylisUrl = /* @__PURE__ */ getUrl('stylis@4.3.2/dist/umd/stylis.js');
 
 export const svelteRuntimeBaseUrl = /* @__PURE__ */ getUrl(
   'https://unpkg.com/svelte@4.0.0/src/runtime/internal/',
@@ -393,24 +389,24 @@ export const svgbobWasmCdnUrl = /* @__PURE__ */ getUrl('svgbob-wasm@0.4.1-a0/svg
 export const tagifyBaseUrl = /* @__PURE__ */ getUrl('@yaireo/tagify@4.25.1/dist/');
 
 export const tailwindcssUrl = /* @__PURE__ */ getUrl(
-  '@mhsdesign/jit-browser-tailwindcss@0.3.0/dist/cdn.min.js',
+  '@mhsdesign/jit-browser-tailwindcss@0.4.1/dist/cdn.min.js',
 );
 
 export const tauPrologBaseUrl = /* @__PURE__ */ getUrl('tau-prolog@0.3.4/modules/');
 
 export const tealUrl = /* @__PURE__ */ getUrl(
-  'gh:teal-language/tl@d2fc36b5ff9a52d7265e63eb74cce70fd1cdbcb2/tl.lua',
+  'gh:teal-language/tl@8479c933ef68034a0ea21a564c886374663f80f2/tl.lua',
 );
 
 export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist/themes/');
 
-export const twigUrl = /* @__PURE__ */ getUrl('twig@1.16.0/twig.min.js');
+export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
 export const typescriptUrl = /* @__PURE__ */ getUrl(
   `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
 );
 
-export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.0/dist/vfs.esm.js');
+export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
 
 export const uniterUrl = /* @__PURE__ */ getUrl('uniter@2.18.0/dist/uniter.js');
 
@@ -423,17 +419,17 @@ export const vue3CdnUrl = /* @__PURE__ */ getUrl('vue@3');
 export const vue2CdnUrl = /* @__PURE__ */ getUrl('vue@2');
 
 export const vueRuntimeUrl = /* @__PURE__ */ getUrl(
-  'vue@3.3.4/dist/vue.runtime.esm-browser.prod.js',
+  'vue@3.4.31/dist/vue.runtime.esm-browser.prod.js',
 );
 
 export const vueSDKUrl = /* @__PURE__ */ getUrl(`livecodes@${process.env.SDK_VERSION}/vue.js`);
 
-export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.8.4/dist/');
+export const vueSfcLoaderCdnBaseUrl = /* @__PURE__ */ getUrl('vue3-sfc-loader@0.9.5/dist/');
 
-export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.32/index.js');
+export const wabtjsUrl = /* @__PURE__ */ getUrl('wabt@1.0.35/index.js');
 
-export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.15.1/dist/index.js');
+export const wasmoonUrl = /* @__PURE__ */ getUrl('wasmoon@1.16.0/dist/index.js');
 
 export const waveDromBaseUrl = /* @__PURE__ */ getUrl('wavedrom@3.2.0/');
 
-export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.2.1/dist/');
+export const webRBaseUrl = /* @__PURE__ */ getUrl('webr@0.4.0/dist/');
