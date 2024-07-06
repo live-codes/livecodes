@@ -8,7 +8,7 @@ import { getLanguageCustomSettings } from '../utils';
 import { type Modules, modules } from './gleam-modules';
 
 (self as any).createGleamCompiler = (): CompilerFunction => {
-  const compilerUrl = gleamBaseUrl + 'compiler/v1.1.0/gleam_wasm.js';
+  const compilerUrl = gleamBaseUrl + 'compiler/v1.3.0-rc1/gleam_wasm.js';
   const compiledBaseUrl = gleamBaseUrl + 'build/dev/javascript/';
 
   let compiler: any;
