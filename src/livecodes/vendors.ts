@@ -32,7 +32,7 @@ export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.24.7/babel.j
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
-export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@9.3.3/');
+export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@11.1.1/');
 
 export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',

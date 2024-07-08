@@ -9,12 +9,12 @@ export const blocklyStarter: Template = {
     language: 'html',
     content: `
 <xml
-  data-src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.1.0/src/dom-blocks.xml"
+  data-src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.2.0/src/dom-blocks.xml"
   data-type="blockly/xml"
   style="display: none"
 ></xml>
 <script
-  src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.1.0/src/dom-blocks.js"
+  src="{{ __CDN_URL__ }}@live-codes/blockly-utils@0.2.0/src/dom-blocks.js"
   type="blockly/script"
 ></script>
 
