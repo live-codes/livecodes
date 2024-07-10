@@ -11,7 +11,7 @@ export const init = (lng: string | undefined, baseUrl: string) => {
       escapeValue: false,
     },
     backend: {
-      loadPath: baseUrl + 'translation-{{lng}}-{{ns}}.json',
+      loadPath: baseUrl + `i18n-v${process.env.VERSION}/` + 'translation-{{lng}}-{{ns}}.json',
     },
   });
 };

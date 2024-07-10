@@ -2,14 +2,17 @@ const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
 
-const srcDir = 'src/livecodes/i18n/locales/';
-const outDir = 'build/livecodes/';
+const pkg = require('../package.json');
+
+const srcDir = path.resolve('src/livecodes/i18n/locales/');
+const buildDir = path.resolve('build/livecodes/');
+const outDir = path.join(buildDir, `i18n-v${pkg.appVersion}`);
 
 const buildI18n = async () => {
   const getFilePaths = async (dir = srcDir) => {
     let i18nFiles = [];
     const locales = (await fs.promises.readdir(dir)).filter((name) =>
-      fs.statSync(dir + name).isDirectory(),
+      fs.statSync(path.join(dir, name)).isDirectory(),
     );
     await Promise.all(
       locales.map(async (locale) => {
@@ -36,6 +39,9 @@ const buildI18n = async () => {
   };
 
   const files = await getFilePaths(srcDir);
+  if (!fs.existsSync(outDir)) {
+    await fs.promises.mkdir(outDir, { recursive: true });
+  }
 
   await esbuild
     .build({
@@ -53,7 +59,6 @@ const buildI18n = async () => {
           const json = JSON.stringify(eval(js).default, null, 2);
           const { locale, filename } = getFileInfo(file.path);
           await fs.promises.writeFile(
-            // TODO: add hash
             path.join(outDir, `translation-${locale}-${filename.replace('.js', '.json')}`),
             json,
             'utf8',
