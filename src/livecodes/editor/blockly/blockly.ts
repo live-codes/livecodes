@@ -1,6 +1,8 @@
+/* eslint-disable import/no-internal-modules */
 import { getCustomSettings } from '../../languages';
 import type { BlocklyContent, CustomEditorOptions, Theme, Config } from '../../models';
 import { sandboxService } from '../../services';
+import { debounce } from '../../utils/utils';
 import { blocklyCdnBaseUrl } from '../../vendors';
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
@@ -69,6 +71,7 @@ const extractCustomContent = async (
   const [customScripts, customXml] = await Promise.all([getContent(scripts), getContent(xml)]);
 
   cache = {
+    ...cache,
     src,
     customScripts,
     customXml,
@@ -76,6 +79,14 @@ const extractCustomContent = async (
 
   return [customScripts, customXml];
 };
+
+const onContentChanged = debounce((editors, payload) => {
+  const { xml, js } = payload;
+  cache.xml = xml;
+  if (cache.js === js) return;
+  cache.js = js;
+  editors.script.setValue(xml);
+}, 500);
 
 export const showBlockly = async ({
   baseUrl,
@@ -137,10 +148,7 @@ export const showBlockly = async ({
           return;
         }
 
-        const { xml, js } = event.data.payload;
-        cache.xml = xml;
-        cache.js = js;
-        editors.script.setValue(xml);
+        onContentChanged(editors, event.data.payload);
       });
 
       getIframe()?.contentWindow?.postMessage({ result: getBlocklyHTML() }, '*');

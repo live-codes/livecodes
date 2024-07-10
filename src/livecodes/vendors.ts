@@ -32,7 +32,7 @@ export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.24.7/babel.j
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
-export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@9.3.3/');
+export const blocklyCdnBaseUrl = /* @__PURE__ */ getUrl('blockly@11.1.1/');
 
 export const browserJestUrl = /* @__PURE__ */ getUrl(
   '@live-codes/browser-jest@0.0.3/dist/browser-jest.umd.js',
@@ -218,9 +218,9 @@ export const githubMarkdownCss = /* @__PURE__ */ getUrl(
   'github-markdown-css@5.1.0/github-markdown.css',
 );
 
-export const gleamBaseUrl = /* @__PURE__ */ getUrl('gh:live-codes/gleam-precompiled@v0.4.0/');
+export const gleamBaseUrl = /* @__PURE__ */ getUrl('gh:live-codes/gleam-precompiled@v0.5.0/');
 
-export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.4.0/build/');
+export const go2jsBaseUrl = /* @__PURE__ */ getUrl('@live-codes/go2js@0.5.0/build/');
 
 export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.js');
 
@@ -356,7 +356,7 @@ export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.
 
 export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
-export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.0/');
+export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.1/');
 
 export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
 
