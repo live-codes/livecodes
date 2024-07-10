@@ -100,6 +100,4 @@ const pushToLokalise = () => {
   });
 };
 
-if (require.main === module) {
-  pushToLokalise();
-}
+pushToLokalise();
