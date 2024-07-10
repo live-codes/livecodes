@@ -26,6 +26,7 @@ export default function Sliders() {
       { name: 'liquid', title: 'Liquid' },
       { name: 'dot', title: 'doT' },
       { name: 'twig', title: 'Twig' },
+      { name: 'vento', title: 'Vento' },
       { name: 'art-template', title: 'art-template' },
       { name: 'bbcode', title: 'BBCode' },
       { name: 'mjml', title: 'MJML' },
@@ -195,8 +196,8 @@ function Slider(props: { lists: any; slide: any; cb: any; flipper: any }) {
             index === langs.length - 1
               ? styles.hidden
               : index === langs.length - 2
-              ? styles.current
-              : ''
+                ? styles.current
+                : ''
           }
         >
           {item.title}
