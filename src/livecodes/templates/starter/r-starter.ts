@@ -50,7 +50,7 @@ legend("topleft",
        col = 1:3)
 
 
-# This will take some time to load the packages
+## This will take some time to load the packages
 
 # library(dplyr)
 # library(ggplot2)

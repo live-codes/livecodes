@@ -148,7 +148,7 @@ Please note that custom settings should be valid JSON (i.e. functions are not al
 
 ### Version
 
-`@electric-sql/pglite`: v0.1.0
+`@electric-sql/pglite`: v0.1.5
 
 ## Code Formatting
 

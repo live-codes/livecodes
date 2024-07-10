@@ -23,6 +23,10 @@ body:
         3. See error
     validations:
       required: true
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: Screenshots showing the issue.
   - type: dropdown
     attributes:
       multiple: true
@@ -36,8 +40,6 @@ body:
         - 'LiveCodes Documentations'
         - 'Repo build/deploy'
         - 'Other'
-    validations:
-      required: true
   - type: dropdown
     attributes:
       multiple: true
@@ -79,6 +81,11 @@ body:
     attributes:
       label: Configuration
       description: Project configuration (App menu → Export → Export Project (JSON)) or embed options.
+  - type: textarea
+    id: context
+    attributes:
+      label: Console logs
+      description: Provide console logs or screenshots for console.
   - type: textarea
     id: context
     attributes:

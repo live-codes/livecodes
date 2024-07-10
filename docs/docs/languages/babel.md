@@ -22,7 +22,7 @@ The official [`@babel/standalone` compiler](https://babeljs.io/docs/babel-standa
 
 ### Version
 
-`@babel/standalone`: v7.17.2
+`@babel/standalone`: v7.24.7
 
 ## Custom Settings
 

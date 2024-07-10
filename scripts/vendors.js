@@ -2,7 +2,7 @@ const esbuild = require('esbuild');
 const { getEnvVars } = require('./utils');
 const pkg = require('../package.json');
 
-const typescriptVersion = '5.5.2';
+const typescriptVersion = '5.5.3';
 
 const buildVendors = () => {
   const srcDir = 'src/livecodes/editor/monaco/';

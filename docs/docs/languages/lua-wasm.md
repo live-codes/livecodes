@@ -48,7 +48,7 @@ This example demonstrates usage, JavaScript interoperability and DOM access:
 
 ### Version
 
-Wasmoon v1.15.0
+Wasmoon v1.16.0
 
 ## Code Formatting
 

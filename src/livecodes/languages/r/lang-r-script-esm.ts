@@ -80,7 +80,9 @@ livecodes.r.run =
       livecodes.r.packages = [...new Set([...livecodes.r.packages, ...imports])];
     }
 
-    let result: { output: Array<{ type: 'stdout' | 'stderr'; data: string[] }> } | undefined;
+    let result:
+      | { output: Array<{ type: 'stdout' | 'stderr'; data: string[] }>; images: ImageBitmap[] }
+      | undefined;
     if (code.trim()) {
       await initialization;
       const { webR, webRCodeShelter } = livecodes.r;
@@ -88,15 +90,17 @@ livecodes.r.run =
       let canvas: HTMLCanvasElement | null = null;
       const canvasList: HTMLCanvasElement[] = [];
       await webR.init();
-      await webR.evalRVoid('options(device=webr::canvas)');
-      await webR.evalRVoid(
-        `webr::canvas(width=${canvasWidth}, height=${canvasHeight}, pointsize=${canvasPointSize}, bg="${canvasBackground}")`,
-      );
       result = await webRCodeShelter.captureR(code, {
         withAutoprint: true,
         captureStreams: true,
         captureConditions: false,
         env: env || livecodes.r.config?.env || {},
+        captureGraphics: {
+          width: canvasWidth,
+          height: canvasHeight,
+          bg: canvasBackground,
+          pointsize: canvasPointSize,
+        },
       });
 
       try {
@@ -115,22 +119,17 @@ livecodes.r.run =
           console.log(stderr);
         }
 
-        const msgs = await webR.flush();
-
-        msgs.forEach((msg: { type: 'canvas'; data: { event: string; image: ImageBitmap } }) => {
-          if (msg.type === 'canvas' && msg.data.event === 'canvasNewPage') {
-            canvas = document.createElement('canvas');
-            canvas.setAttribute('width', String(2 * canvasWidth!));
-            canvas.setAttribute('height', String(2 * canvasHeight!));
-            canvas.style.width = `${canvasWidth}px`;
-            canvas.style.display = 'block';
-            canvas.style.margin = 'auto';
-            canvasList.push(canvas);
-          }
-          if (msg.type === 'canvas' && msg.data.event === 'canvasImage' && canvas) {
-            const ctx = canvas.getContext('2d');
-            ctx?.drawImage(msg.data.image, 0, 0);
-          }
+        const images = result?.images || [];
+        images.forEach((img) => {
+          canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          canvas.style.width = String(canvasWidth) + 'px';
+          canvas.style.display = 'block';
+          canvas.style.margin = 'auto';
+          canvasList.push(canvas);
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, img.width, img.height);
         });
 
         if (container && typeof container !== 'string') {
@@ -172,7 +171,7 @@ const initialization = (async () => {
     ServiceWorker: 2;
     PostMessage: 3;
   }) => {
-    if (typeof SharedArrayBuffer !== 'undefined') {
+    if (typeof SharedArrayBuffer != 'undefined') {
       return ChannelType.SharedArrayBuffer;
     } else {
       return ChannelType.PostMessage;

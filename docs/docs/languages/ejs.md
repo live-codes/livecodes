@@ -74,7 +74,7 @@ The official [EJS compiler](https://www.npmjs.com/package/ejs).
 
 ### Version
 
-`ejs`: v3.1.6
+`ejs`: v3.1.10
 
 ## Code Formatting
 
