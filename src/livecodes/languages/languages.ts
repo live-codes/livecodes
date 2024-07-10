@@ -73,6 +73,7 @@ import { phpWasm } from './php-wasm';
 import { bbcode } from './bbcode';
 import { postgresql } from './postgresql';
 import { gleam } from './gleam';
+import { vento } from './vento';
 
 export const languages: LanguageSpecs[] = [
   html,
@@ -90,6 +91,7 @@ export const languages: LanguageSpecs[] = [
   liquid,
   dot,
   twig,
+  vento,
   artTemplate,
   bbcode,
   mjml,

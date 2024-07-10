@@ -192,6 +192,8 @@ export type Language =
   | 'liquidjs'
   | 'dot'
   | 'twig'
+  | 'vento'
+  | 'vto'
   | 'art-template'
   | 'art'
   | 'bbcode'

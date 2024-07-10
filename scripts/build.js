@@ -226,6 +226,7 @@ const iifeBuild = () =>
       'languages/svelte/lang-svelte-compiler.ts',
       'languages/tcl/lang-tcl-script.ts',
       'languages/twig/lang-twig-compiler.ts',
+      'languages/vento/lang-vento-compiler.ts',
       'languages/vue/lang-vue-compiler.ts',
       'languages/vue2/lang-vue2-compiler.ts',
       'languages/wat/lang-wat-compiler.ts',
