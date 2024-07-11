@@ -19,14 +19,16 @@ const excludeLocales = () => {
   const phase = process.argv[2];
   console.log(`Running i18n-exclude in ${phase} phase`);
 
-  const dirs = fs.readdirSync(localesDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory() && dirent.name !== 'en')
-    .map(dirent => path.join(localesDir, dirent.name));
+  const dirs = fs
+    .readdirSync(localesDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory() && dirent.name !== 'en')
+    .map((dirent) => path.join(localesDir, dirent.name));
 
-  dirs.forEach(dir => {
-    const tsFiles = fs.readdirSync(dir)
-      .filter(file => file.endsWith('.ts'))
-      .map(file => path.join(dir, file));
+  dirs.forEach((dir) => {
+    const tsFiles = fs
+      .readdirSync(dir)
+      .filter((file) => file.endsWith('.ts'))
+      .map((file) => path.join(dir, file));
 
     for (const file of tsFiles) {
       if (process.env.BUILD_INCLUDE_LOCALES !== 'true') {
