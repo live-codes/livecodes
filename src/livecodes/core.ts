@@ -4024,27 +4024,15 @@ const extraHandlers = async () => {
   handleUnload();
 };
 
-const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createEventsManager>) => {
+const configureEmbed = (config: Config) => {
   document.body.classList.add('embed');
-  if (config.mode === 'result') {
-    document.body.classList.add('result');
-  }
+
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     document.body.classList.add('no-result');
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.classList.add('hint--bottom-left');
-  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
-  logoLink.title = '';
-
-  eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
-    event.preventDefault();
-    window.open(
-      (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
-      '_blank',
-    );
-  });
+  logoLink.remove();
 };
 
 const configureLite = () => {
@@ -4088,7 +4076,7 @@ const configureModes = ({
     configureLite();
   }
   if (isEmbed || config.mode === 'result') {
-    configureEmbed(config, eventsManager);
+    configureEmbed(config);
   }
   if (config.mode === 'simple') {
     configureSimpleMode(config);
