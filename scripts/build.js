@@ -5,7 +5,7 @@ const path = require('path');
 
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
-const { buildVendors, typescriptVersion } = require('./vendors');
+const { buildVendors } = require('./vendors');
 const { buildStyles } = require('./styles');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
 
@@ -58,7 +58,6 @@ const baseOptions = {
   sourcemap: false,
   sourcesContent: true,
   define: {
-    'process.env.TYPESCRIPT_VERSION': `"${typescriptVersion}"`,
     ...getEnvVars(devMode),
   },
   loader: { '.html': 'text', '.ttf': 'file' },

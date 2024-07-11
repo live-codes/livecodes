@@ -2,8 +2,6 @@ const esbuild = require('esbuild');
 const { getEnvVars } = require('./utils');
 const pkg = require('../package.json');
 
-const typescriptVersion = '5.5.3';
-
 const buildVendors = () => {
   const srcDir = 'src/livecodes/editor/monaco/';
   const outputDir = 'build/livecodes/';
@@ -34,7 +32,6 @@ const buildVendors = () => {
     define: {
       global: 'window',
       'process.env.NODE_ENV': '"production"',
-      'process.env.TYPESCRIPT_VERSION': `"${typescriptVersion}"`,
       ...getEnvVars(false),
     },
   };
@@ -124,7 +121,7 @@ const buildVendors = () => {
   });
 };
 
-module.exports = { buildVendors, typescriptVersion };
+module.exports = { buildVendors };
 
 if (require.main === module) {
   buildVendors();
