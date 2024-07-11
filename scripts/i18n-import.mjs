@@ -8,20 +8,27 @@ import { exit } from 'process';
 
 const outDir = path.resolve('src/livecodes/i18n/locales');
 const tmpDir = path.join(outDir, 'tmp');
-const api = new LokaliseApi({ apiKey: process.env.LOKALISE_API_TOKEN });
+const api = new LokaliseApi({
+  apiKey: process.env.LOKALISE_API_TOKEN,
+});
 const projectID = process.env.LOKALISE_PROJECT_ID;
 
 /**
  * Expand the flattened translation object (KV pairs) to a nested object.
+ * @param {string} language Current language.
  * @param {string} source Path to the source file.
  * @param {Set<string>} validKeys Set of valid keys.
+ * @param {{[s: string]: string}} localTranslation Local translation object.
  * @returns object
  */
-const generateTranslationObject = async (source, validKeys) => {
+const generateTranslationObject = async (language, source, validKeys, localTranslation) => {
   const translations = JSON.parse(await fs.promises.readFile(source, 'utf-8'));
   const translationObject = {};
   for (const key in translations) {
     if (!validKeys.has(key)) {
+      continue;
+    } else if (localTranslation[key] !== '' && translations[key] === '') {
+      console.warn(`Skipping: Key ${key} in language ${language} is missing translation.`);
       continue;
     }
     const keys = key.split('.');
@@ -33,7 +40,7 @@ const generateTranslationObject = async (source, validKeys) => {
       }
       currentObject = currentObject[k];
     });
-    currentObject[lastKey] = translations[key].replace("tag-", "");
+    currentObject[lastKey] = translations[key].replace('tag-', '');
   }
   return translationObject;
 };
@@ -57,12 +64,12 @@ const importFromLokalise = async () => {
   console.log('Fetching translations from Lokalise...');
 
   // Make a tmp directory to store the downloaded files
-  const lokaliseTempDir = path.resolve(process.env.LOKALISE_TEMP);
+  const lokaliseTempDir = path.resolve(process.env.LOKALISE_TEMP || 'lokalise_tmp');
 
   const response = await api.files().download(`${projectID}:${branchName}`, {
     format: 'json',
     original_filenames: true,
-    placeholder_format: "i18n",
+    placeholder_format: 'i18n',
   });
   console.log(`Downloading zip file from ${response.bundle_url}`);
 
@@ -79,14 +86,19 @@ const importFromLokalise = async () => {
     `Extracted languages to tmp directory, ${languages.length} languages (including English) found.`,
   );
 
-  console.log("Checking if translation keys are outdated...");
+  console.log('Checking if translation keys are outdated...');
+
+  /** @type {{[s: string]: {[s: string]: string}}} */
   const localTranslation = {};
 
   /** @type {{[s: string]: Set<string>}} */
   const lokaliseTranslation = {};
 
+  // Read the local translation files as baseline
   execSync('npm run i18n-export -- --save-temp', { stdio: 'pipe' });
-  const localNamespaces = (await fs.promises.readdir(tmpDir)).filter((file) => file.endsWith('.lokalise.json'));
+  const localNamespaces = (await fs.promises.readdir(tmpDir)).filter((file) =>
+    file.endsWith('.lokalise.json'),
+  );
   for (const file of localNamespaces) {
     const namespace = file.split('.')[0];
     const filePath = path.join(tmpDir, file);
@@ -100,6 +112,7 @@ const importFromLokalise = async () => {
     }
   }
 
+  // Read current source on Lokalise and cherry-pick the keys
   const enPath = path.join(lokaliseTempDir, 'en');
   const enFiles = await fs.promises.readdir(enPath);
   for (const file of enFiles) {
@@ -112,7 +125,9 @@ const importFromLokalise = async () => {
     lokaliseTranslation[namespace] = new Set();
     for (const key in fileContent) {
       if (!localTranslation[namespace][key]) {
-        console.warn(`Skipping: Key ${key} in namespace ${namespace} is missing in local translation.`);
+        console.warn(
+          `Skipping: Key ${key} in namespace ${namespace} is missing in local translation.`,
+        );
         continue;
       } else if (localTranslation[namespace][key] !== fileContent[key]) {
         console.warn(`Skipping: Key ${key} in namespace ${namespace} is outdated.`);
@@ -120,7 +135,7 @@ const importFromLokalise = async () => {
       }
       lokaliseTranslation[namespace].add(key);
     }
-  };
+  }
 
   for (let language of languages) {
     const languagePath = path.join(lokaliseTempDir, language);
@@ -143,7 +158,12 @@ const importFromLokalise = async () => {
       const name = namespace === 'translation' ? 'translation' : 'languageInfo';
       const type = namespace === 'translation' ? 'I18nTranslation' : 'I18nLangInfoTranslation';
 
-      const translationObject = await generateTranslationObject(source, lokaliseTranslation[namespace]);
+      const translationObject = await generateTranslationObject(
+        language,
+        source,
+        lokaliseTranslation[namespace],
+        localTranslation[namespace],
+      );
       const sortedTranslationObject = sortedJSONify(translationObject);
       const code = `// ATTENTION: This is an auto-generated file. Do not edit this file manually.
         
@@ -164,6 +184,6 @@ const importFromLokalise = async () => {
 
     await Promise.all(filePromises);
   }
-}
+};
 
 importFromLokalise();
