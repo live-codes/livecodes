@@ -19,6 +19,7 @@
     "ToolsPane",
     "Modes",
     "Import-maps",
-    "Formatter"
+    "Formatter",
+    "Build"
   ]
 }
