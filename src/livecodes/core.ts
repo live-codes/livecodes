@@ -3507,11 +3507,7 @@ const handleCustomSettings = () => {
     const div = document.createElement('div');
     div.innerHTML = customSettingsScreen;
     const customSettingsContainer = div.firstChild as HTMLElement;
-    modal.show(customSettingsContainer, {
-      onClose: () => {
-        customSettingsEditor?.destroy();
-      },
-    });
+    modal.show(customSettingsContainer, { onClose: () => customSettingsEditor?.destroy() });
 
     const options: EditorOptions = {
       baseUrl,
@@ -3673,18 +3669,7 @@ const handleTestEditor = () => {
     const div = document.createElement('div');
     div.innerHTML = testEditorScreen;
     const testEditorContainer = div.firstChild as HTMLElement;
-    modal.show(testEditorContainer, {
-      onClose: () => {
-        testEditor?.destroy();
-
-        // fix monaco mixing up model of script with test editors
-        if (editors.script.monaco) {
-          formatter
-            .getFormatFn(getConfig().script.language)
-            .then((fn) => editors.script.registerFormatter(fn));
-        }
-      },
-    });
+    modal.show(testEditorContainer, { onClose: () => testEditor?.destroy() });
 
     const testLanguage: Language = config.tests?.language || 'tsx';
     const editorLanguage: Language = 'jsx';
