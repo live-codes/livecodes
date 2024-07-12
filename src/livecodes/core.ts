@@ -3328,14 +3328,8 @@ const handleEditorSettings = () => {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
         loadTypes: async (code: string) => typeLoader.load(code, {}),
-        getFormatFn: () => formatter.getFormatFn('tsx'),
+        getFormatFn: () => formatter.getFormatFn('jsx'),
         changeSettings,
-        onClose: async () => {
-          // undo overwriting by editor settings code editor
-          editors.script.registerFormatter(
-            await formatter.getFormatFn(editors.script.getLanguage()),
-          );
-        },
       },
     });
   };

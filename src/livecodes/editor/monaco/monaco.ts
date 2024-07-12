@@ -521,12 +521,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   configureEditorMode(options.editorMode);
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
-    const editorModel = editor.getModel();
+    let editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
 
     monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
-        const val = editor.getValue();
+        let currentEditor = editor;
+        // avoid referring to editors destroyed after closing modals
+        if (!editor.getModel()) {
+          currentEditor =
+            editors.find((ed) => ed.getModel()?.getLanguageId() === monacoMapLanguage(language)) ||
+            editor;
+        }
+        editorModel = currentEditor.getModel();
+        if (!editorModel) return [];
+        const val = currentEditor.getValue() || '';
         const prettyVal = await formatFn(val, 0, getFormatterConfig());
         return [
           {

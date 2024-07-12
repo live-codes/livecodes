@@ -30,7 +30,6 @@ export const createEditorSettingsUI = async ({
     loadTypes: (code: string) => Promise<EditorLibrary[]>;
     getFormatFn: () => Promise<FormatFn>;
     changeSettings: (newConfig: Partial<UserConfig>) => void;
-    onClose: () => Promise<void>;
   };
 }) => {
   const userConfig = deps.getUserConfig();
@@ -42,7 +41,7 @@ export const createEditorSettingsUI = async ({
     isAsync: true,
     scrollToSelector,
     onClose: () => {
-      deps.onClose?.();
+      editor?.destroy();
     },
   });
 
