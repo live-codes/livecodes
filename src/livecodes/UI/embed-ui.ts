@@ -33,7 +33,7 @@ export const createEmbedUI = async ({
   const div = document.createElement('div');
   div.innerHTML = embedScreen;
   const embedContainer = div.firstChild as HTMLElement;
-  modal.show(embedContainer, { isAsync: true });
+  modal.show(embedContainer, { isAsync: true, onClose: () => editor?.destroy() });
 
   const previewContainer = embedContainer.querySelector<HTMLElement>('#embed-preview-container');
   const form = embedContainer.querySelector<HTMLFormElement>('#embed-form');
