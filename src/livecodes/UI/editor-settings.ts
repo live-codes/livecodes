@@ -30,6 +30,7 @@ export const createEditorSettingsUI = async ({
     loadTypes: (code: string) => Promise<EditorLibrary[]>;
     getFormatFn: () => Promise<FormatFn>;
     changeSettings: (newConfig: Partial<UserConfig>) => void;
+    onClose: () => Promise<void>;
   };
 }) => {
   const userConfig = deps.getUserConfig();
@@ -37,7 +38,13 @@ export const createEditorSettingsUI = async ({
   const div = document.createElement('div');
   div.innerHTML = editorSettingsScreen;
   const editorSettingsContainer = div.firstChild as HTMLElement;
-  modal.show(editorSettingsContainer, { isAsync: true, scrollToSelector });
+  modal.show(editorSettingsContainer, {
+    isAsync: true,
+    scrollToSelector,
+    onClose: () => {
+      deps.onClose?.();
+    },
+  });
 
   const previewContainer = editorSettingsContainer.querySelector<HTMLElement>(
     '#editor-settings-preview-container',

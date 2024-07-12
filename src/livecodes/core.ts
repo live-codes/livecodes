@@ -3330,6 +3330,12 @@ const handleEditorSettings = () => {
         loadTypes: async (code: string) => typeLoader.load(code, {}),
         getFormatFn: () => formatter.getFormatFn('tsx'),
         changeSettings,
+        onClose: async () => {
+          // undo overwriting by editor settings code editor
+          editors.script.registerFormatter(
+            await formatter.getFormatFn(editors.script.getLanguage()),
+          );
+        },
       },
     });
   };
