@@ -356,7 +356,7 @@ export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.
 
 export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
-export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.1/');
+export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.2/');
 
 export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
 
