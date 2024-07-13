@@ -22,7 +22,7 @@ The [browser build](https://www.npmjs.com/package/mjml-browser) of the official 
 
 ### Version
 
-`mjml-browser`: v4.14.1
+`mjml-browser`: v4.15.3
 
 ## Custom Settings
 

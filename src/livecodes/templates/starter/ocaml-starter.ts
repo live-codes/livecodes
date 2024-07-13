@@ -30,7 +30,7 @@ module App =
     let make ~name  =
       let title = "Hello, " ^ name ^ "!" in
 
-      let (count,setCount) = React.useState (fun ()  -> 0) in
+      let (count,setCount) = React.useState ((fun _ -> 0) [@bs]) in
 
       let times =
         match count with
@@ -39,27 +39,27 @@ module App =
         | n -> (string_of_int n) ^ " times" in
 
       ((div ~className: "container"
-          ~children:[((h1 ~children: [React.string title] ())[@JSX ]);
+          ~children:[((h1 ~children: [React.string title] ()) [@JSX]);
                     ((img ~className: "logo"
                         ~alt: "logo"
                         ~src: "{{ __livecodes_baseUrl__ }}assets/templates/ocaml.svg"
-                        ~children:[] ())[@JSX ]);
+                        ~children:[] ()) [@JSX]);
                     ((p
                         ~children:[React.string ("You clicked "
-                                                ^ times)] ())[@JSX ]);
+                                                ^ times)] ()) [@JSX]);
                     ((button
-                        ~onClick:(fun _  -> setCount (fun _  -> count + 1))
+                        ~onClick:((fun _ -> setCount ((fun _ -> count + 1) [@bs])) [@bs])
                         ~children:[React.string "Click me"] ())
-                    [@JSX ])] ())[@JSX ])[@@react.component ]
+                    [@JSX])] ()) [@JSX]) [@@react.component]
   end
 
 let _ =
   match ReactDOM.querySelector "#app" with
-  | ((Some (app))[@explicit_arity ]) ->
+  | ((Some (app)) [@explicit_arity]) ->
       ReactDOM.render
         ((App.createElement
             ~name: "OCaml"
-            ~children:[] ())[@JSX ]) app
+            ~children:[] ()) [@JSX]) app
   | None  -> ()
 
 let _ = print_endline "Hello, OCaml!"

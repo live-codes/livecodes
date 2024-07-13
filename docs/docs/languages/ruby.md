@@ -42,7 +42,7 @@ JavaScript interoperability and DOM access is achieved using [`"Native"` module]
 
 ### Version
 
-Opal v1.7.3
+Opal v1.8.2
 
 ## Code Formatting
 

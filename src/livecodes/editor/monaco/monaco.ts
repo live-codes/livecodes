@@ -16,7 +16,13 @@ import type {
   MonacoTheme,
   Config,
 } from '../../models';
-import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
+import {
+  cloneObject,
+  getRandomString,
+  getWorkerDataURL,
+  loadScript,
+  loadStylesheet,
+} from '../../utils/utils';
 import {
   codeiumProviderUrl,
   emmetMonacoUrl,
@@ -33,11 +39,6 @@ import { customThemes, monacoThemes } from './monaco-themes';
 import { registerTwoSlash } from './register-twoslash';
 
 type Options = Monaco.editor.IStandaloneEditorConstructionOptions;
-declare const globalThis: {
-  monaco: typeof Monaco;
-  ts: typeof import('typescript');
-  require: any;
-};
 
 let monacoGloballyLoaded = false;
 const disposeEmmet: { html?: any; css?: any; jsx?: any; disabled?: boolean } = {};
@@ -46,6 +47,26 @@ const loadedThemes = new Set<string>();
 let codeiumProvider: { dispose: () => void } | undefined;
 // track editors for providing context for AI
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
+
+loadStylesheet(monacoBaseUrl + 'monaco-editor.css', 'monaco-editor-styles');
+
+self.MonacoEnvironment = {
+  getWorkerUrl(_moduleId, label) {
+    if (label === 'json') {
+      return getWorkerDataURL(monacoBaseUrl + 'json.worker.js');
+    }
+    if (label === 'css' || label === 'scss' || label === 'less') {
+      return getWorkerDataURL(monacoBaseUrl + 'css.worker.js');
+    }
+    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+      return getWorkerDataURL(monacoBaseUrl + 'html.worker.js');
+    }
+    if (label === 'typescript' || label === 'javascript') {
+      return getWorkerDataURL(monacoBaseUrl + 'ts.worker.js');
+    }
+    return getWorkerDataURL(monacoBaseUrl + 'editor.worker.js');
+  },
+};
 
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
@@ -62,21 +83,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   } = options;
   if (!container) throw new Error('editor container not found');
 
-  const loadMonaco = () =>
-    new Promise<typeof Monaco>((resolve) => {
-      const script = document.createElement('script');
-      script.src = monacoBaseUrl + '/loader.js';
-      script.addEventListener('load', () => {
-        const re = globalThis.require;
-        re.config({
-          paths: { vs: monacoBaseUrl },
-        });
-        re(['vs/editor/editor.main'], function (monaco: typeof Monaco) {
-          resolve(monaco);
-        });
-      });
-      document.body.appendChild(script);
-    });
+  const loadMonaco = () => import(monacoBaseUrl + 'monaco-editor.js');
 
   let editorMode: any | undefined;
 
@@ -514,12 +521,21 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   configureEditorMode(options.editorMode);
 
   const registerFormatter = (formatFn: FormatFn | undefined) => {
-    const editorModel = editor.getModel();
+    let editorModel = editor.getModel();
     if (!formatFn || !editorModel) return;
 
     monaco.languages.registerDocumentFormattingEditProvider(monacoMapLanguage(language), {
       provideDocumentFormattingEdits: async () => {
-        const val = editor.getValue();
+        let currentEditor = editor;
+        // avoid referring to editors destroyed after closing modals
+        if (!editor.getModel()) {
+          currentEditor =
+            editors.find((ed) => ed.getModel()?.getLanguageId() === monacoMapLanguage(language)) ||
+            editor;
+        }
+        editorModel = currentEditor.getModel();
+        if (!editorModel) return [];
+        const val = currentEditor.getValue() || '';
         const prettyVal = await formatFn(val, 0, getFormatterConfig());
         return [
           {

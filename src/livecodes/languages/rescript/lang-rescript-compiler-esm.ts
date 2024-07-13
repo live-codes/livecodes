@@ -6,8 +6,7 @@ import {
   reasonReactUrl,
   reasonStdLibBaseUrl,
   requireUrl,
-  rescriptCompilerUrl,
-  rescriptReactUrl,
+  rescriptCdnBaseUrl,
   rescriptStdLibBaseUrl,
 } from '../../vendors';
 // eslint-disable-next-line import/no-internal-modules
@@ -60,13 +59,19 @@ const loadCompiler = async (language: Language) => {
       );
     } else {
       window.require(
-        [rescriptCompilerUrl, rescriptReactUrl],
+        [
+          rescriptCdnBaseUrl + 'compiler.js',
+          rescriptCdnBaseUrl + 'compiler-builtins/cmij.js',
+          rescriptCdnBaseUrl + '%40rescript/react/cmij.js',
+          rescriptCdnBaseUrl + '%40rescript/core/cmij.js',
+        ],
         () => {
           window.rescript_ocaml_compiler = window.rescript_compiler;
           window.rescript_compiler = undefined;
           window.loadedRescriptCompiler = window.rescript_ocaml_compiler.make();
           const compiler = window.loadedRescriptCompiler;
           compiler.setModuleSystem('es6');
+          compiler.setOpenModules(['RescriptCore']);
           compiler.setFilename('index.bs.js');
           resolve();
         },

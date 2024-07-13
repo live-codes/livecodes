@@ -242,7 +242,7 @@ The wasm version of the [official Gleam compiler](https://github.com/gleam-lang/
 
 ### Version
 
-`v1.1.0`
+`v1.3.0-rc1`
 
 ## Starter Template
 

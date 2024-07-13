@@ -40,6 +40,7 @@ export const gleamStarter: Template = {
 import gleam/int
 import gleam/io
 import gleam/result
+import gleam/dynamic
 import plinth/browser/document
 import plinth/browser/element
 import plinth/browser/event
@@ -60,7 +61,7 @@ fn say_hello() {
 
 fn counter() {
   document.add_event_listener("click", fn(ev) {
-    let target = event.target(ev)
+    let target = dynamic.unsafe_coerce(event.target(ev))
     case element.get_attribute(target, "id") {
         Ok("counter-button") -> increment()
         _ -> Nil

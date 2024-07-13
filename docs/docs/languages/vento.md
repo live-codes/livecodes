@@ -1,6 +1,6 @@
-# Liquid
+# Vento
 
-[LiquidJS](https://liquidjs.com/): A simple, expressive and safe template engine.
+[Vento](https://vento.js.org/) is a template engine for Deno. It's inspired by other engines, such as [Nunjucks](./nunjucks.md), [Liquid](./liquid.md), [Eta](./eta.md), and [Mustache](./mustache.md).
 
 ## Usage
 
@@ -58,11 +58,11 @@ window.livecodes.templateData = { name: 'LiveCodes' };
 
 ### Name
 
-`liquid`
+`vento`
 
-### Extensions
+### Extension
 
-`.liquid`, `.liquidjs`
+`.vto`
 
 ### Editor
 
@@ -70,11 +70,11 @@ window.livecodes.templateData = { name: 'LiveCodes' };
 
 ## Compiler
 
-The official [LiquidJS compiler](https://www.npmjs.com/package/liquidjs).
+[Vento](https://vento.js.org/).
 
 ### Version
 
-`liquidjs`: v10.14.0
+`ventojs`: v0.12.8
 
 ## Code Formatting
 
@@ -82,20 +82,9 @@ Using [Prettier](https://prettier.io/).
 
 ## Custom Settings
 
-[Custom settings](../advanced/custom-settings.md) added to the property `liquid` are passed as a JSON object to the [Liquid constructor](https://liquidjs.com/api/classes/Liquid.html). Please check the [documentation](https://liquidjs.com/tutorials/options.html) for full reference.
+[Custom settings](../advanced/custom-settings.md) added to the property `vento` are passed as a JSON object to the [`vento()`](https://vento.js.org/getting-started/#usage) function during compile. Please check the [documentation](https://vento.js.org/configuration/) for full reference.
 
 Please note that custom settings should be valid JSON (i.e. functions are not allowed).
-
-**Example:**
-
-```json title="Custom Settings"
-{
-  "liquid": {
-    "outputDelimiterLeft": "<%=",
-    "outputDelimiterRight": "%>"
-  }
-}
-```
 
 ## Example Usage
 
@@ -103,7 +92,7 @@ import LiveCodes from '../../src/components/LiveCodes.tsx';
 
 ### Pre-rendered
 
-export const config = {markup: {language: 'liquid', content: 'Hello, {{ name | capitalize }}!'}, customSettings: {"template": {"data": {"name": "livecodes"}}}};
+export const config = {markup: {language: 'vento', content: 'Hello, {{ name }}!'}, customSettings: {"template": {"data": {"name": "LiveCodes"}}}};
 
 export const params = {compiled: 'open'};
 
@@ -111,11 +100,10 @@ export const params = {compiled: 'open'};
 
 ### Dynamic
 
-export const config2 = {markup: {language: 'liquid', content: 'Hello, {{ name | capitalize }}!'}, script: {language: 'javascript', content: 'window.livecodes.templateData = { name: "livecodes" };'}, customSettings: {"template": {"prerender": false}}, activeEditor: 'script'};
+export const config2 = {markup: {language: 'vento', content: 'Hello, {{ name }}!'}, script: {language: 'javascript', content: 'window.livecodes.templateData = { name: "LiveCodes" };'}, customSettings: {"template": {"prerender": false}}, activeEditor: 'script'};
 
 <LiveCodes config={config2}></LiveCodes>
 
 ## Links
 
-- [Official website](https://liquidjs.com/)
-- [Liquidjs tutorials](https://liquidjs.com/tutorials/intro-to-liquid.html)
+- [Vento](https://vento.js.org/)

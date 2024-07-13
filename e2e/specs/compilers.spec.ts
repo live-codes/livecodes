@@ -584,6 +584,60 @@ const title = "World";
     expect(resultText).toContain('Welcome to Twig');
   });
 
+  test('Vento', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"data":{"name": "Vento"}}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=Vento');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Vento');
+  });
+
+  test('Vento dynamic', async ({ page, getTestUrl }) => {
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=Custom Settings');
+    await waitForEditorFocus(app, '#custom-settings-editor');
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(`{"template":{"prerender": false}}`);
+    await app.click('button:has-text("Load"):visible');
+
+    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click('text=JavaScript');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`window.livecodes.templateData = { name: 'Vento' };`);
+
+    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click('text=Vento');
+    await waitForEditorFocus(app);
+    await page.keyboard.type(`<h1>Welcome to {{ name }}</h1>`);
+
+    await waitForResultUpdate();
+    await app.waitForTimeout(3000);
+    const resultText = await getResult().innerHTML('h1');
+
+    expect(resultText).toContain('Welcome to Vento');
+  });
+
   test('art-template', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 

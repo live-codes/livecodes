@@ -37,7 +37,13 @@ export const createEditorSettingsUI = async ({
   const div = document.createElement('div');
   div.innerHTML = editorSettingsScreen;
   const editorSettingsContainer = div.firstChild as HTMLElement;
-  modal.show(editorSettingsContainer, { isAsync: true, scrollToSelector });
+  modal.show(editorSettingsContainer, {
+    isAsync: true,
+    scrollToSelector,
+    onClose: () => {
+      editor?.destroy();
+    },
+  });
 
   const previewContainer = editorSettingsContainer.querySelector<HTMLElement>(
     '#editor-settings-preview-container',

@@ -44,7 +44,7 @@ JavaScript interoperability and DOM access is achieved using [`"JS"` module](htt
 
 ### Version
 
-ruby.wasm v2.1.0
+ruby.wasm v2.6.2, running Ruby v3.3
 
 ## Code Formatting
 
