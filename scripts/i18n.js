@@ -90,8 +90,7 @@ const buildLocalePathLoader = async () => {
     export const pathLoader = (baseUrl: string) => (lngs: string[], nss: string[]) => {
       const lng = lngs[0];
       const ns = nss[0];
-      ${ifStatements}
-      return false;
+      ${ifStatements}return false;
     };
   `, {
     parser: 'typescript',
