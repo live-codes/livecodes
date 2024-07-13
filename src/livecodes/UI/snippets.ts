@@ -21,6 +21,8 @@ import {
   getSnippetTitleInput,
 } from './selectors';
 
+let editor: CodeEditor | undefined;
+
 const textLanguage = {
   name: 'text',
   title: window.deps.translateString('snippets.text', 'Plain Text'),
@@ -476,7 +478,7 @@ export const createSnippetsList = async ({
   await showList(savedSnippets);
 
   const getSnippets = () => snippetsStorage.getAllData();
-  modal.show(listContainer, { isAsync: true });
+  modal.show(listContainer, { isAsync: true, onClose: () => editor?.destroy() });
   organizeSnippets(getSnippets, showList, eventsManager);
 };
 
@@ -543,7 +545,7 @@ export const createAddSnippetContainer = async ({
       languageSelect.appendChild(option);
     });
 
-  const editor = await deps.createEditorFn({
+  editor = await deps.createEditorFn({
     container: snippetEditor,
     editorId: 'add-snippet',
     language: selectedLanguage,
@@ -564,7 +566,7 @@ export const createAddSnippetContainer = async ({
       title: snippetTitleInput.value,
       description: snippetDescriptionArea.value,
       language: languageSelect.value as Language,
-      code: editor.getValue(),
+      code: editor?.getValue() || '',
       lastModified: Date.now(),
     };
 
@@ -575,6 +577,7 @@ export const createAddSnippetContainer = async ({
       window.deps.translateString('snippets.save.success', 'Snippet locally saved to device!'),
     );
     showScreen('snippets');
+    editor?.destroy();
   };
 
   eventsManager.addEventListener(
@@ -582,6 +585,7 @@ export const createAddSnippetContainer = async ({
     'click',
     () => {
       showScreen('snippets');
+      editor?.destroy();
     },
     false,
   );
@@ -590,7 +594,7 @@ export const createAddSnippetContainer = async ({
     languageSelect,
     'change',
     () => {
-      editor.setLanguage(languageSelect.value as Language);
+      editor?.setLanguage(languageSelect.value as Language);
     },
     false,
   );

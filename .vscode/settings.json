@@ -20,7 +20,8 @@
     "ToolsPane",
     "Modes",
     "Import-maps",
-    "Formatter"
+    "Formatter",
+    "Build"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

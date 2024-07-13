@@ -6,7 +6,6 @@ import type { User, UserData } from '../models';
 import { syncScreen } from '../html';
 import { autoCompleteUrl } from '../vendors';
 import { getUserRepos } from '../services/github';
-import { bypassAMD, loadScript } from '../utils/utils';
 import {
   getExistingRepoAutoSync,
   getExistingRepoForm,
@@ -215,33 +214,36 @@ export const createSyncUI = async ({
 
   if (!user) return;
 
-  bypassAMD(() => loadScript(autoCompleteUrl, 'autoComplete')).then(async (autoComplete: any) => {
-    const repos = await getUserRepos(user, 'all');
+  if (!(globalThis as any).autoComplete) {
+    await import(autoCompleteUrl);
+  }
+  const autoComplete = (globalThis as any).autoComplete;
 
-    eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
-      existingRepoNameInput.focus();
-    });
+  const repos = await getUserRepos(user, 'all');
 
-    const inputSelector = '#' + existingRepoNameInput.id;
-    if (!document.querySelector(inputSelector)) return;
-    const autoCompleteJS = new autoComplete({
-      selector: inputSelector,
-      placeHolder: window.deps.translateString('sync.searchRepos', 'Search your repos...'),
-      data: {
-        src: repos,
+  eventsManager.addEventListener(existingRepoNameInput, 'init', () => {
+    existingRepoNameInput.focus();
+  });
+
+  const inputSelector = '#' + existingRepoNameInput.id;
+  if (!document.querySelector(inputSelector)) return;
+  const autoCompleteJS = new autoComplete({
+    selector: inputSelector,
+    placeHolder: window.deps.translateString('sync.searchRepos', 'Search your repos...'),
+    data: {
+      src: repos,
+    },
+    resultItem: {
+      highlight: {
+        render: true,
       },
-      resultItem: {
-        highlight: {
-          render: true,
-        },
-      },
-    });
+    },
+  });
 
-    eventsManager.addEventListener(autoCompleteJS.input, 'selection', function (event: any) {
-      const feedback = event.detail;
-      autoCompleteJS.input.blur();
-      const selection = feedback.selection.value;
-      autoCompleteJS.input.value = selection;
-    });
+  eventsManager.addEventListener(autoCompleteJS.input, 'selection', function (event: any) {
+    const feedback = event.detail;
+    autoCompleteJS.input.blur();
+    const selection = feedback.selection.value;
+    autoCompleteJS.input.value = selection;
   });
 };

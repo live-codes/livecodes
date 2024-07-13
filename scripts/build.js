@@ -5,7 +5,7 @@ const path = require('path');
 
 const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
-const { buildVendors, typescriptVersion } = require('./vendors');
+const { buildVendors } = require('./vendors');
 const { buildStyles } = require('./styles');
 const { buildI18n, buildLocalePathLoader } = require('./i18n');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
@@ -59,7 +59,6 @@ const baseOptions = {
   sourcemap: false,
   sourcesContent: true,
   define: {
-    'process.env.TYPESCRIPT_VERSION': `"${typescriptVersion}"`,
     ...getEnvVars(devMode),
   },
   loader: { '.html': 'text', '.ttf': 'file' },
@@ -228,6 +227,7 @@ const iifeBuild = () =>
       'languages/svelte/lang-svelte-compiler.ts',
       'languages/tcl/lang-tcl-script.ts',
       'languages/twig/lang-twig-compiler.ts',
+      'languages/vento/lang-vento-compiler.ts',
       'languages/vue/lang-vue-compiler.ts',
       'languages/vue2/lang-vue2-compiler.ts',
       'languages/wat/lang-wat-compiler.ts',

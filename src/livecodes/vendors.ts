@@ -4,7 +4,7 @@ import { modulesService } from './services/modules';
 const { getUrl, getModuleUrl } = modulesService;
 
 export const vendorsBaseUrl = // 'http://127.0.0.1:8081/';
-  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.14.0/dist/');
+  /* @__PURE__ */ getUrl('@live-codes/browser-compilers@0.15.0/dist/');
 
 export const acornUrl = /* @__PURE__ */ getUrl('acorn@8.12.1/dist/acorn.js');
 
@@ -15,7 +15,7 @@ export const asciidocUrl = /* @__PURE__ */ getUrl(
 );
 
 export const assemblyscriptLoaderUrl = /* @__PURE__ */ getUrl(
-  '@assemblyscript/loader@0.27.28/umd/index.js',
+  '@assemblyscript/loader@0.27.29/umd/index.js',
 );
 
 export const astringUrl = /* @__PURE__ */ getUrl('astring@1.8.6/dist/astring.min.js');
@@ -246,7 +246,7 @@ export const juliaWasmBaseUrl = /* @__PURE__ */ getUrl('@chriskoch/julia-wasm@1.
 
 export const liquidJsUrl = /* @__PURE__ */ getUrl('liquidjs@10.14.0/dist/liquid.browser.min.js');
 
-export const localforageUrl = /* @__PURE__ */ getModuleUrl('localforage@1.10.0');
+export const localforageUrl = /* @__PURE__ */ getUrl('localforage@1.10.0/dist/localforage.min.js');
 
 export const luaUrl = /* @__PURE__ */ getUrl('fengari-web@0.1.4/dist/fengari-web.js');
 
@@ -272,7 +272,7 @@ export const mermaidCdnUrl = /* @__PURE__ */ getUrl('mermaid@10.2.2/dist/mermaid
 
 export const mjmlUrl = /* @__PURE__ */ getUrl('mjml-browser@4.15.3/lib/index.js');
 
-export const monacoBaseUrl = /* @__PURE__ */ `https://typescript.azureedge.net/cdn/${process.env.TYPESCRIPT_VERSION}/monaco/min/vs`;
+export const monacoBaseUrl = /* @__PURE__ */ getUrl('@live-codes/monaco-editor@0.1.0/dist/');
 
 export const monacoEmacsUrl = /* @__PURE__ */ getUrl('monaco-emacs@0.3.0/dist/monaco-emacs.js');
 
@@ -402,9 +402,7 @@ export const thememirrorBaseUrl = /* @__PURE__ */ getUrl('thememirror@2.0.1/dist
 
 export const twigUrl = /* @__PURE__ */ getUrl('twig@1.17.1/twig.min.js');
 
-export const typescriptUrl = /* @__PURE__ */ getUrl(
-  `typescript@${process.env.TYPESCRIPT_VERSION}/lib/typescript.js`,
-);
+export const typescriptUrl = /* @__PURE__ */ getUrl(`typescript@5.5.3/lib/typescript.js`);
 
 export const typescriptVfsUrl = /* @__PURE__ */ getUrl('@typescript/vfs@1.5.3/dist/vfs.esm.js');
 

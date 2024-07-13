@@ -1,5 +1,7 @@
+/* eslint-disable import/no-internal-modules */
 import { localforageUrl } from '../vendors';
 import { createPub } from '../events';
+import { loadScript } from '../utils/utils';
 import type { Storage, StoreName } from './models';
 import { fakeStorage } from './fake-storage';
 
@@ -13,7 +15,7 @@ export const generateId = () =>
 
 const loadLocalforage = async (store: string) => {
   if (!localforage) {
-    localforage = (await import(localforageUrl)).default as LocalForage;
+    localforage = (await loadScript(localforageUrl, 'localforage')) as LocalForage;
     localforage.config({
       name: dbName,
     });
