@@ -28,7 +28,7 @@ export const autoCompleteUrl = /* @__PURE__ */ getUrl(
   '@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js',
 );
 
-export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.24.7/babel.js');
+export const babelUrl = /* @__PURE__ */ getUrl('@babel/standalone@7.24.8/babel.js');
 
 export const biwaschemeUrl = /* @__PURE__ */ getUrl('biwascheme@0.8.0/release/biwascheme.js');
 
@@ -321,7 +321,7 @@ export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
 );
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
+  'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/',
 );
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
@@ -356,7 +356,7 @@ export const rescriptStdLibBaseUrl = /* @__PURE__ */ getUrl('@rescript/std@11.1.
 
 export const resetCssUrl = /* @__PURE__ */ getUrl('reset-css@5.0.1/reset.css');
 
-export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.1/');
+export const riotBaseUrl = /* @__PURE__ */ getUrl('riot@9.2.2/');
 
 export const rubyWasmBaseUrl = /* @__PURE__ */ getUrl('@ruby/3.3-wasm-wasi@2.6.2/dist/');
 

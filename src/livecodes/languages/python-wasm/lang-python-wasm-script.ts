@@ -30,6 +30,7 @@ window.addEventListener('load', async () => {
       await livecodes.pyodide.loadPackage('micropip');
       livecodes.micropip = livecodes.pyodide.pyimport('micropip');
       livecodes.pyodideLoading = false;
+      livecodes.excludedPackages = [];
       resolve();
     });
     await livecodes.pyodideLoading;
@@ -58,17 +59,23 @@ def input(p):
     return prompt(p)
 __builtins__.input = input
 `.trim();
+    // in Pyodide v0.26.x runPythonAsync does not resolve in the following times
+    // use runPython instead
     await livecodes.pyodide.runPythonAsync(patchInput);
   }
 
   async function loadPackagesInCode(code: string) {
     const packages = [...livecodes.pyodide.pyodide_py.code.find_imports(code)];
-    const newPackages = packages.filter((p) => !(p in livecodes.pyodide.loadedPackages));
+    const newPackages = packages.filter(
+      (p) => !(p in livecodes.pyodide.loadedPackages) && !livecodes.excludedPackages.includes(p),
+    );
     for (const p of newPackages) {
       try {
         await livecodes.micropip.install(p);
       } catch (err) {
-        //
+        // in Pyodide v0.26.x this needs to be done,
+        // otherwise the following micropip installs do not resolve
+        // livecodes.excludedPackages.push(p);
       }
     }
   }
@@ -80,6 +87,8 @@ __builtins__.input = input
     await loadPackagesInCode(code);
     try {
       livecodes.pyodideState = livecodes.pyodide.pyodide_py._state.save_state();
+      // in Pyodide v0.26.x runPythonAsync does not resolve in the following times
+      // use runPython instead
       await livecodes.pyodide.runPythonAsync(code);
     } catch (err) {
       // eslint-disable-next-line no-console
