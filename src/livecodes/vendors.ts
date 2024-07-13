@@ -321,7 +321,7 @@ export const prismThemesLaserWaveUrl = /* @__PURE__ */ getUrl(
 );
 
 export const pyodideBaseUrl = /* @__PURE__ */ getUrl(
-  'https://cdn.jsdelivr.net/pyodide/v0.24.0/full/',
+  'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/',
 );
 
 export const qrcodeUrl = /* @__PURE__ */ getUrl('easyqrcodejs@4.6.1/dist/easy.qrcode.min.js');
