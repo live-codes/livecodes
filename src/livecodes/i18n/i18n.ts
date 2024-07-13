@@ -6,6 +6,7 @@ export const init = (lng: string | undefined, baseUrl: string) => {
   i18n.use(backend).init({
     lng,
     debug: true, // Remove this line in production
+    returnEmptyString: false,
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
