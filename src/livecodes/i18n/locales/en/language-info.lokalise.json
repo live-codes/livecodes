@@ -1,4 +1,5 @@
 {
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "artTemplate.desc": {
     "notes": "",
     "translation": "High performance JavaScript templating engine."
