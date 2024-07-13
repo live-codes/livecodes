@@ -1,6 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
 import i18n from 'i18next';
 import backend from 'i18next-http-backend';
+import { pathLoader } from './locale-paths';
 
 export const init = (lng: string | undefined, baseUrl: string) => {
   i18n.use(backend).init({
@@ -12,7 +13,7 @@ export const init = (lng: string | undefined, baseUrl: string) => {
       escapeValue: false,
     },
     backend: {
-      loadPath: baseUrl + `i18n-v${process.env.VERSION}/` + 'translation-{{lng}}-{{ns}}.json',
+      loadPath: pathLoader(baseUrl),
     },
   });
 };

@@ -7,7 +7,7 @@ const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildVendors, typescriptVersion } = require('./vendors');
 const { buildStyles } = require('./styles');
-const { buildI18n } = require('./i18n');
+const { buildI18n, buildLocalePathLoader } = require('./i18n');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
 
 const args = process.argv.slice(2);
@@ -278,7 +278,8 @@ const functionsBuild = () =>
 
 const stylesBuild = () => buildStyles(devMode);
 
-prepareDir().then(() => {
+prepareDir().then(async () => {
+  await buildLocalePathLoader();
   Promise.all([
     esmBuild(),
     iifeBuild(),
