@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v33](https://github.com/live-codes/livecodes/compare/v32...v33) (2024-07-13)
+
+### Highlights for this release:
+
+- **BREAKING**: Most compilers were upgraded to their latest versions. Some compilers _do have breaking changes_. The full list of compilers upgraded and their new versions can be [found here](https://github.com/live-codes/livecodes/commits/develop/?since=2024-07-03&until=2024-07-13).
+
+  If your code stops working as intended, you may want to use a [permanent URL](https://livecodes.io/docs/features/permanent-url) to a previous LiveCodes version (e.g. https://v32.livecodes.io), till you upgrade your code.
+
+- A custom build for Monaco editor is now used to allow matching the playground TypeScript version and the use of ESM bundled version of Monaco. This now makes it much faster (than previously used CDN), and avoids some bugs related to the Monaco loader.
+- Fixed a bug that sometimes caused formatting to change the code in Monaco.
+- Added support for [Vento](https://vento.js.org/) template engine.
+
+### Bug Fixes
+
+- **Editor:** destroy editors in modals onClose ([84736cb](https://github.com/live-codes/livecodes/commit/84736cb82c5672ea47a7ab8a21f32fc7c62b1bf8))
+- **Editor:** fix formatting on monaco ([85cd72a](https://github.com/live-codes/livecodes/commit/85cd72a887a068d1ccc4462bbb423214a9c8d6f0))
+- **Editor:** when formatting in monaco, avoid referring to editors destroyed after closing modals ([c6234bd](https://github.com/live-codes/livecodes/commit/c6234bd0df3ff05b4625fa50d77177bef5968bd0))
+
+### Features
+
+- **Compilers:** add vento ([cba3a35](https://github.com/live-codes/livecodes/commit/cba3a357a10889d5b3cd1a3447470dd6f6eb3f99))
+- **Editor:** use custom build of monaco ([a11b23b](https://github.com/live-codes/livecodes/commit/a11b23b502e26cae78a4bf1b0ce32166b1e955d9))
+
+---
+
 ## [v32](https://github.com/live-codes/livecodes/compare/v31...v32) (2024-06-30)
 
 ### Highlights for this release:
