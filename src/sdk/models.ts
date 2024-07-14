@@ -357,6 +357,7 @@ export type Language =
 
 export interface Editor {
   language: Language;
+  title?: string;
   content?: string;
   contentUrl?: string;
   hiddenContent?: string;
