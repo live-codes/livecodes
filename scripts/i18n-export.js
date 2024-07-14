@@ -238,7 +238,7 @@ const processHTML = async (files) => {
     if (prop === 'innerHTML') {
       const { html, elements } = abstractifyHTML(element.innerHTML);
       return {
-        value: html,
+        value: html.trim(),
         desc: generateElementsNote(elements),
       };
     }
@@ -329,7 +329,7 @@ const processTS = async (files) => {
                 const { html, elements } = abstractifyHTML(path.node.arguments[1].value);
                 addTranslation(
                   path.node.arguments[0].value,
-                  html,
+                  html.trim(),
                   generateElementsNote(elements),
                   undefined,
                 );
