@@ -534,6 +534,14 @@ Default: `true`
 
 Enables [recovering last unsaved project](../features/recover.md) when the app is reopened.
 
+### `welcome`
+
+Type: [`boolean`](../api/interfaces/Config.md#welcome)
+
+Default: `true`
+
+Shows the [welcome screen](../features/welcome.md) when the app loads.
+
 ### `showSpacing`
 
 Type: [`boolean`](../api/interfaces/Config.md#showspacing)
