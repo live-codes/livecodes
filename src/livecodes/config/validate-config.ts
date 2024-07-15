@@ -37,6 +37,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
   const isEditor = (x: any) =>
     is(x, 'object') &&
     (is(x.language, 'string') ||
+      is(x.title, 'string') ||
       is(x.content, 'string') ||
       is(x.contentUrl, 'string') ||
       is(x.hiddenContent, 'string') ||
@@ -47,6 +48,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
       getLanguageEditorId(x.language) === editorId
         ? getLanguageByAlias(x.language) || defaultConfig[editorId].language
         : defaultConfig[editorId].language,
+    ...(is(x.title, 'string') ? { title: x.title } : {}),
     ...(is(x.content, 'string') ? { content: x.content } : {}),
     ...(is(x.contentUrl, 'string') ? { contentUrl: x.contentUrl } : {}),
     ...(is(x.hiddenContent, 'string') ? { hiddenContent: x.hiddenContent } : {}),

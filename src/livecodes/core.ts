@@ -381,7 +381,8 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
   const editorTitle = document.querySelector(`#${editorId}-selector span`);
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
-  editorTitle.innerHTML = languages.find((lang) => lang.name === language)?.title || '';
+  editorTitle.textContent =
+    getConfig()[editorId].title ?? languages.find((lang) => lang.name === language)?.title ?? '';
   highlightSelectedLanguage(editorId, language);
 };
 

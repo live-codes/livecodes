@@ -130,9 +130,15 @@ An object that configures the language and content of the markup editor. This ca
   This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
   (e.g. `"markdown"`, `"md"`)
 
+- `title`:
+  Type: [`string | undefined`](../api/interfaces/internal.Editor#title)  
+  Default: `""`
+  If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
+
 - `content`:
   Type: [`string | undefined`](../api/interfaces/internal.Editor#content)  
   Default: `""`
+  The initial content of the code editor.
 
 - `contentUrl`:
   Type: [`string | undefined`](../api/interfaces/internal.Editor#contenturl)  
@@ -535,6 +541,14 @@ Type: [`boolean`](../api/interfaces/Config.md#recoverunsaved)
 Default: `true`
 
 Enables [recovering last unsaved project](../features/recover.md) when the app is reopened.
+
+### `welcome`
+
+Type: [`boolean`](../api/interfaces/Config.md#welcome)
+
+Default: `true`
+
+Shows the [welcome screen](../features/welcome.md) when the app loads.
 
 ### `showSpacing`
 
