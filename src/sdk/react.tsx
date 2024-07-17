@@ -1,3 +1,4 @@
+// @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import React, { useEffect, useRef, useState } from 'react';
 import type { EmbedOptions, Playground } from './models';
