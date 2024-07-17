@@ -125,19 +125,19 @@ Default: `{ language: "html", content: "" }`
 An object that configures the language and content of the markup editor. This can include the following properties:
 
 - `language`:  
-  Type: [Language](../api/modules/internal.md#language)  
+  Type: [Language](../api/modules#language)  
   Default: `"html"` in markup editor, `"css"` in style editor and `"javascript"` in script editor.  
   This can be a language name, extension or alias (as defined in [language documentations](../languages/index.md)).  
   (e.g. `"markdown"`, `"md"`)
 
 - `title`:
   Type: [`string | undefined`](../api/interfaces/internal.Editor#title)  
-  Default: `""`
+  Default: `""`  
   If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
 
 - `content`:
   Type: [`string | undefined`](../api/interfaces/internal.Editor#content)  
-  Default: `""`
+  Default: `""`  
   The initial content of the code editor.
 
 - `contentUrl`:
@@ -166,7 +166,8 @@ An object that configures the language and content of the markup editor. This ca
 - `position`:
   Type: [`{lineNumber: number, column?: number} | undefined`](../api/interfaces/internal.Editor#position)  
   Default: `undefined`  
-  The initial position of the cursor in the code editor.
+  The initial position of the cursor in the code editor.  
+  Example: `{lineNumber: 5, column: 10}`
 
 ### `style`
 
@@ -210,7 +211,7 @@ Default: `""`
 
 ### `processors`
 
-Type: [`Processor[]`](../api/modules#processor)
+Type: [`Processor[]`](../api/modules/internal/#processor)
 
 Default: `[]`
 
@@ -245,8 +246,8 @@ would add this import map in the result page:
 <script type="importmap">
   {
     "imports": {
-      "moment": "https://cdn.skypack.dev/moment",
-      "lodash": "https://cdn.skypack.dev/lodash"
+      "moment": "https://esm.sh/moment",
+      "lodash": "https://esm.sh/lodash"
     }
   }
 </script>
@@ -269,7 +270,7 @@ The import map becomes like this:
   {
     "imports": {
       "moment": "https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js",
-      "lodash": "https://cdn.skypack.dev/lodash"
+      "lodash": "https://esm.sh/lodash"
     }
   }
 </script>
@@ -384,7 +385,7 @@ Type: [`"full" | "focus" | "simple" | "result" | "editor" | "codeblock"`](../api
 
 Default: `"full"`
 
-Sets [display mode](../features/display-modes.md)
+Sets the [display mode](../features/display-modes.md).
 
 ### `tools`
 
@@ -458,7 +459,7 @@ Type: [`number`](../api/interfaces/Config.md#delay)
 
 Default: `1500`
 
-Time delay (in milliseconds) follwing code change, after which the result page is updated (if [`autoupdate`](#autoupdate) is `true`) and/or the project is saved (if [`autosave`](#autosave) is `true`).
+Time delay (in milliseconds) following code change, after which the result page is updated (if [`autoupdate`](#autoupdate) is `true`) and/or the project is saved (if [`autosave`](#autosave) is `true`).
 
 ### `formatOnsave`
 
@@ -490,7 +491,7 @@ Type: [`EditorTheme[] | string | undefined`](../api/interfaces/Config.md#editort
 
 Default: `undefined`
 
-Sets the editor [themes](../features/themes.md).
+Sets the code editor themes.
 
 :::info Note
 You can preview and set editor themes in the [editor settings screen](pathname:///../?screen=editor-settings).
@@ -540,7 +541,7 @@ Type: [`boolean`](../api/interfaces/Config.md#welcome)
 
 Default: `true`
 
-Shows the [welcome screen](../features/welcome.md) when the app loads.
+If `true`, the [welcome screen](../features/welcome.md) is displayed when the app loads.
 
 ### `showSpacing`
 
@@ -624,7 +625,7 @@ Type: [`boolean`](../api/interfaces/Config.md#emmet)
 
 Default: `true`
 
-Enables [emmet](../features/editor-settings.md#emmet).
+Enables [Emmet](../features/editor-settings.md#emmet).
 
 ### `editorMode`
 

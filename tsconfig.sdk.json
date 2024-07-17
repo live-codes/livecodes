@@ -13,7 +13,7 @@
     "allowUmdGlobalAccess": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "removeComments": true,
+    "removeComments": false /* Do not remove jsdoc comments. */,
 
     /* Strict Type-Checking Options */
     // "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,

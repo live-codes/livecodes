@@ -7,7 +7,7 @@ title: JS/TS SDK
 import LiveCodes from '../../src/components/LiveCodes.tsx'
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx'
 
-This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a lightweight library (less than 5kb gzipped) that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
+This is the core SDK on which others ([React](react.md), [Vue](vue.md), and [Svelte](svelte.md) SDKs) are build on top. It is a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies library that allows creating, embedding and communication with LiveCodes playgrounds. It also allows easily creating links to playgrounds.
 
 ## Installation
 
@@ -35,7 +35,7 @@ Type: [`(container: string | Element, options?: EmbedOptions) => Promise<Playgro
 
 The library exports the function `createPlayground` which has 2 parameters:
 
-- `container` (required): `HTMLElement` or a string representing a CSS selector.  
+- `container` (required): `HTMLElement` or a string representing a CSS selector. This is the container where the playground is rendered.
   If not found, an error is thrown (except in [headless mode](./headless.md), in which this parameter is optional and can be omitted).
 - `options` (optional): an object with embed options ([EmbedOptions](../api/interfaces/EmbedOptions.md)).
 
@@ -76,7 +76,7 @@ The `createPlayground` function throws an error (promise is rejected) in any of 
 
 Type: [`(options?: EmbedOptions) => string`](../api/modules.md#getplaygroundurl)
 
-Gets the URL to playground (as a string) from the provided [embed options](#embed-options). This is useful for easily providing links to run code in playgrounds.
+Gets the URL to playground (as a string) from the provided [options](#embed-options). This can be useful for providing links to run code in playgrounds.
 
 Example:
 
@@ -106,7 +106,7 @@ export const getPlaygroundUrlDemo = {html: `<pre><code\nclass="language-markdown
 
 Type: [`EmbedOptions`](../api/interfaces/EmbedOptions.md)
 
-The [`createPlayground`](#createplayground) and [`getPlaygroundUrl`](#getplaygroundurl) functions accept an optional object with the following optional properties:
+The [`createPlayground`](#createplayground) and [`getPlaygroundUrl`](#getplaygroundurl) functions accept an optional object that allows providing different options to the playground. This object can have the following optional properties:
 
 ### `appUrl`
 
@@ -114,7 +114,7 @@ Type: [`string`](../api/interfaces/EmbedOptions.md#appurl)
 
 Default: `"https://livecodes.io/"`
 
-Allows the library to load the playground from a custom URL (e.g. [self-hosted app](../features/self-hosting.md), [permanent URL](../features/permanent-url.md)).
+Allows loading the playground from a custom URL (e.g. a [self-hosted app](../features/self-hosting.md) or a [permanent URL](../features/permanent-url.md)).
 
 If supplied with an invalid URL, an error is thrown.
 
@@ -148,17 +148,17 @@ Type: [`"eager" | "lazy" | "click"`](../api/interfaces/EmbedOptions.md#loading)
 
 Default: `"lazy"`
 
-"eager": The playground loads immediately.
+Sets how the playground loads:
 
-"lazy": A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
-
-"click": The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
+- `"eager"`: The playground loads immediately.
+- `"lazy"`: A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
+- `"click"`: The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
 
 ### `params`
 
 Type: [`UrlQueryParams`](../api/interfaces/EmbedOptions.md#params)
 
-An object that represents [URL Query parameters](../configuration/query-params.md).
+An object that represents [URL Query parameters](../configuration/query-params.md), that can be used to configure the playground.
 
 These 2 snippets produce similar output:
 
@@ -166,7 +166,7 @@ These 2 snippets produce similar output:
 import { createPlayground } from 'livecodes';
 
 // use config
-createPlayground('#container1', {
+createPlayground('#container', {
   config: {
     markup: {
       language: 'markdown',
@@ -176,14 +176,14 @@ createPlayground('#container1', {
 });
 
 // use params
-createPlayground('#container2', { params: { md: '# Hello World!' } });
+createPlayground('#container', { params: { md: '# Hello World!' } });
 ```
 
 ### `template`
 
 Type: [`TemplateName`](../api/interfaces/EmbedOptions.md#template)
 
-A [starter template](../features/templates.md) to load.
+A [starter template](../features/templates.md) to load. Allowed valued can be found [here](../api/interfaces/EmbedOptions.md#template).
 
 ### `view`
 
@@ -254,9 +254,9 @@ createPlayground('#container').then(async (playground) => {
 
 Type: [`(shortUrl?: boolean) => Promise<string>`](../api/interfaces/Playground.md#getshareurl)
 
-Gets a [share url](../features/share.md).
+Gets a [share url](../features/share.md) for the current project.
 
-By default, the url is has a long query string representing the compressed config object. If the argument `shortUrl` was set to `true`, a short url is generated.
+By default, the url has a long query string representing the compressed encoded config object. If the argument `shortUrl` was set to `true`, a short url is generated.
 
 ```js
 import { createPlayground } from 'livecodes';
@@ -314,7 +314,7 @@ import { createPlayground } from 'livecodes';
 createPlayground('#container').then(async (playground) => {
   const code = await playground.getCode();
 
-  // source code, language and compiled code are available
+  // source code, language and compiled code for the script editor
   const { content, language, compiled } = code.script;
 
   // result page HTML
@@ -445,7 +445,9 @@ These are the events that can be watched and the description of their callback f
   ) => { remove: () => void }
   ```
 
-- `"code"`: Called when the playground "content" is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)). This include changes in:
+- `"code"`: Called when the playground "content" is changed (see [`getCode`](./js-ts.md#getcode) and [`getConfig`](./js-ts.md#getconfig)).
+
+  This includes changes in:
 
   - Code (in editors)
   - Editor languages
