@@ -224,7 +224,7 @@ const generateElementsNote = (elements) =>
   elements
     .map(
       (el, index) =>
-        `### <${index}> ###\n<${el.name} ${el.attributes
+        `### <${index + 1}> ###\n<${el.name} ${el.attributes
           ? Object.keys(el.attributes)
             .map((attr) => `${attr}="${el.attributes[attr]}"`)
             .join(' ')
