@@ -1658,7 +1658,7 @@
   },
   "snippets.delete.one": {
     "notes": "",
-    "translation": "Delete snippet: {{snippet}}}?"
+    "translation": "Delete snippet: {{snippet}}?"
   },
   "snippets.deleteAll": {
     "notes": "",

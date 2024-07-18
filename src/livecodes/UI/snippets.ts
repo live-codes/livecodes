@@ -439,7 +439,7 @@ export const createSnippetsList = async ({
         'click',
         () => {
           notifications.confirm(
-            window.deps.translateString('snippets.delete.one', 'Delete snippet: {{snippet}}}?', {
+            window.deps.translateString('snippets.delete.one', 'Delete snippet: {{snippet}}?', {
               snippet: item.title,
             }),
             async () => {

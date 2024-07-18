@@ -668,7 +668,7 @@ const translation = {
     },
     delete: {
       all: 'Delete {{snippets}} snippets?',
-      one: 'Delete snippet: {{snippet}}}?',
+      one: 'Delete snippet: {{snippet}}?',
     },
     deleteAll: 'Delete All',
     error: {
