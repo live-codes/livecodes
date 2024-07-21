@@ -336,7 +336,7 @@ Example:
 
 ### `tests`
 
-Type: `undefined` | `Partial`<[`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)>
+Type: `undefined` | `Partial<Editor>`
 
 Default: `{ language: 'typescript', content: '' }`
 
