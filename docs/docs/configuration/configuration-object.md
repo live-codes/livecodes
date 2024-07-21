@@ -118,7 +118,7 @@ List of enabled languages. Languages that are not already loaded in the editors 
 
 ### `markup`
 
-Type: [`Editor`](/api/interfaces/internal.Editor)
+Type: [`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)
 
 Default: `{ language: "html", content: "" }`
 
@@ -131,47 +131,47 @@ An object that configures the language and content of the markup editor. This ca
   (e.g. `"markdown"`, `"md"`)
 
 - `title`:
-  Type: [`string | undefined`](/api/interfaces/internal.Editor#title)  
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#title)  
   Default: `""`  
   If set, this is used as the title of the editor in the UI, overriding the default title set to the language name (e.g. "Python" can be used instead of "Py (Wasm)").
 
 - `content`:
-  Type: [`string | undefined`](/api/interfaces/internal.Editor#content)  
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#content)  
   Default: `""`  
   The initial content of the code editor.
 
 - `contentUrl`:
-  Type: [`string | undefined`](/api/interfaces/internal.Editor#contenturl)  
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#contenturl)  
   Default: `undefined`  
   A URL to load `content` from. It has to be a valid URL that is CORS-enabled.  
   The URL is only fetched if `content` property had no value.
 
 - `hiddenContent`:
-  Type: [`string | undefined`](/api/interfaces/internal.Editor#hiddencontent)  
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hiddencontent)  
   Default: `undefined`  
   Hidden content that gets evaluated without being visible in the code editor.
   This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
 
 - `hiddenContentUrl`:
-  Type: [`string | undefined`](/api/interfaces/internal.Editor#hiddencontenturl)  
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#hiddencontenturl)  
   Default: `undefined`  
   A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.  
   The URL is only fetched if `hiddenContent` property had no value.
 
 - `selector`:
-  Type: [`string | undefined`](/api/interfaces/internal.Editor#selector)  
+  Type: [`string | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#selector)  
   Default: `undefined`  
   A CSS selector to load `content` from [DOM import](../features/import.md#import-code-from-dom).
 
 - `position`:
-  Type: [`{lineNumber: number, column?: number} | undefined`](/api/interfaces/internal.Editor#position)  
+  Type: [`{lineNumber: number, column?: number} | undefined`](https://livecodes.io/docs/api/interfaces/internal.Editor#position)  
   Default: `undefined`  
   The initial position of the cursor in the code editor.  
   Example: `{lineNumber: 5, column: 10}`
 
 ### `style`
 
-Type: [`Editor`](/api/interfaces/internal.Editor)
+Type: [`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)
 
 Default: `{ language: "css", content: "" }`
 
@@ -179,7 +179,7 @@ An object that configures the language and content of the style editor. See [mar
 
 ### `script`
 
-Type: [`Editor`](/api/interfaces/internal.Editor)
+Type: [`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)
 
 Default: `{ language: "javascript", content: "" }`
 
@@ -336,7 +336,7 @@ Example:
 
 ### `tests`
 
-Type: `undefined` | `Partial`<[`Editor`](/api/interfaces/internal.Editor)>
+Type: `undefined` | `Partial`<[`Editor`](https://livecodes.io/docs/api/interfaces/internal.Editor)>
 
 Default: `{ language: 'typescript', content: '' }`
 
