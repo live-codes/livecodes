@@ -13,7 +13,6 @@
     "allowUmdGlobalAccess": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "removeComments": true,
 
     /* Strict Type-Checking Options */
     // "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
@@ -39,6 +38,7 @@
     // "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     // "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
 
+    "jsx": "react-jsx",
     "lib": ["es2021", "dom", "dom.iterable"],
     "types": ["node", "jest"],
     "typeRoots": ["node_modules/@types"]
