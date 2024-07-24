@@ -191,6 +191,10 @@ export const createResultPage = async ({
     'solid.tsx': solidRuntime,
   };
   const jsxRuntime = jsxRuntimes[code.script.language] || '';
+  const reactImport =
+    jsxRuntime === reactRuntime || jsxRuntime === reactNativeRuntime
+      ? 'import React from "react";\n'
+      : '';
   const shouldInsertJsxRuntime =
     Object.keys(jsxRuntimes).includes(code.script.language) &&
     !config.customSettings[code.script.language]?.disableAutoRender &&
@@ -260,7 +264,7 @@ export const createResultPage = async ({
           ...(hasImports(code.markup.compiled)
             ? createImportMap(code.markup.compiled, config)
             : {}),
-          ...(shouldInsertJsxRuntime ? createImportMap(jsxRuntime, config) : {}),
+          ...(shouldInsertJsxRuntime ? createImportMap(reactImport + jsxRuntime, config) : {}),
           ...(runTests && !forExport && hasImports(compiledTests)
             ? createImportMap(compiledTests, config)
             : {}),

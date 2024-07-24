@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-unresolved
 import React, { useEffect, useRef, useState } from 'react';
 import type { EmbedOptions, Playground } from './models';
-import { createPlayground } from '.';
+import { createPlayground } from './index';
 
 export interface Props extends EmbedOptions {
   className?: string;
@@ -11,7 +11,38 @@ export interface Props extends EmbedOptions {
   sdkReady?: (sdk: Playground) => void;
 }
 
-export default function LiveCodes(props: Props) {
+/**
+ * A React component that renders a LiveCodes playground.
+ *
+ * Acts as a wrapper for the [LiveCodes JS SDK](https://livecodes.io/docs/sdk/js-ts).
+ * @see {@link https://livecodes.io/docs/sdk/react}
+ *
+ * @prop {string} [appUrl] - The URL of the LiveCodes app. Defaults to `https://livecodes.io/`.
+ * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/api/interfaces/Config) for the playground or the URL of the config file.
+ * @prop {string} [import] - A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
+ * @prop {boolean} [lite=false] - Whether to use the lite mode of LiveCodes.
+ * @prop {string} [loading='lazy'] - When to load the playground.
+ * @prop {object} [params] - An object that represents [URL Query parameters](https://livecodes.io/docs/configuration/query-params).
+ * @prop {string} [template] - A [starter template](https://livecodes.io/docs/features/templates) to load.
+ * @prop {string} [view='split'] - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
+ * @prop {string} [height] - Sets the [height of playground container](https://livecodes.io/docs/sdk/js-ts#height) element.
+ * @prop {string} [className] - Sets the class name of playground container element.
+ * @prop {object} [style] - Sets the style of playground container element.
+ * @prop {function} [sdkReady] - A callback function that will be called when the SDK is ready.
+ * @example
+ * ```jsx
+ * import LiveCodes from 'livecodes/react';
+ *
+ * const config = {
+ *   markup: {
+ *     language: 'markdown',
+ *     content: '# Hello World!',
+ *   },
+ * };
+ * export const Playground = () => <LiveCodes config={config} />;
+ * ```
+ */
+export default function LiveCodes(props: Props): JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [className, setClassName] = useState(props.className || '');
   const [style, setStyle] = useState(props.style || {});

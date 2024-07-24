@@ -125,6 +125,7 @@ const sdkBuild = () => {
       outdir: undefined,
       outfile: sdkOutDir + 'react.js',
       external: ['react'],
+      jsx: 'automatic',
     }),
     esbuild.build({
       ...sdkOptions,

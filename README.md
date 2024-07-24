@@ -61,7 +61,7 @@ Add this code to your page:
 ```html
 <div id="container"></div>
 <script type="module">
-  import { createPlayground } from 'https://unpkg.com/livecodes';
+  import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes';
 
   createPlayground('#container', {
     params: {

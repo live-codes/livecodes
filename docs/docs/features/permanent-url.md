@@ -34,7 +34,7 @@ return (<CodeBlock title="index.html" language="html">
 {`<div id="container"></div>\n<script type="module">
 ${'  '}// specific SDK version
 // highlight-next-line
-${'  '}import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${'  '}import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';\n
 ${'  '}createPlayground('#container', {
 ${'    '}// App permanent URL
 // highlight-next-line
@@ -61,7 +61,7 @@ return (<CodeBlock language="js">
 // SDK Version: ${siteConfig.customFields.sdkVersion} (https://www.npmjs.com/package/livecodes/v/${siteConfig.customFields.sdkVersion})
 // Git commit: 0698f9f (https://github.com/live-codes/livecodes/commit/0698f9f)
 // App Permanent URL: https://v${siteConfig.customFields.appVersion}.livecodes.io/
-// SDK Permanent URL: https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.js
+// SDK Permanent URL: https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}/livecodes.js
 `}
 </CodeBlock>);
 }
@@ -95,7 +95,7 @@ return (<CodeBlock title="index.html" language="html">
 {`<div id="container"></div>\n<script type="module">
 ${'  '}// specific SDK version
 // highlight-next-line
-${'  '}import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';\n
+${'  '}import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';\n
 ${'  '}createPlayground('#container', {
 ${'    '}// App permanent URL
 // highlight-next-line
