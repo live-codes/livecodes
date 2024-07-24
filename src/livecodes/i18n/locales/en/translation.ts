@@ -556,9 +556,9 @@ const translation = {
   },
   project: {
     desc: 'Description',
-    head: 'Add to <head>',
+    head: 'Add to &lt;head&gt;',
     heading: 'Project Info',
-    htmlAttr: 'Attributes for <html>',
+    htmlAttr: 'Attributes for &lt;html&gt;',
     tags: 'Tags',
     title: 'Project Title',
   },

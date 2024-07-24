@@ -6,12 +6,14 @@
       <input id="title-input" type="text" />
       <label for="description-textarea" data-i18n="project.desc">Description</label>
       <textarea id="description-textarea"></textarea>
-      <label for="head-textarea" data-i18n="project.head">Add to &lt;head&gt;</label>
+      <label for="head-textarea" data-i18n="project.head" data-i18n-prop="innerHTML"
+        >Add to &lt;head&gt;</label
+      >
       <textarea
         id="head-textarea"
         placeholder='&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;'
       ></textarea>
-      <label for="html-attrs-textarea" data-i18n="project.htmlAttr"
+      <label for="html-attrs-textarea" data-i18n="project.htmlAttr" data-i18n-prop="innerHTML"
         >Attributes for &lt;html&gt;</label
       >
       <textarea id="html-attrs-textarea" placeholder='lang="en" class="my-class"'></textarea>

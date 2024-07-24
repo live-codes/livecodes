@@ -1358,7 +1358,7 @@
   },
   "project.head": {
     "notes": "",
-    "translation": "Add to <head>"
+    "translation": "Add to &lt;head&gt;"
   },
   "project.heading": {
     "notes": "",
@@ -1366,7 +1366,7 @@
   },
   "project.htmlAttr": {
     "notes": "",
-    "translation": "Attributes for <html>"
+    "translation": "Attributes for &lt;html&gt;"
   },
   "project.tags": {
     "notes": "",
