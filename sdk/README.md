@@ -8,7 +8,7 @@ Code Playground That Just Works!
 <img width="300" src="https://dev.livecodes.io/docs/img/livecodes-logo.svg"></img>
 </p>
 
-A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-side** code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and [80+ languages/frameworks](https://livecodes.io/docs/languages/).
+A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-side** code playground for React, Vue, Svelte, Solid, Typescript, Python, Go, Ruby, PHP and [90+ languages/frameworks](https://livecodes.io/docs/languages/).
 
 [![LiveCodes: uptime status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/upptime/master/api/live-codes/uptime.json)](https://status.livecodes.io)
 [![LiveCodes: app version](https://img.shields.io/github/v/release/live-codes/livecodes?label=app)](https://livecodes.io)
@@ -37,7 +37,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 - No subscription fees (free and open-source)
 - No account required \*
 - No limits for usage (unlimited private projects)
-- 80+ languages/frameworks/processors
+- 90+ languages/frameworks/processors
 - Large set of features and integrations
 - Import code from a wide variety of sources
 - Use modules from npm, deno.land/x, jsr, GitHub, and others
@@ -87,7 +87,7 @@ Add this code to your page:
 
 ## Feature Summary
 
-- A wide range of [language support](https://livecodes.io/docs/languages/) (80+ languages/frameworks/processors)
+- A wide range of [language support](https://livecodes.io/docs/languages/) (90+ languages/frameworks/processors)
 - [Powerful Editor](https://livecodes.io/docs/features/editor-settings)
 - Mobile-friendly
 - [External resources/libraries](https://livecodes.io/docs/features/external-resources)
@@ -119,6 +119,74 @@ Add this code to your page:
 - Free and [Open-Source](https://livecodes.io/docs/license)
 
 For details check the [full list of features](https://livecodes.io/docs/features/).
+
+## LiveCodes SDK
+
+The Software Development Kit (SDK) provides an easy, yet powerful, interface to embed and communicate with LiveCodes playgrounds.
+
+The SDK is provided as a light-weight ([less than 5kb gzipped](https://bundlephobia.com/package/livecodes)), zero-dependencies [npm package](https://livecodes.io/docs/sdk/#npm-package), that is also available from [CDNs](https://livecodes.io/docs/sdk/#cdn). It can be used to create playgrounds with a wide variety of [configurations](https://livecodes.io/docs/configuration/configuration-object.md) and [embed options](https://livecodes.io/docs/sdk/js-ts.md#embed-options). In addition, [SDK methods](https://livecodes.io/docs/sdk/js-ts.md#sdk-methods) allow programmatic communication and control of the playgrounds during runtime.
+
+### Installation
+
+```
+npm i livecodes
+```
+
+### Usage
+
+Example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmIC4QBkIDdYGED2ATWAzgAQDKAIgNJH4C22IANCPgQMYBOEADpNgHaIQjEAAtYAQ1yCAPDVhhxRViPHsC8gLwAdEAFUAKgDEAtAA4dRAPQA+LX1nzFfcXO0g0EWAHcu2dmAtWfjBYPjA3LwhcMBENfA9WWGNI6JEGIgg+KAhxaGM2XNgNAEYAOgAGCxthETAaaABBMDA1QWhxPgBzN1DA9oICNx1hBU6CRABtAF0mcVZIDABRXCg-QTZOHmEaVQBrAFcuRFB2rv3xTvgkWvrhILDQsBkVtAzcN3uFTNh2HWtpSwvawgAC+TAIYAAnnBjiBTp1zpdBKwBndgo9BKDwRxuE8ECcOgiLlcQAArcRocQbXFoh5hQQQGi+fxEYBKdgSEIABXakM67Gw+z4uCIIKIADMBTQiAByaDoWBBFgygDcWl+fHVdg4nNgPPEfIFQtwAAoZQBiT7ib7sGXpYBavhEJT8cUQToIVmO53OnbsA5cT0OjU+n3wxGwT0yv27XDYLx8O3e0MuulgKPmogACVg0Gg2CIAHU-NBcABCJMhn1g5M1qsebxRjkEfbQMCVuwggCUao1WJAEOhhDE8nGCGm2M2YDHE5AKIIXOb8kxTC4AsSAz8M5mc-2EOwNBI8kgXTHwDBIEZzOnxwvUK4hFvTBCELPcMJEcE98IOK2TE+GJIP2GBqBA-CCAAzBBIzYNg0BvqE4gAEZwFISC5NAwhzAsJL3AQcHwOCChgHuyL5uoUggiCQA))
+
+```js
+import { createPlayground } from 'livecodes';
+
+createPlayground('#container', {
+  config: {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World!',
+    },
+  },
+  view: 'result',
+});
+```
+
+The [JavaScript SDK](https://livecodes.io/docs/sdk/js-ts.md) is framework/library agnostic. However, wrapper components are also provided for popular libraries (currently [React](https://livecodes.io/docs/sdk/react.md) and [Vue](https://livecodes.io/docs/sdk/vue.md)). The SDK can be used in [Svelte](https://livecodes.io/docs/sdk/svelte.md) directly without wrappers. [TypeScript support](https://livecodes.io/docs/sdk/js-ts.md#typescript-types) provides type-safety and a great developer experience.
+
+React SDK example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmIC4QBkIDdYGED2ATWAzgAQBKsAhgMZhEDKAIgNJH4C22IANCPgZQE4QADpGwA7RCC4gAFhVySAPK1hhyRSjPL8CqgLwAdEAFUAKgDEAtAA4jRAPQA+A2OWr1Y8isMg0EWADuQtj8YHaU4mCwYmA+ARC4YDJ6+H6UsJbxiTKcRBBiUBDk0JZ8xbB6AIwAdAAMdk7SMmCs0ACCYGA6ktDkYgDmPtHhvQQEPkbSav0EiADaALrcVJAYAKK4UCGSfIIi0qzaANYArkKIoL0DJ+T98EjNrdIRMdFgkiAAvtwEYACecAuICu-Rud0klDGz0ibw+3xAu2E7wQlz6oNu9xAACsCAAPaGvGKSCCsYKhIioDA4XhEABm-GwrCIAHJoOhYBFePZ+BRqMyANwGfguIUuF6-DTiWkQfpEPREYCisREIiHfinIQIBVKlUqkFg2Ba5lqo64bABMTMzg63UvKIxI0AYiIAAlYNBoNgiAB1ELQXAAQitNu+Ss+guFYnFNAACr0-v0GScxLg5UQABQASjljiIikpWDwhElYmlg2ALzLnyIfkCPh5BBO0DCIAcjgjLlguLJNHwtPITdj8cT2GTuA7EnhvwBhDkqlmCEWPwESIXS5AkIIMYbqg+3CEDPSYxCa6WG5Ov0ZtFUkAGC+A8JJPfv8P+QkIF1fhDA9+BaINkhvoQK77NwdqwkgXzcBgOgQOIkgAMwIVM2DYNAv7ROQABGcAKEgxTQNIKzshC4gEGh8A-GoYAXhCnq6AonyfEAA))
+
+```jsx
+import LiveCodes from 'livecodes/react';
+
+const config = {
+  markup: {
+    language: 'markdown',
+    content: '# Hello World!',
+  },
+};
+const Playground = () => <LiveCodes config={config} view="result" />;
+export default Playground;
+```
+
+Vue SDK example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmIC4QBkIDdYGED2ATWAzgAQBqArrEQMoAiA0kfgLbYgA0I+BAxgE4QAHSNgB2iEOxAALWAENc4gDxNYYWUW5TZvAqoC8AHRABVACoAxALQAOI0QD0APgMjlq9SNkrDINBFgA7gLYvGB23KJgsCJgPgEQuGBSevh+3LCW8YlSbEQQIlAQstCWPMWwegCMAHQADHZOklJgTNAAgmBgOuLQsiIA5j7R4b0EBD5Gkmr9BIgA2gC6HLLckBgAorhQIeI8-EKSTNoA1mQCiKC9A2Sy-fBIza2SETHRYOIgAL4cBGAAnnALiArv0bndxNwxs9Im8Pt8QHtBO8EJc+qDbvdfBRoa8YkpEUIiLowGdnLwXEQ8kxgqEiKgMDguEQAGa8bBMIgAcmg6FgES49jQFE5AG4DOSROKKRpRL8ZSJmRB+kQ9ERgFKRJTKUdeKcBAg1RqtVqQWDYAbOTrjrhsAERJy2EbjfKojELQBiIgACVg0Gg2CIAHUQtBcABCB1OynfJ2fMUSxT2AlgMkuDWKKLU3pRVOaoiKelYPCEIgIF6KwZGctKux+QI+XiEMjQMIgBy5xOZgTZ2C5r4-f5wAgyVSzBCLH58JFjicgSEEAAKjeJHw4AjZ6TGIRnSznZF+7KoqkgAzHwHhEGpITAZ-h-wEhAud8IN6Bpox4nvhCnBw4L1dyISPCGA6BAojiAAzBBUzYNg0BniA0SyAARnAChIMU0CSCsayYi8BBwfAA6yCSY5zv6ugKJ8nxAA))
+
+```html
+<script setup>
+  import LiveCodes from 'livecodes/vue';
+
+  const config = {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World!',
+    },
+  };
+</script>
+
+<template>
+  <LiveCodes :config="config" view="result" />
+</template>
+```
+
+See [SDK docs](https://livecodes.io/docs/sdk/) for more details.
 
 ## Documentations
 
