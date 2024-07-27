@@ -1,146 +1,741 @@
 declare module "sdk/models" {
     export interface API {
+        /**
+         * Runs the [result page](https://livecodes.io/docs/features/result) (after any required compilation for code).
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   await playground.run();
+         *   // new result page is displayed
+         * });
+         * ```
+         */
         run: () => Promise<void>;
+        /**
+         * Formats the code.
+         *
+         * By default, the code in all editors (markup, style and script) is formatted.
+         * To format only the active editor, the value `false` should be passed as an argument.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   await playground.format();
+         *   // code in editors is formatted
+         * });
+         * ```
+         */
         format: (allEditors?: boolean) => Promise<void>;
+        /**
+         * Gets a [share url](https://livecodes.io/docs/features/share) for the current project.
+         *
+         * By default, the url has a long query string representing the compressed encoded config object.
+         * If the argument `shortUrl` was set to `true`, a short url is generated.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   const longUrl = await playground.getShareUrl();
+         *   const shortUrl = await playground.getShareUrl(true);
+         * });
+         * ```
+         */
         getShareUrl: (shortUrl?: boolean) => Promise<string>;
+        /**
+         * Gets a [configuration object](https://livecodes.io/docs/configuration/configuration-object) representing the playground state.
+         *
+         * This can be used to restore state if passed as an [EmbedOptions](https://livecodes.io/docs/sdk/js-ts#embed-options) property when [creating playgrounds](https://livecodes.io/docs/sdk/js-ts/#createplayground),
+         * or can be manipulated and loaded in run-time using [`setConfig`](https://livecodes.io/docs/sdk/js-ts#setconfig) method.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   const config = await playground.getConfig();
+         * });
+         * ```
+         */
         getConfig: (contentOnly?: boolean) => Promise<Config>;
+        /**
+         * Loads a new project using the passed configuration object.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   const config = {
+         *     markup: {
+         *       language: "html",
+         *       content: "Hello World!",
+         *     },
+         *   };
+         *   const newConfig = await playground.setConfig(config);
+         *   // new project loaded
+         * });
+         * ```
+         */
         setConfig: (config: Partial<Config>) => Promise<Config>;
+        /**
+         * Gets the playground code (including source code, source language and compiled code) for each editor (markup, style, script), in addition to result page HTML.
+         *
+         * See [Code](https://livecodes.io/docs/api/interfaces/Code) for the structure of the returned object.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   const code = await playground.getCode();
+         *
+         *   // source code, language and compiled code for the script editor
+         *   const { content, language, compiled } = code.script;
+         *
+         *   // result page HTML
+         *   const result = code.result;
+         * });
+         * ```
+         */
         getCode: () => Promise<Code>;
+        /**
+         * Shows the selected panel.
+         *
+         * See [docs](https://livecodes.io/docs/sdk/js-ts#show) for details.
+         * @example
+         * await playground.show("style");
+         * await playground.show("result", { full: true });
+         * await playground.show("script");
+         * await playground.show("result", { zoom: 0.5 });
+         * await playground.show("console", { full: true });
+         */
         show: (panel: EditorId | Tool['name'] | 'result', options?: {
             full?: boolean;
             line?: number;
             column?: number;
             zoom?: Config['zoom'];
         }) => Promise<void>;
+        /**
+         * Runs project [tests](https://livecodes.io/docs/features/tests) (if present) and gets test results.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   const { results } = await playground.runTests();
+         * });
+         * ```
+         */
         runTests: () => Promise<{
             results: TestResult[];
         }>;
-        onChange: (fn: ChangeHandler) => {
+        /**
+         * Runs a callback function when code changes.
+         *
+         * @deprecated Use [`watch`](https://livecodes.io/docs/sdk/js-ts#watch) method instead.
+         */
+        onChange: (fn: (data: {
+            code: Code;
+            config: Config;
+        }) => void) => {
             remove: () => void;
         };
+        /**
+         * Allows to watch for various playground events.
+         * It takes 2 arguments: event name and a callback function that will be called on every event.
+         *
+         * event name can be one of: `"load" | "ready" | "code" | "console" | "tests" | "destroy"`
+         *
+         * In some events, the callback function will be called with an object that supplies relevant data to the callback function (e.g. code, console output, test results).
+         *
+         * The watch method returns an object with a single method (`remove`), which when called will remove the callback from watching further events.
+         *
+         * See [docs](https://livecodes.io/docs/sdk/js-ts#watch) for details.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then((playground) => {
+         *   const codeWatcher = playground.watch("code", ({ code, config }) => {
+         *     // this will run on every code change
+         *     console.log("code:", code);
+         *     console.log("config:", config);
+         *   });
+         *
+         *   const consoleWatcher = playground.watch("console", ({ method, args }) => {
+         *     // this will run on every console output
+         *     console[method](...args);
+         *   });
+         *
+         *   const testsWatcher = playground.watch("tests", ({ results }) => {
+         *     // this will run when tests run
+         *     results.forEach((testResult) => {
+         *       console.log("status:", testResult.status); // "pass", "fail" or "skip"
+         *       console.log(testResult.errors); // array of errors as strings
+         *     });
+         *   });
+         *
+         *   // then later
+         *   codeWatcher.remove();
+         *   consoleWatcher.remove();
+         *   testsWatcher.remove();
+         *   // events are no longer watched
+         * });
+         * ```
+         */
         watch: WatchFn;
+        /**
+         * Executes custom commands, including: `"setBroadcastToken"` and `"showVersion"`.
+         *
+         * See [docs](https://livecodes.io/docs/sdk/js-ts#exec) for details.
+         */
         exec: (command: APICommands, ...args: any[]) => Promise<{
             output: any;
         } | {
             error: string;
         }>;
+        /**
+         * Destroys the playground instance, and removes event listeners.
+         *
+         * Further call to any SDK methods throws an error.
+         * @example
+         * ```ts
+         * import { createPlayground } from "livecodes";
+         *
+         * createPlayground("#container").then(async (playground) => {
+         *   await playground.destroy();
+         *   // playground destroyed
+         *   // any further SDK call throws an error
+         * });
+         * ```
+         */
         destroy: () => Promise<void>;
     }
-    export type ChangeHandler = SDKCodeHandler;
-    export type SDKReadyHandler = (data: {
+    export type WatchFns = WatchLoad | WatchReady | WatchCode | WatchConsole | WatchTests | WatchDestroy;
+    /**
+     * Called when the playground first loads.
+     */
+    export type WatchLoad = (event: 'load', fn: () => void) => {
+        remove: () => void;
+    };
+    /**
+     * Called when a new project is loaded (including when [imported](https://livecodes.io/docs/features/import)) and the playground is ready to run.
+     */
+    export type WatchReady = (event: 'ready', fn: (data: {
         config: Config;
-    }) => void;
-    export type SDKCodeHandler = (data: {
+    }) => void) => {
+        remove: () => void;
+    };
+    /**
+     * Called when the playground "content" is changed (see [`getCode`](https://livecodes.io/docs/sdk/js-ts#getcode) and [`getConfig`](https://livecodes.io/docs/sdk/js-ts#getcode)).
+     *
+     * This includes changes in:
+     * - Code (in editors)
+     * - Editor [languages](https://livecodes.io/docs/languages/)
+     * - [CSS processors](https://livecodes.io/docs/features/css#css-processors)
+     * - [External resources](https://livecodes.io/docs/features/external-resources)
+     * - Project info (e.g. allows adding content in page head and attributes to `<html>` element)
+     * - [Custom settings](https://livecodes.io/docs/advanced/custom-settings) (e.g. allows changing [import maps](https://livecodes.io/docs/features/module-resolution#custom-module-resolution))
+     * - Project title
+     * - [Test](https://livecodes.io/docs/features/tests) code
+     */
+    export type WatchCode = (event: 'code', fn: (data: {
         code: Code;
         config: Config;
-    }) => void;
-    export type SDKConsoleHandler = (data: {
+    }) => void) => {
+        remove: () => void;
+    };
+    export type WatchConsole = (event: 'console', fn: (data: {
         method: string;
         args: any[];
-    }) => void;
-    export type SDKTestsHandler = (data: {
+    }) => void) => {
+        remove: () => void;
+    };
+    export type WatchTests = (event: 'tests', fn: (data: {
         results: TestResult[];
         error?: string;
-    }) => void;
-    export type SDKGenericHandler = () => void;
-    export type WatchFns = ((event: 'load', fn: SDKGenericHandler) => {
-        remove: SDKGenericHandler;
-    }) | ((event: 'ready', fn: SDKReadyHandler) => {
-        remove: SDKGenericHandler;
-    }) | ((event: 'code', fn: SDKCodeHandler) => {
-        remove: SDKGenericHandler;
-    }) | ((event: 'console', fn: SDKConsoleHandler) => {
-        remove: SDKGenericHandler;
-    }) | ((event: 'tests', fn: SDKTestsHandler) => {
-        remove: SDKGenericHandler;
-    }) | ((event: 'destroy', fn: SDKGenericHandler) => {
-        remove: SDKGenericHandler;
-    });
+    }) => void) => {
+        remove: () => void;
+    };
+    export type WatchDestroy = (event: 'destroy', fn: () => void) => {
+        remove: () => void;
+    };
     export type SDKEvent = Parameters<WatchFns>[0];
     export type SDKEventHandler = Parameters<WatchFns>[1];
     export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+    export type Prettify<T> = {
+        [K in keyof T]: T[K] extends object ? Prettify<T[K]> : T[K];
+    } & {};
     export type WatchFn = UnionToIntersection<WatchFns>;
     export type APICommands = 'setBroadcastToken' | 'showVersion';
+    /**
+     * An object that represents the LiveCodes playground instance.
+     *
+     * The object exposes multiple [methods](https://livecodes.io/docs/sdk/js-ts/#sdk-methods) that can be used to interact with the playground.
+     *
+     * See [docs](https://livecodes.io/docs/sdk/js-ts) for details.
+     */
     export interface Playground extends API {
+        /**
+         * Loads the playground, if not already loaded.
+         *
+         * When the embed option [loading](https://livecodes.io/docs/sdk/js-ts#loading) is set to `"click"`, the playground is not loaded automatically.
+         * Instead, a screen is shown with "Click to load" button. Calling the SDK method `load()` allows loading the playground.
+         *
+         * If the playground was not loaded, calling any other method will load the playground first before executing.
+         */
         load: () => Promise<void>;
     }
+    /**
+     * An object that represents the playground embed options.
+     *
+     * See [docs](https://livecodes.io/docs/sdk/js-ts/#embed-options) for details.
+     */
     export interface EmbedOptions {
+        /**
+         * Allows loading the playground from a custom URL
+         * (e.g. a [self-hosted app](https://livecodes.io/docs/features/self-hosting) or a [permanent URL](https://livecodes.io/docs/features/permanent-url)).
+         *
+         * If supplied with an invalid URL, an error is thrown.
+         * @default 'https://livecodes.io'
+         */
         appUrl?: string;
-        params?: UrlQueryParams;
+        /**
+         * An object that represents the [URL Query parameters](https://livecodes.io/docs/configuration/query-params), that can be used to configure the playground.
+         *
+         * These 2 snippets produce similar output:
+         *
+         * ```js
+         * import { createPlayground } from 'livecodes';
+         *
+         * // use config
+         * createPlayground('#container', {
+         *   config: {
+         *     markup: {
+         *       language: 'markdown',
+         *       content: '# Hello World!',
+         *     },
+         *   },
+         * });
+         *
+         * // use params
+         * createPlayground('#container', { params: { md: '# Hello World!' } });
+         * ```
+         */
+        params?: Prettify<UrlQueryParams>;
+        /**
+         * A [configuration object](https://livecodes.io/docs/configuration/configuration-object) or a URL to a JSON file representing a configuration object to load.
+         *
+         * If supplied and is not an object or a valid URL, an error is thrown.
+         * @default {}
+         */
         config?: Partial<Config> | string;
+        /**
+         * A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
+         */
         import?: string;
+        /**
+         * If `true`, the playground is loaded in [lite mode](https://livecodes.io/docs/features/lite).
+         */
         lite?: boolean;
+        /**
+         * Sets how the playground loads:
+         *
+         * - `"eager"`: The playground loads immediately.
+         * - `"lazy"`: A playground embedded low down in the page will not load until the user scrolls so that it approaches the viewport.
+         * - `"click"`: The playground does not load automatically. Instead, a "Click-to-load" screen is shown.
+         *
+         * @default "lazy"
+         */
         loading?: 'lazy' | 'click' | 'eager';
+        /**
+         * A [starter template](https://livecodes.io/docs/features/templates) to load.
+         * Allowed valued can be found [here](https://livecodes.io/docs/api/modules/internal#templatename).
+         */
         template?: TemplateName;
+        /**
+         * The [default view](https://livecodes.io/docs/features/default-view) for the playground.
+         *
+         * When set to `"headless"`, the playground is loaded in [headless mode](https://livecodes.io/docs/sdk/headless).
+         */
         view?: 'split' | 'editor' | 'result' | 'headless';
     }
+    /**
+     * The playground [configuration object](https://livecodes.io/docs/configuration/configuration-object).
+     *
+     * It is an object that holds the configuration and state of the playground.
+     *
+     * See [docs](https://livecodes.io/docs/configuration/configuration-object) for details.
+     */
     export interface Config extends ContentConfig, AppConfig, UserConfig {
     }
+    /**
+     * The properties that define the content of the current [project](https://livecodes.io/docs/features/projects).
+     */
     export interface ContentConfig {
+        /**
+         * Project title.
+         * This is used as [result page](https://livecodes.io/docs/features/result) title and title meta tag.
+         * Also used in project search.
+         * @default "Untitled Project"
+         */
         title: string;
+        /**
+         * Project description. Used in [project](https://livecodes.io/docs/features/projects) search
+         * and [result page](https://livecodes.io/docs/features/result) description meta tag.
+         * @default ""
+         */
         description: string;
+        /**
+         * Content added to the [result page](https://livecodes.io/docs/features/result) `<head>` element.
+         * @default '<meta charset="UTF-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />'
+         */
         head: string;
+        /**
+         * Attributes added to the [result page](https://livecodes.io/docs/features/result) `<html>` element.
+         * It can be an object or a string.
+         * @example <caption>Both of these become `<html lang="en" class="dark">`</caption>
+         * { lang: "en", class: "dark" }
+         * 'lang="en" class="dark"'
+         */
         htmlAttrs: Record<string, string> | string;
+        /**
+         * Project tags.
+         * Used in [project](https://livecodes.io/docs/features/projects) filter and search.
+         * @default []
+         */
         tags: string[];
+        /**
+         * Selects the active editor to show.
+         *
+         * Defaults to the last used editor for user, otherwise `"markup"`
+         * @type {`"markup"` | `"style"` | `"script"` | `undefined`}
+         */
         activeEditor: EditorId | undefined;
+        /**
+         * List of enabled languages.
+         *
+         * Defaults to all supported languages in full app and only current editor languages in [embeds](https://livecodes.io/docs/features/embeds).
+         */
         languages: Array<Language | Processor> | undefined;
-        markup: Editor;
-        style: Editor;
-        script: Editor;
+        /**
+         * An object that configures the language and content of the markup editor.
+         *
+         * See [docs](https://livecodes.io/docs/configuration/configuration-object/#markup) for details.
+         * @default { language: "html", content: "" }
+         */
+        markup: Prettify<Editor>;
+        /**
+         * An object that configures the language and content of the style editor.
+         *
+         * See [docs](https://livecodes.io/docs/configuration/configuration-object/#markup) for details.
+         * @default { language: "css", content: "" }
+         */
+        style: Prettify<Editor>;
+        /**
+         * An object that configures the language and content of the script editor.
+         *
+         * See [docs](https://livecodes.io/docs/configuration/configuration-object/#markup) for details.
+         * @default { language: "javascript", content: "" }
+         */
+        script: Prettify<Editor>;
+        /**
+         * List of URLs for [external stylesheets](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
+         */
         stylesheets: string[];
+        /**
+         * List of URLs for [external scripts](https://livecodes.io/docs/features/external-resources) to add to the [result page](https://livecodes.io/docs/features/result).
+         */
         scripts: string[];
+        /**
+         * [CSS Preset](https://livecodes.io/docs/features/external-resources#css-presets) to use.
+         * @type {"" | "normalize.css" | "reset-css"}
+         */
         cssPreset: CssPresetId;
+        /**
+         * List of enabled [CSS processors](https://livecodes.io/docs/features/css/#css-processors).
+         *
+         * For the list of available processors, see [Processor](https://livecodes.io/docs/api/modules/internal/#processor)
+         */
         processors: Processor[];
-        customSettings: CustomSettings;
+        /**
+         * Defines [custom settings](https://livecodes.io/docs/advanced/custom-settings) for the current project.
+         */
+        customSettings: Prettify<CustomSettings>;
+        /**
+         * Allows specifying custom [import maps](https://github.com/WICG/import-maps) for [module imports](https://livecodes.io/docs/features/module-resolution#custom-module-resolution).
+         *
+         * **Example**
+         *
+         * Setting `imports` like this:
+         * ```js
+         * "imports": {
+         *   "moment": "https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js"
+         * }
+         * ```
+         * results in the following import map:
+         * ```html
+         * <script type="importmap">
+         *   {
+         *     "imports": {
+         *       "moment": "https://cdn.jsdelivr.net/npm/moment@2.29.4/dist/moment.js"
+         *     }
+         *   }
+         * </script>
+         * ```
+         * See docs for [Imports](https://livecodes.io/docs/configuration/configuration-object#imports)
+         * and [Custom Module Resolution](https://livecodes.io/docs/features/module-resolution/#custom-module-resolution)
+         */
         imports: {
             [key: string]: string;
         };
-        types: Types;
-        tests: Partial<Editor> | undefined;
+        /**
+         * Allows providing custom TypeScript type declarations for better [editor intellisense](https://livecodes.io/docs/features/intellisense).
+         *
+         * It is an object where each key represents module name and value represents the types.
+         *
+         * See docs for [Types](https://livecodes.io/docs/configuration/configuration-object#types)
+         * and [Custom Types](https://livecodes.io/docs/features/intellisense#custom-types)
+         *
+         * @example
+         * ```js
+         * {
+         *   "types": {
+         *     "my-demo-lib": "https://my-custom-domain/my-type-declarations.d.ts"
+         *   }
+         * }
+         * ```
+         * @example
+         * ```
+         * {
+         *   "types": {
+         *     "my-demo-lib": {
+         *       "url": "https://my-custom-domain/types.d.ts",
+         *       "autoload": true,
+         *       "declareAsModule": true
+         *     }
+         * }
+         * ```
+         */
+        types: Prettify<Types>;
+        /**
+         * Configures the [language](https://livecodes.io/docs/features/tests#supported-languages)
+         * and content of [tests](https://livecodes.io/docs/features/tests).
+         */
+        tests: Prettify<Partial<Editor>> | undefined;
+        /**
+         * This is a read-only property which specifies the current LiveCodes version.
+         *
+         * Version specified in [exported](https://livecodes.io/docs/features/export) projects allows automatically upgrading the project configuration when imported by an app with a newer version.
+         */
         readonly version: string;
     }
+    /**
+     * These are properties that define how the app behaves.
+     */
     export interface AppConfig {
+        /**
+         * If `true`, editors are loaded in read-only mode, where the user is not allowed to change the code.
+         *
+         * By default, when readonly is set to true, the light-weight code editor [CodeJar](https://livecodes.io/docs/features/editor-settings#code-editor) is used.
+         * If you wish to use another editor, set the [editor](https://livecodes.io/docs/configuration/configuration-object#editor) property.
+         * @default false
+         */
         readonly: boolean;
+        /**
+         * If `false`, the UI will not show the menu that allows changing editor language.
+         * @default true
+         */
         allowLangChange: boolean;
+        /**
+         * Sets the [display mode](https://livecodes.io/docs/features/display-modes).
+         * @default "full"
+         */
         mode: 'full' | 'focus' | 'simple' | 'editor' | 'codeblock' | 'result';
+        /**
+         * Sets enabled and active tools and status of [tools pane](https://livecodes.io/docs/features/tools-pane).
+         * @default { enabled: "all", active: "", status: "" }
+         * @example
+         * ```js
+         * {
+         *   "tools": {
+         *     "enabled": ["console", "compiled"],
+         *     "active": "console",
+         *     "status": "open"
+         *   }
+         * }
+         * ```
+         */
         tools: Partial<{
             enabled: Array<Tool['name']> | 'all';
             active: Tool['name'] | '';
             status: ToolsPaneStatus;
         }>;
+        /**
+         * Sets result page [zoom level](https://livecodes.io/docs/features/result#result-page-zoom).
+         */
         zoom: 1 | 0.5 | 0.25;
     }
     export interface UserConfig extends EditorConfig, FormatterConfig {
+        /**
+         * If `true`, the result page is automatically updated on code change,
+         * after time [delay](https://livecodes.io/docs/configuration/configuration-object#delay).
+         * @default true
+         */
         autoupdate: boolean;
+        /**
+         * If `true`, the project is automatically saved on code change,
+         * after time [delay](https://livecodes.io/docs/configuration/configuration-object#delay).
+         * @default false
+         */
         autosave: boolean;
+        /**
+         * If `true`, the project is watched for code changes which trigger tests to auto-run.
+         * @default false
+         */
         autotest: boolean;
+        /**
+         * Time delay (in milliseconds) following code change,
+         * after which the result page is updated (if [`autoupdate`](https://livecodes.io/docs/configuration/configuration-object#autoupdate) is `true`)
+         * and/or the project is saved (if [`autosave`](https://livecodes.io/docs/configuration/configuration-object#autosave) is `true`).
+         * @default 1500
+         */
         delay: number;
+        /**
+         * If `true`, the code is automatically [formatted](https://livecodes.io/docs/features/code-format) on saving the project.
+         * @default false
+         */
         formatOnsave: boolean;
+        /**
+         * Sets the app layout to horizontal or vertical.
+         * If set to `"responsive"` (the default) or `undefined`,
+         * the layout is vertical in small screens when the playground height is larger than its width,
+         * otherwise horizontal.
+         * @default "responsive"
+         */
         layout: 'responsive' | 'horizontal' | 'vertical' | undefined;
+        /**
+         * Enables [recovering last unsaved project](https://livecodes.io/docs/features/recover) when the app is reopened.
+         * @default true
+         */
         recoverUnsaved: boolean;
+        /**
+         * Enables [showing element spacing](https://livecodes.io/docs/features/result#show-spacings) in the result page.
+         * @default false
+         */
         showSpacing: boolean;
+        /**
+         * If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is displayed when the app loads.
+         */
         welcome: boolean;
     }
     export interface EditorConfig {
+        /**
+         * Selects the [code editor](https://livecodes.io/docs/features/editor-settings#code-editor) to use.
+         *
+         * If `undefined` (the default), Monaco editor is used on desktop, CodeMirror is used on mobile
+         * and CodeJar is used in codeblocks, in lite mode and in readonly playgrounds.
+         * @default undefined
+         */
         editor: 'monaco' | 'codemirror' | 'codejar' | undefined;
+        /**
+         * Sets the app [theme](https://livecodes.io/docs/features/themes) to light/dark mode.
+         * @default "dark"
+         */
         theme: Theme;
+        /**
+         * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) themes.
+         *
+         * See docs for [editor themes](https://livecodes.io/docs/configuration/configuration-object#editortheme) for details.
+         *
+         * @example "vs"
+         * @example "monaco:twilight, codemirror:one-dark"
+         * @example ["vs@light"]
+         * @example ["vs@light", "vs-dark@dark"]
+         * @example ["monaco:vs@light", "codemirror:github-light@light", "dracula@dark"]
+         */
         editorTheme: EditorTheme[] | string | undefined;
+        /**
+         * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font family.
+         */
         fontFamily: string | undefined;
+        /**
+         * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) font size.
+         *
+         * If `undefined` (the default), the font size is set to 14 for the full app and 12 for [embeds](https://livecodes.io/docs/features/embeds).
+         * @default undefined
+         */
         fontSize: number | undefined;
+        /**
+         * If `true`, lines are indented with tabs instead of spaces.
+         *
+         * Also used in [code formatting](https://livecodes.io/docs/features/code-format).
+         * @default false
+         */
         useTabs: boolean;
+        /**
+         * The number of spaces per indentation-level.
+         *
+         * Also used in [code formatting](https://livecodes.io/docs/features/code-format).
+         * @default 2
+         */
         tabSize: number;
+        /**
+         * Show line numbers in [code editor](https://livecodes.io/docs/features/editor-settings).
+         * @default true
+         */
         lineNumbers: boolean;
+        /**
+         * Enables word-wrap for long lines.
+         * @default false
+         */
         wordWrap: boolean;
+        /**
+         * Use auto-complete to close brackets and quotes.
+         * @default true
+         */
         closeBrackets: boolean;
+        /**
+         * Enables [Emmet](https://livecodes.io/docs/features/editor-settings#emmet).
+         * @default true
+         */
         emmet: boolean;
+        /**
+         * Sets [editor mode](https://livecodes.io/docs/features/editor-settings#editor-modes).
+         */
         editorMode: 'vim' | 'emacs' | undefined;
+        /**
+         * If `true`, [AI code assistant](https://livecodes.io/docs/features/ai) is enabled.
+         * @default false
+         */
         enableAI: boolean;
     }
     export interface FormatterConfig {
+        /**
+         * If `true`, lines are indented with tabs instead of spaces.
+         * @default false
+         */
         useTabs: boolean;
+        /**
+         * The number of spaces per indentation-level.
+         * @default 2
+         */
         tabSize: number;
+        /**
+         * Configures Prettier [code formatter](https://livecodes.io/docs/features/code-format) to use semi-colons.
+         * @default true
+         */
         semicolons: boolean;
+        /**
+         * Configures Prettier [code formatter](https://livecodes.io/docs/features/code-format) to use single quotes instead of double quotes.
+         * @default false
+         */
         singleQuote: boolean;
+        /**
+         * Configures Prettier [code formatter](https://livecodes.io/docs/features/code-format) to use [trailing commas](https://prettier.io/docs/en/options.html#trailing-commas).
+         * @default true
+         */
         trailingComma: boolean;
     }
     export interface UserData {
@@ -176,14 +771,54 @@ declare module "sdk/models" {
             userToken?: string;
         };
     }
+    /**
+     * Language name, alias or extension.
+     */
     export type Language = 'html' | 'htm' | 'markdown' | 'md' | 'mdown' | 'mkdn' | 'mdx' | 'astro' | 'pug' | 'jade' | 'haml' | 'asciidoc' | 'adoc' | 'asc' | 'mustache' | 'handlebars' | 'hbs' | 'ejs' | 'eta' | 'nunjucks' | 'njk' | 'liquid' | 'liquidjs' | 'dot' | 'twig' | 'vento' | 'vto' | 'art-template' | 'art' | 'bbcode' | 'bb' | 'mjml' | 'diagrams' | 'diagram' | 'graph' | 'plt' | 'richtext' | 'rte' | 'rich' | 'rte.html' | 'css' | 'scss' | 'sass' | 'less' | 'stylus' | 'styl' | 'stylis' | 'postcss' | 'javascript' | 'js' | 'json' | 'babel' | 'es' | 'sucrase' | 'typescript' | 'flow' | 'ts' | 'jsx' | 'tsx' | 'react-native' | 'react-native.jsx' | 'react-native-tsx' | 'react-native.tsx' | 'vue' | 'vue3' | 'vue2' | 'svelte' | 'stencil' | 'stencil.tsx' | 'solid' | 'solid.jsx' | 'solid.tsx' | 'riot' | 'riotjs' | 'malina' | 'malinajs' | 'xht' | 'coffeescript' | 'coffee' | 'livescript' | 'ls' | 'civet' | 'clio' | 'imba' | 'assemblyscript' | 'as' | 'python' | 'py' | 'pyodide' | 'python-wasm' | 'py-wasm' | 'pythonwasm' | 'pywasm' | 'py3' | 'wasm.py' | 'r' | 'rlang' | 'rstats' | 'r-wasm' | 'ruby' | 'rb' | 'ruby-wasm' | 'wasm.rb' | 'rubywasm' | 'go' | 'golang' | 'php' | 'php-wasm' | 'phpwasm' | 'wasm.php' | 'cpp' | 'c' | 'C' | 'cp' | 'cxx' | 'c++' | 'cppm' | 'ixx' | 'ii' | 'hpp' | 'h' | 'cpp-wasm' | 'cppwasm' | 'cwasm' | 'wasm.cpp' | 'clang' | 'clang.cpp' | 'perl' | 'pl' | 'pm' | 'lua' | 'lua-wasm' | 'luawasm' | 'wasm.lua' | 'teal' | 'tl' | 'fennel' | 'fnl' | 'julia' | 'jl' | 'scheme' | 'scm' | 'commonlisp' | 'common-lisp' | 'lisp' | 'clojurescript' | 'clojure' | 'cljs' | 'clj' | 'cljc' | 'edn' | 'gleam' | 'rescript' | 'res' | 'resi' | 'reason' | 're' | 'rei' | 'ocaml' | 'ml' | 'mli' | 'tcl' | 'wat' | 'wast' | 'webassembly' | 'wasm' | 'Binary' | 'csharp' | 'sql' | 'sqlite' | 'sqlite3' | 'pg.sql' | 'pgsql.sql' | 'pgsql' | 'pg' | 'pglite' | 'pglite.sql' | 'postgresql' | 'postgres' | 'postgre.sql' | 'postgresql.sql' | 'prolog.pl' | 'prolog' | 'blockly' | 'blockly.xml' | 'xml' | 'pintora';
     export interface Editor {
+        /**
+         * A language name, extension or alias (as defined in [language documentations](https://livecodes.io/docs/languages/)).
+         *
+         * For the list of supported values, see [Language](https://livecodes.io/docs/api/modules#language)
+         */
         language: Language;
+        /**
+         * If set, this is used as the title of the editor in the UI,
+         * overriding the default title set to the language name
+         * (e.g. `"Python"` can be used instead of `"Py (Wasm)"`).
+         */
+        title?: string;
+        /**
+         * The initial content of the code editor.
+         * @default ""
+         */
         content?: string;
+        /**
+         * A URL to load `content` from. It has to be a valid URL that is CORS-enabled.
+         *
+         * The URL is only fetched if `content` property had no value.
+         */
         contentUrl?: string;
+        /**
+         * Hidden content that gets evaluated without being visible in the code editor.
+         *
+         * This can be useful in embedded playgrounds (e.g. for adding helper functions, utilities or tests)
+         */
         hiddenContent?: string;
+        /**
+         * A URL to load `hiddenContent` from. It has to be a valid URL that is CORS-enabled.
+         *
+         * The URL is only fetched if `hiddenContent` property had no value.
+         */
         hiddenContentUrl?: string;
+        /**
+         * A CSS selector to load content from [DOM import](https://livecodes.io/docs/features/import#import-code-from-dom).
+         */
         selector?: string;
+        /**
+         * The initial position of the cursor in the code editor.
+         * @example  {lineNumber: 5, column: 10}
+         */
         position?: EditorPosition;
     }
     export interface EditorPosition {
@@ -501,6 +1136,12 @@ declare module "sdk/models" {
         result?: string;
         styleOnlyUpdate?: boolean;
     };
+    /**
+     * An object that contains the language, content and compiled code for each of the 3 [code editors](https://livecodes.io/docs/features/projects)
+     * and the [result page](https://livecodes.io/docs/features/result) HTML.
+     *
+     * See [docs](https://livecodes.io/docs/api/interfaces/Code) for details.
+     */
     export interface Code {
         markup: {
             language: Language;
@@ -726,6 +1367,7 @@ declare module "livecodes/vendors" {
     export const flexSearchUrl: string;
     export const fontAnonymousProUrl: string;
     export const fontAstigmataUrl: string;
+    export const fontAwesomeUrl: string;
     export const fontCascadiaCodeUrl: string;
     export const fontCodeNewRomanUrl: string;
     export const fontComicMonoUrl: string;
@@ -905,7 +1547,19 @@ declare module "livecodes/utils/utils" {
     export const removeDuplicates: (arr: any[] | undefined) => any[];
     export const replaceAsync: (str: string, regexp: RegExp, asyncFn: (...args: any) => Promise<string>) => Promise<string>;
     export const addAttrs: (el: HTMLElement, attributes: Record<string, string> | string) => void;
+    /**
+     * Bypasses the AMD module definition system by temporarily disabling it while executing the given function.
+     *
+     * @param fn - The function to execute.
+     * @return The result of executing the function.
+     */
     export const bypassAMD: <T = any>(fn: () => Promise<T>) => Promise<T>;
+    /**
+     * Returns an async function that ensures the given asynchronous function is executed only once and awaits the previous executions.
+     *
+     * @param {() => Promise<void>} fn - The asynchronous function to be executed once.
+     * @return {() => Promise<void>} An async function that, when called multiple times, executes the given function if it hasn't been executed before or awaits the previous execution.
+     */
     export const doOnce: (fn: () => Promise<void>) => () => Promise<void>;
 }
 declare module "livecodes/languages/lightningcss/processor-lightningcss" {
@@ -978,6 +1632,10 @@ declare module "livecodes/languages/utils" {
     export const languageIsEnabled: (language: Language, config: Config) => boolean;
     export const processorIsEnabled: (processor: Processor, config: Config) => boolean;
     export const processorIsActivated: (processor: Processor, config: Config) => boolean;
+    /**
+     * returns a string with names of enabled processors/postcss plugins
+     * for the supplied language (separated by hyphens)
+     */
     export const getActivatedProcessors: (language: Language, config: Config) => string;
     export const escapeCode: (code: string, slash?: boolean) => string;
     export const getCustomSettings: (language: Language | Processor, config: Config) => CustomSettings;
@@ -1567,6 +2225,9 @@ declare module "livecodes/storage/fake-storage" {
 }
 declare module "livecodes/storage/simple-storage" {
     import type { SimpleStorage, StoreName } from "livecodes/storage/models";
+    /**
+     * Creates a simple synchronous key/value data store using localstorage
+     */
     export const createSimpleStorage: <T>(name: StoreName, isEmbed: boolean) => SimpleStorage<T>;
 }
 declare module "livecodes/storage/stores" {
@@ -1733,6 +2394,9 @@ declare module "livecodes/storage/models" {
 declare module "livecodes/storage/storage" {
     import type { Storage, StoreName } from "livecodes/storage/models";
     export const generateId: () => string;
+    /**
+     * Creates asynchronous data store using localforage
+     */
     export const createStorage: <T>(name: StoreName, isEmbed: boolean) => Promise<Storage<T>>;
 }
 declare module "livecodes/utils/compression" {
@@ -2702,6 +3366,9 @@ declare module "livecodes/result/index" {
 }
 declare module "livecodes/templates/get-starter-templates" {
     import type { Config, Template } from "livecodes/models";
+    /**
+     * get starter templates with languages that are enabled in the current config
+     */
     export const getStarterTemplates: (config: Config, baseUrl: string) => Promise<Template[]>;
     export const getTemplate: (name: string, config: Config, baseUrl: string) => Promise<Template>;
 }
@@ -3063,6 +3730,15 @@ declare module "livecodes/types/index" {
     export * from "livecodes/types/default-types";
 }
 declare module "livecodes/_modules" {
+    /**
+     * <h2>Internal API.</h2>
+     * This module should <strong>NOT</strong> be used.
+     * It is only there for generating documentation for internal modules.
+     *
+     * Importing from it is prevented by the eslint rule 'no-restricted-imports'
+     *
+     * @module
+     */
     export * as cache from "livecodes/cache/index";
     export * as compiler from "livecodes/compiler/index";
     export * as config from "livecodes/config/index";
@@ -3596,6 +4272,10 @@ declare module "livecodes/editor/codemirror/languages/codemirror-lang-wast" {
     export { wast } from '@codemirror/lang-wast';
 }
 declare module "livecodes/editor/monaco/twoslashSupport" {
+    /**
+     * This is a port of the twoslash bit which grabs compiler options
+     * from the source code
+     */
     export const extractTwoSlashCompilerOptions: (optionDeclarations: any[] | undefined) => (code: string) => any;
     export function parsePrimitive(value: string, type: string): any;
     export const twoslashCompletions: (optionDeclarations: any[] | undefined) => (model: import('monaco-editor').editor.ITextModel, position: import('monaco-editor').Position, _token: any) => import('monaco-editor').languages.CompletionList;
@@ -5321,10 +6001,25 @@ declare module "livecodes/utils/__tests__/utils.spec" { }
 declare module "sdk/index" {
     import type { Code, Config, EmbedOptions, Language, Playground } from "sdk/models";
     export type { Code, Config, EmbedOptions, Language, Playground };
+    /**
+     * Creates a LiveCodes playground.
+     *
+     * @param {string | HTMLElement} container - `HTMLElement` or a string representing a CSS selector. This is the container where the playground is rendered.
+      If not found, an error is thrown (except in [headless mode](https://livecodes.io/docs/sdk/headless), in which this parameter is optional and can be omitted).
+     * @param {EmbedOptions} options - The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground (optional).
+     * @return {Promise<Playground>} - A promise that resolves to a [`Playground`](https://livecodes.io/docs/api/interfaces/Playground/) object which exposes many [SDK methods](https://livecodes.io/docs/sdk/js-ts/#sdk-methods) that can be used to interact with the playground.
+     */
     export function createPlayground(container: string | HTMLElement, options?: EmbedOptions): Promise<Playground>;
     export function createPlayground(options: EmbedOptions & {
         view: 'headless';
     }): Promise<Playground>;
+    /**
+     * Gets the URL to a LiveCodes playground (as a string) from the provided [options](https://livecodes.io/docs/sdk/js-ts#embed-options).
+     * This can be useful for providing links to run code in playgrounds.
+     *
+     * @param {EmbedOptions} options - The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground.
+     * @return {string} - The URL of the playground (as a string).
+     */
     export function getPlaygroundUrl(options?: EmbedOptions): string;
 }
 declare module "sdk/vue" {
@@ -5333,6 +6028,34 @@ declare module "sdk/vue" {
     export interface Props extends EmbedOptions {
         height?: string;
     }
+    /**
+     * A Vue component that renders a LiveCodes playground.
+     *
+     * Acts as a wrapper for the [LiveCodes JS SDK](https://livecodes.io/docs/sdk/js-ts).
+     * @see {@link https://livecodes.io/docs/sdk/vue}
+     *
+     * @prop {string} [appUrl] - The URL of the LiveCodes app. Defaults to `https://livecodes.io/`.
+     * @prop {object | string} [config] - The [config object](https://livecodes.io/docs/api/interfaces/Config) for the playground or the URL of the config file.
+     * @prop {string} [import] - A resource to [import](https://livecodes.io/docs/features/import) (from any of the supported [sources](https://livecodes.io/docs/features/import#sources)).
+     * @prop {boolean} [lite=false] - Whether to use the lite mode of LiveCodes.
+     * @prop {string} [loading='lazy'] - When to load the playground.
+     * @prop {object} [params] - An object that represents [URL Query parameters](https://livecodes.io/docs/configuration/query-params).
+     * @prop {string} [template] - A [starter template](https://livecodes.io/docs/features/templates) to load.
+     * @prop {string} [view='split'] - The [default view](https://livecodes.io/docs/features/default-view) for the playground.
+     * @prop {string} [height] - Sets the [height of playground container](https://livecodes.io/docs/sdk/js-ts#height) element.
+     * @prop {object} [style] - Sets the style of playground container element.
+     * @emits {event} [sdkReady] - When the playground initializes, the event `"sdkReady"` is emitted.
+     * @example
+     * ```html
+     * <script setup>
+     *   import LiveCodes from 'livecodes/vue';
+     * </script>
+     *
+     * <template>
+     *   <LiveCodes />
+     * </template>
+     * ```
+     */
     const LiveCodes: LiveCodesComponent;
     export default LiveCodes;
     type LiveCodesComponent = DefineComponent<Props, () => VNode<RendererNode, RendererElement, {
