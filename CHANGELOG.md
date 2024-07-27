@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [sdk-v0.6.0](https://github.com/live-codes/livecodes/compare/v33...sdk-v0.6.0) (2024-07-27)
+
+
+### Features
+
+* **Config:** allow setting custom editor title ([95287d0](https://github.com/live-codes/livecodes/commit/95287d07d88fe75ca22c69e4c2c5d3241aae4069))
+* **SDK:** add JSDoc comments ([323ce5a](https://github.com/live-codes/livecodes/commit/323ce5ad3cf4bb38450852f7116ad8fb366d08d0))
+* **SDK:** add JSDoc comments for react & vue SDKs ([cf7b46d](https://github.com/live-codes/livecodes/commit/cf7b46de438ea71f25ab404c3a1f85c791d8d2b2))
+* **SDK:** change react SDK build to use `react-jsx` ([d603103](https://github.com/live-codes/livecodes/commit/d603103342b427e5d8d13db81dec4f8101d7643c))
+
+
+
+
+---
+
 ## [v33](https://github.com/live-codes/livecodes/compare/v32...v33) (2024-07-13)
 
 ### Highlights for this release:
