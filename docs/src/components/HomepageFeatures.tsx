@@ -238,7 +238,7 @@ const ESMCode = () => {
     <CodeBlock language="html" showLineNumbers={true}>
       {`
 <div id="container"></div>\n<script type="module">
-import { createPlayground } from 'https://unpkg.com/livecodes@${siteConfig.customFields.sdkVersion}';
+import { createPlayground } from 'https://cdn.jsdelivr.net/npm/livecodes@${siteConfig.customFields.sdkVersion}';
 
 createPlayground('#container', {
   params: {

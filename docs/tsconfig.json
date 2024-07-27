@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "module": "Node16"
+    "module": "Node16",
+    "jsx": "react-jsx"
   }
 }

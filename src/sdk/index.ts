@@ -18,9 +18,10 @@ export type { Code, Config, EmbedOptions, Language, Playground };
 /**
  * Creates a LiveCodes playground.
  *
- * @param {string | HTMLElement} container - The container where the playground will be rendered.
- * @param {EmbedOptions} options - The embed options for the playground (optional).
- * @return {Promise<Playground>} - A promise that resolves to the created playground.
+ * @param {string | HTMLElement} container - `HTMLElement` or a string representing a CSS selector. This is the container where the playground is rendered.
+  If not found, an error is thrown (except in [headless mode](https://livecodes.io/docs/sdk/headless), in which this parameter is optional and can be omitted).
+ * @param {EmbedOptions} options - The [embed options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground (optional).
+ * @return {Promise<Playground>} - A promise that resolves to a [`Playground`](https://livecodes.io/docs/api/interfaces/Playground/) object which exposes many [SDK methods](https://livecodes.io/docs/sdk/js-ts/#sdk-methods) that can be used to interact with the playground.
  */
 export async function createPlayground(
   container: string | HTMLElement,
@@ -378,6 +379,13 @@ export async function createPlayground(
   };
 }
 
+/**
+ * Gets the URL to a LiveCodes playground (as a string) from the provided [options](https://livecodes.io/docs/sdk/js-ts#embed-options).
+ * This can be useful for providing links to run code in playgrounds.
+ *
+ * @param {EmbedOptions} options - The [options](https://livecodes.io/docs/sdk/js-ts#embed-options) for the playground.
+ * @return {string} - The URL of the playground (as a string).
+ */
 export function getPlaygroundUrl(options: EmbedOptions = {}): string {
   const { appUrl, params, config, import: x, ...otherOptions } = options;
   const configParam =

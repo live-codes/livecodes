@@ -15,7 +15,6 @@ Please refer to the [SDK installation](./index.md#installation) section.
 The react component is provided as the default export from `livecodes/react`.
 
 ```jsx title="JSX"
-import React from 'react';
 import LiveCodes from 'livecodes/react';
 
 export const Playground = () => <LiveCodes />;
@@ -26,7 +25,6 @@ export const Playground = () => <LiveCodes />;
 Prop types are exported as `Props` from `livecodes/react`.
 
 ```tsx title="TSX"
-import React from 'react';
 import LiveCodes, { type Props } from 'livecodes/react';
 
 const options: Props = {
@@ -44,7 +42,6 @@ All [embed options](js-ts.md#embed-options) are available as props with the corr
 Example:
 
 ```jsx title="JSX"
-import React from 'react';
 import LiveCodes from 'livecodes/react';
 
 const config = {
@@ -67,7 +64,6 @@ In addition, the following props are also available:
   Example:
 
   ```jsx title="JSX"
-  import React from 'react';
   import LiveCodes from 'livecodes/react';
 
   export const Playground = () => <LiveCodes className="centered" />;
@@ -82,7 +78,6 @@ In addition, the following props are also available:
   Example:
 
   ```jsx title="JSX"
-  import React from 'react';
   import LiveCodes from 'livecodes/react';
 
   export const Playground = () => <LiveCodes height="500px" />;
@@ -97,7 +92,6 @@ In addition, the following props are also available:
   Example:
 
   ```tsx title="JSX"
-  import React from 'react';
   import LiveCodes from 'livecodes/react';
 
   const style = {
@@ -116,7 +110,7 @@ In addition, the following props are also available:
   Example:
 
   ```tsx title="TSX"
-  import React, { useState } from 'react';
+  import { useState } from 'react';
   import LiveCodes from 'livecodes/react';
   import type { Playground } from 'livecodes';
 
@@ -143,8 +137,7 @@ In addition, the following props are also available:
 ## Demo
 
 export const reactSDKDemo = {
-jsx: `import React from "react";\nimport { createRoot } from "react-dom/client";\nimport LiveCodes from "livecodes/react";\n\nconst App = () => {\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, Svelte!")',\n    console: "open",\n  };\n\n  return <LiveCodes params={params} />;\n};\n\nconst root = createRoot(document.querySelector("#app"));\nroot.render(<App />);\n`,
-html: `<div id="app">Loading...</div>`,
+jsx: `import LiveCodes from "livecodes/react";\n\nconst App = () => {\n  const params = {\n    html: "<h1>Hello World!</h1>",\n    css: "h1 {color: blue;}",\n    js: 'console.log("Hello, World!")',\n    console: "open",\n  };\n\n  return <LiveCodes params={params} />;\n};\n\nexport default App;\n`
 }
 
 <LiveCodes params={reactSDKDemo} height="80vh" />
