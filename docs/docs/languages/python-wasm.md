@@ -1,3 +1,7 @@
+---
+toc_max_heading_level: 4
+---
+
 # Python (Wasm)
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
@@ -25,15 +29,17 @@ In addition, since the Python code is running on the client-side, it has access 
 
 ### Loading Modules
 
-Modules can just be imported in code without the need for any explicit installs. The modules are automatically loaded using [micropip](https://micropip.pyodide.org).
+Most of the modules in the Python standard library and many external packages can be used directly without explicit installs.
 
-### Standard Library
+#### Standard Library
 
 Most of the Python standard library is functional, except for the modules [listed here](https://pyodide.org/en/stable/usage/wasm-constraints.html).
 
-### External Packages
+#### External Packages
 
 Pyodide allows using many external packages (all pure Python packages on PyPI and many general-purpose and scientific [packages built in Pyodide](https://pyodide.org/en/stable/usage/packages-in-pyodide.html)).
+
+Most of the time, a [distribution package provides one single import package](https://packaging.python.org/en/latest/discussions/distribution-package-vs-import-package/) (or non-package module), with a matching name. For example, `pip install numpy` lets you `import numpy`. In these cases, modules can just be imported in code without the need for any explicit installs. The modules are automatically loaded using [micropip](https://micropip.pyodide.org).
 
 Example:
 
@@ -41,6 +47,15 @@ Example:
 export const libParams = { pyodide: `import snowballstemmer\nstemmer = snowballstemmer.stemmer('english')\nprint(stemmer.stemWords('go goes going gone'.split()))\n`, languages: 'pyodide', console: 'full', compiled: 'none' };
 
 <RunInLiveCodes params={libParams} code={libParams.pyodide} language="python" formatCode={false}></RunInLiveCodes>
+
+However, modules with different import names (e.g. `pkg_resources` module from `setuptools` package) need to be explicitly installed using [micropip](https://micropip.pyodide.org).
+
+Example:
+
+<!-- prettier-ignore -->
+export const micropipParams = { pyodide: `import micropip\nawait micropip.install("setuptools")\n\nimport pkg_resources\nprint(pkg_resources.get_distribution("setuptools").version)\n`, languages: 'pyodide', console: 'full', compiled: 'none' };
+
+<RunInLiveCodes params={micropipParams} code={micropipParams.pyodide} language="python" formatCode={false}></RunInLiveCodes>
 
 In addition, [micropip](https://micropip.pyodide.org) can be used to load external packages from custom URLs. See [examples](https://micropip.pyodide.org/en/stable/project/usage.html#examples).
 

@@ -70,6 +70,7 @@ __builtins__.input = input
 
   async function loadPackagesInCode(code: string) {
     const pkgMap = {
+      skimage: 'scikit-image',
       sklearn: 'scikit-learn',
     };
     const packages = [...livecodes.pyodide.pyodide_py.code.find_imports(code)];
