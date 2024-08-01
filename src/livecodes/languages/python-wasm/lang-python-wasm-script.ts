@@ -1,9 +1,12 @@
 /* eslint-disable no-underscore-dangle */
-import { pyodideBaseUrl } from '../../vendors';
+import { fontAwesomeUrl, pyodideBaseUrl } from '../../vendors';
 
 declare const loadPyodide: any;
 
 if (livecodes.pyodideLoading === undefined) {
+  livecodes.pyodideLoading = new Promise((resolve) => {
+    livecodes.resolveLoading = resolve;
+  });
   const script = document.createElement('script');
   script.src = `${pyodideBaseUrl}pyodide.js`;
   document.head.append(script);
@@ -18,22 +21,17 @@ window.addEventListener('load', async () => {
     // already loaded
     if (livecodes.pyodideLoading === false) return;
     // still loading
-    if (livecodes.pyodideLoading) {
+    if (livecodes.pyodide && livecodes.pyodideLoading) {
       await livecodes.pyodideLoading;
       return;
     }
     // start loading
-    livecodes.pyodideLoading = new Promise<void>(async (resolve) => {
-      livecodes.pyodide = await loadPyodide({
-        indexURL: pyodideBaseUrl,
-      });
-      await livecodes.pyodide.loadPackage('micropip');
-      livecodes.micropip = livecodes.pyodide.pyimport('micropip');
-      livecodes.pyodideLoading = false;
-      livecodes.excludedPackages = [];
-      resolve();
-    });
-    await livecodes.pyodideLoading;
+    livecodes.pyodide = await loadPyodide({ indexURL: pyodideBaseUrl });
+    await livecodes.pyodide.loadPackage('micropip');
+    livecodes.micropip = livecodes.pyodide.pyimport('micropip');
+    livecodes.pyodideLoading = false;
+    livecodes.excludedPackages = [];
+    livecodes.resolveLoading?.();
   }
 
   async function cleanUp() {
@@ -52,6 +50,12 @@ window.addEventListener('load', async () => {
   }
 
   async function prepareEnv() {
+    // needed for matplotlib icons
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = fontAwesomeUrl;
+    document.head.append(stylesheet);
+
     await pyodideReady;
     const patchInput = `
 from js import prompt
@@ -65,17 +69,22 @@ __builtins__.input = input
   }
 
   async function loadPackagesInCode(code: string) {
+    const pkgMap = {
+      skimage: 'scikit-image',
+      sklearn: 'scikit-learn',
+    };
     const packages = [...livecodes.pyodide.pyodide_py.code.find_imports(code)];
     const newPackages = packages.filter(
       (p) => !(p in livecodes.pyodide.loadedPackages) && !livecodes.excludedPackages.includes(p),
     );
     for (const p of newPackages) {
+      const pkg = (pkgMap as any)[p] ?? p;
       try {
-        await livecodes.micropip.install(p);
+        await livecodes.micropip.install(pkg);
       } catch (err) {
         // in Pyodide v0.26.x this needs to be done,
         // otherwise the following micropip installs do not resolve
-        // livecodes.excludedPackages.push(p);
+        // livecodes.excludedPackages.push(pkg);
       }
     }
   }
