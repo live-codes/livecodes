@@ -1314,6 +1314,7 @@ export type TemplateName =
   | 'jest-react'
   | 'bootstrap'
   | 'tailwindcss'
+  | 'phaser'
   | 'coffeescript'
   | 'livescript'
   | 'civet'

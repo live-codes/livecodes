@@ -61,6 +61,7 @@ import { phpWasmStarter } from './php-wasm-starter';
 import { litStarter } from './lit-starter';
 import { postgresqlStarter } from './postgresql-starter';
 import { gleamStarter } from './gleam-starter';
+import { phaserStarter } from './phaser-starter';
 
 export const starterTemplates = [
   blank,
@@ -87,6 +88,7 @@ export const starterTemplates = [
   jestReactStarter,
   bootstrapStarter,
   tailwindcssStarter,
+  phaserStarter,
   coffeescriptStarter,
   livescriptStarter,
   civetStarter,
