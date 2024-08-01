@@ -62,6 +62,7 @@ import { litStarter } from './lit-starter';
 import { postgresqlStarter } from './postgresql-starter';
 import { gleamStarter } from './gleam-starter';
 import { phaserStarter } from './phaser-starter';
+import { d3Starter } from './d3-starter';
 
 export const starterTemplates = [
   blank,
@@ -88,6 +89,7 @@ export const starterTemplates = [
   jestReactStarter,
   bootstrapStarter,
   tailwindcssStarter,
+  d3Starter,
   phaserStarter,
   coffeescriptStarter,
   livescriptStarter,
