@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file. See [standa
 
 ---
 
+## [v35](https://github.com/live-codes/livecodes/compare/v34...v35) (2024-08-01)
+
+### Highlights for this release:
+
+- Added starter templates for D3 and Phaser:
+
+  - https://livecodes.io/?template=d3
+  - https://livecodes.io/?template=phaser
+
+- Fixed solid-js compiler
+
+### Bug Fixes
+
+- **Compilers:** fix solid-js compiler ([f96032d](https://github.com/live-codes/livecodes/commit/f96032d937c0fb617eec9e59d26eea88be8ead5f))
+
+### Features
+
+- **Templates:** add Phaser starter template ([3eb208b](https://github.com/live-codes/livecodes/commit/3eb208b281601477d1ecdd08a740bd43651d7eb1))
+- **Templates:** restore D3 template ([56d064f](https://github.com/live-codes/livecodes/commit/56d064f2db9b4a446bffc3b00cdecd69ce704f3f))
+
+---
+
 ## [v34](https://github.com/live-codes/livecodes/compare/sdk-v0.6.0...0.0.0) (2024-07-27)
 
 - **Config:** allow setting custom editor title ([95287d0](https://github.com/live-codes/livecodes/commit/95287d07d88fe75ca22c69e4c2c5d3241aae4069))

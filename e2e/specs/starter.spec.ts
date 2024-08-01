@@ -9,6 +9,7 @@ const templates = [
   'Angular',
   'Preact',
   'Svelte',
+  'Solid',
   'Lit',
   'Stencil',
   'MDX',
@@ -239,6 +240,42 @@ test.describe('Starter Templates from UI', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('d3 Starter', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=D3 Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(2_000);
+
+    expect(await getResult().isVisible('svg')).toBe(true);
+  });
+
+  test('Phaser Starter', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl());
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await app.click('[aria-label="Menu"]');
+    await app.click('text=New');
+    await app.click('text=Phaser Starter');
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(2_000);
+
+    expect(await getResult().isVisible('canvas')).toBe(true);
   });
 
   test('lua-wasm Starter', async ({ page, getTestUrl, editor }) => {
@@ -773,6 +810,34 @@ test.describe('Starter Templates from URL', () => {
 
     const counterText = await getResult().innerText('text=You clicked');
     expect(counterText).toBe('You clicked 3 times.');
+  });
+
+  test('D3 Starter (in URL)', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'd3' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(2_000);
+
+    expect(await getResult().isVisible('svg')).toBe(true);
+  });
+
+  test('Phaser Starter (in URL)', async ({ page, getTestUrl, editor }) => {
+    test.slow();
+
+    await page.goto(getTestUrl({ template: 'phaser' }));
+
+    const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
+
+    await waitForEditorFocus(app);
+    await waitForResultUpdate();
+    await app.waitForTimeout(2_000);
+
+    expect(await getResult().isVisible('canvas')).toBe(true);
   });
 
   test('lua-wasm Starter (in URL)', async ({ page, getTestUrl, editor }) => {
