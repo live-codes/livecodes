@@ -963,7 +963,7 @@ declare module "sdk/models" {
         tools?: Config['tools'];
         autotest?: Config['autotest'];
     };
-    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
+    export type TemplateName = 'blank' | 'javascript' | 'typescript' | 'react' | 'react-native' | 'vue2' | 'vue' | 'angular' | 'preact' | 'svelte' | 'solid' | 'lit' | 'stencil' | 'mdx' | 'astro' | 'riot' | 'malina' | 'jquery' | 'backbone' | 'knockout' | 'jest' | 'jest-react' | 'bootstrap' | 'tailwindcss' | 'd3' | 'phaser' | 'coffeescript' | 'livescript' | 'civet' | 'clio' | 'imba' | 'rescript' | 'reason' | 'ocaml' | 'python' | 'pyodide' | 'python-wasm' | 'r' | 'ruby' | 'ruby-wasm' | 'go' | 'php' | 'php-wasm' | 'cpp' | 'clang' | 'cpp-wasm' | 'perl' | 'lua' | 'lua-wasm' | 'teal' | 'fennel' | 'julia' | 'scheme' | 'commonlisp' | 'clojurescript' | 'gleam' | 'tcl' | 'markdown' | 'assemblyscript' | 'wat' | 'sql' | 'postgresql' | 'prolog' | 'blockly' | 'diagrams';
     export interface Tool {
         name: 'console' | 'compiled' | 'tests';
         title: 'Console' | 'Compiled' | 'Tests';
@@ -5804,6 +5804,10 @@ declare module "livecodes/templates/starter/cpp-wasm-starter" {
     import type { Template } from "livecodes/models";
     export const cppWasmStarter: Template;
 }
+declare module "livecodes/templates/starter/d3-starter" {
+    import type { Template } from "livecodes/models";
+    export const d3Starter: Template;
+}
 declare module "livecodes/templates/starter/diagrams-starter" {
     import type { Template } from "livecodes/models";
     export const diagramsStarter: Template;
@@ -5991,6 +5995,10 @@ declare module "livecodes/templates/starter/lit-starter" {
 declare module "livecodes/templates/starter/postgresql-starter" {
     import type { Template } from "livecodes/models";
     export const postgresqlStarter: Template;
+}
+declare module "livecodes/templates/starter/phaser-starter" {
+    import type { Template } from "livecodes/models";
+    export const phaserStarter: Template;
 }
 declare module "livecodes/templates/starter/index" {
     export const starterTemplates: import("sdk/models").Template[];
