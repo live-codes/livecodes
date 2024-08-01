@@ -186,6 +186,23 @@ Vue SDK example: ([open in LiveCodes](https://livecodes.io/?x=code/N4IgLglmA2CmI
 </template>
 ```
 
+In addition, the SDK allows creating links to playgrounds:
+
+```js
+import { getPlaygroundUrl } from 'livecodes';
+
+const url = getPlaygroundUrl({
+  config: {
+    markup: {
+      language: 'markdown',
+      content: '# Hello World!',
+    },
+  },
+});
+
+console.log(url);
+```
+
 See [SDK docs](https://livecodes.io/docs/sdk/) for more details.
 
 ## Documentations
