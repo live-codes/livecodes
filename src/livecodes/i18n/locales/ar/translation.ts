@@ -1,3 +1,5 @@
+// ATTENTION: This file is auto-generated from source code. Do not edit manually!
+
 import type { I18nTranslation } from '../models';
 
 const translation: I18nTranslation = {
@@ -9,6 +11,7 @@ const translation: I18nTranslation = {
       home: '',
       license: '',
     },
+    heading: '',
     livecodes: {
       para1: '',
       para2: '',
@@ -21,6 +24,57 @@ const translation: I18nTranslation = {
       sdk: '',
       sdkPermanentUrl: '',
     },
+  },
+  app: {
+    copy: {
+      hint: '',
+    },
+    copyAsUrl: {
+      hint: '',
+    },
+    customSettings: {
+      hint: '',
+    },
+    editorMode: {
+      hint: '',
+    },
+    editorSettings: {
+      hint: '',
+    },
+    externalResources: {
+      hint: '',
+    },
+    focus: {
+      hint: '',
+    },
+    format: {
+      hint: '',
+    },
+    fullscreen: {
+      hint: '',
+    },
+    logo: {
+      title: '',
+    },
+    projectInfo: {
+      hint: '',
+    },
+    redo: {
+      hint: '',
+    },
+    result: {
+      hint: '',
+    },
+    run: {
+      hint: '',
+    },
+    share: {
+      hint: '',
+    },
+    undo: {
+      hint: '',
+    },
+    untitledProject: '',
   },
   assets: {
     add: {
@@ -341,7 +395,6 @@ const translation: I18nTranslation = {
     },
   },
   generic: {
-    Loading: '',
     about: {
       blog: '',
       configuration: '',
@@ -353,6 +406,7 @@ const translation: I18nTranslation = {
       twitter: '',
     },
     clickForInfo: '',
+    close: '',
     error: {
       authentication: '',
       exceededSize: '',
@@ -680,6 +734,33 @@ const translation: I18nTranslation = {
     heading: '',
     load: '',
     tests: '',
+  },
+  toolspane: {
+    close: '',
+    console: {
+      clear: '',
+    },
+    test: {
+      edit: '',
+      error: '',
+      loading: '',
+      noTest: '',
+      reset: '',
+      run: {
+        desc: '',
+        heading: '',
+      },
+      summary: {
+        failed: '',
+        passed: '',
+        skipped: '',
+        total: '',
+      },
+      watch: {
+        desc: '',
+        heading: '',
+      },
+    },
   },
   welcome: {
     about: {

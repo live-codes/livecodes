@@ -1,3 +1,5 @@
+// ATTENTION: This file is auto-generated from source code. Do not edit manually!
+
 import type { I18nLangInfoTranslation } from '../models';
 
 const languageInfo: I18nLangInfoTranslation = {
