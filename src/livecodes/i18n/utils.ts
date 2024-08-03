@@ -203,7 +203,12 @@ const unabstractifyHTML = (html: string, elements: TagElement[]) => {
     oldElement.replaceWith(newElement);
   });
 
-  return doc.body.innerHTML;
+  let unabstractifiedHTML = doc.body.innerHTML;
+  for (const [original, replaced] of Object.entries(predefinedValues)) {
+    unabstractifiedHTML = unabstractifiedHTML.replaceAll(`{{${original}}}`, replaced);
+  }
+
+  return unabstractifiedHTML;
 };
 
 /**

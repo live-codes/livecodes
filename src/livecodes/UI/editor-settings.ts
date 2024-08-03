@@ -74,7 +74,6 @@ export const createEditorSettingsUI = async ({
         'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{DOCS_BASE_URL}}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
         {
           isHTML: true,
-          DOCS_BASE_URL: process.env.DOCS_BASE_URL,
         },
       ),
     },
