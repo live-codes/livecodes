@@ -404,7 +404,6 @@ const translation = {
     },
   },
   generic: {
-    Loading: 'Loading...',
     about: {
       blog: 'Blog',
       configuration: 'Configuration',
@@ -416,6 +415,7 @@ const translation = {
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Click for info...',
+    close: 'Close',
     error: {
       authentication: 'Authentication error!',
       exceededSize: 'Error: Exceeded size {{size}} MB',
@@ -743,6 +743,34 @@ const translation = {
     heading: 'Edit Tests',
     load: 'Load',
     tests: 'Tests',
+  },
+  toolspane: {
+    close: 'Close',
+    console: {
+      clear: 'Clear console',
+    },
+    test: {
+      edit: 'Edit',
+      error: '<1><2>Test error!</2></1>',
+      loading: '<1>Loading tests...</1>',
+      noTest: '<1>This project has no tests!</1>',
+      reset: 'Reset',
+      run: {
+        desc: 'Ctrl/Cmd + Alt + T',
+        heading: 'Run',
+      },
+      summary: {
+        desc: 'Tests: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></1>\nTime: {{duration}}s',
+        failed: '{{failedNum}} failed',
+        passed: '{{passedNum}} passed',
+        skipped: '{{skippedNum}} skipped',
+        total: '{{totalNum}} total',
+      },
+      watch: {
+        desc: 'Run tests when code changes',
+        heading: 'Watch',
+      },
+    },
   },
   welcome: {
     about: {

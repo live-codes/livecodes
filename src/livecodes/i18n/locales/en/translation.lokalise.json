@@ -924,10 +924,6 @@
     "notes": "",
     "translation": "Split"
   },
-  "generic.Loading": {
-    "notes": "",
-    "translation": "Loading..."
-  },
   "generic.about.blog": {
     "notes": "",
     "translation": "Blog"
@@ -963,6 +959,10 @@
   "generic.clickForInfo": {
     "notes": "",
     "translation": "Click for info..."
+  },
+  "generic.close": {
+    "notes": "",
+    "translation": "Close"
   },
   "generic.error.authentication": {
     "notes": "",
@@ -1831,6 +1831,70 @@
   "testEditor.tests": {
     "notes": "",
     "translation": "Tests"
+  },
+  "toolspane.close": {
+    "notes": "",
+    "translation": "Close"
+  },
+  "toolspane.console.clear": {
+    "notes": "",
+    "translation": "Clear console"
+  },
+  "toolspane.test.edit": {
+    "notes": "",
+    "translation": "Edit"
+  },
+  "toolspane.test.error": {
+    "notes": "### <tag-1> ###\n<div class=\"no-tests\" />\n\n### <tag-2> ###\n<span class=\"fail\" />\n\n",
+    "translation": "<tag-1><tag-2>Test error!</tag-2></tag-1>"
+  },
+  "toolspane.test.loading": {
+    "notes": "### <tag-1> ###\n<div class=\"test-summary\" />\n\n",
+    "translation": "<tag-1>Loading tests...</tag-1>"
+  },
+  "toolspane.test.noTest": {
+    "notes": "### <tag-1> ###\n<div class=\"no-tests\" />\n\n",
+    "translation": "<tag-1>This project has no tests!</tag-1>"
+  },
+  "toolspane.test.reset": {
+    "notes": "",
+    "translation": "Reset"
+  },
+  "toolspane.test.run.desc": {
+    "notes": "",
+    "translation": "Ctrl/Cmd + Alt + T"
+  },
+  "toolspane.test.run.heading": {
+    "notes": "",
+    "translation": "Run"
+  },
+  "toolspane.test.summary.desc": {
+    "notes": "### <tag-1> ###\n<br  />\n\n",
+    "translation": "Tests: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<tag-1></tag-1>\nTime: {{duration}}s"
+  },
+  "toolspane.test.summary.failed": {
+    "notes": "",
+    "translation": "{{failedNum}} failed"
+  },
+  "toolspane.test.summary.passed": {
+    "notes": "",
+    "translation": "{{passedNum}} passed"
+  },
+  "toolspane.test.summary.skipped": {
+    "notes": "",
+    "translation": "{{skippedNum}} skipped"
+  },
+  "toolspane.test.summary.total": {
+    "notes": "",
+    "translation": "{{totalNum}} total"
+  },
+  "toolspane.test.watch.desc": {
+    "notes": "",
+    "translation": "Run tests when code changes"
+  },
+  "toolspane.test.watch.heading": {
+    "notes": "",
+    "translation": "Watch"
   },
   "welcome.about.documentation": {
     "notes": "",

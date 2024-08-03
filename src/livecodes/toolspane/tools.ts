@@ -297,7 +297,7 @@ export const createToolsPane = (
 
     const btnContainer = document.createElement('span');
     btnContainer.classList.add('hint--top-left');
-    btnContainer.dataset.hint = 'Close';
+    btnContainer.dataset.hint = window.deps.translateString('toolspane.close', 'Close');
     const closeButton = document.createElement('button');
     closeButton.classList.add('delete-button');
 

@@ -47,7 +47,7 @@ export const createModal = () => {
       closeContainer.className = 'close-container';
       const closeBtn = document.createElement('button');
       closeBtn.classList.add('button');
-      closeBtn.innerHTML = 'Close';
+      closeBtn.innerHTML = window.deps.translateString('generic.close', 'Close');
       closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
       modal.appendChild(closeContainer);

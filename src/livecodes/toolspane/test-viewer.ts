@@ -13,7 +13,13 @@ export const createTestViewer = (
   runTests: () => Promise<void>,
 ): TestViewer => {
   let testResultsElement: HTMLElement;
-  const loading = '<div class="test-summary">Loading tests...</div>';
+  const loading = window.deps.translateString(
+    'toolspane.test.loading',
+    '<div class="test-summary">Loading tests...</div>',
+    {
+      isHTML: true,
+    },
+  );
 
   const createElements = () => {
     if (testResultsElement) return;
@@ -27,14 +33,14 @@ export const createTestViewer = (
     testActions.id = 'test-actions';
     testActions.classList.add('buttons');
     testActions.innerHTML = `
-    <a id="run-tests-btn" href="#" class="button hint--top" data-hint="Ctrl/Cmd + Alt + T">
-      ${icons.run} Run
+    <a id="run-tests-btn" href="#" class="button hint--top" data-hint="${window.deps.translateString('toolspane.test.run.desc', 'Ctrl/Cmd + Alt + T')}">
+      ${icons.run} ${window.deps.translateString('toolspane.test.run.heading', 'Run')}
     </a>
-    <a id="watch-tests-btn" href="#" class="button disabled hint--top" data-hint="Run tests when code changes">
-      ${icons.checked} ${icons.unchecked} Watch
+    <a id="watch-tests-btn" href="#" class="button disabled hint--top" data-hint="${window.deps.translateString('toolspane.test.watch.desc', 'Run tests when code changes')}">
+      ${icons.checked} ${icons.unchecked} ${window.deps.translateString('toolspane.test.watch.heading', 'Watch')}
     </a>
-    <a id="reset-tests-btn" href="#" class="button">${icons.reset} Reset</a>
-    ${isEmbed ? '' : '<a id="edit-tests-btn" href="#" class="button">' + icons.edit + ' Edit</a>'}
+    <a id="reset-tests-btn" href="#" class="button">${icons.reset} ${window.deps.translateString('toolspane.test.reset', 'Reset')}</a>
+    ${isEmbed ? '' : '<a id="edit-tests-btn" href="#" class="button">' + icons.edit + ` ${window.deps.translateString('toolspane.test.edit', 'Edit')}</a>`}
     `;
     container.appendChild(testActions);
 
@@ -86,13 +92,24 @@ export const createTestViewer = (
     testResultsElement.innerHTML = '';
 
     if (error) {
-      testResultsElement.innerHTML =
-        '<div class="no-tests"><span class="fail">Test error!</span></div>';
+      testResultsElement.innerHTML = window.deps.translateString(
+        'toolspane.test.error',
+        '<div class="no-tests"><span class="fail">Test error!</span></div>',
+        {
+          isHTML: true,
+        },
+      );
       return;
     }
 
     if (results.length === 0) {
-      testResultsElement.innerHTML = '<div class="no-tests">This project has no tests!</div>';
+      testResultsElement.innerHTML = window.deps.translateString(
+        'toolspane.test.noTest',
+        '<div class="no-tests">This project has no tests!</div>',
+        {
+          isHTML: true,
+        },
+      );
       return;
     }
 
@@ -122,13 +139,32 @@ export const createTestViewer = (
     const duration = results.reduce((totalDuration, r) => totalDuration + r.duration, 0) / 1000;
     const summary = document.createElement('div');
     summary.classList.add('test-summary');
-    summary.innerHTML = `
-    Tests: ${failed !== 0 ? '<span class="fail">' + failed + ' failed</span>,' : ''}
-           ${passed !== 0 ? '<span class="pass">' + passed + ' passed</span>,' : ''}
-           ${skipped !== 0 ? '<span class="skip">' + skipped + ' skipped</span>,' : ''}
-           ${total} total <br />
-    Time: ${duration}s
-`;
+    summary.innerHTML = window.deps.translateString(
+      'toolspane.test.summary.desc',
+      'Tests: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<br />\nTime: {{duration}}s',
+      {
+        isHTML: true,
+        failed:
+          failed !== 0
+            ? '<span class="fail">' +
+              `${window.deps.translateString('toolspane.test.summary.failed', '{{failedNum}} failed', { failedNum: failed })}</span>,`
+            : '',
+        passed:
+          passed !== 0
+            ? '<span class="pass">' +
+              ` ${window.deps.translateString('toolspane.test.summary.passed', '{{passedNum}} passed', { passedNum: passed })}</span>,`
+            : '',
+        skipped:
+          skipped !== 0
+            ? '<span class="skip">' +
+              ` ${window.deps.translateString('toolspane.test.summary.skipped', '{{skippedNum}} skipped', { skippedNum: skipped })}</span>,`
+            : '',
+        total: window.deps.translateString('toolspane.test.summary.total', '{{totalNum}} total', {
+          totalNum: total,
+        }),
+        duration,
+      },
+    );
     testResultsElement.prepend(summary);
   };
 
