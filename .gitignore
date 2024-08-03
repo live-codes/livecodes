@@ -9,3 +9,4 @@ docs/docs/api
 /playwright-report/
 /playwright/.cache/
 src/livecodes/i18n/locales/tmp/
+lokalise_tmp
