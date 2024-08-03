@@ -35,7 +35,10 @@ const excludeLocales = () => {
         let content = fs.readFileSync(file, 'utf8');
 
         if (phase === 'pre') {
-          content = TS_NOCHECK + content;
+          if (!content.startsWith(TS_NOCHECK)) {
+            // Only add the comment if it doesn't exist
+            content = TS_NOCHECK + content;
+          }
         } else if (phase === 'post') {
           content = content.replace(TS_NOCHECK, '');
         }
