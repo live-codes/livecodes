@@ -20,6 +20,10 @@
     "notes": "",
     "translation": "License"
   },
+  "about.heading": {
+    "notes": "",
+    "translation": "About LiveCodes"
+  },
   "about.livecodes.para1": {
     "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n### <tag-3> ###\n<a href=\"{{REPO_URL}}\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}features/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<a href=\"{{DOCS_BASE_URL}}why#client-side\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<wbr  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}features/embeds\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<a href=\"{{DOCS_BASE_URL}}features/code-prefill\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an <tag-3>open-source</tag-3>, <tag-4>feature-rich</tag-4>, <tag-5>client-side</tag-5> code playground. Currently, <tag-6>80+ languages/<tag-7></tag-7>frameworks</tag-6> are supported. It can be used as a standalone app or can be <tag-8>embedded</tag-8> in any web page. There are many ways to <tag-9>prefill playgrounds</tag-9> with code."

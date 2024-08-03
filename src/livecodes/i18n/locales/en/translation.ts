@@ -18,6 +18,7 @@ const translation = {
       home: 'Home',
       license: 'License',
     },
+    heading: 'About LiveCodes',
     livecodes: {
       para1:
         '<1><2>LiveCodes</2></1> is an <3>open-source</3>, <4>feature-rich</4>, <5>client-side</5> code playground. Currently, <6>80+ languages/<7></7>frameworks</6> are supported. It can be used as a standalone app or can be <8>embedded</8> in any web page. There are many ways to <9>prefill playgrounds</9> with code.',
