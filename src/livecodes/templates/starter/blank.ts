@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const blank: Template = {
   name: 'blank',
-  title: 'Blank Project',
+  title: window.deps.translateString('templates.starter.blank', 'Blank Project'),
   thumbnail: 'assets/templates/blank.svg',
   activeEditor: 'markup',
   markup: {

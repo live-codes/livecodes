@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const litStarter: Template = {
   name: 'lit',
-  title: 'Lit Starter',
+  title: window.deps.translateString('templates.starter.lit', 'Lit Starter'),
   thumbnail: 'assets/templates/lit.svg',
   activeEditor: 'script',
   markup: {

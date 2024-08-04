@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const clioStarter: Template = {
   name: 'clio',
-  title: 'Clio Starter',
+  title: window.deps.translateString('templates.starter.clio', 'Clio Starter'),
   thumbnail: 'assets/templates/clio.png',
   activeEditor: 'script',
   markup: {

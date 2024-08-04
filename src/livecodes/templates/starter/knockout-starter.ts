@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const knockoutStarter: Template = {
   name: 'knockout',
-  title: 'Knockout Starter',
+  title: window.deps.translateString('templates.starter.knockout', 'Knockout Starter'),
   thumbnail: 'assets/templates/knockout.svg',
   activeEditor: 'script',
   markup: {

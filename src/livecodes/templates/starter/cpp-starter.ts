@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const cppStarter: Template = {
   name: 'cpp',
-  title: 'C++ Starter',
+  title: window.deps.translateString('templates.starter.cpp', 'C++ Starter'),
   thumbnail: 'assets/templates/cpp.svg',
   activeEditor: 'script',
   markup: {

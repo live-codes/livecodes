@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const blocklyStarter: Template = {
   name: 'blockly',
-  title: 'Blockly Starter',
+  title: window.deps.translateString('templates.starter.blockly', 'Blockly Starter'),
   thumbnail: 'assets/templates/blockly.svg',
   activeEditor: 'script',
   markup: {

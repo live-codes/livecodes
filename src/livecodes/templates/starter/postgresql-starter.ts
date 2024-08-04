@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const postgresqlStarter: Template = {
   name: 'postgresql',
-  title: 'PostgreSQL Starter',
+  title: window.deps.translateString('templates.starter.postgresql', 'PostgreSQL Starter'),
   thumbnail: 'assets/templates/postgresql.svg',
   activeEditor: 'script',
   markup: {

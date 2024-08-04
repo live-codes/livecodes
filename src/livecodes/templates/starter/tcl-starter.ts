@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const tclStarter: Template = {
   name: 'tcl',
-  title: 'Tcl Starter',
+  title: window.deps.translateString('templates.starter.tcl', 'Tcl Starter'),
   thumbnail: 'assets/templates/tcl.svg',
   activeEditor: 'script',
   markup: {

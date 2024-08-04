@@ -1804,13 +1804,249 @@
     "notes": "",
     "translation": "You have no saved templates."
   },
+  "templates.starter.angular": {
+    "notes": "",
+    "translation": "Angular Starter"
+  },
+  "templates.starter.assemblyscript": {
+    "notes": "",
+    "translation": "AssemblyScript Starter"
+  },
+  "templates.starter.astro": {
+    "notes": "",
+    "translation": "Astro Starter"
+  },
+  "templates.starter.backbone": {
+    "notes": "",
+    "translation": "Backbone Starter"
+  },
+  "templates.starter.blank": {
+    "notes": "",
+    "translation": "Blank Project"
+  },
+  "templates.starter.blockly": {
+    "notes": "",
+    "translation": "Blockly Starter"
+  },
+  "templates.starter.bootstrap": {
+    "notes": "",
+    "translation": "Bootstrap Starter"
+  },
+  "templates.starter.civet": {
+    "notes": "",
+    "translation": "Civet Starter"
+  },
+  "templates.starter.clio": {
+    "notes": "",
+    "translation": "Clio Starter"
+  },
+  "templates.starter.clojurescript": {
+    "notes": "",
+    "translation": "ClojureScript Starter"
+  },
+  "templates.starter.coffeescript": {
+    "notes": "",
+    "translation": "CoffeeScript Starter"
+  },
+  "templates.starter.commonlisp": {
+    "notes": "",
+    "translation": "Common Lisp Starter"
+  },
+  "templates.starter.cpp": {
+    "notes": "",
+    "translation": "C++ Starter"
+  },
+  "templates.starter.diagrams": {
+    "notes": "",
+    "translation": "Diagrams Starter"
+  },
+  "templates.starter.fennel": {
+    "notes": "",
+    "translation": "Fennel Starter"
+  },
+  "templates.starter.gleam": {
+    "notes": "",
+    "translation": "Gleam Starter"
+  },
+  "templates.starter.go": {
+    "notes": "",
+    "translation": "Go Starter"
+  },
   "templates.starter.heading": {
     "notes": "",
     "translation": "Starter Templates"
   },
+  "templates.starter.imba": {
+    "notes": "",
+    "translation": "Imba Starter"
+  },
+  "templates.starter.javascript": {
+    "notes": "",
+    "translation": "JavaScript Starter"
+  },
+  "templates.starter.jest": {
+    "notes": "",
+    "translation": "Jest Starter"
+  },
+  "templates.starter.jest-react": {
+    "notes": "",
+    "translation": "Jest/React Starter"
+  },
+  "templates.starter.jquery": {
+    "notes": "",
+    "translation": "jQuery Starter"
+  },
+  "templates.starter.julia": {
+    "notes": "",
+    "translation": "Julia Starter"
+  },
+  "templates.starter.knockout": {
+    "notes": "",
+    "translation": "Knockout Starter"
+  },
+  "templates.starter.lit": {
+    "notes": "",
+    "translation": "Lit Starter"
+  },
+  "templates.starter.livescript": {
+    "notes": "",
+    "translation": "LiveScript Starter"
+  },
   "templates.starter.loading": {
     "notes": "",
     "translation": "Loading starter templates..."
+  },
+  "templates.starter.lua": {
+    "notes": "",
+    "translation": "Lua Starter"
+  },
+  "templates.starter.lua-wasm": {
+    "notes": "",
+    "translation": "Lua (Wasm) Starter"
+  },
+  "templates.starter.malina": {
+    "notes": "",
+    "translation": "Malina.js Starter"
+  },
+  "templates.starter.markdown": {
+    "notes": "",
+    "translation": "Markdown Starter"
+  },
+  "templates.starter.mdx": {
+    "notes": "",
+    "translation": "MDX Starter"
+  },
+  "templates.starter.ocaml": {
+    "notes": "",
+    "translation": "Ocaml Starter"
+  },
+  "templates.starter.perl": {
+    "notes": "",
+    "translation": "Perl Starter"
+  },
+  "templates.starter.php": {
+    "notes": "",
+    "translation": "PHP Starter"
+  },
+  "templates.starter.php-wasm": {
+    "notes": "",
+    "translation": "PHP (Wasm) Starter"
+  },
+  "templates.starter.postgresql": {
+    "notes": "",
+    "translation": "PostgreSQL Starter"
+  },
+  "templates.starter.preact": {
+    "notes": "",
+    "translation": "Preact Starter"
+  },
+  "templates.starter.prolog": {
+    "notes": "",
+    "translation": "Prolog Starter"
+  },
+  "templates.starter.python": {
+    "notes": "",
+    "translation": "Python Starter"
+  },
+  "templates.starter.r": {
+    "notes": "",
+    "translation": "R Starter"
+  },
+  "templates.starter.react": {
+    "notes": "",
+    "translation": "React Starter"
+  },
+  "templates.starter.react-native": {
+    "notes": "",
+    "translation": "React Native Starter"
+  },
+  "templates.starter.reason": {
+    "notes": "",
+    "translation": "Reason Starter"
+  },
+  "templates.starter.rescript": {
+    "notes": "",
+    "translation": "ReScript Starter"
+  },
+  "templates.starter.riot": {
+    "notes": "",
+    "translation": "Riot.js Starter"
+  },
+  "templates.starter.ruby": {
+    "notes": "",
+    "translation": "Ruby Starter"
+  },
+  "templates.starter.ruby-wasm": {
+    "notes": "",
+    "translation": "Ruby (Wasm) Starter"
+  },
+  "templates.starter.scheme": {
+    "notes": "",
+    "translation": "Scheme Starter"
+  },
+  "templates.starter.solid": {
+    "notes": "",
+    "translation": "Solid Starter"
+  },
+  "templates.starter.sql": {
+    "notes": "",
+    "translation": "SQL Starter"
+  },
+  "templates.starter.stencil": {
+    "notes": "",
+    "translation": "Stencil Starter"
+  },
+  "templates.starter.svelte": {
+    "notes": "",
+    "translation": "Svelte Starter"
+  },
+  "templates.starter.tailwindcss": {
+    "notes": "",
+    "translation": "Tailwind CSS Starter"
+  },
+  "templates.starter.tcl": {
+    "notes": "",
+    "translation": "Tcl Starter"
+  },
+  "templates.starter.teal": {
+    "notes": "",
+    "translation": "Teal Starter"
+  },
+  "templates.starter.typescript": {
+    "notes": "",
+    "translation": "TypeScript Starter"
+  },
+  "templates.starter.vue": {
+    "notes": "",
+    "translation": "Vue 3 SFC Starter"
+  },
+  "templates.starter.vue2": {
+    "notes": "",
+    "translation": "Vue 2 Starter"
+  },
+  "templates.starter.wat": {
+    "notes": "",
+    "translation": "WebAssembly Text Starter"
   },
   "templates.user.heading": {
     "notes": "",

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const preactStarter: Template = {
   name: 'preact',
-  title: 'Preact Starter',
+  title: window.deps.translateString('templates.starter.preact', 'Preact Starter'),
   thumbnail: 'assets/templates/preact.svg',
   activeEditor: 'script',
   markup: {

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const svelteStarter: Template = {
   name: 'svelte',
-  title: 'Svelte Starter',
+  title: window.deps.translateString('templates.starter.svelte', 'Svelte Starter'),
   thumbnail: 'assets/templates/svelte.svg',
   activeEditor: 'script',
   markup: {

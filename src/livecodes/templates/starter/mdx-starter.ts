@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const mdxStarter: Template = {
   name: 'mdx',
-  title: 'MDX Starter',
+  title: window.deps.translateString('templates.starter.mdx', 'MDX Starter'),
   thumbnail: 'assets/templates/mdx.svg',
   activeEditor: 'markup',
   markup: {
