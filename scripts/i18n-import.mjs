@@ -44,6 +44,7 @@ const generateTranslationObject = async (source, validKeys) => {
 const importFromLokalise = async () => {
   const ciMode = process.env.CI === 'true';
   const forceLocalMode = process.argv.slice(2).includes('--force');
+  const useLocalResourcesMode = process.argv.slice(2).includes('--local');
 
   if (!ciMode && !forceLocalMode) {
     console.error('This script is intended to be run in CI mode or with --force flag.');
@@ -57,25 +58,27 @@ const importFromLokalise = async () => {
     exit(1);
   }
 
-  console.log('Fetching translations from Lokalise...');
-
   // Make a tmp directory to store the downloaded files
   const lokaliseTempDir = path.resolve(process.env.LOKALISE_TEMP);
 
-  const response = await api.files().download(`${projectID}:${branchName}`, {
-    format: 'json',
-    original_filenames: true,
-    placeholder_format: 'i18n',
-  });
-  console.log(`Downloading zip file from ${response.bundle_url}`);
+  if (!useLocalResourcesMode) {
+    console.log('Fetching translations from Lokalise...');
 
-  const zipPath = path.join(lokaliseTempDir, 'locales.zip');
-  const zipFile = await fetch(response.bundle_url);
-  await fs.promises.writeFile(zipPath, Buffer.from(await zipFile.arrayBuffer()));
+    const response = await api.files().download(`${projectID}:${branchName}`, {
+      format: 'json',
+      original_filenames: true,
+      placeholder_format: 'i18n',
+    });
+    console.log(`Downloading zip file from ${response.bundle_url}`);
 
-  console.log(`Extracting zip file to ${lokaliseTempDir}...`);
-  execSync(`unzip -o ${zipPath} -d ${lokaliseTempDir}`);
-  await fs.promises.unlink(zipPath);
+    const zipPath = path.join(lokaliseTempDir, 'locales.zip');
+    const zipFile = await fetch(response.bundle_url);
+    await fs.promises.writeFile(zipPath, Buffer.from(await zipFile.arrayBuffer()));
+
+    console.log(`Extracting zip file to ${lokaliseTempDir}...`);
+    execSync(`unzip -o ${zipPath} -d ${lokaliseTempDir}`);
+    await fs.promises.unlink(zipPath);
+  }
 
   const languages = await fs.promises.readdir(lokaliseTempDir);
   console.log(
