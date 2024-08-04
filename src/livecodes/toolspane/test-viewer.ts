@@ -170,7 +170,7 @@ export const createTestViewer = (
 
   return {
     name: 'tests',
-    title: 'Tests',
+    title: window.deps.translateString('toolspane.test.title', 'Tests'),
     load: async () => {
       createElements();
     },

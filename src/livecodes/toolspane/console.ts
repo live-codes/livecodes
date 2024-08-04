@@ -298,7 +298,7 @@ export const createConsole = (
 
   return {
     name: 'console',
-    title: 'Console',
+    title: window.deps.translateString('toolspane.console.title', 'Console'),
     load,
     onActivate: () => {
       if (!isMobile() && !isEmbed) {

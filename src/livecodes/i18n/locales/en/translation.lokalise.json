@@ -1836,9 +1836,17 @@
     "notes": "",
     "translation": "Close"
   },
+  "toolspane.compiled.title": {
+    "notes": "",
+    "translation": "Compiled"
+  },
   "toolspane.console.clear": {
     "notes": "",
     "translation": "Clear console"
+  },
+  "toolspane.console.title": {
+    "notes": "",
+    "translation": "Console"
   },
   "toolspane.test.edit": {
     "notes": "",
@@ -1887,6 +1895,10 @@
   "toolspane.test.summary.total": {
     "notes": "",
     "translation": "{{totalNum}} total"
+  },
+  "toolspane.test.title": {
+    "notes": "",
+    "translation": "Tests"
   },
   "toolspane.test.watch.desc": {
     "notes": "",

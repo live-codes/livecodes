@@ -746,8 +746,12 @@ const translation = {
   },
   toolspane: {
     close: 'Close',
+    compiled: {
+      title: 'Compiled',
+    },
     console: {
       clear: 'Clear console',
+      title: 'Console',
     },
     test: {
       edit: 'Edit',
@@ -766,6 +770,7 @@ const translation = {
         skipped: '{{skippedNum}} skipped',
         total: '{{totalNum}} total',
       },
+      title: 'Tests',
       watch: {
         desc: 'Run tests when code changes',
         heading: 'Watch',

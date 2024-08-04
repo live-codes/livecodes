@@ -1359,7 +1359,7 @@ export type TemplateName =
 
 export interface Tool {
   name: 'console' | 'compiled' | 'tests';
-  title: 'Console' | 'Compiled' | 'Tests';
+  title: string;
   load: () => Promise<void>;
   onActivate: () => void;
   onDeactivate: () => void;
@@ -1381,7 +1381,7 @@ export type ToolList = Array<{
 }>;
 
 export interface Console extends Tool {
-  title: 'Console';
+  title: string;
   log: (...args: any[]) => void;
   info: (...args: any[]) => void;
   table: (...args: any[]) => void;
@@ -1394,13 +1394,13 @@ export interface Console extends Tool {
 }
 
 export interface CompiledCodeViewer extends Tool {
-  title: 'Compiled';
+  title: string;
   update: (language: Language, content: string, label?: string | undefined) => void;
   reloadEditor: (config: Config) => Promise<void>;
 }
 
 export interface TestViewer extends Tool {
-  title: 'Tests';
+  title: string;
   showResults: ({ results, error }: { results: TestResult[]; error?: string }) => void;
   resetTests: () => void;
   clearTests: () => void;
