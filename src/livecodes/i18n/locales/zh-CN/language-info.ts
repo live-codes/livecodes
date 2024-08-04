@@ -72,13 +72,13 @@ const languageInfo: I18nLangInfoTranslation = {
   cppWasm: {
     desc: '运行在 WebAssembly 上的 Clang C/C++ 编译器，使用由 <2>polylang.io</tag-2> 适配的 <tag-1>wasm-clang</tag-1> 。',
     link: '<1> <tag-2>标准 C++ 基金会</tag-2> </tag-1> <tag-3> <tag-4>Clang 官网</tag-4> </tag-3> <tag-5> <tag-6>在 Y 分钟内学习 X，其中 X=C++</tag-6> </tag-5> <tag-7> <tag-8>加载启动模板</tag-8> </tag-7>',
-    name: 'C/C++ （WASM）',
+    name: 'C/C++（WASM）',
   },
   diagrams: {
     desc1: '（实验性）',
     desc2: '使用代码绘制图表。支持：',
     desc3:
-      '<1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> （使用 <tag-5>elkjs</tag-5>） </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> （使用 <tag-8>gnuplot-JS</tag-8>） </tag-6> <tag-9> <tag-10>Graphviz</tag-10> （使用 <tag-11>@hpcc-js/wasm</tag-11>） </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20><tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>',
+      '<1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4>（使用 <tag-5>elkjs</tag-5>） </tag-3> <tag-6> <tag-7>Gnuplot</tag-7>（使用 <tag-8>gnuplot-JS</tag-8>） </tag-6> <tag-9> <tag-10>Graphviz</tag-10>（使用 <tag-11>@hpcc-js/wasm</tag-11>） </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20><tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>',
     link: '<1> <tag-2>加载启动模板</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes 文档</tag-4> </tag-3>',
     name: '图表',
   },
@@ -169,7 +169,7 @@ const languageInfo: I18nLangInfoTranslation = {
   luaWasm: {
     desc: '使用 Wasmoon 在浏览器中运行的 Lua。Wasmoon 是一个真正的 Lua 5.4 虚拟机，附带使用 WebAssembly 制作的 JS 绑定。',
     link: '<1><tag-2>Lua 官方网站</tag-2></tag-1> <tag-3> <tag-4>Lua 文档</tag-4> </tag-3> <tag-5> <tag-6>Wasmoon GitHub 仓库</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=Lua</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>',
-    name: 'Lua （WASM）',
+    name: 'Lua（WASM）',
   },
   malina: {
     desc: '前端编译器，受到 Svelte 的启发。',
@@ -220,7 +220,7 @@ const languageInfo: I18nLangInfoTranslation = {
   phpWasm: {
     desc: '浏览器中的 PHP，由 WebAssembly 提供支持，使用 php-wasm。',
     link: '<1><tag-2>PHP 官方网站</tag-2></tag-1> <tag-3> <tag-4>PHP 文档</tag-4> </tag-3> <tag-5> <tag-6>php-wasm GitHub 仓库</tag-6> </tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=PHP</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>',
-    name: 'PHP （WASM）',
+    name: 'PHP（WASM）',
   },
   postgresql: {
     desc: '使用 PGlite 打包为 WASM 的 PostgreSQL。',
@@ -247,7 +247,7 @@ const languageInfo: I18nLangInfoTranslation = {
     desc2:
       'Pyodide 允许使用包括 NumPy, Pandas, Matplotlib, SciPy, scikit-learn 等库在内的 Python 科学技术栈。此外，还可以从 PyPI 安装纯 Python Wheel。',
     link: '<1> <tag-2>Python 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Python 文档</tag-4> </tag-3> <tag-5><tag-6>Pyodide 文档</tag-6></tag-5> <tag-7> <tag-8>在 Y 分钟内学习 X，其中 X=Python</tag-8> </tag-7> <tag-9> <tag-10>LiveCodes 文档</tag-10> </tag-9> <tag-11> <tag-12>加载启动模板</tag-12> </tag-11>',
-    name: 'Python （WASM）',
+    name: 'Python（WASM）',
   },
   r: {
     desc: '使用 WebR 在浏览器中运行的 R。',
@@ -294,7 +294,7 @@ const languageInfo: I18nLangInfoTranslation = {
   rubyWasm: {
     desc: '使用 ruby-wasm（移植到 WebAssembly 中的 CRuby 集合）在浏览器中运行的 Ruby。',
     link: '<1> <tag-2>Ruby 官方网站</tag-2> </tag-1> <tag-3> <tag-4>Ruby 文档</tag-4> </tag-3> <tag-5> <tag-6>ruby.wasm 网站</tag-6> </tag-5> <tag-7><tag-8>CRuby</tag-8></tag-7> <tag-9> <tag-10>在 Y 分钟内学习 X，其中 X=ruby</tag-10> </tag-9> <tag-11> <tag-12>LiveCodes 文档</tag-12> </tag-11> <tag-13> <tag-14>加载启动模板</tag-14> </tag-13>',
-    name: 'Ruby （WASM）',
+    name: 'Ruby（WASM）',
   },
   sass: {
     desc: '语法超赞的样式表。',
