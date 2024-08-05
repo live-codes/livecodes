@@ -30,11 +30,14 @@ jobs:
         PR_DETAILS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "${{ github.event.issue.pull_request.url }}")
         PR_BRANCH=$(echo "$PR_DETAILS" | jq -r '.head.ref')
 
-        if [[ $PR_BRANCH == "i18n/"* ]]; then
-          SKIP_REASON="Branch \`$PR_BRANCH\` is a i18n branch."
-          echo "$SKIP_REASON Exiting..."
+        skip () {
+          echo "$1 Exiting..."
           echo "skip=true" >> $GITHUB_OUTPUT
-          echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
+          echo "skipReason=$1" >> $GITHUB_OUTPUT
+        }
+
+        if [[ $PR_BRANCH == "i18n/"* ]]; then
+          skip "Branch \`$PR_BRANCH\` is a i18n branch."
         fi
 
         NEW_BRANCH="i18n/$PR_BRANCH"
@@ -42,10 +45,7 @@ jobs:
         echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
 
         if [[ ! $(git ls-remote --heads origin $NEW_BRANCH) ]]; then
-          SKIP_REASON="Branch \`$NEW_BRANCH\` does not exist."
-          echo "$SKIP_REASON Exiting..."
-          echo "skip=true" >> $GITHUB_OUTPUT
-          echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
+          skip "Branch \`$NEW_BRANCH\` does not exist."
         fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
