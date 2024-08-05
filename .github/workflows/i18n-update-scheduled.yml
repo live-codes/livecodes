@@ -58,9 +58,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Export source texts
-      run: npm run i18n-export
-
     - name: Linting and fixing
       run: npm run fix
 
