@@ -11,9 +11,11 @@ const srcDir = path.join(i18nDir, 'locales');
 const buildI18n = async () => {
   const getFilePaths = async (dir = srcDir) => {
     let i18nFiles = [];
-    const locales = (await fs.promises.readdir(dir)).filter((name) =>
-      fs.statSync(path.join(dir, name)).isDirectory(),
-    );
+    const locales = (await fs.promises.readdir(dir))
+      .filter((name) =>
+        fs.statSync(path.join(dir, name)).isDirectory(),
+      )
+      .filter((name) => name !== 'tmp');  // Skip tmp directory
     await Promise.all(
       locales.map(async (locale) => {
         const localeDir = path.join(dir, locale);
