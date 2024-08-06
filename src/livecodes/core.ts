@@ -56,6 +56,7 @@ import type {
   CompileInfo,
   SDKEvent,
   Editor,
+  AppLanguage,
 } from './models';
 import type { GitHubFile } from './services/github';
 import type {
@@ -3405,15 +3406,28 @@ const handleEditorSettings = () => {
   const changeSettings = (newConfig: Partial<UserConfig> | null) => {
     if (!newConfig) return;
     const shouldReload = newConfig.editor !== getConfig().editor;
-    setUserConfig(newConfig);
-    const updatedConfig = getConfig();
-    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-    if (shouldReload) {
-      reloadEditors(updatedConfig);
+    const shouldReloadI18n = newConfig.appLanguage !== getConfig().appLanguage;
+
+    const editorCallback = () => {
+      setUserConfig(newConfig);
+      const updatedConfig = getConfig();
+      setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+      if (shouldReload) {
+        reloadEditors(updatedConfig);
+      } else {
+        getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
+      }
+      showEditorModeStatus(updatedConfig.activeEditor || 'markup');
+    };
+
+    if (shouldReloadI18n) {
+      checkSavedAndExecute(() => {
+        editorCallback();
+        parent.postMessage({ args: 'i18n-reload' }, location.origin);
+      })();
     } else {
-      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
+      editorCallback();
     }
-    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   };
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
@@ -4070,9 +4084,11 @@ const configureToolsPane = (
   // TODO: handle tools.enabled
 };
 
-const loadI18n = async (appLanguage: string | undefined) => {
-  const userLang = appLanguage || navigator.language;
-  if (isEmbed || !userLang || userLang.toLowerCase().startsWith('en')) return;
+const loadI18n = async (appLanguage: AppLanguage | undefined) => {
+  const userLang = appLanguage || (navigator.language as AppLanguage);
+  if (isEmbed || !userLang) return;
+
+  setConfig({ ...getConfig(), appLanguage: userLang });
   const i18nModule: typeof import('./i18n/i18n') = await import(baseUrl + '{{hash:i18n.js}}');
   i18nModule.init(userLang, baseUrl);
   return i18nModule.default;

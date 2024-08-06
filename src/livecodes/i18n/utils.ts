@@ -6,6 +6,8 @@ import { predefinedValues } from '../utils/utils';
 // eslint-disable-next-line import/no-internal-modules
 import { customEvents } from '../events/custom-events';
 
+import type { AppLanguage } from '../models';
+
 /**
  * Report error when no property is provided.
  */
@@ -441,4 +443,12 @@ export const translateString = <Key extends I18nKeyType, Value extends string>(
  */
 export const dispatchTranslationEvent = (elem: HTMLElement) => {
   elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
+};
+
+export const localizedAppLanguage: {
+  [key in AppLanguage]: string;
+} = {
+  en: 'English',
+  'zh-CN': '中文（简体）',
+  ar: 'العربية',
 };

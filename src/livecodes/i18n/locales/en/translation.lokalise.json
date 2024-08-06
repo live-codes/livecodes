@@ -616,6 +616,14 @@
     "notes": "",
     "translation": "Search your public repos..."
   },
+  "editorSettings.appLanguage.heading": {
+    "notes": "",
+    "translation": "App UI Language"
+  },
+  "editorSettings.appLanguage.note": {
+    "notes": "",
+    "translation": "Will reload the app to apply the changes after switching the language."
+  },
   "editorSettings.closeBrackets": {
     "notes": "",
     "translation": "Auto-close brackets and quotes"

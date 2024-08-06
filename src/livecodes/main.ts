@@ -189,6 +189,10 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                   for (const [key, value] of Object.entries(i18nSplashData)) {
                     localStorage.setItem(`i18n_splash.${key}`, value);
                   }
+                } else if (e.data?.args === 'i18n-reload') {
+                  const url = new URL(location.href);
+                  url.searchParams.delete('appLanguage');
+                  location.href = url.href;
                 }
               }
             },

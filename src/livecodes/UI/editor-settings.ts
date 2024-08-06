@@ -11,6 +11,7 @@ import { getEditorTheme } from '../editor/themes';
 import { monacoThemes } from '../editor/monaco/monaco-themes';
 import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
 import { prismThemes } from '../editor/codejar/prism-themes';
+import { localizedAppLanguage } from '../i18n/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -61,6 +62,21 @@ export const createEditorSettingsUI = async ({
     note?: string;
   }
   const formFields: FormField[] = [
+    {
+      title: window.deps.translateString('editorSettings.appLanguage.heading', 'App UI Language'),
+      name: 'appLanguage',
+      options: [
+        ...Object.entries(localizedAppLanguage).map(([code, lng]) => ({
+          label: lng,
+          value: code,
+        })),
+      ],
+      note: window.deps.translateString(
+        'editorSettings.appLanguage.note',
+        'Will reload the app to apply the changes after switching the language.',
+      ),
+      // TODO: help here
+    },
     {
       title: window.deps.translateString(
         'editorSettings.enableAI.heading',
@@ -342,7 +358,10 @@ export const createEditorSettingsUI = async ({
 
     const name = `editor-settings-${field.name}`;
     const optionValue = String(
-      (editorOptions as any)[field.name] ?? (defaultConfig as any)[field.name] ?? '',
+      (editorOptions as any)[field.name] ??
+        (userConfig as any)[field.name] ??
+        (defaultConfig as any)[field.name] ??
+        '',
     );
 
     if (field.options.length > 4) {

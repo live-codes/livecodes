@@ -678,6 +678,10 @@ export interface UserConfig extends EditorConfig, FormatterConfig {
    * If `true`, the [welcome screen](https://livecodes.io/docs/features/welcome) is displayed when the app loads.
    */
   welcome: boolean;
+
+  /**
+   * Sets the app UI language used.
+   */
   appLanguage: AppLanguage | undefined;
 }
 
