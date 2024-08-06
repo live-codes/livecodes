@@ -8,6 +8,13 @@ const outDir = path.resolve('build/livecodes/');
 const i18nDir = path.resolve('src/livecodes/i18n/');
 const srcDir = path.join(i18nDir, 'locales');
 
+/**
+ * @param {string} locale 
+ * @param {string} ns 
+ * @returns string
+ */
+const i18nFile = (locale, ns) => `i18n-${locale}-${ns}.json`;
+
 const buildI18n = async () => {
   const getFilePaths = async (dir = srcDir) => {
     let i18nFiles = [];
@@ -61,7 +68,7 @@ const buildI18n = async () => {
           const json = JSON.stringify(eval(js).default, null, 2);
           const { locale, filename } = getFileInfo(file.path);
           await fs.promises.writeFile(
-            path.join(outDir, `translation-${locale}-${filename.replace('.js', '.json')}`),
+            path.join(outDir, i18nFile(locale, filename.replace('.js', ''))),
             json,
             'utf8',
           );
@@ -82,7 +89,7 @@ const buildLocalePathLoader = async () => {
   for (const locale of locales) {
     for (const ns of namespaces) {
       ifStatements += `if (lng === '${locale}' && ns === '${ns}') {
-        return baseUrl + '{{hash:translation-${locale}-${ns}.json}}';
+        return baseUrl + '{{hash:${i18nFile(locale, ns)}}}';
       }\n`;
     }
   }
