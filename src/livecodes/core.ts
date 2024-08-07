@@ -3423,7 +3423,13 @@ const handleEditorSettings = () => {
     if (shouldReloadI18n) {
       checkSavedAndExecute(() => {
         editorCallback();
-        parent.postMessage({ args: 'i18n-reload' }, location.origin);
+        if (i18n && newConfig.appLanguage) {
+          i18n.changeLanguage(newConfig.appLanguage).then(() => {
+            sendI18nMessageToMainPage(true);
+          });
+        } else {
+          sendI18nMessageToMainPage(true);
+        }
       })();
     } else {
       editorCallback();
@@ -4086,7 +4092,7 @@ const configureToolsPane = (
 
 const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   const userLang = appLanguage || (navigator.language as AppLanguage);
-  if (isEmbed || !userLang) return;
+  if (isEmbed || !userLang || userLang.toLowerCase().startsWith('en')) return;
 
   setConfig({ ...getConfig(), appLanguage: userLang });
   const i18nModule: typeof import('./i18n/i18n') = await import(baseUrl + '{{hash:i18n.js}}');
@@ -4103,7 +4109,7 @@ const handleI18n = () => {
   dispatchTranslationEvent(document.body);
 };
 
-const sendTranslationToMainPage = () => {
+const sendI18nMessageToMainPage = (reload: boolean = false) => {
   const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
     Object.keys(obj).reduce((acc, key) => {
       const value = obj[key];
@@ -4113,15 +4119,18 @@ const sendTranslationToMainPage = () => {
       return { ...acc, [`${prefix}${key}`]: value };
     }, {});
 
-  if (!isEmbed && i18n) {
-    parent.postMessage(
-      {
-        args: 'i18n',
-        payload: flatten(i18n.t('splash', { returnObjects: true })),
+  const i18nSplashData = !isEmbed && i18n ? flatten(i18n.t('splash', { returnObjects: true })) : {};
+
+  parent.postMessage(
+    {
+      args: 'i18n',
+      payload: {
+        data: i18nSplashData,
+        reload,
       },
-      location.origin,
-    );
-  }
+    },
+    location.origin,
+  );
 };
 
 const translateStringMock = <Key extends I18nKeyType, Value extends string>(
@@ -4573,8 +4582,7 @@ const initializePlayground = async (
     initialized = true;
   });
   configureEmmet(getConfig());
-
-  sendTranslationToMainPage();
+  sendI18nMessageToMainPage();
 };
 
 const createApi = (): API => {

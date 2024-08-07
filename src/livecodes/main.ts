@@ -185,14 +185,18 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                   location.href = location.origin + location.pathname;
                 } else if (e.data?.args === 'i18n') {
                   // flatten i18n object `splash` and save to localStorage
-                  const i18nSplashData = e.data.payload as { [k: string]: string };
+                  const i18nSplashData = e.data.payload.data as { [k: string]: string };
                   for (const [key, value] of Object.entries(i18nSplashData)) {
                     localStorage.setItem(`i18n_splash.${key}`, value);
                   }
-                } else if (e.data?.args === 'i18n-reload') {
-                  const url = new URL(location.href);
-                  url.searchParams.delete('appLanguage');
-                  location.href = url.href;
+
+                  // Reload the page to apply the new language
+                  const reload = e.data.payload.reload as boolean;
+                  if (reload) {
+                    const url = new URL(location.href);
+                    url.searchParams.delete('appLanguage');
+                    location.href = url.href;
+                  }
                 }
               }
             },
