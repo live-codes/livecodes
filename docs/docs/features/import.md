@@ -89,7 +89,7 @@ Local files can be imported from the "Import Screen" or by dragging and dropping
 
 ## File Selection
 
-For sources that provide multiple files (e.g. GitHub/GitLab directories, GitHub gists, GitLab snippets and zip files), a best guess is tried to load files in respective editors. Best results are when there are 3 files and each file is in a language (identified by file extension) that can be loaded to a different editor, for example:
+For sources that provide multiple files (e.g. GitHub/GitLab directories, GitHub gists, GitLab snippets and local files), a best guess is tried to load files in respective editors. Best results are when there are 3 files and each file is in a language (identified by file extension) that can be loaded to a different editor, for example:
 
 - index.html, style.css, script.js
 - default.pug, app.scss, main.ts
@@ -100,7 +100,7 @@ The following file names are given higher priority:
 - Style files starting with `style.` or `styles.`
 - Script files starting with `script.`, `app.`, `main.` or `index.`
 
-While Markup files starting with `readme.` are given lower priority.
+While README, markdown files and files with no extension are given lower priority.
 
 Alternatively, files can be specified using the `files` [query param](../configuration/query-params.md). It takes a **comma-separated list** of filenames. The first 3 found files are loaded. If 1 or 2 files are specified, only these will be loaded. The first matching file is shown by default in the active editor.
 
