@@ -107,14 +107,10 @@ export const populateConfig = (
         if (a.filename.startsWith('index.')) return -1;
         if (b.filename.startsWith('index.')) return 1;
       }
-      // put readme and markdown last
+      // put readme last
       if (a.editorId === b.editorId && a.editorId === 'markup') {
         if (a.filename.startsWith('readme')) return 1;
         if (b.filename.startsWith('readme')) return -1;
-        if (a.filename.endsWith('.md')) return 1;
-        if (b.filename.endsWith('.md')) return -1;
-        if (a.filename.endsWith('.markdown')) return 1;
-        if (b.filename.endsWith('.markdown')) return -1;
       }
       // put extension-less files last
       if (!a.filename.includes('.')) return 1;
@@ -123,6 +119,14 @@ export const populateConfig = (
       // if same language, sort by filename
       if (a.language === b.language) {
         return a.filename.localeCompare(b.filename);
+      }
+
+      // put markdown last
+      if (a.editorId === b.editorId && a.editorId === 'markup') {
+        if (a.filename.endsWith('.md')) return 1;
+        if (b.filename.endsWith('.md')) return -1;
+        if (a.filename.endsWith('.markdown')) return 1;
+        if (b.filename.endsWith('.markdown')) return -1;
       }
       return (
         // then sort by language
