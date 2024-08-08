@@ -139,6 +139,7 @@ import {
 import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
+import { importFromFiles } from './import/files';
 
 // declare global dependencies
 declare const window: Window & {
@@ -3883,6 +3884,26 @@ const handleFullscreen = async () => {
   });
 };
 
+const handleDropFiles = () => {
+  if (isEmbed) return;
+
+  eventsManager.addEventListener(document, 'drop', (event: DragEvent) => {
+    event.preventDefault();
+    const files = event.dataTransfer?.files;
+    if (!files?.length) return;
+
+    importFromFiles(files, populateConfig, eventsManager)
+      .then(loadConfig)
+      .catch((message) => {
+        notifications.error(message);
+      });
+  });
+
+  eventsManager.addEventListener(document, 'dragover', (event: DragEvent) => {
+    event.preventDefault();
+  });
+};
+
 const handleUnload = () => {
   window.onbeforeunload = () => {
     if (!isSaved) {
@@ -4007,6 +4028,7 @@ const extraHandlers = async () => {
   handleAbout();
   handleResultPopup();
   handleBroadcastStatus();
+  handleDropFiles();
   handleUnload();
 };
 

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-internal-modules */
-import type { SourceFile, populateConfig as populateConfigFn } from '../import/utils';
+import type { populateConfig as populateConfigFn } from '../import/utils';
 import type { createModal } from '../modal';
 import type { Config, ContentConfig, User, Screen } from '../models';
 import type { createNotifications } from '../notifications';
@@ -9,7 +9,7 @@ import { defaultConfig } from '../config/default-config';
 import { importScreen } from '../html';
 import { fetchWithHandler } from '../utils/utils';
 import { importCode } from '../import/import';
-import { importFromZip } from '../import/zip';
+import { importFromFiles } from '../import/files';
 import {
   getBulkImportFileInput,
   getBulkImportJsonUrlButton,
@@ -100,52 +100,11 @@ export const createImportUI = ({
     }
   });
 
-  const loadFiles = (input: HTMLInputElement) =>
-    new Promise<Partial<ContentConfig>>((resolve, reject) => {
-      const files = Array.from(input.files as FileList);
-      const sourceFiles: SourceFile[] = [];
-
-      for (const file of files) {
-        // Max 100 MB allowed
-        const maxSizeAllowed = 100 * 1024 * 1024;
-        if (file.size > maxSizeAllowed) {
-          reject('Error: Exceeded size 100 MB');
-          return;
-        }
-
-        const reader = new FileReader();
-        eventsManager.addEventListener(reader, 'load', async (event: any) => {
-          const text = (event.target?.result as string) || '';
-          sourceFiles.push({
-            filename: file.name,
-            content: text,
-          });
-
-          if (sourceFiles.length === files.length) {
-            resolve(populateConfig(sourceFiles, {}));
-          }
-        });
-
-        eventsManager.addEventListener(reader, 'error', () => {
-          reject('Error: Failed to read file');
-        });
-
-        reader.readAsText(file);
-      }
-    });
-
-  const loadZipFile = (input: HTMLInputElement) => importFromZip(input.files![0], populateConfig);
-
   const codeImportInput = getCodeImportInput(importContainer);
   eventsManager.addEventListener(codeImportInput, 'change', () => {
-    if (codeImportInput.files?.length === 0) return;
+    if (!codeImportInput.files?.length) return;
 
-    const getConfigFromFiles =
-      codeImportInput.files?.length === 1 && codeImportInput.files[0].name.endsWith('.zip')
-        ? loadZipFile
-        : loadFiles;
-
-    getConfigFromFiles(codeImportInput)
+    importFromFiles(codeImportInput.files, populateConfig, eventsManager)
       .then(loadConfig)
       .then(modal.close)
       .catch((message) => {
