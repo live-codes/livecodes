@@ -466,12 +466,15 @@ export const createSavedProjectsList = async ({
     'click',
     async () => {
       notifications.confirm(`Delete ${visibleProjects.length} projects?`, async () => {
-        for (const p of visibleProjects) {
-          await projectStorage.deleteItem(p.id);
-          if (getProjectId() === p.id) {
-            setProjectId('');
-          }
-        }
+        notifications.info('Deleting projects...');
+        await Promise.all(
+          visibleProjects.map((p) => {
+            if (getProjectId() === p.id) {
+              setProjectId('');
+            }
+            return projectStorage.deleteItem(p.id);
+          }),
+        );
         visibleProjects = [];
         savedProjects = await projectStorage.getList();
         await showList(visibleProjects);
