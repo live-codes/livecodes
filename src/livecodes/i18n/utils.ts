@@ -446,7 +446,7 @@ export const dispatchTranslationEvent = (elem: HTMLElement) => {
 };
 
 export const localizedAppLanguage: {
-  [key in AppLanguage]: string;
+  [key in Exclude<AppLanguage, 'auto'>]: string;
 } = {
   en: 'English',
   'zh-CN': '中文（简体）',
