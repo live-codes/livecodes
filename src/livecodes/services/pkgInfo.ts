@@ -1,4 +1,6 @@
+/* eslint-disable import/no-internal-modules */
 import type { APIError, CDNService, PkgInfo } from '../models';
+import { isFirefox } from '../utils/utils';
 import { removeCDNPrefix, removeSpecifier } from './utils';
 
 // see: https://github.com/jsdelivr/www.jsdelivr.com/blob/master/src/public/js/utils/search.js
@@ -18,7 +20,8 @@ const attributesToRetrieve = ['name', 'description', 'homepage', 'repository.url
 const apiEndpoint = 'https://data.jsdelivr.com/v1';
 
 const jsDelivrHeaders = {
-  'User-Agent': 'https://livecodes.io',
+  // https://github.com/live-codes/livecodes/issues/628
+  ...(isFirefox() ? {} : { 'User-Agent': 'https://livecodes.io' }),
 };
 
 interface APIPkgFiles {

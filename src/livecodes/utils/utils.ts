@@ -68,6 +68,11 @@ export const isMobile = /* @__PURE__ */ () => {
   return mobile;
 };
 
+export const isFirefox = /* @__PURE__ */ () => {
+  const userAgent = navigator.userAgent.toLowerCase();
+  return userAgent.includes('firefox') || userAgent.includes('fxios');
+};
+
 export const isRelativeUrl = /* @__PURE__ */ (url?: string) =>
   !url?.startsWith('http') && !url?.startsWith('data:');
 
