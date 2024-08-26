@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1668.56 1221.19"
-	 style="enable-background:new 0 0 1668.56 1221.19; -ms-transform: scale(200%); -webkit-transform: scale(200%); transform: scale(200%);"
-   xml:space="preserve">
-<style type="text/css">
-	.st0{stroke:#FFFFFF; fill:#626262;stroke-miterlimit:10;}
-	.st1{fill:#FFFFFF;}
-</style>
-<path class="st0" d="M1168.12,1056.56H511.72c-55.12,0-99.8-44.68-99.8-99.8V300.36c0-55.12,44.68-99.8,99.8-99.8h656.39
-	c55.12,0,99.8,44.68,99.8,99.8v656.39C1267.92,1011.88,1223.24,1056.56,1168.12,1056.56z"/>
-<g id="layer1" transform="translate(52.390088,-25.058597)">
-	<path id="path1009" class="st1" d="M491.03,374.75L721.1,682.38L489.58,932.49h52.11l202.7-218.98l163.77,218.98h177.32
-		L842.46,607.56l215.5-232.81h-52.11L819.18,576.42L668.35,374.75H491.03z M567.66,413.14h81.46l359.72,480.97h-81.46L567.66,413.14
-		z"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M18.205 2.25h3.308l-7.227 8.26l8.502 11.24H16.13l-5.214-6.817L4.95 21.75H1.64l7.73-8.835L1.215 2.25H8.04l4.713 6.231zm-1.161 17.52h1.833L7.045 4.126H5.078z"/></svg>
