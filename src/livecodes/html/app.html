@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {{codeiumMeta}}
     <title>LiveCodes</title>
     <style>
@@ -44,7 +44,8 @@
             ><img
               alt="LiveCodes Logo"
               src="{{baseUrl}}assets/images/livecodes-logo.svg"
-              width="50"
+              width="32"
+              height="auto"
               loading="lazy"
           /></a>
         </div>
@@ -58,13 +59,7 @@
             data-hint="Run (Shift + Enter)"
             tabindex="9"
           >
-            <img
-              width="20"
-              height="20"
-              alt="Run"
-              src="{{baseUrl}}assets/images/play.svg"
-              loading="lazy"
-            />
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M5.745 3.064A.5.5 0 0 0 5 3.5v9a.5.5 0 0 0 .745.436l8-4.5a.5.5 0 0 0 0-.871zM4 3.5a1.5 1.5 0 0 1 2.235-1.307l8 4.5a1.5 1.5 0 0 1 0 2.615l-8 4.5A1.5 1.5 0 0 1 4 12.5z"/></svg>
           </a>
           <a
             href="javascript:void(0)"
@@ -73,14 +68,7 @@
             data-hint="Share"
             tabindex="10"
           >
-            <img
-              width="20"
-              height="20"
-              alt="Run"
-              src="{{baseUrl}}assets/images/share.svg"
-              loading="lazy"
-            />
-          </a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M12 3a1 1 0 1 0 0 2a1 1 0 0 0 0-2m-2 1a2 2 0 1 1 .491 1.313L5.956 7.581a2 2 0 0 1 0 .838l4.535 2.268a2 2 0 1 1-.447.894L5.508 9.313a2 2 0 1 1 0-2.627l4.536-2.267A2 2 0 0 1 10 4M3 8a1 1 0 1 0 2 0a1 1 0 0 0-2 0m8 4a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/></svg>          </a>
           <a
             href="javascript:void(0)"
             id="result-button"
@@ -88,13 +76,7 @@
             data-hint="Toggle Result"
             tabindex="11"
           >
-            <img
-              width="28"
-              height="28"
-              alt="Result"
-              src="{{baseUrl}}assets/images/document.svg"
-              loading="lazy"
-            />
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M5 1a2 2 0 0 0-2 2v9.998a2 2 0 0 0 2 2h1.046l.25-1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h3v2.5A1.5 1.5 0 0 0 9.498 6h2.5v1.44a2.5 2.5 0 0 1 1-.405V5.413a1.5 1.5 0 0 0-.44-1.06L9.645 1.439A1.5 1.5 0 0 0 8.585 1zm6.791 4H9.5a.5.5 0 0 1-.5-.5V2.206zm1.207 3.06a1.56 1.56 0 0 0-.662.394L8.05 12.74a2.8 2.8 0 0 0-.722 1.257l-.009.033l-.302 1.211a.61.61 0 0 0 .738.74l1.211-.303a2.8 2.8 0 0 0 1.29-.73l4.288-4.288a1.56 1.56 0 0 0-1.545-2.6"/></svg>
           </a>
           <a
             href="javascript:void(0)"
@@ -103,13 +85,14 @@
             data-hint="Full Screen"
             tabindex="12"
           >
-            <img
+            <!-- <img
               width="28"
               height="28"
               alt="Fullscreen"
               src="{{baseUrl}}assets/images/expand.svg"
               loading="lazy"
-            />
+            /> -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3.707l2.647 2.646a.5.5 0 0 1-.708.708L3 3.707V5.5a.5.5 0 0 1-1 0zM13.5 2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V3.707l-2.646 2.647a.5.5 0 0 1-.708-.708L12.293 3H10.5a.5.5 0 0 1 0-1zm0 12a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-1 0v1.793l-2.646-2.647a.5.5 0 1 0-.708.708L12.293 13H10.5a.5.5 0 0 0 0 1zm-11 0a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 1 0v1.793l2.646-2.647a.5.5 0 0 1 .708.707L3.707 13H5.5a.5.5 0 0 1 0 1z"/></svg>
           </a>
           <a
             href="javascript:void(0)"
@@ -119,8 +102,8 @@
             tabindex="13"
           >
             <img
-              width="30"
-              height="30"
+              width="20"
+              height="20"
               alt="Menu"
               src="{{baseUrl}}assets/images/menu.svg"
               loading="lazy"
@@ -137,26 +120,28 @@
 
           <div id="editor-tools" class="tool-buttons">
             <span id="focus-btn" class="hint--top-right" data-hint="Toggle Focus mode">
-              <img src="{{baseUrl}}assets/images/focus.svg" alt="focus" />
-            </span>
-            <span
-              id="copy-btn"
-              class="hint--top-right"
-              data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
-            >
-              <img src="{{baseUrl}}assets/images/copy.svg" alt="copy" />
-            </span>
-            <span id="undo-btn" class="hint--top-right" data-hint="Undo (Ctrl/Cmd + Z)">
-              <img src="{{baseUrl}}assets/images/undo.svg" alt="undo" />
-            </span>
-            <span id="redo-btn" class="hint--top-right" data-hint="Redo (Ctrl/Cmd + Shift + Z)">
-              <img src="{{baseUrl}}assets/images/redo.svg" alt="redo" />
+              <!-- <img src="{{baseUrl}}assets/images/focus.svg" alt="focus" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M9.5 2.5A.5.5 0 0 0 9 2H7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5m1.5 0a.5.5 0 0 0 .5.5A1.5 1.5 0 0 1 13 4.5a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2a.5.5 0 0 0-.5.5M14 7a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zm0 4.5a.5.5 0 0 0-1 0a1.5 1.5 0 0 1-1.5 1.5a.5.5 0 0 0 0 1a2.5 2.5 0 0 0 2.5-2.5m-7.5 2A.5.5 0 0 1 7 13h2a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5M5 2.5a.5.5 0 0 0-.5-.5A2.5 2.5 0 0 0 2 4.5a.5.5 0 0 0 1 0A1.5 1.5 0 0 1 4.5 3a.5.5 0 0 0 .5-.5M4.5 13a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0A1.5 1.5 0 0 0 4.5 13M3 9a.5.5 0 0 1-1 0V7a.5.5 0 0 1 1 0z"/></svg>
             </span>
             <span id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)">
-              <img src="{{baseUrl}}assets/images/format.svg" alt="format" />
+              <!-- <img src="{{baseUrl}}assets/images/format.svg" alt="format" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M1.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1zm3 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5M1.5 12a.5.5 0 0 0 0 1H9a.5.5 0 0 0 0-1zm9-5.5A.5.5 0 0 1 11 6h2.5a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.5-.5M9.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"/></svg>
+            </span>
+            <span id="undo-btn" class="hint--top-right" data-hint="Undo (Ctrl/Cmd + Z)">
+              <!-- <img src="{{baseUrl}}assets/images/undo.svg" alt="undo" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M3 2.5a.5.5 0 0 1 1 0v3.843l3.171-3.171a4 4 0 0 1 5.657 5.656l-5.025 5.026a.5.5 0 0 1-.707-.708l5.025-5.025A3 3 0 1 0 7.878 3.88L4.757 7H8.5a.5.5 0 0 1 0 1H3.6a.6.6 0 0 1-.6-.6z"/></svg>
+            </span>
+            <span id="redo-btn" class="hint--top-right" data-hint="Redo (Ctrl/Cmd + Shift + Z)">
+              <!-- <img src="{{baseUrl}}assets/images/redo.svg" alt="redo" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M13 2.5a.5.5 0 0 0-1 0v3.843L8.827 3.172a4 4 0 0 0-5.656 5.656l5.025 5.026a.5.5 0 0 0 .707-.708L3.879 8.121A3 3 0 0 1 8.12 3.88L11.243 7H7.499a.5.5 0 0 0 0 1h4.9a.6.6 0 0 0 .6-.6z"/></svg>
+            </span>
+            <span id="copy-btn" class="hint--top-right" data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)">
+              <!-- <img src="{{baseUrl}}assets/images/copy.svg" alt="copy" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M5.085 2A1.5 1.5 0 0 1 6.5 1h3a1.5 1.5 0 0 1 1.415 1h.585A1.5 1.5 0 0 1 13 3.5v10a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10A1.5 1.5 0 0 1 4.5 2zM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM5.085 3H4.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.585A1.5 1.5 0 0 1 9.5 4h-3a1.5 1.5 0 0 1-1.415-1"/></svg>
             </span>
             <span id="copy-as-url-btn" class="hint--top-right" data-hint="Copy code as data URL">
-              <img src="{{baseUrl}}assets/images/copy-as-url.svg" alt="copy" />
+              <!-- <img src="{{baseUrl}}assets/images/copy-as-url.svg" alt="copy" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M4.085 2A1.5 1.5 0 0 1 5.5 1h3a1.5 1.5 0 0 1 1.415 1h.585A1.5 1.5 0 0 1 12 3.5V7h-1V3.5a.5.5 0 0 0-.5-.5h-.585A1.5 1.5 0 0 1 8.5 4h-3a1.5 1.5 0 0 1-1.415-1H3.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h1.258c.253.378.561.715.913 1H3.5A1.5 1.5 0 0 1 2 13.5v-10A1.5 1.5 0 0 1 3.5 2zM5.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm9.5 9.5A3.5 3.5 0 0 0 11.5 8l-.09.008A.5.5 0 0 0 11.5 9l.164.005A2.5 2.5 0 0 1 11.5 14l-.002.005l-.09.008a.5.5 0 0 0 .094.992V15l.192-.005A3.5 3.5 0 0 0 15 11.5m-6-3a.5.5 0 0 0-.5-.5l-.192.005A3.5 3.5 0 0 0 8.5 15l.09-.008A.5.5 0 0 0 8.5 14l-.164-.005A2.5 2.5 0 0 1 8.5 9l.09-.008A.5.5 0 0 0 9 8.5m2.5 2.502L8.5 11l-.09.008A.5.5 0 0 0 8.5 12l3 .002l.09-.008a.5.5 0 0 0-.09-.992"/></svg>
             </span>
             <span id="editor-status">
               <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
@@ -165,24 +150,27 @@
               <span data-status="script"></span>
             </span>
             <span id="external-resources-btn" class="hint--top-left" data-hint="External Resources">
-              <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="external resources" />
-              <span id="external-resources-mark" class="mark"></span>
+              <!-- <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="external resources" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M4 3a2 2 0 0 1 2-2h3.586a1.5 1.5 0 0 1 1.06.44l2.915 2.914A1.5 1.5 0 0 1 14 5.414V13a2 2 0 0 1-2 2H9.95a3.5 3.5 0 0 0 .713-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v6H4zm6.5 2h2.293L10 2.207V4.5a.5.5 0 0 0 .5.5m-7 5a2.5 2.5 0 0 0 0 5H4a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H4a.5.5 0 0 0 0-1zM7 10a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H7a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5zm-3.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/></svg>
             </span>
             <span id="project-info-btn" class="hint--top-left" data-hint="Project Info">
-              <img src="{{baseUrl}}assets/images/info.svg" alt="project info" />
+              <!-- <img src="{{baseUrl}}assets/images/info.svg" alt="project info" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M8.499 7.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm.25-2a.749.749 0 1 1-1.499 0a.749.749 0 0 1 1.498 0M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1M2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8"/></svg>
             </span>
             <span id="custom-settings-btn" class="hint--top-left" data-hint="Custom Settings">
-              <img src="{{baseUrl}}assets/images/curly-braces.svg" alt="custom settings" />
+              <!-- <img src="{{baseUrl}}assets/images/curly-braces.svg" alt="custom settings" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6M13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6"/></svg>
               <span id="custom-settings-mark" class="mark"></span>
             </span>
             <span id="editor-settings-btn" class="hint--top-left" data-hint="Editor Settings">
-              <img src="{{baseUrl}}assets/images/gear.svg" alt="editor settings" />
+              <!-- <img src="{{baseUrl}}assets/images/gear.svg" alt="editor settings" /> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4M7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0m3.618-3.602a.71.71 0 0 1-.824-.567l-.26-1.416a.35.35 0 0 0-.275-.282a6.1 6.1 0 0 0-2.519 0a.35.35 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.36.36 0 0 0-.382.095a6 6 0 0 0-1.262 2.173a.35.35 0 0 0 .108.378l1.102.931q.045.037.081.081a.704.704 0 0 1-.081.995l-1.102.931a.35.35 0 0 0-.108.378A6 6 0 0 0 3.53 12.02a.36.36 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.1 6.1 0 0 0 2.52 0a.35.35 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095a6 6 0 0 0 1.262-2.173a.35.35 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.35.35 0 0 0 .108-.378A6 6 0 0 0 12.47 3.98a.36.36 0 0 0-.382-.095l-1.36.484a1 1 0 0 1-.111.03m-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5 5 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977q.384.503.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a5 5 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5 5 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a5 5 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637q.248-.581.63-1.084"/></svg>
             </span>
           </div>
           <button id="code-run-button" class="hint--top-left" data-hint="Run (Shift + Enter)">
             <img
-              width="20"
-              height="20"
+              width="18"
+              height="18"
               alt="Run"
               src="{{baseUrl}}assets/images/play.svg"
               loading="lazy"

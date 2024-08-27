@@ -6,6 +6,7 @@ import { allowedOrigin } from '../services/allowed-origin';
 import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
 import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
+import { copy as copyIcon } from '../UI/icons';
 
 interface Service {
   name: string;
@@ -28,7 +29,7 @@ export const createShareContainer = async (
     }
     setMessage('URL copied to clipboard');
     messageTimeout = setTimeout(() => {
-      setMessage('Click to copy');
+      setMessage(`${copyIcon} Click to copy`);
     }, 5000);
   };
 
@@ -70,7 +71,7 @@ export const createShareContainer = async (
           <img
             src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
             alt="${service.name}"
-            ${service.name === '𝕏 / Twitter' ? 'class="twitter"' : ''}
+            ${service.name === '? / Twitter' ? 'class="twitter"' : ''}
           />
         </span>
         ${service.name}
@@ -93,7 +94,8 @@ export const createShareContainer = async (
     if (input) {
       input.value = shareData.url;
     }
-    setMessage('Click to copy');
+    // setMessage('Click to copy');
+    setMessage(`${copyIcon} Click to copy`);
   };
 
   const services: Service[] = [
@@ -103,7 +105,7 @@ export const createShareContainer = async (
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
     },
     {
-      name: '𝕏 / Twitter',
+      name: '? / Twitter',
       icon: 'x.svg',
       createShareUrl: ({ url, title }) =>
         `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,

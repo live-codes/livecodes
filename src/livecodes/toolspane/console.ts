@@ -162,7 +162,7 @@ export const createConsole = (
       consoleEditor.setValue(commands[commandsIndex] || '');
     });
 
-    const minHeight = 25;
+    const minHeight = 30;
     container.style.minHeight = minHeight + 'px';
 
     consoleEditor.onContentChanged(() => {
@@ -227,6 +227,12 @@ export const createConsole = (
 
       clearButton = document.createElement('button');
       clearButton.classList.add('clear-button');
+      // Replace with span for icon css
+      const iconCSS = '<span class="icon-delete-button"></span>';
+      clearButton.innerHTML = iconCSS;
+
+      // clearButton = document.createElement('span');
+      // clearButton.classList.add('icon-clear-button');
       clearButton.style.display = 'none';
       eventsManager.addEventListener(
         clearButton,

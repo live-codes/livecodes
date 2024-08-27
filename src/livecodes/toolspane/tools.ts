@@ -299,7 +299,10 @@ export const createToolsPane = (
     btnContainer.classList.add('hint--top-left');
     btnContainer.dataset.hint = 'Close';
     const closeButton = document.createElement('button');
-    closeButton.classList.add('delete-button');
+    closeButton.classList.add('clear-button');
+    // Replace with span for icon css¨
+    const iconCSS = '<span class="icon-close-button"></span>';
+    closeButton.innerHTML = iconCSS;
 
     eventsManager.addEventListener(
       closeButton,

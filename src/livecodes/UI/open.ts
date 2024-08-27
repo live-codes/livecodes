@@ -102,6 +102,11 @@ export const createOpenItem = (
 
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-button');
+  // Replace with span for icon css
+  const iconCSS = '<span class="icon-delete-button"></span>';
+  deleteButton.innerHTML = `<span id="show-result">${iconCSS}</span>`;
+  // const deleteButton = document.createElement('span');
+  // deleteButton.classList.add('icon-delete-button');
   li.appendChild(deleteButton);
 
   return { link, deleteButton, setAsDefaultLink, removeDefaultLink };

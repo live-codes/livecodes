@@ -51,6 +51,9 @@ export const createModal = () => {
 
     const cornerCloseBtn = document.createElement('div');
     cornerCloseBtn.classList.add('close-button');
+    // Replace with span for icon css
+    const iconCSS = '<span class="icon-close-button"></span>';
+    cornerCloseBtn.innerHTML = iconCSS;
     cornerCloseBtn.title = 'Esc';
     cornerCloseBtn.onclick = close;
     modal.appendChild(cornerCloseBtn);

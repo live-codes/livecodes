@@ -3774,8 +3774,11 @@ const handleResultPopup = () => {
   popupBtn.classList.add('tool-buttons', 'hint--top');
   popupBtn.dataset.hint = 'Show result in new window';
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const imgUrl = baseUrl + 'assets/images/new-window.svg';
-  popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  // const imgUrl = baseUrl + 'assets/images/new-window.svg';
+  // popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  // Replace with icon CSS
+  const iconCSS = '<span class="icon-window-new"></span>';
+  popupBtn.innerHTML = `<span id="show-result">${iconCSS}</span>`;
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -3841,12 +3844,17 @@ const handleBroadcastStatus = () => {
   broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
   broadcastStatusBtn.dataset.hint = 'Broadcast';
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const imgUrl = baseUrl + 'assets/images/broadcast.svg';
-  broadcastStatusBtn.innerHTML = `
-  <span id="broadcast-status">
-    <img src="${imgUrl}" />
-    <span class="mark"></span>
-  </span>`;
+  // const imgUrl = baseUrl + 'assets/images/broadcast.svg';
+  // broadcastStatusBtn.innerHTML = `
+  // <span id="broadcast-status">
+  //   <img src="${imgUrl}" />
+  //   <span class="mark"></span>
+  // </span>`;
+  // Replace with icon CSS
+  const iconCSS = '<span class="icon-broadcast"></span>';
+  broadcastStatusBtn.innerHTML = `<span id="broadcast-status">${iconCSS}<span class="mark"></span></span>`;
+
+
   const showBroadcast = () => {
     showScreen('broadcast');
   };

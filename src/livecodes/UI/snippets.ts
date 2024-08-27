@@ -8,7 +8,7 @@ import { addSnippetScreen, snippetsScreen } from '../html';
 import { getLanguageTitle, languages } from '../languages';
 import { copyToClipboard, isMobile, loadScript } from '../utils';
 import { flexSearchUrl } from '../vendors';
-import { edit as editIcon, copy as copyIcon } from '../UI/icons';
+import { edit as editIcon, copy as copyIcon, iconDelete as deleteIcon } from '../UI/icons';
 
 import {
   getAddSnippetButton,
@@ -108,14 +108,11 @@ const createSnippetItem = (
   };
   actions.appendChild(editButton);
 
-  const deleteWrapper = document.createElement('div');
-  deleteWrapper.dataset.hint = 'Delete';
-  deleteWrapper.classList.add('hint--left');
-  actions.appendChild(deleteWrapper);
-
-  const deleteButton = document.createElement('button');
-  deleteButton.classList.add('delete-button');
-  deleteWrapper.appendChild(deleteButton);
+  const deleteButton = document.createElement('div');
+  deleteButton.innerHTML = deleteIcon;
+  deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
+  deleteButton.dataset.hint = 'Delete';
+  actions.appendChild(deleteButton);
 
   return { link, deleteButton };
 };

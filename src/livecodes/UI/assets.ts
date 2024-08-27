@@ -96,8 +96,11 @@ const createAssetItem = (
 
   li.appendChild(link);
 
-  const deleteButton = document.createElement('button');
-  deleteButton.classList.add('delete-button');
+  // const deleteButton = document.createElement('button');
+  // deleteButton.classList.add('delete-button');
+  // Replace with span for icon css
+  const deleteButton = document.createElement('span');
+  deleteButton.classList.add('icon-delete-button');
   li.appendChild(deleteButton);
 
   return { link, deleteButton };
