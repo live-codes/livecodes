@@ -590,9 +590,13 @@ export default function App() {
 
   eventsManager.addEventListener(copyBtn, 'click', async () => {
     if (copyToClipboard(editor.getValue())) {
-      notifications.success('Code copied to clipboard');
+      notifications.success(
+        window.deps.translateString('core.copy.copied', 'Code copied to clipboard'),
+      );
     } else {
-      notifications.error('Failed to copy to clipboard');
+      notifications.error(
+        window.deps.translateString('core.error.failedToCopyCode', 'Failed to copy code'),
+      );
     }
   });
 

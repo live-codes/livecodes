@@ -351,14 +351,19 @@ export const createAssetsList = async ({
     deleteAllButton,
     'click',
     async () => {
-      notifications.confirm(`Delete ${visibleAssets.length} assets?`, async () => {
-        for (const p of visibleAssets) {
-          await assetsStorage.deleteItem(p.id);
-        }
-        visibleAssets = [];
-        savedAssets = await assetsStorage.getAllData();
-        await showList(visibleAssets);
-      });
+      notifications.confirm(
+        window.deps.translateString('assets.delete.all', 'Delete {{assets}} assets?', {
+          assets: visibleAssets.length,
+        }),
+        async () => {
+          for (const p of visibleAssets) {
+            await assetsStorage.deleteItem(p.id);
+          }
+          visibleAssets = [];
+          savedAssets = await assetsStorage.getAllData();
+          await showList(visibleAssets);
+        },
+      );
     },
     false,
   );
@@ -375,15 +380,20 @@ export const createAssetsList = async ({
         deleteButton,
         'click',
         () => {
-          notifications.confirm(`Delete asset: ${item.filename}?`, async () => {
-            await assetsStorage.deleteItem(item.id);
-            visibleAssets = visibleAssets.filter((p) => p.id !== item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(() => {
-              showList(visibleAssets);
-            }, 500);
-          });
+          notifications.confirm(
+            window.deps.translateString('assets.delete.one', 'Delete asset: {{asset}}?', {
+              asset: item.filename,
+            }),
+            async () => {
+              await assetsStorage.deleteItem(item.id);
+              visibleAssets = visibleAssets.filter((p) => p.id !== item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(() => {
+                showList(visibleAssets);
+              }, 500);
+            },
+          );
         },
         false,
       );

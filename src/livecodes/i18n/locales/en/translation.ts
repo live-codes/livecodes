@@ -99,6 +99,10 @@ const translation = {
       },
       heading: 'Add Asset',
     },
+    delete: {
+      all: 'Delete {{assets}} assets?',
+      one: 'Delete asset: {{asset}}?',
+    },
     deleteAll: 'Delete All',
     generic: {
       clickToCopyURL: 'Click to copy URL',
@@ -436,6 +440,7 @@ const translation = {
       fromFile: 'Bulk import from local file',
       fromURL: 'Bulk import from URL',
       heading: 'Bulk Import',
+      started: 'Bulk import started...',
     },
     code: {
       desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript, Vue and Svelte)</12> </1> Please visit the <14>documentations</14> for details.',
@@ -529,6 +534,7 @@ const translation = {
     defaultTemplate: 'Default template ',
     delete: {
       all: 'Delete {{projects}} projects?',
+      deleting: 'Deleting projects...',
       one: 'Delete project: {{project}}?',
     },
     deleteAll: 'Delete All',

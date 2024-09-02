@@ -143,7 +143,9 @@ export const createImportUI = ({
   const bulkimportJsonUrlButton = getBulkImportJsonUrlButton(importContainer);
   eventsManager.addEventListener(bulkImportJsonUrlForm, 'submit', async (e) => {
     e.preventDefault();
-    notifications.info('Bulk import started...');
+    notifications.info(
+      window.deps.translateString('import.bulk.started', 'Bulk import started...'),
+    );
     const buttonText = bulkimportJsonUrlButton.innerHTML;
     bulkimportJsonUrlButton.innerHTML = window.deps.translateString(
       'generic.loading',
@@ -244,7 +246,9 @@ export const createImportUI = ({
 
   const bulkFileInput = getBulkImportFileInput(importContainer);
   eventsManager.addEventListener(bulkFileInput, 'change', () => {
-    notifications.info('Bulk import started...');
+    notifications.info(
+      window.deps.translateString('import.bulk.started', 'Bulk import started...'),
+    );
     loadFile<StorageItem[]>(bulkFileInput)
       .then(insertItems)
       .catch((message) => {

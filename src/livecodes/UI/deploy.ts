@@ -202,7 +202,9 @@ export const createDeployUI = async ({
     const commitSource = existingRepoCommitSource.checked;
     const newRepo = false;
     if (!name) {
-      notifications.error('Repo name is required');
+      notifications.error(
+        window.deps.translateString('deploy.error.repoNameRequired', 'Repo name is required'),
+      );
       return;
     }
 
