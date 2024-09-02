@@ -21,7 +21,8 @@
     "Modes",
     "Import-maps",
     "Formatter",
-    "Build"
+    "Build",
+    "services"
   ],
   "html.customData": ["./.vscode/html.html-data.json"]
 }

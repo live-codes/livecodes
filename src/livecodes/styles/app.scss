@@ -1892,6 +1892,7 @@ i.arrow {
     border: 1px solid rgb(128, 128, 128);
     border-radius: 3px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
+    content-visibility: auto;
     display: inline-flex;
     list-style: none;
     margin: 10px auto;
@@ -2281,6 +2282,7 @@ i.arrow {
       .search-result-item-files {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-around;
 
         > span {
           display: flex;
@@ -2297,8 +2299,10 @@ i.arrow {
           display: flex;
           gap: 0.5em;
           height: 20px;
+          justify-content: center;
           padding: 0.7em;
           text-decoration: none;
+          width: 6em;
         }
 
         a:hover {

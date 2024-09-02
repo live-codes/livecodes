@@ -14,7 +14,11 @@ export const populateConfig = (
 ): Partial<Config> => {
   if (files.length === 0) return {};
 
-  const configFile = files.find((file) => file?.filename.toLowerCase() === 'livecodes.json');
+  const configFile = files.find(
+    (file) =>
+      file.filename.toLowerCase() === 'livecodes.json' ||
+      (files.length === 1 && file.filename.toLowerCase().endsWith('.json')),
+  );
   if (configFile) {
     try {
       return JSON.parse(configFile.content);
@@ -108,9 +112,21 @@ export const populateConfig = (
         if (a.filename.startsWith('readme')) return 1;
         if (b.filename.startsWith('readme')) return -1;
       }
+      // put extension-less files last
+      if (!a.filename.includes('.')) return 1;
+      if (!b.filename.includes('.')) return -1;
+
+      // if same language, sort by filename
       if (a.language === b.language) {
-        // if same language, sort by filename
         return a.filename.localeCompare(b.filename);
+      }
+
+      // put markdown last
+      if (a.editorId === b.editorId && a.editorId === 'markup') {
+        if (a.filename.endsWith('.md')) return 1;
+        if (b.filename.endsWith('.md')) return -1;
+        if (a.filename.endsWith('.markdown')) return 1;
+        if (b.filename.endsWith('.markdown')) return -1;
       }
       return (
         // then sort by language
