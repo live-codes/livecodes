@@ -67,6 +67,8 @@ const importFromLokalise = async () => {
     const response = await api.files().download(`${projectID}:${branchName}`, {
       format: 'json',
       original_filenames: true,
+      json_unescaped_slashes: true,
+      replace_breaks: false,
       placeholder_format: 'i18n',
     });
     console.log(`Downloading zip file from ${response.bundle_url}`);
