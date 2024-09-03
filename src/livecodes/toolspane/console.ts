@@ -1,7 +1,7 @@
 import LunaConsole from 'luna-console';
 import { createEditor, getFontFamily } from '../editor';
 import type { createEventsManager } from '../events';
-import type { Editors, Config, Console, CodeEditor, EditorOptions } from '../models';
+import type { Editors, Config, Console, CodeEditor, EditorOptions, Theme } from '../models';
 import { isMobile } from '../utils';
 import { sandboxService } from '../services';
 import { getToolspaneButtons, getToolspaneElement, getToolspaneTitles } from '../UI';
@@ -68,7 +68,7 @@ export const createConsole = (
       return consoleEmulator;
     }
 
-    consoleEmulator = new LunaConsole(consoleElement);
+    consoleEmulator = new LunaConsole(consoleElement, { theme: config.theme });
     eventsManager.addEventListener(window, 'message', (event: any) => {
       if (
         !consoleElement ||
@@ -319,6 +319,7 @@ export const createConsole = (
     },
     getEditor: () => editor,
     reloadEditor,
+    setTheme: (theme: Theme) => exec(() => consoleEmulator?.setOption('theme', theme)),
     log: (...args) => exec(() => consoleEmulator?.log(...args)),
     info: (...args) => exec(() => consoleEmulator?.info(...args)),
     table: (...args) => exec(() => consoleEmulator?.table(...args)),

@@ -1390,6 +1390,7 @@ export interface Console extends Tool {
   // filterLog: (filter: string) => void;
   evaluate: (code: string) => void;
   reloadEditor: (config: Config) => Promise<void>;
+  setTheme?: (theme: Theme) => void;
 }
 
 export interface CompiledCodeViewer extends Tool {

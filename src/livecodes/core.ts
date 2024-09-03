@@ -1695,6 +1695,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
+  toolsPane?.console?.setTheme?.(theme);
 };
 
 const setLayout = (layout: Config['layout']) => {
@@ -3853,7 +3854,6 @@ const handleBroadcastStatus = () => {
   // Replace with icon CSS
   const iconCSS = '<span class="icon-broadcast"></span>';
   broadcastStatusBtn.innerHTML = `<span id="broadcast-status">${iconCSS}<span class="mark"></span></span>`;
-
 
   const showBroadcast = () => {
     showScreen('broadcast');
