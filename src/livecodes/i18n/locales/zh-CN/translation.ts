@@ -92,6 +92,10 @@ const translation: I18nTranslation = {
       },
       heading: '添加资产',
     },
+    delete: {
+      all: '删除 {{projects}} 个资产？',
+      one: '删除资产：{{asset}} ？',
+    },
     deleteAll: '删除全部',
     generic: {
       clickToCopyURL: '点击以复制 URL',
@@ -290,6 +294,10 @@ const translation: I18nTranslation = {
     searchRepo: '搜索您的公开代码仓库...',
   },
   editorSettings: {
+    appLanguage: {
+      heading: '应用界面语言',
+      note: '切换语言后，将重新加载本应用程序以应用更改。',
+    },
     closeBrackets: '自动闭合括号和引号',
     codeJarDesc: '* 标记的功能在 CodeJar 中不可用。',
     default: '默认',
@@ -425,6 +433,7 @@ const translation: I18nTranslation = {
       fromFile: '从本地文件批量导入',
       fromURL: '从 URL 批量导入',
       heading: '批量导入',
+      started: '批量导入已开始 ...',
     },
     code: {
       desc: '支持的来源： <1> <tag-2>GitHub Gist</tag-2> <tag-3>GitHub 文件</tag-3> <tag-4>GitHub 仓库中的目录</tag-4> <tag-5>Gitlab Snippet</tag-5> <tag-6>Gitlab 文件</tag-6><tag-7>Gitlab 仓库中的目录</tag-7> <tag-8>JS Bin</tag-8><tag-9> 原始代码</tag-9> <tag-10>网页 DOM 中的代码 </tag-10> <tag-11>zip 文件中的代码</tag-11> <tag-12>官方样板<tag-13></tag-13>（TypeScript, Vue 和 Svelte）</tag-12> </tag-1> 请访问<tag-14>文档</tag-14>以了解详细信息。',
@@ -518,6 +527,7 @@ const translation: I18nTranslation = {
     defaultTemplate: '默认模板 ',
     delete: {
       all: '删除 {{projects}} 个项目？',
+      deleting: '正在删除项目 ...',
       one: '删除项目：{{project}} ？',
     },
     deleteAll: '删除全部',
@@ -662,7 +672,7 @@ const translation: I18nTranslation = {
     },
     delete: {
       all: '删除 {{snippets}} 个代码片段？',
-      one: '删除代码片段：{{snippet}} ?',
+      one: '删除代码片段：{{snippet}} ？',
     },
     deleteAll: '删除全部',
     error: {
@@ -816,6 +826,7 @@ const translation: I18nTranslation = {
         heading: '运行',
       },
       summary: {
+        desc: '测试： {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></tag-1>\n耗时：{{duration}} 秒',
         failed: '失败 {{failedNum}}',
         passed: '通过 {{passedNum}}',
         skipped: '已跳过 {{skippedNum}}',

@@ -90,6 +90,10 @@ const translation: I18nTranslation = {
       },
       heading: '',
     },
+    delete: {
+      all: '',
+      one: '',
+    },
     deleteAll: '',
     generic: {
       clickToCopyURL: '',
@@ -288,6 +292,10 @@ const translation: I18nTranslation = {
     searchRepo: '',
   },
   editorSettings: {
+    appLanguage: {
+      heading: '',
+      note: '',
+    },
     closeBrackets: '',
     codeJarDesc: '',
     default: '',
@@ -423,6 +431,7 @@ const translation: I18nTranslation = {
       fromFile: '',
       fromURL: '',
       heading: '',
+      started: '',
     },
     code: {
       desc: '',
@@ -516,6 +525,7 @@ const translation: I18nTranslation = {
     defaultTemplate: '',
     delete: {
       all: '',
+      deleting: '',
       one: '',
     },
     deleteAll: '',
@@ -814,6 +824,7 @@ const translation: I18nTranslation = {
         heading: '',
       },
       summary: {
+        desc: '',
         failed: '',
         passed: '',
         skipped: '',
