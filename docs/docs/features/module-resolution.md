@@ -35,11 +35,10 @@ This is made possible by using [import maps](https://github.com/WICG/import-maps
 
 <p>&nbsp;</p>
 
-You can import React like that:
+You can import from React like that:
 
 ```js
-import React, { useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import { useState } from 'react';
 ```
 
 Demo:
@@ -169,8 +168,7 @@ By default, npm modules are imported from [esm.sh](https://esm.sh/). You may cho
 Example:
 
 ```js
-import React, { useState } from 'esm.sh:react';
-import { createRoot } from 'esm.sh:react-dom/client';
+import { useState } from 'esm.sh:react';
 ```
 
 :::caution
@@ -182,7 +180,7 @@ Example:
 ```js
 // this will NOT work!
 import React, { useState } from 'esm.sh:react'; // React from esm.sh
-import { createRoot } from 'react-dom/client'; // React from jspm.dev
+import { createRoot } from 'skypack:react-dom/client'; // React from skypack.dev
 ```
 
 :::
