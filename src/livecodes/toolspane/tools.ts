@@ -62,7 +62,7 @@ export const createToolsPane = (
   const tools = [...allTools];
 
   const result = getResultElement();
-  const gutterSize = 30;
+  const gutterSize = 32;
   type Sizes = {
     [key in ToolsPaneStatus]: [number, number];
   };

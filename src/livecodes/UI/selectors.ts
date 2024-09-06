@@ -24,8 +24,8 @@ export const getLogoLink = /* @__PURE__ */ () =>
   document.querySelector('#logo a') as HTMLAnchorElement;
 export const getRunButton = /* @__PURE__ */ () =>
   document.querySelector('#run-button') as HTMLElement;
-export const getCodeRunButton = /* @__PURE__ */ () =>
-  document.querySelector('#code-run-button') as HTMLElement;
+// export const getCodeRunButton = /* @__PURE__ */ () =>
+//   document.querySelector('#code-run-button') as HTMLElement;
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
 export const getFocusButton = /* @__PURE__ */ () =>
@@ -106,15 +106,25 @@ export const getstyleMenu = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#style-selector .dropdown-menu');
 
 export const getSettingToggles = /* @__PURE__ */ () =>
-  document.querySelectorAll<HTMLInputElement>('#settings-menu input');
+  document.querySelectorAll<HTMLInputElement>('#app-menu-settings input');
 
 export const getCssPresetLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
-export const getSettingsMenuScroller = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#settings-menu-container');
-export const getSettingsButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#settings-button');
+export const getAppMenuProjectScroller = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-project-container');
+export const getAppMenuProjectButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-project-button');
+
+export const getAppMenuSettingsScroller = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-settings-container');
+export const getAppMenuSettingsButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-settings-button');
+
+export const getAppMenuHelpScroller = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-help-container');
+export const getAppMenuHelpButton = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-help-button');
 
 export const getExportJSONLink = /* @__PURE__ */ () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-json');
@@ -195,55 +205,55 @@ export const getAboutLink = /* @__PURE__ */ () =>
   document.querySelector<HTMLAnchorElement>('#about-link');
 
 export const getAutoupdateToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#autoupdate') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#autoupdate') as HTMLInputElement;
 
 export const getDelayValue = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu #delay-value') as HTMLElement;
+  document.querySelector('#app-menu-settings #delay-value') as HTMLElement;
 
 export const getDelayRange = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#delay-range') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#delay-range') as HTMLInputElement;
 
 export const getAutosaveToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#autosave') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#autosave') as HTMLInputElement;
 
 export const getAutosyncToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#autosync') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#autosync') as HTMLInputElement;
 
 export const getFormatOnsaveToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#formatOnsave') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#formatOnsave') as HTMLInputElement;
 
 export const getProcessorToggles = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLInputElement>('#style-selector input');
 
 export const getEmmetToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#emmet') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#emmet') as HTMLInputElement;
 
 export const getThemeToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#theme') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#theme') as HTMLInputElement;
 
 export const getLayoutToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#layout') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#layout') as HTMLInputElement;
 
 export const getShowWelcomeToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#welcome') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#welcome') as HTMLInputElement;
 
 export const getRecoverToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#recover-unsaved') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#recover-unsaved') as HTMLInputElement;
 
 export const getSpacingToggle = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu input#show-spacing') as HTMLInputElement;
+  document.querySelector('#app-menu-settings input#show-spacing') as HTMLInputElement;
 
 export const getCSSPresetLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
 export const getProjectInfoLink = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu #info-link') as HTMLInputElement;
+  document.querySelector('#app-menu-project #info-link') as HTMLInputElement;
 
 export const getAssetsLink = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu #assets-link') as HTMLInputElement;
+  document.querySelector('#app-menu-settings #assets-link') as HTMLInputElement;
 
 export const getSnippetsLink = /* @__PURE__ */ () =>
-  document.querySelector('#settings-menu #snippets-link') as HTMLInputElement;
+  document.querySelector('#app-menu-settings #snippets-link') as HTMLInputElement;
 
 export const getInfoTitleInput = /* @__PURE__ */ () =>
   document.querySelector('#info-container input#title-input') as HTMLInputElement;

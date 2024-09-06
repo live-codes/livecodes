@@ -290,8 +290,8 @@ export const createEditorSettingsUI = async ({
       helpLink.title = 'Click for info...';
       title?.appendChild(helpLink);
 
-      const helpIcon: HTMLImageElement = document.createElement('img');
-      helpIcon.src = baseUrl + 'assets/icons/info.svg';
+      const helpIcon: HTMLSpanElement = document.createElement('span');
+      helpIcon.classList.add('icon-info');
       helpLink.appendChild(helpIcon);
     }
 

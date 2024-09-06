@@ -11,7 +11,8 @@ html {
 
 body,
 #livecodes {
-  background-color: #fff;
+  background-color: #111;
+  color: #fff;
   height: 100%;
   overflow: hidden;
 }
@@ -82,7 +83,8 @@ body,
 
 .click-to-load #loading-text {
   animation: none;
-  background-color: rgb(235, 235, 235);
+  background: rgba(48, 48, 48, 0.5);
+  color: rgb(235, 235, 235);
   border: 1px solid rgba(48, 48, 48, 0.5);
   border-radius: 2px;
   padding: 5px;

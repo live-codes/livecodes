@@ -69,7 +69,9 @@ import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
-  settingsMenuHTML,
+  menuProjectHTML,
+  menuSettingsHTML,
+  menuHelpHTML,
   resultTemplate,
   customSettingsScreen,
   testEditorScreen,
@@ -534,7 +536,7 @@ const showMode = (mode?: Config['mode']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
-  const codeRunButton = UI.getCodeRunButton();
+  // const codeRunButton = UI.getCodeRunButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
@@ -546,7 +548,7 @@ const showMode = (mode?: Config['mode']) => {
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
   runButton.style.visibility = 'visible';
-  codeRunButton.style.visibility = 'visible';
+  // codeRunButton.style.visibility = 'visible';
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -565,13 +567,13 @@ const showMode = (mode?: Config['mode']) => {
     editorsElement.style.flexBasis = '100%';
     outputElement.style.display = 'none';
     resultElement.style.display = 'none';
-    codeRunButton.style.display = 'none';
+    // codeRunButton.style.display = 'none';
     split?.destroy(true);
     split = null;
   }
   if (mode === 'editor' || mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
-    codeRunButton.style.visibility = 'hidden';
+    // codeRunButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
@@ -2204,7 +2206,7 @@ const handleRunButton = () => {
     await run();
   };
   eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
-  eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
+  // eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
 };
 
 const handleResultButton = () => {
@@ -2338,24 +2340,66 @@ const handleProcessors = () => {
   });
 };
 
-const handleSettingsMenu = () => {
-  const menuContainer = UI.getSettingsMenuScroller();
-  const settingsButton = UI.getSettingsButton();
-  if (!menuContainer || !settingsButton) return;
-  menuContainer.innerHTML = settingsMenuHTML;
+const handleAppMenuProject = () => {
+  const menuProjectContainer = UI.getAppMenuProjectScroller();
+  const menuProjectButton = UI.getAppMenuProjectButton();
+  if (!menuProjectContainer || !menuProjectButton) return;
+  menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
-  // on small screens the conatiner covers most of the screen
+  // on small screens the container covers most of the screen
   // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuContainer, 'mousedown', (event) => {
-    if (event.target === menuContainer) {
-      menuContainer.classList.add('hidden');
+  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
+    if (event.target === menuProjectContainer) {
+      menuProjectContainer.classList.add('hidden');
     }
   });
-  eventsManager.addEventListener(settingsButton, 'mousedown', () => {
-    menuContainer.classList.remove('hidden');
+  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
+    menuProjectContainer.classList.remove('hidden');
+  });
+};
+
+const handleAppMenuSettings = () => {
+  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
+  const menuSettingsButton = UI.getAppMenuSettingsButton();
+  if (!menuSettingsContainer || !menuSettingsButton) return;
+  menuSettingsContainer.innerHTML = menuSettingsHTML;
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the container covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuSettingsContainer, 'mousedown', (event) => {
+    if (event.target === menuSettingsContainer) {
+      menuSettingsContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(menuSettingsButton, 'mousedown', () => {
+    menuSettingsContainer.classList.remove('hidden');
+  });
+};
+
+const handleAppMenuHelp = () => {
+  const menuHelpContainer = UI.getAppMenuHelpScroller();
+  const menuHelpButton = UI.getAppMenuHelpButton();
+  if (!menuHelpContainer || !menuHelpButton) return;
+  menuHelpContainer.innerHTML = menuHelpHTML;
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the container covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuHelpContainer, 'mousedown', (event) => {
+    if (event.target === menuHelpContainer) {
+      menuHelpContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
+    menuHelpContainer.classList.remove('hidden');
   });
 };
 
@@ -3779,7 +3823,7 @@ const handleResultPopup = () => {
   // popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
   // Replace with icon CSS
   const iconCSS = '<span class="icon-window-new"></span>';
-  popupBtn.innerHTML = `<span id="show-result">${iconCSS}</span>`;
+  popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -3818,10 +3862,10 @@ const handleResultZoom = () => {
   zoomBtn.dataset.hint = 'Zoom';
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
-  <span class="text">
+  <button class="text">
     <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
     &times;
-  </span>`;
+  </button>`;
 
   const toggleZoom = () => {
     const config = getConfig();
@@ -3853,7 +3897,8 @@ const handleBroadcastStatus = () => {
   // </span>`;
   // Replace with icon CSS
   const iconCSS = '<span class="icon-broadcast"></span>';
-  broadcastStatusBtn.innerHTML = `<span id="broadcast-status">${iconCSS}<span class="mark"></span></span>`;
+  broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
+
 
   const showBroadcast = () => {
     showScreen('broadcast');
@@ -4006,7 +4051,9 @@ const basicHandlers = () => {
 
 const extraHandlers = async () => {
   handleTitleEdit();
-  handleSettingsMenu();
+  handleAppMenuProject();
+  handleAppMenuSettings();
+  handleAppMenuHelp();
   handleSettings();
   handleProjectInfo();
   handleCustomSettings();
