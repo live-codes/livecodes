@@ -21,7 +21,7 @@ export const getResultIFrameElement = /* @__PURE__ */ () =>
 export const getGutterElement = /* @__PURE__ */ () =>
   document.querySelector('#editor-container .gutter') as HTMLElement;
 export const getLogoLink = /* @__PURE__ */ () =>
-  document.querySelector('#logo a') as HTMLAnchorElement;
+  document.querySelector('a#logo') as HTMLAnchorElement;
 export const getRunButton = /* @__PURE__ */ () =>
   document.querySelector('#run-button') as HTMLElement;
 // export const getCodeRunButton = /* @__PURE__ */ () =>

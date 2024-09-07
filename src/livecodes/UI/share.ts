@@ -4,9 +4,9 @@ import { shareScreen } from '../html';
 import type { ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';
 import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
+import { copy as copyIcon } from '../UI/icons';
 import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
-import { copy as copyIcon } from '../UI/icons';
 
 interface Service {
   name: string;

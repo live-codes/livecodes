@@ -30,7 +30,7 @@ export const createLanguageMenus = (
         href="javascript:void(0)"
         onclick="event.stopPropagation();"
         tabIndex="1"
-        class="language-menu-button hint--bottom"
+        class="language-menu-button hint--left"
         data-hint="Change Language"
       >
       <i class="icon-arrow-down"></i>
