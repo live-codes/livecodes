@@ -107,9 +107,11 @@
 
   --console-background-color: hsl(212 20% 14%);
   --tests-background-color: hsl(212 20% 14%);
-  --test-results-background-color: rgb(225, 225, 225, 0.7);
-  --test-results-border-color: rgb(128, 128, 128);
+  --test-results-background-color: rgba(0, 128, 0, 0.2);
+  --test-results-border-color: rgb(0, 128, 0);
   --test-pass-color: rgb(0, 128, 0);
+  --test-fail-background: rgba(255, 0, 0, 0.2);
+  --test-fail-border: rgb(255, 0, 0);
   --test-fail-color: rgb(255, 0, 0);
   --size-label-color: rgba(225, 225, 225, 0.7);
 
@@ -202,7 +204,7 @@
   --test-fail-color: rgb(255, 0, 0);
   --size-label-color: rgba(225, 225, 225, 0.7);
 
-  --menu-background-color: rgb(255, 255, 255);
+  --menu-background-color: #ebebeb;
   --menu-border-color: rgb(204, 204, 204);
   --menu-shadow-color: rgba(0, 0, 0, 0.175);
   --menu-split-color: rgb(204, 204, 204);
@@ -267,7 +269,7 @@
     background: var(--scrollbar-active-color);
   }
 
-  ::webkit-scrollbar-button {
+  ::-webkit-scrollbar-button {
     display:none;
   }
 }
@@ -314,7 +316,7 @@ body {
 }
 
 .danger {
-  color: hsl(350, 96%, 90%);
+  color: rgb(255, 19, 57);
 }
 
 a {
@@ -355,7 +357,6 @@ a {
 
   .toolbar-app {
     justify-content: space-between;
-    margin-right: 1em;
     min-width: max-content;
   }
 
@@ -387,6 +388,7 @@ a {
     display: inherit;
     height: var(--s32);
     margin-right: var(--s4);
+    padding-right: var(--s8);
     text-decoration: none;
 
     &:hover {
@@ -400,13 +402,6 @@ a {
     padding: var(--s4);
   }
 
-  .project,
-  .settings {
-    /* font-size: var(--s13); */
-    display: block;
-    padding: 0 var(--s4);
-  }
-
   #project-title {
     align-items: center;
     background: var(--project-title-background);
@@ -417,7 +412,7 @@ a {
     height: 1.5rem;
     font-size: inherit;
     justify-content: flex-start;
-    margin: 0 .5em;
+    margin-right: var(--s4);
     overflow: hidden;
     padding: 0 .5em;
     position: relative;
@@ -462,8 +457,7 @@ a {
 
 @media only screen and (max-width: 1179px) {
   #toolbar {
-    .menu > .project,
-    .menu > .settings {
+    .menu > .menu-text {
       display: none;
     }
 
@@ -473,10 +467,11 @@ a {
 
     .dropdown-menu {
       font-size: var(--s14);
+    }
 
-      span.tooltip {
-        top: -0.25em;
-      }
+    #project-title {
+      width: auto;
+      min-width: 20ch;
     }
   }
 
@@ -487,16 +482,10 @@ a {
 }
 
 @media only screen and (max-width: 480px) {
-  .menu > .project,
-  .menu > .settings {
-    display: none;
-  }
-
   #toolbar {
     font-size: 0.8em;
 
-    .menu > .project,
-    .menu > .settings,
+    .menu > .menu-text,
     #project-title {
       display: none;
     }
@@ -515,7 +504,6 @@ a {
   }
 }
 
-//#editors #code-run-button,
 #toolbar > a.button,
 .toolbar-render > a.button,
 #login-link.button {
@@ -719,13 +707,9 @@ a {
 
   &#editor-tools {
     align-items: center;
+    bottom: 0;
     display: flex;
-    // border-top: 1px solid var(--c1);
-    // padding: 2px 0;
-
-    // > button {
-    //   margin-right: 4px;
-    // }
+    position: absolute;
 
     #editor-status {
       background-color: transparent;
@@ -743,17 +727,12 @@ a {
 // icon css
 [class^="icon-"] {
   display: inline-block;
-  width: 1em;
-  height: 1em;
   background-color: currentColor;
-  -webkit-mask-image: var(--svg);
   mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
-  height: 16px;
-  width: 16px;
+  height: var(--s16);
+  width: var(--s16);
   vertical-align: bottom;
 }
 
@@ -873,13 +852,12 @@ html.dark #result {
 }
 
 #tools-pane-bar {
-  border-top: 1px solid var(--c1);
   background-color: var(--split-bar-color);
   color: var(--toolspane-bar-text-color);
   font-size: 0.75em;
   height: 32px; // ref const gutterSize = 32; src/livecodes/toolspane/tools.ts
   justify-content: space-between;
-  top: -1px;
+  padding: 1px 0; // fix bottom space
 
   .delete-button,
   .clear-button {
@@ -911,7 +889,6 @@ html.dark #result {
 
 #tools-pane-buttons {
   color: var(--toolspane-buttons-text-color);
-  /* min-width: 92px; */
   text-align: right;
   white-space: nowrap;
 
@@ -953,6 +930,10 @@ html.dark #result {
   .luna-console-log-item .luna-console-icon-container .luna-console-icon {
     color: #03A9F4;
   }
+
+  .luna-console-count {
+    color: #fff;
+  }
 }
 
 #console-input-indicator {
@@ -993,6 +974,8 @@ html.dark #result {
     }
 
     &.fail {
+      background-color: var(--test-fail-background);
+      border: 1px solid var(--test-fail-border);
       color: var(--test-fail-color);
 
       &::before {
@@ -1051,7 +1034,6 @@ html.dark #result {
     border-radius: var(--s4);
     color: var(--toolbar-text-color);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
-    // color: unset;
     cursor: pointer;
     display: flex;
     font-size: 0.8em;
@@ -1116,7 +1098,7 @@ html.dark #result {
 
   #handle {
     background-color: var(--split-handle-color);
-    border-radius: var(--s4); // change from 2px;
+    border-radius: var(--s4);
     height: 30px;
     width: 4px;
   }
@@ -1125,7 +1107,7 @@ html.dark #result {
 #editor-container .gutter #size-label {
   background-color: var(--size-label-color);
   border: 1px solid var(--foreground-color);
-  border-radius: var(--s4); // change from 5px;
+  border-radius: var(--s4);
   cursor: auto;
   font-family: system-ui, sans-serif;
   font-size: 0.7em;
@@ -1147,7 +1129,7 @@ html.dark #result {
 #select-editor {
   color: var(--toolbar-text-color);
   height: var(--s32);  //todo tab-height
-  margin: 0 2em;
+  margin: 0 .5rem 0 0;
   position: relative;
 
   > ul {
@@ -1176,7 +1158,7 @@ li.editor-title {
   font-size: inherit;
   list-style: none;
   position: relative;
-  transform: translateY(3px);
+  top: 3px;
   width: 100px;
 
     &.half-width {
@@ -1189,7 +1171,7 @@ li.editor-title {
     }
 
   > span {
-    padding-left: .5em;
+    padding-left: .5rem;
   }
 
   &.active {
@@ -1211,7 +1193,7 @@ li.editor-title {
   }
 
   > .language-menu-button {
-    background-color: transparent; //var(--language-menu-button-color);
+    background-color: transparent; // todo var(--language-menu-button-color);
     color: currentColor;
     border: 0;
     border-radius: var(--s4);
@@ -1248,22 +1230,27 @@ li.editor-title {
   background-color: var(--menu-background-color);
   border: 1px solid var(--menu-border-color);
   border-radius: var(--s4);
-  box-shadow: 0 0 12px var(--menu-shadow-color);
+  box-shadow: 0 0 12px 2px var(--menu-shadow-color);
   display: none;
   font-size: .875rem;
   list-style: none;
-  max-width: calc(100% - 12px);
-  // TODO padding: .25rem; last column items ?
+  max-width: calc(100% - 18px);
+  padding: var(--s8);
   position: absolute;
   right: 0;
   top: 0;
-  width: calc(100% - 12px);
+  width: calc(100% - var(--s16));
+  width: 100%;
   overflow: visible;
 
-  [role="separator"]{
+  li[role="separator"]{
     padding: 1px 0;
-    margin: 2px 0;
+    margin: 2px calc(1px - var(--s8));
     background: var(--menu-split-color);
+  }
+
+  .hint--left:after {
+    margin-bottom: -18px; // fix menu language tooltip
   }
 }
 
@@ -1272,9 +1259,10 @@ li.editor-title {
   height: calc(100vh - 42px);
   overflow-x: hidden;
   overflow-y: scroll;
+
   position: absolute;
   right: 0;
-  top: 35px;
+  top: 32px;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
@@ -1300,8 +1288,8 @@ li.editor-title {
 
 .menu-scroller-script {
   right: 0;
-  width: 540%;
   transform: translateX(40%);
+  width: 570%;
 }
 
 .dropdown-menu-markup,
@@ -1341,6 +1329,10 @@ li.editor-title {
     right: 0;
     transform: translateX(30%);
     width: 800%;
+
+    right: 0;
+    transform: translateX(40%);
+    width: 570%;
   }
 
   .dropdown-menu.submenu {
@@ -1489,6 +1481,8 @@ li.editor-title {
 .dropdown-menu > li {
   break-inside: avoid-column;
   border-radius: var(--s4);
+  display: flex;
+  justify-content: space-between;
 
   &:hover,
   &.active {
@@ -1560,11 +1554,11 @@ i.arrow {
   top: calc(50% - 0.5em);
 
   &.submenu-chevron {
-    // ltr rtl
+    // todo ltr rtl
   }
 
   &.left {
-    // transform: rotate(180deg);
+    // todo transform: rotate(180deg);
   }
 
   &::before {
@@ -1773,7 +1767,6 @@ i.arrow {
 }
 
 #modal-container {
-  /* color: #abc; */
   align-items: center;
   animation: fadeIn 0.4s forwards;
   display: flex;
@@ -1850,14 +1843,13 @@ i.arrow {
         width: 9em;
       }
 
-      :where(.buttons) button#snippets-delete-all-button.button.danger {
+      :where(.buttons) #snippets-delete-all-button {
         background-color: hsl(350, 85%, 50%);
         color: hsl(350, 96%, 90%);
       }
 
       select {
         appearance: none;
-        // background: url('./assets/images/down_arrow.svg') 95% / 8% no-repeat var(--o1);
         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='%23aaa' d='M18 9c.852 0 1.297.986.783 1.623l-.076.084l-6 6a1 1 0 0 1-1.32.083l-.094-.083l-6-6l-.083-.094l-.054-.077l-.054-.096l-.017-.036l-.027-.067l-.032-.108l-.01-.053l-.01-.06l-.004-.057v-.118l.005-.058l.009-.06l.01-.052l.032-.108l.027-.067l.07-.132l.065-.09l.073-.081l.094-.083l.077-.054l.096-.054l.036-.017l.067-.027l.108-.032l.053-.01l.06-.01l.057-.004z'/%3E%3C/svg%3E") 95% / 8% no-repeat var(--c4);
         border: 1px solid var(--o4);
         border-radius: var(--s4);
@@ -1870,9 +1862,9 @@ i.arrow {
         scrollbar-width: var(--scrollbar-width, thin);
       }
 
-      // .tagify {
-      //   top: 1px;
-      // }
+      .tagify {
+        top: 1px;
+      }
 
       .tagify__input {
         --placeholder-color: var(--input-color);
@@ -1886,7 +1878,7 @@ i.arrow {
       a {
         border: 1px solid rgba(0, 0, 0, 0);
         border-radius: var(--s4);
-        padding: 3px;
+        padding: var(--s8);
         text-decoration: none;
       }
 
@@ -1941,10 +1933,9 @@ i.arrow {
         color: var(--link, #2196f3);
         display: block;
         flex-grow: 1;
-        // font-weight: 700;
         margin: 0;
-        // padding: 10px;
         text-decoration: none;
+        width: calc(100% - 60px);
       }
 
       .template-default-link,
@@ -1963,7 +1954,7 @@ i.arrow {
       }
 
       .light {
-        // color: rgb(128, 128, 128);
+        // todo css var color: rgb(128, 128, 128);
         font-size: 0.8em;
         font-weight: 400;
         line-height: 2;
@@ -1973,13 +1964,13 @@ i.arrow {
   }
 
   .overflow-text {
+    height: 2em;
     margin: auto;
     overflow-x: hidden;
     overflow-y: visible;
     text-overflow: ellipsis;
-    white-space: pre-line;
-    word-break: break-all;
-    max-height: 14vh;
+    white-space: nowrap;
+    // width: 90%;// todo test asset
   }
 
   #add-snippet-container #add-snippet-editor {
@@ -1987,6 +1978,7 @@ i.arrow {
     width: 81%;
   }
 
+  #assets-container,
   #snippets-container {
     .editor {
       height: 10em !important;
@@ -2026,7 +2018,6 @@ i.arrow {
   }
 
   a {
-
     &[target='_blank']::after {
       content: '\2197';
       display: inline-block;
@@ -2054,23 +2045,28 @@ i.arrow {
     color: var(--light);
     font-size: 1.25em;
     font-weight: 400;
+    height: auto;
+    max-width: calc(100% + 52px);
+    width: 100%;
+    margin: 0 -52px 0 0;
   }
 
   .img-preview {
-    margin: 0 auto 10px;
-    max-height: 60px;
-    max-width: 60px;
+    margin: .5rem;
+    max-height: 64px;
+    max-width: 64px;
   }
 
   .img-preview-larger {
-    margin: 0 auto 10px;
-    max-height: 100px;
-    max-width: 100px;
+    margin: 0 auto var(--s8);
+    max-height: 128px;
+    max-width: 128px;
   }
 
   .asset-details {
     margin-bottom: 10px;
-    overflow-x: scroll;
+    margin-bottom: 10px;
+    width: calc(100% - 80px);
   }
 
   .asset-link::before,
@@ -2085,7 +2081,7 @@ i.arrow {
     top: 10px !important;
   }
 
-  .project-tags:before {
+  .project-tags::before {
       content: ' ';
       color: white;
       display: inline-block;
@@ -2199,12 +2195,11 @@ i.arrow {
     width: 120px;
 
     &:hover {
-      background: var(--o5);
+      background: var(--o5); // todo css var
     }
 
     &:active {
-      //transform: translateY(1px);
-      background: var(--o5);
+      background: var(--o5); // todo css var
     }
 
     &.danger {
@@ -2220,8 +2215,8 @@ i.arrow {
   ul.open-list {
     margin: 0;
     padding: 0;
-    // text-align: center;
-    // width: 100%;
+    text-align: center;
+    width: 100%;
 
     &.hidden {
       visibility: hidden;
@@ -2238,11 +2233,11 @@ i.arrow {
     list-style: none;
     margin: 1em auto;
     min-height: 4em;
-    padding: 1em;
+    padding: 0;
     text-align: left;
     transform: scaleY(1);
-    transition: transform 0.5s ease-out;
-    width: calc(100% - 2em);
+    transition: transform .5s ease-out;
+    width: 80%;
 
     @media only screen and (max-width: 768px) {
       width: 100%;
@@ -2273,7 +2268,8 @@ i.arrow {
     // box-sizing: border-box;
     // margin-bottom: 2em;
     // min-height: calc(100% - 2em);
-    width: 98%;
+    // width: 98%;
+    width: 100%;
     // padding: 1em 0.5em;
   }
 
@@ -2291,14 +2287,13 @@ i.arrow {
     align-items: center;
     display: flex;
     flex-direction: column;
-    // flex-grow: 0.8;
     justify-content: space-around;
     margin: 1rem;
     text-align: center;
     width: calc(100% - 2rem);
 
     &.buttons{
-    margin: 1em 0;
+      margin: 1em 0;
     }
   }
 
@@ -2331,7 +2326,6 @@ i.arrow {
 
   select {
     appearance: none;
-    /*background: url('./assets/images/down_arrow.svg') 97%/0.5em no-repeat var(--c4); hsl(214deg 20% 12% / 50%);*/
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3Cpath fill='%23aaa' d='M18 9c.852 0 1.297.986.783 1.623l-.076.084l-6 6a1 1 0 0 1-1.32.083l-.094-.083l-6-6l-.083-.094l-.054-.077l-.054-.096l-.017-.036l-.027-.067l-.032-.108l-.01-.053l-.01-.06l-.004-.057v-.118l.005-.058l.009-.06l.01-.052l.032-.108l.027-.067l.07-.132l.065-.09l.073-.081l.094-.083l.077-.054l.096-.054l.036-.017l.067-.027l.108-.032l.053-.01l.06-.01l.057-.004z'/%3E%3C/svg%3E") 98% 50% no-repeat var(--c4);
     cursor: pointer;
     font-size: 1em;
@@ -2351,7 +2345,7 @@ i.arrow {
 
   /* selected option - not working in Firefox, requires form or workaround autocomplete=off */
   select option:checked {
-    background-color: var(--c2);
+    background-color: var(--c2); // todo css var
   }
 
   textarea:not(.inputarea) {
@@ -2516,10 +2510,10 @@ i.arrow {
         padding: 0.5em;
       }
     }
-
+/*
     .description {
       margin-left: 10%;
-    }
+    } */
   }
 
   #backup-container {
@@ -2758,7 +2752,7 @@ i.arrow {
       align-items: start;
       flex-direction: column;
       flex-wrap: wrap;
-      max-height: 36em;
+      max-height: 32em;
 
       &.no-recent {
         max-height: 28em;
@@ -2829,7 +2823,7 @@ i.arrow {
         background: var(--c2);
         border-radius: var(--s4);
         font-size: .75rem;
-        padding: .25rem 0;
+        padding: .5rem 0;
         text-align: center;
         text-decoration: none;
         width: 100%;
@@ -2839,7 +2833,7 @@ i.arrow {
         color: var(--light);
         }
 
-        > svg {
+        svg {
           width: 24px;
           height: 24px;
           vertical-align: -.175em;
@@ -2892,7 +2886,8 @@ i.arrow {
 
     @media only screen and (max-width: 768px) {
       .modal-screen {
-        max-height: unset;
+        // max-height: unset;
+        // todo column
 
         &.no-recent {
           max-height: unset;
@@ -2900,7 +2895,7 @@ i.arrow {
       }
 
       .modal-section {
-        width: 100%;
+        // width: 100%; // todo column
 
         &#welcome-recover {
           order: -1;
@@ -3124,13 +3119,13 @@ i.arrow {
     li {
       background: var(--o1);
       border-radius: var(--s8);
-      width: 150px;
+      width: 155px;
       transition: background .5s ease-in-out;
     }
-
-    @media screen and (max-width: 480px) {
+    @media only screen and (max-width: 1024px) {
+    // @media screen and (max-width: 480px) {
       li {
-        width: 140px;
+        width: 134px;
       }
     }
 
@@ -3482,16 +3477,30 @@ i.arrow {
 }
 
 .tooltip {
-  display: inline-block;
+/*   display: inline-block;
   height: 0.9em;
   opacity: 0.4;
   position: absolute;
   right: -0.1em;
   top: -0.25em;
+  width: 0.9em; */
+
+  display: inline-block;
+  height: 0.9em;
+  opacity: 0.4;
+  /* position: absolute; */
+  /* right: -0.1em; */
+  /* top: -0.25em; */
   width: 0.9em;
 
   &:hover {
     opacity: 1;
+  }
+
+  svg {
+    padding: 2px;
+    height: var(--s14);
+    width: var(--s14);
   }
 }
 
@@ -3518,7 +3527,7 @@ i.arrow {
 }
 
 /* modes */
-
+// TODO TEST EMBED
 .embed {
   #toolbar {
     height: var(--toolbar-height);
@@ -3526,6 +3535,20 @@ i.arrow {
 
     > * {
       transform: scale(0.9) translate(-5%, -2px);
+    }
+
+    #app-menu-project-button,
+    #app-menu-settings-button,
+    #app-menu-help-button,
+    #login-link {
+      display: none;
+    }
+
+    .toolbar-render{
+      flex-grow: 0;
+      width: auto;
+      min-width: 70px;
+      justify-content: flex-end;
     }
   }
 
@@ -3535,10 +3558,10 @@ i.arrow {
 
   .menu {
     display: inherit;
-    margin: 0 1em 0 0;
+    margin: 0 .5em 0 0;
 
-    .project,
-    .settings {
+
+    .menu-text {
       display: none;
     }
 
@@ -3577,7 +3600,7 @@ i.arrow {
     height: calc(100% - 40px);
   }
 }
-
+// TODO TEST SIMPLE-MODE
 .simple-mode {
   .editor-title:not(.active),
   #toolbar #result-button,
@@ -3624,7 +3647,7 @@ i.arrow {
     display: none !important;
   }
 }
-
+// TODO TEST FOCUS
 .focus-mode {
   .language-menu-button,
   #login-link,
@@ -3673,7 +3696,7 @@ i.arrow {
 }
 
 /* Code Mirror */
-
+// TODO TEST CM
 .cm-wrap {
   height: 100%;
 }

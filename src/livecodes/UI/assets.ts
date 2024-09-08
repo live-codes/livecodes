@@ -8,6 +8,7 @@ import type { GitHubFile } from '../services/github';
 import { generateId, type Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils/utils';
+import { iconDelete as deleteIcon } from '../UI/icons';
 import { flexSearchUrl } from '../vendors';
 import {
   getAddAssetButton,
@@ -93,15 +94,17 @@ const createAssetItem = (
     ev.preventDefault();
     copyUrl(item.url, notifications);
   };
-
   li.appendChild(link);
 
-  // const deleteButton = document.createElement('button');
-  // deleteButton.classList.add('delete-button');
-  // Replace with span for icon css
-  const deleteButton = document.createElement('span');
-  deleteButton.classList.add('icon-delete-button');
-  li.appendChild(deleteButton);
+  const actions = document.createElement('div');
+  actions.classList.add('actions');
+  li.appendChild(actions);
+
+  const deleteButton = document.createElement('div');
+  deleteButton.innerHTML = deleteIcon;
+  deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
+  deleteButton.dataset.hint = 'Delete';
+  actions.appendChild(deleteButton);
 
   return { link, deleteButton };
 };

@@ -102,7 +102,7 @@ export const createLanguageMenus = (
 
       if (language.info !== false) {
         const tooltip = document.createElement('span');
-        tooltip.classList.add('tooltip', 'hint--bottom-left');
+        tooltip.classList.add('tooltip', 'hint--left');
         tooltip.dataset.hint = 'Click for info...';
         tooltip.innerHTML = infoIcon;
         eventsManager.addEventListener(

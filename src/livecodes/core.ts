@@ -4097,7 +4097,7 @@ const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createE
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.classList.add('hint--bottom-left');
+  logoLink.classList.add('hint--bottom-right');
   logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
   logoLink.title = '';
 
