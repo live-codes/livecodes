@@ -422,14 +422,16 @@ export const translateString = <Key extends I18nKeyType, Value extends string>(
 ) => {
   if (!i18n) return value as string;
 
-  const interpolation = args[0];
+  const rawInterpolation = args[0];
+  const { isHTML, ...interpolation } = rawInterpolation ?? {};
+
   const translation = i18n.t(key, {
     ...interpolation,
     ...predefinedValues,
     defaultValue: value as string,
   }) as string;
 
-  if (!interpolation || !interpolation.isHTML) {
+  if (!interpolation || !isHTML) {
     return translation;
   } else {
     const { elements } = abstractifyHTML(value as string);

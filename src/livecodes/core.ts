@@ -104,6 +104,7 @@ import {
   stringify,
   stringToValidJson,
   toDataUrl,
+  predefinedValues,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -4161,11 +4162,12 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   value: I18nValueType<Key, Value>,
   ...args: I18nInterpolationType<I18nValueType<Key, Value>>
 ) => {
-  const interpolation = args[0];
+  const rawInterpolation = args[0];
+  const { isHTML, ...interpolation } = rawInterpolation ?? {};
 
   if (!interpolation) return value as string;
   let result: string = value as string;
-  for (const [k, v] of Object.entries(interpolation)) {
+  for (const [k, v] of Object.entries({ ...interpolation, ...predefinedValues })) {
     result = result.replaceAll(`{{${k}}}`, v as string);
   }
   return result;
@@ -4780,6 +4782,9 @@ const initApp = async (config: Partial<Config>, baseUrl: string) => {
     await loadToolsPane();
     await extraHandlers();
   });
+  if (!i18n) {
+    window.deps.translateString = translateStringMock;
+  }
   return createApi();
 };
 
