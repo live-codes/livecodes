@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [develop]
     types: [closed]
+    paths: ['src/livecodes/i18n/locales/**']
 
 jobs:
   notify:
