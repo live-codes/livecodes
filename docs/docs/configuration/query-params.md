@@ -37,6 +37,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   [delay](./configuration-object.md#delay),
   [formatOnsave](./configuration-object.md#formatOnsave),
   [theme](./configuration-object.md#theme),
+  [appLanguage](./configuration-object.md#applanguage),
   [recoverUnsaved](./configuration-object.md#recoverUnsaved),
   [welcome](./configuration-object.md#welcome),
   [showSpacing](./configuration-object.md#showSpacing),
