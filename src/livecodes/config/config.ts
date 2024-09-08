@@ -55,6 +55,7 @@ export const getUserConfig = (config: Config | UserConfig): UserConfig =>
     autoupdate: config.autoupdate,
     autosave: config.autosave,
     autotest: config.autotest,
+    appLanguage: config.appLanguage,
     delay: config.delay,
     formatOnsave: config.formatOnsave,
     layout: config.layout,

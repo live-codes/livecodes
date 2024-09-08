@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const ocamlStarter: Template = {
   name: 'ocaml',
-  title: 'Ocaml Starter',
+  title: window.deps.translateString('templates.starter.ocaml', 'Ocaml Starter'),
   thumbnail: 'assets/templates/ocaml.svg',
   activeEditor: 'script',
   markup: {

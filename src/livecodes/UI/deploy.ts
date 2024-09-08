@@ -139,6 +139,7 @@ export const createDeployUI = async ({
       deps: { getLanguageExtension: deps.getLanguageExtension },
     }).catch((error: any) => {
       if (error.message === 'Repo name already exists') {
+        // TODO: i18n this
         newRepoNameError.innerHTML = error.message;
       }
     });
@@ -157,7 +158,9 @@ export const createDeployUI = async ({
       return true;
     } else {
       modal.close();
-      notifications.error('Deployment failed!');
+      notifications.error(
+        window.deps.translateString('deploy.error.generic', 'Deployment failed!'),
+      );
       return true;
     }
   };
@@ -171,16 +174,21 @@ export const createDeployUI = async ({
     const commitSource = newRepoCommitSource.checked;
     const newRepo = true;
     if (!name) {
-      notifications.error('Repo name is required');
+      notifications.error(
+        window.deps.translateString('deploy.error.repoNameRequired', 'Repo name is required'),
+      );
       return;
     }
 
-    newRepoButton.innerHTML = 'Deploying...';
+    newRepoButton.innerHTML = window.deps.translateString(
+      'deploy.generic.deploying',
+      'Deploying...',
+    );
     newRepoButton.disabled = true;
 
     const result = await publish(user, name, message, commitSource, newRepo);
     if (!result) {
-      newRepoButton.innerHTML = 'Deploy';
+      newRepoButton.innerHTML = window.deps.translateString('deploy.generic.deployBtn', 'Deploy');
       newRepoButton.disabled = false;
     }
   });
@@ -194,11 +202,16 @@ export const createDeployUI = async ({
     const commitSource = existingRepoCommitSource.checked;
     const newRepo = false;
     if (!name) {
-      notifications.error('Repo name is required');
+      notifications.error(
+        window.deps.translateString('deploy.error.repoNameRequired', 'Repo name is required'),
+      );
       return;
     }
 
-    existingRepoButton.innerHTML = 'Deploying...';
+    existingRepoButton.innerHTML = window.deps.translateString(
+      'deploy.generic.deploying',
+      'Deploying...',
+    );
     existingRepoButton.disabled = true;
 
     await publish(user, name, message, commitSource, newRepo);
@@ -226,7 +239,7 @@ export const createDeployUI = async ({
   if (!document.querySelector(inputSelector)) return;
   const autoCompleteJS = new autoComplete({
     selector: inputSelector,
-    placeHolder: 'Search your public repos...',
+    placeHolder: window.deps.translateString('deploy.searchRepo', 'Search your public repos...'),
     data: {
       src: publicRepos,
     },

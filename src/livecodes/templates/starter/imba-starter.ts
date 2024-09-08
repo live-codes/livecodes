@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const imbaStarter: Template = {
   name: 'imba',
-  title: 'Imba Starter',
+  title: window.deps.translateString('templates.starter.imba', 'Imba Starter'),
   thumbnail: 'assets/templates/imba.svg',
   activeEditor: 'script',
   markup: {

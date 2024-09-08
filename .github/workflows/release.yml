@@ -6,6 +6,9 @@ on:
       - develop
     types: [closed]
 
+env:
+  NODE_VERSION: 18.x
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
 
@@ -23,15 +26,30 @@ jobs:
         run: echo ::set-output name=version::$(echo ${{github.head_ref}} | sed 's/^releases\///')
 
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      # - name: Cache Node modules
+      #   id: cache-npm
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build
         run: npm run build
+        env:
+          BUILD_INCLUDE_LOCALES: true
 
       - name: Release notes
         run: node ./scripts/release-notes.js

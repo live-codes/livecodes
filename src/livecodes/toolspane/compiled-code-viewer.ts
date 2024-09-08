@@ -113,7 +113,7 @@ export const createCompiledCodeViewer = (
 
   return {
     name: 'compiled',
-    title: 'Compiled',
+    title: window.deps.translateString('toolspane.compiled.title', 'Compiled'),
     load,
     onActivate: () => {
       if (languageLabel) {

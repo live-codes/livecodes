@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const fennelStarter: Template = {
   name: 'fennel',
-  title: 'Fennel Starter',
+  title: window.deps.translateString('templates.starter.fennel', 'Fennel Starter'),
   thumbnail: 'assets/templates/fennel.svg',
   activeEditor: 'script',
   markup: {

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const jestReactStarter: Template = {
   name: 'jest-react',
-  title: 'Jest/React Starter',
+  title: window.deps.translateString('templates.starter.jest-react', 'Jest/React Starter'),
   thumbnail: 'assets/templates/jest.svg',
   activeEditor: 'script',
   autotest: true,

@@ -1,0 +1,40 @@
+{
+  "version": 1.1,
+  "globalAttributes": [
+    {
+      "name": "data-i18n",
+      "description": "The key of the translation for current element."
+    },
+    {
+      "name": "data-i18n-prop",
+      "description": "Attributes of the element that should be translated, separated by space.",
+      "valueSet": "i18nProps"
+    },
+    {
+      "name": "data-hint",
+      "description": "The tooltip of the element."
+    }
+  ],
+  "valueSets": [
+    {
+      "name": "i18nProps",
+      "values": [
+        {
+          "name": "textContent"
+        },
+        {
+          "name": "innerHTML"
+        },
+        {
+          "name": "title"
+        },
+        {
+          "name": "data-hint"
+        },
+        {
+          "name": "placeholder"
+        }
+      ]
+    }
+  ]
+}

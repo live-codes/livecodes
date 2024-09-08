@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const solidStarter: Template = {
   name: 'solid',
-  title: 'Solid Starter',
+  title: window.deps.translateString('templates.starter.solid', 'Solid Starter'),
   thumbnail: 'assets/templates/solid.svg',
   activeEditor: 'script',
   markup: {

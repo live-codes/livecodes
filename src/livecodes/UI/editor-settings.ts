@@ -11,6 +11,7 @@ import { getEditorTheme } from '../editor/themes';
 import { monacoThemes } from '../editor/monaco/monaco-themes';
 import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
 import { prismThemes } from '../editor/codejar/prism-themes';
+import { localizedAppLanguage } from '../i18n/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -51,6 +52,8 @@ export const createEditorSettingsUI = async ({
   const form = editorSettingsContainer.querySelector<HTMLFormElement>('#editor-settings-form');
   if (!previewContainer || !form) return;
 
+  const defaultText = window.deps.translateString('editorSettings.default', 'Default');
+
   interface FormField {
     title?: string;
     name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
@@ -60,81 +63,117 @@ export const createEditorSettingsUI = async ({
   }
   const formFields: FormField[] = [
     {
-      title: 'Enable AI Code Assistant',
+      title: window.deps.translateString('editorSettings.appLanguage.heading', 'App UI Language'),
+      name: 'appLanguage',
+      options: [
+        ...Object.entries(localizedAppLanguage).map(([code, lng]) => ({
+          label: lng,
+          value: code,
+        })),
+      ],
+      note: window.deps.translateString(
+        'editorSettings.appLanguage.note',
+        'Will reload the app to apply the changes after switching the language.',
+      ),
+      // TODO: help here
+    },
+    {
+      title: window.deps.translateString(
+        'editorSettings.enableAI.heading',
+        'Enable AI Code Assistant',
+      ),
       name: 'enableAI',
       options: [{ value: 'true' }],
       help: `${process.env.DOCS_BASE_URL}features/ai`,
-      note: `Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="${process.env.DOCS_BASE_URL}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>`,
+      note: window.deps.translateString(
+        'editorSettings.enableAI.note',
+        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{DOCS_BASE_URL}}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
+        {
+          isHTML: true,
+        },
+      ),
     },
     {
-      title: 'Editor',
+      title: window.deps.translateString('editorSettings.editor.heading', 'Editor'),
       name: 'editor',
       options: [
-        { label: 'Default', value: '' },
-        { label: 'Monaco', value: 'monaco' },
-        { label: 'CodeMirror', value: 'codemirror' },
-        { label: 'CodeJar', value: 'codejar' },
+        {
+          label: defaultText,
+          value: '',
+        },
+        {
+          label: window.deps.translateString('editorSettings.editor.monaco', 'Monaco'),
+          value: 'monaco',
+        },
+        {
+          label: window.deps.translateString('editorSettings.editor.codemirror', 'CodeMirror'),
+          value: 'codemirror',
+        },
+        {
+          label: window.deps.translateString('editorSettings.editor.codejar', 'CodeJar'),
+          value: 'codejar',
+        },
       ],
       help: `${process.env.DOCS_BASE_URL}features/editor-settings#code-editor`,
     },
     {
-      title: 'Dark Mode',
+      title: window.deps.translateString('editorSettings.theme', 'Dark Mode'),
       name: 'theme',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Editor Theme',
+      title: window.deps.translateString('editorSettings.editorTheme', 'Editor Theme'),
       name: 'editorTheme-monaco-dark',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...monacoThemes.map((t) => ({ label: t.title, value: `monaco:${t.name}@dark` })),
       ],
     },
     {
       name: 'editorTheme-monaco-light',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...monacoThemes.map((t) => ({ label: t.title, value: `monaco:${t.name}@light` })),
       ],
     },
     {
       name: 'editorTheme-codemirror-dark',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...codemirrorThemes.map((t) => ({ label: t.title, value: `codemirror:${t.name}@dark` })),
       ],
     },
     {
       name: 'editorTheme-codemirror-light',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...codemirrorThemes.map((t) => ({ label: t.title, value: `codemirror:${t.name}@light` })),
       ],
     },
     {
       name: 'editorTheme-codejar-dark',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...prismThemes.map((t) => ({ label: t.title, value: `codejar:${t.name}@dark` })),
       ],
     },
     {
       name: 'editorTheme-codejar-light',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...prismThemes.map((t) => ({ label: t.title, value: `codejar:${t.name}@light` })),
       ],
     },
     {
-      title: 'Font Family',
+      title: window.deps.translateString('editorSettings.fontFamily', 'Font Family'),
       name: 'fontFamily',
       options: [
-        { label: 'Default', value: '' },
+        { label: defaultText, value: '' },
         ...fonts.map((font) => ({ label: font.label || font.name, value: font.name })),
       ],
     },
     {
-      title: 'Font Size',
+      title: window.deps.translateString('editorSettings.fontSize', 'Font Size'),
       name: 'fontSize',
       options: [
         { label: '10', value: '10' },
@@ -154,15 +193,21 @@ export const createEditorSettingsUI = async ({
       ],
     },
     {
-      title: 'Indentation',
+      title: window.deps.translateString('editorSettings.useTabs.heading', 'Indentation'),
       name: 'useTabs',
       options: [
-        { label: 'Spaces', value: 'false' },
-        { label: 'Tabs', value: 'true' },
+        {
+          label: window.deps.translateString('editorSettings.useTabs.spaces', 'Spaces'),
+          value: 'false',
+        },
+        {
+          label: window.deps.translateString('editorSettings.useTabs.tabs', 'Tabs'),
+          value: 'true',
+        },
       ],
     },
     {
-      title: 'Tab Size',
+      title: window.deps.translateString('editorSettings.tabSize', 'Tab Size'),
       name: 'tabSize',
       options: [
         { label: '1', value: '1' },
@@ -174,47 +219,59 @@ export const createEditorSettingsUI = async ({
       ],
     },
     {
-      title: 'Show line numbers',
+      title: window.deps.translateString('editorSettings.lineNumbers', 'Show line numbers'),
       name: 'lineNumbers',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Word-wrap',
+      title: window.deps.translateString('editorSettings.wordWrap', 'Word-wrap'),
       name: 'wordWrap',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Auto-close brackets and quotes',
+      title: window.deps.translateString(
+        'editorSettings.closeBrackets',
+        'Auto-close brackets and quotes',
+      ),
       name: 'closeBrackets',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Enable Emmet *',
+      title: window.deps.translateString('editorSettings.emmet', 'Enable Emmet *'),
       name: 'emmet',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Editor Mode *',
+      title: window.deps.translateString('editorSettings.editorMode.heading', 'Editor Mode *'),
       name: 'editorMode',
       options: [
-        { label: 'Default', value: '' },
-        { label: 'Vim', value: 'vim' },
-        { label: 'Emacs', value: 'emacs' },
+        { label: defaultText, value: '' },
+        {
+          label: window.deps.translateString('editorSettings.editorMode.vim', 'Vim'),
+          value: 'vim',
+        },
+        {
+          label: window.deps.translateString('editorSettings.editorMode.emacs', 'Emacs'),
+          value: 'emacs',
+        },
       ],
       help: `${process.env.DOCS_BASE_URL}features/editor-settings#editor-modes`,
     },
     {
-      title: 'Format: Use Semicolons',
+      title: window.deps.translateString('editorSettings.semicolons', 'Format: Use Semicolons'),
       name: 'semicolons',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Format: Use Single Quotes',
+      title: window.deps.translateString('editorSettings.singleQuote', 'Format: Use Single Quotes'),
       name: 'singleQuote',
       options: [{ value: 'true' }],
     },
     {
-      title: 'Format: Use Trailing Commas',
+      title: window.deps.translateString(
+        'editorSettings.trailingComma',
+        'Format: Use Trailing Commas',
+      ),
       name: 'trailingComma',
       options: [{ value: 'true' }],
     },
@@ -276,7 +333,7 @@ export const createEditorSettingsUI = async ({
       title = document.createElement('label');
       title.innerHTML = field.title.replace(
         '*',
-        `<a href="#codejar-info" class="hint--top" data-hint="Not available in CodeJar" style="text-decoration: none;">*</a>`,
+        `<a href="#codejar-info" class="hint--top" data-hint="${window.deps.translateString('editorSettings.notAvailableInCodeJar', 'Not available in CodeJar')}" style="text-decoration: none;">*</a>`,
       );
       title.dataset.name = field.name;
       form.appendChild(title);
@@ -287,7 +344,7 @@ export const createEditorSettingsUI = async ({
       helpLink.href = field.help;
       helpLink.target = '_blank';
       helpLink.classList.add('help-link');
-      helpLink.title = 'Click for info...';
+      helpLink.title = window.deps.translateString('generic.clickForInfo', 'Click for info...');
       title?.appendChild(helpLink);
 
       const helpIcon: HTMLSpanElement = document.createElement('span');
@@ -301,7 +358,10 @@ export const createEditorSettingsUI = async ({
 
     const name = `editor-settings-${field.name}`;
     const optionValue = String(
-      (editorOptions as any)[field.name] ?? (defaultConfig as any)[field.name] ?? '',
+      (editorOptions as any)[field.name] ??
+        (userConfig as any)[field.name] ??
+        (defaultConfig as any)[field.name] ??
+        '',
     );
 
     if (field.options.length > 4) {

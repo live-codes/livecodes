@@ -31,7 +31,7 @@ export const getStarterTemplates = async (config: Config, baseUrl: string): Prom
     .filter((template) => {
       const enabledLanguages = config.languages?.map(getLanguageByAlias).filter(Boolean);
       if (!enabledLanguages) return true;
-      if (template.title === 'Blank Project') return true;
+      if (template.name === 'blank') return true;
 
       const templateLanguages = [
         template.markup?.language,

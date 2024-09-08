@@ -1,8 +1,8 @@
 <div id="about-container" class="modal-container">
-  <div class="modal-title">About LiveCodes</div>
+  <div class="modal-title" data-i18n="about.heading">About LiveCodes</div>
   <div id="about-screen-container" class="modal-screen-container">
     <div class="modal-section" id="about-info">
-      <p>
+      <p data-i18n="about.livecodes.para1" data-i18n-prop="innerHTML">
         <strong><em>LiveCodes</em></strong> is an
         <a href="{{REPO_URL}}" target="_blank" rel="noopener">open-source</a>,
         <a href="{{DOCS_BASE_URL}}features/" target="_blank" rel="noopener">feature-rich</a>,
@@ -19,7 +19,7 @@
         >
         with code.
       </p>
-      <p>
+      <p data-i18n="about.livecodes.para2" data-i18n-prop="innerHTML">
         A wide range of
         <a href="{{DOCS_BASE_URL}}configuration/" target="_blank" rel="noopener"
           >configuration options</a
@@ -44,38 +44,119 @@
 
       <div class="modal-screen">
         <div class="modal-section">
-          <h3>Documentations</h3>
+          <h3 data-i18n="about.documentations.heading">Documentations</h3>
           <ul>
-            <li><a href="{{DOCS_BASE_URL}}" target="_blank" rel="noopener">Home</a></li>
             <li>
-              <a href="{{DOCS_BASE_URL}}getting-started" target="_blank" rel="noopener"
+              <a
+                data-i18n="about.documentations.home"
+                href="{{DOCS_BASE_URL}}"
+                target="_blank"
+                rel="noopener"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="generic.about.gettingStarted"
+                href="{{DOCS_BASE_URL}}getting-started"
+                target="_blank"
+                rel="noopener"
                 >Getting Started</a
               >
             </li>
-            <li><a href="{{DOCS_BASE_URL}}features" target="_blank" rel="noopener">Features</a></li>
             <li>
-              <a href="{{DOCS_BASE_URL}}configuration" target="_blank" rel="noopener"
+              <a
+                data-i18n="generic.about.features"
+                href="{{DOCS_BASE_URL}}features"
+                target="_blank"
+                rel="noopener"
+                >Features</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="generic.about.configuration"
+                href="{{DOCS_BASE_URL}}configuration"
+                target="_blank"
+                rel="noopener"
                 >Configuration</a
               >
             </li>
-            <li><a href="{{DOCS_BASE_URL}}sdk" target="_blank" rel="noopener">SDK</a></li>
-            <li><a href="https://blog.livecodes.io" target="_blank" rel="noopener">Blog</a></li>
-            <li><a href="{{DOCS_BASE_URL}}license" target="_blank" rel="noopener">License</a></li>
             <li>
-              <a href="{{DOCS_BASE_URL}}sponsor" target="_blank" rel="noopener"
+              <a
+                data-i18n="generic.about.sdk"
+                href="{{DOCS_BASE_URL}}sdk"
+                target="_blank"
+                rel="noopener"
+                >SDK</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="generic.about.blog"
+                href="https://blog.livecodes.io"
+                target="_blank"
+                rel="noopener"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="about.documentations.license"
+                href="{{DOCS_BASE_URL}}license"
+                target="_blank"
+                rel="noopener"
+                >License</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="generic.about.sponsor"
+                href="{{DOCS_BASE_URL}}sponsor"
+                target="_blank"
+                rel="noopener"
                 >Sponsor LiveCodes</a
               >
             </li>
-            <li><a href="{{DOCS_BASE_URL}}contact" target="_blank" rel="noopener">Contact</a></li>
-            <li><a href="{{DOCS_BASE_URL}}about" target="_blank" rel="noopener">About us</a></li>
             <li>
-              <a href="https://twitter.com/livecodes_io" target="_blank" rel="noopener"
-                >𝕏 / Twitter</a
+              <a
+                data-i18n="about.documentations.contact"
+                href="{{DOCS_BASE_URL}}contact"
+                target="_blank"
+                rel="noopener"
+                >Contact</a
               >
             </li>
-            <li><a href="{{REPO_URL}}" target="_blank" rel="noopener">GitHub</a></li>
             <li>
-              <a href="{{DOCS_BASE_URL}}overview" target="_blank" rel="noopener" class="more"
+              <a
+                data-i18n="about.documentations.aboutUs"
+                href="{{DOCS_BASE_URL}}about"
+                target="_blank"
+                rel="noopener"
+                >About us</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="generic.about.twitter"
+                href="https://twitter.com/livecodes_io"
+                target="_blank"
+                rel="noopener"
+                >? / Twitter</a
+              >
+            </li>
+            <li>
+              <a data-i18n="generic.about.github" href="{{REPO_URL}}" target="_blank" rel="noopener"
+                >GitHub</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="generic.more"
+                href="{{DOCS_BASE_URL}}overview"
+                target="_blank"
+                rel="noopener"
+                class="more"
                 >More...</a
               >
             </li>
@@ -83,15 +164,32 @@
         </div>
 
         <div class="modal-section">
-          <h3>Version</h3>
+          <h3 data-i18n="about.version.heading">Version</h3>
           <ul>
-            <li>App version: {{APP_VERSION}}</li>
-            <li>SDK version: {{SDK_VERSION}}</li>
-            <li>
+            <li data-i18n="about.version.app">App version: {{APP_VERSION}}</li>
+            <li data-i18n="about.version.sdk">SDK version: {{SDK_VERSION}}</li>
+            <li data-i18n="about.version.commit">
               Git commit: <a href="{{COMMIT_URL}}" target="_blank" rel="noopener">{{COMMIT_SHA}}</a>
             </li>
-            <li><a href="{{APP_URL}}" target="_blank" rel="noopener">App Permanent URL</a></li>
-            <li><a href="{{SDK_URL}}" target="_blank" rel="noopener">SDK Permanent URL</a></li>
+
+            <li>
+              <a
+                data-i18n="about.version.appPermanentUrl"
+                href="{{APP_URL}}"
+                target="_blank"
+                rel="noopener"
+                >App Permanent URL</a
+              >
+            </li>
+            <li>
+              <a
+                data-i18n="about.version.sdkPermanentUrl"
+                href="{{SDK_URL}}"
+                target="_blank"
+                rel="noopener"
+                >SDK Permanent URL</a
+              >
+            </li>
           </ul>
         </div>
       </div>

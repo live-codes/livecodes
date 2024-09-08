@@ -112,7 +112,7 @@ export const createLanguageMenus = (
             const languageInfo = document.createElement('div');
             languageInfo.classList.add('language-info');
             languageInfo.innerHTML = await getLanguageInfo(language.name, baseUrl);
-            showLanguageInfo(languageInfo);
+            await showLanguageInfo(languageInfo);
             const templateLink: HTMLElement | null = languageInfo.querySelector('a[data-template]');
             const templateName = templateLink?.dataset.template as Template['name'];
             if (templateLink && templateName) {

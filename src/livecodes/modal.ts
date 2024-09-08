@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-internal-modules
+import { dispatchTranslationEvent } from './i18n/utils';
+
 interface ModalOptions {
   size?: 'large' | 'small';
   closeButton?: boolean;
@@ -26,6 +29,7 @@ export const createModal = () => {
     modal.innerHTML = '';
     modal.className = size;
     modal.appendChild(container);
+    dispatchTranslationEvent(modal);
     onCloseFn = onClose;
 
     if (scrollToSelector) {
@@ -43,7 +47,7 @@ export const createModal = () => {
       closeContainer.className = 'close-container';
       const closeBtn = document.createElement('button');
       closeBtn.classList.add('button');
-      closeBtn.innerHTML = 'Close';
+      closeBtn.innerHTML = window.deps.translateString('generic.close', 'Close');
       closeBtn.onclick = close;
       closeContainer.appendChild(closeBtn);
       modal.appendChild(closeContainer);
@@ -51,7 +55,6 @@ export const createModal = () => {
 
     const cornerCloseBtn = document.createElement('div');
     cornerCloseBtn.classList.add('close-button');
-    // Replace with span for icon css
     const iconCSS = '<span class="icon-close-button"></span>';
     cornerCloseBtn.innerHTML = iconCSS;
     cornerCloseBtn.title = 'Esc';

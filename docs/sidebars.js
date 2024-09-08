@@ -38,6 +38,7 @@ const sidebars = {
             'features/keyboard-shortcuts',
             'features/user-settings',
             'features/editor-settings',
+            'features/i18n',
             'features/default-template-language',
             'features/assets',
             'features/snippets',

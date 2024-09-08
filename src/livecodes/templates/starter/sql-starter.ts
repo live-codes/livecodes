@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const sqlStarter: Template = {
   name: 'sql',
-  title: 'SQL Starter',
+  title: window.deps.translateString('templates.starter.sql', 'SQL Starter'),
   thumbnail: 'assets/templates/sqlite.svg',
   activeEditor: 'script',
   markup: {

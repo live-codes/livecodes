@@ -29,7 +29,7 @@ import { createPlayground } from 'livecodes';
 })();
 ```
 
-Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuartion object to be used while initializing the app.
+Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuration object to be used while initializing the app.
 
 Example:
 
@@ -314,7 +314,7 @@ It can be used like that:
 }
 ```
 
-Alternatively, the value for module name can be an object with the following proprties:
+Alternatively, the value for module name can be an object with the following properties:
 
 - `url`: `string` (required). The URL to type declaration file.
 - `autoload`: `boolean` (optional). By default, the types are only loaded when the module is imported in code. If `autoload` property is set to `true`, the types are loaded regardless if the module was imported.
@@ -526,6 +526,14 @@ Examples:
 Each `EditorTheme` item requires a theme name. The theme name can optionally be preceded with the editor name separated by a colon to specify the editor (e.g. `"monaco:monokai"`). It can also optionally be followed by the app theme separated by "@" (e.g. `"monokai@dark"`).
 
 Multiple `EditorTheme` items can be supplied (as array items or in the comma-separated string) to specify the theme for each editor and in dark and light modes. The order matters. The first valid item in the array or string for the current editor (`monaco`, `codemirror` or `codejar`) and app theme (`light` or `dark`) will be used. If no items match the current editor and app theme, the default theme for the editor and app theme will be used.
+
+### `appLanguage`
+
+Type: [`AppLanguage | undefined`](../api/interfaces/Config.md#applanguage)
+
+Default: `undefined`
+
+Spoken language code that sets the app UI language (e.g. `"ar"`, `"zh-CN"`). Used in translations for internationalization. If `undefined` (the default), the language is automatically detected based on the user's browser settings and falls back to English, if detection fails or the language is not supported.
 
 ### `recoverUnsaved`
 

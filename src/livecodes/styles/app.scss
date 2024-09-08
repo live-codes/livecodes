@@ -671,7 +671,6 @@ a {
 
     &.text {
       align-items: center;
-      // border-bottom: 2px solid var(--toolspane-button-color);
       display: flex;
       font-size: .75rem;
       height: 26px;
@@ -679,10 +678,9 @@ a {
     }
 
     svg {
-      height: 16px; // icon size
+      height: 16px; // todo icon size
       width: 16px;
       margin: 4px auto;
-      // vertical-align: -.175em;
     }
 
     &:hover {
@@ -1032,8 +1030,8 @@ html.dark #result {
     background: var(--toolspane-button-color);
     border: 1px solid var(--toolspane-button-color);
     border-radius: var(--s4);
-    color: var(--toolbar-text-color);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
+    color: var(--toolbar-text-color);
     cursor: pointer;
     display: flex;
     font-size: 0.8em;
@@ -1149,9 +1147,9 @@ html.dark #result {
 li.editor-title {
   align-items: center;
   background: var(--toolbar-background-color);
+  border-bottom: 1px solid var(--o2); // todo editor border
   border-top-left-radius: var(--s4);
   border-top-right-radius: var(--s4);
-  border-bottom: 1px solid var(--o2); // todo editor border
   color: var(--editor-title-text-color);
   cursor: pointer;
   display: flex;
@@ -1161,14 +1159,14 @@ li.editor-title {
   top: 3px;
   width: 100px;
 
-    &.half-width {
-      width: 48%;
-    }
+  &.half-width {
+    width: 48%;
+  }
 
-    &:hover {
-      background-color: var(--toolbar-background-active-color);
-      color: var(--editor-title-text-active-color);
-    }
+  &:hover {
+    background-color: var(--toolbar-background-active-color);
+    color: var(--editor-title-text-active-color);
+  }
 
   > span {
     padding-left: .5rem;
@@ -1232,24 +1230,24 @@ li.editor-title {
   border-radius: var(--s4);
   box-shadow: 0 0 12px 2px var(--menu-shadow-color);
   display: none;
-  font-size: .875rem;
+  font-size: 0.875rem;
   list-style: none;
   max-width: calc(100% - 18px);
+  overflow: visible;
   padding: var(--s8);
   position: absolute;
   right: 0;
   top: 0;
   width: calc(100% - var(--s16));
   width: 100%;
-  overflow: visible;
 
   li[role="separator"]{
-    padding: 1px 0;
-    margin: 2px calc(1px - var(--s8));
     background: var(--menu-split-color);
+    margin: 2px calc(1px - var(--s8));
+    padding: 1px 0;
   }
 
-  .hint--left:after {
+  .hint--left::after {
     margin-bottom: -18px; // fix menu language tooltip
   }
 }
@@ -1262,8 +1260,8 @@ li.editor-title {
 
   position: absolute;
   right: 0;
-  top: 32px;
   scrollbar-width: none;
+  top: 32px;
 
   &::-webkit-scrollbar {
     display: none;

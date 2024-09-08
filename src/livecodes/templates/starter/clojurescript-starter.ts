@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const clojurescriptStarter: Template = {
   name: 'clojurescript',
-  title: 'ClojureScript Starter',
+  title: window.deps.translateString('templates.starter.clojurescript', 'ClojureScript Starter'),
   thumbnail: 'assets/templates/cljs.svg',
   activeEditor: 'script',
   markup: {
