@@ -6,7 +6,7 @@ There are many ways to pre-fill code into playgrounds. This is generally achieve
 
 ## Prefill using SDK
 
-When creating an embeded playground, the following [embed options](../sdk/js-ts.md#embed-options) allow prefill with code:
+When creating an embedded playground, the following [embed options](../sdk/js-ts.md#embed-options) allow prefill with code:
 
 ### config
 

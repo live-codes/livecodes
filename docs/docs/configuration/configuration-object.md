@@ -29,7 +29,7 @@ import { createPlayground } from 'livecodes';
 })();
 ```
 
-Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuartion object to be used while initializing the app.
+Alternatively, the URL [query parameter](./query-params.md) `config` can provide a URL to a JSON representation of the configuration object to be used while initializing the app.
 
 Example:
 
@@ -314,7 +314,7 @@ It can be used like that:
 }
 ```
 
-Alternatively, the value for module name can be an object with the following proprties:
+Alternatively, the value for module name can be an object with the following properties:
 
 - `url`: `string` (required). The URL to type declaration file.
 - `autoload`: `boolean` (optional). By default, the types are only loaded when the module is imported in code. If `autoload` property is set to `true`, the types are loaded regardless if the module was imported.

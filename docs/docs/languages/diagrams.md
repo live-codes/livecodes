@@ -191,7 +191,7 @@ using [gnuplot-JS](https://github.com/chhu/gnuplot-JS)
 Instead of using `data-output` attribute in the [script element](#2-add-a-script-element-with-the-diagram-syntax), the statement `set output` is used in the diagram syntax (see highlighted lines below).
 
 Data files are also specified in the diagram syntax (see highlighted lines below).
-They are defined in script elements with the attribute `type="application/diagram-gnuplot-file"`. The file name is specifed in `data-file` attribute and either have inline content or linked to with a `src` attribute.
+They are defined in script elements with the attribute `type="application/diagram-gnuplot-file"`. The file name is specified in `data-file` attribute and either have inline content or linked to with a `src` attribute.
 
 Example: (<OpenCode id="45tardc2qaz"></OpenCode>)
 
