@@ -4149,6 +4149,7 @@ const sendI18nMessageToMainPage = (reload: boolean = false) => {
       payload: {
         data: i18nSplashData,
         reload,
+        lang: i18n?.language ?? 'en',
       },
     },
     location.origin,

@@ -190,6 +190,10 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
                     localStorage.setItem(`i18n_splash.${key}`, value);
                   }
 
+                  // Set document language
+                  const lang = e.data.payload.lang as string;
+                  document.documentElement.lang = lang;
+
                   // Reload the page to apply the new language
                   const reload = e.data.payload.reload as boolean;
                   if (reload) {
