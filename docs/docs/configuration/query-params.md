@@ -38,6 +38,7 @@ https://livecodes.io?js=console.log('Hello World!')&console=open
   [formatOnsave](./configuration-object.md#formatOnsave),
   [theme](./configuration-object.md#theme),
   [recoverUnsaved](./configuration-object.md#recoverUnsaved),
+  [welcome](./configuration-object.md#welcome),
   [showSpacing](./configuration-object.md#showSpacing),
   [editor](./configuration-object.md#editor),
   [fontFamily](./configuration-object.md#fontFamily),
