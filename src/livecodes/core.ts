@@ -143,7 +143,7 @@ import { permanentUrlService } from './services/permanent-url';
 import { importFromFiles } from './import/files';
 import {
   translate,
-  translateString,
+  translateString as _translateString,
   dispatchTranslationEvent,
   type I18nKeyType,
   type I18nValueType,
@@ -4171,6 +4171,12 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   return result;
 };
 
+const translateString = <Key extends I18nKeyType, Value extends string>(
+  key: Key,
+  value: I18nValueType<Key, Value>,
+  ...args: I18nInterpolationType<I18nValueType<Key, Value>> // @ts-ignore
+) => _translateString(i18n, key, value, args[0]);
+
 const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal();
@@ -4767,11 +4773,7 @@ const createApi = (): API => {
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
-    translateString: <Key extends I18nKeyType, Value extends string>(
-      key: Key,
-      value: I18nValueType<Key, Value>,
-      ...args: I18nInterpolationType<I18nValueType<Key, Value>> // @ts-ignore
-    ) => translateString(i18n, key, value, args[0]),
+    translateString,
   };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
@@ -4790,6 +4792,10 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
     basicHandlers();
     await loadToolsPane();
   });
+
+  // As in embed mode, we can explicitly set the language to enable i18n
+  if (i18n) window.deps.translateString = translateString;
+
   return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
@@ -4800,6 +4806,10 @@ const initLite = async (config: Partial<Config>, baseUrl: string) => {
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
+
+  // As in embed mode, we can explicitly set the language to enable i18n
+  if (i18n) window.deps.translateString = translateString;
+
   return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
