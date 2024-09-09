@@ -451,6 +451,12 @@ export const localizedAppLanguage: {
   [key in Exclude<AppLanguage, 'auto'>]: string;
 } = {
   en: 'English',
-  'zh-CN': '中文（简体）',
   ar: 'العربية',
+  es: 'Español',
+  fr: 'Français',
+  it: 'Italiano',
+  ja: 'Français',
+  pt: 'Portugues',
+  ru: 'Русский',
+  'zh-CN': '中文（简体）',
 };
