@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="codeium:type" content="monaco" />
-    <title>LiveCodes</title>
-    <script>
-      const params = new URLSearchParams(location.search);
-      const disableAI = params.get('disableAI') != null && params.get('disableAI') !== 'false';
-      if (disableAI) {
-        document.querySelector('meta[name="codeium:type"]')?.setAttribute('content', 'none');
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="codeium:type" content="monaco" />
+  <title>LiveCodes</title>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const disableAI = params.get('disableAI') != null && params.get('disableAI') !== 'false';
+    if (disableAI) {
+      document.querySelector('meta[name="codeium:type"]')?.setAttribute('content', 'none');
+    }
+    window.addEventListener('message', function (event) {
+      if (
+        event.origin === window.location.origin &&
+        event.source === parent &&
+        event.data.content
+      ) {
+        document.write(event.data.content);
+        document.close();
       }
-      window.addEventListener('message', function (event) {
-        if (
-          event.origin === window.location.origin &&
-          event.source === parent &&
-          event.data.content
-        ) {
-          document.write(event.data.content);
-          document.close();
-        }
-      });
-    </script>
-  </head>
-  <body></body>
+    });
+  </script>
+</head>
+<body></body>
 </html>

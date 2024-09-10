@@ -2426,7 +2426,7 @@ const handleAppMenuProject = () => {
   if (!menuProjectContainer || !menuProjectButton) return;
   menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
 // todo i18n
-// dispatchTranslationEvent(menuContainer);
+  dispatchTranslationEvent(menuProjectContainer);
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
@@ -2447,7 +2447,7 @@ const handleAppMenuSettings = () => {
   const menuSettingsButton = UI.getAppMenuSettingsButton();
   if (!menuSettingsContainer || !menuSettingsButton) return;
   menuSettingsContainer.innerHTML = menuSettingsHTML;
-
+  dispatchTranslationEvent(menuSettingsContainer);
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
@@ -2468,7 +2468,7 @@ const handleAppMenuHelp = () => {
   const menuHelpButton = UI.getAppMenuHelpButton();
   if (!menuHelpContainer || !menuHelpButton) return;
   menuHelpContainer.innerHTML = menuHelpHTML;
-
+  dispatchTranslationEvent(menuHelpContainer);
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container

@@ -1,21 +1,21 @@
 :root {
 	color-scheme: dark;
-	--hue: 214; /* HSL Hue degree on the color wheel from 0 to 360. 0 is red, 120 is green, and 214 is blue.*/
+	--hue: 14; /* HSL Hue degree on the color wheel from 0 to 360. 0 is red, 120 is green, and 214 is blue.*/
 
   --primary: hsl(var(--hue), 20%, 20%);
-  --accent-color: hsl(var(--hue), 90%, 50%);
+  --accent-color: hsl(var(--hue), 70%, 50%);
 
-	--c1: hsl(var(--hue), 70%, 10%);
-	--c2: hsl(var(--hue), 70%, 20%);
-	--c3: hsl(var(--hue), 70%, 30%);
-	--c4: hsl(var(--hue), 70%, 40%);
-	--c5: hsl(var(--hue), 70%, 50%);
+	--c1: hsl(var(--hue), 55%, 10%);
+	--c2: hsl(var(--hue), 55%, 20%);
+	--c3: hsl(var(--hue), 55%, 30%);
+	--c4: hsl(var(--hue), 55%, 40%);
+	--c5: hsl(var(--hue), 55%, 50%);
   // opacity
-	--o1: hsla(var(--hue), 90%, 55%, 0.15);
-	--o2: hsla(var(--hue), 90%, 55%, 0.25);
-	--o3: hsla(var(--hue), 90%, 55%, 0.35);
-	--o4: hsla(var(--hue), 90%, 55%, 0.45);
-	--o5: hsla(var(--hue), 90%, 55%, 0.55);
+	--o1: hsla(var(--hue), 70%, 55%, 0.15);
+	--o2: hsla(var(--hue), 70%, 55%, 0.25);
+	--o3: hsla(var(--hue), 70%, 55%, 0.35);
+	--o4: hsla(var(--hue), 70%, 55%, 0.45);
+	--o5: hsla(var(--hue), 70%, 55%, 0.55);
 
   --color1: rgb(25, 25, 25);
   --color2: rgb(27, 27, 27);
@@ -54,6 +54,7 @@
 
 	--light: hsl(var(--hue), 90%, 80%);
 	--link: hsl(var(--hue), 95%, 95%);
+  --link-color: var(--link);
   --bg: #020202;
 
   --panel-bg: var(--color2, #111413);
@@ -61,10 +62,8 @@
   --panel-title: var(--color5, #8e9294);
   --panel-text: var(--color5, #505456);
 
-  --link-color: var(--link);
-
   --toolbar-text-color: var(--light);
-  --toolbar-height: 40px;
+  --toolbar-height: 36px;
   --toolbar-text-active-color: var(--link);
   --toolbar-background-color: var(--color2);
   --toolbar-background-active-color: var(--o5);
@@ -76,7 +75,7 @@
   --editor-title-text-active-color: var(--link);
 
   --background-color: var(--color1);
-  --foreground-color: rgb(90, 96, 116);
+  --foreground-color: red; //rgb(90, 96, 116);
   --split-bar-color: var(--color2);
   --split-handle-color: var(--o5);
 
@@ -109,11 +108,14 @@
   --tests-background-color: hsl(212 20% 14%);
   --test-results-background-color: rgba(0, 128, 0, 0.2);
   --test-results-border-color: rgb(0, 128, 0);
-  --test-pass-color: rgb(0, 128, 0);
+  --test-pass-color: rgb(0, 178, 0);
   --test-fail-background: rgba(255, 0, 0, 0.2);
   --test-fail-border: rgb(255, 0, 0);
-  --test-fail-color: rgb(255, 0, 0);
-  --size-label-color: rgba(225, 225, 225, 0.7);
+  --test-fail-color: rgb(255, 102, 102);
+
+  --size-label-background: var(--c2);
+  --size-label-border: var(--c3);
+  --size-label-color: var(--c5);
 
   --menu-background-color: hsl(var(--hue), 20%, 20%);
   --menu-border-color: var(--color5);
@@ -200,9 +202,12 @@
   --tests-background-color: rgb(237, 237, 237);
   --test-results-background-color: rgb(225, 225, 225, 0.7);
   --test-results-border-color: rgb(128, 128, 128);
-  --test-pass-color: rgb(0, 128, 0);
+  --test-pass-color: rgb(0, 178, 0);
   --test-fail-color: rgb(255, 0, 0);
-  --size-label-color: rgba(225, 225, 225, 0.7);
+
+  --size-label-background: var(--c2);
+  --size-label-border: var(--c3);
+  --size-label-color: var(--light);
 
   --menu-background-color: #ebebeb;
   --menu-border-color: rgb(204, 204, 204);
@@ -316,7 +321,7 @@ body {
 }
 
 .danger {
-  color: rgb(255, 19, 57);
+  color: rgb(177, 27, 27);
 }
 
 a {
@@ -339,7 +344,7 @@ a {
 #toolbar {
   align-items: center;
   background: var(--toolbar-background-color);
-  border-bottom: 1px solid var(--split-bar-color);
+  border-bottom: 1px solid var(--c2);
   color: var(--toolbar-text-color);
   display: flex;
   height: var(--toolbar-height);
@@ -412,17 +417,16 @@ a {
     height: 1.5rem;
     font-size: inherit;
     justify-content: flex-start;
-    margin-right: var(--s4);
+    margin-right: var(--s8);
     overflow: hidden;
     padding: 0 .5em;
     position: relative;
-    width: 50%;
-    min-width: 25ch;
     transition: all .5s ease-in-out;
+    width: 50%;
 
     &:hover,
     &:focus{
-      background: var(--c3);
+      background: var(--o3);
       box-shadow: 0 0 6px 1px var(--o5);
       outline: none;
     }
@@ -447,7 +451,7 @@ a {
     display: inherit;
     height: var(--s32);
     justify-content: space-evenly;
-    margin: var(--s4);
+    margin: var(--s2);
     padding: 0 var(--s4);
     position: absolute;
     right: var(--s4);
@@ -455,10 +459,40 @@ a {
   }
 }
 
+#toolbar .toolbar-render .button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--s4);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-width: 24px;
+  outline: none;
+  padding: var(--s4);
+  text-decoration: none;
+  transition: ease-in-out .4s;
+
+  &:hover {
+    background: var(--c4);
+  }
+}
+
 @media only screen and (max-width: 1179px) {
   #toolbar {
+    .menu {
+      justify-content: center;
+      min-width: 24px;
+      padding: 0;
+    }
+
     .menu > .menu-text {
       display: none;
+    }
+
+    #login-link.button > span,
+    #logout-link.button > span {
+      display: none !important;
     }
 
     .button {
@@ -468,11 +502,6 @@ a {
     .dropdown-menu {
       font-size: var(--s14);
     }
-
-    #project-title {
-      width: auto;
-      min-width: 20ch;
-    }
   }
 
   //#broadcast-status-btn,
@@ -481,52 +510,28 @@ a {
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 1024px) {
+  #toolbar {
+    .toolbar-render .button {
+      margin: 0;
+      width: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
   #toolbar {
     font-size: 0.8em;
 
-    .menu > .menu-text,
-    #project-title {
-      display: none;
-    }
-
-    #share-button {
+    .menu > .menu-text{
       display: none;
     }
 
     #login-link {
       min-width: var(--s24);
-
-      span {
-        display: none;
-      }
     }
   }
 }
-
-#toolbar > a.button,
-.toolbar-render > a.button,
-#login-link.button {
-  align-items: center;
-  border: 0;
-  border-radius: var(--s4);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  min-width: 32px;
-  outline: none;
-  text-align: center;
-  text-decoration: none;
-
-  &:hover {
-    background: var(--c4);
-  }
-}
-
-/* mouse down */
-/* #login-link.button:active:hover {
-  background-color: var(--button-active-color);
-} */
 
 #fullscreen-button,
 #result-button {
@@ -604,8 +609,9 @@ a {
   position: relative;
   top: 0;
 
-  .editor {
+  > .editor {
     font-variant-ligatures: discretionary-ligatures;
+    max-height: calc(100% - 32px);
     visibility: hidden;
   }
 
@@ -813,7 +819,6 @@ a {
 					  linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
 	background-size:20px 20px;
 	background-position: 0 0, 10px 10px;
-  max-height: calc(100% - 34px); // todo height .ts or -34px of toolbar
   resize: both;
 
   &.full {
@@ -949,7 +954,7 @@ html.dark #result {
 #test-container,
 #test-results {
   background-color: var(--tests-background-color);
-  color: var(--color3);
+  color: var(--light);
 }
 
 #test-results {
@@ -1103,9 +1108,10 @@ html.dark #result {
 }
 
 #editor-container .gutter #size-label {
-  background-color: var(--size-label-color);
-  border: 1px solid var(--foreground-color);
+  background-color: var(--size-label-background);
+  border: 1px solid var(--size-label-border);
   border-radius: var(--s4);
+  color: var(--size-label-color);
   cursor: auto;
   font-family: system-ui, sans-serif;
   font-size: 0.7em;
@@ -1117,6 +1123,7 @@ html.dark #result {
   transition: opacity 0.1s;
   white-space: nowrap;
   z-index: 10;
+  max-height: calc(100vh - var(--toolbar-height));
 
   &.visible {
     opacity: 100%;
@@ -1125,8 +1132,9 @@ html.dark #result {
 }
 
 #select-editor {
+  border-bottom: 1px solid var(--o2);
   color: var(--toolbar-text-color);
-  height: var(--s32);  //todo tab-height
+  height: 34px; // todo (toolbar - tab-height) = 36px - (border 1 + top 2)
   margin: 0 .5rem 0 0;
   position: relative;
 
@@ -1138,11 +1146,11 @@ html.dark #result {
   }
 }
 
-@media only screen and (max-width: 1179px) {
-  #select-editor {
-    margin: 0;
-  }
-}
+// @media only screen and (max-width: 1179px) {
+//   #select-editor {
+//     margin: 0;
+//   }
+// }
 
 li.editor-title {
   align-items: center;
@@ -1156,7 +1164,7 @@ li.editor-title {
   font-size: inherit;
   list-style: none;
   position: relative;
-  top: 3px;
+  top: 2px;
   width: 100px;
 
   &.half-width {
@@ -1174,7 +1182,7 @@ li.editor-title {
 
   &.active {
     background-color: var(--toolbar-background-active-color);
-    border-bottom-color: currentColor;
+    border-bottom-color: var(--c4); // currentColor;
     color: var(--editor-title-text-active-color);
 
     > .language-menu-button {
@@ -1324,9 +1332,9 @@ li.editor-title {
   }
 
   .menu-scroller-script {
-    right: 0;
-    transform: translateX(30%);
-    width: 800%;
+    // right: 0;
+    // transform: translateX(30%);
+    // width: 800%;
 
     right: 0;
     transform: translateX(40%);
@@ -1366,7 +1374,7 @@ li.editor-title {
   left: 16em;
 }
 
-@media only screen and (max-width: 1180px) {
+@media only screen and (max-width: 1179px) {
   #app-menu-project-container {
     left: 3em;
   }
@@ -1508,11 +1516,11 @@ li.editor-title {
   }
 }
 
-@media only screen and (max-width: 1080px) {
-  #app-menu-project {
-    max-width: 60vw;
-  }
-}
+// @media only screen and (max-width: 1080px) {
+//   #app-menu-project {
+//     max-width: 60vw;
+//   }
+// }
 
 .submenu {
   column-count: 1 !important;
@@ -1841,7 +1849,7 @@ i.arrow {
         width: 9em;
       }
 
-      :where(.buttons) #snippets-delete-all-button {
+      #snippets-delete-all-button .buttons{
         background-color: hsl(350, 85%, 50%);
         color: hsl(350, 96%, 90%);
       }
@@ -1986,6 +1994,7 @@ i.arrow {
     .actions {
       align-items: center;
       align-self: flex-start;
+      background: var(--o2);
       display: flex;
       flex-direction: column;
 
@@ -1998,6 +2007,7 @@ i.arrow {
         margin-top: 1em;
         opacity: 0.6;
         padding: 5px;
+        text-align: center;
         width: 24px;
 
         &:focus,
@@ -2012,7 +2022,7 @@ i.arrow {
   #add-asset-container .buttons,
   #add-snippet-container .buttons {
     justify-content: end;
-    margin-top: -3em;
+    // margin-top: -3em;
   }
 
   a {
@@ -2050,15 +2060,17 @@ i.arrow {
   }
 
   .img-preview {
+    background: var(--o2);
+    border-radius: var(--s4);
     margin: .5rem;
-    max-height: 64px;
-    max-width: 64px;
+    height: 64px;
+    width: 64px;
   }
 
   .img-preview-larger {
     margin: 0 auto var(--s8);
-    max-height: 128px;
-    max-width: 128px;
+    height: 128px;
+    width: 128px;
   }
 
   .asset-details {
@@ -2087,11 +2099,8 @@ i.arrow {
       height: 1em;
       --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cg fill='none' fill-rule='evenodd' transform='translate(1 3)'%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' d='M11.914.5H15.5a2 2 0 0 1 2 2v3.586a1 1 0 0 1-.293.707l-6.793 6.793a2 2 0 0 1-2.828 0l-3.172-3.172a2 2 0 0 1 0-2.828L11.207.793A1 1 0 0 1 11.914.5'/%3E%3Cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' d='m7.5 13.5l-2.013 1.006A2 2 0 0 1 2.72 13.42L1.105 9.114a2 2 0 0 1 .901-2.45L9.5 2.5'/%3E%3Crect width='2' height='2' x='14' y='2' fill='%23000' rx='1'/%3E%3C/g%3E%3C/svg%3E");
       background-color: currentColor;
-      -webkit-mask-image: var(--svg);
       mask-image: var(--svg);
-      -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
-      -webkit-mask-size: 100% 100%;
       mask-size: 100% 100%;
       margin-right: 4px;
   }
@@ -2124,7 +2133,7 @@ i.arrow {
 
   .language-info > h3,
   .modal-title {
-    background: var(--o2);
+    background: var(--c2);
     box-sizing: border-box;
     border-radius: var(--s8);
     backdrop-filter: blur(5px);
@@ -2184,13 +2193,14 @@ i.arrow {
     border: 1px solid var(--o5);
     border-radius: var(--s4);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.176);
+    color: var(--link);
     cursor: pointer;
     font: normal .875em/1.5 system-ui, sans-serif;
     margin: 1em .5em 0;
     outline: none;
     padding: .25em;
     place-self: center;
-    width: 120px;
+    min-width: 120px;
 
     &:hover {
       background: var(--o5); // todo css var
@@ -2201,8 +2211,7 @@ i.arrow {
     }
 
     &.danger {
-      background-color: hsl(350, 85%, 50%);
-      color: hsl(350, 96%, 90%);
+      background-color: rgb(177, 27, 27);
     }
   }
 
@@ -2248,6 +2257,10 @@ i.arrow {
 
     &.selected {
       background-color: hsl(231, 54%, 95%);
+    }
+
+    a.open-project-link {
+      padding:var(--s8);
     }
   }
 
@@ -2515,6 +2528,7 @@ i.arrow {
   }
 
   #backup-container {
+    padding-top: 2em;
 
     #backup-stores {
       display: flex;
@@ -2580,6 +2594,10 @@ i.arrow {
       font-size: 0.8em;
       margin-top: -1em;
     }
+  }
+
+  #import-container {
+    padding-top: 2em;
   }
 
   #resources-container {
@@ -2702,7 +2720,7 @@ i.arrow {
       width: 81%;
 
       select {
-        width: calc(100% - 4em);
+        width: calc(100% - 8em);
       }
 
       .btn {
@@ -2740,7 +2758,6 @@ i.arrow {
     overflow: unset;
 
     .modal-screen-container {
-      /* height: calc(95% - 140px); */
       height: 100%;
       margin-bottom: 1em;
       overflow: scroll;
@@ -2827,7 +2844,7 @@ i.arrow {
         width: 100%;
 
         &:hover {
-        background: var(--c4);
+        background: var(--c3);
         color: var(--light);
         }
 
@@ -2852,7 +2869,7 @@ i.arrow {
 
       h3 {
         font-weight: 400;
-        margin: 0 0 .75em;
+        margin: 0 0 .5em;
       }
 
       li {
@@ -2922,6 +2939,10 @@ i.arrow {
         width: unset;
       }
     }
+  }
+
+  #templates-container {
+    padding-top: 2em;
   }
 
   #about-container {
@@ -3076,6 +3097,26 @@ i.arrow {
       width: unset;
     }
 
+    &.help {
+      background-color: var(--test-fail-background);
+      border: 1px solid var(--test-fail-border);
+      border-radius: var(--s4);
+      color: var(--test-fail-color);
+      font-size: inherit;
+      margin: inherit;
+      padding: var(--s8);
+    }
+
+    &.info {
+      background-color: var(--test-fail-background);
+      border: 1px solid var(--test-fail-border);
+      border-radius: var(--s4);
+      color: var(--test-fail-color);
+      font-size: inherit;
+      margin: inherit;
+      padding: var(--s8);
+    }
+
     ul {
       display: flex;
       flex-wrap: wrap;
@@ -3096,9 +3137,8 @@ i.arrow {
   }
 
   .light {
-    // color: rgb(114, 118, 133);
+    color: rgb(141, 151, 186);
   }
-
 
 // templates thumb+svg+name
   ul.thumbnails {
@@ -3121,9 +3161,14 @@ i.arrow {
       transition: background .5s ease-in-out;
     }
     @media only screen and (max-width: 1024px) {
-    // @media screen and (max-width: 480px) {
       li {
-        width: 134px;
+        width: 19.5%;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      li {
+        width: 24.4%;
       }
     }
 
@@ -3177,8 +3222,8 @@ i.arrow {
   .modal-message {
     margin: auto;
     max-width: 100%;
-    min-width: calc(100% - 40px);
-    padding: 20px;
+    min-width: calc(100% - 2rem);
+    padding: 1rem;
     text-align: center;
 
     &.hidden {
@@ -3393,7 +3438,7 @@ i.arrow {
   border-bottom: 1px solid var(--o5);
   display: flex;
   margin: 0 1em;
-  padding-top: 3em;
+  // padding-top: 3em;
 
 
   li {
@@ -3531,9 +3576,12 @@ i.arrow {
     height: var(--toolbar-height);
     justify-content: space-between;
 
-    > * {
-      transform: scale(0.9) translate(-5%, -2px);
+    .toolbar-app {
+      justify-content: flex-start;
     }
+/*     > * {
+      transform: scale(0.9) translate(-5%, -2px);
+    } */
 
     #app-menu-project-button,
     #app-menu-settings-button,
@@ -3576,9 +3624,9 @@ i.arrow {
     display: none !important;
   }
 
-  #login-link {
-    position: relative !important;
-  }
+  // #login-link {
+  //   position: relative !important;
+  // }
 
   #fullscreen-button,
   &:not(.no-result) #result-button {
@@ -3634,7 +3682,7 @@ i.arrow {
   }
 
   #editor-container {
-    height: calc(100% - var(--toolbar-height)) !important; // height - toolbar
+    height: calc(100% - var(--toolbar-height)) !important;
   }
 
   #tools-pane-bar {
@@ -3686,7 +3734,8 @@ i.arrow {
         margin: 0 var(--s4);
       }
 
-      #settings-button {
+      #settings-button,
+      #login-link > span {
         display: none !important;
       }
     }

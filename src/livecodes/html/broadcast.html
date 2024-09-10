@@ -5,36 +5,20 @@
     <div class="modal-screen">
       <div class="description" data-i18n="broadcast.desc" data-i18n-prop="innerHTML">
         Broadcast the result page to other browsers/devices in real time. Please visit the
-        <a href="{{DOCS_BASE_URL}}features/broadcast" target="_blank" rel="noopener"
-          >documentations</a
-        >
+        <a href="{{DOCS_BASE_URL}}features/broadcast" target="_blank" rel="noopener">documentations</a>
         for details.
       </div>
       <form id="broadcast-form">
         <div>
-          <label for="broadcast-server-url" data-i18n="broadcast.serverURL.heading"
-            >Server URL</label
-          >
-          <input
-            type="text"
-            id="broadcast-server-url"
-            placeholder="Required"
-            data-i18n="generic.required"
-            data-i18n-prop="placeholder"
-          />
+          <label for="broadcast-server-url" data-i18n="broadcast.serverURL.heading">Server URL</label>
+          <input type="text" id="broadcast-server-url" placeholder="Required" data-i18n="generic.required"
+            data-i18n-prop="placeholder" />
         </div>
         <div class="padded">
           <input type="checkbox" id="broadcast-source" />
-          <label for="broadcast-source" data-i18n="broadcast.includeSourceCode"
-            >Include source code</label
-          >
+          <label for="broadcast-source" data-i18n="broadcast.includeSourceCode">Include source code</label>
         </div>
-        <button
-          id="broadcast-btn"
-          class="wide-button"
-          type="submit"
-          data-i18n="broadcast.broadcastBtn.start"
-        >
+        <button id="broadcast-btn" class="wide-button" type="submit" data-i18n="broadcast.broadcastBtn.start">
           Broadcast
         </button>
         <div id="broadcast-channel-url-section">
