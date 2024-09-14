@@ -2426,7 +2426,7 @@ const handleSettingsMenu = () => {
   if (!menuContainer || !settingsButton) return;
   menuContainer.innerHTML = settingsMenuHTML;
 
-  dispatchTranslationEvent(menuContainer);
+  translateElement(menuContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -3425,10 +3425,10 @@ const handleEditorSettings = () => {
         applyEditorSettings();
         if (i18n && newConfig.appLanguage) {
           i18n.changeLanguage(newConfig.appLanguage).then(() => {
-            sendI18nMessageToMainPage(true);
+            setAppLanguage(true);
           });
         } else {
-          sendI18nMessageToMainPage(true);
+          setAppLanguage(true);
         }
       })();
     } else {
@@ -4115,6 +4115,7 @@ const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   const userLang =
     appLanguage && appLanguage !== 'auto' ? appLanguage : (navigator.language as AppLanguage);
   if (
+    isHeadless ||
     (isEmbed && !appLanguage) ||
     !userLang ||
     userLang.toLowerCase().startsWith('en') ||
@@ -4122,10 +4123,8 @@ const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   ) {
     return;
   }
-
   setConfig({ ...getConfig(), appLanguage: userLang });
   const i18nModule: typeof import('./i18n') = await import(baseUrl + '{{hash:i18n.js}}');
-
   i18n = i18nModule.init(userLang, baseUrl);
   window.deps.translateString = i18n.translateString;
 };
@@ -4136,41 +4135,15 @@ const handleI18n = () => {
     const elem = e.target as HTMLElement;
     i18n?.translate(elem);
   });
-  dispatchTranslationEvent(document.body);
+  translateElement(document.body);
 };
 
 /**
  * Dispatch a translation event to the given element.
  * @param elem The element to dispatch the event to.
  */
-export const dispatchTranslationEvent = (elem: HTMLElement) => {
+const translateElement = (elem: HTMLElement) => {
   elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
-};
-
-const sendI18nMessageToMainPage = (reload: boolean = false) => {
-  const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
-    Object.keys(obj).reduce((acc, key) => {
-      const value = obj[key];
-      if (typeof value === 'object') {
-        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
-      }
-      return { ...acc, [`${prefix}${key}`]: value };
-    }, {});
-
-  const i18nSplashData =
-    !isEmbed && i18n ? flatten(i18n.translateKey('splash', { returnObjects: true })) : {};
-
-  parent.postMessage(
-    {
-      args: 'i18n',
-      payload: {
-        data: i18nSplashData,
-        reload,
-        lang: i18n?.getLanguage() ?? 'en',
-      },
-    },
-    location.origin,
-  );
 };
 
 const translateStringMock = <Key extends I18nKeyType, Value extends string>(
@@ -4180,7 +4153,6 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
 ) => {
   const rawInterpolation = args[0];
   const { isHTML, ...interpolation } = rawInterpolation ?? {};
-
   if (!interpolation) return value as string;
   let result: string = value as string;
   for (const [k, v] of Object.entries({ ...interpolation, ...predefinedValues })) {
@@ -4189,9 +4161,37 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   return result;
 };
 
+const setAppLanguage = (reload: boolean = false) => {
+  const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
+    Object.keys(obj).reduce((acc, key) => {
+      const value = obj[key];
+      if (typeof value === 'object') {
+        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
+      }
+      return { ...acc, [`${prefix}${key}`]: value };
+    }, {});
+
+  const lang = i18n?.getLanguage() ?? 'en';
+  const i18nSplashData =
+    !isEmbed && i18n ? flatten(i18n.translateKey('splash', { returnObjects: true })) : {};
+
+  document.documentElement.lang = lang;
+  parent.postMessage(
+    {
+      args: 'i18n',
+      payload: {
+        data: i18nSplashData,
+        reload,
+        lang,
+      },
+    },
+    location.origin,
+  );
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal(dispatchTranslationEvent);
+  modal = createModal(translateElement);
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -4624,7 +4624,7 @@ const initializePlayground = async (
     initialized = true;
   });
   configureEmmet(getConfig());
-  sendI18nMessageToMainPage();
+  setAppLanguage();
 };
 
 const createApi = (): API => {
