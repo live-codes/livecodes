@@ -3421,15 +3421,14 @@ const handleEditorSettings = () => {
     };
 
     if (shouldReloadI18n) {
-      checkSavedAndExecute(() => {
+      checkSavedAndExecute(async () => {
         applyEditorSettings();
-        if (i18n && newConfig.appLanguage) {
-          i18n.changeLanguage(newConfig.appLanguage).then(() => {
-            setAppLanguage(true);
-          });
-        } else {
-          setAppLanguage(true);
+        if (!i18n && newConfig.appLanguage !== 'en') {
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadI18n(newConfig.appLanguage);
         }
+        await i18n?.changeLanguage(newConfig.appLanguage);
+        setAppLanguage(true);
       })();
     } else {
       applyEditorSettings();
