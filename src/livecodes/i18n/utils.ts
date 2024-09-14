@@ -89,7 +89,7 @@ export const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   );
 
   elements.forEach((element, index) => {
-    const oldElement = doc.body.querySelector(`tag-${index + 1}`)!;
+    const oldElement = doc.body.querySelector(`tag-${index + 1}`);
     const newElement = doc.createElement(element.name);
 
     // Copy previously saved attributes to newElement
@@ -100,18 +100,18 @@ export const unabstractifyHTML = (html: string, elements: TagElement[]) => {
     }
 
     // Override attributes base on those from abstract tags (oldElement)
-    if (oldElement.attributes) {
+    if (oldElement?.attributes) {
       Array.from(oldElement.attributes).forEach((attr) => {
         newElement.setAttribute(attr.name, attr.value);
       });
     }
 
     // Copy the children from oldElement to newElement
-    while (oldElement.firstChild) {
+    while (oldElement?.firstChild) {
       newElement.appendChild(oldElement.firstChild);
     }
 
-    oldElement.replaceWith(newElement);
+    oldElement?.replaceWith(newElement);
   });
 
   let unabstractifiedHTML = doc.body.innerHTML;
