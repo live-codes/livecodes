@@ -1,7 +1,14 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
+import type {
+  AppLanguage,
+  Config,
+  EditorLibrary,
+  EditorOptions,
+  FormatFn,
+  UserConfig,
+} from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
@@ -11,7 +18,6 @@ import { getEditorTheme } from '../editor/themes';
 import { monacoThemes } from '../editor/monaco/monaco-themes';
 import { codemirrorThemes } from '../editor/codemirror/codemirror-themes';
 import { prismThemes } from '../editor/codejar/prism-themes';
-import { localizedAppLanguage } from '../i18n/utils';
 import { getEditorSettingsFormatLink } from './selectors';
 
 export const createEditorSettingsUI = async ({
@@ -19,12 +25,14 @@ export const createEditorSettingsUI = async ({
   modal,
   eventsManager,
   scrollToSelector,
+  appLanguages,
   deps,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
   eventsManager: ReturnType<typeof createEventsManager>;
   scrollToSelector: string;
+  appLanguages: Record<Exclude<AppLanguage, 'auto'>, string>;
   deps: {
     getUserConfig: () => UserConfig;
     createEditor: typeof createEditor;
@@ -66,7 +74,7 @@ export const createEditorSettingsUI = async ({
       title: window.deps.translateString('editorSettings.appLanguage.heading', 'App UI Language'),
       name: 'appLanguage',
       options: [
-        ...Object.entries(localizedAppLanguage).map(([code, lng]) => ({
+        ...Object.entries(appLanguages).map(([code, lng]) => ({
           label: lng,
           value: code,
         })),

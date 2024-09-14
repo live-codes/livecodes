@@ -1,8 +1,8 @@
 /* eslint-disable import/no-internal-modules */
+import type { I18nKeyType } from './i18n';
 import type { Config, CustomEvents } from './models';
 import { livecodes, params, isEmbed, clickToLoad, loading } from './main';
 import { customEvents } from './events/custom-events';
-import type { I18nKeyType } from './i18n/utils';
 
 const rootSelector = '#livecodes';
 const loadingEl = document.querySelector<HTMLElement>('#loading')!;
