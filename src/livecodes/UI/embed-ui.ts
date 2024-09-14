@@ -9,7 +9,6 @@ import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from
 import { permanentUrlService } from '../services/permanent-url';
 
 export const createEmbedUI = async ({
-  baseUrl,
   config,
   editorLanguages,
   modal,
@@ -18,7 +17,6 @@ export const createEmbedUI = async ({
   createEditorFn,
   getUrlFn,
 }: {
-  baseUrl: string;
   config: ContentConfig;
   editorLanguages: { [key in EditorId]: string };
   modal: ReturnType<typeof createModal>;

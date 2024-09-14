@@ -3424,7 +3424,6 @@ const handleEmbed = () => {
       baseUrl + '{{hash:embed-ui.js}}'
     );
     await embedModule.createEmbedUI({
-      baseUrl,
       config: getContentConfig(getConfig()),
       editorLanguages: {
         markup: getLanguageTitle(getConfig().markup.language),
