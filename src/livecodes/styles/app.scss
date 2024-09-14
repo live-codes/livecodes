@@ -2287,6 +2287,7 @@ i.arrow {
     width: 100%;
   }
 
+  .snackbar--text,
   .overflow-text {
     max-width: calc(100% - 42px);
     overflow-x: hidden;
@@ -2553,7 +2554,7 @@ i.arrow {
     cursor: pointer;
     font-size: inherit !important;
     margin: 0 0 1rem;
-    max-width: 80%;
+    /* max-width: 80%; */
     outline: none;
     padding: 0.5rem 1.5rem 0.5rem 0.5rem;
     width: 100%;
