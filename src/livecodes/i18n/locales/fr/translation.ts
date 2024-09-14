@@ -20,7 +20,7 @@ import type { I18nTranslationTemplate } from '../models';
 const translation = {
   about: {
     documentations: {
-      aboutUs: 'À propos',
+      aboutUs: 'Sobre',
       contact: 'Contact',
       heading: 'Documentation',
       home: 'Accueil',
@@ -62,7 +62,7 @@ const translation = {
       hint: 'Ressources externes',
     },
     focus: {
-      hint: 'Basculer le mode de mise au point',
+      hint: 'Mode de mise au point',
     },
     format: {
       hint: 'Format (Alt + Shift + F)',
@@ -74,16 +74,16 @@ const translation = {
       title: 'LiveCodes : un éditeur de code dans le navigateur !',
     },
     menuHelp: {
-      heading: 'Help',
+      heading: 'Aide',
       hint: 'Aide',
     },
     menuProject: {
-      heading: 'Project',
+      heading: 'Projet',
       hint: 'Projet',
     },
     menuSettings: {
-      heading: 'Settings',
-      hint: 'Paramètres',
+      heading: 'Préférences',
+      hint: 'Définition des paramètres et des options',
     },
     projectInfo: {
       hint: 'Informations sur le projet',
@@ -113,7 +113,7 @@ const translation = {
         label: 'Ajouter un fichier',
       },
       githubPages: {
-        desc: "Déployer l’actif sur les pages GitHub. Le fichier est transféré vers la branche <1>gh-pages</1> du dépôt <2>livecodes-assets</2> sur votre compte GitHub. Si le dépôt n'existe pas déjà, un dépôt public sera créé.",
+        desc: "Déployer le fichier sur les pages GitHub. Le fichier est transféré vers la branche <1>gh-pages</1> du dépôt <2>livecodes-assets</2> sur votre compte GitHub. Si le dépôt n'existe pas déjà, un dépôt public sera créé.",
         heading: 'GitHub Pages',
         label: 'Télécharger le fichier',
       },
