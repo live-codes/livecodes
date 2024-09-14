@@ -455,7 +455,7 @@ export const localizedAppLanguage: {
   es: 'Español',
   fr: 'Français',
   it: 'Italiano',
-  ja: 'Français',
+  ja: '日本語',
   pt: 'Portugues',
   ru: 'Русский',
   'zh-CN': '中文（简体）',

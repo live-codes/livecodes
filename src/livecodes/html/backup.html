@@ -1,42 +1,68 @@
 <div id="backup-container" class="modal-container">
   <div class="modal-title" data-i18n="backup.heading">Backup / Restore</div>
-  <ul id="backup-tabs" class="modal-tabs">
-    <li data-target="backup" class="active" data-i18n="backup.backup.heading">Backup</li>
-    <li data-target="restore" data-i18n="backup.restore.heading">Restore</li>
-  </ul>
   <div id="backup-screens" class="modal-screen-container">
+    <ul id="backup-tabs" class="modal-tabs">
+      <li data-target="backup" class="active" data-i18n="backup.backup.heading">Backup</li>
+      <li data-target="restore" data-i18n="backup.restore.heading">Restore</li>
+    </ul>
+
     <div id="backup" class="tab-content active">
       <div class="modal-screen">
         <div class="description" data-i18n="backup.backup.desc" data-i18n-prop="innerHTML">
           Backup LiveCodes data, so that it can be later restored on this or other devices. <br />
           Please visit the
-          <a href="{{DOCS_BASE_URL}}features/backup-restore" target="_blank" rel="noopener">documentations</a>
+          <a href="{{DOCS_BASE_URL}}features/backup-restore" target="_blank" rel="noopener"
+            >documentations</a
+          >
           for details.
         </div>
         <form id="backup-form">
           <div id="backup-stores">
             <div class="backup-store">
               <input type="checkbox" id="backup-projects-checkbox" data-store="projects" checked />
-              <label for="backup-projects-checkbox" data-i18n="backup.backup.projects">Projects</label>
+              <label for="backup-projects-checkbox" data-i18n="backup.backup.projects"
+                >Projects</label
+              >
             </div>
             <div class="backup-store">
-              <input type="checkbox" id="backup-templates-checkbox" data-store="templates" checked />
-              <label for="backup-templates-checkbox" data-i18n="backup.backup.templates">User Templates</label>
+              <input
+                type="checkbox"
+                id="backup-templates-checkbox"
+                data-store="templates"
+                checked
+              />
+              <label for="backup-templates-checkbox" data-i18n="backup.backup.templates"
+                >User Templates</label
+              >
             </div>
             <div class="backup-store">
               <input type="checkbox" id="backup-snippets-checkbox" data-store="snippets" checked />
-              <label for="backup-snippets-checkbox" data-i18n="backup.backup.snippets">Code Snippets</label>
+              <label for="backup-snippets-checkbox" data-i18n="backup.backup.snippets"
+                >Code Snippets</label
+              >
             </div>
             <div class="backup-store">
               <input type="checkbox" id="backup-assets-checkbox" data-store="assets" checked />
               <label for="backup-assets-checkbox" data-i18n="backup.backup.assets">Assets</label>
             </div>
             <div class="backup-store">
-              <input type="checkbox" id="backup-user-settings-checkbox" data-store="userConfig" checked />
-              <label for="backup-user-settings-checkbox" data-i18n="backup.backup.settings">User Settings</label>
+              <input
+                type="checkbox"
+                id="backup-user-settings-checkbox"
+                data-store="userConfig"
+                checked
+              />
+              <label for="backup-user-settings-checkbox" data-i18n="backup.backup.settings"
+                >User Settings</label
+              >
             </div>
           </div>
-          <button id="backup-btn" class="wide-button" type="submit" data-i18n="backup.backup.button">
+          <button
+            id="backup-btn"
+            class="wide-button"
+            type="submit"
+            data-i18n="backup.backup.button"
+          >
             Backup
           </button>
         </form>
@@ -48,26 +74,48 @@
           Restore previously backed-up LiveCodes data. <br />
           If you choose to replace current content, you may want to back it up first. <br />
           Please visit the
-          <a href="{{DOCS_BASE_URL}}features/backup-restore" target="_blank" rel="noopener">documentations</a>
+          <a href="{{DOCS_BASE_URL}}features/backup-restore" target="_blank" rel="noopener"
+            >documentations</a
+          >
           for details.
         </div>
         <form id="restore-form">
           <div class="input-container">
             <span>
-              <input type="radio" name="restore-mode" id="restore-mode-replace" value="replace" checked />
-              <label class="radio-label" for="restore-mode-replace" data-i18n="backup.restore.mode.replace">Replace
-                current content</label>
+              <input
+                type="radio"
+                name="restore-mode"
+                id="restore-mode-replace"
+                value="replace"
+                checked
+              />
+              <label
+                class="radio-label"
+                for="restore-mode-replace"
+                data-i18n="backup.restore.mode.replace"
+                >Replace current content</label
+              >
             </span>
             <span>
               <input type="radio" name="restore-mode" id="restore-mode-merge" value="merge" />
-              <label class="radio-label" for="restore-mode-merge" data-i18n="backup.restore.mode.merge">Merge with
-                current content</label>
+              <label
+                class="radio-label"
+                for="restore-mode-merge"
+                data-i18n="backup.restore.mode.merge"
+                >Merge with current content</label
+              >
             </span>
           </div>
 
-          <label for="file-input" class="file-input-label" data-i18n="backup.restore.fromFile">Restore from file</label>
-          <input type="file" id="file-input" class="file-input"
-            accept=".zip,zip,application/zip,application/x-zip,application/x-zip-compressed" />
+          <label for="file-input" class="file-input-label" data-i18n="backup.restore.fromFile"
+            >Restore from file</label
+          >
+          <input
+            type="file"
+            id="file-input"
+            class="file-input"
+            accept=".zip,zip,application/zip,application/x-zip,application/x-zip-compressed"
+          />
         </form>
       </div>
     </div>

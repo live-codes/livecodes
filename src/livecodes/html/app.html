@@ -1,22 +1,20 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{codeiumMeta}}
-  <title>LiveCodes</title>
-  <style>
-    body {
-      overflow: hidden;
-    }
-
-  </style>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin />
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
-  <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
-  <script src="{{esModuleShimsUrl}}" async></script>
-  <script type="importmap">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{codeiumMeta}}
+    <title>LiveCodes</title>
+    <style>
+      body {
+        overflow: hidden;
+      }
+    </style>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
+    <link rel="stylesheet" href="{{baseUrl}}{{hash:app.css}}" id="app-styles" />
+    <script src="{{esModuleShimsUrl}}" async></script>
+    <script type="importmap">
       {
         "imports": {
           "@codemirror/autocomplete": "{{codemirrorCoreUrl}}",
@@ -37,198 +35,343 @@
         }
       }
     </script>
-</head>
+  </head>
 
-<body>
-  <div id="container">
-    <div id="toolbar">
-      <div class="toolbar-app">
-        <div class="toolbar-menu">
-          <a href="/" id="logo" title="LiveCodes: Code playground that runs in the browser!" data-i18n="app.logo.title"
-            data-i18n-prop="title">
-            <img alt="LiveCodes Logo" src="{{baseUrl}}assets/images/livecodes-logo.svg" width="24" height="auto"
-              loading="lazy" />
-          </a>
-          <a href="javascript:void(0)" id="app-menu-project-button" class="menu hint--right" data-hint="Project"
-            aria-label="Project" tabindex="2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                d="M2.75 12.25h10.5m-10.5-4h10.5m-10.5-4h10.5" />
-            </svg>
-            <span class="menu-text">Project</span>
-          </a>
-          <div id="app-menu-project-container" class="menu-scroller"></div>
-          <a href="javascript:void(0)" id="app-menu-settings-button" class="menu hint--right" data-hint="App Settings"
-            aria-label="Settings" tabindex="3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M6 9.5A2 2 0 0 1 7.937 11H13.5a.5.5 0 0 1 .09.992L13.5 12l-5.563.001a2 2 0 0 1-3.874 0L2.5 12a.5.5 0 0 1-.09-.992L2.5 11h1.563A2 2 0 0 1 6 9.5m0 1a1 1 0 1 0 0 2a1 1 0 0 0 0-2m4-8A2 2 0 0 1 11.937 4H13.5a.5.5 0 0 1 .09.992L13.5 5l-1.563.001a2 2 0 0 1-3.874 0L2.5 5a.5.5 0 0 1-.09-.992L2.5 4h5.563A2 2 0 0 1 10 2.5m0 1a1 1 0 1 0 0 2a1 1 0 0 0 0-2" />
-            </svg>
-            <span class="menu-text">Setttings</span>
-          </a>
-          <div id="app-menu-settings-container" class="menu-scroller"></div>
-          <a href="javascript:void(0)" id="app-menu-help-button" class="menu hint--right" data-hint="Help"
-            aria-label="Help" tabindex="4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M8 2a6 6 0 1 1 0 12A6 6 0 0 1 8 2m0 1a5 5 0 1 0 0 10A5 5 0 0 0 8 3m0 7.5A.75.75 0 1 1 8 12a.75.75 0 0 1 0-1.5m0-6a2 2 0 0 1 2 2c0 .73-.212 1.14-.754 1.708l-.264.27C8.605 8.87 8.5 9.082 8.5 9.5a.5.5 0 0 1-1 0c0-.73.212-1.14.754-1.708l.264-.27C8.895 7.13 9 6.918 9 6.5a1 1 0 0 0-2 0a.5.5 0 0 1-1 0a2 2 0 0 1 2-2" />
-            </svg>
-            <span class="menu-text">Help</span>
-          </a>
-          <div id="app-menu-help-container" class="menu-scroller"></div>
+  <body>
+    <div id="container">
+      <div id="toolbar">
+        <div class="toolbar-app">
+          <div class="toolbar-menu">
+            <a
+              href="/"
+              id="logo"
+              title="LiveCodes: Code playground that runs in the browser!"
+              data-i18n="app.logo.title"
+              data-i18n-prop="title"
+            >
+              <img
+                alt="LiveCodes Logo"
+                src="{{baseUrl}}assets/images/livecodes-logo.svg"
+                width="24"
+                height="auto"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-project-button"
+              class="menu hint--right"
+              data-hint="Project"
+              aria-label="Project"
+              tabindex="2"
+            >
+              <i class="icon-nav"></i>
+              <span class="menu-text" data-i18n="app.menuProject.heading">Project</span>
+            </a>
+            <div id="app-menu-project-container" class="menu-scroller"></div>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-settings-button"
+              class="menu hint--right"
+              data-hint="App Settings"
+              aria-label="Settings"
+              tabindex="3"
+            >
+              <i class="icon-settings"></i>
+              <span class="menu-text" data-i18n="app.menuSettings.heading">Setttings</span>
+            </a>
+            <div id="app-menu-settings-container" class="menu-scroller"></div>
+            <a
+              href="javascript:void(0)"
+              id="app-menu-help-button"
+              class="menu hint--right"
+              data-hint="Help"
+              aria-label="Help"
+              tabindex="4"
+            >
+              <i class="icon-help"></i>
+              <span class="menu-text" data-i18n="app.menuHelp.heading">Help</span>
+            </a>
+            <div id="app-menu-help-container" class="menu-scroller"></div>
+          </div>
+          <div id="select-editor"></div>
         </div>
-        <div id="select-editor"></div>
+        <div class="toolbar-render">
+          <div
+            id="project-title"
+            contenteditable="true"
+            tabindex="5"
+            data-i18n="app.untitledProject"
+          >
+            Untitled Project
+          </div>
+          <a
+            href="javascript:void(0)"
+            id="run-button"
+            class="button hint--bottom"
+            data-i18n="app.run.hint"
+            data-i18n-prop="data-hint"
+            tabindex="6"
+          >
+            <i class="icon-run"></i>
+          </a>
+          <a
+            href="javascript:void(0)"
+            id="share-button"
+            class="button hint--bottom"
+            data-i18n="app.share.hint"
+            data-i18n-prop="data-hint"
+            tabindex="7"
+          >
+          <i class="icon-share"></i>
+          </a>
+          <a
+            href="javascript:void(0)"
+            id="result-button"
+            class="button hint--bottom"
+            data-i18n="app.result.hint"
+            data-i18n-prop="data-hint"
+            tabindex="8"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+              <path
+                fill="currentColor"
+                d="M8 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0zM6 13v-1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3H3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm6 0H9v-1h3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H9V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2"
+              />
+            </svg>
+          </a>
+          <a
+            href="javascript:void(0)"
+            id="fullscreen-button"
+            class="button hint--bottom"
+            data-i18n="app.fullscreen.hint"
+            data-i18n-prop="data-hint"
+            tabindex="9"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+              <path
+                fill="currentColor"
+                d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3.707l2.647 2.646a.5.5 0 0 1-.708.708L3 3.707V5.5a.5.5 0 0 1-1 0zM13.5 2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V3.707l-2.646 2.647a.5.5 0 0 1-.708-.708L12.293 3H10.5a.5.5 0 0 1 0-1zm0 12a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-1 0v1.793l-2.646-2.647a.5.5 0 1 0-.708.708L12.293 13H10.5a.5.5 0 0 0 0 1zm-11 0a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 1 0v1.793l2.646-2.647a.5.5 0 0 1 .708.707L3.707 13H5.5a.5.5 0 0 1 0 1z"
+              />
+            </svg>
+          </a>
+          <a
+            href="#"
+            id="login-link"
+            class="button hint--bottom-left"
+            data-hint="Login"
+            tabindex="10"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                d="M5.25 2.25h-3.5v12h3.5m4-9.5l-3.5 3.5l3.5 3.5m5-3.5h-8.5"
+              />
+            </svg>
+            <span data-i18n="menu.login">Login</span></a
+          >
+          <a
+            href="#"
+            id="logout-link"
+            class="button hint--bottom"
+            tabindex="11"
+            style="display: none"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                d="M5.25 2.25h-3.5v12h3.5m5.5-9.5l3.5 3.5l-3.5 3.5m-5-3.5h8.5"
+              />
+            </svg>
+            <span data-i18n="menu.logout">Log out</span></a
+          >
+        </div>
       </div>
-      <div class="toolbar-render">
-        <div id="project-title" contenteditable="true" tabindex="5" data-i18n="app.untitledProject">Untitled Project
+      <div id="editor-container">
+        <div id="editors">
+          <div id="markup" class="editor"></div>
+          <div id="style" class="editor"></div>
+          <div id="script" class="editor"></div>
+          <div id="editor-tools" class="tool-buttons">
+            <button
+              id="focus-btn"
+              class="hint--top-right"
+              data-hint="Toggle Focus mode"
+              data-i18n="app.focus.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M9.5 2.5A.5.5 0 0 0 9 2H7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5m1.5 0a.5.5 0 0 0 .5.5A1.5 1.5 0 0 1 13 4.5a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2a.5.5 0 0 0-.5.5M14 7a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zm0 4.5a.5.5 0 0 0-1 0a1.5 1.5 0 0 1-1.5 1.5a.5.5 0 0 0 0 1a2.5 2.5 0 0 0 2.5-2.5m-7.5 2A.5.5 0 0 1 7 13h2a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5M5 2.5a.5.5 0 0 0-.5-.5A2.5 2.5 0 0 0 2 4.5a.5.5 0 0 0 1 0A1.5 1.5 0 0 1 4.5 3a.5.5 0 0 0 .5-.5M4.5 13a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0A1.5 1.5 0 0 0 4.5 13M3 9a.5.5 0 0 1-1 0V7a.5.5 0 0 1 1 0z"
+                />
+              </svg>
+            </button>
+            <button
+              id="format-btn"
+              class="hint--top-right"
+              data-hint="Format (Alt + Shift + F)"
+              data-i18n="app.format.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M1.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1zm3 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5M1.5 12a.5.5 0 0 0 0 1H9a.5.5 0 0 0 0-1zm9-5.5A.5.5 0 0 1 11 6h2.5a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.5-.5M9.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"
+                />
+              </svg>
+            </button>
+            <button
+              id="undo-btn"
+              class="hint--top-right"
+              data-hint="Undo (Ctrl/Cmd + Z)"
+              data-i18n="app.undo.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M3 2.5a.5.5 0 0 1 1 0v3.843l3.171-3.171a4 4 0 0 1 5.657 5.656l-5.025 5.026a.5.5 0 0 1-.707-.708l5.025-5.025A3 3 0 1 0 7.878 3.88L4.757 7H8.5a.5.5 0 0 1 0 1H3.6a.6.6 0 0 1-.6-.6z"
+                />
+              </svg>
+            </button>
+            <button
+              id="redo-btn"
+              class="hint--top-right"
+              data-hint="Redo (Ctrl/Cmd + Shift + Z)"
+              data-i18n="app.redo.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M13 2.5a.5.5 0 0 0-1 0v3.843L8.827 3.172a4 4 0 0 0-5.656 5.656l5.025 5.026a.5.5 0 0 0 .707-.708L3.879 8.121A3 3 0 0 1 8.12 3.88L11.243 7H7.499a.5.5 0 0 0 0 1h4.9a.6.6 0 0 0 .6-.6z"
+                />
+              </svg>
+            </button>
+            <button
+              id="copy-btn"
+              class="hint--top-right"
+              data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+              data-i18n="app.copy.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M5.085 2A1.5 1.5 0 0 1 6.5 1h3a1.5 1.5 0 0 1 1.415 1h.585A1.5 1.5 0 0 1 13 3.5v10a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10A1.5 1.5 0 0 1 4.5 2zM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM5.085 3H4.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.585A1.5 1.5 0 0 1 9.5 4h-3a1.5 1.5 0 0 1-1.415-1"
+                />
+              </svg>
+            </button>
+            <button
+              id="copy-as-url-btn"
+              class="hint--top-right"
+              data-hint="Copy code as data URL"
+              data-i18n="app.copyAsUrl.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M4.085 2A1.5 1.5 0 0 1 5.5 1h3a1.5 1.5 0 0 1 1.415 1h.585A1.5 1.5 0 0 1 12 3.5V7h-1V3.5a.5.5 0 0 0-.5-.5h-.585A1.5 1.5 0 0 1 8.5 4h-3a1.5 1.5 0 0 1-1.415-1H3.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h1.258c.253.378.561.715.913 1H3.5A1.5 1.5 0 0 1 2 13.5v-10A1.5 1.5 0 0 1 3.5 2zM5.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm9.5 9.5A3.5 3.5 0 0 0 11.5 8l-.09.008A.5.5 0 0 0 11.5 9l.164.005A2.5 2.5 0 0 1 11.5 14l-.002.005l-.09.008a.5.5 0 0 0 .094.992V15l.192-.005A3.5 3.5 0 0 0 15 11.5m-6-3a.5.5 0 0 0-.5-.5l-.192.005A3.5 3.5 0 0 0 8.5 15l.09-.008A.5.5 0 0 0 8.5 14l-.164-.005A2.5 2.5 0 0 1 8.5 9l.09-.008A.5.5 0 0 0 9 8.5m2.5 2.502L8.5 11l-.09.008A.5.5 0 0 0 8.5 12l3 .002l.09-.008a.5.5 0 0 0-.09-.992"
+                />
+              </svg>
+            </button>
+            <span id="editor-status">
+              <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
+              <span data-status="markup"></span>
+              <span data-status="style"></span>
+              <span data-status="script"></span>
+            </span>
+            <button
+              id="external-resources-btn"
+              class="hint--top-left"
+              data-hint="External Resources"
+              data-i18n="app.externalResources.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M4 3a2 2 0 0 1 2-2h3.586a1.5 1.5 0 0 1 1.06.44l2.915 2.914A1.5 1.5 0 0 1 14 5.414V13a2 2 0 0 1-2 2H9.95a3.5 3.5 0 0 0 .713-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v6H4zm6.5 2h2.293L10 2.207V4.5a.5.5 0 0 0 .5.5m-7 5a2.5 2.5 0 0 0 0 5H4a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H4a.5.5 0 0 0 0-1zM7 10a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H7a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5zm-3.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"
+                />
+              </svg>
+              <span id="external-resources-mark" class="mark"></span>
+            </button>
+            <button
+              id="project-info-btn"
+              class="hint--top-left"
+              data-hint="Project Info"
+              data-i18n="app.projectInfo.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M8.499 7.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm.25-2a.749.749 0 1 1-1.499 0a.749.749 0 0 1 1.498 0M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1M2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8"
+                />
+              </svg>
+            </button>
+            <button
+              id="custom-settings-btn"
+              class="hint--top-left"
+              data-hint="Custom Settings"
+              data-i18n="app.customSettings.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6M13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6"
+                />
+              </svg>
+              <span id="custom-settings-mark" class="mark"></span>
+            </button>
+            <button
+              id="editor-settings-btn"
+              class="hint--top-left"
+              data-hint="Editor Settings"
+              data-i18n="app.editorSettings.hint"
+              data-i18n-prop="data-hint"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4M7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0m3.618-3.602a.71.71 0 0 1-.824-.567l-.26-1.416a.35.35 0 0 0-.275-.282a6.1 6.1 0 0 0-2.519 0a.35.35 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.36.36 0 0 0-.382.095a6 6 0 0 0-1.262 2.173a.35.35 0 0 0 .108.378l1.102.931q.045.037.081.081a.704.704 0 0 1-.081.995l-1.102.931a.35.35 0 0 0-.108.378A6 6 0 0 0 3.53 12.02a.36.36 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.1 6.1 0 0 0 2.52 0a.35.35 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095a6 6 0 0 0 1.262-2.173a.35.35 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.35.35 0 0 0 .108-.378A6 6 0 0 0 12.47 3.98a.36.36 0 0 0-.382-.095l-1.36.484a1 1 0 0 1-.111.03m-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5 5 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977q.384.503.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a5 5 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5 5 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a5 5 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637q.248-.581.63-1.084"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        <a href="javascript:void(0)" id="run-button" class="button hint--bottom" data-i18n="app.run.hint"
-          data-i18n-prop="data-hint" tabindex="6">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="currentColor"
-              d="M5.745 3.064A.5.5 0 0 0 5 3.5v9a.5.5 0 0 0 .745.436l8-4.5a.5.5 0 0 0 0-.871zM4 3.5a1.5 1.5 0 0 1 2.235-1.307l8 4.5a1.5 1.5 0 0 1 0 2.615l-8 4.5A1.5 1.5 0 0 1 4 12.5z" />
-          </svg>
-        </a>
-        <a href="javascript:void(0)" id="share-button" class="button hint--bottom" data-i18n="app.share.hint"
-          data-i18n-prop="data-hint" tabindex="7">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="currentColor"
-              d="M12 3a1 1 0 1 0 0 2a1 1 0 0 0 0-2m-2 1a2 2 0 1 1 .491 1.313L5.956 7.581a2 2 0 0 1 0 .838l4.535 2.268a2 2 0 1 1-.447.894L5.508 9.313a2 2 0 1 1 0-2.627l4.536-2.267A2 2 0 0 1 10 4M3 8a1 1 0 1 0 2 0a1 1 0 0 0-2 0m8 4a1 1 0 1 0 2 0a1 1 0 0 0-2 0" />
-          </svg>
-        </a>
-        <a href="javascript:void(0)" id="result-button" class="button hint--bottom" data-i18n="app.result.hint"
-          data-i18n-prop="data-hint" tabindex="8">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="currentColor"
-              d="M8 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0zM6 13v-1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3H3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm6 0H9v-1h3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H9V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2" />
-          </svg>
-        </a>
-        <a href="javascript:void(0)" id="fullscreen-button" class="button hint--bottom" data-i18n="app.fullscreen.hint"
-          data-i18n-prop="data-hint" tabindex="9">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="currentColor"
-              d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3.707l2.647 2.646a.5.5 0 0 1-.708.708L3 3.707V5.5a.5.5 0 0 1-1 0zM13.5 2a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V3.707l-2.646 2.647a.5.5 0 0 1-.708-.708L12.293 3H10.5a.5.5 0 0 1 0-1zm0 12a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-1 0v1.793l-2.646-2.647a.5.5 0 1 0-.708.708L12.293 13H10.5a.5.5 0 0 0 0 1zm-11 0a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 1 0v1.793l2.646-2.647a.5.5 0 0 1 .708.707L3.707 13H5.5a.5.5 0 0 1 0 1z" />
-          </svg>
-        </a>
-        <a href="#" id="login-link" class="button hint--bottom-left" data-hint="Login" tabindex="10">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-              d="M5.25 2.25h-3.5v12h3.5m4-9.5l-3.5 3.5l3.5 3.5m5-3.5h-8.5" />
-          </svg>
-          <span data-i18n="menu.login">Login</span></a>
-        <a href="#" id="logout-link" class="button hint--bottom" tabindex="11" style="display: none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-              d="M5.25 2.25h-3.5v12h3.5m5.5-9.5l3.5 3.5l-3.5 3.5m-5-3.5h8.5" />
-          </svg>
-          <span data-i18n="menu.logout">Log out</span></a>
+        <div id="output">
+          <div id="result" class="full"></div>
+          <div id="tools-pane"></div>
+        </div>
       </div>
     </div>
-    <div id="editor-container">
-      <div id="editors">
-        <div id="markup" class="editor"></div>
-        <div id="style" class="editor"></div>
-        <div id="script" class="editor"></div>
-        <div id="editor-tools" class="tool-buttons">
-          <button id="focus-btn" class="hint--top-right" data-hint="Toggle Focus mode" data-i18n="app.focus.hint"
-            data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M9.5 2.5A.5.5 0 0 0 9 2H7a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5m1.5 0a.5.5 0 0 0 .5.5A1.5 1.5 0 0 1 13 4.5a.5.5 0 0 0 1 0A2.5 2.5 0 0 0 11.5 2a.5.5 0 0 0-.5.5M14 7a.5.5 0 0 0-1 0v2a.5.5 0 0 0 1 0zm0 4.5a.5.5 0 0 0-1 0a1.5 1.5 0 0 1-1.5 1.5a.5.5 0 0 0 0 1a2.5 2.5 0 0 0 2.5-2.5m-7.5 2A.5.5 0 0 1 7 13h2a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5M5 2.5a.5.5 0 0 0-.5-.5A2.5 2.5 0 0 0 2 4.5a.5.5 0 0 0 1 0A1.5 1.5 0 0 1 4.5 3a.5.5 0 0 0 .5-.5M4.5 13a.5.5 0 0 1 0 1A2.5 2.5 0 0 1 2 11.5a.5.5 0 0 1 1 0A1.5 1.5 0 0 0 4.5 13M3 9a.5.5 0 0 1-1 0V7a.5.5 0 0 1 1 0z" />
-            </svg>
-          </button>
-          <button id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)"
-            data-i18n="app.format.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M1.5 3a.5.5 0 0 0 0 1H7a.5.5 0 0 0 0-1zm3 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5M1.5 12a.5.5 0 0 0 0 1H9a.5.5 0 0 0 0-1zm9-5.5A.5.5 0 0 1 11 6h2.5a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.5-.5M9.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-            </svg>
-          </button>
-          <button id="undo-btn" class="hint--top-right" data-hint="Undo (Ctrl/Cmd + Z)" data-i18n="app.undo.hint"
-            data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M3 2.5a.5.5 0 0 1 1 0v3.843l3.171-3.171a4 4 0 0 1 5.657 5.656l-5.025 5.026a.5.5 0 0 1-.707-.708l5.025-5.025A3 3 0 1 0 7.878 3.88L4.757 7H8.5a.5.5 0 0 1 0 1H3.6a.6.6 0 0 1-.6-.6z" />
-            </svg>
-          </button>
-          <button id="redo-btn" class="hint--top-right" data-hint="Redo (Ctrl/Cmd + Shift + Z)"
-            data-i18n="app.redo.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M13 2.5a.5.5 0 0 0-1 0v3.843L8.827 3.172a4 4 0 0 0-5.656 5.656l5.025 5.026a.5.5 0 0 0 .707-.708L3.879 8.121A3 3 0 0 1 8.12 3.88L11.243 7H7.499a.5.5 0 0 0 0 1h4.9a.6.6 0 0 0 .6-.6z" />
-            </svg>
-          </button>
-          <button id="copy-btn" class="hint--top-right" data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
-            data-i18n="app.copy.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M5.085 2A1.5 1.5 0 0 1 6.5 1h3a1.5 1.5 0 0 1 1.415 1h.585A1.5 1.5 0 0 1 13 3.5v10a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 13.5v-10A1.5 1.5 0 0 1 4.5 2zM6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zM5.085 3H4.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5h-.585A1.5 1.5 0 0 1 9.5 4h-3a1.5 1.5 0 0 1-1.415-1" />
-            </svg>
-          </button>
-          <button id="copy-as-url-btn" class="hint--top-right" data-hint="Copy code as data URL"
-            data-i18n="app.copyAsUrl.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M4.085 2A1.5 1.5 0 0 1 5.5 1h3a1.5 1.5 0 0 1 1.415 1h.585A1.5 1.5 0 0 1 12 3.5V7h-1V3.5a.5.5 0 0 0-.5-.5h-.585A1.5 1.5 0 0 1 8.5 4h-3a1.5 1.5 0 0 1-1.415-1H3.5a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h1.258c.253.378.561.715.913 1H3.5A1.5 1.5 0 0 1 2 13.5v-10A1.5 1.5 0 0 1 3.5 2zM5.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm9.5 9.5A3.5 3.5 0 0 0 11.5 8l-.09.008A.5.5 0 0 0 11.5 9l.164.005A2.5 2.5 0 0 1 11.5 14l-.002.005l-.09.008a.5.5 0 0 0 .094.992V15l.192-.005A3.5 3.5 0 0 0 15 11.5m-6-3a.5.5 0 0 0-.5-.5l-.192.005A3.5 3.5 0 0 0 8.5 15l.09-.008A.5.5 0 0 0 8.5 14l-.164-.005A2.5 2.5 0 0 1 8.5 9l.09-.008A.5.5 0 0 0 9 8.5m2.5 2.502L8.5 11l-.09.008A.5.5 0 0 0 8.5 12l3 .002l.09-.008a.5.5 0 0 0-.09-.992" />
-            </svg>
-          </button>
-          <span id="editor-status">
-            <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
-            <span data-status="markup"></span>
-            <span data-status="style"></span>
-            <span data-status="script"></span>
-          </span>
-          <button id="external-resources-btn" class="hint--top-left" data-hint="External Resources"
-            data-i18n="app.externalResources.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M4 3a2 2 0 0 1 2-2h3.586a1.5 1.5 0 0 1 1.06.44l2.915 2.914A1.5 1.5 0 0 1 14 5.414V13a2 2 0 0 1-2 2H9.95a3.5 3.5 0 0 0 .713-1H12a1 1 0 0 0 1-1V6h-2.5A1.5 1.5 0 0 1 9 4.5V2H6a1 1 0 0 0-1 1v6H4zm6.5 2h2.293L10 2.207V4.5a.5.5 0 0 0 .5.5m-7 5a2.5 2.5 0 0 0 0 5H4a.5.5 0 0 0 0-1h-.5a1.5 1.5 0 0 1 0-3H4a.5.5 0 0 0 0-1zM7 10a.5.5 0 0 0 0 1h.5a1.5 1.5 0 0 1 0 3H7a.5.5 0 0 0 0 1h.5a2.5 2.5 0 0 0 0-5zm-3.5 2a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z" />
-            </svg>
-            <span id="external-resources-mark" class="mark"></span>
-          </button>
-          <button id="project-info-btn" class="hint--top-left" data-hint="Project Info" data-i18n="app.projectInfo.hint"
-            data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M8.499 7.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0zm.25-2a.749.749 0 1 1-1.499 0a.749.749 0 0 1 1.498 0M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1M2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8" />
-            </svg>
-          </button>
-          <button id="custom-settings-btn" class="hint--top-left" data-hint="Custom Settings"
-            data-i18n="app.customSettings.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6M13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6" />
-            </svg>
-            <span id="custom-settings-mark" class="mark"></span>
-          </button>
-          <button id="editor-settings-btn" class="hint--top-left" data-hint="Editor Settings"
-            data-i18n="app.editorSettings.hint" data-i18n-prop="data-hint">
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path fill="currentColor"
-                d="M8 6a2 2 0 1 0 0 4a2 2 0 0 0 0-4M7 8a1 1 0 1 1 2 0a1 1 0 0 1-2 0m3.618-3.602a.71.71 0 0 1-.824-.567l-.26-1.416a.35.35 0 0 0-.275-.282a6.1 6.1 0 0 0-2.519 0a.35.35 0 0 0-.275.282l-.259 1.416a.71.71 0 0 1-.936.538l-1.359-.484a.36.36 0 0 0-.382.095a6 6 0 0 0-1.262 2.173a.35.35 0 0 0 .108.378l1.102.931q.045.037.081.081a.704.704 0 0 1-.081.995l-1.102.931a.35.35 0 0 0-.108.378A6 6 0 0 0 3.53 12.02a.36.36 0 0 0 .382.095l1.36-.484a.708.708 0 0 1 .936.538l.258 1.416c.026.14.135.252.275.281a6.1 6.1 0 0 0 2.52 0a.35.35 0 0 0 .274-.281l.26-1.416a.71.71 0 0 1 .936-.538l1.359.484c.135.048.286.01.382-.095a6 6 0 0 0 1.262-2.173a.35.35 0 0 0-.108-.378l-1.102-.931a.703.703 0 0 1 0-1.076l1.102-.931a.35.35 0 0 0 .108-.378A6 6 0 0 0 12.47 3.98a.36.36 0 0 0-.382-.095l-1.36.484a1 1 0 0 1-.111.03m-6.62.58l.937.333a1.71 1.71 0 0 0 2.255-1.3l.177-.97a5 5 0 0 1 1.265 0l.178.97a1.708 1.708 0 0 0 2.255 1.3L12 4.977q.384.503.63 1.084l-.754.637a1.704 1.704 0 0 0 0 2.604l.755.637a5 5 0 0 1-.63 1.084l-.937-.334a1.71 1.71 0 0 0-2.255 1.3l-.178.97a5 5 0 0 1-1.265 0l-.177-.97a1.708 1.708 0 0 0-2.255-1.3L4 11.023a5 5 0 0 1-.63-1.084l.754-.638a1.704 1.704 0 0 0 0-2.603l-.755-.637q.248-.581.63-1.084" />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div id="output">
-        <div id="result" class="full"></div>
-        <div id="tools-pane"></div>
-      </div>
+    <div id="overlay" style="display: none"></div>
+    <div id="modal-container" style="display: none">
+      <div id="modal"></div>
     </div>
-  </div>
-  <div id="overlay" style="display: none"></div>
-  <div id="modal-container" style="display: none">
-    <div id="modal"></div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js" crossorigin="anonymous"></script>
-  <script>
-    window.appCDN = '{{appCDN}}';
-  </script>
-  {{codemirrorModule}}
-  <script type="module">
-    import { app } from '{{baseUrl}}{{script}}';
-    window.app = app;
-  </script>
-</body>
-
+    <script
+      src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.appCDN = '{{appCDN}}';
+    </script>
+    {{codemirrorModule}}
+    <script type="module">
+      import { app } from '{{baseUrl}}{{script}}';
+      window.app = app;
+    </script>
+  </body>
 </html>

@@ -1,109 +1,211 @@
 <div id="about-container" class="modal-container">
   <div class="modal-title" data-i18n="about.heading">About LiveCodes</div>
   <div id="about-screen-container" class="modal-screen-container">
+    <div class="modal-section" id="about-logo">
+      <a
+        href="/"
+        id="logo"
+        title="LiveCodes: Code playground that runs in the browser!"
+        data-i18n="app.logo.title"
+        data-i18n-prop="title"
+      >
+        <img
+          alt="LiveCodes Logo"
+          src="{{baseUrl}}assets/images/livecodes-logo.svg"
+          width="24"
+          height="auto"
+          loading="lazy"
+        />
+      </a>
+      <h3 data-i18n="about.version.heading">Version</h3>
+      <ul>
+        <li data-i18n="about.version.app">App version: {{APP_VERSION}}</li>
+        <li data-i18n="about.version.sdk">SDK version: {{SDK_VERSION}}</li>
+        <li data-i18n="about.version.commit">
+          Git commit: <a href="{{COMMIT_URL}}" target="_blank" rel="noopener">{{COMMIT_SHA}}</a>
+        </li>
+        <li>
+          <a
+            data-i18n="about.version.appPermanentUrl"
+            href="{{APP_URL}}"
+            target="_blank"
+            rel="noopener"
+            >App Permanent URL</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="about.version.sdkPermanentUrl"
+            href="{{SDK_URL}}"
+            target="_blank"
+            rel="noopener"
+            >SDK Permanent URL</a
+          >
+        </li>
+      </ul>
+    </div>
+
     <div class="modal-section" id="about-info">
       <p data-i18n="about.livecodes.para1" data-i18n-prop="innerHTML">
-        <strong><em>LiveCodes</em></strong> is an
-        <a href="{{REPO_URL}}" target="_blank" rel="noopener">open-source</a>,
-        <a href="{{DOCS_BASE_URL}}features/" target="_blank" rel="noopener">feature-rich</a>,
-        <a href="{{DOCS_BASE_URL}}why#client-side" target="_blank" rel="noopener">client-side</a>
-        code playground. Currently,
-        <a href="{{DOCS_BASE_URL}}languages/" target="_blank" rel="noopener">80+ languages/<wbr />frameworks</a>
-        are supported. It can be used as a standalone app or can be
-        <a href="{{DOCS_BASE_URL}}features/embeds" target="_blank" rel="noopener">embedded</a> in
-        any web page. There are many ways to
-        <a href="{{DOCS_BASE_URL}}features/code-prefill" target="_blank" rel="noopener">prefill playgrounds</a>
-        with code.
+        <strong><em>LiveCodes</em></strong> is an open-source, feature-rich, client-side code
+        playground. Currently, 80+ languages and frameworks are supported. It can be used as a
+        standalone app or embedded in any web page.
       </p>
       <p data-i18n="about.livecodes.para2" data-i18n-prop="innerHTML">
-        A wide range of
-        <a href="{{DOCS_BASE_URL}}configuration/" target="_blank" rel="noopener">configuration options</a>
-        makes it very flexible. A powerful
-        <a href="{{DOCS_BASE_URL}}sdk/" target="_blank" rel="noopener">SDK</a> (for
-        <a href="{{DOCS_BASE_URL}}sdk/js-ts" target="_blank" rel="noopener">JS/TS</a>,
-        <a href="{{DOCS_BASE_URL}}sdk/react" target="_blank" rel="noopener">React</a>,
-        <a href="{{DOCS_BASE_URL}}sdk/vue" target="_blank" rel="noopener">Vue</a> and
-        <a href="{{DOCS_BASE_URL}}sdk/svelte" target="_blank" rel="noopener">Svelte</a>) facilitates
-        <a href="{{DOCS_BASE_URL}}sdk/js-ts#embed-options" target="_blank" rel="noopener">embedding</a>
-        and
-        <a href="{{DOCS_BASE_URL}}sdk/js-ts#sdk-methods" target="_blank" rel="noopener">communicating</a>
-        with playgrounds.
-        <a href="{{DOCS_BASE_URL}}" target="_blank" rel="noopener">Comprehensive documentations</a>
-        are available with code samples, live demos and screenshots.
+        A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive
+        documentation is available with code examples, live demos, and screenshots.
       </p>
-      <div class="modal-screen">
-        <div class="modal-section">
-          <h3 data-i18n="about.documentations.heading">Documentations</h3>
-          <ul>
-            <li>
-              <a data-i18n="about.documentations.home" href="{{DOCS_BASE_URL}}" target="_blank" rel="noopener">Home</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.gettingStarted" href="{{DOCS_BASE_URL}}getting-started" target="_blank"
-                rel="noopener">Getting Started</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.features" href="{{DOCS_BASE_URL}}features" target="_blank"
-                rel="noopener">Features</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.configuration" href="{{DOCS_BASE_URL}}configuration" target="_blank"
-                rel="noopener">Configuration</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.sdk" href="{{DOCS_BASE_URL}}sdk" target="_blank" rel="noopener">SDK</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.blog" href="https://blog.livecodes.io" target="_blank" rel="noopener">Blog</a>
-            </li>
-            <li>
-              <a data-i18n="about.documentations.license" href="{{DOCS_BASE_URL}}license" target="_blank"
-                rel="noopener">License</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.sponsor" href="{{DOCS_BASE_URL}}sponsor" target="_blank"
-                rel="noopener">Sponsor LiveCodes</a>
-            </li>
-            <li>
-              <a data-i18n="about.documentations.contact" href="{{DOCS_BASE_URL}}contact" target="_blank"
-                rel="noopener">Contact</a>
-            </li>
-            <li>
-              <a data-i18n="about.documentations.aboutUs" href="{{DOCS_BASE_URL}}about" target="_blank"
-                rel="noopener">About us</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.twitter" href="https://twitter.com/livecodes_io" target="_blank"
-                rel="noopener">? / Twitter</a>
-            </li>
-            <li>
-              <a data-i18n="generic.about.github" href="{{REPO_URL}}" target="_blank" rel="noopener">GitHub</a>
-            </li>
-            <li>
-              <a data-i18n="generic.more" href="{{DOCS_BASE_URL}}overview" target="_blank" rel="noopener"
-                class="more">More...</a>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-section">
-          <h3 data-i18n="about.version.heading">Version</h3>
-          <ul>
-            <li data-i18n="about.version.app">App version: {{APP_VERSION}}</li>
-            <li data-i18n="about.version.sdk">SDK version: {{SDK_VERSION}}</li>
-            <li data-i18n="about.version.commit">
-              Git commit: <a href="{{COMMIT_URL}}" target="_blank" rel="noopener">{{COMMIT_SHA}}</a>
-            </li>
-            <li>
-              <a data-i18n="about.version.appPermanentUrl" href="{{APP_URL}}" target="_blank" rel="noopener">App
-                Permanent URL</a>
-            </li>
-            <li>
-              <a data-i18n="about.version.sdkPermanentUrl" href="{{SDK_URL}}" target="_blank" rel="noopener">SDK
-                Permanent URL</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    </div>
+
+    <div class="modal-section">
+      <h3 data-i18n="about.documentations.heading">Documentations</h3>
+      <ul>
+        <li>
+          <a
+            data-i18n="about.documentations.home"
+            href="{{DOCS_BASE_URL}}"
+            target="_blank"
+            rel="noopener"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.gettingStarted"
+            href="{{DOCS_BASE_URL}}getting-started"
+            target="_blank"
+            rel="noopener"
+            >Getting Started</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.features"
+            href="{{DOCS_BASE_URL}}features"
+            target="_blank"
+            rel="noopener"
+            >Features</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.configuration"
+            href="{{DOCS_BASE_URL}}configuration"
+            target="_blank"
+            rel="noopener"
+            >Configuration</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.sdk"
+            href="{{DOCS_BASE_URL}}sdk"
+            target="_blank"
+            rel="noopener"
+            >SDK</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.blog"
+            href="https://blog.livecodes.io"
+            target="_blank"
+            rel="noopener"
+            >Blog</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="about.documentations.license"
+            href="{{DOCS_BASE_URL}}license"
+            target="_blank"
+            rel="noopener"
+            >License</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.sponsor"
+            href="{{DOCS_BASE_URL}}sponsor"
+            target="_blank"
+            rel="noopener"
+            >Sponsor LiveCodes</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="about.documentations.contact"
+            href="{{DOCS_BASE_URL}}contact"
+            target="_blank"
+            rel="noopener"
+            >Contact</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="about.documentations.aboutUs"
+            href="{{DOCS_BASE_URL}}about"
+            target="_blank"
+            rel="noopener"
+            >About us</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.about.twitter"
+            href="https://twitter.com/livecodes_io"
+            target="_blank"
+            rel="noopener"
+            >? / Twitter</a
+          >
+        </li>
+        <li>
+          <a data-i18n="generic.about.github" href="{{REPO_URL}}" target="_blank" rel="noopener"
+            >GitHub</a
+          >
+        </li>
+        <li>
+          <a
+            data-i18n="generic.more"
+            href="{{DOCS_BASE_URL}}overview"
+            target="_blank"
+            rel="noopener"
+            class="more"
+            >More...</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section">
+      <h3 data-i18n="about.livecodes.credits">Contributors</h3>
+
+      <p>
+        Original developer, project admin:<br />
+        * Name - contact:email or github
+      </p>
+
+      <p>
+        Project lead<br />
+        * Name - contact:email or github
+      </p>
+      <p>
+        Developers<br />
+        * Name - contact:email or github
+      </p>
+
+      <h3>Localization</h3>
+      <p>Arabic<br />* Arabic, Name - contact:email or github</p>
+      <p>Chinese<br />* Arabic, Name - contact:email or github</p>
+      <p>English<br />* Arabic, Name - contact:email or github</p>
+      <p>French<br />* Arabic, Name - contact:email or github</p>
+    </div>
+
+    <div class="modal-screen">
+      <p>
+        2024 MIT<br />Livecodes is licensed under MIT License<br />
+        Livecodes is made possible by open source projects and other open source software.
+      </p>
     </div>
   </div>
 </div>

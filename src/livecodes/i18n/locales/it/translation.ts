@@ -1,3 +1,7 @@
+// @ts-nocheck
+// This comment is added by i18n-exclude script and should be automatically removed after build.
+// If you see this comment in the file, it means there is something wrong during the build process.
+
 // ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
 import type { I18nTranslationTemplate } from '../models';
@@ -64,6 +68,18 @@ const translation = {
     },
     logo: {
       title: 'LiveCodes: Code playground that runs in the browser!',
+    },
+    menuHelp: {
+      heading: 'Help',
+      hint: 'Help',
+    },
+    menuProject: {
+      heading: 'Project',
+      hint: 'Project',
+    },
+    menuSettings: {
+      heading: 'Settings',
+      hint: 'Settings',
     },
     projectInfo: {
       hint: 'Project Info',
@@ -483,12 +499,15 @@ const translation = {
     autoSave: 'Auto Save',
     autoUpdate: 'Auto Update',
     backup: 'Backup / Restore …',
+    blog: 'Blog',
     broadcast: 'Broadcast …',
+    config: 'Configuration',
     customSettings: 'Custom Settings …',
     delay: {
       heading: 'Delay: <1>1.5</1>s',
       hint: 'Delay before auto-update',
     },
+    docs: 'Documentation',
     deploy: 'Deploy …',
     editorSettings: 'Editor Settings …',
     embed: 'Embed …',
@@ -501,15 +520,19 @@ const translation = {
       result: 'Export Result (HTML)',
       src: 'Export Source (ZIP)',
     },
+    features: 'Features',
     formatOnsave: 'Format On-save',
+    getstart: 'Getting Started',
     import: 'Import …',
     layout: 'Vertical Layout',
+    license: 'License',
     login: 'Login …',
     logout: 'Log out',
     new: 'New …',
     open: 'Open …',
     project: 'Project Info …',
     recoverUnsaved: 'Recover Unsaved',
+    report: 'Report an issue',
     resources: 'External Resources …',
     save: 'Save',
     saveAs: {
@@ -517,12 +540,14 @@ const translation = {
       heading: 'Save as',
       template: 'Template',
     },
+    sdk: 'Software Dev Kit',
     share: 'Share …',
     showSpacing: {
       heading: 'Show Spacing',
       hint: 'Press Alt/Option and move your cursor over result page',
     },
     snippets: 'Code Snippets …',
+    source: 'Source code on GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Dark Theme',
     welcome: {

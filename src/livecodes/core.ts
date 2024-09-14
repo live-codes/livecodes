@@ -2425,7 +2425,7 @@ const handleAppMenuProject = () => {
   const menuProjectButton = UI.getAppMenuProjectButton();
   if (!menuProjectContainer || !menuProjectButton) return;
   menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
-// todo i18n
+  // todo i18n
   dispatchTranslationEvent(menuProjectContainer);
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -4017,7 +4017,6 @@ const handleBroadcastStatus = () => {
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const iconCSS = '<span class="icon-broadcast"></span>';
   broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
-
 
   const showBroadcast = () => {
     showScreen('broadcast');

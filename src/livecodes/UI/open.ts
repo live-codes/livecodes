@@ -23,6 +23,11 @@ export const createOpenItem = (
   link.href = '#';
   link.dataset.id = item.id;
   link.classList.add('open-project-link');
+
+  const container = document.createElement('div');
+  container.classList.add('open-project-item');
+  link.appendChild(container);
+
   const lastModified = isMobile()
     ? new Date(item.lastModified).toLocaleDateString()
     : new Date(item.lastModified).toLocaleString();
@@ -63,7 +68,7 @@ export const createOpenItem = (
   const title = document.createElement('div');
   title.classList.add('open-title', 'overflow-text');
   title.textContent = item.title;
-  link.appendChild(title);
+  container.appendChild(title);
 
   const lastModifiedText = document.createElement('div');
   lastModifiedText.classList.add('light');
@@ -74,14 +79,14 @@ export const createOpenItem = (
       modified: lastModified,
     },
   );
-  link.appendChild(lastModifiedText);
+  container.appendChild(lastModifiedText);
 
   const tags = document.createElement('div');
   tags.classList.add('project-tags');
   langs.forEach((lang) => tags.append(lang));
   tags.innerHTML += userTags.length > 0 ? ' <span class="light">|</span> ' : '';
   userTags.forEach((tag) => tags.append(tag));
-  link.appendChild(tags);
+  container.appendChild(tags);
 
   const setAsDefault = document.createElement('div');
   setAsDefault.classList.add('template-default');
@@ -109,12 +114,16 @@ export const createOpenItem = (
   }
   li.appendChild(link);
 
+  const actions = document.createElement('div');
+  actions.classList.add('actions');
+  li.appendChild(actions);
+
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-button');
   // todo i18n
   const iconCSS = '<span class="icon-delete-button"></span>';
   deleteButton.innerHTML = `<span id="show-result">${iconCSS}</span>`;
-  li.appendChild(deleteButton);
+  actions.appendChild(deleteButton);
 
   return { link, deleteButton, setAsDefaultLink, removeDefaultLink };
 };

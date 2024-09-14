@@ -58,12 +58,16 @@ const createSnippetItem = (
     'snippets.copy.clickToCopySnippet',
     'Click to copy snippet',
   );
-  link.classList.add('snippet-item', 'hint--top');
+  link.classList.add('snippet-link', 'hint--top');
   link.title = item.description;
   link.onclick = (ev) => {
     ev.preventDefault();
     copySnippet(item.code, notifications);
   };
+
+  const container = document.createElement('div');
+  container.classList.add('snippet-item');
+  link.appendChild(container);
 
   const lastModified = isMobile()
     ? new Date(item.lastModified).toLocaleDateString()
@@ -72,7 +76,7 @@ const createSnippetItem = (
   const title = document.createElement('div');
   title.classList.add('open-title', 'overflow-text');
   title.textContent = item.title;
-  link.appendChild(title);
+  container.appendChild(title);
 
   if (!isMobile()) {
     const lastModifiedText = document.createElement('div');
@@ -84,7 +88,7 @@ const createSnippetItem = (
         modified: lastModified,
       },
     );
-    link.appendChild(lastModifiedText);
+    container.appendChild(lastModifiedText);
   }
 
   const tags = document.createElement('div');
@@ -95,11 +99,11 @@ const createSnippetItem = (
   langEl.title = window.deps.translateString('snippets.filter.language', 'filter by language');
   langEl.textContent = getLanguage(item.language);
   tags.append(langEl);
-  link.appendChild(tags);
+  container.appendChild(tags);
 
   const editorContainer = document.createElement('div');
   editorContainer.classList.add('editor', 'custom-editor');
-  link.appendChild(editorContainer);
+  container.appendChild(editorContainer);
   li.appendChild(link);
 
   const actions = document.createElement('div');

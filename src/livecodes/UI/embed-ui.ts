@@ -242,8 +242,8 @@ export const createEmbedUI = async ({
       helpLink.title = window.deps.translateString('generic.clickForInfo', 'Click for info...');
       title.appendChild(helpLink);
 
-      const helpIcon: HTMLImageElement = document.createElement('img');
-      helpIcon.src = baseUrl + 'assets/icons/info.svg';
+      const helpIcon = document.createElement('i');
+      helpIcon.classList.add('icon-info');
       helpLink.appendChild(helpIcon);
     }
 

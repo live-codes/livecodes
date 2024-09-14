@@ -1,3 +1,7 @@
+// @ts-nocheck
+// This comment is added by i18n-exclude script and should be automatically removed after build.
+// If you see this comment in the file, it means there is something wrong during the build process.
+
 // ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
 import type { I18nTranslationTemplate } from '../models';
@@ -12,13 +16,13 @@ import type { I18nTranslationTemplate } from '../models';
 const translation = {
   about: {
     documentations: {
-      aboutUs: 'Acerca',
-      contact: 'Contacto',
-      heading: 'Documentación',
-      home: 'Sitio web',
-      license: 'Licencia',
+      aboutUs: 'About us',
+      contact: 'Contact',
+      heading: 'Documentations',
+      home: 'Home',
+      license: 'License',
     },
-    heading: 'Acerca de LiveCodes',
+    heading: 'About LiveCodes',
     livecodes: {
       para1:
         '<1><2>LiveCodes</2></1> is an <3>open-source</3>, <4>feature-rich</4>, <5>client-side</5> code playground. Currently, <6>80+ languages/<7></7>frameworks</6> are supported. It can be used as a standalone app or can be <8>embedded</8> in any web page. There are many ways to <9>prefill playgrounds</9> with code.',
@@ -26,35 +30,35 @@ const translation = {
         'A wide range of <1>configuration options</1> makes it very flexible. A powerful <2>SDK</2> (for <3>JS/TS</3>, <4>React</4>, <5>Vue</5> and <6>Svelte</6>) facilitates <7>embedding</7> and <8>communicating</8> with playgrounds. <9>Comprehensive documentations</9> are available with code samples, live demos and screenshots.',
     },
     version: {
-      app: 'Versión de la aplicación: {{APP_VERSION}}',
-      appPermanentUrl: 'URL permanente de la aplicación',
-      commit: 'Git Confirmado: {{COMMIT_SHA}}',
-      heading: 'Versión',
-      sdk: 'SDK Versión: {{SDK_VERSION}}',
-      sdkPermanentUrl: 'SDK URL permanente',
+      app: 'App version: {{APP_VERSION}}',
+      appPermanentUrl: 'App Permanent URL',
+      commit: 'Git commit: {{COMMIT_SHA}}',
+      heading: 'Version',
+      sdk: 'SDK version: {{SDK_VERSION}}',
+      sdkPermanentUrl: 'SDK Permanent URL',
     },
   },
   app: {
     copy: {
-      hint: 'Copiar (Ctrl/Cmd + A, Ctrl/Cmd + C)',
+      hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
     copyAsUrl: {
-      hint: 'Copiar código como URL de datos',
+      hint: 'Copy code as data URL',
     },
     customSettings: {
-      hint: 'Configuracion personalizada',
+      hint: 'Custom Settings',
     },
     editorMode: {
-      hint: 'Modo editor',
+      hint: 'Editor Mode',
     },
     editorSettings: {
-      hint: 'Configuración del editor',
+      hint: 'Editor Settings',
     },
     externalResources: {
-      hint: 'Recursos externos',
+      hint: 'External Resources',
     },
     focus: {
-      hint: 'Cambiar modo de enfoque',
+      hint: 'Toggle Focus mode',
     },
     format: {
       hint: 'Format (Alt + Shift + F)',
@@ -64,6 +68,18 @@ const translation = {
     },
     logo: {
       title: 'LiveCodes: Code playground that runs in the browser!',
+    },
+    menuHelp: {
+      heading: 'Help',
+      hint: 'Help',
+    },
+    menuProject: {
+      heading: 'Project',
+      hint: 'Project',
+    },
+    menuSettings: {
+      heading: 'Settings',
+      hint: 'Settings',
     },
     projectInfo: {
       hint: 'Project Info',
@@ -483,12 +499,15 @@ const translation = {
     autoSave: 'Auto Save',
     autoUpdate: 'Auto Update',
     backup: 'Backup / Restore …',
+    blog: 'Blog',
     broadcast: 'Broadcast …',
+    config: 'Configuration',
     customSettings: 'Custom Settings …',
     delay: {
       heading: 'Delay: <1>1.5</1>s',
       hint: 'Delay before auto-update',
     },
+    docs: 'Documentation',
     deploy: 'Deploy …',
     editorSettings: 'Editor Settings …',
     embed: 'Embed …',
@@ -501,15 +520,19 @@ const translation = {
       result: 'Export Result (HTML)',
       src: 'Export Source (ZIP)',
     },
+    features: 'Features',
     formatOnsave: 'Format On-save',
+    getstart: 'Getting Started',
     import: 'Import …',
     layout: 'Vertical Layout',
+    license: 'License',
     login: 'Login …',
     logout: 'Log out',
     new: 'New …',
     open: 'Open …',
     project: 'Project Info …',
     recoverUnsaved: 'Recover Unsaved',
+    report: 'Report an issue',
     resources: 'External Resources …',
     save: 'Save',
     saveAs: {
@@ -517,12 +540,14 @@ const translation = {
       heading: 'Save as',
       template: 'Template',
     },
+    sdk: 'Software Dev Kit',
     share: 'Share …',
     showSpacing: {
       heading: 'Show Spacing',
       hint: 'Press Alt/Option and move your cursor over result page',
     },
     snippets: 'Code Snippets …',
+    source: 'Source code on GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Dark Theme',
     welcome: {

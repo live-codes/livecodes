@@ -1,3 +1,11 @@
+// @ts-nocheck
+// This comment is added by i18n-exclude script and should be automatically removed after build.
+// If you see this comment in the file, it means there is something wrong during the build process.
+
+// @ts-nocheck
+// This comment is added by i18n-exclude script and should be automatically removed after build.
+// If you see this comment in the file, it means there is something wrong during the build process.
+
 // ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
 import type { I18nTranslationTemplate } from '../models';
@@ -16,7 +24,7 @@ const translation = {
       contact: 'Contact',
       heading: 'Documentation',
       home: 'Accueil',
-      licence : 'Licence',
+      licence: 'Licence',
     },
     heading: 'À propos de LiveCodes',
     livecodes: {
@@ -48,7 +56,7 @@ const translation = {
       hint: 'Mode éditeur',
     },
     editorSettings: {
-      hint: 'Paramètres de l\'éditeur',
+      hint: "Paramètres de l'éditeur",
     },
     externalResources: {
       hint: 'Ressources externes',
@@ -64,6 +72,18 @@ const translation = {
     },
     logo: {
       title: 'LiveCodes : un éditeur de code dans le navigateur !',
+    },
+    menuHelp: {
+      heading: 'Help',
+      hint: 'Aide',
+    },
+    menuProject: {
+      heading: 'Project',
+      hint: 'Projet',
+    },
+    menuSettings: {
+      heading: 'Settings',
+      hint: 'Paramètres',
     },
     projectInfo: {
       hint: 'Informations sur le projet',
@@ -93,7 +113,7 @@ const translation = {
         label: 'Ajouter un fichier',
       },
       githubPages: {
-        desc: 'Déployer l’actif sur les pages GitHub. Le fichier est transféré vers la branche <1>gh-pages</1> du dépôt <2>livecodes-assets</2> sur votre compte GitHub. Si le dépôt n\'existe pas déjà, un dépôt public sera créé.',
+        desc: "Déployer l’actif sur les pages GitHub. Le fichier est transféré vers la branche <1>gh-pages</1> du dépôt <2>livecodes-assets</2> sur votre compte GitHub. Si le dépôt n'existe pas déjà, un dépôt public sera créé.",
         heading: 'GitHub Pages',
         label: 'Télécharger le fichier',
       },
@@ -105,7 +125,7 @@ const translation = {
     },
     deleteAll: 'Supprimer tout',
     generic: {
-      clickToCopyURL: 'Cliquez pour copier l\'URL',
+      clickToCopyURL: "Cliquez pour copier l'URL",
     },
     heading: 'Ressources',
     link: {
@@ -121,7 +141,7 @@ const translation = {
       uploading: 'Téléchargement...',
     },
     noMatch: 'Aucune ressource ne correspond à ces filtres.',
-    noSavedAssets: 'Vous n\'avez aucune ressource enregistrée.',
+    noSavedAssets: "Vous n'avez aucune ressource enregistrée.",
     processAsset: {
       addFile: 'Fichier ajouté: ',
       deployNotice: 'Le fichier devrait bientôt être disponible sur cette URL (~1 min).',
@@ -139,20 +159,20 @@ const translation = {
       all: 'Tous types',
     },
     url: {
-      fail: 'Échec de la copie de l\'URL.',
-      success: 'L\'URL est copiée dans le presse-papiers.',
+      fail: "Échec de la copie de l'URL.",
+      success: "L'URL est copiée dans le presse-papiers.",
     },
   },
   backup: {
     backup: {
       assets: 'Ressources',
       button: 'Sauvegarde',
-      desc: 'Sauvegardez les données LiveCodes afin qu\'elles puissent être restaurées ultérieurement sur cet appareil ou autres. <1></1> Veuillez visiter la <2>documentation</2> pour plus de détails.',
+      desc: "Sauvegardez les données LiveCodes afin qu'elles puissent être restaurées ultérieurement sur cet appareil ou autres. <1></1> Pour plus de détails, veuillez consulter la <2>documentation</2>",
       heading: 'Sauvegarder',
       projects: 'Projets',
       settings: 'Paramètres utilisateur',
       snippets: 'Extraits de code',
-      templates: 'Modèles d\'utilisateur',
+      templates: "Modèles d'utilisateur",
     },
     backupBtn: 'Sauvegarder',
     error: {
@@ -163,7 +183,7 @@ const translation = {
     heading: 'Sauvegarder / Restaurer',
     inProgress: 'En cours...',
     restore: {
-      desc: 'Restaurer les données LiveCodes précédemment sauvegardées. <1></1> Si vous choisissez de remplacer le contenu actuel, vous souhaiterez peut-être d’abord le sauvegarder. <2></2> Veuillez visiter la <3>documentations</3> pour plus de détails.',
+      desc: 'Restaurer les données LiveCodes précédemment sauvegardées. <1></1> Si vous choisissez de remplacer le contenu actuel, vous souhaiterez peut-être d’abord le sauvegarder. <2></2> Pour plus de détails, veuillez consulter la <3>documentation</3>',
       fromFile: 'Restaurer à partir du fichier',
       heading: 'Restaurer',
       mode: {
@@ -181,10 +201,10 @@ const translation = {
     broadcasting: 'Diffusion...',
     channelURL: 'URL de chaîne',
     connecting: 'Connexion...',
-    desc: 'Diffusez la page de résultats vers d\’autres navigateurs ou appareils en temps réel. Veuillez visiter la <1>documentation</1> pour plus de détails.',
+    desc: 'Diffusez la page de résultat vers d’autres navigateurs ou appareils en temps réel. Pour plus de détails, veuillez consulter la <1>documentation</1>',
     error: {
       generic: 'La diffusion a échoué !',
-      serverURLRequired: 'L\'URL du serveur est requise !',
+      serverURLRequired: "L'URL du serveur est requise !",
     },
     heading: 'Diffuser',
     includeSourceCode: 'Inclure le code source',
@@ -195,7 +215,7 @@ const translation = {
   core: {
     broadcast: {
       heading: 'Diffuser',
-      successSetToken: 'Le jeton d\'utilisateur de diffusion a été défini avec succès',
+      successSetToken: "Le jeton d'utilisateur de diffusion a été défini avec succès",
     },
     changeLanguage: 'Chargement {{lang}}. Cela peut prendre un certain temps!',
     copy: {
@@ -209,9 +229,9 @@ const translation = {
       failedToCopyCode: 'Impossible de copier le code',
       failedToLoadTemplate: 'Échec du chargement du modèle',
       failedToLoadTemplates: 'Échec du chargement des modèles de démarrage',
-      failedToParseSettings: 'Échec de l\'analyse des paramètres au format JSON',
+      failedToParseSettings: "Échec de l'analyse des paramètres au format JSON",
       invalidCommand: 'Commande invalide!',
-      invalidImport: 'URL d\'importation non valide',
+      invalidImport: "URL d'importation non valide",
       invalidPanelId: 'ID de panneau non valide',
       invalidToken: 'Jeton invalide!',
       login: 'Erreur de connexion!',
@@ -252,7 +272,7 @@ const translation = {
       hint: 'Afficher le résultat dans une nouvelle fenêtre',
     },
     save: {
-      success: 'Projet enregistré localement sur l\'appareil!',
+      success: "Projet enregistré localement sur l'appareil!",
       successWithName: 'Projet "{{name}}" enregistré localement.',
     },
     template: {
@@ -302,13 +322,13 @@ const translation = {
   },
   editorSettings: {
     appLanguage: {
-      heading: 'Langue de l\'interface utilisateur',
-      note: 'Recharge l\'application pour appliquer les modifications après avoir changé de langue.',
+      heading: "Langue de l'interface utilisateur",
+      note: "Recharge l'application pour appliquer les modifications après avoir changé de langue.",
     },
     closeBrackets: 'Fermeture automatique des crochets et des guillemets',
     codeJarDesc: '* Les fonctionnalités marquées ne sont pas disponibles dans CodeJar.',
     default: 'Par défaut',
-    desc: 'Veuillez vérifier la <1>documentation</1> pour plus de détails.',
+    desc: 'Pour plus de détails, veuillez consulter la <1>documentation</1>',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -320,16 +340,16 @@ const translation = {
       heading: 'Mode éditeur *',
       vim: 'Vim',
     },
-    editorTheme: 'Thème de l\'éditeur',
+    editorTheme: "Thème de l'éditeur",
     emmet: 'Activer Emmet *',
     enableAI: {
-      heading: 'Activer l\'assistant de code IA',
+      heading: "Activer l'assistant de code IA",
       note: 'Powered by <1><2></2></1>',
     },
     fontFamily: 'Famille de polices',
     fontSize: 'Taille de la police',
     format: 'Format',
-    heading: 'Paramètres de l\'éditeur',
+    heading: "Paramètres de l'éditeur",
     lineNumbers: 'Afficher les numéros de ligne',
     notAvailableInCodeJar: 'Non disponible dans CodeJar',
     preview: 'Aperçu',
@@ -362,10 +382,10 @@ const translation = {
       copy: 'Copier le code',
       heading: 'Code',
     },
-    desc: 'Veuillez vérifier la <1>documentation</1> pour les configurations avancées.',
+    desc: 'Voir la <1>documentation</1> pour les configurations avancées.',
     embedType: {
       cdn: 'Script (CDN)',
-      heading: 'Type d\'intégration',
+      heading: "Type d'intégration",
       html: 'HTML',
       iframe: 'Iframe',
       npm: 'JS (npm)',
@@ -385,12 +405,12 @@ const translation = {
       codeblock: 'Code Block',
       editor: 'Editor',
       full: 'Full',
-      heading: 'Mode d\'affichage',
+      heading: "Mode d'affichage",
       result: 'Résultat',
     },
     permanentUrl: 'URL Permanent',
     preview: 'Aperçu',
-    previewLoading: 'Chargement de l\'aperçu...',
+    previewLoading: "Chargement de l'aperçu...",
     readonly: 'Lecture seule',
     theme: {
       dark: 'Sombre',
@@ -420,12 +440,12 @@ const translation = {
       github: 'GitHub',
       sdk: 'SDK',
       sponsor: 'Parrainer',
-      twitter: '𝕏 / Twitter',
+      twitter: '? / Twitter',
     },
     clickForInfo: 'Cliquez pour info...',
     close: 'Fermer',
     error: {
-      authentication: 'Erreur d\'authentification !',
+      authentication: "Erreur d'authentification !",
       exceededSize: 'Erreur: taille dépassée {{size}} MB',
       failedToReadFile: 'Erreur: impossible de lire le fichier',
     },
@@ -436,20 +456,20 @@ const translation = {
   },
   import: {
     bulk: {
-      desc: 'Importez en masse plusieurs projets dans vos projets enregistrés. Les projets peuvent être exportés depuis l\'écran <1>Projets enregistrés</1>.',
+      desc: "Importez en masse plusieurs projets dans vos projets enregistrés. Les projets peuvent être exportés depuis l'écran <1>Projets enregistrés</1>",
       fromFile: 'Importation groupée depuis un fichier local',
       fromURL: 'Importation groupée depuis un URL',
       heading: 'Importation groupée',
       started: 'Importation groupée a démarré...',
     },
     code: {
-      desc: 'Sources prises en charge: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript, Vue and Svelte)</12> </1> Please visit the <14>documentations</14> for details.',
+      desc: 'Sources prises en charge: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Répertoire dans un dépôt GitHub</4> <5>Extrait de code Gitlab</5> <6>Fichier Gitlab</6> <7>Répertoire dans un dépôt Gitlab</7> <8>JS Bin</8> <9>Code brut</9> <10>Code dans une page Web DOM</10> <11>Code dans le fichier zip</11> <12>Playgrounds officiels<13></13>(TypeScript, Vue et Svelte)</12> </1> Pour plus de détails, veuillez consulter la <14>documentation</14>',
       fromFile: 'Importer des fichiers locaux',
       fromURL: 'Importer depuis une URL',
       heading: 'Importer code',
     },
     error: {
-      failedToLoadURL: 'Erreur: échec du chargement de l\'URL',
+      failedToLoadURL: "Erreur: échec du chargement de l'URL",
       invalidConfigFile: 'Fichier de configuration non valide',
       invalidFile: 'Erreur: fichier non valide',
     },
@@ -459,15 +479,15 @@ const translation = {
     },
     heading: 'Importer',
     json: {
-      desc: 'Importez un seul projet JSON dans l\'éditeur. Un projet peut être exporté depuis app&nbsp;menu&nbsp;→ Exporter&nbsp;→ Exporter&nbsp;Projet&nbsp;(JSON).',
-      fromFile: 'Importer un projet à partir d\'un fichier local',
+      desc: "Importez un seul projet JSON dans l'éditeur. Un projet peut être exporté depuis app&nbsp;menu&nbsp;→ Exporter&nbsp;→ Exporter&nbsp;Projet&nbsp;(JSON).",
+      fromFile: "Importer un projet à partir d'un fichier local",
       fromURL: 'Importer un projet depuis une URL',
       heading: 'Importer un projet JSON',
     },
     success: 'Importation réussie!',
   },
   login: {
-    accessAllowed: 'Autoriser l\'accès à:',
+    accessAllowed: "Autoriser l'accès à:",
     desc: '<1>En vous connectant, vous acceptez que des <2>cookies</2> peuvent être stockés sur votre appareil.</1> <3> <4>Pourquoi ces autorisations sont-elles nécessaires ?</4> </3> <5> <6>Comment modifier/révoquer les autorisations ?</6> </5>',
     gist: 'Gists',
     heading: 'Connectez-vous avec GitHub',
@@ -478,19 +498,22 @@ const translation = {
     publicRepo: 'Dépôts',
   },
   menu: {
-    about: 'À propos',
+    about: 'À propos …',
     assets: 'Ressources …',
     autoSave: 'Auto Enregistrer',
     autoUpdate: 'Mise à jour automatique',
     backup: 'Sauvegarde / Restauration …',
+    blog: 'Blog',
     broadcast: 'Diffuser …',
+    config: 'Configuration',
     customSettings: 'Paramètres personnalisés …',
     delay: {
       heading: 'Délai: <1>1.5</1>s',
-      hint: 'Délai avant la mise à jour automatique',
+      hint: 'Délai de mise à jour automatique',
     },
+    docs: 'Documentation',
     deploy: 'Déployer …',
-    editorSettings: 'Paramètres de l\'éditeur …',
+    editorSettings: "Paramètres de l'éditeur …",
     embed: 'Intégrer …',
     export: {
       codepen: 'Modifier dans CodePen',
@@ -498,18 +521,22 @@ const translation = {
       heading: 'Exporter',
       jsfiddle: 'Modifier dans JSFiddle',
       json: 'Exporter Projet (JSON)',
-      result: 'Exporter Résultat (HTML)',
+      result: 'Exporter Result (HTML)',
       src: 'Exporter Source (ZIP)',
     },
-    formatOnsave: 'Format On-save',
+    features: 'Fonctionnalités',
+    formatOnsave: "Formater à l'enregistrement",
+    getstart: 'Mise en route',
     import: 'Importer …',
     layout: 'Disposition verticale',
+    license: 'License',
     login: 'Se connecter',
     logout: 'Se déconnecter',
     new: 'Nouveau …',
     open: 'Ouvrir …',
     project: 'Information du Projet …',
     recoverUnsaved: 'Récupérer non enregistré',
+    report: 'Raporter un bogue',
     resources: 'Ressources externes …',
     save: 'Enregistrer',
     saveAs: {
@@ -517,17 +544,19 @@ const translation = {
       heading: 'Enregistrer sous',
       template: 'Modèle',
     },
+    sdk: 'Software Dev Kit',
     share: 'Partager …',
     showSpacing: {
-      heading: 'Afficher l\'espacement',
+      heading: "Afficher l'espacement",
       hint: 'Appuyez sur Alt/Option et déplacez votre curseur sur le résultat',
     },
     snippets: 'Extraits de code …',
+    source: 'Code Source sur GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Thème sombre',
     welcome: {
       heading: 'Écran de Bienvenue …',
-      hint: 'Afficher l\'écran de bienvenue au démarrage',
+      hint: "Afficher l'écran de bienvenue au démarrage",
     },
   },
   open: {
@@ -548,20 +577,20 @@ const translation = {
     lastModified: 'Dernière modification: {{modified}}',
     noData: {
       desc: 'Vous pouvez enregistrer un projet à partir de (settings&nbsp;menu&nbsp;&gt;&nbsp;Enregistrer ) ou par le raccourci clavier (Ctrl/Cmd&nbsp;+&nbsp;S).',
-      heading: 'Vous n\'avez aucun projet enregistré.',
+      heading: "Vous n'avez aucun projet enregistré.",
     },
     noMatch: 'Aucun projet ne correspond à ces filtres.',
     placeholder: {
-      allLanguages: 'Touts les langages',
+      allLanguages: 'Tous les langages',
       filterByTags: 'Filtrer par étiquettes',
       search: 'Rechercher',
     },
     removeDefault: '(unset)',
     reset: 'Réinitialiser',
-    setAsDefault: 'Définir par défaut',
+    setAsDefault: 'Définir modèle par défaut',
     sort: {
       heading: 'Trier par:',
-      lastModified: 'Dernière modification',
+      lastModified: 'Date',
       title: 'Titre',
     },
   },
@@ -574,15 +603,15 @@ const translation = {
     title: 'Titre du projet',
   },
   recoverPrompt: {
-    desc: 'Votre dernier projet comporte des modifications non enregistrées !',
+    desc: 'Votre dernier projet comporte des modifications non enregistrées!',
     heading: 'Récupérer le projet non enregistré?',
     meta: 'Titre: <1></1> <2></2> Dernière modification : <3></3>',
     notShowAgain: 'Ne plus afficher ceci.',
     prompt: {
       discard: 'Supprimer le projet non enregistré',
       heading: '<1></1>Voulez-vous le récupérer maintenant?',
-      recover: 'Récupérer le projet dans l\'éditeur',
-      save: 'Enregistrer sur l\'appareil et continuer',
+      recover: "Récupérer le projet dans l'éditeur",
+      save: "Enregistrer sur l'appareil et continuer",
     },
   },
   resources: {
@@ -594,7 +623,7 @@ const translation = {
       resetCss: 'Reset CSS',
     },
     error: {
-      failedToLoadResults: 'Échec du chargement des résultats !',
+      failedToLoadResults: 'Échec du chargement des résultats!',
       noResultsFound: 'Aucun résultat trouvé pour: ',
     },
     fonts: {
@@ -609,14 +638,16 @@ const translation = {
       placeholder: 'e.g. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'Feuilles de style externes',
-    urlDesc: "Ajoutez les URL de feuille de style/script et cliquez sur « Charger ». Chaque URL doit figurer sur une ligne distincte.",
+    urlDesc:
+      'Ajoutez les URL de feuille de style/script et cliquez sur «Charger». Chaque URL doit figurer sur une ligne distincte.',
   },
   savePrompt: {
     heading: 'Modifications non enregistrées',
     prompt: {
       cancel: 'Annuler',
-      discard: 'Ne pas enregistrer',
-      heading: 'Les modifications ne sont peuvent peut-être pas être enregistrées. <1></1> Voulez-vous enregistrer maintenant?',
+      discard: 'Supprimer',
+      heading:
+        'Les modifications ne sont peuvent peut-être pas être enregistrées. <1></1> Voulez-vous enregistrer maintenant?',
       save: 'Enregistrer',
     },
   },
@@ -626,13 +657,13 @@ const translation = {
       clickToCopy: 'Cliquez pour copier',
       copied: 'URL copiée dans le presse-papiers',
     },
-    encodedURL: 'Obtenir l\'URL codée',
+    encodedURL: "Obtenir l'URL codée",
     error: {
       failedToCopy: 'La copie dans le presse-papiers a échoué!',
-      failedToGenerateURL: 'Échec de la génération de l\'URL courte!',
+      failedToGenerateURL: "Échec de la génération de l'URL courte!",
     },
     expireInOneYear: 'Expire dans 1 an',
-    generateURL: 'Génération d\'URL …',
+    generateURL: "Génération d'URL …",
     heading: 'Partager',
     permanentURL: 'URL Permanent',
     qrcode: {
@@ -640,7 +671,7 @@ const translation = {
       generating: 'Générateur...',
     },
     services: {
-      copyUrl: 'Copier l\'URL',
+      copyUrl: "Copier l'URL",
       devTo: 'Dev.to',
       email: 'Email',
       facebook: 'Facebook',
@@ -653,7 +684,7 @@ const translation = {
       share: 'Partager via …',
       telegram: 'Telegram',
       tumblr: 'Tumblr',
-      twitter: '𝕏 / Twitter',
+      twitter: '? / Twitter',
       whatsApp: 'WhatsApp',
     },
     shortURL: 'Obtenir une URL courte',
@@ -674,8 +705,8 @@ const translation = {
       title: 'Titre',
     },
     copy: {
-      clickToCopySnippet: 'Cliquez pour copier l\'extrait',
-      copied: 'L\'extrait est copié dans le presse-papiers.',
+      clickToCopySnippet: "Cliquez pour copier l'extrait",
+      copied: "L'extrait est copié dans le presse-papiers.",
     },
     delete: {
       all: 'Supprimer {{snippets}} extraits?',
@@ -683,8 +714,8 @@ const translation = {
     },
     deleteAll: 'Supprimer tout',
     error: {
-      failedToCopy: 'Échec de la copie de l\'URL.',
-      noTitle: 'Veuillez ajouter un titre d\'extrait.',
+      failedToCopy: "Échec de la copie de l'URL.",
+      noTitle: "Veuillez ajouter un titre d'extrait.",
     },
     filter: {
       language: 'filtrer par langage',
@@ -692,14 +723,14 @@ const translation = {
     heading: 'Extraits de code',
     lastModified: 'Dernière modification: {{modified}}',
     noMatch: 'Aucun extrait ne correspond à ces filtres.',
-    noSavedSnippets: 'Vous n\'avez aucun extrait enregistré.',
+    noSavedSnippets: "Vous n'avez aucun extrait enregistré.",
     placeholder: {
       allLanguages: 'Touts les langages',
       search: 'Rechercher',
     },
     reset: 'Réinitialiser',
     save: {
-      success: 'Extrait enregistré localement sur l\'appareil!',
+      success: "Extrait enregistré localement sur l'appareil!",
     },
     sort: {
       date: 'Date',
@@ -738,7 +769,7 @@ const translation = {
     heading: 'Nouveau Projet',
     noUserTemplates: {
       desc: 'Vous pouvez enregistrer un projet en tant que modèle à partir de <1></1>(App&nbsp;menu&nbsp;&gt;&nbsp;Sauvegarder&nbsp;sous&nbsp;&gt; Modèle).',
-      heading: 'Vous n\'avez aucun modèle enregistré.',
+      heading: "Vous n'avez aucun modèle enregistré.",
     },
     starter: {
       angular: 'Angular',
@@ -805,7 +836,7 @@ const translation = {
     },
     user: {
       heading: 'Mes modèles',
-      loading: 'Chargement des modèles d\'utilisateur...',
+      loading: "Chargement des modèles d'utilisateur...",
     },
   },
   testEditor: {
