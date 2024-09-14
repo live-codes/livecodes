@@ -4114,7 +4114,14 @@ const configureToolsPane = (
 const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   const userLang =
     appLanguage && appLanguage !== 'auto' ? appLanguage : (navigator.language as AppLanguage);
-  if ((isEmbed && !appLanguage) || !userLang || userLang.toLowerCase().startsWith('en')) return;
+  if (
+    (isEmbed && !appLanguage) ||
+    !userLang ||
+    userLang.toLowerCase().startsWith('en') ||
+    !Object.keys(appLanguages).includes(userLang)
+  ) {
+    return;
+  }
 
   setConfig({ ...getConfig(), appLanguage: userLang });
   const i18nModule: typeof import('./i18n') = await import(baseUrl + '{{hash:i18n.js}}');
