@@ -122,7 +122,7 @@ export const createOpenItem = (
   deleteButton.classList.add('delete-button');
   // todo i18n
   const iconCSS = '<span class="icon-delete-button"></span>';
-  deleteButton.innerHTML = `<span id="show-result">${iconCSS}</span>`;
+  deleteButton.innerHTML = `<span id="delete-button">${iconCSS}</span>`;
   actions.appendChild(deleteButton);
 
   return { link, deleteButton, setAsDefaultLink, removeDefaultLink };

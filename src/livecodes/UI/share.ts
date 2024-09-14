@@ -73,6 +73,7 @@ export const createShareContainer = async (
           <img
             src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
             alt="${service.name}"
+            ${service.name === window.deps.translateString('share.services.twitter', '? / Twitter') ? 'class="twitter"' : ''}
           />
         </span>
         ${service.name}
@@ -106,6 +107,12 @@ export const createShareContainer = async (
       name: window.deps.translateString('share.services.facebook', 'Facebook'),
       icon: 'facebook.svg',
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
+    },
+    {
+      name: window.deps.translateString('share.services.twitter', '? / Twitter'),
+      icon: 'x.svg',
+      createShareUrl: ({ url, title }) =>
+        `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.hackerNews', 'Hacker News'),
