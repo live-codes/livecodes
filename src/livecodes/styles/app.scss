@@ -586,13 +586,11 @@ hr {
 
   #login-link {
     display: inherit;
+    /* display: flex; */
     height: var(--s32);
     justify-content: space-evenly;
-    margin: var(--s5);
-    padding: 0 var(--s4);
-    position: absolute;
-    right: var(--s4);
-    top: 0;
+    margin-right: var(--s5);
+    margin-left: auto;
   }
 }
 
@@ -1598,7 +1596,7 @@ li.editor-title {
   a.subtitle {
     color: var(--menu-text-color);
     display: block;
-    padding: 0.4em 0.8em;
+    padding: 0.4rem 0.8rem;
     text-decoration: none;
   }
 
@@ -1886,9 +1884,8 @@ i.arrow {
   flex-wrap: nowrap !important;
   font-size: var(--s12);
   max-width: 140px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  width: fit-content;
+  overflow: hidden;
+  // width: fit-content;
 }
 
 #modal {
@@ -2003,9 +2000,9 @@ i.arrow {
     #sort-by-title,
     #sorted-asc,
     #sorted-desc {
-      background-color: var(--o3);
-      border-left: 1px solid var(--o3);
-      border-right: 1px solid var(--o3);
+      background-color: transparent; // var(--o3);
+      border-left: 1px solid var(--o2);
+      border-right: 1px solid var(--o2);
 
       &:hover,
       &.active {
@@ -2031,6 +2028,9 @@ i.arrow {
     select#snippets-lang-filter {
       // appearance: none;
       border-radius: 0; //var(--s4);
+      border-bottom: 0;
+      border-top: 0;
+      color: var(--link);
       font-size: inherit !important;
       height: 32px !important;
       margin: 0 !important;
@@ -2051,6 +2051,7 @@ i.arrow {
       &:hover,
       &:focus {
         background: var(--o3);
+        overflow-x: auto;
       }
     }
   }
@@ -2134,11 +2135,11 @@ i.arrow {
 
   ::placeholder {
     color: var(--light);
-    opacity: 0.4;
+    opacity: 0.7;
   }
 
   a {
-    color: var(--link, #2196f3);
+    color: var(--link, #2196f3); // todo link
     /*    flex-grow: 1; */
     margin: 0;
     text-decoration: none;
@@ -2276,6 +2277,10 @@ i.arrow {
     flex-wrap: wrap;
     justify-content: start;
     width: 100%;
+
+    .light {
+      width: 100%;
+    }
   }
 
   .asset-title,
@@ -3030,10 +3035,10 @@ i.arrow {
     .modal-screen {
       align-items: start;
       display: inherit;
-      flex-direction: column;
+      flex-direction: row;
       flex-wrap: wrap;
       margin-bottom: 1.5rem;
-      max-height: 32rem;
+      max-height: 100%; //32rem;
       width: 100%;
 
       &.no-recent {
@@ -3046,10 +3051,11 @@ i.arrow {
       margin-bottom: 1rem;
       padding: 0 1rem;
       text-align: start;
-      width: 48%;
+      width: 50%;
 
       ul.modal-docs {
         columns: 2;
+        margin-bottom: 1rem;
       }
 
       .default-template-li {
@@ -3115,7 +3121,7 @@ i.arrow {
         display: flex;
         gap: 0.5em;
         list-style: none;
-        margin-bottom: var(--s4);
+        /* margin-bottom: var(--s4); */
       }
 
       a {
@@ -3154,31 +3160,25 @@ i.arrow {
     }
 
     #welcome-recover {
-      background: var(--c3);
-      border-radius: var(--s8);
       display: none;
-      max-height: 12em;
       overflow: hidden;
-      transition: max-height 0.7s ease-out;
+
+      .welcome-recover-content {
+        background: var(--o1);
+        border-radius: var(--s8);
+        padding: .5rem;
+      }
 
       li {
         margin: 0.5rem;
       }
 
       .welcome-recover-actions {
-        display: flex;
-        padding: 0.5rem;
-      }
-
-      .welcome-recover-actions > * {
         align-items: center;
         display: flex;
         flex-grow: 1;
-        gap: 0.2em;
-      }
-
-      .welcome-recover-actions > div > svg {
-        margin-right: 0.5rem;
+        font-size: var(--s14);
+        gap: 0.25rem;
       }
     }
 
