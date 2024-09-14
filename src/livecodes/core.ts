@@ -4117,8 +4117,8 @@ const loadI18n = async (appLanguage: AppLanguage | undefined) => {
     isHeadless ||
     (isEmbed && !appLanguage) ||
     !userLang ||
-    userLang.toLowerCase().startsWith('en') ||
-    !Object.keys(appLanguages).includes(userLang)
+    userLang.startsWith('en') ||
+    !Object.keys(appLanguages).find((lang) => lang.startsWith(userLang))
   ) {
     return;
   }
