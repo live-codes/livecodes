@@ -63,9 +63,15 @@ export const displayLoggedIn = (user: User) => {
   const logOutLink = getLogoutLink();
   if (logOutLink) {
     const displayName = user.displayName || user.username;
-    logOutLink.innerHTML = `Log out`;
+    logOutLink.innerHTML = window.deps.translateString('login.logout', 'Log out');
     logOutLink.classList.add('hint--bottom');
-    logOutLink.dataset.hint = 'Logged in as ' + displayName;
+    logOutLink.dataset.hint = window.deps.translateString(
+      'login.loginAs',
+      'Logged in as {{name}}',
+      {
+        name: displayName!,
+      },
+    );
     logOutLink.style.display = 'block';
   }
 };
@@ -77,7 +83,7 @@ export const displayLoggedOut = () => {
   }
   const logOutLink = getLogoutLink();
   if (logOutLink) {
-    logOutLink.innerHTML = 'Log out';
+    logOutLink.innerHTML = window.deps.translateString('login.logout', 'Log out');
     logOutLink.style.display = 'none';
   }
 };

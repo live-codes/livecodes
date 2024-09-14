@@ -459,3 +459,11 @@ export const doOnce = (fn: () => Promise<void>) => {
   let dependency: Promise<void> | undefined;
   return () => (dependency ??= fn());
 };
+
+export const predefinedValues = {
+  APP_VERSION: process.env.VERSION || '',
+  SDK_VERSION: process.env.SDK_VERSION || '',
+  COMMIT_SHA: process.env.GIT_COMMIT || '',
+  REPO_URL: process.env.REPO_URL || '',
+  DOCS_BASE_URL: process.env.DOCS_BASE_URL || '',
+} as const satisfies Record<string, string>;

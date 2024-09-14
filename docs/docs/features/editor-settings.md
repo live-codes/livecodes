@@ -14,9 +14,17 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 ![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-3.png)
 
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-4.png)
+
 A preview code editor is displayed to preview the settings in real time.
 
 The settings selected in the `Editor Settings` screen are saved locally to [user settings](./user-settings.md) and are used subsequently. These include:
+
+### App UI Language
+
+Explore and use LiveCodes in [your preferred language](./i18n.md).
+
+This is actually a global option and is **not specific to the editor**. Might be moved to a separate [User Settings](./user-settings.md) screen in the future.
 
 ### Enable AI Code Assistant
 

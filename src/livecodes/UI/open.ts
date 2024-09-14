@@ -23,6 +23,11 @@ export const createOpenItem = (
   link.href = '#';
   link.dataset.id = item.id;
   link.classList.add('open-project-link');
+
+  const container = document.createElement('div');
+  container.classList.add('open-project-item');
+  link.appendChild(container);
+
   const lastModified = isMobile()
     ? new Date(item.lastModified).toLocaleDateString()
     : new Date(item.lastModified).toLocaleString();
@@ -36,7 +41,7 @@ export const createOpenItem = (
       if (isTemplate) {
         langEl.classList.add('template-tag');
       } else {
-        langEl.title = 'filter by language';
+        langEl.title = window.deps.translateString('open.filter.language', 'filter by language');
       }
       langEl.textContent = getLanguageTitle(lang);
       langs.push(langEl);
@@ -53,7 +58,7 @@ export const createOpenItem = (
       if (isTemplate) {
         tagEl.classList.add('template-tag');
       } else {
-        tagEl.title = 'filter by tag';
+        tagEl.title = window.deps.translateString('open.filter.tag', 'filter by tag');
       }
       tagEl.textContent = tag;
       userTags.push(tagEl);
@@ -63,35 +68,44 @@ export const createOpenItem = (
   const title = document.createElement('div');
   title.classList.add('open-title', 'overflow-text');
   title.textContent = item.title;
-  link.appendChild(title);
+  container.appendChild(title);
 
   const lastModifiedText = document.createElement('div');
   lastModifiedText.classList.add('light');
-  lastModifiedText.textContent = 'Last modified: ' + lastModified;
-  link.appendChild(lastModifiedText);
+  lastModifiedText.textContent = window.deps.translateString(
+    'open.lastModified',
+    'Last modified: {{modified}}',
+    {
+      modified: lastModified,
+    },
+  );
+  container.appendChild(lastModifiedText);
 
   const tags = document.createElement('div');
   tags.classList.add('project-tags');
   langs.forEach((lang) => tags.append(lang));
   tags.innerHTML += userTags.length > 0 ? ' <span class="light">|</span> ' : '';
   userTags.forEach((tag) => tags.append(tag));
-  link.appendChild(tags);
+  container.appendChild(tags);
 
   const setAsDefault = document.createElement('div');
   setAsDefault.classList.add('template-default');
 
   const setAsDefaultLink = document.createElement('span');
-  setAsDefaultLink.innerText = 'Set as default';
+  setAsDefaultLink.innerText = window.deps.translateString('open.setAsDefault', 'Set as default');
   setAsDefaultLink.classList.add('template-default-link');
   setAsDefault.appendChild(setAsDefaultLink);
 
   const defaultTemplateLabel = document.createElement('span');
   defaultTemplateLabel.classList.add('default-template-label');
-  defaultTemplateLabel.innerText = 'Default template ';
+  defaultTemplateLabel.innerText = window.deps.translateString(
+    'open.defaultTemplate',
+    'Default template ',
+  );
   setAsDefault.appendChild(defaultTemplateLabel);
 
   const removeDefaultLink = document.createElement('span');
-  removeDefaultLink.innerText = '(unset)';
+  removeDefaultLink.innerText = window.deps.translateString('open.removeDefault', '(unset)');
   removeDefaultLink.classList.add('template-remove-default-link');
   defaultTemplateLabel.appendChild(removeDefaultLink);
 
@@ -100,14 +114,16 @@ export const createOpenItem = (
   }
   li.appendChild(link);
 
+  const actions = document.createElement('div');
+  actions.classList.add('actions');
+  li.appendChild(actions);
+
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-button');
-  // Replace with span for icon css
+  // todo i18n
   const iconCSS = '<span class="icon-delete-button"></span>';
   deleteButton.innerHTML = `<span id="show-result">${iconCSS}</span>`;
-  // const deleteButton = document.createElement('span');
-  // deleteButton.classList.add('icon-delete-button');
-  li.appendChild(deleteButton);
+  actions.appendChild(deleteButton);
 
   return { link, deleteButton, setAsDefaultLink, removeDefaultLink };
 };
@@ -115,7 +131,7 @@ export const createOpenItem = (
 const createItemLoader = (item: SavedProject) => {
   const loading = document.createElement('div');
   loading.innerHTML = `
-    <div class="modal-message">Loading...</div>
+    <div class="modal-message">${window.deps.translateString('generic.loading', 'Loading...')}</div>
     <div class="modal-message">${item.title}</div>
     `;
   return loading;
@@ -470,20 +486,27 @@ export const createSavedProjectsList = async ({
     deleteAllButton,
     'click',
     async () => {
-      notifications.confirm(`Delete ${visibleProjects.length} projects?`, async () => {
-        notifications.info('Deleting projects...');
-        await Promise.all(
-          visibleProjects.map((p) => {
-            if (getProjectId() === p.id) {
-              setProjectId('');
-            }
-            return projectStorage.deleteItem(p.id);
-          }),
-        );
-        visibleProjects = [];
-        savedProjects = await projectStorage.getList();
-        await showList(visibleProjects);
-      });
+      notifications.confirm(
+        window.deps.translateString('open.delete.all', 'Delete {{projects}} projects?', {
+          projects: visibleProjects.length,
+        }),
+        async () => {
+          notifications.info(
+            window.deps.translateString('open.delete.deleting', 'Deleting projects...'),
+          );
+          await Promise.all(
+            visibleProjects.map((p) => {
+              if (getProjectId() === p.id) {
+                setProjectId('');
+              }
+              return projectStorage.deleteItem(p.id);
+            }),
+          );
+          visibleProjects = [];
+          savedProjects = await projectStorage.getList();
+          await showList(visibleProjects);
+        },
+      );
     },
     false,
   );
@@ -526,18 +549,23 @@ export const createSavedProjectsList = async ({
         deleteButton,
         'click',
         () => {
-          notifications.confirm(`Delete project: ${item.title}?`, async () => {
-            if (item.id === getProjectId()) {
-              setProjectId('');
-            }
-            await projectStorage.deleteItem(item.id);
-            visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(() => {
-              showList(visibleProjects);
-            }, 500);
-          });
+          notifications.confirm(
+            window.deps.translateString('open.delete.one', 'Delete project: {{project}}?', {
+              project: item.title,
+            }),
+            async () => {
+              if (item.id === getProjectId()) {
+                setProjectId('');
+              }
+              await projectStorage.deleteItem(item.id);
+              visibleProjects = visibleProjects.filter((p) => p.id !== item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(() => {
+                showList(visibleProjects);
+              }, 500);
+            },
+          );
         },
         false,
       );

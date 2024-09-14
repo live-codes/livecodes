@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const phpStarter: Template = {
   name: 'php',
-  title: 'PHP Starter',
+  title: window.deps.translateString('templates.starter.php', 'PHP Starter'),
   thumbnail: 'assets/templates/php.svg',
   activeEditor: 'script',
   markup: {

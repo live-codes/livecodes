@@ -1,35 +1,60 @@
-<div id="assets-list-container" class="list-container">
-  <div class="modal-title">Assets</div>
-  <div class="buttons">
-    <button id="assets-add-asset-button" class="button">Add Asset</button>
-    <button id="assets-delete-all-button" class="button danger">Delete All</button>
-  </div>
-  <div class="modal-message" id="assets-container" class="items-container">
-    <span id="assets-sort-by-label">Sort By:</span>
-    <a href="#" id="assets-sort-by-last-modified" class="active">Date</a>&nbsp;/&nbsp;<a
-      href="#"
-      id="assets-sort-by-title"
-      >File Name</a
-    >&nbsp;(<a href="#" id="assets-sorted-asc" style="display: none">▲</a
-    ><a href="#" id="assets-sorted-desc">▼</a>)
-    <select name="type-filter" id="assets-type-filter">
-      <option value="">All types</option>
-    </select>
-    <input id="search-assets" type="text" placeholder="Search" />
-    <a
-      href="#"
-      id="assets-reset-filters"
-      class="hint--bottom"
-      data-hint="Reset"
-      style="width: auto"
-    >
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2v2a8 8 0 1 0 5.135 1.865L15 8V2h6l-2.447 2.447A9.98 9.98 0 0 1 22 12"/></svg>
-    </a>
-    <div class="modal-message no-data">
-      <div>You have no saved assets.</div>
-    </div>
-    <div class="modal-message no-data" id="assets-no-match">
-      <div>No assets match these filters.</div>
+<div id="assets-list-container" class="modal-container list-container">
+  <div class="modal-title" data-i18n="assets.heading">Assets</div>
+
+  <div class="modal-screen-container">
+    <div class="modal-message" id="assets-container" class="items-container">
+      <div class="buttons">
+        <button id="assets-add-asset-button" class="button" data-i18n="assets.add.heading">
+          Add Asset
+        </button>
+        <button id="assets-delete-all-button" class="button danger" data-i18n="assets.deleteAll">
+          Delete All
+        </button>
+      </div>
+
+      <div class="modal-search">
+        <div>
+          <span id="assets-sort-by-label">
+            <i class="icon-arrow-sort"></i
+            ><span data-i18n="assets.sort.heading">Sort By:</span></span
+          >
+          <a href="#" id="assets-sort-by-last-modified" class="active" data-i18n="assets.sort.date"
+            >Date</a
+          ><a href="#" id="assets-sort-by-title" data-i18n="assets.sort.fileName">File Name</a
+          ><a href="#" id="assets-sorted-asc" style="display: none"
+            ><i class="icon-arrow-sort-up"></i></a
+          ><a href="#" id="assets-sorted-desc"><i class="icon-arrow-sort-down"></i></a>
+          <select name="type-filter" id="assets-type-filter">
+            <option value="" data-i18n="assets.types.all">All types</option>
+          </select>
+        </div>
+        <div>
+          <input
+            id="search-assets"
+            type="text"
+            placeholder="Search"
+            data-i18n="assets.search"
+            data-i18n-prop="placeholder"
+          />
+          <a
+            href="#"
+            id="assets-reset-filters"
+            class="hint--bottom"
+            data-hint="Reset"
+            data-i18n="assets.resetFilters"
+            data-i18n-prop="data-hint"
+          >
+            <i class="icon-reset"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="modal-message no-data" data-i18n="assets.noSavedAssets">
+        <div>You have no saved assets.</div>
+      </div>
+      <div class="modal-message no-data" id="assets-no-match" data-i18n="assets.noMatch">
+        <div>No assets match these filters.</div>
+      </div>
     </div>
   </div>
 </div>

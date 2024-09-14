@@ -3,6 +3,7 @@
 import type { ArgTypes, Story } from '@storybook/html';
 import { flatten, unflatten } from 'flat';
 
+import './deps';
 import { defaultConfig } from '../../src/livecodes/config/default-config';
 import { starterTemplates } from '../../src/livecodes/templates/starter';
 import { languages } from '../../src/livecodes/languages';

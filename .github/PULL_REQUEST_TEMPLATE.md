@@ -12,6 +12,7 @@
   - ✅ Provide tests for your changes.
   - 📝 Use descriptive commit messages.
   - 📗 Update any related documentation and include any relevant screenshots.
+  - 🌐 Use `window.deps.translateString` in .ts files and add `data-i18n` attributes in .html files to mark strings that needs to be translated.
 -->
 
 ## What type of PR is this? (check all applicable)
@@ -27,6 +28,7 @@
 - [ ] 🔁 CI
 - [ ] 📦 Chore (Release)
 - [ ] ⏩ Revert
+- [ ] 🌐 Internationalization / Translation
 
 ## Description
 

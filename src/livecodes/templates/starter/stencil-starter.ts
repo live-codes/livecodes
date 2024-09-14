@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const stencilStarter: Template = {
   name: 'stencil',
-  title: 'Stencil Starter',
+  title: window.deps.translateString('templates.starter.stencil', 'Stencil Starter'),
   thumbnail: 'assets/templates/stencil.png',
   activeEditor: 'script',
   markup: {

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const reactNativeStarter: Template = {
   name: 'react-native',
-  title: 'React Native Starter',
+  title: window.deps.translateString('templates.starter.react-native', 'React Native Starter'),
   thumbnail: 'assets/templates/react.svg',
   activeEditor: 'script',
   markup: {

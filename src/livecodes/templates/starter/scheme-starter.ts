@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const schemeStarter: Template = {
   name: 'scheme',
-  title: 'Scheme Starter',
+  title: window.deps.translateString('templates.starter.scheme', 'Scheme Starter'),
   thumbnail: 'assets/templates/scheme.svg',
   activeEditor: 'script',
   markup: {

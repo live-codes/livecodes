@@ -1,0 +1,199 @@
+{
+  "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "broadcast.broadcasting": {
+    "notes": "",
+    "translation": "Broadcasting..."
+  },
+  "core.broadcast.heading": {
+    "notes": "",
+    "translation": "Broadcast"
+  },
+  "core.broadcast.successSetToken": {
+    "notes": "",
+    "translation": "Broadcast user token set successfully"
+  },
+  "core.changeLanguage": {
+    "notes": "",
+    "translation": "Loading {{lang}}. This may take a while!"
+  },
+  "core.copy.copied": {
+    "notes": "",
+    "translation": "Code copied to clipboard"
+  },
+  "core.copy.copiedAsDataURL": {
+    "notes": "",
+    "translation": "Code copied as data URL"
+  },
+  "core.copy.hint": {
+    "notes": "",
+    "translation": "Copied!"
+  },
+  "core.copy.title": {
+    "notes": "",
+    "translation": "Copy"
+  },
+  "core.error.couldNotLoadTemplate": {
+    "notes": "",
+    "translation": "Could not load template: {{template}}"
+  },
+  "core.error.failedToCopyCode": {
+    "notes": "",
+    "translation": "Failed to copy code"
+  },
+  "core.error.failedToLoadTemplate": {
+    "notes": "",
+    "translation": "Failed loading template"
+  },
+  "core.error.failedToLoadTemplates": {
+    "notes": "",
+    "translation": "Failed loading starter templates"
+  },
+  "core.error.failedToParseSettings": {
+    "notes": "",
+    "translation": "Failed parsing settings as JSON"
+  },
+  "core.error.invalidCommand": {
+    "notes": "",
+    "translation": "Invalid command!"
+  },
+  "core.error.invalidImport": {
+    "notes": "",
+    "translation": "Invalid import URL"
+  },
+  "core.error.invalidPanelId": {
+    "notes": "",
+    "translation": "Invalid panel id"
+  },
+  "core.error.invalidToken": {
+    "notes": "",
+    "translation": "Invalid token!"
+  },
+  "core.error.login": {
+    "notes": "",
+    "translation": "Login error!"
+  },
+  "core.error.logout": {
+    "notes": "",
+    "translation": "Logout error!"
+  },
+  "core.error.noResultContainer": {
+    "notes": "",
+    "translation": "Result container not found"
+  },
+  "core.error.unavailable": {
+    "notes": "",
+    "translation": "Command unavailable"
+  },
+  "core.error.unavailableForEmbeds": {
+    "notes": "",
+    "translation": "Command unavailable for embeds"
+  },
+  "core.export.gist": {
+    "notes": "",
+    "translation": "Creating a public GitHub gist..."
+  },
+  "core.fork.success": {
+    "notes": "",
+    "translation": "Forked as a new project"
+  },
+  "core.fullScreen.enter": {
+    "notes": "",
+    "translation": "Full Screen"
+  },
+  "core.fullScreen.exit": {
+    "notes": "",
+    "translation": "Exit Full Screen"
+  },
+  "core.import.loading": {
+    "notes": "",
+    "translation": "Loading Project..."
+  },
+  "core.layout.horizontal": {
+    "notes": "",
+    "translation": "Horizontal layout"
+  },
+  "core.layout.responsive": {
+    "notes": "",
+    "translation": "Responsive layout"
+  },
+  "core.layout.vertical": {
+    "notes": "",
+    "translation": "Vertical layout"
+  },
+  "core.loadDefaults.template": {
+    "notes": "",
+    "translation": "Loading default template"
+  },
+  "core.login.success": {
+    "notes": "",
+    "translation": "Logged in successfully"
+  },
+  "core.login.successWithName": {
+    "notes": "",
+    "translation": "Logged in as: {{name}}"
+  },
+  "core.logout.success": {
+    "notes": "",
+    "translation": "Logged out successfully"
+  },
+  "core.result.hint": {
+    "notes": "",
+    "translation": "Show result in new window"
+  },
+  "core.save.success": {
+    "notes": "",
+    "translation": "Project locally saved to device!"
+  },
+  "core.save.successWithName": {
+    "notes": "",
+    "translation": "Project \"{{name}}\" saved to device."
+  },
+  "core.template.blank": {
+    "notes": "",
+    "translation": "Blank Project"
+  },
+  "core.template.delete": {
+    "notes": "",
+    "translation": "Delete template \"{{item}}\"?"
+  },
+  "core.template.javascript": {
+    "notes": "",
+    "translation": "JavaScript Starter"
+  },
+  "core.template.react": {
+    "notes": "",
+    "translation": "React Starter"
+  },
+  "core.template.saved": {
+    "notes": "",
+    "translation": "Saved as a new template"
+  },
+  "core.template.typescript": {
+    "notes": "",
+    "translation": "TypeScript Starter"
+  },
+  "core.template.vue": {
+    "notes": "",
+    "translation": "Vue 3 Starter"
+  },
+  "core.unload.notSaved": {
+    "notes": "",
+    "translation": "Changes you made may not be saved."
+  },
+  "core.zoom.hint": {
+    "notes": "",
+    "translation": "Zoom"
+  },
+  "generic.close": {
+    "notes": "",
+    "translation": "Close"
+  },
+  "generic.error.authentication": {
+    "notes": "",
+    "translation": "Authentication error!"
+  },
+  "splash.loading": {
+    "notes": "",
+    "translation": "Loading LiveCodes…"
+  }
+}

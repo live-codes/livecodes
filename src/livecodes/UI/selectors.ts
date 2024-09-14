@@ -24,8 +24,6 @@ export const getLogoLink = /* @__PURE__ */ () =>
   document.querySelector('a#logo') as HTMLAnchorElement;
 export const getRunButton = /* @__PURE__ */ () =>
   document.querySelector('#run-button') as HTMLElement;
-// export const getCodeRunButton = /* @__PURE__ */ () =>
-//   document.querySelector('#code-run-button') as HTMLElement;
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
 export const getFocusButton = /* @__PURE__ */ () =>

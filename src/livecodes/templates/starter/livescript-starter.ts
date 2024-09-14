@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const livescriptStarter: Template = {
   name: 'livescript',
-  title: 'LiveScript Starter',
+  title: window.deps.translateString('templates.starter.livescript', 'LiveScript Starter'),
   thumbnail: 'assets/templates/livescript.svg',
   activeEditor: 'script',
   markup: {

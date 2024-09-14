@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const backboneStarter: Template = {
   name: 'backbone',
-  title: 'Backbone Starter',
+  title: window.deps.translateString('templates.starter.backbone', 'Backbone Starter'),
   thumbnail: 'assets/templates/backbone.svg',
   activeEditor: 'script',
   markup: {

@@ -10,7 +10,7 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 URLs to stylesheets/scripts should be added each in a separate line.
 
-Stylesheets and scripts are loaded in the [result page](./result.md) before editor codes. Thus, CSS properties defined in external stylesheets can be overriden in the style editor. Global javascript variables defined in external scripts are available to code in the script editor.
+Stylesheets and scripts are loaded in the [result page](./result.md) before editor codes. Thus, CSS properties defined in external stylesheets can be overridden in the style editor. Global javascript variables defined in external scripts are available to code in the script editor.
 
 ![External Resources](/img/screenshots/external-resources.jpg)
 

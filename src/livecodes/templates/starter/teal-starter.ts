@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const tealStarter: Template = {
   name: 'teal',
-  title: 'Teal Starter',
+  title: window.deps.translateString('templates.starter.teal', 'Teal Starter'),
   thumbnail: 'assets/templates/teal.png',
   activeEditor: 'script',
   markup: {

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const astroStarter: Template = {
   name: 'astro',
-  title: 'Astro Starter',
+  title: window.deps.translateString('templates.starter.astro', 'Astro Starter'),
   thumbnail: 'assets/templates/astro.svg',
   activeEditor: 'markup',
   markup: {

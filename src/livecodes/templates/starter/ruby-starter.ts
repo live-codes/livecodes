@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const rubyStarter: Template = {
   name: 'ruby',
-  title: 'Ruby Starter',
+  title: window.deps.translateString('templates.starter.ruby', 'Ruby Starter'),
   thumbnail: 'assets/templates/ruby.svg',
   activeEditor: 'script',
   markup: {

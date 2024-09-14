@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const rStarter: Template = {
   name: 'r',
-  title: 'R Starter',
+  title: window.deps.translateString('templates.starter.r', 'R Starter'),
   thumbnail: 'assets/templates/r.svg',
   activeEditor: 'script',
   markup: {

@@ -2,6 +2,7 @@
 import type { Config, CustomEvents } from './models';
 import { livecodes, params, isEmbed, clickToLoad, loading } from './main';
 import { customEvents } from './events/custom-events';
+import type { I18nKeyType } from './i18n/utils';
 
 const rootSelector = '#livecodes';
 const loadingEl = document.querySelector<HTMLElement>('#loading')!;
@@ -40,6 +41,13 @@ if (isEmbed) {
       );
       observer.observe(document.body);
     }
+  }
+} else {
+  // Splash i18n
+  const i18nItem = (item: I18nKeyType) => `i18n_${item}`;
+  const i18nLoadingText = localStorage.getItem(i18nItem('splash.loading'));
+  if (i18nLoadingText) {
+    loadingText.innerText = i18nLoadingText;
   }
 }
 

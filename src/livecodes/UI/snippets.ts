@@ -23,15 +23,23 @@ import {
 
 let editor: CodeEditor | undefined;
 
-const textLanguage = { name: 'text', title: 'Plain Text', editorLanguage: '' };
+const textLanguage = {
+  name: 'text',
+  title: window.deps.translateString('snippets.text', 'Plain Text'),
+  editorLanguage: '',
+};
 const getLanguage = (name: Language) =>
   name === textLanguage.name ? textLanguage.title : getLanguageTitle(name);
 
 const copySnippet = (url: string, notifications: any) => {
   if (copyToClipboard(url)) {
-    notifications.success('Snippet is copied to clipboard.');
+    notifications.success(
+      window.deps.translateString('snippets.copy.copied', 'Snippet is copied to clipboard.'),
+    );
   } else {
-    notifications.error('Failed to copy URL.');
+    notifications.error(
+      window.deps.translateString('snippets.error.failedToCopy', 'Failed to copy URL.'),
+    );
   }
 };
 
@@ -46,13 +54,20 @@ const createSnippetItem = (
 
   const link = document.createElement('a');
   link.href = '#';
-  link.dataset.hint = 'Click to copy snippet';
-  link.classList.add('snippet-item', 'hint--top');
+  link.dataset.hint = window.deps.translateString(
+    'snippets.copy.clickToCopySnippet',
+    'Click to copy snippet',
+  );
+  link.classList.add('snippet-link', 'hint--top');
   link.title = item.description;
   link.onclick = (ev) => {
     ev.preventDefault();
     copySnippet(item.code, notifications);
   };
+
+  const container = document.createElement('div');
+  container.classList.add('snippet-item');
+  link.appendChild(container);
 
   const lastModified = isMobile()
     ? new Date(item.lastModified).toLocaleDateString()
@@ -61,13 +76,19 @@ const createSnippetItem = (
   const title = document.createElement('div');
   title.classList.add('open-title', 'overflow-text');
   title.textContent = item.title;
-  link.appendChild(title);
+  container.appendChild(title);
 
   if (!isMobile()) {
     const lastModifiedText = document.createElement('div');
     lastModifiedText.classList.add('light');
-    lastModifiedText.textContent = 'Last modified: ' + lastModified;
-    link.appendChild(lastModifiedText);
+    lastModifiedText.textContent = window.deps.translateString(
+      'snippets.lastModified',
+      'Last modified: {{modified}}',
+      {
+        modified: lastModified,
+      },
+    );
+    container.appendChild(lastModifiedText);
   }
 
   const tags = document.createElement('div');
@@ -75,14 +96,14 @@ const createSnippetItem = (
   const langEl = document.createElement('span');
   langEl.classList.add('language-tag');
   langEl.dataset.lang = item.language;
-  langEl.title = 'filter by language';
+  langEl.title = window.deps.translateString('snippets.filter.language', 'filter by language');
   langEl.textContent = getLanguage(item.language);
   tags.append(langEl);
-  link.appendChild(tags);
+  container.appendChild(tags);
 
   const editorContainer = document.createElement('div');
   editorContainer.classList.add('editor', 'custom-editor');
-  link.appendChild(editorContainer);
+  container.appendChild(editorContainer);
   li.appendChild(link);
 
   const actions = document.createElement('div');
@@ -92,7 +113,7 @@ const createSnippetItem = (
   const copyButton = document.createElement('div');
   copyButton.innerHTML = copyIcon;
   copyButton.classList.add('action-button', 'hint--left');
-  copyButton.dataset.hint = 'Copy';
+  copyButton.dataset.hint = window.deps.translateString('snippets.action.copy', 'Copy');
   copyButton.onclick = (ev) => {
     ev.preventDefault();
     copySnippet(item.code, notifications);
@@ -102,7 +123,7 @@ const createSnippetItem = (
   const editButton = document.createElement('div');
   editButton.innerHTML = editIcon;
   editButton.classList.add('action-button', 'hint--left');
-  editButton.dataset.hint = 'Edit';
+  editButton.dataset.hint = window.deps.translateString('snippets.action.edit', 'Edit');
   editButton.onclick = () => {
     showScreen('add-snippet', item.id);
   };
@@ -111,7 +132,7 @@ const createSnippetItem = (
   const deleteButton = document.createElement('div');
   deleteButton.innerHTML = deleteIcon;
   deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
-  deleteButton.dataset.hint = 'Delete';
+  deleteButton.dataset.hint = window.deps.translateString('snippets.action.delete', 'Delete');
   actions.appendChild(deleteButton);
 
   return { link, deleteButton };
@@ -379,14 +400,19 @@ export const createSnippetsList = async ({
     deleteAllButton,
     'click',
     async () => {
-      notifications.confirm(`Delete ${visibleSnippets.length} snippets?`, async () => {
-        for (const p of visibleSnippets) {
-          await snippetsStorage.deleteItem(p.id);
-        }
-        visibleSnippets = [];
-        savedSnippets = await snippetsStorage.getAllData();
-        await showList(visibleSnippets);
-      });
+      notifications.confirm(
+        window.deps.translateString('snippets.delete.all', 'Delete {{snippets}} snippets?', {
+          snippets: visibleSnippets.length,
+        }),
+        async () => {
+          for (const p of visibleSnippets) {
+            await snippetsStorage.deleteItem(p.id);
+          }
+          visibleSnippets = [];
+          savedSnippets = await snippetsStorage.getAllData();
+          await showList(visibleSnippets);
+        },
+      );
     },
     false,
   );
@@ -413,15 +439,20 @@ export const createSnippetsList = async ({
         deleteButton,
         'click',
         () => {
-          notifications.confirm(`Delete snippet: ${item.title}?`, async () => {
-            await snippetsStorage.deleteItem(item.id);
-            visibleSnippets = visibleSnippets.filter((p) => p.id !== item.id);
-            const li = deleteButton.parentElement as HTMLElement;
-            li.classList.add('hidden');
-            setTimeout(() => {
-              showList(visibleSnippets);
-            }, 500);
-          });
+          notifications.confirm(
+            window.deps.translateString('snippets.delete.one', 'Delete snippet: {{snippet}}?', {
+              snippet: item.title,
+            }),
+            async () => {
+              await snippetsStorage.deleteItem(item.id);
+              visibleSnippets = visibleSnippets.filter((p) => p.id !== item.id);
+              const li = deleteButton.parentElement as HTMLElement;
+              li.classList.add('hidden');
+              setTimeout(() => {
+                showList(visibleSnippets);
+              }, 500);
+            },
+          );
         },
         false,
       );
@@ -524,7 +555,9 @@ export const createAddSnippetContainer = async ({
 
   const saveSnippet = async () => {
     if (!snippetTitleInput.value) {
-      notifications.error('Please add snippet title.');
+      notifications.error(
+        window.deps.translateString('snippets.error.noTitle', 'Please add snippet title.'),
+      );
       snippetTitleInput.focus();
       return;
     }
@@ -541,7 +574,9 @@ export const createAddSnippetContainer = async ({
     await snippetsStorage.updateItem(snippet.id, snippet);
     deps.setAppData({ snippets: { language: snippet.language } });
 
-    notifications.success('Snippet locally saved to device!');
+    notifications.success(
+      window.deps.translateString('snippets.save.success', 'Snippet locally saved to device!'),
+    );
     showScreen('snippets');
     editor?.destroy();
   };

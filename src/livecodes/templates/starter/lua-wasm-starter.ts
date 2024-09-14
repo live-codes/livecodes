@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const luaWasmStarter: Template = {
   name: 'lua-wasm',
-  title: 'Lua (Wasm) Starter',
+  title: window.deps.translateString('templates.starter.lua-wasm', 'Lua (Wasm) Starter'),
   thumbnail: 'assets/templates/lua.svg',
   activeEditor: 'script',
   markup: {

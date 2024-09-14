@@ -69,10 +69,16 @@ export const createBroadcastUI = async ({
     broadcastData = deps.getBroadcastData();
 
     if (broadcastData?.isBroadcasting) {
-      broadcastStatusLabel.innerText = 'Broadcasting...';
+      broadcastStatusLabel.innerText = window.deps.translateString(
+        'broadcast.broadcasting',
+        'Broadcasting...',
+      );
       broadcastServerUrlInput.disabled = true;
       broadcastSourceCheckbox.disabled = true;
-      broadcastBtn.innerText = 'Stop broadcast';
+      broadcastBtn.innerText = window.deps.translateString(
+        'broadcast.broadcastBtn.stop',
+        'Stop broadcast',
+      );
       broadcastSourceCheckbox.checked = broadcastData?.broadcastSource === true;
       if (broadcastData?.channelUrl) {
         broadcastChannelUrlSection.style.display = 'unset';
@@ -83,7 +89,10 @@ export const createBroadcastUI = async ({
       broadcastStatusLabel.innerText = '';
       broadcastServerUrlInput.disabled = false;
       broadcastSourceCheckbox.disabled = false;
-      broadcastBtn.innerText = 'Broadcast';
+      broadcastBtn.innerText = window.deps.translateString(
+        'broadcast.broadcastBtn.start',
+        'Broadcast',
+      );
       broadcastChannelUrlSection.style.display = 'none';
     }
 
@@ -122,12 +131,14 @@ export const createBroadcastUI = async ({
 
     const serverUrl = broadcastServerUrlInput.value.trim();
     if (!serverUrl) {
-      notifications.error('Server URL is required!');
+      notifications.error(
+        window.deps.translateString('broadcast.error.serverURLRequired', 'Server URL is required!'),
+      );
       return;
     }
 
     broadcastBtn.disabled = true;
-    broadcastBtn.innerText = 'Connecting...';
+    broadcastBtn.innerText = window.deps.translateString('broadcast.connecting', 'Connecting...');
 
     const result = await deps.broadcast({
       serverUrl,
@@ -136,7 +147,9 @@ export const createBroadcastUI = async ({
       broadcastSource: broadcastSourceCheckbox.checked,
     });
     if (!result || 'error' in result) {
-      notifications.error('Broadcast failed!');
+      notifications.error(
+        window.deps.translateString('broadcast.error.generic', 'Broadcast failed!'),
+      );
       updateBroadcastUI();
       return;
     }
@@ -150,6 +163,6 @@ export const createBroadcastUI = async ({
       broadcastSource: broadcastSourceCheckbox.checked,
     });
     updateBroadcastUI();
-    notifications.success('Broadcasting...');
+    notifications.success(window.deps.translateString('broadcast.broadcasting', 'Broadcasting...'));
   });
 };
