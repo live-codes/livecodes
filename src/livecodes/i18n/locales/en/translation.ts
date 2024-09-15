@@ -109,6 +109,7 @@ const translation = {
     },
     heading: 'Assets',
     link: {
+      date: 'Date: {{modified}}',
       type: 'Type: {{type}}',
       url: 'URL: {{url}}',
     },
@@ -134,6 +135,22 @@ const translation = {
       date: 'Date',
       fileName: 'File Name',
       heading: 'Sort By:',
+    },
+    type: {
+      archive: 'Archive',
+      audio: 'Audio',
+      csv: 'CSV',
+      font: 'Font',
+      html: 'HTML',
+      icon: 'Icon',
+      image: 'Image',
+      json: 'JSON',
+      other: 'Other',
+      script: 'Script',
+      stylesheet: 'Stylesheet',
+      text: 'Text',
+      video: 'Video',
+      xml: 'XML',
     },
     types: {
       all: 'All types',
@@ -287,6 +304,7 @@ const translation = {
     },
     error: {
       generic: 'Deployment failed!',
+      repoNameExists: 'Repo name already exists',
       repoNameRequired: 'Repo name is required',
     },
     existing: {

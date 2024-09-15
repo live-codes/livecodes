@@ -172,6 +172,10 @@
     "notes": "",
     "translation": "Assets"
   },
+  "assets.link.date": {
+    "notes": "",
+    "translation": "Date: {{modified}}"
+  },
   "assets.link.type": {
     "notes": "",
     "translation": "Type: {{type}}"
@@ -239,6 +243,62 @@
   "assets.sort.heading": {
     "notes": "",
     "translation": "Sort By:"
+  },
+  "assets.type.archive": {
+    "notes": "",
+    "translation": "Archive"
+  },
+  "assets.type.audio": {
+    "notes": "",
+    "translation": "Audio"
+  },
+  "assets.type.csv": {
+    "notes": "",
+    "translation": "CSV"
+  },
+  "assets.type.font": {
+    "notes": "",
+    "translation": "Font"
+  },
+  "assets.type.html": {
+    "notes": "",
+    "translation": "HTML"
+  },
+  "assets.type.icon": {
+    "notes": "",
+    "translation": "Icon"
+  },
+  "assets.type.image": {
+    "notes": "",
+    "translation": "Image"
+  },
+  "assets.type.json": {
+    "notes": "",
+    "translation": "JSON"
+  },
+  "assets.type.other": {
+    "notes": "",
+    "translation": "Other"
+  },
+  "assets.type.script": {
+    "notes": "",
+    "translation": "Script"
+  },
+  "assets.type.stylesheet": {
+    "notes": "",
+    "translation": "Stylesheet"
+  },
+  "assets.type.text": {
+    "notes": "",
+    "translation": "Text"
+  },
+  "assets.type.video": {
+    "notes": "",
+    "translation": "Video"
+  },
+  "assets.type.xml": {
+    "notes": "",
+    "translation": "XML"
   },
   "assets.types.all": {
     "notes": "",
@@ -587,6 +647,10 @@
   "deploy.error.generic": {
     "notes": "",
     "translation": "Deployment failed!"
+  },
+  "deploy.error.repoNameExists": {
+    "notes": "",
+    "translation": "Repo name already exists"
   },
   "deploy.error.repoNameRequired": {
     "notes": "",

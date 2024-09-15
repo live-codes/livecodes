@@ -139,8 +139,10 @@ export const createDeployUI = async ({
       deps: { getLanguageExtension: deps.getLanguageExtension },
     }).catch((error: any) => {
       if (error.message === 'Repo name already exists') {
-        // TODO: i18n this
-        newRepoNameError.innerHTML = error.message;
+        newRepoNameError.innerHTML = window.deps.translateString(
+          'deploy.error.repoNameExists',
+          'Repo name already exists',
+        );
       }
     });
 

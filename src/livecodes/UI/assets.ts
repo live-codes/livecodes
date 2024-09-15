@@ -30,6 +30,23 @@ const copyUrl = (url: string, notifications: any) => {
   }
 };
 
+const typesToShow = {
+  other: window.deps.translateString('assets.type.other', 'Other'),
+  audio: window.deps.translateString('assets.type.audio', 'Audio'),
+  video: window.deps.translateString('assets.type.video', 'Video'),
+  image: window.deps.translateString('assets.type.image', 'Image'),
+  archive: window.deps.translateString('assets.type.archive', 'Archive'),
+  stylesheet: window.deps.translateString('assets.type.stylesheet', 'Stylesheet'),
+  csv: window.deps.translateString('assets.type.csv', 'CSV'),
+  html: window.deps.translateString('assets.type.html', 'HTML'),
+  icon: window.deps.translateString('assets.type.icon', 'Icon'),
+  script: window.deps.translateString('assets.type.script', 'Script'),
+  json: window.deps.translateString('assets.type.json', 'JSON'),
+  font: window.deps.translateString('assets.type.font', 'Font'),
+  text: window.deps.translateString('assets.type.text', 'Text'),
+  xml: window.deps.translateString('assets.type.xml', 'XML'),
+};
+
 const createLinkContent = (item: Asset, baseUrl: string) => {
   const container = document.createElement('div');
   container.classList.add('asset-item');
@@ -57,7 +74,7 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
   const type = document.createElement('div');
   type.classList.add('light');
   type.textContent = window.deps.translateString('assets.link.type', 'Type: {{type}}', {
-    type: item.type,
+    type: typesToShow[item.type],
   });
   detailsContainer.appendChild(type);
 
@@ -67,7 +84,9 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
 
   const date = document.createElement('div');
   date.classList.add('light');
-  date.textContent = 'Date: ' + String(lastModified);
+  date.textContent = window.deps.translateString('assets.link.date', 'Date: {{modified}}', {
+    modified: String(lastModified),
+  });
   detailsContainer.appendChild(date);
 
   const url = document.createElement('div');
@@ -144,7 +163,6 @@ const organizeAssets = async (
     '#assets-list-container #assets-reset-filters',
   ) as HTMLElement;
 
-  // TODO: i18n this
   Array.from(new Set((await getAssets()).map((x) => x.type)))
     .sort((a, b) =>
       a.toLowerCase() < b.toLowerCase() ? -1 : a.toLowerCase() > b.toLowerCase() ? 1 : 0,
