@@ -190,7 +190,10 @@ const translation: I18nTranslation = {
       heading: '播送',
       successSetToken: '播送用户令牌设置成功',
     },
-    changeLanguage: '正在加载 {{lang}} 。这可能需要一些时间！',
+    changeLanguage: {
+      hint: '更改语言',
+      message: '正在加载 {{lang}} 。这可能需要一些时间！',
+    },
     copy: {
       copied: '代码已复制到剪贴板',
       copiedAsDataURL: '将代码复制为 Data URL',
