@@ -32,6 +32,8 @@ export const createLanguageMenus = (
         tabIndex="1"
         class="language-menu-button hint--left"
         data-hint="Change Language"
+        data-i18n="app.editorlanguage.hint"
+        data-i18n-prop="data-hint"
       >
       <i class="icon-arrow-down"></i>
       </a>
@@ -100,11 +102,13 @@ export const createLanguageMenus = (
       }
       languageItem.appendChild(languageLink);
 
+      // Todo i18n
       if (language.info !== false) {
         const tooltip = document.createElement('span');
         tooltip.classList.add('tooltip', 'hint--left');
         tooltip.dataset.hint = 'Click for info...';
         tooltip.innerHTML = infoIcon;
+
         eventsManager.addEventListener(
           tooltip,
           'mousedown',
@@ -179,4 +183,4 @@ const getLanguageInfo = async (language: Language | Processor, baseUrl: string) 
   return info?.innerHTML || '';
 };
 
-const infoIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412l-1 4.705c-.07.34.029.533.304.533c.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598c-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081l.082-.381l2.29-.287zM8 5.5a1 1 0 1 1 0-2a1 1 0 0 1 0 2"/></svg>`;
+const infoIcon = '<i class="icon-info"></i>';

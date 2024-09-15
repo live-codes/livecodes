@@ -44,6 +44,9 @@ const translation = {
     customSettings: {
       hint: 'Custom Settings',
     },
+    editorlanguage: {
+      hint: 'Changer de Langage',
+    },
     editorMode: {
       hint: 'Editor Mode',
     },

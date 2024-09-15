@@ -52,6 +52,9 @@ const translation = {
     customSettings: {
       hint: 'Paramètres personnalisés',
     },
+    editorlanguage: {
+      hint: 'Changer de Langage',
+    },
     editorMode: {
       hint: 'Mode éditeur',
     },
@@ -108,7 +111,7 @@ const translation = {
   assets: {
     add: {
       dataURL: {
-        desc: 'Ajouter un élément en tant que fichier codé en base64 <1>data url</1>.',
+        desc: 'Ajouter un élément en tant que fichier codé en base64 <1>data url</1>',
         heading: 'URL des données',
         label: 'Ajouter un fichier',
       },
@@ -203,8 +206,8 @@ const translation = {
     connecting: 'Connexion...',
     desc: 'Diffusez la page de résultat vers d’autres navigateurs ou appareils en temps réel. Pour plus de détails, veuillez consulter la <1>documentation</1>',
     error: {
-      generic: 'La diffusion a échoué !',
-      serverURLRequired: "L'URL du serveur est requise !",
+      generic: 'La diffusion a échoué!',
+      serverURLRequired: "L'URL du serveur est requise!",
     },
     heading: 'Diffuser',
     includeSourceCode: 'Inclure le code source',
@@ -488,7 +491,7 @@ const translation = {
   },
   login: {
     accessAllowed: "Autoriser l'accès à:",
-    desc: '<1>En vous connectant, vous acceptez que des <2>cookies</2> peuvent être stockés sur votre appareil.</1> <3> <4>Pourquoi ces autorisations sont-elles nécessaires ?</4> </3> <5> <6>Comment modifier/révoquer les autorisations ?</6> </5>',
+    desc: '<1>En vous connectant, vous acceptez que des <2>cookies</2> soient stockés sur votre appareil.</1> <3> <4>Pourquoi ces autorisations sont nécessaires?</4> </3> <5> <6>Comment révoquer les autorisations?</6> </5>',
     gist: 'Gists',
     heading: 'Connectez-vous avec GitHub',
     loginAs: 'Connecté en tant que {{name}}',
@@ -718,14 +721,14 @@ const translation = {
       noTitle: "Veuillez ajouter un titre d'extrait.",
     },
     filter: {
-      language: 'filtrer par langage',
+      language: 'Filtrer par langage',
     },
     heading: 'Extraits de code',
     lastModified: 'Dernière modification: {{modified}}',
     noMatch: 'Aucun extrait ne correspond à ces filtres.',
     noSavedSnippets: "Vous n'avez aucun extrait enregistré.",
     placeholder: {
-      allLanguages: 'Touts les langages',
+      allLanguages: 'Tous les langages',
       search: 'Rechercher',
     },
     reset: 'Réinitialiser',
