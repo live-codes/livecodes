@@ -16,6 +16,8 @@ const TS_NOCHECK = `// @ts-nocheck
 const localesDir = path.resolve('src/livecodes/i18n/locales');
 
 const excludeLocales = () => {
+  if (process.env.BUILD_INCLUDE_LOCALES === 'true') return;
+
   const phase = process.argv[2];
   console.log(`Running i18n-exclude in ${phase} phase`);
 
