@@ -24,7 +24,7 @@
 
   // border-radius, font-size, spacing padding and margin
   --s2: 0.125rem; // 2px
-  --s4: 0.25rem; // 	5px	31.25%
+  --s4: 0.25rem; // 	4px
   --s5: 0.3125rem; // 	5px	31.25%
   --s6: 0.375rem; // 	6px	37.50%
   --s7: 0.4375rem; // 	7px	43.75%
@@ -456,6 +456,56 @@ hr {
   --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='currentColor' d='M7.5 5.5A.5.5 0 0 1 8 5h2.5a.5.5 0 0 1 .5.5V8a.5.5 0 0 1-1 0V6.707L7.354 9.354a.5.5 0 1 1-.708-.708L9.293 6H8a.5.5 0 0 1-.5-.5M4.133 3.692A2.5 2.5 0 0 1 6.5 2h5A2.5 2.5 0 0 1 14 4.5v5c0 1.098-.708 2.03-1.692 2.367v.364c0 .335-.117.763-.392 1.116c-.289.372-.748.653-1.377.653h-5.77A2.75 2.75 0 0 1 2 11.23V5.463c0-.549.197-1.006.546-1.323c.34-.309.785-.447 1.223-.447zm-.133 1h-.23a.8.8 0 0 0-.552.188C3.1 4.987 3 5.164 3 5.462v5.769c0 .993.776 1.77 1.77 1.77h5.769c.299 0 .474-.121.588-.268a.9.9 0 0 0 .18-.502V12H6.5A2.5 2.5 0 0 1 4 9.5zM6.5 3A1.5 1.5 0 0 0 5 4.5v5A1.5 1.5 0 0 0 6.5 11h5A1.5 1.5 0 0 0 13 9.5v-5A1.5 1.5 0 0 0 11.5 3z'/%3E%3C/svg%3E");
 }
 
+.description {
+  border-radius: var(--s8);
+  display: inline-block;
+  font-size: var(--s14);
+  margin-bottom: 1rem;
+  padding: 1em; // todo check padding login + share modal
+  width: 100%;
+
+  &.center {
+    display: block;
+    text-align: center;
+    width: unset;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5em;
+  }
+
+  li {
+    width: 33%;
+  }
+}
+
+.alert, .danger {
+  background-color: var(--test-fail-background);
+  border: 1px solid var(--test-fail-border);
+  color: var(--test-fail-color);
+
+}
+
+.confirm, .warn {
+  background-color: rgba(255, 128, 0, 0.25); // todo css var
+  border: 1px solid rgb(255, 128, 0);
+  color: rgb(255, 179, 102);;
+}
+
+.help {
+  background-color: rgba(0, 110, 255, 0.2);
+  border: 1px solid rgb(0, 110, 255);
+  color: rgb(102, 168, 255);
+}
+
+.success {
+  background-color: rgba(85, 255, 0, 0.25);
+  border: 1px solid rgb(85, 255, 0);
+  color: rgb(153, 255, 102);
+}
+
 .noselect {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -465,41 +515,6 @@ hr {
 .smaller {
   font-size: smaller;
 }
-
-.alert, .danger {
-  background-color: var(--test-fail-background);
-  border: 1px solid var(--test-fail-border);
-  border-radius: var(--s4);
-  color: var(--test-fail-color);
-  font-size: var(--s14);
-}
-
-.confirm, .warn {
-  background-color: rgba(255, 128, 0, 0.25); // todo css var
-  border: 1px solid rgb(255, 128, 0);
-  border-radius: var(--s4);
-  color: rgb(255, 179, 102);
-  font-size: var(--s14);
-}
-
-.help {
-  background-color: rgba(0, 110, 255, 0.2);
-  border: 1px solid rgb(0, 110, 255);
-  border-radius: var(--s4);
-  color: rgb(102, 168, 255);
-  font-size: var(--s14);
-}
-
-.success {
-  background-color: rgba(85, 255, 0, 0.25);
-border: 1px solid rgb(85, 255, 0);
-border-radius: var(--s4);
-color: rgb(153, 255, 102);
-}
-
-/* .warn {
-  color: rgb(221, 115, 16);
-} */
 
 #container {
   display: flex;
@@ -2365,13 +2380,14 @@ i.arrow {
     }
 
     .user-tag {
-      background-color: #3f848d;
+      background-color: var(--c4); // todo css var
       color: white;
     }
   }
 
-  .language-info > h3,
-  .modal-title {
+
+  .modal-title,
+  .language-info > h3 {
     backdrop-filter: blur(5px);
     background: var(--o1);
     border-radius: var(--s8);
@@ -2730,21 +2746,6 @@ i.arrow {
         margin: 0 0 1em;
       }
     }
-
-    .description {
-      font-size: 14px;
-      margin: 0 -1em;
-      padding: 1em 1em 0;
-      width: 110%;
-
-      p:not(:last-child) {
-        margin-bottom: 0.5em;
-      }
-
-      p:last-child {
-        margin-bottom: 1em;
-      }
-    }
   }
 
   #deploy-container {
@@ -2755,6 +2756,19 @@ i.arrow {
     .qrcode-container {
       display: flex;
       position: relative;
+    }
+  }
+
+  #embed-form {
+    // style label only
+    label:has(+ .input-container) {
+      /* background: var(--c3); */
+    }
+    // style input only
+    label + .input-container {
+      background: var(--o1);
+      border-radius: 8px;
+      padding: 8px;
     }
   }
 
@@ -2852,12 +2866,8 @@ i.arrow {
     }
 
     #editor-settings-form,
-    .description {
-      margin-bottom: 1rem;
-    }
-
     .field-note {
-      font-size: 0.8em;
+      font-size: var(--s14);
       margin-top: -1em;
     }
   }
@@ -3371,29 +3381,7 @@ i.arrow {
     }
   } */
 
-  .description {
-    display: inline-block;
-    font-size: var(--s14);
-    margin: inherit;
-    padding: 1em; // todo check padding login + share modal
-    width: 100%;
 
-    &.center {
-      display: block;
-      text-align: center;
-      width: unset;
-    }
-
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0.5em;
-    }
-
-    li {
-      width: 33%;
-    }
-  }
 
   .nowrap {
     white-space: nowrap;
@@ -3409,10 +3397,10 @@ i.arrow {
     flex-basis: calc((100% - 2rem) / 5);
     flex-direction: row;
     flex-wrap: wrap;
-    font-size: 13px;
-    gap: 0.25rem 0.25rem;
+    font-size: var(--s12);
+    gap: var(--s4);
     list-style: none;
-    margin: 1rem 0 0;
+    margin-bottom: var(--s16);
     padding: 0;
     user-select: none;
     width: 100%;
@@ -3422,19 +3410,7 @@ i.arrow {
       border-radius: var(--s8);
       text-align: center;
       transition: background 0.5s ease-in-out;
-      width: 19.5%;
-    }
-
-    @media only screen and (max-width: 1024px) {
-      li {
-        width: 19.5%;
-      }
-    }
-
-    @media only screen and (max-width: 768px) {
-      li {
-        width: 24.4%;
-      }
+      width: calc(20% - var(--s4));
     }
 
     li:hover {
@@ -3675,7 +3651,8 @@ i.arrow {
 .modal-tabs {
   border-bottom: 1px solid var(--o5);
   display: flex;
-  margin-bottom: 1rem;
+  gap: var(--s8);
+  margin-bottom: var(--s16);
   width: 100%;
 
   li {
@@ -3774,23 +3751,37 @@ i.arrow {
 
 .language-info {
   margin: 1em;
+  padding-top: 1rem;
   width: calc(100% - 2em);
 
   h3 {
-    margin: 0.65em 0 !important;
+    margin: 1rem 0 !important
   }
 
-  > div {
-    margin-left: 0.5em;
+  // > div:not(.description) {
+  //   margin: 0 1rem;
+  div.description {
+    width: 100%;
   }
 
+  div:not(.description) {
+    margin: 0 1rem;
+  }
+
+  ol,
   ul {
+    font-size: var(--s14);
     list-style: none;
-    padding-left: 0.5em;
+    margin: 1rem;
   }
 
   li {
-    margin: 0.5em;
+    padding: 0.25em 0;
+  }
+
+  li:has(a[target="_parent"]),
+  a.button {
+    margin: 1rem 0 !important;
   }
 }
 

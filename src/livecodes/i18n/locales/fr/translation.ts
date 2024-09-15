@@ -482,7 +482,7 @@ const translation = {
     },
     heading: 'Importer',
     json: {
-      desc: "Importez un seul projet JSON dans l'éditeur. Un projet peut être exporté depuis app&nbsp;menu&nbsp;→ Exporter&nbsp;→ Exporter&nbsp;Projet&nbsp;(JSON).",
+      desc: "Importez un seul projet JSON dans l'éditeur. Un projet peut être exporté depuis menu&nbsp;Projet&nbsp;→ Exporter&nbsp;→ Exporter&nbsp;Projet&nbsp;(JSON).",
       fromFile: "Importer un projet à partir d'un fichier local",
       fromURL: 'Importer un projet depuis une URL',
       heading: 'Importer un projet JSON',
@@ -650,7 +650,7 @@ const translation = {
       cancel: 'Annuler',
       discard: 'Supprimer',
       heading:
-        'Les modifications ne sont peuvent peut-être pas être enregistrées. <1></1> Voulez-vous enregistrer maintenant?',
+        'Les modifications ne sont peut-être pas enregistrées. <1></1> Voulez-vous enregistrer maintenant?',
       save: 'Enregistrer',
     },
   },

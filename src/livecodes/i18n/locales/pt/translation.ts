@@ -17,12 +17,12 @@ const translation = {
   about: {
     documentations: {
       aboutUs: 'About us',
-      contact: 'Contact',
-      heading: 'Documentations',
-      home: 'Home',
-      license: 'License',
+      contact: 'Contacto',
+      heading: 'Documentação',
+      home: 'Página inicial',
+      license: 'Licença',
     },
-    heading: 'About LiveCodes',
+    heading: 'Sobre LiveCodes',
     livecodes: {
       para1:
         '<1><2>LiveCodes</2></1> is an <3>open-source</3>, <4>feature-rich</4>, <5>client-side</5> code playground. Currently, <6>80+ languages/<7></7>frameworks</6> are supported. It can be used as a standalone app or can be <8>embedded</8> in any web page. There are many ways to <9>prefill playgrounds</9> with code.',
@@ -33,87 +33,90 @@ const translation = {
       app: 'App version: {{APP_VERSION}}',
       appPermanentUrl: 'App Permanent URL',
       commit: 'Git commit: {{COMMIT_SHA}}',
-      heading: 'Version',
-      sdk: 'SDK version: {{SDK_VERSION}}',
+      heading: 'Versão',
+      sdk: 'SDK versão: {{SDK_VERSION}}',
       sdkPermanentUrl: 'SDK Permanent URL',
     },
   },
   app: {
     copy: {
-      hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
+      hint: 'Copiar (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
     copyAsUrl: {
-      hint: 'Copy code as data URL',
+      hint: 'Copie o código como URL de dados',
     },
     customSettings: {
-      hint: 'Custom Settings',
+      hint: 'Configurações personalizadas',
+    },
+    editorlanguage: {
+      hint: 'Changer de Langage',
     },
     editorMode: {
-      hint: 'Editor Mode',
+      hint: 'Modo Editor',
     },
     editorSettings: {
-      hint: 'Editor Settings',
+      hint: 'Configurações do editor',
     },
     externalResources: {
       hint: 'External Resources',
     },
     focus: {
-      hint: 'Toggle Focus mode',
+      hint: 'Modo de focagem',
     },
     format: {
       hint: 'Format (Alt + Shift + F)',
     },
     fullscreen: {
-      hint: 'Full Screen',
+      hint: 'Ecrã completo',
     },
     logo: {
-      title: 'LiveCodes: Code playground that runs in the browser!',
+      title: 'LiveCodes: um editor de código no browser!',
     },
     menuHelp: {
-      heading: 'Help',
-      hint: 'Help',
+      heading: 'Ajuda',
+      hint: 'Ajuda',
     },
     menuProject: {
-      heading: 'Project',
-      hint: 'Project',
+      heading: 'Projeto',
+      hint: 'Projeto',
     },
     menuSettings: {
-      heading: 'Settings',
-      hint: 'Settings',
+      heading: 'Preferências',
+      hint: 'Ajuste de parâmetros e opções',
     },
     projectInfo: {
-      hint: 'Project Info',
+      hint: 'Informações do projeto',
     },
     redo: {
-      hint: 'Redo (Ctrl/Cmd + Shift + Z)',
+      hint: 'Refazer (Ctrl/Cmd + Shift + Z)',
     },
     result: {
-      hint: 'Toggle Result',
+      hint: 'Alternar resultado',
     },
     run: {
-      hint: 'Run (Shift + Enter)',
+      hint: 'Executar (Shift + Enter)',
     },
     share: {
-      hint: 'Share',
+      hint: 'Compartilhar',
     },
     undo: {
-      hint: 'Undo (Ctrl/Cmd + Z)',
+      hint: 'Desfazer (Ctrl/Cmd + Z)',
     },
-    untitledProject: 'Untitled Project',
+    untitledProject: 'Projeto sem título',
   },
   assets: {
     add: {
       dataURL: {
-        desc: 'Add asset as a base64-encoded <1>data url</1>.',
-        heading: 'Data URL',
-        label: 'Add file',
+        desc: 'Adicionar recurso como um <1>URL de dados</1> codificado em base64.',
+        heading: 'URL de dados',
+        label: 'Adicionar ficheiro',
       },
       githubPages: {
-        desc: 'Deploy asset to GitHub Pages. The file is pushed to <1>gh-pages</1> branch of the repo <2>livecodes-assets</2> on your GitHub account. If the repo does not already exist, a public repo will be created.',
+        desc: 'Implante o ficheiro nas páginas do GitHub. O ficheiro é transferido para a branch <1>gh-pages</1> do repositório <2>livecodes-assets</2> na sua conta GitHub. Se o repositório ainda não existir, será criado um repositório público.',
         heading: 'GitHub Pages',
-        label: 'Upload file',
+        label: 'Carregar ficheiro',
       },
-      heading: 'Add Asset',
+      heading: 'Adicionar ficheiro',
     },
     delete: {
       all: 'Delete {{assets}} assets?',
@@ -163,7 +166,7 @@ const translation = {
     backup: {
       assets: 'Assets',
       button: 'Backup',
-      desc: 'Backup LiveCodes data, so that it can be later restored on this or other devices. <1></1> Please visit the <2>documentations</2> for details.',
+      desc: 'Backup LiveCodes data, so that it can be later restored on this or other devices. <1></1> Please visit the <2>Documentação</2> for details.',
       heading: 'Backup',
       projects: 'Projects',
       settings: 'User Settings',
@@ -179,7 +182,7 @@ const translation = {
     heading: 'Backup / Restore',
     inProgress: 'In progress...',
     restore: {
-      desc: 'Restore previously backed-up LiveCodes data. <1></1> If you choose to replace current content, you may want to back it up first. <2></2> Please visit the <3>documentations</3> for details.',
+      desc: 'Restore previously backed-up LiveCodes data. <1></1> If you choose to replace current content, you may want to back it up first. <2></2> Please visit the <3>Documentação</3> for details.',
       fromFile: 'Restore from file',
       heading: 'Restore',
       mode: {
@@ -197,7 +200,7 @@ const translation = {
     broadcasting: 'Broadcasting...',
     channelURL: 'Channel URL',
     connecting: 'Connecting...',
-    desc: 'Broadcast the result page to other browsers/devices in real time. Please visit the <1>documentations</1> for details.',
+    desc: 'Broadcast the result page to other browsers/devices in real time. Please visit the <1>Documentação</1> for details.',
     error: {
       generic: 'Broadcast failed!',
       serverURLRequired: 'Server URL is required!',
@@ -324,7 +327,7 @@ const translation = {
     closeBrackets: 'Auto-close brackets and quotes',
     codeJarDesc: '* The marked features are not available in CodeJar.',
     default: 'Default',
-    desc: 'Please check the <1>documentations</1> for details.',
+    desc: 'Please check the <1>Documentação</1> for details.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -378,7 +381,7 @@ const translation = {
       copy: 'Copy Code',
       heading: 'Code',
     },
-    desc: 'Please check the <1>documentations</1> for advanced configurations.',
+    desc: 'Please check the <1>Documentação</1> for advanced configurations.',
     embedType: {
       cdn: 'Script (CDN)',
       heading: 'Embed Type',
@@ -459,7 +462,7 @@ const translation = {
       started: 'Bulk import started...',
     },
     code: {
-      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript, Vue and Svelte)</12> </1> Please visit the <14>documentations</14> for details.',
+      desc: 'Supported Sources: <1> <2>GitHub gist</2> <3>GitHub file</3> <4>Directory in a GitHub repo</4> <5>Gitlab snippet</5> <6>Gitlab file</6> <7>Directory in a Gitlab repo</7> <8>JS Bin</8> <9>Raw code</9> <10>Code in web page DOM</10> <11>Code in zip file</11> <12>Official playgrounds<13></13>(TypeScript, Vue and Svelte)</12> </1> Please visit the <14>Documentação</14> for details.',
       fromFile: 'Import local files',
       fromURL: 'Import from URL',
       heading: 'Import Code',
@@ -507,7 +510,7 @@ const translation = {
       heading: 'Delay: <1>1.5</1>s',
       hint: 'Delay before auto-update',
     },
-    docs: 'Documentation',
+    docs: 'Documentação',
     deploy: 'Deploy …',
     editorSettings: 'Editor Settings …',
     embed: 'Embed …',
@@ -873,7 +876,7 @@ const translation = {
   },
   welcome: {
     about: {
-      documentation: 'Documentations',
+      documentation: 'Documentação',
       heading: 'About LiveCodes',
     },
     heading: 'Welcome',
