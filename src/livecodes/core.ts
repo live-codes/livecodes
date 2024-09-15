@@ -142,15 +142,13 @@ import { customEvents } from './events/custom-events';
 import { populateConfig } from './import/utils';
 import { permanentUrlService } from './services/permanent-url';
 import { importFromFiles } from './import/files';
-import {
-  translate,
-  translateString as _translateString,
-  dispatchTranslationEvent,
-  type I18nKeyType,
-  type I18nValueType,
-  type I18nInterpolationType,
-} from './i18n/utils';
-import type { I18nTranslationTemplate } from './i18n/locales/models';
+import type {
+  I18nKeyType,
+  I18nValueType,
+  I18nInterpolationType,
+  I18nTranslationTemplate,
+} from './i18n';
+import { appLanguages } from './i18n/app-languages';
 
 // declare global dependencies
 declare global {
@@ -177,7 +175,7 @@ const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
 let modal: ReturnType<typeof createModal>;
-let i18n: typeof import('./i18n/i18n').default | undefined;
+let i18n: ReturnType<typeof import('./i18n').init> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
@@ -2428,7 +2426,7 @@ const handleSettingsMenu = () => {
   if (!menuContainer || !settingsButton) return;
   menuContainer.innerHTML = settingsMenuHTML;
 
-  dispatchTranslationEvent(menuContainer);
+  translateElement(menuContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -3410,7 +3408,7 @@ const handleEditorSettings = () => {
     const shouldReload = newConfig.editor !== getConfig().editor;
     const shouldReloadI18n = newConfig.appLanguage !== getConfig().appLanguage;
 
-    const editorCallback = () => {
+    const applyEditorSettings = () => {
       setUserConfig(newConfig);
       const updatedConfig = getConfig();
       setTheme(updatedConfig.theme, updatedConfig.editorTheme);
@@ -3423,18 +3421,17 @@ const handleEditorSettings = () => {
     };
 
     if (shouldReloadI18n) {
-      checkSavedAndExecute(() => {
-        editorCallback();
-        if (i18n && newConfig.appLanguage) {
-          i18n.changeLanguage(newConfig.appLanguage).then(() => {
-            sendI18nMessageToMainPage(true);
-          });
-        } else {
-          sendI18nMessageToMainPage(true);
+      checkSavedAndExecute(async () => {
+        applyEditorSettings();
+        if (!i18n && newConfig.appLanguage !== 'en') {
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadI18n(newConfig.appLanguage);
         }
+        await i18n?.changeLanguage(newConfig.appLanguage);
+        setAppLanguage(true);
       })();
     } else {
-      editorCallback();
+      applyEditorSettings();
     }
   };
   const createEditorSettingsUI = async ({
@@ -3450,6 +3447,7 @@ const handleEditorSettings = () => {
       modal,
       eventsManager,
       scrollToSelector,
+      appLanguages,
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
@@ -4115,46 +4113,36 @@ const configureToolsPane = (
 const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   const userLang =
     appLanguage && appLanguage !== 'auto' ? appLanguage : (navigator.language as AppLanguage);
-  if ((isEmbed && !appLanguage) || !userLang || userLang.toLowerCase().startsWith('en')) return;
-
+  if (
+    isHeadless ||
+    (isEmbed && !appLanguage) ||
+    !userLang ||
+    userLang.startsWith('en') ||
+    !Object.keys(appLanguages).find((lang) => lang.startsWith(userLang))
+  ) {
+    return;
+  }
   setConfig({ ...getConfig(), appLanguage: userLang });
-  const i18nModule: typeof import('./i18n/i18n') = await import(baseUrl + '{{hash:i18n.js}}');
-  i18nModule.init(userLang, baseUrl);
-  return i18nModule.default;
+  const i18nModule: typeof import('./i18n') = await import(baseUrl + '{{hash:i18n.js}}');
+  i18n = i18nModule.init(userLang, baseUrl);
+  window.deps.translateString = i18n.translateString;
 };
 
 const handleI18n = () => {
   if (!i18n) return;
   eventsManager.addEventListener(document.body, customEvents.i18n, (e) => {
     const elem = e.target as HTMLElement;
-    translate(elem, i18n);
+    i18n?.translate(elem);
   });
-  dispatchTranslationEvent(document.body);
+  translateElement(document.body);
 };
 
-const sendI18nMessageToMainPage = (reload: boolean = false) => {
-  const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
-    Object.keys(obj).reduce((acc, key) => {
-      const value = obj[key];
-      if (typeof value === 'object') {
-        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
-      }
-      return { ...acc, [`${prefix}${key}`]: value };
-    }, {});
-
-  const i18nSplashData = !isEmbed && i18n ? flatten(i18n.t('splash', { returnObjects: true })) : {};
-
-  parent.postMessage(
-    {
-      args: 'i18n',
-      payload: {
-        data: i18nSplashData,
-        reload,
-        lang: i18n?.language ?? 'en',
-      },
-    },
-    location.origin,
-  );
+/**
+ * Dispatch a translation event to the given element.
+ * @param elem The element to dispatch the event to.
+ */
+const translateElement = (elem: HTMLElement) => {
+  elem.dispatchEvent(new CustomEvent(customEvents.i18n, { bubbles: true }));
 };
 
 const translateStringMock = <Key extends I18nKeyType, Value extends string>(
@@ -4164,7 +4152,6 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
 ) => {
   const rawInterpolation = args[0];
   const { isHTML, ...interpolation } = rawInterpolation ?? {};
-
   if (!interpolation) return value as string;
   let result: string = value as string;
   for (const [k, v] of Object.entries({ ...interpolation, ...predefinedValues })) {
@@ -4173,15 +4160,37 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
   return result;
 };
 
-const translateString = <Key extends I18nKeyType, Value extends string>(
-  key: Key,
-  value: I18nValueType<Key, Value>,
-  ...args: I18nInterpolationType<I18nValueType<Key, Value>> // @ts-ignore
-) => _translateString(i18n, key, value, args[0]);
+const setAppLanguage = (reload: boolean = false) => {
+  const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
+    Object.keys(obj).reduce((acc, key) => {
+      const value = obj[key];
+      if (typeof value === 'object') {
+        return { ...acc, ...flatten(value, `${prefix}${key}.`) };
+      }
+      return { ...acc, [`${prefix}${key}`]: value };
+    }, {});
+
+  const lang = i18n?.getLanguage() ?? 'en';
+  const i18nSplashData =
+    !isEmbed && i18n ? flatten(i18n.translateKey('splash', { returnObjects: true })) : {};
+
+  document.documentElement.lang = lang;
+  parent.postMessage(
+    {
+      args: 'i18n',
+      payload: {
+        data: i18nSplashData,
+        reload,
+        lang,
+      },
+    },
+    location.origin,
+  );
+};
 
 const basicHandlers = () => {
   notifications = createNotifications();
-  modal = createModal();
+  modal = createModal(translateElement);
   split = createSplitPanes();
   typeLoader = createTypeLoader(baseUrl);
 
@@ -4582,7 +4591,7 @@ const initializePlayground = async (
   (window as any).compiler = compiler;
   formatter = getFormatter(getConfig(), baseUrl, isEmbed);
   customEditors = createCustomEditors({ baseUrl, eventsManager });
-  i18n = await loadI18n(getConfig().appLanguage);
+  await loadI18n(getConfig().appLanguage);
   createLanguageMenus(
     getConfig(),
     baseUrl,
@@ -4614,7 +4623,7 @@ const initializePlayground = async (
     initialized = true;
   });
   configureEmmet(getConfig());
-  sendI18nMessageToMainPage();
+  setAppLanguage();
 };
 
 const createApi = (): API => {
@@ -4775,16 +4784,13 @@ const createApi = (): API => {
 const initApp = async (config: Partial<Config>, baseUrl: string) => {
   window.deps = {
     showMode,
-    translateString,
+    translateString: translateStringMock,
   };
   await initializePlayground({ config, baseUrl }, async () => {
     basicHandlers();
     await loadToolsPane();
     await extraHandlers();
   });
-  if (!i18n) {
-    window.deps.translateString = translateStringMock;
-  }
   return createApi();
 };
 
@@ -4797,10 +4803,6 @@ const initEmbed = async (config: Partial<Config>, baseUrl: string) => {
     basicHandlers();
     await loadToolsPane();
   });
-
-  // As in embed mode, we can explicitly set the language to enable i18n
-  if (i18n) window.deps.translateString = translateString;
-
   return createApi();
 };
 const initLite = async (config: Partial<Config>, baseUrl: string) => {
@@ -4811,10 +4813,6 @@ const initLite = async (config: Partial<Config>, baseUrl: string) => {
   await initializePlayground({ config, baseUrl, isEmbed: true, isLite: true }, () => {
     basicHandlers();
   });
-
-  // As in embed mode, we can explicitly set the language to enable i18n
-  if (i18n) window.deps.translateString = translateString;
-
   return createApi();
 };
 const initHeadless = async (config: Partial<Config>, baseUrl: string) => {
