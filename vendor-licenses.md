@@ -98,9 +98,9 @@ Hint.css: [MIT License](https://github.com/chinchang/hint.css/blob/e4b0f0afc79fe
 
 hpcc-js/wasm: [Apache-2.0 license](https://github.com/hpcc-systems/hpcc-js-wasm/blob/58b1d7cc1ac1d7c6e42afd3ae70085425177d6e2/LICENSE)
 
-i18next: [MIT License](https://github.com/i18next/i18next/blob/master/LICENSE)
+i18next: [MIT License](https://github.com/i18next/i18next/blob/v23.15.1/LICENSE)
 
-i18next-http-backend: [MIT License](https://github.com/i18next/i18next-http-backend/blob/master/licence)
+i18next-http-backend: [MIT License](https://github.com/i18next/i18next-http-backend/blob/v2.6.1/licence)
 
 Imba: [MIT License](https://github.com/imba/imba/blob/4c92d45d0f691bd8aba0ab7055952105e8a8bfab/LICENSE)
 
