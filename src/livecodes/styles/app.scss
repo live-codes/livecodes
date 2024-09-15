@@ -2137,6 +2137,14 @@ i.arrow {
     }
   }
 
+  #assets-list-container {
+    .open-list {
+      li {
+        max-width: calc(25% - 12px);
+      }
+    }
+  }
+
   ::placeholder {
     color: var(--light);
     opacity: 0.7;
@@ -2275,9 +2283,14 @@ i.arrow {
 
   .asset-link::after,
   .snippet-link::after {
-    height: 1.5rem !important;
+    background: hsl(0 0% 12% / 1);
+    height: 1.75rem !important;
     opacity: 1;
-    top: 4px !important;
+    top: 5px !important;
+  }
+
+  .asset-link::after {
+    left: 60%;
   }
 
   .asset-item,
@@ -2288,6 +2301,7 @@ i.arrow {
     width: 100%;
 
     .light {
+      font-size: var(--s12);
       width: 100%;
     }
   }
@@ -2359,7 +2373,7 @@ i.arrow {
   .language-info > h3,
   .modal-title {
     backdrop-filter: blur(5px);
-    background: var(--o2);
+    background: var(--o1);
     border-radius: var(--s8);
     box-sizing: border-box;
     color: var(--modal-title);
