@@ -372,15 +372,15 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     const line = allLines.length > lineNumber ? lineNumber : allLines.length;
     const selectedLine = allLines[line - 1];
     const columnNumber = (selectedLine.length > column ? column : selectedLine.length) + 1;
-    const previuosLines = allLines.slice(0, line - 1);
+    const previousLines = allLines.slice(0, line - 1);
     const nextLines = allLines.slice(line);
     const position =
-      previuosLines.join('\n').length + columnNumber - (previuosLines.length > 0 ? 0 : 1);
+      previousLines.join('\n').length + columnNumber - (previousLines.length > 0 ? 0 : 1);
 
     codeElement.innerHTML =
       encodeHTML(
-        previuosLines.join('\n') +
-          (previuosLines.length > 0 ? '\n' : '') +
+        previousLines.join('\n') +
+          (previousLines.length > 0 ? '\n' : '') +
           selectedLine.slice(0, columnNumber),
       ) +
       `<div id="scroll-target">​</div>` +

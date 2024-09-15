@@ -2430,7 +2430,7 @@ const handleSettingsMenu = () => {
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
-  // on small screens the conatiner covers most of the screen
+  // on small screens the container covers most of the screen
   // which gives the effect of a non-responsive app
   eventsManager.addEventListener(menuContainer, 'mousedown', (event) => {
     if (event.target === menuContainer) {
@@ -3056,7 +3056,7 @@ const handlePersistentStorage = async () => {
     assetSubscription?.unsubscribe();
   };
 
-  const requestPersistance = () => {
+  const requestPersistence = () => {
     if (alreadyRequested) return unsubscribe();
     setTimeout(async () => {
       alreadyRequested = true;
@@ -3074,9 +3074,9 @@ const handlePersistentStorage = async () => {
     setAppData({ recentProjects });
   };
 
-  const projectSubscription = stores.projects?.subscribe(requestPersistance);
-  const templateSubscription = stores.templates?.subscribe(requestPersistance);
-  const assetSubscription = stores.assets?.subscribe(requestPersistance);
+  const projectSubscription = stores.projects?.subscribe(requestPersistence);
+  const templateSubscription = stores.templates?.subscribe(requestPersistence);
+  const assetSubscription = stores.assets?.subscribe(requestPersistence);
 
   stores.projects?.subscribe(updateRecentProjects);
 };

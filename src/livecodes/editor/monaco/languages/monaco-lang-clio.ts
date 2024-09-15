@@ -68,7 +68,7 @@ export default {
 
         // @ annotations.
         // As an example, we emit a debugging log message on these tokens.
-        // Note: message are supressed during the first load -- change some lines to see them.
+        // Note: message are suppressed during the first load -- change some lines to see them.
         [/@\s*[a-zA-Z_\$][\w\$]*/, { token: 'annotation' }],
 
         // numbers
@@ -80,11 +80,11 @@ export default {
         [/[;,.]/, 'delimiter'],
 
         // strings
-        [/"([^"\\]|\\.)*$/, 'string.invalid'], // non-teminated string
+        [/"([^"\\]|\\.)*$/, 'string.invalid'], // non-terminated string
         [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
 
         // single-quote strings
-        [/"([^'\\]|\\.)*$/, 'string.invalid'], // non-teminated string
+        [/"([^'\\]|\\.)*$/, 'string.invalid'], // non-terminated string
         [/'/, { token: 'string.quote', bracket: '@open', next: '@stringSingle' }],
       ],
 

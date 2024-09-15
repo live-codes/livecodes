@@ -148,10 +148,10 @@ export const createDeployUI = async ({
       return false;
     } else if (deployResult) {
       await deps.setProjectDeployRepo(repo);
-      const confirmationContianer = deployedConfirmation(deployResult, commitSource);
-      modal.show(confirmationContianer, { size: 'small' });
+      const confirmationContainer = deployedConfirmation(deployResult, commitSource);
+      modal.show(confirmationContainer, { size: 'small' });
       await generateQrCode({
-        container: confirmationContianer.querySelector('#deploy-qrcode') as HTMLElement,
+        container: confirmationContainer.querySelector('#deploy-qrcode') as HTMLElement,
         url: deployResult.url,
         title: repo,
       });

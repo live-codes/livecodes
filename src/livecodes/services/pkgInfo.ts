@@ -83,7 +83,7 @@ const search = async (query: string, limit = 10): Promise<PkgInfo[] | APIError> 
     .then((res) => res.json())
     .catch((err) => ({
       error: true,
-      message: err.mesage || String(err),
+      message: err.message || String(err),
     }));
 
   if ('error' in data) {
@@ -115,7 +115,7 @@ const addPkgVersion = async (pkgName: string): Promise<string | APIError> => {
     .then((res) => res.json())
     .catch((err) => ({
       error: true,
-      message: err.mesage || String(err),
+      message: err.message || String(err),
     }));
 
   if ('error' in data) {
@@ -149,7 +149,7 @@ const getPkgInfo = async (pkgName: string): Promise<PkgInfo | APIError> => {
     .then((res) => res.json())
     .catch((err) => ({
       error: true,
-      message: err.mesage || String(err),
+      message: err.message || String(err),
     }));
 
   if ('error' in data) {
@@ -179,7 +179,7 @@ const getPkgFiles = async (
     .then((res) => res.json())
     .catch((err) => ({
       error: true,
-      message: err.mesage || String(err),
+      message: err.message || String(err),
     }));
 
   if ('error' in data) {
@@ -205,7 +205,7 @@ const getPkgDefaultFiles = async (
     .then((res) => res.json())
     .catch((err) => ({
       error: true,
-      message: err.mesage || String(err),
+      message: err.message || String(err),
     }));
 
   if ('error' in data) {

@@ -136,7 +136,7 @@ type InferKeys<Base, isNs extends boolean = false, KeyStr extends string = ''> =
   [K in keyof Base]: Base[K] extends object
     ? KeyStr extends '' // Whether it is of first level (namespace)
       ? InferKeys<Base[K], true, `${K & string}`>
-      : KeyStr extends CustomTypeOptions['defaultNS'] // Default namespace and colon can be omited
+      : KeyStr extends CustomTypeOptions['defaultNS'] // Default namespace and colon can be omitted
         ?
             | InferKeys<Base[K], false, `${KeyStr}${isNs extends true ? ':' : '.'}${K & string}`>
             | InferKeys<Base[K], false, `${K & string}`>
