@@ -136,7 +136,7 @@ export const createExternalResourcesUI = ({
       itemScriptLink.onclick = scriptAdded ? null : () => addResource(files.js || '', 'scripts');
       itemScriptLink.title = files.js;
       itemScriptLink.dataset.resourceUrl = files.js;
-      itemScriptLink.innerHTML = `<img src="${baseUrl}assets/images/javascript.svg" />`;
+      itemScriptLink.innerHTML = `<img src="${baseUrl}assets/images/javascript.svg" /> JS`;
       itemScript.appendChild(itemScriptLink);
     }
 
@@ -155,7 +155,7 @@ export const createExternalResourcesUI = ({
         : () => addResource(files.css || '', 'stylesheets');
       itemStylesheetLink.title = files.css;
       itemStylesheetLink.dataset.resourceUrl = files.css;
-      itemStylesheetLink.innerHTML = `<img src="${baseUrl}assets/images/css.svg" />`;
+      itemStylesheetLink.innerHTML = `<img src="${baseUrl}assets/images/css.svg" /> CSS`;
       itemStylesheet.appendChild(itemStylesheetLink);
     }
 
