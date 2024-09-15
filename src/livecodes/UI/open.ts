@@ -91,6 +91,10 @@ export const createOpenItem = (
   const setAsDefault = document.createElement('div');
   setAsDefault.classList.add('template-default');
 
+  const iconTemplate = document.createElement('span');
+  iconTemplate.innerHTML = '<i class="icon-file-template"></i>';
+  setAsDefault.appendChild(iconTemplate);
+
   const setAsDefaultLink = document.createElement('span');
   setAsDefaultLink.innerText = window.deps.translateString('open.setAsDefault', 'Set as default');
   setAsDefaultLink.classList.add('template-default-link');

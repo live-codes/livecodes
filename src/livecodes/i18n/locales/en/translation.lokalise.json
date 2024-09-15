@@ -126,7 +126,7 @@
   },
   "assets.add.dataURL.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Add asset as a base64-encoded <tag-1>data url</tag-1>."
+    "translation": "Add asset as a base64-encoded <tag-1>data url</tag-1>"
   },
   "assets.add.dataURL.heading": {
     "notes": "",
