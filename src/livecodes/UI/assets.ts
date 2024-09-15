@@ -688,7 +688,6 @@ export const createAddAssetContainer = ({
 };
 
 const getType = (mime: string, filename: string): FileType => {
-  // TODO: i18n this?
   const types: { [key: string]: FileType } = {
     'audio/aac': 'audio',
     'video/x-msvideo': 'video',

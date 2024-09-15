@@ -1090,7 +1090,6 @@ const setWindowTitle = () => {
       ? '(local) '
       : '';
 
-  // TODO: i18n this?
   parent.document.title =
     hostLabel + (title && title !== 'Untitled Project' ? title + ' - ' : '') + 'LiveCodes';
 };

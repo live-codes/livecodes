@@ -83,7 +83,7 @@ export const createEditorSettingsUI = async ({
         'editorSettings.appLanguage.note',
         'Will reload the app to apply the changes after switching the language.',
       ),
-      // TODO: help here
+      help: `${process.env.DOCS_BASE_URL}features/i18n`,
     },
     {
       title: window.deps.translateString(

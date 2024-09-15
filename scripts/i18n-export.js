@@ -255,8 +255,6 @@ const processHTML = async (files) => {
   await Promise.all(
     files.map(async (file) => {
       try {
-        // console.log(`Processing ${file}...`);
-
         const data = (await fs.promises.readFile(file, 'utf8')).replace(/\s+/g, ' ').trim();
         const html = new jsdom.JSDOM(data).window.document;
 
@@ -290,8 +288,6 @@ const processTS = async (files) => {
   await Promise.all(
     files.map(async (file) => {
       try {
-        // console.log(`Processing ${file}...`);
-
         const data = await fs.promises.readFile(file, 'utf8');
         const ast = parser.parse(data, {
           sourceType: 'module',
