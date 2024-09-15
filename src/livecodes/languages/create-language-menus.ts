@@ -31,7 +31,7 @@ export const createLanguageMenus = (
         onclick="event.stopPropagation();"
         tabIndex="1"
         class="language-menu-button hint--bottom"
-        data-hint="Change Language"
+        data-hint="${window.deps.translateString('core.changeLanguage.hint', 'Change Language')}"
       >
         <img
           width="20"
@@ -107,7 +107,10 @@ export const createLanguageMenus = (
       if (language.info !== false) {
         const tooltip = document.createElement('span');
         tooltip.classList.add('tooltip', 'hint--bottom-left');
-        tooltip.dataset.hint = 'Click for info...';
+        tooltip.dataset.hint = window.deps.translateString(
+          'generic.clickForInfo',
+          'Click for info...',
+        );
         tooltip.innerHTML = infoIcon;
         eventsManager.addEventListener(
           tooltip,
@@ -116,7 +119,7 @@ export const createLanguageMenus = (
             const languageInfo = document.createElement('div');
             languageInfo.classList.add('language-info');
             languageInfo.innerHTML = await getLanguageInfo(language.name, baseUrl);
-            await showLanguageInfo(languageInfo);
+            showLanguageInfo(languageInfo);
             const templateLink: HTMLElement | null = languageInfo.querySelector('a[data-template]');
             const templateName = templateLink?.dataset.template as Template['name'];
             if (templateLink && templateName) {

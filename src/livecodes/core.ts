@@ -754,7 +754,7 @@ const changeLanguage = async (language: Language, value?: string, isUpdate = fal
   if (getLanguageSpecs(language)?.largeDownload) {
     notifications.info(
       window.deps.translateString(
-        'core.changeLanguage',
+        'core.changeLanguage.message',
         'Loading {{lang}}. This may take a while!',
         {
           lang: getLanguageTitle(language),

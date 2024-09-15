@@ -197,7 +197,10 @@ const translation = {
       heading: 'Broadcast',
       successSetToken: 'Broadcast user token set successfully',
     },
-    changeLanguage: 'Loading {{lang}}. This may take a while!',
+    changeLanguage: {
+      hint: 'Change Language',
+      message: 'Loading {{lang}}. This may take a while!',
+    },
     copy: {
       copied: 'Code copied to clipboard',
       copiedAsDataURL: 'Code copied as data URL',

@@ -384,7 +384,11 @@
     "notes": "",
     "translation": "Broadcast user token set successfully"
   },
-  "core.changeLanguage": {
+  "core.changeLanguage.hint": {
+    "notes": "",
+    "translation": "Change Language"
+  },
+  "core.changeLanguage.message": {
     "notes": "",
     "translation": "Loading {{lang}}. This may take a while!"
   },
