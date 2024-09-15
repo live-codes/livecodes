@@ -349,8 +349,8 @@ const generateTranslation = async () => {
   const files = process.argv.slice(2).filter((file) => !file.startsWith('-'));
   const tmpMode = process.argv.includes('--save-temp');
 
-  const HTMLFiles = [],
-    TSFiles = [];
+  const HTMLFiles = [];
+  const TSFiles = [];
 
   if (!files.length) {
     files.push(...fs.readdirSync(srcBaseDir, { recursive: true }));
