@@ -110,19 +110,19 @@ export const getCssPresetLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
 export const getAppMenuProjectScroller = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#app-menu-project-container');
+  document.querySelector<HTMLElement>('#app-menu-container-project');
 export const getAppMenuProjectButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#app-menu-project-button');
+  document.querySelector<HTMLElement>('#app-menu-button-project');
 
 export const getAppMenuSettingsScroller = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#app-menu-settings-container');
+  document.querySelector<HTMLElement>('#app-menu-container-settings');
 export const getAppMenuSettingsButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#app-menu-settings-button');
+  document.querySelector<HTMLElement>('#app-menu-button-settings');
 
 export const getAppMenuHelpScroller = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#app-menu-help-container');
+  document.querySelector<HTMLElement>('#app-menu-container-help');
 export const getAppMenuHelpButton = /* @__PURE__ */ () =>
-  document.querySelector<HTMLElement>('#app-menu-help-button');
+  document.querySelector<HTMLElement>('#app-menu-button-help');
 
 export const getExportJSONLink = /* @__PURE__ */ () =>
   document.querySelector<HTMLAnchorElement>('#export-menu #export-json');
