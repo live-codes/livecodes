@@ -25,6 +25,7 @@ export const init = (lng: string | undefined, baseUrl: string) => {
     translateString,
     translateKey: i18n.t.bind(i18n),
     getLanguage: () => i18n.language,
+    getLanguageDirection: i18n.dir.bind(i18n),
     changeLanguage: i18n.changeLanguage.bind(i18n),
     loadNamespaces: i18n.loadNamespaces.bind(i18n),
   };
