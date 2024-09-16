@@ -673,13 +673,8 @@ hr {
       padding: 0;
     }
 
-    .menu > .menu-text {
+    .menu-text {
       display: none;
-    }
-
-    #login-link.button > span,
-    #logout-link.button > span {
-      display: none !important;
     }
 
     .button {
@@ -692,7 +687,6 @@ hr {
     }
   }
 
-  //#broadcast-status-btn,
   #custom-settings-btn {
     display: none;
   }
@@ -1389,15 +1383,13 @@ li.editor-title {
   border-radius: var(--s4);
   box-shadow: 0 0 12px 2px var(--menu-shadow-color);
   display: none;
-  font-size: 0.875rem;
+  font-size: var(--s14); // todo css var
   list-style: none;
-  max-width: calc(100% - 18px);
   overflow: visible;
   padding: var(--s8);
   position: absolute;
   right: 0;
   top: 0;
-  width: calc(100% - var(--s16));
   width: 100%;
 
   li[role='separator'] {
@@ -1445,7 +1437,7 @@ li.editor-title {
 .menu-scroller-script {
   right: 0;
   transform: translateX(40%);
-  width: 570%;
+  width: 600%;
 }
 
 .dropdown-menu-markup,
@@ -1504,49 +1496,59 @@ li.editor-title {
   }
 }
 
-#app-menu-project-container,
-#app-menu-settings-container,
-#app-menu-help-container {
-  left: 3em;
-  left: 2.5rem;
+// App Menu
+[id^="app-menu-container-"] {
+  left: 3em; // todo menu
   top: var(--toolbar-height); // TODO css var
   // width: 240px; // TODO do not define 'width' to show submenu
+
+  &:hover {
+    animation: fadeIn 0.4s forwards;
+    display: block;
+  }
 }
 
-#app-menu-settings-container {
-  left: 9em; // todo menu
+#app-menu-container-settings {
+  left: 9em;
   left: 7.35rem;
 }
 
-#app-menu-help-container {
-  left: 16em; // todo menu
+#app-menu-container-help {
+  left: 16em;
   left: 12.75rem;
 }
 
 @media only screen and (max-width: 1179px) {
-  #app-menu-project-container {
+  #app-menu-container-project {
     left: 3em;
   }
 
-  #app-menu-settings-container {
+  #app-menu-container-settings {
     left: 5em;
   }
 
-  #app-menu-help-container {
+  #app-menu-container-help {
     left: 7em;
   }
 }
 
-#app-menu-project-container:hover,
-#app-menu-settings-container:hover,
-#app-menu-help-container:hover {
-  animation: fadeIn 0.4s forwards;
-  display: block;
+#app-menu-button-project {
+  &:focus + .menu-scroller,
+  &:active + .menu-scroller,
+  &:focus + .menu-scroller .dropdown-menu,
+  &:active + .menu-scroller .dropdown-menu {
+    animation: fadeIn 0.4s forwards;
+    display: flex;
+  }
+
+    &#app-menu-project,
+    &#app-menu-settings,
+    &#app-menu-help {
+      display: block;
+    }
 }
 
-#app-menu-project-button,
-#app-menu-settings-button,
-#app-menu-help-button {
+[id^="app-menu-button-"] {
   &:focus + .menu-scroller,
   &:active + .menu-scroller,
   &:focus + .menu-scroller .dropdown-menu,
@@ -1562,6 +1564,7 @@ li.editor-title {
   }
 }
 
+// active
 #app-menu-project:hover,
 #app-menu-settings:hover,
 #app-menu-help:hover {
@@ -1578,9 +1581,11 @@ li.editor-title {
   max-width: 45vw;
   right: unset;
   top: 0;
-  width: 240px;
+  // width: 255px; // for font-size 14px
+  width: 270px; // font-size 16px
 
   &:hover {
+    animation: fadeIn 0.4s forwards;
     display: block !important;
   }
 
@@ -1648,7 +1653,8 @@ li.editor-title {
   a.subtitle {
     color: var(--menu-text-color);
     display: block;
-    padding: 0.4rem 0.8rem;
+    /* padding: 0.4rem 0.8rem; */
+    padding: 6px 8px; // TODO css var rel to li height (fontsize+padding)
     text-decoration: none;
   }
 
@@ -1674,22 +1680,28 @@ li.editor-title {
   position: absolute !important;
   right: unset;
   top: 0;
-  width: 320px;
+   // width: 255px; // todo css var + for font-size 14px
+   width: 270px; // font-size 16px
+
+  &:hover {
+    display: block !important;
+  }
 }
 
-#open-link:hover + #open-list,
-#open-list:hover {
-  display: block !important;
-}
+
 
 #app-menu-project a:hover + .submenu,
 #app-menu-project i:hover + a + .submenu {
   display: block !important;
 }
 
-.submenu:hover {
+#open-link:hover + #open-list,
+#open-list:hover {
   display: block !important;
 }
+/* .submenu:hover {
+  display: block !important;
+} */
 
 i.arrow {
   color: var(--submenu-arrow-color);
@@ -1739,7 +1751,7 @@ i.arrow {
 
 @media only screen and (max-width: 768px) {
   i.arrow {
-    left: 0;
+    left: 0; // todo test info
   }
 }
 
@@ -1995,10 +2007,6 @@ i.arrow {
       justify-content: flex-end;
     }
 
-/*     > span#sort-by-label {
-
-    } */
-
     span[id="sort-by-label"] {
       border-right: 1px solid var(--o2);
       padding: 0 var(--s4);
@@ -2246,7 +2254,7 @@ i.arrow {
 
       &:focus,
       &:hover {
-        //background: var(--modal-close-hover);  TODO var bg
+        //background: var(--modal-close-hover);  // TODO var bg
         opacity: 1;
       }
     }
@@ -2438,7 +2446,7 @@ i.arrow {
     color: var(--link);
     cursor: pointer;
     font-size: var(--s14);
-    margin: 0 0.5em;
+    // margin: 0 0.5em;
     min-width: 100px;
     outline: none;
     padding: 0.5em;
@@ -2540,6 +2548,7 @@ i.arrow {
     .buttons {
       display: flex;
       flex-grow: 1;
+      gap: var(--s8);
       justify-content: end;
       margin: 0 0 1.5rem;
     }
@@ -2963,7 +2972,7 @@ i.arrow {
 
       .search-result-item-description {
         font-size: var(--s14);
-        margin-bottom: 0.5em;
+        margin-bottom: var(--s8);
         overflow: hidden;
         text-align: left;
         text-overflow: ellipsis;
@@ -2979,14 +2988,21 @@ i.arrow {
 
       .search-result-item-files {
         display: flex;
-        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: var(--s8);
+        align-items: center;
+        margin-bottom: var(--s8);
 
         > span {
           display: flex;
           justify-content: center;
-          margin-bottom: 0.5em;
-          min-width: 9em;
-          width: 33%;
+          // margin-bottom: 0.5em;
+          // min-width: 9em;
+          // width: 33%;
+        }
+
+        > span:empty {
+          display: none;
         }
 
         .add-resource::after {
@@ -3014,7 +3030,7 @@ i.arrow {
           border-radius: var(--s4);
           display: flex;
           font-size: var(--s14);
-          gap: 0.5em;
+          gap: var(--s8);
           padding: 0.25rem 0.5rem;
           text-decoration: none;
 
@@ -3450,6 +3466,10 @@ i.arrow {
     }
   }
 
+  .input-container:last-of-type {
+    margin-bottom: var(--s8);
+  }
+
   #templates-user {
     .loading {
       margin-top: 3em;
@@ -3796,9 +3816,9 @@ i.arrow {
       justify-content: flex-start;
     }
 
-    #app-menu-project-button,
-    #app-menu-settings-button,
-    #app-menu-help-button,
+    #app-menu-button-project,
+    #app-menu-button-settings,
+    #app-menu-button-help,
     #login-link {
       display: none;
     }

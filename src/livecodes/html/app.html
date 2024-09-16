@@ -59,7 +59,7 @@
             </a>
             <a
               href="javascript:void(0)"
-              id="app-menu-project-button"
+              id="app-menu-button-project"
               class="menu hint--right"
               data-hint="Project"
               data-i18n="app.menuProject.hint"
@@ -70,10 +70,10 @@
               <i class="icon-nav"></i>
               <span class="menu-text" data-i18n="app.menuProject.heading">Project</span>
             </a>
-            <div id="app-menu-project-container" class="menu-scroller"></div>
+            <div id="app-menu-container-project" class="menu-scroller"></div>
             <a
               href="javascript:void(0)"
-              id="app-menu-settings-button"
+              id="app-menu-button-settings"
               class="menu hint--right"
               data-hint="App Settings"
               data-i18n="app.menuSettings.hint"
@@ -84,10 +84,10 @@
               <i class="icon-settings"></i>
               <span class="menu-text" data-i18n="app.menuSettings.heading">Setttings</span>
             </a>
-            <div id="app-menu-settings-container" class="menu-scroller"></div>
+            <div id="app-menu-container-settings" class="menu-scroller"></div>
             <a
               href="javascript:void(0)"
-              id="app-menu-help-button"
+              id="app-menu-button-help"
               class="menu hint--right"
               data-hint="Help"
               data-i18n="app.menuHelp.hint"
@@ -98,7 +98,7 @@
               <i class="icon-help"></i>
               <span class="menu-text" data-i18n="app.menuHelp.heading">Help</span>
             </a>
-            <div id="app-menu-help-container" class="menu-scroller"></div>
+            <div id="app-menu-container-help" class="menu-scroller"></div>
           </div>
           <div id="select-editor"></div>
         </div>
@@ -170,6 +170,7 @@
             class="button hint--bottom-left"
             data-hint="Login"
             tabindex="10"
+            aria-label="Login"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
               <path
@@ -181,13 +182,14 @@
                 d="M5.25 2.25h-3.5v12h3.5m4-9.5l-3.5 3.5l3.5 3.5m5-3.5h-8.5"
               />
             </svg>
-            <span data-i18n="menu.login">Login</span></a
+            <span class="menu-text" data-i18n="menu.login">Login</span></a
           >
           <a
             href="#"
             id="logout-link"
             class="button hint--bottom"
             tabindex="11"
+            aria-label="Logout"
             style="display: none"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
@@ -200,7 +202,7 @@
                 d="M5.25 2.25h-3.5v12h3.5m5.5-9.5l3.5 3.5l-3.5 3.5m-5-3.5h8.5"
               />
             </svg>
-            <span data-i18n="menu.logout">Log out</span></a
+            <span class="menu-text" data-i18n="menu.logout">Log out</span></a
           >
         </div>
       </div>
@@ -225,6 +227,7 @@
               </svg>
             </button>
             <button
+              type="button"
               id="format-btn"
               class="hint--top-right"
               data-hint="Format (Alt + Shift + F)"
@@ -239,6 +242,7 @@
               </svg>
             </button>
             <button
+              type="button"
               id="undo-btn"
               class="hint--top-right"
               data-hint="Undo (Ctrl/Cmd + Z)"
@@ -253,6 +257,7 @@
               </svg>
             </button>
             <button
+              type="button"
               id="redo-btn"
               class="hint--top-right"
               data-hint="Redo (Ctrl/Cmd + Shift + Z)"
@@ -267,6 +272,7 @@
               </svg>
             </button>
             <button
+              type="button"
               id="copy-btn"
               class="hint--top-right"
               data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
@@ -281,6 +287,7 @@
               </svg>
             </button>
             <button
+              type="button"
               id="copy-as-url-btn"
               class="hint--top-right"
               data-hint="Copy code as data URL"
@@ -301,6 +308,7 @@
               <span data-status="script"></span>
             </span>
             <button
+              type="button"
               id="external-resources-btn"
               class="hint--top-left"
               data-hint="External Resources"
@@ -316,6 +324,7 @@
               <span id="external-resources-mark" class="mark"></span>
             </button>
             <button
+              type="button"
               id="project-info-btn"
               class="hint--top-left"
               data-hint="Project Info"
@@ -330,6 +339,7 @@
               </svg>
             </button>
             <button
+              type="button"
               id="custom-settings-btn"
               class="hint--top-left"
               data-hint="Custom Settings"
@@ -345,6 +355,7 @@
               <span id="custom-settings-mark" class="mark"></span>
             </button>
             <button
+              type="button"
               id="editor-settings-btn"
               class="hint--top-left"
               data-hint="Editor Settings"
