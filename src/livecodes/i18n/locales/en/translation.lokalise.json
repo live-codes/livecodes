@@ -1566,7 +1566,7 @@
   },
   "resources.urlDesc": {
     "notes": "",
-    "translation": "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line."
+    "translation": "Add stylesheet/script URLs. Each URL should be in a separate line."
   },
   "savePrompt.heading": {
     "notes": "",

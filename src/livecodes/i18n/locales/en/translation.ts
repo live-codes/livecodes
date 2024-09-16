@@ -630,7 +630,7 @@ const translation = {
       placeholder: 'e.g. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'External Stylesheets',
-    urlDesc: "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.",
+    urlDesc: 'Add stylesheet/script URLs. Each URL should be in a separate line.',
   },
   savePrompt: {
     heading: 'Unsaved changes',
