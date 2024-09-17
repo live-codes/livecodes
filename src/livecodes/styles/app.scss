@@ -2034,6 +2034,7 @@ i.arrow {
     place-content: space-between;
     place-items: center;
     width: 100%;
+    white-space: nowrap;
 
     > div {
       align-items: center;
