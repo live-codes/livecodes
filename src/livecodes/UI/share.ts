@@ -4,7 +4,6 @@ import { shareScreen } from '../html';
 import type { ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';
 import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
-// import { copy as copyIcon } from '../UI/icons';
 import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
 
@@ -73,7 +72,7 @@ export const createShareContainer = async (
           <img
             src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
             alt="${service.name}"
-            ${service.name === window.deps.translateString('share.services.twitter', '𝕏 - Twitter') ? 'class="twitter"' : ''}
+            ${service.name === window.deps.translateString('share.services.twitter', '𝕏 / Twitter') ? 'class="twitter"' : ''}
           />
         </span>
         ${service.name}
@@ -109,7 +108,7 @@ export const createShareContainer = async (
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
     },
     {
-      name: window.deps.translateString('share.services.twitter', '𝕏 - Twitter'),
+      name: window.deps.translateString('share.services.twitter', '𝕏 / Twitter'),
       icon: 'x.svg',
       createShareUrl: ({ url, title }) =>
         `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
@@ -179,7 +178,7 @@ export const createShareContainer = async (
       icon: 'email.svg',
       createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
     },
-/*     {
+    /*     {
       name: window.deps.translateString('share.services.copyUrl', 'Copy URL'),
       icon: 'copy.svg',
       onClick: ({ url }) => copyUrl(url),

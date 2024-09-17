@@ -44,9 +44,6 @@ const translation = {
     customSettings: {
       hint: 'Custom Settings',
     },
-    editorlanguage: {
-      hint: 'Changer de Langage',
-    },
     editorMode: {
       hint: 'Editor Mode',
     },
@@ -112,6 +109,7 @@ const translation = {
     },
     heading: 'Assets',
     link: {
+      date: 'Date: {{modified}}',
       type: 'Type: {{type}}',
       url: 'URL: {{url}}',
     },
@@ -137,6 +135,22 @@ const translation = {
       date: 'Date',
       fileName: 'File Name',
       heading: 'Sort By:',
+    },
+    type: {
+      archive: 'Archive',
+      audio: 'Audio',
+      csv: 'CSV',
+      font: 'Font',
+      html: 'HTML',
+      icon: 'Icon',
+      image: 'Image',
+      json: 'JSON',
+      other: 'Other',
+      script: 'Script',
+      stylesheet: 'Stylesheet',
+      text: 'Text',
+      video: 'Video',
+      xml: 'XML',
     },
     types: {
       all: 'All types',
@@ -200,7 +214,10 @@ const translation = {
       heading: 'Broadcast',
       successSetToken: 'Broadcast user token set successfully',
     },
-    changeLanguage: 'Loading {{lang}}. This may take a while!',
+    changeLanguage: {
+      hint: 'Change Language',
+      message: 'Loading {{lang}}. This may take a while!',
+    },
     copy: {
       copied: 'Code copied to clipboard',
       copiedAsDataURL: 'Code copied as data URL',
@@ -287,6 +304,7 @@ const translation = {
     },
     error: {
       generic: 'Deployment failed!',
+      repoNameExists: 'Repo name already exists',
       repoNameRequired: 'Repo name is required',
     },
     existing: {
@@ -423,7 +441,7 @@ const translation = {
       github: 'GitHub',
       sdk: 'SDK',
       sponsor: 'Sponsor LiveCodes',
-      twitter: '𝕏 - Twitter',
+      twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
@@ -612,7 +630,7 @@ const translation = {
       placeholder: 'e.g. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'External Stylesheets',
-    urlDesc: "Add stylesheet/script URLs and click 'Load'. Each URL should be in a separate line.",
+    urlDesc: 'Add stylesheet/script URLs. Each URL should be in a separate line.',
   },
   savePrompt: {
     heading: 'Unsaved changes',
@@ -656,7 +674,7 @@ const translation = {
       share: 'Share via …',
       telegram: 'Telegram',
       tumblr: 'Tumblr',
-      twitter: '𝕏 - Twitter',
+      twitter: '𝕏 / Twitter',
       whatsApp: 'WhatsApp',
     },
     shortURL: 'Get short URL',

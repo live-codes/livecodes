@@ -203,7 +203,7 @@ export const deployedConfirmation = (deployResult: DeployResult, sourcePublished
     </div>
   `;
 
-  const confirmationContianer = document.createElement('div');
-  confirmationContianer.innerHTML = msg;
-  return confirmationContianer;
+  const confirmationContainer = document.createElement('div');
+  confirmationContainer.innerHTML = msg;
+  return confirmationContainer;
 };

@@ -29,55 +29,61 @@ Some thoughts to help you contribute to this project
    $ npm install
    ```
 
-4. Build
+4. Export all source texts for i18n ([more details](./docs/docs/contribution/i18n.md))
+
+   ```shell
+   $ npm run i18n-export
+   ```
+
+5. Build
 
    ```shell
    $ npm run build
    ```
 
-5. Serve the app on http://127.0.0.1:8080
+6. Serve the app on http://127.0.0.1:8080
 
    ```shell
    $ npm run serve
    ```
 
-6. Start the app and watch for changes
+7. Start the app and watch for changes
 
    ```shell
    $ npm run start
    ```
 
-7. Start the docs and watch for changes: http://localhost:3000/docs
+8. Start the docs and watch for changes: http://localhost:3000/docs
 
    ```shell
    $ npm run docs
    ```
 
-8. Start storybook and watch for changes: http://localhost:6006
+9. Start storybook and watch for changes: http://localhost:6006
 
    ```shell
    $ npm run storybook
    ```
 
-9. Run linters, formatters & unit tests
+10. Run linters, formatters & unit tests
 
-   ```shell
-   $ npm run test
-   ```
+    ```shell
+    $ npm run test
+    ```
 
-10. Run e2e tests
+11. Run e2e tests
 
-```shell
-$ npm run e2e
-```
+    ```shell
+    $ npm run e2e
+    ```
 
-11. Deploy to GitHub Pages (make sure you have built the app first)
+12. Deploy to GitHub Pages (make sure you have built the app first)
 
     ```shell
     $ npm run gh-pages
     ```
 
-12. Start a release ([more details](./docs/docs/contribution/release.md))
+13. Start a release ([more details](./docs/docs/contribution/release.md))
 
     ```shell
     $ npm run start-release
@@ -95,8 +101,9 @@ $ npm run e2e
 6. Ensure the test suite passes.
 7. Make sure you address any lint warnings.
 8. If you make the existing code better, please let us know in your PR description.
-9. A PR description and title are required.
-10. [Link to an issue](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls) in the project. An issue is required to announce your intentions and discuss decisions.
+9. If your changes are related to i18n, please check the [i18n](./docs/docs/contribution/i18n.md) guide first.
+10. A PR description and title are required.
+11. [Link to an issue](https://help.github.com/en/github/writing-on-github/autolinked-references-and-urls) in the project. An issue is required to announce your intentions and discuss decisions.
 
 ### Commit Messages
 
@@ -118,6 +125,7 @@ Also, all questions are [welcomed](https://github.com/live-codes/livecodes/discu
 
 - [Adding Languages](./docs/docs/contribution/adding-languages.md)
 - [Release](./docs/docs/contribution/release.md)
+- [i18n](./docs/docs/contribution/i18n.md)
 
 ## Funding
 

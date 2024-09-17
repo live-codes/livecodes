@@ -2,7 +2,7 @@ import type { CustomEditorOptions, Theme } from '../../models';
 import { sandboxService } from '../../services';
 import {
   quillBetterTableBaseUrl,
-  quillBlotFormaterUrl,
+  quillBlotFormatterUrl,
   quillEditorCdnBaseUrl,
   quillHtmlEditUrl,
 } from '../../vendors';
@@ -31,7 +31,7 @@ export const showQuillEditor = async ({
   const quillEditorScripts = `
   <script src="${quillEditorCdnBaseUrl}quill.js"></script>
   <script src="${quillHtmlEditUrl}"></script>
-  <script src="${quillBlotFormaterUrl}"></script>
+  <script src="${quillBlotFormatterUrl}"></script>
   <script src="${quillBetterTableBaseUrl}quill-better-table.min.js"></script>
   <script src="${baseUrl}{{hash:custom-editor-utils.js}}"></script>
     `;

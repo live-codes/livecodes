@@ -1,7 +1,3 @@
-// @ts-nocheck
-// This comment is added by i18n-exclude script and should be automatically removed after build.
-// If you see this comment in the file, it means there is something wrong during the build process.
-
 // ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
 import type { I18nTranslation } from '../models';
@@ -194,7 +190,10 @@ const translation: I18nTranslation = {
       heading: '播送',
       successSetToken: '播送用户令牌设置成功',
     },
-    changeLanguage: '正在加载 {{lang}} 。这可能需要一些时间！',
+    changeLanguage: {
+      hint: '更改语言',
+      message: '正在加载 {{lang}} 。这可能需要一些时间！',
+    },
     copy: {
       copied: '代码已复制到剪贴板',
       copiedAsDataURL: '将代码复制为 Data URL',
