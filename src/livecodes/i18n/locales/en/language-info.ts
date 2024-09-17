@@ -56,7 +56,7 @@ const languageInfo = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>',
+    desc: 'ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>.',
     link: '<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -78,7 +78,7 @@ const languageInfo = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>',
+    desc: 'Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>.',
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -150,9 +150,9 @@ const languageInfo = {
     name: 'JSX',
   },
   julia: {
-    desc1: 'Julia language support in LiveCodes is still experimental',
+    desc1: '(Julia language support in LiveCodes is still experimental)',
     desc2:
-      'Julia compiler and Julia Base running on WASM, using <1>julia-wasm</1> adapted by <2>polylang.io</2>',
+      'Julia compiler and Julia Base running on WASM, using <1>julia-wasm</1> adapted by <2>polylang.io</2>.',
     link: '<1> <2>Julia official website</2> </1> <3> <4>Julia documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Julia</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'Julia',
   },
@@ -207,7 +207,7 @@ const languageInfo = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>',
+    desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>.',
     link: '<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'Nunjucks',
   },
@@ -368,7 +368,7 @@ const languageInfo = {
     name: 'Svelte',
   },
   tcl: {
-    desc: 'Tcl running in the browser, using <1>wacl</1>',
+    desc: 'Tcl running in the browser, using <1>wacl</1>.',
     link: '<1> <2>Tcl official website</2> </1> <3> <4>wacl repo</4> </3> <5> <6>Learn X in Y minutes, where X=Tcl</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'Tcl (Tool Command Language)',
   },
@@ -383,7 +383,7 @@ const languageInfo = {
     name: 'TSX',
   },
   twig: {
-    desc: 'A JavaScript implementation of the <1>Twig</1> PHP templating language by <2>Twig.js</2>',
+    desc: 'A JavaScript implementation of the <1>Twig</1> PHP templating language by <2>Twig.js</2> .',
     link: '<1> <2>Twig official website</2> </1> <3> <4>Twig Documentation</4> </3> <5> <6>Twig.js Repo</6> </5> <7> <8>Twig.js Documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9>',
     name: 'Twig',
   },

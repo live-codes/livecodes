@@ -110,7 +110,7 @@
   },
   "clojurescript.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<br  />\n\n### <tag-3> ###\n<a href=\"https://github.com/squint-cljs/cherry\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "ClojureScript is a compiler for <tag-1>Clojure</tag-1> that targets JavaScript. <tag-2></tag-2>In LiveCodes, it runs in the browser using <tag-3>Cherry</tag-3>"
+    "translation": "ClojureScript is a compiler for <tag-1>Clojure</tag-1> that targets JavaScript. <tag-2></tag-2>In LiveCodes, it runs in the browser using <tag-3>Cherry</tag-3>."
   },
   "clojurescript.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://clojurescript.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clojure.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/squint-cljs/cherry\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://learnxinyminutes.com/docs/clojure/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/clojurescript\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-11> ###\n<li  />\n\n### <tag-12> ###\n<a href=\"?template=clojurescript\" target=\"_parent\" data-template=\"clojurescript\" />\n\n",
@@ -162,7 +162,7 @@
   },
   "cppWasm.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://github.com/binji/wasm-clang\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/chris-koch-penn/polylang.io\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Clang C/C++ compiler running on WebAssembly, using <tag-1>wasm-clang</tag-1> adapted by <tag-2>polylang.io</tag-2>"
+    "translation": "Clang C/C++ compiler running on WebAssembly, using <tag-1>wasm-clang</tag-1> adapted by <tag-2>polylang.io</tag-2>."
   },
   "cppWasm.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://isoclang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://clang.llvm.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/c++/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=cpp-wasm\" target=\"_parent\" data-template=\"cpp-wasm\" />\n\n",
@@ -334,11 +334,11 @@
   },
   "julia.desc1": {
     "notes": "",
-    "translation": "Julia language support in LiveCodes is still experimental"
+    "translation": "(Julia language support in LiveCodes is still experimental)"
   },
   "julia.desc2": {
     "notes": "### <tag-1> ###\n<a href=\"https://github.com/Keno/julia-wasm\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/chris-koch-penn/polylang.io\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Julia compiler and Julia Base running on WASM, using <tag-1>julia-wasm</tag-1> adapted by <tag-2>polylang.io</tag-2>"
+    "translation": "Julia compiler and Julia Base running on WASM, using <tag-1>julia-wasm</tag-1> adapted by <tag-2>polylang.io</tag-2>."
   },
   "julia.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://julialang.org/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://docs.julialang.org/en/v1/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/julia/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=julia\" target=\"_parent\" data-template=\"julia\" />\n\n",
@@ -470,7 +470,7 @@
   },
   "nunjucks.desc": {
     "notes": "### <tag-1> ###\n<a href=\"http://jinja.pocoo.org/docs/\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <tag-1>jinja2</tag-1>"
+    "translation": "A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <tag-1>jinja2</tag-1>."
   },
   "nunjucks.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://mozilla.github.io/nunjucks/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/nunjucks\" target=\"_blank\" rel=\"noopener\" />\n\n",
@@ -854,7 +854,7 @@
   },
   "tcl.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://github.com/ecky-l/wacl/\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Tcl running in the browser, using <tag-1>wacl</tag-1>"
+    "translation": "Tcl running in the browser, using <tag-1>wacl</tag-1>."
   },
   "tcl.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://www.tcl.tk/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://github.com/ecky-l/wacl/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://learnxinyminutes.com/docs/tcl/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"?template=tcl\" target=\"_parent\" data-template=\"tcl\" />\n\n",
@@ -890,7 +890,7 @@
   },
   "twig.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://twig.symfony.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"https://github.com/twigjs/twig.js\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "A JavaScript implementation of the <tag-1>Twig</tag-1> PHP templating language by <tag-2>Twig.js</tag-2>"
+    "translation": "A JavaScript implementation of the <tag-1>Twig</tag-1> PHP templating language by <tag-2>Twig.js</tag-2> ."
   },
   "twig.link": {
     "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"https://twig.symfony.com/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"https://twig.symfony.com/doc/3.x/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<li  />\n\n### <tag-6> ###\n<a href=\"https://github.com/twigjs/twig.js\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<li  />\n\n### <tag-8> ###\n<a href=\"https://github.com/twigjs/twig.js/wiki\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<li  />\n\n### <tag-10> ###\n<a href=\"{{DOCS_BASE_URL}}languages/twig\" target=\"_blank\" rel=\"noopener\" />\n\n",

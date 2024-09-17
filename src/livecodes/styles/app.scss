@@ -542,14 +542,13 @@ kbd {
   background-color: var(--test-fail-background);
   border: 1px solid var(--test-fail-border);
   color: var(--test-fail-color);
-
 }
 
 .confirm,
 .warn {
   background-color: rgba(255, 128, 0, 0.25); // todo css var
   border: 1px solid rgb(255, 128, 0);
-  color: rgb(255, 179, 102);;
+  color: rgb(255, 179, 102);
 }
 
 .help {
@@ -1009,12 +1008,14 @@ kbd {
 
 #result {
   background-color: #ccc;
-  background-image: linear-gradient(45deg,
-  white 25%,
-  transparent 25%,
-  transparent 75%,
-  white 75%,
-  white),
+  background-image: linear-gradient(
+      45deg,
+      white 25%,
+      transparent 25%,
+      transparent 75%,
+      white 75%,
+      white
+    ),
     linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
   background-position:
     0 0,
@@ -1052,12 +1053,14 @@ kbd {
 
 html.dark #result {
   background-color: #222;
-  background-image: linear-gradient(45deg,
-  #444 25%,
-  transparent 25%,
-  transparent 75%,
-  #444 75%,
-  #444),
+  background-image: linear-gradient(
+      45deg,
+      #444 25%,
+      transparent 25%,
+      transparent 75%,
+      #444 75%,
+      #444
+    ),
     linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
 }
 
@@ -1524,8 +1527,6 @@ li.editor-title {
   }
 }
 
-
-
 .dropdown-menu {
   background-clip: padding-box;
   background-color: var(--menu-background-color);
@@ -1575,8 +1576,8 @@ li.editor-title {
 .menu-scroller-markup,
 .menu-scroller-style,
 .menu-scroller-script {
-  top: calc(var(--toolbar-height) - 10px) // 32px; // TODO OVERRIDE var(--toolbar-height);
-  }
+  top: calc(var(--toolbar-height) - 10px); // 32px; // TODO OVERRIDE var(--toolbar-height);
+}
 
 .menu-scroller-markup {
   max-width: 50vw;
@@ -1637,10 +1638,10 @@ li.editor-title {
     white-space: nowrap;
     width: 100%;
 
-    &:hover {
+    /*     &:hover {
       background-color: var(--menu-background-color);
       background-color: var(--menu-hover-color);
-    }
+    } */
 
     span {
       display: inherit;
@@ -1701,8 +1702,6 @@ li.editor-title {
   }
 }
 
-
-
 #app-menu-project a:hover + .submenu,
 #app-menu-project i:hover + a + .submenu {
   display: block !important;
@@ -1721,9 +1720,9 @@ i.arrow {
   display: inline-block;
   padding: 10px 15px 10px 10px;
   position: absolute !important;
-  right: 3px;
+  right: -6px;
   text-decoration: none;
-  top: calc(50% - 0.5em);
+  top: calc(50% - 0.5rem);
 
   &.submenu-chevron {
     // todo ltr - rtl
@@ -1801,8 +1800,6 @@ i.arrow {
     left: 0; // todo test info
   }
 }
-
-
 
 .range-slider {
   appearance: none;
@@ -2037,8 +2034,8 @@ i.arrow {
     margin-bottom: 1.5rem;
     place-content: space-between;
     place-items: center;
-    width: 100%;
     white-space: nowrap;
+    width: 100%;
 
     > div {
       align-items: center;
@@ -2109,7 +2106,7 @@ i.arrow {
       width: fit-content;
     }
 
-    input[id*='search']:not([type=radio]):not([type=checkbox]),
+    input[id*='search']:not([type='radio']):not([type='checkbox']),
     .tagify {
       background: var(--o1);
       border-bottom: 0;
@@ -2434,7 +2431,6 @@ i.arrow {
       color: white;
     }
   }
-
 
   .modal-title,
   .language-info > h3 {
@@ -3440,8 +3436,6 @@ i.arrow {
       transform: none;
     }
   } */
-
-
 
   .nowrap {
     white-space: nowrap;

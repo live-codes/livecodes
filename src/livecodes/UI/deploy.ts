@@ -139,8 +139,10 @@ export const createDeployUI = async ({
       deps: { getLanguageExtension: deps.getLanguageExtension },
     }).catch((error: any) => {
       if (error.message === 'Repo name already exists') {
-        // TODO: i18n this
-        newRepoNameError.innerHTML = error.message;
+        newRepoNameError.innerHTML = window.deps.translateString(
+          'deploy.error.repoNameExists',
+          'Repo name already exists',
+        );
       }
     });
 
@@ -148,10 +150,10 @@ export const createDeployUI = async ({
       return false;
     } else if (deployResult) {
       await deps.setProjectDeployRepo(repo);
-      const confirmationContianer = deployedConfirmation(deployResult, commitSource);
-      modal.show(confirmationContianer, { size: 'small' });
+      const confirmationContainer = deployedConfirmation(deployResult, commitSource);
+      modal.show(confirmationContainer, { size: 'small' });
       await generateQrCode({
-        container: confirmationContianer.querySelector('#deploy-qrcode') as HTMLElement,
+        container: confirmationContainer.querySelector('#deploy-qrcode') as HTMLElement,
         url: deployResult.url,
         title: repo,
       });

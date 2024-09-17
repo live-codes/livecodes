@@ -7,7 +7,7 @@ import { defaultConfig } from '../config/default-config';
 import { embedScreen } from '../html';
 import { cloneObject, copyToClipboard, encodeHTML, escapeCode, indentCode } from '../utils/utils';
 import { permanentUrlService } from '../services/permanent-url';
-
+// TODO remove baseurl not used
 export const createEmbedUI = async ({
   config,
   editorLanguages,

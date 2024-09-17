@@ -657,7 +657,7 @@ export default {
         { include: '@whitespace' },
 
         // strings
-        [/"([^"\\]|\\.)*$/, 'string.invalid'], // non-teminated string
+        [/"([^"\\]|\\.)*$/, 'string.invalid'], // non-terminated string
         [/"/, 'string', '@string'],
 
         // numbers (not all of these are generated, but here to be sure)
