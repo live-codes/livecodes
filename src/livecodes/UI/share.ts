@@ -179,11 +179,11 @@ export const createShareContainer = async (
       icon: 'email.svg',
       createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
     },
-    {
+/*     {
       name: window.deps.translateString('share.services.copyUrl', 'Copy URL'),
       icon: 'copy.svg',
       onClick: ({ url }) => copyUrl(url),
-    },
+    }, */
     {
       name: window.deps.translateString('share.services.qrCode', 'QR code'),
       icon: 'qr-code.svg',
