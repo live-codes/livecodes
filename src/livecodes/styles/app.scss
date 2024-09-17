@@ -1445,13 +1445,11 @@ li.editor-title {
 }
 
 #app-menu-container-settings {
-  left: 9em;
-  left: 7.25rem;
+  left: 7.35rem;
 }
 
 #app-menu-container-help {
-  left: 16em;
-  left: 14rem;
+  left: 13rem;
 }
 
 @media only screen and (max-width: 1179px) {
@@ -1563,7 +1561,7 @@ li.editor-title {
   position: absolute;
   right: 0;
   scrollbar-width: none;
-  // top: 32px;
+  // top: 32px; // TODO OVERRIDE var(--toolbar-height);
 
   &::-webkit-scrollbar {
     display: none;
@@ -1573,6 +1571,12 @@ li.editor-title {
     display: none !important;
   }
 }
+
+.menu-scroller-markup,
+.menu-scroller-style,
+.menu-scroller-script {
+  top: calc(var(--toolbar-height) - 10px) // 32px; // TODO OVERRIDE var(--toolbar-height);
+  }
 
 .menu-scroller-markup {
   max-width: 50vw;
