@@ -2,7 +2,7 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
-import type { CodeEditor, Config, EditorOptions, FormatFn, UserConfig } from '../models';
+import type { CodeEditor, EditorOptions, FormatFn, UserConfig } from '../models';
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
@@ -14,6 +14,8 @@ type PreviewEditorOptions = Pick<
   'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers'
 > & {
   format: 'png' | 'jpg' | 'svg';
+  width: number;
+  padding: number;
   scale: number;
 };
 
@@ -57,6 +59,8 @@ export const createCodeToImageUI = async ({
     fontSize: 14,
     lineNumbers: false,
     format: 'png',
+    width: 70,
+    padding: 48,
     scale: 1,
   };
 
@@ -151,8 +155,8 @@ export const createCodeToImageUI = async ({
     const htmlToImage: any = await htmlToImagePromise;
 
     const container = backgroundEl;
-    const width = container.offsetWidth;
-    const height = container.offsetHeight;
+    const width = container.offsetWidth + formData.padding * 2;
+    const height = container.offsetHeight + formData.padding * 2;
     const scale = formData.scale || 1;
 
     const methodNames: any = {
@@ -167,8 +171,8 @@ export const createCodeToImageUI = async ({
       style: {
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
-        width: `${width}px`,
-        height: `${height}px`,
+        width: `${container.offsetWidth}px`,
+        height: `${container.offsetHeight}px`,
       },
     })
       .then(function (dataUrl: string) {
