@@ -273,9 +273,8 @@ export const createCodeToImageUI = async ({
   updateOptions(true);
 
   const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
-  const saveBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-save-btn')!;
-  eventsManager.addEventListener(saveBtn, 'click', async () => {
-    saveBtn.disabled = true;
+
+  const getImageUrl = async () => {
     const htmlToImage: any = await htmlToImagePromise;
     await updateShareLink();
 
@@ -290,7 +289,7 @@ export const createCodeToImageUI = async ({
       svg: 'toSvg',
     };
 
-    htmlToImage[methodNames[formData.format] || 'toPng'](container, {
+    return htmlToImage[methodNames[formData.format] || 'toPng'](container, {
       quality: 1,
       width: width * scale,
       height: height * scale,
@@ -301,8 +300,14 @@ export const createCodeToImageUI = async ({
         width: `${width}px`,
         height: `${height}px`,
       },
-    })
-      .then(function (dataUrl: string) {
+    });
+  };
+
+  const saveBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-save-btn')!;
+  eventsManager.addEventListener(saveBtn, 'click', async () => {
+    saveBtn.disabled = true;
+    getImageUrl()
+      .then((dataUrl: string) => {
         downloadFile('code-to-image', formData.format || 'png', dataUrl);
       })
       .catch(() => {
@@ -310,6 +315,30 @@ export const createCodeToImageUI = async ({
       })
       .finally(() => {
         saveBtn.disabled = false;
+      });
+  });
+
+  const shareBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-share-btn')!;
+  eventsManager.addEventListener(shareBtn, 'click', () => {
+    shareBtn.disabled = true;
+    getImageUrl()
+      .then(async (dataUrl: string) => {
+        const blob = await fetch(dataUrl).then((res) => res.blob());
+        const data = {
+          files: [
+            new File([blob], `code-to-image.${formData.format || 'png'}`, {
+              type: blob.type,
+            }),
+          ],
+          title: 'LiveCodes Code to Image',
+        };
+        await navigator.share(data);
+      })
+      .catch(() => {
+        notifications.error('Failed to share image.');
+      })
+      .finally(() => {
+        shareBtn.disabled = false;
       });
   });
 };
