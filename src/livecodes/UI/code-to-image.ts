@@ -40,14 +40,18 @@ export const createCodeToImageUI = async ({
   const codeToImageContainer = div.firstChild as HTMLElement;
   modal.show(codeToImageContainer, { isAsync: true });
 
-  const previewContainer = codeToImageContainer.querySelector<HTMLElement>(
+  const edirtorContainer = codeToImageContainer.querySelector<HTMLElement>(
     '#code-to-img-preview-container',
   );
+  const backgroundEl = codeToImageContainer.querySelector<HTMLElement>(
+    '#code-to-img-preview-background',
+  )!;
+
   const form = codeToImageContainer.querySelector<HTMLFormElement>('#code-to-img-form');
-  if (!previewContainer || !form) return;
+  if (!edirtorContainer || !form) return;
 
   const editorOptions: PreviewEditorOptions = {
-    container: previewContainer,
+    container: edirtorContainer,
     editorTheme: 'dracula',
     fontFamily: 'fira-code',
     fontSize: 14,
@@ -130,9 +134,16 @@ export const createCodeToImageUI = async ({
     });
 
     editor.changeSettings(formData as any);
+
+    backgroundEl.style.paddingInline = formData.paddingHorizontal + 'px';
+    backgroundEl.style.paddingBlock = formData.paddingVertical + 'px';
+
+    form['code-to-img-width'].max =
+      backgroundEl.parentElement!.offsetWidth - 2 * formData.paddingHorizontal;
+    edirtorContainer.style.width = formData.width + 'px';
   };
 
-  eventsManager.addEventListener(form, 'change', () => updateOptions());
+  eventsManager.addEventListener(form, 'input', () => updateOptions());
   updateOptions();
 
   const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
@@ -141,7 +152,7 @@ export const createCodeToImageUI = async ({
     saveBtn.disabled = true;
     const htmlToImage: any = await htmlToImagePromise;
 
-    const container = previewContainer.parentElement!;
+    const container = edirtorContainer.parentElement!;
     const scale = formData.scale || 1;
 
     const methodNames: any = {
