@@ -82,6 +82,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     });
 
   const highlight = async () => {
+    const hasFocus = document.activeElement === codeElement;
     let pos: Position | undefined;
     try {
       pos = codejar?.save();
@@ -90,7 +91,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     }
     if (mappedLanguage in Prism.languages) {
       Prism.highlightElement(codeElement);
-      if (pos) {
+      if (pos && hasFocus) {
         codejar?.restore(pos);
       }
       return;
