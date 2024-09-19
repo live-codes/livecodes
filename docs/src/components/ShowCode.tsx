@@ -6,8 +6,8 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import CodeBlock from '@theme/CodeBlock';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import detailsStyles from '@docusaurus/theme-common/src/components/Details/styles.module.css';
-import detailsStyles2 from '@docusaurus/theme-classic/src/theme/Details/styles.module.css';
+import detailsStyles from '../../node_modules/@docusaurus/theme-common/src/components/Details/styles.module.css';
+import detailsStyles2 from '../../node_modules/@docusaurus/theme-classic/src/theme/Details/styles.module.css';
 
 export default function ShowCode(props: {
   js: string;
