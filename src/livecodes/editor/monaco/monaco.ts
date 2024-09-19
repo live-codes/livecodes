@@ -16,13 +16,7 @@ import type {
   MonacoTheme,
   Config,
 } from '../../models';
-import {
-  cloneObject,
-  getRandomString,
-  getWorkerDataURL,
-  loadScript,
-  loadStylesheet,
-} from '../../utils/utils';
+import { cloneObject, getRandomString, loadScript } from '../../utils/utils';
 import {
   codeiumProviderUrl,
   emmetMonacoUrl,
