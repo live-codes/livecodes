@@ -318,6 +318,81 @@ body {
   width: 100%;
 }
 
+html[dir='rtl'] {
+  #editors,
+  #tools-pane,
+  .custom-editor {
+    direction: ltr;
+  }
+
+  #app-menu-container-project {
+    right: 3rem;
+  }
+
+  #app-menu-container-settings {
+    right: 7.35rem;
+  }
+
+  #app-menu-container-help {
+    right: 13rem;
+  }
+
+  i.arrow {
+    left: -6px;
+    transform: rotate(180deg);
+  }
+
+  .submenu {
+    right: 98%;
+  }
+
+  .hint--left::after,
+  .hint--left::before {
+    left: 100%;
+    right: unset;
+  }
+
+  .hint--right::after,
+  .hint--right::before {
+    left: unset;
+    right: 100%;
+  }
+
+  .close-button {
+    left: 1em;
+    right: unset;
+  }
+
+  #modal {
+    .indent {
+      margin-left: unset;
+      margin-right: 1em;
+    }
+
+    select {
+      background-position: 2% 50%;
+    }
+
+    .input-container .radio-label {
+      padding-left: unset;
+      padding-right: 0.5em;
+    }
+
+    .input-container > span {
+      margin-left: 1.5em;
+      margin-right: unset;
+    }
+
+    @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+      input[type=checkbox] + label,
+      input[type=radio] + label {
+        margin-left: unset;
+        margin-right: 4px;
+      }
+    }
+  }
+}
+
 a {
   color: var(--link-color);
 
@@ -465,9 +540,6 @@ hr {
 
 .icon-info {
   --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='currentColor' d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412l-1 4.705c-.07.34.029.533.304.533c.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598c-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081l.082-.381l2.29-.287zM8 5.5a1 1 0 1 1 0-2a1 1 0 0 1 0 2'/%3E%3C/svg%3E");
-  height: 0.875em;
-  margin: 0;
-  width: 0.875em;
 }
 
 .icon-login {
@@ -612,8 +684,15 @@ kbd {
   }
 
   .toolbar-render {
+    display: flex;
     flex-grow: 1;
-    width: auto;
+    justify-content: space-between;
+    place-items: center;
+
+    div:first-child {
+      display: inherit;
+      flex-grow: 1;
+    }
   }
 
   #logo {
@@ -647,10 +726,10 @@ kbd {
     }
   }
 
-  i[class^='icon-'],
+  /*   i[class^='icon-'],
   svg {
     font-size: var(--s16);
-  }
+  } */
 
   #project-title {
     align-items: center;
@@ -662,12 +741,14 @@ kbd {
     font-size: inherit;
     height: 1.5rem;
     justify-content: flex-start;
-    margin-right: var(--s8);
+
+    margin: 0 var(--s8);
+    max-width: 50%;
     overflow: hidden;
     padding: 0 0.5em;
     position: relative;
     transition: all 0.5s ease-in-out;
-    width: 50%;
+    width: 100%;
 
     &:hover,
     &:focus {
@@ -696,8 +777,9 @@ kbd {
     display: inherit;
     height: var(--s32);
     justify-content: space-evenly;
-    margin-left: auto;
-    margin-right: var(--s5);
+    /*     margin-left: auto;
+    margin-right: var(--s5); */
+    margin: 0 var(--s5);
   }
 }
 
@@ -836,6 +918,7 @@ kbd {
     }
   }
 }
+
 
 #editors {
   background: var(--background-color);
@@ -1008,14 +1091,12 @@ kbd {
 
 #result {
   background-color: #ccc;
-  background-image: linear-gradient(
-      45deg,
-      white 25%,
-      transparent 25%,
-      transparent 75%,
-      white 75%,
-      white
-    ),
+  background-image: linear-gradient(45deg,
+  white 25%,
+  transparent 25%,
+  transparent 75%,
+  white 75%,
+  white),
     linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
   background-position:
     0 0,
@@ -1053,14 +1134,12 @@ kbd {
 
 html.dark #result {
   background-color: #222;
-  background-image: linear-gradient(
-      45deg,
-      #444 25%,
-      transparent 25%,
-      transparent 75%,
-      #444 75%,
-      #444
-    ),
+  background-image: linear-gradient(45deg,
+  #444 25%,
+  transparent 25%,
+  transparent 75%,
+  #444 75%,
+  #444),
     linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
 }
 
@@ -1349,10 +1428,10 @@ html.dark #result {
   position: relative;
 
   > ul {
-    align-items: stretch;
+    /* align-items: stretch; */
     display: flex;
     height: 100%;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
   }
 }
 
@@ -1366,7 +1445,9 @@ li.editor-title {
   cursor: pointer;
   display: flex;
   font-size: inherit;
+  justify-content: space-between;
   list-style: none;
+  padding: 0 8px;
   position: relative;
   top: 2px;
   width: 100px;
@@ -1381,7 +1462,8 @@ li.editor-title {
   }
 
   > span {
-    padding-left: 0.5rem;
+    display: inherit;
+    flex-grow: 1;
   }
 
   &.active {
@@ -1408,14 +1490,15 @@ li.editor-title {
     border-radius: var(--s4);
     color: currentColor;
     cursor: pointer;
+    display: inherit;
     height: 20px;
     margin: 0;
     outline: none;
     padding: 0;
     place-content: center;
-    position: absolute;
-    right: 5%;
-    text-align: center;
+    /* position: absolute; */
+    /* right: 5%; */
+    /* text-align: center; */
     text-decoration: none;
     width: 20px;
 
@@ -1515,8 +1598,8 @@ li.editor-title {
   column-count: 1;
   left: 0;
   margin-top: 0;
-  max-width: 45vw;
-  right: unset;
+  /* max-width: 45vw; */
+  /* right: unset; */
   top: 0;
   width: 255px; // for font-size 14px
   // width: 270px; // font-size 16px
@@ -1524,33 +1607,6 @@ li.editor-title {
   &:hover {
     animation: fadeIn 0.4s forwards;
     display: block !important;
-  }
-}
-
-.dropdown-menu {
-  background-clip: padding-box;
-  background-color: var(--menu-background-color);
-  border: 1px solid var(--menu-border-color);
-  border-radius: var(--s4);
-  box-shadow: 0 0 12px 2px var(--menu-shadow-color);
-  display: none;
-  font-size: var(--s14); // todo css var
-  list-style: none;
-  overflow: visible;
-  padding: var(--s8);
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 100%;
-
-  li[role='separator'] {
-    background: var(--menu-split-color);
-    margin: 2px calc(1px - var(--s8));
-    padding: 1px 0;
-  }
-
-  .hint--left::after {
-    margin-bottom: -14px; // fix menu language tooltip = (iconSize - padding)
   }
 }
 
@@ -1612,13 +1668,46 @@ li.editor-title {
   break-before: column;
 }
 
-.dropdown-menu li,
-.dropdown-menu > li {
+.dropdown-menu {
+  background-clip: padding-box;
+  background-color: var(--menu-background-color);
+  border: 1px solid var(--menu-border-color);
+  border-radius: var(--s4);
+  box-shadow: 0 0 12px 2px var(--menu-shadow-color);
+  display: none;
+  font-size: var(--s14); // todo css var
+  list-style: none;
+  overflow: visible;
+  padding: var(--s8);
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+
+  li[role='separator'] {
+    background: var(--menu-split-color);
+    margin: 4px calc(1px - var(--s8));
+    padding: 1px 0;
+  }
+
+  .hint--left::after {
+    margin-bottom: -14px; // fix menu language tooltip = (iconSize - padding)
+  }
+
+  i[class^='icon-'],
+  svg {
+    font-size: var(--s14);
+  }
+
+}
+
+.dropdown-menu li:not(li[role='separator']) {
   align-items: center;
   border-radius: var(--s4);
   break-inside: avoid-column;
   -moz-column-break-inside: avoid;
   display: flex;
+  height: 32px;
   justify-content: space-between;
   position: relative; // for submenu
 
@@ -1629,6 +1718,7 @@ li.editor-title {
 
   a,
   a.subtitle {
+    border-radius: inherit;
     color: var(--menu-text-color);
     cursor: default;
     display: inherit;
@@ -1649,19 +1739,26 @@ li.editor-title {
   }
 
   &.link-and-switch {
+    align-items: center;
     display: flex;
+    justify-content: space-between;
+    width: 100%;
 
     a {
       white-space: nowrap;
 
-      &:hover {
+      /*      &:hover {
         color: var(--link-color);
         text-decoration: underline;
-      }
+      } */
 
       #sync-indicator.hidden {
-        display: block; // TODO TEST none
+        display: block; // TODO TEST
       }
+    }
+
+    > .switch {
+      width: auto;
     }
   }
 
@@ -1831,9 +1928,12 @@ i.arrow {
   padding: 6px 8px; // TODO css var rel to li height (fontsize+padding)
   width: 100%;
 
+  span {
+    flex-grow: 1;
+  }
+
   div {
     height: 18px;
-    margin-left: auto;
     transform: scale(0.8);
     width: 34px;
   }
@@ -3797,6 +3897,7 @@ i.arrow {
   display: inline-block;
   display: inline-block;
   opacity: 0.4;
+  padding: 6px 8px;
 
   &:hover {
     opacity: 1;
