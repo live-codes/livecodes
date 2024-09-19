@@ -2313,11 +2313,14 @@ i.arrow {
       box-sizing: border-box;
       display: flex;
       justify-content: center;
+      margin: 0;
       max-width: 100%;
+      position: relative;
     }
 
     #code-to-img-preview-container {
       border-radius: 5px;
+      box-sizing: border-box;
       overflow: hidden;
 
       &.shadow {

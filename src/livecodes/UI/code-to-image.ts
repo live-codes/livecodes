@@ -231,8 +231,8 @@ export const createCodeToImageUI = async ({
     const htmlToImage: any = await htmlToImagePromise;
 
     const container = backgroundEl;
-    const width = container.offsetWidth + formData.padding * 2;
-    const height = container.offsetHeight + formData.padding * 2;
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
     const scale = formData.scale || 1;
 
     const methodNames: any = {
@@ -247,8 +247,9 @@ export const createCodeToImageUI = async ({
       style: {
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
-        width: `${container.offsetWidth}px`,
-        height: `${container.offsetHeight}px`,
+        margin: '0',
+        width: `${width}px`,
+        height: `${height}px`,
       },
     })
       .then(function (dataUrl: string) {
