@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,62 +103,64 @@
           <div id="select-editor"></div>
         </div>
         <div class="toolbar-render">
-          <div
-            id="project-title"
-            contenteditable="true"
-            tabindex="5"
-            data-i18n="app.untitledProject"
-          >
-            Untitled Project
+          <div>
+            <div
+              id="project-title"
+              contenteditable="true"
+              tabindex="5"
+              data-i18n="app.untitledProject"
+            >
+              Untitled Project
+            </div>
+            <a
+              href="javascript:void(0)"
+              id="run-button"
+              class="button hint--bottom"
+              data-hint="Run"
+              data-i18n="app.run.hint"
+              data-i18n-prop="data-hint"
+              tabindex="6"
+            >
+              <i class="icon-run"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="share-button"
+              class="button hint--bottom"
+              data-hint="Share"
+              data-i18n="app.share.hint"
+              data-i18n-prop="data-hint"
+              tabindex="7"
+            >
+              <i class="icon-share"></i>
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="result-button"
+              class="button hint--bottom"
+              data-hint="Result"
+              data-i18n="app.result.hint"
+              data-i18n-prop="data-hint"
+              tabindex="8"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                <path
+                  fill="currentColor"
+                  d="M8 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0zM6 13v-1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3H3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm6 0H9v-1h3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H9V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2"
+                />
+              </svg>
+            </a>
+            <a
+              href="javascript:void(0)"
+              id="fullscreen-button"
+              class="button hint--bottom"
+              data-i18n="app.fullscreen.hint"
+              data-i18n-prop="data-hint"
+              tabindex="9"
+            >
+              <i class="icon-full-screen"></i>
+            </a>
           </div>
-          <a
-            href="javascript:void(0)"
-            id="run-button"
-            class="button hint--bottom"
-            data-hint="Run"
-            data-i18n="app.run.hint"
-            data-i18n-prop="data-hint"
-            tabindex="6"
-          >
-            <i class="icon-run"></i>
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="share-button"
-            class="button hint--bottom"
-            data-hint="Share"
-            data-i18n="app.share.hint"
-            data-i18n-prop="data-hint"
-            tabindex="7"
-          >
-            <i class="icon-share"></i>
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="result-button"
-            class="button hint--bottom"
-            data-hint="Result"
-            data-i18n="app.result.hint"
-            data-i18n-prop="data-hint"
-            tabindex="8"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
-              <path
-                fill="currentColor"
-                d="M8 1.5a.5.5 0 0 0-1 0v13a.5.5 0 0 0 1 0zM6 13v-1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V3H3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm6 0H9v-1h3a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H9V3h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2"
-              />
-            </svg>
-          </a>
-          <a
-            href="javascript:void(0)"
-            id="fullscreen-button"
-            class="button hint--bottom"
-            data-i18n="app.fullscreen.hint"
-            data-i18n-prop="data-hint"
-            tabindex="9"
-          >
-            <i class="icon-full-screen"></i>
-          </a>
           <a
             href="#"
             id="login-link"
