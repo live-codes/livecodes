@@ -4162,6 +4162,7 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
 const setAppLanguage = (reload: boolean = false) => {
   const lang = i18n?.getLanguage() ?? 'en';
   document.documentElement.lang = lang;
+  document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
   if (isEmbed || params.appLanguage) return;
 
   const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
