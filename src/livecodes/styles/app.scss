@@ -2324,16 +2324,15 @@ i.arrow {
     }
 
     #code-to-img-preview-background {
-      background: beige;
-      max-height: 1500px;
-      max-width: 100%;
-      min-width: 300px;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
+      background: beige;
       border: 1px solid gray;
       border-radius: 5px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      max-height: 1500px;
+      max-width: 100%;
     }
 
     #code-to-img-preview-container {
@@ -2793,9 +2792,6 @@ i.arrow {
         width: 100%;
       }
     }
-  }
-
-  #code-to-img-container {
   }
 
   .overflow-ellipsis {
