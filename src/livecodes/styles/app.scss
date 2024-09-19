@@ -2348,17 +2348,17 @@ i.arrow {
     }
 
     #code-to-img-watermark {
-      position: absolute;
-      bottom: 0.5em;
-      right: 0.5em;
-      font-size: 0.8em;
-      transform: scale(0.8);
-      transform-origin: bottom right;
       background-color: #ededed;
       border: #a9a9a9 1px solid;
       border-radius: 3px;
+      bottom: 0.5em;
+      font-size: 0.8em;
       padding: 0.5em;
       padding-top: 0.2em;
+      position: absolute;
+      right: 0.5em;
+      transform: scale(0.8);
+      transform-origin: bottom right;
 
       &.shadow {
         box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
@@ -2381,11 +2381,11 @@ i.arrow {
       }
 
       .window-title {
-        outline: none;
-        min-width: 7em;
-        text-align: center;
         height: 1.2em;
+        min-width: 7em;
+        outline: none;
         overflow: hidden;
+        text-align: center;
       }
     }
 
@@ -2396,18 +2396,18 @@ i.arrow {
       justify-content: center;
 
       .preset {
+        align-items: center;
         background-color: #ededed;
         border: #a9a9a9 1px solid;
-        margin: 2px;
         border-radius: 3px;
         cursor: pointer;
+        display: flex;
+        height: 5em;
+        justify-content: center;
+        margin: 2px;
         padding: 0.5em;
         padding-top: 0.2em;
         width: 7em;
-        height: 5em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
 
         &.active {
           border: var(--button-active-color) 3px solid;
@@ -2426,10 +2426,10 @@ i.arrow {
 
     .color-picker-container {
       display: flex;
-      justify-content: space-between;
-      width: 73%;
       flex-wrap: wrap;
       gap: 10px;
+      justify-content: space-between;
+      width: 73%;
 
       input.color-picker {
         cursor: pointer;
