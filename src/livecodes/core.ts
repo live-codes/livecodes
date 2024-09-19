@@ -100,6 +100,7 @@ import {
   debounce,
   getValidUrl,
   loadStylesheet,
+  safeName,
   stringify,
   stringToValidJson,
   toDataUrl,
@@ -3397,9 +3398,12 @@ const handleCodeToImage = () => {
     const codeToImageModule: typeof import('./UI/code-to-image') = await import(
       baseUrl + '{{hash:code-to-image.js}}'
     );
+    const title = getConfig().title;
+    const fileName = title.trim() !== '' && title !== defaultConfig.title ? title : 'code-to-image';
     await codeToImageModule.createCodeToImageUI({
       baseUrl,
       currentUrl,
+      fileName: safeName(fileName, '-').toLowerCase(),
       editorId: getLanguageEditorId(activeEditor.getLanguage()) || 'script',
       modal,
       notifications,
