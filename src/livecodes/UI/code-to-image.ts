@@ -431,8 +431,8 @@ export const createCodeToImageUI = async ({
     await updateShareLink();
 
     const container = backgroundEl;
-    const width = container.offsetWidth + formData.padding * 2;
-    const height = container.offsetHeight + formData.padding * 2;
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
     const scale = formData.scale || 1;
 
     const methodNames: any = {
