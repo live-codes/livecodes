@@ -1616,6 +1616,7 @@ export type CodejarTheme =
   | 'monochrome-dark'
   | 'night-owl'
   | 'nord'
+  | 'nord-2'
   | 'okaidia'
   | 'one-dark'
   | 'one-light'

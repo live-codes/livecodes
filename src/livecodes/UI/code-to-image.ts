@@ -1,24 +1,31 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
+import type { createNotifications } from '../notifications';
 import type { CodeEditor, Config, EditorOptions, FormatFn, UserConfig } from '../models';
 import { codeToImageScreen } from '../html';
 import { defaultConfig } from '../config/default-config';
-import { fonts, getFontFamily } from '../editor/fonts';
+import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
-import { getEditorSettingsFormatLink } from './selectors';
+import { downloadFile, loadScript } from '../utils';
+import { htmlToImageUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
   EditorOptions,
   'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers'
->;
+> & {
+  format: 'png' | 'jpg' | 'svg';
+  scale: number;
+};
 
 export const createCodeToImageUI = async ({
   modal,
+  notifications,
   eventsManager,
   deps,
 }: {
   modal: ReturnType<typeof createModal>;
+  notifications: ReturnType<typeof createNotifications>;
   eventsManager: ReturnType<typeof createEventsManager>;
   deps: {
     getUserConfig: () => UserConfig;
@@ -42,7 +49,7 @@ export const createCodeToImageUI = async ({
 
   interface FormField {
     title?: string;
-    name: keyof UserConfig | `editorTheme-${Config['editor']}-${Config['theme']}`;
+    name: string;
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
   }
@@ -85,6 +92,25 @@ export const createCodeToImageUI = async ({
       name: 'lineNumbers',
       options: [{ value: 'true' }],
     },
+    {
+      title: 'Image Scale',
+      name: 'scale',
+      options: [
+        { label: '0.5', value: '0.5' },
+        { label: '1', value: '1' },
+        { label: '2', value: '2' },
+        { label: '4', value: '4' },
+      ],
+    },
+    {
+      title: 'Image Format',
+      name: 'format',
+      options: [
+        { label: 'PNG', value: 'png' },
+        { label: 'JPEG', value: 'jpg' },
+        { label: 'SVG', value: 'svg' },
+      ],
+    },
   ];
 
   const editorOptions: PreviewEditorOptions = {
@@ -93,6 +119,8 @@ export const createCodeToImageUI = async ({
     fontFamily: undefined,
     fontSize: undefined,
     lineNumbers: false,
+    format: 'png',
+    scale: 1,
   };
 
   const initializeEditor = async (options: PreviewEditorOptions) => {
@@ -178,8 +206,9 @@ export const createCodeToImageUI = async ({
 
   const editor = await initializeEditor(editorOptions);
 
+  let formData: PreviewEditorOptions;
   const updateOptions = async () => {
-    const formData = Array.from(new FormData(form)).reduce(
+    formData = Array.from(new FormData(form)).reduce(
       (acc, [name, value]) => ({
         ...acc,
         [name.replace('code-to-img-', '')]:
@@ -193,7 +222,7 @@ export const createCodeToImageUI = async ({
             ? Number(value)
             : value,
       }),
-      {} as EditorOptions,
+      {} as PreviewEditorOptions,
     );
 
     const booleanFields = formFields
@@ -211,35 +240,45 @@ export const createCodeToImageUI = async ({
       }
     });
 
-    editor.changeSettings(formData);
+    editor.changeSettings(formData as any);
   };
 
   eventsManager.addEventListener(form, 'change', () => updateOptions());
   updateOptions();
+
+  const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
+  const saveBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-save-btn')!;
+  eventsManager.addEventListener(saveBtn, 'click', async () => {
+    saveBtn.disabled = true;
+    const htmlToImage: any = await htmlToImagePromise;
+
+    const container = previewContainer.parentElement!;
+    const scale = formData.scale || 1;
+
+    const methodNames: any = {
+      png: 'toPng',
+      jpg: 'toJpeg',
+      svg: 'toSvg',
+    };
+    htmlToImage[methodNames[formData.format] || 'toPng'](container, {
+      quality: 1,
+      width: container.offsetWidth * scale,
+      height: container.offsetHeight * scale,
+      style: {
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+        width: `${container.offsetWidth}px`,
+        height: `${container.offsetHeight}px`,
+      },
+    })
+      .then(function (dataUrl: string) {
+        downloadFile('code-to-image', formData.format || 'png', dataUrl);
+      })
+      .catch(() => {
+        notifications.error('Failed to save image.');
+      })
+      .finally(() => {
+        saveBtn.disabled = false;
+      });
+  });
 };
-
-const editorContent = `
-import React, { useState } from 'react';
-import { createRoot } from "react-dom/client";
-
-function App(props) {
-  const [count, setCount] = useState(0);
-  // increment on click!
-  const onClick = () => setCount(count + 1);
-  return (
-    <div className="container">
-      <h1>Hello, {props.name}!</h1>
-      <img
-        alt="a long alt attribute value that describes this image in details so that we can demonstrate word-wrap"
-        className="logo"
-        src="https://livecodes.io/livecodes/assets/templates/react.svg"
-      />
-      <p>You clicked {count === 0 ? 'zero' : count} times.</p>
-      <button onClick={onClick}>Click me</button>
-    </div>
-  );
-}
-
-const root = createRoot(document.querySelector("#app"));
-root.render(<App name="React" />);
-`.trimStart();

@@ -77,11 +77,13 @@ const getEditorOptions = (options: EditorOptions): EditorOptions => {
           : options;
 };
 
+const loadedFonts: string[] = [];
 const loadFont = (fontName: string) => {
-  if (!fontName) return;
+  if (!fontName || loadedFonts.includes(fontName)) return;
   const font = fonts.find((f) => [f.id, f.name, f.label].includes(fontName));
   if (!font) return;
   loadStylesheet(font.url, 'font-' + font.id);
+  loadedFonts.push(fontName);
 };
 
 export const createEditor = async (
