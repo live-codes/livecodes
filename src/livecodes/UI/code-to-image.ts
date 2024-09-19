@@ -448,6 +448,7 @@ export const createCodeToImageUI = async ({
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
         margin: '0',
+        border: '0 solid transparent',
         width: `${width}px`,
         height: `${height}px`,
       },
