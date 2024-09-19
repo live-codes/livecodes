@@ -55,6 +55,8 @@ import embedScreenRaw from './embed.html?raw';
 // @ts-ignore
 import editorSettingsScreenRaw from './editor-settings.html?raw';
 // @ts-ignore
+import codeToImageScreenRaw from './code-to-image.html?raw';
+// @ts-ignore
 import resultPopupHTMLRaw from './result-popup.html?raw';
 
 const replaceValues = (str: string) =>
@@ -92,6 +94,7 @@ const addSnippetScreen = /* @__PURE__ */ replaceValues(addSnippetScreenRaw);
 const shareScreen = /* @__PURE__ */ replaceValues(shareScreenRaw);
 const embedScreen = /* @__PURE__ */ replaceValues(embedScreenRaw);
 const editorSettingsScreen = /* @__PURE__ */ replaceValues(editorSettingsScreenRaw);
+const codeToImageScreen = /* @__PURE__ */ replaceValues(codeToImageScreenRaw);
 const resultPopupHTML = /* @__PURE__ */ replaceValues(resultPopupHTMLRaw);
 
 export {
@@ -122,5 +125,6 @@ export {
   shareScreen,
   embedScreen,
   editorSettingsScreen,
+  codeToImageScreen,
   resultPopupHTML,
 };

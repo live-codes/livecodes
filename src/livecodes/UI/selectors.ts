@@ -34,6 +34,8 @@ export const getCopyButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #copy-btn') as HTMLElement;
 export const getCopyAsUrlButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #copy-as-url-btn') as HTMLElement;
+export const getCodeToImageButton = /* @__PURE__ */ () =>
+  document.querySelector('#editor-tools #code-to-img-btn') as HTMLElement;
 export const getUndoButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #undo-btn') as HTMLElement;
 export const getRedoButton = /* @__PURE__ */ () =>

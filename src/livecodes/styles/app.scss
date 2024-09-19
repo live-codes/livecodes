@@ -298,9 +298,11 @@ a {
     display: flex !important;
   }
 
+  #copy-as-url-btn,
+  #editor-status,
   #project-info-btn,
-  #broadcast-status-btn,
-  #custom-settings-btn {
+  #custom-settings-btn,
+  #broadcast-status-btn {
     display: none;
   }
 }
@@ -317,6 +319,10 @@ a {
       margin: 3px;
       width: 35px;
     }
+  }
+
+  #code-to-img-btn {
+    display: none;
   }
 }
 
@@ -362,6 +368,60 @@ a {
 #fullscreen-button,
 #result-button {
   display: none !important;
+}
+
+.embed {
+  #toolbar {
+    height: 37px;
+    justify-content: space-between;
+
+    > * {
+      transform: scale(0.9) translate(-5%, -2px);
+    }
+  }
+
+  #logo {
+    order: 1;
+  }
+
+  .language-menu-button {
+    display: none !important;
+  }
+
+  #project-title {
+    display: none !important;
+  }
+
+  #buttons {
+    position: relative !important;
+  }
+
+  #fullscreen-button,
+  &:not(.no-result) #result-button {
+    display: flex !important;
+  }
+
+  #share-button,
+  #settings-button,
+  #copy-as-url-btn,
+  #code-to-img-btn,
+  #editor-settings-btn,
+  #project-info-btn,
+  #custom-settings-btn {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1080px) {
+    #buttons {
+      width: 30% !important;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    #buttons {
+      width: 20%;
+    }
+  }
 }
 
 .result {
@@ -2215,6 +2275,24 @@ i.arrow {
     .field-note {
       font-size: 0.8em;
       margin-top: -1em;
+    }
+  }
+
+  #code-to-img-container {
+    .modal-screen {
+      position: relative;
+    }
+
+    #code-to-img-format-link {
+      font-size: 0.9em;
+      position: absolute;
+      right: 10%;
+      top: 0.75em;
+    }
+
+    #code-to-img-preview-container {
+      height: 250px !important;
+      max-height: 250px;
     }
   }
 
