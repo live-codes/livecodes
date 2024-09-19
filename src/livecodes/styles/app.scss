@@ -2312,11 +2312,11 @@ i.arrow {
       box-sizing: border-box;
       display: flex;
       justify-content: center;
-      max-height: 1500px;
       max-width: 100%;
     }
 
     #code-to-img-preview-container {
+      border-radius: 5px;
       overflow: hidden;
 
       &.shadow {
@@ -2324,11 +2324,14 @@ i.arrow {
       }
 
       code {
+        border-radius: 5px;
         overflow: hidden;
       }
 
       pre {
         border-radius: 5px;
+        min-height: 3em;
+        min-width: 150px;
         overflow: hidden;
         padding: 1em;
         text-align: left;
