@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 /* eslint-disable import/no-named-as-default-member */
-import i18n from 'i18next';
+import i18next from 'i18next';
 import backend from 'i18next-http-backend';
 import { predefinedValues } from '../utils/utils';
 import { pathLoader } from './locale-paths';
@@ -8,7 +8,7 @@ import type { I18nInterpolationType, I18nKeyType, I18nValueType } from './models
 import { abstractifyHTML, unabstractifyHTML } from './utils';
 
 export const init = (lng: string | undefined, baseUrl: string) => {
-  i18n.use(backend).init({
+  i18next.use(backend).init({
     lng,
     returnEmptyString: false,
     fallbackLng: 'en',
@@ -23,10 +23,11 @@ export const init = (lng: string | undefined, baseUrl: string) => {
   return {
     translate,
     translateString,
-    translateKey: i18n.t.bind(i18n),
-    getLanguage: () => i18n.language,
-    changeLanguage: i18n.changeLanguage.bind(i18n),
-    loadNamespaces: i18n.loadNamespaces.bind(i18n),
+    translateKey: i18next.t.bind(i18next),
+    getLanguage: () => i18next.language,
+    getLanguageDirection: i18next.dir.bind(i18next),
+    changeLanguage: i18next.changeLanguage.bind(i18next),
+    loadNamespaces: i18next.loadNamespaces.bind(i18next),
   };
 };
 
@@ -53,12 +54,12 @@ const translate = (container: HTMLElement) => {
       fullInterpolation.PROP = prop;
       if (prop.startsWith('data-')) {
         prop = prop.slice(5);
-        el.dataset[prop] = i18n.t(lookupKey, {
+        el.dataset[prop] = i18next.t(lookupKey, {
           defaultValue: el.dataset[prop]!,
           ...fullInterpolation,
         }) as string;
       } else {
-        const translation = i18n.t(lookupKey, {
+        const translation = i18next.t(lookupKey, {
           defaultValue: (el as any)[prop],
           ...fullInterpolation,
         }) as string;
@@ -95,12 +96,12 @@ const translateString = <Key extends I18nKeyType, Value extends string>(
   value: I18nValueType<Key, Value>,
   ...args: I18nInterpolationType<Value>
 ) => {
-  if (!i18n) return value as string;
+  if (!i18next) return value as string;
 
   const rawInterpolation = args[0];
   const { isHTML, ...interpolation } = rawInterpolation ?? {};
 
-  const translation = i18n.t(key, {
+  const translation = i18next.t(key, {
     ...interpolation,
     ...predefinedValues,
     defaultValue: value as string,
