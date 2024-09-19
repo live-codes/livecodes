@@ -2,7 +2,15 @@
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
 import type { createNotifications } from '../notifications';
-import type { CodeEditor, Config, EditorId, EditorOptions, FormatFn, UserConfig } from '../models';
+import type {
+  CodeEditor,
+  CodejarTheme,
+  Config,
+  EditorId,
+  EditorOptions,
+  FormatFn,
+  UserConfig,
+} from '../models';
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
@@ -15,6 +23,7 @@ type PreviewEditorOptions = Pick<
 >;
 
 type Preset = PreviewEditorOptions & {
+  id: string;
   format: 'png' | 'jpg' | 'svg';
   bg1: string;
   bg2: string;
@@ -27,6 +36,7 @@ type Preset = PreviewEditorOptions & {
   windowStyle: 'mac' | 'windows' | 'none';
   scale: number;
   fileName: string;
+  editorTheme: CodejarTheme;
 };
 
 const getEditorOptions = (options: Preset): PreviewEditorOptions => ({
@@ -68,7 +78,6 @@ export const createCodeToImageUI = async ({
   const div = document.createElement('div');
   div.innerHTML = codeToImageScreen.replace(/{{baseUrl}}/g, baseUrl);
   const codeToImageContainer = div.firstChild as HTMLElement;
-  modal.show(codeToImageContainer, { isAsync: true, size: 'full' });
 
   const edirtorContainer = codeToImageContainer.querySelector<HTMLElement>(
     '#code-to-img-preview-container',
@@ -79,12 +88,14 @@ export const createCodeToImageUI = async ({
 
   const form = codeToImageContainer.querySelector<HTMLFormElement>('#code-to-img-form');
   if (!edirtorContainer || !form) return;
+  const presetsContainer = form.querySelector('#presets-container')!;
 
   const defaultPreset: Preset = {
+    id: 'default',
     container: edirtorContainer,
-    bg1: 'white',
-    bg2: 'white',
-    bgDirection: 'to bottom',
+    bg1: '#f5f5dc',
+    bg2: '',
+    bgDirection: 'to bottom right',
     windowStyle: 'none',
     watermark: false,
     editorTheme: 'dracula',
@@ -92,14 +103,78 @@ export const createCodeToImageUI = async ({
     fontSize: 14,
     lineNumbers: false,
     wordWrap: true,
-    format: 'png',
-    width: 70,
-    padding: 48,
     borderRadius: 5,
     shadow: true,
+    width: 70,
+    padding: 48,
+    format: 'png',
     scale: 1,
     fileName,
   };
+
+  const applyPreset = (preset: Partial<Preset>) => {
+    const fullPreset: Preset = {
+      ...defaultPreset,
+      ...preset,
+    };
+    const excludedKeys = ['container', 'width', 'format', 'scale', 'fileName'];
+    const keys = Object.keys(fullPreset) as Array<keyof Preset>;
+    keys
+      .filter((key) => !excludedKeys.includes(key) && form[`code-to-img-${key}`] != null)
+      .forEach((key) => {
+        const field = form[`code-to-img-${key}`];
+        if (field.type === 'checkbox') {
+          field.checked = fullPreset[key];
+        } else {
+          field.value = String(fullPreset[key]);
+        }
+        if (key === 'bg1' || key === 'bg2') {
+          // update coloris thumbnail color
+
+          // for some reason this event bubbling prevents editor auto-sizing
+          // field.dispatchEvent(new Event('input', { bubbles: true }));
+
+          // so manually setting it
+          const parent = field.parentNode;
+          if (parent.classList.contains('clr-field')) {
+            parent.style.color = field.value;
+          }
+        }
+      });
+    updateOptions(/* initialLoad = */ true);
+
+    presetsContainer.querySelectorAll<HTMLElement>('.preset').forEach((p) => {
+      if (p.dataset.id === preset.id) {
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    });
+  };
+
+  const populatePresets = () => {
+    presets.forEach((preset) => {
+      const presetBtn = document.createElement('btn');
+      presetBtn.classList.add('preset');
+      presetBtn.dataset.id = preset.id;
+      const img = document.createElement('img');
+      img.src = `${baseUrl}assets/code-to-img/${preset.id}.png`;
+      presetBtn.appendChild(img);
+      presetBtn.addEventListener('click', () => {
+        applyPreset(preset);
+      });
+      presetBtn.tabIndex = 0;
+      eventsManager.addEventListener(presetBtn, 'keydown', (ev: KeyboardEvent) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          presetBtn.click();
+        }
+      });
+      presetsContainer.appendChild(presetBtn);
+    });
+  };
+  populatePresets();
+  modal.show(codeToImageContainer, { isAsync: true, size: 'full' });
 
   const initializeEditor = async (options: Preset) => {
     const ed = await deps.createEditor(getEditorOptions(options));
@@ -260,12 +335,13 @@ export const createCodeToImageUI = async ({
         // wait till the editor is rendered
         formData.width = (backgroundEl.offsetWidth / backgroundEl.parentElement!.offsetWidth) * 100;
         form[`code-to-img-width`].value = formData.width;
-      }, 50);
+      }, 150);
     } else {
       backgroundEl.style.width = formData.width + '%';
       edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
     }
   };
+
   const updateOptions = async (initialLoad = false) => {
     const formData = getFormData();
     editor.changeSettings(formData as any);
@@ -306,29 +382,10 @@ export const createCodeToImageUI = async ({
     }
   };
 
-  const applyPreset = (preset: Partial<Preset>) => {
-    const fullPreset: Preset = {
-      ...defaultPreset,
-      ...preset,
-    };
-    const keys = Object.keys(fullPreset) as Array<keyof Preset>;
-    keys
-      .filter((key) => form[`code-to-img-${key}`] != null)
-      .forEach((key) => {
-        const field = form[`code-to-img-${key}`];
-        if (field.type === 'checkbox') {
-          field.checked = fullPreset[key];
-        } else {
-          field.value = String(fullPreset[key]);
-        }
-      });
-    updateOptions();
-  };
-
   eventsManager.addEventListener(form, 'input', () => updateOptions());
   updateOptions(true);
 
-  eventsManager.addEventListener(window, 'resize', () => adjustSize(getFormData(), false));
+  eventsManager.addEventListener(window, 'resize', () => adjustSize(getFormData(), true));
 
   const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
 
@@ -405,10 +462,145 @@ export const createCodeToImageUI = async ({
 
 const presets: Array<Partial<Preset>> = [
   {
+    id: 'preset-7',
+    bg1: '#4a90e2',
+    bg2: '#c162f5',
+    bgDirection: 'to bottom left',
+    editorTheme: 'one-dark',
+    shadow: true,
+    windowStyle: 'mac',
+  },
+  {
+    id: 'preset-0',
+    bg1: '#f5f5dc',
+    bg2: '',
+    bgDirection: 'to bottom right',
+    editorTheme: 'dracula',
+    shadow: true,
+  },
+  {
+    id: 'preset-1',
     bg1: '#823bb9',
     bg2: '#f4a261',
     bgDirection: 'to bottom right',
     editorTheme: 'duotone-dark',
+    shadow: true,
+  },
+  {
+    id: 'preset-2',
+    bg1: '#48cae4',
+    bg2: '#f562f5',
+    bgDirection: 'to bottom right',
+    editorTheme: 'laserwave',
+    shadow: true,
+  },
+  {
+    id: 'preset-3',
+    bg1: '#e9c46a',
+    bg2: '#e76f51',
+    bgDirection: 'to bottom right',
+    editorTheme: 'dark',
+    shadow: true,
+  },
+  {
+    id: 'preset-4',
+    bg1: '#07a2a2',
+    bg2: '',
+    editorTheme: 'a11y-dark',
+    shadow: true,
+  },
+  {
+    id: 'preset-5',
+    bg1: '#4a90e2',
+    bg2: '',
+    editorTheme: 'dracula',
+    fontFamily: 'monaspace-radon',
+    shadow: false,
+  },
+  {
+    id: 'preset-6',
+    bg1: '#470044',
+    bg2: '',
+    editorTheme: 'synthwave84',
+  },
+  {
+    id: 'preset-9',
+    bg1: '#162435',
+    bg2: '',
+    padding: 0,
+    borderRadius: 0,
+    shadow: false,
+    editorTheme: 'coldark-dark',
+    windowStyle: 'none',
+    fontFamily: 'monaspace-krypton',
+  },
+  {
+    id: 'preset-11',
+    bg1: '#f4a261',
+    bg2: '#262626',
+    shadow: true,
+    editorTheme: 'tomorrow',
+    windowStyle: 'none',
+    fontFamily: 'nova-mono',
+  },
+  {
+    id: 'preset-12',
+    bg1: '#48cae4',
+    bg2: '#0096c7',
+    shadow: true,
+    editorTheme: 'shades-of-purple',
+    windowStyle: 'mac',
+    fontFamily: 'monofur',
+    fontSize: 16,
+  },
+  {
+    id: 'preset-13',
+    bg1: '#48cae4',
+    bg2: '#2a9d8f',
+    shadow: true,
+    editorTheme: 'holi-theme',
+    fontFamily: 'cascadia-code',
+  },
+  {
+    id: 'preset-15',
+    bg1: '#f2daa1',
+    bg2: '#998149',
+    shadow: true,
+    editorTheme: 'duotone-earth',
+    fontFamily: 'jetbrains-mono',
+  },
+  {
+    id: 'preset-14',
+    bg1: '#f2daa1',
+    bg2: '#998149',
+    shadow: true,
+    editorTheme: 'gruvbox-light',
+    fontFamily: 'jetbrains-mono',
+  },
+  {
+    id: 'preset-8',
+    bg1: '#494949',
+    bg2: '',
+    editorTheme: 'coldark-cold',
+    shadow: true,
+    windowStyle: 'windows',
+  },
+  {
+    id: 'preset-10',
+    bg1: '#cececc',
+    bg2: '#262626',
+    shadow: true,
+    editorTheme: 'vs',
+    windowStyle: 'none',
+    fontFamily: 'sf-mono',
+  },
+  {
+    id: 'preset-16',
+    bg1: '#ffffff',
+    bg2: '#e2efff',
+    shadow: true,
+    editorTheme: 'coy-without-shadows',
+    fontFamily: 'hack',
   },
 ];
 

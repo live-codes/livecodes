@@ -2314,7 +2314,6 @@ i.arrow {
 
     #code-to-img-preview-background {
       align-items: center;
-      background: beige;
       box-shadow: 0 0 0 0.5px grey; // simulate border but stay outside the element
       box-sizing: border-box;
       display: flex;
@@ -2388,6 +2387,41 @@ i.arrow {
         height: 1.2em;
         overflow: hidden;
       }
+    }
+
+    #presets-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+
+      .preset {
+        background-color: #ededed;
+        border: #a9a9a9 1px solid;
+        margin: 2px;
+        border-radius: 3px;
+        cursor: pointer;
+        padding: 0.5em;
+        padding-top: 0.2em;
+        width: 7em;
+        height: 5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.active {
+          border: var(--button-active-color) 3px solid;
+          margin: 0;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .accordion .title.active + #presets-container {
+      padding: 20px 0;
     }
 
     .color-picker-container {
