@@ -831,6 +831,7 @@ export interface AppData {
     serverUrl: string;
     userToken?: string;
   };
+  codeToImagePreset?: Record<string, any>;
 }
 
 /**
