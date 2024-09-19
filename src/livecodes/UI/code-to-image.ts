@@ -6,8 +6,8 @@ import type { CodeEditor, EditorOptions, FormatFn, UserConfig } from '../models'
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
-import { downloadFile, loadScript } from '../utils';
-import { htmlToImageUrl } from '../vendors';
+import { downloadFile, loadScript, loadStylesheet } from '../utils';
+import { colorisBaseUrl, htmlToImageUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
   EditorOptions,
@@ -114,6 +114,31 @@ export const createCodeToImageUI = async ({
     }
   });
 
+  import(colorisBaseUrl + 'esm/coloris.min.js').then((colorisModule) => {
+    const Coloris = colorisModule.default;
+    Coloris.init();
+    Coloris({
+      el: '#code-to-img-bg1',
+      parent: '.modal-container',
+      swatches: [
+        '#264653',
+        '#2a9d8f',
+        '#e9c46a',
+        '#f4a261',
+        '#e76f51',
+        '#d62828',
+        '#023e8a',
+        '#0077b6',
+        '#0096c7',
+        '#00b4d8',
+        '#48cae4',
+        '#f5f5dc',
+      ],
+    });
+    Coloris({ el: '#code-to-img-bg2' });
+  });
+  loadStylesheet(colorisBaseUrl + 'coloris.css');
+
   const editor = await initializeEditor(editorOptions);
 
   let formData: PreviewEditorOptions;
@@ -156,6 +181,11 @@ export const createCodeToImageUI = async ({
         edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
       }, 50);
     } else {
+      const color1 = formData.bg1 || '#f5f5dc';
+      const color2 = formData.bg2 || color1;
+      const direction = formData.bgDirection || 'to bottom';
+      backgroundEl.style.backgroundImage = `linear-gradient(${direction}, ${color1}, ${color2})`;
+
       backgroundEl.style.width = formData.width + '%';
       edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
 

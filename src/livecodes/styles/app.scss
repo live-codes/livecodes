@@ -2034,7 +2034,7 @@ i.arrow {
     font-weight: normal;
   }
 
-  input:not([type='radio']):not([type='checkbox']):not([type='range']),
+  input:not([type='radio']):not([type='checkbox']):not([type='range']):not(.clr-color),
   select {
     border: 1px solid rgb(169, 169, 169);
     border-radius: 5px;
@@ -2291,6 +2291,7 @@ i.arrow {
   #code-to-img-container {
     box-sizing: border-box;
     padding: 0 10px;
+    position: relative;
     width: 100%;
 
     .modal-screen {
@@ -2335,6 +2336,22 @@ i.arrow {
         overflow: hidden;
         padding: 1em;
         text-align: left;
+      }
+    }
+
+    .color-picker-container {
+      display: flex;
+      justify-content: space-between;
+      width: 73%;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      input.color-picker {
+        cursor: pointer;
+      }
+
+      #code-to-img-bgDirection {
+        width: 6em;
       }
     }
   }
