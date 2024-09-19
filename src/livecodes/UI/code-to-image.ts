@@ -38,7 +38,7 @@ export const createCodeToImageUI = async ({
   const div = document.createElement('div');
   div.innerHTML = codeToImageScreen;
   const codeToImageContainer = div.firstChild as HTMLElement;
-  modal.show(codeToImageContainer, { isAsync: true });
+  modal.show(codeToImageContainer, { isAsync: true, size: 'full' });
 
   const edirtorContainer = codeToImageContainer.querySelector<HTMLElement>(
     '#code-to-img-preview-container',
@@ -135,12 +135,10 @@ export const createCodeToImageUI = async ({
 
     editor.changeSettings(formData as any);
 
-    backgroundEl.style.paddingInline = formData.paddingHorizontal + 'px';
-    backgroundEl.style.paddingBlock = formData.paddingVertical + 'px';
-
-    form['code-to-img-width'].max =
-      backgroundEl.parentElement!.offsetWidth - 2 * formData.paddingHorizontal;
-    edirtorContainer.style.width = formData.width + 'px';
+    backgroundEl.style.padding = formData.padding + 'px';
+    backgroundEl.style.margin = 64 - formData.padding + 'px';
+    backgroundEl.style.width = formData.width + '%';
+    edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
   };
 
   eventsManager.addEventListener(form, 'input', () => updateOptions());
@@ -152,7 +150,9 @@ export const createCodeToImageUI = async ({
     saveBtn.disabled = true;
     const htmlToImage: any = await htmlToImagePromise;
 
-    const container = edirtorContainer.parentElement!;
+    const container = backgroundEl;
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
     const scale = formData.scale || 1;
 
     const methodNames: any = {
@@ -162,13 +162,13 @@ export const createCodeToImageUI = async ({
     };
     htmlToImage[methodNames[formData.format] || 'toPng'](container, {
       quality: 1,
-      width: container.offsetWidth * scale,
-      height: container.offsetHeight * scale,
+      width: width * scale,
+      height: height * scale,
       style: {
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
-        width: `${container.offsetWidth}px`,
-        height: `${container.offsetHeight}px`,
+        width: `${width}px`,
+        height: `${height}px`,
       },
     })
       .then(function (dataUrl: string) {

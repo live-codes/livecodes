@@ -1593,6 +1593,11 @@ i.arrow {
     width: 400px;
   }
 
+  &.full {
+    height: calc(100vh - 50px);
+    width: calc(100vw - 50px);
+  }
+
   span.code {
     background-color: rgb(231, 231, 231);
     border: 1px solid rgb(191, 191, 191);
@@ -2284,6 +2289,10 @@ i.arrow {
   }
 
   #code-to-img-container {
+    box-sizing: border-box;
+    padding: 0 10px;
+    width: 100%;
+
     .modal-screen {
       position: relative;
     }
@@ -2296,20 +2305,18 @@ i.arrow {
     }
 
     #code-to-img-preview-background {
-      background: beige;
-      max-height: 1500px;
-      max-width: 100%;
-      min-width: 300px;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
+      background: beige;
       border: 1px solid gray;
       border-radius: 5px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      max-height: 1500px;
+      max-width: 100%;
     }
 
     #code-to-img-preview-container {
-      max-width: 100%;
       border-radius: 15px;
       box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
     }
@@ -2654,9 +2661,6 @@ i.arrow {
         width: 100%;
       }
     }
-  }
-
-  #code-to-img-container {
   }
 
   .overflow-ellipsis {
