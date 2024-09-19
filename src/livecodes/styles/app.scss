@@ -2298,11 +2298,18 @@ i.arrow {
       position: relative;
     }
 
-    #code-to-img-format-link {
+    .code-link {
       font-size: 0.9em;
       position: absolute;
-      right: 10%;
       top: 0.75em;
+
+      &#code-to-img-format-link {
+        right: 10%;
+      }
+
+      &#code-to-img-copy-link {
+        right: calc(10% + 5em);
+      }
     }
 
     #code-to-img-preview-background {

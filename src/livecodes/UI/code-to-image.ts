@@ -6,7 +6,7 @@ import type { CodeEditor, Config, EditorId, EditorOptions, FormatFn, UserConfig 
 import { codeToImageScreen } from '../html';
 import { fonts } from '../editor/fonts';
 import { prismThemes } from '../editor/codejar/prism-themes';
-import { downloadFile, loadScript, loadStylesheet } from '../utils';
+import { copyToClipboard, downloadFile, loadScript, loadStylesheet } from '../utils';
 import { colorisBaseUrl, htmlToImageUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
@@ -90,6 +90,20 @@ export const createCodeToImageUI = async ({
       (ev) => {
         ev.preventDefault();
         ed.format();
+      },
+    );
+
+    eventsManager.addEventListener(
+      codeToImageContainer.querySelector<HTMLElement>('#code-to-img-copy-link'),
+      'click',
+      (ev) => {
+        ev.preventDefault();
+        const code = ed.getValue();
+        if (copyToClipboard(code)) {
+          notifications.success('Code copied to clipboard!');
+        } else {
+          notifications.error('Failed to copy code to clipboard');
+        }
       },
     );
     return ed;
@@ -189,12 +203,12 @@ export const createCodeToImageUI = async ({
           value === 'true'
             ? true
             : value === 'false'
-            ? false
-            : value === ''
-            ? undefined
-            : !isNaN(Number(value))
-            ? Number(value)
-            : value,
+              ? false
+              : value === ''
+                ? undefined
+                : !isNaN(Number(value))
+                  ? Number(value)
+                  : value,
       }),
       {} as PreviewEditorOptions,
     );
