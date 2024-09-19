@@ -49,7 +49,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   preElement.appendChild(codeElement);
 
   container.classList.add('prism');
-  if (!readonly) {
+  if (!readonly && editorId !== 'codeToImage') {
     container.classList.add('codejar');
     preElement.addEventListener('click', () => {
       currentPosition = getPosition();

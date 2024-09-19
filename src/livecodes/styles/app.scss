@@ -2339,6 +2339,25 @@ i.arrow {
       }
     }
 
+    #code-to-img-window-controls {
+      display: none;
+      gap: 1em;
+      justify-content: space-between;
+      margin-bottom: 1em;
+
+      .window-buttons {
+        visibility: hidden;
+      }
+
+      .window-title {
+        outline: none;
+        min-width: 7em;
+        text-align: center;
+        height: 1.2em;
+        overflow: hidden;
+      }
+    }
+
     .color-picker-container {
       display: flex;
       justify-content: space-between;
