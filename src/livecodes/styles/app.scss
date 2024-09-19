@@ -2342,8 +2342,31 @@ i.arrow {
       }
     }
 
+    #code-to-img-watermark {
+      position: absolute;
+      bottom: 0.5em;
+      right: 0.5em;
+      font-size: 0.8em;
+      transform: scale(0.8);
+      transform-origin: bottom right;
+      background-color: #ededed;
+      border: #a9a9a9 1px solid;
+      border-radius: 3px;
+      padding: 0.5em;
+      padding-top: 0.2em;
+
+      &.shadow {
+        box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
+      }
+
+      img {
+        height: 2em;
+        margin-bottom: -0.7em;
+      }
+    }
+
     #code-to-img-window-controls {
-      display: none;
+      display: flex;
       gap: 1em;
       justify-content: space-between;
       margin-bottom: 1em;
