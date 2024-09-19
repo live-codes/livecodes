@@ -48,26 +48,6 @@ let codeiumProvider: { dispose: () => void } | undefined;
 // track editors for providing context for AI
 let editors: Monaco.editor.IStandaloneCodeEditor[] = [];
 
-loadStylesheet(monacoBaseUrl + 'monaco-editor.css', 'monaco-editor-styles');
-
-self.MonacoEnvironment = {
-  getWorkerUrl(_moduleId, label) {
-    if (label === 'json') {
-      return getWorkerDataURL(monacoBaseUrl + 'json.worker.js');
-    }
-    if (label === 'css' || label === 'scss' || label === 'less') {
-      return getWorkerDataURL(monacoBaseUrl + 'css.worker.js');
-    }
-    if (label === 'html' || label === 'handlebars' || label === 'razor') {
-      return getWorkerDataURL(monacoBaseUrl + 'html.worker.js');
-    }
-    if (label === 'typescript' || label === 'javascript') {
-      return getWorkerDataURL(monacoBaseUrl + 'ts.worker.js');
-    }
-    return getWorkerDataURL(monacoBaseUrl + 'editor.worker.js');
-  },
-};
-
 export const createEditor = async (options: EditorOptions): Promise<CodeEditor> => {
   const {
     container,
@@ -83,7 +63,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
   } = options;
   if (!container) throw new Error('editor container not found');
 
-  const loadMonaco = () => import(monacoBaseUrl + 'monaco-editor.js');
+  const loadMonaco = () => import(monacoBaseUrl + 'monaco.js');
 
   let editorMode: any | undefined;
 
@@ -110,7 +90,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
         : mapLanguage(language);
 
   try {
-    (window as any).monaco = (window as any).monaco || (await loadMonaco());
+    (window as any).monaco = (window as any).monaco || (await loadMonaco()).monaco;
     monaco = (window as any).monaco;
   } catch {
     throw new Error('Failed to load monaco editor');
