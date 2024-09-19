@@ -11,11 +11,13 @@ import { htmlToImageUrl } from '../vendors';
 
 type PreviewEditorOptions = Pick<
   EditorOptions,
-  'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers'
+  'container' | 'editorTheme' | 'fontFamily' | 'fontSize' | 'lineNumbers' | 'wordWrap'
 > & {
   format: 'png' | 'jpg' | 'svg';
   width: number;
   padding: number;
+  borderRadius: number;
+  shadow: boolean;
   scale: number;
 };
 
@@ -58,9 +60,12 @@ export const createCodeToImageUI = async ({
     fontFamily: 'fira-code',
     fontSize: 14,
     lineNumbers: false,
+    wordWrap: true,
     format: 'png',
     width: 70,
     padding: 48,
+    borderRadius: 5,
+    shadow: true,
     scale: 1,
   };
 
@@ -112,7 +117,7 @@ export const createCodeToImageUI = async ({
   const editor = await initializeEditor(editorOptions);
 
   let formData: PreviewEditorOptions;
-  const updateOptions = async () => {
+  const updateOptions = async (initialLoad = false) => {
     formData = Array.from(new FormData(form)).reduce(
       (acc, [name, value]) => ({
         ...acc,
@@ -141,12 +146,29 @@ export const createCodeToImageUI = async ({
 
     backgroundEl.style.padding = formData.padding + 'px';
     backgroundEl.style.margin = 64 - formData.padding + 'px';
-    backgroundEl.style.width = formData.width + '%';
-    edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
+    if (initialLoad) {
+      setTimeout(() => {
+        // wait till the editor is rendered
+        formData.width = (backgroundEl.offsetWidth / backgroundEl.parentElement!.offsetWidth) * 100;
+        form[`code-to-img-width`].value = formData.width;
+
+        edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
+      }, 50);
+    } else {
+      backgroundEl.style.width = formData.width + '%';
+      edirtorContainer.style.width = backgroundEl.offsetWidth - formData.padding * 2 + 'px';
+
+      backgroundEl.style.borderRadius = formData.borderRadius + 'px';
+      edirtorContainer.style.borderRadius = formData.borderRadius + 'px';
+      edirtorContainer.querySelector('pre')!.style.borderRadius = formData.borderRadius + 'px';
+      edirtorContainer.querySelector('code')!.style.borderRadius = formData.borderRadius + 'px';
+
+      edirtorContainer.classList.toggle('shadow', Boolean(formData.shadow));
+    }
   };
 
   eventsManager.addEventListener(form, 'input', () => updateOptions());
-  updateOptions();
+  updateOptions(true);
 
   const htmlToImagePromise = loadScript(htmlToImageUrl, 'htmlToImage');
   const saveBtn = codeToImageContainer.querySelector<HTMLButtonElement>('#code-to-img-save-btn')!;

@@ -2317,8 +2317,22 @@ i.arrow {
     }
 
     #code-to-img-preview-container {
-      border-radius: 15px;
-      box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+
+      &.shadow {
+        box-shadow: 0 20px 68px rgba(0, 0, 0, 0.55);
+      }
+
+      code {
+        overflow: hidden;
+      }
+
+      pre {
+        border-radius: 5px;
+        overflow: hidden;
+        padding: 1em;
+        text-align: left;
+      }
     }
   }
 
