@@ -78,6 +78,9 @@ export const createCodeToImageUI = async ({
 
   const initializeEditor = async (options: PreviewEditorOptions) => {
     const ed = await deps.createEditor(options);
+    if (ed.getValue().trim() === '') {
+      ed.setLanguage('tsx', defaultCode);
+    }
     deps.getFormatFn().then((fn) => {
       setTimeout(() => {
         ed.registerFormatter(fn);
@@ -357,3 +360,18 @@ export const createCodeToImageUI = async ({
 };
 
 const presets = [{ bg1: '#823bb9', bg2: '#f4a261', theme: 'doutone-dark' }];
+
+const defaultCode = `
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  const handleClick = () => setCount(count + 1);
+  return (
+    <div>
+      <p>You clicked {count} times.</p>
+      <button onClick={handleClick}>Click me</button>
+    </div>
+  );
+}
+`.trimStart();
