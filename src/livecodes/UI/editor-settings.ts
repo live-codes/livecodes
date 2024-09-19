@@ -64,7 +64,7 @@ export const createEditorSettingsUI = async ({
       name: 'enableAI',
       options: [{ value: 'true' }],
       help: `${process.env.DOCS_BASE_URL}features/ai`,
-      note: `Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="${process.env.DOCS_BASE_URL}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>`,
+      note: `Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="${baseUrl}assets/images/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>`,
     },
     {
       title: 'Editor',
