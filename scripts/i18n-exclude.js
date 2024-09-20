@@ -16,6 +16,8 @@ const TS_NOCHECK = `// @ts-nocheck
 const localesDir = path.resolve('src/livecodes/i18n/locales');
 
 const excludeLocales = () => {
+  if (process.env.BUILD_INCLUDE_LOCALES === 'true') return;
+
   const phase = process.argv[2];
   console.log(`Running i18n-exclude in ${phase} phase`);
 
@@ -31,20 +33,18 @@ const excludeLocales = () => {
       .map((file) => path.join(dir, file));
 
     for (const file of tsFiles) {
-      if (process.env.BUILD_INCLUDE_LOCALES !== 'true') {
-        let content = fs.readFileSync(file, 'utf8');
+      let content = fs.readFileSync(file, 'utf8');
 
-        if (phase === 'pre') {
-          if (!content.startsWith(TS_NOCHECK)) {
-            // Only add the comment if it doesn't exist
-            content = TS_NOCHECK + content;
-          }
-        } else if (phase === 'post') {
-          content = content.replace(TS_NOCHECK, '');
+      if (phase === 'pre') {
+        if (!content.startsWith(TS_NOCHECK)) {
+          // Only add the comment if it doesn't exist
+          content = TS_NOCHECK + content;
         }
-
-        fs.writeFileSync(file, content, 'utf8');
+      } else if (phase === 'post') {
+        content = content.replace(TS_NOCHECK, '');
       }
+
+      fs.writeFileSync(file, content, 'utf8');
     }
   });
 };

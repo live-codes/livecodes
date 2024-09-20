@@ -15,7 +15,6 @@ const projectID = process.env.LOKALISE_PROJECT_ID;
 
 /**
  * Expand the flattened translation object (KV pairs) to a nested object.
- * @param {string} language Current language.
  * @param {string} source Path to the source file.
  * @param {Set<string>} validKeys Set of valid keys.
  * @returns object

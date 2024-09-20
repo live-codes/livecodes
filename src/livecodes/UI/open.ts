@@ -91,8 +91,8 @@ export const createOpenItem = (
   const setAsDefault = document.createElement('div');
   setAsDefault.classList.add('template-default');
 
-  const iconTemplate = document.createElement('span');
-  iconTemplate.innerHTML = '<i class="icon-file-template"></i>';
+  const iconTemplate = document.createElement('i');
+  iconTemplate.classList.add('icon-file-template');
   setAsDefault.appendChild(iconTemplate);
 
   const setAsDefaultLink = document.createElement('span');
@@ -110,7 +110,7 @@ export const createOpenItem = (
 
   const removeDefaultLink = document.createElement('span');
   removeDefaultLink.innerText = window.deps.translateString('open.removeDefault', '(unset)');
-  removeDefaultLink.classList.add('template-remove-default-link');
+  removeDefaultLink.classList.add('template-remove-default-link', 'delete');
   defaultTemplateLabel.appendChild(removeDefaultLink);
 
   if (isTemplate) {
