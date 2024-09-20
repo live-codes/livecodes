@@ -82,7 +82,7 @@ body:
       label: Configuration
       description: Project configuration (App menu → Export → Export Project (JSON)) or embed options.
   - type: textarea
-    id: context
+    id: logs
     attributes:
       label: Console logs
       description: Provide console logs or screenshots for console.

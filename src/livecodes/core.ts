@@ -4196,6 +4196,10 @@ const translateStringMock = <Key extends I18nKeyType, Value extends string>(
 };
 
 const setAppLanguage = (reload: boolean = false) => {
+  const lang = i18n?.getLanguage() ?? 'en';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
+  if (isEmbed || params.appLanguage) return;
   const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
     Object.keys(obj).reduce((acc, key) => {
       const value = obj[key];
@@ -4205,11 +4209,9 @@ const setAppLanguage = (reload: boolean = false) => {
       return { ...acc, [`${prefix}${key}`]: value };
     }, {});
 
-  const lang = i18n?.getLanguage() ?? 'en';
   const i18nSplashData =
     !isEmbed && i18n ? flatten(i18n.translateKey('splash', { returnObjects: true })) : {};
 
-  document.documentElement.lang = lang;
   parent.postMessage(
     {
       args: 'i18n',
