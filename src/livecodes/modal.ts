@@ -52,7 +52,7 @@ export const createModal = (translate: (container: HTMLElement) => void) => {
 
     const cornerCloseBtn = document.createElement('div');
     cornerCloseBtn.classList.add('close-button');
-    const iconCSS = '<span class="icon-close-button"></span>';
+    const iconCSS = '<span class="icon-close"></span>';
     cornerCloseBtn.innerHTML = iconCSS;
     cornerCloseBtn.title = 'Esc';
     cornerCloseBtn.onclick = close;

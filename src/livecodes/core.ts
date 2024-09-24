@@ -3942,7 +3942,7 @@ const handleResultPopup = () => {
     'Show result in new window',
   );
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<span class="icon-window-new"></span>';
+  const iconCSS = '<i class="icon-window-new"></i>';
   popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
   let url: string | undefined;
   const openWindow = async () => {
@@ -4012,7 +4012,7 @@ const handleBroadcastStatus = () => {
     'Broadcast',
   );
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const iconCSS = '<span class="icon-broadcast"></span>';
+  const iconCSS = '<i class="icon-broadcast"></i>';
   broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
 
   const showBroadcast = () => {

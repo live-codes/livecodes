@@ -1,22 +1,18 @@
 <div id="about-container" class="modal-container">
   <div class="modal-title" data-i18n="about.heading">About LiveCodes</div>
   <div id="about-screen-container" class="modal-screen-container">
-    <div class="modal-section" id="about-logo">
-      <a
-        href="/"
-        id="logo"
+
+    <!-- <div class="modal-screen"> -->
+
+    <div class="modal-section">
+      <div id="about-logo"
         title="LiveCodes: Code playground that runs in the browser!"
         data-i18n="app.logo.title"
         data-i18n-prop="title"
       >
-        <img
-          alt="LiveCodes Logo"
-          src="{{baseUrl}}assets/images/livecodes-logo.svg"
-          width="24"
-          height="auto"
-          loading="lazy"
-        />
-      </a>
+        <svg class="livecodes-logo" width="1em" height="1em" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#fff" fill-rule="evenodd" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="C" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#d7d7d7"/><stop offset="1" stop-color="#626262"/></linearGradient></defs><g transform="matrix(.72582 0 0 .7127 -3.3 -4.8)"><path d="m27.3 43.3-11.1-9.1c-2.8-2.3-7.5-5.4-7.4-8.7 0-3.6 4.6-6.5 7.4-9.1l11-8.9v8.6l-11 9.1 11 9.8v8.3Z" fill="#d8d8d8" paint-order="stroke"/><path d="m51.9 43.3 11-9.1c2.8-2.3 7.5-5.4 7.4-8.7 0-3.6-4.6-6.5-7.4-9.1L52 7.5v8.6l11 9.1L52 35v8.3Z" fill="#d8d8d8" paint-order="stroke" transform-origin="61.083px 25.444px"/></g><g transform="matrix(.06081 0 0 .0597 25.3 8.1)"><path d="M0 86.7-142 0 0-86.6 142.3 0ZM-142.8.1.1 87.2 143 0v174.5L0 261.9v-.2l-142.9-87.3Z" paint-order="stroke" shape-rendering="optimizespeed"/></g><g transform="matrix(.06081 0 0 .0597 25.3 10.6)" fill="url(#C)"><path d="M76-1.3-.5-48-77.3-1.3-.6 45.6 76.1-1.3ZM-78 93.7l76.8 46.9V46.9L-78 0v93.7ZM0 140.6l77-47V0L0 46.9v93.7Z" paint-order="stroke" shape-rendering="optimizespeed"/></g><g transform="matrix(.06081 0 0 .0597 16.3 2.6)" stroke="none"><path d="M290.1 87 147.3 0 4.5 87 0 90v180L147.5 360l4.5-2.8L295 270V90l-4.9-2.9Zm-4.5 177.3-133.8 81.8V182.6l134-81.6-.2 163.3Zm-142.8 81.8-134-81.8V101l134 81.6v163.5ZM13.6 92.7l133.7-81.5L281 92.7l-133.7 81.5L13.5 92.7h.1Z" fill="#444" paint-order="stroke" shape-rendering="optimizespeed"/><path d="m225.4 126.6-78-47.4-78.1 47.4-4.5 2.9v100.9l82.5 50.4 4.5-2.7 78.2-47.7v-101l-4.6-2.8Zm-4.6 98.1-69 42.2v-84.2l69.1-42v84Zm-78 42.2-69.1-42.2v-84l69.1 42V267ZM78.4 132.2l69-41.9 68.8 42-68.9 42-69-42h.1Z" paint-order="stroke" shape-rendering="optimizespeed"/></g></svg>
+      </div>
+
       <h3 data-i18n="about.version.heading">Version</h3>
       <ul>
         <li data-i18n="about.version.app">App version: {{APP_VERSION}}</li>
@@ -55,9 +51,11 @@
         A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive
         documentation is available with code examples, live demos, and screenshots.
       </p>
+      <p>Livecodes is made possible by open source projects and other open source software.</p>
+      <p>2024 © Hatem Hosny<br />Livecodes is licensed under MIT License.</p>
     </div>
 
-    <div class="modal-section">
+<!--     <div class="modal-section">
       <h3 data-i18n="about.documentations.heading">Documentations</h3>
       <ul>
         <li>
@@ -175,37 +173,129 @@
           >
         </li>
       </ul>
-    </div>
+    </div> -->
 
     <div class="modal-section">
       <h3 data-i18n="about.livecodes.credits">Contributors</h3>
-
-      <p>
-        Original developer, project admin:<br />
-        * Name - contact:email or github
-      </p>
-
-      <p>
-        Project lead<br />
-        * Name - contact:email or github
-      </p>
-      <p>
-        Developers<br />
-        * Name - contact:email or github
-      </p>
-
-      <h3>Localization</h3>
-      <p>Arabic<br />* Arabic, Name - contact:email or github</p>
-      <p>Chinese<br />* Arabic, Name - contact:email or github</p>
-      <p>English<br />* Arabic, Name - contact:email or github</p>
-      <p>French<br />* Arabic, Name - contact:email or github</p>
+        <ul style="font-size:var(--s14)">
+          <li>Project lead, Name, contact github</li>
+          <li>Developer, Name, contact github</li>
+          <li>Developer, Name, contact github</li>
+        </ul>
+        <h3>Localization</h3>
+        <ul style="font-size:var(--s14)">
+          <li>Arabic, Name, contact github</li>
+          <li>Chinese, Name, contact github</li>
+          <li>French, Name, contact github</li>
+        </ul>
     </div>
 
-    <div class="modal-screen">
-      <p>
-        2024 MIT<br />Livecodes is licensed under MIT License<br />
-        Livecodes is made possible by open source projects and other open source software.
-      </p>
+    <div class="modal-section">
+      <h3 data-i18n="welcome.about.heading">About LiveCodes</h3>
+      <ul class="modal-docs">
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}"
+            target="_blank"
+            rel="noopener"
+            data-i18n="welcome.about.documentation"
+            >Documentation</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}getting-started"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.gettingStarted"
+            >Getting Started</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}configuration"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.configuration"
+            >Configuration</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}sdk"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.sdk"
+            >LiveCodes SDK</a
+          >
+        </li>
+      </ul>
+      <h3>Support</h3>
+      <div class="welcome-support">
+        <div>
+          <a
+            href="{{DOCS_BASE_URL}}sponsor"
+            target="_blank"
+            rel="noopener"
+            title="Sponsor LiveCodes"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="m11.792 21.712l-8.51-8.51L9.68 6.806l3.265 3.265l1.22-1.219L8.39 3.079L1.854 9.616l1.244 1.244l-.713.713L.439 9.627l7.963-7.964l3.215 3.216l3.235-3.235l8.504 8.504zm-.013-1.416l10.137-10.148l-7.07-7.07l-2.502 2.503l3.266 3.265l-2.666 2.666L9.66 8.227l-4.974 4.975l1.244 1.244l3.821-3.821l.708.708l-3.821 3.82l1.238 1.24l4.052-4.052l.714.713l-4.053 4.052l1.239 1.238l4.052-4.052l.708.708l-4.052 4.052zm-3.67-12.44"
+              /></svg
+            ><br /><span data-i18n="generic.about.sponsor">Sponsor</span></a
+          >
+        </div>
+        <div>
+          <a
+            href="https://blog.livecodes.io"
+            target="_blank"
+            rel="noopener"
+            title="LiveCodes Blog"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              >
+                <path d="M3 4v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-4" />
+                <path d="M3 4h14v14a2 2 0 0 0 2 2v0M13 8H7m6 4H9" />
+              </g>
+            </svg>
+            <br /><span data-i18n="generic.about.blog">Blog</span></a
+          >
+        </div>
+        <div>
+          <a
+            href="https://twitter.com/livecodes_io"
+            target="_blank"
+            rel="noopener"
+            title="𝕏 / Twitter"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M8 2H1l8.26 11.015L1.45 22H4.1l6.388-7.349L16 22h7l-8.608-11.478L21.8 2h-2.65l-5.986 6.886zm9 18L5 4h2l12 16z"
+              /></svg
+            ><br /><span data-i18n="generic.about.twitter">𝕏 / Twitter</span></a
+          >
+        </div>
+        <div>
+          <a href="{{REPO_URL}}" target="_blank" rel="noopener" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M12 1A10.89 10.89 0 0 0 1 11.77A10.79 10.79 0 0 0 8.52 22c.55.1.75-.23.75-.52v-1.83c-3.06.65-3.71-1.44-3.71-1.44a2.86 2.86 0 0 0-1.22-1.58c-1-.66.08-.65.08-.65a2.31 2.31 0 0 1 1.68 1.11a2.37 2.37 0 0 0 3.2.89a2.33 2.33 0 0 1 .7-1.44c-2.44-.27-5-1.19-5-5.32a4.15 4.15 0 0 1 1.11-2.91a3.78 3.78 0 0 1 .11-2.84s.93-.29 3 1.1a10.68 10.68 0 0 1 5.5 0c2.1-1.39 3-1.1 3-1.1a3.78 3.78 0 0 1 .11 2.84A4.15 4.15 0 0 1 19 11.2c0 4.14-2.58 5.05-5 5.32a2.5 2.5 0 0 1 .75 2v2.95c0 .35.2.63.75.52A10.8 10.8 0 0 0 23 11.77A10.89 10.89 0 0 0 12 1"
+              /></svg
+            ><br /><span data-i18n="generic.about.github">GitHub</span></a
+          >
+        </div>
+      </div>
     </div>
+    <!-- </div> -->
   </div>
 </div>

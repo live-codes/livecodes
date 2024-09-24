@@ -1,0 +1,95 @@
+:root.light {
+
+  --hue: 14;
+  --st: 70%;
+  --lt: 55%;
+
+  --uidir: ltr; // TODO ----- REMOVE UI CSS VARS TEST
+  --uifocus: visible;
+
+  --color1: hsl(var(--hue), 50%, 35%);
+  --color2: hsl(var(--hue), 50%, 45%);
+  --color3: hsl(var(--hue), 50%, 50%);
+  --color4: hsl(var(--hue), 50%, 55%);
+  --color5: hsl(var(--hue), 50%, 60%);
+
+  --layout: hsl(var(--hue), 50%, 97%);
+  --bg-element: hsl(var(--hue), 50%, 90%);
+  --bg-active: hsl(var(--hue), 50%, 90%);
+  --modal: hsl(var(--hue), 25%, 95%);
+
+  --default: var(--color2);
+  --default-bg: var(--color2);
+  --active: hsl(var(--hue), 95%, 95%);
+  --active-bg: hsl(var(--hue), 55%, 35%);
+
+  --disabled: 0.5; // opacity
+
+  --link: hsl(var(--hue), 65%, 55%);
+  --light: hsl(var(--hue), 70%, 55%);
+  --color: hsl(var(--hue), 50%, 55%);
+
+  --dropdown-active: var(--color);
+
+  --switch-on-color: var(--color);
+  /*  --menu-bg-active: var(--o1);
+
+  --project-title-bg-color: #f2f2f2;
+  --project-title-color: var(--menu-color);
+
+  --console-bg: rgb(246, 248, 250); // console
+  --modal-results-bg: rgb(246, 248, 250); // modal results
+
+  --gutter-split-bg-color: #ebebeb;
+  --gutter-split-bg-handle: #2d3039;
+
+  --button-color: rgb(118, 119, 120);
+  --button-hover-color: rgb(130, 130, 130);
+  --button-active-color: rgb(155, 159, 163);
+  --button-active-hover-color: rgb(155, 159, 163);
+  --language-menu-bg-color: rgb(151, 155, 160);
+  --language-menu-bg-hover: rgb(188, 194, 201);
+  --language-menu-bg-active: rgb(33, 150, 243, 0.5);
+  --language-menu-bg-active-hover: rgb(33, 150, 243, 0.8);
+  --scrollbar-color: var(--o2);
+  --scrollbar-hover-color: var(--o4);
+  --scrollbar-active-color: var(--o5);
+
+  --toolspane-bar-text-color: rgb(68, 72, 87);
+  --toolspane-buttons-text-color: var(--link, rgb(237, 237, 237));
+  --toolspane-button-color: #ebebeb; // #bcc2c9;
+  --toolspane-accent-color: var(--o5); // rgb(26, 132, 154);
+  --toolspane-non-accent-color: rgb(188, 194, 201);
+
+  --console-background-color: rgb(248, 248, 248);
+  --tests-bg-color: rgb(237, 237, 237);
+  --test-results-background-color: rgb(225, 225, 225, 0.7);
+  --test-results-border: 1px solid rgb(128, 128, 128);
+  --test-pass-color: rgb(60 180 0);
+  --test-fail-color: rgb(255, 0, 0);
+
+  --size-label-background: var(--c2);
+  --size-label-border: var(--c3);
+  --size-label-color: var(--link);
+
+  --menu-bg-color: #ebebeb;
+  --menu-border: 1px solid rgb(204, 204, 204);
+  --menu-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.175);
+  --menu-split-color: rgb(204, 204, 204);
+  --menu-bg-active: var(--o2, rgb(231, 248, 255));
+  --menu-active: rgb(34, 34, 34);
+
+  --submenu-arrow-color: rgb(128, 128, 128);
+
+  --switch-off-color: rgb(204, 204, 204);
+  --switch-on-color: var(--c4, var(--active));
+  --switch-indeterminate-color: rgb(122, 194, 209);
+  --switch-background-color: rgb(255, 255, 255);
+  --overlay-background-color: rgb(0, 0, 0);
+  --modal-background-color: rgb(245, 245, 245);
+  --modal-text-color: #111;
+  --custom-editor-background-color: rgb(255, 255, 255);
+  --custom-editor-loading-color: rgb(30, 30, 30);
+
+  --editor-tools-mark-color: rgb(119, 53, 53); */
+}

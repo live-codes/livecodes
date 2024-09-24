@@ -1,0 +1,111 @@
+html[dir='rtl'] {
+  #editors,
+  #tools-pane,
+  .custom-editor {
+    direction: ltr;
+  }
+
+  #app-menu-container-project {
+    right: 3rem;
+  }
+
+  #app-menu-container-settings {
+    right: 7.35rem;
+  }
+
+  #app-menu-container-help {
+    right: 13rem;
+  }
+
+  @media only screen and (max-width: 1179px) {
+    #app-menu-container-project {
+      right: 3em;
+    }
+
+    #app-menu-container-settings {
+      right: 5em;
+    }
+
+    #app-menu-container-help {
+      right: 7em;
+    }
+  }
+
+  // TODO override ::after
+  /*  a[target=_blank]::before {
+      content: "↗";
+      display: inline-block;
+      margin: 0 .3em;
+      width: .7em;
+    } */
+
+  .actions {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: var(--rs);
+    border-top-left-radius: var(--rs);
+    border-top-right-radius: 0;
+  }
+
+  i.arrow {
+    left: -6px;
+    transform: rotate(180deg);
+  }
+
+  .submenu {
+    right: 98%;
+  }
+
+  .hint--left::after,
+  .hint--left::before {
+    left: 100%;
+    right: unset;
+  }
+
+  .hint--right::after,
+  .hint--right::before {
+    left: unset;
+    right: 100%;
+  }
+
+  .close-button {
+    left: 1.5rem;
+    right: unset;
+  }
+
+  .indent {
+    margin-left: unset;
+    margin-right: 1em;
+  }
+
+  select {
+    background-position: 2% 50%;
+  }
+
+  .input-container .radio-label {
+    padding-left: unset;
+    padding-right: var(--s8);
+  }
+
+  .input-container > span {
+    margin-left: 1.5em;
+    margin-right: unset;
+  }
+
+  @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+    input[type=checkbox] + label,
+    input[type=radio] + label {
+      margin-left: unset;
+      margin-right: 4px;
+    }
+  }
+
+  #share-screen ul li .share-image-container {
+    //.share-image-container {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: var(--rs);
+    border-top-left-radius: unset;
+    border-top-right-radius: var(--rs);
+    margin-left: var(--s16);
+    margin-right: unset;
+  }
+}
