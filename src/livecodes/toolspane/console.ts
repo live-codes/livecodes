@@ -221,18 +221,16 @@ export const createConsole = (
 
     const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
-      const btnContainer = document.createElement('span');
-      btnContainer.classList.add('hint--top-left');
-      btnContainer.dataset.hint = window.deps.translateString(
+      clearButton = document.createElement('button');
+      clearButton.classList.add('console-clear-button','hint--top-left');
+      clearButton.dataset.hint = window.deps.translateString(
         'toolspane.console.clear',
         'Clear console',
       );
-
-      clearButton = document.createElement('button');
-      clearButton.classList.add('clear-button');
-      const iconCSS = '<span class="icon-delete-button"></span>';
+      const iconCSS = '<i class="icon-delete"></i>';
       clearButton.innerHTML = iconCSS;
       clearButton.style.display = 'none';
+
       eventsManager.addEventListener(
         clearButton,
         'click',
@@ -251,8 +249,7 @@ export const createConsole = (
         },
         false,
       );
-      btnContainer.appendChild(clearButton);
-      toolsPaneButtons.prepend(btnContainer);
+      toolsPaneButtons.prepend(clearButton);
     }
   };
 

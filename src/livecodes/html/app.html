@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -36,7 +36,6 @@
       }
     </script>
   </head>
-
   <body>
     <div id="container">
       <div id="toolbar">
@@ -128,6 +127,7 @@
             >
               <i class="icon-share"></i>
             </a>
+            <div class="enable-motion"></div>
             <a
               href="javascript:void(0)"
               id="result-button"
@@ -307,6 +307,142 @@
     <script type="module">
       import { app } from '{{baseUrl}}{{script}}';
       window.app = app;
+    </script>
+    <script
+    src="https://unpkg.com/@yaireo/knobs@latest"
+    crossorigin="anonymous"
+    ></script>
+    <script>
+      window.parent.frames['app'].document.style = "--uifocus: hidden;"
+      var settings = {
+        theme: {
+          flow: 'compact',
+          position: 'bottom right',
+          styles      : `html,body{background:#151718;border:1px solid #252728;border-radius:8px;}.knobs{--toggleSize:32px;--toggleOffset:0;}.knobs>label{padding:4px!important;}#knobsToggle:checked+.knobs[data-position~=bottom]>label{left:.5em;top:.25em!important;}.knobs__groups{margin-top:1rem;!important;}.knobs__controls{width:50%;}.knobs__controls>input{margin:0 auto 0 -.5em;}.poweredBy{display:none}`,
+          border      : '2px solid #252728;'
+        },
+        // live: false, // should update immediately (default true)
+        knobsToggle: true,
+        persist: 0, // persist changes using localstorage
+        visible: 0, // 0 - starts as hidden, 1 - starts as visible, 2 - always visible
+        CSSVarTarget: document.querySelector('html'),
+        knobs: [
+          "Monochromatic Color Scheme",
+          {
+            cssVar: ['hue'],
+            label: 'Hue: 0 red, 120 green, 214 blue',
+            type: 'range',
+            value: 214,
+            min: 0,
+            max: 360,
+            onChange: console.log
+          },
+          {
+            cssVar: ['st', '%'],
+            label: 'Saturation',
+            type: 'range',
+            value: 70,
+            min: 20,
+            max: 100,
+            onChange: console.log
+          },
+          {
+            cssVar: ['lt', '%'],
+            label: 'Lightness',
+            type: 'range',
+            value: 55,
+            min: 20,
+            max: 100,
+            onChange: console.log
+          },
+          {
+            cssVar: ['layout'],
+            cssVarsHSLA: true,
+            label: 'Layout Frame Background',
+            type: 'color',
+            defaultFormat: 'hsla',
+            onChange: console.log
+          },
+          "Spacing Elements",
+          {
+            cssVar: ['uidir', null, document.body], // document.body document.dir[alias for the CSS variable, units, applies on element]
+            label: 'Direction',
+            type: 'radio',
+            name: 'align-radio-group',
+            options: [
+              { value:'ltr', hidden:true, label: '<svg viewBox="0 0 28 28"><path d="M28 21v2c0 0.547-0.453 1-1 1h-26c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h26c0.547 0 1 0.453 1 1zM22 15v2c0 0.547-0.453 1-1 1h-20c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h20c0.547 0 1 0.453 1 1zM26 9v2c0 0.547-0.453 1-1 1h-24c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h24c0.547 0 1 0.453 1 1zM20 3v2c0 0.547-0.453 1-1 1h-18c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h18c0.547 0 1 0.453 1 1z"></path></svg>' },
+              { value:'rtl', hidden:true, label:'<svg viewBox="0 0 28 28"><path d="M28 21v2c0 0.547-0.453 1-1 1h-26c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h26c0.547 0 1 0.453 1 1zM28 15v2c0 0.547-0.453 1-1 1h-20c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h20c0.547 0 1 0.453 1 1zM28 9v2c0 0.547-0.453 1-1 1h-24c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h24c0.547 0 1 0.453 1 1zM28 3v2c0 0.547-0.453 1-1 1h-18c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h18c0.547 0 1 0.453 1 1z"></path></svg>' }
+            ],
+            value: 'ltr',
+            defaultValue: 'ltr'
+          },
+          {
+            cssVar: ['font-size', 'px'],
+            label: 'Font Size',
+            type: 'range',
+            value: 16,
+            min: 12,
+            max: 20,
+            onChange: console.log
+          },
+          {
+            cssVar: ['toolbar-height', 'px'],
+            label: 'Toolbar height',
+            type: 'range',
+            value: 42,
+            min: 32,
+            max: 50,
+            onChange: console.log
+          },
+          {
+            isToggled: true,
+            cssVar: ['rl', 'px'],
+            label: 'Radius containers',
+            type: 'range',
+            value: 8,
+            min: 0,
+            max: 16,
+            onChange: console.log
+          },
+          {
+            isToggled: true,
+            cssVar: ['rs', 'px'],
+            label: 'Radius elements',
+            type: 'range',
+            value: 4,
+            min: 0,
+            max: 16,
+            onChange: console.log
+          },
+          {
+            isToggled: true,
+            cssVar: ['s4', 'px'],
+            label: 'Spacing ~ padding',
+            type: 'select',
+            options: [[4, '4 default'], 6, 8, 10, 12, 14, 16],
+            value: 4,
+            defaultValue: 4
+          },
+          {
+            isToggled: true,
+            cssVar: ['s8', 'px'],
+            label: 'Spacing ~ margin',
+            type: 'select',
+            options: [4, 6, [8, '8 default'], 10, 12, 14, 16],
+            value: 8,
+            defaultValue: 8
+          },
+          {
+            cssVar: ['uifocus'],
+            label: 'UI Focus',
+            type: 'checkbox',
+            checked: false,
+            value: 'hidden',
+            onChange: console.log
+          }
+        ]
+      }
+      var uiKnobs = new Knobs(settings)
     </script>
   </body>
 </html>
