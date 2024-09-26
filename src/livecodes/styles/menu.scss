@@ -162,7 +162,7 @@
   width: 100%;
 
   li[role='separator'] {
-    background: var(--menu-split-color);
+    background: var(--dropdown-split-color);
     margin: 4px calc(1px - var(--s8));
     padding: 1px 0;
   }
@@ -182,6 +182,7 @@
   border-radius: var(--dropdown-border-radius);
   break-inside: avoid-column;
   -moz-column-break-inside: avoid;
+  color: var(--dropdown-color);
   display: flex;
   height: var(--dropdown-height, 32px);
   justify-content: space-between;
@@ -190,12 +191,13 @@
   &:hover,
   &.active {
     background-color: var(--dropdown-bg-active);
+    color: var(--dropdown-active);
   }
 
   a,
   a.subtitle {
     border-radius: inherit;
-    color: var(--dropdown-active);
+    color: inherit;
     cursor: default;
     display: inherit;
     justify-content: space-between;
@@ -367,7 +369,7 @@ i.arrow {
 
 .range-slider {
   appearance: none;
-  background: var(--switch-on-color); // TODO var(--switch-off-color);
+  background: var(--switch-on-color);
   border-radius: var(--rl);
   height: 8px;
 
@@ -406,8 +408,8 @@ i.arrow {
   }
 
   .slider {
-    background-color: var(--switch-off-color);
-    border: 1px solid var(--color4);
+    background: var(--input-bg-color);
+    border: 1px solid var(--input-border-color);
     bottom: 0;
     cursor: pointer;
     left: 0;
@@ -417,7 +419,7 @@ i.arrow {
     transition: 0.4s;
 
     &::before {
-      background-color: var(--switch-in-off);
+      background: var(--input-inner-color);
       bottom: 2px;
       content: '';
       height: 14px;
@@ -434,20 +436,20 @@ i.arrow {
     width: 0;
 
     &:checked + .slider {
-      background-color: var(--switch-on-color);
+      background: var(--input-bg-color);
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px var(--switch-on-color);
+      box-shadow: 0 0 1px var(--input-inner-active);
     }
 
     &:checked + .slider::before {
-      background-color: var(--switch-in-on);
+      background: var(--input-inner-active);
       transform: translateX(16px);
     }
 
     &:indeterminate + .slider {
-      background-color: var(--switch-indeterminate-color);
+      background: var(--switch-indeterminate-color);
     }
 
     &:indeterminate + .slider::before {

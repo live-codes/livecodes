@@ -341,7 +341,7 @@
             cssVar: ['st', '%'],
             label: 'Saturation',
             type: 'range',
-            value: 70,
+            value: 40,
             min: 20,
             max: 100,
             onChange: console.log
@@ -350,17 +350,17 @@
             cssVar: ['lt', '%'],
             label: 'Lightness',
             type: 'range',
-            value: 55,
+            value: 50,
             min: 20,
             max: 100,
             onChange: console.log
           },
           {
             cssVar: ['layout'],
-            cssVarsHSLA: true,
+            // cssVarsHSLA: true,
             label: 'Layout Frame Background',
             type: 'color',
-            defaultFormat: 'hsla',
+            // defaultFormat: 'hsla',
             onChange: console.log
           },
           "Spacing Elements",
@@ -442,7 +442,7 @@
           }
         ]
       }
-      var uiKnobs = new Knobs(settings)
+      // var uiKnobs = new Knobs(settings)
     </script>
   </body>
 </html>
