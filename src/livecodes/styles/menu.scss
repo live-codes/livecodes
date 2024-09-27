@@ -88,13 +88,12 @@
 
 .menu-scroller {
   display: none;
-  height: calc(100vh - 42px);
+  height: calc(100vh - var(--toolbar-height));
   overflow-x: hidden;
   overflow-y: scroll;
   position: absolute;
   right: 0;
   scrollbar-width: none;
-  // top: 32px; // TODO OVERRIDE var(--toolbar-height);
 
   &::-webkit-scrollbar {
     display: none;
@@ -108,7 +107,7 @@
 .menu-scroller-markup,
 .menu-scroller-style,
 .menu-scroller-script {
-  top: calc(var(--toolbar-height) - 8px); // 32px; // TODO OVERRIDE var(--toolbar-height);
+  top: calc(var(--toolbar-height) - 8px);
 }
 
 .menu-scroller-markup {
@@ -449,7 +448,7 @@ i.arrow {
     }
 
     &:indeterminate + .slider {
-      background: var(--switch-indeterminate-color);
+      background: var(--input-indeterminate-color);
     }
 
     &:indeterminate + .slider::before {

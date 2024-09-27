@@ -1,12 +1,5 @@
 :root.light {
 
-  --hue: 214;
-  --st: 40%;
-  --lt: 100%;
-
-  --uidir: ltr; // TODO ----- REMOVE UI CSS VARS TEST
-  --uifocus: visible;
-
   --color: hsl(var(--hue), var(--st), var(--lt));
   --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.1)); // 10%
   --color15: hsl(var(--hue), var(--st), calc(var(--lt) * 0.15)); // 15%
