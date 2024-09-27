@@ -19,170 +19,182 @@
   --rs: var(--s4);
   --rl: var(--s8);
 
-
-  --hue: 214; // Hue on the color wheel from 0 to 360. 0=red, 120=green, and 214=blue.
-  // Saturation, and Lightness
-  --st: 70%;
-  --lt: 55%;
-
   --uidir: ltr; // TODO ----- REMOVE UI CSS VARS TEST
   --uifocus: visible;
 
-  --color1: hsl(var(--hue), 50%, 12%);
-  --color2: hsl(var(--hue), 50%, 15%);
-  --color3: hsl(var(--hue), 50%, 20%);
-  --color4: hsl(var(--hue), 50%, 25%);
-  --color5: hsl(var(--hue), 50%, 30%);
+  --hue: 214;  // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
+  --st: 40%;  // Saturation
+  --lt: 50%; // Lightness
 
-  --layout: hsla(var(--hue), 20%, 17%, 1);
-  --bg-element: hsl(var(--hue), 33%, 23%);
-  --bg-active: hsl(var(--hue), 55%, 29%);
-  --modal: hsl(var(--hue), 20%, 17%);
+  --color: hsl(var(--hue), var(--st), var(--lt));
+  --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.2)); // 10%
+  --color15: hsl(var(--hue), var(--st), calc(var(--lt) * 0.3)); // 15%
+  --color20: hsl(var(--hue), var(--st), calc(var(--lt) * 0.4)); // 20%
+  --color25: hsl(var(--hue), var(--st), calc(var(--lt) * 0.5)); // 25%
+  --color30: hsl(var(--hue), var(--st), calc(var(--lt) * 0.6)); // 30%
+  --color40: hsl(var(--hue), var(--st), calc(var(--lt) * 0.8)); // 40%
+  --color50: hsl(var(--hue), var(--st), calc(var(--lt) * 1)); // 50%
+  --color60: hsl(var(--hue), var(--st), calc(var(--lt) * 1.2)); // 60%
+  --color80: hsl(var(--hue), var(--st), calc(var(--lt) * 1.6)); // 80%
+  --color85: hsl(var(--hue), var(--st), calc(var(--lt) * 1.7)); // 85%
+  --color90: hsl(var(--hue), var(--st), calc(var(--lt) * 1.8)); // 90%
+  --color95: hsl(var(--hue), var(--st), calc(var(--lt) * 1.9)); // 95%
 
-  --default: var(--color2);
-  --default-bg: var(--color2);
-  --active: hsl(var(--hue), 95%, 95%);
-  --active-bg: hsl(var(--hue), 55%, 29%);
+  --darker-bg-color: var(--color20);
+  --darker-bg-active: var(--color30);
+  --darker-color: var(--color80);
+  --darker-active: var(--color90);
+
+  --dark-bg-color: var(--color30);
+  --dark-bg-active: var(--color40);
+  --dark-color: var(--color85);
+  --dark-active: var(--color95);
+
+  --link: var(--color90);
+  --light: var(--color80);
+
+  --layout: var(--color10);
+  --dropdown: var(--color15);
+  --modal: var(--color15);
+  --console-bg: var(--color10); // console
 
   --disabled: 0.5; // opacity
 
-  --link: hsl(var(--hue), 25%, 90%);
-  --light: hsl(var(--hue), 80%, 85%);
-  --color: hsl(var(--hue), 50%, 50%);
+  --btn-bg-color: var(--layout); // transparent; // var(--darker-bg-color);
+  --btn-bg-active: var(--darker-bg-active);
+  --btn-border: 0;
+  --btn-border-radius: var(--rs);
+  --btn-active: var(--darker-active);
+  --btn-color: var(--link); // var(--darker-color);
+  --btn-height: 26px;
 
-  --console-bg: var(--bg-element); // console
+  --btn-modal-bg-active: var(--darker-bg-active);
+  --btn-modal-bg-color: var(--darker-bg-color);
+  --btn-modal-border-color: var(--darker-bg-color);
+  --btn-modal-border-radius: var(--rs);
+  --btn-modal-active: var(--darker-active);
+  --btn-modal-color: var(--darker-color);
+  --btn-modal-font: var(--s14);
 
-  --resources-search-bg: hsl(var(--hue), 19%, 14%); // modal results
-  --resources-search-border: 1px solid var(--color2);
-  --resources-search-color: var(--light);
+  --dropdown-bg-color: var(--dropdown);
+  --dropdown-bg-active: var(--darker-bg-active);
+  --dropdown-border: 1px solid var(--darker-bg-color);
+  --dropdown-border-radius: var(--rs);
+  --dropdown-color: var(--link);
+  --dropdown-active: var(--darker-active);
+  --dropdown-font: var(--s14);
+  --dropdown-height: 32px;
+  --dropdown-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.275);
+  --dropdown-split-color: var(--darker-bg-color);
+  --submenu-arrow-color: var(--darker-color);
 
-  --gutter-split-bg-color: var(--layout); // gutter background
-  --gutter-split-bg-handle: var(--active); // gutter background
+  --editor-title-bg-color: var(--darker-bg-color);
+  --editor-title-bg-active: var(--darker-bg-active);
+  --editor-title-border-color: var(--darker-bg-color);
+  --editor-title-border-active: var(--darker-bg-active);
+  --editor-title-border-radius: var(--rs);
+  --editor-title-color: var(--darker-color);
+  --editor-title-active: var(--darker-active);
+
+  --input-bg-color: var(--darker-bg-color); // hsl(var(--hue), 25%, 20%); //var(--color2);
+  --input-bg-active: var(--darker-bg-active);
+
+  --input-border-color: var(--dark-bg-color);
+  --input-border-active: var(--dark-bg-active);
+
+  --input-inner-active: var(--color90);
+  --input-inner-color: var(--color50);
+
+  --input-color: var(--darker-color); // inner uncheck
+  --input-active: var(--darker-active);
+
+  --input-container: var(--color20);
+
+  --language-menu-bg-color: var(--dark-bg-color);
+  --language-menu-bg-active: var(--dark-bg-active);
+  --language-menu-color-active: var(--dark-active);
+
+  --toolbar-bg-color: var(--layout);
+  --toolbar-border: 1px solid var(--color30);
+  --toolbar-color: var(--link);
+  --toolbar-height: 42px; // 36px;
+
+  --menu-bg-color: var(--layout); // transparent;
+  --menu-bg-active: var(--darker-bg-active);
+  --menu-color: var(--link);
+  --menu-active: var(--darker-active);
+  --menu-border-radius: var(--rs);
+  --menu-height: var(--s32);
+  --menu-split-color: var(--color40);
+
+  --modal-bg-color: var(--modal); //hsl(var(--hue), 20%, 17%);
+  --modal-title-bg: var(--darker-bg-color);
+  --modal-title-color: var(--darker-color);
+
+  --modal-button-bg-color: transparent;
+  --modal-button-bg-hover: var(--darker-bg-active);
+  --modal-button-color-hover: var(--darker-active);
+
+  --modal-close-color: var(--darker-color);
+  --modal-close-hover: var(--darker-active);
+
+  --modal-text-color: var(--link);
+
+  --overlay-background-color: rgb(0, 0, 0);
+
+  --project-title-bg-active: var(--darker-bg-active);
+  --project-title-bg-color: var(--darker-bg-color);
+
+  --project-title-border: 1px solid var(--color40);
+  --project-title-border-active: var(--active-bg);
+  --project-title-border-radius: var(--rs);
+  --project-title-box-shadow: 0 0 4px 1px var(--0);
+  --project-title-active: var(--darker-active);
+  --project-title-color: var(--darker-color);
+
+  --resources-search-bg: var(--modal); // modal results
+  --resources-search-border: 1px solid var(--darker-bg-color);
+  --resources-search-color: var(--darker-color);
+
+  --gutter-split-bg-color: var(--layout);
+  --gutter-split-bg-handle: var(--color);
 
   --custom-editor-background-color: rgb(30, 30, 30);
   --custom-editor-loading-color: rgb(255, 255, 255);
 
   --editor-tools-mark-color: #8bc34a;
 
-  --btn-bg-color: transparent;
-  --btn-bg-active: var(--active-bg);
-  --btn-border: 0;
-  --btn-border-radius: var(--rs);
-  --btn-active: var(--active);
-  --btn-color: var(--light);
-  --btn-height: 26px;
-
-  --btn-modal-bg-color: var(--color4);
-  --btn-modal-border: 1px solid var(--color2);
-  --btn-modal-border-radius: var(--rs);
-  --btn-modal-bg-active: var(--active-bg);
-  --btn-modal-active: var(--active);
-  --btn-modal-color: var(--light);
-  --btn-modal-font: var(--s14);
-
-  --dropdown-bg-color: var(--modal);
-  --dropdown-bg-active: var(--active-bg);
-  --dropdown-border: 1px solid var(--color5);
-  --dropdown-border-radius: var(--rs);
-  --dropdown-color: var(--light);
-  --dropdown-active: var(--link);
-  --dropdown-font: var(--s14);
-  --dropdown-height: 32px;
-  --dropdown-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.275);
-  --dropdown-split-color: var(--color4);
-  --submenu-arrow-color: var(--light);
-
-  --editor-title-bg-color: var(--bg-element);
-  --editor-title-bg-active: var(--active-bg);
-  --editor-title-border-color: var(--color4);
-  --editor-title-border-active: var(--active-bg);
-  --editor-title-border-radius: var(--rs);
-  --editor-title-color: var(--light);
-  --editor-title-active: var(--active);
-
-  --input-bg-color: var(--color3);
-  --input-bg-active: var(--active-bg);
-  --input-border: 1px solid var(--color3);
-  --input-color: var(--light);
-  --input-active: var(--active);
-
-  --language-menu-bg-color: var(--color4);
-  --language-menu-bg-active: var(--active-bg);
-  --language-menu-color-active: var(--active);
-
-  --toolbar-bg-color: var(--layout);
-  --toolbar-border: 1px solid var(--color3);
-  --toolbar-color: var(--link);
-  --toolbar-height: 42px; // 36px;
-
-  --menu-bg-color: transparent;
-  --menu-bg-active: var(--active-bg);
-  --menu-color: var(--light);
-  --menu-active: var(--active);
-  --menu-border-radius: var(--rs);
-  --menu-height: var(--s32);
-  --menu-split-color: var(--color4);
-
-  --modal-bg-color: var(--modal); //hsl(var(--hue), 20%, 17%);
-  --modal-title-bg: var(--bg-element);
-  --modal-title-color: var(--link);
-  --modal-button-bg-color: transparent;
-  --modal-button-bg-hover: var(--active-bg);
-  --modal-button-color-hover: var(--active);
-  --modal-close-color: var(--link);
-  --modal-close-hover: var(--active);
-  --modal-text-color: var(--link);
-
-  --overlay-background-color: rgb(0, 0, 0);
-
-  --project-title-bg-color: var(--bg-element);
-  --project-title-bg-active: var(--active-bg);
-  --project-title-border: 1px solid var(--color4);
-  --project-title-border-active: var(--active-bg);
-  --project-title-border-radius: var(--rs);
-  --project-title-box-shadow: 0 0 4px 1px var(--color5);
-  --project-title-color: var(--link);
-  --project-title-active: var(--active);
-
-  --scrollbar-color: var(--bg-element);
-  --scrollbar-hover-color: var(--active-bg);
-  --scrollbar-active-color: var(--active-bg);
+  --scrollbar-color: var(--color20);
+  --scrollbar-active-color: var(--color20);
+  --scrollbar-hover-color: var(--color30);
 
   --scrollbar-color-track: transparent;
-  --scrollbar-color-thumb: var(--bg-element);
+  --scrollbar-color-thumb: var(--color20);
   --scrollbar-width: thin;
   --scrollbar-width-legacy: 8px;
 
-  --size-label-background: var(--color2);
-  --size-label-border: var(--color3);
-  --size-label-color: var(--color5);
+  --size-label-background: var(--color20);
+  --size-label-border: var(--color30);
+  --size-label-color: var(--color50);
 
+  --switch-inner-off: var(--color10); // todo light
+  --switch-inner-on: var(--color20);
+  --switch-indeterminate-color: var(--color30);
 
-  --switch-in-off: var(--color5);
-  --switch-in-on: var(--link);
-
-  --switch-off-color: var(--input-bg-color);
-  --switch-on-color: var(--bg-active);
-  --switch-indeterminate-color: var(--color2);
-  --switch-background-color: var(--light); // --active-inner
-
-  --toolspane-bar-text-color: var(--link);
-  --toolspane-buttons-text-color: var(--link);
-  --toolspane-button-color: var(--link);
+  --toolspane-bar-text-color: var(--color40);
+  --toolspane-buttons-text-color: var(--color40);
+  --toolspane-button-color: var(--color40);
   --toolspane-accent-color: var(--active);
   --toolspane-non-accent-color: var(--light);
 
-  --toolspane-bg: var(--bg-element);
-  --toolspane-bg-active: var(--active-bg);
-  --toolspane-border: 2px solid var(--color2); // bottom
-  --toolspane-border-active: 2px solid var(--active-bg);
+  --toolspane-bg-color: var(--darker-bg-color);
+  --toolspane-bg-active: var(--darker-bg-active);
+  --toolspane-border: 2px solid var(--darker-bg-color); // bottom
+  --toolspane-border-active: 2px var(--darker-bg-active);
+  --toolspane-active: var(--darker-active);
+  --toolspane-color: var(--darker-color);
 
-  --toolspane-color-active: var(--active);
-  --toolspane-btn-active: var(--active);
-  --toolspane-btn-color: var(--link);
-
-  --console-background-color: inherit; // hsl(212 20% 14%);
-  --tests-bg-color: inherit; // hsl(14, 20%, 17%); //hsl(212 20% 14%);
+  --tests-bg-color: inherit;
   --test-results-background-color: rgba(0, 128, 0, 0.2);
   --test-results-border: 1px solid rgb(0, 128, 0);
   --test-pass-color: rgb(0, 178, 0);
@@ -198,24 +210,24 @@ html {
 }
 
 html.dark {
-  --placeholder-color: var(--link);
-  --tag-bg: var(--color3);
-  --tag-hover: var(--active-bg);
-  --tag-text-color: var(--link);
+  --placeholder-color: var(--dropdown-color);
+  --tag-bg: var(--dropdown-bg-color);
+  --tag-hover: var(--dropdown-bg-active);
+  --tag-text-color: var(--dropdown-color);
   // dropdown
-  --tagify-dd-color-primary: var(--active-bg); //	Sugegstion's background color on hover
+  --tagify-dd-color-primary: var(--dropdown-bg-active); //	Sugegstion's background color on hover
   --tagify-dd-text-color: var(--link); //	Sugegstion's text color
-  --tagify-dd-bg-color: var(--color3); //	suggestion's dropdown background color
+  --tagify-dd-bg-color: var(--dropdown-bg-color); //	suggestion's dropdown background color
   // --tagify-dd-item--hidden-duration:; //	selecting a suggestion duration to hidden (shrink)
   --tagify-dd-item-pad: 2px 8px; //	Suggestion item padding
   // --tagify-dd-max-height:;   //	Maximum height of suggestions dropdown (300px by default)
   .tagify {
-    --placeholder-color: var(--link);
-    --placeholder-color-focus: var(--link);
-    --tags-border-color: var(--color2) !important;
-    --tags-hover-border-color: var(--color2) !important;
-    --tags-focus-border-color: var(--color3) !important;
-    background: var(--color2);
+    --placeholder-color: var(--dropdown-color);
+    --placeholder-color-focus: var(--dropdown-active);
+    --tags-border-color: var(--input-border-color) !important;
+    --tags-hover-border-color: var(--input-border-active) !important;
+    --tags-focus-border-color: var(--input-border-active) !important;
+    background: var(--input-bg-color); // color2);
     border-radius: var(--rs);
   }
 
@@ -235,6 +247,14 @@ html.dark {
 * {
   margin: 0;
   padding: 0;
+}
+
+* {
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: #fff;
+    transition-delay: 3600s;
+  }
 }
 
 // Todo scrollbar
@@ -369,6 +389,7 @@ kbd {
   border: 1px solid var(--btn-bg-color);
   border-radius: 4px;
   box-shadow: 1px 1px 2px 0 #0006;
+  color: var(--btn-color);
   font-size: var(--s12);
   margin-right: 6px;
   padding: 4px;
@@ -411,7 +432,7 @@ kbd {
 .warn {
   background-color: rgba(255, 128, 0, 0.25); // todo css var
   border: 1px solid rgb(255, 128, 0);
-  color: rgb(255, 179, 102);
+  color: rgb(250, 126, 0);
 }
 
 .help {
@@ -928,7 +949,7 @@ html.dark #result {
 
 .tools-pane-title {
   align-items: center;
-  background-color: var(--toolspane-bg);
+  background-color: var(--toolspane-bg-color);
   border-bottom: var(--toolspane-border);
   color: var(--toolspane-color);
   cursor: pointer;
@@ -941,7 +962,7 @@ html.dark #result {
   &.active {
     background-color: var(--toolspane-bg-active);
     border-bottom: var(--toolspane-border-active);
-    color: var(--toolspane-color-active);
+    color: var(--toolspane-active);
   }
 }
 
@@ -970,7 +991,6 @@ html.dark #result {
 }
 
 #console {
-  background-color: var(--console-background-color);
   overflow: auto;
 
   .luna-object-viewer {
@@ -1207,13 +1227,13 @@ li.editor-title {
     border-bottom-color: var(--editor-title-border-active);
     color: var(--editor-title-active);
 
-    /*     > .language-menu-button {
-      background-color: var(--language-menu-bg-active); */
-
-    &:hover {
+    > .language-menu-button {
       background-color: var(--language-menu-bg-active);
+
+      &:hover {
+        background-color: var(--language-menu-bg-active);
+      }
     }
-    // }
   }
 
   &.hidden {
@@ -1225,7 +1245,7 @@ li.editor-title {
     background-color: var(--language-menu-bg-color);
     border: 0;
     border-radius: var(--rs);
-    color: currentColor;
+    color: var(--language-menu-color-active);
     cursor: pointer;
     display: flex;
     height: 20px;
@@ -1496,7 +1516,7 @@ html,
   }
 
   #editor-tools {
-    border-top: 1px solid var(--color1);
+    border-top: 1px solid var(--color1); // TODO dark -> light
     bottom: 0;
     position: absolute;
   }
@@ -1715,21 +1735,21 @@ pre[class*='language-'].line-numbers > code {
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type='checkbox'],
   input[type='radio'] {
-    --b: var(--switch-off-color, --color2);
-    --active: var(--switch-on-color);
-    --active-inner: #fff;
-    --focus: 1px var(--color2, rgba(39, 94, 254, 0.3));
-    --border: var(--color5); // inner
-    --border-hover: var(--switch-on-color);
+    --b: var(--input-bg-color); // bg check and uncheck
+    --inner-active: var(--input-active);  // border of checkbox
+    --inner-uncheck: var(--input-color);
+    --focus: 1px var(--input-border-active);
+
+    --border-hover: var(--input-border-active); // radio border
     --background: var(--color2);
-    --disabled: var(--color2, #f6f8ff);
-    --disabled-inner: var(--color1, #e1e6f9);
+    --disabled: var(--color20, #f6f8ff);
+    --disabled-inner: var(--color30, #e1e6f9);
     appearance: none;
-    background: var(--b, var(--background));
-    border: 1px solid var(--bc);
+    background: var(--b);
+    border: 1px solid var(--input-border-color);
     cursor: pointer;
     display: inline-block;
-    height: 21px;
+    height: 20px;
     margin: 0;
     outline: none;
     position: relative;
@@ -1751,8 +1771,8 @@ pre[class*='language-'].line-numbers > code {
     }
 
     &:checked {
-      --b: var(--switch-on-color, --active); /* background-active */
-      --bc: var(--active-bg);
+      --b: var(--input-bg-active); // background-active
+      --border-active: var(--input-bg-active); // border active checkbox, radio and switch
       --d-o: 0.3s;
       --d-t: 0.6s;
       --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
@@ -1761,11 +1781,11 @@ pre[class*='language-'].line-numbers > code {
     &:disabled {
       --b: var(--disabled);
       cursor: not-allowed;
-      opacity: 0.9;
+      opacity: 0.8;
 
       :checked {
         --b: var(--disabled-inner);
-        --bc: var(--border);
+        --border-active: var(--inner-uncheck);
       }
 
       + label {
@@ -1776,7 +1796,7 @@ pre[class*='language-'].line-numbers > code {
     &:hover {
       &:not(:checked) {
         &:not(:disabled) {
-          --bc: var(--border-hover);
+          --border-active: var(--input-border-active);
         }
       }
     }
@@ -1786,14 +1806,15 @@ pre[class*='language-'].line-numbers > code {
     }
 
     &:not(.switch) {
-      width: 21px;
+      width: 20px;
 
       &::after {
-        opacity: 0.4; // TODO
+        opacity: 0;
       }
 
-      &:checked {
+      &:checked::after {
         --o: 1;
+        opacity: var(--o);
       }
     }
 
@@ -1812,7 +1833,7 @@ pre[class*='language-'].line-numbers > code {
       border-radius: var(--rs);
 
       &::after {
-        border: 2px solid var(--active-inner);
+        border: 2px solid var(--input-inner-active);
         border-left: 0;
         border-top: 0;
         height: 9px;
@@ -1832,7 +1853,7 @@ pre[class*='language-'].line-numbers > code {
       width: 38px;
 
       &::after {
-        background: var(--ab, var(--border));
+        background: var(--input-inner-color);
         border-radius: 50%;
         height: 15px;
         left: 2px;
@@ -1842,8 +1863,13 @@ pre[class*='language-'].line-numbers > code {
       }
 
       &:checked {
-        --ab: var(--active-inner);
-        --x: 17px;
+        // --inner-active: var(--input-inner-active);
+        --x: 18px;
+
+        &:checked::after {
+          --x: 18px;
+          background: var(--input-inner-active);
+        }
       }
 
       &:disabled {
@@ -1860,11 +1886,11 @@ pre[class*='language-'].line-numbers > code {
     border-radius: 50%;
 
     &::after {
-      background: var(--active-inner);
+      background: var(--inner-active);
       border-radius: 50%;
       height: 19px;
       opacity: 0;
-      transform: scale(var(--s, 0.7));
+      transform: scale(var(--s, 0.8));
       width: 19px;
     }
 
