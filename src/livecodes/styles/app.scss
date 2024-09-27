@@ -24,7 +24,7 @@
 
   --hue: 214;  // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
   --st: 40%;  // Saturation
-  --lt: 50%; // Lightness
+  --lt: 100%; // Lightness
 
   --color: hsl(var(--hue), var(--st), var(--lt));
   --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.2)); // 10%
@@ -60,7 +60,7 @@
 
   --disabled: 0.5; // opacity
 
-  --btn-bg-color: var(--layout); // transparent; // var(--darker-bg-color);
+  --btn-bg-color: var(--layout); // transparent; or var(--darker-bg-color);
   --btn-bg-active: var(--darker-bg-active);
   --btn-border: 0;
   --btn-border-radius: var(--rs);
@@ -96,7 +96,7 @@
   --editor-title-color: var(--darker-color);
   --editor-title-active: var(--darker-active);
 
-  --input-bg-color: var(--darker-bg-color); // hsl(var(--hue), 25%, 20%); //var(--color2);
+  --input-bg-color: var(--darker-bg-color);
   --input-bg-active: var(--darker-bg-active);
 
   --input-border-color: var(--dark-bg-color);
@@ -104,7 +104,7 @@
 
   --input-inner-active: var(--color90);
   --input-inner-color: var(--color50);
-
+  --input-indeterminate-color: var(--color30);
   --input-color: var(--darker-color); // inner uncheck
   --input-active: var(--darker-active);
 
@@ -117,9 +117,9 @@
   --toolbar-bg-color: var(--layout);
   --toolbar-border: 1px solid var(--color30);
   --toolbar-color: var(--link);
-  --toolbar-height: 42px; // 36px;
+  --toolbar-height: 42px; // used to calc menu, toolbar & editor-container height
 
-  --menu-bg-color: var(--layout); // transparent;
+  --menu-bg-color: var(--layout); // or transparent
   --menu-bg-active: var(--darker-bg-active);
   --menu-color: var(--link);
   --menu-active: var(--darker-active);
@@ -127,7 +127,7 @@
   --menu-height: var(--s32);
   --menu-split-color: var(--color40);
 
-  --modal-bg-color: var(--modal); //hsl(var(--hue), 20%, 17%);
+  --modal-bg-color: var(--modal);
   --modal-title-bg: var(--darker-bg-color);
   --modal-title-color: var(--darker-color);
 
@@ -152,7 +152,7 @@
   --project-title-active: var(--darker-active);
   --project-title-color: var(--darker-color);
 
-  --resources-search-bg: var(--modal); // modal results
+  --resources-search-bg: var(--modal); // TODO modal results
   --resources-search-border: 1px solid var(--darker-bg-color);
   --resources-search-color: var(--darker-color);
 
@@ -177,10 +177,6 @@
   --size-label-border: var(--color30);
   --size-label-color: var(--color50);
 
-  --switch-inner-off: var(--color10); // todo light
-  --switch-inner-on: var(--color20);
-  --switch-indeterminate-color: var(--color30);
-
   --toolspane-bar-text-color: var(--color40);
   --toolspane-buttons-text-color: var(--color40);
   --toolspane-button-color: var(--color40);
@@ -189,7 +185,7 @@
 
   --toolspane-bg-color: var(--darker-bg-color);
   --toolspane-bg-active: var(--darker-bg-active);
-  --toolspane-border: 2px solid var(--darker-bg-color); // bottom
+  --toolspane-border: 2px solid var(--darker-bg-color); // border-bottom
   --toolspane-border-active: 2px var(--darker-bg-active);
   --toolspane-active: var(--darker-active);
   --toolspane-color: var(--darker-color);
@@ -664,7 +660,7 @@ a#result-button {
     border-bottom-left-radius: var(--rs);
     border-left: var(--toolbar-border, 1px solid black);
     display: block !important;
-    height: var(--toolbar-height, 40px);
+    height: var(--toolbar-height);
     opacity: 0;
     position: absolute;
     right: 0;
