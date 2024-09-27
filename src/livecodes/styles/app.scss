@@ -236,7 +236,6 @@ html.dark {
 *::before,
 *::after {
   box-sizing: inherit;
-  box-sizing: inherit;
 }
 
 // reset
@@ -500,6 +499,18 @@ kbd {
       display: inherit;
       flex-grow: 1;
     }
+
+    .button {
+      background: var(--btn-bg-color);
+      border: var(--btn-border);
+      border-radius: var(--btn-border-radius);
+      color: var(--btn-color);
+
+      &:hover {
+        background: var(--btn-bg-active);
+        color: var(--btn-active);
+      }
+    }
   }
 
   #logo {
@@ -581,20 +592,6 @@ kbd {
     height: var(--s32);
     justify-content: space-evenly;
     margin: 0 var(--s4);
-  }
-}
-
-#toolbar .toolbar-render {
-  .button {
-    background: var(--btn-bg-color);
-    border: var(--btn-border);
-    border-radius: var(--btn-border-radius);
-    color: var(--btn-color);
-
-    &:hover {
-      background: var(--btn-bg-active);
-      color: var(--btn-active);
-    }
   }
 }
 
@@ -859,7 +856,6 @@ a#result-button {
   padding: 1px;
   position: absolute;
   right: 20px;
-  // scale: 0.9; // TODO check remove!
   top: 5px;
 
   &.visible {
@@ -1173,24 +1169,21 @@ html.dark #result {
 }
 
 #select-editor {
-  border-bottom: 1px solid var(--editor-title-border-color);
   color: var(--editor-title-color);
-  height: 34px; // todo (toolbar - tab-height) = 36px - (border 1 + top 2)
+  height: calc(var(--toolbar-height) - 6px);
   margin: 0 0.5rem 0 0;
   position: relative;
 
   > ul {
-    /* align-items: stretch; */
     display: flex;
     height: 100%;
-    /* justify-content: flex-start; */
   }
 }
 
 li.editor-title {
   align-items: center;
   background: var(--editor-title-bg-color);
-  border-bottom: 1px solid var(--editor-title-border-color);
+  border-bottom: 1px solid var(--editor-title-bg-color);
   border-top-left-radius: var(--editor-title-border-radius);
   border-top-right-radius: var(--editor-title-border-radius);
   color: var(--editor-title-color);
@@ -1199,9 +1192,10 @@ li.editor-title {
   font-size: inherit;
   justify-content: space-between;
   list-style: none;
+  margin-right: 2px;
   padding: 0 8px;
   position: relative;
-  top: 2px;
+  top: 3px;
   width: 100px;
 
   &.half-width {
@@ -1210,6 +1204,7 @@ li.editor-title {
 
   &:hover {
     background-color: var(--editor-title-bg-active);
+    border-color: var(--editor-title-bg-active);
     color: var(--editor-title-active);
   }
 
@@ -1237,7 +1232,6 @@ li.editor-title {
   }
 
   > .language-menu-button {
-    //align-items: center;
     background-color: var(--language-menu-bg-color);
     border: 0;
     border-radius: var(--rs);
@@ -1277,7 +1271,6 @@ li.editor-title {
 
 :root:not(.light) {
   #modal #resources-container #resources-search-results {
-    // todo only one id selector
     background-color: var(--resources-search-bg);
     border: var(--resources-search-border);
     color: var(--resources-search-color);
@@ -1287,7 +1280,7 @@ li.editor-title {
 .embed #modal {
   transform: scale(0.8);
 }
-// todo test embed max-height
+
 .embed #modal.small {
   min-height: 140px !important;
   width: 300px !important;
@@ -1345,7 +1338,6 @@ li.editor-title {
 }
 
 .tooltip {
-  display: inline-block;
   display: inline-block;
   opacity: 0.4;
   padding: 6px 8px;
@@ -1572,13 +1564,10 @@ html,
 /* Prism JS */
 
 .prism {
-  // height: 100% !important;
   margin: 0 !important;
   max-height: 100% !important;
 
   &#console-input {
-    // height: 25px !important;
-    // max-height: 25px !important;
     display: none !important;
 
     > pre {
@@ -1634,6 +1623,7 @@ pre[class*='language-'].line-numbers > code {
   white-space: inherit;
 }
 
+/* codejar */
 .line-numbers .line-numbers-rows {
   font-size: 100%;
   left: -3.8em;
@@ -1641,7 +1631,7 @@ pre[class*='language-'].line-numbers > code {
   pointer-events: none;
   position: absolute;
   top: 0;
-  // border-right: 1px solid #999;
+  border-right: 1px solid #999;
   user-select: none;
   width: 3em;
 }
@@ -1735,7 +1725,6 @@ pre[class*='language-'].line-numbers > code {
     --inner-active: var(--input-active);  // border of checkbox
     --inner-uncheck: var(--input-color);
     --focus: 1px var(--input-border-active);
-
     --border-hover: var(--input-border-active); // radio border
     --background: var(--color2);
     --disabled: var(--color20, #f6f8ff);
@@ -1859,7 +1848,6 @@ pre[class*='language-'].line-numbers > code {
       }
 
       &:checked {
-        // --inner-active: var(--input-inner-active);
         --x: 18px;
 
         &:checked::after {
