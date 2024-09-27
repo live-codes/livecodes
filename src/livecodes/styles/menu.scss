@@ -31,22 +31,6 @@
   }
 }
 
-/* #app-menu-button-project {
-  &:focus + .menu-scroller,
-  &:active + .menu-scroller,
-  &:focus + .menu-scroller .dropdown-menu,
-  &:active + .menu-scroller .dropdown-menu {
-    animation: fadeIn 0.4s forwards;
-    display: flex;
-  }
-
-  &#app-menu-project,
-  &#app-menu-settings,
-  &#app-menu-help {
-    display: block;
-  }
-} */
-
 [id^='app-menu-button-'] {
   &:focus + .menu-scroller,
   &:active + .menu-scroller,
@@ -64,13 +48,6 @@
 }
 
 // active
-#app-menu-project:hover,
-#app-menu-settings:hover,
-#app-menu-help:hover {
-  animation: fadeIn 0.4s forwards;
-  display: block;
-}
-
 #app-menu-help,
 #app-menu-settings,
 #app-menu-project {
