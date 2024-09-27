@@ -181,8 +181,8 @@
   align-items: center;
   border-radius: var(--dropdown-border-radius);
   break-inside: avoid-column;
-  -moz-column-break-inside: avoid;
   color: var(--dropdown-color);
+  -moz-column-break-inside: avoid;
   display: flex;
   height: var(--dropdown-height, 32px);
   justify-content: space-between;
@@ -369,13 +369,13 @@ i.arrow {
 
 .range-slider {
   appearance: none;
-  background: var(--switch-on-color);
+  background: var(--input-bg-color);
   border-radius: var(--rl);
   height: 8px;
 
   &::-webkit-slider-thumb {
     appearance: none;
-    background: #fff; // TODO var(--switch-on-color);
+    background: var(--input-active);
     border-radius: 50%;
     cursor: pointer;
     height: 16px;
@@ -383,7 +383,7 @@ i.arrow {
   }
 
   &::-moz-range-thumb {
-    background: #fff; // TODO var(--switch-on-color);
+    background: var(--input-active);
     border-radius: 50%;
     cursor: pointer;
     height: 16px;

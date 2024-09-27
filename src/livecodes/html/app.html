@@ -318,7 +318,7 @@
         theme: {
           flow: 'compact',
           position: 'bottom right',
-          styles      : `html,body{background:#151718;border:1px solid #252728;border-radius:8px;}.knobs{--toggleSize:32px;--toggleOffset:0;}.knobs>label{padding:4px!important;}#knobsToggle:checked+.knobs[data-position~=bottom]>label{left:.5em;top:.25em!important;}.knobs__groups{margin-top:1rem;!important;}.knobs__controls{width:50%;}.knobs__controls>input{margin:0 auto 0 -.5em;}.poweredBy{display:none}`,
+          styles      : `html,body{background:#151718;border:1px solid #252728;border-radius:8px;}.knobs{--toggleSize:32px;--toggleOffset:0;}.knobs>label{padding:4px!important;}#knobsToggle:checked+.knobs[data-position~=bottom]>label{left:.25em;top:.25em!important;}.knobs__groups{margin-top:1rem;!important;}.knobs__controls{width:50%;}.knobs__controls>input{margin:0 auto 0 -.5em;}.poweredBy{display:none}.toggleSection:not(:checked)~.fieldset__group .fieldset__group__wrap{height:var(--height);}`,
           border      : '2px solid #252728;'
         },
         // live: false, // should update immediately (default true)
@@ -341,7 +341,7 @@
             cssVar: ['st', '%'],
             label: 'Saturation',
             type: 'range',
-            value: 40,
+            // value: 40,
             min: 20,
             max: 100,
             onChange: console.log
@@ -350,17 +350,10 @@
             cssVar: ['lt', '%'],
             label: 'Lightness',
             type: 'range',
-            value: 50,
+            // value: 100,
             min: 20,
             max: 100,
-            onChange: console.log
-          },
-          {
-            cssVar: ['layout'],
-            // cssVarsHSLA: true,
-            label: 'Layout Frame Background',
-            type: 'color',
-            // defaultFormat: 'hsla',
+            CSSVarTarget: document.querySelector('html.dark'),
             onChange: console.log
           },
           "Spacing Elements",
@@ -397,7 +390,7 @@
           {
             isToggled: true,
             cssVar: ['rl', 'px'],
-            label: 'Radius containers',
+            label: 'Radius container (modal)',
             type: 'range',
             value: 8,
             min: 0,
@@ -407,7 +400,7 @@
           {
             isToggled: true,
             cssVar: ['rs', 'px'],
-            label: 'Radius elements',
+            label: 'Radius element (button, tab)',
             type: 'range',
             value: 4,
             min: 0,
@@ -442,7 +435,7 @@
           }
         ]
       }
-      // var uiKnobs = new Knobs(settings)
+      var uiKnobs = new Knobs(settings)
     </script>
   </body>
 </html>
