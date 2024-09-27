@@ -31,14 +31,6 @@ html[dir='rtl'] {
     }
   }
 
-  // TODO override ::after ?
-  /*  a[target=_blank]::before {
-      content: "↗";
-      display: inline-block;
-      margin: 0 .3em;
-      width: .7em;
-    } */
-
   .actions {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: var(--rs);

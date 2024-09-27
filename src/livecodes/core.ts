@@ -2422,7 +2422,6 @@ const handleAppMenuProject = () => {
   const menuProjectButton = UI.getAppMenuProjectButton();
   if (!menuProjectContainer || !menuProjectButton) return;
   menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
-  // todo i18n
   translateElement(menuProjectContainer);
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
@@ -2444,7 +2443,7 @@ const handleAppMenuSettings = () => {
   const menuSettingsButton = UI.getAppMenuSettingsButton();
   if (!menuSettingsContainer || !menuSettingsButton) return;
   menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
-  // todo i18n
+
   translateElement(menuSettingsContainer);
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
