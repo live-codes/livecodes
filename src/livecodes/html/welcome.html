@@ -1,143 +1,151 @@
 <div id="welcome-container" class="modal-container">
   <div class="modal-title" data-i18n="welcome.heading">Welcome</div>
   <div id="welcome-screen-container" class="modal-screen-container">
-    <!-- <div class="modal-screen"> -->
+
       <div class="modal-section">
-        <h3 data-i18n="welcome.start.heading">Start</h3>
-        <ul>
-          <li>
-            <a href="#" id="welcome-link-new">
-              <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
-            >
-          </li>
-          <li>
-            <a href="#" id="welcome-link-open">
-              <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
-            >
-          </li>
-          <li>
-            <a href="#" id="welcome-link-import">
-              <i class="icon-file-import"></i>
-              <span data-i18n="welcome.start.import">Import...</span></a
-            >
-          </li>
-          <li class="default-template-li">
-            <span id="no-default-template" class="default-template">
-              <span data-i18n="welcome.start.noDefaultTemplate">Default Template</span>
-            </span>
-            <a
-              href="#"
-              id="welcome-link-load-default"
-              class="default-template"
-              data-i18n="welcome.start.loadDefaultTemplate"
-              >Load default template</a
-            >
-            <a
-              href="{{DOCS_BASE_URL}}features/default-template-language"
-              target="_blank"
-              class="help-link"
-              title="Click for info..."
-              rel="noopener"
-              data-i18n="generic.clickForInfo"
-              data-i18n-prop="title"
-            >
-              <i class="icon-info"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="modal-section" id="welcome-recover">
-        <h3 data-i18n="welcome.recover.heading">Recover</h3>
-        <div class="welcome-recover-content">
-          <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
-            Your last project had unsaved changes:
-          </div>
+        <div id="welcome-start">
+          <h3 data-i18n="welcome.start.heading">Start</h3>
           <ul>
-            <li class="overflow-ellipsis">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M5 12.24L.5 13.5L1.76 9L10 .8a1 1 0 0 1 1.43 0l1.77 1.78a1.001 1.001 0 0 1 0 1.42z"
-                />
-              </svg>
-              <span id="unsaved-project-name" class="overflow-ellipsis"></span>
-            </li>
-            <li class="smaller">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M1.5 2a1 1 0 0 0-1 1v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2M.5 5.5h13m-10-5v3m7-3v3M3.5 2h5"
-                />
-              </svg>
-              <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
-                >Last modified:</span
+            <li>
+              <a href="#" id="welcome-link-new">
+                <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
               >
-              <span id="unsaved-project-last-modified"></span>
+            </li>
+            <li>
+              <a href="#" id="welcome-link-open">
+                <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
+              >
+            </li>
+            <li>
+              <a href="#" id="welcome-link-import">
+                <i class="icon-file-import"></i>
+                <span data-i18n="welcome.start.import">Import...</span></a
+              >
+            </li>
+            <li class="default-template-li">
+              <span id="no-default-template" class="default-template">
+                <span data-i18n="welcome.start.noDefaultTemplate">Default Template</span>
+              </span>
+              <a
+                href="#"
+                id="welcome-link-load-default"
+                class="default-template"
+                data-i18n="welcome.start.loadDefaultTemplate"
+                >Load default template</a
+              >
+              <a
+                href="{{DOCS_BASE_URL}}features/default-template-language"
+                target="_blank"
+                class="help-link"
+                title="Click for info..."
+                rel="noopener"
+                data-i18n="generic.clickForInfo"
+                data-i18n-prop="title"
+              >
+                <i class="icon-info"></i>
+              </a>
             </li>
           </ul>
-          <div class="welcome-recover-actions">
-            <a href="#" id="prompt-recover-btn" title="Recover project to editor">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M9.25 8.5L7 10.75L9.25 13m-4.5-7.5L7 3.25L4.75 1" />
+        </div>
+
+        <div id="welcome-templates">
+          <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
+          <ul id="welcome-template-list">
+            <li>
+              <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more"
+                >More...</a
+              >
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="modal-section">
+
+        <div id="welcome-recover">
+          <h3 data-i18n="welcome.recover.heading">Recover</h3>
+          <div class="welcome-recover-content">
+            <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
+              Your last project had unsaved changes:
+            </div>
+            <ul>
+              <li class="overflow-ellipsis">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
                   <path
-                    d="M7 10.75h4.5a2 2 0 0 0 2-2v-3.5a2 2 0 0 0-2-2H10m-3 0H2.5a2 2 0 0 0-2 2v3.5a2 2 0 0 0 2 2H4"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 12.24L.5 13.5L1.76 9L10 .8a1 1 0 0 1 1.43 0l1.77 1.78a1.001 1.001 0 0 1 0 1.42z"
                   />
-                </g>
-              </svg>
-              <span data-i18n="welcome.recover.recover">Recover</span></a
-            >
-            <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12.5 12.5a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1H9L12.5 4z" />
-                  <path d="m9 8l-2 2l-2-2m2 2V4.5" />
-                </g>
-              </svg>
-              <span data-i18n="welcome.recover.save">Save</span>
-            </a>
-            <a href="#" id="prompt-cancel-recover-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.5 7V1.5a1 1 0 0 1 1-1H10L13.5 4v8.5a1 1 0 0 1-1 1H8M4.74 9.26L.5 13.5m0-4.24l4.24 4.24"
-                />
-              </svg>
-              <span data-i18n="welcome.recover.cancel">Cancel</span>
-            </a>
+                </svg>
+                <span id="unsaved-project-name" class="overflow-ellipsis"></span>
+              </li>
+              <li class="smaller">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M1.5 2a1 1 0 0 0-1 1v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2M.5 5.5h13m-10-5v3m7-3v3M3.5 2h5"
+                  />
+                </svg>
+                <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
+                  >Last modified:</span
+                >
+                <span id="unsaved-project-last-modified"></span>
+              </li>
+            </ul>
+            <div class="welcome-recover-actions">
+              <a href="#" id="prompt-recover-btn" title="Recover project to editor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
+                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9.25 8.5L7 10.75L9.25 13m-4.5-7.5L7 3.25L4.75 1" />
+                    <path
+                      d="M7 10.75h4.5a2 2 0 0 0 2-2v-3.5a2 2 0 0 0-2-2H10m-3 0H2.5a2 2 0 0 0-2 2v3.5a2 2 0 0 0 2 2H4"
+                    />
+                  </g>
+                </svg>
+                <span data-i18n="welcome.recover.recover">Recover</span></a
+              >
+              <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
+                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12.5 12.5a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1H9L12.5 4z" />
+                    <path d="m9 8l-2 2l-2-2m2 2V4.5" />
+                  </g>
+                </svg>
+                <span data-i18n="welcome.recover.save">Save</span>
+              </a>
+              <a href="#" id="prompt-cancel-recover-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.5 7V1.5a1 1 0 0 1 1-1H10L13.5 4v8.5a1 1 0 0 1-1 1H8M4.74 9.26L.5 13.5m0-4.24l4.24 4.24"
+                  />
+                </svg>
+                <span data-i18n="welcome.recover.cancel">Cancel</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-section" id="welcome-recent">
-        <h3 data-i18n="welcome.recent.heading">Recent</h3>
-        <ul id="welcome-recent-list">
-          <li>
-            <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
-              >More...</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="modal-section" id="welcome-templates">
-        <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
-        <ul id="welcome-template-list">
-          <li>
-            <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more"
-              >More...</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="modal-section">
+
+        <div id="welcome-recent">
+          <h3 data-i18n="welcome.recent.heading">Recent</h3>
+          <ul id="welcome-recent-list">
+            <li>
+              <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
+                >More...</a
+              >
+            </li>
+          </ul>
+        </div>
+
         <h3 data-i18n="welcome.about.heading">About LiveCodes</h3>
         <ul class="modal-docs">
           <li>
@@ -177,8 +185,7 @@
             >
           </li>
         </ul>
-      <!-- </div>
-      <div class="modal-section"> -->
+
         <h3>Support</h3>
         <div class="welcome-support">
           <div>
@@ -244,9 +251,8 @@
             >
           </div>
         </div>
-      </div>
 
-    <!-- </div> -->
+      </div>
 
   </div>
 

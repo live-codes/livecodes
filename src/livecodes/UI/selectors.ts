@@ -106,9 +106,8 @@ export const getstyleMenu = /* @__PURE__ */ () =>
 export const getSettingToggles = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLInputElement>('#app-menu-settings input');
 
-// TODO check const getCSSPresetLinks !?
-//   export const getCssPresetLinks = /* @__PURE__ */ () =>
-//   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
+export const getCssPresetLinks = /* @__PURE__ */ () =>
+document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
 
 export const getAppMenuProjectScroller = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#app-menu-container-project');

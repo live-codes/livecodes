@@ -103,8 +103,8 @@
   --input-border-active: var(--dark-bg-active);
 
   --input-inner-active: var(--color90);
-  --input-inner-color: var(--color50);
-  --input-indeterminate-color: var(--color30);
+  --input-inner-color: var(--dark-bg-color);
+  --input-indeterminate-color: var(--darker-bg-color);
   --input-color: var(--darker-color); // inner uncheck
   --input-active: var(--darker-active);
 

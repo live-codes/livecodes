@@ -1041,6 +1041,22 @@
     width: 120px;
   }
 
+  #welcome-start,
+  #welcome-templates,
+  #welcome-recent,
+  .modal-docs {
+    margin-bottom: 1rem;
+
+    a {
+      padding: var(--s6) var(--s12);
+      white-space: nowrap;
+
+      &:hover {
+        background: var(--btn-modal-bg-color);
+      }
+    }
+  }
+
   #welcome-recover {
     display: none;
     overflow: hidden;
@@ -1049,6 +1065,7 @@
       background: var(--darker-bg-color);
       border-radius: var(--rl);
       color: var(--light);
+      margin-bottom: 1rem;
       padding: 0.5rem;
     }
 
@@ -1059,14 +1076,20 @@
     .welcome-recover-actions {
       align-items: center;
       display: flex;
-      flex-grow: 1;
+
       font-size: var(--s14);
-      gap: 0.25rem;
+      // gap: 0.25rem;
+      margin: .5rem;
 
       a {
         color: var(--light);
+        flex-grow: 1;
       }
     }
+  }
+
+  #welcome-recent {
+    margin-bottom: 1rem;
   }
 
   .modal-section {
@@ -1103,7 +1126,7 @@
 
     h3 {
       font-weight: 300;
-      margin: 0 0 0.25rem;
+      margin: 0 0 0.5rem;
     }
 
     li {
@@ -1179,6 +1202,7 @@
     display: flex;
     flex-wrap: nowrap;
     gap: 0.25rem;
+    margin-bottom: 1rem;
   }
 
   .welcome-support > div {
