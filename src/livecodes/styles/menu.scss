@@ -31,7 +31,7 @@
   }
 }
 
-#app-menu-button-project {
+/* #app-menu-button-project {
   &:focus + .menu-scroller,
   &:active + .menu-scroller,
   &:focus + .menu-scroller .dropdown-menu,
@@ -45,7 +45,7 @@
   &#app-menu-help {
     display: block;
   }
-}
+} */
 
 [id^='app-menu-button-'] {
   &:focus + .menu-scroller,
@@ -277,9 +277,6 @@
 #open-list:hover {
   display: block !important;
 }
-/* .submenu:hover {
-  display: block !important;
-} */
 
 i.arrow {
   color: var(--submenu-arrow-color);
@@ -289,14 +286,6 @@ i.arrow {
   right: -6px;
   text-decoration: none;
   top: calc(50% - 0.5rem);
-
-  &.submenu-chevron {
-    // todo ltr - rtl
-  }
-
-  &.left {
-    // todo transform: rotate(180deg);
-  }
 
   &::before {
     border-right: 2px solid;

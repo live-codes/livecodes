@@ -143,10 +143,8 @@
 
     select[id*='-filter'] {
       border-bottom: 0;
-      // appearance: none;
       border-radius: 0;
       border-top: 0;
-      // color: var(--darker-color);
       color: var(--input-color);
       font-size: inherit !important;
       height: 32px !important;
@@ -169,7 +167,6 @@
 
       &:hover,
       &:focus {
-        // background: var(--input-active);
         background: var(--input-bg-active);
         overflow-x: auto;
       }
@@ -213,7 +210,6 @@
 
     .list-button:hover {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.176);
-      // transform: translateY(1px) 0.5s;
     }
 
     li {
@@ -236,16 +232,7 @@
       }
 
       .default-template-label {
-        /*         color: rgb(100, 100, 100);
         display: none;
-        font-size: 0.7em;
-        font-weight: 500;
-        margin-left: 5px; */
-
-        span {
-          /*           color: rgb(128, 128, 128);
-          font-size: 1em !important; */
-        }
       }
 
       .template-default-link {
@@ -267,8 +254,6 @@
     opacity: 0.7;
   }
 
-
-
   .template-default {
     align-items: center;
     display: flex;
@@ -277,33 +262,27 @@
       margin: 0 var(--s4);
     }
 
+    .default-template-label,
     .template-default-link,
     .template-remove-default-link {
+      border-radius: var(--s4);
       color: var(--link);
       display: inline-block;
       font-size: var(--s14);
       font-weight: normal;
-      margin: 0.5em;
       min-width: 3em;
-      padding: 0.2em;
 
       &:hover {
         text-decoration: underline;
       }
     }
-
-    .template-remove-default-link {
-      border-radius: var(--rs);
-    }
   }
 
   .light {
-    // todo css var color: rgb(128, 128, 128);
     color: var(--light);
     font-size: var(--s14);
     font-weight: 400;
     line-height: 1.5;
-    // margin-left: 5px;
   }
 
   #add-asset-data-url {
@@ -325,13 +304,6 @@
       height: 10em !important;
       width: 100%;
     }
-
-    /*     input#add-snippet-title-input,
-    textarea#add-snippet-description-textarea,
-    select#language-select {
-      margin-bottom: 1rem;
-      width: 100%;
-    } */
   }
 
   .actions {
@@ -599,7 +571,6 @@
     justify-content: flex-start;
     margin: 0;
     padding: 0;
-    // text-align: center;
     width: 100%;
 
     &.hidden {
@@ -616,11 +587,10 @@
     display: inherit;
     list-style: none;
     margin: 0;
-    max-width: calc(50% - 8px);
+    max-width: calc(50% - 0.5rem);
     min-height: 4em;
     padding: 0;
     text-align: left;
-    // transform: scaleY(1);
     transition: all 0.4s ease-in-out;
     width: 100%;
 
@@ -697,8 +667,6 @@
   .input-container {
     align-self: flex-start;
     margin-bottom: 1.5rem;
-    // margin-left: 10%;
-    // text-align: left;
 
     &:last-of-type {
       margin-bottom: var(--s8);
@@ -706,7 +674,6 @@
 
     > span {
       display: inline-block;
-      // margin-bottom: 0.5em;
       margin-right: 1.5em;
     }
 
@@ -727,8 +694,6 @@
     display: inline-block;
     font-weight: 400;
     margin-bottom: var(--s8);
-    // text-align: left;
-    // width: 80%;
   }
 
   label + .input-container {
@@ -852,8 +817,7 @@
 
   #embed-code {
     border-radius: var(--rl);
-    height: 12em !important; // test auto (options resize textarea
-    /* margin: 1em !important; */
+    height: 12em !important;
     text-align: left;
 
     > pre {
@@ -927,7 +891,6 @@
 
   #editor-settings-container {
     #editor-settings-format-link {
-      /* font-size: var(--s14); */
       position: absolute;
       right: 10%;
       top: 0.25rem;
@@ -1026,12 +989,6 @@
     cursor: pointer;
     font-size: var(--s14);
   }
-
-  /*     #share-url-input {
-    font-size: var(--s14);
-    margin-bottom: var(--s8);
-    width: 100%;
-  } */
 
   .share-expiry {
     display: flex;
@@ -1181,16 +1138,6 @@
     }
   }
 
-  .modal-section:first-child {
-    a {
-      max-width: fit-content; // TODO remove for bg hover ?
-
-      > span {
-        padding: 0.5rem;
-      }
-    }
-  }
-
   @media only screen and (max-width: 768px) {
     .modal-section {
       width: 100%; // todo column
@@ -1241,7 +1188,6 @@
   }
 
   .welcome-support > div > a {
-    border: 1px solid red;
     background: var(--btn-modal-bg-color);
     border-radius: var(--rs);
     color: var(--btn-modal-color);
@@ -1336,7 +1282,7 @@
 
     li {
       background: var(--btn-modal-bg-color);
-      border-radius: var(--rl);
+      border-radius: var(--rs);
       color: var(--btn-modal-color);
       text-align: center;
       transition: background 0.5s ease-in-out;
@@ -1372,7 +1318,6 @@
 
   .modal-content {
     max-width: 100%;
-    // width: calc(100% - 2rem);
   }
 
   .modal-status {
@@ -1397,7 +1342,6 @@
     cursor: pointer;
     height: 24px;
     margin: var(--s4);
-    // opacity: 0.6;
     position: relative;
     vertical-align: middle;
     width: 24px;
@@ -1407,7 +1351,6 @@
     &:hover {
       background: transparent;
       color: var(--btn-modal-active);
-      // opacity: 1;
     }
   }
 
@@ -1582,9 +1525,6 @@
       > span {
         display: flex;
         justify-content: center;
-        // margin-bottom: 0.5em;
-        // min-width: 9em;
-        // width: 33%;
       }
 
       > span:empty {
