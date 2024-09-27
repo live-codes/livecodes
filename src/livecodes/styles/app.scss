@@ -392,7 +392,6 @@ kbd {
 
 .description {
   border-radius: var(--rl);
-  // display: inline-block;
   font-size: var(--s14);
   margin-bottom: var(--s16);
   padding: var(--s16);
@@ -795,9 +794,7 @@ a#result-button {
     }
 
     svg {
-      //height: 16px; // todo icon size
       margin: 4px auto;
-      //width: 16px;
     }
 
     &:hover,
