@@ -96,7 +96,7 @@ const writeTranslation = async (namespace, tmpMode) => {
     // Save structured JSON for lokalise
     fs.promises.writeFile(
       path.join(outDir, namespace + '.lokalise.json'),
-      sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)([0-9]+)>/g, '<$1tag-$2>'),
+      sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)(\d+)>/g, '<$1tag-$2>'),
     ),
   ]);
 
@@ -196,7 +196,7 @@ const abstractifyHTML = (html) => {
   const closing = [];
   let htmlString = doc.body.innerHTML.replace(/tag-/g, '');
   const newElements = [];
-  htmlString = htmlString.replace(/<([0-9]+)>/g, (_, p1) => {
+  htmlString = htmlString.replace(/<(\d+)>/g, (_, p1) => {
     newElements.push(elements[p1]);
 
     // Replace corresponding closing tag to a special tag, in order to avoid replaced tag being replaced again

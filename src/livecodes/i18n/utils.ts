@@ -55,7 +55,7 @@ export const abstractifyHTML = (html: string) => {
   const closing: Array<{ from: RegExp; to: string }> = [];
   let htmlString = doc.body.innerHTML.replace(/tag-/g, '');
   const newElements: TagElement[] = [];
-  htmlString = htmlString.replace(/<([0-9]+)>/g, (_, p1) => {
+  htmlString = htmlString.replace(/<(\d+)>/g, (_, p1) => {
     newElements.push(elements[p1]);
 
     // Replace corresponding closing tag to a special tag, in order to avoid replaced tag being replaced again
@@ -84,7 +84,7 @@ export const abstractifyHTML = (html: string) => {
 export const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(
-    html.replace(/<(\/?)([0-9]+)([^>]*)>/g, '<$1tag-$2$3>'),
+    html.replace(/<(\/?)(\d+)([^>]*)>/g, '<$1tag-$2$3>'),
     'text/html',
   );
 
