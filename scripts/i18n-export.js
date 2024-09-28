@@ -120,10 +120,8 @@ const addTranslation = (nsKey, value, desc, props) => {
   parts.forEach((part, index) => {
     if (!current[part]) {
       current[part] = index === parts.length - 1 ? value : {};
-    } else {
-      if (index === parts.length - 1 && current[part] !== value) {
-        console.error(`Duplicate key: ${key}`);
-      }
+    } else if (index === parts.length - 1 && current[part] !== value) {
+      console.error(`Duplicate key: ${key}`);
     }
     current = current[part];
   });
