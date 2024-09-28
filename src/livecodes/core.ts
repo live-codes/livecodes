@@ -4212,6 +4212,7 @@ const basicHandlers = () => {
   handleResultLoading();
   handleTestResults();
   handleConsole();
+  handleI18n();
   if (isEmbed) {
     handleExternalResources();
     handleFullscreen();
@@ -4219,7 +4220,6 @@ const basicHandlers = () => {
 };
 
 const extraHandlers = async () => {
-  handleI18n();
   handleTitleEdit();
   handleSettingsMenu();
   handleSettings();
