@@ -34,7 +34,7 @@ const structuredJSON = {
 
 /**
  * `JSON.stringify` with keys sorted.
- * @param {object} obj
+ * @param {Record<string, unknown>} obj
  * @param {number} space
  */
 const sortedJSONify = (obj, space = 2) =>
@@ -126,7 +126,7 @@ const addTranslation = (nsKey, value, desc, props) => {
     current = current[part];
   });
 
-  if (!props || props.length == 1) {
+  if (!props || props.length === 1) {
     structuredJSON[namespace][key] = {
       translation: value,
       notes: desc,
@@ -215,7 +215,7 @@ const abstractifyHTML = (html) => {
 
 /**
  * Generate note for Lokalise from elements.
- * @param {object[]} elements List of elements.
+ * @param {Record<string, unknown>[]} elements List of elements.
  * @returns {string} Note for Lokalise.
  */
 const generateElementsNote = (elements) =>
@@ -261,7 +261,7 @@ const processHTML = async (files) => {
           const props = (element.getAttribute('data-i18n-prop') ?? 'textContent').split(' ');
 
           const { value, desc } =
-            props.length == 1
+            props.length === 1
               ? getValueAndContext(element, props[0])
               : props.reduce(
                 (acc, prop) => {
