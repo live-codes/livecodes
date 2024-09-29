@@ -7,15 +7,6 @@ type TestParams = Parameters<Parameters<typeof test>[1]>[0];
 
 test.describe('I18n', () => {
   type I18nTestOptions = Omit<UrlQueryParams, 'appLanguage'>;
-  interface Test {
-    title: string;
-    selector: string;
-    text: {
-      [K in AppLanguage]?: string;
-    };
-    prop: string;
-    options?: I18nTestOptions;
-  }
 
   const checkText =
     (
@@ -23,10 +14,16 @@ test.describe('I18n', () => {
       text: string,
       prop: string,
       appLanguage: AppLanguage | undefined,
-      options: I18nTestOptions,
+      options?: I18nTestOptions,
     ) =>
     async ({ page, getTestUrl }: TestParams) => {
-      await page.goto(getTestUrl({ 'no-defaults': false, appLanguage, ...options }));
+      await page.goto(
+        getTestUrl({
+          'no-defaults': false,
+          ...(appLanguage !== undefined && { appLanguage }),
+          ...options,
+        }),
+      );
 
       const { app } = await getLoadedApp(page);
       const textElem = await app.$(selector);
@@ -41,61 +38,73 @@ test.describe('I18n', () => {
       expect(textToCheck).toBe(text);
     };
 
-  const tests = [
-    {
-      title: 'Check HTML Text (Welcome)',
-      selector: '#welcome-container > .modal-title',
-      prop: 'textContent',
-      text: {
-        en: 'Welcome',
-        'zh-CN': '欢迎',
-      },
-    },
-    {
-      title: 'Check TS Text (Blank Project)',
-      selector: '#welcome-template-list > li:nth-child(1)',
-      prop: 'textContent',
-      text: {
-        en: 'Blank Project',
-        'zh-CN': '空白项目',
-      },
-    },
-    {
-      title: 'Check Embed (Run Button)',
-      selector: '#run-button',
-      prop: 'data-hint',
-      text: {
-        en: 'Run (Shift + Enter)',
-        'zh-CN': '运行（Shift + Enter）',
-      },
-      options: {
-        embed: true,
-      },
-    },
-  ] as const satisfies Test[];
+  test.describe('Check HTML Text (Welcome)', () => {
+    const checkWelcomeHTMLString = (text: string, appLanguage?: AppLanguage) =>
+      checkText('#welcome-container > .modal-title', text, 'textContent', appLanguage);
 
-  // @ts-expect-error
-  tests.forEach(({ title, selector, prop, text, options }) => {
-    test.describe(title, () => {
-      const subcheckText = (text: string, appLanguage?: AppLanguage) =>
-        checkText(selector, text, prop, appLanguage, options);
+    test('Check default fallback (en)', checkWelcomeHTMLString('Welcome'));
+    test(
+      'Check supported language with query param (zh-CN)',
+      checkWelcomeHTMLString('欢迎', 'zh-CN'),
+    );
 
-      test('Check default fallback (en)', subcheckText(text.en));
+    // @ts-expect-error
+    test('Check not-supported language', checkWelcomeHTMLString('Welcome', 'un-supported'));
+
+    test.describe('Check with locale (zh-CN)', () => {
+      test.use({ locale: 'zh-CN' });
+      test('Check supported language with auto check', checkWelcomeHTMLString('欢迎', 'auto'));
+      test('Check supported language with no query param given', checkWelcomeHTMLString('欢迎'));
+    });
+  });
+
+  test.describe('Check TS Text (Blank Project)', () => {
+    const checkWelcomeTSString = (text: string, appLanguage?: AppLanguage) =>
+      checkText('#welcome-template-list > li:nth-child(1)', text, 'textContent', appLanguage);
+
+    test('Check default fallback (en)', checkWelcomeTSString('Blank Project'));
+    test(
+      'Check supported language with query param (zh-CN)',
+      checkWelcomeTSString('空白项目', 'zh-CN'),
+    );
+
+    // @ts-expect-error
+    test('Check not-supported language', checkWelcomeTSString('Blank Project', 'un-supported'));
+
+    test.describe('Check with locale (zh-CN)', () => {
+      test.use({ locale: 'zh-CN' });
+      test('Check supported language with auto check', checkWelcomeTSString('空白项目', 'auto'));
+      test('Check supported language with no query param given', checkWelcomeTSString('空白项目'));
+    });
+  });
+
+  test.describe('Check Embed (Run Button)', () => {
+    const checkRunButtonEmbed = (text: string, appLanguage?: AppLanguage) =>
+      checkText('#run-button', text, 'data-hint', appLanguage, { embed: true });
+
+    test('Check default fallback (en)', checkRunButtonEmbed('Run (Shift + Enter)'));
+    test(
+      'Check supported language with query param (zh-CN)',
+      checkRunButtonEmbed('运行（Shift + Enter）', 'zh-CN'),
+    );
+
+    test(
+      'Check not-supported language',
+      // @ts-expect-error
+      checkRunButtonEmbed('Run (Shift + Enter)', 'un-supported'),
+    );
+
+    test.describe('Check with locale (zh-CN)', () => {
+      test.use({ locale: 'zh-CN' });
       test(
-        'Check supported language with query param (zh-CN)',
-        subcheckText(text['zh-CN'], 'zh-CN'),
+        'Check supported language with auto check',
+        checkRunButtonEmbed('运行（Shift + Enter）', 'auto'),
       );
 
-      // @ts-expect-error
-      test('Check not-supported language', subcheckText(text.en, 'un-supported'));
-
-      test.describe('Check with locale (zh-CN)', () => {
-        test.use({ locale: 'zh-CN' });
-        test(
-          'Check supported language with locale (zh-CN)',
-          subcheckText(options?.embed ? text.en : text['zh-CN'], 'auto'),
-        );
-      });
+      test(
+        'Check supported language with no query param given',
+        checkRunButtonEmbed('Run (Shift + Enter)'),
+      );
     });
   });
 });
