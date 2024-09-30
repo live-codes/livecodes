@@ -266,7 +266,7 @@
     .template-default-link,
     .template-remove-default-link {
       border-radius: var(--s4);
-      color: var(--link);
+      color: var(--darker-color);
       display: inline-block;
       font-size: var(--s14);
       font-weight: normal;
@@ -537,7 +537,7 @@
     color: var(--btn-modal-color);
     cursor: pointer;
     font-size: var(--btn-modal-font);
-    min-width: 100px;
+    min-width: 80px;
     outline: none;
     padding: var(--s6);
     place-self: center;
@@ -838,6 +838,7 @@
 
       .backup-store {
         background: var(--darker-bg-color);
+        color: var(--darker-color);
         border-radius: var(--rs);
         flex-grow: 1;
         padding: var(--s6);
@@ -920,7 +921,7 @@
     gap: var(--s8);
     justify-content: space-between;
     list-style: none;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
   }
 
   #share-screen li {
@@ -1053,6 +1054,7 @@
 
       &:hover {
         background: var(--btn-modal-bg-color);
+        color: var(--btn-modal-active);
       }
     }
   }
@@ -1070,6 +1072,7 @@
     }
 
     li {
+      font-size: var(--s12);
       margin: 0.5rem;
     }
 
@@ -1078,7 +1081,7 @@
       display: flex;
 
       font-size: var(--s14);
-      margin: .5rem;
+      margin: .5rem 0.25rem;
 
       a {
         color: var(--light);
@@ -1175,25 +1178,25 @@
   }
 
   #show-welcome {
-      align-items: center;
-      background: var(--darker-bg-color);
-      border-top-left-radius: var(--rl);
-      border-top-right-radius: var(--rl);
-      bottom: -8px;
-      box-shadow: 0 0 8px 1px #0006;
-      color: var(--darker-color);
-      display: flex;
-      gap: var(--s4);
-      justify-content: center;
-      margin: 0 1rem;
-      padding: 0.5em 0;
-      position: absolute;
-      width: calc(100% - 2em);
+    align-items: center;
+    background: var(--darker-bg-color);
+    border-top-left-radius: var(--rl);
+    border-top-right-radius: var(--rl);
+    bottom: -8px;
+    box-shadow: 0 0 8px 1px #0006;
+    color: var(--darker-color);
+    display: flex;
+    gap: var(--s4);
+    justify-content: center;
+    margin: 0 1rem;
+    padding: 0.5em 0;
+    position: absolute;
+    width: calc(100% - 2em);
 
-      label {
-        margin: 0;
-        width: unset;
-      }
+    label {
+      margin: 0;
+      width: unset;
+    }
   }
 
   .welcome-support {
@@ -1391,6 +1394,7 @@
     height: 100%;
     margin: 0 auto;
     overflow: auto;
+    scrollbar-gutter: stable;
     width: 100%;
   }
 
@@ -1632,14 +1636,21 @@
 @media only screen and (max-width: 1024px) {
   #modal,
   #modal.small {
-    max-height: 25rem;
-    min-height: 25rem;
+    min-height: 23rem;
   }
 
-  #modal #list-container #language-filter,
-  #modal #sort-by-label span,
-  #modal .tagify {
-    display: none !important;
+  #modal.small {
+    width: 23rem;
+  }
+
+  #modal {
+    .modal-search {
+      #list-container #language-filter,
+      #sort-by-label span,
+      .tagify {
+        display: none !important;
+      }
+    }
   }
 }
 
@@ -1653,8 +1664,91 @@
     width: 50%;
   }
 
-  #modal .modal-search #assets-type-filter {
+/*   #modal .modal-search #assets-type-filter {
     width: 8rem !important;
+  } */
+}
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  #modal {
+    .modal-screen-container {
+      padding: 1rem 0 0;
+    }
+
+    .modal-section {
+      margin-bottom: 0;
+      padding: 0;
+    }
+
+    .welcome-recover-content {
+      li.smaller {
+        display: inherit;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    .open-list li {
+      max-width: unset!important;
+    }
+
+    .modal-search {
+      #sort-by-label {
+        display: none;
+      }
+
+      input#search-assets,
+      input#search-projects,
+      input#search-snippets {
+        display: none;
+      }
+
+      .sort-time,
+      .sort-title {
+        display: none;
+      }
+    }
+
+    .description {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0.5em;
+        flex-direction: column;
+      }
+
+      li {
+        width: unset;
+      }
+    }
+
+    .modal-tabs {
+      flex-direction: column;
+      gap: unset;
+
+      li {
+        border-radius: 0;
+        width: unset;
+      }
+
+      li:first-child {
+        border-top-left-radius: var(--rl);
+        border-top-right-radius: var(--rl);
+      }
+
+      li:last-child {
+        border-bottom-left-radius: var(--rl);
+        border-bottom-right-radius: var(--rl);
+      }
+    }
+
+    ul.thumbnails li {
+      width: calc(33% - var(--s4));
+    }
+  }
+
+  #modal.large {
+      width: 94vw;
   }
 }
 

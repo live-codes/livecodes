@@ -293,7 +293,7 @@ i.arrow {
 
 @media only screen and (max-width: 768px) {
   .menu-scroller {
-    max-width: 80vw;
+    max-width: 84vw;
     width: 120%;
   }
 
@@ -316,7 +316,7 @@ i.arrow {
   }
 
   .dropdown-menu.submenu {
-    left: 98%;
+    left: 50%;
     margin: 0;
     padding: var(--s8);
     right: unset;
@@ -353,6 +353,20 @@ i.arrow {
     cursor: pointer;
     height: 16px;
     width: 16px;
+  }
+}
+
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .menu-scroller-markup,
+  .menu-scroller-style,
+  .menu-scroller-script {
+    transform: translateX(-1vw);
+    max-width: 98vw;
+    position: fixed;
+  }
+
+  .dropdown-menu-script {
+    column-count: 2;
   }
 }
 
@@ -432,11 +446,11 @@ i.arrow {
 }
 
 @media only screen and (max-width: 480px) {
-  .menu-scroller-markup,
+/*   .menu-scroller-markup,
   .menu-scroller-style {
     left: -10%;
     width: 300%;
-  }
+  } */
 
   .switch div {
     transform: scale(0.6);

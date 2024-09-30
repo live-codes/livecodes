@@ -133,7 +133,7 @@ type GetTranslation<
  * @param isNs Whether it is a namespace.
  */
 type InferKeys<Base, isNs extends boolean = false, KeyStr extends string = ''> = {
-  [K in keyof Base]: Base[K] extends object
+  [K in keyof Base]: Base[K] extends Record<string, unknown>
     ? KeyStr extends '' // Whether it is of first level (namespace)
       ? InferKeys<Base[K], true, `${K & string}`>
       : KeyStr extends CustomTypeOptions['defaultNS'] // Default namespace and colon can be omitted
