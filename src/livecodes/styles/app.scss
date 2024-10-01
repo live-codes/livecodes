@@ -285,8 +285,8 @@ body {
 
 html.dark {
   --placeholder-color: var(--darker-color)
-  --placeholder-color-focus: var(--darker-active)
-  --tag-bg: var(--dropdown-bg-color);
+    --placeholder-color-focus: var(--darker-active)
+    --tag-bg: var(--dropdown-bg-color);
   --tag-hover: var(--dropdown-bg-active);
   --tag-text-color: var(--dropdown-color);
   // Sugegstion's dropdown
@@ -390,7 +390,7 @@ kbd {
   background: var(--btn-bg-color);
   border: 1px solid var(--btn-bg-color);
   border-radius: 4px;
-  box-shadow: 0px 1px 2px 0 #0006;
+  box-shadow: 0 1px 2px 0 #0006;
   color: var(--btn-color);
   font-size: var(--s12);
   margin-right: 6px;
@@ -715,27 +715,22 @@ a#result-button {
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
-
   #toolbar {
     --toolbar-height: 74px;
     display: flex;
     flex-direction: unset;
-    flex-wrap: unset;
-    height: var(--toolbar-height);
-
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    height: var(--toolbar-height);
     width: 100%;
   }
 
   #toolbar > .toolbar-app,
   #toolbar > .toolbar-render {
     display: flex;
-    flex-grow: 1;
-    flex-basis: 100%;
     flex: 1;
+    flex-basis: 100%;
     flex-direction: row;
+    flex-grow: 1;
   }
 
   #toolbar > .toolbar-render {
@@ -753,19 +748,19 @@ a#result-button {
   }
 
   #select-editor {
-    height: calc(var(--toolbar-height) / 2)!important;
+    height: calc(var(--toolbar-height) / 2) !important;
 
     ul li.editor-title {
+      top: 0;
       width: 80px;
-      top: 0px;
     }
   }
 
-  #modal{
+  #modal {
     .modal-search {
       i.icon-calendar-sort,
       i.icon-arrow-text-sort {
-        display: inline-block!important;
+        display: inline-block !important;
       }
     }
   }

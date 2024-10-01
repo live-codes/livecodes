@@ -859,8 +859,8 @@
 
       .backup-store {
         background: var(--darker-bg-color);
-        color: var(--darker-color);
         border-radius: var(--rs);
+        color: var(--darker-color);
         flex-grow: 1;
         padding: var(--s6);
         white-space: nowrap;
@@ -1102,7 +1102,7 @@
       display: flex;
 
       font-size: var(--s14);
-      margin: .5rem 0.25rem;
+      margin: 0.5rem 0.25rem;
 
       a {
         color: var(--light);
@@ -1682,10 +1682,6 @@
   #modal input#search-projects {
     width: 50%;
   }
-
-/*   #modal .modal-search #assets-type-filter {
-    width: 8rem !important;
-  } */
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
@@ -1708,7 +1704,7 @@
     }
 
     .open-list li {
-      max-width: unset!important;
+      max-width: unset !important;
     }
 
     .modal-search {
@@ -1731,9 +1727,9 @@
     .description {
       ul {
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
         margin: 0.5em;
-        flex-direction: column;
       }
 
       li {
@@ -1767,7 +1763,7 @@
   }
 
   #modal.large {
-      width: 94vw;
+    width: 94vw;
   }
 }
 

@@ -416,7 +416,7 @@ i.arrow {
     width: 0;
 
     &:checked + .slider {
-      background: var(--input-slider-bg-color)
+      background: var(--input-slider-bg-color);
     }
 
     &:focus + .slider {
