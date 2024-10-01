@@ -34,7 +34,7 @@ const structuredJSON = {
 
 /**
  * `JSON.stringify` with keys sorted.
- * @param {object} obj
+ * @param {Record<string, unknown>} obj
  * @param {number} space
  */
 const sortedJSONify = (obj, space = 2) =>
@@ -96,7 +96,7 @@ const writeTranslation = async (namespace, tmpMode) => {
     // Save structured JSON for lokalise
     fs.promises.writeFile(
       path.join(outDir, namespace + '.lokalise.json'),
-      sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)([0-9]+)>/g, '<$1tag-$2>'),
+      sortedJSONify(structuredJSON[namespace]).replace(/<(\/?)(\d+)>/g, '<$1tag-$2>'),
     ),
   ]);
 
@@ -120,15 +120,13 @@ const addTranslation = (nsKey, value, desc, props) => {
   parts.forEach((part, index) => {
     if (!current[part]) {
       current[part] = index === parts.length - 1 ? value : {};
-    } else {
-      if (index === parts.length - 1 && current[part] !== value) {
-        console.error(`Duplicate key: ${key}`);
-      }
+    } else if (index === parts.length - 1 && current[part] !== value) {
+      console.error(`Duplicate key: ${key}`);
     }
     current = current[part];
   });
 
-  if (!props || props.length == 1) {
+  if (!props || props.length === 1) {
     structuredJSON[namespace][key] = {
       translation: value,
       notes: desc,
@@ -196,7 +194,7 @@ const abstractifyHTML = (html) => {
   const closing = [];
   let htmlString = doc.body.innerHTML.replace(/tag-/g, '');
   const newElements = [];
-  htmlString = htmlString.replace(/<([0-9]+)>/g, (_, p1) => {
+  htmlString = htmlString.replace(/<(\d+)>/g, (_, p1) => {
     newElements.push(elements[p1]);
 
     // Replace corresponding closing tag to a special tag, in order to avoid replaced tag being replaced again
@@ -217,7 +215,7 @@ const abstractifyHTML = (html) => {
 
 /**
  * Generate note for Lokalise from elements.
- * @param {object[]} elements List of elements.
+ * @param {Record<string, unknown>[]} elements List of elements.
  * @returns {string} Note for Lokalise.
  */
 const generateElementsNote = (elements) =>
@@ -263,7 +261,7 @@ const processHTML = async (files) => {
           const props = (element.getAttribute('data-i18n-prop') ?? 'textContent').split(' ');
 
           const { value, desc } =
-            props.length == 1
+            props.length === 1
               ? getValueAndContext(element, props[0])
               : props.reduce(
                 (acc, prop) => {

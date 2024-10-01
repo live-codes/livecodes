@@ -17,7 +17,7 @@ const projectID = process.env.LOKALISE_PROJECT_ID;
  * Expand the flattened translation object (KV pairs) to a nested object.
  * @param {string} source Path to the source file.
  * @param {Set<string>} validKeys Set of valid keys.
- * @returns object
+ * @returns Record<string, unknown>
  */
 const generateTranslationObject = async (source, validKeys) => {
   const translations = JSON.parse(await fs.promises.readFile(source, 'utf-8'));

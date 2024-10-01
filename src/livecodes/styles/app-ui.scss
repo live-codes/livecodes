@@ -6,7 +6,7 @@ body {
 iframe.knobsIframe {
   background: #111;
   border: 1px solid #252728 !important;
-  border-radius: var(--rl);
+  border-radius: var(--rs);
   height: clamp(32px, var(--knobsHeight, 32px), 100%) !important;
   width: var(--knobsWidth, 32px) !important;
 }

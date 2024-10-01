@@ -16,15 +16,11 @@
   --s24: calc(var(--unit) * 1.5);
   --s32: calc(var(--unit) * 2);
   --s40: calc(var(--unit) * 2.5);
-  --rs: var(--s4);
-  --rl: var(--s8);
-
-  --uidir: ltr; // TODO ----- REMOVE UI CSS VARS TEST
-  --uifocus: visible;
+  --rs: var(--s4); // border radius
 
   --hue: 214;  // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
   --st: 40%;  // Saturation
-  --lt: 100%; // Lightness
+  --lt: 50%; // Lightness
 
   --color: hsl(var(--hue), var(--st), var(--lt));
   --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.2)); // 10%
@@ -102,8 +98,13 @@
   --input-border-color: var(--dark-bg-color);
   --input-border-active: var(--dark-bg-active);
 
-  --input-inner-active: var(--color90);
-  --input-inner-color: var(--dark-bg-color);
+  --input-range-bg-color: var(--darker-bg-color);
+
+  --input-slider-bg-color: var(--darker-bg-color);
+  --input-slider-border-color: var(--dark-bg-color);
+
+  --input-switch-active: var(--color90);
+  --input-switch-color: var(--color30); // menu switch inner uncheck
   --input-indeterminate-color: var(--darker-bg-color);
   --input-color: var(--darker-color); // inner uncheck
   --input-active: var(--darker-active);
@@ -164,18 +165,18 @@
 
   --editor-tools-mark-color: #8bc34a;
 
-  --scrollbar-color: var(--color20);
-  --scrollbar-active-color: var(--color20);
-  --scrollbar-hover-color: var(--color30);
+  --scrollbar-color: var(--darker-bg-color);
+  --scrollbar-active-color: var(--darker-bg-active);
+  --scrollbar-hover-color: var(--darker-bg-active);
 
   --scrollbar-color-track: transparent;
-  --scrollbar-color-thumb: var(--color20);
+  --scrollbar-color-thumb: var(--darker-bg-color);
   --scrollbar-width: thin;
   --scrollbar-width-legacy: 8px;
 
-  --size-label-background: var(--color20);
-  --size-label-border: var(--color30);
-  --size-label-color: var(--color50);
+  --size-label-background: var(--darker-bg-color);
+  --size-label-border: var(--dropdown-border);
+  --size-label-color: var(--darker-color);
 
   --toolspane-bar-text-color: var(--color40);
   --toolspane-buttons-text-color: var(--color40);
@@ -190,47 +191,20 @@
   --toolspane-active: var(--darker-active);
   --toolspane-color: var(--darker-color);
 
-  --tests-bg-color: inherit;
-  --test-results-background-color: rgba(0, 128, 0, 0.2);
+  --tests-bg-color: var(--color10);
+  --tests-color: var(--darker-color);
+  --test-results-bg-color: rgba(0, 128, 0, 0.2);
   --test-results-border: 1px solid rgb(0, 128, 0);
   --test-pass-color: rgb(0, 178, 0);
   --test-fail-background: rgba(255, 0, 0, 0.2);
   --test-fail-border: 1px solid rgb(255, 0, 0);
   --test-fail-color: rgb(255, 102, 102);
+
+  --placeholder-color: var(--dropdown-color) !important;
+  --placeholder-color-focus: var(--dropdown-active) !important;
 }
 
 @import 'light';
-
-html {
-  box-sizing: border-box;
-}
-
-html.dark {
-  --placeholder-color: var(--dropdown-color);
-  --tag-bg: var(--dropdown-bg-color);
-  --tag-hover: var(--dropdown-bg-active);
-  --tag-text-color: var(--dropdown-color);
-  // dropdown
-  --tagify-dd-color-primary: var(--dropdown-bg-active); //	Sugegstion's background color on hover
-  --tagify-dd-text-color: var(--link); //	Sugegstion's text color
-  --tagify-dd-bg-color: var(--dropdown-bg-color); //	suggestion's dropdown background color
-  // --tagify-dd-item--hidden-duration:; //	selecting a suggestion duration to hidden (shrink)
-  --tagify-dd-item-pad: 2px 8px; //	Suggestion item padding
-  // --tagify-dd-max-height:;   //	Maximum height of suggestions dropdown (300px by default)
-  .tagify {
-    --placeholder-color: var(--dropdown-color);
-    --placeholder-color-focus: var(--dropdown-active);
-    --tags-border-color: var(--input-border-color) !important;
-    --tags-hover-border-color: var(--input-border-active) !important;
-    --tags-focus-border-color: var(--input-border-active) !important;
-    background: var(--input-bg-color); // color2);
-    border-radius: var(--rs);
-  }
-
-  .tagify__dropdown__item {
-    color: var(--link);
-  }
-}
 
 *,
 *::before,
@@ -272,7 +246,7 @@ html.dark {
   *::-webkit-scrollbar-track {
     background: var(--scrollbar-color-track);
     background: transparent;
-    border-radius: var(--rl);
+    border-radius: 8px;
   }
 
   ::-webkit-scrollbar-corner {
@@ -281,7 +255,7 @@ html.dark {
 
   ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-color-thumb);
-    border-radius: var(--rl);
+    border-radius: 8px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -299,13 +273,46 @@ html.dark {
 
 html,
 body {
-  background: #1d1b1b;
+  // background: #1d1b1b;
+  box-sizing: border-box;
   display: flex;
   font-family: system-ui, sans-serif;
   font-size: var(--font-size);
   height: 100%;
   justify-content: center;
   width: 100%;
+}
+
+html.dark {
+  --placeholder-color: var(--darker-color)
+    --placeholder-color-focus: var(--darker-active)
+    --tag-bg: var(--dropdown-bg-color);
+  --tag-hover: var(--dropdown-bg-active);
+  --tag-text-color: var(--dropdown-color);
+  // Sugegstion's dropdown
+  --tagify-dd-color-primary: var(--dropdown-bg-active); // background color on hover
+  --tagify-dd-text-color: var(--link); //	text color
+  --tagify-dd-bg-color: var(--dropdown-bg-color); // dropdown background color
+  // --tagify-dd-item--hidden-duration:; //	selecting a suggestion duration to hidden (shrink)
+  --tagify-dd-item-pad: 2px 8px; //	Suggestion item padding
+  // --tagify-dd-max-height:;   //	Maximum height of suggestions dropdown (300px by default)
+  // Tags
+  --tags-border-color: var(--input-border-color) !important;
+  --tags-hover-border-color: var(--input-border-active) !important;
+  --tags-focus-border-color: var(--input-border-active) !important;
+}
+
+html {
+  .tagify {
+    --placeholder-color: var(--darker-active);
+    --placeholder-color-focus: var(--darker-active);
+    background: var(--input-bg-color); // color2);
+    border-radius: var(--rs);
+  }
+}
+
+.tagify__dropdown__item {
+  color: var(--link);
 }
 
 // TODO -----//----- ↓ REMOVE UI CSS VARS TEST ↓
@@ -383,15 +390,15 @@ kbd {
   background: var(--btn-bg-color);
   border: 1px solid var(--btn-bg-color);
   border-radius: 4px;
-  box-shadow: 1px 1px 2px 0 #0006;
+  box-shadow: 0 1px 2px 0 #0006;
   color: var(--btn-color);
   font-size: var(--s12);
   margin-right: 6px;
-  padding: 4px;
+  padding: 2px 4px;
 }
 
 .description {
-  border-radius: var(--rl);
+  border-radius: var(--rs);
   font-size: var(--s14);
   margin-bottom: var(--s16);
   padding: var(--s16);
@@ -504,6 +511,9 @@ kbd {
       border: var(--btn-border);
       border-radius: var(--btn-border-radius);
       color: var(--btn-color);
+      display: inherit;
+      height: var(--s32);
+      place-items: center;
 
       &:hover {
         background: var(--btn-bg-active);
@@ -552,12 +562,13 @@ kbd {
     color: var(--project-title-color);
     display: flex;
     font-size: inherit;
-    height: 1.5rem;
+    height: var(--s32);
     justify-content: flex-start;
     margin: 0 var(--s8);
     max-width: 50%;
     overflow: hidden;
-    padding: 0 var(--s6);
+    padding: 0 var(--s4);
+    place-self: center;
     position: relative;
     transition: all 0.5s ease-in-out;
     width: 100%;
@@ -703,7 +714,57 @@ a#result-button {
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  #toolbar {
+    --toolbar-height: 74px;
+    display: flex;
+    flex-direction: unset;
+    flex-wrap: wrap;
+    height: var(--toolbar-height);
+    width: 100%;
+  }
+
+  #toolbar > .toolbar-app,
+  #toolbar > .toolbar-render {
+    display: flex;
+    flex: 1;
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+
+  #toolbar > .toolbar-render {
+    justify-content: space-between;
+    place-items: center;
+  }
+
+  #toolbar #project-title {
+    max-width: unset;
+  }
+
+  #toolbar #login-link,
+  #toolbar #logout-link {
+    height: 100%;
+  }
+
+  #select-editor {
+    height: calc(var(--toolbar-height) / 2) !important;
+
+    ul li.editor-title {
+      top: 0;
+      width: 80px;
+    }
+  }
+
+  #modal {
+    .modal-search {
+      i.icon-calendar-sort,
+      i.icon-arrow-text-sort {
+        display: inline-block !important;
+      }
+    }
+  }
+
   .layout-vertical {
     .tool-buttons#editor-tools {
       display: none;
@@ -723,7 +784,7 @@ a#result-button {
 
   > .editor {
     font-variant-ligatures: discretionary-ligatures;
-    max-height: calc(100% - 32px);
+    // max-height: calc(100% - 32px);
     visibility: hidden;
   }
 
@@ -870,18 +931,6 @@ a#result-button {
 }
 
 #result {
-  background-color: #ccc;
-  background-image: linear-gradient(45deg,
-  white 25%,
-  transparent 25%,
-  transparent 75%,
-  white 75%,
-  white),
-    linear-gradient(45deg, white 25%, transparent 25%, transparent 75%, white 75%, white);
-  background-position:
-    0 0,
-    10px 10px;
-  background-size: 20px 20px;
   resize: both;
 
   &.full {
@@ -910,17 +959,6 @@ a#result-button {
       width: 400%;
     }
   }
-}
-
-html.dark #result {
-  background-color: #222;
-  background-image: linear-gradient(45deg,
-  #444 25%,
-  transparent 25%,
-  transparent 75%,
-  #444 75%,
-  #444),
-    linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
 }
 
 #tools-pane-bar {
@@ -1018,14 +1056,14 @@ html.dark #result {
 #test-container,
 #test-results {
   background-color: var(--tests-bg-color);
-  color: var(--link); // TODO css
+  color: var(--tests-color);
 }
 
 #test-results {
   padding-bottom: 1rem;
 
   .test-result {
-    background-color: var(--test-results-background-color);
+    background-color: var(--test-results-bg-color);
     border: var(--test-results-border);
     border-radius: var(--rs);
     margin: 0.5em;
@@ -1092,7 +1130,7 @@ html.dark #result {
 
   .button {
     gap: var(--s4);
-    min-width: 100px;
+    min-width: 80px;
   }
 }
 
@@ -1472,8 +1510,6 @@ li.editor-title {
   }
 }
 
-// TODO REMOVE TEST FOCUS : html & var --uifocus
-html,
 .focus-mode {
   .language-menu-button,
   #login-link,
@@ -1481,7 +1517,7 @@ html,
   #settings-button,
   .tools-pane-title:not(.console),
   .tool-buttons {
-    visibility: var(--uifocus); // !important;
+    visibility: hidden;
   }
 
   #toolbar {
@@ -1533,7 +1569,7 @@ html,
 
 #console-input {
   .cm-activeLine {
-    background: var(--console-bg) !important;
+    // background: var(--console-bg) !important;
   }
 
   .cm-gutter {
@@ -1622,13 +1658,13 @@ pre[class*='language-'].line-numbers > code {
 
 /* codejar */
 .line-numbers .line-numbers-rows {
+  border-right: 1px solid #999;
   font-size: 100%;
   left: -3.8em;
   letter-spacing: -1px; /* works for line-numbers below 1000 lines */
   pointer-events: none;
   position: absolute;
   top: 0;
-  border-right: 1px solid #999;
   user-select: none;
   width: 3em;
 }
@@ -1660,7 +1696,7 @@ pre[class*='language-'].line-numbers > code {
   > ul {
     background-color: transparent;
     border: 1px solid rgba(33, 33, 33, 0.1);
-    border-radius: var(--rl);
+    border-radius: var(--rs);
     left: 0;
     margin: 0.5rem 0 0;
     max-height: 226px;
@@ -1674,7 +1710,7 @@ pre[class*='language-'].line-numbers > code {
 
     > li {
       background-color: rgba(255, 255, 255, 1);
-      border-radius: var(--rl);
+      border-radius: var(--rs);
       color: #212121;
       font-size: 16px;
       list-style: none;
@@ -1815,7 +1851,7 @@ pre[class*='language-'].line-numbers > code {
       border-radius: var(--rs);
 
       &::after {
-        border: 2px solid var(--input-inner-active);
+        border: 2px solid var(--input-active);
         border-left: 0;
         border-top: 0;
         height: 9px;
@@ -1835,7 +1871,7 @@ pre[class*='language-'].line-numbers > code {
       width: 38px;
 
       &::after {
-        background: var(--input-inner-color);
+        background: var(--input-switch-color);
         border-radius: 50%;
         height: 15px;
         left: 2px;
@@ -1849,7 +1885,7 @@ pre[class*='language-'].line-numbers > code {
 
         &:checked::after {
           --x: 18px;
-          background: var(--input-inner-active);
+          background: var(--input-switch-active);
         }
       }
 
