@@ -93,7 +93,7 @@ const translation: I18nTranslation = {
       heading: '添加资产',
     },
     delete: {
-      all: '删除 {{projects}} 个资产？',
+      all: '删除 {{assets}} 个资产？',
       one: '删除资产：{{asset}} ？',
     },
     deleteAll: '删除全部',
@@ -102,6 +102,7 @@ const translation: I18nTranslation = {
     },
     heading: '资产',
     link: {
+      date: '日期：{{modified}}',
       type: '类型：{{type}}',
       url: 'URL：{{url}}',
     },
@@ -127,6 +128,22 @@ const translation: I18nTranslation = {
       date: '日期',
       fileName: '文件名',
       heading: '排序方式：',
+    },
+    type: {
+      archive: '档案',
+      audio: '音频',
+      csv: 'CSV',
+      font: '字体',
+      html: 'HTML',
+      icon: '图标',
+      image: '图像',
+      json: 'JSON',
+      other: '其他',
+      script: '脚本',
+      stylesheet: '样式表',
+      text: '文本',
+      video: '视频',
+      xml: 'XML',
     },
     types: {
       all: '所有类型',
@@ -253,7 +270,7 @@ const translation: I18nTranslation = {
     },
     template: {
       blank: '空白项目',
-      delete: '删除模板 "{{project}}" ？',
+      delete: '删除模板 "{{item}}" ？',
       javascript: 'JavaScript 启动模板',
       react: 'React 启动模板',
       saved: '另存为新模板',
@@ -280,6 +297,7 @@ const translation: I18nTranslation = {
     },
     error: {
       generic: '部署失败！',
+      repoNameExists: '仓库名称已存在',
       repoNameRequired: '必须填写仓库名称',
     },
     existing: {
@@ -527,7 +545,7 @@ const translation: I18nTranslation = {
     },
   },
   open: {
-    defaultTemplate: '默认模板 ',
+    defaultTemplate: '默认模板',
     delete: {
       all: '删除 {{projects}} 个项目？',
       deleting: '正在删除项目 ...',
