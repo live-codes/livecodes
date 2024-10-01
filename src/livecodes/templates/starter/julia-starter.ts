@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const juliaStarter: Template = {
   name: 'julia',
-  title: 'Julia Starter',
+  title: window.deps.translateString('templates.starter.julia', 'Julia Starter'),
   thumbnail: 'assets/templates/julia.svg',
   activeEditor: 'script',
   markup: {

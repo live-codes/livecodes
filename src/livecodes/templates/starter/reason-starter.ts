@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const reasonStarter: Template = {
   name: 'reason',
-  title: 'Reason Starter',
+  title: window.deps.translateString('templates.starter.reason', 'Reason Starter'),
   thumbnail: 'assets/templates/reason.svg',
   activeEditor: 'script',
   markup: {

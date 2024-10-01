@@ -8,3 +8,5 @@ docs/docs/api
 /test-results/
 /playwright-report/
 /playwright/.cache/
+src/livecodes/i18n/locales/tmp/
+lokalise_tmp

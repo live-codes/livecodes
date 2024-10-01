@@ -1,24 +1,48 @@
 <div id="list-container" class="list-container">
-  <div class="modal-title">Saved Projects</div>
+  <div class="modal-title" data-i18n="open.heading">Saved Projects</div>
   <div class="buttons">
-    <button id="bulk-import-button" class="button">Import</button>
-    <button id="export-all-button" class="button">Export All</button>
-    <button id="delete-all-button" class="button danger">Delete All</button>
+    <button id="bulk-import-button" class="button" data-i18n="open.import">Import</button>
+    <button id="export-all-button" class="button" data-i18n="open.exportAll">Export All</button>
+    <button id="delete-all-button" class="button danger" data-i18n="open.deleteAll">
+      Delete All
+    </button>
   </div>
   <div class="modal-message" id="projects-container" class="items-container">
-    <span id="sort-by-label">Sort By:</span>
-    <a href="#" id="sort-by-last-modified" class="active">Last&nbsp;Modified</a>&nbsp;/&nbsp;<a
+    <span id="sort-by-label" data-i18n="open.sort.heading">Sort By:</span>
+    <a href="#" id="sort-by-last-modified" class="active" data-i18n="open.sort.lastModified"
+      >Last&nbsp;Modified</a
+    >&nbsp;/&nbsp;<a href="#" id="sort-by-title" data-i18n="open.sort.title">Title</a>&nbsp;(<a
       href="#"
-      id="sort-by-title"
-      >Title</a
-    >&nbsp;(<a href="#" id="sorted-asc" style="display: none">▲</a
+      id="sorted-asc"
+      style="display: none"
+      >▲</a
     ><a href="#" id="sorted-desc">▼</a>)
     <select name="language-filter" id="language-filter">
-      <option value="">All languages</option>
+      <option value="" data-i18n="open.placeholder.allLanguages">All languages</option>
     </select>
-    <input id="filter-tags" type="text" placeholder="Filter by tags" />
-    <input id="search-projects" type="text" placeholder="Search" />
-    <a href="#" id="reset-filters" class="hint--bottom" data-hint="Reset" style="width: auto">
+    <input
+      id="filter-tags"
+      type="text"
+      placeholder="Filter by tags"
+      data-i18n="open.placeholder.filterByTags"
+      data-i18n-prop="placeholder"
+    />
+    <input
+      id="search-projects"
+      type="text"
+      placeholder="Search"
+      data-i18n="open.placeholder.search"
+      data-i18n-prop="placeholder"
+    />
+    <a
+      href="#"
+      id="reset-filters"
+      class="hint--bottom"
+      data-hint="Reset"
+      data-i18n="open.reset"
+      data-i18n-prop="data-hint"
+      style="width: auto"
+    >
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -40,14 +64,14 @@
       </svg>
     </a>
     <div class="modal-message no-data">
-      <div>You have no saved projects.</div>
-      <div class="description">
+      <div data-i18n="open.noData.heading">You have no saved projects.</div>
+      <div class="description" data-i18n="open.noData.desc" data-i18n-prop="innerHTML">
         You can save a project from (settings&nbsp;menu&nbsp;>&nbsp;Save) or by the keyboard
         shortcut (Ctrl/Cmd&nbsp;+&nbsp;S).
       </div>
     </div>
     <div class="modal-message no-data" id="no-match">
-      <div>No projects match these filters.</div>
+      <div data-i18n="open.noMatch">No projects match these filters.</div>
     </div>
   </div>
 </div>

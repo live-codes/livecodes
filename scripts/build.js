@@ -7,6 +7,7 @@ const { applyHash } = require('./hash');
 const { injectCss } = require('./inject-css');
 const { buildVendors } = require('./vendors');
 const { buildStyles } = require('./styles');
+const { buildI18n, buildLocalePathLoader } = require('./i18n');
 const { arrToObj, mkdir, uint8arrayToString, iife, getFileNames, getEnvVars } = require('./utils');
 
 const args = process.argv.slice(2);
@@ -67,14 +68,14 @@ const baseOptions = {
     ...(devMode
       ? []
       : [
-          minifyHTML({
-            collapseWhitespace: true,
-            collapseBooleanAttributes: true,
-            minifyJS: true,
-            minifyCSS: true,
-            processScripts: ['importmap'],
-          }),
-        ]),
+        minifyHTML({
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          minifyJS: true,
+          minifyCSS: true,
+          processScripts: ['importmap'],
+        }),
+      ]),
   ],
 };
 
@@ -176,6 +177,7 @@ const esmBuild = () =>
       'languages/postgresql/lang-postgresql-compiler-esm.ts',
       'languages/r/lang-r-script-esm.ts',
       'languages/rescript/lang-rescript-compiler-esm.ts',
+      'i18n/i18n.ts',
     ]
       .map((x) => 'src/livecodes/' + x)
       .reduce(arrToObj, {}),
@@ -263,7 +265,7 @@ const workersBuild = () =>
       fs.writeFile(
         path.resolve('build/livecodes', filename),
         filename.endsWith('.map') ? content : iife(content),
-        () => {},
+        () => { },
       );
     }
   });
@@ -277,23 +279,29 @@ const functionsBuild = () =>
 
 const stylesBuild = () => buildStyles(devMode);
 
-prepareDir().then(() => {
-  Promise.all([esmBuild(), iifeBuild(), workersBuild(), stylesBuild(), sdkBuild()]).then(
-    async () => {
-      if (!devMode) {
-        buildVendors();
-        functionsBuild();
-      }
-      await applyHash({ devMode });
-      await injectCss();
-      if (devMode) {
-        fs.writeFileSync(
-          path.resolve('build/tmp/trigger-reload.txt'),
-          new Date().toISOString(),
-          'utf8',
-        );
-      }
-      console.log('built to: ' + baseOptions.outdir + '/');
-    },
-  );
+prepareDir().then(async () => {
+  await buildLocalePathLoader();
+  Promise.all([
+    esmBuild(),
+    iifeBuild(),
+    workersBuild(),
+    stylesBuild(),
+    sdkBuild(),
+    buildI18n(),
+  ]).then(async () => {
+    if (!devMode) {
+      buildVendors();
+      functionsBuild();
+    }
+    await applyHash({ devMode });
+    await injectCss();
+    if (devMode) {
+      fs.writeFileSync(
+        path.resolve('build/tmp/trigger-reload.txt'),
+        new Date().toISOString(),
+        'utf8',
+      );
+    }
+    console.log('built to: ' + baseOptions.outdir + '/');
+  });
 });

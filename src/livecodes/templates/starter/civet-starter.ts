@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const civetStarter: Template = {
   name: 'civet',
-  title: 'Civet Starter',
+  title: window.deps.translateString('templates.starter.civet', 'Civet Starter'),
   thumbnail: 'assets/templates/civet.png',
   activeEditor: 'script',
   markup: {

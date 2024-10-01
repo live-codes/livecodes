@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const malinaStarter: Template = {
   name: 'malina',
-  title: 'Malina.js Starter',
+  title: window.deps.translateString('templates.starter.malina', 'Malina.js Starter'),
   thumbnail: 'assets/templates/malina.svg',
   activeEditor: 'script',
   markup: {

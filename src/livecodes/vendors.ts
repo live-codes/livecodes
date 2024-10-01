@@ -334,7 +334,7 @@ export const quillHtmlEditUrl = /* @__PURE__ */ getUrl(
   'quill-html-edit-button@2.2.14/dist/quill.htmlEditButton.min.js',
 );
 
-export const quillBlotFormaterUrl = /* @__PURE__ */ getUrl(
+export const quillBlotFormatterUrl = /* @__PURE__ */ getUrl(
   'quill-blot-formatter@1.0.5/dist/quill-blot-formatter.min.js',
 );
 

@@ -40,7 +40,11 @@
     <div id="container">
       <div id="toolbar">
         <div id="logo">
-          <a href="/" title="LiveCodes: Code playground that runs in the browser!"
+          <a
+            href="/"
+            title="LiveCodes: Code playground that runs in the browser!"
+            data-i18n="app.logo.title"
+            data-i18n-prop="title"
             ><img
               alt="LiveCodes Logo"
               src="{{baseUrl}}assets/images/livecodes-logo.svg"
@@ -49,13 +53,17 @@
           /></a>
         </div>
         <div id="select-editor"></div>
-        <div id="project-title" contenteditable="true" tabindex="8">Untitled Project</div>
+        <div id="project-title" contenteditable="true" tabindex="8" data-i18n="app.untitledProject">
+          Untitled Project
+        </div>
         <div id="buttons">
           <a
             href="javascript:void(0)"
             id="run-button"
             class="button hint--bottom"
             data-hint="Run (Shift + Enter)"
+            data-i18n="app.run.hint"
+            data-i18n-prop="data-hint"
             tabindex="9"
           >
             <img
@@ -71,12 +79,14 @@
             id="share-button"
             class="button hint--bottom"
             data-hint="Share"
+            data-i18n="app.share.hint"
+            data-i18n-prop="data-hint"
             tabindex="10"
           >
             <img
               width="20"
               height="20"
-              alt="Run"
+              alt="Share"
               src="{{baseUrl}}assets/images/share.svg"
               loading="lazy"
             />
@@ -86,6 +96,8 @@
             id="result-button"
             class="button hint--bottom"
             data-hint="Toggle Result"
+            data-i18n="app.result.hint"
+            data-i18n-prop="data-hint"
             tabindex="11"
           >
             <img
@@ -101,6 +113,8 @@
             id="fullscreen-button"
             class="button hint--bottom"
             data-hint="Full Screen"
+            data-i18n="app.fullscreen.hint"
+            data-i18n-prop="data-hint"
             tabindex="12"
           >
             <img
@@ -136,50 +150,118 @@
           <div id="script" class="editor"></div>
 
           <div id="editor-tools" class="tool-buttons">
-            <span id="focus-btn" class="hint--top-right" data-hint="Toggle Focus mode">
+            <span
+              id="focus-btn"
+              class="hint--top-right"
+              data-hint="Toggle Focus mode"
+              data-i18n="app.focus.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/focus.svg" alt="focus" />
             </span>
             <span
               id="copy-btn"
               class="hint--top-right"
               data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+              data-i18n="app.copy.hint"
+              data-i18n-prop="data-hint"
             >
               <img src="{{baseUrl}}assets/images/copy.svg" alt="copy" />
             </span>
-            <span id="undo-btn" class="hint--top-right" data-hint="Undo (Ctrl/Cmd + Z)">
+            <span
+              id="undo-btn"
+              class="hint--top-right"
+              data-hint="Undo (Ctrl/Cmd + Z)"
+              data-i18n="app.undo.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/undo.svg" alt="undo" />
             </span>
-            <span id="redo-btn" class="hint--top-right" data-hint="Redo (Ctrl/Cmd + Shift + Z)">
+            <span
+              id="redo-btn"
+              class="hint--top-right"
+              data-hint="Redo (Ctrl/Cmd + Shift + Z)"
+              data-i18n="app.redo.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/redo.svg" alt="redo" />
             </span>
-            <span id="format-btn" class="hint--top-right" data-hint="Format (Alt + Shift + F)">
+            <span
+              id="format-btn"
+              class="hint--top-right"
+              data-hint="Format (Alt + Shift + F)"
+              data-i18n="app.format.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/format.svg" alt="format" />
             </span>
-            <span id="copy-as-url-btn" class="hint--top-right" data-hint="Copy code as data URL">
+            <span
+              id="copy-as-url-btn"
+              class="hint--top-right"
+              data-hint="Copy code as data URL"
+              data-i18n="app.copyAsUrl.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/copy-as-url.svg" alt="copy" />
             </span>
             <span id="editor-status">
-              <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
+              <span
+                id="editor-mode"
+                class="hint--top-right"
+                data-hint="Editor Mode"
+                data-i18n="app.editorMode.hint"
+                data-i18n-prop="data-hint"
+              ></span>
               <span data-status="markup"></span>
               <span data-status="style"></span>
               <span data-status="script"></span>
             </span>
-            <span id="external-resources-btn" class="hint--top-left" data-hint="External Resources">
+            <span
+              id="external-resources-btn"
+              class="hint--top-left"
+              data-hint="External Resources"
+              data-i18n="app.externalResources.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/script-sheet.svg" alt="external resources" />
               <span id="external-resources-mark" class="mark"></span>
             </span>
-            <span id="project-info-btn" class="hint--top-left" data-hint="Project Info">
+            <span
+              id="project-info-btn"
+              class="hint--top-left"
+              data-hint="Project Info"
+              data-i18n="app.projectInfo.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/info.svg" alt="project info" />
             </span>
-            <span id="custom-settings-btn" class="hint--top-left" data-hint="Custom Settings">
+            <span
+              id="custom-settings-btn"
+              class="hint--top-left"
+              data-hint="Custom Settings"
+              data-i18n="app.customSettings.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/curly-braces.svg" alt="custom settings" />
               <span id="custom-settings-mark" class="mark"></span>
             </span>
-            <span id="editor-settings-btn" class="hint--top-left" data-hint="Editor Settings">
+            <span
+              id="editor-settings-btn"
+              class="hint--top-left"
+              data-hint="Editor Settings"
+              data-i18n="app.editorSettings.hint"
+              data-i18n-prop="data-hint"
+            >
               <img src="{{baseUrl}}assets/images/gear.svg" alt="editor settings" />
             </span>
           </div>
-          <button id="code-run-button" class="hint--top-left" data-hint="Run (Shift + Enter)">
+          <button
+            id="code-run-button"
+            class="hint--top-left"
+            data-hint="Run (Shift + Enter)"
+            data-i18n="app.run.hint"
+            data-i18n-prop="data-hint"
+          >
             <img
               width="20"
               height="20"

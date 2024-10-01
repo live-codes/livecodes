@@ -1,23 +1,43 @@
 <div id="prompt-recover-screen">
-  <div class="modal-title">Recover unsaved project?</div>
+  <div class="modal-title" data-i18n="recoverPrompt.heading">Recover unsaved project?</div>
   <div class="modal-content">
-    <div class="centered">
+    <div class="centered" data-i18n="recoverPrompt.desc">
       Your last project has unsaved changes! <br />
       <br />
     </div>
-    <div class="modal-screen-container">
+    <div class="modal-screen-container" data-i18n="recoverPrompt.meta" data-i18n-prop="innerHTML">
       Title: <strong id="unsaved-project-name"></strong> <br />
       Last modified: <span id="unsaved-project-last-modified"></span>
     </div>
-    <div class="centered"><br />Do you want to recover it now?</div>
+    <div class="centered" data-i18n="recoverPrompt.prompt.heading" data-i18n-prop="innerHTML">
+      <br />Do you want to recover it now?
+    </div>
     <div class="buttons">
-      <button id="prompt-recover-btn" class="button" title="Recover project to editor">
+      <button
+        id="prompt-recover-btn"
+        class="button"
+        title="Recover project to editor"
+        data-i18n="recoverPrompt.prompt.recover"
+        data-i18n-prop="title"
+      >
         Recover
       </button>
-      <button id="prompt-save-previous-btn" class="button" title="Save to device and continue">
+      <button
+        id="prompt-save-previous-btn"
+        class="button"
+        title="Save to device and continue"
+        data-i18n="recoverPrompt.prompt.save"
+        data-i18n-prop="title"
+      >
         Save
       </button>
-      <button id="prompt-cancel-recover-btn" class="button" title="Discard unsaved project">
+      <button
+        id="prompt-cancel-recover-btn"
+        class="button"
+        title="Discard unsaved project"
+        data-i18n="recoverPrompt.prompt.discard"
+        data-i18n-prop="title"
+      >
         Cancel
       </button>
     </div>
@@ -28,7 +48,9 @@
         id="disable-recover-checkbox"
         name="disable-recover-checkbox"
       />
-      <label for="disable-recover-checkbox">Do not show this again.</label>
+      <label for="disable-recover-checkbox" data-i18n="recoverPrompt.notShowAgain"
+        >Do not show this again.</label
+      >
     </div>
   </div>
 </div>

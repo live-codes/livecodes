@@ -217,7 +217,7 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
     monaco.languages.typescript.typescriptDefaults.setCompilerOptions(compilerOptions);
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions(compilerOptions);
 
-    const disgnosticsOptions: Monaco.languages.typescript.DiagnosticsOptions = {
+    const diagnosticsOptions: Monaco.languages.typescript.DiagnosticsOptions = {
       // just silence errors for "flow" for now
       // TODO: fix this
       // https://github.com/facebook/flow/tree/main/website/src/try-flow
@@ -225,8 +225,8 @@ export const createEditor = async (options: EditorOptions): Promise<CodeEditor> 
       // This is when tslib is not found
       diagnosticCodesToIgnore: [2354],
     };
-    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(disgnosticsOptions);
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(disgnosticsOptions);
+    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions(diagnosticsOptions);
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(diagnosticsOptions);
 
     registerTwoSlash({ isJSLang, editor, monaco, compilerOptions });
   };

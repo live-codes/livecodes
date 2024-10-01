@@ -1,4 +1,8 @@
 /* eslint-disable import/no-unresolved */
+
+// eslint-disable-next-line import/no-internal-modules
+import { predefinedValues } from '../utils/utils';
+
 // @ts-ignore
 // eslint-disable-next-line import/no-internal-modules
 import resultTemplateRaw from './sandbox/v8/index.html?raw';
@@ -58,12 +62,10 @@ import editorSettingsScreenRaw from './editor-settings.html?raw';
 import resultPopupHTMLRaw from './result-popup.html?raw';
 
 const replaceValues = (str: string) =>
-  str
-    .replace(/{{APP_VERSION}}/g, process.env.VERSION || '')
-    .replace(/{{SDK_VERSION}}/g, process.env.SDK_VERSION || '')
-    .replace(/{{COMMIT_SHA}}/g, process.env.GIT_COMMIT || '')
-    .replace(/{{REPO_URL}}/g, process.env.REPO_URL || '')
-    .replace(/{{DOCS_BASE_URL}}/g, process.env.DOCS_BASE_URL || '');
+  Object.entries(predefinedValues).reduce(
+    (str, [key, value]) => str.replace(new RegExp(`{{${key}}}`, 'g'), value),
+    str,
+  );
 
 const resultTemplate = /* @__PURE__ */ replaceValues(resultTemplateRaw);
 const appHTML = /* @__PURE__ */ replaceValues(appHTMLRaw);

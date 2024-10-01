@@ -1444,8 +1444,8 @@ const grammar = {
   B: /(?=\s|$)/,
   br: /[\r\n]+/,
   constant: /[A-Z][\w\$]*(?:\-+[\w\$]+)*/,
-  // subIdentifer: /(?:\-*[\w\$]+)*/
-  // identifier: /[a-z_]@subIdentifer/
+  // subIdentifier: /(?:\-*[\w\$]+)*/
+  // identifier: /[a-z_]@subIdentifier/
   // anyIdentifier: /[A-Za-z_\$][\w\$]*(?:\-+[\w\$]+)*/
   // anyIdentifierOpt: /(?:@anyIdentifier)?/
   id: /[A-Za-z_\$][\w\$]*(?:\-+[\w\$]+)*\??/,

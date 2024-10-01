@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const rescriptStarter: Template = {
   name: 'rescript',
-  title: 'ReScript Starter',
+  title: window.deps.translateString('templates.starter.rescript', 'ReScript Starter'),
   thumbnail: 'assets/templates/rescript.png',
   activeEditor: 'script',
   markup: {

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const phpWasmStarter: Template = {
   name: 'php-wasm',
-  title: 'PHP (Wasm) Starter',
+  title: window.deps.translateString('templates.starter.php-wasm', 'PHP (Wasm) Starter'),
   thumbnail: 'assets/templates/php.svg',
   activeEditor: 'script',
   markup: {

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const luaStarter: Template = {
   name: 'lua',
-  title: 'Lua Starter',
+  title: window.deps.translateString('templates.starter.lua', 'Lua Starter'),
   thumbnail: 'assets/templates/lua.svg',
   activeEditor: 'script',
   markup: {

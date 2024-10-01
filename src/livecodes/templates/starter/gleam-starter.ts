@@ -6,7 +6,7 @@ const plinthCompiledBaseUrl = gleamBaseUrl + 'build/dev/javascript/plinth/plinth
 
 export const gleamStarter: Template = {
   name: 'gleam',
-  title: 'Gleam Starter',
+  title: window.deps.translateString('templates.starter.gleam', 'Gleam Starter'),
   thumbnail: 'assets/templates/gleam.svg',
   activeEditor: 'script',
   markup: {

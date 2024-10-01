@@ -1,8 +1,8 @@
 <div id="login-screen" class="modal-container">
-  <div class="modal-title">Login with GitHub</div>
+  <div class="modal-title" data-i18n="login.heading">Login with GitHub</div>
   <div class="modal-screen-container">
     <div class="modal-content">
-      <p>Allow access to:</p>
+      <p data-i18n="login.accessAllowed">Allow access to:</p>
       <div>
         <input
           type="checkbox"
@@ -11,24 +11,26 @@
           name="public_repo"
           checked="checked"
         />
-        <label for="public_repo">Repos</label>
+        <label for="public_repo" data-i18n="login.publicRepo">Repos</label>
         <div class="indent">
           <input type="checkbox" value="repo" id="repo" name="repo" checked="checked" /><label
             for="repo"
+            data-i18n="login.privateRepo"
             >Private Repos</label
           >
         </div>
         <input type="checkbox" value="gist" id="gist" name="gist" checked="checked" /><label
           for="gist"
+          data-i18n="login.gist"
           >Gists</label
         >
       </div>
       <div class="buttons">
-        <button id="login-btn" class="button">Login</button>
+        <button id="login-btn" class="button" data-i18n="login.loginBtn">Login</button>
       </div>
     </div>
   </div>
-  <div class="description">
+  <div class="description" data-i18n="login.desc" data-i18n-prop="innerHTML">
     <p>By logging in, you agree that <strong>cookies</strong> may be stored on your device.</p>
     <p>
       <a

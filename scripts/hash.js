@@ -10,7 +10,7 @@ const applyHash = async (
     hashPattern = /{{hash:([\w\.-]+)}}/g,
   } = {},
 ) => {
-  const filetypes = ['js', 'css', 'html', 'svg', 'ico', 'png'];
+  const filetypes = ['js', 'css', 'html', 'svg', 'ico', 'png', 'json'];
 
   const getFileNames = async (dir) =>
     (await fs.promises.readdir(dir))

@@ -2,7 +2,7 @@ import type { Template } from '../../models';
 
 export const riotStarter: Template = {
   name: 'riot',
-  title: 'Riot.js Starter',
+  title: window.deps.translateString('templates.starter.riot', 'Riot.js Starter'),
   thumbnail: 'assets/templates/riot.svg',
   activeEditor: 'script',
   markup: {
