@@ -334,13 +334,14 @@ i.arrow {
 
 .range-slider {
   appearance: none;
-  background: var(--input-bg-color);
-  border-radius: var(--rl);
+  background: var(--input-range-bg-color);
+  border-radius: var(--rs);
   height: 8px;
 
   &::-webkit-slider-thumb {
     appearance: none;
     background: var(--input-active);
+    border: 2px solid var(--input-range-bg-color);
     border-radius: 50%;
     cursor: pointer;
     height: 16px;
@@ -360,9 +361,9 @@ i.arrow {
   .menu-scroller-markup,
   .menu-scroller-style,
   .menu-scroller-script {
-    transform: translateX(-1vw);
     max-width: 98vw;
     position: fixed;
+    transform: translateX(-1vw);
   }
 
   .dropdown-menu-script {
@@ -387,8 +388,8 @@ i.arrow {
   }
 
   .slider {
-    background: var(--input-bg-color);
-    border: 1px solid var(--input-border-color);
+    background: var(--input-slider-bg-color);
+    border: 1px solid var(--input-slider-border-color);
     bottom: 0;
     cursor: pointer;
     left: 0;
@@ -398,7 +399,7 @@ i.arrow {
     transition: 0.4s;
 
     &::before {
-      background: var(--input-inner-color);
+      background: var(--input-switch-color);
       bottom: 2px;
       content: '';
       height: 14px;
@@ -415,15 +416,15 @@ i.arrow {
     width: 0;
 
     &:checked + .slider {
-      background: var(--input-bg-color);
+      background: var(--input-slider-bg-color)
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px var(--input-inner-active);
+      box-shadow: 0 0 1px var(--input-switch-active);
     }
 
     &:checked + .slider::before {
-      background: var(--input-inner-active);
+      background: var(--input-active);
       transform: translateX(16px);
     }
 
@@ -446,12 +447,6 @@ i.arrow {
 }
 
 @media only screen and (max-width: 480px) {
-/*   .menu-scroller-markup,
-  .menu-scroller-style {
-    left: -10%;
-    width: 300%;
-  } */
-
   .switch div {
     transform: scale(0.6);
   }

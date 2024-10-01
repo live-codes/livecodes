@@ -1,5 +1,9 @@
 :root.light {
 
+  --hue: 214;  // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
+  --st: 40%;  // Saturation
+  --lt: 100%; // Lightness
+
   --color: hsl(var(--hue), var(--st), var(--lt));
   --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.1)); // 10%
   --color15: hsl(var(--hue), var(--st), calc(var(--lt) * 0.15)); // 15%
@@ -35,7 +39,16 @@
 
   --disabled: 0.5; // opacity
   --gutter-split-bg-handle: var(--color40);
-  --switch-on-color: var(--color);
-  --switch-in-on: var(--active);
 
+  --input-bg-color: hsl(214, 25%, 98%);
+  --input-border-color: hsl(214, 13%, 90%);
+  --input-color: hsl(214, 13%, 21%);
+  --input-range-bg-color: var(--darker-bg-color);
+  --input-switch-active: var(--color90);
+  --input-switch-color: var(--color60);
+
+  --modal-text-color: hsl(214, 13%, 21%);
+
+  --tests-bg-color: inherit;
+  --tests-color: inherit;
 }
