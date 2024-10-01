@@ -175,7 +175,7 @@ const stores: Stores = createStores();
 const eventsManager = createEventsManager();
 let notifications: ReturnType<typeof createNotifications>;
 let modal: ReturnType<typeof createModal>;
-let i18n: ReturnType<typeof import('./i18n').init> | undefined;
+let i18n: Await<ReturnType<typeof import('./i18n').init>> | undefined;
 let split: ReturnType<typeof createSplitPanes> | null = null;
 let typeLoader: ReturnType<typeof createTypeLoader>;
 const screens: Screen[] = [];
@@ -4123,7 +4123,7 @@ const loadI18n = async (appLanguage: AppLanguage | undefined) => {
   }
   setConfig({ ...getConfig(), appLanguage: userLang });
   const i18nModule: typeof import('./i18n') = await import(baseUrl + '{{hash:i18n.js}}');
-  i18n = i18nModule.init(userLang, baseUrl);
+  i18n = await i18nModule.init(userLang, baseUrl);
   window.deps.translateString = i18n.translateString;
 };
 

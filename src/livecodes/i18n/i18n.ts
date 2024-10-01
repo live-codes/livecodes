@@ -7,8 +7,8 @@ import { pathLoader } from './locale-paths';
 import type { I18nInterpolationType, I18nKeyType, I18nValueType } from './models';
 import { abstractifyHTML, unabstractifyHTML } from './utils';
 
-export const init = (lng: string | undefined, baseUrl: string) => {
-  i18next.use(backend).init({
+export const init = async (lng: string | undefined, baseUrl: string) => {
+  await i18next.use(backend).init({
     lng,
     returnEmptyString: false,
     fallbackLng: 'en',
