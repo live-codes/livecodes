@@ -72,14 +72,14 @@ export const displayLoggedIn = (user: User) => {
         name: displayName!,
       },
     );
-    logOutLink.style.display = 'block';
+    logOutLink.style.display = 'flex';
   }
 };
 
 export const displayLoggedOut = () => {
   const loginLink = getLoginLink();
   if (loginLink) {
-    loginLink.style.display = 'block';
+    loginLink.style.display = 'flex';
   }
   const logOutLink = getLogoutLink();
   if (logOutLink) {

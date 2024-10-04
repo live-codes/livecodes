@@ -2,12 +2,12 @@
   <div class="modal-title" data-i18n="recoverPrompt.heading">Recover unsaved project?</div>
 
   <div class="modal-screen-container">
-    <div class="centered" data-i18n="recoverPrompt.desc">
+    <div class="description warn" data-i18n="recoverPrompt.desc">
       Your last project has unsaved changes! <br />
       <br />
     </div>
 
-    <div class="modal-content" data-i18n="recoverPrompt.meta" data-i18n-prop="innerHTML">
+    <div class="description help" data-i18n="recoverPrompt.meta" data-i18n-prop="innerHTML">
       Title: <strong id="unsaved-project-name"></strong> <br />
       Last modified: <span id="unsaved-project-last-modified"></span>
     </div>
@@ -43,7 +43,9 @@
         Cancel
       </button>
     </div>
-    <div>
+
+  </div>    
+    <div id="show-prompt">
       <input
         type="checkbox"
         value="disable-recover-checkbox"
@@ -54,5 +56,4 @@
         >Do not show this again.</label
       >
     </div>
-  </div>
 </div>

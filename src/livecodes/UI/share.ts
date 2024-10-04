@@ -3,7 +3,7 @@ import type { createEventsManager } from '../events';
 import { shareScreen } from '../html';
 import type { ShareData } from '../models';
 import { allowedOrigin } from '../services/allowed-origin';
-import { copyToClipboard, getAbsoluteUrl } from '../utils/utils';
+import { copyToClipboard } from '../utils/utils';
 import { generateQrCode } from './qrcode';
 import { getQrCodeContainer } from './selectors';
 
@@ -69,11 +69,10 @@ export const createShareContainer = async (
       link.rel = 'noopener noreferrer';
       link.innerHTML = `
         <span class="share-image-container">
-          <img
-            src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
-            alt="${service.name}"
-            ${service.name === window.deps.translateString('share.services.twitter', '𝕏 / Twitter') ? 'class="twitter"' : ''}
-          />
+        <i class="${service.icon}"
+          alt="${service.name}"
+          ${service.name === window.deps.translateString('share.services.twitter', '𝕏 / Twitter') ? 'class="twitter"' : ''}
+        ></i>
         </span>
         ${service.name}
       `;
@@ -104,30 +103,30 @@ export const createShareContainer = async (
   const services: Service[] = [
     {
       name: window.deps.translateString('share.services.facebook', 'Facebook'),
-      icon: 'facebook.svg',
+      icon: 'icon-share-facebook',
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
     },
     {
       name: window.deps.translateString('share.services.twitter', '𝕏 / Twitter'),
-      icon: 'x.svg',
+      icon: 'icon-share-x',
       createShareUrl: ({ url, title }) =>
         `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.hackerNews', 'Hacker News'),
-      icon: 'hacker-news.svg',
+      icon: 'icon-share-hacker',
       createShareUrl: ({ url, title }) =>
         `https://news.ycombinator.com/submitlink?u=${encode(url)}&t=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.reddit', 'Reddit'),
-      icon: 'reddit.svg',
+      icon: 'icon-share-reddit',
       createShareUrl: ({ url, title }) =>
         `https://www.reddit.com/submit?url=${encode(url)}&title=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.linkedIn', 'LinkedIn'),
-      icon: 'linkedin.svg',
+      icon: 'icon-share-linkedin',
       createShareUrl: ({ url, title }) =>
         `https://www.linkedin.com/shareArticle?url=${encode(url)}&title=${encode(
           title,
@@ -135,7 +134,7 @@ export const createShareContainer = async (
     },
     {
       name: window.deps.translateString('share.services.devTo', 'Dev.to'),
-      icon: 'dev.svg',
+      icon: 'icon-share-dev',
       createShareUrl: ({ url, title }) =>
         `https://dev.to/new?prefill=${encode(
           '---\ntitle: ' + title + '\npublished: true\ntags: livecodes\n---\n\n\n\n' + url,
@@ -143,13 +142,13 @@ export const createShareContainer = async (
     },
     {
       name: window.deps.translateString('share.services.tumblr', 'Tumblr'),
-      icon: 'tumblr.svg',
+      icon: 'icon-share-tumblr',
       createShareUrl: ({ url, title }) =>
         `https://www.tumblr.com/share/link?url=${encode(url)}&name=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.pinterest', 'Pinterest'),
-      icon: 'pinterest.svg',
+      icon: 'icon-share-pinterest',
       createShareUrl: ({ url, title }) =>
         `https://pinterest.com/pin/create/bookmarklet/?url=${encode(url)}&description=${encode(
           title,
@@ -157,40 +156,35 @@ export const createShareContainer = async (
     },
     {
       name: window.deps.translateString('share.services.whatsApp', 'WhatsApp'),
-      icon: 'whatsapp.svg',
+      icon: 'icon-share-whatsapp',
       createShareUrl: ({ url, title }) =>
         `https://api.whatsapp.com/send?text=${encode(title)} ${encode(url)}`,
     },
     {
       name: window.deps.translateString('share.services.telegram', 'Telegram'),
-      icon: 'telegram.svg',
+      icon: 'icon-share-telegram',
       createShareUrl: ({ url, title }) =>
         `https://t.me/share/url?url=${encode(url)}&text=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.pocket', 'Pocket'),
-      icon: 'pocket.svg',
+      icon: 'icon-share-pocket',
       createShareUrl: ({ url, title }) =>
         `https://getpocket.com/save?url=${encode(url)}&title=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.email', 'Email'),
-      icon: 'email.svg',
+      icon: 'icon-share-email',
       createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
     },
-    /*     {
-      name: window.deps.translateString('share.services.copyUrl', 'Copy URL'),
-      icon: 'copy.svg',
-      onClick: ({ url }) => copyUrl(url),
-    }, */
     {
       name: window.deps.translateString('share.services.qrCode', 'QR code'),
-      icon: 'qr-code.svg',
+      icon: 'icon-share-qr',
       onClick: showQrCode,
     },
     {
       name: window.deps.translateString('share.services.share', 'Share via …'),
-      icon: 'share.svg',
+      icon: 'icon-share',
       onClick: ({ url, title }) => navigator.share({ url, title }),
     },
   ];

@@ -3,12 +3,18 @@
   <div id="about-screen-container" class="modal-screen-container">
 
     <div class="modal-section">
-      <div id="about-logo"
+      <div
+        id="about-logo"
         title="LiveCodes: Code playground that runs in the browser!"
         data-i18n="app.logo.title"
         data-i18n-prop="title"
       >
-        <svg class="livecodes-logo" width="1em" height="1em" stroke="#000" stroke-linecap="round" stroke-linejoin="round" fill="#fff" fill-rule="evenodd" viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="C" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0" stop-color="#d7d7d7"/><stop offset="1" stop-color="#626262"/></linearGradient></defs><g transform="matrix(.72582 0 0 .7127 -3.3 -4.8)"><path d="m27.3 43.3-11.1-9.1c-2.8-2.3-7.5-5.4-7.4-8.7 0-3.6 4.6-6.5 7.4-9.1l11-8.9v8.6l-11 9.1 11 9.8v8.3Z" fill="#d8d8d8" paint-order="stroke"/><path d="m51.9 43.3 11-9.1c2.8-2.3 7.5-5.4 7.4-8.7 0-3.6-4.6-6.5-7.4-9.1L52 7.5v8.6l11 9.1L52 35v8.3Z" fill="#d8d8d8" paint-order="stroke" transform-origin="61.083px 25.444px"/></g><g transform="matrix(.06081 0 0 .0597 25.3 8.1)"><path d="M0 86.7-142 0 0-86.6 142.3 0ZM-142.8.1.1 87.2 143 0v174.5L0 261.9v-.2l-142.9-87.3Z" paint-order="stroke" shape-rendering="optimizespeed"/></g><g transform="matrix(.06081 0 0 .0597 25.3 10.6)" fill="url(#C)"><path d="M76-1.3-.5-48-77.3-1.3-.6 45.6 76.1-1.3ZM-78 93.7l76.8 46.9V46.9L-78 0v93.7ZM0 140.6l77-47V0L0 46.9v93.7Z" paint-order="stroke" shape-rendering="optimizespeed"/></g><g transform="matrix(.06081 0 0 .0597 16.3 2.6)" stroke="none"><path d="M290.1 87 147.3 0 4.5 87 0 90v180L147.5 360l4.5-2.8L295 270V90l-4.9-2.9Zm-4.5 177.3-133.8 81.8V182.6l134-81.6-.2 163.3Zm-142.8 81.8-134-81.8V101l134 81.6v163.5ZM13.6 92.7l133.7-81.5L281 92.7l-133.7 81.5L13.5 92.7h.1Z" fill="#444" paint-order="stroke" shape-rendering="optimizespeed"/><path d="m225.4 126.6-78-47.4-78.1 47.4-4.5 2.9v100.9l82.5 50.4 4.5-2.7 78.2-47.7v-101l-4.6-2.8Zm-4.6 98.1-69 42.2v-84.2l69.1-42v84Zm-78 42.2-69.1-42.2v-84l69.1 42V267ZM78.4 132.2l69-41.9 68.8 42-68.9 42-69-42h.1Z" paint-order="stroke" shape-rendering="optimizespeed"/></g></svg>
+        <img
+        src="livecodes/assets/images/livecodes-text-logo-nowrap.svg"
+        width="300"
+        height="auto"
+        alt="LiveCodes logo"
+      />
       </div>
 
       <h3 data-i18n="about.version.heading">Version</h3>
@@ -38,9 +44,9 @@
         </li>
       </ul>
       <br>
-      <p>Livecodes is made possible by open source projects (credits) and contributions (link).</p>
+      <p>Livecodes is made possible by <a href="{{DOCS_BASE_URL}}credits" target="_blank">open source projects,
+        web services and contributors</a></p>
       <p>© 2024 Hatem Hosny. Livecodes is licensed under MIT License.</p>
-
     </div>
 
     <div class="modal-section" id="about-info">
@@ -57,20 +63,20 @@
       <ul class="modal-docs">
         <li>
           <a
-            href="{{DOCS_BASE_URL}}"
-            target="_blank"
-            rel="noopener"
-            data-i18n="welcome.about.documentation"
-            >Documentation</a
-          >
-        </li>
-        <li>
-          <a
             href="{{DOCS_BASE_URL}}getting-started"
             target="_blank"
             rel="noopener"
             data-i18n="generic.about.gettingStarted"
             >Getting Started</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}"
+            target="_blank"
+            rel="noopener"
+            data-i18n="welcome.about.documentation"
+            >Documentation</a
           >
         </li>
         <li>
@@ -93,7 +99,6 @@
         </li>
       </ul>
 
-      <h3>Support</h3>
       <div class="welcome-support">
         <div>
           <a
@@ -137,14 +142,14 @@
             href="https://twitter.com/livecodes_io"
             target="_blank"
             rel="noopener"
-            title="𝕏 / Twitter"
+            title="? / Twitter"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M8 2H1l8.26 11.015L1.45 22H4.1l6.388-7.349L16 22h7l-8.608-11.478L21.8 2h-2.65l-5.986 6.886zm9 18L5 4h2l12 16z"
               /></svg
-            ><br /><span data-i18n="generic.about.twitter">𝕏 / Twitter</span></a
+            ><br /><span data-i18n="generic.about.twitter">? / Twitter</span></a
           >
         </div>
         <div>
