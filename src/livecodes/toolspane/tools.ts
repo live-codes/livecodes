@@ -296,6 +296,9 @@ export const createToolsPane = (
     buttons.classList.add('tool-buttons');
     toolsPaneBar.appendChild(buttons);
 
+    const btnContainer = document.createElement('span');
+    btnContainer.classList.add('hint--top-left');
+    btnContainer.dataset.hint = window.deps.translateString('toolspane.close', 'Close');
     const closeButton = document.createElement('button');
     closeButton.classList.add('console-close-button', 'hint--top-left');
     closeButton.dataset.hint = window.deps.translateString('toolspane.close', 'Close');

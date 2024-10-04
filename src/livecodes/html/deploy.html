@@ -1,5 +1,9 @@
 <div id="deploy-container" class="modal-container">
   <div class="modal-title" data-i18n="deploy.heading">Deploy to GitHub Pages</div>
+  <ul id="deploy-tabs" class="modal-tabs">
+    <li data-target="new-repo" class="active" data-i18n="deploy.create.heading">Create New Repo</li>
+    <li data-target="existing-repo" data-i18n="deploy.existing.heading">Existing Repo</li>
+  </ul>
   <div id="deploy-screens" class="modal-screen-container">
     <ul id="deploy-tabs" class="modal-tabs">
       <li data-target="new-repo" class="active" data-i18n="deploy.create.heading">
@@ -50,7 +54,7 @@
             Deploy
           </button>
         </form>
-        <div class="description help" data-i18n="deploy.create.desc" data-i18n-prop="innerHTML">
+        <div class="description" data-i18n="deploy.create.desc" data-i18n-prop="innerHTML">
           A new <strong>public</strong> repo will be created. The result page will be pushed to
           <span class="code">gh-pages</span> branch.
         </div>
@@ -97,7 +101,7 @@
             Deploy
           </button>
         </form>
-        <div class="description help" data-i18n="deploy.existing.desc" data-i18n-prop="innerHTML">
+        <div class="description" data-i18n="deploy.existing.desc" data-i18n-prop="innerHTML">
           A new commit will be added to <span class="code">gh-pages</span> branch.
         </div>
       </div>

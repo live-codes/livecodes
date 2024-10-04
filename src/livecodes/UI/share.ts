@@ -69,10 +69,11 @@ export const createShareContainer = async (
       link.rel = 'noopener noreferrer';
       link.innerHTML = `
         <span class="share-image-container">
-        <i class="${service.icon}"
-          alt="${service.name}"
-          ${service.name === window.deps.translateString('share.services.twitter', '𝕏 / Twitter') ? 'class="twitter"' : ''}
-        ></i>
+          <img
+            src="${getAbsoluteUrl(baseUrl) + 'assets/icons/' + service.icon}"
+            alt="${service.name}"
+            ${service.name === window.deps.translateString('share.services.twitter', '𝕏 / Twitter') ? 'class="twitter"' : ''}
+          />
         </span>
         ${service.name}
       `;
@@ -103,30 +104,30 @@ export const createShareContainer = async (
   const services: Service[] = [
     {
       name: window.deps.translateString('share.services.facebook', 'Facebook'),
-      icon: 'icon-share-facebook',
+      icon: 'facebook.svg',
       createShareUrl: ({ url }) => `https://www.facebook.com/sharer.php?u=${encode(url)}`,
     },
     {
       name: window.deps.translateString('share.services.twitter', '𝕏 / Twitter'),
-      icon: 'icon-share-x',
+      icon: 'x.svg',
       createShareUrl: ({ url, title }) =>
         `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.hackerNews', 'Hacker News'),
-      icon: 'icon-share-hacker',
+      icon: 'hacker-news.svg',
       createShareUrl: ({ url, title }) =>
         `https://news.ycombinator.com/submitlink?u=${encode(url)}&t=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.reddit', 'Reddit'),
-      icon: 'icon-share-reddit',
+      icon: 'reddit.svg',
       createShareUrl: ({ url, title }) =>
         `https://www.reddit.com/submit?url=${encode(url)}&title=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.linkedIn', 'LinkedIn'),
-      icon: 'icon-share-linkedin',
+      icon: 'linkedin.svg',
       createShareUrl: ({ url, title }) =>
         `https://www.linkedin.com/shareArticle?url=${encode(url)}&title=${encode(
           title,
@@ -134,7 +135,7 @@ export const createShareContainer = async (
     },
     {
       name: window.deps.translateString('share.services.devTo', 'Dev.to'),
-      icon: 'icon-share-dev',
+      icon: 'dev.svg',
       createShareUrl: ({ url, title }) =>
         `https://dev.to/new?prefill=${encode(
           '---\ntitle: ' + title + '\npublished: true\ntags: livecodes\n---\n\n\n\n' + url,
@@ -142,13 +143,13 @@ export const createShareContainer = async (
     },
     {
       name: window.deps.translateString('share.services.tumblr', 'Tumblr'),
-      icon: 'icon-share-tumblr',
+      icon: 'tumblr.svg',
       createShareUrl: ({ url, title }) =>
         `https://www.tumblr.com/share/link?url=${encode(url)}&name=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.pinterest', 'Pinterest'),
-      icon: 'icon-share-pinterest',
+      icon: 'pinterest.svg',
       createShareUrl: ({ url, title }) =>
         `https://pinterest.com/pin/create/bookmarklet/?url=${encode(url)}&description=${encode(
           title,
@@ -156,35 +157,40 @@ export const createShareContainer = async (
     },
     {
       name: window.deps.translateString('share.services.whatsApp', 'WhatsApp'),
-      icon: 'icon-share-whatsapp',
+      icon: 'whatsapp.svg',
       createShareUrl: ({ url, title }) =>
         `https://api.whatsapp.com/send?text=${encode(title)} ${encode(url)}`,
     },
     {
       name: window.deps.translateString('share.services.telegram', 'Telegram'),
-      icon: 'icon-share-telegram',
+      icon: 'telegram.svg',
       createShareUrl: ({ url, title }) =>
         `https://t.me/share/url?url=${encode(url)}&text=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.pocket', 'Pocket'),
-      icon: 'icon-share-pocket',
+      icon: 'pocket.svg',
       createShareUrl: ({ url, title }) =>
         `https://getpocket.com/save?url=${encode(url)}&title=${encode(title)}`,
     },
     {
       name: window.deps.translateString('share.services.email', 'Email'),
-      icon: 'icon-share-email',
+      icon: 'email.svg',
       createShareUrl: ({ url, title }) => `mailto:?subject=${encode(title)}&body=${encode(url)}`,
     },
     {
+      name: window.deps.translateString('share.services.copyUrl', 'Copy URL'),
+      icon: 'copy.svg',
+      onClick: ({ url }) => copyUrl(url),
+    },
+    {
       name: window.deps.translateString('share.services.qrCode', 'QR code'),
-      icon: 'icon-share-qr',
+      icon: 'qr-code.svg',
       onClick: showQrCode,
     },
     {
       name: window.deps.translateString('share.services.share', 'Share via …'),
-      icon: 'icon-share',
+      icon: 'share.svg',
       onClick: ({ url, title }) => navigator.share({ url, title }),
     },
   ];

@@ -1,8 +1,7 @@
 <div id="share-screen" class="modal-container">
   <div class="modal-title" data-i18n="share.heading">Share</div>
-
-  <div class="modal-content modal-screen-container">
-    <div id="share-top-text">
+  <div class="modal-content">
+    <div id="share-top-text" class="description light">
       <span id="share-permanent-url"
         ><input id="share-permanent-url-checkbox" type="checkbox" /><label
           for="share-permanent-url-checkbox"
@@ -13,7 +12,7 @@
       <span id="share-click-to-copy"></span>
     </div>
     <input type="text" id="share-url-input" readonly />
-    <div id="share-expiry" class="share-expiry light">
+    <div id="share-expiry" class="share-expiry description light">
       <div class="share-short-url-expiry">
         <span>&nbsp;</span><a href="#" data-i18n="share.encodedURL">Get encoded URL</a>
       </div>
@@ -22,7 +21,7 @@
         ><a href="#" data-i18n="share.shortURL">Get short URL</a>
       </div>
     </div>
-    <div id="share-expiry-self-hosted" class="share-expiry light">
+    <div id="share-expiry-self-hosted" class="share-expiry description light">
       <div class="share-short-url-expiry">
         <span class="danger" data-i18n="share.expireInOneYear">Expires in 1 year</span
         ><a href="#" data-i18n="share.encodedURL">Get encoded URL</a>

@@ -2418,32 +2418,13 @@ const handleProcessors = () => {
   });
 };
 
-const handleAppMenuProject = () => {
-  const menuProjectContainer = UI.getAppMenuProjectScroller();
-  const menuProjectButton = UI.getAppMenuProjectButton();
-  if (!menuProjectContainer || !menuProjectButton) return;
-  menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
-  translateElement(menuProjectContainer);
-  // This fixes the behaviour where :
-  // clicking outside the settings menu but inside settings menu container,
-  // hides the settings menu but not the container
-  // on small screens the container covers most of the screen
-  // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
-    if (event.target === menuProjectContainer) {
-      menuProjectContainer.classList.add('hidden');
-    }
-  });
-  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
-    menuProjectContainer.classList.remove('hidden');
-  });
-};
+const handleSettingsMenu = () => {
+  const menuContainer = UI.getSettingsMenuScroller();
+  const settingsButton = UI.getSettingsButton();
+  if (!menuContainer || !settingsButton) return;
+  menuContainer.innerHTML = settingsMenuHTML;
 
-const handleAppMenuSettings = () => {
-  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
-  const menuSettingsButton = UI.getAppMenuSettingsButton();
-  if (!menuSettingsContainer || !menuSettingsButton) return;
-  menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
+  translateElement(menuContainer);
 
   translateElement(menuSettingsContainer);
   // This fixes the behaviour where :
@@ -4200,6 +4181,7 @@ const setAppLanguage = (reload: boolean = false) => {
   document.documentElement.lang = lang;
   document.documentElement.dir = i18n?.getLanguageDirection() ?? 'ltr';
   if (isEmbed || params.appLanguage) return;
+
   const flatten = (obj: I18nTranslationTemplate, prefix = ''): { [k: string]: string } =>
     Object.keys(obj).reduce((acc, key) => {
       const value = obj[key];

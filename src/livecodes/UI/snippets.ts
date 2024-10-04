@@ -58,7 +58,7 @@ const createSnippetItem = (
     'snippets.copy.clickToCopySnippet',
     'Click to copy snippet',
   );
-  link.classList.add('snippet-link', 'hint--top');
+  link.classList.add('snippet-item', 'hint--top');
   link.title = item.description;
   link.onclick = (ev) => {
     ev.preventDefault();
@@ -88,7 +88,7 @@ const createSnippetItem = (
         modified: lastModified,
       },
     );
-    container.appendChild(lastModifiedText);
+    link.appendChild(lastModifiedText);
   }
 
   const tags = document.createElement('div');
@@ -129,11 +129,14 @@ const createSnippetItem = (
   };
   actions.appendChild(editButton);
 
-  const deleteButton = document.createElement('div');
-  deleteButton.innerHTML = deleteIcon;
-  deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
-  deleteButton.dataset.hint = window.deps.translateString('snippets.action.delete', 'Delete');
-  actions.appendChild(deleteButton);
+  const deleteWrapper = document.createElement('div');
+  deleteWrapper.dataset.hint = window.deps.translateString('snippets.action.delete', 'Delete');
+  deleteWrapper.classList.add('hint--left');
+  actions.appendChild(deleteWrapper);
+
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('delete-button');
+  deleteWrapper.appendChild(deleteButton);
 
   return { link, deleteButton };
 };

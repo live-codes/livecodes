@@ -1,6 +1,16 @@
 <div id="add-asset-container" class="modal-container">
   <div class="modal-title" data-i18n="assets.add.heading">Add Asset</div>
-
+  <div class="buttons">
+    <button id="assets-button" class="button" data-i18n="assets.heading">Assets</button>
+  </div>
+  <ul id="add-asset-tabs" class="modal-tabs">
+    <li data-target="add-asset-data-url" class="active" data-i18n="assets.add.dataURL.heading">
+      Data URL
+    </li>
+    <li data-target="add-asset-gh-pages" data-i18n="assets.add.githubPages.heading">
+      GitHub Pages
+    </li>
+  </ul>
   <div id="add-asset-screens" class="modal-screen-container">
     <div class="buttons">
       <button id="assets-button" class="button" data-i18n="assets.heading">Assets</button>
@@ -17,11 +27,7 @@
 
     <div id="add-asset-data-url" class="tab-content active">
       <div class="modal-screen">
-        <div
-          class="description help"
-          data-i18n="assets.add.dataURL.desc"
-          data-i18n-prop="innerHTML"
-        >
+        <div class="description" data-i18n="assets.add.dataURL.desc" data-i18n-prop="innerHTML">
           Add asset as a base64-encoded
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs"
@@ -44,11 +50,7 @@
     </div>
     <div id="add-asset-gh-pages" class="tab-content">
       <div class="modal-screen">
-        <div
-          class="description help"
-          data-i18n="assets.add.githubPages.desc"
-          data-i18n-prop="innerHTML"
-        >
+        <div class="description" data-i18n="assets.add.githubPages.desc" data-i18n-prop="innerHTML">
           Deploy asset to GitHub Pages. The file is pushed to
           <span class="code">gh-pages</span> branch of the repo
           <span class="code">livecodes-assets</span> on your GitHub account. If the repo does not

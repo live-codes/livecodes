@@ -79,7 +79,7 @@ export const createOpenItem = (
       modified: lastModified,
     },
   );
-  container.appendChild(lastModifiedText);
+  link.appendChild(lastModifiedText);
 
   const tags = document.createElement('div');
   tags.classList.add('project-tags');
@@ -110,7 +110,7 @@ export const createOpenItem = (
 
   const removeDefaultLink = document.createElement('span');
   removeDefaultLink.innerText = window.deps.translateString('open.removeDefault', '(unset)');
-  removeDefaultLink.classList.add('template-remove-default-link', 'delete');
+  removeDefaultLink.classList.add('template-remove-default-link');
   defaultTemplateLabel.appendChild(removeDefaultLink);
 
   if (isTemplate) {

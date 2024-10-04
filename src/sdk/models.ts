@@ -1674,20 +1674,7 @@ export interface BlocklyContent {
   js?: string;
 }
 
-export type AppLanguage =
-  | 'auto'
-  | 'ar'
-  | 'de'
-  | 'en'
-  | 'es'
-  | 'fr'
-  | 'hi'
-  | 'it'
-  | 'ja'
-  | 'pt'
-  | 'ru'
-  | 'ur'
-  | 'zh-CN';
+export type AppLanguage = 'auto' | 'en' | 'zh-CN';
 
 export interface User {
   uid: string;
