@@ -262,7 +262,6 @@
 
 html,
 body {
-  // background: #1d1b1b;
   box-sizing: border-box;
   display: flex;
   font-family: system-ui, sans-serif;
@@ -313,12 +312,6 @@ html {
 .tagify__dropdown__item {
   color: var(--link);
 }
-
-// TODO -----//----- ↓ REMOVE UI CSS VARS TEST ↓
-
-@import 'app-ui';
-
-// TODO -----//----- ↑ REMOVE UI CSS VARS TEST ↑
 
 @import 'rtl';
 
@@ -593,7 +586,6 @@ kbd {
 
       &::before {
         content: '* ';
-        // margin: 5px;
         visibility: hidden;
         white-space: pre;
       }
@@ -751,9 +743,9 @@ a#result-button {
     max-width: unset;
 
     li > span {
-      /* white-space: nowrap; */
       overflow: hidden;
       text-overflow: ellipsis;
+      /* white-space: nowrap; */
     }
   }
 
@@ -1545,8 +1537,6 @@ li.editor-title {
   }
 }
 
-// TODO REMOVE TEST FOCUS : html & var --uifocus
-html,
 .focus-mode {
   #app-menu-button-project,
   #app-menu-button-settings,
@@ -1558,7 +1548,7 @@ html,
   #settings-button,
   .tools-pane-title:not(.console),
   .tool-buttons {
-    visibility: var(--uifocus);
+    visibility: hidden;
   }
 
   #toolbar {
@@ -1578,7 +1568,6 @@ html,
   }
 
   #editor-tools {
-    border-top: 1px solid var(--color1); // TODO dark -> light
     bottom: 0;
     position: absolute;
   }

@@ -72,7 +72,7 @@ export const displayLoggedIn = (user: User) => {
         name: displayName!,
       },
     );
-    logOutLink.style.display = 'block';
+    logOutLink.style.display = 'flex';
   }
 };
 
