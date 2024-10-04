@@ -1,264 +1,231 @@
 <div id="welcome-container" class="modal-container">
   <div class="modal-title" data-i18n="welcome.heading">Welcome</div>
   <div id="welcome-screen-container" class="modal-screen-container">
-
-      <div class="modal-section">
-        <div id="welcome-start">
-          <h3 data-i18n="welcome.start.heading">Start</h3>
+    <div class="modal-section">
+      <div id="welcome-recover">
+        <h3 data-i18n="welcome.recover.heading">Recover</h3>
+        <div class="welcome-recover-content">
+          <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
+            Your last project had unsaved changes:
+          </div>
           <ul>
-            <li>
-              <a href="#" id="welcome-link-new">
-                <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
-              >
-            </li>
-            <li>
-              <a href="#" id="welcome-link-open">
-                <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
-              >
-            </li>
-            <li>
-              <a href="#" id="welcome-link-import">
-                <i class="icon-file-import"></i>
-                <span data-i18n="welcome.start.import">Import...</span></a
-              >
-            </li>
-            <li class="default-template-li">
-              <span id="no-default-template" class="default-template">
-                <span data-i18n="welcome.start.noDefaultTemplate">Default Template</span>
-              </span>
-              <a
-                href="#"
-                id="welcome-link-load-default"
-                class="default-template"
-                data-i18n="welcome.start.loadDefaultTemplate"
-                >Load default template</a
-              >
-              <a
-                href="{{DOCS_BASE_URL}}features/default-template-language"
-                target="_blank"
-                class="help-link"
-                title="Click for info..."
-                rel="noopener"
-                data-i18n="generic.clickForInfo"
-                data-i18n-prop="title"
-              >
-                <i class="icon-info"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div id="welcome-templates">
-          <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
-          <ul id="welcome-template-list">
-            <li>
-              <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more"
-                >More...</a
-              >
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="modal-section">
-
-        <div id="welcome-recover">
-          <h3 data-i18n="welcome.recover.heading">Recover</h3>
-          <div class="welcome-recover-content">
-            <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
-              Your last project had unsaved changes:
-            </div>
-            <ul>
-              <li class="overflow-ellipsis">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M5 12.24L.5 13.5L1.76 9L10 .8a1 1 0 0 1 1.43 0l1.77 1.78a1.001 1.001 0 0 1 0 1.42z"
-                  />
-                </svg>
-                <span id="unsaved-project-name" class="overflow-ellipsis"></span>
-              </li>
-              <li class="smaller">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M1.5 2a1 1 0 0 0-1 1v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2M.5 5.5h13m-10-5v3m7-3v3M3.5 2h5"
-                  />
-                </svg>
-                <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
-                  >Last modified:</span
-                >
-                <span id="unsaved-project-last-modified"></span>
-              </li>
-            </ul>
-            <div class="welcome-recover-actions">
-              <a href="#" id="prompt-recover-btn" title="Recover project to editor">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9.25 8.5L7 10.75L9.25 13m-4.5-7.5L7 3.25L4.75 1" />
-                    <path
-                      d="M7 10.75h4.5a2 2 0 0 0 2-2v-3.5a2 2 0 0 0-2-2H10m-3 0H2.5a2 2 0 0 0-2 2v3.5a2 2 0 0 0 2 2H4"
-                    />
-                  </g>
-                </svg>
-                <span data-i18n="welcome.recover.recover">Recover</span></a
-              >
-              <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12.5 12.5a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1H9L12.5 4z" />
-                    <path d="m9 8l-2 2l-2-2m2 2V4.5" />
-                  </g>
-                </svg>
-                <span data-i18n="welcome.recover.save">Save</span>
-              </a>
-              <a href="#" id="prompt-cancel-recover-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.5 7V1.5a1 1 0 0 1 1-1H10L13.5 4v8.5a1 1 0 0 1-1 1H8M4.74 9.26L.5 13.5m0-4.24l4.24 4.24"
-                  />
-                </svg>
-                <span data-i18n="welcome.recover.cancel">Cancel</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div id="welcome-recent">
-          <h3 data-i18n="welcome.recent.heading">Recent</h3>
-          <ul id="welcome-recent-list">
-            <li>
-              <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
-                >More...</a
-              >
-            </li>
-          </ul>
-        </div>
-
-        <h3 data-i18n="welcome.about.heading">About LiveCodes</h3>
-        <ul class="modal-docs">
-          <li>
-            <a
-              href="{{DOCS_BASE_URL}}"
-              target="_blank"
-              rel="noopener"
-              data-i18n="welcome.about.documentation"
-              >Documentation</a
-            >
-          </li>
-          <li>
-            <a
-              href="{{DOCS_BASE_URL}}getting-started"
-              target="_blank"
-              rel="noopener"
-              data-i18n="generic.about.gettingStarted"
-              >Getting Started</a
-            >
-          </li>
-          <li>
-            <a
-              href="{{DOCS_BASE_URL}}configuration"
-              target="_blank"
-              rel="noopener"
-              data-i18n="generic.about.configuration"
-              >Configuration</a
-            >
-          </li>
-          <li>
-            <a
-              href="{{DOCS_BASE_URL}}sdk"
-              target="_blank"
-              rel="noopener"
-              data-i18n="generic.about.sdk"
-              >LiveCodes SDK</a
-            >
-          </li>
-        </ul>
-
-        <h3>Support</h3>
-        <div class="welcome-support">
-          <div>
-            <a
-              href="{{DOCS_BASE_URL}}sponsor"
-              target="_blank"
-              rel="noopener"
-              title="Sponsor LiveCodes"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+            <li class="overflow-ellipsis">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
                 <path
-                  fill="currentColor"
-                  d="m11.792 21.712l-8.51-8.51L9.68 6.806l3.265 3.265l1.22-1.219L8.39 3.079L1.854 9.616l1.244 1.244l-.713.713L.439 9.627l7.963-7.964l3.215 3.216l3.235-3.235l8.504 8.504zm-.013-1.416l10.137-10.148l-7.07-7.07l-2.502 2.503l3.266 3.265l-2.666 2.666L9.66 8.227l-4.974 4.975l1.244 1.244l3.821-3.821l.708.708l-3.821 3.82l1.238 1.24l4.052-4.052l.714.713l-4.053 4.052l1.239 1.238l4.052-4.052l.708.708l-4.052 4.052zm-3.67-12.44"
-                /></svg
-              ><br /><span data-i18n="generic.about.sponsor">Sponsor</span></a
-            >
-          </div>
-          <div>
-            <a
-              href="https://blog.livecodes.io"
-              target="_blank"
-              rel="noopener"
-              title="LiveCodes Blog"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                <g
                   fill="none"
                   stroke="currentColor"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="1.5"
-                >
-                  <path d="M3 4v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-4" />
-                  <path d="M3 4h14v14a2 2 0 0 0 2 2v0M13 8H7m6 4H9" />
-                </g>
+                  d="M5 12.24L.5 13.5L1.76 9L10 .8a1 1 0 0 1 1.43 0l1.77 1.78a1.001 1.001 0 0 1 0 1.42z"
+                />
               </svg>
-              <br /><span data-i18n="generic.about.blog">Blog</span></a
-            >
-          </div>
-          <div>
-            <a
-              href="https://twitter.com/livecodes_io"
-              target="_blank"
-              rel="noopener"
-              title="𝕏 / Twitter"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <span id="unsaved-project-name" class="overflow-ellipsis"></span>
+            </li>
+            <li class="smaller">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
                 <path
-                  fill="currentColor"
-                  d="M8 2H1l8.26 11.015L1.45 22H4.1l6.388-7.349L16 22h7l-8.608-11.478L21.8 2h-2.65l-5.986 6.886zm9 18L5 4h2l12 16z"
-                /></svg
-              ><br /><span data-i18n="generic.about.twitter">𝕏 / Twitter</span></a
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M1.5 2a1 1 0 0 0-1 1v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2M.5 5.5h13m-10-5v3m7-3v3M3.5 2h5"
+                />
+              </svg>
+              <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
+                >Last modified:</span
+              >
+              <span id="unsaved-project-last-modified"></span>
+            </li>
+          </ul>
+          <div class="welcome-recover-actions">
+            <a href="#" id="prompt-recover-btn" title="Recover project to editor">
+              <i class="icon-recover"></i>
+              <span data-i18n="welcome.recover.recover">Recover</span></a
             >
-          </div>
-          <div>
-            <a href="{{REPO_URL}}" target="_blank" rel="noopener" title="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M12 1A10.89 10.89 0 0 0 1 11.77A10.79 10.79 0 0 0 8.52 22c.55.1.75-.23.75-.52v-1.83c-3.06.65-3.71-1.44-3.71-1.44a2.86 2.86 0 0 0-1.22-1.58c-1-.66.08-.65.08-.65a2.31 2.31 0 0 1 1.68 1.11a2.37 2.37 0 0 0 3.2.89a2.33 2.33 0 0 1 .7-1.44c-2.44-.27-5-1.19-5-5.32a4.15 4.15 0 0 1 1.11-2.91a3.78 3.78 0 0 1 .11-2.84s.93-.29 3 1.1a10.68 10.68 0 0 1 5.5 0c2.1-1.39 3-1.1 3-1.1a3.78 3.78 0 0 1 .11 2.84A4.15 4.15 0 0 1 19 11.2c0 4.14-2.58 5.05-5 5.32a2.5 2.5 0 0 1 .75 2v2.95c0 .35.2.63.75.52A10.8 10.8 0 0 0 23 11.77A10.89 10.89 0 0 0 12 1"
-                /></svg
-              ><br /><span data-i18n="generic.about.github">GitHub</span></a
-            >
+            <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
+              <i class="icon-save"></i>
+              <span data-i18n="welcome.recover.save">Save</span>
+            </a>
+            <a href="#" id="prompt-cancel-recover-btn">
+              <i class="icon-delete"></i>
+              <span data-i18n="welcome.recover.cancel">Cancel</span>
+            </a>
           </div>
         </div>
-
+      </div>
+      <div id="welcome-start">
+        <h3 data-i18n="welcome.start.heading">Start</h3>
+        <ul>
+          <li>
+            <a href="#" id="welcome-link-new">
+              <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
+            >
+          </li>
+          <li>
+            <a href="#" id="welcome-link-open">
+              <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
+            >
+          </li>
+          <li>
+            <a href="#" id="welcome-link-import">
+              <i class="icon-file-import"></i>
+              <span data-i18n="welcome.start.import">Import...</span></a
+            >
+          </li>
+          <li class="default-template-li">
+            <span
+              id="no-default-template"
+              class="default-template"
+              data-i18n="welcome.start.noDefaultTemplate"
+              >No default template</span
+            >
+            <a
+              href="#"
+              id="welcome-link-load-default"
+              class="default-template"
+              >
+              <i class="icon-file-template"></i>
+              <span data-i18n="welcome.start.loadDefaultTemplate">Load default template</span></a
+            >
+          </li>
+          <li>
+            <a
+              href="{{DOCS_BASE_URL}}features/default-template-language"
+              target="_blank"
+              class="more"
+              ><i class="icon-info"></i> <span data-i18n="generic.clickForInfo">Click for info...</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div id="welcome-templates">
+        <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
+        <ul id="welcome-template-list">
+          <li>
+            <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more"
+              >More...</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div id="welcome-recent">
+        <h3 data-i18n="welcome.recent.heading">Recent</h3>
+        <ul id="welcome-recent-list">
+          <li>
+            <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
+              >More...</a
+            >
+          </li>
+        </ul>
       </div>
 
+      <h3 data-i18n="welcome.about.heading">About LiveCodes</h3>
+      <ul class="modal-docs">
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}"
+            target="_blank"
+            rel="noopener"
+            data-i18n="welcome.about.documentation"
+            >Documentation</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}getting-started"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.gettingStarted"
+            >Getting Started</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}configuration"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.configuration"
+            >Configuration</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{DOCS_BASE_URL}}sdk"
+            target="_blank"
+            rel="noopener"
+            data-i18n="generic.about.sdk"
+            >LiveCodes SDK</a
+          >
+        </li>
+      </ul>
+
+      <h3>Support</h3>
+      <div class="welcome-support">
+        <div>
+          <a
+            href="{{DOCS_BASE_URL}}sponsor"
+            target="_blank"
+            rel="noopener"
+            title="Sponsor LiveCodes"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="m11.792 21.712l-8.51-8.51L9.68 6.806l3.265 3.265l1.22-1.219L8.39 3.079L1.854 9.616l1.244 1.244l-.713.713L.439 9.627l7.963-7.964l3.215 3.216l3.235-3.235l8.504 8.504zm-.013-1.416l10.137-10.148l-7.07-7.07l-2.502 2.503l3.266 3.265l-2.666 2.666L9.66 8.227l-4.974 4.975l1.244 1.244l3.821-3.821l.708.708l-3.821 3.82l1.238 1.24l4.052-4.052l.714.713l-4.053 4.052l1.239 1.238l4.052-4.052l.708.708l-4.052 4.052zm-3.67-12.44"
+              /></svg
+            ><br /><span data-i18n="generic.about.sponsor">Sponsor</span></a
+          >
+        </div>
+        <div>
+          <a href="https://blog.livecodes.io" target="_blank" rel="noopener" title="LiveCodes Blog">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              >
+                <path d="M3 4v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-4" />
+                <path d="M3 4h14v14a2 2 0 0 0 2 2v0M13 8H7m6 4H9" />
+              </g>
+            </svg>
+            <br /><span data-i18n="generic.about.blog">Blog</span></a
+          >
+        </div>
+        <div>
+          <a
+            href="https://twitter.com/livecodes_io"
+            target="_blank"
+            rel="noopener"
+            title="𝕏 / Twitter"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M8 2H1l8.26 11.015L1.45 22H4.1l6.388-7.349L16 22h7l-8.608-11.478L21.8 2h-2.65l-5.986 6.886zm9 18L5 4h2l12 16z"
+              /></svg
+            ><br /><span data-i18n="generic.about.twitter">𝕏 / Twitter</span></a
+          >
+        </div>
+        <div>
+          <a href="{{REPO_URL}}" target="_blank" rel="noopener" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M12 1A10.89 10.89 0 0 0 1 11.77A10.79 10.79 0 0 0 8.52 22c.55.1.75-.23.75-.52v-1.83c-3.06.65-3.71-1.44-3.71-1.44a2.86 2.86 0 0 0-1.22-1.58c-1-.66.08-.65.08-.65a2.31 2.31 0 0 1 1.68 1.11a2.37 2.37 0 0 0 3.2.89a2.33 2.33 0 0 1 .7-1.44c-2.44-.27-5-1.19-5-5.32a4.15 4.15 0 0 1 1.11-2.91a3.78 3.78 0 0 1 .11-2.84s.93-.29 3 1.1a10.68 10.68 0 0 1 5.5 0c2.1-1.39 3-1.1 3-1.1a3.78 3.78 0 0 1 .11 2.84A4.15 4.15 0 0 1 19 11.2c0 4.14-2.58 5.05-5 5.32a2.5 2.5 0 0 1 .75 2v2.95c0 .35.2.63.75.52A10.8 10.8 0 0 0 23 11.77A10.89 10.89 0 0 0 12 1"
+              /></svg
+            ><br /><span data-i18n="generic.about.github">GitHub</span></a
+          >
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="show-welcome">
     <input type="checkbox" value="show-welcome-checkbox" id="show-welcome-checkbox" checked />
     <label for="show-welcome-checkbox" data-i18n="welcome.showOnStartup">Show on startup</label>
   </div>
-
 </div>

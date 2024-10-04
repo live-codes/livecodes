@@ -391,7 +391,8 @@ const setEditorTitle = (editorId: EditorId, title: string) => {
 
 const createCopyButtons = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const copyImgHtml = `<span><img src="${baseUrl}assets/images/copy.svg" alt="copy"></span>`;
+  // const copyImgHtml = `<span><img src="${baseUrl}assets/images/copy.svg" alt="copy"></span>`;
+  const copyImgHtml = `<span><i class="icon-copy" alt="copy"></i></span>`;
   editorIds.forEach((editorId) => {
     const copyButton = document.createElement('div');
     copyButton.innerHTML = copyImgHtml;
@@ -3258,7 +3259,7 @@ const handleWelcome = () => {
 
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
-      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
+      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'inline-block';
     } else {
       const loadTemplateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
       eventsManager.addEventListener(
@@ -3272,7 +3273,7 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTemplateLink.style.display = 'unset';
+      loadTemplateLink.style.display = 'block';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 

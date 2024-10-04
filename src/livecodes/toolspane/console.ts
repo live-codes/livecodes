@@ -222,7 +222,7 @@ export const createConsole = (
     const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       clearButton = document.createElement('button');
-      clearButton.classList.add('console-clear-button','hint--top-left');
+      clearButton.classList.add('console-clear-button', 'hint--top-left');
       clearButton.dataset.hint = window.deps.translateString(
         'toolspane.console.clear',
         'Clear console',

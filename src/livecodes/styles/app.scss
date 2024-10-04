@@ -1,5 +1,4 @@
 :root {
-
   --font-size: 16px;
   --unit: var(--font-size);
   /* Space unit e.g. 16px -> border-radius, font-size, spacing padding and margin
@@ -18,13 +17,13 @@
   --s40: calc(var(--unit) * 2.5);
   --rs: var(--s4); // border radius
 
-  --hue: 214;  // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
-  --st: 40%;  // Saturation
+  --hue: 214; // Hue from 0 to 360. 0=red, 120=green, and 214=blue.
+  --st: 40%; // Saturation
   --lt: 50%; // Lightness
 
   --color: hsl(var(--hue), var(--st), var(--lt));
-  --color10: hsl(var(--hue), var(--st), calc(var(--lt) * 0.2)); // 10%
-  --color15: hsl(var(--hue), var(--st), calc(var(--lt) * 0.3)); // 15%
+  --color10: hsl(var(--hue), calc(var(--st) * 0.3), calc(var(--lt) * 0.2)); // s12% l10%
+  --color15: hsl(var(--hue), calc(var(--st) * 0.5), calc(var(--lt) * 0.3)); // s20% l15%
   --color20: hsl(var(--hue), var(--st), calc(var(--lt) * 0.4)); // 20%
   --color25: hsl(var(--hue), var(--st), calc(var(--lt) * 0.5)); // 25%
   --color30: hsl(var(--hue), var(--st), calc(var(--lt) * 0.6)); // 30%
@@ -74,14 +73,14 @@
 
   --dropdown-bg-color: var(--dropdown);
   --dropdown-bg-active: var(--darker-bg-active);
-  --dropdown-border: 1px solid var(--darker-bg-color);
+  --dropdown-border: 1px solid var(--dark-bg-color);
   --dropdown-border-radius: var(--rs);
   --dropdown-color: var(--link);
   --dropdown-active: var(--darker-active);
   --dropdown-font: var(--s14);
   --dropdown-height: 32px;
   --dropdown-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.275);
-  --dropdown-split-color: var(--darker-bg-color);
+  --dropdown-split-color: var(--dark-bg-color);
   --submenu-arrow-color: var(--darker-color);
 
   --editor-title-bg-color: var(--darker-bg-color);
@@ -141,13 +140,12 @@
 
   --modal-text-color: var(--link);
 
-  --overlay-background-color: rgb(0, 0, 0);
+  --overlay-bg-color: hsla(0, 0%, 0%, 0.65);
 
   --project-title-bg-active: var(--darker-bg-active);
   --project-title-bg-color: var(--darker-bg-color);
-
-  --project-title-border: 1px solid var(--color40);
-  --project-title-border-active: var(--active-bg);
+  --project-title-border-active: var(--dark-bg-active);
+  --project-title-border-color: var(--dark-bg-color);
   --project-title-border-radius: var(--rs);
   --project-title-box-shadow: 0 0 4px 1px var(--0);
   --project-title-active: var(--darker-active);
@@ -218,21 +216,12 @@
   padding: 0;
 }
 
-* {
-  &:-webkit-autofill,
-  &:-webkit-autofill:focus {
-    -webkit-text-fill-color: #fff;
-    transition-delay: 3600s;
-  }
-}
-
 // Todo scrollbar
 // Modern browsers
 // @supports (scrollbar-width: auto) {
 @supports (-moz-appearance: none) {
   * {
-    scrollbar-color: var(--scrollbar-color-thumb)
-      var(--scrollbar-color-track);
+    scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
     scrollbar-width: var(--scrollbar-width, thin);
   }
 }
@@ -284,9 +273,8 @@ body {
 }
 
 html.dark {
-  --placeholder-color: var(--darker-color)
-    --placeholder-color-focus: var(--darker-active)
-    --tag-bg: var(--dropdown-bg-color);
+  --placeholder-color: var(--darker-color) --placeholder-color-focus: var(--darker-active) --tag-bg:
+    var(--dropdown-bg-color);
   --tag-hover: var(--dropdown-bg-active);
   --tag-text-color: var(--dropdown-color);
   // Sugegstion's dropdown
@@ -297,15 +285,26 @@ html.dark {
   --tagify-dd-item-pad: 2px 8px; //	Suggestion item padding
   // --tagify-dd-max-height:;   //	Maximum height of suggestions dropdown (300px by default)
   // Tags
-  --tags-border-color: var(--input-border-color) !important;
+  // --tags-border-color: #DDD;
+  // --tags-border-color: var(--input-border-color) !important;
   --tags-hover-border-color: var(--input-border-active) !important;
   --tags-focus-border-color: var(--input-border-active) !important;
+  background: #1e1e1e;
+
+  * {
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: #fff;
+      transition-delay: 3600s;
+    }
+  }
 }
 
 html {
   .tagify {
     --placeholder-color: var(--darker-active);
     --placeholder-color-focus: var(--darker-active);
+    --tags-border-color: var(--input-border-color) !important;
     background: var(--input-bg-color); // color2);
     border-radius: var(--rs);
   }
@@ -324,6 +323,8 @@ html {
 @import 'rtl';
 
 @import 'icons';
+
+@import 'icons-share';
 
 a,
 a:visited {
@@ -424,14 +425,14 @@ kbd {
 .alert,
 .danger,
 .delete {
-  background-color: var(--test-fail-background); // todo css var
-  border: var(--test-fail-border); // todo css var
+  background-color: var(--test-fail-background);
+  border: var(--test-fail-border);
   color: var(--test-fail-color);
 }
 
 .confirm,
 .warn {
-  background-color: rgba(255, 128, 0, 0.25); // todo css var
+  background-color: rgba(255, 128, 0, 0.25);
   border: 1px solid rgb(255, 128, 0);
   color: rgb(250, 126, 0);
 }
@@ -557,7 +558,7 @@ kbd {
   #project-title {
     align-items: center;
     background: var(--project-title-bg-color);
-    border: var(--project-title-border-color);
+    border: 1px solid var(--project-title-border-color);
     border-radius: var(--project-title-border-radius);
     color: var(--project-title-color);
     display: flex;
@@ -570,7 +571,9 @@ kbd {
     padding: 0 var(--s4);
     place-self: center;
     position: relative;
+    text-overflow: ellipsis;
     transition: all 0.5s ease-in-out;
+    white-space: nowrap;
     width: 100%;
 
     &:hover,
@@ -584,20 +587,21 @@ kbd {
     &.unsaved {
       &::after {
         content: ' *';
-        margin: 5px;
+        margin: 4px;
         white-space: pre;
       }
 
       &::before {
         content: '* ';
-        margin: 5px;
+        // margin: 5px;
         visibility: hidden;
         white-space: pre;
       }
     }
   }
 
-  #login-link {
+  #login-link,
+  #logout-link {
     display: inherit;
     height: var(--s32);
     justify-content: space-evenly;
@@ -654,7 +658,8 @@ a#result-button {
       display: none;
     }
 
-    #login-link {
+    #login-link,
+    #logout-link {
       min-width: var(--s24);
     }
   }
@@ -722,6 +727,10 @@ a#result-button {
     flex-wrap: wrap;
     height: var(--toolbar-height);
     width: 100%;
+
+    .dropdown-menu.submenu {
+      left: 44%;
+    }
   }
 
   #toolbar > .toolbar-app,
@@ -738,8 +747,14 @@ a#result-button {
     place-items: center;
   }
 
-  #toolbar #project-title {
+  #toolbar #select-editor {
     max-width: unset;
+
+    li > span {
+      /* white-space: nowrap; */
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   #toolbar #login-link,
@@ -752,8 +767,12 @@ a#result-button {
 
     ul li.editor-title {
       top: 0;
-      width: 80px;
+      width: 74px;
     }
+  }
+
+  #toolbar #project-title {
+    height: var(--s24);
   }
 
   #modal {
@@ -772,7 +791,6 @@ a#result-button {
   }
 }
 
-
 #editors {
   // background: var(--editor-bg-color); // TODO focus mode
   display: flex;
@@ -784,7 +802,6 @@ a#result-button {
 
   > .editor {
     font-variant-ligatures: discretionary-ligatures;
-    // max-height: calc(100% - 32px);
     visibility: hidden;
   }
 
@@ -1233,10 +1250,6 @@ li.editor-title {
   top: 3px;
   width: 100px;
 
-  &.half-width {
-    width: 48%;
-  }
-
   &:hover {
     background-color: var(--editor-title-bg-active);
     border-color: var(--editor-title-bg-active);
@@ -1404,8 +1417,7 @@ li.editor-title {
 
       #app-menu-button-project,
       #app-menu-button-settings,
-      #app-menu-button-help,
-      #login-link {
+      #app-menu-button-help {
         display: none;
       }
 
@@ -1444,7 +1456,8 @@ li.editor-title {
       }
 
       #share-button,
-      #login-link {
+      #login-link,
+      #logout-link {
         display: none;
       }
     }
@@ -1460,6 +1473,28 @@ li.editor-title {
 
   #editor-container {
     height: calc(100% - var(--toolbar-height));
+  }
+
+  @media only screen and (max-width: 480px) and (orientation: portrait) {
+    #toolbar {
+      --toolbar-height: 42px;
+      display: flex;
+      flex-direction: unset;
+      flex-wrap: nowrap;
+      height: var(--toolbar-height);
+      width: 100%;
+
+      #select-editor {
+        height: var(--toolbar-height);
+        margin: 0;
+
+        li.editor-title {
+          height: 32px;
+          top: 0;
+          width: 74px;
+        }
+      }
+    }
   }
 }
 // TODO TEST SIMPLE-MODE
@@ -1510,14 +1545,20 @@ li.editor-title {
   }
 }
 
+// TODO REMOVE TEST FOCUS : html & var --uifocus
+html,
 .focus-mode {
+  #app-menu-button-project,
+  #app-menu-button-settings,
+  #app-menu-button-help,
   .language-menu-button,
   #login-link,
+  #logout-link,
   #share-button,
   #settings-button,
   .tools-pane-title:not(.console),
   .tool-buttons {
-    visibility: hidden;
+    visibility: var(--uifocus);
   }
 
   #toolbar {
@@ -1550,7 +1591,8 @@ li.editor-title {
       }
 
       #settings-button,
-      #login-link > span {
+      #login-link > span,
+      #logout-link > span {
         display: none !important;
       }
     }
@@ -1755,7 +1797,7 @@ pre[class*='language-'].line-numbers > code {
   input[type='checkbox'],
   input[type='radio'] {
     --b: var(--input-bg-color); // bg check and uncheck
-    --inner-active: var(--input-active);  // border of checkbox
+    --inner-active: var(--input-active); // border of checkbox
     --inner-uncheck: var(--input-color);
     --focus: 1px var(--input-border-active);
     --border-hover: var(--input-border-active); // radio border

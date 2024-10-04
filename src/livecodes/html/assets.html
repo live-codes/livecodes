@@ -1,7 +1,6 @@
 <div id="assets-list-container" class="modal-container list-container">
   <div class="modal-title" data-i18n="assets.heading">Assets</div>
   <div class="modal-screen-container">
-
     <div class="modal-message" id="assets-container" class="items-container">
       <div class="buttons">
         <button id="assets-add-asset-button" class="button" data-i18n="assets.add.heading">
@@ -19,9 +18,11 @@
             ><span data-i18n="assets.sort.heading">Sort By:</span></span
           >
           <a href="#" id="assets-sort-by-last-modified" class="active"
-            ><i class="icon-calendar-sort"></i> <span class="sort-time" data-i18n="assets.sort.date">Date</span></a
+            ><i class="icon-calendar-sort"></i>
+            <span class="sort-time" data-i18n="assets.sort.date">Date</span></a
           ><a href="#" id="assets-sort-by-title">
-            <i class="icon-arrow-text-sort"></i> <span class="sort-title" data-i18n="assets.sort.fileName">File Name</span></a
+            <i class="icon-arrow-text-sort"></i>
+            <span class="sort-title" data-i18n="assets.sort.fileName">File Name</span></a
           ><a href="#" id="assets-sorted-asc" style="display: none"
             ><i class="icon-arrow-sort-up"></i></a
           ><a href="#" id="assets-sorted-desc"><i class="icon-arrow-sort-down"></i></a>
@@ -54,11 +55,13 @@
         <div>You have no saved assets.</div>
       </div>
 
-      <div class="modal-message no-data description confirm" id="assets-no-match" data-i18n="assets.noMatch">
+      <div
+        class="modal-message no-data description confirm"
+        id="assets-no-match"
+        data-i18n="assets.noMatch"
+      >
         <div>No assets match these filters.</div>
       </div>
-
     </div>
-
   </div>
 </div>
