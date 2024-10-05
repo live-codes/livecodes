@@ -919,7 +919,7 @@
       background: var(--darker-bg-color);
       border-top-left-radius: var(--rs);
       border-top-right-radius: var(--rs);
-      bottom: -8px;
+      bottom: 1px;
       box-shadow: 0 0 8px 1px #0006;
       color: var(--darker-color);
       display: flex;
@@ -927,6 +927,7 @@
       justify-content: center;
       margin: 0 1rem;
       padding: 0.5em 0;
+      position: relative;
       width: calc(100% - 2em);
 
       label {

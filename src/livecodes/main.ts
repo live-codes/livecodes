@@ -65,7 +65,7 @@ export const livecodes = (container: string, config: Partial<Config> = {}): Prom
             width: calc(100% - 2px);
             height: calc(100% - 2px);
             border: 1px solid #001b25;
-            border-radius: 5px;
+            border-radius: 8px;
         }
     `;
     document.head.appendChild(style);

@@ -17,6 +17,16 @@ body,
   overflow: hidden;
 }
 
+@media (prefers-color-scheme: dark) {
+  body,
+  #livecodes {
+    background-color: #111;
+    color: #fff;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
 #livecodes {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;

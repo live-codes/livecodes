@@ -107,7 +107,7 @@ Source: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 
 body {
   border: 1px solid #e1e4e8;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 20px;
   margin: 20px !important;
 }
