@@ -133,7 +133,7 @@ export async function createPlayground(
       if (containerElement.dataset.defaultStyles !== 'false' && !headless) {
         containerElement.style.backgroundColor ||= '#fff';
         containerElement.style.border ||= '1px solid black';
-        containerElement.style.borderRadius ||= '4px';
+        containerElement.style.borderRadius ||= '8px';
         containerElement.style.boxSizing ||= 'border-box';
         containerElement.style.padding ||= '0';
         containerElement.style.width ||= '100%';
