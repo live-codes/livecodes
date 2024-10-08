@@ -125,6 +125,11 @@ if (isEmbed && params.get('config') === 'sdk') {
 }
 
 const showConsoleMessage = () => {
+  const docsBaseUrl = process.env.DOCS_BASE_URL || 'docs';
+  const docsUrl = docsBaseUrl?.startsWith('http')
+    ? docsBaseUrl
+    : new URL(docsBaseUrl, location.href).href;
+
   const items = [
     {
       content: ' ',
@@ -153,7 +158,7 @@ const showConsoleMessage = () => {
     },
     { content: '\n\n', style: '' },
     {
-      content: `Learn more! ${process.env.DOCS_BASE_URL} 🚀`,
+      content: `Learn more! ${docsUrl} 🚀`,
       style: 'padding: 0.2em 0.4em; font-size: 1.1em;',
     },
   ];
