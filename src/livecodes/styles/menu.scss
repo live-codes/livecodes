@@ -140,7 +140,7 @@
   li[role='separator'] {
     background: var(--dropdown-split-color);
     margin: 4px calc(1px - var(--s8));
-    padding: 1px 0;
+    padding: 1px 0 0;
   }
 
   .hint--left::after {
@@ -237,7 +237,7 @@
   position: absolute !important;
   right: unset;
   top: 0;
-  width: 200px; // todo css var + for font-size 14px
+  width: 230px; // todo css var + for font-size 14px
 
   &:hover {
     display: block !important;
@@ -293,7 +293,7 @@ i.arrow {
 
 @media only screen and (max-width: 768px) {
   .menu-scroller {
-    max-width: 84vw;
+    max-width: 90vw;
     width: 120%;
   }
 

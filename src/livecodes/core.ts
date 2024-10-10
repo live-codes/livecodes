@@ -1470,7 +1470,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
   return new Promise((resolve) => {
     const welcomeRecover = UI.getModalWelcomeRecover();
     if (isWelcomeScreen) {
-      welcomeRecover.style.display = 'unset';
+      welcomeRecover.style.display = 'block';
     } else {
       const div = document.createElement('div');
       div.innerHTML = recoverPromptScreen;
@@ -1505,7 +1505,10 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
         );
       }
       if (isWelcomeScreen) {
-        welcomeRecover.style.maxHeight = '0';
+        welcomeRecover.style.cssText = `
+         display: none;
+         order: 10;
+       `;
       } else {
         modal.close();
       }
@@ -1514,7 +1517,10 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
       if (isWelcomeScreen) {
-        welcomeRecover.style.maxHeight = '0';
+        welcomeRecover.style.cssText = `
+        display: none;
+        order: 10;
+      `;
       } else {
         modal.close();
       }

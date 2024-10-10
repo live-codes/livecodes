@@ -496,14 +496,14 @@ export const getWelcomeLinkTemplates = /* @__PURE__ */ (welcomeContainer: HTMLEl
   welcomeContainer.querySelector('#welcome-link-templates') as HTMLAnchorElement;
 
 export const getModalShowWelcomeCheckbox = /* @__PURE__ */ (welcomeContainer: HTMLElement) =>
-  welcomeContainer.querySelector('#modal #show-welcome-checkbox') as HTMLInputElement;
+  welcomeContainer.querySelector('#modal #welcome-show-checkbox') as HTMLInputElement;
 
 export const getModalWelcomeRecover = /* @__PURE__ */ (
   welcomeContainer = /* @__PURE__ */ document,
 ) => welcomeContainer.querySelector('#modal #welcome-recover') as HTMLElement;
 
 export const getModalWelcomeScreen = /* @__PURE__ */ (welcomeContainer: HTMLElement) =>
-  welcomeContainer.querySelector('#welcome-screen-container #welcome-start') as HTMLElement;
+  welcomeContainer.querySelector('#modal #welcome-screen-container') as HTMLElement;
 
 export const getModalWelcomeRecent = /* @__PURE__ */ (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-recent') as HTMLElement;

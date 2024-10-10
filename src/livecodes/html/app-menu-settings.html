@@ -1,6 +1,12 @@
 <ul id="app-menu-settings" class="dropdown-menu">
-  <li>
-    <a href="#" id="editor-settings-link" data-i18n="menu.editorSettings">Editor Settings …</a>
+  <li class="link-and-switch">
+    <a href="#" id="welcome-link" data-i18n="menu.welcome.heading">Welcome …</a>
+    <label for="welcome" class="switch hint--bottom" data-hint="Show Welcome screen on startup">
+      <div>
+        <input id="welcome" type="checkbox" data-config="welcome" />
+        <span class="slider round"></span>
+      </div>
+    </label>
   </li>
   <li role="separator"></li>
   <li>
@@ -106,15 +112,6 @@
       </div>
     </label>
   </li>
-  <li class="link-and-switch">
-    <a href="#" id="welcome-link" data-i18n="menu.welcome.heading">Welcome …</a>
-    <label for="welcome" class="switch hint--bottom" data-hint="Show Welcome screen on startup">
-      <div>
-        <input id="welcome" type="checkbox" data-config="welcome" />
-        <span class="slider round"></span>
-      </div>
-    </label>
-  </li>
   <li role="separator"></li>
   <li>
     <a href="#" id="assets-link" data-i18n="menu.assets">Assets …</a>
@@ -124,5 +121,9 @@
   </li>
   <li>
     <a href="#" id="backup-link" data-i18n="menu.backup">Backup / Restore …</a>
+  </li>
+  <li role="separator"></li>
+  <li>
+    <a href="#" id="editor-settings-link" data-i18n="menu.editorSettings">Editor Settings …</a>
   </li>
 </ul>
