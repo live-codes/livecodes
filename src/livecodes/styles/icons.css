@@ -2,12 +2,12 @@
 [class^='icon-'] {
   background-color: currentColor;
   display: inline-block;
-  height: var(--s16);
+  height: 1em;
   mask-image: var(--svg);
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
-  vertical-align: bottom;
-  width: var(--s16);
+  vertical-align: -0.175em;
+  width: 1em;
 }
 
 .icon-add {
@@ -44,6 +44,11 @@
 
 .icon-broadcast {
   --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='currentColor' d='M3.05 3.05a7 7 0 0 0 0 9.9a.5.5 0 0 1-.707.707a8 8 0 0 1 0-11.314a.5.5 0 0 1 .707.707m2.122 2.122a4 4 0 0 0 0 5.656a.5.5 0 1 1-.708.708a5 5 0 0 1 0-7.072a.5.5 0 0 1 .708.708m5.656-.708a.5.5 0 0 1 .708 0a5 5 0 0 1 0 7.072a.5.5 0 1 1-.708-.708a4 4 0 0 0 0-5.656a.5.5 0 0 1 0-.708m2.122-2.12a.5.5 0 0 1 .707 0a8 8 0 0 1 0 11.313a.5.5 0 0 1-.707-.707a7 7 0 0 0 0-9.9a.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0a2 2 0 0 1 4 0'/%3E%3C/svg%3E");
+}
+
+.icon-calendar {
+  /* --svg: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' d='M1.5 2a1 1 0 0 0-1 1v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2M.5 5.5h13m-10-5v3m7-3v3M3.5 2h5' /%3E%3C/svg%3E "); */
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23000' stroke-linejoin='round' d='M5.5 2v3m5-3v3m-8 1.5h11M5 8.5v1m3-1v1m3-1v1m0 1v1m-3-1v1m-3-1v1m-2.5-8h11v10h-11z'/%3E%3C/svg%3E");
 }
 
 .icon-calendar-sort {

@@ -30,12 +30,12 @@
   --link: var(--color40);
   --light: hsl(var(--hue), var(--st), var(--lt));
 
-  --layout: var(--color90);
-  --dropdown: var(--color95);
-  --modal: var(--color95);
-  --console-bg: var(--color10); // console
-
+  --console-bg: var(--color10);
   --disabled: 0.5; // opacity
+  --dropdown: var(--color95);
+  --layout: var(--color90);
+  --modal: var(--color95);
+
   --gutter-split-bg-handle: var(--color40);
 
   --input-container: var(--color60);
@@ -50,4 +50,5 @@
 
   --tests-bg-color: inherit;
   --tests-color: inherit;
+  --tests-bg-color: var(--color90);
 }

@@ -1,123 +1,104 @@
 <div id="welcome-container" class="modal-container">
   <div class="modal-title" data-i18n="welcome.heading">Welcome</div>
+
   <div id="welcome-screen-container" class="modal-screen-container">
-    <div class="modal-section">
-      <div id="welcome-recover">
-        <h3 data-i18n="welcome.recover.heading">Recover</h3>
-        <div class="welcome-recover-content">
-          <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
-            Your last project had unsaved changes:
-          </div>
-          <ul>
-            <li class="overflow-ellipsis">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M5 12.24L.5 13.5L1.76 9L10 .8a1 1 0 0 1 1.43 0l1.77 1.78a1.001 1.001 0 0 1 0 1.42z"
-                />
-              </svg>
-              <span id="unsaved-project-name" class="overflow-ellipsis"></span>
-            </li>
-            <li class="smaller">
-              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14">
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M1.5 2a1 1 0 0 0-1 1v9.5a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-2M.5 5.5h13m-10-5v3m7-3v3M3.5 2h5"
-                />
-              </svg>
-              <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
-                >Last modified:</span
-              >
-              <span id="unsaved-project-last-modified"></span>
-            </li>
-          </ul>
-          <div class="welcome-recover-actions">
-            <a href="#" id="prompt-recover-btn" title="Recover project to editor">
-              <i class="icon-recover"></i>
-              <span data-i18n="welcome.recover.recover">Recover</span></a
+    <div class="modal-section" id="welcome-start">
+      <h3 data-i18n="welcome.start.heading">Start</h3>
+      <ul>
+        <li>
+          <a href="#" id="welcome-link-new">
+            <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="welcome-link-open">
+            <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="welcome-link-import">
+            <i class="icon-file-import"></i>
+            <span data-i18n="welcome.start.import">Import...</span></a
+          >
+        </li>
+        <li class="default-template-li">
+          <span
+            id="no-default-template"
+            class="default-template"
+            data-i18n="welcome.start.noDefaultTemplate"
+            >No default template</span
+          >
+          <a href="#" id="welcome-link-load-default" class="default-template">
+            <i class="icon-file-template"></i>
+            <span data-i18n="welcome.start.loadDefaultTemplate">Load default template</span></a
+          >
+        </li>
+        <li>
+          <a href="{{DOCS_BASE_URL}}features/default-template-language" target="_blank" class="more"
+            ><i class="icon-info"></i>
+            <span data-i18n="generic.clickForInfo">Click for info...</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section" id="welcome-recover">
+      <h3 data-i18n="welcome.recover.heading">Recover</h3>
+      <div class="welcome-recover-content">
+        <div class="smaller" data-i18n="welcome.recover.unsavedChanges">
+          Your last project had unsaved changes:
+        </div>
+        <ul>
+          <li class="smaller overflow-ellipsis">
+            <i class="icon-edit"></i>
+            <span id="unsaved-project-name" class="overflow-ellipsis"></span>
+          </li>
+          <li class="smaller">
+            <i class="icon-calendar"></i>
+            <span data-i18n="welcome.recover.lastModified" data-i18n-prop="innerHTML"
+              >Last modified:</span
             >
-            <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
-              <i class="icon-save"></i>
-              <span data-i18n="welcome.recover.save">Save</span>
-            </a>
-            <a href="#" id="prompt-cancel-recover-btn">
-              <i class="icon-delete"></i>
-              <span data-i18n="welcome.recover.cancel">Cancel</span>
-            </a>
-          </div>
+            <span id="unsaved-project-last-modified"></span>
+          </li>
+        </ul>
+        <div class="welcome-recover-actions">
+          <a href="#" id="prompt-recover-btn" title="Recover project to editor">
+            <i class="icon-recover"></i>
+            <span data-i18n="welcome.recover.recover">Recover</span></a
+          >
+          <a href="#" id="prompt-save-previous-btn" title="Save to device and continue">
+            <i class="icon-save"></i>
+            <span data-i18n="welcome.recover.save">Save</span>
+          </a>
+          <a href="#" id="prompt-cancel-recover-btn">
+            <i class="icon-delete"></i>
+            <span data-i18n="welcome.recover.cancel">Cancel</span>
+          </a>
         </div>
       </div>
-      <div id="welcome-start">
-        <h3 data-i18n="welcome.start.heading">Start</h3>
-        <ul>
-          <li>
-            <a href="#" id="welcome-link-new">
-              <i class="icon-file-new"></i> <span data-i18n="welcome.start.new">New...</span></a
-            >
-          </li>
-          <li>
-            <a href="#" id="welcome-link-open">
-              <i class="icon-file-open"></i> <span data-i18n="welcome.start.open">Open...</span></a
-            >
-          </li>
-          <li>
-            <a href="#" id="welcome-link-import">
-              <i class="icon-file-import"></i>
-              <span data-i18n="welcome.start.import">Import...</span></a
-            >
-          </li>
-          <li class="default-template-li">
-            <span
-              id="no-default-template"
-              class="default-template"
-              data-i18n="welcome.start.noDefaultTemplate"
-              >No default template</span
-            >
-            <a href="#" id="welcome-link-load-default" class="default-template">
-              <i class="icon-file-template"></i>
-              <span data-i18n="welcome.start.loadDefaultTemplate">Load default template</span></a
-            >
-          </li>
-          <li>
-            <a
-              href="{{DOCS_BASE_URL}}features/default-template-language"
-              target="_blank"
-              class="more"
-              ><i class="icon-info"></i>
-              <span data-i18n="generic.clickForInfo">Click for info...</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div id="welcome-templates">
-        <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
-        <ul id="welcome-template-list">
-          <li>
-            <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more"
-              >More...</a
-            >
-          </li>
-        </ul>
-      </div>
     </div>
-    <div class="modal-section">
-      <div id="welcome-recent">
-        <h3 data-i18n="welcome.recent.heading">Recent</h3>
-        <ul id="welcome-recent-list">
-          <li>
-            <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
-              >More...</a
-            >
-          </li>
-        </ul>
-      </div>
 
+    <div class="modal-section" id="welcome-recent">
+      <h3 data-i18n="welcome.recent.heading">Recent</h3>
+      <ul id="welcome-recent-list">
+        <li>
+          <a href="#" id="welcome-link-recent-open" class="more" data-i18n="generic.more"
+            >More...</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section" id="welcome-templates">
+      <h3 data-i18n="welcome.templates.heading">Starter Templates</h3>
+      <ul id="welcome-template-list">
+        <li>
+          <a href="#" id="welcome-link-templates" class="more" data-i18n="generic.more">More...</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="modal-section" id="welcome-about">
       <h3 data-i18n="welcome.about.heading">About LiveCodes</h3>
       <ul class="modal-docs">
         <li>
@@ -158,8 +139,7 @@
         </li>
       </ul>
 
-      <h3>Support</h3>
-      <div class="welcome-support">
+      <div class="livecodes-support">
         <div>
           <a
             href="{{DOCS_BASE_URL}}sponsor"
@@ -199,8 +179,8 @@
     </div>
   </div>
 
-  <div id="show-welcome">
-    <input type="checkbox" value="show-welcome-checkbox" id="show-welcome-checkbox" checked />
-    <label for="show-welcome-checkbox" data-i18n="welcome.showOnStartup">Show on startup</label>
+  <div id="welcome-show">
+    <input type="checkbox" value="welcome-show-checkbox" id="welcome-show-checkbox" checked />
+    <label for="welcome-show-checkbox" data-i18n="welcome.showOnStartup">Show on startup</label>
   </div>
 </div>
