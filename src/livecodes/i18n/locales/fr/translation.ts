@@ -1,3 +1,7 @@
+// @ts-nocheck
+// This comment is added by i18n-exclude script and should be automatically removed after build.
+// If you see this comment in the file, it means there is something wrong during the build process.
+
 // ATTENTION: This file is auto-generated from source code. Do not edit manually!
 
 import type { I18nTranslation } from '../models';
@@ -434,7 +438,7 @@ const translation: I18nTranslation = {
       github: 'GitHub',
       sdk: 'SDK',
       sponsor: 'Parrainer',
-      twitter: '? / Twitter',
+      twitter: '𝕏 / Twitter',
     },
     clickForInfo: "Cliquer pour plus d'information...",
     close: 'Fermer',
@@ -669,7 +673,7 @@ const translation: I18nTranslation = {
       share: 'Partager via …',
       telegram: 'Telegram',
       tumblr: 'Tumblr',
-      twitter: '? / Twitter',
+      twitter: '𝕏 / Twitter',
       whatsApp: 'WhatsApp',
     },
     shortURL: 'Obtenir une URL courte',
