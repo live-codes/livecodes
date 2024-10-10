@@ -214,15 +214,15 @@ const translation: I18nTranslation = {
     copy: {
       copied: 'Code copié dans le presse-papiers',
       copiedAsDataURL: 'Code copié comme URL de données',
-      hint: 'Copié!',
+      hint: 'Copié !',
       title: 'Copier',
     },
     error: {
       couldNotLoadTemplate: 'Impossible de charger le modèle : {{template}}',
-      failedToCopyCode: 'Impossible de copier le code',
+      failedToCopyCode: 'Échec de la copie du code',
       failedToLoadTemplate: 'Échec du chargement du modèle',
       failedToLoadTemplates: 'Échec du chargement des modèles de démarrage',
-      failedToParseSettings: "Échec de l'analyse des paramètres au format JSON",
+      failedToParseSettings: "Échec de l'analyse des paramètres en JSON",
       invalidCommand: 'Commande invalide !',
       invalidImport: "URL d'importation invalide",
       invalidPanelId: 'ID de panneau invalide',
@@ -237,7 +237,7 @@ const translation: I18nTranslation = {
       gist: 'Créer un gist GitHub public...',
     },
     fork: {
-      success: 'Dupliquer (fork) en nouveau projet',
+      success: 'Dupliquer (fork) nouveau projet',
     },
     fullScreen: {
       enter: 'Plein écran',
@@ -349,9 +349,9 @@ const translation: I18nTranslation = {
     preview: 'Aperçu',
     semicolons: 'Format : Utiliser des points-virgules',
     singleQuote: 'Format : Utiliser des guillemets simples',
-    tabSize: 'Taille de tabulation',
+    tabSize: 'Taille de la tabulation',
     theme: 'Mode sombre',
-    trailingComma: 'Format : Utiliser des virgules de fin',
+    trailingComma: 'Format : Utiliser des virgules finales',
     useTabs: {
       heading: 'Indentation',
       spaces: 'Espaces',
@@ -450,7 +450,7 @@ const translation: I18nTranslation = {
   },
   import: {
     bulk: {
-      desc: "Importez en masse plusieurs projets dans vos projets enregistrés. Les projets peuvent être exportés depuis l'écran <1>Projets enregistrés</tag-1>",
+      desc: "Importer en masse plusieurs projets dans vos projets enregistrés. Les projets peuvent être exportés depuis l'écran <1>Projets enregistrés</tag-1>",
       fromFile: 'Importation en masse depuis un fichier local',
       fromURL: 'Importation en masse depuis une URL',
       heading: 'Importation en masse',
@@ -492,7 +492,7 @@ const translation: I18nTranslation = {
     publicRepo: 'Dépôts',
   },
   menu: {
-    about: 'À propos',
+    about: 'À propos...',
     assets: 'Actifs numériques …',
     autoSave: 'Auto Enregistrer',
     autoUpdate: 'Mise à jour automatique',
@@ -522,7 +522,7 @@ const translation: I18nTranslation = {
     logout: 'Déconnexion',
     new: 'Nouveau …',
     open: 'Ouvrir …',
-    project: 'Information du Projet …',
+    project: 'Information du projet …',
     recoverUnsaved: 'Récupérer non enregistré',
     resources: 'Ressources externes …',
     save: 'Enregistrer',
@@ -534,7 +534,7 @@ const translation: I18nTranslation = {
     share: 'Partager …',
     showSpacing: {
       heading: "Afficher l'espacement",
-      hint: 'Appuyez sur Alt/Option et déplacez votre curseur sur le résultat',
+      hint: 'Appuyer sur Alt/Option et déplacer le curseur sur le résultat',
     },
     snippets: 'Extraits de code …',
     sync: 'Synchronisation (bêta) … <1> ⏳</tag-1>',
@@ -695,7 +695,7 @@ const translation: I18nTranslation = {
     },
     delete: {
       all: 'Supprimer {{snippets}} extraits ?',
-      one: 'Supprimer extrait: {{snippet}} ?',
+      one: "Supprimer l'extrait : {{snippet}} ?",
     },
     deleteAll: 'Tout supprimer',
     error: {
