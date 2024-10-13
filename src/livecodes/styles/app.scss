@@ -201,7 +201,7 @@
   --toolspane-color: var(--darker-color);
 }
 
-@import 'light';
+@import 'inc-light';
 
 *,
 *::before,
@@ -312,11 +312,11 @@ html {
   color: var(--link);
 }
 
-@import 'rtl';
+@import 'inc-rtl';
 
-@import 'icons';
+@import 'inc-icons';
 
-@import 'icons-share';
+@import 'inc-icons-share';
 
 a,
 a:visited {
@@ -1308,9 +1308,9 @@ li.editor-title {
   }
 }
 
-@import 'menu';
+@import 'inc-menu';
 
-@import 'modal';
+@import 'inc-modal';
 
 :root:not(.light) {
   #modal #resources-container #resources-search-results {
