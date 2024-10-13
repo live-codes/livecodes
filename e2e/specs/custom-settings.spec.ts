@@ -192,7 +192,7 @@ body
     );
     await app.click('button:has-text("Load"):visible');
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<span class="text-dark-blue-800">Hello</span>');
 
@@ -227,7 +227,7 @@ body
     );
     await app.click('button:has-text("Load"):visible');
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<span class="text-dark-blue-800">Hello</span>');
 

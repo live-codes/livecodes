@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { test } from '../test-fixtures';
 import { getLoadedApp, waitForEditorFocus } from '../helpers';
 
-test.describe.only('Compiler Results', () => {
+test.describe('Compiler Results', () => {
   test('HTML/CSS/JS', async ({ page, getTestUrl }) => {
     await page.goto(getTestUrl());
 
@@ -382,7 +382,7 @@ const title = "World";
     await app.click('button:has-text("Load"):visible');
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=Eta');
+    await app.click('text="Eta"');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to <%= it.name %></h1>`);
 
@@ -411,7 +411,7 @@ const title = "World";
     await page.keyboard.type(`window.livecodes.templateData = { name: 'Eta' };`);
 
     await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=Eta');
+    await app.click('text="Eta"');
     await waitForEditorFocus(app);
     await page.keyboard.type(`<h1>Welcome to <%= it.name %></h1>`);
 
@@ -967,12 +967,12 @@ function isFish(pet) {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`<div id="app">Loading...</div>`);
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JSX');
+    await app.click('text="JSX"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `import React from "react";
@@ -994,7 +994,7 @@ ReactDOM.render(<Hello name="React" />, document.body);
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
     await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=TSX');
+    await app.click('text="TSX"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `import React from "react";
@@ -1346,7 +1346,7 @@ h1 { color: blue; }
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<my-app title="Stencil"></my-app>');
 
@@ -1402,7 +1402,7 @@ export class App {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">World</span></h1>');
 
@@ -1429,7 +1429,7 @@ title = 'live script'
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<hello title="Riot.js"></hello>');
 
@@ -1451,7 +1451,7 @@ title = 'live script'
 
     const { app, getResult } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
       `<h1>Hello, <span id="title">World</span></h1>
@@ -1486,7 +1486,7 @@ title = 'live script'
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1 id="header">Hello, World</h1>');
 
@@ -1509,7 +1509,7 @@ document['header'].html = f"Hello, {title}"`);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1 id="header">Hello, World</h1>');
 
@@ -1534,7 +1534,7 @@ document.getElementById('header').innerHTML = f"Hello, {title}"`);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
@@ -1559,7 +1559,7 @@ $$.document.querySelector('#title').innerHTML = title`);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
@@ -1586,7 +1586,7 @@ func main() {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
@@ -1614,7 +1614,7 @@ $document->getElementById('title')->textContent = $title;`,
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
@@ -1639,7 +1639,7 @@ JS::inline('document.getElementById("title").innerHTML') = $title;`);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
@@ -1665,7 +1665,7 @@ document:getElementById("title").innerHTML = "Lua"`);
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click('text=HTML');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.insertText('<h1>Hello, <span id="title">world</span></h1>');
 
