@@ -37,7 +37,6 @@
   font-size: var(--s12);
   max-width: 140px;
   overflow: hidden;
-  // width: fit-content; // TODO TEST
 }
 
 #modal {
@@ -113,7 +112,7 @@
     a[id*='reset'],
     a[id*='sort'],
     #language-filter {
-      background-color: transparent; // todo css var
+      background-color: transparent;
       border-left: 1px solid var(--dark-bg-color);
       border-right: 1px solid var(--dark-bg-color);
       color: var(--darker-color);
@@ -226,7 +225,7 @@
     display: inline-block;
     height: 100%;
     margin: 0 auto;
-    overflow: auto; // TODO MODAL HEIGHT
+    overflow: auto;
     scrollbar-gutter: stable;
     width: 100%;
   }
@@ -330,7 +329,7 @@
     border-bottom: 1px solid var(--btn-modal-bg-active);
     display: flex;
     gap: var(--s8);
-    margin-bottom: 2rem; // TODO MARGIN
+    margin-bottom: 2rem;
     width: 100%;
 
     li {
@@ -368,10 +367,10 @@
   }
 
   &.small {
-    max-height: 32rem; // 32=512 px // TODO MODAL HEIGHT
+    max-height: 32rem;
     min-height: 200px;
     overflow-y: auto;
-    width: 25rem; // 25=400px;
+    width: 25rem;
   }
 
   a[target='_blank']::after {
@@ -461,14 +460,13 @@
       cursor: pointer;
       height: auto;
       margin: 0;
-      // opacity: 0.6;
       padding: 8px;
       text-align: center;
       width: 32px;
 
       &:focus,
       &:hover {
-        background: var(--btn-modal-bg-active); // TODO var bg
+        background: var(--btn-modal-bg-active);
         color: var(--btn-modal-active);
         opacity: 1;
       }
@@ -619,7 +617,7 @@
     border: 1px solid var(--color3);
     border-radius: var(--rs);
     font-variant-ligatures: discretionary-ligatures;
-    height: 140px; // TODO  HEIGHT
+    height: 140px;
     margin-bottom: var(--s16);
     max-height: 40vh;
     min-height: 5rem;
@@ -633,7 +631,7 @@
   }
 
   .error {
-    color: rgb(255, 0, 0); // TODO COLOR
+    color: rgb(255, 0, 0);
     font-weight: normal;
     margin-left: 1em;
   }
@@ -697,17 +695,17 @@
   }
 
   .img-preview {
-    aspect-ratio: 16 / 9; // 120 × 68
+    aspect-ratio: 16 / 9;
     background: var(--color2);
     border-radius: var(--rs);
-    height: auto; // 68px; // 64px;
+    height: auto;
     margin: 1rem 0 0.5rem;
-    min-width: calc(100% + 32px); // todo test 110% 120px; // 64px;
-    object-fit: contain; // cover;
+    min-width: calc(100% + 32px);
+    object-fit: contain;
   }
 
   .img-preview-larger {
-    aspect-ratio: 16 / 9; // 240 × 135
+    aspect-ratio: 16 / 9;
     height: 135px;
     margin: 0 auto var(--s8);
     object-fit: cover;
@@ -944,7 +942,7 @@
     }
 
     .user-tag {
-      background-color: var(--btn-bg-active); // todo css var
+      background-color: var(--btn-bg-active);
       color: var(--btn-active);
     }
   }
@@ -1512,7 +1510,7 @@
   @media only screen and (max-width: 768px) {
     #modal {
       .modal-section {
-        width: 100%; // todo column
+        width: 100%;
 
         ul.modal-docs {
           columns: 1;
@@ -1531,7 +1529,7 @@
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    flex-grow: 0.8; // TODO FLEX ?
+    flex-grow: 0.8;
     justify-content: space-around;
     width: 100%;
   }
