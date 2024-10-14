@@ -2,7 +2,7 @@
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
   "about.documentations.aboutUs": {
     "notes": "",
-    "translation": "About us"
+    "translation": "About Livecodes"
   },
   "about.documentations.contact": {
     "notes": "",
@@ -1034,7 +1034,7 @@
   },
   "generic.about.sponsor": {
     "notes": "",
-    "translation": "Sponsor LiveCodes"
+    "translation": "Sponsor"
   },
   "generic.about.twitter": {
     "notes": "",
@@ -1195,6 +1195,30 @@
   "menu.about": {
     "notes": "",
     "translation": "About"
+  },
+  "menu.appHelp.heading": {
+    "notes": "",
+    "translation": "Help"
+  },
+  "menu.appHelp.hint": {
+    "notes": "",
+    "translation": "Help"
+  },
+  "menu.appProject.heading": {
+    "notes": "",
+    "translation": "Project"
+  },
+  "menu.appProject.hint": {
+    "notes": "",
+    "translation": "Project"
+  },
+  "menu.appSettings.heading": {
+    "notes": "",
+    "translation": "Settings"
+  },
+  "menu.appSettings.hint": {
+    "notes": "",
+    "translation": "Settings"
   },
   "menu.assets": {
     "notes": "",

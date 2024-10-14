@@ -493,6 +493,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: 'À propos...',
+    appHelp: {
+      heading: 'Aide',
+      hint: 'Aide',
+    },
+    appProject: {
+      heading: 'Projet',
+      hint: 'Projet',
+    },
+    appSettings: {
+      heading: 'Paramètres',
+      hint: 'Paramètres',
+    },
     assets: 'Actifs numériques …',
     autoSave: 'Auto Enregistrer',
     autoUpdate: 'Mise à jour automatique',
@@ -669,7 +681,7 @@ const translation: I18nTranslation = {
       share: 'Partager via …',
       telegram: 'Telegram',
       tumblr: 'Tumblr',
-      twitter: '𝕏 / Twitter',
+      twitter: '? / Twitter',
       whatsApp: 'WhatsApp',
     },
     shortURL: 'Obtenir une URL courte',

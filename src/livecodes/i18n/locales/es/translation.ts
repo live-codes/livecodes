@@ -433,7 +433,7 @@ const translation: I18nTranslation = {
       gettingStarted: 'Primeros pasos',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: 'Patrocinar LiveCodes',
+      sponsor: 'Patrocinar',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Clic para información...',
@@ -493,6 +493,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: 'Acerca de',
+    appHelp: {
+      heading: 'Ayuda',
+      hint: 'Ayuda',
+    },
+    appProject: {
+      heading: 'Proyecto',
+      hint: 'Proyecto',
+    },
+    appSettings: {
+      heading: 'Configuración',
+      hint: 'Configuración',
+    },
     assets: 'Activos …',
     autoSave: 'Guardado automático',
     autoUpdate: 'Actualización automática',

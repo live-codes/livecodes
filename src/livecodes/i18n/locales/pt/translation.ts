@@ -493,6 +493,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: 'Sobre',
+    appHelp: {
+      heading: 'Ajuda',
+      hint: 'Ajuda',
+    },
+    appProject: {
+      heading: 'Projeto',
+      hint: 'Projetp',
+    },
+    appSettings: {
+      heading: 'Parâmetros',
+      hint: 'Parâmetros',
+    },
     assets: 'Recursos …',
     autoSave: 'Salvamento Automático',
     autoUpdate: 'Atualização Automática',

@@ -12,7 +12,7 @@ import type { I18nTranslationTemplate } from '../models';
 const translation = {
   about: {
     documentations: {
-      aboutUs: 'About us',
+      aboutUs: 'About Livecodes',
       contact: 'Contact',
       heading: 'Documentations',
       home: 'Home',
@@ -440,7 +440,7 @@ const translation = {
       gettingStarted: 'Getting Started',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: 'Sponsor LiveCodes',
+      sponsor: 'Sponsor',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Click for info...',
@@ -500,6 +500,18 @@ const translation = {
   },
   menu: {
     about: 'About',
+    appHelp: {
+      heading: 'Help',
+      hint: 'Help',
+    },
+    appProject: {
+      heading: 'Project',
+      hint: 'Project',
+    },
+    appSettings: {
+      heading: 'Settings',
+      hint: 'Settings',
+    },
     assets: 'Assets …',
     autoSave: 'Auto Save',
     autoUpdate: 'Auto Update',

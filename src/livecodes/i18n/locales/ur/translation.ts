@@ -433,7 +433,7 @@ const translation: I18nTranslation = {
       gettingStarted: 'شروع کرنا',
       github: 'گٹ ہب',
       sdk: 'ایس ڈی کے',
-      sponsor: 'لائیو کوڈز کو سپانسر کریں',
+      sponsor: 'کفیل',
       twitter: '𝕏 / ٹویٹر',
     },
     clickForInfo: 'معلومات کے لیے کلک کریں...',
@@ -493,6 +493,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: 'تعارف',
+    appHelp: {
+      heading: 'مدد',
+      hint: 'مدد',
+    },
+    appProject: {
+      heading: 'پروجیکٹ',
+      hint: 'پروجیکٹ',
+    },
+    appSettings: {
+      heading: 'ترتیبات',
+      hint: 'ترتیبات',
+    },
     assets: 'اثاثے …',
     autoSave: 'خود کار محفوظ',
     autoUpdate: 'خود کار اپ ڈیٹ',

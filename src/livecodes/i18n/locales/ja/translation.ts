@@ -433,7 +433,7 @@ const translation: I18nTranslation = {
       gettingStarted: 'はじめに',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: 'LiveCodesをスポンサー',
+      sponsor: 'をスポンサー',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'クリックして詳細を表示...',
@@ -493,6 +493,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: '概要',
+    appHelp: {
+      heading: '手助け',
+      hint: '手助け',
+    },
+    appProject: {
+      heading: 'プロジェクト',
+      hint: 'プロジェクト',
+    },
+    appSettings: {
+      heading: '設定',
+      hint: '設定',
+    },
     assets: 'アセット …',
     autoSave: '自動保存',
     autoUpdate: '自動更新',
