@@ -14,9 +14,9 @@ const translation: I18nTranslation = {
     heading: 'Acerca de LiveCodes',
     livecodes: {
       para1:
-        '<1><tag-2>LiveCodes</tag-2></tag-1> es un área de juego de código <tag-3>de código abierto</tag-3>, <tag-4>rico en características</tag-4> y <tag-5>del lado del cliente</tag-5>. Actualmente, se admiten <tag-6>más de 80 lenguajes/<tag-7></tag-7>frameworks</tag-6>. Se puede usar como una aplicación independiente o se puede <tag-8>incrustar</tag-8> en cualquier página web. Hay muchas formas de <tag-9>precargar los campos de juego</tag-9> con código.',
+        '<1><tag-2>LiveCodes</tag-2></tag-1> es un editor de juego de código <tag-3>abierto</tag-3>, <tag-4>rico en características</tag-4> y <tag-5>del lado del cliente</tag-5>. Actualmente, se admiten <tag-6>más de 80 lenguajes/<tag-7></tag-7>frameworks</tag-6>. Se puede usar como una aplicación independiente o se puede <tag-8>incrustar</tag-8> en cualquier página web. Hay muchas formas de <tag-9>precargar un playground</tag-9> con código.',
       para2:
-        'Una amplia gama de <1>opciones de configuración</tag-1> lo hace muy flexible. Un potente <tag-2>SDK</tag-2> (para <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> y <tag-6>Svelte</tag-6>) facilita la <tag-7>incrustación</tag-7> y la <tag-8>comunicación</tag-8> con los campos de juego. Hay disponible una <tag-9>documentación completa</tag-9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
+        'Una amplia gama de <1>opciones de configuración</tag-1> lo hace muy flexible. Un potente <tag-2>SDK</tag-2> (para <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> y <tag-6>Svelte</tag-6>) facilita la <tag-7>incrustación</tag-7> y la <tag-8>comunicación</tag-8> con playgrounds. Hay disponible una <tag-9>documentación completa</tag-9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
     },
     version: {
       app: 'Versión de la aplicación: {{APP_VERSION}}',
@@ -157,7 +157,7 @@ const translation: I18nTranslation = {
     backup: {
       assets: 'Activos',
       button: 'Respaldar',
-      desc: 'Respalda los datos de LiveCodes para que puedan restaurarse más tarde en este u otros dispositivos. <1></tag-1> Por favor, visita la <tag-2>documentación</tag-2> para más detalles.',
+      desc: 'Respalda los datos de LiveCodes para que puedan restaurarse más tarde en este u otros dispositivos. <1></tag-1> Para obtener más detalles, consulte la <tag-2>documentación</tag-2>',
       heading: 'Respaldo',
       projects: 'Proyectos',
       settings: 'Configuraciones de usuario',
@@ -166,14 +166,14 @@ const translation: I18nTranslation = {
     },
     backupBtn: 'Respaldar',
     error: {
-      atLeastOneStore: 'Por favor, selecciona al menos un almacén para respaldar',
+      atLeastOneStore: 'Seleccionar al menos un almacenamiento para respaldar',
       incorrectFileType: 'Error: Tipo de archivo incorrecto',
     },
     fileInputLabel: 'Restaurar desde archivo',
     heading: 'Respaldo / Restauración',
     inProgress: 'En progreso...',
     restore: {
-      desc: 'Restaura los datos de LiveCodes previamente respaldados. <1></tag-1> Si eliges reemplazar el contenido actual, es posible que desees respaldarlo primero. <tag-2></tag-2> Por favor, visita la <tag-3>documentación</tag-3> para más detalles.',
+      desc: 'Restaura los datos de LiveCodes previamente respaldados. <1></tag-1> Si eliges reemplazar el contenido actual, es posible que desees respaldarlo primero. <tag-2></tag-2> Para obtener más detalles, consulte la <tag-3>documentación</tag-3>',
       fromFile: 'Restaurar desde archivo',
       heading: 'Restaurar',
       mode: {
@@ -191,7 +191,7 @@ const translation: I18nTranslation = {
     broadcasting: 'Transmitiendo...',
     channelURL: 'URL del canal',
     connecting: 'Conectando...',
-    desc: 'Transmite la página de resultados a otros navegadores/dispositivos en tiempo real. Por favor, visita la <1>documentación</tag-1> para más detalles.',
+    desc: 'Transmite la página de resultados a otros navegadores/dispositivos en tiempo real. Para obtener más detalles, consulte la <1>documentación</tag-1>',
     error: {
       generic: '¡La transmisión falló!',
       serverURLRequired: '¡Se requiere la URL del servidor!',
@@ -322,7 +322,7 @@ const translation: I18nTranslation = {
     closeBrackets: 'Cerrar automáticamente paréntesis y comillas',
     codeJarDesc: '* Las características marcadas no están disponibles en CodeJar.',
     default: 'Predeterminado',
-    desc: 'Por favor, consulta la <1>documentación</tag-1> para más detalles.',
+    desc: 'Para obtener más detalles, consulte la <1>documentación</tag-1>',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -376,7 +376,7 @@ const translation: I18nTranslation = {
       copy: 'Copiar código',
       heading: 'Código',
     },
-    desc: 'Por favor, consulta la <1>documentación</tag-1> para configuraciones avanzadas.',
+    desc: 'Consulte la <1>documentación</tag-1> para configuraciones avanzadas.',
     embedType: {
       cdn: 'Script (CDN)',
       heading: 'Tipo de incrustación',
@@ -393,7 +393,7 @@ const translation: I18nTranslation = {
       click: 'Al hacer clic',
       eager: 'Inmediato',
       heading: 'Carga',
-      lazy: 'Perezoso',
+      lazy: 'Diferido',
     },
     mode: {
       codeblock: 'Bloque de código',
@@ -457,7 +457,7 @@ const translation: I18nTranslation = {
       started: 'Importación masiva iniciada...',
     },
     code: {
-      desc: 'Fuentes compatibles: <1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Entornos oficiales<tag-13></tag-13>(TypeScript, Vue y Svelte)</tag-12> </tag-1> Por favor, visita la <tag-14>documentación</tag-14> para más detalles.',
+      desc: 'Fuentes compatibles: <1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Entornos oficiales<tag-13></tag-13>(TypeScript, Vue y Svelte)</tag-12> </tag-1> Para obtener más detalles, consulte la <tag-14>documentación</tag-14>',
       fromFile: 'Importar archivos locales',
       fromURL: 'Importar desde URL',
       heading: 'Importar código',
@@ -473,7 +473,7 @@ const translation: I18nTranslation = {
     },
     heading: 'Importar',
     json: {
-      desc: 'Importar un único JSON de proyecto al editor. Un proyecto se puede exportar desde el menú de la aplicación → Exportar → Exportar proyecto (JSON).',
+      desc: 'Importar un único JSON de proyecto al editor. Un proyecto se puede exportar desde el menú de la aplicación Proyecto → Exportar → Exportar proyecto (JSON).',
       fromFile: 'Importar proyecto desde archivo local',
       fromURL: 'Importar proyecto desde URL',
       heading: 'Importar JSON de proyecto',
@@ -492,7 +492,7 @@ const translation: I18nTranslation = {
     publicRepo: 'Repositorios',
   },
   menu: {
-    about: 'Acerca de',
+    about: 'Acerca de Livecodes …',
     appHelp: {
       heading: 'Ayuda',
       hint: 'Ayuda',
@@ -711,17 +711,17 @@ const translation: I18nTranslation = {
     deleteAll: 'Eliminar todo',
     error: {
       failedToCopy: 'No se pudo copiar la URL.',
-      noTitle: 'Por favor, agrega un título al fragmento.',
+      noTitle: 'Agregar un título al fragmento.',
     },
     filter: {
-      language: 'filtrar por idioma',
+      language: 'Filtrar por lenguaje',
     },
     heading: 'Fragmentos de código',
     lastModified: 'Última modificación: {{modified}}',
     noMatch: 'Ningún fragmento coincide con estos filtros.',
     noSavedSnippets: 'No tienes fragmentos guardados.',
     placeholder: {
-      allLanguages: 'Todos los idiomas',
+      allLanguages: 'Todos los lenguajes',
       search: 'Buscar',
     },
     reset: 'Restablecer',

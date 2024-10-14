@@ -36,7 +36,7 @@
     "commonlisp.link": "<tag-1> <tag-2>Common-Lisp.net<\/tag-2> <\/tag-1> <tag-3> <tag-4>Proyecto JSCL<\/tag-4> <\/tag-3> <tag-5> <tag-6>Recursos de Common Lisp<\/tag-6> <\/tag-5> <tag-7> <tag-8>Aprende X en Y minutos, donde X=Common Lisp<\/tag-8> <\/tag-7> <tag-9> <tag-10>Cargar plantilla inicial<\/tag-10> <\/tag-9>",
     "commonlisp.name": "Common Lisp",
     "cpp.desc1": "Soporte de C++ usando JSCPP (un intérprete simple de C++ escrito en JavaScript).",
-    "cpp.desc2": "No es una implementación completa de C++. Por favor, consulta la <tag-1>documentación de JSCPP<\/tag-1> para más detalles.",
+    "cpp.desc2": "No es una implementación completa de C++. Para obtener más detalles, consulte la <tag-1>documentación de JSCPP<\/tag-1>",
     "cpp.link": "<tag-1> <tag-2>Fundación Standard C++<\/tag-2> <\/tag-1> <tag-3> <tag-4>JSCPP<\/tag-4> <\/tag-3> <tag-5> <tag-6>Aprende X en Y minutos, donde X=C++<\/tag-6> <\/tag-5> <tag-7> <tag-8>Cargar plantilla inicial<\/tag-8> <\/tag-7>",
     "cpp.name": "C++",
     "cppWasm.desc": "Compilador Clang C\/C++ ejecutándose en WebAssembly, usando <tag-1>wasm-clang<\/tag-1> adaptado por <tag-2>polylang.io<\/tag-2>.",
