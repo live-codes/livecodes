@@ -66,7 +66,7 @@ const languageInfo: I18nLangInfoTranslation = {
   cpp: {
     desc1: 'Supporto C++ utilizzando JSCPP (un semplice interprete C++ scritto in JavaScript).',
     desc2:
-      "Non è un'implementazione completa di C++. Si prega di fare riferimento alla <1>documentazione di JSCPP</tag-1> per i dettagli.",
+      "Non è un'implementazione completa di C++. Per i dettagli, consultare la <1>documentazione di JSCPP</tag-1>",
     link: '<1> <tag-2>Fondazione Standard C++</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Impara X in Y minuti, dove X=C++</tag-6> </tag-5> <tag-7> <tag-8>Carica il modello di partenza</tag-8> </tag-7>',
     name: 'C++',
   },
