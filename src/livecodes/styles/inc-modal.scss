@@ -382,8 +382,33 @@
   }
 
   #about-screen-container {
-    #about-logo img {
+    .about-logo {
+      width: 100%;
+
+      img {
+        margin-bottom: 1rem;
+      }
+    }
+
+
+    .about-version {
+      background: var(--darker-bg-color);
+      border-radius: var(--rs);
       margin-bottom: 1rem;
+      padding: 0.5rem 1rem;
+
+      li {
+        display: inline-block;
+        width: 100%;
+      }
+
+      a {
+        display: inline-block;
+      }
+    }
+
+    .about-credits {
+      margin-bottom: 0;
     }
   }
 
@@ -1407,6 +1432,12 @@
     margin-bottom: 1rem;
   }
 
+  #welcome-container {
+    .modal-screen-container {
+      margin: 1rem 1rem 2rem;
+    }
+  }
+
   #welcome-start {
     .default-template-li {
       visibility: hidden;
@@ -1444,7 +1475,7 @@
       display: flex;
 
       font-size: var(--s14);
-      margin: 0.5rem 0.25rem;
+      margin: 0.5rem 0;
 
       a {
         color: var(--light);

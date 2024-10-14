@@ -1,23 +1,23 @@
 <div id="about-container" class="modal-container">
   <div class="modal-title" data-i18n="about.heading">About LiveCodes</div>
   <div id="about-screen-container" class="modal-screen-container">
-    <div class="modal-section">
-      <div
-        id="about-logo"
-        title="LiveCodes: Code playground that runs in the browser!"
-        data-i18n="app.logo.title"
-        data-i18n-prop="title"
+    <div
+      class="about-logo"
+      title="LiveCodes: Code playground that runs in the browser!"
+      data-i18n="app.logo.title"
+      data-i18n-prop="title"
       >
-        <img
-          src="livecodes/assets/images/livecodes-text-logo-nowrap.svg"
-          width="300"
-          height="auto"
-          alt="LiveCodes logo"
-        />
-      </div>
+      <img
+        src="livecodes/assets/images/livecodes-text-logo-nowrap.svg"
+        width="280"
+        height="auto"
+        alt="LiveCodes logo"
+      />
+    </div>
 
+    <div class="modal-section">
       <h3 data-i18n="about.version.heading">Version</h3>
-      <ul>
+      <ul class="about-version">
         <li data-i18n="about.version.app">App version: {{APP_VERSION}}</li>
         <li data-i18n="about.version.sdk">SDK version: {{SDK_VERSION}}</li>
         <li data-i18n="about.version.commit">
@@ -42,7 +42,7 @@
           >
         </li>
       </ul>
-      <br />
+      <h3 data-i18n="about.credits.heading">Credits</h3>
       <p>
         Livecodes is made possible by open source projects, web services and contributors.
         <a href="{{DOCS_BASE_URL}}credits" target="_blank">View Credits</a>
@@ -51,6 +51,7 @@
     </div>
 
     <div class="modal-section" id="about-info">
+      <h3 data-i18n="about.livecodes.aboutUs">About Livecodes</h3>
       <p data-i18n="about.livecodes.para1" data-i18n-prop="innerHTML">
         <strong><em>LiveCodes</em></strong> is an open-source, feature-rich, client-side code
         playground. Currently, 80+ languages and frameworks are supported. It can be used as a
@@ -76,7 +77,7 @@
             href="{{DOCS_BASE_URL}}"
             target="_blank"
             rel="noopener"
-            data-i18n="welcome.about.documentation"
+            data-i18n="about.documentations.heading"
             >Documentation</a
           >
         </li>
@@ -123,10 +124,10 @@
             href="https://twitter.com/livecodes_io"
             target="_blank"
             rel="noopener"
-            title="𝕏 / Twitter"
+            title="? / Twitter"
           >
             <i class="icon-share-x"></i>
-            <br /><span data-i18n="generic.about.twitter">𝕏 / Twitter</span></a
+            <br /><span data-i18n="generic.about.twitter">? / Twitter</span></a
           >
         </div>
         <div>
