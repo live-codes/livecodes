@@ -530,7 +530,7 @@ const translation: I18nTranslation = {
     formatOnsave: 'Formatear al guardar',
     import: 'Importar …',
     layout: 'Diseño vertical',
-    login: 'Iniciar sesión …',
+    login: 'Iniciar sesión',
     logout: 'Cerrar sesión',
     new: 'Nuevo …',
     open: 'Abrir …',
