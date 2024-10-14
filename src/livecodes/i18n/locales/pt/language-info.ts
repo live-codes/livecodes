@@ -66,7 +66,7 @@ const languageInfo: I18nLangInfoTranslation = {
   cpp: {
     desc1: 'Suporte a C++ usando JSCPP (um interpretador C++ simples escrito em JavaScript).',
     desc2:
-      'Não é uma implementação completa de C++. Por favor, consulte a <1>documentação do JSCPP</tag-1> para detalhes.',
+      'Não é uma implementação completa de C++. Para mais detalhes, consulte a <1>documentação do JSCPP</tag-1>',
     link: '<1> <tag-2>Fundação C++ Padrão</tag-2> </tag-1> <tag-3> <tag-4>JSCPP</tag-4> </tag-3> <tag-5> <tag-6>Aprenda X em Y minutos, onde X=C++</tag-6> </tag-5> <tag-7> <tag-8>Carregar modelo inicial</tag-8> </tag-7>',
     name: 'C++',
   },
@@ -200,7 +200,7 @@ const languageInfo: I18nLangInfoTranslation = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'Uma linguagem de modelagem rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</tag-1>.',
+    desc: 'Uma linguagem de modelagem rica e poderosa para JavaScript. Nunjucks é essencialmente uma adaptação do <1>jinja2</tag-1>',
     link: '<1> <tag-2>Site oficial</tag-2> </tag-1> <tag-3> <tag-4>Documentação do LiveCodes</tag-4> </tag-3>',
     name: 'Nunjucks',
   },
