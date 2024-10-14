@@ -14,7 +14,7 @@ const translation: I18nTranslation = {
     heading: 'À propos de LiveCodes',
     livecodes: {
       para1:
-        '<1><tag-2>LiveCodes</tag-2></tag-1> est un éditeur de code <tag-3>logiciel libre</tag-3>, avec une <tag-4>multitude de fonctions intégrées</tag-4> et une intégration du <tag-5>côté client</tag-5>. Actuellement, <tag-6>plus de 80 langages et <tag-7></tag-7>frameworks</tag-6> sont pris en charge. Il peut être utilisé comme une application autonome ou <tag-8>intégré</tag-8> dans une page web. De nombreuses options sont disponibles pour <tag-9>intégrer le code</tag-9>.',
+        '<1><tag-2>LiveCodes</tag-2></tag-1> est un éditeur de code <tag-3> libre</tag-3>, avec une <tag-4>multitude de fonctions intégrées</tag-4> et une intégration du <tag-5>côté client</tag-5>. Actuellement, <tag-6>plus de 80 langages et <tag-7></tag-7>frameworks</tag-6> sont pris en charge. Il peut être utilisé comme une application autonome ou <tag-8>intégré</tag-8> dans une page web. De nombreuses options sont disponibles pour <tag-9>intégrer le code</tag-9>.',
       para2:
         "Livecodes dispose d'une large gamme <1>d'options de configuration</tag-1> qui le rend très flexible. Un puissant <tag-2>SDK</tag-2> (pour <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> et <tag-6>Svelte</tag-6>) facilite <tag-7>l'intégration</tag-7> et <tag-8>la communication</tag-8> avec l'éditeur de code. Une <tag-9>documentation complète</tag-9> est disponible avec des exemples de code, des démos et des captures d'écran.",
     },
@@ -158,7 +158,7 @@ const translation: I18nTranslation = {
       assets: 'Actifs',
       button: 'Sauvegarder',
       desc: "Sauvegardez les données LiveCodes afin de pouvoir les restaurer ultérieurement sur cet appareil ou d'autres. <1></tag-1> Veuillez consulter la <tag-2>documentation</tag-2> pour plus de détails.",
-      heading: 'Sauvegarde',
+      heading: 'Sauvegarder',
       projects: 'Projets',
       settings: 'Paramètres utilisateur',
       snippets: 'Extraits de code',
@@ -237,7 +237,7 @@ const translation: I18nTranslation = {
       gist: 'Créer un gist GitHub public...',
     },
     fork: {
-      success: 'Dupliquer (fork) nouveau projet',
+      success: 'Dupliquer (nouveau projet)',
     },
     fullScreen: {
       enter: 'Plein écran',
@@ -539,7 +539,7 @@ const translation: I18nTranslation = {
     resources: 'Ressources externes …',
     save: 'Enregistrer',
     saveAs: {
-      fork: 'Dupliquer (fork) nouveau projet',
+      fork: 'Dupliquer (nouveau projet)',
       heading: 'Enregistrer sous',
       template: 'Modèle',
     },

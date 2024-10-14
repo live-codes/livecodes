@@ -486,7 +486,7 @@ const translation: I18nTranslation = {
     gist: 'Gists',
     heading: 'Conectar com GitHub',
     loginAs: 'Logado como {{name}}',
-    loginBtn: 'Login',
+    loginBtn: 'Acesso',
     logout: 'Sair',
     privateRepo: 'Repositórios Privados',
     publicRepo: 'Repositórios',
