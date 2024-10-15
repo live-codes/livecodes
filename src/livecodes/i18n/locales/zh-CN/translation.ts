@@ -14,9 +14,9 @@ const translation: I18nTranslation = {
     heading: '关于 LiveCodes',
     livecodes: {
       para1:
-        '<1><tag-2>LiveCodes</tag-2></tag-1> 是一个<tag-3>开源的</tag-3>、<tag-4>功能丰富的</tag-4>、<tag-5>客户端侧的</tag-5>代码运行环境。目前支持<tag-6>超过 80 种语言 / <tag-7></tag-7>框架</tag-6>。它可以作为独立应用使用，亦可<tag-8>嵌入</tag-8>到任意网页中。可以通过多种途径将代码<tag-9>预填</tag-9>到编辑器中。',
+        '<1><2>LiveCodes</2></1> 是一个<3>开源的</3>、<4>功能丰富的</4>、<5>客户端侧的</5>代码运行环境。目前支持<6>超过 80 种语言 / <7></7>框架</6>。它可以作为独立应用使用，亦可<8>嵌入</8>到任意网页中。可以通过多种途径将代码<9>预填</9>到编辑器中。',
       para2:
-        '多种<1>配置选项</tag-1>使其非常灵活。功能强大的 <tag-2>SDK</tag-2>（可用于 <tag-3>JS / TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> 和 <tag-6>Svelte</tag-6>）便于<tag-7>嵌入运行环境</tag-7>并与其<tag-8>进行通信</tag-8>。<tag-9>文档内容详细完整</tag-9>，代码示例、实时演示和屏幕截图一应俱全。',
+        '多种<1>配置选项</1>使其非常灵活。功能强大的 <2>SDK</2>（可用于 <3>JS / TS</3>, <4>React</4>, <5>Vue</5> 和 <6>Svelte</6>）便于<7>嵌入运行环境</7>并与其<8>进行通信</8>。<9>文档内容详细完整</9>，代码示例、实时演示和屏幕截图一应俱全。',
     },
     version: {
       app: '应用版本：{{APP_VERSION}}',
@@ -81,12 +81,12 @@ const translation: I18nTranslation = {
   assets: {
     add: {
       dataURL: {
-        desc: '将资产添加为 base64 编码的 <1>Data URL</tag-1> 。',
+        desc: '将资产添加为 base64 编码的 <1>Data URL</1> 。',
         heading: 'Data URL',
         label: '添加文件',
       },
       githubPages: {
-        desc: '将资产部署到 GitHub Pages。该文件将推送至您 GitHub 帐户上 <2> livecodes-assets</tag-2> 仓库的 <tag-1>gh-pages</tag-1> 分支。如果该仓库尚不存在，则将创建一个公开仓库。',
+        desc: '将资产部署到 GitHub Pages。该文件将推送至您 GitHub 帐户上 <2> livecodes-assets</2> 仓库的 <1>gh-pages</1> 分支。如果该仓库尚不存在，则将创建一个公开仓库。',
         heading: 'GitHub Pages',
         label: '上传文件',
       },
@@ -157,7 +157,7 @@ const translation: I18nTranslation = {
     backup: {
       assets: '资产',
       button: '备份',
-      desc: '备份 LiveCodes 数据，以便稍后在此设备上或其他设备上恢复。 <1> </tag-1>请访问<tag-2>文档</tag-2>以了解详情。',
+      desc: '备份 LiveCodes 数据，以便稍后在此设备上或其他设备上恢复。 <1> </1>请访问<2>文档</2>以了解详情。',
       heading: '备份',
       projects: '项目',
       settings: '用户设置',
@@ -173,7 +173,7 @@ const translation: I18nTranslation = {
     heading: '备份 / 恢复',
     inProgress: '进行中 ...',
     restore: {
-      desc: '恢复先前备份的 LiveCodes 数据。<1></tag-1>如果您选择替换当前内容，可能需要先将其备份。<tag-2></tag-2>请访问<tag-3>文档</tag-3> 以了解详情。',
+      desc: '恢复先前备份的 LiveCodes 数据。<1></1>如果您选择替换当前内容，可能需要先将其备份。<2></2>请访问<3>文档</3> 以了解详情。',
       fromFile: '从文件恢复',
       heading: '恢复',
       mode: {
@@ -191,7 +191,7 @@ const translation: I18nTranslation = {
     broadcasting: '正在播送 ...',
     channelURL: '频道 URL',
     connecting: '正在连接 ...',
-    desc: '将结果页面实时播送到其他浏览器 / 设备。请访问<1>文档</tag-1>以了解详情。',
+    desc: '将结果页面实时播送到其他浏览器 / 设备。请访问<1>文档</1>以了解详情。',
     error: {
       generic: '播送失败！',
       serverURLRequired: '必须填写服务器 URL！',
@@ -291,9 +291,9 @@ const translation: I18nTranslation = {
   },
   deploy: {
     create: {
-      desc: '将创建一个新的<1>公开</tag-1>仓库。结果页面将被推送到 <tag-2>gh-pages</tag-2> 分支。',
+      desc: '将创建一个新的<1>公开</1>仓库。结果页面将被推送到 <2>gh-pages</2> 分支。',
       heading: '创建新仓库',
-      repoName: '仓库名称<1></tag-1>',
+      repoName: '仓库名称<1></1>',
     },
     error: {
       generic: '部署失败！',
@@ -301,7 +301,7 @@ const translation: I18nTranslation = {
       repoNameRequired: '必须填写仓库名称',
     },
     existing: {
-      desc: '新提交将被添加到 <1>gh-pages</tag-1> 分支。',
+      desc: '新提交将被添加到 <1>gh-pages</1> 分支。',
       heading: '现有仓库',
       repoName: '仓库名称',
     },
@@ -322,7 +322,7 @@ const translation: I18nTranslation = {
     closeBrackets: '自动闭合括号和引号',
     codeJarDesc: '* 标记的功能在 CodeJar 中不可用。',
     default: '默认',
-    desc: '请查看<1>文档</tag-1>以了解详情。',
+    desc: '请查看<1>文档</1>以了解详情。',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -338,7 +338,7 @@ const translation: I18nTranslation = {
     emmet: '启用 Emmet *',
     enableAI: {
       heading: '启用 AI 代码助手',
-      note: '由 <1> <tag-2> </tag-2> </tag-1> 提供支持',
+      note: '由 <1> <2> </2> </1> 提供支持',
     },
     fontFamily: '字体',
     fontSize: '字体大小',
@@ -376,7 +376,7 @@ const translation: I18nTranslation = {
       copy: '复制代码',
       heading: '代码',
     },
-    desc: '请查看<1>文档</tag-1>以了解高级配置。',
+    desc: '请查看<1>文档</1>以了解高级配置。',
     embedType: {
       cdn: '脚本（CDN）',
       heading: '嵌入类型',
@@ -450,14 +450,14 @@ const translation: I18nTranslation = {
   },
   import: {
     bulk: {
-      desc: '将多个项目批量导入到您已保存的项目中。可以从<1>已保存的项目</tag-1>屏幕导出项目。',
+      desc: '将多个项目批量导入到您已保存的项目中。可以从<1>已保存的项目</1>屏幕导出项目。',
       fromFile: '从本地文件批量导入',
       fromURL: '从 URL 批量导入',
       heading: '批量导入',
       started: '批量导入已开始 ...',
     },
     code: {
-      desc: '支持的来源： <1> <tag-2>GitHub Gist</tag-2> <tag-3>GitHub 文件</tag-3> <tag-4>GitHub 仓库中的目录</tag-4> <tag-5>Gitlab Snippet</tag-5> <tag-6>Gitlab 文件</tag-6><tag-7>Gitlab 仓库中的目录</tag-7> <tag-8>JS Bin</tag-8><tag-9> 原始代码</tag-9> <tag-10>网页 DOM 中的代码 </tag-10> <tag-11>zip 文件中的代码</tag-11> <tag-12>官方样板<tag-13></tag-13>（TypeScript, Vue 和 Svelte）</tag-12> </tag-1> 请访问<tag-14>文档</tag-14>以了解详细信息。',
+      desc: '支持的来源： <1> <2>GitHub Gist</2> <3>GitHub 文件</3> <4>GitHub 仓库中的目录</4> <5>Gitlab Snippet</5> <6>Gitlab 文件</6><7>Gitlab 仓库中的目录</7> <8>JS Bin</8><9> 原始代码</9> <10>网页 DOM 中的代码 </10> <11>zip 文件中的代码</11> <12>官方样板<13></13>（TypeScript, Vue 和 Svelte）</12> </1> 请访问<14>文档</14>以了解详细信息。',
       fromFile: '从本地文件导入',
       fromURL: '从 URL 导入',
       heading: '导入代码',
@@ -482,7 +482,7 @@ const translation: I18nTranslation = {
   },
   login: {
     accessAllowed: '允许访问：',
-    desc: '<1>登录即表示您同意 <tag-2>Cookie</tag-2> 将可能存储在您的设备上。</tag-1><tag-3> <tag-4>为什么需要这些权限？</tag-4> </tag-3><tag-5> <tag-6>如何更改 / 撤销权限？</tag-6> </tag-5>',
+    desc: '<1>登录即表示您同意 <2>Cookie</2> 将可能存储在您的设备上。</1><3> <4>为什么需要这些权限？</4> </3><5> <6>如何更改 / 撤销权限？</6> </5>',
     gist: 'Gists',
     heading: '使用 GitHub 登录',
     loginAs: '以 {{name}} 的身份登录',
@@ -512,7 +512,7 @@ const translation: I18nTranslation = {
     broadcast: '播送 ...',
     customSettings: '自定义设置 ...',
     delay: {
-      heading: '延迟：<1> 1.5 </tag-1> 秒',
+      heading: '延迟：<1> 1.5 </1> 秒',
       hint: '自动更新前的延迟',
     },
     deploy: '部署 ...',
@@ -549,7 +549,7 @@ const translation: I18nTranslation = {
       hint: '按下 Alt/Option 并将光标移至结果页面',
     },
     snippets: '代码片段 ...',
-    sync: '同步（Beta 版）... <1> ⏳</tag-1>',
+    sync: '同步（Beta 版）... <1> ⏳</1>',
     theme: '深色主题',
     welcome: {
       heading: '欢迎 ...',
@@ -602,11 +602,11 @@ const translation: I18nTranslation = {
   recoverPrompt: {
     desc: '您的最后一个项目存在尚未保存的更改！',
     heading: '恢复未保存的项目？',
-    meta: '标题：<1> </tag-1> <tag-2> </tag-2>最后修改时间：<tag-3> </tag-3>',
+    meta: '标题：<1> </1> <2> </2>最后修改时间：<3> </3>',
     notShowAgain: '不要再展示此内容。',
     prompt: {
       discard: '丢弃未保存的项目',
-      heading: '<1> </tag-1>您想现在恢复吗？',
+      heading: '<1> </1>您想现在恢复吗？',
       recover: '将项目恢复到编辑器',
       save: '保存到设备并继续',
     },
@@ -625,13 +625,13 @@ const translation: I18nTranslation = {
     },
     fonts: {
       add: '添加',
-      heading: '字体<1>（由 Google Fonts 提供）</tag-1>',
+      heading: '字体<1>（由 Google Fonts 提供）</1>',
       select: '选择字体 ...',
     },
     heading: '外部资源',
     scripts: '外部脚本',
     search: {
-      heading: '搜索软件包<1>（由 jsDelivr 提供）</tag-1>',
+      heading: '搜索软件包<1>（由 jsDelivr 提供）</1>',
       placeholder: '例如 jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: '外部样式',
@@ -642,7 +642,7 @@ const translation: I18nTranslation = {
     prompt: {
       cancel: '取消',
       discard: '不保存',
-      heading: '您所做的更改可能无法保存。 <1> </tag-1>您想现在保存吗？',
+      heading: '您所做的更改可能无法保存。 <1> </1>您想现在保存吗？',
       save: '保存',
     },
   },
@@ -740,7 +740,7 @@ const translation: I18nTranslation = {
   sync: {
     autoSync: '自动同步',
     create: {
-      desc: '将创建一个新的<1>私有</tag-1>仓库。您的 LiveCodes 本地数据将与 <tag-2>main</tag-2> 分支同步。',
+      desc: '将创建一个新的<1>私有</1>仓库。您的 LiveCodes 本地数据将与 <2>main</2> 分支同步。',
       heading: '创建新仓库',
       repoName: '仓库名称',
     },
@@ -749,7 +749,7 @@ const translation: I18nTranslation = {
       repoNameRequired: '必须填写仓库名称',
     },
     existing: {
-      desc: '您的 LiveCodes 本地数据将与 <1>main</tag-1> 分支同步。',
+      desc: '您的 LiveCodes 本地数据将与 <1>main</1> 分支同步。',
       heading: '现有仓库',
       repoName: '仓库名称',
     },
@@ -763,7 +763,7 @@ const translation: I18nTranslation = {
   templates: {
     heading: '新项目',
     noUserTemplates: {
-      desc: '您可以通过<1></tag-1>（菜单&nbsp;&gt;&nbsp;另存为&nbsp;&gt;&nbsp;模板）将项目另存为模板。',
+      desc: '您可以通过<1></1>（菜单&nbsp;&gt;&nbsp;另存为&nbsp;&gt;&nbsp;模板）将项目另存为模板。',
       heading: '您没有已保存的模板。',
     },
     starter: {
@@ -850,16 +850,16 @@ const translation: I18nTranslation = {
     },
     test: {
       edit: '编辑',
-      error: '<1><tag-2>测试错误！</tag-2></tag-1>',
-      loading: '<1>正在加载测试... </tag-1>',
-      noTest: '<1>该项目没有测试！</tag-1>',
+      error: '<1><2>测试错误！</2></1>',
+      loading: '<1>正在加载测试... </1>',
+      noTest: '<1>该项目没有测试！</1>',
       reset: '重置',
       run: {
         desc: 'Ctrl/Cmd + Alt + T',
         heading: '运行',
       },
       summary: {
-        desc: '测试： {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></tag-1>\n耗时：{{duration}} 秒',
+        desc: '测试： {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></1>\n耗时：{{duration}} 秒',
         failed: '失败 {{failedNum}}',
         passed: '通过 {{passedNum}}',
         skipped: '已跳过 {{skippedNum}}',
@@ -884,7 +884,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: '取消',
       heading: '恢复',
-      lastModified: '最后修改时间：<1></tag-1>',
+      lastModified: '最后修改时间：<1></1>',
       recover: '恢复',
       save: '保存',
       unsavedChanges: '您的上一个项目有未保存的更改：',
