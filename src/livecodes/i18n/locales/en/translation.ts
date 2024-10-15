@@ -11,19 +11,19 @@ import type { I18nTranslationTemplate } from '../models';
 
 const translation = {
   about: {
+    credits: {
+      heading: 'Credits',
+    },
     documentations: {
-      aboutUs: 'About Livecodes',
-      contact: 'Contact',
       heading: 'Documentations',
-      home: 'Home',
-      license: 'License',
     },
     heading: 'About LiveCodes',
     livecodes: {
+      aboutUs: 'About Livecodes',
       para1:
-        '<1><2>LiveCodes</2></1> is an <3>open-source</3>, <4>feature-rich</4>, <5>client-side</5> code playground. Currently, <6>80+ languages/<7></7>frameworks</6> are supported. It can be used as a standalone app or can be <8>embedded</8> in any web page. There are many ways to <9>prefill playgrounds</9> with code.',
+        '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
       para2:
-        'A wide range of <1>configuration options</1> makes it very flexible. A powerful <2>SDK</2> (for <3>JS/TS</3>, <4>React</4>, <5>Vue</5> and <6>Svelte</6>) facilitates <7>embedding</7> and <8>communicating</8> with playgrounds. <9>Comprehensive documentations</9> are available with code samples, live demos and screenshots.',
+        'A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive documentation is available with code examples, live demos, and screenshots.',
     },
     version: {
       app: 'App version: {{APP_VERSION}}',
@@ -43,9 +43,6 @@ const translation = {
     },
     customSettings: {
       hint: 'Custom Settings',
-    },
-    editorMode: {
-      hint: 'Editor Mode',
     },
     editorSettings: {
       hint: 'Editor Settings',
@@ -72,10 +69,10 @@ const translation = {
       hint: 'Redo (Ctrl/Cmd + Shift + Z)',
     },
     result: {
-      hint: 'Toggle Result',
+      hint: 'Result',
     },
     run: {
-      hint: 'Run (Shift + Enter)',
+      hint: 'Run',
     },
     share: {
       hint: 'Share',
@@ -327,9 +324,9 @@ const translation = {
       note: 'Will reload the app to apply the changes after switching the language.',
     },
     closeBrackets: 'Auto-close brackets and quotes',
-    codeJarDesc: '* The marked features are not available in CodeJar.',
+    codeJarDesc: '<1></1> * The marked features are not available in CodeJar.',
     default: 'Default',
-    desc: 'Please check the <1>documentations</1> for details.',
+    desc: '<1></1> Please check the <2>documentations</2> for details.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -436,12 +433,11 @@ const translation = {
     about: {
       blog: 'Blog',
       configuration: 'Configuration',
-      features: 'Features',
       gettingStarted: 'Getting Started',
       github: 'GitHub',
-      sdk: 'SDK',
+      sdk: 'LiveCodes SDK',
       sponsor: 'Sponsor',
-      twitter: '𝕏 / Twitter',
+      twitter: '? / Twitter',
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
@@ -499,7 +495,7 @@ const translation = {
     publicRepo: 'Repos',
   },
   menu: {
-    about: 'About',
+    about: 'About ...',
     appHelp: {
       heading: 'Help',
       hint: 'Help',
@@ -509,20 +505,23 @@ const translation = {
       hint: 'Project',
     },
     appSettings: {
-      heading: 'Settings',
-      hint: 'Settings',
+      heading: 'Setttings',
+      hint: 'App Settings',
     },
     assets: 'Assets …',
     autoSave: 'Auto Save',
     autoUpdate: 'Auto Update',
     backup: 'Backup / Restore …',
+    blog: 'Blog Livecodes',
     broadcast: 'Broadcast …',
+    config: 'Configuration',
     customSettings: 'Custom Settings …',
     delay: {
       heading: 'Delay: <1>1.5</1>s',
       hint: 'Delay before auto-update',
     },
     deploy: 'Deploy …',
+    docs: 'Documentation',
     editorSettings: 'Editor Settings …',
     embed: 'Embed …',
     export: {
@@ -534,33 +533,38 @@ const translation = {
       result: 'Export Result (HTML)',
       src: 'Export Source (ZIP)',
     },
+    features: 'Features',
     formatOnsave: 'Format On-save',
+    getstart: 'Getting Started',
     import: 'Import …',
     layout: 'Vertical Layout',
-    login: 'Login …',
+    license: 'License',
+    login: 'Login',
     logout: 'Log out',
     new: 'New …',
     open: 'Open …',
     project: 'Project Info …',
     recoverUnsaved: 'Recover Unsaved',
+    report: 'Report an issue',
     resources: 'External Resources …',
     save: 'Save',
     saveAs: {
       fork: 'Fork (New Project)',
-      heading: 'Save as',
+      heading: 'Save as … crtl⇧s',
       template: 'Template',
     },
+    sdk: 'SDK',
     share: 'Share …',
     showSpacing: {
       heading: 'Show Spacing',
       hint: 'Press Alt/Option and move your cursor over result page',
     },
     snippets: 'Code Snippets …',
+    source: 'Source code on GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Dark Theme',
     welcome: {
       heading: 'Welcome …',
-      hint: 'Show Welcome screen on startup',
     },
   },
   open: {
@@ -673,7 +677,6 @@ const translation = {
       generating: 'Generating...',
     },
     services: {
-      copyUrl: 'Copy URL',
       devTo: 'Dev.to',
       email: 'Email',
       facebook: 'Facebook',
@@ -881,7 +884,7 @@ const translation = {
   },
   welcome: {
     about: {
-      documentation: 'Documentations',
+      documentation: 'Documentation',
       heading: 'About LiveCodes',
     },
     heading: 'Welcome',
@@ -891,7 +894,7 @@ const translation = {
     recover: {
       cancel: 'Cancel',
       heading: 'Recover',
-      lastModified: 'Last modified: <1></1>',
+      lastModified: 'Last modified:',
       recover: 'Recover',
       save: 'Save',
       unsavedChanges: 'Your last project had unsaved changes:',
