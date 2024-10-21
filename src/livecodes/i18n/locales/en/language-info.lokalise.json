@@ -185,7 +185,7 @@
     "translation": "<tag-1> <tag-2>Cytoscape</tag-2> </tag-1> <tag-3> <tag-4>ELK</tag-4> (using <tag-5>elkjs</tag-5>) </tag-3> <tag-6> <tag-7>Gnuplot</tag-7> (using <tag-8>gnuplot-JS</tag-8>) </tag-6> <tag-9> <tag-10>Graphviz</tag-10> (using <tag-11>@hpcc-js/wasm</tag-11>) </tag-9> <tag-12> <tag-13>Mermaid</tag-13> </tag-12> <tag-14> <tag-15>Nomnoml</tag-15> </tag-14> <tag-16> <tag-17>Pintora</tag-17> </tag-16> <tag-18> <tag-19>Plotly</tag-19> </tag-18> <tag-20> <tag-21>Svgbob</tag-21> </tag-20> <tag-22> <tag-23>Vega</tag-23> </tag-22> <tag-24> <tag-25>VegaLite</tag-25> </tag-24> <tag-26> <tag-27>WaveDrom</tag-27> </tag-26>"
   },
   "diagrams.link": {
-    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"?template=diagrams\" target=\"_parent\" data-template=\"diagrams\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/diagrams\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "notes": "### <tag-1> ###\n<li  />\n\n### <tag-2> ###\n<a href=\"?template=diagrams\" class=\"button\" target=\"_parent\" data-template=\"diagrams\" />\n\n### <tag-3> ###\n<li  />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}languages/diagrams\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "<tag-1> <tag-2>Load starter template</tag-2> </tag-1> <tag-3> <tag-4>LiveCodes Documentation</tag-4> </tag-3>"
   },
   "diagrams.name": {

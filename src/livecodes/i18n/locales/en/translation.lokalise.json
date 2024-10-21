@@ -142,7 +142,7 @@
   },
   "app.run.hint": {
     "notes": "",
-    "translation": "Run"
+    "translation": "Run (Shift + Enter)"
   },
   "app.share.hint": {
     "notes": "",
@@ -655,6 +655,10 @@
   "customSettings.JSON": {
     "notes": "",
     "translation": "Custom Settings JSON"
+  },
+  "customSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}advanced/custom-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> For further details, please refer to the <tag-2> documentation </tag-2>"
   },
   "customSettings.heading": {
     "notes": "",
@@ -1266,7 +1270,7 @@
   },
   "menu.blog": {
     "notes": "",
-    "translation": "Blog Livecodes"
+    "translation": "LiveCodes Blog"
   },
   "menu.broadcast": {
     "notes": "",
@@ -1398,7 +1402,7 @@
   },
   "menu.saveAs.heading": {
     "notes": "",
-    "translation": "Save as … crtl⇧s"
+    "translation": "Save as … Ctrl⇧s"
   },
   "menu.saveAs.template": {
     "notes": "",
@@ -2239,6 +2243,10 @@
   "testEditor.tests": {
     "notes": "",
     "translation": "Tests"
+  },
+  "testSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"https://livecodes.io/docs/features/tests/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> For further details, please refer to the <tag-2>documentation</tag-2>"
   },
   "toolspane.close": {
     "notes": "",

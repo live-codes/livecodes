@@ -91,7 +91,7 @@ const translation = {
       hint: 'Result',
     },
     run: {
-      hint: 'Run',
+      hint: 'Run (Shift + Enter)',
     },
     share: {
       hint: 'Share',
@@ -309,6 +309,7 @@ const translation = {
   },
   customSettings: {
     JSON: 'Custom Settings JSON',
+    desc: '<1></1> For further details, please refer to the <2> documentation </2>',
     heading: 'Custom Settings',
     load: 'Load',
   },
@@ -531,7 +532,7 @@ const translation = {
     autoSave: 'Auto Save',
     autoUpdate: 'Auto Update',
     backup: 'Backup / Restore …',
-    blog: 'Blog Livecodes',
+    blog: 'LiveCodes Blog',
     broadcast: 'Broadcast …',
     config: 'Configuration',
     customSettings: 'Custom Settings …',
@@ -569,7 +570,7 @@ const translation = {
     save: 'Save',
     saveAs: {
       fork: 'Fork (New Project)',
-      heading: 'Save as … crtl⇧s',
+      heading: 'Save as … Ctrl⇧s',
       template: 'Template',
     },
     sdk: 'SDK',
@@ -867,6 +868,9 @@ const translation = {
     heading: 'Edit Tests',
     load: 'Load',
     tests: 'Tests',
+  },
+  testSettings: {
+    desc: '<1></1> For further details, please refer to the <2>documentation</2>',
   },
   toolspane: {
     close: 'Close',
