@@ -1,12 +1,36 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
+  "about.blog.text": {
+    "notes": "",
+    "translation": "Blog"
+  },
+  "about.blog.title": {
+    "notes": "",
+    "translation": "LiveCodes Blog"
+  },
+  "about.configuration": {
+    "notes": "",
+    "translation": "Configuration"
+  },
   "about.credits.heading": {
     "notes": "",
     "translation": "Credits"
   },
   "about.documentations.heading": {
     "notes": "",
-    "translation": "Documentation"
+    "translation": "Documentations"
+  },
+  "about.gettingStarted": {
+    "notes": "",
+    "translation": "Getting Started"
+  },
+  "about.github.text": {
+    "notes": "",
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "notes": "",
+    "translation": "GitHub"
   },
   "about.heading": {
     "notes": "",
@@ -23,6 +47,26 @@
   "about.livecodes.para2": {
     "notes": "",
     "translation": "A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive documentation is available with code examples, live demos, and screenshots."
+  },
+  "about.sdk": {
+    "notes": "",
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "notes": "",
+    "translation": "Sponsor"
+  },
+  "about.sponsor.title": {
+    "notes": "",
+    "translation": "Sponsor LiveCodes"
+  },
+  "about.twitter.text": {
+    "notes": "",
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "notes": "",
+    "translation": "𝕏 / Twitter"
   },
   "about.version.app": {
     "notes": "",
@@ -82,7 +126,7 @@
   },
   "app.logo.title": {
     "notes": "",
-    "translation": "LiveCodes: Code playground that runs in the browser!"
+    "translation": "LiveCodes: Code Playground That Just Works!"
   },
   "app.projectInfo.hint": {
     "notes": "",

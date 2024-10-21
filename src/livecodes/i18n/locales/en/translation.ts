@@ -11,11 +11,21 @@ import type { I18nTranslationTemplate } from '../models';
 
 const translation = {
   about: {
+    blog: {
+      text: 'Blog',
+      title: 'LiveCodes Blog',
+    },
+    configuration: 'Configuration',
     credits: {
       heading: 'Credits',
     },
     documentations: {
       heading: 'Documentations',
+    },
+    gettingStarted: 'Getting Started',
+    github: {
+      text: 'GitHub',
+      title: 'GitHub',
     },
     heading: 'About LiveCodes',
     livecodes: {
@@ -24,6 +34,15 @@ const translation = {
         '<1><2>LiveCodes</2></1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page.',
       para2:
         'A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive documentation is available with code examples, live demos, and screenshots.',
+    },
+    sdk: 'LiveCodes SDK',
+    sponsor: {
+      text: 'Sponsor',
+      title: 'Sponsor LiveCodes',
+    },
+    twitter: {
+      text: '𝕏 / Twitter',
+      title: '𝕏 / Twitter',
     },
     version: {
       app: 'App version: {{APP_VERSION}}',
@@ -60,7 +79,7 @@ const translation = {
       hint: 'Full Screen',
     },
     logo: {
-      title: 'LiveCodes: Code playground that runs in the browser!',
+      title: 'LiveCodes: Code Playground That Just Works!',
     },
     projectInfo: {
       hint: 'Project Info',
@@ -437,7 +456,7 @@ const translation = {
       github: 'GitHub',
       sdk: 'LiveCodes SDK',
       sponsor: 'Sponsor',
-      twitter: '? / Twitter',
+      twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
