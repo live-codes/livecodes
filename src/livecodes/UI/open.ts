@@ -125,6 +125,7 @@ export const createOpenItem = (
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-button');
   const iconCSS = '<i class="icon-delete"></i>';
+  deleteButton.dataset.hint = window.deps.translateString('open.action.delete', 'Delete');
   deleteButton.innerHTML = `<span id="delete-button">${iconCSS}</span>`;
   actions.appendChild(deleteButton);
 

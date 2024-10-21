@@ -102,6 +102,9 @@ const translation = {
     untitledProject: 'Untitled Project',
   },
   assets: {
+    action: {
+      delete: 'Delete',
+    },
     add: {
       dataURL: {
         desc: 'Add asset as a base64-encoded <1>data url</1>.',
@@ -588,6 +591,9 @@ const translation = {
     },
   },
   open: {
+    action: {
+      delete: 'Delete',
+    },
     defaultTemplate: 'Default template ',
     delete: {
       all: 'Delete {{projects}} projects?',

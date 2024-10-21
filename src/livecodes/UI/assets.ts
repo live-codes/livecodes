@@ -127,11 +127,10 @@ const createAssetItem = (
   const actions = document.createElement('div');
   actions.classList.add('actions');
   li.appendChild(actions);
-  // todo i18n
   const deleteButton = document.createElement('div');
   deleteButton.innerHTML = deleteIcon;
   deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
-  deleteButton.dataset.hint = 'Delete';
+  deleteButton.dataset.hint = window.deps.translateString('assets.action.delete', 'Delete');
   actions.appendChild(deleteButton);
 
   return { link, deleteButton };
