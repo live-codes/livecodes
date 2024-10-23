@@ -92,7 +92,7 @@ jobs:
     - name: Push changes
       run: git push origin $BRANCH
 
-    - name: Check if has differences between BRANCH and default branch
+    - name: Check if has differences between ${{ env.BRANCH }} and ${{ github.event.repository.default_branch }}
       id: check-diff
       run: |
         DIFF=$(git diff --name-only $BRANCH ${{ github.event.repository.default_branch }})
