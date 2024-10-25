@@ -1,0 +1,28 @@
+# Check config spec at https://github.com/crate-ci/typos/blob/master/docs/reference.md
+
+[files]
+ignore-vcs = true # Respect .gitignore
+extend-exclude = [
+  "src/livecodes/i18n/locales/**/*.ts",                 # Ignore locale files
+  "src/livecodes/services/google-fonts.ts",             # Font name
+  "src/livecodes/templates/starter/blockly-starter.ts", # Random string id
+]
+
+[default]
+extend-ignore-re = [
+  "\\/.+\\/",             # Regex literal
+  "\\[[0-9a-fA-F]{7}\\]", # Git short hash
+]
+
+[default.extend-words]
+styl = "styl"
+edn = "edn"
+darcula = "darcula"
+Darcula = "Darcula"
+IIF = "IIF"
+xdescribe = "xdescribe"
+arange = "arange"
+
+[type.svg]
+# Skip check contents for svg files
+check-file = false
