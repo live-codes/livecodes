@@ -2027,7 +2027,7 @@ const getVersion = (log = true) => {
 
 const showConsoleMessage = () => {
   if (isEmbed) return;
-  const docsBaseUrl = process.env.DOCS_BASE_URL || 'docs';
+  const docsBaseUrl = predefinedValues.DOCS_BASE_URL || 'docs';
   const docsUrl = docsBaseUrl?.startsWith('http')
     ? docsBaseUrl
     : new URL(docsBaseUrl, location.href).href;
@@ -2041,26 +2041,37 @@ const showConsoleMessage = () => {
     { content: 'LiveCodes', style: 'font-weight: bold; font-size: 1.2em;' },
     { content: ' - ', style: 'font-size: 1.2em;' },
     {
-      content: 'A Code Playground That Just Works!\n',
+      content:
+        window.deps.translateString('generic.tagline', 'A Code Playground That Just Works!') + '\n',
       style: 'font-style: italic; font-size: 1.2em;',
     },
     {
-      content: `App version: ${process.env.VERSION}`,
+      content: window.deps.translateString('about.version.app', `App version: {{APP_VERSION}}`, {
+        APP_VERSION: predefinedValues.APP_VERSION,
+      }),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: `SDK version: ${process.env.SDK_VERSION}`,
+      content: window.deps.translateString('about.version.sdk', `SDK version: {{SDK_VERSION}}`, {
+        SDK_VERSION: predefinedValues.SDK_VERSION,
+      }),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: ' ', style: '' },
     {
-      content: `Commit: ${process.env.GIT_COMMIT}`,
+      content: window.deps.translateString('about.version.commit', `Git commit: {{COMMIT_SHA}}`, {
+        COMMIT_SHA: predefinedValues.COMMIT_SHA,
+      }),
       style: 'padding: 0.2em 0.4em; border-radius: 0.5em; background: hsl(0,0%,40%); color: white;',
     },
     { content: '\n\n', style: '' },
     {
-      content: `Learn more! ${docsUrl} 🚀`,
+      content: window.deps.translateString(
+        'app.consoleMessage.learnMore',
+        'Learn more! {{docsUrl}} 🚀',
+        { docsUrl },
+      ),
       style: 'padding: 0.2em 0.4em; font-size: 1.1em;',
     },
   ];
