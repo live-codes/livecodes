@@ -56,6 +56,10 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.consoleMessage.learnMore": {
+    "notes": "",
+    "translation": "Learn more! {{docsUrl}} 🚀"
+  },
   "app.copy.hint": {
     "notes": "",
     "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
@@ -1075,6 +1079,10 @@
   "generic.required": {
     "notes": "",
     "translation": "Required"
+  },
+  "generic.tagline": {
+    "notes": "",
+    "translation": "A Code Playground That Just Works!"
   },
   "import.bulk.desc": {
     "notes": "### <tag-1> ###\n<a href=\"#\" id=\"link-to-saved-projects\" />\n\n",
