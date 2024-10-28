@@ -38,6 +38,8 @@ jobs:
           echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
         fi
 
+        # Use branch name prefixed with owner name
+        PR_BRANCH=$(echo "$PR_DETAILS" | jq -r '.head.label' | sed 's/:/\//g')
         NEW_BRANCH="i18n/$PR_BRANCH"
         echo "newBranch=$NEW_BRANCH" >> $GITHUB_OUTPUT
         echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
