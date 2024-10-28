@@ -35,7 +35,7 @@ const generateTranslationObject = async (source, validKeys) => {
       }
       currentObject = currentObject[k];
     });
-    currentObject[lastKey] = translations[key].replace('tag-', '');
+    currentObject[lastKey] = translations[key].replace(/tag-/g, '');
   }
   return translationObject;
 };
