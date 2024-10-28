@@ -15,6 +15,35 @@ const flatten = (obj, prefix = '') =>
     return { ...acc, [`${prefix}${key}`]: value };
   }, {});
 
+const parseObject = (node) => {
+  if (!node) {
+    throw new Error('Node is undefined or null');
+  }
+  const result = {};
+  node.properties.forEach((prop) => {
+    const key = prop.key.name || prop.key.value;
+    result[key] = parseValue(prop.value);
+  });
+  return result;
+}
+
+const parseValue = (node) => {
+  switch (node.type) {
+    case "ObjectExpression":
+      return parseObject(node);
+    case "ArrayExpression":
+      return node.elements.map(parseValue);
+    case "StringLiteral":
+    case "NumericLiteral":
+    case "BooleanLiteral":
+      return node.value;
+    case "NullLiteral":
+      return null;
+    default:
+      throw new Error(`Unsupported node type: ${node.type}`);
+  }
+}
+
 const generateLokaliseJSON = async () => {
   const lang = process.argv[2];
   const srcDir = path.resolve('src/livecodes/i18n/locales/' + lang);
@@ -43,8 +72,7 @@ const generateLokaliseJSON = async () => {
         let translation;
         babel.traverse(ast, {
           ObjectExpression(path) {
-            const code = data.substring(path.node.start, path.node.end);
-            translation = eval(`(${code})`);
+            translation = parseObject(path.node);
             path.stop();
           },
         });
