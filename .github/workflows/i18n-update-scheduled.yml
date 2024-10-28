@@ -27,6 +27,8 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Switch to i18n branch
       run: |
@@ -97,9 +99,9 @@ jobs:
     - name: Check if has differences between ${{ env.BRANCH }} and ${{ github.event.repository.default_branch }}
       id: check-diff
       run: |
-        DIFF=$(git diff --name-only $BRANCH ${{ github.event.repository.default_branch }})
+        DIFF=$(git diff --name-only $BRANCH origin/${{ github.event.repository.default_branch }})
         if [[ -z $DIFF ]]; then
-          echo "No differences between $BRANCH and ${{ github.event.repository.default_branch }}."
+          echo "No difference between $BRANCH and ${{ github.event.repository.default_branch }}."
           echo "SKIP=true" >> $GITHUB_ENV
         fi
 
