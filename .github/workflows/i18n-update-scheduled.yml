@@ -30,6 +30,7 @@ jobs:
     - name: Switch to i18n branch
       run: |
         if [[ $(git ls-remote --heads origin $BRANCH) ]]; then
+          git config pull.rebase false
           git fetch origin $BRANCH:$BRANCH
           git checkout $BRANCH
           git pull origin develop
