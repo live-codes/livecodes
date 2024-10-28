@@ -17,6 +17,7 @@ env:
   BRANCH: i18n/develop
   LOKALISE_BRANCH: master
   NODE_VERSION: 18.x
+  CI: true
 
 jobs:
   update:

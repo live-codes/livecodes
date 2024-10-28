@@ -8,6 +8,7 @@ env:
   LOKALISE_PROJECT_ID: ${{ vars.LOKALISE_PROJECT_ID }}
   LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
   NODE_VERSION: 18.x
+  CI: true
 
 jobs:
   precheck:
