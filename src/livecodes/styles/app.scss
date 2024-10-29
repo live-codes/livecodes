@@ -1504,7 +1504,7 @@ li.editor-title {
   }
 
   #toolbar {
-    margin-bottom: -8px;
+    margin-bottom: -9px;
     transform: scale(0.8);
     transform-origin: left top;
     width: 125%;
@@ -1527,7 +1527,7 @@ li.editor-title {
   }
 
   #editor-container {
-    height: calc(100% - var(--toolbar-height)) !important;
+    flex-grow: 1;
   }
 
   #tools-pane-bar {
