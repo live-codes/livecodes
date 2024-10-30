@@ -460,6 +460,16 @@ export const doOnce = (fn: () => Promise<void>) => {
   return () => (dependency ??= fn());
 };
 
+export const evaluateCssCalc = (expression: string) => {
+  const el = document.createElement('div');
+  el.style.height = expression;
+  el.style.display = 'none';
+  document.body.appendChild(el);
+  const value = window.getComputedStyle(el).height;
+  document.body.removeChild(el);
+  return value;
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

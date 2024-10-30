@@ -9,6 +9,7 @@ import type {
   Tool,
 } from '../models';
 import { getResultElement, getToolspaneBar } from '../UI';
+import { evaluateCssCalc } from '../utils';
 import { createCompiledCodeViewer } from './compiled-code-viewer';
 import { createConsole } from './console';
 import { createTestViewer } from './test-viewer';
@@ -23,7 +24,7 @@ export const createToolsPane = (
   setTools: (tools: Config['tools']) => void,
 ): ToolsPane => {
   let toolsSplit: Split.Instance;
-  let status: ToolsPaneStatus;
+  let status: ToolsPaneStatus | undefined;
   let activeToolId = 0;
 
   const fullList: ToolList = [
@@ -62,7 +63,14 @@ export const createToolsPane = (
   const tools = [...allTools];
 
   const result = getResultElement();
-  const gutterSize = 32;
+  const getGutterSize = () => {
+    const toolsPaneBarHeight = evaluateCssCalc(
+      getComputedStyle(document.body).getPropertyValue('--toolspane-bar-height'),
+    ).replace('px', '');
+    return Number(toolsPaneBarHeight) || 32;
+  };
+  let gutterSize = getGutterSize();
+
   type Sizes = {
     [key in ToolsPaneStatus]: [number, number];
   };
@@ -181,15 +189,15 @@ export const createToolsPane = (
       minSize: [0, 0],
       gutterSize,
       direction: 'vertical',
-      elementStyle: (_dimension, size, gutterSize) => ({
+      elementStyle: (_dimension, size, _gutterSize) => ({
         height:
           size < 15
             ? '0'
             : size > 85
-              ? `calc(100% - ${gutterSize * 2}px)`
-              : `calc(${size}% - ${gutterSize}px)`,
+              ? `calc(100% - ${gutterSize}px)`
+              : `calc(${size}% - ${gutterSize}px / 2)`,
       }),
-      gutterStyle: (_dimension, gutterSize) => ({
+      gutterStyle: (_dimension, _gutterSize) => ({
         height: `${gutterSize}px`,
       }),
       onDragStart() {
@@ -362,6 +370,22 @@ export const createToolsPane = (
     setActiveTool(activeToolId);
   };
 
+  const observeStyleChange = () => {
+    const styleObserver = new MutationObserver(() => {
+      const newGutterSize = getGutterSize();
+      if (newGutterSize === gutterSize) return;
+      gutterSize = newGutterSize;
+      getToolspaneBar().style.height = `${gutterSize}px`;
+      toolsSplit.setSizes(sizes[status || 'closed']);
+    });
+
+    styleObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['style'],
+    });
+  };
+  observeStyleChange();
+
   const getToolId = (name: Tool['name'] | '') => {
     const id = tools.findIndex((t) => t?.name === name);
     return id > -1 ? id : 0;
@@ -416,7 +440,7 @@ export const createToolsPane = (
     close: () => resize('closed'),
     maximize: () => resize('full'),
     hide: () => resize('none'),
-    getStatus: () => status,
+    getStatus: () => status ?? '',
     getActiveTool: () => tools[activeToolId]?.name,
     setActiveTool: (title: Tool['name']) => setActiveTool(getToolId(title)),
     disableTool,

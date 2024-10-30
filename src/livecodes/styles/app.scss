@@ -188,6 +188,7 @@
   --toolbar-color: var(--link);
   --toolbar-height: var(--s36); // used to calc menu, toolbar & editor-container height
 
+  --toolspane-bar-height: var(--s32);
   --toolspane-bar-text-color: var(--color40);
   --toolspane-buttons-text-color: var(--color40);
   --toolspane-button-color: var(--color40);
@@ -803,7 +804,7 @@ a#result-button {
 
   > div {
     flex-grow: 1;
-    min-height: 32px;
+    min-height: var(--s32);
     position: relative;
     width: 100%;
   }
@@ -838,7 +839,7 @@ a#result-button {
 
 .tool-buttons {
   background: var(--toolbar-bg-color);
-  height: 32px;
+  height: var(--toolspane-bar-height);
 
   &.hidden {
     display: none;
@@ -978,14 +979,14 @@ a#result-button {
 
 #tools-pane-bar {
   font-size: var(--s12);
-  height: 32px; // ref const gutterSize = 32; src/livecodes/toolspane/tools.ts
+  height: var(--toolspane-bar-height);
   justify-content: space-between;
   padding: 1px 0; // fix bottom space
 }
 
 #tools-pane-titles {
   display: flex;
-  height: 32px;
+  height: var(--toolspane-bar-height);
   justify-content: flex-start;
 }
 
