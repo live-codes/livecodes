@@ -1404,12 +1404,14 @@ li.editor-title {
     height: var(--toolbar-height);
     justify-content: space-between;
 
+    #logo {
+      position: absolute;
+      inset-inline-end: var(--s6); /* right */
+      inset-block-start: var(--s6); /* top */
+    }
+
     .toolbar-app {
       justify-content: flex-start;
-
-      #logo {
-        order: 1;
-      }
 
       #app-menu-button-project,
       #app-menu-button-settings,
@@ -1438,7 +1440,7 @@ li.editor-title {
     .toolbar-render {
       flex-grow: 0;
       justify-content: flex-end;
-      margin-right: var(--s4);
+      margin-inline-end: 50px; /* margin-right */
       min-width: 70px;
       width: auto;
 
