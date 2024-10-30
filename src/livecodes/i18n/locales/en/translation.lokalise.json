@@ -1084,6 +1084,10 @@
     "notes": "",
     "translation": "Close"
   },
+  "generic.embed.logoHint": {
+    "notes": "",
+    "translation": "Edit on LiveCodes 🡕"
+  },
   "generic.error.authentication": {
     "notes": "",
     "translation": "Authentication error!"

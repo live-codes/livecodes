@@ -464,6 +464,9 @@ const translation = {
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
+    embed: {
+      logoHint: 'Edit on LiveCodes 🡕',
+    },
     error: {
       authentication: 'Authentication error!',
       exceededSize: 'Error: Exceeded size {{size}} MB',
