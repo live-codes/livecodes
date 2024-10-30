@@ -1505,10 +1505,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
         );
       }
       if (isWelcomeScreen) {
-        welcomeRecover.style.cssText = `
-         display: none;
-         order: 10;
-       `;
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1517,10 +1514,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
       if (isWelcomeScreen) {
-        welcomeRecover.style.cssText = `
-        display: none;
-        order: 10;
-      `;
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
