@@ -14,6 +14,7 @@
   --s20: calc(var(--unit) * 1.25);
   --s24: calc(var(--unit) * 1.5);
   --s32: calc(var(--unit) * 2);
+  --s36: calc(var(--unit) * 2.25);
   --s40: calc(var(--unit) * 2.5);
   --rs: var(--s4); // border radius
 
@@ -83,7 +84,7 @@
   --dropdown-color: var(--link);
   --dropdown-active: var(--darker-active);
   --dropdown-font: var(--s14);
-  --dropdown-height: 32px;
+  --dropdown-height: var(--s32);
   --dropdown-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.275);
   --dropdown-split-color: var(--dark-bg-color);
   --submenu-arrow-color: var(--darker-color);
@@ -185,7 +186,7 @@
   --toolbar-bg-color: var(--layout);
   --toolbar-border: 1px solid var(--color30);
   --toolbar-color: var(--link);
-  --toolbar-height: 42px; // used to calc menu, toolbar & editor-container height
+  --toolbar-height: var(--s36); // used to calc menu, toolbar & editor-container height
 
   --toolspane-bar-text-color: var(--color40);
   --toolspane-buttons-text-color: var(--color40);
@@ -1283,7 +1284,7 @@ li.editor-title {
     color: var(--language-menu-color-active);
     cursor: pointer;
     display: flex;
-    height: 20px;
+    height: var(--s16);
     justify-content: center;
     margin: 0;
     outline: none;
@@ -1291,7 +1292,7 @@ li.editor-title {
     place-content: center;
     place-items: center;
     text-decoration: none;
-    width: 20px;
+    width: var(--s16);
 
     &:hover {
       background-color: var(--language-menu-bg-active);

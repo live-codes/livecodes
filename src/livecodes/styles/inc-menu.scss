@@ -174,10 +174,9 @@
   a.subtitle {
     border-radius: inherit;
     color: inherit;
-    cursor: default;
     display: inherit;
     justify-content: space-between;
-    padding: 6px 8px; // TODO css var rel to li height (fontsize+padding)
+    padding: var(--s6) var(--s8); // TODO css var rel to li height (fontsize+padding)
     text-decoration: none;
     white-space: nowrap;
     width: 100%;
