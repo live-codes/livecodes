@@ -155,7 +155,7 @@
   --project-title-box-shadow: 0 0 4px 1px var(--0);
   --project-title-active: var(--darker-active);
   --project-title-color: var(--darker-color);
-  // modal ressources results
+  // modal resources results
   --resources-search-bg: var(--modal);
   --resources-search-border: 1px solid var(--darker-bg-color);
   --resources-search-color: var(--darker-color);
@@ -938,11 +938,13 @@ a#result-button {
 }
 
 #output {
+  background-color: var(--toolbar-bg-color);
   height: 100%;
   overflow: hidden;
 }
 
 #result {
+  background-color: #fff;
   resize: both;
 
   &.full {
