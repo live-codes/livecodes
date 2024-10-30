@@ -2754,7 +2754,7 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -2783,7 +2783,7 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
       baseUrl,
@@ -2967,7 +2967,7 @@ const handleDeploy = () => {
       );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const getProjectDeployRepo = async () => {
       if (!projectId) return;
@@ -3018,7 +3018,7 @@ const handleSync = () => {
       );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
@@ -3128,7 +3128,7 @@ const handlePersistentStorage = async () => {
 
 const handleBackup = () => {
   const createBackupUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
     backupModule.createBackupUI({
       baseUrl,
@@ -3150,7 +3150,7 @@ const handleBroadcast = () => {
   if (isEmbed) return;
 
   const createBroadcastUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/broadcast') = await import(
       baseUrl + '{{hash:broadcast.js}}'
@@ -3186,7 +3186,7 @@ const handleWelcome = () => {
   if (isEmbed) return;
 
   const createWelcomeUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const div = document.createElement('div');
     div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
@@ -3421,7 +3421,7 @@ const handleEmbed = () => {
       getFontFamily,
     });
   const createEmbedUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const embedModule: typeof import('./UI/embed-ui') = await import(
       baseUrl + '{{hash:embed-ui.js}}'
@@ -3480,7 +3480,7 @@ const handleEditorSettings = () => {
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
       baseUrl + '{{hash:editor-settings.js}}'
@@ -3513,7 +3513,7 @@ const handleEditorSettings = () => {
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
@@ -3570,7 +3570,7 @@ const handleAssets = () => {
 const handleSnippets = () => {
   let snippetsModule: typeof import('./UI/snippets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     snippetsModule = snippetsModule || (await import(baseUrl + '{{hash:snippets.js}}'));
   };
 
@@ -3641,7 +3641,7 @@ const handleExternalResources = () => {
       dispatchChangeEvent();
     };
 
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
