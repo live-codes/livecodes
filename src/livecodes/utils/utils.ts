@@ -470,6 +470,59 @@ export const evaluateCssCalc = (expression: string) => {
   return value;
 };
 
+const colorToRgba = (name: string) => {
+  const fakeDiv = document.createElement('div');
+  fakeDiv.style.color = name;
+  document.body.appendChild(fakeDiv);
+  const style = window.getComputedStyle(fakeDiv);
+  const colorValue = style.getPropertyValue('color');
+  document.body.removeChild(fakeDiv);
+
+  const rgba = colorValue
+    .split('(')[1]
+    .split(')')[0]
+    .split(',')
+    .map((x) => Number(x));
+  const [r, g, b, a = 1] = rgba;
+  return { r, g, b, a };
+};
+
+const rgbaToHsla = (r: number, g: number, b: number, a = 1) => {
+  const r$ = r / 255;
+  const g$ = g / 255;
+  const b$ = b / 255;
+  const cmin = Math.min(r$, g$, b$);
+  const cmax = Math.max(r$, g$, b$);
+  const delta = cmax - cmin;
+  let h = 0;
+  let s = 0;
+  let l = 0;
+
+  if (delta === 0) h = 0;
+  else if (cmax === r$) h = ((g$ - b$) / delta) % 6;
+  else if (cmax === g$) h = (b$ - r$) / delta + 2;
+  else h = (r$ - g$) / delta + 4;
+  h = Math.round(h * 60);
+  if (h < 0) h += 360;
+  l = (cmax + cmin) / 2;
+  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = +(s * 100).toFixed(0);
+  l = +(l * 100).toFixed(0);
+  return { h, s, l, a };
+};
+
+// https://livecodes.io/?x=id/szanmixc6gy
+export const colorToHsla = (color: string) => {
+  if (color.startsWith('hsl') && color.includes('(')) {
+    const hsla = color.split('(')[1]?.split(')')[0]?.split(',') ?? [];
+    const [h, s, l, a = 1] = hsla.map((x) => Number(x.replace('%', '')));
+    return { h, s, l, a };
+  }
+
+  const { r, g, b, a } = colorToRgba(color);
+  return rgbaToHsla(r, g, b, a);
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

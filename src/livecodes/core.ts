@@ -99,6 +99,7 @@ import {
 } from './config';
 import { isGithub } from './import/check-src';
 import {
+  colorToHsla,
   copyToClipboard,
   debounce,
   getValidUrl,
@@ -1303,7 +1304,13 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (newConfig.theme || newConfig.editorTheme) {
+  if (
+    newConfig.theme ||
+    newConfig.editorTheme ||
+    newConfig.themeColor ||
+    newConfig.themeColorLight ||
+    newConfig.fontSize
+  ) {
     setTheme(
       newConfig.theme || getConfig().theme,
       newConfig.editorTheme || getConfig().editorTheme,
@@ -1740,6 +1747,8 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
+  setThemeColor();
+  setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
     themeToggle.checked = theme === 'dark';
@@ -1749,6 +1758,24 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
   toolsPane?.console?.setTheme?.(theme);
+};
+
+const setThemeColor = () => {
+  const { themeColor, themeColorLight, theme } = getConfig();
+  const darkThemeColor = themeColor || themeColorLight || 'hsl(214, 40%, 50%)';
+  const lightThemeColor = themeColorLight || themeColor || 'hsl(214, 40%, 100%)';
+  const color = theme === 'dark' ? darkThemeColor : lightThemeColor;
+  const { h, s, l } = colorToHsla(color);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--hue', `${h}`);
+  root.style.setProperty('--st', `${s}%`);
+  root.style.setProperty('--lt', `${l}%`);
+};
+
+const setFontSize = () => {
+  const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
 const setLayout = (layout: Config['layout']) => {
