@@ -212,6 +212,10 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
+const defaultColors = {
+  themeColor: '',
+  themeColorLight: '',
+};
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -1762,14 +1766,38 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
 
 const setThemeColor = () => {
   const { themeColor, themeColorLight, theme } = getConfig();
-  const darkThemeColor = themeColor || themeColorLight || 'hsl(214, 40%, 50%)';
-  const lightThemeColor = themeColorLight || themeColor || 'hsl(214, 40%, 100%)';
+  const { themeColor: defaultThemeColor, themeColorLight: defaultThemeColorLight } =
+    getDefaultColors();
+  const darkThemeColor = themeColor || themeColorLight || defaultThemeColor;
+  const lightThemeColor = themeColorLight || themeColor || defaultThemeColorLight;
   const color = theme === 'dark' ? darkThemeColor : lightThemeColor;
   const { h, s, l } = colorToHsla(color);
   const root = document.querySelector(':root') as HTMLElement;
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
   root.style.setProperty('--lt', `${l}%`);
+};
+
+const getDefaultColors = () => {
+  if (defaultColors.themeColor && defaultColors.themeColorLight) {
+    return defaultColors;
+  }
+  const root = document.querySelector(':root') as HTMLElement;
+  const theme = root.classList.contains('light') ? 'light' : 'dark';
+  root.classList.remove('light');
+  const h = getComputedStyle(root).getPropertyValue('--hue');
+  const s = getComputedStyle(root).getPropertyValue('--st');
+  const l = getComputedStyle(root).getPropertyValue('--lt');
+  root.classList.add('light');
+  const hLight = getComputedStyle(root).getPropertyValue('--hue');
+  const sLight = getComputedStyle(root).getPropertyValue('--st');
+  const lLight = getComputedStyle(root).getPropertyValue('--lt');
+  if (theme === 'dark') {
+    root.classList.remove('light');
+  }
+  defaultColors.themeColor = `hsl(${h}, ${s}, ${l})`;
+  defaultColors.themeColorLight = `hsl(${hLight}, ${sLight}, ${lLight})`;
+  return defaultColors;
 };
 
 const setFontSize = () => {
