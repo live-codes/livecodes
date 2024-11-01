@@ -62,24 +62,24 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Linting and fixing
-      run: npm run fix
+    # - name: Linting and fixing
+    #   run: npm run fix
 
-    - name: Commit changes
-      run: |
-        git add .
+    # - name: Commit changes
+    #   run: |
+    #     git add .
 
-        # Only commit if there are changes
-        git diff-index --quiet HEAD || git commit -m "i18n: update source texts"
+    #     # Only commit if there are changes
+    #     git diff-index --quiet HEAD || git commit -m "i18n: update source texts"
 
-        # Save SHA of the latest commit to English locale
-        echo "LAST_COMMIT_SHA_PUSH=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
+    #     # Save SHA of the latest commit to English locale
+    #     echo "LAST_COMMIT_SHA_PUSH=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
 
-    - name: Push changes
-      run: git push origin $BRANCH
+    # - name: Push changes
+    #   run: git push origin $BRANCH
 
-    - name: Push source texts to Lokalise
-      run: npm run i18n-update-push -- $LOKALISE_BRANCH
+    # - name: Push source texts to Lokalise
+    #   run: npm run i18n-update-push -- $LOKALISE_BRANCH
 
     - name: Import from Lokalise
       run: |
@@ -111,6 +111,8 @@ jobs:
           echo "No difference between $BRANCH and ${{ github.event.repository.default_branch }}."
           echo "SKIP=true" >> $GITHUB_ENV
         fi
+
+        echo "LAST_COMMIT_SHA_PUSH=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales/en)" >> $GITHUB_ENV
 
     - name: Create a new i18n PR if not exists
       uses: actions/github-script@v7
