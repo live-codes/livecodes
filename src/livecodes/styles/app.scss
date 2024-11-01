@@ -14,6 +14,7 @@
   --s20: calc(var(--unit) * 1.25);
   --s24: calc(var(--unit) * 1.5);
   --s32: calc(var(--unit) * 2);
+  --s36: calc(var(--unit) * 2.25);
   --s40: calc(var(--unit) * 2.5);
   --rs: var(--s4); // border radius
 
@@ -83,7 +84,7 @@
   --dropdown-color: var(--link);
   --dropdown-active: var(--darker-active);
   --dropdown-font: var(--s14);
-  --dropdown-height: 32px;
+  --dropdown-height: var(--s32);
   --dropdown-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.275);
   --dropdown-split-color: var(--dark-bg-color);
   --submenu-arrow-color: var(--darker-color);
@@ -155,7 +156,7 @@
   --project-title-box-shadow: 0 0 4px 1px var(--0);
   --project-title-active: var(--darker-active);
   --project-title-color: var(--darker-color);
-  // modal ressources results
+  // modal resources results
   --resources-search-bg: var(--modal);
   --resources-search-border: 1px solid var(--darker-bg-color);
   --resources-search-color: var(--darker-color);
@@ -185,8 +186,9 @@
   --toolbar-bg-color: var(--layout);
   --toolbar-border: 1px solid var(--color30);
   --toolbar-color: var(--link);
-  --toolbar-height: 42px; // used to calc menu, toolbar & editor-container height
+  --toolbar-height: var(--s36); // used to calc menu, toolbar & editor-container height
 
+  --toolspane-bar-height: var(--s32);
   --toolspane-bar-text-color: var(--color40);
   --toolspane-buttons-text-color: var(--color40);
   --toolspane-button-color: var(--color40);
@@ -351,6 +353,7 @@ a:visited {
   padding: var(--s4);
   text-decoration: none;
   transition: ease-in-out 0.4s;
+  transition: visibility 0s;
 
   &:hover {
     background: var(--btn-bg-active);
@@ -802,7 +805,7 @@ a#result-button {
 
   > div {
     flex-grow: 1;
-    min-height: 32px;
+    min-height: var(--s32);
     position: relative;
     width: 100%;
   }
@@ -837,7 +840,7 @@ a#result-button {
 
 .tool-buttons {
   background: var(--toolbar-bg-color);
-  height: 32px;
+  height: var(--toolspane-bar-height);
 
   &.hidden {
     display: none;
@@ -852,7 +855,7 @@ a#result-button {
     color: var(--btn-color);
     cursor: pointer;
     display: inline-flex;
-    font-size: 16px; // todo text vs icon size ??
+    font-size: var(--font-size); // todo text vs icon size ??
     height: var(--btn-height, 26px);
     justify-content: center;
     margin: 3px;
@@ -938,11 +941,13 @@ a#result-button {
 }
 
 #output {
+  background-color: var(--toolbar-bg-color);
   height: 100%;
   overflow: hidden;
 }
 
 #result {
+  background-color: #fff;
   resize: both;
 
   &.full {
@@ -975,14 +980,14 @@ a#result-button {
 
 #tools-pane-bar {
   font-size: var(--s12);
-  height: 32px; // ref const gutterSize = 32; src/livecodes/toolspane/tools.ts
+  height: var(--toolspane-bar-height);
   justify-content: space-between;
   padding: 1px 0; // fix bottom space
 }
 
 #tools-pane-titles {
   display: flex;
-  height: 32px;
+  height: var(--toolspane-bar-height);
   justify-content: flex-start;
 }
 
@@ -1281,7 +1286,7 @@ li.editor-title {
     color: var(--language-menu-color-active);
     cursor: pointer;
     display: flex;
-    height: 20px;
+    height: var(--s16);
     justify-content: center;
     margin: 0;
     outline: none;
@@ -1289,7 +1294,7 @@ li.editor-title {
     place-content: center;
     place-items: center;
     text-decoration: none;
-    width: 20px;
+    width: var(--s16);
 
     &:hover {
       background-color: var(--language-menu-bg-active);
@@ -1325,7 +1330,7 @@ li.editor-title {
 }
 
 .embed #modal.small {
-  min-height: 140px !important;
+  // min-height: 140px !important;
   width: 300px !important;
 }
 
@@ -1402,12 +1407,14 @@ li.editor-title {
     height: var(--toolbar-height);
     justify-content: space-between;
 
+    #logo {
+      inset-block-start: var(--s6); /* top */
+      inset-inline-end: var(--s6); /* right */
+      position: absolute;
+    }
+
     .toolbar-app {
       justify-content: flex-start;
-
-      #logo {
-        order: 1;
-      }
 
       #app-menu-button-project,
       #app-menu-button-settings,
@@ -1436,7 +1443,7 @@ li.editor-title {
     .toolbar-render {
       flex-grow: 0;
       justify-content: flex-end;
-      margin-right: var(--s4);
+      margin-inline-end: 50px; /* margin-right */
       min-width: 70px;
       width: auto;
 
@@ -1450,6 +1457,9 @@ li.editor-title {
       }
 
       #share-button,
+      #app-menu-button-i18n,
+      #light-theme-button,
+      #dark-theme-button,
       #login-link,
       #logout-link {
         display: none;
@@ -1494,8 +1504,11 @@ li.editor-title {
 
 .simple-mode {
   .editor-title:not(.active),
-  #toolbar #result-button,
-  #toolbar #fullscreen-button,
+  &.embed #toolbar .toolbar-render #result-button,
+  &.embed #toolbar .toolbar-render #fullscreen-button,
+  &.embed #toolbar .toolbar-render #app-menu-button-i18n,
+  &.embed #toolbar .toolbar-render #light-theme-button,
+  &.embed #toolbar .toolbar-render #dark-theme-button,
   #editors #editor-tools,
   #console-input,
   #result-popup-btn,
@@ -1504,7 +1517,7 @@ li.editor-title {
   }
 
   #toolbar {
-    margin-bottom: -8px;
+    margin-bottom: -9px;
     transform: scale(0.8);
     transform-origin: left top;
     width: 125%;
@@ -1519,15 +1532,13 @@ li.editor-title {
       }
     }
 
-    #run-button {
-      display: flex !important;
-      position: absolute;
-      right: 0;
+    .toolbar-render div:first-child {
+      flex-grow: 0;
     }
   }
 
   #editor-container {
-    height: calc(100% - var(--toolbar-height)) !important;
+    flex-grow: 1;
   }
 
   #tools-pane-bar {
@@ -1547,17 +1558,15 @@ li.editor-title {
   #login-link,
   #logout-link,
   #share-button,
+  #result-button,
+  #fullscreen-button,
+  #light-theme-button,
+  #dark-theme-button,
+  #app-menu-button-i18n,
   #settings-button,
   .tools-pane-title:not(.console),
   .tool-buttons {
     visibility: hidden;
-  }
-
-  #toolbar {
-    #result-button,
-    #fullscreen-button {
-      display: none !important;
-    }
   }
 
   #focus-btn {

@@ -54,6 +54,9 @@ const translation = {
     },
   },
   app: {
+    changeTheme: {
+      hint: 'Change Theme',
+    },
     copy: {
       hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
@@ -77,6 +80,9 @@ const translation = {
     },
     fullscreen: {
       hint: 'Full Screen',
+    },
+    i18nButton: {
+      hint: 'Change UI Language',
     },
     logo: {
       title: 'LiveCodes: Code Playground That Just Works!',
@@ -464,6 +470,9 @@ const translation = {
     },
     clickForInfo: 'Click for info...',
     close: 'Close',
+    embed: {
+      logoHint: 'Edit on LiveCodes 🡕',
+    },
     error: {
       authentication: 'Authentication error!',
       exceededSize: 'Error: Exceeded size {{size}} MB',
@@ -528,7 +537,7 @@ const translation = {
       hint: 'Project',
     },
     appSettings: {
-      heading: 'Setttings',
+      heading: 'Settings',
       hint: 'App Settings',
     },
     assets: 'Assets …',

@@ -92,6 +92,10 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.changeTheme.hint": {
+    "notes": "",
+    "translation": "Change Theme"
+  },
   "app.copy.hint": {
     "notes": "",
     "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
@@ -123,6 +127,10 @@
   "app.fullscreen.hint": {
     "notes": "",
     "translation": "Full Screen"
+  },
+  "app.i18nButton.hint": {
+    "notes": "",
+    "translation": "Change UI Language"
   },
   "app.logo.title": {
     "notes": "",
@@ -1084,6 +1092,10 @@
     "notes": "",
     "translation": "Close"
   },
+  "generic.embed.logoHint": {
+    "notes": "",
+    "translation": "Edit on LiveCodes 🡕"
+  },
   "generic.error.authentication": {
     "notes": "",
     "translation": "Authentication error!"
@@ -1250,7 +1262,7 @@
   },
   "menu.appSettings.heading": {
     "notes": "",
-    "translation": "Setttings"
+    "translation": "Settings"
   },
   "menu.appSettings.hint": {
     "notes": "",

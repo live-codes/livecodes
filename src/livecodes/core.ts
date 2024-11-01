@@ -99,6 +99,7 @@ import {
 } from './config';
 import { isGithub } from './import/check-src';
 import {
+  colorToHsla,
   copyToClipboard,
   debounce,
   getValidUrl,
@@ -211,6 +212,10 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
+const defaultColors = {
+  themeColor: '',
+  themeColorLight: '',
+};
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -1303,7 +1308,13 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (newConfig.theme || newConfig.editorTheme) {
+  if (
+    newConfig.theme ||
+    newConfig.editorTheme ||
+    newConfig.themeColor ||
+    newConfig.themeColorLight ||
+    newConfig.fontSize
+  ) {
     setTheme(
       newConfig.theme || getConfig().theme,
       newConfig.editorTheme || getConfig().editorTheme,
@@ -1505,10 +1516,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
         );
       }
       if (isWelcomeScreen) {
-        welcomeRecover.style.cssText = `
-         display: none;
-         order: 10;
-       `;
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1517,10 +1525,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
       if (isWelcomeScreen) {
-        welcomeRecover.style.cssText = `
-        display: none;
-        order: 10;
-      `;
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1746,15 +1751,75 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
+  setThemeColor();
+  setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
     themeToggle.checked = theme === 'dark';
+  }
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (darkThemeButton && !isEmbed) {
+    if (theme === 'dark') {
+      darkThemeButton.style.display = 'inherit';
+    } else {
+      darkThemeButton.style.display = 'none';
+    }
+  }
+  const lightThemeButton = UI.getLightThemeButton();
+  if (lightThemeButton && !isEmbed) {
+    if (theme === 'light') {
+      lightThemeButton.style.display = 'inherit';
+    } else {
+      lightThemeButton.style.display = 'none';
+    }
   }
   getAllEditors().forEach((editor) => {
     editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
   toolsPane?.console?.setTheme?.(theme);
+};
+
+const setThemeColor = () => {
+  const { themeColor, themeColorLight, theme } = getConfig();
+  const { themeColor: defaultThemeColor, themeColorLight: defaultThemeColorLight } =
+    getDefaultColors();
+  const darkThemeColor = themeColor || themeColorLight || defaultThemeColor;
+  const lightThemeColor = themeColorLight || themeColor || defaultThemeColorLight;
+  const color = theme === 'dark' ? darkThemeColor : lightThemeColor;
+  const { h, s, l } = colorToHsla(color);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--hue', `${h}`);
+  root.style.setProperty('--st', `${s}%`);
+  root.style.setProperty('--lt', `${l}%`);
+};
+
+const getDefaultColors = () => {
+  if (defaultColors.themeColor && defaultColors.themeColorLight) {
+    return defaultColors;
+  }
+  const root = document.querySelector(':root') as HTMLElement;
+  const theme = root.classList.contains('light') ? 'light' : 'dark';
+  root.classList.remove('light');
+  const h = getComputedStyle(root).getPropertyValue('--hue');
+  const s = getComputedStyle(root).getPropertyValue('--st');
+  const l = getComputedStyle(root).getPropertyValue('--lt');
+  root.classList.add('light');
+  const hLight = getComputedStyle(root).getPropertyValue('--hue');
+  const sLight = getComputedStyle(root).getPropertyValue('--st');
+  const lLight = getComputedStyle(root).getPropertyValue('--lt');
+  if (theme === 'dark') {
+    root.classList.remove('light');
+  }
+  defaultColors.themeColor = `hsl(${h}, ${s}, ${l})`;
+  defaultColors.themeColorLight = `hsl(${hLight}, ${sLight}, ${lLight})`;
+  return defaultColors;
+};
+
+const setFontSize = () => {
+  const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
 const setLayout = (layout: Config['layout']) => {
@@ -2292,6 +2357,36 @@ const handleShareButton = () => {
   eventsManager.addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
 };
 
+const handleI18nMenu = () => {
+  const menuContainer = UI.getI18nMenuContainer();
+  const i18nMenu = document.createElement('ul');
+  i18nMenu.id = 'app-menu-i18n';
+  i18nMenu.className = 'dropdown-menu';
+  Object.entries(appLanguages).forEach(([langCode, langLabel]) => {
+    const li = document.createElement('li');
+    li.classList.toggle('active', langCode === getConfig().appLanguage);
+    const link = document.createElement('a');
+    link.href = `#`;
+    link.textContent = langLabel;
+    eventsManager.addEventListener(link, 'click', (ev) => {
+      ev.preventDefault();
+      if (langCode === getConfig().appLanguage) return;
+      checkSavedAndExecute(async () => {
+        setUserConfig({ appLanguage: langCode as AppLanguage });
+        if (!i18n && langCode !== 'en') {
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadI18n(langCode as AppLanguage);
+        }
+        await i18n?.changeLanguage(langCode);
+        setAppLanguage(true);
+      })();
+    });
+    li.appendChild(link);
+    i18nMenu.appendChild(li);
+  });
+  menuContainer.appendChild(i18nMenu);
+};
+
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
 
@@ -2561,6 +2656,23 @@ const handleSettings = () => {
   });
 };
 
+const handleChangeTheme = () => {
+  const lightThemeButton = UI.getLightThemeButton();
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (lightThemeButton) {
+    eventsManager.addEventListener(lightThemeButton, 'click', () => {
+      setUserConfig({ theme: 'dark' });
+      setTheme('dark', getConfig().editorTheme);
+    });
+  }
+  if (darkThemeButton) {
+    eventsManager.addEventListener(darkThemeButton, 'click', () => {
+      setUserConfig({ theme: 'light' });
+      setTheme('light', getConfig().editorTheme);
+    });
+  }
+};
+
 const handleLogin = () => {
   eventsManager.addEventListener(UI.getLoginLink(), 'click', login, false);
   registerScreen('login', login);
@@ -2754,7 +2866,7 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -2783,7 +2895,7 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
       baseUrl,
@@ -2967,7 +3079,7 @@ const handleDeploy = () => {
       );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const getProjectDeployRepo = async () => {
       if (!projectId) return;
@@ -3018,7 +3130,7 @@ const handleSync = () => {
       );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
@@ -3128,7 +3240,7 @@ const handlePersistentStorage = async () => {
 
 const handleBackup = () => {
   const createBackupUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
     backupModule.createBackupUI({
       baseUrl,
@@ -3150,7 +3262,7 @@ const handleBroadcast = () => {
   if (isEmbed) return;
 
   const createBroadcastUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/broadcast') = await import(
       baseUrl + '{{hash:broadcast.js}}'
@@ -3186,7 +3298,7 @@ const handleWelcome = () => {
   if (isEmbed) return;
 
   const createWelcomeUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const div = document.createElement('div');
     div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
@@ -3421,7 +3533,7 @@ const handleEmbed = () => {
       getFontFamily,
     });
   const createEmbedUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const embedModule: typeof import('./UI/embed-ui') = await import(
       baseUrl + '{{hash:embed-ui.js}}'
@@ -3480,7 +3592,7 @@ const handleEditorSettings = () => {
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
       baseUrl + '{{hash:editor-settings.js}}'
@@ -3513,7 +3625,7 @@ const handleEditorSettings = () => {
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
@@ -3570,7 +3682,7 @@ const handleAssets = () => {
 const handleSnippets = () => {
   let snippetsModule: typeof import('./UI/snippets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     snippetsModule = snippetsModule || (await import(baseUrl + '{{hash:snippets.js}}'));
   };
 
@@ -3641,7 +3753,7 @@ const handleExternalResources = () => {
       dispatchChangeEvent();
     };
 
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
@@ -4266,6 +4378,8 @@ const extraHandlers = async () => {
   handleAppMenuSettings();
   handleAppMenuHelp();
   handleSettings();
+  handleI18nMenu();
+  handleChangeTheme();
   handleProjectInfo();
   handleCustomSettings();
   handleTestEditor();
@@ -4308,8 +4422,11 @@ const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createE
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.classList.add('hint--bottom-right');
-  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
+  logoLink.classList.add('hint--bottom-left');
+  logoLink.dataset.hint = window.deps.translateString(
+    'generic.embed.logoHint',
+    'Edit on LiveCodes 🡕',
+  );
   logoLink.title = '';
 
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {

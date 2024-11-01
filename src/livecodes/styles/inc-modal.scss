@@ -52,7 +52,13 @@
   position: relative;
   width: 80vw;
 
+  &.large {
+    height: 85vh;
+    max-height: 85vh;
+  }
+
   .modal-message {
+    min-height: 3rem;
     text-align: center;
     width: 100%;
 
@@ -368,7 +374,7 @@
 
   &.small {
     max-height: 32rem;
-    min-height: 200px;
+    // min-height: 200px;
     overflow-y: auto;
     width: 25rem;
   }
@@ -1429,9 +1435,17 @@
     margin-bottom: 1rem;
   }
 
-  #welcome-container {
-    .modal-screen-container {
-      margin: 1rem 1rem 2rem;
+  #welcome-screen-container {
+    flex-direction: column;
+    margin: 1rem 1rem 2rem;
+    max-height: 38rem;
+
+    &.no-recent {
+      height: 26rem;
+    }
+
+    li {
+      white-space: nowrap;
     }
   }
 
@@ -1452,7 +1466,13 @@
 
   #welcome-recover {
     display: none;
+    max-height: 15em;
     overflow: hidden;
+    transition: max-height 0.7s ease-out;
+
+    &.cancelled {
+      max-height: 0;
+    }
 
     .welcome-recover-content {
       background: var(--darker-bg-color);
@@ -1508,18 +1528,27 @@
   }
 
   @media only screen and (max-width: 768px) {
-    #modal {
-      .modal-section {
-        width: 100%;
+    #welcome-container {
+      .modal-screen-container {
+        flex-wrap: nowrap;
+        max-height: unset;
 
-        ul.modal-docs {
-          columns: 1;
+        &.no-recent {
+          height: unset;
         }
       }
+    }
 
-      .modal-section#welcome-recover {
-        order: -1;
+    .modal-section {
+      width: 100%;
+
+      ul.modal-docs {
+        columns: 1;
       }
+    }
+
+    .modal-section#welcome-recover {
+      order: -1;
     }
   }
 }
@@ -1691,12 +1720,12 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  #modal,
-  #modal.small {
+  #modal {
     min-height: 23rem;
   }
 
   #modal.small {
+    min-height: 3rem;
     width: 23rem;
   }
 
