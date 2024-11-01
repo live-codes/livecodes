@@ -56,6 +56,9 @@ jobs:
         echo "newBranch=$NEW_BRANCH" >> $GITHUB_OUTPUT
         echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
 
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
+        
         if [[ ! $(git ls-remote --heads origin $NEW_BRANCH) ]]; then
           skip "Branch \`$NEW_BRANCH\` does not exist."
         fi

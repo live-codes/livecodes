@@ -40,6 +40,9 @@ jobs:
 
     - name: Switch to i18n branch
       run: |
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
+
         if [[ $(git ls-remote --heads origin $BRANCH) ]]; then
           git config pull.rebase false
           git fetch origin $BRANCH:$BRANCH
@@ -64,8 +67,6 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.name "livecodes-ci[bot]"
-        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
         git add .
 
         # Only commit if there are changes
