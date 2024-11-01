@@ -79,9 +79,13 @@ html[dir='rtl'] {
     right: 100%;
   }
 
-  .close-button {
+  #modal .close-button {
     left: 1.5rem;
     right: unset;
+  }
+
+  #modal select {
+    background-position: 1% 50%;
   }
 
   .indent {
