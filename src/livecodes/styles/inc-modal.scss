@@ -53,14 +53,14 @@
   width: 80vw;
 
   &.large {
-    max-height: 85vh;
     height: 85vh;
+    max-height: 85vh;
   }
 
   .modal-message {
+    min-height: 3rem;
     text-align: center;
     width: 100%;
-    min-height: 3rem;
 
     &.hidden {
       display: none;

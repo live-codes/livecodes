@@ -1408,9 +1408,9 @@ li.editor-title {
     justify-content: space-between;
 
     #logo {
-      position: absolute;
-      inset-inline-end: var(--s6); /* right */
       inset-block-start: var(--s6); /* top */
+      inset-inline-end: var(--s6); /* right */
+      position: absolute;
     }
 
     .toolbar-app {

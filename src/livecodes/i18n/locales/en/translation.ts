@@ -81,6 +81,9 @@ const translation = {
     fullscreen: {
       hint: 'Full Screen',
     },
+    i18nButton: {
+      hint: 'Change UI Language',
+    },
     logo: {
       title: 'LiveCodes: Code Playground That Just Works!',
     },
@@ -534,7 +537,7 @@ const translation = {
       hint: 'Project',
     },
     appSettings: {
-      heading: 'Setttings',
+      heading: 'Settings',
       hint: 'App Settings',
     },
     assets: 'Assets …',
