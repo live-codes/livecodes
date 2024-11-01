@@ -56,6 +56,7 @@ const translation = {
   app: {
     changeTheme: {
       hint: 'Change Theme',
+    },
     consoleMessage: {
       learnMore: 'Learn more! {{docsUrl}} 🚀',
     },

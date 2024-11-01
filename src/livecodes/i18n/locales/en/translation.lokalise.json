@@ -95,6 +95,7 @@
   "app.changeTheme.hint": {
     "notes": "",
     "translation": "Change Theme"
+  },
   "app.consoleMessage.learnMore": {
     "notes": "",
     "translation": "Learn more! {{docsUrl}} 🚀"
