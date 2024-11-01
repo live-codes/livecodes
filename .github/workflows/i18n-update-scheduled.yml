@@ -25,10 +25,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
     - name: Check out repository
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Switch to i18n branch
       run: |
@@ -56,8 +64,8 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
         git add .
 
         # Only commit if there are changes
@@ -83,8 +91,6 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
         
         # Only commit if there are changes
@@ -109,6 +115,7 @@ jobs:
       uses: actions/github-script@v7
       if: steps.check-diff.outputs.SKIP != 'true'
       with:
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const prInfo = await github.rest.pulls.list({
               owner: context.repo.owner,

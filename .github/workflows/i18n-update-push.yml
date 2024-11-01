@@ -20,10 +20,20 @@ jobs:
       skipReason: ${{ steps.fetch-pr.outputs.skipReason }}
       newBranch: ${{ steps.fetch-pr.outputs.newBranch }}
       branch: ${{ steps.fetch-pr.outputs.branch }}
+      token: ${{ steps.generate-token.outputs.token }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Fetch PR details
       id: fetch-pr
@@ -51,7 +61,7 @@ jobs:
           echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
         fi
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
   runner:
     name: Runner
@@ -65,6 +75,8 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ needs.precheck.outputs.token }}
 
     - name: Setup Node
       uses: actions/setup-node@v4
@@ -84,8 +96,8 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
         git add .
 
         # Only commit if there are changes
@@ -103,6 +115,7 @@ jobs:
     - name: Create comment and reaction on PR
       uses: actions/github-script@v7
       with:
+        github-token: ${{ needs.precheck.outputs.token }}
         script: |
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
@@ -143,6 +156,7 @@ jobs:
     - name: Create comment and reaction on PR
       uses: actions/github-script@v7
       with:
+        github-token: ${{ needs.precheck.outputs.token }}
         script: |
             const runURL = `${context.payload.repository.html_url}/actions/runs/${process.env.GITHUB_RUN_ID}`;
             const commentBody = `## i18n Actions: \`.i18n-update-push\`
