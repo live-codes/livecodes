@@ -17,6 +17,12 @@
   left: 13rem;
 }
 
+#app-menu-container-i18n {
+  left: unset;
+  width: 250px;
+  right: 15%;
+}
+
 @media only screen and (max-width: 1179px) {
   #app-menu-container-project {
     left: 3em;
@@ -28,6 +34,16 @@
 
   #app-menu-container-help {
     left: 7em;
+  }
+
+  #app-menu-container-i18n {
+    right: 10%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #app-menu-container-i18n {
+    right: 5%;
   }
 }
 
@@ -41,7 +57,8 @@
 
     &#app-menu-project,
     &#app-menu-settings,
-    &#app-menu-help {
+    &#app-menu-help,
+    &#app-menu-i18n {
       display: block;
     }
   }
@@ -50,7 +67,8 @@
 // active
 #app-menu-help,
 #app-menu-settings,
-#app-menu-project {
+#app-menu-project,
+#app-menu-i18n {
   column-count: 1;
   left: 0;
   margin-top: 0;
@@ -61,6 +79,12 @@
     animation: fadeIn 0.4s forwards;
     display: block !important;
   }
+}
+
+#app-menu-i18n {
+  left: unset;
+  right: 15px;
+  width: 200px;
 }
 
 .menu-scroller {

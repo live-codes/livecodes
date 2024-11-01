@@ -17,6 +17,11 @@ html[dir='rtl'] {
     right: 13rem;
   }
 
+  #app-menu-container-i18n {
+    right: unset;
+    left: 15%;
+  }
+
   @media only screen and (max-width: 1179px) {
     #app-menu-container-project {
       right: 3em;
@@ -29,6 +34,21 @@ html[dir='rtl'] {
     #app-menu-container-help {
       right: 7em;
     }
+
+    #app-menu-container-i18n {
+      left: 10%;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    #app-menu-container-i18n {
+      left: 5%;
+    }
+  }
+
+  #app-menu-i18n {
+    right: unset;
+    left: 15px;
   }
 
   .actions {

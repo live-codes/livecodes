@@ -2357,6 +2357,36 @@ const handleShareButton = () => {
   eventsManager.addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
 };
 
+const handleI18nMenu = () => {
+  const menuContainer = UI.getI18nMenuContainer();
+  const i18nMenu = document.createElement('ul');
+  i18nMenu.id = 'app-menu-i18n';
+  i18nMenu.className = 'dropdown-menu';
+  Object.entries(appLanguages).forEach(([langCode, langLabel]) => {
+    const li = document.createElement('li');
+    li.classList.toggle('active', langCode === getConfig().appLanguage);
+    const link = document.createElement('a');
+    link.href = `#`;
+    link.textContent = langLabel;
+    eventsManager.addEventListener(link, 'click', (ev) => {
+      ev.preventDefault();
+      if (langCode === getConfig().appLanguage) return;
+      checkSavedAndExecute(async () => {
+        setUserConfig({ appLanguage: langCode as AppLanguage });
+        if (!i18n && langCode !== 'en') {
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadI18n(langCode as AppLanguage);
+        }
+        await i18n?.changeLanguage(langCode);
+        setAppLanguage(true);
+      })();
+    });
+    li.appendChild(link);
+    i18nMenu.appendChild(li);
+  });
+  menuContainer.appendChild(i18nMenu);
+};
+
 const handleEditorTools = () => {
   if (!configureEditorTools(getActiveEditor().getLanguage())) return;
 
@@ -2631,13 +2661,13 @@ const handleChangeTheme = () => {
   const darkThemeButton = UI.getDarkThemeButton();
   if (lightThemeButton) {
     eventsManager.addEventListener(lightThemeButton, 'click', () => {
-      setConfig({ ...getConfig(), theme: 'dark' });
+      setUserConfig({ theme: 'dark' });
       setTheme('dark', getConfig().editorTheme);
     });
   }
   if (darkThemeButton) {
     eventsManager.addEventListener(darkThemeButton, 'click', () => {
-      setConfig({ ...getConfig(), theme: 'light' });
+      setUserConfig({ theme: 'light' });
       setTheme('light', getConfig().editorTheme);
     });
   }
@@ -4348,6 +4378,7 @@ const extraHandlers = async () => {
   handleAppMenuSettings();
   handleAppMenuHelp();
   handleSettings();
+  handleI18nMenu();
   handleChangeTheme();
   handleProjectInfo();
   handleCustomSettings();

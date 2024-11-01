@@ -28,6 +28,8 @@ export const getLightThemeButton = /* @__PURE__ */ () =>
   document.querySelector('#light-theme-button') as HTMLElement;
 export const getDarkThemeButton = /* @__PURE__ */ () =>
   document.querySelector('#dark-theme-button') as HTMLElement;
+export const getI18nMenuContainer = /* @__PURE__ */ () =>
+  document.querySelector('#app-menu-container-i18n') as HTMLElement;
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
 export const getFocusButton = /* @__PURE__ */ () =>
