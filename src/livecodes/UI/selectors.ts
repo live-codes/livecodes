@@ -24,6 +24,10 @@ export const getLogoLink = /* @__PURE__ */ () =>
   document.querySelector('a#logo') as HTMLAnchorElement;
 export const getRunButton = /* @__PURE__ */ () =>
   document.querySelector('#run-button') as HTMLElement;
+export const getLightThemeButton = /* @__PURE__ */ () =>
+  document.querySelector('#light-theme-button') as HTMLElement;
+export const getDarkThemeButton = /* @__PURE__ */ () =>
+  document.querySelector('#dark-theme-button') as HTMLElement;
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
 export const getFocusButton = /* @__PURE__ */ () =>

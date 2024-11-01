@@ -54,6 +54,9 @@ const translation = {
     },
   },
   app: {
+    changeTheme: {
+      hint: 'Change Theme',
+    },
     copy: {
       hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },

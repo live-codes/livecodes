@@ -92,6 +92,10 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.changeTheme.hint": {
+    "notes": "",
+    "translation": "Change Theme"
+  },
   "app.copy.hint": {
     "notes": "",
     "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"

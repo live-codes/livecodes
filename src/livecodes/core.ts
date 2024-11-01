@@ -1757,6 +1757,22 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   if (themeToggle) {
     themeToggle.checked = theme === 'dark';
   }
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (darkThemeButton && !isEmbed) {
+    if (theme === 'dark') {
+      darkThemeButton.style.display = 'inherit';
+    } else {
+      darkThemeButton.style.display = 'none';
+    }
+  }
+  const lightThemeButton = UI.getLightThemeButton();
+  if (lightThemeButton && !isEmbed) {
+    if (theme === 'light') {
+      lightThemeButton.style.display = 'inherit';
+    } else {
+      lightThemeButton.style.display = 'none';
+    }
+  }
   getAllEditors().forEach((editor) => {
     editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
@@ -2608,6 +2624,23 @@ const handleSettings = () => {
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
   });
+};
+
+const handleChangeTheme = () => {
+  const lightThemeButton = UI.getLightThemeButton();
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (lightThemeButton) {
+    eventsManager.addEventListener(lightThemeButton, 'click', () => {
+      setConfig({ ...getConfig(), theme: 'dark' });
+      setTheme('dark', getConfig().editorTheme);
+    });
+  }
+  if (darkThemeButton) {
+    eventsManager.addEventListener(darkThemeButton, 'click', () => {
+      setConfig({ ...getConfig(), theme: 'light' });
+      setTheme('light', getConfig().editorTheme);
+    });
+  }
 };
 
 const handleLogin = () => {
@@ -4315,6 +4348,7 @@ const extraHandlers = async () => {
   handleAppMenuSettings();
   handleAppMenuHelp();
   handleSettings();
+  handleChangeTheme();
   handleProjectInfo();
   handleCustomSettings();
   handleTestEditor();

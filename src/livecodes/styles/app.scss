@@ -854,7 +854,7 @@ a#result-button {
     color: var(--btn-color);
     cursor: pointer;
     display: inline-flex;
-    font-size: 16px; // todo text vs icon size ??
+    font-size: var(--font-size); // todo text vs icon size ??
     height: var(--btn-height, 26px);
     justify-content: center;
     margin: 3px;
@@ -1456,6 +1456,8 @@ li.editor-title {
       }
 
       #share-button,
+      #light-theme-button,
+      #dark-theme-button,
       #login-link,
       #logout-link {
         display: none;
