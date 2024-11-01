@@ -20,7 +20,6 @@ jobs:
       skipReason: ${{ steps.fetch-pr.outputs.skipReason }}
       newBranch: ${{ steps.fetch-pr.outputs.newBranch }}
       branch: ${{ steps.fetch-pr.outputs.branch }}
-      token: ${{ steps.generate-token.outputs.token }}
 
     steps:
     - name: Generate Github Token for CI Bot
@@ -76,10 +75,17 @@ jobs:
       PR_BRANCH: ${{ needs.precheck.outputs.branch }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
     - name: Check out repository
       uses: actions/checkout@v4
       with:
-        token: ${{ needs.precheck.outputs.token }}
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Setup Node
       uses: actions/setup-node@v4
@@ -118,7 +124,7 @@ jobs:
     - name: Create comment and reaction on PR
       uses: actions/github-script@v7
       with:
-        github-token: ${{ needs.precheck.outputs.token }}
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
@@ -156,10 +162,17 @@ jobs:
       SKIP_REASON: ${{ needs.precheck.outputs.skipReason }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+    
     - name: Create comment and reaction on PR
       uses: actions/github-script@v7
       with:
-        github-token: ${{ needs.precheck.outputs.token }}
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const runURL = `${context.payload.repository.html_url}/actions/runs/${process.env.GITHUB_RUN_ID}`;
             const commentBody = `## i18n Actions: \`.i18n-update-push\`
