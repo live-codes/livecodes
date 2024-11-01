@@ -56,6 +56,8 @@ const translation = {
   app: {
     changeTheme: {
       hint: 'Change Theme',
+    consoleMessage: {
+      learnMore: 'Learn more! {{docsUrl}} 🚀',
     },
     copy: {
       hint: 'Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -482,6 +484,7 @@ const translation = {
     more: 'More...',
     optional: 'Optional',
     required: 'Required',
+    tagline: 'A Code Playground That Just Works!',
   },
   import: {
     bulk: {

@@ -8,6 +8,7 @@ env:
   LOKALISE_PROJECT_ID: ${{ vars.LOKALISE_PROJECT_ID }}
   LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
   NODE_VERSION: 18.x
+  CI: true
 
 jobs:
   precheck:
@@ -37,6 +38,8 @@ jobs:
           echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
         fi
 
+        # Use branch name prefixed with owner name
+        PR_BRANCH=$(echo "$PR_DETAILS" | jq -r '.head.label' | sed 's/:/\//g')
         NEW_BRANCH="i18n/$PR_BRANCH"
         echo "newBranch=$NEW_BRANCH" >> $GITHUB_OUTPUT
         echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
@@ -69,17 +72,6 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-
-    # - name: Cache Node modules
-    #   id: cache-npm
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ~/.npm
-    #     key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
-    #       ${{ runner.os }}-build-
-    #       ${{ runner.os }}-
 
     - name: Install dependencies
       run: npm ci

@@ -17,6 +17,7 @@ env:
   BRANCH: i18n/develop
   LOKALISE_BRANCH: master
   NODE_VERSION: 18.x
+  CI: true
 
 jobs:
   update:
@@ -26,10 +27,13 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Switch to i18n branch
       run: |
         if [[ $(git ls-remote --heads origin $BRANCH) ]]; then
+          git config pull.rebase false
           git fetch origin $BRANCH:$BRANCH
           git checkout $BRANCH
           git pull origin develop
@@ -43,17 +47,6 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-
-    # - name: Cache Node modules
-    #   id: cache-npm
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ~/.npm
-    #     key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
-    #       ${{ runner.os }}-build-
-    #       ${{ runner.os }}-
 
     - name: Install dependencies
       run: npm ci
@@ -103,12 +96,12 @@ jobs:
     - name: Push changes
       run: git push origin $BRANCH
 
-    - name: Check if has differences between BRANCH and default branch
+    - name: Check if has differences between ${{ env.BRANCH }} and ${{ github.event.repository.default_branch }}
       id: check-diff
       run: |
-        DIFF=$(git diff --name-only $BRANCH ${{ github.event.repository.default_branch }})
+        DIFF=$(git diff --name-only $BRANCH origin/${{ github.event.repository.default_branch }})
         if [[ -z $DIFF ]]; then
-          echo "No differences between $BRANCH and ${{ github.event.repository.default_branch }}."
+          echo "No difference between $BRANCH and ${{ github.event.repository.default_branch }}."
           echo "SKIP=true" >> $GITHUB_ENV
         fi
 
