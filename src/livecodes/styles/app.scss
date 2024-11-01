@@ -353,6 +353,7 @@ a:visited {
   padding: var(--s4);
   text-decoration: none;
   transition: ease-in-out 0.4s;
+  transition: visibility 0s;
 
   &:hover {
     background: var(--btn-bg-active);
@@ -1329,7 +1330,7 @@ li.editor-title {
 }
 
 .embed #modal.small {
-  min-height: 140px !important;
+  // min-height: 140px !important;
   width: 300px !important;
 }
 
@@ -1503,8 +1504,11 @@ li.editor-title {
 
 .simple-mode {
   .editor-title:not(.active),
-  #toolbar #result-button,
-  #toolbar #fullscreen-button,
+  &.embed #toolbar .toolbar-render #result-button,
+  &.embed #toolbar .toolbar-render #fullscreen-button,
+  &.embed #toolbar .toolbar-render #app-menu-button-i18n,
+  &.embed #toolbar .toolbar-render #light-theme-button,
+  &.embed #toolbar .toolbar-render #dark-theme-button,
   #editors #editor-tools,
   #console-input,
   #result-popup-btn,
@@ -1528,10 +1532,8 @@ li.editor-title {
       }
     }
 
-    #run-button {
-      display: flex !important;
-      position: absolute;
-      right: 0;
+    .toolbar-render div:first-child {
+      flex-grow: 0;
     }
   }
 
@@ -1556,17 +1558,15 @@ li.editor-title {
   #login-link,
   #logout-link,
   #share-button,
+  #result-button,
+  #fullscreen-button,
+  #light-theme-button,
+  #dark-theme-button,
+  #app-menu-button-i18n,
   #settings-button,
   .tools-pane-title:not(.console),
   .tool-buttons {
     visibility: hidden;
-  }
-
-  #toolbar {
-    #result-button,
-    #fullscreen-button {
-      display: none !important;
-    }
   }
 
   #focus-btn {
