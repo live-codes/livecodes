@@ -362,6 +362,7 @@ a:visited {
   cursor: pointer;
   display: flex;
   font-size: var(--s14);
+  height: 32px;
   justify-content: center;
   min-width: 32px;
   outline: none;
@@ -565,9 +566,9 @@ kbd {
       color: var(--menu-active);
     }
 
-    i {
+/*     i {
       margin-top: 4px;
-    }
+    } */
 
     .menu-text {
       margin: 0 var(--s4);
@@ -749,6 +750,11 @@ a#result-button {
     .dropdown-menu.submenu {
       left: 44%;
     }
+
+    #light-theme-button,
+    #dark-theme-button {
+      display: none;
+    }
   }
 
   #toolbar > .toolbar-app,
@@ -771,7 +777,7 @@ a#result-button {
     .editor-title > span {
       overflow: hidden;
       text-overflow: ellipsis;
-      /* white-space: nowrap; */
+      white-space: nowrap;
     }
   }
 
@@ -1243,7 +1249,7 @@ a#result-button {
 #select-editor {
   color: var(--editor-title-color);
   height: calc(var(--toolbar-height) - 6px);
-  margin: 0 0.5rem 0 0;
+  margin: 0 0 0 0.5rem;
   position: relative;
 
   > ul {
@@ -1267,8 +1273,8 @@ li.editor-title {
   margin-right: 2px;
   padding: 0 8px;
   position: relative;
-  top: 3px;
-  width: 100px;
+  top: 1px;
+  width: 90px;
 
   &:hover {
     background-color: var(--editor-title-bg-active);
@@ -1279,6 +1285,9 @@ li.editor-title {
   > span {
     display: inherit;
     flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &.active {
@@ -1512,6 +1521,12 @@ li.editor-title {
       flex-wrap: nowrap;
       height: var(--toolbar-height);
       width: 100%;
+
+      #app-menu-button-i18n,
+      #light-theme-button,
+      #dark-theme-button {
+        display: none;
+      }
 
       #select-editor {
         height: var(--toolbar-height);

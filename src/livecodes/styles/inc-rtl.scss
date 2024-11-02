@@ -18,8 +18,8 @@ html[dir='rtl'] {
   }
 
   #app-menu-container-i18n {
-    left: 15%;
-    right: unset;
+    left: unset;
+    right: 15rem;
   }
 
   @media only screen and (max-width: 1179px) {
@@ -36,13 +36,13 @@ html[dir='rtl'] {
     }
 
     #app-menu-container-i18n {
-      left: 10%;
+      right: 8em;
     }
   }
 
   @media only screen and (max-width: 768px) {
     #app-menu-container-i18n {
-      left: 5%;
+      right: 8em;
     }
   }
 

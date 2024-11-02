@@ -18,8 +18,9 @@
 }
 
 #app-menu-container-i18n {
-  left: unset;
-  right: 15%;
+  // left: unset;
+  // right: 15%;
+  left: 15rem;
   width: 250px;
 }
 
@@ -37,13 +38,14 @@
   }
 
   #app-menu-container-i18n {
-    right: 10%;
+    // right: 10%;
+    left: 8em;
   }
 }
 
 @media only screen and (max-width: 768px) {
   #app-menu-container-i18n {
-    right: 5%;
+    // right: 5%;
   }
 }
 
@@ -388,16 +390,24 @@ i.arrow {
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
-  .menu-scroller-markup,
-  .menu-scroller-style,
-  .menu-scroller-script {
-    max-width: 98vw;
-    position: fixed;
-    transform: translateX(-1vw);
-  }
+  #toolbar {
+    .menu-scroller-markup,
+    .menu-scroller-style,
+    .menu-scroller-script {
+      max-width: 98vw;
+      position: fixed;
+      transform: translateX(-1vw);
+    }
 
-  .dropdown-menu-script {
-    column-count: 2;
+    .dropdown-menu-script {
+      column-count: 2;
+    }
+
+    #app-menu-button-i18n,
+    #light-theme-button,
+    #dark-theme-button {
+      display: none !important;
+    }
   }
 }
 
