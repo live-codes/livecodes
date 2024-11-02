@@ -22,8 +22,17 @@ jobs:
       branch: ${{ steps.fetch-pr.outputs.branch }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+    
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Fetch PR details
       id: fetch-pr
@@ -46,11 +55,14 @@ jobs:
         echo "newBranch=$NEW_BRANCH" >> $GITHUB_OUTPUT
         echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
 
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
+        
         if [[ ! $(git ls-remote --heads origin $NEW_BRANCH) ]]; then
           skip "Branch \`$NEW_BRANCH\` does not exist."
         fi
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
   runner:
     name: Runner
@@ -62,10 +74,18 @@ jobs:
       PR_BRANCH: ${{ needs.precheck.outputs.branch }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+  
     - name: Check out repository
       uses: actions/checkout@v4
       with:
         ref: ${{ needs.precheck.outputs.newBranch }}
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Setup Node
       uses: actions/setup-node@v4
@@ -88,8 +108,8 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
         git add .
         
         # Only commit if there are changes
@@ -104,6 +124,7 @@ jobs:
     - name: Create a new i18n PR, comment on source PR and reaction
       uses: actions/github-script@v7
       with:
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
@@ -178,9 +199,17 @@ jobs:
       SKIP_REASON: ${{ needs.precheck.outputs.skipReason }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+    
     - name: Create reaction on PR
       uses: actions/github-script@v7
       with:
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const runURL = `${context.payload.repository.html_url}/actions/runs/${process.env.GITHUB_RUN_ID}`;
             const commentBody = `## i18n Actions: \`.i18n-update-pull\`
