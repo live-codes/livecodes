@@ -100,7 +100,7 @@
   --editor-tools-mark-color: #8bc34a;
 
   --gutter-split-bg-color: var(--layout);
-  --gutter-split-bg-handle: var(--color);
+  --gutter-split-bg-handle: var(--light);
 
   --input-bg-color: var(--darker-bg-color);
   --input-bg-active: var(--darker-bg-active);
@@ -523,6 +523,11 @@ kbd {
     padding: 0;
     text-align: center;
     width: 32px;
+
+    img {
+      width: 32px;
+      height: auto;
+    }
 
     a {
       text-decoration: none;
@@ -1411,6 +1416,10 @@ li.editor-title {
       inset-block-start: var(--s6); /* top */
       inset-inline-end: var(--s6); /* right */
       position: absolute;
+
+      img {
+        width: 28px;
+      }
     }
 
     .toolbar-app {
@@ -1468,6 +1477,7 @@ li.editor-title {
   }
 
   #focus-btn,
+  #copy-as-url-btn,
   #settings-button,
   #editor-settings-btn,
   #project-info-btn,
