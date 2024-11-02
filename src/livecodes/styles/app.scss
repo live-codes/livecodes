@@ -1447,7 +1447,10 @@ li.editor-title {
 
       #app-menu-button-project,
       #app-menu-button-settings,
-      #app-menu-button-help {
+      #app-menu-button-help,
+      #app-menu-button-i18n,
+      #light-theme-button,
+      #dark-theme-button {
         display: none;
       }
 
@@ -1486,9 +1489,6 @@ li.editor-title {
       }
 
       #share-button,
-      #app-menu-button-i18n,
-      #light-theme-button,
-      #dark-theme-button,
       #login-link,
       #logout-link {
         display: none;
@@ -1561,11 +1561,12 @@ li.editor-title {
     #select-editor {
       width: 100%;
 
-      .editor-title.active {
+/*       .editor-title.active {
         background-color: unset;
         border: 0;
         cursor: auto;
-      }
+        display: flex;
+      } */
     }
 
     .toolbar-render div:first-child {
