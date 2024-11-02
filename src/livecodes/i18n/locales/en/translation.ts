@@ -106,14 +106,7 @@ const translation = {
       hint: 'Share',
     },
     themeColors: {
-      amber: 'Amber',
-      blue: 'Blue',
       custom: 'Custom',
-      cyan: 'Cyan',
-      green: 'Green',
-      red: 'Red',
-      slate: 'Slate',
-      violet: 'Violet',
     },
     undo: {
       hint: 'Undo (Ctrl/Cmd + Z)',

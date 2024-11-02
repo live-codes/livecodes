@@ -153,7 +153,7 @@ import type {
   I18nTranslationTemplate,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
-import { getThemeColors } from './UI/theme-colors';
+import { themeColors } from './UI/theme-colors';
 
 // declare global dependencies
 declare global {
@@ -1793,13 +1793,13 @@ const changeThemeColor = () => {
 const getDefaultColor = () => {
   if (defaultColor) return defaultColor;
   const root = document.querySelector(':root') as HTMLElement;
-  const theme = root.classList.contains('light') ? 'light' : 'dark';
+  const theme = getConfig().theme;
   root.classList.remove('light');
   const h = getComputedStyle(root).getPropertyValue('--hue');
   const s = getComputedStyle(root).getPropertyValue('--st');
   const l = getComputedStyle(root).getPropertyValue('--lt');
-  if (theme === 'dark') {
-    root.classList.remove('light');
+  if (theme === 'light') {
+    root.classList.add('light');
   }
   defaultColor = `hsl(${h}, ${s}, ${l})`;
   return defaultColor;
@@ -2708,11 +2708,13 @@ const handleSettings = () => {
   });
 
   const themeColorSelector = UI.getThemeColorSelector()!;
-  getThemeColors().forEach((colorItem) => {
+  themeColors.forEach((colorItem) => {
     const customColor = colorItem.name === 'custom';
     const label = document.createElement('label');
     label.htmlFor = 'theme-color-' + colorItem.name;
-    label.title = colorItem.title;
+    if (customColor) {
+      label.title = window.deps.translateString('app.themeColors.custom', 'Custom');
+    }
     if (colorItem.themeColor) {
       label.style.backgroundColor = colorItem.themeColor;
     }
