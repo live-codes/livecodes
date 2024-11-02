@@ -153,7 +153,7 @@ import type {
   I18nTranslationTemplate,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
-import { themeColors } from './UI/theme-colors';
+import { getThemeColors } from './UI/theme-colors';
 
 // declare global dependencies
 declare global {
@@ -2708,11 +2708,11 @@ const handleSettings = () => {
   });
 
   const themeColorSelector = UI.getThemeColorSelector()!;
-  themeColors.forEach((colorItem) => {
+  getThemeColors().forEach((colorItem) => {
     const customColor = colorItem.name === 'custom';
     const label = document.createElement('label');
     label.htmlFor = 'theme-color-' + colorItem.name;
-    label.title = colorItem.name;
+    label.title = colorItem.title;
     if (colorItem.themeColor) {
       label.style.backgroundColor = colorItem.themeColor;
     }

@@ -105,6 +105,16 @@ const translation = {
     share: {
       hint: 'Share',
     },
+    themeColors: {
+      amber: 'Amber',
+      blue: 'Blue',
+      custom: 'Custom',
+      cyan: 'Cyan',
+      green: 'Green',
+      red: 'Red',
+      slate: 'Slate',
+      violet: 'Violet',
+    },
     undo: {
       hint: 'Undo (Ctrl/Cmd + Z)',
     },
@@ -599,6 +609,7 @@ const translation = {
     source: 'Source code on GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Dark Theme',
+    themeColor: 'Color',
     welcome: {
       heading: 'Welcome …',
     },
