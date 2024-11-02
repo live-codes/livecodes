@@ -475,6 +475,43 @@ i.arrow {
   }
 }
 
+#theme-color-item {
+  padding: 6px 8px;
+
+  #theme-color-selector {
+    display: flex;
+
+    input {
+      border: 0 !important;
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px !important;
+      overflow: hidden;
+      padding: 0 !important;
+      position: absolute !important;
+      width: 1px !important;
+    }
+
+    label {
+      cursor: pointer;
+      display: inline-block;
+      height: var(--s16);
+      width: var(--s16);
+      border-radius: var(--rs);
+      margin: var(--s2);
+
+      &[for='theme-color-custom'] {
+        background: conic-gradient(in hsl longer hue, red 0 0);
+        filter: contrast(0.5);
+      }
+
+      &:has(input:checked),
+      &:has(input:focus) {
+        outline: 1px solid var(--input-active);
+      }
+    }
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

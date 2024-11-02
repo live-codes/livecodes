@@ -108,6 +108,7 @@ import {
   stringToValidJson,
   toDataUrl,
   predefinedValues,
+  colorToHex,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -152,6 +153,7 @@ import type {
   I18nTranslationTemplate,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
+import { themeColors } from './UI/theme-colors';
 
 // declare global dependencies
 declare global {
@@ -1751,7 +1753,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
-  setThemeColor();
+  changeThemeColor();
   setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
@@ -1780,7 +1782,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   toolsPane?.console?.setTheme?.(theme);
 };
 
-const setThemeColor = () => {
+const changeThemeColor = () => {
   const { themeColor, themeColorLight, theme } = getConfig();
   const { themeColor: defaultThemeColor, themeColorLight: defaultThemeColorLight } =
     getDefaultColors();
@@ -1792,6 +1794,13 @@ const setThemeColor = () => {
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
   root.style.setProperty('--lt', `${l}%`);
+
+  const customColorInput = UI.getThemeColorSelector()?.querySelector(
+    'input[type="color"]',
+  ) as HTMLInputElement;
+  if (customColorInput) {
+    customColorInput.value = colorToHex(darkThemeColor);
+  }
 };
 
 const getDefaultColors = () => {
@@ -2716,6 +2725,33 @@ const handleSettings = () => {
     delayValue.textContent = String(value / 1000);
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
+  });
+
+  const themeColorSelector = UI.getThemeColorSelector()!;
+  themeColors.forEach((colorItem) => {
+    const customColor = colorItem.name === 'custom';
+    const label = document.createElement('label');
+    label.htmlFor = 'theme-color-' + colorItem.name;
+    label.title = colorItem.name;
+    if (colorItem.themeColor) {
+      label.style.backgroundColor = colorItem.themeColor;
+    }
+
+    const input = document.createElement('input');
+    input.type = customColor ? 'color' : 'radio';
+    input.id = 'theme-color-' + colorItem.name;
+    input.name = 'theme-color';
+
+    label.appendChild(input);
+    themeColorSelector.appendChild(label);
+
+    eventsManager.addEventListener(input, 'input', () => {
+      setUserConfig({
+        themeColor: customColor ? input.value : colorItem.themeColor,
+        themeColorLight: customColor ? input.value : colorItem.themeColorLight,
+      });
+      changeThemeColor();
+    });
   });
 };
 

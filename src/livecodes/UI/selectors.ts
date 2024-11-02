@@ -1,79 +1,112 @@
 export const getToolbarElement = /* @__PURE__ */ () =>
   document.querySelector('#toolbar') as HTMLElement;
+
 export const getProjectTitleElement = /* @__PURE__ */ () =>
   document.querySelector('#project-title') as HTMLElement;
+
 export const getEditorContainerElement = /* @__PURE__ */ () =>
   document.querySelector('#editor-container') as HTMLElement;
+
 export const getEditorsElement = /* @__PURE__ */ () =>
   document.querySelector('#editors') as HTMLElement;
+
 export const getMarkupElement = /* @__PURE__ */ () =>
   document.querySelector('#markup') as HTMLElement;
+
 export const getStyleElement = /* @__PURE__ */ () =>
   document.querySelector('#style') as HTMLElement;
+
 export const getScriptElement = /* @__PURE__ */ () =>
   document.querySelector('#script') as HTMLElement;
+
 export const getOutputElement = /* @__PURE__ */ () =>
   document.querySelector('#output') as HTMLElement;
+
 export const getResultElement = /* @__PURE__ */ () =>
   document.querySelector('#result') as HTMLElement;
+
 export const getResultIFrameElement = /* @__PURE__ */ () =>
   document.querySelector('#result > iframe') as HTMLIFrameElement;
 export const getGutterElement = /* @__PURE__ */ () =>
   document.querySelector('#editor-container .gutter') as HTMLElement;
+
 export const getLogoLink = /* @__PURE__ */ () =>
   document.querySelector('a#logo') as HTMLAnchorElement;
 export const getRunButton = /* @__PURE__ */ () =>
   document.querySelector('#run-button') as HTMLElement;
+
 export const getLightThemeButton = /* @__PURE__ */ () =>
   document.querySelector('#light-theme-button') as HTMLElement;
+
 export const getDarkThemeButton = /* @__PURE__ */ () =>
   document.querySelector('#dark-theme-button') as HTMLElement;
+
 export const getI18nMenuContainer = /* @__PURE__ */ () =>
   document.querySelector('#app-menu-container-i18n') as HTMLElement;
+
 export const getEditorToolbar = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools') as HTMLElement;
+
 export const getFocusButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #focus-btn') as HTMLElement;
+
 export const getCopyButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #copy-btn') as HTMLElement;
+
 export const getCopyAsUrlButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #copy-as-url-btn') as HTMLElement;
+
 export const getUndoButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #undo-btn') as HTMLElement;
+
 export const getRedoButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #redo-btn') as HTMLElement;
+
 export const getFormatButton = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #format-btn') as HTMLElement;
+
 export const getEditorModeNode = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#editor-mode');
 export const getEditorStatus = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #editor-status') as HTMLElement;
+
 export const getExternalResourcesBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #external-resources-btn') as HTMLElement;
+
 export const getExternalResourcesMark = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #external-resources-mark') as HTMLElement;
+
 export const getProjectInfoBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #project-info-btn') as HTMLElement;
+
 export const getCustomSettingsBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #custom-settings-btn') as HTMLElement;
+
 export const getEditorSettingsBtn = /* @__PURE__ */ () =>
   document.querySelector('#editor-tools #editor-settings-btn') as HTMLElement;
+
 export const getShareButton = /* @__PURE__ */ () =>
   document.querySelector('#share-button') as HTMLElement;
+
 export const getResultButton = /* @__PURE__ */ () =>
   document.querySelector('#result-button') as HTMLElement;
+
 export const getFullscreenButton = /* @__PURE__ */ () =>
   document.querySelector('#fullscreen-button') as HTMLElement;
+
 export const getEditorTitles = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('.editor-title:not(.hidden)');
 export const getEditorDivs = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLElement>('#editors > .editor');
 export const getToolspaneElement = /* @__PURE__ */ () =>
   document.querySelector('#output #tools-pane') as HTMLElement;
+
 export const getToolspaneBar = /* @__PURE__ */ () =>
   document.querySelector('#output #tools-pane-bar') as HTMLElement;
+
 export const getToolspaneButtons = /* @__PURE__ */ () =>
   document.querySelector('#tools-pane-buttons') as HTMLElement;
+
 export const getToolspaneTitles = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#tools-pane-titles');
 export const getToolspaneLoader = /* @__PURE__ */ () =>
@@ -82,21 +115,28 @@ export const getZoomButtonValue = /* @__PURE__ */ () =>
   document.querySelector<HTMLElement>('#zoom-button #zoom-value');
 export const getModalSaveButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-save-btn') as HTMLElement;
+
 export const getModalDoNotSaveButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-donot-save-btn') as HTMLElement;
+
 export const getModalCancelButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-cancel-btn') as HTMLElement;
 
 export const getModalRecoverButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-recover-btn') as HTMLElement;
+
 export const getModalSavePreviousButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-save-previous-btn') as HTMLElement;
+
 export const getModalCancelRecoverButton = /* @__PURE__ */ () =>
   document.querySelector('#modal #prompt-cancel-recover-btn') as HTMLElement;
+
 export const getModalUnsavedName = /* @__PURE__ */ () =>
   document.querySelector('#modal #unsaved-project-name') as HTMLElement;
+
 export const getModalUnsavedLastModified = /* @__PURE__ */ () =>
   document.querySelector('#modal #unsaved-project-last-modified') as HTMLElement;
+
 export const getModalDisableRecoverCheckbox = /* @__PURE__ */ () =>
   document.querySelector('#modal #disable-recover-checkbox') as HTMLInputElement;
 
@@ -111,6 +151,9 @@ export const getstyleMenu = /* @__PURE__ */ () =>
 
 export const getSettingToggles = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLInputElement>('#app-menu-settings input');
+
+export const getThemeColorSelector = /* @__PURE__ */ () =>
+  document.querySelector<HTMLElement>('#app-menu-settings #theme-color-selector');
 
 export const getCssPresetLinks = /* @__PURE__ */ () =>
   document.querySelectorAll<HTMLAnchorElement>('#css-preset-menu a');
@@ -343,6 +386,7 @@ export const getNewRepoNameInput = /* @__PURE__ */ (deployContainer: HTMLElement
   deployContainer.querySelector('#new-repo-name') as HTMLInputElement;
 export const getNewRepoNameError = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-name-error') as HTMLElement;
+
 export const getNewRepoMessageInput = /* @__PURE__ */ (deployContainer: HTMLElement) =>
   deployContainer.querySelector('#new-repo-message') as HTMLInputElement;
 export const getNewRepoCommitSource = /* @__PURE__ */ (deployContainer: HTMLElement) =>
