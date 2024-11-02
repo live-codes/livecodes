@@ -14,9 +14,9 @@ const translation: I18nTranslation = {
     heading: 'Acerca de LiveCodes',
     livecodes: {
       para1:
-        '<1><tag-2>LiveCodes</tag-2></tag-1> es un área de juego de código <tag-3>de código abierto</tag-3>, <tag-4>rico en características</tag-4> y <tag-5>del lado del cliente</tag-5>. Actualmente, se admiten <tag-6>más de 80 lenguajes/<tag-7></tag-7>frameworks</tag-6>. Se puede usar como una aplicación independiente o se puede <tag-8>incrustar</tag-8> en cualquier página web. Hay muchas formas de <tag-9>precargar los campos de juego</tag-9> con código.',
+        '<1><2>LiveCodes</2></1> es un área de juego de código <3>de código abierto</3>, <4>rico en características</4> y <5>del lado del cliente</5>. Actualmente, se admiten <6>más de 80 lenguajes/<7></7>frameworks</6>. Se puede usar como una aplicación independiente o se puede <8>incrustar</8> en cualquier página web. Hay muchas formas de <9>precargar los campos de juego</9> con código.',
       para2:
-        'Una amplia gama de <1>opciones de configuración</tag-1> lo hace muy flexible. Un potente <tag-2>SDK</tag-2> (para <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> y <tag-6>Svelte</tag-6>) facilita la <tag-7>incrustación</tag-7> y la <tag-8>comunicación</tag-8> con los campos de juego. Hay disponible una <tag-9>documentación completa</tag-9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
+        'Una amplia gama de <1>opciones de configuración</1> lo hace muy flexible. Un potente <2>SDK</2> (para <3>JS/TS</3>, <4>React</4>, <5>Vue</5> y <6>Svelte</6>) facilita la <7>incrustación</7> y la <8>comunicación</8> con los campos de juego. Hay disponible una <9>documentación completa</9> con ejemplos de código, demostraciones en vivo y capturas de pantalla.',
     },
     version: {
       app: 'Versión de la aplicación: {{APP_VERSION}}',
@@ -28,6 +28,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    consoleMessage: {
+      learnMore: '¡Aprende más! {{docsUrl}} 🚀',
+    },
     copy: {
       hint: 'Copiar (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
@@ -81,12 +84,12 @@ const translation: I18nTranslation = {
   assets: {
     add: {
       dataURL: {
-        desc: 'Agregar activo como <1>URL de datos</tag-1> codificada en base64.',
+        desc: 'Agregar activo como <1>URL de datos</1> codificada en base64.',
         heading: 'URL de datos',
         label: 'Agregar archivo',
       },
       githubPages: {
-        desc: 'Desplegar activo en GitHub Pages. El archivo se envía a la rama <1>gh-pages</tag-1> del repositorio <tag-2>livecodes-assets</tag-2> en tu cuenta de GitHub. Si el repositorio aún no existe, se creará un repositorio público.',
+        desc: 'Desplegar activo en GitHub Pages. El archivo se envía a la rama <1>gh-pages</1> del repositorio <2>livecodes-assets</2> en tu cuenta de GitHub. Si el repositorio aún no existe, se creará un repositorio público.',
         heading: 'GitHub Pages',
         label: 'Subir archivo',
       },
@@ -157,7 +160,7 @@ const translation: I18nTranslation = {
     backup: {
       assets: 'Activos',
       button: 'Respaldar',
-      desc: 'Respalda los datos de LiveCodes para que puedan restaurarse más tarde en este u otros dispositivos. <1></tag-1> Por favor, visita la <tag-2>documentación</tag-2> para más detalles.',
+      desc: 'Respalda los datos de LiveCodes para que puedan restaurarse más tarde en este u otros dispositivos. <1></1> Por favor, visita la <2>documentación</2> para más detalles.',
       heading: 'Respaldo',
       projects: 'Proyectos',
       settings: 'Configuraciones de usuario',
@@ -173,7 +176,7 @@ const translation: I18nTranslation = {
     heading: 'Respaldo / Restauración',
     inProgress: 'En progreso...',
     restore: {
-      desc: 'Restaura los datos de LiveCodes previamente respaldados. <1></tag-1> Si eliges reemplazar el contenido actual, es posible que desees respaldarlo primero. <tag-2></tag-2> Por favor, visita la <tag-3>documentación</tag-3> para más detalles.',
+      desc: 'Restaura los datos de LiveCodes previamente respaldados. <1></1> Si eliges reemplazar el contenido actual, es posible que desees respaldarlo primero. <2></2> Por favor, visita la <3>documentación</3> para más detalles.',
       fromFile: 'Restaurar desde archivo',
       heading: 'Restaurar',
       mode: {
@@ -191,7 +194,7 @@ const translation: I18nTranslation = {
     broadcasting: 'Transmitiendo...',
     channelURL: 'URL del canal',
     connecting: 'Conectando...',
-    desc: 'Transmite la página de resultados a otros navegadores/dispositivos en tiempo real. Por favor, visita la <1>documentación</tag-1> para más detalles.',
+    desc: 'Transmite la página de resultados a otros navegadores/dispositivos en tiempo real. Por favor, visita la <1>documentación</1> para más detalles.',
     error: {
       generic: '¡La transmisión falló!',
       serverURLRequired: '¡Se requiere la URL del servidor!',
@@ -291,9 +294,9 @@ const translation: I18nTranslation = {
   },
   deploy: {
     create: {
-      desc: 'Se creará un nuevo repositorio <1>público</tag-1>. La página de resultados se enviará a la rama <tag-2>gh-pages</tag-2>.',
+      desc: 'Se creará un nuevo repositorio <1>público</1>. La página de resultados se enviará a la rama <2>gh-pages</2>.',
       heading: 'Crear nuevo repositorio',
-      repoName: 'Nombre del repositorio <1></tag-1>',
+      repoName: 'Nombre del repositorio <1></1>',
     },
     error: {
       generic: '¡Falló el despliegue!',
@@ -301,7 +304,7 @@ const translation: I18nTranslation = {
       repoNameRequired: 'Se requiere el nombre del repositorio',
     },
     existing: {
-      desc: 'Se añadirá un nuevo commit a la rama <1>gh-pages</tag-1>.',
+      desc: 'Se añadirá un nuevo commit a la rama <1>gh-pages</1>.',
       heading: 'Repositorio existente',
       repoName: 'Nombre del repositorio',
     },
@@ -322,7 +325,7 @@ const translation: I18nTranslation = {
     closeBrackets: 'Cerrar automáticamente paréntesis y comillas',
     codeJarDesc: '* Las características marcadas no están disponibles en CodeJar.',
     default: 'Predeterminado',
-    desc: 'Por favor, consulta la <1>documentación</tag-1> para más detalles.',
+    desc: 'Por favor, consulta la <1>documentación</1> para más detalles.',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -338,7 +341,7 @@ const translation: I18nTranslation = {
     emmet: 'Habilitar Emmet *',
     enableAI: {
       heading: 'Habilitar asistente de código IA',
-      note: 'Impulsado por <1><tag-2></tag-2></tag-1>',
+      note: 'Impulsado por <1><2></2></1>',
     },
     fontFamily: 'Familia de fuentes',
     fontSize: 'Tamaño de fuente',
@@ -376,7 +379,7 @@ const translation: I18nTranslation = {
       copy: 'Copiar código',
       heading: 'Código',
     },
-    desc: 'Por favor, consulta la <1>documentación</tag-1> para configuraciones avanzadas.',
+    desc: 'Por favor, consulta la <1>documentación</1> para configuraciones avanzadas.',
     embedType: {
       cdn: 'Script (CDN)',
       heading: 'Tipo de incrustación',
@@ -447,17 +450,18 @@ const translation: I18nTranslation = {
     more: 'Más...',
     optional: 'Opcional',
     required: 'Requerido',
+    tagline: '¡Un Patio de Código Que Simplemente Funciona!',
   },
   import: {
     bulk: {
-      desc: 'Importar en masa múltiples proyectos a tus proyectos guardados. Los proyectos se pueden exportar desde la pantalla de <1>Proyectos guardados</tag-1>.',
+      desc: 'Importar en masa múltiples proyectos a tus proyectos guardados. Los proyectos se pueden exportar desde la pantalla de <1>Proyectos guardados</1>.',
       fromFile: 'Importación masiva desde archivo local',
       fromURL: 'Importación masiva desde URL',
       heading: 'Importación masiva',
       started: 'Importación masiva iniciada...',
     },
     code: {
-      desc: 'Fuentes compatibles: <1> <tag-2>GitHub gist</tag-2> <tag-3>Archivo de GitHub</tag-3> <tag-4>Directorio en un repositorio de GitHub</tag-4> <tag-5>Fragmento de Gitlab</tag-5> <tag-6>Archivo de Gitlab</tag-6> <tag-7>Directorio en un repositorio de Gitlab</tag-7> <tag-8>JS Bin</tag-8> <tag-9>Código en bruto</tag-9> <tag-10>Código en el DOM de la página web</tag-10> <tag-11>Código en archivo zip</tag-11> <tag-12>Entornos oficiales<tag-13></tag-13>(TypeScript, Vue y Svelte)</tag-12> </tag-1> Por favor, visita la <tag-14>documentación</tag-14> para más detalles.',
+      desc: 'Fuentes compatibles: <1> <2>GitHub gist</2> <3>Archivo de GitHub</3> <4>Directorio en un repositorio de GitHub</4> <5>Fragmento de Gitlab</5> <6>Archivo de Gitlab</6> <7>Directorio en un repositorio de Gitlab</7> <8>JS Bin</8> <9>Código en bruto</9> <10>Código en el DOM de la página web</10> <11>Código en archivo zip</11> <12>Entornos oficiales<13></13>(TypeScript, Vue y Svelte)</12> </1> Por favor, visita la <14>documentación</14> para más detalles.',
       fromFile: 'Importar archivos locales',
       fromURL: 'Importar desde URL',
       heading: 'Importar código',
@@ -482,7 +486,7 @@ const translation: I18nTranslation = {
   },
   login: {
     accessAllowed: 'Permitir acceso a:',
-    desc: '<1>Al iniciar sesión, aceptas que se pueden almacenar <tag-2>cookies</tag-2> en tu dispositivo.</tag-1> <tag-3> <tag-4>¿Por qué se requieren estos permisos?</tag-4> </tag-3> <tag-5> <tag-6>¿Cómo cambiar/revocar permisos?</tag-6> </tag-5>',
+    desc: '<1>Al iniciar sesión, aceptas que se pueden almacenar <2>cookies</2> en tu dispositivo.</1> <3> <4>¿Por qué se requieren estos permisos?</4> </3> <5> <6>¿Cómo cambiar/revocar permisos?</6> </5>',
     gist: 'Gists',
     heading: 'Iniciar sesión con GitHub',
     loginAs: 'Sesión iniciada como {{name}}',
@@ -500,7 +504,7 @@ const translation: I18nTranslation = {
     broadcast: 'Transmitir …',
     customSettings: 'Configuraciones personalizadas …',
     delay: {
-      heading: 'Retraso: <1>1.5</tag-1>s',
+      heading: 'Retraso: <1>1.5</1>s',
       hint: 'Retraso antes de la actualización automática',
     },
     deploy: 'Desplegar …',
@@ -537,7 +541,7 @@ const translation: I18nTranslation = {
       hint: 'Presiona Alt/Opción y mueve el cursor sobre la página de resultados',
     },
     snippets: 'Fragmentos de código …',
-    sync: 'Sincronizar (beta) … <1> ⏳</tag-1>',
+    sync: 'Sincronizar (beta) … <1> ⏳</1>',
     theme: 'Tema oscuro',
     welcome: {
       heading: 'Bienvenida …',
@@ -590,11 +594,11 @@ const translation: I18nTranslation = {
   recoverPrompt: {
     desc: '¡Tu último proyecto tiene cambios sin guardar!',
     heading: '¿Recuperar proyecto no guardado?',
-    meta: 'Título: <1></tag-1> <tag-2></tag-2> Última modificación: <tag-3></tag-3>',
+    meta: 'Título: <1></1> <2></2> Última modificación: <3></3>',
     notShowAgain: 'No mostrar esto de nuevo.',
     prompt: {
       discard: 'Descartar proyecto no guardado',
-      heading: '<1></tag-1>¿Quieres recuperarlo ahora?',
+      heading: '<1></1>¿Quieres recuperarlo ahora?',
       recover: 'Recuperar proyecto en el editor',
       save: 'Guardar en el dispositivo y continuar',
     },
@@ -613,13 +617,13 @@ const translation: I18nTranslation = {
     },
     fonts: {
       add: 'Agregar',
-      heading: 'Fuentes <1>(proporcionado por Google Fonts)</tag-1>',
+      heading: 'Fuentes <1>(proporcionado por Google Fonts)</1>',
       select: 'Seleccionar fuente ...',
     },
     heading: 'Recursos externos',
     scripts: 'Scripts externos',
     search: {
-      heading: 'Buscar paquetes <1>(proporcionado por jsDelivr)</tag-1>',
+      heading: 'Buscar paquetes <1>(proporcionado por jsDelivr)</1>',
       placeholder: 'p. ej. jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: 'Hojas de estilo externas',
@@ -630,8 +634,7 @@ const translation: I18nTranslation = {
     prompt: {
       cancel: 'Cancelar',
       discard: 'No guardar',
-      heading:
-        'Los cambios que has realizado pueden no guardarse. <1></tag-1> ¿Quieres guardar ahora?',
+      heading: 'Los cambios que has realizado pueden no guardarse. <1></1> ¿Quieres guardar ahora?',
       save: 'Guardar',
     },
   },
@@ -729,7 +732,7 @@ const translation: I18nTranslation = {
   sync: {
     autoSync: 'Sincronización automática',
     create: {
-      desc: 'Se creará un nuevo repositorio <1>privado</tag-1>. Tus datos locales de LiveCodes se sincronizarán con la rama <tag-2>main</tag-2>.',
+      desc: 'Se creará un nuevo repositorio <1>privado</1>. Tus datos locales de LiveCodes se sincronizarán con la rama <2>main</2>.',
       heading: 'Crear nuevo repositorio',
       repoName: 'Nombre del repositorio',
     },
@@ -738,7 +741,7 @@ const translation: I18nTranslation = {
       repoNameRequired: 'Se requiere el nombre del repositorio',
     },
     existing: {
-      desc: 'Tus datos locales de LiveCodes se sincronizarán con la rama <1>main</tag-1>.',
+      desc: 'Tus datos locales de LiveCodes se sincronizarán con la rama <1>main</1>.',
       heading: 'Repositorio existente',
       repoName: 'Nombre del repositorio',
     },
@@ -752,7 +755,7 @@ const translation: I18nTranslation = {
   templates: {
     heading: 'Nuevo Proyecto',
     noUserTemplates: {
-      desc: 'Puedes guardar un proyecto como plantilla desde <1></tag-1>(Menú de la aplicación &gt; Guardar como &gt; Plantilla).',
+      desc: 'Puedes guardar un proyecto como plantilla desde <1></1>(Menú de la aplicación &gt; Guardar como &gt; Plantilla).',
       heading: 'No tienes plantillas guardadas.',
     },
     starter: {
@@ -839,16 +842,16 @@ const translation: I18nTranslation = {
     },
     test: {
       edit: 'Editar',
-      error: '<1><tag-2>¡Error en la prueba!</tag-2></tag-1>',
-      loading: '<1>Cargando pruebas...</tag-1>',
-      noTest: '<1>¡Este proyecto no tiene pruebas!</tag-1>',
+      error: '<1><2>¡Error en la prueba!</2></1>',
+      loading: '<1>Cargando pruebas...</1>',
+      noTest: '<1>¡Este proyecto no tiene pruebas!</1>',
       reset: 'Reiniciar',
       run: {
         desc: 'Ctrl/Cmd + Alt + T',
         heading: 'Ejecutar',
       },
       summary: {
-        desc: 'Pruebas: {{failed}}\n         {{passed}}\n         {{skipped}}\n         {{total}}<1></tag-1>\nTiempo: {{duration}}s',
+        desc: 'Pruebas: {{failed}}\n         {{passed}}\n         {{skipped}}\n         {{total}}<1></1>\nTiempo: {{duration}}s',
         failed: '{{failedNum}} fallidas',
         passed: '{{passedNum}} pasadas',
         skipped: '{{skippedNum}} omitidas',
@@ -873,7 +876,7 @@ const translation: I18nTranslation = {
     recover: {
       cancel: 'Cancelar',
       heading: 'Recuperar',
-      lastModified: 'Última modificación: <1></tag-1>',
+      lastModified: 'Última modificación: <1></1>',
       recover: 'Recuperar',
       save: 'Guardar',
       unsavedChanges: 'Tu último proyecto tenía cambios sin guardar:',
