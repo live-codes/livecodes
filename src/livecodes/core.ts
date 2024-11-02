@@ -214,10 +214,7 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
-const defaultColors = {
-  themeColor: '',
-  themeColorLight: '',
-};
+let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -1310,13 +1307,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (
-    newConfig.theme ||
-    newConfig.editorTheme ||
-    newConfig.themeColor ||
-    newConfig.themeColorLight ||
-    newConfig.fontSize
-  ) {
+  if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
       newConfig.theme || getConfig().theme,
       newConfig.editorTheme || getConfig().editorTheme,
@@ -1783,46 +1774,35 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
 };
 
 const changeThemeColor = () => {
-  const { themeColor, themeColorLight, theme } = getConfig();
-  const { themeColor: defaultThemeColor, themeColorLight: defaultThemeColorLight } =
-    getDefaultColors();
-  const darkThemeColor = themeColor || themeColorLight || defaultThemeColor;
-  const lightThemeColor = themeColorLight || themeColor || defaultThemeColorLight;
-  const color = theme === 'dark' ? darkThemeColor : lightThemeColor;
+  const { themeColor, theme } = getConfig();
+  const color = themeColor || getDefaultColor();
   const { h, s, l } = colorToHsla(color);
   const root = document.querySelector(':root') as HTMLElement;
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
-  root.style.setProperty('--lt', `${l}%`);
+  root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
 
   const customColorInput = UI.getThemeColorSelector()?.querySelector(
     'input[type="color"]',
   ) as HTMLInputElement;
   if (customColorInput) {
-    customColorInput.value = colorToHex(darkThemeColor);
+    customColorInput.value = colorToHex(color);
   }
 };
 
-const getDefaultColors = () => {
-  if (defaultColors.themeColor && defaultColors.themeColorLight) {
-    return defaultColors;
-  }
+const getDefaultColor = () => {
+  if (defaultColor) return defaultColor;
   const root = document.querySelector(':root') as HTMLElement;
   const theme = root.classList.contains('light') ? 'light' : 'dark';
   root.classList.remove('light');
   const h = getComputedStyle(root).getPropertyValue('--hue');
   const s = getComputedStyle(root).getPropertyValue('--st');
   const l = getComputedStyle(root).getPropertyValue('--lt');
-  root.classList.add('light');
-  const hLight = getComputedStyle(root).getPropertyValue('--hue');
-  const sLight = getComputedStyle(root).getPropertyValue('--st');
-  const lLight = getComputedStyle(root).getPropertyValue('--lt');
   if (theme === 'dark') {
     root.classList.remove('light');
   }
-  defaultColors.themeColor = `hsl(${h}, ${s}, ${l})`;
-  defaultColors.themeColorLight = `hsl(${hLight}, ${sLight}, ${lLight})`;
-  return defaultColors;
+  defaultColor = `hsl(${h}, ${s}, ${l})`;
+  return defaultColor;
 };
 
 const setFontSize = () => {
@@ -2746,10 +2726,7 @@ const handleSettings = () => {
     themeColorSelector.appendChild(label);
 
     eventsManager.addEventListener(input, 'input', () => {
-      setUserConfig({
-        themeColor: customColor ? input.value : colorItem.themeColor,
-        themeColorLight: customColor ? input.value : colorItem.themeColorLight,
-      });
+      setUserConfig({ themeColor: customColor ? input.value : colorItem.themeColor });
       changeThemeColor();
     });
   });

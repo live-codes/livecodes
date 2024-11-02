@@ -71,7 +71,6 @@ export const getEditorConfig = (config: Config | UserConfig): EditorConfig =>
     editor: config.editor ?? ((config as Config).readonly === true ? 'codejar' : undefined),
     theme: config.theme,
     themeColor: config.themeColor,
-    themeColorLight: config.themeColorLight,
     editorTheme: config.editorTheme,
     fontFamily: config.fontFamily,
     fontSize: config.fontSize,
