@@ -28,6 +28,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    consoleMessage: {
+      learnMore: 'مزید جانیں! {{docsUrl}} 🚀',
+    },
     copy: {
       hint: 'کاپی (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
@@ -447,6 +450,7 @@ const translation: I18nTranslation = {
     more: 'مزید...',
     optional: 'اختیاری',
     required: 'ضروری',
+    tagline: '!ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے',
   },
   import: {
     bulk: {

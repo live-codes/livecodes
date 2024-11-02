@@ -28,6 +28,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    consoleMessage: {
+      learnMore: '了解更多！ {{docsUrl}} 🚀',
+    },
     copy: {
       hint: '复制（Ctrl/Cmd + A, Ctrl/Cmd + C）',
     },
@@ -447,6 +450,7 @@ const translation: I18nTranslation = {
     more: '更多...',
     optional: '可选',
     required: '必填',
+    tagline: '一个简单实用的代码游乐场！',
   },
   import: {
     bulk: {
