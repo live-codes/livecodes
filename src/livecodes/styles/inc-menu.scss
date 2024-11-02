@@ -492,12 +492,12 @@ i.arrow {
     }
 
     label {
+      border-radius: var(--rs);
       cursor: pointer;
       display: inline-block;
       height: var(--s16);
-      width: var(--s16);
-      border-radius: var(--rs);
       margin: var(--s2);
+      width: var(--s16);
 
       &[for='theme-color-custom'] {
         background: conic-gradient(in hsl longer hue, red 0 0);
