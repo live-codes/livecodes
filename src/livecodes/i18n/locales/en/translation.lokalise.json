@@ -134,7 +134,11 @@
   },
   "app.i18nButton.hint": {
     "notes": "",
-    "translation": "Change UI Language"
+    "translation": "UI Language"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "notes": "",
+    "translation": "Help Us Translate"
   },
   "app.logo.title": {
     "notes": "",

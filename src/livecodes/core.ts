@@ -2436,6 +2436,21 @@ const handleI18nMenu = () => {
     li.appendChild(link);
     i18nMenu.appendChild(li);
   });
+  const sep = document.createElement('li');
+  sep.role = 'separator';
+  i18nMenu.appendChild(sep);
+  const contributeLi = document.createElement('li');
+  const contributeLink = document.createElement('a');
+  contributeLink.href =
+    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
+  contributeLink.textContent = window.deps.translateString(
+    'app.i18nMenu.helpTranslate',
+    'Help Us Translate',
+  );
+  contributeLink.target = '_blank';
+  contributeLink.rel = 'noopener noreferrer';
+  contributeLi.appendChild(contributeLink);
+  i18nMenu.appendChild(contributeLi);
   menuContainer.appendChild(i18nMenu);
 };
 

@@ -175,6 +175,13 @@
   svg {
     font-size: var(--s14);
   }
+
+  a[target='_blank']::after {
+    content: '\2197';
+    display: inline-block;
+    margin: 0 0.3em;
+    width: 0.7em;
+  }
 }
 
 .dropdown-menu li:not(li[role='separator']) {

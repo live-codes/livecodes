@@ -85,7 +85,10 @@ const translation = {
       hint: 'Full Screen',
     },
     i18nButton: {
-      hint: 'Change UI Language',
+      hint: 'UI Language',
+    },
+    i18nMenu: {
+      helpTranslate: 'Help Us Translate',
     },
     logo: {
       title: 'LiveCodes: Code Playground That Just Works!',
