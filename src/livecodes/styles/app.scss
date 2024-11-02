@@ -201,6 +201,16 @@
   --toolspane-border-active: 2px var(--darker-bg-active);
   --toolspane-active: var(--darker-active);
   --toolspane-color: var(--darker-color);
+
+  --text-confirm-bg-color: rgba(255, 128, 0, 0.25);
+  --text-confirm-border: 1px solid rgb(255, 128, 0);
+  --text-confirm-color: rgb(250, 126, 0);
+  --text-help-bg-color: rgba(0, 110, 255, 0.2);
+  --text-help-border: 1px solid rgb(0, 110, 255);
+  --text-help-color: rgb(102, 168, 255);
+  --text-success-bg-color: rgba(85, 255, 0, 0.25);
+  --text-success-border: 1px solid rgb(85, 255, 0);
+  --text-success-color: rgb(153, 255, 102);
 }
 
 @import 'inc-light';
@@ -427,21 +437,21 @@ kbd {
 
 .confirm,
 .warn {
-  background-color: rgba(255, 128, 0, 0.25);
-  border: 1px solid rgb(255, 128, 0);
-  color: rgb(250, 126, 0);
+  background-color: var(--text-confirm-bg-color);
+  border: var(--text-confirm-border);
+  color: var(--text-confirm-color);
 }
 
 .help {
-  background-color: rgba(0, 110, 255, 0.2);
-  border: 1px solid rgb(0, 110, 255);
-  color: rgb(102, 168, 255);
+  background-color: var(--text-help-bg-color);
+  border: var(--text-help-border);
+  color: var(--text-help-color);
 }
 
 .success {
-  background-color: rgba(85, 255, 0, 0.25);
-  border: 1px solid rgb(85, 255, 0);
-  color: rgb(153, 255, 102);
+  background-color: var(--text-success-bg-color);
+  border: var(--text-success-border);
+  color: var(--text-success-color);
 }
 
 .noselect {

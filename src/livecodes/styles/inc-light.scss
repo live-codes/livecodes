@@ -51,4 +51,20 @@
   --tests-bg-color: inherit;
   --tests-color: inherit;
   --tests-bg-color: var(--color90);
+  --test-results-bg-color: rgba(0, 128, 0, 0.2);
+  --test-results-border: 1px solid rgb(0, 128, 0);
+  --test-pass-color: rgb(0, 178, 0);
+  --test-fail-background: rgb(217 38 38 / 20%);
+  --test-fail-border: 1px solid rgb(255, 0, 0);
+  --test-fail-color: rgb(242 13 13);
+
+  --text-confirm-bg-color: rgba(255, 128, 0, 0.25);
+  --text-confirm-border: 1px solid rgb(250, 128, 0);
+  --text-confirm-color: rgb(194, 102, 10);
+  --text-help-bg-color: rgba(38, 116, 217, 0.2);
+  --text-help-border: 1px solid rgb(13, 112, 242);
+  --text-help-color: rgb(13, 112, 242);
+  --text-success-bg-color: rgba(85, 255, 0, 0.25);
+  --text-success-border: 1px solid rgb(85, 255, 0);
+  --text-success-color: rgb(153, 255, 102);
 }
