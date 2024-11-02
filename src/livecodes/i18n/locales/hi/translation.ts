@@ -28,6 +28,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    consoleMessage: {
+      learnMore: 'अधिक जानें! {{docsUrl}} 🚀',
+    },
     copy: {
       hint: 'कॉपी करें (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
@@ -447,6 +450,7 @@ const translation: I18nTranslation = {
     more: 'और अधिक...',
     optional: 'वैकल्पिक',
     required: 'आवश्यक',
+    tagline: 'एक कोड प्लेग्राउंड जो बस काम करता है!',
   },
   import: {
     bulk: {

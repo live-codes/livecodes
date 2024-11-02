@@ -28,6 +28,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    consoleMessage: {
+      learnMore: 'تعرف على المزيد! {{docsUrl}} 🚀',
+    },
     copy: {
       hint: 'نسخ (Ctrl/Cmd + A، Ctrl/Cmd + C)',
     },
@@ -447,6 +450,7 @@ const translation: I18nTranslation = {
     more: 'المزيد...',
     optional: 'اختياري',
     required: 'مطلوب',
+    tagline: 'محرر برمجي يعمل ببساطة!',
   },
   import: {
     bulk: {
