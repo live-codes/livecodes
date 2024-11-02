@@ -523,6 +523,15 @@ export const colorToHsla = (color: string) => {
   return rgbaToHsla(r, g, b, a);
 };
 
+const rgbToHex = (r: number, g: number, b: number) =>
+  // eslint-disable-next-line no-bitwise
+  '#' + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+
+export const colorToHex = (color: string) => {
+  const { r, g, b } = colorToRgba(color);
+  return rgbToHex(r, g, b);
+};
+
 export const predefinedValues = {
   APP_VERSION: process.env.VERSION || '',
   SDK_VERSION: process.env.SDK_VERSION || '',

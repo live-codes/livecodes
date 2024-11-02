@@ -85,7 +85,10 @@ const translation = {
       hint: 'Full Screen',
     },
     i18nButton: {
-      hint: 'Change UI Language',
+      hint: 'UI Language',
+    },
+    i18nMenu: {
+      helpTranslate: 'Help Us Translate',
     },
     logo: {
       title: 'LiveCodes: Code Playground That Just Works!',
@@ -104,6 +107,9 @@ const translation = {
     },
     share: {
       hint: 'Share',
+    },
+    themeColors: {
+      custom: 'Custom',
     },
     undo: {
       hint: 'Undo (Ctrl/Cmd + Z)',
@@ -599,6 +605,7 @@ const translation = {
     source: 'Source code on GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
     theme: 'Dark Theme',
+    themeColor: 'Color',
     welcome: {
       heading: 'Welcome …',
     },

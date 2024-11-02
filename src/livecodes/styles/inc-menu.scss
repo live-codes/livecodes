@@ -175,6 +175,13 @@
   svg {
     font-size: var(--s14);
   }
+
+  a[target='_blank']::after {
+    content: '\2197';
+    display: inline-block;
+    margin: 0 0.3em;
+    width: 0.7em;
+  }
 }
 
 .dropdown-menu li:not(li[role='separator']) {
@@ -472,6 +479,43 @@ i.arrow {
 @media only screen and (max-width: 480px) {
   .switch div {
     transform: scale(0.6);
+  }
+}
+
+#theme-color-item {
+  padding: 6px 8px;
+
+  #theme-color-selector {
+    display: flex;
+
+    input {
+      border: 0;
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    label {
+      border-radius: var(--rs);
+      cursor: pointer;
+      display: inline-block;
+      height: var(--s16);
+      margin: var(--s2);
+      width: var(--s16);
+
+      &[for='theme-color-custom'] {
+        background: conic-gradient(in hsl longer hue, red 0 0);
+        filter: contrast(0.5);
+      }
+
+      &:has(input:checked),
+      &:has(input:focus) {
+        outline: 1px solid var(--input-active);
+      }
+    }
   }
 }
 

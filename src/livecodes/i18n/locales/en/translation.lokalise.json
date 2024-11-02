@@ -134,7 +134,11 @@
   },
   "app.i18nButton.hint": {
     "notes": "",
-    "translation": "Change UI Language"
+    "translation": "UI Language"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "notes": "",
+    "translation": "Help Us Translate"
   },
   "app.logo.title": {
     "notes": "",
@@ -159,6 +163,10 @@
   "app.share.hint": {
     "notes": "",
     "translation": "Share"
+  },
+  "app.themeColors.custom": {
+    "notes": "",
+    "translation": "Custom"
   },
   "app.undo.hint": {
     "notes": "",
@@ -1463,6 +1471,10 @@
   "menu.theme": {
     "notes": "",
     "translation": "Dark Theme"
+  },
+  "menu.themeColor": {
+    "notes": "",
+    "translation": "Color"
   },
   "menu.welcome.heading": {
     "notes": "",

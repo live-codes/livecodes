@@ -817,7 +817,7 @@
     height: var(--s32);
     margin: 1rem;
     max-width: calc(100% - 2rem);
-    padding: 0 1rem;
+    padding: 0.1rem 1rem;
     position: absolute;
     top: 0;
     width: 100%;
@@ -1110,16 +1110,17 @@
     width: 100%;
 
     li {
-      background: var(--btn-modal-bg-color);
+      background: var(--thumbnail-bg-color);
       border-radius: var(--rs);
-      color: var(--btn-modal-color);
+      color: var(--thumbnail-color);
       text-align: center;
       transition: background 0.5s ease-in-out;
-      width: calc(20% - var(--s4));
+      width: calc(25% - var(--s4));
     }
 
     li:hover {
-      background: var(--btn-modal-bg-active);
+      background: var(--thumbnail-bg-active);
+      color: var(--thumbnail-active);
     }
 
     a {
@@ -1130,8 +1131,8 @@
     }
 
     img {
-      height: 32px;
-      width: 32px;
+      height: 48px;
+      max-width: 40%;
     }
   }
 
@@ -1744,13 +1745,17 @@
     display: none !important;
   }
 
+  #modal ul.thumbnails li {
+    width: calc(33% - var(--s4));
+  }
+
   #modal input#search-assets,
   #modal input#search-projects {
     width: 50%;
   }
 }
 
-@media only screen and (max-width: 480px) and (orientation: portrait) {
+@media only screen and (max-width: 480px) {
   #modal {
     .modal-screen-container {
       padding: 1rem 0 0;
@@ -1829,7 +1834,7 @@
     }
 
     ul.thumbnails li {
-      width: calc(33% - var(--s4));
+      width: calc(50% - var(--s4));
     }
   }
 

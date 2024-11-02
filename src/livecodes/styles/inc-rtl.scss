@@ -51,6 +51,10 @@ html[dir='rtl'] {
     right: unset;
   }
 
+  .tool-buttons#editor-tools {
+    flex-direction: row-reverse;
+  }
+
   .actions {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: var(--rs);

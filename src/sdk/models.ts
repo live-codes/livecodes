@@ -703,17 +703,10 @@ export interface EditorConfig {
 
   /**
    * Sets the app theme color.
-   * If `undefined`, `themeColorLight` is used instead, otherwise it is set to `"hsl(214, 40%, 50%)"`.
+   * If `undefined`, it is set to `"hsl(214, 40%, 50%)"`.
    * @default undefined
    */
   themeColor: string | undefined;
-
-  /**
-   * Sets the app theme color for light theme.
-   * If `undefined`, `themeColor` is used instead, otherwise it is set to `"hsl(214, 40%, 100%)"`.
-   * @default undefined
-   */
-  themeColorLight: string | undefined;
 
   /**
    * Sets the [code editor](https://livecodes.io/docs/features/editor-settings) themes.

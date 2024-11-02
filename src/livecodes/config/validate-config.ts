@@ -105,7 +105,6 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
     ...(is(config.themeColor, 'string') ? { themeColor: config.themeColor } : {}),
-    ...(is(config.themeColorLight, 'string') ? { themeColorLight: config.themeColorLight } : {}),
     ...(includes(layout, config.layout) ? { layout: config.layout } : {}),
     ...(is(config.editorTheme, 'array', 'string') || is(config.editorTheme, 'string')
       ? { editorTheme: config.editorTheme }
