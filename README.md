@@ -267,6 +267,11 @@ LiveCodes uses services that are generously provided by:
 </img></a><br /><br />
 </p>
 <p>
+<a href="https://netlify.com/" target="_blank" title="Netlify">
+  <img alt="Netlify" width="200" src="https://dev.livecodes.io/docs/img/credits/netlify.svg">
+</img></a><br /><br />
+</p>
+<p>
 <a href="https://www.sonarsource.com/products/sonarcloud/" target="_blank" title="SonarCloud">
   <img alt="SonarCloud" width="200" src="https://dev.livecodes.io/docs/img/credits/sonarcloud.svg">
 </img></a><br /><br />
