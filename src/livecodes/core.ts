@@ -108,6 +108,7 @@ import {
   stringToValidJson,
   toDataUrl,
   predefinedValues,
+  colorToHex,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -152,6 +153,7 @@ import type {
   I18nTranslationTemplate,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
+import { getThemeColors } from './UI/theme-colors';
 
 // declare global dependencies
 declare global {
@@ -212,10 +214,7 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
-const defaultColors = {
-  themeColor: '',
-  themeColorLight: '',
-};
+let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -1308,13 +1307,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (
-    newConfig.theme ||
-    newConfig.editorTheme ||
-    newConfig.themeColor ||
-    newConfig.themeColorLight ||
-    newConfig.fontSize
-  ) {
+  if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
       newConfig.theme || getConfig().theme,
       newConfig.editorTheme || getConfig().editorTheme,
@@ -1751,7 +1744,7 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
-  setThemeColor();
+  changeThemeColor();
   setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
@@ -1780,40 +1773,36 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   toolsPane?.console?.setTheme?.(theme);
 };
 
-const setThemeColor = () => {
-  const { themeColor, themeColorLight, theme } = getConfig();
-  const { themeColor: defaultThemeColor, themeColorLight: defaultThemeColorLight } =
-    getDefaultColors();
-  const darkThemeColor = themeColor || themeColorLight || defaultThemeColor;
-  const lightThemeColor = themeColorLight || themeColor || defaultThemeColorLight;
-  const color = theme === 'dark' ? darkThemeColor : lightThemeColor;
+const changeThemeColor = () => {
+  const { themeColor, theme } = getConfig();
+  const color = themeColor || getDefaultColor();
   const { h, s, l } = colorToHsla(color);
   const root = document.querySelector(':root') as HTMLElement;
   root.style.setProperty('--hue', `${h}`);
   root.style.setProperty('--st', `${s}%`);
-  root.style.setProperty('--lt', `${l}%`);
+  root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
+
+  const customColorInput = UI.getThemeColorSelector()?.querySelector(
+    'input[type="color"]',
+  ) as HTMLInputElement;
+  if (customColorInput) {
+    customColorInput.value = colorToHex(color);
+  }
 };
 
-const getDefaultColors = () => {
-  if (defaultColors.themeColor && defaultColors.themeColorLight) {
-    return defaultColors;
-  }
+const getDefaultColor = () => {
+  if (defaultColor) return defaultColor;
   const root = document.querySelector(':root') as HTMLElement;
   const theme = root.classList.contains('light') ? 'light' : 'dark';
   root.classList.remove('light');
   const h = getComputedStyle(root).getPropertyValue('--hue');
   const s = getComputedStyle(root).getPropertyValue('--st');
   const l = getComputedStyle(root).getPropertyValue('--lt');
-  root.classList.add('light');
-  const hLight = getComputedStyle(root).getPropertyValue('--hue');
-  const sLight = getComputedStyle(root).getPropertyValue('--st');
-  const lLight = getComputedStyle(root).getPropertyValue('--lt');
   if (theme === 'dark') {
     root.classList.remove('light');
   }
-  defaultColors.themeColor = `hsl(${h}, ${s}, ${l})`;
-  defaultColors.themeColorLight = `hsl(${hLight}, ${sLight}, ${lLight})`;
-  return defaultColors;
+  defaultColor = `hsl(${h}, ${s}, ${l})`;
+  return defaultColor;
 };
 
 const setFontSize = () => {
@@ -2716,6 +2705,30 @@ const handleSettings = () => {
     delayValue.textContent = String(value / 1000);
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
+  });
+
+  const themeColorSelector = UI.getThemeColorSelector()!;
+  getThemeColors().forEach((colorItem) => {
+    const customColor = colorItem.name === 'custom';
+    const label = document.createElement('label');
+    label.htmlFor = 'theme-color-' + colorItem.name;
+    label.title = colorItem.title;
+    if (colorItem.themeColor) {
+      label.style.backgroundColor = colorItem.themeColor;
+    }
+
+    const input = document.createElement('input');
+    input.type = customColor ? 'color' : 'radio';
+    input.id = 'theme-color-' + colorItem.name;
+    input.name = 'theme-color';
+
+    label.appendChild(input);
+    themeColorSelector.appendChild(label);
+
+    eventsManager.addEventListener(input, 'input', () => {
+      setUserConfig({ themeColor: customColor ? input.value : colorItem.themeColor });
+      changeThemeColor();
+    });
   });
 };
 

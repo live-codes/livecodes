@@ -14,7 +14,6 @@ export const defaultConfig: Config = {
   mode: 'full',
   theme: 'dark',
   themeColor: undefined,
-  themeColorLight: undefined,
   layout: 'responsive',
   editorTheme: undefined,
   appLanguage: undefined,

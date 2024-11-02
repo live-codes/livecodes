@@ -494,16 +494,16 @@ const translation: I18nTranslation = {
   menu: {
     about: 'حول',
     appHelp: {
-      heading: '"مساعدة',
-      hint: '"مساعدة',
+      heading: 'مساعدة',
+      hint: 'مساعدة',
     },
     appProject: {
-      heading: '"المشروع',
-      hint: '"المشروع',
+      heading: 'المشروع',
+      hint: 'المشروع',
     },
     appSettings: {
-      heading: '"الإعدادات',
-      hint: '"الإعدادات',
+      heading: 'الإعدادات',
+      hint: 'الإعدادات',
     },
     assets: 'الأصول …',
     autoSave: 'حفظ تلقائي',

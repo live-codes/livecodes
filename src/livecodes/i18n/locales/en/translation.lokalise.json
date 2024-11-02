@@ -160,6 +160,38 @@
     "notes": "",
     "translation": "Share"
   },
+  "app.themeColors.amber": {
+    "notes": "",
+    "translation": "Amber"
+  },
+  "app.themeColors.blue": {
+    "notes": "",
+    "translation": "Blue"
+  },
+  "app.themeColors.custom": {
+    "notes": "",
+    "translation": "Custom"
+  },
+  "app.themeColors.cyan": {
+    "notes": "",
+    "translation": "Cyan"
+  },
+  "app.themeColors.green": {
+    "notes": "",
+    "translation": "Green"
+  },
+  "app.themeColors.red": {
+    "notes": "",
+    "translation": "Red"
+  },
+  "app.themeColors.slate": {
+    "notes": "",
+    "translation": "Slate"
+  },
+  "app.themeColors.violet": {
+    "notes": "",
+    "translation": "Violet"
+  },
   "app.undo.hint": {
     "notes": "",
     "translation": "Undo (Ctrl/Cmd + Z)"
@@ -1463,6 +1495,10 @@
   "menu.theme": {
     "notes": "",
     "translation": "Dark Theme"
+  },
+  "menu.themeColor": {
+    "notes": "",
+    "translation": "Color"
   },
   "menu.welcome.heading": {
     "notes": "",
