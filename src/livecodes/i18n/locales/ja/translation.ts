@@ -29,7 +29,7 @@ const translation: I18nTranslation = {
   },
   app: {
     consoleMessage: {
-      learnMore: '',
+      learnMore: '詳細はこちら！ {{docsUrl}} 🚀',
     },
     copy: {
       hint: 'コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)',
@@ -450,7 +450,7 @@ const translation: I18nTranslation = {
     more: 'もっと見る...',
     optional: '任意',
     required: '必須',
-    tagline: '',
+    tagline: 'シンプルに動作するコードの遊び場！',
   },
   import: {
     bulk: {
