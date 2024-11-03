@@ -675,6 +675,10 @@ a#result-button {
       display: none;
     }
 
+    #project-title {
+      display: none;
+    }
+
     #login-link,
     #logout-link {
       min-width: var(--s24);
@@ -738,11 +742,40 @@ a#result-button {
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
   #toolbar {
+    align-items: flex-start;
     display: flex;
-    flex-direction: unset;
-    flex-wrap: wrap;
     height: calc(var(--toolbar-height) * 2);
-    width: 100%;
+
+    .toolbar-render {
+      justify-content: space-between;
+      place-items: center;
+    }
+
+    #select-editor {
+      max-width: unset;
+      position: absolute;
+      top: var(--toolbar-height);
+      inset-inline-start: 0; /* left */
+
+      .editor-title > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .menu-scroller-markup,
+    .menu-scroller-style,
+    .menu-scroller-script {
+      max-width: 98vw;
+      position: fixed;
+      transform: translateX(-1vw);
+      top: calc(var(--toolbar-height) * 2);
+    }
+
+    .dropdown-menu-script {
+      column-count: 2;
+    }
 
     .dropdown-menu.submenu {
       left: 44%;
@@ -752,46 +785,15 @@ a#result-button {
     #dark-theme-button {
       display: none;
     }
-  }
 
-  #toolbar > .toolbar-app,
-  #toolbar > .toolbar-render {
-    display: flex;
-    flex: 1;
-    flex-basis: 100%;
-    flex-direction: row;
-    flex-grow: 1;
-  }
-
-  #toolbar > .toolbar-render {
-    justify-content: space-between;
-    place-items: center;
-  }
-
-  #toolbar #select-editor {
-    max-width: unset;
-
-    .editor-title > span {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    #login-link,
+    #logout-link {
+      height: 100%;
     }
   }
 
-  #toolbar #login-link,
-  #toolbar #logout-link {
-    height: 100%;
-  }
-
-  #select-editor {
-    ul li.editor-title {
-      top: 0;
-      width: 74px;
-    }
-  }
-
-  #toolbar #project-title {
-    height: var(--s24);
+  #editor-container {
+    height: calc(100% - var(--toolbar-height) * 2);
   }
 
   #modal {
@@ -1466,6 +1468,10 @@ li.editor-title {
         }
       }
 
+      #select-editor {
+        position: unset;
+      }
+
       .language-menu-button {
         display: none !important;
       }
@@ -1510,27 +1516,19 @@ li.editor-title {
 
   @media only screen and (max-width: 480px) and (orientation: portrait) {
     #toolbar {
-      display: flex;
-      flex-direction: unset;
-      flex-wrap: nowrap;
-      height: var(--toolbar-height);
-      width: 100%;
+      .toolbar-app,
+      .toolbar-render {
+        height: calc(var(--toolbar-height));
+      }
+
+      .editor-title {
+        width: 73px;
+      }
 
       #app-menu-button-i18n,
       #light-theme-button,
       #dark-theme-button {
-        display: none;
-      }
-
-      #select-editor {
-        height: var(--toolbar-height);
-        margin: 0;
-
-        li.editor-title {
-          height: 32px;
-          top: 0;
-          width: 74px;
-        }
+        display: none !important;
       }
     }
   }
