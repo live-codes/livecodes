@@ -101,7 +101,14 @@ jobs:
 
     - name: Push changes
       run: |
-        git pull origin ${{ github.event.repository.default_branch }}
+
+        git pull origin ${{ github.event.repository.default_branch }} || {
+          echo "Failed to pull from ${{ github.event.repository.default_branch }}."
+          echo "Please manually pull the changes, solve potential conflicts, and re-run the workflow."
+          echo "::error title=Pull failed::Failed to pull from ${{ github.event.repository.default_branch }}."
+          exit 1
+        }
+
         git push origin $BRANCH
 
     - name: Check if has differences between ${{ env.BRANCH }} and ${{ github.event.repository.default_branch }}
