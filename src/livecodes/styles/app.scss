@@ -101,6 +101,7 @@
   --editor-title-border-radius: var(--rs);
   --editor-title-color: var(--darker-color);
   --editor-title-active: var(--darker-active);
+  --editor-title-simple-color: var(--darker-active);
 
   --editor-tools-mark-color: #8bc34a;
 
@@ -1561,12 +1562,13 @@ li.editor-title {
     #select-editor {
       width: 100%;
 
-      /*       .editor-title.active {
+      .editor-title.active {
         background-color: unset;
         border: 0;
+        color: var(--editor-title-simple-color);
         cursor: auto;
         display: flex;
-      } */
+      }
     }
 
     .toolbar-render div:first-child {
