@@ -15,10 +15,17 @@ jobs:
     env:
       NODE_OPTIONS: '--max_old_space_size=4096'
     steps:
+      - name: Generate Github Token for CI Bot
+        uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -33,6 +40,6 @@ jobs:
       - name: Deploy
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
-          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+          npm run deploy -- -u "livecodes-ci[bot] <186997172+livecodes-ci[bot]@users.noreply.github.com>"
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_PAT }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
