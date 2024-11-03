@@ -47,7 +47,6 @@ jobs:
           git config pull.rebase false
           git fetch origin $BRANCH:$BRANCH
           git checkout $BRANCH
-          git pull origin develop
         else
           git checkout -b $BRANCH
         fi
@@ -101,7 +100,9 @@ jobs:
         echo "LAST_COMMIT_SHA_PULL=$(git log -n 1 --format="%H" -- src/livecodes/i18n/locales)" >> $GITHUB_ENV
 
     - name: Push changes
-      run: git push origin $BRANCH
+      run: |
+        git pull origin ${{ github.event.repository.default_branch }}
+        git push origin $BRANCH
 
     - name: Check if has differences between ${{ env.BRANCH }} and ${{ github.event.repository.default_branch }}
       id: check-diff
