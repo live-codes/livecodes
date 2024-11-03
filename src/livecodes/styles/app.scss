@@ -540,6 +540,7 @@ kbd {
     padding: 0;
     text-align: center;
     width: 32px;
+    z-index: 2;
 
     img {
       height: auto;
@@ -737,11 +738,10 @@ a#result-button {
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
   #toolbar {
-    --toolbar-height: 74px;
     display: flex;
     flex-direction: unset;
     flex-wrap: wrap;
-    height: var(--toolbar-height);
+    height: calc(var(--toolbar-height) * 2);
     width: 100%;
 
     .dropdown-menu.submenu {
@@ -784,8 +784,6 @@ a#result-button {
   }
 
   #select-editor {
-    height: calc(var(--toolbar-height) / 2) !important;
-
     ul li.editor-title {
       top: 0;
       width: 74px;
@@ -1512,7 +1510,6 @@ li.editor-title {
 
   @media only screen and (max-width: 480px) and (orientation: portrait) {
     #toolbar {
-      --toolbar-height: 42px;
       display: flex;
       flex-direction: unset;
       flex-wrap: nowrap;
