@@ -752,10 +752,10 @@ a#result-button {
     }
 
     #select-editor {
+      inset-inline-start: 0; /* left */
       max-width: unset;
       position: absolute;
       top: var(--toolbar-height);
-      inset-inline-start: 0; /* left */
 
       .editor-title > span {
         overflow: hidden;
@@ -769,8 +769,8 @@ a#result-button {
     .menu-scroller-script {
       max-width: 98vw;
       position: fixed;
-      transform: translateX(-1vw);
       top: calc(var(--toolbar-height) * 2);
+      transform: translateX(-1vw);
     }
 
     .dropdown-menu-script {
