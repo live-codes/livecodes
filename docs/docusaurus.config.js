@@ -11,7 +11,7 @@ const sdkPkg = require('../src/sdk/package.sdk.json');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'LiveCodes',
-  tagline: 'Code Playground That Just Works!',
+  tagline: 'A Code Playground That Just Works!',
   url: 'https://livecodes.io/',
   baseUrl: process.env.DOCS_BASE_URL || '/docs/',
   onBrokenLinks: 'throw',
