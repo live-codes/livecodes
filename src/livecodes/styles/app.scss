@@ -688,30 +688,56 @@ a#result-button {
 
 .result {
   #toolbar {
-    background: var(--toolbar-bg-color, rgb(0, 0, 0, 0.05));
+    background: rgb(0, 0, 0, 0.05);
     border-bottom: var(--toolbar-border, 1px solid black);
     border-bottom-left-radius: var(--rs);
     border-left: var(--toolbar-border, 1px solid black);
     display: block !important;
-    height: var(--toolbar-height);
+    height: var(--s36);
     opacity: 0;
     position: absolute;
     right: 0;
     transition: opacity 0.3s;
-    width: 75px;
+    width: var(--s40);
 
-    > *:not(:first-child) {
+    * {
       display: none !important;
+    }
+
+    .toolbar-app,
+    .toolbar-menu,
+    .toolbar-render,
+    #logo,
+    #logo img {
+      display: block !important;
+    }
+
+    #logo {
+      inset: 0 !important;
+      margin: 0 !important;
+      width: var(--s40) !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+
+      img {
+        width: var(--s32) !important;
+        filter: drop-shadow(1px 1px 1px rgb(0, 0, 0, 0.4));
+      }
     }
   }
 
-  #logo {
-    position: absolute;
-    right: 0;
+  &:hover #toolbar {
+    opacity: 1;
   }
 
-  :hover #toolbar {
-    opacity: 1;
+  #overlay {
+    background-color: white;
+    opacity: 1 !important;
+  }
+
+  #modal-container {
+    display: none !important;
   }
 }
 
