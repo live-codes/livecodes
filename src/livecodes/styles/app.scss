@@ -713,16 +713,16 @@ a#result-button {
     }
 
     #logo {
+      align-items: center !important;
+      display: flex !important;
       inset: 0 !important;
+      justify-content: center !important;
       margin: 0 !important;
       width: var(--s40) !important;
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
 
       img {
-        width: var(--s32) !important;
         filter: drop-shadow(1px 1px 1px rgb(0, 0, 0, 0.4));
+        width: var(--s32) !important;
       }
     }
   }
