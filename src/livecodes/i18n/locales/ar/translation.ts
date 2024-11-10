@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'ملء الشاشة',
     },
-    logo: {
-      title: 'LiveCodes: ملعب برمجي يعمل في المتصفح!',
-    },
     projectInfo: {
       hint: 'معلومات المشروع',
     },

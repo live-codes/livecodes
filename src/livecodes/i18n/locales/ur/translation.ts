@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'فل اسکرین',
     },
-    logo: {
-      title: 'لائیو کوڈز: براؤزر میں چلنے والا کوڈ پلے گراؤنڈ!',
-    },
     projectInfo: {
       hint: 'پروجیکٹ کی معلومات',
     },

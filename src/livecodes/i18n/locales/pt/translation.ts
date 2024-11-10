@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'Tela Cheia',
     },
-    logo: {
-      title: 'LiveCodes: Playground de código que roda no navegador!',
-    },
     projectInfo: {
       hint: 'Informações do Projeto',
     },

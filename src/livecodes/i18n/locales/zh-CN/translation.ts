@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: '全屏',
     },
-    logo: {
-      title: 'LiveCodes: 浏览器中的代码运行环境！',
-    },
     projectInfo: {
       hint: '项目信息',
     },
