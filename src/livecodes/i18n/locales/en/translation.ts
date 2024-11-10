@@ -91,7 +91,7 @@ const translation = {
       helpTranslate: 'Help Us Translate',
     },
     logo: {
-      title: 'LiveCodes: Code Playground That Just Works!',
+      title: 'LiveCodes: A Code Playground That Just Works!',
     },
     projectInfo: {
       hint: 'Project Info',
