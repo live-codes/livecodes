@@ -26,18 +26,24 @@
             id="no-default-template"
             class="default-template"
             data-i18n="welcome.start.noDefaultTemplate"
-            >No default template</span
-          >
+            ><i class="icon-file-template"></i> No default template
+          </span>
           <a href="#" id="welcome-link-load-default" class="default-template">
             <i class="icon-file-template"></i>
             <span data-i18n="welcome.start.loadDefaultTemplate">Load default template</span></a
           >
-        </li>
-        <li>
-          <a href="{{DOCS_BASE_URL}}features/default-template-language" target="_blank" class="more"
-            ><i class="icon-info"></i>
-            <span data-i18n="generic.clickForInfo">Click for info...</span>
-          </a>
+          <a
+            href="{{DOCS_BASE_URL}}features/default-template-language"
+            target="_blank"
+            id="welcome-default-template-info"
+            class="more"
+            ><i
+              class="icon-info"
+              title="Click for info..."
+              data-i18n="generic.clickForInfo"
+              data-i18n-prop="title"
+            ></i
+          ></a>
         </li>
       </ul>
     </div>

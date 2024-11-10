@@ -1462,6 +1462,19 @@
     #no-default-template {
       padding: var(--s4) var(--s12);
     }
+
+    #welcome-link-load-default {
+      width: fit-content;
+    }
+
+    #welcome-default-template-info {
+      display: inline-block;
+      width: fit-content;
+
+      &::after {
+        display: none;
+      }
+    }
   }
 
   #welcome-recover {

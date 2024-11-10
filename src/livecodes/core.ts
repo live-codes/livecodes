@@ -3476,7 +3476,7 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTemplateLink.style.display = 'block';
+      loadTemplateLink.style.display = 'inline-block';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 
