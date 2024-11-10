@@ -485,6 +485,14 @@ Default: `"dark"`
 
 Sets the app [theme](../features/themes.md) to light/dark mode.
 
+### `themeColor`
+
+Type: [`string | undefined`](../api/interfaces/Config.md#themecolor)
+
+Default: `"hsl(214, 40%, 50%)"`
+
+A string representing a [CSS color value](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value), used to set the app [theme color](../features/themes.md). It can be any valid CSS color value, such as `"#4DB39E"`, `"rgb(245, 225, 49)"`, `"hsl(324, 40%, 50%)"` and `"lightblue"`.
+
 ### `editorTheme`
 
 Type: [`EditorTheme[] | string | undefined`](../api/interfaces/Config.md#editortheme)

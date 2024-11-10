@@ -8,7 +8,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -26,7 +26,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type("import {v4} from 'uuid';\ndocument.body.innerText = v4()");
@@ -42,7 +42,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type("import {v4} from 'skypack:uuid';\ndocument.body.innerText = v4()");
@@ -58,7 +58,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type("const {v4} = require('uuid');\ndocument.body.innerText = v4()");
@@ -74,7 +74,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -92,7 +92,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -110,7 +110,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -128,7 +128,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -146,7 +146,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -164,7 +164,7 @@ test.describe('Import maps', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=JavaScript');
     await waitForEditorFocus(app);
     await page.keyboard.type(
