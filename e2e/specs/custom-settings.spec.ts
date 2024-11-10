@@ -16,7 +16,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.type(`{"asciidoc": { standalone: true }}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
+    await app.click(':nth-match([title="Change Language"], 1)');
     await app.click('text=AsciiDoc');
     await waitForEditorFocus(app);
     await page.keyboard.type('hello');
@@ -39,7 +39,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.type(`{"scss": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=SCSS');
     await waitForEditorFocus(app);
     await page.keyboard.type(
@@ -66,7 +66,7 @@ test.describe('Custom Settings', () => {
     await page.keyboard.insertText(`{"sass": {"style": "compressed"}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=Sass');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(`
@@ -96,7 +96,7 @@ body
     await page.keyboard.type(`{"less": {"math": "always"}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=Less');
     await waitForEditorFocus(app);
     await page.keyboard.type(`.math { a: 1 + 1; b: 2px / 2; c: 2px ./ 2; d: (2px / 2); }`);
@@ -142,7 +142,7 @@ body
     await page.keyboard.type(`{"autoprefixer": {"add": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=autoprefixer');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -166,7 +166,7 @@ body
     await page.keyboard.type(`{"postcssPresetEnv": {"stage": 3}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=Preset Env');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -196,7 +196,7 @@ body
     await waitForEditorFocus(app);
     await page.keyboard.type('<span class="text-dark-blue-800">Hello</span>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=Tailwind CSS');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -231,7 +231,7 @@ body
     await waitForEditorFocus(app);
     await page.keyboard.type('<span class="text-dark-blue-800">Hello</span>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
+    await app.click(':nth-match([title="Change Language"], 2)');
     await app.click('text=Windi CSS');
     await app.click('text=CSS');
     await waitForEditorFocus(app);
@@ -259,7 +259,7 @@ body
     await page.keyboard.type(`{"babel": {"sourceMaps": "inline"}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=Babel');
     await waitForEditorFocus(app);
     await page.keyboard.type('const x = () => "hi";\n');
@@ -282,7 +282,7 @@ body
     await page.keyboard.type(`{"typescript": {"target": "es5"}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=TypeScript');
     await waitForEditorFocus(app);
     await page.keyboard.type('const x = () => "hi";\n');
@@ -305,7 +305,7 @@ body
     await page.keyboard.type(`{"flow": {"pretty": true}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=Flow');
     await waitForEditorFocus(app);
     await page.keyboard.insertText(
@@ -370,7 +370,7 @@ body
     await page.keyboard.type(`{"coffeescript": {"bare": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=CoffeeScript');
     await waitForEditorFocus(app);
     await page.keyboard.type('x = 10');
@@ -393,7 +393,7 @@ body
     await page.keyboard.type(`{"livescript": {"bare": false}}`);
     await app.click('button:has-text("Load"):visible');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
+    await app.click(':nth-match([title="Change Language"], 3)');
     await app.click('text=LiveScript');
     await waitForEditorFocus(app);
     await page.keyboard.type('x = 10');
