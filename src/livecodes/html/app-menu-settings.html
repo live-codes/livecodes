@@ -1,7 +1,13 @@
 <ul id="app-menu-settings" class="dropdown-menu">
   <li class="link-and-switch">
     <a href="#" id="welcome-link" data-i18n="menu.welcome.heading">Welcome …</a>
-    <label for="welcome" class="switch hint--bottom" data-hint="Show Welcome screen on startup">
+    <label
+      for="welcome"
+      class="switch"
+      title="Show Welcome screen on startup"
+      data-i18n="menu.showWelcome.title"
+      data-i18n-prop="title"
+    >
       <div>
         <input id="welcome" type="checkbox" data-config="welcome" />
         <span class="slider round"></span>
@@ -29,10 +35,10 @@
   </li>
   <li>
     <label
-      class="range-slider-label hint--bottom"
-      data-hint="Delay before auto-update"
+      class="range-slider-label"
+      title="Delay before auto-update"
       data-i18n="menu.delay.hint"
-      data-i18n-prop="data-hint"
+      data-i18n-prop="title"
     >
       <span data-i18n="menu.delay.heading" data-i18n-prop="innerHTML"
         >Delay: <span id="delay-value">1.5</span>s</span
@@ -94,10 +100,9 @@
     <span id="theme-color-selector"></span>
   </li>
   <li
-    class="hint--bottom-right"
     data-i18n="menu.showSpacing.hint"
-    data-i18n-prop="data-hint"
-    data-hint="Press Alt/Option and move your cursor over result page"
+    data-i18n-prop="title"
+    title="Press Alt/Option and move your cursor over result page"
   >
     <label class="switch">
       <span data-i18n="menu.showSpacing.heading">Show Spacing</span>
@@ -108,7 +113,7 @@
     </label>
   </li>
   <li>
-    <label class="switch hint--bottom">
+    <label class="switch">
       <span data-i18n="menu.layout">Vertical Layout</span>
       <div>
         <input id="layout" type="checkbox" data-config="layout" />

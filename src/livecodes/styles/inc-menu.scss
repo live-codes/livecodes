@@ -160,10 +160,6 @@
     padding: 1px 0 0;
   }
 
-  .hint--left::after {
-    margin-bottom: -14px; // fix menu language tooltip = (iconSize - padding)
-  }
-
   i[class^='icon-'],
   svg {
     font-size: var(--s14);

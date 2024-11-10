@@ -2,7 +2,7 @@ import type { AppLanguage } from '../models';
 
 export const appLanguages: { [key in Exclude<AppLanguage, 'auto'>]: string } = {
   ar: 'العربية',
-  de: 'deutsch',
+  de: 'Deutsch',
   en: 'English',
   es: 'Español',
   fr: 'Français',

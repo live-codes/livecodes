@@ -71,18 +71,6 @@ html[dir='rtl'] {
     right: 98%;
   }
 
-  .hint--left::after,
-  .hint--left::before {
-    left: 100%;
-    right: unset;
-  }
-
-  .hint--right::after,
-  .hint--right::before {
-    left: unset;
-    right: 100%;
-  }
-
   #modal .close-button {
     left: 1.5rem;
     right: unset;

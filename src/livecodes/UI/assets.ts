@@ -112,11 +112,8 @@ const createAssetItem = (
   const link = document.createElement('a');
   link.href = '#';
   link.dataset.id = item.id;
-  link.classList.add('asset-link', 'hint--top');
-  link.dataset.hint = window.deps.translateString(
-    'assets.generic.clickToCopyURL',
-    'Click to copy URL',
-  );
+  link.classList.add('asset-link');
+  link.title = window.deps.translateString('assets.generic.clickToCopyURL', 'Click to copy URL');
   link.appendChild(createLinkContent(item, baseUrl));
   link.onclick = (ev) => {
     ev.preventDefault();
@@ -129,8 +126,8 @@ const createAssetItem = (
   li.appendChild(actions);
   const deleteButton = document.createElement('div');
   deleteButton.innerHTML = deleteIcon;
-  deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
-  deleteButton.dataset.hint = window.deps.translateString('assets.action.delete', 'Delete');
+  deleteButton.classList.add('action-button', 'delete-button');
+  deleteButton.title = window.deps.translateString('assets.action.delete', 'Delete');
   actions.appendChild(deleteButton);
 
   return { link, deleteButton };

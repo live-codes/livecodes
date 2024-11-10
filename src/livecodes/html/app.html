@@ -57,10 +57,10 @@
             <a
               href="javascript:void(0)"
               id="app-menu-button-project"
-              class="menu hint--right"
-              data-hint="Project"
+              class="menu"
+              title="Project"
               data-i18n="menu.appProject.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
               aria-label="Project"
             >
               <i class="icon-nav"></i>
@@ -70,10 +70,10 @@
             <a
               href="javascript:void(0)"
               id="app-menu-button-settings"
-              class="menu hint--right"
-              data-hint="App Settings"
+              class="menu"
+              title="App Settings"
               data-i18n="menu.appSettings.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
               aria-label="Settings"
             >
               <i class="icon-settings"></i>
@@ -83,10 +83,10 @@
             <a
               href="javascript:void(0)"
               id="app-menu-button-help"
-              class="menu hint--right"
-              data-hint="Help"
+              class="menu"
+              title="Help"
               data-i18n="menu.appHelp.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
               aria-label="Help"
             >
               <i class="icon-help"></i>
@@ -96,10 +96,10 @@
             <a
               href="javascript:void(0)"
               id="app-menu-button-i18n"
-              class="button hint--right"
-              data-hint="UI Language"
+              class="button"
+              title="UI Language"
               data-i18n="app.i18nButton.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-i18n"></i>
             </a>
@@ -107,20 +107,20 @@
             <a
               href="javascript:void(0)"
               id="light-theme-button"
-              class="button hint--right"
-              data-hint="Change Theme"
+              class="button"
+              title="Change Theme"
               data-i18n="app.changeTheme.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-theme-light"></i>
             </a>
             <a
               href="javascript:void(0)"
               id="dark-theme-button"
-              class="button hint--right"
-              data-hint="Change Theme"
+              class="button"
+              title="Change Theme"
               data-i18n="app.changeTheme.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-theme-dark"></i>
             </a>
@@ -136,20 +136,20 @@
             <a
               href="javascript:void(0)"
               id="run-button"
-              class="button hint--bottom"
-              data-hint="Run (Shift + Enter)"
+              class="button"
+              title="Run (Shift + Enter)"
               data-i18n="app.run.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-run"></i>
             </a>
             <a
               href="javascript:void(0)"
               id="share-button"
-              class="button hint--bottom"
-              data-hint="Share"
+              class="button"
+              title="Share"
               data-i18n="app.share.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-share"></i>
             </a>
@@ -157,41 +157,29 @@
             <a
               href="javascript:void(0)"
               id="result-button"
-              class="button hint--bottom"
-              data-hint="Result"
+              class="button"
+              title="Result"
               data-i18n="app.result.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-result"></i>
             </a>
             <a
               href="javascript:void(0)"
               id="fullscreen-button"
-              data-hint="Full Screen"
-              class="button hint--bottom-left"
+              title="Full Screen"
+              class="button -left"
               data-i18n="app.fullscreen.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-full-screen"></i>
             </a>
           </div>
-          <a
-            href="#"
-            id="login-link"
-            class="menu hint--bottom-left"
-            data-hint="Login"
-            aria-label="Login"
-          >
+          <a href="#" id="login-link" class="menu -left" title="Login" aria-label="Login">
             <i class="icon-login"></i>
             <span class="menu-text" data-i18n="menu.login">Login</span></a
           >
-          <a
-            href="#"
-            id="logout-link"
-            class="menu hint--bottom-left"
-            aria-label="Logout"
-            style="display: none"
-          >
+          <a href="#" id="logout-link" class="menu -left" aria-label="Logout" style="display: none">
             <i class="icon-logout"></i>
             <span class="menu-text" data-i18n="menu.logout">Log out</span></a
           >
@@ -206,65 +194,59 @@
             <button
               type="button"
               id="focus-btn"
-              class="hint--top-right"
-              data-hint="Toggle Focus mode"
+              title="Toggle Focus mode"
               data-i18n="app.focus.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-focus"></i>
             </button>
             <button
               type="button"
               id="format-btn"
-              class="hint--top-right"
-              data-hint="Format (Alt + Shift + F)"
+              title="Format (Alt + Shift + F)"
               data-i18n="app.format.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-format"></i>
             </button>
             <button
               type="button"
               id="undo-btn"
-              class="hint--top-right"
-              data-hint="Undo (Ctrl/Cmd + Z)"
+              title="Undo (Ctrl/Cmd + Z)"
               data-i18n="app.undo.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-undo"></i>
             </button>
             <button
               type="button"
               id="redo-btn"
-              class="hint--top-right"
-              data-hint="Redo (Ctrl/Cmd + Shift + Z)"
+              title="Redo (Ctrl/Cmd + Shift + Z)"
               data-i18n="app.redo.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-redo"></i>
             </button>
             <button
               type="button"
               id="copy-btn"
-              class="hint--top-right"
-              data-hint="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
+              title="Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
               data-i18n="app.copy.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-copy"></i>
             </button>
             <button
               type="button"
               id="copy-as-url-btn"
-              class="hint--top-right"
-              data-hint="Copy code as data URL"
+              title="Copy code as data URL"
               data-i18n="app.copyAsUrl.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-copy-url"></i>
             </button>
             <span id="editor-status">
-              <span id="editor-mode" class="hint--top-right" data-hint="Editor Mode"></span>
+              <span id="editor-mode" title="Editor Mode"></span>
               <span data-status="markup"></span>
               <span data-status="style"></span>
               <span data-status="script"></span>
@@ -272,10 +254,9 @@
             <button
               type="button"
               id="external-resources-btn"
-              class="hint--top-left"
-              data-hint="External Resources"
+              title="External Resources"
               data-i18n="app.externalResources.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-external"></i>
               <span id="external-resources-mark" class="mark"></span>
@@ -283,20 +264,18 @@
             <button
               type="button"
               id="project-info-btn"
-              class="hint--top-left"
-              data-hint="Project Info"
+              title="Project Info"
               data-i18n="app.projectInfo.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-project"></i>
             </button>
             <button
               type="button"
               id="custom-settings-btn"
-              class="hint--top-left"
-              data-hint="Custom Settings"
+              title="Custom Settings"
               data-i18n="app.customSettings.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-settings-custom"></i>
               <span id="custom-settings-mark" class="mark"></span>
@@ -304,10 +283,9 @@
             <button
               type="button"
               id="editor-settings-btn"
-              class="hint--top-left"
-              data-hint="Editor Settings"
+              title="Editor Settings"
               data-i18n="app.editorSettings.hint"
-              data-i18n-prop="data-hint"
+              data-i18n-prop="title"
             >
               <i class="icon-editor-settings"></i>
             </button>

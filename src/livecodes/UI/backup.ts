@@ -39,7 +39,7 @@ const createBackupContainer = (eventsManager: ReturnType<typeof createEventsMana
 };
 
 const inProgressMessage = window.deps.translateString('backup.inProgress', 'In progress...');
-export const isInProgress = () => getBackupLink()?.dataset.hint === inProgressMessage;
+export const isInProgress = () => getBackupLink()?.title === inProgressMessage;
 
 export const updateProgressStatus = ({
   inProgress,
@@ -55,8 +55,7 @@ export const updateProgressStatus = ({
 
   if (inProgress ?? isInProgress()) {
     if (backupLink) {
-      backupLink.classList.add('hint--bottom');
-      backupLink.dataset.hint = inProgressMessage;
+      backupLink.title = inProgressMessage;
     }
     backupBtn.innerText = inProgressMessage;
     backupBtn.disabled = true;
@@ -64,8 +63,7 @@ export const updateProgressStatus = ({
     fileInput.disabled = true;
   } else {
     if (backupLink) {
-      backupLink.classList.remove('hint--bottom');
-      backupLink.dataset.hint = '';
+      backupLink.title = '';
     }
     backupBtn.innerText = window.deps.translateString('backup.backupBtn', 'Backup');
     backupBtn.disabled = false;

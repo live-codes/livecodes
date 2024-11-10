@@ -222,11 +222,8 @@ export const createConsole = (
     const toolsPaneButtons = getToolspaneButtons();
     if (toolsPaneButtons) {
       clearButton = document.createElement('button');
-      clearButton.classList.add('console-clear-button', 'hint--top-left');
-      clearButton.dataset.hint = window.deps.translateString(
-        'toolspane.console.clear',
-        'Clear console',
-      );
+      clearButton.classList.add('console-clear-button');
+      clearButton.title = window.deps.translateString('toolspane.console.clear', 'Clear console');
       const iconCSS = '<i class="icon-delete"></i>';
       clearButton.innerHTML = iconCSS;
       clearButton.style.display = 'none';

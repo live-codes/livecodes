@@ -33,10 +33,10 @@ export const createTestViewer = (
     testActions.id = 'test-actions';
     testActions.classList.add('buttons');
     testActions.innerHTML = `
-    <a id="run-tests-btn" href="#" class="button hint--top" data-hint="${window.deps.translateString('toolspane.test.run.desc', 'Ctrl/Cmd + Alt + T')}">
+    <a id="run-tests-btn" href="#" class="button" title="${window.deps.translateString('toolspane.test.run.desc', 'Ctrl/Cmd + Alt + T')}">
       ${icons.run} ${window.deps.translateString('toolspane.test.run.heading', 'Run')}
     </a>
-    <a id="watch-tests-btn" href="#" class="button disabled hint--top" data-hint="${window.deps.translateString('toolspane.test.watch.desc', 'Run tests when code changes')}">
+    <a id="watch-tests-btn" href="#" class="button disabled" title="${window.deps.translateString('toolspane.test.watch.desc', 'Run tests when code changes')}">
       ${icons.checked} ${icons.unchecked} ${window.deps.translateString('toolspane.test.watch.heading', 'Watch')}
     </a>
     <a id="reset-tests-btn" href="#" class="button">${icons.reset} ${window.deps.translateString('toolspane.test.reset', 'Reset')}</a>

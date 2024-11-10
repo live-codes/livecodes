@@ -119,7 +119,6 @@ import { createAuthService, getAppCDN, sandboxService, shareService } from './se
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   fscreenUrl,
-  hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
@@ -235,7 +234,6 @@ const loadStyles = () =>
     : Promise.all(
         [
           snackbarUrl,
-          hintCssUrl,
           ...(isLite
             ? []
             : [
@@ -405,13 +403,11 @@ const createCopyButtons = () => {
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
         copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
-        copyButton.classList.add('hint--left', 'visible');
-        copyButton.dataset.hint = window.deps.translateString('core.copy.hint', 'Copied!');
-        copyButton.title = '';
+        copyButton.classList.add('visible');
+        copyButton.title = window.deps.translateString('core.copy.hint', 'Copied!');
         setTimeout(() => {
           copyButton.innerHTML = copyImgHtml;
-          copyButton.classList.remove('hint--left', 'visible');
-          copyButton.dataset.hint = '';
+          copyButton.classList.remove('visible');
           copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
         }, 2000);
       }
@@ -1824,14 +1820,14 @@ const setLayout = (layout: Config['layout']) => {
     const layoutSwitch = layoutToggle.closest('.switch') as HTMLElement;
     if (layout === undefined) {
       layoutToggle.readOnly = layoutToggle.indeterminate = true;
-      layoutSwitch.dataset.hint = window.deps.translateString(
+      layoutSwitch.title = window.deps.translateString(
         'core.layout.responsive',
         'Responsive layout',
       );
     } else {
       layoutToggle.checked = layout === 'vertical';
       layoutToggle.readOnly = layoutToggle.indeterminate = false;
-      layoutSwitch.dataset.hint =
+      layoutSwitch.title =
         layout === 'vertical'
           ? window.deps.translateString('core.layout.vertical', 'Vertical layout')
           : window.deps.translateString('core.layout.horizontal', 'Horizontal layout');
@@ -2038,16 +2034,13 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   if (!broadcastStatusBtn) return;
   if (info.isBroadcasting) {
     broadcastStatusBtn.firstElementChild?.classList.add('active');
-    broadcastStatusBtn.dataset.hint = window.deps.translateString(
+    broadcastStatusBtn.title = window.deps.translateString(
       'broadcast.broadcasting',
       'Broadcasting...',
     );
   } else {
     broadcastStatusBtn.firstElementChild?.classList.remove('active');
-    broadcastStatusBtn.dataset.hint = window.deps.translateString(
-      'core.broadcast.heading',
-      'Broadcast',
-    );
+    broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
   }
 };
 
@@ -4146,11 +4139,8 @@ const handleResultLoading = () => {
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
   popupBtn.id = 'result-popup-btn';
-  popupBtn.classList.add('tool-buttons', 'hint--top');
-  popupBtn.dataset.hint = window.deps.translateString(
-    'core.result.hint',
-    'Show result in new window',
-  );
+  popupBtn.classList.add('tool-buttons');
+  popupBtn.title = window.deps.translateString('core.result.hint', 'Show result in new window');
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const iconCSS = '<i class="icon-window-new"></i>';
   popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
@@ -4188,8 +4178,8 @@ const handleResultPopup = () => {
 const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
-  zoomBtn.classList.add('tool-buttons', 'hint--top');
-  zoomBtn.dataset.hint = window.deps.translateString('core.zoom.hint', 'Zoom');
+  zoomBtn.classList.add('tool-buttons');
+  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom');
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
   <button class="text">
@@ -4216,11 +4206,8 @@ const handleResultZoom = () => {
 const handleBroadcastStatus = () => {
   const broadcastStatusBtn = document.createElement('div');
   broadcastStatusBtn.id = 'broadcast-status-btn';
-  broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
-  broadcastStatusBtn.dataset.hint = window.deps.translateString(
-    'core.broadcast.heading',
-    'Broadcast',
-  );
+  broadcastStatusBtn.classList.add('tool-buttons');
+  broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   const iconCSS = '<i class="icon-broadcast"></i>';
   broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
@@ -4246,14 +4233,11 @@ const handleFullscreen = async () => {
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
-      fullscreenButton.dataset.hint = window.deps.translateString(
-        'core.fullScreen.enter',
-        'Full Screen',
-      );
+      fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
       return;
     }
     buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
-    fullscreenButton.dataset.hint = window.deps.translateString(
+    fullscreenButton.title = window.deps.translateString(
       'core.fullScreen.exit',
       'Exit Full Screen',
     );
@@ -4516,12 +4500,7 @@ const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createE
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.classList.add('hint--bottom-left');
-  logoLink.dataset.hint = window.deps.translateString(
-    'generic.embed.logoHint',
-    'Edit on LiveCodes 🡕',
-  );
-  logoLink.title = '';
+  logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
 
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
