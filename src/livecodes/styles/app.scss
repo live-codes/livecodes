@@ -744,7 +744,7 @@ a#result-button {
   #toolbar {
     align-items: flex-start;
     display: flex;
-    height: calc(var(--toolbar-height) * 2);
+    height: calc(var(--toolbar-height) * 2 - var(--s4));
 
     .toolbar-render {
       justify-content: space-between;
@@ -1245,8 +1245,8 @@ a#result-button {
 
 #select-editor {
   color: var(--editor-title-color);
-  height: calc(var(--toolbar-height) - 6px);
-  margin: 0 0 0 0.5rem;
+  height: calc(var(--toolbar-height) - var(--s6));
+  margin: 0 0 calc(-1 * var(--s2)) var(--s8);
   position: relative;
 
   > ul {
@@ -1469,7 +1469,6 @@ li.editor-title {
       }
 
       #select-editor {
-        margin-bottom: -2px;
         position: unset;
       }
 
