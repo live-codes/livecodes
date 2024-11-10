@@ -813,7 +813,7 @@ a#result-button {
 }
 
 #editors {
-  // background: var(--editor-bg-color); // TODO focus mode
+  background: var(--gutter-split-bg-color);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1469,6 +1469,7 @@ li.editor-title {
       }
 
       #select-editor {
+        margin-bottom: -2px;
         position: unset;
       }
 
