@@ -65,14 +65,9 @@ export const displayLoggedIn = (user: User) => {
   if (logOutLink && logOutText) {
     const displayName = user.displayName || user.username;
     logOutText.innerHTML = window.deps.translateString('login.logout', 'Log out');
-    logOutLink.classList.add('hint--bottom');
-    logOutLink.dataset.hint = window.deps.translateString(
-      'login.loginAs',
-      'Logged in as {{name}}',
-      {
-        name: displayName!,
-      },
-    );
+    logOutLink.title = window.deps.translateString('login.loginAs', 'Logged in as {{name}}', {
+      name: displayName!,
+    });
     logOutLink.style.display = 'flex';
   }
 };

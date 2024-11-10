@@ -341,7 +341,7 @@ export const createEditorSettingsUI = async ({
       title = document.createElement('label');
       title.innerHTML = field.title.replace(
         '*',
-        `<a href="#codejar-info" class="hint--top" data-hint="${window.deps.translateString('editorSettings.notAvailableInCodeJar', 'Not available in CodeJar')}" style="text-decoration: none;">*</a>`,
+        `<a href="#codejar-info" title="${window.deps.translateString('editorSettings.notAvailableInCodeJar', 'Not available in CodeJar')}" style="text-decoration: none;">*</a>`,
       );
       title.dataset.name = field.name;
       form.appendChild(title);

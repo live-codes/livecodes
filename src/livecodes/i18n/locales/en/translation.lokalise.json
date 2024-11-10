@@ -1456,6 +1456,10 @@
     "notes": "",
     "translation": "Press Alt/Option and move your cursor over result page"
   },
+  "menu.showWelcome.title": {
+    "notes": "",
+    "translation": "Show Welcome screen on startup"
+  },
   "menu.snippets": {
     "notes": "",
     "translation": "Code Snippets …"

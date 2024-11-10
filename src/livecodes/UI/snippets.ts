@@ -54,11 +54,11 @@ const createSnippetItem = (
 
   const link = document.createElement('a');
   link.href = '#';
-  link.dataset.hint = window.deps.translateString(
+  link.title = window.deps.translateString(
     'snippets.copy.clickToCopySnippet',
     'Click to copy snippet',
   );
-  link.classList.add('snippet-link', 'hint--top');
+  link.classList.add('snippet-link');
   link.title = item.description;
   link.onclick = (ev) => {
     ev.preventDefault();
@@ -112,8 +112,8 @@ const createSnippetItem = (
 
   const copyButton = document.createElement('div');
   copyButton.innerHTML = copyIcon;
-  copyButton.classList.add('action-button', 'hint--left');
-  copyButton.dataset.hint = window.deps.translateString('snippets.action.copy', 'Copy');
+  copyButton.classList.add('action-button');
+  copyButton.title = window.deps.translateString('snippets.action.copy', 'Copy');
   copyButton.onclick = (ev) => {
     ev.preventDefault();
     copySnippet(item.code, notifications);
@@ -122,8 +122,8 @@ const createSnippetItem = (
 
   const editButton = document.createElement('div');
   editButton.innerHTML = editIcon;
-  editButton.classList.add('action-button', 'hint--left');
-  editButton.dataset.hint = window.deps.translateString('snippets.action.edit', 'Edit');
+  editButton.classList.add('action-button');
+  editButton.title = window.deps.translateString('snippets.action.edit', 'Edit');
   editButton.onclick = () => {
     showScreen('add-snippet', item.id);
   };
@@ -131,8 +131,8 @@ const createSnippetItem = (
 
   const deleteButton = document.createElement('div');
   deleteButton.innerHTML = deleteIcon;
-  deleteButton.classList.add('action-button', 'delete-button', 'hint--left');
-  deleteButton.dataset.hint = window.deps.translateString('snippets.action.delete', 'Delete');
+  deleteButton.classList.add('action-button', 'delete-button');
+  deleteButton.title = window.deps.translateString('snippets.action.delete', 'Delete');
   actions.appendChild(deleteButton);
 
   return { link, deleteButton };

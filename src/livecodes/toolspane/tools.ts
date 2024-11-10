@@ -305,8 +305,8 @@ export const createToolsPane = (
     toolsPaneBar.appendChild(buttons);
 
     const closeButton = document.createElement('button');
-    closeButton.classList.add('console-close-button', 'hint--top-left');
-    closeButton.dataset.hint = window.deps.translateString('toolspane.close', 'Close');
+    closeButton.classList.add('console-close-button');
+    closeButton.title = window.deps.translateString('toolspane.close', 'Close');
     const iconCSS = '<i class="icon-close"></i>';
     closeButton.innerHTML = iconCSS;
 

@@ -601,6 +601,9 @@ const translation = {
       heading: 'Show Spacing',
       hint: 'Press Alt/Option and move your cursor over result page',
     },
+    showWelcome: {
+      title: 'Show Welcome screen on startup',
+    },
     snippets: 'Code Snippets …',
     source: 'Source code on GitHub',
     sync: 'Sync (beta) … <1> ⏳</1>',
