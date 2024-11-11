@@ -767,7 +767,8 @@
     margin-bottom: var(--s8);
   }
 
-  label + .input-container {
+  label + .input-container,
+  #editor-settings-form .input-container:not(.field-note) {
     background: var(--input-container);
     border-radius: var(--rs);
     padding: var(--s6);

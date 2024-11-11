@@ -25,14 +25,12 @@ export const createEditorSettingsUI = async ({
   modal,
   eventsManager,
   scrollToSelector,
-  appLanguages,
   deps,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
   eventsManager: ReturnType<typeof createEventsManager>;
   scrollToSelector: string;
-  appLanguages: Record<Exclude<AppLanguage, 'auto'>, string>;
   deps: {
     getUserConfig: () => UserConfig;
     createEditor: typeof createEditor;
@@ -71,21 +69,6 @@ export const createEditorSettingsUI = async ({
   }
   const formFields: FormField[] = [
     {
-      title: window.deps.translateString('editorSettings.appLanguage.heading', 'App UI Language'),
-      name: 'appLanguage',
-      options: [
-        ...Object.entries(appLanguages).map(([code, lng]) => ({
-          label: lng,
-          value: code,
-        })),
-      ],
-      note: window.deps.translateString(
-        'editorSettings.appLanguage.note',
-        'Will reload the app to apply the changes after switching the language.',
-      ),
-      help: `${process.env.DOCS_BASE_URL}features/i18n`,
-    },
-    {
       title: window.deps.translateString(
         'editorSettings.enableAI.heading',
         'Enable AI Code Assistant',
@@ -95,7 +78,7 @@ export const createEditorSettingsUI = async ({
       help: `${process.env.DOCS_BASE_URL}features/ai`,
       note: window.deps.translateString(
         'editorSettings.enableAI.note',
-        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{DOCS_BASE_URL}}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
+        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="./livecodes/assets/images/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
         {
           isHTML: true,
         },

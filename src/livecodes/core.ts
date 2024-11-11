@@ -3647,34 +3647,18 @@ const handleEditorSettings = () => {
   const changeSettings = (newConfig: Partial<UserConfig> | null) => {
     if (!newConfig) return;
     const shouldReload = newConfig.editor !== getConfig().editor;
-    const shouldReloadI18n = newConfig.appLanguage !== getConfig().appLanguage;
 
-    const applyEditorSettings = () => {
-      setUserConfig(newConfig);
-      const updatedConfig = getConfig();
-      setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-      if (shouldReload) {
-        reloadEditors(updatedConfig);
-      } else {
-        getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
-      }
-      showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-    };
-
-    if (shouldReloadI18n) {
-      checkSavedAndExecute(async () => {
-        applyEditorSettings();
-        if (!i18n && newConfig.appLanguage !== 'en') {
-          modal.show(loadingMessage(), { size: 'small' });
-          await loadI18n(newConfig.appLanguage);
-        }
-        await i18n?.changeLanguage(newConfig.appLanguage);
-        setAppLanguage(true);
-      })();
+    setUserConfig(newConfig);
+    const updatedConfig = getConfig();
+    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+    if (shouldReload) {
+      reloadEditors(updatedConfig);
     } else {
-      applyEditorSettings();
+      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
     }
+    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   };
+
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
@@ -3688,7 +3672,6 @@ const handleEditorSettings = () => {
       modal,
       eventsManager,
       scrollToSelector,
-      appLanguages,
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
