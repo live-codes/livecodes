@@ -1,14 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type {
-  AppLanguage,
-  Config,
-  EditorLibrary,
-  EditorOptions,
-  FormatFn,
-  UserConfig,
-} from '../models';
+import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
