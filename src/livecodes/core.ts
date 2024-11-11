@@ -2444,6 +2444,15 @@ const handleI18nMenu = () => {
   contributeLink.rel = 'noopener noreferrer';
   contributeLi.appendChild(contributeLink);
   i18nMenu.appendChild(contributeLi);
+
+  const docsLi = document.createElement('li');
+  const docsLink = document.createElement('a');
+  docsLink.href = `${process.env.DOCS_BASE_URL}features/i18n`;
+  docsLink.textContent = window.deps.translateString('app.i18nMenu.docs', 'i18n Documentation');
+  docsLink.target = '_blank';
+  docsLink.rel = 'noopener noreferrer';
+  docsLi.appendChild(docsLink);
+  i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
 };
 
@@ -3647,34 +3656,18 @@ const handleEditorSettings = () => {
   const changeSettings = (newConfig: Partial<UserConfig> | null) => {
     if (!newConfig) return;
     const shouldReload = newConfig.editor !== getConfig().editor;
-    const shouldReloadI18n = newConfig.appLanguage !== getConfig().appLanguage;
 
-    const applyEditorSettings = () => {
-      setUserConfig(newConfig);
-      const updatedConfig = getConfig();
-      setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-      if (shouldReload) {
-        reloadEditors(updatedConfig);
-      } else {
-        getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
-      }
-      showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-    };
-
-    if (shouldReloadI18n) {
-      checkSavedAndExecute(async () => {
-        applyEditorSettings();
-        if (!i18n && newConfig.appLanguage !== 'en') {
-          modal.show(loadingMessage(), { size: 'small' });
-          await loadI18n(newConfig.appLanguage);
-        }
-        await i18n?.changeLanguage(newConfig.appLanguage);
-        setAppLanguage(true);
-      })();
+    setUserConfig(newConfig);
+    const updatedConfig = getConfig();
+    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+    if (shouldReload) {
+      reloadEditors(updatedConfig);
     } else {
-      applyEditorSettings();
+      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
     }
+    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   };
+
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
@@ -3688,7 +3681,6 @@ const handleEditorSettings = () => {
       modal,
       eventsManager,
       scrollToSelector,
-      appLanguages,
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,

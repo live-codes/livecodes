@@ -136,6 +136,10 @@
     "notes": "",
     "translation": "UI Language"
   },
+  "app.i18nMenu.docs": {
+    "notes": "",
+    "translation": "i18n Documentation"
+  },
   "app.i18nMenu.helpTranslate": {
     "notes": "",
     "translation": "Help Us Translate"
@@ -752,14 +756,6 @@
     "notes": "",
     "translation": "Search your public repos..."
   },
-  "editorSettings.appLanguage.heading": {
-    "notes": "",
-    "translation": "App UI Language"
-  },
-  "editorSettings.appLanguage.note": {
-    "notes": "",
-    "translation": "Will reload the app to apply the changes after switching the language."
-  },
   "editorSettings.closeBrackets": {
     "notes": "",
     "translation": "Auto-close brackets and quotes"
@@ -817,7 +813,7 @@
     "translation": "Enable AI Code Assistant"
   },
   "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img src=\"{{DOCS_BASE_URL}}img/credits/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n",
+    "notes": "### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img src=\"./livecodes/assets/images/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n",
     "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.fontFamily": {

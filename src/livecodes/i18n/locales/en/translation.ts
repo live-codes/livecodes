@@ -88,6 +88,7 @@ const translation = {
       hint: 'UI Language',
     },
     i18nMenu: {
+      docs: 'i18n Documentation',
       helpTranslate: 'Help Us Translate',
     },
     logo: {
@@ -357,10 +358,6 @@ const translation = {
     searchRepo: 'Search your public repos...',
   },
   editorSettings: {
-    appLanguage: {
-      heading: 'App UI Language',
-      note: 'Will reload the app to apply the changes after switching the language.',
-    },
     closeBrackets: 'Auto-close brackets and quotes',
     codeJarDesc: '<1></1> * The marked features are not available in CodeJar.',
     default: 'Default',
