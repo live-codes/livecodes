@@ -1422,7 +1422,8 @@
 
   #test-editor-screen-container {
     #test-editor.editor.custom-editor {
-      height: 32vh;
+      height: 50vh;
+      max-height: unset;
     }
   }
 
