@@ -2444,6 +2444,15 @@ const handleI18nMenu = () => {
   contributeLink.rel = 'noopener noreferrer';
   contributeLi.appendChild(contributeLink);
   i18nMenu.appendChild(contributeLi);
+
+  const docsLi = document.createElement('li');
+  const docsLink = document.createElement('a');
+  docsLink.href = `${process.env.DOCS_BASE_URL}features/i18n`;
+  docsLink.textContent = window.deps.translateString('app.i18nMenu.docs', 'i18n Documentation');
+  docsLink.target = '_blank';
+  docsLink.rel = 'noopener noreferrer';
+  docsLi.appendChild(docsLink);
+  i18nMenu.appendChild(docsLi);
   menuContainer.appendChild(i18nMenu);
 };
 
