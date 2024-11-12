@@ -527,7 +527,7 @@ const translation: I18nTranslation = {
       gist: 'GitHub Gistにエクスポート',
       heading: 'エクスポート',
       jsfiddle: 'JSFiddleで編集',
-      json: 'プロジェクトをエクスポート（JSON）',
+      json: 'エクスポート (JSON)',
       result: '結果をエクスポート（HTML）',
       src: 'ソースをエクスポート（ZIP）',
     },
@@ -644,7 +644,7 @@ const translation: I18nTranslation = {
   savePrompt: {
     heading: '未保存の変更',
     prompt: {
-      cancel: 'キャンセル',
+      cancel: '消去',
       discard: '保存しない',
       heading: '変更が保存されていない可能性があります。<1></1>今すぐ保存しますか？',
       save: '保存',
@@ -886,7 +886,7 @@ const translation: I18nTranslation = {
       heading: '最近',
     },
     recover: {
-      cancel: 'キャンセル',
+      cancel: '消去',
       heading: '復元',
       lastModified: '最終更新: <1></1>',
       recover: '復元',

@@ -434,7 +434,7 @@ export default function App() {
       nonEmbeddedUrl.searchParams.delete('lite');
       const projectUrl = decodeURIComponent(nonEmbeddedUrl.href);
       return `
-<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:4px;" src="${iframeUrl}">
+<iframe title="${title}" scrolling="no" loading="lazy" style="height:300px; width: 100%; border:1px solid black; border-radius:6px;" src="${iframeUrl}">
   See the project <a href="${projectUrl}" target="_blank">${title}</a> on <a href="${livecodesUrl}" target="_blank">LiveCodes</a>.
 </iframe>
 `.trimStart();

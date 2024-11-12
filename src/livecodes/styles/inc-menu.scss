@@ -196,7 +196,7 @@
     color: inherit;
     display: inherit;
     justify-content: space-between;
-    padding: var(--s6) var(--s8); // TODO css var rel to li height (fontsize+padding)
+    padding: var(--s6) var(--s8);
     text-decoration: none;
     white-space: nowrap;
     width: 100%;
@@ -229,7 +229,7 @@
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
-    padding: 6px 8px; // TODO css var rel to li height (fontsize+padding)
+    padding: var(--s6) var(--s8);
 
     input[type='range'] {
       width: 8em;
@@ -256,7 +256,7 @@
   position: absolute !important;
   right: unset;
   top: 0;
-  width: 230px; // todo css var + for font-size 14px
+  width: 234px;
 
   &:hover {
     display: block !important;
@@ -376,10 +376,22 @@ i.arrow {
   }
 }
 
+label:has(span[data-i18n="menu.formatOnsave"], span[data-i18n="menu.recoverUnsaved"]) {
+  container: i18nlabel / inline-size; // Parent to set font-size based on size of container
+  white-space: nowrap;
+}
+
+@container i18nlabel (width < 236px) {
+  span {
+    font-size: 5.25cqi; // font-size based on size of container
+  }
+}
+
+
 .switch {
   cursor: pointer;
   display: inherit;
-  padding: 6px 8px; // TODO css var rel to li height (fontsize+padding)
+  padding: var(--s6) var(--s8);
   width: 100%;
 
   span {
