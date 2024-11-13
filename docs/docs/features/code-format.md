@@ -16,7 +16,7 @@ For example:
 
 Code formatting for the code in the active editor can be triggered by the `Format` button below the editor.
 
-![code format](../../static/img/screenshots/format.jpg)
+![code format](../../static/img/screenshots/format-1.jpg)
 
 ## Keyboard Shortcut
 

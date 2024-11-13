@@ -38,7 +38,7 @@ Projects can be saved to the local device browser storage from app menu → Save
 
 The list of saved projects can be accessed from app menu → Open.
 
-![LiveCodes Projects](../../static/img/screenshots/saved-projects.png).
+![LiveCodes Projects](../../static/img/screenshots/saved-projects-1.jpg).
 
 Saved projects can be sorted by title or date (asc/desc). They can also be filtered by language and/or tags. You may, as well, search for a project by title or description.
 
