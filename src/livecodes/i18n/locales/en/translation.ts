@@ -377,6 +377,7 @@ const translation = {
     emmet: 'Enable Emmet *',
     enableAI: {
       heading: 'Enable AI Code Assistant',
+      note: 'Powered by <1><2></2></1>',
     },
     fontFamily: 'Font Family',
     fontSize: 'Font Size',

@@ -112,6 +112,10 @@ const screenshots = [
     url: './img/screenshots/themes-5.jpg',
   },
   {
+    label: 'Change UI language to your preferred one',
+    url: './img/screenshots/i18n-1.jpg',
+  },
+  {
     label: 'Responsive layout',
     url: './img/screenshots/responsive.jpg',
   },
