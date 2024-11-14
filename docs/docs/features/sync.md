@@ -4,13 +4,13 @@ LiveCodes local data can be synchronized to a GitHub repo. This can be used as a
 
 A GitHub account is required. The user must give access to [(Private Repos) while logging in](./github-integration.md).
 
-The Sync screen can be accessed from the app menu → Sync.
+The Sync screen can be accessed from the Settings menu → Sync.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 <RunInLiveCodes params={{screen: 'sync'}} linkText="direct link" />
 
-![LiveCodes Sync](../../static/img/screenshots/sync.png)
+![LiveCodes Sync](../../static/img/screenshots/sync.jpg)
 
 Data can be synchronized to a new (**private**) or existing repo.
 

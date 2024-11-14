@@ -24,9 +24,9 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 It shows a preview of the embedded playground, allows customizations of [embed options](../sdk/js-ts.md#embed-options) and provides generated code that can be added to the web page that will embed the playground.
 
-![LiveCodes embed](../../static/img/screenshots/embed1.png)
-![LiveCodes embed](../../static/img/screenshots/embed2.png)
-![LiveCodes embed](../../static/img/screenshots/embed3.png)
+![LiveCodes embed](../../static/img/screenshots/embed-1.jpg)
+![LiveCodes embed](../../static/img/screenshots/embed-2.jpg)
+![LiveCodes embed](../../static/img/screenshots/embed-3.jpg)
 
 :::info Note
 

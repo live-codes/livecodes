@@ -114,7 +114,7 @@ Default: all supported languages in full app and only current editor languages i
 
 List of enabled languages. Languages that are not already loaded in the editors ([markup](#markup), [style](#style) and [script](#script)) can be selected from a drop down menu at the editor title.
 
-![Change Language](../../static/img/screenshots/languages.jpg)
+![Change Language](../../static/img/screenshots/languages-3.jpg)
 
 ### `markup`
 
