@@ -15,6 +15,7 @@ User settings can be configured in Settings menu. These include settings like:
 - Layout (responsive/vertical/horizontal)
 - [Sync](./sync.md)
 - Show [welcome screen](./welcome.md)
+- [App language](./i18n.md)
 
 The settings selected in the [`Editor Settings`](./editor-settings.md) screen are also saved locally as user settings.
 
