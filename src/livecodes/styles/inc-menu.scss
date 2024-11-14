@@ -376,7 +376,7 @@ i.arrow {
   }
 }
 
-label:has(span[data-i18n="menu.formatOnsave"], span[data-i18n="menu.recoverUnsaved"]) {
+label:has(span[data-i18n='menu.formatOnsave'], span[data-i18n='menu.recoverUnsaved']) {
   container: i18nlabel / inline-size; // Parent to set font-size based on size of container
   white-space: nowrap;
 }
@@ -386,7 +386,6 @@ label:has(span[data-i18n="menu.formatOnsave"], span[data-i18n="menu.recoverUnsav
     font-size: 5.25cqi; // font-size based on size of container
   }
 }
-
 
 .switch {
   cursor: pointer;
