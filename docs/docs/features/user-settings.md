@@ -12,7 +12,7 @@ User settings can be configured in Settings menu. These include settings like:
 - [Theme color](./themes.md#theme-color)
 - [Recover unsaved projects](./recover.md)
 - [Show spacing](./result.md#show-spacings)
-- [Layout](responsive/vertical/horizontal)
+- Layout (responsive/vertical/horizontal)
 - [Sync](./sync.md)
 - Show [welcome screen](./welcome.md)
 
