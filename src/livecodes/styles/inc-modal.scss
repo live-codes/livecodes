@@ -1422,7 +1422,8 @@
 
   #test-editor-screen-container {
     #test-editor.editor.custom-editor {
-      height: 32vh;
+      height: 50vh;
+      max-height: unset;
     }
   }
 
@@ -1439,10 +1440,10 @@
   #welcome-screen-container {
     flex-direction: column;
     margin: 1rem 1rem 2rem;
-    max-height: 38rem;
+    max-height: calc(var(--font-size) * 40);
 
     &.no-recent {
-      height: 26rem;
+      height: calc(var(--font-size) * 30);
     }
 
     li {

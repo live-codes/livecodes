@@ -13,7 +13,7 @@ Example: https://livecodes.io/?template=react
 
 Screenshot: (App in full mode)
 
-![full-mode](../../static/img/screenshots/focus-mode.png)
+![full-mode](../../static/img/screenshots/mode-full.jpg)
 
 Demo: (Embedded playground in full mode)
 
@@ -27,7 +27,7 @@ Example: https://livecodes.io/?template=react&mode=focus
 
 Screenshot: (focus mode)
 
-![focus-mode](../../static/img/screenshots/focus-mode.png)
+![focus-mode](../../static/img/screenshots/mode-focus.jpg)
 
 ## `simple`
 

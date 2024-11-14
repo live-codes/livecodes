@@ -32,13 +32,13 @@ The AI code assistant can be enabled from:
 
 ### UI
 
-The [editor settings](./editor-settings.md) screen (App menu → Editor Settings → Enable AI Code Assistant).
+The [editor settings](./editor-settings.md) screen (Settings menu → Editor Settings → Enable AI Code Assistant).
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 <RunInLiveCodes params={{screen: 'editor-settings'}} linkText="direct link" />
 
-![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.png)
+![LiveCodes Editor Settings](../../static/img/screenshots/editor-settings-1.jpg)
 
 **Note**
 

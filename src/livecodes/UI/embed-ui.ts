@@ -49,10 +49,12 @@ export const createEmbedUI = async ({
       | 'readonly'
       | 'mode'
       | 'view'
+      | 'layout'
       | 'activeEditor'
-      | 'permanentUrl'
+      | 'editor'
       | 'tools'
-      | 'activeTool';
+      | 'activeTool'
+      | 'permanentUrl';
     options: Array<{ label?: string; value: string; checked?: boolean }>;
     help?: string;
   }
@@ -103,6 +105,10 @@ export const createEmbedUI = async ({
           checked: true,
         },
         {
+          label: window.deps.translateString('embed.mode.simple', 'Simple'),
+          value: 'simple',
+        },
+        {
           label: window.deps.translateString('embed.mode.editor', 'Editor'),
           value: 'editor',
         },
@@ -138,6 +144,26 @@ export const createEmbedUI = async ({
       help: `${process.env.DOCS_BASE_URL}features/default-view`,
     },
     {
+      title: window.deps.translateString('embed.layout.heading', 'Layout'),
+      name: 'layout',
+      options: [
+        {
+          label: window.deps.translateString('embed.layout.responsive', 'Responsive'),
+          value: 'responsive',
+          checked: true,
+        },
+        {
+          label: window.deps.translateString('embed.layout.horizontal', 'Horizontal'),
+          value: 'horizontal',
+        },
+        {
+          label: window.deps.translateString('embed.layout.vertical', 'Vertical'),
+          value: 'vertical',
+        },
+      ],
+      help: `${process.env.DOCS_BASE_URL}configuration/configuration-object#layout`,
+    },
+    {
       title: window.deps.translateString('embed.activeEditor.heading', 'Active Editor'),
       name: 'activeEditor',
       options: [
@@ -163,6 +189,30 @@ export const createEmbedUI = async ({
           checked: activeEditor === 'script',
         },
       ],
+    },
+    {
+      title: window.deps.translateString('embed.codeEditor.heading', 'Code Editor'),
+      name: 'editor',
+      options: [
+        {
+          label: window.deps.translateString('embed.codeEditor.default', 'Default'),
+          value: '',
+          checked: true,
+        },
+        {
+          label: window.deps.translateString('embed.codeEditor.monaco', 'Monaco'),
+          value: 'monaco',
+        },
+        {
+          label: window.deps.translateString('embed.codeEditor.codeMirror', 'CodeMirror'),
+          value: 'codemirror',
+        },
+        {
+          label: window.deps.translateString('embed.codeEditor.codeJar', 'CodeJar'),
+          value: 'codejar',
+        },
+      ],
+      help: `${process.env.DOCS_BASE_URL}features/editor-settings#code-editor`,
     },
     {
       title: window.deps.translateString('embed.tools.heading', 'Tools'),
@@ -299,7 +349,7 @@ export const createEmbedUI = async ({
     const config = {
       ...(data.mode !== defaultConfig.mode ? { mode: data.mode } : {}),
       ...(data.theme !== defaultConfig.theme ? { theme: data.theme } : {}),
-      ...(data.tools !== 'closed' || data.activeTool !== 'console'
+      ...(!data.lite && (data.tools !== 'closed' || data.activeTool !== 'console')
         ? {
             tools: {
               enabled: data.tools === 'none' ? [] : 'all',
@@ -312,6 +362,8 @@ export const createEmbedUI = async ({
       ...(data.mode !== 'result' && data.activeEditor !== activeEditor
         ? { activeEditor: data.activeEditor }
         : {}),
+      ...(data.editor ? { editor: data.editor } : {}),
+      ...(data.layout !== defaultConfig.layout ? { layout: data.layout } : {}),
     };
     const importId = urlObj.searchParams.get('x');
     return {
@@ -343,7 +395,7 @@ export const createEmbedUI = async ({
     if (data.theme && data.theme !== defaultConfig.theme) {
       iframeUrl.searchParams.set('theme', String(data.theme));
     }
-    if (data.tools && (data.tools !== 'closed' || data.activeTool !== 'console')) {
+    if (data.tools && !data.lite && (data.tools !== 'closed' || data.activeTool !== 'console')) {
       iframeUrl.searchParams.set(
         data.tools === 'none' ? 'tools' : String(data.activeTool),
         String(data.tools),
@@ -351,6 +403,12 @@ export const createEmbedUI = async ({
     }
     if (data.readonly !== undefined) {
       iframeUrl.searchParams.set('readonly', String(data.readonly));
+    }
+    if (data.editor) {
+      iframeUrl.searchParams.set('editor', String(data.editor));
+    }
+    if (data.layout && data.layout !== defaultConfig.layout) {
+      iframeUrl.searchParams.set('layout', String(data.layout));
     }
     return decodeURIComponent(iframeUrl.href);
   };
@@ -479,6 +537,7 @@ export default function App() {
     view: 'split',
     tools: 'closed',
     activeTool: 'console',
+    editor: '',
   };
 
   const generateCode = async () => {
@@ -518,21 +577,40 @@ export default function App() {
     const activeToolInputs = document.querySelectorAll<HTMLInputElement>(
       'input[name="embed-activeTool"]',
     );
+    const editorInputs = document.querySelectorAll<HTMLInputElement>('input[name="embed-editor"]');
     if (formData.lite) {
-      previousSelections.tools = formData.tools || previousSelections.tools;
+      previousSelections.tools = formData.tools ?? previousSelections.tools;
+      previousSelections.editor = formData.editor ?? previousSelections.editor;
       delete formData.tools;
+      delete formData.editor;
       toolsInputs.forEach((input) => {
         input.checked = false;
         input.disabled = true;
       });
+      editorInputs.forEach((input) => {
+        input.checked = false;
+        input.disabled = true;
+        if (input.value === 'codejar') {
+          input.checked = true;
+        }
+      });
     } else {
       toolsInputs.forEach((input) => {
-        if (input.value === (formData.tools || previousSelections.tools)) {
+        if (input.value === (formData.tools ?? previousSelections.tools)) {
           input.checked = true;
         }
         input.disabled = false;
         if (input.checked) {
           formData.tools = input.value;
+        }
+      });
+      editorInputs.forEach((input) => {
+        if (input.value === (formData.editor ?? previousSelections.editor)) {
+          input.checked = true;
+        }
+        input.disabled = false;
+        if (input.checked) {
+          formData.editor = input.value;
         }
       });
     }

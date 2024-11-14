@@ -4,15 +4,15 @@ It is easy to share LiveCodes projects!
 
 A URL is generated to load the shared project. This URL can be copied or shared to different social media.
 
-The share screen can be accessed from the share icon at the top right or from the app menu → Share.
+The share screen can be accessed from the share icon at the top right or from the Project menu → Share.
 
-![LiveCodes Share](../../static/img/screenshots/share.jpg)
+![LiveCodes Share](../../static/img/screenshots/share-1.jpg)
 
 By default, the generated URL encodes the project configuration in a base-64-encoded compressed query string. This step is generated locally in the browser without sending the code to any server. However, depending on the size of the project, the URL can be very long. The length of the URL is indicated in the share screen. [Try not to use very long URLs](https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers) to ensure cross-browser compatibility.
 
 When requested by the user, short URLs can be generated. This requires sending the project configuration (**including source code**) to a server that saves the code and provides a short Id which can be used to retrieve the project.
 
-![LiveCodes Share - short URL](../../static/img/screenshots/share2.jpg)
+![LiveCodes Share - short URL](../../static/img/screenshots/share-2.jpg)
 
 :::caution
 
@@ -32,7 +32,7 @@ However, [**self-hosted apps**](./self-hosting.md) use the free service [dpaste]
 
 QR code can be generated for the share URL. This can then be scanned by any QR code scanner (e.g. mobile/tablet camera) to load the project on other devices without having to send the link. Please note that generating QR code also requires generating a short URL (code is sent to the share service - see above).
 
-![LiveCodes Share - QR code](../../static/img/screenshots/share-qrcode.jpg)
+![LiveCodes Share - QR code](../../static/img/screenshots/share-3.jpg)
 
 ## Related
 

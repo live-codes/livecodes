@@ -6,9 +6,9 @@ The app can also be configured to load a default [user template](./templates.md#
 
 If you do not already have any user templates, save any loaded project as template:
 
-App menu → Save as → Template.
+Project menu → Save as → Template.
 
-Then, in the user templates screen (app menu → New ... → My Templates), find your template and click "Set as default".
+Then, in the user templates screen (Project menu → New ... → My Templates), find your template and click "Set as default".
 
 If you wish to clear that selection, find the default template in user templates and click "unset".
 

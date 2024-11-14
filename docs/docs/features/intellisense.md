@@ -8,7 +8,7 @@ This not only works when the editor language is TypeScript, but also works with 
 
 Example:
 
-![LiveCodes Autocomplete](../../static/img/screenshots/autocomplete.png)
+![LiveCodes Autocomplete](../../static/img/screenshots/autocomplete.jpg)
 
 ## Types for imported npm packages
 
@@ -16,9 +16,9 @@ LiveCodes will try to automatically find type definitions for npm modules import
 
 These are examples for automatically loading React types with autocomplete and hover info:
 
-![LiveCodes Intellisense](../../static/img/screenshots/intellisense1.jpg)
+![LiveCodes Intellisense](../../static/img/screenshots/intellisense-1.jpg)
 
-![LiveCodes Intellisense](../../static/img/screenshots/intellisense2.jpg)
+![LiveCodes Intellisense](../../static/img/screenshots/intellisense-2.jpg)
 
 ## TypeScript TwoSlash
 
@@ -26,9 +26,9 @@ The code editor supports [TypeScript TwoSlash](https://github.com/microsoft/Type
 
 This is supported in [JavaScript](../languages/javascript.md), [TypeScript](../languages/typescript.md), [JSX](../languages/jsx.md) and [TSX](../languages/tsx.md). This also includes [Babel](../languages/babel.md), [Sucrase](../languages/sucrase.md), [Solid](../languages/solid.md), [React Native](../languages/react-native.md), etc.
 
-![TypeScript TwoSlash](../../static/img/screenshots/twoslash.png)
+![TypeScript TwoSlash](../../static/img/screenshots/twoslash.jpg) <!-- http://127.0.0.1:8080/?x=id/npgxgngikwj -->
 
-![TwoSlash in JSX](../../static/img/screenshots/twoslash-jsx.png)
+![TwoSlash in JSX](../../static/img/screenshots/twoslash-jsx.jpg) <!-- http://127.0.0.1:8080/?x=id/c9ttudp5b4x -->
 
 ## Custom Types
 

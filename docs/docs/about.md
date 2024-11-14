@@ -1,6 +1,6 @@
 # About us
 
-LiveCodes is built and maintained primarily by [Hatem Hosny](https://github.com/hatemhosny), from Egypt <img style={{ height: '0.8em' }} src="https://flagcdn.com/h20/eg.png" alt="Egypt"></img>.
+LiveCodes is built and maintained by [Hatem Hosny](https://github.com/hatemhosny), and wonderful [contributors](https://github.com/live-codes/livecodes/graphs/contributors).
 
 Feature requests and bug reports are received on the [GitHub repo](https://github.com/live-codes/livecodes/issues).
 

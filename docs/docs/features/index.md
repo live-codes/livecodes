@@ -8,7 +8,11 @@ sidebar_class_name: exclude_from_sidebar
 
 _LiveCodes_ is an open-source, client-side, code playground that runs in the browser. It enables quick prototyping and experimenting with a wide variety of [technologies](../languages/index.md) (including 80+ languages, frameworks and processors) without having to manually setup a development environment for each. The [result](./result.md) is displayed as a regular web page. The rapid feedback of previewing the result page without waiting for build steps significantly boosts productivity.
 
-![LiveCodes screenshot](../../static/img/screenshots/features.jpg)
+![LiveCodes screenshot](../../static/img/screenshots/features-1.jpg)
+
+![LiveCodes screenshot](../../static/img/screenshots/features-2.jpg)
+
+![LiveCodes screenshot](../../static/img/screenshots/features-3.jpg)
 
 In this page, a quick overview of the important features are presented. A more detailed description of each feature is described in the following sections.
 
@@ -48,7 +52,7 @@ Projects can be [deployed](./deploy.md) to public URLs that can be shared with o
 
 A large number of [starter templates](./templates.md) are available. They can be used to get you started with most of the supported technologies.
 
-![Starter templates](../../static/img/screenshots/templates1.png)
+![Starter templates](../../static/img/screenshots/templates-1.jpg)
 
 ## Assets
 

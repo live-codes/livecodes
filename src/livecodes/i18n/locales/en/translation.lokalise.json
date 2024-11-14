@@ -812,10 +812,6 @@
     "notes": "",
     "translation": "Enable AI Code Assistant"
   },
-  "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img src=\"./livecodes/assets/images/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n",
-    "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
-  },
   "editorSettings.fontFamily": {
     "notes": "",
     "translation": "Font Family"
@@ -920,6 +916,26 @@
     "notes": "",
     "translation": "Code"
   },
+  "embed.codeEditor.codeJar": {
+    "notes": "",
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "notes": "",
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "notes": "",
+    "translation": "Default"
+  },
+  "embed.codeEditor.heading": {
+    "notes": "",
+    "translation": "Code Editor"
+  },
+  "embed.codeEditor.monaco": {
+    "notes": "",
+    "translation": "Monaco"
+  },
   "embed.desc": {
     "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}configuration/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Please check the <tag-1>documentations</tag-1> for advanced configurations."
@@ -960,6 +976,22 @@
     "notes": "",
     "translation": "Embed Project"
   },
+  "embed.layout.heading": {
+    "notes": "",
+    "translation": "Layout"
+  },
+  "embed.layout.horizontal": {
+    "notes": "",
+    "translation": "Horizontal"
+  },
+  "embed.layout.responsive": {
+    "notes": "",
+    "translation": "Responsive"
+  },
+  "embed.layout.vertical": {
+    "notes": "",
+    "translation": "Vertical"
+  },
   "embed.lite": {
     "notes": "",
     "translation": "Lite Mode"
@@ -999,6 +1031,10 @@
   "embed.mode.result": {
     "notes": "",
     "translation": "Result"
+  },
+  "embed.mode.simple": {
+    "notes": "",
+    "translation": "Simple"
   },
   "embed.permanentUrl": {
     "notes": "",

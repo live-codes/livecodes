@@ -377,7 +377,6 @@ const translation = {
     emmet: 'Enable Emmet *',
     enableAI: {
       heading: 'Enable AI Code Assistant',
-      note: 'Powered by <1><2></2></1>',
     },
     fontFamily: 'Font Family',
     fontSize: 'Font Size',
@@ -415,6 +414,13 @@ const translation = {
       copy: 'Copy Code',
       heading: 'Code',
     },
+    codeEditor: {
+      codeJar: 'CodeJar',
+      codeMirror: 'CodeMirror',
+      default: 'Default',
+      heading: 'Code Editor',
+      monaco: 'Monaco',
+    },
     desc: 'Please check the <1>documentations</1> for advanced configurations.',
     embedType: {
       cdn: 'Script (CDN)',
@@ -427,6 +433,12 @@ const translation = {
       vue: 'Vue',
     },
     heading: 'Embed Project',
+    layout: {
+      heading: 'Layout',
+      horizontal: 'Horizontal',
+      responsive: 'Responsive',
+      vertical: 'Vertical',
+    },
     lite: 'Lite Mode',
     loading: {
       click: 'On-click',
@@ -440,6 +452,7 @@ const translation = {
       full: 'Full',
       heading: 'Display Mode',
       result: 'Result',
+      simple: 'Simple',
     },
     permanentUrl: 'Permanent URL',
     preview: 'Preview',
