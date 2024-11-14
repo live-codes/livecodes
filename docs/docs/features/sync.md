@@ -18,7 +18,7 @@ The data is synchronized with the `main` branch in a directory named `livecodes-
 
 If `Auto sync` is selected, the sync will be attempted every 5 minutes. Remote files are downloaded only when changed (e.g. sync from another device).
 
-`Auto sync` can be turned off and on by the switch on the app menu.
+`Auto sync` can be turned off and on by the switch on the Settings menu.
 
 The sync can be manually triggered at any time from the Sync UI. Information regarding the last sync time and repo are displayed on the UI screen.
 

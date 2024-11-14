@@ -16,7 +16,7 @@ The embedding web page can communicate with the playground using a powerful [SDK
 
 ### App Embed Screen
 
-In the [standalone app](../getting-started.md#standalone-app), the Embed Screen can be accessed from app menu → Embed.
+In the [standalone app](../getting-started.md#standalone-app), the Embed Screen can be accessed from Project menu → Embed.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
@@ -70,7 +70,7 @@ Some of the features of the full standalone app are not available or shown by de
 - All features that require authentication:  
   e.g. [login/logout](./github-integration.md), [sync](./sync.md), [deploy](./deploy.md), [importing](./import.md) from private github repos.
 - [Broadcast](./broadcast.md).
-- App menu.
+- App menus.
 - Some tools in [tools pane](./tools-pane.md):  
   e.g. open result page in new window, broadcast status.
 - [Welcome screen](./welcome.md).

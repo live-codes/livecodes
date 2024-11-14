@@ -2,7 +2,7 @@
 
 LiveCodes allows a lot of flexibility for configuring which code editor to use and its settings.
 
-`Editor Settings` screen can be accessed from app menu → Editor Settings.
+`Editor Settings` screen can be accessed from Settings menu → Editor Settings.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 

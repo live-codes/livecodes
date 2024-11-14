@@ -2,7 +2,7 @@
 
 ## Stylesheets and Scripts
 
-URLs to external CSS stylesheets and JS scripts can be added to the page from the UI using the app menu → External Resources. In addition, there is a button to the External Resources in the toolbar below the editors.
+URLs to external CSS stylesheets and JS scripts can be added to the page from the UI using the Project menu → External Resources. In addition, there is a button to the External Resources in the toolbar below the editors.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 

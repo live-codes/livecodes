@@ -86,7 +86,7 @@ The spacing between elements on the result page can be measured by adding [Spaci
 
 ![Show Spacings](../../static/img/screenshots/spacing.jpg)
 
-1. Enable `Show Spacing` setting in the app menu.
+1. Enable `Show Spacing` setting in the Settings menu.
 2. Move your cursor to an element and press Alt on Windows, or Option on a Mac.
 3. Move your cursor to another element, the measurement results will be there.
 

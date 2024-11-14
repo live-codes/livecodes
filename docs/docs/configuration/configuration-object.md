@@ -59,7 +59,7 @@ Type: [`string`](../api/interfaces/Config.md#title)
 
 Default: `"Untitled Project"`
 
-Project title. This is used as [result page](../features/result.md) title and title meta tag. Also used in [project](../features/projects.md) search. This can be set in the UI from the title input (above result page) or from app menu → Project Info.
+Project title. This is used as [result page](../features/result.md) title and title meta tag. Also used in [project](../features/projects.md) search. This can be set in the UI from the title input (above result page) or from Project menu → Project Info.
 
 ### `description`
 
@@ -67,7 +67,7 @@ Type: [`string`](../api/interfaces/Config.md#description)
 
 Default: `""`
 
-Project description. Used in [project](../features/projects.md) search and result page description meta tag. This can be set in the UI from app menu → Project Info.
+Project description. Used in [project](../features/projects.md) search and result page description meta tag. This can be set in the UI from Project menu → Project Info.
 
 ### `head`
 
@@ -75,7 +75,7 @@ Type: [`string`](../api/interfaces/Config.md#head)
 
 Default: `'<meta charset="UTF-8" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />'`
 
-Content added to the [result page](../features/result.md) `<head>` element. This can be set in the UI from app menu → Project Info.
+Content added to the [result page](../features/result.md) `<head>` element. This can be set in the UI from Project menu → Project Info.
 
 ### `htmlAttrs`
 
@@ -88,7 +88,7 @@ Attributes added to the [result page](../features/result.md) `<html>` element. I
 Example: `{ lang: "en", class: "dark" }` or `'lang="en" class="dark"'`,  
 become `<html lang="en" class="dark">`.
 
-This can be set in the UI from app menu → Project Info.
+This can be set in the UI from Project menu → Project Info.
 
 ### `tags`
 
@@ -96,7 +96,7 @@ Type: [`string[]`](../api/interfaces/Config.md#tags)
 
 Default: `[]`
 
-Project tags. Used in [project](../features/projects.md) filter and search. This can be set in the UI from app menu → Project Info.
+Project tags. Used in [project](../features/projects.md) filter and search. This can be set in the UI from Project menu → Project Info.
 
 ### `activeEditor`
 

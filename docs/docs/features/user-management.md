@@ -28,7 +28,7 @@ If the user logs off, the data is cleared from the app, but is kept in the brows
 
 ## Login/Logout
 
-Login/Logout links are accessible from the app menu.
+Login/Logout links are accessible at the top right corner of the app.
 
 :::info note
 

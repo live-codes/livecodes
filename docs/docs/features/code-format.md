@@ -24,7 +24,7 @@ Code formatting can also be trigger by the keyboard shortcut <kbd>Alt</kbd> + <k
 
 ## Format on-save
 
-Format on-save can be enabled from the app menu → Format on-save.
+Format on-save can be enabled from the Settings menu → Format on-save.
 
 ## Format Options
 
