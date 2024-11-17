@@ -58,6 +58,9 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'Schermo intero',
     },
+    logo: {
+      title: 'LiveCodes: Un Parco Giochi per il Codice Che Funziona e Basta!',
+    },
     projectInfo: {
       hint: 'Informazioni progetto',
     },

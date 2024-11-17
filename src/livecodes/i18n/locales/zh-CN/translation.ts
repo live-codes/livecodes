@@ -58,6 +58,9 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: '全屏',
     },
+    logo: {
+      title: 'LiveCodes: 一个简单实用的代码游乐场！',
+    },
     projectInfo: {
       hint: '项目信息',
     },

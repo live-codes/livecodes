@@ -58,6 +58,9 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'فل اسکرین',
     },
+    logo: {
+      title: 'لائیو کوڈز: ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے!',
+    },
     projectInfo: {
       hint: 'پروجیکٹ کی معلومات',
     },
@@ -447,7 +450,7 @@ const translation: I18nTranslation = {
     more: 'مزید...',
     optional: 'اختیاری',
     required: 'ضروری',
-    tagline: '!ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے',
+    tagline: 'ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے!',
   },
   import: {
     bulk: {
