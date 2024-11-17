@@ -608,12 +608,6 @@ kbd {
         margin: 4px;
         white-space: pre;
       }
-
-      &::before {
-        content: '* ';
-        visibility: hidden;
-        white-space: pre;
-      }
     }
   }
 
