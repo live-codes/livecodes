@@ -708,6 +708,9 @@ const translation = {
     stylesheets: 'External Stylesheets',
     urlDesc: 'Add stylesheet/script URLs. Each URL should be in a separate line.',
   },
+  resultMode: {
+    linkText: 'Edit on LiveCodes',
+  },
   savePrompt: {
     heading: 'Unsaved changes',
     prompt: {
