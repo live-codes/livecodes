@@ -62,12 +62,12 @@
 #app-menu-settings,
 #app-menu-project,
 #app-menu-i18n {
+  --label-max-width: 188px; // used in js to reduce label font size
   column-count: 1;
   left: 0;
   margin-top: 0;
   top: 0;
   width: 255px; // for font-size 14px
-  --label-max-width: 188px; // used in js to reduce label font size
 
   &:hover {
     animation: fadeIn 0.4s forwards;
