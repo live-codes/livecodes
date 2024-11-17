@@ -90,7 +90,7 @@ Demo:
 
 ## `result`
 
-Shows the result page only, with a small overlay (appears on hover) that allows opening the project in the full playground.
+Shows the result page only, with a drawer at the bottom (which can be closed) that allows opening the project in the full playground.
 
 Example: https://livecodes.io/?mode=result&template=react
 

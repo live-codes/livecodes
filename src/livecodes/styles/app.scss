@@ -815,7 +815,7 @@ a#result-button {
   }
 }
 
-@media only screen and (max-width: 480px) and (orientation: portrait) {
+@media only screen and (max-width: 480px) {
   #toolbar {
     align-items: flex-start;
     display: flex;
@@ -1590,7 +1590,7 @@ li.editor-title {
     height: calc(100% - var(--toolbar-height));
   }
 
-  @media only screen and (max-width: 480px) and (orientation: portrait) {
+  @media only screen and (max-width: 480px) {
     #toolbar {
       .toolbar-app,
       .toolbar-render {
