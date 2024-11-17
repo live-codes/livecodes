@@ -59,7 +59,7 @@ const translation: I18nTranslation = {
       hint: 'فل اسکرین',
     },
     logo: {
-      title: 'لائیو کوڈز: براؤزر میں چلنے والا کوڈ پلے گراؤنڈ!',
+      title: 'لائیو کوڈز: ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے!',
     },
     projectInfo: {
       hint: 'پروجیکٹ کی معلومات',
@@ -450,7 +450,7 @@ const translation: I18nTranslation = {
     more: 'مزید...',
     optional: 'اختیاری',
     required: 'ضروری',
-    tagline: '!ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے',
+    tagline: 'ایک کوڈ پلے گراؤنڈ جو بس کام کرتا ہے!',
   },
   import: {
     bulk: {
