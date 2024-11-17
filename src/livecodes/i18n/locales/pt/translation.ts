@@ -59,7 +59,7 @@ const translation: I18nTranslation = {
       hint: 'Tela Cheia',
     },
     logo: {
-      title: 'LiveCodes: Playground de código que roda no navegador!',
+      title: 'LiveCodes: Um Playground de Código Que Simplesmente Funciona!',
     },
     projectInfo: {
       hint: 'Informações do Projeto',

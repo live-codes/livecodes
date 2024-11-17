@@ -59,7 +59,7 @@ const translation: I18nTranslation = {
       hint: 'Полноэкранный режим',
     },
     logo: {
-      title: 'LiveCodes: Игровая площадка для кода, работающая в браузере!',
+      title: 'LiveCodes: Площадка Для Кода, Которая Просто Работает!',
     },
     projectInfo: {
       hint: 'Информация о проекте',

@@ -59,7 +59,7 @@ const translation: I18nTranslation = {
       hint: 'Pantalla completa',
     },
     logo: {
-      title: 'LiveCodes: ¡Área de juego de código que se ejecuta en el navegador!',
+      title: 'LiveCodes: ¡Un Patio de Código Que Simplemente Funciona!',
     },
     projectInfo: {
       hint: 'Información del proyecto',
