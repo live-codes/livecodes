@@ -67,10 +67,16 @@
   margin-top: 0;
   top: 0;
   width: 255px; // for font-size 14px
+  --label-max-width: 188px; // used in js to reduce label font size
 
   &:hover {
     animation: fadeIn 0.4s forwards;
     display: block !important;
+  }
+
+  span {
+    display: inline-block;
+    text-wrap: nowrap;
   }
 }
 
@@ -373,17 +379,6 @@ i.arrow {
     cursor: pointer;
     height: 16px;
     width: 16px;
-  }
-}
-
-label:has(span[data-i18n='menu.formatOnsave'], span[data-i18n='menu.recoverUnsaved']) {
-  container: i18nlabel / inline-size; // Parent to set font-size based on size of container
-  white-space: nowrap;
-}
-
-@container i18nlabel (width < 236px) {
-  span {
-    font-size: 5.25cqi; // font-size based on size of container
   }
 }
 

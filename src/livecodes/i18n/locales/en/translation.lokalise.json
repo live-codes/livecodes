@@ -1736,6 +1736,10 @@
     "notes": "",
     "translation": "Add stylesheet/script URLs. Each URL should be in a separate line."
   },
+  "resultMode.linkText": {
+    "notes": "",
+    "translation": "Edit on LiveCodes"
+  },
   "savePrompt.heading": {
     "notes": "",
     "translation": "Unsaved changes"

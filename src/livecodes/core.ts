@@ -2593,6 +2593,8 @@ const handleAppMenuProject = () => {
   if (!menuProjectContainer || !menuProjectButton) return;
   menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
   translateElement(menuProjectContainer);
+  adjustFontSize(menuProjectContainer);
+
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
@@ -2615,6 +2617,8 @@ const handleAppMenuSettings = () => {
   menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
 
   translateElement(menuSettingsContainer);
+  adjustFontSize(menuSettingsContainer);
+
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
@@ -2636,6 +2640,8 @@ const handleAppMenuHelp = () => {
   if (!menuHelpContainer || !menuHelpButton) return;
   menuHelpContainer.innerHTML = menuHelpHTML;
   translateElement(menuHelpContainer);
+  adjustFontSize(menuHelpContainer);
+
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
@@ -2649,6 +2655,36 @@ const handleAppMenuHelp = () => {
   eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
     menuHelpContainer.classList.remove('hidden');
   });
+};
+
+/**
+ * decrease font size in menus when text is too wide (for different languages)
+ */
+const adjustFontSize = (container: HTMLElement) => {
+  const adjustFont = (el: HTMLElement) =>
+    new Promise<void>((resolve) => {
+      const fontSize = Number(getComputedStyle(el).getPropertyValue('font-size').replace('px', ''));
+      const maxWidth =
+        Number(getComputedStyle(el).getPropertyValue('--label-max-width').replace('px', '')) || 188;
+      if (el.clientWidth <= maxWidth || fontSize <= 0) return resolve();
+      el.style.fontSize = fontSize - 1 + 'px';
+      requestAnimationFrame(async () => {
+        await adjustFont(el);
+        resolve();
+      });
+    });
+
+  setTimeout(async () => {
+    container.style.display = 'block';
+    container.style.visibility = 'hidden';
+    (container.children[0] as HTMLElement).style.display = 'block';
+    for (const el of container.querySelectorAll<HTMLElement>('span')) {
+      await adjustFont(el);
+    }
+    container.style.display = '';
+    container.style.visibility = '';
+    (container.children[0] as HTMLElement).style.display = '';
+  }, 1000);
 };
 
 const handleSettings = () => {
