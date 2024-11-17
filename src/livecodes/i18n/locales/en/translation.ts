@@ -66,7 +66,7 @@ const translation = {
       hint: 'Full Screen',
     },
     logo: {
-      title: 'LiveCodes: Code playground that runs in the browser!',
+      title: 'LiveCodes: A Code Playground That Just Works!',
     },
     projectInfo: {
       hint: 'Project Info',
