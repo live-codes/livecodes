@@ -4117,6 +4117,11 @@ const handleResultLoading = () => {
     }
     if (event.data.type === 'loading') {
       setLoading(event.data.payload);
+
+      if (getConfig().mode === 'result') {
+        const drawer = UI.getResultModeDrawer();
+        drawer.classList.remove('hidden');
+      }
     }
     const language = event.data.payload?.language;
     if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
@@ -4261,6 +4266,26 @@ const handleDropFiles = () => {
 
   eventsManager.addEventListener(document, 'dragover', (event: DragEvent) => {
     event.preventDefault();
+  });
+};
+
+const handleResultMode = () => {
+  const drawer = UI.getResultModeDrawer();
+  const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
+  const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
+
+  drawer.style.display = 'flex';
+
+  eventsManager.addEventListener(drawerLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    window.open(
+      (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
+      '_blank',
+    );
+  });
+
+  eventsManager.addEventListener(closeBtn, 'click', async () => {
+    drawer.classList.add('hidden');
   });
 };
 
@@ -4486,6 +4511,7 @@ const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createE
   document.body.classList.add('embed');
   if (config.mode === 'result') {
     document.body.classList.add('result');
+    handleResultMode();
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     document.body.classList.add('no-result');

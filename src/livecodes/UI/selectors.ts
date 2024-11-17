@@ -563,3 +563,6 @@ export const getModalWelcomeRecentList = /* @__PURE__ */ (welcomeContainer: HTML
 
 export const getModalWelcomeTemplateList = /* @__PURE__ */ (welcomeContainer: HTMLElement) =>
   welcomeContainer.querySelector('#modal #welcome-template-list') as HTMLElement;
+
+export const getResultModeDrawer = /* @__PURE__ */ () =>
+  document.querySelector('#result-mode-drawer') as HTMLElement;

@@ -301,6 +301,41 @@
     <div id="modal-container" style="display: none">
       <div id="modal"></div>
     </div>
+    <div id="result-mode-drawer" class="hidden" style="display: none">
+      <a href="#">
+        <div id="drawer-logo">
+          <img
+            alt="LiveCodes Logo"
+            src="{{baseUrl}}assets/images/livecodes-logo.svg"
+            loading="lazy"
+          />
+        </div>
+        <div id="drawer-text">
+          <span data-i18n="resultMode.linkText">Edit on LiveCodes</span>
+          <svg viewBox="6 6 12 12" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path
+                d="M15 13.5V9M15 9H10.5M15 9L9.00019 14.9999"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              ></path>
+            </g>
+          </svg>
+        </div>
+      </a>
+      <div>
+        <button id="drawer-close">
+          <svg viewBox="0 0 16 16">
+            <path
+              fill="rgb(119, 128, 137)"
+              d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
     <script
       src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js"
       crossorigin="anonymous"

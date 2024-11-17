@@ -682,47 +682,7 @@ a#result-button {
 
 .result {
   #toolbar {
-    background: rgb(0, 0, 0, 0.05);
-    border-bottom: var(--toolbar-border, 1px solid black);
-    border-bottom-left-radius: var(--rs);
-    border-left: var(--toolbar-border, 1px solid black);
-    display: block !important;
-    height: var(--s36);
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    transition: opacity 0.3s;
-    width: var(--s40);
-
-    * {
-      display: none !important;
-    }
-
-    .toolbar-app,
-    .toolbar-menu,
-    .toolbar-render,
-    #logo,
-    #logo img {
-      display: block !important;
-    }
-
-    #logo {
-      align-items: center !important;
-      display: flex !important;
-      inset: 0 !important;
-      justify-content: center !important;
-      margin: 0 !important;
-      width: var(--s40) !important;
-
-      img {
-        filter: drop-shadow(1px 1px 1px rgb(0, 0, 0, 0.4));
-        width: var(--s32) !important;
-      }
-    }
-  }
-
-  &:hover #toolbar {
-    opacity: 1;
+    display: none;
   }
 
   #overlay {
@@ -732,6 +692,101 @@ a#result-button {
 
   #modal-container {
     display: none !important;
+  }
+
+  #result-mode-drawer {
+    align-items: center;
+    background-color: rgb(250, 251, 255);
+    border: 0.5px solid rgb(233, 235, 237);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    bottom: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 6px;
+    box-sizing: border-box;
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 42px;
+    justify-content: space-between;
+    left: 50%;
+    padding: 6px;
+    padding-left: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    transition: transform 0.4s ease-in-out;
+    width: 250px;
+
+    &.hidden {
+      transform: translateX(-50%) translateY(44px);
+    }
+
+    a {
+      align-items: center;
+      border-top-left-radius: 6px;
+      color: rgb(77, 86, 95);
+      display: flex;
+      flex-grow: 1;
+      gap: 10px;
+      height: 42px;
+      justify-content: center;
+      text-decoration: none;
+
+      &:hover {
+        background-color: rgb(246, 246, 247);
+      }
+
+      &::after {
+        background: #e9ebed;
+        content: '';
+        height: 26px;
+        position: absolute;
+        right: 41px;
+        top: 8px;
+        width: 1px;
+      }
+    }
+
+    #drawer-logo {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      img {
+        height: 20px;
+      }
+    }
+
+    #drawer-text {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+
+      svg {
+        display: inline-block;
+        fill: rgb(119, 128, 137);
+        height: 12px;
+        transform: translateX(2px) translateY(2px);
+      }
+    }
+
+    #drawer-close {
+      align-items: center;
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      height: 30px;
+      justify-content: center;
+      margin-left: 5px;
+      width: 30px;
+
+      &:hover {
+        background-color: rgb(246, 246, 247);
+      }
+
+      svg {
+        height: 14px;
+      }
+    }
   }
 }
 
@@ -2055,6 +2110,10 @@ body {
   #overlay,
   #modal-container {
     z-index: 2000;
+  }
+
+  #result-mode-drawer {
+    z-index: 2500;
   }
 
   .snackbars {
