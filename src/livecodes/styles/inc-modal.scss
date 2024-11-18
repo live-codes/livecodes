@@ -1210,6 +1210,7 @@
     .qrcode-container {
       display: flex;
       position: relative;
+      transform: translateY(0) translateX(-50%);
     }
   }
 
@@ -1268,9 +1269,14 @@
   .qrcode-container {
     display: none;
     justify-content: center;
+    left: 50%;
+    padding: 1rem;
     position: absolute;
-    transform: translateY(-16rem);
-    width: 85%;
+    transform: translateY(-16rem) translateX(-50%);
+
+    &:has(img) {
+      background: var(--color95);
+    }
   }
 
   #share-click-to-copy {
