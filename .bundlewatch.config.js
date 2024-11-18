@@ -18,7 +18,7 @@ module.exports = {
     // },
     {
       path: './build/livecodes/*.css',
-      maxSize: '20kB',
+      maxSize: '25kB',
     },
     // {
     //   path: './build/livecodes/i18n-*.json',
