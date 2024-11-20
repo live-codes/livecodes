@@ -1846,58 +1846,51 @@ pre[class*='language-'].line-numbers > code {
   }
 
   > ul {
-    background-color: transparent;
-    border: 1px solid rgba(33, 33, 33, 0.1);
+    background-color: var(--dropdown-bg-color);
+    border: var(--dropdown-border);
     border-radius: var(--rs);
     left: 0;
     margin: 0.5rem 0 0;
     max-height: 226px;
     outline: none;
     overflow-y: scroll;
-    padding: 0;
+    padding: var(--s8) !important;
+    padding-inline-end: 0 !important;
     position: absolute;
     right: 0;
     top: 100%;
     z-index: 1000;
 
     > li {
-      background-color: rgba(255, 255, 255, 1);
+      background-color: var(--dropdown-bg-color);
       border-radius: var(--rs);
-      color: #212121;
-      font-size: 16px;
+      color: var(--dropdown-color);
+      cursor: pointer;
+      font-size: var(--dropdown-font);
       list-style: none;
       overflow: hidden;
-      padding: 10px 20px;
+      padding: var(--s10) var(--s20);
       text-align: left;
       text-overflow: ellipsis;
       transition: all 0.1s ease-in-out;
       transition: all 0.2s ease;
       white-space: nowrap;
 
-      &::selection {
-        background-color: rgba(#fff, 0);
-        color: rgba(#fff, 0);
-      }
+      &:hover,
+      &[aria-selected='true'] {
+        background-color: var(--dropdown-bg-active) !important;
+        color: var(--dropdown-active) !important;
 
-      &:hover {
-        background-color: rgba(123, 123, 123, 0.1);
-        cursor: pointer;
+        mark {
+          color: var(--light) !important;
+        }
       }
 
       mark {
-        background-color: transparent;
-        color: rgba(255, 122, 122, 1);
+        background-color: var(--text-help-bg-color);
+        color: var(--text-help-color);
         font-weight: bold;
-
-        &::selection {
-          background-color: rgba(#fff, 0);
-          color: rgba(#fff, 0);
-        }
       }
-    }
-
-    > li[aria-selected='true'] {
-      background-color: rgba(123, 123, 123, 0.1);
     }
   }
 }
