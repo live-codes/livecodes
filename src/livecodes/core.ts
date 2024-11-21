@@ -3590,7 +3590,12 @@ const handleAbout = () => {
     div.innerHTML = aboutScreen
       .replace(/{{COMMIT_URL}}/g, `${repoUrl}/commit/${versions.commitSHA}`)
       .replace(/{{APP_URL}}/g, versions.appUrl)
-      .replace(/{{SDK_URL}}/g, versions.sdkUrl);
+      .replace(/{{SDK_URL}}/g, versions.sdkUrl)
+      .replace('livecodes-text-logo-nowrap.svg', () =>
+        getConfig().theme === 'dark'
+          ? 'livecodes-text-logo-nowrap-light.svg'
+          : 'livecodes-text-logo-nowrap.svg',
+      );
     const aboutContainer = div.firstChild as HTMLElement;
     modal.show(aboutContainer);
   };
