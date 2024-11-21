@@ -65,7 +65,7 @@ const translate = (container: HTMLElement) => {
         }) as string;
         if (prop === 'innerHTML' && el.innerHTML !== translation) {
           const { elements } = abstractifyHTML(el.innerHTML);
-          el.innerHTML = unabstractifyHTML(translation, elements);
+          el.innerHTML = unabstractifyHTML(translation, elements, interpolation);
         } else {
           (el as any)[prop] = translation;
         }
@@ -111,6 +111,6 @@ const translateString = <Key extends I18nKeyType, Value extends string>(
     return translation;
   } else {
     const { elements } = abstractifyHTML(value as string);
-    return unabstractifyHTML(translation, elements);
+    return unabstractifyHTML(translation, elements, interpolation);
   }
 };
