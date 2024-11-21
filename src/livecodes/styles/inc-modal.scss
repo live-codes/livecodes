@@ -424,7 +424,7 @@
         }
       }
 
-      li[data-i18n='about.version.commit'] a {
+      a.version {
         width: fit-content;
       }
     }
@@ -1589,6 +1589,15 @@
 
     .modal-section#welcome-recover {
       order: -1;
+    }
+
+    #about-screen-container {
+      .about-logo {
+        order: -2;
+      }
+      #about-info {
+        order: -1;
+      }
     }
   }
 }
