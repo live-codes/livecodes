@@ -71,10 +71,9 @@ export const createEditorSettingsUI = async ({
       help: `${process.env.DOCS_BASE_URL}features/ai`,
       note: window.deps.translateString(
         'editorSettings.enableAI.note',
-        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{baseUrl}}assets/images/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
+        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="./livecodes/assets/images/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
         {
           isHTML: true,
-          baseUrl,
         },
       ),
     },
