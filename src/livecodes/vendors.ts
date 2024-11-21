@@ -108,7 +108,7 @@ export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
-export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.4.0/dist/emmet-monaco.js');
+export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.5.0/dist/emmet-monaco.js');
 
 export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js';
 
