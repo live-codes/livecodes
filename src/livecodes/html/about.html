@@ -18,10 +18,15 @@
     <div class="modal-section">
       <h3 data-i18n="about.version.heading">Version</h3>
       <ul class="about-version">
-        <li data-i18n="about.version.app">App version: {{APP_VERSION}}</li>
-        <li data-i18n="about.version.sdk">SDK version: {{SDK_VERSION}}</li>
+        <li data-i18n="about.version.app">
+          App version: <span class="version">{{APP_VERSION}}</span>
+        </li>
+        <li data-i18n="about.version.sdk">
+          SDK version: <span class="version">{{SDK_VERSION}}</span>
+        </li>
         <li data-i18n="about.version.commit">
-          Git commit: <a href="{{COMMIT_URL}}" target="_blank" rel="noopener">{{COMMIT_SHA}}</a>
+          Git commit:
+          <a href="{{COMMIT_URL}}" target="_blank" rel="noopener" class="version">{{COMMIT_SHA}}</a>
         </li>
         <li>
           <a

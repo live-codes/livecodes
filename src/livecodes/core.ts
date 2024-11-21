@@ -3584,7 +3584,7 @@ const handleAbout = () => {
   if (isEmbed) return;
 
   const createAboutUI = async () => {
-    const versions = getVersion();
+    const versions = getVersion(/* log= */ false);
     const repoUrl = process.env.REPO_URL || '';
     const div = document.createElement('div');
     div.innerHTML = aboutScreen
