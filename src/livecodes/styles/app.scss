@@ -1486,6 +1486,10 @@ li.editor-title {
 
 .language-item {
   position: relative;
+
+  a {
+    max-width: 135px;
+  }
 }
 
 .tooltip {
