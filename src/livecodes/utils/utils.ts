@@ -483,7 +483,7 @@ const colorToRgba = /* @__PURE__ */ (name: string) => {
   fakeDiv.style.color = name;
   document.body.appendChild(fakeDiv);
   const style = window.getComputedStyle(fakeDiv);
-  const colorValue = style.getPropertyValue('color');
+  const colorValue = style.getPropertyValue('color') || 'rgb(77, 121, 179)';
   document.body.removeChild(fakeDiv);
 
   const rgba = colorValue

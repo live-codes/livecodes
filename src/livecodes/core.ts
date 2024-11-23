@@ -4858,6 +4858,12 @@ const bootstrap = async (reload = false) => {
 
   if (!reload) {
     await loadDefaults();
+
+    // re-run changing theme color after the UI is ready
+    // in case the previous one failed (e.g. in firefox)
+    requestAnimationFrame(() => {
+      changeThemeColor();
+    });
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));
