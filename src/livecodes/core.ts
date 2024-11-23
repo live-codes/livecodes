@@ -1806,6 +1806,9 @@ const getDefaultColor = () => {
   if (theme === 'light') {
     root.classList.add('light');
   }
+  if (h === '' || s === '' || l === '') {
+    return themeColors[0].themeColor;
+  }
   defaultColor = `hsl(${h}, ${s}, ${l})`;
   return defaultColor;
 };
