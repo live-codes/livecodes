@@ -1488,11 +1488,11 @@ li.editor-title {
   position: relative;
 
   a {
-    max-width: 135px;
     display: block !important;
-    white-space: nowrap !important;
-    text-overflow: ellipsis;
+    max-width: 135px;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
   }
 }
 

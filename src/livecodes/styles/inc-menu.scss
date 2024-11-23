@@ -1,9 +1,11 @@
+/* stylelint-disable property-no-unknown */
+
 // App Menu
 [id^='app-menu-container-'] {
   left: anchor(left);
+  margin-inline-start: -15px; // to avoid cutting off the shadow (visible in light mode)
   top: anchor(bottom);
   width: 290px;
-  margin-inline-start: -15px; // to avoid cutting off the shadow (visible in light mode)
 
   &:hover {
     animation: fadeIn 0.4s forwards;
@@ -44,6 +46,8 @@
 #app-menu-button-i18n {
   anchor-name: --app-menu-i18n;
 }
+
+/* stylelint-enable property-no-unknown */
 
 [id^='app-menu-button-'] {
   &:focus + .menu-scroller,
