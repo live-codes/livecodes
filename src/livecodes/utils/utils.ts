@@ -399,6 +399,9 @@ export const callWorker = async <T = string, K = unknown>(
     });
   });
 
+export const capitalize = /* @__PURE__ */ (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
 export const toCamelCase = /* @__PURE__ */ (str: string) =>
   str
     .replace(/[-_.]+/g, ' ')
@@ -423,7 +426,10 @@ export const replaceAsync = /* @__PURE__ */ async (
   return str.replace(regexp, () => replacements[i++]);
 };
 
-export const addAttrs = (el: HTMLElement, attributes: Record<string, string> | string) => {
+export const addAttrs = /* @__PURE__ */ (
+  el: HTMLElement,
+  attributes: Record<string, string> | string,
+) => {
   if (typeof attributes === 'object') {
     Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
     return;
@@ -457,12 +463,12 @@ export const bypassAMD = /* @__PURE__ */ async <T = any>(fn: () => Promise<T>): 
  * @param {() => Promise<void>} fn - The asynchronous function to be executed once.
  * @return {() => Promise<void>} An async function that, when called multiple times, executes the given function if it hasn't been executed before or awaits the previous execution.
  */
-export const doOnce = (fn: () => Promise<void>) => {
+export const doOnce = /* @__PURE__ */ (fn: () => Promise<void>) => {
   let dependency: Promise<void> | undefined;
   return () => (dependency ??= fn());
 };
 
-export const evaluateCssCalc = (expression: string) => {
+export const evaluateCssCalc = /* @__PURE__ */ (expression: string) => {
   const el = document.createElement('div');
   el.style.height = expression;
   el.style.display = 'none';
@@ -472,7 +478,7 @@ export const evaluateCssCalc = (expression: string) => {
   return value;
 };
 
-const colorToRgba = (name: string) => {
+const colorToRgba = /* @__PURE__ */ (name: string) => {
   const fakeDiv = document.createElement('div');
   fakeDiv.style.color = name;
   document.body.appendChild(fakeDiv);
@@ -489,7 +495,7 @@ const colorToRgba = (name: string) => {
   return { r, g, b, a };
 };
 
-const rgbaToHsla = (r: number, g: number, b: number, a = 1) => {
+const rgbaToHsla = /* @__PURE__ */ (r: number, g: number, b: number, a = 1) => {
   const r$ = r / 255;
   const g$ = g / 255;
   const b$ = b / 255;
@@ -525,7 +531,7 @@ export const colorToHsla = (color: string) => {
   return rgbaToHsla(r, g, b, a);
 };
 
-const rgbToHex = (r: number, g: number, b: number) =>
+const rgbToHex = /* @__PURE__ */ (r: number, g: number, b: number) =>
   // eslint-disable-next-line no-bitwise
   '#' + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
 

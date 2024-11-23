@@ -109,6 +109,7 @@ import {
   toDataUrl,
   predefinedValues,
   colorToHex,
+  capitalize,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -383,12 +384,19 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
-  const editorTitle = document.querySelector(`#${editorId}-selector span`);
+  const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
-  editorTitle.textContent =
-    getConfig()[editorId].title ?? languages.find((lang) => lang.name === language)?.title ?? '';
   highlightSelectedLanguage(editorId, language);
+  const customTitle = getConfig()[editorId].title;
+  if (customTitle) {
+    editorTitle.textContent = customTitle;
+    editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
+    return;
+  }
+  const lang = languages.find((lang) => lang.name === language);
+  editorTitle.textContent = lang?.title ?? '';
+  editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}`;
 };
 
 const createCopyButtons = () => {

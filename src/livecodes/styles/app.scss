@@ -1357,7 +1357,7 @@ li.editor-title {
   }
 
   > span {
-    display: inherit;
+    display: inline-block;
     flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1489,6 +1489,10 @@ li.editor-title {
 
   a {
     max-width: 135px;
+    display: block !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 
