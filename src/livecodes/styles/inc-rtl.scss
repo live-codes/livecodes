@@ -5,50 +5,8 @@ html[dir='rtl'] {
     direction: ltr;
   }
 
-  #app-menu-container-project {
-    right: 3rem;
-  }
-
-  #app-menu-container-settings {
-    right: 7.35rem;
-  }
-
-  #app-menu-container-help {
-    right: 13rem;
-  }
-
-  #app-menu-container-i18n {
-    left: unset;
-    right: 15rem;
-  }
-
-  @media only screen and (max-width: 1179px) {
-    #app-menu-container-project {
-      right: 3em;
-    }
-
-    #app-menu-container-settings {
-      right: 5em;
-    }
-
-    #app-menu-container-help {
-      right: 7em;
-    }
-
-    #app-menu-container-i18n {
-      right: 8em;
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    #app-menu-container-i18n {
-      right: 8em;
-    }
-  }
-
-  #app-menu-i18n {
-    left: 15px;
-    right: unset;
+  [id^='app-menu-container-'] {
+    right: anchor(right);
   }
 
   .tool-buttons#editor-tools {

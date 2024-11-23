@@ -119,6 +119,7 @@ import * as UI from './UI/selectors';
 import { createAuthService, getAppCDN, sandboxService, shareService } from './services';
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
+  cssAnchorPositioningUrl,
   fscreenUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
@@ -4486,6 +4487,12 @@ const setAppLanguage = (reload: boolean = false) => {
   );
 };
 
+const polyfillCssAnchorPositioning = () => {
+  if (!('anchorName' in document.documentElement.style)) {
+    import(cssAnchorPositioningUrl);
+  }
+};
+
 const basicHandlers = () => {
   notifications = createNotifications();
   modal = createModal(translateElement);
@@ -4857,6 +4864,7 @@ const bootstrap = async (reload = false) => {
   }
 
   if (!reload) {
+    polyfillCssAnchorPositioning();
     await loadDefaults();
 
     // re-run changing theme color after the UI is ready

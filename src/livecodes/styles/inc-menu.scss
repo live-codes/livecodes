@@ -1,7 +1,9 @@
 // App Menu
 [id^='app-menu-container-'] {
-  left: 3em;
-  top: var(--toolbar-height);
+  left: anchor(left);
+  top: anchor(bottom);
+  width: 290px;
+  margin-inline-start: -15px; // to avoid cutting off the shadow (visible in light mode)
 
   &:hover {
     animation: fadeIn 0.4s forwards;
@@ -9,35 +11,38 @@
   }
 }
 
+#app-menu-container-project {
+  position-anchor: --app-menu-project;
+  width: 500px;
+}
+
 #app-menu-container-settings {
-  left: 7.35rem;
+  position-anchor: --app-menu-settings;
 }
 
 #app-menu-container-help {
-  left: 13rem;
+  position-anchor: --app-menu-help;
 }
 
 #app-menu-container-i18n {
-  left: 15rem;
-  width: 250px;
+  position-anchor: --app-menu-i18n;
+  width: 230px;
 }
 
-@media only screen and (max-width: 1179px) {
-  #app-menu-container-project {
-    left: 3em;
-  }
+#app-menu-button-project {
+  anchor-name: --app-menu-project;
+}
 
-  #app-menu-container-settings {
-    left: 5em;
-  }
+#app-menu-button-settings {
+  anchor-name: --app-menu-settings;
+}
 
-  #app-menu-container-help {
-    left: 7em;
-  }
+#app-menu-button-help {
+  anchor-name: --app-menu-help;
+}
 
-  #app-menu-container-i18n {
-    left: 8em;
-  }
+#app-menu-button-i18n {
+  anchor-name: --app-menu-i18n;
 }
 
 [id^='app-menu-button-'] {
@@ -65,6 +70,7 @@
   --label-max-width: 188px; // used in js to reduce label font size
   column-count: 1;
   left: 0;
+  margin-inline-start: 15px;
   margin-top: 0;
   top: 0;
   width: 255px; // for font-size 14px
@@ -81,8 +87,6 @@
 }
 
 #app-menu-i18n {
-  left: unset;
-  right: 15px;
   width: 200px;
 }
 
