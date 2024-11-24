@@ -2699,6 +2699,15 @@ const adjustFontSize = (container: HTMLElement) => {
   }, 1000);
 };
 
+const handleAppMenuButtonFocus = () => {
+  // workaround for safari where click does not maintain focus!
+  document.querySelectorAll<HTMLElement>('.app-menu-button').forEach((button) => {
+    eventsManager.addEventListener(button, 'click', () => {
+      button.focus();
+    });
+  });
+};
+
 const handleSettings = () => {
   const toggles = UI.getSettingToggles();
   toggles.forEach((toggle) => {
@@ -4532,6 +4541,7 @@ const extraHandlers = async () => {
   handleAppMenuHelp();
   handleSettings();
   handleI18nMenu();
+  handleAppMenuButtonFocus();
   handleChangeTheme();
   handleProjectInfo();
   handleCustomSettings();

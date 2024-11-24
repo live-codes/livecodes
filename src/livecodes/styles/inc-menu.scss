@@ -6,11 +6,6 @@
   margin-inline-start: -15px; // to avoid cutting off the shadow (visible in light mode)
   top: anchor(bottom);
   width: 290px;
-
-  &:hover {
-    animation: fadeIn 0.4s forwards;
-    display: block;
-  }
 }
 
 #app-menu-container-project {
@@ -49,20 +44,13 @@
 
 /* stylelint-enable property-no-unknown */
 
-[id^='app-menu-button-'] {
+.app-menu-button {
   &:focus + .menu-scroller,
-  &:active + .menu-scroller,
-  &:focus + .menu-scroller .dropdown-menu,
-  &:active + .menu-scroller .dropdown-menu {
+  &:focus + .menu-scroller > .dropdown-menu,
+  + .menu-scroller:hover,
+  + .menu-scroller > .dropdown-menu:hover {
     animation: fadeIn 0.4s forwards;
-    display: flex;
-
-    &#app-menu-project,
-    &#app-menu-settings,
-    &#app-menu-help,
-    &#app-menu-i18n {
-      display: block;
-    }
+    display: block;
   }
 }
 
@@ -78,11 +66,6 @@
   margin-top: 0;
   top: 0;
   width: 255px; // for font-size 14px
-
-  &:hover {
-    animation: fadeIn 0.4s forwards;
-    display: block !important;
-  }
 
   span {
     display: inline-block;
