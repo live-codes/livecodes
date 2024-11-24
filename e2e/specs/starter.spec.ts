@@ -7,7 +7,7 @@ const templates = [
   'TypeScript',
   'React',
   'Angular',
-  'Preact',
+  // 'Preact',
   'Svelte',
   'Solid',
   'Lit',
