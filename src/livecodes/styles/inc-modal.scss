@@ -380,9 +380,10 @@
   }
 
   a[target='_blank']::after {
-    content: '⬈';
+    content: '↑';
     display: inline-block;
     margin: 0 0.3em;
+    rotate: 45deg;
     width: 0.7em;
   }
 
