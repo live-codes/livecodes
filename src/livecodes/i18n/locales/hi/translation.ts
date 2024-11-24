@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'पूर्ण स्क्रीन',
     },
-    logo: {
-      title: 'LiveCodes: एक कोड प्लेग्राउंड जो बस काम करता है!',
-    },
     projectInfo: {
       hint: 'प्रोजेक्ट जानकारी',
     },

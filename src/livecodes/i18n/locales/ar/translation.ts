@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'ملء الشاشة',
     },
-    logo: {
-      title: 'LiveCodes: محرر برمجي يعمل ببساطة!',
-    },
     projectInfo: {
       hint: 'معلومات المشروع',
     },

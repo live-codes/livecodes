@@ -58,9 +58,6 @@ const translation: I18nTranslation = {
     fullscreen: {
       hint: 'Plein écran',
     },
-    logo: {
-      title: 'LiveCodes: Un Bac à Sable de Code Qui Fonctionne, Tout Simplement!',
-    },
     projectInfo: {
       hint: 'Informations sur le projet',
     },
