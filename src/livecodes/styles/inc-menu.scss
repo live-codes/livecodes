@@ -2,9 +2,9 @@
 
 // App Menu
 [id^='app-menu-container-'] {
-  left: anchor(left);
+  inset-inline-start: anchor(start) !important;
   margin-inline-start: -15px; // to avoid cutting off the shadow (visible in light mode)
-  top: anchor(bottom);
+  top: anchor(bottom) !important;
   width: 290px;
 }
 
@@ -43,6 +43,50 @@
 }
 
 /* stylelint-enable property-no-unknown */
+
+@supports not (anchor-name: --app-menu-project) {
+  [id^='app-menu-container-'] {
+    --logo-width: 40px;
+    --icon-width: 36px;
+    top: var(--toolbar-height);
+  }
+
+  #app-menu-container-project {
+    inset-inline-start: var(--logo-width);
+  }
+
+  #app-menu-container-settings {
+    inset-inline-start: 7.35rem;
+  }
+
+  #app-menu-container-help {
+    inset-inline-start: 13rem;
+  }
+
+  #app-menu-container-i18n {
+    inset-inline-start: 15rem;
+    inset-inline-end: unset;
+
+    #app-menu-i18n {
+      inset-inline-end: 15px;
+      inset-inline-start: unset;
+    }
+  }
+
+  @media only screen and (max-width: 1179px) {
+    #app-menu-container-settings {
+      inset-inline-start: calc(var(--logo-width) + var(--icon-width));
+    }
+
+    #app-menu-container-help {
+      inset-inline-start: calc(var(--logo-width) + (var(--icon-width) * 2));
+    }
+
+    #app-menu-container-i18n {
+      inset-inline-start: calc(var(--logo-width) + (var(--icon-width) * 3));
+    }
+  }
+}
 
 .app-menu-button {
   &:focus + .menu-scroller,

@@ -6,7 +6,7 @@ html[dir='rtl'] {
   }
 
   [id^='app-menu-container-'] {
-    right: anchor(right);
+    --logo-width: 44px;
   }
 
   .tool-buttons#editor-tools {
