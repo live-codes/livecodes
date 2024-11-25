@@ -6,7 +6,7 @@ A new project can be based on any of the provided [starter templates](#starter-t
 
 A new project (from template) can be started from:
 
-- App menu → New
+- Project menu → New
 - [Welcome Screen](./welcome.md) → New
 - Direct URL: https://livecodes.io?new
 
@@ -30,9 +30,9 @@ The following list of starter templates are available:
 
 Any project loaded in LiveCodes can be saved as a user template, to be used later as a starting point for new projects.
 
-A project can be saved as a user template from app menu → Save as → Template.
+A project can be saved as a user template from Project menu → Save as → Template.
 
-It can then be accessed from app menu → New ... → My Templates.
+It can then be accessed from Project menu → New ... → My Templates.
 
 A user template can be set as [default template](./default-template-language.md) to be automatically loaded when loading the app.
 

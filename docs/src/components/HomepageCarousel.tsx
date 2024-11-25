@@ -5,107 +5,119 @@ import styles from './HomepageCarousel.module.css';
 const screenshots = [
   {
     label: 'A large collection of languages',
-    url: './img/screenshots/slider/languages.jpg',
+    url: './img/screenshots/languages-3.jpg',
   },
   {
     label: 'Lots of features',
-    url: './img/screenshots/slider/export.jpg',
+    url: './img/screenshots/export-1.jpg',
+  },
+  {
+    label: 'Even more features',
+    url: './img/screenshots/snippets-1.jpg',
   },
   {
     label: 'Starter templates for new projects',
-    url: './img/screenshots/slider/templates1.jpg',
+    url: './img/screenshots/templates-1.jpg',
   },
   {
     label: '... many starter templates',
-    url: './img/screenshots/slider/templates2.jpg',
+    url: './img/screenshots/templates-2.jpg',
   },
   {
     label: 'Welcome screen - for a quick start',
-    url: './img/screenshots/slider/welcome.jpg',
+    url: './img/screenshots/welcome-1.jpg',
   },
   {
     label: 'Keep your projects organized',
-    url: './img/screenshots/slider/saved-projects.jpg',
+    url: './img/screenshots/saved-projects-1.jpg',
   },
   {
     label: 'Add external resources',
-    url: './img/screenshots/slider/external-resources.png',
+    url: './img/screenshots/resources.jpg',
   },
   {
     label: 'CSS Processors',
-    url: './img/screenshots/slider/css-processors.jpg',
+    url: './img/screenshots/css-processors.jpg',
   },
   {
-    label: 'IntelliSense (autocomplete) - format code',
-    url: './img/screenshots/slider/intellisense.jpg',
+    label: 'IntelliSense (autocomplete)',
+    url: './img/screenshots/intellisense-3.jpg',
+  },
+  {
+    label: 'AI Code Assistant',
+    url: './img/screenshots/ai-1.jpg',
   },
   {
     label: 'Console for quick inspection',
-    url: './img/screenshots/slider/console.jpg',
+    url: './img/screenshots/console-1.jpg',
   },
   {
     label: 'View compiled code',
-    url: './img/screenshots/slider/compiled-code.jpg',
+    url: './img/screenshots/compiled-code-1.jpg',
   },
   {
     label: 'Import code from many sources',
-    url: './img/screenshots/slider/import.png',
+    url: './img/screenshots/import-2.jpg',
   },
   {
     label: 'Embed projects into your web pages',
-    url: './img/screenshots/slider/embed.jpg',
+    url: './img/screenshots/embed-1.jpg',
   },
   {
     label: 'Share your projects with others',
-    url: './img/screenshots/slider/share.jpg',
+    url: './img/screenshots/share-1.jpg',
   },
   {
     label: 'Deploy to GitHub Pages',
-    url: './img/screenshots/slider/deploy.jpg',
+    url: './img/screenshots/deploy-1.jpg',
   },
   {
     label: 'Broadcast real-time code changes',
-    url: './img/screenshots/slider/broadcast.png',
+    url: './img/screenshots/broadcast-1.jpg',
   },
   {
     label: 'Project info',
-    url: './img/screenshots/slider/project-info.png',
+    url: './img/screenshots/project-info.jpg',
   },
   {
     label: 'Assets manager',
-    url: './img/screenshots/slider/assets.jpg',
+    url: './img/screenshots/assets-2.jpg',
   },
   {
     label: 'Code snippets',
-    url: './img/screenshots/slider/snippets.jpg',
+    url: './img/screenshots/snippets-list.jpg',
   },
   {
     label: 'Run automated tests!',
-    url: './img/screenshots/slider/tests.jpg',
+    url: './img/screenshots/tests.jpg',
   },
   {
     label: 'Sync with your other devices',
-    url: './img/screenshots/slider/sync.png',
+    url: './img/screenshots/sync.jpg',
   },
   {
     label: 'Backup and restore your data',
-    url: './img/screenshots/slider/backup-restore.png',
+    url: './img/screenshots/backup-restore-1.jpg',
   },
   {
     label: 'Fine-tune your editor settings',
-    url: './img/screenshots/slider/editor-settings.png',
+    url: './img/screenshots/editor-settings-1.jpg',
   },
   {
     label: 'Emmet support and Vim/Emacs modes',
-    url: './img/screenshots/slider/editor-settings2.png',
+    url: './img/screenshots/editor-settings-3.jpg',
   },
   {
-    label: 'Light theme',
-    url: './img/screenshots/slider/light-theme.jpg',
+    label: 'Select your favorite theme/color',
+    url: './img/screenshots/themes-5.jpg',
+  },
+  {
+    label: 'Change UI language to your preferred one',
+    url: './img/screenshots/i18n-1.jpg',
   },
   {
     label: 'Responsive layout',
-    url: './img/screenshots/slider/responsive.jpg',
+    url: './img/screenshots/responsive.jpg',
   },
 ];
 

@@ -14,11 +14,12 @@
         placeholder="e.g. jquery, lodash@4, bootstrap@5.2.3, ..."
         data-i18n="resources.search.placeholder"
         data-i18n-prop="placeholder"
+        onfocus="this.value=''"
       />
       <div id="resources-result-container"><ul id="resources-search-results"></ul></div>
 
       <div id="resources-textarea-container">
-        <div class="description center" data-i18n="resources.urlDesc">
+        <div class="description help center" data-i18n="resources.urlDesc">
           Add stylesheet/script URLs. Each URL should be in a separate line.
         </div>
 
@@ -26,12 +27,18 @@
           >External Stylesheets</label
         >
         <textarea
+          dir="ltr"
           id="external-stylesheets"
           placeholder="https://"
           data-resource="stylesheets"
         ></textarea>
         <label for="external-scripts" data-i18n="resources.scripts">External Scripts</label>
-        <textarea id="external-scripts" placeholder="https://" data-resource="scripts"></textarea>
+        <textarea
+          dir="ltr"
+          id="external-scripts"
+          placeholder="https://"
+          data-resource="scripts"
+        ></textarea>
       </div>
 
       <label data-i18n="resources.fonts.heading" data-i18n-prop="innerHTML"

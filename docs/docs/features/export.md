@@ -2,9 +2,9 @@
 
 ## Exporting A Single Project
 
-Project export can be accessed from app menu → Export.
+Project export can be accessed from the Project menu → Export.
 
-![LiveCodes Export](../../static/img/screenshots/export.png)
+![LiveCodes Export](../../static/img/screenshots/export-1.jpg)
 
 Any project can be exported to:
 
@@ -24,9 +24,9 @@ Any project can be exported to:
 
 ## Exporting Multiple Projects
 
-Multiple projects can be exported in bulk from the [Saved Projects](./projects.md) screen (app menu → Open) using the button `Export All`.
+Multiple projects can be exported in bulk from the [Saved Projects](./projects.md) screen (Project menu → Open) using the button `Export All`.
 
-![saved projects](../../static/img/screenshots/saved-projects.png)
+![saved projects](../../static/img/screenshots/export-2.jpg)
 
 This produces a JSON file containing an array of project configuration objects. They can be later imported in the same or a different device using the `Bulk Import` functionality in the [Import screen](./import.md#import-exported-livecodes-projects).
 

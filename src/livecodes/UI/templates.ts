@@ -48,8 +48,8 @@ export const createStarterTemplateLink = (
 
 export const noUserTemplates = () => `
 <div class="modal-message no-data">
-  <div>${window.deps.translateString('templates.noUserTemplates.heading', 'You have no saved templates.')}</div>
-  <div class="description">
+  <div class="description alert">${window.deps.translateString('templates.noUserTemplates.heading', 'You have no saved templates.')}</div>
+  <div class="description help">
     ${window.deps.translateString(
       'templates.noUserTemplates.desc',
       'You can save a project as a template from <wbr />(App&nbsp;menu&nbsp;&gt;&nbsp;Save&nbsp;as&nbsp;&gt; Template).',

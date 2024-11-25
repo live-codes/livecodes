@@ -6,7 +6,9 @@ The assets are saved locally on the user's device and are available across proje
 
 In addition, assets are supported in [sync](./sync.md), [backup](./backup-restore.md#backup) and [restore](./backup-restore.md#restore).
 
-The `Assets` screen can be accessed from app menu → Assets
+The `Assets` screen can be accessed from Settings menu → Assets
+
+![Assets](/img/screenshots/assets-1.jpg)
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
@@ -21,4 +23,4 @@ Assets are either:
 
 When an asset item is clicked, the URL is copied to clipboard. The URL can then be used in projects.
 
-![Assets](/img/screenshots/assets.png)
+![Assets](/img/screenshots/assets-2.jpg)

@@ -2,7 +2,7 @@
 
 # LiveCodes
 
-Code Playground That Just Works!
+A Code Playground That Just Works!
 
 <p align="center">
 <img width="300" src="https://dev.livecodes.io/docs/img/livecodes-logo.svg"></img>
@@ -30,7 +30,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 ![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-languages.jpg)
 
-## Code Playground That Just Works!
+## A Code Playground That Just Works!
 
 - No servers to configure (or pay for!)
 - No databases to maintain (or pay for!)

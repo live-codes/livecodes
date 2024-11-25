@@ -8,19 +8,19 @@ test.describe('CSS Modules', () => {
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS Modules');
-    await app.click('text=CSS');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS Modules"');
+    await app.click('text="CSS"');
     await waitForEditorFocus(app);
     await page.keyboard.type('.my-title {color: blue;}');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `import classes from './style.module.css';
@@ -42,19 +42,19 @@ document.querySelector('h1').className = classes['my-title'];
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS Modules');
-    await app.click('text=CSS');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS Modules"');
+    await app.click('text="CSS"');
     await waitForEditorFocus(app);
     await page.keyboard.type('.my-title {color: blue;}');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `import { myTitle } from './styles.module.css';
@@ -76,19 +76,19 @@ document.querySelector('h1').className = myTitle;
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS Modules');
-    await app.click('text=CSS');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS Modules"');
+    await app.click('text="CSS"');
     await waitForEditorFocus(app);
     await page.keyboard.type('.my-title {color: blue;}');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `import * as classes from './style.module.css';
@@ -110,18 +110,18 @@ document.querySelector('h1').className = classes.myTitle;
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS"');
     await waitForEditorFocus(app);
     await page.keyboard.type('.my-title {color: blue;}');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `import classes from './style.css'; document.querySelector('h1').innerHTML = classes;`,
@@ -138,19 +138,19 @@ document.querySelector('h1').className = classes.myTitle;
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS Modules');
-    await app.click('text=CSS');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS Modules"');
+    await app.click('text="CSS"');
     await waitForEditorFocus(app);
     await page.keyboard.type('.my-title {color: blue;}');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `
@@ -174,16 +174,16 @@ document.querySelector('h1').className = classes2['my-title'];
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS Modules');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS Modules"');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `
@@ -203,18 +203,18 @@ document.querySelector('h1').innerHTML = Object.keys(classes).length;
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS"');
     await waitForEditorFocus(app);
     await page.keyboard.type('.my-title {color: blue;}');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `
@@ -234,20 +234,20 @@ document.querySelector('h1').innerHTML = Object.keys(classes).length;
 
     const { app, getResult, waitForResultUpdate } = await getLoadedApp(page);
 
-    await app.click(':nth-match([data-hint="Change Language"], 1)');
-    await app.click('text=HTML');
+    await app.click(':nth-match([title="Change Language"], 1)');
+    await app.click('text="HTML"');
     await waitForEditorFocus(app);
     await page.keyboard.type('<h1></h1>');
 
-    await app.click(':nth-match([data-hint="Change Language"], 2)');
-    await app.click('text=CSS Modules');
+    await app.click(':nth-match([title="Change Language"], 2)');
+    await app.click('text="CSS Modules"');
     await app.click('text=cssnano');
     await app.click('text=SCSS');
     await waitForEditorFocus(app);
     await page.keyboard.type('h1 { &.my-title {color: blue;} }');
 
-    await app.click(':nth-match([data-hint="Change Language"], 3)');
-    await app.click('text=JavaScript');
+    await app.click(':nth-match([title="Change Language"], 3)');
+    await app.click('text="JavaScript"');
     await waitForEditorFocus(app);
     await page.keyboard.type(
       `import classes from './style.module.scss';

@@ -57,7 +57,7 @@ const syncInProgressMessage = window.deps.translateString(
   'sync.syncInProgress',
   'Sync in progress...',
 );
-export const isSyncInProgress = () => getSyncLink()?.dataset.hint === syncInProgressMessage;
+export const isSyncInProgress = () => getSyncLink()?.title === syncInProgressMessage;
 
 export const updateSyncStatus = ({
   inProgress,
@@ -80,8 +80,7 @@ export const updateSyncStatus = ({
 
   if (inProgress ?? isSyncInProgress()) {
     if (syncLink) {
-      syncLink.classList.add('hint--bottom');
-      syncLink.dataset.hint = syncInProgressMessage;
+      syncLink.title = syncInProgressMessage;
       syncIndicator?.classList.remove('hidden');
     }
     startSyncBtns?.forEach((btn) => {
@@ -90,8 +89,7 @@ export const updateSyncStatus = ({
     });
   } else {
     if (syncLink) {
-      syncLink.classList.toggle('hint--bottom', Boolean(lastSyncMessage));
-      syncLink.dataset.hint = lastSyncMessage;
+      syncLink.title = lastSyncMessage;
       syncIndicator?.classList.add('hidden');
     }
     startSyncBtns?.forEach((btn) => {

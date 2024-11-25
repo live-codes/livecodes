@@ -16,7 +16,7 @@ For example:
 
 Code formatting for the code in the active editor can be triggered by the `Format` button below the editor.
 
-![code format](../../static/img/screenshots/format.jpg)
+![code format](../../static/img/screenshots/format-1.jpg)
 
 ## Keyboard Shortcut
 
@@ -24,7 +24,7 @@ Code formatting can also be trigger by the keyboard shortcut <kbd>Alt</kbd> + <k
 
 ## Format on-save
 
-Format on-save can be enabled from the app menu → Format on-save.
+Format on-save can be enabled from the Settings menu → Format on-save.
 
 ## Format Options
 

@@ -13,6 +13,7 @@ export const defaultConfig: Config = {
   formatOnsave: false,
   mode: 'full',
   theme: 'dark',
+  themeColor: undefined,
   layout: 'responsive',
   editorTheme: undefined,
   appLanguage: undefined,

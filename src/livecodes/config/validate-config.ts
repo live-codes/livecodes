@@ -104,6 +104,7 @@ export const validateConfig = (config: Partial<Config>): Partial<Config> => {
     ...(is(config.formatOnsave, 'boolean') ? { formatOnsave: config.formatOnsave } : {}),
     ...(includes(modes, config.mode) ? { mode: config.mode } : {}),
     ...(includes(themes, config.theme) ? { theme: config.theme } : {}),
+    ...(is(config.themeColor, 'string') ? { themeColor: config.themeColor } : {}),
     ...(includes(layout, config.layout) ? { layout: config.layout } : {}),
     ...(is(config.editorTheme, 'array', 'string') || is(config.editorTheme, 'string')
       ? { editorTheme: config.editorTheme }

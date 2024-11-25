@@ -436,7 +436,7 @@ const translation: I18nTranslation = {
       gettingStarted: '快速开始',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: '赞助 LiveCodes',
+      sponsor: '赞助',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: '点击以获取信息...',
@@ -497,6 +497,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: '关于',
+    appHelp: {
+      heading: '帮助',
+      hint: '帮助',
+    },
+    appProject: {
+      heading: '项目',
+      hint: '项目',
+    },
+    appSettings: {
+      heading: '设置',
+      hint: '设置',
+    },
     assets: '资产 ...',
     autoSave: '自动保存',
     autoUpdate: '自动更新',

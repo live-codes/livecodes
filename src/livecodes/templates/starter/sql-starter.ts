@@ -54,7 +54,7 @@ export const sqlStarter: Template = {
 #output table {
   border: 1px solid #ddd;
   border-collapse: separate;
-  border-radius: 5px;
+  border-radius: 4px;
   border-spacing: 0;
   font-size: 0.9em;
   margin: 1em;
@@ -73,7 +73,7 @@ export const sqlStarter: Template = {
 #output pre {
   background-color: #fafafa;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 4px;
   box-sizing: border-box;
   display: inline-block;
   margin: 1em;
