@@ -1,14 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import type { createEventsManager } from '../events';
 import type { createModal } from '../modal';
-import type {
-  AppLanguage,
-  Config,
-  EditorLibrary,
-  EditorOptions,
-  FormatFn,
-  UserConfig,
-} from '../models';
+import type { Config, EditorLibrary, EditorOptions, FormatFn, UserConfig } from '../models';
 import type { createEditor } from '../editor/create-editor';
 import { editorSettingsScreen } from '../html';
 import { getEditorConfig, getFormatterConfig } from '../config/config';
@@ -25,14 +18,12 @@ export const createEditorSettingsUI = async ({
   modal,
   eventsManager,
   scrollToSelector,
-  appLanguages,
   deps,
 }: {
   baseUrl: string;
   modal: ReturnType<typeof createModal>;
   eventsManager: ReturnType<typeof createEventsManager>;
   scrollToSelector: string;
-  appLanguages: Record<Exclude<AppLanguage, 'auto'>, string>;
   deps: {
     getUserConfig: () => UserConfig;
     createEditor: typeof createEditor;
@@ -71,21 +62,6 @@ export const createEditorSettingsUI = async ({
   }
   const formFields: FormField[] = [
     {
-      title: window.deps.translateString('editorSettings.appLanguage.heading', 'App UI Language'),
-      name: 'appLanguage',
-      options: [
-        ...Object.entries(appLanguages).map(([code, lng]) => ({
-          label: lng,
-          value: code,
-        })),
-      ],
-      note: window.deps.translateString(
-        'editorSettings.appLanguage.note',
-        'Will reload the app to apply the changes after switching the language.',
-      ),
-      help: `${process.env.DOCS_BASE_URL}features/i18n`,
-    },
-    {
       title: window.deps.translateString(
         'editorSettings.enableAI.heading',
         'Enable AI Code Assistant',
@@ -95,9 +71,10 @@ export const createEditorSettingsUI = async ({
       help: `${process.env.DOCS_BASE_URL}features/ai`,
       note: window.deps.translateString(
         'editorSettings.enableAI.note',
-        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{DOCS_BASE_URL}}img/credits/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
+        'Powered by <a href="https://codeium.com" rel="noopener noreferrer" target="_blank"><img src="{{baseUrl}}assets/images/codeium.svg" style="height: 1.2em; vertical-align: bottom;" alt="Codeium" /></a>',
         {
           isHTML: true,
+          baseUrl,
         },
       ),
     },
@@ -341,7 +318,7 @@ export const createEditorSettingsUI = async ({
       title = document.createElement('label');
       title.innerHTML = field.title.replace(
         '*',
-        `<a href="#codejar-info" class="hint--top" data-hint="${window.deps.translateString('editorSettings.notAvailableInCodeJar', 'Not available in CodeJar')}" style="text-decoration: none;">*</a>`,
+        `<a href="#codejar-info" title="${window.deps.translateString('editorSettings.notAvailableInCodeJar', 'Not available in CodeJar')}" style="text-decoration: none;">*</a>`,
       );
       title.dataset.name = field.name;
       form.appendChild(title);
@@ -355,8 +332,8 @@ export const createEditorSettingsUI = async ({
       helpLink.title = window.deps.translateString('generic.clickForInfo', 'Click for info...');
       title?.appendChild(helpLink);
 
-      const helpIcon: HTMLImageElement = document.createElement('img');
-      helpIcon.src = baseUrl + 'assets/icons/info.svg';
+      const helpIcon: HTMLSpanElement = document.createElement('span');
+      helpIcon.classList.add('icon-info');
       helpLink.appendChild(helpIcon);
     }
 

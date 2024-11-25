@@ -108,7 +108,7 @@ export const ejsUrl = /* @__PURE__ */ getUrl('ejs@3.1.10/ejs.js');
 
 export const elkjsBaseUrl = /* @__PURE__ */ getUrl('elkjs@0.8.2/lib/');
 
-export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.4.0/dist/emmet-monaco.js');
+export const emmetMonacoUrl = /* @__PURE__ */ getUrl('emmet-monaco-es@5.5.0/dist/emmet-monaco.js');
 
 export const esModuleShimsPath = 'es-module-shims@1.10.0/dist/es-module-shims.js';
 
@@ -229,8 +229,6 @@ export const graphreCdnUrl = /* @__PURE__ */ getUrl('graphre@0.1.3/dist/graphre.
 export const handlebarsBaseUrl = /* @__PURE__ */ getUrl('handlebars@4.7.8/dist/');
 
 export const highlightjsUrl = /* @__PURE__ */ getModuleUrl('highlight.js@11.5.1');
-
-export const hintCssUrl = /* @__PURE__ */ getUrl('hint.css@2.7.0/hint.min.css');
 
 export const hpccJsCdnUrl = /* @__PURE__ */ getUrl('@hpcc-js/wasm@2.13.0/dist/index.js');
 

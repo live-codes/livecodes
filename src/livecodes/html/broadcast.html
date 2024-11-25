@@ -1,9 +1,10 @@
 <div id="broadcast-container" class="modal-container">
   <div class="modal-title" data-i18n="broadcast.heading">Broadcast</div>
-  <div id="broadcast-status" class="modal-status"></div>
   <div id="broadcast-screen-container" class="modal-screen-container">
+    <div id="broadcast-status" class="modal-status"></div>
+
     <div class="modal-screen">
-      <div class="description" data-i18n="broadcast.desc" data-i18n-prop="innerHTML">
+      <div class="description help" data-i18n="broadcast.desc" data-i18n-prop="innerHTML">
         Broadcast the result page to other browsers/devices in real time. Please visit the
         <a href="{{DOCS_BASE_URL}}features/broadcast" target="_blank" rel="noopener"
           >documentations</a
@@ -15,8 +16,10 @@
           <label for="broadcast-server-url" data-i18n="broadcast.serverURL.heading"
             >Server URL</label
           >
+          <br />
           <input
             type="text"
+            dir="ltr"
             id="broadcast-server-url"
             placeholder="Required"
             data-i18n="generic.required"
@@ -38,7 +41,7 @@
           Broadcast
         </button>
         <div id="broadcast-channel-url-section">
-          <label data-i18n="broadcast.channelURL">Channel URL</label>
+          <label for="broadcast-channel-url" data-i18n="broadcast.channelURL">Channel URL</label>
           <a id="broadcast-channel-url" href="#" target="_blank"></a>
         </div>
       </form>

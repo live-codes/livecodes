@@ -14,7 +14,7 @@ const translation: I18nTranslation = {
     heading: 'Informazioni su LiveCodes',
     livecodes: {
       para1:
-        '<1><2>LiveCodes</2></1> è un playground di codice <3>open-source</3>, <4>ricco di funzionalità</4>, <5>lato client</5>. Attualmente, sono supportati <6>oltre 80 linguaggi/<7></7>framework</6>. Può essere utilizzato come app autonoma o può essere <8>incorporato</8> in qualsiasi pagina web. Ci sono molti modi per <9>precompilare i playground</9> con il codice.',
+        '<1><2>LiveCodes</2></1> è un playground di codice <3>open-source</3>, <4>ricco di funzionalità</4>, <5>lato client</5>. Attualmente, sono supportati <6>oltre 80 linguaggi/<7></7>framework</6>. Può essere utilizzato come app autonoma o <8>incorporato</8> in qualsiasi pagina web. Ci sono molti modi per <9>precompilare i playground</9> con il codice.',
       para2:
         "Un'ampia gamma di <1>opzioni di configurazione</1> lo rende molto flessibile. Un potente <2>SDK</2> (per <3>JS/TS</3>, <4>React</4>, <5>Vue</5> e <6>Svelte</6>) facilita l'<7>incorporazione</7> e la <8>comunicazione</8> con i playground. È disponibile una <9>documentazione completa</9> con esempi di codice, demo dal vivo e screenshot.",
     },
@@ -157,7 +157,7 @@ const translation: I18nTranslation = {
     backup: {
       assets: 'Risorse',
       button: 'Backup',
-      desc: 'Esegui il backup dei dati di LiveCodes, in modo che possano essere ripristinati successivamente su questo o altri dispositivi. <1></1> Visita la <2>documentazione</2> per i dettagli.',
+      desc: 'Esegui il backup dei dati di LiveCodes, in modo che possano essere ripristinati successivamente su questo o altri dispositivi. <1></1> Per i dettagli, consultare la <2>documentazione</2>',
       heading: 'Backup',
       projects: 'Progetti',
       settings: 'Impostazioni utente',
@@ -173,7 +173,7 @@ const translation: I18nTranslation = {
     heading: 'Backup / Ripristino',
     inProgress: 'In corso...',
     restore: {
-      desc: 'Ripristina i dati di LiveCodes precedentemente sottoposti a backup. <1></1> Se scegli di sostituire il contenuto attuale, potresti voler eseguire prima un backup. <2></2> Visita la <3>documentazione</3> per i dettagli.',
+      desc: 'Ripristina i dati di LiveCodes precedentemente sottoposti a backup. <1></1> Se scegli di sostituire il contenuto attuale, potresti voler eseguire prima un backup. <2></2> Per i dettagli, consultare la <3>documentazione</3>',
       fromFile: 'Ripristina da file',
       heading: 'Ripristina',
       mode: {
@@ -191,7 +191,7 @@ const translation: I18nTranslation = {
     broadcasting: 'Trasmissione in corso...',
     channelURL: 'URL del canale',
     connecting: 'Connessione in corso...',
-    desc: 'Trasmetti la pagina dei risultati ad altri browser/dispositivi in tempo reale. Visita la <1>documentazione</1> per i dettagli.',
+    desc: 'Trasmetti la pagina dei risultati ad altri browser/dispositivi in tempo reale. Per i dettagli, consultare la <1>documentazione</1>',
     error: {
       generic: 'Trasmissione fallita!',
       serverURLRequired: "L'URL del server è richiesto!",
@@ -322,7 +322,7 @@ const translation: I18nTranslation = {
     closeBrackets: 'Chiudi automaticamente parentesi e virgolette',
     codeJarDesc: '* Le funzionalità contrassegnate non sono disponibili in CodeJar.',
     default: 'Predefinito',
-    desc: 'Si prega di consultare la <1>documentazione</1> per i dettagli.',
+    desc: 'Per i dettagli, consultare la <1>documentazione</1>',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -337,13 +337,13 @@ const translation: I18nTranslation = {
     editorTheme: 'Tema Editor',
     emmet: 'Abilita Emmet *',
     enableAI: {
-      heading: 'Abilita Assistente AI per il Codice',
+      heading: "Abilita l'assistente AI di codifica",
       note: 'Alimentato da <1><2></2></1>',
     },
     fontFamily: 'Famiglia di caratteri',
     fontSize: 'Dimensione carattere',
     format: 'Formato',
-    heading: 'Impostazioni Editor',
+    heading: "Impostazioni dell'editor",
     lineNumbers: 'Mostra numeri di riga',
     notAvailableInCodeJar: 'Non disponibile in CodeJar',
     preview: 'Anteprima',
@@ -361,7 +361,7 @@ const translation: I18nTranslation = {
   },
   embed: {
     activeEditor: {
-      heading: 'Editor Attivo',
+      heading: 'Editor attivo',
       markup: '{{markup}}',
       script: '{{script}}',
       style: '{{style}}',
@@ -369,17 +369,17 @@ const translation: I18nTranslation = {
     activeTool: {
       compiled: 'Compilato',
       console: 'Console',
-      heading: 'Strumento Attivo',
+      heading: 'Strumento attivo',
       tests: 'Test',
     },
     code: {
-      copy: 'Copia Codice',
+      copy: 'Copia codice',
       heading: 'Codice',
     },
-    desc: 'Si prega di consultare la <1>documentazione</1> per configurazioni avanzate.',
+    desc: 'Consultare la <1>documentazione</1> per configurazioni avanzate.',
     embedType: {
       cdn: 'Script (CDN)',
-      heading: 'Tipo di Incorporamento',
+      heading: 'Tipo di incorporamento',
       html: 'HTML',
       iframe: 'Iframe',
       npm: 'JS (npm)',
@@ -399,7 +399,7 @@ const translation: I18nTranslation = {
       codeblock: 'Blocco di Codice',
       editor: 'Editor',
       full: 'Completo',
-      heading: 'Modalità di Visualizzazione',
+      heading: 'Modalità di visualizzazione',
       result: 'Risultato',
     },
     permanentUrl: 'URL Permanente',
@@ -420,7 +420,7 @@ const translation: I18nTranslation = {
     },
     view: {
       editor: 'Editor',
-      heading: 'Vista Predefinita',
+      heading: 'Vista predefinita',
       result: 'Risultato',
       split: 'Diviso',
     },
@@ -433,18 +433,18 @@ const translation: I18nTranslation = {
       gettingStarted: 'Per Iniziare',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: 'Sponsorizza LiveCodes',
+      sponsor: 'Sponsorizza',
       twitter: '𝕏 / Twitter',
     },
-    clickForInfo: 'Clicca per informazioni...',
+    clickForInfo: 'Clicca per informazioni …',
     close: 'Chiudi',
     error: {
       authentication: 'Errore di autenticazione!',
       exceededSize: 'Errore: Dimensione superata {{size}} MB',
       failedToReadFile: 'Errore: Impossibile leggere il file',
     },
-    loading: 'Caricamento...',
-    more: 'Altro...',
+    loading: 'Caricamento …',
+    more: 'Altro …',
     optional: 'Opzionale',
     required: 'Obbligatorio',
     tagline: 'Un Parco Giochi per il Codice Che Funziona e Basta!',
@@ -458,7 +458,7 @@ const translation: I18nTranslation = {
       started: 'Importazione in blocco avviata...',
     },
     code: {
-      desc: 'Fonti supportate: <1> <2>Gist GitHub</2> <3>File GitHub</3> <4>Directory in un repository GitHub</4> <5>Snippet Gitlab</5> <6>File Gitlab</6> <7>Directory in un repository Gitlab</7> <8>JS Bin</8> <9>Codice grezzo</9> <10>Codice nel DOM della pagina web</10> <11>Codice in file zip</11> <12>Playground ufficiali<13></13>(TypeScript, Vue e Svelte)</12> </1> Si prega di visitare la <14>documentazione</14> per i dettagli.',
+      desc: 'Fonti supportate: <1> <2>Gist GitHub</2> <3>File GitHub</3> <4>Directory in un repository GitHub</4> <5>Snippet Gitlab</5> <6>File Gitlab</6> <7>Directory in un repository Gitlab</7> <8>JS Bin</8> <9>Codice grezzo</9> <10>Codice nel DOM della pagina web</10> <11>Codice in file zip</11> <12>Playground ufficiali<13></13>(TypeScript, Vue e Svelte)</12> </1> Per i dettagli, consultare la <14>documentazione</14>',
       fromFile: 'Importa file locali',
       fromURL: 'Importa da URL',
       heading: 'Importa Codice',
@@ -474,7 +474,7 @@ const translation: I18nTranslation = {
     },
     heading: 'Importa',
     json: {
-      desc: "Importa un singolo JSON di progetto nell'editor. Un progetto può essere esportato dal menu dell'app → Esporta → Esporta Progetto (JSON).",
+      desc: "Importa un singolo JSON di progetto nell'editor. Un progetto può essere esportato dal menu dell'app Progetto → Esporta → Esporta Progetto (JSON).",
       fromFile: 'Importa progetto da file locale',
       fromURL: 'Importa progetto da URL',
       heading: 'Importa JSON del Progetto',
@@ -493,7 +493,19 @@ const translation: I18nTranslation = {
     publicRepo: 'Repository',
   },
   menu: {
-    about: 'Informazioni',
+    about: 'Informazioni …',
+    appHelp: {
+      heading: 'Aiuto',
+      hint: 'Aiuto',
+    },
+    appProject: {
+      heading: 'Progetto',
+      hint: 'Progetto',
+    },
+    appSettings: {
+      heading: 'Impostazioni',
+      hint: 'Impostazioni',
+    },
     assets: 'Risorse …',
     autoSave: 'Salvataggio automatico',
     autoUpdate: 'Aggiornamento automatico',
@@ -519,7 +531,7 @@ const translation: I18nTranslation = {
     formatOnsave: 'Formatta al salvataggio',
     import: 'Importa …',
     layout: 'Layout verticale',
-    login: 'Accedi …',
+    login: 'Accedi',
     logout: 'Esci',
     new: 'Nuovo …',
     open: 'Apri …',

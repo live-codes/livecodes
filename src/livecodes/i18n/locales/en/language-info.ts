@@ -56,7 +56,7 @@ const languageInfo = {
     name: 'Clio',
   },
   clojurescript: {
-    desc: 'ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>.',
+    desc: 'ClojureScript is a compiler for <1>Clojure</1> that targets JavaScript. <2></2>In LiveCodes, it runs in the browser using <3>Cherry</3>',
     link: '<1> <2>ClojureScript official website</2> </1> <3> <4>Clojure official website</4> </3> <5> <6>Cherry repo</6> </5> <7> <8>Learn X in Y minutes, where X=clojure</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'ClojureScript (CLJS)',
   },
@@ -78,7 +78,7 @@ const languageInfo = {
     name: 'C++',
   },
   cppWasm: {
-    desc: 'Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>.',
+    desc: 'Clang C/C++ compiler running on WebAssembly, using <1>wasm-clang</1> adapted by <2>polylang.io</2>',
     link: '<1> <2>Standard C++ Foundation</2> </1> <3> <4>Clang official website</4> </3> <5> <6>Learn X in Y minutes, where X=C++</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'C/C++ (Wasm)',
   },
@@ -126,7 +126,7 @@ const languageInfo = {
     desc1:
       'Go (Golang) is an open source programming language that makes it easy to build simple, reliable, and efficient software.',
     desc2: 'Here, it is compiled to JavaScript using GopherJS.',
-    link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9><10>Load starter template</10></9>',
+    link: '<1><2>Go website</2></1> <3><4>Go documentation</4></3> <5> <6>GopherJS repo</6> </5> <7> <8>Learn X in Y minutes, where X=Go</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Go',
   },
   haml: {
@@ -150,9 +150,9 @@ const languageInfo = {
     name: 'JSX',
   },
   julia: {
-    desc1: '(Julia language support in LiveCodes is still experimental)',
+    desc1: 'Julia language support in LiveCodes is still experimental',
     desc2:
-      'Julia compiler and Julia Base running on WASM, using <1>julia-wasm</1> adapted by <2>polylang.io</2>.',
+      'Julia compiler and Julia Base running on WASM, using <1>julia-wasm</1> adapted by <2>polylang.io</2>',
     link: '<1> <2>Julia official website</2> </1> <3> <4>Julia documentation</4> </3> <5> <6>Learn X in Y minutes, where X=Julia</6> </5> <7> <8>Load starter template</8> </7>',
     name: 'Julia',
   },
@@ -173,7 +173,7 @@ const languageInfo = {
   },
   lua: {
     desc: 'Lua running in the browser using fengari-web.',
-    link: '<1><2>Lua official website</2></1> <3> <4>Lua documentation</4> </3> <5> <6>Fengari official website</6> </5> <7> <8>fengari-web GitHub repo</8> </7> <9> <10>Learn X in Y minutes, where X=Lua</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13><14>Load starter template</14></13>',
+    link: '<1><2>Lua official website</2></1> <3> <4>Lua documentation</4> </3> <5> <6>Fengari official website</6> </5> <7> <8>fengari-web GitHub repo</8> </7> <9> <10>Learn X in Y minutes, where X=Lua</10> </9> <11> <12>LiveCodes Documentations</12> </11> <13> <14>Load starter template</14> </13>',
     name: 'Lua',
   },
   luaWasm: {
@@ -193,7 +193,7 @@ const languageInfo = {
   },
   mdx: {
     desc: 'Markdown for the component era. <1></1>MDX lets you seamlessly write JSX in your Markdown documents.',
-    link: '<1><2>MDX documentation</2></1> <3><4>Load starter template</4></3>',
+    link: '<1><2>MDX documentation</2></1> <3> <4>Load starter template</4> </3>',
     name: 'MDX',
   },
   mjml: {
@@ -207,7 +207,7 @@ const languageInfo = {
     name: 'Mustache',
   },
   nunjucks: {
-    desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>.',
+    desc: 'A rich and powerful templating language for JavaScript. Nunjucks is essentially a port of <1>jinja2</1>',
     link: '<1> <2>Official website</2> </1> <3> <4>LiveCodes Documentations</4> </3>',
     name: 'Nunjucks',
   },
@@ -225,7 +225,7 @@ const languageInfo = {
   },
   php: {
     desc: 'PHP running in the browser using Uniter.',
-    link: '<1><2>PHP official website</2></1> <3> <4>PHP documentation</4> </3> <5> <6>Uniter GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=PHP</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11><12>Load starter template</12></11>',
+    link: '<1><2>PHP official website</2></1> <3> <4>PHP documentation</4> </3> <5> <6>Uniter GitHub repo</6> </5> <7> <8>Learn X in Y minutes, where X=PHP</8> </7> <9> <10>LiveCodes Documentations</10> </9> <11> <12>Load starter template</12> </11>',
     name: 'PHP',
   },
   phpWasm: {
@@ -335,7 +335,7 @@ const languageInfo = {
   },
   sql: {
     desc: 'SQLite compiled to JavaScript using SQL.js',
-    link: '<1> <2>SQLite official website</2> </1> <3> <4>SQLite syntax documentation</4> </3> <5> <6>SQL.js official website</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9><10>Load starter template</10></9>',
+    link: '<1> <2>SQLite official website</2> </1> <3> <4>SQLite syntax documentation</4> </3> <5> <6>SQL.js official website</6> </5> <7> <8>Learn X in Y minutes, where X=SQL</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'SQLite',
   },
   stencil: {
@@ -383,7 +383,7 @@ const languageInfo = {
     name: 'TSX',
   },
   twig: {
-    desc: 'A JavaScript implementation of the <1>Twig</1> PHP templating language by <2>Twig.js</2> .',
+    desc: 'A JavaScript implementation of the <1>Twig</1> PHP templating language by <2>Twig.js</2>',
     link: '<1> <2>Twig official website</2> </1> <3> <4>Twig Documentation</4> </3> <5> <6>Twig.js Repo</6> </5> <7> <8>Twig.js Documentation</8> </7> <9> <10>LiveCodes Documentations</10> </9>',
     name: 'Twig',
   },
@@ -393,7 +393,7 @@ const languageInfo = {
     name: 'TypeScript',
   },
   vue: {
-    link: '<1> <2>Vue.js v3 official website</2> </1> <3> <4>Vue3 documentation</4> </3> <5> <6>Vue3 single file components</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9><10>Load starter template</10></9>',
+    link: '<1> <2>Vue.js v3 official website</2> </1> <3> <4>Vue3 documentation</4> </3> <5> <6>Vue3 single file components</6> </5> <7> <8>LiveCodes Documentations</8> </7> <9> <10>Load starter template</10> </9>',
     name: 'Vue3 Single File Components',
   },
   vue2: {
@@ -404,7 +404,7 @@ const languageInfo = {
   wat: {
     desc1: 'Low-level textual representation of the WebAssembly (wasm) binary format.',
     desc2: 'It is converted to wasm using wabt.js.',
-    link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Text Specs</4> </3> <5> <6>WebAssembly on MDN</6> </5> <7> <8>Understanding WebAssembly text format</8> </7> <9> <10>wabt.js documentation</10> </9> <11> <12>Learn X in Y minutes, where X=WebAssembly</12> </11> <13><14>Load starter template</14></13>',
+    link: '<1><2>WebAssembly.org</2></1> <3> <4>WebAssembly Text Specs</4> </3> <5> <6>WebAssembly on MDN</6> </5> <7> <8>Understanding WebAssembly text format</8> </7> <9> <10>wabt.js documentation</10> </9> <11> <12>Learn X in Y minutes, where X=WebAssembly</12> </11> <13> <14>Load starter template</14> </13>',
     name: 'WebAssembly Text Format',
   },
 } as const satisfies I18nTranslationTemplate;

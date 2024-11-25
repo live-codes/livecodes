@@ -16,7 +16,7 @@ Data URLs can be created from:
 
 For local files on user's device.
 
-[Assets screen](./assets.md) can be accessed from app menu → Assets. This works for any file type, including text files (e.g. stylesheets or scripts) and binary files like images. Generated data URLs are saved locally in the user's browser storage and are available across projects.
+[Assets screen](./assets.md) can be accessed from Settings menu → Assets. This works for any file type, including text files (e.g. stylesheets or scripts) and binary files like images. Generated data URLs are saved locally in the user's browser storage and are available across projects.
 
 ### "Copy code as data URL" button
 

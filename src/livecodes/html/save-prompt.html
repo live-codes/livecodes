@@ -1,18 +1,26 @@
 <div id="prompt-screen">
   <div class="modal-title" data-i18n="savePrompt.heading">Unsaved changes</div>
-  <div class="modal-screen">
-    <div data-i18n="savePrompt.prompt.heading" data-i18n-prop="innerHTML">
-      The changes you made may not be saved. <br />
-      Do you want to save now?
-    </div>
-    <div class="buttons">
-      <button id="prompt-save-btn" class="button" data-i18n="savePrompt.prompt.save">Save</button>
-      <button id="prompt-donot-save-btn" class="button" data-i18n="savePrompt.prompt.discard">
-        Do not save
-      </button>
-      <button id="prompt-cancel-btn" class="button" data-i18n="savePrompt.prompt.cancel">
-        Cancel
-      </button>
+
+  <div class="modal-screen-container">
+    <div class="modal-screen">
+      <div
+        class="description dialog"
+        data-i18n="savePrompt.prompt.heading"
+        data-i18n-prop="innerHTML"
+      >
+        The changes you made may not be saved. <br />
+        Do you want to save now?
+      </div>
+
+      <div class="buttons">
+        <button id="prompt-save-btn" class="button" data-i18n="savePrompt.prompt.save">Save</button>
+        <button id="prompt-donot-save-btn" class="button" data-i18n="savePrompt.prompt.discard">
+          Do not save
+        </button>
+        <button id="prompt-cancel-btn" class="button" data-i18n="savePrompt.prompt.cancel">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </div>

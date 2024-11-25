@@ -64,13 +64,13 @@ This is the pseudo-code for the structure of the result page (inspired by [CodeP
 
 The zoom button in the [tools pane](./tools-pane.md) below result page, allows you to toggle result page zoom (1x/0.5x/0.25x).
 
-![Result page zoom](../../static/img/screenshots/result-zoom.jpg)
+![Result page zoom](../../static/img/screenshots/zoom.jpg)
 
 ## Open in new window
 
 From the [tools pane](./tools-pane.md), the result page can be viewed in a separate window.
 
-![Open in new window](../../static/img/screenshots/result-new-window.jpg)
+![Open in new window](../../static/img/screenshots/new-window.jpg)
 
 :::caution
 
@@ -84,9 +84,9 @@ If you need to share a project, use the [Share screen](./share.md). While, if yo
 
 The spacing between elements on the result page can be measured by adding [Spacing.js](https://spacingjs.com/) to the result page.
 
-![Show Spacings](../../static/img/screenshots/spacings.jpg)
+![Show Spacings](../../static/img/screenshots/spacing.jpg)
 
-1. Enable `Show Spacing` setting in the app menu.
+1. Enable `Show Spacing` setting in the Settings menu.
 2. Move your cursor to an element and press Alt on Windows, or Option on a Mac.
 3. Move your cursor to another element, the measurement results will be there.
 

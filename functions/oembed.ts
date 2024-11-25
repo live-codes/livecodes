@@ -50,7 +50,7 @@ export const onRequest: PgFunction = async function (context) {
         src="${url.href}"
         scrolling="no"
         height="300"
-        style="border: 1px solid black; border-radius: 5px; width: 100%;${
+        style="border: 1px solid black; border-radius: 6px; width: 100%;${
           maxWidth ? ' max-width: ' + maxWidth + 'px;' : ''
         }${maxHeight ? ' max-height: ' + maxHeight + 'px;' : ''}"
       ></iframe>`,

@@ -54,7 +54,7 @@ Note that the built code was committed to the repo by clearing out `.gitignore` 
 The built code can then by accessed from a [CDN that mirrors GitHub](https://www.jsdelivr.com/?docs=gh), like this:  
 `https://cdn.jsdelivr.net/gh/live-codes/gleam-precompiled@main/...`
 
-Built modules can then be declared in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings), under the `gleam` property, by adding a `modules` property.
+Built modules can then be declared in [custom settings](../advanced/custom-settings.md) (Project menu → Custom Settings), under the `gleam` property, by adding a `modules` property.
 
 The `modules` property is an object that has the module name as the key. The value is an object with the following properties:
 
@@ -80,7 +80,7 @@ Example:
 See the [demo below](#example-usage) ([open in LiveCodes](https://livecodes.io/?template=gleam)).
 
 If `compiledUrl` property is not specified, the JavaScript module is imported from this URL pattern: `{module_name}.mjs` (example: `plinth/browser/document.mjs`).  
-This can then be [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings) to the full URL of the compiled JavaScript code.
+This can then be [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (Project menu → Custom Settings) to the full URL of the compiled JavaScript code.
 
 Example:
 
@@ -107,7 +107,7 @@ Example:
 
 ### Externals
 
-[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (App menu → Custom Settings) to the full URL of the script that contains the code.
+[External functions](https://tour.gleam.run/advanced-features/externals/) written in JavaScript can also be used. An external function has the `@external` attribute on it. It needs to specify a "relative" URL specifying the location of the external code. This URL is [mapped (using import maps)](../features/module-resolution.md#custom-module-resolution) in [custom settings](../advanced/custom-settings.md) (Project menu → Custom Settings) to the full URL of the script that contains the code.
 
 **Example:**
 

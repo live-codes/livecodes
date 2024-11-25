@@ -8,7 +8,7 @@ The [result page](./result.md) can be styled with CSS using various methods, inc
 
 Code added to [style editor](./projects.md#style-editor) is [compiled](#languages) and [processed](#css-processors), then added as CSS to the [result page](./result.md) `head` element.
 
-![LiveCodes styles](../../static/img/screenshots/css-processors.png)
+![LiveCodes styles](../../static/img/screenshots/css-processors.jpg) <!-- http://127.0.0.1:8080/?x=id/8gvn866qvh5 -->
 
 ### Languages
 

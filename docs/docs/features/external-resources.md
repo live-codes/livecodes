@@ -2,7 +2,7 @@
 
 ## Stylesheets and Scripts
 
-URLs to external CSS stylesheets and JS scripts can be added to the page from the UI using the app menu → External Resources. In addition, there is a button to the External Resources in the toolbar below the editors.
+URLs to external CSS stylesheets and JS scripts can be added to the page from the UI using the Project menu → External Resources. In addition, there is a button to the External Resources in the toolbar below the editors.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
@@ -12,7 +12,7 @@ URLs to stylesheets/scripts should be added each in a separate line.
 
 Stylesheets and scripts are loaded in the [result page](./result.md) before editor codes. Thus, CSS properties defined in external stylesheets can be overridden in the style editor. Global javascript variables defined in external scripts are available to code in the script editor.
 
-![External Resources](/img/screenshots/external-resources.jpg)
+![External Resources](/img/screenshots/resources.jpg)
 
 Importing and Exporting code to other services (e.g. Codepen and Github gists) takes into consiedration the external resources.
 
@@ -35,7 +35,7 @@ jquery@3.6.3
 
 ```
 
-![External Resources Search](/img/screenshots/external-resources-search.jpg)
+![External Resources Search](/img/screenshots/resources-search.jpg)
 
 ## Fonts
 

@@ -70,7 +70,9 @@ import { getFormatter } from './formatter';
 import { createNotifications } from './notifications';
 import { createModal } from './modal';
 import {
-  settingsMenuHTML,
+  menuProjectHTML,
+  menuSettingsHTML,
+  menuHelpHTML,
   resultTemplate,
   customSettingsScreen,
   testEditorScreen,
@@ -97,6 +99,7 @@ import {
 } from './config';
 import { isGithub } from './import/check-src';
 import {
+  colorToHsla,
   copyToClipboard,
   debounce,
   getValidUrl,
@@ -105,6 +108,8 @@ import {
   stringToValidJson,
   toDataUrl,
   predefinedValues,
+  colorToHex,
+  capitalize,
 } from './utils';
 import { compress } from './utils/compression';
 import { getCompiler, getAllCompilers, cjs2esm, getCompileResult } from './compiler';
@@ -115,7 +120,6 @@ import { createAuthService, getAppCDN, sandboxService, shareService } from './se
 import { cacheIsValid, getCache, getCachedCode, setCache, updateCache } from './cache';
 import {
   fscreenUrl,
-  hintCssUrl,
   jestTypesUrl,
   lunaConsoleStylesUrl,
   lunaDataGridStylesUrl,
@@ -149,6 +153,7 @@ import type {
   I18nTranslationTemplate,
 } from './i18n';
 import { appLanguages } from './i18n/app-languages';
+import { themeColors } from './UI/theme-colors';
 
 // declare global dependencies
 declare global {
@@ -209,6 +214,7 @@ const broadcastInfo: BroadcastInfo = {
   broadcastSource: false,
 };
 let resultPopup: Window | null = null;
+let defaultColor: string | null = null;
 const sdkWatchers = {
   load: createPub<void>(),
   ready: createPub<void>(),
@@ -229,7 +235,6 @@ const loadStyles = () =>
     : Promise.all(
         [
           snackbarUrl,
-          hintCssUrl,
           ...(isLite
             ? []
             : [
@@ -379,17 +384,24 @@ const highlightSelectedLanguage = (editorId: EditorId, language: Language) => {
 };
 
 const setEditorTitle = (editorId: EditorId, title: string) => {
-  const editorTitle = document.querySelector(`#${editorId}-selector span`);
+  const editorTitle = document.querySelector(`#${editorId}-selector span`) as HTMLElement;
   const language = getLanguageByAlias(title);
   if (!editorTitle || !language) return;
-  editorTitle.textContent =
-    getConfig()[editorId].title ?? languages.find((lang) => lang.name === language)?.title ?? '';
   highlightSelectedLanguage(editorId, language);
+  const customTitle = getConfig()[editorId].title;
+  if (customTitle) {
+    editorTitle.textContent = customTitle;
+    editorTitle.title = `${capitalize(editorId)}: ${customTitle}`;
+    return;
+  }
+  const lang = languages.find((lang) => lang.name === language);
+  editorTitle.textContent = lang?.title ?? '';
+  editorTitle.title = `${capitalize(editorId)}: ${lang?.longTitle ?? lang?.title ?? ''}`;
 };
 
 const createCopyButtons = () => {
   const editorIds: EditorId[] = ['markup', 'style', 'script'];
-  const copyImgHtml = `<span><img src="${baseUrl}assets/images/copy.svg" alt="copy"></span>`;
+  const copyImgHtml = `<span><i class="icon-copy" alt="copy"></i></span>`;
   editorIds.forEach((editorId) => {
     const copyButton = document.createElement('div');
     copyButton.innerHTML = copyImgHtml;
@@ -399,13 +411,11 @@ const createCopyButtons = () => {
     eventsManager.addEventListener(copyButton, 'click', () => {
       if (copyToClipboard(editors?.[editorId]?.getValue())) {
         copyButton.innerHTML = `<span><img src="${baseUrl}assets/images/tick.svg" alt="copied"></span>`;
-        copyButton.classList.add('hint--left', 'visible');
-        copyButton.dataset.hint = window.deps.translateString('core.copy.hint', 'Copied!');
-        copyButton.title = '';
+        copyButton.classList.add('visible');
+        copyButton.title = window.deps.translateString('core.copy.hint', 'Copied!');
         setTimeout(() => {
           copyButton.innerHTML = copyImgHtml;
-          copyButton.classList.remove('hint--left', 'visible');
-          copyButton.dataset.hint = '';
+          copyButton.classList.remove('visible');
           copyButton.title = window.deps.translateString('core.copy.title', 'Copy');
         }, 2000);
       }
@@ -560,7 +570,6 @@ const showMode = (mode?: Config['mode']) => {
   const resultElement = UI.getResultElement();
   const gutterElement = UI.getGutterElement();
   const runButton = UI.getRunButton();
-  const codeRunButton = UI.getCodeRunButton();
   const editorTools = UI.getEditorToolbar();
 
   const showToolbar = modeConfig[0] === '1';
@@ -572,7 +581,6 @@ const showMode = (mode?: Config['mode']) => {
   resultElement.style.display = 'flex';
   outputElement.style.display = 'block';
   runButton.style.visibility = 'visible';
-  codeRunButton.style.visibility = 'visible';
   if (gutterElement) {
     gutterElement.style.display = 'block';
   }
@@ -591,13 +599,11 @@ const showMode = (mode?: Config['mode']) => {
     editorsElement.style.flexBasis = '100%';
     outputElement.style.display = 'none';
     resultElement.style.display = 'none';
-    codeRunButton.style.display = 'none';
     split?.destroy(true);
     split = null;
   }
   if (mode === 'editor' || mode === 'codeblock') {
     runButton.style.visibility = 'hidden';
-    codeRunButton.style.visibility = 'hidden';
   }
   if (mode === 'codeblock') {
     editorTools.style.display = 'none';
@@ -1305,7 +1311,7 @@ const applyConfig = async (newConfig: Partial<Config>) => {
   if (newConfig.zoom) {
     zoom(newConfig.zoom);
   }
-  if (newConfig.theme || newConfig.editorTheme) {
+  if (newConfig.theme || newConfig.editorTheme || newConfig.themeColor || newConfig.fontSize) {
     setTheme(
       newConfig.theme || getConfig().theme,
       newConfig.editorTheme || getConfig().editorTheme,
@@ -1472,7 +1478,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
   return new Promise((resolve) => {
     const welcomeRecover = UI.getModalWelcomeRecover();
     if (isWelcomeScreen) {
-      welcomeRecover.style.display = 'unset';
+      welcomeRecover.style.display = 'block';
     } else {
       const div = document.createElement('div');
       div.innerHTML = recoverPromptScreen;
@@ -1507,7 +1513,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
         );
       }
       if (isWelcomeScreen) {
-        welcomeRecover.style.maxHeight = '0';
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1516,7 +1522,7 @@ const checkRecoverStatus = (isWelcomeScreen = false) => {
     });
     eventsManager.addEventListener(UI.getModalCancelRecoverButton(), 'click', () => {
       if (isWelcomeScreen) {
-        welcomeRecover.style.maxHeight = '0';
+        welcomeRecover.classList.add('cancelled');
       } else {
         modal.close();
       }
@@ -1742,14 +1748,74 @@ const setTheme = (theme: Theme, editorTheme: Config['editorTheme']) => {
   const root = document.querySelector(':root');
   root?.classList.remove(...themes);
   root?.classList.add(theme);
+  changeThemeColor();
+  setFontSize();
   const themeToggle = UI.getThemeToggle();
   if (themeToggle) {
     themeToggle.checked = theme === 'dark';
+  }
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (darkThemeButton && !isEmbed) {
+    if (theme === 'dark') {
+      darkThemeButton.style.display = 'inherit';
+    } else {
+      darkThemeButton.style.display = 'none';
+    }
+  }
+  const lightThemeButton = UI.getLightThemeButton();
+  if (lightThemeButton && !isEmbed) {
+    if (theme === 'light') {
+      lightThemeButton.style.display = 'inherit';
+    } else {
+      lightThemeButton.style.display = 'none';
+    }
   }
   getAllEditors().forEach((editor) => {
     editor?.setTheme(theme, editorTheme);
     customEditors[editor?.getLanguage()]?.setTheme(theme);
   });
+  toolsPane?.console?.setTheme?.(theme);
+};
+
+const changeThemeColor = () => {
+  const { themeColor, theme } = getConfig();
+  const color = themeColor || getDefaultColor();
+  const { h, s, l } = colorToHsla(color);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--hue', `${h}`);
+  root.style.setProperty('--st', `${s}%`);
+  root.style.setProperty('--lt', `${theme === 'light' ? 100 : l}%`);
+
+  const customColorInput = UI.getThemeColorSelector()?.querySelector(
+    'input[type="color"]',
+  ) as HTMLInputElement;
+  if (customColorInput) {
+    customColorInput.value = colorToHex(color);
+  }
+};
+
+const getDefaultColor = () => {
+  if (defaultColor) return defaultColor;
+  const root = document.querySelector(':root') as HTMLElement;
+  const theme = getConfig().theme;
+  root.classList.remove('light');
+  const h = getComputedStyle(root).getPropertyValue('--hue');
+  const s = getComputedStyle(root).getPropertyValue('--st');
+  const l = getComputedStyle(root).getPropertyValue('--lt');
+  if (theme === 'light') {
+    root.classList.add('light');
+  }
+  if (h === '' || s === '' || l === '') {
+    return themeColors[0].themeColor;
+  }
+  defaultColor = `hsl(${h}, ${s}, ${l})`;
+  return defaultColor;
+};
+
+const setFontSize = () => {
+  const fontSize = getConfig().fontSize || (isEmbed ? 12 : 14);
+  const root = document.querySelector(':root') as HTMLElement;
+  root.style.setProperty('--font-size', `${fontSize + 2}px`);
 };
 
 const setLayout = (layout: Config['layout']) => {
@@ -1765,14 +1831,14 @@ const setLayout = (layout: Config['layout']) => {
     const layoutSwitch = layoutToggle.closest('.switch') as HTMLElement;
     if (layout === undefined) {
       layoutToggle.readOnly = layoutToggle.indeterminate = true;
-      layoutSwitch.dataset.hint = window.deps.translateString(
+      layoutSwitch.title = window.deps.translateString(
         'core.layout.responsive',
         'Responsive layout',
       );
     } else {
       layoutToggle.checked = layout === 'vertical';
       layoutToggle.readOnly = layoutToggle.indeterminate = false;
-      layoutSwitch.dataset.hint =
+      layoutSwitch.title =
         layout === 'vertical'
           ? window.deps.translateString('core.layout.vertical', 'Vertical layout')
           : window.deps.translateString('core.layout.horizontal', 'Horizontal layout');
@@ -1979,16 +2045,13 @@ const setBroadcastStatus = (info: BroadcastInfo) => {
   if (!broadcastStatusBtn) return;
   if (info.isBroadcasting) {
     broadcastStatusBtn.firstElementChild?.classList.add('active');
-    broadcastStatusBtn.dataset.hint = window.deps.translateString(
+    broadcastStatusBtn.title = window.deps.translateString(
       'broadcast.broadcasting',
       'Broadcasting...',
     );
   } else {
     broadcastStatusBtn.firstElementChild?.classList.remove('active');
-    broadcastStatusBtn.dataset.hint = window.deps.translateString(
-      'core.broadcast.heading',
-      'Broadcast',
-    );
+    broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
   }
 };
 
@@ -2340,7 +2403,6 @@ const handleRunButton = () => {
     await run();
   };
   eventsManager.addEventListener(UI.getRunButton(), 'click', handleRun);
-  eventsManager.addEventListener(UI.getCodeRunButton(), 'click', handleRun);
 };
 
 const handleResultButton = () => {
@@ -2349,6 +2411,60 @@ const handleResultButton = () => {
 
 const handleShareButton = () => {
   eventsManager.addEventListener(UI.getShareButton(), 'click', () => showScreen('share'));
+};
+
+const handleI18nMenu = () => {
+  const menuContainer = UI.getI18nMenuContainer();
+  const i18nMenu = document.createElement('ul');
+  i18nMenu.id = 'app-menu-i18n';
+  i18nMenu.className = 'dropdown-menu';
+  Object.entries(appLanguages).forEach(([langCode, langLabel]) => {
+    const li = document.createElement('li');
+    li.classList.toggle('active', langCode === getConfig().appLanguage);
+    const link = document.createElement('a');
+    link.href = `#`;
+    link.textContent = langLabel;
+    eventsManager.addEventListener(link, 'click', (ev) => {
+      ev.preventDefault();
+      if (langCode === getConfig().appLanguage) return;
+      checkSavedAndExecute(async () => {
+        setUserConfig({ appLanguage: langCode as AppLanguage });
+        if (!i18n && langCode !== 'en') {
+          modal.show(loadingMessage(), { size: 'small' });
+          await loadI18n(langCode as AppLanguage);
+        }
+        await i18n?.changeLanguage(langCode);
+        setAppLanguage(true);
+      })();
+    });
+    li.appendChild(link);
+    i18nMenu.appendChild(li);
+  });
+  const sep = document.createElement('li');
+  sep.role = 'separator';
+  i18nMenu.appendChild(sep);
+  const contributeLi = document.createElement('li');
+  const contributeLink = document.createElement('a');
+  contributeLink.href =
+    'https://github.com/live-codes/livecodes/blob/develop/docs/docs/contribution/i18n.md';
+  contributeLink.textContent = window.deps.translateString(
+    'app.i18nMenu.helpTranslate',
+    'Help Us Translate',
+  );
+  contributeLink.target = '_blank';
+  contributeLink.rel = 'noopener noreferrer';
+  contributeLi.appendChild(contributeLink);
+  i18nMenu.appendChild(contributeLi);
+
+  const docsLi = document.createElement('li');
+  const docsLink = document.createElement('a');
+  docsLink.href = `${process.env.DOCS_BASE_URL}features/i18n`;
+  docsLink.textContent = window.deps.translateString('app.i18nMenu.docs', 'i18n Documentation');
+  docsLink.target = '_blank';
+  docsLink.rel = 'noopener noreferrer';
+  docsLi.appendChild(docsLink);
+  i18nMenu.appendChild(docsLi);
+  menuContainer.appendChild(i18nMenu);
 };
 
 const handleEditorTools = () => {
@@ -2482,26 +2598,112 @@ const handleProcessors = () => {
   });
 };
 
-const handleSettingsMenu = () => {
-  const menuContainer = UI.getSettingsMenuScroller();
-  const settingsButton = UI.getSettingsButton();
-  if (!menuContainer || !settingsButton) return;
-  menuContainer.innerHTML = settingsMenuHTML;
-
-  translateElement(menuContainer);
+const handleAppMenuProject = () => {
+  const menuProjectContainer = UI.getAppMenuProjectScroller();
+  const menuProjectButton = UI.getAppMenuProjectButton();
+  if (!menuProjectContainer || !menuProjectButton) return;
+  menuProjectContainer.innerHTML = menuProjectHTML; // settingsMenuHTML;
+  translateElement(menuProjectContainer);
+  adjustFontSize(menuProjectContainer);
 
   // This fixes the behaviour where :
   // clicking outside the settings menu but inside settings menu container,
   // hides the settings menu but not the container
   // on small screens the container covers most of the screen
   // which gives the effect of a non-responsive app
-  eventsManager.addEventListener(menuContainer, 'mousedown', (event) => {
-    if (event.target === menuContainer) {
-      menuContainer.classList.add('hidden');
+  eventsManager.addEventListener(menuProjectContainer, 'mousedown', (event) => {
+    if (event.target === menuProjectContainer) {
+      menuProjectContainer.classList.add('hidden');
     }
   });
-  eventsManager.addEventListener(settingsButton, 'mousedown', () => {
-    menuContainer.classList.remove('hidden');
+  eventsManager.addEventListener(menuProjectButton, 'mousedown', () => {
+    menuProjectContainer.classList.remove('hidden');
+  });
+};
+
+const handleAppMenuSettings = () => {
+  const menuSettingsContainer = UI.getAppMenuSettingsScroller();
+  const menuSettingsButton = UI.getAppMenuSettingsButton();
+  if (!menuSettingsContainer || !menuSettingsButton) return;
+  menuSettingsContainer.innerHTML = menuSettingsHTML; // settingsMenuHTML;
+
+  translateElement(menuSettingsContainer);
+  adjustFontSize(menuSettingsContainer);
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the container covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuSettingsContainer, 'mousedown', (event) => {
+    if (event.target === menuSettingsContainer) {
+      menuSettingsContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(menuSettingsButton, 'mousedown', () => {
+    menuSettingsContainer.classList.remove('hidden');
+  });
+};
+
+const handleAppMenuHelp = () => {
+  const menuHelpContainer = UI.getAppMenuHelpScroller();
+  const menuHelpButton = UI.getAppMenuHelpButton();
+  if (!menuHelpContainer || !menuHelpButton) return;
+  menuHelpContainer.innerHTML = menuHelpHTML;
+  translateElement(menuHelpContainer);
+  adjustFontSize(menuHelpContainer);
+
+  // This fixes the behaviour where :
+  // clicking outside the settings menu but inside settings menu container,
+  // hides the settings menu but not the container
+  // on small screens the container covers most of the screen
+  // which gives the effect of a non-responsive app
+  eventsManager.addEventListener(menuHelpContainer, 'mousedown', (event) => {
+    if (event.target === menuHelpContainer) {
+      menuHelpContainer.classList.add('hidden');
+    }
+  });
+  eventsManager.addEventListener(menuHelpButton, 'mousedown', () => {
+    menuHelpContainer.classList.remove('hidden');
+  });
+};
+
+/**
+ * decrease font size in menus when text is too wide (for different languages)
+ */
+const adjustFontSize = (container: HTMLElement) => {
+  const adjustFont = (el: HTMLElement) =>
+    new Promise<void>((resolve) => {
+      const fontSize = Number(getComputedStyle(el).getPropertyValue('font-size').replace('px', ''));
+      const maxWidth =
+        Number(getComputedStyle(el).getPropertyValue('--label-max-width').replace('px', '')) || 188;
+      if (el.clientWidth <= maxWidth || fontSize <= 0) return resolve();
+      el.style.fontSize = fontSize - 1 + 'px';
+      requestAnimationFrame(async () => {
+        await adjustFont(el);
+        resolve();
+      });
+    });
+
+  setTimeout(async () => {
+    container.style.display = 'block';
+    container.style.visibility = 'hidden';
+    (container.children[0] as HTMLElement).style.display = 'block';
+    for (const el of container.querySelectorAll<HTMLElement>('span')) {
+      await adjustFont(el);
+    }
+    container.style.display = '';
+    container.style.visibility = '';
+    (container.children[0] as HTMLElement).style.display = '';
+  }, 1000);
+};
+
+const handleAppMenuButtonFocus = () => {
+  // workaround for safari where click does not maintain focus!
+  document.querySelectorAll<HTMLElement>('.app-menu-button').forEach((button) => {
+    eventsManager.addEventListener(button, 'click', () => {
+      button.focus();
+    });
   });
 };
 
@@ -2577,6 +2779,49 @@ const handleSettings = () => {
     setConfig({ ...getConfig(), delay: value });
     setUserConfig(getUserConfig(getConfig()));
   });
+
+  const themeColorSelector = UI.getThemeColorSelector()!;
+  themeColors.forEach((colorItem) => {
+    const customColor = colorItem.name === 'custom';
+    const label = document.createElement('label');
+    label.htmlFor = 'theme-color-' + colorItem.name;
+    if (customColor) {
+      label.title = window.deps.translateString('app.themeColors.custom', 'Custom');
+    }
+    if (colorItem.themeColor) {
+      label.style.backgroundColor = colorItem.themeColor;
+    }
+
+    const input = document.createElement('input');
+    input.type = customColor ? 'color' : 'radio';
+    input.id = 'theme-color-' + colorItem.name;
+    input.name = 'theme-color';
+
+    label.appendChild(input);
+    themeColorSelector.appendChild(label);
+
+    eventsManager.addEventListener(input, 'input', () => {
+      setUserConfig({ themeColor: customColor ? input.value : colorItem.themeColor });
+      changeThemeColor();
+    });
+  });
+};
+
+const handleChangeTheme = () => {
+  const lightThemeButton = UI.getLightThemeButton();
+  const darkThemeButton = UI.getDarkThemeButton();
+  if (lightThemeButton) {
+    eventsManager.addEventListener(lightThemeButton, 'click', () => {
+      setUserConfig({ theme: 'dark' });
+      setTheme('dark', getConfig().editorTheme);
+    });
+  }
+  if (darkThemeButton) {
+    eventsManager.addEventListener(darkThemeButton, 'click', () => {
+      setUserConfig({ theme: 'light' });
+      setTheme('light', getConfig().editorTheme);
+    });
+  }
 };
 
 const handleLogin = () => {
@@ -2772,7 +3017,7 @@ const handleSaveAsTemplate = () => {
 
 const handleOpen = () => {
   const createList = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const openModule: typeof import('./UI/open') = await import(baseUrl + '{{hash:open.js}}');
     await openModule.createSavedProjectsList({
       eventsManager,
@@ -2801,7 +3046,7 @@ const handleOpen = () => {
 
 const handleImport = () => {
   const createImportUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const importModule: typeof import('./UI/import') = await import(baseUrl + '{{hash:import.js}}');
     importModule.createImportUI({
       baseUrl,
@@ -2985,7 +3230,7 @@ const handleDeploy = () => {
       );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const getProjectDeployRepo = async () => {
       if (!projectId) return;
@@ -3036,7 +3281,7 @@ const handleSync = () => {
       );
       return;
     }
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/sync-ui') = await import(
       baseUrl + '{{hash:sync-ui.js}}'
@@ -3146,7 +3391,7 @@ const handlePersistentStorage = async () => {
 
 const handleBackup = () => {
   const createBackupUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const backupModule: typeof import('./UI/backup') = await import(baseUrl + '{{hash:backup.js}}');
     backupModule.createBackupUI({
       baseUrl,
@@ -3168,7 +3413,7 @@ const handleBroadcast = () => {
   if (isEmbed) return;
 
   const createBroadcastUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const syncUIModule: typeof import('./UI/broadcast') = await import(
       baseUrl + '{{hash:broadcast.js}}'
@@ -3204,7 +3449,7 @@ const handleWelcome = () => {
   if (isEmbed) return;
 
   const createWelcomeUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const div = document.createElement('div');
     div.innerHTML = welcomeScreen.replace(/{{baseUrl}}/g, baseUrl);
@@ -3282,7 +3527,7 @@ const handleWelcome = () => {
 
     const defaultTemplateId = getAppData()?.defaultTemplate;
     if (!defaultTemplateId) {
-      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'unset';
+      UI.getWelcomeLinkNoDefaultTemplate(welcomeContainer).style.display = 'inline-block';
     } else {
       const loadTemplateLink = UI.getWelcomeLinkLoadDefault(welcomeContainer);
       eventsManager.addEventListener(
@@ -3296,7 +3541,7 @@ const handleWelcome = () => {
         },
         false,
       );
-      loadTemplateLink.style.display = 'unset';
+      loadTemplateLink.style.display = 'inline-block';
     }
     UI.getWelcomeLinkDefaultTemplateLi(welcomeContainer).style.visibility = 'visible';
 
@@ -3359,13 +3604,18 @@ const handleAbout = () => {
   if (isEmbed) return;
 
   const createAboutUI = async () => {
-    const versions = getVersion();
+    const versions = getVersion(/* log= */ false);
     const repoUrl = process.env.REPO_URL || '';
     const div = document.createElement('div');
     div.innerHTML = aboutScreen
       .replace(/{{COMMIT_URL}}/g, `${repoUrl}/commit/${versions.commitSHA}`)
       .replace(/{{APP_URL}}/g, versions.appUrl)
-      .replace(/{{SDK_URL}}/g, versions.sdkUrl);
+      .replace(/{{SDK_URL}}/g, versions.sdkUrl)
+      .replace('livecodes-text-logo-nowrap.svg', () =>
+        getConfig().theme === 'dark'
+          ? 'livecodes-text-logo-nowrap-light.svg'
+          : 'livecodes-text-logo-nowrap.svg',
+      );
     const aboutContainer = div.firstChild as HTMLElement;
     modal.show(aboutContainer);
   };
@@ -3439,13 +3689,12 @@ const handleEmbed = () => {
       getFontFamily,
     });
   const createEmbedUI = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const embedModule: typeof import('./UI/embed-ui') = await import(
       baseUrl + '{{hash:embed-ui.js}}'
     );
     await embedModule.createEmbedUI({
-      baseUrl,
       config: getContentConfig(getConfig()),
       editorLanguages: {
         markup: getLanguageTitle(getConfig().markup.language),
@@ -3468,38 +3717,22 @@ const handleEditorSettings = () => {
   const changeSettings = (newConfig: Partial<UserConfig> | null) => {
     if (!newConfig) return;
     const shouldReload = newConfig.editor !== getConfig().editor;
-    const shouldReloadI18n = newConfig.appLanguage !== getConfig().appLanguage;
 
-    const applyEditorSettings = () => {
-      setUserConfig(newConfig);
-      const updatedConfig = getConfig();
-      setTheme(updatedConfig.theme, updatedConfig.editorTheme);
-      if (shouldReload) {
-        reloadEditors(updatedConfig);
-      } else {
-        getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
-      }
-      showEditorModeStatus(updatedConfig.activeEditor || 'markup');
-    };
-
-    if (shouldReloadI18n) {
-      checkSavedAndExecute(async () => {
-        applyEditorSettings();
-        if (!i18n && newConfig.appLanguage !== 'en') {
-          modal.show(loadingMessage(), { size: 'small' });
-          await loadI18n(newConfig.appLanguage);
-        }
-        await i18n?.changeLanguage(newConfig.appLanguage);
-        setAppLanguage(true);
-      })();
+    setUserConfig(newConfig);
+    const updatedConfig = getConfig();
+    setTheme(updatedConfig.theme, updatedConfig.editorTheme);
+    if (shouldReload) {
+      reloadEditors(updatedConfig);
     } else {
-      applyEditorSettings();
+      getAllEditors().forEach((editor) => editor.changeSettings(updatedConfig));
     }
+    showEditorModeStatus(updatedConfig.activeEditor || 'markup');
   };
+
   const createEditorSettingsUI = async ({
     scrollToSelector = '',
   }: { scrollToSelector?: string } = {}) => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
 
     const editorSettingsModule: typeof import('./UI/editor-settings') = await import(
       baseUrl + '{{hash:editor-settings.js}}'
@@ -3509,7 +3742,6 @@ const handleEditorSettings = () => {
       modal,
       eventsManager,
       scrollToSelector,
-      appLanguages,
       deps: {
         getUserConfig: () => getUserConfig(getConfig()),
         createEditor,
@@ -3532,7 +3764,7 @@ const handleEditorSettings = () => {
 const handleAssets = () => {
   let assetsModule: typeof import('./UI/assets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     assetsModule = assetsModule || (await import(baseUrl + '{{hash:assets.js}}'));
   };
 
@@ -3589,7 +3821,7 @@ const handleAssets = () => {
 const handleSnippets = () => {
   let snippetsModule: typeof import('./UI/snippets');
   const loadModule = async () => {
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     snippetsModule = snippetsModule || (await import(baseUrl + '{{hash:snippets.js}}'));
   };
 
@@ -3660,7 +3892,7 @@ const handleExternalResources = () => {
       dispatchChangeEvent();
     };
 
-    modal.show(loadingMessage());
+    modal.show(loadingMessage(), { size: 'small' });
     const resourcesModule: typeof import('./UI/resources') = await import(
       baseUrl + '{{hash:resources.js}}'
     );
@@ -3946,6 +4178,11 @@ const handleResultLoading = () => {
     }
     if (event.data.type === 'loading') {
       setLoading(event.data.payload);
+
+      if (getConfig().mode === 'result') {
+        const drawer = UI.getResultModeDrawer();
+        drawer.classList.remove('hidden');
+      }
     }
     const language = event.data.payload?.language;
     if (event.data.type === 'compiled' && language && getEditorLanguages().includes(language)) {
@@ -3960,14 +4197,11 @@ const handleResultLoading = () => {
 const handleResultPopup = () => {
   const popupBtn = document.createElement('div');
   popupBtn.id = 'result-popup-btn';
-  popupBtn.classList.add('tool-buttons', 'hint--top');
-  popupBtn.dataset.hint = window.deps.translateString(
-    'core.result.hint',
-    'Show result in new window',
-  );
+  popupBtn.classList.add('tool-buttons');
+  popupBtn.title = window.deps.translateString('core.result.hint', 'Show result in new window');
   popupBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const imgUrl = baseUrl + 'assets/images/new-window.svg';
-  popupBtn.innerHTML = `<span id="show-result"><img src="${imgUrl}" /></span>`;
+  const iconCSS = '<i class="icon-window-new"></i>';
+  popupBtn.innerHTML = `<button id="show-result">${iconCSS}</button>`;
   let url: string | undefined;
   const openWindow = async () => {
     if (resultPopup && !resultPopup.closed) {
@@ -4002,14 +4236,14 @@ const handleResultPopup = () => {
 const handleResultZoom = () => {
   const zoomBtn = document.createElement('div');
   zoomBtn.id = 'zoom-button';
-  zoomBtn.classList.add('tool-buttons', 'hint--top');
-  zoomBtn.dataset.hint = window.deps.translateString('core.zoom.hint', 'Zoom');
+  zoomBtn.classList.add('tool-buttons');
+  zoomBtn.title = window.deps.translateString('core.zoom.hint', 'Zoom');
   zoomBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
   zoomBtn.innerHTML = `
-  <span class="text">
+  <button class="text">
     <span id="zoom-value">${String(Number(getConfig().zoom))}</span>
     &times;
-  </span>`;
+  </button>`;
 
   const toggleZoom = () => {
     const config = getConfig();
@@ -4030,18 +4264,12 @@ const handleResultZoom = () => {
 const handleBroadcastStatus = () => {
   const broadcastStatusBtn = document.createElement('div');
   broadcastStatusBtn.id = 'broadcast-status-btn';
-  broadcastStatusBtn.classList.add('tool-buttons', 'hint--top');
-  broadcastStatusBtn.dataset.hint = window.deps.translateString(
-    'core.broadcast.heading',
-    'Broadcast',
-  );
+  broadcastStatusBtn.classList.add('tool-buttons');
+  broadcastStatusBtn.title = window.deps.translateString('core.broadcast.heading', 'Broadcast');
   broadcastStatusBtn.style.pointerEvents = 'all'; //  override setting to 'none' on toolspane bar
-  const imgUrl = baseUrl + 'assets/images/broadcast.svg';
-  broadcastStatusBtn.innerHTML = `
-  <span id="broadcast-status">
-    <img src="${imgUrl}" />
-    <span class="mark"></span>
-  </span>`;
+  const iconCSS = '<i class="icon-broadcast"></i>';
+  broadcastStatusBtn.innerHTML = `<button id="broadcast-status">${iconCSS}<span class="mark"></span></button>`;
+
   const showBroadcast = () => {
     showScreen('broadcast');
   };
@@ -4063,14 +4291,11 @@ const handleFullscreen = async () => {
   eventsManager.addEventListener(fscreen, 'fullscreenchange', async () => {
     if (!fscreen.fullscreenElement) {
       buttonImg.src = buttonImg.src.replace('collapse.svg', 'expand.svg');
-      fullscreenButton.dataset.hint = window.deps.translateString(
-        'core.fullScreen.enter',
-        'Full Screen',
-      );
+      fullscreenButton.title = window.deps.translateString('core.fullScreen.enter', 'Full Screen');
       return;
     }
     buttonImg.src = buttonImg.src.replace('expand.svg', 'collapse.svg');
-    fullscreenButton.dataset.hint = window.deps.translateString(
+    fullscreenButton.title = window.deps.translateString(
       'core.fullScreen.exit',
       'Exit Full Screen',
     );
@@ -4102,6 +4327,26 @@ const handleDropFiles = () => {
 
   eventsManager.addEventListener(document, 'dragover', (event: DragEvent) => {
     event.preventDefault();
+  });
+};
+
+const handleResultMode = () => {
+  const drawer = UI.getResultModeDrawer();
+  const drawerLink = drawer.querySelector('a') as HTMLAnchorElement;
+  const closeBtn = drawer.querySelector('#drawer-close') as HTMLButtonElement;
+
+  drawer.style.display = 'flex';
+
+  eventsManager.addEventListener(drawerLink, 'click', async (event: Event) => {
+    event.preventDefault();
+    window.open(
+      (await share(/* shortUrl= */ false, /* contentOnly= */ true, /* urlUpdate= */ false)).url,
+      '_blank',
+    );
+  });
+
+  eventsManager.addEventListener(closeBtn, 'click', async () => {
+    drawer.classList.add('hidden');
   });
 };
 
@@ -4284,8 +4529,13 @@ const basicHandlers = () => {
 
 const extraHandlers = async () => {
   handleTitleEdit();
-  handleSettingsMenu();
+  handleAppMenuProject();
+  handleAppMenuSettings();
+  handleAppMenuHelp();
   handleSettings();
+  handleI18nMenu();
+  handleAppMenuButtonFocus();
+  handleChangeTheme();
   handleProjectInfo();
   handleCustomSettings();
   handleTestEditor();
@@ -4323,15 +4573,14 @@ const configureEmbed = (config: Config, eventsManager: ReturnType<typeof createE
   document.body.classList.add('embed');
   if (config.mode === 'result') {
     document.body.classList.add('result');
+    handleResultMode();
   }
   if (config.mode === 'editor' || config.mode === 'codeblock') {
     document.body.classList.add('no-result');
   }
 
   const logoLink = UI.getLogoLink();
-  logoLink.classList.add('hint--bottom-left');
-  logoLink.dataset.hint = 'Edit in LiveCodes 🡕';
-  logoLink.title = '';
+  logoLink.title = window.deps.translateString('generic.embed.logoHint', 'Edit on LiveCodes 🡕');
 
   eventsManager.addEventListener(logoLink, 'click', async (event: Event) => {
     event.preventDefault();
@@ -4622,6 +4871,12 @@ const bootstrap = async (reload = false) => {
 
   if (!reload) {
     await loadDefaults();
+
+    // re-run changing theme color after the UI is ready
+    // in case the previous one failed (e.g. in firefox)
+    requestAnimationFrame(() => {
+      changeThemeColor();
+    });
   }
 
   parent.dispatchEvent(new Event(customEvents.ready));

@@ -2,7 +2,7 @@
 
 LiveCodes data can be backed-up, so that it can be later restored on the same or different device.
 
-The Backup/Restore screen can be accessed from the app menu → Backup / Restore.
+The Backup/Restore screen can be accessed from the Settings menu → Backup / Restore.
 
 import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
@@ -10,7 +10,7 @@ import RunInLiveCodes from '../../src/components/RunInLiveCodes.tsx';
 
 ## Backup
 
-![LiveCode Backup](../../static/img/screenshots/backup.jpg)
+![LiveCode Backup](../../static/img/screenshots/backup-restore-1.jpg)
 
 The backup can include one or more of the following:
 
@@ -24,7 +24,7 @@ A zip file containing the (base64-encoded binary) backup data is downloaded. Thi
 
 ## Restore
 
-![LiveCode Restore](../../static/img/screenshots/restore.jpg)
+![LiveCode Restore](../../static/img/screenshots/backup-restore-2.jpg)
 
 When restoring a backup, there are 2 options for managing the current data:
 

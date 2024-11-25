@@ -82,6 +82,10 @@ onMount(() => {
         }}
         appUrl={appUrl}
         {...props}
+        config={{
+          themeColor: 'hsl(166, 40%, 50%',
+          ...(typeof props.config === 'object' ? props.config : {}),
+        }}
       ></LiveCodesReact>
       {props.showCode !== false && (
         <ShowCode

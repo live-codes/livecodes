@@ -327,6 +327,8 @@ export const getFileExtension = /* @__PURE__ */ (file: string) =>
   file.split('.')[file.split('.').length - 1];
 
 export const isInIframe = /* @__PURE__ */ () => {
+  // TODO allow in storybook
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return false;
   try {
     return window.self !== window.top;
   } catch {
@@ -397,6 +399,9 @@ export const callWorker = async <T = string, K = unknown>(
     });
   });
 
+export const capitalize = /* @__PURE__ */ (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
 export const toCamelCase = /* @__PURE__ */ (str: string) =>
   str
     .replace(/[-_.]+/g, ' ')
@@ -421,7 +426,10 @@ export const replaceAsync = /* @__PURE__ */ async (
   return str.replace(regexp, () => replacements[i++]);
 };
 
-export const addAttrs = (el: HTMLElement, attributes: Record<string, string> | string) => {
+export const addAttrs = /* @__PURE__ */ (
+  el: HTMLElement,
+  attributes: Record<string, string> | string,
+) => {
   if (typeof attributes === 'object') {
     Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
     return;
@@ -455,9 +463,81 @@ export const bypassAMD = /* @__PURE__ */ async <T = any>(fn: () => Promise<T>): 
  * @param {() => Promise<void>} fn - The asynchronous function to be executed once.
  * @return {() => Promise<void>} An async function that, when called multiple times, executes the given function if it hasn't been executed before or awaits the previous execution.
  */
-export const doOnce = (fn: () => Promise<void>) => {
+export const doOnce = /* @__PURE__ */ (fn: () => Promise<void>) => {
   let dependency: Promise<void> | undefined;
   return () => (dependency ??= fn());
+};
+
+export const evaluateCssCalc = /* @__PURE__ */ (expression: string) => {
+  const el = document.createElement('div');
+  el.style.height = expression;
+  el.style.display = 'none';
+  document.body.appendChild(el);
+  const value = window.getComputedStyle(el).height;
+  document.body.removeChild(el);
+  return value;
+};
+
+const colorToRgba = /* @__PURE__ */ (name: string) => {
+  const fakeDiv = document.createElement('div');
+  fakeDiv.style.color = name;
+  document.body.appendChild(fakeDiv);
+  const style = window.getComputedStyle(fakeDiv);
+  const colorValue = style.getPropertyValue('color') || 'rgb(77, 121, 179)';
+  document.body.removeChild(fakeDiv);
+
+  const rgba = colorValue
+    .split('(')[1]
+    .split(')')[0]
+    .split(',')
+    .map((x) => Number(x));
+  const [r, g, b, a = 1] = rgba;
+  return { r, g, b, a };
+};
+
+const rgbaToHsla = /* @__PURE__ */ (r: number, g: number, b: number, a = 1) => {
+  const r$ = r / 255;
+  const g$ = g / 255;
+  const b$ = b / 255;
+  const cmin = Math.min(r$, g$, b$);
+  const cmax = Math.max(r$, g$, b$);
+  const delta = cmax - cmin;
+  let h = 0;
+  let s = 0;
+  let l = 0;
+
+  if (delta === 0) h = 0;
+  else if (cmax === r$) h = ((g$ - b$) / delta) % 6;
+  else if (cmax === g$) h = (b$ - r$) / delta + 2;
+  else h = (r$ - g$) / delta + 4;
+  h = Math.round(h * 60);
+  if (h < 0) h += 360;
+  l = (cmax + cmin) / 2;
+  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = +(s * 100).toFixed(0);
+  l = +(l * 100).toFixed(0);
+  return { h, s, l, a };
+};
+
+// https://livecodes.io/?x=id/szanmixc6gy
+export const colorToHsla = (color: string) => {
+  if (color.startsWith('hsl') && color.includes('(')) {
+    const hsla = color.split('(')[1]?.split(')')[0]?.split(',') ?? [];
+    const [h, s, l, a = 1] = hsla.map((x) => Number(x.replace('%', '')));
+    return { h, s, l, a };
+  }
+
+  const { r, g, b, a } = colorToRgba(color);
+  return rgbaToHsla(r, g, b, a);
+};
+
+const rgbToHex = /* @__PURE__ */ (r: number, g: number, b: number) =>
+  // eslint-disable-next-line no-bitwise
+  '#' + ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+
+export const colorToHex = (color: string) => {
+  const { r, g, b } = colorToRgba(color);
+  return rgbToHex(r, g, b);
 };
 
 export const predefinedValues = {

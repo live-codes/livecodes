@@ -6,6 +6,8 @@ The resulting compiled/transpiled code can be seen in the compiled code viewer (
 
 This can be a great tool for learning. As you write code, you see the compiled code and the resulting page at the same time. The compiled code viewer shows the code compiled from the currently active editor (markup/style/script). This includes the CSS produced by CSS processors (e.g. Autoprefixer), if enabled.
 
+![Compiled Code Viewer](./../../static/img/screenshots/compiled-code-1.jpg)
+
 e.g. https://livecodes.io/?ts&compiled=full <br />
 sets TypeScript as the active editor and shows compiled code viewer maximized.
 
