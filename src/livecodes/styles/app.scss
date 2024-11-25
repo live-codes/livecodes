@@ -840,23 +840,6 @@ a#result-button {
       }
     }
 
-    .menu-scroller-markup,
-    .menu-scroller-style,
-    .menu-scroller-script {
-      max-width: 98vw;
-      position: fixed;
-      top: calc(var(--toolbar-height) * 2);
-      transform: translateX(-1vw);
-    }
-
-    .dropdown-menu-script {
-      column-count: 2;
-    }
-
-    .dropdown-menu.submenu {
-      left: 44%;
-    }
-
     #light-theme-button,
     #dark-theme-button {
       display: none;

@@ -143,6 +143,11 @@
 .menu-scroller-style,
 .menu-scroller-script {
   top: calc(var(--toolbar-height) - 8px);
+
+  > .dropdown-menu {
+    margin-inline: 15px;
+    width: calc(100% - 30px);
+  }
 }
 
 .menu-scroller-markup {
@@ -159,8 +164,8 @@
 
 .menu-scroller-script {
   right: 0;
-  transform: translateX(40%);
-  width: 600%;
+  transform: translateX(50%);
+  width: 700%;
 }
 
 .dropdown-menu-markup,
@@ -366,14 +371,15 @@ i.arrow {
 
   .menu-scroller-style {
     right: 0;
-    transform: translateX(50%);
+    transform: translateX(20%);
     width: 400%;
   }
 
   .menu-scroller-script {
-    right: 0;
-    transform: translateX(40%);
-    width: 570%;
+    max-width: 98vw;
+    position: fixed;
+    top: calc(var(--toolbar-height) - 2px);
+    transform: translateX(-1vw);
   }
 
   .dropdown-menu.submenu {
@@ -390,6 +396,31 @@ i.arrow {
 
   i.arrow {
     left: 0; // todo test info
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .menu-scroller-markup,
+  .menu-scroller-style,
+  .menu-scroller-script {
+    height: calc(100vh - (var(--toolbar-height) * 2));
+    max-width: 98vw;
+    position: fixed;
+    top: calc(var(--toolbar-height) * 2);
+    transform: translateX(-1vw);
+
+    > .dropdown-menu {
+      margin-inline: 0;
+      width: 100%;
+    }
+  }
+
+  .dropdown-menu-script {
+    column-count: 2;
+  }
+
+  .dropdown-menu.submenu {
+    left: 44%;
   }
 }
 
