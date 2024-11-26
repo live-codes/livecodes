@@ -72,6 +72,9 @@
   --text-success-border: 1px solid rgb(0, 128, 0);
   --text-success-color: rgb(0, 178, 0);
 
+  --icon-filter: invert(0.3);
+  --icon-filter-active: invert(1);
+
   #logo img {
     filter: drop-shadow(1px 1px 1px var(--color50));
   }
