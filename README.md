@@ -230,7 +230,7 @@ We welcome feedback!
 
 Please start a new [issue](https://github.com/live-codes/livecodes/issues/new/choose) or [discussion](https://github.com/live-codes/livecodes/discussions/new).
 
-For security reports please refer to [SECURITY.md](SECURITY.md).
+For security reports please refer to [SECURITY.md](https://github.com/live-codes/livecodes/blob/develop/SECURITY.md).
 
 You may also reach out to us using the [contact form](https://livecodes.io/docs/contact).
 
