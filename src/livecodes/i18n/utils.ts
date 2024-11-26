@@ -81,7 +81,7 @@ export const abstractifyHTML = (html: string) => {
  * @param elements The list of objects of their tag names and attributes.
  * @returns The original HTML string.
  */
-export const unabstractifyHTML = (html: string, elements: TagElement[]) => {
+export const unabstractifyHTML = (html: string, elements: TagElement[], interpolation = {}) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(
     html.replace(/<(\/?)(\d+)([^>]*)>/g, '<$1tag-$2$3>'),
@@ -115,7 +115,7 @@ export const unabstractifyHTML = (html: string, elements: TagElement[]) => {
   });
 
   let unabstractifiedHTML = doc.body.innerHTML;
-  for (const [original, replaced] of Object.entries(predefinedValues)) {
+  for (const [original, replaced] of Object.entries({ ...interpolation, ...predefinedValues })) {
     unabstractifiedHTML = unabstractifiedHTML.replaceAll(`{{${original}}}`, replaced);
   }
 

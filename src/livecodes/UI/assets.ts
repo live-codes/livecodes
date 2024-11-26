@@ -8,6 +8,7 @@ import type { GitHubFile } from '../services/github';
 import { generateId, type Storage } from '../storage';
 import { addAssetScreen, assetsScreen } from '../html';
 import { copyToClipboard, isMobile, loadScript } from '../utils/utils';
+import { iconDelete as deleteIcon } from '../UI/icons';
 import { flexSearchUrl } from '../vendors';
 import {
   getAddAssetButton,
@@ -90,7 +91,7 @@ const createLinkContent = (item: Asset, baseUrl: string) => {
   detailsContainer.appendChild(date);
 
   const url = document.createElement('div');
-  url.classList.add('light', 'overflow-text');
+  url.classList.add('light', 'asset-url', 'overflow-text');
   url.textContent = window.deps.translateString('assets.link.url', 'URL: {{url}}', {
     url: item.url,
   });
@@ -111,22 +112,23 @@ const createAssetItem = (
   const link = document.createElement('a');
   link.href = '#';
   link.dataset.id = item.id;
-  link.classList.add('asset-link', 'hint--top');
-  link.dataset.hint = window.deps.translateString(
-    'assets.generic.clickToCopyURL',
-    'Click to copy URL',
-  );
+  link.classList.add('asset-link');
+  link.title = window.deps.translateString('assets.generic.clickToCopyURL', 'Click to copy URL');
   link.appendChild(createLinkContent(item, baseUrl));
   link.onclick = (ev) => {
     ev.preventDefault();
     copyUrl(item.url, notifications);
   };
-
   li.appendChild(link);
 
-  const deleteButton = document.createElement('button');
-  deleteButton.classList.add('delete-button');
-  li.appendChild(deleteButton);
+  const actions = document.createElement('div');
+  actions.classList.add('actions');
+  li.appendChild(actions);
+  const deleteButton = document.createElement('div');
+  deleteButton.innerHTML = deleteIcon;
+  deleteButton.classList.add('action-button', 'delete-button');
+  deleteButton.title = window.deps.translateString('assets.action.delete', 'Delete');
+  actions.appendChild(deleteButton);
 
   return { link, deleteButton };
 };

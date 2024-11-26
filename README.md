@@ -2,7 +2,7 @@
 
 # LiveCodes
 
-Code Playground That Just Works!
+A Code Playground That Just Works!
 
 <p align="center">
 <img width="300" src="https://dev.livecodes.io/docs/img/livecodes-logo.svg"></img>
@@ -17,7 +17,8 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 [![LiveCodes: jsdelivr downloads](https://data.jsdelivr.com/v1/package/npm/livecodes/badge?style=rounded)](https://www.jsdelivr.com/package/npm/livecodes)
 [![LiveCodes: languages](https://img.shields.io/badge/languages-91-blue)](https://livecodes.io/docs/languages/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/3d39f15618e048db9d13c2a0e8002b33)](https://www.codacy.com/gh/live-codes/livecodes/dashboard?utm_source=github.com&utm_medium=referral&utm_content=live-codes/livecodes&utm_campaign=Badge_Grade)
-[![LiveCodes: i18n on Lokalise](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badge.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
+[![Lokalise: translated](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/translated.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
+[![Lokalise: UI languages](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/live-codes/lokalise-badge/main/badges/languages.json)](https://app.lokalise.com/public/34958094667a72e9454592.95108106/)
 [![license - MIT](https://img.shields.io/github/license/live-codes/livecodes)](https://github.com/live-codes/livecodes/blob/develop/LICENSE)
 [![LiveCodes: GitHub repo](https://img.shields.io/github/stars/live-codes/livecodes?style=social)](https://github.com/live-codes/livecodes)
 
@@ -29,7 +30,7 @@ A [feature-rich](https://livecodes.io/docs/features/), open-source, **client-sid
 
 ![LiveCodes list of languages screenshot](https://dev.livecodes.io/docs/img/screenshots/livecodes-languages.jpg)
 
-## Code Playground That Just Works!
+## A Code Playground That Just Works!
 
 - No servers to configure (or pay for!)
 - No databases to maintain (or pay for!)
@@ -263,6 +264,11 @@ LiveCodes uses services that are generously provided by:
 <p>
 <a href="https://github.com/" target="_blank" title="GitHub">
   <img alt="GitHub" width="200" src="https://dev.livecodes.io/docs/img/credits/github.png">
+</img></a><br /><br />
+</p>
+<p>
+<a href="https://netlify.com/" target="_blank" title="Netlify">
+  <img alt="Netlify" width="200" src="https://dev.livecodes.io/docs/img/credits/netlify.svg">
 </img></a><br /><br />
 </p>
 <p>

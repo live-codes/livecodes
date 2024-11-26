@@ -13,7 +13,7 @@ Example: https://livecodes.io/?template=react
 
 Screenshot: (App in full mode)
 
-![full-mode](../../static/img/screenshots/focus-mode.png)
+![full-mode](../../static/img/screenshots/mode-full.jpg)
 
 Demo: (Embedded playground in full mode)
 
@@ -27,7 +27,7 @@ Example: https://livecodes.io/?template=react&mode=focus
 
 Screenshot: (focus mode)
 
-![focus-mode](../../static/img/screenshots/focus-mode.png)
+![focus-mode](../../static/img/screenshots/mode-focus.jpg)
 
 ## `simple`
 
@@ -90,7 +90,7 @@ Demo:
 
 ## `result`
 
-Shows the result page only, with a small overlay (appears on hover) that allows opening the project in the full playground.
+Shows the result page only, with a drawer at the bottom (which can be closed) that allows opening the project in the full playground.
 
 Example: https://livecodes.io/?mode=result&template=react
 

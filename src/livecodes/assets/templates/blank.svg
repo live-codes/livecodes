@@ -1,41 +1,14 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 26 26" style="enable-background:new 0 0 26 26;" xml:space="preserve">
-<g>
-	<path style="fill:#030104;" d="M20.266,4.207c-0.244-0.24-0.494-0.484-0.74-0.732c-0.248-0.246-0.492-0.496-0.732-0.74
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="1em" height="1em">
+<style>
+.dm path {fill: black;}
+@media (prefers-color-scheme: dark) {
+  .dm path {fill: white;}
+}
+</style>
+<g class="dm">
+	<path fill="currentColor" d="M20.266,4.207c-0.244-0.24-0.494-0.484-0.74-0.732c-0.248-0.246-0.492-0.496-0.732-0.74
 		C17.082,0.988,16.063,0,15,0H7C4.795,0,3,1.795,3,4v18c0,2.205,1.795,4,4,4h12c2.205,0,4-1.795,4-4V8
 		C23,6.938,22.012,5.918,20.266,4.207z M21,22c0,1.104-0.896,2-2,2H7c-1.104,0-2-0.896-2-2V4c0-1.104,0.896-2,2-2l7.289-0.004
 		C15.01,2.18,15,3.066,15,3.953V7c0,0.551,0.449,1,1,1h3c0.998,0,2,0.005,2,1V22z"/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
 </g>
 </svg>

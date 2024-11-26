@@ -1,36 +1,72 @@
 {
   "$comment": "ATTENTION: This file is auto-generated from source code. Do not edit manually!",
-  "about.documentations.aboutUs": {
+  "about.blog.text": {
     "notes": "",
-    "translation": "About us"
+    "translation": "Blog"
   },
-  "about.documentations.contact": {
+  "about.blog.title": {
     "notes": "",
-    "translation": "Contact"
+    "translation": "LiveCodes Blog"
+  },
+  "about.configuration": {
+    "notes": "",
+    "translation": "Configuration"
+  },
+  "about.credits.heading": {
+    "notes": "",
+    "translation": "Credits"
   },
   "about.documentations.heading": {
     "notes": "",
     "translation": "Documentations"
   },
-  "about.documentations.home": {
+  "about.gettingStarted": {
     "notes": "",
-    "translation": "Home"
+    "translation": "Getting Started"
   },
-  "about.documentations.license": {
+  "about.github.text": {
     "notes": "",
-    "translation": "License"
+    "translation": "GitHub"
+  },
+  "about.github.title": {
+    "notes": "",
+    "translation": "GitHub"
   },
   "about.heading": {
     "notes": "",
     "translation": "About LiveCodes"
   },
+  "about.livecodes.aboutUs": {
+    "notes": "",
+    "translation": "About Livecodes"
+  },
   "about.livecodes.para1": {
-    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n### <tag-3> ###\n<a href=\"{{REPO_URL}}\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}features/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<a href=\"{{DOCS_BASE_URL}}why#client-side\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}languages/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<wbr  />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}features/embeds\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<a href=\"{{DOCS_BASE_URL}}features/code-prefill\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an <tag-3>open-source</tag-3>, <tag-4>feature-rich</tag-4>, <tag-5>client-side</tag-5> code playground. Currently, <tag-6>80+ languages/<tag-7></tag-7>frameworks</tag-6> are supported. It can be used as a standalone app or can be <tag-8>embedded</tag-8> in any web page. There are many ways to <tag-9>prefill playgrounds</tag-9> with code."
+    "notes": "### <tag-1> ###\n<strong  />\n\n### <tag-2> ###\n<em  />\n\n",
+    "translation": "<tag-1><tag-2>LiveCodes</tag-2></tag-1> is an open-source, feature-rich, client-side code playground. Currently, 80+ languages and frameworks are supported. It can be used as a standalone app or embedded in any web page."
   },
   "about.livecodes.para2": {
-    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}configuration/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-3> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/js-ts\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-4> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/react\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-5> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/vue\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-6> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/svelte\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-7> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/js-ts#embed-options\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-8> ###\n<a href=\"{{DOCS_BASE_URL}}sdk/js-ts#sdk-methods\" target=\"_blank\" rel=\"noopener\" />\n\n### <tag-9> ###\n<a href=\"{{DOCS_BASE_URL}}\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "A wide range of <tag-1>configuration options</tag-1> makes it very flexible. A powerful <tag-2>SDK</tag-2> (for <tag-3>JS/TS</tag-3>, <tag-4>React</tag-4>, <tag-5>Vue</tag-5> and <tag-6>Svelte</tag-6>) facilitates <tag-7>embedding</tag-7> and <tag-8>communicating</tag-8> with playgrounds. <tag-9>Comprehensive documentations</tag-9> are available with code samples, live demos and screenshots."
+    "notes": "",
+    "translation": "A powerful SDK makes it easy to integrate and communicate with playgrounds. Extensive documentation is available with code examples, live demos, and screenshots."
+  },
+  "about.sdk": {
+    "notes": "",
+    "translation": "LiveCodes SDK"
+  },
+  "about.sponsor.text": {
+    "notes": "",
+    "translation": "Sponsor"
+  },
+  "about.sponsor.title": {
+    "notes": "",
+    "translation": "Sponsor LiveCodes"
+  },
+  "about.twitter.text": {
+    "notes": "",
+    "translation": "𝕏 / Twitter"
+  },
+  "about.twitter.title": {
+    "notes": "",
+    "translation": "𝕏 / Twitter"
   },
   "about.version.app": {
     "notes": "",
@@ -56,6 +92,14 @@
     "notes": "",
     "translation": "SDK Permanent URL"
   },
+  "app.changeTheme.hint": {
+    "notes": "",
+    "translation": "Change Theme"
+  },
+  "app.consoleMessage.learnMore": {
+    "notes": "",
+    "translation": "Learn more! {{docsUrl}} 🚀"
+  },
   "app.copy.hint": {
     "notes": "",
     "translation": "Copy (Ctrl/Cmd + A, Ctrl/Cmd + C)"
@@ -67,10 +111,6 @@
   "app.customSettings.hint": {
     "notes": "",
     "translation": "Custom Settings"
-  },
-  "app.editorMode.hint": {
-    "notes": "",
-    "translation": "Editor Mode"
   },
   "app.editorSettings.hint": {
     "notes": "",
@@ -92,9 +132,21 @@
     "notes": "",
     "translation": "Full Screen"
   },
+  "app.i18nButton.hint": {
+    "notes": "",
+    "translation": "UI Language"
+  },
+  "app.i18nMenu.docs": {
+    "notes": "",
+    "translation": "i18n Documentation"
+  },
+  "app.i18nMenu.helpTranslate": {
+    "notes": "",
+    "translation": "Help Us Translate"
+  },
   "app.logo.title": {
     "notes": "",
-    "translation": "LiveCodes: Code playground that runs in the browser!"
+    "translation": "LiveCodes: A Code Playground That Just Works!"
   },
   "app.projectInfo.hint": {
     "notes": "",
@@ -106,7 +158,7 @@
   },
   "app.result.hint": {
     "notes": "",
-    "translation": "Toggle Result"
+    "translation": "Result"
   },
   "app.run.hint": {
     "notes": "",
@@ -116,6 +168,10 @@
     "notes": "",
     "translation": "Share"
   },
+  "app.themeColors.custom": {
+    "notes": "",
+    "translation": "Custom"
+  },
   "app.undo.hint": {
     "notes": "",
     "translation": "Undo (Ctrl/Cmd + Z)"
@@ -123,6 +179,10 @@
   "app.untitledProject": {
     "notes": "",
     "translation": "Untitled Project"
+  },
+  "assets.action.delete": {
+    "notes": "",
+    "translation": "Delete"
   },
   "assets.add.dataURL.desc": {
     "notes": "### <tag-1> ###\n<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs\" target=\"_blank\" rel=\"noopener\" />\n\n",
@@ -624,6 +684,10 @@
     "notes": "",
     "translation": "Custom Settings JSON"
   },
+  "customSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}advanced/custom-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> For further details, please refer to the <tag-2> documentation </tag-2>"
+  },
   "customSettings.heading": {
     "notes": "",
     "translation": "Custom Settings"
@@ -692,29 +756,21 @@
     "notes": "",
     "translation": "Search your public repos..."
   },
-  "editorSettings.appLanguage.heading": {
-    "notes": "",
-    "translation": "App UI Language"
-  },
-  "editorSettings.appLanguage.note": {
-    "notes": "",
-    "translation": "Will reload the app to apply the changes after switching the language."
-  },
   "editorSettings.closeBrackets": {
     "notes": "",
     "translation": "Auto-close brackets and quotes"
   },
   "editorSettings.codeJarDesc": {
-    "notes": "",
-    "translation": "* The marked features are not available in CodeJar."
+    "notes": "### <tag-1> ###\n<i class=\"icon-alert\" />\n\n",
+    "translation": "<tag-1></tag-1> * The marked features are not available in CodeJar."
   },
   "editorSettings.default": {
     "notes": "",
     "translation": "Default"
   },
   "editorSettings.desc": {
-    "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}features/editor-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
-    "translation": "Please check the <tag-1>documentations</tag-1> for details."
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"{{DOCS_BASE_URL}}features/editor-settings\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> Please check the <tag-2>documentations</tag-2> for details."
   },
   "editorSettings.editor.codejar": {
     "notes": "",
@@ -757,7 +813,7 @@
     "translation": "Enable AI Code Assistant"
   },
   "editorSettings.enableAI.note": {
-    "notes": "### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img src=\"{{DOCS_BASE_URL}}img/credits/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n",
+    "notes": "### <tag-1> ###\n<a href=\"https://codeium.com\" rel=\"noopener noreferrer\" target=\"_blank\" />\n\n### <tag-2> ###\n<img src=\"{{baseUrl}}assets/images/codeium.svg\" style=\"height: 1.2em; vertical-align: bottom;\" alt=\"Codeium\" />\n\n",
     "translation": "Powered by <tag-1><tag-2></tag-2></tag-1>"
   },
   "editorSettings.fontFamily": {
@@ -864,6 +920,26 @@
     "notes": "",
     "translation": "Code"
   },
+  "embed.codeEditor.codeJar": {
+    "notes": "",
+    "translation": "CodeJar"
+  },
+  "embed.codeEditor.codeMirror": {
+    "notes": "",
+    "translation": "CodeMirror"
+  },
+  "embed.codeEditor.default": {
+    "notes": "",
+    "translation": "Default"
+  },
+  "embed.codeEditor.heading": {
+    "notes": "",
+    "translation": "Code Editor"
+  },
+  "embed.codeEditor.monaco": {
+    "notes": "",
+    "translation": "Monaco"
+  },
   "embed.desc": {
     "notes": "### <tag-1> ###\n<a href=\"{{DOCS_BASE_URL}}configuration/\" target=\"_blank\" rel=\"noopener\" />\n\n",
     "translation": "Please check the <tag-1>documentations</tag-1> for advanced configurations."
@@ -904,6 +980,22 @@
     "notes": "",
     "translation": "Embed Project"
   },
+  "embed.layout.heading": {
+    "notes": "",
+    "translation": "Layout"
+  },
+  "embed.layout.horizontal": {
+    "notes": "",
+    "translation": "Horizontal"
+  },
+  "embed.layout.responsive": {
+    "notes": "",
+    "translation": "Responsive"
+  },
+  "embed.layout.vertical": {
+    "notes": "",
+    "translation": "Vertical"
+  },
   "embed.lite": {
     "notes": "",
     "translation": "Lite Mode"
@@ -943,6 +1035,10 @@
   "embed.mode.result": {
     "notes": "",
     "translation": "Result"
+  },
+  "embed.mode.simple": {
+    "notes": "",
+    "translation": "Simple"
   },
   "embed.permanentUrl": {
     "notes": "",
@@ -1016,10 +1112,6 @@
     "notes": "",
     "translation": "Configuration"
   },
-  "generic.about.features": {
-    "notes": "",
-    "translation": "Features"
-  },
   "generic.about.gettingStarted": {
     "notes": "",
     "translation": "Getting Started"
@@ -1030,11 +1122,11 @@
   },
   "generic.about.sdk": {
     "notes": "",
-    "translation": "SDK"
+    "translation": "LiveCodes SDK"
   },
   "generic.about.sponsor": {
     "notes": "",
-    "translation": "Sponsor LiveCodes"
+    "translation": "Sponsor"
   },
   "generic.about.twitter": {
     "notes": "",
@@ -1047,6 +1139,10 @@
   "generic.close": {
     "notes": "",
     "translation": "Close"
+  },
+  "generic.embed.logoHint": {
+    "notes": "",
+    "translation": "Edit on LiveCodes 🡕"
   },
   "generic.error.authentication": {
     "notes": "",
@@ -1075,6 +1171,10 @@
   "generic.required": {
     "notes": "",
     "translation": "Required"
+  },
+  "generic.tagline": {
+    "notes": "",
+    "translation": "A Code Playground That Just Works!"
   },
   "import.bulk.desc": {
     "notes": "### <tag-1> ###\n<a href=\"#\" id=\"link-to-saved-projects\" />\n\n",
@@ -1194,7 +1294,31 @@
   },
   "menu.about": {
     "notes": "",
-    "translation": "About"
+    "translation": "About ..."
+  },
+  "menu.appHelp.heading": {
+    "notes": "",
+    "translation": "Help"
+  },
+  "menu.appHelp.hint": {
+    "notes": "",
+    "translation": "Help"
+  },
+  "menu.appProject.heading": {
+    "notes": "",
+    "translation": "Project"
+  },
+  "menu.appProject.hint": {
+    "notes": "",
+    "translation": "Project"
+  },
+  "menu.appSettings.heading": {
+    "notes": "",
+    "translation": "Settings"
+  },
+  "menu.appSettings.hint": {
+    "notes": "",
+    "translation": "App Settings"
   },
   "menu.assets": {
     "notes": "",
@@ -1212,9 +1336,17 @@
     "notes": "",
     "translation": "Backup / Restore …"
   },
+  "menu.blog": {
+    "notes": "",
+    "translation": "LiveCodes Blog"
+  },
   "menu.broadcast": {
     "notes": "",
     "translation": "Broadcast …"
+  },
+  "menu.config": {
+    "notes": "",
+    "translation": "Configuration"
   },
   "menu.customSettings": {
     "notes": "",
@@ -1231,6 +1363,10 @@
   "menu.deploy": {
     "notes": "",
     "translation": "Deploy …"
+  },
+  "menu.docs": {
+    "notes": "",
+    "translation": "Documentation"
   },
   "menu.editorSettings": {
     "notes": "",
@@ -1268,9 +1404,17 @@
     "notes": "",
     "translation": "Export Source (ZIP)"
   },
+  "menu.features": {
+    "notes": "",
+    "translation": "Features"
+  },
   "menu.formatOnsave": {
     "notes": "",
     "translation": "Format On-save"
+  },
+  "menu.getstart": {
+    "notes": "",
+    "translation": "Getting Started"
   },
   "menu.import": {
     "notes": "",
@@ -1280,9 +1424,13 @@
     "notes": "",
     "translation": "Vertical Layout"
   },
+  "menu.license": {
+    "notes": "",
+    "translation": "License"
+  },
   "menu.login": {
     "notes": "",
-    "translation": "Login …"
+    "translation": "Login"
   },
   "menu.logout": {
     "notes": "",
@@ -1304,6 +1452,10 @@
     "notes": "",
     "translation": "Recover Unsaved"
   },
+  "menu.report": {
+    "notes": "",
+    "translation": "Report an issue"
+  },
   "menu.resources": {
     "notes": "",
     "translation": "External Resources …"
@@ -1318,11 +1470,15 @@
   },
   "menu.saveAs.heading": {
     "notes": "",
-    "translation": "Save as"
+    "translation": "Save as … Ctrl⇧s"
   },
   "menu.saveAs.template": {
     "notes": "",
     "translation": "Template"
+  },
+  "menu.sdk": {
+    "notes": "",
+    "translation": "SDK"
   },
   "menu.share": {
     "notes": "",
@@ -1336,9 +1492,17 @@
     "notes": "",
     "translation": "Press Alt/Option and move your cursor over result page"
   },
+  "menu.showWelcome.title": {
+    "notes": "",
+    "translation": "Show Welcome screen on startup"
+  },
   "menu.snippets": {
     "notes": "",
     "translation": "Code Snippets …"
+  },
+  "menu.source": {
+    "notes": "",
+    "translation": "Source code on GitHub"
   },
   "menu.sync": {
     "notes": "### <tag-1> ###\n<span id=\"sync-indicator\" class=\"smaller hidden\" />\n\n",
@@ -1348,13 +1512,17 @@
     "notes": "",
     "translation": "Dark Theme"
   },
+  "menu.themeColor": {
+    "notes": "",
+    "translation": "Color"
+  },
   "menu.welcome.heading": {
     "notes": "",
     "translation": "Welcome …"
   },
-  "menu.welcome.hint": {
+  "open.action.delete": {
     "notes": "",
-    "translation": "Show Welcome screen on startup"
+    "translation": "Delete"
   },
   "open.defaultTemplate": {
     "notes": "",
@@ -1568,6 +1736,10 @@
     "notes": "",
     "translation": "Add stylesheet/script URLs. Each URL should be in a separate line."
   },
+  "resultMode.linkText": {
+    "notes": "",
+    "translation": "Edit on LiveCodes"
+  },
   "savePrompt.heading": {
     "notes": "",
     "translation": "Unsaved changes"
@@ -1635,10 +1807,6 @@
   "share.qrcode.generating": {
     "notes": "",
     "translation": "Generating..."
-  },
-  "share.services.copyUrl": {
-    "notes": "",
-    "translation": "Copy URL"
   },
   "share.services.devTo": {
     "notes": "",
@@ -2160,6 +2328,10 @@
     "notes": "",
     "translation": "Tests"
   },
+  "testSettings.desc": {
+    "notes": "### <tag-1> ###\n<i class=\"icon-help\" />\n\n### <tag-2> ###\n<a href=\"https://livecodes.io/docs/features/tests/\" target=\"_blank\" rel=\"noopener\" />\n\n",
+    "translation": "<tag-1></tag-1> For further details, please refer to the <tag-2>documentation</tag-2>"
+  },
   "toolspane.close": {
     "notes": "",
     "translation": "Close"
@@ -2238,7 +2410,7 @@
   },
   "welcome.about.documentation": {
     "notes": "",
-    "translation": "Documentations"
+    "translation": "Documentation"
   },
   "welcome.about.heading": {
     "notes": "",
@@ -2261,8 +2433,8 @@
     "translation": "Recover"
   },
   "welcome.recover.lastModified": {
-    "notes": "### <tag-1> ###\n<span id=\"unsaved-project-last-modified\" />\n\n",
-    "translation": "Last modified: <tag-1></tag-1>"
+    "notes": "",
+    "translation": "Last modified:"
   },
   "welcome.recover.recover": {
     "notes": "",

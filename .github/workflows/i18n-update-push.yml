@@ -8,6 +8,7 @@ env:
   LOKALISE_PROJECT_ID: ${{ vars.LOKALISE_PROJECT_ID }}
   LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
   NODE_VERSION: 18.x
+  CI: true
 
 jobs:
   precheck:
@@ -21,8 +22,17 @@ jobs:
       branch: ${{ steps.fetch-pr.outputs.branch }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Fetch PR details
       id: fetch-pr
@@ -37,9 +47,14 @@ jobs:
           echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
         fi
 
+        # Use branch name prefixed with owner name
+        PR_BRANCH=$(echo "$PR_DETAILS" | jq -r '.head.label' | sed 's/:/\//g')
         NEW_BRANCH="i18n/$PR_BRANCH"
         echo "newBranch=$NEW_BRANCH" >> $GITHUB_OUTPUT
         echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
 
         if [[ $(git ls-remote --heads origin $NEW_BRANCH) ]]; then
           SKIP_REASON="Branch \`$NEW_BRANCH\` already exists."
@@ -48,7 +63,7 @@ jobs:
           echo "skipReason=$SKIP_REASON" >> $GITHUB_OUTPUT
         fi
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
   runner:
     name: Runner
@@ -60,8 +75,17 @@ jobs:
       PR_BRANCH: ${{ needs.precheck.outputs.branch }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
     - name: Check out repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
 
     - name: Setup Node
       uses: actions/setup-node@v4
@@ -69,17 +93,6 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-
-    # - name: Cache Node modules
-    #   id: cache-npm
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ~/.npm
-    #     key: ${{ runner.os }}-build-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-build-${{ env.NODE_VERSION }}-
-    #       ${{ runner.os }}-build-
-    #       ${{ runner.os }}-
 
     - name: Install dependencies
       run: npm ci
@@ -92,8 +105,8 @@ jobs:
 
     - name: Commit changes
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "livecodes-ci[bot]"
+        git config --global user.email "186997172+livecodes-ci[bot]@users.noreply.github.com"
         git add .
 
         # Only commit if there are changes
@@ -111,6 +124,7 @@ jobs:
     - name: Create comment and reaction on PR
       uses: actions/github-script@v7
       with:
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const repoURL = context.payload.repository.html_url;
             const branchURL = `${repoURL}/tree/${process.env.NEW_BRANCH}`;
@@ -148,9 +162,17 @@ jobs:
       SKIP_REASON: ${{ needs.precheck.outputs.skipReason }}
 
     steps:
+    - name: Generate Github Token for CI Bot
+      uses: actions/create-github-app-token@v1
+      id: generate-token
+      with:
+        app-id: ${{ secrets.CI_APP_ID }}
+        private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+    
     - name: Create comment and reaction on PR
       uses: actions/github-script@v7
       with:
+        github-token: ${{ steps.generate-token.outputs.token }}
         script: |
             const runURL = `${context.payload.repository.html_url}/actions/runs/${process.env.GITHUB_RUN_ID}`;
             const commentBody = `## i18n Actions: \`.i18n-update-push\`

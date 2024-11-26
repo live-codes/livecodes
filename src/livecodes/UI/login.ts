@@ -61,29 +61,26 @@ export const displayLoggedIn = (user: User) => {
     loginLink.style.display = 'none';
   }
   const logOutLink = getLogoutLink();
-  if (logOutLink) {
+  const logOutText = logOutLink?.querySelector('span');
+  if (logOutLink && logOutText) {
     const displayName = user.displayName || user.username;
-    logOutLink.innerHTML = window.deps.translateString('login.logout', 'Log out');
-    logOutLink.classList.add('hint--bottom');
-    logOutLink.dataset.hint = window.deps.translateString(
-      'login.loginAs',
-      'Logged in as {{name}}',
-      {
-        name: displayName!,
-      },
-    );
-    logOutLink.style.display = 'block';
+    logOutText.innerHTML = window.deps.translateString('login.logout', 'Log out');
+    logOutLink.title = window.deps.translateString('login.loginAs', 'Logged in as {{name}}', {
+      name: displayName!,
+    });
+    logOutLink.style.display = 'flex';
   }
 };
 
 export const displayLoggedOut = () => {
   const loginLink = getLoginLink();
   if (loginLink) {
-    loginLink.style.display = 'block';
+    loginLink.style.display = 'flex';
   }
   const logOutLink = getLogoutLink();
-  if (logOutLink) {
-    logOutLink.innerHTML = window.deps.translateString('login.logout', 'Log out');
+  const logOutText = logOutLink?.querySelector('span');
+  if (logOutLink && logOutText) {
+    logOutText.innerHTML = window.deps.translateString('login.logout', 'Log out');
     logOutLink.style.display = 'none';
   }
 };

@@ -44,4 +44,4 @@ export const waitForEditorFocus = async (app: Frame, selector = '#editors') => {
   await app.waitForFunction(`document.activeElement.closest("${selector}") != null`);
 };
 
-export const runButtonSelector = '[alt="Run"]';
+export const runButtonSelector = '#run-button';

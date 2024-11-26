@@ -14,9 +14,9 @@ const translation: I18nTranslation = {
     heading: 'LiveCodesについて',
     livecodes: {
       para1:
-        '<1><tag-2>LiveCodes</tag-2></tag-1>は、<tag-3>オープンソース</tag-3>で<tag-4>機能豊富</tag-4>な<tag-5>クライアントサイド</tag-5>のコードプレイグラウンドです。現在、<tag-6>80以上の言語/<tag-7></tag-7>フレームワーク</tag-6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<tag-8>埋め込む</tag-8>こともできます。プレイグラウンドに<tag-9>コードをプリフィル</tag-9>する方法は多数あります。',
+        '<1><2>LiveCodes</2></1>は、<3>オープンソース</3>で<4>機能豊富</4>な<5>クライアントサイド</5>のコードプレイグラウンドです。現在、<6>80以上の言語/<7></7>フレームワーク</6>をサポートしています。スタンドアロンアプリとして使用することも、任意のWebページに<8>埋め込む</8>こともできます。プレイグラウンドに<9>コードをプリフィル</9>する方法は多数あります。',
       para2:
-        '幅広い<1>設定オプション</tag-1>により、非常に柔軟性があります。強力な<tag-2>SDK</tag-2>（<tag-3>JS/TS</tag-3>、<tag-4>React</tag-4>、<tag-5>Vue</tag-5>、<tag-6>Svelte</tag-6>用）により、プレイグラウンドの<tag-7>埋め込み</tag-7>と<tag-8>通信</tag-8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<tag-9>包括的なドキュメント</tag-9>が利用可能です。',
+        '幅広い<1>設定オプション</1>により、非常に柔軟性があります。強力な<2>SDK</2>（<3>JS/TS</3>、<4>React</4>、<5>Vue</5>、<6>Svelte</6>用）により、プレイグラウンドの<7>埋め込み</7>と<8>通信</8>が容易になります。コードサンプル、ライブデモ、スクリーンショットを含む<9>包括的なドキュメント</9>が利用可能です。',
     },
     version: {
       app: 'アプリバージョン: {{APP_VERSION}}',
@@ -28,6 +28,9 @@ const translation: I18nTranslation = {
     },
   },
   app: {
+    consoleMessage: {
+      learnMore: '詳細はこちら！ {{docsUrl}} 🚀',
+    },
     copy: {
       hint: 'コピー (Ctrl/Cmd + A, Ctrl/Cmd + C)',
     },
@@ -56,7 +59,7 @@ const translation: I18nTranslation = {
       hint: '全画面表示',
     },
     logo: {
-      title: 'LiveCodes: ブラウザで動作するコードプレイグラウンド！',
+      title: 'LiveCodes: シンプルに動作するコードの遊び場！',
     },
     projectInfo: {
       hint: 'プロジェクト情報',
@@ -81,12 +84,12 @@ const translation: I18nTranslation = {
   assets: {
     add: {
       dataURL: {
-        desc: 'アセットをBase64エンコードされた<1>データURL</tag-1>として追加します。',
+        desc: 'アセットをBase64エンコードされた<1>データURL</1>として追加します。',
         heading: 'データURL',
         label: 'ファイルを追加',
       },
       githubPages: {
-        desc: 'アセットをGitHub Pagesにデプロイします。ファイルはあなたのGitHubアカウントの<2>livecodes-assets</tag-2>リポジトリの<tag-1>gh-pages</tag-1>ブランチにプッシュされます。リポジトリがまだ存在しない場合は、公開リポジトリが作成されます。',
+        desc: 'アセットをGitHub Pagesにデプロイします。ファイルはあなたのGitHubアカウントの<2>livecodes-assets</2>リポジトリの<1>gh-pages</1>ブランチにプッシュされます。リポジトリがまだ存在しない場合は、公開リポジトリが作成されます。',
         heading: 'GitHub Pages',
         label: 'ファイルをアップロード',
       },
@@ -157,7 +160,7 @@ const translation: I18nTranslation = {
     backup: {
       assets: 'アセット',
       button: 'バックアップ',
-      desc: 'LiveCodesのデータをバックアップして、後でこのデバイスや他のデバイスで復元できるようにします。<1></tag-1>詳細については<tag-2>ドキュメント</tag-2>をご覧ください。',
+      desc: 'LiveCodesのデータをバックアップして、後でこのデバイスや他のデバイスで復元できるようにします。<1></1>詳細については<2>ドキュメント</2>をご覧ください。',
       heading: 'バックアップ',
       projects: 'プロジェクト',
       settings: 'ユーザー設定',
@@ -173,7 +176,7 @@ const translation: I18nTranslation = {
     heading: 'バックアップ / 復元',
     inProgress: '進行中...',
     restore: {
-      desc: '以前にバックアップしたLiveCodesデータを復元します。<1></tag-1>現在のコンテンツを置き換える場合は、先にバックアップを取ることをお勧めします。<tag-2></tag-2>詳細については<tag-3>ドキュメント</tag-3>をご覧ください。',
+      desc: '以前にバックアップしたLiveCodesデータを復元します。<1></1>現在のコンテンツを置き換える場合は、先にバックアップを取ることをお勧めします。<2></2>詳細については<3>ドキュメント</3>をご覧ください。',
       fromFile: 'ファイルから復元',
       heading: '復元',
       mode: {
@@ -191,7 +194,7 @@ const translation: I18nTranslation = {
     broadcasting: '配信中...',
     channelURL: 'チャンネルURL',
     connecting: '接続中...',
-    desc: '結果ページを他のブラウザやデバイスにリアルタイムで配信します。詳細については<1>ドキュメント</tag-1>をご覧ください。',
+    desc: '結果ページを他のブラウザやデバイスにリアルタイムで配信します。詳細については<1>ドキュメント</1>をご覧ください。',
     error: {
       generic: '配信に失敗しました！',
       serverURLRequired: 'サーバーURLが必要です！',
@@ -291,9 +294,9 @@ const translation: I18nTranslation = {
   },
   deploy: {
     create: {
-      desc: '新しい<1>公開</tag-1>リポジトリが作成されます。結果ページは<tag-2>gh-pages</tag-2>ブランチにプッシュされます。',
+      desc: '新しい<1>公開</1>リポジトリが作成されます。結果ページは<2>gh-pages</2>ブランチにプッシュされます。',
       heading: '新しいリポジトリを作成',
-      repoName: 'リポジトリ名 <1></tag-1>',
+      repoName: 'リポジトリ名 <1></1>',
     },
     error: {
       generic: 'デプロイに失敗しました！',
@@ -301,7 +304,7 @@ const translation: I18nTranslation = {
       repoNameRequired: 'リポジトリ名は必須です',
     },
     existing: {
-      desc: '新しいコミットが<1>gh-pages</tag-1>ブランチに追加されます。',
+      desc: '新しいコミットが<1>gh-pages</1>ブランチに追加されます。',
       heading: '既存のリポジトリ',
       repoName: 'リポジトリ名',
     },
@@ -322,7 +325,7 @@ const translation: I18nTranslation = {
     closeBrackets: '括弧と引用符を自動的に閉じる',
     codeJarDesc: '* マークされた機能はCodeJarでは利用できません。',
     default: 'デフォルト',
-    desc: '詳細については<1>ドキュメント</tag-1>をご確認ください。',
+    desc: '詳細については<1>ドキュメント</1>をご確認ください。',
     editor: {
       codejar: 'CodeJar',
       codemirror: 'CodeMirror',
@@ -338,7 +341,7 @@ const translation: I18nTranslation = {
     emmet: 'Emmetを有効化 *',
     enableAI: {
       heading: 'AIコードアシスタントを有効化',
-      note: '提供： <1><tag-2></tag-2></tag-1>',
+      note: '提供： <1><2></2></1>',
     },
     fontFamily: 'フォントファミリー',
     fontSize: 'フォントサイズ',
@@ -376,7 +379,7 @@ const translation: I18nTranslation = {
       copy: 'コードをコピー',
       heading: 'コード',
     },
-    desc: '高度な設定については<1>ドキュメント</tag-1>をご確認ください。',
+    desc: '高度な設定については<1>ドキュメント</1>をご確認ください。',
     embedType: {
       cdn: 'スクリプト（CDN）',
       heading: '埋め込みタイプ',
@@ -433,7 +436,7 @@ const translation: I18nTranslation = {
       gettingStarted: 'はじめに',
       github: 'GitHub',
       sdk: 'SDK',
-      sponsor: 'LiveCodesをスポンサー',
+      sponsor: 'をスポンサー',
       twitter: '𝕏 / Twitter',
     },
     clickForInfo: 'クリックして詳細を表示...',
@@ -447,17 +450,18 @@ const translation: I18nTranslation = {
     more: 'もっと見る...',
     optional: '任意',
     required: '必須',
+    tagline: 'シンプルに動作するコードの遊び場！',
   },
   import: {
     bulk: {
-      desc: '複数のプロジェクトを一括で保存済みプロジェクトにインポートします。プロジェクトは<1>保存済みプロジェクト</tag-1>画面からエクスポートできます。',
+      desc: '複数のプロジェクトを一括で保存済みプロジェクトにインポートします。プロジェクトは<1>保存済みプロジェクト</1>画面からエクスポートできます。',
       fromFile: 'ローカルファイルから一括インポート',
       fromURL: 'URLから一括インポート',
       heading: '一括インポート',
       started: '一括インポートを開始しました...',
     },
     code: {
-      desc: 'サポートされているソース：<1> <tag-2>GitHub gist</tag-2> <tag-3>GitHubファイル</tag-3> <tag-4>GitHubリポジトリ内のディレクトリ</tag-4> <tag-5>Gitlab snippet</tag-5> <tag-6>Gitlabファイル</tag-6> <tag-7>Gitlabリポジトリ内のディレクトリ</tag-7> <tag-8>JS Bin</tag-8> <tag-9>生のコード</tag-9> <tag-10>Webページ内のDOM内のコード</tag-10> <tag-11>ZIPファイル内のコード</tag-11> <tag-12>公式プレイグラウンド<tag-13></tag-13>（TypeScript、Vue、Svelte）</tag-12> </tag-1> 詳細については<tag-14>ドキュメント</tag-14>をご覧ください。',
+      desc: 'サポートされているソース：<1> <2>GitHub gist</2> <3>GitHubファイル</3> <4>GitHubリポジトリ内のディレクトリ</4> <5>Gitlab snippet</5> <6>Gitlabファイル</6> <7>Gitlabリポジトリ内のディレクトリ</7> <8>JS Bin</8> <9>生のコード</9> <10>Webページ内のDOM内のコード</10> <11>ZIPファイル内のコード</11> <12>公式プレイグラウンド<13></13>（TypeScript、Vue、Svelte）</12> </1> 詳細については<14>ドキュメント</14>をご覧ください。',
       fromFile: 'ローカルファイルをインポート',
       fromURL: 'URLからインポート',
       heading: 'コードのインポート',
@@ -482,7 +486,7 @@ const translation: I18nTranslation = {
   },
   login: {
     accessAllowed: 'アクセスを許可：',
-    desc: '<1>ログインすることで、お使いのデバイスに<tag-2>クッキー</tag-2>が保存されることに同意したものとみなされます。</tag-1> <tag-3> <tag-4>これらの権限が必要な理由は？</tag-4> </tag-3> <tag-5> <tag-6>権限の変更/取り消し方法は？</tag-6> </tag-5>',
+    desc: '<1>ログインすることで、お使いのデバイスに<2>クッキー</2>が保存されることに同意したものとみなされます。</1> <3> <4>これらの権限が必要な理由は？</4> </3> <5> <6>権限の変更/取り消し方法は？</6> </5>',
     gist: 'Gist',
     heading: 'GitHubでログイン',
     loginAs: '{{name}}としてログイン中',
@@ -493,6 +497,18 @@ const translation: I18nTranslation = {
   },
   menu: {
     about: '概要',
+    appHelp: {
+      heading: '手助け',
+      hint: '手助け',
+    },
+    appProject: {
+      heading: 'プロジェクト',
+      hint: 'プロジェクト',
+    },
+    appSettings: {
+      heading: '設定',
+      hint: '設定',
+    },
     assets: 'アセット …',
     autoSave: '自動保存',
     autoUpdate: '自動更新',
@@ -500,7 +516,7 @@ const translation: I18nTranslation = {
     broadcast: '配信 …',
     customSettings: 'カスタム設定 …',
     delay: {
-      heading: '遅延: <1>1.5</tag-1>秒',
+      heading: '遅延: <1>1.5</1>秒',
       hint: '自動更新前の遅延',
     },
     deploy: 'デプロイ …',
@@ -511,7 +527,7 @@ const translation: I18nTranslation = {
       gist: 'GitHub Gistにエクスポート',
       heading: 'エクスポート',
       jsfiddle: 'JSFiddleで編集',
-      json: 'プロジェクトをエクスポート（JSON）',
+      json: 'エクスポート (JSON)',
       result: '結果をエクスポート（HTML）',
       src: 'ソースをエクスポート（ZIP）',
     },
@@ -537,7 +553,7 @@ const translation: I18nTranslation = {
       hint: 'Alt/Optionキーを押しながら結果ページにカーソルを合わせてください',
     },
     snippets: 'コードスニペット …',
-    sync: '同期（ベータ） … <1> ⏳</tag-1>',
+    sync: '同期（ベータ） … <1> ⏳</1>',
     theme: 'ダークテーマ',
     welcome: {
       heading: 'ようこそ …',
@@ -590,11 +606,11 @@ const translation: I18nTranslation = {
   recoverPrompt: {
     desc: '最後のプロジェクトに未保存の変更があります！',
     heading: '未保存のプロジェクトを復元しますか？',
-    meta: 'タイトル: <1></tag-1> <tag-2></tag-2> 最終更新: <tag-3></tag-3>',
+    meta: 'タイトル: <1></1> <2></2> 最終更新: <3></3>',
     notShowAgain: '今後表示しない。',
     prompt: {
       discard: '未保存のプロジェクトを破棄',
-      heading: '<1></tag-1>今すぐ復元しますか？',
+      heading: '<1></1>今すぐ復元しますか？',
       recover: 'プロジェクトをエディターに復元',
       save: 'デバイスに保存して続行',
     },
@@ -613,13 +629,13 @@ const translation: I18nTranslation = {
     },
     fonts: {
       add: '追加',
-      heading: 'フォント <1>（Google Fontsを利用）</tag-1>',
+      heading: 'フォント <1>（Google Fontsを利用）</1>',
       select: 'フォントを選択...',
     },
     heading: '外部リソース',
     scripts: '外部スクリプト',
     search: {
-      heading: 'パッケージを検索 <1>（jsDelivrを利用）</tag-1>',
+      heading: 'パッケージを検索 <1>（jsDelivrを利用）</1>',
       placeholder: '例：jquery, lodash@4, bootstrap@5.2.3, ...',
     },
     stylesheets: '外部スタイルシート',
@@ -628,9 +644,9 @@ const translation: I18nTranslation = {
   savePrompt: {
     heading: '未保存の変更',
     prompt: {
-      cancel: 'キャンセル',
+      cancel: '消去',
       discard: '保存しない',
-      heading: '変更が保存されていない可能性があります。<1></tag-1>今すぐ保存しますか？',
+      heading: '変更が保存されていない可能性があります。<1></1>今すぐ保存しますか？',
       save: '保存',
     },
   },
@@ -728,7 +744,7 @@ const translation: I18nTranslation = {
   sync: {
     autoSync: '自動同期',
     create: {
-      desc: '新しい<1>プライベート</tag-1>リポジトリが作成されます。LiveCodesのローカルデータは<tag-2>main</tag-2>ブランチと同期されます。',
+      desc: '新しい<1>プライベート</1>リポジトリが作成されます。LiveCodesのローカルデータは<2>main</2>ブランチと同期されます。',
       heading: '新しいリポジトリを作成',
       repoName: 'リポジトリ名',
     },
@@ -737,7 +753,7 @@ const translation: I18nTranslation = {
       repoNameRequired: 'リポジトリ名は必須です',
     },
     existing: {
-      desc: 'LiveCodesのローカルデータは<1>main</tag-1>ブランチと同期されます。',
+      desc: 'LiveCodesのローカルデータは<1>main</1>ブランチと同期されます。',
       heading: '既存のリポジトリ',
       repoName: 'リポジトリ名',
     },
@@ -751,7 +767,7 @@ const translation: I18nTranslation = {
   templates: {
     heading: '新規プロジェクト',
     noUserTemplates: {
-      desc: 'プロジェクトをテンプレートとして保存するには、<1></tag-1>（アプリメニュー&nbsp;&gt;&nbsp;別名で保存&nbsp;&gt;&nbsp;テンプレート）から行えます。',
+      desc: 'プロジェクトをテンプレートとして保存するには、<1></1>（アプリメニュー&nbsp;&gt;&nbsp;別名で保存&nbsp;&gt;&nbsp;テンプレート）から行えます。',
       heading: '保存されたテンプレートはありません。',
     },
     starter: {
@@ -838,16 +854,16 @@ const translation: I18nTranslation = {
     },
     test: {
       edit: '編集',
-      error: '<1><tag-2>テストエラー！</tag-2></tag-1>',
-      loading: '<1>テストを読み込み中...</tag-1>',
-      noTest: '<1>このプロジェクトにはテストがありません！</tag-1>',
+      error: '<1><2>テストエラー！</2></1>',
+      loading: '<1>テストを読み込み中...</1>',
+      noTest: '<1>このプロジェクトにはテストがありません！</1>',
       reset: 'リセット',
       run: {
         desc: 'Ctrl/Cmd + Alt + T',
         heading: '実行',
       },
       summary: {
-        desc: 'テスト: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></tag-1>\n時間: {{duration}}秒',
+        desc: 'テスト: {{failed}}\n       {{passed}}\n       {{skipped}}\n       {{total}}<1></1>\n時間: {{duration}}秒',
         failed: '{{failedNum}} 失敗',
         passed: '{{passedNum}} 成功',
         skipped: '{{skippedNum}} スキップ',
@@ -870,9 +886,9 @@ const translation: I18nTranslation = {
       heading: '最近',
     },
     recover: {
-      cancel: 'キャンセル',
+      cancel: '消去',
       heading: '復元',
-      lastModified: '最終更新: <1></tag-1>',
+      lastModified: '最終更新: <1></1>',
       recover: '復元',
       save: '保存',
       unsavedChanges: '最後のプロジェクトに未保存の変更があります：',

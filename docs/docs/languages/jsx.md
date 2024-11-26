@@ -67,7 +67,7 @@ export const rootDemo = { html: `<div id="livecodes-app">Loading...</div>`, jsx:
 
 To disable auto-rendering, set the [custom settings](#custom-settings) `disableAutoRender` property to `true`.
 
-export const disableAutoRenderDemo = {markup: {language: "html", content: `JSX auto-rendering is disabled. Set from app menu → Custom Settings.`}, script: {language: "jsx", content: `export default function App() {\n  return <h1>Hello World!</h1>;\n}`}, customSettings: {"jsx": {"disableAutoRender": true}}}
+export const disableAutoRenderDemo = {markup: {language: "html", content: `JSX auto-rendering is disabled. Set from Project menu → Custom Settings.`}, script: {language: "jsx", content: `export default function App() {\n  return <h1>Hello World!</h1>;\n}`}, customSettings: {"jsx": {"disableAutoRender": true}}}
 
 <RunInLiveCodes config={disableAutoRenderDemo} code={JSON.stringify(disableAutoRenderDemo.customSettings, null, 2)} language="json" codeTitle="Custom Settings" formatCode={false}></RunInLiveCodes>
 

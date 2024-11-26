@@ -1,4 +1,5 @@
 import { createSnackbar, type Action } from '@snackbar/core';
+import { getConfig } from '../config';
 import {
   infoTheme,
   successTheme,
@@ -7,6 +8,7 @@ import {
   closeButton,
   acceptButton,
   lightTheme,
+  darkTheme,
 } from './snackbar';
 
 export const createNotifications = () => {
@@ -60,7 +62,7 @@ export const createNotifications = () => {
       },
     };
     createSnackbar(message, {
-      theme: lightTheme,
+      theme: getConfig().theme === 'dark' ? darkTheme : lightTheme,
       actions: [confirmAction, cancelAction],
     });
   };
